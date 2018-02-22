@@ -23,7 +23,8 @@ const propTypes = {
     dataType: PropTypes.string,
     bulkDownload: PropTypes.object,
     startDownload: PropTypes.func,
-    dataTypes: PropTypes.array
+    dataTypes: PropTypes.array,
+    redirect: PropTypes.func
 };
 
 export default class BulkDownloadPage extends React.Component {
@@ -91,7 +92,8 @@ export default class BulkDownloadPage extends React.Component {
                         <div className="download-sidebar">
                             <BulkDownloadSidebar
                                 dataTypes={this.props.dataTypes}
-                                active={this.props.dataType} />
+                                active={this.props.dataType}
+                                redirect={this.props.redirect} />
                             <div className="api-info">
                                 <h5>Interested in our API?</h5>
                                 <p>

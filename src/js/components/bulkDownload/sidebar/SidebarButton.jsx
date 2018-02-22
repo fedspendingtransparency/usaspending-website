@@ -13,7 +13,9 @@ const propTypes = {
     active: PropTypes.string,
     url: PropTypes.string,
     newTab: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    externalLink: PropTypes.bool,
+    redirect: PropTypes.func
 };
 
 export default class SidebarButton extends React.Component {
@@ -21,6 +23,7 @@ export default class SidebarButton extends React.Component {
         super(props);
 
         this.logExternalLink = this.logExternalLink.bind(this);
+        this.redirect = this.redirect.bind(this);
     }
 
     logExternalLink() {
@@ -28,6 +31,11 @@ export default class SidebarButton extends React.Component {
             category: 'Download Center - Link',
             action: this.props.url
         });
+    }
+
+    redirect() {
+        this.logExternalLink();
+        this.props.redirect(this.props.url);
     }
 
     render() {
@@ -54,7 +62,7 @@ export default class SidebarButton extends React.Component {
                 </div>
             );
         }
-        else if (this.props.url !== '' && this.props.newTab) {
+        else if (this.props.url && this.props.newTab && !this.props.externalLink) {
             button = (
                 <a
                     href={this.props.url}
@@ -63,6 +71,14 @@ export default class SidebarButton extends React.Component {
                     onClick={this.logExternalLink}>
                     {this.props.label}
                 </a>
+            );
+        }
+        else if (this.props.url && this.props.externalLink) {
+            button = (
+                <button
+                    onClick={this.redirect}>
+                    {this.props.label}
+                </button>
             );
         }
 

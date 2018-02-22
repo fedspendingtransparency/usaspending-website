@@ -12,6 +12,7 @@ import { isCancel } from 'axios';
 import Router from 'containers/router/Router';
 
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
+import * as redirectModalActions from 'redux/actions/redirectModal/redirectModalActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import { downloadOptions } from 'dataMapping/navigation/menuOptions';
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
@@ -27,8 +28,15 @@ const propTypes = {
     setDataType: PropTypes.func,
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
-    setDownloadExpectedUrl: PropTypes.func
+    setDownloadExpectedUrl: PropTypes.func,
+    showModal: PropTypes.func,
+    setModalUrl: PropTypes.func
 };
+
+const combinedActions = Object.assign({},
+    bulkDownloadActions,
+    redirectModalActions
+);
 
 export class BulkDownloadPageContainer extends React.Component {
     constructor(props) {
@@ -37,6 +45,7 @@ export class BulkDownloadPageContainer extends React.Component {
         this.request = null;
 
         this.startAwardDownload = this.startAwardDownload.bind(this);
+        this.redirect = this.redirect.bind(this);
     }
 
     componentWillMount() {
@@ -152,13 +161,19 @@ export class BulkDownloadPageContainer extends React.Component {
             });
     }
 
+    redirect(url) {
+        this.props.setModalUrl(url);
+        this.props.showModal();
+    }
+
     render() {
         return (
             <BulkDownloadPage
                 bulkDownload={this.props.bulkDownload}
                 dataType={this.props.bulkDownload.dataType}
                 startDownload={this.startAwardDownload}
-                dataTypes={downloadOptions} />
+                dataTypes={downloadOptions}
+                redirect={this.redirect} />
         );
     }
 }
@@ -167,6 +182,6 @@ BulkDownloadPageContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ bulkDownload: state.bulkDownload }),
-    (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(BulkDownloadPageContainer);
 
