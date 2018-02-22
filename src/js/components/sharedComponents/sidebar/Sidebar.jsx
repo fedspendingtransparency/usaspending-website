@@ -65,6 +65,9 @@ export default class Sidebar extends React.Component {
                 // programmatically force it to the correct width
                 this.div.style.width = `${width}px`;
             }
+            else {
+                this.div.style.width = 'auto';
+            }
         });
     }
 
