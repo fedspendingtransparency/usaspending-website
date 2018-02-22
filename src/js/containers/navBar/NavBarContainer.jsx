@@ -1,5 +1,5 @@
 /**
- * RedirectModalContainer.jsx
+ * NavBarContainer.jsx
  * Created by Lizzie Salita 2/22/18
  */
 
@@ -10,31 +10,28 @@ import { connect } from 'react-redux';
 
 import * as redirectModalActions from 'redux/actions/redirectModal/redirectModalActions';
 
-import RedirectModal from 'components/sharedComponents/RedirectModal';
+import NavBar from 'components/sharedComponents/header/NavBar';
 
 require('pages/redirect/redirectModal.scss');
 
 const propTypes = {
-    redirectModal: PropTypes.object,
-    hideModal: PropTypes.func
+    showModal: PropTypes.func
 };
 
-export class RedirectModalContainer extends React.Component {
+export class NavBarContainer extends React.Component {
     render() {
         return (
-            <RedirectModal
-                mounted={this.props.redirectModal.display}
-                hideModal={this.props.hideModal}
-                url={this.props.redirectModal.url} />
+            <NavBar
+                redirect={this.props.showModal} />
         );
     }
 }
 
-RedirectModalContainer.propTypes = propTypes;
+NavBarContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
         redirectModal: state.redirectModal
     }),
     (dispatch) => bindActionCreators(redirectModalActions, dispatch)
-)(RedirectModalContainer);
+)(NavBarContainer);

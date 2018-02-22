@@ -12,21 +12,13 @@ const glossaryReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SHOW_MODAL': {
             return Object.assign({}, state, {
-                display: true
+                display: true,
+                url: action.value
             });
         }
         case 'HIDE_MODAL': {
             return Object.assign({}, state, {
-                display: false
-            });
-        }
-        case 'SET_MODAL_URL': {
-            return Object.assign({}, state, {
-                url: action.value
-            });
-        }
-        case 'CLEAR_MODAL_URL': {
-            return Object.assign({}, state, {
+                display: false,
                 url: ''
             });
         }

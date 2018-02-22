@@ -29,8 +29,7 @@ const propTypes = {
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
-    showModal: PropTypes.func,
-    setModalUrl: PropTypes.func
+    showModal: PropTypes.func
 };
 
 const combinedActions = Object.assign({},
@@ -162,8 +161,7 @@ export class BulkDownloadPageContainer extends React.Component {
     }
 
     redirect(url) {
-        this.props.setModalUrl(url);
-        this.props.showModal();
+        this.props.showModal(url);
     }
 
     render() {

@@ -12,7 +12,8 @@ import DropdownItem from './DropdownItem';
 const propTypes = {
     label: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
+    redirect: PropTypes.func
 };
 
 export default class Dropdown extends React.Component {
@@ -60,7 +61,8 @@ export default class Dropdown extends React.Component {
             <DropdownItem
                 {...item}
                 key={item.url}
-                isFirst={index === 0} />
+                isFirst={index === 0}
+                redirect={this.props.redirect} />
         ));
 
         return (

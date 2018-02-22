@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
@@ -9,6 +10,9 @@ import NavBarGlossaryLink from './NavBarGlossaryLink';
 import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
 
+const propTypes = {
+    redirect: PropTypes.func
+};
 
 export default class NavBar extends React.Component {
     constructor(props) {
@@ -125,7 +129,8 @@ export default class NavBar extends React.Component {
                                 <Dropdown
                                     title="Award Search: Search through awards and discover trends and connections"
                                     label="Award Search"
-                                    items={searchOptions} />
+                                    items={searchOptions}
+                                    redirect={this.props.redirect} />
                             </li>
                             <li
                                 className="full-menu__item"
@@ -133,7 +138,8 @@ export default class NavBar extends React.Component {
                                 <Dropdown
                                     title="Profiles: Learn more about organizations and accounts"
                                     label="Profiles"
-                                    items={profileOptions} />
+                                    items={profileOptions}
+                                    redirect={this.props.redirect} />
                             </li>
                             <li
                                 className="full-menu__item"
@@ -141,7 +147,8 @@ export default class NavBar extends React.Component {
                                 <Dropdown
                                     title="Download Center"
                                     label="Download Center"
-                                    items={downloadOptions} />
+                                    items={downloadOptions}
+                                    redirect={this.props.redirect} />
                             </li>
                             <li
                                 className="full-menu__item"
@@ -156,3 +163,4 @@ export default class NavBar extends React.Component {
     }
 }
 
+NavBar.propTypes = propTypes;
