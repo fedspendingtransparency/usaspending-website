@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
 
@@ -15,6 +16,12 @@ import Footer from 'components/sharedComponents/Footer';
 import LegalContent from './LegalContent';
 
 require('pages/about/aboutPage.scss');
+
+const propTypes = {
+    activePage: PropTypes.string,
+    title: PropTypes.string,
+    children: PropTypes.node
+};
 
 const LegalPage = (props) => (
     <div className="usa-da-legal-page">
@@ -40,4 +47,5 @@ const LegalPage = (props) => (
     </div>
 );
 
+LegalPage.propTypes = propTypes;
 export default LegalPage;

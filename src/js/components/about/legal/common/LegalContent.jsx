@@ -28,7 +28,9 @@ const legalSections = [
 ];
 
 const propTypes = {
-    activePage: PropTypes.string
+    activePage: PropTypes.string,
+    title: PropTypes.string,
+    children: PropTypes.node
 };
 
 export default class LegalContent extends React.Component {
