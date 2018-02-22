@@ -1,14 +1,15 @@
-.warning-banner {
+.info-banner {
+    // left-aligned message
     @import "mixins/fullSectionWrap";
     background: $color-primary-alt-lightest;
     width: 100%;
     border: 3px solid #BCE8EB;
-    .warning-banner__content {
+    .info-banner__content {
         @include display(flex);
         @include align-items(flex-start);
-        .warning-banner__alert-icon {
+        .info-banner__alert-icon {
             @include flex(0 0 auto);
-            padding: rem(10) rem(15);
+            padding: rem(5) rem(15);
             svg {
                 margin-top: rem(4);
                 height: rem(21);
@@ -16,12 +17,13 @@
                 fill: #5BC0DE;
             }
         }
-        .warning-banner__alert-text {
+        .info-banner__alert-text {
             @include flex(1 1 auto);
             @include align-self(center);
-            padding: rem(10) 0;
+            padding-top: rem(8);
+            padding-bottom: rem(8);
         }
-        .warning-banner__close-button {
+        .info-banner__close-button {
             @include flex(0 0 auto);
             @include button-unstyled;
             padding: rem(10) rem(15);
@@ -29,6 +31,21 @@
                 fill: $color-gray;
                 width: rem(16);
                 height: rem(16);
+            }
+        }
+    }
+    &.info-banner_warning {
+        // center-aligned message
+        .info-banner__content {
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            padding-right: rem(30);
+            .info-banner__close-button {
+                display: block;
+                position: absolute;
+                top: rem(3); // accounts for 3px border
+                right: 0;
             }
         }
     }

@@ -9,14 +9,14 @@ const propTypes = {
 export default class WarningBanner extends React.Component {
     render() {
         return (
-            <div className="warning-banner">
-                <div className="warning-banner__content">
-                    <div className="warning-banner__alert-icon">
+            <div className="info-banner info-banner_warning">
+                <div className="info-banner__content">
+                    <div className="info-banner__alert-icon">
                         <i className="usa-da-icon">
                             <Icons.ExclamationTriangle />
                         </i>
                     </div>
-                    <div className="warning-banner__alert-text">
+                    <div className="info-banner__alert-text">
                         This site is in beta. To view the production site, visit&nbsp;
                         <a
                             href="https://www.usaspending.gov"
@@ -34,7 +34,7 @@ export default class WarningBanner extends React.Component {
                         </a>.
                     </div>
                     <button
-                        className="warning-banner__close-button"
+                        className="info-banner__close-button"
                         title="Dismiss message"
                         aria-label="Dismiss message"
                         onClick={this.props.closeBanner}>

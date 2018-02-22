@@ -10,14 +10,14 @@ export default class InfoBanner extends React.Component {
     render() {
         // TODO - Lizzie: add FAQ url
         return (
-            <div className="warning-banner">
-                <div className="warning-banner__content">
-                    <div className="warning-banner__alert-icon">
+            <div className="info-banner">
+                <div className="info-banner__content">
+                    <div className="info-banner__alert-icon">
                         <i className="usa-da-icon">
                             <InfoCircle alt="Information" />
                         </i>
                     </div>
-                    <div className="warning-banner__alert-text">
+                    <div className="info-banner__alert-text">
                         Welcome to the new&nbsp;
                         <a href="#/">
                             USAspending.gov
@@ -30,9 +30,10 @@ export default class InfoBanner extends React.Component {
                             FAQ
                         </a>.
                         Want to suggest a feature? Join the conversation on&nbsp;
-                        <a href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
-                           target="_blank"
-                           rel="noopener noreferrer">
+                        <a
+                            href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
+                            target="_blank"
+                            rel="noopener noreferrer">
                             our community page
                         </a>.
                         Visit the old site at&nbsp;
@@ -44,7 +45,7 @@ export default class InfoBanner extends React.Component {
                         </a>.
                     </div>
                     <button
-                        className="warning-banner__close-button"
+                        className="info-banner__close-button"
                         title="Dismiss message"
                         aria-label="Dismiss message"
                         onClick={this.props.closeBanner}>
