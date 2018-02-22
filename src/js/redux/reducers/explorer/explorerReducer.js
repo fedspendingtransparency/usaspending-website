@@ -4,7 +4,7 @@
  **/
 
 import { List, Record } from 'immutable';
-import { defaultFiscalYear } from 'helpers/fiscalYearHelper';
+import { defaultQuarters } from 'containers/explorer/detail/helpers/explorerQuarters';
 
 export const ActiveScreen = new Record({
     within: '', // within is the data type that the total is a slice WITHIN
@@ -12,9 +12,12 @@ export const ActiveScreen = new Record({
     total: 0
 });
 
+const initialQuarters = defaultQuarters();
+
 export const initialState = {
     root: 'object_class',
-    fy: `${defaultFiscalYear()}`,
+    fy: `${initialQuarters.year}`,
+    quarter: `${Math.max(...initialQuarters.quarters)}`,
     active: new ActiveScreen(),
     trail: new List([]),
     table: {
@@ -28,9 +31,10 @@ export const initialState = {
 
 const explorerReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_EXPLORER_FY': {
+        case 'SET_EXPLORER_PERIOD': {
             return Object.assign({}, state, {
-                fy: action.fy
+                fy: action.fy,
+                quarter: action.quarter
             });
         }
         case 'SET_EXPLORER_ROOT': {
