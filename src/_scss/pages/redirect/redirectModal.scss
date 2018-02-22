@@ -1,0 +1,55 @@
+@import "all";
+
+.redirect-modal {
+    background-color: $color-white;
+    .redirect-modal__header {
+        background-color: $color-primary;
+        @include display(flex);
+        @include justify-content(flex-end);
+        .redirect-modal__close-button {
+            @include flex(0 0 auto);
+            @include button-unstyled;
+            padding: rem(5);
+            svg {
+                height: rem(16);
+                width: rem(16);
+                fill: $color-white;
+            }
+        }
+    }
+    .redirect-modal__body {
+        text-align: center;
+        width: 80%;
+        margin-right: auto;
+        margin-left: auto;
+        padding-top: rem(30);
+        padding-bottom: rem(30);
+        .redirect-modal__title {
+            @include display(inline-flex);
+            .redirect-modal__title-icon {
+                padding-right: rem(10);
+                svg {
+                    width: rem(25);
+                    height: rem(25);
+                    fill: $color-gray;
+                }
+            }
+            .redirect-modal__title-text {
+                font-weight: 600;
+                font-size: rem(24);
+            }
+        }
+        .redirect-modal__explanation {
+            padding-top: rem(30);
+            padding-bottom: rem(30);
+        }
+        .redirect-modal__directions {
+            font-size: $small-font-size;
+            padding-bottom: rem(20);
+            font-weight: 600;
+        }
+        .redirect-modal__link {
+            font-weight: 600;
+        }
+    }
+}
