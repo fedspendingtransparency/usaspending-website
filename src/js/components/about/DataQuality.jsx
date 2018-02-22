@@ -59,7 +59,8 @@ export default class DataQuality extends React.Component {
                             Federal Government Procurement Data Quality Summary
                         </a>
                         &nbsp;about data submitted by the agencies to the Federal Procurement
-                        Data System (FPDS).
+                        Data System (FPDS). In addition, the federal agencies&apos; raw quarterly submission files, including Quarterly
+                        Assurance Statements about the data, are available here.
                     </p>
                     <p>
                         Additionally, the Inspector General of each agency must issue reports to
@@ -72,31 +73,6 @@ export default class DataQuality extends React.Component {
                             oversight.gov
                         </a>
                         &nbsp;to see these reports.
-                    </p>
-                    <p>
-                        For more information about the data, see the&nbsp;
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-">
-                            FAQs
-                        </a>
-                        &nbsp;and the&nbsp;
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href="https://fedspendingtransparency.github.io/data-dictionary/">
-                            Data Dictionary
-                        </a>
-                        . The federal agencies&apos; raw quarterly submission files,
-                        including Quarterly Assurance Statements about the data, are available&nbsp;
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href="http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/">
-                            here
-                        </a>
-                        .
                     </p>
                 </div>
             </div>

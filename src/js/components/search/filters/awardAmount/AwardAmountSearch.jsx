@@ -65,8 +65,7 @@ export default class AwardAmountSearch extends React.Component {
                     code={key}
                     filterType="Award Amount"
                     selectedCheckboxes={this.props.awardAmounts}
-                    toggleCheckboxType={this.toggleSelection}
-                    enableAnalytics />);
+                    toggleCheckboxType={this.toggleSelection} />);
         });
 
         return (

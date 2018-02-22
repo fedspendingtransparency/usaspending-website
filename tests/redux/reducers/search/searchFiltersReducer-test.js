@@ -122,18 +122,6 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('UPDATE_TEXT_SEARCH', () => {
-        it('should set the keyword filter option to the input string', () => {
-            const action = {
-                type: 'UPDATE_TEXT_SEARCH',
-                textInput: 'business'
-            };
-
-            const updatedState = searchFiltersReducer(undefined, action);
-            expect(updatedState.keyword).toEqual('business');
-        });
-    });
-
     describe('UPDATE_SELECTED_LOCATIONS', () => {
         const action = {
             type: 'UPDATE_SELECTED_LOCATIONS',
@@ -922,24 +910,24 @@ describe('searchFiltersReducer', () => {
     describe('RESTORE_HASHED_FILTERS', () => {
         it('should create a brand new state based on the initial state with the provided inputs', () => {
             const originalState = Object.assign({}, initialState);
-            originalState.keyword = 'hello';
             originalState.recipientDomesticForeign = 'foreign';
             originalState.awardType = new Set(['A', 'B']);
+            originalState.timePeriodFY = new Set(['1987']);
 
             let state = searchFiltersReducer(originalState, {});
-            expect(state.keyword).toEqual('hello');
             expect(state.recipientDomesticForeign).toEqual('foreign');
             expect(state.awardType).toEqual(new Set(['A', 'B']));
+            expect(state.timePeriodFY).toEqual(new Set(['1987']));
 
             const action = {
                 type: 'RESTORE_HASHED_FILTERS',
                 filters: {
-                    keyword: 'bye',
-                    recipientDomesticForeign: 'domestic'
+                    recipientDomesticForeign: 'domestic',
+                    timePeriodFY: new Set (['1999'])
                 }
             };
             state = searchFiltersReducer(state, action);
-            expect(state.keyword).toEqual('bye');
+            expect(state.timePeriodFY).toEqual(new Set(['1999']));
             expect(state.recipientDomesticForeign).toEqual('domestic');
             expect(state.awardType).toEqual(new Set([]));
         });

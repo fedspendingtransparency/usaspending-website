@@ -5,11 +5,6 @@
 /* eslint-disable default-export */
 export const filterHasSelections = (reduxFilters, filter) => {
     switch (filter) {
-        case 'Keyword':
-            if (reduxFilters.keyword !== '') {
-                return true;
-            }
-            return false;
         case 'Time Period':
             if (reduxFilters.timePeriodFY.toArray().length > 0
                 || (reduxFilters.timePeriodRange

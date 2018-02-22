@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     type: PropTypes.string,
@@ -12,6 +13,7 @@ const propTypes = {
     active: PropTypes.string,
     url: PropTypes.string,
     changeDataType: PropTypes.func,
+    newTab: PropTypes.bool,
     disabled: PropTypes.bool
 };
 
@@ -20,10 +22,18 @@ export default class SidebarButton extends React.Component {
         super(props);
 
         this.clickedButton = this.clickedButton.bind(this);
+        this.logExternalLink = this.logExternalLink.bind(this);
     }
 
     clickedButton() {
         this.props.changeDataType(this.props.type);
+    }
+
+    logExternalLink() {
+        Analytics.event({
+            category: 'Download Center - Link',
+            action: this.props.url
+        });
     }
 
     render() {
@@ -50,12 +60,13 @@ export default class SidebarButton extends React.Component {
                 </div>
             );
         }
-        else if (this.props.url !== '') {
+        else if (this.props.url !== '' && this.props.newTab) {
             button = (
                 <a
                     href={this.props.url}
                     target="_blank"
-                    rel="noopener noreferrer">
+                    rel="noopener noreferrer"
+                    onClick={this.logExternalLink}>
                     {this.props.label}
                 </a>
             );

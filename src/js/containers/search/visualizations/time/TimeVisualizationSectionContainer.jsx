@@ -18,6 +18,7 @@ import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterAc
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as MonthHelper from 'helpers/monthHelper';
+import Analytics from 'helpers/analytics/Analytics';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
@@ -29,6 +30,13 @@ const propTypes = {
     reduxFilters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool
+};
+
+const logPeriodEvent = (period) => {
+    Analytics.event({
+        category: 'Advanced Search - Time - Period',
+        action: period
+    });
 };
 
 export class TimeVisualizationSectionContainer extends React.Component {
@@ -50,6 +58,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
 
     componentDidMount() {
         this.fetchData();
+        logPeriodEvent(this.state.visualizationPeriod);
     }
 
     componentDidUpdate(prevProps) {
@@ -63,6 +72,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
             visualizationPeriod
         }, () => {
             this.fetchData();
+            logPeriodEvent(visualizationPeriod);
         });
     }
 

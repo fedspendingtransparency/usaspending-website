@@ -85,8 +85,7 @@ export default class RecipientType extends React.Component {
                     key={index}
                     types={recipientTypes}
                     filterType="Recipient"
-                    selectedCheckboxes={this.props.selectedTypes}
-                    enableAnalytics />
+                    selectedCheckboxes={this.props.selectedTypes} />
                 )
             );
 

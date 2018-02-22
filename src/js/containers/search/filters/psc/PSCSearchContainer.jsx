@@ -19,17 +19,7 @@ const propTypes = {
     appliedPSC: PropTypes.object
 };
 
-const ga = require('react-ga');
-
 export class PSCSearchContainer extends React.Component {
-    static logPSCFilterEvent(psc) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: `Applied PSC Filter`,
-            label: psc
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -44,9 +34,6 @@ export class PSCSearchContainer extends React.Component {
             const updateParams = {};
             updateParams.psc = psc;
             this.props.updateSelectedPSC(updateParams);
-
-            // Analytics
-            PSCSearchContainer.logPSCFilterEvent(psc);
         }
     }
 

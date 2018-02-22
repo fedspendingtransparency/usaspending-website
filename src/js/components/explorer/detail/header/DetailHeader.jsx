@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import moment from 'moment';
+import Analytics from 'helpers/analytics/Analytics';
 
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
@@ -20,6 +21,13 @@ const propTypes = {
     title: PropTypes.string,
     id: PropTypes.string,
     parent: PropTypes.string
+};
+
+const exitExplorer = (target) => {
+    Analytics.event({
+        category: 'Spending Explorer - Exit',
+        action: target
+    });
 };
 
 const dataType = (type, parent) => {
@@ -54,14 +62,22 @@ const heading = (type, title, id) => {
     if (type === 'Federal Account') {
         return (
             <h2>
-                <a href={`/#/federal_account/${id}`}>{title}</a>
+                <a
+                    href={`/#/federal_account/${id}`}
+                    onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
+                    {title}
+                </a>
             </h2>
         );
     }
     else if (type === 'Agency') {
         return (
             <h2>
-                <a href={`/#/agency/${id}`}>{title}</a>
+                <a
+                    href={`/#/agency/${id}`}
+                    onClick={exitExplorer.bind(null, `/agency/${id}`)}>
+                    {title}
+                </a>
             </h2>
         );
     }

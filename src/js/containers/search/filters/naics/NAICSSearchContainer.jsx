@@ -19,17 +19,7 @@ const propTypes = {
     appliedNAICS: PropTypes.object
 };
 
-const ga = require('react-ga');
-
 export class NAICSSearchContainer extends React.Component {
-    static logPlaceFilterEvent(naics) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: `Applied NAICS Filter`,
-            label: naics.toLowerCase()
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -44,9 +34,6 @@ export class NAICSSearchContainer extends React.Component {
             const updateParams = {};
             updateParams.naics = naics;
             this.props.updateSelectedNAICS(updateParams);
-
-            // Analytics
-            NAICSSearchContainer.logPlaceFilterEvent(naics.naics_description);
         }
     }
 

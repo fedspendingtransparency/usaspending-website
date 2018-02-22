@@ -12,6 +12,7 @@ import { uniqueId, difference, intersection } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import * as SearchHelper from 'helpers/searchHelper';
+import Analytics from 'helpers/analytics/Analytics';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
@@ -63,23 +64,7 @@ const tableTypes = [
     }
 ];
 
-const ga = require('react-ga');
-
 export class ResultsTableContainer extends React.Component {
-    static logLoadNextPageEvent(page, tableType) {
-        // Get the display name for the current table type
-        const currentType = tableTypes.filter((type) =>
-            type.internal === tableType
-        );
-        const typeLabel = currentType[0].label;
-
-        ga.event({
-            category: 'Search Page Spending By Award',
-            action: `Scrolled to next page of ${typeLabel}`,
-            label: page
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -400,6 +385,10 @@ export class ResultsTableContainer extends React.Component {
 
         this.setState(newState, () => {
             this.performSearch(true);
+            Analytics.event({
+                category: 'Advanced Search - Table Tab',
+                action: tab
+            });
         });
     }
 
@@ -412,9 +401,6 @@ export class ResultsTableContainer extends React.Component {
 
         // check if more pages are available
         if (!this.state.lastPage) {
-            // Analytics
-            ResultsTableContainer.logLoadNextPageEvent(`${this.state.page + 1}`, this.state.tableType);
-
             // more pages are available, load them
             this.setState({
                 page: this.state.page + 1

@@ -22,17 +22,7 @@ const propTypes = {
     appliedAwardingAgencies: PropTypes.object
 };
 
-const ga = require('react-ga');
-
 export class AgencyContainer extends React.Component {
-    static logAgencyFilterEvent(agencyType, agency) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: `Applied ${agencyType} Agency Filter`,
-            label: agency.toLowerCase()
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -51,15 +41,6 @@ export class AgencyContainer extends React.Component {
             }
             else {
                 this.props.updateSelectedAwardingAgencies(updateParams);
-            }
-
-            // Analytics
-
-            if (agency.agencyType === 'subtier') {
-                AgencyContainer.logAgencyFilterEvent(agencyType, agency.subtier_agency.name);
-            }
-            else {
-                AgencyContainer.logAgencyFilterEvent(agencyType, agency.toptier_agency.name);
             }
         }
     }

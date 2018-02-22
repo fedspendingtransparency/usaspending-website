@@ -97,7 +97,7 @@ describe('SearchContainer', () => {
         });
 
         const nextFilters = Object.assign({}, initialState, {
-            keyword: 'blerg'
+            timePeriodFY: new Set(['1987'])
         });
 
         const nextProps = Object.assign({}, mockRedux, mockActions, {
@@ -158,7 +158,7 @@ describe('SearchContainer', () => {
 
         it('should generate a hash if there are filters applied', () => {
             const filters = Object.assign({}, initialState, {
-                keyword: 'blerg'
+                timePeriodFY: new Set(['1987'])
             });
 
             const redux = Object.assign({}, mockRedux, {
@@ -282,7 +282,7 @@ describe('SearchContainer', () => {
                 {...mockRedux} />);
 
             const modifiedState = Object.assign({}, initialState, {
-                keyword: 'blerg'
+                timePeriodFY: new Set(['1987'])
             });
 
             const unfiltered = container.instance().determineIfUnfiltered(modifiedState);

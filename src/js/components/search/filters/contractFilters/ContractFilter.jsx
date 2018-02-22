@@ -88,8 +88,7 @@ export default class ContractFilter extends React.Component {
                             code={invertedFilters[key]}
                             filterType={this.props.contractFilterType}
                             selectedCheckboxes={this.props[this.props.contractFilterState]}
-                            toggleCheckboxType={this.toggleValue}
-                            enableAnalytics />);
+                            toggleCheckboxType={this.toggleValue} />);
                 }
             });
         }

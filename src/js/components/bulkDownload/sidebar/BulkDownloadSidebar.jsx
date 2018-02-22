@@ -18,12 +18,13 @@ export default class BulkDownloadSidebar extends React.Component {
     render() {
         const items = this.props.dataTypes.map((type) => (
             <SidebarButton
-                key={type.type}
+                key={type.code}
                 type={type.type}
                 label={type.label}
                 active={this.props.active}
-                disabled={type.disabled}
+                disabled={!type.enabled}
                 url={type.url}
+                newTab={type.newTab}
                 changeDataType={this.props.changeDataType} />
         ));
 

@@ -29,6 +29,13 @@ import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 import SearchPage from 'components/search/SearchPage';
 
+import {
+    convertFiltersToAnalyticEvents,
+    sendAnalyticEvents,
+    sendFieldCombinations
+} from './helpers/searchAnalytics';
+
+
 require('pages/search/searchPage.scss');
 
 const propTypes = {
@@ -231,6 +238,11 @@ export class SearchContainer extends React.Component {
 
         // apply the filters to both the staged and applied stores
         this.props.restoreHashedFilters(reduxValues);
+
+        // send the prepopulated filters (received from the hash) to Google Analytics
+        const events = convertFiltersToAnalyticEvents(reduxValues);
+        sendAnalyticEvents(events);
+        sendFieldCombinations(events);
 
         this.setState({
             hashState: 'ready'

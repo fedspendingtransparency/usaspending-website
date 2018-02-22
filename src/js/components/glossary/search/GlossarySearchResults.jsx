@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { concat, sortBy } from 'lodash';
+import Analytics from 'helpers/analytics/Analytics';
 
 import ResultGroup from './ResultGroup';
 
@@ -15,11 +16,9 @@ const propTypes = {
     setGlossaryTerm: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export default class GlossarySearchResults extends React.Component {
     static logGlossaryTermEvent(term) {
-        ga.event({
+        Analytics.event({
             category: 'Glossary',
             action: 'Clicked Glossary Term',
             label: term

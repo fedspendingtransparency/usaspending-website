@@ -5,6 +5,7 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
+import Analytics from 'helpers/analytics/Analytics';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import DownloadBottomBarContainer from
     'containers/search/modals/fullDownload/DownloadBottomBarContainer';
@@ -15,6 +16,13 @@ import FooterExternalLink from './FooterExternalLink';
 
 const propTypes = {
     filters: PropTypes.object
+};
+
+const clickedFooterLink = (route) => {
+    Analytics.event({
+        category: 'Footer - Link',
+        action: route
+    });
 };
 
 export default class Footer extends React.Component {
@@ -32,7 +40,11 @@ export default class Footer extends React.Component {
                     aria-label="Footer">
                     <div className="footer-container">
                         <div className="footer-logo">
-                            <a href="#/" title="USAspending.gov Home" aria-label="USAspending.gov Home">
+                            <a
+                                href="#/"
+                                title="USAspending.gov Home"
+                                aria-label="USAspending.gov Home"
+                                onClick={clickedFooterLink.bind(null, '/')}>
                                 <img src="img/footer_logo.png" alt="USAspending.gov" />
                             </a>
                         </div>
@@ -43,7 +55,9 @@ export default class Footer extends React.Component {
                                 </div>
                                 <ul className="links">
                                     <li>
-                                        <a href="#/about">
+                                        <a
+                                            href="#/about"
+                                            onClick={clickedFooterLink.bind(null, '/about')}>
                                             About
                                         </a>
                                     </li>
@@ -65,7 +79,12 @@ export default class Footer extends React.Component {
                                             title="Community" />
                                     </li>
                                     <li>
-                                        <a href="mailto:usaspending.help-submitonly@fiscal.treasury.gov?subject=Contact%20Us">
+                                        <a
+                                            href="mailto:usaspending.help-submitonly@fiscal.treasury.gov?subject=Contact%20Us"
+                                            onClick={clickedFooterLink.bind(
+                                                null,
+                                                'mailto:usaspending.help-submitonly@fiscal.treasury.gov?subject=Contact%20Us'
+                                            )}>
                                             Contact Us
                                         </a>
                                     </li>
@@ -113,7 +132,7 @@ export default class Footer extends React.Component {
                                 <small>&copy; {year} USAspending.gov</small>
                             </div>
                             <div className="important-db">
-                                <strong>NOTE:</strong> You must <a href="#/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data">click here</a> for very important D&amp;B information.
+                                <strong>NOTE:</strong> You must <a href="#/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>click here</a> for very important D&amp;B information.
                             </div>
                         </div>
                     </div>
