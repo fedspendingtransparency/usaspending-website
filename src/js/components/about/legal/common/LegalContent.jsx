@@ -1,5 +1,5 @@
 /**
- * LegalContents.jsx
+ * LegalContent.jsx
  * Created by Kevin Li 2/21/18
  */
 
@@ -31,10 +31,10 @@ const propTypes = {
     activePage: PropTypes.string
 };
 
-export default class LegalContents extends React.Component {
+export default class LegalContent extends React.Component {
     render() {
         return (
-            <div className="legal">
+            <div className="about-content-wrapper">
                 <div className="about-sidebar">
                     <Sidebar
                         active={this.props.activePage}
@@ -44,7 +44,15 @@ export default class LegalContents extends React.Component {
                 </div>
                 <div className="about-content">
                     <div className="about-padded-content">
-                        {this.props.children}
+                        <div className="about-section-wrapper">
+                            <h2 className="about-section-title">
+                                {this.props.title}
+                            </h2>
+
+                            <div className="about-section-content">
+                                {this.props.children}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -52,4 +60,4 @@ export default class LegalContents extends React.Component {
     }
 }
 
-LegalContents.propTypes = propTypes;
+LegalContent.propTypes = propTypes;

@@ -11,12 +11,12 @@ export default class Mission extends React.Component {
             <div
                 className="about-section-wrapper"
                 id="about-mission">
-                <div className="about-section-title">
-                    <h2>Mission</h2>
-                </div>
-                <div className="about-subtitle">
-                    <h3>Building a more transparent government.</h3>
-                </div>
+                <h2 className="about-section-title">
+                    Mission
+                </h2>
+                <h3 className="about-subtitle">
+                    Building a more transparent government.
+                </h3>
                 <div className="about-section-content">
                     <p>USAspending.gov is the official source for spending data for the U.S.
                         Government. Its mission is to show the American public what the federal

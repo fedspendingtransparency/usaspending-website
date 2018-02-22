@@ -1,15 +1,15 @@
 /**
- * AccessibilityPage.jsx
- * Created by Kevin Li 2/21/18
+ * PrivacyPage.jsx
+ * Created by Kevin Li 2/22/18
  */
 
 import React from 'react';
 import LegalPage from './common/LegalPage';
 
-const AccessibilityPage = () => (
+const PrivacyPage = () => (
     <LegalPage
-        activePage="accessibility"
-        title="Accessibility">
+        activePage="privacy"
+        title="Privacy Policy">
         <p>
             Lorem ipsum dolor amet man bun banjo literally dreamcatcher selvage distillery bushwick everyday carry. Whatever chia williamsburg, tacos taxidermy succulents sustainable master cleanse direct trade. Street art +1 hashtag four loko. Cardigan health goth brunch etsy plaid. Pinterest plaid gentrify whatever humblebrag.
         </p>
@@ -25,4 +25,4 @@ const AccessibilityPage = () => (
     </LegalPage>
 );
 
-export default AccessibilityPage;
+export default PrivacyPage;

@@ -46,6 +46,7 @@
 
             &.active {
                 font-weight: $font-bold;
+                line-height: 2;
                 border-bottom: 5px solid $color-gold;
             }
         }

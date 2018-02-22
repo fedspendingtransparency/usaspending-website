@@ -12,7 +12,7 @@ import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'components/sharedComponents/Footer';
 
-import LegalContents from './LegalContents';
+import LegalContent from './LegalContent';
 
 require('pages/about/aboutPage.scss');
 
@@ -30,9 +30,11 @@ const LegalPage = (props) => (
         <main
             id="main-content"
             className="main-content">
-            <LegalContents activePage={props.activePage}>
+            <LegalContent
+                activePage={props.activePage}
+                title={props.title}>
                 {props.children}
-            </LegalContents>
+            </LegalContent>
         </main>
         <Footer />
     </div>

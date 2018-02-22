@@ -102,6 +102,24 @@ const routes = {
             }
         },
         {
+            path: '/about/privacy',
+            parent: '/about',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/about/legal/PrivacyPage').default);
+                });
+            }
+        },
+        {
+            path: '/about/foia',
+            parent: '/about',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/about/legal/FOIAPage').default);
+                });
+            }
+        },
+        {
             path: '/db_info',
             parent: '/db_info',
             component: (cb) => {
