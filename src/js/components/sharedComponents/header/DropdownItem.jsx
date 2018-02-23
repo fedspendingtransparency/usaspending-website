@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import DropdownComingSoon from './DropdownComingSoon';
 
 const propTypes = {
@@ -14,6 +16,13 @@ const propTypes = {
     enabled: PropTypes.bool,
     newTab: PropTypes.bool,
     isFirst: PropTypes.bool
+};
+
+const clickedHeaderLink = (route) => {
+    Analytics.event({
+        category: 'Header - Link',
+        action: route
+    });
 };
 
 const DropdownItem = (props) => {
@@ -45,6 +54,7 @@ const DropdownItem = (props) => {
             <a
                 className={`nav-children__link ${className}`}
                 href={props.url}
+                onClick={clickedHeaderLink.bind(null, `${props.url.replace('#', '')}`)}
                 {...newTabProps}>
                 {props.label}
                 {comingSoon}

@@ -1,5 +1,6 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import Analytics from 'helpers/analytics/Analytics';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import kGlobalConstants from 'GlobalConstants';
@@ -9,6 +10,12 @@ import NavBarGlossaryLink from './NavBarGlossaryLink';
 import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
 
+const clickedHeaderLink = (route) => {
+    Analytics.event({
+        category: 'Header - Link',
+        action: route
+    });
+};
 
 export default class NavBar extends React.Component {
     constructor(props) {
@@ -78,7 +85,8 @@ export default class NavBar extends React.Component {
                                 className="site-logo__link"
                                 href="#/"
                                 title="USAspending.gov Home"
-                                aria-label="USAspending.gov Home">
+                                aria-label="USAspending.gov Home"
+                                onClick={clickedHeaderLink.bind(null, '/')}>
                                 <img
                                     className="site-logo__image"
                                     src="img/logo.png"
@@ -115,7 +123,8 @@ export default class NavBar extends React.Component {
                                 <a
                                     className="full-menu__link"
                                     href="#/explorer"
-                                    title="Spending Explorer: Navigate the levels of government spending from top to bottom">
+                                    title="Spending Explorer: Navigate the levels of government spending from top to bottom"
+                                    onClick={clickedHeaderLink.bind(null, '/explorer')}>
                                     <span>Spending Explorer</span>
                                 </a>
                             </li>
