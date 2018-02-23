@@ -23,6 +23,7 @@ const defaultValues = [
     '',
     'Not available',
     {
+        available: false,
         obligated: 0,
         unobligated: 0,
         budgetAuthority: 0,

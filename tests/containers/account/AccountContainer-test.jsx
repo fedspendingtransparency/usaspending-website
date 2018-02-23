@@ -41,6 +41,12 @@ jest.mock('containers/glossary/GlossaryButtonWrapperContainer', () =>
 jest.mock('containers/glossary/GlossaryContainer', () =>
     jest.fn(() => null));
 
+const stripModelId = (model) => {
+    const stripped = Object.assign({}, model);
+    delete stripped._jsid;
+    return stripped;
+};
+
 describe('AccountContainer', () => {
     it('should make an API call for the selected account on mount', async () => {
         const mockRedux = {
@@ -95,28 +101,28 @@ describe('AccountContainer', () => {
     });
 
     describe('parseAccount', () => {
-        it('should parse the returned account and send to the Redux store', (done) => {
+        it('should parse the returned account and send to the Redux store', () => {
             const expected = new FederalAccount(mockAccount);
-            delete expected._jsid;
-
-            const reduxAction = jest.fn((args) => {
-                const model = Object.assign({}, args);
-                delete model._jsid;
-
-                expect(model).toEqual(expected);
-                done();
-            });
+            const reduxAction = jest.fn();
 
             const container = shallow(<AccountContainer setSelectedAccount={reduxAction} />);
             container.instance().parseAccount(mockAccount);
+            expect(reduxAction).toHaveBeenCalledTimes(1);
+
+            const args = reduxAction.mock.calls[0][0];
+            expect(
+                stripModelId(args)
+            ).toEqual(
+                stripModelId(expected)
+            );
         });
     });
 
     describe('parseFYSnapshot', () => {
-        it('should parse the returned fiscal year snapshot and add the data to the Redux account object', (done) => {
+        it('should parse the returned fiscal year snapshot and add the data to the Redux account object', () => {
             const initialModel = new FederalAccount(mockAccount);
-            delete initialModel._jsid;
             initialModel.totals = {
+                available: false,
                 obligated: 0,
                 unobligated: 0,
                 budgetAuthority: 0,
@@ -126,19 +132,42 @@ describe('AccountContainer', () => {
                 appropriations: 0
             };
 
-            const reduxAction = jest.fn((args) => {
-                const model = Object.assign({}, args);
-                delete model._jsid;
-
-                expect(model).toEqual(mockReduxAccount);
-                done();
-            });
+            const reduxAction = jest.fn();
 
             const container = shallow(<AccountContainer
                 setSelectedAccount={reduxAction}
                 account={initialModel} />);
 
             container.instance().parseFYSnapshot(mockSnapshot);
+            expect(reduxAction).toHaveBeenCalledTimes(1);
+
+            const arg = reduxAction.mock.calls[0][0];
+            expect(arg.totals).toEqual(mockReduxAccount.totals);
+        });
+        it('should indicate the FY values are not available when no snapshot data is returned', () => {
+            const initialModel = new FederalAccount(mockAccount);
+            initialModel.totals = {
+                available: false,
+                obligated: 0,
+                unobligated: 0,
+                budgetAuthority: 0,
+                outlay: 0,
+                balanceBroughtForward: 0,
+                otherBudgetaryResources: 0,
+                appropriations: 0
+            };
+
+            const reduxAction = jest.fn();
+
+            const container = shallow(<AccountContainer
+                setSelectedAccount={reduxAction}
+                account={initialModel} />);
+
+            container.instance().parseFYSnapshot({});
+            expect(reduxAction).toHaveBeenCalledTimes(1);
+
+            const arg = reduxAction.mock.calls[0][0];
+            expect(arg.totals.available).toBeFalsy();
         });
     });
 });
