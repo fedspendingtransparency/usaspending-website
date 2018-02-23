@@ -17,22 +17,23 @@ export default class InfoBanner extends React.Component {
                         </i>
                     </div>
                     <div className="info-banner__alert-text">
-                        Welcome to the new USAspending.gov!
-                        We offer agency financial data along with awards data. Questions? Check out our&nbsp;
+                        <div className="info-banner__title-text">
+                            Welcome to the new USAspending.gov!
+                        </div>
+                        We now offer agency financial data, along with the awards data you&apos;re used to.  Questions?
+                        Check out our&nbsp;
                         <a
                             href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions"
                             target="_blank"
                             rel="noopener noreferrer">
                             FAQ
-                        </a>.
-                        Want to suggest a feature? Join the conversation on our&nbsp;
+                        </a> or join the conversation on our&nbsp;
                         <a
                             href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
                             target="_blank"
                             rel="noopener noreferrer">
-                            community page
-                        </a>.
-                        Visit the old site at&nbsp;
+                            Community
+                        </a> page.  Visit the old site at&nbsp;
                         <a
                             href="https://legacy.usaspending.gov"
                             target="_blank"
