@@ -146,7 +146,8 @@ export default class RecipientInfo extends React.Component {
             return this.buildMultipleRecipients();
         }
 
-        const isContract = includes(awardTypeGroups.contracts, this.props.award.award_type);
+        const isContract = includes(awardTypeGroups.contracts, this.props.award.award_type)
+            || this.props.award.internal_general_type === 'unknown';
 
         return (
             <ul className="recipient-information">

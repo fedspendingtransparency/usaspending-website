@@ -15,6 +15,8 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 import AwardSummary from 'models/results/award/AwardSummary';
 
+import BaseContract from 'models/v2/awards/BaseContract';
+
 require('pages/award/awardPage.scss');
 
 const propTypes = {
@@ -105,6 +107,14 @@ export class AwardContainer extends React.Component {
             noAward: false,
             awardId: this.props.params.awardId
         });
+
+        if (data.category === 'contract' || !data.category) {
+            const testAward = Object.create(BaseContract);
+            testAward.populate(data);
+            console.log(testAward.recipient);
+            console.log(testAward.recipient.regionalAddress);
+            console.log(testAward.recipient.businessTypes);
+        }
 
         const award = new AwardSummary(data);
         // Add search results to Redux
