@@ -6,15 +6,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Home, Calendar, AngleRight } from 'components/sharedComponents/icons/Icons';
+import { Home } from 'components/sharedComponents/icons/Icons';
+import { lastCompletedQuarterInFY } from 'containers/explorer/detail/helpers/explorerQuarters';
 
-import FYPicker from './FYPicker';
 import VerticalTrail from './VerticalTrail';
+import QuarterPicker from './QuarterPicker';
 
 const propTypes = {
     fy: PropTypes.string,
+    quarter: PropTypes.string,
     trail: PropTypes.object,
-    setExplorerYear: PropTypes.func,
+    setExplorerPeriod: PropTypes.func,
     rewindToFilter: PropTypes.func
 };
 
@@ -28,6 +30,7 @@ export default class ExplorerSidebar extends React.Component {
 
         this.toggleFYMenu = this.toggleFYMenu.bind(this);
         this.pickedYear = this.pickedYear.bind(this);
+        this.pickedQuarter = this.pickedQuarter.bind(this);
     }
 
     toggleFYMenu() {
@@ -37,19 +40,29 @@ export default class ExplorerSidebar extends React.Component {
     }
 
     pickedYear(year) {
-        this.props.setExplorerYear(year);
+        const lastQuarter = lastCompletedQuarterInFY(year);
+
+        this.props.setExplorerPeriod({
+            fy: `${lastQuarter.year}`,
+            quarter: `${lastQuarter.quarter}`
+        });
         this.setState({
             showFYMenu: false
         });
     }
 
-    render() {
-        let fyPicker = null;
-        if (this.state.showFYMenu) {
-            fyPicker = (<FYPicker
-                pickedYear={this.pickedYear} />);
+    pickedQuarter(input) {
+        let quarter = input;
+        if (typeof input !== 'string') {
+            quarter = `${input}`;
         }
+        this.props.setExplorerPeriod({
+            quarter,
+            fy: this.props.fy
+        });
+    }
 
+    render() {
         return (
             <div className="explorer-sidebar">
                 <div className="start-over">
@@ -67,26 +80,11 @@ export default class ExplorerSidebar extends React.Component {
                     </a>
                 </div>
 
-                <div className="fy-item">
-                    <button
-                        className="fy-button"
-                        onClick={this.toggleFYMenu}
-                        disabled>
-                        <div className="content">
-                            <div className="icon">
-                                <Calendar alt="Pick fiscal year" />
-                            </div>
-                            <div className="label">
-                                {this.props.fy}
-                            </div>
-                            <div className="icon arrow">
-                                <AngleRight alt="Show menu" />
-                            </div>
-                        </div>
-                    </button>
-                </div>
-
-                {fyPicker}
+                <QuarterPicker
+                    fy={this.props.fy}
+                    quarter={this.props.quarter}
+                    pickedQuarter={this.pickedQuarter}
+                    pickedYear={this.pickedYear} />
 
                 <VerticalTrail
                     trail={this.props.trail.toArray()}

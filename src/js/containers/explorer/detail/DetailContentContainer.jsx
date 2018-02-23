@@ -24,7 +24,7 @@ import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar'
 const propTypes = {
     explorer: PropTypes.object,
     setExplorerActive: PropTypes.func,
-    setExplorerYear: PropTypes.func,
+    setExplorerPeriod: PropTypes.func,
     overwriteExplorerTrail: PropTypes.func,
     addExplorerTrail: PropTypes.func,
     showTooltip: PropTypes.func,
@@ -53,26 +53,33 @@ export class DetailContentContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy);
+        this.prepareRootRequest(
+            this.props.explorer.root,
+            this.props.explorer.fy,
+            this.props.explorer.quarter
+        );
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.explorer.root !== this.props.explorer.root) {
+        if (prevProps.explorer.root !== this.props.explorer.root ||
+            prevProps.explorer.fy !== this.props.explorer.fy ||
+            prevProps.explorer.quarter !== this.props.explorer.quarter) {
             // root changed, reload everything
-            this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy);
-        }
-        else if (prevProps.explorer.fy !== this.props.explorer.fy) {
-            // fy changed, also reload everything (and rewind to the root)
-            this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy);
+            this.prepareRootRequest(
+                this.props.explorer.root,
+                this.props.explorer.fy,
+                this.props.explorer.quarter
+            );
         }
     }
 
-    prepareRootRequest(rootType, fy) {
+    prepareRootRequest(rootType, fy, quarter) {
         // we need to make a root request
         // at the root level, ignore all filters except for the root
         // in fact, just to be safe, let's overwrite the filter props
         const resetFilters = {
-            fy
+            fy,
+            quarter
         };
 
         // make the request
@@ -423,8 +430,9 @@ export class DetailContentContainer extends React.Component {
             <div className="explorer-detail">
                 <ExplorerSidebar
                     fy={this.props.explorer.fy}
+                    quarter={this.props.explorer.quarter}
                     trail={this.props.explorer.trail}
-                    setExplorerYear={this.props.setExplorerYear}
+                    setExplorerPeriod={this.props.setExplorerPeriod}
                     rewindToFilter={this.rewindToFilter} />
                 <DetailContent
                     isRoot={this.props.explorer.active.within === 'root'}

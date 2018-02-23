@@ -35,6 +35,7 @@ export const mockApiResponse = {
 export const mockReducerRoot = {
     root: 'agency',
     fy: '1984',
+    quarter: '4',
     active: new ActiveScreen({
         within: 'root',
         subdivision: 'agency',
@@ -179,7 +180,7 @@ export const mockPager = {
 
 export const mockActions = {
     setExplorerRoot: jest.fn(),
-    setExplorerYear: jest.fn(),
+    setExplorerPeriod: jest.fn(),
     setExplorerActive: jest.fn(),
     addExplorerTrail: jest.fn(),
     overwriteExplorerTrail: jest.fn(),

@@ -120,8 +120,8 @@ const routes = {
             }
         },
         {
-            path: '/bulk_download',
-            parent: '/bulk_download',
+            path: '/download_center',
+            parent: '/download_center',
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/bulkDownload/BulkDownloadPageContainer').default);
@@ -129,8 +129,8 @@ const routes = {
             }
         },
         {
-            path: '/bulk_download/:type',
-            parent: '/bulk_download',
+            path: '/download_center/:type',
+            parent: '/download_center',
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/bulkDownload/BulkDownloadPageContainer').default);

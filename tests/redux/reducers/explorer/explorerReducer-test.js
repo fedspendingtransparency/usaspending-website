@@ -2,16 +2,19 @@ import { List } from 'immutable';
 import explorerReducer, { initialState, ActiveScreen } from 'redux/reducers/explorer/explorerReducer';
 
 jest.mock('helpers/fiscalYearHelper', () => require('./mockCurrentFiscalYear'));
+jest.mock('containers/explorer/detail/helpers/explorerQuarters', () => require('./mockQuarterHelper'));
 
 describe('explorerReducer', () => {
-    describe('SET_EXPLORER_FY', () => {
-        it('should update the FY to the given value', () => {
+    describe('SET_EXPLORER_PERIOD', () => {
+        it('should update the FY and quarter to the given value', () => {
             const action = {
-                type: 'SET_EXPLORER_FY',
-                fy: '1984'
+                type: 'SET_EXPLORER_PERIOD',
+                fy: '1984',
+                quarter: '3'
             };
             const state = explorerReducer(undefined, action);
             expect(state.fy).toEqual('1984');
+            expect(state.quarter).toEqual('3');
         });
     });
 
@@ -123,6 +126,7 @@ describe('explorerReducer', () => {
                     total: 12345
                 }),
                 fy: '1984',
+                quarter: '1',
                 trail: new List(['a', 'b', 'c']),
                 table: {
                     order: {
@@ -154,7 +158,8 @@ describe('explorerReducer', () => {
                     subdivision: 'federal_account',
                     total: 12345
                 }),
-                fy: '1984',
+                fy: '1985',
+                quarter: '1',
                 trail: new List(['a', 'b', 'c']),
                 table: {
                     order: {
@@ -172,6 +177,7 @@ describe('explorerReducer', () => {
             const newState = explorerReducer(state, action);
 
             expect(newState.fy).toEqual('1984');
+            expect(newState.quarter).toEqual('2');
             expect(newState.root).toEqual('object_class');
             expect(newState.active).toEqual(new ActiveScreen());
             expect(newState.trail.count()).toEqual(0);
