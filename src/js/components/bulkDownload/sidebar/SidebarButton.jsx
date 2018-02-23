@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
+import * as redirectHelper from 'helpers/redirectHelper';
 
 const propTypes = {
     type: PropTypes.string,
@@ -14,8 +15,7 @@ const propTypes = {
     url: PropTypes.string,
     newTab: PropTypes.bool,
     disabled: PropTypes.bool,
-    externalLink: PropTypes.bool,
-    redirect: PropTypes.func
+    externalLink: PropTypes.bool
 };
 
 export default class SidebarButton extends React.Component {
@@ -35,7 +35,7 @@ export default class SidebarButton extends React.Component {
 
     redirect() {
         this.logExternalLink();
-        this.props.redirect(this.props.url);
+        redirectHelper.showRedirectModal(this.props.url);
     }
 
     render() {

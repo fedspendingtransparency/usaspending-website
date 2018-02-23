@@ -3,11 +3,11 @@ import Cookies from 'js-cookie';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
-import NavBarContainer from 'containers/navBar/NavBarContainer';
 import kGlobalConstants from 'GlobalConstants';
 
 import WarningBanner from './WarningBanner';
 import InfoBanner from './InfoBanner';
+import NavBar from './NavBar';
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -88,7 +88,7 @@ export default class Header extends React.Component {
                                 alt="U.S. flag" />
                         </div>
                     </div>
-                    <NavBarContainer />
+                    <NavBar />
                 </header>
                 <GlossaryContainer />
                 <RedirectModalContainer />

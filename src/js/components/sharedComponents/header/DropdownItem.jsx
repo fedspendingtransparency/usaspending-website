@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import * as redirectHelper from 'helpers/redirectHelper';
+
 import DropdownComingSoon from './DropdownComingSoon';
 
 const propTypes = {
@@ -14,8 +16,7 @@ const propTypes = {
     enabled: PropTypes.bool,
     newTab: PropTypes.bool,
     isFirst: PropTypes.bool,
-    externalLink: PropTypes.bool,
-    redirect: PropTypes.func
+    externalLink: PropTypes.bool
 };
 
 export default class DropdownItem extends React.Component {
@@ -26,7 +27,7 @@ export default class DropdownItem extends React.Component {
     }
 
     redirect() {
-        this.props.redirect(this.props.url);
+        redirectHelper.showRedirectModal(this.props.url);
     }
 
     render() {

@@ -10,8 +10,7 @@ import SidebarButton from './SidebarButton';
 
 const propTypes = {
     active: PropTypes.string,
-    dataTypes: PropTypes.array,
-    redirect: PropTypes.func
+    dataTypes: PropTypes.array
 };
 
 export default class BulkDownloadSidebar extends React.Component {
@@ -25,8 +24,7 @@ export default class BulkDownloadSidebar extends React.Component {
                 disabled={!type.enabled}
                 url={type.url}
                 newTab={type.newTab}
-                externalLink={type.externalLink}
-                redirect={this.props.redirect} />
+                externalLink={type.externalLink} />
         ));
 
         return (
