@@ -49,7 +49,7 @@ export default class RedirectModal extends React.Component {
                         </div>
                         <div className="redirect-modal__explanation">
                             You&apos;re going to a website that is not managed or controlled by the Bureau of the Fiscal Service.
-                            <br/> Its privacy policies may differ from ours.
+                            <br /> Its privacy policies may differ from ours.
                         </div>
                         <div className="redirect-modal__directions">
                             Click this link to go to the website you have selected.
