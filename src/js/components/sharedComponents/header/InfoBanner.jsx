@@ -8,7 +8,6 @@ const propTypes = {
 
 export default class InfoBanner extends React.Component {
     render() {
-        // TODO - Lizzie: add FAQ url
         return (
             <div className="info-banner">
                 <div className="info-banner__content">
@@ -18,23 +17,20 @@ export default class InfoBanner extends React.Component {
                         </i>
                     </div>
                     <div className="info-banner__alert-text">
-                        Welcome to the new&nbsp;
-                        <a href="#/">
-                            USAspending.gov
-                        </a>!
+                        Welcome to the new USAspending.gov!
                         We offer agency financial data along with awards data. Questions? Check out our&nbsp;
                         <a
-                            href=""
+                            href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions"
                             target="_blank"
                             rel="noopener noreferrer">
                             FAQ
                         </a>.
-                        Want to suggest a feature? Join the conversation on&nbsp;
+                        Want to suggest a feature? Join the conversation on our&nbsp;
                         <a
                             href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
                             target="_blank"
                             rel="noopener noreferrer">
-                            our community page
+                            community page
                         </a>.
                         Visit the old site at&nbsp;
                         <a
