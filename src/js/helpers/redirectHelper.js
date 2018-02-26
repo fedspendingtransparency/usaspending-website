@@ -10,7 +10,3 @@ import * as redirectModalActions from 'redux/actions/redirectModal/redirectModal
 export const showRedirectModal = (url) => {
     storeSingleton.store.dispatch(redirectModalActions.showModal(url));
 };
-
-export const hideRedirectModal = () => {
-    storeSingleton.store.dispatch(redirectModalActions.hideModal());
-};

@@ -12,8 +12,6 @@ import * as redirectModalActions from 'redux/actions/redirectModal/redirectModal
 
 import RedirectModal from 'components/sharedComponents/RedirectModal';
 
-require('pages/redirect/redirectModal.scss');
-
 const propTypes = {
     redirectModal: PropTypes.object,
     hideModal: PropTypes.func
