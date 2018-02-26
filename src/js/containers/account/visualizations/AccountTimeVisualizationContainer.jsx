@@ -167,8 +167,7 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
                         group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
                         field: balanceFieldsFiltered[balanceType],
                         aggregate: '',
-                        order: ['-submission__reporting_fiscal_quarter'],
-                        limit: 1,
+                        order: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
                         auditTrail: `Spending over Time (years) - obligated filter - ${balanceType}`
                     });
                     request.type = balanceType;
@@ -183,8 +182,7 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
                         group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
                         field: balanceFieldsNonfiltered[balanceType],
                         aggregate: '',
-                        order: ['-submission__reporting_fiscal_quarter'],
-                        limit: 1,
+                        order: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
                         auditTrail: `Spending over Time (years) - obligated filter - ${balanceType}`
                     });
                     request.type = balanceType;
@@ -200,8 +198,7 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
                         group: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
                         field: balanceFields[balanceType],
                         aggregate: '',
-                        order: ['-submission__reporting_fiscal_quarter'],
-                        limit: 1,
+                        order: ['submission__reporting_fiscal_year', 'submission__reporting_fiscal_quarter'],
                         auditTrail: `Spending over Time (years) - non-obligated filter - ${balanceType}`
                     });
 
