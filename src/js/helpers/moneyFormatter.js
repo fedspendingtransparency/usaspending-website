@@ -156,7 +156,7 @@ export const calculateUnitForSingleValue = (value) => {
 export const formatTreemapValues = (value) => {
     // Format the ceiling and current values to be friendly strings
     const units = calculateUnitForSingleValue(value);
-    const useCents = (units.unit === unitValues.THOUSAND || units.unit === 1);
+    const useCents = units.unit <= unitValues.THOUSAND;
 
     // Only reformat at a million or higher
     if (units.unit < unitValues.MILLION) {
