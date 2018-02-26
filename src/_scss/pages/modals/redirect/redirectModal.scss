@@ -17,7 +17,7 @@
     }
     .redirect-modal__body {
         text-align: center;
-        padding: rem(30) rem(45);
+        padding: rem(30) rem(45) rem(45) rem(45);
         .redirect-modal__title {
             .redirect-modal__title-icon {
                 @include display(inline-flex);
@@ -31,12 +31,13 @@
             .redirect-modal__title-text {
                 @include display(inline-flex);
                 font-weight: 600;
-                font-size: rem(24);
+                font-size: rem(34);
             }
         }
         .redirect-modal__explanation {
             padding-top: rem(30);
             padding-bottom: rem(30);
+            font-size: rem(18);
         }
         .redirect-modal__directions {
             font-size: $small-font-size;
@@ -45,6 +46,7 @@
         }
         .redirect-modal__link {
             font-weight: 600;
+            font-size: rem(21);
         }
     }
 }
