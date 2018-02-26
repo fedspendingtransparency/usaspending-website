@@ -1,4 +1,9 @@
 .download-wrap {
+    display: none;
+    @include media($tablet-screen) {
+        display: block;
+    }
+
     position: relative;
     @import "./_downloadTooltip";
 

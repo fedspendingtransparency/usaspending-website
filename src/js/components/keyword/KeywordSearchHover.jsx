@@ -22,8 +22,7 @@ export default class KeywordSearchHover extends React.Component {
                     </div>
                     <div className="message">
                         Keyword Search returns results matching recipient name, recipient DUNS, recipient parent DUNS,
-                        NAICS code, PSC code, and Award ID. If you’re only interested in results matching award
-                        descriptions, tick the box to narrow your search to award description fields only.
+                        NAICS code, PSC code, and Award ID.
                     </div>
                     <button
                         className="close"

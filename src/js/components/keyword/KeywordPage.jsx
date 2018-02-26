@@ -181,9 +181,7 @@ export default class KeywordPage extends React.Component {
                                 keyword={this.props.keyword}
                                 updateKeyword={this.props.updateKeyword} />
                             <div className="keyword-search-bar__info">
-                                Use the Keyword Search to get a broad picture of award data on a given theme.
-                                You can search through only award descriptions, or award descriptions plus other
-                                attributes.
+                                Use the Keyword Search to get a broad picture of award data on a given theme. To learn more about the fields the Keyword search matches to, read our FAQ entry on the topic.
                                 <div className="keyword-search-bar__icon-wrapper">
                                     {hover}
                                     <button
@@ -192,7 +190,7 @@ export default class KeywordPage extends React.Component {
                                         <InfoCircle />
                                     </button>
                                 </div>
-                                For a more targeted search, use our <a href="/#/search">Advanced Search tool</a>,
+                                For a more targeted search, try our <a href="/#/search">Advanced Search tool</a>,
                                 whose extensive filters let you find more precise data sets.
                             </div>
                         </div>
