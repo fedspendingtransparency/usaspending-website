@@ -70,4 +70,11 @@
             text-decoration: none;
         }
     }
+
+    button.mobile-dropdown__link {
+        @include button-unstyled;
+        font-size: rem(24);
+        line-height: rem(28);
+        color: $color-base;
+    }
 }
