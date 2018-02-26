@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 import Pagination from 'components/sharedComponents/Pagination';
 import LegacyTableHeaderCell from 'components/account/awards/LegacyTableHeaderCell';
@@ -42,7 +43,7 @@ export default class ExplorerTable extends React.Component {
         const rows = this.props.results.map((item, index) => (
             <TableRow
                 item={item}
-                key={item.name}
+                key={`${uniqueId(item.name)}`}
                 rowIndex={index}
                 columns={this.props.columns}
                 selectedRow={this.selectedRow} />
