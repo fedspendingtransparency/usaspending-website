@@ -30,20 +30,16 @@ const clickedHeaderLink = (route) => {
 export default class MobileDropdownItem extends React.Component {
     constructor(props) {
         super(props);
-
-        this.redirect = this.redirect.bind(this);
+        
         this.clickedLink = this.clickedLink.bind(this);
-    }
-
-    redirect() {
-        redirectHelper.showRedirectModal(this.props.url);
-        clickedHeaderLink(`${this.props.url.replace('#', '')}`);
-        this.props.hideMobileNav();
     }
 
     clickedLink() {
         clickedHeaderLink(`${this.props.url.replace('#', '')}`);
         this.props.hideMobileNav();
+        if (this.props.externalLink) {
+            redirectHelper.showRedirectModal(this.props.url);
+        }
     }
 
     render() {
@@ -81,7 +77,7 @@ export default class MobileDropdownItem extends React.Component {
                 <li className={`mobile-dropdown__item ${comingSoonClass}`}>
                     <button
                         className={`mobile-dropdown__link ${activeClass}`}
-                        onClick={this.redirect}>
+                        onClick={this.clickedLink}>
                         {this.props.title}
                     </button>
                     {comingSoonDecorator}
