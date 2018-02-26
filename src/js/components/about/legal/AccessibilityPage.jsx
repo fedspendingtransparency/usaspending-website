@@ -11,16 +11,47 @@ const AccessibilityPage = () => (
         activePage="accessibility"
         title="Accessibility">
         <p>
-            Lorem ipsum dolor amet man bun banjo literally dreamcatcher selvage distillery bushwick everyday carry. Whatever chia williamsburg, tacos taxidermy succulents sustainable master cleanse direct trade. Street art +1 hashtag four loko. Cardigan health goth brunch etsy plaid. Pinterest plaid gentrify whatever humblebrag.
+            The U.S. Department of the Treasury is committed to making USASpending.gov accessible
+            to all members of the public and ensuring that it meets or exceeds the
+            requirements of&nbsp;
+            <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://section508.gov/">
+                Section 508 of the Rehabilitation Act
+            </a>.
         </p>
         <p>
-            IPhone ennui umami retro. Chia tbh bushwick cornhole live-edge. Stumptown butcher raw denim brunch semiotics twee authentic prism leggings. Waistcoat stumptown af, fingerstache subway tile seitan keffiyeh letterpress. Activated charcoal you probably haven&apos;t heard of them health goth knausgaard meggings whatever.
+            To help users who are visually impaired users more easily distinguish content,
+            we regularly test contrast and color schemes using a tool called&nbsp;
+            <a
+                target="_blank"
+                rel="noopener noreferrer"
+                href="https://webaim.org/resources/contrastchecker/">
+                Web Accessibility in Mind
+            </a>. To ensure the site is accessible, we evaluate the site regularly using screen
+            readers to check the accuracy and quality of the content and navigation. We use a
+            variety of other techniques to ensure that all users can easily access the site;
+            some of these include providing methods for skipping repetitive navigation and
+            alternate text.
         </p>
         <p>
-            Iceland roof party activated charcoal, DIY fanny pack single-origin coffee brooklyn blog raw denim. Tofu taxidermy single-origin coffee whatever organic, forage ethical kickstarter celiac poke slow-carb fingerstache banjo la croix migas. Flexitarian vaporware master cleanse farm-to-table, prism subway tile pinterest truffaut. Tilde try-hard before they sold out banjo, migas ramps distillery four loko put a bird on it af artisan. Quinoa pickled ramps woke, man bun chartreuse neutra banh mi cliche hella man braid. Bushwick meh migas iPhone chillwave, tumblr pour-over distillery.
+            In addition, we&#39;ve incorporated the following throughout the site:
         </p>
+        <ul>
+            <li>Text equivalents provided for non-text elements</li>
+            <li>Colored information made available without color</li>
+            <li>Documents can be read without a style sheet</li>
+            <li>Text-only versions of data appear to comply with Section 508 standards,
+                with the exception of maps
+            </li>
+            <li>Forms are formatted to work with assistive technology to access the information,
+                field elements, and functionality required to complete and submit forms
+            </li>
+        </ul>
         <p>
-            Kombucha microdosing retro hoodie synth narwhal af snackwave fixie cliche hexagon waistcoat scenester fashion axe hella. Hammock cronut cray, master cleanse meh celiac activated charcoal lomo schlitz coloring book listicle gochujang. Post-ironic banh mi hexagon, meggings four loko forage vegan asymmetrical neutra tumeric. Portland health goth lo-fi, godard mumblecore skateboard XOXO fam chambray echo park farm-to-table.
+            <a href="mailto:usaspending.help-submitonly@fiscal.treasury.gov?subject=Contact%20Us">Contact us</a>
+            &nbsp;if you have any difficulty accessing information on USASpending.gov.
         </p>
     </LegalPage>
 );
