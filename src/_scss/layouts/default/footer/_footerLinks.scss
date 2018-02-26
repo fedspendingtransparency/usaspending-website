@@ -1,10 +1,7 @@
 .footer-links {
-    @include span-columns(16);
+    @include flex(0 1 auto);
 
-    @include media($tablet-screen) {
-        @include span-columns(8);
-        @include shift(3);
-
+    @include media($footer-horizontal) {
         @include display(flex);
         @include flex-direction(row);
         @include align-items(flex-start);
@@ -21,10 +18,9 @@
 
         text-align: center;
 
-        @include media($tablet-screen) {
+        @include media($footer-horizontal) {
             @include flex(1 1 auto);
-            width: 25%;
-            padding-left: rem(20);
+            padding-left: rem(45);
             margin-bottom: 0;
             &:first-child {
                 margin-top: 0;

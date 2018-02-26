@@ -65,6 +65,9 @@ export default class Sidebar extends React.Component {
                 // programmatically force it to the correct width
                 this.div.style.width = `${width}px`;
             }
+            else {
+                this.div.style.width = 'auto';
+            }
         });
     }
 
@@ -96,15 +99,30 @@ export default class Sidebar extends React.Component {
     }
 
     render() {
-        const items = this.props.sections.map((section) => (
-            <li key={section.section}>
+        const items = this.props.sections.map((section) => {
+            let link = (
                 <SidebarLink
                     section={section.section}
                     label={section.label}
                     active={this.props.active}
                     onClick={this.props.jumpToSection} />
-            </li>
-        ));
+            );
+            if (section.url) {
+                const active = this.props.active === section.section ? 'active' : '';
+                link = (
+                    <a
+                        className={`sidebar-link ${active}`}
+                        href={section.url}>
+                        {section.label}
+                    </a>
+                );
+            }
+            return (
+                <li key={section.section}>
+                    {link}
+                </li>
+            );
+        });
 
         let floatSidebar = '';
         if (this.state.shouldFloat) {

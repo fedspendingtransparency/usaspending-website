@@ -23,7 +23,7 @@
         @include unstyled-list;
 
         li {
-            margin-bottom: rem(24);
+            margin-bottom: rem(15);
 
             &:last-child {
                 margin-bottom: rem(0);
@@ -33,7 +33,7 @@
         a.sidebar-link {
             color: $color-base;
             font-size: rem(19);
-            line-height: rem(20);
+            line-height: rem(35);
             padding-bottom: rem(5);
 
             text-decoration: none;

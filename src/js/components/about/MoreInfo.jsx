@@ -9,9 +9,9 @@ const MoreInfo = () => (
     <div
         className="about-section-wrapper"
         id="about-more-info">
-        <div className="about-section-title">
-            <h2>More Information</h2>
-        </div>
+        <h2 className="about-section-title">
+            More Information
+        </h2>
         <div className="about-section-content">
             <p>
                 For more information about the data, see the&nbsp;
