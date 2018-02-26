@@ -2,6 +2,7 @@ import React from 'react';
 import Cookies from 'js-cookie';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
+import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
 import kGlobalConstants from 'GlobalConstants';
 
 import WarningBanner from './WarningBanner';
@@ -90,6 +91,7 @@ export default class Header extends React.Component {
                     <NavBar />
                 </header>
                 <GlossaryContainer />
+                <RedirectModalContainer />
             </div>
         );
     }

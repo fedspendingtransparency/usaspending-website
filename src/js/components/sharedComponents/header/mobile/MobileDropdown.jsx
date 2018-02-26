@@ -62,6 +62,7 @@ export default class MobileDropdown extends React.Component {
                 title={item.label}
                 url={item.url}
                 active={item.url === this.props.active}
+                externalLink={item.externalLink}
                 hideMobileNav={this.props.hideMobileNav} />
         ));
 

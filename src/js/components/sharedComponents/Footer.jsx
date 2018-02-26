@@ -58,7 +58,7 @@ export default class Footer extends React.Component {
                                         <a
                                             href="#/about"
                                             onClick={clickedFooterLink.bind(null, '/about')}>
-                                            About
+                                            About USAspending
                                         </a>
                                     </li>
                                 </ul>
@@ -126,14 +126,40 @@ export default class Footer extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="copyright-block">
-                        <div className="copyright-content">
-                            <div className="copyright-notice">
-                                <small>&copy; {year} USAspending.gov</small>
+                    <div className="copyright">
+                        <div className="copyright__left">
+                            <div className="copyright__notice">
+                                &copy; {year} USAspending.gov
                             </div>
-                            <div className="important-db">
-                                <strong>NOTE:</strong> You must <a href="#/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>click here</a> for very important D&amp;B information.
-                            </div>
+                            <ul className="copyright__legal">
+                                <li className="copyright__legal-item">
+                                    <a
+                                        className="copyright__link"
+                                        href="#/about/accessibility"
+                                        onClick={clickedFooterLink.bind(null, '/about/accessibility')}>
+                                        Accessibility
+                                    </a>
+                                </li>
+                                <li className="copyright__legal-item">
+                                    <a
+                                        className="copyright__link"
+                                        href="#/about/privacy"
+                                        onClick={clickedFooterLink.bind(null, '/about/privacy')}>
+                                        Privacy Policy
+                                    </a>
+                                </li>
+                                <li className="copyright__legal-item">
+                                    <a
+                                        className="copyright__link"
+                                        href="#/about/foia"
+                                        onClick={clickedFooterLink.bind(null, '/about/foia')}>
+                                        Freedom of Information Act
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div className="copyright__db">
+                            <strong>NOTE:</strong> You must <a href="#/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>click here</a> for very important D&amp;B information.
                         </div>
                     </div>
                 </footer>

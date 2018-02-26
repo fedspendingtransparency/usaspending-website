@@ -8,7 +8,7 @@ import { createStore, applyMiddleware } from 'redux';
 import perflogger from 'redux-perf-middleware';
 import kGlobalConstants from 'GlobalConstants';
 
-import StoreSingleton from 'redux/storeSingleton';
+import storeSingleton from 'redux/storeSingleton';
 import reducers from 'redux/reducers/index';
 
 import RouterContainer from './router/RouterContainer';
@@ -30,7 +30,6 @@ else {
 }
 
 // hold a reference to the store from the store singleton
-const storeSingleton = new StoreSingleton();
 storeSingleton.setStore(store);
 
 export default class AppContainer extends React.Component {
