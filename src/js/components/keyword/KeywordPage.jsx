@@ -10,7 +10,6 @@ import Analytics from 'helpers/analytics/Analytics';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 import ResultsTableContainer from 'containers/keyword/table/ResultsTableContainer';
 import BulkDownloadModalContainer from
@@ -23,7 +22,6 @@ import StickyHeader from '../sharedComponents/stickyHeader/StickyHeader';
 import Footer from '../sharedComponents/Footer';
 
 import KeywordSearchBar from './KeywordSearchBar';
-import KeywordSearchHover from './KeywordSearchHover';
 
 const propTypes = {
     updateKeyword: PropTypes.func,
@@ -41,12 +39,9 @@ export default class KeywordPage extends React.Component {
         super(props);
 
         this.state = {
-            showHover: false,
             showModal: false
         };
 
-        this.showTooltip = this.showTooltip.bind(this);
-        this.closeTooltip = this.closeTooltip.bind(this);
         this.hideModal = this.hideModal.bind(this);
         this.showModal = this.showModal.bind(this);
         this.clickedDownload = this.clickedDownload.bind(this);
@@ -78,18 +73,6 @@ export default class KeywordPage extends React.Component {
         Analytics.event({
             category: 'Keyword Search - Download',
             action: this.props.keyword
-        });
-    }
-
-    showTooltip() {
-        this.setState({
-            showHover: true
-        });
-    }
-
-    closeTooltip() {
-        this.setState({
-            showHover: false
         });
     }
 
@@ -144,12 +127,6 @@ export default class KeywordPage extends React.Component {
     }
 
     render() {
-        let hover = null;
-        if (this.state.showHover) {
-            hover = (<KeywordSearchHover
-                closeTooltip={this.closeTooltip} />);
-        }
-
         let searchSummary = null;
         if (this.props.summary || this.props.summaryInFlight) {
             searchSummary = this.generateSummary();
@@ -181,16 +158,7 @@ export default class KeywordPage extends React.Component {
                                 keyword={this.props.keyword}
                                 updateKeyword={this.props.updateKeyword} />
                             <div className="keyword-search-bar__info">
-                                Use the Keyword Search to get a broad picture of award data on a given theme. To learn more about the fields the Keyword search matches to, read our FAQ entry on the topic.
-                                <div className="keyword-search-bar__icon-wrapper">
-                                    {hover}
-                                    <button
-                                        onClick={this.showTooltip}
-                                        className="keyword-search-bar__icon">
-                                        <InfoCircle />
-                                    </button>
-                                </div>
-                                For a more targeted search, try our <a href="/#/search">Advanced Search tool</a>,
+                                Use the Keyword Search to get a broad picture of award data on a given theme. To learn more about the fields the Keyword search matches to, read our <a href="https://usaspending-help.zendesk.com/hc/en-us/articles/360001255774-Keyword-Search-Question-How-does-the-Keyword-Search-work-" target="_blank" rel="noopener noreferrer">FAQ entry</a> on the topic. For a more targeted search, try our <a href="/#/search">Advanced Search tool</a>,
                                 whose extensive filters let you find more precise data sets.
                             </div>
                         </div>
