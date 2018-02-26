@@ -11,12 +11,12 @@ export default class Background extends React.Component {
             <div
                 className="about-section-wrapper"
                 id="about-background">
-                <div className="about-section-title">
-                    <h2>Background</h2>
-                </div>
-                <div className="about-subtitle">
-                    <h3>A continuing effort.</h3>
-                </div>
+                <h2 className="about-section-title">
+                    Background
+                </h2>
+                <h3 className="about-subtitle">
+                    A continuing effort.
+                </h3>
                 <div className="about-section-content">
                     <p>
                         The Federal Funding Accountability and Transparency Act of 2006 (FFATA)

@@ -75,32 +75,34 @@ export default class AccountOverview extends React.Component {
     generateSummary(account) {
         // determine the current fiscal year and get the associated values
         const fy = FiscalYearHelper.defaultFiscalYear();
-        let fiscalYearAvailable = true;
-        let authorityValue = 0;
-        let obligatedValue = 0;
-        let balanceBroughtForwardValue = 0;
-        let otherValue = 0;
-        let appropriationsValue = 0;
+        const fiscalYearAvailable = account.totals.available;
+        const summary = {
+            flow: `No data is available for the current fiscal year (FY ${fy}).`,
+            toDate: ''
+        };
+        let amounts = {};
 
-        if (account.totals.budgetAuthority) {
-            authorityValue = account.totals.budgetAuthority;
-        }
-        else {
-            fiscalYearAvailable = false;
+        if (!fiscalYearAvailable) {
+            amounts = {
+                budgetAuthority: 0,
+                out: {
+                    obligated: 0,
+                    unobligated: 0
+                }
+            };
+            this.setState({
+                summary,
+                amounts,
+                fyAvailable: fiscalYearAvailable
+            });
+            return;
         }
 
-        if (account.totals.obligated) {
-            obligatedValue = account.totals.obligated;
-        }
-        else {
-            fiscalYearAvailable = false;
-        }
-
-        if (fiscalYearAvailable) {
-            balanceBroughtForwardValue = (account.totals.balanceBroughtForward);
-            otherValue = parseFloat(account.totals.otherBudgetaryResources);
-            appropriationsValue = parseFloat(account.totals.appropriations);
-        }
+        const authorityValue = account.totals.budgetAuthority || 0;
+        const obligatedValue = account.totals.obligated || 0;
+        const balanceBroughtForwardValue = account.totals.balanceBroughtForward || 0;
+        const otherValue = account.totals.otherBudgetaryResources || 0;
+        const appropriationsValue = account.totals.appropriations || 0;
 
         const authUnits = MoneyFormatter.calculateUnitForSingleValue(authorityValue);
         const authority = `${MoneyFormatter.formatMoney(authorityValue / authUnits.unit)}\
@@ -127,16 +129,14 @@ ${appropUnits.unitLabel}`;
         const otherString = `${MoneyFormatter.formatMoney(otherValue / otherUnits.unit)}\
 ${otherUnits.unitLabel}`;
 
-        const summary = {
-            flow: `For this current fiscal year, this agency has been granted authority to spend \
+        summary.flow = `For this current fiscal year, this agency has been granted authority to spend \
 ${authority} out of this federal account. They carried over a balance of ${bbfString} from last \
 year, were given ${appropString} in new appropriations, and have authority to use ${otherString} \
-of other budgetary resources.`,
-            toDate: `To date, ${percentObligated}% (${amountObligated}) of the total \
-${authority} has been obligated.`
-        };
+of other budgetary resources.`;
+        summary.toDate = `To date, ${percentObligated}% (${amountObligated}) of the total \
+${authority} has been obligated.`;
 
-        let amounts = {
+        amounts = {
             budgetAuthority: authorityValue,
             out: {
                 obligated: obligatedValue,
@@ -148,19 +148,6 @@ ${authority} has been obligated.`
                 appropriations: appropriationsValue
             }
         };
-
-        if (!fiscalYearAvailable) {
-            summary.flow = `No data is available for the current fiscal year (FY ${fy}).`;
-            summary.toDate = '';
-
-            amounts = {
-                budgetAuthority: 0,
-                out: {
-                    obligated: 0,
-                    unobligated: 0
-                }
-            };
-        }
 
         this.setState({
             summary,

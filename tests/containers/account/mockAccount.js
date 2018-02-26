@@ -17,6 +17,7 @@ export const mockReduxAccount = {
     main_account_code: '0208',
     description: 'Not available',
     totals: {
+        available: true,
         appropriations: 0,
         balanceBroughtForward: 49394224538.76,
         budgetAuthority: 84734289679.5,

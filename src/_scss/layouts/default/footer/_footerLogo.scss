@@ -1,27 +1,17 @@
 .footer-logo {
-    @include span-columns(16);
+    @include flex(1 1 auto);
     text-align: center;
-    @include media($tablet-screen) {
-        @include span-columns(5);
-        @include shift(0);
+    @include media($footer-horizontal) {
         text-align: left;
-    }
-    @include media($x-large-screen) {
-        @include span-columns(5);
-        @include shift(0);
     }
 
     img {
         height: rem(30);
         margin-bottom: rem(10);
-        @include media($tablet-screen) {
+        @include media($footer-horizontal) {
             height: auto;
-            max-width: rem(250);
+            width: rem(300);
             margin-bottom: 0;
-        }
-
-        @include media($medium-screen) {
-            max-width: rem(300);
         }
     }
 }

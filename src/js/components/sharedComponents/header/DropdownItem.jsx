@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Analytics from 'helpers/analytics/Analytics';
+import * as redirectHelper from 'helpers/redirectHelper';
 
 import DropdownComingSoon from './DropdownComingSoon';
 
@@ -15,7 +16,8 @@ const propTypes = {
     label: PropTypes.string,
     enabled: PropTypes.bool,
     newTab: PropTypes.bool,
-    isFirst: PropTypes.bool
+    isFirst: PropTypes.bool,
+    externalLink: PropTypes.bool
 };
 
 const clickedHeaderLink = (route) => {
@@ -25,44 +27,71 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-const DropdownItem = (props) => {
-    let className = 'nav-children__link_disabled';
-    let comingSoon = (
-        <div className="nav-children__coming-soon">
-            <DropdownComingSoon />
-        </div>
-    );
-    if (props.enabled) {
-        className = '';
-        comingSoon = null;
+export default class DropdownItem extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.redirect = this.redirect.bind(this);
     }
 
-    const newTabProps = {};
-    if (props.newTab) {
-        newTabProps.target = '_blank';
-        newTabProps.rel = 'noopener noreferrer';
+    redirect() {
+        redirectHelper.showRedirectModal(this.props.url);
+        clickedHeaderLink(`${this.props.url.replace('#', '')}`);
     }
 
-    let firstClass = '';
-    if (props.isFirst) {
-        firstClass = 'nav-children__list-separator_hidden';
-    }
+    render() {
+        let className = 'nav-children__link_disabled';
+        let comingSoon = (
+            <div className="nav-children__coming-soon">
+                <DropdownComingSoon />
+            </div>
+        );
 
-    return (
-        <li className="nav-children__list-item">
-            <hr className={`nav-children__list-separator ${firstClass}`} />
+        if (this.props.enabled) {
+            className = '';
+            comingSoon = null;
+        }
+
+        const newTabProps = {};
+        if (this.props.newTab) {
+            newTabProps.target = '_blank';
+            newTabProps.rel = 'noopener noreferrer';
+        }
+
+        let link = (
             <a
                 className={`nav-children__link ${className}`}
-                href={props.url}
-                onClick={clickedHeaderLink.bind(null, `${props.url.replace('#', '')}`)}
+                href={this.props.url}
+                onClick={clickedHeaderLink.bind(null, `${this.props.url.replace('#', '')}`)}
                 {...newTabProps}>
-                {props.label}
+                {this.props.label}
                 {comingSoon}
             </a>
-        </li>
-    );
-};
+        );
+
+        if (this.props.enabled && this.props.externalLink) {
+            // Trigger the redirect modal
+            link = (
+                <button
+                    onClick={this.redirect}
+                    className="nav-children__link">
+                    {this.props.label}
+                </button>
+            );
+        }
+
+        let firstClass = '';
+        if (this.props.isFirst) {
+            firstClass = 'nav-children__list-separator_hidden';
+        }
+
+        return (
+            <li className="nav-children__list-item">
+                <hr className={`nav-children__list-separator ${firstClass}`} />
+                {link}
+            </li>
+        );
+    }
+}
 
 DropdownItem.propTypes = propTypes;
-
-export default DropdownItem;
