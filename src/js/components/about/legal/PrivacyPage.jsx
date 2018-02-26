@@ -20,14 +20,15 @@ const PrivacyPage = () => (
         </h3>
         <p>
             The site collects personal information (e.g., names, email addresses, telephone numbers)
-            only from those individuals who share this information with us. You are not required to
-            provide personal information to visit USASpending.gov. If you choose to provide us with
-            this information through an email, form, or survey, we maintain the information only as
-            long as necessary to respond to your question or to fulfill the stated purpose of the
-            communication. It is our general policy not to make personal information available to
-            anyone other than our employees, staff, and agents. We want to make it clear that we
-            will not obtain personal information (e.g., names, email addresses, telephone numbers)
-            about you when you visit our site unless you choose to provide such information to us.
+            only from those individuals who share this information with us.
+            You are <strong>not</strong> required to provide personal information to visit
+            USASpending.gov. If you choose to provide us with this information through an email,
+            form, or survey, we maintain the information only as long as necessary to respond to
+            your question or to fulfill the stated purpose of the communication. It is our general
+            policy not to make personal information available to anyone other than our employees,
+            staff, and agents. We want to make it clear that we will not obtain personal information
+            (e.g., names, email addresses, telephone numbers) about you when you visit our site
+            unless you choose to provide such information to us.
         </p>
         <h3 className="about-subtitle">
             Information collected and stored automatically
