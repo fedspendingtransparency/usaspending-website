@@ -2,14 +2,18 @@
     @import "../../../mixins/moreOptionsBtn";
     @include display(flex);
     @include justify-content(space-between);
-    padding-top: $global-pad-mrg;
-    margin-top: $global-pad-mrg;
-    border-top: 1px solid rgba($color-white, .1);
+
+    @include flex(1 1 auto);
+
     ul.summary-status-items {
         @include unstyled-list;
+        padding: rem(5) 0;
+
         li {
-            display: inline-block;
+            @include display(flex);
+            @include justify-content(flex-start);
             width: 100%;
+
             .format-item {
                 .item-label {
                     color: #CEF233;
@@ -29,12 +33,15 @@
         }
     }
     @include media($tablet-screen) {
-        width: 40%;
         padding-top: 0;
         margin-top: 0;
         border-top: none;
+
         ul.summary-status-items {
             li {
+                @include justify-content(flex-end);
+                padding: rem(16) 0;
+
                 .format-item {
                     width: 100%;
                     .item-label {
