@@ -53,6 +53,7 @@ export default class DropdownItem extends React.Component {
         );
 
         if (this.props.enabled && this.props.newTab && !this.props.externalLink) {
+            // Open in a new tab, don't trigger the redirect modal
             link = (
                 <a
                     className="nav-children__link"
@@ -64,6 +65,7 @@ export default class DropdownItem extends React.Component {
             );
         }
         else if (this.props.enabled && this.props.externalLink) {
+            // Trigger the redirect modal
             link = (
                 <button
                     onClick={this.redirect}

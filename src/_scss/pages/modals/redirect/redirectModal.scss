@@ -19,8 +19,8 @@
         text-align: center;
         padding: rem(30) rem(45);
         .redirect-modal__title {
-            @include display(inline-flex);
             .redirect-modal__title-icon {
+                @include display(inline-flex);
                 padding-right: rem(10);
                 svg {
                     width: rem(25);
@@ -29,6 +29,7 @@
                 }
             }
             .redirect-modal__title-text {
+                @include display(inline-flex);
                 font-weight: 600;
                 font-size: rem(24);
             }
