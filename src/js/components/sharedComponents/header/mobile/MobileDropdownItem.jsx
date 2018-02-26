@@ -30,7 +30,7 @@ const clickedHeaderLink = (route) => {
 export default class MobileDropdownItem extends React.Component {
     constructor(props) {
         super(props);
-        
+
         this.clickedLink = this.clickedLink.bind(this);
     }
 
