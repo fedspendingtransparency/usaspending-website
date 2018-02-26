@@ -9,7 +9,6 @@ import NavBarGlossaryLink from './NavBarGlossaryLink';
 import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
 
-
 export default class NavBar extends React.Component {
     constructor(props) {
         super(props);
@@ -155,4 +154,3 @@ export default class NavBar extends React.Component {
         );
     }
 }
-

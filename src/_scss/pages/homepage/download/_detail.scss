@@ -39,7 +39,7 @@
             font-weight: $font-light;
         }
 
-        a.download-detail__link {
+        a.download-detail__link, button.download-detail__link {
             @include flex(0 1 auto);
             display: block;
             border: 1px solid $color-white;

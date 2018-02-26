@@ -23,7 +23,8 @@ export default class BulkDownloadSidebar extends React.Component {
                 active={this.props.active}
                 disabled={!type.enabled}
                 url={type.url}
-                newTab={type.newTab} />
+                newTab={type.newTab}
+                externalLink={type.externalLink} />
         ));
 
         return (
