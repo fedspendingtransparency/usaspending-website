@@ -30,12 +30,14 @@ export default class AccountLandingContent extends React.Component {
         return (
             <div className="landing-page">
                 <div className="landing-page__overview">
-                    <h3>Find a Federal Account Profile.</h3>
-                    <h6>Explore spending in greater detail in our federal account profiles.</h6>
+                    <h2 className="landing-page__title">
+                        Find a Federal Account Profile.
+                    </h2>
+                    <h3 className="landing-page__subtitle">
+                        Explore spending in greater detail in our federal account profiles.
+                    </h3>
                     <p>
-                        There are over 2,000 unique federal accounts used to track the spending of
-                        federal agencies. These help to understand how agencies receive and spend
-                        funding granted by congress to carry out their programs, projects, or activities.
+                        The government has more than 2,000 unique federal accounts, which are similar to bank accounts. Use our Federal Account Profiles to get a better understanding of how agencies receive and spend congressional funding to carry out their programs, projects, and activities.
                     </p>
                 </div>
                 <AccountLandingSearchBar

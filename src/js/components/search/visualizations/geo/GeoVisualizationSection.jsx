@@ -154,7 +154,7 @@ export default class GeoVisualizationSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            Explore the map to see a breakdown of spending by state, county, and congressional district. Filter your results more (at left) and watch this graph update automatically. View your results by place of performance or recipient location.
+                            Explore the map to see a breakdown of spending by state, county, or congressional district. View your results by place of performance or recipient location, and hover over your chosen location for more detailed information.
                         </div>
                     </div>
 
