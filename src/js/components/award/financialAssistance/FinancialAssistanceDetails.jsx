@@ -34,6 +34,7 @@ export default class FinancialAssistanceDetails extends React.Component {
 
         this.state = {
             description: "",
+            descriptionOverflow: false,
             date: "",
             place: "",
             typeDesc: "",
@@ -151,8 +152,12 @@ export default class FinancialAssistanceDetails extends React.Component {
             popDate = `${formattedStartDate} - ${formattedEndDate} ${timeRange}`;
         }
 
+        let descriptionOverflow = false;
         if (award.description) {
             description = award.description;
+            if (description.length > SummaryPageHelper.maxDescriptionCharacters) {
+                descriptionOverflow = true;
+            }
         }
         else {
             description = "Not Available";
@@ -191,6 +196,7 @@ export default class FinancialAssistanceDetails extends React.Component {
 
         this.setState({
             description,
+            descriptionOverflow,
             programName,
             cfdaOverflow,
             date: popDate,
@@ -215,7 +221,9 @@ export default class FinancialAssistanceDetails extends React.Component {
                         <tbody>
                             <DetailRow
                                 title="Description"
-                                value={this.state.description} />
+                                value={this.state.description}
+                                overflow={this.state.descriptionOverflow}
+                                maxChars={SummaryPageHelper.maxDescriptionCharacters} />
                             <DetailRow
                                 title="Period of Performance"
                                 value={this.state.date} />
