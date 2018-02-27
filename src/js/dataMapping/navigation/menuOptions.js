@@ -65,7 +65,7 @@ export const downloadOptions = [
         url: '#/download_center/custom_account_data',
         code: 'account',
         description: 'The best way to grab detailed subsets of account data, which offer a broad view of how the government allocates funding from top to bottom.',
-        callToAction: 'Coming Soon',
+        callToAction: 'Download Account Data',
         newTab: false,
         enabled: false,
         externalLink: false

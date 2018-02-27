@@ -13,7 +13,6 @@ const propTypes = {
     callToAction: PropTypes.string.isRequired,
     url: PropTypes.string.isRequired,
     newTab: PropTypes.bool,
-    enabled: PropTypes.bool,
     externalLink: PropTypes.bool
 };
 
@@ -34,7 +33,6 @@ export default class DownloadDetail extends React.Component {
             linkProps.target = '_blank';
             linkProps.rel = 'noopener noreferrer';
         }
-
         let link = (
             <a
                 className="download-detail__link"
@@ -43,20 +41,11 @@ export default class DownloadDetail extends React.Component {
                 {this.props.callToAction}
             </a>
         );
-
         if (this.props.externalLink) {
             link = (
                 <button
                     className="download-detail__link"
                     onClick={this.redirect}>
-                    {this.props.callToAction}
-                </button>
-            );
-        }
-        else if (!this.props.enabled) {
-            link = (
-                <button
-                    className="download-detail__link download-detail__link_disabled">
                     {this.props.callToAction}
                 </button>
             );
