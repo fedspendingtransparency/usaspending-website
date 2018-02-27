@@ -1,10 +1,10 @@
 .explorer-landing {
-	background: url(#{$image-path}/explorer-background.jpg) no-repeat top center;
-	background-size: cover;
+    background: url(#{$image-path}/explorer-background.jpg) no-repeat top center;
+    background-size: cover;
 
-    .collapsible-disclaimer {
+    .explorer-landing__intro {
+        padding: rem(65) 0 rem(50);
         text-align: center;
-        padding: rem(60) rem(30);
 
         @include media($large-screen) {
             width: rem(1110);
@@ -13,53 +13,62 @@
             padding-left: 0;
             padding-right: 0;
         }
+
         @include media($x-large-screen) {
-            width: rem(1260);
+            width: rem(1280);
         }
 
-        .collapsible-disclaimer__heading {
-            @include h2;
+        h2.explorer-landing__title {
             margin: 0;
-            font-weight: 600;
-            padding-bottom: rem(30);
+            font-weight: $font-semibold;
+            font-size: rem(55);
+            line-height: rem(69);
+            padding-bottom: rem(41);
         }
 
-        .collapsible-disclaimer__section {
-            background-color: $color-white;
-            border: solid rem(2) $color-primary;
-            padding: 0 rem(15);
+        .explorer-landing__detail {
+            background-color: rgba(245,245,245,0.7);
+            padding: rem(26);
 
-            .collapsible-disclaimer__content {
-                padding-bottom: rem(15);
-                @include media($medium-screen) {
-                    width: 75%;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-
-                .collapsible-disclaimer__subheading {
-                    @include h4;
-                    font-weight: 500;
-                }
-
-                .collapsible-disclaimer__button {
-                    width: auto;
-                }
-            }
-
-            .collapsible-disclaimer__button {
-                @include button-unstyled;
-                color: $color-primary;
-                padding: rem(10) rem(20);
-                font-size: $base-font-size;
-                font-weight: 600;
-                width: 100%;
-                text-align: center;
+            .explorer-landing__detail-content {
+                margin: 0 auto;
             }
         }
     }
 
-    .landing-options {
+    .explorer-description {
+        max-width: rem(945);
+
+        h3.explorer-description__title {
+            margin: 0;
+            font-size: rem(34);
+            line-height: rem(44);
+            font-weight: $font-normal;
+        }
+
+        button.explorer-description__expand {
+            @include button-unstyled;
+            color: $color-primary;
+            font-weight: $font-semibold;
+            font-size: rem(21);
+            line-height: rem(27);
+
+            margin-top: rem(25);
+        }
+
+        .explorer-description__content {
+            &.explorer-description__content_hidden {
+                display: none;
+            }
+
+            p {
+                font-size: rem(20);
+                line-height: rem(31);
+            }
+        }
+    }
+
+    .explorer-landing__options {
         @include display(flex);
         @include flex-direction(column);
         @include justify-content(center);

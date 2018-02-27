@@ -15,70 +15,59 @@ export default class ExplorerLanding extends React.Component {
         super(props);
 
         this.state = {
-            showDisclaimer: false
+            expanded: false
         };
 
-        this.toggleDisclaimer = this.toggleDisclaimer.bind(this);
+        this.toggleDetail = this.toggleDetail.bind(this);
     }
 
-    toggleDisclaimer() {
+    toggleDetail() {
         this.setState({
-            showDisclaimer: !this.state.showDisclaimer
+            expanded: !this.state.expanded
         });
     }
 
     render() {
-        let disclaimerContent = (
-            <button
-                className="collapsible-disclaimer__button"
-                onClick={this.toggleDisclaimer}>
-                Learn More
-            </button>
-        );
-        if (this.state.showDisclaimer) {
-            disclaimerContent = (
-                <div className="collapsible-disclaimer__content">
-                    <h2 className="collapsible-disclaimer__subheading">
-                        The Spending Explorer makes it easy to understand the big picture of federal spending.
-                    </h2>
-                    <div className="collapsible-disclaimer__info">
-                        <p>
-                            Drawing on agencies&apos; financial spending data, it provides interactive visualizations that
-                            let you explore the data through three different entry points. Use this tool to get a better
-                            sense of how federal award data is channeled into different federal accounts and then spent by
-                            agencies on activities that fulfill their missions &mdash; in short, how federal awards power
-                            the work that agencies are known for.
-                        </p>
-                        <p>
-                            The Spending Explorer uses data reported by agencies per the <a>DATA Act</a> (2014).
-                            All amounts displayed are obligated amounts, and the data itself may not be complete, due
-                            to differences in agency reporting. Department of Defense data from the last reported
-                            fiscal quarter isn&apos;t included &mdash; learn why in our&nbsp;
-                            <a href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions">
-                                FAQ
-                            </a>.
-                        </p>
-                    </div>
-                    <button
-                        className="collapsible-disclaimer__button"
-                        onClick={this.toggleDisclaimer}>
-                        Hide
-                    </button>
-                </div>
-            );
-        }
+        const expandLabel = this.state.expanded ? 'Hide' : 'Learn More';
+        const contentHidden = this.state.expanded ? '' : 'explorer-description__content_hidden';
+
         return (
             <ExplorerWrapperPage>
                 <div className="explorer-landing">
-                    <div className="collapsible-disclaimer">
-                        <h1 className="collapsible-disclaimer__heading">
+                    <div className="explorer-landing__intro">
+                        <h2
+                            className="explorer-landing__title">
                             Explore the spending landscape.
-                        </h1>
-                        <div className="collapsible-disclaimer__section">
-                            {disclaimerContent}
+                        </h2>
+                        <div className="explorer-landing__detail">
+                            <div className="explorer-landing__detail-content explorer-description">
+                                <h3
+                                    className="explorer-description__title">
+                                    The Spending Explorer makes it easy to understand the big picture of federal spending.
+                                </h3>
+                                <div className={`explorer-description__content ${contentHidden}`}>
+                                    <p>
+                                        Drawing on agencies&apos; financial spending data known as <a href="#/explorer/?glossary=obligation">Obligations</a>, this tool provides an interactive way to explore federal spending from top to bottom. Use this tool to get a better sense of how Congress distributes funding to agencies and how agencies spend that funding on activities that fulfill their missions &mdash; in short, how this funding powers the work that agencies are known for.
+                                    </p>
+                                    <p>
+                                        Use three different entry points &mdash; <a href="#/explorer/?glossary=budget-function">Budget Function</a>, <a href="#/explorer/?glossary=agency">Agency</a>, and <a href="#/explorer/?glossary=object-class">Object Class</a> &mdash; to see how federal spending breaks down along different themes. Explore by Budget Function if you&apos;re most interested in the broad categories of federal spending; by Agency if you&apos;re focused on specific agencies&apos; work; and by Object Class if you&apos;d like to frame spending in terms of the goods and services the government buys.
+                                    </p>
+                                    <p>
+                                        The data powering the Spending Explorer is reported through a newly implemented law (the DATA Act) that requires agencies to provide their financial spending data, in addition to the award data they were already reporting. This data was first collected in Q2 of 2017. The data displayed on the site may not be comprehensive, due to agencies&apos; different reporting schedules and the fact that some data elements aren&apos;t required to be reported (yet); that said, we publish all the data agencies submit to provide as comprehensive a view as possible, and we expect available data to become more complete in the future. The Department of Defense (DoD) doesn&apos;t report their financial data using the same schedule as other major agencies; the DATA Act gives them an exemption that allows them to report later.
+                                    </p>
+                                    <p>
+                                        Now, for the first time ever, agency financial data is connected to award data in a way that&apos;s easy (and fun) to explore. If you have suggestions on how we can improve the Spending Explorer, share your thoughts on the <a href="https://usaspending-help.zendesk.com/hc/en-us/community/topics" target="_blank" rel="noopener noreferrer">Community page</a>.
+                                    </p>
+                                </div>
+                                <button
+                                    className="explorer-description__expand"
+                                    onClick={this.toggleDetail}>
+                                    {expandLabel}
+                                </button>
+                            </div>
                         </div>
                     </div>
-                    <div className="landing-options">
+                    <div className="explorer-landing__options">
                         <ExplorerLandingOption
                             icon="budget_function"
                             title="Budget Function"
