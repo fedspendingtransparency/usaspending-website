@@ -74,7 +74,7 @@ export default class RankVisualizationTooltip extends React.Component {
                                 {MoneyFormatter.formatMoney(this.props.value)}
                             </div>
                             <div className="tooltip-label">
-                                Total Spending
+                                Obligations Incurred
                             </div>
                         </div>
                     </div>
