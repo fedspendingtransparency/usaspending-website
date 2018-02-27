@@ -26,7 +26,7 @@
     color: $color-white;
     text-align: center;
 
-    .icon {
+    .landing-option__icon {
         width: rem(50);
         height: rem(50);
         margin-left: auto;
@@ -42,23 +42,23 @@
         }
     }
 
-    h3 {
+    h2.landing-option__title {
         margin: 0;
         font-weight: $font-light;
         font-size: rem(35);
         line-height: rem(44);
-	    .usa-da-icon-guide {
-		    width: rem(15);
-		    height: rem(15);
-		    fill: $color-white;
-		    margin: 0 0 rem(12) rem(5);
-		    &:hover {
-			    cursor: pointer;
-		    }
-	    }
+        .usa-da-icon-guide {
+            width: rem(15);
+            height: rem(15);
+            fill: $color-white;
+            margin: 0 0 rem(12) rem(5);
+            &:hover {
+                cursor: pointer;
+            }
+        }
     }
 
-    .description {
+    .landing-option__description {
         margin-top: rem(10);
         margin-bottom: rem(30);
         font-weight: $font-normal;
@@ -68,15 +68,15 @@
         }
     }
 
-    a.landing-option-button {
+    a.landing-option__button {
         @extend .usa-button;
         background-color: $color-primary-alt;
         font-size: $base-font-size;
         padding: rem(10) rem(60);
 
-	    &:hover {
-		    background-color: $color-primary-alt-dark !important;
-	    }
+        &:hover {
+            background-color: $color-primary-alt-dark !important;
+        }
 
         &:visited {
             background-color: $color-primary-alt;
