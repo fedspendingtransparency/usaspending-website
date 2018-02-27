@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Analytics from 'helpers/analytics/Analytics';
 import * as redirectHelper from 'helpers/redirectHelper';
 
 import DropdownComingSoon from '../DropdownComingSoon';
@@ -19,16 +20,26 @@ const propTypes = {
     externalLink: PropTypes.bool
 };
 
+const clickedHeaderLink = (route) => {
+    Analytics.event({
+        category: 'Header - Link',
+        action: route
+    });
+};
+
 export default class MobileDropdownItem extends React.Component {
     constructor(props) {
         super(props);
 
-        this.redirect = this.redirect.bind(this);
+        this.clickedLink = this.clickedLink.bind(this);
     }
 
-    redirect() {
-        redirectHelper.showRedirectModal(this.props.url);
+    clickedLink() {
+        clickedHeaderLink(`${this.props.url.replace('#', '')}`);
         this.props.hideMobileNav();
+        if (this.props.externalLink) {
+            redirectHelper.showRedirectModal(this.props.url);
+        }
     }
 
     render() {
@@ -53,7 +64,7 @@ export default class MobileDropdownItem extends React.Component {
                 <a
                     href={this.props.url}
                     className={`mobile-dropdown__link ${activeClass}`}
-                    onClick={this.props.hideMobileNav}>
+                    onClick={this.clickedLink}>
                     {this.props.title}
                 </a>
                 {comingSoonDecorator}
@@ -66,7 +77,7 @@ export default class MobileDropdownItem extends React.Component {
                 <li className={`mobile-dropdown__item ${comingSoonClass}`}>
                     <button
                         className={`mobile-dropdown__link ${activeClass}`}
-                        onClick={this.redirect}>
+                        onClick={this.clickedLink}>
                         {this.props.title}
                     </button>
                     {comingSoonDecorator}
