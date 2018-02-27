@@ -22,20 +22,21 @@ const ExplorerLandingOption = (props) => {
     const icon = <IconType alt={props.title} />;
     return (
         <div className="landing-option">
-            <div className="icon">
+            <div className="landing-option__icon">
                 {icon}
             </div>
-            <h3>{props.title}
+            <h2 className="landing-option__title">
+                {props.title}
                 <a href={`#/explorer/?glossary=${props.term}`}>
                     <Icons.Glossary />
                 </a>
-            </h3>
-            <div className="description">
+            </h2>
+            <div className="landing-option__description">
                 {props.description}
             </div>
 
             <a
-                className="landing-option-button"
+                className="landing-option__button"
                 href={props.url}>
                 Start
             </a>

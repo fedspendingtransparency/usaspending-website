@@ -50,6 +50,7 @@ export default class DownloadDetail extends React.Component {
                 </button>
             );
         }
+
         return (
             <div className="download-detail">
                 <div className="download-detail__wrapper">
