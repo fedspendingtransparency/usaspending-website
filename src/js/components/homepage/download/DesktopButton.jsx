@@ -10,7 +10,6 @@ const propTypes = {
     code: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
-    enabled: PropTypes.bool,
     active: PropTypes.bool,
     changeActiveItem: PropTypes.func,
     forceClear: PropTypes.func
@@ -50,7 +49,6 @@ export default class DesktopButton extends React.Component {
         return (
             <button
                 className={`homepage-download__button desktop-download ${buttonActive}`}
-                disabled={!this.props.enabled}
                 onMouseOver={this.onHover}
                 onFocus={this.onHover}
                 onKeyDown={this.pressedEsc}>
