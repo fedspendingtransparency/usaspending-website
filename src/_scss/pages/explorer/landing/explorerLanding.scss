@@ -1,45 +1,60 @@
-.explorer-landing-page {
+.explorer-landing {
 	background: url(#{$image-path}/explorer-background.jpg) no-repeat top center;
 	background-size: cover;
 
-    .landing-intro {
-        padding: rem(88) 0;
+    .collapsible-disclaimer {
         text-align: center;
-
-        margin-left: rem(30);
-        margin-right: rem(30);
-
-        @include media($tablet-screen) {
-            width: 75%;
-            margin-left: auto;
-            margin-right: auto;
-        }
+        padding: rem(60) rem(30);
 
         @include media($large-screen) {
-            width: rem(750);
+            width: rem(1110);
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        @include media($x-large-screen) {
+            width: rem(1260);
         }
 
-        h2 {
+        .collapsible-disclaimer__heading {
+            @include h2;
             margin: 0;
-            font-weight: $font-light;
-            font-size: rem(45);
-            line-height: rem(56);
-            padding-bottom: rem(14);
+            font-weight: 600;
+            padding-bottom: rem(30);
         }
 
-        .description {
-            font-size: rem(19);
-            font-weight: $font-light;
-	        line-height: rem(30);
-	        max-width: rem(500);
-	        margin-left: auto;
-			margin-right: auto;
+        .collapsible-disclaimer__section {
+            background-color: $color-white;
+            border: solid rem(2) $color-primary;
+            padding: 0 rem(15);
 
-            .highlight {
-                color: #587786;
-                margin-bottom: rem(28);
-	            font-size: rem(24);
-	            line-height: rem(31);
+            .collapsible-disclaimer__content {
+                padding-bottom: rem(15);
+                @include media($medium-screen) {
+                    width: 75%;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                .collapsible-disclaimer__subheading {
+                    @include h4;
+                    font-weight: 500;
+                }
+
+                .collapsible-disclaimer__button {
+                    width: auto;
+                }
+            }
+
+            .collapsible-disclaimer__button {
+                @include button-unstyled;
+                color: $color-primary;
+                padding: rem(10) rem(20);
+                font-size: $base-font-size;
+                font-weight: 600;
+                width: 100%;
+                text-align: center;
             }
         }
     }
