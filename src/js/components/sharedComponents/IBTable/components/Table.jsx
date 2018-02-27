@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 import HeaderRow from './HeaderRow';
 import TableBody from './TableBody';
@@ -46,6 +47,7 @@ export default class Table extends React.Component {
 
         this._tableWrapper = null;
         this._internalDiv = null;
+        this._tableId = `${uniqueId()}`;
 
         this._scrolledTable = this._scrolledTable.bind(this);
         this._scrolledHeader = this._scrolledHeader.bind(this);
@@ -212,6 +214,7 @@ export default class Table extends React.Component {
                         this._headerWrapper = div;
                     }}>
                     <HeaderRow
+                        tableId={this._tableId}
                         contentWidth={this.props.contentWidth}
                         headerHeight={this.props.headerHeight}
                         columns={this.props.columns}
@@ -234,6 +237,7 @@ export default class Table extends React.Component {
                             this._internalDiv = div;
                         }}>
                         <TableBody
+                            tableId={this._tableId}
                             columns={this.props.columns}
                             contentWidth={this.props.contentWidth}
                             bodyWidth={visibleWidth}

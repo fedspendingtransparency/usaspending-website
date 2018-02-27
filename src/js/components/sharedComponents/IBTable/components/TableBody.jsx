@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import ScrollManager from '../managers/ScrollManager';
 
 const propTypes = {
+    tableId: PropTypes.string,
     columns: PropTypes.array,
     rowCount: PropTypes.number,
     rowHeight: PropTypes.number,
@@ -20,6 +21,7 @@ const propTypes = {
 };
 
 const watchedProps = ['rowCount', 'rowHeight', 'bodyHeight', 'contentWidth', 'bodyWidth'];
+const arrowKeys = ['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'];
 
 export default class TableBody extends React.PureComponent {
     constructor(props) {
@@ -38,7 +40,14 @@ export default class TableBody extends React.PureComponent {
 
         this._scrollListener = null;
 
+        this._currentlyFocused = false;
+
         this._tableScrolled = this._tableScrolled.bind(this);
+
+        // bindings for accessibility users
+        this._tableFocused = this._tableFocused.bind(this);
+        this._tableBlurred = this._tableBlurred.bind(this);
+        this._keyPressed = this._keyPressed.bind(this);
     }
 
     componentDidMount() {
@@ -73,6 +82,44 @@ export default class TableBody extends React.PureComponent {
         }, () => {
             this._generateAllCells();
         });
+    }
+
+    _tableFocused(e) {
+        e.stopPropagation();
+        if (!this._currentlyFocused) {
+            document.addEventListener('keydown', this._keyPressed);
+        }
+
+        console.log(e.target);
+
+        this._currentlyFocused = true;
+    }
+
+    _tableBlurred() {
+        console.log('blurred');
+        this._currentlyFocused = false;
+        document.removeEventListener('keydown', this._keyPressed);
+    }
+
+    _keyPressed(e) {
+        if (!this._currentlyFocused || arrowKeys.indexOf(e.key) === -1) {
+            return;
+        }
+
+        e.preventDefault();
+
+        switch (e.key) {
+            case 'ArrowDown':
+                break;
+            case 'ArrowUp':
+                break;
+            case 'ArrowLeft':
+                break;
+            case 'ArrowRight':
+                break;
+            default:
+                return;
+        }
     }
 
     _tableScrolled(scroll) {
@@ -201,6 +248,9 @@ export default class TableBody extends React.PureComponent {
     _generateAllCells() {
         // pre-generate all the cells the table will have when the data is initially loaded in
         // we'll pull these from the cache on-the-fly as they come into view
+
+        /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+        // allow keyboard selection of the header cell
         const cellCache = {};
         for (let rowIndex = 0; rowIndex < this.props.rowCount; rowIndex++) {
             this.props.columns.forEach((column, columnIndex) => {
@@ -217,7 +267,11 @@ export default class TableBody extends React.PureComponent {
                 const realCell = (
                     <div
                         key={coord}
+                        id={`${this.props.tableId}-cell-${columnIndex}-${rowIndex}`}
                         className="ibt-table-cell"
+                        tabIndex={0}
+                        onFocus={this._tableFocused}
+                        onBlur={this._tableBlurred}
                         style={{
                             top: cellPositioning.y,
                             left: cellPositioning.x,
@@ -230,6 +284,8 @@ export default class TableBody extends React.PureComponent {
                 cellCache[coord] = realCell;
             });
         }
+
+        /* eslint-enable jsx-a11y/no-noninteractive-tabindex */
 
         this._cellCache = null; // try to explicitly release the previous cache from memory
         this._cellCache = cellCache;
