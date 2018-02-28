@@ -14,6 +14,7 @@ const propTypes = {
 
 const tooltipWidth = 160;
 const margin = 15;
+const tooltipPadding = 6;
 
 export default class HeroTooltip extends React.Component {
     getPosition() {
@@ -21,8 +22,8 @@ export default class HeroTooltip extends React.Component {
         const conatinerOffsetY = container.getBoundingClientRect().top;
 
         const icon = document.getElementById('homepage-hero__info_icon');
-        const iconTop = icon.getBoundingClientRect().top - conatinerOffsetY;
-        let iconLeft = icon.getBoundingClientRect().left - 12;
+        const iconTop = icon.getBoundingClientRect().top - conatinerOffsetY - tooltipPadding;
+        let iconLeft = icon.getBoundingClientRect().left - tooltipPadding;
 
         const windowWidth = window.innerWidth;
         if ((iconLeft + tooltipWidth) > windowWidth) {
