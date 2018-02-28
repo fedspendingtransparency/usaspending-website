@@ -77,7 +77,7 @@ export default class GeoVisualizationTooltip extends React.Component {
                                 {MoneyFormatter.formatMoney(this.props.value)}
                             </div>
                             <div className="tooltip-label">
-                                Total Spending
+                                Total Obligations
                             </div>
                         </div>
                     </div>
