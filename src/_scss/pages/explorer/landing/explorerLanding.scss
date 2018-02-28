@@ -29,6 +29,10 @@
 
             .explorer-landing__detail-content {
                 margin: 0 auto;
+
+                .explorer-description__animations {
+                    @import "./_animations";
+                }
             }
         }
     }

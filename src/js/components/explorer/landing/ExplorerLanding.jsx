@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import ExplorerWrapperPage from '../ExplorerWrapperPage';
 import ExplorerLandingOption from './ExplorerLandingOption';
@@ -29,7 +30,25 @@ export default class ExplorerLanding extends React.Component {
 
     render() {
         const expandLabel = this.state.expanded ? 'Hide' : 'Learn More';
-        const contentHidden = this.state.expanded ? '' : 'explorer-description__content_hidden';
+        let content = null;
+        if (this.state.expanded) {
+            content = (
+                <div className="explorer-description__content">
+                    <p>
+                        Drawing on agencies&apos; financial spending data known as <a href="#/explorer/?glossary=obligation">Obligations</a>, this tool provides an interactive way to explore federal spending from top to bottom. Use this tool to get a better sense of how Congress distributes funding to agencies and how agencies spend that funding on activities that fulfill their missions &mdash; in short, how this funding powers the work that agencies are known for.
+                    </p>
+                    <p>
+                        Use three different entry points &mdash; <a href="#/explorer/?glossary=budget-function">Budget Function</a>, <a href="#/explorer/?glossary=agency">Agency</a>, and <a href="#/explorer/?glossary=object-class">Object Class</a> &mdash; to see how federal spending breaks down along different themes. Explore by Budget Function if you&apos;re most interested in the broad categories of federal spending; by Agency if you&apos;re focused on specific agencies&apos; work; and by Object Class if you&apos;d like to frame spending in terms of the goods and services the government buys.
+                    </p>
+                    <p>
+                        The data powering the Spending Explorer is reported through a newly implemented law (the DATA Act) that requires agencies to link their financial spending data, in addition to the award data they were already reporting. This data was first collected in Q2 of 2017. The data displayed on the site may not be comprehensive, due to agencies&apos; different reporting schedules and the fact that some data elements aren&apos;t required to be reported (yet); that said, we publish all the data agencies submit to provide as comprehensive a view as possible, and we expect available data to become more complete in the future. The Department of Defense (DoD) doesn&apos;t report their DATA Act data using the same schedule as other major agencies; due to exemptions granted. Therefore, the DoD numbers will not be the same as seen in the President&apos;s Budget.
+                    </p>
+                    <p>
+                        Now, for the first time ever, agency financial data is connected to award data in a way that&apos;s easy (and fun) to explore. If you have suggestions on how we can improve the Spending Explorer, share your thoughts on the <a href="https://usaspending-help.zendesk.com/hc/en-us/community/topics" target="_blank" rel="noopener noreferrer">Community page</a>.
+                    </p>
+                </div>
+            );
+        }
 
         return (
             <ExplorerWrapperPage>
@@ -45,19 +64,14 @@ export default class ExplorerLanding extends React.Component {
                                     className="explorer-description__title">
                                     The Spending Explorer makes it easy to understand the big picture of federal spending.
                                 </h3>
-                                <div className={`explorer-description__content ${contentHidden}`}>
-                                    <p>
-                                        Drawing on agencies&apos; financial spending data known as <a href="#/explorer/?glossary=obligation">Obligations</a>, this tool provides an interactive way to explore federal spending from top to bottom. Use this tool to get a better sense of how Congress distributes funding to agencies and how agencies spend that funding on activities that fulfill their missions &mdash; in short, how this funding powers the work that agencies are known for.
-                                    </p>
-                                    <p>
-                                        Use three different entry points &mdash; <a href="#/explorer/?glossary=budget-function">Budget Function</a>, <a href="#/explorer/?glossary=agency">Agency</a>, and <a href="#/explorer/?glossary=object-class">Object Class</a> &mdash; to see how federal spending breaks down along different themes. Explore by Budget Function if you&apos;re most interested in the broad categories of federal spending; by Agency if you&apos;re focused on specific agencies&apos; work; and by Object Class if you&apos;d like to frame spending in terms of the goods and services the government buys.
-                                    </p>
-                                    <p>
-                                        The data powering the Spending Explorer is reported through a newly implemented law (the DATA Act) that requires agencies to link their financial spending data, in addition to the award data they were already reporting. This data was first collected in Q2 of 2017. The data displayed on the site may not be comprehensive, due to agencies&apos; different reporting schedules and the fact that some data elements aren&apos;t required to be reported (yet); that said, we publish all the data agencies submit to provide as comprehensive a view as possible, and we expect available data to become more complete in the future. The Department of Defense (DoD) doesn&apos;t report their DATA Act data using the same schedule as other major agencies; due to exemptions granted. Therefore, the DoD numbers will not be the same as seen in the President&apos;s Budget.
-                                    </p>
-                                    <p>
-                                        Now, for the first time ever, agency financial data is connected to award data in a way that&apos;s easy (and fun) to explore. If you have suggestions on how we can improve the Spending Explorer, share your thoughts on the <a href="https://usaspending-help.zendesk.com/hc/en-us/community/topics" target="_blank" rel="noopener noreferrer">Community page</a>.
-                                    </p>
+                                <div className="explorer-description__animations">
+                                    <CSSTransitionGroup
+                                        transitionName="explorer-description-slide"
+                                        transitionLeaveTimeout={195}
+                                        transitionEnterTimeout={195}
+                                        transitionLeave>
+                                        {content}
+                                    </CSSTransitionGroup>
                                 </div>
                                 <button
                                     className="explorer-description__expand"
