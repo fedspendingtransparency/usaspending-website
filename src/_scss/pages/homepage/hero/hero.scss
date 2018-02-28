@@ -52,6 +52,21 @@
         strong.homepage-hero__headline_weight_bold {
             font-weight: $font-normal;
         }
+
+        .homepage-hero__info_icon {
+            height: rem(15);
+            width: rem(15);
+
+            svg {
+                height: rem(15);
+                width: rem(15);
+                fill: #98C8E4;
+                position: relative;
+                top: rem(10);
+                left: rem(-6);
+                vertical-align: top;
+            }
+        }
     }
 
     hr.homepage-hero__divider {
@@ -86,4 +101,5 @@
     }
 
     @import "./_heroButton";
+    @import "./_heroTooltip";
 }
