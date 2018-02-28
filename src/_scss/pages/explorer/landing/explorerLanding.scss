@@ -20,9 +20,6 @@
 
         h2.explorer-landing__title {
             margin: 0;
-            font-weight: $font-semibold;
-            font-size: rem(55);
-            line-height: rem(69);
             padding-bottom: rem(41);
         }
 
@@ -41,9 +38,7 @@
 
         h3.explorer-description__title {
             margin: 0;
-            font-size: rem(34);
-            line-height: rem(44);
-            font-weight: $font-normal;
+            @include h6;
         }
 
         button.explorer-description__expand {
