@@ -54,7 +54,8 @@ export default class Hero extends React.Component {
                                 id="homepage-hero__info_icon"
                                 className="homepage-hero__info_icon"
                                 onFocus={this.showTooltip}
-                                onMouseEnter={this.showTooltip}>
+                                onMouseEnter={this.showTooltip}
+                                onClick={this.showTooltip}>
                                 <Icons.InfoCircle />
                             </span>
                         </h1>
