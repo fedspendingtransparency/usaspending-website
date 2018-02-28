@@ -7,7 +7,7 @@
 import { uniqueId } from 'lodash';
 
 const exchangeTemplate = {
-    labelsToAPI: {},
+    labelsToFrontend: {},
     frontendToAPI: {}
 };
 
@@ -20,18 +20,21 @@ export const _resetExchange = () => {
 const _exchangeForAPIValue = (frontendId) => _frontendAPIExchange.frontendToAPI[frontendId] || [];
 export const _convertToFrontendFilter = (filter) => {
     const label = `${filter.code} - ${filter.name}`;
-    const frontendId = _frontendAPIExchange.labelsToAPI[label];
+    // get the frontend-generated ID from the exchange
+    const frontendId = _frontendAPIExchange.labelsToFrontend[label];
     if (frontendId) {
-        // it already exists, append the ID
+        // the filter already exists in the exchange, so append the API ID to the existing record
         // don't return anything because the container already has a copy of the adapted filter object
         _frontendAPIExchange.frontendToAPI[frontendId].push(filter.id);
         return null;
     }
 
-    // it doesn't exist yet in the exchange, add it
+    // the filter doesn't exist yet in the exchange, add it and generate a new frontend ID
     const generatedId = `pa-${uniqueId()}`;
-    _frontendAPIExchange.labelsToAPI[label] = generatedId;
+    _frontendAPIExchange.labelsToFrontend[label] = generatedId;
     _frontendAPIExchange.frontendToAPI[generatedId] = [filter.id];
+    // replace the API ID with the frontend ID and return it to container to continue parsing as
+    // normal
     return Object.assign({}, filter, {
         id: generatedId
     });

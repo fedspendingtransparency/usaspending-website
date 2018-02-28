@@ -123,6 +123,9 @@ export class AccountProgramActivityContainer extends React.Component {
                 name
             });
 
+            // if the frontend exchange returns a falsy item, that means it appended the API ID
+            // to an existing frontend filter object; pretend this item wasn't in the response
+            // otherwise, if it does return an actual object, add it to the parsed output
             if (filter) {
                 parsed.push(filter);
             }
