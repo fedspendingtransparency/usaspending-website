@@ -63,6 +63,11 @@
             p {
                 font-size: rem(20);
                 line-height: rem(31);
+                .usa-da-icon-guide {
+                    width: rem(15);
+                    height: rem(15);
+                    fill: $color-base;
+                }
             }
         }
     }
