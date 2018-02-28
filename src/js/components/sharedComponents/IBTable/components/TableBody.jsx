@@ -52,6 +52,7 @@ export default class TableBody extends React.PureComponent {
 
     componentDidMount() {
         this._scrollListener = ScrollManager.subscribe(this._tableScrolled);
+
     }
 
     componentDidUpdate(prevProps) {
@@ -270,8 +271,6 @@ export default class TableBody extends React.PureComponent {
                         id={`${this.props.tableId}-cell-${columnIndex}-${rowIndex}`}
                         className="ibt-table-cell"
                         tabIndex={0}
-                        onFocus={this._tableFocused}
-                        onBlur={this._tableBlurred}
                         style={{
                             top: cellPositioning.y,
                             left: cellPositioning.x,
@@ -306,7 +305,11 @@ export default class TableBody extends React.PureComponent {
             <div
                 className="ibt-table-body-container"
                 style={style}>
-                <div className="ibt-table-body">
+                <div
+                    className="ibt-table-body"
+                    ref={(div) => {
+                        this._tableDiv = div;
+                    }}>
                     {this._visibleCells}
                 </div>
             </div>
