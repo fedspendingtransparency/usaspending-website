@@ -20,9 +20,6 @@
 
         h2.explorer-landing__title {
             margin: 0;
-            font-weight: $font-semibold;
-            font-size: rem(55);
-            line-height: rem(69);
             padding-bottom: rem(41);
         }
 
@@ -32,6 +29,10 @@
 
             .explorer-landing__detail-content {
                 margin: 0 auto;
+
+                .explorer-description__animations {
+                    @import "./_animations";
+                }
             }
         }
     }
@@ -41,9 +42,7 @@
 
         h3.explorer-description__title {
             margin: 0;
-            font-size: rem(34);
-            line-height: rem(44);
-            font-weight: $font-normal;
+            @include h6;
         }
 
         button.explorer-description__expand {
@@ -64,6 +63,11 @@
             p {
                 font-size: rem(20);
                 line-height: rem(31);
+                .usa-da-icon-guide {
+                    width: rem(15);
+                    height: rem(15);
+                    fill: $color-base;
+                }
             }
         }
     }
