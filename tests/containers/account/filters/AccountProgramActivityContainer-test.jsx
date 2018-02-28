@@ -38,6 +38,7 @@ describe('AccountProgramActivityContainer', () => {
                 <AccountProgramActivityContainer
                     reduxFilters={initialFilters}
                     toggleProgramActivity={mockReduxAction}
+                    resetProgramActivity={jest.fn()}
                     setAvailableProgramActivities={jest.fn()}
                     account={account} />);
 
@@ -67,6 +68,7 @@ describe('AccountProgramActivityContainer', () => {
                 <AccountProgramActivityContainer
                     reduxFilters={initialFilters}
                     toggleProgramActivity={mockReduxAction}
+                    resetProgramActivity={jest.fn()}
                     setAvailableProgramActivities={jest.fn()}
                     account={account} />);
 
@@ -96,6 +98,7 @@ describe('AccountProgramActivityContainer', () => {
                 <AccountProgramActivityContainer
                     reduxFilters={initialFilters}
                     toggleProgramActivity={jest.fn()}
+                    resetProgramActivity={jest.fn()}
                     setAvailableProgramActivities={jest.fn()}
                     account={account} />);
 
@@ -121,6 +124,7 @@ describe('AccountProgramActivityContainer', () => {
                 <AccountProgramActivityContainer
                     reduxFilters={initialFilters}
                     toggleProgramActivity={jest.fn()}
+                    resetProgramActivity={jest.fn()}
                     setAvailableProgramActivities={jest.fn()}
                     account={account} />);
 
