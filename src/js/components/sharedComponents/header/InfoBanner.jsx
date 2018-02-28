@@ -20,7 +20,7 @@ export default class InfoBanner extends React.Component {
                         <div className="info-banner__title-text">
                             Welcome to the new USAspending.gov!
                         </div>
-                        We will continue to improve ‌the site on a rolling basis and we'd love
+                        We will continue to improve the site on a rolling basis and we&apos;d love
                         your feedback. Questions? Check out our&nbsp;
                         <a
                             href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions"
