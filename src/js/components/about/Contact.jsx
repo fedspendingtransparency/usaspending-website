@@ -11,12 +11,12 @@ export default class Contact extends React.Component {
             <div
                 className="about-section-wrapper"
                 id="about-contact">
-                <div className="about-section-title">
-                    <h2>Contact Us</h2>
-                </div>
-                <div className="about-subtitle">
-                    <h3>How to reach us.</h3>
-                </div>
+                <h2 className="about-section-title">
+                    Contact Us
+                </h2>
+                <h3 className="about-subtitle">
+                    How to reach us.
+                </h3>
                 <div className="about-section-content">
                     <p>
                         We look forward to hearing from you and having the opportunity to answer

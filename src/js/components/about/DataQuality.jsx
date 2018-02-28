@@ -11,12 +11,12 @@ export default class DataQuality extends React.Component {
             <div
                 className="about-section-wrapper"
                 id="about-data-quality">
-                <div className="about-section-title">
-                    <h2>Data Quality</h2>
-                </div>
-                <div className="about-subtitle">
-                    <h3>A commitment to accuracy and completeness.</h3>
-                </div>
+                <h2 className="about-section-title">
+                    Data Quality
+                </h2>
+                <h3 className="about-subtitle">
+                    A commitment to accuracy and completeness.
+                </h3>
                 <div className="about-section-content">
                     <p>
                         The Department of the Treasury, along with the federal agencies, is

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     code: PropTypes.string.isRequired,
@@ -47,16 +48,28 @@ export default class DesktopButton extends React.Component {
     render() {
         const iconActive = this.props.active ? '-active' : '';
         const buttonActive = this.props.active ? 'desktop-download__active' : '';
+
+        const disabled = !this.props.enabled;
+        let comingSoon = null;
+        if (disabled) {
+            comingSoon = (
+                <div className="homepage-download__coming-soon">
+                    <Icons.InfoCircle />&nbsp;Coming Soon
+                </div>
+            );
+        }
+
         return (
             <button
                 className={`homepage-download__button desktop-download ${buttonActive}`}
-                disabled={!this.props.enabled}
+                disabled={disabled}
                 onMouseOver={this.onHover}
                 onFocus={this.onHover}
                 onKeyDown={this.pressedEsc}>
                 <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}${iconActive}`} />
                 <div className="homepage-download__button-label">
                     {this.props.label}
+                    {comingSoon}
                 </div>
             </button>
         );

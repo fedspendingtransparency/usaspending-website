@@ -86,5 +86,20 @@
                 color: $nav-coming-soon;
             }
         }
+
+        button.nav-children__link {
+            @include button-unstyled;
+            display: block;
+            width: 100%;
+            font-size: rem(15);
+            line-height: rem(19);
+            color: $nav-color;
+            font-weight: $font-semibold;
+            padding: rem(15) rem(20);
+
+            &:hover, &:active {
+                background-color: $dropdown-hover;
+            }
+        }
     }
 }

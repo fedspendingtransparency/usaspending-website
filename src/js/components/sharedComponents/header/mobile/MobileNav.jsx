@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import Router from 'containers/router/Router';
 
@@ -14,6 +16,13 @@ import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navi
 import MobileTop from './MobileTop';
 import MobileGlossaryButton from './MobileGlossaryButton';
 import MobileDropdown from './MobileDropdown';
+
+const clickedHeaderLink = (route) => {
+    Analytics.event({
+        category: 'Header - Link',
+        action: route
+    });
+};
 
 const propTypes = {
     hideMobileNav: PropTypes.func
@@ -26,9 +35,18 @@ export default class MobileNav extends React.Component {
         this.state = {
             url: ''
         };
+
+        this.clickedLink = this.clickedLink.bind(this);
     }
+
     componentDidMount() {
         this.checkCurrentProfile();
+    }
+
+    clickedLink(e) {
+        const route = e.target.name;
+        clickedHeaderLink(route);
+        this.props.hideMobileNav();
     }
 
     checkCurrentProfile() {
@@ -56,7 +74,8 @@ export default class MobileNav extends React.Component {
                                 className="mobile-nav-content__link"
                                 href="#/explorer"
                                 title="Spending Explorer"
-                                onClick={this.props.hideMobileNav}>
+                                name="#/explorer"
+                                onClick={this.clickedLink}>
                                 Spending Explorer
                             </a>
                             <hr className="mobile-nav-content__divider" />

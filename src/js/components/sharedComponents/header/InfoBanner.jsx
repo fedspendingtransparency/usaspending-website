@@ -9,31 +9,46 @@ const propTypes = {
 export default class InfoBanner extends React.Component {
     render() {
         return (
-            <div className="warning-banner-wrap info">
-                <div className="warning-banner">
-                    <div className="top-alert-icon">
-                        <i className="usa-da-icon"><InfoCircle alt="Information" /></i>
+            <div className="info-banner">
+                <div className="info-banner__content">
+                    <div className="info-banner__alert-icon">
+                        <i className="usa-da-icon">
+                            <InfoCircle alt="Information" />
+                        </i>
                     </div>
-                    <div className="top-alert-text">
-                        <p>
-                            <span className="good-news">We&apos;ve updated USAspending.gov!</span>&nbsp;
-                            You can still access an archive of the old site&nbsp;
-                            <a
-                                href="https://legacy.usaspending.gov"
-                                target="_blank"
-                                rel="noopener noreferrer">
-                                here
-                            </a>.
-                        </p>
+                    <div className="info-banner__alert-text">
+                        <div className="info-banner__title-text">
+                            Welcome to the new USAspending.gov!
+                        </div>
+                        We now offer agency financial data, along with the awards data you&apos;re used to.  Questions?
+                        Check out our&nbsp;
+                        <a
+                            href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            FAQ
+                        </a> or join the conversation on our&nbsp;
+                        <a
+                            href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Community
+                        </a> page.  Visit the old site at&nbsp;
+                        <a
+                            href="https://legacy.usaspending.gov"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            legacy.usaspending.gov
+                        </a>.
                     </div>
+                    <button
+                        className="info-banner__close-button"
+                        title="Dismiss message"
+                        aria-label="Dismiss message"
+                        onClick={this.props.closeBanner}>
+                        <Close alt="Dismiss message" />
+                    </button>
                 </div>
-                <button
-                    className="close"
-                    title="Dismiss message"
-                    aria-label="Dismiss message"
-                    onClick={this.props.closeBanner}>
-                    <Close alt="Dismiss message" />
-                </button>
             </div>
         );
     }

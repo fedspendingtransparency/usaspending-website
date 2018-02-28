@@ -1,4 +1,6 @@
 .download-detail {
+    $disabled-link-color: #80b9de;
+
     .download-detail__wrapper {
         position: absolute;
         top: 0;
@@ -39,7 +41,7 @@
             font-weight: $font-light;
         }
 
-        a.download-detail__link {
+        a.download-detail__link, button.download-detail__link {
             @include flex(0 1 auto);
             display: block;
             border: 1px solid $color-white;
@@ -53,6 +55,18 @@
             &:hover, &:active {
                 text-decoration: none;
                 background-color: $color-primary-darker;
+            }
+        }
+
+        button.download-detail__link_disabled {
+            border: 1px solid $disabled-link-color;
+            color: $disabled-link-color;
+
+            &:hover, &:active, &:focus {
+                text-decoration: none;
+                background-color: $color-primary;
+                cursor: default;
+                box-shadow: none;
             }
         }
     }

@@ -32,6 +32,7 @@ export const initialState = {
         title: '',
         description: '',
         totals: {
+            available: false,
             obligated: 0,
             unobligated: 0,
             budgetAuthority: 0,

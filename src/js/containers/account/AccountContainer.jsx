@@ -140,11 +140,16 @@ export class AccountContainer extends React.Component {
     }
 
     parseFYSnapshot(data) {
-        const balances = {};
+        const balances = {
+            available: false
+        };
 
-        Object.keys(fiscalYearSnapshotFields).forEach((key) => {
-            balances[fiscalYearSnapshotFields[key]] = data.results[key];
-        });
+        if (Object.keys(data).length > 0 && data.results) {
+            Object.keys(fiscalYearSnapshotFields).forEach((key) => {
+                balances[fiscalYearSnapshotFields[key]] = data.results[key];
+            });
+            balances.available = true;
+        }
 
         // update the Redux account model with balances
         const account = Object.assign({}, this.props.account);

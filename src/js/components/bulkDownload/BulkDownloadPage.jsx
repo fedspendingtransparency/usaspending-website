@@ -92,12 +92,6 @@ export default class BulkDownloadPage extends React.Component {
                             <BulkDownloadSidebar
                                 dataTypes={this.props.dataTypes}
                                 active={this.props.dataType} />
-                            <div className="api-info">
-                                <h5>Interested in our API?</h5>
-                                <p>
-                                    Take a look at our <a target="_blank" rel="noopener noreferrer" href="https://api.usaspending.gov/">API documentation</a>.
-                                </p>
-                            </div>
                         </div>
                         <div className="download-data-wrapper">
                             {downloadDataContent}
