@@ -19,9 +19,9 @@ const BaseFederalAccountAwardRow = {
         this.awardingToptierAgency = data.awarding_agency.toptier_agency.name || '';
         this.awardingSubtierAgency = data.awarding_agency.subtier_agency.name || '';
         this._issuedDate = parseDate((data.latest_transaction && data.latest_transaction.action_date));
-        this._loanValue = data.total_subsidy_cost || 0;
+        this._loanValue = parseFloat(data.total_subsidy_cost) || 0;
         this._subsidyCost = (data.latest_transaction
-            && data.latest_transaction.original_loan_subsidy_cost) || 0;
+            && parseFloat(data.latest_transaction.original_loan_subsidy_cost)) || 0;
     },
     get startDate() {
         if (!this._startDate) {
