@@ -17,7 +17,7 @@ const accountTableSearchFields = {
         awarding_subtier_name: 'asc',
         latest_transaction__action_date: 'desc',
         total_subsidy_cost: 'desc',
-        latest_transaction__assistance_data__original_loan_subsidy_cost: 'desc'
+        latest_transaction__original_loan_subsidy_cost: 'desc'
     },
     modelMapping: {
         awardId: 'id',
@@ -30,7 +30,7 @@ const accountTableSearchFields = {
         awardingSubtierAgency: 'awarding_agency__subtier_agency__name',
         issuedDate: 'latest_transaction__action_date',
         loanValue: 'total_subsidy_cost',
-        subsidyCost: 'latest_transaction__assistance_data__original_loan_subsidy_cost'
+        subsidyCost: 'latest_transaction__original_loan_subsidy_cost'
     },
     contracts: {
         _defaultSortField: 'total_obligation',

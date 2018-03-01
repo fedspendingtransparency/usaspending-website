@@ -252,8 +252,7 @@ export class AccountAwardsContainer extends React.Component {
             filters: searchOperation.toParams(),
             page: pageNumber,
             limit: resultLimit,
-            order: searchOrder,
-            verbose: true
+            order: searchOrder
         };
 
         // Set the params needed for download API call

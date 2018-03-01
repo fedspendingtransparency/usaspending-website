@@ -21,8 +21,7 @@ const BaseFederalAccountAwardRow = {
         this._issuedDate = parseDate((data.latest_transaction && data.latest_transaction.action_date));
         this._loanValue = data.total_subsidy_cost || 0;
         this._subsidyCost = (data.latest_transaction
-            && data.latest_transaction.assistance_data
-            && data.latest_transaction.assistance_data.original_loan_subsidy_cost) || 0;
+            && data.latest_transaction.original_loan_subsidy_cost) || 0;
     },
     get startDate() {
         if (!this._startDate) {
