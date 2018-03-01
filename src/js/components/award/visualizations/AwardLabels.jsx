@@ -32,7 +32,7 @@ export default class AwardLabels extends React.Component {
     render() {
         let line = null;
         let anchor = "start";
-        let labelY = [0, 18, 38];
+        let labelY = [0, 18];
         let labelX = 0;
         let labelType = capitalize(this.props.name);
         if (this.props.line === "line") {
@@ -76,16 +76,9 @@ export default class AwardLabels extends React.Component {
                         {labelType} Award Amount:
                     </text>
                     <text
-                        className="subtitle"
-                        x={labelX}
-                        y={labelY[1]}
-                        textAnchor={anchor}>
-                        ({this.props.subtitle})
-                    </text>
-                    <text
                         className="value"
                         x={labelX}
-                        y={labelY[2]}
+                        y={labelY[1]}
                         textAnchor={anchor}>
                         {MoneyFormatter.formatMoney(this.props.amount)}
                     </text>
