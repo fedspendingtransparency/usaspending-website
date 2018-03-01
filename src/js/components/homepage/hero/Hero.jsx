@@ -50,7 +50,7 @@ export default class Hero extends React.Component {
                     <div className="homepage-hero__content">
                         <h1 className="homepage-hero__headline" tabIndex={-1}>
                             In 2017, the government spent <strong className="homepage-hero__headline homepage-hero__headline_weight_bold">$3.98 trillion.</strong>
-                            <div className="homepage-hero__info_icon_holder">
+                            <span className="homepage-hero__info_icon_holder">
                                 <button
                                     id="homepage-hero__info_icon"
                                     className="homepage-hero__info_icon"
@@ -59,7 +59,7 @@ export default class Hero extends React.Component {
                                     onClick={this.showTooltip}>
                                     <Icons.InfoCircle />
                                 </button>
-                            </div>
+                            </span>
                         </h1>
                         {tooltip}
                         <hr className="homepage-hero__divider" />
