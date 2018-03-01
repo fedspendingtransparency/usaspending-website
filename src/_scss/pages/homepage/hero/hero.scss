@@ -56,15 +56,14 @@
         .homepage-hero__info_icon_holder {
             position: relative;
             height: rem(25);
-            width: rem(15);
             padding-bottom: rem(10);
             top: rem(6);
-            margin-left: rem(-6);
 
             .homepage-hero__info_icon {
                 @include button-unstyled;
 
                 position: absolute;
+                left: rem(-6);
 
                 svg {
                     height: rem(15);

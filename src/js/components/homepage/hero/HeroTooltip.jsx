@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { throttle } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
@@ -17,6 +18,27 @@ const margin = 15;
 const tooltipPadding = 6;
 
 export default class HeroTooltip extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            windowWidth: 0,
+            iconTop: 0,
+            iconLeft: 0
+        };
+
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+    }
+
+    componentDidMount() {
+        this.handleWindowResize();
+        window.addEventListener('resize', this.handleWindowResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize);
+    }
+
     getPosition() {
         const container = document.getElementById('homepage-hero__wrapper');
         const conatinerOffsetY = container.getBoundingClientRect().top;
@@ -33,15 +55,28 @@ export default class HeroTooltip extends React.Component {
         return { iconTop, iconLeft };
     }
 
-    render() {
-        const position = this.getPosition();
+    handleWindowResize() {
+        // determine if the width changed
+        const windowWidth = window.innerWidth;
+        if (this.state.windowWidth !== windowWidth) {
+            // width changed, update the visualization width
+            const position = this.getPosition();
 
+            this.setState({
+                windowWidth,
+                iconTop: position.iconTop,
+                iconLeft: position.iconLeft
+            });
+        }
+    }
+
+    render() {
         return (
             <div
                 className="homepage-hero-tooltip"
                 style={{
-                    top: position.iconTop,
-                    left: position.iconLeft
+                    top: this.state.iconTop,
+                    left: this.state.iconLeft
                 }}>
                 <div className="homepage-hero-tooltip__info_icon">
                     <Icons.InfoCircle />

@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import HeroButton from './HeroButton';
 import HeroTooltip from './HeroTooltip';
 
@@ -57,7 +57,7 @@ export default class Hero extends React.Component {
                                     onFocus={this.showTooltip}
                                     onMouseEnter={this.showTooltip}
                                     onClick={this.showTooltip}>
-                                    <Icons.InfoCircle />
+                                    <InfoCircle />
                                 </button>
                             </span>
                         </h1>
