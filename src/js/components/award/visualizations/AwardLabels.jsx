@@ -15,7 +15,6 @@ import AwardLabelsPoly from './AwardLabelsPoly';
 const propTypes = {
     name: PropTypes.string,
     amount: PropTypes.number,
-    subtitle: PropTypes.string,
     line: PropTypes.string,
     labelDistance: PropTypes.number,
     groupTransform: PropTypes.string,
