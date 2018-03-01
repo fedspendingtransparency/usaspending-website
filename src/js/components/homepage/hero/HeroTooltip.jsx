@@ -53,7 +53,7 @@ export default class HeroTooltip extends React.Component {
                 </button>
                 <div className="homepage-hero-tooltip__text_holder">
                     <div className="homepage-hero-tooltip__tooltip_title">
-                        Data Source
+                        Data Source:
                     </div>
                     <div className="homepage-hero-tooltip__tooltip_text">
                         Fiscal Year 2017 net outlays as reported on the&nbsp;

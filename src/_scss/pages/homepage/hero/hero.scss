@@ -58,7 +58,9 @@
             display: inline;
             height: rem(25);
             width: rem(15);
-            padding-bottom: 10px;
+            padding-bottom: rem(10);
+            top: rem(6);
+            margin-left: rem(-6);
 
             .homepage-hero__info_icon {
                 @include button-unstyled;
@@ -68,7 +70,7 @@
                 svg {
                     height: rem(15);
                     width: rem(15);
-                    fill: #98c8e4;
+                    fill: $color-cool-blue-lightest;
                     position: relative;
                     top: rem(0);
                     vertical-align: top;
