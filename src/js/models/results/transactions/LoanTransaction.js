@@ -6,6 +6,7 @@
 import moment from 'moment';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { actionTypes } from 'dataMapping/financialAssistance/assistanceActionTypes';
 import GenericRecord from '../GenericRecord';
 
 const recordType = 'loan-transaction';
@@ -46,6 +47,17 @@ const formatData = (data) => {
     else {
         formattedData.original_loan_subsidy_cost = '';
     }
+
+
+    // map the action type
+    formattedData.action_type_description = '';
+    if (data.action_type) {
+        const actionTypeDescription = actionTypes[data.action_type.toUpperCase()];
+        if (actionTypeDescription) {
+            formattedData.action_type_description = `${data.action_type.toUpperCase()}: ${actionTypeDescription}`;
+        }
+    }
+
     return formattedData;
 };
 
