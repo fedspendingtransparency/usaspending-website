@@ -30,10 +30,13 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                exclude: /node_modules/,
+                exclude: [
+                    /node_modules/,
+                    path.resolve(__dirname, '../src/external/webtrends.min.js')
+                ],
                 loader: 'babel-loader', // the babel loader tells webpack to compile JS/JSX files using Babel
                 query: {
-                     // after initial load, subsequent builds draw from a cache (in dev only) to reduce build time
+                    // after initial load, subsequent builds draw from a cache (in dev only) to reduce build time
                     cacheDirectory: path.resolve(__dirname, '../cache/'),
                     compact: true
                 }
@@ -76,7 +79,7 @@ module.exports = {
                 })
             },
             {
-                include: /src(\/|\\)(fonts|graphics|img|data)/,
+                include: /src(\/|\\)(fonts|graphics|img|data|external)/,
                 loader: 'file-loader',
                 query: {
                     name: '[path][name].[ext]'
