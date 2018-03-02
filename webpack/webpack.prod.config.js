@@ -14,6 +14,9 @@ module.exports = merge(common, {
             'process.env.NODE_ENV': JSON.stringify('production') // indicate to libraries that this is in prod mode (which may affect their behavior for debugging)
         }),
         new ParallelUglifyPlugin({
+            exclude: [
+                /external\/webtrends\.min\.js$/
+            ],
             uglifyJS: {
                 compress: {
                     warnings: false
