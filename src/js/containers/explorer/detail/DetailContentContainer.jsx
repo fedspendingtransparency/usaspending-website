@@ -42,6 +42,7 @@ export class DetailContentContainer extends React.Component {
             filters: {},
             transitionSteps: 0,
             inFlight: true,
+            isTruncated: false,
             transition: ''
         };
 
@@ -175,6 +176,7 @@ export class DetailContentContainer extends React.Component {
                         data: new List(data.results),
                         lastUpdate: data.end_date,
                         inFlight: false,
+                        isTruncated: false, // root will never be truncated
                         transition: 'end'
                     });
                 }, 250);
@@ -190,6 +192,7 @@ export class DetailContentContainer extends React.Component {
                 data: new List(data.results),
                 lastUpdate: data.end_date,
                 inFlight: false,
+                isTruncated: false, // root will never be truncated
                 transition: ''
             });
         }
@@ -197,6 +200,21 @@ export class DetailContentContainer extends React.Component {
 
     parseData(data, request, isRewind) {
         const total = data.total;
+
+        let isTruncated = false;
+        if (request.subdivision === 'award') {
+            const resultTotal = data.results.reduce((sum, item) => sum + item.amount, 0);
+            // allow a $10 leeway to account for JS float bugs before triggering a truncation
+            // message
+            isTruncated = Math.abs(total - resultTotal) > 10;
+        }
+
+        // set a safety limit of 1,000 cells to prevent the browser from crashing due to too many
+        // DOM elements
+        let safeResults = data.results;
+        if (data.results.length > 1000) {
+            safeResults = data.results.slice(0, 1000);
+        }
 
         // build the trail item of the last applied filter using the request object
         const trailItem = Object.assign({}, request, {
@@ -233,7 +251,8 @@ export class DetailContentContainer extends React.Component {
                     // save the data as an Immutable object for easy change comparison within
                     // the treemap
                     this.setState({
-                        data: new List(data.results),
+                        isTruncated,
+                        data: new List(safeResults),
                         lastUpdate: data.end_date,
                         inFlight: false,
                         transition: 'end'
@@ -247,7 +266,8 @@ export class DetailContentContainer extends React.Component {
 
             // save the data as an Immutable object for easy change comparison within the treemap
             this.setState({
-                data: new List(data.results),
+                isTruncated,
+                data: new List(safeResults),
                 lastUpdate: data.end_date,
                 inFlight: false,
                 transition: ''
@@ -437,6 +457,7 @@ export class DetailContentContainer extends React.Component {
                 <DetailContent
                     isRoot={this.props.explorer.active.within === 'root'}
                     isLoading={this.state.inFlight}
+                    isTruncated={this.state.isTruncated}
                     root={this.props.explorer.root}
                     fy={this.props.explorer.fy}
                     active={this.props.explorer.active}
