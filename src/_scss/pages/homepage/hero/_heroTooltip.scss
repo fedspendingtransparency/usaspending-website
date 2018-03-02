@@ -1,0 +1,61 @@
+.homepage-hero-tooltip {
+    position: absolute;
+    z-index: $z-modal;
+    background-color: $color-white;
+    border-radius: $border-radius;
+    padding: rem(6);
+    width: rem(160);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
+
+    .homepage-hero-tooltip__info_icon {
+        position: absolute;
+        top: rem(6);
+        left: rem(6);
+        height: rem(15);
+        width: rem(15);
+
+        svg {
+            height: rem(15);
+            width: rem(15);
+            fill: $color-gray-medium;
+            vertical-align: top;
+        }
+    }
+
+    .homepage-hero-tooltip__text_holder {
+        height: rem(93);
+        padding-left: rem(21);
+        line-height: $base-line-height;
+        text-align: left;
+    }
+
+    .homepage-hero-tooltip__tooltip_title,
+    .homepage-hero-tooltip__tooltip_text {
+        font-size: rem(12);
+        color: $color-gray-medium;
+    }
+
+    .homepage-hero-tooltip__tooltip_title {
+        font-weight: $font-semibold;
+    }
+
+    .homepage-hero-tooltip__tooltip_text {
+        font-weight: $font-normal;
+    }
+
+    .homepage-hero-tooltip__close_icon {
+        @include button-unstyled;
+
+        position: absolute;
+        top: rem(4);
+        right: rem(6);
+        height: rem(12);
+        width: rem(12);
+
+        svg {
+            height: rem(10);
+            width: rem(10);
+            fill: $color-gray-medium;
+        }
+    }
+}

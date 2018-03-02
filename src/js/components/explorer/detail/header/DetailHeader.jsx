@@ -13,6 +13,8 @@ import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
 
+import TruncationWarning from './TruncationWarning';
+
 const propTypes = {
     within: PropTypes.string,
     fy: PropTypes.string,
@@ -20,7 +22,8 @@ const propTypes = {
     total: PropTypes.number,
     title: PropTypes.string,
     id: PropTypes.string,
-    parent: PropTypes.string
+    parent: PropTypes.string,
+    isTruncated: PropTypes.bool
 };
 
 const exitExplorer = (target) => {
@@ -91,26 +94,36 @@ const heading = (type, title, id) => {
 const DetailHeader = (props) => {
     const type = sidebarTypes[props.within];
 
+    let truncationWarning = null;
+    if (props.isTruncated) {
+        truncationWarning = (
+            <TruncationWarning />
+        );
+    }
+
     return (
-        <div className="detail-header">
-            <div className="left-side">
-                <div className="you-did-this">
-                    You&apos;ve chosen
+        <div>
+            <div className="detail-header">
+                <div className="left-side">
+                    <div className="you-did-this">
+                        You&apos;ve chosen
+                    </div>
+                    {heading(type, props.title, props.id)}
+                    {dataType(type, props.parent)}
                 </div>
-                {heading(type, props.title, props.id)}
-                {dataType(type, props.parent)}
+                <div className="right-side">
+                    <div className="amount-header">
+                        FY {props.fy} obligated amount
+                    </div>
+                    <div className="amount-value">
+                        {formatTreemapValues(props.total)}
+                    </div>
+                    <div className="update-date">
+                        Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
+                    </div>
+                </div>
             </div>
-            <div className="right-side">
-                <div className="amount-header">
-                    FY {props.fy} obligated amount
-                </div>
-                <div className="amount-value">
-                    {formatTreemapValues(props.total)}
-                </div>
-                <div className="update-date">
-                    Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
-                </div>
-            </div>
+            {truncationWarning}
         </div>
     );
 };

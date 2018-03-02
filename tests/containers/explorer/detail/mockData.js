@@ -32,6 +32,20 @@ export const mockApiResponse = {
     ]
 };
 
+export const mockAwardResponse = {
+    total: 200,
+    results: [
+        {
+            id: 1,
+            type: 'award',
+            name: 'Award',
+            code: '123',
+            amount: 1,
+            total: 1
+        }
+    ]
+};
+
 export const mockReducerRoot = {
     root: 'agency',
     fy: '1984',

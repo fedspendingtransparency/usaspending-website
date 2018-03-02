@@ -1,7 +1,7 @@
 .summary-status {
     @import "../../../mixins/moreOptionsBtn";
     @include display(flex);
-    @include justify-content(space-between);
+    @include justify-content(flex-end);
 
     @include flex(1 1 auto);
 
@@ -12,6 +12,7 @@
         li {
             @include display(flex);
             @include justify-content(flex-start);
+            padding: 0 0 rem(4);
             width: 100%;
 
             .format-item {
@@ -66,13 +67,20 @@
         width: auto;
         ul.summary-status-items {
             @include display(flex);
+            @include flex(0 0 auto);
+            @include align-items(flex-end);
+
             li {
                 border-right: 1px solid rgba($color-white, .3);
+                min-width: rem(150);
+                padding: 0;
+
                 .format-item {
                     @include display(flex);
                     @include flex-direction(column);
-                    padding: 0 $global-pad * 2;
+                    @include flex(1 0 rem(180));
 
+                    padding: 0 $global-pad * 2;
                     .item-label {
                         text-align: center;
                         width: 100%;

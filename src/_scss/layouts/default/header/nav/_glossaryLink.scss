@@ -11,7 +11,7 @@
     }
 
     .glossary-nav__icon {
-        @include flex(0 0 auto)
+        @include flex(0 0 auto);
         width: rem(15);
         height: rem(15);
         margin-right: rem(10);
