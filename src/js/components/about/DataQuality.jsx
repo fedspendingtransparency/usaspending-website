@@ -59,8 +59,10 @@ export default class DataQuality extends React.Component {
                             Federal Government Procurement Data Quality Summary
                         </a>
                         &nbsp;about data submitted by the agencies to the Federal Procurement
-                        Data System (FPDS). In addition, the federal agencies&apos; raw quarterly submission files, including Quarterly
-                        Assurance Statements about the data, are available here.
+                        Data System (FPDS). If there are any discrepancies in procurement data, FPDS
+                        is the authoritative source. In addition, the federal agencies&apos;
+                        raw quarterly submission files, including Quarterly Assurance Statements
+                        about the data, are available here.
                     </p>
                     <p>
                         Additionally, the Inspector General of each agency must issue reports to
