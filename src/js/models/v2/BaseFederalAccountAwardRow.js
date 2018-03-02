@@ -18,11 +18,13 @@ const BaseFederalAccountAwardRow = {
         this.awardType = data.type_description || '';
         this.awardingToptierAgency = data.awarding_agency.toptier_agency.name || '';
         this.awardingSubtierAgency = data.awarding_agency.subtier_agency.name || '';
-        this._issuedDate = parseDate(data.certified_date) || '';
+        this._issuedDate = parseDate(data.date_signed) || '';
         this._loanValue = (data.latest_transaction
             && data.latest_transaction.assistance_data
             && parseFloat(data.latest_transaction.assistance_data.face_value_loan_guarantee)) || 0;
-        this._subsidyCost = parseFloat(data.total_subsidy_cost) || 0;
+        this._subsidyCost = (data.latest_transaction
+            && data.latest_transaction.assistance_data
+            && parseFloat(data.latest_transaction.assistance_data.original_loan_subsidy_cost)) || 0;
     },
     get startDate() {
         if (!this._startDate) {
