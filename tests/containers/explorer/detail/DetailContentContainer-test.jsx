@@ -9,7 +9,7 @@ import { List } from 'immutable';
 import sinon from 'sinon';
 
 import { DetailContentContainer } from 'containers/explorer/detail/DetailContentContainer';
-import { mockApiResponse, mockReducerRoot, mockReducerChild,
+import { mockApiResponse, mockAwardResponse, mockReducerRoot, mockReducerChild,
     mockActions, mockLevelData, mockDeeperRoot, mockActiveScreen } from './mockData';
 
 // mock the explorer helper
@@ -151,6 +151,83 @@ describe('DetailContentContainer', () => {
 
             expect(container.state().transition).toEqual('start');
         });
+    });
+    describe('parseData', () => {
+        it('should set the isTruncated state to true only at the award level', () => {
+            const container = shallow(<DetailContentContainer
+                {...mockActions}
+                explorer={mockReducerRoot} />);
+
+            const request = {
+                within: 'recipient',
+                subdivision: 'award'
+            };
+
+            container.instance().parseData(mockAwardResponse, request);
+            expect(container.state().isTruncated).toBeTruthy();
+        });
+        it('should never set the isTruncated state to true if not at the award level', () => {
+            const container = shallow(<DetailContentContainer
+                {...mockActions}
+                explorer={mockReducerRoot} />);
+
+            const request = {
+                within: 'recipient',
+                subdivision: 'something else'
+            };
+
+            container.instance().parseData(mockAwardResponse, request);
+            expect(container.state().isTruncated).toBeFalsy();
+        });
+        it('should set the isTruncated state to true if the API response total differs from the sum of the results by more than 10', () => {
+            const container = shallow(<DetailContentContainer
+                {...mockActions}
+                explorer={mockReducerRoot} />);
+
+            const request = {
+                within: 'recipient',
+                subdivision: 'award'
+            };
+
+            container.instance().parseData(mockAwardResponse, request);
+            expect(container.state().isTruncated).toBeTruthy();
+        });
+        it('should not set the isTruncated state to true if the API response total differs from the sum of the results by 10 or less', () => {
+            const container = shallow(<DetailContentContainer
+                {...mockActions}
+                explorer={mockReducerRoot} />);
+
+            const request = {
+                within: 'recipient',
+                subdivision: 'award'
+            };
+
+            const mockAward = Object.assign({}, mockAwardResponse, {
+                total: 4
+            });
+
+            container.instance().parseData(mockAward, request);
+            expect(container.state().isTruncated).toBeFalsy();
+        });
+
+        it('should limit the API response to the first 1,000 items as a safety check', () => {
+            const container = shallow(<DetailContentContainer
+                {...mockActions}
+                explorer={mockReducerRoot} />);
+
+            const request = {
+                within: 'recipient',
+                subdivision: 'award'
+            };
+
+            const mockAPI = Object.assign({}, mockAPI, {
+                results: new Array(15000).fill('filler', 0, 15000)
+            });
+
+            container.instance().parseData(mockAPI, request);
+            expect(container.state().data.count()).toEqual(1000);
+        });
+
     });
     describe('goDeeper', () => {
         it('should update the state, trail, and make an API call', () => {
