@@ -5,6 +5,7 @@
 
 import { formatMoney } from 'helpers/moneyFormatter';
 import BaseAwardRecipient from './BaseAwardRecipient';
+import BasePlaceOfPerformance from './BasePlaceOfPerformance';
 import CoreAward from './CoreAward';
 
 const BaseContract = Object.create(CoreAward);
@@ -23,6 +24,10 @@ BaseContract.populate = function populate(data) {
     const recipient = Object.create(BaseAwardRecipient);
     recipient.populate(data.recipient);
     this.recipient = recipient;
+
+    const placeOfPerformance = Object.create(BasePlaceOfPerformance);
+    placeOfPerformance.populate(data.place_of_performance);
+    this.placeOfPerformance = placeOfPerformance;
 
     // populate the contract-specific fields
     this.parentAward = data.parent_award_piid;
