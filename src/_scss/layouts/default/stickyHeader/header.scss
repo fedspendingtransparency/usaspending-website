@@ -2,7 +2,6 @@
     $sticky-header-height: rem(66);
 
     position: relative;
-    height: $sticky-header-height;
 
     .sticky-header__container {
         width: 100%;
@@ -16,6 +15,7 @@
                 position: fixed;
                 top: 0;
                 z-index: $z-header;
+                height: $sticky-header-height;
             }
         }
 
@@ -29,7 +29,12 @@
             @include align-self(stretch);
             @include flex-flow(row wrap);
             position: relative;
-            height: $sticky-header-height;
+            min-height: $sticky-header-height;
+            height: auto;
+
+            @include media($medium-screen) {
+                height: $sticky-header-height;
+            }
 
             .sticky-header__title {
                 @include flex(1 1 auto);

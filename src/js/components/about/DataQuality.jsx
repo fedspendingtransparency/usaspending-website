@@ -11,12 +11,12 @@ export default class DataQuality extends React.Component {
             <div
                 className="about-section-wrapper"
                 id="about-data-quality">
-                <div className="about-section-title">
-                    <h2>Data Quality</h2>
-                </div>
-                <div className="about-subtitle">
-                    <h3>A commitment to accuracy and completeness.</h3>
-                </div>
+                <h2 className="about-section-title">
+                    Data Quality
+                </h2>
+                <h3 className="about-subtitle">
+                    A commitment to accuracy and completeness.
+                </h3>
                 <div className="about-section-content">
                     <p>
                         The Department of the Treasury, along with the federal agencies, is
@@ -59,8 +59,10 @@ export default class DataQuality extends React.Component {
                             Federal Government Procurement Data Quality Summary
                         </a>
                         &nbsp;about data submitted by the agencies to the Federal Procurement
-                        Data System (FPDS). In addition, the federal agencies&apos; raw quarterly submission files, including Quarterly
-                        Assurance Statements about the data, are available here.
+                        Data System (FPDS). If there are any discrepancies in procurement data, FPDS
+                        is the authoritative source. In addition, the federal agencies&apos;
+                        raw quarterly submission files, including Quarterly Assurance Statements
+                        about the data, are available here.
                     </p>
                     <p>
                         Additionally, the Inspector General of each agency must issue reports to

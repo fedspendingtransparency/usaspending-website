@@ -1,0 +1,29 @@
+.truncation-warning {
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(flex-start);
+
+    .truncation-warning__icon {
+        @include flex(0 0 rem(15));
+
+        svg {
+            width: rem(15);
+            height: rem(15);
+            margin-top: rem(3);
+            fill: $color-base;
+        }
+    }
+
+    .truncation-warning__message {
+        @include flex(1 1 auto);
+        margin-left: rem(10);
+        font-size: rem(12);
+
+        .truncation-warning__title {
+            font-weight: $font-semibold;
+        }
+        .truncation-warning__detail {
+            margin-top: rem(3);
+        }
+    }
+}

@@ -1,22 +1,28 @@
 .summary-status {
     @import "../../mixins/moreOptionsBtn";
     @include display(flex);
-    @include justify-content(space-between);
-    padding-top: $global-pad-mrg;
-    margin-top: $global-pad-mrg;
-    border-top: 1px solid rgba($color-white, .1);
+    @include justify-content(flex-end);
+
+    @include flex(1 1 auto);
+
     ul.summary-status-items {
         @include unstyled-list;
+        padding: rem(5) 0;
+
         li {
-            display: inline-block;
+            @include display(flex);
+            @include justify-content(flex-start);
+            padding: 0 0 rem(4);
             width: 100%;
+
             .format-item {
+                @include display(flex);
+                @include flex-direction(row);
+
                 .item-label {
                     color: #CEF233;
                     font-weight: $font-semibold;
-                    float: left;
                     margin: 0 rem(5) 0 0;
-                    text-align: right;
                     &:after {
                         content: (":");
                     }
@@ -29,20 +35,22 @@
         }
     }
     @include media($tablet-screen) {
-        width: 40%;
         padding-top: 0;
         margin-top: 0;
         border-top: none;
+
         ul.summary-status-items {
             li {
+                @include justify-content(flex-start);
+
                 .format-item {
-                    width: 100%;
+                    @include display(flex);
+                    @include flex-direction(row);
+
                     .item-label {
-                        float: left;
                         color: #CEF233;
                         font-weight: $font-semibold;
                         margin: 0 rem(5) 0 0;
-                        text-align: right;
                         &:after {
                             content: (":");
                         }
@@ -58,10 +66,21 @@
         width: auto;
         ul.summary-status-items {
             @include display(flex);
+            @include flex(0 0 auto);
+            @include align-items(flex-end);
+
             li {
                 border-right: 1px solid rgba($color-white, .3);
+                min-width: rem(150);
+
                 .format-item {
+                    @include display(flex);
+                    @include flex-direction(column);
+                    @include flex(1 0 rem(180));
+
+                    padding: 0 $global-pad * 2;
                     .item-label {
+
                         text-align: center;
                         width: 100%;
                         &:after {

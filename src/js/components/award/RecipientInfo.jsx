@@ -146,8 +146,8 @@ export default class RecipientInfo extends React.Component {
             return this.buildMultipleRecipients();
         }
 
-        const isContract = includes(awardTypeGroups.contracts, this.props.award.award_type)
-            || this.props.award.internal_general_type === 'unknown';
+        const isContract = includes(awardTypeGroups.contracts, this.props.award.award_type);
+        const isIDV = !this.props.award.award_type;
 
         return (
             <ul className="recipient-information">
@@ -156,8 +156,8 @@ export default class RecipientInfo extends React.Component {
                 <InfoSnippet
                     label="DUNS"
                     value={this.props.award.recipient_duns || 'Not Available'} />
-                {this.buildParentDuns(isContract)}
-                {this.buildBusinessTypes(isContract)}
+                {this.buildParentDuns(isContract || isIDV)}
+                {this.buildBusinessTypes(isContract || isIDV)}
             </ul>
         );
     }

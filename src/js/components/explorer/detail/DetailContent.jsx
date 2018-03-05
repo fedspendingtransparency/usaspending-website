@@ -16,6 +16,7 @@ import NoAwardsScreen from './NoAwardsScreen';
 const propTypes = {
     isRoot: PropTypes.bool,
     isLoading: PropTypes.bool,
+    isTruncated: PropTypes.bool,
     data: PropTypes.object,
     root: PropTypes.string,
     fy: PropTypes.string,
@@ -175,7 +176,8 @@ export default class DetailContent extends React.Component {
                 fy={this.props.fy}
                 lastUpdate={this.props.lastUpdate}
                 total={this.props.active.total}
-                parent={parentFilter} />);
+                parent={parentFilter}
+                isTruncated={this.props.isTruncated} />);
         }
 
         let fakeScreenAbove = null;

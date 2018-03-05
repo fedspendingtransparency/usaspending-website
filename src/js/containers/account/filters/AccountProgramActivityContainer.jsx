@@ -12,12 +12,15 @@ import { isCancel } from 'axios';
 import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
 import * as AccountHelper from 'helpers/accountHelper';
 
+import { _resetExchange, _convertToFrontendFilter } from 'models/account/queries/queryBuilders/_programActivityTranslator';
+
 import ProgramActivityFilter from
     'components/account/filters/programActivity/ProgramActivityFilter';
 
 const propTypes = {
     setAvailableProgramActivities: PropTypes.func,
     toggleProgramActivity: PropTypes.func,
+    resetProgramActivity: PropTypes.func,
     account: PropTypes.object
 };
 
@@ -35,11 +38,15 @@ export class AccountProgramActivityContainer extends React.Component {
     }
 
     componentWillMount() {
+        // clear out any previously selected program activities
+        this.props.resetProgramActivity();
         this.populateProgramActivities();
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.account !== this.props.account) {
+            // clear out any previously selected program activities
+            this.props.resetProgramActivity();
             this.populateProgramActivities();
         }
     }
@@ -103,15 +110,27 @@ export class AccountProgramActivityContainer extends React.Component {
     }
 
     parseResultData(data) {
-        const programActivities = [];
+        _resetExchange();
+        const programActivities = data.reduce((parsed, activity) => {
+            const code = activity.program_activity__program_activity_code;
+            const name = activity.program_activity__program_activity_name;
+            const id = activity.program_activity__id;
 
-        data.forEach((value) => {
-            programActivities.push({
-                id: value.program_activity__id,
-                code: value.program_activity__program_activity_code,
-                name: value.program_activity__program_activity_name
+            // exchange the API response for a frontend version
+            const filter = _convertToFrontendFilter({
+                id,
+                code,
+                name
             });
-        });
+
+            // if the frontend exchange returns a falsy item, that means it appended the API ID
+            // to an existing frontend filter object; pretend this item wasn't in the response
+            // otherwise, if it does return an actual object, add it to the parsed output
+            if (filter) {
+                parsed.push(filter);
+            }
+            return parsed;
+        }, []);
 
         let noResults = false;
         if (programActivities.length === 0) {

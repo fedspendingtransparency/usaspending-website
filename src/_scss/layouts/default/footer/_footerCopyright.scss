@@ -1,56 +1,109 @@
-.copyright-block {
+.copyright {
     width: 100%;
     padding: rem(10) 0;
     background:  darken( #333, 5% );
     color:  darken( #fff, 20% );
 
-    .copyright-content {
-        @include media($tablet-screen) {
+    @include media($footer-horizontal) {
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(center);
+        @include justify-content(flex-start);
+        position: relative;
+    }
+
+    .copyright__left {
+        @include flex(1 1 auto);
+        @include media($large-screen) {
             @include display(flex);
             @include flex-direction(row);
             @include align-items(center);
-            @include justify-content(center);
+            @include justify-content(flex-start);
             position: relative;
         }
+    }
 
-        .copyright-notice {
-            display: block;
-            width: 100%;
-            text-align: center;
+    .copyright__notice {
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-size: 80%;
 
-            padding-left: rem(20);
+        padding-left: rem(20);
 
-            @include media($tablet-screen) {
-                @include flex(1 1 auto);
-                width: 50%;
-                text-align: left;
-            }
+        @include media($footer-horizontal) {
+            @include flex(0 1 auto);
+            width: auto;
+            text-align: left;
+        }
+    }
+
+    .copyright__legal {
+        @include unstyled-list;
+        @include flex(1 1 auto);
+
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+        margin-left: rem(10);
+        margin-top: rem(10);
+
+        @include media($footer-horizontal) {
+            @include justify-content(flex-start);
+            margin-top: 0;
+        }
+    }
+
+    .copyright__legal-item {
+        @include flex(0 1 auto);
+        margin-right: rem(10);
+
+        &::before {
+            content: '|';
+            font-size: 80%;
+            color: $color-gray-light;
+            margin-right: rem(10);
         }
 
-        .important-db {
-            display: block;
-            text-align: center;
-            width: 100%;
-            margin-bottom: rem(50);
-            margin-right: rem(155);
-            margin-top: rem(15);
-
-            @include media($tablet-screen) {
-                @include flex(1 1 auto);
-                text-align: right;
-                width: 50%;
-                margin-bottom: 0;
-                margin-top: 0;
+        &:first-child {
+            &::before {
+                content: '';
             }
+        }
+    }
 
-            font-size: $small-font-size;
-            a {
-                color: #9BDAF1;
-                text-decoration: underline;
+    .copyright__link {
+        font-size: 80%;
+        color:  darken( #fff, 20% );
+        text-decoration: none;
+        &:hover, &:active {
+            color: $color-white;
+        }
+    }
 
-                &:hover, &:active {
-                    text-decoration: none;
-                }
+    .copyright__db {
+        display: block;
+        text-align: center;
+        width: 100%;
+        margin-bottom: rem(50);
+        margin-right: rem(155);
+        margin-top: rem(15);
+
+        @include media($footer-horizontal) {
+            @include flex(1 1 auto);
+            text-align: right;
+            width: auto;
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+
+        font-size: $small-font-size;
+        a {
+            color: #9BDAF1;
+            text-decoration: underline;
+
+            &:hover, &:active {
+                text-decoration: none;
             }
         }
     }

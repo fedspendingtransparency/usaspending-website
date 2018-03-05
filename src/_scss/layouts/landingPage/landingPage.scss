@@ -20,4 +20,13 @@
             float: none;
         }
     }
+
+    h2.landing-page__title {
+        @include h3;
+        margin: 0;
+    }
+    h3.landing-page__subtitle {
+        @include h6;
+        margin: 0;
+    }
 }

@@ -68,7 +68,7 @@ export default class TimeVisualizationTooltip extends React.Component {
                                 {dollarValue}
                             </div>
                             <div className="tooltip-label">
-                                Spending in {this.props.data.xValue}
+                                Total Obligations in {this.props.data.xValue}
                             </div>
                         </div>
                     </div>

@@ -11,12 +11,12 @@ export default class DataSources extends React.Component {
             <div
                 className="about-section-wrapper"
                 id="about-data-sources">
-                <div className="about-section-title">
-                    <h2>Data Sources</h2>
-                </div>
-                <div className="about-subtitle">
-                    <h3>Connecting the dots across government.</h3>
-                </div>
+                <h2 className="about-section-title">
+                    Data Sources
+                </h2>
+                <h3 className="about-subtitle">
+                    Connecting the dots across government.
+                </h3>
                 <div className="about-section-content">
                     <p>
                         As you see in Exhibit 1 below, many sources of information support
@@ -25,7 +25,13 @@ export default class DataSources extends React.Component {
                         uploaded directly from more than a hundred federal agencies&apos; financial systems.
                         Data is also pulled or derived from other government systems.
                         For example, contract award data is pulled into USAspending.gov daily
-                        from the Federal Procurement Data System Next Generation (FPDS-NG);
+                        from the&nbsp;
+                        <a
+                            href="https://www.fpds.gov/fpdsng_cms/index.php/en/"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            Federal Procurement Data System Next Generation (FPDS-NG)
+                        </a>, which is the system of record for federal procurement data;
                         Financial Assistance award data is loaded in from the Federal Assistance
                         Broker Submission system (FABS). In the end, more than 400 points of data
                         are collected.

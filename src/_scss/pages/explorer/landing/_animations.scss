@@ -1,0 +1,36 @@
+// expand/collapse animation
+@keyframes expandDescription {
+    0% {
+        transform: scale(1,0);
+        transform-origin: center top;
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1,1);
+        transform-origin: center top;
+        opacity: 1;
+    }
+}
+
+@keyframes collapseDescription {
+    0% {
+        transform: scale(1,1);
+        transform-origin: center top;
+        opacity: 1;
+        max-height: 100%;
+    }
+    100% {
+        transform: scale(1,0);
+        transform-origin: center top;
+        opacity: 0;
+        max-height: 0;
+    }
+}
+
+.explorer-description-slide-enter, .explorer-description-slide-enter-active {
+    @include animation(expandDescription 0.195s ease-in forwards);
+}
+
+.explorer-description-slide-leave, .explorer-description-slide-leave-active {
+    @include animation(collapseDescription 0.195s ease-in forwards);
+}

@@ -7,8 +7,6 @@ import React from 'react';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
-import GlossaryContainer from 'containers/glossary/GlossaryContainer';
-
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
 import Header from '../sharedComponents/header/Header';
@@ -27,7 +25,6 @@ export default class Homepage extends React.Component {
             <div className="usa-da-home-page">
                 <MetaTags {...MetaTagHelper.homePageMetaTags} />
                 <Header />
-                <GlossaryContainer />
                 <main
                     id="main-content"
                     className="homepage-content">
