@@ -28,12 +28,18 @@
         margin: rem(10) 0;
     }
 
-    .mobile-download__link {
+    button.mobile-download__link {
+        @include button-unstyled;
+        width: 100%;
+    }
+
+    a.mobile-download__link, button.mobile-download__link {
         @include display(flex);
         @include justify-content(flex-start);
         @include align-items(center);
 
         font-size: rem(22);
+        line-height: rem(33);
         padding: rem(20);
         color: $color-base;
         background-color: $color-white;

@@ -6,6 +6,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as redirectHelper from 'helpers/redirectHelper';
+import Analytics from 'helpers/analytics/Analytics';
+
+const clickedHomepageLink = (route) => {
+    Analytics.event({
+        category: 'Homepage - Link',
+        action: route
+    });
+};
 
 const propTypes = {
     label: PropTypes.string.isRequired,
@@ -25,6 +33,7 @@ export default class DownloadDetail extends React.Component {
 
     redirect() {
         redirectHelper.showRedirectModal(this.props.url);
+        clickedHomepageLink(this.props.url);
     }
 
     render() {
@@ -37,7 +46,8 @@ export default class DownloadDetail extends React.Component {
             <a
                 className="download-detail__link"
                 href={this.props.url}
-                {...linkProps}>
+                {...linkProps}
+                onClick={clickedHomepageLink.bind(null, this.props.url.replace('#', ''))}>
                 {this.props.callToAction}
             </a>
         );

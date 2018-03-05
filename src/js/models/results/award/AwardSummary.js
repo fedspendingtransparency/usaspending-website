@@ -563,7 +563,7 @@ const remapData = (data, idField) => {
 
     // Format Recipient Info + Address
     if (data.recipient) {
-        recipientName = data.recipient.recipient_name;
+        recipientName = data.recipient.recipient_name || 'Unknown';
 
         const loc = data.recipient.location;
 
