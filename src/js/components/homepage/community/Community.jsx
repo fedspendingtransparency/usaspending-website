@@ -4,6 +4,14 @@
  */
 
 import React from 'react';
+import Analytics from 'helpers/analytics/Analytics';
+
+const clickedHomepageLink = (route) => {
+    Analytics.event({
+        category: 'Homepage - Link',
+        action: route
+    });
+};
 
 const Community = () => (
     <section
@@ -24,7 +32,8 @@ const Community = () => (
                     className="homepage-community__link"
                     href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
                     target="_blank"
-                    rel="noopener noreferrer">
+                    rel="noopener noreferrer"
+                    onClick={clickedHomepageLink.bind(null, 'https://usaspending-help.zendesk.com/hc/en-us/community/topics')}>
                     Visit our community page
                 </a>
             </div>
