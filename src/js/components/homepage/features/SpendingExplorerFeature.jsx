@@ -4,6 +4,14 @@
  */
 
 import React from 'react';
+import Analytics from 'helpers/analytics/Analytics';
+
+const clickedHomepageLink = (route) => {
+    Analytics.event({
+        category: 'Homepage - Link',
+        action: route
+    });
+};
 
 const SpendingExplorerFeature = () => (
     <div className="feature-spending-explorer">
@@ -39,7 +47,8 @@ const SpendingExplorerFeature = () => (
                 <div className="feature-spending-explorer__button-wrap">
                     <a
                         className="feature-spending-explorer__button"
-                        href="#/explorer">
+                        href="#/explorer"
+                        onClick={clickedHomepageLink.bind(null, '/explorer')}>
                         Try our <strong className="feature-spending-explorer__button-text feature-spending-explorer__button-text_weight_bold">Spending Explorer</strong>
                     </a>
                 </div>
