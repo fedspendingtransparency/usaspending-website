@@ -20,20 +20,18 @@ export default class InfoBanner extends React.Component {
                         <div className="info-banner__title-text">
                             Welcome to the new USAspending.gov!
                         </div>
-                        We now offer agency financial data, along with the awards data you&apos;re used to.  Questions?
-                        Check out our&nbsp;
-                        <a
-                            href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            FAQ
-                        </a> or join the conversation on our&nbsp;
+                        We will continue to improve the data quality and display on a rolling basis.
+                        Questions? Check out our&nbsp;
+                        <a href="#/about">
+                            About
+                        </a> page for important information on the data and authoritative sources
+                        or join the conversation on our&nbsp;
                         <a
                             href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
                             target="_blank"
                             rel="noopener noreferrer">
                             Community
-                        </a> page.  Visit the old site at&nbsp;
+                        </a> page. Visit the old site at&nbsp;
                         <a
                             href="https://legacy.usaspending.gov"
                             target="_blank"

@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Analytics from 'helpers/analytics/Analytics';
 import * as redirectHelper from 'helpers/redirectHelper';
 
 import DropdownComingSoon from './DropdownComingSoon';
@@ -19,6 +20,13 @@ const propTypes = {
     externalLink: PropTypes.bool
 };
 
+const clickedHeaderLink = (route) => {
+    Analytics.event({
+        category: 'Header - Link',
+        action: route
+    });
+};
+
 export default class DropdownItem extends React.Component {
     constructor(props) {
         super(props);
@@ -28,6 +36,7 @@ export default class DropdownItem extends React.Component {
 
     redirect() {
         redirectHelper.showRedirectModal(this.props.url);
+        clickedHeaderLink(`${this.props.url.replace('#', '')}`);
     }
 
     render() {
@@ -43,28 +52,24 @@ export default class DropdownItem extends React.Component {
             comingSoon = null;
         }
 
+        const newTabProps = {};
+        if (this.props.newTab) {
+            newTabProps.target = '_blank';
+            newTabProps.rel = 'noopener noreferrer';
+        }
+
         let link = (
             <a
                 className={`nav-children__link ${className}`}
-                href={this.props.url}>
+                href={this.props.url}
+                onClick={clickedHeaderLink.bind(null, `${this.props.url.replace('#', '')}`)}
+                {...newTabProps}>
                 {this.props.label}
                 {comingSoon}
             </a>
         );
 
-        if (this.props.enabled && this.props.newTab && !this.props.externalLink) {
-            // Open in a new tab, don't trigger the redirect modal
-            link = (
-                <a
-                    className="nav-children__link"
-                    href={this.props.url}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    {this.props.label}
-                </a>
-            );
-        }
-        else if (this.props.enabled && this.props.externalLink) {
+        if (this.props.enabled && this.props.externalLink) {
             // Trigger the redirect modal
             link = (
                 <button

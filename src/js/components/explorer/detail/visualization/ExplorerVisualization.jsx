@@ -125,7 +125,7 @@ export default class ExplorerVisualization extends React.Component {
                 {visualization}
 
                 <div className="treemap-disclaimer">
-                    All dollar amounts shown here represent obligated amounts
+                    All dollar amounts shown here represent agency reported obligated amounts
                 </div>
             </div>
         );

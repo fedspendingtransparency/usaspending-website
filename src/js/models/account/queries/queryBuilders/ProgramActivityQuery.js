@@ -3,6 +3,8 @@
  * Created by michaelbray on 4/17/17.
  */
 
+import { _translateFrontendIDToPrimaryKeys } from './_programActivityTranslator';
+
 const programActivityField = 'program_activity__id';
 
 const spendingOverTimeField =
@@ -17,10 +19,10 @@ export const commonQuery = (field, values) => ({
 });
 
 export const buildBalancesProgramActivityQuery = (values) =>
-    commonQuery(spendingOverTimeField, values);
+    commonQuery(spendingOverTimeField, _translateFrontendIDToPrimaryKeys(values));
 
 export const buildCategoriesProgramActivityQuery = (values) =>
-    commonQuery(spendingByCategoryField, values);
+    commonQuery(spendingByCategoryField, _translateFrontendIDToPrimaryKeys(values));
 
 export const buildAwardsProgramActivityQuery = (values) =>
-    commonQuery(awardField, values);
+    commonQuery(awardField, _translateFrontendIDToPrimaryKeys(values));

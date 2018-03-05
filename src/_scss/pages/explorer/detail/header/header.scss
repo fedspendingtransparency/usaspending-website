@@ -91,3 +91,9 @@
         }
     }
 }
+
+.detail-header__truncation {
+    margin-top: rem(20);
+}
+
+@import "./_truncation";
