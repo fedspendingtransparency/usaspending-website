@@ -11,10 +11,10 @@ import CoreAward from './CoreAward';
 
 const BaseFinancialAssistance = Object.create(CoreAward);
 
-BaseFinancialAssistance. populate = function populate(data) {
+BaseFinancialAssistance.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
-        id: data.piid,
+        id: data.fain,
         internalId: data.id,
         category: data.category,
         startDate: data.period_of_performance_start_date,
@@ -30,13 +30,13 @@ BaseFinancialAssistance. populate = function populate(data) {
     placeOfPerformance.populate(data.place_of_performance);
     this.placeOfPerformance = placeOfPerformance;
 
-    if(data.awarding_agency) {
+    if (data.awarding_agency) {
         const awardingAgency = Object.create(BaseAwardAgency);
         awardingAgency.populate(data.awarding_agency);
         this.awardingAgency = awardingAgency;
     }
 
-    if(data.funding_agency) {
+    if (data.funding_agency) {
         const fundingAgency = Object.create(BaseAwardAgency);
         fundingAgency.populate(data.funding_agency);
         this.fundingAgency = fundingAgency;
@@ -45,7 +45,6 @@ BaseFinancialAssistance. populate = function populate(data) {
     // populate the financial assistance-specific fields
     this._faceValue = parseFloat(data.latest_transaction.assistance_data.face_value_loan_guarantee) || 0;
     this._subsidy = parseFloat(data.total_subsidy_cost) || 0;
-
 };
 
 
@@ -61,4 +60,4 @@ Object.defineProperty(BaseFinancialAssistance, 'subsidy', {
     }
 });
 
-export default BaseFinancialAssistance; 
+export default BaseFinancialAssistance;

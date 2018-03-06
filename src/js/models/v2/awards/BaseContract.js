@@ -31,13 +31,13 @@ BaseContract.populate = function populate(data) {
     placeOfPerformance.populate(data.place_of_performance);
     this.placeOfPerformance = placeOfPerformance;
 
-    if(data.awarding_agency) {
+    if (data.awarding_agency) {
         const awardingAgency = Object.create(BaseAwardAgency);
         awardingAgency.populate(data.awarding_agency);
         this.awardingAgency = awardingAgency;
     }
 
-    if(data.funding_agency) {
+    if (data.funding_agency) {
         const fundingAgency = Object.create(BaseAwardAgency);
         fundingAgency.populate(data.funding_agency);
         this.fundingAgency = fundingAgency;
