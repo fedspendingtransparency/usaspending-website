@@ -202,12 +202,26 @@ export default class Table extends React.Component {
             height: (this.props.rowCount * this.props.rowHeight)
         };
 
+        let accessibleDescription = `${this.props.columns.length} column`;
+        if (this.props.columns.length !== 1) {
+            accessibleDescription += 's';
+        }
+        accessibleDescription += ` and ${this.props.rowCount} row`;
+        if (this.props.rowCount !== 1) {
+            accessibleDescription += 's';
+        }
+
         return (
             <div
                 className="ibt-table-container"
+                role="grid"
+                aria-rowcount={-1}
+                aria-colcount={this.props.columns.length}
+                aria-label={`This is a table with ${accessibleDescription}. Use your arrow keys to navigate through cells.`}
                 style={style}>
                 <div
                     className="ibt-table-header-container"
+                    role="presentation"
                     style={headerStyle}
                     onScroll={this._scrolledHeader}
                     ref={(div) => {
@@ -225,6 +239,7 @@ export default class Table extends React.Component {
                 </div>
                 <div
                     className="ibt-table-body-section"
+                    role="presentation"
                     style={bodyStyle}
                     onScroll={this._scrolledTable}
                     ref={(div) => {
@@ -232,6 +247,7 @@ export default class Table extends React.Component {
                     }}>
                     <div
                         className="ibt-table-content"
+                        role="presentation"
                         style={contentStyle}
                         ref={(div) => {
                             this._internalDiv = div;

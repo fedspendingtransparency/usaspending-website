@@ -40,19 +40,18 @@ export default class TableBody extends React.PureComponent {
 
         this._scrollListener = null;
 
-        this._currentlyFocused = false;
-
         this._tableScrolled = this._tableScrolled.bind(this);
 
         // bindings for accessibility users
-        this._tableFocused = this._tableFocused.bind(this);
-        this._tableBlurred = this._tableBlurred.bind(this);
         this._keyPressed = this._keyPressed.bind(this);
     }
 
     componentDidMount() {
         this._scrollListener = ScrollManager.subscribe(this._tableScrolled);
-
+        // because we can't reliably detect focus/blur events on table children, we'll just listen
+        // to all keypress events and only handle it when a cell is active and an arrow key is also
+        // pressed
+        document.addEventListener('keydown', this._keyPressed);
     }
 
     componentDidUpdate(prevProps) {
@@ -75,6 +74,8 @@ export default class TableBody extends React.PureComponent {
         if (this._scrollListener) {
             ScrollManager.unsubscribe(this._scrollListener);
         }
+
+        document.removeEventListener('keydown', this._keyPressed);
     }
 
     reloadTable() {
@@ -85,41 +86,129 @@ export default class TableBody extends React.PureComponent {
         });
     }
 
-    _tableFocused(e) {
-        e.stopPropagation();
-        if (!this._currentlyFocused) {
-            document.addEventListener('keydown', this._keyPressed);
+    _findActiveCell(element) {
+        if (!element || !this._tableDiv.contains(element)) {
+            // no element was provided to compare or the element that was provided is not a child
+            // of the table container (this prevents us from unnecessarily iterating through
+            // unreleated DOM elements)
+            return null;
         }
 
-        console.log(e.target);
+        // validate that the element is a cell in this table
+        if (element.dataset.ibtTableElement === 'cell'
+            && element.dataset.ibtTableOwner === this.props.tableId) {
+            return element;
+        }
 
-        this._currentlyFocused = true;
-    }
-
-    _tableBlurred() {
-        console.log('blurred');
-        this._currentlyFocused = false;
-        document.removeEventListener('keydown', this._keyPressed);
+        // it's not a cell, check its parent
+        return this._findActiveCell(element.parentElement);
     }
 
     _keyPressed(e) {
-        if (!this._currentlyFocused || arrowKeys.indexOf(e.key) === -1) {
+        // check if a cell or a child of a cell is currently focused
+        const activeElement = document.activeElement;
+        if (!activeElement) {
+            return;
+        }
+        const active = this._findActiveCell(activeElement);
+        if (!active || arrowKeys.indexOf(e.key) === -1) {
+            // no active cell is selected and/or a non-arrow key was pressed
             return;
         }
 
+        // since an arrow key was pressed, override the default behavior
         e.preventDefault();
 
         switch (e.key) {
             case 'ArrowDown':
+                this._focusDown(active);
                 break;
             case 'ArrowUp':
+                this._focusUp(active);
                 break;
             case 'ArrowLeft':
+                this._focusLeft(active);
                 break;
             case 'ArrowRight':
+                this._focusRight(active);
                 break;
-            default:
+            // no default
+        }
+    }
+
+    _focusRight(active) {
+        const colIndex = parseInt(active.dataset.ibtColIndex, 10);
+        const rowIndex = parseInt(active.dataset.ibtRowIndex, 10);
+        // go to the next column
+        let nextId = `${this.props.tableId}-cell-${colIndex + 1}-${rowIndex}`;
+        if (colIndex + 1 >= this.props.columns.length) {
+            // this is the last column, go the first column of the next row
+            if (rowIndex + 1 < this.props.rowCount) {
+                nextId = `${this.props.tableId}-cell-0-${rowIndex + 1}`;
+            }
+            else {
+                // this is also the last row, so do nothing
                 return;
+            }
+        }
+
+        const nextCell = document.getElementById(nextId);
+        if (nextCell) {
+            nextCell.focus();
+        }
+    }
+
+    _focusLeft(active) {
+        const colIndex = parseInt(active.dataset.ibtColIndex, 10);
+        const rowIndex = parseInt(active.dataset.ibtRowIndex, 10);
+        // go to the previous column
+        let nextId = `${this.props.tableId}-cell-${colIndex - 1}-${rowIndex}`;
+        if (colIndex === 0) {
+            // this is the first column, go the last column of the previous row
+            if (rowIndex > 0) {
+                nextId = `${this.props.tableId}-cell-${this.props.columns.length - 1}-${rowIndex - 1}`;
+            }
+            else {
+                // this is also the first row, so do nothing
+                return;
+            }
+        }
+
+        const nextCell = document.getElementById(nextId);
+        if (nextCell) {
+            nextCell.focus();
+        }
+    }
+
+    _focusUp(active) {
+        const colIndex = parseInt(active.dataset.ibtColIndex, 10);
+        const rowIndex = parseInt(active.dataset.ibtRowIndex, 10);
+        // go to the previous row
+        const nextId = `${this.props.tableId}-cell-${colIndex}-${rowIndex - 1}`;
+        if (rowIndex === 0) {
+            // this is also the first row, so do nothing
+            return;
+        }
+
+        const nextCell = document.getElementById(nextId);
+        if (nextCell) {
+            nextCell.focus();
+        }
+    }
+
+    _focusDown(active) {
+        const colIndex = parseInt(active.dataset.ibtColIndex, 10);
+        const rowIndex = parseInt(active.dataset.ibtRowIndex, 10);
+        // go to the next row
+        const nextId = `${this.props.tableId}-cell-${colIndex}-${rowIndex + 1}`;
+        if (rowIndex + 1 >= this.props.rowCount) {
+            // this is also the last row, so do nothing
+            return;
+        }
+
+        const nextCell = document.getElementById(nextId);
+        if (nextCell) {
+            nextCell.focus();
         }
     }
 
@@ -137,7 +226,21 @@ export default class TableBody extends React.PureComponent {
 
         if (visibleRange !== this.state.visibleRange) {
             // cells changed
-            this._visibleCells = visibleCoords.cells.map((coord) => this._cellCache[coord]);
+            // this._visibleCells = visibleCoords.cells.map((coord) => this._cellCache[coord]);
+            this._visibleCells = visibleCoords.rows.reduce((cells, rowCoords, index) => {
+                const rowCells = rowCoords.map((coord) => this._cellCache[coord]);
+                const row = (
+                    <div
+                        className="ibt-table-row"
+                        key={visibleCoords.firstRow + index}
+                        aria-rowindex={visibleCoords.firstRow + index + 1}
+                        role="row">
+                        {rowCells}
+                    </div>
+                );
+                cells.push(row);
+                return cells;
+            }, []);
 
             // handle pagination scroll events separately from state changes (which in turn renders
             // the visible cells to DOM)
@@ -206,30 +309,22 @@ export default class TableBody extends React.PureComponent {
         if (trailingColumn) {
             visibleColumns.push(trailingColumn);
         }
-
-        const visibleCells = [];
+        const visibleRows = [];
 
         for (let i = topRow; i <= bottomRow; i++) {
-            if (i === topRow) {
-                // ensure the last column of the first row is included for accessibility purposes
-                if (visibleColumns[visibleColumns.length - 1] !== this.props.columns.length - 1) {
-                    visibleCells.push(`${this.props.columns.length - 1},${topRow}`);
-                }
-            }
-            else if (i === bottomRow) {
-                // ensure the first column of the last row is included for accessibility purposes
-                if (visibleColumns[0] !== 0) {
-                    visibleCells.push(`0,${bottomRow}`);
-                }
+            const rowCells = [];
+
+            for (let j = 0; j < this.props.columns.length; j++) {
+                rowCells.push(`${j},${i}`);
             }
 
-            visibleColumns.forEach((col) => {
-                visibleCells.push(`${col},${i}`);
-            });
+            visibleRows.push(rowCells);
         }
 
         return {
-            cells: visibleCells,
+            rows: visibleRows,
+            firstRow: topRow,
+            lastRow: bottomRow,
             range: `${visibleColumns[0]},${topRow}-${visibleColumns[visibleColumns.length - 1]},${bottomRow}`
         };
     }
@@ -270,6 +365,14 @@ export default class TableBody extends React.PureComponent {
                         key={coord}
                         id={`${this.props.tableId}-cell-${columnIndex}-${rowIndex}`}
                         className="ibt-table-cell"
+                        role="gridcell"
+                        aria-colindex={columnIndex + 1}
+                        aria-rowindex={rowIndex + 1}
+                        aria-describedby={`${this.props.tableId}-header-${columnIndex}`}
+                        data-ibt-table-element="cell"
+                        data-ibt-table-owner={this.props.tableId}
+                        data-ibt-col-index={columnIndex}
+                        data-ibt-row-index={rowIndex}
                         tabIndex={0}
                         style={{
                             top: cellPositioning.y,
@@ -304,9 +407,11 @@ export default class TableBody extends React.PureComponent {
         return (
             <div
                 className="ibt-table-body-container"
+                role="presentation"
                 style={style}>
                 <div
                     className="ibt-table-body"
+                    role="presentation"
                     ref={(div) => {
                         this._tableDiv = div;
                     }}>
