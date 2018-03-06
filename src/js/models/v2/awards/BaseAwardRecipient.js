@@ -4,6 +4,7 @@
  */
 
 import { getBusinessTypes } from 'helpers/businessTypesHelper';
+import { formatMoney } from 'helpers/moneyFormatter';
 import CoreLocation from './CoreLocation';
 
 const parseBusinessCategories = (data) => (
@@ -14,6 +15,19 @@ const parseBusinessCategories = (data) => (
         return parsed;
     }, [])
 );
+
+const parseExecutiveCompensation = (data) => {
+    const executiveCompensation = [];
+    for (let i = 1; i < 6; i++) {
+        const name = data[`officer_${i}_name`] || '';
+        const amount = formatMoney(data[`officer_${i}_amount`]) || 0;
+        executiveCompensation[i] = {
+            name,
+            amount
+        };
+    }
+    return executiveCompensation;
+};
 
 const BaseAwardRecipient = {
     populate(data) {
@@ -42,6 +56,11 @@ const BaseAwardRecipient = {
         const location = Object.create(CoreLocation);
         location.populateCore(locationData);
         this.location = location;
+
+        // Executive Compensation
+        if (data.officers) {
+            this._officers = parseExecutiveCompensation(data.officers);
+        }
     },
     get businessTypes() {
         if (this._businessTypes) {
@@ -51,7 +70,7 @@ const BaseAwardRecipient = {
             return this._businessCategories;
         }
         return [];
-    },
+    }
 };
 
 export default BaseAwardRecipient;
