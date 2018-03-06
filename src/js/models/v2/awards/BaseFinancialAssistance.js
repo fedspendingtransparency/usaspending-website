@@ -1,18 +1,17 @@
 /**
- * BaseContract.js
- * Created by Kevin Li 2/22/18
+ * BaseFinancialAssistance. js
+ * Created by Lizzie Salita 3/5/18
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import BaseAwardPlaceOfPerformance from './BaseAwardPlaceOfPerformance';
 import BaseAwardAgency from './BaseAwardAgency';
-import BaseContractAdditionalDetails from './BaseContractAdditionalDetails';
 import CoreAward from './CoreAward';
 
-const BaseContract = Object.create(CoreAward);
+const BaseFinancialAssistance = Object.create(CoreAward);
 
-BaseContract.populate = function populate(data) {
+BaseFinancialAssistance. populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
         id: data.piid,
@@ -43,34 +42,23 @@ BaseContract.populate = function populate(data) {
         this.fundingAgency = fundingAgency;
     }
 
-    const additionalDetails = Object.create(BaseContractAdditionalDetails);
-    additionalDetails.populate(data.latest_transaction.contract_data);
-    this.additionalDetails = additionalDetails;
+    // populate the financial assistance-specific fields
+    this._faceValue = parseFloat(data.latest_transaction.assistance_data.face_value_loan_guarantee) || 0;
+    this._subsidy = parseFloat(data.total_subsidy_cost) || 0;
 
-    // populate the contract-specific fields
-    this.parentAward = data.parent_award_piid;
-    this.description = data.description || '';
-    this._amount = parseFloat(data.base_and_all_options_value) || 0;
-    this._ceiling = parseFloat(data.base_and_all_options_value) || 0;
-    this._obligation = parseFloat(data.total_obligation) || 0;
 };
 
 
 // getter functions
-Object.defineProperty(BaseContract, 'amount', {
+Object.defineProperty(BaseFinancialAssistance, 'faceValue', {
     get() {
-        return formatMoney(this._amount);
+        return formatMoney(this._faceValue);
     }
 });
-Object.defineProperty(BaseContract, 'ceiling', {
+Object.defineProperty(BaseFinancialAssistance, 'subsidy', {
     get() {
-        return formatMoney(this._ceiling);
-    }
-});
-Object.defineProperty(BaseContract, 'obligation', {
-    get() {
-        return formatMoney(this._obligation);
+        return formatMoney(this._subsidy);
     }
 });
 
-export default BaseContract;
+export default BaseFinancialAssistance; 

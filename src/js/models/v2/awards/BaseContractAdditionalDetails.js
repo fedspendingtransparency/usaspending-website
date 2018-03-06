@@ -1,9 +1,9 @@
 /**
- * BaseAdditionalDetails.js
+ * BaseContractAdditionalDetails.js
  * Created by Lizzie Salita 3/5/18
  */
 
-const BaseAdditionalDetails = {
+const BaseContractAdditionalDetails = {
     populate(data) {
         this.pricingCode = data.type_of_contract_pricing || '';
         this.pricing = data.type_of_contract_pric_desc || '';
@@ -57,4 +57,4 @@ const BaseAdditionalDetails = {
     }
 };
 
-export default BaseAdditionalDetails;
+export default BaseContractAdditionalDetails;
