@@ -5,16 +5,16 @@
 
 import { formatMoney } from 'helpers/moneyFormatter';
 import BaseAwardRecipient from './BaseAwardRecipient';
-import BaseAwardPlaceOfPerformance from './BaseAwardPlaceOfPerformance';
 import BaseAwardAgency from './BaseAwardAgency';
 import CoreAward from './CoreAward';
+import CoreLocation from './CoreLocation';
 
 const BaseFinancialAssistance = Object.create(CoreAward);
 
 BaseFinancialAssistance.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
-        id: data.fain,
+        id: data.fain || data.uri,
         internalId: data.id,
         category: data.category,
         startDate: data.period_of_performance_start_date,
@@ -26,8 +26,20 @@ BaseFinancialAssistance.populate = function populate(data) {
     recipient.populate(data.recipient);
     this.recipient = recipient;
 
-    const placeOfPerformance = Object.create(BaseAwardPlaceOfPerformance);
-    placeOfPerformance.populate(data.place_of_performance);
+    const placeOfPerformanceData = {
+        city: data.place_of_performance.city_name,
+        county: data.place_of_performance.county_name,
+        stateCode: data.place_of_performance.state_code,
+        state: data.place_of_performance.state_name || data.place_of_performance.state_code,
+        province: data.place_of_performance.foreign_province,
+        zip5: data.place_of_performance.zip5,
+        zip4: data.place_of_performance.zip4,
+        congressionalDistrict: data.place_of_performance.congressional_code,
+        country: data.place_of_performance.country_name,
+        countryCode: data.place_of_performance.location_country_code
+    };
+    const placeOfPerformance = Object.create(CoreLocation);
+    placeOfPerformance.populateCore(placeOfPerformanceData);
     this.placeOfPerformance = placeOfPerformance;
 
     if (data.awarding_agency) {

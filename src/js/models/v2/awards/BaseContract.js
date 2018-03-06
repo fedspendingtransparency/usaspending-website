@@ -5,10 +5,10 @@
 
 import { formatMoney } from 'helpers/moneyFormatter';
 import BaseAwardRecipient from './BaseAwardRecipient';
-import BaseAwardPlaceOfPerformance from './BaseAwardPlaceOfPerformance';
 import BaseAwardAgency from './BaseAwardAgency';
 import BaseContractAdditionalDetails from './BaseContractAdditionalDetails';
 import CoreAward from './CoreAward';
+import CoreLocation from './CoreLocation';
 
 const BaseContract = Object.create(CoreAward);
 
@@ -27,8 +27,20 @@ BaseContract.populate = function populate(data) {
     recipient.populate(data.recipient);
     this.recipient = recipient;
 
-    const placeOfPerformance = Object.create(BaseAwardPlaceOfPerformance);
-    placeOfPerformance.populate(data.place_of_performance);
+    const placeOfPerformanceData = {
+        city: data.place_of_performance.city_name,
+        county: data.place_of_performance.county_name,
+        stateCode: data.place_of_performance.state_code,
+        state: data.place_of_performance.state_name || data.place_of_performance.state_code,
+        province: data.place_of_performance.foreign_province,
+        zip5: data.place_of_performance.zip5,
+        zip4: data.place_of_performance.zip4,
+        congressionalDistrict: data.place_of_performance.congressional_code,
+        country: data.place_of_performance.country_name,
+        countryCode: data.place_of_performance.location_country_code
+    };
+    const placeOfPerformance = Object.create(CoreLocation);
+    placeOfPerformance.populateCore(placeOfPerformanceData);
     this.placeOfPerformance = placeOfPerformance;
 
     if (data.awarding_agency) {
