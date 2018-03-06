@@ -213,7 +213,7 @@ export default class TableBody extends React.PureComponent {
     }
 
     _tableScrolled(scroll) {
-        const visibleCoords = this._calculateVisibleCells(scroll.x, scroll.y);
+        const visibleCoords = this._calculateVisibleRows(scroll.x, scroll.y);
         if (!visibleCoords || visibleCoords.length === 0) {
             // there is no data so there's nothing to show
             return;
@@ -226,7 +226,6 @@ export default class TableBody extends React.PureComponent {
 
         if (visibleRange !== this.state.visibleRange) {
             // cells changed
-            // this._visibleCells = visibleCoords.cells.map((coord) => this._cellCache[coord]);
             this._visibleCells = visibleCoords.rows.reduce((cells, rowCoords, index) => {
                 const rowCells = rowCoords.map((coord) => this._cellCache[coord]);
                 const row = (
@@ -261,7 +260,7 @@ export default class TableBody extends React.PureComponent {
         }
     }
 
-    _calculateVisibleCells(x, y) {
+    _calculateVisibleRows(x, y) {
         if (this.props.rowCount === 0 || this.props.columns.length === 0) {
             // there's no data
             return null;
