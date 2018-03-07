@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 import HeaderRow from './HeaderRow';
 import TableBody from './TableBody';
@@ -46,6 +47,7 @@ export default class Table extends React.Component {
 
         this._tableWrapper = null;
         this._internalDiv = null;
+        this._tableId = `${uniqueId()}`;
 
         this._scrolledTable = this._scrolledTable.bind(this);
         this._scrolledHeader = this._scrolledHeader.bind(this);
@@ -200,18 +202,33 @@ export default class Table extends React.Component {
             height: (this.props.rowCount * this.props.rowHeight)
         };
 
+        let accessibleDescription = `${this.props.columns.length} column`;
+        if (this.props.columns.length !== 1) {
+            accessibleDescription += 's';
+        }
+        accessibleDescription += ` and ${this.props.rowCount} row`;
+        if (this.props.rowCount !== 1) {
+            accessibleDescription += 's';
+        }
+
         return (
             <div
                 className="ibt-table-container"
+                role="grid"
+                aria-rowcount={-1}
+                aria-colcount={this.props.columns.length}
+                aria-label={`This is a table with ${accessibleDescription}. Use your arrow keys to navigate through cells.`}
                 style={style}>
                 <div
                     className="ibt-table-header-container"
+                    role="presentation"
                     style={headerStyle}
                     onScroll={this._scrolledHeader}
                     ref={(div) => {
                         this._headerWrapper = div;
                     }}>
                     <HeaderRow
+                        tableId={this._tableId}
                         contentWidth={this.props.contentWidth}
                         headerHeight={this.props.headerHeight}
                         columns={this.props.columns}
@@ -222,6 +239,7 @@ export default class Table extends React.Component {
                 </div>
                 <div
                     className="ibt-table-body-section"
+                    role="presentation"
                     style={bodyStyle}
                     onScroll={this._scrolledTable}
                     ref={(div) => {
@@ -229,11 +247,13 @@ export default class Table extends React.Component {
                     }}>
                     <div
                         className="ibt-table-content"
+                        role="presentation"
                         style={contentStyle}
                         ref={(div) => {
                             this._internalDiv = div;
                         }}>
                         <TableBody
+                            tableId={this._tableId}
                             columns={this.props.columns}
                             contentWidth={this.props.contentWidth}
                             bodyWidth={visibleWidth}

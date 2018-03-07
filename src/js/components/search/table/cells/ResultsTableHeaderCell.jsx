@@ -67,6 +67,7 @@ const TableHeaderCell = (props) => {
                 onClick={clickedDefault}
                 onKeyDown={pressedKey}
                 role="presentation"
+                aria-label={props.title}
                 tabIndex={0}>
                 <div className="header-sort">
                     <div className="header-label">
