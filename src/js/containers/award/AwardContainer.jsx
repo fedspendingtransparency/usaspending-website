@@ -16,6 +16,7 @@ import * as awardActions from 'redux/actions/award/awardActions';
 import AwardSummary from 'models/results/award/AwardSummary';
 
 import BaseContract from 'models/v2/awards/BaseContract';
+import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
 
 require('pages/award/awardPage.scss');
 
@@ -109,11 +110,14 @@ export class AwardContainer extends React.Component {
         });
 
         if (data.category === 'contract' || !data.category) {
-            const testAward = Object.create(BaseContract);
-            testAward.populate(data);
-            console.log(testAward.recipient);
-            console.log(testAward.recipient.regionalAddress);
-            console.log(testAward.recipient.businessTypes);
+            const testContract = Object.create(BaseContract);
+            testContract.populate(data);
+            console.log(testContract);
+        }
+        else {
+            const testFinancialAssistance = Object.create(BaseFinancialAssistance);
+            testFinancialAssistance.populate(data);
+            console.log(testFinancialAssistance);
         }
 
         const award = new AwardSummary(data);

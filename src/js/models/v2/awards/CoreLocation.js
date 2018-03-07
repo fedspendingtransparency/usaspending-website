@@ -16,7 +16,7 @@ const CoreLocation = {
         this._country = data.country || '';
         this._countryCode = data.countryCode || '';
         this._state = data.state || data.stateCode || '';
-        this._congressionalDistrict = data.congressionalDistrict;
+        this._congressionalDistrict = data.congressionalDistrict || '';
     },
     get streetAddress() {
         // format the street address
@@ -44,7 +44,7 @@ const CoreLocation = {
         return `${city}${adminArea}${country}${postCode}`;
     },
     get congressionalDistrict() {
-        return `${this._stateCode}-${this._congressionalDistrict}`;
+        return (this._congressionalDistrict && `${this._stateCode}-${this._congressionalDistrict}`) || '';
     },
     get stateProvince() {
         if (this._city && this._stateCode) {

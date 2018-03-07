@@ -5,7 +5,7 @@
 
 import { formatMoney } from 'helpers/moneyFormatter';
 import BaseAwardRecipient from './BaseAwardRecipient';
-import BaseAwardAgency from './BaseAwardAgency';
+import CoreAwardAgency from './CoreAwardAgency';
 import CoreAward from './CoreAward';
 import CoreLocation from './CoreLocation';
 
@@ -43,14 +43,24 @@ BaseFinancialAssistance.populate = function populate(data) {
     this.placeOfPerformance = placeOfPerformance;
 
     if (data.awarding_agency) {
-        const awardingAgency = Object.create(BaseAwardAgency);
-        awardingAgency.populate(data.awarding_agency);
+        const awardingAgencyData = {
+            name: data.awarding_agency.toptier_agency && data.awarding_agency.toptier_agency.name,
+            subtierName: data.awarding_agency.subtier_agency && data.awarding_agency.subtier_agency.name,
+            officeName: data.latest_transaction.contract_data.awarding_office_code
+        };
+        const awardingAgency = Object.create(CoreAwardAgency);
+        awardingAgency.populateCore(awardingAgencyData);
         this.awardingAgency = awardingAgency;
     }
 
     if (data.funding_agency) {
-        const fundingAgency = Object.create(BaseAwardAgency);
-        fundingAgency.populate(data.funding_agency);
+        const fundingAgencyData = {
+            name: data.funding_agency.toptier_agency && data.funding_agency.toptier_agency.name,
+            subtierName: data.funding_agency.subtier_agency && data.funding_agency.subtier_agency.name,
+            officeName: data.latest_transaction.contract_data.funding_office_code
+        };
+        const fundingAgency = Object.create(CoreAwardAgency);
+        fundingAgency.populateCore(fundingAgencyData);
         this.fundingAgency = fundingAgency;
     }
 
