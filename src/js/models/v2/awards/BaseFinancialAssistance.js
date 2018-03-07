@@ -46,7 +46,7 @@ BaseFinancialAssistance.populate = function populate(data) {
         const awardingAgencyData = {
             name: data.awarding_agency.toptier_agency && data.awarding_agency.toptier_agency.name,
             subtierName: data.awarding_agency.subtier_agency && data.awarding_agency.subtier_agency.name,
-            officeName: data.latest_transaction.contract_data.awarding_office_code
+            officeName: data.latest_transaction.assistance_data && data.latest_transaction.assistance_data.awarding_office_code
         };
         const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
@@ -57,7 +57,7 @@ BaseFinancialAssistance.populate = function populate(data) {
         const fundingAgencyData = {
             name: data.funding_agency.toptier_agency && data.funding_agency.toptier_agency.name,
             subtierName: data.funding_agency.subtier_agency && data.funding_agency.subtier_agency.name,
-            officeName: data.latest_transaction.contract_data.funding_office_code
+            officeName: data.latest_transaction.assistance_data && data.latest_transaction.assistance_data.funding_office_code
         };
         const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
@@ -65,12 +65,18 @@ BaseFinancialAssistance.populate = function populate(data) {
     }
 
     // populate the financial assistance-specific fields
+    this._obligation = parseFloat(data.total_obligation) || 0;
     this._faceValue = parseFloat(data.latest_transaction.assistance_data.face_value_loan_guarantee) || 0;
     this._subsidy = parseFloat(data.total_subsidy_cost) || 0;
 };
 
 
 // getter functions
+Object.defineProperty(BaseFinancialAssistance, 'obligation', {
+    get() {
+        return formatMoney(this._obligation);
+    }
+});
 Object.defineProperty(BaseFinancialAssistance, 'faceValue', {
     get() {
         return formatMoney(this._faceValue);

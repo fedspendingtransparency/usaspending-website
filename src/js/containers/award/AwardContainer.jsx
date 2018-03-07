@@ -13,7 +13,6 @@ import Award from 'components/award/Award';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
-import AwardSummary from 'models/results/award/AwardSummary';
 
 import BaseContract from 'models/v2/awards/BaseContract';
 import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
@@ -113,16 +112,14 @@ export class AwardContainer extends React.Component {
             const testContract = Object.create(BaseContract);
             testContract.populate(data);
             console.log(testContract);
+            this.props.setSelectedAward(testContract);
         }
         else {
             const testFinancialAssistance = Object.create(BaseFinancialAssistance);
             testFinancialAssistance.populate(data);
             console.log(testFinancialAssistance);
+            this.props.setSelectedAward(testFinancialAssistance);
         }
-
-        const award = new AwardSummary(data);
-        // Add search results to Redux
-        this.props.setSelectedAward(award);
     }
 
     render() {

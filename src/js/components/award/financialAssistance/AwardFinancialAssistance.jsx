@@ -5,10 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 
 import AwardAmounts from '../AwardAmounts';
-import FinancialAssistanceDetails from './FinancialAssistanceDetails';
+// import FinancialAssistanceDetails from './FinancialAssistanceDetails';
 
 const propTypes = {
     selectedAward: PropTypes.object,
@@ -22,11 +21,8 @@ export default class AwardFinancialAssistance extends React.Component {
                 <AwardAmounts
                     selectedAward={this.props.selectedAward}
                     showPotential={false}
-                    typeString={SummaryPageHelper.awardType(this.props.selectedAward.award_type)} />
-                <FinancialAssistanceDetails
-                    {...this.props}
-                    selectedAward={this.props.selectedAward}
-                    seeAdditional={this.props.seeAdditional} />
+                    typeString={this.props.selectedAward.category} />
+                {/* TODO - Lizzie: Add financial assistance details section back in */}
             </div>
         );
     }

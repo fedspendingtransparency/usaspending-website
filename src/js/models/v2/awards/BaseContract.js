@@ -19,7 +19,7 @@ BaseContract.populate = function populate(data) {
         internalId: data.id,
         category: data.category,
         startDate: data.period_of_performance_start_date,
-        endDate: data.period_of_performance_current_end_date
+        endDate: data.period_of_performance_current_end_date || data.latest_transaction.contract_data.ordering_period_end_date
     };
     this.populateCore(coreData);
 
@@ -47,7 +47,7 @@ BaseContract.populate = function populate(data) {
         const awardingAgencyData = {
             name: data.awarding_agency.toptier_agency && data.awarding_agency.toptier_agency.name,
             subtierName: data.awarding_agency.subtier_agency && data.awarding_agency.subtier_agency.name,
-            officeName: data.latest_transaction.contract_data.awarding_office_name || data.latest_transaction.contract_data.awarding_office_code
+            officeName: data.latest_transaction.contract_data && (data.latest_transaction.contract_data.awarding_office_name || data.latest_transaction.contract_data.awarding_office_code)
         };
         const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
@@ -58,7 +58,7 @@ BaseContract.populate = function populate(data) {
         const fundingAgencyData = {
             name: data.funding_agency.toptier_agency && data.funding_agency.toptier_agency.name,
             subtierName: data.funding_agency.subtier_agency && data.funding_agency.subtier_agency.name,
-            officeName: data.latest_transaction.contract_data.funding_office_name || data.latest_transaction.contract_data.funding_office_code
+            officeName: data.latest_transaction.contract_data && (data.latest_transaction.contract_data.funding_office_name || data.latest_transaction.contract_data.funding_office_code)
         };
         const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
@@ -75,6 +75,10 @@ BaseContract.populate = function populate(data) {
     this.type = data.type || '';
     this.typeDescription = data.type_description || '';
     this.pricing = data.type_of_contract_pricing_description || '';
+
+    this._contractType = data.latest_transaction.contract_data.contract_award_type_desc || '';
+    this._idvType = data.latest_transaction.contract_data.idv_type || '';
+
     this._amount = parseFloat(data.base_and_all_options_value) || 0;
     this._ceiling = parseFloat(data.base_and_all_options_value) || 0;
     this._obligation = parseFloat(data.total_obligation) || 0;
@@ -95,6 +99,14 @@ Object.defineProperty(BaseContract, 'ceiling', {
 Object.defineProperty(BaseContract, 'obligation', {
     get() {
         return formatMoney(this._obligation);
+    }
+});
+Object.defineProperty(BaseContract, 'awardType', {
+    get() {
+        if (this.category === 'idv') {
+            return this._idvType;
+        }
+        return this._contractType;
     }
 });
 

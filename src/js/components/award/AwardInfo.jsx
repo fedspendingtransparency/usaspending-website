@@ -12,7 +12,7 @@ import SummaryBar from './SummaryBar';
 import AwardInfoBar from './AwardInfoBar';
 import AwardContract from './contract/AwardContract';
 import AwardFinancialAssistance from './financialAssistance/AwardFinancialAssistance';
-import DetailsSection from './details/DetailsSection';
+// import DetailsSection from './details/DetailsSection';
 
 const propTypes = {
     selectedAward: PropTypes.object
@@ -47,26 +47,16 @@ export default class AwardInfo extends React.Component {
     }
 
     render() {
-        const type = this.props.selectedAward.internal_general_type;
+        const category = this.props.selectedAward.category;
 
         let amountsDetailsSection = null;
 
-        if (type === 'contract') {
+        if (category === 'contract' || category === 'idv') {
             amountsDetailsSection = (
                 <AwardContract
                     {...this.props}
                     selectedAward={this.props.selectedAward}
-                    seeAdditional={this.seeAdditional}
-                    type="contract" />
-            );
-        }
-        else if (type === 'unknown') {
-            amountsDetailsSection = (
-                <AwardContract
-                    {...this.props}
-                    selectedAward={this.props.selectedAward}
-                    seeAdditional={this.seeAdditional}
-                    type="idv" />
+                    seeAdditional={this.seeAdditional} />
             );
         }
         else {
@@ -92,10 +82,7 @@ export default class AwardInfo extends React.Component {
 
                     {amountsDetailsSection}
 
-                    <DetailsSection
-                        {...this.props}
-                        clickTab={this.clickTab}
-                        activeTab={this.state.activeTab} />
+                    {/* TODO - Lizzie: Add details section back in */}
                 </main>
             </div>
         );

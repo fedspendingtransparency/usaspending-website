@@ -51,7 +51,7 @@ const BaseAwardRecipient = {
             foreignPostalCode: data.location.foreign_postal_code,
             country: data.location.country_name || '',
             countryCode: data.location.country_code || '',
-            congressionalDistrict: data.congressional_code
+            congressionalDistrict: data.location.congressional_code
         };
         const location = Object.create(CoreLocation);
         location.populateCore(locationData);

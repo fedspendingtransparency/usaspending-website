@@ -9,7 +9,9 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import InfoSnippet from './InfoSnippet';
 
 const propTypes = {
-    selectedAward: PropTypes.object,
+    awardId: PropTypes.string,
+    fundingAgency: PropTypes.object,
+    awardingAgency: PropTypes.object,
     awardTypes: PropTypes.array
 };
 
@@ -41,7 +43,7 @@ export default class AgencyInfo extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.selectedAward.id !== this.props.selectedAward.id) {
+        if (nextProps.awardId !== this.props.awardId) {
             this.setState({
                 agencyType: "awarding",
                 selectedIndex: 0
@@ -64,19 +66,9 @@ export default class AgencyInfo extends React.Component {
     }
 
     render() {
-        const award = this.props.selectedAward;
-        const toptierAgency = `${this.state.agencyType}_agency_name`;
-        const subtierAgency = `${this.state.agencyType}_subtier_name`;
-        let office = "";
-        let subtier = "";
-        let toptier = "Not Available";
-
-        let officeKey = `${this.state.agencyType}_office_code`;
-        let transactionData = award.latest_transaction.assistance_data;
-        if (award.category === 'contract') {
-            transactionData = award.latest_transaction.contract_data;
-            officeKey = `${this.state.agencyType}_office_name`;
-        }
+        const toptier = this.props[`${this.state.agencyType}Agency`].name;
+        const subtierName = this.props[`${this.state.agencyType}Agency`].subtierName;
+        const officeName = this.props[`${this.state.agencyType}Agency`].officeName;
 
         const options = this.props.awardTypes.map((label, index) => (
             <li
@@ -123,22 +115,23 @@ export default class AgencyInfo extends React.Component {
                 </div>
             </div>
         );
-        if (award[toptierAgency]) {
-            toptier = award[toptierAgency];
-        }
-        if (award[subtierAgency]) {
+
+        let subtier = null;
+        let office = null;
+
+        if (subtierName) {
             subtier = (
                 <InfoSnippet
                     label="Sub-Agency"
-                    value={award[subtierAgency]} />
+                    value={subtierName} />
             );
         }
 
-        if (transactionData && transactionData[officeKey]) {
+        if (officeName) {
             office = (
                 <InfoSnippet
                     label="Office"
-                    value={transactionData[officeKey]} />
+                    value={officeName} />
             );
         }
         return (
