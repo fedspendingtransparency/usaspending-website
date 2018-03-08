@@ -13,10 +13,6 @@ import { uniqueId } from 'lodash';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 
-import ContractTransaction from 'models/results/transactions/ContractTransaction';
-import AssistanceTransaction from 'models/results/transactions/AssistanceTransaction';
-import LoanTransaction from 'models/results/transactions/LoanTransaction';
-
 import BaseAssistanceTransaction from 'models/v2/awards/transactions/BaseAssistanceTransaction';
 import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
 import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
@@ -124,27 +120,21 @@ export class TransactionsTableContainer extends React.Component {
 
     parseTransactions(data, reset) {
         const transactions = [];
-        const testTransactions = [];
 
         data.results.forEach((item) => {
-            let transaction = new AssistanceTransaction(item);
-
-            let testTransaction = Object.create(BaseAssistanceTransaction);
-
+            let transaction = null;
             if (this.props.category === 'contract') {
-                transaction = new ContractTransaction(item);
-                testTransaction = Object.create(BaseContractTransaction);
+                transaction = Object.create(BaseContractTransaction);
             }
-
             else if (this.props.category === 'loans') {
-                transaction = new LoanTransaction(item);
-                testTransaction = Object.create(BaseLoanTransaction);
+                transaction = Object.create(BaseLoanTransaction);
+            }
+            else {
+                transaction = Object.create(BaseAssistanceTransaction);
             }
 
-            testTransaction.populate(item);
-
+            transaction.populate(item);
             transactions.push(transaction);
-            testTransactions.push(testTransaction);
         });
 
         // update the metadata
@@ -164,7 +154,6 @@ export class TransactionsTableContainer extends React.Component {
             newState.transactions = this.state.transactions.concat(transactions);
         }
 
-        console.log(testTransactions);
         this.setState(newState);
     }
 

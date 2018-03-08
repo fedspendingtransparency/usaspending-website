@@ -31,7 +31,7 @@ const propTypes = {
     sort: PropTypes.object,
     nextTransactionPage: PropTypes.func.isRequired,
     changeSort: PropTypes.func.isRequired,
-    type: PropTypes.string
+    category: PropTypes.string
 };
 
 export default class TransactionsTable extends React.Component {
@@ -52,10 +52,10 @@ export default class TransactionsTable extends React.Component {
 
     tableMapping() {
         let tableMapping = assistanceMapping;
-        if (this.props.type === 'contract') {
+        if (this.props.category === 'contract') {
             tableMapping = contractMapping;
         }
-        else if (this.props.type === 'loan') {
+        else if (this.props.category === 'loans') {
             tableMapping = loanMapping;
         }
         return tableMapping;
@@ -82,7 +82,6 @@ export default class TransactionsTable extends React.Component {
     bodyCellRender(columnIndex, rowIndex) {
         const tableMapping = this.tableMapping();
         const column = tableMapping.table._order[columnIndex];
-        const apiKey = tableMapping.table._mapping[column];
         const item = this.props.transactions[rowIndex];
 
         const isLast = columnIndex === tableMapping.table._order.length - 1;
@@ -90,7 +89,7 @@ export default class TransactionsTable extends React.Component {
         return (
             <TransactionTableGenericCell
                 rowIndex={rowIndex}
-                data={item[apiKey]}
+                data={item[column]}
                 isLastColumn={isLast} />
         );
     }
