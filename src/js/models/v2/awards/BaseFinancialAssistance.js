@@ -1,5 +1,5 @@
 /**
- * BaseFinancialAssistance. js
+ * BaseFinancialAssistance.js
  * Created by Lizzie Salita 3/5/18
  */
 

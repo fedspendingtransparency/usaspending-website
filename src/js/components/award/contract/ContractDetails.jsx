@@ -62,4 +62,5 @@ export default class ContractDetails extends React.Component {
         );
     }
 }
+
 ContractDetails.propTypes = propTypes;

@@ -12,7 +12,7 @@ import SummaryBar from './SummaryBar';
 import AwardInfoBar from './AwardInfoBar';
 import AwardContract from './contract/AwardContract';
 import AwardFinancialAssistance from './financialAssistance/AwardFinancialAssistance';
-// import DetailsSection from './details/DetailsSection';
+import DetailsSection from './details/DetailsSection';
 
 const propTypes = {
     selectedAward: PropTypes.object
@@ -71,18 +71,19 @@ export default class AwardInfo extends React.Component {
         return (
             <div>
                 <SummaryBar
-                    {...this.props}
                     selectedAward={this.props.selectedAward} />
                 <main
                     id="main-content"
                     className="main-content">
                     <AwardInfoBar
-                        {...this.props}
                         selectedAward={this.props.selectedAward} />
 
                     {amountsDetailsSection}
 
-                    {/* TODO - Lizzie: Add details section back in */}
+                    <DetailsSection
+                        selectedAward={this.props.selectedAward}
+                        clickTab={this.clickTab}
+                        activeTab={this.state.activeTab} />
                 </main>
             </div>
         );

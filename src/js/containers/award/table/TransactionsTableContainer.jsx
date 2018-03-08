@@ -17,11 +17,15 @@ import ContractTransaction from 'models/results/transactions/ContractTransaction
 import AssistanceTransaction from 'models/results/transactions/AssistanceTransaction';
 import LoanTransaction from 'models/results/transactions/LoanTransaction';
 
+import BaseAssistanceTransaction from 'models/v2/awards/transactions/BaseAssistanceTransaction';
+import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
+import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
+
 import TransactionsTable from 'components/award/table/TransactionsTable';
 
 const propTypes = {
     award: PropTypes.object,
-    type: PropTypes.string
+    category: PropTypes.string
 };
 
 const pageLimit = 15;
@@ -53,7 +57,7 @@ export class TransactionsTableContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.award.selectedAward.id !== prevProps.award.selectedAward.id) {
+        if (this.props.award.selectedAward.internalId !== prevProps.award.selectedAward.internalId) {
             this.fetchTransactions(1, true);
         }
     }
@@ -74,7 +78,7 @@ export class TransactionsTableContainer extends React.Component {
     }
 
     fetchTransactions(page = 1, reset = false) {
-        if (!this.props.award.selectedAward.id) {
+        if (!this.props.award.selectedAward.internalId) {
             return;
         }
 
@@ -94,7 +98,7 @@ export class TransactionsTableContainer extends React.Component {
                 {
                     field: 'award',
                     operation: 'equals',
-                    value: this.props.award.selectedAward.id
+                    value: this.props.award.selectedAward.internalId
                 }
             ],
             order: [this.formatSort()],
@@ -120,15 +124,27 @@ export class TransactionsTableContainer extends React.Component {
 
     parseTransactions(data, reset) {
         const transactions = [];
+        const testTransactions = [];
+
         data.results.forEach((item) => {
             let transaction = new AssistanceTransaction(item);
-            if (this.props.type === 'contract') {
+
+            let testTransaction = Object.create(BaseAssistanceTransaction);
+
+            if (this.props.category === 'contract') {
                 transaction = new ContractTransaction(item);
+                testTransaction = Object.create(BaseContractTransaction);
             }
-            else if (this.props.type === 'loan') {
+
+            else if (this.props.category === 'loans') {
                 transaction = new LoanTransaction(item);
+                testTransaction = Object.create(BaseLoanTransaction);
             }
+
+            testTransaction.populate(item);
+
             transactions.push(transaction);
+            testTransactions.push(testTransaction);
         });
 
         // update the metadata
@@ -148,6 +164,7 @@ export class TransactionsTableContainer extends React.Component {
             newState.transactions = this.state.transactions.concat(transactions);
         }
 
+        console.log(testTransactions);
         this.setState(newState);
     }
 

@@ -18,7 +18,7 @@ import AssistanceAdditionalDetails from './additional/AssistanceAdditionalDetail
 import ResultsTablePicker from '../../search/table/ResultsTablePicker';
 
 const propTypes = {
-    award: PropTypes.object,
+    selectedAward: PropTypes.object,
     activeTab: PropTypes.string,
     clickTab: PropTypes.func
 };
@@ -60,7 +60,7 @@ export default class DetailsSection extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         // check award changed
-        if (this.props.award.selectedAward.id !== nextProps.award.selectedAward.id) {
+        if (this.props.selectedAward.id !== nextProps.selectedAward.id) {
             // reset the tab
             this.props.clickTab('transaction');
         }
@@ -77,12 +77,12 @@ export default class DetailsSection extends React.Component {
     }
 
     currentSection() {
-        const type = this.props.award.selectedAward.internal_general_type;
+        const category = this.props.selectedAward.category;
         switch (this.props.activeTab) {
             case 'transaction':
                 return (
                     <TransactionsTableContainer
-                        type={type}
+                        category={category}
                         tableWidth={this.state.tableWidth} />
                 );
 
@@ -100,7 +100,7 @@ export default class DetailsSection extends React.Component {
                 );
 
             case 'additional':
-                if (type === 'contract' || type === 'unknown') {
+                if (category === 'contract' || category === 'idv') {
                     return (
                         <ContractAdditionalDetails
                             {...this.props} />
@@ -121,8 +121,8 @@ export default class DetailsSection extends React.Component {
 
         const tabs = concat([], commonTabs);
 
-        if (this.props.award.selectedAward.internal_general_type === 'contract'
-            || this.props.award.selectedAward.internal_general_type === 'unknown') {
+        if (this.props.selectedAward.category === 'contract'
+            || this.props.selectedAward.category === 'idv') {
             tabs.push({
                 label: 'Additional Details',
                 internal: 'additional',
