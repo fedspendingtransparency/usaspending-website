@@ -80,24 +80,36 @@ export default class DetailsSection extends React.Component {
         const type = this.props.award.selectedAward.internal_general_type;
         switch (this.props.activeTab) {
             case 'transaction':
-                return (<TransactionsTableContainer
-                    type={type}
-                    tableWidth={this.state.tableWidth} />);
+                return (
+                    <TransactionsTableContainer
+                        type={type}
+                        tableWidth={this.state.tableWidth} />
+                );
 
             case 'subaward':
-                return (<SubawardsContainer
-                    tableWidth={this.state.tableWidth} />);
+                return (
+                    <SubawardsContainer
+                        tableWidth={this.state.tableWidth} />
+                );
 
             case 'financial':
-                return (<FinancialSystemTableContainer
-                    {...this.props}
-                    tableWidth={this.state.tableWidth} />);
+                return (
+                    <FinancialSystemTableContainer
+                        {...this.props}
+                        tableWidth={this.state.tableWidth} />
+                );
 
             case 'additional':
                 if (type === 'contract' || type === 'unknown') {
-                    return (<ContractAdditionalDetails {...this.props} />);
+                    return (
+                        <ContractAdditionalDetails
+                            {...this.props} />
+                    );
                 }
-                return (<AssistanceAdditionalDetails {...this.props} />);
+                return (
+                    <AssistanceAdditionalDetails
+                        {...this.props} />
+                );
 
             default:
                 return null;

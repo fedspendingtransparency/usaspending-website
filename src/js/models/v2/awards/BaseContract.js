@@ -69,15 +69,12 @@ BaseContract.populate = function populate(data) {
     additionalDetails.populate(data.latest_transaction.contract_data);
     this.additionalDetails = additionalDetails;
 
-    // populate the contract-specific fields
     this.parentAward = data.parent_award_piid;
-    this.description = data.description || '';
-    this.type = data.type || '';
-    this.typeDescription = data.type_description || '';
-    this.pricing = data.type_of_contract_pricing_description || '';
+    this.description = data.description || '--';
+    this.pricing = data.latest_transaction.contract_data.type_of_contract_pric_desc || '--';
 
-    this._contractType = data.latest_transaction.contract_data.contract_award_type_desc || '';
-    this._idvType = data.latest_transaction.contract_data.idv_type || '';
+    this._contractType = data.latest_transaction.contract_data.contract_award_type_desc || '--';
+    this._idvType = data.latest_transaction.contract_data.idv_type || '--';
 
     this._amount = parseFloat(data.base_and_all_options_value) || 0;
     this._ceiling = parseFloat(data.base_and_all_options_value) || 0;

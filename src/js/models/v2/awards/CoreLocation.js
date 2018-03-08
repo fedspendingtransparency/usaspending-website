@@ -57,6 +57,11 @@ const CoreLocation = {
             return this._province;
         }
         return '';
+    },
+    get fullAddress() {
+        const line1 = (this.streetAddress && `${this.streetAddress}`) || '';
+        const line2 = (this.regionalAddress && `${this.regionalAddress}\n`) || '';
+        return `${line1}${line2}${this.congressionalDistrict}` || '--';
     }
 };
 

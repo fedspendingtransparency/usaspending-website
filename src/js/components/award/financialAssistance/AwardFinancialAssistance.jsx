@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import AwardAmounts from '../AwardAmounts';
-// import FinancialAssistanceDetails from './FinancialAssistanceDetails';
+import FinancialAssistanceDetails from './FinancialAssistanceDetails';
 
 const propTypes = {
     selectedAward: PropTypes.object,
@@ -22,7 +22,8 @@ export default class AwardFinancialAssistance extends React.Component {
                     selectedAward={this.props.selectedAward}
                     showPotential={false}
                     typeString={this.props.selectedAward.category} />
-                {/* TODO - Lizzie: Add financial assistance details section back in */}
+                <FinancialAssistanceDetails
+                    selectedAward={this.props.selectedAward} />
             </div>
         );
     }

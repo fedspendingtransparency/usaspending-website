@@ -5,15 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import * as SummaryPageHelper from 'helpers/summaryPageHelper';
-// import { idvAwardTypes } from 'dataMapping/contracts/idvAwardTypes';
 
 import AwardAmounts from '../AwardAmounts';
-// import ContractDetails from './ContractDetails';
+import ContractDetails from './ContractDetails';
 
 const propTypes = {
-    selectedAward: PropTypes.object
-    // seeAdditional: PropTypes.func
+    selectedAward: PropTypes.object,
+    seeAdditional: PropTypes.func
 };
 
 export default class AwardContract extends React.Component {
@@ -22,7 +20,9 @@ export default class AwardContract extends React.Component {
             <div className="award-contract-wrapper">
                 <AwardAmounts
                     selectedAward={this.props.selectedAward} />
-                {/* TODO - Lizzie: Add contract details section back in */}
+                <ContractDetails
+                    selectedAward={this.props.selectedAward}
+                    seeAdditional={this.props.seeAdditional} />
             </div>
         );
     }

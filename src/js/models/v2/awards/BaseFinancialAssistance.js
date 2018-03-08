@@ -64,6 +64,13 @@ BaseFinancialAssistance.populate = function populate(data) {
         this.fundingAgency = fundingAgency;
     }
 
+    this.description = data.description || '--';
+    this.typeDescription = data.type_description || '--';
+
+    this._cfdaNumber = data.latest_transaction.assistance_data.cfda_number || '';
+    this._cfdaTitle = data.latest_transaction.assistance_data.cfda_title || '';
+    this.cfdaProgramDescription = data.latest_transaction.assistance_data.cfda_objectives || '--';
+
     // populate the financial assistance-specific fields
     this._obligation = parseFloat(data.total_obligation) || 0;
     this._faceValue = parseFloat(data.latest_transaction.assistance_data.face_value_loan_guarantee) || 0;
@@ -85,6 +92,17 @@ Object.defineProperty(BaseFinancialAssistance, 'faceValue', {
 Object.defineProperty(BaseFinancialAssistance, 'subsidy', {
     get() {
         return formatMoney(this._subsidy);
+    }
+});
+Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {
+    get() {
+        if (this._cfdaNumber && this._cfdaTitle) {
+            return `${this._cfdaNumber} - ${this._cfdaTitle}`;
+        }
+        else if (this._cfdaNumber || this._cfdaTitle) {
+            return `${this._cfdaNumber}${this._cfdaTitle}`;
+        }
+        return '--';
     }
 });
 
