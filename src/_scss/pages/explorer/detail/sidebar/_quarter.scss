@@ -45,7 +45,7 @@
         }
 
         &:hover, &:active, &.quarter-picker__quarter_active {
-            background-color: $color-primary-alt;
+            background-color: $color-link;
         }
 
         &[disabled] {
