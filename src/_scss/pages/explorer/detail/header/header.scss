@@ -58,7 +58,7 @@
         margin-left: rem(10);
         
         @include media($medium-screen) {
-            width: rem(200);
+            width: rem(250);
             margin-left: rem(50);
         }
         @include media($x-large-screen) {
@@ -77,7 +77,7 @@
         .amount-value {
             text-align: center;
             text-transform: capitalize;
-            font-weight: $font-light;
+            font-weight: $font-semibold;
 
             font-size: rem(36);
             line-height: rem(40);
