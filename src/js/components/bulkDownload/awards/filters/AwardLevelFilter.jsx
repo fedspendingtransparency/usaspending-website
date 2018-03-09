@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CheckCircle, ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 import DownloadCheckbox from '../../DownloadCheckbox';
 
 const propTypes = {
@@ -44,7 +44,7 @@ export default class AwardLevelFilter extends React.Component {
         if (!isValid) {
             icon = (
                 <div className="icon invalid">
-                    <ExclamationTriangle />
+                    <ExclamationCircle />
                 </div>
             );
         }

@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
 import * as redirectHelper from 'helpers/redirectHelper';
 
+import { ExclamationCircle } from 'components/sharedComponents/icons/Icons';
+
 const propTypes = {
     type: PropTypes.string,
     label: PropTypes.string,
@@ -58,7 +60,17 @@ export default class SidebarButton extends React.Component {
         if (this.props.disabled) {
             button = (
                 <div>
-                    {this.props.label}
+                    <div className="sidebar-link-disabled">
+                        {this.props.label}
+                    </div>
+                    <div className="coming-soon">
+                        <div className="coming-soon__icon">
+                            <ExclamationCircle alt="Coming soon" />
+                        </div>
+                        <div className="coming-soon__label">
+                            Coming Soon
+                        </div>
+                    </div>
                 </div>
             );
         }

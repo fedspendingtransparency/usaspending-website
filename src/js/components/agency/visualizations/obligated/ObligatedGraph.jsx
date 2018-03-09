@@ -71,7 +71,7 @@ export default class AgencyObligatedGraph extends React.Component {
                     <HorizontalBarItem
                         description="Outlay Amount"
                         x={0}
-                        y={20}
+                        y={25}
                         width={outlayWidth}
                         color={this.props.legend[1].color} />
                 </g>
