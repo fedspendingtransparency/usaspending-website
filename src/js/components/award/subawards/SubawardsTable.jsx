@@ -77,14 +77,13 @@ export default class SubawardsTable extends React.Component {
     bodyCellRender(columnIndex, rowIndex) {
         const column = subawardFields.table._order[columnIndex];
         const isLast = columnIndex === subawardFields.table._order.length - 1;
-        const apiKey = subawardFields.table._mapping[column];
 
         const item = this.props.subawards[rowIndex];
 
         return (
             <TransactionTableGenericCell
                 rowIndex={rowIndex}
-                data={`${item[apiKey]}`}
+                data={`${item[column]}`}
                 column={column}
                 isLastColumn={isLast} />
         );

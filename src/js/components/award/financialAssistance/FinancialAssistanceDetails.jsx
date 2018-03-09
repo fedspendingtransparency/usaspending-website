@@ -17,8 +17,10 @@ export default class FinancialAssistanceDetails extends React.Component {
     render() {
         const award = this.props.selectedAward;
         const timeRange = TimeRangeHelper.convertDatesToRange(award._startDate, award._endDate);
-        const popDate = `${this.props.selectedAward.startDate} - ${this.props.selectedAward.endDate} ${timeRange}` || '--';
-
+        let popDate = '--';
+        if (award.startDate || award.endDate) {
+            popDate = `${this.props.selectedAward.startDate} - ${this.props.selectedAward.endDate} ${timeRange}`;
+        }
         return (
             <div className="contract-wrapper">
                 <div className="contract-details">

@@ -13,7 +13,7 @@ import { uniqueId } from 'lodash';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
-import SubawardItem from 'models/results/award/SubawardItem';
+import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
 
 import SubawardsTable from 'components/award/subawards/SubawardsTable';
 
@@ -52,7 +52,7 @@ export class SubawardsContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.award.id !== this.props.award.id) {
+        if (prevProps.award.internalId !== this.props.award.internalId) {
             this.fetchSubawards(1, true);
         }
     }
@@ -79,7 +79,7 @@ export class SubawardsContainer extends React.Component {
                 {
                     field: 'award',
                     operation: 'equals',
-                    value: this.props.award.id
+                    value: this.props.award.internalId
                 }
             ],
             order: [order]
@@ -117,7 +117,8 @@ export class SubawardsContainer extends React.Component {
     parseSubawards(data, reset) {
         const subawards = [];
         data.results.forEach((item) => {
-            const subaward = new SubawardItem(item);
+            const subaward = Object.create(BaseSubawardRow);
+            subaward.populate(item);
             subawards.push(subaward);
         });
 
