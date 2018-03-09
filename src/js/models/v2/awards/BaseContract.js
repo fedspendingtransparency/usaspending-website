@@ -19,7 +19,9 @@ BaseContract.populate = function populate(data) {
         internalId: data.id,
         category: data.category,
         startDate: data.period_of_performance_start_date,
-        endDate: data.period_of_performance_current_end_date || data.latest_transaction.contract_data.ordering_period_end_date
+        endDate: data.period_of_performance_current_end_date || data.latest_transaction.contract_data.ordering_period_end_date,
+        subawardTotal: data.total_subaward_amount,
+        subawardCount: data.subaward_count
     };
     this.populateCore(coreData);
 

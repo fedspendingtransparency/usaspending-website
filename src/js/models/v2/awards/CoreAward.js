@@ -4,6 +4,7 @@
  */
 
 import moment from 'moment';
+import { formatMoney } from 'helpers/moneyFormatter';
 
 export const parseDate = (string) => moment(string, 'YYYY-MM-DD');
 export const formatDate = (date) => date.format('MM/DD/YYYY');
@@ -19,6 +20,8 @@ const CoreAward = {
         this._endDate = (
             (data.endDate && parseDate(data.endDate)) || null
         );
+        this._subawardTotal = parseFloat(data.subawardTotal) || 0;
+        this.subawardCount = parseFloat(data.subawardCount) || 0;
     },
     get startDate() {
         if (this._startDate) {
@@ -31,6 +34,9 @@ const CoreAward = {
             return formatDate(this._endDate);
         }
         return '';
+    },
+    get subawardTotal() {
+        return formatMoney(this._subawardTotal);
     }
 };
 

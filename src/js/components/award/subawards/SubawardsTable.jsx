@@ -11,7 +11,6 @@ import { measureTableHeader } from 'helpers/textMeasurement';
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import subawardFields from 'dataMapping/contracts/subawardTable';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import TransactionTableGenericCell from 'components/award/table/cells/TransactionTableGenericCell';
 import SubawardsHeaderCell from 'components/award/subawards/cells/SubawardsHeaderCell';
@@ -130,10 +129,7 @@ export default class SubawardsTable extends React.Component {
             loadingClass = 'loading';
         }
 
-        let totalValue = 0;
-        if (this.props.award.total_subaward_amount) {
-            totalValue = this.props.award.total_subaward_amount;
-        }
+        const totalValue = this.props.award.subawardTotal;
 
         let message = null;
         if (this.props.subawards.length === 0 && !this.props.inFlight) {
@@ -148,7 +144,7 @@ export default class SubawardsTable extends React.Component {
                             Total Number of Sub-Awards:&nbsp;
                         </span>
                         <span className="total-value">
-                            {this.props.award.subaward_count}
+                            {this.props.award.subawardCount}
                         </span>
                     </div>
                     <div className="total-item">
@@ -156,7 +152,7 @@ export default class SubawardsTable extends React.Component {
                             Total Sub-Award Amount:&nbsp;
                         </span>
                         <span className="total-value">
-                            {MoneyFormatter.formatMoney(totalValue)}
+                            {totalValue}
                         </span>
                     </div>
                 </div>
