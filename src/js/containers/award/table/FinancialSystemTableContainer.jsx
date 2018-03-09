@@ -49,7 +49,7 @@ export class FinancialSystemTableContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.award.selectedAward.id !== prevProps.award.selectedAward.id) {
+        if (this.props.award.selectedAward.internalId !== prevProps.award.selectedAward.internalId) {
             this.loadFinancialSystemData(1, true);
         }
     }
@@ -61,7 +61,7 @@ export class FinancialSystemTableContainer extends React.Component {
     }
 
     loadFinancialSystemData(page = 1, reset = false) {
-        const awardId = this.props.award.selectedAward.id;
+        const awardId = this.props.award.selectedAward.internalId;
         if (!awardId) {
             return;
         }

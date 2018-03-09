@@ -6,7 +6,7 @@
 import { formatMoney } from 'helpers/moneyFormatter';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
-import BaseContractAdditionalDetails from './BaseContractAdditionalDetails';
+import BaseContractAdditionalDetails from './contractAdditionalDetails/BaseContractAdditionalDetails';
 import CoreAward from './CoreAward';
 import CoreLocation from './CoreLocation';
 

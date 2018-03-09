@@ -103,7 +103,7 @@ export default class DetailsSection extends React.Component {
                 if (category === 'contract' || category === 'idv') {
                     return (
                         <ContractAdditionalDetails
-                            {...this.props} />
+                            selectedAward={this.props.selectedAward} />
                     );
                 }
                 return (

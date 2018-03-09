@@ -17,14 +17,11 @@ const parseBusinessCategories = (data) => (
 );
 
 const parseExecutiveCompensation = (data) => {
-    const executiveCompensation = [];
+    const executiveCompensation = {};
     for (let i = 1; i < 6; i++) {
         const name = data[`officer_${i}_name`] || '';
         const amount = formatMoney(data[`officer_${i}_amount`]) || 0;
-        executiveCompensation[i] = {
-            name,
-            amount
-        };
+        executiveCompensation[`officer${i}`] = `${name} - ${amount}`;
     }
     return executiveCompensation;
 };
@@ -59,7 +56,7 @@ const BaseAwardRecipient = {
 
         // Executive Compensation
         if (data.officers) {
-            this._officers = parseExecutiveCompensation(data.officers);
+            this.officers = parseExecutiveCompensation(data.officers);
         }
     },
     get businessTypes() {
