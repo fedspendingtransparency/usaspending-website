@@ -10,6 +10,7 @@ export const mockFilters = {
     filter: {
         version: filterStoreVersion,
         filters: {
+            keyword: '',
             locationDomesticForeign: "all",
             selectedAwardIDs: {},
             selectedRecipients: [],
