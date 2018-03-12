@@ -21,6 +21,13 @@ import Analytics from 'helpers/analytics/Analytics';
 
 const eventCategory = 'Advanced Search - Search Filter';
 
+export const convertKeyword = (keyword) => (
+    [{
+        action: 'Keyword',
+        label: keyword
+    }]
+);
+
 export const convertDateRange = (range) => {
     if (range.length !== 2) {
         // this must be an array of length 2
@@ -131,6 +138,8 @@ export const combineAwardTypeGroups = (filters) => {
 
 export const convertFilter = (type, value) => {
     switch (type) {
+        case 'keyword':
+            return convertKeyword(value);
         case 'timePeriod':
             return convertTimePeriod(value);
         case 'awardType':
