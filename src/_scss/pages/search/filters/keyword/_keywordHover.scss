@@ -43,6 +43,10 @@
     .content {
         @include flex(1 1 auto);
 
+        ul.content__list {
+            margin-bottom: 0;
+        }
+
         li {
             margin: 0;
             padding: 0;
