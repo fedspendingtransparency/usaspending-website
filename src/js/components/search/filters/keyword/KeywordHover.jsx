@@ -16,7 +16,7 @@ export default class KeywordHover extends React.Component {
                 <div className="content">
                     The <strong>Keyword</strong> field currently matches against
                     the following attributes:
-                    <ul>
+                    <ul className="content__list">
                         <li>Recipient Name</li>
                         <li>Recipient DUNS</li>
                         <li>Recipient Parent DUNS</li>
@@ -24,12 +24,8 @@ export default class KeywordHover extends React.Component {
                         <li>PSC Code</li>
                         <li>PIID (prime award only)</li>
                         <li>FAIN (prime award only)</li>
+                        <li>Award Description</li>
                     </ul>
-                    <div className="note-header">
-                        Note:
-                    </div>
-                    <strong>Award Descriptions</strong> are not currently included
-                    in Keyword matching.
                 </div>
             </div>
         );
