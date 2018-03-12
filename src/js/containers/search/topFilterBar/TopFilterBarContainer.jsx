@@ -57,6 +57,13 @@ export class TopFilterBarContainer extends React.Component {
      */
     prepareFilters(props) {
         const filters = [];
+
+        // prepare the keyword filters
+        const keywordFilters = this.prepareKeywords(props);
+        if (keywordFilters) {
+            filters.push(keywordFilters);
+        }
+
         // prepare the time filters
         const timeFilters = this.prepareTimeFilter(props);
         if (timeFilters) {
@@ -201,6 +208,29 @@ export class TopFilterBarContainer extends React.Component {
                     filter.values = [`${startString} to present`];
                 }
             }
+        }
+
+        if (selected) {
+            return filter;
+        }
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux keyword filter into a JS object that can be parsed by the
+     * top filter bar
+     */
+    prepareKeywords(props) {
+        let selected = false;
+        const filter = {};
+
+        if (props.keyword) {
+        // keyword exists
+            selected = true;
+            filter.code = 'keyword';
+            filter.name = 'Keyword';
+
+            filter.values = props.keyword;
         }
 
         if (selected) {
