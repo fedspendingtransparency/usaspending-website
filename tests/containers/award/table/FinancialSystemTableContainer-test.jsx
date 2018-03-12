@@ -8,12 +8,10 @@ import { mount, shallow } from 'enzyme';
 
 import { FinancialSystemTableContainer } from
     'containers/award/table/FinancialSystemTableContainer';
-import * as awardActions from 'redux/actions/award/awardActions';
-import * as SearchHelper from 'helpers/searchHelper';
 
 import FinancialSystemItem from 'models/results/other/FinancialSystemItem';
 
-import { mockAward } from '../mockAward';
+import { mockParams } from '../mockResults';
 import mockFinancialSystemDetails from '../mockFinancialSystemDetails';
 
 // mock the search helper
@@ -28,6 +26,7 @@ jest.mock('components/award/table/FinancialSystemTable', () =>
 global.Promise = require.requireActual('promise');
 
 const mockActions = {};
+const mockAward = mockParams.award;
 
 describe('FinancialSystemTableContainer', () => {
     it('should perform an API request when the award ID changes', async () => {

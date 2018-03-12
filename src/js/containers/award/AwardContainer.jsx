@@ -32,18 +32,17 @@ export class AwardContainer extends React.Component {
 
         this.state = {
             noAward: false,
-            awardId: null,
             inFlight: false
         };
     }
 
-    componentDidMount() {
-        this.getSelectedAward();
+    componentWillMount() {
+        this.getSelectedAward(this.props.params.awardId);
     }
 
-    componentDidUpdate() {
-        if (this.state.awardId && this.state.awardId !== this.props.params.awardId) {
-            this.getSelectedAward();
+    componentWillReceiveProps(nextProps) {
+        if (this.props.params.awardId !== nextProps.params.awardId) {
+            this.getSelectedAward(nextProps.params.awardId);
         }
     }
 
@@ -53,20 +52,17 @@ export class AwardContainer extends React.Component {
         }
     }
 
-    getSelectedAward() {
-        const input = this.props.params.awardId;
-
+    getSelectedAward(id) {
         if (this.awardRequest) {
             // A request is currently in-flight, cancel it
             this.awardRequest.cancel();
         }
 
         this.setState({
-            inFlight: true,
-            awardId: null
+            inFlight: true
         });
 
-        this.awardRequest = SearchHelper.fetchAward(input);
+        this.awardRequest = SearchHelper.fetchAward(id);
 
         this.awardRequest.promise
             .then((results) => {
@@ -90,8 +86,7 @@ export class AwardContainer extends React.Component {
                     // Errored out but got response, toggle noAward flag
                     this.awardRequest = null;
                     this.setState({
-                        noAward: true,
-                        awardId: this.props.params.awardId
+                        noAward: true
                     });
                 }
                 else {
@@ -104,21 +99,18 @@ export class AwardContainer extends React.Component {
 
     parseAward(data) {
         this.setState({
-            noAward: false,
-            awardId: this.props.params.awardId
+            noAward: false
         });
 
         if (data.category === 'contract' || !data.category) {
-            const testContract = Object.create(BaseContract);
-            testContract.populate(data);
-            console.log(testContract);
-            this.props.setSelectedAward(testContract);
+            const contract = Object.create(BaseContract);
+            contract.populate(data);
+            this.props.setSelectedAward(contract);
         }
         else {
-            const testFinancialAssistance = Object.create(BaseFinancialAssistance);
-            testFinancialAssistance.populate(data);
-            console.log(testFinancialAssistance);
-            this.props.setSelectedAward(testFinancialAssistance);
+            const financialAssistance = Object.create(BaseFinancialAssistance);
+            financialAssistance.populate(data);
+            this.props.setSelectedAward(financialAssistance);
         }
     }
 

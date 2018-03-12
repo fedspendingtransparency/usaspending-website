@@ -1,4 +1,4 @@
-import { mockAwards } from './mockAward';
+import { mockApi } from './mockResults';
 
 // Fetch Individual Awards
 export const fetchAward = () => (
@@ -6,7 +6,7 @@ export const fetchAward = () => (
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: mockAwards
+                    data: mockApi
                 });
             });
         }),
