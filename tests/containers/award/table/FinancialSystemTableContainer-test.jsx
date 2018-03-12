@@ -9,7 +9,7 @@ import { mount, shallow } from 'enzyme';
 import { FinancialSystemTableContainer } from
     'containers/award/table/FinancialSystemTableContainer';
 
-import FinancialSystemItem from 'models/results/other/FinancialSystemItem';
+import BaseFinancialSystemDetailsRow from "models/v2/awards/financialSystemDetails/BaseFinancialSystemDetailsRow";
 
 import { mockParams } from '../mockResults';
 import mockFinancialSystemDetails from '../mockFinancialSystemDetails';
@@ -58,11 +58,10 @@ describe('FinancialSystemTableContainer', () => {
             container.instance().loadFinancialSystemData(1, true);
             await container.instance().financialRequest.promise;
 
-            const expectedResult = new FinancialSystemItem(mockFinancialSystemDetails.results[0]);
-            delete expectedResult._jsid;
+            const expectedResult = Object.create(BaseFinancialSystemDetailsRow);
+            expectedResult.populate(mockFinancialSystemDetails.results[0]);
 
             const stateResult = container.state().data[0];
-            delete stateResult._jsid;
 
             expect(container.state().data.length).toEqual(1);
             expect(stateResult).toEqual(expectedResult);
