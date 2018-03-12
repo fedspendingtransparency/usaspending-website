@@ -38,6 +38,7 @@ export const requiredTypes = {
 };
 
 export const initialState = {
+    keyword: '',
     timePeriodType: 'fy',
     timePeriodFY: new Set(),
     timePeriodStart: null,
@@ -63,6 +64,13 @@ export const initialState = {
 
 const searchFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
+        // Free Text Search
+        case 'UPDATE_TEXT_SEARCH': {
+            return Object.assign({}, state, {
+                keyword: action.textInput
+            });
+        }
+
         // Time Period Filter
         case 'UPDATE_SEARCH_FILTER_TIME_PERIOD': {
             // FY time period is stored as an ImmutableJS set
