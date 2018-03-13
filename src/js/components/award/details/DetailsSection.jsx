@@ -59,7 +59,7 @@ export default class DetailsSection extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         // check award changed
-        if (this.props.selectedAward.id !== nextProps.selectedAward.id) {
+        if (this.props.selectedAward.internalId !== nextProps.selectedAward.internalId) {
             // reset the tab
             this.props.clickTab('transaction');
         }
