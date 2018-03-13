@@ -22,7 +22,47 @@ const mockApi = {
             idv_type: 'mock idv type',
             contract_award_type_desc: 'mock contract type',
             awarding_office_name: '',
-            awarding_office_code: '01'
+            awarding_office_code: '01',
+            product_or_service_code: 'psc',
+            product_or_service_co_desc: 'product/service description',
+            naics: 'naics',
+            naics_description: null,
+            clinger_cohen_act_planning: null
+        }
+    },
+    place_of_performance: {
+        city_name: 'Pawnee',
+        county_name: 'Wamapoke',
+        state_code: 'IN',
+        state: 'Indiana',
+        zip5: '12345',
+        congressional_code: '04'
+    },
+    recipient: {
+        legal_entity_id: '11111',
+        recipient_name: 'Entertainment 720',
+        recipient_unique_id: 'ABC123',
+        business_types_description: null,
+        nonprofit_organization: true,
+        minority_owned_business: true,
+        location: {
+            address_line1: '602 Trumball Street',
+            address_line2: 'Apt 2',
+            city_name: 'Pawnee',
+            state_code: 'IN',
+            zip5: '12345'
+        },
+        officers: {
+            officer_1_name: 'George Washington',
+            officer_1_amount: '9000.00',
+            officer_2_name: 'John Adams',
+            officer_2_amount: '7000.99',
+            officer_3_name: 'Thomas Jefferson',
+            officer_3_amount: '6000.01',
+            officer_4_name: 'James Madison',
+            officer_4_amount: '5000.00',
+            officer_5_name: "James Monroe",
+            officer_5_amount: '5000.00'
         }
     }
 };
@@ -30,7 +70,7 @@ const mockApi = {
 const contract = Object.create(BaseContract);
 contract.populate(mockApi);
 
-describe('Base Contract getter functions', () => {
+describe('BaseContract', () => {
     describe('monetary values', () => {
         it('should format the contract amount', () => {
             expect(contract.amount).toEqual('$1,024');
@@ -64,6 +104,48 @@ describe('Base Contract getter functions', () => {
        });
        it('should use the office code if office name is not available', () => {
            expect(contract.awardingAgency.officeName).toEqual('01');
+       });
+    });
+    describe('Place of Performance', () => {
+        it('should format the regional address', () => {
+            expect(contract.placeOfPerformance.regionalAddress).toEqual('Pawnee, IN 12345');
+        });
+        it('should format the full address', () => {
+           expect(contract.placeOfPerformance.fullAddress).toEqual('Pawnee, IN 12345\nIN-04')
+        });
+    });
+    describe('Recipient', () => {
+       it('should parse the business categories', () => {
+          expect(contract.recipient.businessTypes).toEqual([
+              'Minority Owned Business',
+              'Nonprofit Organization'
+          ]);
+       });
+       it('should parse executive compensation', () => {
+           expect(contract.recipient.officers).toEqual({
+               officer1: 'George Washington - $9,000',
+               officer2: 'John Adams - $7,001',
+               officer3: 'Thomas Jefferson - $6,000',
+               officer4: 'James Madison - $5,000',
+               officer5: 'James Monroe - $5,000'
+           });
+       });
+       it('should create a CoreLocation object with the location data', () => {
+          expect(contract.recipient.location.regionalAddress).toEqual('Pawnee, IN 12345');
+       });
+    });
+    describe('Additional Details', () => {
+       it('should create an additional details property when contract data is available', () => {
+           expect(contract.additionalDetails).toBeTruthy();
+       });
+       it('should format psc code', () => {
+          expect(contract.additionalDetails.pscCode).toEqual('psc: product/service description');
+       });
+       it('should format naics code', () => {
+          expect(contract.additionalDetails.naicsCode).toEqual('naics');
+       });
+       it('should return -- for null values', () => {
+          expect(contract.additionalDetails.clingerCohenAct).toEqual('--');
        });
     });
 });
