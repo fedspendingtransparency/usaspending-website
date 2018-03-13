@@ -27,7 +27,7 @@
                 display: block;
                 color: #323A45;
                 font-size: rem(19);
-                font-weight: 400;
+                font-weight: $font-normal;
                 &:hover {
                     text-decoration: none;
                 }
@@ -43,19 +43,45 @@
             &.active {
                 border-left: solid rem(4) $color-primary;
                 border-bottom: solid rem(1) $color-gray-light;
-                button {
-                    font-weight: 600;
+                button, a {
+                    font-weight: $font-semibold;
                 }
             }
 
             &.disabled {
                 color: $color-gray-light;
+                font-weight: $font-light;
                 font-size: rem(19);
+                padding-bottom: 0;
+
                 &:hover {
                     background-color: $color-white;
                     color: $color-gray-light;
                 }
             }
+        }
+    }
+
+    .coming-soon {
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(center);
+
+        .coming-soon__icon {
+            @include flex(0 0 rem(13));
+
+            svg {
+                width: rem(13);
+                height: rem(13);
+                fill: $color-gray-light;
+            }
+        }
+
+        .coming-soon__label {
+            @include flex(1 1 auto);
+            font-size: rem(12);
+            color: $color-gray-light;
+            margin-left: rem(5);
         }
     }
 }

@@ -1,6 +1,7 @@
 export const awardFields = {
     startDate: 'period_of_performance_start_date',
     endDate: 'period_of_performance_current_end_date',
+    keyword: 'description',
     locationScope: 'place_of_performance__location_country_code',
     location: 'place_of_performance__location_id',
     awardType: 'type',

@@ -33,6 +33,10 @@
                 font-size: rem(28);
                 line-height: rem(36);
             }
+
+            @include placeholder {
+                color: $color-placeholder;
+            }
         }
         .keyword-search-bar__button {
             @include flex(0 0 auto);

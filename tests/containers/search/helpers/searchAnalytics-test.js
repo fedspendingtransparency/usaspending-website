@@ -13,6 +13,17 @@ jest.mock('helpers/analytics/Analytics', () => ({
 }));
 
 describe('searchAnalytics', () => {
+    describe('convertKeyword', () => {
+        it('should create an analytics event for the given keyword string', () => {
+            const event = searchAnalytics.convertKeyword('hello');
+            expect(event).toEqual([
+                {
+                    action: 'Keyword',
+                    label: 'hello'
+                }
+            ]);
+        });
+    });
     describe('convertDateRange', () => {
         it('should parse a date range object from the Redux store into an Analytics event', () => {
             const mockRange = ['1900-01-01', '1900-01-02'];

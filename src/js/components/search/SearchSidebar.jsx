@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
 
+import KeywordContainer from 'containers/search/filters/KeywordContainer';
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
@@ -24,12 +25,15 @@ import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
 import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
 
+import KeywordHover from 'components/search/filters/keyword/KeywordHover';
+
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 
 const filters = {
     options: [
+        'Keyword',
         'Time Period',
         'Award Type',
         'Agency',
@@ -46,6 +50,7 @@ const filters = {
         'Extent Competed'
     ],
     components: [
+        KeywordContainer,
         TimePeriodContainer,
         AwardTypeContainer,
         AgencyContainer,
@@ -62,7 +67,7 @@ const filters = {
         ExtentCompetedContainer
     ],
     accessories: [
-        null,
+        KeywordHover,
         null,
         null,
         null,

@@ -28,10 +28,10 @@ const parseExecutiveCompensation = (data) => {
 
 const BaseAwardRecipient = {
     populate(data) {
-        this.internalId = data.legal_entity_id;
-        this.name = data.recipient_name;
-        this.duns = data.recipient_unique_id;
-        this.parentDuns = data.parent_recipient_unique_id;
+        this.internalId = data.legal_entity_id || '';
+        this.name = data.recipient_name || 'Unknown';
+        this.duns = data.recipient_unique_id || '--';
+        this.parentDuns = data.parent_recipient_unique_id || '--';
         this._businessTypes = data.business_types_description || '';
         this._businessCategories = parseBusinessCategories(data);
 

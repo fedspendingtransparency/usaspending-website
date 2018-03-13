@@ -6,6 +6,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
+import Analytics from 'helpers/analytics/Analytics';
+
+const clickedHomepageLink = (route) => {
+    Analytics.event({
+        category: 'Homepage - Link',
+        action: route
+    });
+};
 
 const propTypes = {
     children: PropTypes.node,
@@ -53,7 +61,8 @@ export default class FeatureDropdown extends React.Component {
                         className="feature-dropdown-item">
                         <a
                             href={item.url}
-                            className="feature-dropdown-item__link">
+                            className="feature-dropdown-item__link"
+                            onClick={clickedHomepageLink.bind(null, item.url.replace('#', ''))}>
                             {item.label}
                         </a>
                     </li>

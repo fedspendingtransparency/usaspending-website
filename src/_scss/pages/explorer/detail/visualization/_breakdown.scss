@@ -2,6 +2,7 @@
     @include display(flex);
     @include justify-content(flex-start);
     @include align-items(center);
+    @include flex-wrap(wrap);
     position: relative;
 
     .breakdown-label {
@@ -15,6 +16,11 @@
     .breakdown-dropdown {
         @include flex(1 1 auto);
         position: relative;
+        margin: rem(5) 0 rem(15);
+
+        @include media($medium-screen) {
+            margin: 0;
+        }
 
         .dropdown-selector {
             @include button-unstyled;
@@ -26,6 +32,7 @@
             border-bottom: 1px solid $color-base;
 
             padding: rem(10) rem(5);
+            margin-right: rem(30);
 
             .item-icon, .arrow {
                 @include flex(0 0 auto);
