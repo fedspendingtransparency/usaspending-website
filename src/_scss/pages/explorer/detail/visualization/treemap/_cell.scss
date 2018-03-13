@@ -3,7 +3,6 @@
 
     .explorer-cell-title {
         transition: fill 0.2s;
-        fill: $color-white;
         font-size: rem(16);
 
         &.active {
@@ -13,7 +12,6 @@
 
     .explorer-cell-value {
         transition: fill 0.2s;
-        fill: $color-white;
         font-size: rem(18);
         font-weight: $font-semibold;
 
