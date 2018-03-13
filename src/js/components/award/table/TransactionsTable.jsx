@@ -55,7 +55,7 @@ export default class TransactionsTable extends React.Component {
         if (this.props.category === 'contract') {
             tableMapping = contractMapping;
         }
-        else if (this.props.category === 'loans') {
+        else if (this.props.category === 'loan') {
             tableMapping = loanMapping;
         }
         return tableMapping;

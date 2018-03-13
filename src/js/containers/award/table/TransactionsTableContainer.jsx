@@ -126,7 +126,7 @@ export class TransactionsTableContainer extends React.Component {
             if (this.props.category === 'contract') {
                 transaction = Object.create(BaseContractTransaction);
             }
-            else if (this.props.category === 'loans') {
+            else if (this.props.category === 'loan') {
                 transaction = Object.create(BaseLoanTransaction);
             }
             else {

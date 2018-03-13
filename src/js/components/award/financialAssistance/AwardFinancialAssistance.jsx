@@ -20,8 +20,7 @@ export default class AwardFinancialAssistance extends React.Component {
             <div className="award-contract-wrapper">
                 <AwardAmounts
                     selectedAward={this.props.selectedAward}
-                    showPotential={false}
-                    typeString={this.props.selectedAward.category} />
+                    showPotential={false} />
                 <FinancialAssistanceDetails
                     selectedAward={this.props.selectedAward} />
             </div>

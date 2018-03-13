@@ -11,7 +11,7 @@ export const formatDate = (date) => date.format('MM/DD/YYYY');
 
 const CoreAward = {
     populateCore(data) {
-        this.category = data.category || 'idv'; // IDVs have null values
+        this._category = data.category || 'idv'; // IDVs have null values
         this.id = data.id || '';
         this.internalId = data.internalId || '';
         this._startDate = (
@@ -37,6 +37,12 @@ const CoreAward = {
     },
     get subawardTotal() {
         return formatMoney(this._subawardTotal);
+    },
+    get category() {
+        if (this._category === 'loans') {
+            return 'loan';
+        }
+        return this._category;
     }
 };
 

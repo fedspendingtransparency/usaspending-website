@@ -138,7 +138,7 @@ describe('TransactionsTableContainer-test', () => {
         });
         it('should parse the API response into LoanTransaction objects for loan awards', () => {
             const redux = Object.assign({}, mockRedux, {
-                category: 'loans'
+                category: 'loan'
             });
 
             const container = shallow(

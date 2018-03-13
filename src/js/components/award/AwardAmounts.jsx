@@ -11,8 +11,7 @@ import LoanAmounts from './LoanAmounts';
 
 const propTypes = {
     selectedAward: PropTypes.object,
-    showPotential: PropTypes.bool,
-    typeString: PropTypes.string
+    showPotential: PropTypes.bool
 };
 
 export default class AwardAmounts extends React.Component {
@@ -49,7 +48,7 @@ export default class AwardAmounts extends React.Component {
                 </p>
             );
         }
-        else if (award.category === 'loans') {
+        else if (award.category === 'loan') {
             const loanCeiling = award.faceValue;
             const loanSubsidy = award.subsidy;
 
@@ -76,7 +75,7 @@ export default class AwardAmounts extends React.Component {
                 type={this.props.selectedAward.category} />
         );
 
-        if (this.props.typeString === 'loans') {
+        if (this.props.selectedAward.category === 'loan') {
             amountsDisplay = (
                 <LoanAmounts
                     faceValue={this.props.selectedAward._faceValue}
