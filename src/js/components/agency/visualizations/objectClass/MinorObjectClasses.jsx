@@ -5,11 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import tinycolor from 'tinycolor2';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
 import { throttle, remove, orderBy, find } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { objectClassDefinitions } from 'dataMapping/agency/objectClassDefinitions';
+import { labelColorFromBackground, isContrastCompliant } from 'helpers/colorHelper';
 
 import ObjectClassCell from './ObjectClassCell';
 import ObjectClassTooltip from './ObjectClassTooltip';
@@ -119,7 +121,7 @@ export default class MinorObjectClasses extends React.Component {
         const nodes = budgetFunctionTreemap.map((n, i) => {
             let cell = '';
             let cellColor = TreemapHelper.treemapColors[i];
-            let textColor = TreemapHelper.tooltipStyles.defaultStyle.textColor;
+            let textColor = labelColorFromBackground(TreemapHelper.treemapColors[i]);
             let textClass = '';
 
             // Set highlighted state for hovered object class

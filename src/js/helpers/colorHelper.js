@@ -6,20 +6,43 @@
 
 import tinycolor from 'tinycolor2';
 
+export const isContrastCompliant = (firstColor, secondColor) => {
+    const first = tinycolor(firstColor);
+    const second = tinycolor(secondColor);
+
+    // refer to https://www.w3.org/TR/WCAG/#dfn-contrast-ratio
+    const firstLume = first.getLuminance();
+    const secondLume = second.getLuminance();
+    const darker = Math.min(firstLume, secondLume);
+    const lighter = Math.max(firstLume, secondLume);
+    const contrastRatio = (lighter + 0.05) / (darker + 0.05);
+
+    return contrastRatio >= 4.5;
+};
+
+export const lightestAcceptableLumeForWhiteText = (targetContrast) => (
+    // calculate what the darkest acceptable background color luminance is to still use a white
+    // label given a target contrast ratio
+    (1.05 / targetContrast) - 0.05
+);
+
 // generate an RGB hex code for a label given any background color
 export const labelColorFromBackground = (backgroundColor) => {
+    const targetContrast = 4.6;
+    const backgroundLumeMax = lightestAcceptableLumeForWhiteText(targetContrast);
     const background = tinycolor(backgroundColor);
-    if (background.isDark()) {
-        // dark backgrounds will always have white text
+
+    // calculate the relative luminance of the background color
+    const backLume = background.getLuminance();
+    if (backLume <= backgroundLumeMax) {
+        // background is dark enough to support white text
         return '#ffffff';
     }
 
-    // otherwise, the background is light and needs a darker text color
-    // calculate the relative luminance of the background color
-    const backLume = background.getLuminance();
+    // otherwise, the background is too light and needs a darker text color
     // determine what the foreground luminance must be to achieve a 4.6:1 contrast ratio
     // refer to https://www.w3.org/TR/WCAG/#dfn-contrast-ratio
-    const foreLume = ((backLume + 0.05) / 4.6) - 0.05;
+    const foreLume = ((backLume + 0.05) / targetContrast) - 0.05;
 
     // given this luminance, determine what a grey RGB code must be
     // we know that the R, G, and B values must be equal to each other because grey colors have

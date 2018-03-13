@@ -10,6 +10,7 @@ import { throttle, remove, orderBy, find } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { objectClassDefinitions } from 'dataMapping/agency/objectClassDefinitions';
+import { labelColorFromBackground } from 'helpers/colorHelper';
 
 import ObjectClassCell from './ObjectClassCell';
 import ObjectClassTooltip from './ObjectClassTooltip';
@@ -111,7 +112,7 @@ export default class MajorObjectClasses extends React.Component {
         const nodes = objectClassTreemap.map((n, i) => {
             let cell = '';
             let cellColor = TreemapHelper.treemapColors[i];
-            let textColor = TreemapHelper.tooltipStyles.defaultStyle.textColor;
+            let textColor = labelColorFromBackground(TreemapHelper.treemapColors[i]);
             let textClass = '';
 
             // Set highlighted state for hovered object class
