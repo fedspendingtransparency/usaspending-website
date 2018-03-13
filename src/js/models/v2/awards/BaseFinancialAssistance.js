@@ -4,10 +4,10 @@
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
+import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
 import CoreAward from './CoreAward';
-import CoreLocation from './CoreLocation';
 
 const BaseFinancialAssistance = Object.create(CoreAward);
 
