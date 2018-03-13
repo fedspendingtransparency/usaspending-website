@@ -37,14 +37,17 @@ const CoreLocation = {
         }
         let country = '';
         if (this._countryCode !== 'USA') {
-            country = this._countryCode && `${this._countryCode} `;
+            country = this._country && `${this._country} `;
         }
 
         const postCode = this._zip;
         return `${city}${adminArea}${country}${postCode}`;
     },
     get congressionalDistrict() {
-        return (this._congressionalDistrict && `${this._stateCode}-${this._congressionalDistrict}`) || '';
+        if (this._stateCode && this._congressionalDistrict) {
+            return `${this._stateCode}-${this._congressionalDistrict}`;
+        }
+        return '';
     },
     get stateProvince() {
         if (this._city && this._stateCode) {
