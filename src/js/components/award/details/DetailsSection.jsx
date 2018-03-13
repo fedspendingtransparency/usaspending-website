@@ -14,7 +14,6 @@ import SubawardsContainer from 'containers/award/subawards/SubawardsContainer';
 
 import DetailsTabBar from './DetailsTabBar';
 import ContractAdditionalDetails from './additional/ContractAdditionalDetails';
-import AssistanceAdditionalDetails from './additional/AssistanceAdditionalDetails';
 import ResultsTablePicker from '../../search/table/ResultsTablePicker';
 
 const propTypes = {
@@ -106,10 +105,7 @@ export default class DetailsSection extends React.Component {
                             selectedAward={this.props.selectedAward} />
                     );
                 }
-                return (
-                    <AssistanceAdditionalDetails
-                        {...this.props} />
-                );
+                return null;
 
             default:
                 return null;

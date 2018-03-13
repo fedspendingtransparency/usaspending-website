@@ -7,7 +7,7 @@ import { formatMoney } from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
-import BaseContractAdditionalDetails from './contractAdditionalDetails/BaseContractAdditionalDetails';
+import BaseContractAdditionalDetails from './additionalDetails/BaseContractAdditionalDetails';
 import CoreAward from './CoreAward';
 
 const BaseContract = Object.create(CoreAward);
