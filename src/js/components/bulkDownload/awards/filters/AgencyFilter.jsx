@@ -88,7 +88,7 @@ export default class AgencyFilter extends React.Component {
         if (!this.props.valid) {
             icon = (
                 <div className="icon invalid">
-                    <Icons.ExclamationTriangle />
+                    <Icons.ExclamationCircle />
                 </div>
             );
         }

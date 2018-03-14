@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { CheckCircle, ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
 import DateRangeError from 'components/search/filters/timePeriod/DateRangeError';
 import DownloadDateRange from './DownloadDateRange';
@@ -218,7 +218,7 @@ export default class TimePeriodFilter extends React.Component {
         if (!this.props.valid || this.state.showError) {
             icon = (
                 <div className="icon invalid">
-                    <ExclamationTriangle />
+                    <ExclamationCircle />
                 </div>
             );
         }

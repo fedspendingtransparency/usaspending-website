@@ -39,14 +39,14 @@
         svg {
             width: rem(30);
             height: rem(30);
-            fill: $color-gold;
+            fill: $color-green;
         }
     }
 
     .hint-text {
         @include flex(1 1 auto);
         padding-left: rem(10);
-        color: $color-gold;
+        color: $color-green;
 
         .hint-title {
             font-size: $base-font-size;

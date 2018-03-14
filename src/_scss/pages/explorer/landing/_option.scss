@@ -70,16 +70,16 @@
 
     a.landing-option__button {
         @extend .usa-button;
-        background-color: $color-primary-alt;
+        background-color: #0170BC;
         font-size: $base-font-size;
         padding: rem(10) rem(60);
 
         &:hover {
-            background-color: $color-primary-alt-dark !important;
+            background-color: #215493 !important;
         }
 
         &:visited {
-            background-color: $color-primary-alt;
+            background-color: #0170BC;
         }
     }
 }
