@@ -19,10 +19,9 @@ const mockApi = {
     },
     latest_transaction: {
         contract_data: {
-            idv_type: 'mock idv type',
+            idv_type_description: 'mock idv type',
             contract_award_type_desc: 'mock contract type',
-            awarding_office_name: '',
-            awarding_office_code: '01',
+            awarding_office_name: 'Office of Cheesesteak',
             product_or_service_code: 'psc',
             product_or_service_co_desc: 'product/service description',
             naics: 'naics',
@@ -101,9 +100,7 @@ describe('BaseContract', () => {
        it('should format toptier and subtier names', () => {
           expect(contract.awardingAgency.name).toEqual('Department of Sandwiches');
           expect(contract.awardingAgency.subtierName).toEqual('Department of Subs');
-       });
-       it('should use the office code if office name is not available', () => {
-           expect(contract.awardingAgency.officeName).toEqual('01');
+          expect(contract.awardingAgency.officeName).toEqual('Office of Cheesesteak');
        });
     });
     describe('Place of Performance', () => {
@@ -111,7 +108,7 @@ describe('BaseContract', () => {
             expect(contract.placeOfPerformance.regionalAddress).toEqual('Pawnee, IN 12345');
         });
         it('should format the full address', () => {
-           expect(contract.placeOfPerformance.fullAddress).toEqual('Pawnee, IN 12345\nIN-04')
+           expect(contract.placeOfPerformance.fullAddress).toEqual('Pawnee, IN 12345\nCongressional District: IN-04')
         });
     });
     describe('Recipient', () => {

@@ -17,18 +17,6 @@ const propTypes = {
 export default class ContractAdditionalDetails extends React.Component {
     render() {
         const award = this.props.selectedAward;
-        let executiveCompensation = null;
-        if (award.recipient.officers) {
-            executiveCompensation = (
-                <div>
-                    <hr className="additional-group-divider" />
-                    <AdditionalGroup
-                        data={award.recipient.officers}
-                        fields={DataFields.compensationFields}
-                        title="Executive Compensation" />
-                </div>
-            );
-        }
         return (
             <div className="additional-details-wrapper">
                 <AdditionalGroup
@@ -60,7 +48,11 @@ export default class ContractAdditionalDetails extends React.Component {
                     data={award.additionalDetails}
                     fields={DataFields.additionalFields}
                     title="Additional Details" />
-                {executiveCompensation}
+                <hr className="additional-group-divider" />
+                <AdditionalGroup
+                    data={award.recipient.officers}
+                    fields={DataFields.compensationFields}
+                    title="Executive Compensation" />
             </div>
         );
     }

@@ -79,7 +79,7 @@ describe('Base Financial Assistance', () => {
             expect(loan.placeOfPerformance.regionalAddress).toEqual('Pawnee, IN 12345');
         });
         it('should format the full address', () => {
-            expect(loan.placeOfPerformance.fullAddress).toEqual('Pawnee, IN 12345\nIN-04')
+            expect(loan.placeOfPerformance.fullAddress).toEqual('Pawnee, IN 12345\nCongressional District: IN-04')
         });
     });
     describe('Recipient', () => {

@@ -18,10 +18,17 @@ const parseBusinessCategories = (data) => (
 
 const parseExecutiveCompensation = (data) => {
     const executiveCompensation = {};
-    for (let i = 1; i < 6; i++) {
-        const name = data[`officer_${i}_name`] || '';
-        const amount = formatMoney(data[`officer_${i}_amount`]) || 0;
-        executiveCompensation[`officer${i}`] = `${name} - ${amount}`;
+    if (data) {
+        for (let i = 1; i < 6; i++) {
+            const name = data[`officer_${i}_name`] || '';
+            const amount = formatMoney(data[`officer_${i}_amount`]) || 0;
+            executiveCompensation[`officer${i}`] = `${name} - ${amount}`;
+        }
+    }
+    else {
+        for (let i = 1; i < 6; i++) {
+            executiveCompensation[`officer${i}`] = '--';
+        }
     }
     return executiveCompensation;
 };
@@ -36,9 +43,9 @@ const BaseAwardRecipient = {
         this._businessCategories = parseBusinessCategories(data);
 
         // Recipient Location
-        let location = {};
+        let locationData = {};
         if (data.location) {
-            const locationData = {
+            locationData = {
                 address1: data.location.address_line1,
                 address2: data.location.address_line2,
                 address3: data.location.address_line3,
@@ -53,15 +60,18 @@ const BaseAwardRecipient = {
                 countryCode: data.location.location_country_code || '',
                 congressionalDistrict: data.location.congressional_code
             };
-
-            location = Object.create(CoreLocation);
-            location.populateCore(locationData);
         }
+        const location = Object.create(CoreLocation);
+        location.populateCore(locationData);
         this.location = location;
 
         // Executive Compensation
         if (data.officers) {
             this.officers = parseExecutiveCompensation(data.officers);
+        }
+        else {
+            // data.officers is undefined
+            this.officers = parseExecutiveCompensation(null);
         }
     },
     get businessTypes() {

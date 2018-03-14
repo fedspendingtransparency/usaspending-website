@@ -58,6 +58,6 @@ describe('Core Location getter functions', () => {
        expect(location.stateProvince).toEqual('IN');
    });
    it('should format the full address', () => {
-       expect(location.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345\nIN-04');
+       expect(location.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345\nCongressional District: IN-04');
    });
 });

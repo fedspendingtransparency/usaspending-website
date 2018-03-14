@@ -10,20 +10,20 @@ const BaseContractAdditionalDetails = {
 
         // Parent Award Details
 
-        this.idvType = data.idv_type || '--';
-        this.idcType = data.type_of_idc || '--';
+        this.idvType = data.idv_type_description || '--';
+        this.idcType = data.type_of_idc_description || '--';
         this.idvAgencyId = data.referenced_idv_agency_iden || '--';
-        this.multipleIdv = data.multiple_or_single_award_i || '--';
+        this.multipleIdv = data.multiple_or_single_aw_desc || '--';
 
         // Competition Details
         this.solicitationId = data.solicitation_identifier || '--';
-        this.solicitationProcedures = data.solicitation_procedures || '--';
+        this.solicitationProcedures = data.solicitation_procedur_desc || data.solicitation_procedures || '--';
         this.numberOffers = data.number_of_offers_received || '--';
-        this.extentCompeted = data.extent_compete_description || '--';
+        this.extentCompeted = data.extent_compete_description || data.extent_competed || '--';
         this.notCompeted = data.other_than_full_and_open_c || '--';
         this.setAsideType = data.type_set_aside_description || '--';
         this.commercialAcquisitionProcedures = data.commercial_item_acqui_desc || data.commercial_item_acquisitio || '--';
-        this.commercialTestProgram = data.commercial_item_test_progr || '--';
+        this.commercialTestProgram = data.commercial_item_test_desc || '--';
         this.evaluatedPreference = data.evaluated_preference_desc || '--';
         this.fedBizOpps = data.fed_biz_opps_description || '--';
         this.smallBusinessCompetitivenessDemo = data.small_business_competitive || '--';
@@ -33,16 +33,16 @@ const BaseContractAdditionalDetails = {
         this._pscCodeDescription = data.product_or_service_co_desc || '';
         this._naicsCode = data.naics || '';
         this._naicsDescription = data.naics_description || '';
-        this.dodClaimantCode = data.dod_claimant_prog_cod_desc || '--';
+        this.dodClaimantCode = data.dod_claimant_program_code || '--';
         this.programSystemOrEquipmentCode = data.program_system_or_equipmen || '--';
         this.itCommercialCategory = data.information_technolog_desc || '--';
         this.seaTransport = data.sea_transportation_desc || '--';
 
         // Legislative Mandates
-        this.clingerCohenAct = data.clinger_cohen_act_planning || '--';
+        this.clingerCohenAct = data.clinger_cohen_act_pla_desc || '--';
         this.davisBaconAct = data.davis_bacon_act_descrip || '--';
         this.serviceContractAct = data.service_contract_act_desc || '--';
-        this.walshHealeyAct = data.walsh_healey_act || '--';
+        this.walshHealeyAct = data.walsh_healey_act_descrip || '--';
 
         // Additional Details
         this.costOrPricingData = data.cost_or_pricing_data_desc || '--';
@@ -54,9 +54,9 @@ const BaseContractAdditionalDetails = {
         this.priceEvaluationAdjustmentPreference = data.price_evaluation_adjustmen || '--';
         this.programAcronym = data.program_acronym || '--';
         this.subcontractingPlan = data.subcontracting_plan_desc || data.subcontracting_plan || '--';
-        this.multiYearContract = data.multi_year_contract || '--';
-        this.purchaseCardAsPaymentMethod = data.purchase_card_as_payment_m || '--';
-        this.consolidated = data.consolidated_contract_desc || data.consolidated_contract || '--';
+        this.multiYearContract = data.multi_year_contract_desc || '--';
+        this.purchaseCardAsPaymentMethod = data.purchase_card_as_paym_desc || '--';
+        this.consolidated = data.consolidated_contract_desc || '--';
     },
     get pscCode() {
         if (this._pscCode && this._pscCodeDescription) {
