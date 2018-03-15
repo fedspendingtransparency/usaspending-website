@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CheckCircle, ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     fileFormats: PropTypes.array,
@@ -37,7 +37,7 @@ export default class FileFormatFilter extends React.Component {
         if (!this.props.valid) {
             icon = (
                 <div className="icon invalid">
-                    <ExclamationTriangle />
+                    <ExclamationCircle />
                 </div>
             );
         }

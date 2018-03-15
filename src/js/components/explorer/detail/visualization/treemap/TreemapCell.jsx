@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { labelColorFromBackground } from 'helpers/colorHelper';
+
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
@@ -28,7 +30,8 @@ export default class TreemapCell extends React.Component {
 
         this.state = {
             backgroundColor: '',
-            active: ''
+            active: '',
+            textColor: '#ffffff'
         };
 
         this.clickedCell = this.clickedCell.bind(this);
@@ -37,14 +40,18 @@ export default class TreemapCell extends React.Component {
     }
 
     componentWillMount() {
+        const textColor = labelColorFromBackground(this.props.color);
         this.setState({
+            textColor,
             backgroundColor: this.props.color
         });
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.color !== this.props.color) {
+            const textColor = labelColorFromBackground(nextProps.color);
             this.setState({
+                textColor,
                 backgroundColor: nextProps.color
             });
         }
@@ -89,15 +96,18 @@ export default class TreemapCell extends React.Component {
             <text
                 className={`explorer-cell-title ${this.state.active}`}
                 textAnchor="middle"
+                fill={this.state.textColor}
                 x={this.props.title.x}
                 y={this.props.title.y}>
                 {this.props.title.text}
             </text>
         );
+
         let cellValue = (
             <text
                 className={`explorer-cell-value ${this.state.active}`}
                 textAnchor="middle"
+                fill={this.state.textColor}
                 x={this.props.subtitle.x}
                 y={this.props.subtitle.y}>
                 {this.props.subtitle.text}

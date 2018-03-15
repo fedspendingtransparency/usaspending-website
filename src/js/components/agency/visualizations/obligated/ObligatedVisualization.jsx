@@ -81,12 +81,12 @@ export default class AgencyObligatedAmount extends React.Component {
 
         const legend = [
             {
-                color: '#5C7480',
+                color: '#32798D',
                 label: 'Obligated Amount',
                 offset: 0
             },
             {
-                color: '#FDB81E',
+                color: '#1F4955',
                 label: 'Outlay Amount',
                 offset: 130
             },
