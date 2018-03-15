@@ -36,7 +36,7 @@ const MoreInfo = () => (
                 <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://datalab.usaspending.gov/competition-contracting.html">
+                    href="https://datalab.usaspending.gov/competition-in-contracting.html">
                     Data Lab
                 </a>
                 .
