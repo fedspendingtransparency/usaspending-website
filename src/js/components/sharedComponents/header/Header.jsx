@@ -74,10 +74,33 @@ export default class Header extends React.Component {
                 <header
                     className="site-header__wrapper"
                     aria-label="Site header">
-                    {banner}
                     <div
                         className="official-banner"
                         role="note">
+                        <ul
+                            className="official-banner__site-list">
+                            <li
+                                className="official-banner__site-item">
+                                <a
+                                    className="official-banner__site-link"
+                                    href="https://www.usaspending.gov">
+                                    USAspending.gov
+                                </a>
+                            </li>
+                            <li
+                                className="official-banner__site-item official-banner__site-item_spacer"
+                                aria-hidden="true">
+                                |
+                            </li>
+                            <li
+                                className="official-banner__site-item">
+                                <a
+                                    className="official-banner__site-link"
+                                    href="https://datalab.usaspending.gov">
+                                    Data Lab
+                                </a>
+                            </li>
+                        </ul>
                         <div className="official-banner__wrapper">
                             <div className="official-banner__text">
                                 An official website of the U.S. government
@@ -88,6 +111,7 @@ export default class Header extends React.Component {
                                 alt="U.S. flag" />
                         </div>
                     </div>
+                    {banner}
                     <NavBar />
                 </header>
                 <GlossaryContainer />
