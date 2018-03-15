@@ -2,12 +2,16 @@
     padding: rem(5) rem(15);
     background-color: #002A43;
 
-    @include display(flex);
-    @include justify-content(space-between)
-    @include align-items(center);
+    @include media($tablet-screen) {
+        @include display(flex);
+        @include justify-content(space-between)
+        @include align-items(center);
+    }
 
     .official-banner__site-list {
-        @include flex(1 1 auto);
+        @include media($tablet-screen) {
+            @include flex(1 1 auto);
+        }
         @include unstyled-list;
 
         @include display(flex);
@@ -41,8 +45,15 @@
 
     .official-banner__wrapper {
         @include display(flex);
-        @include justify-content(flex-end);
-        @include align-items(flex-end);
+        @include justify-content(flex-start);
+        @include align-items(center);
+        margin-left: rem(20);
+
+        @include media($tablet-screen) {
+            @include justify-content(flex-end);
+            @include align-items(center);
+            margin-left: 0;
+        }
     }
 
     .official-banner__text {
