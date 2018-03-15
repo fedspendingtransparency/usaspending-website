@@ -4,6 +4,7 @@ import Cookies from 'js-cookie';
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
 import kGlobalConstants from 'GlobalConstants';
+import Analytics from 'helpers/analytics/Analytics';
 
 import WarningBanner from './WarningBanner';
 import InfoBanner from './InfoBanner';
@@ -49,6 +50,14 @@ export default class Header extends React.Component {
             showBanner: false
         });
     }
+
+    logAnalyticsLink(url) {
+        Analytics.event({
+            category: 'Header - Link',
+            action: url
+        });
+    }
+
     render() {
         let banner = (
             <InfoBanner
@@ -83,7 +92,8 @@ export default class Header extends React.Component {
                                 className="official-banner__site-item">
                                 <a
                                     className="official-banner__site-link"
-                                    href="https://www.usaspending.gov">
+                                    href="https://www.usaspending.gov"
+                                    onClick={this.logAnalyticsLink.call(this, 'https:/www.usaspending.gov')}>
                                     USAspending.gov
                                 </a>
                             </li>
@@ -96,7 +106,8 @@ export default class Header extends React.Component {
                                 className="official-banner__site-item">
                                 <a
                                     className="official-banner__site-link"
-                                    href="https://datalab.usaspending.gov">
+                                    href="https://datalab.usaspending.gov"
+                                    onClick={this.logAnalyticsLink.call(this, 'https://datalab.usaspending.gov')}>
                                     Data Lab
                                 </a>
                             </li>
