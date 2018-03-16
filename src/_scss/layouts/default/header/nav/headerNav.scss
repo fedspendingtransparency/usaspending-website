@@ -5,6 +5,8 @@ header.site-header__wrapper {
     $nav-coming-soon: #757575;
 
     .site-navigation {
+        padding-top: rem(10);
+
         .site-navigation__wrapper {
             @import "mixins/fullSectionWrap";
             @include fullSectionWrap(0, 0);
