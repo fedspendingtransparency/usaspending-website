@@ -20,7 +20,7 @@ export default class ContractDetails extends React.Component {
         const award = this.props.selectedAward;
         let awardType = award.awardType;
         if (award.category === 'idv') {
-            awardType = idvAwardTypes[this.props.selectedAward.awardType];
+            awardType = idvAwardTypes[this.props.selectedAward.awardType] || '--';
         }
         const timeRange = TimeRangeHelper.convertDatesToRange(award._startDate, award._endDate);
         const popDate = `${this.props.selectedAward.startDate} - ${this.props.selectedAward.endDate} ${timeRange}` || '--';
