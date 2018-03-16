@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
+import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import { idvAwardTypes } from 'dataMapping/contracts/idvAwardTypes';
 import DetailRow from '../DetailRow';
 
@@ -24,6 +25,7 @@ export default class ContractDetails extends React.Component {
         const timeRange = TimeRangeHelper.convertDatesToRange(award._startDate, award._endDate);
         const popDate = `${this.props.selectedAward.startDate} - ${this.props.selectedAward.endDate} ${timeRange}` || '--';
 
+        const maxChars = SummaryPageHelper.maxDescriptionCharacters;
         return (
             <div className="contract-wrapper">
                 <div className="contract-details">
@@ -37,7 +39,8 @@ export default class ContractDetails extends React.Component {
                         <tbody>
                             <DetailRow
                                 title="Description"
-                                value={award.description} />
+                                value={award.description}
+                                overflow={award.description.length > maxChars} />
                             <DetailRow
                                 title="Period of Performance"
                                 value={popDate} />

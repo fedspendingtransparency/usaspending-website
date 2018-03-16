@@ -22,7 +22,12 @@ const parseExecutiveCompensation = (data) => {
         for (let i = 1; i < 6; i++) {
             const name = data[`officer_${i}_name`] || '';
             const amount = formatMoney(data[`officer_${i}_amount`]) || 0;
-            executiveCompensation[`officer${i}`] = `${name} - ${amount}`;
+            if (name) {
+                executiveCompensation[`officer${i}`] = `${name} - ${amount}`;
+            }
+            else {
+                executiveCompensation[`officer${i}`] = '--';
+            }
         }
     }
     else {

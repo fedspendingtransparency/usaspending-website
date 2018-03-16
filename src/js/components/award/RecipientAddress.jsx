@@ -20,12 +20,8 @@ export default class RecipientAddress extends React.Component {
                     Address
                 </div>
                 <div className="item-value">
-                    {location.streetAddress}
+                    {location.fullAddress}
                 </div>
-                <div className="item-value">
-                    {location.regionalAddress}
-                </div>
-                {location.congressionalDistrict}
             </li>
         );
     }

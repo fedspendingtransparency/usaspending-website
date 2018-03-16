@@ -19,7 +19,7 @@ const mockApi = {
     },
     latest_transaction: {
         contract_data: {
-            idv_type_description: 'mock idv type',
+            idv_type: 'mock idv type',
             contract_award_type_desc: 'mock contract type',
             awarding_office_name: 'Office of Cheesesteak',
             product_or_service_code: 'psc',
@@ -59,9 +59,7 @@ const mockApi = {
             officer_3_name: 'Thomas Jefferson',
             officer_3_amount: '6000.01',
             officer_4_name: 'James Madison',
-            officer_4_amount: '5000.00',
-            officer_5_name: "James Monroe",
-            officer_5_amount: '5000.00'
+            officer_4_amount: '5000.00'
         }
     }
 };
@@ -124,7 +122,7 @@ describe('BaseContract', () => {
                officer2: 'John Adams - $7,001',
                officer3: 'Thomas Jefferson - $6,000',
                officer4: 'James Madison - $5,000',
-               officer5: 'James Monroe - $5,000'
+               officer5: '--'
            });
        });
        it('should create a CoreLocation object with the location data', () => {

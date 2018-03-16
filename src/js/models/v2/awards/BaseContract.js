@@ -55,8 +55,8 @@ BaseContract.populate = function populate(data) {
         const awardingAgencyData = {
             name: data.awarding_agency.toptier_agency && data.awarding_agency.toptier_agency.name,
             subtierName: data.awarding_agency.subtier_agency && data.awarding_agency.subtier_agency.name,
-            officeName: (data.latest_transaction && data.latest_transaction.contract_data)
-                && (data.latest_transaction.contract_data.awarding_office_name)
+            officeName: data.latest_transaction && data.latest_transaction.contract_data
+                && data.latest_transaction.contract_data.awarding_office_name
         };
         const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
@@ -67,8 +67,8 @@ BaseContract.populate = function populate(data) {
         const fundingAgencyData = {
             name: data.funding_agency.toptier_agency && data.funding_agency.toptier_agency.name,
             subtierName: data.funding_agency.subtier_agency && data.funding_agency.subtier_agency.name,
-            officeName: (data.latest_transaction && data.latest_transaction.contract_data)
-                && (data.latest_transaction.contract_data.funding_office_name)
+            officeName: data.latest_transaction && data.latest_transaction.contract_data
+                && data.latest_transaction.contract_data.funding_office_name
         };
         const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
@@ -81,15 +81,15 @@ BaseContract.populate = function populate(data) {
         this.additionalDetails = additionalDetails;
     }
 
-    this.parentAward = data.parent_award_id || '--';
+    this.parentAward = data.parent_award_piid || '--';
     this.description = data.description || '--';
-    this.pricing = (data.latest_transaction && data.latest_transaction.contract_data)
-            && (data.latest_transaction.contract_data.type_of_contract_pric_desc || '--');
+    this.pricing = (data.latest_transaction && data.latest_transaction.contract_data
+            && data.latest_transaction.contract_data.type_of_contract_pric_desc) || '--';
 
-    this._contractType = (data.latest_transaction && data.latest_transaction.contract_data)
-            && (data.latest_transaction.contract_data.contract_award_type_desc || '--');
-    this._idvType = (data.latest_transaction && data.latest_transaction.contract_data)
-            && (data.latest_transaction.contract_data.idv_type_description || '--');
+    this._contractType = (data.latest_transaction && data.latest_transaction.contract_data
+            && data.latest_transaction.contract_data.contract_award_type_desc) || '--';
+    this._idvType = (data.latest_transaction && data.latest_transaction.contract_data
+            && data.latest_transaction.contract_data.idv_type) || '--';
 
     this._amount = parseFloat(data.base_and_all_options_value) || 0;
     this._ceiling = parseFloat(data.base_and_all_options_value) || 0;

@@ -18,7 +18,7 @@ const mockApi = {
     },
     latest_transaction: {
         assistance_data: {
-            awarding_office_code: '01',
+            awarding_office_name: 'Office of Cheesesteak',
             cfda_number: '789',
             cfda_title: 'Mock CFDA Title',
             face_value_loan_guarantee: '1023.4'
@@ -71,7 +71,7 @@ describe('Base Financial Assistance', () => {
         it('should format toptier and subtier names', () => {
             expect(loan.awardingAgency.name).toEqual('Department of Sandwiches');
             expect(loan.awardingAgency.subtierName).toEqual('Department of Subs');
-            expect(loan.awardingAgency.officeName).toEqual('01');
+            expect(loan.awardingAgency.officeName).toEqual('Office of Cheesesteak');
         });
     });
     describe('Place of Performance', () => {

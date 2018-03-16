@@ -13,29 +13,28 @@ export const convertDatesToRange = (startDate, endDate) => {
         let yearString = '';
         let monthString = '';
 
-        if (!isNaN(years)) {
-            if (months > 0) {
-                if (months === 1) {
-                    monthString = `${months} month`;
-                }
-                else {
-                    monthString = `${months} months`;
-                }
+        if (months > 0) {
+            if (months === 1) {
+                monthString = `${months} month`;
             }
-
-            if (years > 0) {
-                if (years === 1) {
-                    yearString = `${years} year`;
-                }
-                else {
-                    yearString = `${years} years`;
-                }
+            else {
+                monthString = `${months} months`;
             }
+        }
 
-            if (monthString && yearString) {
-                return `(${yearString}, ${monthString})`;
+        if (years > 0) {
+            if (years === 1) {
+                yearString = `${years} year`;
             }
+            else {
+                yearString = `${years} years`;
+            }
+        }
 
+        if (monthString && yearString) {
+            return `(${yearString}, ${monthString})`;
+        }
+        else if (monthString || yearString) {
             return `(${monthString}${yearString})`;
         }
         return '';

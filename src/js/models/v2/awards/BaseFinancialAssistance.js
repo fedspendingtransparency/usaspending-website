@@ -49,7 +49,7 @@ BaseFinancialAssistance.populate = function populate(data) {
             name: data.awarding_agency.toptier_agency && data.awarding_agency.toptier_agency.name,
             subtierName: data.awarding_agency.subtier_agency && data.awarding_agency.subtier_agency.name,
             officeName: data.latest_transaction && data.latest_transaction.assistance_data
-                && data.latest_transaction.assistance_data.awarding_office_code
+                && data.latest_transaction.assistance_data.awarding_office_name
         };
         const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
@@ -61,7 +61,7 @@ BaseFinancialAssistance.populate = function populate(data) {
             name: data.funding_agency.toptier_agency && data.funding_agency.toptier_agency.name,
             subtierName: data.funding_agency.subtier_agency && data.funding_agency.subtier_agency.name,
             officeName: data.latest_transaction && data.latest_transaction.assistance_data
-                && data.latest_transaction.assistance_data.funding_office_code
+                && data.latest_transaction.assistance_data.funding_office_name
         };
         const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
@@ -71,20 +71,19 @@ BaseFinancialAssistance.populate = function populate(data) {
     this.description = data.description || '--';
     this.typeDescription = data.type_description || '--';
 
-    this._cfdaNumber = (data.latest_transaction && data.latest_transaction.assistance_data)
-            && (data.latest_transaction.assistance_data.cfda_number || '');
-    this._cfdaTitle = (data.latest_transaction && data.latest_transaction.assistance_data)
-            && (data.latest_transaction.assistance_data.cfda_title || '');
-    this.cfdaProgramDescription = (data.latest_transaction && data.latest_transaction.assistance_data)
-            && (data.latest_transaction.assistance_data.cfda_objectives || '--');
+    this._cfdaNumber = (data.latest_transaction && data.latest_transaction.assistance_data
+            && data.latest_transaction.assistance_data.cfda_number) || '';
+    this._cfdaTitle = (data.latest_transaction && data.latest_transaction.assistance_data
+            && data.latest_transaction.assistance_data.cfda_title) || '';
+    this.cfdaProgramDescription = (data.latest_transaction && data.latest_transaction.assistance_data
+            && data.latest_transaction.assistance_data.cfda_objectives) || '--';
 
     // populate the financial assistance-specific fields
     this._obligation = parseFloat(data.total_obligation) || 0;
-    this._faceValue = (data.latest_transaction && data.latest_transaction.assistance_data)
-            && (parseFloat(data.latest_transaction.assistance_data.face_value_loan_guarantee) || 0);
+    this._faceValue = (data.latest_transaction && data.latest_transaction.assistance_data
+            && parseFloat(data.latest_transaction.assistance_data.face_value_loan_guarantee)) || 0;
     this._subsidy = parseFloat(data.total_subsidy_cost) || 0;
 };
-
 
 // getter functions
 Object.defineProperty(BaseFinancialAssistance, 'obligation', {

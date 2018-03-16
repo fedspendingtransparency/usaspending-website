@@ -10,7 +10,8 @@ import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 
 const propTypes = {
     title: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
+    overflow: PropTypes.bool
 };
 
 export default class DetailRow extends React.Component {
@@ -44,13 +45,12 @@ export default class DetailRow extends React.Component {
     render() {
         const maxChars = SummaryPageHelper.maxDescriptionCharacters;
         let value = this.props.value;
-        const overflow = value.length > maxChars;
-        if (overflow && this.state.moreButton) {
+        if (this.props.overflow && this.state.moreButton) {
             value = `${this.props.value.substring(0, maxChars)}...`;
         }
 
         let button = null;
-        if (overflow) {
+        if (this.props.overflow) {
             button = (
                 <button
                     onClick={this.toggleButton}
