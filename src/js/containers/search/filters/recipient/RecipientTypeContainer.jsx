@@ -101,6 +101,20 @@ export class RecipientTypeContainer extends React.Component {
             return;
         }
 
+        // identify any individual filters within this group that may have already been selected
+        const existingChildren = this.props.recipientType.filter((type) =>
+            recipientTypeGroups[parentType].indexOf(type) > -1
+        );
+        if (existingChildren.count() > 0 && selection.direction === 'add') {
+            // children are already selected
+            // remove these filters before adding anything to prevent duplicates in the Redux store
+            // and subsequent API calls/top filter bar
+            this.props.bulkRecipientTypeChange({
+                types: existingChildren.toArray(),
+                direction: 'remove'
+            });
+        }
+
         this.props.bulkRecipientTypeChange({
             types: [parentType],
             direction: selection.direction
