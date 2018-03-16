@@ -42,14 +42,7 @@ export default class InfoBanner extends React.Component {
                             rel="noopener noreferrer"
                             onClick={clickedBannerLink.bind(null, 'https://usaspending-help.zendesk.com/hc/en-us/community/topics')}>
                             Community
-                        </a> page. Visit the old site at&nbsp;
-                        <a
-                            href="https://legacy.usaspending.gov"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={clickedBannerLink.bind(null, 'https://legacy.usaspending.gov')}>
-                            legacy.usaspending.gov
-                        </a>.
+                        </a> page.
                     </div>
                     <button
                         className="info-banner__close-button"
