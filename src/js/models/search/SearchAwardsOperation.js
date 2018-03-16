@@ -6,6 +6,7 @@
 import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
     from 'dataMapping/search/awardsOperationKeys';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import { recipientTypeGroups } from 'dataMapping/search/recipientType';
 
 class SearchAwardsOperation {
     constructor() {
@@ -194,7 +195,15 @@ class SearchAwardsOperation {
         }
 
         if (this.recipientType.length > 0) {
-            filters[rootKeys.recipientType] = this.recipientType;
+            const expandedRecipientTypes = this.recipientType.reduce((adjusted, type) => {
+                if ({}.hasOwnProperty.call(recipientTypeGroups, type)) {
+                    // this is a parent recipient type, add in its children instead
+                    return adjusted.concat(recipientTypeGroups[type]);
+                }
+                adjusted.push(type);
+                return adjusted;
+            }, []);
+            filters[rootKeys.recipientType] = expandedRecipientTypes;
         }
 
         // Add Locations

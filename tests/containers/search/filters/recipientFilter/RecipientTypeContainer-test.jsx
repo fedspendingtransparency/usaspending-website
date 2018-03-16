@@ -83,6 +83,28 @@ describe('RecipientTypeContainer', () => {
                 direction: 'add'
             });
         });
+        it('when a parent recipient type is provided, it should remove any previously selected child types', () => {
+            const mockRedux = Object.assign({}, mockTypeRedux, {
+                bulkRecipientTypeChange: jest.fn(),
+                recipientType: new Set(['small_business'])
+            });
+            const container = shallow(<RecipientTypeContainer {...mockRedux} />);
+
+            container.instance().bulkRecipientTypeChange({
+                types: recipientTypeGroups.business,
+                direction: 'add'
+            });
+
+            expect(mockRedux.bulkRecipientTypeChange).toHaveBeenCalledTimes(2);
+            expect(mockRedux.bulkRecipientTypeChange.mock.calls[0]).toEqual([{
+                types: ['small_business'],
+                direction: 'remove'
+            }]);
+            expect(mockRedux.bulkRecipientTypeChange).toHaveBeenLastCalledWith({
+                types: ['business'],
+                direction: 'add'
+            });
+        });
     });
     describe('dirtyFilters', () => {
         it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
