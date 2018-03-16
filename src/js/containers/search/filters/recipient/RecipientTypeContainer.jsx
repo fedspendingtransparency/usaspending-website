@@ -105,11 +105,10 @@ export class RecipientTypeContainer extends React.Component {
         const existingChildren = this.props.recipientType.filter((type) =>
             recipientTypeGroups[parentType].indexOf(type) > -1
         );
-        if (existingChildren.count() > 0) {
+        if (existingChildren.count() > 0 && selection.direction === 'add') {
             // children are already selected
-            // remove these filters first (regardless of whether the parent is being added or removed)
-            // if the parent is being added, this prevents duplicates
-            // if the parent is being removed, this prevents weirdness with the top filter bar, etc
+            // remove these filters before adding anything to prevent duplicates in the Redux store
+            // and subsequent API calls/top filter bar
             this.props.bulkRecipientTypeChange({
                 types: existingChildren.toArray(),
                 direction: 'remove'
