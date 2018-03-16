@@ -15,7 +15,7 @@ const defaultProps = {
         {
             id: 'recipient-business',
             name: 'Business',
-            filters: recipientTypeGroups.business
+            filters: recipientTypeGroups.category_business
         },
         {
             id: 'recipient-minority-owned-business',
