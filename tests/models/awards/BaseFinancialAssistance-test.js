@@ -7,7 +7,6 @@ import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
 
 const mockApi = {
     category: 'loans',
-    total_subsidy_cost: '1045.62',
     awarding_agency: {
         toptier_agency: {
             name: 'Department of Sandwiches'
@@ -21,7 +20,8 @@ const mockApi = {
             awarding_office_name: 'Office of Cheesesteak',
             cfda_number: '789',
             cfda_title: 'Mock CFDA Title',
-            face_value_loan_guarantee: '1023.4'
+            face_value_loan_guarantee: '1023.4',
+            original_loan_subsidy_cost: '1005.62'
         }
     },
     place_of_performance: {
@@ -55,7 +55,7 @@ describe('Base Financial Assistance', () => {
             expect(loan.faceValue).toEqual('$1,023');
         });
         it('should format the subsidy amount', () => {
-            expect(loan.subsidy).toEqual('$1,046');
+            expect(loan.subsidy).toEqual('$1,006');
         });
     });
     describe('cfdaProgram', () => {
