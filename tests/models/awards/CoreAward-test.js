@@ -17,13 +17,13 @@ award.populateCore(awardData);
 
 describe('Core Award getter functions', () => {
     it('should use IDV when the category is null', () => {
-       expect(award.category).toEqual('idv');
+        expect(award.category).toEqual('idv');
     });
     it('should properly format the start and end dates', () => {
         expect(award.startDate).toEqual('01/02/1989');
         expect(award.endDate).toEqual('12/31/1999');
     });
     it('should format the subaward total', () => {
-       expect(award.subawardTotal).toEqual('$12,005');
+        expect(award.subawardTotal).toEqual('$12,005');
     });
 });

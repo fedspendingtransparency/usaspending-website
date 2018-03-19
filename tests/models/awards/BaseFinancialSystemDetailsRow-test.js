@@ -41,10 +41,10 @@ describe('BaseFinancialSystemDetailsRow', () => {
         expect(finSysRow.fundingObligated).toEqual('$3,022');
     });
     it('should create a federal account object', () => {
-       expect(finSysRow.fedAccount).toEqual({
-          title: 'Mock Account',
-          id: 456
-       });
+        expect(finSysRow.fedAccount).toEqual({
+            title: 'Mock Account',
+            id: 456
+        });
     });
     it('should format the object class', () => {
         expect(finSysRow.objectClass).toEqual('Grants and Fixed Charges (2)');

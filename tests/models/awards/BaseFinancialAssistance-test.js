@@ -4,6 +4,7 @@
  */
 
 import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
+import CoreLocation from "models/v2/CoreLocation";
 
 const mockApi = {
     category: 'loans',
@@ -59,9 +60,9 @@ describe('Base Financial Assistance', () => {
         });
     });
     describe('cfdaProgram', () => {
-       it('should format the CFDA fields', () => {
-          expect(loan.cfdaProgram).toEqual('789 - Mock CFDA Title');
-       });
+        it('should format the CFDA fields', () => {
+            expect(loan.cfdaProgram).toEqual('789 - Mock CFDA Title');
+        });
     });
     describe('agencies', () => {
         it('should only create an awarding/funding agency if it is available in the API response', () => {
@@ -75,17 +76,21 @@ describe('Base Financial Assistance', () => {
         });
     });
     describe('Place of Performance', () => {
-        it('should format the regional address', () => {
-            expect(loan.placeOfPerformance.regionalAddress).toEqual('Pawnee, IN 12345');
-        });
-        it('should format the full address', () => {
-            expect(loan.placeOfPerformance.fullAddress).toEqual('Pawnee, IN 12345\nCongressional District: IN-04')
+        it('should be an object with CoreLocation in its prototype chain', () => {
+            const locationObject = Object.create(CoreLocation);
+
+            expect(Object.getPrototypeOf(locationObject)).toEqual(Object.getPrototypeOf(loan.placeOfPerformance));
         });
     });
     describe('Recipient', () => {
         it('should create a BaseAwardRecipient object with the recipient data', () => {
             expect(loan.recipient.duns).toEqual('ABC123');
             expect(loan.recipient.internalId).toEqual('11111');
+        });
+        it('should have a location property with CoreLocation in its prototype chain', () => {
+            const locationObject = Object.create(CoreLocation);
+
+            expect(Object.getPrototypeOf(locationObject)).toEqual(Object.getPrototypeOf(loan.recipient.location));
         });
     });
 });

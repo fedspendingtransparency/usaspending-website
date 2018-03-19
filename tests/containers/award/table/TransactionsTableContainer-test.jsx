@@ -109,9 +109,7 @@ describe('TransactionsTableContainer-test', () => {
 
             const expectedResult = Object.create(BaseAssistanceTransaction);
             expectedResult.populate(mockGrantTransaction.results[0]);
-            delete expectedResult._jsid;
             const actualResult = container.state().transactions[0];
-            delete actualResult._jsid;
 
             expect(container.state().transactions.length).toEqual(1);
             expect(actualResult).toEqual(expectedResult);
@@ -129,9 +127,7 @@ describe('TransactionsTableContainer-test', () => {
 
             const expectedResult = Object.create(BaseContractTransaction);
             expectedResult.populate(mockContractTransaction.results[0]);
-            delete expectedResult._jsid;
             const actualResult = container.state().transactions[0];
-            delete actualResult._jsid;
 
             expect(container.state().transactions.length).toEqual(1);
             expect(actualResult).toEqual(expectedResult);
@@ -149,9 +145,7 @@ describe('TransactionsTableContainer-test', () => {
 
             const expectedResult = Object.create(BaseLoanTransaction);
             expectedResult.populate(mockLoanTransaction.results[0]);
-            delete expectedResult._jsid;
             const actualResult = container.state().transactions[0];
-            delete actualResult._jsid;
 
             expect(container.state().transactions.length).toEqual(1);
             expect(actualResult).toEqual(expectedResult);

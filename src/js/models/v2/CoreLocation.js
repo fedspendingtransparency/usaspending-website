@@ -63,8 +63,8 @@ const CoreLocation = {
     },
     get fullAddress() {
         const line1 = (this.streetAddress && `${this.streetAddress}`) || '';
-        const line2 = (this.regionalAddress && `${this.regionalAddress}\n`) || '';
-        const line3 = (this.congressionalDistrict && `Congressional District: ${this.congressionalDistrict}`) || '';
+        const line2 = (this.regionalAddress && `${this.regionalAddress}`) || '';
+        const line3 = (this.congressionalDistrict && `\nCongressional District: ${this.congressionalDistrict}`) || '';
         return `${line1}${line2}${line3}` || '--';
     }
 };

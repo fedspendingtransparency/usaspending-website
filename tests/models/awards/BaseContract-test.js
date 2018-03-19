@@ -4,6 +4,7 @@
  */
 
 import BaseContract from 'models/v2/awards/BaseContract';
+import CoreLocation from "models/v2/CoreLocation";
 
 const mockApi = {
     category: 'contract',
@@ -77,70 +78,71 @@ describe('BaseContract', () => {
         });
     });
     describe('awardType', () => {
-       it('should return the idv type for the idv category', () => {
-           const mockIdv = Object.assign({}, mockApi, {
-               category: null
-           });
-           const idv = Object.create(BaseContract);
-           idv.populate(mockIdv);
+        it('should return the idv type for the idv category', () => {
+            const mockIdv = Object.assign({}, mockApi, {
+                category: null
+            });
+            const idv = Object.create(BaseContract);
+            idv.populate(mockIdv);
 
-           expect(idv.awardType).toEqual('mock idv type');
-       });
-       it('should return the contract type otherwise', () => {
-           expect(contract.awardType).toEqual('mock contract type');
-       });
+            expect(idv.awardType).toEqual('mock idv type');
+        });
+        it('should return the contract type otherwise', () => {
+            expect(contract.awardType).toEqual('mock contract type');
+        });
     });
     describe('agencies', () => {
-       it('should only create an awarding/funding agency if it is available in the API response', () => {
-           expect(contract.awardingAgency).toBeTruthy();
-           expect(contract.fundingAgency).toBeFalsy();
-       });
-       it('should format toptier and subtier names', () => {
-          expect(contract.awardingAgency.name).toEqual('Department of Sandwiches');
-          expect(contract.awardingAgency.subtierName).toEqual('Department of Subs');
-          expect(contract.awardingAgency.officeName).toEqual('Office of Cheesesteak');
-       });
+        it('should only create an awarding/funding agency if it is available in the API response', () => {
+            expect(contract.awardingAgency).toBeTruthy();
+            expect(contract.fundingAgency).toBeFalsy();
+        });
+        it('should format toptier and subtier names', () => {
+            expect(contract.awardingAgency.name).toEqual('Department of Sandwiches');
+            expect(contract.awardingAgency.subtierName).toEqual('Department of Subs');
+            expect(contract.awardingAgency.officeName).toEqual('Office of Cheesesteak');
+        });
     });
     describe('Place of Performance', () => {
-        it('should format the regional address', () => {
-            expect(contract.placeOfPerformance.regionalAddress).toEqual('Pawnee, IN 12345');
-        });
-        it('should format the full address', () => {
-           expect(contract.placeOfPerformance.fullAddress).toEqual('Pawnee, IN 12345\nCongressional District: IN-04')
+        it('should be an object with CoreLocation in its prototype chain', () => {
+            const locationObject = Object.create(CoreLocation);
+
+            expect(Object.getPrototypeOf(locationObject)).toEqual(Object.getPrototypeOf(contract.placeOfPerformance));
         });
     });
     describe('Recipient', () => {
-       it('should parse the business categories', () => {
-          expect(contract.recipient.businessTypes).toEqual([
-              'Minority Owned Business',
-              'Nonprofit Organization'
-          ]);
-       });
-       it('should parse executive compensation', () => {
-           expect(contract.recipient.officers).toEqual({
-               officer1: 'George Washington - $9,000',
-               officer2: 'John Adams - $7,001',
-               officer3: 'Thomas Jefferson - $6,000',
-               officer4: 'James Madison - $5,000',
-               officer5: '--'
-           });
-       });
-       it('should create a CoreLocation object with the location data', () => {
-          expect(contract.recipient.location.regionalAddress).toEqual('Pawnee, IN 12345');
-       });
+        it('should parse the business categories', () => {
+            expect(contract.recipient.businessTypes).toEqual([
+                'Minority Owned Business',
+                'Nonprofit Organization'
+            ]);
+        });
+        it('should parse executive compensation', () => {
+            expect(contract.recipient.officers).toEqual({
+                officer1: 'George Washington - $9,000',
+                officer2: 'John Adams - $7,001',
+                officer3: 'Thomas Jefferson - $6,000',
+                officer4: 'James Madison - $5,000',
+                officer5: '--'
+            });
+        });
+        it('should have a location property with CoreLocation in its prototype chain', () => {
+            const locationObject = Object.create(CoreLocation);
+
+            expect(Object.getPrototypeOf(locationObject)).toEqual(Object.getPrototypeOf(contract.recipient.location));
+        });
     });
     describe('Additional Details', () => {
-       it('should create an additional details property when contract data is available', () => {
-           expect(contract.additionalDetails).toBeTruthy();
-       });
-       it('should format psc code', () => {
-          expect(contract.additionalDetails.pscCode).toEqual('psc: product/service description');
-       });
-       it('should format naics code', () => {
-          expect(contract.additionalDetails.naicsCode).toEqual('naics');
-       });
-       it('should return -- for null values', () => {
-          expect(contract.additionalDetails.clingerCohenAct).toEqual('--');
-       });
+        it('should create an additional details property when contract data is available', () => {
+            expect(contract.additionalDetails).toBeTruthy();
+        });
+        it('should format psc code', () => {
+            expect(contract.additionalDetails.pscCode).toEqual('psc: product/service description');
+        });
+        it('should format naics code', () => {
+            expect(contract.additionalDetails.naicsCode).toEqual('naics');
+        });
+        it('should return -- for null values', () => {
+            expect(contract.additionalDetails.clingerCohenAct).toEqual('--');
+        });
     });
 });
