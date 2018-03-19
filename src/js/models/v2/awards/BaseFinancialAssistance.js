@@ -80,8 +80,7 @@ BaseFinancialAssistance.populate = function populate(data) {
 
     // populate the financial assistance-specific fields
     this._obligation = parseFloat(data.total_obligation) || 0;
-    this._faceValue = (data.latest_transaction && data.latest_transaction.assistance_data
-            && parseFloat(data.latest_transaction.assistance_data.face_value_loan_guarantee)) || 0;
+    this._faceValue = parseFloat(data.total_loan_value) || 0;
     this._subsidy = parseFloat(data.total_subsidy_cost) || 0;
 };
 

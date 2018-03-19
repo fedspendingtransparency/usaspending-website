@@ -9,6 +9,7 @@ import CoreLocation from "models/v2/CoreLocation";
 const mockApi = {
     category: 'loans',
     total_subsidy_cost: '1005.62',
+    total_loan_value: '1023.4',
     awarding_agency: {
         toptier_agency: {
             name: 'Department of Sandwiches'
@@ -21,8 +22,7 @@ const mockApi = {
         assistance_data: {
             awarding_office_name: 'Office of Cheesesteak',
             cfda_number: '789',
-            cfda_title: 'Mock CFDA Title',
-            face_value_loan_guarantee: '1023.4'
+            cfda_title: 'Mock CFDA Title'
         }
     },
     place_of_performance: {
