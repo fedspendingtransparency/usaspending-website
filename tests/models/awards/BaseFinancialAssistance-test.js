@@ -7,6 +7,7 @@ import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
 
 const mockApi = {
     category: 'loans',
+    total_subsidy_cost: '1005.62',
     awarding_agency: {
         toptier_agency: {
             name: 'Department of Sandwiches'
@@ -20,8 +21,7 @@ const mockApi = {
             awarding_office_name: 'Office of Cheesesteak',
             cfda_number: '789',
             cfda_title: 'Mock CFDA Title',
-            face_value_loan_guarantee: '1023.4',
-            original_loan_subsidy_cost: '1005.62'
+            face_value_loan_guarantee: '1023.4'
         }
     },
     place_of_performance: {
