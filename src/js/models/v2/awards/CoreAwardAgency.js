@@ -4,8 +4,9 @@
  */
 
 const CoreAwardAgency = {
+    name: '--',
     populateCore(data) {
-        this.name = data.name || '';
+        this.name = data.name || '--';
         this.subtierName = data.subtierName || '';
         this.officeName = data.officeName || '';
     }

@@ -29,8 +29,9 @@ describe('Base Financial Assistance', () => {
     });
     describe('agencies', () => {
         it('should only create an awarding/funding agency if it is available in the API response', () => {
-            expect(loan.awardingAgency).toBeTruthy();
-            expect(loan.fundingAgency).toBeFalsy();
+            const emptyAgency = Object.create(CoreAwardAgency);
+            expect(loan.awardingAgency).not.toEqual(emptyAgency);
+            expect(loan.fundingAgency).toEqual(emptyAgency);
         });
         it('should be an object with CoreAwardAgency in its prototype chain', () => {
             expect(Object.getPrototypeOf(loan.awardingAgency)).toEqual(CoreAwardAgency);

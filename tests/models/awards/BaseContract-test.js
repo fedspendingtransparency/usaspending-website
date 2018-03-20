@@ -38,9 +38,10 @@ describe('BaseContract', () => {
         });
     });
     describe('agencies', () => {
-        it('should only create an awarding/funding agency if it is available in the API response', () => {
-            expect(contract.awardingAgency).toBeTruthy();
-            expect(contract.fundingAgency).toBeFalsy();
+        it('should only populate an awarding/funding agency if it is available in the API response', () => {
+            const emptyAgency = Object.create(CoreAwardAgency);
+            expect(contract.awardingAgency).not.toEqual(emptyAgency);
+            expect(contract.fundingAgency).toEqual(emptyAgency);
         });
         it('should format toptier and subtier names', () => {
             expect(Object.getPrototypeOf(contract.awardingAgency)).toEqual(CoreAwardAgency);
