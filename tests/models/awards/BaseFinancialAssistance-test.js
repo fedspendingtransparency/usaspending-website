@@ -5,50 +5,13 @@
 
 import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
 import CoreLocation from "models/v2/CoreLocation";
+import BaseAwardRecipient from "models/v2/awards/BaseAwardRecipient";
+import CoreAwardAgency from "models/v2/awards/CoreAwardAgency";
 
-const mockApi = {
-    category: 'loans',
-    total_subsidy_cost: '1005.62',
-    total_loan_value: '1023.4',
-    awarding_agency: {
-        toptier_agency: {
-            name: 'Department of Sandwiches'
-        },
-        subtier_agency: {
-            name: 'Department of Subs'
-        }
-    },
-    latest_transaction: {
-        assistance_data: {
-            awarding_office_name: 'Office of Cheesesteak',
-            cfda_number: '789',
-            cfda_title: 'Mock CFDA Title'
-        }
-    },
-    place_of_performance: {
-        city_name: 'Pawnee',
-        county_name: 'Wamapoke',
-        state_code: 'IN',
-        state: 'Indiana',
-        zip5: '12345',
-        congressional_code: '04'
-    },
-    recipient: {
-        legal_entity_id: '11111',
-        recipient_name: 'Entertainment 720',
-        recipient_unique_id: 'ABC123',
-        location: {
-            address_line1: '602 Trumball Street',
-            address_line2: 'Apt 2',
-            city_name: 'Pawnee',
-            state_code: 'IN',
-            zip5: '12345'
-        }
-    }
-};
+import { mockLoanApi } from './mockAwardApi';
 
 const loan = Object.create(BaseFinancialAssistance);
-loan.populate(mockApi);
+loan.populate(mockLoanApi);
 
 describe('Base Financial Assistance', () => {
     describe('monetary values', () => {
@@ -69,28 +32,18 @@ describe('Base Financial Assistance', () => {
             expect(loan.awardingAgency).toBeTruthy();
             expect(loan.fundingAgency).toBeFalsy();
         });
-        it('should format toptier and subtier names', () => {
-            expect(loan.awardingAgency.name).toEqual('Department of Sandwiches');
-            expect(loan.awardingAgency.subtierName).toEqual('Department of Subs');
-            expect(loan.awardingAgency.officeName).toEqual('Office of Cheesesteak');
+        it('should be an object with CoreAwardAgency in its prototype chain', () => {
+            expect(Object.getPrototypeOf(loan.awardingAgency)).toEqual(CoreAwardAgency);
         });
     });
     describe('Place of Performance', () => {
         it('should be an object with CoreLocation in its prototype chain', () => {
-            const locationObject = Object.create(CoreLocation);
-
-            expect(Object.getPrototypeOf(locationObject)).toEqual(Object.getPrototypeOf(loan.placeOfPerformance));
+            expect(Object.getPrototypeOf(loan.placeOfPerformance)).toEqual(CoreLocation);
         });
     });
     describe('Recipient', () => {
-        it('should create a BaseAwardRecipient object with the recipient data', () => {
-            expect(loan.recipient.duns).toEqual('ABC123');
-            expect(loan.recipient.internalId).toEqual('11111');
-        });
-        it('should have a location property with CoreLocation in its prototype chain', () => {
-            const locationObject = Object.create(CoreLocation);
-
-            expect(Object.getPrototypeOf(locationObject)).toEqual(Object.getPrototypeOf(loan.recipient.location));
+        it('should be an object with BaseAwardRecipient in its prototype chain', () => {
+            expect(Object.getPrototypeOf(loan.recipient)).toEqual(BaseAwardRecipient);
         });
     });
 });
