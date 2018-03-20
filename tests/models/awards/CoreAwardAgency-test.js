@@ -28,8 +28,12 @@ describe('CoreAwardAgency', () => {
         };
         incompleteAgency.populateCore(missingData);
 
-        expect(incompleteAgency.name).toEqual('');
+        expect(incompleteAgency.name).toEqual('--');
         expect(incompleteAgency.subtierName).toEqual('');
         expect(incompleteAgency.officeName).toEqual('');
+    });
+    it('should use a -- for agency name when it is unpopulated', () => {
+        const emptyAgency = Object.create(CoreAwardAgency);
+        expect(emptyAgency.name).toEqual('--');
     });
 });

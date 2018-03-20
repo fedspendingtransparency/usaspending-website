@@ -51,6 +51,8 @@ BaseContract.populate = function populate(data) {
         this.placeOfPerformance = placeOfPerformance;
     }
 
+    const awardingAgency = Object.create(CoreAwardAgency);
+    this.awardingAgency = awardingAgency;
     if (data.awarding_agency) {
         const awardingAgencyData = {
             name: data.awarding_agency.toptier_agency && data.awarding_agency.toptier_agency.name,
@@ -58,11 +60,11 @@ BaseContract.populate = function populate(data) {
             officeName: data.latest_transaction && data.latest_transaction.contract_data
                 && data.latest_transaction.contract_data.awarding_office_name
         };
-        const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
-        this.awardingAgency = awardingAgency;
     }
 
+    const fundingAgency = Object.create(CoreAwardAgency);
+    this.fundingAgency = fundingAgency;
     if (data.funding_agency) {
         const fundingAgencyData = {
             name: data.funding_agency.toptier_agency && data.funding_agency.toptier_agency.name,
@@ -70,9 +72,7 @@ BaseContract.populate = function populate(data) {
             officeName: data.latest_transaction && data.latest_transaction.contract_data
                 && data.latest_transaction.contract_data.funding_office_name
         };
-        const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
-        this.fundingAgency = fundingAgency;
     }
 
     if (data.latest_transaction && data.latest_transaction.contract_data) {
