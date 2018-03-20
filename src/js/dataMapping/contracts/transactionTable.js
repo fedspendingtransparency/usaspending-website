@@ -5,38 +5,38 @@
 
 const tableSearchFields = {
     columnWidths: {
-        modification: 0,
-        action_date: 0,
-        amount: 0,
-        action_type_description: 340,
+        modificationNumber: 0,
+        actionDate: 0,
+        federalActionObligation: 0,
+        actionTypeDescription: 340,
         description: 380
     },
     defaultSortDirection: {
-        modification: 'asc',
-        action_date: 'desc',
-        amount: 'desc',
-        reason: 'desc',
+        modificationNumber: 'asc',
+        actionDate: 'desc',
+        federalActionObligation: 'desc',
+        actionTypeDescription: 'desc',
         description: 'asc'
     },
     table: {
         _order: [
-            'modification',
-            'action_date',
-            'amount',
-            'action_type_description',
+            'modificationNumber',
+            'actionDate',
+            'federalActionObligation',
+            'actionTypeDescription',
             'description'
         ],
         _mapping: {
-            modification: 'modification_number',
-            action_date: 'action_date',
-            amount: 'federal_action_obligation',
-            action_type_description: 'action_type_description',
+            modificationNumber: 'modification_number',
+            actionDate: 'action_date',
+            federalActionObligation: 'federal_action_obligation',
+            actionTypeDescription: 'action_type_description',
             description: 'description'
         },
-        modification: 'Modification Number',
-        action_date: 'Action Date',
-        amount: 'Amount',
-        action_type_description: 'Reason for Modification',
+        modificationNumber: 'Modification Number',
+        actionDate: 'Action Date',
+        federalActionObligation: 'Amount',
+        actionTypeDescription: 'Reason for Modification',
         description: 'Description'
     }
 };

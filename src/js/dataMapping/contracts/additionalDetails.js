@@ -3,97 +3,63 @@
  * Created by Kevin Li 3/3/17
  */
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-
 export const agencyFields = [
     {
         label: 'Awarding Agency',
-        field: 'awarding_agency_name'
+        field: '__special',
+        parse: (data) => data.awardingAgency.name
     },
     {
         label: 'Awarding Sub-Agency',
-        field: 'awarding_subtier_name'
+        field: '__special',
+        parse: (data) => data.awardingAgency.subtierName
     },
     {
         label: 'Awarding Office',
         field: '__special',
-        parse: (data) => {
-            let output = '';
-            if (data.latest_transaction.contract_data.awarding_office_name) {
-                output = data.latest_transaction.contract_data.awarding_office_name;
-            }
-            return output;
-        }
+        parse: (data) => data.awardingAgency.officeName
     },
     {
         label: 'Funding Agency',
-        field: 'funding_agency_name'
+        field: '__special',
+        parse: (data) => data.fundingAgency.name
     },
     {
         label: 'Funding Sub-Agency',
-        field: 'funding_subtier_name'
+        field: '__special',
+        parse: (data) => data.fundingAgency.subtierName
     },
     {
         label: 'Funding Office',
         field: '__special',
-        parse: (data) => {
-            let output = '';
-            if (data.latest_transaction.contract_data.funding_office_name) {
-                output = data.latest_transaction.contract_data.funding_office_name;
-            }
-            return output;
-        }
+        parse: (data) => data.fundingAgency.officeName
     }
 ];
 
 export const parentFields = [
     {
         label: 'Parent Award ID',
-        field: 'parent_award_id'
+        field: 'parentAward'
     },
     {
         label: 'IDV Type',
         field: '__special',
-        parse: (data) => {
-            let output = 'Not Available';
-            if (data.latest_transaction.contract_data.idv_type_description) {
-                output = data.latest_transaction.contract_data.idv_type_description;
-            }
-            return output;
-        }
+        parse: (data) => data.additionalDetails.idvType
     },
     {
         label: 'IDC Type',
         field: '__special',
-        parse: (data) => {
-            let output = 'Not Available';
-            if (data.latest_transaction.contract_data.type_of_idc_description) {
-                output = data.latest_transaction.contract_data.type_of_idc_description;
-            }
-            return output;
-        }
+        parse: (data) => data.additionalDetails.idcType
     },
     {
         label: 'IDV Agency Identifier',
         field: '__special',
-        parse: (data) => {
-            let output = 'Not Available';
-            if (data.latest_transaction.contract_data.referenced_idv_agency_iden) {
-                output = data.latest_transaction.contract_data.referenced_idv_agency_iden;
-            }
-            return output;
-        }
+        parse: (data) => data.additionalDetails.idvAgencyId
     },
     {
         label: 'Mutliple or Single Award IDV',
         field: '__special',
-        parse: (data) => {
-            let output = 'Not Available';
-            if (data.latest_transaction.contract_data.multiple_or_single_aw_desc) {
-                output = data.latest_transaction.contract_data.multiple_or_single_aw_desc;
-            }
-            return output;
-        }
+        parse: (data) => data.additionalDetails.multipleIdv
     }
 ];
 
@@ -101,318 +67,166 @@ export const parentFields = [
 export const competitionFields = [
     {
         label: 'Solicitation ID',
-        field: 'solicitation_identifier'
+        field: 'solicitationId'
     },
     {
         label: 'Solicitation Procedures',
-        field: '__special',
-        parse: (data) => {
-            let output = '';
-            if (data.solicitation_procedur_desc) {
-                output = data.solicitation_procedur_desc;
-            }
-            else if (data.solicitation_procedures) {
-                output = data.solicitation_procedures;
-            }
-
-            return output;
-        }
+        field: 'solicitationProcedures'
     },
     {
         label: 'Number of Offers Received',
-        field: 'number_of_offers_received'
+        field: 'numberOffers'
     },
     {
         label: 'Extent Competed',
-        field: '__special',
-        parse: (data) => {
-            let output = '';
-            if (data.extent_compete_description) {
-                output = data.extent_compete_description;
-            }
-            else if (data.extent_competed) {
-                output = data.extent_competed;
-            }
-
-            return output;
-        }
+        field: 'extentCompeted'
     },
     {
         label: 'Not Competed Reason',
-        field: 'other_than_full_and_open_c'
+        field: 'notCompeted'
     },
     {
         label: 'Set-Aside Type',
-        field: 'type_set_aside_description'
+        field: 'setAsideType'
     },
     {
         label: 'Commercial Item Acquisition Procedures',
-        field: '__special',
-        parse: (data) => {
-            let output = '';
-            if (data.commercial_item_acqui_desc) {
-                output = data.commercial_item_acqui_desc;
-            }
-            else if (data.commercial_item_acquisitio) {
-                output = data.commercial_item_acquisitio;
-            }
-
-            return output;
-        }
+        field: 'commercialAcquisitionProcedures'
     },
     {
         label: 'Commercial Item Test Program',
-        field: 'commercial_item_test_desc'
+        field: 'commercialTestProgram'
     },
     {
         label: 'Evaluated Preference',
-        field: 'evaluated_preference_desc'
+        field: 'evaluatedPreference'
     },
     {
         label: 'FedBizOpps',
-        field: 'fed_biz_opps_description'
+        field: 'fedBizOpps'
     },
     {
         label: 'Small Business Competitiveness Demonstration Program',
-        field: 'small_business_competitive'
+        field: 'smallBusinessCompetitivenessDemo'
     }
 ];
 
 export const pscFields = [
     {
         label: 'Product Service Code (PSC)',
-        field: '__special',
-        parse: (data) => {
-            let output = '';
-            if (data.product_or_service_co_desc && data.product_or_service_code) {
-                output = `${data.product_or_service_code}: ${data.product_or_service_co_desc}`;
-            }
-            else if (data.product_or_service_co_desc) {
-                output = data.product_or_service_co_desc;
-            }
-            else if (data.product_or_service_code) {
-                output = data.product_or_service_code;
-            }
-
-            return output;
-        }
+        field: 'pscCode'
     },
     {
         label: 'NAICS Code',
-        field: '__special',
-        parse: (data) => {
-            let output = '';
-            if (data.naics_description && data.naics) {
-                output = `${data.naics}: ${data.naics_description}`;
-            }
-            else if (data.naics_description) {
-                output = data.naics_description;
-            }
-            else if (data.naics) {
-                output = data.naics;
-            }
-
-            return output;
-        }
+        field: 'naicsCode'
     },
     {
         label: 'DoD Claimant Code',
-        field: 'dod_claimant_program_code'
+        field: 'dodClaimantCode'
     },
     {
         label: 'DOD Acquisition Program',
-        field: 'program_system_or_equipmen'
+        field: 'programSystemOrEquipmentCode'
     },
     {
         label: 'Information Technology Commercial Item Category',
-        field: 'information_technolog_desc'
+        field: 'itCommercialCategory'
     },
     {
         label: 'Sea Transportation',
-        field: 'sea_transportation_desc'
+        field: 'seaTransport'
     }
 ];
 
 export const legislativeFields = [
     {
         label: 'Clinger-Cohen Act Compliant',
-        field: 'clinger_cohen_act_pla_desc'
+        field: 'clingerCohenAct'
     },
     {
         label: 'Subject to Davis Bacon Act',
-        field: 'davis_bacon_act_descrip'
+        field: 'davisBaconAct'
     },
     {
         label: 'Subject to Service Contract Act',
-        field: 'service_contract_act_desc'
+        field: 'serviceContractAct'
     },
     {
         label: 'Subject to Walsh Healey Act',
-        field: 'walsh_healey_act_descrip'
+        field: 'walshHealeyAct'
     }
 ];
 
 export const compensationFields = [
     {
         label: 'Officer 1',
-        field: '__special',
-        parse: (data) => {
-            const name = data.officer_1_name;
-            let amount = MoneyFormatter.formatMoney(data.officer_1_amount);
-            if (!data.officer_1_amount) {
-                amount = '--';
-            }
-
-            if (name && name !== '') {
-                if (!data.officer_1_amount) {
-                    return name;
-                }
-                return `${name} - ${amount}`;
-            }
-
-            return amount;
-        }
+        field: 'officer1'
     },
     {
         label: 'Officer 2',
-        field: '__special',
-        parse: (data) => {
-            const name = data.officer_2_name;
-            let amount = MoneyFormatter.formatMoney(data.officer_2_amount);
-            if (!data.officer_2_amount) {
-                amount = '--';
-            }
-
-            if (name && name !== '') {
-                if (!data.officer_2_amount) {
-                    return name;
-                }
-                return `${name} - ${amount}`;
-            }
-
-            return amount;
-        }
+        field: 'officer2'
     },
     {
         label: 'Officer 3',
-        field: '__special',
-        parse: (data) => {
-            const name = data.officer_3_name;
-            let amount = MoneyFormatter.formatMoney(data.officer_3_amount);
-            if (!data.officer_3_amount) {
-                amount = '--';
-            }
-
-            if (name && name !== '') {
-                if (!data.officer_3_amount) {
-                    return name;
-                }
-                return `${name} - ${amount}`;
-            }
-
-            return amount;
-        }
+        field: 'officer3'
     },
     {
         label: 'Officer 4',
-        field: '__special',
-        parse: (data) => {
-            const name = data.officer_4_name;
-            let amount = MoneyFormatter.formatMoney(data.officer_4_amount);
-            if (!data.officer_4_amount) {
-                amount = '--';
-            }
-
-            if (name && name !== '') {
-                if (!data.officer_4_amount) {
-                    return name;
-                }
-                return `${name} - ${amount}`;
-            }
-
-            return amount;
-        }
+        field: 'officer4'
     },
     {
         label: 'Officer 5',
-        field: '__special',
-        parse: (data) => {
-            const name = data.officer_5_name;
-            let amount = MoneyFormatter.formatMoney(data.officer_5_amount);
-            if (!data.officer_5_amount) {
-                amount = '--';
-            }
-
-            if (name && name !== '') {
-                if (!data.officer_5_amount) {
-                    return name;
-                }
-                return `${name} - ${amount}`;
-            }
-
-            return amount;
-        }
+        field: 'officer5'
     }
 ];
 
 export const additionalFields = [
     {
         label: 'Cost or Pricing Data',
-        field: 'cost_or_pricing_data_desc'
+        field: 'costOrPricingData'
     },
     {
         label: 'Domestic or Foreign Entity',
-        field: 'domestic_or_foreign_e_desc'
+        field: 'domesticForeign'
     },
     {
         label: 'Fair Opportunity Limited Sources',
-        field: 'fair_opportunity_limi_desc'
+        field: 'fairOpportunityLimitedSources'
     },
     {
         label: 'Foreign Funding',
-        field: 'foreign_funding_desc'
+        field: 'foreignFunding'
     },
     {
         label: 'Interagency Contracting Authority',
-        field: 'interagency_contract_desc'
+        field: 'interagencyContactingAuthority'
     },
     {
         label: 'Major Program',
-        field: 'major_program'
+        field: 'majorProgram'
     },
     {
         label: 'Price Evaluation Adjustment Preference Percent Difference',
-        field: 'price_evaluation_adjustmen'
+        field: 'priceEvaluationAdjustmentPreference'
     },
     {
         label: 'Program Acronym',
-        field: 'program_acronym'
+        field: 'programAcronym'
     },
     {
         label: 'Subcontracting Plan',
-        field: '__special',
-        parse: (data) => {
-            let output = 'Not Available';
-            if (data.subcontracting_plan_desc) {
-                output = data.subcontracting_plan_desc;
-            }
-            else if (data.subcontracting_plan) {
-                output = data.subcontracting_plan;
-            }
-
-            return output;
-        }
+        field: 'subcontractingPlan'
     },
     {
         label: 'Multi Year Contract',
-        field: 'multi_year_contract_desc'
+        field: 'multiYearContract'
     },
     {
         label: 'Purchase Card as Payment Method',
-        field: 'purchase_card_as_paym_desc'
+        field: 'purchaseCardAsPaymentMethod'
     },
     {
         label: 'Consolidated Contract',
-        field: 'consolidated_contract_desc'
+        field: 'consolidated'
     }
 ];

@@ -5,59 +5,43 @@
 
 const tableSearchFields = {
     columnWidths: {
-        modification: 0,
-        action_date: 0,
-        face_value: 0,
+        modificationNumber: 0,
+        actionDate: 0,
+        faceValue: 0,
         subsidy: 0,
-        action_type: 280,
+        actionTypeDescription: 280,
         description: 380
     },
     defaultSortDirection: {
-        modification: 'desc',
-        action_date: 'desc',
-        face_value: 'desc',
+        modificationNumber: 'desc',
+        actionDate: 'desc',
+        faceValue: 'desc',
         subsidy: 'desc',
-        action_type: 'asc',
+        actionTypeDescription: 'asc',
         description: 'asc'
     },
     table: {
         _order: [
-            'modification',
-            'action_date',
-            'face_value',
+            'modificationNumber',
+            'actionDate',
+            'faceValue',
             'subsidy',
-            'action_type',
-            'description'
-        ],
-        _fields: [
-            'modification_number',
-            'action_date',
-            'face_value_loan_guarantee',
-            'original_loan_subsidy_cost',
-            'action_type_description',
+            'actionTypeDescription',
             'description'
         ],
         _mapping: {
-            modification: 'modification_number',
-            action_date: 'action_date',
-            face_value: 'face_value_loan_guarantee',
+            modificationNumber: 'modification_number',
+            actionDate: 'action_date',
+            faceValue: 'face_value_loan_guarantee',
             subsidy: 'original_loan_subsidy_cost',
-            action_type: 'action_type_description',
+            actionTypeDescription: 'action_type_description',
             description: 'description'
         },
-        _sortFields: {
-            modification: 'modification_number',
-            action_date: 'action_date',
-            face_value: 'assistance_data__face_value_loan_guarantee',
-            subsidy: 'assistance_data__original_loan_subsidy_cost',
-            action_type: 'action_type_description',
-            description: 'description'
-        },
-        modification: 'Modification Number',
-        action_date: 'Action Date',
-        face_value: 'Loan Value',
+        modificationNumber: 'Modification Number',
+        actionDate: 'Action Date',
+        faceValue: 'Loan Value',
         subsidy: 'Subsidy Cost',
-        action_type: 'Assistance Type',
+        actionTypeDescription: 'Assistance Type',
         description: 'Description'
     }
 };

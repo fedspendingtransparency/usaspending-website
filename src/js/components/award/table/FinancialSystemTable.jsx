@@ -73,7 +73,6 @@ export default class FinancialSystemTable extends React.Component {
 
     bodyCellRender(columnIndex, rowIndex) {
         const column = tableMapping.table._order[columnIndex];
-        const apiKey = tableMapping.table._mapping[column];
         const item = this.props.data[rowIndex];
 
         const isLast = columnIndex === tableMapping.table._order.length - 1;
@@ -88,7 +87,7 @@ export default class FinancialSystemTable extends React.Component {
             {
                 rowIndex,
                 column,
-                data: item[apiKey],
+                data: item[column],
                 isLastColumn: isLast
             }
         );

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { List } from 'immutable';
 
 import { TransactionsTableContainer } from
     'containers/award/table/TransactionsTableContainer';
@@ -14,9 +13,9 @@ import mockContractTransaction from './mockContractTransaction';
 import mockGrantTransaction from './mockGrantTransaction';
 import mockLoanTransaction from './mockLoanTransaction';
 
-import ContractTransaction from 'models/results/transactions/ContractTransaction';
-import AssistanceTransaction from 'models/results/transactions/AssistanceTransaction';
-import LoanTransaction from 'models/results/transactions/LoanTransaction';
+import BaseAssistanceTransaction from 'models/v2/awards/transactions/BaseAssistanceTransaction';
+import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
+import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
 
 // mock the search helper
 jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
@@ -32,10 +31,10 @@ global.Promise = require.requireActual('promise');
 const mockRedux = {
     award: {
         selectedAward: {
-            id: 1
+            internalId: 1
         }
     },
-    type: 'contract'
+    category: 'contract'
 };
 
 describe('TransactionsTableContainer-test', () => {
@@ -50,7 +49,7 @@ describe('TransactionsTableContainer-test', () => {
         container.setProps({
             award: {
                 selectedAward: {
-                    id: 2
+                    internalId: 2
                 }
             }
         });
@@ -99,7 +98,7 @@ describe('TransactionsTableContainer-test', () => {
     describe('parseTransactions', () => {
         it('should parse the API response into AssistanceTransaction objects for assistance awards', () => {
             const redux = Object.assign({}, mockRedux, {
-                type: 'grant'
+                category: 'grant'
             });
 
             const container = shallow(
@@ -108,17 +107,16 @@ describe('TransactionsTableContainer-test', () => {
             );
             container.instance().parseTransactions(mockGrantTransaction, true);
 
-            const expectedResult = new AssistanceTransaction(mockGrantTransaction.results[0]);
-            delete expectedResult._jsid;
+            const expectedResult = Object.create(BaseAssistanceTransaction);
+            expectedResult.populate(mockGrantTransaction.results[0]);
             const actualResult = container.state().transactions[0];
-            delete actualResult._jsid;
 
             expect(container.state().transactions.length).toEqual(1);
             expect(actualResult).toEqual(expectedResult);
         });
         it('should parse the API response into ContractTransaction objects for contract awards', () => {
             const redux = Object.assign({}, mockRedux, {
-                type: 'contract'
+                category: 'contract'
             });
 
             const container = shallow(
@@ -127,17 +125,16 @@ describe('TransactionsTableContainer-test', () => {
             );
             container.instance().parseTransactions(mockContractTransaction, true);
 
-            const expectedResult = new ContractTransaction(mockContractTransaction.results[0]);
-            delete expectedResult._jsid;
+            const expectedResult = Object.create(BaseContractTransaction);
+            expectedResult.populate(mockContractTransaction.results[0]);
             const actualResult = container.state().transactions[0];
-            delete actualResult._jsid;
 
             expect(container.state().transactions.length).toEqual(1);
             expect(actualResult).toEqual(expectedResult);
         });
         it('should parse the API response into LoanTransaction objects for loan awards', () => {
             const redux = Object.assign({}, mockRedux, {
-                type: 'loan'
+                category: 'loan'
             });
 
             const container = shallow(
@@ -146,10 +143,9 @@ describe('TransactionsTableContainer-test', () => {
             );
             container.instance().parseTransactions(mockLoanTransaction, true);
 
-            const expectedResult = new LoanTransaction(mockLoanTransaction.results[0]);
-            delete expectedResult._jsid;
+            const expectedResult = Object.create(BaseLoanTransaction);
+            expectedResult.populate(mockLoanTransaction.results[0]);
             const actualResult = container.state().transactions[0];
-            delete actualResult._jsid;
 
             expect(container.state().transactions.length).toEqual(1);
             expect(actualResult).toEqual(expectedResult);
