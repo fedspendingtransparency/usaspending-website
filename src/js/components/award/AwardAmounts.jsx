@@ -32,7 +32,7 @@ export default class AwardAmounts extends React.Component {
         let awardNarrative = (
             <p>
                 This {award.category} was awarded to&nbsp;
-                <b className="recipient-name">{recipient}</b> with a ceiling of
+                <b className="recipient-name">{recipient}</b> with a potential award amount of
                 &nbsp;<b>{ceiling}</b>.&nbsp;
                 Of this amount, <b>{percentage}%</b> (<b>{current}</b>)
                 has been obligated.
