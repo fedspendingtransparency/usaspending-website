@@ -20,13 +20,14 @@ const BaseContractAdditionalDetails = {
         this.solicitationProcedures = data.solicitation_procedur_desc || data.solicitation_procedures || '--';
         this.numberOffers = data.number_of_offers_received || '--';
         this.extentCompeted = data.extent_compete_description || data.extent_competed || '--';
-        this.notCompeted = data.other_than_full_and_open_c || '--';
+        this.notCompeted = data.other_than_full_and_o_desc || '--';
         this.setAsideType = data.type_set_aside_description || '--';
         this.commercialAcquisitionProcedures = data.commercial_item_acqui_desc || data.commercial_item_acquisitio || '--';
         this.commercialTestProgram = data.commercial_item_test_desc || '--';
         this.evaluatedPreference = data.evaluated_preference_desc || '--';
         this.fedBizOpps = data.fed_biz_opps_description || '--';
         this.smallBusinessCompetitivenessDemo = data.small_business_competitive || '--';
+        this.fairOpportunityLimitedSources = data.fair_opportunity_limi_desc || '--';
 
         // Product or Service Details
         this._pscCode = data.product_or_service_code || '';
@@ -47,7 +48,6 @@ const BaseContractAdditionalDetails = {
         // Additional Details
         this.costOrPricingData = data.cost_or_pricing_data_desc || '--';
         this.domesticForeign = data.domestic_or_foreign_e_desc || '--';
-        this.fairOpportunityLimitedSources = data.fair_opportunity_limi_desc || '--';
         this.foreignFunding = data.foreign_funding_desc || '--';
         this.interagencyContactingAuthority = data.interagency_contract_desc || '--';
         this.majorProgram = data.major_program || '--';
