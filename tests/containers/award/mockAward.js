@@ -370,8 +370,7 @@ export const mockAward = {
                 reporting_period_end: '2016-11-01',
                 submission: 9
             }
-        },
-        _jsid: 'award-3'
+        }
     },
     transactions: [
         {
@@ -382,8 +381,7 @@ export const mockAward = {
             action_type: 'C',
             federal_action_obligation: '$88,074,906',
             modification_number: '634',
-            description: 'MANAGEMENT AND OPERATION OF SANDIA NATIONAL LABORATORIES BY SANDIA CORPORATION, CONTRACT NO. DE-AC04-94AL85000',
-            _jsid: 'contract-transaction-4'
+            description: 'MANAGEMENT AND OPERATION OF SANDIA NATIONAL LABORATORIES BY SANDIA CORPORATION, CONTRACT NO. DE-AC04-94AL85000'
         }
     ],
     transactionMeta: {

@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 import AdditionalRow from './AdditionalRow';
 
 const propTypes = {
@@ -20,20 +19,11 @@ export default class AdditionalGroup extends React.Component {
         const rows = [];
 
         this.props.fields.forEach((item) => {
-            let value = "Not Available";
-            if (this.props.data[item.field]) {
-                value = this.props.data[item.field];
-            }
+            let value = this.props.data[item.field];
             if (item.field === "__special") {
                 // this is a special data field that needs to be manually parsed
                 value = item.parse(this.props.data);
             }
-
-            if (item.type === "currency") {
-                // monetize this amount
-                value = MoneyFormatter.formatMoney(this.props.data[item.field]);
-            }
-
             const row = (<AdditionalRow
                 key={item.label}
                 title={item.label}

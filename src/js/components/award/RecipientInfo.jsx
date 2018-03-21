@@ -5,15 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { toLower, includes } from 'lodash';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import * as BusinessTypesHelper from 'helpers/businessTypesHelper';
+import { toLower } from 'lodash';
 import InfoSnippet from './InfoSnippet';
 import RecipientAddress from './RecipientAddress';
 
-
 const propTypes = {
-    award: PropTypes.object
+    recipient: PropTypes.object
 };
 
 export default class RecipientInfo extends React.Component {
@@ -28,13 +25,13 @@ export default class RecipientInfo extends React.Component {
     }
 
     buildName() {
-        const isMultiple = toLower(this.props.award.recipient_name) === 'multiple recipients';
-        let recipientName = this.props.award.recipient_name;
-        let address = null;
-        if (isMultiple) {
-            if (this.props.award.recipient_county && this.props.award.recipient_state_province) {
-                address = ` in ${this.props.award.recipient_county},
-                ${this.props.award.recipient_state_province}`;
+        const recipient = this.props.recipient;
+        let recipientName = recipient.name;
+
+        if (toLower(recipientName) === 'multiple recipients') {
+            let address = '';
+            if (recipient._county && recipient.stateProvince) {
+                address = ` in ${recipient.county}, ${recipient.stateProvince}`;
             }
             recipientName = `Multiple Recipients${address}`;
         }
@@ -58,45 +55,20 @@ export default class RecipientInfo extends React.Component {
         );
     }
 
-    buildParentDuns(isContract) {
-        if (!isContract) {
-            return null;
-        }
-        return (
-            <InfoSnippet
-                label="Parent DUNS"
-                value={this.props.award.recipient_parent_duns || 'Not Available'} />
-        );
-    }
-
-    buildBusinessTypes(isContract) {
-        if (!isContract) {
-            return (
-                <InfoSnippet
-                    label="Business Type"
-                    value={this.props.award.recipient_business_type || 'Not Available'} />
-            );
-        }
-
-        const listItems = [];
-        BusinessTypesHelper.getBusinessTypes().forEach((type) => {
-            // loop through all available business types
-            if (this.props.award.latest_transaction.recipient[type.fieldName]) {
-                // the business type item exists in the API response
-                let displayClass = '';
-                if (this.state.moreTypesButton && listItems.length >= 2) {
-                    // we should hide the item until the class is expanded
-                    displayClass = 'hide';
-                }
-
-                listItems.push(
-                    <li
-                        key={type.fieldName}
-                        className={displayClass}>
-                        {type.displayName}
-                    </li>
-                );
+    buildBusinessTypes() {
+        const listItems = this.props.recipient.businessTypes.map((type, i) => {
+            let displayClass = '';
+            if (this.state.moreTypesButton && i >= 2) {
+                // we should hide the item until the class is expanded
+                displayClass = 'hide';
             }
+            return (
+                <li
+                    key={type}
+                    className={displayClass}>
+                    {type}
+                </li>
+            );
         });
 
         let expandButton = null;
@@ -112,14 +84,6 @@ export default class RecipientInfo extends React.Component {
                     className="see-more">
                     {label}
                 </button>
-            );
-        }
-        else if (listItems.length === 0) {
-            listItems.push(
-                <li
-                    key="not-available">
-                    Not Available
-                </li>
             );
         }
 
@@ -141,23 +105,42 @@ export default class RecipientInfo extends React.Component {
     }
 
     buildSnippets() {
-        if (toLower(this.props.award.recipient_name) === 'multiple recipients') {
+        const recipient = this.props.recipient;
+        if (toLower(recipient.name) === 'multiple recipients') {
             // there are multiple recipients
             return this.buildMultipleRecipients();
         }
 
-        const isContract = includes(awardTypeGroups.contracts, this.props.award.award_type);
-        const isIDV = !this.props.award.award_type;
+        let parentDunsSnippet = null;
+
+        if (recipient.parentDuns) {
+            parentDunsSnippet = (
+                <InfoSnippet
+                    label="Parent DUNS"
+                    value={recipient.parentDuns} />
+            );
+        }
+
+
+        let businessTypesSnippet = (
+            <InfoSnippet
+                label="Business Type"
+                value="--" />
+        );
+
+        if (recipient.businessTypes.length > 0) {
+            businessTypesSnippet = this.buildBusinessTypes();
+        }
 
         return (
             <ul className="recipient-information">
                 <RecipientAddress
-                    recipient={this.props.award} />
+                    location={recipient.location} />
                 <InfoSnippet
                     label="DUNS"
-                    value={this.props.award.recipient_duns || 'Not Available'} />
-                {this.buildParentDuns(isContract || isIDV)}
-                {this.buildBusinessTypes(isContract || isIDV)}
+                    value={recipient.duns} />
+                {parentDunsSnippet}
+                {businessTypesSnippet}
             </ul>
         );
     }

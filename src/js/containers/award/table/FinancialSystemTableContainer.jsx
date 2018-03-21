@@ -13,7 +13,7 @@ import { isCancel } from 'axios';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 
-import FinancialSystemItem from 'models/results/other/FinancialSystemItem';
+import BaseFinancialSystemDetailsRow from "models/v2/awards/financialSystemDetails/BaseFinancialSystemDetailsRow";
 import FinancialSystemTable from 'components/award/table/FinancialSystemTable';
 
 import tableFields from 'dataMapping/contracts/financialSystem';
@@ -49,7 +49,7 @@ export class FinancialSystemTableContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.award.selectedAward.id !== prevProps.award.selectedAward.id) {
+        if (this.props.award.selectedAward.internalId !== prevProps.award.selectedAward.internalId) {
             this.loadFinancialSystemData(1, true);
         }
     }
@@ -61,7 +61,7 @@ export class FinancialSystemTableContainer extends React.Component {
     }
 
     loadFinancialSystemData(page = 1, reset = false) {
-        const awardId = this.props.award.selectedAward.id;
+        const awardId = this.props.award.selectedAward.internalId;
         if (!awardId) {
             return;
         }
@@ -98,7 +98,8 @@ export class FinancialSystemTableContainer extends React.Component {
                 const detailItems = [];
 
                 res.data.results.forEach((item) => {
-                    const finItem = new FinancialSystemItem(item);
+                    const finItem = Object.create(BaseFinancialSystemDetailsRow);
+                    finItem.populate(item);
                     detailItems.push(finItem);
                 });
 

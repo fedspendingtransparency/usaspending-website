@@ -14,11 +14,10 @@ import SubawardsContainer from 'containers/award/subawards/SubawardsContainer';
 
 import DetailsTabBar from './DetailsTabBar';
 import ContractAdditionalDetails from './additional/ContractAdditionalDetails';
-import AssistanceAdditionalDetails from './additional/AssistanceAdditionalDetails';
 import ResultsTablePicker from '../../search/table/ResultsTablePicker';
 
 const propTypes = {
-    award: PropTypes.object,
+    selectedAward: PropTypes.object,
     activeTab: PropTypes.string,
     clickTab: PropTypes.func
 };
@@ -60,7 +59,7 @@ export default class DetailsSection extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         // check award changed
-        if (this.props.award.selectedAward.id !== nextProps.award.selectedAward.id) {
+        if (this.props.selectedAward.internalId !== nextProps.selectedAward.internalId) {
             // reset the tab
             this.props.clickTab('transaction');
         }
@@ -77,27 +76,36 @@ export default class DetailsSection extends React.Component {
     }
 
     currentSection() {
-        const type = this.props.award.selectedAward.internal_general_type;
+        const category = this.props.selectedAward.category;
         switch (this.props.activeTab) {
             case 'transaction':
-                return (<TransactionsTableContainer
-                    type={type}
-                    tableWidth={this.state.tableWidth} />);
+                return (
+                    <TransactionsTableContainer
+                        category={category}
+                        tableWidth={this.state.tableWidth} />
+                );
 
             case 'subaward':
-                return (<SubawardsContainer
-                    tableWidth={this.state.tableWidth} />);
+                return (
+                    <SubawardsContainer
+                        tableWidth={this.state.tableWidth} />
+                );
 
             case 'financial':
-                return (<FinancialSystemTableContainer
-                    {...this.props}
-                    tableWidth={this.state.tableWidth} />);
+                return (
+                    <FinancialSystemTableContainer
+                        {...this.props}
+                        tableWidth={this.state.tableWidth} />
+                );
 
             case 'additional':
-                if (type === 'contract' || type === 'unknown') {
-                    return (<ContractAdditionalDetails {...this.props} />);
+                if (category === 'contract' || category === 'idv') {
+                    return (
+                        <ContractAdditionalDetails
+                            selectedAward={this.props.selectedAward} />
+                    );
                 }
-                return (<AssistanceAdditionalDetails {...this.props} />);
+                return null;
 
             default:
                 return null;
@@ -109,8 +117,8 @@ export default class DetailsSection extends React.Component {
 
         const tabs = concat([], commonTabs);
 
-        if (this.props.award.selectedAward.internal_general_type === 'contract'
-            || this.props.award.selectedAward.internal_general_type === 'unknown') {
+        if (this.props.selectedAward.category === 'contract'
+            || this.props.selectedAward.category === 'idv') {
             tabs.push({
                 label: 'Additional Details',
                 internal: 'additional',

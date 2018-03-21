@@ -19,7 +19,7 @@ const propTypes = {
     potential: PropTypes.number,
     current: PropTypes.number,
     graphHeight: PropTypes.number,
-    awardId: PropTypes.number,
+    awardId: PropTypes.string,
     showPotential: PropTypes.bool,
     type: PropTypes.string
 };
