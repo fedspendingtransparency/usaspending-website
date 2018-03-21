@@ -37,7 +37,7 @@ export default class LoanAmounts extends React.Component {
                         {MoneyFormatter.formatMoneyWithPrecision(this.props.subsidy, 0)}
                         <span className={`loan-amounts__value loan-amounts__value_${hidePercentage}`}>
                             &nbsp;
-                            <i>or</i>
+                            <span className="loan-amounts__value loan-amounts__value_italic">or</span>
                             &nbsp;{percentage}%
                         </span>
                         <p className={`loan-amounts__note loan-amounts__note_${hidePercentage}`}>

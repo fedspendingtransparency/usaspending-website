@@ -59,6 +59,11 @@
         &.loan-amounts__value_hide {
             display: none;
         }
+
+        &.loan-amounts__value_italic {
+            font-style: italic;
+            font-size: rem(20);
+        }
     }
 
     .loan-amounts__note {
