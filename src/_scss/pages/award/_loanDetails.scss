@@ -1,55 +1,73 @@
-.loan-amounts-wrapper {
+.loan-amounts {
     @import "mixins/setText";
-    @include display(flex);
-    @include flex-flow(row wrap);
-    @include justify-content(space-around);
-    @include align-items(center);
     min-height: rem(250);
-    color: $color-base;
-    text-align: center;
-    @include media($medium-screen) {
+   
+    @include display(flex);
+    @include justify-content(space-between);
+    @include align-items(center);
+    @include flex-direction(column);
+
+     @include media($medium-screen) {
         height: rem(180);
+        @include flex-direction(row);
     }
-    .right {
-        padding-top: rem(0);
+
+
+    .loan-amounts__group {
+        @include flex(1 1 auto);
+
+        &.loan-amounts__group_larger {
+            @include flex(1.5 1 auto);
+        }
+
+        &.loan-amounts__group_border {
+            border-right: 1px solid #D6D7D9;
+        }
+
+        &.loan-amounts__group_has-decorator {
+            @include media($medium-screen) {
+                margin-top: rem(11 * 1.7);
+            }
+        }
     }
-    .divider {
-        background: #D6D7D9;
-        display: block;
-        height: 1px;
-        margin: rem(20) rem(0);
+
+    .loan-amounts__divider {
+        @include flex(0 0 rem(1));
         width: 100%;
-    }
-    @include media($medium-screen) {
-        .left {
-            flex: 1;
-        }
-        .right {
-            flex: 1.5;
-            padding-top: rem(43);
-        }
-        .divider {
+        background: #D6D7D9;
+        margin: rem(20) 0;
+
+        @include media($medium-screen) {
+            @include flex(0 0 rem(1));
+            width: auto;
             height: 80%;
             margin: 0 rem(20);
-            width: 1px;
         }
     }
-    .title {
+
+    .loan-amounts__title {
+        text-align: center;
         @include setText(rem(19));
         color: #5B616B;
     }
-    .value {
+
+    .loan-amounts__value {
         @include setText(rem(38));
         font-weight: $font-light;
-        margin: 0;
-        i {
-            font-size: rem(20);
+        text-align: center;
+
+        &.loan-amounts__value_hide {
+            display: none;
         }
-        .note {
-            bottom: rem(20);
-            font-size: rem(11);
-            position: relative;
-            text-align: center;
+    }
+
+    .loan-amounts__note {
+        @include setText(rem(11));
+        text-align: center;
+        margin: 0;
+
+        &.loan-amounts__note_hide {
+            display: none;
         }
     }
 }
