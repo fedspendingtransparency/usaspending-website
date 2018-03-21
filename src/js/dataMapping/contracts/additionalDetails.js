@@ -108,6 +108,10 @@ export const competitionFields = [
     {
         label: 'Small Business Competitiveness Demonstration Program',
         field: 'smallBusinessCompetitivenessDemo'
+    },
+    {
+        label: 'Fair Opportunity Limited Sources',
+        field: 'fairOpportunityLimitedSources'
     }
 ];
 
@@ -188,10 +192,6 @@ export const additionalFields = [
     {
         label: 'Domestic or Foreign Entity',
         field: 'domesticForeign'
-    },
-    {
-        label: 'Fair Opportunity Limited Sources',
-        field: 'fairOpportunityLimitedSources'
     },
     {
         label: 'Foreign Funding',

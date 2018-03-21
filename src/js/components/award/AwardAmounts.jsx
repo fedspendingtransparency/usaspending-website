@@ -32,7 +32,7 @@ export default class AwardAmounts extends React.Component {
         let awardNarrative = (
             <p>
                 This {award.category} was awarded to&nbsp;
-                <b className="recipient-name">{recipient}</b> with a ceiling of
+                <b className="recipient-name">{recipient}</b> with a potential award amount of
                 &nbsp;<b>{ceiling}</b>.&nbsp;
                 Of this amount, <b>{percentage}%</b> (<b>{current}</b>)
                 has been obligated.
@@ -55,7 +55,7 @@ export default class AwardAmounts extends React.Component {
             awardNarrative = (
                 <p>
                     A {award.category} with a face value of&nbsp;
-                    <b>{loanCeiling}</b> was awarded to <b>{recipient}</b>. The agency&#8217;s
+                    <b>{loanCeiling}</b> was awarded to <b className="recipient-name">{recipient}</b>. The agency&#8217;s
                         estimated non-administrative cost to the government for this&nbsp;
                     {award.category} is <b>{loanSubsidy}</b>. This cost is also known as
                         original subsidy cost.
