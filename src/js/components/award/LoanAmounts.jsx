@@ -17,8 +17,10 @@ export default class LoanAmounts extends React.Component {
     render() {
         let percentage = ((this.props.subsidy / this.props.faceValue) * 100).toFixed(2);
         if (this.props.subsidy === 0) {
-            percentage = "0";
+            percentage = '0';
         }
+        const hidePercentage = this.props.faceValue === 0 ? 'hide' : '';
+
         return (
             <div className="loan-amounts-wrapper">
                 <div className="left">
@@ -31,8 +33,12 @@ export default class LoanAmounts extends React.Component {
                 <div className="right">
                     <div className="title">Estimated Cost to the Government</div>
                     <div className="value">
-                        {MoneyFormatter.formatMoneyWithPrecision(this.props.subsidy, 0)} <i>or</i>
-                        &nbsp;{percentage}%
+                        {MoneyFormatter.formatMoneyWithPrecision(this.props.subsidy, 0)}
+                        <span className={`percentage ${hidePercentage}`}>
+                            &nbsp;
+                            <i>or</i>
+                            &nbsp;{percentage}%
+                        </span>
                         <p className="note">(of Face Value)</p>
                     </div>
                 </div>
