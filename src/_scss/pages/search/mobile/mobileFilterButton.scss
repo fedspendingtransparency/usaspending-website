@@ -46,6 +46,7 @@
             .mobile-filter-button-icon {
                 @include flex(0 0 auto);
                 margin-right: rem(5);
+                height: rem(18);
                 svg {
                     fill: $color-white;
                     width: 18px;
@@ -53,6 +54,7 @@
             }
 
             .mobile-filter-button-label {
+                @include flex(1 1 auto);
                 color: $color-white;
                 line-height: rem(18);
                 font-size: $small-font-size;
