@@ -30,6 +30,12 @@ describe('BulkDownloadPageContainer', () => {
             filters: {
                 agency: '123',
                 award_types: ['grants', 'loans'],
+                recipient_locations: [
+                    {
+                        country: 'USA',
+                        state: 'HI'
+                    }
+                ],
                 date_range: {
                     end_date: '11-01-2017',
                     start_date: '11-01-2016'

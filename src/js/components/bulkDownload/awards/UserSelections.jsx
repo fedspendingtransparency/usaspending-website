@@ -177,6 +177,10 @@ export default class UserSelections extends React.Component {
                         {this.generateAgencyString()}
                     </div>
                     <div className="option">
+                        <h6>Recipient Location</h6>
+                        {this.props.awards.location}
+                    </div>
+                    <div className="option">
                         <h6>Date Type</h6>
                         {this.generateDateTypeString()}
                     </div>

@@ -72,6 +72,7 @@ export const mockRedux = {
             subAgency: {
                 name: 'Mock Sub-Agency'
             },
+            location: 'HI',
             dateType: 'action_date',
             dateRange: {
                 startDate: '11-01-2016',

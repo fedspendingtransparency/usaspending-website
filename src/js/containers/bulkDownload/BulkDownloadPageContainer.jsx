@@ -87,6 +87,14 @@ export class BulkDownloadPageContainer extends React.Component {
             }
         }
 
+        // Create the recipient locations array
+        const recipientLocations = [
+            {
+                country: 'USA',
+                state: formState.location
+            }
+        ];
+
         // Convert undefined to the empty string for open-ended dates
         let startDate = '';
         if (formState.dateRange.startDate) {
@@ -103,6 +111,7 @@ export class BulkDownloadPageContainer extends React.Component {
                 award_types: awardTypes,
                 agency: formState.agency.id,
                 sub_agency: formState.subAgency.name,
+                recipient_locations: recipientLocations,
                 date_type: formState.dateType,
                 date_range: {
                     start_date: startDate,
@@ -127,6 +136,10 @@ export class BulkDownloadPageContainer extends React.Component {
         // Need to check if sub_agency is set or not
         if (bulkParams.filters.sub_agency.toLowerCase() === "select a sub-agency") {
             delete bulkParams.filters.sub_agency;
+        }
+
+        if (bulkParams.filters.recipient_locations[0].state === 'All') {
+            delete bulkParams.filters.recipient_locations;
         }
 
         this.request = BulkDownloadHelper.requestBulkDownload(bulkParams, type);
