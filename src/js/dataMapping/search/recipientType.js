@@ -105,7 +105,6 @@ export const recipientTypeGroups = {
         'other_minority_owned_business'
     ],
     woman_owned_business: [
-        'woman_owned_business',
         'women_owned_small_business',
         'economically_disadvantaged_women_owned_small_business',
         'joint_venture_women_owned_small_business',
@@ -170,7 +169,7 @@ export const groupKeys = [
     'veteran_owned_business',
     'special_designations',
     'nonprofit',
-    'higher_education',
+    'educational_institution',
     'government',
     'individuals'];
 
@@ -181,7 +180,7 @@ export const groupLabels = {
     veteran_owned_business: 'Veteran Owned Business',
     special_designations: 'Special Designations',
     nonprofit: 'Nonprofit',
-    higher_education: 'Higher Education',
+    educational_institution: 'Higher Education',
     government: 'Government',
     individuals: 'Individuals'
 };
