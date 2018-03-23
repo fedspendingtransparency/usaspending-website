@@ -25,6 +25,7 @@ export const initialState = {
             id: '',
             name: 'Select a Sub-Agency'
         },
+        location: 'All',
         dateType: 'action_date',
         dateRange: {
             startDate: '',

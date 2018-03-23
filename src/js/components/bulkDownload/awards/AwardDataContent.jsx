@@ -12,6 +12,7 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import AwardLevelFilter from './filters/AwardLevelFilter';
 import AwardTypeFilter from './filters/AwardTypeFilter';
 import AgencyFilter from './filters/AgencyFilter';
+import LocationFilter from './filters/LocationFilter';
 import DateTypeFilter from './filters/DateTypeFilter';
 import TimePeriodFilter from './filters/dateRange/TimePeriodFilter';
 import FileFormatFilter from './filters/FileFormatFilter';
@@ -27,6 +28,7 @@ const propTypes = {
     agencies: PropTypes.object,
     subAgencies: PropTypes.array,
     setSubAgencyList: PropTypes.func,
+    states: PropTypes.array,
     clickedDownload: PropTypes.func
 };
 
@@ -65,12 +67,15 @@ export default class AwardDataContent extends React.Component {
     validateForm() {
         const awards = this.props.awards;
 
-        const validForm = ((awards.awardLevels.primeAwards || awards.awardLevels.subAwards)
-        && (awards.awardTypes.contracts || awards.awardTypes.grants || awards.awardTypes.directPayments
-        || awards.awardTypes.loans || awards.awardTypes.otherFinancialAssistance)
-        && this.state.validDates && (awards.dateType !== '')
-        && (awards.agency.id !== '')
-        && (awards.fileFormat !== ''));
+        const validForm = (
+            (awards.awardLevels.primeAwards || awards.awardLevels.subAwards)
+            && (awards.awardTypes.contracts || awards.awardTypes.grants || awards.awardTypes.directPayments
+                || awards.awardTypes.loans || awards.awardTypes.otherFinancialAssistance)
+            && this.state.validDates && (awards.dateType !== '')
+            && (awards.agency.id !== '')
+            && (awards.location !== '')
+            && (awards.fileFormat !== '')
+        );
 
         this.setState({
             validForm
@@ -138,6 +143,11 @@ export default class AwardDataContent extends React.Component {
                             updateFilter={this.props.updateFilter}
                             setSubAgencyList={this.props.setSubAgencyList}
                             valid={awards.agency.id !== ''} />
+                        <LocationFilter
+                            states={this.props.states}
+                            currentState={awards.location}
+                            updateFilter={this.props.updateFilter}
+                            valid={awards.location !== ''} />
                         <DateTypeFilter
                             dateTypes={awardDownloadOptions.dateTypes}
                             currentDateType={awards.dateType}
