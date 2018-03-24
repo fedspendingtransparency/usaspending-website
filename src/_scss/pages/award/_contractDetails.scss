@@ -13,6 +13,7 @@
     .contract-details {
         @include element-wrap;
         @import "../../elements/_detailsTable";
+        white-space: pre-wrap;
     }
     @import './_moreButton';
 }

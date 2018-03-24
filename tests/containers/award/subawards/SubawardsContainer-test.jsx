@@ -2,17 +2,16 @@
  * SubawardsContainer-test.jsx
  * Created by Kevin Li 4/19/17
  */
+
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-
 
 import { SubawardsContainer } from
     'containers/award/subawards/SubawardsContainer';
 
-import * as SearchHelper from 'helpers/searchHelper';
-import SubawardItem from 'models/results/award/SubawardItem';
+import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
 
-import { mockAward } from '../mockAward';
+import { mockParams } from '../mockResults';
 import { mockSubawards } from '../mockSubawards';
 
 jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
@@ -25,13 +24,16 @@ global.Promise = require.requireActual('promise');
 jest.mock('components/award/subawards/SubawardsTable', () =>
     jest.fn(() => null));
 
+const mockAward = mockParams.award.selectedAward;
+
 describe('SubawardsContainer', () => {
     it('should reload data when the award ID changes', () => {
-        const container = mount(<SubawardsContainer
-            award={mockAward} />);
+        const container = mount(
+            <SubawardsContainer
+                award={mockAward} />);
 
         const newAward = Object.assign({}, mockAward, {
-            id: 9999
+            internalId: 9999
         });
 
         container.instance().fetchSubawards = jest.fn();
@@ -98,14 +100,18 @@ describe('SubawardsContainer', () => {
         });
     });
     describe('parseSubawards', () => {
-        it('should parse API responses into SubawardItem objects', () => {
+        it('should parse API responses into SubawardRow objects', () => {
             const container = shallow(
                 <SubawardsContainer
                     award={mockAward} />
             );
+
             container.instance().parseSubawards(mockSubawards, true);
+            const expectedSubaward = Object.create(BaseSubawardRow);
+            expectedSubaward.populate(mockSubawards.results[0]);
 
             expect(container.instance().state.subawards.length).toEqual(mockSubawards.results.length);
+            expect(container.instance().state.subawards[0]).toEqual(expectedSubaward);
         });
 
         it('should append items rather than overwrite items when the reset flag is false', () => {

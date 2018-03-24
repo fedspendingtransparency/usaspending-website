@@ -19,11 +19,12 @@ export default class AwardInfoBar extends React.Component {
             agencies = (
                 <div className="award-info-bar">
                     <AgencyInfo
-                        {...this.props}
-                        selectedAward={this.props.selectedAward} />
+                        awardId={this.props.selectedAward.id}
+                        fundingAgency={this.props.selectedAward.fundingAgency}
+                        awardingAgency={this.props.selectedAward.awardingAgency} />
                     <div className="triangle-wrapper" />
                     <RecipientInfo
-                        award={this.props.selectedAward} />
+                        recipient={this.props.selectedAward.recipient} />
                 </div>
             );
         }

@@ -23,9 +23,9 @@ describe('RecipientTypeContainer', () => {
     describe('ungroupSelectedTypes', () => {
         it('should split filter values associated with parent recipient type items into their child values', () => {
             const container = shallow(<RecipientTypeContainer {...mockTypeRedux} />);
-            container.instance().ungroupSelectedTypes(new Set(['business']));
+            container.instance().ungroupSelectedTypes(new Set(['category_business']));
 
-            expect(container.state().selectedTypes).toEqual(new Set(recipientTypeGroups.business));
+            expect(container.state().selectedTypes).toEqual(new Set(recipientTypeGroups.category_business));
         });
 
         it('should pass the filter values into state as-is when the filter value is not a parent recipient type', () => {
@@ -39,9 +39,9 @@ describe('RecipientTypeContainer', () => {
     describe('determineParentType', () => {
         it('should return the parent value when the input matches any recipient type group value', () => {
             const container = shallow(<RecipientTypeContainer {...mockTypeRedux} />);
-            const parentType = container.instance().determineParentType(recipientTypeGroups.business);
+            const parentType = container.instance().determineParentType(recipientTypeGroups.category_business);
 
-            expect(parentType).toEqual('business');
+            expect(parentType).toEqual('category_business');
         });
         it('should return the null when the input is not a member of any recipient type group', () => {
             const container = shallow(<RecipientTypeContainer {...mockTypeRedux} />);
@@ -73,13 +73,35 @@ describe('RecipientTypeContainer', () => {
             const container = shallow(<RecipientTypeContainer {...mockRedux} />);
 
             container.instance().bulkRecipientTypeChange({
-                types: recipientTypeGroups.business,
+                types: recipientTypeGroups.category_business,
                 direction: 'add'
             });
 
             expect(mockRedux.bulkRecipientTypeChange).toHaveBeenCalledTimes(1);
             expect(mockRedux.bulkRecipientTypeChange).toHaveBeenCalledWith({
-                types: ['business'],
+                types: ['category_business'],
+                direction: 'add'
+            });
+        });
+        it('when a parent recipient type is provided, it should remove any previously selected child types', () => {
+            const mockRedux = Object.assign({}, mockTypeRedux, {
+                bulkRecipientTypeChange: jest.fn(),
+                recipientType: new Set(['small_business'])
+            });
+            const container = shallow(<RecipientTypeContainer {...mockRedux} />);
+
+            container.instance().bulkRecipientTypeChange({
+                types: recipientTypeGroups.category_business,
+                direction: 'add'
+            });
+
+            expect(mockRedux.bulkRecipientTypeChange).toHaveBeenCalledTimes(2);
+            expect(mockRedux.bulkRecipientTypeChange.mock.calls[0]).toEqual([{
+                types: ['small_business'],
+                direction: 'remove'
+            }]);
+            expect(mockRedux.bulkRecipientTypeChange).toHaveBeenLastCalledWith({
+                types: ['category_business'],
                 direction: 'add'
             });
         });

@@ -5,46 +5,38 @@
 
 const tableSearchFields = {
     columnWidths: {
-        modification: 0,
-        action_date: 0,
-        amount: 0,
-        action_type_description: 380,
+        modificationNumber: 0,
+        actionDate: 0,
+        federalActionObligation: 0,
+        actionTypeDescription: 380,
         description: 380
     },
     defaultSortDirection: {
-        modification: 'desc',
-        action_date: 'desc',
-        amount: 'desc',
+        modificationNumber: 'desc',
+        actionDate: 'desc',
+        federalActionObligation: 'desc',
         action_type: 'asc',
         description: 'asc'
     },
     table: {
         _order: [
-            'modification',
-            'action_date',
-            'amount',
-            'action_type_description',
-            'description'
-        ],
-        _fields: [
-            'modification_number',
-            'action_date',
-            'action_type_description',
-            'assistance_data',
-            'federal_action_obligation',
+            'modificationNumber',
+            'actionDate',
+            'federalActionObligation',
+            'actionTypeDescription',
             'description'
         ],
         _mapping: {
-            modification: 'modification_number',
-            action_date: 'action_date',
-            amount: 'federal_action_obligation',
-            action_type_description: 'action_type_description',
+            modificationNumber: 'modification_number',
+            actionDate: 'action_date',
+            federalActionObligation: 'federal_action_obligation',
+            actionTypeDescription: 'action_type_description',
             description: 'description'
         },
-        modification: 'Modification Number',
-        action_date: 'Action Date',
-        amount: 'Amount',
-        action_type_description: 'Action Type',
+        modificationNumber: 'Modification Number',
+        actionDate: 'Action Date',
+        federalActionObligation: 'Amount',
+        actionTypeDescription: 'Action Type',
         description: 'Description'
     }
 };

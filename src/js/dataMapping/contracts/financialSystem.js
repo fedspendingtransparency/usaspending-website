@@ -21,14 +21,6 @@ const tableFields = {
         fundingObligated: 'desc'
     },
     table: {
-        _fields: [
-            'financial_accounts_by_awards_id',
-            'certified_date',
-            'treasury_account',
-            'object_class',
-            'program_activity',
-            'transaction_obligated_amount'
-        ],
         _order: [
             'submissionDate',
             'fedAccount',
@@ -44,14 +36,6 @@ const tableFields = {
             programActivity: 'program_activity__program_activity_name',
             objectClass: 'object_class__object_class_name',
             fundingObligated: 'transaction_obligated_amount'
-        },
-        _mapping: {
-            submissionDate: 'submissionDate',
-            fedAccount: 'fedAccount',
-            tas: 'tas',
-            programActivity: 'programActivity',
-            objectClass: 'objectClass',
-            fundingObligated: 'fundingObligated'
         },
         submissionDate: 'Submission Date',
         fedAccount: 'Federal Account Name',

@@ -61,12 +61,11 @@ export const recipientTypes = {
     'local_government': 'Local Government',
     'indian_native_american_tribal_government': 'Indian/Native American Tribal Government',
     'authorities_and_commissions': 'Authorities and Commissions',
-
     'individuals': 'Individuals'
 };
 
 export const recipientTypeGroups = {
-    business: [
+    category_business: [
         'small_business',
         'other_than_small_business'
     ],
@@ -133,7 +132,7 @@ export const recipientTypeGroups = {
 };
 
 export const groupKeys = [
-    'business',
+    'category_business',
     'minority_owned_business',
     'woman_owned_business',
     'veteran_owned_business',
@@ -144,7 +143,7 @@ export const groupKeys = [
     'individuals'];
 
 export const groupLabels = {
-    business: 'Business',
+    category_business: 'Business',
     minority_owned_business: 'Minority Owned Business',
     woman_owned_business: 'Women Owned Business',
     veteran_owned_business: 'Veteran Owned Business',

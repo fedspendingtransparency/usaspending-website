@@ -24,10 +24,12 @@ export default class Award extends React.Component {
     render() {
         let awardInfo = null;
         if (this.props.award.selectedAward) {
-            awardInfo = (<AwardInfo
-                {...this.props}
-                inFlight={this.props.inFlight}
-                selectedAward={this.props.award.selectedAward} />);
+            awardInfo = (
+                <AwardInfo
+                    {...this.props}
+                    inFlight={this.props.inFlight}
+                    selectedAward={this.props.award.selectedAward} />
+            );
         }
         if (this.props.noAward === true) {
             awardInfo = (
