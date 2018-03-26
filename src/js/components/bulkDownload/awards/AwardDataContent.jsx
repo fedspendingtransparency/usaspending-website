@@ -17,6 +17,7 @@ import DateTypeFilter from './filters/DateTypeFilter';
 import TimePeriodFilter from './filters/dateRange/TimePeriodFilter';
 import FileFormatFilter from './filters/FileFormatFilter';
 import UserSelections from './UserSelections';
+import SubmitButton from './SubmitButton';
 
 const propTypes = {
     awards: PropTypes.object,
@@ -90,20 +91,6 @@ export default class AwardDataContent extends React.Component {
             subAgency: awards.subAgency
         };
 
-        let submitButton = (
-            <div className="submit-button submit-button_disabled">
-                <button disabled>Download</button>
-            </div>
-        );
-
-        if (this.state.validForm) {
-            submitButton = (
-                <div className="submit-button">
-                    <input type="submit" value="Download" />
-                </div>
-            );
-        }
-
         return (
             <div className="download-center">
                 <div className="download-center__filters">
@@ -169,7 +156,10 @@ export default class AwardDataContent extends React.Component {
                             awards={awards}
                             agencies={this.props.agencies}
                             subAgencies={this.props.subAgencies} />
-                        {submitButton}
+                        <SubmitButton
+                            filters={awards}
+                            validForm={this.state.validForm}
+                            validDates={this.state.validDates} />
                     </form>
                     <button className="download-center__reset" onClick={this.props.clearAwardFilters}>
                         Reset form and start over
