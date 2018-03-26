@@ -84,11 +84,11 @@ export default class LocationFilter extends React.Component {
         }
 
         return (
-            <div className="filter-section">
-                <h5 className="filter-section-title">
-                    {icon} Select a <span>recipient location</span>.
+            <div className="download-filter">
+                <h5 className="download-filter__title">
+                    {icon} Select a <span className="download-filter__title_em">recipient location</span>.
                 </h5>
-                <div className="filter-section-content">
+                <div className="download-filter__content">
                     <div className="filter-picker">
                         <label className="select-label" htmlFor="state-select">
                             State

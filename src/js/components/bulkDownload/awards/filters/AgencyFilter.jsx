@@ -166,11 +166,11 @@ export default class AgencyFilter extends React.Component {
         }
 
         return (
-            <div className="filter-section">
-                <h5 className="filter-section-title">
-                    {icon} Select an awarding <span>agency</span> and <span>sub-agency</span>.
+            <div className="download-filter">
+                <h5 className="download-filter__title">
+                    {icon} Select an awarding <span className="download-filter__title_em">agency</span> and <span>sub-agency</span>.
                 </h5>
-                <div className="filter-section-content">
+                <div className="download-filter__content">
                     <div className="filter-picker">
                         <label className="select-label" htmlFor="agency-select">
                             Agency

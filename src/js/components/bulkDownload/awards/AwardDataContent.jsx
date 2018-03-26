@@ -91,7 +91,7 @@ export default class AwardDataContent extends React.Component {
         };
 
         let submitButton = (
-            <div className="submit-button disabled">
+            <div className="submit-button submit-button_disabled">
                 <button disabled>Download</button>
             </div>
         );
@@ -105,15 +105,15 @@ export default class AwardDataContent extends React.Component {
         }
 
         return (
-            <div className="download-data-content">
-                <div className="download-filters">
-                    <h2>Custom Award Data</h2>
-                    <div className="archive-info-box">
-                        <div className="icon">
+            <div className="download-center">
+                <div className="download-center__filters">
+                    <h2 className="download-center__title">Custom Award Data</h2>
+                    <div className="archive-info">
+                        <div className="archive-info__icon">
                             <InfoCircle />
                         </div>
-                        <div className="archive-info">
-                            <div className="archive-info-heading">
+                        <div className="archive-info__content">
+                            <div className="archive-info__heading">
                                 A faster way to download yearly award data by agency.
                             </div>
                             <div>
@@ -126,7 +126,7 @@ export default class AwardDataContent extends React.Component {
                         </div>
                     </div>
                     <form
-                        className="download-form"
+                        className="download-center-form"
                         onSubmit={this.handleSubmit}>
                         <AwardLevelFilter
                             awardLevels={awardDownloadOptions.awardLevels}
@@ -171,27 +171,27 @@ export default class AwardDataContent extends React.Component {
                             subAgencies={this.props.subAgencies} />
                         {submitButton}
                     </form>
-                    <button className="reset-button" onClick={this.props.clearAwardFilters}>
+                    <button className="download-center__reset" onClick={this.props.clearAwardFilters}>
                         Reset form and start over
                     </button>
                 </div>
                 <div className="download-info">
-                    <h6>About Award Data</h6>
-                    <div className="info-section">
-                        <div className="info-section-heading">What is award data?</div>
+                    <div className="download-info__title">About Award Data</div>
+                    <div className="download-info__section">
+                        <div className="download-info__section-heading">What is award data?</div>
                         <p>
                             Award data contains all the details of our prime award and sub-award records.
                         </p>
                     </div>
-                    <div className="info-section">
-                        <div className="info-section-heading">Why would I be interested in this data?</div>
+                    <div className="download-info__section">
+                        <div className="download-info__section-heading">Why would I be interested in this data?</div>
                         <p>
                             Downloading this data gives you access to every attribute of any particular award, including
                             data that may not be surfaced on this site.
                         </p>
                     </div>
-                    <div className="info-section">
-                        <div className="info-section-heading">How do I use this form?</div>
+                    <div className="download-info__section">
+                        <div className="download-info__section-heading">How do I use this form?</div>
                         <p>
                             This form allows you to select specific awards by type, agency and sub-agency, and date range.
                             Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.

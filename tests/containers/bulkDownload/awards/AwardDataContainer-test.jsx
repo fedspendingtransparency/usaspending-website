@@ -4,21 +4,15 @@
  */
 
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import { List } from 'immutable';
-import sinon from 'sinon';
+import { mount } from 'enzyme';
+import { AwardDataContainer } from 'containers/bulkDownload/awards/AwardDataContainer';
+import {mockActions, mockAgencies, mockRedux} from '../mockData';
 
 // mock the bulkDownload helper
 jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper'));
 
-import { AwardDataContainer } from 'containers/bulkDownload/awards/AwardDataContainer';
-import { mockAgencies, mockSubAgencies, mockActions, mockRedux } from '../mockData';
-
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/bulkDownload/awards/AwardDataContent', () => jest.fn(() => null));
-
-// spy on specific functions inside the component
-const setAgencyListSpy = sinon.spy(AwardDataContainer.prototype, 'setAgencyList');
 
 describe('AwardDataContainer', () => {
     it('should make an API call for the agencies on mount', async () => {
@@ -26,10 +20,13 @@ describe('AwardDataContainer', () => {
             {...mockActions}
             bulkDownload={mockRedux} />);
 
+        const expectedState = {
+            cfoAgencies: mockAgencies.cfo_agencies,
+            otherAgencies: mockAgencies.other_agencies
+        };
+
         await container.instance().agencyListRequest.promise;
 
-        expect(setAgencyListSpy.callCount).toEqual(1);
-
-        setAgencyListSpy.reset();
+        expect(container.state().agencies).toEqual(expectedState);
     });
 });

@@ -11,7 +11,7 @@ import Router from './mockRouter';
 jest.mock('helpers/bulkDownloadHelper', () => require('./mockBulkDownloadHelper'));
 
 import { BulkDownloadPageContainer } from 'containers/bulkDownload/BulkDownloadPageContainer';
-import { mockAgencies, mockSubAgencies, mockActions, mockRedux, mockParams } from './mockData';
+import { mockActions, mockRedux } from './mockData';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/bulkDownload/BulkDownloadPage', () => jest.fn(() => null));
