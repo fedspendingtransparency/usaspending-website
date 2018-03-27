@@ -13,6 +13,7 @@ import BulkDownloadBottomBarContainer from
     'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FloatingGlossaryButton from './FloatingGlossaryButton';
 import FooterExternalLink from './FooterExternalLink';
+import Subscribe from './Subscribe';
 
 const propTypes = {
     filters: PropTypes.object
@@ -34,6 +35,7 @@ export default class Footer extends React.Component {
                 <DownloadBottomBarContainer
                     filters={this.props.filters} />
                 <BulkDownloadBottomBarContainer />
+                <Subscribe />
                 <footer
                     className="footer-outer-wrap"
                     role="contentinfo"

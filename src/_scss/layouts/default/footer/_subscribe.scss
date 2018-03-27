@@ -1,0 +1,22 @@
+.subscribe {
+    background-color: $color-primary-alt-lightest;
+    padding: rem(20);
+    @include display(flex);
+    @include justify-content(center);
+    .subscribe__icon {
+        @include display(flex);
+        @include flex(0 0 auto);
+        padding-right: rem(5);
+    }
+    .subscribe__message {
+        @include display(flex);
+        @include flex(0 0 auto);
+        .subscribe__callout {
+            font-weight: $font-bold;
+        }
+        a.subscribe__link {
+            font-weight: $font-bold;
+            padding-left: rem(5);
+        }
+    }
+}
