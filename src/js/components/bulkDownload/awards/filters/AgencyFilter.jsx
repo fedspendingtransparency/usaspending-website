@@ -128,10 +128,10 @@ export default class AgencyFilter extends React.Component {
         ));
 
         // Create the sub-agency options
-        const subAgencies = this.props.subAgencies.map((subAgency) => (
+        const subAgencies = this.props.subAgencies.map((subAgency, i) => (
             <li
                 className="field-item"
-                key={`field-${subAgency.subtier_agency_name}`}>
+                key={`field-${subAgency.subtier_agency_name}-${i}`}>
                 <button
                     className="item-button"
                     title={subAgency.subtier_agency_name}
