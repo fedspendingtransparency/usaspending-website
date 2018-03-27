@@ -1,16 +1,14 @@
 .download-tooltip-spacer {
-    position: relative;
-    right: rem(-290);
-    width: rem(290);
-    height: rem(90);
-    z-index: $z-modal - 2;
+    display: none;
+    @include media($medium-screen) {
+        display: block;
+        position: absolute;
+        z-index: $z-modal - 2;
+    }
 }
 .download-tooltip {
-    margin-left: rem(20);
     z-index: $z-modal - 1;
-
     width: rem(270);
-    height: rem(90);
     .download-tooltip__interior {
         position: relative;
         // inherit from the standard tooltip arrow style

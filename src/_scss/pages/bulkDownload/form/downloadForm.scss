@@ -46,8 +46,10 @@
             margin: rem(40) rem(30);
         }
     }
+    .submit-wrapper {
+        margin: rem(30) rem(15);
+    }
     .submit-button {
-        margin: rem(30);
         button, input {
             width: 100%;
             font-size: rem(24);
@@ -55,6 +57,7 @@
         }
         &.submit-button_disabled {
             button {
+                margin: 0;
                 background-color: $color-white;
                 color: $color-gray-light;
                 border: solid rem(1) $color-gray-light;

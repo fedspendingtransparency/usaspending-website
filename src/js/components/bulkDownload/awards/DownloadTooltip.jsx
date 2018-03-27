@@ -27,7 +27,7 @@ export default class DownloadTooltip extends React.Component {
             requiredFields.push('Award Level');
         }
         if (!filters.awardTypes.contracts && !filters.awardTypes.grants && !filters.awardTypes.directPayments
-                && !filters.awardTypes.loans && !filters.awardTypes.otherFinancialAssistance) {
+            && !filters.awardTypes.loans && !filters.awardTypes.otherFinancialAssistance) {
             requiredFields.push('Award Type');
         }
         if (!this.props.validDates || !filters.dateType) {
@@ -47,23 +47,21 @@ export default class DownloadTooltip extends React.Component {
 
     render() {
         return (
-            <div className="download-tooltip-spacer">
-                <div
-                    className="download-tooltip"
-                    id="download-disabled-tooltip"
-                    role="tooltip">
-                    <div className="download-tooltip__interior">
-                        <div className="tooltip-pointer" />
-                        <div className="download-tooltip__content">
-                            <div className="download-tooltip__icon">
-                                <InfoCircle />
-                            </div>
-                            <div className="download-tooltip__message">
-                                The following fields are required:
-                                <ul className="download-tooltip__list">
-                                    {this.generateRequiredFields()}
-                                </ul>
-                            </div>
+            <div
+                className="download-tooltip"
+                id="download-disabled-tooltip"
+                role="tooltip">
+                <div className="download-tooltip__interior">
+                    <div className="tooltip-pointer" />
+                    <div className="download-tooltip__content">
+                        <div className="download-tooltip__icon">
+                            <InfoCircle />
+                        </div>
+                        <div className="download-tooltip__message">
+                            The following fields are required:
+                            <ul className="download-tooltip__list">
+                                {this.generateRequiredFields()}
+                            </ul>
                         </div>
                     </div>
                 </div>

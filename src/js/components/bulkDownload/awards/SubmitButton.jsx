@@ -19,11 +19,25 @@ export default class SubmitButton extends React.Component {
         super(props);
 
         this.state = {
-            showHover: false
+            showHover: false,
+            offsetTop: 0,
+            offsetRight: 0
         };
 
         this.onMouseEnter = this.onMouseEnter.bind(this);
         this.onMouseLeave = this.onMouseLeave.bind(this);
+        this.measureOffset = this.measureOffset.bind(this);
+    }
+
+    componentDidMount() {
+        this.measureOffset();
+        window.addEventListener('scroll', this.measureOffset);
+        window.addEventListener('resize', this.measureOffset);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('scroll', this.measureOffset);
+        window.removeEventListener('resize', this.measureOffset);
     }
 
     onMouseEnter() {
@@ -35,6 +49,16 @@ export default class SubmitButton extends React.Component {
     onMouseLeave() {
         this.setState({
             showHover: false
+        });
+    }
+
+    measureOffset() {
+        const targetElement = this.referenceDiv;
+        const offsetTop = targetElement.offsetTop - 15;
+        const offsetRight = window.innerWidth - targetElement.offsetLeft - targetElement.clientWidth - 290;
+        this.setState({
+            offsetTop,
+            offsetRight
         });
     }
 
@@ -63,6 +87,11 @@ export default class SubmitButton extends React.Component {
             );
         }
 
+        const style = {
+            top: this.state.offsetTop,
+            right: this.state.offsetRight
+        };
+
         return (
             <div
                 className="submit-wrapper"
@@ -70,8 +99,16 @@ export default class SubmitButton extends React.Component {
                 onMouseLeave={this.onMouseLeave}
                 onFocus={this.onMouseEnter}
                 onBlur={this.onMouseLeave}>
-                {tooltip}
-                {submitButton}
+                <div ref={(div) => {
+                    this.referenceDiv = div;
+                }}>
+                    <div
+                        className="download-tooltip-spacer"
+                        style={style}>
+                        {tooltip}
+                    </div>
+                    {submitButton}
+                </div>
             </div>
         );
     }
