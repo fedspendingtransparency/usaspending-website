@@ -66,20 +66,34 @@ export default class SubmitButton extends React.Component {
         let tooltip = null;
 
         if (!this.props.validForm && this.state.showHover) {
+            const style = {
+                top: this.state.offsetTop,
+                right: this.state.offsetRight
+            };
+
             tooltip = (
-                <DownloadTooltip
-                    filters={this.props.filters}
-                    validDates={this.props.validDates} />
+                <div
+                    className="download-tooltip-spacer"
+                    style={style}>
+                    <DownloadTooltip
+                        filters={this.props.filters}
+                        validDates={this.props.validDates} />
+                </div>
             );
         }
 
         let submitButton = (
-            <div className="submit-button submit-button_disabled">
+            <div
+                className="submit-button submit-button_disabled"
+                onMouseEnter={this.onMouseEnter}
+                onMouseLeave={this.onMouseLeave}
+                onFocus={this.onMouseEnter}
+                onBlur={this.onMouseLeave}>
                 <button disabled>Download</button>
             </div>
         );
 
-        if (this.props.validForm) {
+        if (this.props.validForm && this.props.validDates) {
             submitButton = (
                 <div className="submit-button">
                     <input type="submit" value="Download" />
@@ -87,27 +101,13 @@ export default class SubmitButton extends React.Component {
             );
         }
 
-        const style = {
-            top: this.state.offsetTop,
-            right: this.state.offsetRight
-        };
-
         return (
-            <div
-                className="submit-wrapper"
-                onMouseEnter={this.onMouseEnter}
-                onMouseLeave={this.onMouseLeave}
-                onFocus={this.onMouseEnter}
-                onBlur={this.onMouseLeave}>
+            <div className="submit-wrapper">
                 <div ref={(div) => {
                     this.referenceDiv = div;
                 }}>
-                    <div
-                        className="download-tooltip-spacer"
-                        style={style}>
-                        {tooltip}
-                    </div>
                     {submitButton}
+                    {tooltip}
                 </div>
             </div>
         );

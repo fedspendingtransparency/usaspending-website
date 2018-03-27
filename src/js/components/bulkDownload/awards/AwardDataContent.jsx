@@ -43,11 +43,12 @@ export default class AwardDataContent extends React.Component {
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.setValidDates = this.setValidDates.bind(this);
+        this.resetForm = this.resetForm.bind(this);
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.awards !== this.props.awards) {
-            this.validateForm();
+            this.validateForm(nextProps.awards);
         }
     }
 
@@ -55,7 +56,7 @@ export default class AwardDataContent extends React.Component {
         this.setState({
             validDates
         }, () => {
-            this.validateForm();
+            this.validateForm(this.props.awards);
         });
     }
 
@@ -65,9 +66,12 @@ export default class AwardDataContent extends React.Component {
         this.props.clickedDownload();
     }
 
-    validateForm() {
-        const awards = this.props.awards;
+    resetForm() {
+        this.props.clearAwardFilters();
+        this.setValidDates(false);
+    }
 
+    validateForm(awards) {
         const validForm = (
             (awards.awardLevels.primeAwards || awards.awardLevels.subAwards)
             && (awards.awardTypes.contracts || awards.awardTypes.grants || awards.awardTypes.directPayments
@@ -161,7 +165,7 @@ export default class AwardDataContent extends React.Component {
                             validForm={this.state.validForm}
                             validDates={this.state.validDates} />
                     </form>
-                    <button className="download-center__reset" onClick={this.props.clearAwardFilters}>
+                    <button className="download-center__reset" onClick={this.resetForm}>
                         Reset form and start over
                     </button>
                 </div>
