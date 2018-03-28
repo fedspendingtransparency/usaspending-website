@@ -73,15 +73,19 @@ export default class ExplorerVisualization extends React.Component {
     }
 
     render() {
-        let loadingClass = '';
+        let loadingTextClass = '';
+        let loadingTreemapClass = '';
+        let loadingTableClass = '';
         let loadingText = '';
         if (this.props.isLoading) {
-            loadingClass = 'loading';
+            loadingTextClass = 'explorer-vis__loading-text_loading';
+            loadingTreemapClass = 'explorer-vis__treemap-transition__loading';
+            loadingTableClass = 'explorer-vis__table-transition__loading';
             loadingText = 'Loading data...';
         }
 
         let visualization = (
-            <div className={`treemap-loading-transition ${loadingClass}`}>
+            <div className={`treemap-loading-transition ${loadingTreemapClass}`}>
                 <ExplorerTreemap
                     width={this.state.width}
                     data={this.props.data}
@@ -93,7 +97,7 @@ export default class ExplorerVisualization extends React.Component {
         );
         if (this.state.viewType === 'table') {
             visualization = (
-                <div className={`table-loading-transition ${loadingClass}`}>
+                <div className={`explorer-vis__table-transition ${loadingTableClass}`}>
                     <ExplorerTableContainer
                         results={this.props.data}
                         total={this.props.total}
@@ -103,9 +107,9 @@ export default class ExplorerVisualization extends React.Component {
         }
 
         return (
-            <div className="explorer-visualization-wrapper">
-                <div className={`loading-text ${loadingClass}`}>{loadingText}</div>
-                <div className="toolbar">
+            <div className="explorer-vis">
+                <div className={`explorer-vis__loading-text ${loadingTextClass}`}>{loadingText}</div>
+                <div className="explorer-vis__toolbar">
                     <BreakdownDropdown
                         root={this.props.root}
                         active={this.props.active}
@@ -117,14 +121,14 @@ export default class ExplorerVisualization extends React.Component {
                 </div>
 
                 <div
-                    className="treemap-width-reference"
+                    className="explorer-vis__width-reference"
                     ref={(div) => {
                         this.widthRef = div;
                     }} />
 
                 {visualization}
 
-                <div className="treemap-disclaimer">
+                <div className="explorer-vis__disclaimer">
                     All dollar amounts shown here represent agency reported obligated amounts
                 </div>
             </div>

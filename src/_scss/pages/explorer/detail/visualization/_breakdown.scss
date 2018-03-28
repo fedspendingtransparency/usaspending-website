@@ -1,28 +1,45 @@
-.breakdown-menu {
-    @include display(flex);
-    @include justify-content(flex-start);
-    @include align-items(center);
-    @include flex-wrap(wrap);
+.explorer-toolbar {
+    @include media($medium-screen) {
+        @include display(flex);
+        @include justify-content(space-between);
+        @include align-items(center);
+        @include flex-wrap(wrap);
+    }
     position: relative;
 
-    .breakdown-label {
-        @include flex(0 0 auto);
-        font-size: rem(24);
-        line-height: rem(31);
-        font-weight: $font-light;
-        margin-right: rem(30);
-    }
-
-    .breakdown-dropdown {
-        @include flex(1 1 auto);
-        position: relative;
-        margin: rem(5) 0 rem(15);
-
+    .breakdown {
         @include media($medium-screen) {
-            margin: 0;
+            @include display(flex);
+            @include justify-content(flex-start);
+            @include align-items(center);
+        }
+    
+        .breakdown__label {
+            display: block;
+            @include media($medium-screen) {
+                @include flex(0 0 auto);
+            }
+            font-size: rem(24);
+            line-height: rem(31);
+            font-weight: $font-light;
+            margin-right: rem(30);
         }
 
-        .dropdown-selector {
+        .breakdown__dropdown {
+            margin: rem(5) 0 rem(15);
+            @include media($medium-screen) {
+                @include flex(1 1 auto);
+                margin: 0;
+            }
+        }
+    }
+
+    
+
+    .dropdown {
+        position: relative;
+   
+        .dropdown__selection {
             @include button-unstyled;
             @include display(flex);
             @include justify-content(center);
@@ -34,7 +51,7 @@
             padding: rem(10) rem(5);
             margin-right: rem(30);
 
-            .item-icon, .arrow {
+            .dropdown__icon, .dropdown__arrow {
                 @include flex(0 0 auto);
                 width: rem(20);
                 height: rem(20);
@@ -46,7 +63,7 @@
                 }
             }
 
-            .item-label {
+            .dropdown__label {
                 @include flex(1 1 auto);
                 color: $color-base;
                 font-size: rem(24);
@@ -88,7 +105,7 @@
         }
     }
 
-    .dropdown-menu {
+    .dropdown__menu {
         @include unstyled-list;
         position: absolute;
         top: rem(50);
@@ -106,7 +123,7 @@
             }
         }
 
-        .dropdown-option {
+        .dropdown__option {
             @include button-unstyled;
             @include display(flex);
             @include justify-content(center);
@@ -116,7 +133,7 @@
             padding: rem(15) rem(25);
             width: 100%;
 
-            .icon {
+            .dropdown__option-icon {
                 @include flex(0 0 auto);
                 width: rem(15);
                 height: rem(15);
@@ -130,7 +147,7 @@
                 }
             }
 
-            .label {
+            .dropdown__option-label {
                 @include flex(1 1 auto);
                 color: $color-base;
 
