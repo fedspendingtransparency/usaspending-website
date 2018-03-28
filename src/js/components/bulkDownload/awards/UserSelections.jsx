@@ -21,6 +21,7 @@ export default class UserSelections extends React.Component {
         this.generateAwardTypeString = this.generateAwardTypeString.bind(this);
         this.generateAgencyString = this.generateAgencyString.bind(this);
         this.generateSubAgencyString = this.generateSubAgencyString.bind(this);
+        this.generateLocationString = this.generateLocationString.bind(this);
         this.generateDateTypeString = this.generateDateTypeString.bind(this);
         this.generateFileFormatString = this.generateFileFormatString.bind(this);
         this.generateDateRangeString = this.generateDateRangeString.bind(this);
@@ -139,6 +140,22 @@ export default class UserSelections extends React.Component {
         );
     }
 
+    generateLocationString() {
+        if (this.props.awards.location.country.code) {
+            if (this.props.awards.location.state) {
+                return (
+                    <div>{`${this.props.awards.location.state}, ${this.props.awards.location.country.name}`}</div>
+                );
+            }
+            return (
+                <div>{this.props.awards.location.country.name}</div>
+            );
+        }
+        return (
+            <div className="selection__content">-</div>
+        );
+    }
+
     generateDateRangeString() {
         let startDate = this.props.awards.dateRange.startDate;
         let endDate = this.props.awards.dateRange.endDate;
@@ -178,7 +195,7 @@ export default class UserSelections extends React.Component {
                     </div>
                     <div className="selection">
                         <div className="selection__heading">Recipient Location</div>
-                        {this.props.awards.location}
+                        {this.generateLocationString()}
                     </div>
                     <div className="selection">
                         <div className="selection__heading">Date Type</div>

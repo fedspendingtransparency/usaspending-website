@@ -25,7 +25,13 @@ export const initialState = {
             id: '',
             name: 'Select a Sub-Agency'
         },
-        location: 'All',
+        location: {
+            country: {
+                code: '',
+                name: ''
+            },
+            state: ''
+        },
         dateType: 'action_date',
         dateRange: {
             startDate: '',

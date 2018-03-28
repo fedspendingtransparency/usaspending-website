@@ -136,9 +136,8 @@ export default class AwardDataContent extends React.Component {
                             valid={awards.agency.id !== ''} />
                         <LocationFilter
                             states={this.props.states}
-                            currentState={awards.location}
-                            updateFilter={this.props.updateFilter}
-                            valid={awards.location !== ''} />
+                            currentLocation={awards.location}
+                            updateFilter={this.props.updateFilter} />
                         <DateTypeFilter
                             dateTypes={awardDownloadOptions.dateTypes}
                             currentDateType={awards.dateType}

@@ -10,34 +10,92 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     states: PropTypes.array,
-    currentState: PropTypes.string,
-    updateFilter: PropTypes.func,
-    valid: PropTypes.bool
+    currentLocation: PropTypes.object,
+    updateFilter: PropTypes.func
 };
+
+const countryOptions = [
+    {
+        code: 'USA',
+        name: 'United States'
+    },
+    {
+        code: 'FOREIGN',
+        name: 'All Foreign Countries'
+    },
+    {
+        code: '',
+        name: '---'
+    }
+];
 
 export default class LocationFilter extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            showStatePicker: false
+            showCountryPicker: false,
+            showStatePicker: false,
+            statesDisabled: true
         };
 
+        this.toggleCountryPicker = this.toggleCountryPicker.bind(this);
+        this.handleCountrySelect = this.handleCountrySelect.bind(this);
         this.toggleStatePicker = this.toggleStatePicker.bind(this);
         this.handleStateSelect = this.handleStateSelect.bind(this);
     }
 
-    toggleStatePicker(e) {
+    toggleCountryPicker(e) {
         e.preventDefault();
         this.setState({
-            showStatePicker: !this.state.showStatePicker
+            showCountryPicker: !this.state.showCountryPicker
         });
+    }
+
+    handleCountrySelect(e) {
+        e.preventDefault();
+        const target = e.target;
+
+        this.props.updateFilter('location', {
+            country: {
+                code: target.value,
+                name: target.name
+            },
+            state: ''
+        });
+
+        if (target.value === 'USA') {
+            this.setState({
+                statesDisabled: false,
+                showCountryPicker: false
+            });
+        }
+        else {
+            this.setState({
+                statesDisabled: true,
+                showCountryPicker: false
+            });
+        }
+    }
+
+    toggleStatePicker(e) {
+        e.preventDefault();
+        if (!this.state.statesDisabled) {
+            this.setState({
+                showStatePicker: !this.state.showStatePicker
+            });
+        }
     }
 
     handleStateSelect(e) {
         e.preventDefault();
         const target = e.target;
-        this.props.updateFilter('location', target.value);
+
+        const updatedLocation = Object.assign({}, this.props.currentLocation, {
+            state: target.value
+        });
+
+        this.props.updateFilter('location', updatedLocation);
 
         this.setState({
             showStatePicker: false
@@ -45,19 +103,27 @@ export default class LocationFilter extends React.Component {
     }
 
     render() {
-        let icon = (
+        const icon = (
             <div className="icon valid">
                 <Icons.CheckCircle />
             </div>
         );
 
-        if (!this.props.valid) {
-            icon = (
-                <div className="icon invalid">
-                    <Icons.ExclamationCircle />
-                </div>
-            );
-        }
+        const countries = countryOptions.map((country) => (
+            <li
+                className="field-item indent"
+                key={`field-${country.code}`}>
+                <button
+                    className="item-button"
+                    title={country.name}
+                    aria-label={country.name}
+                    value={country.code}
+                    name={country.name}
+                    onClick={this.handleCountrySelect}>
+                    {country.name}
+                </button>
+            </li>
+        ));
 
         const states = this.props.states.map((state) => (
             <li
@@ -74,13 +140,27 @@ export default class LocationFilter extends React.Component {
             </li>
         ));
 
-        const currentState = this.props.currentState;
+        const currentCountry = (this.props.currentLocation.country.code && this.props.currentLocation.country.name)
+            || 'Select a Country';
+        const currentState = this.props.currentLocation.state || 'Select a State';
+
+        let showCountryPicker = 'hide';
+        let countryIcon = <Icons.AngleDown alt="Pick a country" />;
+        if (this.state.showCountryPicker) {
+            showCountryPicker = '';
+            countryIcon = <Icons.AngleUp alt="Pick a country" />;
+        }
 
         let showStatePicker = 'hide';
-        let locationIcon = <Icons.AngleDown alt="Pick an agency" />;
+        let stateIcon = <Icons.AngleDown alt="Pick a state" />;
         if (this.state.showStatePicker) {
             showStatePicker = '';
-            locationIcon = <Icons.AngleUp alt="Pick an agency" />;
+            stateIcon = <Icons.AngleUp alt="Pick a state" />;
+        }
+
+        let statesDisabledClass = '';
+        if (this.state.statesDisabled) {
+            statesDisabledClass = 'disabled';
         }
 
         return (
@@ -91,35 +171,50 @@ export default class LocationFilter extends React.Component {
                 <div className="download-filter__content">
                     <div className="filter-picker">
                         <label className="select-label" htmlFor="state-select">
-                            State
+                            Country
                         </label>
 
                         <div className="field-picker">
                             <button
                                 className="selected-button"
+                                title={currentCountry}
+                                aria-label={currentCountry}
+                                onClick={this.toggleCountryPicker}>
+                                <div className="label">
+                                    {currentCountry}
+                                    <span className="arrow-icon">
+                                        {countryIcon}
+                                    </span>
+                                </div>
+                            </button>
+
+                            <div className={`field-list ${showCountryPicker}`}>
+                                <ul>
+                                    {countries}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="filter-picker">
+                        <label className="select-label" htmlFor="state-select">
+                            State
+                        </label>
+                        <div className="field-picker">
+                            <button
+                                className={`selected-button ${statesDisabledClass}`}
                                 title={currentState}
                                 aria-label={currentState}
                                 onClick={this.toggleStatePicker}>
                                 <div className="label">
                                     {currentState}
                                     <span className="arrow-icon">
-                                        {locationIcon}
+                                        {stateIcon}
                                     </span>
                                 </div>
                             </button>
 
                             <div className={`field-list ${showStatePicker}`}>
                                 <ul>
-                                    <li className="field-item">
-                                        <button
-                                            className="item-button"
-                                            title="All"
-                                            aria-label="All"
-                                            value="All"
-                                            onClick={this.handleStateSelect}>
-                                            All
-                                        </button>
-                                    </li>
                                     {states}
                                 </ul>
                             </div>
