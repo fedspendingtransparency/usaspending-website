@@ -4,7 +4,7 @@
  **/
 
 import React from 'react';
-import { Envelope, CaratRight } from 'components/sharedComponents/icons/Icons';
+import { Envelope, CaretRight } from 'components/sharedComponents/icons/Icons';
 
 export default class Subscribe extends React.Component {
     render() {
@@ -21,9 +21,9 @@ export default class Subscribe extends React.Component {
                 </div>
                 <a
                     className="subscribe__link"
-                    href="mailto:join-usaspending@lists.fiscal.treasury.gov">
+                    href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.">
                     Sign Up
-                    <CaratRight />
+                    <CaretRight />
                 </a>
             </div>
         );

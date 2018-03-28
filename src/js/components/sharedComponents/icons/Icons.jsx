@@ -418,9 +418,9 @@ Envelope.defaultProps = {
     alt: 'Icon Depicting an Envelope'
 };
 
-export class CaratRight extends BaseIcon {}
-CaratRight.defaultProps = {
-    iconName: 'usa-da-carat-right',
-    iconClass: 'usa-da-carat-right',
-    alt: 'Icon Depicting an Carat Pointing Right'
+export class CaretRight extends BaseIcon {}
+CaretRight.defaultProps = {
+    iconName: 'usa-da-caret-right',
+    iconClass: 'usa-da-caret-right',
+    alt: 'Icon Depicting an Caret Pointing Right'
 };
