@@ -26,6 +26,7 @@
     .subscribe__link {
         @include display(flex);
         @include flex(0 0 auto);
+        @include align-items(center);
         font-weight: $font-bold;
         padding-left: rem(8);
         svg {
