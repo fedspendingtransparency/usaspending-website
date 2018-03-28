@@ -35,8 +35,7 @@ export default class LocationFilter extends React.Component {
 
         this.state = {
             showCountryPicker: false,
-            showStatePicker: false,
-            statesDisabled: true
+            showStatePicker: false
         };
 
         this.toggleCountryPicker = this.toggleCountryPicker.bind(this);
@@ -64,23 +63,14 @@ export default class LocationFilter extends React.Component {
             state: ''
         });
 
-        if (target.value === 'USA') {
-            this.setState({
-                statesDisabled: false,
-                showCountryPicker: false
-            });
-        }
-        else {
-            this.setState({
-                statesDisabled: true,
-                showCountryPicker: false
-            });
-        }
+        this.setState({
+            showCountryPicker: false
+        });
     }
 
     toggleStatePicker(e) {
         e.preventDefault();
-        if (!this.state.statesDisabled) {
+        if (this.props.currentLocation.country.code === 'USA') {
             this.setState({
                 showStatePicker: !this.state.showStatePicker
             });
@@ -159,7 +149,7 @@ export default class LocationFilter extends React.Component {
         }
 
         let statesDisabledClass = '';
-        if (this.state.statesDisabled) {
+        if (this.props.currentLocation.country.code !== 'USA') {
             statesDisabledClass = 'disabled';
         }
 
