@@ -10,6 +10,13 @@ import WarningBanner from './WarningBanner';
 import InfoBanner from './InfoBanner';
 import NavBar from './NavBar';
 
+const clickedHeaderLink = (route) => {
+    Analytics.event({
+        category: 'Header - Link',
+        action: route
+    });
+};
+
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -51,13 +58,6 @@ export default class Header extends React.Component {
         });
     }
 
-    logAnalyticsLink(url) {
-        Analytics.event({
-            category: 'Header - Link',
-            action: url
-        });
-    }
-
     render() {
         let banner = (
             <InfoBanner
@@ -93,7 +93,7 @@ export default class Header extends React.Component {
                                 <a
                                     className="official-banner__site-link"
                                     href="https://www.usaspending.gov"
-                                    onClick={this.logAnalyticsLink.call(this, 'https:/www.usaspending.gov')}>
+                                    onClick={clickedHeaderLink.bind(null, 'https:/www.usaspending.gov')}>
                                     USAspending.gov
                                 </a>
                             </li>
@@ -107,7 +107,7 @@ export default class Header extends React.Component {
                                 <a
                                     className="official-banner__site-link"
                                     href="https://datalab.usaspending.gov"
-                                    onClick={this.logAnalyticsLink.call(this, 'https://datalab.usaspending.gov')}>
+                                    onClick={clickedHeaderLink.bind(null, 'https://datalab.usaspending.gov')}>
                                     Data Lab
                                 </a>
                             </li>
