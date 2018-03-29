@@ -22,10 +22,6 @@ const countryOptions = [
     {
         code: 'FOREIGN',
         name: 'All Foreign Countries'
-    },
-    {
-        code: '',
-        name: '---'
     }
 ];
 
@@ -53,14 +49,19 @@ export default class LocationFilter extends React.Component {
 
     handleCountrySelect(e) {
         e.preventDefault();
-        const target = e.target;
+        const code = e.target.value;
+        const selectedCountry = countryOptions.find((country) => country.code === code);
+        const name = selectedCountry.name;
 
         this.props.updateFilter('location', {
             country: {
-                code: target.value,
-                name: target.name
+                code,
+                name
             },
-            state: ''
+            state: {
+                code: '',
+                name: ''
+            }
         });
 
         this.setState({
@@ -79,10 +80,15 @@ export default class LocationFilter extends React.Component {
 
     handleStateSelect(e) {
         e.preventDefault();
-        const target = e.target;
+        const code = e.target.value;
+        const selectedState = this.props.states.find((state) => state.code === code);
+        const name = selectedState.name;
 
         const updatedLocation = Object.assign({}, this.props.currentLocation, {
-            state: target.value
+            state: {
+                code,
+                name
+            }
         });
 
         this.props.updateFilter('location', updatedLocation);
@@ -108,7 +114,6 @@ export default class LocationFilter extends React.Component {
                     title={country.name}
                     aria-label={country.name}
                     value={country.code}
-                    name={country.name}
                     onClick={this.handleCountrySelect}>
                     {country.name}
                 </button>
@@ -125,14 +130,15 @@ export default class LocationFilter extends React.Component {
                     aria-label={state.code}
                     value={state.code}
                     onClick={this.handleStateSelect}>
-                    {state.code}
+                    {state.name}
                 </button>
             </li>
         ));
 
         const currentCountry = (this.props.currentLocation.country.code && this.props.currentLocation.country.name)
             || 'Select a Country';
-        const currentState = this.props.currentLocation.state || 'Select a State';
+        const currentState = (this.props.currentLocation.state.code && this.props.currentLocation.state.name)
+            || 'Select a State';
 
         let showCountryPicker = 'hide';
         let countryIcon = <Icons.AngleDown alt="Pick a country" />;

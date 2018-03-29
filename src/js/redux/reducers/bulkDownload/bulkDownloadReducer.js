@@ -30,7 +30,10 @@ export const initialState = {
                 code: '',
                 name: ''
             },
-            state: ''
+            state: {
+                code: '',
+                name: ''
+            }
         },
         dateType: 'action_date',
         dateRange: {

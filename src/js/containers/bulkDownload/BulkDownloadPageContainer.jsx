@@ -88,14 +88,13 @@ export class BulkDownloadPageContainer extends React.Component {
         }
 
         // Create the recipient locations array
-        const recipientLocations = [
-            {
-                country: formState.location.country.code
-            }
-        ];
+
+        const recipientLocations = {
+            country: formState.location.country.code
+        };
         // Add the state if it exists
-        if (formState.location.state) {
-            recipientLocations[0].state = formState.location.state;
+        if (formState.location.state.code) {
+            recipientLocations.state = formState.location.state.code;
         }
 
         // Convert undefined to the empty string for open-ended dates
@@ -114,7 +113,6 @@ export class BulkDownloadPageContainer extends React.Component {
                 award_types: awardTypes,
                 agency: formState.agency.id,
                 sub_agency: formState.subAgency.name,
-                recipient_locations: recipientLocations,
                 date_type: formState.dateType,
                 date_range: {
                     start_date: startDate,
@@ -124,6 +122,11 @@ export class BulkDownloadPageContainer extends React.Component {
             columns: [],
             file_format: formState.fileFormat
         };
+
+        // Since the recipient location filter is optional, only add it if a country has been selected
+        if (formState.location.country.code) {
+            params.filters.recipient_locations = [recipientLocations];
+        }
 
         this.requestDownload(params, 'awards');
 
@@ -139,10 +142,6 @@ export class BulkDownloadPageContainer extends React.Component {
         // Need to check if sub_agency is set or not
         if (bulkParams.filters.sub_agency.toLowerCase() === "select a sub-agency") {
             delete bulkParams.filters.sub_agency;
-        }
-
-        if (!bulkParams.filters.recipient_locations[0].country) {
-            delete bulkParams.filters.recipient_locations;
         }
 
         this.request = BulkDownloadHelper.requestBulkDownload(bulkParams, type);

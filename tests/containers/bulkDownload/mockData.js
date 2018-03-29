@@ -77,7 +77,10 @@ export const mockRedux = {
                     code: 'USA',
                     name: 'United States'
                 },
-                state: 'HI'
+                state: {
+                    code: 'HI',
+                    name: 'Hawaii'
+                }
             },
             dateType: 'action_date',
             dateRange: {
