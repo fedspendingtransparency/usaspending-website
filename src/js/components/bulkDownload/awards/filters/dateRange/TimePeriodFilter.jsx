@@ -234,9 +234,9 @@ export default class TimePeriodFilter extends React.Component {
 
         return (
             <div className="download-filter">
-                <h5 className="download-filter__title">
+                <div className="download-filter__title">
                     {icon} Select a <span className="download-filter__title_em">date range</span>.
-                </h5>
+                </div>
                 <div className="download-filter__content date-range-wrapper">
                     <DownloadDateRange
                         datePlaceholder=""

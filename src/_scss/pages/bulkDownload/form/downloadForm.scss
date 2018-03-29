@@ -4,6 +4,8 @@
         .download-filter__title {
             @include h5;
             font-weight: 400;
+            padding-bottom: rem(12);
+            padding-top: rem(36);
             .download-filter__title_em {
                 color: $color-primary;
                 font-weight: 600;
@@ -38,6 +40,7 @@
         @import "agencyPicker";
         @import "radioButtons";
         @import "dateRange";
+        @import "locationFilter";
     }
     @import "userSelections";
     .download-user-selections {
