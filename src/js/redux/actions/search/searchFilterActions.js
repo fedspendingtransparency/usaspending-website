@@ -196,3 +196,9 @@ export const populateAvailableColumns = (state) => ({
     fullSet: state
 });
 
+// subawards
+export const updateSubawardsDisplay = (state) => ({
+    type: 'UPDATE_SEARCH_SUBAWARDS',
+    value: state
+});
+

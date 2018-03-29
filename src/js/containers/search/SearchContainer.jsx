@@ -21,7 +21,10 @@ import {
     setAppliedFilterEmptiness,
     setAppliedFilterCompletion
 } from 'redux/actions/search/appliedFilterActions';
-import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
+import {
+    clearAllFilters,
+    updateSubawardsDisplay
+} from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
 
@@ -402,7 +405,8 @@ export class SearchContainer extends React.Component {
                 lastUpdate={this.state.lastUpdate}
                 downloadAvailable={this.state.downloadAvailable}
                 download={this.props.download}
-                requestsComplete={this.props.appliedFilters._complete} />
+                requestsComplete={this.props.appliedFilters._complete}
+                updateSubawardsDisplay={this.props.updateSubawardsDisplay} />
         );
     }
 }
@@ -417,7 +421,8 @@ export default connect(
         clearAllFilters,
         applyStagedFilters,
         setAppliedFilterEmptiness,
-        setAppliedFilterCompletion
+        setAppliedFilterCompletion,
+        updateSubawardsDisplay
     }), dispatch)
 )(SearchContainer);
 

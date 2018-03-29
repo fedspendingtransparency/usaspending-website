@@ -164,7 +164,8 @@ export default class SearchPage extends React.Component {
                             toggleMobileFilters={this.toggleMobileFilters}
                             lastUpdate={this.props.lastUpdate}
                             requestsComplete={this.props.requestsComplete}
-                            noFiltersApplied={this.props.noFiltersApplied} />
+                            noFiltersApplied={this.props.noFiltersApplied}
+                            updateSubawardsDisplay={this.props.updateSubawardsDisplay} />
                     </div>
                     <FullDownloadModalContainer
                         download={this.props.download}

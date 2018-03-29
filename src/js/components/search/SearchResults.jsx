@@ -75,7 +75,9 @@ export default class SearchResults extends React.Component {
                         <VisualizationWrapper
                             isMobile={this.props.isMobile}
                             requestsComplete={this.props.requestsComplete}
-                            noFiltersApplied={this.props.noFiltersApplied} />
+                            noFiltersApplied={this.props.noFiltersApplied}
+                            displaySubawards={this.props.filters.subawards}
+                            updateSubawardsDisplay={this.props.updateSubawardsDisplay} />
                     </div>
                 </div>
             </div>

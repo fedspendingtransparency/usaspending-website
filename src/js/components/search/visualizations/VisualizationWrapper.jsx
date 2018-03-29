@@ -19,6 +19,7 @@ import RankVisualizationWrapperContainer from
 import NoFiltersScreen from './screens/NoFiltersScreen';
 
 import VisualizationTabItem from './VisualizationTabItem';
+import SubawardToggle from './SubawardToggle';
 
 const tabOptions = [
     {
@@ -135,14 +136,19 @@ export default class VisualizationWrapper extends React.Component {
                     this.visualizationWrapper = div;
                 }}>
                 <div
-                    className="visualization-tab-wrapper"
+                    className="visualization-tabs"
                     role="navigation"
                     aria-label="Visualization types">
                     <ul
-                        className="visualization-tabs"
+                        className="visualization-tabs__list"
                         role="menu">
                         {tabs}
                     </ul>
+                    <div className="visualization-tabs__toggle">
+                        <SubawardToggle
+                            displaySubawards={this.props.displaySubawards}
+                            updateSubawardsDisplay={this.props.updateSubawardsDisplay} />
+                    </div>
                 </div>
                 <div className="visualization-content-wrapper">
                     <div

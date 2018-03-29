@@ -1,0 +1,39 @@
+.subaward-toggle {
+    @include button-unstyled;
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+    color: $color-base;
+
+    .subaward-toggle__label {
+        font-size: $small-font-size;
+        color: #9EA0A6;
+
+        &.subaward-toggle__label_active {
+            color: #494E58;
+        }
+    }
+}
+
+.subaward-switch {
+    margin: 0 rem(12);
+    .subaward-switch__track {
+        fill: #0074BE;
+        @include transition(fill 200ms);
+
+        &.subaward-switch__track_inactive {
+            fill: $color-gray-light;
+        }
+    }
+
+    .subaward-switch__switch {
+        @include transition(transform 200ms);
+    }
+
+    .subaward-switch__switch-fill {
+        fill: #FFFFFF;
+    }
+    .subaward-switch__switch-grip {
+        fill: rgba(0, 0, 0, 0.2);
+    }
+}
