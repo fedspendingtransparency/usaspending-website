@@ -2,9 +2,8 @@
     display: none;
     @include media($tablet-screen) {
         display: block;
-        @include flex(0 0 auto);
+        @include flex(0 0 rem(300));
         position: relative;
-        width: rem(300);    
     }
 
     padding: rem(20) 0;
