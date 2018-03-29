@@ -11,16 +11,33 @@
     .field-picker {
         display: block;
         clear: both;
-        float: none;
         margin-bottom: rem(30);
+        width: 100%;
         .selected-button {
-            background-color: $color-white;
-            color: $color-gray;
-            font-size: rem(21);
-            line-height: rem(24);
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+            @include button-unstyled;
+
+            border-bottom: 1px solid $color-gray-light;
             padding: rem(4) rem(10);
+            width: 100%;
+            .label {
+                @include display(flex);
+                @include flex(1 1 auto);
+                color: $color-gray;
+                font-size: rem(21);
+                line-height: rem(24);
+                font-weight: 200;
+            }
+            .arrow-icon {
+                @include display(flex);
+                @include flex(0 0 auto);
+            }
             &.disabled {
-                color: $color-gray-light;
+                .label {
+                    color: $color-gray-light;
+                }
                 .arrow-icon {
                     svg {
                         fill: $color-gray-light;

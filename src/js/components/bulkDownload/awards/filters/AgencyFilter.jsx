@@ -57,7 +57,10 @@ export default class AgencyFilter extends React.Component {
             name: target.name
         });
 
-        if (target.value !== 'all') {
+        if (target.value === 'all') {
+            this.props.setSubAgencyList('');
+        }
+        else {
             this.props.setSubAgencyList(target.value);
         }
 
@@ -184,9 +187,9 @@ export default class AgencyFilter extends React.Component {
                                 onClick={this.toggleAgencyPicker}>
                                 <div className="label">
                                     {currentAgencyName}
-                                    <span className="arrow-icon">
-                                        {agencyIcon}
-                                    </span>
+                                </div>
+                                <div className="arrow-icon">
+                                    {agencyIcon}
                                 </div>
                             </button>
 
@@ -239,9 +242,9 @@ export default class AgencyFilter extends React.Component {
                                 onClick={this.toggleSubAgencyPicker}>
                                 <div className="label">
                                     {currentSubAgencyName}
-                                    <span className="arrow-icon">
-                                        {subAgencyIcon}
-                                    </span>
+                                </div>
+                                <div className="arrow-icon">
+                                    {subAgencyIcon}
                                 </div>
                             </button>
 
