@@ -410,3 +410,17 @@ CircleArrowUp.defaultProps = {
     iconClass: 'usa-da-circle-arrow-up',
     alt: 'Icon Depicting an Arrow in a Circle Pointing Up'
 };
+
+export class Envelope extends BaseIcon {}
+Envelope.defaultProps = {
+    iconName: 'usa-da-envelope',
+    iconClass: 'usa-da-envelope',
+    alt: 'Icon Depicting an Envelope'
+};
+
+export class CaretRight extends BaseIcon {}
+CaretRight.defaultProps = {
+    iconName: 'usa-da-caret-right',
+    iconClass: 'usa-da-caret-right',
+    alt: 'Icon Depicting an Caret Pointing Right'
+};
