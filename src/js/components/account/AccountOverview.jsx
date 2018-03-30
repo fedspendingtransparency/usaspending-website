@@ -180,7 +180,7 @@ ${authority} has been obligated.`;
                     </div>
                 </div>
 
-                <h3>Fiscal Year Snapshot</h3>
+                <h3>FY {FiscalYearHelper.defaultFiscalYear()} Snapshot</h3>
                 <hr
                     className="results-divider"
                     ref={(div) => {
