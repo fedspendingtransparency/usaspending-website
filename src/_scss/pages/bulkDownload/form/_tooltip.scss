@@ -3,11 +3,9 @@
     @include media($medium-screen) {
         display: block;
         position: absolute;
-        z-index: $z-modal - 2;
     }
 }
 .download-tooltip {
-    z-index: $z-modal - 1;
     width: rem(270);
     .download-tooltip__interior {
         position: relative;
