@@ -17,6 +17,10 @@ const propTypes = {
 
 const countryOptions = [
     {
+        code: 'all',
+        name: 'All'
+    },
+    {
         code: 'USA',
         name: 'United States'
     },
@@ -79,6 +83,12 @@ export default class LocationFilter extends React.Component {
             </div>
         );
 
+        const states = this.props.states.slice();
+        states.unshift({
+            code: 'all',
+            name: 'All'
+        });
+
         return (
             <div className="download-filter">
                 <div className="download-filter__title">
@@ -99,7 +109,7 @@ export default class LocationFilter extends React.Component {
                         title="State"
                         value={this.props.currentLocation.state}
                         selectEntity={this.updateLocationFilter}
-                        options={this.props.states}
+                        options={states}
                         enabled={this.props.currentLocation.country.code === 'USA'}
                         generateWarning={this.generateWarning} />
                 </div>

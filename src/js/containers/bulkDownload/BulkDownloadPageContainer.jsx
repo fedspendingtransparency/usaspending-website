@@ -88,12 +88,11 @@ export class BulkDownloadPageContainer extends React.Component {
         }
 
         // Create the recipient locations array
-
         const recipientLocations = {
             country: formState.location.country.code
         };
         // Add the state if it exists
-        if (formState.location.state.code) {
+        if (formState.location.state.code && formState.location.state.code !== 'all') {
             recipientLocations.state = formState.location.state.code;
         }
 
@@ -124,7 +123,7 @@ export class BulkDownloadPageContainer extends React.Component {
         };
 
         // Since the recipient location filter is optional, only add it if a country has been selected
-        if (formState.location.country.code) {
+        if (formState.location.country.code && formState.location.country.code !== 'all') {
             params.filters.recipient_locations = [recipientLocations];
         }
 

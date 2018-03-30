@@ -72,7 +72,10 @@ describe('BulkDownloadPageContainer', () => {
                         code: 'FOREIGN',
                         name: 'All Foreign Countries'
                     },
-                    state: ''
+                    state: {
+                        code: '',
+                        name: ''
+                    }
                 }
             });
             const bulkDownload = Object.assign({}, mockRedux.bulkDownload, {
@@ -96,6 +99,105 @@ describe('BulkDownloadPageContainer', () => {
                     recipient_locations: [
                         {
                             country: 'FOREIGN'
+                        }
+                    ],
+                    date_range: {
+                        end_date: '11-01-2017',
+                        start_date: '11-01-2016'
+                    },
+                    date_type: 'action_date',
+                    sub_agency: 'Mock Sub-Agency'
+                }
+            };
+
+            const requestDownload = jest.fn();
+            container.instance().requestDownload = requestDownload;
+
+            container.instance().startAwardDownload();
+
+            expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'awards');
+        });
+        it('should not include the recipient location filter for all countries', () => {
+            const awards = Object.assign({}, mockRedux.bulkDownload.awards, {
+                location : {
+                    country: {
+                        code: 'all',
+                        name: 'All'
+                    },
+                    state: {
+                        code: '',
+                        name: ''
+                    }
+                }
+            });
+            const bulkDownload = Object.assign({}, mockRedux.bulkDownload, {
+                awards
+            });
+            const updatedRedux = Object.assign({}, mockRedux, {
+                bulkDownload
+            });
+
+            const container = shallow(<BulkDownloadPageContainer
+                {...updatedRedux}
+                {...mockActions} />);
+
+            const expectedParams = {
+                award_levels: ['prime_awards'],
+                columns: [],
+                file_format: 'csv',
+                filters: {
+                    agency: '123',
+                    award_types: ['grants', 'loans'],
+                    date_range: {
+                        end_date: '11-01-2017',
+                        start_date: '11-01-2016'
+                    },
+                    date_type: 'action_date',
+                    sub_agency: 'Mock Sub-Agency'
+                }
+            };
+
+            const requestDownload = jest.fn();
+            container.instance().requestDownload = requestDownload;
+
+            container.instance().startAwardDownload();
+
+            expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'awards');
+        });
+        it('should not include the state filter for all states', () => {
+            const awards = Object.assign({}, mockRedux.bulkDownload.awards, {
+                location : {
+                    country: {
+                        code: 'USA',
+                        name: 'United States'
+                    },
+                    state: {
+                        code: 'all',
+                        name: 'All'
+                    }
+                }
+            });
+            const bulkDownload = Object.assign({}, mockRedux.bulkDownload, {
+                awards
+            });
+            const updatedRedux = Object.assign({}, mockRedux, {
+                bulkDownload
+            });
+
+            const container = shallow(<BulkDownloadPageContainer
+                {...updatedRedux}
+                {...mockActions} />);
+
+            const expectedParams = {
+                award_levels: ['prime_awards'],
+                columns: [],
+                file_format: 'csv',
+                filters: {
+                    agency: '123',
+                    award_types: ['grants', 'loans'],
+                    recipient_locations: [
+                        {
+                            country: 'USA'
                         }
                     ],
                     date_range: {
