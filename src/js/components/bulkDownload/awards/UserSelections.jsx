@@ -141,10 +141,10 @@ export default class UserSelections extends React.Component {
     }
 
     generateLocationString() {
-        if (this.props.awards.location.country.code) {
-            if (this.props.awards.location.state) {
+        if (this.props.awards.location.country.code && this.props.awards.location.country.code !== 'all') {
+            if (this.props.awards.location.state.code && this.props.awards.location.state.code !== 'all') {
                 return (
-                    <div>{`${this.props.awards.location.state}, ${this.props.awards.location.country.name}`}</div>
+                    <div>{`${this.props.awards.location.state.name}, ${this.props.awards.location.country.name}`}</div>
                 );
             }
             return (
