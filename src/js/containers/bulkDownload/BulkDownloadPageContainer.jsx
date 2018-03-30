@@ -87,6 +87,15 @@ export class BulkDownloadPageContainer extends React.Component {
             }
         }
 
+        // Create the recipient locations array
+        const recipientLocations = {
+            country: formState.location.country.code
+        };
+        // Add the state if it exists
+        if (formState.location.state.code && formState.location.state.code !== 'all') {
+            recipientLocations.state = formState.location.state.code;
+        }
+
         // Convert undefined to the empty string for open-ended dates
         let startDate = '';
         if (formState.dateRange.startDate) {
@@ -112,6 +121,11 @@ export class BulkDownloadPageContainer extends React.Component {
             columns: [],
             file_format: formState.fileFormat
         };
+
+        // Since the recipient location filter is optional, only add it if a country has been selected
+        if (formState.location.country.code && formState.location.country.code !== 'all') {
+            params.filters.recipient_locations = [recipientLocations];
+        }
 
         this.requestDownload(params, 'awards');
 

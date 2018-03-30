@@ -1,0 +1,59 @@
+.download-tooltip-spacer {
+    display: none;
+    @include media($medium-screen) {
+        display: block;
+        position: absolute;
+    }
+}
+.download-tooltip {
+    width: rem(270);
+    .download-tooltip__interior {
+        position: relative;
+        // inherit from the standard tooltip arrow style
+        $color-tooltip-border: $color-secondary-light;
+        @import "components/visualizations/tooltip/_arrow";
+        .tooltip-pointer {
+            // override the coloring
+            &:after {
+                background: $color-secondary-lightest;
+            }
+            z-index: 2;
+            top: rem(32);
+            right: rem(2);
+        }
+        .download-tooltip__content {
+            @include display(flex);
+            @include flex-direction(row);
+            @include justify-content(center);
+            @include align-items(center);
+            position: relative;
+            box-shadow: $box-shadow;
+            background-color: $color-secondary-lightest;
+            border: solid rem(1) $color-secondary-light;
+            padding: rem(15);
+
+            .download-tooltip__icon {
+                @include flex(0 0 auto);
+                @include align-self(flex-start);
+                margin-right: rem(10);
+                width: rem(20);
+                height: rem(20);
+                svg {
+                    width: rem(20);
+                    height: rem(20);
+                    fill: $color-secondary;
+                }
+            }
+            .download-tooltip__message {
+                @include flex(1 1 auto);
+                text-align: left;
+                font-size: $small-font-size;
+                .download-tooltip__list {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+

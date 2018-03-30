@@ -80,7 +80,8 @@ export default class EntityDropdown extends React.Component {
         });
     }
 
-    toggleDropdown() {
+    toggleDropdown(e) {
+        e.preventDefault();
         if (this.state.expanded) {
             this.closeDropdown();
             return;

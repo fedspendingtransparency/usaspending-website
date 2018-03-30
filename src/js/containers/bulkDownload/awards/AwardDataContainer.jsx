@@ -10,6 +10,7 @@ import { connect } from 'react-redux';
 
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
+import { fetchLocationList } from 'helpers/mapHelper';
 
 import AwardDataContent from 'components/bulkDownload/awards/AwardDataContent';
 
@@ -32,10 +33,12 @@ export class AwardDataContainer extends React.Component {
                 cfoAgencies: [],
                 otherAgencies: []
             },
-            subAgencies: []
+            subAgencies: [],
+            states: []
         };
 
         this.agencyListRequest = null;
+        this.statesRequest = null;
 
         this.updateFilter = this.updateFilter.bind(this);
         this.updateStartDate = this.updateStartDate.bind(this);
@@ -43,10 +46,12 @@ export class AwardDataContainer extends React.Component {
         this.clearAwardFilters = this.clearAwardFilters.bind(this);
         this.setAgencyList = this.setAgencyList.bind(this);
         this.setSubAgencyList = this.setSubAgencyList.bind(this);
+        this.loadStates = this.loadStates.bind(this);
     }
 
     componentDidMount() {
         this.setAgencyList();
+        this.loadStates();
     }
 
     setAgencyList() {
@@ -119,6 +124,30 @@ export class AwardDataContainer extends React.Component {
         }
     }
 
+    loadStates() {
+        this.setState({
+            inFlight: true
+        });
+
+        if (this.statesRequest) {
+            this.statesRequest.cancel();
+        }
+
+        // perform the API request
+        this.statesRequest = fetchLocationList('states');
+
+        this.statesRequest.promise
+            .then((res) => {
+                this.setState({
+                    states: res.data.states
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+                this.statesRequest = null;
+            });
+    }
+
     resetSubAgency() {
         this.updateFilter('subAgency', {
             id: '',
@@ -164,6 +193,7 @@ export class AwardDataContainer extends React.Component {
                 agencies={this.state.agencies}
                 subAgencies={this.state.subAgencies}
                 setSubAgencyList={this.setSubAgencyList}
+                states={this.state.states}
                 clickedDownload={this.props.clickedDownload} />
         );
     }
