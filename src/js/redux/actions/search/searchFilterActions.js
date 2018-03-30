@@ -195,10 +195,3 @@ export const populateAvailableColumns = (state) => ({
     type: 'POPULATE_COLUMN_VISIBILITY',
     fullSet: state
 });
-
-// subawards
-export const updateSubawardsDisplay = (state) => ({
-    type: 'UPDATE_SEARCH_SUBAWARDS',
-    value: state
-});
-

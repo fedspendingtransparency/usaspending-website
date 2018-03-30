@@ -16,28 +16,12 @@ import GeoVisualizationSectionContainer from
 import RankVisualizationWrapperContainer from
     'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
 
+import { tabOptions } from 'dataMapping/search/searchViewTabs';
+
 import NoFiltersScreen from './screens/NoFiltersScreen';
 
 import VisualizationTabItem from './VisualizationTabItem';
 import SubawardToggle from './SubawardToggle';
-
-const tabOptions = [
-    {
-        code: 'table',
-        label: 'Table',
-        icon: 'Table'
-    },
-    {
-        code: 'time',
-        label: 'Time',
-        icon: 'Calendar'
-    },
-    {
-        code: 'map',
-        label: 'Map',
-        icon: 'MapMarker'
-    }
-];
 
 const propTypes = {
     isMobile: PropTypes.bool,
@@ -146,8 +130,8 @@ export default class VisualizationWrapper extends React.Component {
                     </ul>
                     <div className="visualization-tabs__toggle">
                         <SubawardToggle
-                            displaySubawards={this.props.displaySubawards}
-                            updateSubawardsDisplay={this.props.updateSubawardsDisplay} />
+                            subaward={this.props.subaward}
+                            setSearchViewSubaward={this.props.setSearchViewSubaward} />
                     </div>
                 </div>
                 <div className="visualization-content-wrapper">

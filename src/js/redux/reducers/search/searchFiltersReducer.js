@@ -38,7 +38,6 @@ export const requiredTypes = {
 };
 
 export const initialState = {
-    subawards: false,
     keyword: '',
     timePeriodType: 'fy',
     timePeriodFY: new Set(),
@@ -252,14 +251,6 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);
-        }
-
-
-        // subawards
-        case 'UPDATE_SEARCH_SUBAWARDS': {
-            return Object.assign({}, state, {
-                subawards: action.value
-            });
         }
 
         default:

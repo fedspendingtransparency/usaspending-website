@@ -1,16 +1,23 @@
 .subaward-toggle {
     @include button-unstyled;
     @include display(flex);
-    @include justify-content(center);
+    @include justify-content(flex-end);
     @include align-items(center);
     color: $color-base;
 
     .subaward-toggle__label {
         font-size: $small-font-size;
         color: #9EA0A6;
+        // use a 1px offset to deal with the text width difference due to bold vs not bold text
+        margin: 0 0 0 1px;
+        &:first-child {
+            margin: 0 1px 0 0;
+        }
 
         &.subaward-toggle__label_active {
+            font-weight: $font-semibold;
             color: #494E58;
+            margin: 0;
         }
     }
 }

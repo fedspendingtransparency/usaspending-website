@@ -12,15 +12,15 @@ export default class SubawardToggle extends React.Component {
         this.toggledSwitch = this.toggledSwitch.bind(this);
     }
     toggledSwitch() {
-        const newValue = !this.props.displaySubawards;
-        this.props.updateSubawardsDisplay(newValue);
+        const newValue = !this.props.subaward;
+        this.props.setSearchViewSubaward(newValue);
     }
 
     render() {
-        const primeActive = this.props.displaySubawards ? '' : 'subaward-toggle__label_active';
-        const subActive = this.props.displaySubawards ? 'subaward-toggle__label_active' : '';
-        const trackClass = this.props.displaySubawards ? 'subaward-switch__track_inactive' : '';
-        const switchPosition = this.props.displaySubawards ? 'translate(30 2)' : 'translate(2 2)';
+        const primeActive = this.props.subaward ? '' : 'subaward-toggle__label_active';
+        const subActive = this.props.subaward ? 'subaward-toggle__label_active' : '';
+        const trackClass = this.props.subaward ? 'subaward-switch__track_inactive' : '';
+        const switchPosition = this.props.subaward ? 'translate(30 2)' : 'translate(2 2)';
         return (
             <button
                 className="subaward-toggle"
