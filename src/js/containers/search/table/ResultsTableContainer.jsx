@@ -23,17 +23,14 @@ import { measureTableHeader } from 'helpers/textMeasurement';
 
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
-import SearchActions from 'redux/actions/searchActions';
+import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 
 const propTypes = {
     filters: PropTypes.object,
-    columnVisibility: PropTypes.object,
-    toggleColumnVisibility: PropTypes.func,
-    reorderColumns: PropTypes.func,
-    populateAvailableColumns: PropTypes.func,
     setAppliedFilterCompletion: PropTypes.func,
-    noApplied: PropTypes.bool
+    noApplied: PropTypes.bool,
+    subaward: PropTypes.bool
 };
 
 const tableTypes = [
@@ -106,6 +103,10 @@ export class ResultsTableContainer extends React.Component {
             // filters changed, update the search object
             this.pickDefaultTab();
         }
+        else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
+            // subaward toggle changed, update the search object
+            this.pickDefaultTab();
+        }
     }
 
     loadColumns() {
@@ -172,6 +173,7 @@ export class ResultsTableContainer extends React.Component {
 
         this.tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParams.toParams(),
+            subawards: this.props.subaward,
             auditTrail: 'Award Table - Tab Counts'
         });
 
@@ -302,7 +304,8 @@ export class ResultsTableContainer extends React.Component {
             page: pageNumber,
             limit: resultLimit,
             sort: searchOrder.field,
-            order: sortDirection
+            order: sortDirection,
+            subawards: this.props.subaward
         };
 
         // Set the params needed for download API call
@@ -395,23 +398,6 @@ export class ResultsTableContainer extends React.Component {
         }
     }
 
-    toggleColumnVisibility(column) {
-        const tableType = this.state.tableType;
-        this.props.toggleColumnVisibility({
-            column,
-            tableType
-        });
-    }
-
-    reorderColumns(dragIndex, hoverIndex) {
-        const tableType = this.state.tableType;
-        this.props.reorderColumns({
-            tableType,
-            dragIndex,
-            hoverIndex
-        });
-    }
-
     updateSort(field, direction) {
         this.setState({
             sort: {
@@ -435,8 +421,6 @@ export class ResultsTableContainer extends React.Component {
                 results={this.state.results}
                 columns={this.state.columns[tableType]}
                 counts={this.state.counts}
-                toggleColumnVisibility={this.toggleColumnVisibility}
-                reorderColumns={this.reorderColumns}
                 sort={this.state.sort}
                 tableTypes={tableTypes}
                 currentType={tableType}
@@ -453,7 +437,8 @@ ResultsTableContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         filters: state.appliedFilters.filters,
-        noApplied: state.appliedFilters._empty
+        noApplied: state.appliedFilters._empty,
+        subaward: state.searchView.subaward
     }),
-    (dispatch) => bindActionCreators(Object.assign({}, SearchActions, appliedFilterActions), dispatch)
+    (dispatch) => bindActionCreators(Object.assign({}, searchActions, appliedFilterActions), dispatch)
 )(ResultsTableContainer);
