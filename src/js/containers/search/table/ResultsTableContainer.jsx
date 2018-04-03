@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, difference, intersection } from 'lodash';
+import { uniqueId, intersection } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import * as SearchHelper from 'helpers/searchHelper';

@@ -69,6 +69,8 @@ describe('ResultsTableContainer', () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
+            container.instance().switchTab = jest.fn();
+            container.instance().updateFilters = jest.fn();
             container.instance().parseTabCounts(mockTabCount);
 
             expect(container.state().counts).toEqual(mockTabCount.results);
@@ -78,6 +80,7 @@ describe('ResultsTableContainer', () => {
                 {...mockActions}
                 {...mockRedux} />);
             container.instance().switchTab = jest.fn();
+            container.instance().updateFilters = jest.fn();
 
             container.instance().parseTabCounts({
                 results: {
@@ -97,6 +100,7 @@ describe('ResultsTableContainer', () => {
                 {...mockActions}
                 {...mockRedux} />);
             container.instance().switchTab = jest.fn();
+            container.instance().updateFilters = jest.fn();
 
             container.instance().parseTabCounts({
                 results: {
@@ -116,6 +120,7 @@ describe('ResultsTableContainer', () => {
                 {...mockActions}
                 {...mockRedux} />);
             container.instance().switchTab = jest.fn();
+            container.instance().updateFilters = jest.fn();
 
             container.instance().parseTabCounts({
                 results: {
@@ -143,7 +148,7 @@ describe('ResultsTableContainer', () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...redux} />);
-
+            container.instance().performSearch = jest.fn();
             container.instance().updateFilters();
 
             const expectedParams = new SearchAwardsOperation();
@@ -155,7 +160,7 @@ describe('ResultsTableContainer', () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
-
+            container.instance().performSearch = jest.fn();
             container.instance().updateFilters();
 
             expect(container.state().page).toEqual(1);
@@ -196,7 +201,12 @@ describe('ResultsTableContainer', () => {
                 {...mockRedux} />);
 
             container.setState({
-                results: [{}, {}, {}]
+                results: [{}, {}, {}],
+                columns: {
+                    contracts: {
+                        visibleOrder: ['test']
+                    }
+                }
             });
             expect(container.state().results.length).toEqual(3);
 
@@ -212,7 +222,12 @@ describe('ResultsTableContainer', () => {
 
             container.setState({
                 results: [{}, {}, {}],
-                page: 2
+                page: 2,
+                columns: {
+                    contracts: {
+                        visibleOrder: ['test']
+                    }
+                }
             });
             expect(container.state().results.length).toEqual(3);
 
@@ -233,6 +248,7 @@ describe('ResultsTableContainer', () => {
                 lastPage: false,
                 inFlight: false
             });
+            container.instance().performSearch = jest.fn();
             expect(container.state().page).toEqual(1);
 
             container.instance().loadNextPage();
@@ -290,6 +306,14 @@ describe('ResultsTableContainer', () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
+            container.setState({
+                columns: {
+                    loans: {
+                        data: {}
+                    }
+                }
+            });
+            container.instance().performSearch = jest.fn();
             container.instance().switchTab('loans');
 
             expect(container.state().tableType).toEqual('loans');
@@ -298,6 +322,13 @@ describe('ResultsTableContainer', () => {
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
+            container.setState({
+                columns: {
+                    loans: {
+                        data: {}
+                    }
+                }
+            });
             container.instance().performSearch = jest.fn();
             container.instance().switchTab('loans');
 
@@ -313,9 +344,14 @@ describe('ResultsTableContainer', () => {
                 sort: {
                     field: 'Clinger-Cohen Act Compliant',
                     direction: 'asc'
+                },
+                columns: {
+                    loans: {
+                        data: {}
+                    }
                 }
             });
-
+            container.instance().performSearch = jest.fn();
             container.instance().switchTab('loans');
             expect(container.state().sort).toEqual({
                 field: 'Loan Value',
@@ -336,6 +372,7 @@ describe('ResultsTableContainer', () => {
                     direction: 'asc'
                 }
             });
+            container.instance().performSearch = jest.fn();
 
             container.instance().updateSort('test', 'desc');
             expect(container.state().sort).toEqual({
