@@ -174,24 +174,3 @@ export const resetSearchOrder = () => ({
     type: 'RESET_SEARCH_ORDER'
 });
 
-export const toggleColumnVisibility = (state) => ({
-    type: 'TOGGLE_COLUMN_VISIBILITY',
-    column: state.column,
-    tableType: state.tableType
-});
-
-export const resetColumnVisibility = () => ({
-    type: 'RESET_COLUMN_VISIBILITY'
-});
-
-export const reorderColumns = (state) => ({
-    type: 'REORDER_COLUMNS',
-    tableType: state.tableType,
-    dragIndex: state.dragIndex,
-    hoverIndex: state.hoverIndex
-});
-
-export const populateAvailableColumns = (state) => ({
-    type: 'POPULATE_COLUMN_VISIBILITY',
-    fullSet: state
-});
