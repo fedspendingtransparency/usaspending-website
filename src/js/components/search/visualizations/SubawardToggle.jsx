@@ -4,6 +4,12 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
+const propTypes = {
+    subaward: PropTypes.bool,
+    setSearchViewSubaward: PropTypes.func
+};
 
 export default class SubawardToggle extends React.Component {
     constructor(props) {
@@ -70,3 +76,5 @@ export default class SubawardToggle extends React.Component {
         );
     }
 }
+
+SubawardToggle.propTypes = propTypes;
