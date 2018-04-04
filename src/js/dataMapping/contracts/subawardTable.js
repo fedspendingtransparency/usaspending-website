@@ -5,14 +5,14 @@
 
 const subawardFields = {
     columnWidths: {
-        id: 0,
+        number: 0,
         recipient: 400,
         actionDate: 0,
         amount: 0,
         description: 380
     },
     defaultSortDirection: {
-        id: 'desc',
+        number: 'desc',
         recipient: 'asc',
         actionDate: 'desc',
         amount: 'desc',
@@ -20,20 +20,20 @@ const subawardFields = {
     },
     table: {
         _order: [
-            'id',
+            'number',
             'recipient',
             'actionDate',
             'amount',
             'description'
         ],
         _sortFields: {
-            id: 'subaward_number',
+            number: 'subaward_number',
             recipient: 'recipient__recipient_name',
             actionDate: 'action_date',
             amount: 'amount',
             description: 'description'
         },
-        id: 'Sub-Award ID',
+        number: 'Sub-Award ID',
         recipient: 'Recipient Name',
         actionDate: 'Action Date',
         amount: 'Amount',
