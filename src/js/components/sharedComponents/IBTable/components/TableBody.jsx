@@ -373,7 +373,6 @@ export default class TableBody extends React.PureComponent {
                         data-ibt-col-index={columnIndex}
                         data-ibt-row-index={rowIndex}
                         tabIndex={0}
-                        title={cellContent.props.value}
                         style={{
                             top: cellPositioning.y,
                             left: cellPositioning.x,
