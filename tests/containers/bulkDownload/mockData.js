@@ -72,6 +72,16 @@ export const mockRedux = {
             subAgency: {
                 name: 'Mock Sub-Agency'
             },
+            location: {
+                country: {
+                    code: 'USA',
+                    name: 'United States'
+                },
+                state: {
+                    code: 'HI',
+                    name: 'Hawaii'
+                }
+            },
             dateType: 'action_date',
             dateRange: {
                 startDate: '11-01-2016',

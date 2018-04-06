@@ -21,6 +21,7 @@ export default class UserSelections extends React.Component {
         this.generateAwardTypeString = this.generateAwardTypeString.bind(this);
         this.generateAgencyString = this.generateAgencyString.bind(this);
         this.generateSubAgencyString = this.generateSubAgencyString.bind(this);
+        this.generateLocationString = this.generateLocationString.bind(this);
         this.generateDateTypeString = this.generateDateTypeString.bind(this);
         this.generateFileFormatString = this.generateFileFormatString.bind(this);
         this.generateDateRangeString = this.generateDateRangeString.bind(this);
@@ -48,11 +49,11 @@ export default class UserSelections extends React.Component {
                 }
             }
             return (
-                <div>{selectionsString}</div>
+                <div className="selection__content">{selectionsString}</div>
             );
         }
         return (
-            <div className="required">required</div>
+            <div className="selection__content selection__content-required">required</div>
         );
     }
 
@@ -78,11 +79,11 @@ export default class UserSelections extends React.Component {
                 }
             }
             return (
-                <div>{selectionsString}</div>
+                <div className="selection__content">{selectionsString}</div>
             );
         }
         return (
-            <div className="required">required</div>
+            <div className="selection__content selection__content-required">required</div>
         );
     }
 
@@ -93,11 +94,11 @@ export default class UserSelections extends React.Component {
                 option.name === this.props.awards.dateType
             );
             return (
-                <div>{selectedOption.label}</div>
+                <div className="selection__content">{selectedOption.label}</div>
             );
         }
         return (
-            <div className="required">required</div>
+            <div className="selection__content selection__content-required">required</div>
         );
     }
 
@@ -108,34 +109,50 @@ export default class UserSelections extends React.Component {
                 option.name === this.props.awards.fileFormat
             );
             return (
-                <div>{selectedOption.label}</div>
+                <div className="selection__content">{selectedOption.label}</div>
             );
         }
         return (
-            <div className="required">required</div>
+            <div className="selection__content selection__content-required">required</div>
         );
     }
 
     generateAgencyString() {
         if (this.props.awards.agency.name !== 'Select an Agency') {
             return (
-                <div>{this.props.awards.agency.name}</div>
+                <div className="selection__content">{this.props.awards.agency.name}</div>
             );
         }
 
         return (
-            <div className="required">required</div>
+            <div className="selection__content selection__content-required">required</div>
         );
     }
 
     generateSubAgencyString() {
         if (this.props.awards.subAgency.name !== 'Select a Sub-Agency') {
             return (
-                <div>{this.props.awards.subAgency.name}</div>
+                <div className="selection__content">{this.props.awards.subAgency.name}</div>
             );
         }
         return (
-            <div>-</div>
+            <div className="selection__content">-</div>
+        );
+    }
+
+    generateLocationString() {
+        if (this.props.awards.location.country.code && this.props.awards.location.country.code !== 'all') {
+            if (this.props.awards.location.state.code && this.props.awards.location.state.code !== 'all') {
+                return (
+                    <div>{`${this.props.awards.location.state.name}, ${this.props.awards.location.country.name}`}</div>
+                );
+            }
+            return (
+                <div>{this.props.awards.location.country.name}</div>
+            );
+        }
+        return (
+            <div className="selection__content">-</div>
         );
     }
 
@@ -155,47 +172,51 @@ export default class UserSelections extends React.Component {
 
         if (startDate || endDate) {
             return (
-                <div>{`${startDate} - ${endDate}`}</div>
+                <div className="selection__content">{`${startDate} - ${endDate}`}</div>
             );
         }
         return (
-            <div className="required">required</div>
+            <div className="selection__content selection__content-required">required</div>
         );
     }
 
     render() {
         return (
-            <div className="your-selections">
-                <h5>Your selected options are...</h5>
-                <div className="left-col">
-                    <div className="option">
-                        <h6>Award Levels</h6>
+            <div className="download-user-selections">
+                <div className="download-user-selections__title">Your selected options are...</div>
+                <div className="download-user-selections__left-col">
+                    <div className="selection">
+                        <div className="selection__heading">Award Levels</div>
                         {this.generateAwardLevelString()}
                     </div>
-                    <div className="option">
-                        <h6>Agency</h6>
+                    <div className="selection">
+                        <div className="selection__heading">Agency</div>
                         {this.generateAgencyString()}
                     </div>
-                    <div className="option">
-                        <h6>Date Type</h6>
+                    <div className="selection">
+                        <div className="selection__heading">Recipient Location</div>
+                        {this.generateLocationString()}
+                    </div>
+                    <div className="selection">
+                        <div className="selection__heading">Date Type</div>
                         {this.generateDateTypeString()}
                     </div>
-                    <div className="option">
-                        <h6>File Format</h6>
+                    <div className="selection">
+                        <div className="selection__heading">File Format</div>
                         {this.generateFileFormatString()}
                     </div>
                 </div>
-                <div className="right-col">
-                    <div className="option">
-                        <h6>Award Types</h6>
+                <div className="download-user-selections__right-col">
+                    <div className="selection">
+                        <div className="selection__heading">Award Types</div>
                         {this.generateAwardTypeString()}
                     </div>
-                    <div className="option">
-                        <h6>Sub Agency</h6>
+                    <div className="selection">
+                        <div className="selection__heading">Sub Agency</div>
                         {this.generateSubAgencyString()}
                     </div>
-                    <div className="option">
-                        <h6>Date Range</h6>
+                    <div className="selection">
+                        <div className="selection__heading">Date Range</div>
                         {this.generateDateRangeString()}
                     </div>
                 </div>

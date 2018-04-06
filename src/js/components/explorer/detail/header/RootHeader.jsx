@@ -22,25 +22,25 @@ const propTypes = {
 const RootHeader = (props) => {
     const type = sidebarTypes[props.root];
     return (
-        <div className="root-header">
-            <div className="left-side">
-                <h2>
+        <div className="detail-header">
+            <div className="detail-header__labels">
+                <h2 className="detail-header__title">
                     You are viewing FY {props.fy} spending
-                    by <span className="capitalize">{type}</span>
+                    by <span className="detail-header__title detail-header__title_capitalize">{type}</span>
                 </h2>
-                <div className="instructions">
+                <div className="detail-header__instructions">
                     Choose {generateSingular(type, false)} {type.toLowerCase()} below to start
                     your exploration.
                 </div>
             </div>
-            <div className="right-side">
-                <div className="amount-header">
+            <div className="detail-header__amounts">
+                <div className="detail-header__fy">
                     FY {props.fy} obligated amount
                 </div>
-                <div className="amount-value">
+                <div className="detail-header__value">
                     {formatTreemapValues(props.total)}
                 </div>
-                <div className="update-date">
+                <div className="detail-header__update">
                     Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
                 </div>
             </div>

@@ -1,45 +1,9 @@
-.toolbar {
-    @include display(flex);
-    @include justify-content(center);
-    @include align-items(center);
-
+.explorer-vis__toolbar {
     background-color: $color-white;
     border: 1px solid $color-gray-border;
     box-shadow: $box-shadow;
 
     padding: rem(15) rem(25);
-
-    .breakdown-menu {
-        @include flex(1 1 auto);
-    }
-
-    .instructions {
-        @include flex(0 0 auto);
-        width: rem(150);
-
-        @include display(flex);
-        @include justify-content(center);
-        @include align-items(center);
-
-        .icon {
-            @include flex(0 0 auto);
-            width: rem(18);
-            height: rem(18);
-            margin-right: rem(10);
-
-            svg {
-                width: rem(18);
-                height: rem(18);
-                fill: $color-base;                
-            }
-        }
-
-        .label {
-            @include flex(1 1 auto);
-            font-size: rem(16);
-            line-height: rem(20);
-        }
-    }
 
     @import "./_breakdown";
 }

@@ -29,10 +29,10 @@
             @include align-self(stretch);
             @include flex-flow(row wrap);
             position: relative;
-            min-height: $sticky-header-height;
-            height: auto;
+            padding: rem(17) 0;
 
             @include media($medium-screen) {
+                padding: 0;
                 height: $sticky-header-height;
             }
 

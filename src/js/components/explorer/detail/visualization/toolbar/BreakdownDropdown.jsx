@@ -152,7 +152,7 @@ export default class BreakdownDropdown extends React.Component {
                     pickItem={this.pickItem} />
             ));
             dropdown = (
-                <ul className="dropdown-menu">
+                <ul className="dropdown__menu">
                     {items}
                 </ul>);
         }
@@ -164,26 +164,28 @@ export default class BreakdownDropdown extends React.Component {
         }
 
         return (
-            <div className="breakdown-menu" ref={this.setWrapperRef}>
-                <div className="breakdown-label">
-                    See the breakdown by:
-                </div>
-                <div className="breakdown-dropdown">
-                    <button
-                        className="dropdown-selector"
-                        onClick={this.toggleMenu}>
-                        <div className="item-icon">
-                            {icon}
-                        </div>
-                        <div className="item-label">
-                            {sidebarTypes[this.state.active]}
-                        </div>
-                        <div className="arrow">
-                            <Icons.AngleDown />
-                        </div>
-                    </button>
+            <div className="explorer-toolbar" ref={this.setWrapperRef}>
+                <div className="explorer-toolbar__breakdown breakdown">
+                    <div className="breakdown__label">
+                        See the breakdown by:
+                    </div>
+                    <div className="breakdown__dropdown dropdown">
+                        <button
+                            className="dropdown__selection"
+                            onClick={this.toggleMenu}>
+                            <div className="dropdown__icon">
+                                {icon}
+                            </div>
+                            <div className="dropdown__label">
+                                {sidebarTypes[this.state.active]}
+                            </div>
+                            <div className="dropdown__arrow">
+                                <Icons.AngleDown />
+                            </div>
+                        </button>
 
-                    {dropdown}
+                        {dropdown}
+                    </div>
                 </div>
                 <div className="view-buttons">
                     <ViewTypeButton

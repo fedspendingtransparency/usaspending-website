@@ -1,0 +1,44 @@
+.subscribe {
+    background-color: $color-primary-alt-lightest;
+    padding: rem(25);
+    @include display(flex);
+    @include justify-content(center);
+    font-size: rem(18);
+    .subscribe__icon {
+        @include display(flex);
+        @include flex(0 0 auto);
+        padding-right: rem(8);
+        svg {
+            height: rem(25);
+            width: rem(25);
+            fill: $color-base;
+        }
+    }
+    .subscribe__callout {
+        @include display(flex);
+        @include flex(0 0 auto);
+        font-weight: $font-bold;
+    }
+    .subscribe__message {
+        @include display(flex);
+        @include flex(0 0 auto);
+    }
+    .subscribe__link {
+        @include display(flex);
+        @include flex(0 0 auto);
+        @include align-items(center);
+        font-weight: $font-bold;
+        padding-left: rem(8);
+        svg {
+            height: rem(20);
+            width: rem(20);
+            fill: $color-link;
+        }
+        &:hover {
+            text-decoration: none;
+            svg {
+                fill: $color-primary-darker;
+            }
+        }
+    }
+}
