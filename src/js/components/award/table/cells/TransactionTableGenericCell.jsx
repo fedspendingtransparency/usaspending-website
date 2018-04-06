@@ -34,7 +34,7 @@ export default class TransactionTableGenericCell extends React.Component {
         }
 
         return (
-            <div className={`transaction-generic-cell ${rowClass}`}>
+            <div className={`transaction-generic-cell ${rowClass}`} title={content}>
                 <div className="cell-content">
                     {content}
                 </div>

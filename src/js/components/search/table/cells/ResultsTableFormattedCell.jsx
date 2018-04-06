@@ -51,7 +51,7 @@ export default class ResultsTableFormattedCell extends React.Component {
         }
 
         return (
-            <div className={`award-result-generic-cell ${rowClass}`}>
+            <div className={`award-result-generic-cell ${rowClass}`} title={content}>
                 <div className="cell-content">
                     {content}
                 </div>

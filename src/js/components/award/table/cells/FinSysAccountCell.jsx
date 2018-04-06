@@ -38,7 +38,7 @@ export default class FinSysAccountCell extends React.Component {
         }
 
         return (
-            <div className={`financial-system-generic-cell column-${this.props.column} ${rowClass}`}>
+            <div className={`financial-system-generic-cell column-${this.props.column} ${rowClass}`} title={this.props.data.title}>
                 <div className="cell-content">
                     {content}
                 </div>
