@@ -101,7 +101,7 @@ describe('KeywordContainer', () => {
             container.instance().requestDownload = requestDownload;
 
             const expectedParams = {
-                award_levels: ['prime_awards'],
+                award_levels: ['prime_awards', 'sub_awards'],
                 filters: {
                     keyword: 'test'
                 }

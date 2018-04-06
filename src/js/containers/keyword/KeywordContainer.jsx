@@ -79,7 +79,7 @@ export class KeywordContainer extends React.Component {
 
     startDownload() {
         const params = {
-            award_levels: ['prime_awards'],
+            award_levels: ['prime_awards', 'sub_awards'],
             filters: {
                 keyword: this.state.keyword
             }
