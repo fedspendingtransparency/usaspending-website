@@ -3,11 +3,11 @@
     @import "layouts/search/search";
     @import "layouts/default/stickyHeader/header";
 
-    .bulk-download-content {
+    .bulk-download {
         @import "../../mixins/fullSectionWrap";
         @include fullSectionWrap(($global-mrg * 4), ($global-mrg * 4));
         padding:  0;
-        .download-sidebar {
+        .bulk-download__sidebar {
             @import "./sidebar/sidebar";
             @include span-columns(16);
             @include media($medium-screen) {
@@ -21,7 +21,7 @@
             }
         }
 
-        .download-data-wrapper {
+        .bulk-download__data {
             @import "downloadData";
             @import "archive/archive";
             @include span-columns(16);

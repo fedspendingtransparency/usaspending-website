@@ -1,0 +1,31 @@
+.geo-entity-item {
+    padding-top: rem(15);
+    .location-label {
+        text-transform: uppercase;
+        font-size: rem(13);
+        line-height: rem(17);
+    }
+    @import "../../search/filters/location/dropdown";
+    .geo-entity-dropdown {
+        .active-selection {
+            padding: rem(4) rem(10);
+
+            .label {
+                font-size: rem(21);
+                line-height: rem(24);
+                font-weight: 200;
+            }
+
+            .icon {
+                width: rem(14);
+                height: rem(14);
+            }
+        }
+
+        .geo-entity-list {
+            top: rem(33);
+        }
+    }
+}
+
+@import "../../search/filters/location/warning";

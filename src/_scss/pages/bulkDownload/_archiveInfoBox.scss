@@ -1,10 +1,9 @@
-.archive-info-box {
+.archive-info {
     @include display(flex);
     background-color: $color-primary-alt-lightest;
     border: solid 1px $color-primary-alt-light;
-    margin: rem(30) rem(20) rem(30) rem(30);
     padding: rem(20);
-    .icon {
+    .archive-info__icon {
         margin-right: rem(10);
         width: rem(20);
         height: rem(20);
@@ -15,12 +14,14 @@
             fill: $color-primary-alt-dark;
         }
     }
-    .archive-info-heading {
-        font-weight: 600;
-        margin-bottom: rem(15);
-    }
-    a {
-        color: $color-primary;
-        text-decoration: underline;
+    .archive-info__content {
+        .archive-info__heading {
+            font-weight: 600;
+            margin-bottom: rem(15);
+        }
+        a {
+            color: $color-primary;
+            text-decoration: underline;
+        }
     }
 }

@@ -1,36 +1,39 @@
-.your-selections {
-    margin: rem(20);
+.download-user-selections {
     background-color: $color-gray-lightest;
     padding: rem(20);
     @import "../../mixins/fullSectionWrap";
     @include fullSectionWrap((rem(40)), (rem(30)));
-    @include media($x-large-screen) {
-        margin: rem(40) rem(30);
-    }
-    .left-col {
+    .download-user-selections__left-col {
         @include span-columns(16);
         @include media($medium-screen) {
             @include span-columns(8);
         }
     }
-    .right-col {
+    .download-user-selections__right-col {
         @include span-columns(16);
         @include media($medium-screen) {
             @include span-columns(8);
         }
     }
-    h5 {
-        margin: 0;
+    .download-user-selections__title {
+        @include h5;
     }
-    h6 {
-        color: #5B616B;
-        font-size: rem(12);
-        font-weight: 600;
-        line-height: rem(15);
-    }
-    .required {
-        color: $color-secondary;
-        font-size: rem(18);
-        line-height: rem(23);
+    .selection {
+        .selection__heading {
+            @include h6;
+            padding-top: rem(18);
+            padding-bottom: rem(6);
+            color: #5B616B;
+            font-size: rem(12);
+            font-weight: 600;
+            line-height: rem(15);
+        }
+        .selection__content {
+            &.selection__content-required {
+                color: $color-secondary;
+                font-size: rem(18);
+                line-height: rem(23);
+            }
+        }
     }
 }

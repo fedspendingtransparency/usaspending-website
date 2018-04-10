@@ -1,33 +1,51 @@
-.explorer-visualization-wrapper {
+.explorer-vis {
     margin-top: rem(40);
 
     @import "./_menu";
     @import "./treemap/treemap";
     @import "./table/table";
 
-    .treemap-width-reference {
+    .explorer-vis__width-reference {
         width: 100%;
         height: 0;
     }
 
-	.loading-text {
+	.explorer-vis__loading-text {
 		font-size: rem(36);
 		font-weight: 300;
 		color: $color-base;
 		text-align: center;
 		transition: opacity 0.25s;
 		// Don't show extra padding when it is empty
-		&.loading {
+		&.explorer-vis__loading-text_loading {
 			margin-bottom: rem(30);
 		}
 	}
 
-    .treemap-disclaimer {
+    .explorer-vis__disclaimer {
         font-style: italic;
         font-size: rem(14);
         line-height: rem(18);
 
         margin-top: rem(15);
+    }
+
+    .explorer-vis__table-transition {
+        transition: opacity 0.25s;
+        &.explorer-vis__table-transition_loading {
+            opacity: 0.5;
+        }
+    }
+
+    .explorer-vis__treemap-transition {
+        transition: opacity 0.25s;
+        &.explorer-vis__treemap-transition_loading {
+            opacity: 0.5;
+
+            .explorer-cell {
+                cursor: auto;
+            }
+        }
     }
 
 }

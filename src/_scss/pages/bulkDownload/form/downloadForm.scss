@@ -1,9 +1,12 @@
-.download-form {
-    .filter-section {
+.download-center-form {
+    .download-filter {
         padding-bottom: rem(30);
-        h5.filter-section-title {
+        .download-filter__title {
+            @include h5;
             font-weight: 400;
-            span {
+            padding-bottom: rem(12);
+            padding-top: rem(36);
+            .download-filter__title_em {
                 color: $color-primary;
                 font-weight: 600;
             }
@@ -25,7 +28,7 @@
                 }
             }
         }
-        .filter-section-content {
+        .download-filter__content {
             padding-left: rem(40);
         }
         .download-checkbox {
@@ -37,21 +40,32 @@
         @import "agencyPicker";
         @import "radioButtons";
         @import "dateRange";
+        @import "locationFilter";
     }
     @import "userSelections";
+    .download-user-selections {
+        margin: rem(20);
+        @include media($x-large-screen) {
+            margin: rem(40) rem(30);
+        }
+    }
+    .submit-wrapper {
+        margin: rem(30) rem(15);
+    }
     .submit-button {
-        margin: rem(30);
         button, input {
             width: 100%;
             font-size: rem(24);
             font-weight: 600;
         }
-        &.disabled {
+        &.submit-button_disabled {
             button {
+                margin: 0;
                 background-color: $color-white;
                 color: $color-gray-light;
                 border: solid rem(1) $color-gray-light;
             }
         }
     }
+    @import "tooltip";
 }

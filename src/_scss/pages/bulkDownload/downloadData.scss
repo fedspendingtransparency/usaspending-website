@@ -1,17 +1,20 @@
-.download-data-content {
+.download-center {
     @import "./archiveInfoBox";
-    .download-filters {
+    .archive-info {
+        margin: rem(30) rem(20) rem(30) rem(30);
+    }
+    .download-center__filters {
         @include span-columns(16);
         @include media($medium-screen) {
             @include span-columns(9);
         }
         margin-bottom: rem(30);
-        h2 {
+        .download-center__title {
             margin: 0 rem(30);
             font-weight: 400;
         }
         @import "./form/downloadForm";
-        .reset-button {
+        .download-center__reset {
             @include button-unstyled;
             display: block;
             margin: auto;
@@ -28,13 +31,14 @@
         padding: rem(15) rem(30) 0 rem(30);
         border-left: solid 1px $color-gray-light;
 
-        h6 {
+        .download-info__title {
+            @include h6;
             margin-top: 0;
             margin-bottom: rem(30);
         }
-        .info-section {
+        .download-info__section {
             margin-bottom: rem(30);
-            .info-section-heading {
+            .download-info__section-title {
                 font-weight: 600;
             }
         }

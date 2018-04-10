@@ -57,7 +57,10 @@ export default class AgencyFilter extends React.Component {
             name: target.name
         });
 
-        if (target.value !== 'all') {
+        if (target.value === 'all') {
+            this.props.setSubAgencyList('');
+        }
+        else {
             this.props.setSubAgencyList(target.value);
         }
 
@@ -128,10 +131,10 @@ export default class AgencyFilter extends React.Component {
         ));
 
         // Create the sub-agency options
-        const subAgencies = this.props.subAgencies.map((subAgency) => (
+        const subAgencies = this.props.subAgencies.map((subAgency, i) => (
             <li
                 className="field-item"
-                key={`field-${subAgency.subtier_agency_name}`}>
+                key={`field-${subAgency.subtier_agency_name}-${i}`}>
                 <button
                     className="item-button"
                     title={subAgency.subtier_agency_name}
@@ -166,11 +169,11 @@ export default class AgencyFilter extends React.Component {
         }
 
         return (
-            <div className="filter-section">
-                <h5 className="filter-section-title">
-                    {icon} Select an awarding <span>agency</span> and <span>sub-agency</span>.
-                </h5>
-                <div className="filter-section-content">
+            <div className="download-filter">
+                <div className="download-filter__title">
+                    {icon} Select an awarding <span className="download-filter__title_em">agency</span> and <span>sub-agency</span>.
+                </div>
+                <div className="download-filter__content">
                     <div className="filter-picker">
                         <label className="select-label" htmlFor="agency-select">
                             Agency
@@ -184,9 +187,9 @@ export default class AgencyFilter extends React.Component {
                                 onClick={this.toggleAgencyPicker}>
                                 <div className="label">
                                     {currentAgencyName}
-                                    <span className="arrow-icon">
-                                        {agencyIcon}
-                                    </span>
+                                </div>
+                                <div className="arrow-icon">
+                                    {agencyIcon}
                                 </div>
                             </button>
 
@@ -239,9 +242,9 @@ export default class AgencyFilter extends React.Component {
                                 onClick={this.toggleSubAgencyPicker}>
                                 <div className="label">
                                     {currentSubAgencyName}
-                                    <span className="arrow-icon">
-                                        {subAgencyIcon}
-                                    </span>
+                                </div>
+                                <div className="arrow-icon">
+                                    {subAgencyIcon}
                                 </div>
                             </button>
 

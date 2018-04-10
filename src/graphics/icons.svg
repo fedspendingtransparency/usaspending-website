@@ -228,4 +228,44 @@
             </g>
         </g>
     </symbol>
+    <symbol id="usa-da-envelope" viewBox="0 0 65.64 55.27">
+        <defs>
+            <style>.cls-1,.cls-2{fill:none;}.cls-1{clip-rule:evenodd;}.cls-3{clip-path:url(#clip-path);}.cls-4{clip-path:url(#clip-path-2);}</style>
+            <clipPath id="clip-path" transform="translate(-746.18 -7973.09)">
+                <path class="cls-1" d="M803.18,7986.05c0,3-2.24,5.74-4.61,7.39-4.21,2.92-8.45,5.83-12.63,8.77-1.76,1.22-4.73,3.7-6.91,3.7H779c-2.18,0-5.15-2.48-6.91-3.7-4.18-2.94-8.42-5.85-12.6-8.77-1.92-1.3-4.64-4.34-4.64-6.8,0-2.65,1.43-4.91,4.32-4.91h39.72A4.35,4.35,0,0,1,803.18,7986.05Zm0,7.77v21.56a4.35,4.35,0,0,1-4.32,4.35H759.14a4.35,4.35,0,0,1-4.32-4.35v-21.56a15.68,15.68,0,0,0,2.72,2.36c4.48,3.07,9,6.14,13.42,9.37,2.26,1.68,5.07,3.75,8,3.75H779c2.94,0,5.75-2.07,8-3.75,4.4-3.2,8.94-6.3,13.44-9.37A16.32,16.32,0,0,0,803.18,7993.82Z"/>
+            </clipPath>
+            <clipPath id="clip-path-2" transform="translate(-746.18 -7973.09)">
+                <rect class="cls-2" width="2625.45" height="8648.45"/>
+            </clipPath>
+        </defs>
+        <g id="Layer_2" data-name="Layer 2">
+            <g id="Layer_1-2" data-name="Layer 1">
+                <g class="cls-3">
+                    <g class="cls-4">
+                        <rect width="65.64" height="55.27"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </symbol>
+    <symbol id="usa-da-caret-right" viewBox="0 0 73.38 94.3">
+        <defs>
+            <style>.cls-5,.cls-6{fill:none;}.cls-5{clip-rule:evenodd;}.cls-7{clip-path:url(#clip-path-3);}.cls-8{clip-path:url(#clip-path-4);}</style>
+            <clipPath id="clip-path-3" transform="translate(-445.86 -232.94)">
+                <path class="cls-5" d="M496,280.09a3,3,0,0,1-.89,2.1l-20.92,20.92a3,3,0,0,1-2.1.89,3,3,0,0,1-3-3V259.17a3,3,0,0,1,3-3,3,3,0,0,1,2.1.88L495.11,278A3,3,0,0,1,496,280.09Z"/>
+            </clipPath>
+            <clipPath id="clip-path-4" transform="translate(-445.86 -232.94)">
+                <rect class="cls-6" x="-4509.52" y="-21252.76" width="7065.83" height="23275.41"/>
+            </clipPath>
+        </defs>
+        <g id="Layer_2" data-name="Layer 2">
+            <g id="Layer_1-2" data-name="Layer 1">
+                <g class="cls-7">
+                    <g class="cls-8">
+                        <rect width="73.38" height="94.3"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </symbol>
 </svg>

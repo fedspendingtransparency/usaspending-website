@@ -233,11 +233,11 @@ export default class TimePeriodFilter extends React.Component {
         }
 
         return (
-            <div className="filter-section">
-                <h5 className="filter-section-title">
-                    {icon} Select a <span>date range</span>.
-                </h5>
-                <div className="filter-section-content date-range-wrapper">
+            <div className="download-filter">
+                <div className="download-filter__title">
+                    {icon} Select a <span className="download-filter__title_em">date range</span>.
+                </div>
+                <div className="download-filter__content date-range-wrapper">
                     <DownloadDateRange
                         datePlaceholder=""
                         startDate={this.state.startDateBulkUI}

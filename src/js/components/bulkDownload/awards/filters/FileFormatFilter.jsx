@@ -62,11 +62,11 @@ export default class FileFormatFilter extends React.Component {
         ));
 
         return (
-            <div className="filter-section">
-                <h5 className="filter-section-title">
-                    {icon} Select a <span>file format</span>.
-                </h5>
-                <div className="filter-section-content">
+            <div className="download-filter">
+                <div className="download-filter__title">
+                    {icon} Select a <span className="download-filter__title_em">file format</span>.
+                </div>
+                <div className="download-filter__content">
                     {fileFormats}
                 </div>
             </div>

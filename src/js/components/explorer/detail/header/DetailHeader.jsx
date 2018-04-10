@@ -49,14 +49,14 @@ const dataType = (type, parent) => {
 
         parentRelation = (
             <span>
-                {descriptor} <span className="bold">{parent}</span>
+                {descriptor} <span className="detail-header__type detail-header__type_bold">{parent}</span>
             </span>
         );
     }
 
     return (
-        <div className="data-type">
-            {singular} <span className="bold">{type}</span> {parentRelation}
+        <div className="detail-header__type">
+            {singular} <span className="detail-header__type detail-header__type_bold">{type}</span> {parentRelation}
         </div>
     );
 };
@@ -64,9 +64,10 @@ const dataType = (type, parent) => {
 const heading = (type, title, id) => {
     if (type === 'Federal Account') {
         return (
-            <h2>
+            <h2 className="detail-header__title">
                 <a
                     href={`/#/federal_account/${id}`}
+                    className="detail-header__title-link"
                     onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
                     {title}
                 </a>
@@ -75,9 +76,10 @@ const heading = (type, title, id) => {
     }
     else if (type === 'Agency') {
         return (
-            <h2>
+            <h2 className="detail-header__title">
                 <a
                     href={`/#/agency/${id}`}
+                    className="detail-header__title-link"
                     onClick={exitExplorer.bind(null, `/agency/${id}`)}>
                     {title}
                 </a>
@@ -104,8 +106,8 @@ const DetailHeader = (props) => {
     return (
         <div>
             <div className="detail-header">
-                <div className="left-side">
-                    <div className="you-did-this">
+                <div className="detail-header__labels">
+                    <div className="detail-header__subtitle">
                         You&apos;ve chosen
                     </div>
                     {heading(type, props.title, props.id)}
