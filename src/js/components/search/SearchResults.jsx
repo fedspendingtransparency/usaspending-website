@@ -10,7 +10,6 @@ import { AddFilter } from 'components/sharedComponents/icons/Icons';
 
 import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
 import VisualizationWrapperContainer from 'containers/search/visualizations/VisualizationWrapperContainer';
-// import VisualizationWrapper from './visualizations/VisualizationWrapper';
 import MobileFilters from './mobile/MobileFilters';
 
 const propTypes = {

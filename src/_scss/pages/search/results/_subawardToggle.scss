@@ -26,6 +26,7 @@
     margin: 0 rem(12);
     .subaward-switch__track {
         fill: #0074BE;
+        box-shadow: inset 0 0 1px 1px rgba(0,0,0,0.31), 0 2px 2px 0 rgba(0,0,0,0.5);
         @include transition(fill 200ms);
 
         &.subaward-switch__track_inactive {
@@ -39,8 +40,5 @@
 
     .subaward-switch__switch-fill {
         fill: #FFFFFF;
-    }
-    .subaward-switch__switch-grip {
-        fill: rgba(0, 0, 0, 0.2);
     }
 }

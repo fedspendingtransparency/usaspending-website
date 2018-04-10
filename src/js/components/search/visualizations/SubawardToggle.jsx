@@ -26,7 +26,7 @@ export default class SubawardToggle extends React.Component {
         const primeActive = this.props.subaward ? '' : 'subaward-toggle__label_active';
         const subActive = this.props.subaward ? 'subaward-toggle__label_active' : '';
         const trackClass = this.props.subaward ? 'subaward-switch__track_inactive' : '';
-        const switchPosition = this.props.subaward ? 'translate(30 2)' : 'translate(2 2)';
+        const switchPosition = this.props.subaward ? 'translate(30 0)' : 'translate(9 0)';
         return (
             <button
                 className="subaward-toggle"
@@ -36,37 +36,34 @@ export default class SubawardToggle extends React.Component {
                 </div>
                 <svg
                     className="subaward-toggle__switch subaward-switch"
-                    width="60"
-                    height="20">
-                    <rect
-                        className={`subaward-switch__track ${trackClass}`}
-                        width="60"
-                        height="20" />
+                    width="45"
+                    height="24">
+                    <filter id="subaward-toggle__filters">
+                        <feGaussianBlur in="SourceAlpha" stdDeviation="1" />
+                        <feOffset dx="0" dy="0" />
+                        <feMerge>
+                            <feMergeNode />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
                     <g
-                        className="subaward-switch__switch"
-                        transform={switchPosition}>
+                        className="subaward-switch__graphic"
+                        transform="translate(4 2)">
                         <rect
-                            className="subaward-switch__switch-fill"
-                            width="28"
-                            height="16" />
-                        <rect
-                            className="subaward-switch__switch-grip"
-                            width="2"
-                            height="8"
-                            x="9"
-                            y="4" />
-                        <rect
-                            className="subaward-switch__switch-grip"
-                            width="2"
-                            height="8"
-                            x="13"
-                            y="4" />
-                        <rect
-                            className="subaward-switch__switch-grip"
-                            width="2"
-                            height="8"
-                            x="17"
-                            y="4" />
+                            className={`subaward-switch__track ${trackClass}`}
+                            width="40"
+                            height="20"
+                            rx="10"
+                            ry="10" />
+                        <g
+                            className="subaward-switch__switch"
+                            transform={switchPosition}>
+                            <circle
+                                className="subaward-switch__switch-fill"
+                                cy="10"
+                                r="10"
+                                filter="url(#subaward-toggle__filters)" />
+                        </g>
                     </g>
                 </svg>
                 <div className={`subaward-toggle__label ${subActive}`}>
