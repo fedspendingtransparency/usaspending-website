@@ -27,10 +27,13 @@ export default class SubawardToggle extends React.Component {
         const subActive = this.props.subaward ? 'subaward-toggle__label_active' : '';
         const trackClass = this.props.subaward ? 'subaward-switch__track_inactive' : '';
         const switchPosition = this.props.subaward ? 'translate(30 0)' : 'translate(9 0)';
+        const currentSelection = this.props.subaward ? 'Sub-Awards' : 'Prime Awards';
         return (
             <button
                 className="subaward-toggle"
-                onClick={this.toggledSwitch}>
+                onClick={this.toggledSwitch}
+                aria-pressed={!this.props.subaward}
+                aria-label={`Toggle between Prime Awards and Sub-Award. Currently selected: ${currentSelection}`}>
                 <div className={`subaward-toggle__label ${primeActive}`}>
                     Prime Awards
                 </div>
