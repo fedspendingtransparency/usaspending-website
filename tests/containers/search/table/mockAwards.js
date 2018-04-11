@@ -7,6 +7,7 @@ export const mockActions = {
 
 export const mockRedux = {
     filters: initialState,
+    subaward: false,
     noApplied: false
 };
 
