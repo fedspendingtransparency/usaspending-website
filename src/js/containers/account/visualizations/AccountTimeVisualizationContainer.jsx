@@ -233,22 +233,19 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
         const ySeries = [];
         const allY = [];
         const yData = {};
-        const quartersYears = [];
+        const groupLabels = [];
 
         data.forEach((balance, balanceIndex) => {
             const type = this.balanceRequests[balanceIndex].type;
             balance.data.results.forEach((group) => {
-                let quarterYear;
+                let groupLabel = `${group.item}`;
                 if (this.state.visualizationPeriod === 'quarter') {
-                    quarterYear = `${group.item} Q${group.submission__reporting_fiscal_quarter}`;
+                    groupLabel = `${group.item} Q${group.submission__reporting_fiscal_quarter}`;
                 }
-                else if (this.state.visualizationPeriod === 'year') {
-                    quarterYear = `${group.item}`;
-                }
-                if (!yData[quarterYear]) {
-                    quartersYears.push(quarterYear);
+                if (!yData[groupLabel]) {
+                    groupLabels.push(groupLabel);
                     if (this.state.hasFilteredObligated) {
-                        yData[quarterYear] = {
+                        yData[groupLabel] = {
                             obligatedFiltered: 0,
                             outlay: 0,
                             budgetAuthority: 0,
@@ -256,7 +253,7 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
                         };
                     }
                     else {
-                        yData[quarterYear] = {
+                        yData[groupLabel] = {
                             obligated: 0,
                             outlay: 0,
                             budgetAuthority: 0,
@@ -264,17 +261,20 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
                         };
                     }
                 }
-                yData[quarterYear][type] = parseFloat(group.aggregate);
+                yData[groupLabel][type] = parseFloat(group.aggregate);
             });
         });
 
-        quartersYears.forEach((quarterYear) => {
-            xSeries.push(`${quarterYear}`);
+        // Ensure the group labels are in chronological order
+        groupLabels.sort();
+
+        groupLabels.forEach((group) => {
+            xSeries.push(`${group}`);
             if (this.state.hasFilteredObligated) {
-                const budgetAuthority = yData[quarterYear].budgetAuthority;
-                const unobligated = yData[quarterYear].unobligated;
-                const obligatedFiltered = yData[quarterYear].obligatedFiltered;
-                const outlay = yData[quarterYear].outlay;
+                const budgetAuthority = yData[group].budgetAuthority;
+                const unobligated = yData[group].unobligated;
+                const obligatedFiltered = yData[group].obligatedFiltered;
+                const outlay = yData[group].outlay;
                 // Calculate Obligated (Other)
                 const obligatedOther = budgetAuthority - unobligated - obligatedFiltered;
 
@@ -311,30 +311,30 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
                 const period = {
                     obligated: {
                         bottom: 0,
-                        top: yData[quarterYear].obligated,
-                        value: yData[quarterYear].obligated,
+                        top: yData[group].obligated,
+                        value: yData[group].obligated,
                         description: 'Obligations Incurred'
                     },
                     unobligated: {
-                        bottom: yData[quarterYear].obligated,
-                        top: yData[quarterYear].unobligated + yData[quarterYear].obligated,
-                        value: yData[quarterYear].unobligated,
+                        bottom: yData[group].obligated,
+                        top: yData[group].unobligated + yData[group].obligated,
+                        value: yData[group].unobligated,
                         description: 'Unobligated Balance'
                     },
                     outlay: {
-                        bottom: yData[quarterYear].outlay,
-                        top: yData[quarterYear].outlay,
-                        value: yData[quarterYear].outlay,
+                        bottom: yData[group].outlay,
+                        top: yData[group].outlay,
+                        value: yData[group].outlay,
                         description: 'Outlay'
                     }
                 };
 
                 ySeries.push(period);
-                allY.push(yData[quarterYear].obligated);
+                allY.push(yData[group].obligated);
             }
-            allY.push(yData[quarterYear].outlay);
-            allY.push(yData[quarterYear].budgetAuthority);
-            allY.push(yData[quarterYear].unobligated);
+            allY.push(yData[group].outlay);
+            allY.push(yData[group].budgetAuthority);
+            allY.push(yData[group].unobligated);
         });
 
         // determine the bar stacks to display and their order

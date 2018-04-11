@@ -103,6 +103,12 @@ export default class ResultsTableSection extends React.Component {
             <div
                 className={`search-results-table-section ${this.props.keyword ? '' : 'hide-counts'}`}
                 id="results-section-table">
+                <div className="table-section-header">
+                    <h2 className="visualization-title">
+                        Spending By Transaction
+                    </h2>
+                </div>
+                <hr className="results-divider" />
                 <ResultsTableTabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}

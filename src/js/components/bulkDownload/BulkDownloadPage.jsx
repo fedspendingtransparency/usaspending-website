@@ -87,13 +87,13 @@ export default class BulkDownloadPage extends React.Component {
                 </StickyHeader>
                 <main
                     id="main-content">
-                    <div className="bulk-download-content">
-                        <div className="download-sidebar">
+                    <div className="bulk-download">
+                        <div className="bulk-download__sidebar">
                             <BulkDownloadSidebar
                                 dataTypes={this.props.dataTypes}
                                 active={this.props.dataType} />
                         </div>
-                        <div className="download-data-wrapper">
+                        <div className="bulk-download__data">
                             {downloadDataContent}
                         </div>
                         <BulkDownloadModalContainer

@@ -57,11 +57,11 @@ export default class DateTypeFilter extends React.Component {
             </div>
         ));
         return (
-            <div className="filter-section">
-                <h5 className="filter-section-title">
-                    {icon} Select a <span>date type</span> for the date range below.
-                </h5>
-                <div className="filter-section-content">
+            <div className="download-filter">
+                <div className="download-filter__title">
+                    {icon} Select a <span className="download-filter__title_em">date type</span> for the date range below.
+                </div>
+                <div className="download-filter__content">
                     {dateTypes}
                 </div>
             </div>

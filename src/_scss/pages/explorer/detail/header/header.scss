@@ -1,7 +1,91 @@
-.root-header, .detail-header {
+.detail-header {
     @include display(flex);
-
+    @include justify-content(space-between);
+    @include align-items(flex-start);
     position: relative;
+
+    .detail-header__labels {
+        @include flex(1 1 auto);
+        // this is a truly horrific hack to make the h2 title text wrap on IE 11 in smaller screens
+        // this works because flex grow will cause the content to push this flexbox's width out
+        width: 0;
+
+        h2.detail-header__title {
+            max-width: 100%;
+            margin: 0;
+            font-weight: $font-light;
+            font-size: rem(30);
+            line-height: rem(32);
+            color: #5C626C;
+
+            @include media($large-screen) {
+                font-size: rem(36);
+                line-height: rem(40);
+            }
+
+            &.detail-header__title_title {
+                text-transform: capitalize;
+            }
+        }
+        a.detail-header__title-link {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .detail-header__instructions {
+            margin-top: rem(10);
+            font-weight: $font-light;
+            color: #5C626C;
+            font-size: rem(24);
+            line-height: rem(24);
+
+            @include media($large-screen) {
+                font-size: rem(28);
+                line-height: rem(28);
+            }
+        }
+    }
+
+    .detail-header__amounts {
+        @include flex(0 1 rem(150));
+        margin-left: rem(10);
+
+        @include media($medium-screen) {
+            @include flex(0 1 rem(250));
+            margin-left: rem(50);
+        }
+        @include media($x-large-screen) {
+            margin-left: rem(150);
+        }
+
+        .detail-header__fy {
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: $font-semibold;
+
+            font-size: rem(14);
+            line-height: rem(21);
+        }
+
+        .detail-header__value {
+            text-align: center;
+            text-transform: capitalize;
+            font-weight: $font-semibold;
+
+            font-size: rem(36);
+            line-height: rem(40);
+
+            color: #32788C;
+        }
+
+        .detail-header__update {
+            text-align: center;
+            font-size: rem(14);
+            line-height: rem(18);
+        }
+    }
+
     .left-side {
         @include flex(1 1 auto);
         max-width: 75%;

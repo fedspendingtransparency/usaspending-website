@@ -206,7 +206,7 @@ export default class ExplorerTreemap extends React.Component {
             <div className="explorer-treemap">
                 <svg
                     className="treemap"
-                    width={this.props.width}
+                    width="100%"
                     height={this.props.height}>
                     {cells}
                 </svg>

@@ -8,10 +8,13 @@ import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import { AccountTimeVisualizationSectionContainer } from
-    'containers/account/visualizations/AccountTimeVisualizationContainer';
+        'containers/account/visualizations/AccountTimeVisualizationContainer';
 
-import { mockBalances, mockReduxAccount, mockQuarters, mockFilteredObligated, mockFilteredObligatedQuarters,
-    parsedYearYSeries, parsedQuarterYSeries, parsedYearYSeriesFiltered, parsedQuarterYSeriesFiltered }
+import {
+    mockBalances, mockReduxAccount, mockQuarters, mockFilteredObligated, mockFilteredObligatedQuarters,
+    parsedYearYSeries, parsedQuarterYSeries, parsedYearYSeriesFiltered, parsedQuarterYSeriesFiltered,
+    mockIncomplete, parsedIncomplete
+}
     from '../mockAccount';
 import { defaultFilters } from '../defaultFilters';
 
@@ -110,6 +113,94 @@ describe('AccountTimeVisualizationSectionContainer', () => {
             delete containerState.stacks;
 
             expect(containerState).toEqual(expectedState);
+        });
+        it('should order the bar charts chronologically when data is missing', () => {
+            const container = shallow(
+                <AccountTimeVisualizationSectionContainer
+                    reduxFilters={defaultFilters}
+                    account={mockReduxAccount} />);
+
+            container.instance().setState({
+                visualizationPeriod: "quarter",
+                hasFilteredObligated: true
+            });
+
+            container.instance().balanceRequests = [
+                {
+                    type: 'outlay'
+                },
+                {
+                    type: 'budgetAuthority'
+                },
+                {
+                    type: 'obligatedFiltered'
+                },
+                {
+                    type: 'unobligated'
+                }
+            ];
+
+            container.instance().parseBalances([
+                {
+                    data: mockIncomplete.outlay // Has 2016 Q2, 2016 Q3
+                },
+                {
+                    data: mockIncomplete.budgetAuthority // Has 2016 Q1, 2016 Q2
+                },
+                {
+                    data: mockIncomplete.obligatedFiltered
+                },
+                {
+                    data: mockIncomplete.unobligated
+                }
+            ]);
+
+            const containerState = container.state().data.toJS();
+            expect(containerState.xSeries).toEqual(['2016 Q1', '2016 Q2', '2016 Q3']);
+        });
+        it('should default missing values to zero', () => {
+            const container = shallow(
+                <AccountTimeVisualizationSectionContainer
+                    reduxFilters={defaultFilters}
+                    account={mockReduxAccount} />);
+
+            container.instance().setState({
+                visualizationPeriod: "quarter",
+                hasFilteredObligated: true
+            });
+
+            container.instance().balanceRequests = [
+                {
+                    type: 'outlay'
+                },
+                {
+                    type: 'budgetAuthority'
+                },
+                {
+                    type: 'obligatedFiltered'
+                },
+                {
+                    type: 'unobligated'
+                }
+            ];
+
+            container.instance().parseBalances([
+                {
+                    data: mockIncomplete.outlay
+                },
+                {
+                    data: mockIncomplete.budgetAuthority
+                },
+                {
+                    data: mockIncomplete.obligatedFiltered
+                },
+                {
+                    data: mockIncomplete.unobligated
+                }
+            ]);
+
+            const containerState = container.state().data.toJS();
+            expect(containerState.allY).toEqual([250, 0, 200, 0, 400, 400, 100, 500, 0, -500, 0, 200]);
         });
     });
 
