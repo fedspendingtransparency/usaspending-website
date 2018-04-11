@@ -24,7 +24,8 @@ const propTypes = {
     columns: PropTypes.object,
     counts: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
-    reorderColumns: PropTypes.func
+    reorderColumns: PropTypes.func,
+    subaward: PropTypes.bool
 };
 
 export default class ResultsTableSection extends React.Component {
@@ -87,11 +88,13 @@ export default class ResultsTableSection extends React.Component {
             );
         }
 
+        const type = this.props.subaward ? 'Sub-Award' : 'Award';
+
         return (
             <div className="search-results-table-section" id="results-section-table">
                 <div className="table-section-header">
                     <h2 className="visualization-title">
-                        Spending by Award
+                        Spending by {type}
                     </h2>
                 </div>
                 <hr className="results-divider" />

@@ -67,7 +67,7 @@ export default class SubawardToggle extends React.Component {
                     </g>
                 </svg>
                 <div className={`subaward-toggle__label ${subActive}`}>
-                    Sub Awards
+                    Sub-Awards
                 </div>
             </button>
         );
