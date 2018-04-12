@@ -21,9 +21,7 @@ import {
     setAppliedFilterEmptiness,
     setAppliedFilterCompletion
 } from 'redux/actions/search/appliedFilterActions';
-import {
-    clearAllFilters
-} from 'redux/actions/search/searchFilterActions';
+import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
 
