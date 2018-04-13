@@ -88,7 +88,7 @@ export default class ResultsTableSection extends React.Component {
             );
         }
 
-        const type = this.props.subaward ? 'Sub-Award' : 'Award';
+        const type = this.props.subaward ? 'Sub-Award' : 'Prime Award';
 
         return (
             <div className="search-results-table-section" id="results-section-table">
