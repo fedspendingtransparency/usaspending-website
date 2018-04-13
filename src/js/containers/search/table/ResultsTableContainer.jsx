@@ -8,32 +8,29 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, difference, intersection } from 'lodash';
+import { uniqueId, intersection } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
 
-import { awardTypeGroups } from 'dataMapping/search/awardType';
+import { awardTypeGroups, subawardTypeGroups } from 'dataMapping/search/awardType';
 
-import { availableColumns, defaultColumns, defaultSort } from
+import { defaultColumns, defaultSort } from
     'dataMapping/search/awardTableColumns';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
-import SearchActions from 'redux/actions/searchActions';
+import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 
 const propTypes = {
     filters: PropTypes.object,
-    columnVisibility: PropTypes.object,
-    toggleColumnVisibility: PropTypes.func,
-    reorderColumns: PropTypes.func,
-    populateAvailableColumns: PropTypes.func,
     setAppliedFilterCompletion: PropTypes.func,
-    noApplied: PropTypes.bool
+    noApplied: PropTypes.bool,
+    subaward: PropTypes.bool
 };
 
 const tableTypes = [
@@ -64,6 +61,19 @@ const tableTypes = [
     }
 ];
 
+const subTypes = [
+    {
+        label: 'Sub-Contracts',
+        internal: 'subcontracts',
+        enabled: true
+    },
+    {
+        label: 'Sub-Grants',
+        internal: 'subgrants',
+        enabled: true
+    }
+];
+
 export class ResultsTableContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -74,6 +84,7 @@ export class ResultsTableContainer extends React.Component {
             lastPage: true,
             counts: {},
             tableType: 'contracts',
+            columns: {},
             sort: {
                 field: 'Award Amount',
                 direction: 'desc'
@@ -89,8 +100,6 @@ export class ResultsTableContainer extends React.Component {
 
         this.switchTab = this.switchTab.bind(this);
         this.loadNextPage = this.loadNextPage.bind(this);
-        this.toggleColumnVisibility = this.toggleColumnVisibility.bind(this);
-        this.reorderColumns = this.reorderColumns.bind(this);
         this.updateSort = this.updateSort.bind(this);
     }
 
@@ -107,18 +116,56 @@ export class ResultsTableContainer extends React.Component {
             // filters changed, update the search object
             this.pickDefaultTab();
         }
-        else if (prevProps.columnVisibility[this.state.tableType].visibleOrder !==
-            this.props.columnVisibility[this.state.tableType].visibleOrder) {
-            // Visible columns have changed
-            // we don't need to reload the table columns because the Redux store is the source
-            // of truth for which columns are visible
-            if (prevProps.columnVisibility[this.state.tableType].visibleOrder.count() > 0) {
-                // if the previous visible column count was 0, then that just meant the initial
-                // column set hadn't loaded yet, we don't need to do a new search in that case (bc
-                // it means we're still loading the page)
-                this.performSearch(true);
-            }
+        else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
+            // subaward toggle changed, update the search object
+            this.pickDefaultTab();
         }
+    }
+
+    loadColumns() {
+        // in the future, this will be an API call, but for now, read the local data file
+        // load every possible table column up front, so we don't need to deal with this when
+        // switching tabs
+        const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
+            const visibleColumns = defaultColumns(type.internal);
+            const parsedColumns = {};
+            visibleColumns.forEach((title) => {
+                parsedColumns[title] = this.createColumn(title);
+            });
+
+            return Object.assign({}, cols, {
+                [type.internal]: {
+                    visibleOrder: visibleColumns,
+                    data: parsedColumns
+                }
+            });
+        }, {});
+
+        this.setState({
+            columns
+        });
+    }
+
+    createColumn(title) {
+        // create an object that integrates with the expected column data structure used by
+        // the table component
+        // const dataType = awardTableColumnTypes[title];
+        // let direction = 'asc';
+        // if (dataType === 'number' || dataType === 'currency') {
+        //     direction = 'desc';
+        // }
+
+        // BODGE: Temporarily only allow descending columns
+        const direction = 'desc';
+
+        const column = {
+            columnName: title,
+            displayName: title,
+            width: measureTableHeader(title),
+            defaultDirection: direction
+        };
+
+        return column;
     }
 
     pickDefaultTab() {
@@ -139,6 +186,7 @@ export class ResultsTableContainer extends React.Component {
 
         this.tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParams.toParams(),
+            subawards: this.props.subaward,
             auditTrail: 'Award Table - Tab Counts'
         });
 
@@ -164,9 +212,11 @@ export class ResultsTableContainer extends React.Component {
         let firstAvailable = '';
         let i = 0;
 
+        const availableTabs = this.props.subaward ? subTypes : tableTypes;
+
         // Set the first available award type to the first non-zero entry in the
-        while (firstAvailable === '' && i < tableTypes.length) {
-            const tableType = tableTypes[i].internal;
+        while (firstAvailable === '' && i < availableTabs.length) {
+            const tableType = availableTabs[i].internal;
 
             if (awardCounts[tableType] > 0) {
                 firstAvailable = tableType;
@@ -178,7 +228,7 @@ export class ResultsTableContainer extends React.Component {
         // If none of the award types are populated, set the first available tab to be the
         // first tab in the table
         if (firstAvailable === '') {
-            firstAvailable = tableTypes[0].internal;
+            firstAvailable = availableTabs[0].internal;
         }
 
         this.setState({
@@ -201,54 +251,6 @@ export class ResultsTableContainer extends React.Component {
         });
     }
 
-    loadColumns() {
-        // in the future, this will be an API call, but for now, read the local data file
-        // load every possible table column up front, so we don't need to deal with this when
-        // switching tabs
-        const columns = {};
-        tableTypes.forEach((type) => {
-            const allColumns = availableColumns(type.internal);
-            const visibleOrder = defaultColumns(type.internal);
-            const hiddenOrder = difference(allColumns, visibleOrder);
-
-            const parsedColumns = {};
-            allColumns.forEach((title) => {
-                parsedColumns[title] = this.createColumn(title);
-            });
-
-            columns[type.internal] = {
-                visibleOrder,
-                hiddenOrder,
-                data: parsedColumns
-            };
-        });
-
-        // save the values to redux
-        this.props.populateAvailableColumns(columns);
-    }
-
-    createColumn(title) {
-        // create an object that integrates with the expected column data structure used by
-        // the table component
-        // const dataType = awardTableColumnTypes[title];
-        // let direction = 'asc';
-        // if (dataType === 'number' || dataType === 'currency') {
-        //     direction = 'desc';
-        // }
-
-        // BODGE: Temporarily only allow descending columns
-        const direction = 'desc';
-
-        const column = {
-            columnName: title,
-            displayName: title,
-            width: measureTableHeader(title),
-            defaultDirection: direction
-        };
-
-        return column;
-    }
-
     performSearch(newSearch = false) {
         if (this.searchRequest) {
             // a request is currently in-flight, cancel it
@@ -263,11 +265,16 @@ export class ResultsTableContainer extends React.Component {
         // isn't populated. If it is, perform a search on the intersection of the current tab's
         // award types and the Award Type filter's content
         const searchParams = Object.assign(new SearchAwardsOperation(), this.state.searchParams);
+        // generate an array of award type codes representing the current table tab we're showing
+        // and use a different mapping if we're showing a subaward table vs a prime award table
+        const groupsFromTableType =
+            this.props.subaward ? subawardTypeGroups[tableType] : awardTypeGroups[tableType];
+
         if (this.state.searchParams.awardType.length === 0) {
-            searchParams.awardType = awardTypeGroups[tableType];
+            searchParams.awardType = groupsFromTableType;
         }
         else {
-            let intersectingTypes = intersection(awardTypeGroups[tableType],
+            let intersectingTypes = intersection(groupsFromTableType,
                 this.state.searchParams.awardType);
             if (!intersectingTypes || intersectingTypes.length === 0) {
                 // the filtered types and the table type do not align
@@ -292,10 +299,10 @@ export class ResultsTableContainer extends React.Component {
         }
         const resultLimit = 60;
 
-        const requestFields = ['Award ID'];
+        const requestFields = [];
 
         // Request fields for visible columns only
-        const columnVisibility = this.props.columnVisibility[tableType].visibleOrder;
+        const columnVisibility = this.state.columns[tableType].visibleOrder;
 
         columnVisibility.forEach((field) => {
             if (!requestFields.includes(field)) {
@@ -317,7 +324,8 @@ export class ResultsTableContainer extends React.Component {
             page: pageNumber,
             limit: resultLimit,
             sort: searchOrder.field,
-            order: sortDirection
+            order: sortDirection,
+            subawards: this.props.subaward
         };
 
         // Set the params needed for download API call
@@ -367,8 +375,8 @@ export class ResultsTableContainer extends React.Component {
         const currentSortField = this.state.sort.field;
 
         // check if the current sort field is available in the table type
-        const availableFields = this.props.columnVisibility[tab].data;
-        if (!availableFields.has(currentSortField)) {
+        const availableFields = this.state.columns[tab].data;
+        if (!{}.hasOwnProperty.call(availableFields, currentSortField)) {
             // the sort field doesn't exist, use the table type's default field
             const field = defaultSort(tab);
             const fieldType = awardTableColumnTypes[field];
@@ -410,23 +418,6 @@ export class ResultsTableContainer extends React.Component {
         }
     }
 
-    toggleColumnVisibility(column) {
-        const tableType = this.state.tableType;
-        this.props.toggleColumnVisibility({
-            column,
-            tableType
-        });
-    }
-
-    reorderColumns(dragIndex, hoverIndex) {
-        const tableType = this.state.tableType;
-        this.props.reorderColumns({
-            tableType,
-            dragIndex,
-            hoverIndex
-        });
-    }
-
     updateSort(field, direction) {
         this.setState({
             sort: {
@@ -440,22 +431,27 @@ export class ResultsTableContainer extends React.Component {
 
     render() {
         const tableType = this.state.tableType;
+        if (!this.state.columns[tableType]) {
+            return null;
+        }
+
+        const availableTypes = this.props.subaward ? subTypes : tableTypes;
+
         return (
             <ResultsTableSection
                 error={this.state.error}
                 inFlight={this.state.inFlight}
                 results={this.state.results}
-                columns={this.props.columnVisibility[tableType]}
+                columns={this.state.columns[tableType]}
                 counts={this.state.counts}
-                toggleColumnVisibility={this.toggleColumnVisibility}
-                reorderColumns={this.reorderColumns}
                 sort={this.state.sort}
-                tableTypes={tableTypes}
+                tableTypes={availableTypes}
                 currentType={tableType}
                 tableInstance={this.state.tableInstance}
                 switchTab={this.switchTab}
                 updateSort={this.updateSort}
-                loadNextPage={this.loadNextPage} />
+                loadNextPage={this.loadNextPage}
+                subaward={this.props.subaward} />
         );
     }
 }
@@ -466,7 +462,7 @@ export default connect(
     (state) => ({
         filters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        columnVisibility: state.columnVisibility
+        subaward: state.searchView.subaward
     }),
-    (dispatch) => bindActionCreators(Object.assign({}, SearchActions, appliedFilterActions), dispatch)
+    (dispatch) => bindActionCreators(Object.assign({}, searchActions, appliedFilterActions), dispatch)
 )(ResultsTableContainer);

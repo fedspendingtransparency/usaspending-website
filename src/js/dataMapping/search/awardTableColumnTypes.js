@@ -78,6 +78,13 @@ export const awardTableColumnTypes = {
     'Subcontracting Plan': 'string',
     'Issued Date': 'date',
     'Loan Value': 'currency',
-    'Subsidy Cost': 'currency'
+    'Subsidy Cost': 'currency',
+    'Sub-Award ID': 'string',
+    'Sub-Award Type': 'string',
+    'Sub-Award Date': 'date',
+    'Sub-Awardee Name': 'string',
+    'Sub-Award Amount': 'currency',
+    'Prime Award ID': 'string',
+    'Prime Recipient Name': 'string'
 };
 /* eslint-enable quote-props */

@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 import { AddFilter } from 'components/sharedComponents/icons/Icons';
 
 import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
-
-import VisualizationWrapper from './visualizations/VisualizationWrapper';
+import VisualizationWrapperContainer from 'containers/search/visualizations/VisualizationWrapperContainer';
 import MobileFilters from './mobile/MobileFilters';
 
 const propTypes = {
@@ -72,7 +71,7 @@ export default class SearchResults extends React.Component {
                 <div className="full-search-results-wrapper">
                     <TopFilterBarContainer {...this.props} />
                     <div className={`search-results ${mobileFilters}`}>
-                        <VisualizationWrapper
+                        <VisualizationWrapperContainer
                             isMobile={this.props.isMobile}
                             requestsComplete={this.props.requestsComplete}
                             noFiltersApplied={this.props.noFiltersApplied} />

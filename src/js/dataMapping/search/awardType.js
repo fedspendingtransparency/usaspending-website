@@ -39,3 +39,8 @@ export const awardTypeGroupLabels = {
     loans: 'Loans',
     other: 'Other'
 };
+
+export const subawardTypeGroups = {
+    subcontracts: awardTypeGroups.contracts,
+    subgrants: awardTypeGroups.grants
+};

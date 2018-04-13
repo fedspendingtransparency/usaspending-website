@@ -411,7 +411,8 @@ export default connect(
     (state) => ({
         filters: state.filters,
         download: state.download,
-        appliedFilters: state.appliedFilters
+        appliedFilters: state.appliedFilters,
+        subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(Object.assign({}, searchHashActions, {
         clearAllFilters,

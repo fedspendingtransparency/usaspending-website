@@ -6,10 +6,6 @@
         margin-top: 0;
     }
 
-    .visualization-tab-wrapper {
-        position: relative;
-    }
-
     .visualization-content-wrapper {
         position: relative;
         // position the tabs 5px higher than default in order to cover up the border radius and
@@ -18,7 +14,23 @@
     }
 
 }
+
 .visualization-tabs {
+    position: relative;
+    @include display(flex);
+    @include justify-content(space-between);
+    @include align-items(flex-end);
+}
+
+.visualization-tabs__toggle {
+    @include flex(0 0 auto);
+    @include align-self(center);
+
+    @import './_subawardToggle';
+}
+
+.visualization-tabs__list {
+    @include flex(1 1 auto);
     @include unstyled-list;
 
     @include display(flex);

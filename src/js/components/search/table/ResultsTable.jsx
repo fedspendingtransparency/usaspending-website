@@ -47,9 +47,9 @@ export default class ResultsTable extends React.Component {
     }
 
     headerCellRender(columnIndex) {
-        const columnId = this.props.columns.visibleOrder.get(columnIndex);
-        const column = this.props.columns.data.get(columnId);
-        const isLast = (columnIndex + 1) === this.props.columns.visibleOrder.count();
+        const columnId = this.props.columns.visibleOrder[columnIndex];
+        const column = this.props.columns.data[columnId];
+        const isLast = (columnIndex + 1) === this.props.columns.visibleOrder.length;
         const isActive = this.props.sort.field === column.columnName;
         return (
             <ResultsTableHeaderCell
@@ -63,8 +63,8 @@ export default class ResultsTable extends React.Component {
     }
 
     bodyCellRender(columnIndex, rowIndex) {
-        const columnId = this.props.columns.visibleOrder.get(columnIndex);
-        const column = this.props.columns.data.get(columnId);
+        const columnId = this.props.columns.visibleOrder[columnIndex];
+        const column = this.props.columns.data[columnId];
         let cellClass = ResultsTableFormattedCell;
         const props = {
             rowIndex,
@@ -87,9 +87,9 @@ export default class ResultsTable extends React.Component {
     prepareTable() {
         let totalWidth = 0;
 
-        const columnOrder = this.props.columns.visibleOrder.toJS();
+        const columnOrder = this.props.columns.visibleOrder;
         const columns = columnOrder.map((columnTitle) => {
-            const column = this.props.columns.data.get(columnTitle);
+            const column = this.props.columns.data[columnTitle];
             const columnX = totalWidth;
             totalWidth += column.width;
 

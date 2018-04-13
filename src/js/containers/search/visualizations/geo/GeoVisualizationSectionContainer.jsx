@@ -26,7 +26,8 @@ const propTypes = {
     reduxFilters: PropTypes.object,
     resultsMeta: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
-    noApplied: PropTypes.bool
+    noApplied: PropTypes.bool,
+    subaward: PropTypes.bool
 };
 
 const apiScopes = {
@@ -93,6 +94,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) && !this.props.noApplied) {
+            this.prepareFetch(true);
+        }
+        else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
+            // subaward toggle changed, update the search object
             this.prepareFetch(true);
         }
     }
@@ -206,6 +211,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             geo_layer: apiScopes[this.state.mapLayer],
             geo_layer_filters: this.state.visibleEntities,
             filters: searchParams,
+            subawards: this.props.subaward,
             auditTrail: 'Map Visualization'
         };
 
@@ -299,7 +305,8 @@ GeoVisualizationSectionContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         reduxFilters: state.appliedFilters.filters,
-        noApplied: state.appliedFilters._empty
+        noApplied: state.appliedFilters._empty,
+        subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(Object.assign({}, searchFilterActions, {
         setAppliedFilterCompletion
