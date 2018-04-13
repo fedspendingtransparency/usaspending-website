@@ -8,16 +8,15 @@
 
     .subaward-toggle__label {
         font-size: $small-font-size;
-        color: #9EA0A6;
-        // use a 1px offset to deal with the text width difference due to bold vs not bold text
+        color: #494E58;
+        // use a 2px offset to deal with the text width difference due to bold vs not bold text
         margin: 0 0 0 2px;
         &:first-child {
-            margin: 0 1px 0 0;
+            margin: 0 2px 0 0;
         }
 
         &.subaward-toggle__label_active {
             font-weight: $font-semibold;
-            color: #494E58;
             margin: 0;
         }
     }
@@ -29,10 +28,6 @@
         fill: #0074BE;
         box-shadow: inset 0 0 1px 1px rgba(0,0,0,0.31), 0 2px 2px 0 rgba(0,0,0,0.5);
         @include transition(fill 200ms);
-
-        &.subaward-switch__track_inactive {
-            fill: $color-gray-light;
-        }
     }
 
     .subaward-switch__switch {

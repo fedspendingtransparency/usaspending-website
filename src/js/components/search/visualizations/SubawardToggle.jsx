@@ -25,7 +25,6 @@ export default class SubawardToggle extends React.Component {
     render() {
         const primeActive = this.props.subaward ? '' : 'subaward-toggle__label_active';
         const subActive = this.props.subaward ? 'subaward-toggle__label_active' : '';
-        const trackClass = this.props.subaward ? 'subaward-switch__track_inactive' : '';
         const switchPosition = this.props.subaward ? 'translate(30 0)' : 'translate(9 0)';
         const currentSelection = this.props.subaward ? 'Sub-Awards' : 'Prime Awards';
         return (
@@ -53,7 +52,7 @@ export default class SubawardToggle extends React.Component {
                         className="subaward-switch__graphic"
                         transform="translate(4 2)">
                         <rect
-                            className={`subaward-switch__track ${trackClass}`}
+                            className="subaward-switch__track"
                             width="40"
                             height="20"
                             rx="10"
