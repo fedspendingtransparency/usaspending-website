@@ -95,6 +95,11 @@ export const awardDownloadOptions = {
                 label: 'last 30 days',
                 startDate: moment().subtract(30, 'day').format('YYYY-MM-DD'),
                 endDate: moment().format('YYYY-MM-DD')
+            },
+            {
+                label: 'last 60 days',
+                startDate: moment().subtract(60, 'day').format('YYYY-MM-DD'),
+                endDate: moment().format('YYYY-MM-DD')
             }
         ],
         column4: [
