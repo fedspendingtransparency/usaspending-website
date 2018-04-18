@@ -1,0 +1,40 @@
+.subaward-toggle {
+    @include button-unstyled;
+    @include display(flex);
+    @include justify-content(flex-end);
+    @include align-items(center);
+    color: $color-base;
+    padding: 0 rem(2);
+
+    .subaward-toggle__label {
+        font-size: $small-font-size;
+        color: #494E58;
+        // use a 2px offset to deal with the text width difference due to bold vs not bold text
+        margin: 0 0 0 2px;
+        &:first-child {
+            margin: 0 2px 0 0;
+        }
+
+        &.subaward-toggle__label_active {
+            font-weight: $font-semibold;
+            margin: 0;
+        }
+    }
+}
+
+.subaward-switch {
+    margin: 0 rem(12);
+    .subaward-switch__track {
+        fill: #0074BE;
+        box-shadow: inset 0 0 1px 1px rgba(0,0,0,0.31), 0 2px 2px 0 rgba(0,0,0,0.5);
+        @include transition(fill 200ms);
+    }
+
+    .subaward-switch__switch {
+        @include transition(transform 200ms);
+    }
+
+    .subaward-switch__switch-fill {
+        fill: #FFFFFF;
+    }
+}

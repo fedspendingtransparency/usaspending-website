@@ -77,7 +77,13 @@ const contractColumns = [
     'Price Evaluation Adjustment Preference Percent Difference',
     'Program Acronym',
     'Purchase Card as Payment Method',
-    'Subcontracting Plan'
+    'Subcontracting Plan',
+    'Sub-Award ID',
+    'Sub-Awardee Name',
+    'Sub-Award Date',
+    'Sub-Award Amount',
+    'Prime Award ID',
+    'Prime Recipient Name'
 ];
 
 const grantColumns = [
@@ -129,6 +135,18 @@ const otherColumns = [
     'Award Type',
     'Funding Agency',
     'Funding Sub Agency'
+];
+
+const subawardColumns = [
+    'Subaward ID',
+    'Subaward Type',
+    'Subawardee Name',
+    'Subaward Date',
+    'Subaward Amount',
+    'Awarding Agency',
+    'Awarding Sub Agency',
+    'Prime Award ID',
+    'Prime Recipient Name'
 ];
 
 const defaultContract = [
@@ -186,13 +204,26 @@ const defaultOther = [
     'Award Type'
 ];
 
+const defaultSub = [
+    'Sub-Award ID',
+    'Sub-Awardee Name',
+    'Sub-Award Date',
+    'Sub-Award Amount',
+    'Awarding Agency',
+    'Awarding Sub Agency',
+    'Prime Award ID',
+    'Prime Recipient Name'
+];
+
 export const availableColumns = (type) => {
     const columns = {
         contracts: contractColumns,
         grants: grantColumns,
         direct_payments: directPaymentColumns,
         loans: loanColumns,
-        other: otherColumns
+        other: otherColumns,
+        subcontracts: subawardColumns,
+        subgrants: subawardColumns
     };
 
     return columns[type];
@@ -204,7 +235,9 @@ export const defaultColumns = (type) => {
         grants: defaultGrant,
         direct_payments: defaultDirectPayment,
         loans: defaultLoan,
-        other: defaultOther
+        other: defaultOther,
+        subcontracts: defaultSub,
+        subgrants: defaultSub
     };
 
     return columns[type];
@@ -216,7 +249,9 @@ export const defaultSort = (type) => {
         grants: 'Award Amount',
         direct_payments: 'Award Amount',
         loans: 'Loan Value',
-        other: 'Award Amount'
+        other: 'Award Amount',
+        subcontracts: 'Sub-Award Amount',
+        subgrants: 'Sub-Award Amount'
     };
 
     return columns[type];

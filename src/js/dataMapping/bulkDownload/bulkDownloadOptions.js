@@ -77,11 +77,6 @@ export const awardDownloadOptions = {
     dateRangeButtons: {
         column3: [
             {
-                label: 'today',
-                startDate: moment().format('YYYY-MM-DD'),
-                endDate: moment().format('YYYY-MM-DD')
-            },
-            {
                 label: 'yesterday',
                 startDate: moment().subtract(1, 'day').format('YYYY-MM-DD'),
                 endDate: moment().subtract(1, 'day').format('YYYY-MM-DD')
@@ -99,6 +94,11 @@ export const awardDownloadOptions = {
             {
                 label: 'last 30 days',
                 startDate: moment().subtract(30, 'day').format('YYYY-MM-DD'),
+                endDate: moment().format('YYYY-MM-DD')
+            },
+            {
+                label: 'last 60 days',
+                startDate: moment().subtract(60, 'day').format('YYYY-MM-DD'),
                 endDate: moment().format('YYYY-MM-DD')
             }
         ],

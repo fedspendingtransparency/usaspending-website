@@ -252,6 +252,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);
         }
+
         default:
             return state;
     }

@@ -29,7 +29,8 @@ const combinedActions = Object.assign({}, searchFilterActions, {
 const propTypes = {
     reduxFilters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
-    noApplied: PropTypes.bool
+    noApplied: PropTypes.bool,
+    subaward: PropTypes.bool
 };
 
 const logPeriodEvent = (period) => {
@@ -63,6 +64,10 @@ export class TimeVisualizationSectionContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) && !this.props.noApplied) {
+            this.fetchData();
+        }
+        else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
+            // subaward toggle changed, update the search object
             this.fetchData();
         }
     }
@@ -100,7 +105,8 @@ export class TimeVisualizationSectionContainer extends React.Component {
         // Generate the API parameters
         const apiParams = {
             group: this.state.visualizationPeriod,
-            filters: searchParams
+            filters: searchParams,
+            subawards: this.props.subaward
         };
 
         if (auditTrail) {
@@ -207,7 +213,8 @@ TimeVisualizationSectionContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         reduxFilters: state.appliedFilters.filters,
-        noApplied: state.appliedFilters._empty
+        noApplied: state.appliedFilters._empty,
+        subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(TimeVisualizationSectionContainer);
