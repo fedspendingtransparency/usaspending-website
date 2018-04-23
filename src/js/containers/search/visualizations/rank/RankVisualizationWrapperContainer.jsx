@@ -24,7 +24,9 @@ import RankVisualizationTitle from 'components/search/visualizations/rank/RankVi
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 const propTypes = {
-    reduxFilters: PropTypes.object
+    reduxFilters: PropTypes.object,
+    noApplied: PropTypes.bool,
+    subaward: PropTypes.bool
 };
 
 export class RankVisualizationWrapperContainer extends React.Component {
@@ -79,7 +81,9 @@ RankVisualizationWrapperContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        reduxFilters: state.filters
+        reduxFilters: state.appliedFilters.filters,
+        noApplied: state.appliedFilters._empty,
+        subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(RankVisualizationWrapperContainer);

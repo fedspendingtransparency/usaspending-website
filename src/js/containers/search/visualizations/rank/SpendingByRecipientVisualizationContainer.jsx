@@ -22,7 +22,8 @@ import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
-    meta: PropTypes.object
+    noApplied: PropTypes.bool,
+    subaward: PropTypes.bool
 };
 
 export class SpendingByRecipientVisualizationContainer extends React.Component {
@@ -54,7 +55,11 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters)) {
+        if (!isEqual(prevProps.reduxFilters, this.props.reduxFilters) && !this.props.noApplied) {
+            this.newSearch();
+        }
+        else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
+            // subaward toggle changed, update the search object
             this.newSearch();
         }
     }
@@ -181,7 +186,6 @@ ${MoneyFormatter.formatMoney(parseFloat(aggregate))}`;
         return (
             <SpendingByRecipientSection
                 {...this.state}
-                meta={this.props.meta}
                 changeScope={this.changeScope}
                 nextPage={this.nextPage}
                 previousPage={this.previousPage} />
@@ -193,8 +197,9 @@ SpendingByRecipientVisualizationContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        reduxFilters: state.filters,
-        meta: state.resultsMeta.toJS()
+        reduxFilters: state.appliedFilters.filters,
+        noApplied: state.appliedFilters._empty,
+        subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(SpendingByRecipientVisualizationContainer);
