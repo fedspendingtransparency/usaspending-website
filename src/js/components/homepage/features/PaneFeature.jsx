@@ -13,14 +13,18 @@ const PaneFeature = () => (
                 <div className="feature-pane__content">
                     <p className="feature-pane__content-title">Discover the Data Lab</p>
                     <p>Data visualizations to help you understand government spending. See what our data can do.</p>
-                    <button className="feature-pane__button">Visit the Data Lab</button>
+                    <div className="feature-pane__button-wrapper">
+                        <a href="https://datalab.usaspending.gov/" className="feature-pane__button">Visit the Data Lab</a>
+                    </div>
                 </div>
                 <div className="feature-pane__content-divider" />
                 <hr className="feature-pane_mobile_content_divider" />
                 <div className="feature-pane__content">
                     <p className="feature-pane__content-title">Tour the New USAspending.gov</p>
                     <p>We have a new look with more data than ever before. Take a quick tour of the new site.</p>
-                    <button className="feature-pane__button">Watch the Video</button>
+                    <div className="feature-pane__button-wrapper">
+                        <a href="https://www.youtube.com/watch?v=kaVhkZd3S5w" className="feature-pane__button">Watch the Video</a>
+                    </div>
                 </div>
                 <hr className="feature-pane_mobile_content_divider" />
                 <div className="feature-pane__content-divider" />
@@ -28,7 +32,7 @@ const PaneFeature = () => (
                     <p className="feature-pane__content-title">Stay in touch with us!</p>
                     <p>Receive updates on our new site. We will provide release notes and API updates, as well as share opportunities to engage with us.</p>
                     <div className="feature-pane__button-wrapper">
-                        <button className="feature-pane__button">Sign Up</button>
+                        <a href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates." className="feature-pane__button">Sign Up</a>
                     </div>
                 </div>
             </div>
