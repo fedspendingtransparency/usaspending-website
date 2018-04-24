@@ -14,7 +14,7 @@ const PaneFeature = () => (
                     <p className="feature-pane__content-title">Discover the Data Lab</p>
                     <p>Data visualizations to help you understand government spending. See what our data can do.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="https://datalab.usaspending.gov/" className="feature-pane__button">Visit the Data Lab</a>
+                        <a href="https://datalab.usaspending.gov/" target="_blank" rel="noopener noreferrer" className="feature-pane__button">Visit the Data Lab</a>
                     </div>
                 </div>
                 <div className="feature-pane__content-divider" />
@@ -23,7 +23,7 @@ const PaneFeature = () => (
                     <p className="feature-pane__content-title">Tour the New USAspending.gov</p>
                     <p>We have a new look with more data than ever before. Take a quick tour of the new site.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="https://www.youtube.com/watch?v=kaVhkZd3S5w" className="feature-pane__button">Watch the Video</a>
+                        <a href="https://www.youtube.com/watch?v=kaVhkZd3S5w" target="_blank" rel="noopener noreferrer" className="feature-pane__button">Watch the Video</a>
                     </div>
                 </div>
                 <hr className="feature-pane_mobile_content_divider" />

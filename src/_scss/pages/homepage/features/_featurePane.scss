@@ -74,6 +74,7 @@
         display: block;
         width: 100%;
         margin-top: rem(30);
+        border: 1px solid rgb(214,215,217);
         @include media($medium-screen) {
             display: none;
         }
@@ -83,7 +84,23 @@
         color: #0071BC;
         background-color: transparent;
         border: 1px solid #0071BC;
-        padding: rem(10);
+        padding: rem(10) rem(20) rem(10) rem(20);
+        text-decoration: none;
+
+        &:hover {
+            box-shadow: inset 0 0 0 2px #205493;
+            color: #205493;
+        }
+
+        &:active {
+            box-shadow: inset 0 0 0 2px #112e51;
+            color: #112e51;
+        }
+
+        &:focus {
+            outline: 2px dotted #aeb0b5;
+            outline-offset: 3px;
+        }
     }
 
 }
