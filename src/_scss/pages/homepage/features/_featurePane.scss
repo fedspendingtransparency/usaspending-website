@@ -42,6 +42,10 @@
             max-width: 32%;
         }
     }
+
+    .feature-pane__content-text {
+       margin: 0 0 rem(20) 0;
+    }
     
     .feature-pane__content-divider {
         display: none;
@@ -59,6 +63,7 @@
         font-weight: bold;
         text-align: center;
         color: #5B616B;
+        margin: 0;
     } 
 
     .feature-pane__button-wrapper {
