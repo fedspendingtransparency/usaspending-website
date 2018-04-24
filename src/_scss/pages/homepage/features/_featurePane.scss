@@ -12,7 +12,7 @@
     .feature-pane__title {
         width: 100%; 
         text-align: center; 
-        border-bottom: 1px solid rgb(214,215,217);
+        border: 1px solid rgba(214,215,217,0.4);
         line-height: rem(0.1);
         font-size: rem(16);
         margin: 10px 0  20px;
@@ -67,14 +67,14 @@
     }
     
     .feature-pane__bottom-divider {
-        border: 1px solid rgb(214,215,217);
+        border: 1px solid rgba(214,215,217,0.4);
     }
 
     .feature-pane_mobile_content_divider {
         display: block;
         width: 100%;
         margin-top: rem(30);
-        border: 1px solid rgb(214,215,217);
+        border: 1px solid rgba(214,215,217,0.4);
         @include media($medium-screen) {
             display: none;
         }
