@@ -132,6 +132,10 @@ export class BulkDownloadPageContainer extends React.Component {
         logAwardDownload(this.props.bulkDownload.awards);
     }
 
+    startAccountDownload() {
+        console.log('start account download');
+    }
+
     requestDownload(params, type) {
         if (this.request) {
             this.request.cancel();
@@ -171,7 +175,8 @@ export class BulkDownloadPageContainer extends React.Component {
             <BulkDownloadPage
                 bulkDownload={this.props.bulkDownload}
                 dataType={this.props.bulkDownload.dataType}
-                startDownload={this.startAwardDownload}
+                startAwardDownload={this.startAwardDownload}
+                startAccountDownload={this.startAccountDownload}
                 dataTypes={downloadOptions} />
         );
     }

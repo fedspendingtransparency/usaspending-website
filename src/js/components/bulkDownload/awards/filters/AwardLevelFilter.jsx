@@ -11,7 +11,7 @@ import DownloadCheckbox from '../../DownloadCheckbox';
 const propTypes = {
     awardLevels: PropTypes.array,
     currentAwardLevels: PropTypes.object,
-    updateAwardCheckbox: PropTypes.func
+    updateCheckbox: PropTypes.func
 };
 
 export default class AwardLevelFilter extends React.Component {
@@ -22,10 +22,11 @@ export default class AwardLevelFilter extends React.Component {
     }
 
     onChange(name, value) {
-        this.props.updateAwardCheckbox({
+        this.props.updateCheckbox({
             filter: 'awardLevels',
             name,
-            value
+            value,
+            dataType: 'awards'
         });
     }
 
@@ -61,7 +62,7 @@ export default class AwardLevelFilter extends React.Component {
         return (
             <div className="download-filter">
                 <div className="download-filter__title">
-                    {icon} Select the <span className="download-center-filter__title_em">award level</span> to include.
+                    {icon} Select the <span className="download-filter__title_em">award level</span> to include.
                 </div>
                 <div className="download-filter__content">
                     {awardLevels}

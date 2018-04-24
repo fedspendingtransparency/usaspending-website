@@ -4,7 +4,7 @@
  **/
 
 export const initialState = {
-    dataType: 'awards',
+    dataType: '',
     awards: {
         awardLevels: {
             primeAwards: false,
@@ -43,6 +43,17 @@ export const initialState = {
         columns: [],
         fileFormat: 'csv'
     },
+    accounts: {
+        accountLevel: 'treasury_account',
+        agency: {
+            id: '',
+            name: 'Select an Agency'
+        },
+        submissionType: 'account_balances',
+        fy: 0,
+        quarter: 0,
+        fileFormat: 'csv'
+    },
     download: {
         expectedFile: '',
         expectedUrl: '',
@@ -58,17 +69,17 @@ const bulkDownloadReducer = (state = initialState, action) => {
                 dataType: action.dataType
             });
         }
-        case 'UPDATE_AWARD_CHECKBOX': {
+        case 'UPDATE_CHECKBOX': {
             const filter = Object.assign({}, state.awards[action.filter], {
                 [action.name]: action.value
             });
 
-            const awards = Object.assign({}, state.awards, {
+            const dataType = Object.assign({}, state[action.dataType], {
                 [action.filter]: filter
             });
 
             return Object.assign({}, state, {
-                awards
+                [action.dataType]: dataType
             });
         }
         case 'UPDATE_DOWNLOAD_FILTER': {

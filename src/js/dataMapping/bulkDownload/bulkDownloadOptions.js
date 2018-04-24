@@ -131,3 +131,51 @@ export const awardDownloadOptions = {
         ]
     }
 };
+
+export const accountDownloadOptions = {
+    accountLevels: [
+        {
+            name: 'federalAccount',
+            label: 'Federal Account',
+            apiName: 'federal_account',
+            disabled: true
+        },
+        {
+            name: 'treasuryAccount',
+            label: 'Treasury Account',
+            apiName: 'treasury_account',
+            disabled: false
+        }
+    ],
+    submissionTypes: [
+        {
+            name: 'accountBalances',
+            label: 'Account Balances',
+            apiName: 'account_balances',
+            file: 'File A'
+        },
+        {
+            name: 'accountBreakdown',
+            label: 'Account Breakdown by Program Activity and Object Class',
+            apiName: 'object_class_program_activity',
+            file: 'File B'
+        }
+    ],
+    fileFormats: [
+        {
+            name: 'csv',
+            label: 'CSV',
+            disabled: false
+        },
+        {
+            name: 'tsv',
+            label: 'TSV',
+            disabled: true
+        },
+        {
+            name: 'xml',
+            label: 'XML',
+            disabled: true
+        }
+    ]
+};

@@ -21,7 +21,7 @@ import SubmitButton from './SubmitButton';
 
 const propTypes = {
     awards: PropTypes.object,
-    updateAwardCheckbox: PropTypes.func,
+    updateCheckbox: PropTypes.func,
     updateFilter: PropTypes.func,
     updateStartDate: PropTypes.func,
     updateEndDate: PropTypes.func,
@@ -122,11 +122,11 @@ export default class AwardDataContent extends React.Component {
                         <AwardLevelFilter
                             awardLevels={awardDownloadOptions.awardLevels}
                             currentAwardLevels={awards.awardLevels}
-                            updateAwardCheckbox={this.props.updateAwardCheckbox} />
+                            updateCheckbox={this.props.updateCheckbox} />
                         <AwardTypeFilter
                             awardTypes={awardDownloadOptions.awardTypes}
                             currentAwardTypes={awards.awardTypes}
-                            updateAwardCheckbox={this.props.updateAwardCheckbox} />
+                            updateCheckbox={this.props.updateCheckbox} />
                         <AgencyFilter
                             agencies={this.props.agencies}
                             subAgencies={this.props.subAgencies}
