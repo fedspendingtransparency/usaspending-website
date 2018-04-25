@@ -10,42 +10,54 @@
     }
 
     .feature-pane__title {
-        width: 100%; 
-        text-align: center; 
-        border: 1px solid rgba(214,215,217,0.4);
-        line-height: rem(0.1);
+        @include display(flex);
+        @include justify-content(center);
+        text-align: center;
         font-size: rem(16);
-        margin: 10px 0  20px;
+        margin: 0;
+        padding: 0;
         color: #717171;
+        text-transform: uppercase;
 
-        & span {
-            background:#fff; 
-            padding:0 10px; 
+        &::before, &::after {
+            background-color: rgba(214,215,217,0.4);
+            content: '\a0';
+            @include flex(1 0 0);
+            height: 2px;
+            position: relative;
+            top: rem(26);
+        }
+
+        &::before {
+            margin-right: 15px;
+        }
+
+        &::after {
+            margin-left: 15px;
         }
     }
 
     .feature-pane__content-wrapper {
-        display: flex;
-        justify-content: space-around;
+        @include display(flex);
+        @include justify-content(space-around);
         margin-bottom: rem(20);
-        flex-wrap: wrap;
+        @include flex-wrap(wrap);
     }
 
     .feature-pane__content {
-        flex-basis: 100%;
+        @include flex(0 0 100%);
         text-align: center;
         font-size: rem(14);
         line-height: rem(17);
 
         @include media($medium-screen) {
-            flex-basis: 30%;
+            @include flex(0 0 30%);
             max-width: 30%;
         }
     }
 
     .feature-pane__content-text {
-       margin: 0 0 rem(20) 0;
-       min-height: rem(50);
+        min-height: rem(50);
     }
     
     .feature-pane__content-divider {
@@ -70,15 +82,16 @@
     } 
 
     .feature-pane__button-wrapper {
-        display: flex;
-        justify-content: center;
+        @include display(flex);
+        @include justify-content(center);
+        margin: rem(20) 0 0 0;
     }
     
     .feature-pane__bottom-divider {
         border: 1px solid rgba(214,215,217,0.4);
     }
 
-    .feature-pane_mobile_content_divider {
+    .feature-pane__mobile-content-divider {
         display: block;
         width: 100%;
         margin-top: rem(30);
