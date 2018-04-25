@@ -12,7 +12,9 @@ const PaneFeature = () => (
             <div className="feature-pane__content-wrapper">
                 <div className="feature-pane__content">
                     <h2 className="feature-pane__content-title">Discover the Data Lab</h2>
-                    <p className="feature-pane__content-text">Data visualizations to help you understand government spending. See what our data can do.</p>
+                    <div className="feature-pane_content-text">
+                        <p>Data visualizations to help you understand government spending. See what our data can do.</p>
+                    </div>
                     <div className="feature-pane__button-wrapper">
                         <a href="https://datalab.usaspending.gov/" target="_blank" rel="noopener noreferrer" className="feature-pane__button">Visit the Data Lab</a>
                     </div>
@@ -21,7 +23,9 @@ const PaneFeature = () => (
                 <hr className="feature-pane_mobile_content_divider" />
                 <div className="feature-pane__content">
                     <h2 className="feature-pane__content-title">Tour the New USAspending.gov</h2>
-                    <p className="feature-pane__content-text">We have a new look with more data than ever before. Take a quick tour of the new site.</p>
+                    <div className="feature-pane_content-text">
+                        <p>We have a new look with more data than ever before. Take a quick tour of the new site.</p>
+                    </div>
                     <div className="feature-pane__button-wrapper">
                         <a href="https://www.youtube.com/watch?v=kaVhkZd3S5w" target="_blank" rel="noopener noreferrer" className="feature-pane__button">Watch the Video</a>
                     </div>
@@ -30,7 +34,9 @@ const PaneFeature = () => (
                 <div className="feature-pane__content-divider" />
                 <div className="feature-pane__content">
                     <h2 className="feature-pane__content-title">Stay in touch with us!</h2>
-                    <p className="feature-pane__content-text">Receive updates on our new site. We will provide release notes and API updates, as well as share opportunities to engage with us.</p>
+                    <div className="feature-pane_content-text">
+                        <p>Receive updates on our new site. We will provide release notes and API updates, as well as share opportunities to engage with us.</p>
+                    </div>
                     <div className="feature-pane__button-wrapper">
                         <a href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates." className="feature-pane__button">Sign Up</a>
                     </div>
