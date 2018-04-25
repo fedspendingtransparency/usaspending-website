@@ -3,6 +3,11 @@
  * Created by Lizzie Salita 10/31/17
  **/
 
+import { defaultQuarters } from 'containers/explorer/detail/helpers/explorerQuarters';
+
+
+const initialQuarters = defaultQuarters();
+
 export const initialState = {
     dataType: '',
     awards: {
@@ -50,8 +55,8 @@ export const initialState = {
             name: 'Select an Agency'
         },
         submissionType: 'account_balances',
-        fy: 0,
-        quarter: 0,
+        fy: `${initialQuarters.year}`,
+        quarter: `${Math.max(...initialQuarters.quarters)}`,
         fileFormat: 'csv'
     },
     download: {

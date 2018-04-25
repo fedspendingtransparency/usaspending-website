@@ -10,6 +10,7 @@ import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOpt
 
 import AgencyFilter from './filters/AgencyFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
+import FiscalYearFilter from './filters/FiscalYearFilter';
 import FileFormatFilter from '../awards/filters/FileFormatFilter';
 
 const propTypes = {
@@ -48,7 +49,6 @@ export default class AccountDataContent extends React.Component {
     }
 
     validateForm(accounts) {
-        console.log(accounts);
         const validForm = (
             (accounts.agency.id !== '')
             && (accounts.submissionType !== '')
@@ -78,6 +78,11 @@ export default class AccountDataContent extends React.Component {
                             currentSubmissionType={accounts.submissionType}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.submissionType !== ''} />
+                        <FiscalYearFilter
+                            currentFy={accounts.fy}
+                            currentQuarter={accounts.quarter}
+                            updateFilter={this.props.updateFilter}
+                            valid={accounts.fy && accounts.quarter} />
                         <FileFormatFilter
                             fileFormats={accountDownloadOptions.fileFormats}
                             currentFileFormat={accounts.fileFormat}

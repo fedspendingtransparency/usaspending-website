@@ -30,6 +30,9 @@
         }
         .download-filter__content {
             padding-left: rem(40);
+            .download-filter__fy {
+                @import "fyPicker";
+            }
         }
         .download-checkbox {
             padding: rem(10) 0;

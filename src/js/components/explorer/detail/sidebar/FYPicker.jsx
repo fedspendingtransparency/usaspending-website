@@ -46,7 +46,8 @@ export default class FYPicker extends React.Component {
         });
     }
 
-    toggleList() {
+    toggleList(e) {
+        e.preventDefault();
         this.setState({
             expanded: !this.state.expanded
         }, () => {
@@ -62,6 +63,7 @@ export default class FYPicker extends React.Component {
     }
 
     clickedYear(e) {
+        e.preventDefault();
         this.props.pickedYear(e.target.value);
         this.setState({
             expanded: false
