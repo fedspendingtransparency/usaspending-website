@@ -162,7 +162,8 @@ export default class AwardDataContent extends React.Component {
                         <SubmitButton
                             filters={awards}
                             validForm={this.state.validForm}
-                            validDates={this.state.validDates} />
+                            validDates={this.state.validDates}
+                            dataType="awards" />
                     </form>
                     <button className="download-center__reset" onClick={this.resetForm}>
                         Reset form and start over

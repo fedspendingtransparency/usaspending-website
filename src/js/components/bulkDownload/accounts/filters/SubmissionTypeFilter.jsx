@@ -47,14 +47,14 @@ export default class SubmissionTypeFilter extends React.Component {
                 key={type.name}>
                 <input
                     type="radio"
-                    value={type.apiName}
+                    value={type.name}
                     name="submission-type"
-                    checked={this.props.currentSubmissionType === type.apiName}
+                    checked={this.props.currentSubmissionType === type.name}
                     onChange={this.onChange} />
                 <label
                     className="radio-label"
                     htmlFor="submission-type">
-                    {type.label}<span className="radio-label__file">&nbsp;({type.file})</span>
+                    {type.label}<span className="radio-label__subtext"> {type.file}</span>
                 </label>
             </div>
         ));

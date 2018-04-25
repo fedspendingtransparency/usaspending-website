@@ -49,12 +49,12 @@ export const initialState = {
         fileFormat: 'csv'
     },
     accounts: {
-        accountLevel: 'treasury_account',
+        accountLevel: 'treasuryAccount',
         agency: {
             id: '',
             name: 'Select an Agency'
         },
-        submissionType: 'account_balances',
+        submissionType: 'accountBalances',
         fy: `${initialQuarters.year}`,
         quarter: `${Math.max(...initialQuarters.quarters)}`,
         fileFormat: 'csv'

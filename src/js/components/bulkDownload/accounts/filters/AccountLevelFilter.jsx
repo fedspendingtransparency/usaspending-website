@@ -47,9 +47,9 @@ export default class AccountLevelFilter extends React.Component {
                 key={level.name}>
                 <input
                     type="radio"
-                    value={level.apiName}
+                    value={level.name}
                     name="account-level"
-                    checked={this.props.currentAccountLevel === level.apiName}
+                    checked={this.props.currentAccountLevel === level.name}
                     onChange={this.onChange}
                     disabled={level.disabled} />
                 <label

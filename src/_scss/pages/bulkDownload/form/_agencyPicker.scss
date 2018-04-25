@@ -12,7 +12,6 @@
         display: block;
         clear: both;
         margin-bottom: rem(30);
-        width: 100%;
         .selected-button {
             @include display(flex);
             @include justify-content(center);

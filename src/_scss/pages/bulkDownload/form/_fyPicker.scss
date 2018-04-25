@@ -92,8 +92,6 @@
         @include align-items(center);
         @include flex(1 1 auto);
 
-        margin-top: rem(15);
-
         li.quarter-picker__list-item {
             margin-right: rem(1);
 

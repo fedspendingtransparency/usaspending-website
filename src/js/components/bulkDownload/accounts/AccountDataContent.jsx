@@ -11,7 +11,8 @@ import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOpt
 import AgencyFilter from './filters/AgencyFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
-import FileFormatFilter from '../awards/filters/FileFormatFilter';
+import UserSelections from './UserSelections';
+import SubmitButton from '../awards/SubmitButton';
 
 const propTypes = {
     accounts: PropTypes.object,
@@ -52,6 +53,8 @@ export default class AccountDataContent extends React.Component {
         const validForm = (
             (accounts.agency.id !== '')
             && (accounts.submissionType !== '')
+            && (accounts.fy !== '')
+            && (accounts.quarter !== '')
         );
 
         this.setState({
@@ -83,11 +86,13 @@ export default class AccountDataContent extends React.Component {
                             currentQuarter={accounts.quarter}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.fy && accounts.quarter} />
-                        <FileFormatFilter
-                            fileFormats={accountDownloadOptions.fileFormats}
-                            currentFileFormat={accounts.fileFormat}
-                            updateFilter={this.props.updateFilter}
-                            valid={accounts.fileFormat !== ''} />
+                        <UserSelections
+                            accounts={accounts} />
+                        <SubmitButton
+                            validForm={this.state.validForm}
+                            filters={accounts}
+                            validDates
+                            dataType="accounts" />
                     </form>
                     <button className="download-center__reset" onClick={this.resetForm}>
                         Reset form and start over
