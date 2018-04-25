@@ -7,7 +7,7 @@ import { combineReducers } from 'redux';
 
 import filtersReducer from './search/searchFiltersReducer';
 import appliedFiltersReducer from './search/appliedFiltersReducer';
-import columnVisibilityReducer from './search/columnVisibilityReducer';
+import searchViewReducer from './search/searchViewReducer';
 import awardReducer from './award/awardReducer';
 import accountReducer from './account/accountReducer';
 import agencyReducer from './agency/agencyReducer';
@@ -21,7 +21,7 @@ import redirectModalReducer from './redirectModal/redirectModalReducer';
 const appReducer = combineReducers({
     filters: filtersReducer,
     appliedFilters: appliedFiltersReducer,
-    columnVisibility: columnVisibilityReducer,
+    searchView: searchViewReducer,
     download: downloadReducer,
     award: awardReducer,
     account: accountReducer,

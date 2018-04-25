@@ -16,41 +16,26 @@ import GeoVisualizationSectionContainer from
 import RankVisualizationWrapperContainer from
     'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
 
+import { tabOptions } from 'dataMapping/search/searchViewTabs';
+
 import NoFiltersScreen from './screens/NoFiltersScreen';
 
 import VisualizationTabItem from './VisualizationTabItem';
-
-const tabOptions = [
-    {
-        code: 'table',
-        label: 'Table',
-        icon: 'Table'
-    },
-    {
-        code: 'time',
-        label: 'Time',
-        icon: 'Calendar'
-    },
-    {
-        code: 'map',
-        label: 'Map',
-        icon: 'MapMarker'
-    }
-];
+import SubawardToggle from './SubawardToggle';
 
 const propTypes = {
     isMobile: PropTypes.bool,
     requestsComplete: PropTypes.bool,
-    noFiltersApplied: PropTypes.bool
+    noFiltersApplied: PropTypes.bool,
+    type: PropTypes.string,
+    subaward: PropTypes.bool,
+    setSearchViewType: PropTypes.func,
+    setSearchViewSubaward: PropTypes.func
 };
 
 export default class VisualizationWrapper extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            active: 'table'
-        };
 
         this._queuedAnalyticEvent = null;
 
@@ -60,7 +45,7 @@ export default class VisualizationWrapper extends React.Component {
 
     componentDidMount() {
         this._mounted = true;
-        this.logVisualizationTab(this.state.active);
+        this.logVisualizationTab(this.props.type);
     }
 
     componentWillUnmount() {
@@ -91,11 +76,8 @@ export default class VisualizationWrapper extends React.Component {
     }
 
     clickedTab(tab) {
-        this.setState({
-            active: tab
-        }, () => {
-            this.logVisualizationTab(tab);
-        });
+        this.props.setSearchViewType(tab);
+        this.logVisualizationTab(tab);
     }
 
     render() {
@@ -103,14 +85,14 @@ export default class VisualizationWrapper extends React.Component {
             <VisualizationTabItem
                 {...tab}
                 key={tab.code}
-                active={this.state.active === tab.code}
+                active={this.props.type === tab.code}
                 clickedTab={this.clickedTab}
                 disabled={!this.props.requestsComplete} />
         ));
 
         let content = <NoFiltersScreen />;
         if (!this.props.noFiltersApplied) {
-            switch (this.state.active) {
+            switch (this.props.type) {
                 case 'table':
                     content = <ResultsTableContainer />;
                     break;
@@ -135,14 +117,19 @@ export default class VisualizationWrapper extends React.Component {
                     this.visualizationWrapper = div;
                 }}>
                 <div
-                    className="visualization-tab-wrapper"
+                    className="visualization-tabs"
                     role="navigation"
                     aria-label="Visualization types">
                     <ul
-                        className="visualization-tabs"
+                        className="visualization-tabs__list"
                         role="menu">
                         {tabs}
                     </ul>
+                    <div className="visualization-tabs__toggle">
+                        <SubawardToggle
+                            subaward={this.props.subaward}
+                            setSearchViewSubaward={this.props.setSearchViewSubaward} />
+                    </div>
                 </div>
                 <div className="visualization-content-wrapper">
                     <div
