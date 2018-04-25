@@ -18,7 +18,7 @@ jest.mock('components/bulkDownload/BulkDownloadPage', () => jest.fn(() => null))
 jest.mock('containers/router/Router', () => require('./mockRouter'));
 
 describe('BulkDownloadPageContainer', () => {
-    describe('startDownload', () => {
+    describe('startAwardDownload', () => {
         it('should make an API request when called', () => {
             const container = shallow(<BulkDownloadPageContainer
                 {...mockRedux}
@@ -215,6 +215,49 @@ describe('BulkDownloadPageContainer', () => {
             container.instance().startAwardDownload();
 
             expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'awards');
+        });
+    });
+    describe('startAccountDownload', () => {
+        const accountsRedux = Object.assign({}, mockRedux, {
+            dataType: 'accounts'
+        });
+        it('should make an API request when called', () => {
+            const container = shallow(<BulkDownloadPageContainer
+                {...accountsRedux}
+                {...mockActions} />);
+
+            const requestDownload = jest.fn();
+            container.instance().requestDownload = requestDownload;
+
+            container.instance().startAccountDownload();
+
+            expect(requestDownload).toHaveBeenCalled();
+        });
+        it('should parse the Redux state into request params', () => {
+            const container = shallow(<BulkDownloadPageContainer
+                {...accountsRedux}
+                {...mockActions} />);
+
+            const expectedParams = {
+                account_level: 'treasury_account',
+                filters: {
+                    agency: {
+                        id: '123',
+                        name: 'Mock Agency'
+                    },
+                    submission_type: 'account_balances',
+                    fy: '1989',
+                    quarter: '1'
+                },
+                file_format: 'csv'
+            };
+
+            const requestDownload = jest.fn();
+            container.instance().requestDownload = requestDownload;
+
+            container.instance().startAccountDownload();
+
+            expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'accounts');
         });
     });
     describe('validateDataType', () => {

@@ -105,7 +105,7 @@ export default class AccountDataContent extends React.Component {
                         <p>
                             Account data covers all spending data, including non-award spending.
                             The data is available on two different levels, federal account and treasury account. Federal account data is essentially a &ldquo;roll-up&rdquo; of multiple treasury account data.
-                            The files available are categorized by type, according to the scope of spending they cover. More information on the different file types can be found here [insert link].
+                            The files available are categorized by type, according to the scope of spending they cover.
                         </p>
                     </div>
                     <div className="download-info__section">
