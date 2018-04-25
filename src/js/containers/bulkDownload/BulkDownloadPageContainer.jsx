@@ -14,10 +14,10 @@ import Router from 'containers/router/Router';
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import { downloadOptions } from 'dataMapping/navigation/menuOptions';
-import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import { awardDownloadOptions, accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import BulkDownloadPage from 'components/bulkDownload/BulkDownloadPage';
 
-import { logAwardDownload } from './helpers/downloadAnalytics';
+import { logAwardDownload, logAccountDownload } from './helpers/downloadAnalytics';
 
 require('pages/bulkDownload/bulkDownloadPage.scss');
 
@@ -37,6 +37,7 @@ export class BulkDownloadPageContainer extends React.Component {
         this.request = null;
 
         this.startAwardDownload = this.startAwardDownload.bind(this);
+        this.startAccountDownload = this.startAccountDownload.bind(this);
     }
 
     componentWillMount() {
@@ -133,7 +134,28 @@ export class BulkDownloadPageContainer extends React.Component {
     }
 
     startAccountDownload() {
-        console.log('start account download');
+        const formState = this.props.bulkDownload.accounts;
+
+        // Get the submission type object
+        const submissionTypes = accountDownloadOptions.submissionTypes;
+        const submissionType = submissionTypes.find((type) =>
+            type.name === formState.submissionType
+        );
+
+        const params = {
+            account_level: 'treasury_account',
+            filters: {
+                agency: formState.agency,
+                submission_type: submissionType.apiName,
+                fy: formState.fy,
+                quarter: formState.quarter
+            },
+            file_format: 'csv'
+        };
+
+        this.requestDownload(params, 'accounts');
+
+        logAccountDownload(this.props.bulkDownload.accounts);
     }
 
     requestDownload(params, type) {
@@ -143,7 +165,7 @@ export class BulkDownloadPageContainer extends React.Component {
 
         const bulkParams = params;
         // Need to check if sub_agency is set or not
-        if (bulkParams.filters.sub_agency.toLowerCase() === "select a sub-agency") {
+        if (bulkParams.filters.sub_agency && bulkParams.filters.sub_agency.toLowerCase() === 'select a sub-agency') {
             delete bulkParams.filters.sub_agency;
         }
 
