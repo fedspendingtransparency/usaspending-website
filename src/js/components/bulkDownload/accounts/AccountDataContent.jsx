@@ -67,7 +67,10 @@ export default class AccountDataContent extends React.Component {
         return (
             <div className="download-center">
                 <div className="download-center__filters">
-                    <h2 className="download-center__title">Custom Account Data</h2>
+                    <div className="download-center__heading">
+                        <h2 className="download-center__title">Custom Account Data</h2>
+                        <div className="download-center__beta">BETA</div>
+                    </div>
                     <form
                         className="download-center-form"
                         onSubmit={this.handleSubmit}>
