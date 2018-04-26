@@ -156,7 +156,7 @@ export const accountDownloadOptions = {
         },
         {
             name: 'accountBreakdown',
-            label: 'Account Breakdown by Program Activity and Object Class',
+            label: 'Account Breakdown by Program Activity & Object Class',
             apiName: 'object_class_program_activity',
             file: 'File B'
         }

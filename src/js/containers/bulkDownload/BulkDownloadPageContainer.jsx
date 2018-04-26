@@ -163,13 +163,19 @@ export class BulkDownloadPageContainer extends React.Component {
             this.request.cancel();
         }
 
-        const bulkParams = params;
-        // Need to check if sub_agency is set or not
-        if (bulkParams.filters.sub_agency && bulkParams.filters.sub_agency.toLowerCase() === 'select a sub-agency') {
-            delete bulkParams.filters.sub_agency;
+        if (type === 'awards') {
+            const bulkParams = params;
+            // Need to check if sub_agency is set or not
+            if (bulkParams.filters.sub_agency && bulkParams.filters.sub_agency.toLowerCase() === 'select a sub-agency') {
+                delete bulkParams.filters.sub_agency;
+            }
+
+            this.request = BulkDownloadHelper.requestAwardsDownload(bulkParams);
         }
 
-        this.request = BulkDownloadHelper.requestBulkDownload(bulkParams, type);
+        else if (type === 'accounts') {
+            this.request = BulkDownloadHelper.requestAccountsDownload(params);
+        }
 
         this.request.promise
             .then((res) => {
