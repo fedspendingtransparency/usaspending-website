@@ -46,16 +46,17 @@
         padding: rem(15) rem(30) 0 rem(30);
         border-left: solid 1px $color-gray-light;
 
-        h4.download-info__title {
+        h3.download-info__title {
             @include h6;
             margin-top: 0;
             margin-bottom: rem(30);
         }
         .download-info__section {
             padding-bottom: rem(30);
-            h5.download-info__section-heading {
+            h4.download-info__section-heading {
                 margin: 0;
                 font-size: $base-font-size;
+                font-weight: $font-normal;
             }
             .usa-da-icon-guide {
                 height: rem(16);

@@ -103,9 +103,9 @@ export default class AccountDataContent extends React.Component {
                     </button>
                 </div>
                 <div className="download-info">
-                    <h4 className="download-info__title">About Account Data</h4>
+                    <h3 className="download-info__title">About Account Data</h3>
                     <div className="download-info__section">
-                        <h5 className="download-info__section-heading">What is account data?</h5>
+                        <h4 className="download-info__section-heading">What is account data?</h4>
                         <p>
                             Account data covers all spending data, including non-award spending.
                         </p>
@@ -121,13 +121,13 @@ export default class AccountDataContent extends React.Component {
                         </p>
                     </div>
                     <div className="download-info__section">
-                        <h5 className="download-info__section-heading">Why is this data useful?</h5>
+                        <h4 className="download-info__section-heading">Why is this data useful?</h4>
                         <p>
                             Account data contains the most encompassing amounts of spending throughout U.S. government agencies.  Unlike award data, account data include spending that is not tied to awards, such as operational costs and employee salaries.
                         </p>
                     </div>
                     <div className="download-info__section">
-                        <h5 className="download-info__section-heading">How do I use this form?</h5>
+                        <h4 className="download-info__section-heading">How do I use this form?</h4>
                         <p>
                             This form allows you to download account data in a range of quarters within a specific fiscal year.
                             Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.
