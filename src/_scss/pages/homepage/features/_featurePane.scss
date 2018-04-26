@@ -45,13 +45,13 @@
     }
 
     .feature-pane__content {
-        @include flex(0 0 100%);
+        display: block;
         text-align: center;
         font-size: rem(14);
         line-height: rem(17);
 
         @include media($medium-screen) {
-            @include flex(0 0 30%);
+            @include flex(1 1 1);
             max-width: 30%;
         }
     }
