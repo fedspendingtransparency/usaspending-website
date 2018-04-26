@@ -15,8 +15,9 @@
             @include span-columns(8);
         }
     }
-    .download-user-selections__title {
+    h3.download-user-selections__title {
         @include h5;
+        margin: 0;
     }
     .selection {
         .selection__heading {

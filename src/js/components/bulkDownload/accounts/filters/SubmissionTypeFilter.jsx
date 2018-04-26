@@ -61,9 +61,9 @@ export default class SubmissionTypeFilter extends React.Component {
 
         return (
             <div className="download-filter">
-                <div className="download-filter__title">
+                <h3 className="download-filter__title">
                     {icon} Select a <span className="download-filter__title_em">file submission type</span>.
-                </div>
+                </h3>
                 <div className="download-filter__content">
                     {submissionTypes}
                 </div>

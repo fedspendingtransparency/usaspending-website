@@ -79,7 +79,7 @@ export default class UserSelections extends React.Component {
     render() {
         return (
             <div className="download-user-selections">
-                <div className="download-user-selections__title">Your selected options are...</div>
+                <h3 className="download-user-selections__title">Your selected options are...</h3>
                 <div className="download-user-selections__left-col">
                     <div className="selection">
                         <div className="selection__heading">Account Level</div>

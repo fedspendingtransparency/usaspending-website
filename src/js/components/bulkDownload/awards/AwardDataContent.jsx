@@ -170,22 +170,22 @@ export default class AwardDataContent extends React.Component {
                     </button>
                 </div>
                 <div className="download-info">
-                    <div className="download-info__title">About Award Data</div>
+                    <h4 className="download-info__title">About Award Data</h4>
                     <div className="download-info__section">
-                        <div className="download-info__section-heading">What is award data?</div>
+                        <h5 className="download-info__section-heading">What is award data?</h5>
                         <p>
                             Award data contains all the details of our prime award and sub-award records.
                         </p>
                     </div>
                     <div className="download-info__section">
-                        <div className="download-info__section-heading">Why would I be interested in this data?</div>
+                        <h5 className="download-info__section-heading">Why would I be interested in this data?</h5>
                         <p>
                             Downloading this data gives you access to every attribute of any particular award, including
                             data that may not be surfaced on this site.
                         </p>
                     </div>
                     <div className="download-info__section">
-                        <div className="download-info__section-heading">How do I use this form?</div>
+                        <h5 className="download-info__section-heading">How do I use this form?</h5>
                         <p>
                             This form allows you to select specific awards by type, agency and sub-agency, and date range.
                             Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.

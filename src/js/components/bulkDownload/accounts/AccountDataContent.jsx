@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import { Glossary } from 'components/sharedComponents/icons/Icons';
 
 import AgencyFilter from './filters/AgencyFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
@@ -102,23 +103,31 @@ export default class AccountDataContent extends React.Component {
                     </button>
                 </div>
                 <div className="download-info">
-                    <div className="download-info__title">About Account Data</div>
+                    <h4 className="download-info__title">About Account Data</h4>
                     <div className="download-info__section">
-                        <div className="download-info__section-heading">What is account data?</div>
+                        <h5 className="download-info__section-heading">What is account data?</h5>
                         <p>
                             Account data covers all spending data, including non-award spending.
-                            The data is available on two different levels, federal account and treasury account. Federal account data is essentially a &ldquo;roll-up&rdquo; of multiple treasury account data.
+                        </p>
+                        <p>
+                            The data is available on two different levels, federal account&nbsp;
+                            <a href="#/download_center/custom_account_data/?glossary=federal-account"><Glossary /></a>
+                            and treasury account&nbsp;
+                            <a href="#/download_center/custom_account_data/?glossary=treasury-account-symbol-tas"><Glossary /></a>
+                            . Federal account data is essentially a &ldquo;roll-up&rdquo; of multiple treasury account data.
+                        </p>
+                        <p>
                             The files available are categorized by type, according to the scope of spending they cover.
                         </p>
                     </div>
                     <div className="download-info__section">
-                        <div className="download-info__section-heading">Why is this data useful?</div>
+                        <h5 className="download-info__section-heading">Why is this data useful?</h5>
                         <p>
                             Account data contains the most encompassing amounts of spending throughout U.S. government agencies.  Unlike award data, account data include spending that is not tied to awards, such as operational costs and employee salaries.
                         </p>
                     </div>
                     <div className="download-info__section">
-                        <div className="download-info__section-heading">How do I use this form?</div>
+                        <h5 className="download-info__section-heading">How do I use this form?</h5>
                         <p>
                             This form allows you to download account data in a range of quarters within a specific fiscal year.
                             Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.

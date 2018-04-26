@@ -53,9 +53,9 @@ export default class FiscalYearFilter extends React.Component {
 
         return (
             <div className="download-filter">
-                <div className="download-filter__title">
+                <h3 className="download-filter__title">
                     {icon} Select a <span className="download-filter__title_em">fiscal year</span> and <span className="download-filter__title_em">quarter</span>.
-                </div>
+                </h3>
                 <div className="download-filter__content">
                     <div className="download-filter__fy">
                         <QuarterPicker

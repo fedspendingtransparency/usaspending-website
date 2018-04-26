@@ -62,9 +62,9 @@ export default class AccountLevelFilter extends React.Component {
 
         return (
             <div className="download-filter">
-                <div className="download-filter__title">
+                <h3 className="download-filter__title">
                     {icon} Select the <span className="download-center-filter__title_em">account level</span> to include.
-                </div>
+                </h3>
                 <div className="download-filter__content">
                     {accountLevels}
                 </div>

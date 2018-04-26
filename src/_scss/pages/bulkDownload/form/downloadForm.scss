@@ -1,8 +1,9 @@
 .download-center-form {
     .download-filter {
         padding-bottom: rem(30);
-        .download-filter__title {
+        h3.download-filter__title {
             @include h5;
+            margin: 0;
             font-weight: 400;
             padding-bottom: rem(12);
             padding-top: rem(36);
