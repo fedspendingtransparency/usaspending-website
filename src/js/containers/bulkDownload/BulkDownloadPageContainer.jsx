@@ -145,7 +145,7 @@ export class BulkDownloadPageContainer extends React.Component {
         const params = {
             account_level: 'treasury_account',
             filters: {
-                agency: formState.agency,
+                agency: formState.agency.id,
                 submission_type: submissionType.apiName,
                 fy: formState.fy,
                 quarter: formState.quarter

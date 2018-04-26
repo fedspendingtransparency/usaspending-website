@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
+import { lastCompletedQuarterInFY } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPicker from 'components/explorer/detail/sidebar/QuarterPicker';
 
 const propTypes = {
@@ -24,21 +25,15 @@ export default class FiscalYearFilter extends React.Component {
         this.pickedYear = this.pickedYear.bind(this);
     }
 
-    pickedQuarter(input) {
-        let quarter = input;
-        if (typeof input !== 'string') {
-            quarter = `${input}`;
-        }
-        this.props.updateFilter('quarter', quarter);
+    pickedQuarter(quarter) {
+        this.props.updateFilter('quarter', `${quarter}`);
     }
 
-    pickedYear(input) {
-        let year = input;
-        if (typeof input !== 'string') {
-            year = `${input}`;
-        }
+    pickedYear(year) {
+        const lastQuarter = lastCompletedQuarterInFY(year);
 
-        this.props.updateFilter('fy', year);
+        this.props.updateFilter('fy', `${lastQuarter.year}`);
+        this.props.updateFilter('quarter', `${lastQuarter.quarter}`);
     }
 
     render() {

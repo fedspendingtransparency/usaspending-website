@@ -241,10 +241,7 @@ describe('BulkDownloadPageContainer', () => {
             const expectedParams = {
                 account_level: 'treasury_account',
                 filters: {
-                    agency: {
-                        id: '123',
-                        name: 'Mock Agency'
-                    },
+                    agency: '123',
                     submission_type: 'account_balances',
                     fy: '1989',
                     quarter: '1'

@@ -28,15 +28,17 @@
                     @include justify-content(center);
                     @include align-items(center);
 
-                    width: 100%;
                     border-bottom: 1px solid $color-gray;
 
                     .fy-picker__button-text {
                         @include flex(1 1 auto);
                         margin-right: rem(10);
                         color: $color-gray;
-                        font-size: rem(20);
-                        line-height: rem(25);
+                        padding-left: rem(5);
+                        white-space: nowrap;
+                        font-size: rem(32);
+                        font-weight: 300;
+                        line-height: rem(34);
                     }
 
                     .fy-picker__button-icon {
@@ -54,31 +56,23 @@
                 position: absolute;
                 left: 0;
                 right: 0;
-                border: 1px solid $color-gray;
+                border: 1px solid $color-gray-lighter;
                 background-color: $color-white;
 
                 &.fy-picker__list_hidden {
                     display: none;
                 }
 
-                .fy-picker__list-item {
-                    border-top: 1px solid $color-gray;
-
-                    &:first-child {
-                        border-top: none;
-                    }
-                }
-
                 .fy-picker__item {
                     @include button-unstyled;
                     color: $color-gray;
                     font-size: rem(18);
-
-                    padding: rem(10) rem(15);
+                    padding: rem(10);
                     width: 100%;
 
-                    &:hover, &:active {
+                    &:hover, &:active, &.active {
                         background-color: $color-gray-lightest;
+                        color: $color-primary;
                     }
                 }
             }
@@ -104,19 +98,18 @@
                 color: $color-white;
                 text-align: center;
                 line-height: rem(22);
-                font-size: rem(12);
                 font-weight: $font-bold;
 
                 background-color: $color-primary;
                 opacity: 0.3;
 
-                padding: 0 rem(20);
+                padding: rem(5) rem(20);
 
                 &.quarter-picker__quarter_first {
-                    border-radius: rem(11) 0 0 rem(11);
+                    border-radius: rem(30) 0 0 rem(30);
                 }
                 &.quarter-picker__quarter_last {
-                    border-radius: 0 rem(11) rem(11) 0;
+                    border-radius: 0 rem(30) rem(30) 0;
                 }
 
                 &:hover, &:active, &.quarter-picker__quarter_active {
