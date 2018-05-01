@@ -22,7 +22,7 @@ const propTypes = {
 export class AwardIDSearchContainer extends React.Component {
     constructor(props) {
         super(props);
-
+        this.awardIDObj = {};
         // Bind function
         this.toggleAwardID = this.toggleAwardID.bind(this);
     }
@@ -37,11 +37,10 @@ export class AwardIDSearchContainer extends React.Component {
     }
 
     addAwardID(id) {
+        Object.assign(this.awardIDObj, { [id]: id });
         this.props.updateGenericFilter({
             type: 'selectedAwardIDs',
-            value: new OrderedMap({
-                [id]: id
-            })
+            value: new OrderedMap(this.awardIDObj)
         });
     }
 
