@@ -37,11 +37,13 @@ export class AwardIDSearchContainer extends React.Component {
     }
 
     addAwardID(id) {
-        Object.assign(this.awardIDObj, { [id]: id });
-        this.props.updateGenericFilter({
-            type: 'selectedAwardIDs',
-            value: new OrderedMap(this.awardIDObj)
-        });
+        if (id) {
+            Object.assign(this.awardIDObj, { [id]: id });
+            this.props.updateGenericFilter({
+                type: 'selectedAwardIDs',
+                value: new OrderedMap(this.awardIDObj)
+            });
+        }
     }
 
     removeAwardID() {
