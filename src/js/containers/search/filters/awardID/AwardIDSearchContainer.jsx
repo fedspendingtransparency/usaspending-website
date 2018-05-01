@@ -43,10 +43,11 @@ export class AwardIDSearchContainer extends React.Component {
         });
     }
 
-    removeAwardID() {
+    removeAwardID(id) {
+        const awardId = this.props.selectedAwardIDs.delete(id);
         this.props.updateGenericFilter({
             type: 'selectedAwardIDs',
-            value: new OrderedMap()
+            value: awardId
         });
     }
 
