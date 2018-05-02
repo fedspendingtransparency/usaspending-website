@@ -15,7 +15,7 @@ export const updateSelectedRecipients = (state, searchText) => {
     }
     else {
         // Replace with the new search text because we are limiting the search to one recipient filter
-        updatedSet = new Set([searchText]);
+        updatedSet = updatedSet.add(recipientIdentifier);
     }
 
     return updatedSet;

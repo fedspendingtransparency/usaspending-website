@@ -21,7 +21,7 @@ export const updateTimePeriod = (state) => ({
 export const updateGenericFilter = (state) => ({
     type: 'UPDATE_SEARCH_FILTER_GENERIC',
     filterType: state.type,
-    filterValues: state.value
+    filterValue: state.value
 });
 
 export const resetTimeFilters = () => ({

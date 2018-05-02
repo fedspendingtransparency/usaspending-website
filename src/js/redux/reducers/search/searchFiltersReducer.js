@@ -230,7 +230,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         // Generic
         case 'UPDATE_SEARCH_FILTER_GENERIC': {
             return Object.assign({}, state, {
-                [action.filterType]: action.filterValues
+                [action.filterType]: action.filterValue
             });
         }
         case 'RESET_SEARCH_TIME_FILTER': {
