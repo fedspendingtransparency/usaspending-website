@@ -6,12 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Close } from 'components/sharedComponents/icons/Icons';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+import SelectedKeywords from './SelectedKeywords';
 
 const propTypes = {
-    selectedKeyword: PropTypes.string,
+    selectedKeyword: PropTypes.object,
     submitText: PropTypes.func,
     changedInput: PropTypes.func,
     removeKeyword: PropTypes.func,
@@ -50,13 +50,21 @@ export default class Keyword extends React.Component {
 
     render() {
         let hideTags = 'hide';
-        if (this.props.selectedKeyword !== '') {
+        if (this.props.selectedKeyword.size !== 0) {
             hideTags = '';
         }
 
         const accessibility = {
             'aria-controls': 'selected-keyword-tags'
         };
+
+        let selectedKeywords = null;
+
+        if (this.props.selectedKeyword.size > 0) {
+            selectedKeywords = (<SelectedKeywords
+                removeKeyword={this.props.removeKeyword}
+                selectedKeyword={this.props.selectedKeyword} />);
+        }
 
         return (
             <div className="keyword-filter search-filter">
@@ -79,23 +87,7 @@ export default class Keyword extends React.Component {
                                 label="Filter by keyword"
                                 accessibility={accessibility} />
                         </div>
-                        <div
-                            className={`selected-filters ${hideTags}`}
-                            id="selected-keyword-tags"
-                            role="status">
-                            <button
-                                className="shown-filter-button"
-                                onClick={this.removeKeyword}
-                                title="Click to remove filter."
-                                aria-label={`Applied keyword filter: ${this.props.selectedKeyword}`}>
-                                <span className="close">
-                                    <Close
-                                        className="usa-da-icon-close"
-                                        alt="Close icon" />
-                                </span>
-                                {this.props.selectedKeyword}
-                            </button>
-                        </div>
+                        {selectedKeywords}
                         <SubmitHint
                             ref={(component) => {
                                 this.hint = component;

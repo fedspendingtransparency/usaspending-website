@@ -14,7 +14,7 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import Keyword from 'components/search/filters/keyword/Keyword';
 
 const propTypes = {
-    keyword: PropTypes.string,
+    keyword: PropTypes.object,
     appliedFilter: PropTypes.string,
     updateTextSearchInput: PropTypes.func
 };
