@@ -1,0 +1,18 @@
+.state-overview {
+    .state-overview__title-wrapper {
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        width: 100%;
+        position: relative;
+        .state-overview__flag {
+            @include flex(0 0 auto);
+            width: rem(64);
+            height: auto;
+        }
+        h3.state-overview__title {
+            @include flex(1 1 auto);
+            margin: rem(5) 0 rem(5) rem(28);
+        }
+    }
+}
