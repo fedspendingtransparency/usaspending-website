@@ -3,21 +3,22 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-import { formatMoney, formatNumberWithPrecision } from 'helpers/moneyFormatter';
+import { formatNumberWithPrecision, calculateUnitForSingleValue, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 
 const CoreRecipient = {
     populateCore(data) {
-        this.id = data.id || '';
+        this.id = `${data.id}` || '';
         this.name = data.name || '';
-        this._awardedAmount = parseFloat(data.awardedAmount) || 0;
+        this._totalAmount = parseFloat(data.totalAmount) || 0;
         this._totalAwards = parseFloat(data.totalAwards) || 0;
         this.fy = data.fy || '';
     },
-    get awardedAmount() {
-        return formatMoney(this._awardedAmount);
+    get totalAmount() {
+        const units = calculateUnitForSingleValue(this._totalAmount);
+        return `${formatMoneyWithPrecision(this._totalAmount / units.unit, 1)} ${units.longLabel}`;
     },
     get totalAwards() {
-        return formatNumberWithPrecision(this._totalAwards);
+        return formatNumberWithPrecision(this._totalAwards, 0);
     }
 };
 

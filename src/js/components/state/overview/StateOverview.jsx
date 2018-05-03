@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import StateMetadata from './StateMetadata';
+
 const propTypes = {
     stateProfile: PropTypes.object
 };
@@ -58,6 +60,10 @@ export default class StateOverview extends React.PureComponent {
                     <h3 className="state-overview__title">{this.props.stateProfile.name}</h3>
                 </div>
                 <hr className="results-divider" />
+                <div className="state-overview__content">
+                    <StateMetadata
+                        stateProfile={this.props.stateProfile} />
+                </div>
             </div>
         );
     }

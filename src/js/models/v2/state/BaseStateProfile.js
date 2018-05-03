@@ -3,34 +3,43 @@
  * Created by Lizzie Salita 5/1/18
  */
 
+import { formatNumberWithPrecision, formatMoney } from 'helpers/moneyFormatter';
 import CoreRecipient from './CoreRecipient';
-import CoreCensusData from './CoreCensusData';
 
 const BaseStateProfile = Object.create(CoreRecipient);
 
 BaseStateProfile.populate = function populate(data) {
     // reformat fields required by CoreRecipient
     const coreData = {
-        id: data.fips || null,
         name: data.name,
-        awardedAmount: data.total_obligation,
-        totalAwards: data.award_count,
-        fy: data.fy
+        id: data.fips || null,
+        totalAmount: data.total_amount,
+        totalAwards: data.total_awards,
+        fy: data.year
     };
     this.populateCore(coreData);
 
-    if (data.details) {
-        const censusData = {
-            population: data.details.population,
-            awardedAmountPerCapita: data.details.awarded_amount_per_capita,
-            medianHouseholdIncome: data.details.median_household_income
-        };
-        const details = Object.create(CoreCensusData);
-        details.populateCore(censusData);
-        this.details = details;
-    }
-
-    this.flag = data.flag_filename || '';
+    this.flag = data.icon_filename || '';
+    this._population = data.population;
+    this._awardAmountPerCapita = data.award_amount_per_capita;
+    this._medianHouseholdIncome = data.median_household_income;
 };
+
+// getter functions
+Object.defineProperty(BaseStateProfile, 'population', {
+    get() {
+        return formatNumberWithPrecision(this._population, 0);
+    }
+});
+Object.defineProperty(BaseStateProfile, 'awardAmountPerCapita', {
+    get() {
+        return formatMoney(this._awardAmountPerCapita);
+    }
+});
+Object.defineProperty(BaseStateProfile, 'medianHouseholdIncome', {
+    get() {
+        return formatMoney(this._medianHouseholdIncome);
+    }
+});
 
 export default BaseStateProfile;
