@@ -130,7 +130,11 @@ export default class AccountDataContent extends React.Component {
                         <h4 className="download-info__section-heading">How do I use this form?</h4>
                         <p>
                             This form allows you to download account data in a range of quarters within a specific fiscal year.
+                        </p>
+                        <p>
                             Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.
+                        </p>
+                        <p>
                             Heads up: all fields are required. You&rsquo;ll only be able to start the download when all sections are properly filled.
                         </p>
                     </div>

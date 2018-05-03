@@ -1,11 +1,11 @@
 .quarter-picker {
     @include display(flex);
     @include align-items(center);
-
+    @include flex-wrap(wrap);
     .quarter-picker__fy {
         @include flex(1 1 auto);
         @include justify-content(flex-start);
-
+        padding: rem(5) 0;
         .fy-picker {
             .fy-picker__header {
                 @include display(flex);
@@ -82,10 +82,9 @@
     ul.quarter-picker__list {
         @include unstyled-list;
         @include display(flex);
-        @include justify-content(center);
         @include align-items(center);
         @include flex(1 1 auto);
-
+        padding: rem(5) 0;
         li.quarter-picker__list-item {
             margin-right: rem(1);
 

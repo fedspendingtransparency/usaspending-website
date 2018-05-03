@@ -48,15 +48,20 @@
 
         h3.download-info__title {
             @include h6;
-            margin-top: 0;
-            margin-bottom: rem(30);
+            margin: 0;
+            padding-bottom: rem(15);
         }
         .download-info__section {
-            padding-bottom: rem(30);
+            padding-bottom: rem(15);
             h4.download-info__section-heading {
                 margin: 0;
+                padding-bottom: rem(5);
                 font-size: $base-font-size;
-                font-weight: $font-normal;
+                font-weight: $font-bold;
+            }
+            p {
+                margin: 0;
+                padding-bottom: rem(8);
             }
             .usa-da-icon-guide {
                 height: rem(16);

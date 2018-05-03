@@ -1,12 +1,11 @@
 .download-center-form {
     .download-filter {
-        padding-bottom: rem(30);
+        padding: rem(45) 0;
         h3.download-filter__title {
             @include h5;
             margin: 0;
             font-weight: 400;
-            padding-bottom: rem(12);
-            padding-top: rem(36);
+            padding-bottom: rem(35);
             .download-filter__title_em {
                 color: $color-primary;
                 font-weight: 600;
@@ -48,7 +47,7 @@
     }
     @import "userSelections";
     .download-user-selections {
-        margin: rem(20);
+        margin: rem(45) rem(20) rem(20) rem(20);
         @include media($x-large-screen) {
             margin: rem(40) rem(30);
         }

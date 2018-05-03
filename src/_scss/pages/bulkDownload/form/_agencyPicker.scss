@@ -1,17 +1,18 @@
 .filter-picker {
     @import 'elements/_titleSelector';
+    &:last-child {
+        padding-top: rem(15);
+    }
+    margin-bottom: 0;
     .select-label {
         display: block;
-        clear: both;
         text-transform: uppercase;
         font-size: rem(13);
         line-height: rem(17);
-        margin-top: rem(15);
     }
     .field-picker {
         display: block;
-        clear: both;
-        margin-bottom: rem(30);
+        float: none;
         .selected-button {
             @include display(flex);
             @include justify-content(center);
@@ -20,7 +21,6 @@
 
             border-bottom: 1px solid $color-gray-light;
             padding: rem(4) rem(10);
-            width: 100%;
             .label {
                 @include display(flex);
                 @include flex(1 1 auto);
