@@ -20,6 +20,7 @@ import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 export const filterStoreVersion = '2017-11-21';
 
 export const requiredTypes = {
+    keyword: OrderedMap,
     timePeriodFY: Set,
     selectedLocations: OrderedMap,
     selectedFundingAgencies: OrderedMap,

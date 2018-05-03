@@ -8,10 +8,11 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import { KeywordContainer } from 'containers/search/filters/KeywordContainer';
+import { OrderedMap } from 'immutable';
 
 const initialFilters = {
-    keyword: '',
-    appliedFilter: ''
+    keyword: new OrderedMap(),
+    appliedFilter: new OrderedMap()
 };
 
 describe('KeywordContainer', () => {
@@ -41,12 +42,14 @@ describe('KeywordContainer', () => {
             // reset the spies
             submitTextSpy.reset();
         });
-        it('should overwrite a previous keyword with a new keyword', () => {
+        it('should add a new keyword to the previous keyword', () => {
             const existingFilters = Object.assign({}, initialFilters, {
-                keyword: 'Education'
+                keyword: new OrderedMap({ Education: "Education" })
             });
+
             const mockReduxActionKeyword = jest.fn((args) => {
-                expect(args).toEqual('Financial');
+                console.log(args);
+                expect(args).toEqual(new OrderedMap({ Education: "Education", Financial: "Financial" }));
             });
             const keywordContainer = shallow(
                 <KeywordContainer

@@ -31,7 +31,6 @@ export default class KeywordFilterGroup extends React.Component {
 
         // check to see if a keyword is provided
         const keywords = this.props.filter.values;
-        console.log(keywords);
 
         keywords.forEach((value) => {
             const tag = {

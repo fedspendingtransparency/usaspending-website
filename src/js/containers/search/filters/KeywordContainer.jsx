@@ -34,7 +34,7 @@ export class KeywordContainer extends React.Component {
 
     componentWillMount() {
         if (this.props.keyword !== '') {
-            this.populateInput(this.props.keyword);
+            this.populateInput("");
         }
     }
 

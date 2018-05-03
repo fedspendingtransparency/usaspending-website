@@ -256,6 +256,7 @@ describe('SearchContainer', () => {
                 hashState: 'inbound'
             });
             container.instance().applyFilters(mockFilters.filter);
+            console.log(mockFilters.filter);
 
             const expectedFilters = Object.assign({}, initialState, {
                 timePeriodFY: new Set(['1990'])

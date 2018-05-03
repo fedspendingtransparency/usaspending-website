@@ -226,7 +226,7 @@ export class TopFilterBarContainer extends React.Component {
             values: []
         };
 
-        if (props.keyword.count() > 0) {
+        if (props.keyword.size > 0) {
             selected = true;
             filter.values = props.keyword.toArray();
             console.log(filter.values);
