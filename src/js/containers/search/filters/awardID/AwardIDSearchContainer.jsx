@@ -37,6 +37,7 @@ export class AwardIDSearchContainer extends React.Component {
 
     addAwardID(id) {
         const awardId = this.props.selectedAwardIDs.set(id, id);
+
         this.props.updateGenericFilter({
             type: 'selectedAwardIDs',
             value: awardId

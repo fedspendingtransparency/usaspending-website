@@ -222,18 +222,19 @@ export class TopFilterBarContainer extends React.Component {
      */
     prepareKeywords(props) {
         let selected = false;
-        const filter = {};
+        const filter = {
+            values: []
+        };
 
-        if (props.keyword) {
-        // keyword exists
+        if (props.keyword.count() > 0) {
             selected = true;
-            filter.code = 'keyword';
-            filter.name = 'Keyword';
-
-            filter.values = props.keyword;
+            filter.values = props.keyword.toArray();
+            console.log(filter.values);
         }
 
         if (selected) {
+            filter.code = 'keyword';
+            filter.name = 'Keyword';
             return filter;
         }
         return null;

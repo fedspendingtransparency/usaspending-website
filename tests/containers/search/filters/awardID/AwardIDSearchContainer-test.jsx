@@ -32,7 +32,8 @@ describe('AwardIDSearchContainer', () => {
 
             // everything should be updated now
             expect(mockReduxAction).toHaveBeenCalledTimes(1);
-            expect(mockReduxAction).toHaveBeenCalledWith({
+            const reduxArgs = mockReduxAction.mock.calls[0][0];
+            expect(reduxArgs).toEqual({
                 type: 'selectedAwardIDs',
                 value: new OrderedMap({
                     '1234': '1234'
@@ -66,7 +67,7 @@ describe('AwardIDSearchContainer', () => {
             });
         });
 
-        it('should overwrite any existing Award ID in Redux', () => {
+        it('should not overwrite any existing Award ID in Redux', () => {
             const mockReduxAction = jest.fn();
 
             const appliedFilters = {
@@ -86,9 +87,12 @@ describe('AwardIDSearchContainer', () => {
 
             // everything should be updated now
             expect(mockReduxAction).toHaveBeenCalledTimes(1);
-            expect(mockReduxAction).toHaveBeenCalledWith({
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+            const reduxArgs = mockReduxAction.mock.calls[0][0];
+            expect(reduxArgs).toEqual({
                 type: 'selectedAwardIDs',
                 value: new OrderedMap({
+                    '1234': '1234',
                     '5555': '5555'
                 })
             });

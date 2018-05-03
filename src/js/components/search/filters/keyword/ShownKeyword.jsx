@@ -18,13 +18,12 @@ export default class ShownKeyword extends React.Component {
         return (
             <button
                 className="shown-filter-button"
+                value={this.props.keyword}
                 onClick={this.props.removeKeyword}
                 title="Click to remove filter."
                 aria-label={`Applied keyword filter: ${this.props.keyword}`}>
                 <span className="close">
-                    <Close
-                        className="usa-da-icon-close"
-                        alt="Close icon" />
+                    <Close className="usa-da-icon-close" alt="Close icon" />
                 </span>
                 {this.props.keyword}
             </button>

@@ -44,9 +44,9 @@ export class KeywordContainer extends React.Component {
         }
     }
 
-    populateInput(value) {
+    populateInput() {
         this.setState({
-            value
+            value: this.state.value
         });
     }
 
@@ -62,11 +62,7 @@ export class KeywordContainer extends React.Component {
     }
 
     removeKeyword() {
-        this.setState({
-            value: ''
-        }, () => {
-            this.submitText();
-        });
+        this.props.updateTextSearchInput(this.state.value);
     }
 
     dirtyFilter() {

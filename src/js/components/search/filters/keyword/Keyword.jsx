@@ -87,7 +87,12 @@ export default class Keyword extends React.Component {
                                 label="Filter by keyword"
                                 accessibility={accessibility} />
                         </div>
-                        {selectedKeywords}
+                        <div
+                            className={`selected-filters ${hideTags}`}
+                            id="selected-keyword-tags"
+                            role="status">
+                            {selectedKeywords}
+                        </div>
                         <SubmitHint
                             ref={(component) => {
                                 this.hint = component;
