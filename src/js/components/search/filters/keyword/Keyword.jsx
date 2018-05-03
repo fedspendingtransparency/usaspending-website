@@ -16,7 +16,7 @@ const propTypes = {
     changedInput: PropTypes.func,
     removeKeyword: PropTypes.func,
     value: PropTypes.string,
-    dirtyFilter: PropTypes.string
+    dirtyFilter: PropTypes.object
 };
 
 export default class Keyword extends React.Component {
@@ -87,12 +87,7 @@ export default class Keyword extends React.Component {
                                 label="Filter by keyword"
                                 accessibility={accessibility} />
                         </div>
-                        <div
-                            className={`selected-filters ${hideTags}`}
-                            id="selected-keyword-tags"
-                            role="status">
-                            {selectedKeywords}
-                        </div>
+                        {selectedKeywords}
                         <SubmitHint
                             ref={(component) => {
                                 this.hint = component;

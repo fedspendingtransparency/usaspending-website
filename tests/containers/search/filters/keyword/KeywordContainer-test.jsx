@@ -42,14 +42,13 @@ describe('KeywordContainer', () => {
             // reset the spies
             submitTextSpy.reset();
         });
-        it('should add a new keyword to the previous keyword', () => {
+        it('should overwrite a previous keyword with a new keyword', () => {
             const existingFilters = Object.assign({}, initialFilters, {
-                keyword: new OrderedMap({ Education: "Education" })
+                keyword: "Education"
             });
 
             const mockReduxActionKeyword = jest.fn((args) => {
-                console.log(args);
-                expect(args).toEqual(new OrderedMap({ Education: "Education", Financial: "Financial" }));
+                expect(args).toEqual('Financial');
             });
             const keywordContainer = shallow(
                 <KeywordContainer
@@ -60,7 +59,7 @@ describe('KeywordContainer', () => {
                 'submitText');
 
             // Add keyword to redux
-            keywordContainer.instance().populateInput('Financial');
+            keywordContainer.instance().populateInput("Financial");
             keywordContainer.instance().submitText();
 
             // everything should be updated now
@@ -72,18 +71,18 @@ describe('KeywordContainer', () => {
         });
     });
     describe('dirtyFilter', () => {
-        it('should return the keyword string when the staged filters do not match with the applied filters', () => {
+        it('should return the keyword OrderedMap when the staged filters do not match with the applied filters', () => {
             const container = shallow(
                 <KeywordContainer
                     {...initialFilters}
                     updateTextSearchInput={jest.fn()} />);
 
             container.setProps({
-                keyword: 'blerg'
+                keyword: new OrderedMap({ blerg: "blerg" })
             });
 
             const changed = container.instance().dirtyFilter();
-            expect(changed).toEqual('blerg');
+            expect(changed).toEqual(new OrderedMap({ blerg: "blerg" }));
         });
         it('should return null when the staged filters match with the applied filters', () => {
             const container = shallow(

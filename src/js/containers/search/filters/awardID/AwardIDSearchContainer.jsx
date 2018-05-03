@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { OrderedMap, is } from 'immutable';
+import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 

@@ -14,6 +14,10 @@ const propTypes = {
 
 export default class SelectedKeywords extends React.Component {
     render() {
+        let hideTags = 'hide';
+        if (this.props.selectedKeyword.size !== 0) {
+            hideTags = '';
+        }
         const shownKeywords = [];
         this.props.selectedKeyword.forEach((keyword) => {
             const value = (
@@ -27,7 +31,8 @@ export default class SelectedKeywords extends React.Component {
 
         return (
             <div
-                className="selected-filters"
+                className={`selected-filters ${hideTags}`}
+                id="selected-keyword-tags"
                 role="status">
                 {shownKeywords}
             </div>

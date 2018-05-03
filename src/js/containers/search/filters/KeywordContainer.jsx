@@ -15,7 +15,7 @@ import Keyword from 'components/search/filters/keyword/Keyword';
 
 const propTypes = {
     keyword: PropTypes.object,
-    appliedFilter: PropTypes.string,
+    appliedFilter: PropTypes.object,
     updateTextSearchInput: PropTypes.func
 };
 
@@ -33,20 +33,23 @@ export class KeywordContainer extends React.Component {
     }
 
     componentWillMount() {
-        if (this.props.keyword !== '') {
-            this.populateInput("");
+        if (this.props.keyword.size > 0) {
+            this.populateInput(this.props.keyword.last());
         }
     }
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.keyword !== this.state.defaultValue) {
-            this.populateInput(nextProps.keyword);
+            const value = nextProps.keyword.last();
+            if (value) {
+                this.populateInput(value);
+            }
         }
     }
 
-    populateInput() {
+    populateInput(value) {
         this.setState({
-            value: this.state.value
+            value
         });
     }
 
@@ -58,7 +61,9 @@ export class KeywordContainer extends React.Component {
 
     submitText() {
         // take in keywords and pass to redux
-        this.props.updateTextSearchInput(this.state.value);
+        if (this.state.value !== "") {
+            this.props.updateTextSearchInput(this.state.value);
+        }
     }
 
     removeKeyword() {

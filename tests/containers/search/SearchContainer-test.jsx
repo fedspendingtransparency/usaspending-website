@@ -256,7 +256,6 @@ describe('SearchContainer', () => {
                 hashState: 'inbound'
             });
             container.instance().applyFilters(mockFilters.filter);
-            console.log(mockFilters.filter);
 
             const expectedFilters = Object.assign({}, initialState, {
                 timePeriodFY: new Set(['1990'])
@@ -320,7 +319,7 @@ describe('SearchContainer', () => {
 
             expect(mockParse).toHaveBeenCalledTimes(0);
             expect(container.state().downloadAvailable).toBeFalsy();
-
+            
         });
         it('should make an API request for how many transaction rows will be returned', async () => {
             const newFilters = Object.assign({}, initialState, {
