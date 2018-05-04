@@ -44,11 +44,11 @@ describe('KeywordContainer', () => {
         });
         it('should overwrite a previous keyword with a new keyword', () => {
             const existingFilters = Object.assign({}, initialFilters, {
-                keyword: "Education"
+                keyword: new OrderedMap({ Education: "Education" })
             });
 
             const mockReduxActionKeyword = jest.fn((args) => {
-                expect(args).toEqual('Financial');
+                expect(args).toEqual(new OrderedMap({ Education: "Education", Financial: "Financial" }).last());
             });
             const keywordContainer = shallow(
                 <KeywordContainer
