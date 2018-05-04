@@ -10,11 +10,14 @@ const mockStateData = {
         fips: 51,
         year: 2017,
         population: 8414380,
-        total_amount: 300200000000,
-        total_awards: 327721,
+        total_prime_amount: 300200000000,
+        total_prime_awards: 327721,
+        total_subaward_amount: 64400000000,
+        total_sub_awards: 3241,
         award_amount_per_capita: 916023.08,
         median_household_income: 68114,
-        icon_filename: 'CA.jpg'
+        icon_filename: 'CA.jpg',
+        source: 'U.S. Census Bureau, American Community Survey'
     }
 };
 
