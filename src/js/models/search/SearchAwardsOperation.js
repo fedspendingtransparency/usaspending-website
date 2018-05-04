@@ -84,7 +84,7 @@ class SearchAwardsOperation {
 
         // Add keyword
         if (this.keyword.length > 0) {
-            filters[rootKeys.keyword] = this.keyword.map((keyword) => keyword);
+            filters[rootKeys.keyword] = this.keyword;
         }
 
         // Add Time Period
@@ -174,7 +174,7 @@ class SearchAwardsOperation {
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients.length > 0) {
-            filters[rootKeys.recipients] = this.selectedRecipients.map((recipients) => recipients);
+            filters[rootKeys.recipients] = this.selectedRecipients;
         }
 
         if (this.selectedRecipientLocations.length > 0) {
@@ -256,7 +256,7 @@ class SearchAwardsOperation {
 
         // Add Award IDs
         if (this.selectedAwardIDs.length > 0) {
-            filters[rootKeys.awardID] = this.selectedAwardIDs.map((awardID) => awardID);
+            filters[rootKeys.awardID] = this.selectedAwardIDs;
         }
 
         // Add CFDA
