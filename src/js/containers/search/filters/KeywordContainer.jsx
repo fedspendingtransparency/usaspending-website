@@ -32,6 +32,12 @@ export class KeywordContainer extends React.Component {
         this.removeKeyword = this.removeKeyword.bind(this);
     }
 
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.keyword !== this.state.defaultValue) {
+            this.populateInput("");
+        }
+    }
+
     populateInput(value) {
         this.setState({
             value
