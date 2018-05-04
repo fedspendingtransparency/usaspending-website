@@ -1,5 +1,8 @@
 .geo-entity-item {
     padding-top: rem(15);
+    &:first-child {
+        padding-top: 0;
+    }
     width: fit-content;
     .location-label {
         text-transform: uppercase;

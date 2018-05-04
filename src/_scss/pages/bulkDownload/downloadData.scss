@@ -44,7 +44,7 @@
             @include span-columns(7);
         }
         padding: rem(15) rem(30) 0 rem(30);
-        border-left: solid 1px $color-gray-light;
+        border-left: solid 1px #e1e1e1;
 
         h3.download-info__title {
             @include h6;
@@ -52,11 +52,12 @@
             padding-bottom: rem(15);
         }
         .download-info__section {
+            font-size: $small-font-size;
             padding-bottom: rem(15);
             h4.download-info__section-heading {
                 margin: 0;
                 padding-bottom: rem(5);
-                font-size: $base-font-size;
+                font-size: $small-font-size;
                 font-weight: $font-bold;
             }
             p {

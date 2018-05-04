@@ -1,7 +1,8 @@
 .filter-picker {
     @import 'elements/_titleSelector';
-    &:last-child {
-        padding-top: rem(15);
+    padding-top: rem(15);
+    &:first-child {
+        padding-top: 0;
     }
     margin-bottom: 0;
     .select-label {

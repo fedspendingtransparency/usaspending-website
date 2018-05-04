@@ -1,5 +1,9 @@
 .radio {
-    padding-bottom: rem(15);
+    padding-top: rem(15);
+    &:first-child {
+        padding-top: 0;
+    }
+
     input {
         margin-right: rem(5);
     }
