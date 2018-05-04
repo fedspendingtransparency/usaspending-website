@@ -30,7 +30,8 @@ const stateSections = [
 ];
 
 const propTypes = {
-    stateProfile: PropTypes.object
+    stateProfile: PropTypes.object,
+    pickedFy: PropTypes.func
 };
 
 export default class StateContent extends React.Component {
@@ -202,7 +203,6 @@ export default class StateContent extends React.Component {
     }
 
     render() {
-        console.log(this.props.stateProfile);
         return (
             <div className="state-content-wrapper">
                 <div className="state-sidebar">
@@ -211,7 +211,10 @@ export default class StateContent extends React.Component {
                         pageName="state"
                         sections={stateSections}
                         jumpToSection={this.jumpToSection}
-                        stickyHeaderHeight={StickyHeader.stickyHeaderHeight} />
+                        stickyHeaderHeight={StickyHeader.stickyHeaderHeight}
+                        fyPicker
+                        currentFy={this.props.stateProfile.fy}
+                        pickedYear={this.props.pickedFy} />
                 </div>
                 <div className="state-content">
                     <div className="state-padded-content overview">

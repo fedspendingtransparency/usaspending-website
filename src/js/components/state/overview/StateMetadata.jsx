@@ -25,8 +25,8 @@ export default class StateMetadata extends React.PureComponent {
                         from <span className="state-overview__total">{this.props.stateProfile.totalPrimeAwards}</span> awards
                     </div>
                     <div className="state-overview__subawards">
-                        of this, <span className="state-overview__total">{this.props.stateProfile.totalSubAmount}</span>&nbsp;
-                        was distributed as <span className="state-overview__total">{this.props.stateProfile.totalSubAwards}</span> sub-awards
+                        of this, <span className="state-overview__total">{this.props.stateProfile.totalSubAmount}</span> was
+                        distributed as <span className="state-overview__total">{this.props.stateProfile.totalSubAwards}</span> sub-awards
                     </div>
                 </div>
                 <div className="state-overview__details">

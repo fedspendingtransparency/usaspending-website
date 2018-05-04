@@ -1,0 +1,42 @@
+@import '../explorer/detail/sidebar/_fyPicker.scss';
+.fy-picker {
+    padding-bottom: rem(15);
+    .fy-picker__header {
+        .fy-picker__icon {
+            svg {
+                fill: $color-gray;
+                height: rem(25);
+                width: rem(25);
+            }
+        }
+        .fy-picker__dropdown-container {
+            @include flex(1 1 auto);
+        }
+        .fy-picker__button {
+            width: 100%;
+        }
+        .fy-picker__button-text {
+            color: $color-gray;
+        }
+        .fy-picker__button-icon {
+            svg {
+                fill: $color-gray;
+            }
+        }
+    }
+    .fy-picker__list {
+        border-color: $color-gray-lighter;
+        background-color: $color-white;
+        .fy-picker__list-item {
+            border-color: $color-gray-lighter;
+        }
+        .fy-picker__item {
+            color: $color-gray;
+            text-align: left;
+
+            &:hover, &:active {
+                background-color: $color-gray-lightest;
+            }
+        }
+    }
+}

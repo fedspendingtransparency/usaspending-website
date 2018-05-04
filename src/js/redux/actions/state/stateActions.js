@@ -8,6 +8,11 @@ export const setStateOverview = (state) => ({
     overview: state
 });
 
+export const setStateFiscalYear = (state) => ({
+    type: 'SET_STATE_FY',
+    fy: state
+});
+
 export const resetState = () => ({
     type: 'RESET_STATE'
 });

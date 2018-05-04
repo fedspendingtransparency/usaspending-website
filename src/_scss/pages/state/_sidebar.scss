@@ -19,6 +19,8 @@
     border-bottom: 1px solid $color-gray-border;
     padding: rem(40) rem(46);
 
+    @import 'fyPicker';
+
     ul {
         @include unstyled-list;
 

@@ -20,7 +20,8 @@ require('pages/state/statePage.scss');
 const propTypes = {
     params: PropTypes.object,
     stateProfile: PropTypes.object,
-    setStateOverview: PropTypes.func
+    setStateOverview: PropTypes.func,
+    setStateFiscalYear: PropTypes.func
 };
 
 export class StateContainer extends React.Component {
@@ -36,21 +37,22 @@ export class StateContainer extends React.Component {
         this.updateRequest = null;
     }
     componentWillMount() {
-        this.loadStateOverview(this.props.params.stateId);
+        this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.params.stateId !== nextProps.params.stateId) {
-            this.loadStateOverview(nextProps.params.stateId);
+        if ((this.props.params.stateId !== nextProps.params.stateId) ||
+            (this.props.stateProfile.fy !== nextProps.stateProfile.fy)) {
+            this.loadStateOverview(nextProps.params.stateId, nextProps.stateProfile.fy);
         }
     }
 
-    loadStateOverview(id) {
+    loadStateOverview(id, year) {
         if (this.request) {
             this.request.cancel();
         }
 
-        this.request = StateHelper.fetchStateOverview(id);
+        this.request = StateHelper.fetchStateOverview(id, year);
 
         this.request.promise
             .then((res) => {
@@ -90,7 +92,7 @@ export class StateContainer extends React.Component {
                 error={this.state.error}
                 id={this.props.stateProfile.id}
                 stateProfile={this.props.stateProfile}
-                lastUpdate={this.state.lastUpdate} />
+                pickedFy={this.props.setStateFiscalYear} />
         );
     }
 }

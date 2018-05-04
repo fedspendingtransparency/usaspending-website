@@ -22,7 +22,8 @@ const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
     id: PropTypes.string,
-    stateProfile: PropTypes.object
+    stateProfile: PropTypes.object,
+    pickedFy: PropTypes.func
 };
 
 export default class StatePage extends React.Component {

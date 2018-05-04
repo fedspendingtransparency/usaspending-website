@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
+import FYPicker from 'components/state/RecipientFYPicker';
 import SidebarLink from './SidebarLink';
 
 const propTypes = {
@@ -14,7 +15,10 @@ const propTypes = {
     pageName: PropTypes.string,
     sections: PropTypes.array,
     jumpToSection: PropTypes.func,
-    stickyHeaderHeight: PropTypes.number
+    stickyHeaderHeight: PropTypes.number,
+    fyPicker: PropTypes.bool,
+    currentFy: PropTypes.string,
+    pickedYear: PropTypes.func
 };
 
 export default class Sidebar extends React.Component {
@@ -129,6 +133,15 @@ export default class Sidebar extends React.Component {
             floatSidebar = 'float-sidebar';
         }
 
+        let fyPicker = null;
+        if (this.props.fyPicker) {
+            fyPicker = (
+                <FYPicker
+                    fy={this.props.currentFy}
+                    pickedYear={this.props.pickedYear} />
+            );
+        }
+
         return (
             <div>
                 <div
@@ -145,6 +158,7 @@ export default class Sidebar extends React.Component {
                     ref={(div) => {
                         this.div = div;
                     }}>
+                    {fyPicker}
                     <ul>
                         { items }
                     </ul>

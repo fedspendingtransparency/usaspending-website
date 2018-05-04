@@ -3,32 +3,49 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-const mockStateData = {
-    // TODO - Lizzie: remove mock data
-    results: {
-        name: 'California',
-        fips: 51,
-        year: 2017,
-        population: 8414380,
-        total_prime_amount: 300200000000,
-        total_prime_awards: 327721,
-        total_subaward_amount: 64400000000,
-        total_sub_awards: 3241,
-        award_amount_per_capita: 916023.08,
-        median_household_income: 68114,
-        icon_filename: 'CA.jpg',
-        source: 'U.S. Census Bureau, American Community Survey'
-    }
-};
+// import Axios, {CancelToken} from "axios/index";
 
-export const fetchStateOverview = () => (
+// import kGlobalConstants from 'GlobalConstants';
+
+// TODO - Lizzie: remove mock API
+export const fetchStateOverview = (id, year) => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: mockStateData
+                    data: {
+                        results: {
+                            name: 'California',
+                            fips: id,
+                            year,
+                            population: 8414380,
+                            total_prime_amount: 300200000000,
+                            total_prime_awards: 327721,
+                            total_subaward_amount: 64400000000,
+                            total_sub_awards: 3241,
+                            award_amount_per_capita: 916023.08,
+                            median_household_income: 68114,
+                            icon_filename: 'CA.jpg',
+                            source: 'U.S. Census Bureau, American Community Survey'
+                        }
+                    }
                 });
             });
         })
     }
 );
+
+// export const fetchStateOverview = (id, year) => {
+//     const source = CancelToken.source();
+//     return {
+//         promise: Axios.request({
+//             url: `v2/recipient/state/${id}?year=${year}`,
+//             baseURL: kGlobalConstants.API,
+//             method: 'get',
+//             cancelToken: source.token
+//         }),
+//         cancel() {
+//             source.cancel();
+//         }
+//     };
+// };
