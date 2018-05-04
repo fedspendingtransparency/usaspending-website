@@ -9,7 +9,7 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 class SearchAwardsOperation {
     constructor() {
-        this.keyword = '';
+        this.keyword = [];
 
         this.timePeriodType = 'fy';
         this.timePeriodFY = [];
@@ -42,7 +42,7 @@ class SearchAwardsOperation {
     }
 
     fromState(state) {
-        this.keyword = state.keyword;
+        this.keyword = state.keyword.toArray();
 
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
@@ -83,8 +83,8 @@ class SearchAwardsOperation {
         const filters = {};
 
         // Add keyword
-        if (this.keyword !== '') {
-            filters[rootKeys.keyword] = this.keyword;
+        if (this.keyword.length > 0) {
+            filters[rootKeys.keyword] = this.keyword.map((keyword) => keyword);
         }
 
         // Add Time Period
@@ -174,7 +174,7 @@ class SearchAwardsOperation {
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients.length > 0) {
-            filters[rootKeys.recipients] = this.selectedRecipients;
+            filters[rootKeys.recipients] = this.selectedRecipients.map((recipients) => recipients);
         }
 
         if (this.selectedRecipientLocations.length > 0) {
@@ -256,7 +256,7 @@ class SearchAwardsOperation {
 
         // Add Award IDs
         if (this.selectedAwardIDs.length > 0) {
-            filters[rootKeys.awardID] = this.selectedAwardIDs;
+            filters[rootKeys.awardID] = this.selectedAwardIDs.map((awardID) => awardID);
         }
 
         // Add CFDA
