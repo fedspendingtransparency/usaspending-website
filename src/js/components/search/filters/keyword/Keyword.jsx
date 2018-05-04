@@ -49,11 +49,6 @@ export default class Keyword extends React.Component {
     }
 
     render() {
-        let hideTags = 'hide';
-        if (this.props.selectedKeyword.size !== 0) {
-            hideTags = '';
-        }
-
         const accessibility = {
             'aria-controls': 'selected-keyword-tags'
         };
