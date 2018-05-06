@@ -12,19 +12,18 @@ import SelectedKeywords from './SelectedKeywords';
 
 const propTypes = {
     selectedKeyword: PropTypes.object,
-    submitText: PropTypes.func,
-    changedInput: PropTypes.func,
-    removeKeyword: PropTypes.func,
-    value: PropTypes.string,
-    dirtyFilter: PropTypes.object
+    toggleKeyword: PropTypes.func,
+    dirtyFilter: PropTypes.symbol
 };
 
 export default class Keyword extends React.Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            value: ''
+        };
+        this.changedInput = this.changedInput.bind(this);
         this.searchKeyword = this.searchKeyword.bind(this);
-        this.removeKeyword = this.removeKeyword.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -35,17 +34,28 @@ export default class Keyword extends React.Component {
         }
     }
 
-    searchKeyword(e) {
-        e.preventDefault();
-        this.props.submitText();
+    changedInput(e) {
+        this.setState({
+            value: e.target.value
+        });
     }
 
-    removeKeyword() {
+    searchKeyword(e) {
+        e.preventDefault();
+        if (this.state.value !== "") {
+            this.props.toggleKeyword(this.state.value);
+        }
+        this.setState({
+            value: ''
+        });
+    }
+
+    toggleKeyword() {
         if (this.searchInput) {
             // focus on the input field for accessibility users
             this.searchInput.focus();
         }
-        this.props.removeKeyword();
+        this.props.toggleKeyword();
     }
 
     render() {
@@ -57,7 +67,7 @@ export default class Keyword extends React.Component {
 
         if (this.props.selectedKeyword.size > 0) {
             selectedKeywords = (<SelectedKeywords
-                removeKeyword={this.props.removeKeyword}
+                toggleKeyword={this.props.toggleKeyword}
                 selectedKeyword={this.props.selectedKeyword} />);
         }
 
@@ -71,8 +81,8 @@ export default class Keyword extends React.Component {
                                 type="text"
                                 className="keyword-input"
                                 placeholder="Search by Keyword"
-                                value={this.props.value}
-                                onChange={this.props.changedInput}
+                                value={this.state.value}
+                                onChange={this.changedInput}
                                 ref={(input) => {
                                     this.searchInput = input;
                                 }} />

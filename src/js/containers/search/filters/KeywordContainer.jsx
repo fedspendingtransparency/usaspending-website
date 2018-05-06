@@ -23,60 +23,26 @@ export class KeywordContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            value: ''
-        };
-
-        this.submitText = this.submitText.bind(this);
-        this.changedInput = this.changedInput.bind(this);
-        this.removeKeyword = this.removeKeyword.bind(this);
+        this.toggleKeyword = this.toggleKeyword.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.keyword !== this.state.defaultValue) {
-            this.populateInput("");
-        }
-    }
-
-    populateInput(value) {
-        this.setState({
-            value
-        });
-    }
-
-    changedInput(e) {
-        this.setState({
-            value: e.target.value
-        });
-    }
-
-    submitText() {
-        // take in keywords and pass to redux
-        if (this.state.value !== "") {
-            this.props.updateTextSearchInput(this.state.value);
-        }
-    }
-
-    removeKeyword() {
-        this.props.updateTextSearchInput(this.state.value);
+    toggleKeyword(value) {
+        this.props.updateTextSearchInput(value);
     }
 
     dirtyFilter() {
         if (is(this.props.appliedFilter, this.props.keyword)) {
             return null;
         }
-        return this.props.keyword;
+        return Symbol('dirty keywords');
     }
 
     render() {
         return (
             <Keyword
                 dirtyFilter={this.dirtyFilter()}
-                value={this.state.value}
                 selectedKeyword={this.props.keyword}
-                changedInput={this.changedInput}
-                submitText={this.submitText}
-                removeKeyword={this.removeKeyword} />
+                toggleKeyword={this.toggleKeyword} />
         );
     }
 }

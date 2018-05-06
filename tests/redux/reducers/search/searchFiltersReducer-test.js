@@ -46,6 +46,43 @@ describe('searchFiltersReducer', () => {
         });
     });
 
+    describe('UPDATE_TEXT_SEARCH', () => {
+        const action = {
+            type: 'UPDATE_TEXT_SEARCH',
+            textInput: "testing"
+        };
+
+        const keyword = "testing";
+
+
+        it('should add the provided keyword if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, action);
+
+            expect(updatedState.keyword).toEqual(
+                new OrderedMap({ "testing": keyword })
+            );
+        });
+
+        it('should not override the previous keyword, if the new keyword does not already exist', () => {
+            const startingState = Object.assign({}, initialState, {
+                keyword: new OrderedMap({ "moretesting" : "moretesting" })
+            });
+            
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.keyword).toEqual(new OrderedMap({ "moretesting" : "moretesting", "testing" : "testing", }));
+    });
+
+       
+        it('should remove the provided agency if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                keyword: new OrderedMap({ "testing" : keyword })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.keyword).toEqual(new OrderedMap());
+        });
+    });
+
     describe('BULK_SEACH_FILTER_AWARD_TYPE', () => {
         it('should add the provided values when the direction is "add"', () => {
             const action = {

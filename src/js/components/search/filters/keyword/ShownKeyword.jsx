@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 import { Close } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    removeKeyword: PropTypes.func,
-    keyword: PropTypes.string
+    toggleKeyword: PropTypes.func,
+    label: PropTypes.string
 };
 
 export default class ShownKeyword extends React.Component {
@@ -18,14 +18,14 @@ export default class ShownKeyword extends React.Component {
         return (
             <button
                 className="shown-filter-button"
-                value={this.props.keyword}
-                onClick={this.props.removeKeyword}
+                value={this.props.label}
+                onClick={this.props.toggleKeyword}
                 title="Click to remove filter."
-                aria-label={`Applied keyword filter: ${this.props.keyword}`}>
+                aria-label={`Applied keyword filter: ${this.props.label}`}>
                 <span className="close">
                     <Close className="usa-da-icon-close" alt="Close icon" />
                 </span>
-                {this.props.keyword}
+                {this.props.label}
             </button>
         );
     }

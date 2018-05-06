@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import ShownKeyword from './ShownKeyword';
 
 const propTypes = {
-    removeKeyword: PropTypes.func,
+    toggleKeyword: PropTypes.func,
     selectedKeyword: PropTypes.object
 };
 
@@ -22,9 +22,9 @@ export default class SelectedKeywords extends React.Component {
         this.props.selectedKeyword.forEach((keyword) => {
             const value = (
                 <ShownKeyword
-                    keyword={keyword}
+                    label={keyword}
                     key={keyword}
-                    removeKeyword={this.props.removeKeyword.bind(null, keyword)} />
+                    toggleKeyword={this.props.toggleKeyword.bind(null, keyword)} />
             );
             shownKeywords.push(value);
         });

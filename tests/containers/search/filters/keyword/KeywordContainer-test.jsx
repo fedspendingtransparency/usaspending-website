@@ -15,59 +15,60 @@ const initialFilters = {
     appliedFilter: new OrderedMap()
 };
 
+const keyword = 'testing';
+
 describe('KeywordContainer', () => {
     describe('submitText', () => {
-        it('should submit given keyword text to redux state', () => {
-            const mockReduxActionKeyword = jest.fn((args) => {
-                expect(args).toEqual('Education');
+        it('should add a keyword that has been selected to Redux', () => {
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual("testing");
             });
+
+            // Set up container with mocked action
             const keywordContainer = shallow(
                 <KeywordContainer
                     {...initialFilters}
-                    updateTextSearchInput={mockReduxActionKeyword} />);
+                    updateTextSearchInput={mockReduxAction} />);
 
-            const submitTextSpy = sinon.spy(keywordContainer.instance(),
-                'submitText');
+            const toggleKeywordSpy = sinon.spy(keywordContainer.instance(),
+                'toggleKeyword');
 
-            // Add keyword to redux
-            keywordContainer.setState({
-                value: 'Education'
-            });
-            keywordContainer.instance().submitText();
+            // Add Keyword to redux
+            keywordContainer.instance().toggleKeyword(keyword);
 
-            // everything should be updated now
-            expect(submitTextSpy.callCount).toEqual(1);
-            expect(mockReduxActionKeyword).toHaveBeenCalled();
+            // Everything should be updated now
+            expect(toggleKeywordSpy.callCount).toEqual(1);
+            expect(mockReduxAction).toHaveBeenCalled();
 
-            // reset the spies
-            submitTextSpy.reset();
+            // Reset the spy
+            toggleKeywordSpy.reset();
         });
-        it('should overwrite a previous keyword with a new keyword', () => {
-            const existingFilters = Object.assign({}, initialFilters, {
-                keyword: new OrderedMap({ Education: "Education" })
+        it('should remove a Keyword that has been deselected from Redux', () => {
+            const mockReduxAction = jest.fn((args) => {
+                expect(args).toEqual("testing");
             });
 
-            const mockReduxActionKeyword = jest.fn((args) => {
-                expect(args).toEqual(new OrderedMap({ Education: "Education", Financial: "Financial" }).last());
-            });
+            // Set up container with mocked action
             const keywordContainer = shallow(
                 <KeywordContainer
-                    {...existingFilters}
-                    updateTextSearchInput={mockReduxActionKeyword} />);
+                    {...initialFilters}
+                    updateTextSearchInput={mockReduxAction} />);
 
-            const submitTextSpy = sinon.spy(keywordContainer.instance(),
-                'submitText');
+            const toggleKeywordSpy = sinon.spy(keywordContainer.instance(),
+                'toggleKeyword');
 
-            // Add keyword to redux
-            keywordContainer.instance().populateInput("Financial");
-            keywordContainer.instance().submitText();
+            // Add Keyword to redux
+            keywordContainer.instance().toggleKeyword(keyword);
 
-            // everything should be updated now
-            expect(submitTextSpy.callCount).toEqual(1);
-            expect(mockReduxActionKeyword).toHaveBeenCalled();
+            // Remove Keyword from Redux
+            keywordContainer.instance().toggleKeyword(keyword);
 
-            // reset the spies
-            submitTextSpy.reset();
+            // Everything should be updated now
+            expect(toggleKeywordSpy.callCount).toEqual(2);
+            expect(mockReduxAction).toHaveBeenCalledTimes(2);
+
+            // Reset the spy
+            toggleKeywordSpy.reset();
         });
     });
     describe('dirtyFilter', () => {
@@ -82,7 +83,7 @@ describe('KeywordContainer', () => {
             });
 
             const changed = container.instance().dirtyFilter();
-            expect(changed).toEqual(new OrderedMap({ blerg: "blerg" }));
+            expect(typeof changed).toEqual('symbol');
         });
         it('should return null when the staged filters match with the applied filters', () => {
             const container = shallow(
