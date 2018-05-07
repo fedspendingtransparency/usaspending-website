@@ -34,7 +34,6 @@ export class StateContainer extends React.Component {
         };
 
         this.request = null;
-        this.updateRequest = null;
     }
     componentWillMount() {
         this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
