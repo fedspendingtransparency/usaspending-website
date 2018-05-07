@@ -42,7 +42,7 @@ export default class Keyword extends React.Component {
 
     searchKeyword(e) {
         e.preventDefault();
-        if (this.state.value !== "") {
+        if (this.state.value !== '') {
             this.props.toggleKeyword(this.state.value);
         }
         this.setState({

@@ -43,36 +43,9 @@ describe('KeywordContainer', () => {
             // Reset the spy
             toggleKeywordSpy.reset();
         });
-        it('should remove a Keyword that has been deselected from Redux', () => {
-            const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual("testing");
-            });
-
-            // Set up container with mocked action
-            const keywordContainer = shallow(
-                <KeywordContainer
-                    {...initialFilters}
-                    updateTextSearchInput={mockReduxAction} />);
-
-            const toggleKeywordSpy = sinon.spy(keywordContainer.instance(),
-                'toggleKeyword');
-
-            // Add Keyword to redux
-            keywordContainer.instance().toggleKeyword(keyword);
-
-            // Remove Keyword from Redux
-            keywordContainer.instance().toggleKeyword(keyword);
-
-            // Everything should be updated now
-            expect(toggleKeywordSpy.callCount).toEqual(2);
-            expect(mockReduxAction).toHaveBeenCalledTimes(2);
-
-            // Reset the spy
-            toggleKeywordSpy.reset();
-        });
     });
     describe('dirtyFilter', () => {
-        it('should return the keyword OrderedMap when the staged filters do not match with the applied filters', () => {
+        it('should return a symbol when the staged filters do not match with the applied filters', () => {
             const container = shallow(
                 <KeywordContainer
                     {...initialFilters}

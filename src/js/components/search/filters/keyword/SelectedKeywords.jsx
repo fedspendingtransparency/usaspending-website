@@ -18,16 +18,12 @@ export default class SelectedKeywords extends React.Component {
         if (this.props.selectedKeyword.size !== 0) {
             hideTags = '';
         }
-        const shownKeywords = [];
-        this.props.selectedKeyword.forEach((keyword) => {
-            const value = (
-                <ShownKeyword
-                    label={keyword}
-                    key={keyword}
-                    toggleKeyword={this.props.toggleKeyword.bind(null, keyword)} />
-            );
-            shownKeywords.push(value);
-        });
+        const shownKeywords = this.props.selectedKeyword.map((keyword) => (
+            <ShownKeyword
+                label={keyword}
+                key={keyword}
+                toggleKeyword={this.props.toggleKeyword.bind(null, keyword)} />
+        ));
 
         return (
             <div

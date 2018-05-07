@@ -84,7 +84,7 @@ class SearchAwardsOperation {
 
         // Add keyword
         if (this.keyword.length > 0) {
-            filters[rootKeys.keyword] = this.keyword;
+            filters[rootKeys.keywords] = this.keyword;
         }
 
         // Add Time Period

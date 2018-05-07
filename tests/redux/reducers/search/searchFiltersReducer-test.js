@@ -49,17 +49,17 @@ describe('searchFiltersReducer', () => {
     describe('UPDATE_TEXT_SEARCH', () => {
         const action = {
             type: 'UPDATE_TEXT_SEARCH',
-            textInput: "testing"
+            textInput: 'testing'
         };
 
-        const keyword = "testing";
+        const keyword = 'testing';
 
 
         it('should add the provided keyword if it does not currently exist in the filter', () => {
             const updatedState = searchFiltersReducer(undefined, action);
 
             expect(updatedState.keyword).toEqual(
-                new OrderedMap({ "testing": keyword })
+                new OrderedMap({ 'testing': keyword })
             );
         });
 
@@ -69,13 +69,15 @@ describe('searchFiltersReducer', () => {
             });
             
             const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.keyword).toEqual(new OrderedMap({ "moretesting" : "moretesting", "testing" : "testing", }));
+            expect(updatedState.keyword).toEqual(new OrderedMap({
+                'moretesting' : 'moretesting', 
+                'testing' : 'testing', }));
         });
 
        
         it('should remove the provided keyword if already exists in the filter', () => {
             const startingState = Object.assign({}, initialState, {
-                keyword: new OrderedMap({ "testing" : keyword })
+                keyword: new OrderedMap({ 'testing' : keyword })
             });
 
             const updatedState = searchFiltersReducer(startingState, action);
