@@ -31,9 +31,9 @@
         }
         .selection__content {
             font-weight: 300;
+            font-size: rem(18);
             &.selection__content-required {
                 color: $color-secondary;
-                font-size: rem(18);
                 line-height: rem(23);
             }
         }
