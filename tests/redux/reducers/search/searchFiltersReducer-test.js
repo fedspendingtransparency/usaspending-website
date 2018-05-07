@@ -70,7 +70,7 @@ describe('searchFiltersReducer', () => {
             
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.keyword).toEqual(new OrderedMap({ "moretesting" : "moretesting", "testing" : "testing", }));
-    });
+        });
 
        
         it('should remove the provided keyword if already exists in the filter', () => {
