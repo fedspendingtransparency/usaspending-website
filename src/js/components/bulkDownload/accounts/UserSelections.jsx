@@ -83,7 +83,9 @@ export default class UserSelections extends React.Component {
                 <div className="download-user-selections__left-col">
                     <div className="selection">
                         <div className="selection__heading">Account Level</div>
-                        Treasury Account
+                        <div className="selection__content">
+                            Treasury Account
+                        </div>
                     </div>
                     <div className="selection">
                         <div className="selection__heading">Agency</div>
@@ -95,7 +97,9 @@ export default class UserSelections extends React.Component {
                     </div>
                     <div className="selection">
                         <div className="selection__heading">File Format</div>
-                        CSV
+                        <div className="selection__content">
+                            CSV
+                        </div>
                     </div>
                 </div>
                 <div className="download-user-selections__right-col">
@@ -105,7 +109,9 @@ export default class UserSelections extends React.Component {
                     </div>
                     <div className="selection">
                         <div className="selection__heading">Federal Account</div>
-                        -
+                        <div className="selection__content">
+                            &mdash;
+                        </div>
                     </div>
                     <div className="selection">
                         <div className="selection__heading">Time Period</div>

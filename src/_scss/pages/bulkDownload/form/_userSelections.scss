@@ -30,6 +30,7 @@
             line-height: rem(15);
         }
         .selection__content {
+            font-weight: 300;
             &.selection__content-required {
                 color: $color-secondary;
                 font-size: rem(18);
