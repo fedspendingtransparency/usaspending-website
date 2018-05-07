@@ -100,8 +100,8 @@ export default class FYPicker extends React.Component {
             fy.push(item);
         }
 
-        const otherFyOptions = fyOptions.map((option) =>
-            (<li
+        const otherFyOptions = fyOptions.map((option) => (
+            <li
                 key={option.name}
                 className="fy-picker__list-item">
                 <button
@@ -110,8 +110,8 @@ export default class FYPicker extends React.Component {
                     onClick={this.clickedYear}>
                     {option.label}
                 </button>
-            </li>)
-        );
+            </li>
+        ));
 
         let visibleClass = 'fy-picker__list_hidden';
         if (this.state.expanded) {

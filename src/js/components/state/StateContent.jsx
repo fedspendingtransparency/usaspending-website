@@ -13,6 +13,7 @@ import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWr
 
 import Sidebar from '../sharedComponents/sidebar/Sidebar';
 import StateOverview from './overview/StateOverview';
+import StateFooter from './StateFooter';
 
 const stateSections = [
     {
@@ -222,6 +223,7 @@ export default class StateContent extends React.Component {
                             child={StateOverview}
                             stateProfile={this.props.stateProfile.overview} />
                     </div>
+                    <StateFooter />
                 </div>
             </div>
         );

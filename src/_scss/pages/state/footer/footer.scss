@@ -1,0 +1,46 @@
+.state-footer {
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    background-color: $color-primary-darkest;
+    color: $color-white;
+    padding: ($global-pad * 4) 0;
+    position: relative;
+    width: 100%;
+    .footer-content {
+        @include flex(1 1 auto);
+        margin: 0 rem(20);
+        h4,
+        p {
+            text-align: center;
+        }
+        h4 {
+            font-size: rem(38);
+            line-height: rem(47);
+            margin: rem(5) 0;
+        }
+        p {
+            font-size: rem(18);
+            font-weight: $font-light;
+            & strong {
+                font-weight: $font-semibold;
+            }
+        }
+        .state-search-button {
+            display: block;
+            margin: rem(30) auto 0 auto;
+            width: rem(180);
+            height: rem(50);
+            text-align: center;
+            font-size: rem(24);
+            padding: rem(10) rem(20);
+            background-color: $color-primary;
+            color: $color-white;
+            font-weight: $font-bold;
+            &:hover, &:active {
+                background-color: $color-primary-darker;
+                text-decoration: none;
+            }
+        }
+    }
+}

@@ -16,6 +16,14 @@
         }
     }
     .state-overview__content {
+        .state-overview__note {
+            font-style: italic;
+            font-size: $smallest-font-size;
+            padding-bottom: rem(42);
+            &.state-overview__note_em {
+                font-weight: $font-bold;
+            }
+        }
         h4.state-overview__heading {
             font-size: rem(19);
             font-weight: 600;
@@ -55,6 +63,7 @@
                 }
                 .state-overview__table {
                     margin-top: rem(10);
+                    margin-bottom: rem(15);
                     tbody {
                         tr {
                             &:nth-child(odd) {

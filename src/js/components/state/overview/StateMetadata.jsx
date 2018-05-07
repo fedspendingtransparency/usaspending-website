@@ -19,14 +19,10 @@ export default class StateMetadata extends React.PureComponent {
                         Total Awarded Amount
                     </h4>
                     <div className="state-overview__total-amount">
-                        {this.props.stateProfile.totalPrimeAmount}
+                        {this.props.stateProfile.totalAmount}
                     </div>
                     <div>
-                        from <span className="state-overview__total">{this.props.stateProfile.totalPrimeAwards}</span> awards
-                    </div>
-                    <div className="state-overview__subawards">
-                        of this, <span className="state-overview__total">{this.props.stateProfile.totalSubAmount}</span> was
-                        distributed as <span className="state-overview__total">{this.props.stateProfile.totalSubAwards}</span> sub-awards
+                        from <span className="state-overview__total">{this.props.stateProfile.totalAwards}</span> awards
                     </div>
                 </div>
                 <div className="state-overview__details">
@@ -61,6 +57,9 @@ export default class StateMetadata extends React.PureComponent {
                             </tr>
                         </tbody>
                     </table>
+                    <div className="state-overview__note">
+                        <span className="state-overview__note state-overview__note_em">Note:</span> Details data is based on 2017 U.S. Census data.
+                    </div>
                 </div>
             </div>
         );
