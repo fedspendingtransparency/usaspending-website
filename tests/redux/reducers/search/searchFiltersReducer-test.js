@@ -73,7 +73,7 @@ describe('searchFiltersReducer', () => {
     });
 
        
-        it('should remove the provided agency if already exists in the filter', () => {
+        it('should remove the provided keyword if already exists in the filter', () => {
             const startingState = Object.assign({}, initialState, {
                 keyword: new OrderedMap({ "testing" : keyword })
             });
