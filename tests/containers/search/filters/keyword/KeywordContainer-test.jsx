@@ -18,30 +18,22 @@ const initialFilters = {
 const keyword = 'testing';
 
 describe('KeywordContainer', () => {
-    describe('submitText', () => {
-        it('should add a keyword that has been selected to Redux', () => {
-            const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual("testing");
-            });
+    describe('toggleKeyword', () => {
+        it('should trigger a Redux action', () => {
+            const mockReduxAction = jest.fn();
 
             // Set up container with mocked action
             const keywordContainer = shallow(
                 <KeywordContainer
                     {...initialFilters}
                     updateTextSearchInput={mockReduxAction} />);
-
-            const toggleKeywordSpy = sinon.spy(keywordContainer.instance(),
-                'toggleKeyword');
-
+                    
             // Add Keyword to redux
             keywordContainer.instance().toggleKeyword(keyword);
 
             // Everything should be updated now
-            expect(toggleKeywordSpy.callCount).toEqual(1);
-            expect(mockReduxAction).toHaveBeenCalled();
-
-            // Reset the spy
-            toggleKeywordSpy.reset();
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+            expect(mockReduxAction).toHaveBeenCalledWith(keyword);
         });
     });
     describe('dirtyFilter', () => {
