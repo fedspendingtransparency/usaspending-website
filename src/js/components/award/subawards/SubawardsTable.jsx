@@ -133,7 +133,7 @@ export default class SubawardsTable extends React.Component {
 
         let message = null;
         if (this.props.subawards.length === 0 && !this.props.inFlight) {
-            message = (<SummaryPageTableMessage message="No subawards found" />);
+            message = (<SummaryPageTableMessage message="No Sub-Awards found" />);
         }
 
         return (

@@ -173,7 +173,7 @@ export default class AwardDataContent extends React.Component {
                     <div className="download-info__section">
                         <div className="download-info__section-heading">What is award data?</div>
                         <p>
-                            Award data contains all the details of our prime award and sub-award records.
+                            Award data contains all the details of our prime award and Sub-Awards records.
                         </p>
                     </div>
                     <div className="download-info__section">
