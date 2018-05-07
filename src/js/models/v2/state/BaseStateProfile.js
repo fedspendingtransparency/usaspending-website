@@ -13,12 +13,13 @@ BaseStateProfile.populate = function populate(data) {
     const coreData = {
         name: data.name,
         id: data.fips || null,
-        totalAmount: data.total_amount,
-        totalAwards: data.total_awards,
+        totalAmount: data.total_prime_amount,
+        totalAwards: data.total_prime_awards,
         fy: data.year
     };
     this.populateCore(coreData);
 
+    this.type = data.state_type || 'state';
     this.flag = data.icon_filename || '';
     this.source = data.source || '';
     this._population = data.population || 0;

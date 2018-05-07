@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { capitalize } from 'lodash';
 import { statePageMetaTags } from 'helpers/metaTagHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
@@ -43,7 +44,7 @@ export default class StatePage extends React.Component {
                 <StickyHeader>
                     <div className="sticky-header__title">
                         <h1 tabIndex={-1} id="main-focus">
-                            State Profile
+                            {capitalize(this.props.stateProfile.overview.type)} Profile
                         </h1>
                     </div>
                 </StickyHeader>

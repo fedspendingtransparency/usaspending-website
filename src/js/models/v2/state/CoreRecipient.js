@@ -11,7 +11,7 @@ const CoreRecipient = {
         this.name = data.name || '';
         this._totalAmount = parseFloat(data.totalAmount) || 0;
         this._totalAwards = parseFloat(data.totalAwards) || 0;
-        this.fy = (data.year && `${data.fy} `) || '';
+        this.fy = (data.fy && `${data.fy}`) || '';
     },
     get totalAmount() {
         const units = calculateUnitForSingleValue(this._totalAmount);

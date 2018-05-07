@@ -18,13 +18,13 @@ export const fetchStateOverview = (id, year) => (
                             name: 'California',
                             fips: id,
                             year,
+                            state_type: "state",
                             population: 8414380,
-                            total_amount: 300200000000,
-                            total_awards: 327721,
+                            total_prime_amount: 300200000000,
+                            total_prime_awards: 327721,
                             award_amount_per_capita: 916023.08,
                             median_household_income: 68114,
-                            icon_filename: 'CA.jpg',
-                            source: 'U.S. Census Bureau, American Community Survey'
+                            icon_filename: 'CA.jpg'
                         }
                     }
                 });

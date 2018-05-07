@@ -58,7 +58,8 @@ export default class StateMetadata extends React.PureComponent {
                         </tbody>
                     </table>
                     <div className="state-overview__note">
-                        <span className="state-overview__note state-overview__note_em">Note:</span> Details data is based on 2017 U.S. Census data.
+                        <span className="state-overview__note state-overview__note_em">Note:</span>&nbsp;
+                        Details data is based on <span className="state-overview__note state-overview__note_em">2017 U.S. Census data</span>.
                     </div>
                 </div>
             </div>
