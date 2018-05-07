@@ -152,7 +152,7 @@ export default class UserSelections extends React.Component {
             );
         }
         return (
-            <div className="selection__content">-</div>
+            <div className="selection__content">&mdash;</div>
         );
     }
 
