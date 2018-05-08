@@ -12,6 +12,17 @@ const propTypes = {
 
 export default class StateMetadata extends React.PureComponent {
     render() {
+        let populationSourceYear = '';
+        let incomeSourceYear = '';
+
+        if ((this.props.stateProfile.population !== "--") && this.props.stateProfile.populationSourceYear) {
+            populationSourceYear = `(${this.props.stateProfile.populationSourceYear} est.)`;
+        }
+        if ((this.props.stateProfile.medianHouseholdIncome !== "--") && this.props.stateProfile.incomeSourceYear) {
+            incomeSourceYear = `(${this.props.stateProfile.incomeSourceYear} est.)`;
+        }
+
+
         return (
             <div className="state-overview__metadata">
                 <div className="state-overview__totals">
@@ -36,7 +47,7 @@ export default class StateMetadata extends React.PureComponent {
                                     Population
                                 </td>
                                 <td>
-                                    {this.props.stateProfile.population}
+                                    {this.props.stateProfile.population} {populationSourceYear}
                                 </td>
                             </tr>
                             <tr>
@@ -52,15 +63,11 @@ export default class StateMetadata extends React.PureComponent {
                                     Median Household Income
                                 </td>
                                 <td>
-                                    {this.props.stateProfile.medianHouseholdIncome}
+                                    {this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <div className="state-overview__note">
-                        <span className="state-overview__note state-overview__note_em">Note:</span>&nbsp;
-                        Details data is based on <span className="state-overview__note state-overview__note_em">2017 U.S. Census data</span>.
-                    </div>
                 </div>
             </div>
         );

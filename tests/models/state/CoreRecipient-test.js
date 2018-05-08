@@ -9,8 +9,7 @@ const recipientData = {
     name: 'Virginia',
     id: 1,
     totalAmount: 1234500,
-    totalAwards: 98765,
-    fy: 1987
+    totalAwards: 98765
 };
 
 const recipient = Object.create(CoreRecipient);
@@ -22,8 +21,5 @@ describe('Core Award getter functions', () => {
     });
     it('should format the total awards', () => {
         expect(recipient.totalAwards).toEqual('98,765');
-    });
-    it('should store fiscal year as a string', () => {
-        expect(recipient.fy).toEqual('1987');
     });
 });

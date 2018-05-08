@@ -14,14 +14,14 @@ BaseStateProfile.populate = function populate(data) {
         name: data.name,
         id: data.fips || null,
         totalAmount: data.total_prime_amount,
-        totalAwards: data.total_prime_awards,
-        fy: data.year
+        totalAwards: data.total_prime_awards
     };
     this.populateCore(coreData);
 
-    this.type = data.state_type || 'state';
+    this.type = data.state_type || '';
     this.flag = data.icon_filename || '';
-    this.source = data.source || '';
+    this.populationSourceYear = (data.pop_year && `${data.pop_year}`) || '';
+    this.incomeSourceYear = (data.mhi_year && `${data.mhi_year}`) || '';
     this._population = data.population || 0;
     this._awardAmountPerCapita = data.award_amount_per_capita || 0;
     this._medianHouseholdIncome = data.median_household_income || 0;
@@ -30,16 +30,25 @@ BaseStateProfile.populate = function populate(data) {
 // getter functions
 Object.defineProperty(BaseStateProfile, 'population', {
     get() {
+        if (this._population === 0) {
+            return '--';
+        }
         return formatNumberWithPrecision(this._population, 0);
     }
 });
 Object.defineProperty(BaseStateProfile, 'awardAmountPerCapita', {
     get() {
+        if (this._awardAmountPerCapita === 0) {
+            return '--';
+        }
         return formatMoney(this._awardAmountPerCapita);
     }
 });
 Object.defineProperty(BaseStateProfile, 'medianHouseholdIncome', {
     get() {
+        if (this._medianHouseholdIncome === 0) {
+            return '--';
+        }
         return formatMoney(this._medianHouseholdIncome);
     }
 });

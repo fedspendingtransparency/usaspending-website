@@ -9,10 +9,11 @@
             @include flex(0 0 auto);
             width: rem(64);
             height: auto;
+            margin-right: rem(28);
         }
         h3.state-overview__title {
             @include flex(1 1 auto);
-            margin: rem(5) 0 rem(5) rem(28);
+            margin: rem(5) 0;
         }
     }
     .state-overview__content {

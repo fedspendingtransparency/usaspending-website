@@ -6,7 +6,8 @@
 export const mockStateApi = {
     name: 'California',
     fips: 1,
-    year: 1992,
+    pop_year: 1992,
+    mhi_year: 1993,
     state_type: "state",
     population: 1234567,
     total_prime_amount: 300200000000,
