@@ -69,7 +69,24 @@ export const logDownloadFields = (type, filters) => {
     }
 };
 
+export const logAccountDownloadFields = (type, filters) => {
+    // log the agency fields
+    logSingleDownloadField(type, 'Agency', filters.agency.name);
+
+    // log the file type
+    logSingleDownloadField(type, 'File Type', filters.submissionType);
+
+    // log the fiscal year and quarter
+    const timePeriod = `${filters.fy} - Q${filters.quarter}`;
+    logSingleDownloadField(type, 'Time Period', timePeriod);
+};
+
 export const logAwardDownload = (redux) => {
     logDownloadType('award');
     logDownloadFields('award', redux);
+};
+
+export const logAccountDownload = (redux) => {
+    logDownloadType('account');
+    logAccountDownloadFields('account', redux);
 };

@@ -14,6 +14,7 @@ import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader'
 import Footer from 'components/sharedComponents/Footer';
 
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
+import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import BulkDownloadModalContainer from
     'containers/bulkDownload/modal/BulkDownloadModalContainer';
@@ -22,7 +23,8 @@ import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
 const propTypes = {
     dataType: PropTypes.string,
     bulkDownload: PropTypes.object,
-    startDownload: PropTypes.func,
+    startAwardDownload: PropTypes.func,
+    startAccountDownload: PropTypes.func,
     dataTypes: PropTypes.array
 };
 
@@ -60,7 +62,13 @@ export default class BulkDownloadPage extends React.Component {
     }
 
     clickedDownload() {
-        this.props.startDownload();
+        if (this.props.dataType === 'awards') {
+            this.props.startAwardDownload();
+        }
+        else if (this.props.dataType === 'accounts') {
+            this.props.startAccountDownload();
+        }
+
         this.showModal();
     }
 
@@ -72,6 +80,12 @@ export default class BulkDownloadPage extends React.Component {
         if (this.props.dataType === 'award_data_archive') {
             downloadDataContent = (
                 <AwardDataArchiveContainer />
+            );
+        }
+        if (this.props.dataType === 'accounts') {
+            downloadDataContent = (
+                <AccountDataContainer
+                    clickedDownload={this.clickedDownload} />
             );
         }
         return (

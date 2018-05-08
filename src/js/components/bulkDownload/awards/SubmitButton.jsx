@@ -5,13 +5,16 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { throttle } from 'lodash';
 
 import DownloadTooltip from './DownloadTooltip';
+
 
 const propTypes = {
     validForm: PropTypes.bool,
     filters: PropTypes.object,
-    validDates: PropTypes.bool
+    validDates: PropTypes.bool,
+    dataType: PropTypes.string
 };
 
 export default class SubmitButton extends React.Component {
@@ -26,7 +29,7 @@ export default class SubmitButton extends React.Component {
 
         this.onMouseEnter = this.onMouseEnter.bind(this);
         this.onMouseLeave = this.onMouseLeave.bind(this);
-        this.measureOffset = this.measureOffset.bind(this);
+        this.measureOffset = throttle(this.measureOffset.bind(this), 16);
     }
 
     componentDidMount() {
@@ -77,7 +80,8 @@ export default class SubmitButton extends React.Component {
                     style={style}>
                     <DownloadTooltip
                         filters={this.props.filters}
-                        validDates={this.props.validDates} />
+                        validDates={this.props.validDates}
+                        dataType={this.props.dataType} />
                 </div>
             );
         }

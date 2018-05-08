@@ -1,5 +1,9 @@
 .radio {
-    margin-top: rem(20);
+    padding-top: rem(15);
+    &:first-child {
+        padding-top: 0;
+    }
+
     input {
         margin-right: rem(5);
     }
@@ -9,6 +13,14 @@
         line-height: rem(23);
         &.disabled {
             color: $color-gray-light;
+        }
+        .radio-label__subtext {
+            padding-left: rem(15);
+            color: $color-gray-light;
+            font-style: italic;
+            font-weight: 300;
+            line-height: rem(23);
+            white-space: nowrap;
         }
     }
     .radio-description {

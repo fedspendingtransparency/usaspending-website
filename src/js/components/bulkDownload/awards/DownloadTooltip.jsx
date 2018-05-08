@@ -10,17 +10,19 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     filters: PropTypes.object,
-    validDates: PropTypes.bool
+    validDates: PropTypes.bool,
+    dataType: PropTypes.string
 };
 
 export default class DownloadTooltip extends React.Component {
     constructor(props) {
         super(props);
 
-        this.generateRequiredFields = this.generateRequiredFields.bind(this);
+        this.generateAwardsRequiredFields = this.generateAwardsRequiredFields.bind(this);
+        this.generateAccountsRequiredFields = this.generateAccountsRequiredFields.bind(this);
     }
 
-    generateRequiredFields() {
+    generateAwardsRequiredFields() {
         const filters = this.props.filters;
         const requiredFields = [];
         if (!filters.awardLevels.primeAwards && !filters.awardLevels.subAwards) {
@@ -45,7 +47,29 @@ export default class DownloadTooltip extends React.Component {
         return requiredFields.map((field) => <li key={field}>{field}</li>);
     }
 
+    generateAccountsRequiredFields() {
+        const filters = this.props.filters;
+        const requiredFields = [];
+        if (!filters.agency.id) {
+            requiredFields.push('Agency');
+        }
+        if (!filters.submissionType) {
+            requiredFields.push('File Type');
+        }
+        if (!filters.fy || !filters.quarter) {
+            requiredFields.push('Time Period');
+        }
+        return requiredFields.map((field) => <li key={field}>{field}</li>);
+    }
+
     render() {
+        let missingFields = null;
+        if (this.props.dataType === 'awards') {
+            missingFields = this.generateAwardsRequiredFields();
+        }
+        else if (this.props.dataType === 'accounts') {
+            missingFields = this.generateAccountsRequiredFields();
+        }
         return (
             <div
                 className="download-tooltip"
@@ -60,7 +84,7 @@ export default class DownloadTooltip extends React.Component {
                         <div className="download-tooltip__message">
                             The following fields are required:
                             <ul className="download-tooltip__list">
-                                {this.generateRequiredFields()}
+                                {missingFields}
                             </ul>
                         </div>
                     </div>

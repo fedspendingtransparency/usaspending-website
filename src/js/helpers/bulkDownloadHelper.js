@@ -24,11 +24,27 @@ export const requestAgenciesList = (params) => {
     };
 };
 
-export const requestBulkDownload = (params, type) => {
+export const requestAwardsDownload = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/bulk_download/${type}/`,
+            url: `v2/bulk_download/awards/`,
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const requestAccountsDownload = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/download/accounts/`,
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
