@@ -14,7 +14,7 @@ export const awardDownloadOptions = {
         },
         {
             name: 'subAwards',
-            label: 'Sub Awards',
+            label: 'Sub-Awards',
             apiName: 'sub_awards'
         }
     ],
