@@ -50,6 +50,35 @@ describe('StateContainer', () => {
         expect(loadStateOverview).toHaveBeenCalledTimes(1);
         expect(loadStateOverview).toHaveBeenCalledWith('2', 'latest');
     });
+    it('should reset the fiscal year when the state id changes', async () => {
+        // Use 'all' for the initial FY
+        const stateProfile = Object.assign({}, mockRedux.stateProfile, {
+            fy: 'all'
+        });
+        const updatedRedux = Object.assign({}, mockRedux, {
+            stateProfile
+        });
+
+        const container = shallow(<StateContainer
+            {...updatedRedux}
+            {...mockActions} />);
+
+        const loadStateOverview = jest.fn();
+        container.instance().loadStateOverview = loadStateOverview;
+
+        container.setProps({
+            params: {
+                stateId: '2'
+            }
+        });
+
+        await container.instance().request.promise;
+
+        expect(loadStateOverview).toHaveBeenCalledTimes(1);
+        expect(loadStateOverview).toHaveBeenCalledWith('2', 'latest');
+
+
+    });
     it('should make an API call when the fiscal year changes', async () => {
         const container = shallow(<StateContainer
             {...mockRedux}

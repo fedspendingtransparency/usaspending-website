@@ -18,7 +18,7 @@ BaseStateProfile.populate = function populate(data) {
     };
     this.populateCore(coreData);
 
-    this.type = data.state_type || '';
+    this.type = data.type || '';
     this.populationSourceYear = (data.pop_year && `${data.pop_year}`) || '';
     this.incomeSourceYear = (data.mhi_year && `${data.mhi_year}`) || '';
     this._population = data.population || 0;

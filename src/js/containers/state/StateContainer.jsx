@@ -40,8 +40,12 @@ export class StateContainer extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if ((this.props.params.stateId !== nextProps.params.stateId) ||
-            (this.props.stateProfile.fy !== nextProps.stateProfile.fy)) {
+        if (this.props.params.stateId !== nextProps.params.stateId) {
+            // Reset the FY
+            this.props.setStateFiscalYear('latest');
+            this.loadStateOverview(nextProps.params.stateId, 'latest');
+        }
+        if (this.props.stateProfile.fy !== nextProps.stateProfile.fy) {
             this.loadStateOverview(nextProps.params.stateId, nextProps.stateProfile.fy);
         }
     }
