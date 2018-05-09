@@ -20,7 +20,8 @@ const propTypes = {
     currentFY: PropTypes.string,
     updateFilter: PropTypes.func,
     formWidth: PropTypes.number,
-    windowWidth: PropTypes.number
+    windowWidth: PropTypes.number,
+    delta: PropTypes.bool
 };
 
 export default class ArchiveFiscalYearFilter extends React.Component {
@@ -90,7 +91,8 @@ export default class ArchiveFiscalYearFilter extends React.Component {
                         className="selected-button"
                         title={this.props.currentFY}
                         aria-label={this.props.currentFY}
-                        onClick={this.toggleFyPicker}>
+                        onClick={this.toggleFyPicker}
+                        disabled={this.props.delta}>
                         <div className="label">
                             {this.props.currentFY}
                             <span className="arrow-icon">
