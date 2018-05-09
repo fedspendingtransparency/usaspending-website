@@ -62,7 +62,7 @@ export default class StateOverview extends React.PureComponent {
                 <hr className="results-divider" />
                 <div className="state-overview__content">
                     <div className="state-overview__note">
-                        <span className="state-overview__note state-overview__note_em">Note:</span> All data on this page is based on Primary Place of Performance.
+                        <strong>Note:</strong> All data on this page is based on Primary Place of Performance.
                     </div>
                     <StateMetadata
                         stateProfile={this.props.stateProfile} />
