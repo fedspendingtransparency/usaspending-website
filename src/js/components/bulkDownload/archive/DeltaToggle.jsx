@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     delta: PropTypes.bool,
-    setSearchViewSubaward: PropTypes.func
+    setViewDelta: PropTypes.func
 };
 
 export default class DeltaToggle extends React.Component {
@@ -19,7 +19,7 @@ export default class DeltaToggle extends React.Component {
     }
     toggledSwitch() {
         const newValue = !this.props.delta;
-        this.props.setSearchViewSubaward(newValue);
+        this.props.setViewDelta(newValue);
     }
 
     render() {
