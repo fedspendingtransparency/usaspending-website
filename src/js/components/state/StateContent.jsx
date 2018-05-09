@@ -8,10 +8,8 @@ import PropTypes from 'prop-types';
 import { find, throttle } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
 import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 
-import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
-
-import Sidebar from '../sharedComponents/sidebar/Sidebar';
 import StateOverview from './overview/StateOverview';
 import StateFooter from './StateFooter';
 
@@ -218,11 +216,8 @@ export default class StateContent extends React.Component {
                         pickedYear={this.props.pickedFy} />
                 </div>
                 <div className="state-content">
-                    <div className="state-padded-content overview">
-                        <GlossaryButtonWrapperContainer
-                            child={StateOverview}
-                            stateProfile={this.props.stateProfile.overview} />
-                    </div>
+                    <StateOverview
+                        stateProfile={this.props.stateProfile.overview} />
                     <StateFooter />
                 </div>
             </div>

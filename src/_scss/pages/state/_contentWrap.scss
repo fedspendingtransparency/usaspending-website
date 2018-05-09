@@ -6,7 +6,38 @@
     border-right: 1px solid $color-gray-border;
     border-bottom: 1px solid $color-gray-border;
 
-    .state-padded-content {
+    .state-section {
         padding: rem(30);
+
+        h3.state-section__title {
+            margin: 0;
+            font-size: $h3-font-size;
+            font-weight: 300;
+            line-height: rem(47);
+        }
+
+        .state-section__description {
+            font-size: $lead-font-size;
+            font-weight: 300;
+            line-height: rem(25);
+        }
+
+        hr.results-divider {
+            margin-bottom: rem(15);
+            margin-top: rem(5);
+        }
+
+        .state-section__row {
+            @include span-columns(16);
+            padding-bottom: rem(45);
+            .state-section__viz {
+                @include span-columns(16);
+                @include media($tablet-screen) {
+                    @include span-columns(8);
+                }
+            }
+        }
     }
+
+    @import "./overview/overview";
 }

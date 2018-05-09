@@ -6,7 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import StateMetadata from './StateMetadata';
+import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import DetailsTooltip from './DetailsTooltip';
 
 const propTypes = {
     stateProfile: PropTypes.object
@@ -18,8 +19,12 @@ export default class StateOverview extends React.PureComponent {
 
         this.state = {
             hideFlag: true,
-            flag: ''
+            flag: '',
+            showInfoTooltip: false
         };
+
+        this.showTooltip = this.showTooltip.bind(this);
+        this.closeTooltip = this.closeTooltip.bind(this);
     }
 
     componentDidMount() {
@@ -48,11 +53,41 @@ export default class StateOverview extends React.PureComponent {
         });
     }
 
+    showTooltip() {
+        this.setState({
+            showInfoTooltip: true
+        });
+    }
+
+    closeTooltip() {
+        this.setState({
+            showInfoTooltip: false
+        });
+    }
+
     render() {
+        let populationSourceYear = '';
+        let incomeSourceYear = '';
+
+        if ((this.props.stateProfile.population !== "--") && this.props.stateProfile.populationSourceYear) {
+            populationSourceYear = `(${this.props.stateProfile.populationSourceYear} est.)`;
+        }
+        if ((this.props.stateProfile.medianHouseholdIncome !== "--") && this.props.stateProfile.incomeSourceYear) {
+            incomeSourceYear = `(${this.props.stateProfile.incomeSourceYear} est.)`;
+        }
+
+        let tooltip = null;
+        if (this.state.showInfoTooltip) {
+            tooltip = (
+                <DetailsTooltip
+                    closeTooltip={this.closeTooltip} />
+            );
+        }
+
         return (
             <div
-                className="state-overview"
-                id="state-overview">
+                id="state-overview"
+                className="state-section state-overview">
                 <div className="state-overview__title-wrapper">
                     <div className={`state-overview__flag ${this.state.hideFlag}`}>
                         {this.state.flag}
@@ -64,8 +99,63 @@ export default class StateOverview extends React.PureComponent {
                     <div className="state-overview__note">
                         <strong>Note:</strong> All data on this page is based on Primary Place of Performance.
                     </div>
-                    <StateMetadata
-                        stateProfile={this.props.stateProfile} />
+                    <div className="state-section__row">
+                        <div className="state-section__viz totals">
+                            <h4 className="state-overview__heading">
+                                Total Awarded Amount
+                            </h4>
+                            <div className="totals__amount">
+                                {this.props.stateProfile.totalAmount}
+                            </div>
+                            <div className="totals__awards">
+                                from <span className="state-overview__total">{this.props.stateProfile.totalAwards}</span> awards
+                            </div>
+                        </div>
+                        <div className="state-section__viz details">
+                            <h4 className="state-overview__heading">
+                                Details
+                                <span className="details__info_icon_holder">
+                                    <button
+                                        id="details__info_icon"
+                                        className="details__info_icon"
+                                        onFocus={this.showTooltip}
+                                        onMouseEnter={this.showTooltip}
+                                        onClick={this.showTooltip}>
+                                        <InfoCircle />
+                                    </button>
+                                </span>
+                            </h4>
+                            {tooltip}
+                            <table className="details__table">
+                                <tbody>
+                                    <tr>
+                                        <td>Population</td>
+                                        <td>{this.props.stateProfile.population} {populationSourceYear}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Awarded Amount Per Capita</td>
+                                        <td>{this.props.stateProfile.awardAmountPerCapita}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Median Household Income</td>
+                                        <td>{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div className="state-section__row">
+                        <div className="state-section__viz award-breakdown">
+                            <h4 className="state-overview__heading">
+                                Award Breakdown
+                            </h4>
+                        </div>
+                        <div className="state-section__viz place-of-performance">
+                            <h4 className="state-overview__heading">
+                                Primary Place of Performance
+                            </h4>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

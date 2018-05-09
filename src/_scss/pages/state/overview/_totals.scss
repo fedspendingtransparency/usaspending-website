@@ -1,0 +1,18 @@
+.totals {
+    .totals__amount {
+        color: $color-vis-dark;
+        font-size: rem(48);
+        line-height: rem(60);
+        font-weight: $font-normal;
+        text-transform: capitalize;
+        padding-bottom: rem(10);
+    }
+    .totals__awards {
+        font-size: rem(22);
+        line-height: rem(25);
+        font-weight: $font-light;
+    }
+    .state-overview__total {
+        color: $color-vis-dark;
+    }
+}

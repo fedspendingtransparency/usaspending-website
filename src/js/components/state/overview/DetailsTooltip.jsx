@@ -43,7 +43,7 @@ export default class DetailsTooltip extends React.Component {
     }
 
     getPosition() {
-        const icon = document.getElementById('state-overview__info_icon');
+        const icon = document.getElementById('details__info_icon');
         const iconTop = (icon.getBoundingClientRect().top - tooltipPadding) + window.scrollY;
 
         let iconLeft = icon.getBoundingClientRect().left - tooltipPadding;

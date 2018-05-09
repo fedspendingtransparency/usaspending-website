@@ -1,0 +1,24 @@
+.details {
+    @import './detailsTooltip';
+    .details__table {
+        margin-top: rem(10);
+        margin-bottom: rem(15);
+        tbody {
+            tr {
+                &:nth-child(odd) {
+                    td {
+                        background-color: $color-gray-lightest;
+                    }
+                }
+                td {
+                    border: 0;
+                    font-weight: $font-light;
+                    padding: rem(5) rem(15);
+                    &:first-child {
+                        font-weight: $font-normal;
+                    }
+                }
+            }
+        }
+    }
+}
