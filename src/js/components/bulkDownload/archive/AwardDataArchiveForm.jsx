@@ -16,7 +16,7 @@ const propTypes = {
     updateFilter: PropTypes.func,
     agencies: PropTypes.object,
     requestResults: PropTypes.func,
-    delta: PropTypes.bool
+    setViewDelta: PropTypes.func
 };
 
 export default class AwardDataArchiveForm extends React.Component {
@@ -68,7 +68,8 @@ export default class AwardDataArchiveForm extends React.Component {
                     </div>
                     <div className="form-filter">
                         <DeltaToggle
-                            delta={this.props.delta} />
+                            delta={this.props.filters.delta}
+                            setViewDelta={this.props.setViewDelta} />
                     </div>
                 </div>
                 <div

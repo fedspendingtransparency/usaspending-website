@@ -15,7 +15,8 @@ const propTypes = {
     agencies: PropTypes.object,
     results: PropTypes.array,
     columns: PropTypes.array,
-    requestResults: PropTypes.func
+    requestResults: PropTypes.func,
+    setViewDelta: PropTypes.func
 };
 
 export default class AwardDataArchiveContent extends React.Component {
@@ -38,7 +39,8 @@ export default class AwardDataArchiveContent extends React.Component {
                     filters={this.props.filters}
                     updateFilter={this.props.updateFilter}
                     agencies={this.props.agencies}
-                    requestResults={this.props.requestResults} />
+                    requestResults={this.props.requestResults}
+                    setViewDelta={this.props.setViewDelta} />
                 <AwardDataArchiveTable
                     columns={this.props.columns}
                     results={this.props.results} />

@@ -49,7 +49,8 @@ export default class AwardDataArchiveContainer extends React.Component {
                     name: 'contracts',
                     display: 'Contracts'
                 },
-                fy: `${currentFY}`
+                fy: `${currentFY}`,
+                delta: false
             },
             results: []
 
@@ -61,7 +62,7 @@ export default class AwardDataArchiveContainer extends React.Component {
         this.updateFilter = this.updateFilter.bind(this);
         this.setAgencyList = this.setAgencyList.bind(this);
         this.requestResults = this.requestResults.bind(this);
-        this.updateFilter = this.updateFilter.bind(this);
+        this.setViewDelta = this.setViewDelta.bind(this);
     }
 
     componentDidMount() {
@@ -98,6 +99,16 @@ export default class AwardDataArchiveContainer extends React.Component {
                 console.log(err);
                 this.agencyListRequest = null;
             });
+    }
+
+    setViewDelta(value) {
+        const filters = Object.assign({}, this.state.filters, {
+            delta: value
+        });
+        
+        this.setState({
+            filters
+        });
     }
 
     updateFilter(name, value) {
@@ -176,7 +187,8 @@ export default class AwardDataArchiveContainer extends React.Component {
                 agencies={this.state.agencies}
                 columns={columns}
                 results={this.state.results}
-                requestResults={this.requestResults} />
+                requestResults={this.requestResults}
+                setViewDelta={this.setViewDelta} />
         );
     }
 }
