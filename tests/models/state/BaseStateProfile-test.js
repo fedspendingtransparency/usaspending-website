@@ -54,4 +54,9 @@ describe('BaseStateProfile', () => {
             expect(state.incomeSourceYear).toEqual('1993');
         });
     });
+    describe('State flag image', () => {
+        it('should determine the filename based on FIPS', () => {
+            expect(state.flag).toEqual('06.png');
+        });
+    });
 });

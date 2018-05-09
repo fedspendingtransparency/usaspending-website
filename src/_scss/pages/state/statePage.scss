@@ -14,6 +14,10 @@
         @import "./_positioning";
         @import "./_contentWrap";
         @import "elements/_divider";
+        hr.results-divider {
+            margin-bottom: rem(5);
+            margin-top: rem(5);
+        }
 
         @import "./_sidebar";
 

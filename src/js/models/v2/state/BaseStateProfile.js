@@ -19,7 +19,6 @@ BaseStateProfile.populate = function populate(data) {
     this.populateCore(coreData);
 
     this.type = data.state_type || '';
-    this.flag = data.icon_filename || '';
     this.populationSourceYear = (data.pop_year && `${data.pop_year}`) || '';
     this.incomeSourceYear = (data.mhi_year && `${data.mhi_year}`) || '';
     this._population = data.population || 0;
@@ -50,6 +49,15 @@ Object.defineProperty(BaseStateProfile, 'medianHouseholdIncome', {
             return '--';
         }
         return formatMoney(this._medianHouseholdIncome);
+    }
+});
+Object.defineProperty(BaseStateProfile, 'flag', {
+    // TODO - Lizzie: update to url when files are moved to S3
+    get() {
+        if (this.id < 10) {
+            return `0${this.id}.png`;
+        }
+        return `${this.id}.png`;
     }
 });
 

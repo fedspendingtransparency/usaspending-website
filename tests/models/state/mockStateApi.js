@@ -5,7 +5,7 @@
 
 export const mockStateApi = {
     name: 'California',
-    fips: 1,
+    fips: 6,
     pop_year: 1992,
     mhi_year: 1993,
     state_type: "state",
@@ -13,6 +13,5 @@ export const mockStateApi = {
     total_prime_amount: 300200000000,
     total_prime_awards: 555555,
     award_amount_per_capita: 900000.08,
-    median_household_income: 68000,
-    icon_filename: 'CA.jpg'
+    median_household_income: 68000
 };

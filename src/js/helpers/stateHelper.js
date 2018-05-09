@@ -8,7 +8,7 @@
 // import kGlobalConstants from 'GlobalConstants';
 
 // TODO - Lizzie: remove mock API
-export const fetchStateOverview = (id) => (
+export const fetchStateOverview = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
@@ -17,7 +17,7 @@ export const fetchStateOverview = (id) => (
                         results: {
                             name: 'California',
                             code: 'CA',
-                            fips: id,
+                            fips: 6,
                             pop_year: 1992,
                             mhi_year: 1993,
                             state_type: "state",
@@ -26,7 +26,6 @@ export const fetchStateOverview = (id) => (
                             total_prime_awards: 327721,
                             award_amount_per_capita: 916023.08,
                             median_household_income: 68114,
-                            icon_filename: 'CA.jpg',
                             pop_source: ["U.S. Census Bureau", "2010 Census", "2017 Population Estimates", "2010 American Community Survey"],
                             mhi_source: ["U.S. Census Bureau", "2010 Census", "2017 Population Estimates", "2010 American Community Survey"]
                         }

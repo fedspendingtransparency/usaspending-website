@@ -14,6 +14,7 @@
         h3.state-overview__title {
             @include flex(1 1 auto);
             margin: rem(5) 0;
+            font-weight: $font-semibold;
         }
     }
     .state-overview__content {
