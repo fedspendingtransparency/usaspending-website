@@ -34,7 +34,7 @@ export default class DeltaToggle extends React.Component {
                 aria-pressed={!this.props.delta}
                 aria-label={`Toggle between Full Files and Delta Files. Currently selected: ${currentSelection}`}>
                 <div className={`delta-toggle__label ${fullActive}`}>
-                    Full File
+                    Full Files
                 </div>
                 <svg
                     className="delta-toggle__switch delta-switch"
