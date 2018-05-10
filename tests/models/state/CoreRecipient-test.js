@@ -15,7 +15,11 @@ const recipientData = {
 const recipient = Object.create(CoreRecipient);
 recipient.populateCore(recipientData);
 
-describe('Core Award getter functions', () => {
+describe('Core Recipient getter functions', () => {
+    it('should store the id as a string', () => {
+        expect(recipient._id).toEqual(1);
+        expect(recipient.id).toEqual('1');
+    });
     it('should format the award total', () => {
         expect(recipient.totalAmount).toEqual('$1.2 million');
     });

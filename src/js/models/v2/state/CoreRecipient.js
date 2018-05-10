@@ -7,10 +7,13 @@ import { formatNumberWithPrecision, calculateUnitForSingleValue, formatMoneyWith
 
 const CoreRecipient = {
     populateCore(data) {
-        this.id = `${data.id}` || '';
+        this._id = data.id || null;
         this.name = data.name || '';
         this._totalAmount = parseFloat(data.totalAmount) || 0;
         this._totalAwards = parseFloat(data.totalAwards) || 0;
+    },
+    get id() {
+        return (this._id && `${this._id}`) || '';
     },
     get totalAmount() {
         const units = calculateUnitForSingleValue(this._totalAmount);

@@ -56,7 +56,7 @@ describe('BaseStateProfile', () => {
     });
     describe('State flag image', () => {
         it('should determine the filename based on FIPS', () => {
-            expect(state.flag).toEqual('06.png');
+            expect(state.flag).toEqual('https://s3-us-gov-west-1.amazonaws.com/da-public-files/usaspending_state_flags/06.png');
         });
     });
 });

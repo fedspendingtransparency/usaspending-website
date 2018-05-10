@@ -43,7 +43,7 @@ export default class StateOverview extends React.PureComponent {
         if (props.stateProfile.flag !== '') {
             hideFlag = '';
             flag = (<img
-                src={`graphics/state/${props.stateProfile.flag}`}
+                src={props.stateProfile.flag}
                 alt={props.stateProfile.name} />);
         }
 

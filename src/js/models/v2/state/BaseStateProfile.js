@@ -12,7 +12,7 @@ BaseStateProfile.populate = function populate(data) {
     // reformat fields required by CoreRecipient
     const coreData = {
         name: data.name,
-        id: data.fips || null,
+        id: data.fips,
         totalAmount: data.total_prime_amount,
         totalAwards: data.total_prime_awards
     };
@@ -52,12 +52,14 @@ Object.defineProperty(BaseStateProfile, 'medianHouseholdIncome', {
     }
 });
 Object.defineProperty(BaseStateProfile, 'flag', {
-    // TODO - Lizzie: update to url when files are moved to S3
     get() {
-        if (this.id < 10) {
-            return `0${this.id}.png`;
+        if (this.id) {
+            if (this._id < 10) {
+                return `https://s3-us-gov-west-1.amazonaws.com/da-public-files/usaspending_state_flags/0${this.id}.png`;
+            }
+            return `https://s3-us-gov-west-1.amazonaws.com/da-public-files/usaspending_state_flags/${this.id}.png`;
         }
-        return `${this.id}.png`;
+        return '';
     }
 });
 
