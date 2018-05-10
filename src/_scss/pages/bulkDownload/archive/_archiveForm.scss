@@ -70,7 +70,7 @@
             }
         }
         .form__button {
-            padding-left: rem(15);
+            padding: 0 rem(15);
             @include media($medium-screen) {
                 width: 12%;
             }
