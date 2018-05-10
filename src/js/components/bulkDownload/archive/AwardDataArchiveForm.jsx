@@ -60,8 +60,10 @@ export default class AwardDataArchiveForm extends React.Component {
     render() {
         return (
             <div className="award-data-archive-form">
-                <div className="form-title">
-                    Filter by
+                <div className="form-title__wrapper">
+                    <div className="form-title">
+                        Filter by
+                    </div>
                 </div>
                 <div
                     className="form-width-master"
@@ -89,7 +91,7 @@ export default class AwardDataArchiveForm extends React.Component {
                         windowWidth={this.state.windowWidth}
                         currentFY={this.props.filters.fy}
                         updateFilter={this.props.updateFilter} />
-                    <div className="submit-button">
+                    <div className="form__button">
                         <input type="submit" value="Apply" />
                     </div>
                 </form>
