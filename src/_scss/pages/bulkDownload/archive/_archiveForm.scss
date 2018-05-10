@@ -72,7 +72,7 @@
         .form__button {
             padding: 0 rem(15);
             @include media($medium-screen) {
-                width: 12%;
+                width: rem(120);
             }
             input {
                 width: 100%;
