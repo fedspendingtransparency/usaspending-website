@@ -8,7 +8,7 @@ import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import stateReducer, { initialState } from 'redux/reducers/state/stateReducer';
 
 const data = {
-    fips: 123,
+    fips: '123',
     name: 'Mock State',
     fy: 1992,
     totalAmount: 12345,

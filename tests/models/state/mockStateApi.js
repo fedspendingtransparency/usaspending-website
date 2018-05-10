@@ -6,10 +6,10 @@
 export const mockStateApi = {
     name: 'California',
     code: 'CA',
-    fips: 6,
+    fips: '06',
     pop_year: 1992,
     mhi_year: 1993,
-    type: "state",
+    type: 'state',
     population: 1234567,
     total_prime_amount: 300200000000,
     total_prime_awards: 555555,

@@ -3,13 +3,19 @@
  * Created by Lizzie Salita 5/7/18
  */
 
-import BaseStateProfile from "../../../src/js/models/v2/state/BaseStateProfile";
-import {mockStateApi} from "./mockStateApi";
+import BaseStateProfile from 'models/v2/state/BaseStateProfile';
+import {mockStateApi} from './mockStateApi';
 
 const state = Object.create(BaseStateProfile);
 state.populate(mockStateApi);
 
 describe('BaseStateProfile', () => {
+    it('should format the award total', () => {
+        expect(state.totalAmount).toEqual('$300.2 billion');
+    });
+    it('should format the total awards', () => {
+        expect(state.totalAwards).toEqual('555,555');
+    });
     describe('Census data', () => {
         it('should format the population', () => {
             expect(state.population).toEqual('1,234,567');
