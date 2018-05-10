@@ -5,6 +5,7 @@
     .form-title__wrapper {
         @include display(flex);
         @include justify-content(space-between);
+        margin-bottom: rem(10);
     }
     .form-title {
         padding-left: rem(15);
@@ -69,9 +70,9 @@
             }
         }
         .form__button {
-            padding: 0 rem(15);
+            padding-left: rem(15);
             @include media($medium-screen) {
-                width: 15%;
+                width: 12%;
             }
             input {
                 width: 100%;
