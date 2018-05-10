@@ -20,8 +20,7 @@ const propTypes = {
     currentFY: PropTypes.string,
     updateFilter: PropTypes.func,
     formWidth: PropTypes.number,
-    windowWidth: PropTypes.number,
-    delta: PropTypes.bool
+    windowWidth: PropTypes.number
 };
 
 export default class ArchiveFiscalYearFilter extends React.Component {
@@ -55,66 +54,27 @@ export default class ArchiveFiscalYearFilter extends React.Component {
 
     render() {
         // Create the fiscal year options
-        let FYs;
-        if (!this.props.delta) {
-            FYs = fiscalYears.map((year) => (
-                <li
-                    className="field-item"
-                    key={`field-${year}`}>
-                    <button
-                        className="item-button"
-                        title={year}
-                        aria-label={year}
-                        value={year}
-                        onClick={this.handleFySelect}>
-                        {year}
-                    </button>
-                </li>
-            ));
-        } else {
-            FYs = (
-                <li
-                    className="field-item"
-                    key="field-all">
-                    <button
-                        className="item-button"
-                        title="all"
-                        aria-label="all"
-                        value="all"
-                        onClick={this.handleFySelect}>
-                        All
-                    </button>
-                </li>
-            );
-        };
 
+        const FYs = fiscalYears.map((year) => (
+            <li
+                className="field-item"
+                key={`field-${year}`}>
+                <button
+                    className="item-button"
+                    title={year}
+                    aria-label={year}
+                    value={year}
+                    onClick={this.handleFySelect}>
+                    {year}
+                </button>
+            </li>
+        ));
 
         let showFyPicker = 'hide';
         let fyIcon = <Icons.AngleDown alt="Pick a fiscal year" />;
         if (this.state.showFyPicker) {
             showFyPicker = '';
             fyIcon = <Icons.AngleUp alt="Pick a fiscal year" />;
-        }
-
-        let buttonContent;
-        if (!this.props.delta) {
-            buttonContent = (
-                <div className="label">
-                    {this.props.currentFY}
-                    <span className="arrow-icon">
-                        {fyIcon}
-                    </span>
-                </div>
-            );
-        } else {
-            buttonContent = (
-                <div className="label label--disabled">
-                    All
-                    <span className="arrow-icon">
-                        {fyIcon}
-                    </span>
-                </div>
-            );
         }
 
         let dropDownWidth = this.props.formWidth - 30;
@@ -132,9 +92,13 @@ export default class ArchiveFiscalYearFilter extends React.Component {
                         className="selected-button"
                         title={this.props.currentFY}
                         aria-label={this.props.currentFY}
-                        onClick={this.toggleFyPicker}
-                        disabled={this.props.delta}>
-                        {buttonContent}
+                        onClick={this.toggleFyPicker}>
+                        <div className="label">
+                            {this.props.currentFY}
+                            <span className="arrow-icon">
+                                {fyIcon}
+                            </span>
+                        </div>
                     </button>
                     <div
                         className={`field-list ${showFyPicker}`}

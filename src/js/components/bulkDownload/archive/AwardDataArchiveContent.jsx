@@ -15,8 +15,7 @@ const propTypes = {
     agencies: PropTypes.object,
     results: PropTypes.array,
     columns: PropTypes.array,
-    requestResults: PropTypes.func,
-    setViewDelta: PropTypes.func
+    requestResults: PropTypes.func
 };
 
 export default class AwardDataArchiveContent extends React.Component {
@@ -30,7 +29,7 @@ export default class AwardDataArchiveContent extends React.Component {
                     are already prepared &mdash; you can access them instantaneously.
                 </p>
                 <p>
-                    New files are uploaded on the 15th of each month; if an agency&apos;s data hasn&apos;t changed since the previous month, no new file will be added. <b>Full files</b> feature aggregate data (data for the fiscal year up until the date listed), and <b>delta files</b> (coming soon) feature only new and modified data.
+                    New files are uploaded on the 15th of each month; if an agency&apos;s data hasn&apos;t changed since the previous month, no new file will be added. <b>Full files</b> feature aggregate data (data for the fiscal year up until the date listed), and <b>delta files</b> feature only new, modified and deleted data from the past 1 month.
                 </p>
                 <p>
                     Ready to grab your data? Complete the form below.
@@ -39,8 +38,7 @@ export default class AwardDataArchiveContent extends React.Component {
                     filters={this.props.filters}
                     updateFilter={this.props.updateFilter}
                     agencies={this.props.agencies}
-                    requestResults={this.props.requestResults}
-                    setViewDelta={this.props.setViewDelta} />
+                    requestResults={this.props.requestResults} />
                 <AwardDataArchiveTable
                     columns={this.props.columns}
                     results={this.props.results} />

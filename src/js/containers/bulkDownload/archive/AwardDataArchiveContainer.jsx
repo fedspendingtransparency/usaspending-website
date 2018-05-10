@@ -49,8 +49,7 @@ export default class AwardDataArchiveContainer extends React.Component {
                     name: 'contracts',
                     display: 'Contracts'
                 },
-                fy: `${currentFY}`,
-                delta: false
+                fy: `${currentFY}`
             },
             results: []
 
@@ -62,7 +61,6 @@ export default class AwardDataArchiveContainer extends React.Component {
         this.updateFilter = this.updateFilter.bind(this);
         this.setAgencyList = this.setAgencyList.bind(this);
         this.requestResults = this.requestResults.bind(this);
-        this.setViewDelta = this.setViewDelta.bind(this);
     }
 
     componentDidMount() {
@@ -99,16 +97,6 @@ export default class AwardDataArchiveContainer extends React.Component {
                 console.log(err);
                 this.agencyListRequest = null;
             });
-    }
-
-    setViewDelta(value) {
-        const filters = Object.assign({}, this.state.filters, {
-            delta: value
-        });
-        
-        this.setState({
-            filters
-        });
     }
 
     updateFilter(name, value) {
@@ -162,7 +150,12 @@ export default class AwardDataArchiveContainer extends React.Component {
             const formattedDate = date.format("MM/DD/YYYY");
 
             // Format the Fiscal Year
-            const formattedFY = `FY ${item.fiscal_year}`;
+            let formattedFY;
+            if (item.fiscal_year === null) {
+                formattedFY = 'N/A';
+            } else {
+                formattedFY = `FY ${item.fiscal_year}`;
+            }
 
             const file = {
                 agency: formattedAgency,
@@ -187,8 +180,7 @@ export default class AwardDataArchiveContainer extends React.Component {
                 agencies={this.state.agencies}
                 columns={columns}
                 results={this.state.results}
-                requestResults={this.requestResults}
-                setViewDelta={this.setViewDelta} />
+                requestResults={this.requestResults} />
         );
     }
 }

@@ -9,14 +9,12 @@ import PropTypes from 'prop-types';
 import ArchiveAgencyFilter from './filters/AgencyFilter';
 import ArchiveTypeFilter from './filters/TypeFilter';
 import ArchiveFiscalYearFilter from './filters/FiscalYearFilter';
-import DeltaToggle from './DeltaToggle';
 
 const propTypes = {
     filters: PropTypes.object,
     updateFilter: PropTypes.func,
     agencies: PropTypes.object,
-    requestResults: PropTypes.func,
-    setViewDelta: PropTypes.func
+    requestResults: PropTypes.func
 };
 
 export default class AwardDataArchiveForm extends React.Component {
@@ -66,11 +64,6 @@ export default class AwardDataArchiveForm extends React.Component {
                     <div className="form-title">
                         Filter by
                     </div>
-                    <div className="form-filter">
-                        <DeltaToggle
-                            delta={this.props.filters.delta}
-                            setViewDelta={this.props.setViewDelta} />
-                    </div>
                 </div>
                 <div
                     className="form-width-master"
@@ -94,7 +87,6 @@ export default class AwardDataArchiveForm extends React.Component {
                         currentType={this.props.filters.type.display}
                         updateFilter={this.props.updateFilter} />
                     <ArchiveFiscalYearFilter
-                        delta={this.props.filters.delta}
                         formWidth={this.state.formWidth}
                         windowWidth={this.state.windowWidth}
                         currentFY={this.props.filters.fy}
