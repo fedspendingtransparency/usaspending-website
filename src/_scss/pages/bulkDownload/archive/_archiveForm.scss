@@ -41,9 +41,15 @@
                         font-weight: 400;
                         font-size: 14px;
                         width: 100%;
+                        @include display(flex);
+                        @include justify-content(space-between);
+                    
                         .arrow-icon {
-                            float: right;
+                            @include align-self(center);
                         }
+                    }
+                    .label--disabled {
+                        color: #D2D3D6;
                     }
                 }
                 .field-list {
