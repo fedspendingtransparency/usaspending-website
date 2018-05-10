@@ -17,12 +17,12 @@
     border-top: 1px solid $color-gray-border;
     border-right: 1px solid $color-gray-border;
     border-bottom: 1px solid $color-gray-border;
-    padding: rem(40) rem(46);
 
     @import 'fyPicker';
 
     ul {
         @include unstyled-list;
+        padding: rem(15) rem(30) rem(30);
 
         li {
             margin-bottom: rem(24);

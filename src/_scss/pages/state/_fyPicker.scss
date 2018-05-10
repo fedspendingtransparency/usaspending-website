@@ -1,6 +1,7 @@
 @import '../explorer/detail/sidebar/_fyPicker.scss';
 .fy-picker {
-    padding-bottom: rem(15);
+    padding: rem(30) rem(30) rem(15);
+    border-bottom: solid rem(1) $color-gray-light;
     .fy-picker__header {
         .fy-picker__icon {
             svg {
@@ -27,6 +28,9 @@
     .fy-picker__list {
         border-color: $color-gray-lighter;
         background-color: $color-white;
+        max-height: rem(275);
+        overflow-y: scroll;
+        padding: 0;
         .fy-picker__list-item {
             border-color: $color-gray-lighter;
         }
