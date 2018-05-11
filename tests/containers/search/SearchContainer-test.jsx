@@ -318,8 +318,7 @@ describe('SearchContainer', () => {
             container.instance().requestDownloadAvailability(blankFilters);
 
             expect(mockParse).toHaveBeenCalledTimes(0);
-            expect(container.state().downloadAvailable).toBeFalsy();
-
+            expect(container.state().downloadAvailable).toBeFalsy();            
         });
         it('should make an API request for how many transaction rows will be returned', async () => {
             const newFilters = Object.assign({}, initialState, {

@@ -9,7 +9,7 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 class SearchAwardsOperation {
     constructor() {
-        this.keyword = '';
+        this.keyword = [];
 
         this.timePeriodType = 'fy';
         this.timePeriodFY = [];
@@ -42,7 +42,7 @@ class SearchAwardsOperation {
     }
 
     fromState(state) {
-        this.keyword = state.keyword;
+        this.keyword = state.keyword.toArray();
 
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
@@ -83,8 +83,8 @@ class SearchAwardsOperation {
         const filters = {};
 
         // Add keyword
-        if (this.keyword !== '') {
-            filters[rootKeys.keyword] = this.keyword;
+        if (this.keyword.length > 0) {
+            filters[rootKeys.keywords] = this.keyword;
         }
 
         // Add Time Period

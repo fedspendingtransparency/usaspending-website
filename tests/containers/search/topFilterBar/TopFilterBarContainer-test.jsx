@@ -101,7 +101,7 @@ describe('TopFilterBarContainer', () => {
             expect(topBarContainer.state().filters).toHaveLength(0);
 
             const keywordFilter = Object.assign({}, stateWithoutDefault, {
-                keyword: 'Education'
+                keyword: new OrderedMap({ Education: "Education" })
             });
 
             topBarContainer.setProps({
@@ -114,7 +114,7 @@ describe('TopFilterBarContainer', () => {
             const expectedFilterState = {
                 code: 'keyword',
                 name: 'Keyword',
-                values: 'Education'
+                values: ["Education"]
             };
 
             expect(filterItem).toEqual(expectedFilterState);
