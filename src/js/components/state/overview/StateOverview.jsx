@@ -56,6 +56,11 @@ export default class StateOverview extends React.PureComponent {
     showTooltip() {
         this.setState({
             showInfoTooltip: true
+        }, () => {
+            const closeButton = document.querySelector('#state-overview-tooltip__close_icon');
+            if (closeButton) {
+                closeButton.focus();
+            }
         });
     }
 

@@ -12,10 +12,8 @@ import { statePageMetaTags } from 'helpers/metaTagHelper';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import Error from 'components/sharedComponents/Error';
 import Footer from 'components/sharedComponents/Footer';
-
-import StateLoading from './StateLoading';
-import StateError from './StateError';
 
 import StateContent from './StateContent';
 
@@ -31,10 +29,18 @@ export default class StatePage extends React.Component {
     render() {
         let content = <StateContent {...this.props} />;
         if (this.props.loading) {
-            content = (<StateLoading />);
+            content = (
+                <Error
+                    title="Loading..."
+                    message="" />
+            );
         }
         else if (this.props.error) {
-            content = (<StateError />);
+            content = (
+                <Error
+                    title="Invalid State"
+                    message="The state ID provided is invalid. Please check the ID and try again." />
+            );
         }
 
         return (

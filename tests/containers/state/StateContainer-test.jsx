@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 // mock the state helper
 jest.mock('helpers/stateHelper', () => require('./mockStateHelper'));
@@ -18,21 +18,21 @@ jest.mock('components/state/StatePage', () => jest.fn(() => null));
 
 describe('StateContainer', () => {
     it('should make an API call for the selected state on mount', async () => {
-        const container = shallow(<StateContainer
+        const container = mount(<StateContainer
             {...mockRedux}
             {...mockActions} />);
 
         const loadStateOverview = jest.fn();
         container.instance().loadStateOverview = loadStateOverview;
 
-        container.instance().componentWillMount();
+        container.instance().componentDidMount();
         await container.instance().request.promise;
 
         expect(loadStateOverview).toHaveBeenCalledTimes(1);
         expect(loadStateOverview).toHaveBeenCalledWith('1', 'latest');
     });
     it('should make an API call when the state id changes', async () => {
-        const container = shallow(<StateContainer
+        const container = mount(<StateContainer
             {...mockRedux}
             {...mockActions} />);
 
@@ -59,7 +59,7 @@ describe('StateContainer', () => {
             stateProfile
         });
 
-        const container = shallow(<StateContainer
+        const container = mount(<StateContainer
             {...updatedRedux}
             {...mockActions} />);
 
@@ -80,7 +80,7 @@ describe('StateContainer', () => {
 
     });
     it('should make an API call when the fiscal year changes', async () => {
-        const container = shallow(<StateContainer
+        const container = mount(<StateContainer
             {...mockRedux}
             {...mockActions} />);
 

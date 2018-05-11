@@ -35,18 +35,24 @@ export class StateContainer extends React.Component {
 
         this.request = null;
     }
-    componentWillMount() {
+
+    componentDidMount() {
         this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.params.stateId !== nextProps.params.stateId) {
+    shouldComponentUpdate(nextProps) {
+        return (nextProps.params.stateId !== this.props.params.stateId)
+            || (nextProps.stateProfile.fy !== this.props.stateProfile.fy);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.params.stateId !== prevProps.params.stateId) {
             // Reset the FY
             this.props.setStateFiscalYear('latest');
-            this.loadStateOverview(nextProps.params.stateId, 'latest');
+            this.loadStateOverview(this.props.params.stateId, 'latest');
         }
-        if (this.props.stateProfile.fy !== nextProps.stateProfile.fy) {
-            this.loadStateOverview(nextProps.params.stateId, nextProps.stateProfile.fy);
+        if (this.props.stateProfile.fy !== prevProps.stateProfile.fy) {
+            this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
         }
     }
 

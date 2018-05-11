@@ -94,6 +94,8 @@ export default class DetailsTooltip extends React.Component {
                 </div>
                 <button
                     className="state-overview-tooltip__close_icon"
+                    id="state-overview-tooltip__close_icon"
+                    aria-label="Close tooltip"
                     onClick={this.props.closeTooltip}>
                     <Icons.Close />
                 </button>
