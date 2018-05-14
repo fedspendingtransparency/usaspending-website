@@ -1,9 +1,10 @@
 @import '../explorer/detail/sidebar/_fyPicker.scss';
 .fy-picker {
     padding: rem(30) rem(30) rem(15);
-    border-bottom: solid rem(1) $color-gray-light;
+    border-bottom: solid rem(1) $color-gray-lighter;
     .fy-picker__header {
         .fy-picker__icon {
+            margin-right: rem(10);
             svg {
                 fill: $color-gray;
                 height: rem(25);
@@ -15,6 +16,8 @@
         }
         .fy-picker__button {
             width: 100%;
+            padding-bottom: rem(2);
+            border-bottom: solid rem(1) $color-gray;
         }
         .fy-picker__button-text {
             color: $color-gray;
