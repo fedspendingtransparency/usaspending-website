@@ -113,7 +113,7 @@ export default class StateOverview extends React.PureComponent {
                                 {this.props.stateProfile.totalAmount}
                             </div>
                             <div className="totals__awards">
-                                from <span className="state-overview__total">{this.props.stateProfile.totalAwards}</span> awards
+                                from <span className="state-overview__total">{this.props.stateProfile.totalAwards}</span> prime awards
                             </div>
                         </div>
                         <div className="state-section__viz details">

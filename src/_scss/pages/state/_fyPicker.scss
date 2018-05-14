@@ -41,6 +41,12 @@
             &:hover, &:active {
                 background-color: $color-gray-lightest;
             }
+
+            &.fy-picker__item_disabled {
+                &:hover, &:active {
+                    background-color: $color-white;
+                }
+            }
         }
     }
 }

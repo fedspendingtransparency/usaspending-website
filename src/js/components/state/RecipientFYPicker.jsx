@@ -21,7 +21,7 @@ const fyOptions = [
     },
     {
         name: 'all',
-        label: 'All'
+        label: 'All Fiscal Years'
     }
 ];
 
@@ -149,6 +149,14 @@ export default class FYPicker extends React.Component {
                         </button>
                         <ul className={`fy-picker__list ${visibleClass}`}>
                             {otherFyOptions}
+                            <li
+                                className="fy-picker__list-item">
+                                <button
+                                    disabled
+                                    className="fy-picker__item fy-picker__item_disabled">
+                                    &mdash;
+                                </button>
+                            </li>
                             {fy}
                         </ul>
                     </div>

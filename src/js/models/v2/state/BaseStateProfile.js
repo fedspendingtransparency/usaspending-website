@@ -3,7 +3,8 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-import { formatNumberWithPrecision, formatMoney, calculateUnitForSingleValue, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import { formatNumberWithPrecision, formatMoney,
+    calculateUnitForSingleValue, formatMoneyWithPrecision, unitValues } from 'helpers/moneyFormatter';
 
 const BaseStateProfile = {
     populate(data) {
@@ -19,8 +20,11 @@ const BaseStateProfile = {
         this._medianHouseholdIncome = data.median_household_income || 0;
     },
     get totalAmount() {
-        const units = calculateUnitForSingleValue(this._totalAmount);
-        return `${formatMoneyWithPrecision(this._totalAmount / units.unit, 1)} ${units.longLabel}`;
+        if (this._totalAmount >= unitValues.MILLION) {
+            const units = calculateUnitForSingleValue(this._totalAmount);
+            return `${formatMoneyWithPrecision(this._totalAmount / units.unit, 1)} ${units.longLabel}`;
+        }
+        return formatMoneyWithPrecision(this._totalAmount, 0);
     },
     get totalAwards() {
         return formatNumberWithPrecision(this._totalAwards, 0);
