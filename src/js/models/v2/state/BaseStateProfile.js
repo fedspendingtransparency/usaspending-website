@@ -3,8 +3,7 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-import { formatNumberWithPrecision, formatMoney,
-    calculateUnitForSingleValue, formatMoneyWithPrecision, unitValues } from 'helpers/moneyFormatter';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const BaseStateProfile = {
     populate(data) {
@@ -20,32 +19,32 @@ const BaseStateProfile = {
         this._medianHouseholdIncome = data.median_household_income || 0;
     },
     get totalAmount() {
-        if (this._totalAmount >= unitValues.MILLION) {
-            const units = calculateUnitForSingleValue(this._totalAmount);
-            return `${formatMoneyWithPrecision(this._totalAmount / units.unit, 1)} ${units.longLabel}`;
+        if (this._totalAmount >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalAmount);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalAmount / units.unit, 1)} ${units.longLabel}`;
         }
-        return formatMoneyWithPrecision(this._totalAmount, 0);
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalAmount, 0);
     },
     get totalAwards() {
-        return formatNumberWithPrecision(this._totalAwards, 0);
+        return MoneyFormatter.formatNumberWithPrecision(this._totalAwards, 0);
     },
     get population() {
         if (this._population === 0) {
             return '--';
         }
-        return formatNumberWithPrecision(this._population, 0);
+        return MoneyFormatter.formatNumberWithPrecision(this._population, 0);
     },
     get awardAmountPerCapita() {
         if (this._awardAmountPerCapita === 0) {
             return '--';
         }
-        return formatMoney(this._awardAmountPerCapita);
+        return MoneyFormatter.formatMoney(this._awardAmountPerCapita);
     },
     get medianHouseholdIncome() {
         if (this._medianHouseholdIncome === 0) {
             return '--';
         }
-        return formatMoney(this._medianHouseholdIncome);
+        return MoneyFormatter.formatMoney(this._medianHouseholdIncome);
     },
     get flag() {
         if (this.id) {
