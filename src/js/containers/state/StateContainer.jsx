@@ -40,11 +40,6 @@ export class StateContainer extends React.Component {
         this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
     }
 
-    shouldComponentUpdate(nextProps) {
-        return (nextProps.params.stateId !== this.props.params.stateId)
-            || (nextProps.stateProfile.fy !== this.props.stateProfile.fy);
-    }
-
     componentDidUpdate(prevProps) {
         if (this.props.params.stateId !== prevProps.params.stateId) {
             // Reset the FY
@@ -65,14 +60,14 @@ export class StateContainer extends React.Component {
 
         this.request.promise
             .then((res) => {
-                const noState = Object.keys(res.data.results).length === 0;
+                const noState = Object.keys(res.data).length === 0;
 
                 this.setState({
                     loading: false,
                     error: noState
                 }, () => {
                     if (!noState) {
-                        this.parseOverview(res.data.results);
+                        this.parseOverview(res.data);
                     }
                 });
             })
