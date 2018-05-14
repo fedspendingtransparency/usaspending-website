@@ -15,14 +15,13 @@
             @include flex(1 1 auto);
         }
         .fy-picker__button {
-            width: 100%;
-            padding-bottom: rem(2);
             border-bottom: solid rem(1) $color-gray;
         }
         .fy-picker__button-text {
             color: $color-gray;
         }
         .fy-picker__button-icon {
+            padding-top: rem(4);
             svg {
                 fill: $color-gray;
             }
