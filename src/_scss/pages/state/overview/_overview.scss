@@ -46,10 +46,10 @@
         @import "totals";
         @import "details";
         .award-breakdown {
-            display: none;
+
         }
-        .place-of-performance {
-            display: none;
+        .geo {
+            @import "../visualizations/geo/geoVisualization";
         }
     }
 }
