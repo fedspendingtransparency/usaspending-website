@@ -17,6 +17,7 @@ import agencyLandingReducer from './agencyLanding/agencyLandingReducer';
 import downloadReducer from './search/downloadReducer';
 import bulkDownloadReducer from './bulkDownload/bulkDownloadReducer';
 import redirectModalReducer from './redirectModal/redirectModalReducer';
+import stateReducer from './state/stateReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -30,7 +31,8 @@ const appReducer = combineReducers({
     agencyLanding: agencyLandingReducer,
     explorer: explorerReducer,
     bulkDownload: bulkDownloadReducer,
-    redirectModal: redirectModalReducer
+    redirectModal: redirectModalReducer,
+    stateProfile: stateReducer
 });
 
 export default appReducer;

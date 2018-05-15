@@ -58,11 +58,6 @@ export default class AwardIDSearch extends React.Component {
                 toggleAwardID={this.props.toggleAwardID} />);
         }
 
-        let disabled = false;
-        if (this.state.awardID === '') {
-            disabled = true;
-        }
-
         return (
             <div className="award-id-filter">
                 <div className="filter-item-wrap">
@@ -78,7 +73,6 @@ export default class AwardIDSearch extends React.Component {
                             onChange={this.changedInput} />
                         <IndividualSubmit
                             className="award-id-submit"
-                            disabled={disabled}
                             onClick={this.applyAwardID}
                             label="Filter by award ID" />
                     </form>

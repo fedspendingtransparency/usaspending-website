@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { OrderedMap, is } from 'immutable';
+import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -22,7 +22,6 @@ const propTypes = {
 export class AwardIDSearchContainer extends React.Component {
     constructor(props) {
         super(props);
-
         // Bind function
         this.toggleAwardID = this.toggleAwardID.bind(this);
     }
@@ -37,18 +36,19 @@ export class AwardIDSearchContainer extends React.Component {
     }
 
     addAwardID(id) {
+        const awardId = this.props.selectedAwardIDs.set(id, id);
+
         this.props.updateGenericFilter({
             type: 'selectedAwardIDs',
-            value: new OrderedMap({
-                [id]: id
-            })
+            value: awardId
         });
     }
 
-    removeAwardID() {
+    removeAwardID(id) {
+        const awardId = this.props.selectedAwardIDs.delete(id);
         this.props.updateGenericFilter({
             type: 'selectedAwardIDs',
-            value: new OrderedMap()
+            value: awardId
         });
     }
 

@@ -10,11 +10,12 @@ export const updateDownloadFilter = (state) => ({
     value: state.value
 });
 
-export const updateAwardCheckbox = (state) => ({
-    type: 'UPDATE_AWARD_CHECKBOX',
+export const updateCheckbox = (state) => ({
+    type: 'UPDATE_CHECKBOX',
     filter: state.filter,
     name: state.name,
-    value: state.value
+    value: state.value,
+    dataType: state.dataType
 });
 
 export const setDataType = (state) => ({

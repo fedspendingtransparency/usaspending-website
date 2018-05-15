@@ -1,6 +1,7 @@
 import { initialState, filterStoreVersion } from 'redux/reducers/search/searchFiltersReducer';
 import { initialState as initialApplied } from 'redux/reducers/search/appliedFiltersReducer';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import { OrderedMap } from 'immutable';
 
 export const mockHash = {
     hash: 'abcd1234'
@@ -10,7 +11,7 @@ export const mockFilters = {
     filter: {
         version: filterStoreVersion,
         filters: {
-            keyword: '',
+            keyword: {},
             locationDomesticForeign: "all",
             selectedAwardIDs: {},
             selectedRecipients: [],

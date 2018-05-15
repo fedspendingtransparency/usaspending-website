@@ -27,19 +27,15 @@ export default class KeywordFilterGroup extends React.Component {
     }
 
     generateTags() {
-        const tags = [];
-
         // check to see if a keyword is provided
-        const keyword = this.props.filter.values;
-
-        const tag = {
-            value: keyword,
-            title: keyword,
-            isSpecial: false,
-            removeFilter: this.removeFilter
-        };
-
-        tags.push(tag);
+        const tags = this.props.filter.values.map((value) => (
+            {
+                value: `${value}`,
+                title: `${value}`,
+                isSpecial: false,
+                removeFilter: this.removeFilter
+            }
+        ));
 
         return tags;
     }

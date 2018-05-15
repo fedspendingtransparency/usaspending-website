@@ -54,6 +54,7 @@ export default class ArchiveFiscalYearFilter extends React.Component {
 
     render() {
         // Create the fiscal year options
+
         const FYs = fiscalYears.map((year) => (
             <li
                 className="field-item"
@@ -68,6 +69,7 @@ export default class ArchiveFiscalYearFilter extends React.Component {
                 </button>
             </li>
         ));
+
         let showFyPicker = 'hide';
         let fyIcon = <Icons.AngleDown alt="Pick a fiscal year" />;
         if (this.state.showFyPicker) {

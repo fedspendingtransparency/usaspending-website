@@ -14,8 +14,8 @@ export const updateSelectedRecipients = (state, searchText) => {
         updatedSet = updatedSet.delete(recipientIdentifier);
     }
     else {
-        // Replace with the new search text because we are limiting the search to one recipient filter
-        updatedSet = new Set([searchText]);
+        // adds the recipient to the set if it does not already exist in the set
+        updatedSet = updatedSet.add(recipientIdentifier);
     }
 
     return updatedSet;

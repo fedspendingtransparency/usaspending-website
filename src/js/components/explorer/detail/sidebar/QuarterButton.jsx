@@ -22,7 +22,8 @@ const QuarterButton = (props) => {
         props.hoveredQuarter(props.quarter);
     };
 
-    const clickedQuarter = () => {
+    const clickedQuarter = (e) => {
+        e.preventDefault();
         props.pickedQuarter(props.quarter);
     };
 

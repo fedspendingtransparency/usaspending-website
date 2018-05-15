@@ -26,13 +26,14 @@ describe('bulkDownloadReducer', () => {
         });
     });
 
-    describe('UPDATE_AWARD_CHECKBOX', () => {
+    describe('UPDATE_CHECKBOX', () => {
         it('should update the specified checkbox value', () => {
             const action = {
-                type: 'UPDATE_AWARD_CHECKBOX',
+                type: 'UPDATE_CHECKBOX',
                 filter: 'awardLevels',
                 name: 'primeAwards',
-                value: true
+                value: true,
+                dataType: 'awards'
             };
 
             const state = bulkDownloadReducer(undefined, action);

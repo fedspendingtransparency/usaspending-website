@@ -91,9 +91,9 @@ export default class LocationFilter extends React.Component {
 
         return (
             <div className="download-filter">
-                <div className="download-filter__title">
+                <h3 className="download-filter__title">
                     {icon} Select a <span className="download-filter__title_em">recipient location</span>.
-                </div>
+                </h3>
                 <div className="download-filter__content">
                     <EntityDropdown
                         scope="country"
