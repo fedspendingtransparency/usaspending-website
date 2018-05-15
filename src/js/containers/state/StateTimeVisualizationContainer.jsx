@@ -9,12 +9,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import StateTimeVisualization from
-    'components/search/visualizations/time/TimeVisualizationSection';
+import StateTimeVisualizationSection from
+    'components/state/StateTimeVisualizationSection';
 
 import * as stateActions from 'redux/actions/state/stateActions';
 
-import moment from 'moment';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -24,7 +23,7 @@ const propTypes = {
     stateProfile: PropTypes.object
 };
 
-export class StateTimeVisualizationContainer extends React.Component {
+export class StateTimeVisualizationSectionContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -196,7 +195,7 @@ export class StateTimeVisualizationContainer extends React.Component {
 
     render() {
         return (
-            <StateTimeVisualization
+            <StateTimeVisualizationSection
                 data={this.state}
                 updateVisualizationPeriod={this.updateVisualizationPeriod}
                 visualizationPeriod={this.state.visualizationPeriod} />
@@ -204,11 +203,11 @@ export class StateTimeVisualizationContainer extends React.Component {
     }
 }
 
-StateTimeVisualizationContainer.propTypes = propTypes;
+StateTimeVisualizationSectionContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
         stateProfile: state.stateProfile
     }),
     (dispatch) => bindActionCreators(stateActions, dispatch)
-)(StateTimeVisualizationContainer);
+)(StateTimeVisualizationSectionContainer);
