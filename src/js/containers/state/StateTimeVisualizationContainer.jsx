@@ -69,41 +69,42 @@ export class StateTimeVisualizationContainer extends React.Component {
     }
 
     fetchAwards(auditTrail = null) {
-        const filters = {};
-        let timePeriodFY = this.props.stateProfile.fy;
-        let timePeriodRange;
-        let dates;
-        
-        if (this.props.stateProfile.fy !== 'latest' && this.props.stateProfile.fy !== 'all') {
-            timePeriodFY = parseInt(this.props.stateProfile.fy, 10);
-            dates = FiscalYearHelper.convertFYToDateRange(timePeriodFY);
-            timePeriodRange = {
-                start_date: dates[0],
-                end_date: dates[1]
-            };
-            filters.time_period = [];
-            filters.time_period.push(timePeriodRange);
-        } else if (timePeriodFY === 'latest') {
-            dates = this.getTrailingTwelveMonths();
-            timePeriodRange = {
-                start_date: dates[0],
-                end_date: dates[1]
-            };
-            filters.time_period = [];
-            filters.time_period.push(timePeriodRange);
+        let timePeriod = null;
+        const fy = this.props.stateProfile.fy;
+        if (fy !== 'all') {
+            let dateRange = [];
+            if (fy === 'latest') {
+                dateRange = FiscalYearHelper.getTrailingTwelveMonths();
+            }
+            else {
+                dateRange = FiscalYearHelper.convertFYToDateRange(parseInt(fy, 10));
+            }
+            timePeriod = [
+                {
+                    start_date: dateRange[0],
+                    end_date: dateRange[1]
+                }
+            ];
         }
 
-        filters.place_of_performance_locations = [];
-        const locationData = {
-            state: this.props.stateProfile.overview.name
+        const searchParams = {
+            place_of_performance_locations: [
+                {
+                    country: 'USA',
+                    state: this.props.stateProfile.overview.code
+                }
+            ]
         };
-        filters.place_of_performance_locations.push(locationData);
+
+        if (timePeriod) {
+            searchParams.time_period = timePeriod;
+        }
 
 
         // Generate the API parameters
         const apiParams = {
             group: this.state.visualizationPeriod,
-            filters
+            filters: searchParams
         };
 
         if (auditTrail) {
@@ -131,12 +132,6 @@ export class StateTimeVisualizationContainer extends React.Component {
             });
     }
 
-    getTrailingTwelveMonths() {
-        const startingYear = moment().subtract(1, 'y');
-        const endingYear = moment().year();
-
-        return [`${startingYear}-10-01`, `${endingYear}-09-30`];
-    }
 
     generateTimeLabel(group, timePeriod) {
         if (group === 'fiscal_year') {
