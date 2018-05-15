@@ -148,16 +148,16 @@ export const legislativeFields = [
         field: 'clingerCohenAct'
     },
     {
-        label: 'Subject to Davis Bacon Act',
-        field: 'davisBaconAct'
+        label: 'Subject to Construction Wage Rate Requirements',
+        field: 'constructionWageRateReq'
     },
     {
-        label: 'Subject to Service Contract Act',
-        field: 'serviceContractAct'
+        label: 'Subject to Labor Standards',
+        field: 'laborStandards'
     },
     {
-        label: 'Subject to Walsh Healey Act',
-        field: 'walshHealeyAct'
+        label: 'Subject to Materials, Supplies, Articles & Equip',
+        field: 'materialSuppliesArticlesEquip'
     }
 ];
 
