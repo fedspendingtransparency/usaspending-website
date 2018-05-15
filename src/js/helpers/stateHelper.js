@@ -23,3 +23,27 @@ export const fetchStateOverview = (id, year) => {
         }
     };
 };
+
+export const fetchTopFive = (id, type, year) => {
+    const source = CancelToken.source();
+
+    const params = {
+        year: 'latest'
+    };
+    if (year) {
+        params.year = year;
+    }
+
+    return {
+        promise: Axios.request({
+            params,
+            url: `v2/recipient/state/${id}/${type}/`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
