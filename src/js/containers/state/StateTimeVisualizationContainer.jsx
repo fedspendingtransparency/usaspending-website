@@ -14,6 +14,7 @@ import StateTimeVisualization from
 
 import * as stateActions from 'redux/actions/state/stateActions';
 
+import moment from 'moment';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -69,14 +70,28 @@ export class StateTimeVisualizationContainer extends React.Component {
 
     fetchAwards(auditTrail = null) {
         const filters = {};
-
-        const timePeriodFY = this.props.stateProfile.fy.toArray();
-
-        timePeriodFY.forEach((fy) => {
-            const dates = FiscalYearHelper.convertFYToDateRange(fy);
-            filters.time_period.start_date = dates[0];
-            filters.time_period.endDate = dates[1];
-        });
+        let timePeriodFY = this.props.stateProfile.fy;
+        let timePeriodRange;
+        let dates;
+        
+        if (this.props.stateProfile.fy !== 'latest' && this.props.stateProfile.fy !== 'all') {
+            timePeriodFY = parseInt(this.props.stateProfile.fy, 10);
+            dates = FiscalYearHelper.convertFYToDateRange(timePeriodFY);
+            timePeriodRange = {
+                start_date: dates[0],
+                end_date: dates[1]
+            };
+            filters.time_period = [];
+            filters.time_period.push(timePeriodRange);
+        } else if (timePeriodFY === 'latest') {
+            dates = this.getTrailingTwelveMonths();
+            timePeriodRange = {
+                start_date: dates[0],
+                end_date: dates[1]
+            };
+            filters.time_period = [];
+            filters.time_period.push(timePeriodRange);
+        }
 
         filters.place_of_performance_locations = [];
         const locationData = {
@@ -114,6 +129,13 @@ export class StateTimeVisualizationContainer extends React.Component {
                     error: true
                 });
             });
+    }
+
+    getTrailingTwelveMonths() {
+        const startingYear = moment().subtract(1, 'y');
+        const endingYear = moment().year();
+
+        return [`${startingYear}-10-01`, `${endingYear}-09-30`];
     }
 
     generateTimeLabel(group, timePeriod) {
