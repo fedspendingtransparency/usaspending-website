@@ -14,10 +14,9 @@ import StateTimeVisualization from
 
 import * as stateActions from 'redux/actions/state/stateActions';
 
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 import * as SearchHelper from 'helpers/searchHelper';
-
-import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
 
 const propTypes = {
@@ -69,14 +68,27 @@ export class StateTimeVisualizationContainer extends React.Component {
     }
 
     fetchAwards(auditTrail = null) {
-        const operation = new SearchAwardsOperation();
-        operation.fromState(this.props.stateProfile.fy);
-        const searchParams = operation.toParams();
+        const filters = {};
+
+        const timePeriodFY = this.props.stateProfile.fy.toArray();
+
+        timePeriodFY.forEach((fy) => {
+            const dates = FiscalYearHelper.convertFYToDateRange(fy);
+            filters.time_period.start_date = dates[0];
+            filters.time_period.endDate = dates[1];
+        });
+
+        filters.place_of_performance_locations = [];
+        const locationData = {
+            state: this.props.stateProfile.overview.name
+        };
+        filters.place_of_performance_locations.push(locationData);
+
 
         // Generate the API parameters
         const apiParams = {
             group: this.state.visualizationPeriod,
-            filters: searchParams
+            filters
         };
 
         if (auditTrail) {
