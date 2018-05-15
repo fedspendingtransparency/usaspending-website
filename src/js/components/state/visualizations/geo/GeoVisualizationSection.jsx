@@ -5,14 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Cookies from 'js-cookie';
 
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
 import MapWrapper from 'components/search/visualizations/geo/MapWrapper';
 import GeoVisualizationTooltip from 'components/search/visualizations/geo/GeoVisualizationTooltip';
-import MapDisclaimer from 'components/search/visualizations/geo/MapDisclaimer';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
 
 const propTypes = {
@@ -37,18 +35,11 @@ export default class GeoVisualizationSection extends React.Component {
 
         this.state = {
             showHover: false,
-            showDisclaimer: false,
             selectedItem: {}
         };
 
         this.showTooltip = this.showTooltip.bind(this);
         this.hideTooltip = this.hideTooltip.bind(this);
-        this.showDisclaimer = this.showDisclaimer.bind(this);
-        this.closeDisclaimer = this.closeDisclaimer.bind(this);
-    }
-
-    componentDidMount() {
-        this.showDisclaimer();
     }
 
     showTooltip(geoId, position) {
@@ -73,31 +64,7 @@ export default class GeoVisualizationSection extends React.Component {
         });
     }
 
-    showDisclaimer() {
-        // check if the disclaimer cookie exists
-        if (!Cookies.get('usaspending_state_map_disclaimer')) {
-            // cookie does not exist, show the disclaimer
-            this.setState({
-                showDisclaimer: true
-            });
-        }
-    }
-
-    closeDisclaimer() {
-        // set a cookie to hide the disclaimer in the future
-        Cookies.set('usaspending_state_map_disclaimer', 'hide', { expires: 730 });
-        this.setState({
-            showDisclaimer: false
-        });
-    }
-
     render() {
-        let disclaimer = null;
-        if (this.state.showDisclaimer) {
-            disclaimer = (<MapDisclaimer
-                closeDisclaimer={this.closeDisclaimer} />);
-        }
-
         let message = null;
         if (this.props.loading) {
             message = (
@@ -155,7 +122,6 @@ export default class GeoVisualizationSection extends React.Component {
                     tooltip={GeoVisualizationTooltip}
                     availableLayers={availableLayers}
                     showLayerToggle>
-                    {disclaimer}
                     {message}
                 </MapWrapper>
             </div>

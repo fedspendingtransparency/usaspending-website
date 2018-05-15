@@ -13,6 +13,5 @@
         display: none !important;
     }
 
-    @import "pages/search/results/visualizations/geo/_disclaimer";
-    @import "pages/search/results/visualizations/geo/_message";
+    @import "./_message";
 }
