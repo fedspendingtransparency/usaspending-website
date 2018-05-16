@@ -44,6 +44,12 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
         this.fetchData();
     }
 
+    componentDidUpdate(prevProps) {
+        if (prevProps.stateProfile.overview.code !== this.props.stateProfile.overview.code) {
+            this.fetchData();
+        }
+    }
+
     updateVisualizationPeriod(visualizationPeriod) {
         this.setState({
             visualizationPeriod

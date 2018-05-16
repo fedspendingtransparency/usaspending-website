@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
-import BarChartStacked from './chart/BarChartStacked';
-import TimeTooltip from './TimeTooltip';
+import BarChart from 'components/search/visualizations/time/chart/BarChart';
+import TimeTooltip from 'components/search/visualizations/time/TimeVisualizationTooltip';
 
 const defaultProps = {
     width: 0,
@@ -30,7 +30,8 @@ const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     data: PropTypes.object,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    visualizationPeriod: PropTypes.string
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -86,16 +87,19 @@ export default class StateTimeVisualization extends React.Component {
             // API request is still pending
             chart = (<ChartMessage message="Loading data..." />);
         }
-        else if (this.props.data.xSeries.length > 0) {
+        else if (this.props.data.groups.length > 0) {
+            console.log(this.props.height);
             // only mount the chart component if there is data to display
-            chart = (<BarChartStacked
-                width={this.props.width}
+            chart = (<BarChart
                 height={this.props.height}
-                data={this.props.data}
+                width={this.props.width}
+                ySeries={this.props.data.ySeries}
+                xSeries={this.props.data.xSeries}
+                groups={this.props.data.groups}
+                rawLabels={this.props.data.rawLabels}
                 legend={legend}
                 showTooltip={this.showTooltip}
-                hideTooltip={this.hideTooltip}
-                toggleTooltip={this.toggleTooltip} />);
+                activeLabel={this.state.tooltipData} />);
         }
 
         let tooltip = null;

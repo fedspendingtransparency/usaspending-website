@@ -221,7 +221,7 @@ export default class StateContent extends React.Component {
                     <StateOverview
                         stateProfile={this.props.stateProfile.overview} />
                     <StateTimeVisualizationSectionContainer
-                        stateProfile={this.props.stateProfile.overview} />
+                        stateProfile={this.props.stateProfile} />
                     <StateFooter />
                 </div>
             </div>
