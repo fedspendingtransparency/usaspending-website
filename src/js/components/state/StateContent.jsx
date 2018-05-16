@@ -9,7 +9,7 @@ import { find, throttle } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
 import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import TimeVisualizationSectionContainer from 'containers/state/StateTimeVisualizationContainer';
+import StateTimeVisualizationSectionContainer from 'containers/state/StateTimeVisualizationContainer';
 
 import StateOverview from './overview/StateOverview';
 
@@ -220,9 +220,9 @@ export default class StateContent extends React.Component {
                 <div className="state-content">
                     <StateOverview
                         stateProfile={this.props.stateProfile.overview} />
-                    <StateFooter />
-                    <TimeVisualizationSectionContainer
+                    <StateTimeVisualizationSectionContainer
                         stateProfile={this.props.stateProfile.overview} />
+                    <StateFooter />
                 </div>
             </div>
         );

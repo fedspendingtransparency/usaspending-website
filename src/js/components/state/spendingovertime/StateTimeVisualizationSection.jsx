@@ -9,7 +9,7 @@ import { throttle } from 'lodash';
 
 //import StateTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
 
-import StateTimeVisualization from './StateTimeVisualization';
+//import StateTimeVisualization from './StateTimeVisualization';
 
 const propTypes = {
     data: PropTypes.object,
@@ -72,10 +72,6 @@ export default class StateTimeVisualizationSection extends React.Component {
                         </div>
                     </div>
                 </div>
-                <StateTimeVisualization
-                    loading={this.props.loading}
-                    data={this.props.data}
-                    width={this.state.visualizationWidth} />
             </div>
         );
     }
