@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
-import MapWrapper from 'components/search/visualizations/geo/MapWrapper';
 import GeoVisualizationTooltip from 'components/search/visualizations/geo/GeoVisualizationTooltip';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
+import MapWrapper from './MapWrapper';
 
 const propTypes = {
     scope: PropTypes.string,
