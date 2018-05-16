@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import StateTimeVisualizationSection from
-    'components/state/StateTimeVisualizationSection';
+    'components/state/spendingovertime/StateTimeVisualizationSection';
 
 import * as stateActions from 'redux/actions/state/stateActions';
 

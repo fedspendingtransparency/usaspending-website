@@ -7,15 +7,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
-import StateTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
+//import StateTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
 
-import StateTimeVisualization from './TimeVisualization';
+import StateTimeVisualization from './StateTimeVisualization';
 
 const propTypes = {
     data: PropTypes.object,
     loading: PropTypes.bool,
     visualizationPeriod: PropTypes.string,
-    changePeriod: PropTypes.func
+    updateVisualizationPeriod: PropTypes.func
 };
 
 export default class StateTimeVisualizationSection extends React.Component {
@@ -69,26 +69,6 @@ export default class StateTimeVisualizationSection extends React.Component {
                             Spot trends in spending over your chosen time period. Filter your
                             results more (at left) and watch this graph update automatically. Break
                             down your results by years or quarters.
-                        </div>
-                    </div>
-                    <div className="visualization-period">
-                        <div className="content">
-                            <ul>
-                                <li>
-                                    <StateTimeVisualizationPeriodButton
-                                        value="year"
-                                        label="Years"
-                                        active={this.props.visualizationPeriod === 'year'}
-                                        changePeriod={this.props.changePeriod} />
-                                </li>
-                                <li>
-                                    <StateTimeVisualizationPeriodButton
-                                        value="quarter"
-                                        label="Quarters"
-                                        active={this.props.visualizationPeriod === 'quarter'}
-                                        changePeriod={this.props.changePeriod} />
-                                </li>
-                            </ul>
                         </div>
                     </div>
                 </div>
