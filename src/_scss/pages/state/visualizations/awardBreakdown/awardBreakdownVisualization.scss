@@ -2,6 +2,7 @@
     @import "pages/agency/treemaps/treemapSection";
     .usa-da-treemap-section {
         background: white;
+        padding-top: rem(15);
         padding-bottom: rem(0);
 
         .treemap-inner-wrap {
@@ -12,23 +13,13 @@
                 width: 100%;
             }
 
-            .function-desc {
-                margin-top: 0;
-                padding: 0;
-
-                h1 {
-                    font-size: rem(30);
-                    line-height: rem(38);
-                }
-
-                p {
-                    margin-bottom: rem(17);
-                }
-            }
-
             .visualization-tooltip .tooltip .tooltip-body .tooltip-full {
-                .tooltip-description {
-                    text-align: center;
+                @include display(flex);
+                .tooltip-left, .tooltip-right {
+                    @include flex(1 1 auto);
+                    .tooltip-value {
+                        border-bottom: solid rem(1) $color-gray-lighter;
+                    }
                 }
             }
         }

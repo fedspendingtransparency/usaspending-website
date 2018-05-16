@@ -78,7 +78,7 @@ export default class AwardTypes extends React.Component {
         // remove negative values from the children, as we can't display those in the treemap
         remove(awardTypes.children, (v) => parseFloat(v.amount) <= 0);
 
-        // order by value, descending, after converting `amount` strings to floats
+        // order by value, descending
         const finalAwardTypes = {
             children: orderBy(awardTypes.children,
                 (type) => parseFloat(type.amount),
@@ -109,14 +109,14 @@ export default class AwardTypes extends React.Component {
         // build the tiles
         const nodes = awardBreakdownTreemap.map((n, i) => {
             let cell = '';
-            let cellColor = TreemapHelper.treemapColors[i];
-            let textColor = labelColorFromBackground(TreemapHelper.treemapColors[i]);
+            let cellColor = TreemapHelper.stateTreemapColors[i];
+            let textColor = labelColorFromBackground(TreemapHelper.stateTreemapColors[i]);
             let textClass = '';
 
             // Set highlighted state for hovered award type
             if (this.state.hoveredAwardType === n.data.type) {
-                cellColor = TreemapHelper.tooltipStyles.highlightedStyle.color;
-                textColor = TreemapHelper.tooltipStyles.highlightedStyle.textColor;
+                cellColor = TreemapHelper.stateTooltipStyles.highlightedStyle.color;
+                textColor = TreemapHelper.stateTooltipStyles.highlightedStyle.textColor;
                 textClass = 'chosen';
             }
 
@@ -139,7 +139,7 @@ export default class AwardTypes extends React.Component {
                 cell = (
                     <AwardTypeCell
                         {...treeProps}
-                        label={n.data.name}
+                        label={awardTypeGroupLabels[n.data.type]}
                         value={n.value}
                         x0={n.x0}
                         x1={n.x1}
@@ -151,7 +151,7 @@ export default class AwardTypes extends React.Component {
                         color={cellColor}
                         strokeColor="white"
                         strokeOpacity={0.5}
-                        tooltipStyles={TreemapHelper.tooltipStyles}
+                        tooltipStyles={TreemapHelper.stateTooltipStyles}
                         toggleTooltipIn={this.toggleTooltipIn}
                         toggleTooltipOut={this.toggleTooltipOut}
                         opacity={1}

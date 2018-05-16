@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { truncate } from 'lodash';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
     label: PropTypes.string,
@@ -143,19 +142,6 @@ export default class AwardTypeCell extends React.Component {
                         opacity: this.props.opacity
                     }}>
                     {this.state.label}
-                </text>
-                <text
-                    className={`value ${this.props.textClass}`}
-                    x={(this.props.width / 2) - 2}
-                    y={(this.props.height / 2) + 20}
-                    width={this.props.width}
-                    textAnchor="middle"
-                    style={{
-                        display: this.props.percentView,
-                        fill: this.props.textColor,
-                        opacity: this.props.opacity
-                    }}>
-                    {MoneyFormatter.calculateTreemapPercentage(this.props.value, this.props.total)}
                 </text>
             </g>
         );
