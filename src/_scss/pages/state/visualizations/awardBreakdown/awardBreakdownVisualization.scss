@@ -1,0 +1,36 @@
+.award-breakdown__treemap {
+    @import "pages/agency/treemaps/treemapSection";
+    .usa-da-treemap-section {
+        background: white;
+        padding-bottom: rem(0);
+
+        .treemap-inner-wrap {
+            margin: 0;
+            width: 100%;
+
+            .tree-wrapper {
+                width: 100%;
+            }
+
+            .function-desc {
+                margin-top: 0;
+                padding: 0;
+
+                h1 {
+                    font-size: rem(30);
+                    line-height: rem(38);
+                }
+
+                p {
+                    margin-bottom: rem(17);
+                }
+            }
+
+            .visualization-tooltip .tooltip .tooltip-body .tooltip-full {
+                .tooltip-description {
+                    text-align: center;
+                }
+            }
+        }
+    }
+}
