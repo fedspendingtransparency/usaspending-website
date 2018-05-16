@@ -7,8 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
-import BarChart from 'components/search/visualizations/time/chart/BarChart';
 import TimeTooltip from 'components/search/visualizations/time/TimeVisualizationTooltip';
+import BarChart from './BarChart';
+
 
 const defaultProps = {
     width: 0,
@@ -47,8 +48,6 @@ export default class StateTimeVisualization extends React.Component {
         };
 
         this.showTooltip = this.showTooltip.bind(this);
-        this.hideTooltip = this.hideTooltip.bind(this);
-        this.toggleTooltip = this.toggleTooltip.bind(this);
     }
 
     showTooltip(data) {
@@ -56,21 +55,6 @@ export default class StateTimeVisualization extends React.Component {
             showTooltip: true,
             tooltipData: data
         });
-    }
-
-    hideTooltip() {
-        this.setState({
-            showTooltip: false
-        });
-    }
-
-    toggleTooltip(data) {
-        if (this.state.showTooltip) {
-            this.hideTooltip();
-        }
-        else {
-            this.showTooltip(data);
-        }
     }
 
     render() {
@@ -88,7 +72,6 @@ export default class StateTimeVisualization extends React.Component {
             chart = (<ChartMessage message="Loading data..." />);
         }
         else if (this.props.data.groups.length > 0) {
-            console.log(this.props.height);
             // only mount the chart component if there is data to display
             chart = (<BarChart
                 height={this.props.height}
@@ -99,13 +82,14 @@ export default class StateTimeVisualization extends React.Component {
                 rawLabels={this.props.data.rawLabels}
                 legend={legend}
                 showTooltip={this.showTooltip}
+                visualizationPeriod={this.props.visualizationPeriod}
                 activeLabel={this.state.tooltipData} />);
         }
 
         let tooltip = null;
-        if (this.state.showTooltip) {
+        if (this.state.tooltipData && window.innerWidth > 720) {
             tooltip = (<TimeTooltip
-                {...this.state.tooltipData} />);
+                data={this.state.tooltipData} />);
         }
 
         return (

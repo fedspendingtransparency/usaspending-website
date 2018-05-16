@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
-//import StateTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
+import StateTimeVisualizationPeriodButton from './StateTimeVisualizationPeriodButton';
 
 import StateTimeVisualization from './StateTimeVisualization';
 
@@ -57,12 +57,37 @@ export default class StateTimeVisualizationSection extends React.Component {
             <div
                 className="results-visualization-time-section"
                 id="results-section-time">
-                <h3>Spending Over Time</h3>
+                <h3>Awards Over Time</h3>
                 <hr
                     className="results-divider"
                     ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
+                <div className="content">
+                    <ul>
+                        <li>
+                            <StateTimeVisualizationPeriodButton
+                                value="fiscal_year"
+                                label="Years"
+                                active={this.props.data.visualizationPeriod === 'fiscal_year'}
+                                updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
+                        </li>
+                        <li>
+                            <StateTimeVisualizationPeriodButton
+                                value="quarter"
+                                label="Quarters"
+                                active={this.props.data.visualizationPeriod === 'quarter'}
+                                updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
+                        </li>
+                        <li>
+                            <StateTimeVisualizationPeriodButton
+                                value="month"
+                                label="Months"
+                                active={this.props.data.visualizationPeriod === 'month'}
+                                updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
+                        </li>
+                    </ul>
+                </div>
 
                 <div className="visualization-top">
                     <div className="visualization-description">
@@ -74,6 +99,7 @@ export default class StateTimeVisualizationSection extends React.Component {
                     </div>
                 </div>
                 <StateTimeVisualization
+                    visualizationPeriod={this.props.visualizationPeriod}
                     loading={this.props.loading}
                     data={this.props.data}
                     width={this.state.visualizationWidth} />

@@ -70,10 +70,6 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
         }
 
         // Fetch data from the Awards v2 endpoint
-        this.fetchAwards('Spending Over Time Visualization');
-    }
-
-    fetchAwards(auditTrail = null) {
         let timePeriod = null;
         const fy = this.props.stateProfile.fy;
         if (fy !== 'all') {
@@ -112,9 +108,7 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
             filters: searchParams
         };
 
-        if (auditTrail) {
-            apiParams.auditTrail = auditTrail;
-        }
+        apiParams.auditTrail = 'Spending Over Time Visualization';
 
         this.apiRequest = SearchHelper.performSpendingOverTimeSearch(apiParams);
 
@@ -137,7 +131,6 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
             });
     }
 
-
     generateTimeLabel(group, timePeriod) {
         if (group === 'fiscal_year') {
             return timePeriod.fiscal_year;
@@ -156,7 +149,7 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
         if (group === 'fiscal_year') {
             return {
                 period: null,
-                year: timePeriod.fiscal_year
+                year: `FY ${timePeriod.fiscal_year}`
             };
         }
         else if (group === 'quarter') {
