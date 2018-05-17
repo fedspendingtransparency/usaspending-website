@@ -220,7 +220,8 @@ export default class StateContent extends React.Component {
                 <div className="state-content">
                     <StateOverview
                         stateProfile={this.props.stateProfile.overview} />
-                    
+                    <StateTimeVisualizationSectionContainer
+                        stateProfile={this.props.stateProfile.overview} />
                     <StateFooter />
                 </div>
             </div>

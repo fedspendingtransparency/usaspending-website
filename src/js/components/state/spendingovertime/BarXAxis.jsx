@@ -78,7 +78,7 @@ export default class BarXAxis extends React.Component {
                 }
 
                 // Figure out what to call the label and where to place it
-                const label = this.calculateLabel(item, props);
+                const label = `FY ${this.calculateLabel(item, props)}`;
                 const xPos = this.calculateXPos(item, index, labelOffset, props);
 
                 return (<BarXAxisItem
@@ -94,7 +94,7 @@ export default class BarXAxis extends React.Component {
     // average start and end for monthly/quartlery
     calculateXPos(item, index, labelOffset, props) {
         if (props.visualizationPeriod === 'fiscal_year') {
-            return props.scale(parseInt(item.year.substring(3), 10)) + (props.scale.bandwidth() / 2);
+            return props.scale(item.year) + (props.scale.bandwidth() / 2);
         }
         const endIndex = this.calculateEndIndex(
             index,

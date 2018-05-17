@@ -149,13 +149,13 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
         if (group === 'fiscal_year') {
             return {
                 period: null,
-                year: `FY ${timePeriod.fiscal_year}`
+                year: `${timePeriod.fiscal_year}`
             };
         }
         else if (group === 'quarter') {
             return {
                 period: `Q${timePeriod.quarter}`,
-                year: `FY ${timePeriod.fiscal_year}`
+                year: `${timePeriod.fiscal_year}`
             };
         }
 
