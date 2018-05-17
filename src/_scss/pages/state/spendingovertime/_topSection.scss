@@ -1,0 +1,16 @@
+.visualization-top {
+    @include row();
+    margin-bottom: rem(20);
+    @import "components/visualizations/_period";
+    .visualization-period {
+        width: 50%;
+        display: flex;
+        justify-content: flex-end;
+        .content {
+            li {
+                //EDIT THIS DEPENDING ON HOW MANY CHOICES ARE AVAILABLE WITHIN THE TOGGLE (DEFAULT IS 3 = 5.3 COLUMNS) 
+                @include span-columns(5.3);
+            }
+        }
+    }
+}

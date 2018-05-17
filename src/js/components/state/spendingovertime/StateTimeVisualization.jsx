@@ -12,10 +12,12 @@ import BarChart from './BarChart';
 
 
 const defaultProps = {
+    groups: [],
+    xSeries: [],
+    ySeries: [],
     width: 0,
     height: 280
 };
-
 /**
  * groups - an array of X-axis labels. Each group can have multiple bars/data points
  * that are grouped together
@@ -30,9 +32,13 @@ const defaultProps = {
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    data: PropTypes.object,
+    groups: PropTypes.array,
+    xSeries: PropTypes.array,
+    ySeries: PropTypes.array,
     loading: PropTypes.bool,
-    visualizationPeriod: PropTypes.string
+    legend: PropTypes.array,
+    visualizationPeriod: PropTypes.string,
+    error: PropTypes.bool
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -44,16 +50,19 @@ export default class StateTimeVisualization extends React.Component {
             showTooltip: false,
             tooltipData: null,
             tooltipX: 0,
-            tooltipY: 0
+            tooltipY: 0,
+            barWidth: 0
         };
 
         this.showTooltip = this.showTooltip.bind(this);
     }
 
-    showTooltip(data) {
+    showTooltip(data, x, y, width) {
         this.setState({
-            showTooltip: true,
-            tooltipData: data
+            tooltipData: data,
+            tooltipX: x,
+            tooltipY: y,
+            barWidth: width
         });
     }
 
@@ -89,11 +98,15 @@ export default class StateTimeVisualization extends React.Component {
         let tooltip = null;
         if (this.state.tooltipData && window.innerWidth > 720) {
             tooltip = (<TimeTooltip
-                data={this.state.tooltipData} />);
+                barWidth={this.state.barWidth}
+                data={this.state.tooltipData}
+                x={this.state.tooltipX}
+                y={this.state.tooltipY}
+                chartWidth={this.props.width} />);
         }
 
         return (
-            <div className="results-visualization-time-container">
+            <div className="state-results-visualization-time-container">
                 {tooltip}
                 {chart}
             </div>

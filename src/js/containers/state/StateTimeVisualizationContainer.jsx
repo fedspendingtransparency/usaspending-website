@@ -45,7 +45,7 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.stateProfile.overview.code !== this.props.stateProfile.overview.code) {
+        if (prevProps.stateProfile !== this.props.stateProfile) {
             this.fetchData();
         }
     }
@@ -155,7 +155,7 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
         else if (group === 'quarter') {
             return {
                 period: `Q${timePeriod.quarter}`,
-                year: `${timePeriod.fiscal_year}`
+                year: `FY ${timePeriod.fiscal_year}`
             };
         }
 

@@ -54,8 +54,8 @@ export default class StateTimeVisualizationSection extends React.Component {
 
     render() {
         return (
-            <div
-                className="results-visualization-time-section"
+            <section
+                className="state-visualization-time-section"
                 id="results-section-time">
                 <h3>Awards Over Time</h3>
                 <hr
@@ -63,38 +63,39 @@ export default class StateTimeVisualizationSection extends React.Component {
                     ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
-                <div className="content">
-                    <ul>
-                        <li>
-                            <StateTimeVisualizationPeriodButton
-                                value="fiscal_year"
-                                label="Years"
-                                active={this.props.data.visualizationPeriod === 'fiscal_year'}
-                                updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
-                        </li>
-                        <li>
-                            <StateTimeVisualizationPeriodButton
-                                value="quarter"
-                                label="Quarters"
-                                active={this.props.data.visualizationPeriod === 'quarter'}
-                                updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
-                        </li>
-                        <li>
-                            <StateTimeVisualizationPeriodButton
-                                value="month"
-                                label="Months"
-                                active={this.props.data.visualizationPeriod === 'month'}
-                                updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
-                        </li>
-                    </ul>
-                </div>
-
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            Spot trends in spending over your chosen time period. Filter your
-                            results more (at left) and watch this graph update automatically. Break
-                            down your results by years or quarters.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nibh nisi, vulputate vitae eros vel, egestas ultricies justo. Nullam et lacus sapien. Fusce accumsan velit eget mauris suscipit ornare. Praesent eget efficitur orci, quis tincidunt leo. Fusce vestibulum luctus interdum. Suspendisse libero nisl, blandit eget lobortis pharetra, vulputate id purus. Etiam molestie fringilla odio semper luctus.
+                        </div>
+                    </div>
+                    <div className="visualization-period__wrapper">
+                        <div className="visualization-period">
+                            <div className="content">
+                                <ul>
+                                    <li>
+                                        <StateTimeVisualizationPeriodButton
+                                            value="fiscal_year"
+                                            label="Years"
+                                            active={this.props.data.visualizationPeriod === 'fiscal_year'}
+                                            updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
+                                    </li>
+                                    <li>
+                                        <StateTimeVisualizationPeriodButton
+                                            value="quarter"
+                                            label="Quarters"
+                                            active={this.props.data.visualizationPeriod === 'quarter'}
+                                            updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
+                                    </li>
+                                    <li>
+                                        <StateTimeVisualizationPeriodButton
+                                            value="month"
+                                            label="Months"
+                                            active={this.props.data.visualizationPeriod === 'month'}
+                                            updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -103,7 +104,7 @@ export default class StateTimeVisualizationSection extends React.Component {
                     loading={this.props.loading}
                     data={this.props.data}
                     width={this.state.visualizationWidth} />
-            </div>
+            </section>
         );
     }
 }
