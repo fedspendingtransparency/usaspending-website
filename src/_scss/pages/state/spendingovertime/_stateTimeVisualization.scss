@@ -1,13 +1,18 @@
 
-.state-visualization-time-section {
+/*.state-visualization-time-section {
     @import "pages/search/results/visualizations/time/chart/barChart";
     @import "./_topSection";
 
     margin: 0 rem(20) 0 rem(20);
 
-    h2.visualization-title {
+    /*h2.visualization-title {
         @include h3;
         margin: 0;
+    }
+
+    hr.results-divider {
+        margin-top: rem(9);
+        margin-bottom: rem(10);
     }
 
     .visualization-period__wrapper {
@@ -25,8 +30,8 @@
         font-size: $small-font-size;
         color: $color-base;
         text-align: center;
-    }
+    } 
     .state-results-visualization-time-container {
         min-height: rem(304);
-    }
-}
+    } 
+} */

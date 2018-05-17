@@ -2,6 +2,12 @@
     @include row();
     margin-bottom: rem(20);
     @import "components/visualizations/_period";
+    @import "components/visualizations/_description";
+    .visualization-description {
+       width: 100%;
+       margin-bottom: rem(20);
+    }
+
     .visualization-period {
         width: 50%;
         display: flex;

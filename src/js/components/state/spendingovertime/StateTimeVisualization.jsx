@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
-import TimeTooltip from 'components/search/visualizations/time/TimeVisualizationTooltip';
+import TimeTooltip from './StateTimeVisualizationTooltip';
 import BarChart from './BarChart';
 
 
