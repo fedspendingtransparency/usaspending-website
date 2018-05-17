@@ -12,6 +12,7 @@ import { reduce } from 'lodash';
 import * as StateHelper from 'helpers/stateHelper';
 
 import AwardBreakdownTreeMap from 'components/state/visualizations/awardBreakdown/AwardBreakdownTreeMap';
+import AwardBreakdownTable from "../../../../components/state/visualizations/awardBreakdown/AwardBreakdownTable";
 
 const propTypes = {
     stateProfile: PropTypes.object
@@ -70,8 +71,7 @@ export class AwardBreakdownContainer extends React.Component {
                     inFlight: false
                 });
 
-                // Sum ALL amounts in the returned award types
-                // to produce the total amount
+                // Sum all amounts in the returned award types
                 const totalAmount = reduce(
                     res.data.results,
                     (sum, awardType) => sum + parseFloat(awardType.amount),
@@ -115,11 +115,15 @@ export class AwardBreakdownContainer extends React.Component {
 
     render() {
         return (
-            <AwardBreakdownTreeMap
-                activeFY={this.props.stateProfile.fy}
-                awardBreakdown={this.state.awardBreakdown}
-                totalAmount={this.state.totalAmount}
-                hasNegatives={this.state.hasNegatives} />
+            <div className="award-breakdown__content">
+                <AwardBreakdownTreeMap
+                    activeFY={this.props.stateProfile.fy}
+                    awardBreakdown={this.state.awardBreakdown}
+                    totalAmount={this.state.totalAmount}
+                    hasNegatives={this.state.hasNegatives} />
+                <AwardBreakdownTable
+                    awardBreakdown={this.state.awardBreakdown.children} />
+            </div>
         );
     }
 }
