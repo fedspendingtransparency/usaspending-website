@@ -1,0 +1,14 @@
+.topfive__tabs {
+    @import "pages/search/results/table/_tableTypes";
+}
+
+.topfive__content {
+    @import "./_table";
+
+    @include display(flex);
+    @include justify-content(space-between);
+    @include align-items(flex-start);
+    @include flex-wrap(wrap);
+
+    margin-bottom: rem(90);
+}

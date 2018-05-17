@@ -10,11 +10,13 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import * as StateHelper from 'helpers/stateHelper';
+import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 
 import TopFive from 'components/state/topFive/TopFive';
 
 const propTypes = {
-    stateId: PropTypes.string
+    stateId: PropTypes.string,
+    category: PropTypes.string
 };
 
 export class TopFiveContainer extends React.Component {
@@ -26,15 +28,17 @@ export class TopFiveContainer extends React.Component {
             error: false,
             results: []
         };
+
+        this.request = null;
     }
 
     componentDidMount() {
-        this.loadCategory('awarding_agency');
+        this.loadCategory(this.props.category);
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.stateId !== this.props.stateId) {
-            this.loadCategory('awarding_agency');
+            this.loadCategory(this.props.category);
         }
     }
 
@@ -43,13 +47,49 @@ export class TopFiveContainer extends React.Component {
             return;
         }
 
-        StateHelper.fetchTopFive(this.props.stateId, type);
+        if (this.request) {
+            this.request.cancel();
+        }
+
+        this.setState({
+            loading: true,
+            error: false
+        });
+
+        this.request = StateHelper.fetchTopFive(this.props.stateId, type);
+        this.request.promise
+            .then((res) => {
+                this.parseResults(res.data.results);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.setState({
+                        loading: false,
+                        error: true
+                    });
+                }
+            })
+    }
+
+    parseResults(data) {
+        const parsed = data.map((item, index) => {
+            const result = Object.create(BaseStateCategoryResult);
+            result.populate(item, index + 1);
+            return result;
+        });
+        this.setState({
+            loading: false,
+            error: false,
+            results: parsed
+        });
     }
 
     render() {
         return (
             <TopFive
-                {...this.props} />
+                {...this.props}
+                results={this.state.results} />
         );
     }
 }
@@ -57,8 +97,8 @@ export class TopFiveContainer extends React.Component {
 
 export default connect(
     (state) => ({
-        stateId: state.stateProfile.overview.id
-
+        stateId: state.stateProfile.overview.id,
+        total: state.stateProfile.overview._totalAmount
     })
 )(TopFiveContainer);
 

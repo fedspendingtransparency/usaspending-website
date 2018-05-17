@@ -53,3 +53,13 @@ export const categories = {
         'district'
     ]
 };
+
+export const categoryTitles = {
+    'awarding_agency': 'Awarding Agencies',
+    'awarding_subagency': 'Awarding Sub-Agencies',
+    'recipient': 'Recipients',
+    'cfda': 'CFDA Programs',
+    'naics': 'NAICS Codes',
+    'county': 'Counties',
+    'district': 'Congressional Districts'
+};
