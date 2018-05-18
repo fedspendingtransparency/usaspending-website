@@ -1,8 +1,3 @@
-/**
- * TimeVisualizationPeriodButton.jsx
- * Created by Kevin Li 12/29/16
- */
-
 import React from 'react';
 import PropTypes from 'prop-types';
 

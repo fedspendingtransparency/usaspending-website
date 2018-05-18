@@ -45,7 +45,6 @@ export default class TimeVisualizationTooltip extends React.Component {
     }
 
     render() {
-        console.log(this.props.x);
         const dollarValue = MoneyFormatter.formatMoney(this.props.data.yValue);
 
         return (
