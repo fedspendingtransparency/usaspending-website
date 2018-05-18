@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import * as StateHelper from 'helpers/stateHelper';
+import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 
 import TopFive from 'components/state/topFive/TopFive';
@@ -33,16 +33,23 @@ export class TopFiveContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.loadCategory(this.props.category);
+        this.loadCategory();
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.stateId !== this.props.stateId) {
-            this.loadCategory(this.props.category);
+            this.loadCategory();
         }
     }
 
-    loadCategory(type) {
+    dataParams() {
+        return {
+            category: this.props.category,
+            
+        }
+    }
+
+    loadCategory() {
         if (!this.props.stateId) {
             return;
         }
@@ -56,7 +63,11 @@ export class TopFiveContainer extends React.Component {
             error: false
         });
 
-        this.request = StateHelper.fetchTopFive(this.props.stateId, type);
+        const params = {
+
+        };
+
+        this.request = SearchHelper.performSpendingByCategorySearch(params);
         this.request.promise
             .then((res) => {
                 this.parseResults(res.data.results);
