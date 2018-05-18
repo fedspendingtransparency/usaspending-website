@@ -1,0 +1,132 @@
+FORMAT: 1A
+HOST: https://api.usaspending.gov
+
+# Spending Explorer
+
+These endpoints are used to power USAspending.gov's Spending Explorer. This data can be used to drill down into specific subsets of data by level of detail.
+
+# Group General Spending
+
+The Spending Explorer requires the top-level (or entry point) filter to be one of three types:
+
+* Budget Function (`budget_function`)
+* Agency (`agency`)
+* Object Class (`object_class`)
+
+## General Spending Explorer [/api/v2/spending/]
+
+The general Spending Explorer response will contain only one filter (required), a fiscal year and quarter to limit the data to. The data will include _all_ quarters up to and including the specified quarter in the given fiscal year.
+
+This data represents all government spending in the specified time period, grouped by the data type of your choice.
+
+Note that data is not available prior to FY 2017 Q2.
+
+Note that data for the latest complete quarter is not available until 45 days after the quarter's close.
+
+### General Spending Data [POST]
+
+Parameters: 
+* `type`: agency (required, string)
+    * This must be one of:
+        * `budget_function`
+        * `agency`
+        * `object_class`
+* `filters` (required)
+    * `fy` (required, string)
+    * `quarter` (required, string)
+        * Must be one of `1`, `2`, `3`, or `4`.
+
++ Attributes (object)
+    + type: `agency` (required, string)
+        This must be one of `budget_function`, `agency`, or `object_class`.
+    + `filters` (required, GeneralFilter, fixed-type)
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes (SpendingExplorerGeneralResponse)
+        
+
+# Group Specific Spending
+
+## Specific Spending Explorer [/api/v2/spending/]
+
+Using the response from the general Spending Explorer, you can drill down to more detailed grouping fields. However, you must limit the scope of your request to one of the top-level groups and, optionally, additional lower-level groups. Each of your groups will combine to become the scope of your request. For example, if you filter by "Department of Justice" and "Salaries and Expenses," you will only see spending breakdowns for "Salaries and Expenses" within "Department of Justice."
+
+### Specific Spending Data [POST]
+
+Parameters: 
+* `type` (required, string)
+    * This must be one of:
+        * `budget_subfunction`
+        * `federal_account`
+        * `program_activity`
+            * If specifying a `program_activity` type, you *must* also include a `federal_account` in your `filters` object.
+        * `object_class`
+        * `recipient`
+        * `award`
+* `filters` (required)
+    * `fy` (required, string)
+    * `quarter` (required, string)
+        * Must be one of `1`, `2`, `3`, or `4`.
+    * Required: Exactly one key-value pair that uses one of the `types` in the general Spending Explorer as the key (string) and a single `id` value from the general Spending Explorer response as its value (number)
+        * Example: `agency: 252`
+    * Optional: Any number of key-value pairs that use one of the `types` from a specific Spending Explorer response as the key (string) and a single `id` value from the specific Spending Explorer response as its value (number)
+        * Example: `federal_account: 830`
+        * Note: You may not have more than one instance of a single type.
+        * Note: The `type` that is being requested may not also appear in the `filters`.
+
++ Attributes (object)
+    + type: `program_activity` (required, string)
+        This must be one of `federal_account`, `object_class`, `recipient`, or `award`.
+    + `filters` (required, DetailedFilter, fixed-type)
+
++ Request (application/json)
+
++ Response 200 (application/json)
+
+    + Attributes (SpendingExplorerDetailedResponse)
+
+# Data Structures
+
+## GeneralFilter (object)
++ fy: 2017 (required, string)
++ quarter: 4 (required, string)
+    Must be one of `1`, `2`, `3`, or `4`.
+
+## DetailedFilter (object)
++ fy: 2017 (required, string)
++ quarter: 4 (required, string)
+    Must be one of `1`, `2`, `3`, or `4`.
++ agency: 252 (optional, number)
+    This value is the `id` returned in the general Spending Explorer response.
++ federal_account: 830 (optional, number)
+    This value is the `id` returned in the previous specific Spending Explorer response.
+
+
+## SpendingExplorerGeneralResponse (object)
++ total: 126073789264.49 (required, number)
++ end_date: `2017-09-30` (required, string)
+    This is the "as-of" date for the data being returned.
++ results (required, array[object], fixed-type)
+    + Attributes
+        + code: `019` (required, string)
+        + id: 315 (required, number)
+        + type: agency (required, string)
+            The `type` will always be equal to the `type` parameter you provided in the request.
+        + name: Department of State (required, string)
+        + amount: 126073789264.49 (required, number)
+
+### SpendingExplorerDetailedResponse (object)
++ total: 1410774412.52 (required, number)
++ end_date: `2017-09-30` (required, string)
+    This is the "as-of" date for the data being returned.
++ results (required, array[object], fixed-type)
+    + Attributes
+        + code: `0006` (required, string)
+        + id: 11367 (required, number)
+        + type: `program_activity` (required, string)
+            The `type` will always be equal to the `type` parameter you provided in the request.
+        + name: Law Enforcement Operations (required, string)
+        + amount: 1116815570.99 (required, number)
