@@ -58,9 +58,9 @@ export default class DateTypeFilter extends React.Component {
         ));
         return (
             <div className="download-filter">
-                <div className="download-filter__title">
+                <h3 className="download-filter__title">
                     {icon} Select a <span className="download-filter__title_em">date type</span> for the date range below.
-                </div>
+                </h3>
                 <div className="download-filter__content">
                     {dateTypes}
                 </div>

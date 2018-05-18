@@ -16,7 +16,7 @@ import AwardDataContent from 'components/bulkDownload/awards/AwardDataContent';
 
 const propTypes = {
     updateDownloadFilter: PropTypes.func,
-    updateAwardCheckbox: PropTypes.func,
+    updateCheckbox: PropTypes.func,
     clearDownloadFilters: PropTypes.func,
     updateAwardDateRange: PropTypes.func,
     bulkDownload: PropTypes.object,
@@ -185,7 +185,7 @@ export class AwardDataContainer extends React.Component {
         return (
             <AwardDataContent
                 awards={this.props.bulkDownload.awards}
-                updateAwardCheckbox={this.props.updateAwardCheckbox}
+                updateCheckbox={this.props.updateCheckbox}
                 updateFilter={this.updateFilter}
                 updateStartDate={this.updateStartDate}
                 updateEndDate={this.updateEndDate}

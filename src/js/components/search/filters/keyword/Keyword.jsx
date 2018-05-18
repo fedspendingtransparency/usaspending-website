@@ -6,25 +6,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Close } from 'components/sharedComponents/icons/Icons';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+import SelectedKeywords from './SelectedKeywords';
 
 const propTypes = {
-    selectedKeyword: PropTypes.string,
-    submitText: PropTypes.func,
-    changedInput: PropTypes.func,
-    removeKeyword: PropTypes.func,
-    value: PropTypes.string,
-    dirtyFilter: PropTypes.string
+    selectedKeyword: PropTypes.object,
+    toggleKeyword: PropTypes.func,
+    dirtyFilter: PropTypes.symbol
 };
 
 export default class Keyword extends React.Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            value: ''
+        };
+        this.changedInput = this.changedInput.bind(this);
         this.searchKeyword = this.searchKeyword.bind(this);
-        this.removeKeyword = this.removeKeyword.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -35,28 +34,42 @@ export default class Keyword extends React.Component {
         }
     }
 
-    searchKeyword(e) {
-        e.preventDefault();
-        this.props.submitText();
+    changedInput(e) {
+        this.setState({
+            value: e.target.value
+        });
     }
 
-    removeKeyword() {
+    searchKeyword(e) {
+        e.preventDefault();
+        if (this.state.value !== '') {
+            this.props.toggleKeyword(this.state.value);
+        }
+        this.setState({
+            value: ''
+        });
+    }
+
+    toggleKeyword() {
         if (this.searchInput) {
             // focus on the input field for accessibility users
             this.searchInput.focus();
         }
-        this.props.removeKeyword();
+        this.props.toggleKeyword();
     }
 
     render() {
-        let hideTags = 'hide';
-        if (this.props.selectedKeyword !== '') {
-            hideTags = '';
-        }
-
         const accessibility = {
             'aria-controls': 'selected-keyword-tags'
         };
+
+        let selectedKeywords = null;
+
+        if (this.props.selectedKeyword.size > 0) {
+            selectedKeywords = (<SelectedKeywords
+                toggleKeyword={this.props.toggleKeyword}
+                selectedKeyword={this.props.selectedKeyword} />);
+        }
 
         return (
             <div className="keyword-filter search-filter">
@@ -68,8 +81,8 @@ export default class Keyword extends React.Component {
                                 type="text"
                                 className="keyword-input"
                                 placeholder="Search by Keyword"
-                                value={this.props.value}
-                                onChange={this.props.changedInput}
+                                value={this.state.value}
+                                onChange={this.changedInput}
                                 ref={(input) => {
                                     this.searchInput = input;
                                 }} />
@@ -79,23 +92,7 @@ export default class Keyword extends React.Component {
                                 label="Filter by keyword"
                                 accessibility={accessibility} />
                         </div>
-                        <div
-                            className={`selected-filters ${hideTags}`}
-                            id="selected-keyword-tags"
-                            role="status">
-                            <button
-                                className="shown-filter-button"
-                                onClick={this.removeKeyword}
-                                title="Click to remove filter."
-                                aria-label={`Applied keyword filter: ${this.props.selectedKeyword}`}>
-                                <span className="close">
-                                    <Close
-                                        className="usa-da-icon-close"
-                                        alt="Close icon" />
-                                </span>
-                                {this.props.selectedKeyword}
-                            </button>
-                        </div>
+                        {selectedKeywords}
                         <SubmitHint
                             ref={(component) => {
                                 this.hint = component;

@@ -14,8 +14,8 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import Keyword from 'components/search/filters/keyword/Keyword';
 
 const propTypes = {
-    keyword: PropTypes.string,
-    appliedFilter: PropTypes.string,
+    keyword: PropTypes.object,
+    appliedFilter: PropTypes.object,
     updateTextSearchInput: PropTypes.func
 };
 
@@ -23,68 +23,26 @@ export class KeywordContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            value: ''
-        };
-
-        this.submitText = this.submitText.bind(this);
-        this.changedInput = this.changedInput.bind(this);
-        this.removeKeyword = this.removeKeyword.bind(this);
+        this.toggleKeyword = this.toggleKeyword.bind(this);
     }
 
-    componentWillMount() {
-        if (this.props.keyword !== '') {
-            this.populateInput(this.props.keyword);
-        }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.keyword !== this.state.defaultValue) {
-            this.populateInput(nextProps.keyword);
-        }
-    }
-
-    populateInput(value) {
-        this.setState({
-            value
-        });
-    }
-
-    changedInput(e) {
-        this.setState({
-            value: e.target.value
-        });
-    }
-
-    submitText() {
-        // take in keywords and pass to redux
-        this.props.updateTextSearchInput(this.state.value);
-    }
-
-    removeKeyword() {
-        this.setState({
-            value: ''
-        }, () => {
-            this.submitText();
-        });
+    toggleKeyword(value) {
+        this.props.updateTextSearchInput(value);
     }
 
     dirtyFilter() {
         if (is(this.props.appliedFilter, this.props.keyword)) {
             return null;
         }
-        return this.props.keyword;
+        return Symbol('dirty keywords');
     }
 
     render() {
         return (
             <Keyword
                 dirtyFilter={this.dirtyFilter()}
-                value={this.state.value}
                 selectedKeyword={this.props.keyword}
-                changedInput={this.changedInput}
-                submitText={this.submitText}
-                removeKeyword={this.removeKeyword} />
+                toggleKeyword={this.toggleKeyword} />
         );
     }
 }

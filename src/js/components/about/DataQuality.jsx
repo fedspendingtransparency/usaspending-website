@@ -61,8 +61,7 @@ export default class DataQuality extends React.Component {
                         &nbsp;about data submitted by the agencies to the Federal Procurement
                         Data System (FPDS). If there are any discrepancies in procurement data, FPDS
                         is the authoritative source. In addition, the federal agencies&apos;
-                        raw quarterly submission files, including Quarterly Assurance Statements
-                        about the data, are&nbsp;
+                        raw quarterly submission files, including Quarterly Assurance Statements from Senior Accountable Officials of each agency about known data quality issues, are&nbsp;
                         <a
                             target="_blank"
                             href="http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/"
