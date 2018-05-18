@@ -15,7 +15,7 @@ export const requestAgenciesList = () => ({
     cancel: jest.fn()
 });
 
-export const requestBulkDownload = () => ({
+export const requestAwardsDownload = () => ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
             resolve({
