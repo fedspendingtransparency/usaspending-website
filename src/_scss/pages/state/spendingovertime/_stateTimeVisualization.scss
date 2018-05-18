@@ -10,27 +10,17 @@
         margin: 0;
     }
 
-    hr.results-divider {
-        margin-top: rem(9);
-        margin-bottom: rem(10);
-    }
-
-    .visualization-period__wrapper {
+    .state-visualization-period__wrapper {
         width: 100%;
-        display: flex;
+        @include display(flex);
         margin-top: rem(30);
-        justify-content: flex-end;
+        @include justify-content(flex-end);
     }
 
     .visualization-tooltip {
         @import "components/visualizations/tooltip/_tooltip";
     }
-    .state-visualization-message {
-        margin-top: rem(10);
-        font-size: $small-font-size;
-        color: $color-base;
-        text-align: center;
-    } 
+
     .state-results-visualization-time-container {
         min-height: rem(304);
     } 

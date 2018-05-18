@@ -1,22 +1,19 @@
-.visualization-top {
-    @include row();
+.state-visualization-top {
+    
     margin-bottom: rem(20);
     @import "components/visualizations/_period";
     @import "components/visualizations/_description";
-    .visualization-description {
+    .state-visualization__description {
        width: 100%;
        margin-bottom: rem(20);
     }
 
     .visualization-period {
-        width: 50%;
-        display: flex;
-        justify-content: flex-end;
-        .content {
-            li {
-                //EDIT THIS DEPENDING ON HOW MANY CHOICES ARE AVAILABLE WITHIN THE TOGGLE (DEFAULT IS 3 = 5.3 COLUMNS) 
-                @include span-columns(5.3);
-            }
+       
+        @include display(flex);
+        @include justify-content(flex-end);
+        @include media($medium-screen) {
+            width: 50%;
         }
     }
 }

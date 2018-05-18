@@ -32,13 +32,9 @@ const defaultProps = {
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    groups: PropTypes.array,
-    xSeries: PropTypes.array,
-    ySeries: PropTypes.array,
+    data: PropTypes.object,
     loading: PropTypes.bool,
-    legend: PropTypes.array,
-    visualizationPeriod: PropTypes.string,
-    error: PropTypes.bool
+    visualizationPeriod: PropTypes.string
 };
 /* eslint-enable react/no-unused-prop-types */
 

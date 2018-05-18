@@ -62,13 +62,13 @@ export default class StateTimeVisualizationSection extends React.Component {
                     ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
-                <div className="visualization-top">
-                    <div className="visualization-description">
+                <div className="state-visualization-top">
+                    <div className="state-visualization__description">
                         <div className="content">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nibh nisi, vulputate vitae eros vel, egestas ultricies justo. Nullam et lacus sapien. Fusce accumsan velit eget mauris suscipit ornare. Praesent eget efficitur orci, quis tincidunt leo. Fusce vestibulum luctus interdum. Suspendisse libero nisl, blandit eget lobortis pharetra, vulputate id purus. Etiam molestie fringilla odio semper luctus.
                         </div>
                     </div>
-                    <div className="visualization-period__wrapper">
+                    <div className="state-visualization-period__wrapper">
                         <div className="visualization-period">
                             <div className="content">
                                 <ul>
