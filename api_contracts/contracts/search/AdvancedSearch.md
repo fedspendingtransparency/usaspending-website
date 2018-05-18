@@ -18,7 +18,6 @@ This endpoint returns a list of the top results of specific categories sorted by
 + Request (application/json)
     + Attributes (object)
         + category: `awarding_agency` (required, enum[string])
-            This must be one of:
             + `awarding_agency`
             + `awarding_subagency`
             + `funding_agency`
@@ -87,7 +86,7 @@ This endpoint returns a list of the top results of specific categories sorted by
 ## TimePeriodObject (object)
 + start_date: `2016-10-01` (required, string)
 + end_date: `2017-09-30` (required, string)
-+ date_type: `action_date` (optional, enum[string])
++ `date_type`: `action_date` (optional, enum[string])
     + action_date
     + last_modified_date
 
