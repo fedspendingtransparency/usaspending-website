@@ -42,12 +42,6 @@ const defaultProps = {
 };
 
 const mapboxSources = {
-    state: {
-        label: 'state',
-        url: 'mapbox://usaspending.9cse49bi',
-        layer: 'cb_2016_us_state_500k-ckeyb7',
-        filterKey: 'STUSPS' // state abbreviation
-    },
     county: {
         label: 'county',
         minZoom: 5,

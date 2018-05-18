@@ -14,7 +14,6 @@ import MapMessage from 'components/search/visualizations/geo/MapMessage';
 import MapWrapper from './MapWrapper';
 
 const propTypes = {
-    scope: PropTypes.string,
     mapLayer: PropTypes.string,
     changeScope: PropTypes.func,
     changeMapLayer: PropTypes.func,

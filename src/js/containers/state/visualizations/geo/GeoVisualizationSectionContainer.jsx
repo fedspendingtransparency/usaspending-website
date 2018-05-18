@@ -29,7 +29,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
         super(props);
 
         this.state = {
-            scope: 'place_of_performance',
             mapLayer: 'county',
             data: {
                 values: [],
@@ -46,7 +45,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         this.mapListeners = [];
 
-        this.changeScope = this.changeScope.bind(this);
         this.changeMapLayer = this.changeMapLayer.bind(this);
         this.receivedEntities = this.receivedEntities.bind(this);
         this.mapLoaded = this.mapLoaded.bind(this);
@@ -72,19 +70,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
         // remove any broadcast listeners
         this.mapListeners.forEach((listenerRef) => {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
-        });
-    }
-
-    changeScope(scope) {
-        if (scope === this.state.scope) {
-            // scope has not changed
-            return;
-        }
-
-        this.setState({
-            scope
-        }, () => {
-            this.prepareFetch(true);
         });
     }
 
@@ -197,7 +182,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
         // generate the API parameters
         const apiParams = {
-            scope: this.state.scope,
+            scope: 'place_of_performance',
             geo_layer: apiScopes[this.state.mapLayer],
             geo_layer_filters: this.state.visibleEntities,
             filters: searchParams

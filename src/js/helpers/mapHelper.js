@@ -383,7 +383,7 @@ export const stateCodeFromName = (name) => {
 // Used for the state profile pages
 export const stateCenterFromFips = (fips) => {
     if ({}.hasOwnProperty.call(stateCenters, fips)) {
-        return stateCenters[`${fips}`];
+        return stateCenters[fips];
     }
     return null;
 };
