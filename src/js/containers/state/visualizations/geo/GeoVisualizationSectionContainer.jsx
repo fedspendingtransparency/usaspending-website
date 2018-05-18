@@ -150,7 +150,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     fetchData() {
-        // if no entities are visible, don't make an API rquest because nothing in the US is visible
+        // if no entities are visible, don't make an API request because nothing in the US is visible
         if (this.state.visibleEntities.length === 0) {
             this.setState({
                 loading: false,
@@ -274,6 +274,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         return (
             <GeoVisualizationSection
                 {...this.state}
+                stateCenter={this.props.stateProfile.center}
                 noResults={this.state.data.values.length === 0}
                 changeScope={this.changeScope}
                 changeMapLayer={this.changeMapLayer} />

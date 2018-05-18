@@ -24,7 +24,8 @@ const propTypes = {
     total: PropTypes.number,
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    noResults: PropTypes.bool
+    noResults: PropTypes.bool,
+    stateCenter: PropTypes.array
 };
 
 const availableLayers = ['county', 'congressionalDistrict'];
@@ -121,7 +122,8 @@ export default class GeoVisualizationSection extends React.Component {
                     hideTooltip={this.hideTooltip}
                     tooltip={GeoVisualizationTooltip}
                     availableLayers={availableLayers}
-                    showLayerToggle>
+                    showLayerToggle
+                    stateCenter={this.props.stateCenter}>
                     {message}
                 </MapWrapper>
             </div>

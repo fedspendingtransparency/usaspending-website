@@ -26,7 +26,8 @@ const propTypes = {
     availableLayers: PropTypes.array,
     changeMapLayer: PropTypes.func,
     showLayerToggle: PropTypes.bool,
-    children: PropTypes.node
+    children: PropTypes.node,
+    stateCenter: PropTypes.array
 };
 
 const defaultProps = {
@@ -449,8 +450,7 @@ export default class MapWrapper extends React.Component {
                 <MapBox
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
-                    // TODO - Lizzie: remove hardcoded coordinates
-                    stateCenter={[-95.569430, 38.852892]}
+                    stateCenter={this.props.stateCenter}
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
