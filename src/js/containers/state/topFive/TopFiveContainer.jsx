@@ -45,7 +45,17 @@ export class TopFiveContainer extends React.Component {
     dataParams() {
         return {
             category: this.props.category,
-            
+            filters: {
+                place_of_performance_scope: 'domestic',
+                place_of_performance_locations: [
+                    {
+                        country: 'USA',
+                        state: 'VA'
+                    }
+                ]
+            },
+            limit: 5,
+            page: 1
         }
     }
 
@@ -63,11 +73,7 @@ export class TopFiveContainer extends React.Component {
             error: false
         });
 
-        const params = {
-
-        };
-
-        this.request = SearchHelper.performSpendingByCategorySearch(params);
+        this.request = SearchHelper.performSpendingByCategorySearch(this.dataParams());
         this.request.promise
             .then((res) => {
                 this.parseResults(res.data.results);

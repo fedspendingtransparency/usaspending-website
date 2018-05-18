@@ -4,7 +4,6 @@
   **/
 
 import Axios, { CancelToken } from 'axios';
-
 import kGlobalConstants from 'GlobalConstants';
 
 // perform search is a cancellable promise
@@ -251,9 +250,12 @@ export const performSpendingByCategorySearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/search/spending_by_category/`,
+            url: 'v2/search/spending_by_category/',
             baseURL: kGlobalConstants.API,
             method: 'post',
+            headers: {
+                'Content-Type': 'application/json'
+            },
             data: params,
             cancelToken: source.token
         }),
