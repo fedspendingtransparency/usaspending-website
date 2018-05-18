@@ -2,7 +2,8 @@ const drakov = require('drakov');
 
 const drakovOptions  = {
     sourceFiles: './contracts/**/*.md',
-    serverPort: 5000
+    serverPort: 5000,
+    autoOptions: true
 };
 
 
