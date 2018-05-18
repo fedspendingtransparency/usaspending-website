@@ -5,7 +5,7 @@
 
     margin: 0 rem(20) rem(20) rem(20);
 
-    .state-visualization-title {
+    .state-visualization__title {
         @include h3;
         margin: 0;
     }
@@ -21,7 +21,7 @@
         @import "components/visualizations/tooltip/_tooltip";
     }
 
-    .state-results-visualization-time-container {
+    .state-visualization-time__wrapper {
         min-height: rem(304);
     } 
 }

@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
+import BarChart from 'components/search/visualizations/time/chart/BarChart';
 import TimeTooltip from './StateTimeVisualizationTooltip';
-import BarChart from './BarChart';
 
 
 const defaultProps = {
@@ -102,7 +102,7 @@ export default class StateTimeVisualization extends React.Component {
         }
 
         return (
-            <div className="state-results-visualization-time-container">
+            <div className="state-visualization-time__wrapper">
                 {tooltip}
                 {chart}
             </div>

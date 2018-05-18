@@ -1,8 +1,8 @@
 .state-visualization-top {
-    
+
     margin-bottom: rem(20);
     @import "components/visualizations/_period";
-    @import "components/visualizations/_description";
+    
     .state-visualization__description {
        width: 100%;
        margin-bottom: rem(20);
