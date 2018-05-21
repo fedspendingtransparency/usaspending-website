@@ -13,7 +13,11 @@ The Spending Explorer requires the top-level (or entry point) filter to be one o
 * Agency (`agency`)
 * Object Class (`object_class`)
 
-## General Spending Explorer [/api/v2/spending/]
+## Spending Explorer [/api/v2/spending/]
+
+### Spending Explorer Data [POST]
+
+ **General Spending Explorer Data**
 
 The general Spending Explorer response will contain only one filter (required), a fiscal year and quarter to limit the data to. The data will include _all_ quarters up to and including the specified quarter in the given fiscal year.
 
@@ -23,12 +27,17 @@ Note that data is not available prior to FY 2017 Q2.
 
 Note that data for the latest complete quarter is not available until 45 days after the quarter's close.
 
-### General Spending Data [POST]
+**Specific Spending Explorer**
 
-+ Request (application/json)
+Using the response from the general Spending Explorer, you can drill down to more detailed grouping fields. However, you must limit the scope of your request to one of the top-level groups and, optionally, additional lower-level groups. Each of your groups will combine to become the scope of your request. For example, if you filter by "Department of Justice" and "Salaries and Expenses," you will only see spending breakdowns for "Salaries and Expenses" within "Department of Justice."
+
+
++ Request General Spending Explorer(application/json)
     + Attributes (object)
-        + type: `agency` (required, string)
-            This must be one of `budget_function`, `agency`, or `object_class`.
+        + type: `agency` (required, enum[string])
+            + `budget_function`
+            + `agency`
+            + `object_class`
         + `filters` (required, GeneralFilter, fixed-type)
 
 + Response 200 (application/json)
@@ -37,20 +46,18 @@ Note that data for the latest complete quarter is not available until 45 days af
         + end_date: `2017-09-30` (required, string)
             This is the "as-of" date for the data being returned.
         + results (required, array[SpendingExplorerGeneralResponse], fixed-type)
-        
-
-# Group Specific Spending
-
-## Specific Spending Explorer [/api/v2/spending/]
-
-Using the response from the general Spending Explorer, you can drill down to more detailed grouping fields. However, you must limit the scope of your request to one of the top-level groups and, optionally, additional lower-level groups. Each of your groups will combine to become the scope of your request. For example, if you filter by "Department of Justice" and "Salaries and Expenses," you will only see spending breakdowns for "Salaries and Expenses" within "Department of Justice."
-
-### Specific Spending Data [POST]
-
-+ Request (application/json)
+ 
++ Request Specific Spending Explorer (application/json)
     + Attributes (object)
-        + type: `program_activity` (required, string)
-            This must be one of `federal_account`, `object_class`, `recipient`, or `award`.
+        + type: `program_activity` (required, enum[string])
+            + `federal_account`
+            + `object_class`
+            + `recipient`
+            + `award`
+            + `budget_function`
+            + `budget_subfunction`
+            + `agency`
+            + `program_activity`
         + `filters` (required, DetailedFilter, fixed-type)
 
 + Response 200 (application/json)
@@ -64,18 +71,28 @@ Using the response from the general Spending Explorer, you can drill down to mor
 
 ## GeneralFilter (object)
 + fy: 2017 (required, string)
-+ quarter: 4 (required, string)
-    Must be one of `1`, `2`, `3`, or `4`.
++ quarter: 4 (required, enum[string])
+    + `1`
+    + `2`
+    + `3`
+    + `4`
 
 ## DetailedFilter (object)
 + fy: 2017 (required, string)
-+ quarter: 4 (required, string)
-    Must be one of `1`, `2`, `3`, or `4`.
++ quarter: 4 (required, enum[string])
+    + `1`
+    + `2`
+    + `3`
+    + `4`
 + agency: 252 (optional, number)
     This value is the `id` returned in the general Spending Explorer response.
 + federal_account: 830 (optional, number)
     This value is the `id` returned in the previous specific Spending Explorer response.
-
++ object_class: 123 (optional, number)
++ budget_function: 123 (optional, number)
++ budget_subfunction: 123 (optional, number)
++ recipient: 123 (optional, number)
++ program_activity: 123 (optional, number)
 
 ## SpendingExplorerGeneralResponse (object)
 + code: `019` (required, string)
