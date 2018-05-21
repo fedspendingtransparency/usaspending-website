@@ -10,7 +10,7 @@
         margin: 0;
     }
 
-    .state-visualization-period__wrapper {
+    .state-visualization-top-period__wrapper {
         width: 100%;
         @include display(flex);
         margin-top: rem(30);
@@ -21,7 +21,7 @@
         @import "components/visualizations/tooltip/_tooltip";
     }
 
-    .state-visualization-time__wrapper {
+    .state-visualization__time-wrapper {
         min-height: rem(304);
     } 
 }

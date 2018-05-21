@@ -68,7 +68,7 @@ export default class StateTimeVisualizationSection extends React.Component {
                             <p>The graph below shows trends over time for amounts awarded to this state. Break down the amounts by years, quarters, or months, and hover over the bars for more detailed information.</p>
                         </div>
                     </div>
-                    <div className="state-visualization-period__wrapper">
+                    <div className="state-visualization-top-period__wrapper">
                         <div className="visualization-period">
                             <div className="content">
                                 <ul>

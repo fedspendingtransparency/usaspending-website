@@ -102,7 +102,7 @@ export default class StateTimeVisualization extends React.Component {
         }
 
         return (
-            <div className="state-visualization-time__wrapper">
+            <div className="state-visualization__time-wrapper">
                 {tooltip}
                 {chart}
             </div>
