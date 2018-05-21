@@ -25,26 +25,13 @@ Note that data for the latest complete quarter is not available until 45 days af
 
 ### General Spending Data [POST]
 
-Parameters: 
-* `type`: agency (required, string)
-    * This must be one of:
-        * `budget_function`
-        * `agency`
-        * `object_class`
-* `filters` (required)
-    * `fy` (required, string)
-    * `quarter` (required, string)
-        * Must be one of `1`, `2`, `3`, or `4`.
-
-+ Attributes (object)
-    + type: `agency` (required, string)
-        This must be one of `budget_function`, `agency`, or `object_class`.
-    + `filters` (required, GeneralFilter, fixed-type)
-
 + Request (application/json)
+    + Attributes (object)
+        + type: `agency` (required, string)
+            This must be one of `budget_function`, `agency`, or `object_class`.
+        + `filters` (required, GeneralFilter, fixed-type)
 
 + Response 200 (application/json)
-
     + Attributes (SpendingExplorerGeneralResponse)
         
 
@@ -56,33 +43,11 @@ Using the response from the general Spending Explorer, you can drill down to mor
 
 ### Specific Spending Data [POST]
 
-Parameters: 
-* `type` (required, string)
-    * This must be one of:
-        * `budget_subfunction`
-        * `federal_account`
-        * `program_activity`
-            * If specifying a `program_activity` type, you *must* also include a `federal_account` in your `filters` object.
-        * `object_class`
-        * `recipient`
-        * `award`
-* `filters` (required)
-    * `fy` (required, string)
-    * `quarter` (required, string)
-        * Must be one of `1`, `2`, `3`, or `4`.
-    * Required: Exactly one key-value pair that uses one of the `types` in the general Spending Explorer as the key (string) and a single `id` value from the general Spending Explorer response as its value (number)
-        * Example: `agency: 252`
-    * Optional: Any number of key-value pairs that use one of the `types` from a specific Spending Explorer response as the key (string) and a single `id` value from the specific Spending Explorer response as its value (number)
-        * Example: `federal_account: 830`
-        * Note: You may not have more than one instance of a single type.
-        * Note: The `type` that is being requested may not also appear in the `filters`.
-
-+ Attributes (object)
-    + type: `program_activity` (required, string)
-        This must be one of `federal_account`, `object_class`, `recipient`, or `award`.
-    + `filters` (required, DetailedFilter, fixed-type)
-
 + Request (application/json)
+    + Attributes (object)
+        + type: `program_activity` (required, string)
+            This must be one of `federal_account`, `object_class`, `recipient`, or `award`.
+        + `filters` (required, DetailedFilter, fixed-type)
 
 + Response 200 (application/json)
 
