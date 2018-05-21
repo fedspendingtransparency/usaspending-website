@@ -16,3 +16,21 @@ export const mockStateApi = {
     award_amount_per_capita: 900000.08,
     median_household_income: 68000
 };
+
+export const mockStateCategoryApi = {
+    category: "awarding_agency",
+    results: [
+        {
+            id: 1,
+            name: "Banana",
+            code: "1234",
+            amount: 1.01
+        },
+        {
+            id: 2,
+            name: "Robot",
+            code: "2345",
+            amount: 1.02
+        }
+    ]
+};

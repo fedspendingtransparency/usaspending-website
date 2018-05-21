@@ -15,7 +15,9 @@ import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 import TopFive from 'components/state/topFive/TopFive';
 
 const propTypes = {
-    stateId: PropTypes.string,
+    id: PropTypes.string,
+    code: PropTypes.string,
+    total: PropTypes.number,
     category: PropTypes.string
 };
 
@@ -37,7 +39,7 @@ export class TopFiveContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.stateId !== this.props.stateId) {
+        if (prevProps.id !== this.props.id) {
             this.loadCategory();
         }
     }
@@ -50,7 +52,7 @@ export class TopFiveContainer extends React.Component {
                 place_of_performance_locations: [
                     {
                         country: 'USA',
-                        state: 'VA'
+                        state: this.props.code
                     }
                 ]
             },
@@ -60,7 +62,11 @@ export class TopFiveContainer extends React.Component {
     }
 
     loadCategory() {
-        if (!this.props.stateId) {
+        if (!this.props.code) {
+            this.setState({
+                loading: false,
+                error: true
+            });
             return;
         }
 
@@ -114,7 +120,8 @@ export class TopFiveContainer extends React.Component {
 
 export default connect(
     (state) => ({
-        stateId: state.stateProfile.overview.id,
+        id: state.stateProfile.overview.id,
+        code: state.stateProfile.overview.code,
         total: state.stateProfile.overview._totalAmount
     })
 )(TopFiveContainer);

@@ -2,6 +2,13 @@
     @import "pages/search/results/table/_tableTypes";
 }
 
+.topfive__description {
+    font-size: rem(20);
+    line-height: rem(25);
+    font-weight: $font-light;
+    margin-bottom: rem(35)
+}
+
 .topfive__content {
     @import "./_table";
 
