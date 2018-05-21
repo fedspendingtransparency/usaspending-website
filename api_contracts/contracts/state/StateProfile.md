@@ -9,9 +9,9 @@ These endpoints are used to power USAspending.gov's state profile pages. This da
 
 These endpoints support the individual State Profile pages that display data for a specific state or territory.
 
-## Agency Overview [/api/v2/recipient/state/{fips}/{?year}]
+## State Overview [/api/v2/recipient/state/{fips}/{?year}]
 
-This endpoint returns a high-level overview of a specific government agency, given its USAspending.gov `id`.
+This endpoint returns a high-level overview of a specific state or territory, given its USAspending.gov `id`.
 
 + Parameters
     + fips: 51 (required, string)
@@ -19,7 +19,7 @@ This endpoint returns a high-level overview of a specific government agency, giv
     + year: 2017 (optional, string)
         The fiscal year you would like data for. Use `all` to view all time or `latest` to view the latest 12 months.
 
-### Get Agency Overview [GET]
+### Get State Overview [GET]
 
 + Response 200 (application/json)
     + Attributes (StateOverview)

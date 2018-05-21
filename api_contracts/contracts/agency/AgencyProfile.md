@@ -30,6 +30,7 @@ This endpoint returns a list of toptier agencies, their budgetary resources, and
 + agency_id: 456 (required, number)
     This is the unique USAspending.gov identifier for the agency. You will need to use this ID in other endpoints when requesting detailed information about this specific agency.
 + agency_name: Department of the Treasury (required, string)
++ abbreviation: TREAS (optional, string)
 + budget_authority_amount: 1899160740172.16 (required, number)
 + percentage_of_total_budget_authority: 0.22713302022147824 (required, number)
     `percentage_of_total_budget_authority` is the percentage of the agency's budget authority compared to the total government budget authority, expressed as a decimal value.
@@ -121,8 +122,14 @@ This endpoint returns the amount that the specific agency has obligated to vario
 + Response 200 (application/json)
     + Attributes
         + results (required, array[FederalAccount], fixed-type)
+        + page_metadata (required, PageMetadataObject)
 
 # Data Structures
+
+## PageMetadataObject (object)
++ page: 1 (required, number)
++ hasNext: false (required, boolean)
++ hasPrevious: false (required, boolean)
 
 ## AgencyOverview (object)
 + active_fy: `2017` (required, string)
