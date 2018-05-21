@@ -455,6 +455,7 @@ export default class MapWrapper extends React.Component {
                 <MapBox
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
+                    center={[-95.569430, 38.852892]}
                     ref={(component) => {
                         this.mapRef = component;
                     }} />

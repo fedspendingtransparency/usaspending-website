@@ -12,7 +12,7 @@ import MapBroadcaster from 'helpers/mapBroadcaster';
 
 import MapLegend from 'components/search/visualizations/geo/MapLegend';
 import MapLayerToggle from 'components/search/visualizations/geo/MapLayerToggle';
-import MapBox from './map/MapBox';
+import MapBox from 'components/search/visualizations/geo/map/MapBox';
 
 const propTypes = {
     data: PropTypes.object,
@@ -444,7 +444,7 @@ export default class MapWrapper extends React.Component {
                 <MapBox
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
-                    stateCenter={this.props.stateCenter}
+                    center={this.props.stateCenter}
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
