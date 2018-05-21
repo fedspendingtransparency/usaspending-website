@@ -71,10 +71,7 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
 
         // Fetch data from the Awards v2 endpoint
         let timePeriod = null;
-      
         const dateRange = FiscalYearHelper.getTrailingTwelveMonths();
-        
-            
         timePeriod = [
             {
                 start_date: dateRange[0],
