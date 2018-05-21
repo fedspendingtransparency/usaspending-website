@@ -9,16 +9,10 @@ import { mount, shallow } from 'enzyme';
 import { StateTimeVisualizationSectionContainer } from
     'containers/state/StateTimeVisualizationSectionContainer';
 
-import { mockActions, mockRedux, mockYears, mockQuarters, mockMonths } from './mockData';
+import { mockActions, mockRedux, mockTimes, mockYears, mockQuarters, mockMonths } from './mockData';
 
 jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
 
-// mock the child component by replacing it with a function that returns a null element
-jest.mock('components/state/spendingovertime/StateTimeVisualizationSection', () => jest.fn(() => null));
-
-
-jest.mock('components/search/visualizations/time/TimeVisualizationSection', () =>
-    jest.fn(() => null));
 
 describe('StateTimeVisualizationSectionContainer', () => {
     it('should make an API call for the selected state on mount', async () => {
@@ -30,29 +24,6 @@ describe('StateTimeVisualizationSectionContainer', () => {
         container.instance().fetchData = fetchData;
 
         container.instance().componentDidMount();
-        await container.instance().apiRequest.promise;
-
-        expect(fetchData).toHaveBeenCalledTimes(1);
-    });
-
-    it('should make an API call when the fiscal year changes', async () => {
-        const container = mount(<StateTimeVisualizationSectionContainer
-            {...mockRedux}
-            {...mockActions} />);
-
-        const fetchData = jest.fn();
-        container.instance().fetchData = fetchData;
-
-        const stateProfile = Object.assign({}, mockRedux.stateProfile, {
-            fy: '2018'
-        });
-
-        const nextProps = Object.assign({}, mockRedux, {
-            stateProfile
-        });
-
-        container.setProps(nextProps);
-
         await container.instance().apiRequest.promise;
 
         expect(fetchData).toHaveBeenCalledTimes(1);
@@ -136,6 +107,79 @@ describe('StateTimeVisualizationSectionContainer', () => {
             };
 
             expect(container.state()).toEqual(expectedState);
+        });
+    });
+    describe('generateTime', () => {
+        it('should return a fiscal year when fiscal year is selected and the type is label', () => {
+            const container = shallow(<StateTimeVisualizationSectionContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            // validates a valid label is generated
+            const timeLabel = container.instance().generateTime('fiscal_year', mockTimes, 'label');
+
+            const expectedValue = '2017';
+
+
+            expect(timeLabel).toEqual(expectedValue);
+        });
+        it('should return an object with a null period a year that matches the fiscal year when fiscal year is selected and the type is raw', () => {
+            const container = shallow(<StateTimeVisualizationSectionContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            // validates a valid label is generated
+            const timeLabel = container.instance().generateTime('fiscal_year', mockTimes, 'raw');
+
+            const expectedValue = {
+                period: null,
+                year: '2017'
+            };
+
+
+            expect(timeLabel).toEqual(expectedValue);
+        });
+        it('should return a quarter with fiscal year when quarter is selected and the type is label', () => {
+            const container = shallow(<StateTimeVisualizationSectionContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            // validates a valid label is generated
+            const timeLabel = container.instance().generateTime('quarter', mockTimes, 'label');
+
+            const expectedValue = 'Q4 2017';
+
+
+            expect(timeLabel).toEqual(expectedValue);
+        });
+        it('should return an object with the given quarter and a fiscal year when quarter is selected and the type is raw', () => {
+            const container = shallow(<StateTimeVisualizationSectionContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            // validates a valid label is generated
+            const timeLabel = container.instance().generateTime('quarter', mockTimes, 'raw');
+
+            const expectedValue = {
+                period: 'Q4',
+                year: '2017'
+            };
+
+
+            expect(timeLabel).toEqual(expectedValue);
+        });
+        it('should return a short month and fiscal year when month is selected and the type is label', () => {
+            const container = shallow(<StateTimeVisualizationSectionContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            // validates a valid label is generated
+            const timeLabel = container.instance().generateTime('month', mockTimes, 'label');
+
+            const expectedValue = 'Oct 2016';
+
+
+            expect(timeLabel).toEqual(expectedValue);
         });
     });
 });

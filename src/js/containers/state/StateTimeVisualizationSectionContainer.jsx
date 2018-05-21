@@ -1,5 +1,5 @@
 /**
- * TimeVisualizationSectionContainer.jsx
+ * StateTimeVisualizationSectionContainer.jsx
  * Created by David Trinh 5/15/18
  */
 
@@ -45,7 +45,7 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.stateProfile !== this.props.stateProfile) {
+        if (prevProps.stateProfile.overview.code !== this.props.stateProfile.overview.code) {
             this.fetchData();
         }
     }
@@ -71,22 +71,16 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
 
         // Fetch data from the Awards v2 endpoint
         let timePeriod = null;
-        const fy = this.props.stateProfile.fy;
-        if (fy !== 'all') {
-            let dateRange = [];
-            if (fy === 'latest') {
-                dateRange = FiscalYearHelper.getTrailingTwelveMonths();
+      
+        const dateRange = FiscalYearHelper.getTrailingTwelveMonths();
+        
+            
+        timePeriod = [
+            {
+                start_date: dateRange[0],
+                end_date: dateRange[1]
             }
-            else {
-                dateRange = FiscalYearHelper.convertFYToDateRange(parseInt(fy, 10));
-            }
-            timePeriod = [
-                {
-                    start_date: dateRange[0],
-                    end_date: dateRange[1]
-                }
-            ];
-        }
+        ];
 
         const searchParams = {
             place_of_performance_locations: [
@@ -131,28 +125,20 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
             });
     }
 
-    generateTimeLabel(group, timePeriod) {
-        if (group === 'fiscal_year') {
+    generateTime(group, timePeriod, type) {
+        if (group === 'fiscal_year' && type === "label") {
             return timePeriod.fiscal_year;
         }
-        else if (group === 'quarter') {
-            return `Q${timePeriod.quarter} ${timePeriod.fiscal_year}`;
-        }
-
-        const month = MonthHelper.convertNumToShortMonth(timePeriod.month);
-        const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
-
-        return `${month} ${year}`;
-    }
-
-    generateTimeRaw(group, timePeriod) {
-        if (group === 'fiscal_year') {
+        else if (group === 'fiscal_year' && type === "raw") {
             return {
                 period: null,
                 year: `${timePeriod.fiscal_year}`
             };
         }
-        else if (group === 'quarter') {
+        else if (group === 'quarter' && type === "label") {
+            return `Q${timePeriod.quarter} ${timePeriod.fiscal_year}`;
+        }
+        else if (group === 'quarter' && type === "raw") {
             return {
                 period: `Q${timePeriod.quarter}`,
                 year: `${timePeriod.fiscal_year}`
@@ -161,11 +147,16 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
 
         const month = MonthHelper.convertNumToShortMonth(timePeriod.month);
         const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
-
-        return {
-            period: `${month}`,
-            year: `${year}`
-        };
+        let data;
+        if (type === "label") {
+            data = `${month} ${year}`;
+        } else if (type === "raw") {
+            data = {
+                period: `${month}`,
+                year: `${year}`
+            };
+        }
+        return data;
     }
 
     parseData(data, group) {
@@ -176,9 +167,9 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            groups.push(this.generateTimeLabel(group, item.time_period));
-            rawLabels.push(this.generateTimeRaw(group, item.time_period));
-            xSeries.push([this.generateTimeLabel(group, item.time_period)]);
+            groups.push(this.generateTime(group, item.time_period, "label"));
+            rawLabels.push(this.generateTime(group, item.time_period, "raw"));
+            xSeries.push([this.generateTime(group, item.time_period, "label")]);
             ySeries.push([parseFloat(item.aggregated_amount)]);
         });
 
