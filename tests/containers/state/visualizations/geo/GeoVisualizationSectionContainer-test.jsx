@@ -107,56 +107,6 @@ describe('GeoVisualizationSectionContainer', () => {
             // unattach the mock listener
             MapBroadcaster.off(attached.event, attached.id);
         });
-
-        it('should emit a request to measure the current map entities if the tiles have loaded', () => {
-            const mockListener = jest.fn();
-            // attach the mock listener to the MapBroadcaster
-            const attached = MapBroadcaster.on('measureMap', mockListener);
-
-            const container = mount(<GeoVisualizationSectionContainer
-                {...mockRedux}
-                {...mockActions} />);
-            container.setState({
-                loadingTiles: false
-            });
-
-            container.instance().prepareFetch();
-            expect(mockListener).toHaveBeenCalledTimes(1);
-
-            // unattach the mock listener
-            MapBroadcaster.off(attached.event, attached.id);
-        });
-    });
-
-    describe('receivedEntities', () => {
-        it('should set the state to the returned entities', () => {
-            const container = mount(<GeoVisualizationSectionContainer
-                {...mockRedux}
-                {...mockActions} />);
-            container.setState({
-                visibleEntities: []
-            });
-
-            container.instance().receivedEntities(['A', 'B', 'C']);
-
-            expect(container.state().visibleEntities).toEqual(['A', 'B', 'C']);
-        });
-
-        it('should make an API call using the returned entities', () => {
-            const container = mount(<GeoVisualizationSectionContainer
-                {...mockRedux}
-                {...mockActions} />);
-            const mockFetch = jest.fn();
-            container.instance().fetchData = mockFetch;
-
-            container.setState({
-                visibleEntities: []
-            });
-
-            container.instance().receivedEntities(['A', 'B', 'C']);
-
-            expect(mockFetch).toHaveBeenCalledTimes(1);
-        });
     });
 
     describe('parseData', () => {

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniq } from 'lodash';
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -80,13 +79,10 @@ export default class MapWrapper extends React.Component {
 
         this.mapReady = this.mapReady.bind(this);
         this.mapRemoved = this.mapRemoved.bind(this);
-
-        this.measureMap = this.measureMap.bind(this);
     }
 
     componentDidMount() {
         this.displayData();
-        this.prepareBroadcastReceivers();
     }
 
     componentDidUpdate(prevProps) {
@@ -105,7 +101,6 @@ export default class MapWrapper extends React.Component {
 
     componentWillUnmount() {
         // remove any broadcast listeners
-        this.removeChangeListeners();
         this.broadcastReceivers.forEach((listenerRef) => {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
@@ -133,16 +128,10 @@ export default class MapWrapper extends React.Component {
                 // we depend on the state shapes to process the state fills, so the operation
                 // queue must wait for the state shapes to load first
                 this.runMapOperationQueue();
-                this.prepareChangeListeners();
 
                 // notify any listeners that the map is ready
                 MapBroadcaster.emit('mapReady');
             });
-    }
-
-    prepareBroadcastReceivers() {
-        const listenerRef = MapBroadcaster.on('measureMap', this.measureMap);
-        this.broadcastReceivers.push(listenerRef);
     }
 
     showSource(type) {
@@ -289,59 +278,6 @@ export default class MapWrapper extends React.Component {
             // if we're loading new data, we need to wait for the data to be ready
             this.mapRef.map.on('sourcedata', loadResolver);
         });
-    }
-
-    measureMap(forced = false) {
-        // determine which entities (state, counties, etc based on current scope) are in view
-        // use Mapbox SDK to determine the currently rendered shapes in the base layer
-        const mapLoaded = this.mapRef.map.loaded();
-        // wait for the map to load before continuing
-        if (!mapLoaded) {
-            window.requestAnimationFrame(() => {
-                this.measureMap();
-            });
-            return;
-        }
-
-        const entities = this.mapRef.map.queryRenderedFeatures({
-            layers: [`base_${this.props.scope}`]
-        });
-
-        const source = mapboxSources[this.props.scope];
-        const visibleEntities = entities.map((entity) => (
-            entity.properties[source.filterKey]
-        ));
-
-        // remove the duplicates values and pass them to the parent
-        const uniqueEntities = uniq(visibleEntities);
-
-        MapBroadcaster.emit('mapMeasureDone', uniqueEntities, forced);
-    }
-
-    prepareChangeListeners() {
-        // detect visible entities whenever the map moves
-        const parentMap = this.mapRef.map;
-        function renderCallback() {
-            if (parentMap.loaded()) {
-                parentMap.off('render', renderCallback);
-                MapBroadcaster.emit('mapMoved');
-            }
-        }
-
-        // we need to hold a reference to the callback in order to remove the listener when
-        // the component unmounts
-        this.renderCallback = () => {
-            this.mapRef.map.on('render', renderCallback);
-        };
-        this.mapRef.map.on('moveend', this.renderCallback);
-        // but also do it when the map resizes, since the view will be different
-        this.mapRef.map.on('resize', this.renderCallback);
-    }
-
-    removeChangeListeners() {
-        // remove the render callbacks
-        this.mapRef.map.off('moveend', this.renderCallback);
-        this.mapRef.map.off('resize', this.renderCallback);
     }
 
     mouseOverLayer(e) {

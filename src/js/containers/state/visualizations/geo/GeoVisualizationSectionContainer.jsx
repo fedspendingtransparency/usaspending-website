@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, isEqual, keyBy } from 'lodash';
+import { uniqueId, isEqual } from 'lodash';
 
 import GeoVisualizationSection from 'components/state/visualizations/geo/GeoVisualizationSection';
 
@@ -34,7 +34,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 values: [],
                 locations: []
             },
-            visibleEntities: [],
             renderHash: `geo-${uniqueId()}`,
             loading: true,
             loadingTiles: true,
@@ -46,14 +45,11 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.mapListeners = [];
 
         this.changeMapLayer = this.changeMapLayer.bind(this);
-        this.receivedEntities = this.receivedEntities.bind(this);
         this.mapLoaded = this.mapLoaded.bind(this);
         this.prepareFetch = this.prepareFetch.bind(this);
     }
 
     componentDidMount() {
-        const doneListener = MapBroadcaster.on('mapMeasureDone', this.receivedEntities);
-        this.mapListeners.push(doneListener);
         const measureListener = MapBroadcaster.on('mapReady', this.mapLoaded);
         this.mapListeners.push(measureListener);
         const movedListener = MapBroadcaster.on('mapMoved', this.prepareFetch);
@@ -62,7 +58,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.stateProfile, this.props.stateProfile)) {
-            this.prepareFetch(true);
+            this.prepareFetch();
         }
     }
 
@@ -86,68 +82,16 @@ export class GeoVisualizationSectionContainer extends React.Component {
         });
     }
 
-    prepareFetch(forced = false) {
+    prepareFetch() {
         if (this.state.loadingTiles) {
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
         }
 
-        MapBroadcaster.emit('measureMap', forced);
-    }
-
-    compareEntities(entities) {
-        // check if the inbound list of entities is different from the existing visible entities
-        const current = keyBy(this.state.visibleEntities);
-        const inbound = keyBy(entities);
-
-        for (const entity of entities) {
-            if (!current[entity]) {
-                // new entity entered view
-                return true;
-            }
-        }
-
-        for (const entity of this.state.visibleEntities) {
-            if (!inbound[entity]) {
-                // old entity exited view
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    receivedEntities(entities, forced) {
-        if (!forced) {
-            // only check if the returned entities list has changed if this is not a forced update
-            const changed = this.compareEntities(entities);
-            if (!changed) {
-                // nothing changed
-                return;
-            }
-        }
-
-        this.setState({
-            visibleEntities: entities
-        }, () => {
-            this.fetchData();
-        });
+        this.fetchData();
     }
 
     fetchData() {
-        // if no entities are visible, don't make an API request because nothing in the US is visible
-        if (this.state.visibleEntities.length === 0) {
-            this.setState({
-                loading: false,
-                error: false,
-                data: {
-                    values: [],
-                    locations: []
-                }
-            });
-            return;
-        }
-
         // Create the time period filter
         let timePeriod = null;
         const fy = this.props.stateProfile.fy;
@@ -184,7 +128,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
         const apiParams = {
             scope: 'place_of_performance',
             geo_layer: apiScopes[this.state.mapLayer],
-            geo_layer_filters: this.state.visibleEntities,
+            // TODO: Lizzie - hardcode or have backend make optional
+            geo_layer_filters: [],
             filters: searchParams
         };
 
@@ -251,7 +196,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             renderHash: `geo-${uniqueId()}`,
             loadingTiles: true
         }, () => {
-            this.prepareFetch(true);
+            this.prepareFetch();
         });
     }
 
