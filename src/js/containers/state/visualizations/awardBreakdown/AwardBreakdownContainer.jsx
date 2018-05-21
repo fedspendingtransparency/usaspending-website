@@ -73,14 +73,14 @@ export class AwardBreakdownContainer extends React.Component {
 
                 // Sum all amounts in the returned award types
                 const totalAmount = reduce(
-                    res.data.results,
+                    res.data,
                     (sum, awardType) => sum + parseFloat(awardType.amount),
                     0
                 );
 
                 // Sum only the positive amounts in the returned award types
                 const positiveAmount = reduce(
-                    res.data.results,
+                    res.data,
                     (sum, awardType) => {
                         if (parseFloat(awardType.amount) >= 0) {
                             return sum + parseFloat(awardType.amount);
@@ -94,7 +94,7 @@ export class AwardBreakdownContainer extends React.Component {
 
                 this.setState({
                     awardBreakdown: {
-                        children: res.data.results
+                        children: res.data
                     },
                     totalAmount,
                     hasNegatives
