@@ -181,5 +181,21 @@ describe('StateTimeVisualizationSectionContainer', () => {
 
             expect(timeLabel).toEqual(expectedValue);
         });
+        it('should return a short month and fiscal year object when month is selected and the type is raw', () => {
+            const container = shallow(<StateTimeVisualizationSectionContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            // validates a valid label is generated
+            const timeLabel = container.instance().generateTime('month', mockTimes, 'raw');
+
+            const expectedValue = {
+                period: 'Oct',
+                year: '2016'
+            };
+
+
+            expect(timeLabel).toEqual(expectedValue);
+        });
     });
 });

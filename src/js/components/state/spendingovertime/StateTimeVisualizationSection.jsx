@@ -55,7 +55,7 @@ export default class StateTimeVisualizationSection extends React.Component {
     render() {
         return (
             <section
-                className="state-visualization-time-section">
+                className="state-visualization">
                 <h3 className="state-visualization__title">Awards Over Time</h3>
                 <hr
                     className="results-divider"
@@ -63,7 +63,7 @@ export default class StateTimeVisualizationSection extends React.Component {
                         this.sectionHr = hr;
                     }} />
                 <div className="state-visualization-top">
-                    <div className="state-visualization__description">
+                    <div className="state-visualization-top__description">
                         <div>
                             <p>The graph below shows trends over time for amounts awarded to this state. Break down the amounts by years, quarters, or months, and hover over the bars for more detailed information.</p>
                         </div>
