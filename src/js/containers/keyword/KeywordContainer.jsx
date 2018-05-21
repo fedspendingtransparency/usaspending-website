@@ -85,15 +85,15 @@ export class KeywordContainer extends React.Component {
             }
         };
 
-        this.requestDownload(params, 'awards');
+        this.requestDownload(params);
     }
 
-    requestDownload(params, type) {
+    requestDownload(params) {
         if (this.downloadRequest) {
             this.downloadRequest.cancel();
         }
 
-        this.downloadRequest = BulkDownloadHelper.requestBulkDownload(params, type);
+        this.downloadRequest = BulkDownloadHelper.requestAwardsDownload(params);
 
         this.downloadRequest.promise
             .then((res) => {

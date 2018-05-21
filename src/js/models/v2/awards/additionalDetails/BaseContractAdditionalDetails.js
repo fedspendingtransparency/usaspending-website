@@ -41,9 +41,9 @@ const BaseContractAdditionalDetails = {
 
         // Legislative Mandates
         this.clingerCohenAct = data.clinger_cohen_act_pla_desc || '--';
-        this.davisBaconAct = data.davis_bacon_act_descrip || '--';
-        this.serviceContractAct = data.service_contract_act_desc || '--';
-        this.walshHealeyAct = data.walsh_healey_act_descrip || '--';
+        this.constructionWageRateReq = data.construction_wage_rat_desc || '--';
+        this.laborStandards = data.labor_standards_descrip || '--';
+        this.materialSuppliesArticlesEquip = data.materials_supplies_descrip || '--';
 
         // Additional Details
         this.costOrPricingData = data.cost_or_pricing_data_desc || '--';
