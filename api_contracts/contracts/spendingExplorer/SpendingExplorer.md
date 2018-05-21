@@ -32,7 +32,11 @@ Note that data for the latest complete quarter is not available until 45 days af
         + `filters` (required, GeneralFilter, fixed-type)
 
 + Response 200 (application/json)
-    + Attributes (SpendingExplorerGeneralResponse)
+    + Attributes (object)
+        + total: 126073789264.49 (required, number)
+        + end_date: `2017-09-30` (required, string)
+            This is the "as-of" date for the data being returned.
+        + results (required, array[SpendingExplorerGeneralResponse], fixed-type)
         
 
 # Group Specific Spending
@@ -50,8 +54,11 @@ Using the response from the general Spending Explorer, you can drill down to mor
         + `filters` (required, DetailedFilter, fixed-type)
 
 + Response 200 (application/json)
-
-    + Attributes (SpendingExplorerDetailedResponse)
+    + Attributes (object)
+        + total: 1410774412.52 (required, number)
+        + end_date: `2017-09-30` (required, string)
+            This is the "as-of" date for the data being returned.
+        + results (required, array[SpendingExplorerDetailedResponse], fixed-type)
 
 # Data Structures
 
@@ -71,27 +78,17 @@ Using the response from the general Spending Explorer, you can drill down to mor
 
 
 ## SpendingExplorerGeneralResponse (object)
-+ total: 126073789264.49 (required, number)
-+ end_date: `2017-09-30` (required, string)
-    This is the "as-of" date for the data being returned.
-+ results (required, array[object], fixed-type)
-    + Attributes
-        + code: `019` (required, string)
-        + id: 315 (required, number)
-        + type: agency (required, string)
-            The `type` will always be equal to the `type` parameter you provided in the request.
-        + name: Department of State (required, string)
-        + amount: 126073789264.49 (required, number)
++ code: `019` (required, string)
++ id: 315 (required, number)
++ type: agency (required, string)
+    The `type` will always be equal to the `type` parameter you provided in the request.
++ name: Department of State (required, string)
++ amount: 126073789264.49 (required, number)
 
 ### SpendingExplorerDetailedResponse (object)
-+ total: 1410774412.52 (required, number)
-+ end_date: `2017-09-30` (required, string)
-    This is the "as-of" date for the data being returned.
-+ results (required, array[object], fixed-type)
-    + Attributes
-        + code: `0006` (required, string)
-        + id: 11367 (required, number)
-        + type: `program_activity` (required, string)
-            The `type` will always be equal to the `type` parameter you provided in the request.
-        + name: Law Enforcement Operations (required, string)
-        + amount: 1116815570.99 (required, number)
++ code: `0006` (required, string)
++ id: 11367 (required, number)
++ type: `program_activity` (required, string)
+    The `type` will always be equal to the `type` parameter you provided in the request.
++ name: Law Enforcement Operations (required, string)
++ amount: 1116815570.99 (required, number)

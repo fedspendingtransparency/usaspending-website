@@ -20,7 +20,7 @@ This endpoint returns a list of toptier agencies, their budgetary resources, and
 ### Get Toptier Agencies [GET]
 
 + Response 200 (application/json)
-    + Attributes
+    + Attributes (object)
         + results (required, array[ListAgencyObject], fixed-type)
 
 ## Data Structures
@@ -66,7 +66,7 @@ This endpoint returns aggregated balances for a specific government agency in a 
 ### Get Financial Balances [GET]
 
 + Response 200 (application/json)
-    + Attributes
+    + Attributes (object)
         + results (required, array[FinancialBalance], fixed-type)
 
 ## Major Object Classes [/api/v2/financial_spending/major_object_class/{?fiscal_year,funding_agency_id}]
@@ -100,7 +100,7 @@ This endpoint returns the total amount that a specific agency has obligated to m
 ### Get Minor Object Classes [GET]
 
 + Response 200 (application/json)
-    + Attributes
+    + Attributes (object)
         + results (required, array[MinorObjectClass], fixed-type)
 
 ## Federal Accounts [/api/v2/federal_obligations/{?fiscal_year,funding_agency_id,limit,page}]
@@ -143,6 +143,7 @@ This endpoint returns the amount that the specific agency has obligated to vario
     The file name of the agency's logo. If no logo is available, this will be an empty string. Images can be found at `https://www.usaspending.gov/graphics/agency/[file]`.
 + website: `https://www.treasury.gov` (required, string)
 + budget_authority_amount: 1899160740172.16 (required, string)
++ current_total_budget_authority_amount: 8361447130497.72 (required, string)
 + obligated_amount: 524341511584.82 (required, string)
 + outlay_amount: 523146830716.62 (required, string)
 
