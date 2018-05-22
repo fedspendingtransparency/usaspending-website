@@ -16,14 +16,13 @@ jest.mock('components/state/topFive/TopFiveSection', () => jest.fn(() => null));
 
 
 const mockRedux = {
-    id: '99',
     code: 'XX',
     total: 123.04,
     type: 'all'
 };
 
 describe('TopFiveContainer', () => {
-    it('should reload data when the state ID changes', () => {
+    it('should reload data when the state code changes', () => {
         const container = mount(
             <TopFiveContainer
                 {...mockRedux}
@@ -33,7 +32,7 @@ describe('TopFiveContainer', () => {
         container.instance().loadCategory = jest.fn();
 
         container.setProps({
-            id: '123'
+            code: 'ZZ'
         });
 
         expect(container.instance().loadCategory).toHaveBeenCalledTimes(1);
