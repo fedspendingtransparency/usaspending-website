@@ -1,6 +1,6 @@
 
 // Fetch State Overview
-import { mockStateOverview } from './mockData';
+import { mockStateOverview, mockAwardBreakdown } from './mockData';
 
 export const fetchStateOverview = () => (
     {
@@ -8,6 +8,19 @@ export const fetchStateOverview = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockStateOverview
+                });
+            });
+        }),
+        cancel: jest.fn()
+    }
+);
+
+export const fetchAwardBreakdown = () => (
+    {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => {
+                resolve({
+                    data: mockAwardBreakdown
                 });
             });
         }),

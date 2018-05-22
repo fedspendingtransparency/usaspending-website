@@ -32,12 +32,20 @@
     border:solid $color-gray-light rem(1);
     border-radius: rem(5);
     -moz-border-radius: rem(5);
-    td, th {
+    th {
         padding: rem(10) rem(15);
         border: 0;
         background-color: transparent;
-    }
-    th {
         border-bottom: solid $color-gray-light rem(1);
+        font-weight: 600;
+    }
+    td {
+        padding: rem(10) rem(15);
+        border: 0;
+        background-color: transparent;
+        font-weight: $font-light;
+        &:first-child {
+            font-weight: $font-normal;
+        }
     }
 }
