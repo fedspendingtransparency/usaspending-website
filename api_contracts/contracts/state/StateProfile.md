@@ -5,6 +5,19 @@ HOST: https://api.usaspending.gov
 
 These endpoints are used to power USAspending.gov's state profile pages. This data can be used to visualize the government spending that occurs in a specific state or territory.
 
+# Group Landing Page
+
+These endpoints support the state profile landing page, which provides a list of all states and territories for which individual profile pages are available on USAspending.gov.
+
+## List States [/api/v2/recipient/state/]
+
+This endpoint returns a list of states and their amounts.
+
+### Get List States [GET]
+
++ Response 200 (application/json)
+    + Attributes (array[StateListing], fixed-type)
+
 # Group Profile Page
 
 These endpoints support the individual State Profile pages that display data for a specific state or territory.
@@ -41,6 +54,12 @@ This endpoint returns the award amounts and totals, based on award type, of a sp
 
 # Data Structures
 
+## StateListing (object)
++ name: Virginia (required, string)
++ code: VA (required, string)
++ fips: 51 (required, string)
++ amount: 494274.3 (required, number)
+
 ## StateOverview (object)
 + name: Virginia (required, string)
 + code: VA (required, string)
@@ -59,8 +78,8 @@ This endpoint returns the award amounts and totals, based on award type, of a sp
 
 ## StateBreakdown (object)
 + type: contracts (required, string)
-    A string representing the award type. Possible values are `contracts`, `grants`, `loans`, `direct_payments`, `other`.
-+ amount: 417250.91 (required, number)
+    Award types include 'contracts', 'grants', 'direct_payments', 'loans', 'other_financial_assistance'.
++ amount: 41725.9 (required, number)
     The aggregate value of awards of this type.
-+ count: 4345 (required, number)
++ count: 4 (required, number)
     The number of awards of this type.
