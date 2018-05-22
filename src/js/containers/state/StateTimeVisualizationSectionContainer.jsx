@@ -119,35 +119,49 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
             });
     }
 
+    // generateTime(group, timePeriod, type) {
+    //     const month = MonthHelper.convertNumToShortMonth(timePeriod.month);
+    //     const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
+
+    //     if (type === 'label') {
+    //         if (group === 'fiscal_year') {
+    //             return `${timePeriod.fiscal_year}`;
+    //         } else if (group === 'quarter') {
+    //             return `Q${timePeriod.quarter} ${timePeriod.fiscal_year}`;
+    //         }
+    //         return `${month} ${year}`;
+    //     }
+
+    //     if (group === 'fiscal_year') {
+    //         return {
+    //             period: null,
+    //             year: timePeriod.fiscal_year
+    //         };
+    //     } else if (group === 'quarter') {
+    //         return {
+    //             period: `Q${timePeriod.quarter}`,
+    //             year: `${timePeriod.fiscal_year}`
+    //         };
+    //     }
+
+    //     return {
+    //         period: `${month}`,
+    //         year: `${year}`
+    //     };
+    // }
+
     generateTime(group, timePeriod, type) {
         const month = MonthHelper.convertNumToShortMonth(timePeriod.month);
         const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
 
-        if (type === 'label') {
-            if (group === 'fiscal_year') {
-                return `${timePeriod.fiscal_year}`;
-            } else if (group === 'quarter') {
-                return `Q${timePeriod.quarter} ${timePeriod.fiscal_year}`;
-            }
-            return `${month} ${year}`;
-        }
 
         if (group === 'fiscal_year') {
-            return {
-                period: null,
-                year: timePeriod.fiscal_year
-            };
-        } else if (group === 'quarter') {
-            return {
-                period: `Q${timePeriod.quarter}`,
-                year: `${timePeriod.fiscal_year}`
-            };
+            return type === 'label' ? `${timePeriod.fiscal_year}` : { period: null, year: timePeriod.fiscal_year };
         }
-
-        return {
-            period: `${month}`,
-            year: `${year}`
-        };
+        else if (group === 'quarter') {
+            return type === 'label' ? `Q${timePeriod.quarter} ${timePeriod.fiscal_year}` : { period: `Q${timePeriod.quarter}`, year: `${timePeriod.fiscal_year}` };
+        }
+        return type === 'label' ? `${month} ${year}` : { period: `${month}`, year: `${year}` };
     }
 
     parseData(data, group) {
