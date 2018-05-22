@@ -143,7 +143,7 @@ export default class Sidebar extends React.Component {
         }
 
         return (
-            <div className="state-sidebar">
+            <div>
                 <div
                     className={`${this.props.pageName}-sidebar-reference ${floatSidebar}`}
                     ref={(div) => {

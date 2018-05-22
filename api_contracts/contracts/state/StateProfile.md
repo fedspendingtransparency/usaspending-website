@@ -36,10 +36,10 @@ This endpoint returns a high-level overview of a specific state or territory, gi
 
 + Response 200 (application/json)
     + Attributes (StateOverview)
-    
+
 ## State Award Breakdown [/api/v2/recipient/state/awards/{fips}/{?year}]
 
-This endpoint returns the award amounts and totals, based on award type, of a specific state or territory, given its USAspending.gov `id`. 
+This endpoint returns the award amounts and totals, based on award type, of a specific state or territory, given its USAspending.gov `id`.
 
 + Parameters
     + fips: 51 (required, string)
