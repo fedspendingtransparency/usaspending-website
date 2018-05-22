@@ -70,9 +70,8 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
         }
 
         // Fetch data from the Awards v2 endpoint
-        let timePeriod = null;
         const dateRange = FiscalYearHelper.getTrailingTwelveMonths();
-        timePeriod = [
+        const timePeriod = [
             {
                 start_date: dateRange[0],
                 end_date: dateRange[1]
@@ -88,9 +87,7 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
             ]
         };
 
-        if (timePeriod) {
-            searchParams.time_period = timePeriod;
-        }
+        searchParams.time_period = timePeriod;
 
 
         // Generate the API parameters
@@ -123,37 +120,34 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
     }
 
     generateTime(group, timePeriod, type) {
-        if (group === 'fiscal_year' && type === "label") {
-            return timePeriod.fiscal_year;
+        const month = MonthHelper.convertNumToShortMonth(timePeriod.month);
+        const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
+
+        if (type === 'label') {
+            if (group === 'fiscal_year') {
+                return `${timePeriod.fiscal_year}`;
+            } else if (group === 'quarter') {
+                return `Q${timePeriod.quarter} ${timePeriod.fiscal_year}`;
+            }
+            return `${month} ${year}`;
         }
-        else if (group === 'fiscal_year' && type === "raw") {
+
+        if (group === 'fiscal_year') {
             return {
                 period: null,
-                year: `${timePeriod.fiscal_year}`
+                year: timePeriod.fiscal_year
             };
-        }
-        else if (group === 'quarter' && type === "label") {
-            return `Q${timePeriod.quarter} ${timePeriod.fiscal_year}`;
-        }
-        else if (group === 'quarter' && type === "raw") {
+        } else if (group === 'quarter') {
             return {
                 period: `Q${timePeriod.quarter}`,
                 year: `${timePeriod.fiscal_year}`
             };
         }
 
-        const month = MonthHelper.convertNumToShortMonth(timePeriod.month);
-        const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
-        let data;
-        if (type === "label") {
-            data = `${month} ${year}`;
-        } else if (type === "raw") {
-            data = {
-                period: `${month}`,
-                year: `${year}`
-            };
-        }
-        return data;
+        return {
+            period: `${month}`,
+            year: `${year}`
+        };
     }
 
     parseData(data, group) {

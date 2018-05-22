@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
-// TODO import the regular TimeVisualization button instead
 import TimeVisualizationPeriodButton from 'components/search/visualizations/time/TimeVisualizationPeriodButton';
 
 import StateTimeVisualization from './StateTimeVisualization';
@@ -56,6 +55,7 @@ export default class StateTimeVisualizationSection extends React.Component {
     render() {
         return (
             <section
+                id="state-awards-over-time"
                 className="state-visualization">
                 <h3 className="state-visualization__title">Awards Over Time</h3>
                 <hr

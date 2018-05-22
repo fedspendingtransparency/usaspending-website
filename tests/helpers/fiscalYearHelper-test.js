@@ -92,9 +92,9 @@ describe('Fiscal Year helper functions', () => {
 
     describe('getTrailingTwelveMonths', () => {
         it('should return an array containing today as an end date and the year one year ago as the start date', () => {
-            const today = moment().format('YYYY-MM-DD');
-            const oneYearAgo = moment().subtract(1, 'year').format('YYYY-MM-DD');
-            const expectedDates = [oneYearAgo, today];
+            const mockedDate = moment('2019-05-20', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+            const expectedDates = ['2018-05-20', '2019-05-20'];
 
             expect(FiscalYearHelper.getTrailingTwelveMonths()).toEqual(expectedDates);
         });
