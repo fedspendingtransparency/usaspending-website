@@ -25,3 +25,19 @@
         }
     }
 }
+
+.award-breakdown__table {
+    margin: rem(20) 0;
+    border-collapse:separate;
+    border:solid $color-gray-light rem(1);
+    border-radius: rem(5);
+    -moz-border-radius: rem(5);
+    td, th {
+        padding: rem(10) rem(15);
+        border: 0;
+        background-color: transparent;
+    }
+    th {
+        border-bottom: solid $color-gray-light rem(1);
+    }
+}

@@ -36,20 +36,18 @@ export default class AwardBreakdownTable extends React.Component {
 
     render() {
         return (
-            <div className="award-breakdown__table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Award Type</th>
-                            <th>Amount</th>
-                            <th>Count</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.generateRows()}
-                    </tbody>
-                </table>
-            </div>
+            <table className="award-breakdown__table">
+                <thead>
+                    <tr>
+                        <th>Award Type</th>
+                        <th>Amount</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {this.generateRows()}
+                </tbody>
+            </table>
         );
     }
 }
