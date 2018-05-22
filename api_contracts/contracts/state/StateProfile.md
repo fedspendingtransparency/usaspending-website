@@ -26,7 +26,7 @@ This endpoint returns a high-level overview of a specific state or territory, gi
 
 ## State Award Breakdown [/api/v2/recipient/state/awards/{fips}/{?year}]
 
-This endpoint returns the award amounts and totals, based on award type, of a specific state or territory, given its USAspending.gov `id`. Award types include `contracts`, `grants`, `direct_payments`, `loans`, `other_financial_assistance`. 
+This endpoint returns the award amounts and totals, based on award type, of a specific state or territory, given its USAspending.gov `id`.
 
 + Parameters
     + fips: 51 (required, string)
@@ -59,5 +59,8 @@ This endpoint returns the award amounts and totals, based on award type, of a sp
 
 ## StateBreakdown(object)
 + type: contracts (required, string)
+	Award types include 'contracts', 'grants', 'direct_payments', 'loans', 'other_financial_assistance'.
 + amount: 41725.9 (required, number)
+	The aggregate value of awards of this type.
 + count: 4 (required, number)
+	The number of awards of this type.
