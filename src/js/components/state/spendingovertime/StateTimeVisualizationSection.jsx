@@ -7,7 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
-import StateTimeVisualizationPeriodButton from './StateTimeVisualizationPeriodButton';
+// TODO import the regular TimeVisualization button instead
+import TimeVisualizationPeriodButton from 'components/search/visualizations/time/TimeVisualizationPeriodButton';
 
 import StateTimeVisualization from './StateTimeVisualization';
 
@@ -62,42 +63,37 @@ export default class StateTimeVisualizationSection extends React.Component {
                     ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
-                <div className="state-visualization-top">
-                    <div className="state-visualization-top__description">
-                        <div>
-                            <p>The graph below shows trends over time for amounts awarded to this state. Break down the amounts by years, quarters, or months, and hover over the bars for more detailed information.</p>
-                        </div>
-                    </div>
-                    <div className="state-visualization-top-period__wrapper">
-                        <div className="visualization-period">
-                            <div className="content">
-                                <ul>
-                                    <li>
-                                        <StateTimeVisualizationPeriodButton
-                                            value="fiscal_year"
-                                            label="Years"
-                                            active={this.props.data.visualizationPeriod === 'fiscal_year'}
-                                            updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
-                                    </li>
-                                    <li>
-                                        <StateTimeVisualizationPeriodButton
-                                            value="quarter"
-                                            label="Quarters"
-                                            active={this.props.data.visualizationPeriod === 'quarter'}
-                                            updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
-                                    </li>
-                                    <li>
-                                        <StateTimeVisualizationPeriodButton
-                                            value="month"
-                                            label="Months"
-                                            active={this.props.data.visualizationPeriod === 'month'}
-                                            updateVisualizationPeriod={this.props.updateVisualizationPeriod} />
-                                    </li>
-                                </ul>
-                            </div>
+                <p className="state-visualization__description">The graph below shows trends over time for amounts awarded to this state. Break down the amounts by years, quarters, or months, and hover over the bars for more detailed information.</p>
+                <div className="state-visualization-period">
+                    <div className="visualization-period">
+                        <div className="content">
+                            <ul>
+                                <li>
+                                    <TimeVisualizationPeriodButton
+                                        value="fiscal_year"
+                                        label="Years"
+                                        active={this.props.data.visualizationPeriod === 'fiscal_year'}
+                                        changePeriod={this.props.updateVisualizationPeriod} />
+                                </li>
+                                <li>
+                                    <TimeVisualizationPeriodButton
+                                        value="quarter"
+                                        label="Quarter"
+                                        active={this.props.data.visualizationPeriod === 'quarter'}
+                                        changePeriod={this.props.updateVisualizationPeriod} />
+                                </li>
+                                <li>
+                                    <TimeVisualizationPeriodButton
+                                        value="month"
+                                        label="Month"
+                                        active={this.props.data.visualizationPeriod === 'month'}
+                                        changePeriod={this.props.updateVisualizationPeriod} />
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+
                 <StateTimeVisualization
                     visualizationPeriod={this.props.visualizationPeriod}
                     loading={this.props.loading}

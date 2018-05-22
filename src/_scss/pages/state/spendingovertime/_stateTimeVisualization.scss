@@ -1,7 +1,7 @@
 
 .state-visualization {
     @import "pages/search/results/visualizations/time/chart/barChart";
-    @import "./_topSection";
+    @import "./_period";
 
     margin: 0 rem(20) rem(20) rem(20);
 
@@ -10,16 +10,18 @@
         margin: 0;
     }
 
-    .state-visualization-top-period__wrapper {
-        width: 100%;
-        @include display(flex);
-        margin-top: rem(30);
-        @include justify-content(flex-end);
+    .state-visualization__header {
+        margin-bottom: rem(20);
     }
 
     .visualization-tooltip {
         @import "components/visualizations/tooltip/_tooltip";
     }
+
+    .state-visualization__description {
+        width: 100%;
+        margin-bottom: rem(20);
+     }
 
     .state-visualization__time-wrapper {
         min-height: rem(304);

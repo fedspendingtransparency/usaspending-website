@@ -1,12 +1,9 @@
-.state-visualization-top {
+.state-visualization-period {
     @import "components/visualizations/_period";
-    margin-bottom: rem(20);
+    width: 100%;
+    @include display(flex);
+    @include justify-content(flex-end);
     
-    
-    .state-visualization-top__description {
-       width: 100%;
-       margin-bottom: rem(20);
-    }
 
     .visualization-period {
         @include display(flex);

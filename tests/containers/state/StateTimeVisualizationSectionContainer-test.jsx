@@ -176,7 +176,7 @@ describe('StateTimeVisualizationSectionContainer', () => {
             // validates a valid label is generated
             const timeLabel = container.instance().generateTime('month', mockTimes, 'label');
 
-            const expectedValue = 'Oct 2016';
+            const expectedValue = 'Jan 2016';
 
 
             expect(timeLabel).toEqual(expectedValue);

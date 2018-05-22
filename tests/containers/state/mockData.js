@@ -23,7 +23,7 @@ export const mockRedux = {
 export const mockTimes = {
     fiscal_year: '2017',
     quarter: '4',
-    month: 'Jan'
+    month: '1'
 };
 
 export const mockYears = {
