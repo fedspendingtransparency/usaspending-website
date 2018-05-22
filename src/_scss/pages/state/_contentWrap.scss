@@ -28,12 +28,16 @@
         }
 
         .state-section__row {
-            @include span-columns(16);
+            width: 100%;
+            @include media($tablet-screen) {
+                @include display(flex);
+            }
             padding-bottom: rem(45);
             .state-section__viz {
-                @include span-columns(16);
+                width: 100%;
                 @include media($tablet-screen) {
-                    @include span-columns(8);
+                    @include flex(1 1 auto);
+                    width: 50%;
                 }
             }
         }

@@ -231,7 +231,7 @@ export default class AwardBreakdownTreeMap extends React.Component {
         if (this.props.hasNegatives) {
             greatThanOneHundredDescription = (
                 <p>
-                    <em><strong>Note:</strong> The object classes below add up to more
+                    <em><strong>Note:</strong> The award types below add up to more
                         than 100% due to negative values not shown here.
                     </em>
                 </p>
