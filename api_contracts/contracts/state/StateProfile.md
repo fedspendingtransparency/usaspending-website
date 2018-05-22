@@ -5,6 +5,19 @@ HOST: https://api.usaspending.gov
 
 These endpoints are used to power USAspending.gov's state profile pages. This data can be used to visualize the government spending that occurs in a specific state or territory.
 
+# Group Landing Page
+
+These endpoints support the state profile landing page, which provides a list of all states and territories for which individual profile pages are available on USAspending.gov.
+
+## List States [/api/v2/recipient/state/]
+
+This endpoint returns a list of states and their amounts.
+
+### Get List States [GET]
+
++ Response 200 (application/json)
+    + Attributes (array[StateListing], fixed-type)
+
 # Group Profile Page
 
 These endpoints support the individual State Profile pages that display data for a specific state or territory.
@@ -25,6 +38,12 @@ This endpoint returns a high-level overview of a specific state or territory, gi
     + Attributes (StateOverview)
 
 # Data Structures
+
+## StateListing (object)
++ name: Virginia (required, string)
++ code: VA (required, string)
++ fips: 51 (required, string)
++ amount: 494274.3 (required, number)
 
 ## StateOverview (object)
 + name: Virginia (required, string)
