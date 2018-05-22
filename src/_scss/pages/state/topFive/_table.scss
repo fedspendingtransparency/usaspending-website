@@ -51,7 +51,9 @@
         }
 
         .category-table__table-body {
-            
+            &.category-table__table-body_hide {
+                display: none;
+            }
         }
 
         .category-table__table-row {

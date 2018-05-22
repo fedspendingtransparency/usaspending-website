@@ -5,6 +5,14 @@
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
+
+export const defaultNameTemplate = (code, name) => {
+    if (code) {
+        return `${code} - ${name}`;
+    }
+    return name;
+}
+
 const BaseStateCategoryResult = {
     populate(data, index) {
         this.id = data.id;
@@ -12,15 +20,17 @@ const BaseStateCategoryResult = {
         this._name = data.name || '--';
         this._code = data.code || '';
         this._amount = data.amount || 0;
+
+        this._nameTemplate = defaultNameTemplate;
+    },
+    set nameTemplate(template) {
+        this._nameTemplate = template;
     },
     get amount() {
         return MoneyFormatter.formatMoney(this._amount);
     },
     get combinedName() {
-        if (this._code) {
-            return `${this._code} - ${this._name}`;
-        }
-        return this._name;
+        return this._nameTemplate(this._code, this._name);
     },
     get name() {
         return `${this.index}. ${this.combinedName}`;

@@ -4,9 +4,17 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import { categoryTitles } from 'dataMapping/state/topCategories';
 
 import TopFiveRow from './TopFiveRow';
+
+const propTypes = {
+    category: PropTypes.string,
+    results: PropTypes.array,
+    loading: PropTypes.bool,
+    error: PropTypes.bool
+};
 
 const TopFive = (props) => {
     const rows = props.results.map((result) => (
@@ -15,6 +23,9 @@ const TopFive = (props) => {
             data={result}
             total={props.total} />
     ));
+
+    const hideBody = props.loading || props.error ? `category-table__table-body_hide` : '';
+
     return (
         <div className="category-table">
             <div className="category-table__title">
@@ -43,12 +54,14 @@ const TopFive = (props) => {
                     </tr>
                 </thead>
                 <tbody
-                    className="category-table__table-body">
-                    {rows}
+                    className={`category-table__table-body ${hideBody}`}>
+                    {body}
                 </tbody>
             </table>
         </div>
     );
 };
+
+TopFive.propTypes = propTypes;
 
 export default TopFive;

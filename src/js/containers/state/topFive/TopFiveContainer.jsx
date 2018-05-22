@@ -15,7 +15,6 @@ import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 import TopFive from 'components/state/topFive/TopFive';
 
 const propTypes = {
-    id: PropTypes.string,
     code: PropTypes.string,
     total: PropTypes.number,
     category: PropTypes.string
@@ -39,7 +38,7 @@ export class TopFiveContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.id !== this.props.id) {
+        if (prevProps.code !== this.props.code) {
             this.loadCategory();
         }
     }
@@ -82,7 +81,7 @@ export class TopFiveContainer extends React.Component {
         this.request = SearchHelper.performSpendingByCategorySearch(this.dataParams());
         this.request.promise
             .then((res) => {
-                this.parseResults(res.data.results);
+                this.parseResults(res.data.results, res.data.category);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -95,10 +94,21 @@ export class TopFiveContainer extends React.Component {
             })
     }
 
-    parseResults(data) {
+    parseResults(data, type) {
         const parsed = data.map((item, index) => {
             const result = Object.create(BaseStateCategoryResult);
             result.populate(item, index + 1);
+
+            // use a special naming template for DUNS
+            if (type === 'recipient_duns') {
+                result.nameTemplate = (code, name) => {
+                    if (code) {
+                        return `${name} (${code})`;
+                    }
+                    return name;
+                };
+            }
+
             return result;
         });
         this.setState({
@@ -111,8 +121,8 @@ export class TopFiveContainer extends React.Component {
     render() {
         return (
             <TopFive
-                {...this.props}
-                results={this.state.results} />
+                category={this.props.category}
+                {...this.state} />
         );
     }
 }
@@ -120,7 +130,6 @@ export class TopFiveContainer extends React.Component {
 
 export default connect(
     (state) => ({
-        id: state.stateProfile.overview.id,
         code: state.stateProfile.overview.code,
         total: state.stateProfile.overview._totalAmount
     })
