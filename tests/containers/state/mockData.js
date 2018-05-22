@@ -36,31 +36,3 @@ export const mockStateOverview = {
         mockStateApi
     }
 };
-
-export const mockAwardBreakdown = [
-    {
-        type: 'contracts',
-        amount: 50,
-        count: 50
-    },
-    {
-        type: 'grants',
-        amount: 25,
-        count: 20
-    },
-    {
-        type: 'direct_payments',
-        amount: -15,
-        count: 15
-    },
-    {
-        type: 'loans',
-        amount: 10,
-        count: 10
-    },
-    {
-        type: 'other',
-        amount: 15,
-        count: 5
-    }
-];

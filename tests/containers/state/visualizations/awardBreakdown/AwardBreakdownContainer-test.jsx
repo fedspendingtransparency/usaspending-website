@@ -61,7 +61,7 @@ describe('AwardBreakdownContainer', () => {
 
         await container.instance().searchRequest.promise;
 
-        expect(container.instance().state.totalAmount).toEqual(85);
+        expect(container.instance().state.totalAmount).toEqual(50689.19);
     });
 
     it('should set the state to reflect the presence of negative obligations', async () => {

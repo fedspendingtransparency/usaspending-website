@@ -4,12 +4,12 @@
  */
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
+import { awardTypeLabels } from 'dataMapping/state/awardTypes';
 
 const BaseAwardBreakdownRow = {
     populate(data) {
         this.type = data.type || null;
-        this.name = awardTypeGroupLabels[data.type] || '';
+        this.name = awardTypeLabels[data.type] || '';
         this._amount = data.amount || 0;
         this._count = data.count || 0;
     },

@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
 
-
 const propTypes = {
     awardBreakdown: PropTypes.array
 };

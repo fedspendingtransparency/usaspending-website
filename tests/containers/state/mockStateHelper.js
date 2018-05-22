@@ -1,6 +1,7 @@
 
 // Fetch State Overview
-import { mockStateOverview, mockAwardBreakdown } from './mockData';
+import { mockStateOverview } from './mockData';
+import { mockBreakdownApi} from "../../models/state/mockStateApi";
 
 export const fetchStateOverview = () => (
     {
@@ -20,7 +21,7 @@ export const fetchAwardBreakdown = () => (
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: mockAwardBreakdown
+                    data: mockBreakdownApi
                 });
             });
         }),

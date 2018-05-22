@@ -12,7 +12,7 @@ import { reduce } from 'lodash';
 import * as StateHelper from 'helpers/stateHelper';
 
 import AwardBreakdownTreeMap from 'components/state/visualizations/awardBreakdown/AwardBreakdownTreeMap';
-import AwardBreakdownTable from "../../../../components/state/visualizations/awardBreakdown/AwardBreakdownTable";
+import AwardBreakdownTable from 'components/state/visualizations/awardBreakdown/AwardBreakdownTable';
 
 const propTypes = {
     stateProfile: PropTypes.object

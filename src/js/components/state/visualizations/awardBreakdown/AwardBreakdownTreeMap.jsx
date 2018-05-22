@@ -9,7 +9,7 @@ import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
 import { throttle, remove, orderBy, find } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
-import { awardTypeGroupLabels } from 'dataMapping/search/awardType';
+import { awardTypeLabels } from 'dataMapping/state/awardTypes';
 import { labelColorFromBackground } from 'helpers/colorHelper';
 
 import AwardTypeCell from './AwardTypeCell';
@@ -139,7 +139,7 @@ export default class AwardBreakdownTreeMap extends React.Component {
                 cell = (
                     <AwardTypeCell
                         {...treeProps}
-                        label={awardTypeGroupLabels[n.data.type]}
+                        label={awardTypeLabels[n.data.type]}
                         value={n.value}
                         x0={n.x0}
                         x1={n.x1}
@@ -203,7 +203,7 @@ export default class AwardBreakdownTreeMap extends React.Component {
             const awardType = find(this.props.awardBreakdown.children,
                 { type: `${this.state.hoveredAwardType}` });
 
-            const awardTypeDefinition = awardTypeGroupLabels[this.state.hoveredAwardType];
+            const awardTypeDefinition = awardTypeLabels[this.state.hoveredAwardType];
 
             const node = find(this.state.finalNodes,
                 { key: `${this.state.hoveredAwardType}` });
