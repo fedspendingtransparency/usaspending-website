@@ -3,8 +3,19 @@
  * Created by Kevin Li 5/21/18
  */
 
-import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
+import BaseStateCategoryResult, { defaultNameTemplate } from 'models/v2/state/BaseStateCategoryResult';
 import { mockStateCategoryApi } from './mockStateApi';
+
+describe('defaultNameTemplate', () => {
+    it('should create a title string that combines the code with the title', () => {
+        const output = defaultNameTemplate('1234', 'Banana');
+        expect(output).toEqual('1234 - Banana');
+    });
+    it('should just return the title when there is no code', () => {
+        const output = defaultNameTemplate('', 'Banana');
+        expect(output).toEqual('Banana');
+    });
+});
 
 describe('BaseStateCategoryResult', () => {
     describe('populate', () => {
@@ -40,19 +51,27 @@ describe('BaseStateCategoryResult', () => {
             expect(result.amount).toEqual('$1');
         });
     });
-    describe('combinedName', () => {
-        it('should create a title string that combines the code with the title', () => {
+    describe('nameTemplate', () => {
+        it('should set the _nameTemplate property to the provided function', () => {
             const result = Object.create(BaseStateCategoryResult);
-            result.populate(mockStateCategoryApi.results[0], 2);
+            result.populate({}, 2);
 
-            expect(result.combinedName).toEqual('1234 - Banana');
+            const testFunc = jest.fn();
+
+            result.nameTemplate = testFunc;
+            expect(result._nameTemplate).toEqual(testFunc);
         });
-        it('should just return the title when there is no code', () => {
+    });
+    describe('combinedName', () => {
+        it('should output the _nameTemplate function result', () => {
             const result = Object.create(BaseStateCategoryResult);
-            result.populate(mockStateCategoryApi.results[0], 2);
-            result._code = '';
+            result.populate(mockStateCategoryApi.results[0], 1);
 
-            expect(result.combinedName).toEqual('Banana');
+            result.nameTemplate = jest.fn(() => 'test');
+            const output = result.combinedName;
+            expect(result._nameTemplate).toHaveBeenCalledTimes(1);
+            expect(result._nameTemplate).toHaveBeenLastCalledWith('1234', 'Banana');
+            expect(output).toEqual('test');
         });
     });
     describe('name', () => {

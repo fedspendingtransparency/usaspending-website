@@ -69,7 +69,7 @@
         // don't require all function arguments be on new lines
         "function-paren-newline": [0],
         // ignore jsdoc
-        "spaced-comment": ["error", "always", {
+        "spaced-comment": [2, "always", {
             "exceptions": ["*"]
         }],
         // for now, don't do destructuring
@@ -80,7 +80,7 @@
         "react/require-default-props": [0],
         "react/default-props-match-prop-types": [0],
         // allow object prop-type
-        "react/forbid-prop-types": ["warning", {
+        "react/forbid-prop-types": [1, {
             "forbid": ["any"]
         }],
         // allow unused state because linter does not always know when a state is passed to child

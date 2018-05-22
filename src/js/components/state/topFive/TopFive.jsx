@@ -27,6 +27,22 @@ const TopFive = (props) => {
 
     const hideBody = props.loading || props.error ? `category-table__table-body_hide` : '';
 
+    let message = null;
+    if (props.error) {
+        message = (
+            <div className="category-table__message">
+                An error occurred while loading this table.
+            </div>
+        );
+    }
+    else if (props.loading) {
+        message = (
+            <div className="category-table__message">
+                Loading...
+            </div>
+        );
+    }
+
     return (
         <div className="category-table">
             <div className="category-table__title">
@@ -59,6 +75,7 @@ const TopFive = (props) => {
                     {rows}
                 </tbody>
             </table>
+            {message}
         </div>
     );
 };
