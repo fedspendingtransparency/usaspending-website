@@ -4,7 +4,7 @@
  */
 
 export const categories = {
-    'all': [
+    all: [
         'awarding_agency',
         'recipient_duns',
         'cfda',
@@ -12,7 +12,7 @@ export const categories = {
         'county',
         'district'
     ],
-    'contracts': [
+    contracts: [
         'awarding_agency',
         'awarding_subagency',
         'recipient_duns',
@@ -20,7 +20,7 @@ export const categories = {
         'county',
         'district'
     ],
-    'grants': [
+    grants: [
         'awarding_agency',
         'awarding_subagency',
         'recipient_duns',
@@ -28,7 +28,7 @@ export const categories = {
         'county',
         'district'
     ],
-    'direct_payments': [
+    direct_payments: [
         'awarding_agency',
         'awarding_subagency',
         'recipient_duns',
@@ -36,7 +36,7 @@ export const categories = {
         'county',
         'district'
     ],
-    'loans': [
+    loans: [
         'awarding_agency',
         'awarding_subagency',
         'recipient_duns',
@@ -44,7 +44,7 @@ export const categories = {
         'county',
         'district'
     ],
-    'other': [
+    other: [
         'awarding_agency',
         'awarding_subagency',
         'recipient_duns',
@@ -55,11 +55,11 @@ export const categories = {
 };
 
 export const categoryTitles = {
-    'awarding_agency': 'Awarding Agencies',
-    'awarding_subagency': 'Awarding Sub-Agencies',
-    'recipient_duns': 'Recipients',
-    'cfda': 'CFDA Programs',
-    'naics': 'NAICS Codes',
-    'county': 'Counties',
-    'district': 'Congressional Districts'
+    awarding_agency: 'Awarding Agencies',
+    awarding_subagency: 'Awarding Sub-Agencies',
+    recipient_duns: 'Recipients',
+    cfda: 'CFDA Programs',
+    naics: 'NAICS Codes',
+    county: 'Counties',
+    district: 'Congressional Districts'
 };

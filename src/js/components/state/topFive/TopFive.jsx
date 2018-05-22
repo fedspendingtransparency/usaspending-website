@@ -12,6 +12,7 @@ import TopFiveRow from './TopFiveRow';
 const propTypes = {
     category: PropTypes.string,
     results: PropTypes.array,
+    total: PropTypes.number,
     loading: PropTypes.bool,
     error: PropTypes.bool
 };
@@ -55,7 +56,7 @@ const TopFive = (props) => {
                 </thead>
                 <tbody
                     className={`category-table__table-body ${hideBody}`}>
-                    {body}
+                    {rows}
                 </tbody>
             </table>
         </div>

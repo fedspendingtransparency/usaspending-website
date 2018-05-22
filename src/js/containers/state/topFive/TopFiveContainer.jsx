@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
@@ -57,7 +56,7 @@ export class TopFiveContainer extends React.Component {
             },
             limit: 5,
             page: 1
-        }
+        };
     }
 
     loadCategory() {
@@ -91,7 +90,7 @@ export class TopFiveContainer extends React.Component {
                         error: true
                     });
                 }
-            })
+            });
     }
 
     parseResults(data, type) {

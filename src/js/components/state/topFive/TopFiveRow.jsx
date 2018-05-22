@@ -6,6 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+const propTypes = {
+    data: PropTypes.object,
+    total: PropTypes.number
+};
+
 const TopFiveRow = (props) => {
     const percentValue = (props.data._amount / props.total) * 100;
 
@@ -29,5 +34,7 @@ const TopFiveRow = (props) => {
         </tr>
     );
 };
+
+TopFiveRow.propTypes = propTypes;
 
 export default TopFiveRow;

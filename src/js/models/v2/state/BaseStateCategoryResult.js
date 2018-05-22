@@ -11,7 +11,7 @@ export const defaultNameTemplate = (code, name) => {
         return `${code} - ${name}`;
     }
     return name;
-}
+};
 
 const BaseStateCategoryResult = {
     populate(data, index) {

@@ -72,8 +72,7 @@ export default class TopFiveSection extends React.Component {
                 className="state-section topfive"
                 id="state-top-five">
                 <h4
-                    className="topfive__title"
-                    tabIndex="0">
+                    className="topfive__title">
                     Top 5
                 </h4>
                 <hr className="results-divider" />
