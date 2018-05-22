@@ -24,6 +24,21 @@ This endpoint returns a high-level overview of a specific state or territory, gi
 + Response 200 (application/json)
     + Attributes (StateOverview)
 
+## State Award Breakdown [/api/v2/recipient/state/awards/{fips}/{?year}]
+
+This endpoint returns the award amounts and totals, based on award type, of a specific state or territory, given its USAspending.gov `id`. Award types include `contracts`, `grants`, `direct_payments`, `loans`, `other_financial_assistance`. 
+
++ Parameters
+    + fips: 51 (required, string)
+        The FIPS code for the state you want to view. You must include leading zeros.
+    + year: 2017 (optional, string)
+        The fiscal year you would like data for. Use `all` to view all time or `latest` to view the latest 12 months.
+
+### Get Award Breakdown [GET]
+
++ Response 200 (application/json)
+    + Attributes (array[StateBreakdown], fixed-type)
+
 # Data Structures
 
 ## StateOverview (object)
@@ -41,3 +56,8 @@ This endpoint returns a high-level overview of a specific state or territory, gi
 + total_prime_amount: 300200000000 (required, number)
 + total_prime_awards: 327721 (required, number)
 + award_amount_per_capita: 916023.08 (required, number)
+
+## StateBreakdown(object)
++ type: contracts (required, string)
++ amount: 41725.9 (required, number)
++ count: 4 (required, number)
