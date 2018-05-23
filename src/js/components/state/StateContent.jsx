@@ -9,8 +9,10 @@ import { find, throttle } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
 import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
+import StateTimeVisualizationSectionContainer from 'containers/state/StateTimeVisualizationSectionContainer';
 
 import StateOverview from './overview/StateOverview';
+
 import StateFooter from './StateFooter';
 
 const stateSections = [
@@ -217,6 +219,8 @@ export default class StateContent extends React.Component {
                 </div>
                 <div className="state-content">
                     <StateOverview
+                        stateProfile={this.props.stateProfile.overview} />
+                    <StateTimeVisualizationSectionContainer
                         stateProfile={this.props.stateProfile.overview} />
                     <StateFooter />
                 </div>
