@@ -114,3 +114,8 @@ export const convertDateToQuarter = (date) => {
 
     return quarter;
 };
+
+export const getTrailingTwelveMonths = () => {
+    const oneYearAgo = moment().subtract(1, 'year');
+    return [oneYearAgo.format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')];
+};

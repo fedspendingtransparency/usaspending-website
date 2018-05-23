@@ -9,6 +9,7 @@ const BaseStateProfile = {
     populate(data) {
         this.id = data.fips || null;
         this.name = data.name || '';
+        this.code = data.code || '';
         this._totalAmount = parseFloat(data.total_prime_amount) || 0;
         this._totalAwards = parseFloat(data.total_prime_awards) || 0;
         this.type = data.type || '';
