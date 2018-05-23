@@ -76,9 +76,9 @@ describe('StateContainer', () => {
 
         expect(loadStateOverview).toHaveBeenCalledTimes(1);
         expect(loadStateOverview).toHaveBeenCalledWith('2', 'latest');
-
-
     });
+
+    
     it('should make an API call when the fiscal year changes', async () => {
         const container = mount(<StateContainer
             {...mockRedux}
