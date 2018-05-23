@@ -36,8 +36,14 @@
             .state-section__viz {
                 width: 100%;
                 @include media($tablet-screen) {
-                    @include flex(1 1 auto);
-                    width: 50%;
+                    @include flex(1 1 50%);
+                }
+                // Add 20px space between visualizations
+                &:first-child {
+                    margin-right: rem(10);
+                }
+                &:last-child {
+                    margin-left: rem(10);
                 }
             }
         }

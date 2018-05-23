@@ -24,10 +24,12 @@ export default class AwardBreakdownTable extends React.Component {
             const row = Object.create(BaseAwardBreakdownRow);
             row.populate(awardType);
             return (
-                <tr key={row.type}>
-                    <td>{row.name}</td>
-                    <td>{row.amount}</td>
-                    <td>{row.count}</td>
+                <tr
+                    className="award-breakdown-table__row"
+                    key={row.type}>
+                    <td className="award-breakdown-table__data">{row.name}</td>
+                    <td className="award-breakdown-table__data">{row.amount}</td>
+                    <td className="award-breakdown-table__data">{row.count}</td>
                 </tr>
             );
         });
@@ -35,15 +37,15 @@ export default class AwardBreakdownTable extends React.Component {
 
     render() {
         return (
-            <table className="award-breakdown__table">
-                <thead>
-                    <tr>
-                        <th>Award Type</th>
-                        <th>Amount</th>
-                        <th>Count</th>
+            <table className="award-breakdown-table">
+                <thead className="award-breakdown-table__head">
+                    <tr className="award-breakdown-table__row">
+                        <th className="award-breakdown-table__header-cell">Award Type</th>
+                        <th className="award-breakdown-table__header-cell">Amount</th>
+                        <th className="award-breakdown-table__header-cell">Count</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody className="award-breakdown-table__body">
                     {this.generateRows()}
                 </tbody>
             </table>

@@ -26,14 +26,14 @@
     }
 }
 
-.award-breakdown__table {
+.award-breakdown-table {
     margin: rem(20) 0;
     border-collapse: separate;
     border: solid $color-gray-light rem(1);
     border-radius: rem(5);
     -moz-border-radius: rem(5);
-    thead {
-        th {
+    .award-breakdown-table__head {
+        .award-breakdown-table__header-cell {
             padding: rem(10) rem(15);
             border: 0;
             background-color: transparent;
@@ -41,8 +41,8 @@
             font-weight: 600;
         }
     }
-    tr {
-        td {
+    .award-breakdown-table__row {
+        .award-breakdown-table__data {
             padding: rem(10) rem(15);
             border: 0;
             border-bottom: solid $color-gray-light rem(1);
@@ -53,7 +53,7 @@
             }
         }
         &:last-child {
-            td {
+            .award-breakdown-table__data {
                 border-bottom: 0;
             }
         }
