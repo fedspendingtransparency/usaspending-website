@@ -23,3 +23,18 @@ export const fetchStateOverview = (id, year) => {
         }
     };
 };
+
+export const fetchStateList = () => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/recipient/state/`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

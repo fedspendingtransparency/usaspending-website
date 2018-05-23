@@ -1,0 +1,13 @@
+.usa-da-state-landing {
+    @import "all";
+    @import "layouts/landingPage/landingPage";
+    @import "layouts/default/stickyHeader/header";
+    @import "pages/accountLanding/searchSection";
+    @import "./_table";
+
+    .results-count {
+        font-style: italic;
+        padding: rem(20) 0;
+        font-size: rem(16);
+    }
+}

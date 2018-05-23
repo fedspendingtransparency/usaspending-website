@@ -36,7 +36,9 @@ export default class AgencyLandingContent extends React.Component {
                     </p>
                 </div>
                 <AgencyLandingSearchBar
-                    setAgencySearchString={this.props.setAgencySearchString} />
+                    setSearchString={this.props.setAgencySearchString}
+                    placeholder="Start typing to find an agency..."
+                    button="Search Agencies" />
                 <div className="results-count">
                     {this.props.resultsText}
                 </div>
