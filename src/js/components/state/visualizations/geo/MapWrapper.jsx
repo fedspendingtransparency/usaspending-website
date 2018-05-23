@@ -358,8 +358,11 @@ export default class MapWrapper extends React.Component {
 
         if (this.props.showHover) {
             const TooltipComponent = this.props.tooltip;
-            tooltip = (<TooltipComponent
-                {...this.props.selectedItem} />);
+            tooltip = (
+                <TooltipComponent
+                    description="Awarded Amount"
+                    {...this.props.selectedItem} />
+            );
         }
 
         let toggle = null;
