@@ -128,8 +128,6 @@ export class GeoVisualizationSectionContainer extends React.Component {
         const apiParams = {
             scope: 'place_of_performance',
             geo_layer: apiScopes[this.state.mapLayer],
-            // TODO: Lizzie - hardcode or have backend make optional
-            geo_layer_filters: [],
             filters: searchParams
         };
 

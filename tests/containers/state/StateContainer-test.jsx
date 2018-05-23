@@ -29,7 +29,7 @@ describe('StateContainer', () => {
         await container.instance().request.promise;
 
         expect(loadStateOverview).toHaveBeenCalledTimes(1);
-        expect(loadStateOverview).toHaveBeenCalledWith('1', 'latest');
+        expect(loadStateOverview).toHaveBeenCalledWith('01', 'latest');
     });
     it('should update the center coordinates for the selected state on mount', async () => {
         const container = mount(<StateContainer
@@ -43,7 +43,7 @@ describe('StateContainer', () => {
         await container.instance().request.promise;
 
         expect(setStateCenter).toHaveBeenCalledTimes(1);
-        expect(setStateCenter).toHaveBeenCalledWith('1');
+        expect(setStateCenter).toHaveBeenCalledWith('01');
     });
     it('should make an API call when the state id changes', async () => {
         const container = mount(<StateContainer
@@ -55,14 +55,14 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '2'
+                stateId: '02'
             }
         });
 
         await container.instance().request.promise;
 
         expect(loadStateOverview).toHaveBeenCalledTimes(1);
-        expect(loadStateOverview).toHaveBeenCalledWith('2', 'latest');
+        expect(loadStateOverview).toHaveBeenCalledWith('02', 'latest');
     });
     it('should update the center coordinates when the state id changes', async () => {
         const container = mount(<StateContainer
@@ -74,14 +74,14 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '2'
+                stateId: '02'
             }
         });
 
         await container.instance().request.promise;
 
         expect(setStateCenter).toHaveBeenCalledTimes(1);
-        expect(setStateCenter).toHaveBeenCalledWith('2');
+        expect(setStateCenter).toHaveBeenCalledWith('02');
     });
     it('should reset the fiscal year when the state id changes', async () => {
         // Use 'all' for the initial FY
@@ -101,14 +101,14 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '2'
+                stateId: '02'
             }
         });
 
         await container.instance().request.promise;
 
         expect(setStateCenter).toHaveBeenCalledTimes(1);
-        expect(setStateCenter).toHaveBeenCalledWith('2');
+        expect(setStateCenter).toHaveBeenCalledWith('02');
     });
     it('should make an API call when the fiscal year changes', async () => {
         const container = mount(<StateContainer
@@ -131,7 +131,7 @@ describe('StateContainer', () => {
         await container.instance().request.promise;
 
         expect(loadStateOverview).toHaveBeenCalledTimes(1);
-        expect(loadStateOverview).toHaveBeenCalledWith('1', '2018');
+        expect(loadStateOverview).toHaveBeenCalledWith('01', '2018');
     });
     describe('parseOverview', () => {
         it('should update the Redux state with a new BaseStateProfile', () => {
@@ -157,7 +157,7 @@ describe('StateContainer', () => {
                {...mockRedux}
                {...mockActions} />);
 
-           // Expect the center coords for state with id '1'
+           // Expect the center coords for state with id '01'
            expect(mockActions.setStateCenter).toHaveBeenLastCalledWith([-86.703052, 32.525772]);
        });
     });

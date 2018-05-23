@@ -12,7 +12,7 @@ stateProfile.populate({});
 
 export const mockRedux = {
     params: {
-        stateId: '1'
+        stateId: '01'
     },
     stateProfile: {
         id: '',
