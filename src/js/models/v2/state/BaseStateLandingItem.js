@@ -20,7 +20,7 @@ const BaseStateLandingItem = {
         if (isNaN(decimal)) {
             return '--%';
         }
-        const rounded = Math.round(decimal * 1000) / 10;
+        const rounded = Math.round(decimal * 10000) / 100;
         return `${rounded}%`;
     }
 };
