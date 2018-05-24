@@ -20,17 +20,17 @@ export const mockStateApi = {
 export const mockBreakdownApi = [
     {
         type: 'contracts',
-        amount: 50654.19,
+        amount: 1500654.19,
         count: 5012
     },
     {
         type: 'grants',
-        amount: 25,
+        amount: -50654.19,
         count: 20
     },
     {
         type: 'direct_payments',
-        amount: -15,
+        amount: 654.19,
         count: 15
     },
     {

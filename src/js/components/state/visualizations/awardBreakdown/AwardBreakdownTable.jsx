@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
-
 const propTypes = {
     awardBreakdown: PropTypes.array
 };
@@ -20,19 +18,15 @@ export default class AwardBreakdownTable extends React.Component {
     }
 
     generateRows() {
-        return this.props.awardBreakdown.map((awardType) => {
-            const row = Object.create(BaseAwardBreakdownRow);
-            row.populate(awardType);
-            return (
-                <tr
-                    className="award-breakdown-table__row"
-                    key={row.type}>
-                    <td className="award-breakdown-table__data">{row.name}</td>
-                    <td className="award-breakdown-table__data">{row.amount}</td>
-                    <td className="award-breakdown-table__data">{row.count}</td>
-                </tr>
-            );
-        });
+        return this.props.awardBreakdown.map((row) => (
+            <tr
+                className="award-breakdown-table__row"
+                key={row.type}>
+                <td className="award-breakdown-table__data">{row.name}</td>
+                <td className="award-breakdown-table__data">{row.amount}</td>
+                <td className="award-breakdown-table__data">{row.count}</td>
+            </tr>
+        ));
     }
 
     render() {

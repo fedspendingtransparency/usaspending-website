@@ -10,8 +10,22 @@ const breakdown = Object.create(BaseAwardBreakdownRow);
 breakdown.populate(mockBreakdownApi[0]);
 
 describe('BaseAwardBreakdownRow', () => {
-    it('should format the amount', () => {
-        expect(breakdown.amount).toEqual('$50,654.19');
+    describe('format amount', () => {
+        it('should use unit labels for amounts with an absolute value of $1M or more', () => {
+            expect(breakdown.amount).toEqual('$1.5 M');
+        });
+        it('should round to the nearest dollar for amounts with an absolute value of $1,000 or more', () => {
+            const grantBreakdown = Object.create(BaseAwardBreakdownRow);
+            grantBreakdown.populate(mockBreakdownApi[1]);
+
+            expect(grantBreakdown.amount).toEqual('-$50,654');
+        });
+        it('should show cents for amounts with an absolute value of $1,000 or less', () => {
+            const directPaymentBreakdown = Object.create(BaseAwardBreakdownRow);
+            directPaymentBreakdown.populate(mockBreakdownApi[2]);
+
+            expect(directPaymentBreakdown.amount).toEqual('$654.19');
+        });
     });
     it('should format the count', () => {
         expect(breakdown.count).toEqual('5,012');

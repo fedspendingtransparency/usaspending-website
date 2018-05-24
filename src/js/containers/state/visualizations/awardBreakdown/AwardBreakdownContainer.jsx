@@ -13,6 +13,7 @@ import * as StateHelper from 'helpers/stateHelper';
 
 import AwardBreakdownTreeMap from 'components/state/visualizations/awardBreakdown/AwardBreakdownTreeMap';
 import AwardBreakdownTable from 'components/state/visualizations/awardBreakdown/AwardBreakdownTable';
+import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
 
 const propTypes = {
     stateProfile: PropTypes.object
@@ -29,6 +30,7 @@ export class AwardBreakdownContainer extends React.Component {
             awardBreakdown: {
                 children: []
             },
+            rows: [],
             totalAmount: 0,
             hasNegatives: false
         };
@@ -92,10 +94,22 @@ export class AwardBreakdownContainer extends React.Component {
 
                 const hasNegatives = positiveAmount > totalAmount;
 
+                // Sort the results by amount
+                const sortedResults = res.data.sort((rowA, rowB) =>
+                    rowB.amount - rowA.amount
+                );
+
+                const rows = sortedResults.map((result) => {
+                    const row = Object.create(BaseAwardBreakdownRow);
+                    row.populate(result);
+                    return row;
+                });
+
                 this.setState({
                     awardBreakdown: {
                         children: res.data
                     },
+                    rows,
                     totalAmount,
                     hasNegatives
                 });
@@ -122,7 +136,7 @@ export class AwardBreakdownContainer extends React.Component {
                     totalAmount={this.state.totalAmount}
                     hasNegatives={this.state.hasNegatives} />
                 <AwardBreakdownTable
-                    awardBreakdown={this.state.awardBreakdown.children} />
+                    awardBreakdown={this.state.rows} />
             </div>
         );
     }
