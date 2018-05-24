@@ -48,6 +48,9 @@
         .award-breakdown {
             @import "../visualizations/awardBreakdown/awardBreakdownVisualization";
         }
+        .geo {
+            @import "../visualizations/geo/geoVisualization";
+        }
     }
 }
 

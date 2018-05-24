@@ -7,7 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+
 import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
+import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
 import DetailsTooltip from './DetailsTooltip';
 
 const propTypes = {
@@ -157,9 +159,10 @@ export default class StateOverview extends React.PureComponent {
                             </h4>
                             <AwardBreakdownContainer />
                         </div>
-                        <div className="state-section__viz place-of-performance">
+                        <div className="state-section__viz geo">
                             <h4 className="state-overview__heading">
                                 Primary Place of Performance
+                                <GeoVisualizationSectionContainer />
                             </h4>
                         </div>
                     </div>
