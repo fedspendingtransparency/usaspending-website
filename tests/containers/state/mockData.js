@@ -84,3 +84,18 @@ export const mockStateOverview = {
         mockStateApi
     }
 };
+
+export const mockStateList = [
+    {
+        fips: '01',
+        code: 'AA',
+        name: 'State A',
+        amount: 1234.60
+    },
+    {
+        fips: '02',
+        code: 'BB',
+        name: 'State B',
+        amount: 999.12
+    }
+];

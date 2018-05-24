@@ -61,7 +61,8 @@ export default class StateLandingContainer extends React.Component {
             error: false
         });
 
-        StateHelper.fetchStateList().promise
+        this.request = StateHelper.fetchStateList();
+        this.request.promise
             .then((res) => {
                 this.parseData(res.data);
             })
