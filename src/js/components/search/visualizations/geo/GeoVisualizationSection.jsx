@@ -191,7 +191,8 @@ export default class GeoVisualizationSection extends React.Component {
                     hideTooltip={this.hideTooltip}
                     tooltip={GeoVisualizationTooltip}
                     availableLayers={availableLayers}
-                    showLayerToggle>
+                    showLayerToggle
+                    center={[-95.569430, 38.852892]}>
                     {disclaimer}
                     {message}
                 </MapWrapper>
