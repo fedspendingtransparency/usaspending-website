@@ -13,6 +13,11 @@ export const setStateFiscalYear = (state) => ({
     fy: state
 });
 
+export const setStateCenter = (state) => ({
+    type: 'SET_STATE_CENTER',
+    center: state
+});
+
 export const resetState = () => ({
     type: 'RESET_STATE'
 });

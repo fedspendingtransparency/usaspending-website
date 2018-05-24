@@ -11,6 +11,7 @@ stateProfile.populate({});
 export const initialState = {
     id: '',
     fy: 'latest',
+    center: [],
     overview: stateProfile
 };
 
@@ -24,6 +25,10 @@ const stateReducer = (state = initialState, action) => {
         case 'SET_STATE_FY':
             return Object.assign({}, state, {
                 fy: action.fy
+            });
+        case 'SET_STATE_CENTER':
+            return Object.assign({}, state, {
+                center: action.center
             });
         case 'RESET_STATE':
             return Object.assign({}, initialState);

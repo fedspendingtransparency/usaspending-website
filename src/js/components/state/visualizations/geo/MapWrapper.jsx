@@ -1,18 +1,17 @@
 /**
  * MapWrapper.jsx
- * Created by Kevin Li 2/14/17
+ * Created by Lizzie Salita 5/15/18
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniq } from 'lodash';
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 
-import MapBox from './map/MapBox';
-import MapLegend from './MapLegend';
-import MapLayerToggle from './MapLayerToggle';
+import MapLegend from 'components/search/visualizations/geo/MapLegend';
+import MapLayerToggle from 'components/search/visualizations/geo/MapLayerToggle';
+import MapBox from 'components/search/visualizations/geo/map/MapBox';
 
 const propTypes = {
     data: PropTypes.object,
@@ -26,7 +25,8 @@ const propTypes = {
     availableLayers: PropTypes.array,
     changeMapLayer: PropTypes.func,
     showLayerToggle: PropTypes.bool,
-    children: PropTypes.node
+    children: PropTypes.node,
+    stateCenter: PropTypes.array
 };
 
 const defaultProps = {
@@ -34,19 +34,13 @@ const defaultProps = {
         locations: [],
         values: []
     },
-    scope: 'state',
-    availableLayers: ['state'],
+    scope: 'county',
+    availableLayers: ['county'],
     showLayerToggle: false,
     children: null
 };
 
 const mapboxSources = {
-    state: {
-        label: 'state',
-        url: 'mapbox://usaspending.9cse49bi',
-        layer: 'cb_2016_us_state_500k-ckeyb7',
-        filterKey: 'STUSPS' // state abbreviation
-    },
     county: {
         label: 'county',
         minZoom: 5,
@@ -60,12 +54,6 @@ const mapboxSources = {
         url: 'mapbox://usaspending.51fn3vaz',
         layer: 'tl_2017_us_cd115-4w4nmz',
         filterKey: 'GEOID' // the GEOID is state FIPS + district
-    },
-    zip: {
-        label: 'ZIP Code Tabulation Area',
-        url: 'mapbox://usaspending.3lk61l9t',
-        layer: 'cb_2016_us_zcta510_500k-4se882',
-        filterKey: 'ZCTA5CE10' // zip code
     }
 };
 
@@ -91,13 +79,10 @@ export default class MapWrapper extends React.Component {
 
         this.mapReady = this.mapReady.bind(this);
         this.mapRemoved = this.mapRemoved.bind(this);
-
-        this.measureMap = this.measureMap.bind(this);
     }
 
     componentDidMount() {
         this.displayData();
-        this.prepareBroadcastReceivers();
     }
 
     componentDidUpdate(prevProps) {
@@ -116,7 +101,6 @@ export default class MapWrapper extends React.Component {
 
     componentWillUnmount() {
         // remove any broadcast listeners
-        this.removeChangeListeners();
         this.broadcastReceivers.forEach((listenerRef) => {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
@@ -144,16 +128,10 @@ export default class MapWrapper extends React.Component {
                 // we depend on the state shapes to process the state fills, so the operation
                 // queue must wait for the state shapes to load first
                 this.runMapOperationQueue();
-                this.prepareChangeListeners();
 
                 // notify any listeners that the map is ready
                 MapBroadcaster.emit('mapReady');
             });
-    }
-
-    prepareBroadcastReceivers() {
-        const listenerRef = MapBroadcaster.on('measureMap', this.measureMap);
-        this.broadcastReceivers.push(listenerRef);
     }
 
     showSource(type) {
@@ -302,59 +280,6 @@ export default class MapWrapper extends React.Component {
         });
     }
 
-    measureMap(forced = false) {
-        // determine which entities (state, counties, etc based on current scope) are in view
-        // use Mapbox SDK to determine the currently rendered shapes in the base layer
-        const mapLoaded = this.mapRef.map.loaded();
-        // wait for the map to load before continuing
-        if (!mapLoaded) {
-            window.requestAnimationFrame(() => {
-                this.measureMap();
-            });
-            return;
-        }
-
-        const entities = this.mapRef.map.queryRenderedFeatures({
-            layers: [`base_${this.props.scope}`]
-        });
-
-        const source = mapboxSources[this.props.scope];
-        const visibleEntities = entities.map((entity) => (
-            entity.properties[source.filterKey]
-        ));
-
-        // remove the duplicates values and pass them to the parent
-        const uniqueEntities = uniq(visibleEntities);
-
-        MapBroadcaster.emit('mapMeasureDone', uniqueEntities, forced);
-    }
-
-    prepareChangeListeners() {
-        // detect visible entities whenever the map moves
-        const parentMap = this.mapRef.map;
-        function renderCallback() {
-            if (parentMap.loaded()) {
-                parentMap.off('render', renderCallback);
-                MapBroadcaster.emit('mapMoved');
-            }
-        }
-
-        // we need to hold a reference to the callback in order to remove the listener when
-        // the component unmounts
-        this.renderCallback = () => {
-            this.mapRef.map.on('render', renderCallback);
-        };
-        this.mapRef.map.on('moveend', this.renderCallback);
-        // but also do it when the map resizes, since the view will be different
-        this.mapRef.map.on('resize', this.renderCallback);
-    }
-
-    removeChangeListeners() {
-        // remove the render callbacks
-        this.mapRef.map.off('moveend', this.renderCallback);
-        this.mapRef.map.off('resize', this.renderCallback);
-    }
-
     mouseOverLayer(e) {
         const source = mapboxSources[this.props.scope];
         // grab the filter ID from the GeoJSON feature properties
@@ -435,7 +360,7 @@ export default class MapWrapper extends React.Component {
             const TooltipComponent = this.props.tooltip;
             tooltip = (
                 <TooltipComponent
-                    description="Total Obligations"
+                    description="Awarded Amount"
                     {...this.props.selectedItem} />
             );
         }
@@ -458,7 +383,7 @@ export default class MapWrapper extends React.Component {
                 <MapBox
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
-                    center={[-95.569430, 38.852892]}
+                    center={this.props.stateCenter}
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
@@ -466,7 +391,6 @@ export default class MapWrapper extends React.Component {
                 <MapLegend
                     segments={this.state.spendingScale.segments}
                     units={this.state.spendingScale.units} />
-
                 {tooltip}
                 {this.props.children}
             </div>
