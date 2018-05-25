@@ -64,6 +64,7 @@
         .category-table__table-cell {
             border: none;
             font-size: rem(12);
+            padding: 12px rem(15) 12px rem(15);
 
             &.category-table__table-cell_centered {
                 text-align: center;
