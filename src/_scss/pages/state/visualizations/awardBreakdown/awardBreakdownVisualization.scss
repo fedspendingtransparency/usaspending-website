@@ -2,7 +2,7 @@
     @import "pages/agency/treemaps/treemapSection";
     .usa-da-treemap-section {
         background: white;
-        padding-top: rem(15);
+        padding-top: rem(10);
         padding-bottom: rem(0);
 
         .treemap-inner-wrap {
@@ -27,7 +27,8 @@
 }
 
 .award-breakdown-table {
-    margin: rem(20) 0;
+    margin: rem(15) 0;
+    font-size: $small-font-size;
     border-collapse: separate;
     border: solid $color-gray-light rem(1);
     border-radius: rem(5);
@@ -43,7 +44,7 @@
     }
     .award-breakdown-table__row {
         .award-breakdown-table__data {
-            padding: rem(10) rem(15);
+            padding: rem(5) rem(15);
             border: 0;
             border-bottom: solid $color-gray-light rem(1);
             background-color: transparent;

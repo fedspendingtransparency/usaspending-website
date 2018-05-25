@@ -162,8 +162,8 @@ export default class StateOverview extends React.PureComponent {
                         <div className="state-section__viz geo">
                             <h4 className="state-overview__heading">
                                 Primary Place of Performance
-                                <GeoVisualizationSectionContainer />
                             </h4>
+                            <GeoVisualizationSectionContainer />
                         </div>
                     </div>
                 </div>
