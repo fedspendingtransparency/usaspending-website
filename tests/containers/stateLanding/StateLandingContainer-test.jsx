@@ -126,7 +126,7 @@ describe('StateLandingContainer', () => {
                 const item = Object.create(BaseStateLandingItem);
                 item.populate(data);
                 return item;
-            });;
+            });
 
             container.setState({
                 fullData: results,
@@ -148,7 +148,7 @@ describe('StateLandingContainer', () => {
                 const item = Object.create(BaseStateLandingItem);
                 item.populate(data);
                 return item;
-            });;
+            });
 
             container.setState({
                 fullData: results,
