@@ -11,7 +11,7 @@ import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
 import GeoVisualizationTooltip from 'components/search/visualizations/geo/GeoVisualizationTooltip';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
-import MapWrapper from './MapWrapper';
+import MapWrapper from 'components/search/visualizations/geo/MapWrapper';
 
 const propTypes = {
     mapLayer: PropTypes.string,
@@ -122,7 +122,8 @@ export default class GeoVisualizationSection extends React.Component {
                     tooltip={GeoVisualizationTooltip}
                     availableLayers={availableLayers}
                     showLayerToggle
-                    stateCenter={this.props.stateCenter}>
+                    center={this.props.stateCenter}
+                    stateProfile>
                     {message}
                 </MapWrapper>
             </div>

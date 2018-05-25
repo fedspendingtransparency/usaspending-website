@@ -32,7 +32,6 @@
             .function-title {
                 @include h1;
                 text-align: center;
-                text-color: $color-base;
                 font-size: rem(47);
                 line-height: rem(59);
                 margin-bottom: 0;
@@ -41,7 +40,6 @@
             .function-detail{
                 @include h6;
                 text-align: center;
-                text-color: $color-base;
                 border-top: #D6D7D9 1px solid;
                 border-bottom: #D6D7D9 1px solid;
                 font-size: rem(19);
@@ -51,7 +49,6 @@
             }
             p {
                 text-align: center;
-                text-color: $color-base;
                 font-size: rem(14);
                 line-height: rem(26);
                 margin-bottom: rem(27);

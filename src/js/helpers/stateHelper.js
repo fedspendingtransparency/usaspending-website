@@ -24,6 +24,24 @@ export const fetchStateOverview = (id, year) => {
     };
 };
 
+export const fetchAwardBreakdown = (id, year) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/recipient/state/awards/${id}/`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            params: {
+                year
+            },
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 export const fetchStateList = () => {
     const source = CancelToken.source();
     return {

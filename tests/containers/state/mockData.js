@@ -1,5 +1,5 @@
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
-import mockStateApi from '../../models/state/mockStateApi';
+import { mockStateApi } from '../../models/state/mockStateApi';
 
 export const mockActions = {
     setStateOverview: jest.fn(),
@@ -19,6 +19,17 @@ export const mockRedux = {
         fy: 'latest',
         center: [],
         overview: stateProfile
+    }
+};
+
+const parsedProfile = Object.create(BaseStateProfile);
+parsedProfile.populate(mockStateApi);
+
+export const mockBreakdownProps = {
+    stateProfile: {
+        id: '06',
+        fy: 'latest',
+        overview: parsedProfile
     }
 };
 
