@@ -8,6 +8,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
+import {
+        getTrailingTwelveMonths,
+        convertFYToDateRange
+} from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 
@@ -16,7 +20,8 @@ import TopFive from 'components/state/topFive/TopFive';
 const propTypes = {
     code: PropTypes.string,
     total: PropTypes.number,
-    category: PropTypes.string
+    category: PropTypes.string,
+    fy: PropTypes.string
 };
 
 export class TopFiveContainer extends React.Component {
@@ -40,20 +45,45 @@ export class TopFiveContainer extends React.Component {
         if (prevProps.code !== this.props.code) {
             this.loadCategory();
         }
+        else if (prevProps.fy !== this.props.fy) {
+            this.loadCategory();
+        }
     }
 
     dataParams() {
+        console.log(this.props.fy);
+        let timePeriod = null;
+        if (this.props.fy === 'latest') {
+            const trailing = getTrailingTwelveMonths();
+            timePeriod = {
+                start_date: trailing[0],
+                end_date: trailing[1]
+            };
+        }
+        else if (this.props.fy !== 'all' && this.props.fy) {
+            const range = convertFYToDateRange(parseInt(this.props.fy, 10));
+            timePeriod = {
+                start_date: range[0],
+                end_date: range[1]
+            };
+        }
+
+        const filters =  {
+            place_of_performance_scope: 'domestic',
+            place_of_performance_locations: [
+                {
+                    country: 'USA',
+                    state: this.props.code
+                }
+            ],
+        };
+        if (timePeriod) {
+            filters.time_period = [timePeriod];
+        }
+
         return {
+            filters,
             category: this.props.category,
-            filters: {
-                place_of_performance_scope: 'domestic',
-                place_of_performance_locations: [
-                    {
-                        country: 'USA',
-                        state: this.props.code
-                    }
-                ]
-            },
             limit: 5,
             page: 1
         };
@@ -142,7 +172,8 @@ export class TopFiveContainer extends React.Component {
 export default connect(
     (state) => ({
         code: state.stateProfile.overview.code,
-        total: state.stateProfile.overview._totalAmount
+        total: state.stateProfile.overview._totalAmount,
+        fy: state.stateProfile.fy
     })
 )(TopFiveContainer);
 
