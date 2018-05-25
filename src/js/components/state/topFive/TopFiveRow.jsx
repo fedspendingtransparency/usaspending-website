@@ -16,19 +16,30 @@ const TopFiveRow = (props) => {
 
     const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
 
+    const originalName = props.data.name;
+    let name = "";
+    if (props.data.name.length > 30) {
+        name = `${props.data.name.substring(0, 28)}...`;
+    } else {
+        name = props.data.name;
+    }
+
     return (
         <tr
             className="category-table__table-row">
             <td
-                className="category-table__table-cell">
-                {props.data.name}
+                className="category-table__table-cell"
+                title={originalName}>
+                {name}
             </td>
             <td
-                className="category-table__table-cell category-table__table-cell_centered">
+                className="category-table__table-cell category-table__table-cell_centered"
+                title={props.data.amount}>
                 {props.data.amount}
             </td>
             <td
-                className="category-table__table-cell category-table__table-cell_centered">
+                className="category-table__table-cell category-table__table-cell_centered"
+                title={percent}>
                 {percent}
             </td>
         </tr>
