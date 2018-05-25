@@ -76,7 +76,7 @@ This endpoint returns the award amounts and totals, based on award type, of a sp
 + total_prime_awards: 327721 (required, number)
 + award_amount_per_capita: 916023.08 (required, number)
 
-## StateBreakdown(object)
+## StateBreakdown (object)
 + type: contracts (required, string)
     Award types include 'contracts', 'grants', 'direct_payments', 'loans', 'other_financial_assistance'.
 + amount: 41725.9 (required, number)

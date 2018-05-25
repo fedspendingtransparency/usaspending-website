@@ -46,7 +46,7 @@
         @import "totals";
         @import "details";
         .award-breakdown {
-
+            @import "../visualizations/awardBreakdown/awardBreakdownVisualization";
         }
         .geo {
             @import "../visualizations/geo/geoVisualization";

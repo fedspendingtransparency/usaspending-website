@@ -9,17 +9,4 @@ hr.results-divider {
     @media(min-width: $large-screen) {
         width: 99.0%;
     }
-    &:before,
-    &:after {
-        border-top: 1px solid #D8D8D8;
-        content: ('');
-        left: 3px;
-        position: absolute;
-        top: 3px;
-        width: 100%;
-    }
-    &:after {
-        left: 6px;
-        top: 6px;
-    }
 }
