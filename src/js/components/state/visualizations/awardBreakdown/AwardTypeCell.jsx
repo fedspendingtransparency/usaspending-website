@@ -14,7 +14,7 @@ const propTypes = {
     x0: PropTypes.number,
     x1: PropTypes.number,
     y0: PropTypes.number,
-    awardTypeID: PropTypes.string,
+    awardType: PropTypes.string,
     color: PropTypes.string,
     strokeColor: PropTypes.string,
     strokeOpacity: PropTypes.number,
@@ -64,7 +64,7 @@ export default class AwardTypeCell extends React.Component {
     }
 
     toggleTooltipIn() {
-        this.props.toggleTooltipIn(this.props.awardTypeID);
+        this.props.toggleTooltipIn(this.props.awardType);
     }
 
     truncateText() {

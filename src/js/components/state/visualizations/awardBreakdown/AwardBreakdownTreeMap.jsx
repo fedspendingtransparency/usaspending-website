@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
-import { throttle, remove, orderBy, find } from 'lodash';
+import { throttle, remove, find } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { awardTypeLabels } from 'dataMapping/state/awardTypes';
@@ -16,7 +16,7 @@ import AwardTypeCell from './AwardTypeCell';
 import AwardTypeTooltip from './AwardTypeTooltip';
 
 const propTypes = {
-    awardBreakdown: PropTypes.object,
+    awardBreakdown: PropTypes.array,
     totalAmount: PropTypes.number,
     hasNegatives: PropTypes.bool
 };
@@ -29,13 +29,13 @@ export default class AwardBreakdownTreeMap extends React.Component {
             windowWidth: 0,
             visualizationWidth: 0,
             visualizationHeight: 175,
-            finalNodes: [],
+            virtualChart: [],
             showOverlay: true,
             hoveredAwardType: ''
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-        this.buildTree = this.buildTree.bind(this);
+        this.buildVirtualTree = this.buildVirtualTree.bind(this);
         this.createTooltip = this.createTooltip.bind(this);
         this.toggleTooltipIn = this.toggleTooltipIn.bind(this);
         this.toggleTooltipOut = this.toggleTooltipOut.bind(this);
@@ -47,8 +47,8 @@ export default class AwardBreakdownTreeMap extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.awardBreakdown.children.length > 0) {
-            this.buildTree(nextProps);
+        if (nextProps.awardBreakdown.length > 0) {
+            this.buildVirtualTree(nextProps);
         }
     }
 
@@ -65,29 +65,23 @@ export default class AwardBreakdownTreeMap extends React.Component {
                 windowWidth,
                 visualizationWidth: this.sectionWrapper.offsetWidth
             });
-            if (this.props.awardBreakdown.children.length > 0) {
-                this.buildTree(this.props);
+            if (this.props.awardBreakdown.length > 0) {
+                this.buildVirtualTree(this.props);
             }
         }
     }
 
-    buildTree(treeProps) {
-        // grab the award type data
-        const awardTypes = treeProps.awardBreakdown;
+    buildVirtualTree(props) {
+        const data = props.awardBreakdown;
+        // remove the negative values from the data because they can't be displayed in the treemap
+        remove(data, (v) => v.amount <= 0);
 
-        // remove negative values from the children, as we can't display those in the treemap
-        remove(awardTypes.children, (v) => parseFloat(v.amount) <= 0);
-
-        // order by value, descending
-        const finalAwardTypes = {
-            children: orderBy(awardTypes.children,
-                (type) => parseFloat(type.amount),
-                'desc')
-        };
-
-        // put the data through d3's hierarchy system to sum it
-        const root = hierarchy(finalAwardTypes)
-            .sum((d) => (d.amount));
+        // parse the inbound data into D3's treemap hierarchy structure
+        const treemapData = hierarchy({
+            children: data
+        })
+            .sum((d) => d.amount) // tell D3 how to extract the monetary value out of the object
+            .sort((a, b) => b.amount - a.amount); // sort the objects
 
         // set up a treemap object and pass in the root
         let tileStyle = treemapBinary;
@@ -101,84 +95,85 @@ export default class AwardBreakdownTreeMap extends React.Component {
             offsetWidth = this.sectionWrapper.offsetWidth;
         }
 
-        const awardBreakdownTreemap = treemap()
-            .round(true)
+        // set up a function for generating the treemap of the specified size and style
+        const tree = treemap()
+            .size([offsetWidth, this.state.visualizationHeight])
             .tile(tileStyle)
-            .size([offsetWidth, this.state.visualizationHeight])(root).leaves();
+            .round(true);
 
-        // build the tiles
-        const nodes = awardBreakdownTreemap.map((n, i) => {
-            let cell = '';
-            let cellColor = TreemapHelper.stateTreemapColors[i];
-            let textColor = labelColorFromBackground(TreemapHelper.stateTreemapColors[i]);
-            let textClass = '';
+        // generate the treemap and calculate the individual boxes
+        const treeItems = tree(treemapData).leaves();
 
-            // Set highlighted state for hovered award type
-            if (this.state.hoveredAwardType === n.data.type) {
-                cellColor = TreemapHelper.stateTooltipStyles.highlightedStyle.color;
-                textColor = TreemapHelper.stateTooltipStyles.highlightedStyle.textColor;
-                textClass = 'chosen';
-            }
+        if (treeItems.length === 0 || data.length === 0) {
+            // we have no data, so don't draw a chart
+            this.setState({
+                virtualChart: []
+            });
+            return;
+        }
 
-            // Calculate display params
-            let labelView = 'block';
-            let percentView = 'block';
-
-            const width = (n.x1 - n.x0);
-            const height = (n.y1 - n.y0);
-
-            if (height < 26 || width < 50) {
-                labelView = 'none';
-            }
-            if (height < 40 || width < 60) {
-                percentView = 'none';
-            }
-
-            // Finally, create the cell
-            if (n.value !== 0) {
-                cell = (
-                    <AwardTypeCell
-                        {...treeProps}
-                        label={awardTypeLabels[n.data.type]}
-                        value={n.value}
-                        x0={n.x0}
-                        x1={n.x1}
-                        y0={n.y0}
-                        y1={n.y1}
-                        total={treeProps.totalAmount}
-                        key={n.data.type}
-                        awardTypeID={n.data.type}
-                        color={cellColor}
-                        strokeColor="white"
-                        strokeOpacity={0.5}
-                        tooltipStyles={TreemapHelper.stateTooltipStyles}
-                        toggleTooltipIn={this.toggleTooltipIn}
-                        toggleTooltipOut={this.toggleTooltipOut}
-                        opacity={1}
-                        textColor={textColor}
-                        textClass={textClass}
-                        labelView={labelView}
-                        width={width}
-                        height={height}
-                        percentView={percentView} />
-                );
-
-                return cell;
-            }
-
-            return null;
+        // create the individual treemap cells
+        const cells = [];
+        treeItems.forEach((item, index) => {
+            const cell = this.buildVirtualCell(item, index);
+            cells.push(cell);
         });
 
         this.setState({
-            finalNodes: nodes
+            virtualChart: cells
         });
+    }
+
+    buildVirtualCell(data, i) {
+        let cellColor = TreemapHelper.stateTreemapColors[i];
+        let textColor = labelColorFromBackground(TreemapHelper.stateTreemapColors[i]);
+        let textClass = '';
+
+        // Set highlighted state for hovered award type
+        if (this.state.hoveredAwardType === data.data.type) {
+            cellColor = TreemapHelper.stateTooltipStyles.highlightedStyle.color;
+            textColor = TreemapHelper.stateTooltipStyles.highlightedStyle.textColor;
+            textClass = 'chosen';
+        }
+
+        // Calculate display params
+        let labelView = 'block';
+        let percentView = 'block';
+
+        const width = (data.x1 - data.x0);
+        const height = (data.y1 - data.y0);
+
+        if (height < 26 || width < 50) {
+            labelView = 'none';
+        }
+        if (height < 40 || width < 60) {
+            percentView = 'none';
+        }
+
+        return {
+            label: awardTypeLabels[data.data.type],
+            value: data.value,
+            x0: data.x0,
+            x1: data.x1,
+            y0: data.y0,
+            y1: data.y1,
+            total: this.props.totalAmount,
+            awardType: data.data.type,
+            color: cellColor,
+            textColor,
+            textClass,
+            labelView,
+            width,
+            height,
+            percentView
+        };
     }
 
     toggleTooltipIn(awardTypeId) {
         this.setState({
             hoveredAwardType: awardTypeId
         }, () => {
-            this.buildTree(this.props);
+            this.buildVirtualTree(this.props);
         });
     }
 
@@ -186,7 +181,7 @@ export default class AwardBreakdownTreeMap extends React.Component {
         this.setState({
             hoveredAwardType: ''
         }, () => {
-            this.buildTree(this.props);
+            this.buildVirtualTree(this.props);
         });
     }
 
@@ -199,14 +194,14 @@ export default class AwardBreakdownTreeMap extends React.Component {
             sectionHeight = this.sectionWrapper.getBoundingClientRect().height;
         }
 
-        if (this.state.hoveredAwardType !== '') {
-            const awardType = find(this.props.awardBreakdown.children,
+        if (this.state.hoveredAwardType) {
+            const awardType = find(this.props.awardBreakdown,
                 { type: `${this.state.hoveredAwardType}` });
 
             const awardTypeDefinition = awardTypeLabels[this.state.hoveredAwardType];
 
-            const node = find(this.state.finalNodes,
-                { key: `${this.state.hoveredAwardType}` });
+            const node = find(this.state.virtualChart,
+                { awardType: `${this.state.hoveredAwardType}` });
 
             tooltip = (
                 <AwardTypeTooltip
@@ -215,10 +210,10 @@ export default class AwardBreakdownTreeMap extends React.Component {
                         awardType.amount, this.props.totalAmount)
                     }
                     description={awardTypeDefinition}
-                    x={node.props.x0}
-                    y={node.props.y0}
-                    width={node.props.width}
-                    height={node.props.height}
+                    x={node.x0}
+                    y={node.y0}
+                    width={node.width}
+                    height={node.height}
                     sectionHeight={sectionHeight} />
             );
         }
@@ -237,6 +232,17 @@ export default class AwardBreakdownTreeMap extends React.Component {
                 </p>
             );
         }
+        const cells = this.state.virtualChart.map((cell) => (
+            <AwardTypeCell
+                {...cell}
+                key={cell.awardType}
+                strokeColor="white"
+                strokeOpacity={0.5}
+                tooltipStyles={TreemapHelper.stateTooltipStyles}
+                toggleTooltipIn={this.toggleTooltipIn}
+                toggleTooltipOut={this.toggleTooltipOut}
+                opacity={1} />
+        ));
         return (
             <div className="award-breakdown__treemap">
                 <div className="usa-da-treemap-section">
@@ -252,7 +258,7 @@ export default class AwardBreakdownTreeMap extends React.Component {
                                 width={this.state.visualizationWidth}
                                 height={this.state.visualizationHeight}
                                 className="treemap-svg overlay">
-                                { this.state.finalNodes }
+                                {cells}
                             </svg>
                         </div>
                     </div>

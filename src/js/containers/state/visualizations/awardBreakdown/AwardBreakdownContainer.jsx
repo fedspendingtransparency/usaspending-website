@@ -27,9 +27,7 @@ export class AwardBreakdownContainer extends React.Component {
             loading: true,
             error: false,
             inFlight: true,
-            awardBreakdown: {
-                children: []
-            },
+            awardBreakdown: [],
             rows: [],
             totalAmount: 0,
             hasNegatives: false
@@ -122,9 +120,7 @@ export class AwardBreakdownContainer extends React.Component {
         });
 
         this.setState({
-            awardBreakdown: {
-                children: results
-            },
+            awardBreakdown: results,
             rows,
             totalAmount,
             hasNegatives

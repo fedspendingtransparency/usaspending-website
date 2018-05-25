@@ -53,7 +53,7 @@ describe('AwardBreakdownContainer', () => {
 
         expect(fetchAwardBreakdown).toHaveBeenLastCalledWith('07', 'latest');
     });
-    descibe('parseData', () => {
+    describe('parseData', () => {
         it('should correctly sum the total award amount', () => {
             const container = shallow(<AwardBreakdownContainer
                 {...mockBreakdownProps} />);
