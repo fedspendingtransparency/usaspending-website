@@ -73,46 +73,7 @@ export class AwardBreakdownContainer extends React.Component {
                     inFlight: false
                 });
 
-                // Sum all amounts in the returned award types
-                const totalAmount = reduce(
-                    res.data,
-                    (sum, awardType) => sum + parseFloat(awardType.amount),
-                    0
-                );
-
-                // Sum only the positive amounts in the returned award types
-                const positiveAmount = reduce(
-                    res.data,
-                    (sum, awardType) => {
-                        if (parseFloat(awardType.amount) >= 0) {
-                            return sum + parseFloat(awardType.amount);
-                        }
-                        return sum;
-                    },
-                    0
-                );
-
-                const hasNegatives = positiveAmount > totalAmount;
-
-                // Sort the results by amount
-                const sortedResults = res.data.sort((rowA, rowB) =>
-                    rowB.amount - rowA.amount
-                );
-
-                const rows = sortedResults.map((result) => {
-                    const row = Object.create(BaseAwardBreakdownRow);
-                    row.populate(result);
-                    return row;
-                });
-
-                this.setState({
-                    awardBreakdown: {
-                        children: res.data
-                    },
-                    rows,
-                    totalAmount,
-                    hasNegatives
-                });
+                this.parseData(res.data);
             })
             .catch((err) => {
                 this.searchRequest = null;
@@ -125,6 +86,49 @@ export class AwardBreakdownContainer extends React.Component {
                     console.log(err);
                 }
             });
+    }
+
+    parseData(results) {
+        // Sum all amounts in the returned award types
+        const totalAmount = reduce(
+            results,
+            (sum, awardType) => sum + parseFloat(awardType.amount),
+            0
+        );
+
+        // Sum only the positive amounts in the returned award types
+        const positiveAmount = reduce(
+            results,
+            (sum, awardType) => {
+                if (parseFloat(awardType.amount) >= 0) {
+                    return sum + parseFloat(awardType.amount);
+                }
+                return sum;
+            },
+            0
+        );
+
+        const hasNegatives = positiveAmount > totalAmount;
+
+        // Sort the results by amount
+        const sortedResults = results.sort((rowA, rowB) =>
+            rowB.amount - rowA.amount
+        );
+
+        const rows = sortedResults.map((result) => {
+            const row = Object.create(BaseAwardBreakdownRow);
+            row.populate(result);
+            return row;
+        });
+
+        this.setState({
+            awardBreakdown: {
+                children: results
+            },
+            rows,
+            totalAmount,
+            hasNegatives
+        });
     }
 
     render() {

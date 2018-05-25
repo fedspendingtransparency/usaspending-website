@@ -6,9 +6,10 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
+import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
 import { AwardBreakdownContainer } from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import { mockBreakdownProps } from '../../mockData';
-import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
+import { mockBreakdownApi } from "../../../../models/state/mockStateApi";
 
 jest.mock('helpers/stateHelper', () => require('../../mockStateHelper'));
 
@@ -52,46 +53,39 @@ describe('AwardBreakdownContainer', () => {
 
         expect(fetchAwardBreakdown).toHaveBeenLastCalledWith('07', 'latest');
     });
-    it('should correctly sum the total award amount', async () => {
-        const container = shallow(<AwardBreakdownContainer
-            {...mockBreakdownProps} />);
+    descibe('parseData', () => {
+        it('should correctly sum the total award amount', () => {
+            const container = shallow(<AwardBreakdownContainer
+                {...mockBreakdownProps} />);
 
-        container.instance().fetchAwardBreakdown('01', 'latest');
+            container.instance().parseData(mockBreakdownApi);
 
-        await container.instance().searchRequest.promise;
+            expect(container.instance().state.totalAmount).toEqual(1450679.19);
+        });
+        it('should set the state to reflect the presence of negative obligations', () => {
+            const container = shallow(<AwardBreakdownContainer
+                {...mockBreakdownProps} />);
 
-        expect(container.instance().state.totalAmount).toEqual(1450679.19);
-    });
+            container.instance().parseData(mockBreakdownApi);
 
-    it('should set the state to reflect the presence of negative obligations', async () => {
-        const container = shallow(<AwardBreakdownContainer
-            {...mockBreakdownProps} />);
+            expect(container.instance().state.hasNegatives).toEqual(true);
+        });
+        it('should sort the results by amount', () => {
+            const container = shallow(<AwardBreakdownContainer
+                {...mockBreakdownProps} />);
 
-        container.instance().fetchAwardBreakdown('06', 'latest');
+            container.instance().parseData(mockBreakdownApi);
 
-        await container.instance().searchRequest.promise;
+            expect(container.instance().state.rows[0].amount).toEqual('$1.5M');
+            expect(container.instance().state.rows[4].amount).toEqual('-$50,654');
+        });
+        it('should create a BaseAwardBreakdownRow object for each result', () => {
+            const container = shallow(<AwardBreakdownContainer
+                {...mockBreakdownProps} />);
 
-        expect(container.instance().state.hasNegatives).toEqual(true);
-    });
-    it('should sort the results by amount', async () => {
-        const container = shallow(<AwardBreakdownContainer
-            {...mockBreakdownProps} />);
+            container.instance().parseData(mockBreakdownApi);
 
-        container.instance().fetchAwardBreakdown('06', 'latest');
-
-        await container.instance().searchRequest.promise;
-
-        expect(container.instance().state.rows[0].amount).toEqual('$1.5M');
-        expect(container.instance().state.rows[4].amount).toEqual('-$50,654');
-    });
-    it('should create a BaseAwardBreakdownRow object for each result', async () => {
-        const container = shallow(<AwardBreakdownContainer
-            {...mockBreakdownProps} />);
-
-        container.instance().fetchAwardBreakdown('06', 'latest');
-
-        await container.instance().searchRequest.promise;
-
-        expect(Object.getPrototypeOf(container.instance().state.rows[0])).toEqual(BaseAwardBreakdownRow);
+            expect(Object.getPrototypeOf(container.instance().state.rows[0])).toEqual(BaseAwardBreakdownRow);
+        });
     });
 });
