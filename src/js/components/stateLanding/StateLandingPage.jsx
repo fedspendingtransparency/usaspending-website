@@ -34,9 +34,9 @@ export default class StateLandingPage extends React.Component {
                                 className="landing-page__title">
                                 Find a State Profile.
                             </h2>
-                            <p className="landing-page__description">
+                            <div className="landing-page__description">
                                 Find insights into the awards that fall within a particular U.S. state or territory with the tools and data breakdowns found in our State Profile pages.
-                            </p>
+                            </div>
                         </div>
                         <StateLandingContainer />
                     </div>

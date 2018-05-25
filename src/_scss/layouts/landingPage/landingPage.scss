@@ -4,34 +4,19 @@
     padding: $global-pad;
     .landing-page__overview {
         text-align: center;
-        h3 {
-            margin-top: 0;
+        h2.landing-page__title {
+            @include h3;
+            font-weight: 600;
+            margin: 0;
         }
-        p {
-            color: $color-gray-medium;
-            margin-bottom: rem(30);
+        .landing-page__description {
+            font-size: $small-font-size;
+            color: $color-base;
+            padding: rem(15) 0 rem(30);
+            @include media($medium-screen) {
+                margin: auto;
+                width: 50%;
+            }
         }
-    }
-    @include media($medium-screen) {
-        padding: ($global-pad * 2);
-        .landing-page__overview {
-            width: 75%;
-            margin: auto;
-            float: none;
-        }
-    }
-
-    h2.landing-page__title {
-        @include h3;
-        font-weight: 600;
-        margin: 0;
-    }
-    h3.landing-page__subtitle {
-        @include h6;
-        margin: 0;
-    }
-    p.landing-page__description {
-        font-size: $small-font-size;
-        color: $color-base;
     }
 }
