@@ -18,9 +18,9 @@ const propTypes = {
 };
 
 const TopFive = (props) => {
-    const rows = props.results.map((result) => (
+    const rows = props.results.map((result, index) => (
         <TopFiveRow
-            key={result.id}
+            key={index}
             data={result}
             total={props.total} />
     ));

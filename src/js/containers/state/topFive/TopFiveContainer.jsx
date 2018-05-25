@@ -121,6 +121,7 @@ export class TopFiveContainer extends React.Component {
         return (
             <TopFive
                 category={this.props.category}
+                total={this.props.total}
                 {...this.state} />
         );
     }
