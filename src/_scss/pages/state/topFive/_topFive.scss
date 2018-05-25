@@ -1,8 +1,10 @@
 @import "pages/search/results/table/_tableTypes";
 .table-types {
-    @include display(flex);
-    @include justify-content(center);
-}
+    @include media($tablet-screen) {
+        @include display(flex);
+        @include justify-content(center);
+    }
+} 
 
 .topfive__description {
     font-size: rem(20);
