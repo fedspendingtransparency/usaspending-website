@@ -16,6 +16,7 @@
             @include flex(0 0 rem(30));
             height: rem(25);
             margin-right: rem(5);
+            margin-left: rem(3);
         }
         .category-table__title-name {
             @include flex(1 1 auto);

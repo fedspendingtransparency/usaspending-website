@@ -1,5 +1,7 @@
-.topfive__tabs {
-    @import "pages/search/results/table/_tableTypes";
+@import "pages/search/results/table/_tableTypes";
+.table-types {
+    @include display(flex);
+    @include justify-content(center);
 }
 
 .topfive__description {
