@@ -5,6 +5,12 @@
     @import "pages/accountLanding/searchSection";
     @import "./_table";
 
+    .state-landing__results {
+        .state-list {
+            margin-top: rem(15);
+        }
+    }
+
     .results-count {
         font-style: italic;
         padding: rem(20) 0;
