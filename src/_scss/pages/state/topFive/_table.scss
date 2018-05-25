@@ -28,51 +28,43 @@
     }
 
     .category-table__table {
-        margin: 0;
-        color: $color-base;
-        font-size: rem(13);
-        line-height: rem(17);
-        border: rem(1) solid #aeb0b5;
-        border-radius: rem(5);
+        font-size: $small-font-size;
         border-collapse: separate;
-
-        .category-table__table-head {
-            background-color: $color-white;
-        }
-
-        .category-table__table-head-row {
-           // border: 1px solid #D5D6D8;
-        }
-
+        border: solid $color-gray-light rem(1);
+        border-radius: rem(5);
+        -moz-border-radius: rem(5);
+        margin: 0;
+ 
         .category-table__table-head-cell {
-            font-weight: $font-semibold;
-            background-color: $color-white;
-           // border: none;
-
-            &.category-table__table-head-cell_centered {
-                text-align: center;
+            padding: rem(10) rem(15);
+            border: 0;
+            background-color: transparent;
+            border-bottom: solid $color-gray-light rem(1);
+            font-weight: 600;
+            text-align: center;
+            &:first-child {
+                    text-align: left;
             }
         }
 
-       .category-table__table-body {
-            &.category-table__table-body_hide {
-                display: none;
-            }
-        } 
-
-        .category-table__table-row {
-          //  border: 1px solid #D5D6D8;
-        }
-
+ 
         .category-table__table-cell {
-           // border: none;
-            font-size: rem(12);
-            padding: 5px rem(15) 5px rem(15);
-
-            &.category-table__table-cell_centered {
-                text-align: center;
+            padding: rem(5) rem(15);
+            border: 0;
+            border-bottom: solid $color-gray-light rem(1);
+            background-color: transparent;
+            font-weight: 400;
+            text-align: center;
+            &:first-child {
+                text-align: left;
             }
         }
+        .category-table__table-row:last-child {
+            .category-table__table-cell {
+                border-bottom: 0;
+            }
+        }
+
     }
 
     .category-table__message {
