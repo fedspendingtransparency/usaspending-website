@@ -15,13 +15,16 @@ import {
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 
+import { awardTypeGroups } from 'dataMapping/search/awardType';
+
 import TopFive from 'components/state/topFive/TopFive';
 
 const propTypes = {
     code: PropTypes.string,
     total: PropTypes.number,
     category: PropTypes.string,
-    fy: PropTypes.string
+    fy: PropTypes.string,
+    type: PropTypes.string
 };
 
 export class TopFiveContainer extends React.Component {
@@ -48,10 +51,12 @@ export class TopFiveContainer extends React.Component {
         else if (prevProps.fy !== this.props.fy) {
             this.loadCategory();
         }
+        else if (prevProps.type !== this.props.type) {
+            this.loadCategory();
+        }
     }
 
     dataParams() {
-        console.log(this.props.fy);
         let timePeriod = null;
         if (this.props.fy === 'latest') {
             const trailing = getTrailingTwelveMonths();
@@ -79,6 +84,10 @@ export class TopFiveContainer extends React.Component {
         };
         if (timePeriod) {
             filters.time_period = [timePeriod];
+        }
+
+        if (this.props.type !== 'all' && awardTypeGroups[this.props.type]) {
+            filters.award_type_codes = awardTypeGroups[this.props.type];
         }
 
         return {
