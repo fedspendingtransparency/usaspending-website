@@ -40,6 +40,10 @@
             background-color: transparent;
             border-bottom: solid $color-gray-light rem(1);
             font-weight: 600;
+            text-align: center;
+            &:first-child {
+                text-align: left;
+            }
         }
     }
     .award-breakdown-table__row {
@@ -48,9 +52,10 @@
             border: 0;
             border-bottom: solid $color-gray-light rem(1);
             background-color: transparent;
-            font-weight: $font-light;
+            font-weight: 400;
+            text-align: center;
             &:first-child {
-                font-weight: $font-normal;
+                text-align: left;
             }
         }
         &:last-child {

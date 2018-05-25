@@ -81,7 +81,7 @@ describe('AwardBreakdownContainer', () => {
 
         await container.instance().searchRequest.promise;
 
-        expect(container.instance().state.rows[0].amount).toEqual('$1.5 M');
+        expect(container.instance().state.rows[0].amount).toEqual('$1.5M');
         expect(container.instance().state.rows[4].amount).toEqual('-$50,654');
     });
     it('should create a BaseAwardBreakdownRow object for each result', async () => {

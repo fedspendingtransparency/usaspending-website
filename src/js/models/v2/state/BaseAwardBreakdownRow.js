@@ -16,12 +16,9 @@ const BaseAwardBreakdownRow = {
     get amount() {
         if (Math.abs(this._amount) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._amount);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._amount / units.unit, 1)} ${units.unitLabel}`;
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._amount / units.unit, 1)}${units.unitLabel}`;
         }
-        else if (Math.abs(this._amount) >= MoneyFormatter.unitValues.THOUSAND) {
-            return MoneyFormatter.formatMoneyWithPrecision(this._amount, 0);
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._amount, 2);
+        return MoneyFormatter.formatMoneyWithPrecision(this._amount, 0);
     },
     get count() {
         return MoneyFormatter.formatNumberWithPrecision(this._count, 0);
