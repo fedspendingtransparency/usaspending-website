@@ -186,6 +186,39 @@ export const formatTreemapValues = (value) => {
     return `${formattedCurrency}${longLabel}`;
 };
 
+export const formatStateValues = (value) => {
+    // Format the ceiling and current values to be friendly strings
+    const units = calculateUnitForSingleValue(value);
+    const useCents = units.unit <= unitValues.THOUSAND;
+
+    // Only reformat at a million or higher
+    if (units.unit < unitValues.MILLION) {
+        units.unit = 2;
+        units.unitLabel = '';
+        units.longLabel = '';
+    }
+    const formattedValue = value / units.unit;
+
+    let precision = 2;
+    if (formattedValue % 1 === 0) {
+        // Whole number
+        precision = 0;
+    }
+    else if (useCents) {
+        precision = 2;
+    }
+
+    const formattedCurrency = formatMoneyWithPrecision(formattedValue, precision);
+
+    // Don't add an extra space when there's no units string to display
+    let unitLabel = '';
+    if (units.unit > 1) {
+        unitLabel = `${units.unitLabel}`;
+    }
+
+    return `${formattedCurrency}${unitLabel}`;
+};
+
 export const calculateTreemapPercentage = (value, total) =>
     `${((value / total) * 100).toFixed(1)}%`;
 

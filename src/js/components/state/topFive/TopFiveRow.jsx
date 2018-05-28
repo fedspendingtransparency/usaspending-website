@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
 const propTypes = {
     data: PropTypes.object,
     total: PropTypes.number
@@ -15,6 +17,7 @@ const TopFiveRow = (props) => {
     const percentValue = (props.data._amount / props.total) * 100;
 
     const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
+    const formattedAmount = MoneyFormatter.formatStateValues(props.data._amount);
 
     return (
         <tr
@@ -27,7 +30,7 @@ const TopFiveRow = (props) => {
             <td
                 className="category-table__table-cell category-table__table-cell_centered"
                 title={props.data.amount}>
-                {props.data.amount}
+                {formattedAmount}
             </td>
             <td
                 className="category-table__table-cell category-table__table-cell_centered"
