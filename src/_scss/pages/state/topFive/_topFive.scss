@@ -1,8 +1,13 @@
 @import "pages/search/results/table/_tableTypes";
-
-
-.tab-label {
-    margin-right: 0 !important;
+    
+.table-types {
+    button.table-type-toggle {
+        .tab-content {
+            .tab-label {
+                margin-right: 0;
+            }
+        }
+    }
 }
 
 .topfive__description {
@@ -20,5 +25,5 @@
     @include align-items(flex-start);
     @include flex-wrap(wrap);
 
-    margin-bottom: rem(90);
+        margin-bottom: rem(90);
 }
