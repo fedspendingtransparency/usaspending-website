@@ -11,6 +11,8 @@ import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHe
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import StateTimeVisualizationSectionContainer from 'containers/state/StateTimeVisualizationSectionContainer';
 
+import TopFiveSection from './topFive/TopFiveSection';
+
 import StateOverview from './overview/StateOverview';
 
 import StateFooter from './StateFooter';
@@ -222,6 +224,7 @@ export default class StateContent extends React.Component {
                         stateProfile={this.props.stateProfile.overview} />
                     <StateTimeVisualizationSectionContainer
                         stateProfile={this.props.stateProfile.overview} />
+                    <TopFiveSection />
                     <StateFooter />
                 </div>
             </div>
