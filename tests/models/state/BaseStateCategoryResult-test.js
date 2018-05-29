@@ -50,6 +50,12 @@ describe('BaseStateCategoryResult', () => {
 
             expect(result.amount).toEqual('$1');
         });
+        it('should add a unit label to amounts that is equal to or more than one million', () => {
+            const result = Object.create(BaseStateCategoryResult);
+            result.populate(mockStateCategoryApi.results[2], 2);
+
+            expect(result.amount).toEqual('$1.00M');
+        });
     });
     describe('nameTemplate', () => {
         it('should set the _nameTemplate property to the provided function', () => {

@@ -31,6 +31,12 @@ export const mockStateCategoryApi = {
             name: "Robot",
             code: "2345",
             amount: 1.02
+        },
+        {
+            id: 3,
+            name: "Machine",
+            code: "2345",
+            amount: 1000000.02
         }
     ]
 };
