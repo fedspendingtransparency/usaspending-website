@@ -64,6 +64,34 @@ describe('GeoVisualizationSectionContainer', () => {
         expect(prepareFetch).toHaveBeenCalledTimes(1);
     });
 
+    it('should reset the map layer when the state id changes', () => {
+        const container = mount(<GeoVisualizationSectionContainer
+            {...mockRedux}
+            {...mockActions} />);
+
+        const changeMapLayer = jest.fn();
+        container.instance().changeMapLayer = changeMapLayer;
+
+        // update the state
+        container.setState({
+            mapLayer: 'congressionalDistrict'
+        });
+
+        expect(changeMapLayer).toHaveBeenCalledTimes(0);
+
+        // update the props
+        const stateProfile = Object.assign({}, mockRedux.stateProfile, {
+            id: '13'
+        });
+
+        container.setProps({
+            stateProfile
+        });
+
+        // changeMapLayer should have been called
+        expect(changeMapLayer).toHaveBeenCalledTimes(1);
+    });
+
     describe('mapLoaded', () => {
         it('should set the loadingTiles state to false', () => {
             const container = mount(<GeoVisualizationSectionContainer

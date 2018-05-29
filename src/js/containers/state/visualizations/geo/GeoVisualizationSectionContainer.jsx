@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, isEqual } from 'lodash';
+import { uniqueId } from 'lodash';
 
 import GeoVisualizationSection from 'components/state/visualizations/geo/GeoVisualizationSection';
 
@@ -57,7 +57,14 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.stateProfile, this.props.stateProfile)) {
+        if (prevProps.stateProfile.fy !== this.props.stateProfile.fy) {
+            this.prepareFetch();
+        }
+        if (prevProps.stateProfile.id !== this.props.stateProfile.id) {
+            if (this.state.mapLayer !== 'county') {
+                // Reset the map layer
+                this.changeMapLayer('county');
+            }
             this.prepareFetch();
         }
     }
