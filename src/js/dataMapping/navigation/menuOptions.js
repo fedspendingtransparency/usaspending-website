@@ -30,6 +30,11 @@ export const profileOptions = [
         enabled: true
     },
     {
+        label: 'States',
+        url: '#/state',
+        enabled: true
+    },
+    {
         label: 'Recipients',
         url: '#/recipient',
         enabled: false
