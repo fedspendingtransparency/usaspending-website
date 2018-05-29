@@ -27,7 +27,11 @@ const BaseStateCategoryResult = {
         this._nameTemplate = template;
     },
     get amount() {
-        return MoneyFormatter.formatMoney(this._amount);
+        if (this._amount >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._amount);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._amount / units.unit, 2)}${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._amount, 0);
     },
     get combinedName() {
         return this._nameTemplate(this._code, this._name);
