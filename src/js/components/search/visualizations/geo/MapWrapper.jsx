@@ -461,6 +461,15 @@ export default class MapWrapper extends React.Component {
                 changeMapLayer={this.props.changeMapLayer} />);
         }
 
+        let legend = null;
+        if (!this.props.stateProfile) {
+            legend = (
+                <MapLegend
+                    segments={this.state.spendingScale.segments}
+                    units={this.state.spendingScale.units} />
+            );
+        }
+
         return (
             <div
                 className="map-container"
@@ -475,10 +484,7 @@ export default class MapWrapper extends React.Component {
                         this.mapRef = component;
                     }} />
                 {toggle}
-                <MapLegend
-                    segments={this.state.spendingScale.segments}
-                    units={this.state.spendingScale.units} />
-
+                {legend}
                 {tooltip}
                 {this.props.children}
             </div>

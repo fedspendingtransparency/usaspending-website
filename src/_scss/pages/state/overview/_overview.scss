@@ -11,7 +11,8 @@
             height: auto;
             margin-right: rem(28);
         }
-        h3.state-overview__title {
+        h2.state-overview__title {
+            @include h3;
             @include flex(1 1 auto);
             margin: rem(5) 0;
             font-weight: $font-semibold;
@@ -25,7 +26,8 @@
             padding-bottom: rem(42);
         }
 
-        h4.state-overview__heading {
+        h3.state-overview__heading {
+            @include h4;
             font-size: rem(19);
             font-weight: 600;
             margin: 0;
