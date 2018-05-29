@@ -1,8 +1,11 @@
 .category-table {
     margin-top: rem(30);
-    @include flex(0 0 50%);
-    &:nth-child(odd) {
-        padding-right: rem(35);
+    width: 100%;
+    @include media($tablet-screen) {
+        @include flex(0 0 50%);
+        &:nth-child(odd) {
+            padding-right: rem(35);
+        }
     }
 
     .category-table__title {
@@ -55,8 +58,19 @@
             background-color: transparent;
             font-weight: 400;
             text-align: center;
+            max-width: 0;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
             &:first-child {
                 text-align: left;
+                width: 55%
+            }
+            &:nth-child(2) {
+                width: 25%;
+            }
+            &:last-child {
+                width: 20%;
             }
         }
         .category-table__table-row:last-child {
