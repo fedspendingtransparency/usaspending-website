@@ -1,9 +1,10 @@
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
-import mockStateApi from '../../models/state/mockStateApi';
+import { mockStateApi } from '../../models/state/mockStateApi';
 
 export const mockActions = {
     setStateOverview: jest.fn(),
-    setStateFiscalYear: jest.fn()
+    setStateFiscalYear: jest.fn(),
+    setStateCenter: jest.fn()
 };
 
 const stateProfile = Object.create(BaseStateProfile);
@@ -11,12 +12,24 @@ stateProfile.populate({});
 
 export const mockRedux = {
     params: {
-        stateId: '1'
+        stateId: '01'
     },
     stateProfile: {
         id: '',
         fy: 'latest',
+        center: [],
         overview: stateProfile
+    }
+};
+
+const parsedProfile = Object.create(BaseStateProfile);
+parsedProfile.populate(mockStateApi);
+
+export const mockBreakdownProps = {
+    stateProfile: {
+        id: '06',
+        fy: 'latest',
+        overview: parsedProfile
     }
 };
 
@@ -84,3 +97,33 @@ export const mockStateOverview = {
         mockStateApi
     }
 };
+
+export const mockGeoApi = {
+    results: [
+        {
+            shape_code: 'AK',
+            display_name: 'Alaska',
+            aggregated_amount: '123.12'
+        },
+        {
+            shape_code: 'AL',
+            display_name: 'Alabama',
+            aggregated_amount: '345.56'
+        }
+    ]
+};
+
+export const mockStateList = [
+    {
+        fips: '01',
+        code: 'AA',
+        name: 'State A',
+        amount: 1234.60
+    },
+    {
+        fips: '02',
+        code: 'BB',
+        name: 'State B',
+        amount: 999.12
+    }
+];

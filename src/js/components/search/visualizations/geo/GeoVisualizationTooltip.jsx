@@ -14,7 +14,8 @@ const propTypes = {
     y: PropTypes.number,
     x: PropTypes.number,
     visualization: PropTypes.object,
-    total: PropTypes.number
+    total: PropTypes.number,
+    description: PropTypes.string
 };
 
 export default class GeoVisualizationTooltip extends React.Component {
@@ -77,7 +78,7 @@ export default class GeoVisualizationTooltip extends React.Component {
                                 {MoneyFormatter.formatMoney(this.props.value)}
                             </div>
                             <div className="tooltip-label">
-                                Total Obligations
+                                {this.props.description}
                             </div>
                         </div>
                     </div>

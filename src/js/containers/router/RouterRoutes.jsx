@@ -194,6 +194,15 @@ const routes = {
             }
         },
         {
+            path: '/state',
+            parent: '/state',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/stateLanding/StateLandingPage').default);
+                });
+            }
+        },
+        {
             path: '/state/:stateId',
             parent: '/state',
             component: (cb) => {

@@ -40,3 +40,31 @@ export const mockStateCategoryApi = {
         }
     ]
 };
+
+export const mockBreakdownApi = [
+    {
+        type: 'contracts',
+        amount: 1500654.19,
+        count: 5012
+    },
+    {
+        type: 'grants',
+        amount: -50654.19,
+        count: 20
+    },
+    {
+        type: 'direct_payments',
+        amount: 654.19,
+        count: 15
+    },
+    {
+        type: 'loans',
+        amount: 10,
+        count: 10
+    },
+    {
+        type: 'other',
+        amount: 15,
+        count: 5
+    }
+];
