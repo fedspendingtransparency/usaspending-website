@@ -3,8 +3,12 @@
     width: 100%;
     @include media($tablet-screen) {
         @include flex(0 0 50%);
+        // Evenly distribute padding between tables
         &:nth-child(odd) {
-            padding-right: rem(35);
+            padding-right: rem(15);
+        }
+        &:nth-child(even) {
+            padding-left: rem(15);
         }
     }
 
