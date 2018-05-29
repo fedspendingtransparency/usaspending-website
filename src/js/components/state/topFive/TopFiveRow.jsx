@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-
 const propTypes = {
     data: PropTypes.object,
     total: PropTypes.number
