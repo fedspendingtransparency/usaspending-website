@@ -21,7 +21,7 @@ import SubmitButton from './SubmitButton';
 
 const propTypes = {
     awards: PropTypes.object,
-    updateAwardCheckbox: PropTypes.func,
+    updateCheckbox: PropTypes.func,
     updateFilter: PropTypes.func,
     updateStartDate: PropTypes.func,
     updateEndDate: PropTypes.func,
@@ -122,11 +122,11 @@ export default class AwardDataContent extends React.Component {
                         <AwardLevelFilter
                             awardLevels={awardDownloadOptions.awardLevels}
                             currentAwardLevels={awards.awardLevels}
-                            updateAwardCheckbox={this.props.updateAwardCheckbox} />
+                            updateCheckbox={this.props.updateCheckbox} />
                         <AwardTypeFilter
                             awardTypes={awardDownloadOptions.awardTypes}
                             currentAwardTypes={awards.awardTypes}
-                            updateAwardCheckbox={this.props.updateAwardCheckbox} />
+                            updateCheckbox={this.props.updateCheckbox} />
                         <AgencyFilter
                             agencies={this.props.agencies}
                             subAgencies={this.props.subAgencies}
@@ -162,29 +162,30 @@ export default class AwardDataContent extends React.Component {
                         <SubmitButton
                             filters={awards}
                             validForm={this.state.validForm}
-                            validDates={this.state.validDates} />
+                            validDates={this.state.validDates}
+                            dataType="awards" />
                     </form>
                     <button className="download-center__reset" onClick={this.resetForm}>
                         Reset form and start over
                     </button>
                 </div>
                 <div className="download-info">
-                    <div className="download-info__title">About Award Data</div>
+                    <h3 className="download-info__title">About Award Data</h3>
                     <div className="download-info__section">
-                        <div className="download-info__section-heading">What is award data?</div>
+                        <h4 className="download-info__section-heading">What is award data?</h4>
                         <p>
                             Award data contains all the details of our prime award and sub-award records.
                         </p>
                     </div>
                     <div className="download-info__section">
-                        <div className="download-info__section-heading">Why would I be interested in this data?</div>
+                        <h4 className="download-info__section-heading">Why would I be interested in this data?</h4>
                         <p>
                             Downloading this data gives you access to every attribute of any particular award, including
                             data that may not be surfaced on this site.
                         </p>
                     </div>
                     <div className="download-info__section">
-                        <div className="download-info__section-heading">How do I use this form?</div>
+                        <h4 className="download-info__section-heading">How do I use this form?</h4>
                         <p>
                             This form allows you to select specific awards by type, agency and sub-agency, and date range.
                             Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.

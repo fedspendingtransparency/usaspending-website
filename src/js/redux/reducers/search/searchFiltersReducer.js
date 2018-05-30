@@ -5,6 +5,7 @@
 
 import { Set, OrderedMap } from 'immutable';
 
+import * as KeywordFilterFunctions from './filters/keywordFilterFunctions';
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 import * as LocationFilterFunctions from './filters/locationFilterFunctions';
 import * as AgencyFilterFunctions from './filters/agencyFilterFunctions';
@@ -19,6 +20,7 @@ import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 export const filterStoreVersion = '2017-11-21';
 
 export const requiredTypes = {
+    keyword: OrderedMap,
     timePeriodFY: Set,
     selectedLocations: OrderedMap,
     selectedFundingAgencies: OrderedMap,
@@ -38,7 +40,7 @@ export const requiredTypes = {
 };
 
 export const initialState = {
-    keyword: '',
+    keyword: new OrderedMap(),
     timePeriodType: 'fy',
     timePeriodFY: new Set(),
     timePeriodStart: null,
@@ -67,7 +69,8 @@ const searchFiltersReducer = (state = initialState, action) => {
         // Free Text Search
         case 'UPDATE_TEXT_SEARCH': {
             return Object.assign({}, state, {
-                keyword: action.textInput
+                keyword: KeywordFilterFunctions.updateTextSearchInput(
+                    state.keyword, action.textInput)
             });
         }
 

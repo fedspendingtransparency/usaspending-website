@@ -61,7 +61,6 @@ export default class AwardDataArchiveContainer extends React.Component {
         this.updateFilter = this.updateFilter.bind(this);
         this.setAgencyList = this.setAgencyList.bind(this);
         this.requestResults = this.requestResults.bind(this);
-        this.updateFilter = this.updateFilter.bind(this);
     }
 
     componentDidMount() {
@@ -151,7 +150,12 @@ export default class AwardDataArchiveContainer extends React.Component {
             const formattedDate = date.format("MM/DD/YYYY");
 
             // Format the Fiscal Year
-            const formattedFY = `FY ${item.fiscal_year}`;
+            let formattedFY;
+            if (item.fiscal_year === null) {
+                formattedFY = 'N/A';
+            } else {
+                formattedFY = `FY ${item.fiscal_year}`;
+            }
 
             const file = {
                 agency: formattedAgency,

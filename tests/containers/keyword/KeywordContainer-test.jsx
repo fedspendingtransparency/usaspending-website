@@ -109,7 +109,7 @@ describe('KeywordContainer', () => {
 
             container.instance().startDownload();
 
-            expect(requestDownload).toHaveBeenCalledWith(expectedParams, "awards");
+            expect(requestDownload).toHaveBeenCalledWith(expectedParams);
         });
     });
 

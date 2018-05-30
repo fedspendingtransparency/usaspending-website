@@ -27,16 +27,14 @@ export default class AgencyLandingContent extends React.Component {
                         className="landing-page__title">
                         Find an Agency Profile.
                     </h2>
-                    <h3
-                        className="landing-page__subtitle">
-                        Understand the current spending of agencies in our agency profiles.
-                    </h3>
-                    <p>
-                        Featuring information on each agency&apos;s total obligations, along with obligation breakdowns by Object Class and Federal Accounts, our Agency Profiles help you understand how each agency spends its funding.
-                    </p>
+                    <div className="landing-page__description">
+                        Featuring information on each agency&rsquo;s total obligations, along with obligation breakdowns by Object Class and Federal Accounts, our Agency Profiles help you understand how each agency spends its funding.
+                    </div>
                 </div>
                 <AgencyLandingSearchBar
-                    setAgencySearchString={this.props.setAgencySearchString} />
+                    setSearchString={this.props.setAgencySearchString}
+                    placeholder="Start typing to find an agency..."
+                    button="Search Agencies" />
                 <div className="results-count">
                     {this.props.resultsText}
                 </div>

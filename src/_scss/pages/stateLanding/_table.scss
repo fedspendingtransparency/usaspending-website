@@ -1,0 +1,33 @@
+.state-list {
+    border: none;
+    .state-list__head-row {
+        border-bottom: solid 1px $color-gray-lighter;
+    }
+
+    .state-list__head-cell {
+        background-color: $color-white;
+        border: none;
+
+        @import "./_header";        
+        @import "./_sorter";
+    }
+
+    .state-list__body {
+        &.state-list__body_hide {
+            display: none;
+        }
+    }
+    .state-list__body-row {
+        &:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+    }
+    .state-list__body-cell {
+        border: none;
+        background-color: transparent;
+
+        &.state-list__body-cell_right {
+            text-align: right;
+        }
+    }
+}

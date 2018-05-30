@@ -11,7 +11,7 @@ import DownloadCheckbox from '../../DownloadCheckbox';
 const propTypes = {
     awardTypes: PropTypes.array,
     currentAwardTypes: PropTypes.object,
-    updateAwardCheckbox: PropTypes.func
+    updateCheckbox: PropTypes.func
 };
 
 export default class AwardTypeFilter extends React.Component {
@@ -22,10 +22,11 @@ export default class AwardTypeFilter extends React.Component {
     }
 
     onChange(name, value) {
-        this.props.updateAwardCheckbox({
+        this.props.updateCheckbox({
             filter: 'awardTypes',
             name,
-            value
+            value,
+            dataType: 'awards'
         });
     }
 
@@ -63,9 +64,9 @@ export default class AwardTypeFilter extends React.Component {
 
         return (
             <div className="download-filter">
-                <div className="download-filter__title">
+                <h3 className="download-filter__title">
                     {icon} Select the <span className="download-filter__title_em">award types</span> to include.
-                </div>
+                </h3>
                 <div className="download-filter__content">
                     {awardTypes}
                 </div>

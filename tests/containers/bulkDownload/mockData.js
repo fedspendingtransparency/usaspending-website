@@ -90,6 +90,17 @@ export const mockRedux = {
             columns: [],
             fileFormat: 'csv'
         },
+        accounts: {
+            accountLevel: 'treasuryAccount',
+            agency: {
+                id: '123',
+                name: 'Mock Agency'
+            },
+            submissionType: 'accountBalances',
+            fy: '1989',
+            quarter: '1',
+            fileFormat: 'csv'
+        },
         download: {
             expectedFile: '',
             expectedUrl: '',

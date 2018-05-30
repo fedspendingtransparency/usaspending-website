@@ -26,7 +26,9 @@ const propTypes = {
     availableLayers: PropTypes.array,
     changeMapLayer: PropTypes.func,
     showLayerToggle: PropTypes.bool,
-    children: PropTypes.node
+    children: PropTypes.node,
+    center: PropTypes.array,
+    stateProfile: PropTypes.bool
 };
 
 const defaultProps = {
@@ -97,7 +99,9 @@ export default class MapWrapper extends React.Component {
 
     componentDidMount() {
         this.displayData();
-        this.prepareBroadcastReceivers();
+        if (!this.props.stateProfile) {
+            this.prepareBroadcastReceivers();
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -116,7 +120,9 @@ export default class MapWrapper extends React.Component {
 
     componentWillUnmount() {
         // remove any broadcast listeners
-        this.removeChangeListeners();
+        if (!this.props.stateProfile) {
+            this.removeChangeListeners();
+        }
         this.broadcastReceivers.forEach((listenerRef) => {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
@@ -144,7 +150,9 @@ export default class MapWrapper extends React.Component {
                 // we depend on the state shapes to process the state fills, so the operation
                 // queue must wait for the state shapes to load first
                 this.runMapOperationQueue();
-                this.prepareChangeListeners();
+                if (!this.props.stateProfile) {
+                    this.prepareChangeListeners();
+                }
 
                 // notify any listeners that the map is ready
                 MapBroadcaster.emit('mapReady');
@@ -430,11 +438,18 @@ export default class MapWrapper extends React.Component {
 
     render() {
         let tooltip = null;
+        let description = 'Total Obligations';
+        if (this.props.stateProfile) {
+            description = 'Awarded Amount';
+        }
 
         if (this.props.showHover) {
             const TooltipComponent = this.props.tooltip;
-            tooltip = (<TooltipComponent
-                {...this.props.selectedItem} />);
+            tooltip = (
+                <TooltipComponent
+                    description={description}
+                    {...this.props.selectedItem} />
+            );
         }
 
         let toggle = null;
@@ -446,6 +461,15 @@ export default class MapWrapper extends React.Component {
                 changeMapLayer={this.props.changeMapLayer} />);
         }
 
+        let legend = null;
+        if (!this.props.stateProfile) {
+            legend = (
+                <MapLegend
+                    segments={this.state.spendingScale.segments}
+                    units={this.state.spendingScale.units} />
+            );
+        }
+
         return (
             <div
                 className="map-container"
@@ -455,14 +479,12 @@ export default class MapWrapper extends React.Component {
                 <MapBox
                     loadedMap={this.mapReady}
                     unloadedMap={this.mapRemoved}
+                    center={this.props.center}
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
                 {toggle}
-                <MapLegend
-                    segments={this.state.spendingScale.segments}
-                    units={this.state.spendingScale.units} />
-
+                {legend}
                 {tooltip}
                 {this.props.children}
             </div>

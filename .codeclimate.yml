@@ -6,6 +6,7 @@ ratings:
   paths:
   - "src/js/**/**.js"
   - "src/js/**/**.jsx"
+  enabled: false
 exclude_paths:
 - node_modules/
 - tests/

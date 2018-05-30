@@ -1,0 +1,25 @@
+.state-content-wrapper {
+    @include display(flex);
+    @include align-items(flex-start);
+    width: 100%;
+
+    .state-sidebar {
+        display: none;
+        margin-top: 0;
+        // Evenly distribute the 30px space between the sidebar & content
+        margin-right: rem(15);
+        @include media($medium-screen) {
+            display: block;
+            @include flex(0 0 25%);
+        }
+    }
+
+    .state-content {
+        width: 100%;
+        @include media($medium-screen) {
+            @include flex(1 1 75%);
+            // Evenly distribute the 30px space between the sidebar & content
+            margin-left: rem(15);
+        }
+    }
+}

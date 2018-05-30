@@ -8,7 +8,7 @@ import { Set, OrderedMap } from 'immutable';
 import * as FiscalYearHelper from '../../src/js/helpers/fiscalYearHelper';
 
 export const defaultFilters = {
-    keyword: '',
+    keyword: new OrderedMap(),
     awardType: new Set(),
     timePeriodType: 'fy',
     timePeriodFY: new Set([`${FiscalYearHelper.currentFiscalYear()}`]),

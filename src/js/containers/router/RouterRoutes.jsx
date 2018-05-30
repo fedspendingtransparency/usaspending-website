@@ -192,6 +192,24 @@ const routes = {
                     cb(require('components/accountLanding/AccountLandingPage').default);
                 });
             }
+        },
+        {
+            path: '/state',
+            parent: '/state',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/stateLanding/StateLandingPage').default);
+                });
+            }
+        },
+        {
+            path: '/state/:stateId',
+            parent: '/state',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/state/StateContainer').default);
+                });
+            }
         }
     ],
     notFound: {
