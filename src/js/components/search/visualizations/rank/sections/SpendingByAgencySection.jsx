@@ -12,7 +12,7 @@ import RankVisualizationScopeButton from '../RankVisualizationScopeButton';
 import RankVisualizationSection from './RankVisualizationSection';
 
 const propTypes = {
-    agencyScope: PropTypes.string,
+    scope: PropTypes.string,
     changeScope: PropTypes.func,
     agencyType: PropTypes.string,
     hideSuboptionBar: PropTypes.string
@@ -43,21 +43,21 @@ export default class SpendingByAgencySection extends React.Component {
                                     <RankVisualizationScopeButton
                                         value={agencyValue}
                                         label="Agencies"
-                                        active={this.props.agencyScope === agencyValue}
+                                        active={this.props.scope === agencyValue}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li>
                                     <RankVisualizationScopeButton
                                         value={subAgencyValue}
                                         label="Sub-Agencies"
-                                        active={this.props.agencyScope === subAgencyValue}
+                                        active={this.props.scope === subAgencyValue}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li className="coming-soon">
                                     <RankVisualizationScopeButton
                                         value="office"
                                         label="Offices"
-                                        active={this.props.agencyScope === 'office'}
+                                        active={this.props.scope === 'office'}
                                         changeScope={this.props.changeScope}
                                         disabled />
                                     <ComingSoonLabel />
