@@ -35,7 +35,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
             dataSeries: [],
             descriptions: [],
             page: 1,
-            agencyScope: 'agency',
+            agencyScope: 'awarding_agency',
             next: '',
             previous: '',
             hasNextPage: false,
@@ -122,8 +122,7 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
 
         // generate the API parameters
         const apiParams = {
-            category: 'awarding_agency',
-            scope: this.state.agencyScope,
+            category: this.state.agencyScope,
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -151,17 +150,17 @@ export class SpendingByAwardingAgencyVisualizationContainer extends React.Compon
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            let aggregate = parseFloat(item.aggregated_amount);
+            let aggregate = parseFloat(item.amount);
             if (isNaN(aggregate)) {
                 // the aggregate value is invalid (most likely null)
                 aggregate = 0;
             }
 
-            const agencyName = item.agency_name;
+            const agencyName = item.name;
             let agencyAbbreviation = '';
 
-            if (item.agency_abbreviation !== null && item.agency_abbreviation !== '') {
-                agencyAbbreviation = ` (${item.agency_abbreviation})`;
+            if (item.code) {
+                agencyAbbreviation = ` (${item.code})`;
             }
 
             const label = `${agencyName}${agencyAbbreviation}`;

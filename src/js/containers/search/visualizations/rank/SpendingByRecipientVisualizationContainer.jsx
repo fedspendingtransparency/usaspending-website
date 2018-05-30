@@ -37,7 +37,7 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
             descriptions: [],
             linkSeries: [],
             page: 1,
-            scope: 'duns',
+            scope: 'recipient_duns',
             next: '',
             previous: '',
             hasNextPage: false,
@@ -124,8 +124,7 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
 
         // Generate the API parameters
         const apiParams = {
-            category: 'recipient',
-            scope: this.state.scope,
+            category: this.state.scope,
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -154,13 +153,13 @@ export class SpendingByRecipientVisualizationContainer extends React.Component {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            let aggregate = parseFloat(item.aggregated_amount);
+            let aggregate = parseFloat(item.amount);
             if (isNaN(aggregate)) {
                 // the aggregate value is invalid (most likely null)
                 aggregate = 0;
             }
 
-            const recipientName = item.recipient_name;
+            const recipientName = item.name;
 
             labelSeries.push(`${recipientName}`);
             dataSeries.push(aggregate);

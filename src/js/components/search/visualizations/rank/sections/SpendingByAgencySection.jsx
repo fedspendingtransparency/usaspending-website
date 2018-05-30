@@ -24,6 +24,8 @@ const defaultProps = {
 
 export default class SpendingByAgencySection extends React.Component {
     render() {
+        const agencyValue = `${this.props.agencyType}_agency`;
+        const subAgencyValue = `${this.props.agencyType}_subagency`;
         return (
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
@@ -39,16 +41,16 @@ export default class SpendingByAgencySection extends React.Component {
                             <ul>
                                 <li>
                                     <RankVisualizationScopeButton
-                                        value="agency"
+                                        value={agencyValue}
                                         label="Agencies"
-                                        active={this.props.agencyScope === 'agency'}
+                                        active={this.props.agencyScope === agencyValue}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li>
                                     <RankVisualizationScopeButton
-                                        value="subagency"
+                                        value={subAgencyValue}
                                         label="Sub-Agencies"
-                                        active={this.props.agencyScope === 'subagency'}
+                                        active={this.props.agencyScope === subAgencyValue}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li className="coming-soon">

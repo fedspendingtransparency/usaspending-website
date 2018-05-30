@@ -110,7 +110,7 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
 
         // generate the API parameters
         const apiParams = {
-            category: 'cfda_programs',
+            category: 'cfda',
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -138,14 +138,14 @@ export class SpendingByCFDAVisualizationContainer extends React.Component {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            let aggregate = parseFloat(item.aggregated_amount);
+            let aggregate = parseFloat(item.amount);
             if (isNaN(aggregate)) {
                 // the aggregate value is invalid (most likely null)
                 aggregate = 0;
             }
 
-            const programNumber = item.cfda_program_number;
-            const programTitle = item.program_title;
+            const programNumber = item.code;
+            const programTitle = item.name;
 
             const label = `${programNumber}: ${programTitle}`;
 

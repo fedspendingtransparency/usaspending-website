@@ -131,8 +131,7 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
 
         // Generate the API parameters
         const apiParams = {
-            category: 'industry_codes',
-            scope: this.state.scope,
+            category: this.state.scope,
             filters: searchParams,
             limit: 5,
             page: this.state.page
@@ -161,7 +160,7 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            let aggregate = parseFloat(item.aggregated_amount);
+            let aggregate = parseFloat(item.amount);
             if (isNaN(aggregate)) {
                 // the aggregate value is invalid (most likely null)
                 aggregate = 0;
@@ -169,10 +168,10 @@ export class SpendingByIndustryCodeVisualizationContainer extends React.Componen
 
             let label = '';
             if (this.state.scope === 'psc') {
-                label = item.psc_code;
+                label = item.code;
             }
             else {
-                label = `${item.naics_code}: ${item.naics_description}`;
+                label = `${item.code}: ${item.name}`;
             }
 
             labelSeries.push(`${label}`);
