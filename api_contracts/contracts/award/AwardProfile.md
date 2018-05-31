@@ -37,11 +37,11 @@ These endpoints support the tables on the individual Award Profile pages.
     The internal sub-award id.
 + subaward_number: 2-A (required, string)
     The sub-award id.
-+ description: description (optional, string)
-+ action_date: 1999-01-15 (optional, string)
++ description: description (required, string)
++ action_date: 1999-01-15 (required, string) Action date in the format `YYYY-MM-DD`.
 + amount: 1234.56 (required, number)
     Monetary value of the sub-award.
-+ recipient_name: Recipient A (optional, string)
++ recipient_name: Recipient A (required, string)
 
 ## SortObject (object)
 + field subaward_number (required, string)
