@@ -61,6 +61,8 @@ export default class TreemapCell extends React.Component {
         if (this.props.data.id) {
             this.exitedCell();
             this.props.selectedCell(this.props.data.id, this.props.data);
+        } else {
+            // handle unreported data
         }
     }
 

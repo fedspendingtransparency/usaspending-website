@@ -125,6 +125,13 @@ export default class ExplorerTreemap extends React.Component {
         const usableWidth = width - 40;
         const title = this.truncateText(data.data.name, 'title', usableWidth);
         const subtitle = this.truncateText(percentString, 'subtitle', usableWidth);
+        let color = scale(amount);
+
+        if (data.data.id === null) {
+            // use the gray color for unreported data, instead of the usual calculated
+            // color
+            color = 'rgb(103,103,103)';
+        }
 
         const cell = {
             width,
@@ -135,7 +142,7 @@ export default class ExplorerTreemap extends React.Component {
                 percent,
                 percentString
             }),
-            color: scale(amount),
+            color,
             title: {
                 text: title,
                 x: (width / 2),
