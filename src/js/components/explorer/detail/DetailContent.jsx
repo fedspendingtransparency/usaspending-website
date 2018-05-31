@@ -12,6 +12,7 @@ import DetailHeader from './header/DetailHeader';
 import ExplorerVisualization from './visualization/ExplorerVisualization';
 import FakeScreens from './FakeScreens';
 import NoAwardsScreen from './NoAwardsScreen';
+import UnreportedErrorScreen from './UnreportedErrorScreen';
 
 const propTypes = {
     isRoot: PropTypes.bool,
@@ -209,10 +210,19 @@ export default class DetailContent extends React.Component {
                 showTooltip={this.props.showTooltip}
                 hideTooltip={this.props.hideTooltip} />
         );
+        
         if (this.props.total === 0 || this.props.total === null) {
             const currentIndex = this.props.trail.length - 1;
             visualizationSection = (
                 <NoAwardsScreen
+                    rewindToFilter={this.props.rewindToFilter}
+                    currentIndex={currentIndex} />);
+        }
+        this.props.data.get(0).id = null;
+        if (this.props.data.get(0).id === null) {
+            const currentIndex = this.props.trail.length - 1;
+            visualizationSection = (
+                <UnreportedErrorScreen
                     rewindToFilter={this.props.rewindToFilter}
                     currentIndex={currentIndex} />);
         }

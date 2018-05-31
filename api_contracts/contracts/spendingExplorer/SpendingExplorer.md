@@ -112,7 +112,7 @@ Using the response from the general Spending Explorer, you can drill down to mor
 + name: Law Enforcement Operations (required, string)
 + amount: 1116815570.99 (required, number)
 
-### SpendingExplorerGeneralUnreportedResponse (object)
+## SpendingExplorerGeneralUnreportedResponse (object)
 + code: null (required, string)
 + id: null (required, number)
 + type: agency (required, string)

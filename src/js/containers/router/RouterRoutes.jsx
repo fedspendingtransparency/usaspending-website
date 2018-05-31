@@ -48,6 +48,15 @@ const routes = {
             }
         },
         {
+            path: '/explorer/unreported_data',
+            parent: '/explorer',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/explorer/detail/UnreportedErrorScreen').default);
+                });
+            }
+        },
+        {
             path: '/explorer/:root',
             parent: '/explorer',
             component: (cb) => {

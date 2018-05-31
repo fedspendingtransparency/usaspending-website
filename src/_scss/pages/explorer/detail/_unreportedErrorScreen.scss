@@ -1,0 +1,27 @@
+.explorer-unreported {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: rem(50) 0 rem(15) 0;
+
+    .explorer-unreported__box {
+        padding: rem(20) rem(50) rem(20) rem(50);
+        height: auto;
+        border: 1px solid #FFB800;
+        background-color: #FFFCF6;
+    }
+
+    .explorer-unreported__header {
+        font-size: rem(25);
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .explorer-unreported__info {
+        font-weight: 600;
+    }
+
+    .explorer-unreported__list {
+        padding-left: rem(20);
+    }
+}

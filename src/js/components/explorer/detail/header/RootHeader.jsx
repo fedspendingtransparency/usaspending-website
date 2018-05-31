@@ -21,18 +21,29 @@ const propTypes = {
 
 const RootHeader = (props) => {
     const type = sidebarTypes[props.root];
+    let header = (
+        <div className="detail-header__labels">
+            <h2 className="detail-header__title">
+            You are viewing FY {props.fy} spending
+            by <span className="detail-header__title detail-header__title_capitalize">{type}</span>
+            </h2>
+            <div className="detail-header__instructions">
+        Choose {generateSingular(type, false)} {type.toLowerCase()} below to start
+        your exploration.
+            </div>
+        </div>);
+    if (props.total === null) {
+        header = (
+            <div className="detail-header__labels">
+                You&rsquo;ve chosen
+                <h2 className="detail-header__title">Unreported Data</h2>
+                An {type}
+            </div>
+        );
+    }
     return (
         <div className="detail-header">
-            <div className="detail-header__labels">
-                <h2 className="detail-header__title">
-                    You are viewing FY {props.fy} spending
-                    by <span className="detail-header__title detail-header__title_capitalize">{type}</span>
-                </h2>
-                <div className="detail-header__instructions">
-                    Choose {generateSingular(type, false)} {type.toLowerCase()} below to start
-                    your exploration.
-                </div>
-            </div>
+            {header}
             <div className="detail-header__amounts">
                 <div className="detail-header__fy">
                     FY {props.fy} obligated amount
