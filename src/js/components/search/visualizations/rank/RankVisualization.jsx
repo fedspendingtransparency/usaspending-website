@@ -16,7 +16,7 @@ const defaultProps = {
     linkSeries: [],
     descriptions: [],
     width: 0,
-    height: 330,
+    height: 630, // 60px * 10 rows + 30px padding
     loading: true,
     disableTooltip: false,
     urlRoot: ''

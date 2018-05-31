@@ -92,31 +92,31 @@ export default class RankVisualizationSection extends React.Component {
                 <div className={`visualization-pager-container ${hidePager}`}>
                     <button
                         className="visualization-pager"
-                        title="Show previous five"
-                        aria-label="Show previous five"
+                        title="Show previous ten"
+                        aria-label="Show previous ten"
                         disabled={disablePrev}
                         onClick={this.clickPrevious}>
                         <div className="pager-content">
                             <div className="icon">
-                                <Icons.AngleLeft alt="Show previous five" />
+                                <Icons.AngleLeft alt="Show previous ten" />
                             </div>
                             <div className="pager-label">
-                                Show previous five
+                                Show previous ten
                             </div>
                         </div>
                     </button>
                     <button
                         className="visualization-pager"
-                        title="Show next five"
-                        aria-label="Show next five"
+                        title="Show next ten"
+                        aria-label="Show next ten"
                         disabled={disableNext}
                         onClick={this.clickNext}>
                         <div className="pager-content">
                             <div className="pager-label next">
-                                Show next five
+                                Show next ten
                             </div>
                             <div className="icon">
-                                <Icons.AngleRight alt="Show next five" />
+                                <Icons.AngleRight alt="Show next ten" />
                             </div>
                         </div>
                     </button>

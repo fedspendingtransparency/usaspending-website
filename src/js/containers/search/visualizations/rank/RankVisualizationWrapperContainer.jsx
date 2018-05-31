@@ -131,7 +131,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
         const apiParams = {
             category: this.state.scope,
             filters: searchParams,
-            limit: 5,
+            limit: 10,
             page: this.state.page,
             auditTrail
         };
