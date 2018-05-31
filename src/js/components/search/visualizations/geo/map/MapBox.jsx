@@ -6,14 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
-import { throttle } from 'lodash';
+import { throttle, isEqual } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import kGlobalConstants from 'GlobalConstants';
 
 const propTypes = {
     loadedMap: PropTypes.func,
-    unloadedMap: PropTypes.func
+    unloadedMap: PropTypes.func,
+    center: PropTypes.array
 };
 
 // Define map movement increment
@@ -53,12 +54,21 @@ export default class MapBox extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        // this component should never re-render unless it is unmounted first, or if we should
-        // show/hide the navigation buttons
+        // this component should only re-render when it is unmounted first, if we should
+        // show/hide the navigation buttons, or the center changed
         if (nextState.showNavigationButtons !== this.state.showNavigationButtons) {
             return true;
         }
+        if (nextProps.center !== this.props.center) {
+            return true;
+        }
         return false;
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!isEqual(this.props.center, prevProps.center)) {
+            this.handleCenterChanged();
+        }
     }
 
     componentWillUnmount() {
@@ -100,7 +110,7 @@ export default class MapBox extends React.Component {
     centerMap(map) {
         map.jumpTo({
             zoom: 2.25,
-            center: [-95.569430, 38.852892]
+            center: this.props.center
         });
     }
 
@@ -127,7 +137,7 @@ export default class MapBox extends React.Component {
             style: mapStyle,
             logoPosition: 'bottom-right',
             attributionControl: false,
-            center: [-98.5795122, 39.2282172],
+            center: this.props.center,
             zoom: 3.2,
             dragRotate: false // disable 3D view
         });
@@ -182,6 +192,15 @@ export default class MapBox extends React.Component {
                     this.mountMap();
                 }
             });
+        }
+    }
+
+    handleCenterChanged() {
+        if (this.map) {
+            this.centerMap(this.map);
+        }
+        else {
+            this.mountMap();
         }
     }
 

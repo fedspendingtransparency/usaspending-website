@@ -47,6 +47,20 @@ describe('stateReducer', () => {
            expect(state.fy).toEqual('all');
         });
     });
+    describe('SET_STATE_CENTER', () => {
+        it('should set the center coordinates to the provided value', () => {
+            let state = stateReducer(undefined, {});
+
+            const action = {
+                type: 'SET_STATE_CENTER',
+                center: [1.23, -4.56]
+            };
+
+            state = stateReducer(state, action);
+
+            expect(state.center).toEqual([1.23, -4.56]);
+        });
+    });
     describe('RESET_STATE', () => {
         it('should reset the state profile to its initial state', () => {
             let state = stateReducer(undefined, {

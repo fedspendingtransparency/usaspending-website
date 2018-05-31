@@ -1,0 +1,12 @@
+.awards-over-time {
+    @import "pages/search/results/visualizations/time/chart/barChart";
+    @import "./_period";
+
+    .visualization-tooltip {
+        @import "components/visualizations/tooltip/_tooltip";
+    }
+
+    .state-visualization__time-wrapper {
+        min-height: rem(304);
+    }
+}

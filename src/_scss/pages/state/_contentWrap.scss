@@ -20,6 +20,7 @@
             font-size: $lead-font-size;
             font-weight: 300;
             line-height: rem(25);
+            padding-bottom: rem(35);
         }
 
         hr.results-divider {
@@ -28,16 +29,28 @@
         }
 
         .state-section__row {
-            @include span-columns(16);
+            width: 100%;
+            @include media($tablet-screen) {
+                @include display(flex);
+            }
             padding-bottom: rem(45);
             .state-section__viz {
-                @include span-columns(16);
+                width: 100%;
                 @include media($tablet-screen) {
-                    @include span-columns(8);
+                    @include flex(1 1 50%);
+                }
+                // Add 20px space between visualizations
+                &:first-child {
+                    margin-right: rem(10);
+                }
+                &:last-child {
+                    margin-left: rem(10);
                 }
             }
         }
     }
 
     @import "./overview/overview";
+    @import "./topFive/topFive";
+    @import "./spendingovertime/stateTimeVisualization";
 }

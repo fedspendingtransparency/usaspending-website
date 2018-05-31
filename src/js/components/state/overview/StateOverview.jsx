@@ -7,6 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+
+import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
+import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
 import DetailsTooltip from './DetailsTooltip';
 
 const propTypes = {
@@ -97,7 +100,7 @@ export default class StateOverview extends React.PureComponent {
                     <div className={`state-overview__flag ${this.state.hideFlag}`}>
                         {this.state.flag}
                     </div>
-                    <h3 className="state-overview__title">{this.props.stateProfile.name}</h3>
+                    <h2 className="state-overview__title">{this.props.stateProfile.name}</h2>
                 </div>
                 <hr className="results-divider" />
                 <div className="state-overview__content">
@@ -106,9 +109,9 @@ export default class StateOverview extends React.PureComponent {
                     </div>
                     <div className="state-section__row">
                         <div className="state-section__viz totals">
-                            <h4 className="state-overview__heading">
+                            <h3 className="state-overview__heading">
                                 Total Awarded Amount
-                            </h4>
+                            </h3>
                             <div className="totals__amount">
                                 {this.props.stateProfile.totalAmount}
                             </div>
@@ -117,7 +120,7 @@ export default class StateOverview extends React.PureComponent {
                             </div>
                         </div>
                         <div className="state-section__viz details">
-                            <h4 className="state-overview__heading">
+                            <h3 className="state-overview__heading">
                                 Details
                                 <span className="details__info_icon_holder">
                                     <button
@@ -129,7 +132,7 @@ export default class StateOverview extends React.PureComponent {
                                         <InfoCircle />
                                     </button>
                                 </span>
-                            </h4>
+                            </h3>
                             {tooltip}
                             <table className="details__table">
                                 <tbody>
@@ -151,14 +154,16 @@ export default class StateOverview extends React.PureComponent {
                     </div>
                     <div className="state-section__row">
                         <div className="state-section__viz award-breakdown">
-                            <h4 className="state-overview__heading">
+                            <h3 className="state-overview__heading">
                                 Award Breakdown
-                            </h4>
+                            </h3>
+                            <AwardBreakdownContainer />
                         </div>
-                        <div className="state-section__viz place-of-performance">
-                            <h4 className="state-overview__heading">
+                        <div className="state-section__viz geo">
+                            <h3 className="state-overview__heading">
                                 Primary Place of Performance
-                            </h4>
+                            </h3>
+                            <GeoVisualizationSectionContainer />
                         </div>
                     </div>
                 </div>

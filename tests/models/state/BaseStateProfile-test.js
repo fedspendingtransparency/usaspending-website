@@ -4,7 +4,7 @@
  */
 
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
-import {mockStateApi} from './mockStateApi';
+import { mockStateApi } from './mockStateApi';
 
 const state = Object.create(BaseStateProfile);
 state.populate(mockStateApi);

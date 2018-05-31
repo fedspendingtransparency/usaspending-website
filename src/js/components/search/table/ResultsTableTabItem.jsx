@@ -14,7 +14,8 @@ const propTypes = {
     count: PropTypes.number,
     active: PropTypes.bool,
     enabled: PropTypes.bool,
-    switchTab: PropTypes.func
+    switchTab: PropTypes.func,
+    hideCounts: PropTypes.bool
 };
 
 export default class ResultsTableTabItem extends React.Component {
@@ -46,6 +47,15 @@ export default class ResultsTableTabItem extends React.Component {
             resultString = 'result';
         }
 
+        let count = null;
+        if (!this.props.hideCounts) {
+            count = (
+                <div className={`count-badge ${activeClass}`}>
+                    {formatNumber(this.props.count)}
+                </div>
+            );
+        }
+
         return (
             <button
                 className={`table-type-toggle${activeClass}`}
@@ -59,9 +69,7 @@ export default class ResultsTableTabItem extends React.Component {
                     <div className="tab-label">
                         {this.props.label}
                     </div>
-                    <div className={`count-badge ${activeClass}`}>
-                        {formatNumber(this.props.count)}
-                    </div>
+                    {count}
                 </div>
             </button>
         );
