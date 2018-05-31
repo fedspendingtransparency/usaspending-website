@@ -17,12 +17,13 @@ These endpoints support the tables on the individual Award Profile pages.
 + Request (application/json)
     + Attributes (object)
         + award_id: 123 (optional, string)
-            The internal id of the award to filter on
+            The internal id of the award to filter on. If not included, all sub-awards are returned.
         + limit: 15 (optional, number)
-            The number of results to include per page
+            The number of results to include per page. Defaults to 10.
         + page: 1 (optional, number)
-            The page of results to return based on the limit
-        + sort (required, SortObject)
+            The page of results to return based on the limit. Defaults to 1.
+        + sort (optional, SortObject)
+            Describes how the results are sorted. Defaults to descending by sub-award id (`subaward_number`).
         
 + Response 200 (application/json)
     + Attributes
@@ -33,20 +34,20 @@ These endpoints support the tables on the individual Award Profile pages.
 
 ## SubAwardResult (object)
 + id: `1` (required, string)
-    The internal sub-award id
+    The internal sub-award id.
 + subaward_number: 2-A (required, string)
-    The sub-award id
+    The sub-award id.
 + description: description (optional, string)
 + action_date: 1999-01-15 (optional, string)
 + amount: 1234.56 (required, number)
-    Monetary value of the sub-award
+    Monetary value of the sub-award.
 + recipient_name: Recipient A (optional, string)
 
 ## SortObject (object)
 + field subaward_number (required, string)
-    One of `subaward_number`, `description`, `action_date`, `amount`, `recipient_name`
+    One of `subaward_number`, `description`, `action_date`, `amount`, `recipient_name`.
 + direction desc (required, string)
-    `asc` for ascending order or `desc` for descending order
+    `asc` for ascending order or `desc` for descending order.
 
 ## PageMetaDataObject (object)
 + page: 1 (required, number)
