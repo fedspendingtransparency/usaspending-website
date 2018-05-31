@@ -14,7 +14,6 @@ import RankVisualizationSection from './RankVisualizationSection';
 const propTypes = {
     scope: PropTypes.string,
     changeScope: PropTypes.func,
-    agencyType: PropTypes.string,
     hideSuboptionBar: PropTypes.string
 };
 
@@ -24,14 +23,12 @@ const defaultProps = {
 
 export default class SpendingByAgencySection extends React.Component {
     render() {
-        const agencyValue = `${this.props.agencyType}_agency`;
-        const subAgencyValue = `${this.props.agencyType}_subagency`;
         return (
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            View a list of the top {this.props.agencyType} agencies from highest to
+                            View a list of the top awarding agencies from highest to
                             lowest. Filter your results more (at left) and watch this graph
                             update automatically. View your results in a bar graph or a tree map.
                         </div>
@@ -41,16 +38,16 @@ export default class SpendingByAgencySection extends React.Component {
                             <ul>
                                 <li>
                                     <RankVisualizationScopeButton
-                                        value={agencyValue}
+                                        value="awarding_agency"
                                         label="Agencies"
-                                        active={this.props.scope === agencyValue}
+                                        active={this.props.scope === 'awarding_agency'}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li>
                                     <RankVisualizationScopeButton
-                                        value={subAgencyValue}
+                                        value="awarding_subagency"
                                         label="Sub-Agencies"
-                                        active={this.props.scope === subAgencyValue}
+                                        active={this.props.scope === 'awarding_subagency'}
                                         changeScope={this.props.changeScope} />
                                 </li>
                                 <li className="coming-soon">

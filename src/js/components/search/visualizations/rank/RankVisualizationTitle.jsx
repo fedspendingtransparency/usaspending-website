@@ -18,7 +18,6 @@ const propTypes = {
 const defaultProps = {
     fieldTypes: [
         'awardingAgency',
-        'fundingAgency',
         'recipient',
         'cfda',
         'industryCode'

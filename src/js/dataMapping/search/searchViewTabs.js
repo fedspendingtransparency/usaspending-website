@@ -21,7 +21,7 @@ export const tabOptions = [
     },
     {
         code: 'rank',
-        label: 'Rank',
+        label: 'Categories',
         icon: 'Bar'
     }
 ];

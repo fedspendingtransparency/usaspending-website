@@ -8,7 +8,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 export const defaultNameTemplate = (code, name) => {
     if (code) {
-        return `${name} (${code})`;
+        return `${code} - ${name}`;
     }
     return name;
 };
@@ -16,7 +16,7 @@ export const defaultNameTemplate = (code, name) => {
 const BaseSpendingByCategoryResult = {
     populate(data) {
         this.id = data.id;
-        this._name = data.name || '';
+        this._name = data.name || '--';
         this._code = data.code || '';
         this._amount = data.amount || 0;
 

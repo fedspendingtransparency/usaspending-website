@@ -157,14 +157,13 @@ export class RankVisualizationWrapperContainer extends React.Component {
             const result = Object.create(BaseSpendingByCategoryResult);
             result.populate(item);
 
-            if (this.state.scope === 'cfda' || this.state.scope === 'naics') {
-                result.nameTemplate = (code, name) => `${code}: ${name}`;
-            }
-            else if (this.state.scope === 'psc') {
-                result.nameTemplate = (code) => code;
-            }
-            else if (this.state.scope === 'recipient_duns') {
-                result.nameTemplate = (code, name) => name;
+            if (this.state.scope === 'awarding_agency' || this.state.scope === 'awarding_subagency' || this.state.scope === 'recipient_duns') {
+                result.nameTemplate = (code, name) => {
+                    if (code) {
+                        return `${name} (${code})`;
+                    }
+                    return name;
+                };
             }
 
             labelSeries.push(result.name);
@@ -194,17 +193,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         {...this.state}
                         changeScope={this.changeScope}
                         nextPage={this.nextPage}
-                        previousPage={this.previousPage}
-                        agencyType="awarding" />
-                );
-            case 'fundingAgency':
-                return (
-                    <SpendingByAgencySection
-                        {...this.state}
-                        changeScope={this.changeScope}
-                        nextPage={this.nextPage}
-                        previousPage={this.previousPage}
-                        agencyType="funding" />
+                        previousPage={this.previousPage} />
                 );
             case 'recipient':
                 return (
