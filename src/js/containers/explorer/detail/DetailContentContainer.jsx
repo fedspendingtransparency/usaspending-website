@@ -21,6 +21,7 @@ import * as ExplorerHelper from 'helpers/explorerHelper';
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
 
+
 const propTypes = {
     explorer: PropTypes.object,
     setExplorerActive: PropTypes.func,
@@ -137,6 +138,13 @@ export class DetailContentContainer extends React.Component {
 
     parseRootData(data) {
         const total = data.total;
+        data.results.push({
+            code: null,
+            id: null,
+            type: "agency",
+            name: "Unreported Data*",
+            amount: 11115000000.90
+        });
 
         // build the active screen root object
         const activeScreen = {
@@ -237,7 +245,7 @@ export class DetailContentContainer extends React.Component {
             within: request.within,
             subdivision: request.subdivision
         };
-
+        console.log(request.subdivision);
         if (this.state.transitionSteps !== 0) {
             // there is going to be a transition, so trigger the exit animation
             // then, 250ms later (after the exit animation completes), apply the props and state
@@ -468,10 +476,11 @@ export class DetailContentContainer extends React.Component {
                     transitionSteps={this.state.transitionSteps}
                     transition={this.state.transition}
                     goDeeper={this.goDeeper}
+                    setExplorerActive={this.props.setExplorerActive}
                     changeSubdivisionType={this.changeSubdivisionType}
                     showTooltip={this.props.showTooltip}
                     hideTooltip={this.props.hideTooltip}
-                    rewindToFilter={this.rewindToFilter} />
+                    rewindToFilter={this.rewindToFilter} />);
             </div>
         );
     }

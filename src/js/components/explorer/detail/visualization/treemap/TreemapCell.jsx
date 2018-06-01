@@ -19,7 +19,8 @@ const propTypes = {
     data: PropTypes.object,
     selectedCell: PropTypes.func,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    setExplorerActive: PropTypes.func
 };
 
 const highlightColor = '#fdb81e';
@@ -62,7 +63,8 @@ export default class TreemapCell extends React.Component {
             this.exitedCell();
             this.props.selectedCell(this.props.data.id, this.props.data);
         } else {
-            // handle unreported data
+            this.exitedCell();
+            this.props.setExplorerActive(this.props.data.total);
         }
     }
 

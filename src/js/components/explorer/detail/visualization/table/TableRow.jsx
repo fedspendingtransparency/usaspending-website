@@ -12,7 +12,8 @@ const propTypes = {
     columns: PropTypes.array.isRequired,
     item: PropTypes.object,
     rowIndex: PropTypes.number.isRequired,
-    selectedRow: PropTypes.func
+    selectedRow: PropTypes.func,
+    unreportedRow: PropTypes.func
 };
 
 export default class TableRow extends React.PureComponent {
@@ -22,7 +23,7 @@ export default class TableRow extends React.PureComponent {
             rowClass = 'row-odd';
         }
         const cells = this.props.columns.map((column) => {
-            if (column.columnName === 'name' && this.props.item.id) {
+            if (column.columnName === 'name' && (this.props.item.id || this.props.item.id === null)) {
                 // show the link cell
                 return (
                     <td
@@ -34,7 +35,8 @@ export default class TableRow extends React.PureComponent {
                             data={this.props.item}
                             id={`${this.props.item.id}`}
                             column={column.columnName}
-                            selectedRow={this.props.selectedRow} />
+                            selectedRow={this.props.selectedRow} 
+                            unreportedRow={this.props.unreportedRow} />
                     </td>
                 );
             }

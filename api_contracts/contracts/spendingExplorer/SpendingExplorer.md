@@ -102,7 +102,7 @@ Using the response from the general Spending Explorer, you can drill down to mor
 + type: agency (required, string)
     The `type` will always be equal to the `type` parameter you provided in the request.
 + name: Department of State (required, string)
-+ amount: 126073789264.49 (required, number)
++ amount: 126073789.49 (required, number)
 
 ### SpendingExplorerDetailedResponse (object)
 + code: `0006` (required, string)

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 
 const propTypes = {
@@ -17,7 +18,12 @@ export default class UnreportedErrorScreen extends React.Component {
         return (
             <div className="explorer-unreported">
                 <div className="explorer-unreported__box">
-                    <h3 className="explorer-unreported__header">Data has not been reported at this time.</h3>
+                    <div className="explorer-unreported__top">
+                        <div className="explorer-unreported__icon">
+                            <InfoCircle alt="Information" />
+                        </div>
+                        <h3 className="explorer-unreported__header">Data has not been reported at this time.</h3>
+                    </div>
                     <span className="explorer-unreported__info">This can happen when:</span>
                     <ul className="explorer-unreported__list">
                         <li>An agency reports incomplete data</li>

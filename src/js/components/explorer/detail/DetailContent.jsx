@@ -31,7 +31,8 @@ const propTypes = {
     changeSubdivisionType: PropTypes.func,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    rewindToFilter: PropTypes.func
+    rewindToFilter: PropTypes.func,
+    setExplorerActive: PropTypes.func
 };
 
 export default class DetailContent extends React.Component {
@@ -208,7 +209,8 @@ export default class DetailContent extends React.Component {
                 goDeeper={this.props.goDeeper}
                 changeSubdivisionType={this.props.changeSubdivisionType}
                 showTooltip={this.props.showTooltip}
-                hideTooltip={this.props.hideTooltip} />
+                hideTooltip={this.props.hideTooltip} 
+                setExplorerActive={this.props.setExplorerActive} />
         );
         
         if (this.props.total === 0 || this.props.total === null) {
@@ -218,7 +220,7 @@ export default class DetailContent extends React.Component {
                     rewindToFilter={this.props.rewindToFilter}
                     currentIndex={currentIndex} />);
         }
-        this.props.data.get(0).id = null;
+        //this.props.data.get(0).id = null;
         if (this.props.data.get(0).id === null) {
             const currentIndex = this.props.trail.length - 1;
             visualizationSection = (

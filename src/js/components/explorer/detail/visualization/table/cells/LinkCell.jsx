@@ -13,7 +13,8 @@ const propTypes = {
     rowIndex: PropTypes.number,
     column: PropTypes.string,
     id: PropTypes.string,
-    selectedRow: PropTypes.func
+    selectedRow: PropTypes.func,
+    unreportedRow: PropTypes.func
 };
 
 export default class LinkCell extends React.Component {
@@ -24,7 +25,11 @@ export default class LinkCell extends React.Component {
     }
 
     clickedLink() {
-        this.props.selectedRow(this.props.id, this.props.data);
+        if (this.props.id === "null") {
+            this.props.unreportedRow(this.props.data.obligated_amount);
+        } else {
+            this.props.selectedRow(this.props.id, this.props.data);
+        }
     }
 
     render() {

@@ -23,7 +23,8 @@ const propTypes = {
     goDeeper: PropTypes.func,
     changeSubdivisionType: PropTypes.func,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    setExplorerActive: PropTypes.func
 };
 
 export default class ExplorerVisualization extends React.Component {
@@ -92,7 +93,8 @@ export default class ExplorerVisualization extends React.Component {
                     total={this.props.total}
                     goDeeper={this.props.goDeeper}
                     showTooltip={this.props.showTooltip}
-                    hideTooltip={this.props.hideTooltip} />
+                    hideTooltip={this.props.hideTooltip} 
+                    setExplorerActive={this.props.setExplorerActive} />
             </div>
         );
         if (this.state.viewType === 'table') {
@@ -101,7 +103,8 @@ export default class ExplorerVisualization extends React.Component {
                     <ExplorerTableContainer
                         results={this.props.data}
                         total={this.props.total}
-                        goDeeper={this.props.goDeeper} />
+                        goDeeper={this.props.goDeeper} 
+                        setExplorerActive={this.props.setExplorerActive} />
                 </div>
             );
         }

@@ -116,7 +116,6 @@ export default class ExplorerTreemap extends React.Component {
         const width = data.x1 - data.x0;
 
         const amount = data.data.amount;
-
         const percent = amount / total;
         const percentString = `${(Math.round(percent * 1000) / 10)}%`;
 
