@@ -21,7 +21,7 @@ const propTypes = {
     pageSize: PropTypes.number,
     order: PropTypes.object,
     updateSort: PropTypes.func,
-    setExplorerActive: PropTypes.func
+    goToUnreported: PropTypes.func
 };
 
 export default class ExplorerTable extends React.Component {
@@ -37,8 +37,7 @@ export default class ExplorerTable extends React.Component {
     }
 
     unreportedRow(data) {
-        console.log("here");
-        this.props.setExplorerActive({ total: data });
+        this.props.goToUnreported(data);
     }
 
     render() {
@@ -53,7 +52,7 @@ export default class ExplorerTable extends React.Component {
                 key={`${uniqueId(item.name)}`}
                 rowIndex={index}
                 columns={this.props.columns}
-                selectedRow={this.selectedRow} 
+                selectedRow={this.selectedRow}
                 unreportedRow={this.unreportedRow} />
         ));
 

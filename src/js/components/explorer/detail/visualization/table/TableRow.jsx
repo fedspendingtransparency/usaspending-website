@@ -35,7 +35,7 @@ export default class TableRow extends React.PureComponent {
                             data={this.props.item}
                             id={`${this.props.item.id}`}
                             column={column.columnName}
-                            selectedRow={this.props.selectedRow} 
+                            selectedRow={this.props.selectedRow}
                             unreportedRow={this.props.unreportedRow} />
                     </td>
                 );

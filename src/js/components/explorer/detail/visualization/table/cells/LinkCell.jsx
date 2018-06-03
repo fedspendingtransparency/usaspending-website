@@ -26,9 +26,9 @@ export default class LinkCell extends React.Component {
 
     clickedLink() {
         if (this.props.id === "null") {
-            this.props.unreportedRow(this.props.data.obligated_amount);
+            this.props.unreportedRow(this.props.data);
         } else {
-            this.props.selectedRow(this.props.id, this.props.data);
+            this.props.selectedRow(parseInt(this.props.id, 10), this.props.data);
         }
     }
 

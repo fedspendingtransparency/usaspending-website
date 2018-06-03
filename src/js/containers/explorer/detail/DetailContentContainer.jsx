@@ -44,12 +44,14 @@ export class DetailContentContainer extends React.Component {
             transitionSteps: 0,
             inFlight: true,
             isTruncated: false,
-            transition: ''
+            transition: '',
+            showUnreported: false
         };
 
         this.request = null;
 
         this.goDeeper = this.goDeeper.bind(this);
+        this.goToUnreported = this.goToUnreported.bind(this);
         this.changeSubdivisionType = this.changeSubdivisionType.bind(this);
         this.rewindToFilter = this.rewindToFilter.bind(this);
     }
@@ -122,6 +124,8 @@ export class DetailContentContainer extends React.Component {
             .then((res) => {
                 if (isRoot) {
                     this.parseRootData(res.data);
+                } else if (this.state.showUnreported) {
+                    this.parseUnreportedData(res.data, request);
                 }
                 else {
                     this.parseData(res.data, request, isRewind);
@@ -143,7 +147,8 @@ export class DetailContentContainer extends React.Component {
             id: null,
             type: "agency",
             name: "Unreported Data*",
-            amount: 11115000000.90
+            amount: 11115000000.90,
+            end_date: data.end_date
         });
 
         // build the active screen root object
@@ -245,7 +250,7 @@ export class DetailContentContainer extends React.Component {
             within: request.within,
             subdivision: request.subdivision
         };
-        console.log(request.subdivision);
+        console.log(safeResults);
         if (this.state.transitionSteps !== 0) {
             // there is going to be a transition, so trigger the exit animation
             // then, 250ms later (after the exit animation completes), apply the props and state
@@ -395,6 +400,7 @@ export class DetailContentContainer extends React.Component {
     }
 
     rewindToFilter(index) {
+        console.log(index);
         const trail = this.props.explorer.trail.toJS();
         const oldFilters = this.state.filters;
         // don't do anything if this is the current filter (ie, the last one in the trail)
@@ -453,6 +459,100 @@ export class DetailContentContainer extends React.Component {
         });
     }
 
+    goToUnreported(data) {
+        if (this.state.inFlight) {
+            // API call is in progress, don't allow clicks
+            return;
+        }
+
+        // generate a trail object representing the current filter that is being applied
+        // the new "within" value is the old subdivision unit
+        // given this, determine how far down the path we are
+        const path = dropdownScopes[this.props.explorer.root];
+        const currentDepth = path.indexOf(this.props.explorer.active.subdivision);
+
+        const currentSubdivision = path[currentDepth];
+
+        const request = {
+            within: this.props.explorer.active.subdivision,
+            title: data.name,
+            subdivision: currentSubdivision
+        };
+
+        this.props.resetExplorerTable();
+
+
+        this.setState({
+            transitionSteps: 1,
+            showUnreported: true
+        }, () => {
+            this.loadData(request, false);
+           //this.parseUnreportedData(data, request);
+        });
+    }
+
+    parseUnreportedData(data, request) {
+        const total = data.total;
+
+
+        // build the trail item of the last applied filter using the request object
+        const trailItem = Object.assign({}, request, {
+            total
+        });
+        
+        this.props.addExplorerTrail(trailItem);
+        data.results.pop();
+        data.results.push({
+            code: null,
+            id: null,
+            type: "agency",
+            name: "Unreported Data*",
+            amount: 11115000000.90,
+            end_date: data.end_date
+        });
+
+        // update the active screen within and subdivision values using the request object
+        const activeScreen = {
+            total
+        };
+        console.log(data.results);
+
+
+        if (this.state.transitionSteps !== 0) {
+            // there is going to be a transition, so trigger the exit animation
+            // then, 250ms later (after the exit animation completes), apply the props and state
+            // so the entry animation occurs with the new data
+            this.setState({
+                transition: 'start'
+            }, () => {
+                window.setTimeout(() => {
+                    this.props.setExplorerActive(activeScreen);
+
+                    // save the data as an Immutable object for easy change comparison within
+                    // the treemap
+                    this.setState({
+                        data: new List(data.results),
+                        lastUpdate: data.end_date,
+                        inFlight: false,
+                        transition: 'end'
+                    });
+                }, 250);
+            });
+        }
+        else {
+            // no animation required if there are 0 transition steps
+            this.props.setExplorerActive(activeScreen);
+
+            // save the data as an Immutable object for easy change comparison within the treemap
+            this.setState({
+                data: new List(data.results),
+                lastUpdate: data.end_date,
+                inFlight: false,
+                transition: ''
+            });
+        }
+    }
+
     render() {
         return (
             <div className="explorer-detail">
@@ -480,7 +580,8 @@ export class DetailContentContainer extends React.Component {
                     changeSubdivisionType={this.changeSubdivisionType}
                     showTooltip={this.props.showTooltip}
                     hideTooltip={this.props.hideTooltip}
-                    rewindToFilter={this.rewindToFilter} />);
+                    rewindToFilter={this.rewindToFilter}
+                    goToUnreported={this.goToUnreported} />);
             </div>
         );
     }
