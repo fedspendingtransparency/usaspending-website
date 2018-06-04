@@ -493,13 +493,6 @@ export class DetailContentContainer extends React.Component {
     parseUnreportedData(data, request) {
         const total = data.total;
 
-
-        // build the trail item of the last applied filter using the request object
-        const trailItem = Object.assign({}, request, {
-            total
-        });
-        
-        this.props.addExplorerTrail(trailItem);
         data.results.pop();
         data.results.push({
             code: null,
@@ -509,10 +502,16 @@ export class DetailContentContainer extends React.Component {
             amount: 11115000000.90,
             end_date: data.end_date
         });
+        // build the trail item of the last applied filter using the request object
+        const trailItem = Object.assign({}, request, {
+            total: data.results[0].amount
+        });
+        
+        this.props.addExplorerTrail(trailItem);
 
         // update the active screen within and subdivision values using the request object
         const activeScreen = {
-            total
+            total: data.results[0].amount
         };
 
 
