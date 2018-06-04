@@ -275,7 +275,23 @@ describe('DetailContentContainer', () => {
             });
             container.instance().goDeeper('2', mockLevelData);
 
-            expect(container.instance().loadData).toHaveBeenCalledTimes(0)
+            expect(container.instance().loadData).toHaveBeenCalledTimes(0);
+        });
+    });
+    describe('goToUnreported', () => {
+        it('should update the state and trail after goToUnreported has finished running', () => {
+            jest.useFakeTimers();
+            const container = shallow(<DetailContentContainer
+                {...mockActions}
+                explorer={mockReducerRoot} />);
+            container.instance().loadData = jest.fn();
+
+            container.instance().goToUnreported(mockLevelData, '09-40-01');
+            jest.runAllTimers();
+
+            expect(container.state().transitionSteps).toEqual(1);
+            expect(container.state().transition).toEqual('end');
+            expect(container.state().lastUpdate).toEqual("09-40-01");
         });
     });
     describe('changeSubdivisionType', () => {

@@ -460,10 +460,6 @@ export class DetailContentContainer extends React.Component {
     }
 
     goToUnreported(data, date) {
-        if (this.state.inFlight) {
-            // API call is in progress, don't allow clicks
-            return;
-        }
         let endDate;
         if (!data.end_date) {
             endDate = date;

@@ -38,7 +38,6 @@ export default class ExplorerTable extends React.Component {
     }
 
     unreportedRow(data) {
-        console.log(data);
         this.props.goToUnreported(data, this.props.lastUpdate);
     }
 
