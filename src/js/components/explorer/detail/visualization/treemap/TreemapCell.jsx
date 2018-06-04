@@ -119,11 +119,6 @@ export default class TreemapCell extends React.Component {
             </text>
         );
 
-        let disabledClass = '';
-        if (this.props.data.id === null) {
-            disabledClass = 'link-disabled';
-        }
-
         if (this.props.width < 75 || this.props.height < 38) {
             cellTitle = '';
             cellValue = '';
@@ -132,7 +127,7 @@ export default class TreemapCell extends React.Component {
 
         return (
             <g
-                className={`explorer-cell ${disabledClass}`}
+                className="explorer-cell"
                 transform={position}
                 onClick={this.clickedCell}
                 onMouseMove={this.enteredCell}

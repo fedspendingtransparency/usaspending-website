@@ -171,10 +171,7 @@ export default class DetailContent extends React.Component {
             if (this.props.trail.length > 2) {
                 parentFilter = this.props.trail[this.props.trail.length - 2].title;
             }
-            let total = this.props.active.total;
-            if (this.props.data.get(0).id === null) {
-                total = this.props.data.get(0).amount;
-            }
+
             header = (<DetailHeader
                 within={lastFilter.within}
                 title={lastFilter.title}

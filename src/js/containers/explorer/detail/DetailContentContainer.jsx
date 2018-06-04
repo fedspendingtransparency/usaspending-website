@@ -250,7 +250,7 @@ export class DetailContentContainer extends React.Component {
             within: request.within,
             subdivision: request.subdivision
         };
-        console.log(safeResults);
+
         if (this.state.transitionSteps !== 0) {
             // there is going to be a transition, so trigger the exit animation
             // then, 250ms later (after the exit animation completes), apply the props and state
@@ -464,6 +464,8 @@ export class DetailContentContainer extends React.Component {
             return;
         }
 
+        const dataArr = [data];
+
         // generate a trail object representing the current filter that is being applied
         // the new "within" value is the old subdivision unit
         // given this, determine how far down the path we are
@@ -478,74 +480,44 @@ export class DetailContentContainer extends React.Component {
             subdivision: currentSubdivision
         };
 
-        this.props.resetExplorerTable();
-
-
-        this.setState({
-            transitionSteps: 1,
-            showUnreported: true
-        }, () => {
-            this.loadData(request, false);
-           //this.parseUnreportedData(data, request);
-        });
-    }
-
-    parseUnreportedData(data, request) {
-        data.results.pop();
-        data.results.push({
-            code: null,
-            id: null,
-            type: "agency",
-            name: "Unreported Data*",
-            amount: 11115000000.90,
-            end_date: data.end_date
-        });
-        // build the trail item of the last applied filter using the request object
         const trailItem = Object.assign({}, request, {
-            total: data.results[0].amount
+            total: data.amount
         });
         
         this.props.addExplorerTrail(trailItem);
 
         // update the active screen within and subdivision values using the request object
         const activeScreen = {
-            total: data.results[0].amount
+            total: data.amount
         };
 
 
-        if (this.state.transitionSteps !== 0) {
-            // there is going to be a transition, so trigger the exit animation
-            // then, 250ms later (after the exit animation completes), apply the props and state
-            // so the entry animation occurs with the new data
-            this.setState({
-                transition: 'start'
-            }, () => {
-                window.setTimeout(() => {
-                    this.props.setExplorerActive(activeScreen);
+        this.setState({
+            transitionSteps: 1
+        });
 
-                    // save the data as an Immutable object for easy change comparison within
-                    // the treemap
-                    this.setState({
-                        data: new List(data.results),
-                        lastUpdate: data.end_date,
-                        inFlight: false,
-                        transition: 'end'
-                    });
-                }, 250);
-            });
-        }
-        else {
-            // no animation required if there are 0 transition steps
-            this.props.setExplorerActive(activeScreen);
+        // there is going to be a transition, so trigger the exit animation
+        // then, 250ms later (after the exit animation completes), apply the props and state
+        // so the entry animation occurs with the new data
+        this.setState({
+            transition: 'start'
+        }, () => {
+            window.setTimeout(() => {
+                this.props.setExplorerActive(activeScreen);
 
-            // save the data as an Immutable object for easy change comparison within the treemap
-            this.setState({
-                data: new List(data.results),
-                lastUpdate: data.end_date,
-                inFlight: false,
-                transition: ''
-            });
-        }
+                // save the data as an Immutable object for easy change comparison within
+                // the treemap
+                this.setState({
+                    data: new List(dataArr),
+                    lastUpdate: data.end_date,
+                    inFlight: false,
+                    transition: 'end'
+                });
+            }, 250);
+        });
+
+
+        this.props.resetExplorerTable();
     }
 
     render() {

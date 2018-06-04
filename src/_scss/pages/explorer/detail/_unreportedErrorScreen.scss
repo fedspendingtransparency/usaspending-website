@@ -20,23 +20,33 @@
     }
 
     .explorer-unreported__box {
-        padding: rem(20) rem(50) rem(20) rem(50);
+        padding: rem(30) rem(30) rem(30) rem(30);
         height: auto;
         border: 1px solid #FFB800;
         background-color: #FFFCF6;
     }
 
     .explorer-unreported__header {
-        font-size: rem(25);
+        font-size: rem(24);
         margin: 0;
         font-weight: 600;
+        padding-left: rem(20);
+            /* 24px semi-bold  #555555 30 paddings top left and bottom of box*/
     }
 
     .explorer-unreported__info {
         font-weight: 600;
+        font-size: rem(16);
+    }
+
+    .explorer-unreported__body {
+        padding-left: rem(62);
     }
 
     .explorer-unreported__list {
         padding-left: rem(20);
+        margin-top: rem(10);
+        font-size: rem(16);
+        line-height: 24px;
     }
 }
