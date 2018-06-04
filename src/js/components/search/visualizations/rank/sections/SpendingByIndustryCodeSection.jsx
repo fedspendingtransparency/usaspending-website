@@ -21,9 +21,9 @@ export default class SpendingByIndustryCodeSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            View a list of the top industry codes from highest to lowest. Filter
-                            your results more (at left) and watch this graph update automatically.
-                            View your results in a bar graph or a tree map.
+                            View a list of the top Industry Codes from highest to lowest.
+                            View your results by NAICS Code or PSC Code, and hover over
+                            the bars for more detailed information.
                         </div>
                     </div>
                     <div className="visualization-period">
