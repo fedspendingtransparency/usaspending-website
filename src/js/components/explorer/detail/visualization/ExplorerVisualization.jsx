@@ -134,7 +134,8 @@ export default class ExplorerVisualization extends React.Component {
                 {visualization}
 
                 <div className="explorer-vis__disclaimer">
-                    All dollar amounts shown here represent agency reported obligated amounts
+                    <p>All dollar amounts shown here represent agency reported obligated amounts</p>
+                    <p><span className="explorer-vis--bold">Unreported Data*:</span> Unreported amounts are calculated using the difference in the total obligated amount from the <a href="#">Report on Budget Execution and Budgetary Resources</a> and the total obligated amount reported by agencies to USAspending.gov</p>
                 </div>
             </div>
         );

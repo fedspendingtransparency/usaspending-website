@@ -30,6 +30,10 @@
         margin-top: rem(15);
     }
 
+    .explorer-vis--bold {
+        font-weight: 600;
+    }
+
     .explorer-vis__table-transition {
         transition: opacity 0.25s;
         &.explorer-vis__table-transition_loading {
