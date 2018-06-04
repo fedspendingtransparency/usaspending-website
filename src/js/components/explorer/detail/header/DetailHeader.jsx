@@ -75,14 +75,22 @@ const heading = (type, title, id) => {
         );
     }
     else if (type === 'Agency') {
+        let header = (
+            <a
+                href={`/#/agency/${id}`}
+                className="detail-header__title-link"
+                onClick={exitExplorer.bind(null, `/agency/${id}`)}>
+                {title}
+            </a>);
+        if (title === "Unreported Data*") {
+            header = (
+                <span className="detail-header__title-link">
+                    Unreported Data
+                </span>);
+        }
         return (
             <h2 className="detail-header__title">
-                <a
-                    href={`/#/agency/${id}`}
-                    className="detail-header__title-link"
-                    onClick={exitExplorer.bind(null, `/agency/${id}`)}>
-                    {title}
-                </a>
+                {header}
             </h2>
         );
     }

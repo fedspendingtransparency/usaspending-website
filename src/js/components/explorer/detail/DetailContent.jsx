@@ -219,9 +219,7 @@ export default class DetailContent extends React.Component {
                 <NoAwardsScreen
                     rewindToFilter={this.props.rewindToFilter}
                     currentIndex={currentIndex} />);
-        }
-
-        if (this.props.data.get(0).id === null) {
+        } else if (this.props.data.get(0).id === null) {
             const currentIndex = this.props.trail.length - 1;
             visualizationSection = (
                 <UnreportedErrorScreen

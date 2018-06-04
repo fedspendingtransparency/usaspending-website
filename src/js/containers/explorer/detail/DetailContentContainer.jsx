@@ -400,7 +400,6 @@ export class DetailContentContainer extends React.Component {
     }
 
     rewindToFilter(index) {
-        console.log(index);
         const trail = this.props.explorer.trail.toJS();
         const oldFilters = this.state.filters;
         // don't do anything if this is the current filter (ie, the last one in the trail)
@@ -515,7 +514,6 @@ export class DetailContentContainer extends React.Component {
         const activeScreen = {
             total
         };
-        console.log(data.results);
 
 
         if (this.state.transitionSteps !== 0) {
