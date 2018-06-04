@@ -20,7 +20,8 @@ const propTypes = {
     data: PropTypes.object,
     goDeeper: PropTypes.func,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    goToUnreported: PropTypes.func
 };
 
 const defaultProps = {
@@ -36,6 +37,7 @@ export default class ExplorerTreemap extends React.Component {
         };
 
         this.selectedCell = this.selectedCell.bind(this);
+        this.unreportedCell = this.unreportedCell.bind(this);
     }
 
     componentWillMount() {
@@ -194,6 +196,10 @@ export default class ExplorerTreemap extends React.Component {
         this.props.goDeeper(id, title);
     }
 
+    unreportedCell(data) {
+        this.props.goToUnreported(data);
+    }
+
     render() {
         if (this.props.width <= 0) {
             return null;
@@ -205,7 +211,8 @@ export default class ExplorerTreemap extends React.Component {
                 key={`${cell.data.name}-${cell.data.id}`}
                 selectedCell={this.selectedCell}
                 showTooltip={this.props.showTooltip}
-                hideTooltip={this.props.hideTooltip} />
+                hideTooltip={this.props.hideTooltip}
+                unreportedCell={this.unreportedCell} />
         ));
 
         return (

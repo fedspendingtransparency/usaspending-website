@@ -491,8 +491,6 @@ export class DetailContentContainer extends React.Component {
     }
 
     parseUnreportedData(data, request) {
-        const total = data.total;
-
         data.results.pop();
         data.results.push({
             code: null,
