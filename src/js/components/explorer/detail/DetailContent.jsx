@@ -214,7 +214,7 @@ export default class DetailContent extends React.Component {
                 showTooltip={this.props.showTooltip}
                 hideTooltip={this.props.hideTooltip} />
         );
-        
+
         if (this.props.total === 0 || this.props.total === null) {
             const currentIndex = this.props.trail.length - 1;
             visualizationSection = (

@@ -1,16 +1,17 @@
 .explorer-unreported {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
     margin: rem(50) 0 rem(15) 0;
 
     .explorer-unreported__top {
         display: flex;
+        padding-bottom: rem(20);
     }
 
     .explorer-unreported__icon {
        margin-right: rem(10);
-       align-self: center;
+       @include align-self(center);
 
         svg {
             width: rem(30);
@@ -31,7 +32,7 @@
         margin: 0;
         font-weight: 600;
         padding-left: rem(20);
-            /* 24px semi-bold  #555555 30 paddings top left and bottom of box*/
+        line-height: 1.2;
     }
 
     .explorer-unreported__info {
@@ -47,6 +48,10 @@
         padding-left: rem(20);
         margin-top: rem(10);
         font-size: rem(16);
-        line-height: 24px;
+        line-height: 10px;
+
+        li {
+            margin-bottom: 0;
+        }
     }
 }
