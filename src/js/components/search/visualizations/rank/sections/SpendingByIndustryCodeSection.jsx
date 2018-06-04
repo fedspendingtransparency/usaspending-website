@@ -19,32 +19,22 @@ export default class SpendingByIndustryCodeSection extends React.Component {
         return (
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
-                    <div className="visualization-description">
-                        <div className="content">
+                    <div className="visualization-top__description">
                             View a list of the top Industry Codes from highest to lowest.
                             View your results by NAICS Code or PSC Code, and hover over
                             the bars for more detailed information.
-                        </div>
                     </div>
-                    <div className="visualization-period">
-                        <div className="content">
-                            <ul>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="psc"
-                                        label="PSC"
-                                        active={this.props.scope === 'psc'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="naics"
-                                        label="NAICS"
-                                        active={this.props.scope === 'naics'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                            </ul>
-                        </div>
+                    <div className="visualization-scope">
+                        <RankVisualizationScopeButton
+                            value="psc"
+                            label="PSC"
+                            active={this.props.scope === 'psc'}
+                            changeScope={this.props.changeScope} />
+                        <RankVisualizationScopeButton
+                            value="naics"
+                            label="NAICS"
+                            active={this.props.scope === 'naics'}
+                            changeScope={this.props.changeScope} />
                     </div>
                 </div>
             </RankVisualizationSection>

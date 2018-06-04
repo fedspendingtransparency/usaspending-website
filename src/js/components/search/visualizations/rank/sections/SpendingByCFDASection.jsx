@@ -12,11 +12,9 @@ export default class SpendingByCFDASection extends React.Component {
         return (
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
-                    <div className="visualization-description no-scope">
-                        <div className="content">
-                            View a list of the top CFDA Programs from highest to lowest, and hover over the bars for
-                            more detailed information.
-                        </div>
+                    <div className="visualization-top__description">
+                        View a list of the top CFDA Programs from highest to lowest, and hover over the bars for
+                        more detailed information.
                     </div>
                 </div>
             </RankVisualizationSection>

@@ -1,18 +1,45 @@
 .visualization-top {
-    @include row();
-    margin-bottom: rem(20);
-    @import "components/visualizations/_description";
-    @import "components/visualizations/_period";
-
-    .no-scope {
-        width: 100%;
+    padding-bottom: rem(20);
+    clear: both;
+    @include media($tablet-screen) {
+        @include display(flex);
     }
-
-    .visualization-period {
-        .content {
-            li {
-                //EDIT THIS DEPENDING ON HOW MANY CHOICES ARE AVAILABLE WITHIN THE TOGGLE (DEFAULT IS 3 = 5.3 COLUMNS) 
-                @include span-columns(5.3);
+    .visualization-top__description {
+        font-size: $small-font-size;
+        line-height: rem(26);
+        @include media($tablet-screen) {
+            @include display(flex);
+            @include flex(1 1 56%);
+            padding-right: rem(15);
+        }
+    }
+    .visualization-scope {
+        @include display(flex);
+        @include justify-content(space-evenly);
+        padding: rem(15);
+        background-color: rgba($color-primary-alt-lightest, .5);
+        @include media($tablet-screen) {
+            @include flex(1 1 44%);
+        }
+        @import "elements/underlineButton";
+        @include underlineButton();
+        .visualization-scope__button {
+            @include display(flex);
+            @include flex(0 0 auto);
+        }
+        .coming-soon {
+            @import "./components/_comingSoon";
+            @include comingSoon;
+            .visualization-scope__button {
+                color: $color-gray-lighter;
+            }
+            .visualization-scope__button:hover {
+                color: $color-gray-lighter;
+                border-bottom: rem(4) solid rgba(255, 255, 255, 0);
+            }
+            .coming-soon-container {
+                width: rem(72);
+                margin: 0 auto;
             }
         }
     }
