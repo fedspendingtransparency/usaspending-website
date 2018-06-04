@@ -298,7 +298,6 @@ export class DetailContentContainer extends React.Component {
             // API call is in progress, don't allow clicks
             return;
         }
-        console.log(data);
 
         // determine how we are currently subdividing the data
         // determine the data element we should filter by
