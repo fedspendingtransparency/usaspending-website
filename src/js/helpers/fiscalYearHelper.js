@@ -9,6 +9,7 @@ import kGlobalConstants from 'GlobalConstants';
 export const earliestFiscalYear = 2008;
 export const earliestExplorerYear = 2017;
 export const earliestFederalAccountYear = 2017;
+export const todaysDate = moment().format('YYYY-MM-DD');
 
 // number of days to wait after the close of each quarter before enabling it
 export const quarterCloseWindow = 45;
