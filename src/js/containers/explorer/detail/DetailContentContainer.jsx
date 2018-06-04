@@ -142,14 +142,6 @@ export class DetailContentContainer extends React.Component {
 
     parseRootData(data) {
         const total = data.total;
-        data.results.push({
-            code: null,
-            id: null,
-            type: "agency",
-            name: "Unreported Data*",
-            amount: 11115000000.90,
-            end_date: data.end_date
-        });
 
         // build the active screen root object
         const activeScreen = {
