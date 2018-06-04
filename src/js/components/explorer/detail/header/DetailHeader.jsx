@@ -62,15 +62,28 @@ const dataType = (type, parent) => {
 };
 
 const heading = (type, title, id) => {
+    let updatedTitle = title;
+    if (title === "Unreported Data*")
+    {
+        updatedTitle = "Unreported Data";
+    }
     if (type === 'Federal Account') {
+        let header = (
+            <a
+                href={`/#/federal_account/${id}`}
+                className="detail-header__title-link"
+                onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
+                {updatedTitle}
+            </a>);
+        if (title === "Unreported Data*") {
+            header = (
+                <span className="detail-header__title-link">
+                    {updatedTitle}
+                </span>);
+        }
         return (
             <h2 className="detail-header__title">
-                <a
-                    href={`/#/federal_account/${id}`}
-                    className="detail-header__title-link"
-                    onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
-                    {title}
-                </a>
+                {header}
             </h2>
         );
     }
@@ -80,12 +93,12 @@ const heading = (type, title, id) => {
                 href={`/#/agency/${id}`}
                 className="detail-header__title-link"
                 onClick={exitExplorer.bind(null, `/agency/${id}`)}>
-                {title}
+                {updatedTitle}
             </a>);
         if (title === "Unreported Data*") {
             header = (
                 <span className="detail-header__title-link">
-                    Unreported Data
+                    {updatedTitle}
                 </span>);
         }
         return (
@@ -95,8 +108,8 @@ const heading = (type, title, id) => {
         );
     }
     return (
-        <h2>
-            {title}
+        <h2 className="detail-header__title">
+            {updatedTitle}
         </h2>
     );
 };

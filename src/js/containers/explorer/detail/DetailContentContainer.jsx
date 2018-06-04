@@ -298,6 +298,7 @@ export class DetailContentContainer extends React.Component {
             // API call is in progress, don't allow clicks
             return;
         }
+        console.log(data);
 
         // determine how we are currently subdividing the data
         // determine the data element we should filter by
@@ -458,10 +459,16 @@ export class DetailContentContainer extends React.Component {
         });
     }
 
-    goToUnreported(data) {
+    goToUnreported(data, date) {
         if (this.state.inFlight) {
             // API call is in progress, don't allow clicks
             return;
+        }
+        let endDate;
+        if (!data.end_date) {
+            endDate = date;
+        } else {
+            endDate = data.end_date;
         }
 
         const dataArr = [data];
@@ -474,21 +481,28 @@ export class DetailContentContainer extends React.Component {
 
         const currentSubdivision = path[currentDepth];
 
-        const request = {
+        const trailDisplay = {
             within: this.props.explorer.active.subdivision,
             title: data.name,
             subdivision: currentSubdivision
         };
 
-        const trailItem = Object.assign({}, request, {
-            total: data.amount
+        let total;
+        if (!data.obligated_amount) {
+            total = data.amount;
+        } else {
+            total = data.obligated_amount;
+        }
+
+        const trailItem = Object.assign({}, trailDisplay, {
+            total
         });
-        
+
         this.props.addExplorerTrail(trailItem);
 
         // update the active screen within and subdivision values using the request object
         const activeScreen = {
-            total: data.amount
+            total
         };
 
 
@@ -509,7 +523,7 @@ export class DetailContentContainer extends React.Component {
                 // the treemap
                 this.setState({
                     data: new List(dataArr),
-                    lastUpdate: data.end_date,
+                    lastUpdate: endDate,
                     inFlight: false,
                     transition: 'end'
                 });

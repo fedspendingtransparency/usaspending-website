@@ -24,7 +24,8 @@ const propTypes = {
     changeSubdivisionType: PropTypes.func,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    goToUnreported: PropTypes.func
+    goToUnreported: PropTypes.func,
+    lastUpdate: PropTypes.string
 };
 
 export default class ExplorerVisualization extends React.Component {
@@ -104,7 +105,8 @@ export default class ExplorerVisualization extends React.Component {
                         results={this.props.data}
                         total={this.props.total}
                         goDeeper={this.props.goDeeper}
-                        goToUnreported={this.props.goToUnreported} />
+                        goToUnreported={this.props.goToUnreported}
+                        lastUpdate={this.props.lastUpdate} />
                 </div>
             );
         }
