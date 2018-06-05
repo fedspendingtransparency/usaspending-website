@@ -70,11 +70,11 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
         }
 
         // Fetch data from the Awards v2 endpoint
-        const dateRange = FiscalYearHelper.getTrailingTwelveMonths();
+        const earliestYear = FiscalYearHelper.earliestFiscalYear;
         const timePeriod = [
             {
-                start_date: dateRange[0],
-                end_date: dateRange[1]
+                start_date: FiscalYearHelper.convertFYToDateRange(earliestYear)[0],
+                end_date: FiscalYearHelper.todaysDate
             }
         ];
 
@@ -160,6 +160,7 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
         return (
             <StateTimeVisualizationSection
                 data={this.state}
+                loading={this.state.loading}
                 updateVisualizationPeriod={this.updateVisualizationPeriod}
                 visualizationPeriod={this.state.visualizationPeriod} />
         );

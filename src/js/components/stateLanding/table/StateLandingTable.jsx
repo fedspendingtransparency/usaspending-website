@@ -65,7 +65,7 @@ const StateLandingTable = (props) => {
                             <div className="header-cell">
                                 <div className="header-cell__text">
                                     <div className="header-cell__title">
-                                        State Name
+                                        State or Territory Name
                                     </div>
                                 </div>
                                 <StateLandingTableSorter
