@@ -17,7 +17,7 @@ const tooltipWidth = 160;
 const margin = 15;
 const tooltipPadding = 6;
 
-export default class HeroTooltip extends React.Component {
+export default class ExplorerInfoTooltip extends React.Component {
     constructor(props) {
         super(props);
 
@@ -99,4 +99,4 @@ export default class HeroTooltip extends React.Component {
     }
 };
 
-HeroTooltip.propTypes = propTypes;
+ExplorerInfoTooltip.propTypes = propTypes;
