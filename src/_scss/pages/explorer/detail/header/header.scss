@@ -60,7 +60,7 @@
         }
 
         .detail-header__fy {
-            text-align: center;
+            text-align: right;
             text-transform: uppercase;
             font-weight: $font-semibold;
 
@@ -69,7 +69,7 @@
         }
 
         .detail-header__value {
-            text-align: center;
+            text-align: right;
             text-transform: capitalize;
             font-weight: $font-semibold;
 
@@ -80,10 +80,22 @@
         }
 
         .detail-header__update {
-            text-align: center;
+            text-align: right;
             font-size: rem(14);
             line-height: rem(18);
         }
+
+        .detail-header__icon {
+          display: inline;
+          padding-left: rem(5);
+
+     
+             svg {
+                 width: rem(10);
+                 height: rem(10);
+                 fill: #555555;
+             }
+         }
     }
 
     .left-side {

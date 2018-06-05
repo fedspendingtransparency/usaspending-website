@@ -46,7 +46,7 @@ Using the response from the general Spending Explorer, you can drill down to mor
         + unreported_amount: 432232.09 (required, number)
         + end_date: `2017-09-30` (required, string)
             This is the "as-of" date for the data being returned.
-        + results (required, array[SpendingExplorerGeneralResponse], fixed-type)
+        + results (required, array[SpendingExplorerGeneralResponse, SpendingExplorerGeneralUnreportedResponse], fixed-type)
  
 + Request Specific Spending Explorer (application/json)
     + Attributes (object)
@@ -67,7 +67,7 @@ Using the response from the general Spending Explorer, you can drill down to mor
         + unreported_amount: 432232.09 (required, number)
         + end_date: `2017-09-30` (required, string)
             This is the "as-of" date for the data being returned.
-        + results (required, array[SpendingExplorerDetailedResponse], fixed-type)
+        + results (required, array[SpendingExplorerDetailedResponse, SpendingExplorerGeneralUnreportedResponse], fixed-type)
 
 # Data Structures
 
@@ -102,7 +102,7 @@ Using the response from the general Spending Explorer, you can drill down to mor
 + type: agency (required, string)
     The `type` will always be equal to the `type` parameter you provided in the request.
 + name: Department of State (required, string)
-+ amount: 126073789.49 (required, number)
++ amount: 63036894632.2 (required, number)
 
 ### SpendingExplorerDetailedResponse (object)
 + code: `0006` (required, string)
@@ -113,9 +113,9 @@ Using the response from the general Spending Explorer, you can drill down to mor
 + amount: 1116815570.99 (required, number)
 
 ## SpendingExplorerGeneralUnreportedResponse (object)
-+ code: null (required, string)
-+ id: null (required, number)
++ code (optional, nullable)
++ id (optional, nullable)
 + type: agency (required, string)
     The `type` will always be equal to the `type` parameter you provided in the request.
 + name: Unreported Data* (required, string)
-+ amount: 11115.90 (required, number)
++ amount: 63036894632.2 (required, number)

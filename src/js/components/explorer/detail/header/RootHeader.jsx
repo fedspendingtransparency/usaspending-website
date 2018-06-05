@@ -11,6 +11,7 @@ import moment from 'moment';
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
+import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     root: PropTypes.string,
@@ -37,7 +38,10 @@ const RootHeader = (props) => {
             {header}
             <div className="detail-header__amounts">
                 <div className="detail-header__fy">
-                    FY {props.fy} obligated amount
+                    FY {props.fy} obligated amount 
+                    <div className="detail-header__icon">
+                            <InfoCircle alt="Information" />
+                    </div>
                 </div>
                 <div className="detail-header__value">
                     {formatTreemapValues(props.total)}
