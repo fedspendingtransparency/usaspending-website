@@ -50,7 +50,7 @@ const AccessibilityPage = () => (
             </li>
         </ul>
         <p>
-            <a href="mailto:usaspending.help-submitonly@fiscal.treasury.gov?subject=Contact%20Us">Contact us</a>
+            <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">Contact us</a>
             &nbsp;if you have any difficulty accessing information on USASpending.gov.
         </p>
     </LegalPage>
