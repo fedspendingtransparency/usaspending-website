@@ -10,9 +10,9 @@ about a specific award.
 
 These endpoints support the tables on the individual Award Profile pages.
 
-## Subawards [/api/v2/subawards/]
+## SubAwards [/api/v2/subawards/]
 
-### Subawards [POST]
+### SubAwards [POST]
 
 + Request (application/json)
     + Attributes (object)
@@ -22,13 +22,34 @@ These endpoints support the tables on the individual Award Profile pages.
             The number of results to include per page. Defaults to 10.
         + page: 1 (optional, number)
             The page of results to return based on the limit. Defaults to 1.
-        + sort (optional, SortObject)
+        + sort (optional, SubAwardSortObject)
             Describes how the results are sorted. Defaults to descending by sub-award id (`subaward_number`).
         
 + Response 200 (application/json)
     + Attributes
         + results (array[SubAwardResult], fixed-type)
         + page_metadata (PageMetaDataObject)
+        
+## Transactions [/api/v2/transactions/]
+
+### Transactions [POST]
+
++ Request (application/json)
+    + Attributes (object)
+        + award_id: 123 (optional, string)
+            The internal id of the award to filter on. If not included, all transactions are returned.
+        + limit: 15 (optional, number)
+            The number of results to include per page. Defaults to 10.
+        + page: 1 (optional, number)
+            The page of results to return based on the limit. Defaults to 1.
+        + sort (optional, TransactionSortObject)
+            Describes how the results are sorted. Defaults to descending by action date.
+        
++ Response 200 (application/json)
+    + Attributes
+        + results (array[TransactionResult], fixed-type)
+        + page_metadata (PageMetaDataObject)
+
         
 # Data Structures
 
@@ -38,14 +59,56 @@ These endpoints support the tables on the individual Award Profile pages.
 + subaward_number: 2-A (required, string)
     The sub-award id.
 + description: description (required, string)
-+ action_date: 1999-01-15 (required, string) Action date in the format `YYYY-MM-DD`.
++ action_date: 1999-01-15 (required, string) 
+    Action date in the format `YYYY-MM-DD`.
 + amount: 1234.56 (required, number)
     Monetary value of the sub-award.
 + recipient_name: Recipient A (required, string)
 
-## SortObject (object)
+## SubAwardSortObject (object)
 + field subaward_number (required, string)
     One of `subaward_number`, `description`, `action_date`, `amount`, `recipient_name`.
++ direction desc (required, string)
+    `asc` for ascending order or `desc` for descending order.
+    
+## TransactionResult (object)
++ id: `1` (required, string)
+    The internal transaction id.
++ type: A (required, string)
+    Award type code
++ type_description BPA (required, string)
++ action_date: 1999-01-15 (required, string) 
+    Action date in the format `YYYY-MM-DD`.
++ action_type: C (required, string)
+    Action type code
++ action_type_description: description (required, string)
++ modification_number: `0` (required, string)
++ description: MANAGEMENT AND OPERATIONS (required, string)
++ federal_action_obligation: 1234.56 (required, number)
+    Monetary value of the transaction.
+    
+## LoanTransactionResult (object)
++ id: `123456` (required, string)
+    The internal transaction id.
++ type: `07` (required, string)
+    Award type code 
++ type_description Loan (required, string)
++ action_date: 1999-01-15 (required, string) 
+    Action date in the format `YYYY-MM-DD`.
++ action_type: C (required, string)
+    Action type code
++ action_type_description: FUNDING ONLY ACTION (required, string)
++ modification_number: `1160` (required, string)
++ description: MANAGEMENT AND OPERATIONS (required, string)
++ face_value_loan_guarantee: 1234.56 (required, number)
+    Face value of the loan. 
++ original_loan_subsidy_cost: 234.12 (required, number)
+    Original subsidy cost of the loan.  
+
+## TransactionSortObject (object)
++ field subaward_number (required, string)
+    One of `modification_number`, `action_date`, `federal_action_obligation`, 
+    `face_value_loan_guarantee`, `original_loan_subsidy_cost`, `action_type_description`, or `description`.
 + direction desc (required, string)
     `asc` for ascending order or `desc` for descending order.
 
