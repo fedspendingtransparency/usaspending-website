@@ -40,7 +40,7 @@ const RootHeader = (props) => {
                 <div className="detail-header__fy">
                     FY {props.fy} obligated amount 
                     <div className="detail-header__icon">
-                            <InfoCircle alt="Information" />
+                        <InfoCircle alt="Information" />
                     </div>
                 </div>
                 <div className="detail-header__value">
