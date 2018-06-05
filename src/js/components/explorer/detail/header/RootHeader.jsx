@@ -39,9 +39,13 @@ const RootHeader = (props) => {
             <div className="detail-header__amounts">
                 <div className="detail-header__fy">
                     FY {props.fy} obligated amount
-                    <div className="detail-header__icon">
-                        <InfoCircle alt="Information" />
-                    </div>
+                    <span>
+                        <button
+                            id="detail-header__icon"
+                            className="detail-header__icon">
+                            <InfoCircle alt="Information" />
+                        </button>
+                    </span>
                 </div>
                 <div className="detail-header__value">
                     {formatTreemapValues(props.total)}

@@ -87,7 +87,10 @@
 
         .detail-header__icon {
           display: inline;
-          padding-left: rem(5);
+          padding: 0 0 0 rem(5);
+          cursor: default;
+          margin: 0;
+          background-color: transparent;
 
      
              svg {

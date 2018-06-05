@@ -21,7 +21,8 @@ const propTypes = {
     goDeeper: PropTypes.func,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    goToUnreported: PropTypes.func
+    goToUnreported: PropTypes.func,
+    lastUpdate: PropTypes.string
 };
 
 const defaultProps = {
@@ -197,7 +198,7 @@ export default class ExplorerTreemap extends React.Component {
     }
 
     unreportedCell(data) {
-        this.props.goToUnreported(data);
+        this.props.goToUnreported(data, this.props.lastUpdate);
     }
 
     render() {

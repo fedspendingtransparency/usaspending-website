@@ -95,6 +95,7 @@ export default class ExplorerVisualization extends React.Component {
                     goDeeper={this.props.goDeeper}
                     showTooltip={this.props.showTooltip}
                     hideTooltip={this.props.hideTooltip}
+                    lastUpdate={this.props.lastUpdate}
                     goToUnreported={this.props.goToUnreported} />
             </div>
         );

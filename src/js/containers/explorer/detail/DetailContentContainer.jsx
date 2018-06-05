@@ -451,13 +451,6 @@ export class DetailContentContainer extends React.Component {
     }
 
     goToUnreported(data, date) {
-        let endDate;
-        if (!data.end_date) {
-            endDate = date;
-        } else {
-            endDate = data.end_date;
-        }
-
         const dataArr = [data];
 
         // generate a trail object representing the current filter that is being applied
@@ -510,7 +503,7 @@ export class DetailContentContainer extends React.Component {
                 // the treemap
                 this.setState({
                     data: new List(dataArr),
-                    lastUpdate: endDate,
+                    lastUpdate: date,
                     inFlight: false,
                     transition: 'end'
                 });
