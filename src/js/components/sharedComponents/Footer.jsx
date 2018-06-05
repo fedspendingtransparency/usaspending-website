@@ -85,7 +85,7 @@ export default class Footer extends React.Component {
                                             href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
                                             onClick={clickedFooterLink.bind(
                                                 null,
-                                                'mailto:usaspending.help-submitonly@fiscal.treasury.gov?subject=Contact%20Us'
+                                                'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
                                             )}>
                                             Contact Us
                                         </a>
