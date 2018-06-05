@@ -117,5 +117,5 @@ Using the response from the general Spending Explorer, you can drill down to mor
 + id (optional, nullable)
 + type: agency (required, string)
     The `type` will always be equal to the `type` parameter you provided in the request.
-+ name: Unreported Data* (required, string)
++ name: Unreported Data (required, string)
 + amount: 63036894632.2 (required, number)

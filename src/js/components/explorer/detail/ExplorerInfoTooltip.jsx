@@ -24,7 +24,7 @@ export default class ExplorerInfoTooltip extends React.Component {
         this.state = {
             windowWidth: 0,
             iconTop: 0,
-            iconLeft: 0
+            iconRight: 0
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
@@ -40,19 +40,11 @@ export default class ExplorerInfoTooltip extends React.Component {
     }
 
     getPosition() {
-        const container = document.getElementById('homepage-hero__wrapper');
-        const conatinerOffsetY = container.getBoundingClientRect().top;
+        const icon = document.getElementById('detail-header__icon');
+        const iconTop = icon.offsetHeight + tooltipPadding;
+        const iconRight = icon.offsetWidth - margin;
 
-        const icon = document.getElementById('homepage-hero__info_icon');
-        const iconTop = icon.getBoundingClientRect().top - conatinerOffsetY - tooltipPadding;
-        let iconLeft = icon.getBoundingClientRect().left - tooltipPadding;
-
-        const windowWidth = window.innerWidth;
-        if ((iconLeft + tooltipWidth) > windowWidth) {
-            iconLeft = windowWidth - tooltipWidth - margin;
-        }
-
-        return { iconTop, iconLeft };
+        return { iconTop, iconRight };
     }
 
     handleWindowResize() {
@@ -65,7 +57,7 @@ export default class ExplorerInfoTooltip extends React.Component {
             this.setState({
                 windowWidth,
                 iconTop: position.iconTop,
-                iconLeft: position.iconLeft
+                iconRight: position.iconRight
             });
         }
     }
@@ -76,7 +68,7 @@ export default class ExplorerInfoTooltip extends React.Component {
                 className="homepage-hero-tooltip"
                 style={{
                     top: this.state.iconTop,
-                    left: this.state.iconLeft
+                    right: this.state.iconRight
                 }}>
                 <div className="homepage-hero-tooltip__info_icon">
                     <Icons.InfoCircle />

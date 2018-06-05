@@ -1,3 +1,4 @@
+
 .detail-header {
     @include display(flex);
     @include justify-content(space-between);
@@ -85,8 +86,12 @@
             line-height: rem(18);
         }
 
+        .detail-header__icon-holder {
+            position: relative;
+            top: rem(0);
+        }
+
         .detail-header__icon {
-          display: inline;
           padding: 0 0 0 rem(5);
           cursor: default;
           margin: 0;
@@ -197,3 +202,4 @@
 }
 
 @import "./_truncation";
+@import "pages/homepage/hero/_heroTooltip";

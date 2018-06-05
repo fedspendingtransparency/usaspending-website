@@ -21,8 +21,7 @@ const propTypes = {
     pageSize: PropTypes.number,
     order: PropTypes.object,
     updateSort: PropTypes.func,
-    goToUnreported: PropTypes.func,
-    lastUpdate: PropTypes.string
+    goToUnreported: PropTypes.func
 };
 
 export default class ExplorerTable extends React.Component {
@@ -38,7 +37,7 @@ export default class ExplorerTable extends React.Component {
     }
 
     unreportedRow(data) {
-        this.props.goToUnreported(data, this.props.lastUpdate);
+        this.props.goToUnreported(data);
     }
 
     render() {

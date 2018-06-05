@@ -208,7 +208,6 @@ export default class DetailContent extends React.Component {
                 total={this.props.total}
                 data={this.props.data}
                 goDeeper={this.props.goDeeper}
-                lastUpdate={this.props.lastUpdate}
                 changeSubdivisionType={this.props.changeSubdivisionType}
                 goToUnreported={this.props.goToUnreported}
                 showTooltip={this.props.showTooltip}

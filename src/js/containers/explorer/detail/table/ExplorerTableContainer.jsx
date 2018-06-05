@@ -25,8 +25,7 @@ const propTypes = {
     results: PropTypes.object,
     goDeeper: PropTypes.func,
     total: PropTypes.number,
-    goToUnreported: PropTypes.func,
-    lastUpdate: PropTypes.string
+    goToUnreported: PropTypes.func
 };
 
 export class ExplorerTableContainer extends React.Component {
@@ -180,8 +179,7 @@ export class ExplorerTableContainer extends React.Component {
                 pageNumber={this.props.pageNumber}
                 totalItems={this.state.totalItems}
                 pageSize={this.state.pageSize}
-                goToUnreported={this.props.goToUnreported}
-                lastUpdate={this.props.lastUpdate} />
+                goToUnreported={this.props.goToUnreported} />
         );
     }
 }

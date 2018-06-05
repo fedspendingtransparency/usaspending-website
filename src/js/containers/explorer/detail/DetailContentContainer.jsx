@@ -44,8 +44,7 @@ export class DetailContentContainer extends React.Component {
             transitionSteps: 0,
             inFlight: true,
             isTruncated: false,
-            transition: '',
-            showUnreported: false
+            transition: ''
         };
 
         this.request = null;
@@ -124,8 +123,6 @@ export class DetailContentContainer extends React.Component {
             .then((res) => {
                 if (isRoot) {
                     this.parseRootData(res.data);
-                } else if (this.state.showUnreported) {
-                    this.parseUnreportedData(res.data, request);
                 }
                 else {
                     this.parseData(res.data, request, isRewind);
@@ -450,7 +447,7 @@ export class DetailContentContainer extends React.Component {
         });
     }
 
-    goToUnreported(data, date) {
+    goToUnreported(data) {
         const dataArr = [data];
 
         // generate a trail object representing the current filter that is being applied
@@ -503,7 +500,7 @@ export class DetailContentContainer extends React.Component {
                 // the treemap
                 this.setState({
                     data: new List(dataArr),
-                    lastUpdate: date,
+                    lastUpdate: this.state.lastUpdate,
                     inFlight: false,
                     transition: 'end'
                 });
@@ -542,7 +539,7 @@ export class DetailContentContainer extends React.Component {
                     showTooltip={this.props.showTooltip}
                     hideTooltip={this.props.hideTooltip}
                     rewindToFilter={this.rewindToFilter}
-                    goToUnreported={this.goToUnreported} />);
+                    goToUnreported={this.goToUnreported} />
             </div>
         );
     }

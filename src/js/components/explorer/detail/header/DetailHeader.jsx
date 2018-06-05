@@ -62,23 +62,18 @@ const dataType = (type, parent) => {
 };
 
 const heading = (type, title, id) => {
-    let updatedTitle = title;
-    if (title === "Unreported Data*")
-    {
-        updatedTitle = "Unreported Data";
-    }
     if (type === 'Federal Account') {
         let header = (
             <a
                 href={`/#/federal_account/${id}`}
                 className="detail-header__title-link"
                 onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
-                {updatedTitle}
+                {title}
             </a>);
-        if (title === "Unreported Data*") {
+        if (title === "Unreported Data") {
             header = (
                 <span className="detail-header__title-link">
-                    {updatedTitle}
+                    {title}
                 </span>);
         }
         return (
@@ -93,12 +88,12 @@ const heading = (type, title, id) => {
                 href={`/#/agency/${id}`}
                 className="detail-header__title-link"
                 onClick={exitExplorer.bind(null, `/agency/${id}`)}>
-                {updatedTitle}
+                {title}
             </a>);
-        if (title === "Unreported Data*") {
+        if (title === "Unreported Data") {
             header = (
                 <span className="detail-header__title-link">
-                    {updatedTitle}
+                    {title}
                 </span>);
         }
         return (
@@ -109,7 +104,7 @@ const heading = (type, title, id) => {
     }
     return (
         <h2 className="detail-header__title">
-            {updatedTitle}
+            {title}
         </h2>
     );
 };

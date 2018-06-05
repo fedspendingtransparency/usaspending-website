@@ -33,7 +33,10 @@ export default class LinkCell extends React.Component {
     }
 
     render() {
-        const name = this.props.name;
+        let name = this.props.name;
+        if (name === 'Unreported Data') {
+            name = 'Unreported Data*';
+        }
 
         return (
             <div className={`explorer-link-cell column-${this.props.column}`}>
