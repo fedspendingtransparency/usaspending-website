@@ -5,57 +5,251 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
+
+// mock the search helper
+jest.mock('helpers/searchHelper', () => require('./spendingByCategoryHelper'));
 
 import { RankVisualizationWrapperContainer } from
     'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
+import { Set } from 'immutable';
 
-// mock the child containers by replacing them with a function that returns a null element
-jest.mock('containers/search/visualizations/rank/SpendingByAwardingAgencyVisualizationContainer', () =>
+// mock the child components by replacing them with a function that returns a null element
+jest.mock('components/search/visualizations/rank/sections/SpendingByAgencySection', () =>
     jest.fn(() => null));
-jest.mock('containers/search/visualizations/rank/SpendingByFundingAgencyVisualizationContainer', () =>
+jest.mock('components/search/visualizations/rank/sections/SpendingByRecipientSection', () =>
     jest.fn(() => null));
-
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
-
-// spy on specific functions inside the component
-const generateVisualizationSpy = sinon.spy(RankVisualizationWrapperContainer.prototype,
-    'generateVisualization');
-const changeSpendingBySpy = sinon.spy(RankVisualizationWrapperContainer.prototype,
-    'changeSpendingBy');
+jest.mock('components/search/visualizations/rank/sections/SpendingByCFDASection', () =>
+    jest.fn(() => null));
+jest.mock('components/search/visualizations/rank/sections/SpendingByIndustryCodeSection', () =>
+    jest.fn(() => null));
+jest.mock('components/search/visualizations/rank/RankVisualizationTitle', () =>
+    jest.fn(() => null));
 
 describe('RankVisualizationWrapperContainer', () => {
-    it('should handle generating the visualization on render', () => {
-        // shallow mount the container
-        mount(<RankVisualizationWrapperContainer
+    it('should make an API request on mount', async () => {
+        const container = mount(<RankVisualizationWrapperContainer
             reduxFilters={defaultFilters} />);
 
-        // Expect one call on render
-        expect(generateVisualizationSpy.callCount).toEqual(1);
+        const fetchData = jest.fn();
+        container.instance().fetchData = fetchData;
 
-        // reset the spy
-        generateVisualizationSpy.reset();
+        container.instance().componentDidMount();
+        await container.instance().apiRequest.promise;
+
+        expect(fetchData).toHaveBeenCalledTimes(1);
+    });
+    it('should make an API request when the Redux filters change', async () => {
+        const initialFilters = Object.assign({}, defaultFilters);
+        const secondFilters = Object.assign({}, defaultFilters, {
+            timePeriodType: 'fy',
+            timePeriodFY: new Set(['2014', '2015'])
+        });
+
+        const container = mount(<RankVisualizationWrapperContainer
+            reduxFilters={defaultFilters} />);
+
+        const fetchData = jest.fn();
+        container.instance().fetchData = fetchData;
+
+        container.instance().componentDidMount();
+        await container.instance().apiRequest.promise;
+
+        expect(fetchData).toHaveBeenCalledTimes(1);
+
+        // the page number should be equal to 1
+        expect(container.state().page).toEqual(1);
+
+        // now update the props
+        container.setProps({
+            reduxFilters: secondFilters
+        });
+
+        // fetchData should have been called again
+        expect(fetchData).toHaveBeenCalledTimes(2);
+
+        // the page number should still be equal to 1
+        expect(container.state().page).toEqual(1);
+    });
+
+    it('should handle generating the visualization on render', () => {
+        const container = mount(<RankVisualizationWrapperContainer
+            reduxFilters={defaultFilters} />);
+
+        const generateVisualization = jest.fn();
+        container.instance().generateVisualization = generateVisualization;
+
+        container.instance().componentDidMount();
+
+        expect(generateVisualization).toHaveBeenCalled();
     });
 
     describe('changeSpendingBy', () => {
-        it('should change the spendingBy to the provided value', () => {
+        it('should change the spendingBy to the provided value and update to the default scope', () => {
             const container = mount(<RankVisualizationWrapperContainer
                 reduxFilters={defaultFilters} />);
 
-            // the default scope should be budgetFunctions
-            expect(container.state().spendingBy).toEqual('awarding_agency');
+            container.instance().componentDidMount();
 
-            // change the scope to federalAccounts
-            container.instance().changeSpendingBy('funding_agency');
-            expect(container.state().spendingBy).toEqual('funding_agency');
+            // the default scope should be awarding agency
+            expect(container.state().spendingBy).toEqual('awardingAgency');
+            expect(container.state().scope).toEqual('awarding_agency');
 
-            expect(changeSpendingBySpy.callCount).toEqual(1);
-            // reset the spies
-            changeSpendingBySpy.reset();
+            // change the scope to industry code
+            container.instance().changeSpendingBy('industryCode');
+            expect(container.state().spendingBy).toEqual('industryCode');
+            expect(container.state().scope).toEqual('psc');
+        });
+    });
+    
+    describe('parseData', () => {
+        it('should properly restructure the API data for the rank visualization', async () => {
+            // mount the container
+            const container = mount(<RankVisualizationWrapperContainer
+                reduxFilters={defaultFilters} />);
+
+            container.instance().componentDidMount();
+            await container.instance().apiRequest.promise;
+
+            // validate the state contains the correctly parsed values
+            const expectedState = {
+                spendingBy: 'awardingAgency',
+                loading: false,
+                labelSeries: ['First Agency (FA)', 'Second Agency (SA)'],
+                dataSeries: ['456', '123'],
+                descriptions: ['Spending by First Agency (FA): $456', 'Spending by Second Agency (SA): $123'],
+                page: 1,
+                scope: 'awarding_agency',
+                next: null,
+                previous: null,
+                hasNextPage: false,
+                hasPreviousPage: false
+            };
+
+            expect(container.state()).toEqual(expectedState);
+        });
+    });
+
+    describe('nextPage', () => {
+        it('should trigger a new API call with an incremented page number', () => {
+            // mount the container
+            const container = mount(<RankVisualizationWrapperContainer
+                reduxFilters={defaultFilters} />);
+
+            container.instance().componentDidMount();
+
+            // initial state should be page 1
+            expect(container.state().page).toEqual(1);
+
+            // Tell container it has a nextPage
+            container.state().hasNextPage = true;
+
+            // Attempt to go to the next page
+            container.instance().nextPage();
+
+            // updated state should be page 2
+            expect(container.state().page).toEqual(2);
+        });
+    });
+
+    describe('previousPage', () => {
+        it('should trigger a new API call with a decremented page number', () => {
+            // mount the container
+            const container = mount(<RankVisualizationWrapperContainer
+                reduxFilters={defaultFilters} />);
+
+            container.setState({
+                page: 5,
+                has_previous_page: true,
+                previous: "checksum"
+            });
+
+            // we have simulated a starting state of page 5
+            expect(container.state().page).toEqual(5);
+
+            container.instance().previousPage();
+            // updated state should be one less page
+            expect(container.state().page).toEqual(4);
+        });
+
+        it('should never use a page number less than 1', () => {
+            // mount the container
+            const container = mount(<RankVisualizationWrapperContainer
+                reduxFilters={defaultFilters} />);
+
+            container.setState({
+                page: 1
+            });
+
+            // we have simulated a starting state of page 5
+            expect(container.state().page).toEqual(1);
+
+            container.instance().previousPage();
+            // updated state should be 1
+            expect(container.state().page).toEqual(1);
+        });
+    });
+
+    describe('newSearch', () => {
+        it('when Redux filters change, the page number should reset to 1', () => {
+            const initialFilters = Object.assign({}, defaultFilters);
+            const secondFilters = Object.assign({}, defaultFilters, {
+                timePeriodType: 'fy',
+                timePeriodFY: new Set(['2014', '2015'])
+            });
+
+            // mount the container
+            const container = mount(<RankVisualizationWrapperContainer
+                reduxFilters={initialFilters} />);
+
+            container.setState({
+                page: 5,
+                has_previous_page: true,
+                previous: "checksum"
+            });
+
+            // assume we are starting on page 5
+            expect(container.state().page).toEqual(5);
+
+            // now update the props
+            container.setProps({
+                reduxFilters: secondFilters
+            });
+
+            // the page number should be reset to 1
+            expect(container.state().page).toEqual(1);
+        });
+    });
+
+    describe('changeScope', () => {
+        it('should change the scope to the provided value', () => {
+            const container = mount(<RankVisualizationWrapperContainer
+                reduxFilters={defaultFilters} />);
+
+            // the default scope should be toptier
+            expect(container.state().scope).toEqual('awarding_agency');
+
+            // change the scope to subtier
+            container.instance().changeScope('awarding_subagency');
+            expect(container.state().scope).toEqual('awarding_subagency');
+        });
+
+        it('should reset the page number to 1 when the scope changes', () => {
+            const container = mount(<RankVisualizationWrapperContainer
+                reduxFilters={defaultFilters} />);
+            container.setState({
+                page: 5
+            });
+
+            // the default scope should be toptier
+            expect(container.state().scope).toEqual('awarding_agency');
+            expect(container.state().page).toEqual(5);
+
+            // change the scope to subtier
+            container.instance().changeScope('awarding_subagency');
+            expect(container.state().scope).toEqual('awarding_subagency');
+            expect(container.state().page).toEqual(1);
         });
     });
 });
