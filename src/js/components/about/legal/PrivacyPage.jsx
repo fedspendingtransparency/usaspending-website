@@ -13,7 +13,7 @@ const PrivacyPage = () => (
         <p>
             USASpending.gov is committed to protecting the privacy and security of its users.
             Our online privacy policy is outlined below.  If you have questions about this policy,
-            please <a href="mailto:usaspending.help-submitonly@fiscal.treasury.gov?subject=Contact%20Us">contact us</a>.
+            please <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">contact us</a>.
         </p>
         <h3 className="about-subtitle">
             Collection and disclosure of information

@@ -6,6 +6,13 @@
         @import "components/visualizations/tooltip/_tooltip";
     }
 
+    .results-visualization-message {
+        margin-top: rem(10);
+        font-size: $small-font-size;
+        color: $color-base;
+        text-align: center;
+    }
+
     .state-visualization__time-wrapper {
         min-height: rem(304);
     }
