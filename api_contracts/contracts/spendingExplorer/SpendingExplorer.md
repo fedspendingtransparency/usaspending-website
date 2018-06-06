@@ -67,7 +67,7 @@ Using the response from the general Spending Explorer, you can drill down to mor
         + unreported_amount: 432232.09 (required, number)
         + end_date: `2017-09-30` (required, string)
             This is the "as-of" date for the data being returned.
-        + results (required, array[SpendingExplorerDetailedResponse, SpendingExplorerGeneralUnreportedResponse], fixed-type)
+        + results (required, array[SpendingExplorerDetailedResponse], fixed-type)
 
 # Data Structures
 
