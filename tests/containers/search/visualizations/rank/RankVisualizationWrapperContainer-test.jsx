@@ -41,7 +41,6 @@ describe('RankVisualizationWrapperContainer', () => {
         expect(fetchData).toHaveBeenCalledTimes(1);
     });
     it('should make an API request when the Redux filters change', async () => {
-        const initialFilters = Object.assign({}, defaultFilters);
         const secondFilters = Object.assign({}, defaultFilters, {
             timePeriodType: 'fy',
             timePeriodFY: new Set(['2014', '2015'])
@@ -72,7 +71,32 @@ describe('RankVisualizationWrapperContainer', () => {
         // the page number should still be equal to 1
         expect(container.state().page).toEqual(1);
     });
+    it('should make an API request when the sub-awards toggle changes', async () => {
+        const container = mount(<RankVisualizationWrapperContainer
+            reduxFilters={defaultFilters} />);
 
+        const fetchData = jest.fn();
+        container.instance().fetchData = fetchData;
+
+        container.instance().componentDidMount();
+        await container.instance().apiRequest.promise;
+
+        expect(fetchData).toHaveBeenCalledTimes(1);
+
+        // the page number should be equal to 1
+        expect(container.state().page).toEqual(1);
+
+        // now update the props
+        container.setProps({
+            subaward: true
+        });
+
+        // fetchData should have been called again
+        expect(fetchData).toHaveBeenCalledTimes(2);
+
+        // the page number should still be equal to 1
+        expect(container.state().page).toEqual(1);
+    });
     it('should handle generating the visualization on render', () => {
         const container = mount(<RankVisualizationWrapperContainer
             reduxFilters={defaultFilters} />);

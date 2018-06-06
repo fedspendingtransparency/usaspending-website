@@ -133,7 +133,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
             filters: searchParams,
             limit: 10,
             page: this.state.page,
-            auditTrail
+            auditTrail,
+            subawards: this.props.subaward
         };
 
         this.apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
