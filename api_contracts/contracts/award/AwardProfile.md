@@ -22,8 +22,10 @@ These endpoints support the tables on the individual Award Profile pages.
             The number of results to include per page. Defaults to 10.
         + page: 1 (optional, number)
             The page of results to return based on the limit. Defaults to 1.
-        + sort (optional, SubAwardSortObject)
-            Describes how the results are sorted. Defaults to descending by sub-award id (`subaward_number`).
+        + sort: subaward_number (optional, string)
+            The field results are sorted by. Defaults to `subaward_number`. One of `subaward_number`, `description`, `action_date`, `amount`, `recipient_name`.
+        + order: desc (optional, string)
+            The direction results are sorted by. Defaults to descending.
         
 + Response 200 (application/json)
     + Attributes
@@ -42,8 +44,11 @@ These endpoints support the tables on the individual Award Profile pages.
             The number of results to include per page. Defaults to 10.
         + page: 1 (optional, number)
             The page of results to return based on the limit. Defaults to 1.
-        + sort (optional, TransactionSortObject)
-            Describes how the results are sorted. Defaults to descending by action date.
+        + sort: action_date (optional, string)
+            The field results are sorted by. Defaults to `action_date`. One of `modification_number`, `action_date`, `federal_action_obligation`, 
+            `face_value_loan_guarantee`, `original_loan_subsidy_cost`, `action_type_description`, or `description`.
+        + order: desc (optional, string)
+            The direction results are sorted by. Defaults to descending.
         
 + Response 200 (application/json)
     + Attributes
@@ -64,12 +69,6 @@ These endpoints support the tables on the individual Award Profile pages.
 + amount: 1234.56 (required, number)
     Monetary value of the sub-award.
 + recipient_name: Recipient A (required, string)
-
-## SubAwardSortObject (object)
-+ field subaward_number (required, string)
-    One of `subaward_number`, `description`, `action_date`, `amount`, `recipient_name`.
-+ direction desc (required, string)
-    `asc` for ascending order or `desc` for descending order.
     
 ## TransactionResult (object)
 + id: `1` (required, string)
@@ -104,13 +103,6 @@ These endpoints support the tables on the individual Award Profile pages.
     Face value of the loan. 
 + original_loan_subsidy_cost: 234.12 (required, number)
     Original subsidy cost of the loan.  
-
-## TransactionSortObject (object)
-+ field subaward_number (required, string)
-    One of `modification_number`, `action_date`, `federal_action_obligation`, 
-    `face_value_loan_guarantee`, `original_loan_subsidy_cost`, `action_type_description`, or `description`.
-+ direction desc (required, string)
-    `asc` for ascending order or `desc` for descending order.
 
 ## PageMetaDataObject (object)
 + page: 1 (required, number)
