@@ -43,7 +43,7 @@ Using the response from the general Spending Explorer, you can drill down to mor
 + Response 200 (application/json)
     + Attributes (object)
         + total: 126073789264.49 (required, number)
-        + unreported_amount: 432232.09 (required, number)
+        + 
         + end_date: `2017-09-30` (required, string)
             This is the "as-of" date for the data being returned.
         + results (required, array[SpendingExplorerGeneralResponse, SpendingExplorerGeneralUnreportedResponse], fixed-type)
@@ -64,7 +64,6 @@ Using the response from the general Spending Explorer, you can drill down to mor
 + Response 200 (application/json)
     + Attributes (object)
         + total: 1410774412.52 (required, number)
-        + unreported_amount: 432232.09 (required, number)
         + end_date: `2017-09-30` (required, string)
             This is the "as-of" date for the data being returned.
         + results (required, array[SpendingExplorerDetailedResponse], fixed-type)
