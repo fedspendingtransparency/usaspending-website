@@ -286,12 +286,11 @@ describe('DetailContentContainer', () => {
                 explorer={mockReducerRoot} />);
             container.instance().loadData = jest.fn();
 
-            container.instance().goToUnreported(mockLevelData, '09-40-01');
+            container.instance().goToUnreported(mockLevelData);
             jest.runAllTimers();
 
             expect(container.state().transitionSteps).toEqual(1);
             expect(container.state().transition).toEqual('end');
-            expect(container.state().lastUpdate).toEqual("09-40-01");
         });
     });
     describe('changeSubdivisionType', () => {
