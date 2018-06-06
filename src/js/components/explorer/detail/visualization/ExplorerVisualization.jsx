@@ -133,7 +133,7 @@ export default class ExplorerVisualization extends React.Component {
 
                 <div className="explorer-vis__disclaimer">
                     <p>All dollar amounts shown here represent agency reported obligated amounts</p>
-                    <p><span className="explorer-vis_bold">Unreported Data*:</span> Unreported amounts are calculated using the difference in the total obligated amount from the <a href="https://max.omb.gov/maxportal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">Report on Budget Execution and Budgetary Resources</a> and the total obligated amount reported by agencies to USAspending.gov</p>
+                    <p><span className="explorer-vis_bold">Unreported Data*:</span> Unreported amounts are calculated using the difference in the total obligated amount from the <a href="https://max.omb.gov/maxportal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">Report on Budget Execution and Budgetary Resources</a> and the total obligated amount reported by agencies to USAspending.gov.</p>
                 </div>
             </div>
         );
