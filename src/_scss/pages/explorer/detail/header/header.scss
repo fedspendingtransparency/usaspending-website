@@ -87,8 +87,8 @@
         }
 
         .detail-header__icon-holder {
-            position: relative;
             top: rem(0);
+            z-index: 0;
         }
 
         .detail-header__icon {
@@ -200,6 +200,13 @@
 .detail-header__truncation {
     margin-top: rem(20);
 }
+@import "pages/homepage/hero/_heroTooltip";
+
+.homepage-hero-tooltip {
+  // we don't want the tooltip to be on top of the fix header, this will make sure that
+  // it's stays under the fixed header when scrolling
+  z-index: 1;
+}
 
 @import "./_truncation";
-@import "pages/homepage/hero/_heroTooltip";
+
