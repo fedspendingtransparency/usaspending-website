@@ -22,7 +22,7 @@ export default class SpendingByRecipientSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-top__description">
                         View a list of the top Recipients from highest to lowest.
-                        View your results by Parent Recipient or Child Recipient,
+                        View your results by Parent Recipient or Recipient,
                         and hover over the bars for more detailed information.
                     </div>
                     <div className="visualization-scope">
@@ -40,15 +40,6 @@ export default class SpendingByRecipientSection extends React.Component {
                             label="Recipient (DUNS)"
                             active={this.props.scope === 'recipient_duns'}
                             changeScope={this.props.changeScope} />
-                        <div className="coming-soon">
-                            <RankVisualizationScopeButton
-                                value="recipientType"
-                                label="Recipient Type"
-                                active={this.props.scope === 'recipient_type'}
-                                changeScope={this.props.changeScope}
-                                disabled />
-                            <ComingSoonLabel />
-                        </div>
                     </div>
                 </div>
             </RankVisualizationSection>
