@@ -13,7 +13,7 @@ const propTypes = {
     closeTooltip: PropTypes.func
 };
 
-const tooltipWidth = 160;
+
 const margin = 15;
 const tooltipPadding = 6;
 
