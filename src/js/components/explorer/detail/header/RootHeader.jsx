@@ -72,7 +72,7 @@ export default class RootHeader extends React.Component {
                 <div className="detail-header__amounts">
                     <div className="detail-header__fy">
                             FY {this.props.fy} obligated amount
-                        <span className="detail-header__icon-holder">
+                        <span>
                             <button
                                 id="detail-header__icon"
                                 className="detail-header__icon"
