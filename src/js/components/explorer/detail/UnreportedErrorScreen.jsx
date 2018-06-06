@@ -4,14 +4,8 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
-
-const propTypes = {
-    rewindToFilter: PropTypes.func,
-    currentIndex: PropTypes.number
-};
 
 export default class UnreportedErrorScreen extends React.Component {
     render() {
@@ -38,4 +32,3 @@ export default class UnreportedErrorScreen extends React.Component {
     }
 }
 
-UnreportedErrorScreen.propTypes = propTypes;

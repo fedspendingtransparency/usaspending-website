@@ -124,7 +124,11 @@ export default class ExplorerTreemap extends React.Component {
         // the available width is 40px less than the box width to account for 20px of padding on
         // each side
         const usableWidth = width - 40;
-        const title = this.truncateText(data.data.name, 'title', usableWidth);
+        let name = data.data.name;
+        if (data.data.id === null) {
+            name = "Unreported Data*";
+        }
+        const title = this.truncateText(name, 'title', usableWidth);
         const subtitle = this.truncateText(percentString, 'subtitle', usableWidth);
         let color = scale(amount);
 

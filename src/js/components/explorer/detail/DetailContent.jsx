@@ -12,7 +12,6 @@ import DetailHeader from './header/DetailHeader';
 import ExplorerVisualization from './visualization/ExplorerVisualization';
 import FakeScreens from './FakeScreens';
 import NoAwardsScreen from './NoAwardsScreen';
-import UnreportedErrorScreen from './UnreportedErrorScreen';
 
 const propTypes = {
     isRoot: PropTypes.bool,
@@ -195,38 +194,34 @@ export default class DetailContent extends React.Component {
                 position="above"
                 transitionSteps={this.props.transitionSteps} />);
         }
-
+        const currentIndex = this.props.trail.length - 1;
         let visualizationSection = (
-            <ExplorerVisualization
-                isRoot={this.props.isRoot}
-                isLoading={this.props.isLoading}
-                lastFilter={lastFilter}
-                root={this.props.root}
-                fy={this.props.fy}
-                active={this.props.active}
-                trail={this.props.trail}
-                total={this.props.total}
-                data={this.props.data}
-                goDeeper={this.props.goDeeper}
-                changeSubdivisionType={this.props.changeSubdivisionType}
-                goToUnreported={this.props.goToUnreported}
-                showTooltip={this.props.showTooltip}
-                hideTooltip={this.props.hideTooltip} />
-        );
+            <NoAwardsScreen
+                rewindToFilter={this.props.rewindToFilter}
+                currentIndex={currentIndex} />);
 
-        if (this.props.total === 0 || this.props.total === null) {
-            const currentIndex = this.props.trail.length - 1;
+        if (this.props.data.count() > 0) {
             visualizationSection = (
-                <NoAwardsScreen
-                    rewindToFilter={this.props.rewindToFilter}
-                    currentIndex={currentIndex} />);
-        } else if (this.props.data.get(0).id === null) {
-            const currentIndex = this.props.trail.length - 1;
-            visualizationSection = (
-                <UnreportedErrorScreen
-                    rewindToFilter={this.props.rewindToFilter}
-                    currentIndex={currentIndex} />);
+                <ExplorerVisualization
+                    isRoot={this.props.isRoot}
+                    isLoading={this.props.isLoading}
+                    lastFilter={lastFilter}
+                    root={this.props.root}
+                    fy={this.props.fy}
+                    active={this.props.active}
+                    trail={this.props.trail}
+                    total={this.props.total}
+                    data={this.props.data}
+                    goDeeper={this.props.goDeeper}
+                    changeSubdivisionType={this.props.changeSubdivisionType}
+                    goToUnreported={this.props.goToUnreported}
+                    showTooltip={this.props.showTooltip}
+                    hideTooltip={this.props.hideTooltip}
+                    currentIndex={currentIndex}
+                    rewindToFilter={this.props.rewindToFilter} />
+            );
         }
+
 
         return (
             <div

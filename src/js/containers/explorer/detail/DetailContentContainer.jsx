@@ -467,7 +467,8 @@ export class DetailContentContainer extends React.Component {
         let total;
         if (!data.obligated_amount) {
             total = data.amount;
-        } else {
+        }
+        else {
             total = data.obligated_amount;
         }
 
@@ -506,7 +507,6 @@ export class DetailContentContainer extends React.Component {
                 });
             }, 250);
         });
-
 
         this.props.resetExplorerTable();
     }

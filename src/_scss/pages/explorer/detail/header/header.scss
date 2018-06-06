@@ -202,6 +202,21 @@
   // we don't want the tooltip to be on top of the fix header, this will make sure that
   // it's stays under the fixed header when scrolling
   z-index: 1;
+  width: rem(220);
+  .homepage-hero-tooltip__text_holder {
+    height: rem(90);
+    padding: rem(7) rem(20) 0 rem(35);
+  }
+
+  .homepage-hero-tooltip__info_icon {
+    top: rem(15);
+    left: rem(15);
+  }
+
+  .homepage-hero-tooltip__close_icon {
+    top: rem(15);
+    right: rem(10);
+  }
 }
 
 @import "./_truncation";

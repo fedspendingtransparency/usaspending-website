@@ -97,12 +97,6 @@ export default class TreemapCell extends React.Component {
     }
 
     render() {
-        let name = this.props.data.name;
-        let title = this.props.title.text;
-        if (name === 'Unreported Data') {
-            name = 'Unreported Data*';
-            title = 'Unreported Data*';
-        }
         let cellTitle = (
             <text
                 className={`explorer-cell-title ${this.state.active}`}
@@ -110,7 +104,7 @@ export default class TreemapCell extends React.Component {
                 fill={this.state.textColor}
                 x={this.props.title.x}
                 y={this.props.title.y}>
-                {title}
+                {this.props.title.text}
             </text>
         );
 
@@ -142,7 +136,7 @@ export default class TreemapCell extends React.Component {
                     this.element = g;
                 }}>
                 <title>
-                    {name}
+                    {this.props.title.text}
                 </title>
                 <rect
                     className="explorer-cell-box"
