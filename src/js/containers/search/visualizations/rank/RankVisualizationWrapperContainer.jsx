@@ -36,6 +36,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
         this.state = {
             spendingBy: 'awardingAgency',
             loading: true,
+            error: false,
             labelSeries: [],
             dataSeries: [],
             descriptions: [],
@@ -145,6 +146,10 @@ export class RankVisualizationWrapperContainer extends React.Component {
             })
             .catch(() => {
                 this.apiRequest = null;
+                this.setState({
+                    loading: false,
+                    error: true
+                });
             });
     }
 
@@ -179,6 +184,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
             dataSeries,
             descriptions,
             loading: false,
+            error: false,
             next: data.page_metadata.next,
             previous: data.page_metadata.previous,
             hasNextPage: data.page_metadata.hasNext,
@@ -242,11 +248,21 @@ export class RankVisualizationWrapperContainer extends React.Component {
     render() {
         const visualization = this.generateVisualization();
 
+        const fieldTypes = [
+            'awardingAgency',
+            'recipient',
+            'cfda'
+        ];
+        if (!this.props.subaward) {
+            fieldTypes.push('industryCode');
+        }
+
         return (
             <div
                 className="results-visualization-rank-section"
                 id="results-section-rank">
                 <RankVisualizationTitle
+                    fieldTypes={fieldTypes}
                     changeSpendingBy={this.changeSpendingBy}
                     currentSpendingBy={this.state.spendingBy} />
                 { visualization }

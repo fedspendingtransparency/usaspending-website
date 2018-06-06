@@ -15,15 +15,6 @@ const propTypes = {
     currentSpendingBy: PropTypes.string
 };
 
-const defaultProps = {
-    fieldTypes: [
-        'awardingAgency',
-        'recipient',
-        'cfda',
-        'industryCode'
-    ]
-};
-
 export default class RankVisualizationTitle extends React.Component {
     constructor(props) {
         super(props);
@@ -34,8 +25,6 @@ export default class RankVisualizationTitle extends React.Component {
 
         this.togglePicker = this.togglePicker.bind(this);
         this.clickedItem = this.clickedItem.bind(this);
-
-        this.keyboardBindings = [];
     }
 
     togglePicker() {
@@ -113,4 +102,3 @@ export default class RankVisualizationTitle extends React.Component {
 }
 
 RankVisualizationTitle.propTypes = propTypes;
-RankVisualizationTitle.defaultProps = defaultProps;

@@ -15,6 +15,7 @@ const propTypes = {
     nextPage: PropTypes.func,
     previousPage: PropTypes.func,
     loading: PropTypes.bool,
+    error: PropTypes.bool,
     hasNextPage: PropTypes.bool,
     hasPreviousPage: PropTypes.bool,
     children: PropTypes.node
@@ -70,7 +71,7 @@ export default class RankVisualizationSection extends React.Component {
         const disablePrev = !this.props.hasPreviousPage;
         let hidePager = '';
 
-        if ((disableNext && disablePrev) || this.props.loading) {
+        if ((disableNext && disablePrev) || this.props.loading || this.props.error) {
             hidePager = 'hide';
         }
 

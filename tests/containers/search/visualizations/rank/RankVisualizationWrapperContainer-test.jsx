@@ -140,6 +140,7 @@ describe('RankVisualizationWrapperContainer', () => {
             const expectedState = {
                 spendingBy: 'awardingAgency',
                 loading: false,
+                error: false,
                 labelSeries: ['First Agency (FA)', 'Second Agency (SA)'],
                 dataSeries: ['456', '123'],
                 descriptions: ['Spending by First Agency (FA): $456', 'Spending by Second Agency (SA): $123'],

@@ -18,6 +18,7 @@ const defaultProps = {
     width: 0,
     height: 630, // 60px * 10 rows + 30px padding
     loading: true,
+    error: false,
     disableTooltip: false,
     urlRoot: ''
 };
@@ -26,6 +27,7 @@ const propTypes = {
     dataSeries: PropTypes.array,
     descriptions: PropTypes.array,
     loading: PropTypes.bool,
+    error: PropTypes.bool,
     meta: PropTypes.object,
     disableTooltip: PropTypes.bool
 };
@@ -70,16 +72,21 @@ export default class RankVisualization extends React.Component {
         if (this.props.loading) {
             chart = (<ChartMessage message="Loading data..." />);
         }
+        else if (this.props.error) {
+            chart = (<ChartMessage message="An error has occurred." />);
+        }
         else if (this.props.dataSeries.length > 0) {
-            chart = (<HorizontalChart
-                {...this.props}
-                selectItem={this.selectItem}
-                deselectItem={this.deselectItem} />);
+            chart = (
+                <HorizontalChart
+                    {...this.props}
+                    selectItem={this.selectItem}
+                    deselectItem={this.deselectItem} />
+            );
             legend = (
                 <div className="visualization-legend">
                     <div className="visualization-legend__circle" />
                     <div className="visualization-legend__label">
-                        Obligations Incurred
+                        Amount Obligated
                     </div>
                 </div>
             );
