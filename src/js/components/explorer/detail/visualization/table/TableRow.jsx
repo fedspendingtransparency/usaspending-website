@@ -13,7 +13,7 @@ const propTypes = {
     item: PropTypes.object,
     rowIndex: PropTypes.number.isRequired,
     selectedRow: PropTypes.func,
-    unreportedRow: PropTypes.func
+    goToUnreported: PropTypes.func
 };
 
 export default class TableRow extends React.PureComponent {
@@ -36,7 +36,7 @@ export default class TableRow extends React.PureComponent {
                             id={`${this.props.item.id}`}
                             column={column.columnName}
                             selectedRow={this.props.selectedRow}
-                            unreportedRow={this.props.unreportedRow} />
+                            goToUnreported={this.props.goToUnreported} />
                     </td>
                 );
             }

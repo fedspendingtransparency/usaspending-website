@@ -14,7 +14,7 @@ const propTypes = {
     column: PropTypes.string,
     id: PropTypes.string,
     selectedRow: PropTypes.func,
-    unreportedRow: PropTypes.func
+    goToUnreported: PropTypes.func
 };
 
 export default class LinkCell extends React.Component {
@@ -26,7 +26,7 @@ export default class LinkCell extends React.Component {
 
     clickedLink() {
         if (this.props.id === "null") {
-            this.props.unreportedRow(this.props.data);
+            this.props.goToUnreported(this.props.data);
         } else {
             this.props.selectedRow(parseInt(this.props.id, 10), this.props.data);
         }

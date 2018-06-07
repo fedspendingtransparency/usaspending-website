@@ -37,7 +37,6 @@ export default class ExplorerTreemap extends React.Component {
         };
 
         this.selectedCell = this.selectedCell.bind(this);
-        this.unreportedCell = this.unreportedCell.bind(this);
     }
 
     componentWillMount() {
@@ -200,10 +199,6 @@ export default class ExplorerTreemap extends React.Component {
         this.props.goDeeper(id, title);
     }
 
-    unreportedCell(data) {
-        this.props.goToUnreported(data);
-    }
-
     render() {
         if (this.props.width <= 0) {
             return null;
@@ -216,7 +211,7 @@ export default class ExplorerTreemap extends React.Component {
                 selectedCell={this.selectedCell}
                 showTooltip={this.props.showTooltip}
                 hideTooltip={this.props.hideTooltip}
-                unreportedCell={this.unreportedCell} />
+                goToUnreported={this.props.goToUnreported} />
         ));
 
         return (

@@ -29,15 +29,10 @@ export default class ExplorerTable extends React.Component {
         super(props);
 
         this.selectedRow = this.selectedRow.bind(this);
-        this.unreportedRow = this.unreportedRow.bind(this);
     }
 
     selectedRow(id, title) {
         this.props.goDeeper(id, title);
-    }
-
-    unreportedRow(data) {
-        this.props.goToUnreported(data);
     }
 
     render() {
@@ -53,7 +48,7 @@ export default class ExplorerTable extends React.Component {
                 rowIndex={index}
                 columns={this.props.columns}
                 selectedRow={this.selectedRow}
-                unreportedRow={this.unreportedRow} />
+                goToUnreported={this.props.goToUnreported} />
         ));
 
         const headers = this.props.columns.map((column, index) => (

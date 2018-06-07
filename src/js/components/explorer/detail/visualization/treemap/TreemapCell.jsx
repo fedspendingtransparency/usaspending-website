@@ -20,7 +20,7 @@ const propTypes = {
     selectedCell: PropTypes.func,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    unreportedCell: PropTypes.func
+    goToUnreported: PropTypes.func
 };
 
 const highlightColor = '#fdb81e';
@@ -65,7 +65,7 @@ export default class TreemapCell extends React.Component {
         }
         else if (this.props.data.id === null) {
             this.exitedCell();
-            this.props.unreportedCell(this.props.data);
+            this.props.goToUnreported(this.props.data);
         }
     }
 
