@@ -1,6 +1,9 @@
 .results-visualization-rank-section {
     @import "./_title";
     @import "./_topSection";
+    .results-divider {
+        float: none;
+    }
     .results-visualization-rank-container {
         position: relative;
         @import "./chart/rankChart";

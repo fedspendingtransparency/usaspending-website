@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { isCancel } from 'axios';
 
 import { isEqual, max } from 'lodash';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
@@ -114,7 +115,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
 
     fetchData() {
         this.setState({
-            loading: true
+            loading: true,
+            error: false
         });
 
         if (this.apiRequest) {
@@ -144,8 +146,13 @@ export class RankVisualizationWrapperContainer extends React.Component {
                 this.parseData(res.data);
                 this.apiRequest = null;
             })
-            .catch(() => {
+            .catch((err) => {
+                if (isCancel(err)) {
+                    return;
+                }
+
                 this.apiRequest = null;
+                console.log(err);
                 this.setState({
                     loading: false,
                     error: true

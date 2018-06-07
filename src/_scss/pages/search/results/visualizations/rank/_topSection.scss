@@ -1,6 +1,5 @@
 .visualization-top {
     padding-bottom: rem(20);
-    clear: both;
     @include media($tablet-screen) {
         @include display(flex);
     }
