@@ -20,7 +20,8 @@ const propTypes = {
     data: PropTypes.object,
     goDeeper: PropTypes.func,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    goToUnreported: PropTypes.func
 };
 
 const defaultProps = {
@@ -116,15 +117,26 @@ export default class ExplorerTreemap extends React.Component {
         const width = data.x1 - data.x0;
 
         const amount = data.data.amount;
-
         const percent = amount / total;
         const percentString = `${(Math.round(percent * 1000) / 10)}%`;
 
         // the available width is 40px less than the box width to account for 20px of padding on
         // each side
         const usableWidth = width - 40;
-        const title = this.truncateText(data.data.name, 'title', usableWidth);
+        let name = data.data.name;
+        const isUnreported = data.data.name === "Unreported Data";
+        if (isUnreported) {
+            name = "Unreported Data*";
+        }
+        const title = this.truncateText(name, 'title', usableWidth);
         const subtitle = this.truncateText(percentString, 'subtitle', usableWidth);
+        let color = scale(amount);
+
+        if (isUnreported) {
+            // use the gray color for unreported data, instead of the usual calculated
+            // color
+            color = 'rgb(103,103,103)';
+        }
 
         const cell = {
             width,
@@ -135,7 +147,7 @@ export default class ExplorerTreemap extends React.Component {
                 percent,
                 percentString
             }),
-            color: scale(amount),
+            color,
             title: {
                 text: title,
                 x: (width / 2),
@@ -199,7 +211,8 @@ export default class ExplorerTreemap extends React.Component {
                 key={`${cell.data.name}-${cell.data.id}`}
                 selectedCell={this.selectedCell}
                 showTooltip={this.props.showTooltip}
-                hideTooltip={this.props.hideTooltip} />
+                hideTooltip={this.props.hideTooltip}
+                goToUnreported={this.props.goToUnreported} />
         ));
 
         return (

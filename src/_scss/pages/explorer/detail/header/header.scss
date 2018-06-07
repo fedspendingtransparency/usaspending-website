@@ -1,3 +1,4 @@
+
 .detail-header {
     @include display(flex);
     @include justify-content(space-between);
@@ -60,7 +61,7 @@
         }
 
         .detail-header__fy {
-            text-align: center;
+            text-align: right;
             text-transform: uppercase;
             font-weight: $font-semibold;
 
@@ -69,7 +70,7 @@
         }
 
         .detail-header__value {
-            text-align: center;
+            text-align: right;
             text-transform: capitalize;
             font-weight: $font-semibold;
 
@@ -80,10 +81,25 @@
         }
 
         .detail-header__update {
-            text-align: center;
+            text-align: right;
             font-size: rem(14);
             line-height: rem(18);
         }
+
+
+        .detail-header__icon {
+          padding: 0 0 0 rem(5);
+          cursor: default;
+          margin: 0;
+          background-color: transparent;
+
+     
+             svg {
+                 width: rem(10);
+                 height: rem(10);
+                 fill: #555555;
+             }
+         }
     }
 
     .left-side {
@@ -180,5 +196,28 @@
 .detail-header__truncation {
     margin-top: rem(20);
 }
+@import "pages/homepage/hero/_heroTooltip";
+
+.homepage-hero-tooltip {
+  // we don't want the tooltip to be on top of the fix header, this will make sure that
+  // it's stays under the fixed header when scrolling
+  z-index: 1;
+  width: rem(220);
+  .homepage-hero-tooltip__text_holder {
+    height: rem(90);
+    padding: rem(7) rem(20) 0 rem(35);
+  }
+
+  .homepage-hero-tooltip__info_icon {
+    top: rem(15);
+    left: rem(15);
+  }
+
+  .homepage-hero-tooltip__close_icon {
+    top: rem(15);
+    right: rem(10);
+  }
+}
 
 @import "./_truncation";
+

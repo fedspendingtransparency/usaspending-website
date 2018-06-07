@@ -30,7 +30,8 @@ const propTypes = {
     changeSubdivisionType: PropTypes.func,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    rewindToFilter: PropTypes.func
+    rewindToFilter: PropTypes.func,
+    goToUnreported: PropTypes.func
 };
 
 export default class DetailContent extends React.Component {
@@ -169,6 +170,7 @@ export default class DetailContent extends React.Component {
             if (this.props.trail.length > 2) {
                 parentFilter = this.props.trail[this.props.trail.length - 2].title;
             }
+
             header = (<DetailHeader
                 within={lastFilter.within}
                 title={lastFilter.title}
@@ -192,30 +194,34 @@ export default class DetailContent extends React.Component {
                 position="above"
                 transitionSteps={this.props.transitionSteps} />);
         }
-
+        const currentIndex = this.props.trail.length - 1;
         let visualizationSection = (
-            <ExplorerVisualization
-                isRoot={this.props.isRoot}
-                isLoading={this.props.isLoading}
-                lastFilter={lastFilter}
-                root={this.props.root}
-                fy={this.props.fy}
-                active={this.props.active}
-                trail={this.props.trail}
-                total={this.props.total}
-                data={this.props.data}
-                goDeeper={this.props.goDeeper}
-                changeSubdivisionType={this.props.changeSubdivisionType}
-                showTooltip={this.props.showTooltip}
-                hideTooltip={this.props.hideTooltip} />
-        );
-        if (this.props.total === 0 || this.props.total === null) {
-            const currentIndex = this.props.trail.length - 1;
+            <NoAwardsScreen
+                rewindToFilter={this.props.rewindToFilter}
+                currentIndex={currentIndex} />);
+
+        if (this.props.data.count() > 0) {
             visualizationSection = (
-                <NoAwardsScreen
-                    rewindToFilter={this.props.rewindToFilter}
-                    currentIndex={currentIndex} />);
+                <ExplorerVisualization
+                    isRoot={this.props.isRoot}
+                    isLoading={this.props.isLoading}
+                    lastFilter={lastFilter}
+                    root={this.props.root}
+                    fy={this.props.fy}
+                    active={this.props.active}
+                    trail={this.props.trail}
+                    total={this.props.total}
+                    data={this.props.data}
+                    goDeeper={this.props.goDeeper}
+                    changeSubdivisionType={this.props.changeSubdivisionType}
+                    goToUnreported={this.props.goToUnreported}
+                    showTooltip={this.props.showTooltip}
+                    hideTooltip={this.props.hideTooltip}
+                    currentIndex={currentIndex}
+                    rewindToFilter={this.props.rewindToFilter} />
+            );
         }
+
 
         return (
             <div
