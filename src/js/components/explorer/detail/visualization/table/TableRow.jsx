@@ -23,7 +23,7 @@ export default class TableRow extends React.PureComponent {
             rowClass = 'row-odd';
         }
         const cells = this.props.columns.map((column) => {
-            if (column.columnName === 'name' && (this.props.item.id || this.props.item.id === null)) {
+            if (column.columnName === 'name' && (this.props.item.id || this.props.item.name === "Unreported Data")) {
                 // show the link cell
                 return (
                     <td
