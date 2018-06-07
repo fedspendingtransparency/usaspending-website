@@ -9,6 +9,7 @@ import kGlobalConstants from 'GlobalConstants';
 export const earliestFiscalYear = 2008;
 export const earliestExplorerYear = 2017;
 export const earliestFederalAccountYear = 2017;
+export const todaysDate = moment().format('YYYY-MM-DD');
 
 // number of days to wait after the close of each quarter before enabling it
 export const quarterCloseWindow = 45;
@@ -113,4 +114,9 @@ export const convertDateToQuarter = (date) => {
     }
 
     return quarter;
+};
+
+export const getTrailingTwelveMonths = () => {
+    const oneYearAgo = moment().subtract(1, 'year');
+    return [oneYearAgo.format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')];
 };

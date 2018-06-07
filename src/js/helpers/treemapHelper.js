@@ -52,3 +52,21 @@ export const tooltipStyles = {
         textColor: "#212121"
     }
 };
+
+export const stateTreemapColors = [
+    "#053547",
+    "#325566",
+    "#587786",
+    "#7E9BA8",
+    "#A6C2CB"
+];
+
+export const stateTooltipStyles = {
+    defaultStyle: {
+        textColor: "#FFFFFF"
+    },
+    highlightedStyle: {
+        color: "#F2B733",
+        textColor: "#212121"
+    }
+};

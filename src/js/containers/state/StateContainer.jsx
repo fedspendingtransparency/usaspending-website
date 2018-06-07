@@ -12,6 +12,7 @@ import { isCancel } from 'axios';
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import * as StateHelper from 'helpers/stateHelper';
 import * as stateActions from 'redux/actions/state/stateActions';
+import { stateCenterFromFips } from 'helpers/mapHelper';
 
 import StatePage from 'components/state/StatePage';
 
@@ -21,7 +22,8 @@ const propTypes = {
     params: PropTypes.object,
     stateProfile: PropTypes.object,
     setStateOverview: PropTypes.func,
-    setStateFiscalYear: PropTypes.func
+    setStateFiscalYear: PropTypes.func,
+    setStateCenter: PropTypes.func
 };
 
 export class StateContainer extends React.Component {
@@ -38,6 +40,7 @@ export class StateContainer extends React.Component {
 
     componentDidMount() {
         this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
+        this.setStateCenter(this.props.params.stateId);
     }
 
     componentDidUpdate(prevProps) {
@@ -45,10 +48,17 @@ export class StateContainer extends React.Component {
             // Reset the FY
             this.props.setStateFiscalYear('latest');
             this.loadStateOverview(this.props.params.stateId, 'latest');
+            // Update the map center
+            this.setStateCenter(this.props.params.stateId);
         }
         if (this.props.stateProfile.fy !== prevProps.stateProfile.fy) {
             this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
         }
+    }
+
+    setStateCenter(id) {
+        const center = stateCenterFromFips(id);
+        this.props.setStateCenter(center);
     }
 
     loadStateOverview(id, year) {

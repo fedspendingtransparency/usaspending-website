@@ -1,0 +1,33 @@
+@import "pages/search/results/visualizations/geo/_message";
+
+.map-loading, .map-no-results {
+    .loading-message {
+        font-size: $base-font-size;
+        line-height: $base-line-height;
+    }
+    .no-results-icon {
+        width: rem(25);
+        height: rem(25);
+    }
+    .error-icon {
+        width: rem(25);
+        height: rem(25);
+
+        svg {
+            width: rem(25);
+            height: rem(25);
+        }
+    }
+    .title, .description {
+        @include media($tablet-screen) {
+            max-width: rem(200);
+            font-size: rem(18);
+        }
+
+        @include media($large-screen) {
+            max-width: rem(300);
+            font-size: rem(24);
+            line-height: rem(30);
+        }
+    }
+}

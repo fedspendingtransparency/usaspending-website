@@ -1,0 +1,17 @@
+.geo__map-section {
+    margin-top: rem(10);
+    .map-container {
+        height: rem(378);
+        width: 100%;
+    }
+    @import "pages/search/results/visualizations/geo/map/map";
+    .visualization-tooltip {
+        @import "components/visualizations/tooltip/_tooltip";
+    }
+    //HIDE THE MAPBOX COMPASS CONTROLS
+    & .mapboxgl-ctrl-compass {
+        display: none !important;
+    }
+
+    @import "./_message";
+}

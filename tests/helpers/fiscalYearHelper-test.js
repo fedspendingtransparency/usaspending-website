@@ -89,4 +89,14 @@ describe('Fiscal Year helper functions', () => {
             expect(FiscalYearHelper.convertDateToFY(secondDate)).toEqual(secondFy);
         });
     });
+
+    describe('getTrailingTwelveMonths', () => {
+        it('should return an array containing today as an end date and the year one year ago as the start date', () => {
+            const mockedDate = moment('2019-05-20', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+            const expectedDates = ['2018-05-20', '2019-05-20'];
+
+            expect(FiscalYearHelper.getTrailingTwelveMonths()).toEqual(expectedDates);
+        });
+    });
 });
