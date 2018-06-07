@@ -3,14 +3,15 @@ HOST: https://api.usaspending.gov
 
 # Award Profile
 
-These endpoints are used to power USAspending.gov's award profile pages. This data can be used to view details
-about a specific award. 
+These endpoints are used to power USAspending.gov's award profile pages. This data can be used to view details about a specific award. 
 
 # Group Tables
 
 These endpoints support the tables on the individual Award Profile pages.
 
 ## SubAwards [/api/v2/subawards/]
+
+This endpoint returns a list of sub-awards, their amount, action date, recipient name, and description.
 
 ### SubAwards [POST]
 
@@ -33,6 +34,10 @@ These endpoints support the tables on the individual Award Profile pages.
         + page_metadata (PageMetaDataObject)
         
 ## Transactions [/api/v2/transactions/]
+
+This endpoint returns a list of transactions, their amount, type, action date, action type, modification number, and description.
+
+Results with award type codes corresponding to loans will follow the `LoanTransactionResult` format. All others will follow the `TransactionResult` format.
 
 ### Transactions [POST]
 
