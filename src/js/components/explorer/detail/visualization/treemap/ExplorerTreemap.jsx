@@ -124,14 +124,15 @@ export default class ExplorerTreemap extends React.Component {
         // each side
         const usableWidth = width - 40;
         let name = data.data.name;
-        if (data.data.id === null) {
+        const isUnreported = data.data.name === "Unreported Data";
+        if (isUnreported) {
             name = "Unreported Data*";
         }
         const title = this.truncateText(name, 'title', usableWidth);
         const subtitle = this.truncateText(percentString, 'subtitle', usableWidth);
         let color = scale(amount);
 
-        if (data.data.name === "Unreported Data") {
+        if (isUnreported) {
             // use the gray color for unreported data, instead of the usual calculated
             // color
             color = 'rgb(103,103,103)';
