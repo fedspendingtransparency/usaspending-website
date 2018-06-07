@@ -118,7 +118,7 @@ export default class ExplorerVisualization extends React.Component {
         }
         let dropDown;
         let disclaimer;
-        if (this.props.data.get(0).name === "Unreported Data" && this.props.data.count() === 1) {
+        if (this.props.data.get(0).name === 'Unreported Data' && this.props.data.count() === 1) {
             visualization = (
                 <div>
                     <UnreportedErrorScreen />
