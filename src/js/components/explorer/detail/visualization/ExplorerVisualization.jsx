@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Analytics from 'helpers/analytics/Analytics';
+import * as redirectHelper from 'helpers/redirectHelper';
 
 import UnreportedErrorScreen from 'components/explorer/detail/UnreportedErrorScreen';
 import ExplorerTableContainer from 'containers/explorer/detail/table/ExplorerTableContainer';
@@ -62,6 +63,10 @@ export default class ExplorerVisualization extends React.Component {
         this.setState({
             width
         });
+    }
+
+    redirect() {
+        redirectHelper.showRedirectModal("https://max.omb.gov/maxportal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html");
     }
 
     changeView(viewType) {
@@ -135,7 +140,7 @@ export default class ExplorerVisualization extends React.Component {
             disclaimer = (
                 <div className="explorer-vis__disclaimer">
                     <p>All dollar amounts shown here represent agency reported obligated amounts</p>
-                    <p><span className="explorer-vis_bold">Unreported Data*:</span> Unreported amounts are calculated using the difference in the total obligated amount from the <a href="https://max.omb.gov/maxportal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">Report on Budget Execution and Budgetary Resources</a> and the total obligated amount reported by agencies to USAspending.gov.</p>
+                    <p><span className="explorer-vis_bold">Unreported Data*:</span> Unreported amounts are calculated using the difference in the total obligated amount from the <button className="explorer-vis__link" onClick={this.redirect} >Report on Budget Execution and Budgetary Resources</button> and the total obligated amount reported by agencies to USAspending.gov.</p>
                 </div>
             );
         }

@@ -63,22 +63,14 @@ const dataType = (type, parent) => {
 
 const heading = (type, title, id) => {
     if (type === 'Federal Account') {
-        let header = (
-            <a
-                href={`/#/federal_account/${id}`}
-                className="detail-header__title-link"
-                onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
-                {title}
-            </a>);
-        if (title === "Unreported Data") {
-            header = (
-                <span className="detail-header__title-link">
-                    {title}
-                </span>);
-        }
         return (
             <h2 className="detail-header__title">
-                {header}
+                <a
+                    href={`/#/federal_account/${id}`}
+                    className="detail-header__title-link"
+                    onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
+                    {title}
+                </a>
             </h2>
         );
     }
@@ -92,7 +84,7 @@ const heading = (type, title, id) => {
             </a>);
         if (title === "Unreported Data") {
             header = (
-                <span className="detail-header__title-link">
+                <span className="detail-header__title">
                     {title}
                 </span>);
         }
