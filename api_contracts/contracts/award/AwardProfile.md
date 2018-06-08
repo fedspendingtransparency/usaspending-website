@@ -88,7 +88,7 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + subaward_number: `2-A` (required, string)
     The sub-award id.
 + description: description (required, string)
-+ action_date: 1999-01-15 (required, string) 
++ action_date: `1999-01-15` (required, string) 
     Action date in the format `YYYY-MM-DD`.
 + amount: 1234.56 (required, number)
     Monetary value of the sub-award.
