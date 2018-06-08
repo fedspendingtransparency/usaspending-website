@@ -107,12 +107,12 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + action_type_description: description (required, string)
 + modification_number: `0` (required, string)
 + description: MANAGEMENT AND OPERATIONS (required, string)
-+ federal_action_obligation: 1234.56 (optional, number)
-    Monetary value of the transaction. Included for results with award type codes corresponding to contracts, grants, direct payments, and other financial assistance. 
-+ face_value_loan_guarantee: 1234.56 (optional, number)
-    Face value of the loan. Included for results with award type codes corresponding to loans.
-+ original_loan_subsidy_cost: 234.12 (optional, number)
-    Original subsidy cost of the loan. Included for results with award type codes corresponding to loans.
++ federal_action_obligation: 1234.56 (required, number, nullable)
+    Monetary value of the transaction. Null for results with award type codes that correspond to loans.
++ face_value_loan_guarantee: 1234.56 (required, number, nullable)
+    Face value of the loan. Null for results with award type codes that **do not** correspond to loans.
++ original_loan_subsidy_cost: 234.12 (required, number, nullable)
+    Original subsidy cost of the loan. Null for results with award type codes that **do not** correspond to loans.
 
 ## PageMetaDataObject (object)
 + page: 1 (required, number)
