@@ -47,8 +47,6 @@ This endpoint returns a list of sub-awards, their amount, action date, recipient
 
 This endpoint returns a list of transactions, their amount, type, action date, action type, modification number, and description.
 
-Results with award type codes corresponding to loans will follow the `LoanTransactionResult` format. All others will follow the `TransactionResult` format.
-
 ### Transactions [POST]
 
 + Request (application/json)
