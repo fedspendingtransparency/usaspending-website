@@ -87,7 +87,7 @@ Results with award type codes corresponding to loans will follow the `LoanTransa
 ## SubAwardResult (object)
 + id: `1` (required, string)
     The internal sub-award id.
-+ subaward_number: 2-A (required, string)
++ subaward_number: `2-A` (required, string)
     The sub-award id.
 + description: description (required, string)
 + action_date: 1999-01-15 (required, string) 
@@ -109,26 +109,12 @@ Results with award type codes corresponding to loans will follow the `LoanTransa
 + action_type_description: description (required, string)
 + modification_number: `0` (required, string)
 + description: MANAGEMENT AND OPERATIONS (required, string)
-+ federal_action_obligation: 1234.56 (required, number)
-    Monetary value of the transaction.
-    
-## LoanTransactionResult (object)
-+ id: `123456` (required, string)
-    The internal transaction id.
-+ type: `07` (required, string)
-    Award type code 
-+ type_description: Loan (required, string)
-+ action_date: `1999-01-15` (required, string)
-    Action date in the format `YYYY-MM-DD`.
-+ action_type: C (required, string)
-    Action type code
-+ action_type_description: FUNDING ONLY ACTION (required, string)
-+ modification_number: `1160` (required, string)
-+ description: MANAGEMENT AND OPERATIONS (required, string)
-+ face_value_loan_guarantee: 1234.56 (required, number)
-    Face value of the loan. 
-+ original_loan_subsidy_cost: 234.12 (required, number)
-    Original subsidy cost of the loan.  
++ federal_action_obligation: 1234.56 (optional, number)
+    Monetary value of the transaction. Included for results with award type codes corresponding to contracts, grants, direct payments, and other financial assistance. 
++ face_value_loan_guarantee: 1234.56 (optional, number)
+    Face value of the loan. Included for results with award type codes corresponding to loans.
++ original_loan_subsidy_cost: 234.12 (optional, number)
+    Original subsidy cost of the loan. Included for results with award type codes corresponding to loans.
 
 ## PageMetaDataObject (object)
 + page: 1 (required, number)
