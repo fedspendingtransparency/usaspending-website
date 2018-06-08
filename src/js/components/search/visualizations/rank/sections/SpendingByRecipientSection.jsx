@@ -20,43 +20,26 @@ export default class SpendingByRecipientSection extends React.Component {
         return (
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
-                    <div className="visualization-description">
-                        <div className="content">
-                            View a list of the top recipients from highest to lowest. Filter
-                            your results more (at left) and watch this graph update automatically.
-                            View your results in a bar graph or a tree map.
-                        </div>
+                    <div className="visualization-top__description">
+                        View a list of the top Recipients from highest to lowest.
+                        View your results by Parent Recipient or Recipient,
+                        and hover over the bars for more detailed information.
                     </div>
-                    <div className="visualization-period">
-                        <div className="content">
-                            <ul>
-                                <li className="coming-soon">
-                                    <RankVisualizationScopeButton
-                                        value="parentCompany"
-                                        label="Parent Company (Parent DUNS)"
-                                        active={this.props.scope === 'parent_duns'}
-                                        changeScope={this.props.changeScope}
-                                        disabled />
-                                    <ComingSoonLabel />
-                                </li>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="subsidiary"
-                                        label="Subsidiary (DUNS)"
-                                        active={this.props.scope === 'duns'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li className="coming-soon">
-                                    <RankVisualizationScopeButton
-                                        value="recipientType"
-                                        label="Recipient Type"
-                                        active={this.props.scope === 'recipient_type'}
-                                        changeScope={this.props.changeScope}
-                                        disabled />
-                                    <ComingSoonLabel />
-                                </li>
-                            </ul>
+                    <div className="visualization-scope">
+                        <div className="coming-soon">
+                            <RankVisualizationScopeButton
+                                value="recipient_parent_duns"
+                                label="Parent Recipient (Parent DUNS)"
+                                active={this.props.scope === 'recipient_parent_duns'}
+                                changeScope={this.props.changeScope}
+                                disabled />
+                            <ComingSoonLabel />
                         </div>
+                        <RankVisualizationScopeButton
+                            value="recipient_duns"
+                            label="Recipient (DUNS)"
+                            active={this.props.scope === 'recipient_duns'}
+                            changeScope={this.props.changeScope} />
                     </div>
                 </div>
             </RankVisualizationSection>

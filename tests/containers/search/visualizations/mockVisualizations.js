@@ -23,14 +23,14 @@ export const awardingAgency = {
     },
     results: [
         {
-            agency_name: 'First Agency',
-            agency_abbreviation: 'FA',
-            aggregated_amount: '456'
+            name: 'First Agency',
+            code: 'FA',
+            amount: '456'
         },
         {
-            agency_name: 'Second Agency',
-            agency_abbreviation: 'SA',
-            aggregated_amount: '123'
+            name: 'Second Agency',
+            code: 'SA',
+            amount: '123'
         }
     ]
 };
@@ -45,14 +45,14 @@ export const cfda = {
     },
     results: [
         {
-            aggregated_amount: '66681011412.00',
-            cfda_program_number: '93.778',
-            program_title: 'Medical Assistance Program'
+            amount: '66681011412.00',
+            code: '93.778',
+            name: 'Medical Assistance Program'
         },
         {
-            aggregated_amount: '152',
-            cfda_program_number: '93.774',
-            program_title: 'Medicare_Supplementary Medical Insurance'
+            amount: '152',
+            code: '93.774',
+            name: 'Medicare_Supplementary Medical Insurance'
         }
     ]
 };
@@ -67,14 +67,14 @@ export const fundingAgency = {
     },
     results: [
         {
-            agency_name: 'First Agency',
-            agency_abbreviation: 'FA',
-            aggregated_amount: '456'
+            name: 'First Agency',
+            code: 'FA',
+            amount: '456'
         },
         {
-            agency_name: 'Second Agency',
-            agency_abbreviation: 'SA',
-            aggregated_amount: '123'
+            name: 'Second Agency',
+            code: 'SA',
+            amount: '123'
         }
     ]
 };
@@ -89,12 +89,12 @@ export const industryCode = {
     },
     results: [
         {
-            aggregated_amount: '500.00',
-            psc_code: '1234'
+            amount: '500.00',
+            code: '1234'
         },
         {
-            aggregated_amount: '400.01',
-            psc_code: '2345'
+            amount: '400.01',
+            code: '2345'
         }
     ]
 };
@@ -109,14 +109,14 @@ export const recipient = {
     },
     results: [
         {
-            legal_entity_id: '1',
-            recipient_name: 'Multiple Recipients',
-            aggregated_amount: '149620471458.92'
+            id: '1',
+            name: 'Multiple Recipients',
+            amount: '149620471458.92'
         },
         {
-            legal_entity_id: '113704139',
-            recipient_name: 'Michigan',
-            aggregated_amount: '6684225478.00'
+            id: '113704139',
+            name: 'Michigan',
+            amount: '6684225478.00'
         }
     ]
 };

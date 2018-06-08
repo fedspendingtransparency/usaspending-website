@@ -18,5 +18,10 @@ export const tabOptions = [
         code: 'map',
         label: 'Map',
         icon: 'MapMarker'
+    },
+    {
+        code: 'rank',
+        label: 'Categories',
+        icon: 'Bar'
     }
 ];
