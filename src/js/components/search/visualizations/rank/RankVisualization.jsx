@@ -29,7 +29,8 @@ const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
     meta: PropTypes.object,
-    disableTooltip: PropTypes.bool
+    disableTooltip: PropTypes.bool,
+    industryCodeError: PropTypes.bool
 };
 
 export default class RankVisualization extends React.Component {
@@ -74,6 +75,9 @@ export default class RankVisualization extends React.Component {
         }
         else if (this.props.error) {
             chart = (<ChartMessage message="An error has occurred." />);
+            if (this.props.industryCodeError) {
+                chart = (<ChartMessage message="Industry codes are unavailable for Sub-Awards." />);
+            }
         }
         else if (this.props.dataSeries.length > 0) {
             chart = (

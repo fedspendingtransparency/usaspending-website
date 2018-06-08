@@ -11,7 +11,8 @@ import RankVisualizationSection from './RankVisualizationSection';
 
 const propTypes = {
     scope: PropTypes.string,
-    changeScope: PropTypes.func
+    changeScope: PropTypes.func,
+    industryCodeError: PropTypes.bool
 };
 
 export default class SpendingByIndustryCodeSection extends React.Component {

@@ -231,7 +231,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         {...this.state}
                         changeScope={this.changeScope}
                         nextPage={this.nextPage}
-                        previousPage={this.previousPage} />
+                        previousPage={this.previousPage}
+                        industryCodeError={this.props.subaward} />
                 );
             default:
                 return (
