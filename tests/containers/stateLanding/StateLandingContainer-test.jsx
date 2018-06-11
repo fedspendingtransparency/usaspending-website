@@ -133,7 +133,7 @@ describe('StateLandingContainer', () => {
                 searchString: 'abcd'
             });
 
-            // we are mocking the local search library so it aleays returns a static data set of length 1
+            // we are mocking the local search library so it always returns a static data set of length 1
             container.instance().performSearch();
             expect(container.state().results).toHaveLength(1);
             expect(container.state().results).not.toEqual(container.state().fullData);
@@ -157,6 +157,40 @@ describe('StateLandingContainer', () => {
 
             container.instance().performSearch();
             expect(container.state().results).toEqual(container.state().fullData);
+        });
+
+        it('should separate states and territories when sorting by name', () => {
+            const container = shallow(
+                <StateLandingContainer />
+            );
+
+            const updatedStateList = [
+                {
+                    fips: '03',
+                    code: 'CC',
+                    name: 'A Territory',
+                    amount: 123.45,
+                    type: 'territory'
+                }
+            ].concat(mockStateList);
+
+            const results = updatedStateList.map((data) => {
+                const item = Object.create(BaseStateLandingItem);
+                item.populate(data);
+                return item;
+            });
+
+            container.setState({
+                fullData: results,
+                searchString: ''
+            });
+
+            container.instance().performSearch();
+
+            // Even though 'A Territory' comes alphabetically before 'State A',
+            // the territory should come after states
+            expect(container.state().results[0].name).toEqual('State A');
+            expect(container.state().results[2].name).toEqual('A Territory');
         });
     });
 

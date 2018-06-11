@@ -115,9 +115,21 @@ export default class StateLandingContainer extends React.Component {
         }
 
         // now sort the results by the appropriate table column and direction
-        // TODO: Lizzie - separate states & territories
-        const orderedResults = orderBy(results,
+        const sortedResults = orderBy(results,
             [this.state.sortField], [this.state.sortDirection]);
+
+        let orderedResults = sortedResults;
+
+        if (this.state.sortField === 'name') {
+            // Separate states and territories
+            const states = sortedResults.filter((result) => result.type === 'state' || result.type === 'district');
+            const territories = sortedResults.filter((result) => result.type === 'territory');
+            orderedResults = states.concat(territories);
+            if (this.state.sortDirection === 'desc') {
+                orderedResults = territories.concat(states);
+            }
+        }
+
         this.setState({
             results: orderedResults
         });

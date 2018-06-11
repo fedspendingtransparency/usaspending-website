@@ -59,6 +59,10 @@ This endpoint returns the award amounts and totals, based on award type, of a sp
 + code: VA (required, string)
 + fips: 51 (required, string)
 + amount: 494274.3 (required, number)
++ type: state (required, enum[string])
+    + state
+    + territory
+    + district
 
 ## StateOverview (object)
 + name: Virginia (required, string)
