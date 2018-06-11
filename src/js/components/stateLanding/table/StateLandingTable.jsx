@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import StateLandingTableSorter from './StateLandingTableSorter';
+import StateLinkCell from './StateLinkCell';
 
 const propTypes = {
     loading: PropTypes.bool,
@@ -26,11 +27,10 @@ const StateLandingTable = (props) => {
         <tr
             key={row.fips}
             className="state-list__body-row">
-            <td className="state-list__body-cell">
-                <a href={`#/state/${row.fips}`}>
-                    {row.name}
-                </a>
-            </td>
+            <StateLinkCell
+                fips={row.fips}
+                name={row.name}
+                searchString={props.searchString} />
             <td className="state-list__body-cell state-list__body-cell_right">
                 {row.amount}
             </td>
