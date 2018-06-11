@@ -15,11 +15,12 @@ const propTypes = {
     results: PropTypes.array,
     setSort: PropTypes.func,
     sortField: PropTypes.string,
-    sortDirection: PropTypes.string
+    sortDirection: PropTypes.string,
+    searchString: PropTypes.string
 };
 
 const StateLandingTable = (props) => {
-    const hideBody = props.loading || props.error ? 'state-list__body_hide' : '';
+    const hideBody = props.loading || props.error || props.results.length === 0 ? 'state-list__body_hide' : '';
 
     const body = props.results.map((row) => (
         <tr
@@ -53,6 +54,23 @@ const StateLandingTable = (props) => {
                 Loading...
             </div>
         );
+    }
+    else if (props.results.length === 0) {
+        // no results
+        if (props.searchString) {
+            message = (
+                <div className="state-list__message">
+                    No results found for &ldquo;<span className="state-list__message_highlight">{props.searchString}</span>&rdquo;.
+                </div>
+            );
+        }
+        else {
+            message = (
+                <div className="state-list__message">
+                    No results found.
+                </div>
+            );
+        }
     }
 
     return (

@@ -29,7 +29,7 @@ export default class StateLandingContainer extends React.Component {
             results: []
         };
 
-        this.agenciesRequest = null;
+        this.request = null;
         this.setSearchString = this.setSearchString.bind(this);
         this.setSort = this.setSort.bind(this);
     }
@@ -56,6 +56,11 @@ export default class StateLandingContainer extends React.Component {
     }
 
     loadData() {
+        if (this.request) {
+            // a request is in-flight, cancel it
+            this.request.cancel();
+        }
+
         this.setState({
             loading: true,
             error: false
@@ -110,6 +115,7 @@ export default class StateLandingContainer extends React.Component {
         }
 
         // now sort the results by the appropriate table column and direction
+        // TODO: Lizzie - separate states & territories
         const orderedResults = orderBy(results,
             [this.state.sortField], [this.state.sortDirection]);
         this.setState({
