@@ -1,0 +1,160 @@
+.explorer-toolbar {
+    @include media($medium-screen) {
+        @include display(flex);
+        @include justify-content(space-between);
+        @include align-items(center);
+        @include flex-wrap(wrap);
+    }
+    position: relative;
+
+    .breakdown {
+        @include media($medium-screen) {
+            @include display(flex);
+            @include justify-content(flex-start);
+            @include align-items(center);
+        }
+    
+        .breakdown__label {
+            display: block;
+            @include media($medium-screen) {
+                @include flex(0 0 auto);
+            }
+            font-size: rem(24);
+            line-height: rem(31);
+            font-weight: $font-light;
+            margin-right: rem(30);
+        }
+
+        .breakdown__dropdown {
+            margin: rem(5) 0 rem(15);
+            @include media($medium-screen) {
+                @include flex(1 1 auto);
+                margin: 0;
+            }
+        }
+    }
+
+    
+
+    .dropdown {
+        position: relative;
+   
+        .dropdown__selection {
+            @include button-unstyled;
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+            position: relative;
+
+            border-bottom: 1px solid $color-base;
+
+            padding: rem(10) rem(5);
+            margin-right: rem(30);
+
+            .dropdown__icon, .dropdown__arrow {
+                @include flex(0 0 auto);
+                width: rem(20);
+                height: rem(20);
+
+                svg {
+                    width: rem(20);
+                    height: rem(20);
+                    fill: $color-base;
+                }
+            }
+
+            .dropdown__label {
+                @include flex(1 1 auto);
+                color: $color-base;
+                font-size: rem(24);
+                line-height: rem(31);
+                font-weight: $font-light;
+
+                margin-left: rem(15);
+                margin-right: rem(20);
+            }
+        }
+    }
+
+    .view-buttons {
+        .view-button {
+            background-color: $color-white;
+            border: solid 1px $color-gray-light;
+            padding: rem(5) rem(15);
+            .icon {
+                @include flex(0 0 auto);
+                width: rem(20);
+                height: rem(20);
+
+                svg {
+                    width: rem(20);
+                    height: rem(20);
+                    fill: $color-gray-light;
+                }
+            }
+            &.active {
+                background-color: $color-primary-alt-dark;
+                border-color: $color-primary-alt-dark;
+                .icon {
+
+                    svg {
+                        fill: $color-white;
+                    }
+                }
+            }
+        }
+    }
+
+    .dropdown__menu {
+        @include unstyled-list;
+        position: absolute;
+        top: rem(50);
+        left: 0;
+        border: 1px solid $color-gray-lighter;
+
+        z-index: $z-modal;
+
+        li {
+            border-bottom: 1px solid $color-gray-lighter;
+            background-color: $color-white;
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+
+        .dropdown__option {
+            @include button-unstyled;
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+            position: relative;
+
+            padding: rem(15) rem(25);
+            width: 100%;
+
+            .dropdown__option-icon {
+                @include flex(0 0 auto);
+                width: rem(15);
+                height: rem(15);
+
+                margin-right: rem(25);
+
+                svg {
+                    width: rem(15);
+                    height: rem(15);
+                    fill: $color-base;
+                }
+            }
+
+            .dropdown__option-label {
+                @include flex(1 1 auto);
+                color: $color-base;
+
+                font-size: rem(16);
+                line-height: rem(20);
+            }
+        }
+
+    }
+}

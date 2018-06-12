@@ -5,20 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { dropRight } from 'lodash';
 
-import * as LocationFormatter from 'helpers/locationFormatter';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: PropTypes.object,
     redux: PropTypes.object,
-    toggle: PropTypes.string
-};
-
-const scopeLabels = {
-    domestic: 'Only U.S. Locations',
-    foreign: 'Only Foreign Locations'
+    toggle: PropTypes.string,
+    compressed: PropTypes.bool
 };
 
 export default class LocationFilterGroup extends React.Component {
@@ -53,27 +47,10 @@ export default class LocationFilterGroup extends React.Component {
     generateTags() {
         const tags = [];
 
-        // check to see if a location is provided
-        let remainingValues = this.props.filter.values;
-        if (this.props.filter.scope !== 'all') {
-            // there is a scope and it will always be the last filter item
-            remainingValues = dropRight(this.props.filter.values, 1);
-
-            // add a tag for the scope filter
-            const tag = {
-                value: this.props.filter.scope,
-                title: scopeLabels[this.props.filter.scope],
-                isSpecial: true,
-                removeFilter: this.removeScope
-            };
-
-            tags.push(tag);
-        }
-
-        remainingValues.forEach((value) => {
+        this.props.filter.values.forEach((value) => {
             const tag = {
                 value: value.identifier,
-                title: LocationFormatter.formatLocation(value),
+                title: `${value.display.entity.toUpperCase()} | ${value.display.standalone}`,
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };
@@ -90,7 +67,8 @@ export default class LocationFilterGroup extends React.Component {
         return (<BaseTopFilterGroup
             tags={tags}
             filter={this.props.filter}
-            clearFilterGroup={this.clearGroup} />);
+            clearFilterGroup={this.clearGroup}
+            compressed={this.props.compressed} />);
     }
 }
 

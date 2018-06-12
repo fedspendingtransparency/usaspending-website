@@ -7,9 +7,10 @@ import { Set, OrderedMap } from 'immutable';
 
 import searchFiltersReducer, { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { awardRanges } from 'dataMapping/search/awardAmount';
-import { objectClassDefinitions } from 'dataMapping/search/budgetCategory';
 
 import { mockRecipient, mockAgency } from './mock/mockFilters';
+
+jest.mock('helpers/fiscalYearHelper', () => require('./mockFiscalYearHelper'));
 
 describe('searchFiltersReducer', () => {
     it('should return the initial state by default', () => {
@@ -42,6 +43,46 @@ describe('searchFiltersReducer', () => {
             expect(
                 searchFiltersReducer(startingState, action).awardType
             ).toEqual(new Set([]));
+        });
+    });
+
+    describe('UPDATE_TEXT_SEARCH', () => {
+        const action = {
+            type: 'UPDATE_TEXT_SEARCH',
+            textInput: 'testing'
+        };
+
+        const keyword = 'testing';
+
+
+        it('should add the provided keyword if it does not currently exist in the filter', () => {
+            const updatedState = searchFiltersReducer(undefined, action);
+
+            expect(updatedState.keyword).toEqual(
+                new OrderedMap({ testing: keyword })
+            );
+        });
+
+        it('should not override the previous keyword, if the new keyword does not already exist', () => {
+            const startingState = Object.assign({}, initialState, {
+                keyword: new OrderedMap({ moretesting: "moretesting" })
+            });
+            
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.keyword).toEqual(new OrderedMap({
+                moretesting: 'moretesting',
+                testing: 'testing'
+            }));
+        });
+
+       
+        it('should remove the provided keyword if already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                keyword: new OrderedMap({ testing: keyword })
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.keyword).toEqual(new OrderedMap());
         });
     });
 
@@ -94,9 +135,9 @@ describe('searchFiltersReducer', () => {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'fy',
                 fy: [
-                    '2017',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ],
                 start: null,
                 end: null
@@ -105,9 +146,9 @@ describe('searchFiltersReducer', () => {
             const expected = {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set([
-                    '2017',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ]),
                 timePeriodStart: null,
                 timePeriodEnd: null
@@ -118,18 +159,6 @@ describe('searchFiltersReducer', () => {
             Object.keys(expected).forEach((key) => {
                 expect(updatedState[key]).toEqual(expected[key]);
             });
-        });
-    });
-
-    describe('UPDATE_TEXT_SEARCH', () => {
-        it('should set the keyword filter option to the input string', () => {
-            const action = {
-                type: 'UPDATE_TEXT_SEARCH',
-                textInput: 'business'
-            };
-
-            const updatedState = searchFiltersReducer(undefined, action);
-            expect(updatedState.keyword).toEqual('business');
         });
     });
 
@@ -185,107 +214,71 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('UPDATE_SELECTED_BUDGET_FUNCTIONS', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_BUDGET_FUNCTIONS',
-            budgetFunction: {
-                title: 'Income Security',
-                functionType: 'Function'
-            }
-        };
+    describe('ADD_POP_LOCATION_OBJECT', () => {
+        it('should add the given location object to the place of performance filter', () => {
+            const action = {
+                type: 'ADD_POP_LOCATION_OBJECT',
+                location: {
+                    identifier: 'ABC',
+                    display: {
+                        title: 'A Big Country',
+                        standalone: 'A Big Country',
+                        entity: 'Country'
+                    },
+                    filter: {
+                        country: 'ABC'
+                    }
+                }
+            };
 
-        const identifier = 'Income Security';
-
-        const expectedValue = {
-            title: 'Income Security',
-            functionType: 'Function'
-        };
-
-        it('should add the provided budget function if it does not currently exist in the filter',
-            () => {
-                const updatedState = searchFiltersReducer(undefined, action);
-                expect(updatedState.budgetFunctions).toEqual(new OrderedMap({
-                    [identifier]: expectedValue
-                }));
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.selectedLocations.toJS()).toEqual({
+                ABC: {
+                    identifier: 'ABC',
+                    display: {
+                        title: 'A Big Country',
+                        standalone: 'A Big Country',
+                        entity: 'Country'
+                    },
+                    filter: {
+                        country: 'ABC'
+                    }
+                }
             });
-
-        it('should remove the provided budget function if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                budgetFunctions: new OrderedMap({
-                    [identifier]: expectedValue
-                })
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.budgetFunctions).toEqual(new OrderedMap());
         });
     });
 
-    describe('UPDATE_SELECTED_FEDERAL_ACCOUNTS', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_FEDERAL_ACCOUNTS',
-            federalAccount: {
-                id: '392',
-                agency_identifier: '012',
-                main_account_code: '3539',
-                account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
-            }
-        };
+    describe('ADD_RECIPIENT_LOCATION_OBJECT', () => {
+        it('should add the given location object to the recipient location filter', () => {
+            const action = {
+                type: 'ADD_RECIPIENT_LOCATION_OBJECT',
+                location: {
+                    identifier: 'ABC',
+                    display: {
+                        title: 'A Big Country',
+                        standalone: 'A Big Country',
+                        entity: 'Country'
+                    },
+                    filter: {
+                        country: 'ABC'
+                    }
+                }
+            };
 
-        const identifier = '392';
-
-        const expectedValue = {
-            id: '392',
-            agency_identifier: '012',
-            main_account_code: '3539',
-            account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
-        };
-
-        it('should add the provided federal account if it does not currently exist in the filter',
-            () => {
-                const updatedState = searchFiltersReducer(undefined, action);
-                expect(updatedState.federalAccounts).toEqual(new OrderedMap({
-                    [identifier]: expectedValue
-                }));
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.selectedRecipientLocations.toJS()).toEqual({
+                ABC: {
+                    identifier: 'ABC',
+                    display: {
+                        title: 'A Big Country',
+                        standalone: 'A Big Country',
+                        entity: 'Country'
+                    },
+                    filter: {
+                        country: 'ABC'
+                    }
+                }
             });
-
-        it('should remove the provided federal account if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                federalAccounts: new OrderedMap({
-                    [identifier]: expectedValue
-                })
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.federalAccounts).toEqual(new OrderedMap());
-        });
-    });
-
-    describe('UPDATE_SELECTED_OBJECT_CLASSES', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_OBJECT_CLASSES',
-            objectClass: '110'
-        };
-
-        const identifier = '110';
-
-        it('should add the provided federal account if it does not currently exist in the filter',
-            () => {
-                const updatedState = searchFiltersReducer(undefined, action);
-                expect(updatedState.objectClasses).toEqual(new Set(
-                    [identifier]
-                ));
-            });
-
-        it('should remove the provided federal account if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                objectClasses: new Set(
-                    [identifier]
-                )
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.objectClasses).toEqual(new Set());
         });
     });
 
@@ -351,25 +344,23 @@ describe('searchFiltersReducer', () => {
             recipient: mockRecipient
         };
 
-        const recipient = '2222';
-
-        const expectedRecipient = mockRecipient;
+        const recipient = 'Booz Allen';
 
         it('should add the Recipient if it does not currently exist in the filter', () => {
             const updatedState = searchFiltersReducer(undefined, action);
 
             expect(updatedState.selectedRecipients).toEqual(
-                new OrderedMap([[recipient, expectedRecipient]])
+                new Set([recipient])
             );
         });
 
         it('should remove the Recipient if already exists in the filter', () => {
             const startingState = Object.assign({}, initialState, {
-                selectedRecipients: new OrderedMap([[recipient, expectedRecipient]])
+                selectedRecipients: new Set([recipient])
             });
 
             const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.selectedRecipients).toEqual(new OrderedMap());
+            expect(updatedState.selectedRecipients).toEqual(new Set());
         });
     });
 
@@ -500,45 +491,6 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('UPDATE_SELECTED_AWARD_IDS', () => {
-        const action = {
-            type: 'UPDATE_SELECTED_AWARD_IDS',
-            awardID: {
-                id: "601793",
-                piid: "AG3142B100012",
-                fain: null,
-                uri: null
-            }
-        };
-
-        const awardIDID = "601793";
-
-        const expectedAwardID = {
-            id: "601793",
-            piid: "AG3142B100012",
-            fain: null,
-            uri: null
-        };
-
-        it('should add the provided award ID if it does not currently exist in the filter', () => {
-            const updatedState = searchFiltersReducer(undefined, action);
-            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap({
-                [awardIDID]: expectedAwardID
-            }));
-        });
-
-        it('should remove the provided award ID if already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                selectedAwardIDs: new OrderedMap({
-                    [awardIDID]: expectedAwardID
-                })
-            });
-
-            const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
-        });
-    });
-
     describe('UPDATE_AWARD_AMOUNTS', () => {
         const predefinedRangeAction = {
             type: 'UPDATE_AWARD_AMOUNTS',
@@ -629,6 +581,7 @@ describe('searchFiltersReducer', () => {
             }));
         });
     });
+
 
     describe('UPDATE_SELECTED_CFDA', () => {
         const action = {
@@ -740,6 +693,69 @@ describe('searchFiltersReducer', () => {
         });
     });
 
+    describe('UPDATE_PRICING_TYPE', () => {
+        it('should set a pricing type value when there is none', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                pricingType: 'B'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.pricingType).toEqual(new Set(['B']));
+        });
+
+        it('should remove the provided values when unchecked', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                pricingType: 'B'
+            };
+
+            const startingState = Object.assign({}, initialState, {
+                pricingType: new Set(['B', 'L'])
+            });
+
+            expect(
+                searchFiltersReducer(startingState, action).pricingType
+            ).toEqual(new Set(['L']));
+        });
+
+        it('should add new values to an existing set', () => {
+            const action = {
+                type: 'UPDATE_PRICING_TYPE',
+                pricingType: 'B'
+            };
+
+            const startingState = Object.assign({}, initialState, {
+                pricingType: new Set(['M', 'J', 'L'])
+            });
+
+            expect(
+                searchFiltersReducer(startingState, action).pricingType
+            ).toEqual(new Set(['M', 'J', 'L', 'B']));
+        });
+    });
+
+    describe('UPDATE_SET_ASIDE', () => {
+        it('should set a set aside value', () => {
+            const action = {
+                type: 'UPDATE_SET_ASIDE',
+                setAside: 'BICiv'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.setAside).toEqual(new Set(['BICiv']));
+        });
+    });
+
+    describe('UPDATE_EXTENT_COMPETED', () => {
+        it('should set an extent competed value', () => {
+            const action = {
+                type: 'UPDATE_EXTENT_COMPETED',
+                extentCompeted: 'CDOCiv'
+            };
+            const updatedState = searchFiltersReducer(undefined, action);
+            expect(updatedState.extentCompeted).toEqual(new Set(['CDOCiv']));
+        });
+    });
+
     describe('UPDATE_SEARCH_FILTER_GENERIC', () => {
         it('should set an arbitrary child filter key with the given filter value', () => {
             const action = {
@@ -760,9 +776,9 @@ describe('searchFiltersReducer', () => {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'fy',
                 fy: [
-                    '2017',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ],
                 start: null,
                 end: null
@@ -775,9 +791,9 @@ describe('searchFiltersReducer', () => {
             const expectedFirst = {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set([
-                    '2017',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ]),
                 timePeriodStart: null,
                 timePeriodEnd: null
@@ -812,8 +828,8 @@ describe('searchFiltersReducer', () => {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'dr',
                 fy: [],
-                start: '2016-01-01',
-                end: '2016-12-31'
+                start: '1776-01-01',
+                end: '1776-12-31'
             };
 
             const resetAction = {
@@ -823,8 +839,8 @@ describe('searchFiltersReducer', () => {
             const expectedFirst = {
                 timePeriodType: 'dr',
                 timePeriodFY: new Set(),
-                timePeriodStart: '2016-01-01',
-                timePeriodEnd: '2016-12-31'
+                timePeriodStart: '1776-01-01',
+                timePeriodEnd: '1776-12-31'
             };
 
             const expectedSecond = {
@@ -889,9 +905,9 @@ describe('searchFiltersReducer', () => {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'fy',
                 fy: [
-                    '2017',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ],
                 start: null,
                 end: null
@@ -901,9 +917,9 @@ describe('searchFiltersReducer', () => {
             const secondExpected = {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set([
-                    '2017',
-                    '2015',
-                    '2013'
+                    '1778',
+                    '1777',
+                    '1775'
                 ]),
                 timePeriodStart: null,
                 timePeriodEnd: null
@@ -931,27 +947,27 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('POPULATE_ALL_SEARCH_FILTERS', () => {
+    describe('RESTORE_HASHED_FILTERS', () => {
         it('should create a brand new state based on the initial state with the provided inputs', () => {
             const originalState = Object.assign({}, initialState);
-            originalState.keyword = 'hello';
             originalState.recipientDomesticForeign = 'foreign';
             originalState.awardType = new Set(['A', 'B']);
+            originalState.timePeriodFY = new Set(['1987']);
 
             let state = searchFiltersReducer(originalState, {});
-            expect(state.keyword).toEqual('hello');
             expect(state.recipientDomesticForeign).toEqual('foreign');
             expect(state.awardType).toEqual(new Set(['A', 'B']));
+            expect(state.timePeriodFY).toEqual(new Set(['1987']));
 
             const action = {
-                type: 'POPULATE_ALL_SEARCH_FILTERS',
+                type: 'RESTORE_HASHED_FILTERS',
                 filters: {
-                    keyword: 'bye',
-                    recipientDomesticForeign: 'domestic'
+                    recipientDomesticForeign: 'domestic',
+                    timePeriodFY: new Set (['1999'])
                 }
             };
             state = searchFiltersReducer(state, action);
-            expect(state.keyword).toEqual('bye');
+            expect(state.timePeriodFY).toEqual(new Set(['1999']));
             expect(state.recipientDomesticForeign).toEqual('domestic');
             expect(state.awardType).toEqual(new Set([]));
         });

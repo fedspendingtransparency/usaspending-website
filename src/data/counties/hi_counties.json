@@ -1,0 +1,34 @@
+{
+    "counties": [
+        {
+            "code": "15001",
+            "fips": "001",
+            "state": "HI",
+            "name": "Hawaii County"
+        },
+        {
+            "code": "15003",
+            "fips": "003",
+            "state": "HI",
+            "name": "Honolulu County"
+        },
+        {
+            "code": "15005",
+            "fips": "005",
+            "state": "HI",
+            "name": "Kalawao County"
+        },
+        {
+            "code": "15007",
+            "fips": "007",
+            "state": "HI",
+            "name": "Kauai County"
+        },
+        {
+            "code": "15009",
+            "fips": "009",
+            "state": "HI",
+            "name": "Maui County"
+        }
+    ]
+}

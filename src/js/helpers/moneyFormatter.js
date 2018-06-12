@@ -156,6 +156,8 @@ export const calculateUnitForSingleValue = (value) => {
 export const formatTreemapValues = (value) => {
     // Format the ceiling and current values to be friendly strings
     const units = calculateUnitForSingleValue(value);
+    const useCents = units.unit <= unitValues.THOUSAND;
+
     // Only reformat at a million or higher
     if (units.unit < unitValues.MILLION) {
         units.unit = 1;
@@ -163,10 +165,14 @@ export const formatTreemapValues = (value) => {
         units.longLabel = '';
     }
     const formattedValue = value / units.unit;
+
     let precision = 1;
     if (formattedValue % 1 === 0) {
         // Whole number
         precision = 0;
+    }
+    else if (useCents) {
+        precision = 2;
     }
 
     const formattedCurrency = formatMoneyWithPrecision(formattedValue, precision);
@@ -186,6 +192,14 @@ export const calculateTreemapPercentage = (value, total) =>
 export const formatNumber = (number) => {
     const options = Object.assign({}, accountingOptions, {
         symbol: ''
+    });
+    return Accounting.formatMoney(number, options);
+};
+
+export const formatNumberWithPrecision = (number, precision) => {
+    const options = Object.assign({}, accountingOptions, {
+        symbol: '',
+        precision
     });
     return Accounting.formatMoney(number, options);
 };

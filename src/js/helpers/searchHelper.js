@@ -4,7 +4,6 @@
   **/
 
 import Axios, { CancelToken } from 'axios';
-
 import kGlobalConstants from 'GlobalConstants';
 
 // perform search is a cancellable promise
@@ -26,7 +25,7 @@ export const performSearch = (searchParams) => {
 
 // convenience function for performing paged searches
 export const performPagedSearch = (filters = [], page = 1, limit = 15, order = null, fields = null,
-        exclude = null) => {
+    exclude = null) => {
     const params = { filters, page, limit };
 
     if (order) {
@@ -246,15 +245,69 @@ export const performSpendingOverTimeSearch = (params) => {
     };
 };
 
-// Fetch Recipients
-export const fetchRecipients = (req) => {
+// Spending By Category Visualization Endpoint
+export const performSpendingByCategorySearch = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/autocomplete/recipient/',
+            url: 'v2/search/spending_by_category/',
             baseURL: kGlobalConstants.API,
             method: 'post',
-            data: req,
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+// Spending By Geography Visualization Endpoint
+export const performSpendingByGeographySearch = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/search/spending_by_geography/`,
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+// Spending By Award Tab Count Endpoint
+export const performSpendingByAwardTabCountSearch = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/search/spending_by_award_count/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+// Spending By Award Table Endpoint
+export const performSpendingByAwardSearch = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/search/spending_by_award/`,
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
             cancelToken: source.token
         }),
         cancel() {

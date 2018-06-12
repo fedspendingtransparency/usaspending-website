@@ -1,0 +1,129 @@
+.feature-pane {
+    .feature-pane__wrapper {
+        display: block; 
+        margin: rem(60) 0 rem(100);
+        width: 100%;
+
+        @include media($medium-screen) {
+            margin: rem(120) 0 rem(60);
+        }
+    }
+
+    .feature-pane__title {
+        @include display(flex);
+        @include justify-content(center);
+        text-align: center;
+        font-size: rem(16);
+        margin: 0;
+        padding: 0;
+        color: #717171;
+        text-transform: uppercase;
+
+        &::before, &::after {
+            background-color: rgba(214,215,217,0.4);
+            content: '\a0';
+            @include flex(1 0 0);
+            height: 2px;
+            position: relative;
+            top: rem(26);
+        }
+
+        &::before {
+            margin-right: 15px;
+        }
+
+        &::after {
+            margin-left: 15px;
+        }
+    }
+
+    .feature-pane__content-wrapper {
+        @include display(flex);
+        @include justify-content(space-around);
+        margin-bottom: rem(20);
+        @include flex-wrap(wrap);
+    }
+
+    .feature-pane__content {
+        display: block;
+        text-align: center;
+        font-size: rem(14);
+        line-height: rem(17);
+
+        @include media($medium-screen) {
+            @include flex(1 1 1);
+            max-width: 30%;
+        }
+    }
+
+    .feature-pane__content-text {
+        min-height: rem(50);
+    }
+    
+    .feature-pane__content-divider {
+        display: none;
+        @include media($medium-screen) {
+            display: block;
+            border: 1px solid rgba(214,215,217,0.4);
+            height: 180px;
+            align-self: center;
+        }
+        
+    }
+
+    .feature-pane__content-title {
+        font-size: rem(24);
+        font-weight: bold;
+        text-align: center;
+        color: #5B616B;
+        margin: 0;
+        line-height: 1;
+        margin: rem(20) 0 0 0;
+    } 
+
+    .feature-pane__button-wrapper {
+        @include display(flex);
+        @include justify-content(center);
+        margin: rem(20) 0 0 0;
+    }
+    
+    .feature-pane__bottom-divider {
+        border: 1px solid rgba(214,215,217,0.4);
+    }
+
+    .feature-pane__mobile-content-divider {
+        display: block;
+        width: 100%;
+        margin-top: rem(30);
+        border: 1px solid rgba(214,215,217,0.4);
+        @include media($medium-screen) {
+            display: none;
+        }
+    }
+
+    .feature-pane__button {
+        color: #0071BC;
+        background-color: transparent;
+        border: 1px solid #0071BC;
+        padding: rem(10) rem(20) rem(10) rem(20);
+        text-decoration: none;
+        font-weight: 600;
+
+        &:hover {
+            color: #ffffff;
+            background-color: #0071bc;
+            font-weight: 600;
+        }
+
+        &:active {
+            box-shadow: inset 0 0 0 2px #112e51;
+            color: #112e51;
+        }
+
+        &:focus {
+            outline: 2px dotted #aeb0b5;
+            outline-offset: 3px;
+        }
+    }
+
+}

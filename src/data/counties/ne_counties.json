@@ -1,0 +1,562 @@
+{
+    "counties": [
+        {
+            "code": "31001",
+            "fips": "001",
+            "state": "NE",
+            "name": "Adams County"
+        },
+        {
+            "code": "31003",
+            "fips": "003",
+            "state": "NE",
+            "name": "Antelope County"
+        },
+        {
+            "code": "31005",
+            "fips": "005",
+            "state": "NE",
+            "name": "Arthur County"
+        },
+        {
+            "code": "31007",
+            "fips": "007",
+            "state": "NE",
+            "name": "Banner County"
+        },
+        {
+            "code": "31009",
+            "fips": "009",
+            "state": "NE",
+            "name": "Blaine County"
+        },
+        {
+            "code": "31011",
+            "fips": "011",
+            "state": "NE",
+            "name": "Boone County"
+        },
+        {
+            "code": "31013",
+            "fips": "013",
+            "state": "NE",
+            "name": "Box Butte County"
+        },
+        {
+            "code": "31015",
+            "fips": "015",
+            "state": "NE",
+            "name": "Boyd County"
+        },
+        {
+            "code": "31017",
+            "fips": "017",
+            "state": "NE",
+            "name": "Brown County"
+        },
+        {
+            "code": "31019",
+            "fips": "019",
+            "state": "NE",
+            "name": "Buffalo County"
+        },
+        {
+            "code": "31021",
+            "fips": "021",
+            "state": "NE",
+            "name": "Burt County"
+        },
+        {
+            "code": "31023",
+            "fips": "023",
+            "state": "NE",
+            "name": "Butler County"
+        },
+        {
+            "code": "31025",
+            "fips": "025",
+            "state": "NE",
+            "name": "Cass County"
+        },
+        {
+            "code": "31027",
+            "fips": "027",
+            "state": "NE",
+            "name": "Cedar County"
+        },
+        {
+            "code": "31029",
+            "fips": "029",
+            "state": "NE",
+            "name": "Chase County"
+        },
+        {
+            "code": "31031",
+            "fips": "031",
+            "state": "NE",
+            "name": "Cherry County"
+        },
+        {
+            "code": "31033",
+            "fips": "033",
+            "state": "NE",
+            "name": "Cheyenne County"
+        },
+        {
+            "code": "31035",
+            "fips": "035",
+            "state": "NE",
+            "name": "Clay County"
+        },
+        {
+            "code": "31037",
+            "fips": "037",
+            "state": "NE",
+            "name": "Colfax County"
+        },
+        {
+            "code": "31039",
+            "fips": "039",
+            "state": "NE",
+            "name": "Cuming County"
+        },
+        {
+            "code": "31041",
+            "fips": "041",
+            "state": "NE",
+            "name": "Custer County"
+        },
+        {
+            "code": "31043",
+            "fips": "043",
+            "state": "NE",
+            "name": "Dakota County"
+        },
+        {
+            "code": "31045",
+            "fips": "045",
+            "state": "NE",
+            "name": "Dawes County"
+        },
+        {
+            "code": "31047",
+            "fips": "047",
+            "state": "NE",
+            "name": "Dawson County"
+        },
+        {
+            "code": "31049",
+            "fips": "049",
+            "state": "NE",
+            "name": "Deuel County"
+        },
+        {
+            "code": "31051",
+            "fips": "051",
+            "state": "NE",
+            "name": "Dixon County"
+        },
+        {
+            "code": "31053",
+            "fips": "053",
+            "state": "NE",
+            "name": "Dodge County"
+        },
+        {
+            "code": "31055",
+            "fips": "055",
+            "state": "NE",
+            "name": "Douglas County"
+        },
+        {
+            "code": "31057",
+            "fips": "057",
+            "state": "NE",
+            "name": "Dundy County"
+        },
+        {
+            "code": "31059",
+            "fips": "059",
+            "state": "NE",
+            "name": "Fillmore County"
+        },
+        {
+            "code": "31061",
+            "fips": "061",
+            "state": "NE",
+            "name": "Franklin County"
+        },
+        {
+            "code": "31063",
+            "fips": "063",
+            "state": "NE",
+            "name": "Frontier County"
+        },
+        {
+            "code": "31065",
+            "fips": "065",
+            "state": "NE",
+            "name": "Furnas County"
+        },
+        {
+            "code": "31067",
+            "fips": "067",
+            "state": "NE",
+            "name": "Gage County"
+        },
+        {
+            "code": "31069",
+            "fips": "069",
+            "state": "NE",
+            "name": "Garden County"
+        },
+        {
+            "code": "31071",
+            "fips": "071",
+            "state": "NE",
+            "name": "Garfield County"
+        },
+        {
+            "code": "31073",
+            "fips": "073",
+            "state": "NE",
+            "name": "Gosper County"
+        },
+        {
+            "code": "31075",
+            "fips": "075",
+            "state": "NE",
+            "name": "Grant County"
+        },
+        {
+            "code": "31077",
+            "fips": "077",
+            "state": "NE",
+            "name": "Greeley County"
+        },
+        {
+            "code": "31079",
+            "fips": "079",
+            "state": "NE",
+            "name": "Hall County"
+        },
+        {
+            "code": "31081",
+            "fips": "081",
+            "state": "NE",
+            "name": "Hamilton County"
+        },
+        {
+            "code": "31083",
+            "fips": "083",
+            "state": "NE",
+            "name": "Harlan County"
+        },
+        {
+            "code": "31085",
+            "fips": "085",
+            "state": "NE",
+            "name": "Hayes County"
+        },
+        {
+            "code": "31087",
+            "fips": "087",
+            "state": "NE",
+            "name": "Hitchcock County"
+        },
+        {
+            "code": "31089",
+            "fips": "089",
+            "state": "NE",
+            "name": "Holt County"
+        },
+        {
+            "code": "31091",
+            "fips": "091",
+            "state": "NE",
+            "name": "Hooker County"
+        },
+        {
+            "code": "31093",
+            "fips": "093",
+            "state": "NE",
+            "name": "Howard County"
+        },
+        {
+            "code": "31095",
+            "fips": "095",
+            "state": "NE",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "31097",
+            "fips": "097",
+            "state": "NE",
+            "name": "Johnson County"
+        },
+        {
+            "code": "31099",
+            "fips": "099",
+            "state": "NE",
+            "name": "Kearney County"
+        },
+        {
+            "code": "31101",
+            "fips": "101",
+            "state": "NE",
+            "name": "Keith County"
+        },
+        {
+            "code": "31103",
+            "fips": "103",
+            "state": "NE",
+            "name": "Keya Paha County"
+        },
+        {
+            "code": "31105",
+            "fips": "105",
+            "state": "NE",
+            "name": "Kimball County"
+        },
+        {
+            "code": "31107",
+            "fips": "107",
+            "state": "NE",
+            "name": "Knox County"
+        },
+        {
+            "code": "31109",
+            "fips": "109",
+            "state": "NE",
+            "name": "Lancaster County"
+        },
+        {
+            "code": "31111",
+            "fips": "111",
+            "state": "NE",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "31113",
+            "fips": "113",
+            "state": "NE",
+            "name": "Logan County"
+        },
+        {
+            "code": "31115",
+            "fips": "115",
+            "state": "NE",
+            "name": "Loup County"
+        },
+        {
+            "code": "31119",
+            "fips": "119",
+            "state": "NE",
+            "name": "Madison County"
+        },
+        {
+            "code": "31117",
+            "fips": "117",
+            "state": "NE",
+            "name": "McPherson County"
+        },
+        {
+            "code": "31121",
+            "fips": "121",
+            "state": "NE",
+            "name": "Merrick County"
+        },
+        {
+            "code": "31123",
+            "fips": "123",
+            "state": "NE",
+            "name": "Morrill County"
+        },
+        {
+            "code": "31125",
+            "fips": "125",
+            "state": "NE",
+            "name": "Nance County"
+        },
+        {
+            "code": "31127",
+            "fips": "127",
+            "state": "NE",
+            "name": "Nemaha County"
+        },
+        {
+            "code": "31129",
+            "fips": "129",
+            "state": "NE",
+            "name": "Nuckolls County"
+        },
+        {
+            "code": "31131",
+            "fips": "131",
+            "state": "NE",
+            "name": "Otoe County"
+        },
+        {
+            "code": "31133",
+            "fips": "133",
+            "state": "NE",
+            "name": "Pawnee County"
+        },
+        {
+            "code": "31135",
+            "fips": "135",
+            "state": "NE",
+            "name": "Perkins County"
+        },
+        {
+            "code": "31137",
+            "fips": "137",
+            "state": "NE",
+            "name": "Phelps County"
+        },
+        {
+            "code": "31139",
+            "fips": "139",
+            "state": "NE",
+            "name": "Pierce County"
+        },
+        {
+            "code": "31141",
+            "fips": "141",
+            "state": "NE",
+            "name": "Platte County"
+        },
+        {
+            "code": "31143",
+            "fips": "143",
+            "state": "NE",
+            "name": "Polk County"
+        },
+        {
+            "code": "31145",
+            "fips": "145",
+            "state": "NE",
+            "name": "Red Willow County"
+        },
+        {
+            "code": "31147",
+            "fips": "147",
+            "state": "NE",
+            "name": "Richardson County"
+        },
+        {
+            "code": "31149",
+            "fips": "149",
+            "state": "NE",
+            "name": "Rock County"
+        },
+        {
+            "code": "31151",
+            "fips": "151",
+            "state": "NE",
+            "name": "Saline County"
+        },
+        {
+            "code": "31153",
+            "fips": "153",
+            "state": "NE",
+            "name": "Sarpy County"
+        },
+        {
+            "code": "31155",
+            "fips": "155",
+            "state": "NE",
+            "name": "Saunders County"
+        },
+        {
+            "code": "31157",
+            "fips": "157",
+            "state": "NE",
+            "name": "Scotts Bluff County"
+        },
+        {
+            "code": "31159",
+            "fips": "159",
+            "state": "NE",
+            "name": "Seward County"
+        },
+        {
+            "code": "31161",
+            "fips": "161",
+            "state": "NE",
+            "name": "Sheridan County"
+        },
+        {
+            "code": "31163",
+            "fips": "163",
+            "state": "NE",
+            "name": "Sherman County"
+        },
+        {
+            "code": "31165",
+            "fips": "165",
+            "state": "NE",
+            "name": "Sioux County"
+        },
+        {
+            "code": "31167",
+            "fips": "167",
+            "state": "NE",
+            "name": "Stanton County"
+        },
+        {
+            "code": "31169",
+            "fips": "169",
+            "state": "NE",
+            "name": "Thayer County"
+        },
+        {
+            "code": "31171",
+            "fips": "171",
+            "state": "NE",
+            "name": "Thomas County"
+        },
+        {
+            "code": "31173",
+            "fips": "173",
+            "state": "NE",
+            "name": "Thurston County"
+        },
+        {
+            "code": "31175",
+            "fips": "175",
+            "state": "NE",
+            "name": "Valley County"
+        },
+        {
+            "code": "31177",
+            "fips": "177",
+            "state": "NE",
+            "name": "Washington County"
+        },
+        {
+            "code": "31179",
+            "fips": "179",
+            "state": "NE",
+            "name": "Wayne County"
+        },
+        {
+            "code": "31181",
+            "fips": "181",
+            "state": "NE",
+            "name": "Webster County"
+        },
+        {
+            "code": "31183",
+            "fips": "183",
+            "state": "NE",
+            "name": "Wheeler County"
+        },
+        {
+            "code": "31185",
+            "fips": "185",
+            "state": "NE",
+            "name": "York County"
+        }
+    ]
+}

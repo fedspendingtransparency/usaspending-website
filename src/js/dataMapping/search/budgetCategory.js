@@ -3,7 +3,7 @@
  * Created by michaelbray on 3/20/17.
  */
 
- /* eslint-disable quote-props */
+/* eslint-disable quote-props */
 export const objectClassDefinitions = {
     '111': 'Full-time permanent',
     '113': 'Other than full-time permanent',

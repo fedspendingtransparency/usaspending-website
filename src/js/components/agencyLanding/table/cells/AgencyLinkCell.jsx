@@ -21,7 +21,11 @@ export default class AgencyLinkCell extends React.Component {
         // highlight the matched string if applicable
         if (this.props.agencySearchString !== '') {
             name = reactStringReplace(this.props.name, this.props.agencySearchString, (match, i) => (
-                <span key={match + i}>{match}</span>
+                <span
+                    className="matched"
+                    key={match + i}>
+                    {match}
+                </span>
             ));
         }
 

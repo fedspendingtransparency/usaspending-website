@@ -94,6 +94,8 @@ $color-shadow:               rgba(#000, 0.3);
 $color-tab-inactive:		 #f1f1f1; // color for inactive tab
 $color-gray-border:          #D8D8D8;
 
+$color-placeholder:          #747474;
+
 
 // Global Paadding and Margins
 // (example usage {padding: ($global-pad * 4);} = 60px of padding.)
@@ -135,3 +137,4 @@ $z-header: 100;
 $z-guide: 200;
 $z-modal: 300;
 $z-mobile-filter: 400;
+$z-mobile-nav: 800;

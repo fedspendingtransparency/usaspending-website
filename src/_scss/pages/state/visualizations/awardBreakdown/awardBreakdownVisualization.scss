@@ -1,0 +1,67 @@
+.award-breakdown__treemap {
+    @import "pages/agency/treemaps/treemapSection";
+    .usa-da-treemap-section {
+        background: white;
+        padding-top: rem(10);
+        padding-bottom: rem(0);
+
+        .treemap-inner-wrap {
+            margin: 0;
+            width: 100%;
+
+            .tree-wrapper {
+                width: 100%;
+            }
+
+            .visualization-tooltip .tooltip .tooltip-body .tooltip-full {
+                @include display(flex);
+                .tooltip-left, .tooltip-right {
+                    @include flex(1 1 auto);
+                    .tooltip-value {
+                        border-bottom: solid rem(1) $color-gray-lighter;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.award-breakdown-table {
+    margin: rem(15) 0;
+    font-size: $small-font-size;
+    border-collapse: separate;
+    border: solid $color-gray-light rem(1);
+    border-radius: rem(5);
+    -moz-border-radius: rem(5);
+    .award-breakdown-table__head {
+        .award-breakdown-table__header-cell {
+            padding: rem(10) rem(15);
+            border: 0;
+            background-color: transparent;
+            border-bottom: solid $color-gray-light rem(1);
+            font-weight: 600;
+            text-align: center;
+            &:first-child {
+                text-align: left;
+            }
+        }
+    }
+    .award-breakdown-table__row {
+        .award-breakdown-table__data {
+            padding: rem(5) rem(15);
+            border: 0;
+            border-bottom: solid $color-gray-light rem(1);
+            background-color: transparent;
+            font-weight: 400;
+            text-align: center;
+            &:first-child {
+                text-align: left;
+            }
+        }
+        &:last-child {
+            .award-breakdown-table__data {
+                border-bottom: 0;
+            }
+        }
+    }
+}

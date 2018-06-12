@@ -1,0 +1,63 @@
+.sidebar-submit {
+    padding: rem(15) rem(25);
+
+    .screen-reader-submit-header {
+        position:absolute;
+        left:-10000px;
+        top:auto;
+        width:1px;
+        height:1px;
+        overflow:hidden;
+    }
+
+    .submit-button {
+        display: block;
+        width: 100%;
+
+        transition: opacity 0.15s;
+        opacity: 1;
+
+        background-color: $color-primary;
+
+        &:hover {
+            background-color: $color-primary-darker;            
+        }
+
+        &[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+            &:hover {
+                background-color: $color-primary;
+            }
+        }
+    }
+    .reset-button {
+        display: block;
+        @include button-unstyled;
+
+        transition: opacity 0.15s;
+        opacity: 1;
+
+        text-align: center;
+
+        color: $color-primary;
+        font-size: $smallest-font-size;
+
+        margin-top: rem(8);
+        margin-left: auto;
+        margin-right: auto;
+
+        &:hover {
+            text-decoration: underline;
+        }
+
+        &[disabled] {
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+    }
+}
+
+.sidebar-top-submit {
+    border-bottom: 1px solid #e4e2e0;
+}

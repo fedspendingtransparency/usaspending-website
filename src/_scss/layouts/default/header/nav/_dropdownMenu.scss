@@ -1,0 +1,105 @@
+.nav-dropdown {
+    $dropdown-hover: #EEEEEE;
+    $dropdown-border: #DCDCDC;
+    @import "./_comingSoon";
+
+    .nav-dropdown__parent {
+        @include button-unstyled;
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        position: relative;
+        padding: rem(18) rem(20);
+
+        &:hover, &:active, &.nav-dropdown__parent_active {
+            box-shadow: 0 2px 6px 0 rgba(78,78,78,0.5);
+        }
+    }
+    .nav-dropdown__parent-label {
+        @include flex(1 1 auto);
+        color: $nav-color;
+        font-weight: $font-semibold;
+        font-size: rem(15);
+        line-height: rem(19);
+    }
+    .nav-dropdown__parent-icon {
+        @include flex(0 0 auto);
+        margin-left: rem(10);
+
+        svg {
+            width: rem(10);
+            height: rem(10);
+            fill: $nav-color;
+            margin-top: rem(3);
+        }
+    }
+
+    .nav-children {
+        display: none;
+        position: relative;
+        z-index: $z-header + 1;
+
+        &.nav-children_active {
+            display: block;
+        }
+
+        ul.nav-children__list {
+            @include unstyled-list;
+            position: absolute;
+            left: 0;
+            width: rem(200);
+            background-color: $color-white;
+            box-shadow: 0 4px 5px 0 rgba(0,0,0,0.5);
+
+            border-top: 1px solid $dropdown-border;
+        }
+
+        hr.nav-children__list-separator {
+            border: none;
+            border-bottom: 1px solid $dropdown-border;
+            margin: 0 rem(13);
+
+            &.nav-children__list-separator_hidden {
+                display: none;
+            }
+        }
+
+        a.nav-children__link {
+            display: block;
+
+            font-size: rem(15);
+            line-height: rem(19);
+            color: $nav-color;
+            font-weight: $font-semibold;
+
+            padding: rem(15) rem(20);
+
+            &:hover, &:active {
+                text-decoration: none;
+                background-color: $dropdown-hover;
+            }
+
+            &.nav-children__link_disabled {
+                pointer-events: none;
+                cursor: not-allowed;
+                font-weight: $font-normal;
+                color: $nav-coming-soon;
+            }
+        }
+
+        button.nav-children__link {
+            @include button-unstyled;
+            display: block;
+            width: 100%;
+            font-size: rem(15);
+            line-height: rem(19);
+            color: $nav-color;
+            font-weight: $font-semibold;
+            padding: rem(15) rem(20);
+
+            &:hover, &:active {
+                background-color: $dropdown-hover;
+            }
+        }
+    }
+}

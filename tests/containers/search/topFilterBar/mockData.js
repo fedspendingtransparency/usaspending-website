@@ -191,11 +191,17 @@ export const mockRecipient = {
 };
 
 export const mockLocation = {
-    place_type: "COUNTY",
-    matched_ids: [22796],
-    place: "McLean",
-    parent: "KENTUCKY",
-    identifier: "22796_McLean_COUNTY"
+    filter: {
+        country: 'USA',
+        state: 'NY',
+        county: '001'
+    },
+    display: {
+        entity: 'County',
+        title: 'New Donk County',
+        standalone: 'New Donk County, NY'
+    },
+    identifier: 'USA_NI_001'
 };
 
 export const mockAwardId = {

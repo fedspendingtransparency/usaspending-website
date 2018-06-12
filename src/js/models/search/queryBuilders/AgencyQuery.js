@@ -81,13 +81,23 @@ export const buildFundingAgencyTASQuery = (funding, searchContext = 'tasCategori
     });
 
     const field = FilterFields[`${searchContext}Fields`].fundingAgency;
+    const frecField = FilterFields[`${searchContext}Fields`].fundingAgencyFREC;
 
     const filter = {
-        field,
-        operation: "in",
-        value: fundingSet
+        combine_method: 'OR',
+        filters: [
+            {
+                field,
+                operation: "in",
+                value: fundingSet
+            },
+            {
+                field: frecField,
+                operation: "in",
+                value: fundingSet
+            }
+        ]
     };
 
     return filter;
 };
-

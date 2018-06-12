@@ -1,0 +1,73 @@
+.official-banner {
+    padding: rem(5) rem(15);
+    background-color: #002A43;
+
+    @include media($tablet-screen) {
+        @include display(flex);
+        @include justify-content(space-between)
+        @include align-items(center);
+    }
+
+    .official-banner__site-list {
+        @include media($tablet-screen) {
+            @include flex(1 1 auto);
+        }
+        @include unstyled-list;
+
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(center);
+        margin-left: rem(20);
+    }
+
+    .official-banner__site-item {
+        @include flex(0 0 rem(100));
+
+        &.official-banner__site-item_spacer {
+            @include flex(0 0 auto);
+            margin: 0 rem(15) 0 rem(10);
+            color: $color-white;
+            font-size: rem(13);
+            font-weight: $font-normal;
+        }
+    }
+
+    .official-banner__site-link {
+        display: block;
+        color: $color-white;
+        font-size: rem(13);
+        font-weight: $font-normal;
+        text-decoration: none;
+        &:hover {
+            font-weight: $font-semibold;
+        }
+    }
+
+    .official-banner__wrapper {
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(center);
+        margin-left: rem(20);
+
+        @include media($tablet-screen) {
+            @include justify-content(flex-end);
+            @include align-items(center);
+            margin-left: 0;
+        }
+    }
+
+    .official-banner__text {
+        @include flex(0 0 auto);
+        margin-right: rem(10);
+
+        font-size: rem(10);
+        line-height: rem(13);
+        color: $color-white;
+    }
+
+    .official-banner__flag {
+        @include flex(0 0 auto)
+        width: rem(16);
+        height: rem(11);
+    }
+}

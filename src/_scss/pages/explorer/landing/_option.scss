@@ -1,0 +1,85 @@
+.landing-option {
+    @include flex(0 0 auto);
+    padding: rem(30);
+
+    width: 100%;
+
+    margin-top: rem(30);
+    &:first-child {
+        margin-top: 0;
+    }
+
+    @include media($large-screen) {
+        width: rem(350);
+        margin-left: rem(30);
+        margin-top: 0;
+
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+    @include media($x-large-screen) {
+        width: rem(400);
+    }
+
+    background-color: rgba(91,97,106, 0.8);
+    color: $color-white;
+    text-align: center;
+
+    .landing-option__icon {
+        width: rem(50);
+        height: rem(50);
+        margin-left: auto;
+        margin-right: auto;
+
+        margin-bottom: rem(30);
+
+        svg {
+            width: rem(50);
+            height: rem(50);
+            fill: $color-white;
+            opacity: 0.7;
+        }
+    }
+
+    h2.landing-option__title {
+        margin: 0;
+        font-weight: $font-light;
+        font-size: rem(35);
+        line-height: rem(44);
+        .usa-da-icon-guide {
+            width: rem(15);
+            height: rem(15);
+            fill: $color-white;
+            margin: 0 0 rem(12) rem(5);
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .landing-option__description {
+        margin-top: rem(10);
+        margin-bottom: rem(30);
+        font-weight: $font-normal;
+
+        @include media($large-screen) {
+            min-height: rem(70);
+        }
+    }
+
+    a.landing-option__button {
+        @extend .usa-button;
+        background-color: #0170BC;
+        font-size: $base-font-size;
+        padding: rem(10) rem(60);
+
+        &:hover {
+            background-color: #215493 !important;
+        }
+
+        &:visited {
+            background-color: #0170BC;
+        }
+    }
+}

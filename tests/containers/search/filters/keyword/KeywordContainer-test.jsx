@@ -8,63 +8,56 @@ import { shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import { KeywordContainer } from 'containers/search/filters/KeywordContainer';
+import { OrderedMap } from 'immutable';
 
 const initialFilters = {
-    keyword: ''
+    keyword: new OrderedMap(),
+    appliedFilter: new OrderedMap()
 };
 
+const keyword = 'testing';
+
 describe('KeywordContainer', () => {
-    describe('submitText', () => {
-        it('should submit given keyword text to redux state', () => {
-            const mockReduxActionKeyword = jest.fn((args) => {
-                expect(args).toEqual('Education');
-            });
+    describe('toggleKeyword', () => {
+        it('should trigger a Redux action', () => {
+            const mockReduxAction = jest.fn();
+
+            // Set up container with mocked action
             const keywordContainer = shallow(
                 <KeywordContainer
-                    keyword={initialFilters.keyword}
-                    updateTextSearchInput={mockReduxActionKeyword} />);
+                    {...initialFilters}
+                    updateTextSearchInput={mockReduxAction} />);
+                    
+            // Add Keyword to redux
+            keywordContainer.instance().toggleKeyword(keyword);
 
-            const submitTextSpy = sinon.spy(keywordContainer.instance(),
-                'submitText');
-
-            // Add keyword to redux
-            keywordContainer.setState({
-                value: 'Education'
-            });
-            keywordContainer.instance().submitText();
-
-            // everything should be updated now
-            expect(submitTextSpy.callCount).toEqual(1);
-            expect(mockReduxActionKeyword).toHaveBeenCalled();
-
-            // reset the spies
-            submitTextSpy.reset();
+            // Everything should be updated now
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+            expect(mockReduxAction).toHaveBeenCalledWith(keyword);
         });
-        it('should overwrite a previous keyword with a new keyword', () => {
-            const existingFilters = {
-                keyword: 'Education'
-            };
-            const mockReduxActionKeyword = jest.fn((args) => {
-                expect(args).toEqual('Financial');
-            });
-            const keywordContainer = shallow(
+    });
+    describe('dirtyFilter', () => {
+        it('should return a symbol when the staged filters do not match with the applied filters', () => {
+            const container = shallow(
                 <KeywordContainer
-                    keyword={existingFilters.keyword}
-                    updateTextSearchInput={mockReduxActionKeyword} />);
+                    {...initialFilters}
+                    updateTextSearchInput={jest.fn()} />);
 
-            const submitTextSpy = sinon.spy(keywordContainer.instance(),
-                'submitText');
+            container.setProps({
+                keyword: new OrderedMap({ blerg: "blerg" })
+            });
 
-            // Add keyword to redux
-            keywordContainer.instance().populateInput('Financial');
-            keywordContainer.instance().submitText();
+            const changed = container.instance().dirtyFilter();
+            expect(typeof changed).toEqual('symbol');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(
+                <KeywordContainer
+                    {...initialFilters}
+                    updateTextSearchInput={jest.fn()} />);
 
-            // everything should be updated now
-            expect(submitTextSpy.callCount).toEqual(1);
-            expect(mockReduxActionKeyword).toHaveBeenCalled();
-
-            // reset the spies
-            submitTextSpy.reset();
+            const changed = container.instance().dirtyFilter();
+            expect(changed).toBeFalsy();
         });
     });
 });

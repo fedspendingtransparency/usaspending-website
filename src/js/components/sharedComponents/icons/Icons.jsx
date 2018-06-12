@@ -341,3 +341,86 @@ Refresh.defaultProps = {
     alt: 'Icon Depicting an Arrow Curved in the Shape of a Circle'
 };
 
+export class Home extends BaseIcon {}
+Home.defaultProps = {
+    iconName: 'usa-da-home',
+    iconClass: 'usa-da-home',
+    alt: 'Icon Depicting a Building Representing Home'
+};
+
+export class Agency extends BaseIcon {}
+Agency.defaultProps = {
+    iconName: 'usa-da-agency',
+    iconClass: 'usa-da-agency',
+    alt: 'Icon Depicting a Building Representing an Agency'
+};
+
+export class Award extends BaseIcon {}
+Award.defaultProps = {
+    iconName: 'usa-da-award',
+    iconClass: 'usa-da-award',
+    alt: 'Icon Depicting Paper Currency Representing Awards'
+};
+
+export class BudgetFunction extends BaseIcon {}
+BudgetFunction.defaultProps = {
+    iconName: 'usa-da-budget-function',
+    iconClass: 'usa-da-budget-function',
+    alt: 'Icon Depicting a List Representing Budget Function'
+};
+
+export class FederalAccount extends BaseIcon {}
+FederalAccount.defaultProps = {
+    iconName: 'usa-da-federal-account',
+    iconClass: 'usa-da-federal-account',
+    alt: 'Icon Depicting a Credit Card Representing a Federal Account'
+};
+
+export class ObjectClass extends BaseIcon {}
+ObjectClass.defaultProps = {
+    iconName: 'usa-da-object-class',
+    iconClass: 'usa-da-object-class',
+    alt: 'Icon Depicting Shapes Representing Object Class'
+};
+
+export class ProgramActivity extends BaseIcon {}
+ProgramActivity.defaultProps = {
+    iconName: 'usa-da-program-activity',
+    iconClass: 'usa-da-program-activity',
+    alt: 'Icon Depicting Shapes Representing a Program Activity'
+};
+
+export class Recipient extends BaseIcon {}
+Recipient.defaultProps = {
+    iconName: 'usa-da-recipient',
+    iconClass: 'usa-da-recipient',
+    alt: 'Icon Depicting a Person Representing Recipients'
+};
+
+export class CircleArrowLeft extends BaseIcon {}
+CircleArrowLeft.defaultProps = {
+    iconName: 'usa-da-circle-arrow-left',
+    iconClass: 'usa-da-circle-arrow-left',
+    alt: 'Icon Depicting an Arrow in a Circle Pointing Left'
+};
+
+export class CircleArrowUp extends BaseIcon {}
+CircleArrowUp.defaultProps = {
+    iconName: 'usa-da-circle-arrow-up',
+    iconClass: 'usa-da-circle-arrow-up',
+    alt: 'Icon Depicting an Arrow in a Circle Pointing Up'
+};
+
+export class Envelope extends BaseIcon {}
+Envelope.defaultProps = {
+    iconName: 'usa-da-envelope',
+    iconClass: 'usa-da-envelope',
+    alt: 'Icon Depicting an Envelope'
+};
+
+export class CaretRight extends BaseIcon {}
+CaretRight.defaultProps = {
+    iconName: 'usa-da-caret-right',
+    iconClass: 'usa-da-caret-right',
+    alt: 'Icon Depicting an Caret Pointing Right'
+};

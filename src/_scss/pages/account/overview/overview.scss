@@ -2,6 +2,11 @@
     @import "../../../mixins/setText";
     @import "elements/_divider";
     @include span-columns(16);
+    background-color: $color-white;
+    box-shadow: $container-shadow;
+    padding: rem(30);
+    margin-bottom: rem(40);
+
     h3 {
         margin-top: rem(0);
         margin-bottom: 0;

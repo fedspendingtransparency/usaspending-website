@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
-import BaseTopFilterGroup from 'components/search/topFilterBar/filterGroups/BaseTopFilterGroup';
+import LegacyBaseTopFilterGroup from './LegacyBaseTopFilterGroup';
 
 const propTypes = {
     filter: PropTypes.object,
@@ -52,7 +52,7 @@ export default class TimePeriodFYFilterGroup extends React.Component {
 
         // determine how many fiscal years there are available to select
         // add an extra year at the end to include the current year in the count
-        const allFY = (FiscalYearHelper.currentFiscalYear() - FiscalYearHelper.earliestFiscalYear)
+        const allFY = (FiscalYearHelper.defaultFiscalYear() - FiscalYearHelper.earliestFiscalYear)
             + 1;
 
         // check if all fiscal years were selected
@@ -86,7 +86,7 @@ export default class TimePeriodFYFilterGroup extends React.Component {
     render() {
         const tags = this.generateTags();
 
-        return (<BaseTopFilterGroup
+        return (<LegacyBaseTopFilterGroup
             tags={tags}
             filter={this.props.filter}
             clearFilterGroup={this.clearGroup} />);

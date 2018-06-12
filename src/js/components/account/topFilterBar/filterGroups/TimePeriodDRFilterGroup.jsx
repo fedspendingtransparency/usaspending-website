@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import BaseTopFilterGroup from 'components/search/topFilterBar/filterGroups/BaseTopFilterGroup';
+import LegacyBaseTopFilterGroup from './LegacyBaseTopFilterGroup';
 
 const propTypes = {
     filter: PropTypes.object,
@@ -55,7 +55,7 @@ export default class TimePeriodDRFilterGroup extends React.Component {
     render() {
         const tags = this.generateTags();
 
-        return (<BaseTopFilterGroup
+        return (<LegacyBaseTopFilterGroup
             tags={tags}
             filter={this.props.filter}
             clearFilterGroup={this.clearGroup} />);

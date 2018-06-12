@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
+import { slice } from 'lodash';
 
 import * as AgencyHelper from 'helpers/agencyHelper';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -28,13 +29,18 @@ export default class FederalAccountContainer extends React.PureComponent {
         this.state = {
             loading: true,
             error: false,
+            isInitialLoad: true,
             linkSeries: [],
             labelSeries: [],
             dataSeries: [],
-            descriptions: []
+            descriptions: [],
+            page: 1,
+            isLastPage: true
         };
 
         this.request = null;
+
+        this.changePage = this.changePage.bind(this);
     }
 
     componentWillMount() {
@@ -43,11 +49,15 @@ export default class FederalAccountContainer extends React.PureComponent {
 
     componentWillReceiveProps(nextProps) {
         if (this.props.id !== nextProps.id || this.props.activeFY !== nextProps.activeFY) {
-            this.loadData(nextProps.id, nextProps.activeFY);
+            this.setState({
+                isInitialLoad: true
+            }, () => {
+                this.loadData(nextProps.id, nextProps.activeFY, 1);
+            });
         }
     }
 
-    loadData(id, fy) {
+    loadData(id, fy, pageNumber = 1) {
         if (!id || id === '' || !fy || fy === '') {
             // invalid ID or fiscal year
             return;
@@ -65,14 +75,18 @@ export default class FederalAccountContainer extends React.PureComponent {
         this.request = AgencyHelper.fetchAgencyFederalAccounts({
             fiscal_year: fy,
             funding_agency_id: id,
-            limit: 10
+            limit: 10,
+            page: pageNumber
         });
 
         this.request.promise
             .then((res) => {
                 this.setState({
                     loading: false,
-                    error: false
+                    error: false,
+                    isInitialLoad: false,
+                    page: pageNumber,
+                    isLastPage: !res.data.page_metadata.has_next_page
                 });
 
                 this.parseData(res.data.results);
@@ -91,14 +105,28 @@ export default class FederalAccountContainer extends React.PureComponent {
             });
     }
 
+    changePage(pageNumber) {
+        if (pageNumber < 1 || (this.state.isLastPage && pageNumber > this.state.page)) {
+            // don't do anything
+            return;
+        }
+
+        this.setState({
+            page: pageNumber
+        }, () => {
+            this.loadData(this.props.id, this.props.activeFY, pageNumber);
+        });
+    }
+
     parseData(data) {
         // keep only the top 10 in descending order
+        const results = slice(data, 0, 10);
         const linkSeries = [];
         const dataSeries = [];
         const labelSeries = [];
         const descriptions = [];
 
-        data.forEach((result) => {
+        results.forEach((result) => {
             let parsedValue = parseFloat(result.obligated_amount);
             if (isNaN(parsedValue)) {
                 // the aggregate value is invalid (most likely null)
@@ -127,6 +155,7 @@ ${account}`;
     render() {
         return (
             <FederalAccountVisualization
+                activeFY={this.props.activeFY}
                 obligatedAmount={this.props.obligatedAmount}
                 linkSeries={this.state.linkSeries}
                 dataSeries={this.state.dataSeries}
@@ -134,7 +163,11 @@ ${account}`;
                 descriptions={this.state.descriptions}
                 loading={this.state.loading}
                 error={this.state.error}
-                asOfDate={this.props.asOfDate} />
+                isInitialLoad={this.state.isInitialLoad}
+                asOfDate={this.props.asOfDate}
+                page={this.state.page}
+                isLastPage={this.state.isLastPage}
+                changePage={this.changePage} />
         );
     }
 }

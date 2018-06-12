@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 import { formatNumber } from 'helpers/moneyFormatter';
 
 const propTypes = {
@@ -15,7 +14,8 @@ const propTypes = {
     count: PropTypes.number,
     active: PropTypes.bool,
     enabled: PropTypes.bool,
-    switchTab: PropTypes.func
+    switchTab: PropTypes.func,
+    hideCounts: PropTypes.bool
 };
 
 export default class ResultsTableTabItem extends React.Component {
@@ -30,39 +30,47 @@ export default class ResultsTableTabItem extends React.Component {
     }
 
     render() {
-        const comingSoonModule = (<ComingSoonLabel />);
         let activeClass = '';
-        let comingSoon = '';
         let disabledStatus = '';
-        let status = '';
         if (this.props.active) {
             activeClass = ' active';
         }
         if (this.props.enabled === false) {
-            comingSoon = comingSoonModule;
-            status = ' coming-soon';
             disabledStatus = true;
         }
         else {
-            status = '';
             disabledStatus = false;
+        }
+
+        let resultString = 'results';
+        if (this.props.count === 1) {
+            resultString = 'result';
+        }
+
+        let count = null;
+        if (!this.props.hideCounts) {
+            count = (
+                <div className={`count-badge ${activeClass}`}>
+                    {formatNumber(this.props.count)}
+                </div>
+            );
         }
 
         return (
             <button
-                className={`table-type-toggle${activeClass}${status}`}
+                className={`table-type-toggle${activeClass}`}
                 onClick={this.clickedTab}
+                role="menuitemradio"
+                aria-checked={this.props.active}
                 title={`Show ${this.props.label}`}
+                aria-label={`Show ${this.props.label} - ${this.props.count} ${resultString}`}
                 disabled={disabledStatus}>
                 <div className="tab-content">
                     <div className="tab-label">
                         {this.props.label}
                     </div>
-                    <div className={`count-badge ${activeClass}`}>
-                        {formatNumber(this.props.count)}
-                    </div>
+                    {count}
                 </div>
-                {comingSoon}
             </button>
         );
     }

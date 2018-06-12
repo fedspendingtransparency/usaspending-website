@@ -5,8 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import InfoSnippet from '../award/InfoSnippet';
-import MoreHeaderOptions from '../award/MoreHeaderOptions';
 
 const propTypes = {
     account: PropTypes.object
@@ -18,21 +19,22 @@ export default class AccountHeader extends React.Component {
             `${this.props.account.agency_identifier}-${this.props.account.main_account_code}`;
 
         return (
-            <div className="page-title-bar">
-                <div className="page-title-bar-wrap">
-                    <h1 className="page-title">
-                        Federal Account Summary
+            <StickyHeader>
+                <div className="sticky-header__title">
+                    <h1 tabIndex={-1} id="main-focus">
+                        Federal Account Profile
                     </h1>
+                </div>
+                <div className="sticky-header__options">
                     <div className="summary-status">
                         <ul className="summary-status-items">
                             <InfoSnippet
                                 label="Federal Account Symbol"
                                 value={accountSymbol} />
                         </ul>
-                        <MoreHeaderOptions />
                     </div>
                 </div>
-            </div>
+            </StickyHeader>
         );
     }
 }

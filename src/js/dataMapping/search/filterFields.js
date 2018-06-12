@@ -29,7 +29,10 @@ export const awardFields = {
     cfdaTitle: 'latest_transaction__assistance_data__cfda__program_title',
     naics: 'latest_transaction__contract_data__naics',
     naicsDescription: 'latest_transaction__contract_data__naics_description',
-    psc: 'latest_transaction__contract_data__product_or_service_code'
+    psc: 'latest_transaction__contract_data__product_or_service_code',
+    pricingType: 'latest_transaction__contract_data__type_of_contract_pricing',
+    setAside: 'latest_transaction__contract_data__type_set_aside',
+    extentCompeted: 'latest_transaction__contract_data__extent_competed'
 };
 
 export const tasCategoriesFields = {
@@ -39,12 +42,12 @@ export const tasCategoriesFields = {
     budgetSubfunctionTitle: 'treasury_account__budget_subfunction_title',
     objectClass: 'object_class__object_class',
     fundingAgency: 'treasury_account__agency_id',
+    fundingAgencyFREC: 'treasury_account__fr_entity_code',
     federalAccount: 'treasury_account__federal_account_id'
 };
 
 export const transactionFields = {
     date: 'action_date',
-    keyword: 'description',
     locationScope: 'place_of_performance__location_country_code',
     location: 'place_of_performance__location_id',
     fundingAgencyCGAC: 'award__financial_set__treasury_account__agency_id',
@@ -79,7 +82,6 @@ export const transactionFields = {
 export const accountAwardsFields = {
     startDate: 'award__period_of_performance_start_date',
     endDate: 'award__period_of_performance_current_end_date',
-    keyword: 'award__description',
     locationScope: 'award__place_of_performance__location_country_code',
     location: 'award__place_of_performance__location_id',
     awardType: 'award__type',
@@ -107,5 +109,8 @@ export const accountAwardsFields = {
     cfdaTitle: 'award__transaction__assistance_data__cfda__program_title',
     naics: 'award__transaction__contract_data__naics',
     naicsDescription: 'award__transaction__contract_data__naics_description',
-    psc: 'award__transaction__contract_data__product_or_service_code'
+    psc: 'award__transaction__contract_data__product_or_service_code',
+    pricingType: 'award__latest_transaction__contract_data__type_of_contract_pricing',
+    setAside: 'award__latest_transaction__contract_data__type_set_aside',
+    extentCompeted: 'award__latest_transaction__contract_data__extent_competed'
 };

@@ -1,18 +1,26 @@
+.filter-toggle-wrap {
+    margin: 0;
+}
+
 .filter-toggle {
     @include button-unstyled;
-    display: inline-block;
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+    position: relative;
+    width: 100%;
+
     padding: rem(15);
     @include media($tablet-screen) {
-        padding: rem(30) rem(15);
+        padding: rem(15);
     }
-    vertical-align: middle;
-    width: 100%;
-    position: relative;
+
     svg {
+        @include flex(0 0 auto);
         cursor: pointer;
+        pointer-events: none;
         fill: $color-gray;
         height: rem(11);
-        vertical-align: middle;
         width: rem(11);
         @include media($large-screen) {
             width: rem(12);
@@ -24,8 +32,9 @@
         }
     }
     .filter-header {
+        @include h6;
+        @include flex(1 1 auto);
         color: $color-gray;
-        display: inline-block;
         font-size: $small-font-size;
         font-weight: $font-semibold;
         height: 100%;
@@ -37,6 +46,22 @@
             font-size: $base-font-size;
         }
     }
+
+    .accessory-view {
+        @include flex(0 0 auto);
+        width: rem(15);
+        height: rem(15);
+        position: relative;
+
+        color: $color-base;
+
+        svg {
+            width: rem(15);
+            height: rem(15);
+            fill: $color-gray-light;
+        }
+    }
+
     .usa-da-icon-guide {
         fill: lighten( $color-gray-light, 5%);
         float: right;
@@ -56,5 +81,13 @@
             fill: $color-black;
             @include transition(all 0.25s $ease-in-out-sine);
         }
+
+        .accessory-view {
+            svg {
+                fill: $color-gray;
+            }
+        }
     }
+
+    @import "pages/search/filters/keyword/_keywordHover";
 }

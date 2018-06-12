@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+
 import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 import AwardAmountItem from './AwardAmountItem';
 
@@ -13,17 +15,7 @@ const propTypes = {
     searchSpecificRange: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export default class SpecificAwardAmountItem extends React.Component {
-    static logAmountRangeEvent(range) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: 'Applied Award Amount Range Filter',
-            label: range
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -32,6 +24,8 @@ export default class SpecificAwardAmountItem extends React.Component {
             max: 0,
             hideCustom: true
         };
+
+        this.searchSpecificRange = this.searchSpecificRange.bind(this);
     }
 
     componentDidMount() {
@@ -66,10 +60,6 @@ export default class SpecificAwardAmountItem extends React.Component {
         });
 
         this.props.searchSpecificRange([min, max]);
-
-        // Analytics
-        const formattedRange = AwardAmountHelper.formatAwardAmountRange([min, max]);
-        SpecificAwardAmountItem.logAmountRangeEvent(formattedRange);
     }
 
     render() {
@@ -78,7 +68,9 @@ export default class SpecificAwardAmountItem extends React.Component {
         return (
             <div className="specific-award-amount">
                 <hr className="specific-award-amount-divider" />
-                <div className={`award-amount-item-wrapper${hide}`}>
+                <div
+                    className={`award-amount-item-wrapper${hide}`}
+                    role="status">
                     <AwardAmountItem
                         {...this.props}
                         values={[this.state.min, this.state.max]}
@@ -104,11 +96,10 @@ export default class SpecificAwardAmountItem extends React.Component {
                         ref={(input) => {
                             this.maxValue = input;
                         }} />
-                    <input
-                        type="submit"
-                        value="Submit"
+                    <IndividualSubmit
                         className="award-amount-submit"
-                        onClick={this.searchSpecificRange.bind(this)} />
+                        onClick={this.searchSpecificRange}
+                        label="Filter by custom award amount range" />
                 </div>
             </div>
         );

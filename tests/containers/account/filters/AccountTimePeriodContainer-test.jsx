@@ -23,15 +23,28 @@ const defaultFilters = {
 
 describe('AccountTimePeriodContainer', () => {
     describe('generateTimePeriods', () => {
-        it('generate the current available fiscal years', () => {
-            const mockedDate = moment('2015-04-01', 'YYYY-MM-DD').toDate();
+        it('generates the current available fiscal years', () => {
+            const mockedDate = moment('2018-02-15', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
             const container = shallow(<AccountTimePeriodContainer />);
             container.instance().generateTimePeriods();
 
             // override the moment's library's internal time to a known mocked date
-            const expectedYears = ['2015', '2014', '2013', '2012', '2011', '2010', '2009'];
+            const expectedYears = ['2018', '2017'];
+
+            expect(container.state().timePeriods).toEqual(expectedYears);
+        });
+
+        it('waits on the current fiscal year until February 15', () => {
+            const mockedDate = moment('2018-02-14', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const container = shallow(<AccountTimePeriodContainer />);
+            container.instance().generateTimePeriods();
+
+            // override the moment's library's internal time to a known mocked date
+            const expectedYears = ['2017'];
 
             expect(container.state().timePeriods).toEqual(expectedYears);
         });
@@ -42,8 +55,8 @@ describe('AccountTimePeriodContainer', () => {
             const expected = {
                 dateType: 'dr',
                 fy: new Set(),
-                startDate: '2012-01-01',
-                endDate: '2012-12-31'
+                startDate: '2017-01-01',
+                endDate: '2017-12-31'
             };
 
             const reduxAction = jest.fn((args) => {
@@ -56,8 +69,8 @@ describe('AccountTimePeriodContainer', () => {
 
             container.instance().updateFilter({
                 dateType: 'dr',
-                startDate: '2012-01-01',
-                endDate: '2012-12-31'
+                startDate: '2017-01-01',
+                endDate: '2017-12-31'
             });
             expect(reduxAction).toHaveBeenCalled();
         });

@@ -5,6 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
+
+import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     id: PropTypes.string,
@@ -17,24 +20,23 @@ const propTypes = {
 };
 
 const defaultProps = {
+    id: '',
     filterType: '',
     enableAnalytics: false
 };
 
-const ga = require('react-ga');
-
 export default class SingleCheckboxType extends React.Component {
     static logSingleTypeFilterEvent(type, filter) {
-        ga.event({
-            category: 'Search Page Filter Applied',
+        Analytics.event({
+            category: 'Search Filter Interaction',
             action: `Selected ${filter} Type`,
             label: type
         });
     }
 
     static logDeselectSingleTypeFilterEvent(type, filter) {
-        ga.event({
-            category: 'Search Page Filter Applied',
+        Analytics.event({
+            category: 'Search Filter Interaction',
             action: `Deselected ${filter} Type`,
             label: type
         });
@@ -66,17 +68,23 @@ export default class SingleCheckboxType extends React.Component {
 
     render() {
         const checked = this.props.selectedCheckboxes.has(this.props.code);
-
+        const elementId = `checkbox-${uniqueId()}`;
         return (
             <div className="primary-checkbox-type single-item">
-                <div className="checkbox-type-item-wrapper">
-                    <input
-                        type="checkbox"
-                        id={this.props.id}
-                        value={this.props.code}
-                        checked={checked}
-                        onChange={this.toggleFilter} />
-                    <label htmlFor={this.props.id}>{this.props.name}</label>
+                <div className="primary-checkbox-wrapper">
+                    <label
+                        className="checkbox-item-wrapper"
+                        htmlFor={elementId}>
+                        <input
+                            type="checkbox"
+                            id={elementId}
+                            value={this.props.code}
+                            checked={checked}
+                            onChange={this.toggleFilter} />
+                        <span className="checkbox-item-label">
+                            {this.props.name}
+                        </span>
+                    </label>
                 </div>
             </div>
         );

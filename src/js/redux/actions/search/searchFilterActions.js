@@ -49,27 +49,14 @@ export const updateDomesticForeignSelection = (state) => ({
     selection: state
 });
 
-// Budget Category Filter
-
-export const updateSelectedBudgetFunctions = (state) => ({
-    type: 'UPDATE_SELECTED_BUDGET_FUNCTIONS',
-    budgetFunction: state
+export const addPOPLocationObject = (state) => ({
+    type: 'ADD_POP_LOCATION_OBJECT',
+    location: state
 });
 
-export const updateSelectedFederalAccounts = (state) => ({
-    type: 'UPDATE_SELECTED_FEDERAL_ACCOUNTS',
-    federalAccount: state
-});
-
-export const updateSelectedObjectClasses = (state) => ({
-    type: 'UPDATE_SELECTED_OBJECT_CLASSES',
-    objectClass: state
-});
-
-export const bulkObjectClassesChange = (state) => ({
-    type: 'BULK_SEARCH_FILTER_OBJECT_CLASSES',
-    objectClasses: state.types,
-    direction: state.direction
+export const addRecipientLocationObject = (state) => ({
+    type: 'ADD_RECIPIENT_LOCATION_OBJECT',
+    location: state
 });
 
 // Agency Filter
@@ -124,18 +111,13 @@ export const bulkAwardTypeChange = (state) => ({
     direction: state.direction
 });
 
-// Award ID Filter
-export const updateAwardIDs = (state) => ({
-    type: 'UPDATE_SELECTED_AWARD_IDS',
-    awardID: state.awardID
-});
-
 // Award Amount Filter
 
 export const updateAwardAmounts = (state) => ({
     type: 'UPDATE_AWARD_AMOUNTS',
     awardAmounts: state
 });
+
 
 // CFDA Filter
 
@@ -158,6 +140,28 @@ export const updateSelectedPSC = (state) => ({
     psc: state.psc
 });
 
+// Contract Pricing Type Filter
+
+export const updatePricingType = (state) => ({
+    type: 'UPDATE_PRICING_TYPE',
+    pricingType: state
+});
+
+// Contract Set-Aside Filter
+
+export const updateSetAside = (state) => ({
+    type: 'UPDATE_SET_ASIDE',
+    setAside: state
+});
+
+// Contract Extent Competed Filter
+
+export const updateExtentCompeted = (state) => ({
+    type: 'UPDATE_EXTENT_COMPETED',
+    extentCompeted: state
+});
+
+
 // Generic
 
 export const setSearchOrder = (state) => ({
@@ -170,19 +174,3 @@ export const resetSearchOrder = () => ({
     type: 'RESET_SEARCH_ORDER'
 });
 
-export const toggleColumnVisibility = (state) => ({
-    type: 'TOGGLE_COLUMN_VISIBILITY',
-    column: state.column,
-    tableType: state.tableType
-});
-
-export const resetColumnVisibility = () => ({
-    type: 'RESET_COLUMN_VISIBILITY'
-});
-
-export const reorderColumns = (state) => ({
-    type: 'REORDER_COLUMNS',
-    tableType: state.tableType,
-    dragIndex: state.dragIndex,
-    hoverIndex: state.hoverIndex
-});

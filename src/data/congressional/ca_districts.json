@@ -1,0 +1,269 @@
+{
+    "districts": [
+        {
+            "code": "0601",
+            "district": "01",
+            "name": "CA-01"
+        },
+        {
+            "code": "0602",
+            "district": "02",
+            "name": "CA-02"
+        },
+        {
+            "code": "0603",
+            "district": "03",
+            "name": "CA-03"
+        },
+        {
+            "code": "0604",
+            "district": "04",
+            "name": "CA-04"
+        },
+        {
+            "code": "0605",
+            "district": "05",
+            "name": "CA-05"
+        },
+        {
+            "code": "0606",
+            "district": "06",
+            "name": "CA-06"
+        },
+        {
+            "code": "0607",
+            "district": "07",
+            "name": "CA-07"
+        },
+        {
+            "code": "0608",
+            "district": "08",
+            "name": "CA-08"
+        },
+        {
+            "code": "0609",
+            "district": "09",
+            "name": "CA-09"
+        },
+        {
+            "code": "0610",
+            "district": "10",
+            "name": "CA-10"
+        },
+        {
+            "code": "0611",
+            "district": "11",
+            "name": "CA-11"
+        },
+        {
+            "code": "0612",
+            "district": "12",
+            "name": "CA-12"
+        },
+        {
+            "code": "0613",
+            "district": "13",
+            "name": "CA-13"
+        },
+        {
+            "code": "0614",
+            "district": "14",
+            "name": "CA-14"
+        },
+        {
+            "code": "0615",
+            "district": "15",
+            "name": "CA-15"
+        },
+        {
+            "code": "0616",
+            "district": "16",
+            "name": "CA-16"
+        },
+        {
+            "code": "0617",
+            "district": "17",
+            "name": "CA-17"
+        },
+        {
+            "code": "0618",
+            "district": "18",
+            "name": "CA-18"
+        },
+        {
+            "code": "0619",
+            "district": "19",
+            "name": "CA-19"
+        },
+        {
+            "code": "0620",
+            "district": "20",
+            "name": "CA-20"
+        },
+        {
+            "code": "0621",
+            "district": "21",
+            "name": "CA-21"
+        },
+        {
+            "code": "0622",
+            "district": "22",
+            "name": "CA-22"
+        },
+        {
+            "code": "0623",
+            "district": "23",
+            "name": "CA-23"
+        },
+        {
+            "code": "0624",
+            "district": "24",
+            "name": "CA-24"
+        },
+        {
+            "code": "0625",
+            "district": "25",
+            "name": "CA-25"
+        },
+        {
+            "code": "0626",
+            "district": "26",
+            "name": "CA-26"
+        },
+        {
+            "code": "0627",
+            "district": "27",
+            "name": "CA-27"
+        },
+        {
+            "code": "0628",
+            "district": "28",
+            "name": "CA-28"
+        },
+        {
+            "code": "0629",
+            "district": "29",
+            "name": "CA-29"
+        },
+        {
+            "code": "0630",
+            "district": "30",
+            "name": "CA-30"
+        },
+        {
+            "code": "0631",
+            "district": "31",
+            "name": "CA-31"
+        },
+        {
+            "code": "0632",
+            "district": "32",
+            "name": "CA-32"
+        },
+        {
+            "code": "0633",
+            "district": "33",
+            "name": "CA-33"
+        },
+        {
+            "code": "0634",
+            "district": "34",
+            "name": "CA-34"
+        },
+        {
+            "code": "0635",
+            "district": "35",
+            "name": "CA-35"
+        },
+        {
+            "code": "0636",
+            "district": "36",
+            "name": "CA-36"
+        },
+        {
+            "code": "0637",
+            "district": "37",
+            "name": "CA-37"
+        },
+        {
+            "code": "0638",
+            "district": "38",
+            "name": "CA-38"
+        },
+        {
+            "code": "0639",
+            "district": "39",
+            "name": "CA-39"
+        },
+        {
+            "code": "0640",
+            "district": "40",
+            "name": "CA-40"
+        },
+        {
+            "code": "0641",
+            "district": "41",
+            "name": "CA-41"
+        },
+        {
+            "code": "0642",
+            "district": "42",
+            "name": "CA-42"
+        },
+        {
+            "code": "0643",
+            "district": "43",
+            "name": "CA-43"
+        },
+        {
+            "code": "0644",
+            "district": "44",
+            "name": "CA-44"
+        },
+        {
+            "code": "0645",
+            "district": "45",
+            "name": "CA-45"
+        },
+        {
+            "code": "0646",
+            "district": "46",
+            "name": "CA-46"
+        },
+        {
+            "code": "0647",
+            "district": "47",
+            "name": "CA-47"
+        },
+        {
+            "code": "0648",
+            "district": "48",
+            "name": "CA-48"
+        },
+        {
+            "code": "0649",
+            "district": "49",
+            "name": "CA-49"
+        },
+        {
+            "code": "0650",
+            "district": "50",
+            "name": "CA-50"
+        },
+        {
+            "code": "0651",
+            "district": "51",
+            "name": "CA-51"
+        },
+        {
+            "code": "0652",
+            "district": "52",
+            "name": "CA-52"
+        },
+        {
+            "code": "0653",
+            "district": "53",
+            "name": "CA-53"
+        }
+    ]
+}

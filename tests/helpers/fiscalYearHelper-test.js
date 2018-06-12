@@ -6,7 +6,7 @@
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import moment from 'moment';
 
-const expectedStartYear = 2009;
+const expectedStartYear = 2008;
 
 describe('Fiscal Year helper functions', () => {
     it(`should use ${expectedStartYear} as its earliest available fiscal year`, () => {
@@ -41,6 +41,32 @@ describe('Fiscal Year helper functions', () => {
         });
     });
 
+    describe('defaultFiscalYear', () => {
+        it('should use the previous fiscal year as the fiscal year on February 14', () => {
+            // override the moment's library's internal time to a known mocked date
+            const mockedDate = moment('2018-02-14', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const currentFY = FiscalYearHelper.defaultFiscalYear();
+            expect(currentFY).toEqual(2017);
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+
+        it('should use the current fiscal year as the fiscal year on February 15', () => {
+            // override the moment's library's internal time to a known mocked date
+            const mockedDate = moment('2018-02-15', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const currentFY = FiscalYearHelper.defaultFiscalYear();
+            expect(currentFY).toEqual(2018);
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+    });
+
     describe('convertFYtoDateRange', () => {
         it('should convert a given fiscal year to an array of start, end date strings', () => {
             const fy = '2016';
@@ -61,6 +87,16 @@ describe('Fiscal Year helper functions', () => {
             const secondFy = 2015;
 
             expect(FiscalYearHelper.convertDateToFY(secondDate)).toEqual(secondFy);
+        });
+    });
+
+    describe('getTrailingTwelveMonths', () => {
+        it('should return an array containing today as an end date and the year one year ago as the start date', () => {
+            const mockedDate = moment('2019-05-20', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+            const expectedDates = ['2018-05-20', '2019-05-20'];
+
+            expect(FiscalYearHelper.getTrailingTwelveMonths()).toEqual(expectedDates);
         });
     });
 });

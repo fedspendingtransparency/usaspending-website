@@ -1,0 +1,33 @@
+.mobile-nav-header {
+    @include display(flex);
+    @include justify-content(space-between);
+    @include flex-direction(row);
+    @include align-items(center);
+
+    padding: rem(20) rem(0);
+
+    .mobile-nav-header__logo {
+        @include flex(0 1 auto);
+        position: relative;
+    }
+
+    .mobile-nav-header__close {
+        @include flex(0 0 auto);
+        position: relative;
+        height: rem(26);
+        width: rem(26);
+
+        .mobile-nav-header__close-button {
+            @include button-unstyled;
+            height: rem(26);
+            width: rem(26);
+            svg {
+                height: rem(15);
+                width: rem(15);
+                fill: $color-gray;
+            }
+        }
+    }
+
+    @import "../_logo";
+}

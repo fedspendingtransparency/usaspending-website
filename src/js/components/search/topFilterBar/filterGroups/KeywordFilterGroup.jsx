@@ -10,7 +10,8 @@ import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: PropTypes.object,
-    redux: PropTypes.object
+    redux: PropTypes.object,
+    compressed: PropTypes.bool
 };
 
 export default class KeywordFilterGroup extends React.Component {
@@ -26,19 +27,15 @@ export default class KeywordFilterGroup extends React.Component {
     }
 
     generateTags() {
-        const tags = [];
-
         // check to see if a keyword is provided
-        const keyword = this.props.filter.values;
-
-        const tag = {
-            value: keyword,
-            title: `Keyword | ${keyword}`,
-            isSpecial: false,
-            removeFilter: this.removeFilter
-        };
-
-        tags.push(tag);
+        const tags = this.props.filter.values.map((value) => (
+            {
+                value: `${value}`,
+                title: `${value}`,
+                isSpecial: false,
+                removeFilter: this.removeFilter
+            }
+        ));
 
         return tags;
     }
@@ -49,7 +46,8 @@ export default class KeywordFilterGroup extends React.Component {
         return (<BaseTopFilterGroup
             tags={tags}
             filter={this.props.filter}
-            clearFilterGroup={this.removeFilter} />);
+            clearFilterGroup={this.removeFilter}
+            compressed={this.props.compressed} />);
     }
 }
 

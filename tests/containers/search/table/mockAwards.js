@@ -1,106 +1,25 @@
 import { List } from 'immutable';
-import { OrderRecord } from 'redux/reducers/search/searchOrderReducer';
-import { MetaRecord } from 'redux/reducers/resultsMeta/resultsMetaReducer';
-import { BatchRecord } from 'redux/reducers/resultsMeta/resultsBatchReducer';
-import { VisibilityRecord } from 'redux/reducers/search/columnVisibilityReducer'
-
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 
 export const mockActions = {
-    setSearchTableType: jest.fn(),
-    setSearchPageNumber: jest.fn(),
-    setSearchOrder: jest.fn(),
-    clearRecords: jest.fn(),
-    bulkInsertRecordSet: jest.fn(),
-    setSearchResultMeta: jest.fn(),
-    setSearchInFlight: jest.fn(),
-    triggerBatchSearchUpdate: jest.fn(),
-    triggerBatchQueryUpdate: jest.fn(),
-    toggleColumnVisibility: jest.fn(),
-    reorderColumns: jest.fn()
+    setAppliedFilterCompletion: jest.fn()
 };
 
 export const mockRedux = {
     filters: initialState,
-    rows: new List(),
-    meta: new MetaRecord(),
-    batch: new BatchRecord(),
-    searchOrder: new OrderRecord(),
-    columnVisibility: new VisibilityRecord()
+    subaward: false,
+    noApplied: false
 };
 
 
 export const mockTabCount = {
-    page_metadata: {
-        page: 1,
-        has_next_page: false,
-        has_previous_page: false,
-        next: null,
-        current: "blerg",
-        previous: null
-    },
-    req: "ab71bbda468",
-    results: [{
-        item: null,
-        aggregate: "0.00",
-        type: null
-    }, {
-        item: "04",
-        aggregate: "8614.00",
-        type: "04"
-    }, {
-        item: "05",
-        aggregate: "2809.00",
-        type: "05"
-    }, {
-        item: "02",
-        aggregate: "1107.00",
-        type: "02"
-    }, {
-        item: "09",
-        aggregate: "2.00",
-        type: "09"
-    }, {
-        item: "C",
-        aggregate: "7751.00",
-        type: "C"
-    }, {
-        item: "D",
-        aggregate: "1682.00",
-        type: "D"
-    }, {
-        item: "03",
-        aggregate: "10000.00",
-        type: "03"
-    }, {
-        item: "08",
-        aggregate: "6047.00",
-        type: "08"
-    }, {
-        item: "B",
-        aggregate: "6404.00",
-        type: "B"
-    }, {
-        item: "07",
-        aggregate: "3669.00",
-        type: "07"
-    }, {
-        item: "06",
-        aggregate: "1034.00",
-        type: "06"
-    }, {
-        item: "A",
-        aggregate: "3225.00",
-        type: "A"
-    }, {
-        item: "E",
-        aggregate: "585.00",
-        type: "E"
-    }, {
-        item: "11",
-        aggregate: "2.00",
-        type: "11"
-    }]
+    results: {
+        loans: 2,
+        other: 1,
+        direct_payments: 3,
+        contracts: 5,
+        grants: 4
+    }
 };
 
 export const mockApi = {
@@ -161,4 +80,29 @@ export const mockApi = {
             }
         }
     }]
+};
+
+export const mockV2TableApi = {
+    limit: 60,
+    page_metadata: {
+        previous: null,
+        hasNext: true,
+        page: 1,
+        next: 2,
+        count: 120,
+        hasPrevious: false
+    },
+    results: [
+        {
+            'Award ID': 'ABC123',
+            'Award Amount': 123.45,
+            'Awarding Agency': 'Department of Sandwiches',
+            'Awarding Sub Agency': 'Office of Subs',
+            'Contract Award Type': 'Tuna',
+            'Recipient Name': 'Blerg',
+            'Start Date': '2011-01-01',
+            'End Date': '2011-12-31',
+            internal_id: 1
+        }
+    ]
 };

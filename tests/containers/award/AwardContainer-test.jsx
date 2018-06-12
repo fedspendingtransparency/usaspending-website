@@ -5,97 +5,85 @@
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import sinon from 'sinon';
 
 import { AwardContainer } from 'containers/award/AwardContainer';
-import AwardSummary from 'models/results/award/AwardSummary';
 
-import { mockAward } from './mockAward';
+import { mockParams, mockActions, mockApi, mockFinancialAssistanceApi } from './mockResults';
 
-// spy on specific functions inside the component
-const getAwardSpy = sinon.spy(AwardContainer.prototype, 'getSelectedAward');
-
-const parameters = {
-    awardId: 57557
-};
+import BaseContract from 'models/v2/awards/BaseContract';
+import BaseFinancialAssistance from "models/v2/awards/BaseFinancialAssistance";
 
 jest.mock('helpers/searchHelper', () => require('./awardHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/award/Award', () =>
-    jest.fn(() => null));
+jest.mock('components/award/Award', () => jest.fn(() => null));
 
 describe('AwardContainer', () => {
     it('should make an API call for the selected award on mount', async () => {
-        // mount the container
+
         const container = mount(
             <AwardContainer
-                params={parameters}
-                setSelectedAward={jest.fn()} />);
+                {...mockParams}
+                {...mockActions} />);
 
+        const parseAward = jest.fn();
+        container.instance().parseAward = parseAward;
         await container.instance().awardRequest.promise;
 
-        // checking that it ran
-        expect(getAwardSpy.callCount).toEqual(1);
-
-        // reset the spies
-        getAwardSpy.reset();
+        expect(parseAward).toHaveBeenCalled();
     });
 
-    it('should make an API call when the award ID parameter changes', async () => {
-        // mount the container
-        const container = mount(
+    it('should make an API call when the award ID parameter changes', () => {
+        const container = shallow (
             <AwardContainer
-                params={parameters}
-                setSelectedAward={jest.fn()} />);
+                {...mockParams}
+                {...mockActions} />);
 
-        await container.instance().awardRequest.promise;
+        const getSelectedAward = jest.fn();
+        container.instance().getSelectedAward = getSelectedAward;
 
-        // checking that it ran
-        expect(getAwardSpy.callCount).toEqual(1);
+        container.instance().componentWillMount();
+        expect(getSelectedAward).toHaveBeenCalledTimes(1);
+        expect(getSelectedAward).toHaveBeenCalledWith(1234);
 
-        container.setProps({
+        const nextProps = Object.assign({}, mockParams, {
             params: {
                 awardId: 222
             }
         });
 
-        expect(getAwardSpy.callCount).toEqual(2);
+        container.instance().componentWillReceiveProps(nextProps);
 
-        // reset the spies
-        getAwardSpy.reset();
+        expect(getSelectedAward).toHaveBeenCalledTimes(2);
+        expect(getSelectedAward).toHaveBeenLastCalledWith(222);
     });
 
-    // parse award
-    it('should parse the returned award and send to redux store', () => {
-        const expectedAward = new AwardSummary(mockAward);
-        delete expectedAward._jsid;
+    describe('parseAward', () => {
+        it('should parse returned contract data and send to the Redux store', () => {
+            const awardContainer = shallow(
+                <AwardContainer
+                    {...mockParams}
+                    {...mockActions} />);
 
-         // Mock the call and validate it matches the expected award summary
-        const mockReduxAward = jest.fn((args) => {
-            const output = args;
-            delete output._jsid;
-            expect(output).toEqual(expectedAward);
+            const expectedAward = Object.create(BaseContract);
+            expectedAward.populate(mockApi);
+
+            awardContainer.instance().parseAward(mockApi);
+
+            expect(mockActions.setSelectedAward).toHaveBeenCalledWith(expectedAward);
         });
+        it('should parse returned financial assistance data and send to the Redux store', () => {
+            const awardContainer = shallow(
+                <AwardContainer
+                    {...mockParams}
+                    {...mockActions} />);
 
-        // Set up container with mocked award action
-        const awardContainer = shallow(
-            <AwardContainer
-                params={parameters}
-                award={mockAward}
-                setSelectedAward={mockReduxAward} />);
+            const expectedAward = Object.create(BaseFinancialAssistance);
+            expectedAward.populate(mockFinancialAssistanceApi);
 
-        const parseAwardSpy = sinon.spy(awardContainer.instance(),
-            'parseAward');
+            awardContainer.instance().parseAward(mockFinancialAssistanceApi);
 
-        // Run function on instance of container
-        awardContainer.instance().parseAward(mockAward);
-
-        // checking that it ran
-        expect(parseAwardSpy.callCount).toEqual(1);
-        expect(mockReduxAward).toHaveBeenCalledTimes(1);
-
-        // reset the spies
-        parseAwardSpy.reset();
+            expect(mockActions.setSelectedAward).toHaveBeenCalledWith(expectedAward);
+        });
     });
 });

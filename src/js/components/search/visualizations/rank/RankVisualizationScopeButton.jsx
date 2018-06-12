@@ -32,7 +32,7 @@ export default class RankVisualizationScopeButton extends React.Component {
     render() {
         let activeClass = '';
         if (this.props.active) {
-            activeClass = ' active';
+            activeClass = 'active';
         }
 
         let description = `Rank results by ${this.props.label.toLowerCase()}`;
@@ -42,7 +42,7 @@ export default class RankVisualizationScopeButton extends React.Component {
 
         return (
             <button
-                className={`scope-button${activeClass}`}
+                className={`visualization-scope__button ${activeClass}`}
                 value={this.props.value}
                 title={description}
                 aria-label={description}

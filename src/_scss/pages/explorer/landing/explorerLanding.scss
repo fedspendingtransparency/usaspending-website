@@ -1,0 +1,95 @@
+.explorer-landing {
+    background: url(#{$image-path}/explorer-background.jpg) no-repeat top center;
+    background-size: cover;
+
+    .explorer-landing__intro {
+        padding: rem(65) 0 rem(50);
+        text-align: center;
+
+        @include media($large-screen) {
+            width: rem(1110);
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        @include media($x-large-screen) {
+            width: rem(1280);
+        }
+
+        h2.explorer-landing__title {
+            margin: 0;
+            padding-bottom: rem(41);
+        }
+
+        .explorer-landing__detail {
+            background-color: rgba(245,245,245,0.7);
+            padding: rem(26);
+
+            .explorer-landing__detail-content {
+                margin: 0 auto;
+
+                .explorer-description__animations {
+                    @import "./_animations";
+                }
+            }
+        }
+    }
+
+    .explorer-description {
+        max-width: rem(945);
+
+        h3.explorer-description__title {
+            margin: 0;
+            @include h6;
+        }
+
+        button.explorer-description__expand {
+            @include button-unstyled;
+            color: $color-primary;
+            font-weight: $font-semibold;
+            font-size: rem(21);
+            line-height: rem(27);
+
+            margin-top: rem(25);
+        }
+
+        .explorer-description__content {
+            &.explorer-description__content_hidden {
+                display: none;
+            }
+
+            p {
+                font-size: rem(20);
+                line-height: rem(31);
+                .usa-da-icon-guide {
+                    width: rem(15);
+                    height: rem(15);
+                    fill: $color-base;
+                }
+            }
+        }
+    }
+
+    .explorer-landing__options {
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+
+        padding-left: rem(30);
+        padding-right: rem(30);
+
+        @include media($large-screen) {
+            @include flex-direction(row);
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        @import "./_option";
+
+        padding-bottom: rem(230);
+    }
+}

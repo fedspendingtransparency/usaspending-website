@@ -1,0 +1,78 @@
+.download-level-screen {
+    .main-title {
+        h2 {
+            text-align: center;
+            font-size: $h4-font-size;
+            font-weight: $font-light;
+
+            margin: rem(20) 0;
+        }
+    }
+
+    .level-options-container {
+        @include media($medium-screen) {
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+            position: relative;
+        }
+
+        margin-bottom: rem(20);
+
+        .level-option {
+            &:first-child {
+                margin-bottom: rem(20);
+            }
+
+            @include media($medium-screen) {
+                @include flex(1 1 auto);
+                margin-left: rem(10);
+                &:first-child {
+                    margin-left: 0;
+                    margin-bottom: 0;
+                    margin-right: rem(10);
+                }
+            }
+
+            @include display(flex);
+            @include flex-direction(column);
+            @include justify-content(center);
+            @include align-items(center);
+            position: relative;
+
+            .level-button {
+                @include flex(1 1 auto);
+                padding: rem(10) rem(40);
+
+                margin-bottom: rem(20);
+
+                background-color: transparent;
+                border: 2px solid $color-primary-darker;
+                color: $color-primary-darker;
+                font-size: $base-font-size;
+
+                &:hover, &:active {
+                    background-color: $color-primary-darker;
+                    color: $color-white;
+                }
+
+                &:disabled {
+                    cursor: not-allowed;
+                    opacity: 0.3;
+
+                    &:hover {
+                        background-color: $color-white;
+                        color: $color-primary-darker;
+                    }
+                }
+            }
+
+            .level-description {
+                @include flex(1 1 auto);
+                color: $color-gray;
+                font-size: $small-font-size;
+                text-align: center;
+            }
+        }
+    }
+}

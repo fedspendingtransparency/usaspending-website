@@ -5,144 +5,97 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Immutable, { OrderedSet } from 'immutable';
+
+import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
-import ResultsTableGenericCell from './cells/ResultsTableGenericCell';
+import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
+import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
 import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell';
 
 const propTypes = {
     results: PropTypes.array,
-    batch: PropTypes.object,
-    columns: PropTypes.array,
-    headerCellClass: PropTypes.func.isRequired,
+    columns: PropTypes.object,
     visibleWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
-    currentType: PropTypes.string
+    currentType: PropTypes.string,
+    tableInstance: PropTypes.string,
+    sort: PropTypes.object,
+    updateSort: PropTypes.func
 };
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
 // indicates when there's more data
-const tableHeight = 12.5 * rowHeight;
+const tableHeight = 29.5 * rowHeight;
 
-export default class ResultsTable extends React.PureComponent {
+export default class ResultsTable extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            yPos: 0,
-            xPos: 0,
-            dataHash: null
+        this.headerCellRender = this.headerCellRender.bind(this);
+        this.bodyCellRender = this.bodyCellRender.bind(this);
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps.tableInstance !== this.props.tableInstance) {
+            // table type has changed, reset the scroll
+            if (this.tableComponent) {
+                this.tableComponent.reloadTable();
+            }
+        }
+    }
+
+    headerCellRender(columnIndex) {
+        const columnId = this.props.columns.visibleOrder[columnIndex];
+        const column = this.props.columns.data[columnId];
+        const isLast = (columnIndex + 1) === this.props.columns.visibleOrder.length;
+        const isActive = this.props.sort.field === column.columnName;
+        return (
+            <ResultsTableHeaderCell
+                isLast={isLast}
+                isActive={isActive}
+                title={column.columnName}
+                defaultDirection={column.defaultDirection}
+                currentSort={this.props.sort}
+                updateSort={this.props.updateSort} />
+        );
+    }
+
+    bodyCellRender(columnIndex, rowIndex) {
+        const columnId = this.props.columns.visibleOrder[columnIndex];
+        const column = this.props.columns.data[columnId];
+        let cellClass = ResultsTableFormattedCell;
+        const props = {
+            rowIndex,
+            columnIndex,
+            value: this.props.results[rowIndex][columnId],
+            dataType: awardTableColumnTypes[columnId]
         };
 
-        this.rowClassName = this.rowClassName.bind(this);
-        this.tableScrolled = this.tableScrolled.bind(this);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        const currentType = nextProps.currentType;
-        const visibleColumnsSet = new OrderedSet(nextProps.columns);
-        // update the data hash
-        this.setState({
-            dataHash: `${currentType}-${visibleColumnsSet.hashCode()}`
-        });
-    }
-
-    shouldComponentUpdate(nextProps) {
-        // to reduce the frequency of re-renders, this component will only monitor for
-        // batch triggers
-        if (!Immutable.is(nextProps.batch, this.props.batch)) {
-            return true;
-        }
-        else if (nextProps.visibleWidth !== this.props.visibleWidth) {
-            // re-render if the window size changed
-            return true;
-        }
-        else if (nextProps.columns !== this.props.columns) {
-            // re-render if column visibility changed
-            return true;
-        }
-        return false;
-    }
-
-    tableScrolled(xPos, yPos) {
-        // determine the table position
-        const rowNumber = this.rowAtYPosition(yPos);
-
-        if (rowNumber >= this.props.results.length) {
-            // we have reached the bottom of the table, load next page
-            this.props.loadNextPage();
+        if (column.columnName === 'Award ID') {
+            cellClass = ResultsTableAwardIdCell;
+            props.id = this.props.results[rowIndex].internal_id;
         }
 
-        // save the scroll position
-        this.setState({ xPos, yPos });
-    }
-
-    rowAtYPosition(yPos, returnTop = false) {
-        // determine the table position
-        let yPosition = yPos;
-        if (!returnTop) {
-            // return the bottom row
-            yPosition += tableHeight;
-        }
-        return Math.floor(yPosition / rowHeight);
-    }
-
-    rowClassName(index) {
-        let evenOdd = 'odd';
-        if ((index + 1) % 2 === 0) {
-            evenOdd = 'even';
-        }
-        return `award-results-row-${evenOdd}`;
+        return React.createElement(
+            cellClass,
+            props
+        );
     }
 
     prepareTable() {
         let totalWidth = 0;
 
-        const HeaderCell = this.props.headerCellClass;
-
-        const columns = this.props.columns.map((column, i) => {
+        const columnOrder = this.props.columns.visibleOrder;
+        const columns = columnOrder.map((columnTitle) => {
+            const column = this.props.columns.data[columnTitle];
+            const columnX = totalWidth;
             totalWidth += column.width;
-            const isLast = i === this.props.columns.length - 1;
-            let cellName = null;
-            if (column.columnName === 'award_id') {
-                cellName = (index) => (
-                    <ResultsTableAwardIdCell
-                        key={`cell-${column.columnName}-${index}`}
-                        rowIndex={index}
-                        id={this.props.results[index].id}
-                        data={this.props.results[index][column.columnName]}
-                        dataHash={this.state.dataHash}
-                        column={column.columnName}
-                        isLastColumn={isLast} />
-                );
-            }
-            else {
-                cellName = (index) => (
-                    <ResultsTableGenericCell
-                        key={`cell-${column.columnName}-${index}`}
-                        rowIndex={index}
-                        data={this.props.results[index][column.columnName]}
-                        dataHash={this.state.dataHash}
-                        column={column.columnName}
-                        isLastColumn={isLast} />
-                );
-            }
+
             return {
-                width: column.width,
-                name: column.columnName,
-                columnId: `${column.columnName}`,
-                rowClassName: this.rowClassName,
-                header: (
-                    <HeaderCell
-                        label={column.displayName}
-                        column={column.columnName}
-                        defaultDirection={column.defaultDirection}
-                        isLastColumn={isLast} />
-                ),
-                cell: cellName
+                x: columnX,
+                width: column.width
             };
         });
 
@@ -161,19 +114,24 @@ export default class ResultsTable extends React.PureComponent {
             noResultsClass = ' no-results';
         }
 
+        const variableBodyHeight = Math.min(tableHeight, rowHeight * this.props.results.length);
+
         return (
             <div className={`award-results-table${noResultsClass}`}>
                 <IBTable
-                    dataHash={`${this.state.dataHash}-${this.props.batch.queryId}`}
-                    resetHash={this.props.batch.searchId}
                     rowHeight={rowHeight}
                     rowCount={this.props.results.length}
                     headerHeight={50}
-                    width={calculatedValues.width}
-                    maxWidth={this.props.visibleWidth}
-                    maxHeight={tableHeight}
+                    contentWidth={calculatedValues.width}
+                    bodyWidth={this.props.visibleWidth}
+                    bodyHeight={variableBodyHeight}
                     columns={calculatedValues.columns}
-                    onScrollEnd={this.tableScrolled} />
+                    headerCellRender={this.headerCellRender}
+                    bodyCellRender={this.bodyCellRender}
+                    onReachedBottom={this.props.loadNextPage}
+                    ref={(table) => {
+                        this.tableComponent = table;
+                    }} />
             </div>
         );
     }

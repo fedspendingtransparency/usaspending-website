@@ -21,7 +21,8 @@ module.exports = {
         extensions: ['.js', '.jsx'],
         modules: [
             path.resolve(__dirname, '../src/js'),
-            path.resolve(__dirname, '../node_modules')
+            path.resolve(__dirname, '../node_modules'),
+            path.resolve(__dirname, '../src/_scss')
         ]
     },
     module: {
@@ -29,11 +30,13 @@ module.exports = {
         loaders: [
             {
                 test: /\.jsx?$/,
-                include: /src(\/|\\)js/,
-                exclude: /node_modules/,
+                exclude: [
+                    /node_modules/,
+                    path.resolve(__dirname, '../src/external/webtrends.min.js')
+                ],
                 loader: 'babel-loader', // the babel loader tells webpack to compile JS/JSX files using Babel
                 query: {
-                     // after initial load, subsequent builds draw from a cache (in dev only) to reduce build time
+                    // after initial load, subsequent builds draw from a cache (in dev only) to reduce build time
                     cacheDirectory: path.resolve(__dirname, '../cache/'),
                     compact: true
                 }
@@ -63,7 +66,7 @@ module.exports = {
                         {
                             loader: 'sass-loader',
                             options: {
-                                includePaths: ['./src/_scss'],
+                                includePaths: ['./src/_scss', './node_modules'],
                                 sourceMap: () => {
                                     if (process.env.NODE_ENV === 'production') {
                                         return false;
@@ -76,7 +79,7 @@ module.exports = {
                 })
             },
             {
-                include: /src(\/|\\)(fonts|graphics|img)/,
+                include: /src(\/|\\)(fonts|graphics|img|data|external)/,
                 loader: 'file-loader',
                 query: {
                     name: '[path][name].[ext]'

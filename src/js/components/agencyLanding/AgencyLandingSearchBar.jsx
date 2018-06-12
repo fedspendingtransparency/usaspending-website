@@ -9,28 +9,32 @@ import PropTypes from 'prop-types';
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    setAgencySearchString: PropTypes.func.isRequired
+    setSearchString: PropTypes.func.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    button: PropTypes.string.isRequired
 };
 
 export default class AgencyLandingSearchBar extends React.Component {
     onChange(e) {
         const value = e.target.value;
-        this.props.setAgencySearchString(value);
+        this.props.setSearchString(value);
     }
 
     render() {
         return (
-            <div className="agency-landing-search">
-                <form>
+            <div className="search-section">
+                <form className="search-section__form">
                     <input
-                        className="search-field"
+                        className="search-section__input"
                         type="text"
                         onChange={this.onChange.bind(this)}
-                        placeholder="Start typing to find an agency..." />
+                        placeholder={this.props.placeholder} />
                     <button
                         aria-label="Search"
-                        className="search-button">
-                        <Search alt="Search" />
+                        className="search-section__button">
+                        <div className="search-section__button-icon">
+                            <Search alt={this.props.button} />
+                        </div>
                     </button>
                 </form>
             </div>

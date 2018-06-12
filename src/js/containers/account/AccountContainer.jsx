@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import moment from 'moment';
 
 import * as AccountHelper from 'helpers/accountHelper';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
@@ -16,11 +15,13 @@ import * as accountActions from 'redux/actions/account/accountActions';
 import * as filterActions from 'redux/actions/account/accountFilterActions';
 
 import FederalAccount from 'models/account/FederalAccount';
-import { balanceFields } from 'dataMapping/accounts/accountFields';
+import { fiscalYearSnapshotFields } from 'dataMapping/accounts/accountFields';
 
 import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
+
+require('pages/account/accountPage.scss');
 
 const propTypes = {
     account: PropTypes.object,
@@ -44,7 +45,7 @@ export class AccountContainer extends React.Component {
         };
 
         this.accountRequest = null;
-        this.balanceRequests = [];
+        this.fiscalYearSnapshotRequest = null;
     }
 
     componentDidMount() {
@@ -76,7 +77,7 @@ export class AccountContainer extends React.Component {
                 // update the redux store
                 this.parseAccount(res.data);
 
-                this.loadBalances();
+                this.loadFiscalYearSnapshot(id);
 
                 this.setState({
                     validAccount: true
@@ -102,81 +103,53 @@ export class AccountContainer extends React.Component {
         this.props.setSelectedAccount(account);
     }
 
-    loadBalances() {
-        if (this.balanceRequests.length > 0) {
-            // cancel all previous requests
-            this.balanceRequests.forEach((request) => {
-                request.cancel();
-            });
-            this.balanceRequests = [];
+    loadFiscalYearSnapshot(id) {
+        if (this.fiscalYearSnapshotRequest) {
+            this.fiscalYearSnapshotRequest.cancel();
         }
 
-        const requests = [];
-        const promises = [];
-        Object.keys(balanceFields).forEach((balanceType) => {
-            // generate an API call
-            const request = AccountHelper.fetchTasBalanceTotals({
-                group: 'reporting_period_start',
-                field: balanceFields[balanceType],
-                aggregate: 'sum',
-                order: ['reporting_period_start'],
-                filters: [
-                    {
-                        field: 'treasury_account_identifier__federal_account_id',
-                        operation: 'equals',
-                        value: this.props.account.id
-                    },
-                    {
-                        field: ['reporting_period_start', 'reporting_period_end'],
-                        operation: 'range_intersect',
-                        value: FiscalYearHelper.currentFiscalYear(),
-                        value_format: 'fy'
-                    }
-                ],
-                auditTrail: `Sankey - ${balanceType}`
-            });
+        const currentFiscalYear = FiscalYearHelper.defaultFiscalYear();
 
-            request.type = balanceType;
+        this.fiscalYearSnapshotRequest = AccountHelper.fetchFederalAccountFYSnapshot(
+            id,
+            currentFiscalYear
+        );
 
-            requests.push(request);
-            promises.push(request.promise);
-        });
-
-        this.balanceRequests = requests;
-
-        Promise.all(promises)
+        this.fiscalYearSnapshotRequest.promise
             .then((res) => {
-                this.parseBalances(res);
+                this.fiscalYearSnapshotRequest = null;
+
+                // update the redux store
+                this.parseFYSnapshot(res.data);
 
                 this.setState({
                     loading: false
                 });
             })
             .catch((err) => {
+                this.fiscalYearSnapshotRequest = null;
+
                 if (!isCancel(err)) {
                     this.setState({
                         loading: false
                     });
+
                     console.log(err);
                 }
             });
     }
 
-    parseBalances(data) {
-        const balances = {};
+    parseFYSnapshot(data) {
+        const balances = {
+            available: false
+        };
 
-        data.forEach((item, i) => {
-            const type = this.balanceRequests[i].type;
-            const values = {};
-
-            item.data.results.forEach((group) => {
-                const date = moment(group.item, 'YYYY-MM-DD');
-                const fy = FiscalYearHelper.convertDateToFY(date);
-                values[fy] = group.aggregate;
+        if (Object.keys(data).length > 0 && data.results) {
+            Object.keys(fiscalYearSnapshotFields).forEach((key) => {
+                balances[fiscalYearSnapshotFields[key]] = data.results[key];
             });
-
-            balances[type] = values;
-        });
+            balances.available = true;
+        }
 
         // update the Redux account model with balances
         const account = Object.assign({}, this.props.account);

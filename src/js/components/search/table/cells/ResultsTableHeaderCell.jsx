@@ -1,112 +1,105 @@
 /**
-  * ResultsTableHeaderCell.jsx
-  * Created by Kevin Li 12/1/16
-  **/
+ * ResultsTableHeaderCell.jsx
+ * Created by Kevin Li 12/8/17
+ */
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import { ArrowUp, ArrowDown } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    label: PropTypes.string,
-    column: PropTypes.string,
+    isLast: PropTypes.bool,
+    isActive: PropTypes.bool,
+    title: PropTypes.string,
     defaultDirection: PropTypes.string,
-    order: PropTypes.object,
-    setSearchOrder: PropTypes.func,
-    isLastColumn: PropTypes.bool
+    currentSort: PropTypes.object,
+    updateSort: PropTypes.func
 };
 
-export default class ResultsTableHeaderCell extends React.Component {
-    constructor(props) {
-        super(props);
+const TableHeaderCell = (props) => {
+    const clickedSort = (e) => {
+        props.updateSort(props.title, e.target.value);
+    };
 
-        this.clickedHeader = this.clickedHeader.bind(this);
-        this.forceDirection = this.forceDirection.bind(this);
+    const clickedDefault = () => {
+        // if (props.isActive) {
+        //     // toggle the sort direction
+        //     let opposite = 'asc';
+        //     if (props.currentSort.direction === 'asc') {
+        //         opposite = 'desc';
+        //     }
+        //     props.updateSort(props.title, opposite);
+        // }
+        // else {
+        //     props.updateSort(props.title, props.defaultDirection);
+        // }
+        // BODGE: don't allow ascending
+        props.updateSort(props.title, 'desc');
+    };
+
+    // keyboard accessible option
+    const pressedKey = (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            clickedDefault();
+        }
+    };
+
+    let lastClass = '';
+    if (props.isLast) {
+        lastClass = ' last-column';
     }
 
-    clickedHeader() {
-        // check if this is the field that is currently being used to sort
-        if (this.props.column === this.props.order.field) {
-            // it's the same field, just toggle the direction
-            let direction = 'asc';
-            if (this.props.order.direction === 'asc') {
-                direction = 'desc';
-            }
+    // highlight the active arrows
+    const activeAsc = '';
+    let activeDesc = '';
 
-            this.props.setSearchOrder(this.props.column, direction);
-        }
-        else {
-            // this is a new sort field, use the default direction
-            this.props.setSearchOrder(this.props.column, this.props.defaultDirection);
-        }
+    if (props.isActive) {
+        activeDesc = ' active';
     }
 
-    forceDirection(e) {
-        // don't bubble down to the wrapper click event (which performs similar action)
-        e.stopPropagation();
-
-        const direction = e.currentTarget.value;
-        this.props.setSearchOrder(this.props.column, direction);
-    }
-
-    render() {
-        // highlight the active arrows
-        let activeAsc = '';
-        let activeDesc = '';
-        if (this.props.column === this.props.order.field) {
-            // this is the column that the table is sorted by
-            if (this.props.order.direction === 'asc') {
-                activeAsc = ' active';
-            }
-            else {
-                activeDesc = ' active';
-            }
-        }
-
-        let lastClass = '';
-        if (this.props.isLastColumn) {
-            lastClass = ' last-column';
-        }
-
-        /* eslint-disable jsx-a11y/no-static-element-interactions */
-        // we need to allow the outer div to take an onClick event because there are nested
-        // buttons within the div for specific ascending/descending sort actions
-        // React does not allow nested buttons. The larger cell/div click target is simply for
-        // convenience, screen-reader users are expected to use the button elements instead as
-        // they are presented as interactive clickable targets
-        return (
-            <div className={`award-result-header-cell column-${this.props.column}${lastClass}`}>
-                <div className="cell-content" onClick={this.clickedHeader}>
-                    <div className="header-sort">
-                        <div className="header-label">
-                            {this.props.label}
-                        </div>
-                        <div className="header-icons">
-                            <button
-                                className={`sort-icon${activeAsc}`}
-                                value="asc"
-                                title={`Sort table by ascending ${this.props.label}`}
-                                aria-label={`Sort table by ascending ${this.props.label}`}
-                                onClick={this.forceDirection}>
-                                <Icons.ArrowUp
-                                    alt={`Sort table by ascending ${this.props.label}`} />
-                            </button>
-                            <button
-                                className={`sort-icon${activeDesc}`}
-                                value="desc"
-                                title={`Sort table by descending ${this.props.label}`}
-                                aria-label={`Sort table by descending ${this.props.label}`}
-                                onClick={this.forceDirection}>
-                                <Icons.ArrowDown
-                                    alt={`Sort table by descending ${this.props.label}`} />
-                            </button>
-                        </div>
+    /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+    // allow keyboard selection of the header cell
+    return (
+        <div className={`award-result-header-cell ${lastClass}`}>
+            <div
+                className="cell-content"
+                onClick={clickedDefault}
+                onKeyDown={pressedKey}
+                role="presentation"
+                aria-label={props.title}
+                tabIndex={0}>
+                <div className="header-sort">
+                    <div className="header-label">
+                        {props.title}
+                    </div>
+                    <div className="header-icons">
+                        <button
+                            onClick={clickedSort}
+                            className={`sort-icon${activeAsc}`}
+                            value="asc"
+                            title={`Sort table by ascending ${props.title}`}
+                            aria-label={`Sort table by ascending ${props.title}`}>
+                            <ArrowUp
+                                alt={`Sort table by ascending ${props.title}`} />
+                        </button>
+                        <button
+                            onClick={clickedSort}
+                            className={`sort-icon${activeDesc}`}
+                            value="desc"
+                            title={`Sort table by descending ${props.title}`}
+                            aria-label={`Sort table by descending ${props.title}`}>
+                            <ArrowDown
+                                alt={`Sort table by descending ${props.title}`} />
+                        </button>
                     </div>
                 </div>
             </div>
-        );
-        /* eslint-enable jsx-a11y/no-static-element-interactions */
-    }
-}
+        </div>
+    );
+    /* eslint-enable jsx-a11y/no-noninteractive-tabindex */
+};
 
-ResultsTableHeaderCell.propTypes = propTypes;
+TableHeaderCell.propTypes = propTypes;
+
+export default TableHeaderCell;

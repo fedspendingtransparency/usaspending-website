@@ -11,14 +11,12 @@ import * as LocationQuery from './queryBuilders/LocationQuery';
 import * as BudgetCategoryQuery from './queryBuilders/BudgetCategoryQuery';
 import * as AgencyQuery from './queryBuilders/AgencyQuery';
 import * as RecipientQuery from './queryBuilders/RecipientQuery';
-import * as KeywordQuery from './queryBuilders/KeywordQuery';
 import * as AwardIDQuery from './queryBuilders/AwardIDQuery';
 import * as AwardAmountQuery from './queryBuilders/AwardAmountQuery';
 import * as OtherFiltersQuery from './queryBuilders/OtherFiltersQuery';
 
 class SearchOperation {
     constructor() {
-        this.keyword = '';
         this.awardType = [];
         this.timePeriodType = 'fy';
         this.timePeriodFY = [];
@@ -51,11 +49,14 @@ class SearchOperation {
         this.selectedNAICS = [];
         this.selectedPSC = [];
 
+        this.pricingType = [];
+        this.setAside = [];
+        this.extentCompeted = [];
+
         this.searchContext = 'award';
     }
 
     fromState(state) {
-        this.keyword = state.keyword;
         this.awardType = state.awardType.toArray();
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
@@ -87,17 +88,16 @@ class SearchOperation {
         this.selectedCFDA = state.selectedCFDA.toArray();
         this.selectedNAICS = state.selectedNAICS.toArray();
         this.selectedPSC = state.selectedPSC.toArray();
+
+        this.pricingType = state.pricingType.toArray();
+        this.setAside = state.setAside.toArray();
+        this.extentCompeted = state.extentCompeted.toArray();
     }
 
     commonParams() {
         // convert the search operation into JS objects for filters that have shared keys and
         // data structures between Awards and Transactions
         const filters = [];
-
-        // add keyword query
-        if (this.keyword !== '') {
-            filters.push(KeywordQuery.buildKeywordQuery(this.keyword, this.searchContext));
-        }
 
         // Add award types
         if (this.awardType.length > 0) {
@@ -219,6 +219,23 @@ class SearchOperation {
         if (this.selectedPSC.length > 0) {
             filters.push(OtherFiltersQuery.buildPSCQuery(
                 this.selectedPSC, this.searchContext));
+        }
+
+        // Add Pricing Type Queries
+        if (this.pricingType.length > 0) {
+            filters.push(OtherFiltersQuery.buildPricingTypeQuery(
+                this.pricingType, this.searchContext));
+        }
+
+        // Add Set Aside Queries
+        if (this.setAside.length > 0) {
+            filters.push(OtherFiltersQuery.buildSetAsideQuery(this.setAside, this.searchContext));
+        }
+
+        // Add Extent Competed Queries
+        if (this.extentCompeted.length > 0) {
+            filters.push(OtherFiltersQuery.buildExtentCompetedQuery(
+                this.extentCompeted, this.searchContext));
         }
 
         return filters;

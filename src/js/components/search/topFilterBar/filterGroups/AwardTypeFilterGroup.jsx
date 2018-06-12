@@ -15,7 +15,8 @@ import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: PropTypes.object,
-    redux: PropTypes.object
+    redux: PropTypes.object,
+    compressed: PropTypes.bool
 };
 
 const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'other'];
@@ -125,7 +126,8 @@ export default class AwardTypeFilterGroup extends React.Component {
         return (<BaseTopFilterGroup
             tags={tags}
             filter={this.props.filter}
-            clearFilterGroup={this.clearGroup} />);
+            clearFilterGroup={this.clearGroup}
+            compressed={this.props.compressed} />);
     }
 }
 

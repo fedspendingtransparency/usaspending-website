@@ -9,7 +9,7 @@ import queryString from 'query-string';
 
 import Routes from './RouterRoutes';
 
-class RouterSingleton {
+export class RouterSingleton {
     constructor() {
         // we need a reference to our React container that will be responsible for rendering
         this.reactContainer = null;

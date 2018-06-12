@@ -3,14 +3,13 @@
  * Created by michaelbray on 8/7/17.
  */
 
-import { concat } from 'lodash';
 import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
     from 'dataMapping/search/awardsOperationKeys';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 class SearchAwardsOperation {
     constructor() {
-        this.keyword = '';
+        this.keyword = [];
 
         this.timePeriodType = 'fy';
         this.timePeriodFY = [];
@@ -36,18 +35,19 @@ class SearchAwardsOperation {
         this.selectedCFDA = [];
         this.selectedNAICS = [];
         this.selectedPSC = [];
+
         this.pricingType = [];
         this.setAside = [];
         this.extentCompeted = [];
     }
 
     fromState(state) {
-        this.keyword = state.keyword;
+        this.keyword = state.keyword.toArray();
 
         this.timePeriodFY = state.timePeriodFY.toArray();
         this.timePeriodRange = [];
         this.timePeriodType = state.timePeriodType;
-        if (state.timePeriodType === 'dr' && state.timePeriodStart && state.timePeriodEnd) {
+        if (state.timePeriodType === 'dr' && (state.timePeriodStart || state.timePeriodEnd)) {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
             this.timePeriodFY = [];
         }
@@ -73,10 +73,9 @@ class SearchAwardsOperation {
         this.selectedNAICS = state.selectedNAICS.toArray();
         this.selectedPSC = state.selectedPSC.toArray();
 
-        // TODO - Mike Bray - Enable these Other Award Filters when they're available
-        // this.pricingType = state.pricingType.toArray();
-        // this.setAside = state.setAside.toArray();
-        // this.extentCompeted = state.extentCompeted.toArray();
+        this.pricingType = state.pricingType.toArray();
+        this.setAside = state.setAside.toArray();
+        this.extentCompeted = state.extentCompeted.toArray();
     }
 
     toParams() {
@@ -84,8 +83,8 @@ class SearchAwardsOperation {
         const filters = {};
 
         // Add keyword
-        if (this.keyword !== '') {
-            filters[rootKeys.keyword] = this.keyword;
+        if (this.keyword.length > 0) {
+            filters[rootKeys.keywords] = this.keyword;
         }
 
         // Add Time Period
@@ -100,12 +99,43 @@ class SearchAwardsOperation {
                     };
                 });
             }
-            else if (this.timePeriodType === 'dr' && this.timePeriodRange.length === 2) {
-                filters[rootKeys.timePeriod] = {
-                    [timePeriodKeys.startDate]: this.timePeriodRange[0],
-                    [timePeriodKeys.endDate]: this.timePeriodRange[1]
-                };
+            else if (this.timePeriodType === 'dr' && this.timePeriodRange.length > 0) {
+                let start = this.timePeriodRange[0];
+                let end = this.timePeriodRange[1];
+
+                // if no start or end date is provided, use the 2008-present date range to fill out
+                // the missing dates
+                const initialYear = FiscalYearHelper.earliestFiscalYear;
+                const currentYear = FiscalYearHelper.currentFiscalYear();
+
+                if (!start) {
+                    start = FiscalYearHelper.convertFYToDateRange(initialYear)[0];
+                }
+                if (!end) {
+                    end = FiscalYearHelper.convertFYToDateRange(currentYear)[1];
+                }
+
+                filters[rootKeys.timePeriod] = [
+                    {
+                        [timePeriodKeys.startDate]: start,
+                        [timePeriodKeys.endDate]: end
+                    }
+                ];
             }
+        }
+
+        if ((this.timePeriodType === 'fy' && this.timePeriodFY.length === 0) ||
+        (this.timePeriodType === 'dr' && this.timePeriodRange.length === 0)) {
+            // the user selected fiscal years but did not specify any years OR
+            // the user has selected the date range type but has not entered any dates yet
+            // this should default to a period of time from FY 2008 to present
+            const initialYear = FiscalYearHelper.earliestFiscalYear;
+            const currentYear = FiscalYearHelper.currentFiscalYear();
+
+            filters[rootKeys.timePeriod] = [{
+                [timePeriodKeys.startDate]: FiscalYearHelper.convertFYToDateRange(initialYear)[0],
+                [timePeriodKeys.endDate]: FiscalYearHelper.convertFYToDateRange(currentYear)[1]
+            }];
         }
 
         // Add award types
@@ -119,21 +149,23 @@ class SearchAwardsOperation {
 
             // Funding Agencies are toptier-only
             this.fundingAgencies.forEach((agencyArray) => {
+                const fundingAgencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
+
                 agencies.push({
                     [agencyKeys.type]: 'funding',
-                    [agencyKeys.tier]: 'toptier',
-                    [agencyKeys.name]: agencyArray.toptier_agency.name
+                    [agencyKeys.tier]: agencyArray.agencyType,
+                    [agencyKeys.name]: fundingAgencyName
                 });
             });
 
             // Awarding Agencies can be both toptier and subtier
             this.awardingAgencies.forEach((agencyArray) => {
-                const agencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
+                const awardingAgencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
 
                 agencies.push({
                     [agencyKeys.type]: 'awarding',
                     [agencyKeys.tier]: agencyArray.agencyType,
-                    [agencyKeys.name]: agencyName
+                    [agencyKeys.name]: awardingAgencyName
                 });
             });
 
@@ -142,21 +174,23 @@ class SearchAwardsOperation {
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients.length > 0) {
-            filters[rootKeys.recipients] = this.selectedRecipients.map(
-                (recipient) => recipient.legal_entity_id);
-        }
-
-        if (this.recipientDomesticForeign !== '' && this.recipientDomesticForeign !== 'all') {
-            filters[rootKeys.recipientLocationScope] = this.recipientDomesticForeign;
+            filters[rootKeys.recipients] = this.selectedRecipients;
         }
 
         if (this.selectedRecipientLocations.length > 0) {
-            let locationSet = [];
+            const locationSet = [];
             this.selectedRecipientLocations.forEach((location) => {
-                locationSet = concat(locationSet, location.matched_ids);
+                if (location.filter.country && location.filter.country === 'FOREIGN') {
+                    filters[rootKeys.recipientLocationScope] = 'foreign';
+                }
+                else {
+                    locationSet.push(location.filter);
+                }
             });
 
-            filters[rootKeys.recipientLocation] = locationSet;
+            if (locationSet.length > 0) {
+                filters[rootKeys.recipientLocation] = locationSet;
+            }
         }
 
         if (this.recipientType.length > 0) {
@@ -165,16 +199,19 @@ class SearchAwardsOperation {
 
         // Add Locations
         if (this.selectedLocations.length > 0) {
-            let locationSet = [];
+            const locationSet = [];
             this.selectedLocations.forEach((location) => {
-                locationSet = concat(locationSet, location.matched_ids);
+                if (location.filter.country && location.filter.country === 'FOREIGN') {
+                    filters[rootKeys.placeOfPerformanceScope] = 'foreign';
+                }
+                else {
+                    locationSet.push(location.filter);
+                }
             });
 
-            filters[rootKeys.placeOfPerformance] = locationSet;
-        }
-
-        if (this.locationDomesticForeign !== '' && this.locationDomesticForeign !== 'all') {
-            filters[rootKeys.placeOfPerformanceScope] = this.locationDomesticForeign;
+            if (locationSet.length > 0) {
+                filters[rootKeys.placeOfPerformance] = locationSet;
+            }
         }
 
         // Add Award Amounts
@@ -219,8 +256,7 @@ class SearchAwardsOperation {
 
         // Add Award IDs
         if (this.selectedAwardIDs.length > 0) {
-            filters[rootKeys.awardID] = this.selectedAwardIDs.map(
-                (awardID) => awardID.id);
+            filters[rootKeys.awardID] = this.selectedAwardIDs;
         }
 
         // Add CFDA

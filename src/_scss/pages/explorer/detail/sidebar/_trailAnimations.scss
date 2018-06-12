@@ -1,0 +1,62 @@
+// entry and exit animations
+@keyframes trailItemFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+} 
+
+@keyframes trailItemFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+
+.explorer-item-animation-enter, .explorer-item-animation-enter-active {
+    opacity: 0;
+    @include animation(trailItemFadeIn 0.2s 0.55s ease-in forwards);
+}
+
+.explorer-item-animation-leave, .explorer-item-animation-leave-active {
+    @include animation(trailItemFadeOut 0.2s ease-in forwards);
+}
+
+.explorer-dots-animation-enter, .explorer-dots-animation-enter-active {
+    .small-dot {
+        opacity: 0;
+
+        @include animation(trailItemFadeIn 0.2s ease-in forwards);
+        @include animation-delay(0s);
+        &:nth-child(2) {
+            @include animation-delay(0.05s);
+        }
+        &:nth-child(3) {
+            @include animation-delay(0.1s);
+        }
+        &:nth-child(4) {
+            @include animation-delay(0.15s);
+        }
+        &:nth-child(5) {
+            @include animation-delay(0.2s);
+        }
+        &:nth-child(6) {
+            @include animation-delay(0.25s);
+        }
+        &:nth-child(7) {
+            @include animation-delay(0.3s);
+        }
+        &:nth-child(8) {
+            @include animation-delay(0.35s);
+        }
+    }
+}
+
+.explorer-dots-animation-leave, .explorer-dots-animation-leave-active {
+    @include animation(trailItemFadeOut 0.2s 0.15s ease-in forwards);
+}

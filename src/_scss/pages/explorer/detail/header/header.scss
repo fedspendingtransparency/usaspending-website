@@ -1,0 +1,223 @@
+
+.detail-header {
+    @include display(flex);
+    @include justify-content(space-between);
+    @include align-items(flex-start);
+    position: relative;
+
+    .detail-header__labels {
+        @include flex(1 1 auto);
+        // this is a truly horrific hack to make the h2 title text wrap on IE 11 in smaller screens
+        // this works because flex grow will cause the content to push this flexbox's width out
+        width: 0;
+
+        h2.detail-header__title {
+            max-width: 100%;
+            margin: 0;
+            font-weight: $font-light;
+            font-size: rem(30);
+            line-height: rem(32);
+            color: #5C626C;
+
+            @include media($large-screen) {
+                font-size: rem(36);
+                line-height: rem(40);
+            }
+
+            &.detail-header__title_title {
+                text-transform: capitalize;
+            }
+        }
+        a.detail-header__title-link {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .detail-header__instructions {
+            margin-top: rem(10);
+            font-weight: $font-light;
+            color: #5C626C;
+            font-size: rem(24);
+            line-height: rem(24);
+
+            @include media($large-screen) {
+                font-size: rem(28);
+                line-height: rem(28);
+            }
+        }
+    }
+
+    .detail-header__amounts {
+        @include flex(0 1 rem(150));
+        margin-left: rem(10);
+
+        @include media($medium-screen) {
+            @include flex(0 1 rem(250));
+            margin-left: rem(50);
+        }
+        @include media($x-large-screen) {
+            margin-left: rem(150);
+        }
+
+        .detail-header__fy {
+            text-align: right;
+            text-transform: uppercase;
+            font-weight: $font-semibold;
+
+            font-size: rem(14);
+            line-height: rem(21);
+        }
+
+        .detail-header__value {
+            text-align: right;
+            text-transform: capitalize;
+            font-weight: $font-semibold;
+
+            font-size: rem(36);
+            line-height: rem(40);
+
+            color: #32788C;
+        }
+
+        .detail-header__update {
+            text-align: right;
+            font-size: rem(14);
+            line-height: rem(18);
+        }
+
+
+        .detail-header__icon {
+          padding: 0 0 0 rem(5);
+          cursor: default;
+          margin: 0;
+          background-color: transparent;
+
+     
+             svg {
+                 width: rem(10);
+                 height: rem(10);
+                 fill: #555555;
+             }
+         }
+    }
+
+    .left-side {
+        @include flex(1 1 auto);
+        max-width: 75%;
+        
+        h2 {
+            margin: 0;
+            font-weight: $font-light;
+            font-size: rem(30);
+            line-height: rem(32);
+            color: #5C626C;
+
+            a:hover {
+                text-decoration: none;
+            }
+
+            @include media($large-screen) {
+                font-size: rem(36);
+                line-height: rem(40);
+            }
+        }
+
+        .instructions {
+            margin-top: rem(10);
+            font-weight: $font-light;
+            color: #5C626C;
+            font-size: rem(24);
+            line-height: rem(24);
+
+            @include media($large-screen) {
+                font-size: rem(28);
+                line-height: rem(28);
+            }
+        }
+
+        .capitalize {
+            text-transform: capitalize;
+        }
+
+        .data-type {
+            font-weight: $font-normal;
+            font-size: rem(16);
+            line-height: rem(28);
+        }
+
+        .bold {
+            font-weight: $font-semibold;
+        }
+
+    }
+
+    .right-side {
+        @include flex(0 1 auto);
+        width: rem(150);
+        margin-left: rem(10);
+        
+        @include media($medium-screen) {
+            width: rem(250);
+            margin-left: rem(50);
+        }
+        @include media($x-large-screen) {
+            margin-left: rem(150);    
+        }
+
+        .amount-header {
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: $font-semibold;
+
+            font-size: rem(14);
+            line-height: rem(21);
+        }
+
+        .amount-value {
+            text-align: center;
+            text-transform: capitalize;
+            font-weight: $font-semibold;
+
+            font-size: rem(36);
+            line-height: rem(40);
+
+            color: #32788C;
+        }
+
+        .update-date {
+            text-align: center;
+            font-size: rem(14);
+            line-height: rem(18);
+        }
+    }
+}
+
+.detail-header__truncation {
+    margin-top: rem(20);
+}
+@import "pages/homepage/hero/_heroTooltip";
+
+.homepage-hero-tooltip {
+  // we don't want the tooltip to be on top of the fix header, this will make sure that
+  // it's stays under the fixed header when scrolling
+  z-index: 1;
+  width: rem(220);
+  .homepage-hero-tooltip__text_holder {
+    height: rem(90);
+    padding: rem(7) rem(20) 0 rem(35);
+  }
+
+  .homepage-hero-tooltip__info_icon {
+    top: rem(15);
+    left: rem(15);
+  }
+
+  .homepage-hero-tooltip__close_icon {
+    top: rem(15);
+    right: rem(10);
+  }
+}
+
+@import "./_truncation";
+

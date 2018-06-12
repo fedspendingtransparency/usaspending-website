@@ -1,0 +1,80 @@
+.mobile-dropdown {
+    @import "../_comingSoon";
+    button.mobile-dropdown__parent {
+        @include button-unstyled;
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(center);
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+
+        color: $color-gray;
+        font-size: rem(30);
+        line-height: rem(36);
+        opacity: 0.6;
+        &:active, &:hover {
+            opacity: 1;
+        }
+
+        .mobile-dropdown__parent-label {
+            @include flex(0 0 auto);
+            margin-right: rem(10);
+        }
+
+        .mobile-dropdown__parent-icon {
+            @include flex(0 0 auto);
+            width: rem(30);
+            height: rem(30);
+
+            svg {
+                width: rem(30);
+                height: rem(30);
+                fill: $color-gray;                            
+            }
+        }
+    }
+
+    ul.mobile-dropdown__list {
+        @include unstyled-list;
+
+        &.mobile-dropdown__list_hide {
+            display: none;
+        }
+
+        li.mobile-dropdown__item {
+            margin-top: rem(10);
+            margin-bottom: rem(10);
+
+            &.mobile-dropdown__item_coming-soon {
+                opacity: 0.4;
+                pointer-events: none;
+            }
+        }
+    }
+
+    .mobile-dropdown__coming-soon {
+        display: block;
+        width: rem(150);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    a.mobile-dropdown__link {
+        font-size: rem(24);
+        line-height: rem(28);
+        color: $color-base;
+        text-decoration: none;
+
+        &:hover, &:active, &.mobile-dropdown__link_active {
+            text-decoration: none;
+        }
+    }
+
+    button.mobile-dropdown__link {
+        @include button-unstyled;
+        font-size: rem(24);
+        line-height: rem(28);
+        color: $color-base;
+    }
+}

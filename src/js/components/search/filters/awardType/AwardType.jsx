@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { awardTypeGroups, awardTypeCodes } from 'dataMapping/search/awardType';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 const defaultProps = {
     awardTypes: [
@@ -42,23 +43,29 @@ const defaultProps = {
 const propTypes = {
     awardTypes: PropTypes.arrayOf(PropTypes.object),
     awardType: PropTypes.object,
-    bulkTypeChange: PropTypes.func
+    bulkTypeChange: PropTypes.func,
+    dirtyFilters: PropTypes.symbol
 };
 
 export default class AwardType extends React.Component {
-
+    componentDidUpdate(prevProps) {
+        if (this.props.dirtyFilters && prevProps.dirtyFilters !== this.props.dirtyFilters) {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
+    }
     render() {
         const awardTypes = (
             this.props.awardTypes.map((type, index) =>
-                <PrimaryCheckboxType
+                (<PrimaryCheckboxType
                     {...type}
                     {...this.props}
                     key={index}
                     types={awardTypeCodes}
                     filterType="Award"
                     selectedCheckboxes={this.props.awardType}
-                    bulkTypeChange={this.props.bulkTypeChange}
-                    enableAnalytics />
+                    bulkTypeChange={this.props.bulkTypeChange} />)
             ));
 
         return (
@@ -67,6 +74,10 @@ export default class AwardType extends React.Component {
                     <ul className="checkbox-types">
                         {awardTypes}
                     </ul>
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             </div>
         );

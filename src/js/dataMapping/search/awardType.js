@@ -30,3 +30,17 @@ export const awardTypeGroups = {
     loans: ['07', '08'],
     other: ['09', '11']
 };
+
+
+export const awardTypeGroupLabels = {
+    contracts: 'Contracts',
+    grants: 'Grants',
+    direct_payments: 'Direct Payments',
+    loans: 'Loans',
+    other: 'Other'
+};
+
+export const subawardTypeGroups = {
+    subcontracts: awardTypeGroups.contracts,
+    subgrants: awardTypeGroups.grants
+};

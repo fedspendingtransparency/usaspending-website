@@ -4,11 +4,11 @@
  */
 
 export const rootKeys = {
-    keyword: 'keyword',
+    keywords: 'keywords',
     timePeriod: 'time_period',
     awardType: 'award_type_codes',
     agencies: 'agencies',
-    recipients: 'legal_entities',
+    recipients: 'recipient_search_text',
     recipientLocationScope: 'recipient_scope',
     recipientLocation: 'recipient_locations',
     recipientType: 'recipient_type_names',

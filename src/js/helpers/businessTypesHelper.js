@@ -88,7 +88,7 @@ export const getBusinessTypes = () => {
             },
             {
                 displayName: 'Community Developed Corporation Owned Firm',
-                fieldName: 'community_development_corporation'
+                fieldName: 'community_developed_corporation_owned_firm'
             },
             {
                 displayName: 'Labor Surplus Area Firm',
@@ -209,10 +209,6 @@ export const getBusinessTypes = () => {
             {
                 displayName: 'Hispanic Servicing Institution',
                 fieldName: 'hispanic_servicing_institution'
-            },
-            {
-                displayName: 'Receives Contracts and Grants',
-                fieldName: 'receives_contracts_and_grants'
             },
             {
                 displayName: 'Airport Authority',

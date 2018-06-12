@@ -5,211 +5,124 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import sinon from 'sinon';
+import { OrderedMap } from 'immutable';
 
 import { AwardIDSearchContainer } from 'containers/search/filters/awardID/AwardIDSearchContainer';
 
 const initialFilters = {
-    selectedAwardIDs: {}
+    selectedAwardIDs: new OrderedMap(),
+    appliedAwardIDs: new OrderedMap()
 };
 
-const awardID = {
-    id: "601793",
-    date_signed__fy: null,
-    data_source: null,
-    type: "U",
-    type_description: "Unknown Type",
-    piid: "AG3142B100012",
-    fain: null,
-    uri: null,
-    total_obligation: null,
-    total_outlay: null,
-    date_signed: null,
-    description: null,
-    period_of_performance_start_date: null,
-    period_of_performance_current_end_date: null,
-    potential_total_value_of_award: null,
-    last_modified_date: null,
-    certified_date: null,
-    create_date: "2017-02-28T18:01:59.717954Z",
-    update_date: "2017-02-28T18:01:59.717969Z",
-    parent_award: null,
-    awarding_agency: {
-        id: 999,
-        create_date: "2017-01-12T19:56:26.723000Z",
-        update_date: "2017-01-12T19:56:26.723000Z",
-        toptier_agency: {
-            toptier_agency_id: 155,
-            create_date: null,
-            update_date: null,
-            cgac_code: "012",
-            fpds_code: "1200",
-            name: "AGRICULTURE, DEPARTMENT OF"
-        },
-        subtier_agency: {
-            subtier_agency_id: 865,
-            create_date: null,
-            update_date: null,
-            subtier_code: "1205",
-            name: "USDA, OFFICE OF THE CHIEF FINANCIAL OFFICER"
-        },
-        office_agency: null
-    },
-    funding_agency: null,
-    recipient: null,
-    place_of_performance: null,
-    latest_submission: null
-};
+const awardID = '1234';
 
 describe('AwardIDSearchContainer', () => {
     describe('Handling adding and removing award IDs', () => {
         it('should add an Award ID that has been selected to Redux', () => {
-            const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual({
-                    awardID: {
-                        id: "601793",
-                        date_signed__fy: null,
-                        data_source: null,
-                        type: "U",
-                        type_description: "Unknown Type",
-                        piid: "AG3142B100012",
-                        fain: null,
-                        uri: null,
-                        total_obligation: null,
-                        total_outlay: null,
-                        date_signed: null,
-                        description: null,
-                        period_of_performance_start_date: null,
-                        period_of_performance_current_end_date: null,
-                        potential_total_value_of_award: null,
-                        last_modified_date: null,
-                        certified_date: null,
-                        create_date: "2017-02-28T18:01:59.717954Z",
-                        update_date: "2017-02-28T18:01:59.717969Z",
-                        parent_award: null,
-                        awarding_agency: {
-                            id: 999,
-                            create_date: "2017-01-12T19:56:26.723000Z",
-                            update_date: "2017-01-12T19:56:26.723000Z",
-                            toptier_agency: {
-                                toptier_agency_id: 155,
-                                create_date: null,
-                                update_date: null,
-                                cgac_code: "012",
-                                fpds_code: "1200",
-                                name: "AGRICULTURE, DEPARTMENT OF"
-                            },
-                            subtier_agency: {
-                                subtier_agency_id: 865,
-                                create_date: null,
-                                update_date: null,
-                                subtier_code: "1205",
-                                name: "USDA, OFFICE OF THE CHIEF FINANCIAL OFFICER"
-                            },
-                            office_agency: null
-                        },
-                        funding_agency: null,
-                        recipient: null,
-                        place_of_performance: null,
-                        latest_submission: null
-                    }
-                });
-            });
+            const mockReduxAction = jest.fn();
 
             // Set up container with mocked award ID action
             const awardIDSearchContainer = shallow(
                 <AwardIDSearchContainer
-                    reduxFilters={initialFilters}
-                    updateAwardIDs={mockReduxAction} />);
-
-            const toggleAwardIDSpy = sinon.spy(awardIDSearchContainer.instance(),
-                'toggleAwardID');
+                    {...initialFilters}
+                    updateGenericFilter={mockReduxAction} />);
 
             // Add Award ID to redux
             awardIDSearchContainer.instance().toggleAwardID(awardID);
 
             // everything should be updated now
-            expect(toggleAwardIDSpy.callCount).toEqual(1);
-            expect(mockReduxAction).toHaveBeenCalled();
-
-            // reset the spies
-            toggleAwardIDSpy.reset();
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+            const reduxArgs = mockReduxAction.mock.calls[0][0];
+            expect(reduxArgs).toEqual({
+                type: 'selectedAwardIDs',
+                value: new OrderedMap({
+                    '1234': '1234'
+                })
+            });
         });
 
         it('should remove an Award ID that has been deselected from Redux', () => {
-            const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual({
-                    awardID: {
-                        id: "601793",
-                        date_signed__fy: null,
-                        data_source: null,
-                        type: "U",
-                        type_description: "Unknown Type",
-                        piid: "AG3142B100012",
-                        fain: null,
-                        uri: null,
-                        total_obligation: null,
-                        total_outlay: null,
-                        date_signed: null,
-                        description: null,
-                        period_of_performance_start_date: null,
-                        period_of_performance_current_end_date: null,
-                        potential_total_value_of_award: null,
-                        last_modified_date: null,
-                        certified_date: null,
-                        create_date: "2017-02-28T18:01:59.717954Z",
-                        update_date: "2017-02-28T18:01:59.717969Z",
-                        parent_award: null,
-                        awarding_agency: {
-                            id: 999,
-                            create_date: "2017-01-12T19:56:26.723000Z",
-                            update_date: "2017-01-12T19:56:26.723000Z",
-                            toptier_agency: {
-                                toptier_agency_id: 155,
-                                create_date: null,
-                                update_date: null,
-                                cgac_code: "012",
-                                fpds_code: "1200",
-                                name: "AGRICULTURE, DEPARTMENT OF"
-                            },
-                            subtier_agency: {
-                                subtier_agency_id: 865,
-                                create_date: null,
-                                update_date: null,
-                                subtier_code: "1205",
-                                name: "USDA, OFFICE OF THE CHIEF FINANCIAL OFFICER"
-                            },
-                            office_agency: null
-                        },
-                        funding_agency: null,
-                        recipient: null,
-                        place_of_performance: null,
-                        latest_submission: null
-                    }
-                });
-            });
+            const mockReduxAction = jest.fn();
+
+            const appliedFilters = {
+                selectedAwardIDs: new OrderedMap({
+                    '1234': '1234'
+                })
+            };
 
             // Set up container with mocked award ID action
             const awardIDSearchContainer = shallow(
                 <AwardIDSearchContainer
-                    reduxFilters={initialFilters}
-                    updateAwardIDs={mockReduxAction} />);
+                    {...appliedFilters}
+                    updateGenericFilter={mockReduxAction} />);
 
-            const toggleAwardIDSpy = sinon.spy(awardIDSearchContainer.instance(),
-                'toggleAwardID');
-
-            // Add Award ID to redux
-            awardIDSearchContainer.instance().toggleAwardID(awardID);
-
-            // Remove Award ID from Redux
+            // remove Award ID to redux
             awardIDSearchContainer.instance().toggleAwardID(awardID);
 
             // everything should be updated now
-            expect(toggleAwardIDSpy.callCount).toEqual(2);
-            expect(mockReduxAction).toHaveBeenCalledTimes(2);
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+            expect(mockReduxAction).toHaveBeenCalledWith({
+                type: 'selectedAwardIDs',
+                value: new OrderedMap()
+            });
+        });
 
-            // reset the spy
-            toggleAwardIDSpy.reset();
+        it('should not overwrite any existing Award ID in Redux', () => {
+            const mockReduxAction = jest.fn();
+
+            const appliedFilters = {
+                selectedAwardIDs: new OrderedMap({
+                    '1234': '1234'
+                })
+            };
+
+            // Set up container with mocked award ID action
+            const awardIDSearchContainer = shallow(
+                <AwardIDSearchContainer
+                    {...appliedFilters}
+                    updateGenericFilter={mockReduxAction} />);
+
+            // remove Award ID to redux
+            awardIDSearchContainer.instance().toggleAwardID('5555');
+
+            // everything should be updated now
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+            expect(mockReduxAction).toHaveBeenCalledTimes(1);
+            const reduxArgs = mockReduxAction.mock.calls[0][0];
+            expect(reduxArgs).toEqual({
+                type: 'selectedAwardIDs',
+                value: new OrderedMap({
+                    '1234': '1234',
+                    '5555': '5555'
+                })
+            });
+        });
+    });
+    describe('dirtyFilters', () => {
+        it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
+            const container = shallow(
+                <AwardIDSearchContainer
+                    {...initialFilters}
+                    updateGenericFilter={jest.fn()} />
+            );
+
+            container.setProps({
+                selectedAwardIDs: new OrderedMap({ a: 'a' })
+            });
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeTruthy();
+            expect(typeof changed).toEqual('symbol');
+        });
+        it('should return null when the staged filters match with the applied filters', () => {
+            const container = shallow(
+                <AwardIDSearchContainer
+                    {...initialFilters}
+                    updateGenericFilter={jest.fn()} />
+            );
+
+            const changed = container.instance().dirtyFilters();
+            expect(changed).toBeFalsy();
         });
     });
 });

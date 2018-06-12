@@ -1,0 +1,39 @@
+{
+    "archive": [
+        {
+            "year": "2007",
+            "contracts": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/contracts_fy_2007.csv",
+            "assistance": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/assistance_fy_2007.csv"
+        },
+        {
+            "year": "2006",
+            "contracts": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/contracts_fy_2006.csv",
+            "assistance": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/assistance_fy_2006.csv"
+        },
+        {
+            "year": "2005",
+            "contracts": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/contracts_fy_2005.csv",
+            "assistance": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/assistance_fy_2005.csv"
+        },
+        {
+            "year": "2004",
+            "contracts": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/contracts_fy_2004.csv",
+            "assistance": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/assistance_fy_2004.csv"
+        },
+        {
+            "year": "2003",
+            "contracts": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/contracts_fy_2003.csv",
+            "assistance": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/assistance_fy_2003.csv"
+        },
+        {
+            "year": "2002",
+            "contracts": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/contracts_fy_2002.csv",
+            "assistance": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/assistance_fy_2002.csv"
+        },
+        {
+            "year": "2001",
+            "contracts": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/contracts_fy_2001.csv",
+            "assistance": "https://s3-us-gov-west-1.amazonaws.com/usaspending-public-archive/assistance_fy_2001.csv"
+        }
+    ]
+}

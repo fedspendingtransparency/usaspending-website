@@ -4,9 +4,17 @@
  */
 
 import moment from 'moment';
+import kGlobalConstants from 'GlobalConstants';
 
-export const earliestFiscalYear = 2009;
+export const earliestFiscalYear = 2008;
+export const earliestExplorerYear = 2017;
+export const earliestFederalAccountYear = 2017;
+export const todaysDate = moment().format('YYYY-MM-DD');
 
+// number of days to wait after the close of each quarter before enabling it
+export const quarterCloseWindow = 45;
+
+// The current fiscal year is used on the Advanced Search and Download Center pages
 export const currentFiscalYear = () => {
     // determine the current fiscal year
     const currentMonth = moment().month();
@@ -18,6 +26,28 @@ export const currentFiscalYear = () => {
     }
 
     return currentFY;
+};
+
+// The default fiscal year is used on the Spending Explorer and Federal Account pages
+export const defaultFiscalYear = () => {
+    // Building in emergency override for the current fiscal year into the config
+    if (kGlobalConstants.OVERRIDE_FISCAL_YEAR && kGlobalConstants.FISCAL_YEAR) {
+        return kGlobalConstants.FISCAL_YEAR;
+    }
+
+    // Calculate the configurable delay for Q1 close so that we aren't requesting data
+    // for a new FY when no data exists in it yet
+    const today = moment();
+    const newFiscalYearStartDate = moment()
+        .startOf('year')
+        .add(quarterCloseWindow, 'days');
+    const newFiscalYearEndDate = moment([moment().year(), '9', '30']);
+
+    if (today.isSameOrAfter(newFiscalYearStartDate) && today.isSameOrBefore(newFiscalYearEndDate)) {
+        return currentFiscalYear();
+    }
+
+    return currentFiscalYear() - 1;
 };
 
 export const convertFYToDateRange = (fy) => {
@@ -68,20 +98,25 @@ export const convertDateToQuarter = (date) => {
     let quarter = 0;
     const month = moment(date).month();
 
-    if (month >= 10 && month <= 12) {
+    if (month >= 9 && month <= 11) {
         quarter = 1;
     }
 
-    else if (month >= 1 && month <= 3) {
+    else if (month >= 0 && month <= 2) {
         quarter = 2;
     }
 
-    else if (month >= 4 && month <= 6) {
+    else if (month >= 3 && month <= 5) {
         quarter = 3;
     }
-    else if (month >= 7 && month <= 9) {
+    else if (month >= 6 && month <= 8) {
         quarter = 4;
     }
 
     return quarter;
+};
+
+export const getTrailingTwelveMonths = () => {
+    const oneYearAgo = moment().subtract(1, 'year');
+    return [oneYearAgo.format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')];
 };

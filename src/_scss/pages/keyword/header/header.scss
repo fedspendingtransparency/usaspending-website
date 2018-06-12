@@ -1,0 +1,75 @@
+.keyword-header {
+    $keyword-header-height: rem(66);
+
+    @include display(flex);
+    @include justify-content(space-between);
+    @include flex-direction(row);
+    @include align-items(center);
+    @include align-self(stretch);
+    @include flex-flow(row wrap);
+    width: 100%;
+    position: relative;
+    height: $keyword-header-height;
+
+    .keyword-header__title {
+        @include flex(1 1 auto);
+        @include span-columns(8);
+        @include media($medium-screen) {
+            @include span-columns(4);
+        }
+
+        h1 {
+            font-size: rem(24);
+            line-height: rem(31);
+            font-weight: $font-semibold;
+            margin: 0;
+        }
+    }
+
+    .keyword-header__summary {
+        // Hide the search summary for small screens
+        display: none;
+        font-size: $small-font-size;
+
+        @include media($medium-screen) {
+            @include span-columns(8);
+            @include display(flex);
+        }
+
+        .keyword-header__summary-title {
+            font-weight: $font-semibold;
+            padding-right: rem(10);
+            margin-right: rem(10);
+            border-right: solid 1px $color-white;
+        }
+
+        .keyword-header__summary-award-amounts,
+        .keyword-header__summary-award-counts {
+            margin-right: rem(20);
+
+            .keyword-header__summary-amount_bold {
+                font-weight: $font-semibold;
+            }
+        }
+    }
+
+    .keyword-header__options {
+        @include flex(0 0 auto);
+        @import "../../../layouts/tabbedSearch/header/downloadButton";
+
+        @include span-columns(8);
+        @include media($medium-screen) {
+            @include span-columns(4);
+        }
+
+        .download-wrap {
+            .download-hover-spacer {
+                left: rem(-140);
+                width: rem(290);
+            }
+            .download-button {
+                float: right;
+            }
+        }
+    }
+}

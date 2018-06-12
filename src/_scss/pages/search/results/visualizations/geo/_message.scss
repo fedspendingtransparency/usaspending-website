@@ -1,0 +1,98 @@
+.map-message-container {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    pointer-events: none;
+
+    .map-message {
+        @include flex(0 0 auto);
+        z-index: 2;
+        background-color: $color-white;
+        display: block;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+        line-height: rem(18);
+
+        padding: rem(10) rem(15);
+
+        color: $color-base;
+        text-align: center;
+        font-size: $small-font-size;
+        font-weight: $font-normal;
+        line-height: rem(18);
+    }
+}
+
+.map-loading, .map-no-results {
+    padding: rem(10);
+    .loading-animation {
+        width: rem(50);
+        height: rem(50);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .loading-message {
+        font-size: rem(36);
+        line-height: rem(45);
+        color: $color-gray-light;
+        text-align: center;
+    }
+
+    .no-results-icon {
+        width: rem(75);
+        height: rem(72);
+
+        margin-left: auto;
+        margin-right: auto;
+
+        background-image: url('#{$image-path}/no_results.png');
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+    .error-icon {
+        width: rem(75);
+        height: rem(72);
+
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: rem(10);
+
+        svg {
+            width: rem(72);
+            height: rem(72);
+            fill: $color-gray-light;
+        }
+    }
+    .title, .description {
+        color: $color-gray-light;
+        text-align: center;
+
+        margin-left: auto;
+        margin-right: auto;
+        max-width: rem(200);
+        font-size: rem(18);
+
+        @include media($tablet-screen) {
+            max-width: rem(400);
+            font-size: rem(24);
+            line-height: rem(30);
+        }
+
+        @include media($large-screen) {
+            max-width: rem(600);
+            font-size: rem(36);
+            line-height: rem(45);
+        }
+    }
+
+    .title {
+        font-weight: $font-semibold;
+    }
+}

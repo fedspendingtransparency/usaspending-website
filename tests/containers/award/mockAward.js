@@ -31,12 +31,13 @@ export const mockAward = {
         pop_state_province: 'NM',
         pop_zip: null,
         total_obligation: '$88,074,906',
-        potential_total_value_of_award: '$0',
+        base_and_all_options_value: '$0',
         recipient_duns: '007113228',
         recipient_parent_duns: '',
         recipient_business_type: 'Unknown Business Type',
         type_of_contract_pricing: '',
         type_of_contract_pricing_description: '',
+        parent_award_piid: null,
         latest_transaction: {
             id: 40940,
             data_source: 'DBR',
@@ -291,7 +292,6 @@ export const mockAward = {
                 transaction: 40940,
                 data_source: 'DBR',
                 piid: 'DEAC0494AL85000',
-                parent_award_id: null,
                 cost_or_pricing_data_description: null,
                 type_of_contract_pricing: 'R',
                 type_of_contract_pricing_description: null,
@@ -300,7 +300,7 @@ export const mockAward = {
                 period_of_performance_potential_end_date: '2017-04-30',
                 ordering_period_end_date: null,
                 current_total_value_award: '0.00',
-                potential_total_value_of_award: '0.00',
+                base_and_all_options_value: '0.00',
                 referenced_idv_agency_identifier: null,
                 idv_type: 'D',
                 multiple_or_single_award_idv: null,
@@ -317,7 +317,7 @@ export const mockAward = {
                 contracting_officers_determination_of_business_size: 'O',
                 cost_accounting_standards: 'X',
                 country_of_product_or_service_origin: 'USA',
-                davis_bacon_act_description: 'X',
+                construction_wage_rat_desc: 'X',
                 evaluated_preference_description: null,
                 extent_competed_description: 'A',
                 fed_biz_opps_description: 'Y',
@@ -342,7 +342,7 @@ export const mockAward = {
                 recovered_materials_sustainability: 'B',
                 research: null,
                 sea_transportation_description: null,
-                service_contract_act_description: 'N',
+                labor_standards_description: 'N',
                 small_business_competitiveness_demonstration_program: null,
                 solicitation_identifier: null,
                 solicitation_procedures: null,
@@ -351,7 +351,7 @@ export const mockAward = {
                 program_system_or_equipment_code: null,
                 type_set_aside_description: null,
                 epa_designated_product: 'A',
-                walsh_healey_act: 'X',
+                materials_supplies_article: 'X',
                 transaction_number: '0',
                 referenced_idv_modification_number: null,
                 rec_flag: null,
@@ -361,7 +361,7 @@ export const mockAward = {
                 drv_potential_award_idv_amount_total_estimate: null,
                 drv_potential_aggregated_award_idv_amount_total_estimate: null,
                 drv_potential_aggregated_total_value_of_award: null,
-                drv_potential_total_value_of_award: null,
+                drv_base_and_all_options_value: null,
                 create_date: '2017-02-27T19:23:39.321925Z',
                 update_date: '2017-02-27T19:23:39.321949Z',
                 last_modified_date: null,
@@ -370,8 +370,7 @@ export const mockAward = {
                 reporting_period_end: '2016-11-01',
                 submission: 9
             }
-        },
-        _jsid: 'award-3'
+        }
     },
     transactions: [
         {
@@ -382,8 +381,7 @@ export const mockAward = {
             action_type: 'C',
             federal_action_obligation: '$88,074,906',
             modification_number: '634',
-            description: 'MANAGEMENT AND OPERATION OF SANDIA NATIONAL LABORATORIES BY SANDIA CORPORATION, CONTRACT NO. DE-AC04-94AL85000',
-            _jsid: 'contract-transaction-4'
+            description: 'MANAGEMENT AND OPERATION OF SANDIA NATIONAL LABORATORIES BY SANDIA CORPORATION, CONTRACT NO. DE-AC04-94AL85000'
         }
     ],
     transactionMeta: {

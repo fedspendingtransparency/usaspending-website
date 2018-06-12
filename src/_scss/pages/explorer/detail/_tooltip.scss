@@ -1,0 +1,19 @@
+.visualization-tooltip {
+    @import "components/visualizations/tooltip/_tooltip";
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    .tooltip {
+        position: relative;
+	    max-width: rem(500);
+
+        .disclaimer-total {
+            margin-bottom: rem(15);
+            padding: rem(0) rem(15);
+            font-size: rem(12);
+            font-style: italic;
+            text-align: center;
+        }
+    }
+}

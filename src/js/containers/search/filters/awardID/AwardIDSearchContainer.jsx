@@ -7,59 +7,63 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import AwardIDSearch from 'components/search/filters/awardID/AwardIDSearch';
 
 const propTypes = {
-    updateAwardIDs: PropTypes.func
+    selectedAwardIDs: PropTypes.object,
+    appliedAwardIDs: PropTypes.object,
+    updateGenericFilter: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export class AwardIDSearchContainer extends React.Component {
-    static logIdEvent(id, type) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: `Toggled Award ${type} Filter`,
-            label: id
-        });
-    }
-
     constructor(props) {
         super(props);
-
         // Bind function
         this.toggleAwardID = this.toggleAwardID.bind(this);
     }
 
     toggleAwardID(awardID) {
-        const updateParams = {
-            awardID
-        };
-        this.props.updateAwardIDs(updateParams);
-
-        // Analytics
-        switch (awardID.awardIDType) {
-            case 'PIID':
-                AwardIDSearchContainer.logIdEvent(awardID.piid, 'PIID');
-                break;
-            case 'URI':
-                AwardIDSearchContainer.logIdEvent(awardID.uri, 'URI');
-                break;
-            case 'FAIN':
-                AwardIDSearchContainer.logIdEvent(awardID.fain, 'FAIN');
-                break;
-            default:
-                AwardIDSearchContainer.logIdEvent(awardID.id, 'ID');
+        if (this.props.selectedAwardIDs.has(awardID)) {
+            this.removeAwardID(awardID);
         }
+        else {
+            this.addAwardID(awardID);
+        }
+    }
+
+    addAwardID(id) {
+        const awardId = this.props.selectedAwardIDs.set(id, id);
+
+        this.props.updateGenericFilter({
+            type: 'selectedAwardIDs',
+            value: awardId
+        });
+    }
+
+    removeAwardID(id) {
+        const awardId = this.props.selectedAwardIDs.delete(id);
+        this.props.updateGenericFilter({
+            type: 'selectedAwardIDs',
+            value: awardId
+        });
+    }
+
+    dirtyFilters() {
+        if (is(this.props.selectedAwardIDs, this.props.appliedAwardIDs)) {
+            return null;
+        }
+        return Symbol('dirty award ID');
     }
 
     render() {
         return (
             <AwardIDSearch
-                {...this.props}
+                dirtyFilters={this.dirtyFilters()}
+                selectedAwardIDs={this.props.selectedAwardIDs}
                 toggleAwardID={this.toggleAwardID} />
         );
     }
@@ -68,7 +72,10 @@ export class AwardIDSearchContainer extends React.Component {
 AwardIDSearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ selectedAwardIDs: state.filters.selectedAwardIDs }),
+    (state) => ({
+        selectedAwardIDs: state.filters.selectedAwardIDs,
+        appliedAwardIDs: state.appliedFilters.filters.selectedAwardIDs
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(AwardIDSearchContainer);
 

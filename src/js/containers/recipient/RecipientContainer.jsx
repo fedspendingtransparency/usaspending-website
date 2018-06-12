@@ -15,6 +15,8 @@ import * as recipientActions from 'redux/actions/recipient/recipientSummaryActio
 
 import RecipientPage from 'components/recipient/RecipientPage';
 
+require('pages/recipient/recipientPage.scss');
+
 const propTypes = {
     setRecipientOverview: PropTypes.func,
     params: PropTypes.object,

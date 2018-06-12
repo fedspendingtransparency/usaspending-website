@@ -8,13 +8,9 @@ import { mount } from 'enzyme';
 import sinon from 'sinon';
 
 import ObjectClassContainer from 'containers/agency/visualizations/ObjectClassContainer';
-import * as AgencyHelper from 'helpers/agencyHelper';
 
-import { mockMajorObjectClasses, mockMinorObjectClasses } from './mocks/mockObjectClasses';
-
-// force Jest to use native Node promises
-// see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
-global.Promise = require.requireActual('promise');
+jest.mock('helpers/agencyHelper', () => require('../../agency/agencyHelper'));
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 // spy on specific functions inside the component
 const fetchMajorObjectClassesSpy = sinon.spy(
@@ -39,57 +35,19 @@ jest.mock('containers/glossary/GlossaryButtonWrapperContainer', () =>
 jest.mock('containers/glossary/GlossaryContainer', () =>
     jest.fn(() => null));
 
-const mockAgencyHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    AgencyHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
-
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
-    });
-};
-
-const unmockAgencyHelper = () => {
-    jest.useRealTimers();
-    jest.unmock('helpers/agencyHelper');
-};
-
 describe('ObjectClassContainer', () => {
-    it('should make an API call for the selected agency object classes on mount', () => {
-        mockAgencyHelper('fetchAgencyMajorObjectClasses', 'resolve', mockMajorObjectClasses);
-
-        mount(<ObjectClassContainer
+    it('should make an API call for the selected agency object classes on mount', async () => {
+        const container = mount(<ObjectClassContainer
             {...inboundProps} />);
 
-        jest.runAllTicks();
+        await container.instance().searchRequest.promise;
 
         expect(fetchMajorObjectClassesSpy.callCount).toEqual(1);
         fetchMajorObjectClassesSpy.reset();
-
-        unmockAgencyHelper();
     });
 
     it('should make a new API call for major object classes when the inbound agency ID prop' +
-        ' changes', () => {
-        mockAgencyHelper('fetchAgencyMajorObjectClasses', 'resolve', mockMajorObjectClasses);
-
+        ' changes', async () => {
         const container = mount(<ObjectClassContainer
             {...inboundProps} />);
 
@@ -101,28 +59,45 @@ describe('ObjectClassContainer', () => {
             id: '555'
         });
 
-        jest.runAllTicks();
+        await container.instance().searchRequest.promise;
 
-        // expect(loadDataSpy.callCount).toEqual(1);
         expect(fetchMajorObjectClassesMock).toHaveBeenCalledWith('555', inboundProps.activeFY);
         fetchMajorObjectClassesSpy.reset();
-
-        unmockAgencyHelper();
     });
 
-    it('should make an API call for the minor object classes', () => {
-        mockAgencyHelper('fetchAgencyMinorObjectClasses', 'resolve', mockMinorObjectClasses);
-
+    it('should make an API call for the minor object classes', async () => {
         const container = mount(<ObjectClassContainer
             {...inboundProps} />);
 
         container.instance().fetchMinorObjectClasses('00');
 
-        jest.runAllTicks();
+        await container.instance().searchRequest.promise;
 
         expect(fetchMinorObjectClassesSpy.callCount).toEqual(1);
         fetchMinorObjectClassesSpy.reset();
+    });
 
-        unmockAgencyHelper();
+    it('should correctly sum the total obligation for major and minor object classes', async () => {
+        const container = mount(<ObjectClassContainer
+            {...inboundProps} />);
+
+        container.instance().fetchMinorObjectClasses('00');
+
+        await container.instance().searchRequest.promise;
+
+        expect(container.instance().state.totalObligation).toEqual(1520);
+        expect(container.instance().state.totalMinorObligation).toEqual(300);
+    });
+
+    it('should set the state to reflect the presence of negative obligations', async () => {
+        const container = mount(<ObjectClassContainer
+            {...inboundProps} />);
+
+        container.instance().fetchMinorObjectClasses('00');
+
+        await container.instance().searchRequest.promise;
+
+        expect(container.instance().state.hasNegatives).toEqual(true);
+        expect(container.instance().state.minorHasNegatives).toEqual(false);
     });
 });

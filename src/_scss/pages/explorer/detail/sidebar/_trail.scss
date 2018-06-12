@@ -1,0 +1,86 @@
+.vertical-trail {
+    @include unstyled-list;
+    margin: rem(35) 0;
+    @import "./_trailAnimations";
+
+    button.item {
+        @include button-unstyled;
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(flex-start);
+        position: relative;
+        padding-top: rem(5);
+
+        width: 100%;
+
+        .item-decorator {
+            @include flex(0 0 auto);
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+            @include flex-direction(column);
+            position: relative;
+
+            width: rem(30);
+            margin-left: rem(40);
+            margin-right: rem(20);
+
+            .main-dot {
+                @include flex(0 0 auto);
+                width: rem(30);
+                height: rem(30);
+                border-radius: rem(15);
+                background-color: $color-link;
+                border: 4px solid #D8D8D8;
+                z-index: 2;
+                margin-bottom: rem(5);
+            }
+
+            .small-dot {
+                @include flex(0 0 auto);
+                width: rem(6);
+                height: rem(6);
+                border-radius: rem(3);
+                background-color: #C2C2C2;
+                z-index: 1;
+
+                margin-top: rem(5);
+            }
+
+            &.single, &.last {
+                .small-dot {
+                    display: none;
+                }
+                padding-bottom: rem(50);
+            }
+        }
+
+        .item-content {
+            @include flex(1 1 auto);
+            margin-right: rem(50);
+            .type {
+                color: $color-primary-alt-light;
+                font-size: $small-font-size;
+                text-transform: uppercase;
+                margin-bottom: rem(5);
+            }
+
+            .title {
+                font-size: rem(18);
+                margin-bottom: rem(5);
+
+                &.bold {
+                    text-transform: capitalize;
+                    font-weight: $font-semibold;
+                }
+            }
+
+            .amount {
+                color: $color-primary-alt-light;
+                font-weight: $font-semibold;
+                text-transform: capitalize;
+                font-size: rem(18);
+            }
+        }
+    }
+}

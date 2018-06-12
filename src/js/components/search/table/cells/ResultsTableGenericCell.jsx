@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 const propTypes = {
     data: PropTypes.string,
     rowIndex: PropTypes.number,
-    column: PropTypes.string,
-    isLastColumn: PropTypes.bool
+    isLast: PropTypes.bool
 };
 
 export default class ResultsTableGenericCell extends React.Component {
@@ -29,12 +28,12 @@ export default class ResultsTableGenericCell extends React.Component {
             rowClass = 'row-odd';
         }
 
-        if (this.props.isLastColumn) {
+        if (this.props.isLast) {
             rowClass += ' last-column';
         }
 
         return (
-            <div className={`award-result-generic-cell column-${this.props.column} ${rowClass}`}>
+            <div className={`award-result-generic-cell ${rowClass}`}>
                 <div className="cell-content">
                     {content}
                 </div>

@@ -1,0 +1,30 @@
+.explorer-cell {
+    cursor: pointer;
+
+    .explorer-cell-title {
+        transition: fill 0.2s;
+        font-size: rem(16);
+
+        &.active {
+            fill: $color-black;
+        }
+    }
+
+    .explorer-cell-value {
+        transition: fill 0.2s;
+        font-size: rem(18);
+        font-weight: $font-semibold;
+
+        &.active {
+            fill: $color-black;
+        }
+    }
+
+    .explorer-cell-box {
+        transition: fill 0.2s;
+    }
+
+    &.link-disabled {
+        cursor: default;
+    }
+}

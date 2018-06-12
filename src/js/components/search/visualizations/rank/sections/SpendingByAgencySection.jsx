@@ -12,9 +12,8 @@ import RankVisualizationScopeButton from '../RankVisualizationScopeButton';
 import RankVisualizationSection from './RankVisualizationSection';
 
 const propTypes = {
-    agencyScope: PropTypes.string,
+    scope: PropTypes.string,
     changeScope: PropTypes.func,
-    agencyType: PropTypes.string,
     hideSuboptionBar: PropTypes.string
 };
 
@@ -27,40 +26,30 @@ export default class SpendingByAgencySection extends React.Component {
         return (
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
-                    <div className="visualization-description">
-                        <div className="content">
-                            View a list of the top {this.props.agencyType} agencies from highest to
-                            lowest. Filter your results more (at left) and watch this graph
-                            update automatically. View your results in a bar graph or a tree map.
-                        </div>
+                    <div className="visualization-top__description">
+                        View a list of the top Agencies from highest to lowest.
+                        View your results by Awarding Agency, Sub Agency, or Office, and hover over the bars
+                        for more detailed information.
                     </div>
-                    <div className={`visualization-period ${this.props.hideSuboptionBar}`}>
-                        <div className="content">
-                            <ul>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="toptier"
-                                        label="Agencies"
-                                        active={this.props.agencyScope === 'toptier'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li>
-                                    <RankVisualizationScopeButton
-                                        value="subtier"
-                                        label="Sub-Agencies"
-                                        active={this.props.agencyScope === 'subtier'}
-                                        changeScope={this.props.changeScope} />
-                                </li>
-                                <li className="coming-soon">
-                                    <RankVisualizationScopeButton
-                                        value="office"
-                                        label="Offices"
-                                        active={this.props.agencyScope === 'office'}
-                                        changeScope={this.props.changeScope}
-                                        disabled />
-                                    <ComingSoonLabel />
-                                </li>
-                            </ul>
+                    <div className={`visualization-scope ${this.props.hideSuboptionBar}`}>
+                        <RankVisualizationScopeButton
+                            value="awarding_agency"
+                            label="Agencies"
+                            active={this.props.scope === 'awarding_agency'}
+                            changeScope={this.props.changeScope} />
+                        <RankVisualizationScopeButton
+                            value="awarding_subagency"
+                            label="Sub-Agencies"
+                            active={this.props.scope === 'awarding_subagency'}
+                            changeScope={this.props.changeScope} />
+                        <div className="coming-soon">
+                            <RankVisualizationScopeButton
+                                value="office"
+                                label="Offices"
+                                active={this.props.scope === 'office'}
+                                changeScope={this.props.changeScope}
+                                disabled />
+                            <ComingSoonLabel />
                         </div>
                     </div>
                 </div>

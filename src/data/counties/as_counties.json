@@ -1,0 +1,34 @@
+{
+    "counties": [
+        {
+            "code": "60010",
+            "fips": "010",
+            "state": "AS",
+            "name": "Eastern District"
+        },
+        {
+            "code": "60020",
+            "fips": "020",
+            "state": "AS",
+            "name": "Manu‘a District"
+        },
+        {
+            "code": "60030",
+            "fips": "030",
+            "state": "AS",
+            "name": "Rose Island"
+        },
+        {
+            "code": "60040",
+            "fips": "040",
+            "state": "AS",
+            "name": "Swains Island"
+        },
+        {
+            "code": "60050",
+            "fips": "050",
+            "state": "AS",
+            "name": "Western District"
+        }
+    ]
+}

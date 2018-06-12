@@ -1,0 +1,17 @@
+@import "layouts/default/default";
+
+#main-content {
+    @import "../default/stickyHeader/header";
+
+    .search-contents {
+        @include outer-container(100%);
+        margin: 0 $outer-gutter/2;
+        @include media($large-screen) {
+            margin: 0 $outer-gutter;
+        }
+        @include media($x-large-screen) {
+            max-width: $site-max-width;
+            margin: 0 auto;
+        }
+    }
+}

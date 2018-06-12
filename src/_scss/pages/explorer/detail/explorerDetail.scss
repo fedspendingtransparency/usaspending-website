@@ -1,0 +1,71 @@
+.explorer-detail-wrap {
+    @import "./_tooltip";
+    @import "./_noAwardsScreen";
+    @import "./_unreportedErrorScreen";
+
+    background: url(#{$image-path}/explorer-background.jpg) no-repeat top center fixed;
+    background-size: cover;
+}
+
+.explorer-detail {
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(stretch);
+    position: relative;
+    overflow: hidden;
+
+    @import "./sidebar/sidebar";
+
+    .explorer-detail-content {
+        @include flex(1 1 auto);
+        padding: rem(40);
+        position: relative;
+
+        &.detail-animate {
+            transition: transform 0.25s;
+        }
+
+        @import "./header/header";
+        @import "./visualization/visualization";
+
+        .fake-screens {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: rem(40);
+
+            &.above {
+                top: auto;
+                bottom: rem(530);
+            }
+        }
+
+        .fake-treemap {
+            @include display(flex);
+            @include justify-content(flex-start);
+            @include align-items(stretch);
+            position: relative;
+
+            .left-block {
+                @include flex(1 1 auto);
+                margin-right: rem(5);
+                background-color: #1C4956;
+                height: rem(530);
+            }
+            
+	    .middle-block {
+                @include flex(1 1 auto);
+                margin-right: rem(5);
+                height: rem(530);
+                background-color: rgb(53, 137, 161);
+            }
+
+            .right-block {
+                @include flex(1 1 auto);
+                background-color: #47BAD9;
+                height: rem(530);
+            }
+        }
+    }
+}

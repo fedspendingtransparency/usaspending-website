@@ -6,17 +6,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Analytics from 'helpers/analytics/Analytics';
+
 import { Glossary } from '../icons/Icons';
 
 const propTypes = {
     toggleGlossary: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export default class NavBarGlossaryLink extends React.Component {
     static logGlossaryButtonEvent() {
-        ga.event({
+        Analytics.event({
             category: 'Glossary',
             action: 'Opened Glossary',
             label: 'Nav Bar Glossary Link'
@@ -40,13 +40,13 @@ export default class NavBarGlossaryLink extends React.Component {
         return (
             <button
                 aria-label="Show Glossary"
-                className="header-glossary-button"
+                className="full-menu__glossary glossary-nav"
                 id="header-glossary-button"
                 onClick={this.clickedButton}>
-                <div className="glossary-button-content">
-                    <span className="glossary-button-icon">
-                        <Glossary alt="Glossary" />
-                    </span>
+                <div className="glossary-nav__icon">
+                    <Glossary alt="Glossary" />
+                </div>
+                <div className="glossary-nav__label">
                     Glossary
                 </div>
             </button>

@@ -1,0 +1,37 @@
+@mixin singleSubmit() {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+    @include button-unstyled;
+
+    background-color: $color-gray-lighter;
+    border: 1px solid $color-gray-light;
+    cursor: pointer;
+
+    height: rem(40);
+    width: rem(50);
+
+    .icon {
+        @include flex(0 0 auto);
+        width: rem(20);
+        height: rem(20);
+
+        svg {
+            fill: $color-gray;
+            width: rem(20);
+            height: rem(20);                            
+        }
+    }
+
+    &:disabled {
+        background-color: $color-gray-lightest;
+        border: 1px solid $color-gray-lighter;
+        cursor: not-allowed;
+
+        .icon {
+            svg {
+                fill: $color-gray-light;
+            }
+        }
+    }
+}

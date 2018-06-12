@@ -1,0 +1,68 @@
+.download-filter-bar {
+    .search-top-filter-bar {
+        margin-bottom: rem(20);
+    }
+
+    .search-top-filter-header {
+        margin-bottom: rem(10);
+        @include clearfix;
+        .header-title {
+            float: left;
+            font-weight: 600;
+            font-size: rem(14);
+            line-height: rem(18);
+            color: #525252;
+            margin: 0;
+        }
+    }
+
+    .search-top-filters-content {
+        padding: rem(10);
+        background-color: $filter-bar-gray;
+
+        overflow-x: auto;
+        white-space: nowrap;
+        
+        .filter-group-container {
+            display: inline-block;
+            margin-right: rem(10);
+
+            .filter-name {
+                font-size: $smallest-font-size;
+                font-weight: $font-semibold;
+                text-transform: uppercase;
+
+                margin-bottom: rem(5);
+            }
+
+            .filter-values {
+                white-space: nowrap;
+                .filter-item-container {
+                    display: inline-block;
+                    margin-right: rem(5);
+                }
+            }
+        }
+
+        .filter-item {
+            @include button-unstyled();
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            background-color: $color-white;
+            padding: 8px;
+            border: 1px solid $color-gray-light;
+            @include border-top-radius(4px);
+            @include border-bottom-radius(4px);
+
+            font-size: $smallest-font-size;
+
+            &:hover, &:active {
+                background-color: $color-white;
+            }
+
+            .filter-item-title {
+                color: $color-gray;
+            }
+        }
+    }
+}

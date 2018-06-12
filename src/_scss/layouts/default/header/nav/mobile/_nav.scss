@@ -1,0 +1,53 @@
+.mobile-nav-content {
+    ul.mobile-nav-content__list {
+        @include unstyled-list;
+        margin-top: rem(50);
+
+        li.mobile-nav-content__list-item {
+            text-align: center;
+            &.mobile-nav-content__list-item_no-phone {
+                @media screen and (max-width: 450px) {
+                    display: none;
+                }
+            }
+        }
+
+        a.mobile-nav-content__link {
+            color: $color-gray;
+            font-size: rem(30);
+            line-height: rem(36);
+            opacity: 0.6;
+
+            &:active, &:hover {
+                text-decoration: none;
+                opacity: 1;
+            }
+        }
+
+        button.mobile-nav-content__glossary {
+            @include button-unstyled;
+
+            color: $color-gray;
+            font-size: rem(30);
+            line-height: rem(36);
+            opacity: 0.6;
+
+            &:active, &:hover {
+                opacity: 1;
+            }
+        }
+
+        hr.mobile-nav-content__divider {
+            border: none;
+            border-bottom: 2px solid $color-gray;
+            width: rem(50);
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: rem(20);
+            margin-bottom: rem(20);
+            opacity: 0.6;
+        }
+
+        @import "./_dropdown";
+    }
+}

@@ -5,36 +5,46 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
-import sinon from 'sinon';
 
 import { Set, OrderedMap } from 'immutable';
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
 import { TopFilterBarContainer } from 'containers/search/topFilterBar/TopFilterBarContainer';
 
-import { initialState } from 'redux/reducers/search/searchFiltersReducer';
+import searchFiltersReducer, { initialState } from 'redux/reducers/search/searchFiltersReducer';
 
 import { mockAwardingAgency, mockFundingAgency, mockRecipient, mockLocation, mockAwardId } from './mockData';
 
+const initialAction = {
+    type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
+    dateType: 'fy',
+    fy: new Set(),
+    start: null,
+    end: null
+};
+
+const stateWithoutDefault = searchFiltersReducer(initialState, initialAction);
+
 const defaultProps = {
-    reduxFilters: initialState,
+    reduxFilters: stateWithoutDefault,
     updateFilterCount: jest.fn()
 };
 
 const setup = (props) =>
     mount(<TopFilterBarContainer {...props} />);
 
-const prepareFiltersSpy = sinon.spy(TopFilterBarContainer.prototype, 'prepareFilters');
-
 describe('TopFilterBarContainer', () => {
-    it('should return a TopFilterBarEmpty child component when no filters are applied', () => {
-        const topBarContainer = setup(defaultProps);
+    it('should return a TopFilterBar child component with no filters selected by default', () => {
+        const topBarContainer = setup({
+            reduxFilters: initialState,
+            updateFilterCount: jest.fn()
+        });
 
         expect(topBarContainer.find(TopFilterBar)).toHaveLength(0);
     });
 
     it('should return a TopFilterBar child component when there are active filters', () => {
-        const filters = Object.assign({}, initialState, {
+        const filters = Object.assign({}, stateWithoutDefault, {
             timePeriodType: 'fy',
             timePeriodFY: new Set(['2014'])
         });
@@ -50,12 +60,12 @@ describe('TopFilterBarContainer', () => {
 
     describe('filter preparation', () => {
         it('should update when the Redux filters change', () => {
-            const initialFilters = Object.assign({}, initialState, {
+            const initialFilters = Object.assign({}, stateWithoutDefault, {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set(['2014'])
             });
 
-            const updatedFilters = Object.assign({}, initialState, {
+            const updatedFilters = Object.assign({}, stateWithoutDefault, {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set(['2014', '2015'])
             });
@@ -72,25 +82,26 @@ describe('TopFilterBarContainer', () => {
 
             // mount the container
             const topBarContainer = setup(initialProps);
+            topBarContainer.instance().prepareFilters = jest.fn();
 
             // change the props
             topBarContainer.setProps(updatedProps);
 
             // the prepareFilters function should have been called
-            expect(prepareFiltersSpy.called).toBeTruthy();
+            expect(topBarContainer.instance().prepareFilters).toHaveBeenCalledTimes(1);
         });
 
         it('should update component state with Redux keyword filter when available', () => {
             // mount the container with default props
             const topBarContainer = setup({
-                reduxFilters: Object.assign({}, initialState),
+                reduxFilters: Object.assign({}, stateWithoutDefault),
                 updateFilterCount: jest.fn()
             });
 
             expect(topBarContainer.state().filters).toHaveLength(0);
 
-            const keywordFilter = Object.assign({}, initialState, {
-                keyword: 'Education'
+            const keywordFilter = Object.assign({}, stateWithoutDefault, {
+                keyword: new OrderedMap({ Education: "Education" })
             });
 
             topBarContainer.setProps({
@@ -103,7 +114,7 @@ describe('TopFilterBarContainer', () => {
             const expectedFilterState = {
                 code: 'keyword',
                 name: 'Keyword',
-                values: 'Education'
+                values: ["Education"]
             };
 
             expect(filterItem).toEqual(expectedFilterState);
@@ -115,7 +126,7 @@ describe('TopFilterBarContainer', () => {
 
             expect(topBarContainer.state().filters).toHaveLength(0);
 
-            const timeFilter = Object.assign({}, initialState, {
+            const timeFilter = Object.assign({}, stateWithoutDefault, {
                 timePeriodType: 'fy',
                 timePeriodFY: new Set(['2014', '2015'])
             });
@@ -142,7 +153,7 @@ describe('TopFilterBarContainer', () => {
 
             expect(topBarContainer.state().filters).toHaveLength(0);
 
-            const awardFilter = Object.assign({}, initialState, {
+            const awardFilter = Object.assign({}, stateWithoutDefault, {
                 awardType: new Set(['07'])
             });
 
@@ -168,14 +179,20 @@ describe('TopFilterBarContainer', () => {
 
             expect(topBarContainer.state().filters).toHaveLength(0);
 
-            const locationFilter = Object.assign({}, initialState, {
+            const locationFilter = Object.assign({}, stateWithoutDefault, {
                 selectedLocations: new OrderedMap({
-                    '1,2_LOS ANGELES_CITY': {
-                        matched_ids: [1, 2],
-                        parent: 'CALIFORNIA',
-                        place_type: 'CITY',
-                        place: 'LOS ANGELES',
-                        identifier: '1,2_LOS ANGELES_CITY'
+                    USA_NY_001: {
+                        filter: {
+                            country: 'USA',
+                            state: 'NY',
+                            county: '001'
+                        },
+                        display: {
+                            entity: 'County',
+                            title: 'New Donk County',
+                            standalone: 'New Donk County, NY'
+                        },
+                        identifier: 'USA_NY_001'
                     }
                 })
             });
@@ -189,146 +206,21 @@ describe('TopFilterBarContainer', () => {
             const filterItem = topBarContainer.state().filters[0];
             const expectedFilterState = {
                 code: 'selectedLocations',
-                name: 'Place of Performance Location',
+                name: 'Place of Performance',
                 scope: 'all',
                 values: [{
-                    matched_ids: [1, 2],
-                    parent: 'CALIFORNIA',
-                    place_type: 'CITY',
-                    place: 'LOS ANGELES',
-                    identifier: '1,2_LOS ANGELES_CITY'
+                    filter: {
+                        country: 'USA',
+                        state: 'NY',
+                        county: '001'
+                    },
+                    display: {
+                        entity: 'County',
+                        title: 'New Donk County',
+                        standalone: 'New Donk County, NY'
+                    },
+                    identifier: 'USA_NY_001'
                 }]
-            };
-
-            expect(filterItem).toEqual(expectedFilterState);
-        });
-
-        it('should update component state with Redux location scope when it is not "all"', () => {
-            // mount the container with default props
-            const topBarContainer = setup(defaultProps);
-
-            expect(topBarContainer.state().filters).toHaveLength(0);
-
-            const locationFilter = Object.assign({}, initialState, {
-                locationDomesticForeign: 'foreign'
-            });
-
-            topBarContainer.setProps({
-                reduxFilters: locationFilter
-            });
-
-            expect(topBarContainer.state().filters).toHaveLength(1);
-
-            const filterItem = topBarContainer.state().filters[0];
-            const expectedFilterState = {
-                code: 'selectedLocations',
-                name: 'Place of Performance Location',
-                scope: 'foreign',
-                values: [{
-                    isScope: true
-                }]
-            };
-
-            expect(filterItem).toEqual(expectedFilterState);
-        });
-
-        it('should update component state with Redux budget function filters when available', () => {
-            // mount the container with default props
-            const topBarContainer = setup(defaultProps);
-
-            expect(topBarContainer.state().filters).toHaveLength(0);
-
-            const locationFilter = Object.assign({}, initialState, {
-                budgetFunctions: new OrderedMap({
-                    'Income Security': {
-                        title: 'Income Security',
-                        functionType: 'Function'
-                    }
-                })
-            });
-
-            topBarContainer.setProps({
-                reduxFilters: locationFilter
-            });
-
-            expect(topBarContainer.state().filters).toHaveLength(1);
-
-            const filterItem = topBarContainer.state().filters[0];
-            const expectedFilterState = {
-                code: 'budgetFunctions',
-                name: 'Budget Functions',
-                values: [{
-                    title: 'Income Security',
-                    functionType: 'Function'
-                }]
-            };
-
-            expect(filterItem).toEqual(expectedFilterState);
-        });
-
-        it('should update component state with Redux federal account filters when available', () => {
-            // mount the container with default props
-            const topBarContainer = setup(defaultProps);
-
-            expect(topBarContainer.state().filters).toHaveLength(0);
-
-            const locationFilter = Object.assign({}, initialState, {
-                federalAccounts: new OrderedMap({
-                    392: {
-                        id: '392',
-                        agency_identifier: '012',
-                        main_account_code: '3539',
-                        account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
-                    }
-                })
-            });
-
-            topBarContainer.setProps({
-                reduxFilters: locationFilter
-            });
-
-            expect(topBarContainer.state().filters).toHaveLength(1);
-
-            const filterItem = topBarContainer.state().filters[0];
-            const expectedFilterState = {
-                code: 'federalAccounts',
-                name: 'Federal Accounts',
-                values: [{
-                    id: '392',
-                    agency_identifier: '012',
-                    main_account_code: '3539',
-                    account_title: 'Child Nutrition Programs, Food Nutrition Service, Agriculture'
-                }]
-            };
-
-            expect(filterItem).toEqual(expectedFilterState);
-        });
-
-        it('should update component state with Redux object class filters when available', () => {
-            // mount the container with default props
-            const topBarContainer = setup(defaultProps);
-
-            expect(topBarContainer.state().filters).toHaveLength(0);
-
-            const locationFilter = Object.assign({}, initialState, {
-                objectClasses: new OrderedMap({
-                    10: "Personnel Compensation and Benefits"
-                })
-            });
-
-            topBarContainer.setProps({
-                reduxFilters: locationFilter
-            });
-
-            expect(topBarContainer.state().filters).toHaveLength(1);
-
-            const filterItem = topBarContainer.state().filters[0];
-            const expectedFilterState = {
-                code: 'objectClasses',
-                name: 'Object Classes',
-                values: {
-                    10: "Personnel Compensation and Benefits"
-                }
             };
 
             expect(filterItem).toEqual(expectedFilterState);
@@ -340,7 +232,7 @@ describe('TopFilterBarContainer', () => {
 
             expect(topBarContainer.state().filters).toHaveLength(0);
 
-            const awardingAgencyFilter = Object.assign({}, initialState, {
+            const awardingAgencyFilter = Object.assign({}, stateWithoutDefault, {
                 selectedAwardingAgencies: new OrderedMap({
                     "1788_subtier": mockAwardingAgency
                 })
@@ -368,7 +260,7 @@ describe('TopFilterBarContainer', () => {
 
             expect(topBarContainer.state().filters).toHaveLength(0);
 
-            const awardingAgencyFilter = Object.assign({}, initialState, {
+            const awardingAgencyFilter = Object.assign({}, stateWithoutDefault, {
                 selectedFundingAgencies: new OrderedMap({
                     "1788_subtier": mockFundingAgency
                 })
@@ -396,7 +288,7 @@ describe('TopFilterBarContainer', () => {
 
             expect(topBarContainer.state().filters).toHaveLength(0);
 
-            const selectedRecipientsFilter = Object.assign({}, initialState, {
+            const selectedRecipientsFilter = Object.assign({}, stateWithoutDefault, {
                 selectedRecipients: new OrderedMap({
                     "006928857": mockRecipient
                 })
@@ -424,9 +316,9 @@ describe('TopFilterBarContainer', () => {
 
             expect(topBarContainer.state().filters).toHaveLength(0);
 
-            const recipientLocationFilter = Object.assign({}, initialState, {
+            const recipientLocationFilter = Object.assign({}, stateWithoutDefault, {
                 selectedRecipientLocations: new OrderedMap({
-                    '22796_McLean_COUNTY': mockLocation
+                    USA_NY_001: mockLocation
                 })
             });
 
@@ -453,7 +345,7 @@ describe('TopFilterBarContainer', () => {
 
             expect(topBarContainer.state().filters).toHaveLength(0);
 
-            const awardFilter = Object.assign({}, initialState, {
+            const awardFilter = Object.assign({}, stateWithoutDefault, {
                 recipientType: new Set(['small_business'])
             });
 
@@ -479,7 +371,7 @@ describe('TopFilterBarContainer', () => {
 
             expect(topBarContainer.state().filters).toHaveLength(0);
 
-            const awardIDFilter = Object.assign({}, initialState, {
+            const awardIDFilter = Object.assign({}, stateWithoutDefault, {
                 selectedAwardIDs: new OrderedMap({
                     601793: mockAwardId
                 })
@@ -507,7 +399,7 @@ describe('TopFilterBarContainer', () => {
 
             expect(topBarContainer.state().filters).toHaveLength(0);
 
-            const awardAmountFilter = Object.assign({}, initialState, {
+            const awardAmountFilter = Object.assign({}, stateWithoutDefault, {
                 awardAmounts: new OrderedMap({
                     0: [0, 1000000],
                     1: [1000000, 25000000],
@@ -542,7 +434,7 @@ describe('TopFilterBarContainer', () => {
 
     describe('filter removal', () => {
         it('should hide the top filter bar when all filters are cleared', () => {
-            const initialFilters = Object.assign({}, initialState, {
+            const initialFilters = Object.assign({}, stateWithoutDefault, {
                 timePeriodType: 'fy', timePeriodFY: new Set(['2014'])
             });
 
@@ -555,7 +447,7 @@ describe('TopFilterBarContainer', () => {
 
             // clear the filters
             topBarContainer.setProps({
-                reduxFilters: Object.assign({}, initialState)
+                reduxFilters: Object.assign({}, stateWithoutDefault)
             });
 
             expect(topBarContainer.find(TopFilterBar)).toHaveLength(0);

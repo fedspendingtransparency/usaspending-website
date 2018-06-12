@@ -1,0 +1,29 @@
+{
+    "districts": [
+        {
+            "code": "4001",
+            "district": "01",
+            "name": "OK-01"
+        },
+        {
+            "code": "4002",
+            "district": "02",
+            "name": "OK-02"
+        },
+        {
+            "code": "4003",
+            "district": "03",
+            "name": "OK-03"
+        },
+        {
+            "code": "4004",
+            "district": "04",
+            "name": "OK-04"
+        },
+        {
+            "code": "4005",
+            "district": "05",
+            "name": "OK-05"
+        }
+    ]
+}

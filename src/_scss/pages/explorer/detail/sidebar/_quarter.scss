@@ -1,0 +1,57 @@
+.quarter-picker {
+    padding: rem(20) rem(40);
+    width: 100%;
+
+    border-top: 1px solid $color-gray;
+    border-bottom: 1px solid $color-gray;
+
+    background-color: #272F38;
+
+    ul.quarter-picker__list {
+        @include unstyled-list;
+
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+
+        margin-top: rem(15);
+    }
+
+    li.quarter-picker__list-item {
+        margin-right: rem(1);
+
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+
+    button.quarter-picker__quarter {
+        @include button-unstyled;
+        color: $color-white;
+        text-align: center;
+        line-height: rem(22);
+        font-size: rem(12);
+        font-weight: $font-bold;
+
+        background-color: #646A70;
+
+        padding: 0 rem(20);
+
+        &.quarter-picker__quarter_first {
+            border-radius: rem(11) 0 0 rem(11);
+        }
+        &.quarter-picker__quarter_last {
+            border-radius: 0 rem(11) rem(11) 0;
+        }
+
+        &:hover, &:active, &.quarter-picker__quarter_active {
+            background-color: $color-link;
+        }
+
+        &[disabled] {
+            background-color: #45494D;
+            cursor: not-allowed;
+            color: #7D848A;
+        }
+    }
+}

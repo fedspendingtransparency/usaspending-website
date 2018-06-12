@@ -1,0 +1,466 @@
+{
+    "counties": [
+        {
+            "code": "40001",
+            "fips": "001",
+            "state": "OK",
+            "name": "Adair County"
+        },
+        {
+            "code": "40003",
+            "fips": "003",
+            "state": "OK",
+            "name": "Alfalfa County"
+        },
+        {
+            "code": "40005",
+            "fips": "005",
+            "state": "OK",
+            "name": "Atoka County"
+        },
+        {
+            "code": "40007",
+            "fips": "007",
+            "state": "OK",
+            "name": "Beaver County"
+        },
+        {
+            "code": "40009",
+            "fips": "009",
+            "state": "OK",
+            "name": "Beckham County"
+        },
+        {
+            "code": "40011",
+            "fips": "011",
+            "state": "OK",
+            "name": "Blaine County"
+        },
+        {
+            "code": "40013",
+            "fips": "013",
+            "state": "OK",
+            "name": "Bryan County"
+        },
+        {
+            "code": "40015",
+            "fips": "015",
+            "state": "OK",
+            "name": "Caddo County"
+        },
+        {
+            "code": "40017",
+            "fips": "017",
+            "state": "OK",
+            "name": "Canadian County"
+        },
+        {
+            "code": "40019",
+            "fips": "019",
+            "state": "OK",
+            "name": "Carter County"
+        },
+        {
+            "code": "40021",
+            "fips": "021",
+            "state": "OK",
+            "name": "Cherokee County"
+        },
+        {
+            "code": "40023",
+            "fips": "023",
+            "state": "OK",
+            "name": "Choctaw County"
+        },
+        {
+            "code": "40025",
+            "fips": "025",
+            "state": "OK",
+            "name": "Cimarron County"
+        },
+        {
+            "code": "40027",
+            "fips": "027",
+            "state": "OK",
+            "name": "Cleveland County"
+        },
+        {
+            "code": "40029",
+            "fips": "029",
+            "state": "OK",
+            "name": "Coal County"
+        },
+        {
+            "code": "40031",
+            "fips": "031",
+            "state": "OK",
+            "name": "Comanche County"
+        },
+        {
+            "code": "40033",
+            "fips": "033",
+            "state": "OK",
+            "name": "Cotton County"
+        },
+        {
+            "code": "40035",
+            "fips": "035",
+            "state": "OK",
+            "name": "Craig County"
+        },
+        {
+            "code": "40037",
+            "fips": "037",
+            "state": "OK",
+            "name": "Creek County"
+        },
+        {
+            "code": "40039",
+            "fips": "039",
+            "state": "OK",
+            "name": "Custer County"
+        },
+        {
+            "code": "40041",
+            "fips": "041",
+            "state": "OK",
+            "name": "Delaware County"
+        },
+        {
+            "code": "40043",
+            "fips": "043",
+            "state": "OK",
+            "name": "Dewey County"
+        },
+        {
+            "code": "40045",
+            "fips": "045",
+            "state": "OK",
+            "name": "Ellis County"
+        },
+        {
+            "code": "40047",
+            "fips": "047",
+            "state": "OK",
+            "name": "Garfield County"
+        },
+        {
+            "code": "40049",
+            "fips": "049",
+            "state": "OK",
+            "name": "Garvin County"
+        },
+        {
+            "code": "40051",
+            "fips": "051",
+            "state": "OK",
+            "name": "Grady County"
+        },
+        {
+            "code": "40053",
+            "fips": "053",
+            "state": "OK",
+            "name": "Grant County"
+        },
+        {
+            "code": "40055",
+            "fips": "055",
+            "state": "OK",
+            "name": "Greer County"
+        },
+        {
+            "code": "40057",
+            "fips": "057",
+            "state": "OK",
+            "name": "Harmon County"
+        },
+        {
+            "code": "40059",
+            "fips": "059",
+            "state": "OK",
+            "name": "Harper County"
+        },
+        {
+            "code": "40061",
+            "fips": "061",
+            "state": "OK",
+            "name": "Haskell County"
+        },
+        {
+            "code": "40063",
+            "fips": "063",
+            "state": "OK",
+            "name": "Hughes County"
+        },
+        {
+            "code": "40065",
+            "fips": "065",
+            "state": "OK",
+            "name": "Jackson County"
+        },
+        {
+            "code": "40067",
+            "fips": "067",
+            "state": "OK",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "40069",
+            "fips": "069",
+            "state": "OK",
+            "name": "Johnston County"
+        },
+        {
+            "code": "40071",
+            "fips": "071",
+            "state": "OK",
+            "name": "Kay County"
+        },
+        {
+            "code": "40073",
+            "fips": "073",
+            "state": "OK",
+            "name": "Kingfisher County"
+        },
+        {
+            "code": "40075",
+            "fips": "075",
+            "state": "OK",
+            "name": "Kiowa County"
+        },
+        {
+            "code": "40077",
+            "fips": "077",
+            "state": "OK",
+            "name": "Latimer County"
+        },
+        {
+            "code": "40079",
+            "fips": "079",
+            "state": "OK",
+            "name": "Le Flore County"
+        },
+        {
+            "code": "40081",
+            "fips": "081",
+            "state": "OK",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "40083",
+            "fips": "083",
+            "state": "OK",
+            "name": "Logan County"
+        },
+        {
+            "code": "40085",
+            "fips": "085",
+            "state": "OK",
+            "name": "Love County"
+        },
+        {
+            "code": "40093",
+            "fips": "093",
+            "state": "OK",
+            "name": "Major County"
+        },
+        {
+            "code": "40095",
+            "fips": "095",
+            "state": "OK",
+            "name": "Marshall County"
+        },
+        {
+            "code": "40097",
+            "fips": "097",
+            "state": "OK",
+            "name": "Mayes County"
+        },
+        {
+            "code": "40087",
+            "fips": "087",
+            "state": "OK",
+            "name": "McClain County"
+        },
+        {
+            "code": "40089",
+            "fips": "089",
+            "state": "OK",
+            "name": "McCurtain County"
+        },
+        {
+            "code": "40091",
+            "fips": "091",
+            "state": "OK",
+            "name": "McIntosh County"
+        },
+        {
+            "code": "40099",
+            "fips": "099",
+            "state": "OK",
+            "name": "Murray County"
+        },
+        {
+            "code": "40101",
+            "fips": "101",
+            "state": "OK",
+            "name": "Muskogee County"
+        },
+        {
+            "code": "40103",
+            "fips": "103",
+            "state": "OK",
+            "name": "Noble County"
+        },
+        {
+            "code": "40105",
+            "fips": "105",
+            "state": "OK",
+            "name": "Nowata County"
+        },
+        {
+            "code": "40107",
+            "fips": "107",
+            "state": "OK",
+            "name": "Okfuskee County"
+        },
+        {
+            "code": "40109",
+            "fips": "109",
+            "state": "OK",
+            "name": "Oklahoma County"
+        },
+        {
+            "code": "40111",
+            "fips": "111",
+            "state": "OK",
+            "name": "Okmulgee County"
+        },
+        {
+            "code": "40113",
+            "fips": "113",
+            "state": "OK",
+            "name": "Osage County"
+        },
+        {
+            "code": "40115",
+            "fips": "115",
+            "state": "OK",
+            "name": "Ottawa County"
+        },
+        {
+            "code": "40117",
+            "fips": "117",
+            "state": "OK",
+            "name": "Pawnee County"
+        },
+        {
+            "code": "40119",
+            "fips": "119",
+            "state": "OK",
+            "name": "Payne County"
+        },
+        {
+            "code": "40121",
+            "fips": "121",
+            "state": "OK",
+            "name": "Pittsburg County"
+        },
+        {
+            "code": "40123",
+            "fips": "123",
+            "state": "OK",
+            "name": "Pontotoc County"
+        },
+        {
+            "code": "40125",
+            "fips": "125",
+            "state": "OK",
+            "name": "Pottawatomie County"
+        },
+        {
+            "code": "40127",
+            "fips": "127",
+            "state": "OK",
+            "name": "Pushmataha County"
+        },
+        {
+            "code": "40129",
+            "fips": "129",
+            "state": "OK",
+            "name": "Roger Mills County"
+        },
+        {
+            "code": "40131",
+            "fips": "131",
+            "state": "OK",
+            "name": "Rogers County"
+        },
+        {
+            "code": "40133",
+            "fips": "133",
+            "state": "OK",
+            "name": "Seminole County"
+        },
+        {
+            "code": "40135",
+            "fips": "135",
+            "state": "OK",
+            "name": "Sequoyah County"
+        },
+        {
+            "code": "40137",
+            "fips": "137",
+            "state": "OK",
+            "name": "Stephens County"
+        },
+        {
+            "code": "40139",
+            "fips": "139",
+            "state": "OK",
+            "name": "Texas County"
+        },
+        {
+            "code": "40141",
+            "fips": "141",
+            "state": "OK",
+            "name": "Tillman County"
+        },
+        {
+            "code": "40143",
+            "fips": "143",
+            "state": "OK",
+            "name": "Tulsa County"
+        },
+        {
+            "code": "40145",
+            "fips": "145",
+            "state": "OK",
+            "name": "Wagoner County"
+        },
+        {
+            "code": "40147",
+            "fips": "147",
+            "state": "OK",
+            "name": "Washington County"
+        },
+        {
+            "code": "40149",
+            "fips": "149",
+            "state": "OK",
+            "name": "Washita County"
+        },
+        {
+            "code": "40151",
+            "fips": "151",
+            "state": "OK",
+            "name": "Woods County"
+        },
+        {
+            "code": "40153",
+            "fips": "153",
+            "state": "OK",
+            "name": "Woodward County"
+        }
+    ]
+}

@@ -4,25 +4,20 @@
 **/
 
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { isEqual, differenceWith, omit } from 'lodash';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as autocompleteActions from 'redux/actions/search/autocompleteActions';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
     selectPSC: PropTypes.func,
-    selectedPSC: PropTypes.object,
-    setAutocompletePSC: PropTypes.func,
-    autocompletePSC: PropTypes.array
+    selectedPSC: PropTypes.object
 };
 
-export class PSCListContainer extends React.Component {
+export default class PSCListContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -37,22 +32,12 @@ export class PSCListContainer extends React.Component {
         this.timeout = null;
     }
 
-    componentDidMount() {
-        this.parseAutocompletePSC(this.props.autocompletePSC);
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (!isEqual(nextProps.autocompletePSC, this.props.autocompletePSC)) {
-            this.parseAutocompletePSC(nextProps.autocompletePSC);
-        }
-    }
-
     parseAutocompletePSC(psc) {
         const values = [];
         if (psc && psc.length > 0) {
             psc.forEach((item) => {
                 values.push({
-                    title: item.product_or_service_code,
+                    title: `${item.product_or_service_code} - ${item.psc_description}`,
                     subtitle: '',
                     data: item
                 });
@@ -106,7 +91,7 @@ export class PSCListContainer extends React.Component {
                     });
 
                     // Add search results to Redux
-                    this.props.setAutocompletePSC(autocompleteData);
+                    this.parseAutocompletePSC(autocompleteData);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -123,12 +108,16 @@ export class PSCListContainer extends React.Component {
     }
 
     clearAutocompleteSuggestions() {
-        this.props.setAutocompletePSC([]);
+        this.setState({
+            autocompletePSC: []
+        });
     }
 
     handleTextInput(pscInput) {
         // Clear existing PSC to ensure user can't select an old or existing one
-        this.props.setAutocompletePSC([]);
+        this.setState({
+            autocompletePSC: []
+        });
 
         // Grab input, clear any exiting timeout
         const input = pscInput.target.value;
@@ -157,12 +146,6 @@ export class PSCListContainer extends React.Component {
                 noResults={this.state.noResults} />
         );
     }
-
 }
-
-export default connect(
-    (state) => ({ autocompletePSC: state.autocompletePSC }),
-    (dispatch) => bindActionCreators(autocompleteActions, dispatch)
-)(PSCListContainer);
 
 PSCListContainer.propTypes = propTypes;

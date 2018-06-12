@@ -1,0 +1,44 @@
+{
+    "districts": [
+        {
+            "code": "2401",
+            "district": "01",
+            "name": "MD-01"
+        },
+        {
+            "code": "2402",
+            "district": "02",
+            "name": "MD-02"
+        },
+        {
+            "code": "2403",
+            "district": "03",
+            "name": "MD-03"
+        },
+        {
+            "code": "2404",
+            "district": "04",
+            "name": "MD-04"
+        },
+        {
+            "code": "2405",
+            "district": "05",
+            "name": "MD-05"
+        },
+        {
+            "code": "2406",
+            "district": "06",
+            "name": "MD-06"
+        },
+        {
+            "code": "2407",
+            "district": "07",
+            "name": "MD-07"
+        },
+        {
+            "code": "2408",
+            "district": "08",
+            "name": "MD-08"
+        }
+    ]
+}

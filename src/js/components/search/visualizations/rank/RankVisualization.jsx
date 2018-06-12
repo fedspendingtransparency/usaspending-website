@@ -16,8 +16,9 @@ const defaultProps = {
     linkSeries: [],
     descriptions: [],
     width: 0,
-    height: 330,
+    height: 630, // 60px * 10 rows + 30px padding
     loading: true,
+    error: false,
     disableTooltip: false,
     urlRoot: ''
 };
@@ -26,8 +27,10 @@ const propTypes = {
     dataSeries: PropTypes.array,
     descriptions: PropTypes.array,
     loading: PropTypes.bool,
+    error: PropTypes.bool,
     meta: PropTypes.object,
-    disableTooltip: PropTypes.bool
+    disableTooltip: PropTypes.bool,
+    industryCodeError: PropTypes.bool
 };
 
 export default class RankVisualization extends React.Component {
@@ -65,15 +68,32 @@ export default class RankVisualization extends React.Component {
     }
 
     render() {
-        let chart = (<ChartMessage message={"No data to display"} />);
+        let chart = (<ChartMessage message="No data to display" />);
+        let legend = null;
         if (this.props.loading) {
-            chart = (<ChartMessage message={"Loading data..."} />);
+            chart = (<ChartMessage message="Loading data..." />);
+        }
+        else if (this.props.error) {
+            chart = (<ChartMessage message="An error has occurred." />);
+            if (this.props.industryCodeError) {
+                chart = (<ChartMessage message="Industry codes are unavailable for Sub-Awards." />);
+            }
         }
         else if (this.props.dataSeries.length > 0) {
-            chart = (<HorizontalChart
-                {...this.props}
-                selectItem={this.selectItem}
-                deselectItem={this.deselectItem} />);
+            chart = (
+                <HorizontalChart
+                    {...this.props}
+                    selectItem={this.selectItem}
+                    deselectItem={this.deselectItem} />
+            );
+            legend = (
+                <div className="visualization-legend">
+                    <div className="visualization-legend__circle" />
+                    <div className="visualization-legend__label">
+                        Amount Obligated
+                    </div>
+                </div>
+            );
         }
 
         let tooltip = null;
@@ -84,10 +104,13 @@ export default class RankVisualization extends React.Component {
         }
 
         return (
-            <div className="results-visualization-rank-container">
+            <section
+                className="results-visualization-rank-container"
+                aria-label="Spending by Category">
                 {chart}
+                {legend}
                 {tooltip}
-            </div>
+            </section>
         );
     }
 }

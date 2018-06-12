@@ -13,7 +13,11 @@ import Award from 'components/award/Award';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
-import AwardSummary from 'models/results/award/AwardSummary';
+
+import BaseContract from 'models/v2/awards/BaseContract';
+import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
+
+require('pages/award/awardPage.scss');
 
 const propTypes = {
     setSelectedAward: PropTypes.func,
@@ -21,7 +25,6 @@ const propTypes = {
 };
 
 export class AwardContainer extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -29,18 +32,17 @@ export class AwardContainer extends React.Component {
 
         this.state = {
             noAward: false,
-            awardId: null,
             inFlight: false
         };
     }
 
-    componentDidMount() {
-        this.getSelectedAward();
+    componentWillMount() {
+        this.getSelectedAward(this.props.params.awardId);
     }
 
-    componentDidUpdate() {
-        if (this.state.awardId && this.state.awardId !== this.props.params.awardId) {
-            this.getSelectedAward();
+    componentWillReceiveProps(nextProps) {
+        if (this.props.params.awardId !== nextProps.params.awardId) {
+            this.getSelectedAward(nextProps.params.awardId);
         }
     }
 
@@ -50,20 +52,17 @@ export class AwardContainer extends React.Component {
         }
     }
 
-    getSelectedAward() {
-        const input = this.props.params.awardId;
-
+    getSelectedAward(id) {
         if (this.awardRequest) {
             // A request is currently in-flight, cancel it
             this.awardRequest.cancel();
         }
 
         this.setState({
-            inFlight: true,
-            awardId: null
+            inFlight: true
         });
 
-        this.awardRequest = SearchHelper.fetchAward(input);
+        this.awardRequest = SearchHelper.fetchAward(id);
 
         this.awardRequest.promise
             .then((results) => {
@@ -87,8 +86,7 @@ export class AwardContainer extends React.Component {
                     // Errored out but got response, toggle noAward flag
                     this.awardRequest = null;
                     this.setState({
-                        noAward: true,
-                        awardId: this.props.params.awardId
+                        noAward: true
                     });
                 }
                 else {
@@ -101,13 +99,19 @@ export class AwardContainer extends React.Component {
 
     parseAward(data) {
         this.setState({
-            noAward: false,
-            awardId: this.props.params.awardId
+            noAward: false
         });
 
-        const award = new AwardSummary(data);
-        // Add search results to Redux
-        this.props.setSelectedAward(award);
+        if (data.category === 'contract' || !data.category) {
+            const contract = Object.create(BaseContract);
+            contract.populate(data);
+            this.props.setSelectedAward(contract);
+        }
+        else {
+            const financialAssistance = Object.create(BaseFinancialAssistance);
+            financialAssistance.populate(data);
+            this.props.setSelectedAward(financialAssistance);
+        }
     }
 
     render() {

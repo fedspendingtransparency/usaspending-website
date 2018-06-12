@@ -5,6 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
+
+import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     id: PropTypes.string,
@@ -17,25 +20,24 @@ const propTypes = {
 };
 
 const defaultProps = {
+    id: `checkbox-${uniqueId()}`,
     filterType: '',
     selectedCheckboxes: new Set(),
     enableAnalytics: false
 };
 
-const ga = require('react-ga');
-
 export default class SecondaryCheckboxType extends React.Component {
     static logSecondaryTypeFilterEvent(type, filter) {
-        ga.event({
-            category: 'Search Page Filter Applied',
+        Analytics.event({
+            category: 'Search Filter Interaction',
             action: `Selected Secondary ${filter} Type`,
             label: type
         });
     }
 
     static logDeselectFilterEvent(type, filter) {
-        ga.event({
-            category: 'Search Page Filter Applied',
+        Analytics.event({
+            category: 'Search Filter Interaction',
             action: `Deselected Secondary ${filter} Type`,
             label: type
         });
@@ -67,17 +69,22 @@ export default class SecondaryCheckboxType extends React.Component {
 
     render() {
         const checked = this.props.selectedCheckboxes.includes(this.props.code);
+        const elementId = `checkbox-${uniqueId()}`;
         return (
-            <li key={this.props.id} className="secondary-checkbox-type sub-list">
-                <div className="checkbox-type-item-wrapper">
+            <li key={this.props.id} className="secondary-checkbox-type">
+                <label
+                    className="checkbox-item-wrapper"
+                    htmlFor={elementId}>
                     <input
                         type="checkbox"
-                        id={this.props.id}
+                        id={elementId}
                         value={this.props.code}
                         checked={checked}
                         onChange={this.toggleFilter} />
-                    <label htmlFor={this.props.id}>{this.props.name}</label>
-                </div>
+                    <span className="checkbox-item-label">
+                        {this.props.name}
+                    </span>
+                </label>
             </li>
         );
     }

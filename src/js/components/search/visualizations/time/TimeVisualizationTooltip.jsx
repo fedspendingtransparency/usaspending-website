@@ -10,7 +10,9 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 const propTypes = {
     y: PropTypes.number,
     x: PropTypes.number,
-    data: PropTypes.object
+    data: PropTypes.object,
+    barWidth: PropTypes.number,
+    chartWidth: PropTypes.number
 };
 
 export default class TimeVisualizationTooltip extends React.Component {
@@ -22,19 +24,18 @@ export default class TimeVisualizationTooltip extends React.Component {
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
         const tooltipWidth = this.div.offsetWidth;
-        const windowWidth = window.innerWidth;
 
         // determine the tooltip direction
         let direction = 'left';
         // allow 20px padding
-        if (tooltipWidth + this.props.x >= windowWidth - 20) {
+        if (tooltipWidth + this.props.x >= this.props.chartWidth - 20) {
             direction = 'right';
         }
 
         // offset the tooltip position to account for its arrow/pointer
         let offset = 9;
         if (direction === 'right') {
-            offset = -9 - tooltipWidth;
+            offset = -9 - tooltipWidth - this.props.barWidth;
         }
 
         this.div.style.top = `${this.props.y}px`;
@@ -67,7 +68,7 @@ export default class TimeVisualizationTooltip extends React.Component {
                                 {dollarValue}
                             </div>
                             <div className="tooltip-label">
-                                Spending in {this.props.data.xValue}
+                                Total Obligations in {this.props.data.xValue}
                             </div>
                         </div>
                     </div>

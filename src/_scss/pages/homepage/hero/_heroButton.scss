@@ -1,0 +1,35 @@
+.hero-button {
+    .hero-button__wrapper {
+        position: absolute;
+        bottom: rem(-27);
+        left: 50%;
+    }
+
+    .hero-button__button {
+        @include button-unstyled;
+        background-color: $color-black;
+        border: 3px solid $color-white;
+        box-shadow: 0 rem(2) rem(4) 0 rgba(0,0,0,0.5);
+
+        height: rem(54);
+        width: rem(54);
+        border-radius: rem(27);
+
+        margin-left: rem(-27);
+
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+
+        &:hover, &:active {
+            background-color: $color-gray-dark;
+        }
+
+        svg {
+            @include flex(0 0 auto);
+            fill: $color-white;
+            width: rem(30);
+            height: rem(30);
+        }
+    }
+}

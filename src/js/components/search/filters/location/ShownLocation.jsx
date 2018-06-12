@@ -13,15 +13,16 @@ const propTypes = {
 };
 
 export default class ShownLocation extends React.Component {
-
     render() {
         return (
             <button
                 className="shown-filter-button"
                 value={this.props.label}
-                onClick={this.props.removeLocation}>
+                onClick={this.props.removeLocation}
+                title="Click to remove."
+                aria-label={`Applied filter: ${this.props.label}`}>
                 <span className="close">
-                    <Icons.Close className="usa-da-icon-close" />
+                    <Icons.Close className="usa-da-icon-close" alt="Close icon" />
                 </span> {this.props.label}
             </button>
         );

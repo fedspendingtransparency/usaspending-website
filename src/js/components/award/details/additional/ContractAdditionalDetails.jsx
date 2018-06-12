@@ -11,48 +11,48 @@ import * as DataFields from 'dataMapping/contracts/additionalDetails';
 import AdditionalGroup from './AdditionalGroup';
 
 const propTypes = {
-    award: PropTypes.object
+    selectedAward: PropTypes.object
 };
 
 export default class ContractAdditionalDetails extends React.Component {
     render() {
-        const award = this.props.award.selectedAward;
+        const award = this.props.selectedAward;
         return (
             <div className="additional-details-wrapper">
                 <AdditionalGroup
-                    data={award.latest_transaction.contract_data}
+                    data={award}
                     fields={DataFields.parentFields}
-                    title={"Parent Award Details"} />
+                    title="Parent Award Details" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
                     data={award}
                     fields={DataFields.agencyFields}
-                    title={"Agency Details"} />
+                    title="Agency Details" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
-                    data={award.latest_transaction.contract_data}
+                    data={award.additionalDetails}
                     fields={DataFields.competitionFields}
-                    title={"Competition Details"} />
+                    title="Competition Details" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
-                    data={award.latest_transaction.contract_data}
+                    data={award.additionalDetails}
                     fields={DataFields.pscFields}
-                    title={"Product or Service Details"} />
+                    title="Product or Service Details" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
-                    data={award.latest_transaction.contract_data}
+                    data={award.additionalDetails}
                     fields={DataFields.legislativeFields}
-                    title={"Legislative Mandates"} />
+                    title="Legislative Mandates" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
-                    data={award.latest_transaction.contract_data}
+                    data={award.additionalDetails}
                     fields={DataFields.additionalFields}
-                    title={"Additional Details"} />
+                    title="Additional Details" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
-                    data={award.latest_transaction.recipient.officers}
+                    data={award.recipient.officers}
                     fields={DataFields.compensationFields}
-                    title={"Executive Compensation"} />
+                    title="Executive Compensation" />
             </div>
         );
     }

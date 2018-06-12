@@ -1,0 +1,100 @@
+{
+    "counties": [
+        {
+            "code": "23001",
+            "fips": "001",
+            "state": "ME",
+            "name": "Androscoggin County"
+        },
+        {
+            "code": "23003",
+            "fips": "003",
+            "state": "ME",
+            "name": "Aroostook County"
+        },
+        {
+            "code": "23005",
+            "fips": "005",
+            "state": "ME",
+            "name": "Cumberland County"
+        },
+        {
+            "code": "23007",
+            "fips": "007",
+            "state": "ME",
+            "name": "Franklin County"
+        },
+        {
+            "code": "23009",
+            "fips": "009",
+            "state": "ME",
+            "name": "Hancock County"
+        },
+        {
+            "code": "23011",
+            "fips": "011",
+            "state": "ME",
+            "name": "Kennebec County"
+        },
+        {
+            "code": "23013",
+            "fips": "013",
+            "state": "ME",
+            "name": "Knox County"
+        },
+        {
+            "code": "23015",
+            "fips": "015",
+            "state": "ME",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "23017",
+            "fips": "017",
+            "state": "ME",
+            "name": "Oxford County"
+        },
+        {
+            "code": "23019",
+            "fips": "019",
+            "state": "ME",
+            "name": "Penobscot County"
+        },
+        {
+            "code": "23021",
+            "fips": "021",
+            "state": "ME",
+            "name": "Piscataquis County"
+        },
+        {
+            "code": "23023",
+            "fips": "023",
+            "state": "ME",
+            "name": "Sagadahoc County"
+        },
+        {
+            "code": "23025",
+            "fips": "025",
+            "state": "ME",
+            "name": "Somerset County"
+        },
+        {
+            "code": "23027",
+            "fips": "027",
+            "state": "ME",
+            "name": "Waldo County"
+        },
+        {
+            "code": "23029",
+            "fips": "029",
+            "state": "ME",
+            "name": "Washington County"
+        },
+        {
+            "code": "23031",
+            "fips": "031",
+            "state": "ME",
+            "name": "York County"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "districts": [
+        {
+            "code": "5501",
+            "district": "01",
+            "name": "WI-01"
+        },
+        {
+            "code": "5502",
+            "district": "02",
+            "name": "WI-02"
+        },
+        {
+            "code": "5503",
+            "district": "03",
+            "name": "WI-03"
+        },
+        {
+            "code": "5504",
+            "district": "04",
+            "name": "WI-04"
+        },
+        {
+            "code": "5505",
+            "district": "05",
+            "name": "WI-05"
+        },
+        {
+            "code": "5506",
+            "district": "06",
+            "name": "WI-06"
+        },
+        {
+            "code": "5507",
+            "district": "07",
+            "name": "WI-07"
+        },
+        {
+            "code": "5508",
+            "district": "08",
+            "name": "WI-08"
+        }
+    ]
+}

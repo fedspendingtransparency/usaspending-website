@@ -1,0 +1,22 @@
+.mobile-nav {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: $z-mobile-nav;
+
+    overflow-y: auto;
+
+    background-color: $color-gray-lightest;
+
+    .mobile-nav__top {
+        position: relative;
+        margin: rem(0) rem(20);
+    }
+
+    @import "./_top";
+    @import "./_nav";
+}
+
+@import "./_animations";

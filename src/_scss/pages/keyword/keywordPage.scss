@@ -1,0 +1,24 @@
+.usa-da-keyword-page {
+    @import "all";
+    @import "layouts/default/default";
+    @import "layouts/default/stickyHeader/header";
+    @import "./header/header";
+
+    .keyword-content {
+        @import "../../mixins/fullSectionWrap";
+        @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
+        padding:  rem(25);
+        background-color: $color-white;
+        box-shadow: $container-shadow;
+        color: $color-base;
+        border-top: 1px solid $color-gray-border;
+        border-right: 1px solid $color-gray-border;
+        border-bottom: 1px solid $color-gray-border;
+
+        .keyword-search-bar {
+            margin-bottom: rem(22);
+        }
+        @import "searchBar";
+        @import "table/resultsTable";
+    }
+}

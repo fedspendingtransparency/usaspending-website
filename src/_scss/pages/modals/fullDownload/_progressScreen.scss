@@ -1,0 +1,70 @@
+.download-progress-screen {
+    text-align: center;
+    .main-title {
+        h2 {
+            text-align: center;
+            font-size: $h4-font-size;
+            font-weight: $font-light;
+
+            margin: rem(20) 0;
+        }
+
+        .details {
+            text-align: center;
+        }
+
+        .sub-details {
+            padding-bottom: rem(14);
+        }
+    }
+    .link-box {
+        padding: rem(30);
+        margin: rem(20) auto;
+        background-color: $color-gray-lightest;
+        text-align: center;
+        p {
+            margin-top: 0;
+            font-size: rem(14);
+            font-weight: bold;
+        }
+
+        h3 {
+            margin-top: rem(15);
+        }
+        button {
+            @include button-unstyled;
+            display: block;
+            margin: rem(10) auto;
+            color: $color-primary;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: rem(10) rem(10) rem(5) rem(5);
+        }
+
+        .link {
+            background-color: $color-white;
+            border: solid 1px $color-gray-light;
+            padding: rem(5);
+        }
+
+        .icon {
+            margin-right: rem(2.5);
+            width: rem(20);
+            height: rem(20);
+            display: inline-block;
+
+            svg {
+                width: rem(25);
+                height: rem(11);
+                fill: $color-green;
+            }
+        }
+    }
+    .finish-button {
+        display: block;
+        margin: auto;
+        background-color: $color-white;
+        color: $color-primary;
+        border: solid rem(2) $color-primary;
+    }
+}

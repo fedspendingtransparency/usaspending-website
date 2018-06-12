@@ -6,6 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
+import { uniqueId } from 'lodash';
+
+import Analytics from 'helpers/analytics/Analytics';
 
 import SecondaryCheckboxType from './SecondaryCheckboxType';
 import CollapsedCheckboxType from './CollapsedCheckboxType';
@@ -24,7 +27,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-    id: '',
     name: '',
     filters: [],
     value: '',
@@ -34,20 +36,18 @@ const defaultProps = {
     enableAnalytics: false
 };
 
-const ga = require('react-ga');
-
 export default class PrimaryCheckboxType extends React.Component {
     static logPrimaryTypeFilterEvent(type, filter) {
-        ga.event({
-            category: 'Search Page Filter Applied',
+        Analytics.event({
+            category: 'Search Filter Interaction',
             action: `Selected ${filter} Type`,
             label: type
         });
     }
 
     static logDeselectFilterEvent(type, filter) {
-        ga.event({
-            category: 'Search Page Filter Applied',
+        Analytics.event({
+            category: 'Search Filter Interaction',
             action: `Deselected ${filter} Type Children`,
             label: type
         });
@@ -161,12 +161,12 @@ export default class PrimaryCheckboxType extends React.Component {
 
         if (this.state.showSubItems) {
             secondaryTypes = this.props.filters.map((code) =>
-                <SecondaryCheckboxType
+                (<SecondaryCheckboxType
                     {...this.props}
                     code={code}
                     name={this.props.types[code]}
                     key={`${this.props.id} - ${code}`}
-                    id={`${this.props.id} - ${code}`} />);
+                    id={`secondary-checkbox-${uniqueId()}`} />));
         }
 
         if (this.props.filters.length === 0) {
@@ -175,7 +175,7 @@ export default class PrimaryCheckboxType extends React.Component {
                 code={this.props.value}
                 name={this.props.name}
                 key={`${this.props.id} - ${this.props.value}`}
-                id={`${this.props.id} - ${this.props.value}`} />);
+                id={`primary-checkbox-${uniqueId()}`} />);
         }
 
         return (

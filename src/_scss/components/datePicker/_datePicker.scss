@@ -1,14 +1,28 @@
-.generate-datepicker-wrap {
+.date-range-wrapper {
     position: relative;
-    @include media($medium-screen) {
-        @include span-columns(16);
-    }
+    @include display(flex);
+    @include flex-direction(column);
+    @include align-items(flex-start);
+    @include justify-content(flex-start);
+
     @include media($large-screen) {
-        @include span-columns(7.6);
+        @include flex-direction(row);
+    }
+}
+
+.generate-datepicker-wrap {
+    @include flex(1 1 auto);
+    width: 100%;
+    position: relative;
+
+    @include media($large-screen) {
+        width: auto;
+        margin-right: rem(5);
         &:last-child{
-            margin-left: 5%;
+            margin-right: 0;
         }
     }
+
     .generate-datepicker {
         input {
             @import "../../elements/_inputs";
@@ -19,6 +33,10 @@
             color: $color-base;
             @include media($medium-screen) {
                 padding-left: .25rem;
+            }
+
+            @include placeholder {
+                color: $color-gray-light;
             }
         }
     }
@@ -43,12 +61,6 @@
                 fill: $color-secondary;
             }
         }
-        // @include media($medium-screen) {
-        //     right: 0.8rem;
-        // }
-        // @include media($large-screen) {
-        //     right: 0.8rem;
-        // }
     }
     .floating-datepicker {
         position: absolute;
@@ -89,5 +101,25 @@
                 font-size: 1.3rem;
             }
         }
+        .DayPicker-Day--disabled {
+            opacity: 0.4;
+            pointer-events: none;
+        }
+    }
+}
+
+.set-date-submit {
+    @include flex(0 0 auto);
+    height: rem(42);
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+
+    @include media($large-screen) {
+        @include flex(0 0 auto);
+        @include align-self(flex-end);
+        margin: 0;
+        margin-bottom: rem(3);
+        width: rem(15);
     }
 }

@@ -1,0 +1,616 @@
+{
+    "counties": [
+        {
+            "code": "17001",
+            "fips": "001",
+            "state": "IL",
+            "name": "Adams County"
+        },
+        {
+            "code": "17003",
+            "fips": "003",
+            "state": "IL",
+            "name": "Alexander County"
+        },
+        {
+            "code": "17005",
+            "fips": "005",
+            "state": "IL",
+            "name": "Bond County"
+        },
+        {
+            "code": "17007",
+            "fips": "007",
+            "state": "IL",
+            "name": "Boone County"
+        },
+        {
+            "code": "17009",
+            "fips": "009",
+            "state": "IL",
+            "name": "Brown County"
+        },
+        {
+            "code": "17011",
+            "fips": "011",
+            "state": "IL",
+            "name": "Bureau County"
+        },
+        {
+            "code": "17013",
+            "fips": "013",
+            "state": "IL",
+            "name": "Calhoun County"
+        },
+        {
+            "code": "17015",
+            "fips": "015",
+            "state": "IL",
+            "name": "Carroll County"
+        },
+        {
+            "code": "17017",
+            "fips": "017",
+            "state": "IL",
+            "name": "Cass County"
+        },
+        {
+            "code": "17019",
+            "fips": "019",
+            "state": "IL",
+            "name": "Champaign County"
+        },
+        {
+            "code": "17021",
+            "fips": "021",
+            "state": "IL",
+            "name": "Christian County"
+        },
+        {
+            "code": "17023",
+            "fips": "023",
+            "state": "IL",
+            "name": "Clark County"
+        },
+        {
+            "code": "17025",
+            "fips": "025",
+            "state": "IL",
+            "name": "Clay County"
+        },
+        {
+            "code": "17027",
+            "fips": "027",
+            "state": "IL",
+            "name": "Clinton County"
+        },
+        {
+            "code": "17029",
+            "fips": "029",
+            "state": "IL",
+            "name": "Coles County"
+        },
+        {
+            "code": "17031",
+            "fips": "031",
+            "state": "IL",
+            "name": "Cook County"
+        },
+        {
+            "code": "17033",
+            "fips": "033",
+            "state": "IL",
+            "name": "Crawford County"
+        },
+        {
+            "code": "17035",
+            "fips": "035",
+            "state": "IL",
+            "name": "Cumberland County"
+        },
+        {
+            "code": "17039",
+            "fips": "039",
+            "state": "IL",
+            "name": "De Witt County"
+        },
+        {
+            "code": "17037",
+            "fips": "037",
+            "state": "IL",
+            "name": "DeKalb County"
+        },
+        {
+            "code": "17041",
+            "fips": "041",
+            "state": "IL",
+            "name": "Douglas County"
+        },
+        {
+            "code": "17043",
+            "fips": "043",
+            "state": "IL",
+            "name": "DuPage County"
+        },
+        {
+            "code": "17045",
+            "fips": "045",
+            "state": "IL",
+            "name": "Edgar County"
+        },
+        {
+            "code": "17047",
+            "fips": "047",
+            "state": "IL",
+            "name": "Edwards County"
+        },
+        {
+            "code": "17049",
+            "fips": "049",
+            "state": "IL",
+            "name": "Effingham County"
+        },
+        {
+            "code": "17051",
+            "fips": "051",
+            "state": "IL",
+            "name": "Fayette County"
+        },
+        {
+            "code": "17053",
+            "fips": "053",
+            "state": "IL",
+            "name": "Ford County"
+        },
+        {
+            "code": "17055",
+            "fips": "055",
+            "state": "IL",
+            "name": "Franklin County"
+        },
+        {
+            "code": "17057",
+            "fips": "057",
+            "state": "IL",
+            "name": "Fulton County"
+        },
+        {
+            "code": "17059",
+            "fips": "059",
+            "state": "IL",
+            "name": "Gallatin County"
+        },
+        {
+            "code": "17061",
+            "fips": "061",
+            "state": "IL",
+            "name": "Greene County"
+        },
+        {
+            "code": "17063",
+            "fips": "063",
+            "state": "IL",
+            "name": "Grundy County"
+        },
+        {
+            "code": "17065",
+            "fips": "065",
+            "state": "IL",
+            "name": "Hamilton County"
+        },
+        {
+            "code": "17067",
+            "fips": "067",
+            "state": "IL",
+            "name": "Hancock County"
+        },
+        {
+            "code": "17069",
+            "fips": "069",
+            "state": "IL",
+            "name": "Hardin County"
+        },
+        {
+            "code": "17071",
+            "fips": "071",
+            "state": "IL",
+            "name": "Henderson County"
+        },
+        {
+            "code": "17073",
+            "fips": "073",
+            "state": "IL",
+            "name": "Henry County"
+        },
+        {
+            "code": "17075",
+            "fips": "075",
+            "state": "IL",
+            "name": "Iroquois County"
+        },
+        {
+            "code": "17077",
+            "fips": "077",
+            "state": "IL",
+            "name": "Jackson County"
+        },
+        {
+            "code": "17079",
+            "fips": "079",
+            "state": "IL",
+            "name": "Jasper County"
+        },
+        {
+            "code": "17081",
+            "fips": "081",
+            "state": "IL",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "17083",
+            "fips": "083",
+            "state": "IL",
+            "name": "Jersey County"
+        },
+        {
+            "code": "17085",
+            "fips": "085",
+            "state": "IL",
+            "name": "Jo Daviess County"
+        },
+        {
+            "code": "17087",
+            "fips": "087",
+            "state": "IL",
+            "name": "Johnson County"
+        },
+        {
+            "code": "17089",
+            "fips": "089",
+            "state": "IL",
+            "name": "Kane County"
+        },
+        {
+            "code": "17091",
+            "fips": "091",
+            "state": "IL",
+            "name": "Kankakee County"
+        },
+        {
+            "code": "17093",
+            "fips": "093",
+            "state": "IL",
+            "name": "Kendall County"
+        },
+        {
+            "code": "17095",
+            "fips": "095",
+            "state": "IL",
+            "name": "Knox County"
+        },
+        {
+            "code": "17099",
+            "fips": "099",
+            "state": "IL",
+            "name": "LaSalle County"
+        },
+        {
+            "code": "17097",
+            "fips": "097",
+            "state": "IL",
+            "name": "Lake County"
+        },
+        {
+            "code": "17101",
+            "fips": "101",
+            "state": "IL",
+            "name": "Lawrence County"
+        },
+        {
+            "code": "17103",
+            "fips": "103",
+            "state": "IL",
+            "name": "Lee County"
+        },
+        {
+            "code": "17105",
+            "fips": "105",
+            "state": "IL",
+            "name": "Livingston County"
+        },
+        {
+            "code": "17107",
+            "fips": "107",
+            "state": "IL",
+            "name": "Logan County"
+        },
+        {
+            "code": "17115",
+            "fips": "115",
+            "state": "IL",
+            "name": "Macon County"
+        },
+        {
+            "code": "17117",
+            "fips": "117",
+            "state": "IL",
+            "name": "Macoupin County"
+        },
+        {
+            "code": "17119",
+            "fips": "119",
+            "state": "IL",
+            "name": "Madison County"
+        },
+        {
+            "code": "17121",
+            "fips": "121",
+            "state": "IL",
+            "name": "Marion County"
+        },
+        {
+            "code": "17123",
+            "fips": "123",
+            "state": "IL",
+            "name": "Marshall County"
+        },
+        {
+            "code": "17125",
+            "fips": "125",
+            "state": "IL",
+            "name": "Mason County"
+        },
+        {
+            "code": "17127",
+            "fips": "127",
+            "state": "IL",
+            "name": "Massac County"
+        },
+        {
+            "code": "17109",
+            "fips": "109",
+            "state": "IL",
+            "name": "McDonough County"
+        },
+        {
+            "code": "17111",
+            "fips": "111",
+            "state": "IL",
+            "name": "McHenry County"
+        },
+        {
+            "code": "17113",
+            "fips": "113",
+            "state": "IL",
+            "name": "McLean County"
+        },
+        {
+            "code": "17129",
+            "fips": "129",
+            "state": "IL",
+            "name": "Menard County"
+        },
+        {
+            "code": "17131",
+            "fips": "131",
+            "state": "IL",
+            "name": "Mercer County"
+        },
+        {
+            "code": "17133",
+            "fips": "133",
+            "state": "IL",
+            "name": "Monroe County"
+        },
+        {
+            "code": "17135",
+            "fips": "135",
+            "state": "IL",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "17137",
+            "fips": "137",
+            "state": "IL",
+            "name": "Morgan County"
+        },
+        {
+            "code": "17139",
+            "fips": "139",
+            "state": "IL",
+            "name": "Moultrie County"
+        },
+        {
+            "code": "17141",
+            "fips": "141",
+            "state": "IL",
+            "name": "Ogle County"
+        },
+        {
+            "code": "17143",
+            "fips": "143",
+            "state": "IL",
+            "name": "Peoria County"
+        },
+        {
+            "code": "17145",
+            "fips": "145",
+            "state": "IL",
+            "name": "Perry County"
+        },
+        {
+            "code": "17147",
+            "fips": "147",
+            "state": "IL",
+            "name": "Piatt County"
+        },
+        {
+            "code": "17149",
+            "fips": "149",
+            "state": "IL",
+            "name": "Pike County"
+        },
+        {
+            "code": "17151",
+            "fips": "151",
+            "state": "IL",
+            "name": "Pope County"
+        },
+        {
+            "code": "17153",
+            "fips": "153",
+            "state": "IL",
+            "name": "Pulaski County"
+        },
+        {
+            "code": "17155",
+            "fips": "155",
+            "state": "IL",
+            "name": "Putnam County"
+        },
+        {
+            "code": "17157",
+            "fips": "157",
+            "state": "IL",
+            "name": "Randolph County"
+        },
+        {
+            "code": "17159",
+            "fips": "159",
+            "state": "IL",
+            "name": "Richland County"
+        },
+        {
+            "code": "17161",
+            "fips": "161",
+            "state": "IL",
+            "name": "Rock Island County"
+        },
+        {
+            "code": "17165",
+            "fips": "165",
+            "state": "IL",
+            "name": "Saline County"
+        },
+        {
+            "code": "17167",
+            "fips": "167",
+            "state": "IL",
+            "name": "Sangamon County"
+        },
+        {
+            "code": "17169",
+            "fips": "169",
+            "state": "IL",
+            "name": "Schuyler County"
+        },
+        {
+            "code": "17171",
+            "fips": "171",
+            "state": "IL",
+            "name": "Scott County"
+        },
+        {
+            "code": "17173",
+            "fips": "173",
+            "state": "IL",
+            "name": "Shelby County"
+        },
+        {
+            "code": "17163",
+            "fips": "163",
+            "state": "IL",
+            "name": "Saint Clair County"
+        },
+        {
+            "code": "17175",
+            "fips": "175",
+            "state": "IL",
+            "name": "Stark County"
+        },
+        {
+            "code": "17177",
+            "fips": "177",
+            "state": "IL",
+            "name": "Stephenson County"
+        },
+        {
+            "code": "17179",
+            "fips": "179",
+            "state": "IL",
+            "name": "Tazewell County"
+        },
+        {
+            "code": "17181",
+            "fips": "181",
+            "state": "IL",
+            "name": "Union County"
+        },
+        {
+            "code": "17183",
+            "fips": "183",
+            "state": "IL",
+            "name": "Vermilion County"
+        },
+        {
+            "code": "17185",
+            "fips": "185",
+            "state": "IL",
+            "name": "Wabash County"
+        },
+        {
+            "code": "17187",
+            "fips": "187",
+            "state": "IL",
+            "name": "Warren County"
+        },
+        {
+            "code": "17189",
+            "fips": "189",
+            "state": "IL",
+            "name": "Washington County"
+        },
+        {
+            "code": "17191",
+            "fips": "191",
+            "state": "IL",
+            "name": "Wayne County"
+        },
+        {
+            "code": "17193",
+            "fips": "193",
+            "state": "IL",
+            "name": "White County"
+        },
+        {
+            "code": "17195",
+            "fips": "195",
+            "state": "IL",
+            "name": "Whiteside County"
+        },
+        {
+            "code": "17197",
+            "fips": "197",
+            "state": "IL",
+            "name": "Will County"
+        },
+        {
+            "code": "17199",
+            "fips": "199",
+            "state": "IL",
+            "name": "Williamson County"
+        },
+        {
+            "code": "17201",
+            "fips": "201",
+            "state": "IL",
+            "name": "Winnebago County"
+        },
+        {
+            "code": "17203",
+            "fips": "203",
+            "state": "IL",
+            "name": "Woodford County"
+        }
+    ]
+}

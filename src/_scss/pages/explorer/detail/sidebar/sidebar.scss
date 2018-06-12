@@ -1,0 +1,17 @@
+.explorer-sidebar {
+    display: none;
+    @include media($tablet-screen) {
+        display: block;
+        @include flex(0 0 rem(300));
+        position: relative;
+    }
+
+    padding: rem(20) 0;
+
+    background-color: $color-gray-dark;
+    color: $color-white;
+    @import "./_home";
+    @import "./_quarter";
+    @import "./_fyPicker";
+    @import "./_trail";
+}

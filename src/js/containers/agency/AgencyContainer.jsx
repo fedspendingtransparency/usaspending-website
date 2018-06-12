@@ -17,6 +17,8 @@ import * as agencyActions from 'redux/actions/agency/agencyActions';
 
 import AgencyPage from 'components/agency/AgencyPage';
 
+require('pages/agency/agencyPage.scss');
+
 const propTypes = {
     params: PropTypes.object,
     agency: PropTypes.object,
@@ -30,7 +32,8 @@ export class AgencyContainer extends React.Component {
         this.state = {
             loading: true,
             error: false,
-            lastUpdate: ''
+            lastUpdate: '',
+            isTreasury: false
         };
 
         this.request = null;
@@ -84,6 +87,17 @@ export class AgencyContainer extends React.Component {
             agency_id: id
         }), true);
         this.props.setAgencyOverview(agency);
+
+        let isTreasury = false;
+        if (data.icon_filename === 'DOT.jpg') {
+            isTreasury = true;
+        }
+
+        if (isTreasury !== this.state.isTreasury) {
+            this.setState({
+                isTreasury
+            });
+        }
     }
 
     loadUpdateDate() {
@@ -118,7 +132,8 @@ export class AgencyContainer extends React.Component {
                 error={this.state.error}
                 id={this.props.agency.id}
                 agency={this.props.agency}
-                lastUpdate={this.state.lastUpdate} />
+                lastUpdate={this.state.lastUpdate}
+                isTreasury={this.state.isTreasury} />
         );
     }
 }

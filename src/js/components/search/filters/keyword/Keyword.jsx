@@ -6,40 +6,97 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+import SelectedKeywords from './SelectedKeywords';
+
 const propTypes = {
-    submitText: PropTypes.func,
-    changedInput: PropTypes.func,
-    value: PropTypes.string
+    selectedKeyword: PropTypes.object,
+    toggleKeyword: PropTypes.func,
+    dirtyFilter: PropTypes.symbol
 };
 
 export default class Keyword extends React.Component {
     constructor(props) {
         super(props);
-
+        this.state = {
+            value: ''
+        };
+        this.changedInput = this.changedInput.bind(this);
         this.searchKeyword = this.searchKeyword.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.dirtyFilter && prevProps.dirtyFilter !== this.props.dirtyFilter) {
+            if (this.hint) {
+                this.hint.showHint();
+            }
+        }
+    }
+
+    changedInput(e) {
+        this.setState({
+            value: e.target.value
+        });
     }
 
     searchKeyword(e) {
         e.preventDefault();
-        this.props.submitText();
+        if (this.state.value !== '') {
+            this.props.toggleKeyword(this.state.value);
+        }
+        this.setState({
+            value: ''
+        });
+    }
+
+    toggleKeyword() {
+        if (this.searchInput) {
+            // focus on the input field for accessibility users
+            this.searchInput.focus();
+        }
+        this.props.toggleKeyword();
     }
 
     render() {
+        const accessibility = {
+            'aria-controls': 'selected-keyword-tags'
+        };
+
+        let selectedKeywords = null;
+
+        if (this.props.selectedKeyword.size > 0) {
+            selectedKeywords = (<SelectedKeywords
+                toggleKeyword={this.props.toggleKeyword}
+                selectedKeyword={this.props.selectedKeyword} />);
+        }
+
         return (
             <div className="keyword-filter search-filter">
                 <form onSubmit={this.searchKeyword}>
                     <div className="filter-item-wrap">
-                        <input
-                            id="search"
-                            type="text"
-                            className="keyword-input"
-                            placeholder="Search by Keyword"
-                            value={this.props.value}
-                            onChange={this.props.changedInput} />
-                        <input
-                            type="submit"
-                            className="keyword-submit"
-                            value="Submit" />
+                        <div className="keyword-input-wrapper">
+                            <input
+                                id="search"
+                                type="text"
+                                className="keyword-input"
+                                placeholder="Search by Keyword"
+                                value={this.state.value}
+                                onChange={this.changedInput}
+                                ref={(input) => {
+                                    this.searchInput = input;
+                                }} />
+                            <IndividualSubmit
+                                className="keyword-submit"
+                                onClick={this.searchKeyword}
+                                label="Filter by keyword"
+                                accessibility={accessibility} />
+                        </div>
+                        {selectedKeywords}
+                        <SubmitHint
+                            ref={(component) => {
+                                this.hint = component;
+                            }} />
                     </div>
                 </form>
             </div>

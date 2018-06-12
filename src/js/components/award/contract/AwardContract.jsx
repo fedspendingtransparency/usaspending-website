@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 
 import AwardAmounts from '../AwardAmounts';
 import ContractDetails from './ContractDetails';
@@ -16,17 +15,14 @@ const propTypes = {
 };
 
 export default class AwardContract extends React.Component {
-
     render() {
         return (
             <div className="award-contract-wrapper">
                 <AwardAmounts
-                    selectedAward={this.props.selectedAward}
-                    typeString={SummaryPageHelper.awardType(this.props.selectedAward.award_type)} />
+                    selectedAward={this.props.selectedAward} />
                 <ContractDetails
                     selectedAward={this.props.selectedAward}
-                    seeAdditional={this.props.seeAdditional}
-                    maxChars={SummaryPageHelper.maxDescriptionCharacters} />
+                    seeAdditional={this.props.seeAdditional} />
             </div>
         );
     }

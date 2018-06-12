@@ -1,0 +1,61 @@
+@keyframes submitFadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes submitFadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.hint-fade-enter, .hint-fade-enter-active, .hint-fade-appear, .hint-fade-appear-active {
+    @include animation(submitFadeIn 0.2s linear forwards);
+}
+
+.hint-fade-leave, .hint-fade-leave-active {
+    @include animation(submitFadeOut 0.2s linear forwards);
+}
+
+
+.filter-submit-hint {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+
+    margin-top: rem(20);        
+
+    .hint-icon {
+        @include flex(0 0 auto);
+        width: rem(30);
+        height: rem(30);
+        svg {
+            width: rem(30);
+            height: rem(30);
+            fill: $color-green;
+        }
+    }
+
+    .hint-text {
+        @include flex(1 1 auto);
+        padding-left: rem(10);
+        color: $color-green;
+
+        .hint-title {
+            font-size: $base-font-size;
+            font-weight: $font-semibold;
+        }
+        .hint-description {
+            font-size: $small-font-size;
+            font-style: italic;
+            font-weight: $font-light;
+        }
+    }
+}

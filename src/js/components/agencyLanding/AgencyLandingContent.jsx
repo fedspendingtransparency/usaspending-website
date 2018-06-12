@@ -21,28 +21,28 @@ const propTypes = {
 export default class AgencyLandingContent extends React.Component {
     render() {
         return (
-            <div className="landing-page-content">
-                <div className="landing-page-overview">
-                    <h3>Find an Agency Profile.</h3>
-                    <h6>Understand the current spending of agencies in our agency profiles.</h6>
-                    <p>These include the 15 executive departments whose leaders sit on the
-                        President&#39;s Cabinet, as well as small independent boards and
-                        commissions. They range in size from $700 billion down to less than $200,000.</p>
+            <div className="landing-page">
+                <div className="landing-page__overview">
+                    <h2
+                        className="landing-page__title">
+                        Find an Agency Profile.
+                    </h2>
+                    <div className="landing-page__description">
+                        Featuring information on each agency&rsquo;s total obligations, along with obligation breakdowns by Object Class and Federal Accounts, our Agency Profiles help you understand how each agency spends its funding.
+                    </div>
                 </div>
-                <div className="landing-page-section">
-                    <AgencyLandingSearchBar
-                        setAgencySearchString={this.props.setAgencySearchString} />
-                </div>
-                <div className="landing-page-section results-count">
+                <AgencyLandingSearchBar
+                    setSearchString={this.props.setAgencySearchString}
+                    placeholder="Start typing to find an agency..."
+                    button="Search Agencies" />
+                <div className="results-count">
                     {this.props.resultsText}
                 </div>
-                <div className="landing-page-section">
-                    <AgencyLandingResultsSection
-                        columns={this.props.columns}
-                        results={this.props.results}
-                        inFlight={this.props.inFlight}
-                        agencySearchString={this.props.agencySearchString} />
-                </div>
+                <AgencyLandingResultsSection
+                    columns={this.props.columns}
+                    results={this.props.results}
+                    inFlight={this.props.inFlight}
+                    agencySearchString={this.props.agencySearchString} />
             </div>
         );
     }

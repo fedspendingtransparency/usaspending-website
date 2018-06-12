@@ -23,10 +23,14 @@ const defaultValues = [
     '',
     'Not available',
     {
-        obligated: {},
-        unobligated: {},
-        budgetAuthority: {},
-        outlay: {}
+        available: false,
+        obligated: 0,
+        unobligated: 0,
+        budgetAuthority: 0,
+        outlay: 0,
+        balanceBroughtForward: 0,
+        otherBudgetaryResources: 0,
+        appropriations: 0
     }
 ];
 

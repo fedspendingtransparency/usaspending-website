@@ -13,33 +13,37 @@ import { uniqueId } from 'lodash';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
-import SubawardItem from 'models/results/award/SubawardItem';
+import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
 
 import SubawardsTable from 'components/award/subawards/SubawardsTable';
 
 const propTypes = {
-    award: PropTypes.object,
-    sort: PropTypes.object,
-    meta: PropTypes.object,
-    setSubawards: PropTypes.func,
-    appendSubawards: PropTypes.func,
-    setSubawardMeta: PropTypes.func
+    award: PropTypes.object
 };
 
-const pageLimit = 13;
+const pageLimit = 15;
 
 export class SubawardsContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            inFlight: false
+            inFlight: false,
+            nextPage: false,
+            page: 1,
+            sort: {
+                field: 'subaward_number',
+                direction: 'desc'
+            },
+            tableInstance: `${uniqueId()}`,
+            subawards: []
         };
 
         this.unmounted = false;
 
         this.subawardRequest = null;
         this.loadNextPage = this.loadNextPage.bind(this);
+        this.changeSort = this.changeSort.bind(this);
     }
 
     componentDidMount() {
@@ -48,10 +52,7 @@ export class SubawardsContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.award.id !== this.props.award.id) {
-            this.fetchSubawards(1, true);
-        }
-        else if (prevProps.sort !== this.props.sort) {
+        if (prevProps.award.internalId !== this.props.award.internalId) {
             this.fetchSubawards(1, true);
         }
     }
@@ -66,9 +67,9 @@ export class SubawardsContainer extends React.Component {
             this.subawardRequest.cancel();
         }
 
-        let order = this.props.sort.field;
-        if (this.props.sort.direction === 'desc') {
-            order = `-${this.props.sort.field}`;
+        let order = this.state.sort.field;
+        if (this.state.sort.direction === 'desc') {
+            order = `-${this.state.sort.field}`;
         }
 
         const params = {
@@ -78,7 +79,7 @@ export class SubawardsContainer extends React.Component {
                 {
                     field: 'award',
                     operation: 'equals',
-                    value: this.props.award.id
+                    value: this.props.award.internalId
                 }
             ],
             order: [order]
@@ -95,10 +96,6 @@ export class SubawardsContainer extends React.Component {
                 if (this.unmounted) {
                     return;
                 }
-
-                this.setState({
-                    inFlight: false
-                });
 
                 this.parseSubawards(res.data, reset);
             })
@@ -120,36 +117,43 @@ export class SubawardsContainer extends React.Component {
     parseSubawards(data, reset) {
         const subawards = [];
         data.results.forEach((item) => {
-            const subaward = new SubawardItem(item);
+            const subaward = Object.create(BaseSubawardRow);
+            subaward.populate(item);
             subawards.push(subaward);
         });
 
+        const newState = {
+            page: data.page_metadata.page,
+            nextPage: data.page_metadata.has_next_page,
+            inFlight: false
+        };
+
         if (reset) {
-            this.props.setSubawards(subawards);
-            this.props.setSubawardMeta({
-                page: data.page_metadata.page,
-                hasNext: data.page_metadata.has_next_page,
-                render: uniqueId(),
-                group: uniqueId()
-            });
+            newState.tableInstance = `${uniqueId()}`;
+            newState.subawards = subawards;
         }
         else {
-            this.props.appendSubawards(subawards);
-            this.props.setSubawardMeta({
-                page: data.page_metadata.page,
-                hasNext: data.page_metadata.has_next_page,
-                render: uniqueId()
-            });
+            newState.subawards = this.state.subawards.concat(subawards);
         }
+
+        this.setState(newState);
+    }
+
+    changeSort(sort) {
+        this.setState({
+            sort
+        }, () => {
+            this.fetchSubawards(1, true);
+        });
     }
 
     loadNextPage() {
-        if (!this.props.meta.hasNext) {
+        if (!this.state.nextPage || this.state.inFlight) {
             // no more pages
             return;
         }
 
-        const nextPage = this.props.meta.page + 1;
+        const nextPage = this.state.page + 1;
         this.fetchSubawards(nextPage, false);
     }
 
@@ -157,7 +161,9 @@ export class SubawardsContainer extends React.Component {
         return (
             <SubawardsTable
                 {...this.props}
+                {...this.state}
                 inFlight={this.state.inFlight}
+                changeSort={this.changeSort}
                 loadNextPage={this.loadNextPage} />
         );
     }
@@ -167,10 +173,7 @@ SubawardsContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        award: state.award.selectedAward,
-        subawards: state.award.subawards,
-        meta: state.award.subawardMeta,
-        sort: state.award.subawardSort
+        award: state.award.selectedAward
     }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
 )(SubawardsContainer);

@@ -1,0 +1,1528 @@
+{
+    "counties": [
+        {
+            "code": "48001",
+            "fips": "001",
+            "state": "TX",
+            "name": "Anderson County"
+        },
+        {
+            "code": "48003",
+            "fips": "003",
+            "state": "TX",
+            "name": "Andrews County"
+        },
+        {
+            "code": "48005",
+            "fips": "005",
+            "state": "TX",
+            "name": "Angelina County"
+        },
+        {
+            "code": "48007",
+            "fips": "007",
+            "state": "TX",
+            "name": "Aransas County"
+        },
+        {
+            "code": "48009",
+            "fips": "009",
+            "state": "TX",
+            "name": "Archer County"
+        },
+        {
+            "code": "48011",
+            "fips": "011",
+            "state": "TX",
+            "name": "Armstrong County"
+        },
+        {
+            "code": "48013",
+            "fips": "013",
+            "state": "TX",
+            "name": "Atascosa County"
+        },
+        {
+            "code": "48015",
+            "fips": "015",
+            "state": "TX",
+            "name": "Austin County"
+        },
+        {
+            "code": "48017",
+            "fips": "017",
+            "state": "TX",
+            "name": "Bailey County"
+        },
+        {
+            "code": "48019",
+            "fips": "019",
+            "state": "TX",
+            "name": "Bandera County"
+        },
+        {
+            "code": "48021",
+            "fips": "021",
+            "state": "TX",
+            "name": "Bastrop County"
+        },
+        {
+            "code": "48023",
+            "fips": "023",
+            "state": "TX",
+            "name": "Baylor County"
+        },
+        {
+            "code": "48025",
+            "fips": "025",
+            "state": "TX",
+            "name": "Bee County"
+        },
+        {
+            "code": "48027",
+            "fips": "027",
+            "state": "TX",
+            "name": "Bell County"
+        },
+        {
+            "code": "48029",
+            "fips": "029",
+            "state": "TX",
+            "name": "Bexar County"
+        },
+        {
+            "code": "48031",
+            "fips": "031",
+            "state": "TX",
+            "name": "Blanco County"
+        },
+        {
+            "code": "48033",
+            "fips": "033",
+            "state": "TX",
+            "name": "Borden County"
+        },
+        {
+            "code": "48035",
+            "fips": "035",
+            "state": "TX",
+            "name": "Bosque County"
+        },
+        {
+            "code": "48037",
+            "fips": "037",
+            "state": "TX",
+            "name": "Bowie County"
+        },
+        {
+            "code": "48039",
+            "fips": "039",
+            "state": "TX",
+            "name": "Brazoria County"
+        },
+        {
+            "code": "48041",
+            "fips": "041",
+            "state": "TX",
+            "name": "Brazos County"
+        },
+        {
+            "code": "48043",
+            "fips": "043",
+            "state": "TX",
+            "name": "Brewster County"
+        },
+        {
+            "code": "48045",
+            "fips": "045",
+            "state": "TX",
+            "name": "Briscoe County"
+        },
+        {
+            "code": "48047",
+            "fips": "047",
+            "state": "TX",
+            "name": "Brooks County"
+        },
+        {
+            "code": "48049",
+            "fips": "049",
+            "state": "TX",
+            "name": "Brown County"
+        },
+        {
+            "code": "48051",
+            "fips": "051",
+            "state": "TX",
+            "name": "Burleson County"
+        },
+        {
+            "code": "48053",
+            "fips": "053",
+            "state": "TX",
+            "name": "Burnet County"
+        },
+        {
+            "code": "48055",
+            "fips": "055",
+            "state": "TX",
+            "name": "Caldwell County"
+        },
+        {
+            "code": "48057",
+            "fips": "057",
+            "state": "TX",
+            "name": "Calhoun County"
+        },
+        {
+            "code": "48059",
+            "fips": "059",
+            "state": "TX",
+            "name": "Callahan County"
+        },
+        {
+            "code": "48061",
+            "fips": "061",
+            "state": "TX",
+            "name": "Cameron County"
+        },
+        {
+            "code": "48063",
+            "fips": "063",
+            "state": "TX",
+            "name": "Camp County"
+        },
+        {
+            "code": "48065",
+            "fips": "065",
+            "state": "TX",
+            "name": "Carson County"
+        },
+        {
+            "code": "48067",
+            "fips": "067",
+            "state": "TX",
+            "name": "Cass County"
+        },
+        {
+            "code": "48069",
+            "fips": "069",
+            "state": "TX",
+            "name": "Castro County"
+        },
+        {
+            "code": "48071",
+            "fips": "071",
+            "state": "TX",
+            "name": "Chambers County"
+        },
+        {
+            "code": "48073",
+            "fips": "073",
+            "state": "TX",
+            "name": "Cherokee County"
+        },
+        {
+            "code": "48075",
+            "fips": "075",
+            "state": "TX",
+            "name": "Childress County"
+        },
+        {
+            "code": "48077",
+            "fips": "077",
+            "state": "TX",
+            "name": "Clay County"
+        },
+        {
+            "code": "48079",
+            "fips": "079",
+            "state": "TX",
+            "name": "Cochran County"
+        },
+        {
+            "code": "48081",
+            "fips": "081",
+            "state": "TX",
+            "name": "Coke County"
+        },
+        {
+            "code": "48083",
+            "fips": "083",
+            "state": "TX",
+            "name": "Coleman County"
+        },
+        {
+            "code": "48085",
+            "fips": "085",
+            "state": "TX",
+            "name": "Collin County"
+        },
+        {
+            "code": "48087",
+            "fips": "087",
+            "state": "TX",
+            "name": "Collingsworth County"
+        },
+        {
+            "code": "48089",
+            "fips": "089",
+            "state": "TX",
+            "name": "Colorado County"
+        },
+        {
+            "code": "48091",
+            "fips": "091",
+            "state": "TX",
+            "name": "Comal County"
+        },
+        {
+            "code": "48093",
+            "fips": "093",
+            "state": "TX",
+            "name": "Comanche County"
+        },
+        {
+            "code": "48095",
+            "fips": "095",
+            "state": "TX",
+            "name": "Concho County"
+        },
+        {
+            "code": "48097",
+            "fips": "097",
+            "state": "TX",
+            "name": "Cooke County"
+        },
+        {
+            "code": "48099",
+            "fips": "099",
+            "state": "TX",
+            "name": "Coryell County"
+        },
+        {
+            "code": "48101",
+            "fips": "101",
+            "state": "TX",
+            "name": "Cottle County"
+        },
+        {
+            "code": "48103",
+            "fips": "103",
+            "state": "TX",
+            "name": "Crane County"
+        },
+        {
+            "code": "48105",
+            "fips": "105",
+            "state": "TX",
+            "name": "Crockett County"
+        },
+        {
+            "code": "48107",
+            "fips": "107",
+            "state": "TX",
+            "name": "Crosby County"
+        },
+        {
+            "code": "48109",
+            "fips": "109",
+            "state": "TX",
+            "name": "Culberson County"
+        },
+        {
+            "code": "48111",
+            "fips": "111",
+            "state": "TX",
+            "name": "Dallam County"
+        },
+        {
+            "code": "48113",
+            "fips": "113",
+            "state": "TX",
+            "name": "Dallas County"
+        },
+        {
+            "code": "48115",
+            "fips": "115",
+            "state": "TX",
+            "name": "Dawson County"
+        },
+        {
+            "code": "48123",
+            "fips": "123",
+            "state": "TX",
+            "name": "DeWitt County"
+        },
+        {
+            "code": "48117",
+            "fips": "117",
+            "state": "TX",
+            "name": "Deaf Smith County"
+        },
+        {
+            "code": "48119",
+            "fips": "119",
+            "state": "TX",
+            "name": "Delta County"
+        },
+        {
+            "code": "48121",
+            "fips": "121",
+            "state": "TX",
+            "name": "Denton County"
+        },
+        {
+            "code": "48125",
+            "fips": "125",
+            "state": "TX",
+            "name": "Dickens County"
+        },
+        {
+            "code": "48127",
+            "fips": "127",
+            "state": "TX",
+            "name": "Dimmit County"
+        },
+        {
+            "code": "48129",
+            "fips": "129",
+            "state": "TX",
+            "name": "Donley County"
+        },
+        {
+            "code": "48131",
+            "fips": "131",
+            "state": "TX",
+            "name": "Duval County"
+        },
+        {
+            "code": "48133",
+            "fips": "133",
+            "state": "TX",
+            "name": "Eastland County"
+        },
+        {
+            "code": "48135",
+            "fips": "135",
+            "state": "TX",
+            "name": "Ector County"
+        },
+        {
+            "code": "48137",
+            "fips": "137",
+            "state": "TX",
+            "name": "Edwards County"
+        },
+        {
+            "code": "48141",
+            "fips": "141",
+            "state": "TX",
+            "name": "El Paso County"
+        },
+        {
+            "code": "48139",
+            "fips": "139",
+            "state": "TX",
+            "name": "Ellis County"
+        },
+        {
+            "code": "48143",
+            "fips": "143",
+            "state": "TX",
+            "name": "Erath County"
+        },
+        {
+            "code": "48145",
+            "fips": "145",
+            "state": "TX",
+            "name": "Falls County"
+        },
+        {
+            "code": "48147",
+            "fips": "147",
+            "state": "TX",
+            "name": "Fannin County"
+        },
+        {
+            "code": "48149",
+            "fips": "149",
+            "state": "TX",
+            "name": "Fayette County"
+        },
+        {
+            "code": "48151",
+            "fips": "151",
+            "state": "TX",
+            "name": "Fisher County"
+        },
+        {
+            "code": "48153",
+            "fips": "153",
+            "state": "TX",
+            "name": "Floyd County"
+        },
+        {
+            "code": "48155",
+            "fips": "155",
+            "state": "TX",
+            "name": "Foard County"
+        },
+        {
+            "code": "48157",
+            "fips": "157",
+            "state": "TX",
+            "name": "Fort Bend County"
+        },
+        {
+            "code": "48159",
+            "fips": "159",
+            "state": "TX",
+            "name": "Franklin County"
+        },
+        {
+            "code": "48161",
+            "fips": "161",
+            "state": "TX",
+            "name": "Freestone County"
+        },
+        {
+            "code": "48163",
+            "fips": "163",
+            "state": "TX",
+            "name": "Frio County"
+        },
+        {
+            "code": "48165",
+            "fips": "165",
+            "state": "TX",
+            "name": "Gaines County"
+        },
+        {
+            "code": "48167",
+            "fips": "167",
+            "state": "TX",
+            "name": "Galveston County"
+        },
+        {
+            "code": "48169",
+            "fips": "169",
+            "state": "TX",
+            "name": "Garza County"
+        },
+        {
+            "code": "48171",
+            "fips": "171",
+            "state": "TX",
+            "name": "Gillespie County"
+        },
+        {
+            "code": "48173",
+            "fips": "173",
+            "state": "TX",
+            "name": "Glasscock County"
+        },
+        {
+            "code": "48175",
+            "fips": "175",
+            "state": "TX",
+            "name": "Goliad County"
+        },
+        {
+            "code": "48177",
+            "fips": "177",
+            "state": "TX",
+            "name": "Gonzales County"
+        },
+        {
+            "code": "48179",
+            "fips": "179",
+            "state": "TX",
+            "name": "Gray County"
+        },
+        {
+            "code": "48181",
+            "fips": "181",
+            "state": "TX",
+            "name": "Grayson County"
+        },
+        {
+            "code": "48183",
+            "fips": "183",
+            "state": "TX",
+            "name": "Gregg County"
+        },
+        {
+            "code": "48185",
+            "fips": "185",
+            "state": "TX",
+            "name": "Grimes County"
+        },
+        {
+            "code": "48187",
+            "fips": "187",
+            "state": "TX",
+            "name": "Guadalupe County"
+        },
+        {
+            "code": "48189",
+            "fips": "189",
+            "state": "TX",
+            "name": "Hale County"
+        },
+        {
+            "code": "48191",
+            "fips": "191",
+            "state": "TX",
+            "name": "Hall County"
+        },
+        {
+            "code": "48193",
+            "fips": "193",
+            "state": "TX",
+            "name": "Hamilton County"
+        },
+        {
+            "code": "48195",
+            "fips": "195",
+            "state": "TX",
+            "name": "Hansford County"
+        },
+        {
+            "code": "48197",
+            "fips": "197",
+            "state": "TX",
+            "name": "Hardeman County"
+        },
+        {
+            "code": "48199",
+            "fips": "199",
+            "state": "TX",
+            "name": "Hardin County"
+        },
+        {
+            "code": "48201",
+            "fips": "201",
+            "state": "TX",
+            "name": "Harris County"
+        },
+        {
+            "code": "48203",
+            "fips": "203",
+            "state": "TX",
+            "name": "Harrison County"
+        },
+        {
+            "code": "48205",
+            "fips": "205",
+            "state": "TX",
+            "name": "Hartley County"
+        },
+        {
+            "code": "48207",
+            "fips": "207",
+            "state": "TX",
+            "name": "Haskell County"
+        },
+        {
+            "code": "48209",
+            "fips": "209",
+            "state": "TX",
+            "name": "Hays County"
+        },
+        {
+            "code": "48211",
+            "fips": "211",
+            "state": "TX",
+            "name": "Hemphill County"
+        },
+        {
+            "code": "48213",
+            "fips": "213",
+            "state": "TX",
+            "name": "Henderson County"
+        },
+        {
+            "code": "48215",
+            "fips": "215",
+            "state": "TX",
+            "name": "Hidalgo County"
+        },
+        {
+            "code": "48217",
+            "fips": "217",
+            "state": "TX",
+            "name": "Hill County"
+        },
+        {
+            "code": "48219",
+            "fips": "219",
+            "state": "TX",
+            "name": "Hockley County"
+        },
+        {
+            "code": "48221",
+            "fips": "221",
+            "state": "TX",
+            "name": "Hood County"
+        },
+        {
+            "code": "48223",
+            "fips": "223",
+            "state": "TX",
+            "name": "Hopkins County"
+        },
+        {
+            "code": "48225",
+            "fips": "225",
+            "state": "TX",
+            "name": "Houston County"
+        },
+        {
+            "code": "48227",
+            "fips": "227",
+            "state": "TX",
+            "name": "Howard County"
+        },
+        {
+            "code": "48229",
+            "fips": "229",
+            "state": "TX",
+            "name": "Hudspeth County"
+        },
+        {
+            "code": "48231",
+            "fips": "231",
+            "state": "TX",
+            "name": "Hunt County"
+        },
+        {
+            "code": "48233",
+            "fips": "233",
+            "state": "TX",
+            "name": "Hutchinson County"
+        },
+        {
+            "code": "48235",
+            "fips": "235",
+            "state": "TX",
+            "name": "Irion County"
+        },
+        {
+            "code": "48237",
+            "fips": "237",
+            "state": "TX",
+            "name": "Jack County"
+        },
+        {
+            "code": "48239",
+            "fips": "239",
+            "state": "TX",
+            "name": "Jackson County"
+        },
+        {
+            "code": "48241",
+            "fips": "241",
+            "state": "TX",
+            "name": "Jasper County"
+        },
+        {
+            "code": "48243",
+            "fips": "243",
+            "state": "TX",
+            "name": "Jeff Davis County"
+        },
+        {
+            "code": "48245",
+            "fips": "245",
+            "state": "TX",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "48247",
+            "fips": "247",
+            "state": "TX",
+            "name": "Jim Hogg County"
+        },
+        {
+            "code": "48249",
+            "fips": "249",
+            "state": "TX",
+            "name": "Jim Wells County"
+        },
+        {
+            "code": "48251",
+            "fips": "251",
+            "state": "TX",
+            "name": "Johnson County"
+        },
+        {
+            "code": "48253",
+            "fips": "253",
+            "state": "TX",
+            "name": "Jones County"
+        },
+        {
+            "code": "48255",
+            "fips": "255",
+            "state": "TX",
+            "name": "Karnes County"
+        },
+        {
+            "code": "48257",
+            "fips": "257",
+            "state": "TX",
+            "name": "Kaufman County"
+        },
+        {
+            "code": "48259",
+            "fips": "259",
+            "state": "TX",
+            "name": "Kendall County"
+        },
+        {
+            "code": "48261",
+            "fips": "261",
+            "state": "TX",
+            "name": "Kenedy County"
+        },
+        {
+            "code": "48263",
+            "fips": "263",
+            "state": "TX",
+            "name": "Kent County"
+        },
+        {
+            "code": "48265",
+            "fips": "265",
+            "state": "TX",
+            "name": "Kerr County"
+        },
+        {
+            "code": "48267",
+            "fips": "267",
+            "state": "TX",
+            "name": "Kimble County"
+        },
+        {
+            "code": "48269",
+            "fips": "269",
+            "state": "TX",
+            "name": "King County"
+        },
+        {
+            "code": "48271",
+            "fips": "271",
+            "state": "TX",
+            "name": "Kinney County"
+        },
+        {
+            "code": "48273",
+            "fips": "273",
+            "state": "TX",
+            "name": "Kleberg County"
+        },
+        {
+            "code": "48275",
+            "fips": "275",
+            "state": "TX",
+            "name": "Knox County"
+        },
+        {
+            "code": "48283",
+            "fips": "283",
+            "state": "TX",
+            "name": "La Salle County"
+        },
+        {
+            "code": "48277",
+            "fips": "277",
+            "state": "TX",
+            "name": "Lamar County"
+        },
+        {
+            "code": "48279",
+            "fips": "279",
+            "state": "TX",
+            "name": "Lamb County"
+        },
+        {
+            "code": "48281",
+            "fips": "281",
+            "state": "TX",
+            "name": "Lampasas County"
+        },
+        {
+            "code": "48285",
+            "fips": "285",
+            "state": "TX",
+            "name": "Lavaca County"
+        },
+        {
+            "code": "48287",
+            "fips": "287",
+            "state": "TX",
+            "name": "Lee County"
+        },
+        {
+            "code": "48289",
+            "fips": "289",
+            "state": "TX",
+            "name": "Leon County"
+        },
+        {
+            "code": "48291",
+            "fips": "291",
+            "state": "TX",
+            "name": "Liberty County"
+        },
+        {
+            "code": "48293",
+            "fips": "293",
+            "state": "TX",
+            "name": "Limestone County"
+        },
+        {
+            "code": "48295",
+            "fips": "295",
+            "state": "TX",
+            "name": "Lipscomb County"
+        },
+        {
+            "code": "48297",
+            "fips": "297",
+            "state": "TX",
+            "name": "Live Oak County"
+        },
+        {
+            "code": "48299",
+            "fips": "299",
+            "state": "TX",
+            "name": "Llano County"
+        },
+        {
+            "code": "48301",
+            "fips": "301",
+            "state": "TX",
+            "name": "Loving County"
+        },
+        {
+            "code": "48303",
+            "fips": "303",
+            "state": "TX",
+            "name": "Lubbock County"
+        },
+        {
+            "code": "48305",
+            "fips": "305",
+            "state": "TX",
+            "name": "Lynn County"
+        },
+        {
+            "code": "48313",
+            "fips": "313",
+            "state": "TX",
+            "name": "Madison County"
+        },
+        {
+            "code": "48315",
+            "fips": "315",
+            "state": "TX",
+            "name": "Marion County"
+        },
+        {
+            "code": "48317",
+            "fips": "317",
+            "state": "TX",
+            "name": "Martin County"
+        },
+        {
+            "code": "48319",
+            "fips": "319",
+            "state": "TX",
+            "name": "Mason County"
+        },
+        {
+            "code": "48321",
+            "fips": "321",
+            "state": "TX",
+            "name": "Matagorda County"
+        },
+        {
+            "code": "48323",
+            "fips": "323",
+            "state": "TX",
+            "name": "Maverick County"
+        },
+        {
+            "code": "48307",
+            "fips": "307",
+            "state": "TX",
+            "name": "McCulloch County"
+        },
+        {
+            "code": "48309",
+            "fips": "309",
+            "state": "TX",
+            "name": "McLennan County"
+        },
+        {
+            "code": "48311",
+            "fips": "311",
+            "state": "TX",
+            "name": "McMullen County"
+        },
+        {
+            "code": "48325",
+            "fips": "325",
+            "state": "TX",
+            "name": "Medina County"
+        },
+        {
+            "code": "48327",
+            "fips": "327",
+            "state": "TX",
+            "name": "Menard County"
+        },
+        {
+            "code": "48329",
+            "fips": "329",
+            "state": "TX",
+            "name": "Midland County"
+        },
+        {
+            "code": "48331",
+            "fips": "331",
+            "state": "TX",
+            "name": "Milam County"
+        },
+        {
+            "code": "48333",
+            "fips": "333",
+            "state": "TX",
+            "name": "Mills County"
+        },
+        {
+            "code": "48335",
+            "fips": "335",
+            "state": "TX",
+            "name": "Mitchell County"
+        },
+        {
+            "code": "48337",
+            "fips": "337",
+            "state": "TX",
+            "name": "Montague County"
+        },
+        {
+            "code": "48339",
+            "fips": "339",
+            "state": "TX",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "48341",
+            "fips": "341",
+            "state": "TX",
+            "name": "Moore County"
+        },
+        {
+            "code": "48343",
+            "fips": "343",
+            "state": "TX",
+            "name": "Morris County"
+        },
+        {
+            "code": "48345",
+            "fips": "345",
+            "state": "TX",
+            "name": "Motley County"
+        },
+        {
+            "code": "48347",
+            "fips": "347",
+            "state": "TX",
+            "name": "Nacogdoches County"
+        },
+        {
+            "code": "48349",
+            "fips": "349",
+            "state": "TX",
+            "name": "Navarro County"
+        },
+        {
+            "code": "48351",
+            "fips": "351",
+            "state": "TX",
+            "name": "Newton County"
+        },
+        {
+            "code": "48353",
+            "fips": "353",
+            "state": "TX",
+            "name": "Nolan County"
+        },
+        {
+            "code": "48355",
+            "fips": "355",
+            "state": "TX",
+            "name": "Nueces County"
+        },
+        {
+            "code": "48357",
+            "fips": "357",
+            "state": "TX",
+            "name": "Ochiltree County"
+        },
+        {
+            "code": "48359",
+            "fips": "359",
+            "state": "TX",
+            "name": "Oldham County"
+        },
+        {
+            "code": "48361",
+            "fips": "361",
+            "state": "TX",
+            "name": "Orange County"
+        },
+        {
+            "code": "48363",
+            "fips": "363",
+            "state": "TX",
+            "name": "Palo Pinto County"
+        },
+        {
+            "code": "48365",
+            "fips": "365",
+            "state": "TX",
+            "name": "Panola County"
+        },
+        {
+            "code": "48367",
+            "fips": "367",
+            "state": "TX",
+            "name": "Parker County"
+        },
+        {
+            "code": "48369",
+            "fips": "369",
+            "state": "TX",
+            "name": "Parmer County"
+        },
+        {
+            "code": "48371",
+            "fips": "371",
+            "state": "TX",
+            "name": "Pecos County"
+        },
+        {
+            "code": "48373",
+            "fips": "373",
+            "state": "TX",
+            "name": "Polk County"
+        },
+        {
+            "code": "48375",
+            "fips": "375",
+            "state": "TX",
+            "name": "Potter County"
+        },
+        {
+            "code": "48377",
+            "fips": "377",
+            "state": "TX",
+            "name": "Presidio County"
+        },
+        {
+            "code": "48379",
+            "fips": "379",
+            "state": "TX",
+            "name": "Rains County"
+        },
+        {
+            "code": "48381",
+            "fips": "381",
+            "state": "TX",
+            "name": "Randall County"
+        },
+        {
+            "code": "48383",
+            "fips": "383",
+            "state": "TX",
+            "name": "Reagan County"
+        },
+        {
+            "code": "48385",
+            "fips": "385",
+            "state": "TX",
+            "name": "Real County"
+        },
+        {
+            "code": "48387",
+            "fips": "387",
+            "state": "TX",
+            "name": "Red River County"
+        },
+        {
+            "code": "48389",
+            "fips": "389",
+            "state": "TX",
+            "name": "Reeves County"
+        },
+        {
+            "code": "48391",
+            "fips": "391",
+            "state": "TX",
+            "name": "Refugio County"
+        },
+        {
+            "code": "48393",
+            "fips": "393",
+            "state": "TX",
+            "name": "Roberts County"
+        },
+        {
+            "code": "48395",
+            "fips": "395",
+            "state": "TX",
+            "name": "Robertson County"
+        },
+        {
+            "code": "48397",
+            "fips": "397",
+            "state": "TX",
+            "name": "Rockwall County"
+        },
+        {
+            "code": "48399",
+            "fips": "399",
+            "state": "TX",
+            "name": "Runnels County"
+        },
+        {
+            "code": "48401",
+            "fips": "401",
+            "state": "TX",
+            "name": "Rusk County"
+        },
+        {
+            "code": "48403",
+            "fips": "403",
+            "state": "TX",
+            "name": "Sabine County"
+        },
+        {
+            "code": "48405",
+            "fips": "405",
+            "state": "TX",
+            "name": "San Augustine County"
+        },
+        {
+            "code": "48407",
+            "fips": "407",
+            "state": "TX",
+            "name": "San Jacinto County"
+        },
+        {
+            "code": "48409",
+            "fips": "409",
+            "state": "TX",
+            "name": "San Patricio County"
+        },
+        {
+            "code": "48411",
+            "fips": "411",
+            "state": "TX",
+            "name": "San Saba County"
+        },
+        {
+            "code": "48413",
+            "fips": "413",
+            "state": "TX",
+            "name": "Schleicher County"
+        },
+        {
+            "code": "48415",
+            "fips": "415",
+            "state": "TX",
+            "name": "Scurry County"
+        },
+        {
+            "code": "48417",
+            "fips": "417",
+            "state": "TX",
+            "name": "Shackelford County"
+        },
+        {
+            "code": "48419",
+            "fips": "419",
+            "state": "TX",
+            "name": "Shelby County"
+        },
+        {
+            "code": "48421",
+            "fips": "421",
+            "state": "TX",
+            "name": "Sherman County"
+        },
+        {
+            "code": "48423",
+            "fips": "423",
+            "state": "TX",
+            "name": "Smith County"
+        },
+        {
+            "code": "48425",
+            "fips": "425",
+            "state": "TX",
+            "name": "Somervell County"
+        },
+        {
+            "code": "48427",
+            "fips": "427",
+            "state": "TX",
+            "name": "Starr County"
+        },
+        {
+            "code": "48429",
+            "fips": "429",
+            "state": "TX",
+            "name": "Stephens County"
+        },
+        {
+            "code": "48431",
+            "fips": "431",
+            "state": "TX",
+            "name": "Sterling County"
+        },
+        {
+            "code": "48433",
+            "fips": "433",
+            "state": "TX",
+            "name": "Stonewall County"
+        },
+        {
+            "code": "48435",
+            "fips": "435",
+            "state": "TX",
+            "name": "Sutton County"
+        },
+        {
+            "code": "48437",
+            "fips": "437",
+            "state": "TX",
+            "name": "Swisher County"
+        },
+        {
+            "code": "48439",
+            "fips": "439",
+            "state": "TX",
+            "name": "Tarrant County"
+        },
+        {
+            "code": "48441",
+            "fips": "441",
+            "state": "TX",
+            "name": "Taylor County"
+        },
+        {
+            "code": "48443",
+            "fips": "443",
+            "state": "TX",
+            "name": "Terrell County"
+        },
+        {
+            "code": "48445",
+            "fips": "445",
+            "state": "TX",
+            "name": "Terry County"
+        },
+        {
+            "code": "48447",
+            "fips": "447",
+            "state": "TX",
+            "name": "Throckmorton County"
+        },
+        {
+            "code": "48449",
+            "fips": "449",
+            "state": "TX",
+            "name": "Titus County"
+        },
+        {
+            "code": "48451",
+            "fips": "451",
+            "state": "TX",
+            "name": "Tom Green County"
+        },
+        {
+            "code": "48453",
+            "fips": "453",
+            "state": "TX",
+            "name": "Travis County"
+        },
+        {
+            "code": "48455",
+            "fips": "455",
+            "state": "TX",
+            "name": "Trinity County"
+        },
+        {
+            "code": "48457",
+            "fips": "457",
+            "state": "TX",
+            "name": "Tyler County"
+        },
+        {
+            "code": "48459",
+            "fips": "459",
+            "state": "TX",
+            "name": "Upshur County"
+        },
+        {
+            "code": "48461",
+            "fips": "461",
+            "state": "TX",
+            "name": "Upton County"
+        },
+        {
+            "code": "48463",
+            "fips": "463",
+            "state": "TX",
+            "name": "Uvalde County"
+        },
+        {
+            "code": "48465",
+            "fips": "465",
+            "state": "TX",
+            "name": "Val Verde County"
+        },
+        {
+            "code": "48467",
+            "fips": "467",
+            "state": "TX",
+            "name": "Van Zandt County"
+        },
+        {
+            "code": "48469",
+            "fips": "469",
+            "state": "TX",
+            "name": "Victoria County"
+        },
+        {
+            "code": "48471",
+            "fips": "471",
+            "state": "TX",
+            "name": "Walker County"
+        },
+        {
+            "code": "48473",
+            "fips": "473",
+            "state": "TX",
+            "name": "Waller County"
+        },
+        {
+            "code": "48475",
+            "fips": "475",
+            "state": "TX",
+            "name": "Ward County"
+        },
+        {
+            "code": "48477",
+            "fips": "477",
+            "state": "TX",
+            "name": "Washington County"
+        },
+        {
+            "code": "48479",
+            "fips": "479",
+            "state": "TX",
+            "name": "Webb County"
+        },
+        {
+            "code": "48481",
+            "fips": "481",
+            "state": "TX",
+            "name": "Wharton County"
+        },
+        {
+            "code": "48483",
+            "fips": "483",
+            "state": "TX",
+            "name": "Wheeler County"
+        },
+        {
+            "code": "48485",
+            "fips": "485",
+            "state": "TX",
+            "name": "Wichita County"
+        },
+        {
+            "code": "48487",
+            "fips": "487",
+            "state": "TX",
+            "name": "Wilbarger County"
+        },
+        {
+            "code": "48489",
+            "fips": "489",
+            "state": "TX",
+            "name": "Willacy County"
+        },
+        {
+            "code": "48491",
+            "fips": "491",
+            "state": "TX",
+            "name": "Williamson County"
+        },
+        {
+            "code": "48493",
+            "fips": "493",
+            "state": "TX",
+            "name": "Wilson County"
+        },
+        {
+            "code": "48495",
+            "fips": "495",
+            "state": "TX",
+            "name": "Winkler County"
+        },
+        {
+            "code": "48497",
+            "fips": "497",
+            "state": "TX",
+            "name": "Wise County"
+        },
+        {
+            "code": "48499",
+            "fips": "499",
+            "state": "TX",
+            "name": "Wood County"
+        },
+        {
+            "code": "48501",
+            "fips": "501",
+            "state": "TX",
+            "name": "Yoakum County"
+        },
+        {
+            "code": "48503",
+            "fips": "503",
+            "state": "TX",
+            "name": "Young County"
+        },
+        {
+            "code": "48505",
+            "fips": "505",
+            "state": "TX",
+            "name": "Zapata County"
+        },
+        {
+            "code": "48507",
+            "fips": "507",
+            "state": "TX",
+            "name": "Zavala County"
+        }
+    ]
+}

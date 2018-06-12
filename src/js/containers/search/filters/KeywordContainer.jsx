@@ -7,79 +7,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import Keyword from 'components/search/filters/keyword/Keyword';
 
 const propTypes = {
-    keyword: PropTypes.string,
+    keyword: PropTypes.object,
+    appliedFilter: PropTypes.object,
     updateTextSearchInput: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export class KeywordContainer extends React.Component {
-
-    static logSelectedKeywordEvent(keyword) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: 'Applied Keyword Filter',
-            label: keyword
-        });
-    }
-
     constructor(props) {
         super(props);
 
-        this.state = {
-            value: ''
-        };
-
-        this.submitText = this.submitText.bind(this);
-        this.changedInput = this.changedInput.bind(this);
+        this.toggleKeyword = this.toggleKeyword.bind(this);
     }
 
-    componentWillMount() {
-        if (this.props.keyword !== '') {
-            this.populateInput(this.props.keyword);
+    toggleKeyword(value) {
+        this.props.updateTextSearchInput(value);
+    }
+
+    dirtyFilter() {
+        if (is(this.props.appliedFilter, this.props.keyword)) {
+            return null;
         }
-    }
-
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.keyword !== this.state.defaultValue) {
-            this.populateInput(nextProps.keyword);
-        }
-    }
-
-    populateInput(value) {
-        this.setState({
-            value
-        });
-    }
-
-    changedInput(e) {
-        this.setState({
-            value: e.target.value
-        });
-    }
-
-    submitText() {
-        // take in keywords and pass to redux
-        this.props.updateTextSearchInput(this.state.value);
-
-        // Analytics
-        if (this.state.value) {
-            KeywordContainer.logSelectedKeywordEvent(this.state.value);
-        }
+        return Symbol('dirty keywords');
     }
 
     render() {
         return (
             <Keyword
-                value={this.state.value}
-                changedInput={this.changedInput}
-                submitText={this.submitText} />
+                dirtyFilter={this.dirtyFilter()}
+                selectedKeyword={this.props.keyword}
+                toggleKeyword={this.toggleKeyword} />
         );
     }
 }
@@ -88,6 +51,8 @@ KeywordContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        keyword: state.filters.keyword }),
+        keyword: state.filters.keyword,
+        appliedFilter: state.appliedFilters.filters.keyword
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(KeywordContainer);

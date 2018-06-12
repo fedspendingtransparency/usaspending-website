@@ -1,0 +1,36 @@
+.homepage-features {
+    .homepage-features__content {
+        @import "mixins/fullSectionWrap";
+        @include fullSectionWrap(0, 0);
+        padding: 0;
+    }
+
+    h2.homepage-feature-title {
+        margin: 0;
+
+        font-weight: $font-normal;
+        color: $color-base;
+
+        font-size: rem(38);
+        line-height: rem(55);
+    }
+
+    .homepage-feature-description {
+        p {
+            font-size: rem(18);
+            line-height: rem(30);
+            font-weight: $font-light;
+
+            strong.homepage-feature-description_weight_bold {
+                font-weight: $font-normal;
+            }
+        }
+    }
+
+    @import "./_carousel";
+    @import "./_dropdown";
+    @import "./_spendingExplorer";
+    @import "./_search";
+    @import "./_profile";
+    @import "./_featurePane";
+}

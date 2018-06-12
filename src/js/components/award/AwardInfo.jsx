@@ -47,11 +47,11 @@ export default class AwardInfo extends React.Component {
     }
 
     render() {
-        const type = this.props.selectedAward.internal_general_type;
+        const category = this.props.selectedAward.category;
 
         let amountsDetailsSection = null;
 
-        if (type === 'contract') {
+        if (category === 'contract' || category === 'idv') {
             amountsDetailsSection = (
                 <AwardContract
                     {...this.props}
@@ -71,17 +71,17 @@ export default class AwardInfo extends React.Component {
         return (
             <div>
                 <SummaryBar
-                    {...this.props}
                     selectedAward={this.props.selectedAward} />
-                <main id="main-content" className="main-content">
+                <main
+                    id="main-content"
+                    className="main-content">
                     <AwardInfoBar
-                        {...this.props}
                         selectedAward={this.props.selectedAward} />
 
                     {amountsDetailsSection}
 
                     <DetailsSection
-                        {...this.props}
+                        selectedAward={this.props.selectedAward}
                         clickTab={this.clickTab}
                         activeTab={this.state.activeTab} />
                 </main>

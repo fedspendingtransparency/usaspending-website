@@ -1,0 +1,724 @@
+{
+    "counties": [
+        {
+            "code": "21001",
+            "fips": "001",
+            "state": "KY",
+            "name": "Adair County"
+        },
+        {
+            "code": "21003",
+            "fips": "003",
+            "state": "KY",
+            "name": "Allen County"
+        },
+        {
+            "code": "21005",
+            "fips": "005",
+            "state": "KY",
+            "name": "Anderson County"
+        },
+        {
+            "code": "21007",
+            "fips": "007",
+            "state": "KY",
+            "name": "Ballard County"
+        },
+        {
+            "code": "21009",
+            "fips": "009",
+            "state": "KY",
+            "name": "Barren County"
+        },
+        {
+            "code": "21011",
+            "fips": "011",
+            "state": "KY",
+            "name": "Bath County"
+        },
+        {
+            "code": "21013",
+            "fips": "013",
+            "state": "KY",
+            "name": "Bell County"
+        },
+        {
+            "code": "21015",
+            "fips": "015",
+            "state": "KY",
+            "name": "Boone County"
+        },
+        {
+            "code": "21017",
+            "fips": "017",
+            "state": "KY",
+            "name": "Bourbon County"
+        },
+        {
+            "code": "21019",
+            "fips": "019",
+            "state": "KY",
+            "name": "Boyd County"
+        },
+        {
+            "code": "21021",
+            "fips": "021",
+            "state": "KY",
+            "name": "Boyle County"
+        },
+        {
+            "code": "21023",
+            "fips": "023",
+            "state": "KY",
+            "name": "Bracken County"
+        },
+        {
+            "code": "21025",
+            "fips": "025",
+            "state": "KY",
+            "name": "Breathitt County"
+        },
+        {
+            "code": "21027",
+            "fips": "027",
+            "state": "KY",
+            "name": "Breckinridge County"
+        },
+        {
+            "code": "21029",
+            "fips": "029",
+            "state": "KY",
+            "name": "Bullitt County"
+        },
+        {
+            "code": "21031",
+            "fips": "031",
+            "state": "KY",
+            "name": "Butler County"
+        },
+        {
+            "code": "21033",
+            "fips": "033",
+            "state": "KY",
+            "name": "Caldwell County"
+        },
+        {
+            "code": "21035",
+            "fips": "035",
+            "state": "KY",
+            "name": "Calloway County"
+        },
+        {
+            "code": "21037",
+            "fips": "037",
+            "state": "KY",
+            "name": "Campbell County"
+        },
+        {
+            "code": "21039",
+            "fips": "039",
+            "state": "KY",
+            "name": "Carlisle County"
+        },
+        {
+            "code": "21041",
+            "fips": "041",
+            "state": "KY",
+            "name": "Carroll County"
+        },
+        {
+            "code": "21043",
+            "fips": "043",
+            "state": "KY",
+            "name": "Carter County"
+        },
+        {
+            "code": "21045",
+            "fips": "045",
+            "state": "KY",
+            "name": "Casey County"
+        },
+        {
+            "code": "21047",
+            "fips": "047",
+            "state": "KY",
+            "name": "Christian County"
+        },
+        {
+            "code": "21049",
+            "fips": "049",
+            "state": "KY",
+            "name": "Clark County"
+        },
+        {
+            "code": "21051",
+            "fips": "051",
+            "state": "KY",
+            "name": "Clay County"
+        },
+        {
+            "code": "21053",
+            "fips": "053",
+            "state": "KY",
+            "name": "Clinton County"
+        },
+        {
+            "code": "21055",
+            "fips": "055",
+            "state": "KY",
+            "name": "Crittenden County"
+        },
+        {
+            "code": "21057",
+            "fips": "057",
+            "state": "KY",
+            "name": "Cumberland County"
+        },
+        {
+            "code": "21059",
+            "fips": "059",
+            "state": "KY",
+            "name": "Daviess County"
+        },
+        {
+            "code": "21061",
+            "fips": "061",
+            "state": "KY",
+            "name": "Edmonson County"
+        },
+        {
+            "code": "21063",
+            "fips": "063",
+            "state": "KY",
+            "name": "Elliott County"
+        },
+        {
+            "code": "21065",
+            "fips": "065",
+            "state": "KY",
+            "name": "Estill County"
+        },
+        {
+            "code": "21067",
+            "fips": "067",
+            "state": "KY",
+            "name": "Fayette County"
+        },
+        {
+            "code": "21069",
+            "fips": "069",
+            "state": "KY",
+            "name": "Fleming County"
+        },
+        {
+            "code": "21071",
+            "fips": "071",
+            "state": "KY",
+            "name": "Floyd County"
+        },
+        {
+            "code": "21073",
+            "fips": "073",
+            "state": "KY",
+            "name": "Franklin County"
+        },
+        {
+            "code": "21075",
+            "fips": "075",
+            "state": "KY",
+            "name": "Fulton County"
+        },
+        {
+            "code": "21077",
+            "fips": "077",
+            "state": "KY",
+            "name": "Gallatin County"
+        },
+        {
+            "code": "21079",
+            "fips": "079",
+            "state": "KY",
+            "name": "Garrard County"
+        },
+        {
+            "code": "21081",
+            "fips": "081",
+            "state": "KY",
+            "name": "Grant County"
+        },
+        {
+            "code": "21083",
+            "fips": "083",
+            "state": "KY",
+            "name": "Graves County"
+        },
+        {
+            "code": "21085",
+            "fips": "085",
+            "state": "KY",
+            "name": "Grayson County"
+        },
+        {
+            "code": "21087",
+            "fips": "087",
+            "state": "KY",
+            "name": "Green County"
+        },
+        {
+            "code": "21089",
+            "fips": "089",
+            "state": "KY",
+            "name": "Greenup County"
+        },
+        {
+            "code": "21091",
+            "fips": "091",
+            "state": "KY",
+            "name": "Hancock County"
+        },
+        {
+            "code": "21093",
+            "fips": "093",
+            "state": "KY",
+            "name": "Hardin County"
+        },
+        {
+            "code": "21095",
+            "fips": "095",
+            "state": "KY",
+            "name": "Harlan County"
+        },
+        {
+            "code": "21097",
+            "fips": "097",
+            "state": "KY",
+            "name": "Harrison County"
+        },
+        {
+            "code": "21099",
+            "fips": "099",
+            "state": "KY",
+            "name": "Hart County"
+        },
+        {
+            "code": "21101",
+            "fips": "101",
+            "state": "KY",
+            "name": "Henderson County"
+        },
+        {
+            "code": "21103",
+            "fips": "103",
+            "state": "KY",
+            "name": "Henry County"
+        },
+        {
+            "code": "21105",
+            "fips": "105",
+            "state": "KY",
+            "name": "Hickman County"
+        },
+        {
+            "code": "21107",
+            "fips": "107",
+            "state": "KY",
+            "name": "Hopkins County"
+        },
+        {
+            "code": "21109",
+            "fips": "109",
+            "state": "KY",
+            "name": "Jackson County"
+        },
+        {
+            "code": "21111",
+            "fips": "111",
+            "state": "KY",
+            "name": "Jefferson County"
+        },
+        {
+            "code": "21113",
+            "fips": "113",
+            "state": "KY",
+            "name": "Jessamine County"
+        },
+        {
+            "code": "21115",
+            "fips": "115",
+            "state": "KY",
+            "name": "Johnson County"
+        },
+        {
+            "code": "21117",
+            "fips": "117",
+            "state": "KY",
+            "name": "Kenton County"
+        },
+        {
+            "code": "21119",
+            "fips": "119",
+            "state": "KY",
+            "name": "Knott County"
+        },
+        {
+            "code": "21121",
+            "fips": "121",
+            "state": "KY",
+            "name": "Knox County"
+        },
+        {
+            "code": "21123",
+            "fips": "123",
+            "state": "KY",
+            "name": "Larue County"
+        },
+        {
+            "code": "21125",
+            "fips": "125",
+            "state": "KY",
+            "name": "Laurel County"
+        },
+        {
+            "code": "21127",
+            "fips": "127",
+            "state": "KY",
+            "name": "Lawrence County"
+        },
+        {
+            "code": "21129",
+            "fips": "129",
+            "state": "KY",
+            "name": "Lee County"
+        },
+        {
+            "code": "21131",
+            "fips": "131",
+            "state": "KY",
+            "name": "Leslie County"
+        },
+        {
+            "code": "21133",
+            "fips": "133",
+            "state": "KY",
+            "name": "Letcher County"
+        },
+        {
+            "code": "21135",
+            "fips": "135",
+            "state": "KY",
+            "name": "Lewis County"
+        },
+        {
+            "code": "21137",
+            "fips": "137",
+            "state": "KY",
+            "name": "Lincoln County"
+        },
+        {
+            "code": "21139",
+            "fips": "139",
+            "state": "KY",
+            "name": "Livingston County"
+        },
+        {
+            "code": "21141",
+            "fips": "141",
+            "state": "KY",
+            "name": "Logan County"
+        },
+        {
+            "code": "21143",
+            "fips": "143",
+            "state": "KY",
+            "name": "Lyon County"
+        },
+        {
+            "code": "21151",
+            "fips": "151",
+            "state": "KY",
+            "name": "Madison County"
+        },
+        {
+            "code": "21153",
+            "fips": "153",
+            "state": "KY",
+            "name": "Magoffin County"
+        },
+        {
+            "code": "21155",
+            "fips": "155",
+            "state": "KY",
+            "name": "Marion County"
+        },
+        {
+            "code": "21157",
+            "fips": "157",
+            "state": "KY",
+            "name": "Marshall County"
+        },
+        {
+            "code": "21159",
+            "fips": "159",
+            "state": "KY",
+            "name": "Martin County"
+        },
+        {
+            "code": "21161",
+            "fips": "161",
+            "state": "KY",
+            "name": "Mason County"
+        },
+        {
+            "code": "21145",
+            "fips": "145",
+            "state": "KY",
+            "name": "McCracken County"
+        },
+        {
+            "code": "21147",
+            "fips": "147",
+            "state": "KY",
+            "name": "McCreary County"
+        },
+        {
+            "code": "21149",
+            "fips": "149",
+            "state": "KY",
+            "name": "McLean County"
+        },
+        {
+            "code": "21163",
+            "fips": "163",
+            "state": "KY",
+            "name": "Meade County"
+        },
+        {
+            "code": "21165",
+            "fips": "165",
+            "state": "KY",
+            "name": "Menifee County"
+        },
+        {
+            "code": "21167",
+            "fips": "167",
+            "state": "KY",
+            "name": "Mercer County"
+        },
+        {
+            "code": "21169",
+            "fips": "169",
+            "state": "KY",
+            "name": "Metcalfe County"
+        },
+        {
+            "code": "21171",
+            "fips": "171",
+            "state": "KY",
+            "name": "Monroe County"
+        },
+        {
+            "code": "21173",
+            "fips": "173",
+            "state": "KY",
+            "name": "Montgomery County"
+        },
+        {
+            "code": "21175",
+            "fips": "175",
+            "state": "KY",
+            "name": "Morgan County"
+        },
+        {
+            "code": "21177",
+            "fips": "177",
+            "state": "KY",
+            "name": "Muhlenberg County"
+        },
+        {
+            "code": "21179",
+            "fips": "179",
+            "state": "KY",
+            "name": "Nelson County"
+        },
+        {
+            "code": "21181",
+            "fips": "181",
+            "state": "KY",
+            "name": "Nicholas County"
+        },
+        {
+            "code": "21183",
+            "fips": "183",
+            "state": "KY",
+            "name": "Ohio County"
+        },
+        {
+            "code": "21185",
+            "fips": "185",
+            "state": "KY",
+            "name": "Oldham County"
+        },
+        {
+            "code": "21187",
+            "fips": "187",
+            "state": "KY",
+            "name": "Owen County"
+        },
+        {
+            "code": "21189",
+            "fips": "189",
+            "state": "KY",
+            "name": "Owsley County"
+        },
+        {
+            "code": "21191",
+            "fips": "191",
+            "state": "KY",
+            "name": "Pendleton County"
+        },
+        {
+            "code": "21193",
+            "fips": "193",
+            "state": "KY",
+            "name": "Perry County"
+        },
+        {
+            "code": "21195",
+            "fips": "195",
+            "state": "KY",
+            "name": "Pike County"
+        },
+        {
+            "code": "21197",
+            "fips": "197",
+            "state": "KY",
+            "name": "Powell County"
+        },
+        {
+            "code": "21199",
+            "fips": "199",
+            "state": "KY",
+            "name": "Pulaski County"
+        },
+        {
+            "code": "21201",
+            "fips": "201",
+            "state": "KY",
+            "name": "Robertson County"
+        },
+        {
+            "code": "21203",
+            "fips": "203",
+            "state": "KY",
+            "name": "Rockcastle County"
+        },
+        {
+            "code": "21205",
+            "fips": "205",
+            "state": "KY",
+            "name": "Rowan County"
+        },
+        {
+            "code": "21207",
+            "fips": "207",
+            "state": "KY",
+            "name": "Russell County"
+        },
+        {
+            "code": "21209",
+            "fips": "209",
+            "state": "KY",
+            "name": "Scott County"
+        },
+        {
+            "code": "21211",
+            "fips": "211",
+            "state": "KY",
+            "name": "Shelby County"
+        },
+        {
+            "code": "21213",
+            "fips": "213",
+            "state": "KY",
+            "name": "Simpson County"
+        },
+        {
+            "code": "21215",
+            "fips": "215",
+            "state": "KY",
+            "name": "Spencer County"
+        },
+        {
+            "code": "21217",
+            "fips": "217",
+            "state": "KY",
+            "name": "Taylor County"
+        },
+        {
+            "code": "21219",
+            "fips": "219",
+            "state": "KY",
+            "name": "Todd County"
+        },
+        {
+            "code": "21221",
+            "fips": "221",
+            "state": "KY",
+            "name": "Trigg County"
+        },
+        {
+            "code": "21223",
+            "fips": "223",
+            "state": "KY",
+            "name": "Trimble County"
+        },
+        {
+            "code": "21225",
+            "fips": "225",
+            "state": "KY",
+            "name": "Union County"
+        },
+        {
+            "code": "21227",
+            "fips": "227",
+            "state": "KY",
+            "name": "Warren County"
+        },
+        {
+            "code": "21229",
+            "fips": "229",
+            "state": "KY",
+            "name": "Washington County"
+        },
+        {
+            "code": "21231",
+            "fips": "231",
+            "state": "KY",
+            "name": "Wayne County"
+        },
+        {
+            "code": "21233",
+            "fips": "233",
+            "state": "KY",
+            "name": "Webster County"
+        },
+        {
+            "code": "21235",
+            "fips": "235",
+            "state": "KY",
+            "name": "Whitley County"
+        },
+        {
+            "code": "21237",
+            "fips": "237",
+            "state": "KY",
+            "name": "Wolfe County"
+        },
+        {
+            "code": "21239",
+            "fips": "239",
+            "state": "KY",
+            "name": "Woodford County"
+        }
+    ]
+}

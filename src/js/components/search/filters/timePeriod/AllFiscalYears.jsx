@@ -15,17 +15,7 @@ const propTypes = {
     updateFilter: PropTypes.func
 };
 
-const ga = require('react-ga');
-
 export default class AllFiscalYears extends React.Component {
-    static logFYEvent(year) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: 'Applied Fiscal Year Filter',
-            label: year
-        });
-    }
-
     constructor(props) {
         super(props);
         // bind functions
@@ -43,8 +33,6 @@ export default class AllFiscalYears extends React.Component {
         else {
             // the year does not yet exist in the set so we are adding
             newYears = this.props.selectedFY.add(year);
-            // Analytics
-            AllFiscalYears.logFYEvent(year);
         }
 
         this.props.updateFilter({
@@ -64,8 +52,6 @@ export default class AllFiscalYears extends React.Component {
         else {
             // we need to select all the years
             newYears = new Set(this.props.timePeriods);
-            // Analytics
-            AllFiscalYears.logFYEvent('all');
         }
 
         this.props.updateFilter({
@@ -76,7 +62,12 @@ export default class AllFiscalYears extends React.Component {
     render() {
         let allFY = true;
 
-        const fiscalYears = this.props.timePeriods.map((year) => {
+        const leftCount = Math.ceil(this.props.timePeriods.length / 2);
+
+        const leftFY = [];
+        const rightFY = [];
+
+        this.props.timePeriods.forEach((year, i) => {
             // determine if the checkbox should be selected based on whether the filter is already
             // applied
             const checked = this.props.selectedFY.has(year);
@@ -85,11 +76,18 @@ export default class AllFiscalYears extends React.Component {
                 allFY = false;
             }
 
-            return (<FiscalYear
+            const fy = (<FiscalYear
                 checked={checked}
                 year={year}
                 key={`filter-fy-${year}`}
                 saveSelectedYear={this.saveSelectedYear} />);
+
+            if (i + 1 <= leftCount) {
+                leftFY.push(fy);
+            }
+            else {
+                rightFY.push(fy);
+            }
         });
 
         return (
@@ -99,7 +97,12 @@ export default class AllFiscalYears extends React.Component {
                     year="all"
                     key="filter-fy-all"
                     saveAllYears={this.saveAllYears} />
-                {fiscalYears}
+                <div className="left-fy">
+                    {leftFY}
+                </div>
+                <div className="right-fy">
+                    {rightFY}
+                </div>
             </ul>
         );
     }

@@ -1,0 +1,74 @@
+.download-center {
+    @import "./archiveInfoBox";
+    .archive-info {
+        margin: rem(30) rem(20) rem(30) rem(30);
+    }
+    .download-center__filters {
+        @include span-columns(16);
+        @include media($medium-screen) {
+            @include span-columns(9);
+        }
+        margin-bottom: rem(30);
+        .download-center__heading {
+            @include display(flex);
+            @include align-items(flex-start);
+            .download-center__beta {
+                @include display(flex);
+                @include flex(0 0 auto);
+                margin: rem(5) 0 0 rem(30);
+                background-color: $color-gray-lightest;
+                height: fit-content;
+                padding: rem(2) rem(10);
+                font-size: $small-font-size;
+            }
+        }
+        .download-center__title {
+            @include display(flex);
+            @include flex(1 1 auto);
+            margin: 0 0 0 rem(30);
+            font-weight: 400;
+        }
+        @import "./form/downloadForm";
+        .download-center__reset {
+            @include button-unstyled;
+            display: block;
+            margin: auto;
+            color: $color-primary;
+            text-decoration: underline;
+        }
+    }
+
+    .download-info {
+        @include span-columns(16);
+        @include media($medium-screen) {
+            @include span-columns(7);
+        }
+        padding: rem(15) rem(30) 0 rem(30);
+        border-left: solid 1px #e1e1e1;
+
+        h3.download-info__title {
+            @include h6;
+            margin: 0;
+            padding-bottom: rem(15);
+        }
+        .download-info__section {
+            font-size: $small-font-size;
+            padding-bottom: rem(15);
+            h4.download-info__section-heading {
+                margin: 0;
+                padding-bottom: rem(5);
+                font-size: $small-font-size;
+                font-weight: $font-bold;
+            }
+            p {
+                margin: 0;
+                padding-bottom: rem(8);
+            }
+            .usa-da-icon-guide {
+                height: rem(16);
+                width: rem(16);
+                fill: $color-gray-light;
+            }
+        }
+    }
+}

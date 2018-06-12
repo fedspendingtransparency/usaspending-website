@@ -10,6 +10,7 @@ import { throttle, remove, orderBy, find } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { objectClassDefinitions } from 'dataMapping/agency/objectClassDefinitions';
+import { labelColorFromBackground } from 'helpers/colorHelper';
 
 import ObjectClassCell from './ObjectClassCell';
 import ObjectClassTooltip from './ObjectClassTooltip';
@@ -18,7 +19,8 @@ const propTypes = {
     majorObjectClass: PropTypes.object,
     minorObjectClasses: PropTypes.object,
     totalObligation: PropTypes.number,
-    totalMinorObligation: PropTypes.number
+    totalMinorObligation: PropTypes.number,
+    hasNegatives: PropTypes.bool
 };
 
 export default class MinorObjectClasses extends React.Component {
@@ -118,7 +120,7 @@ export default class MinorObjectClasses extends React.Component {
         const nodes = budgetFunctionTreemap.map((n, i) => {
             let cell = '';
             let cellColor = TreemapHelper.treemapColors[i];
-            let textColor = TreemapHelper.tooltipStyles.defaultStyle.textColor;
+            let textColor = labelColorFromBackground(TreemapHelper.treemapColors[i]);
             let textClass = '';
 
             // Set highlighted state for hovered object class
@@ -152,11 +154,11 @@ export default class MinorObjectClasses extends React.Component {
                     x1={n.x1}
                     y0={n.y0}
                     y1={n.y1}
-                    total={n.parent.value}
+                    total={treeProps.totalMinorObligation}
                     key={n.data.object_class_code}
                     objectClassID={n.data.object_class_code}
                     color={cellColor}
-                    strokeColor={'white'}
+                    strokeColor="white"
                     strokeOpacity={0.5}
                     tooltipStyles={TreemapHelper.tooltipStyles}
                     toggleTooltipIn={this.toggleTooltipIn}
@@ -239,8 +241,20 @@ export default class MinorObjectClasses extends React.Component {
         const objectClassDefinition =
             objectClassDefinitions[this.props.majorObjectClass.major_object_class_code];
 
+        let greatThanOneHundredDescription = null;
+        if (this.props.hasNegatives) {
+            greatThanOneHundredDescription = (
+                <p>
+                    <em><strong>Note:</strong> The object classes below add up to more
+                    than 100% due to negative values not shown here.
+                    </em>
+                </p>
+            );
+        }
+
         return (
             <div className="treemap-inner-wrap">
+                {greatThanOneHundredDescription}
                 <div className="function-desc">
                     <h1>{this.props.majorObjectClass.major_object_class_name}</h1>
                     <h6>{totalSpend} | {percentage}</h6>
@@ -262,7 +276,6 @@ export default class MinorObjectClasses extends React.Component {
             </div>
         );
     }
-
 }
 
 MinorObjectClasses.propTypes = propTypes;

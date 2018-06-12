@@ -6,12 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as AwardIDFormatter from 'helpers/awardIDFormatter';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
     filter: PropTypes.object,
-    redux: PropTypes.object
+    redux: PropTypes.object,
+    compressed: PropTypes.bool
 };
 
 export default class AwardIDFilterGroup extends React.Component {
@@ -43,9 +43,8 @@ export default class AwardIDFilterGroup extends React.Component {
 
         awardIDs.forEach((value) => {
             const tag = {
-                value: value.id,
-                title: `${AwardIDFormatter.formatAwardID(value, value.awardIDType)}
-                    | ${value.awardIDType}`,
+                value: `${value}`,
+                title: `${value} | Award ID`,
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };
@@ -62,7 +61,8 @@ export default class AwardIDFilterGroup extends React.Component {
         return (<BaseTopFilterGroup
             tags={tags}
             filter={this.props.filter}
-            clearFilterGroup={this.clearGroup} />);
+            clearFilterGroup={this.clearGroup}
+            compressed={this.props.compressed} />);
     }
 }
 

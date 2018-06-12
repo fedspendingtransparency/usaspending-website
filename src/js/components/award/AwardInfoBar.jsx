@@ -13,18 +13,18 @@ const propTypes = {
 };
 
 export default class AwardInfoBar extends React.Component {
-
     render() {
         let agencies = null;
         if (this.props.selectedAward) {
             agencies = (
                 <div className="award-info-bar">
                     <AgencyInfo
-                        {...this.props}
-                        selectedAward={this.props.selectedAward} />
+                        awardId={this.props.selectedAward.id}
+                        fundingAgency={this.props.selectedAward.fundingAgency}
+                        awardingAgency={this.props.selectedAward.awardingAgency} />
                     <div className="triangle-wrapper" />
                     <RecipientInfo
-                        recipient={this.props.selectedAward} />
+                        recipient={this.props.selectedAward.recipient} />
                 </div>
             );
         }

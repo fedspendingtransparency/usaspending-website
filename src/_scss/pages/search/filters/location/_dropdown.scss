@@ -1,0 +1,78 @@
+.geo-entity-dropdown {
+    position: relative;
+
+    &.disabled {
+        opacity: 0.4;
+    }
+
+    .active-selection {
+        @include button-unstyled;
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+
+        border-bottom: 1px solid $color-gray-light;
+        padding: rem(5) 0;
+        width: 100%;
+
+        .label {
+            @include flex(1 1 auto);
+            color: $color-gray;
+            font-size: $small-font-size;
+        }
+
+        .icon {
+            @include flex(0 0 auto);
+            width: rem(15);
+            height: rem(15);
+            margin-left: rem(10);
+
+            svg {
+                fill: $color-gray;
+                width: rem(15);
+                height: rem(15);
+            }
+        }
+
+        &.placeholder {
+            .label {
+                color: $color-placeholder;
+            }
+        }
+    }
+
+    .geo-entity-list {
+        @include unstyled-list;
+        z-index: $z-header - 1;
+
+        position: absolute;
+        top: rem(25);
+
+        background-color: $color-white;
+        border: 1px solid $color-gray-lighter;
+        box-shadow: $box-shadow;
+
+        max-height: rem(680);
+        overflow-y: auto;
+
+        li {
+            display: block;
+            min-width: rem(250);
+        }
+
+        .list-item {
+            @include button-unstyled;
+            color: $color-gray;
+            font-size: $small-font-size;
+            padding: rem(10);
+
+            width: 100%;
+
+            &:hover, &:active, &.active {
+                background-color: $color-gray-lightest;
+                color: $color-primary;
+            }
+        }
+    }
+}

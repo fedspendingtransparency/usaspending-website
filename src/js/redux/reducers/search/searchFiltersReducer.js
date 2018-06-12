@@ -5,29 +5,27 @@
 
 import { Set, OrderedMap } from 'immutable';
 
+import * as KeywordFilterFunctions from './filters/keywordFilterFunctions';
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
 import * as LocationFilterFunctions from './filters/locationFilterFunctions';
 import * as AgencyFilterFunctions from './filters/agencyFilterFunctions';
 import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
-import * as AwardIDFilterFunctions from './filters/awardIDFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
-import * as BudgetCategoryFilterFunctions from './filters/budgetCategoryFilterFunctions';
 import * as OtherFilterFunctions from './filters/OtherFilterFunctions';
+import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
-export const filterStoreVersion = 1;
+export const filterStoreVersion = '2017-11-21';
 
 export const requiredTypes = {
+    keyword: OrderedMap,
     timePeriodFY: Set,
     selectedLocations: OrderedMap,
-    budgetFunctions: OrderedMap,
-    federalAccounts: OrderedMap,
-    objectClasses: Set,
     selectedFundingAgencies: OrderedMap,
     selectedAwardingAgencies: OrderedMap,
-    selectedRecipients: OrderedMap,
+    selectedRecipients: Set,
     recipientType: Set,
     selectedRecipientLocations: OrderedMap,
     awardType: Set,
@@ -35,23 +33,23 @@ export const requiredTypes = {
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
     selectedNAICS: OrderedMap,
-    selectedPSC: OrderedMap
+    selectedPSC: OrderedMap,
+    pricingType: Set,
+    setAside: Set,
+    extentCompeted: Set
 };
 
 export const initialState = {
-    keyword: '',
+    keyword: new OrderedMap(),
     timePeriodType: 'fy',
     timePeriodFY: new Set(),
     timePeriodStart: null,
     timePeriodEnd: null,
     selectedLocations: new OrderedMap(),
     locationDomesticForeign: 'all',
-    budgetFunctions: new OrderedMap(),
-    federalAccounts: new OrderedMap(),
-    objectClasses: new Set(),
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
-    selectedRecipients: new OrderedMap(),
+    selectedRecipients: new Set(),
     recipientDomesticForeign: 'all',
     recipientType: new Set(),
     selectedRecipientLocations: new OrderedMap(),
@@ -60,7 +58,10 @@ export const initialState = {
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
     selectedNAICS: new OrderedMap(),
-    selectedPSC: new OrderedMap()
+    selectedPSC: new OrderedMap(),
+    pricingType: new Set(),
+    setAside: new Set(),
+    extentCompeted: new Set()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -68,7 +69,8 @@ const searchFiltersReducer = (state = initialState, action) => {
         // Free Text Search
         case 'UPDATE_TEXT_SEARCH': {
             return Object.assign({}, state, {
-                keyword: action.textInput
+                keyword: KeywordFilterFunctions.updateTextSearchInput(
+                    state.keyword, action.textInput)
             });
         }
 
@@ -96,31 +98,15 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
-        // Budget Categories Filter
-        case 'UPDATE_SELECTED_BUDGET_FUNCTIONS': {
+        case 'ADD_POP_LOCATION_OBJECT': {
             return Object.assign({}, state, {
-                budgetFunctions: BudgetCategoryFilterFunctions.updateBudgetFunctions(
-                    state.budgetFunctions, action.budgetFunction)
+                selectedLocations: state.selectedLocations.set(action.location.identifier, action.location)
             });
         }
 
-        case 'UPDATE_SELECTED_FEDERAL_ACCOUNTS': {
+        case 'ADD_RECIPIENT_LOCATION_OBJECT': {
             return Object.assign({}, state, {
-                federalAccounts: BudgetCategoryFilterFunctions.updateFederalAccounts(
-                    state.federalAccounts, action.federalAccount)
-            });
-        }
-
-        case 'UPDATE_SELECTED_OBJECT_CLASSES': {
-            return Object.assign({}, state, {
-                objectClasses: BudgetCategoryFilterFunctions.updateObjectClasses(
-                    state.objectClasses, action.objectClass)
-            });
-        }
-        case 'BULK_SEARCH_FILTER_OBJECT_CLASSES': {
-            return Object.assign({}, state, {
-                objectClasses: BudgetCategoryFilterFunctions.bulkObjectClassesChange(
-                    state.objectClasses, action.objectClasses, action.direction)
+                selectedRecipientLocations: state.selectedRecipientLocations.set(action.location.identifier, action.location)
             });
         }
 
@@ -188,14 +174,6 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
-        // Award ID Filter
-        case 'UPDATE_SELECTED_AWARD_IDS': {
-            return Object.assign({}, state, {
-                selectedAwardIDs: AwardIDFilterFunctions.updateSelectedAwardIDs(
-                    state.selectedAwardIDs, action.awardID)
-            });
-        }
-
         // Award Amount Filter
         case 'UPDATE_AWARD_AMOUNTS': {
             return Object.assign({}, state, {
@@ -228,6 +206,30 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
+        // Pricing Type Filter
+        case 'UPDATE_PRICING_TYPE': {
+            return Object.assign({}, state, {
+                pricingType: ContractFilterFunctions.updateContractFilterSet(
+                    state.pricingType, action.pricingType)
+            });
+        }
+
+        // Set Aside Filter
+        case 'UPDATE_SET_ASIDE': {
+            return Object.assign({}, state, {
+                setAside: ContractFilterFunctions.updateContractFilterSet(
+                    state.setAside, action.setAside)
+            });
+        }
+
+        // Extent Competed Filter
+        case 'UPDATE_EXTENT_COMPETED': {
+            return Object.assign({}, state, {
+                extentCompeted: ContractFilterFunctions.updateContractFilterSet(
+                    state.extentCompeted, action.extentCompeted)
+            });
+        }
+
         // Generic
         case 'UPDATE_SEARCH_FILTER_GENERIC': {
             return Object.assign({}, state, {
@@ -247,12 +249,13 @@ const searchFiltersReducer = (state = initialState, action) => {
                 [action.filterType]: initialState[action.filterType]
             });
         }
-        case 'POPULATE_ALL_SEARCH_FILTERS': {
+        case 'RESTORE_HASHED_FILTERS': {
             return Object.assign({}, initialState, action.filters);
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);
         }
+
         default:
             return state;
     }

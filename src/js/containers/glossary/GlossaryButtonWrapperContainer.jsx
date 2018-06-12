@@ -11,8 +11,7 @@ import { connect } from 'react-redux';
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 
 const propTypes = {
-    dispatch: PropTypes.func,
-    glossary: PropTypes.object
+    dispatch: PropTypes.func
 };
 
 export class GlossaryButtonWrapperContainer extends React.Component {
@@ -26,7 +25,7 @@ export class GlossaryButtonWrapperContainer extends React.Component {
         // auto-generating the props in the `connect` HOC.
         const actions = bindActionCreators(glossaryActions, this.props.dispatch);
         return (
-            <this.props.child {...this.props.glossary} {...actions} />
+            <this.props.child {...this.props} {...actions} />
         );
     }
 }

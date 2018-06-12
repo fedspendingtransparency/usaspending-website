@@ -7,27 +7,19 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import NAICSSearch from 'components/search/filters/naics/NAICSSearch';
 
 const propTypes = {
-    updateSelectedNAICS: PropTypes.func
+    updateSelectedNAICS: PropTypes.func,
+    selectedNAICS: PropTypes.object,
+    appliedNAICS: PropTypes.object
 };
 
-const ga = require('react-ga');
-
 export class NAICSSearchContainer extends React.Component {
-
-    static logPlaceFilterEvent(naics) {
-        ga.event({
-            category: 'Search Page Filter Applied',
-            action: `Applied NAICS Filter`,
-            label: naics.toLowerCase()
-        });
-    }
-
     constructor(props) {
         super(props);
 
@@ -42,9 +34,6 @@ export class NAICSSearchContainer extends React.Component {
             const updateParams = {};
             updateParams.naics = naics;
             this.props.updateSelectedNAICS(updateParams);
-
-            // Analytics
-            NAICSSearchContainer.logPlaceFilterEvent(naics.naics_description);
         }
     }
 
@@ -54,10 +43,18 @@ export class NAICSSearchContainer extends React.Component {
         this.props.updateSelectedNAICS(updateParams);
     }
 
+    dirtyFilters() {
+        if (is(this.props.selectedNAICS, this.props.appliedNAICS)) {
+            return null;
+        }
+        return Symbol('dirty NAICS');
+    }
+
     render() {
         return (
             <NAICSSearch
-                {...this.props}
+                selectedNAICS={this.props.selectedNAICS}
+                dirtyFilters={this.dirtyFilters()}
                 selectNAICS={this.selectNAICS}
                 removeNAICS={this.removeNAICS} />
         );
@@ -68,6 +65,8 @@ NAICSSearchContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        selectedNAICS: state.filters.selectedNAICS }),
+        selectedNAICS: state.filters.selectedNAICS,
+        appliedNAICS: state.appliedFilters.filters.selectedNAICS
+    }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(NAICSSearchContainer);
