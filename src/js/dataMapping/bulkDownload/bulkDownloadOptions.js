@@ -159,6 +159,12 @@ export const accountDownloadOptions = {
             label: 'Account Breakdown by Program Activity & Object Class',
             apiName: 'object_class_program_activity',
             file: 'File B'
+        },
+        {
+            name: 'accountBreakdownByAward',
+            label: 'Account Breakdown by Award',
+            apiName: 'object_class_program_activity',
+            file: 'File C'
         }
     ],
     fileFormats: [
