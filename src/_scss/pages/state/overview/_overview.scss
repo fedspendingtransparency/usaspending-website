@@ -10,6 +10,10 @@
             width: rem(64);
             height: auto;
             margin-right: rem(28);
+
+            & img {
+                border: 1px solid #CCCCCC;
+            }
         }
         h2.state-overview__title {
             @include h3;
