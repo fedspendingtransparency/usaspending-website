@@ -144,7 +144,7 @@ export default class ChartGroup extends React.Component {
                     width={this.props.width}
                     height={this.props.height} />
 
-                <g transform="translate(12,34)">
+                <g transform="translate(12,20)">
                     {this.state.label}
                 </g>
             </g>

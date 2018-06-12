@@ -36,7 +36,6 @@ const defaultProps = {
     padding: {
         bottom: 30
     },
-    itemHeight: 60,
     startIndex: 0,
     minRows: 5
 };
