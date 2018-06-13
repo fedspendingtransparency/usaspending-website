@@ -59,6 +59,7 @@ export class AccountDataContainer extends React.Component {
 
         this.agencyListRequest.promise
             .then((res) => {
+                console.log(res.data.agencies);
                 const cfoAgencies = res.data.agencies.cfo_agencies;
                 const otherAgencies = res.data.agencies.other_agencies;
                 this.setState({

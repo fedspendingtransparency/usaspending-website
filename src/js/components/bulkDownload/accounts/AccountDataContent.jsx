@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 
+import AccountLevelFilter from './filters/AccountLevelFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
@@ -75,6 +76,11 @@ export default class AccountDataContent extends React.Component {
                     <form
                         className="download-center-form"
                         onSubmit={this.handleSubmit}>
+                        <AccountLevelFilter
+                            accountLevels={accountDownloadOptions.accountLevels}
+                            currentAccountLevel={accounts.accountLevel}
+                            updateFilter={this.props.updateFilter}
+                            valid={accounts.accountLevel !== ''} />
                         <AgencyFilter
                             agencies={this.props.agencies}
                             currentAgency={accounts.agency}

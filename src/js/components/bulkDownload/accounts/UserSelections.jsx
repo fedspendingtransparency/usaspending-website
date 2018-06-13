@@ -84,7 +84,7 @@ export default class UserSelections extends React.Component {
                     <div className="selection">
                         <div className="selection__heading">Account Level</div>
                         <div className="selection__content">
-                            Treasury Account
+                            {this.generateAccountLevelString()}
                         </div>
                     </div>
                     <div className="selection">

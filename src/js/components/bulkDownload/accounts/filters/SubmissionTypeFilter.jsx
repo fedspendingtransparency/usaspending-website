@@ -54,7 +54,7 @@ export default class SubmissionTypeFilter extends React.Component {
                 <label
                     className="radio-label"
                     htmlFor="submission-type">
-                    {type.label}<span className="radio-label__subtext"> {type.file}</span>
+                    {type.label}
                 </label>
             </div>
         ));

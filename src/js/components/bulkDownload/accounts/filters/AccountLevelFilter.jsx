@@ -50,12 +50,11 @@ export default class AccountLevelFilter extends React.Component {
                     value={level.name}
                     name="account-level"
                     checked={this.props.currentAccountLevel === level.name}
-                    onChange={this.onChange}
-                    disabled={level.disabled} />
+                    onChange={this.onChange} />
                 <label
-                    className={`radio-label ${level.disabled ? 'disabled' : ''}`}
+                    className="radio-label"
                     htmlFor="account-level">
-                    {level.label}
+                    {level.label} <span className="radio-label__subtext"> {level.account}</span>
                 </label>
             </div>
         ));
