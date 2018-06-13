@@ -163,7 +163,7 @@ export const accountDownloadOptions = {
         {
             name: 'accountBreakdownByAward',
             label: 'Account Breakdown by Award',
-            apiName: 'object_class_program_activity',
+            apiName: 'award_financial',
             file: 'File C'
         }
     ],
