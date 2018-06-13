@@ -19,7 +19,8 @@ const propTypes = {
     data: PropTypes.object,
     selectedCell: PropTypes.func,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    goToUnreported: PropTypes.func
 };
 
 const highlightColor = '#fdb81e';
@@ -61,6 +62,10 @@ export default class TreemapCell extends React.Component {
         if (this.props.data.id) {
             this.exitedCell();
             this.props.selectedCell(this.props.data.id, this.props.data);
+        }
+        else if (this.props.data.name === 'Unreported Data') {
+            this.exitedCell();
+            this.props.goToUnreported(this.props.data);
         }
     }
 
@@ -114,11 +119,6 @@ export default class TreemapCell extends React.Component {
             </text>
         );
 
-        let disabledClass = '';
-        if (this.props.data.id === null) {
-            disabledClass = 'link-disabled';
-        }
-
         if (this.props.width < 75 || this.props.height < 38) {
             cellTitle = '';
             cellValue = '';
@@ -127,7 +127,7 @@ export default class TreemapCell extends React.Component {
 
         return (
             <g
-                className={`explorer-cell ${disabledClass}`}
+                className="explorer-cell"
                 transform={position}
                 onClick={this.clickedCell}
                 onMouseMove={this.enteredCell}
@@ -136,7 +136,7 @@ export default class TreemapCell extends React.Component {
                     this.element = g;
                 }}>
                 <title>
-                    {this.props.data.name}
+                    {this.props.title.text}
                 </title>
                 <rect
                     className="explorer-cell-box"

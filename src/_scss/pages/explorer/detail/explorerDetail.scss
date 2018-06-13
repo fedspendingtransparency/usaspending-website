@@ -1,6 +1,7 @@
 .explorer-detail-wrap {
     @import "./_tooltip";
-	@import "./_noAwardsScreen";
+    @import "./_noAwardsScreen";
+    @import "./_unreportedErrorScreen";
 
     background: url(#{$image-path}/explorer-background.jpg) no-repeat top center fixed;
     background-size: cover;
