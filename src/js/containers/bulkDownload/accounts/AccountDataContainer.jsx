@@ -98,7 +98,7 @@ export class AccountDataContainer extends React.Component {
 
         this.federalListRequest.promise
             .then((res) => {
-                const federals = res.data;
+                const federals = res.data.results;
                 this.setState({
                     federals
                 });
