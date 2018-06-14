@@ -8,15 +8,14 @@ import PropTypes from 'prop-types';
 
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
 
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
-import Header from '../sharedComponents/header/Header';
-import Footer from '../sharedComponents/Footer';
+import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
+import Header from 'components/sharedComponents/header/Header';
+import Footer from 'components/sharedComponents/Footer';
+
+import Error from 'components/sharedComponents/Error';
 
 import RecipientHeader from './header/RecipientHeader';
-
 import RecipientLoading from './RecipientLoading';
-import RecipientError from './RecipientError';
-
 import RecipientContent from './RecipientContent';
 
 const propTypes = {
@@ -33,7 +32,9 @@ export default class RecipientPage extends React.Component {
             content = (<RecipientLoading />);
         }
         else if (this.props.error) {
-            content = (<RecipientError />);
+            content = (<Error
+                title="Invalid Recipient"
+                message="The recipient ID provided is invalid. Please check the ID and try again." />);
         }
 
         return (

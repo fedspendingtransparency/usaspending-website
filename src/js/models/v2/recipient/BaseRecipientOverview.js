@@ -9,14 +9,14 @@ import CoreLocation from 'models/v2/CoreLocation';
 const BaseRecipientOverview = {
     populate(data) {
         this.name = data.recipient_name || '';
-        this.duns = data.duns || '--';
-        this.parentName = data.parent_name;
-        this.parentDuns = data.parent_duns || '--';
+        this.duns = data.duns || null;
+        this.parentName = data.parent_name || '';
+        this.parentDuns = data.parent_duns || '';
         this._totalAmount = parseFloat(data.total_prime_amount) || 0;
         this._totalAwards = parseFloat(data.total_prime_awards) || 0;
         this._totalSubAmount = parseFloat(data.total_sub_amount) || 0;
         this._totalSubAwards = parseFloat(data.total_sub_awards) || 0;
-        this.businessTypes = data.business_types || '';
+        this.businessTypes = data.business_types || [];
 
         // Recipient Location
         let locationData = {};

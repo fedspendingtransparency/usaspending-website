@@ -7,11 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-// import { isCancel } from 'axios';
+import { isCancel } from 'axios';
 
 import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
 import * as recipientActions from 'redux/actions/recipient/recipientSummaryActions';
-// import * as RecipientHelper from 'helpers/recipientHelper';
+import * as RecipientHelper from 'helpers/recipientHelper';
 
 import RecipientPage from 'components/recipient/RecipientPage';
 
@@ -51,64 +51,32 @@ export class RecipientContainer extends React.Component {
         }
     }
 
-    loadRecipientOverview(id, year) {
-        this.setState({
-            loading: false
-        });
-        const mockData = {
-            name: 'The ABC Corporation A',
-            duns: '014874593',
-            parent_name: 'The ABC Corporation',
-            parent_duns: '007872690',
-            location: {
-                address_line1: '7515 Colshire Dr',
-                city_name: 'McLean',
-                state_code: 'VA',
-                zip_5: '22102'
-            },
-            business_types: [
-                'Non-Profit',
-                'Federally Funded Research and Development Corp'
-            ],
-            total_prime_amount: 1000,
-            total_sub_amount: 800,
-            total_prime_awards: 150,
-            total_sub_awards: 75
-        };
+    loadRecipientOverview(duns, year) {
+        if (this.request) {
+            // A request is currently in-flight, cancel it
+            this.request.cancel();
+        }
 
-        this.parseRecipient(mockData, id);
+        this.request = RecipientHelper.fetchRecipientOverview(duns, year);
 
-        // TODO - Lizzie: uncomment when endpoint is ready
-        // if (this.request) {
-        //    // A request is currently in-flight, cancel it
-        //    this.request.cancel();
-        // }
+        this.request.promise
+            .then((res) => {
+                this.setState({
+                    loading: false
+                }, () => {
+                    this.parseRecipient(res.data);
+                });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
 
-        // this.request = RecipientHelper.fetchRecipient(id);
-        //
-        // this.request.promise
-        //    .then((res) => {
-        //        const noRecipient = Object.keys(res.data.results).length === 0;
-        //
-        //        this.setState({
-        //            loading: false,
-        //            error: noRecipient
-        //        }, () => {
-        //            if (!noRecipient) {
-        //                this.parseRecipient(res.data.results, id);
-        //            }
-        //        });
-        //    })
-        //    .catch((err) => {
-        //        if (!isCancel(err)) {
-        //            console.log(err);
-        //
-        //            this.setState({
-        //                loading: false,
-        //                error: true
-        //            });
-        //        }
-        //    });
+                    this.setState({
+                        loading: false,
+                        error: true
+                    });
+                }
+            });
     }
 
     parseRecipient(data) {

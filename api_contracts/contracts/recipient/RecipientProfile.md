@@ -31,12 +31,12 @@ This endpoint returns a high-level overview of a specific recipient, given its D
     Name of the recipient.
 + duns: 0123456 (required, string)
     Recipient's DUNS (Data Universal Numbering System) number. A unique identifier for business entities. 
-+ parent_name: The XYZ Corporation (required, string)
++ parent_name: The XYZ Corporation (required, string, nullable)
     Parent recipient's name. Null if the recipient does not have a parent recipient.
 + parent_duns: 0987654 (required, string, nullable)
-    Parent recipient's DUNS number. 
+    Parent recipient's DUNS number. Null if the recipient does not have a parent recipient.
 + location: (required, RecipientLocation, fixed-type)
-+ business_types: Corporate Entity, For Profit Organization (required, array[string])
++ business_types: Corporate Entity, For Profit Organization (required, array[string], fixed-type)
     An array of business types used to categorize recipients.
 + total_prime_amount: 300200000000 (required, number)
     The aggregate monetary value of all prime awards associated with this recipient for the given time period.
@@ -46,33 +46,33 @@ This endpoint returns a high-level overview of a specific recipient, given its D
     The aggregate monetary value of all sub-awards for the given time period.
 + total_sub_awards: 127721 (required, number)
     The number of sub-awards associated with this recipient for the given time period.
-+ child_recipients: (required, array[ChildRecipient])
-    A list of child recipients. Empty array if this recipient is not a parent recipient. 
++ child_recipients: (required, array[ChildRecipient], fixed-type, nullable)
+    A list of child recipients. Null if this recipient is not a parent recipient. 
 
 ## RecipientLocation (object)
-+ address_line1: 123 Sesame St (optional, string)
++ address_line1: 123 Sesame St (required, string, nullable)
     The first line of the recipient's street address. 
-+ address_line2: null (optional, string)
++ address_line2: (optional, string)
     Second line of the recipient's street address. 
-+ address_line3: null (optional, string)
++ address_line3: (optional, string)
     Third line of the recipient's street address. 
-+ foreign_province: null (optional, string)
++ foreign_province: (optional, string)
     Name of the province in which the recipient is located, if it is outside the United States.
-+ city_name: McLean (optional, string)
++ city_name: McLean (required, string, nullable)
     Name of the city in which the recipient is located.
-+ county_name: null (optional, string)
++ county_name: (optional, string)
     Name of the county in which the recipient is located.
 + state_code: VA (optional, string)
     Code for the state in which the recipient is located. 
 + zip: 22102 (optional, string)
     Recipient's zip code (5 digits)
-+ zip4: null (optional, string)
++ zip4: (optional, string)
     Recipient's zip code (4 digits)
-+ foreign_postal_code: null (optional, string)
++ foreign_postal_code: (optional, string)
     Recipient's postal code, if it is outside the United States.
-+ country_name: null (optional, string)
++ country_name: (required, string, nullable)
      Name of the country in which the recipient is located.
-+ country_code: USA (optional, string)
++ country_code: USA (required, string, nullable)
      Code for the country in which the recipient is located.
 + congressional_code: 05 (optional, string)
     Number for the recipient's congressional district. 
