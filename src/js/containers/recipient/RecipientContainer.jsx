@@ -56,7 +56,6 @@ export class RecipientContainer extends React.Component {
             loading: false
         });
         const mockData = {
-            legal_entity_id: id,
             name: 'The ABC Corporation A',
             duns: '014874593',
             parent_name: 'The ABC Corporation',

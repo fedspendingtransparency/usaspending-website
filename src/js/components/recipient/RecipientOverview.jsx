@@ -64,7 +64,7 @@ export default class RecipientOverview extends React.Component {
                                 <tr>
                                     <th>Address</th>
                                     <td>
-                                        <div>{recipient.location.address}</div>
+                                        <div>{recipient.location.fullAddress}</div>
                                     </td>
                                 </tr>
                                 <tr>
