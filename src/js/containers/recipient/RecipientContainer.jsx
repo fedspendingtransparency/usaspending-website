@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 // import { isCancel } from 'axios';
 
-import RecipientOverviewModel from 'models/recipient/RecipientOverviewModel';
+import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
 import * as recipientActions from 'redux/actions/recipient/recipientSummaryActions';
 // import * as RecipientHelper from 'helpers/recipientHelper';
 
@@ -19,12 +19,12 @@ require('pages/recipient/recipientPage.scss');
 
 const propTypes = {
     setRecipientOverview: PropTypes.func,
+    setRecipientFiscalYear: PropTypes.func,
     params: PropTypes.object,
     recipient: PropTypes.object
 };
 
 export class RecipientContainer extends React.Component {
-
     constructor(props) {
         super(props);
 
@@ -36,41 +36,45 @@ export class RecipientContainer extends React.Component {
         this.request = null;
     }
 
-    componentWillMount() {
-        this.loadRecipientOverview(this.props.params.recipientId);
+    componentDidMount() {
+        this.loadRecipientOverview(this.props.params.recipientId, this.props.recipient.fy);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.params.recipientId !== nextProps.params.recipientId) {
-            this.loadRecipientOverview(nextProps.params.recipientId);
+    componentDidUpdate(prevProps) {
+        if (this.props.params.recipientId !== prevProps.params.recipientId) {
+            // Reset the FY
+            this.props.setRecipientFiscalYear('latest');
+            this.loadRecipientOverview(this.props.params.recipientId, 'latest');
+        }
+        if (this.props.recipient.fy !== prevProps.recipient.fy) {
+            this.loadRecipientOverview(this.props.params.recipientId, this.props.recipient.fy);
         }
     }
 
-    loadRecipientOverview(id) {
+    loadRecipientOverview(id, year) {
         this.setState({
             loading: false
         });
         const mockData = {
-            recipient_id: id,
-            recipient_name: 'The ABC Corporation A',
-            recipient_duns: '014874593',
-            parent_company: 'The ABC Corporation',
-            recipient_parent_duns: '007872690',
-            recipient_street: '7515 Colshire Dr',
-            recipient_city: 'McLean',
-            recipient_state: 'VA',
-            recipient_zip: '22102',
-            recipient_business_types: [
+            legal_entity_id: id,
+            name: 'The ABC Corporation A',
+            duns: '014874593',
+            parent_name: 'The ABC Corporation',
+            parent_duns: '007872690',
+            location: {
+                address_line1: '7515 Colshire Dr',
+                city_name: 'McLean',
+                state_code: 'VA',
+                zip_5: '22102'
+            },
+            business_types: [
                 'Non-Profit',
                 'Federally Funded Research and Development Corp'
             ],
-            primary_NAICS: '542712',
-            NAICS_description: 'RESEARCH AND DEVELOPMENT IN THE PHYSICAL, ENGINEERING, ' +
-            'AND LIFE SCIENCES (EXCEPT BIOTECHNOLOGY)',
-            awarded_amount: '990000000000',
-            historical_awarded_amount: '9200000000',
-            active_awards: '150',
-            historical_awards: '1227'
+            total_prime_amount: 1000,
+            total_sub_amount: 800,
+            total_prime_awards: 150,
+            total_sub_awards: 75
         };
 
         this.parseRecipient(mockData, id);
@@ -108,11 +112,10 @@ export class RecipientContainer extends React.Component {
         //    });
     }
 
-    parseRecipient(data, id) {
-        const recipient = new RecipientOverviewModel(Object.assign({}, data, {
-            agency_id: id
-        }), true);
-        this.props.setRecipientOverview(recipient);
+    parseRecipient(data) {
+        const recipientOverview = Object.create(BaseRecipientOverview);
+        recipientOverview.populate(data);
+        this.props.setRecipientOverview(recipientOverview);
     }
 
     render() {
@@ -121,7 +124,8 @@ export class RecipientContainer extends React.Component {
                 loading={this.state.loading}
                 error={this.state.error}
                 id={this.props.recipient.id}
-                recipient={this.props.recipient} />
+                recipient={this.props.recipient}
+                pickedFy={this.props.setRecipientFiscalYear} />
         );
     }
 }
