@@ -11,6 +11,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 const propTypes = {
     agencies: PropTypes.object,
     currentAgency: PropTypes.object,
+    currentFederal: PropTypes.object,
     updateFilter: PropTypes.func,
     valid: PropTypes.bool
 };
@@ -20,10 +21,12 @@ export default class AgencyFilter extends React.Component {
         super(props);
 
         this.state = {
-            showAgencyPicker: false
+            showAgencyPicker: false,
+            showFederalPicker: false
         };
 
         this.toggleAgencyPicker = this.toggleAgencyPicker.bind(this);
+        this.toggleFederalPicker = this.toggleFederalPicker.bind(this);
         this.handleAgencySelect = this.handleAgencySelect.bind(this);
     }
 
@@ -34,9 +37,18 @@ export default class AgencyFilter extends React.Component {
         });
     }
 
-    handleAgencySelect(e) {
+    toggleFederalPicker(e) {
+        e.preventDefault();
+        this.setState({
+            showFederalPicker: !this.state.showFederalPicker
+        });
+    }
+
+    handleAgencySelect(agencyCode, e) {
+        console.log(agencyCode);
         e.preventDefault();
         const target = e.target;
+        console.log(target);
         this.props.updateFilter('agency', {
             id: target.value,
             name: target.name
@@ -73,7 +85,7 @@ export default class AgencyFilter extends React.Component {
                     aria-label={agency.name}
                     value={agency.toptier_agency_id}
                     name={agency.name}
-                    onClick={this.handleAgencySelect}>
+                    onClick={(e) => this.handleAgencySelect(agency.cgac_code, e)}>
                     {agency.name}
                 </button>
             </li>
@@ -90,7 +102,7 @@ export default class AgencyFilter extends React.Component {
                     aria-label={agency.name}
                     value={agency.toptier_agency_id}
                     name={agency.name}
-                    onClick={this.handleAgencySelect}>
+                    onClick={(e) => this.handleAgencySelect(agency.cgac_code, e)}>
                     {agency.name}
                 </button>
             </li>
@@ -104,10 +116,18 @@ export default class AgencyFilter extends React.Component {
             agencyIcon = <Icons.AngleUp alt="Pick an agency" />;
         }
 
+        const currentFederalName = this.props.currentFederal.name;
+        let showFederalPicker = 'hide';
+        let federalIcon = <Icons.AngleDown alt="Pick a federal account" />;
+        if (this.state.showFederalPicker) {
+            showFederalPicker = '';
+            federalIcon = <Icons.AngleUp alt="Pick a federal account" />;
+        }
+
         return (
             <div className="download-filter">
                 <h3 className="download-filter__title">
-                    {icon} Select an <span className="download-filter__title_em">agency</span>.
+                    {icon} Select an <span className="download-filter__title_em">agency</span> and <span className="download-filter__title_em">federal account</span>.
                 </h3>
                 <div className="download-filter__content">
                     <div className="filter-picker">
@@ -164,6 +184,65 @@ export default class AgencyFilter extends React.Component {
                                     {otherAgencies}
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="download-filter__content">
+                    <div className="filter-picker">
+                        <label className="select-label" htmlFor="federal-select">
+                            Federal Account
+                        </label>
+                        <div className="field-picker">
+                            <button
+                                className="selected-button"
+                                title={currentFederalName}
+                                aria-label={currentFederalName}
+                                onClick={this.toggleFederalPicker}
+                                disabled>
+                                <div className="label">
+                                    {currentFederalName}
+                                </div>
+                                <div className="arrow-icon">
+                                    {federalIcon}
+                                </div>
+                            </button>
+
+                            {/* <div className={`field-list ${showFederalPicker}`}>
+                                <ul>
+                                    <li className="field-item">
+                                        <button
+                                            className="item-button"
+                                            title="All"
+                                            aria-label="all"
+                                            name="All"
+                                            value="all"
+                                            onClick={this.handleAgencySelect}>
+                                            All
+                                        </button>
+                                    </li>
+                                    <li className="field-item">
+                                        <button
+                                            className="item-button group-label"
+                                            title="CFO Agencies"
+                                            aria-label="CFO Agencies"
+                                            disabled >
+                                            CFO Agencies
+                                        </button>
+                                    </li>
+                                    {cfoAgencies}
+                                    <li className="field-item">
+                                        <button
+                                            className="item-button group-label"
+                                            title="Other Agencies"
+                                            aria-label="Other Agencies"
+                                            disabled >
+                                            Other Agencies
+                                        </button>
+                                    </li>
+                                    {otherAgencies}
+                                </ul>
+                            </div> */}
                         </div>
                     </div>
                 </div>

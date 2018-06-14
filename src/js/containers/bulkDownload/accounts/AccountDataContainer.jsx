@@ -29,14 +29,17 @@ export class AccountDataContainer extends React.Component {
             agencies: {
                 cfoAgencies: [],
                 otherAgencies: []
-            }
+            },
+            federals: []
         };
 
         this.agencyListRequest = null;
+        this.federalListRequest = null;
 
         this.updateFilter = this.updateFilter.bind(this);
         this.clearAccountFilters = this.clearAccountFilters.bind(this);
         this.setAgencyList = this.setAgencyList.bind(this);
+        this.setFederalList = this.setFederalList.bind(this);
     }
 
     componentDidMount() {
@@ -59,7 +62,6 @@ export class AccountDataContainer extends React.Component {
 
         this.agencyListRequest.promise
             .then((res) => {
-                console.log(res.data.agencies);
                 const cfoAgencies = res.data.agencies.cfo_agencies;
                 const otherAgencies = res.data.agencies.other_agencies;
                 this.setState({
@@ -72,6 +74,38 @@ export class AccountDataContainer extends React.Component {
             .catch((err) => {
                 console.log(err);
                 this.agencyListRequest = null;
+            });
+    }
+
+    setFederalList(agencyCode) {
+        this.setState({
+            inFlight: true
+        });
+
+        if (this.federalListRequest) {
+            this.federalListRequest.cancel();
+        }
+
+        const params = {
+            field: "agency_identifier",
+            operation: "equals",
+            value: agencyCode
+        };
+
+        this.federalListRequest = BulkDownloadHelper.requestFederalsList({
+            filters: params
+        });
+
+        this.federalListRequest.promise
+            .then((res) => {
+                const federals = res.data;
+                this.setState({
+                    federals
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+                this.federalListRequest = null;
             });
     }
 
@@ -91,6 +125,8 @@ export class AccountDataContainer extends React.Component {
         return (
             <AccountDataContent
                 accounts={this.props.bulkDownload.accounts}
+                federals={this.state.federals}
+                setFederalList={this.setFederalList}
                 updateFilter={this.updateFilter}
                 clearAccountFilters={this.clearAccountFilters}
                 agencies={this.state.agencies}
