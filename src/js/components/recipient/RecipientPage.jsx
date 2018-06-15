@@ -10,26 +10,29 @@ import { recipientPageMetaTags } from 'helpers/metaTagHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import Error from 'components/sharedComponents/Error';
 import Footer from 'components/sharedComponents/Footer';
 
-import Error from 'components/sharedComponents/Error';
-
-import RecipientHeader from './header/RecipientHeader';
-import RecipientLoading from './RecipientLoading';
 import RecipientContent from './RecipientContent';
 
 const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
     id: PropTypes.string,
-    recipient: PropTypes.object
+    recipient: PropTypes.object,
+    pickedFy: PropTypes.func
 };
 
 export default class RecipientPage extends React.Component {
     render() {
         let content = <RecipientContent {...this.props} />;
         if (this.props.loading) {
-            content = (<RecipientLoading />);
+            content = (
+                <Error
+                    title="Loading..."
+                    message="" />
+            );
         }
         else if (this.props.error) {
             content = (<Error
@@ -41,7 +44,13 @@ export default class RecipientPage extends React.Component {
             <div className="usa-da-recipient-page">
                 <MetaTags {...recipientPageMetaTags} />
                 <Header />
-                <RecipientHeader />
+                <StickyHeader>
+                    <div className="sticky-header__title">
+                        <h1 tabIndex={-1} id="main-focus">
+                            Recipient Profile
+                        </h1>
+                    </div>
+                </StickyHeader>
                 <main
                     id="main-content"
                     className="main-content">

@@ -1,81 +1,17 @@
 .recipient-overview {
-	@include clearfix();
-
-	.title {
-		h3 {
+	h2.recipient-overview__title {
+		@include h3;
+		margin: rem(5) 0;
+	}
+	.recipient-overview__content {
+		h3.recipient-overview__heading {
+			@include h4;
+			font-size: rem(19);
+			font-weight: 600;
 			margin: 0;
 		}
-	}
 
-	.overview-content {
-		@include span-columns(16);
-
-		.recipient-award {
-			@include span-columns(16);
-			@include media($tablet-screen) {
-				@include span-columns(8);
-			}
-			.award-amounts, .award-counts {
-				@include span-columns(16);
-				@include media($tablet-screen) {
-					@include span-columns(8);
-				}
-				text-align: center;
-				font-weight: lighter;
-				padding: rem(30) 0;
-				.current {
-					b {
-						font-size: rem(18);
-						font-weight: 600;
-					}
-					h3 {
-						color: #40A461;
-						margin: rem(20) 0 rem(50) 0;
-					}
-				}
-				.historical {
-					b {
-						font-weight: normal;
-					}
-					h5 {
-						font-weight: lighter;
-					}
-				}
-			}
-			.award-counts {
-				@include media($tablet-screen) {
-					border-left: solid 1px $color-gray-light;
-				}
-			}
-
-		}
-		.recipient-details {
-			@include span-columns(16);
-			@include media($tablet-screen) {
-				@include span-columns(8);
-			}
-			table {
-				tbody {
-					tr {
-						th, td {
-							border: 0;
-							padding: rem(10);
-						}
-						th {
-							width: 40%;
-							font-weight: 600;
-						}
-						td {
-							width: 60%;
-						}
-						&:nth-child(even) {
-							th, td {
-								background-color: $color-gray-lightest;
-							}
-						}
-					}
-				}
-			}
-		}
+		@import "pages/state/overview/totals";
+		@import "pages/state/overview/details";
 	}
 }

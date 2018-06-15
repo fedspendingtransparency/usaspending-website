@@ -8,7 +8,7 @@ import CoreLocation from 'models/v2/CoreLocation';
 
 const BaseRecipientOverview = {
     populate(data) {
-        this.name = data.recipient_name || '';
+        this.name = data.name || '';
         this.duns = data.duns || null;
         this.parentName = data.parent_name || '';
         this.parentDuns = data.parent_duns || '';

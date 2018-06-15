@@ -14,80 +14,65 @@ export default class RecipientOverview extends React.Component {
     render() {
         const recipient = this.props.recipient;
         return (
-            <div className="recipient-overview">
-                <div className="title">
-                    <h3>{recipient.name}</h3>
-                </div>
+            <div
+                id="recipient-overview"
+                className="recipient-section recipient-overview">
+                <h2 className="recipient-overview__title">
+                    {recipient.name}
+                </h2>
                 <hr className="results-divider" />
-                <div className="overview-content">
-                    <div className="recipient-award">
-                        <h4>Recipient Award Summary</h4>
-                        <hr className="results-divider" />
-                        <div className="award-amounts">
-                            <div className="current">
-                                <div><b>Awarded Amount</b></div>
-                                <div>(Trailing 12 Months)</div>
-                                <h3>
-                                    {recipient.totalAmount}
-                                </h3>
+                <div className="recipient-overview__content">
+                    <div className="recipient-section__row">
+                        <div className="recipient-section__viz totals">
+                            <h3 className="recipient-overview__heading">
+                                Total Awarded Amount
+                            </h3>
+                            <div className="totals__amount">
+                                {recipient.totalAmount}
                             </div>
-                            <div className="historical">
-                                <div><b>Historical Awarded Amount</b></div>
-                                <div>(Since FY 2006)</div>
-                                <h5>
-                                    {recipient.totalSubAmount}
-                                </h5>
+                            <div className="totals__awards">
+                                from <span className="state-overview__total">{recipient.totalAwards}</span> prime awards
+                            </div>
+                            <div className="totals__subawards">
+                                Additionally, they received <span className="state-overview__total">{recipient.totalSubAmount}</span> from <span className="state-overview__total">{recipient.totalSubAwards}</span> sub-awards
                             </div>
                         </div>
-                        <div className="award-counts">
-                            <div className="current">
-                                <div><b>Active Awards</b></div>
-                                <div>(Trailing 12 Months)</div>
-                                <h3>
-                                    {recipient.totalAwards}
-                                </h3>
-                            </div>
-                            <div className="historical">
-                                <div><b>Historical Awards</b></div>
-                                <div>(Since FY 2006)</div>
-                                <h5>
-                                    {recipient.totalSubAwards}
-                                </h5>
-                            </div>
+                        <div className="recipient-section__viz details">
+                            <h3 className="recipient-overview__heading">
+                                Details
+                            </h3>
+                            <table className="details__table">
+                                <tbody>
+                                    <tr>
+                                        <th>Address</th>
+                                        <td>
+                                            <div>{recipient.location.streetAddress}</div>
+                                            <div>{recipient.location.regionalAddress}</div>
+                                            <div>Congressional District: {recipient.location.congressionalDistrict}</div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>DUNS</th>
+                                        <td>{recipient.duns}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Parent DUNS</th>
+                                        <td>{recipient.parentDuns}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Parent Company</th>
+                                        <td>{recipient.parentName}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Recipient Type</th>
+                                        <td>
+                                            {recipient.businessTypes.map((type, i) =>
+                                                <div key={i}>{type}</div>)}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
-                    <div className="recipient-details">
-                        <h4>Recipient Details</h4>
-                        <hr className="results-divider" />
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>Address</th>
-                                    <td>
-                                        <div>{recipient.location.fullAddress}</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>DUNS</th>
-                                    <td>{recipient.duns}</td>
-                                </tr>
-                                <tr>
-                                    <th>Parent DUNS</th>
-                                    <td>{recipient.parentDuns}</td>
-                                </tr>
-                                <tr>
-                                    <th>Parent Company</th>
-                                    <td>{recipient.parentName}</td>
-                                </tr>
-                                <tr>
-                                    <th>Recipient Type</th>
-                                    <td>
-                                        {recipient.businessTypes.map((type, i) =>
-                                            <div key={i}>{type}</div>)}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
