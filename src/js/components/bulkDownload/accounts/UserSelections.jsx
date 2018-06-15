@@ -49,6 +49,18 @@ export default class UserSelections extends React.Component {
         );
     }
 
+    generateFederalString() {
+        if (this.props.accounts.federal.name !== 'Select a Federal Account') {
+            return (
+                <div className="selection__content">{this.props.accounts.federal.name}</div>
+            );
+        }
+
+        return (
+            <div className="selection__content">&mdash;</div>
+        );
+    }
+
     generateSubmissionTypeString() {
         if (this.props.accounts.submissionType) {
             const options = accountDownloadOptions.submissionTypes;
@@ -110,7 +122,7 @@ export default class UserSelections extends React.Component {
                     <div className="selection">
                         <div className="selection__heading">Federal Account</div>
                         <div className="selection__content">
-                            &mdash;
+                            {this.generateFederalString()}
                         </div>
                     </div>
                     <div className="selection">
