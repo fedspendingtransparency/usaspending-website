@@ -22,7 +22,8 @@ describe('AccountDataContainer', () => {
 
         const expectedState = {
             cfoAgencies: mockAgencies.cfo_agencies,
-            otherAgencies: mockAgencies.other_agencies
+            otherAgencies: mockAgencies.other_agencies,
+            federals: []
         };
 
         await container.instance().agencyListRequest.promise;
