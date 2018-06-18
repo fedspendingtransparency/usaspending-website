@@ -6,13 +6,47 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { CaretRight, Glossary } from 'components/sharedComponents/icons/Icons';
+
 const propTypes = {
-    recipient: PropTypes.object
+    recipient: PropTypes.object,
+    showModal: PropTypes.func
 };
 
 export default class RecipientOverview extends React.Component {
     render() {
         const recipient = this.props.recipient;
+        let label = (
+            <div className="recipient-overview__label">
+                Child Recipient
+            </div>
+        );
+        let viewChildren = null;
+        let parent = null;
+        if (recipient.children && recipient.children.length > 0) {
+            // This is a parent recipient
+            label = (
+                <a
+                    href={`#/recipient/${this.props.recipient.duns}/?glossary=parent-duns`}
+                    className="recipient-overview__label">
+                    Parent Recipient <Glossary />
+                </a>
+            );
+            viewChildren = (
+                <button
+                    className="recipient-overview__children-button"
+                    onClick={this.props.showModal}>
+                    View child recipients <CaretRight />
+                </button>
+            );
+        }
+        if (recipient.parentName && recipient.parentDuns) {
+            parent = (
+                <div className="recipient-overview__parent">
+                    This recipient is a child of <a className="recipient-overview__parent-link" href={`#/recipient/${recipient.parentDuns}`}>{recipient.parentName} ({recipient.parentDuns})</a>
+                </div>
+            );
+        }
         return (
             <div
                 id="recipient-overview"
@@ -22,6 +56,11 @@ export default class RecipientOverview extends React.Component {
                 </h2>
                 <hr className="results-divider" />
                 <div className="recipient-overview__content">
+                    {parent}
+                    <div className="recipient-overview__children">
+                        {label}
+                        {viewChildren}
+                    </div>
                     <div className="recipient-section__row">
                         <div className="recipient-section__viz totals">
                             <h3 className="recipient-overview__heading">

@@ -15,6 +15,7 @@ import Error from 'components/sharedComponents/Error';
 import Footer from 'components/sharedComponents/Footer';
 
 import RecipientContent from './RecipientContent';
+import ChildRecipientModal from './modal/ChildRecipientsModal';
 
 const propTypes = {
     loading: PropTypes.bool,
@@ -25,8 +26,35 @@ const propTypes = {
 };
 
 export default class RecipientPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showModal: false
+        };
+
+        this.showModal = this.showModal.bind(this);
+        this.hideModal = this.hideModal.bind(this);
+    }
+
+    showModal() {
+        this.setState({
+            showModal: true
+        });
+    }
+
+    hideModal() {
+        this.setState({
+            showModal: false
+        });
+    }
+
     render() {
-        let content = <RecipientContent {...this.props} />;
+        let content = (
+            <RecipientContent
+                showModal={this.showModal}
+                {...this.props} />
+        );
         if (this.props.loading) {
             content = (
                 <Error
@@ -55,6 +83,10 @@ export default class RecipientPage extends React.Component {
                     id="main-content"
                     className="main-content">
                     {content}
+                    <ChildRecipientModal
+                        mounted={this.state.showModal}
+                        hideModal={this.hideModal}
+                        childRecipients={this.props.recipient.children} />
                 </main>
                 <Footer />
             </div>

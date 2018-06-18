@@ -17,6 +17,7 @@ const BaseRecipientOverview = {
         this._totalSubAmount = parseFloat(data.total_sub_amount) || 0;
         this._totalSubAwards = parseFloat(data.total_sub_awards) || 0;
         this.businessTypes = data.business_types || [];
+        this.children = data.child_recipients || [];
 
         // Recipient Location
         let locationData = {};

@@ -10,6 +10,60 @@
 			font-weight: 600;
 			margin: 0;
 		}
+        .recipient-overview__parent {
+            font-size: $small-font-size;
+            .recipient-overview__parent-link {
+                font-weight: $font-semibold;
+                color: $color-primary;
+            }
+        }
+        .recipient-overview__children {
+            @include display(flex);
+            @include align-items(center);
+            padding: rem(10) 0;
+            .recipient-overview__label {
+                @include display(flex);
+                @include align-items(center);
+                @include flex(0 0 auto);
+                color: $color-white;
+                background-color: $color-gray;
+                text-transform: uppercase;
+                border-radius: rem(5);
+                padding: rem(5) rem(10);
+                font-size: $smallest-font-size;
+                font-weight: $font-semibold;
+                svg {
+                    @include flex(0 0 auto);
+                    margin-left: rem(5);
+                    height: rem(12);
+                    width: rem(12);
+                    fill: $color-white;
+                }
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+            .recipient-overview__children-button {
+                @include display(flex);
+                @include flex(0 0 auto);
+                @include align-items(center);
+                @include button-unstyled;
+                color: $color-primary;
+                padding: rem(5);
+                margin-left: rem(10);
+                svg {
+                    height: rem(15);
+                    width: rem(15);
+                    fill: $color-primary;
+                }
+                &:hover {
+                    color: $color-primary-darker;
+                    svg {
+                        fill: $color-primary-darker;
+                    }
+                }
+            }
+        }
 
 		@import "pages/state/overview/totals";
 		@import "pages/state/overview/details";

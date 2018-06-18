@@ -1,0 +1,34 @@
+.child-recipient-modal {
+    background-color: $color-white;
+    .child-recipient-modal__wrapper {
+        .child-recipient-modal__header {
+            @include display(flex);
+            @include justify-content(space-between);
+            @include align-items(flex-start);
+            padding: rem(20) rem(35);
+            background-color: $color-gray-light;
+            h1.child-recipient-modal__title {
+                @include display(flex);
+                @include flex(1 1 auto);
+                margin: 0;
+                @include h2;
+                color: $color-white;
+                font-weight: $font-light;
+            }
+            button.child-recipient-modal__close-button {
+                @include display(flex);
+                @include flex(0 0 auto);
+                @include button-unstyled;
+                padding-left: rem(15);
+                svg {
+                    fill: $color-white;
+                    height: rem(14);
+                    width: rem(14);
+                }
+            }
+        }
+        .child-recipient-modal__body {
+            padding: rem(20) rem(60) rem(40);
+        }
+    }
+}

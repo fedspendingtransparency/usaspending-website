@@ -29,7 +29,8 @@ const recipientSections = [
 
 const propTypes = {
     recipient: PropTypes.object,
-    pickedFy: PropTypes.func
+    pickedFy: PropTypes.func,
+    showModal: PropTypes.func
 };
 
 export default class RecipientContent extends React.Component {
@@ -216,6 +217,7 @@ export default class RecipientContent extends React.Component {
                 </div>
                 <div className="recipient-content">
                     <RecipientOverview
+                        showModal={this.props.showModal}
                         recipient={this.props.recipient.overview} />
                 </div>
             </div>
