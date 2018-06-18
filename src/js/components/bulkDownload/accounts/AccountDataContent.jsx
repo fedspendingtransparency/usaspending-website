@@ -21,7 +21,7 @@ const propTypes = {
     updateFilter: PropTypes.func,
     clearAccountFilters: PropTypes.func,
     agencies: PropTypes.object,
-    federals: PropTypes.object,
+    federals: PropTypes.array,
     clickedDownload: PropTypes.func,
     setFederalList: PropTypes.func
 };
@@ -38,7 +38,7 @@ export default class AccountDataContent extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.accounts !== this.props.accounts || nextProps.federals !== this.props.federals) {
+        if (nextProps.accounts !== this.props.accounts) {
             this.validateForm(nextProps.accounts);
         }
     }

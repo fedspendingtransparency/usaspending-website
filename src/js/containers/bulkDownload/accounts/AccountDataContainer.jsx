@@ -86,14 +86,18 @@ export class AccountDataContainer extends React.Component {
             this.federalListRequest.cancel();
         }
 
+        const filters = [];
+
         const params = {
             field: "agency_identifier",
             operation: "equals",
             value: agencyCode
         };
 
+        filters.push(params);
+
         this.federalListRequest = BulkDownloadHelper.requestFederalsList({
-            filters: params
+            filters
         });
 
         this.federalListRequest.promise

@@ -158,7 +158,7 @@ export class BulkDownloadPageContainer extends React.Component {
             file_format: 'csv'
         };
 
-        if (formState.federal.id !== '') {
+        if (formState.federal.id !== '' && formState.federal.id !== 'all') {
             params.filters.federal_account = formState.federal.id;
         }
 

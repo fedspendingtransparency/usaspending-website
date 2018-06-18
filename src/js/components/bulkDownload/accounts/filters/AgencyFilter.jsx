@@ -10,7 +10,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     agencies: PropTypes.object,
-    federals: PropTypes.object,
+    federals: PropTypes.array,
     currentAgency: PropTypes.object,
     currentFederal: PropTypes.object,
     updateFilter: PropTypes.func,
@@ -75,7 +75,6 @@ export default class AgencyFilter extends React.Component {
         this.setState({
             showFederalPicker: false
         });
-
     }
 
     render() {
@@ -136,15 +135,15 @@ export default class AgencyFilter extends React.Component {
         const federalAccounts = this.props.federals.map((account) => (
             <li
                 className="field-item indent"
-                key={`field-${account.account_id}`}>
+                key={`field-${account.id}`}>
                 <button
                     className="item-button"
-                    title={account.account_name}
-                    aria-label={account.account_name}
-                    value={account.account_id}
+                    title={account.account_title}
+                    aria-label={account.account_title}
+                    value={account.id}
                     onClick={this.handleFederalSelect}
-                    name={account.account_name} >
-                    {account.account_name}
+                    name={account.account_title} >
+                    {account.account_title}
                 </button>
             </li>
         ));
@@ -258,6 +257,17 @@ export default class AgencyFilter extends React.Component {
                                             aria-label="Federal Accounts"
                                             disabled>
                                             Federal Accounts
+                                        </button>
+                                    </li>
+                                    <li className="field-item indent">
+                                        <button
+                                            className="item-button"
+                                            title="All"
+                                            aria-label="all"
+                                            name="All"
+                                            value="all"
+                                            onClick={this.handleFederalSelect}>
+                                            All
                                         </button>
                                     </li>
                                     {federalAccounts}
