@@ -11,6 +11,8 @@ import { isCancel } from 'axios';
 
 import { isEqual, max } from 'lodash';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
+
 import * as SearchHelper from 'helpers/searchHelper';
 
 import RankVisualizationTitle from 'components/search/visualizations/rank/RankVisualizationTitle';
@@ -24,8 +26,13 @@ import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/B
 
 import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCategory';
 
+const combinedActions = Object.assign({}, searchFilterActions, {
+    setAppliedFilterCompletion
+});
+
 const propTypes = {
     reduxFilters: PropTypes.object,
+    setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool
 };
@@ -114,6 +121,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
     }
 
     fetchData() {
+        this.props.setAppliedFilterCompletion(false);
         this.setState({
             loading: true,
             error: false
@@ -151,6 +159,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
                     return;
                 }
 
+                this.props.setAppliedFilterCompletion(true);
                 this.apiRequest = null;
                 console.log(err);
                 this.setState({
@@ -196,6 +205,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
             previous: data.page_metadata.previous,
             hasNextPage: data.page_metadata.hasNext,
             hasPreviousPage: data.page_metadata.hasPrevious
+        }, () => {
+            this.props.setAppliedFilterCompletion(true);
         });
     }
 
@@ -287,5 +298,5 @@ export default connect(
         noApplied: state.appliedFilters._empty,
         subaward: state.searchView.subaward
     }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+    (dispatch) => bindActionCreators(combinedActions, dispatch)
 )(RankVisualizationWrapperContainer);
