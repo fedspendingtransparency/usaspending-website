@@ -38,6 +38,17 @@ export const mockAgencies = {
     ]
 };
 
+export const mockFederalAccounts = [
+    {
+        account_title: "Account 1",
+        id: 1
+    },
+    {
+        account_title: "Account 2",
+        id: 10
+    }
+];
+
 export const mockSubAgencies = [
     {
         subtier_agency_name: "Subtier Agency 1"
@@ -92,6 +103,10 @@ export const mockRedux = {
         },
         accounts: {
             accountLevel: 'treasuryAccount',
+            federal: {
+                id: '212',
+                name: "Mock Federal Account"
+            },
             agency: {
                 id: '123',
                 name: 'Mock Agency'
