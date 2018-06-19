@@ -50,7 +50,7 @@ This endpoint returns the generated file's metadata.
 + agency: `all` (optional, string)
     The agency to filter by
     + Default: `all`
-    submission_type: `award_financial` (required, enum[string])
+    + submission_type: `award_financial` (required, enum[string])
     + Members
         + account_balances
         + object_class_program_activity
