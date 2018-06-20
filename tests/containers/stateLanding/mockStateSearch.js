@@ -3,7 +3,8 @@ export const mockSecondaryResults = [
         name: 'ZZZZZZ',
         code: 'ZZ',
         fips: '99',
-        amount: 123.45
+        amount: 123.45,
+        type: 'state'
     }
 ];
 

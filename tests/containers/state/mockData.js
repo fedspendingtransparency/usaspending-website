@@ -118,12 +118,14 @@ export const mockStateList = [
         fips: '01',
         code: 'AA',
         name: 'State A',
-        amount: 1234.60
+        amount: 1234.60,
+        type: 'state'
     },
     {
         fips: '02',
         code: 'BB',
         name: 'State B',
-        amount: 999.12
+        amount: 999.12,
+        type: 'state'
     }
 ];
