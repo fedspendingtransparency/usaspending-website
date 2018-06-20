@@ -1,0 +1,58 @@
+.explorer-unreported {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+    margin: rem(50) 0 rem(15) 0;
+
+    .explorer-unreported__top {
+        display: flex;
+        padding-bottom: rem(20);
+    }
+
+    .explorer-unreported__icon {
+       margin-right: rem(10);
+       @include align-self(center);
+
+        svg {
+            width: rem(30);
+            height: rem(30);
+            fill: #FFB800;;
+        }
+    }
+
+    .explorer-unreported__box {
+        max-width: rem(720);
+        padding: rem(30) rem(30) rem(30) rem(30);
+        height: auto;
+        border: 1px solid #FFB800;
+        background-color: #FFFCF6;
+    }
+
+    .explorer-unreported__header {
+        font-size: rem(24);
+        margin: 0;
+        font-weight: 600;
+        padding-left: rem(20);
+        line-height: 1.2;
+    }
+
+    .explorer-unreported__info {
+        font-weight: 600;
+        font-size: rem(16);
+    }
+
+    .explorer-unreported__body {
+        padding-left: rem(62);
+    }
+
+    .explorer-unreported__list {
+        padding-left: rem(20);
+        margin-top: rem(10);
+        font-size: rem(16);
+        line-height: 10px;
+
+        li {
+            margin-bottom: 0;
+        }
+    }
+}

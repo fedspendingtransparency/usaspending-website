@@ -11,6 +11,8 @@ import moment from 'moment';
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
+import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import ExplorerInfoToolTip from 'components/explorer/detail/ExplorerInfoTooltip';
 
 const propTypes = {
     root: PropTypes.string,
@@ -19,35 +21,79 @@ const propTypes = {
     lastUpdate: PropTypes.string
 };
 
-const RootHeader = (props) => {
-    const type = sidebarTypes[props.root];
-    return (
-        <div className="detail-header">
+export default class RootHeader extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            showInfoTooltip: false
+        };
+
+        this.showTooltip = this.showTooltip.bind(this);
+        this.closeTooltip = this.closeTooltip.bind(this);
+    }
+
+    showTooltip() {
+        this.setState({
+            showInfoTooltip: true
+        });
+    }
+
+    closeTooltip() {
+        this.setState({
+            showInfoTooltip: false
+        });
+    }
+
+    render() {
+        let tooltip = null;
+        if (this.state.showInfoTooltip) {
+            tooltip = (
+                <ExplorerInfoToolTip
+                    closeTooltip={this.closeTooltip} />
+            );
+        }
+
+        const type = sidebarTypes[this.props.root];
+        const header = (
             <div className="detail-header__labels">
                 <h2 className="detail-header__title">
-                    You are viewing FY {props.fy} spending
+                    You are viewing FY {this.props.fy} spending
                     by <span className="detail-header__title detail-header__title_capitalize">{type}</span>
                 </h2>
                 <div className="detail-header__instructions">
                     Choose {generateSingular(type, false)} {type.toLowerCase()} below to start
                     your exploration.
                 </div>
+            </div>);
+        return (
+            <div className="detail-header" id="detail-header">
+                {header}
+                <div className="detail-header__amounts">
+                    <div className="detail-header__fy">
+                            FY {this.props.fy} obligated amount
+                        <span>
+                            <button
+                                id="detail-header__icon"
+                                className="detail-header__icon"
+                                onFocus={this.showTooltip}
+                                onMouseEnter={this.showTooltip}
+                                onClick={this.showTooltip}>
+                                <InfoCircle alt="Information" />
+                            </button>
+                        </span>
+                    </div>
+                    {tooltip}
+                    <div className="detail-header__value">
+                        {formatTreemapValues(this.props.total)}
+                    </div>
+                    <div className="detail-header__update">
+                        Data as of {moment(this.props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
+                    </div>
+                </div>
             </div>
-            <div className="detail-header__amounts">
-                <div className="detail-header__fy">
-                    FY {props.fy} obligated amount
-                </div>
-                <div className="detail-header__value">
-                    {formatTreemapValues(props.total)}
-                </div>
-                <div className="detail-header__update">
-                    Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
-                </div>
-            </div>
-        </div>
-    );
-};
+        );
+    }
+}
 
 RootHeader.propTypes = propTypes;
-
-export default RootHeader;

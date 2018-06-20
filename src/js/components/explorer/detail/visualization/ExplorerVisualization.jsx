@@ -7,10 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Analytics from 'helpers/analytics/Analytics';
+import * as redirectHelper from 'helpers/redirectHelper';
 
+import UnreportedErrorScreen from 'components/explorer/detail/UnreportedErrorScreen';
 import ExplorerTableContainer from 'containers/explorer/detail/table/ExplorerTableContainer';
 import BreakdownDropdown from './toolbar/BreakdownDropdown';
 import ExplorerTreemap from './treemap/ExplorerTreemap';
+
 
 const propTypes = {
     isRoot: PropTypes.bool,
@@ -23,7 +26,8 @@ const propTypes = {
     goDeeper: PropTypes.func,
     changeSubdivisionType: PropTypes.func,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    goToUnreported: PropTypes.func
 };
 
 export default class ExplorerVisualization extends React.Component {
@@ -61,6 +65,10 @@ export default class ExplorerVisualization extends React.Component {
         });
     }
 
+    redirect() {
+        redirectHelper.showRedirectModal("https://max.omb.gov/maxportal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html");
+    }
+
     changeView(viewType) {
         this.setState({
             viewType
@@ -92,7 +100,9 @@ export default class ExplorerVisualization extends React.Component {
                     total={this.props.total}
                     goDeeper={this.props.goDeeper}
                     showTooltip={this.props.showTooltip}
-                    hideTooltip={this.props.hideTooltip} />
+                    hideTooltip={this.props.hideTooltip}
+                    goToUnreported={this.props.goToUnreported}
+                    changeView={this.changeView} />
             </div>
         );
         if (this.state.viewType === 'table') {
@@ -101,14 +111,21 @@ export default class ExplorerVisualization extends React.Component {
                     <ExplorerTableContainer
                         results={this.props.data}
                         total={this.props.total}
-                        goDeeper={this.props.goDeeper} />
+                        goDeeper={this.props.goDeeper}
+                        goToUnreported={this.props.goToUnreported} />
                 </div>
             );
         }
-
-        return (
-            <div className="explorer-vis">
-                <div className={`explorer-vis__loading-text ${loadingTextClass}`}>{loadingText}</div>
+        let dropDown;
+        let disclaimer;
+        if (this.props.data.get(0).name === 'Unreported Data' && this.props.data.count() === 1) {
+            visualization = (
+                <div>
+                    <UnreportedErrorScreen />
+                </div>
+            );
+        } else {
+            dropDown = (
                 <div className="explorer-vis__toolbar">
                     <BreakdownDropdown
                         root={this.props.root}
@@ -118,7 +135,20 @@ export default class ExplorerVisualization extends React.Component {
                         changeSubdivisionType={this.props.changeSubdivisionType}
                         viewType={this.state.viewType}
                         changeView={this.changeView} />
+                </div>);
+
+            disclaimer = (
+                <div className="explorer-vis__disclaimer">
+                    <p>All dollar amounts shown here represent agency reported obligated amounts</p>
+                    <p><span className="explorer-vis_bold">Unreported Data*:</span> Unreported amounts are calculated using the difference in the total obligated amount from the <button className="explorer-vis__link" onClick={this.redirect} >Report on Budget Execution and Budgetary Resources</button> and the total obligated amount reported by agencies to USAspending.gov.</p>
                 </div>
+            );
+        }
+
+        return (
+            <div className="explorer-vis">
+                <div className={`explorer-vis__loading-text ${loadingTextClass}`}>{loadingText}</div>
+                {dropDown}
 
                 <div
                     className="explorer-vis__width-reference"
@@ -128,9 +158,7 @@ export default class ExplorerVisualization extends React.Component {
 
                 {visualization}
 
-                <div className="explorer-vis__disclaimer">
-                    All dollar amounts shown here represent agency reported obligated amounts
-                </div>
+                {disclaimer}
             </div>
         );
     }

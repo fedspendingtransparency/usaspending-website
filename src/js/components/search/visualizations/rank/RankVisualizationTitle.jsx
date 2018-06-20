@@ -5,39 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { find } from 'lodash';
 
+import { categoryNames } from 'dataMapping/search/spendingByCategory';
 import * as Icons from 'components/sharedComponents/icons/Icons';
+import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 
 const propTypes = {
     fieldTypes: PropTypes.array,
     changeSpendingBy: PropTypes.func,
     currentSpendingBy: PropTypes.string
-};
-
-const defaultProps = {
-    fieldTypes: [
-        {
-            label: 'Awarding Agency',
-            value: 'awarding_agency'
-        },
-        {
-            label: 'Funding Agency',
-            value: 'funding_agency'
-        },
-        {
-            label: 'Recipient',
-            value: 'recipient'
-        },
-        {
-            label: 'CFDA Programs',
-            value: 'cfda'
-        },
-        {
-            label: 'Industry Codes',
-            value: 'industry_code'
-        }
-    ]
 };
 
 export default class RankVisualizationTitle extends React.Component {
@@ -50,8 +26,6 @@ export default class RankVisualizationTitle extends React.Component {
 
         this.togglePicker = this.togglePicker.bind(this);
         this.clickedItem = this.clickedItem.bind(this);
-
-        this.keyboardBindings = [];
     }
 
     togglePicker() {
@@ -62,8 +36,7 @@ export default class RankVisualizationTitle extends React.Component {
 
     clickedItem(e) {
         const value = e.target.value;
-        const spendingBy = this.props.fieldTypes[value].value;
-        this.props.changeSpendingBy(spendingBy);
+        this.props.changeSpendingBy(value);
 
         this.setState({
             showPicker: false
@@ -71,22 +44,42 @@ export default class RankVisualizationTitle extends React.Component {
     }
 
     render() {
-        const fields = this.props.fieldTypes.map((field, index) => (
-            <li
-                className="field-item"
-                key={`field-${field.value}`}>
-                <button
-                    className="item-button"
-                    title={field.label}
-                    aria-label={field.label}
-                    value={index}
-                    onClick={this.clickedItem}>
-                    {field.label}
-                </button>
-            </li>
-        ));
+        const comingSoon = (<ComingSoonLabel />);
+        const fields = [];
+        this.props.fieldTypes.forEach((field) => {
+            let fieldItem;
+            if (categoryNames[field] === 'Recipient') {
+                fieldItem = (
+                    <li
+                        className="field-item"
+                        key={`field-${field}`}>
+                        <button
+                            className="item-button coming-soon"
+                            disabled>
+                            {categoryNames[field]}
+                            {comingSoon}
+                        </button>
+                    </li>);
+            }
+            else {
+                fieldItem = (
+                    <li
+                        className="field-item"
+                        key={`field-${field}`}>
+                        <button
+                            className="item-button"
+                            title={categoryNames[field]}
+                            aria-label={categoryNames[field]}
+                            value={field}
+                            onClick={this.clickedItem}>
+                            {categoryNames[field]}
+                        </button>
+                    </li>);
+            }
+            fields.push(fieldItem);
+        });
 
-        const currentField = find(this.props.fieldTypes, { value: this.props.currentSpendingBy });
+        const currentField = this.props.currentSpendingBy;
         let showPicker = 'hide';
         let icon = <Icons.AngleDown alt="Pick a field" />;
         if (this.state.showPicker) {
@@ -103,11 +96,11 @@ export default class RankVisualizationTitle extends React.Component {
                 <div className="field-picker">
                     <button
                         className="selected-button"
-                        title={currentField.label}
-                        aria-label={currentField.label}
+                        title={categoryNames[currentField]}
+                        aria-label={categoryNames[currentField]}
                         onClick={this.togglePicker}>
                         <span className="label">
-                            {currentField.label}
+                            {categoryNames[currentField]}
                         </span>
                         <span className="arrow-icon">
                             {icon}
@@ -130,4 +123,3 @@ export default class RankVisualizationTitle extends React.Component {
 }
 
 RankVisualizationTitle.propTypes = propTypes;
-RankVisualizationTitle.defaultProps = defaultProps;

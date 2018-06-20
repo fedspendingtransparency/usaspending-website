@@ -1,4 +1,4 @@
-import { recipient } from '../../mockVisualizations';
+import { awardingAgency } from '../mockVisualizations';
 
 // Spending by Category Search
 export const performSpendingByCategorySearch = () => (
@@ -6,7 +6,7 @@ export const performSpendingByCategorySearch = () => (
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: recipient
+                    data: awardingAgency
                 });
             });
         }),

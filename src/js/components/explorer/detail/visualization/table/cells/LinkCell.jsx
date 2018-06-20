@@ -13,7 +13,8 @@ const propTypes = {
     rowIndex: PropTypes.number,
     column: PropTypes.string,
     id: PropTypes.string,
-    selectedRow: PropTypes.func
+    selectedRow: PropTypes.func,
+    goToUnreported: PropTypes.func
 };
 
 export default class LinkCell extends React.Component {
@@ -24,11 +25,18 @@ export default class LinkCell extends React.Component {
     }
 
     clickedLink() {
-        this.props.selectedRow(this.props.id, this.props.data);
+        if (this.props.name === 'Unreported Data') {
+            this.props.goToUnreported(this.props.data);
+        } else {
+            this.props.selectedRow(parseInt(this.props.id, 10), this.props.data);
+        }
     }
 
     render() {
-        const name = this.props.name;
+        let name = this.props.name;
+        if (name === 'Unreported Data') {
+            name = 'Unreported Data*';
+        }
 
         return (
             <div className={`explorer-link-cell column-${this.props.column}`}>

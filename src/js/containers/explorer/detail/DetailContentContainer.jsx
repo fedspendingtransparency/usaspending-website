@@ -21,6 +21,7 @@ import * as ExplorerHelper from 'helpers/explorerHelper';
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
 
+
 const propTypes = {
     explorer: PropTypes.object,
     setExplorerActive: PropTypes.func,
@@ -49,6 +50,7 @@ export class DetailContentContainer extends React.Component {
         this.request = null;
 
         this.goDeeper = this.goDeeper.bind(this);
+        this.goToUnreported = this.goToUnreported.bind(this);
         this.changeSubdivisionType = this.changeSubdivisionType.bind(this);
         this.rewindToFilter = this.rewindToFilter.bind(this);
     }
@@ -445,6 +447,70 @@ export class DetailContentContainer extends React.Component {
         });
     }
 
+    goToUnreported(data) {
+        const dataArr = [data];
+
+        // generate a trail object representing the current filter that is being applied
+        // the new "within" value is the old subdivision unit
+        // given this, determine how far down the path we are
+        const path = dropdownScopes[this.props.explorer.root];
+        const currentDepth = path.indexOf(this.props.explorer.active.subdivision);
+
+        const currentSubdivision = path[currentDepth];
+
+        const trailDisplay = {
+            within: this.props.explorer.active.subdivision,
+            title: data.name,
+            subdivision: currentSubdivision
+        };
+
+        let total;
+        if (!data.obligated_amount) {
+            total = data.amount;
+        }
+        else {
+            total = data.obligated_amount;
+        }
+
+        const trailItem = Object.assign({}, trailDisplay, {
+            total
+        });
+
+        this.props.addExplorerTrail(trailItem);
+
+        // update the active screen within and subdivision values using the request object
+        const activeScreen = {
+            total
+        };
+
+
+        this.setState({
+            transitionSteps: 1
+        });
+
+        // there is going to be a transition, so trigger the exit animation
+        // then, 250ms later (after the exit animation completes), apply the props and state
+        // so the entry animation occurs with the new data
+        this.setState({
+            transition: 'start'
+        }, () => {
+            window.setTimeout(() => {
+                this.props.setExplorerActive(activeScreen);
+
+                // save the data as an Immutable object for easy change comparison within
+                // the treemap
+                this.setState({
+                    data: new List(dataArr),
+                    lastUpdate: this.state.lastUpdate,
+                    inFlight: false,
+                    transition: 'end'
+                });
+            }, 250);
+        });
+
+        this.props.resetExplorerTable();
+    }
+
     render() {
         return (
             <div className="explorer-detail">
@@ -471,7 +537,8 @@ export class DetailContentContainer extends React.Component {
                     changeSubdivisionType={this.changeSubdivisionType}
                     showTooltip={this.props.showTooltip}
                     hideTooltip={this.props.hideTooltip}
-                    rewindToFilter={this.rewindToFilter} />
+                    rewindToFilter={this.rewindToFilter}
+                    goToUnreported={this.goToUnreported} />
             </div>
         );
     }
