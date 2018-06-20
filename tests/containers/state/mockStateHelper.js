@@ -1,5 +1,5 @@
 import { mockStateOverview, mockStateList } from './mockData';
-import { mockBreakdownApi} from "../../models/state/mockStateApi";
+import { mockBreakdownApi } from "../../models/state/mockStateApi";
 
 export const fetchStateOverview = jest.fn(() => (
     {
