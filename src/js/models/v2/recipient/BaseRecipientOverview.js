@@ -5,6 +5,7 @@
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
+import BaseChildRecipient from './BaseChildRecipient';
 
 const BaseRecipientOverview = {
     populate(data) {
@@ -17,7 +18,7 @@ const BaseRecipientOverview = {
         this._totalSubAmount = parseFloat(data.total_sub_amount) || 0;
         this._totalSubAwards = parseFloat(data.total_sub_awards) || 0;
         this.businessTypes = data.business_types || [];
-        this.children = data.child_recipients || [];
+        this._children = data.child_recipients || null;
 
         // Recipient Location
         let locationData = {};
@@ -61,6 +62,16 @@ const BaseRecipientOverview = {
     },
     get totalSubAwards() {
         return MoneyFormatter.formatNumberWithPrecision(this._totalSubAwards, 0);
+    },
+    get children() {
+        if (this._children) {
+            return this._children.map((child) => {
+                const childRecipient = Object.create(BaseChildRecipient);
+                childRecipient.populate(child);
+                return childRecipient;
+            });
+        }
+        return [];
     }
 };
 

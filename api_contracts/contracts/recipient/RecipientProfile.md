@@ -84,5 +84,5 @@ This endpoint returns a high-level overview of a specific recipient, given its D
     Child recipient's DUNS.
 + state_province: New Jersey (required, string)
     The state or province in which the child recipient is located.
-+ total_amount: 300200000000 (required, number)
-    The aggregate monetary value of all awards associated with this child recipient for the trailing twelve months.
++ amount: 300200000000 (required, number)
+    The aggregate monetary value of all awards associated with this child recipient for the selected time period.
