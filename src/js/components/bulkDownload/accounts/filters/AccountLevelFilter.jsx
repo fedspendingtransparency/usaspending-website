@@ -54,7 +54,7 @@ export default class AccountLevelFilter extends React.Component {
                 <label
                     className="radio-label"
                     htmlFor="account-level">
-                    {level.label} <span className="radio-label__subtext"> {level.account}</span>
+                    {level.label} <span className="radio-label__subtext"> {level.description}</span>
                 </label>
             </div>
         ));

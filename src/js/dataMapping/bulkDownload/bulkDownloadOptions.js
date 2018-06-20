@@ -138,13 +138,13 @@ export const accountDownloadOptions = {
             name: 'federalAccount',
             label: 'Federal Account',
             apiName: 'federal_account',
-            account: 'Aggregate of Treasury Accounts'
+            description: 'Aggregate of Treasury Accounts'
         },
         {
             name: 'treasuryAccount',
             label: 'Treasury Account',
             apiName: 'treasury_account',
-            account: 'Includes Period of Availability'
+            description: 'Includes Period of Availability'
         }
     ],
     submissionTypes: [
