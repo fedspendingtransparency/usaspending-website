@@ -11,7 +11,8 @@ recipientOverview.populate({});
 const initialState = {
     id: '',
     fy: 'latest',
-    overview: recipientOverview
+    overview: recipientOverview,
+    children: []
 };
 
 const recipientSummaryReducer = (state = initialState, action) => {
@@ -24,6 +25,10 @@ const recipientSummaryReducer = (state = initialState, action) => {
         case 'SET_RECIPIENT_FY':
             return Object.assign({}, state, {
                 fy: action.fy
+            });
+        case 'SET_RECIPIENT_CHILDREN':
+            return Object.assign({}, state, {
+                children: action.children
             });
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);

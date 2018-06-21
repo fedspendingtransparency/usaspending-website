@@ -15,7 +15,7 @@ const propTypes = {
 
 export default class RecipientOverview extends React.Component {
     render() {
-        const recipient = this.props.recipient;
+        const recipient = this.props.recipient.overview;
         let label = (
             <div className="recipient-overview__label">
                 Child Recipient
@@ -23,11 +23,11 @@ export default class RecipientOverview extends React.Component {
         );
         let viewChildren = null;
         let parent = null;
-        if (recipient.children && recipient.children.length > 0) {
+        if (this.props.recipient.children && this.props.recipient.children.length > 0) {
             // This is a parent recipient
             label = (
                 <a
-                    href={`#/recipient/${this.props.recipient.duns}/?glossary=parent-duns`}
+                    href={`#/recipient/${this.props.recipient.id}/?glossary=parent-duns`}
                     className="recipient-overview__label">
                     Parent Recipient <Glossary />
                 </a>

@@ -23,3 +23,21 @@ export const fetchRecipientOverview = (duns, year) => {
         }
     };
 };
+
+export const fetchChildRecipients = (duns, year) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/recipient/children/${duns}/`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            params: {
+                year
+            },
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

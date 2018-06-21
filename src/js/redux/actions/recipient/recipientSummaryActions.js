@@ -12,6 +12,11 @@ export const setRecipientFiscalYear = (state) => ({
     fy: state
 });
 
+export const setRecipientChildren = (state) => ({
+    type: 'SET_RECIPIENT_CHILDREN',
+    children: state
+});
+
 export const resetRecipient = () => ({
     type: 'RESET_RECIPIENT'
 });

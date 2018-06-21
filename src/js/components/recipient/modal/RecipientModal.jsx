@@ -1,50 +1,26 @@
 /**
- * ChildRecipientsModal.jsx
+ * RecipientModal.jsx
  * Created by Lizzie Salita 6/18/18
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-import { orderBy } from 'lodash';
 
 import { Close } from 'components/sharedComponents/icons/Icons';
-import ChildRecipientsTable from './ChildRecipientsTable';
+import RecipientModalTable from './table/RecipientModalTable';
 
 const propTypes = {
     mounted: PropTypes.bool,
     hideModal: PropTypes.func,
-    recipient: PropTypes.object
+    recipient: PropTypes.object,
+    sortField: PropTypes.string,
+    sortDirection: PropTypes.string,
+    updateSort: PropTypes.func,
+    childRecipients: PropTypes.array
 };
 
-export default class ChildRecipientsModal extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            sortField: 'name',
-            sortDirection: 'desc',
-            childRecipients: []
-        };
-
-        this.updateSort = this.updateSort.bind(this);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.recipient !== this.props.recipient) {
-            this.updateSort(this.state.sortField, this.state.sortDirection);
-        }
-    }
-
-    updateSort(sortField, sortDirection) {
-        const orderedResults = orderBy(this.props.recipient.overview.children, [sortField], [sortDirection]);
-        this.setState({
-            sortField,
-            sortDirection,
-            childRecipients: orderedResults
-        });
-    }
-
+export default class RecipientModal extends React.Component {
     render() {
         return (
             <Modal
@@ -66,13 +42,13 @@ export default class ChildRecipientsModal extends React.Component {
                         </button>
                     </div>
                     <div className="child-recipients-modal__body">
-                        <ChildRecipientsTable
-                            sortField={this.state.sortField}
-                            sortDirection={this.state.sortDirection}
-                            updateSort={this.updateSort}
+                        <RecipientModalTable
+                            sortField={this.props.sortField}
+                            sortDirection={this.props.sortDirection}
+                            updateSort={this.props.updateSort}
                             fy={this.props.recipient.fy}
                             total={this.props.recipient.overview._totalAmount}
-                            childRecipients={this.state.childRecipients} />
+                            childRecipients={this.props.childRecipients} />
                     </div>
                 </div>
             </Modal>
@@ -80,4 +56,4 @@ export default class ChildRecipientsModal extends React.Component {
     }
 }
 
-ChildRecipientsModal.propTypes = propTypes;
+RecipientModal.propTypes = propTypes;

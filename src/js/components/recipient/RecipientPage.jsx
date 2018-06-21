@@ -14,8 +14,9 @@ import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader'
 import Error from 'components/sharedComponents/Error';
 import Footer from 'components/sharedComponents/Footer';
 
+import RecipientModalContainer from 'containers/recipient/modal/RecipientModalContainer';
 import RecipientContent from './RecipientContent';
-import ChildRecipientsModal from './modal/ChildRecipientsModal';
+
 
 const propTypes = {
     loading: PropTypes.bool,
@@ -83,10 +84,9 @@ export default class RecipientPage extends React.Component {
                     id="main-content"
                     className="main-content">
                     {content}
-                    <ChildRecipientsModal
+                    <RecipientModalContainer
                         mounted={this.state.showModal}
                         hideModal={this.hideModal}
-                        fy={this.props.recipient.fy}
                         recipient={this.props.recipient} />
                 </main>
                 <Footer />

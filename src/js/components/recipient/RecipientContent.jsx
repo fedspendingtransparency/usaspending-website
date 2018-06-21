@@ -218,7 +218,7 @@ export default class RecipientContent extends React.Component {
                 <div className="recipient-content">
                     <RecipientOverview
                         showModal={this.props.showModal}
-                        recipient={this.props.recipient.overview} />
+                        recipient={this.props.recipient} />
                 </div>
             </div>
         );

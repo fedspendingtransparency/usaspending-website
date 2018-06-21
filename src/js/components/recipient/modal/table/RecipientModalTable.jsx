@@ -1,5 +1,5 @@
 /**
- * ChildRecipientsTable.jsx
+ * RecipientModalTable.jsx
  * Created by Lizzie Salita 6/19/18
  */
 
@@ -15,7 +15,7 @@ const propTypes = {
     childRecipients: PropTypes.array
 };
 
-export default class ChildRecipientsTable extends React.Component {
+export default class RecipientModalTable extends React.Component {
     render() {
         const rows = this.props.childRecipients.map((child) => {
             const percent = (child._amount / this.props.total) * 100;
@@ -70,4 +70,4 @@ export default class ChildRecipientsTable extends React.Component {
     }
 }
 
-ChildRecipientsTable.propTypes = propTypes;
+RecipientModalTable.propTypes = propTypes;

@@ -23,6 +23,21 @@ This endpoint returns a high-level overview of a specific recipient, given its D
 
 + Response 200 (application/json)
     + Attributes (RecipientOverview)
+    
+## Recipient Children [/api/v2/recipient/children/{duns}/{?year}]
+
+This endpoint returns a list of child recipients belonging to the given parent recipient DUNS.
+
++ Parameters
+    + duns: 0123456 (required, string)
+        Recipient's DUNS (Data Universal Numbering System) number. A unique identifier for business entities. 
+    + year: 2017 (optional, string)
+        The fiscal year you would like data for. Use `all` to view all time or `latest` to view the latest 12 months.
+
+### Get Recipient Children [GET]
+
++ Response 200 (application/json)
+    + Attributes (ChildRecipientsResponse)
 
 # Data Structures
 
@@ -38,16 +53,14 @@ This endpoint returns a high-level overview of a specific recipient, given its D
 + location: (required, RecipientLocation, fixed-type)
 + business_types: Corporate Entity, For Profit Organization (required, array[string], fixed-type)
     An array of business types used to categorize recipients.
-+ total_prime_amount: 300200000000 (required, number)
++ total_prime_amount: 30020000000 (required, number)
     The aggregate monetary value of all prime awards associated with this recipient for the given time period.
 + total_prime_awards: 327721 (required, number)
     The number of prime awards associated with this recipient for the given time period.
-+ total_sub_amount: 200200000000 (required, number)
++ total_sub_amount: 20020000000 (required, number)
     The aggregate monetary value of all sub-awards for the given time period.
 + total_sub_awards: 127721 (required, number)
     The number of sub-awards associated with this recipient for the given time period.
-+ child_recipients: (required, array[ChildRecipient], fixed-type, nullable)
-    A list of child recipients. Null if this recipient is not a parent recipient. 
 
 ## RecipientLocation (object)
 + address_line1: 123 Sesame St (required, string, nullable)
@@ -76,13 +89,16 @@ This endpoint returns a high-level overview of a specific recipient, given its D
      Code for the country in which the recipient is located.
 + congressional_code: 05 (optional, string)
     Number for the recipient's congressional district. 
-    
+   
+## ChildRecipientsResponse
++ results (required, array[ChildRecipient], fixed-type)
+ 
 ## ChildRecipient (object)
 + name: Child of ABC Corporation (required, string)
     Name of the child recipient.
-+ duns: 0123456 (required, string)
++ duns: 345678 (required, string)
     Child recipient's DUNS.
 + state_province: New Jersey (required, string)
     The state or province in which the child recipient is located.
-+ amount: 300200000000 (required, number)
-    The aggregate monetary value of all awards associated with this child recipient for the selected time period.
++ amount: 300200000 (required, number)
+    The aggregate monetary value of prime awards associated with this child recipient for the selected time period.
