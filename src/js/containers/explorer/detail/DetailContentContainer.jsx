@@ -405,14 +405,15 @@ export class DetailContentContainer extends React.Component {
             this.setState({
                 transitionSteps: steps
             }, () => {
-                this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy);
+                this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy, this.props.explorer.quarter);
             });
             return;
         }
 
         // iterate through the trail to rebuild the filter set
         const newFilters = {
-            fy: this.props.explorer.fy
+            fy: this.props.explorer.fy,
+            quarter: this.props.explorer.quarter
         };
         const newTrail = [];
         // iterate through the trail and include only those filters up to the point we are rewinding
