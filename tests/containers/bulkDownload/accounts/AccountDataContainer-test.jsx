@@ -29,7 +29,7 @@ describe('AccountDataContainer', () => {
         expect(container.state().agencies).toEqual(expectedState);
     });
 
-    describe('setFederalList', () => {
+    describe('setFederalAccountList', () => {
         it('should make an API request when called and update state', async () => {
             const container = shallow(<AccountDataContainer
                 {...mockActions}
