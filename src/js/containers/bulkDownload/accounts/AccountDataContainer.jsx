@@ -47,10 +47,6 @@ export class AccountDataContainer extends React.Component {
     }
 
     setAgencyList() {
-        this.setState({
-            inFlight: true
-        });
-
         if (this.agencyListRequest) {
             this.agencyListRequest.cancel();
         }
@@ -78,10 +74,6 @@ export class AccountDataContainer extends React.Component {
     }
 
     setFederalAccountList(agencyCode) {
-        this.setState({
-            inFlight: true
-        });
-
         if (this.federalListRequest) {
             this.federalListRequest.cancel();
         }
