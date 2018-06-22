@@ -49,7 +49,7 @@ export default class AgencyFilter extends React.Component {
         });
     }
 
-    handleAgencySelect(agencyCode, e) {
+    handleAgencySelect(e, agencyCode) {
         e.preventDefault();
         const target = e.target;
         this.props.updateFilter('agency', {
@@ -109,7 +109,7 @@ export default class AgencyFilter extends React.Component {
                     aria-label={agency.name}
                     value={agency.toptier_agency_id}
                     name={agency.name}
-                    onClick={(e) => this.handleAgencySelect(agency.cgac_code, e)}>
+                    onClick={(e) => this.handleAgencySelect(e, agency.cgac_code)}>
                     {agency.name}
                 </button>
             </li>
@@ -126,7 +126,7 @@ export default class AgencyFilter extends React.Component {
                     aria-label={agency.name}
                     value={agency.toptier_agency_id}
                     name={agency.name}
-                    onClick={(e) => this.handleAgencySelect(agency.cgac_code, e)}>
+                    onClick={(e) => this.handleAgencySelect(e, agency.cgac_code)}>
                     {agency.name}
                 </button>
             </li>
