@@ -138,13 +138,13 @@ export const accountDownloadOptions = {
             name: 'federalAccount',
             label: 'Federal Account',
             apiName: 'federal_account',
-            disabled: true
+            description: 'Aggregate of Treasury Accounts'
         },
         {
             name: 'treasuryAccount',
             label: 'Treasury Account',
             apiName: 'treasury_account',
-            disabled: false
+            description: 'Includes Period of Availability'
         }
     ],
     submissionTypes: [
@@ -159,6 +159,12 @@ export const accountDownloadOptions = {
             label: 'Account Breakdown by Program Activity & Object Class',
             apiName: 'object_class_program_activity',
             file: 'File B'
+        },
+        {
+            name: 'accountBreakdownByAward',
+            label: 'Account Breakdown by Award',
+            apiName: 'award_financial',
+            file: 'File C'
         }
     ],
     fileFormats: [

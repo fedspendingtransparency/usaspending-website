@@ -49,7 +49,7 @@ export const initialState = {
         fileFormat: 'csv'
     },
     accounts: {
-        accountLevel: 'treasuryAccount',
+        accountLevel: 'federalAccount',
         agency: {
             id: '',
             name: 'Select an Agency'
