@@ -25,7 +25,6 @@ export class AccountDataContainer extends React.Component {
         super(props);
 
         this.state = {
-            inFlight: true,
             agencies: {
                 cfoAgencies: [],
                 otherAgencies: []
@@ -74,8 +73,8 @@ export class AccountDataContainer extends React.Component {
     }
 
     setFederalAccountList(agencyCode) {
-        if (this.federalListRequest) {
-            this.federalListRequest.cancel();
+        if (this.federalAccountListRequest) {
+            this.federalAccountListRequest.cancel();
         }
 
         const filters = [];
