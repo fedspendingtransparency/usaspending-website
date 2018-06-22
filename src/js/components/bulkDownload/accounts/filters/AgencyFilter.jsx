@@ -57,7 +57,9 @@ export default class AgencyFilter extends React.Component {
             name: target.name
         });
 
-        this.props.setFederalList(agencyCode);
+        if (target.value !== 'all') {
+            this.props.setFederalList(agencyCode);
+        }
 
         this.setState({
             showAgencyPicker: false
