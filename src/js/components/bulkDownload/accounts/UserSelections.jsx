@@ -18,6 +18,7 @@ export default class UserSelections extends React.Component {
 
         this.generateAccountLevelString = this.generateAccountLevelString.bind(this);
         this.generateAgencyString = this.generateAgencyString.bind(this);
+        this.generateFederalString = this.generateFederalString.bind(this);
         this.generateSubmissionTypeString = this.generateSubmissionTypeString.bind(this);
         this.generateFyString = this.generateFyString.bind(this);
     }
@@ -50,9 +51,9 @@ export default class UserSelections extends React.Component {
     }
 
     generateFederalString() {
-        if (this.props.accounts.federal.name !== 'Select a Federal Account') {
+        if (this.props.accounts.federalAccount.name !== 'Select a Federal Account') {
             return (
-                <div className="selection__content">{this.props.accounts.federal.name}</div>
+                <div className="selection__content">{this.props.accounts.federalAccount.name}</div>
             );
         }
 

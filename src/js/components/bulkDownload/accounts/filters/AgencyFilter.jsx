@@ -10,12 +10,12 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     agencies: PropTypes.object,
-    federals: PropTypes.array,
+    federalAccounts: PropTypes.array,
     currentAgency: PropTypes.object,
-    currentFederal: PropTypes.object,
+    currentFederalAccount: PropTypes.object,
     updateFilter: PropTypes.func,
     valid: PropTypes.bool,
-    setFederalList: PropTypes.func
+    setFederalAccountList: PropTypes.func
 };
 
 export default class AgencyFilter extends React.Component {
@@ -24,27 +24,27 @@ export default class AgencyFilter extends React.Component {
 
         this.state = {
             showAgencyPicker: false,
-            showFederalPicker: false
+            showFederalAccountPicker: false
         };
 
         this.toggleAgencyPicker = this.toggleAgencyPicker.bind(this);
-        this.toggleFederalPicker = this.toggleFederalPicker.bind(this);
+        this.toggleFederalAccountPicker = this.toggleFederalAccountPicker.bind(this);
         this.handleAgencySelect = this.handleAgencySelect.bind(this);
-        this.handleFederalSelect = this.handleFederalSelect.bind(this);
+        this.handleFederalAccountSelect = this.handleFederalAccountSelect.bind(this);
     }
 
     toggleAgencyPicker(e) {
         e.preventDefault();
         this.setState({
             showAgencyPicker: !this.state.showAgencyPicker,
-            showFederalPicker: false
+            showFederalAccountPicker: false
         });
     }
 
-    toggleFederalPicker(e) {
+    toggleFederalAccountPicker(e) {
         e.preventDefault();
         this.setState({
-            showFederalPicker: !this.state.showFederalPicker,
+            showFederalAccountPicker: !this.state.showFederalAccountPicker,
             showAgencyPicker: false
         });
     }
@@ -58,7 +58,7 @@ export default class AgencyFilter extends React.Component {
         });
 
         if (target.value !== 'all') {
-            this.props.setFederalList(agencyCode);
+            this.props.setFederalAccountList(agencyCode);
         }
 
         this.setState({
@@ -66,16 +66,16 @@ export default class AgencyFilter extends React.Component {
         });
     }
 
-    handleFederalSelect(e) {
+    handleFederalAccountSelect(e) {
         e.preventDefault();
         const target = e.target;
-        this.props.updateFilter('federal', {
+        this.props.updateFilter('federalAccount', {
             id: target.value,
             name: target.name
         });
 
         this.setState({
-            showFederalPicker: false
+            showFederalAccountPicker: false
         });
     }
 
@@ -93,10 +93,10 @@ export default class AgencyFilter extends React.Component {
                 </div>
             );
         }
-        let federalDisabled = 'disabled';
+        let federalAccountDisabled = 'disabled';
         let disabled = true;
-        if (this.props.federals.length > 0) {
-            federalDisabled = '';
+        if (this.props.federalAccounts.length > 0) {
+            federalAccountDisabled = '';
             disabled = false;
         }
 
@@ -134,7 +134,7 @@ export default class AgencyFilter extends React.Component {
             </li>
         ));
 
-        const federalAccounts = this.props.federals.map((account) => (
+        const accounts = this.props.federalAccounts.map((account) => (
             <li
                 className="field-item indent"
                 key={`field-${account.id}`}>
@@ -143,7 +143,7 @@ export default class AgencyFilter extends React.Component {
                     title={account.account_title}
                     aria-label={account.account_title}
                     value={account.id}
-                    onClick={this.handleFederalSelect}
+                    onClick={this.handleFederalAccountSelect}
                     name={account.account_title} >
                     {account.agency_identifier}-{account.main_account_code} - {account.account_title}
                 </button>
@@ -158,12 +158,12 @@ export default class AgencyFilter extends React.Component {
             agencyIcon = <Icons.AngleUp alt="Pick an agency" />;
         }
 
-        const currentFederalName = this.props.currentFederal.name;
-        let showFederalPicker = 'hide';
-        let federalIcon = <Icons.AngleDown alt="Pick a federal account" />;
-        if (this.state.showFederalPicker) {
-            showFederalPicker = '';
-            federalIcon = <Icons.AngleUp alt="Pick a federal account" />;
+        const currentFederalAccountName = this.props.currentFederalAccount.name;
+        let showFederalAccountPicker = 'hide';
+        let federalAccountIcon = <Icons.AngleDown alt="Pick a federal account" />;
+        if (this.state.showFederalAccountPicker) {
+            showFederalAccountPicker = '';
+            federalAccountIcon = <Icons.AngleUp alt="Pick a federal account" />;
         }
 
         return (
@@ -232,25 +232,25 @@ export default class AgencyFilter extends React.Component {
 
                 <div className="download-filter__content">
                     <div className="federal-picker">
-                        <label className={`select-label ${federalDisabled}`} htmlFor="federal-select">
+                        <label className={`select-label ${federalAccountDisabled}`} htmlFor="federal-select">
                             Federal Account
                         </label>
                         <div className="field-picker">
                             <button
-                                className={`selected-button ${federalDisabled}`}
-                                title={currentFederalName}
-                                aria-label={currentFederalName}
+                                className={`selected-button ${federalAccountDisabled}`}
+                                title={currentFederalAccountName}
+                                aria-label={currentFederalAccountName}
                                 disabled={disabled}
-                                onClick={this.toggleFederalPicker} >
+                                onClick={this.toggleFederalAccountPicker} >
                                 <div className="label">
-                                    {currentFederalName}
+                                    {currentFederalAccountName}
                                 </div>
                                 <div className="arrow-icon">
-                                    {federalIcon}
+                                    {federalAccountIcon}
                                 </div>
                             </button>
 
-                            <div className={`field-list ${showFederalPicker}`}>
+                            <div className={`field-list ${showFederalAccountPicker}`}>
                                 <ul>
                                     <li className="field-item">
                                         <button
@@ -272,7 +272,7 @@ export default class AgencyFilter extends React.Component {
                                             All
                                         </button>
                                     </li>
-                                    {federalAccounts}
+                                    {accounts}
                                 </ul>
                             </div>
                         </div>

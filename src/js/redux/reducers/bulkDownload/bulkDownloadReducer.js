@@ -54,7 +54,7 @@ export const initialState = {
             id: '',
             name: 'Select an Agency'
         },
-        federal: {
+        federalAccount: {
             id: '',
             name: 'Select a Federal Account'
         },

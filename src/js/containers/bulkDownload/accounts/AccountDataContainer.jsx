@@ -30,16 +30,16 @@ export class AccountDataContainer extends React.Component {
                 cfoAgencies: [],
                 otherAgencies: []
             },
-            federals: []
+            federalAccounts: []
         };
 
         this.agencyListRequest = null;
-        this.federalListRequest = null;
+        this.federalAccountListRequest = null;
 
         this.updateFilter = this.updateFilter.bind(this);
         this.clearAccountFilters = this.clearAccountFilters.bind(this);
         this.setAgencyList = this.setAgencyList.bind(this);
-        this.setFederalList = this.setFederalList.bind(this);
+        this.setFederalAccountList = this.setFederalAccountList.bind(this);
     }
 
     componentDidMount() {
@@ -77,7 +77,7 @@ export class AccountDataContainer extends React.Component {
             });
     }
 
-    setFederalList(agencyCode) {
+    setFederalAccountList(agencyCode) {
         this.setState({
             inFlight: true
         });
@@ -96,20 +96,20 @@ export class AccountDataContainer extends React.Component {
 
         filters.push(params);
 
-        this.federalListRequest = BulkDownloadHelper.requestFederalsList({
+        this.federalAccountListRequest = BulkDownloadHelper.requestFederalsList({
             filters
         });
 
-        this.federalListRequest.promise
+        this.federalAccountListRequest.promise
             .then((res) => {
-                const federals = res.data.results;
+                const federalAccounts = res.data.results;
                 this.setState({
-                    federals
+                    federalAccounts
                 });
             })
             .catch((err) => {
                 console.log(err);
-                this.federalListRequest = null;
+                this.federalAccountListRequest = null;
             });
     }
 
@@ -129,8 +129,8 @@ export class AccountDataContainer extends React.Component {
         return (
             <AccountDataContent
                 accounts={this.props.bulkDownload.accounts}
-                federals={this.state.federals}
-                setFederalList={this.setFederalList}
+                federalAccounts={this.state.federalAccounts}
+                setFederalAccountList={this.setFederalAccountList}
                 updateFilter={this.updateFilter}
                 clearAccountFilters={this.clearAccountFilters}
                 agencies={this.state.agencies}
