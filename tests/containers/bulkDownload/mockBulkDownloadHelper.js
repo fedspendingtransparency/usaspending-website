@@ -15,7 +15,7 @@ export const requestAgenciesList = () => ({
     cancel: jest.fn()
 });
 
-export const requestFederalsList = () => ({
+export const requestFederalAccountList = () => ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
             resolve({

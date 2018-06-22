@@ -24,7 +24,7 @@ export const requestAgenciesList = (params) => {
     };
 };
 
-export const requestFederalsList = (params) => {
+export const requestFederalAccountList = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({

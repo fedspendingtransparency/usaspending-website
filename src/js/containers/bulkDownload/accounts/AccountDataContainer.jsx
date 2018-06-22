@@ -88,7 +88,7 @@ export class AccountDataContainer extends React.Component {
 
         filters.push(params);
 
-        this.federalAccountListRequest = BulkDownloadHelper.requestFederalsList({
+        this.federalAccountListRequest = BulkDownloadHelper.requestFederalAccountList({
             filters
         });
 

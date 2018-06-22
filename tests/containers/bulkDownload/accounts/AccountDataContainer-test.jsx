@@ -36,9 +36,9 @@ describe('AccountDataContainer', () => {
                 bulkDownload={mockRedux} />);
 
             const expectedState = mockFederalAccounts;
-            container.instance().setFederalList('02');
-            await container.instance().federalListRequest.promise;
-            expect(container.state().federals).toEqual(expectedState);
+            container.instance().setFederalAccountList('02');
+            await container.instance().federalAccountListRequest.promise;
+            expect(container.state().federalAccounts).toEqual(expectedState);
         });
     });
 });
