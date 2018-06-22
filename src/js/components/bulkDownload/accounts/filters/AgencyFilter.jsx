@@ -145,7 +145,7 @@ export default class AgencyFilter extends React.Component {
                     value={account.id}
                     onClick={this.handleFederalSelect}
                     name={account.account_title} >
-                    {account.account_title}
+                    {account.agency_identifier}-{account.main_account_code} - {account.account_title}
                 </button>
             </li>
         ));
