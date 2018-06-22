@@ -71,10 +71,11 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
 
         // Fetch data from the Awards v2 endpoint
         const earliestYear = FiscalYearHelper.earliestFiscalYear;
+        const thisYear = FiscalYearHelper.currentFiscalYear();
         const timePeriod = [
             {
                 start_date: FiscalYearHelper.convertFYToDateRange(earliestYear)[0],
-                end_date: FiscalYearHelper.todaysDate
+                end_date: FiscalYearHelper.convertFYToDateRange(thisYear)[1]
             }
         ];
 
