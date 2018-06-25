@@ -14,6 +14,14 @@ const BaseChildRecipient = {
     },
     get amount() {
         return MoneyFormatter.formatMoneyWithPrecision(this._amount, 0);
+    },
+    percentage(total) {
+        const decimal = this._amount / total;
+        if (isNaN(decimal)) {
+            return '--%';
+        }
+        const rounded = Math.round(decimal * 10000) / 100;
+        return `${rounded}%`;
     }
 };
 

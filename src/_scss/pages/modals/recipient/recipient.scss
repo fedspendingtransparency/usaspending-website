@@ -29,6 +29,9 @@
         }
         .child-recipients-modal__body {
             padding: rem(20) rem(60) rem(40);
+            .child-recipients-modal__results {
+                @import "table";
+            }
         }
     }
 }
