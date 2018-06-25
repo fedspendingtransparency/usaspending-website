@@ -64,7 +64,7 @@ export default class AgencyFilter extends React.Component {
                 name: 'All'
             });
         } else {
-            this.props.setFederalAccountList(null);
+            this.props.setFederalAccountList('');
         }
 
         this.setState({
