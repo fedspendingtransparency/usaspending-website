@@ -72,7 +72,7 @@ export const downloadOptions = [
         description: 'The best way to grab detailed subsets of account data, which offer a broad view of how the government allocates funding from top to bottom.',
         callToAction: 'Download Account Data',
         newTab: false,
-        enabled: true,
+        enabled: false,
         externalLink: false
     },
     {

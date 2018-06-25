@@ -59,6 +59,12 @@ export default class AgencyFilter extends React.Component {
 
         if (target.value !== 'all') {
             this.props.setFederalAccountList(agencyCode);
+            this.props.updateFilter('federalAccount', {
+                id: 'all',
+                name: 'All'
+            });
+        } else {
+            this.props.setFederalAccountList(null);
         }
 
         this.setState({
@@ -268,7 +274,7 @@ export default class AgencyFilter extends React.Component {
                                             aria-label="all"
                                             name="All"
                                             value="all"
-                                            onClick={this.handleFederalSelect}>
+                                            onClick={this.handleFederalAccountSelect}>
                                             All
                                         </button>
                                     </li>

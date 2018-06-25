@@ -77,6 +77,14 @@ export class AccountDataContainer extends React.Component {
             this.federalAccountListRequest.cancel();
         }
 
+        // This assures that the federalAccounts state will be disabled
+        // when all agency is selected
+        if (!agencyCode) {
+            this.setState({
+                federalAccounts: []
+            });
+            return;
+        }
         const filters = [];
 
         const params = {
