@@ -8,7 +8,7 @@ import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
 const recipientOverview = Object.create(BaseRecipientOverview);
 recipientOverview.populate({});
 
-const initialState = {
+export const initialState = {
     id: '',
     fy: 'latest',
     overview: recipientOverview,

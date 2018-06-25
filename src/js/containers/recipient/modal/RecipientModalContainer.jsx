@@ -113,8 +113,6 @@ export class RecipientModalContainer extends React.Component {
         return (
             <RecipientModal
                 {...this.props}
-                loading={this.state.inFlight}
-                error={this.state.error}
                 sortField={this.state.sortField}
                 sortDirection={this.state.sortDirection}
                 updateSort={this.updateSort}
