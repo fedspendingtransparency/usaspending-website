@@ -340,6 +340,7 @@ describe('DetailContentContainer', () => {
             container.instance().rewindToFilter(0);
 
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
+            expect(mockPrepareRoot).toHaveBeenCalledWith("agency", "1984", "2");
         });
         it ('should overwrite the explorer trail and update the transition steps', () => {
             const container = mount(<DetailContentContainer

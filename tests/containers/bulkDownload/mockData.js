@@ -103,7 +103,7 @@ export const mockRedux = {
         },
         accounts: {
             accountLevel: 'treasuryAccount',
-            federal: {
+            federalAccount: {
                 id: '212',
                 name: "Mock Federal Account"
             },

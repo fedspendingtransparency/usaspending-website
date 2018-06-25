@@ -25,21 +25,20 @@ export class AccountDataContainer extends React.Component {
         super(props);
 
         this.state = {
-            inFlight: true,
             agencies: {
                 cfoAgencies: [],
                 otherAgencies: []
             },
-            federals: []
+            federalAccounts: []
         };
 
         this.agencyListRequest = null;
-        this.federalListRequest = null;
+        this.federalAccountListRequest = null;
 
         this.updateFilter = this.updateFilter.bind(this);
         this.clearAccountFilters = this.clearAccountFilters.bind(this);
         this.setAgencyList = this.setAgencyList.bind(this);
-        this.setFederalList = this.setFederalList.bind(this);
+        this.setFederalAccountList = this.setFederalAccountList.bind(this);
     }
 
     componentDidMount() {
@@ -47,10 +46,6 @@ export class AccountDataContainer extends React.Component {
     }
 
     setAgencyList() {
-        this.setState({
-            inFlight: true
-        });
-
         if (this.agencyListRequest) {
             this.agencyListRequest.cancel();
         }
@@ -77,40 +72,45 @@ export class AccountDataContainer extends React.Component {
             });
     }
 
-    setFederalList(agencyCode) {
-        this.setState({
-            inFlight: true
-        });
+    setFederalAccountList(agencyCode) {
+        if (agencyCode !== '') {
+            if (this.federalAccountListRequest) {
+                this.federalAccountListRequest.cancel();
+            }
 
-        if (this.federalListRequest) {
-            this.federalListRequest.cancel();
-        }
+            const filters = [];
 
-        const filters = [];
+            const params = {
+                field: "agency_identifier",
+                operation: "equals",
+                value: agencyCode
+            };
 
-        const params = {
-            field: "agency_identifier",
-            operation: "equals",
-            value: agencyCode
-        };
+            filters.push(params);
 
-        filters.push(params);
-
-        this.federalListRequest = BulkDownloadHelper.requestFederalsList({
-            filters
-        });
-
-        this.federalListRequest.promise
-            .then((res) => {
-                const federals = res.data.results;
-                this.setState({
-                    federals
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-                this.federalListRequest = null;
+            this.federalAccountListRequest = BulkDownloadHelper.requestFederalAccountList({
+                filters
             });
+
+            this.federalAccountListRequest.promise
+                .then((res) => {
+                    const federalAccounts = res.data.results;
+                    this.setState({
+                        federalAccounts
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.federalAccountListRequest = null;
+                });
+        }
+        else {
+            this.setState({
+                federalAccounts: []
+            }, () => {
+                this.resetFederalAccount();
+            });
+        }
     }
 
     updateFilter(name, value) {
@@ -121,6 +121,14 @@ export class AccountDataContainer extends React.Component {
         });
     }
 
+    resetFederalAccount() {
+        this.updateFilter('federalAccount', {
+            id: '',
+            name: 'Select a Federal Account'
+        });
+    }
+
+
     clearAccountFilters() {
         this.props.clearDownloadFilters('accounts');
     }
@@ -129,8 +137,8 @@ export class AccountDataContainer extends React.Component {
         return (
             <AccountDataContent
                 accounts={this.props.bulkDownload.accounts}
-                federals={this.state.federals}
-                setFederalList={this.setFederalList}
+                federalAccounts={this.state.federalAccounts}
+                setFederalAccountList={this.setFederalAccountList}
                 updateFilter={this.updateFilter}
                 clearAccountFilters={this.clearAccountFilters}
                 agencies={this.state.agencies}

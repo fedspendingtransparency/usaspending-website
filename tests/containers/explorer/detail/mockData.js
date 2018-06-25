@@ -103,6 +103,7 @@ export const mockLevelData = {
 export const mockDeeperRoot = {
     root: 'agency',
     fy: '1984',
+    quarter: "2",
     active: new ActiveScreen({
         within: 'federal_account',
         subdivision: 'award',

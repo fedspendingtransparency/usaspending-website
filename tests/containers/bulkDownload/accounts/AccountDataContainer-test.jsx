@@ -29,16 +29,16 @@ describe('AccountDataContainer', () => {
         expect(container.state().agencies).toEqual(expectedState);
     });
 
-    describe('setFederalList', () => {
+    describe('setFederalAccountList', () => {
         it('should make an API request when called and update state', async () => {
             const container = shallow(<AccountDataContainer
                 {...mockActions}
                 bulkDownload={mockRedux} />);
 
             const expectedState = mockFederalAccounts;
-            container.instance().setFederalList('02');
-            await container.instance().federalListRequest.promise;
-            expect(container.state().federals).toEqual(expectedState);
+            container.instance().setFederalAccountList('02');
+            await container.instance().federalAccountListRequest.promise;
+            expect(container.state().federalAccounts).toEqual(expectedState);
         });
     });
 });
