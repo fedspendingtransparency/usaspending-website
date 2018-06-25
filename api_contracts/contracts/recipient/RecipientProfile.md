@@ -37,7 +37,7 @@ This endpoint returns a list of child recipients belonging to the given parent r
 ### Get Recipient Children [GET]
 
 + Response 200 (application/json)
-    + Attributes (ChildRecipientsResponse)
+    + Attributes (array[ChildRecipient], fixed-type)
 
 # Data Structures
 
@@ -89,9 +89,6 @@ This endpoint returns a list of child recipients belonging to the given parent r
      Code for the country in which the recipient is located.
 + congressional_code: 05 (optional, string)
     Number for the recipient's congressional district. 
-   
-## ChildRecipientsResponse
-+ results (required, array[ChildRecipient], fixed-type)
  
 ## ChildRecipient (object)
 + name: Child of ABC Corporation (required, string)

@@ -28,8 +28,10 @@ export class RecipientModalContainer extends React.Component {
         super(props);
 
         this.state = {
+            inFlight: false,
+            error: false,
             sortField: 'name',
-            sortDirection: 'desc',
+            sortDirection: 'asc',
             childRecipients: []
         };
 
@@ -44,7 +46,7 @@ export class RecipientModalContainer extends React.Component {
         }
         if (!isEqual(this.props.recipient.children, prevProps.recipient.children)) {
             // Sort the new results by the default sort order
-            this.updateSort('name', 'desc');
+            this.updateSort('name', 'asc');
         }
     }
 
@@ -53,6 +55,10 @@ export class RecipientModalContainer extends React.Component {
             // A request is currently in-flight, cancel it
             this.request.cancel();
         }
+
+        this.setState({
+            inFlight: true
+        });
 
         const duns = this.props.recipient.id;
         const year = this.props.recipient.fy;
@@ -64,8 +70,8 @@ export class RecipientModalContainer extends React.Component {
                 this.setState({
                     loading: false
                 }, () => {
-                    if (res.data.results.length > 0) {
-                        this.parseChildren(res.data.results);
+                    if (res.data.length > 0) {
+                        this.parseChildren(res.data);
                     }
                 });
             })
@@ -74,7 +80,7 @@ export class RecipientModalContainer extends React.Component {
                     console.log(err);
 
                     this.setState({
-                        loading: false,
+                        inFlight: false,
                         error: true
                     });
                 }
@@ -82,6 +88,10 @@ export class RecipientModalContainer extends React.Component {
     }
 
     parseChildren(data) {
+        this.setState({
+            inFlight: false,
+            error: false
+        });
         const childRecipients = data.map((child) => {
             const childRecipient = Object.create(BaseChildRecipient);
             childRecipient.populate(child);
@@ -103,6 +113,8 @@ export class RecipientModalContainer extends React.Component {
         return (
             <RecipientModal
                 {...this.props}
+                loading={this.state.inFlight}
+                error={this.state.error}
                 sortField={this.state.sortField}
                 sortDirection={this.state.sortDirection}
                 updateSort={this.updateSort}

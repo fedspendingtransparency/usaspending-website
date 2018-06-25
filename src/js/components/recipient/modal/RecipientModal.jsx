@@ -13,6 +13,8 @@ import RecipientModalTable from './table/RecipientModalTable';
 const propTypes = {
     mounted: PropTypes.bool,
     hideModal: PropTypes.func,
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
     recipient: PropTypes.object,
     sortField: PropTypes.string,
     sortDirection: PropTypes.string,
@@ -43,6 +45,8 @@ export default class RecipientModal extends React.Component {
                     </div>
                     <div className="child-recipients-modal__body">
                         <RecipientModalTable
+                            loading={this.props.loading}
+                            error={this.props.error}
                             sortField={this.props.sortField}
                             sortDirection={this.props.sortDirection}
                             updateSort={this.props.updateSort}
