@@ -21,7 +21,9 @@ const propTypes = {
     updateFilter: PropTypes.func,
     clearAccountFilters: PropTypes.func,
     agencies: PropTypes.object,
-    clickedDownload: PropTypes.func
+    federalAccounts: PropTypes.array,
+    clickedDownload: PropTypes.func,
+    setFederalAccountList: PropTypes.func
 };
 
 export default class AccountDataContent extends React.Component {
@@ -83,7 +85,10 @@ export default class AccountDataContent extends React.Component {
                             valid={accounts.accountLevel !== ''} />
                         <AgencyFilter
                             agencies={this.props.agencies}
+                            federalAccounts={this.props.federalAccounts}
                             currentAgency={accounts.agency}
+                            currentFederalAccount={accounts.federalAccount}
+                            setFederalAccountList={this.props.setFederalAccountList}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.agency.id !== ''} />
                         <SubmissionTypeFilter
