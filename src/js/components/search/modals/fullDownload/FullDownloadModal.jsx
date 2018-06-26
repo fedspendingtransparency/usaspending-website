@@ -39,8 +39,8 @@ export default class FullDownloadModal extends React.Component {
         this.hideModal = this.hideModal.bind(this);
     }
 
-    componentDidUpdate(nextProps) {
-        if (this.props.pendingDownload && !nextProps.pendingDownload) {
+    componentDidUpdate(prevProps) {
+        if (this.props.pendingDownload && !prevProps.pendingDownload) {
             // we went from there being a download to there not being a download
             // this likely means the download finished (or failed), so the user can start a new
             // download request after closing the modal.
