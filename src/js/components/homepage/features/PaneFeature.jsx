@@ -29,10 +29,10 @@ const PaneFeature = () => (
                 <hr className="feature-pane__mobile-content-divider" />
                 <div className="feature-pane__content-divider" />
                 <div className="feature-pane__content">
-                    <h3 className="feature-pane__content-title">Stay in touch with us!</h3>
-                    <p className="feature-pane_content-text" >Receive updates on our new site. We will provide release notes and API updates, as well as share opportunities to engage with us.</p>
+                    <h3 className="feature-pane__content-title">New! - State Profiles</h3>
+                    <p className="feature-pane_content-text" >Find insights into the awards performed within a particular state with the tools and summaries found in our new State Profile pages.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates." className="feature-pane__button">Sign Up</a>
+                        <a href="https://www.usaspending.gov/#/state" className="feature-pane__button">Explore State Profiles</a>
                     </div>
                 </div>
             </div>
