@@ -23,3 +23,18 @@ export const mockRecipientOverview = {
     total_sub_amount: 20020000000,
     total_sub_awards: 127721
 };
+
+export const mockChildRecipients = [
+    {
+        name: "Child of ABC Corporation",
+        duns: "345678",
+        state_province: "New Jersey",
+        amount: 30020000
+    },
+    {
+        name: "Another Child of ABC Corporation",
+        duns: "654321",
+        state_province: "Tennessee",
+        amount: 40020000
+    },
+];

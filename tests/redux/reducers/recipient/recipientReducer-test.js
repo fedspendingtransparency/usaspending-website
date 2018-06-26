@@ -43,7 +43,25 @@ describe('recipientReducer', () => {
             expect(state.fy).toEqual('all');
         });
     });
-    // TODO - Lizzie: test SET_RECIPIENT_CHILDREN
+    describe('SET_RECIPIENT_CHILDREN', () => {
+        it('should set the fiscal year to the provided value', () => {
+            let state = recipientReducer(undefined, {});
+
+            const mockChild = {
+                duns: '1',
+                name: 'Mock Child'
+            };
+
+            const action = {
+                type: 'SET_RECIPIENT_CHILDREN',
+                children: [mockChild]
+            };
+
+            state = recipientReducer(state, action);
+
+            expect(state.children).toEqual([mockChild]);
+        });
+    });
     describe('RESET_RECIPIENT', () => {
         it('should reset the recipient profile to its initial state', () => {
             let state = recipientReducer(undefined, {

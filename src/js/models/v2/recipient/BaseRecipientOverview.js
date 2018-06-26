@@ -52,9 +52,9 @@ const BaseRecipientOverview = {
         return MoneyFormatter.formatNumberWithPrecision(this._totalAwards, 0);
     },
     get totalSubAmount() {
-        if (this._totalAmount >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalAmount);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalAmount / units.unit, 1)} ${units.longLabel}`;
+        if (this._totalSubAmount >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalSubAmount);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalSubAmount / units.unit, 1)} ${units.longLabel}`;
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._totalSubAmount, 0);
     },
