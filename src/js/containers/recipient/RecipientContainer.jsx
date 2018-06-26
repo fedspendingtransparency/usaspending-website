@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
-import * as recipientActions from 'redux/actions/recipient/recipientSummaryActions';
+import * as recipientActions from 'redux/actions/recipient/recipientActions';
 import * as RecipientHelper from 'helpers/recipientHelper';
 
 import RecipientPage from 'components/recipient/RecipientPage';

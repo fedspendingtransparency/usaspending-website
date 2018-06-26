@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { orderBy, isEqual } from 'lodash';
 
-import * as recipientActions from 'redux/actions/recipient/recipientSummaryActions';
+import * as recipientActions from 'redux/actions/recipient/recipientActions';
 import * as RecipientHelper from 'helpers/recipientHelper';
 
 import RecipientModal from 'components/recipient/modal/RecipientModal';

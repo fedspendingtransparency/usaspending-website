@@ -1,5 +1,5 @@
 /**
- * recipientSummaryReducer.js
+ * recipientReducer.js
  * Created by Lizzie Salita 8/23/17
  **/
 
@@ -15,7 +15,7 @@ export const initialState = {
     children: []
 };
 
-const recipientSummaryReducer = (state = initialState, action) => {
+const recipientReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_RECIPIENT_OVERVIEW':
             return Object.assign({}, state, {
@@ -37,4 +37,4 @@ const recipientSummaryReducer = (state = initialState, action) => {
     }
 };
 
-export default recipientSummaryReducer;
+export default recipientReducer;

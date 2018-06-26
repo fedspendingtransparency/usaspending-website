@@ -1,4 +1,4 @@
-import { initialState } from 'redux/reducers/recipient/recipientSummaryReducer';
+import { initialState } from 'redux/reducers/recipient/recipientReducer';
 
 export const mockActions = {
     setRecipientOverview: jest.fn(),
