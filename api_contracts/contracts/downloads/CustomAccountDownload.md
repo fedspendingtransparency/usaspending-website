@@ -53,8 +53,10 @@ This endpoint returns the generated file's metadata.
     
 ## FilterObject (object)
 + agency: `all` (optional, string)
-    The agency to filter by
+    The agency to filter by. This field is an internal id.
     + Default: `all`
++ federal_account: `212` (optional, string)
+    This field is an internal id.
 + submission_type: `award_financial` (required, enum[string])
     + Members
         + account_balances

@@ -54,6 +54,10 @@ export const initialState = {
             id: '',
             name: 'Select an Agency'
         },
+        federalAccount: {
+            id: '',
+            name: 'Select a Federal Account'
+        },
         submissionType: 'accountBalances',
         fy: `${initialQuarters.year}`,
         quarter: `${Math.max(...initialQuarters.quarters)}`,
