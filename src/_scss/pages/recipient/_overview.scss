@@ -20,7 +20,7 @@
         .recipient-overview__children {
             @include display(flex);
             @include align-items(center);
-            padding: rem(10) 0;
+            padding: rem(10) 0 rem(30);
             .recipient-overview__label {
                 @include display(flex);
                 @include align-items(center);
@@ -41,6 +41,12 @@
                 }
                 &:hover {
                     text-decoration: none;
+                }
+                &.recipient-overview__label_parent {
+                    background-color: $color-primary-darker;
+                }
+                &.recipient-overview__label_child {
+                    background-color: $color-primary-alt-dark;
                 }
             }
             .recipient-overview__children-button {

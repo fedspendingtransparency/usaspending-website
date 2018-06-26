@@ -18,17 +18,30 @@ export default class RecipientOverview extends React.Component {
         const recipient = this.props.recipient.overview;
         let label = (
             <div className="recipient-overview__label">
-                Child Recipient
+                Recipient
             </div>
         );
         let viewChildren = null;
         let parent = null;
+        if (recipient.parentName && recipient.parentDuns) {
+            // This is a child recipient
+            label = (
+                <div className="recipient-overview__label recipient-overview__label_child">
+                    Child Recipient
+                </div>
+            );
+            parent = (
+                <div className="recipient-overview__parent">
+                    This recipient is a child of <a className="recipient-overview__parent-link" href={`#/recipient/${recipient.parentDuns}`}>{recipient.parentName} ({recipient.parentDuns})</a>
+                </div>
+            );
+        }
         if (this.props.recipient.children && this.props.recipient.children.length > 0) {
             // This is a parent recipient
             label = (
                 <a
                     href={`#/recipient/${this.props.recipient.id}/?glossary=parent-duns`}
-                    className="recipient-overview__label">
+                    className="recipient-overview__label recipient-overview__label_parent">
                     Parent Recipient <Glossary />
                 </a>
             );
@@ -38,13 +51,6 @@ export default class RecipientOverview extends React.Component {
                     onClick={this.props.showModal}>
                     View child recipients <CaretRight />
                 </button>
-            );
-        }
-        if (recipient.parentName && recipient.parentDuns) {
-            parent = (
-                <div className="recipient-overview__parent">
-                    This recipient is a child of <a className="recipient-overview__parent-link" href={`#/recipient/${recipient.parentDuns}`}>{recipient.parentName} ({recipient.parentDuns})</a>
-                </div>
             );
         }
         return (
