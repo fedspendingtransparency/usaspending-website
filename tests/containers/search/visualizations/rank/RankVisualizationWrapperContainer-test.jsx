@@ -13,6 +13,7 @@ import { RankVisualizationWrapperContainer } from
     'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
 
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
+import { mockActions } from '../time/mockData';
 import { Set } from 'immutable';
 
 // mock the child components by replacing them with a function that returns a null element
@@ -30,7 +31,8 @@ jest.mock('components/search/visualizations/rank/RankVisualizationTitle', () =>
 describe('RankVisualizationWrapperContainer', () => {
     it('should make an API request on mount', async () => {
         const container = mount(<RankVisualizationWrapperContainer
-            reduxFilters={defaultFilters} />);
+            reduxFilters={defaultFilters}
+            {...mockActions} />);
 
         const fetchData = jest.fn();
         container.instance().fetchData = fetchData;
@@ -47,7 +49,8 @@ describe('RankVisualizationWrapperContainer', () => {
         });
 
         const container = mount(<RankVisualizationWrapperContainer
-            reduxFilters={defaultFilters} />);
+            reduxFilters={defaultFilters}
+            {...mockActions} />);
 
         const fetchData = jest.fn();
         container.instance().fetchData = fetchData;
@@ -70,10 +73,14 @@ describe('RankVisualizationWrapperContainer', () => {
 
         // the page number should still be equal to 1
         expect(container.state().page).toEqual(1);
+
+        // setAppliedFilterCompletion should have been called
+        expect(mockActions.setAppliedFilterCompletion).toHaveBeenLastCalledWith(true);
     });
     it('should make an API request when the sub-awards toggle changes', async () => {
         const container = mount(<RankVisualizationWrapperContainer
-            reduxFilters={defaultFilters} />);
+            reduxFilters={defaultFilters}
+            {...mockActions} />);
 
         const fetchData = jest.fn();
         container.instance().fetchData = fetchData;
@@ -99,7 +106,8 @@ describe('RankVisualizationWrapperContainer', () => {
     });
     it('should handle generating the visualization on render', () => {
         const container = mount(<RankVisualizationWrapperContainer
-            reduxFilters={defaultFilters} />);
+            reduxFilters={defaultFilters}
+            {...mockActions} />);
 
         const generateVisualization = jest.fn();
         container.instance().generateVisualization = generateVisualization;
@@ -112,7 +120,8 @@ describe('RankVisualizationWrapperContainer', () => {
     describe('changeSpendingBy', () => {
         it('should change the spendingBy to the provided value and update to the default scope', () => {
             const container = mount(<RankVisualizationWrapperContainer
-                reduxFilters={defaultFilters} />);
+                reduxFilters={defaultFilters}
+                {...mockActions} />);
 
             container.instance().componentDidMount();
 
@@ -131,7 +140,8 @@ describe('RankVisualizationWrapperContainer', () => {
         it('should properly restructure the API data for the rank visualization', async () => {
             // mount the container
             const container = mount(<RankVisualizationWrapperContainer
-                reduxFilters={defaultFilters} />);
+                reduxFilters={defaultFilters}
+                {...mockActions} />);
 
             container.instance().componentDidMount();
             await container.instance().apiRequest.promise;
@@ -160,7 +170,8 @@ describe('RankVisualizationWrapperContainer', () => {
         it('should trigger a new API call with an incremented page number', () => {
             // mount the container
             const container = mount(<RankVisualizationWrapperContainer
-                reduxFilters={defaultFilters} />);
+                reduxFilters={defaultFilters}
+                {...mockActions} />);
 
             container.instance().componentDidMount();
 
@@ -182,7 +193,8 @@ describe('RankVisualizationWrapperContainer', () => {
         it('should trigger a new API call with a decremented page number', () => {
             // mount the container
             const container = mount(<RankVisualizationWrapperContainer
-                reduxFilters={defaultFilters} />);
+                reduxFilters={defaultFilters}
+                {...mockActions} />);
 
             container.setState({
                 page: 5,
@@ -201,7 +213,8 @@ describe('RankVisualizationWrapperContainer', () => {
         it('should never use a page number less than 1', () => {
             // mount the container
             const container = mount(<RankVisualizationWrapperContainer
-                reduxFilters={defaultFilters} />);
+                reduxFilters={defaultFilters}
+                {...mockActions} />);
 
             container.setState({
                 page: 1
@@ -226,7 +239,8 @@ describe('RankVisualizationWrapperContainer', () => {
 
             // mount the container
             const container = mount(<RankVisualizationWrapperContainer
-                reduxFilters={initialFilters} />);
+                reduxFilters={initialFilters}
+                {...mockActions} />);
 
             container.setState({
                 page: 5,
@@ -250,7 +264,8 @@ describe('RankVisualizationWrapperContainer', () => {
     describe('changeScope', () => {
         it('should change the scope to the provided value', () => {
             const container = mount(<RankVisualizationWrapperContainer
-                reduxFilters={defaultFilters} />);
+                reduxFilters={defaultFilters}
+                {...mockActions} />);
 
             // the default scope should be toptier
             expect(container.state().scope).toEqual('awarding_agency');
@@ -262,7 +277,8 @@ describe('RankVisualizationWrapperContainer', () => {
 
         it('should reset the page number to 1 when the scope changes', () => {
             const container = mount(<RankVisualizationWrapperContainer
-                reduxFilters={defaultFilters} />);
+                reduxFilters={defaultFilters}
+                {...mockActions} />);
             container.setState({
                 page: 5
             });

@@ -25,18 +25,20 @@ export class AccountDataContainer extends React.Component {
         super(props);
 
         this.state = {
-            inFlight: true,
             agencies: {
                 cfoAgencies: [],
                 otherAgencies: []
-            }
+            },
+            federalAccounts: []
         };
 
         this.agencyListRequest = null;
+        this.federalAccountListRequest = null;
 
         this.updateFilter = this.updateFilter.bind(this);
         this.clearAccountFilters = this.clearAccountFilters.bind(this);
         this.setAgencyList = this.setAgencyList.bind(this);
+        this.setFederalAccountList = this.setFederalAccountList.bind(this);
     }
 
     componentDidMount() {
@@ -44,10 +46,6 @@ export class AccountDataContainer extends React.Component {
     }
 
     setAgencyList() {
-        this.setState({
-            inFlight: true
-        });
-
         if (this.agencyListRequest) {
             this.agencyListRequest.cancel();
         }
@@ -74,6 +72,47 @@ export class AccountDataContainer extends React.Component {
             });
     }
 
+    setFederalAccountList(agencyCode) {
+        if (agencyCode !== '') {
+            if (this.federalAccountListRequest) {
+                this.federalAccountListRequest.cancel();
+            }
+
+            const filters = [];
+
+            const params = {
+                field: "agency_identifier",
+                operation: "equals",
+                value: agencyCode
+            };
+
+            filters.push(params);
+
+            this.federalAccountListRequest = BulkDownloadHelper.requestFederalAccountList({
+                filters
+            });
+
+            this.federalAccountListRequest.promise
+                .then((res) => {
+                    const federalAccounts = res.data.results;
+                    this.setState({
+                        federalAccounts
+                    });
+                })
+                .catch((err) => {
+                    console.log(err);
+                    this.federalAccountListRequest = null;
+                });
+        }
+        else {
+            this.setState({
+                federalAccounts: []
+            }, () => {
+                this.resetFederalAccount();
+            });
+        }
+    }
+
     updateFilter(name, value) {
         this.props.updateDownloadFilter({
             dataType: 'accounts',
@@ -81,6 +120,14 @@ export class AccountDataContainer extends React.Component {
             value
         });
     }
+
+    resetFederalAccount() {
+        this.updateFilter('federalAccount', {
+            id: '',
+            name: 'Select a Federal Account'
+        });
+    }
+
 
     clearAccountFilters() {
         this.props.clearDownloadFilters('accounts');
@@ -90,6 +137,8 @@ export class AccountDataContainer extends React.Component {
         return (
             <AccountDataContent
                 accounts={this.props.bulkDownload.accounts}
+                federalAccounts={this.state.federalAccounts}
+                setFederalAccountList={this.setFederalAccountList}
                 updateFilter={this.updateFilter}
                 clearAccountFilters={this.clearAccountFilters}
                 agencies={this.state.agencies}

@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 
+import AccountLevelFilter from './filters/AccountLevelFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
@@ -20,7 +21,9 @@ const propTypes = {
     updateFilter: PropTypes.func,
     clearAccountFilters: PropTypes.func,
     agencies: PropTypes.object,
-    clickedDownload: PropTypes.func
+    federalAccounts: PropTypes.array,
+    clickedDownload: PropTypes.func,
+    setFederalAccountList: PropTypes.func
 };
 
 export default class AccountDataContent extends React.Component {
@@ -75,9 +78,17 @@ export default class AccountDataContent extends React.Component {
                     <form
                         className="download-center-form"
                         onSubmit={this.handleSubmit}>
+                        <AccountLevelFilter
+                            accountLevels={accountDownloadOptions.accountLevels}
+                            currentAccountLevel={accounts.accountLevel}
+                            updateFilter={this.props.updateFilter}
+                            valid={accounts.accountLevel !== ''} />
                         <AgencyFilter
                             agencies={this.props.agencies}
+                            federalAccounts={this.props.federalAccounts}
                             currentAgency={accounts.agency}
+                            currentFederalAccount={accounts.federalAccount}
+                            setFederalAccountList={this.props.setFederalAccountList}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.agency.id !== ''} />
                         <SubmissionTypeFilter

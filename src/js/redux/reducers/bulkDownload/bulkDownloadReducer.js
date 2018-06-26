@@ -49,10 +49,14 @@ export const initialState = {
         fileFormat: 'csv'
     },
     accounts: {
-        accountLevel: 'treasuryAccount',
+        accountLevel: 'federalAccount',
         agency: {
             id: '',
             name: 'Select an Agency'
+        },
+        federalAccount: {
+            id: '',
+            name: 'Select a Federal Account'
         },
         submissionType: 'accountBalances',
         fy: `${initialQuarters.year}`,

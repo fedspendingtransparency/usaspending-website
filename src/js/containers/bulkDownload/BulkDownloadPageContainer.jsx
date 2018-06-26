@@ -136,6 +136,11 @@ export class BulkDownloadPageContainer extends React.Component {
     startAccountDownload() {
         const formState = this.props.bulkDownload.accounts;
 
+        const accountLevels = accountDownloadOptions.accountLevels;
+        const accountLevel = accountLevels.find((account) =>
+            account.name === formState.accountLevel
+        );
+
         // Get the submission type object
         const submissionTypes = accountDownloadOptions.submissionTypes;
         const submissionType = submissionTypes.find((type) =>
@@ -143,7 +148,7 @@ export class BulkDownloadPageContainer extends React.Component {
         );
 
         const params = {
-            account_level: 'treasury_account',
+            account_level: accountLevel.apiName,
             filters: {
                 agency: formState.agency.id,
                 submission_type: submissionType.apiName,
@@ -152,6 +157,10 @@ export class BulkDownloadPageContainer extends React.Component {
             },
             file_format: 'csv'
         };
+
+        if (formState.federalAccount.id !== '' && formState.federalAccount.id !== 'all') {
+            params.filters.federal_account = formState.federalAccount.id;
+        }
 
         this.requestDownload(params, 'accounts');
 
