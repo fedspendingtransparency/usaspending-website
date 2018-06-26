@@ -40,7 +40,7 @@ export default class FullDownloadModal extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.pendingDownload && !prevProps.pendingDownload) {
+        if (!this.props.pendingDownload && prevProps.pendingDownload) {
             // we went from there being a download to there not being a download
             // this likely means the download finished (or failed), so the user can start a new
             // download request after closing the modal.
