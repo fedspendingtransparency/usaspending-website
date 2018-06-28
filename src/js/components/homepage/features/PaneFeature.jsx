@@ -32,7 +32,7 @@ const PaneFeature = () => (
                     <h3 className="feature-pane__content-title">New! - State Profiles</h3>
                     <p className="feature-pane_content-text" >Find insights into the awards performed within a particular state with the tools and summaries found in our new State Profile pages.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="https://www.usaspending.gov/#/state" className="feature-pane__button">Explore State Profiles</a>
+                        <a href="/#/state" className="feature-pane__button">Explore State Profiles</a>
                     </div>
                 </div>
             </div>
