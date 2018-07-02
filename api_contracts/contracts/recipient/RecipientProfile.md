@@ -5,6 +5,49 @@ HOST: https://api.usaspending.gov
 
 These endpoints are used to power USAspending.gov's recipient profile pages. This data can be used to visualize the government spending that pertains to a specific recipient.
 
+# Group Landing Page
+
+This endpoint supports the recipient landing page, which provides a list of all recipients for which individual profile pages are available on USAspending.gov.
+
+## List Recipients [/api/v2/recipient/duns/]
+
+This endpoint returns a list of recipients, their level, DUNS, and amount.
+
++ Parameters
+    + order: desc (optional, string)
+        The direction results are sorted by. `asc` for ascending, `desc` for descending.
+        + Default: desc
+    + sort: amount (optional, string)
+        The field results are sorted by.
+        + Default: amount
+        + Members
+            + name
+            + duns
+            + amount
+    + limit: 50 (optional, number)
+        The number of results to include per page. 
+        + Default: 50
+    + page: 1 (optional, number)
+        The page of results to return based on the limit. 
+        + Default: 1
+    + keyword: (optional, string)
+        The keyword results are filtered by. Searches on name and DUNS.
+    + award_type: all (optional, string)
+        The award type results are filtered by. 
+        + Default: all
+        + Members
+            + all
+            + contracts
+            + grants
+            + loans
+            + direct_payments
+            + other_financial_assistance
+
+### List Recipients [POST]
+
++ Response 200 (application/json)
+    + Attributes (RecipientsListResponse)
+
 # Group Profile Page
 
 These endpoints support the individual Recipient Profile pages that display data for a specific DUNS.
@@ -40,6 +83,32 @@ This endpoint returns a list of child recipients belonging to the given parent r
     + Attributes (array[ChildRecipient], fixed-type)
 
 # Data Structures
+
+## RecipientsListResponse (object)
++ page_metadata (PageMetaDataObject)
++ results (array[RecipientListing], fixed-type)
+
+## RecipientListing (object)
++ name: The ABC Corporation (required, string)
+    Name of the recipient.
++ duns: 0123456 (required, string)
+    Recipient's DUNS (Data Universal Numbering System) number. A unique identifier for business entities. 
++ amount: 30020000000 (required, number)
+    The aggregate monetary value of all prime awards associated with this recipient for the trailing 12 months.
++ recipient_level: R (required, string)
+    A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient. 
+    + Members
+        + R
+        + P
+        + C
+
+## PageMetaDataObject (object)
++ page: 1 (required, number)
+    The page number. 
++ limit: 50 (required, number)
+    The number of results per page. 
++ total: 101 (required, number)
+    The total number of results (all pages).
 
 ## RecipientOverview (object)
 + name: The ABC Corporation (required, string)
