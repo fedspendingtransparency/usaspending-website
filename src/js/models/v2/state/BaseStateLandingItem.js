@@ -10,6 +10,7 @@ const BaseStateLandingItem = {
         this.name = data.name || '';
         this.fips = data.fips || '';
         this.code = data.code || '';
+        this.type = data.type || '';
         this._amount = data.amount || 0;
     },
     get amount() {

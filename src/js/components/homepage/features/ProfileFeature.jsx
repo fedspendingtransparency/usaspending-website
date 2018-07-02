@@ -22,6 +22,11 @@ const images = [
         alt: 'Screenshot of the Federal Account Profile page'
     },
     {
+        src: 'img/homepage-profile-state.png',
+        srcSet: 'img/homepage-profile-state.png 1x, img/homepage-profile-state@2x.png 2x',
+        alt: 'Screenshot of State Profile page'
+    },
+    {
         src: 'img/homepage-profile-recipient.png',
         srcSet: 'img/homepage-profile-recipient.png 1x, img/homepage-profile-recipient@2x.png 2x',
         alt: 'Recipient Profile page coming soon'

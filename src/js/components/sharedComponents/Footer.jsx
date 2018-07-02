@@ -99,7 +99,7 @@ export default class Footer extends React.Component {
                                 <ul className="links">
                                     <li>
                                         <FooterExternalLink
-                                            link="http://fedspendingtransparency.github.io/DAIMS-v1.1/"
+                                            link="https://www.fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm"
                                             title="Data Model" />
                                     </li>
                                     <li>

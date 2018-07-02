@@ -18,6 +18,7 @@ export default class UserSelections extends React.Component {
 
         this.generateAccountLevelString = this.generateAccountLevelString.bind(this);
         this.generateAgencyString = this.generateAgencyString.bind(this);
+        this.generateFederalAccountString = this.generateFederalAccountString.bind(this);
         this.generateSubmissionTypeString = this.generateSubmissionTypeString.bind(this);
         this.generateFyString = this.generateFyString.bind(this);
     }
@@ -46,6 +47,18 @@ export default class UserSelections extends React.Component {
 
         return (
             <div className="selection__content selection__content-required">required</div>
+        );
+    }
+
+    generateFederalAccountString() {
+        if (this.props.accounts.federalAccount.name !== 'Select a Federal Account') {
+            return (
+                <div className="selection__content">{this.props.accounts.federalAccount.name}</div>
+            );
+        }
+
+        return (
+            <div className="selection__content">&mdash;</div>
         );
     }
 
@@ -84,7 +97,7 @@ export default class UserSelections extends React.Component {
                     <div className="selection">
                         <div className="selection__heading">Account Level</div>
                         <div className="selection__content">
-                            Treasury Account
+                            {this.generateAccountLevelString()}
                         </div>
                     </div>
                     <div className="selection">
@@ -110,7 +123,7 @@ export default class UserSelections extends React.Component {
                     <div className="selection">
                         <div className="selection__heading">Federal Account</div>
                         <div className="selection__content">
-                            &mdash;
+                            {this.generateFederalAccountString()}
                         </div>
                     </div>
                     <div className="selection">

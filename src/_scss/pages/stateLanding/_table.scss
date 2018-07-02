@@ -29,5 +29,10 @@
         &.state-list__body-cell_right {
             text-align: right;
         }
+
+        .state-list__matched {
+            text-decoration: underline;
+            font-weight: 600;
+        }
     }
 }
