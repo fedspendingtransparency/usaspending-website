@@ -61,6 +61,12 @@ This endpoint returns a list of child recipients belonging to the given parent r
     The aggregate monetary value of all sub-awards for the given time period.
 + total_sub_awards: 127721 (required, number)
     The number of sub-awards associated with this recipient for the given time period.
++ recipient_level: P (required, string)
+    A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient. 
+    + Members
+        + R
+        + P
+        + C
 
 ## RecipientLocation (object)
 + address_line1: 123 Sesame St (required, string, nullable)

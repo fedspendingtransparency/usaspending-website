@@ -12,6 +12,8 @@ import RecipientModalTable from './table/RecipientModalTable';
 
 const propTypes = {
     mounted: PropTypes.bool,
+    error: PropTypes.bool,
+    loading: PropTypes.bool,
     hideModal: PropTypes.func,
     recipient: PropTypes.object,
     sortField: PropTypes.string,
@@ -22,6 +24,26 @@ const propTypes = {
 
 export default class RecipientModal extends React.Component {
     render() {
+        let table = (<RecipientModalTable
+            sortField={this.props.sortField}
+            sortDirection={this.props.sortDirection}
+            updateSort={this.props.updateSort}
+            fy={this.props.recipient.fy}
+            total={this.props.recipient.overview._totalAmount}
+            childRecipients={this.props.childRecipients} />);
+        let message = null;
+        if (this.props.loading) {
+            message = "Loading...";
+            table = null;
+        }
+        else if (this.props.error) {
+            message = "There was an error loading the results.";
+            table = null;
+        }
+        else if (this.props.childRecipients.length === 0) {
+            message = "No results found.";
+            table = null;
+        }
         return (
             <Modal
                 mounted={this.props.mounted}
@@ -42,13 +64,10 @@ export default class RecipientModal extends React.Component {
                         </button>
                     </div>
                     <div className="child-recipients-modal__body">
-                        <RecipientModalTable
-                            sortField={this.props.sortField}
-                            sortDirection={this.props.sortDirection}
-                            updateSort={this.props.updateSort}
-                            fy={this.props.recipient.fy}
-                            total={this.props.recipient.overview._totalAmount}
-                            childRecipients={this.props.childRecipients} />
+                        {table}
+                        <div className="child-recipients-modal__message">
+                            {message}
+                        </div>
                     </div>
                 </div>
             </Modal>

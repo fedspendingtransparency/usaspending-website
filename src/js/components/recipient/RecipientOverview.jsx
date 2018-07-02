@@ -23,7 +23,7 @@ export default class RecipientOverview extends React.Component {
         );
         let viewChildren = null;
         let parent = null;
-        if (recipient.parentName && recipient.parentDuns) {
+        if (recipient.level === 'C') {
             // This is a child recipient
             label = (
                 <div className="recipient-overview__label recipient-overview__label_child">
@@ -36,7 +36,7 @@ export default class RecipientOverview extends React.Component {
                 </div>
             );
         }
-        if (this.props.recipient.children && this.props.recipient.children.length > 0) {
+        else if (recipient.level === 'P') {
             // This is a parent recipient
             label = (
                 <a

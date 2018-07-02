@@ -29,6 +29,6 @@ const recipient = Object.assign({}, initialState, {
 
 export const mockModalRedux = {
     recipient,
-    mounted: true,
+    mounted: false,
     hideModal: jest.fn()
 };

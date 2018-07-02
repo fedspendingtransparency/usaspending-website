@@ -40,8 +40,8 @@ export class RecipientModalContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if ((this.props.recipient.id !== prevProps.recipient.id) || (this.props.recipient.fy !== prevProps.recipient.fy)) {
-            // Recipient or time period changed
+        if (this.props.mounted && !prevProps.mounted) {
+            // The modal went from hidden to visible
             this.loadChildRecipients();
         }
         if (!isEqual(this.props.recipient.children, prevProps.recipient.children)) {
@@ -113,6 +113,8 @@ export class RecipientModalContainer extends React.Component {
         return (
             <RecipientModal
                 {...this.props}
+                error={this.state.error}
+                loading={this.state.inFlight}
                 sortField={this.state.sortField}
                 sortDirection={this.state.sortDirection}
                 updateSort={this.updateSort}

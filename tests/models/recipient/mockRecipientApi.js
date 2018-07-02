@@ -21,7 +21,8 @@ export const mockRecipientOverview = {
     total_prime_amount: 30020000000,
     total_prime_awards: 327721,
     total_sub_amount: 20020000000,
-    total_sub_awards: 127721
+    total_sub_awards: 127721,
+    recipient_level: 'P'
 };
 
 export const mockChildRecipients = [

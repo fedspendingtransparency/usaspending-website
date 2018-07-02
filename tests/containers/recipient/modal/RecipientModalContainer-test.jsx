@@ -18,43 +18,17 @@ import BaseChildRecipient from 'models/v2/recipient/BaseChildRecipient';
 jest.mock('components/recipient/modal/RecipientModal', () => jest.fn(() => null));
 
 describe('RecipientModalContainer', () => {
-    it('should make an API call when the parent recipient changes', () => {
+    it('should make an API call when the modal mounts', () => {
         const container = shallow(<RecipientModalContainer
             {...mockModalRedux}
             {...mockModalActions} />);
 
         const loadChildRecipients = jest.fn();
         container.instance().loadChildRecipients = loadChildRecipients;
-
-        const recipient = Object.assign({}, mockModalRedux.recipient, {
-            id: '098765'
-        });
 
         container.setProps({
-            recipient
+            mounted: true
         });
-
-        container.instance().componentDidUpdate(mockModalRedux);
-
-        expect(loadChildRecipients).toHaveBeenCalledTimes(1);
-    });
-    it('should make an API call when the time period changes', () => {
-        const container = shallow(<RecipientModalContainer
-            {...mockModalRedux}
-            {...mockModalActions} />);
-
-        const loadChildRecipients = jest.fn();
-        container.instance().loadChildRecipients = loadChildRecipients;
-
-        const recipient = Object.assign({}, mockModalRedux.recipient, {
-            fy: '2018'
-        });
-
-        const nextProps = Object.assign({}, mockModalRedux, {
-            recipient
-        });
-
-        container.setProps(nextProps);
 
         container.instance().componentDidUpdate(mockModalRedux);
 

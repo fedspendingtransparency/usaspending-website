@@ -30,6 +30,13 @@
         .child-recipients-modal__body {
             padding: rem(20) rem(60) rem(40);
             @import "table";
+            .child-recipients-modal__message {
+                @include h4;
+                text-align: center;
+                @include media($medium-screen) {
+                    min-width: rem(500);
+                }
+            }
         }
     }
 }
