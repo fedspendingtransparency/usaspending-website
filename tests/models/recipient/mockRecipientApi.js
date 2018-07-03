@@ -18,8 +18,8 @@ export const mockRecipientOverview = {
         congressional_code: '05'
     },
     business_types: ['Corporate Entity', 'For Profit Organization'],
-    total_prime_amount: 30020000000,
-    total_prime_awards: 327721,
+    total_transaction_amount: 30020000000,
+    total_transactions: 327721,
     recipient_level: 'P'
 };
 

@@ -98,7 +98,7 @@ const RecipientModalTable = (props) => {
                         <div className="header-cell header-cell_right">
                             <div className="header-cell__text">
                                 <div className="header-cell__title header-cell__title_right">
-                                    Awarded Amount
+                                    Transaction Amount
                                     <div className="header-cell__subtitle">
                                         {timePeriod}
                                     </div>

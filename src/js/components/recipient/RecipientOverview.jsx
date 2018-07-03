@@ -70,13 +70,13 @@ export default class RecipientOverview extends React.Component {
                     <div className="recipient-section__row">
                         <div className="recipient-section__viz totals">
                             <h3 className="recipient-overview__heading">
-                                Total Awarded Amount
+                                Total Transactions
                             </h3>
                             <div className="totals__amount">
                                 {recipient.totalAmount}
                             </div>
                             <div className="totals__awards">
-                                from <span className="state-overview__total">{recipient.totalAwards}</span> prime awards
+                                from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
                             </div>
                         </div>
                         <div className="recipient-section__viz details">

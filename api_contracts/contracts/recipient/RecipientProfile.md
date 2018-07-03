@@ -53,10 +53,10 @@ This endpoint returns a list of child recipients belonging to the given parent r
 + location: (required, RecipientLocation, fixed-type)
 + business_types: Corporate Entity, For Profit Organization (required, array[string], fixed-type)
     An array of business types used to categorize recipients.
-+ total_prime_amount: 30020000000 (required, number)
-    The aggregate monetary value of all prime awards associated with this recipient for the given time period.
-+ total_prime_awards: 327721 (required, number)
-    The number of prime awards associated with this recipient for the given time period.
++ total_transaction_amount: 30020000000 (required, number)
+    The aggregate monetary value of all transactions associated with this recipient for the given time period.
++ total_transactions: 327721 (required, number)
+    The number of transactions associated with this recipient for the given time period.
 + recipient_level: P (required, string)
     A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient. 
     + Members
@@ -100,4 +100,4 @@ This endpoint returns a list of child recipients belonging to the given parent r
 + state_province: New Jersey (required, string)
     The state or province in which the child recipient is located.
 + amount: 300200000 (required, number)
-    The aggregate monetary value of prime awards associated with this child recipient for the selected time period.
+    The aggregate monetary value of transactions associated with this child recipient for the selected time period.

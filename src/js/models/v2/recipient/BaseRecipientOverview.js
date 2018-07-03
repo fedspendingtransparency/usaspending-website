@@ -12,8 +12,8 @@ const BaseRecipientOverview = {
         this.duns = data.duns || null;
         this.parentName = data.parent_name || '';
         this.parentDuns = data.parent_duns || '';
-        this._totalAmount = parseFloat(data.total_prime_amount) || 0;
-        this._totalAwards = parseFloat(data.total_prime_awards) || 0;
+        this._totalAmount = parseFloat(data.total_transaction_amount) || 0;
+        this._totalTransactions = parseFloat(data.total_transactions) || 0;
         this.businessTypes = data.business_types || [];
         this.level = data.recipient_level || 'R';
 
@@ -47,8 +47,8 @@ const BaseRecipientOverview = {
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._totalAmount, 0);
     },
-    get totalAwards() {
-        return MoneyFormatter.formatNumberWithPrecision(this._totalAwards, 0);
+    get totalTransactions() {
+        return MoneyFormatter.formatNumberWithPrecision(this._totalTransactions, 0);
     }
 };
 
