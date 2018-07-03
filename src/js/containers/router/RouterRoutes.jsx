@@ -210,6 +210,15 @@ const routes = {
                     cb(require('containers/state/StateContainer').default);
                 });
             }
+        },
+        {
+            path: '/recipient/:recipientId',
+            parent: '/recipient',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/recipient/RecipientContainer').default);
+                });
+            }
         }
     ],
     notFound: {

@@ -1,0 +1,55 @@
+.recipient-sidebar-reference {
+    display: none;
+
+    &.float-sidebar {
+        display: block;
+    }
+}
+.recipient-sidebar-content {
+    &.float-sidebar {
+        position: fixed;
+        top: rem(96);
+    }
+
+    background-color: $color-white;
+    box-shadow: $container-shadow;
+    color: $color-base;
+    border-top: 1px solid $color-gray-border;
+    border-right: 1px solid $color-gray-border;
+    border-bottom: 1px solid $color-gray-border;
+
+    @import 'pages/state/_fyPicker';
+
+    ul {
+        @include unstyled-list;
+        padding: rem(15) rem(30) rem(30);
+
+        li {
+            margin-bottom: rem(24);
+
+            &:last-child {
+                margin-bottom: rem(0);
+            }
+        }
+
+        a.sidebar-link {
+            color: $color-base;
+            font-size: rem(19);
+            line-height: rem(20);
+            padding-bottom: rem(5);
+
+            text-decoration: none;
+            border-bottom: 5px solid transparent;
+            @include transition(all 0.15s ease-in-out);
+
+            &:hover {
+                border-bottom: 5px solid $color-primary;
+            }
+
+            &.active {
+                font-weight: $font-bold;
+                border-bottom: 5px solid $color-primary;
+            }
+        }
+    }
+}
