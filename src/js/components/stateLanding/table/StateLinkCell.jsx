@@ -9,7 +9,7 @@ import reactStringReplace from 'react-string-replace';
 
 const propTypes = {
     name: PropTypes.string,
-    fips: PropTypes.number,
+    fips: PropTypes.string,
     searchString: PropTypes.string
 };
 

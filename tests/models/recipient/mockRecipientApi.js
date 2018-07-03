@@ -18,10 +18,8 @@ export const mockRecipientOverview = {
         congressional_code: '05'
     },
     business_types: ['Corporate Entity', 'For Profit Organization'],
-    total_prime_amount: 30020000000,
-    total_prime_awards: 327721,
-    total_sub_amount: 20020000000,
-    total_sub_awards: 127721,
+    total_transaction_amount: 30020000000,
+    total_transactions: 327721,
     recipient_level: 'P'
 };
 
@@ -37,5 +35,5 @@ export const mockChildRecipients = [
         duns: "654321",
         state_province: "Tennessee",
         amount: 40020000
-    },
+    }
 ];

@@ -12,10 +12,8 @@ const BaseRecipientOverview = {
         this.duns = data.duns || null;
         this.parentName = data.parent_name || '';
         this.parentDuns = data.parent_duns || '';
-        this._totalAmount = parseFloat(data.total_prime_amount) || 0;
-        this._totalAwards = parseFloat(data.total_prime_awards) || 0;
-        this._totalSubAmount = parseFloat(data.total_sub_amount) || 0;
-        this._totalSubAwards = parseFloat(data.total_sub_awards) || 0;
+        this._totalAmount = parseFloat(data.total_transaction_amount) || 0;
+        this._totalTransactions = parseFloat(data.total_transactions) || 0;
         this.businessTypes = data.business_types || [];
         this.level = data.recipient_level || 'R';
 
@@ -49,18 +47,8 @@ const BaseRecipientOverview = {
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._totalAmount, 0);
     },
-    get totalAwards() {
-        return MoneyFormatter.formatNumberWithPrecision(this._totalAwards, 0);
-    },
-    get totalSubAmount() {
-        if (this._totalSubAmount >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalSubAmount);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalSubAmount / units.unit, 1)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._totalSubAmount, 0);
-    },
-    get totalSubAwards() {
-        return MoneyFormatter.formatNumberWithPrecision(this._totalSubAwards, 0);
+    get totalTransactions() {
+        return MoneyFormatter.formatNumberWithPrecision(this._totalTransactions, 0);
     }
 };
 

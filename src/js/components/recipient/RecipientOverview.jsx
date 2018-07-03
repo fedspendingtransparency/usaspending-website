@@ -70,16 +70,13 @@ export default class RecipientOverview extends React.Component {
                     <div className="recipient-section__row">
                         <div className="recipient-section__viz totals">
                             <h3 className="recipient-overview__heading">
-                                Total Awarded Amount
+                                Total Transactions
                             </h3>
                             <div className="totals__amount">
                                 {recipient.totalAmount}
                             </div>
                             <div className="totals__awards">
-                                from <span className="state-overview__total">{recipient.totalAwards}</span> prime awards
-                            </div>
-                            <div className="totals__subawards">
-                                Additionally, they received <span className="state-overview__total">{recipient.totalSubAmount}</span> from <span className="state-overview__total">{recipient.totalSubAwards}</span> sub-awards
+                                from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
                             </div>
                         </div>
                         <div className="recipient-section__viz details">
@@ -89,6 +86,10 @@ export default class RecipientOverview extends React.Component {
                             <table className="details__table">
                                 <tbody>
                                     <tr>
+                                        <th>DUNS</th>
+                                        <td>{recipient.duns}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Address</th>
                                         <td>
                                             <div>{recipient.location.streetAddress}</div>
@@ -97,19 +98,7 @@ export default class RecipientOverview extends React.Component {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>DUNS</th>
-                                        <td>{recipient.duns}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Parent DUNS</th>
-                                        <td>{recipient.parentDuns}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Parent Company</th>
-                                        <td>{recipient.parentName}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Recipient Type</th>
+                                        <th>Business Types</th>
                                         <td>
                                             {recipient.businessTypes.map((type, i) =>
                                                 <div key={i}>{type}</div>)}
