@@ -78,9 +78,6 @@ export default class RecipientOverview extends React.Component {
                             <div className="totals__awards">
                                 from <span className="state-overview__total">{recipient.totalAwards}</span> prime awards
                             </div>
-                            <div className="totals__subawards">
-                                Additionally, they received <span className="state-overview__total">{recipient.totalSubAmount}</span> from <span className="state-overview__total">{recipient.totalSubAwards}</span> sub-awards
-                            </div>
                         </div>
                         <div className="recipient-section__viz details">
                             <h3 className="recipient-overview__heading">

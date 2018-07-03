@@ -17,12 +17,6 @@ describe('BaseRecipientOverview', () => {
     it('should format the total prime awards', () => {
         expect(recipient.totalAwards).toEqual('327,721');
     });
-    it('should format the sub award total', () => {
-        expect(recipient.totalSubAmount).toEqual('$20.0 billion');
-    });
-    it('should format the total sub awards', () => {
-        expect(recipient.totalSubAwards).toEqual('127,721');
-    });
     describe('location', () => {
         it('should be an object with CoreLocation in its prototype chain', () => {
             expect(Object.getPrototypeOf(recipient.location)).toEqual(CoreLocation);

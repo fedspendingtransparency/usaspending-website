@@ -14,8 +14,6 @@ const BaseRecipientOverview = {
         this.parentDuns = data.parent_duns || '';
         this._totalAmount = parseFloat(data.total_prime_amount) || 0;
         this._totalAwards = parseFloat(data.total_prime_awards) || 0;
-        this._totalSubAmount = parseFloat(data.total_sub_amount) || 0;
-        this._totalSubAwards = parseFloat(data.total_sub_awards) || 0;
         this.businessTypes = data.business_types || [];
         this.level = data.recipient_level || 'R';
 
@@ -51,16 +49,6 @@ const BaseRecipientOverview = {
     },
     get totalAwards() {
         return MoneyFormatter.formatNumberWithPrecision(this._totalAwards, 0);
-    },
-    get totalSubAmount() {
-        if (this._totalSubAmount >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalSubAmount);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalSubAmount / units.unit, 1)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._totalSubAmount, 0);
-    },
-    get totalSubAwards() {
-        return MoneyFormatter.formatNumberWithPrecision(this._totalSubAwards, 0);
     }
 };
 
