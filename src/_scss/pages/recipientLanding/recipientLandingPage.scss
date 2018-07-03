@@ -1,0 +1,46 @@
+.usa-da-recipient-landing {
+    @import "all";
+    @import "layouts/landingPage/landingPage";
+    @import "layouts/default/stickyHeader/header";
+    @import "pages/accountLanding/searchSection";
+    @import "components/pagination";
+
+    .pagination {
+        flex-direction: column;
+        text-align: right;
+        .pagination__totals {
+            margin: 0 0 rem(15) 0;
+            align-self: flex-end;
+        }
+        .pager {
+            align-self: flex-end;
+        }
+
+       .pager .pager__item:last-child .pager__button {
+            margin-right: 0;
+        }
+    }
+
+    .recipient-landing__results {
+        .recipient-list {
+            margin-top: rem(15);
+        }
+        .recipient-list__message {
+            margin: rem(90) auto;
+            font-size: rem(36);
+            font-weight: 300;
+            color: $color-base;
+            text-align: center;
+            .recipient-list__message_highlight {
+                color: $color-active;
+                font-weight: normal;
+            }
+        }
+    }
+
+    .results-count {
+        font-style: italic;
+        padding: rem(20) 0;
+        font-size: rem(16);
+    }
+}

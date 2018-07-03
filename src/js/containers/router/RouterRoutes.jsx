@@ -210,6 +210,15 @@ const routes = {
                     cb(require('containers/state/StateContainer').default);
                 });
             }
+        },
+        {
+            path: '/recipient',
+            parent: '/recipient',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/recipientLanding/RecipientLandingPage').default);
+                });
+            }
         }
     ],
     notFound: {

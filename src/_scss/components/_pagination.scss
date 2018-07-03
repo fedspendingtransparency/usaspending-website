@@ -8,7 +8,7 @@
     .pager {
         @include display(flex);
         @include flex-direction(row);
-        @include justify-content(flex-end);
+        
         @include flex(1 1 auto);
         list-style-type: none;
         margin: 0;
