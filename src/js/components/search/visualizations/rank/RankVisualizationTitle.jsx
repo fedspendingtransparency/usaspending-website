@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 import { categoryNames } from 'dataMapping/search/spendingByCategory';
 import * as Icons from 'components/sharedComponents/icons/Icons';
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
 
 const propTypes = {
     fieldTypes: PropTypes.array,
@@ -44,40 +43,20 @@ export default class RankVisualizationTitle extends React.Component {
     }
 
     render() {
-        const comingSoon = (<ComingSoonLabel />);
-        const fields = [];
-        this.props.fieldTypes.forEach((field) => {
-            let fieldItem;
-            if (categoryNames[field] === 'Recipient') {
-                fieldItem = (
-                    <li
-                        className="field-item"
-                        key={`field-${field}`}>
-                        <button
-                            className="item-button coming-soon"
-                            disabled>
-                            {categoryNames[field]}
-                            {comingSoon}
-                        </button>
-                    </li>);
-            }
-            else {
-                fieldItem = (
-                    <li
-                        className="field-item"
-                        key={`field-${field}`}>
-                        <button
-                            className="item-button"
-                            title={categoryNames[field]}
-                            aria-label={categoryNames[field]}
-                            value={field}
-                            onClick={this.clickedItem}>
-                            {categoryNames[field]}
-                        </button>
-                    </li>);
-            }
-            fields.push(fieldItem);
-        });
+        const fields = this.props.fieldTypes.map((field) => (
+            <li
+                className="field-item"
+                key={`field-${field}`}>
+                <button
+                    className="item-button"
+                    title={categoryNames[field]}
+                    aria-label={categoryNames[field]}
+                    value={field}
+                    onClick={this.clickedItem}>
+                    {categoryNames[field]}
+                </button>
+            </li>
+        ));
 
         const currentField = this.props.currentSpendingBy;
         let showPicker = 'hide';
