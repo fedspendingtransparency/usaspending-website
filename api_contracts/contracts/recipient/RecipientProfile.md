@@ -94,7 +94,7 @@ This endpoint returns a list of child recipients belonging to the given parent r
 + duns: 0123456 (required, string)
     Recipient's DUNS (Data Universal Numbering System) number. A unique identifier for business entities. 
 + amount: 30020000000 (required, number)
-    The aggregate monetary value of all prime awards associated with this recipient for the trailing 12 months.
+    The aggregate monetary value of all transactions associated with this recipient for the trailing 12 months.
 + recipient_level: R (required, string)
     A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient. 
     + Members
