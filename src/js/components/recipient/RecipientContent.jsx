@@ -18,8 +18,8 @@ const recipientSections = [
         label: 'Overview'
     },
     {
-        section: 'awards-over-time',
-        label: 'Awards Over Time'
+        section: 'transactions-over-time',
+        label: 'Transactions Over Time'
     },
     {
         section: 'top-five',

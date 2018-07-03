@@ -86,6 +86,10 @@ export default class RecipientOverview extends React.Component {
                             <table className="details__table">
                                 <tbody>
                                     <tr>
+                                        <th>DUNS</th>
+                                        <td>{recipient.duns}</td>
+                                    </tr>
+                                    <tr>
                                         <th>Address</th>
                                         <td>
                                             <div>{recipient.location.streetAddress}</div>
@@ -94,19 +98,7 @@ export default class RecipientOverview extends React.Component {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>DUNS</th>
-                                        <td>{recipient.duns}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Parent DUNS</th>
-                                        <td>{recipient.parentDuns}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Parent Company</th>
-                                        <td>{recipient.parentName}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Recipient Type</th>
+                                        <th>Business Types</th>
                                         <td>
                                             {recipient.businessTypes.map((type, i) =>
                                                 <div key={i}>{type}</div>)}
