@@ -385,7 +385,7 @@ export const stateCenterFromFips = (fips) => {
     if ({}.hasOwnProperty.call(stateCenters, fips)) {
         return stateCenters[fips];
     }
-    return null;
+    return [];
 };
 
 export const calculateRange = (data) => {
