@@ -30,9 +30,9 @@ describe('RecipientContainer', () => {
         await container.instance().request.promise;
 
         expect(loadRecipientOverview).toHaveBeenCalledTimes(1);
-        expect(loadRecipientOverview).toHaveBeenCalledWith('123456', 'latest');
+        expect(loadRecipientOverview).toHaveBeenCalledWith('0123456-ABC-P', 'latest');
     });
-    it('should make an API call when the duns changes', async () => {
+    it('should make an API call when the id changes', async () => {
         const container = mount(<RecipientContainer
             {...mockRedux}
             {...mockActions} />);
@@ -42,16 +42,16 @@ describe('RecipientContainer', () => {
 
         container.setProps({
             params: {
-                recipientId: '098765'
+                recipientId: '098765-XYZ-P'
             }
         });
 
         await container.instance().request.promise;
 
         expect(loadRecipientOverview).toHaveBeenCalledTimes(1);
-        expect(loadRecipientOverview).toHaveBeenCalledWith('098765', 'latest');
+        expect(loadRecipientOverview).toHaveBeenCalledWith('098765-XYZ-P', 'latest');
     });
-    it('should reset the fiscal year when the duns changes', async () => {
+    it('should reset the fiscal year when the id changes', async () => {
         // Use 'all' for the initial FY
         const recipient = Object.assign({}, mockRedux.recipient, {
             fy: 'all'
@@ -69,13 +69,13 @@ describe('RecipientContainer', () => {
 
         container.setProps({
             params: {
-                recipientId: '876543'
+                recipientId: '876543-ABC-R'
             }
         });
 
         await container.instance().request.promise;
 
-        expect(loadRecipientOverview).toHaveBeenLastCalledWith('876543', 'latest');
+        expect(loadRecipientOverview).toHaveBeenLastCalledWith('876543-ABC-R', 'latest');
     });
     it('should make an API call when the fiscal year changes', async () => {
         const container = mount(<RecipientContainer
@@ -98,7 +98,7 @@ describe('RecipientContainer', () => {
         await container.instance().request.promise;
 
         expect(loadRecipientOverview).toHaveBeenCalledTimes(1);
-        expect(loadRecipientOverview).toHaveBeenCalledWith('123456', '2018');
+        expect(loadRecipientOverview).toHaveBeenCalledWith('0123456-ABC-P', '2018');
     });
     describe('parseOverview', () => {
         it('should update the Redux state with a new BaseRecipientOverview', () => {

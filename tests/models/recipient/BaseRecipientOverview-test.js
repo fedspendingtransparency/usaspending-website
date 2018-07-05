@@ -22,4 +22,12 @@ describe('BaseRecipientOverview', () => {
             expect(Object.getPrototypeOf(recipient.location)).toEqual(CoreLocation);
         });
     });
+    it('should indicate when the DUNS is not provided', () => {
+        const updatedData = Object.assign(recipient, {}, {
+            duns: null
+        });
+        const updatedRecipient = Object.create(BaseRecipientOverview);
+        updatedRecipient.populate(updatedData);
+        expect(updatedRecipient.duns).toEqual('Not provided');
+    });
 });
