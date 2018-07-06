@@ -78,7 +78,7 @@ export default class GeoVisualizationSection extends React.Component {
                 </MapMessage>
             );
         }
-        else if (this.props.error) {
+        else if (this.props.error || this.props.stateCenter.length === 0) {
             message = (
                 <MapMessage>
                     <div className="map-no-results">
@@ -108,6 +108,13 @@ export default class GeoVisualizationSection extends React.Component {
             );
         }
 
+        let center = this.props.stateCenter;
+        if (this.props.stateCenter.length === 0) {
+            // If there was an error getting the center of the state, use the center
+            // of the United States so that we don't generate a MapBox error
+            center = [-95.569430, 38.852892];
+        }
+
         return (
             <div className="geo__map-section">
                 <MapWrapper
@@ -122,7 +129,7 @@ export default class GeoVisualizationSection extends React.Component {
                     tooltip={GeoVisualizationTooltip}
                     availableLayers={availableLayers}
                     showLayerToggle
-                    center={this.props.stateCenter}
+                    center={center}
                     stateProfile>
                     {message}
                 </MapWrapper>
