@@ -242,6 +242,7 @@ describe('BulkDownloadPageContainer', () => {
                 account_level: 'treasury_account',
                 filters: {
                     agency: '123',
+                    federal_account: '212',
                     submission_type: 'account_balances',
                     fy: '1989',
                     quarter: '1'

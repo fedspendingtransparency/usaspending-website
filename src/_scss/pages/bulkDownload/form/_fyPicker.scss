@@ -99,8 +99,7 @@
                 line-height: rem(22);
                 font-weight: $font-bold;
 
-                background-color: $color-primary;
-                opacity: 0.3;
+                background-color: #646A70;
 
                 padding: rem(4) rem(28);
 
@@ -117,8 +116,7 @@
                 }
 
                 &[disabled] {
-                    background-color: $color-gray-lighter;
-                    opacity: 1;
+                    background-color: #45494D;
                     cursor: not-allowed;
                     color: #7D848A;
                 }
