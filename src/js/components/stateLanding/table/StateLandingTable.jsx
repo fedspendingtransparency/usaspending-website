@@ -23,19 +23,13 @@ const propTypes = {
 const StateLandingTable = (props) => {
     const hideBody = props.loading || props.error || props.results.length === 0 ? 'state-list__body_hide' : '';
 
-    // Check if the search string is a known state abbreviation
-    const abbreviation = [props.results.find((obj) => obj.code === props.searchString)];
-    const abbrvResults = abbreviation[0] ? abbreviation : props.results;
-
-    const body = abbrvResults.map((row) => (
+    const body = props.results.map((row) => (
         <tr
             key={row.fips}
             className="state-list__body-row">
             <StateLinkCell
                 fips={row.fips}
                 name={row.name}
-                code={row.code}
-                isAbbrev={abbreviation}
                 searchString={props.searchString} />
             <td className="state-list__body-cell state-list__body-cell_right">
                 {row.amount}

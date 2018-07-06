@@ -9,29 +9,15 @@ import reactStringReplace from 'react-string-replace';
 
 const propTypes = {
     name: PropTypes.string,
-    code: PropTypes.string,
     fips: PropTypes.string,
-    searchString: PropTypes.string,
-    isAbbrev: PropTypes.array
+    searchString: PropTypes.string
 };
 
 export default class StateLinkCell extends React.Component {
     render() {
         let name = this.props.name;
-        const abbreviation = this.props.isAbbrev[0];
-        const stateWithAbbreviation = `${name}, ${this.props.code}`;
-
         // highlight the matched string if applicable
-        if (this.props.searchString !== '' && abbreviation) {
-            name = (
-                <span
-                    className="state-list__matched"
-                    key={abbreviation.name + 1}>
-                    {abbreviation.name}
-                </span>
-            );
-        }
-        else {
+        if (this.props.searchString !== '') {
             name = reactStringReplace(this.props.name, this.props.searchString, (match, i) => (
                 <span
                     className="state-list__matched"
@@ -44,9 +30,7 @@ export default class StateLinkCell extends React.Component {
         return (
             <td className="state-list__body-cell">
                 <a href={`#/state/${this.props.fips}`}>
-                    {
-                        stateWithAbbreviation
-                    }
+                    {name}
                 </a>
             </td>
         );

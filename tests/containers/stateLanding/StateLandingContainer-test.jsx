@@ -6,15 +6,15 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
-// mock the state helper
-jest.mock('helpers/stateHelper', () => require('../state/mockStateHelper'));
-jest.mock('js-search', () => require('./mockStateSearch'));
-
 import StateLandingContainer from 'containers/stateLanding/StateLandingContainer';
 import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';
 
 import { fetchStateList } from '../state/mockStateHelper';
 import { mockStateList } from '../state/mockData';
+
+// mock the state helper
+jest.mock('helpers/stateHelper', () => require('../state/mockStateHelper'));
+jest.mock('js-search', () => require('./mockStateSearch'));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/stateLanding/StateLandingContent', () => jest.fn(() => null));
@@ -22,18 +22,14 @@ jest.mock('components/stateLanding/StateLandingContent', () => jest.fn(() => nul
 describe('StateLandingContainer', () => {
     describe('setSearchString', () => {
         it('should update the searchString state value to the provided input', () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
             container.instance().performSearch = jest.fn();
 
             container.instance().setSearchString('test');
             expect(container.state().searchString).toEqual('test');
         });
         it('should trigger a search operation', () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
             container.instance().performSearch = jest.fn();
 
             container.instance().setSearchString('test');
@@ -43,9 +39,7 @@ describe('StateLandingContainer', () => {
 
     describe('setSort', () => {
         it('should update the sortField and sortDirection state values to the provided input', () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
             container.instance().performSearch = jest.fn();
 
             container.instance().setSort('field', 'direction');
@@ -53,9 +47,7 @@ describe('StateLandingContainer', () => {
             expect(container.state().sortDirection).toEqual('direction');
         });
         it('should trigger a search operation', () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
             container.instance().performSearch = jest.fn();
 
             container.instance().setSort('field', 'direction');
@@ -65,17 +57,13 @@ describe('StateLandingContainer', () => {
 
     describe('loadData', () => {
         it('should make an API call', () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
 
             container.instance().loadData();
             expect(fetchStateList).toHaveBeenCalledTimes(1);
         });
         it('should call parseData on success', async () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
             container.instance().parseData = jest.fn();
 
             container.instance().loadData();
@@ -87,9 +75,7 @@ describe('StateLandingContainer', () => {
 
     describe('parseData', () => {
         it('should return an array of BaseStateLandingItem objects', () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
             container.instance().performSearch = jest.fn();
             container.instance().parseData(mockStateList);
 
@@ -97,18 +83,14 @@ describe('StateLandingContainer', () => {
             expect(Object.getPrototypeOf(container.state().fullData[0])).toEqual(BaseStateLandingItem);
         });
         it('should update the loading and error states to false', () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
             container.instance().parseData(mockStateList);
 
             expect(container.state().loading).toBeFalsy();
             expect(container.state().error).toBeFalsy();
         });
         it('should trigger a search operation', () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
             container.instance().performSearch = jest.fn();
             container.instance().parseData(mockStateList);
 
@@ -118,9 +100,7 @@ describe('StateLandingContainer', () => {
 
     describe('performSearch', () => {
         it('should return the output of the local search library', () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
 
             const results = mockStateList.map((data) => {
                 const item = Object.create(BaseStateLandingItem);
@@ -140,9 +120,7 @@ describe('StateLandingContainer', () => {
         });
 
         it('should not perform a local search but sort the full data set when the searchString state is empty', () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
 
             const results = mockStateList.map((data) => {
                 const item = Object.create(BaseStateLandingItem);
@@ -160,9 +138,7 @@ describe('StateLandingContainer', () => {
         });
 
         it('should separate states and territories when sorting by name', () => {
-            const container = shallow(
-                <StateLandingContainer />
-            );
+            const container = shallow(<StateLandingContainer />);
 
             const updatedStateList = [
                 {
@@ -189,9 +165,9 @@ describe('StateLandingContainer', () => {
 
             // Even though 'A Territory' comes alphabetically before 'State A',
             // the territory should come after states
-            expect(container.state().results[0].name).toEqual('State A');
-            expect(container.state().results[2].name).toEqual('A Territory');
+            expect(container.state().results[0].name).toEqual('State A (AA)');
+            expect(container.state().results[2].name).toEqual('A Territory (CC)');
+            console.log('ask about the territory here');
         });
     });
-
 });

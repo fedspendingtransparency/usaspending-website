@@ -7,11 +7,14 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const BaseStateLandingItem = {
     populate(data) {
-        this.name = data.name || '';
+        this._name = data.name || '';
         this.fips = data.fips || '';
         this.code = data.code || '';
         this.type = data.type || '';
         this._amount = data.amount || 0;
+    },
+    get name() {
+        return this.code ? `${this._name} (${this.code})` : this._name;
     },
     get amount() {
         return MoneyFormatter.formatMoney(this._amount);
