@@ -167,7 +167,6 @@ describe('StateLandingContainer', () => {
             // the territory should come after states
             expect(container.state().results[0].name).toEqual('State A (AA)');
             expect(container.state().results[2].name).toEqual('A Territory (CC)');
-            console.log('ask about the territory here');
         });
     });
 });
