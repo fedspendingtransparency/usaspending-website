@@ -1,0 +1,19 @@
+.transactions-over-time {
+    @import "pages/search/results/visualizations/time/chart/barChart";
+    @import "./_period";
+
+    .visualization-tooltip {
+        @import "components/visualizations/tooltip/_tooltip";
+    }
+
+    .results-visualization-message {
+        margin-top: rem(10);
+        font-size: $small-font-size;
+        color: $color-base;
+        text-align: center;
+    }
+
+    .recipient-visualization__time-wrapper {
+        min-height: rem(304);
+    }
+}

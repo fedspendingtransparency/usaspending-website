@@ -245,6 +245,164 @@ export const performSpendingOverTimeSearch = (params) => {
     };
 };
 
+// TODO - Lizzie: remove mock helper when API contract is ready
+const mockYearData = {
+    group: 'fiscal_year',
+    results: [
+        {
+            time_period: {
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 400.25
+        }, {
+            time_period: {
+                fiscal_year: '2018'
+            },
+            aggregated_amount: 350.50
+        }
+    ]
+};
+
+const mockQuarterData = {
+    group: 'quarter',
+    results: [
+        {
+            time_period: {
+                quarter: 1,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 75
+        }, {
+            time_period: {
+                quarter: 2,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 100
+        }, {
+            time_period: {
+                quarter: 3,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 100.25
+        }, {
+            time_period: {
+                quarter: 4,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 125
+        }, {
+            time_period: {
+                quarter: 1,
+                fiscal_year: '2018'
+            },
+            aggregated_amount: 350.5
+        }
+    ]
+};
+
+const mockMonthData = {
+    group: 'month',
+    results: [
+        {
+            time_period: {
+                month: 1,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 25
+        }, {
+            time_period: {
+                month: 3,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 30
+        }, {
+            time_period: {
+                month: 5,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 15
+        }, {
+            time_period: {
+                month: 6,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 40
+        }, {
+            time_period: {
+                month: 7,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 45
+        }, {
+            time_period: {
+                month: 8,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 12
+        }, {
+            time_period: {
+                month: 9,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 10
+        }, {
+            time_period: {
+                month: 10,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 13
+        }, {
+            time_period: {
+                month: 11,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: -5
+        }, {
+            time_period: {
+                month: 12,
+                fiscal_year: '2017'
+            },
+            aggregated_amount: 100
+        }, {
+            time_period: {
+                month: 1,
+                fiscal_year: '2018'
+            },
+            aggregated_amount: 75
+        }
+    ]
+};
+
+export const mockSpendingOverTimeSearch = (params) => {
+    const source = CancelToken.source();
+    let mockData = {};
+    switch (params.group) {
+        case 'fiscal_year':
+            mockData = mockYearData;
+            break;
+        case 'quarter':
+            mockData = mockQuarterData;
+            break;
+        case 'month':
+            mockData = mockMonthData;
+            break;
+        default:
+            mockData = {};
+    }
+    return {
+        promise: new Promise((resolve) => {
+            window.setTimeout(() => {
+                resolve({
+                    data: mockData
+                });
+            }, 500);
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // Spending By Category Visualization Endpoint
 export const performSpendingByCategorySearch = (params) => {
     const source = CancelToken.source();

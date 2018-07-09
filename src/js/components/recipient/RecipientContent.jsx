@@ -10,6 +10,7 @@ import { scrollToY } from 'helpers/scrollToHelper';
 import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 
+import RecipientTimeVisualizationSectionContainer from 'containers/recipient/RecipientTimeVisualizationSectionContainer';
 import RecipientOverview from './RecipientOverview';
 
 const recipientSections = [
@@ -218,6 +219,8 @@ export default class RecipientContent extends React.Component {
                 <div className="recipient-content">
                     <RecipientOverview
                         showModal={this.props.showModal}
+                        recipient={this.props.recipient} />
+                    <RecipientTimeVisualizationSectionContainer
                         recipient={this.props.recipient} />
                 </div>
             </div>
