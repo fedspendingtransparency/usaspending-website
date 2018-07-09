@@ -38,7 +38,8 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
             error: false,
             groups: [],
             xSeries: [],
-            ySeries: []
+            ySeries: [],
+            zSeries: []
         };
 
         this.request = null;
@@ -142,6 +143,7 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
         const groups = [];
         const xSeries = [];
         const ySeries = [];
+        const zSeries = [];
         const rawLabels = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
@@ -150,12 +152,14 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
             rawLabels.push(this.generateTime(group, item.time_period, 'raw'));
             xSeries.push([this.generateTime(group, item.time_period, 'label')]);
             ySeries.push([parseFloat(item.aggregated_amount)]);
+            zSeries.push(parseFloat(item.new_awards));
         });
 
         this.setState({
             groups,
             xSeries,
             ySeries,
+            zSeries,
             rawLabels,
             loading: false,
             error: false

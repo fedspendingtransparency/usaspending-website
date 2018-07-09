@@ -253,12 +253,14 @@ const mockYearData = {
             time_period: {
                 fiscal_year: '2017'
             },
-            aggregated_amount: 400.25
+            aggregated_amount: 400.25,
+            new_awards: 25
         }, {
             time_period: {
                 fiscal_year: '2018'
             },
-            aggregated_amount: 350.50
+            aggregated_amount: 350.50,
+            new_awards: 15
         }
     ]
 };
@@ -271,31 +273,36 @@ const mockQuarterData = {
                 quarter: 1,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 75
+            aggregated_amount: 75,
+            new_awards: 5
         }, {
             time_period: {
                 quarter: 2,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 100
+            aggregated_amount: 100,
+            new_awards: 10
         }, {
             time_period: {
                 quarter: 3,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 100.25
+            aggregated_amount: 100.25,
+            new_awards: -2
         }, {
             time_period: {
                 quarter: 4,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 125
+            aggregated_amount: 125,
+            new_awards: 4
         }, {
             time_period: {
                 quarter: 1,
                 fiscal_year: '2018'
             },
-            aggregated_amount: 350.5
+            aggregated_amount: 350.5,
+            new_awards: 8
         }
     ]
 };
@@ -308,67 +315,78 @@ const mockMonthData = {
                 month: 1,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 25
+            aggregated_amount: 25,
+            new_awards: 1
         }, {
             time_period: {
                 month: 3,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 30
+            aggregated_amount: 30,
+            new_awards: 5
         }, {
             time_period: {
                 month: 5,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 15
+            aggregated_amount: 15,
+            new_awards: 9
         }, {
             time_period: {
                 month: 6,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 40
+            aggregated_amount: 40,
+            new_awards: 12
         }, {
             time_period: {
                 month: 7,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 45
+            aggregated_amount: 45,
+            new_awards: 6
         }, {
             time_period: {
                 month: 8,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 12
+            aggregated_amount: 12,
+            new_awards: 6
         }, {
             time_period: {
                 month: 9,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 10
+            aggregated_amount: 10,
+            new_awards: 5
         }, {
             time_period: {
                 month: 10,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 13
+            aggregated_amount: 13,
+            new_awards: 13
         }, {
             time_period: {
                 month: 11,
                 fiscal_year: '2017'
             },
-            aggregated_amount: -5
+            aggregated_amount: -5,
+            new_awards: 0
         }, {
             time_period: {
                 month: 12,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 100
+            aggregated_amount: 100,
+            new_awards: 3
         }, {
             time_period: {
                 month: 1,
                 fiscal_year: '2018'
             },
-            aggregated_amount: 75
+            aggregated_amount: 75,
+            new_awards: 4
         }
     ]
 };

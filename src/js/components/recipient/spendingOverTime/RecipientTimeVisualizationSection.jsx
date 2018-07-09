@@ -64,7 +64,7 @@ export default class RecipientTimeVisualizationSection extends React.Component {
                         this.sectionHr = hr;
                     }} />
                 <div className="recipient-section__description">
-                    The graph below shows trends over time for amounts awarded to this recipient. Break down the amounts by years, quarters, or months, and hover over the bars for more detailed information.
+                    This graph shows trends over time for all transactions to this recipient. Hover over the bars for more detailed information.
                 </div>
                 <div className="recipient-visualization-period">
                     <div className="visualization-period">

@@ -7,9 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
-import BarChart from 'components/search/visualizations/time/chart/BarChart';
 import TimeTooltip from 'components/state/spendingovertime/StateTimeVisualizationTooltip';
-
+import BarChartTrendline from './chart/BarChartTrendline';
 
 const defaultProps = {
     groups: [],
@@ -67,10 +66,16 @@ export default class RecipientTimeVisualization extends React.Component {
 
         const legend = [
             {
-                color: '#708893',
-                label: 'Awarded Amount',
+                color: '#141D3B',
+                label: 'All Transactions',
                 offset: 0
-            }];
+            },
+            {
+                color: '#F5A623',
+                label: 'Count of New Awards',
+                offset: 200
+            }
+        ];
 
         if (this.props.loading) {
             // API request is still pending
@@ -78,11 +83,12 @@ export default class RecipientTimeVisualization extends React.Component {
         }
         else if (this.props.data.groups.length > 0) {
             // only mount the chart component if there is data to display
-            chart = (<BarChart
+            chart = (<BarChartTrendline
                 height={this.props.height}
                 width={this.props.width}
                 ySeries={this.props.data.ySeries}
                 xSeries={this.props.data.xSeries}
+                zSeries={this.props.data.zSeries}
                 groups={this.props.data.groups}
                 rawLabels={this.props.data.rawLabels}
                 legend={legend}
