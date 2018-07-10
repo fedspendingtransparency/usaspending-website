@@ -91,7 +91,7 @@ export const downloadOptions = [
         type: '',
         url: 'http://usaspending-db.s3-website-us-gov-west-1.amazonaws.com',
         code: 'database',
-        description: 'Our entire database available as a PostgreSQL download – the most complete download option available for advanced users.',
+        description: 'Our entire database available as a download – the most complete download option available for advanced users.',
         callToAction: 'Explore Database Download',
         newTab: true,
         enabled: true,
