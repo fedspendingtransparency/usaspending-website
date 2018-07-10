@@ -8,12 +8,12 @@ import { isCancel } from 'axios';
 import { inRange } from 'lodash';
 
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
-import * as AccountLandingHelper from 'helpers/accountLandingHelper';
+import * as RecipientLandingHelper from 'helpers/recipientLandingHelper';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import RecipientLandingContent from 'components/recipientLanding/RecipientLandingContent';
 
-//import BaseFederalAccountLandingRow from 'models/accountLanding/BaseFederalAccountLandingRow';
+import BaseRecipientLandingRow from 'models/recipientLanding/BaseRecipientLandingRow';
 
 require('pages/accountLanding/accountLandingPage.scss');
 
@@ -126,38 +126,35 @@ export default class RecipientLandingContainer extends React.Component {
             error: false
         });
 
-        // generate the params
-        /* const pageSize = 50;
-        const fy = `${FiscalYearHelper.defaultFiscalYear()}`;
-        const params = {
-            sort: this.state.order,
-            page: this.state.pageNumber,
-            limit: pageSize,
-            filters: {
-                fy
-            }
-        }; */
+        const recipients = [
+            { id: "abc123-P", name: "Testing1", duns: "132432", amount: "34242332", recipient_level: "R" },
+            { id: "ab4ww132-P", name: "Testing1323", duns: "13243223", amount: "34332", recipient_level: "P"},
+            { id: "abc2322-P", name: "Testing1523", duns: "132432223", amount: "34332334r", recipient_level: "C" },
+            { id: "ab4wfw", name: "Testing3323", duns: "132432245", amount: "3433232", recipient_level: "R" },
+            { id: "abc13ww", name: "Testing134223", duns: "1324433223", amount: "34332", recipient_level: "P" }];
 
-        const recipients = [{ name: "Testing1", duns: "132432", amount: "34242332" },
-            { name: "Testing1323", duns: "13243223", amount: "34332" },
-            { name: "Testing1523", duns: "13243223", amount: "34332334r" },
-            { name: "Testing3323", duns: "13243223", amount: "3433232" },
-            { name: "Testing134223", duns: "1324433223", amount: "34332" }];
+            this.setState({
+                totalItems: 5,
+                results: recipients
+            });
 
-        this.setState({
-            totalItems: 6,
-            results: recipients
-        });
+        // // generate the params
+        // const pageSize = 50;
+        // const params = {
+        //     sort: this.state.order,
+        //     page: this.state.pageNumber,
+        //     limit: pageSize
+        // };
 
-        // this.accountsRequest = AccountLandingHelper.fetchAllAccounts(params);
+        // this.recipientsRequest = RecipientLandingHelper.fetchAllRecipients(params);
 
-        // this.accountsRequest.promise
+        // this.recipientsRequest.promise
         //     .then((res) => {
         //         this.setState({
         //             inFlight: false
         //         });
 
-        //         this.parseAccounts(res.data);
+        //         this.parseRecipients(res.data);
         //     })
         //     .catch((err) => {
         //         this.recipientsRequest = null;
@@ -168,23 +165,22 @@ export default class RecipientLandingContainer extends React.Component {
         //             });
         //             console.log(err);
         //         }
-        //     }); 
+        //     });
     }
 
-    parseAccounts(data) {
-        /* const recipients = [];
+    parseRecipients(data) {
+        // const recipients = [];
 
-        data.results.forEach((item) => {
-            //TODO
-            const recipient = Object.create(BaseFederalAccountLandingRow);
-            recipient.parse(item);
-            recipients.push(recipient);
-        });
+        // data.results.forEach((item) => {
+        //     const recipient = Object.create(BaseRecipientLandingRow);
+        //     recipient.parse(item);
+        //     recipients.push(recipient);
+        // });
 
-        this.setState({
-            totalItems: data.count,
-            results: recipients
-        }); */
+        // this.setState({
+        //     totalItems: data.count,
+        //     results: recipients
+        // });
     }
 
     render() {

@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Pagination from 'components/sharedComponents/Pagination';
+import RecipientLandingResultsSection from './RecipientLandingResultsSection';
 
 const propTypes = {
     results: PropTypes.array,
@@ -40,6 +41,14 @@ export default class RecipientLandingContent extends React.Component {
                     pageNumber={this.props.pageNumber}
                     totalItems={this.props.totalItems}
                     pageSize={this.props.pageSize} />
+                <RecipientLandingResultsSection
+                    columns={this.props.columns}
+                    results={this.props.results}
+                    inFlight={this.props.inFlight}
+                    error={this.props.error}
+                    accountSearchString={this.props.accountSearchString}
+                    order={this.props.order}
+                    updateSort={this.props.updateSort} />
                 <Pagination
                     onChangePage={this.props.onChangePage}
                     pageNumber={this.props.pageNumber}

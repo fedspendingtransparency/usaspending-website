@@ -4,6 +4,7 @@
     @import "layouts/default/stickyHeader/header";
     @import "pages/accountLanding/searchSection";
     @import "components/pagination";
+    @import "./_table";
 
     .pagination {
         flex-direction: column;

@@ -1,0 +1,32 @@
+.recipient-list {
+    border: none;
+    .recipient-list__head-row {
+        border-bottom: solid 1px $color-gray-lighter;
+    }
+
+    .recipient-list__head-cell {
+        background-color: $color-white;
+        border: none;
+
+        @import "./_header";
+    }
+
+    .recipient-list__body {
+        &.recipient-list__body_hide {
+            display: none;
+        }
+    }
+    .recipient-list__body-row {
+        &:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+    }
+    .recipient-list__body-cell {
+        border: none;
+        background-color: transparent;
+
+        &.recipient-list__body-cell_right {
+            text-align: right;
+        }
+    }
+}
