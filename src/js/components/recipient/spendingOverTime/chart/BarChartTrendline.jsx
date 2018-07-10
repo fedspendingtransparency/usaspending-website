@@ -489,6 +489,32 @@ export default class BarChartTrendline extends React.Component {
             </g>
         ));
 
+        let lines = null;
+        // Generate lines if there is more than one item
+        if (this.state.trendItems.length > 1) {
+            const style = {
+                stroke: this.props.legend[1].color,
+                strokeWidth: 3
+            };
+            lines = this.state.trendItems.map((point, index) => {
+                // Don't draw a line if we're at the last point
+                if (index + 1 < this.state.trendItems.length) {
+                    const nextPoint = this.state.trendItems[index + 1];
+                    const slope = -(nextPoint.y - point.y) / (nextPoint.x - point.x);
+                    const description = `Line with slope ${MoneyFormatter.formatNumberWithPrecision(slope, 2)}`;
+                    return (
+                        <g
+                            aria-label={description}
+                            key={`trend-line-${index}`}>
+                            <desc>{description}</desc>
+                            <line x1={point.x} y1={point.y} x2={nextPoint.x} y2={nextPoint.y} style={style} />
+                        </g>
+                    );
+                }
+                return null;
+            });
+        }
+
         return (
             <div
                 ref={(div) => {
@@ -532,6 +558,7 @@ export default class BarChartTrendline extends React.Component {
                         <g
                             className="trendline-data"
                             transform={`translate(${this.props.padding.left},0)`}>
+                            {lines}
                             {points}
                         </g>
 
