@@ -21,7 +21,6 @@ const propTypes = {
 
 const RecipientLandingTable = (props) => {
     const hideBody = props.loading || props.error || props.results.length === 0 ? 'recipient-list__body_hide' : '';
-    console.log(props.results);
 
     const body = props.results.map((row) => (
         <tr
@@ -29,6 +28,7 @@ const RecipientLandingTable = (props) => {
             className="recipient-list__body-row">
             <RecipientLinkCell
                 id={row.id}
+                type={row.recipient_level}
                 name={row.name}
                 searchString={props.searchString} />
             <td className="recipient-list__body-cell recipient-list__body-cell_right">
