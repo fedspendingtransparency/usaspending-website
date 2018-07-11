@@ -29,7 +29,7 @@ export default class AwardDataArchiveContent extends React.Component {
                     are already prepared &mdash; you can access them instantaneously.
                 </p>
                 <p>
-                    New files are uploaded on the 15th of each month; if an agency&apos;s data hasn&apos;t changed since the previous month, no new file will be added. <b>Full files</b> feature aggregate data (data for the fiscal year up until the date listed), and <b>delta files</b> feature only new, modified and deleted data from the past 1 month.
+                    New files are uploaded by the 15th of each month. Check the Data As Of column to see the last time files were generated. <b>Full files</b> feature data for the fiscal year up until the date the file was prepared, and <b>delta files</b> feature only new, modified, and deleted data since the date the last month&apos;s files were generated. The `correction_delete_ind` column in the delta files indicates whether a record has been modified (C), deleted (D), or added (blank).
                 </p>
                 <p>
                     Ready to grab your data? Complete the form below.
