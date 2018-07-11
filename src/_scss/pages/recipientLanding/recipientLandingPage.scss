@@ -5,20 +5,11 @@
     @import "pages/accountLanding/searchSection";
     @import "components/pagination";
     @import "./_table";
+    @import "./_recipientLabels";
 
     .pagination {
-        flex-direction: column;
-        text-align: right;
-        .pagination__totals {
-            margin: 0 0 rem(15) 0;
-            align-self: flex-end;
-        }
         .pager {
-            align-self: flex-end;
-        }
-
-       .pager .pager__item:last-child .pager__button {
-            margin-right: 0;
+            justify-content: flex-end;
         }
     }
 
@@ -37,6 +28,49 @@
                 font-weight: normal;
             }
         }
+    }
+
+    .recipient-landing__icon-parent {
+        background-color: #205493;
+        color: $color-white;
+        margin-right: rem(10);
+        padding: 0 rem(4) 0 rem(4);
+        border-radius: rem(3);
+        font-weight: 600;
+        font-size: rem(14);
+        display: inline-block;
+        width: rem(18);
+        height: rem(18);
+        text-align: center;
+    
+    }
+
+    .recipient-landing__icon-child {
+            background-color:#00A6D2;
+            color: $color-white;
+            margin-right: rem(10);
+            padding: 0 rem(4) 0 rem(4);
+            border-radius: rem(3);
+            font-weight: 600;
+            font-size: rem(14);
+            display: inline-block;
+            width: rem(18);
+            height: rem(18);
+            text-align: center;
+    }
+
+    .recipient-landing__icon-recipient {
+        background-color:#757575;
+        color: $color-white;
+        margin-right: rem(10);
+        padding: 0 rem(4) 0 rem(4);
+        border-radius: rem(3);
+        font-weight: 600;
+        font-size: rem(14);
+        display: inline-block;
+        width: rem(18);
+        height: rem(18);
+        text-align: center;
     }
 
     .results-count {

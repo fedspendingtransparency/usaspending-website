@@ -8,6 +8,7 @@
 
     .header-cell__text {
         @include flex(0 0 auto);
+        margin-right: rem(20);
     }
 
     .header-cell__title {
@@ -20,6 +21,11 @@
         &.header-cell__title_right {
             text-align: right;
         }
+
+        &.header-cell__title_cap {
+            text-transform: uppercase;
+        }
+
     }
     .header-cell__subtitle {
         text-align: right;

@@ -24,10 +24,9 @@ export default class RecipientLandingContainer extends React.Component {
         this.state = {
             pageNumber: 1,
             order: {
-                field: 'budgetary_resources',
-                direction: 'desc'
+                field: 'name',
+                direction: 'asc'
             },
-            columns: [],
             inFlight: false,
             error: false,
             searchString: '',
@@ -39,7 +38,7 @@ export default class RecipientLandingContainer extends React.Component {
         this.recipientssRequest = null;
         this.setRecipientSearchString = this.setRecipientSearchString.bind(this);
         this.onChangePage = this.onChangePage.bind(this);
-        this.updateSort = this.updateSort.bind(this);
+        this.setSort = this.setSort.bind(this);
     }
 
     componentDidMount() {
@@ -75,44 +74,18 @@ export default class RecipientLandingContainer extends React.Component {
         }
     }
 
-    updateSort(field, direction) {
+    setSort(field, direction) {
         // Change sort in the state and make a new request
         // Reset the page number to 1
-        /*this.setState({
+        this.setState({
             order: {
                 field,
                 direction
             },
             pageNumber: 1
         }, () => {
-            this.fetchAccounts();
-        }); */
-    }
-
-    showColumns() {
-        const columns = [];
-        /* const sortOrder = AccountsTableFields.defaultSortDirection;
-
-        AccountsTableFields.order.forEach((col) => {
-            let displayName = AccountsTableFields[col];
-            if (col === 'budgetaryResources') {
-                // Add default fiscal year to Budgetary Resources column header
-                const fy = FiscalYearHelper.defaultFiscalYear();
-                displayName = `${fy} ${displayName}`;
-            }
-            const column = {
-                columnName: col,
-                displayName,
-                defaultDirection: sortOrder[col]
-            };
-            columns.push(column);
+            this.fetchRecipients();
         });
-
-        this.setState({
-            columns
-        }, () => {
-            this.fetchAccounts();
-        }); */
     }
 
     fetchRecipients() {
@@ -126,25 +99,40 @@ export default class RecipientLandingContainer extends React.Component {
             error: false
         });
 
-        const recipients = [
-            { id: "abc123-P", name: "Testing1", duns: "132432", amount: "34242332", recipient_level: "R" },
-            { id: "ab4ww132-P", name: "Testing1323", duns: "13243223", amount: "34332", recipient_level: "P"},
-            { id: "abc2322-P", name: "Testing1523", duns: "132432223", amount: "34332334r", recipient_level: "C" },
-            { id: "ab4wfw", name: "Testing3323", duns: "132432245", amount: "3433232", recipient_level: "R" },
-            { id: "abc13ww", name: "Testing134223", duns: "1324433223", amount: "34332", recipient_level: "P" }];
+        const data = [
+            { id: "abc123-P", name: "Testing1", duns: "132432", amount: 34242332, recipient_level: "R" },
+            { id: "ab4ww132-P", name: "Testing1323", duns: "13243223", amount: 34332, recipient_level: "P"},
+            { id: "abc2322-P", name: "Testing1523", duns: "132432223", amount: 34332334, recipient_level: "C" },
+            { id: "ab4wfw", name: "Testing3323", duns: "132432245", amount: 3433232, recipient_level: "R" },
+            { id: "abc13ww", name: "Testing134223", duns: "1324433223", amount: 34332, recipient_level: "P" }];
+            
+         const recipients = [];
 
-            this.setState({
-                totalItems: 5,
-                results: recipients
-            });
+         data.forEach((item) => {
+             const recipient = Object.create(BaseRecipientLandingRow);
+             recipient.parse(item);
+             recipients.push(recipient);
+         });
+
+    
+
+        this.setState({
+            totalItems: 5,
+            results: recipients
+        });
 
         // // generate the params
         // const pageSize = 50;
         // const params = {
-        //     sort: this.state.order,
+        //     order: this.state.order.direction
+        //     sort: this.state.order.field,
         //     page: this.state.pageNumber,
         //     limit: pageSize
         // };
+
+        // if (this.state.searchString !== '') {
+        //     params.keyword = this.state.searchString;
+        // }
 
         // this.recipientsRequest = RecipientLandingHelper.fetchAllRecipients(params);
 
@@ -189,11 +177,10 @@ export default class RecipientLandingContainer extends React.Component {
                 results={this.state.results}
                 inFlight={this.state.inFlight}
                 error={this.state.error}
-                columns={this.state.columns}
                 order={this.state.order}
-                updateSort={this.updateSort}
+                setSort={this.setSort}
                 accountSearchString={this.state.searchString}
-                setAccountSearchString={this.setAccountSearchString}
+                setRecipientSearchString={this.setRecipientSearchString}
                 onChangePage={this.onChangePage}
                 pageNumber={this.state.pageNumber}
                 totalItems={this.state.totalItems}

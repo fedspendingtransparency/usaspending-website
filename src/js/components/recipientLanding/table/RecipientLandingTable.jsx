@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
 import RecipientLinkCell from './RecipientLinkCell';
 
 const propTypes = {
@@ -15,7 +16,7 @@ const propTypes = {
     results: PropTypes.array,
     setSort: PropTypes.func,
     sortField: PropTypes.string,
-    sortDirection: PropTypes.string,
+    order: PropTypes.object,
     searchString: PropTypes.string
 };
 
@@ -28,7 +29,7 @@ const RecipientLandingTable = (props) => {
             className="recipient-list__body-row">
             <RecipientLinkCell
                 id={row.id}
-                type={row.recipient_level}
+                type={row.recipientLevel}
                 name={row.name}
                 searchString={props.searchString} />
             <td className="recipient-list__body-cell recipient-list__body-cell_right">
@@ -86,15 +87,25 @@ const RecipientLandingTable = (props) => {
                                         Recipient Name
                                     </div>
                                 </div>
+                                <StateLandingTableSorter
+                                    field="name"
+                                    label="recipient"
+                                    active={{ field: props.order.field, direction: props.order.direction }}
+                                    setSort={props.setSort} />
                             </div>
                         </th>
                         <th className="recipient-list__head-cell">
                             <div className="header-cell header-cell_right">
                                 <div className="header-cell__text">
-                                    <div className="header-cell__title header-cell__title_right">
+                                    <div className="header-cell__title header-cell__title_right header-cell__title_cap">
                                         Duns
                                     </div>
                                 </div>
+                                <StateLandingTableSorter
+                                    field="duns"
+                                    label="duns"
+                                    active={{ field: props.order.field, direction: props.order.direction }}
+                                    setSort={props.setSort} />
                             </div>
                         </th>
                         <th className="recipient-list__head-cell">
@@ -107,6 +118,11 @@ const RecipientLandingTable = (props) => {
                                         </div>
                                     </div>
                                 </div>
+                                <StateLandingTableSorter
+                                    field="_amount"
+                                    label="awarded amount"
+                                    active={{ field: props.order.field, direction: props.order.direction }}
+                                    setSort={props.setSort} />
                             </div>
                         </th>
                     </tr>
