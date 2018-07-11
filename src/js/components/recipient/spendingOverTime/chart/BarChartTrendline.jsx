@@ -14,6 +14,7 @@ import BarItem from 'components/search/visualizations/time/chart/BarItem';
 import BarXAxis from 'components/search/visualizations/time/chart/BarXAxis';
 import BarYAxis from 'components/search/visualizations/time/chart/BarYAxis';
 import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
+import BarTrendlineAxis from "./BarTrendlineAxis";
 
 /* eslint-disable react/no-unused-prop-types */
 // we're catching the props before they're fully set, so eslint thinks these props are unused
@@ -37,7 +38,8 @@ const propTypes = {
 const defaultProps = {
     padding: {
         left: 70,
-        bottom: 50
+        bottom: 50,
+        right: 70
     },
     enableHighlight: true,
     legend: []
@@ -63,10 +65,6 @@ export default class BarChartTrendline extends React.Component {
             xAxisPos: 0,
             graphHeight: 0,
             activeBar: null,
-            padding: {
-                left: 0,
-                bottom: 20
-            },
             groupWidth: 0
         };
 
@@ -81,15 +79,10 @@ export default class BarChartTrendline extends React.Component {
         this.generateChart(this.props);
     }
 
-    // TODO - Lizzie: remove deprecated lifecycle method
-    componentWillReceiveProps(nextProps) {
-        if (!isEqual(nextProps, this.props)) {
-            this.generateChart(nextProps);
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props)) {
+            this.generateChart(this.props);
         }
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        return !isEqual(nextProps, this.props) || !isEqual(nextState, this.state);
     }
 
     generateChart(props) {
@@ -142,7 +135,7 @@ export default class BarChartTrendline extends React.Component {
 
         // calculate what the visible area of the chart itself will be (excluding the axes and their
         // labels)
-        const graphWidth = props.width - props.padding.left;
+        const graphWidth = props.width - props.padding.left - props.padding.right;
         const graphHeight = props.height - props.padding.bottom;
 
         // use D3 to calculate the X and Y axes
@@ -272,7 +265,7 @@ export default class BarChartTrendline extends React.Component {
         }
         else if (allZ.length > 0) {
             // in some cases, we may only have one data point. This is insufficient to calculate a
-            // usable Z axis range, so we need to manually enter the max or min (based on if
+            // usable trendline axis range, so we need to manually enter the max or min (based on if
             // the data point is positive or negative)
             const dataPointZ = allZ[0];
             if (dataPointZ < 0) {
@@ -295,7 +288,7 @@ export default class BarChartTrendline extends React.Component {
             }
         }
         else {
-            // when there is no data, fall back to an arbitrary default Z axis scale (since there's
+            // when there is no data, fall back to an arbitrary default trendline axis scale (since there's
             // no data to display)
             zRange.push(0);
             zRange.push(100);
@@ -319,7 +312,7 @@ export default class BarChartTrendline extends React.Component {
             // yPosition
             const pointHeight = zScale(zData);
             // The top of the chart in SVG coordinates is (0,0), the bottom is (0,chart height).
-            const yPos = this.state.graphHeight - zScale(0) - pointHeight;
+            const yPos = this.state.graphHeight - pointHeight;
 
             const description = `New awards in ${group}: ${zData}`;
 
@@ -530,17 +523,16 @@ export default class BarChartTrendline extends React.Component {
                     <g className="bar-graph-body" transform="translate(0,20)">
                         <BarYAxis
                             height={this.props.height - this.props.padding.bottom}
-                            width={this.props.width - this.props.padding.left}
+                            width={this.props.width - this.props.padding.left - this.props.padding.right}
                             padding={this.props.padding}
                             data={this.state.yValues}
                             scale={this.state.yScale}
                             ticks={this.state.yTicks}
-                            average={this.state.yAverage}
-                            generatedYAxis={this.generatedYAxis} />
+                            average={this.state.yAverage} />
 
                         <BarXAxis
                             top={this.props.height - this.props.padding.bottom}
-                            width={this.props.width - this.props.padding.left}
+                            width={this.props.width - this.props.padding.left - this.props.padding.right}
                             padding={this.props.padding}
                             data={this.state.xValues}
                             rawLabels={this.state.rawLabels}
@@ -548,6 +540,15 @@ export default class BarChartTrendline extends React.Component {
                             axisPos={this.state.xAxisPos}
                             activeLabel={this.props.activeLabel}
                             visualizationPeriod={this.props.visualizationPeriod} />
+
+                        <BarTrendlineAxis
+                            height={this.props.height - this.props.padding.bottom}
+                            width={this.props.width - this.props.padding.left - this.props.padding.right}
+                            padding={this.props.padding}
+                            data={this.state.zValues}
+                            scale={this.state.zScale}
+                            ticks={this.state.zTicks}
+                            average={this.state.zAverage} />
 
                         <g
                             className="bar-data"
