@@ -18,8 +18,12 @@
         font-size: rem(20);
         line-height: rem(25);
 
-        &.header-cell__title_right {
-            text-align: right;
+        &.header-cell__title_left {
+            text-align: left;
+        }
+
+        &.header-cell__title_center {
+            text-align: center;
         }
 
         &.header-cell__title_cap {

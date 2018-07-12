@@ -32,10 +32,10 @@ const RecipientLandingTable = (props) => {
                 type={row.recipientLevel}
                 name={row.name}
                 searchString={props.searchString} />
-            <td className="recipient-list__body-cell recipient-list__body-cell_right">
+            <td className="recipient-list__body-cell recipient-list__body-cell_left">
                 {row.duns}
             </td>
-            <td className="recipient-list__body-cell recipient-list__body-cell_right">
+            <td className="recipient-list__body-cell recipient-list__body-cell_center">
                 {row.amount}
             </td>
         </tr>
@@ -97,7 +97,7 @@ const RecipientLandingTable = (props) => {
                         <th className="recipient-list__head-cell">
                             <div className="header-cell header-cell_right">
                                 <div className="header-cell__text">
-                                    <div className="header-cell__title header-cell__title_right header-cell__title_cap">
+                                    <div className="header-cell__title header-cell__title_left header-cell__title_cap">
                                         Duns
                                     </div>
                                 </div>
@@ -111,7 +111,7 @@ const RecipientLandingTable = (props) => {
                         <th className="recipient-list__head-cell">
                             <div className="header-cell  header-cell_right">
                                 <div className="header-cell__text">
-                                    <div className="header-cell__title header-cell__title_right">
+                                    <div className="header-cell__title header-cell__title_center">
                                         Awarded Amount
                                         <div className="header-cell__subtitle">
                                             (from trailing 12 months of Transactions)

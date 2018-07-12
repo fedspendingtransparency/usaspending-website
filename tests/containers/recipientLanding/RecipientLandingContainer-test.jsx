@@ -1,22 +1,17 @@
 /**
- * StateLandingContainer-test.jsx
- * Created by Kevin Li 5/23/18
+ * RecipientLandingContainer-test.jsx
+ * Created by David Trinh 7/12/18
  */
 
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import sinon from 'sinon';
+import { shallow } from 'enzyme';
 
+import BaseRecipientLandingRow from 'models/recipientLanding/BaseRecipientLandingRow';
 import RecipientLandingContainer from 'containers/recipientLanding/RecipientLandingContainer';
-import { fetchAllRecipients } from './mockRecipientHelper';
+import { fetchAllRecipients } from './mockRecipientLandingHelper';
 import { mockRecipientList } from './mockData';
 
-
-//jest.mock('helpers/recipientHelper', () => require('./mockRecipientHelper'));
-
-
-//import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';
-
+jest.mock('helpers/recipientLandingHelper', () => require('./mockRecipientLandingHelper'));
 
 describe('RecipientLandingContainer', () => {
     describe('setRecipientSearchString', () => {
@@ -69,51 +64,30 @@ describe('RecipientLandingContainer', () => {
             const container = shallow(
                 <RecipientLandingContainer />
             );
-
             container.instance().fetchRecipients();
             expect(fetchAllRecipients).toHaveBeenCalledTimes(1);
         });
-        it('should call parseRecipients on success', async () => {
+    });
+
+    describe('parseRecipients', () => {
+        it('should return an array of BaseStateLandingItem objects', () => {
             const container = shallow(
                 <RecipientLandingContainer />
             );
-            container.instance().parseRecipients = jest.fn();
+            container.instance().performSearch = jest.fn();
+            container.instance().parseRecipients(mockRecipientList);
 
-            container.instance().fetchRecipients();
-            await container.instance().recipientsRequest.promise;
+            expect(container.state().results.length).toEqual(2);
+            expect(Object.getPrototypeOf(container.state().results[0])).toEqual(BaseRecipientLandingRow);
+        });
+        it('should update the loading and error states to false', () => {
+            const container = shallow(
+                <RecipientLandingContainer />
+            );
+            container.instance().parseRecipients(mockRecipientList);
 
-            expect(container.instance().parseRecipients).toHaveBeenCalledTimes(1);
+            expect(container.state().loading).toBeFalsy();
+            expect(container.state().error).toBeFalsy();
         });
     });
-
-    // describe('parseData', () => {
-    //     it('should return an array of BaseStateLandingItem objects', () => {
-    //         const container = shallow(
-    //             <StateLandingContainer />
-    //         );
-    //         container.instance().performSearch = jest.fn();
-    //         container.instance().parseData(mockStateList);
-
-    //         expect(container.state().fullData.length).toEqual(2);
-    //         expect(Object.getPrototypeOf(container.state().fullData[0])).toEqual(BaseStateLandingItem);
-    //     });
-    //     it('should update the loading and error states to false', () => {
-    //         const container = shallow(
-    //             <StateLandingContainer />
-    //         );
-    //         container.instance().parseData(mockStateList);
-
-    //         expect(container.state().loading).toBeFalsy();
-    //         expect(container.state().error).toBeFalsy();
-    //     });
-    //     it('should trigger a search operation', () => {
-    //         const container = shallow(
-    //             <StateLandingContainer />
-    //         );
-    //         container.instance().performSearch = jest.fn();
-    //         container.instance().parseData(mockStateList);
-
-    //         expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
-    //     });
-    // });
 });

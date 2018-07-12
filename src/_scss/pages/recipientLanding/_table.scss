@@ -24,10 +24,15 @@
     }
     .recipient-list__body-cell {
         border: none;
+        justify-content: flex-end;
         background-color: transparent;
 
-        &.recipient-list__body-cell_right {
-            text-align: right;
+        &.recipient-list__body-cell_left {
+            text-align: left;
+        }
+
+        &.recipient-list__body-cell_center {
+            text-align: center;
         }
     }
 }

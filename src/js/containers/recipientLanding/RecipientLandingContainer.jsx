@@ -30,7 +30,7 @@ export default class RecipientLandingContainer extends React.Component {
             searchString: '',
             results: [],
             totalItems: 0,
-            pageSize: 2
+            pageSize: 50
         };
 
         this.recipientssRequest = null;
@@ -130,26 +130,6 @@ export default class RecipientLandingContainer extends React.Component {
                     console.log(err);
                 }
             });
-
-        // const data = [
-        //     { id: "abc123-P", name: "Testing1", duns: "132432", amount: 34242332, recipient_level: "R" },
-        //     { id: "ab4ww132-P", name: "Testing1323", duns: "13243223", amount: 34332, recipient_level: "P"},
-        //     { id: "abc2322-P", name: "Testing1523", duns: "132432223", amount: 34332334, recipient_level: "C" },
-        //     { id: "ab4wfw", name: "Testing3323", duns: "132432245", amount: 3433232, recipient_level: "R" },
-        //     { id: "abc13ww", name: "Testing134223", duns: "1324433223", amount: 34332, recipient_level: "P" }];
-        //  const recipients = [];
-
-        //  data.forEach((item) => {
-        //      const recipient = Object.create(BaseRecipientLandingRow);
-        //      recipient.parse(item);
-        //      recipients.push(recipient);
-        //  });
-
-
-        // this.setState({
-        //     totalItems: 5,
-        //     results: recipients
-        // });
     }
 
     parseRecipients(data) {
@@ -162,7 +142,7 @@ export default class RecipientLandingContainer extends React.Component {
         });
 
         this.setState({
-            totalItems: data.count,
+            totalItems: data.results.length,
             results: recipients
         });
     }
