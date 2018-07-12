@@ -7,15 +7,13 @@ import React from 'react';
 import { isCancel } from 'axios';
 import { inRange } from 'lodash';
 
-import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
+
 import * as RecipientLandingHelper from 'helpers/recipientLandingHelper';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import RecipientLandingContent from 'components/recipientLanding/RecipientLandingContent';
 
 import BaseRecipientLandingRow from 'models/recipientLanding/BaseRecipientLandingRow';
 
-require('pages/accountLanding/accountLandingPage.scss');
 
 export default class RecipientLandingContainer extends React.Component {
     constructor(props) {
@@ -99,76 +97,74 @@ export default class RecipientLandingContainer extends React.Component {
             error: false
         });
 
-        const data = [
-            { id: "abc123-P", name: "Testing1", duns: "132432", amount: 34242332, recipient_level: "R" },
-            { id: "ab4ww132-P", name: "Testing1323", duns: "13243223", amount: 34332, recipient_level: "P"},
-            { id: "abc2322-P", name: "Testing1523", duns: "132432223", amount: 34332334, recipient_level: "C" },
-            { id: "ab4wfw", name: "Testing3323", duns: "132432245", amount: 3433232, recipient_level: "R" },
-            { id: "abc13ww", name: "Testing134223", duns: "1324433223", amount: 34332, recipient_level: "P" }];
-            
-         const recipients = [];
+        // generate the params
+        const pageSize = 50;
+        const params = {
+            order: this.state.order.direction,
+            sort: this.state.order.field,
+            page: this.state.pageNumber,
+            limit: pageSize
+        };
 
-         data.forEach((item) => {
-             const recipient = Object.create(BaseRecipientLandingRow);
-             recipient.parse(item);
-             recipients.push(recipient);
-         });
+        if (this.state.searchString !== '') {
+            params.keyword = this.state.searchString;
+        }
 
-    
+        this.recipientsRequest = RecipientLandingHelper.fetchAllRecipients(params);
 
-        this.setState({
-            totalItems: 5,
-            results: recipients
-        });
+        this.recipientsRequest.promise
+            .then((res) => {
+                this.setState({
+                    inFlight: false
+                });
 
-        // // generate the params
-        // const pageSize = 50;
-        // const params = {
-        //     order: this.state.order.direction
-        //     sort: this.state.order.field,
-        //     page: this.state.pageNumber,
-        //     limit: pageSize
-        // };
+                this.parseRecipients(res.data);
+            })
+            .catch((err) => {
+                this.recipientsRequest = null;
+                if (!isCancel(err)) {
+                    this.setState({
+                        inFlight: false,
+                        error: true
+                    });
+                    console.log(err);
+                }
+            });
 
-        // if (this.state.searchString !== '') {
-        //     params.keyword = this.state.searchString;
-        // }
+        // const data = [
+        //     { id: "abc123-P", name: "Testing1", duns: "132432", amount: 34242332, recipient_level: "R" },
+        //     { id: "ab4ww132-P", name: "Testing1323", duns: "13243223", amount: 34332, recipient_level: "P"},
+        //     { id: "abc2322-P", name: "Testing1523", duns: "132432223", amount: 34332334, recipient_level: "C" },
+        //     { id: "ab4wfw", name: "Testing3323", duns: "132432245", amount: 3433232, recipient_level: "R" },
+        //     { id: "abc13ww", name: "Testing134223", duns: "1324433223", amount: 34332, recipient_level: "P" }];
+        //  const recipients = [];
 
-        // this.recipientsRequest = RecipientLandingHelper.fetchAllRecipients(params);
+        //  data.forEach((item) => {
+        //      const recipient = Object.create(BaseRecipientLandingRow);
+        //      recipient.parse(item);
+        //      recipients.push(recipient);
+        //  });
 
-        // this.recipientsRequest.promise
-        //     .then((res) => {
-        //         this.setState({
-        //             inFlight: false
-        //         });
 
-        //         this.parseRecipients(res.data);
-        //     })
-        //     .catch((err) => {
-        //         this.recipientsRequest = null;
-        //         if (!isCancel(err)) {
-        //             this.setState({
-        //                 inFlight: false,
-        //                 error: true
-        //             });
-        //             console.log(err);
-        //         }
-        //     });
+        // this.setState({
+        //     totalItems: 5,
+        //     results: recipients
+        // });
     }
 
     parseRecipients(data) {
-        // const recipients = [];
+        const recipients = [];
 
-        // data.results.forEach((item) => {
-        //     const recipient = Object.create(BaseRecipientLandingRow);
-        //     recipient.parse(item);
-        //     recipients.push(recipient);
-        // });
+        data.results.forEach((item) => {
+            const recipient = Object.create(BaseRecipientLandingRow);
+            recipient.parse(item);
+            recipients.push(recipient);
+        });
 
-        // this.setState({
-        //     totalItems: data.count,
-        //     results: recipients
-        // });
+        this.setState({
+            totalItems: data.count,
+            results: recipients
+        });
     }
 
     render() {

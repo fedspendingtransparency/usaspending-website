@@ -1,5 +1,5 @@
 /**
- * RecipientIcon.jsx
+ * RecipientInformation.jsx
  * Created by David Trinh 7/11/18
  */
 
@@ -13,7 +13,7 @@ const propTypes = {
     placement: PropTypes.string
 };
 
-export default class RecipientIcon extends React.Component {
+export default class RecipientInformation extends React.Component {
     constructor(props) {
         super(props);
 
@@ -62,4 +62,4 @@ export default class RecipientIcon extends React.Component {
     }
 }
 
-RecipientIcon.propTypes = propTypes;
+RecipientInformation.propTypes = propTypes;

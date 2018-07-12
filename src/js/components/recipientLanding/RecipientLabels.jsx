@@ -4,47 +4,41 @@
  */
 
 import React from 'react';
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
-import RecipientIcon from './RecipientIcon';
+import RecipientInformation from './RecipientInformation';
 
 export default class RecipientLabels extends React.Component {
     render() {
-        const parentMessage = 'One or more recipients listed this entity as their parent organization';
+        const parentMessage = 'One or more recipients listed this entity as their parent organization.';
         // The icon's element id which the tooltip is associated with
         const parentIconPlacement = 'recipient-labels__icon-parent';
 
-        const childMessage = 'test2';
+        const childMessage = 'This recipient has a parent organization listed.';
         const childIconPlacement = 'recipient-labels__icon-child';
+
+        const recipientMessage = 'This recipient does not have a parent organization listed.';
+        const recipientIconPlacement = 'recipient-labels__icon-recipient';
         return (
             <div className="recipient-labels">
                 <div className="recipient-labels-wrapper" id={parentIconPlacement}>
                     <span className="recipient-landing__icon-parent">P</span>
                     <span className="recipient-labels__text">Parent Recipient</span>
-                    <RecipientIcon
+                    <RecipientInformation
                         message={parentMessage}
                         placement={parentIconPlacement} />
                 </div>
                 <div className="recipient-labels-wrapper" id={childIconPlacement}>
                     <span className="recipient-landing__icon-child">C</span>
                     <span className="recipient-labels__text">Child Recipient</span>
-                    <RecipientIcon
+                    <RecipientInformation
                         message={childMessage}
                         placement={childIconPlacement} />
                 </div>
-                <div className="recipient-labels-wrapper">
+                <div className="recipient-labels-wrapper" id={recipientIconPlacement}>
                     <span className="recipient-landing__icon-recipient">R</span>
-                    <div className="recipient-lables_text-wrapper">
-                        <span className="recipient-labels__text">Recipient</span>
-                        <span>
-                            <button
-                                className="recipient-labels__icon-info"
-                                onFocus={this.showTooltip}
-                                onMouseEnter={this.showTooltip}
-                                onClick={this.showTooltip}>
-                                <InfoCircle alt="Information" />
-                            </button>
-                        </span>
-                    </div>
+                    <span className="recipient-labels__text">Recipient</span>
+                    <RecipientInformation
+                        message={recipientMessage}
+                        placement={recipientIconPlacement} />
                 </div>
             </div>
         );

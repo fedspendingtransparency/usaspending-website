@@ -29,7 +29,7 @@ export default class RecipientLandingResultsSection extends React.Component {
             <RecipientLandingTable
                 {...this.props} />
         );
-       /* if (this.props.inFlight) {
+        if (this.props.inFlight) {
             message = (
                 <div className="results-table-message-container">
                     <ResultsTableLoadingMessage />
@@ -43,7 +43,7 @@ export default class RecipientLandingResultsSection extends React.Component {
                     <ResultsTableErrorMessage />
                 </div>
             );
-        } */
+        }
 
         return (
             <div className="results-table-section" id="account-landing-results">

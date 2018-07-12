@@ -16,8 +16,7 @@ const propTypes = {
 };
 
 
-const margin = 20;
-const tooltipPadding = 100;
+const tooltipPadding = 12;
 
 export default class RecipientLandingTooltip extends React.Component {
     constructor(props) {
@@ -44,7 +43,7 @@ export default class RecipientLandingTooltip extends React.Component {
     getPosition() {
         const icon = document.getElementById(this.props.placement);
         const iconTop = icon.offsetTop;
-        const iconLeft = 10;
+        const iconLeft = (icon.offsetLeft + icon.offsetWidth) - tooltipPadding;
 
         return { iconTop, iconLeft };
     }

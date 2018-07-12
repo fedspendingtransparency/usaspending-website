@@ -23,16 +23,13 @@ export default class RecipientLandingSearchBar extends React.Component {
     onChange(e) {
         this.setState({
             [e.target.name]: e.target.value
-        })
+        });
     }
 
     onSubmit(e) {
         e.preventDefault();
         this.props.setRecipientSearchString(this.state.recipient);
-     }
- 
-
-    onClick
+    }
 
     render() {
         return (
