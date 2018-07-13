@@ -12,7 +12,6 @@ import RecipientLinkCell from './RecipientLinkCell';
 const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    total: PropTypes.number,
     results: PropTypes.array,
     setSort: PropTypes.func,
     sortField: PropTypes.string,
@@ -95,9 +94,9 @@ const RecipientLandingTable = (props) => {
                             </div>
                         </th>
                         <th className="recipient-list__head-cell">
-                            <div className="header-cell header-cell_right">
+                            <div className="header-cell ">
                                 <div className="header-cell__text">
-                                    <div className="header-cell__title header-cell__title_left header-cell__title_cap">
+                                    <div className="header-cell__title header-cell__title_cap">
                                         Duns
                                     </div>
                                 </div>

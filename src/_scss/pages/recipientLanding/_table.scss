@@ -1,6 +1,7 @@
 .recipient-list {
     border: none;
     .recipient-list__head-row {
+        border-top: solid 2px $color-gray-lighter;
         border-bottom: solid 1px $color-gray-lighter;
     }
 
@@ -23,9 +24,8 @@
         }
     }
     .recipient-list__body-cell {
-        border: none;
-        justify-content: flex-end;
         background-color: transparent;
+        border: none;
 
         &.recipient-list__body-cell_left {
             text-align: left;
@@ -33,6 +33,10 @@
 
         &.recipient-list__body-cell_center {
             text-align: center;
+        }
+
+        &:last-child {
+            width: rem(320);
         }
     }
 }

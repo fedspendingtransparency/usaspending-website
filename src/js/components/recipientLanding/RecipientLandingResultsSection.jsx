@@ -46,7 +46,7 @@ export default class RecipientLandingResultsSection extends React.Component {
         }
 
         return (
-            <div className="results-table-section" id="account-landing-results">
+            <div className="results-table-section">
                 <CSSTransitionGroup
                     transitionName="table-message-fade"
                     transitionLeaveTimeout={225}
