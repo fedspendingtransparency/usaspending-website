@@ -89,13 +89,13 @@ export const downloadOptions = [
     {
         label: 'Database Download',
         type: '',
-        url: 'http://usaspending-db.s3-website-us-gov-west-1.amazonaws.com',
+        url: 'https://aws.amazon.com/public-datasets/usaspending/',
         code: 'database',
         description: 'Our entire database available as a download – the most complete download option available for advanced users.',
         callToAction: 'Explore Database Download',
         newTab: true,
         enabled: true,
-        externalLink: false
+        externalLink: true
     },
     {
         label: 'API',
