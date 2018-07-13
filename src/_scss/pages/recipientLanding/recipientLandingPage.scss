@@ -6,6 +6,7 @@
     @import "components/pagination";
     @import "./_table";
     @import "./_recipientLabels";
+    @import "pages/search/results/table/_tableMessages";
 
     .pagination {
         .pager {
@@ -30,23 +31,8 @@
         }
     }
 
-    .recipient-landing__icon-parent {
-        background-color: #205493;
-        color: $color-white;
-        margin-right: rem(10);
-        padding: 0 rem(4) 0 rem(4);
-        border-radius: rem(3);
-        font-weight: 600;
-        font-size: rem(14);
-        display: inline-block;
-        width: rem(18);
-        height: rem(18);
-        text-align: center;
-    
-    }
-
-    .recipient-landing__icon-child {
-            background-color:#00A6D2;
+    .recipient-landing__icon {
+        
             color: $color-white;
             margin-right: rem(10);
             padding: 0 rem(4) 0 rem(4);
@@ -57,20 +43,18 @@
             width: rem(18);
             height: rem(18);
             text-align: center;
-    }
 
-    .recipient-landing__icon-recipient {
-        background-color:#757575;
-        color: $color-white;
-        margin-right: rem(10);
-        padding: 0 rem(4) 0 rem(4);
-        border-radius: rem(3);
-        font-weight: 600;
-        font-size: rem(14);
-        display: inline-block;
-        width: rem(18);
-        height: rem(18);
-        text-align: center;
+            &.recipient-landing__icon_parent {
+                background-color: #205493;
+            }
+
+            &.recipient-landing__icon_child {
+                background-color:#00A6D2;
+            }
+
+            &.recipient-landing__icon_recipient {
+                background-color:#757575;
+            }
     }
 
     .results-count {

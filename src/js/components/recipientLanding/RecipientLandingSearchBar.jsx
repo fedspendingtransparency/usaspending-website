@@ -18,6 +18,7 @@ export default class RecipientLandingSearchBar extends React.Component {
         this.state = {
             recipient: ''
         };
+        this.onChange = this.onChange.bind(this);
     }
 
     onChange(e) {
@@ -40,7 +41,7 @@ export default class RecipientLandingSearchBar extends React.Component {
                         type="text"
                         name="recipient"
                         value={this.state.recipient}
-                        onChange={this.onChange.bind(this)}
+                        onChange={this.onChange}
                         placeholder="Search by Recipient Name or DUNS" />
                     <button
                         aria-label="Search"

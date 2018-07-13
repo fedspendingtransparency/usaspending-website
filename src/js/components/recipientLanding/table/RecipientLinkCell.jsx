@@ -17,11 +17,11 @@ export default class RecipientLinkCell extends React.Component {
     render() {
         let labelType = '';
         if (this.props.type === 'P') {
-            labelType = "recipient-landing__icon-parent";
+            labelType = "recipient-landing__icon recipient-landing__icon_parent";
         } else if (this.props.type === "R") {
-            labelType = "recipient-landing__icon-recipient";
+            labelType = "recipient-landing__icon recipient-landing__icon_recipient";
         } else {
-            labelType = "recipient-landing__icon-child";
+            labelType = "recipient-landing__icon recipient-landing__icon_child";
         }
         return (
             <td className="recipient-list__body-cell">

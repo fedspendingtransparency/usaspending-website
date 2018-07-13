@@ -12,7 +12,7 @@ import * as RecipientLandingHelper from 'helpers/recipientLandingHelper';
 
 import RecipientLandingContent from 'components/recipientLanding/RecipientLandingContent';
 
-import BaseRecipientLandingRow from 'models/recipientLanding/BaseRecipientLandingRow';
+import BaseRecipientLandingRow from 'models/v2/recipient/BaseRecipientLandingRow';
 
 
 export default class RecipientLandingContainer extends React.Component {
@@ -33,7 +33,7 @@ export default class RecipientLandingContainer extends React.Component {
             pageSize: 50
         };
 
-        this.recipientssRequest = null;
+        this.recipientsRequest = null;
         this.setRecipientSearchString = this.setRecipientSearchString.bind(this);
         this.onChangePage = this.onChangePage.bind(this);
         this.setSort = this.setSort.bind(this);
@@ -137,7 +137,7 @@ export default class RecipientLandingContainer extends React.Component {
 
         data.results.forEach((item) => {
             const recipient = Object.create(BaseRecipientLandingRow);
-            recipient.parse(item);
+            recipient.populate(item);
             recipients.push(recipient);
         });
 
