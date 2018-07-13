@@ -14,6 +14,7 @@ import agencyReducer from './agency/agencyReducer';
 import explorerReducer from './explorer/explorerReducer';
 import glossaryReducer from './glossary/glossaryReducer';
 import agencyLandingReducer from './agencyLanding/agencyLandingReducer';
+import recipientReducer from './recipient/recipientReducer';
 import downloadReducer from './search/downloadReducer';
 import bulkDownloadReducer from './bulkDownload/bulkDownloadReducer';
 import redirectModalReducer from './redirectModal/redirectModalReducer';
@@ -29,6 +30,7 @@ const appReducer = combineReducers({
     agency: agencyReducer,
     glossary: glossaryReducer,
     agencyLanding: agencyLandingReducer,
+    recipient: recipientReducer,
     explorer: explorerReducer,
     bulkDownload: bulkDownloadReducer,
     redirectModal: redirectModalReducer,

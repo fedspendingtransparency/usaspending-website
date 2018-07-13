@@ -6,7 +6,7 @@
         tbody {
             tr {
                 &:nth-child(odd) {
-                    td {
+                    td, th {
                         background-color: $color-gray-lightest;
                     }
                 }
@@ -14,9 +14,12 @@
                     border: 0;
                     font-weight: $font-light;
                     padding: rem(8) rem(15);
-                    &:first-child {
-                        font-weight: $font-normal;
-                    }
+                }
+                th {
+                    font-weight: $font-normal;
+                    border: 0;
+                    padding: rem(8) rem(15);
+                    vertical-align: top;
                 }
             }
         }

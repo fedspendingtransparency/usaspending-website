@@ -1,0 +1,30 @@
+.recipients-list {
+    border: none;
+    .recipients-list__head-row {
+        border-bottom: solid 1px $color-gray-lighter;
+        .recipients-list__head-cell {
+            background-color: $color-white;
+            border: none;
+            vertical-align: top;
+
+            @import "pages/stateLanding/_header";
+            @import "pages/stateLanding/_sorter";
+        }
+    }
+
+    .recipients-list__body {
+        .recipients-list__body-row {
+            &:nth-child(even) {
+                background-color: #f7f7f7;
+            }
+        }
+        .recipients-list__body-cell {
+            border: none;
+            background-color: transparent;
+
+            &.recipients-list__body-cell_right {
+                text-align: right;
+            }
+        }
+    }
+}

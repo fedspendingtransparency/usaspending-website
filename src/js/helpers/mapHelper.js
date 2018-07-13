@@ -313,6 +313,10 @@ const stateCenters = {
         -170.721449,
         -14.299185
     ],
+    "66": [
+        144.756212,
+        13.447046
+    ],
     "69": [
         145.211236,
         14.154977
@@ -385,7 +389,7 @@ export const stateCenterFromFips = (fips) => {
     if ({}.hasOwnProperty.call(stateCenters, fips)) {
         return stateCenters[fips];
     }
-    return null;
+    return [];
 };
 
 export const calculateRange = (data) => {
