@@ -67,11 +67,13 @@ export default class RecipientTimeVisualization extends React.Component {
         const legend = [
             {
                 color: '#141D3B',
+                stroke: '#141D3B',
                 label: 'All Transactions',
                 offset: 0
             },
             {
-                color: '#F5A623',
+                color: '#FFFFFF',
+                stroke: '#F5A623',
                 label: 'Count of New Awards',
                 offset: 200
             }

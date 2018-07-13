@@ -13,7 +13,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 import BarItem from 'components/search/visualizations/time/chart/BarItem';
 import BarXAxis from 'components/search/visualizations/time/chart/BarXAxis';
 import BarYAxis from 'components/search/visualizations/time/chart/BarYAxis';
-import BarChartLegend from 'components/search/visualizations/time/chart/BarChartLegend';
+import BarChartTrendlineLegend from './BarChartTrendlineLegend';
 import BarTrendlineAxis from "./BarTrendlineAxis";
 
 /* eslint-disable react/no-unused-prop-types */
@@ -323,6 +323,7 @@ export default class BarChartTrendline extends React.Component {
                 radius: 6,
                 x: xPos,
                 y: yPos,
+                stroke: this.props.legend[1].stroke,
                 color: this.props.legend[1].color,
                 description
             };
@@ -478,7 +479,7 @@ export default class BarChartTrendline extends React.Component {
                 key={`trend-point-${index}`}
                 aria-label={point.description}>
                 <desc>{point.description}</desc>
-                <circle cx={point.x} cy={point.y} r={point.radius} stroke={point.color} strokeWidth="3" fill="#ffffff" />
+                <circle cx={point.x} cy={point.y} r={point.radius} stroke={point.stroke} strokeWidth="3" fill={point.color} />
             </g>
         ));
 
@@ -486,7 +487,7 @@ export default class BarChartTrendline extends React.Component {
         // Generate lines if there is more than one item
         if (this.state.trendItems.length > 1) {
             const style = {
-                stroke: this.props.legend[1].color,
+                stroke: this.props.legend[1].stroke,
                 strokeWidth: 3
             };
             lines = this.state.trendItems.map((point, index) => {
@@ -568,7 +569,7 @@ export default class BarChartTrendline extends React.Component {
                             transform={`translate(
                                 ${this.props.padding.left},
                                 ${this.props.height - 20})`}>
-                            <BarChartLegend legend={this.props.legend} />
+                            <BarChartTrendlineLegend legend={this.props.legend} />
                         </g>
                     </g>
                 </svg>
