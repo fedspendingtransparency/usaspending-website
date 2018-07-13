@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { isEqual } from 'lodash';
 
-import BarYAxisItem from 'components/search/visualizations/time/chart/BarYAxisItem';
-
 /* eslint-disable react/no-unused-prop-types */
 // we're catching the props before they're fully set, so eslint thinks these props are unused
 const propTypes = {
@@ -49,10 +47,6 @@ export default class BarTrendlineAxis extends React.Component {
             MoneyFormatter.formatNumber(tick)
         );
 
-        // draw the grid lines
-        const lineStart = props.padding.left;
-        const lineEnd = props.width + props.padding.left;
-
         let description = '';
         if (tickLabels.length > 0) {
             description = `The second Y-axis of the chart, showing a range of new awards from `;
@@ -70,13 +64,17 @@ export default class BarTrendlineAxis extends React.Component {
             // subtracting from the total Y axis height
             const yPos = props.height - props.scale(tick);
 
-            return (<BarYAxisItem
-                x={xPos}
-                y={yPos}
-                label={`${tickLabels[i]}`}
-                key={`label-trendline-${tick}-${i}`}
-                lineStart={lineStart}
-                lineEnd={lineEnd} />);
+            return (
+                <g
+                    key={`label-trendline-${tick}-${i}`}
+                    className="axis-item y-axis">
+                    <text
+                        textAnchor="end"
+                        transform={`translate(${xPos},${yPos + 6})`}>
+                        {tickLabels[i]}
+                    </text>
+                </g>
+            );
         });
 
         this.setState({
