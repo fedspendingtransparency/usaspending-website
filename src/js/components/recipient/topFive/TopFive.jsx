@@ -76,6 +76,7 @@ export default class TopFive extends React.Component {
                         {rows}
                     </tbody>
                 </table>
+                {/* fix the icon for links */}
                 <div className="category-table__link">
                     <a href="/#/search">
                         <img src="img/arrow-right.png" alt="" />
