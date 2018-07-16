@@ -74,6 +74,7 @@ export default class HeroTooltip extends React.Component {
         return (
             <div
                 className="homepage-hero-tooltip"
+                onMouseLeave={this.props.closeTooltip}
                 style={{
                     top: this.state.iconTop,
                     left: this.state.iconLeft
@@ -81,11 +82,6 @@ export default class HeroTooltip extends React.Component {
                 <div className="homepage-hero-tooltip__info_icon">
                     <Icons.InfoCircle />
                 </div>
-                <button
-                    className="homepage-hero-tooltip__close_icon"
-                    onClick={this.props.closeTooltip}>
-                    <Icons.Close />
-                </button>
                 <div className="homepage-hero-tooltip__text_holder">
                     <div className="homepage-hero-tooltip__tooltip_title">
                         Data Source:
@@ -103,6 +99,6 @@ export default class HeroTooltip extends React.Component {
             </div>
         );
     }
-};
+}
 
 HeroTooltip.propTypes = propTypes;

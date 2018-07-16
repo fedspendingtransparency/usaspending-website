@@ -84,6 +84,7 @@ export default class DetailsTooltip extends React.Component {
         return (
 
             <div
+                onMouseLeave={this.props.closeTooltip}
                 className="state-overview-tooltip"
                 style={{
                     top: this.state.iconTop,
@@ -92,13 +93,6 @@ export default class DetailsTooltip extends React.Component {
                 <div className="state-overview-tooltip__info_icon">
                     <Icons.InfoCircle />
                 </div>
-                <button
-                    className="state-overview-tooltip__close_icon"
-                    id="state-overview-tooltip__close_icon"
-                    aria-label="Close tooltip"
-                    onClick={this.props.closeTooltip}>
-                    <Icons.Close />
-                </button>
                 <div className="state-overview-tooltip__text_holder">
                     <div className="state-overview-tooltip__tooltip_title">
                         Data Sources
