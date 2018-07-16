@@ -98,12 +98,11 @@ export default class RecipientLandingContainer extends React.Component {
         });
 
         // generate the params
-        const pageSize = 50;
         const params = {
             order: this.state.order.direction,
             sort: this.state.order.field,
             page: this.state.pageNumber,
-            limit: pageSize
+            limit: this.state.pageSize
         };
 
         if (this.state.searchString !== '') {
