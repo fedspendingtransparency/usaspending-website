@@ -66,7 +66,7 @@ export default class BarTrendlineAxis extends React.Component {
 
             return (
                 <g
-                    key={`label-trendline-${tick}-${i}`}
+                    key={`label-trendline-${tick}`}
                     className="axis-item y-axis">
                     <text
                         textAnchor="end"

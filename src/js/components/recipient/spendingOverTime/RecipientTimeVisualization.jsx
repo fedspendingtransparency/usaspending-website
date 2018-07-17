@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
 import TimeTooltip from 'components/state/spendingovertime/StateTimeVisualizationTooltip';
 import BarChartTrendline from './chart/BarChartTrendline';
+import PointTooltip from './PointTooltip';
 
 const defaultProps = {
     groups: [],
@@ -101,12 +102,26 @@ export default class RecipientTimeVisualization extends React.Component {
 
         let tooltip = null;
         if (this.state.tooltipData && window.innerWidth > 720) {
-            tooltip = (<TimeTooltip
-                barWidth={this.state.barWidth}
-                data={this.state.tooltipData}
-                x={this.state.tooltipX}
-                y={this.state.tooltipY}
-                chartWidth={this.props.width} />);
+            if (this.state.tooltipData.type === 'bar') {
+                tooltip = (
+                    <TimeTooltip
+                        barWidth={this.state.barWidth}
+                        data={this.state.tooltipData}
+                        x={this.state.tooltipX}
+                        y={this.state.tooltipY}
+                        chartWidth={this.props.width} />
+                );
+            }
+            else if (this.state.tooltipData.type === 'point') {
+                tooltip = (
+                    <PointTooltip
+                        barWidth={this.state.barWidth}
+                        data={this.state.tooltipData}
+                        x={this.state.tooltipX}
+                        y={this.state.tooltipY}
+                        chartWidth={this.props.width} />
+                );
+            }
         }
 
         return (

@@ -13,7 +13,6 @@ import RecipientTimeVisualization from './RecipientTimeVisualization';
 
 const propTypes = {
     data: PropTypes.object,
-    xSeries: PropTypes.array,
     loading: PropTypes.bool,
     visualizationPeriod: PropTypes.string,
     updateVisualizationPeriod: PropTypes.func
@@ -64,7 +63,8 @@ export default class RecipientTimeVisualizationSection extends React.Component {
                         this.sectionHr = hr;
                     }} />
                 <div className="recipient-section__description">
-                    This graph shows trends over time for all transactions to this recipient. Hover over the bars for more detailed information.
+                    This graph shows trends over time for all transactions to this recipient.
+                    Hover over the bars for more detailed information.
                 </div>
                 <div className="recipient-visualization-period">
                     <div className="visualization-period">

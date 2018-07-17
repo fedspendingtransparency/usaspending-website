@@ -14,7 +14,8 @@ import BarItem from 'components/search/visualizations/time/chart/BarItem';
 import BarXAxis from 'components/search/visualizations/time/chart/BarXAxis';
 import BarYAxis from 'components/search/visualizations/time/chart/BarYAxis';
 import BarChartTrendlineLegend from './BarChartTrendlineLegend';
-import BarTrendlineAxis from "./BarTrendlineAxis";
+import BarTrendlineAxis from './BarTrendlineAxis';
+import PointItem from './PointItem';
 
 /* eslint-disable react/no-unused-prop-types */
 // we're catching the props before they're fully set, so eslint thinks these props are unused
@@ -65,14 +66,19 @@ export default class BarChartTrendline extends React.Component {
             xAxisPos: 0,
             graphHeight: 0,
             activeBar: null,
+            activePoint: null,
             groupWidth: 0
         };
 
         this.dataPoints = {};
+        this.trendlineData = {};
 
         this.selectBar = this.selectBar.bind(this);
         this.deselectBar = this.deselectBar.bind(this);
         this.deregisterBar = this.deregisterBar.bind(this);
+        this.selectPoint = this.selectPoint.bind(this);
+        this.deselectPoint = this.deselectPoint.bind(this);
+        this.deregisterPoint = this.deregisterPoint.bind(this);
     }
 
     componentDidMount() {
@@ -288,8 +294,8 @@ export default class BarChartTrendline extends React.Component {
             }
         }
         else {
-            // when there is no data, fall back to an arbitrary default trendline axis scale (since there's
-            // no data to display)
+            // when there is no data, fall back to an arbitrary default trendline
+            // axis scale (since there's no data to display)
             zRange.push(0);
             zRange.push(100);
         }
@@ -317,15 +323,17 @@ export default class BarChartTrendline extends React.Component {
             const description = `New awards in ${group}: ${zData}`;
 
             const point = {
-                key: `data-${group}-new-awards`,
-                identifier: `${group}-new-awards`,
+                key: `data-${group}-awards`,
+                identifier: `${groupIndex}-${group}-awards`,
                 dataZ: zData,
-                radius: 6,
                 x: xPos,
                 y: yPos,
                 stroke: this.props.legend[1].stroke,
                 color: this.props.legend[1].color,
-                description
+                description,
+                selectPoint: this.selectPoint,
+                deselectPoint: this.deselectPoint,
+                deregisterPoint: this.deregisterPoint
             };
             trendItems.push(point);
         });
@@ -364,6 +372,30 @@ export default class BarChartTrendline extends React.Component {
         });
     }
 
+    selectPoint(pointIdentifier, isTouch = false) {
+        if (!this.props.enableHighlight) {
+            // highlighting is disabled
+            return;
+        }
+
+        if (isTouch && this.state.activePoint === pointIdentifier) {
+            // a touch event occurred on an already active point, this indicates a deselection
+            this.deselectPoint();
+            return;
+        }
+
+        this.setState({
+            activePoint: pointIdentifier
+        }, () => {
+            // notify child items of the change
+            forEach(this.trendlineData, (value) => {
+                value.updateActive(this.state.activePoint);
+            });
+
+            this.preparePointTooltip(pointIdentifier);
+        });
+    }
+
     deselectBar() {
         if (!this.props.enableHighlight) {
             // highlighting is disabled
@@ -383,9 +415,32 @@ export default class BarChartTrendline extends React.Component {
         });
     }
 
+    deselectPoint() {
+        if (!this.props.enableHighlight) {
+            // highlighting is disabled
+            return;
+        }
+
+        this.setState({
+            activePoint: null
+        }, () => {
+            // notify all the child items of the change
+            forEach(this.trendlineData, (value) => {
+                value.updateActive(this.state.activePoint);
+            });
+
+            // hide the tooltip
+            this.props.showTooltip(null, 0, 0);
+        });
+    }
+
     deregisterBar(barIdentifier) {
         // the data point is about to be unmounted, remove it from the data point object
         delete this.dataPoints[barIdentifier];
+    }
+
+    deregisterPoint(pointIdentifier) {
+        delete this.trendlineData[pointIdentifier];
     }
 
     prepareTooltip(barIdentifier) {
@@ -442,9 +497,35 @@ export default class BarChartTrendline extends React.Component {
 
         // show the tooltip
         this.props.showTooltip({
+            type: 'bar',
             xValue: this.state.items[groupIndex].dataX,
             yValue: this.state.items[groupIndex].dataY,
             percentage,
+            group: groupLabel
+        }, xPos, yPos, this.state.items[groupIndex].width);
+    }
+
+    preparePointTooltip(pointIdentifier) {
+        // fetch the original data
+        const groupIndex = pointIdentifier.split('-')[0];
+        const groupLabel = this.props.groups[groupIndex];
+        const zValue = this.props.zSeries[groupIndex];
+
+        const chartTop = this.divRef.offsetTop;
+        const chartLeft = this.divRef.offsetLeft;
+
+        const point = this.state.trendItems[groupIndex];
+        const xPos = (
+            chartLeft +
+            point.x - 9 +
+            this.state.items[groupIndex].width +
+            this.props.padding.left);
+        const yPos = chartTop + point.y;
+
+        // show the tooltip
+        this.props.showTooltip({
+            type: 'point',
+            zValue,
             group: groupLabel
         }, xPos, yPos, this.state.items[groupIndex].width);
     }
@@ -475,12 +556,20 @@ export default class BarChartTrendline extends React.Component {
         ));
 
         const points = this.state.trendItems.map((point, index) => (
-            <g
-                key={`trend-point-${index}`}
-                aria-label={point.description}>
-                <desc>{point.description}</desc>
-                <circle cx={point.x} cy={point.y} r={point.radius} stroke={point.stroke} strokeWidth="3" fill={point.color} />
-            </g>
+            <PointItem
+                key={point.key}
+                identifier={point.identifier}
+                description={point.description}
+                x={point.x}
+                y={point.y}
+                stroke={point.stroke}
+                color={point.color}
+                selectPoint={point.selectPoint}
+                deselectPoint={point.deselectPoint}
+                deregisterPoint={point.deregisterPoint}
+                ref={(component) => {
+                    this.trendlineData[point.identifier] = component;
+                }} />
         ));
 
         let lines = null;
@@ -499,7 +588,7 @@ export default class BarChartTrendline extends React.Component {
                     return (
                         <g
                             aria-label={description}
-                            key={`trend-line-${index}`}>
+                            key={`line-${point.key}`}>
                             <desc>{description}</desc>
                             <line x1={point.x} y1={point.y} x2={nextPoint.x} y2={nextPoint.y} style={style} />
                         </g>
