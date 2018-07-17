@@ -12,7 +12,8 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 const propTypes = {
     closeTooltip: PropTypes.func,
     message: PropTypes.string,
-    placement: PropTypes.string
+    placement: PropTypes.string,
+    showInfoTooltip: PropTypes.bool
 };
 
 
@@ -29,15 +30,19 @@ export default class RecipientLandingTooltip extends React.Component {
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+        this.setWrapperRef = this.setWrapperRef.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentDidMount() {
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
+        document.addEventListener('mousedown', this.handleClickOutside);
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
+        document.removeEventListener('mousedown', this.handleClickOutside);
     }
 
     getPosition() {
@@ -46,6 +51,16 @@ export default class RecipientLandingTooltip extends React.Component {
         const iconLeft = (icon.offsetLeft + icon.offsetWidth) - tooltipPadding;
 
         return { iconTop, iconLeft };
+    }
+
+    setWrapperRef(node) {
+        this.wrapperRef = node;
+    }
+
+    handleClickOutside(event) {
+        if (this.props.showInfoTooltip && this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            this.props.closeTooltip();
+        }
     }
 
     handleWindowResize() {
@@ -66,6 +81,7 @@ export default class RecipientLandingTooltip extends React.Component {
     render() {
         return (
             <div
+                ref={this.setWrapperRef}
                 className="homepage-hero-tooltip"
                 onMouseLeave={this.props.closeTooltip}
                 style={{
@@ -83,6 +99,6 @@ export default class RecipientLandingTooltip extends React.Component {
             </div>
         );
     }
-};
+}
 
 RecipientLandingTooltip.propTypes = propTypes;

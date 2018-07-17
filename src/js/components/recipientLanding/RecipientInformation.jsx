@@ -42,6 +42,7 @@ export default class RecipientInformation extends React.Component {
         if (this.state.showInfoTooltip) {
             tooltip = (
                 <RecipientLandingTooltip
+                    showInfoTooltip={this.state.showInfoTooltip}
                     placement={this.props.placement}
                     closeTooltip={this.closeTooltip}
                     message={this.props.message} />
