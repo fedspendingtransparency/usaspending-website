@@ -20,7 +20,7 @@ describe('BaseStateLandingItem', () => {
 
             expect(item.fips).toEqual('01');
             expect(item.code).toEqual('XX');
-            expect(item.name).toEqual('State Name');
+            expect(item.name).toEqual('State Name (XX)');
             expect(item._amount).toEqual(1234.90);
         });
         it('should use sensible defaults when fields are not provided', () => {
