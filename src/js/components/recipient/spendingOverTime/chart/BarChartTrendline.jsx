@@ -517,7 +517,7 @@ export default class BarChartTrendline extends React.Component {
         const point = this.state.trendItems[groupIndex];
         const xPos = (
             chartLeft +
-            point.x - 9 +
+            (point.x - 9) +
             this.state.items[groupIndex].width +
             this.props.padding.left);
         const yPos = chartTop + point.y;
@@ -525,6 +525,7 @@ export default class BarChartTrendline extends React.Component {
         // show the tooltip
         this.props.showTooltip({
             type: 'point',
+            xValue: this.state.items[groupIndex].dataX,
             zValue,
             group: groupLabel
         }, xPos, yPos, this.state.items[groupIndex].width);
@@ -555,7 +556,7 @@ export default class BarChartTrendline extends React.Component {
                 }} />
         ));
 
-        const points = this.state.trendItems.map((point, index) => (
+        const points = this.state.trendItems.map((point) => (
             <PointItem
                 key={point.key}
                 identifier={point.identifier}
