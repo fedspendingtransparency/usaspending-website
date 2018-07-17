@@ -50,6 +50,7 @@ export default class RootHeader extends React.Component {
         if (this.state.showInfoTooltip) {
             tooltip = (
                 <ExplorerInfoToolTip
+                    showInfoTooltip={this.state.showInfoTooltip}
                     closeTooltip={this.closeTooltip} />
             );
         }
