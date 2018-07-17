@@ -1,6 +1,6 @@
 /**
  * topCategories.js
- * Created by Kevin Li 5/15/18
+ * Created by Kwadwo Opoku-Debrah 07/10/18
  */
 
 export const recipientCategories = [
@@ -9,7 +9,7 @@ export const recipientCategories = [
     'federal_accounts',
     'cfda',
     'naics',
-    'product_service',
+    'psc',
     'countries',
     'states_and_territories'
 ];
@@ -20,7 +20,7 @@ export const recipientCategoryTitles = {
     federal_accounts: 'Federal Accounts',
     cfda: 'CFDA Programs',
     naics: 'NAICS Codes',
-    product_service: 'Product Service Codes',
+    psc: 'Product Service Codes',
     countries: 'Countries',
     states_and_territories: 'U.S. States or Territories'
 };

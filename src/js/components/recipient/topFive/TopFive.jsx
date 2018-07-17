@@ -77,12 +77,14 @@ export default class TopFive extends React.Component {
                         {rows}
                     </tbody>
                 </table>
+
+                { /* Out of current sprint scope
                 <div className="category-table__link">
                     <a href="/#/search">
                         <CircleArrowLeft />
                         <span>Explore more in Advanced Search.</span>
                     </a>
-                </div>
+                </div> */}
             </div>);
     }
 

@@ -30,7 +30,6 @@ This endpoint returns a list of the top results of specific categories sorted by
             + `county`
             + `district`
             + `federal_accounts`
-            + `product_service`
             + `countries`
             <!-- + `states_and_territories` -->
         + filters (required, FilterObject)
