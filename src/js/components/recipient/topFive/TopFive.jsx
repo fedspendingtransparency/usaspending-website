@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { recipientCategoryTitles } from 'dataMapping/recipients/topCategories';
-import { CircleArrowLeft } from 'components/sharedComponents/icons/Icons';
+// import { CircleArrowLeft } from 'components/sharedComponents/icons/Icons';
 
 import TopFiveRow from './TopFiveRow';
 
