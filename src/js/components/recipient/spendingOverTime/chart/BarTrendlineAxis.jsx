@@ -43,12 +43,12 @@ export default class BarTrendlineAxis extends React.Component {
         }
         // generate the labels
         const tickLabels = props.ticks.map((tick) => {
-                // format the tick label based on the numerical unit chosen for the axis
-                if (tick >= MoneyFormatter.unitValues.THOUSAND) {
-                    const units = MoneyFormatter.calculateUnitForSingleValue(tick);
-                    return `${MoneyFormatter.formatNumberWithPrecision(tick / units.unit, 1)} ${units.unitLabel}`;
-                }
-                return MoneyFormatter.formatNumber(tick);
+            // format the tick label based on the numerical unit chosen for the axis
+            if (tick >= MoneyFormatter.unitValues.THOUSAND) {
+                const units = MoneyFormatter.calculateUnitForSingleValue(tick);
+                return `${MoneyFormatter.formatNumberWithPrecision(tick / units.unit, 1)} ${units.unitLabel}`;
+            }
+            return MoneyFormatter.formatNumber(tick);
         });
 
         let description = '';

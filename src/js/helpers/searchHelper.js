@@ -287,8 +287,8 @@ const mockQuarterData = {
                 quarter: 3,
                 fiscal_year: '2017'
             },
-            aggregated_amount: 100.25,
-            new_awards: -2
+            aggregated_amount: -100.25,
+            new_awards: 0
         }, {
             time_period: {
                 quarter: 4,
