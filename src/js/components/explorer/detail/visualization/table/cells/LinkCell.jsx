@@ -28,7 +28,7 @@ export default class LinkCell extends React.Component {
         if (this.props.name === 'Unreported Data') {
             this.props.goToUnreported(this.props.data);
         } else {
-            this.props.selectedRow(parseInt(this.props.id, 10), this.props.data);
+            this.props.selectedRow(this.props.id, this.props.data);
         }
     }
 

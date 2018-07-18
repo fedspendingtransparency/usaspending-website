@@ -1,0 +1,32 @@
+.dropdown-option {
+    @include button-unstyled;
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+    position: relative;
+
+    padding: rem(15) rem(25);
+    width: 100%;
+
+    .dropdown-option__icon {
+        @include flex(0 0 auto);
+        width: rem(15);
+        height: rem(15);
+
+        margin-right: rem(25);
+
+        svg {
+            width: rem(15);
+            height: rem(15);
+            fill: $color-base;
+        }
+    }
+
+    .dropdown-option__label {
+        @include flex(1 1 auto);
+        color: $color-base;
+
+        font-size: rem(16);
+        line-height: rem(20);
+    }
+}
