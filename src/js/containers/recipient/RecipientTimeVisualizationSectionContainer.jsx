@@ -131,7 +131,7 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
         const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
 
         if (group === 'fiscal_year') {
-            return type === 'label' ? `${timePeriod.fiscal_year}` : { period: null, year: timePeriod.fiscal_year };
+            return type === 'label' ? `FY ${timePeriod.fiscal_year}` : { period: null, year: `FY ${timePeriod.fiscal_year}` };
         }
         else if (group === 'quarter') {
             return type === 'label' ? `Q${timePeriod.quarter} ${timePeriod.fiscal_year}` : { period: `Q${timePeriod.quarter}`, year: `${timePeriod.fiscal_year}` };

@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
 const propTypes = {
     y: PropTypes.number,
     x: PropTypes.number,
@@ -62,7 +64,7 @@ export default class TimeVisualizationTooltip extends React.Component {
                     <div className="tooltip-body">
                         <div className="tooltip-full">
                             <div className="tooltip-value">
-                                {this.props.data.zValue}
+                                {MoneyFormatter.formatNumber(this.props.data.zValue)}
                             </div>
                             <div className="tooltip-label">
                                 New Awards

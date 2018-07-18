@@ -10,12 +10,12 @@ import { isEqual, flattenDeep, min, max, mean, forEach, sum } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-import BarItem from 'components/search/visualizations/time/chart/BarItem';
 import BarXAxis from 'components/search/visualizations/time/chart/BarXAxis';
 import BarYAxis from 'components/search/visualizations/time/chart/BarYAxis';
 import BarChartTrendlineLegend from './BarChartTrendlineLegend';
 import BarTrendlineAxis from './BarTrendlineAxis';
 import PointItem from './PointItem';
+import BarTrendlineItem from './BarTrendlineItem';
 
 /* eslint-disable react/no-unused-prop-types */
 // we're catching the props before they're fully set, so eslint thinks these props are unused
@@ -536,7 +536,7 @@ export default class BarChartTrendline extends React.Component {
         // wrap the chart contents in a group and transform it down 20px to avoid impacting
         // positioning calculations
         const bars = this.state.items.map((item) => (
-            <BarItem
+            <BarTrendlineItem
                 key={item.key}
                 identifier={item.identifier}
                 dataY={item.dataY}
