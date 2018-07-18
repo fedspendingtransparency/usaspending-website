@@ -100,6 +100,7 @@ export default class DetailsTooltip extends React.Component {
 
             <div
                 ref={this.setWrapperRef}
+                onBlur={this.props.closeTooltip}
                 onMouseLeave={this.props.closeTooltip}
                 className="state-overview-tooltip"
                 style={{
