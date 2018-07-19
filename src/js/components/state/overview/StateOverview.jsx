@@ -128,6 +128,7 @@ export default class StateOverview extends React.PureComponent {
                                         id="details__info_icon"
                                         className="details__info_icon"
                                         onFocus={this.showTooltip}
+                                        onBlur={this.closeTooltip}
                                         onMouseEnter={this.showTooltip}
                                         onClick={this.showTooltip}>
                                         <InfoCircle />
