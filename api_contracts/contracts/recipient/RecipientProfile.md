@@ -41,7 +41,7 @@ This endpoint returns a list of recipients, their level, DUNS, and amount.
             + grants
             + loans
             + direct_payments
-            + other_financial_assistance
+            + other
 
 ### List Recipients [POST]
 
