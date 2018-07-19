@@ -96,7 +96,7 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 + place_of_performance_locations (optional, array[LocationObject], fixed-type)
 + agencies (optional, array[AgencyObject])
 + recipient_search_text: kearney (optional, array[string])
-+ recipient_id: `123ABC-R` (optional, string)
++ recipient_hash: `123ABC-R` (optional, string)
     A hash of recipient DUNS, name, and level. A unique identifier for recipients, used for profile page urls.
 + recipient_scope: domestic (optional, enum[string])
     + domestic

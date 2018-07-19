@@ -87,11 +87,7 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
         ];
 
         const searchParams = {
-            // TODO - Lizzie: implement solution for recipients without DUNS
-            recipient_search_text: [
-                this.props.recipient.overview.duns,
-                this.props.recipient.overview.name
-            ]
+            recipient_hash: this.props.recipient.id
         };
 
         searchParams.time_period = timePeriod;
