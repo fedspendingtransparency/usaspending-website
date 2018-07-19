@@ -25,7 +25,7 @@ export default class TopFiveSection extends React.Component {
                 </h3>
                 <hr className="results-divider" />
                 <div className="state-section__description">
-                    The set of tables below gives a summary of key attributes for this recipient. To see more than the top 5, you can launch directly to our Advanced Search page.
+                    The set of tables below provide a summary of awards to this recipient through multiple angles. To see more than the top 5, you can visit our Advanced Search page.
                 </div>
                 <div className="topfive__content">
                     {content}
