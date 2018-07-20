@@ -64,6 +64,8 @@ export default class FiscalYearFilter extends React.Component {
                             pickedQuarter={this.pickedQuarter}
                             pickedYear={this.pickedYear} />
                     </div>
+                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> The data included in the Custom Account Download is reported through a newly implemented law (the Digital Accountability and Transparency Act of 2014 (DATA Act)) that requires agencies to link their financial data, in addition to the award data that agencies were already reporting under the Federal Funding Accountability and Transparency Act of 2006 (FFATA). This data was first collected in the second quarter of fiscal year 2017.</p>
+                    <p className="download-filter__content-note">The Account Balances and Account Breakdown by Program Activity & Object Class files contain cumulative financial balances at the account and agency levels, as of the end of the quarter selected. The Account Breakdown by Award file contains every transaction reported at the account and agency levels, for the fiscal year through the end of the quarter selected.</p>
                 </div>
             </div>
         );
