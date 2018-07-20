@@ -7,7 +7,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const BaseChildRecipient = {
     populate(data) {
-        this.id = data.id || null;
+        this.id = data.recipient_id || null;
         this.name = data.name || '';
         this.duns = data.duns || 'Not provided';
         this._amount = parseFloat(data.amount) || 0;

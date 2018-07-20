@@ -93,11 +93,11 @@ This endpoint returns a list of child recipients belonging to the given parent r
     Name of the recipient.
 + duns: `0123456` (required, string, nullable)
     Recipient's DUNS (Data Universal Numbering System) number. `null` when no DUNS is provided.
-+ id: `abc123-R` (required, string)
++ `recipient_id`: `abc123-R` (required, string)
     A unique identifier for the recipient at this `recipient_level`.
 + amount: 30020000000 (required, number)
     The aggregate monetary value of all transactions associated with this recipient for the trailing 12 months.
-+ recipient_level: R (required, string)
++ `recipient_level`: R (required, string)
     A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient. 
     + Members
         + R
@@ -117,7 +117,7 @@ This endpoint returns a list of child recipients belonging to the given parent r
     Name of the recipient.
 + duns: `0123456` (required, string, nullable)
     Recipient's DUNS (Data Universal Numbering System) number. `null` when no DUNS is provided.
-+ id: `abc123-P` (required, string)
++ `recipient_id`: `abc123-P` (required, string)
     A unique identifier for the recipient.
 + `parent_name`: The XYZ Corporation (required, string, nullable)
     Parent recipient's name. `null` if the recipient does not have a parent recipient.
@@ -172,9 +172,9 @@ This endpoint returns a list of child recipients belonging to the given parent r
     Name of the child recipient.
 + duns: `345678` (required, string, nullable)
     Child recipient's DUNS. `null` if the child recipient's DUNS is not provided.
-+ id: `abc123-C` (required, string)
++ `recipient_id`: `abc123-C` (required, string)
     A unique identifier for the child recipient.
-+ state_province: New Jersey (required, string)
++ `state_province`: New Jersey (required, string)
     The state or province in which the child recipient is located.
 + amount: 300200000 (required, number)
     The aggregate monetary value of transactions associated with this child recipient for the selected time period.

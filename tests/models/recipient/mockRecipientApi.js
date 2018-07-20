@@ -4,7 +4,7 @@
  */
 
 export const mockRecipientOverview = {
-    id: '0123456-ABC-P',
+    recipient_id: '0123456-ABC-P',
     name: 'The ABC Corporation',
     duns: '0123456',
     parent_name: 'The XYZ Corporation',
@@ -27,14 +27,14 @@ export const mockRecipientOverview = {
 
 export const mockChildRecipients = [
     {
-        id: '345678-ABC-C',
+        recipient_id: '345678-ABC-C',
         name: "Child of ABC Corporation",
         duns: "345678",
         state_province: "New Jersey",
         amount: 30020000
     },
     {
-        id: '654321-ABC-C',
+        recipient_id: '654321-ABC-C',
         name: "Another Child of ABC Corporation",
         duns: "654321",
         state_province: "Tennessee",
