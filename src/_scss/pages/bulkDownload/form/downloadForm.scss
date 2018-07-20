@@ -34,6 +34,16 @@
                 @import "fyPicker";
             }
         }
+
+        .download-filter__content-note {
+            font-style: italic;
+            font-size: rem(14);
+            line-height: rem(18);
+        }
+
+        .download-filter__content-note_bold {
+            font-weight: 600;
+        }
         .download-checkbox {
             padding: rem(10) 0;
             input {
