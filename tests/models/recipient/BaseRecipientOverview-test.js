@@ -30,4 +30,11 @@ describe('BaseRecipientOverview', () => {
         updatedRecipient.populate(updatedData);
         expect(updatedRecipient.duns).toEqual('Not provided');
     });
+    it('should parse the business types into readable names', () => {
+        const expected = [
+            'Minority Owned Business',
+            'For Profit Organization'
+        ];
+        expect(recipient.businessTypes).toEqual(expected);
+    })
 });

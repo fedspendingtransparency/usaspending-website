@@ -119,20 +119,20 @@ This endpoint returns a list of child recipients belonging to the given parent r
     Recipient's DUNS (Data Universal Numbering System) number. `null` when no DUNS is provided.
 + id: `abc123-P` (required, string)
     A unique identifier for the recipient.
-+ parent_name: The XYZ Corporation (required, string, nullable)
++ `parent_name`: The XYZ Corporation (required, string, nullable)
     Parent recipient's name. `null` if the recipient does not have a parent recipient.
-+ parent_duns: `0987654` (required, string, nullable)
++ `parent_duns`: `0987654` (required, string, nullable)
     Parent recipient's DUNS number. `null` if the recipient does not have a parent recipient, or the parent recipient's DUNS is not provided.
-+ parent_id: `xyz123-R` (required, string, nullable)
++ `parent_id`: `xyz123-R` (required, string, nullable)
     A unique identifier for the parent recipient. `null` if the recipient does not have a parent recipient.
 + location: (required, RecipientLocation, fixed-type)
-+ business_types: Corporate Entity, For Profit Organization (required, array[string], fixed-type)
-    An array of business types used to categorize recipients.
-+ total_transaction_amount: 30020000000 (required, number)
++ `business_types`: `minority_owned_business`, `for_profit_organization` (required, array[string], fixed-type)
+    An array of business type field names used to categorize recipients.
++ `total_transaction_amount`: 30020000000 (required, number)
     The aggregate monetary value of all transactions associated with this recipient for the given time period.
-+ total_transactions: 327721 (required, number)
++ `total_transactions`: 327721 (required, number)
     The number of transactions associated with this recipient for the given time period.
-+ recipient_level: P (required, string)
++ `recipient_level`: P (required, string)
     A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient. 
     + Members
         + R
