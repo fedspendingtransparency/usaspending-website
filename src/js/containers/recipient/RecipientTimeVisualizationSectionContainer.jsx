@@ -87,7 +87,7 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
         ];
 
         const searchParams = {
-            recipient_hash: this.props.recipient.id
+            recipient_id: this.props.recipient.id
         };
 
         searchParams.time_period = timePeriod;
@@ -101,7 +101,7 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
 
         apiParams.auditTrail = 'Recipient Spending Over Time Visualization';
 
-        this.apiRequest = SearchHelper.mockSpendingOverTimeSearch(apiParams);
+        this.apiRequest = SearchHelper.performSpendingOverTimeSearch(apiParams);
 
         this.apiRequest.promise
             .then((res) => {
