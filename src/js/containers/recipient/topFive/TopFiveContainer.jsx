@@ -20,7 +20,8 @@ import TopFive from 'components/recipient/topFive/TopFive';
 const propTypes = {
     total: PropTypes.number,
     category: PropTypes.string,
-    fy: PropTypes.string
+    fy: PropTypes.string,
+    recipientHash: PropTypes.string
 };
 
 export class TopFiveContainer extends React.Component {
@@ -41,6 +42,9 @@ export class TopFiveContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        if (prevProps.recipientHash !== this.props.recipientHash) {
+            this.loadCategory();
+        }
         if (prevProps.fy !== this.props.fy) {
             this.loadCategory();
         }
@@ -64,12 +68,7 @@ export class TopFiveContainer extends React.Component {
         }
 
         const filters = {
-            place_of_performance_scope: 'domestic',
-            place_of_performance_locations: [
-                {
-                    country: 'USA'
-                }
-            ]
+            recipientHash: this.props.recipientHash
         };
 
         if (timePeriod) {
@@ -146,7 +145,8 @@ export class TopFiveContainer extends React.Component {
 export default connect(
     (state) => ({
         total: state.recipient.overview._totalAmount,
-        fy: state.recipient.fy
+        fy: state.recipient.fy,
+        recipientHash: state.recipient.overview.recipientHash
     })
 )(TopFiveContainer);
 

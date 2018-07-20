@@ -57,8 +57,10 @@ This endpoint returns a list of child recipients belonging to the given parent r
     The aggregate monetary value of all transactions associated with this recipient for the given time period.
 + total_transactions: 327721 (required, number)
     The number of transactions associated with this recipient for the given time period.
++ recipientHash: a1e2f7b4-073b-1174-255b-8a32d0d6a6dd-P (required, string)
+    Unique hash for recipient.
 + recipient_level: P (required, string)
-    A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient. 
+    A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient.
     + Members
         + R
         + P

@@ -16,6 +16,7 @@ const BaseRecipientOverview = {
         this._totalTransactions = parseFloat(data.total_transactions) || 0;
         this.businessTypes = data.business_types || [];
         this.level = data.recipient_level || 'R';
+        this.recipientHash = data.recipientHash || null;
 
         // Recipient Location
         let locationData = {};

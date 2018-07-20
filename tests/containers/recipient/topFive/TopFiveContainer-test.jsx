@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import { TopFiveContainer } from 'containers/recipient/topFive/TopFiveContainer';
 
@@ -12,7 +12,7 @@ import { TopFiveContainer } from 'containers/recipient/topFive/TopFiveContainer'
 jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/state/topFive/TopFiveSection', () => jest.fn(() => null));
+jest.mock('components/recipient/topFive/TopFiveSection', () => jest.fn(() => null));
 
 
 const mockRedux = {
@@ -22,6 +22,19 @@ const mockRedux = {
 
 describe('TopFiveContainer', () => {
     describe('dataParams', () => {
+        it('should reload data when the recipient Hash is recieved', () => {
+            const container = mount(<TopFiveContainer
+                {...mockRedux}
+                category="awarding_agency" />);
+
+            container.instance().loadCategory = jest.fn();
+
+            container.setProps({
+                recipientHash: '073b'
+            });
+
+            expect(container.instance().loadCategory).toHaveBeenCalledTimes(1);
+        });
         it('should provide a category in the API request body', () => {
             const container = shallow(<TopFiveContainer
                 {...mockRedux}
