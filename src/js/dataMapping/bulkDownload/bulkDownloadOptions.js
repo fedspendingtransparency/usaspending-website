@@ -162,7 +162,7 @@ export const accountDownloadOptions = {
         },
         {
             name: 'accountBreakdownByAward',
-            label: 'Account Breakdown by Award',
+            label: 'Account Breakdown by Award*',
             apiName: 'award_financial',
             file: 'File C'
         }

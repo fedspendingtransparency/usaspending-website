@@ -66,7 +66,7 @@ export default class SubmissionTypeFilter extends React.Component {
                 </h3>
                 <div className="download-filter__content">
                     {submissionTypes}
-                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> This file links agency financial data to award data. Columns related to award data will be blank when this linkage cannot be made.</p>
+                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">*Note:</span> This file links agency financial data to award data. Columns related to award data will be blank when this linkage cannot be made.</p>
                 </div>
             </div>
         );
