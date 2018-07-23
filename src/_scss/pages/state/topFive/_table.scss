@@ -12,9 +12,9 @@
         }
     }
 
-		.category-table__table-head-row th:nth-child(2){
+  .category-table__table-head-row th:nth-child(2){
         min-width: 150px;
-		}
+  }
     .category-table__title {
 
         @include display(flex);
@@ -90,32 +90,32 @@
 
     .category-table__message {
         margin: rem(10) 0;
-				color:$color-gray-light;
+        color:$color-gray-light;
         font-size: rem(18);
         text-align: center;
-				background-color: #FCFCFC;
-				height: 100%;
-				min-height: 68px;
-				vertical-align: middle;
-				line-height: 68px;
-				border-radius: rem(5);
-				border: rem(1) solid #D5D6D8;
+        background-color: #FCFCFC;
+        height: 100%;
+        min-height: 68px;
+        vertical-align: middle;
+        line-height: 68px;
+        border-radius: rem(5);
+        border: rem(1) solid #D5D6D8;
     }
 
-		.category-table__link {
-				margin: rem(11) 0;
-				svg {
-				    height:rem(15);
-				    fill:$color-link;
-				    width:rem(15);
-				    transform:rotate(180deg);
-				    margin-right:rem(2.5);
-				}
-				span {
-				    font-size: rem(13);
-				    position:  relative;
-				    margin-left: rem(3);
-				    bottom: rem(3);
-				}
+  .category-table__link {
+      margin: rem(11) 0;
+      svg {
+          height:rem(15);
+          fill:$color-link;
+          width:rem(15);
+          transform:rotate(180deg);
+          margin-right:rem(2.5);
+      }
+      span {
+          font-size: rem(13);
+          position:  relative;
+          margin-left: rem(3);
+          bottom: rem(3);
+       }
     }
-	}
+  }

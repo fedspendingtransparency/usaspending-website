@@ -68,7 +68,7 @@ export class TopFiveContainer extends React.Component {
         }
 
         const filters = {
-            recipientHash: this.props.recipientHash
+            recipient_id: this.props.recipientHash
         };
 
         if (timePeriod) {

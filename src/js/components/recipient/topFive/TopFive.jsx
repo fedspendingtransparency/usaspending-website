@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { recipientCategoryTitles } from 'dataMapping/recipients/topCategories';
-// import { CircleArrowLeft } from 'components/sharedComponents/icons/Icons';
 
 import TopFiveRow from './TopFiveRow';
 
@@ -77,14 +76,6 @@ export default class TopFive extends React.Component {
                         {rows}
                     </tbody>
                 </table>
-
-                { /* Out of current sprint scope
-                <div className="category-table__link">
-                    <a href="/#/search">
-                        <CircleArrowLeft />
-                        <span>Explore more in Advanced Search.</span>
-                    </a>
-                </div> */}
             </div>);
     }
 
