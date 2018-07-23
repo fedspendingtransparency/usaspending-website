@@ -41,3 +41,19 @@ export const fetchChildRecipients = (duns, year) => {
         }
     };
 };
+
+export const fetchNewAwardCounts = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/search/new_awards_over_time/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

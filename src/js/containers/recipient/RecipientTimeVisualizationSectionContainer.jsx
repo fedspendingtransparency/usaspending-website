@@ -14,6 +14,7 @@ import * as recipientActions from 'redux/actions/recipient/recipientActions';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 import * as SearchHelper from 'helpers/searchHelper';
+import * as RecipientHelper from 'helpers/recipientHelper';
 import Analytics from 'helpers/analytics/Analytics';
 import RecipientTimeVisualizationSection from 'components/recipient/spendingOverTime/RecipientTimeVisualizationSection';
 
@@ -43,17 +44,20 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
         };
 
         this.request = null;
+        this.trendlineRequest = null;
         this.updateVisualizationPeriod = this.updateVisualizationPeriod.bind(this);
     }
 
     componentDidMount() {
         this.fetchData();
+        this.fetchTrendlineData();
         logPeriodEvent(this.state.visualizationPeriod);
     }
 
     componentDidUpdate(prevProps) {
         if (prevProps.recipient.id !== this.props.recipient.id) {
             this.fetchData();
+            this.fetchTrendlineData();
         }
     }
 
@@ -62,6 +66,7 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
             visualizationPeriod
         }, () => {
             this.fetchData();
+            this.fetchTrendlineData();
             logPeriodEvent(visualizationPeriod);
         });
     }
@@ -73,8 +78,8 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
         });
 
         // Cancel API request if it exists
-        if (this.apiRequest) {
-            this.apiRequest.cancel();
+        if (this.request) {
+            this.request.cancel();
         }
 
         const earliestYear = FiscalYearHelper.earliestFiscalYear;
@@ -101,24 +106,68 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
 
         apiParams.auditTrail = 'Recipient Spending Over Time Visualization';
 
-        this.apiRequest = SearchHelper.performSpendingOverTimeSearch(apiParams);
+        this.request = SearchHelper.performSpendingOverTimeSearch(apiParams);
 
-        this.apiRequest.promise
+        this.request.promise
             .then((res) => {
                 this.parseData(res.data, this.state.visualizationPeriod);
-                this.apiRequest = null;
+                this.request = null;
             })
             .catch((err) => {
                 if (isCancel(err)) {
                     return;
                 }
 
-                this.apiRequest = null;
+                this.request = null;
                 console.log(err);
                 this.setState({
                     loading: false,
                     error: true
                 });
+            });
+    }
+
+    fetchTrendlineData() {
+        // Cancel API request if it exists
+        if (this.trendlineRequest) {
+            this.trendlineRequest.cancel();
+        }
+
+        const earliestYear = FiscalYearHelper.earliestFiscalYear;
+        const thisYear = FiscalYearHelper.currentFiscalYear();
+        const timePeriod = [
+            {
+                start_date: FiscalYearHelper.convertFYToDateRange(earliestYear)[0],
+                end_date: FiscalYearHelper.convertFYToDateRange(thisYear)[1]
+            }
+        ];
+
+        const searchParams = {
+            recipient_id: this.props.recipient.id
+        };
+
+        searchParams.time_period = timePeriod;
+
+        // Generate the API parameters
+        const apiParams = {
+            group: this.state.visualizationPeriod,
+            filters: searchParams
+        };
+
+        this.trendlineRequest = RecipientHelper.fetchNewAwardCounts(apiParams);
+
+        this.trendlineRequest.promise
+            .then((res) => {
+                this.parseTrendlineData(res.data, this.state.visualizationPeriod);
+                this.trendlineRequest = null;
+            })
+            .catch((err) => {
+                if (isCancel(err)) {
+                    return;
+                }
+
+                this.trendlineRequest = null;
+                console.log(err);
             });
     }
 
@@ -139,7 +188,6 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
         const groups = [];
         const xSeries = [];
         const ySeries = [];
-        const zSeries = [];
         const rawLabels = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
@@ -148,19 +196,31 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
             rawLabels.push(this.generateTime(group, item.time_period, 'raw'));
             xSeries.push([this.generateTime(group, item.time_period, 'label')]);
             ySeries.push([parseFloat(item.aggregated_amount)]);
-            zSeries.push(parseFloat(item.new_awards));
         });
 
         this.setState({
             groups,
             xSeries,
             ySeries,
-            zSeries,
             rawLabels,
             loading: false,
             error: false
         });
     }
+
+    parseTrendlineData(data) {
+        const zSeries = [];
+
+        // iterate through each response object and store the new awards value
+        data.results.forEach((item) => {
+            zSeries.push(parseFloat(item.new_award_count_in_period));
+        });
+
+        this.setState({
+            zSeries
+        });
+    }
+
     render() {
         return (
             <RecipientTimeVisualizationSection

@@ -62,7 +62,10 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 
 + Response 200 (application/json)
     + Attributes
-        + group: `quarter` (required, string)
+        + group: `quarter` (required, enum[string])
+            + `fiscal_year`
+            + `quarter`
+            + `month`
         + results: (array[TimeResult], fixed-type)
 
 # Data Structures
@@ -79,8 +82,6 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 + time_period: (TimePeriodGroup)
 + aggregated_amount: 200000000 (required, number)
     The aggregate award amount for this time period and the given filters.
-+ new_awards: 25 (required, number, nullable)
-    The count of new awards for this time period and the given filters. Null unless filtering on `recipient_id` only.
 
 ## PageMetadataObject (object)
 + page: 1 (required, number)

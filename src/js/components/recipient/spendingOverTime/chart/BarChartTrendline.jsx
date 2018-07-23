@@ -256,96 +256,98 @@ export default class BarChartTrendline extends React.Component {
     }
 
     generateTrendline(props) {
-        const allZ = props.zSeries;
-        const zRange = [];
+        if (this.props.zSeries.length > 0) {
+            const allZ = props.zSeries;
+            const zRange = [];
 
-        // determine the Z axis minimum
-        let zMin = min(allZ);
-        if (zMin > 0) {
-            // set the minimum to zero if there are no negative values
-            zMin = 0;
-        }
-        if (allZ.length > 1) {
-            zRange.push(zMin);
-            zRange.push(max(allZ));
-        }
-        else if (allZ.length > 0) {
-            // in some cases, we may only have one data point. This is insufficient to calculate a
-            // usable trendline axis range, so we need to manually enter the max or min (based on if
-            // the data point is positive or negative)
-            const dataPointZ = allZ[0];
-            if (dataPointZ < 0) {
-                // the data point is negative, so use this as the min and manually set the max to
-                // zero
-                zRange.push(dataPointZ);
-                zRange.push(0);
+            // determine the Z axis minimum
+            let zMin = min(allZ);
+            if (zMin > 0) {
+                // set the minimum to zero if there are no negative values
+                zMin = 0;
             }
-            else if (dataPointZ === 0) {
-                // the data point is zero, so use this as the min and manually set the max to an
-                // arbitrary 100
-                zRange.push(dataPointZ);
-                zRange.push(100);
+            if (allZ.length > 1) {
+                zRange.push(zMin);
+                zRange.push(max(allZ));
+            }
+            else if (allZ.length > 0) {
+                // in some cases, we may only have one data point. This is insufficient to calculate a
+                // usable trendline axis range, so we need to manually enter the max or min (based on if
+                // the data point is positive or negative)
+                const dataPointZ = allZ[0];
+                if (dataPointZ < 0) {
+                    // the data point is negative, so use this as the min and manually set the max to
+                    // zero
+                    zRange.push(dataPointZ);
+                    zRange.push(0);
+                }
+                else if (dataPointZ === 0) {
+                    // the data point is zero, so use this as the min and manually set the max to an
+                    // arbitrary 100
+                    zRange.push(dataPointZ);
+                    zRange.push(100);
+                }
+                else {
+                    // the data point is positive, so use this as the max and manually set the min to
+                    // zero
+                    zRange.push(0);
+                    zRange.push(dataPointZ);
+                }
             }
             else {
-                // the data point is positive, so use this as the max and manually set the min to
-                // zero
+                // when there is no data, fall back to an arbitrary default trendline
+                // axis scale (since there's no data to display)
                 zRange.push(0);
-                zRange.push(dataPointZ);
+                zRange.push(100);
             }
+
+            const zScale = scaleLinear()
+                .domain(zRange)
+                .range([0, this.state.graphHeight])
+                .clamp(true);
+
+            // generate the data points on the line
+            const trendItems = [];
+            // iterate through each of the groups
+            props.groups.forEach((group, groupIndex) => {
+                const zData = props.zSeries[groupIndex];
+
+                // xPosition is the center of the corresponding bar
+                const bar = this.state.items[groupIndex];
+                const xPos = bar.x + (bar.width / 2);
+
+                // yPosition
+                const pointHeight = zScale(zData);
+                // The top of the chart in SVG coordinates is (0,0), the bottom is (0,chart height).
+                const yPos = this.state.graphHeight - pointHeight;
+
+                const description = `New awards in ${group}: ${zData}`;
+
+                const point = {
+                    key: `data-${group}-awards`,
+                    identifier: `${groupIndex}-${group}-awards`,
+                    dataZ: zData,
+                    x: xPos,
+                    y: yPos,
+                    stroke: this.props.legend[1].stroke,
+                    color: this.props.legend[1].color,
+                    description,
+                    selectPoint: this.selectPoint,
+                    deselectPoint: this.deselectPoint,
+                    deregisterPoint: this.deregisterPoint
+                };
+                trendItems.push(point);
+            });
+
+            // Save to state
+            this.setState({
+                zScale,
+                trendItems,
+                zValues: allZ,
+                zAverage: mean(allZ),
+                zTicks: zScale.ticks(7)
+            });
         }
-        else {
-            // when there is no data, fall back to an arbitrary default trendline
-            // axis scale (since there's no data to display)
-            zRange.push(0);
-            zRange.push(100);
-        }
-
-        const zScale = scaleLinear()
-            .domain(zRange)
-            .range([0, this.state.graphHeight])
-            .clamp(true);
-
-        // generate the data points on the line
-        const trendItems = [];
-        // iterate through each of the groups
-        props.groups.forEach((group, groupIndex) => {
-            const zData = props.zSeries[groupIndex];
-
-            // xPosition is the center of the corresponding bar
-            const bar = this.state.items[groupIndex];
-            const xPos = bar.x + (bar.width / 2);
-
-            // yPosition
-            const pointHeight = zScale(zData);
-            // The top of the chart in SVG coordinates is (0,0), the bottom is (0,chart height).
-            const yPos = this.state.graphHeight - pointHeight;
-
-            const description = `New awards in ${group}: ${zData}`;
-
-            const point = {
-                key: `data-${group}-awards`,
-                identifier: `${groupIndex}-${group}-awards`,
-                dataZ: zData,
-                x: xPos,
-                y: yPos,
-                stroke: this.props.legend[1].stroke,
-                color: this.props.legend[1].color,
-                description,
-                selectPoint: this.selectPoint,
-                deselectPoint: this.deselectPoint,
-                deregisterPoint: this.deregisterPoint
-            };
-            trendItems.push(point);
-        });
-
-        // Save to state
-        this.setState({
-            zScale,
-            trendItems,
-            zValues: allZ,
-            zAverage: mean(allZ),
-            zTicks: zScale.ticks(7)
-        });
     }
 
     selectBar(barIdentifier, isTouch = false) {
