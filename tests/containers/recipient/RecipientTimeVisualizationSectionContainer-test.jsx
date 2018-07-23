@@ -9,9 +9,10 @@ import { mount, shallow } from 'enzyme';
 import { RecipientTimeVisualizationSectionContainer } from
         'containers/recipient/RecipientTimeVisualizationSectionContainer';
 
-import { mockActions, mockRedux, mockTimes, mockYears, mockQuarters, mockMonths } from './mockData';
+import { mockActions, mockRedux, mockTimes, mockYears, mockQuarters, mockMonths, mockTrendline } from './mockData';
 
 jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
+jest.mock('helpers/recipientHelper', () => require('./mockRecipientHelper'));
 
 
 describe('RecipientTimeVisualizationSectionContainer', () => {
@@ -24,9 +25,23 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
         container.instance().fetchData = fetchData;
 
         container.instance().componentDidMount();
-        await container.instance().apiRequest.promise;
+        await container.instance().request.promise;
 
         expect(fetchData).toHaveBeenCalledTimes(1);
+    });
+
+    it('should make an API call for the new awards data on mount', async () => {
+        const container = mount(<RecipientTimeVisualizationSectionContainer
+            {...mockRedux}
+            {...mockActions} />);
+
+        const fetchTrendlineData = jest.fn();
+        container.instance().fetchTrendlineData = fetchTrendlineData;
+
+        container.instance().componentDidMount();
+        await container.instance().trendlineRequest.promise;
+
+        expect(fetchTrendlineData).toHaveBeenCalledTimes(1);
     });
 
     describe('parseData', () => {
@@ -48,7 +63,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
                 groups: ['FY 1979', 'FY 1980'],
                 xSeries: [['FY 1979'], ['FY 1980']],
                 ySeries: [[400.25], [350.5]],
-                zSeries: [25, 15],
+                zSeries: [], // zSeries is updated by parseTrendlineData
                 rawLabels: [{ period: null, year: 'FY 1979' }, { period: null, year: 'FY 1980' }]
             };
 
@@ -76,7 +91,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
                 groups: ['Q3 1979', 'Q4 1979', 'Q1 1980'],
                 xSeries: [['Q3 1979'], ['Q4 1979'], ['Q1 1980']],
                 ySeries: [[-100.25], [125], [350.5]],
-                zSeries: [0, 4, 8],
+                zSeries: [], // zSeries is updated by parseTrendlineData
                 rawLabels: [
                     { period: 'Q3', year: '1979' },
                     { period: 'Q4', year: '1979' },
@@ -108,7 +123,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
                 groups: ['Apr 1979', 'May 1979', 'Jun 1979'],
                 xSeries: [['Apr 1979'], ['May 1979'], ['Jun 1979']],
                 ySeries: [[45], [12], [10]],
-                zSeries: [6, 6, 5],
+                zSeries: [], // zSeries is updated by parseTrendlineData
                 rawLabels: [
                     { period: 'Apr', year: '1979' },
                     { period: 'May', year: '1979' },
@@ -119,6 +134,24 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
             expect(container.state()).toEqual(expectedState);
         });
     });
+
+    describe('parseTrendlineData', () => {
+       it('should set the state to the returned new award count values', () => {
+           // mount the container
+           const container =
+               shallow(<RecipientTimeVisualizationSectionContainer
+                   {...mockRedux}
+                   {...mockActions} />);
+
+           container.instance().parseTrendlineData(mockTrendline);
+
+           // validate the state contains the correctly parsed values
+           const expected = [25, 45, 15];
+
+           expect(container.state().zSeries).toEqual(expected);
+       });
+    });
+
     describe('generateTime', () => {
         it('should return a fiscal year when fiscal year is selected and the type is label', () => {
             const container = shallow(<RecipientTimeVisualizationSectionContainer
@@ -129,7 +162,6 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
             const timeLabel = container.instance().generateTime('fiscal_year', mockTimes, 'label');
 
             const expectedValue = 'FY 2017';
-
 
             expect(timeLabel).toEqual(expectedValue);
         });
@@ -146,7 +178,6 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
                 year: 'FY 2017'
             };
 
-
             expect(timeLabel).toEqual(expectedValue);
         });
         it('should return a quarter with fiscal year when quarter is selected and the type is label', () => {
@@ -158,7 +189,6 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
             const timeLabel = container.instance().generateTime('quarter', mockTimes, 'label');
 
             const expectedValue = 'Q4 2017';
-
 
             expect(timeLabel).toEqual(expectedValue);
         });
@@ -175,7 +205,6 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
                 year: '2017'
             };
 
-
             expect(timeLabel).toEqual(expectedValue);
         });
         it('should return a short month and fiscal year when month is selected and the type is label', () => {
@@ -187,7 +216,6 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
             const timeLabel = container.instance().generateTime('month', mockTimes, 'label');
 
             const expectedValue = 'Jan 2017';
-
 
             expect(timeLabel).toEqual(expectedValue);
         });
@@ -203,7 +231,6 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
                 period: 'Jan',
                 year: '2017'
             };
-
 
             expect(timeLabel).toEqual(expectedValue);
         });

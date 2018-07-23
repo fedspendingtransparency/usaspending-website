@@ -46,14 +46,12 @@ export const mockYears = {
             time_period: {
                 fiscal_year: '1979'
             },
-            aggregated_amount: 400.25,
-            new_awards: 25
+            aggregated_amount: 400.25
         }, {
             time_period: {
                 fiscal_year: '1980'
             },
-            aggregated_amount: 350.50,
-            new_awards: 15
+            aggregated_amount: 350.50
         }
     ]
 };
@@ -66,22 +64,19 @@ export const mockQuarters = {
                 quarter: 3,
                 fiscal_year: '1979'
             },
-            aggregated_amount: -100.25,
-            new_awards: 0
+            aggregated_amount: -100.25
         }, {
             time_period: {
                 quarter: 4,
                 fiscal_year: '1979'
             },
-            aggregated_amount: 125,
-            new_awards: 4
+            aggregated_amount: 125
         }, {
             time_period: {
                 quarter: 1,
                 fiscal_year: '1980'
             },
-            aggregated_amount: 350.5,
-            new_awards: 8
+            aggregated_amount: 350.5
         }
     ]
 };
@@ -94,22 +89,50 @@ export const mockMonths = {
                 month: 7,
                 fiscal_year: '1979'
             },
-            aggregated_amount: 45,
-            new_awards: 6
+            aggregated_amount: 45
         }, {
             time_period: {
                 month: 8,
                 fiscal_year: '1979'
             },
-            aggregated_amount: 12,
-            new_awards: 6
+            aggregated_amount: 12
         }, {
             time_period: {
                 month: 9,
                 fiscal_year: '1979'
             },
-            aggregated_amount: 10,
-            new_awards: 5
+            aggregated_amount: 10
+        }
+    ]
+};
+
+export const mockTrendline = {
+    group: 'quarter',
+    results: [
+        {
+            time_period: {
+                quarter: 3,
+                fiscal_year: '1979'
+            },
+            new_award_count_in_period: 25,
+            transaction_count_in_period: 50,
+            award_ids_in_period: []
+        }, {
+            time_period: {
+                quarter: 4,
+                fiscal_year: '1979'
+            },
+            new_award_count_in_period: 45,
+            transaction_count_in_period: 60,
+            award_ids_in_period: []
+        }, {
+            time_period: {
+                quarter: 1,
+                fiscal_year: '1980'
+            },
+            new_award_count_in_period: 15,
+            transaction_count_in_period: 35,
+            award_ids_in_period: []
         }
     ]
 };
