@@ -41,21 +41,7 @@ const RecipientLandingTable = (props) => {
     ));
 
     let message = null;
-    if (props.error) {
-        message = (
-            <div className="recipeint-list__message">
-                An error occurred while loading this table.
-            </div>
-        );
-    }
-    else if (props.loading) {
-        message = (
-            <div className="recipient-list__message">
-                Loading...
-            </div>
-        );
-    }
-    else if (props.results.length === 0) {
+    if (props.results.length === 0) {
         // no results
         if (props.searchString) {
             message = (
@@ -118,7 +104,7 @@ const RecipientLandingTable = (props) => {
                                     </div>
                                 </div>
                                 <StateLandingTableSorter
-                                    field="_amount"
+                                    field="amount"
                                     label="awarded amount"
                                     active={{ field: props.order.field, direction: props.order.direction }}
                                     setSort={props.setSort} />

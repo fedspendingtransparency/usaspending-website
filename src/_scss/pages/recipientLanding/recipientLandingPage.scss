@@ -7,11 +7,15 @@
     @import "./_table";
     @import "./_recipientLabels";
     @import "pages/search/results/table/_tableMessages";
+    @import "pages/search/results/screens/screens";
 
     .pagination {
         .pager {
             justify-content: flex-end;
         }
+    }
+    .results-table-section { 
+        position: relative;
     }
 
     .recipient-landing__results {

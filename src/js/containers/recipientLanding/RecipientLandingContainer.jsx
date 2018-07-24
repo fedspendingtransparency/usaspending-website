@@ -137,11 +137,13 @@ export default class RecipientLandingContainer extends React.Component {
         data.results.forEach((item) => {
             const recipient = Object.create(BaseRecipientLandingRow);
             recipient.populate(item);
-            recipients.push(recipient);
+            if (recipient.duns !== "DUNS not provided" || recipient.name !== "Not provided in source system") {
+                recipients.push(recipient);
+            }
         });
 
         this.setState({
-            totalItems: data.results.length,
+            totalItems: data.page_metadata.total,
             results: recipients
         });
     }
