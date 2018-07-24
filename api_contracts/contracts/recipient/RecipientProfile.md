@@ -52,12 +52,12 @@ This endpoint returns a list of recipients, their level, DUNS, and amount.
 
 These endpoints support the individual Recipient Profile pages that display data for a specific DUNS.
 
-## Recipient Overview [/api/v2/recipient/duns/{id}/{?year}]
+## Recipient Overview [/api/v2/recipient/duns/{recipient_id}/{?year}]
 
 This endpoint returns a high-level overview of a specific recipient, given its id.
 
 + Parameters
-    + id: `abc123-P` (required, string)
+    + `recipient_id`: `abc123-P` (required, string)
         A unique identifier for the recipient at a specific level (parent, child, or neither).
     + year: `2017` (optional, string)
         The fiscal year you would like data for. Use `all` to view all time or `latest` to view the latest 12 months.
