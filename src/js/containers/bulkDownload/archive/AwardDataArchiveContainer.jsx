@@ -26,7 +26,7 @@ const columns = [
     },
     {
         columnName: 'date',
-        displayName: 'Date As Of'
+        displayName: 'Data As Of'
     }
 ];
 
@@ -153,7 +153,8 @@ export default class AwardDataArchiveContainer extends React.Component {
             let formattedFY;
             if (item.fiscal_year === null) {
                 formattedFY = 'N/A';
-            } else {
+            }
+            else {
                 formattedFY = `FY ${item.fiscal_year}`;
             }
 
@@ -184,4 +185,3 @@ export default class AwardDataArchiveContainer extends React.Component {
         );
     }
 }
-

@@ -7,7 +7,7 @@
     }
     position: relative;
 
-    .breakdown {
+    .explorer-toolbar__breakdown {
         @include media($medium-screen) {
             @include display(flex);
             @include justify-content(flex-start);
@@ -26,52 +26,67 @@
         }
 
         .breakdown__dropdown {
+            position: relative;
             margin: rem(5) 0 rem(15);
             @include media($medium-screen) {
                 @include flex(1 1 auto);
                 margin: 0;
             }
-        }
-    }
 
-    
+            .dropdown__selection {
+                @include button-unstyled;
+                @include display(flex);
+                @include justify-content(center);
+                @include align-items(center);
+                position: relative;
 
-    .dropdown {
-        position: relative;
-   
-        .dropdown__selection {
-            @include button-unstyled;
-            @include display(flex);
-            @include justify-content(center);
-            @include align-items(center);
-            position: relative;
+                border-bottom: 1px solid $color-base;
 
-            border-bottom: 1px solid $color-base;
+                padding: rem(10) rem(5);
+                margin-right: rem(30);
 
-            padding: rem(10) rem(5);
-            margin-right: rem(30);
-
-            .dropdown__icon, .dropdown__arrow {
-                @include flex(0 0 auto);
-                width: rem(20);
-                height: rem(20);
-
-                svg {
+                .dropdown__icon, .dropdown__arrow {
+                    @include flex(0 0 auto);
                     width: rem(20);
                     height: rem(20);
-                    fill: $color-base;
+
+                    svg {
+                        width: rem(20);
+                        height: rem(20);
+                        fill: $color-base;
+                    }
+                }
+
+                .dropdown__label {
+                    @include flex(1 1 auto);
+                    color: $color-base;
+                    font-size: rem(24);
+                    line-height: rem(31);
+                    font-weight: $font-light;
+
+                    margin-left: rem(15);
+                    margin-right: rem(20);
                 }
             }
 
-            .dropdown__label {
-                @include flex(1 1 auto);
-                color: $color-base;
-                font-size: rem(24);
-                line-height: rem(31);
-                font-weight: $font-light;
+            .dropdown__menu {
+                @include unstyled-list;
+                position: absolute;
+                top: rem(50);
+                left: 0;
+                border: 1px solid $color-gray-lighter;
 
-                margin-left: rem(15);
-                margin-right: rem(20);
+                z-index: $z-modal;
+
+                li {
+                    border-bottom: 1px solid $color-gray-lighter;
+                    background-color: $color-white;
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+                @import "dropdownItem";
             }
         }
     }
@@ -103,58 +118,5 @@
                 }
             }
         }
-    }
-
-    .dropdown__menu {
-        @include unstyled-list;
-        position: absolute;
-        top: rem(50);
-        left: 0;
-        border: 1px solid $color-gray-lighter;
-
-        z-index: $z-modal;
-
-        li {
-            border-bottom: 1px solid $color-gray-lighter;
-            background-color: $color-white;
-
-            &:last-child {
-                border-bottom: none;
-            }
-        }
-
-        .dropdown__option {
-            @include button-unstyled;
-            @include display(flex);
-            @include justify-content(center);
-            @include align-items(center);
-            position: relative;
-
-            padding: rem(15) rem(25);
-            width: 100%;
-
-            .dropdown__option-icon {
-                @include flex(0 0 auto);
-                width: rem(15);
-                height: rem(15);
-
-                margin-right: rem(25);
-
-                svg {
-                    width: rem(15);
-                    height: rem(15);
-                    fill: $color-base;
-                }
-            }
-
-            .dropdown__option-label {
-                @include flex(1 1 auto);
-                color: $color-base;
-
-                font-size: rem(16);
-                line-height: rem(20);
-            }
-        }
-
     }
 }
