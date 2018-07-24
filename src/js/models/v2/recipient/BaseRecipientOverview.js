@@ -18,8 +18,8 @@ const convertBusinessType = (type) => {
 const BaseRecipientOverview = {
     populate(data) {
         this.id = data.recipient_id || null;
-        this.name = data.name || '';
-        this.duns = data.duns || 'Not provided';
+        this.name = data.name || 'Name not provided';
+        this.duns = data.duns || 'DUNS not provided';
         this.parentName = data.parent_name || '';
         this.parentDuns = data.parent_duns || '';
         this.parentId = data.parent_id || '';

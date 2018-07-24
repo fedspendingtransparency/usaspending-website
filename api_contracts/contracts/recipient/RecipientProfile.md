@@ -89,8 +89,8 @@ This endpoint returns a list of child recipients belonging to the given parent r
 + results (array[RecipientListing], fixed-type)
 
 ## RecipientListing (object)
-+ name: The ABC Corporation (required, string)
-    Name of the recipient.
++ name: The ABC Corporation (required, string, nullable)
+    Name of the recipient. `null` when the name is not provided.
 + duns: `0123456` (required, string, nullable)
     Recipient's DUNS (Data Universal Numbering System) number. `null` when no DUNS is provided.
 + `recipient_id`: `abc123-R` (required, string)
@@ -113,8 +113,8 @@ This endpoint returns a list of child recipients belonging to the given parent r
     The total number of results (all pages).
 
 ## RecipientOverview (object)
-+ name: The ABC Corporation (required, string)
-    Name of the recipient.
++ name: The ABC Corporation (required, string, nullable)
+    Name of the recipient. `null` when the name is not provided.
 + duns: `0123456` (required, string, nullable)
     Recipient's DUNS (Data Universal Numbering System) number. `null` when no DUNS is provided.
 + `recipient_id`: `abc123-P` (required, string)
@@ -168,8 +168,8 @@ This endpoint returns a list of child recipients belonging to the given parent r
     Number for the recipient's congressional district. 
  
 ## ChildRecipient (object)
-+ name: Child of ABC Corporation (required, string)
-    Name of the child recipient.
++ name: Child of ABC Corporation (required, string, nullable)
+    Name of the child recipient. `null` if the child recipient's name is not provided.
 + duns: `345678` (required, string, nullable)
     Child recipient's DUNS. `null` if the child recipient's DUNS is not provided.
 + `recipient_id`: `abc123-C` (required, string)
