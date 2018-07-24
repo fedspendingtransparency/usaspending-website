@@ -68,7 +68,7 @@ export class TopFiveContainer extends React.Component {
         }
 
         const filters = {
-            recipient_id: this.props.recipientHash
+            id: this.props.recipientHash
         };
 
         if (timePeriod) {
@@ -146,7 +146,7 @@ export default connect(
     (state) => ({
         total: state.recipient.overview._totalAmount,
         fy: state.recipient.fy,
-        recipientHash: state.recipient.overview.recipientHash
+        recipientHash: state.recipient.id
     })
 )(TopFiveContainer);
 

@@ -22,7 +22,7 @@ const mockRedux = {
 
 describe('TopFiveContainer', () => {
     describe('dataParams', () => {
-        it('should reload data when the recipient Hash is recieved', () => {
+        it('should reload data when the recipient id is recieved', () => {
             const container = mount(<TopFiveContainer
                 {...mockRedux}
                 category="awarding_agency" />);

@@ -25,15 +25,15 @@ This endpoint returns a list of recipients, their level, DUNS, and amount.
             + duns
             + amount
     + limit: 50 (optional, number)
-        The number of results to include per page. 
+        The number of results to include per page.
         + Default: 50
     + page: 1 (optional, number)
-        The page of results to return based on the limit. 
+        The page of results to return based on the limit.
         + Default: 1
     + keyword: (optional, string)
         The keyword results are filtered by. Searches on name and DUNS.
     + award_type: all (optional, string)
-        The award type results are filtered by. 
+        The award type results are filtered by.
         + Default: all
         + Members
             + all
@@ -66,7 +66,7 @@ This endpoint returns a high-level overview of a specific recipient, given its i
 
 + Response 200 (application/json)
     + Attributes (RecipientOverview)
-    
+
 ## Recipient Children [/api/v2/recipient/children/{duns}/{?year}]
 
 This endpoint returns a list of child recipients belonging to the given parent recipient DUNS.
@@ -98,7 +98,7 @@ This endpoint returns a list of child recipients belonging to the given parent r
 + amount: 30020000000 (required, number)
     The aggregate monetary value of all transactions associated with this recipient for the trailing 12 months.
 + `recipient_level`: R (required, string)
-    A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient. 
+    A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient.
     + Members
         + R
         + P
@@ -106,9 +106,9 @@ This endpoint returns a list of child recipients belonging to the given parent r
 
 ## PageMetaDataObject (object)
 + page: 1 (required, number)
-    The page number. 
+    The page number.
 + limit: 50 (required, number)
-    The number of results per page. 
+    The number of results per page.
 + total: 101 (required, number)
     The total number of results (all pages).
 
@@ -132,15 +132,8 @@ This endpoint returns a list of child recipients belonging to the given parent r
     The aggregate monetary value of all transactions associated with this recipient for the given time period.
 + `total_transactions`: 327721 (required, number)
     The number of transactions associated with this recipient for the given time period.
-<<<<<<< HEAD
-+ recipientHash: a1e2f7b4-073b-1174-255b-8a32d0d6a6dd-P (required, string)
-    Unique hash for recipient.
-+ recipient_level: P (required, string)
-    A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient.
-=======
 + `recipient_level`: P (required, string)
-    A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient. 
->>>>>>> dev
+    A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient.
     + Members
         + R
         + P
@@ -148,11 +141,11 @@ This endpoint returns a list of child recipients belonging to the given parent r
 
 ## RecipientLocation (object)
 + address_line1: 123 Sesame St (required, string, nullable)
-    The first line of the recipient's street address. 
+    The first line of the recipient's street address.
 + address_line2: (optional, string)
-    Second line of the recipient's street address. 
+    Second line of the recipient's street address.
 + address_line3: (optional, string)
-    Third line of the recipient's street address. 
+    Third line of the recipient's street address.
 + foreign_province: (optional, string)
     Name of the province in which the recipient is located, if it is outside the United States.
 + city_name: McLean (required, string, nullable)
@@ -160,7 +153,7 @@ This endpoint returns a list of child recipients belonging to the given parent r
 + county_name: (optional, string)
     Name of the county in which the recipient is located.
 + state_code: VA (optional, string)
-    Code for the state in which the recipient is located. 
+    Code for the state in which the recipient is located.
 + zip: `22102` (optional, string)
     Recipient's zip code (5 digits)
 + zip4: (optional, string)
@@ -172,8 +165,8 @@ This endpoint returns a list of child recipients belonging to the given parent r
 + country_code: USA (required, string, nullable)
      Code for the country in which the recipient is located.
 + congressional_code: `05` (optional, string)
-    Number for the recipient's congressional district. 
- 
+    Number for the recipient's congressional district.
+
 ## ChildRecipient (object)
 + name: Child of ABC Corporation (required, string, nullable)
     Name of the child recipient. `null` if the child recipient's name is not provided.
