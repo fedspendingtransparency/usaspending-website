@@ -28,6 +28,21 @@ describe('BaseRecipientOverview', () => {
         });
         const updatedRecipient = Object.create(BaseRecipientOverview);
         updatedRecipient.populate(updatedData);
-        expect(updatedRecipient.duns).toEqual('Not provided');
+        expect(updatedRecipient.duns).toEqual('DUNS not provided');
     });
+    it('should indicate when the recipient name is not provided', () => {
+        const updatedData = Object.assign(recipient, {}, {
+            name: null
+        });
+        const updatedRecipient = Object.create(BaseRecipientOverview);
+        updatedRecipient.populate(updatedData);
+        expect(updatedRecipient.name).toEqual('Name not provided');
+    });
+    it('should parse the business types into readable names', () => {
+        const expected = [
+            'Minority Owned Business',
+            'For Profit Organization'
+        ];
+        expect(recipient.businessTypes).toEqual(expected);
+    })
 });
