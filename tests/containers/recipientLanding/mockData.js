@@ -1,4 +1,13 @@
 export const mockRecipientList = {
+    page_metadata: {
+        hasNext: true,
+        hasPrev: false,
+        limit: 50,
+        total: 2,
+        page: 1,
+        next: 2,
+        previous: null
+    },
     results: [
         {
             id: "abc123-P",
