@@ -30,9 +30,13 @@ export default class RecipientOverview extends React.Component {
                     Child Recipient
                 </div>
             );
+            let parentDuns = '';
+            if (recipient.parentDuns) {
+                parentDuns = `(${recipient.parentDuns})`;
+            }
             parent = (
                 <div className="recipient-overview__parent">
-                    This recipient is a child of <a className="recipient-overview__parent-link" href={`#/recipient/${recipient.parentDuns}`}>{recipient.parentName} ({recipient.parentDuns})</a>
+                    This recipient is a child of <a className="recipient-overview__parent-link" href={`#/recipient/${recipient.parentId}`}>{recipient.parentName} {parentDuns}</a>
                 </div>
             );
         }

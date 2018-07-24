@@ -5,16 +5,27 @@
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
+import { getBusinessTypes } from 'helpers/businessTypesHelper';
+
+const convertBusinessType = (type) => {
+    const categoryItem = getBusinessTypes().find((category) =>
+        type === category.fieldName
+    );
+    return categoryItem.displayName || null;
+};
+
 
 const BaseRecipientOverview = {
     populate(data) {
-        this.name = data.name || '';
-        this.duns = data.duns || null;
+        this.id = data.recipient_id || null;
+        this.name = data.name || 'Name not provided';
+        this.duns = data.duns || 'DUNS not provided';
         this.parentName = data.parent_name || '';
         this.parentDuns = data.parent_duns || '';
+        this.parentId = data.parent_id || '';
         this._totalAmount = parseFloat(data.total_transaction_amount) || 0;
         this._totalTransactions = parseFloat(data.total_transactions) || 0;
-        this.businessTypes = data.business_types || [];
+        this._businessTypes = data.business_types || [];
         this.level = data.recipient_level || 'R';
 
         // Recipient Location
@@ -49,6 +60,15 @@ const BaseRecipientOverview = {
     },
     get totalTransactions() {
         return MoneyFormatter.formatNumberWithPrecision(this._totalTransactions, 0);
+    },
+    get businessTypes() {
+        return this._businessTypes.reduce((parsed, type) => {
+            const displayName = convertBusinessType(type);
+            if (displayName) {
+                parsed.push(displayName);
+            }
+            return parsed;
+        }, []);
     }
 };
 

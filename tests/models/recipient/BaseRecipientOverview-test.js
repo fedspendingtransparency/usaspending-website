@@ -22,4 +22,27 @@ describe('BaseRecipientOverview', () => {
             expect(Object.getPrototypeOf(recipient.location)).toEqual(CoreLocation);
         });
     });
+    it('should indicate when the DUNS is not provided', () => {
+        const updatedData = Object.assign(recipient, {}, {
+            duns: null
+        });
+        const updatedRecipient = Object.create(BaseRecipientOverview);
+        updatedRecipient.populate(updatedData);
+        expect(updatedRecipient.duns).toEqual('DUNS not provided');
+    });
+    it('should indicate when the recipient name is not provided', () => {
+        const updatedData = Object.assign(recipient, {}, {
+            name: null
+        });
+        const updatedRecipient = Object.create(BaseRecipientOverview);
+        updatedRecipient.populate(updatedData);
+        expect(updatedRecipient.name).toEqual('Name not provided');
+    });
+    it('should parse the business types into readable names', () => {
+        const expected = [
+            'Minority Owned Business',
+            'For Profit Organization'
+        ];
+        expect(recipient.businessTypes).toEqual(expected);
+    })
 });
