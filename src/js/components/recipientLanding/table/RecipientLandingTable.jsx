@@ -99,7 +99,7 @@ const RecipientLandingTable = (props) => {
                                     <div className="header-cell__title header-cell__title_center">
                                         Awarded Amount
                                         <div className="header-cell__subtitle">
-                                            (from trailing 12 months of Transactions)
+                                            (from trailing 12 months of transactions)
                                         </div>
                                     </div>
                                 </div>

@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { range } from 'lodash';
+import { formatMoney } from 'helpers/moneyFormatter';
 
 const propTypes = {
     onChangePage: PropTypes.func.isRequired,
@@ -146,7 +147,7 @@ export default class Pagination extends React.Component {
         if (pager.currentPage === pager.endPage) {
             rangeEnd = pager.totalItems;
         }
-        const resultsText = `${rangeStart}-${rangeEnd} of ${this.props.totalItems} results`;
+        const resultsText = `${rangeStart}-${rangeEnd} of ${formatMoney(this.props.totalItems).substring(1)} results`;
 
         if (!pager.pages || pager.pages.length <= 1) {
             // don't display pager if there is only 1 page
