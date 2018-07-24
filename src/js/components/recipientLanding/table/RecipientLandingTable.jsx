@@ -45,14 +45,14 @@ const RecipientLandingTable = (props) => {
         // no results
         if (props.searchString) {
             message = (
-                <div className="recipeint-list__message">
-                    No results found for &ldquo;<span className="recipeint-list__message_highlight">{props.searchString}</span>&rdquo;.
+                <div className="recipient-list__message">
+                    No results found for &ldquo;<span className="recipient-list__message_highlight">{props.searchString}</span>&rdquo;.
                 </div>
             );
         }
         else {
             message = (
-                <div className="recipeint-list__message">
+                <div className="recipient-list__message">
                     No results found.
                 </div>
             );

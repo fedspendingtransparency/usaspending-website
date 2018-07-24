@@ -156,7 +156,7 @@ export default class RecipientLandingContainer extends React.Component {
                 error={this.state.error}
                 order={this.state.order}
                 setSort={this.setSort}
-                accountSearchString={this.state.searchString}
+                searchString={this.state.searchString}
                 setRecipientSearchString={this.setRecipientSearchString}
                 onChangePage={this.onChangePage}
                 pageNumber={this.state.pageNumber}

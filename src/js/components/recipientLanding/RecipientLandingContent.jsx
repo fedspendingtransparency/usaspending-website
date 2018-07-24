@@ -13,7 +13,7 @@ import RecipientLandingSearchBar from './RecipientLandingSearchBar';
 
 const propTypes = {
     results: PropTypes.array,
-    accountSearchString: PropTypes.string,
+    searchString: PropTypes.string,
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     setRecipientSearchString: PropTypes.func,
@@ -49,7 +49,7 @@ export default class RecipientLandingContent extends React.Component {
                     results={this.props.results}
                     inFlight={this.props.inFlight}
                     error={this.props.error}
-                    accountSearchString={this.props.accountSearchString}
+                    searchString={this.props.searchString}
                     order={this.props.order}
                     setSort={this.props.setSort} />
                 <Pagination
