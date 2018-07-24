@@ -19,7 +19,7 @@ const recipientReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_RECIPIENT_OVERVIEW':
             return Object.assign({}, state, {
-                id: action.overview.duns,
+                id: action.overview.id,
                 overview: action.overview
             });
         case 'SET_RECIPIENT_FY':
