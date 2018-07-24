@@ -93,7 +93,7 @@ This endpoint returns a list of child recipients belonging to the given parent r
     Name of the recipient. `null` when the name is not provided.
 + duns: `0123456` (required, string, nullable)
     Recipient's DUNS (Data Universal Numbering System) number. `null` when no DUNS is provided.
-+ `recipient_id`: `abc123-R` (required, string)
++ id: `abc123-R` (required, string)
     A unique identifier for the recipient at this `recipient_level`.
 + amount: 30020000000 (required, number)
     The aggregate monetary value of all transactions associated with this recipient for the trailing 12 months.
