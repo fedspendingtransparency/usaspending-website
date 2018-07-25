@@ -31,10 +31,10 @@
         // we don't want the tooltip to be on top of the fix header, this will make sure that
         // it's stays under the fixed header when scrolling
         z-index: 1;
-        width: rem(300);
+        width: rem(210);
         .homepage-hero-tooltip__text_holder {
           height: auto;
-          padding: 0 rem(20) 0 rem(35);
+          padding: 0 rem(15) 0 rem(35);
         }
       
         .homepage-hero-tooltip__info_icon {

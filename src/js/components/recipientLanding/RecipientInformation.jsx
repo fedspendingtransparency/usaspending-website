@@ -51,6 +51,7 @@ export default class RecipientInformation extends React.Component {
         return (
             <div>
                 <button
+                    onBlur={this.closeTooltip}
                     className="recipient-labels__icon-info"
                     onFocus={this.showTooltip}
                     onMouseEnter={this.showTooltip}

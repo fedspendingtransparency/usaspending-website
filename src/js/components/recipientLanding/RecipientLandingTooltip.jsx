@@ -84,7 +84,6 @@ export default class RecipientLandingTooltip extends React.Component {
                 ref={this.setWrapperRef}
                 className="homepage-hero-tooltip"
                 onMouseLeave={this.props.closeTooltip}
-                onBlur={this.props.closeTooltip}
                 style={{
                     top: this.state.iconTop,
                     left: this.state.iconLeft
