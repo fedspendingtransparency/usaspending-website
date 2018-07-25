@@ -128,9 +128,6 @@ This endpoint returns a the count of new awards grouped by time period in ascend
 + time_period: (TimePeriodGroup)
 + new_award_count_in_period: 25 (required, number)
     The count of new awards for this time period and the given filters.
-+ transaction_count_in_period: 50 (required, number)
-    The count of transactions for this time period and the given filters. 
-+ award_ids_in_period: 27260131, 27203822, 66932081 (required, array[number], fixed-type)
     
 ## TimeFilterObject (object)
 + time_period (optional, array[TimePeriodObject], fixed-type)
