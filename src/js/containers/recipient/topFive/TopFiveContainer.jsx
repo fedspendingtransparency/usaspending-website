@@ -108,20 +108,22 @@ export class TopFiveContainer extends React.Component {
                 }
             });
     }
-
     parseResults(data, type) {
         const parsed = data.map((item, index) => {
             const result = Object.create(BaseStateCategoryResult);
             result.populate(item, index + 1);
-
-            // use a special naming template for DUNS
-            if (type === 'recipient_duns') {
-                result.nameTemplate = (name) => name;
+            if (type === 'awarding_agency' || type === 'awarding_subagency') {
+                result.nameTemplate = (code, name) => {
+                    if (code) {
+                        return `${name} (${code})`;
+                    }
+                    return name;
+                };
             }
-            else if (type === 'awarding_agency' || type === 'awarding_subagency') {
-                result.nameTemplate = (name) => name;
-            }
 
+            else if (type === 'countries' || type === 'states_and_territories') {
+                result.nameTemplate = (name) => (name);
+            }
             return result;
         });
         this.setState({
