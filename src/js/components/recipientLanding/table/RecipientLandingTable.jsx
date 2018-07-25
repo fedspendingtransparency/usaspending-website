@@ -42,7 +42,7 @@ const RecipientLandingTable = (props) => {
     ));
 
     let message = null;
-    if (!props.inFlight && !props.error) {
+    if (!props.inFlight && !props.error && props.results.length === 0) {
         // no results
         if (props.searchString) {
             message = (
