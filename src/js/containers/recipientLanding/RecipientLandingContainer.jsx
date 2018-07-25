@@ -22,8 +22,8 @@ export default class RecipientLandingContainer extends React.Component {
         this.state = {
             pageNumber: 1,
             order: {
-                field: 'name',
-                direction: 'asc'
+                field: 'amount',
+                direction: 'desc'
             },
             inFlight: false,
             error: false,
