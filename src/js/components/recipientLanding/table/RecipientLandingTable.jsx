@@ -16,7 +16,8 @@ const propTypes = {
     setSort: PropTypes.func,
     sortField: PropTypes.string,
     order: PropTypes.object,
-    searchString: PropTypes.string
+    searchString: PropTypes.string,
+    inFlight: PropTypes.bool
 };
 
 const RecipientLandingTable = (props) => {
@@ -41,7 +42,7 @@ const RecipientLandingTable = (props) => {
     ));
 
     let message = null;
-    if (props.results.length === 0) {
+    if (!props.inFlight && !props.error) {
         // no results
         if (props.searchString) {
             message = (

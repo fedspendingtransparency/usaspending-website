@@ -51,7 +51,7 @@ export default class Pagination extends React.Component {
                 <button
                     className="pager__button"
                     onClick={() => this.setPage(totalPages)}>
-                    {totalPages}
+                    {formatNumberWithPrecision(totalPages, 0)}
                 </button>
             </li>
         );
@@ -132,7 +132,7 @@ export default class Pagination extends React.Component {
                     <button
                         className={`pager__button ${this.props.pageNumber === page ? 'pager__button_active' : ''}`}
                         onClick={() => this.setPage(page, totalPages)}>
-                        {page}
+                        {formatNumberWithPrecision(page, 0)}
                     </button>
                 </li>
             )
