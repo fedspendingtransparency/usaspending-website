@@ -9,7 +9,7 @@ export const mockActions = {
 
 export const mockRedux = {
     params: {
-        recipientId: '123456'
+        recipientId: '0123456-ABC-P'
     },
     recipient: initialState
 };

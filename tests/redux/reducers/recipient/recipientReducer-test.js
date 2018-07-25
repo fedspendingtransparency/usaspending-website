@@ -26,7 +26,7 @@ describe('recipientReducer', () => {
             state = recipientReducer(state, action);
 
             expect(state.overview).toEqual(model);
-            expect(state.id).toEqual('0123456');
+            expect(state.id).toEqual('0123456-ABC-P');
         });
     });
     describe('SET_RECIPIENT_FY', () => {

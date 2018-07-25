@@ -38,6 +38,7 @@ export default class Hero extends React.Component {
         if (this.state.showInfoTooltip) {
             tooltip = (
                 <HeroTooltip
+                    showInfoTooltip={this.state.showInfoTooltip}
                     closeTooltip={this.closeTooltip} />
             );
         }

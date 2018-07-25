@@ -7,10 +7,11 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const BaseChildRecipient = {
     populate(data) {
-        this.name = data.name || '';
-        this.duns = data.duns || null;
+        this.id = data.recipient_id || null;
+        this.name = data.name || 'Name not provided';
+        this.duns = data.duns || 'DUNS not provided';
         this._amount = parseFloat(data.amount) || 0;
-        this.stateProvince = data.state_province || '';
+        this.stateProvince = data.state_province || '--';
     },
     get amount() {
         return MoneyFormatter.formatMoneyWithPrecision(this._amount, 0);
