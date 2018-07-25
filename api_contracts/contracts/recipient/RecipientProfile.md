@@ -174,7 +174,7 @@ This endpoint returns a list of child recipients belonging to the given parent r
     Child recipient's DUNS. `null` if the child recipient's DUNS is not provided.
 + `recipient_id`: `0036a0cb-0d88-2db3-59e0-0f9af8ffef57-C` (required, string)
     A unique identifier for the child recipient.
-+ `state_province`: New Jersey (required, string)
++ `state_province`: New Jersey (required, string, nullable)
     The state or province in which the child recipient is located.
 + amount: 300200000 (required, number)
     The aggregate monetary value of transactions associated with this child recipient for the selected time period.
