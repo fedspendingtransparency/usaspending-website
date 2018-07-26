@@ -221,6 +221,3 @@ This endpoint returns a the count of new awards grouped by time period in ascend
 ## TimePeriodObject (object)
 + start_date: `2016-10-01` (required, string)
 + end_date: `2017-09-30` (required, string)
-+ `date_type`: `action_date` (optional, enum[string])
-    + action_date
-    + last_modified_date
