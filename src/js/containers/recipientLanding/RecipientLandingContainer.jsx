@@ -64,14 +64,12 @@ export default class RecipientLandingContainer extends React.Component {
     setRecipientSearchString(searchString) {
         const pageNumber = 1;
         // Change search string in the state and make a new request
-        if (searchString.length > 2) {
-            this.setState({
-                searchString,
-                pageNumber
-            }, () => {
-                this.fetchRecipients();
-            });
-        }
+        this.setState({
+            searchString,
+            pageNumber
+        }, () => {
+            this.fetchRecipients();
+        });
     }
 
     setSort(field, direction) {

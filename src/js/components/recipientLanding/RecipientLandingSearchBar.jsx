@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Search } from 'components/sharedComponents/icons/Icons';
+import { Search, Close } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     setRecipientSearchString: PropTypes.func.isRequired
@@ -16,23 +16,56 @@ export default class RecipientLandingSearchBar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            recipient: ''
+            recipient: '',
+            hasSubmit: false
         };
         this.onChange = this.onChange.bind(this);
+        this.handleClick = this.handleClick.bind(this);
     }
+
 
     onChange(e) {
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            hasSubmit: false
         });
     }
 
     onSubmit(e) {
         e.preventDefault();
+        this.setState({
+            hasSubmit: true
+        });
         this.props.setRecipientSearchString(this.state.recipient);
     }
 
+    resetSearch(e) {
+        e.preventDefault();
+        this.setState({
+            hasSubmit: false,
+            recipient: ''
+        });
+        this.props.setRecipientSearchString("");
+    }
+
+    handleClick(e) {
+        if (this.state.hasSubmit) {
+            this.resetSearch(e);
+        }
+        else {
+            this.onSubmit(e);
+        }
+    }
+
     render() {
+        let icon = (
+            <Search alt="Search Recipients or DUNS" />
+        );
+        if (this.state.hasSubmit) {
+            icon = (
+                <Close alt="Reset recipient search" />
+            );
+        }
         return (
             <div className="search-section">
                 <form className="search-section__form">
@@ -46,9 +79,9 @@ export default class RecipientLandingSearchBar extends React.Component {
                     <button
                         aria-label="Search"
                         className="search-section__button"
-                        onClick={(e) => this.onSubmit(e)} >
+                        onClick={this.handleClick} >
                         <div className="search-section__button-icon">
-                            <Search alt="Search Recipients or DUNS" />
+                            {icon}
                         </div>
                     </button>
                 </form>
