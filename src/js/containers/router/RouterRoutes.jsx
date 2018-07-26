@@ -212,6 +212,15 @@ const routes = {
             }
         },
         {
+            path: '/recipient',
+            parent: '/recipient',
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('components/recipientLanding/RecipientLandingPage').default);
+                });
+            }
+        },
+        {
             path: '/recipient/:recipientId',
             parent: '/recipient',
             component: (cb) => {
