@@ -121,7 +121,7 @@ export class TopFiveContainer extends React.Component {
                 };
             }
 
-            else if (type === 'countries' || type === 'states_and_territories') {
+            else if (type === 'country' || type === 'state_territory') {
                 result.nameTemplate = (name) => (name);
             }
             return result;

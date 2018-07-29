@@ -10,8 +10,8 @@ export const recipientCategories = [
     'cfda',
     'naics',
     'psc',
-    'countries',
-    'states_and_territories'
+    'country',
+    'state_territory'
 ];
 
 export const recipientCategoryTitles = {
@@ -21,6 +21,6 @@ export const recipientCategoryTitles = {
     cfda: 'CFDA Programs',
     naics: 'NAICS Codes',
     psc: 'Product Service Codes',
-    countries: 'Countries',
-    states_and_territories: 'U.S. States or Territories'
+    country: 'Countries',
+    state_territory: 'U.S. States or Territories'
 };
