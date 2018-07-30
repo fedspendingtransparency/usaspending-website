@@ -76,7 +76,7 @@ export default class FilterExpandButton extends React.Component {
 
             accessoryIcon = (
                 <div
-                    className="accessory-view"
+                    className="filter-toggle__accessory-icon"
                     onMouseOver={this.showAccessory}
                     onMouseLeave={this.hideAccessory}
                     onFocus={this.showAccessory}
@@ -104,9 +104,9 @@ export default class FilterExpandButton extends React.Component {
         }
 
         return (
-            <div className="filter-toggle-wrap">
+            <div className="filter-toggle">
                 <button
-                    className={`filter-toggle ${hiddenClass}`}
+                    className={`filter-toggle__button ${hiddenClass}`}
                     onClick={this.props.toggleFilter}
                     disabled={this.props.disabled}
                     title={this.props.name}
@@ -114,12 +114,14 @@ export default class FilterExpandButton extends React.Component {
                     aria-expanded={this.props.arrowState === 'expanded'}
                     aria-describedby={ariaDescription}>
                     {icon}
-                    <div className="filter-header">
+                    <div className="filter-toggle__name">
                         {this.props.name}
                     </div>
                 </button>
-                {accessoryIcon}
-                {accessoryView}
+                <div className="filter-toggle__accessory">
+                    {accessoryIcon}
+                    {accessoryView}
+                </div>
             </div>
         );
     }

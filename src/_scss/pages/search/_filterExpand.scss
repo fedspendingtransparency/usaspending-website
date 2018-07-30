@@ -1,8 +1,9 @@
-.filter-toggle-wrap {
+.filter-toggle {
     margin: 0;
     @include display(flex);
     @include align-items(center);
-    .filter-toggle {
+
+    .filter-toggle__button {
         @include button-unstyled;
         @include display(flex);
         @include justify-content(center);
@@ -21,12 +22,9 @@
                 width: rem(12);
                 height: rem(12);
             }
-            &.usa-da-icon-info {
-                height: rem(20);
-                width: rem(22);
-            }
         }
-        .filter-header {
+
+        .filter-toggle__name {
             @include h6;
             @include flex(1 1 auto);
             color: $color-gray;
@@ -42,18 +40,6 @@
             }
         }
 
-        .usa-da-icon-guide {
-            fill: lighten( $color-gray-light, 5%);
-            float: right;
-            margin: rem(22) rem(15) rem(15) rem(4);
-            padding-left: rem(10);
-            height: rem(26);
-            width: rem(29);
-            &:hover {
-                @include transition(all 0.1s ease-in-out);
-                fill: darken($color-tab-inactive, 60%);
-            }
-        }
         &:hover {
             cursor: pointer;
             svg {
@@ -63,24 +49,27 @@
             }
         }
     }
-    .accessory-view {
-        @include flex(0 0 auto);
-        padding: 0 rem(15);
+    .filter-toggle__accessory {
+        @include display(flex);
+        @include align-items(flex-start);
+        .filter-toggle__accessory-icon {
+            @include flex(0 0 auto);
+            padding: 0 rem(15);
+            color: $color-base;
 
-        color: $color-base;
-
-        svg {
-            width: rem(15);
-            height: rem(15);
-            fill: $color-gray-light;
-        }
-
-        &:hover {
             svg {
-                fill: $color-gray;
+                width: rem(15);
+                height: rem(15);
+                fill: $color-gray-light;
+            }
+
+            &:hover {
+                svg {
+                    fill: $color-gray;
+                }
             }
         }
+        @import "pages/search/filters/keyword/_keywordHover";
     }
-    @import "pages/search/filters/keyword/_keywordHover";
 }
 
