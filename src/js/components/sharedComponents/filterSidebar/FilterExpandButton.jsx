@@ -24,11 +24,9 @@ export default class FilterExpandButton extends React.Component {
             showAccessory: false
         };
 
-        this.focusedElement = this.focusedElement.bind(this);
-        this.blurredElement = this.blurredElement.bind(this);
+        this.showAccessory = this.showAccessory.bind(this);
+        this.hideAccessory = this.hideAccessory.bind(this);
         this.toggleAccessory = this.toggleAccessory.bind(this);
-        this.enteredAccessory = this.enteredAccessory.bind(this);
-        this.exitedAccessory = this.exitedAccessory.bind(this);
     }
 
     focusedElement() {
@@ -45,28 +43,16 @@ export default class FilterExpandButton extends React.Component {
         });
     }
 
-    blurredElement() {
-        if (!this.props.disabled && this.props.accessory) {
-            this.setState({
-                showAccessory: false
-            });
-        }
+    showAccessory() {
+        this.setState({
+            showAccessory: true
+        });
     }
 
-    enteredAccessory() {
-        if (!this.props.disabled && this.props.accessory) {
-            this.setState({
-                showAccessory: true
-            });
-        }
-    }
-
-    exitedAccessory() {
-        if (!this.props.disabled && this.props.accessory) {
-            this.setState({
-                showAccessory: false
-            });
-        }
+    hideAccessory() {
+        this.setState({
+            showAccessory: false
+        });
     }
 
     render() {
@@ -86,18 +72,23 @@ export default class FilterExpandButton extends React.Component {
         if (this.props.accessory) {
             // We need to add this onClick for mobile tapping
             /* eslint-disable jsx-a11y/no-static-element-interactions */
+            /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 
             accessoryIcon = (
                 <div
                     className="accessory-view"
-                    onMouseEnter={this.enteredAccessory}
-                    onMouseLeave={this.exitedAccessory}
+                    onMouseOver={this.showAccessory}
+                    onMouseLeave={this.hideAccessory}
+                    onFocus={this.showAccessory}
+                    onBlur={this.hideAccessory}
                     onClick={this.toggleAccessory}
+                    tabIndex={0}
                     aria-hidden="true">
                     <InfoCircle alt="More information" />
                 </div>
             );
             /* eslint-enable jsx-a11y/no-static-element-interactions */
+            /* eslint-enable jsx-a11y/no-noninteractive-tabindex */
 
             ariaDescription = 'accessory-view';
 
@@ -113,13 +104,11 @@ export default class FilterExpandButton extends React.Component {
         }
 
         return (
-            <h3 className="filter-toggle-wrap">
+            <div className="filter-toggle-wrap">
                 <button
                     className={`filter-toggle ${hiddenClass}`}
                     onClick={this.props.toggleFilter}
                     disabled={this.props.disabled}
-                    onKeyUp={this.focusedElement}
-                    onBlur={this.blurredElement}
                     title={this.props.name}
                     aria-label={this.props.name}
                     aria-expanded={this.props.arrowState === 'expanded'}
@@ -128,10 +117,10 @@ export default class FilterExpandButton extends React.Component {
                     <div className="filter-header">
                         {this.props.name}
                     </div>
-                    {accessoryIcon}
-                    {accessoryView}
                 </button>
-            </h3>
+                {accessoryIcon}
+                {accessoryView}
+            </div>
         );
     }
 }

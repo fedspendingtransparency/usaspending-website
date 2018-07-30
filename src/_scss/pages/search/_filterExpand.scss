@@ -1,57 +1,71 @@
 .filter-toggle-wrap {
     margin: 0;
-}
-
-.filter-toggle {
-    @include button-unstyled;
     @include display(flex);
-    @include justify-content(center);
     @include align-items(center);
-    position: relative;
-    width: 100%;
-
-    padding: rem(15);
-    @include media($tablet-screen) {
-        padding: rem(15);
-    }
-
-    svg {
-        @include flex(0 0 auto);
-        cursor: pointer;
-        pointer-events: none;
-        fill: $color-gray;
-        height: rem(11);
-        width: rem(11);
-        @include media($large-screen) {
-            width: rem(12);
-            height: rem(12);
-        }
-        &.usa-da-icon-info {
-            height: rem(20);
-            width: rem(22);
-        }
-    }
-    .filter-header {
-        @include h6;
+    .filter-toggle {
+        @include button-unstyled;
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
         @include flex(1 1 auto);
-        color: $color-gray;
-        font-size: $small-font-size;
-        font-weight: $font-semibold;
-        height: 100%;
-        line-height: 1;
-        margin: 0;
-        padding-left: rem(6);
-        vertical-align: middle;
-        @include media($large-screen) {
-            font-size: $base-font-size;
+        padding: rem(15);
+
+        svg {
+            @include flex(0 0 auto);
+            cursor: pointer;
+            pointer-events: none;
+            fill: $color-gray;
+            height: rem(11);
+            width: rem(11);
+            @include media($large-screen) {
+                width: rem(12);
+                height: rem(12);
+            }
+            &.usa-da-icon-info {
+                height: rem(20);
+                width: rem(22);
+            }
+        }
+        .filter-header {
+            @include h6;
+            @include flex(1 1 auto);
+            color: $color-gray;
+            font-size: $small-font-size;
+            font-weight: $font-semibold;
+            height: 100%;
+            line-height: 1;
+            margin: 0;
+            padding-left: rem(6);
+            vertical-align: middle;
+            @include media($large-screen) {
+                font-size: $base-font-size;
+            }
+        }
+
+        .usa-da-icon-guide {
+            fill: lighten( $color-gray-light, 5%);
+            float: right;
+            margin: rem(22) rem(15) rem(15) rem(4);
+            padding-left: rem(10);
+            height: rem(26);
+            width: rem(29);
+            &:hover {
+                @include transition(all 0.1s ease-in-out);
+                fill: darken($color-tab-inactive, 60%);
+            }
+        }
+        &:hover {
+            cursor: pointer;
+            svg {
+                cursor: pointer;
+                fill: $color-black;
+                @include transition(all 0.25s $ease-in-out-sine);
+            }
         }
     }
-
     .accessory-view {
         @include flex(0 0 auto);
-        width: rem(15);
-        height: rem(15);
-        position: relative;
+        padding: 0 rem(15);
 
         color: $color-base;
 
@@ -60,34 +74,13 @@
             height: rem(15);
             fill: $color-gray-light;
         }
-    }
 
-    .usa-da-icon-guide {
-        fill: lighten( $color-gray-light, 5%);
-        float: right;
-        margin: rem(22) rem(15) rem(15) rem(4);
-        padding-left: rem(10);
-        height: rem(26);
-        width: rem(29);
         &:hover {
-            @include transition(all 0.1s ease-in-out);
-            fill: darken($color-tab-inactive, 60%);
-        }
-    }
-    &:hover {
-        cursor: pointer;
-        svg {
-            cursor: pointer;
-            fill: $color-black;
-            @include transition(all 0.25s $ease-in-out-sine);
-        }
-
-        .accessory-view {
             svg {
                 fill: $color-gray;
             }
         }
     }
-
     @import "pages/search/filters/keyword/_keywordHover";
 }
+
