@@ -247,7 +247,8 @@ export default class TimePeriodFilter extends React.Component {
                         hideError={this.hideError} />
                     { errorDetails }
                     <p className="data-note">
-                        Note: data is available for download from 2001 - present
+                        Note: Note: data is available for download from FY 2001 - present.
+                        To select data prior to FY 2009, enter an appropriate date range. Date ranges may span up to one year.
                     </p>
                     <TimePeriodButtons
                         currentStartDate={start}
