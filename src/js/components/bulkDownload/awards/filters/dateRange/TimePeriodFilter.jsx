@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
+import * as fiscalYearHelper from 'helpers/fiscalYearHelper';
+
 import DateRangeError from 'components/search/filters/timePeriod/DateRangeError';
 import DownloadDateRange from './DownloadDateRange';
 import TimePeriodButtons from './TimePeriodButtons';
@@ -231,6 +233,7 @@ export default class TimePeriodFilter extends React.Component {
         if (this.state.endDateBulkUI !== null) {
             end = this.state.endDateBulkUI.format('YYYY-MM-DD');
         }
+        const earliestFY = fiscalYearHelper.currentFiscalYear() - 9;
 
         return (
             <div className="download-filter">
@@ -247,7 +250,8 @@ export default class TimePeriodFilter extends React.Component {
                         hideError={this.hideError} />
                     { errorDetails }
                     <p className="data-note">
-                        Note: data is available for download from 2001 - present
+                        Note: data is available for download from FY 2001 - present.
+                        To select data prior to FY {earliestFY}, enter an appropriate date range. Date ranges may span up to one year.
                     </p>
                     <TimePeriodButtons
                         currentStartDate={start}
