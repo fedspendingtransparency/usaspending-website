@@ -1,6 +1,5 @@
 .account-awards-table-section {
     transition: opacity 0.25s ease;
-    margin-top: ($global-mrg * 4);
     
     @import "pages/search/results/table/_tableTypes";
     @import "pages/search/results/table/_resultsTablePicker";
@@ -54,5 +53,11 @@
         font-size: $small-font-size;
         color: $color-base;
         text-align: center;
+    }
+
+    .field-picker {
+        .field-list {
+            z-index: $z-header - 1;
+        }
     }
 }

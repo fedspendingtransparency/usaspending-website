@@ -20,6 +20,7 @@
     }
 
     .recipient-landing__results {
+        overflow-x: scroll;
         .recipient-list {
             margin-top: rem(15);
         }

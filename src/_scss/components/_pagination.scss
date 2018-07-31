@@ -2,6 +2,10 @@
     @include display(flex);
     @include flex-direction(row);
     @include align-items(center);
+    @include flex-wrap(wrap);
+    @include media($medium-screen) {
+        @include flex-wrap(nowrap);
+    }
     .pagination__totals {
         @include flex(0 0 auto);
     }
