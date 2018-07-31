@@ -43,6 +43,10 @@ export default class AccountDataContent extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.clearAccountFilters();
+    }
+
     handleSubmit(e) {
         e.preventDefault();
 
