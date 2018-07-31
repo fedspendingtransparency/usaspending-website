@@ -52,6 +52,10 @@ export default class AwardDataContent extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.clearAwardFilters();
+    }
+
     setValidDates(validDates) {
         this.setState({
             validDates
