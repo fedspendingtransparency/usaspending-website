@@ -52,7 +52,7 @@ describe('Core Location getter functions', () => {
         expect(location.congressionalDistrict).toEqual('IN-04');
     });
     it('should format the congressional district with a prefix', () => {
-       expect(location.fullCongressionalDistrict).toEqual('Congressional District: IN-04');
+       expect(location.fullCongressionalDistrict).toEqual('\nCongressional District: IN-04');
     });
     it('should use province as the state/province when state is not available', () => {
         expect(foreignLocation.stateProvince).toEqual('Quebec');
