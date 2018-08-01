@@ -40,7 +40,7 @@ const defaultProps = {
     padding: {
         left: 70,
         bottom: 50,
-        right: 70
+        right: 50
     },
     enableHighlight: true,
     legend: []

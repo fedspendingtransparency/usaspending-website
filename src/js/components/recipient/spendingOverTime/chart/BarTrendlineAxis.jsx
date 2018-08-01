@@ -58,7 +58,7 @@ export default class BarTrendlineAxis extends React.Component {
         }
 
         // set all the labels right of the edge of the axis
-        const xPos = props.width + props.padding.left + 20;
+        const xPos = (props.width + props.padding.left + props.padding.right) - 10;
 
         // iterate through the D3 generated tick marks and add them to the chart
         const labels = props.ticks.map((tick, i) => {
