@@ -6,7 +6,7 @@
 export const recipientCategories = [
     'awarding_agency',
     'awarding_subagency',
-    'federal_accounts',
+    'federal_account',
     'cfda',
     'naics',
     'psc',
@@ -17,7 +17,7 @@ export const recipientCategories = [
 export const recipientCategoryTitles = {
     awarding_agency: 'Awarding Agencies',
     awarding_subagency: 'Awarding Sub-Agencies',
-    federal_accounts: 'Federal Accounts',
+    federal_account: 'Federal Accounts',
     cfda: 'CFDA Programs',
     naics: 'NAICS Codes',
     psc: 'Product Service Codes',

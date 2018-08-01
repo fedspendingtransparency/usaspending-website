@@ -29,7 +29,7 @@ This endpoint returns a list of the top results of specific categories sorted by
             + `naics`
             + `county`
             + `district`
-            + `federal_accounts`
+            + `federal_account`
             + `country`
             <!-- + `state_territory` -->
         + filters (required, FilterObject)
