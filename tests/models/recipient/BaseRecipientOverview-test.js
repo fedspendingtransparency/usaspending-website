@@ -41,7 +41,7 @@ describe('BaseRecipientOverview', () => {
     it('should parse the business types into readable names', () => {
         const expected = [
             'Minority Owned Business',
-            'For Profit Organization'
+            'Higher Education'
         ];
         expect(recipient.businessTypes).toEqual(expected);
     })
