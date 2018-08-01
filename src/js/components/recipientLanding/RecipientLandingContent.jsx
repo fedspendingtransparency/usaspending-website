@@ -31,7 +31,7 @@ export default class RecipientLandingContent extends React.Component {
             <div className="landing-page">
                 <div className="landing-page__overview">
                     <h2 className="landing-page__title">
-                        Recipient Profiles
+                        Find a Recipient Profile.
                     </h2>
                     <div className="landing-page__description">
                         Recipients are any entity that has received federal money in the form of contracts, grants, loans, or other financial assistance.  Our Recipient Profiles offer insights into a specific recipient, including award trends over time and top 5 rankings from a variety of categories.
