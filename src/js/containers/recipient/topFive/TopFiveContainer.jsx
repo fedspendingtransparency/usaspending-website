@@ -10,7 +10,9 @@ import { isCancel } from 'axios';
 
 import {
     getTrailingTwelveMonths,
-    convertFYToDateRange
+    convertFYToDateRange,
+    currentFiscalYear,
+    earliestFiscalYear
 } from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
@@ -57,6 +59,15 @@ export class TopFiveContainer extends React.Component {
             timePeriod = {
                 start_date: trailing[0],
                 end_date: trailing[1]
+            };
+        }
+        else if (this.props.fy === 'all') {
+            const currentFY = currentFiscalYear();
+            const earliestRange = convertFYToDateRange(parseInt(earliestFiscalYear, 10) + 1);
+            const LatestRange = convertFYToDateRange(parseInt(currentFY, 10));
+            timePeriod = {
+                start_date: earliestRange[0],
+                end_date: LatestRange[1]
             };
         }
         else if (this.props.fy !== 'all' && this.props.fy) {
