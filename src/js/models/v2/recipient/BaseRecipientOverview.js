@@ -5,15 +5,9 @@
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
-import { getBusinessTypes } from 'helpers/businessTypesHelper';
+import { recipientTypes } from 'dataMapping/search/recipientType';
 
-const convertBusinessType = (type) => {
-    const categoryItem = getBusinessTypes().find((category) =>
-        type === category.fieldName
-    );
-    return categoryItem.displayName || null;
-};
-
+const convertRecipientType = (type) => recipientTypes[type] || null;
 
 const BaseRecipientOverview = {
     populate(data) {
@@ -63,7 +57,7 @@ const BaseRecipientOverview = {
     },
     get businessTypes() {
         return this._businessTypes.reduce((parsed, type) => {
-            const displayName = convertBusinessType(type);
+            const displayName = convertRecipientType(type);
             if (displayName) {
                 parsed.push(displayName);
             }
