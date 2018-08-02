@@ -33,7 +33,7 @@
 			@include media($tablet-screen) {
 				@include display(flex);
 			}
-			padding-bottom: rem(45);
+			padding-bottom: rem(30);
 			.recipient-section__viz {
 				width: 100%;
 				@include media($tablet-screen) {
