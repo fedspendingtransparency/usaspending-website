@@ -558,6 +558,17 @@ export default class BarChartTrendline extends React.Component {
                 }} />
         ));
 
+        // Size of the point depends on the visualization period
+        let radius = 6;
+        let strokeWidth = 3;
+        if (this.props.visualizationPeriod === 'quarter') {
+            radius = 4;
+            strokeWidth = 2;
+        }
+        if (this.props.visualizationPeriod === 'month') {
+            radius = 3;
+            strokeWidth = 2;
+        }
         const points = this.state.trendItems.map((point) => (
             <PointItem
                 key={point.key}
@@ -567,6 +578,8 @@ export default class BarChartTrendline extends React.Component {
                 y={point.y}
                 stroke={point.stroke}
                 color={point.color}
+                radius={radius}
+                strokeWidth={strokeWidth}
                 selectPoint={point.selectPoint}
                 deselectPoint={point.deselectPoint}
                 deregisterPoint={point.deregisterPoint}
@@ -578,9 +591,13 @@ export default class BarChartTrendline extends React.Component {
         let lines = null;
         // Generate lines if there is more than one item
         if (this.state.trendItems.length > 1) {
+            let lineStrokeWidth = 3;
+            if (this.props.visualizationPeriod === 'quarter' || this.props.visualizationPeriod === 'month') {
+                lineStrokeWidth = 2;
+            }
             const style = {
                 stroke: this.props.legend[1].stroke,
-                strokeWidth: 3
+                strokeWidth: lineStrokeWidth
             };
             lines = this.state.trendItems.map((point, index) => {
                 // Don't draw a line if we're at the last point

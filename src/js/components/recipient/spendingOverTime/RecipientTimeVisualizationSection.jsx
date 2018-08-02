@@ -74,21 +74,21 @@ export default class RecipientTimeVisualizationSection extends React.Component {
                                     <TimeVisualizationPeriodButton
                                         value="fiscal_year"
                                         label="Years"
-                                        active={this.props.data.visualizationPeriod === 'fiscal_year'}
+                                        active={this.props.visualizationPeriod === 'fiscal_year'}
                                         changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
                                 <li>
                                     <TimeVisualizationPeriodButton
                                         value="quarter"
                                         label="Quarter"
-                                        active={this.props.data.visualizationPeriod === 'quarter'}
+                                        active={this.props.visualizationPeriod === 'quarter'}
                                         changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
                                 <li>
                                     <TimeVisualizationPeriodButton
                                         value="month"
                                         label="Month"
-                                        active={this.props.data.visualizationPeriod === 'month'}
+                                        active={this.props.visualizationPeriod === 'month'}
                                         changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
                             </ul>

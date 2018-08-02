@@ -16,6 +16,8 @@ const propTypes = {
     y: PropTypes.number,
     color: PropTypes.string,
     stroke: PropTypes.string,
+    radius: PropTypes.number,
+    strokeWidth: PropTypes.number,
     description: PropTypes.string,
     selectPoint: PropTypes.func,
     deselectPoint: PropTypes.func,
@@ -70,9 +72,9 @@ export default class PointItem extends React.Component {
                     className={`point-item${hoverClass}`}
                     cx={this.props.x}
                     cy={this.props.y}
-                    r={6}
+                    r={this.props.radius}
                     stroke={this.props.stroke}
-                    strokeWidth="3"
+                    strokeWidth={this.props.strokeWidth}
                     fill={this.props.color}
                     tabIndex={-1}
                     onFocus={this.mouseEntered}
