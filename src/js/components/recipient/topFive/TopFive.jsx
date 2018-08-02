@@ -34,7 +34,7 @@ export default class TopFive extends React.Component {
                 </div>
             );
         }
-        if (this.props.error) {
+        else if (this.props.error) {
             message = (
                 <div className="category-table__message">
                   An error occurred while loading this table.
@@ -45,6 +45,13 @@ export default class TopFive extends React.Component {
             message = (
                 <div className="category-table__message">
                   Loading...
+                </div>
+            );
+        }
+        else if (this.props.results.length === 0) {
+            message = (
+                <div className="category-table__message">
+                  No Data Available
                 </div>
             );
         }
