@@ -59,9 +59,9 @@
 
 
         .category-table__table-cell {
-            padding: rem(5) rem(15);
+            padding: rem(10) rem(15);
             border: 0;
-            border-bottom: solid $color-gray-light rem(1);
+            border-bottom: solid rgba(174,176,181, 0.5) rem(1);
             background-color: transparent;
             font-weight: 400;
             text-align: center;
@@ -80,11 +80,17 @@
                 width: 20%;
             }
         }
-        .category-table__table-row:last-child {
-            .category-table__table-cell {
-                border-bottom: 0;
-            }
-        }
+
+        .category-table__table-row{
+					.capitalize {
+						text-transform: capitalize;
+					}
+					&:last-child {
+	            .category-table__table-cell {
+	                border-bottom: 0;
+	            }
+	        }
+				}
 
     }
 

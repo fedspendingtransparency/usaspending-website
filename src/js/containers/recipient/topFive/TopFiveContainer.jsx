@@ -107,7 +107,15 @@ export class TopFiveContainer extends React.Component {
         this.request = SearchHelper.performSpendingByCategorySearch(this.dataParams());
         this.request.promise
             .then((res) => {
-                this.parseResults(res.data.results, res.data.category);
+                if (res.data.results.length === 0) {
+                    this.setState({
+                        loading: false,
+                        error: true
+                    });
+                }
+                else {
+                    this.parseResults(res.data.results, res.data.category);
+                }
             })
             .catch((err) => {
                 if (!isCancel(err)) {

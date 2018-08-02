@@ -27,6 +27,13 @@ export default class TopFive extends React.Component {
 
     validate() {
         let message = null;
+        if (this.props.category === 'federal_account') {
+            message = (
+                <div className="category-table__message">
+                  Coming Soon
+                </div>
+            );
+        }
         if (this.props.error) {
             message = (
                 <div className="category-table__message">
@@ -41,14 +48,6 @@ export default class TopFive extends React.Component {
                 </div>
             );
         }
-        // In case we need this
-        else if (this.props.category === 'federal_account') {
-            message = (
-                <div className="category-table__message">
-                  Coming Soon.
-                </div>
-            );
-        }
         return message;
     }
 
@@ -57,6 +56,7 @@ export default class TopFive extends React.Component {
             <TopFiveRow
                 key={index}
                 data={result}
+                category={this.props.category}
                 total={this.props.total} />
         ));
         const hideBody = this.props.loading || this.props.error ? `category-table__table-body_hide` : '';
