@@ -648,7 +648,6 @@ export default class BarChartTrendline extends React.Component {
                             rawLabels={this.state.rawLabels}
                             scale={this.state.xScale}
                             axisPos={this.state.xAxisPos}
-                            activeLabel={this.props.activeLabel}
                             visualizationPeriod={this.props.visualizationPeriod} />
 
                         <BarTrendlineAxis
