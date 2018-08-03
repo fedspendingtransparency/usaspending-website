@@ -6,8 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ChartMessage from 'components/search/visualizations/time/TimeVisualizationChartMessage';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
 import TimeTooltip from 'components/state/spendingovertime/StateTimeVisualizationTooltip';
+import ChartLoadingMessage from 'components/search/visualizations/ChartLoadingMessage';
+import ChartNoResults from 'components/search/visualizations/ChartNoResults';
+import ChartError from 'components/search/visualizations/ChartError';
 import BarChartTrendline from './chart/BarChartTrendline';
 import PointTooltip from './PointTooltip';
 
@@ -36,6 +40,7 @@ const propTypes = {
     height: PropTypes.number,
     data: PropTypes.object,
     loading: PropTypes.bool,
+    error: PropTypes.bool,
     visualizationPeriod: PropTypes.string
 };
 /* eslint-enable react/no-unused-prop-types */
@@ -65,7 +70,7 @@ export default class RecipientTimeVisualization extends React.Component {
     }
 
     render() {
-        let chart = (<ChartMessage message="No data to display" />);
+        let chart = (<ChartNoResults />);
 
         const legend = [
             {
@@ -84,7 +89,10 @@ export default class RecipientTimeVisualization extends React.Component {
 
         if (this.props.loading) {
             // API request is still pending
-            chart = (<ChartMessage message="Loading data..." />);
+            chart = (<ChartLoadingMessage />);
+        }
+        else if (this.props.error) {
+            chart = (<ChartError />);
         }
         else if (this.props.data.groups.length > 0) {
             // only mount the chart component if there is data to display
@@ -128,8 +136,14 @@ export default class RecipientTimeVisualization extends React.Component {
 
         return (
             <div className="recipient-visualization__time-wrapper">
+                <CSSTransitionGroup
+                    transitionName="visualization-content-fade"
+                    transitionLeaveTimeout={225}
+                    transitionEnterTimeout={195}
+                    transitionLeave>
+                    {chart}
+                </CSSTransitionGroup>
                 {tooltip}
-                {chart}
             </div>
         );
     }

@@ -14,6 +14,7 @@ import RecipientTimeVisualization from './RecipientTimeVisualization';
 const propTypes = {
     data: PropTypes.object,
     loading: PropTypes.bool,
+    error: PropTypes.bool,
     visualizationPeriod: PropTypes.string,
     updateVisualizationPeriod: PropTypes.func
 };
@@ -99,6 +100,7 @@ export default class RecipientTimeVisualizationSection extends React.Component {
                 <RecipientTimeVisualization
                     visualizationPeriod={this.props.visualizationPeriod}
                     loading={this.props.loading}
+                    error={this.props.error}
                     data={this.props.data}
                     width={this.state.visualizationWidth} />
             </section>

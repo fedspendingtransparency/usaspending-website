@@ -226,6 +226,7 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
             <RecipientTimeVisualizationSection
                 data={this.state}
                 loading={this.state.loading}
+                error={this.state.error}
                 visualizationPeriod={this.state.visualizationPeriod}
                 updateVisualizationPeriod={this.updateVisualizationPeriod} />
         );
