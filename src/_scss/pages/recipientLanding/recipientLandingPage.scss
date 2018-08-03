@@ -8,15 +8,43 @@
     @import "./_recipientLabels";
     @import "pages/search/results/table/_tableMessages";
     @import "pages/search/results/screens/screens";
+    @import "pages/search/results/table/_tableTypes";
+
+    .table-types {
+        border: none;
+        margin-top: rem(5);
+        button.table-type-toggle {
+            border-bottom: 0;
+            .tab-content {
+                .tab-label {
+                    margin-right: 0;
+                }
+            }
+        }
+        button.table-type-toggle.active {
+            border-bottom: 0;
+        }
+    }
 
     .pagination {
+        @include display(inline-flex);
+        @include flex-direction(column);
+        @include align-items(flex-end);
         .pager {
-            justify-content: flex-end;
+            @include justify-content(flex-end);
+            margin-top: rem(40);
         }
     }
     .results-table-section { 
         position: relative;
         min-height: rem(200);
+    }
+
+    .landing-page__info {
+        border-bottom: 1px solid #aeb0b5;
+        margin-top: rem(20);
+        @include display(flex);
+        @include justify-content(space-between);
     }
 
     .recipient-landing__results {

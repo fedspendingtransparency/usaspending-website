@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import Pagination from 'components/sharedComponents/Pagination';
 import RecipientLandingResultsSection from './RecipientLandingResultsSection';
 import RecipientLabels from './RecipientLabels';
+import RecipientLandingTabs from './RecipientLandingTabs';
 import RecipientLandingSearchBar from './RecipientLandingSearchBar';
 
 const propTypes = {
@@ -39,12 +40,17 @@ export default class RecipientLandingContent extends React.Component {
                 </div>
                 <RecipientLandingSearchBar
                     setRecipientSearchString={this.props.setRecipientSearchString} />
-                <RecipientLabels />
-                <Pagination
-                    onChangePage={this.props.onChangePage}
-                    pageNumber={this.props.pageNumber}
-                    totalItems={this.props.totalItems}
-                    pageSize={this.props.pageSize} />
+                <div className="landing-page__info">
+                    <div className="recipient-landing__labels-wrapper">
+                        <RecipientLabels />
+                        <RecipientLandingTabs />
+                    </div>
+                    <Pagination
+                        onChangePage={this.props.onChangePage}
+                        pageNumber={this.props.pageNumber}
+                        totalItems={this.props.totalItems}
+                        pageSize={this.props.pageSize} />
+                </div>
                 <RecipientLandingResultsSection
                     results={this.props.results}
                     inFlight={this.props.inFlight}
