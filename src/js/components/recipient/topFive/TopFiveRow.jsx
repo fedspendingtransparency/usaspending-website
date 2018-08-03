@@ -18,8 +18,8 @@ export default class TopFiveRow extends React.Component {
             return (
                 <td
                     className="category-table__table-cell capitalize"
-                    title={this.props.data._name.toLowerCase()}>
-                    {this.props.data._name.toLowerCase()}
+                    title={`${this.props.data.index}. ${this.props.data._name.toLowerCase()}`}>
+                    {`${this.props.data.index}. ${this.props.data._name.toLowerCase()}`}
                 </td>
             );
         }

@@ -1,6 +1,17 @@
+.category-row {
+  display: flex;
+  width:100%;
+}
+
 .category-table {
     margin-top: rem(30);
     width: 100%;
+
+    &> div {
+      display:grid;
+      height: 100%;
+      grid-auto-rows: 0fr 1fr 1fr 1fr;
+    }
     @include media($tablet-screen) {
         @include flex(0 0 50%);
         // Evenly distribute padding between tables
@@ -82,30 +93,33 @@
         }
 
         .category-table__table-row{
-					.capitalize {
-						text-transform: capitalize;
-					}
-					&:last-child {
-	            .category-table__table-cell {
-	                border-bottom: 0;
-	            }
-	        }
-				}
+          .capitalize {
+            text-transform: capitalize;
+          }
+          &:last-child {
+            .category-table__table-cell {
+              border-bottom: 0;
+            }
+          }
+        }
 
     }
 
     .category-table__message {
-        margin: rem(10) 0;
         color:$color-gray-light;
         font-size: rem(18);
         text-align: center;
         background-color: #FCFCFC;
         height: 100%;
-        min-height: 68px;
-        vertical-align: middle;
-        line-height: 68px;
+        position: relative;
         border-radius: rem(5);
+        min-height: 68px;
         border: rem(1) solid #D5D6D8;
+        span {
+        	position: absolute;
+        	top: 45%;
+        	left: 40%;
+        }
     }
 
   .category-table__link {

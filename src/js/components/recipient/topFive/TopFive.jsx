@@ -30,28 +30,28 @@ export default class TopFive extends React.Component {
         if (this.props.category === 'federal_account') {
             message = (
                 <div className="category-table__message">
-                  Coming Soon
+                    <span> Coming Soon </span>
                 </div>
             );
         }
         else if (this.props.error) {
             message = (
                 <div className="category-table__message">
-                  An error occurred while loading this table.
+                    <span> An error occurred while loading this table. </span>
                 </div>
             );
         }
         else if (this.props.loading) {
             message = (
                 <div className="category-table__message">
-                  Loading...
+                    <span> Loading... </span>
                 </div>
             );
         }
         else if (this.props.results.length === 0) {
             message = (
                 <div className="category-table__message">
-                  No Data Available
+                    <span> No Data Available </span>
                 </div>
             );
         }
@@ -69,34 +69,32 @@ export default class TopFive extends React.Component {
         const hideBody = this.props.loading || this.props.error ? `category-table__table-body_hide` : '';
 
         return (
-            <div>
-                <table className="category-table__table">
-                    <thead
-                        className="category-table__table-head">
-                        <tr
-                            className="category-table__table-head-row">
-                            <th className="category-table__table-head-cell">
-                             Name
-                            </th>
-                            <th className="category-table__table-head-cell category-table__table-head-cell_centered">
-                             Awarded Amount
-                            </th>
-                            <th className="category-table__table-head-cell category-table__table-head-cell_centered">
-                             % of Total
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody
-                        className={`category-table__table-body ${hideBody}`}>
-                        {rows}
-                    </tbody>
-                </table>
-            </div>);
+            <table className="category-table__table">
+                <thead
+                    className="category-table__table-head">
+                    <tr
+                        className="category-table__table-head-row">
+                        <th className="category-table__table-head-cell">
+                         Name
+                        </th>
+                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                         Awarded Amount
+                        </th>
+                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                         % of Total
+                        </th>
+                    </tr>
+                </thead>
+                <tbody
+                    className={`category-table__table-body ${hideBody}`}>
+                    {rows}
+                </tbody>
+            </table>);
     }
 
     render() {
         return (
-            <div className="category-table">
+            <div>
                 <div className="category-table__title">
                     <img
                         className="category-table__title-icon"
@@ -106,7 +104,7 @@ export default class TopFive extends React.Component {
                         {recipientCategoryTitles[this.props.category]}
                     </div>
                 </div>
-                {this.validate() ? this.validate() : this.deliverHTMLpayload()}
+                {this.validate() ? <div className="category-message">{this.validate()}</div> : this.deliverHTMLpayload()}
             </div>
         );
     }
