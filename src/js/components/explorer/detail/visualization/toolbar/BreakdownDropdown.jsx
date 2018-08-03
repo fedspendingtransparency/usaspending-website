@@ -165,11 +165,11 @@ export default class BreakdownDropdown extends React.Component {
 
         return (
             <div className="explorer-toolbar" ref={this.setWrapperRef}>
-                <div className="explorer-toolbar__breakdown breakdown">
+                <div className="explorer-toolbar__breakdown">
                     <div className="breakdown__label">
                         See the breakdown by:
                     </div>
-                    <div className="breakdown__dropdown dropdown">
+                    <div className="breakdown__dropdown">
                         <button
                             className="dropdown__selection"
                             onClick={this.toggleMenu}>

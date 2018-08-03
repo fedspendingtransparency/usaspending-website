@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { range } from 'lodash';
+import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 
 const propTypes = {
     onChangePage: PropTypes.func.isRequired,
@@ -50,7 +51,7 @@ export default class Pagination extends React.Component {
                 <button
                     className="pager__button"
                     onClick={() => this.setPage(totalPages)}>
-                    {totalPages}
+                    {formatNumberWithPrecision(totalPages, 0)}
                 </button>
             </li>
         );
@@ -131,7 +132,7 @@ export default class Pagination extends React.Component {
                     <button
                         className={`pager__button ${this.props.pageNumber === page ? 'pager__button_active' : ''}`}
                         onClick={() => this.setPage(page, totalPages)}>
-                        {page}
+                        {formatNumberWithPrecision(page, 0)}
                     </button>
                 </li>
             )
@@ -146,7 +147,7 @@ export default class Pagination extends React.Component {
         if (pager.currentPage === pager.endPage) {
             rangeEnd = pager.totalItems;
         }
-        const resultsText = `${rangeStart}-${rangeEnd} of ${this.props.totalItems} results`;
+        const resultsText = `${rangeStart}-${rangeEnd} of ${formatNumberWithPrecision(this.props.totalItems, 0)} results`;
 
         if (!pager.pages || pager.pages.length <= 1) {
             // don't display pager if there is only 1 page

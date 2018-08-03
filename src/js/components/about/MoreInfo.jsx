@@ -25,7 +25,7 @@ const MoreInfo = () => (
                 <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://fedspendingtransparency.github.io/data-dictionary/">
+                    href="https://www.fiscal.treasury.gov/fsservices/gov/data-trans/dt-daims.htm">
                     Data Dictionary
                 </a>
                 .

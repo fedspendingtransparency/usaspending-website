@@ -20,10 +20,11 @@ export default class KeywordHover extends React.Component {
                         <li>Recipient Name</li>
                         <li>Recipient DUNS</li>
                         <li>Recipient Parent DUNS</li>
-                        <li>NAICS Code</li>
-                        <li>PSC Code</li>
+                        <li>NAICS code and description</li>
+                        <li>PSC code and description</li>
                         <li>PIID (prime award only)</li>
                         <li>FAIN (prime award only)</li>
+                        <li>URI</li>
                         <li>Award Description</li>
                     </ul>
                 </div>

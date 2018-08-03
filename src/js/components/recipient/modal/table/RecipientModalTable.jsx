@@ -23,7 +23,7 @@ const RecipientModalTable = (props) => {
             className="recipients-list__body-row"
             key={child.duns}>
             <td className="recipients-list__body-cell">
-                {child.name}
+                <a href={`/#/recipient/${child.id}`}>{child.name}</a>
             </td>
             <td className="recipients-list__body-cell">
                 {child.duns}

@@ -43,6 +43,10 @@ export default class AccountDataContent extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        this.props.clearAccountFilters();
+    }
+
     handleSubmit(e) {
         e.preventDefault();
 
@@ -128,7 +132,7 @@ export default class AccountDataContent extends React.Component {
                             . Federal account data is essentially a &ldquo;roll-up&rdquo; of multiple treasury account data.
                         </p>
                         <p>
-                            The files available are categorized by type, according to the scope of spending they cover. More information on the different file types can be found <a href="https://s3-us-gov-west-1.amazonaws.com/da-public-files/user_reference_docs/Custom+Account+Data+Dictionary.xlsx">here</a>.
+                            The files available are categorized by type, according to the scope of spending they cover. More information on the different file types can be found in our <a href="https://s3-us-gov-west-1.amazonaws.com/da-public-files/user_reference_docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a>.
                         </p>
                     </div>
                     <div className="download-info__section">
