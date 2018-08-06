@@ -33,7 +33,6 @@
 			@include media($tablet-screen) {
 				@include display(flex);
 			}
-			padding-bottom: rem(45);
 			.recipient-section__viz {
 				width: 100%;
 				@include media($tablet-screen) {
@@ -51,5 +50,6 @@
 	}
 
 	@import "./overview";
+	@import "./spendingOverTime/recipientTimeVisualization";
 }
 
