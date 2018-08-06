@@ -88,14 +88,14 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
                 loading: false,
                 error: false,
                 visualizationPeriod: "quarter",
-                groups: ['Q3 1979', 'Q4 1979', 'Q1 1980'],
-                xSeries: [['Q3 1979'], ['Q4 1979'], ['Q1 1980']],
+                groups: ['Q3 FY 1979', 'Q4 FY 1979', 'Q1 FY 1980'],
+                xSeries: [['Q3 FY 1979'], ['Q4 FY 1979'], ['Q1 FY 1980']],
                 ySeries: [[-100.25], [125], [350.5]],
                 zSeries: [], // zSeries is updated by parseTrendlineData
                 rawLabels: [
-                    { period: 'Q3', year: '1979' },
-                    { period: 'Q4', year: '1979' },
-                    {period: 'Q1', year: '1980'}
+                    { period: 'Q3', year: 'FY 1979' },
+                    { period: 'Q4', year: 'FY 1979' },
+                    {period: 'Q1', year: 'FY 1980'}
                 ]
             };
 
@@ -188,7 +188,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
             // validates a valid label is generated
             const timeLabel = container.instance().generateTime('quarter', mockTimes, 'label');
 
-            const expectedValue = 'Q4 2017';
+            const expectedValue = 'Q4 FY 2017';
 
             expect(timeLabel).toEqual(expectedValue);
         });
@@ -202,7 +202,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
 
             const expectedValue = {
                 period: 'Q4',
-                year: '2017'
+                year: 'FY 2017'
             };
 
             expect(timeLabel).toEqual(expectedValue);

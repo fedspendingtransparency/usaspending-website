@@ -179,7 +179,7 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
             return type === 'label' ? `FY ${timePeriod.fiscal_year}` : { period: null, year: `FY ${timePeriod.fiscal_year}` };
         }
         else if (group === 'quarter') {
-            return type === 'label' ? `Q${timePeriod.quarter} ${timePeriod.fiscal_year}` : { period: `Q${timePeriod.quarter}`, year: `${timePeriod.fiscal_year}` };
+            return type === 'label' ? `Q${timePeriod.quarter} FY ${timePeriod.fiscal_year}` : { period: `Q${timePeriod.quarter}`, year: `FY ${timePeriod.fiscal_year}` };
         }
         return type === 'label' ? `${month} ${year}` : { period: `${month}`, year: `${year}` };
     }

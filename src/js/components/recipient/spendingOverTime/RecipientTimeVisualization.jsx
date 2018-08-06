@@ -83,7 +83,7 @@ export default class RecipientTimeVisualization extends React.Component {
                 color: '#FFFFFF',
                 stroke: '#F5A623',
                 label: 'Count of New Awards',
-                offset: 200
+                offset: 120
             }
         ];
 
