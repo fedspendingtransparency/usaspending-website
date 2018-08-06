@@ -23,7 +23,8 @@ const propTypes = {
     totalItems: PropTypes.number,
     pageSize: PropTypes.number,
     order: PropTypes.object,
-    setSort: PropTypes.func
+    setSort: PropTypes.func,
+    setTab: PropTypes.func
 };
 
 export default class RecipientLandingContent extends React.Component {
@@ -43,7 +44,8 @@ export default class RecipientLandingContent extends React.Component {
                 <div className="landing-page__info">
                     <div className="recipient-landing__labels-wrapper">
                         <RecipientLabels />
-                        <RecipientLandingTabs />
+                        <RecipientLandingTabs
+                            setTab={this.props.setTab} />
                     </div>
                     <Pagination
                         onChangePage={this.props.onChangePage}

@@ -4,8 +4,13 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
+
+const propTypes = {
+    setTab: PropTypes.func
+};
 
 const tabTypes = [
     {
@@ -35,7 +40,7 @@ const tabTypes = [
     },
     {
         enabled: true,
-        internal: 'other',
+        internal: 'other_financial_assistance',
         label: 'Other Financial Assistance'
     }
 ];
@@ -55,6 +60,7 @@ export default class RecipientLandingTabs extends React.Component {
         this.setState({
             active: tab
         });
+        this.props.setTab(tab);
     }
 
     render() {
@@ -69,3 +75,5 @@ export default class RecipientLandingTabs extends React.Component {
         );
     }
 }
+
+RecipientLandingTabs.propTypes = propTypes;
