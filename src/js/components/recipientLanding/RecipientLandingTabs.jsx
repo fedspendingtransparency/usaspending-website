@@ -59,8 +59,9 @@ export default class RecipientLandingTabs extends React.Component {
     switchTab(tab) {
         this.setState({
             active: tab
+        }, () => {
+            this.props.setTab(tab);
         });
-        this.props.setTab(tab);
     }
 
     render() {

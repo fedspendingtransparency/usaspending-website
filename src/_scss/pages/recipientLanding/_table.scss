@@ -7,6 +7,7 @@
     .recipient-list__head-cell {
         background-color: $color-white;
         border: none;
+        padding-top: 0;
 
         @import "./_header";
         @import "pages/stateLanding/_sorter";
