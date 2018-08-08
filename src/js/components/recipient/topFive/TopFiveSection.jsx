@@ -13,7 +13,7 @@ export default class TopFiveSection extends React.Component {
         const content = topCategories.map((category, i) => {
             if (i % 2 === 0) {
                 return (
-                    <div className="category-row">
+                    <div key={category} className="category-row">
                         <TopFiveContainer
                             key={category}
                             category={category} />

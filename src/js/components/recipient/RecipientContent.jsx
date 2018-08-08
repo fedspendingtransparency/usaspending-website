@@ -221,9 +221,9 @@ export default class RecipientContent extends React.Component {
                     <RecipientOverview
                         showModal={this.props.showModal}
                         recipient={this.props.recipient} />
-                    <TopFiveSection />
                     <RecipientTimeVisualizationSectionContainer
                         recipient={this.props.recipient} />
+                    <TopFiveSection />
                 </div>
             </div>
         );
