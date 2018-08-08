@@ -57,6 +57,36 @@ export default class RecipientOverview extends React.Component {
                 </button>
             );
         }
+
+        // Format the location data
+        let address = (
+            <td>Address not provided in source system</td>
+        );
+        if (recipient.location.streetAddress || recipient.location.regionalAddress || recipient.location.fullCongressionalDistrict) {
+            address = (
+                <td>
+                    <div>{recipient.location.streetAddress}</div>
+                    <div>{recipient.location.regionalAddress}</div>
+                    <div>{recipient.location.fullCongressionalDistrict}</div>
+                </td>
+            );
+        }
+
+        // Format business types
+        let businessTypes = (
+            <td>
+                Not provided in source system
+            </td>
+        );
+        if (recipient.businessTypes.length > 0) {
+            businessTypes = (
+                <td>
+                    {recipient.businessTypes.map((type, i) =>
+                        <div key={i}>{type}</div>)}
+                </td>
+            );
+        }
+
         return (
             <div
                 id="recipient-overview"
@@ -95,18 +125,11 @@ export default class RecipientOverview extends React.Component {
                                     </tr>
                                     <tr>
                                         <th>Address</th>
-                                        <td>
-                                            <div>{recipient.location.streetAddress}</div>
-                                            <div>{recipient.location.regionalAddress}</div>
-                                            <div>Congressional District: {recipient.location.congressionalDistrict}</div>
-                                        </td>
+                                        {address}
                                     </tr>
                                     <tr>
                                         <th>Business Types</th>
-                                        <td>
-                                            {recipient.businessTypes.map((type, i) =>
-                                                <div key={i}>{type}</div>)}
-                                        </td>
+                                        {businessTypes}
                                     </tr>
                                 </tbody>
                             </table>

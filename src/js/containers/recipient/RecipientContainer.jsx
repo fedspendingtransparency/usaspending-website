@@ -51,6 +51,11 @@ export class RecipientContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        // Reset the FY
+        this.props.setRecipientFiscalYear('latest');
+    }
+
     loadRecipientOverview(id, year) {
         if (this.request) {
             // A request is currently in-flight, cancel it
