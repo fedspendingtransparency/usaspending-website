@@ -94,17 +94,19 @@ export default class TopFive extends React.Component {
 
     render() {
         return (
-            <div>
-                <div className="category-table__title">
-                    <img
-                        className="category-table__title-icon"
-                        src={`img/state-categories/${this.props.category}.png`}
-                        alt={recipientCategoryTitles[this.props.category]} />
-                    <div className="category-table__title-name">
-                        {recipientCategoryTitles[this.props.category]}
+            <div className="category-table">
+                <div>
+                    <div className="category-table__title">
+                        <img
+                            className="category-table__title-icon"
+                            src={`img/state-categories/${this.props.category}.png`}
+                            alt={recipientCategoryTitles[this.props.category]} />
+                        <div className="category-table__title-name">
+                            {recipientCategoryTitles[this.props.category]}
+                        </div>
                     </div>
+                    {this.validate() ? <div className="category-message">{this.validate()}</div> : this.deliverHTMLpayload()}
                 </div>
-                {this.validate() ? <div className="category-message">{this.validate()}</div> : this.deliverHTMLpayload()}
             </div>
         );
     }

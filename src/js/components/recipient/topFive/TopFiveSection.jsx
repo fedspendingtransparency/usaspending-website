@@ -9,38 +9,23 @@ import { recipientCategories as topCategories } from 'dataMapping/recipients/top
 import TopFiveContainer from 'containers/recipient/topFive/TopFiveContainer';
 
 export default class TopFiveSection extends React.Component {
-    chunk(array, size) {
-        return array.reduce((chunks, item, i) => {
-            if (i % size === 0) {
-                chunks.push([item]);
-            }
-            else {
-                chunks[chunks.length - 1].push(item);
-            }
-            return chunks;
-        }, []);
-    }
-    htmldraw() {
-        const myarr = [];
-        topCategories.map((category) => (
-            myarr.push(<TopFiveContainer
-                key={category}
-                category={category} />)
-        ));
-
-        return (
-            this.chunk(myarr, 2).map((row) => (
-                <div className="category-row">
-                    {
-                        row.map((col) => (
-                            <div className="category-table">{ col }</div>
-                        ))
-                    }
-                </div>
-            ))
-        );
-    }
     render() {
+        const content = topCategories.map((category, i) => {
+            if (i % 2 === 0) {
+                return (
+                    <div className="category-row">
+                        <TopFiveContainer
+                            key={category}
+                            category={category} />
+                        <TopFiveContainer
+                            key={topCategories[i + 1]}
+                            category={topCategories[i + 1]} />
+                    </div>
+                );
+            }
+            return false;
+        });
+
         return (
             <div
                 className="recipient-section topfive"
@@ -53,7 +38,7 @@ export default class TopFiveSection extends React.Component {
                     The set of tables below provide a summary of awards to this recipient through multiple angles. To see more than the top 5, you can visit our Advanced Search page.
                 </div>
                 <div className="topfive__content">
-                    {this.htmldraw()}
+                    {content}
                 </div>
             </div>
         );
