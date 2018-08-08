@@ -29,10 +29,10 @@ const PaneFeature = () => (
                 <hr className="feature-pane__mobile-content-divider" />
                 <div className="feature-pane__content-divider" />
                 <div className="feature-pane__content">
-                    <h3 className="feature-pane__content-title">New! - State Profiles</h3>
-                    <p className="feature-pane_content-text" >Find insights into the awards performed within a particular state with the tools and summaries found in our new State Profile pages.</p>
+                    <h3 className="feature-pane__content-title">New! - Recipient Profiles</h3>
+                    <p className="feature-pane_content-text" >Find insights into each recipient with the tools and summaries found in our new Recipient Profile pages.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="/#/state" className="feature-pane__button">Explore State Profiles</a>
+                        <a href="/#/recipient" className="feature-pane__button">Explore Recipient Profiles</a>
                     </div>
                 </div>
             </div>
