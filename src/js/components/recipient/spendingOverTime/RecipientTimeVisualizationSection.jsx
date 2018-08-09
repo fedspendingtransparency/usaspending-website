@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
 import TimeVisualizationPeriodButton from 'components/search/visualizations/time/TimeVisualizationPeriodButton';
-
-import StateTimeVisualization from "components/state/spendingovertime/StateTimeVisualization";
+import StateTimeVisualization from 'components/state/spendingovertime/StateTimeVisualization';
 
 const propTypes = {
     data: PropTypes.object,
