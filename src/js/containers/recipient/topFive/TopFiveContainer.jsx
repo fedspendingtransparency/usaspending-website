@@ -63,7 +63,7 @@ export class TopFiveContainer extends React.Component {
         }
         else if (this.props.fy === 'all') {
             const currentFY = currentFiscalYear();
-            const earliestRange = convertFYToDateRange(parseInt(earliestFiscalYear, 10) + 1);
+            const earliestRange = convertFYToDateRange(parseInt(earliestFiscalYear, 10));
             const latestRange = convertFYToDateRange(parseInt(currentFY, 10));
             timePeriod = {
                 start_date: earliestRange[0],
