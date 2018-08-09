@@ -2,12 +2,13 @@
     $hover-width: 300;
 
     position: absolute;
+    font-size: $small-font-size;
     right: rem(10);
-    top: rem(45);
+    top: rem(180);
 
     @include media($medium-screen) {
-        right: rem($hover-width * -1 + 10);
-        top: rem(10);
+        right: auto;
+        top: auto;
     }
 
     @include display(flex);

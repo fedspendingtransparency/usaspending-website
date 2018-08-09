@@ -209,8 +209,8 @@
         <polygon points="43.06 13.27 16.36 39.8 43.06 39.8 43.06 13.27"/><path d="M56.52,54.66H29.77V50.33H56.52Zm0,9.89H29.77V60.22H56.52ZM44.4,13.27V30.54H56.52v4.34H44.4v5.56H56.52v4.34H29.77V41.14H16.44V81.82H69.85V13.27Z"/>
     </symbol>
     <symbol id="usa-da-recipient" viewBox="0 0 58 56">
-        <circle class="cls-1" cx="30" cy="16" r="14"/>
-        <path class="cls-1" d="M2,52.12V58H58V52.12A9.4,9.4,0,0,0,53.52,44,51,51,0,0,0,6.76,44,9.4,9.4,0,0,0,2,52.12Z"/>
+        <circle cx="30" cy="16" r="14"/>
+        <path d="M2,52.12V58H58V52.12A9.4,9.4,0,0,0,53.52,44,51,51,0,0,0,6.76,44,9.4,9.4,0,0,0,2,52.12Z"/>
     </symbol>
     <symbol id="usa-da-circle-arrow-left" viewBox="0 0 71 70">
         <g id="no-circle-arrow-left">

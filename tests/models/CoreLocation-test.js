@@ -51,6 +51,9 @@ describe('Core Location getter functions', () => {
     it('should format the congressional district', () => {
         expect(location.congressionalDistrict).toEqual('IN-04');
     });
+    it('should format the congressional district with a prefix', () => {
+       expect(location.fullCongressionalDistrict).toEqual('\nCongressional District: IN-04');
+    });
     it('should use province as the state/province when state is not available', () => {
         expect(foreignLocation.stateProvince).toEqual('Quebec');
     });
@@ -111,6 +114,7 @@ describe('Core Location getter functions', () => {
         partialLocation.populateCore(missingData);
 
         expect(partialLocation.congressionalDistrict).toEqual('');
+        expect(partialLocation.fullCongressionalDistrict).toEqual('');
         expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345');
     });
 });

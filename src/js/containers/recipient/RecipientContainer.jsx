@@ -51,13 +51,13 @@ export class RecipientContainer extends React.Component {
         }
     }
 
-    loadRecipientOverview(duns, year) {
+    loadRecipientOverview(id, year) {
         if (this.request) {
             // A request is currently in-flight, cancel it
             this.request.cancel();
         }
 
-        this.request = RecipientHelper.fetchRecipientOverview(duns, year);
+        this.request = RecipientHelper.fetchRecipientOverview(id, year);
 
         this.request.promise
             .then((res) => {
