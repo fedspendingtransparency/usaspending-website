@@ -87,8 +87,7 @@ export default class StateTimeVisualization extends React.Component {
                 rawLabels={this.props.data.rawLabels}
                 legend={legend}
                 showTooltip={this.showTooltip}
-                visualizationPeriod={this.props.visualizationPeriod}
-                activeLabel={this.state.tooltipData} />);
+                visualizationPeriod={this.props.visualizationPeriod} />);
         }
 
         let tooltip = null;
