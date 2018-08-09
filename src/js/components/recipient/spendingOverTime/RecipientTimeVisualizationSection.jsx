@@ -102,7 +102,8 @@ export default class RecipientTimeVisualizationSection extends React.Component {
                     loading={this.props.loading}
                     error={this.props.error}
                     data={this.props.data}
-                    width={this.state.visualizationWidth} />
+                    width={this.state.visualizationWidth}
+                    color="#141D3B" />
             </section>
         );
     }

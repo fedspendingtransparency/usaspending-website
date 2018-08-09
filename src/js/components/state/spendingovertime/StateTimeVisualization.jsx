@@ -34,7 +34,8 @@ const propTypes = {
     height: PropTypes.number,
     data: PropTypes.object,
     loading: PropTypes.bool,
-    visualizationPeriod: PropTypes.string
+    visualizationPeriod: PropTypes.string,
+    color: PropTypes.string
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -67,7 +68,7 @@ export default class StateTimeVisualization extends React.Component {
 
         const legend = [
             {
-                color: '#708893',
+                color: this.props.color,
                 label: 'Awarded Amount',
                 offset: 0
             }];
