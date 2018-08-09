@@ -29,6 +29,9 @@ This endpoint returns a list of the top results of specific categories sorted by
             + `naics`
             + `county`
             + `district`
+            + `federal_account`
+            + `country`
+            + `state_territory`
         + filters (required, FilterObject)
             The filters to find with said category
         + limit: 5 (optional, number)

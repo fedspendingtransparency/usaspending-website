@@ -8,9 +8,10 @@ import PropTypes from 'prop-types';
 import { find, throttle } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
 import * as StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-
 import RecipientTimeVisualizationSectionContainer from 'containers/recipient/RecipientTimeVisualizationSectionContainer';
+import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
+import TopFiveSection from './topFive/TopFiveSection';
+
 import RecipientOverview from './RecipientOverview';
 
 const recipientSections = [
@@ -222,6 +223,7 @@ export default class RecipientContent extends React.Component {
                         recipient={this.props.recipient} />
                     <RecipientTimeVisualizationSectionContainer
                         recipient={this.props.recipient} />
+                    <TopFiveSection />
                 </div>
             </div>
         );
