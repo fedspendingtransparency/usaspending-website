@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
+import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 
 const propTypes = {
     setTab: PropTypes.func
@@ -72,6 +73,10 @@ export default class RecipientLandingTabs extends React.Component {
                     active={this.state.active}
                     switchTab={this.switchTab}
                     hideCounts />
+                <ResultsTablePicker
+                    types={tabTypes}
+                    active={this.state.active}
+                    switchTab={this.switchTab} />
             </div>
         );
     }
