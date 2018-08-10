@@ -59,6 +59,27 @@ describe('RecipientLandingContainer', () => {
         });
     });
 
+    describe('setTab', () => {
+        it('should update the awardType state values to the provided input', () => {
+            const container = shallow(
+                <RecipientLandingContainer />
+            );
+            container.instance().fetchRecipients = jest.fn();
+
+            container.instance().setTab('all');
+            expect(container.state().awardType).toEqual('all');
+        });
+        it('should trigger a fetch operation', () => {
+            const container = shallow(
+                <RecipientLandingContainer />
+            );
+            container.instance().fetchRecipients = jest.fn();
+
+            container.instance().setTab('contracts');
+            expect(container.instance().fetchRecipients).toHaveBeenCalledTimes(1);
+        });
+    });
+
     describe('fetchRecipients', () => {
         it('should make an API call', () => {
             const container = shallow(
