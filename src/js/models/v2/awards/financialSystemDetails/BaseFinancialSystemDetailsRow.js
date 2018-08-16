@@ -12,9 +12,8 @@ export const formatDate = (date) => date.format('MM/DD/YYYY');
 const BaseFinancialSystemDetailsRow = {
     populate(data) {
         this.id = data.financial_accounts_by_awards_id || '';
-        this._submissionDate = (
-            (data.certified_date && parseDate(data.certified_date)) || null
-        );
+        this._reportingFiscalYear = (data.submission && data.submission.reporting_fiscal_year) || null;
+        this._reportingFiscalQuarter = (data.submission && data.submission.reporting_fiscal_quarter) || null;
         this._fedAccountTitle = (data.treasury_account && data.treasury_account.federal_account
             && data.treasury_account.federal_account.account_title) || '';
         this._fedAccountId = (data.treasury_account && data.treasury_account.federal_account
@@ -31,8 +30,8 @@ const BaseFinancialSystemDetailsRow = {
         this._budgetSubFunctionCode = (data.treasury_account && data.treasury_account.budget_subfunction_code) || '';
     },
     get submissionDate() {
-        if (this._submissionDate) {
-            return formatDate(this._submissionDate);
+        if (this._reportingFiscalYear && this._reportingFiscalQuarter) {
+            return `FY ${this._reportingFiscalYear} Q${this._reportingFiscalQuarter}`;
         }
         return '';
     },

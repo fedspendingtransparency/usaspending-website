@@ -32,7 +32,7 @@ export class FinancialSystemTableContainer extends React.Component {
             nextPage: false,
             page: 1,
             sort: {
-                field: 'certified_date',
+                field: 'submission__reporting_fiscal_year',
                 direction: 'desc'
             },
             tableInstance: `${uniqueId()}`,
@@ -88,7 +88,8 @@ export class FinancialSystemTableContainer extends React.Component {
                     value: awardId
                 }
             ],
-            order: [`${sortDirection}${this.state.sort.field}`],
+            order: this.state.sort.field === 'submission__reporting_fiscal_year' ?
+                [`${sortDirection}${this.state.sort.field}`, `${sortDirection}submission__reporting_fiscal_quarter`] : [`${sortDirection}${this.state.sort.field}`],
             fields: tableFields.table._fields,
             limit: 15
         });

@@ -2,6 +2,8 @@
 	h2.recipient-overview__title {
 		@include h3;
 		margin: rem(5) 0;
+        font-weight: $font-semibold;
+        font-size: rem(36);
 	}
 	.recipient-overview__content {
 		h3.recipient-overview__heading {
