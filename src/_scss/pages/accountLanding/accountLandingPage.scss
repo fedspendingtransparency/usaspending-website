@@ -6,7 +6,14 @@
     @import './searchSection';
     @import './table/resultsSection';
 
-    .search-section {
-        display: none;
+    .usa-da-account-landing__tagline {
+        text-align: center;
+        font-size: rem(18);
+        margin-top: rem(30);
     }
+
+    .usa-da-account-landing__tagline_light {
+        font-weight: 100;
+    }
+
 }

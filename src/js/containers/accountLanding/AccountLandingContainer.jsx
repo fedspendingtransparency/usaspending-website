@@ -66,9 +66,11 @@ export default class AccountLandingContainer extends React.Component {
 
     setAccountSearchString(searchString) {
         // Change search string in the state and make a new request
+        const pageNumber = 1;
         if (searchString.length > 2) {
             this.setState({
-                searchString
+                searchString,
+                pageNumber
             }, () => {
                 this.fetchAccounts();
             });
@@ -132,6 +134,7 @@ export default class AccountLandingContainer extends React.Component {
         const params = {
             sort: this.state.order,
             page: this.state.pageNumber,
+            keyword: this.state.keyword,
             limit: pageSize,
             filters: {
                 fy
