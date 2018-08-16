@@ -51,7 +51,6 @@ This endpoint returns a list of federal accounts, their number, name, managing a
 + account_id: `5354` (required, string)
     A unique identifier for the federal account
 + managing_agency_acronym: `BEM` (required, string)
-    The aggregate monetary value of all transactions associated with this recipient for the trailing 12 months.
 + agency_identifier: `032` (required, string)
 + budgetary_resources: 03423.23 (required, number)
 + managing_agency: `CIA` (required, string)
