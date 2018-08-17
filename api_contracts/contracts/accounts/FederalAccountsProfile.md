@@ -40,7 +40,6 @@ This endpoint returns a list of federal accounts, their number, name, managing a
 + hasPrevious: false (boolean, required)
 + next: 2 (number, required)
 + fy: `2018` (string, required)
-+ keyword: `test` (string, required)
 + results (array[FederalAccountListing], fixed-type)
 
 ## FederalAccountListing (object)
