@@ -20,10 +20,10 @@ const PaneFeature = () => (
                 <div className="feature-pane__content-divider" />
                 <hr className="feature-pane__mobile-content-divider" />
                 <div className="feature-pane__content">
-                    <h3 className="feature-pane__content-title">Tour the New USAspending.gov</h3>
-                    <p className="feature-pane_content-text">We have a new look with more data than ever before. Take a quick tour of the new site.</p>
+                    <h3 className="feature-pane__content-title">New! - Download Account Data</h3>
+                    <p className="feature-pane_content-text">Download account data at the Federal Account or Treasury Account level, including account data linked to award data.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="https://www.youtube.com/watch?v=kaVhkZd3S5w" target="_blank" rel="noopener noreferrer" className="feature-pane__button">Watch the Video</a>
+                        <a href="/#/download_center/custom_account_data" className="feature-pane__button">Download Account Data</a>
                     </div>
                 </div>
                 <hr className="feature-pane__mobile-content-divider" />
