@@ -47,12 +47,12 @@ This endpoint returns a list of federal accounts, their number, name, managing a
     Name of the federal account. `null` when the name is not provided.
 + account_number: `023-2342` (required, string, nullable)
     The number for the federal account. `null` when no DUNS is provided.
-+ account_id: `5354` (required, string)
++ account_id: 5354 (required, number)
     A unique identifier for the federal account
 + managing_agency_acronym: `BEM` (required, string)
 + agency_identifier: `032` (required, string)
 + budgetary_resources: 03423.23 (required, number)
-+ managing_agency: `CIA` (required, string)
++ managing_agency: `Central Intelligence Agency` (required, string)
 
 ## TimeFilterObject (object)
 + fy: `2018` (required, string)
