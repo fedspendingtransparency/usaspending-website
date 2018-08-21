@@ -51,8 +51,8 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 
 + Request (application/json)
     + Attributes (object)
-        + award_id: 123 (optional, string)
-            The internal id of the award to filter on. If not included, all transactions are returned.
+        + award_id: 123 (required, number)
+            The internal id of the award to filter on.
         + limit: 15 (optional, number)
             The number of results to include per page. 
             + Default: 10
