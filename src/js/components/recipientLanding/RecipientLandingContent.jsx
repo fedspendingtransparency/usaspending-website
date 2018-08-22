@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import Pagination from 'components/sharedComponents/Pagination';
 import RecipientLandingResultsSection from './RecipientLandingResultsSection';
 import RecipientLabels from './RecipientLabels';
+import RecipientLandingTabs from './RecipientLandingTabs';
 import RecipientLandingSearchBar from './RecipientLandingSearchBar';
 
 const propTypes = {
@@ -22,7 +23,8 @@ const propTypes = {
     totalItems: PropTypes.number,
     pageSize: PropTypes.number,
     order: PropTypes.object,
-    setSort: PropTypes.func
+    setSort: PropTypes.func,
+    setTab: PropTypes.func
 };
 
 export default class RecipientLandingContent extends React.Component {
@@ -31,7 +33,7 @@ export default class RecipientLandingContent extends React.Component {
             <div className="landing-page">
                 <div className="landing-page__overview">
                     <h2 className="landing-page__title">
-                        Recipient Profiles
+                        Find a Recipient Profile.
                     </h2>
                     <div className="landing-page__description">
                         Recipients are any entity that has received federal money in the form of contracts, grants, loans, or other financial assistance.  Our Recipient Profiles offer insights into a specific recipient, including award trends over time and top 5 rankings from a variety of categories.
@@ -39,12 +41,18 @@ export default class RecipientLandingContent extends React.Component {
                 </div>
                 <RecipientLandingSearchBar
                     setRecipientSearchString={this.props.setRecipientSearchString} />
-                <RecipientLabels />
-                <Pagination
-                    onChangePage={this.props.onChangePage}
-                    pageNumber={this.props.pageNumber}
-                    totalItems={this.props.totalItems}
-                    pageSize={this.props.pageSize} />
+                <div className="landing-page__info">
+                    <div className="recipient-landing__labels-wrapper">
+                        <RecipientLabels />
+                        <RecipientLandingTabs
+                            setTab={this.props.setTab} />
+                    </div>
+                    <Pagination
+                        onChangePage={this.props.onChangePage}
+                        pageNumber={this.props.pageNumber}
+                        totalItems={this.props.totalItems}
+                        pageSize={this.props.pageSize} />
+                </div>
                 <RecipientLandingResultsSection
                     results={this.props.results}
                     inFlight={this.props.inFlight}

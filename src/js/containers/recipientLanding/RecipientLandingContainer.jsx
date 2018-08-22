@@ -25,6 +25,7 @@ export default class RecipientLandingContainer extends React.Component {
                 field: 'amount',
                 direction: 'desc'
             },
+            awardType: 'all',
             inFlight: false,
             error: false,
             searchString: '',
@@ -37,6 +38,7 @@ export default class RecipientLandingContainer extends React.Component {
         this.setRecipientSearchString = this.setRecipientSearchString.bind(this);
         this.onChangePage = this.onChangePage.bind(this);
         this.setSort = this.setSort.bind(this);
+        this.setTab = this.setTab.bind(this);
     }
 
     componentDidMount() {
@@ -86,6 +88,14 @@ export default class RecipientLandingContainer extends React.Component {
         });
     }
 
+    setTab(awardType) {
+        this.setState({
+            awardType
+        }, () => {
+            this.fetchRecipients();
+        });
+    }
+
     fetchRecipients() {
         if (this.recipientsRequest) {
             // a request is in-flight, cancel it
@@ -102,7 +112,8 @@ export default class RecipientLandingContainer extends React.Component {
             order: this.state.order.direction,
             sort: this.state.order.field,
             page: this.state.pageNumber,
-            limit: this.state.pageSize
+            limit: this.state.pageSize,
+            award_type: this.state.awardType
         };
 
         if (this.state.searchString !== '') {
@@ -156,6 +167,7 @@ export default class RecipientLandingContainer extends React.Component {
                 error={this.state.error}
                 order={this.state.order}
                 setSort={this.setSort}
+                setTab={this.setTab}
                 searchString={this.state.searchString}
                 setRecipientSearchString={this.setRecipientSearchString}
                 onChangePage={this.onChangePage}

@@ -49,6 +49,9 @@ const CoreLocation = {
         }
         return '';
     },
+    get fullCongressionalDistrict() {
+        return this.congressionalDistrict && `\nCongressional District: ${this.congressionalDistrict}`;
+    },
     get stateProvince() {
         if (this._city && this._stateCode) {
             return this._stateCode;
@@ -64,7 +67,7 @@ const CoreLocation = {
     get fullAddress() {
         const line1 = (this.streetAddress && `${this.streetAddress}`) || '';
         const line2 = (this.regionalAddress && `${this.regionalAddress}`) || '';
-        const line3 = (this.congressionalDistrict && `\nCongressional District: ${this.congressionalDistrict}`) || '';
+        const line3 = this.fullCongressionalDistrict;
         return `${line1}${line2}${line3}` || '--';
     }
 };

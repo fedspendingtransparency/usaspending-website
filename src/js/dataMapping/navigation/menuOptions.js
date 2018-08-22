@@ -37,7 +37,7 @@ export const profileOptions = [
     {
         label: 'Recipients',
         url: '#/recipient',
-        enabled: false
+        enabled: true
     }
 ];
 

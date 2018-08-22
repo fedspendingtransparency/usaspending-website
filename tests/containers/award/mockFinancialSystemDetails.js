@@ -13,6 +13,10 @@ const items = {
             financial_accounts_by_awards_id: 22337,
             program_activity_name: "Wind Energy",
             certified_date: null,
+            submission: {
+                reporting_fiscal_year: '2017',
+                reporting_fiscal_quarter: '2'
+            },
             treasury_account: {
                 treasury_account_identifier: 35975,
                 tas_rendering_label: "089X0321",

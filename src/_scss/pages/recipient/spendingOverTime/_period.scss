@@ -1,0 +1,16 @@
+.recipient-visualization-period {
+    @import "components/visualizations/_period";
+    width: 100%;
+    @include display(flex);
+    @include justify-content(flex-end);
+
+
+    .visualization-period {
+        @include display(flex);
+        @include justify-content(flex-end);
+        margin-bottom: rem(20);
+        @include media($medium-screen) {
+            width: 50%;
+        }
+    }
+}

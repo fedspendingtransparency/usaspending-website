@@ -29,6 +29,9 @@ This endpoint returns a list of the top results of specific categories sorted by
             + `naics`
             + `county`
             + `district`
+            + `federal_account`
+            + `country`
+            + `state_territory`
         + filters (required, FilterObject)
             The filters to find with said category
         + limit: 5 (optional, number)
@@ -38,10 +41,35 @@ This endpoint returns a list of the top results of specific categories sorted by
 
 + Response 200 (application/json)
     + Attributes
-        + category: awarding_agency (required, string)
+        + category: `awarding_agency` (required, string)
         + results (array[CategoryResult], fixed-type)
         + limit: 10 (required, number)
         + page_metadata (PageMetadataObject)
+        
+## Spending Over Time [/api/v2/search/spending_over_time/]
+
+This endpoint returns a list of aggregated award amounts grouped by time period in ascending order (earliest to most recent).
+
+### Spending Over Time [POST]
+
++ Request (application/json)
+    + Attributes (object)
+        + group: `quarter` (required, enum[string])
+            + `fiscal_year`
+            + `quarter`
+            + `month`
+        + filters (required, FilterObject)
+        + subawards (optional, boolean)
+            True to group by sub-awards instead of prime awards. Defaults to false.
+            + Default: false
+
++ Response 200 (application/json)
+    + Attributes
+        + group: `quarter` (required, enum[string])
+            + `fiscal_year`
+            + `quarter`
+            + `month`
+        + results: (array[TimeResult], fixed-type)
 
 # Data Structures
 
@@ -52,6 +80,11 @@ This endpoint returns a list of the top results of specific categories sorted by
 + code: 336411 (optional, string)
     `code` is a user-displayable code (such as a program activity or NAICS code, but **not** a database ID). When no such code is relevant, return a `null`.
 + amount: 591230394.12 (required, number)
+
+## TimeResult (object)
++ time_period: (TimePeriodGroup)
++ aggregated_amount: 200000000 (required, number)
+    The aggregate award amount for this time period and the given filters.
 
 ## PageMetadataObject (object)
 + page: 1 (required, number)
@@ -67,6 +100,8 @@ This endpoint returns a list of the top results of specific categories sorted by
 + place_of_performance_locations (optional, array[LocationObject], fixed-type)
 + agencies (optional, array[AgencyObject])
 + recipient_search_text: kearney (optional, array[string])
++ recipient_id: `123ABC-R` (optional, string)
+    A hash of recipient DUNS, name, and level. A unique identifier for recipients, used for profile page urls.
 + recipient_scope: domestic (optional, enum[string])
     + domestic
     + foreign
@@ -89,6 +124,13 @@ This endpoint returns a list of the top results of specific categories sorted by
 + `date_type`: `action_date` (optional, enum[string])
     + action_date
     + last_modified_date
+    
+## TimePeriodGroup (object)
++ fiscal_year: `2018` (required, string)
++ quarter: 1 (optional, number)
+    Excluded when grouping by `fiscal_year` or `month`.
++ month: 1 (optional, number)
+    Excluded when grouping by `fiscal_year` or `quarter`.
 
 ## LocationObject (object)
 + country: USA (required, string)

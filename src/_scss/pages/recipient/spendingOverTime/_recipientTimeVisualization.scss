@@ -1,0 +1,14 @@
+.transactions-over-time {
+    @import "pages/search/results/visualizations/time/chart/barChart";
+    @import 'pages/search/results/visualizations/messages';
+    @import "pages/search/results/screens/loading";
+    @import "./_period";
+
+    .visualization-tooltip {
+        @import "components/visualizations/tooltip/_tooltip";
+    }
+
+    .recipient-visualization__time-wrapper {
+        min-height: rem(304);
+    }
+}
