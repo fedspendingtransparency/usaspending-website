@@ -28,8 +28,10 @@
     .pagination {
         @include flex-direction(column);
         @include align-items(flex-end);
-        &:nth-of-type(2) {
-            border-bottom: 1px solid #aeb0b5;
+        @include media($tablet-screen) {
+            &:nth-of-type(2) {
+                border-bottom: 1px solid #aeb0b5;
+            }
         }
         .pager {
             @include justify-content(flex-end);
