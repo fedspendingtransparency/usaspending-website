@@ -19,7 +19,13 @@
             }
         }
     }
-		.landing-disclaimer {
+		.landing-page__disclaimer {
 			margin-top: rem(45);
+			.landing-page__note {
+				font-weight: bold;
+			}
+			.landing-page__entities {
+				font-style: italic;
+			}
 		}
 }
