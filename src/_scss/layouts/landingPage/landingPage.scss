@@ -19,4 +19,19 @@
             }
         }
     }
+    .landing-page__tagline {
+        text-align: center;
+        font-size: rem(18);
+        margin-top: rem(30);
+    }
+
+    .landing-page__tagline_light {
+        font-weight: 100;
+    }
+
+    .landing-page__tagline-icon {
+        width: rem(20);
+        height: rem(20);
+        color: #1073BA;
+    }
 }

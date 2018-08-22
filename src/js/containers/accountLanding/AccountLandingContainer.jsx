@@ -66,15 +66,12 @@ export default class AccountLandingContainer extends React.Component {
 
     setAccountSearchString(searchString) {
         // Change search string in the state and make a new request
-        const pageNumber = 1;
-        if (searchString.length > 2) {
-            this.setState({
-                searchString,
-                pageNumber
-            }, () => {
-                this.fetchAccounts();
-            });
-        }
+        this.setState({
+            searchString,
+            pageNumber: 1
+        }, () => {
+            this.fetchAccounts();
+        });
     }
 
     updateSort(field, direction) {
@@ -134,12 +131,15 @@ export default class AccountLandingContainer extends React.Component {
         const params = {
             sort: this.state.order,
             page: this.state.pageNumber,
-            keyword: this.state.keyword,
             limit: pageSize,
             filters: {
                 fy
             }
         };
+
+        if (this.state.searchString) {
+            params.keyword = this.state.searchString;
+        }
 
         this.accountsRequest = AccountLandingHelper.fetchAllAccounts(params);
 
@@ -187,7 +187,7 @@ export default class AccountLandingContainer extends React.Component {
                 columns={this.state.columns}
                 order={this.state.order}
                 updateSort={this.updateSort}
-                accountSearchString={this.state.searchString}
+                searchString={this.state.searchString}
                 setAccountSearchString={this.setAccountSearchString}
                 onChangePage={this.onChangePage}
                 pageNumber={this.state.pageNumber}

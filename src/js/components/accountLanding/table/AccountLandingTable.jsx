@@ -13,7 +13,6 @@ import TableRow from './TableRow';
 const propTypes = {
     results: PropTypes.array,
     columns: PropTypes.array,
-    accountSearchString: PropTypes.string,
     order: PropTypes.object,
     updateSort: PropTypes.func,
     error: PropTypes.bool,
@@ -49,7 +48,7 @@ export default class AccountLandingTable extends React.PureComponent {
                 key={account.accountId}
                 rowIndex={index}
                 columns={this.props.columns}
-                accountSearchString={this.props.accountSearchString} />
+                accountSearchString={this.props.searchString} />
         ));
 
         const headers = this.props.columns.map((column, index) => (

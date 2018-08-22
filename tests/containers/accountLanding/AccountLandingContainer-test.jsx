@@ -64,6 +64,29 @@ describe('AccountLandingContainer', () => {
         });
     });
 
+    describe('setSearchString', () => {
+        it('should update the setAccountSearchString state value to the provided input', () => {
+            const container = shallow(
+                <AccountLandingContainer />
+            );
+
+            container.instance().fetchAccounts = jest.fn();
+
+            container.instance().setAccountSearchString('test');
+            expect(container.state().searchString).toEqual('test');
+        });
+        it('should trigger a fetch operation after setRecipientSearchString gets a value', () => {
+            const container = shallow(
+                <AccountLandingContainer />
+            );
+
+            container.instance().fetchAccounts = jest.fn();
+
+            container.instance().setAccountSearchString('test');
+            expect(container.instance().fetchAccounts).toHaveBeenCalledTimes(1);
+        });
+    });
+
     describe('parseAccounts', () => {
         it('should parse the API response and update the container state', () => {
             const container = shallow(<AccountLandingContainer />);
