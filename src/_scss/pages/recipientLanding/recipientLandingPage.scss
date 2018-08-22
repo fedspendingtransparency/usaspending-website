@@ -26,10 +26,11 @@
     }
 
     .pagination {
-        @include display(inline-flex);
         @include flex-direction(column);
         @include align-items(flex-end);
-        border-bottom: 1px solid #aeb0b5;
+        &:nth-of-type(2) {
+            border-bottom: 1px solid #aeb0b5;
+        }
         .pager {
             @include justify-content(flex-end);
             margin-top: rem(40);

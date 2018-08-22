@@ -90,6 +90,7 @@ export default class RecipientLandingContainer extends React.Component {
 
     setTab(awardType) {
         this.setState({
+            pageNumber: 1,
             awardType
         }, () => {
             this.fetchRecipients();
