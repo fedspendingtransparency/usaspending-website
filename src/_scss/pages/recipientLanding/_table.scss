@@ -1,13 +1,13 @@
 .recipient-list {
     border: none;
     .recipient-list__head-row {
-        border-top: solid 2px $color-gray-lighter;
         border-bottom: solid 1px $color-gray-lighter;
     }
 
     .recipient-list__head-cell {
         background-color: $color-white;
         border: none;
+        padding-top: 0;
 
         @import "./_header";
         @import "pages/stateLanding/_sorter";

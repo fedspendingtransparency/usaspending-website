@@ -26,6 +26,7 @@ export default class RecipientModal extends React.Component {
     render() {
         let table = (<RecipientModalTable
             sortField={this.props.sortField}
+            hideModal={this.props.hideModal}
             sortDirection={this.props.sortDirection}
             updateSort={this.props.updateSort}
             fy={this.props.recipient.fy}
