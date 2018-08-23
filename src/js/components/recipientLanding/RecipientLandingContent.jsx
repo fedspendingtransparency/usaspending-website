@@ -66,7 +66,7 @@ export default class RecipientLandingContent extends React.Component {
                     totalItems={this.props.totalItems}
                     pageSize={this.props.pageSize} />
                 <p className="landing-page__disclaimer">
-                    <span className="landing-page__note">Note:</span> Profiles are not included for the following recipient names because they would represent aggregations of many individuals instead of specific legal entities:  <span className="landing-page__entities">Multiple Recipients, Multiple Foreign Recipients, Miscellaneous Foreign Awardees, Private Individual, Individual Recipient, and Redacted Due to PII</span>.
+                    <span className="landing-page__note">Note:</span> Profiles are not included for the following recipient names because they would represent aggregations of many individuals instead of specific legal entities:  <br /><span className="landing-page__entities">Multiple Recipients, Multiple Foreign Recipients, Miscellaneous Foreign Awardees, Private Individual, Individual Recipient, and Redacted Due to PII</span>.
                 </p>
             </div>
         );
