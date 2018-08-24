@@ -44,7 +44,6 @@ export default class RecipientOverview extends React.Component {
             // This is a parent recipient
             label = (
                 <a
-                    href={`#/recipient/${this.props.recipient.id}/?glossary=parent-duns`}
                     className="recipient-overview__label recipient-overview__label_parent">
                     Parent Recipient <Glossary />
                 </a>
