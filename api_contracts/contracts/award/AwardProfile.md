@@ -135,8 +135,10 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 ## ContractResponse (object)
 + type: `A` (required, string)
 + category: `contract` (required, string)
+    The category of what this award is
 + type_description: `Definitive Contract` (required, string)
 + piid: 34242 (required, number)
+    Award id
 + parent_award_piid: `1301` (required, string, nullable)
 + description: `ewraijwrw` (required, string, nullable)
 + awarding_agency: (required, AwardAgency, fixed-type)
@@ -145,13 +147,13 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + total_obligation (required, number)
 + base_and_all_options_value: 24242432 (required, number)
     The ceiling and amount of the award
-+ period_of_performance (required, PerformancePeriod, fixed-type) // Issac, you'll need to create this
++ period_of_performance (required, PerformancePeriod, fixed-type)
 + place_of_performance (required, PerformancePlace, fixed-type)
 + latest_transaction.contract_data (required, ContractDetails, fixed-type)
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
 + latest_transaction.contract_data.idv_type (required, string, nullable)
-+ executive_details (required, Executive, fixed-type) // Issac, you'll need to add this to the response
++ executive_details (required, Executive, fixed-type)
 
 ## AwardAgency (object)
 + toptier_agency.name: `Department of Energy` (required, string, nullable)
@@ -162,6 +164,7 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + toptier_agency.name: `Department of Defense` (required, string, nullable)
 + toptier_agency.abbreviation: `DOD` (required, string, nullable)
 + subtier_agency.name: `Department of Navy` (required, string)
+    Name of the subfunding agency
 + subtier_agency.abbreviation: `DON` (required, string, nullable)
 + office_agency_name: `STRATEGIC SYSTEMS` (required, string, nullable)
 
@@ -170,12 +173,14 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + recipient_unique_id: 2424224 (required, number, nullable)
 + parent_recipient_unique_id: 2424232 (required, number, nullable)
 + location: (required, RecipientLocation, nullable)
-+ recipient_parent_name: `HoneyWell` (string, nullable) // Issac, you'll need to create this by looking up the parent recipient id and mapping it to a name
++ recipient_parent_name: `HoneyWell` (string, nullable)
 + business_categories: (required, array[string])
 
 ## PerformancePeriod
 + period_of_performance_start_date: `2004-02-19` (required, string)
+    The starting date of the contract in the format `YYYY-MM-DD`
 + period_of_performance_current_end_date: `2005-02-19` (required, string)
+    The ending date of the contract in the format `YYYY-MM-DD`
 
 ## PerformancePlace
 + place_of_performance.city_name: `Sunset` (required, string, nullable)
@@ -248,11 +253,7 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + officer_1_amount: 234242 (required, number)
 
 ## MiscResponse (object)
-+ category: `other` (required, enum[string])
-    + Members
-        Defaults to other
-        + other
-        + loan
++ category: `other` (required, string)
 + type: `C` (required, string)
 + type_description: `Some loan` (required, string)
 + piid: 34242 (required, number)
@@ -267,4 +268,4 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + total_subaward_amount: 35345353453 (required, number)
 + period_of_performance: (required, PerformancePeriod, fixed-type)
 + place_of_performance: (required, PerformancePlace, fixed-type)
-+ executive_details (required, Executive, fixed-type) // Issac, you'll need to create this resp
++ executive_details (required, Executive, fixed-type)
