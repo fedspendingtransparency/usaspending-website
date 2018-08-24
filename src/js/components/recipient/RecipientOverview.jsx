@@ -43,10 +43,10 @@ export default class RecipientOverview extends React.Component {
         else if (recipient.level === 'P') {
             // This is a parent recipient
             label = (
-                <a
+                <span
                     className="recipient-overview__label recipient-overview__label_parent">
                     Parent Recipient <Glossary />
-                </a>
+                </span>
             );
             viewChildren = (
                 <button
