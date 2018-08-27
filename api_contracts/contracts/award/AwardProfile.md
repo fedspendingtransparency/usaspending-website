@@ -196,19 +196,19 @@ This endpoint returns a list of transactions, their amount, type, action date, a
     The ending date of the contract in the format `YYYY-MM-DD`
 
 ## Location
-+ address_line1 (required, string, nullable)
++ address_line1: `123 Sesame St` (required, string, nullable)
 + address_line2 (required, string, nullable)
 + address_line3 (required, string, nullable)
 + foreign_province (required, string, nullable)
-+ city_name (required, string, nullable)
-+ county_name (required, string, nullable)
-+ state_code (required, string, nullable)
-+ zip5 (required, string, nullable)
++ city_name: `McLean` (required, string, nullable)
++ county_name `Fairfax` (required, string, nullable)
++ state_code: `VA` (required, string, nullable)
++ zip5: `22102` (required, string, nullable)
 + zip4 (required, string, nullable)
 + foreign_postal_code (required, string, nullable)
 + country_name (required, string, nullable)
-+ location_country_code (required, string, nullable)
-+ congressional_code (required, string, nullable)
++ location_country_code `TW` (required, string, nullable)
++ congressional_code: `05` (required, string, nullable)
 
 ## ContractDetails
 + idv_type_description: `test` (required, string, nullable)
