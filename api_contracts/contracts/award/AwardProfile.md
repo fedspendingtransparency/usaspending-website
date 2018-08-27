@@ -255,8 +255,8 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + officers: (required, array[Officer])
 
 ## Officer
-+ officer_1_name: `John Doe` (required, string)
-+ officer_1_amount: 234242 (required, number)
++ name: `John Doe` (required, string)
++ amount: 234242 (required, number)
 
 ## MiscResponse (object)
 + category: `other` (required, string)
