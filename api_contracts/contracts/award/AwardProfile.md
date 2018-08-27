@@ -163,10 +163,9 @@ This endpoint returns a list of transactions, their amount, type, action date, a
     The ceiling and amount of the award
 + period_of_performance (required, PerformancePeriod, fixed-type)
 + place_of_performance (required, PerformancePlace, fixed-type)
-+ latest_transaction.contract_data (required, ContractDetails, fixed-type)
++ latest_transaction_contract_data (required, ContractDetails, fixed-type)
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
-+ latest_transaction.contract_data.idv_type (required, string, nullable)
 + executive_details (required, Executive, fixed-type)
 
 ## AwardAgency (object)
