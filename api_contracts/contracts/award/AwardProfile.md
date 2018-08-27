@@ -13,10 +13,24 @@ These endpoints support the individual Award pages that display data for a speci
 
 This endpoint returns a list of data that is associated with the award profile page.
 
-### Award [POST]
+### Award [GET]
+
++ Parameters
+    + generated_unique_award_id
+
++ Request A request with a contract id (application/json)
+    + Attributes
+        + generated_unique_award_id: 25764264
 
 + Response 200 (application/json)
     + Attributes (ContractResponse)
+
++ Request A request with an id that is other than contract (application/json)
+     + Attributes
+        + generated_unique_award_id: 42954959
+
++ Response 200 (application/json)
+    + Attributes (MiscResponse)
 
 # Group Tables
 
