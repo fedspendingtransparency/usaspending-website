@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CaretRight, Glossary } from 'components/sharedComponents/icons/Icons';
+import { CaretRight } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     recipient: PropTypes.object,
@@ -45,7 +45,7 @@ export default class RecipientOverview extends React.Component {
             label = (
                 <span
                     className="recipient-overview__label recipient-overview__label_parent">
-                    Parent Recipient <Glossary />
+                    Parent Recipient
                 </span>
             );
             viewChildren = (
