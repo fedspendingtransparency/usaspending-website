@@ -5,7 +5,7 @@ HOST: https://api.usaspending.gov
 
 These endpoints are used to power USAspending.gov's award profile pages. This data can be used to view details about a specific award. 
 
-# Award Page
+# Group Award Page
 
 These endpoints support the individual Award pages that display data for a specific award type.
 
