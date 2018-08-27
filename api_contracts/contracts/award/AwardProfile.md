@@ -162,7 +162,7 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + base_and_all_options_value: 24242432 (required, number)
     The ceiling and amount of the award
 + period_of_performance (required, PerformancePeriod, fixed-type)
-+ place_of_performance (required, PerformancePlace, fixed-type)
++ place_of_performance (required, Location, fixed-type)
 + latest_transaction_contract_data (required, ContractDetails, fixed-type)
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
@@ -185,7 +185,7 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + recipient_name: `Booz Allen Hamilton` (required, string, nullable)
 + recipient_unique_id: 2424224 (required, number, nullable)
 + parent_recipient_unique_id: 2424232 (required, number, nullable)
-+ location: (required, RecipientLocation, nullable)
++ location: (required, Location, nullable)
 + recipient_parent_name: `HoneyWell` (string, nullable)
 + business_categories: (required, array[string])
 
@@ -195,14 +195,7 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + period_of_performance_current_end_date: `2005-02-19` (required, string)
     The ending date of the contract in the format `YYYY-MM-DD`
 
-## PerformancePlace
-+ city_name: `Sunset` (required, string, nullable)
-+ state_code: `TX` (required, string)
-+ county_name: `Fairfax` (required, string, nullable)
-+ zip5: `34023` (required, string, nullable)
-+ congressional_code: `TX-01` (required, string, nullable)
-
-## RecipientLocation
+## Location
 + address_line1 (required, string, nullable)
 + address_line2 (required, string, nullable)
 + address_line3 (required, string, nullable)
@@ -280,5 +273,5 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
 + period_of_performance: (required, PerformancePeriod, fixed-type)
-+ place_of_performance: (required, PerformancePlace, fixed-type)
++ place_of_performance: (required, Location, fixed-type)
 + executive_details (required, Executive, fixed-type)
