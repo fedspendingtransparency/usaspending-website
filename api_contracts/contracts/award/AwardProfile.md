@@ -170,17 +170,21 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + executive_details (required, Executive, fixed-type)
 
 ## AwardAgency (object)
-+ toptier_agency.name: `Department of Energy` (required, string, nullable)
-+ toptier_agency.abbreviation: `DOE` (required, string, nullable)
++ toptier_agency (required, TopTierAgency, nullable)
 + office_agency_name: `NNSA MO Stuff` (required, string, nullable)
 
 ## FundingAgency (object)
-+ toptier_agency.name: `Department of Defense` (required, string, nullable)
-+ toptier_agency.abbreviation: `DOD` (required, string, nullable)
-+ subtier_agency.name: `Department of Navy` (required, string)
-    Name of the subfunding agency
-+ subtier_agency.abbreviation: `DON` (required, string, nullable)
++ toptier_agency (required, TopTierAgency, nullable)
++ subtier_agency (required, SubTierAgency, nullable)
 + office_agency_name: `STRATEGIC SYSTEMS` (required, string, nullable)
+
+## TopTierAgency (object)
++ name: `Department of Defense` (required, string, nullable)
++ abbreviation: `DOD` (required, string, nullable)
+
+## SubTierAgency (object)
++ name: `Department of Navy` (required, string, nullable)
++ abbreviation: `DON` (required, string, nullable)
 
 ## Recipient (object)
 + recipient_name: `Booz Allen Hamilton` (required, string, nullable)
@@ -197,26 +201,26 @@ This endpoint returns a list of transactions, their amount, type, action date, a
     The ending date of the contract in the format `YYYY-MM-DD`
 
 ## PerformancePlace
-+ place_of_performance.city_name: `Sunset` (required, string, nullable)
-+ place_of_performance.state_code: `TX` (required, string)
-+ place_of_performance.county_name: `Fairfax` (required, string, nullable)
-+ place_of_performance.zip5: `34023` (required, string, nullable)
-+ place_of_performance.congressional_code: `TX-01` (required, string, nullable)
++ city_name: `Sunset` (required, string, nullable)
++ state_code: `TX` (required, string)
++ county_name: `Fairfax` (required, string, nullable)
++ zip5: `34023` (required, string, nullable)
++ congressional_code: `TX-01` (required, string, nullable)
 
 ## RecipientLocation
-+ location.address_line1 (required, string, nullable)
-+ location.address_line2 (required, string, nullable)
-+ location.address_line3 (required, string, nullable)
-+ location.foreign_province (required, string, nullable)
-+ location.city_name (required, string, nullable)
-+ location.county_name (required, string, nullable)
-+ location.state_code (required, string, nullable)
-+ location.zip5 (required, string, nullable)
-+ location.zip4 (required, string, nullable)
-+ location.foreign_postal_code (required, string, nullable)
-+ location.country_name (required, string, nullable)
-+ location.location_country_code (required, string, nullable)
-+ location.congressional_code (required, string, nullable)
++ address_line1 (required, string, nullable)
++ address_line2 (required, string, nullable)
++ address_line3 (required, string, nullable)
++ foreign_province (required, string, nullable)
++ city_name (required, string, nullable)
++ county_name (required, string, nullable)
++ state_code (required, string, nullable)
++ zip5 (required, string, nullable)
++ zip4 (required, string, nullable)
++ foreign_postal_code (required, string, nullable)
++ country_name (required, string, nullable)
++ location_country_code (required, string, nullable)
++ congressional_code (required, string, nullable)
 
 ## ContractDetails
 + idv_type_description: `test` (required, string, nullable)
