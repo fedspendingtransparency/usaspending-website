@@ -1,6 +1,17 @@
 .results-table {
     display: block;
     overflow: scroll;
+    .results-table__message {
+        margin: rem(90) auto;
+        font-size: rem(36);
+        font-weight: 300;
+        color: $color-base;
+        text-align: center;
+        .results-table__message_highlight {
+            color: $color-active;
+            font-weight: normal;
+        }
+    }
     .results-table__head {
         .results-table__row {
             border-bottom: solid 1px $color-gray-lighter;
@@ -25,6 +36,9 @@
         }
     }
     .results-table__body {
+        &.results-table__body_hide {
+            display: none;
+        }
         .results-table__row {
             .results-table__data {
                 border: 0;

@@ -17,7 +17,7 @@ const propTypes = {
     error: PropTypes.bool,
     results: PropTypes.array,
     columns: PropTypes.array,
-    accountSearchString: PropTypes.string,
+    searchString: PropTypes.string,
     order: PropTypes.object,
     updateSort: PropTypes.func
 };
