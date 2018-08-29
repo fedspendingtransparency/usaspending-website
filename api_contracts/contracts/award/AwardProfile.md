@@ -239,7 +239,6 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + materials_supplies_descrip: `YES` (required, string, nullable)
 + cost_or_pricing_data_desc: `No` (required, string, nullable)
 + domestic_or_foreign_e_desc: `U.S. Owned` (required, string, nullable)
-+ fair_opportunity_sources: `none` (required, string, nullable, nullable)
 + foreign_funding_desc: `Yes` (required, string, nullable)
 + interagency_contract_desc: `Company A` (required, string, nullable)
 + major_program: `None used` (required, string, nullable)
