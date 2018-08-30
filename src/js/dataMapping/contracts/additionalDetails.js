@@ -57,7 +57,7 @@ export const parentFields = [
         parse: (data) => data.additionalDetails.idvAgencyId
     },
     {
-        label: 'Mutliple or Single Award IDV',
+        label: 'Multiple or Single Award IDV',
         field: '__special',
         parse: (data) => data.additionalDetails.multipleIdv
     }
