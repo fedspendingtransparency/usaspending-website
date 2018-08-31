@@ -11,9 +11,7 @@ const mockSubaward = {
     description: null,
     action_date: '1987-01-02',
     amount: '2023.67',
-    recipient: {
-        recipient_name: 'Mock Recipient Name'
-    }
+    recipient_name: 'Mock Recipient Name'
 };
 
 const subawardRow = Object.create(BaseSubawardRow);
