@@ -24,6 +24,7 @@
         .bulk-download__data {
             @import "downloadData";
             @import "archive/archive";
+            @import "dictionary/dictionary";
             @include span-columns(16);
             @include media($medium-screen) {
                 @include span-columns(12);

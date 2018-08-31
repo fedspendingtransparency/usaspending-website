@@ -103,3 +103,86 @@ export const requestArchiveFiles = (params) => {
         }
     };
 };
+
+const mockData = {
+    sections: [
+        {
+            sectionName: 'Data Labels',
+            columns: [
+                {
+                    columnName: 'Data Element Label',
+                    cells: [
+                        {
+                            value: 'Lorem ipsum',
+                            subaward_term: false
+                        },
+                        {
+                            value: 'dolor sit amet',
+                            subaward_term: true
+                        }
+                    ]
+                },
+                {
+                    columnName: 'Definition',
+                    cells: [
+                        {
+                            value: 'Lorem ipsum',
+                            subaward_term: false
+                        },
+                        {
+                            value: 'dolor sit amet',
+                            subaward_term: true
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            sectionName: 'Data Attributes',
+            columns: [
+                {
+                    columnName: 'Data Type',
+                    cells: [
+                        {
+                            value: 'Lorem ipsum',
+                            subaward_term: false
+                        },
+                        {
+                            value: 'dolor sit amet',
+                            subaward_term: true
+                        }
+                    ]
+                },
+                {
+                    columnName: 'Max Character Length',
+                    cells: [
+                        {
+                            value: 'Lorem ipsum',
+                            subaward_term: false
+                        },
+                        {
+                            value: 'dolor sit amet',
+                            subaward_term: true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+
+export const requestDictionaryContent = () => {
+    const source = CancelToken.source();
+    return {
+        promise: new Promise((resolve) => {
+            window.setTimeout(() => {
+                resolve({
+                    data: mockData
+                });
+            }, 500);
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

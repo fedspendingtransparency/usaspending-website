@@ -1,0 +1,9 @@
+.data-dictionary {
+    @include media($medium-screen) {
+        padding: 0 rem(30);
+    }
+    h2 {
+        margin-top: 0;
+        font-weight: 400;
+    }
+}
