@@ -32,7 +32,7 @@ export default class TableRow extends React.PureComponent {
                         <AccountLinkCell
                             rowIndex={this.props.rowIndex}
                             name={this.props.account.accountName}
-                            id={this.props.account.accountId}
+                            accountNumber={this.props.account.accountNumber}
                             accountSearchString={this.props.accountSearchString}
                             column={column.columnName} />
                     </td>
