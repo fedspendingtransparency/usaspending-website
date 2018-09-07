@@ -34,6 +34,19 @@
             }
         }
 
+        button.detail-header__title-link {
+            @include button-unstyled;
+            font-weight: $font-light;
+            font-size: rem(30);
+            line-height: rem(32);
+            color: $color-link;
+
+            @include media($large-screen) {
+                font-size: rem(36);
+                line-height: rem(40);
+            }
+        }
+
         .detail-header__instructions {
             margin-top: rem(10);
             font-weight: $font-light;

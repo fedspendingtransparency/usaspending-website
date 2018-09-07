@@ -31,7 +31,8 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     rewindToFilter: PropTypes.func,
-    goToUnreported: PropTypes.func
+    goToUnreported: PropTypes.func,
+    handleAccountClick: PropTypes.func
 };
 
 export default class DetailContent extends React.Component {
@@ -179,7 +180,8 @@ export default class DetailContent extends React.Component {
                 lastUpdate={this.props.lastUpdate}
                 total={this.props.active.total}
                 parent={parentFilter}
-                isTruncated={this.props.isTruncated} />);
+                isTruncated={this.props.isTruncated}
+                handleAccountClick={this.props.handleAccountClick} />);
         }
 
         let fakeScreenAbove = null;

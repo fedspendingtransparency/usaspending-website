@@ -23,7 +23,8 @@ const propTypes = {
     title: PropTypes.string,
     id: PropTypes.string,
     parent: PropTypes.string,
-    isTruncated: PropTypes.bool
+    isTruncated: PropTypes.bool,
+    handleAccountClick: PropTypes.func
 };
 
 const exitExplorer = (target) => {
@@ -31,6 +32,10 @@ const exitExplorer = (target) => {
         category: 'Spending Explorer - Exit',
         action: target
     });
+};
+
+const goToAccount = (id, handleAccountClick) => {
+    handleAccountClick(id);
 };
 
 const dataType = (type, parent) => {
@@ -61,16 +66,15 @@ const dataType = (type, parent) => {
     );
 };
 
-const heading = (type, title, id) => {
+const heading = (type, title, id, handleAccountClick) => {
     if (type === 'Federal Account') {
         return (
             <h2 className="detail-header__title">
-                <a
-                    href={`/#/federal_account/${id}`}
+                <button
                     className="detail-header__title-link"
-                    onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
+                    onClick={goToAccount.bind(null, id, handleAccountClick)}>
                     {title}
-                </a>
+                </button>
             </h2>
         );
     }
@@ -118,7 +122,7 @@ const DetailHeader = (props) => {
                     <div className="detail-header__subtitle">
                         You&apos;ve chosen
                     </div>
-                    {heading(type, props.title, props.id)}
+                    {heading(type, props.title, props.id, props.handleAccountClick)}
                     {dataType(type, props.parent)}
                 </div>
                 <div className="right-side">
