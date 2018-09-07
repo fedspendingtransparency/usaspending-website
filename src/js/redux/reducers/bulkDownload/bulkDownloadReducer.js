@@ -50,6 +50,14 @@ export const initialState = {
     },
     accounts: {
         accountLevel: 'federalAccount',
+        budgetFunction: {
+            id: '',
+            name: 'All'
+        },
+        budgetSubfunction: {
+            id: '',
+            name: 'Select a Budget Sub-Function'
+        },
         agency: {
             id: '',
             name: 'Select an Agency'
