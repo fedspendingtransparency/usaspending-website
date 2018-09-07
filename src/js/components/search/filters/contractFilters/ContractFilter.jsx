@@ -105,7 +105,7 @@ export default class ContractFilter extends React.Component {
             let shownStatement = `${remaining} ${this.state.shownType}`;
             let arrow = (<Icons.AngleDown alt={`See ${shownStatement}`} />);
 
-            if (remaining == 0) {
+            if (remaining === 0) {
                 shownStatement = this.state.shownType;
                 arrow = (<Icons.AngleUp alt={`See ${shownStatement}`} />);
             }
