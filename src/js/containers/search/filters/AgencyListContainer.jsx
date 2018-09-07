@@ -91,6 +91,16 @@ export default class AgencyListContainer extends React.Component {
         toptierAgencies = sortBy(toptierAgencies, 'title');
         subtierAgencies = sortBy(subtierAgencies, 'title');
 
+        // FEMA is no longer a toptier agency, so we want its subtier entries to come first
+        const fema = toptierAgencies.find((agency) => agency.title === 'Federal Emergency Management Agency (FEMA)');
+
+        if (fema) {
+            // remove FEMA from toptier agencies
+            toptierAgencies = toptierAgencies.filter((agency) => agency.title !== 'Federal Emergency Management Agency (FEMA)');
+            // Add it to the end of the subtier agencies list
+            subtierAgencies = subtierAgencies.concat([fema]);
+        }
+
         agencies = slice(concat(toptierAgencies, subtierAgencies), 0, 10);
 
         this.setState({

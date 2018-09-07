@@ -77,13 +77,13 @@ describe('AgencyListContainer', () => {
             // setup the agency list container
             const agencyListContainer = setup(initialFilters);
 
-            agencyListContainer.instance().queryAutocompleteAgencies('office of government')
+            agencyListContainer.instance().queryAutocompleteAgencies('office of government');
             await agencyListContainer.instance().agencySearchRequest.promise;
 
             expect(agencyListContainer.state().autocompleteAgencies.length).toEqual(mockSecondaryResults.length);
         });
 
-        it('should no display autocomplete agencies that have already previously selected', () => {
+        it('should not display autocomplete agencies that have already previously selected', () => {
             const agencyListContainer = setup(Object.assign({}, initialFilters, {
                 selectedAgencies: new OrderedMap({
                     '14_toptier': {}
@@ -109,6 +109,45 @@ describe('AgencyListContainer', () => {
             ]);
 
             expect(agencyListContainer.state().autocompleteAgencies.length).toEqual(0);
+        });
+        it('should move FEMA\'s toptier entry to the end of the list', () => {
+            const agencyListContainer = setup(initialFilters);
+            agencyListContainer.instance().parseAutocompleteAgencies([
+                {
+                    id: 14,
+                    toptier_flag: true,
+                    toptier_agency: {
+                        cgac_code: "058",
+                        fpds_code: "",
+                        abbreviation: "FEMA",
+                        name: "Federal Emergency Management Agency"
+                    },
+                    subtier_agency: {
+                        subtier_code: "5800",
+                        abbreviation: "FEMA",
+                        name: "Federal Emergency Management Agency"
+                    },
+                    office_agency: null
+                }, {
+                    id: 15,
+                    toptier_flag: false,
+                    toptier_agency: {
+                        cgac_code: "058",
+                        fpds_code: "",
+                        abbreviation: "FEMA",
+                        name: "Federal Emergency Management Agency"
+                    },
+                    subtier_agency: {
+                        subtier_code: "585D",
+                        abbreviation: "",
+                        name: "FEMA Region IV"
+                    },
+                    office_agency: null
+                }
+            ]);
+
+            expect(agencyListContainer.state().autocompleteAgencies[0].data.toptier_flag).toBeFalsy();
+            expect(agencyListContainer.state().autocompleteAgencies[1].data.toptier_flag).toBeTruthy();
         });
         it('should clear the autocomplete list when the Autocomplete tells it to', () => {
             const agencyListContainer = setup(initialFilters);
