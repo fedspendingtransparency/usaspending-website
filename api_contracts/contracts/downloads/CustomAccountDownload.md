@@ -36,7 +36,7 @@ This endpoint returns the generated file's metadata.
 
 This endpoint returns a list of budget functions with their associated title and code
 
-### Custom Budget Function [GET]
+### Budget Function [GET]
 
 + Response 200 (application/json)
     + Attributes
