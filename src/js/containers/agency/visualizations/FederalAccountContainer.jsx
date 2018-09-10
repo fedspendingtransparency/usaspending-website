@@ -121,6 +121,7 @@ export default class FederalAccountContainer extends React.PureComponent {
     parseData(data) {
         // keep only the top 10 in descending order
         const results = slice(data, 0, 10);
+        const linkSeries = [];
         const dataSeries = [];
         const labelSeries = [];
         const descriptions = [];
@@ -131,9 +132,9 @@ export default class FederalAccountContainer extends React.PureComponent {
                 // the aggregate value is invalid (most likely null)
                 parsedValue = 0;
             }
-
             const account = result.account_title;
 
+            linkSeries.push(result.account_number);
             labelSeries.push(account);
             dataSeries.push(parsedValue);
             const description = `${MoneyFormatter.formatMoney(parsedValue)} obligated for \
@@ -143,6 +144,7 @@ ${account}`;
 
 
         this.setState({
+            linkSeries,
             dataSeries,
             labelSeries,
             descriptions
@@ -154,6 +156,7 @@ ${account}`;
             <FederalAccountVisualization
                 activeFY={this.props.activeFY}
                 obligatedAmount={this.props.obligatedAmount}
+                linkSeries={this.state.linkSeries}
                 dataSeries={this.state.dataSeries}
                 labelSeries={this.state.labelSeries}
                 descriptions={this.state.descriptions}

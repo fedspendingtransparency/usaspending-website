@@ -48,13 +48,11 @@ export class DetailContentContainer extends React.Component {
         };
 
         this.request = null;
-        this.accountRequest = null;
 
         this.goDeeper = this.goDeeper.bind(this);
         this.goToUnreported = this.goToUnreported.bind(this);
         this.changeSubdivisionType = this.changeSubdivisionType.bind(this);
         this.rewindToFilter = this.rewindToFilter.bind(this);
-        this.handleAccountClick = this.handleAccountClick.bind(this);
     }
 
     componentDidMount() {
@@ -514,32 +512,6 @@ export class DetailContentContainer extends React.Component {
         this.props.resetExplorerTable();
     }
 
-    handleAccountClick(id) {
-        if (this.accountRequest) {
-            this.accountRequest.cancel();
-        }
-
-        this.accountRequest = ExplorerHelper.fetchFederalAccount(id);
-
-        this.accountRequest.promise
-            .then((res) => {
-                const accountNumber = res.data.federal_account_code;
-                Router.history.push(`/federal_account/${accountNumber}`);
-
-                Analytics.event({
-                    category: 'Spending Explorer - Exit',
-                    action: `/federal_account/${accountNumber}`
-                });
-                this.accountRequest = null;
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    this.accountRequest = null;
-                }
-            });
-    }
-
     render() {
         return (
             <div className="explorer-detail">
@@ -567,8 +539,7 @@ export class DetailContentContainer extends React.Component {
                     showTooltip={this.props.showTooltip}
                     hideTooltip={this.props.hideTooltip}
                     rewindToFilter={this.rewindToFilter}
-                    goToUnreported={this.goToUnreported}
-                    handleAccountClick={this.handleAccountClick} />
+                    goToUnreported={this.goToUnreported} />
             </div>
         );
     }
