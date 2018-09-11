@@ -11,6 +11,7 @@ import NoDownloadHover from './NoDownloadHover';
 const propTypes = {
     onClick: PropTypes.func,
     downloadAvailable: PropTypes.bool,
+    downloadInFlight: PropTypes.bool,
     disableHover: PropTypes.bool
 };
 
@@ -40,7 +41,7 @@ export default class DownloadButton extends React.Component {
     }
 
     onClick(e) {
-        if (!this.props.downloadAvailable) {
+        if (!this.props.downloadAvailable || this.props.downloadInFlight) {
             e.preventDefault();
             return;
         }
@@ -50,13 +51,19 @@ export default class DownloadButton extends React.Component {
 
     render() {
         let hover = null;
-        if (this.state.showHover && !this.props.downloadAvailable && !this.props.disableHover) {
+        if (this.state.showHover && !this.props.downloadAvailable
+            && !this.props.disableHover && !this.props.downloadInFlight) {
             hover = (<NoDownloadHover />);
         }
 
         let disabled = '';
-        if (!this.props.downloadAvailable) {
+        if (!this.props.downloadAvailable || this.props.downloadInFlight) {
             disabled = 'disabled';
+        }
+
+        let buttonText = 'Download';
+        if (this.props.downloadInFlight) {
+            buttonText = 'Preparing Download...';
         }
 
         return (
@@ -75,7 +82,7 @@ export default class DownloadButton extends React.Component {
                     aria-disabled={!this.props.downloadAvailable}
                     onClick={this.onClick}>
                     <div className="label">
-                        Download
+                        {buttonText}
                     </div>
                 </button>
             </div>
