@@ -6,7 +6,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { AccountDataContainer } from 'containers/bulkDownload/accounts/AccountDataContainer';
-import { mockActions, mockAgencies, mockFederalAccounts, mockRedux } from '../mockData';
+import { mockActions, mockAgencies, mockFederalAccounts, mockBudgetFunctions, mockRedux } from '../mockData';
 
 // mock the bulkDownload helper
 jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper'));
@@ -40,5 +40,15 @@ describe('AccountDataContainer', () => {
             await container.instance().federalAccountListRequest.promise;
             expect(container.state().federalAccounts).toEqual(expectedState);
         });
+    });
+    it('should make an API call for the budget functions on mount', async () => {
+        const container = mount(<AccountDataContainer
+            {...mockActions}
+            bulkDownload={mockRedux} />);
+
+        const expectedState = mockBudgetFunctions;
+
+        await container.instance().budgetFunctionListRequest.promise;
+        expect(container.state().budgetFunctions).toEqual(expectedState);
     });
 });

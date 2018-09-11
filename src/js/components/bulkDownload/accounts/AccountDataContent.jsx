@@ -11,6 +11,7 @@ import { Glossary } from 'components/sharedComponents/icons/Icons';
 
 import AccountLevelFilter from './filters/AccountLevelFilter';
 import AgencyFilter from './filters/AgencyFilter';
+import BudgetFilter from './filters/BudgetFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
 import UserSelections from './UserSelections';
@@ -23,7 +24,10 @@ const propTypes = {
     agencies: PropTypes.object,
     federalAccounts: PropTypes.array,
     clickedDownload: PropTypes.func,
-    setFederalAccountList: PropTypes.func
+    setFederalAccountList: PropTypes.func,
+    budgetFunctions: PropTypes.array,
+    setBudgetSubfunctionList: PropTypes.func,
+    budgetSubfunctions: PropTypes.array
 };
 
 export default class AccountDataContent extends React.Component {
@@ -95,6 +99,14 @@ export default class AccountDataContent extends React.Component {
                             setFederalAccountList={this.props.setFederalAccountList}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.agency.id !== ''} />
+                        <BudgetFilter
+                            budgetFunctions={this.props.budgetFunctions}
+                            budgetSubfunctions={this.props.budgetSubfunctions}
+                            currentBudgetFunction={accounts.budgetFunction}
+                            currentBudgetSubfunction={accounts.budgetSubfunction}
+                            setBudgetSubfunctionList={this.props.setBudgetSubfunctionList}
+                            updateFilter={this.props.updateFilter}
+                            valid={accounts.budgetFunction.code !== ''} />
                         <SubmissionTypeFilter
                             submissionTypes={accountDownloadOptions.submissionTypes}
                             currentSubmissionType={accounts.submissionType}

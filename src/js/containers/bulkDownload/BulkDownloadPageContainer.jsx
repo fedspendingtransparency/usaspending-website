@@ -150,6 +150,7 @@ export class BulkDownloadPageContainer extends React.Component {
         const params = {
             account_level: accountLevel.apiName,
             filters: {
+                budget_function: formState.budgetFunction.code,
                 agency: formState.agency.id,
                 submission_type: submissionType.apiName,
                 fy: formState.fy,
@@ -160,6 +161,10 @@ export class BulkDownloadPageContainer extends React.Component {
 
         if (formState.federalAccount.id !== '' && formState.federalAccount.id !== 'all') {
             params.filters.federal_account = formState.federalAccount.id;
+        }
+
+        if (formState.budgetSubfunction.code !== '' && formState.budgetSubfunction.code !== 'all') {
+            params.filters.budget_subfunction = formState.budgetSubfunction.code;
         }
 
         this.requestDownload(params, 'accounts');
