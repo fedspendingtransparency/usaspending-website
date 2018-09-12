@@ -13,20 +13,42 @@ import TableRow from './TableRow';
 const propTypes = {
     results: PropTypes.array,
     columns: PropTypes.array,
-    accountSearchString: PropTypes.string,
     order: PropTypes.object,
-    updateSort: PropTypes.func
+    updateSort: PropTypes.func,
+    error: PropTypes.bool,
+    inFlight: PropTypes.bool,
+    searchString: PropTypes.string,
+    loading: PropTypes.bool
 };
 
 export default class AccountLandingTable extends React.PureComponent {
     render() {
+        const hideBody = this.props.inFlight || this.props.error || this.props.results.length === 0 ? 'results-table__body_hide' : '';
+        let message = null;
+        if (!this.props.inFlight && !this.props.error && this.props.results.length === 0) {
+            // no results
+            if (this.props.searchString) {
+                message = (
+                    <div className="results-table__message">
+                        No results found for &ldquo;<span className="results-table__message_highlight">{this.props.searchString}</span>&rdquo;.
+                    </div>
+                );
+            }
+            else {
+                message = (
+                    <div className="results-table__message">
+                        No results found.
+                    </div>
+                );
+            }
+        }
         const rows = this.props.results.map((account, index) => (
             <TableRow
                 account={account}
                 key={account.accountId}
                 rowIndex={index}
                 columns={this.props.columns}
-                accountSearchString={this.props.accountSearchString} />
+                accountSearchString={this.props.searchString} />
         ));
 
         const headers = this.props.columns.map((column, index) => (
@@ -42,16 +64,19 @@ export default class AccountLandingTable extends React.PureComponent {
         ));
 
         return (
-            <table className="results-table">
-                <thead className="results-table__head">
-                    <tr className="results-table__row">
-                        {headers}
-                    </tr>
-                </thead>
-                <tbody className="results-table__body">
-                    {rows}
-                </tbody>
-            </table>
+            <div className="results-table">
+                <table>
+                    <thead className="results-table__head">
+                        <tr className="results-table__row">
+                            {headers}
+                        </tr>
+                    </thead>
+                    <tbody className={`results-table__body ${hideBody}`}>
+                        {rows}
+                    </tbody>
+                </table>
+                {message}
+            </div>
         );
     }
 }

@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { CaretRight, Glossary } from 'components/sharedComponents/icons/Icons';
+import { CaretRight } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     recipient: PropTypes.object,
@@ -43,11 +43,10 @@ export default class RecipientOverview extends React.Component {
         else if (recipient.level === 'P') {
             // This is a parent recipient
             label = (
-                <a
-                    href={`#/recipient/${this.props.recipient.id}/?glossary=parent-duns`}
+                <span
                     className="recipient-overview__label recipient-overview__label_parent">
-                    Parent Recipient <Glossary />
-                </a>
+                    Parent Recipient
+                </span>
             );
             viewChildren = (
                 <button

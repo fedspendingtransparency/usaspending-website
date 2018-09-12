@@ -18,7 +18,7 @@ const BaseSubawardRow = {
             (data.action_date && parseDate(data.action_date)) || null
         );
         this._amount = parseFloat(data.amount) || 0;
-        this.recipient = (data.recipient && data.recipient.recipient_name) || '';
+        this.recipient = (data.recipient_name) || '';
     },
     get actionDate() {
         if (this._actionDate) {
