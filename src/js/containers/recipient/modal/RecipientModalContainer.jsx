@@ -101,7 +101,6 @@ export class RecipientModalContainer extends React.Component {
     }
 
     updateSort(sortField, sortDirection) {
-        console.log(this.props.recipient.children);
         const orderedResults = orderBy(this.props.recipient.children, [sortField], [sortDirection]);
         this.setState({
             sortField,
