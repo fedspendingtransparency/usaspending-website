@@ -9,12 +9,12 @@
     border-top: 1px solid $color-gray-border;
     border-right: 1px solid $color-gray-border;
     border-bottom: 1px solid $color-gray-border;
-    margin: rem(30) $outer-gutter/2;
+    margin: rem(35) $outer-gutter/2;
     @include media($large-screen) {
-        margin: rem(30) $outer-gutter;
+        margin: rem(35) $outer-gutter;
     }
     @include media($x-large-screen) {
         max-width: $site-max-width;
-        margin: rem(30) auto;
+        margin: rem(35) auto;
     }
 }

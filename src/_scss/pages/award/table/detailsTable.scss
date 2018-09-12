@@ -32,5 +32,8 @@
         @include media($tablet-screen) {
             display: none;
         }
+        .field-list {
+            z-index: $z-header - 1;
+        }
     }
 }
