@@ -100,7 +100,7 @@ export default class ContractFilter extends React.Component {
         const contractFilters = ContractFieldDefinitions[this.props.contractFilterOptions];
         let toggleButton = null;
 
-        if (contractFilters && Object.keys(contractFilters).length > 4) {
+        if (contractFilters && Object.keys(contractFilters).length > 5) {
             const remaining = Object.keys(contractFilters).length - this.state.shown;
             let shownStatement = `${remaining} ${this.state.shownType}`;
             let arrow = (<Icons.AngleDown alt={`See ${shownStatement}`} />);
