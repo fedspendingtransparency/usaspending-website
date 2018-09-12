@@ -62,7 +62,7 @@ describe('RecipientModalContainer', () => {
         container.instance().componentDidUpdate(mockModalRedux);
 
         expect(updateSort).toHaveBeenCalledTimes(1);
-        expect(updateSort).toHaveBeenCalledWith('name', 'asc');
+        expect(updateSort).toHaveBeenCalledWith('_amount', 'desc');
     });
     describe('parseChildren', () => {
         it('should update the Redux state with a new BaseChildRecipient', () => {
