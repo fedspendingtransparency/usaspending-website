@@ -59,6 +59,12 @@ export default class TopFive extends React.Component {
     }
 
     deliverHTMLpayload() {
+        let disclaimer;
+        if (this.props.category === 'country' || this.props.category === 'state_territory') {
+            disclaimer = (
+                <span> <br /><strong>Note: </strong> <em> This data is based on Primary Place of Performance.</em> </span>
+            );
+        }
         const rows = this.props.results.map((result, index) => (
             <TopFiveRow
                 key={index}
@@ -69,27 +75,30 @@ export default class TopFive extends React.Component {
         const hideBody = this.props.loading || this.props.error ? `category-table__table-body_hide` : '';
 
         return (
-            <table className="category-table__table">
-                <thead
-                    className="category-table__table-head">
-                    <tr
-                        className="category-table__table-head-row">
-                        <th className="category-table__table-head-cell">
+            <div>
+                <table className="category-table__table">
+                    <thead
+                        className="category-table__table-head">
+                        <tr
+                            className="category-table__table-head-row">
+                            <th className="category-table__table-head-cell">
                          Name
-                        </th>
-                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                            </th>
+                            <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                          Awarded Amount
-                        </th>
-                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                            </th>
+                            <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                          % of Total
-                        </th>
-                    </tr>
-                </thead>
-                <tbody
-                    className={`category-table__table-body ${hideBody}`}>
-                    {rows}
-                </tbody>
-            </table>);
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody
+                        className={`category-table__table-body ${hideBody}`}>
+                        {rows}
+                    </tbody>
+                </table>
+                {disclaimer}
+            </div>);
     }
 
     render() {
