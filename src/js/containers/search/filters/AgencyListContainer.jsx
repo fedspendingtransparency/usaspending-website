@@ -83,25 +83,18 @@ export default class AgencyListContainer extends React.Component {
             }
         }
 
-        // Separate top and subtier agencies
-        let toptierAgencies = filter(agencies, ['data.agencyType', 'toptier']);
-        let subtierAgencies = filter(agencies, ['data.agencyType', 'subtier']);
+        // For searches for FEMA, leave the results in the same order as the API response
+        if ((this.state.agencySearchString.toLowerCase() !== 'fem') && (this.state.agencySearchString.toLowerCase() !== 'fema')) {
+            // Separate top and subtier agencies
+            let toptierAgencies = filter(agencies, ['data.agencyType', 'toptier']);
+            let subtierAgencies = filter(agencies, ['data.agencyType', 'subtier']);
 
-        // Sort individual groups alphabetically
-        toptierAgencies = sortBy(toptierAgencies, 'title');
-        subtierAgencies = sortBy(subtierAgencies, 'title');
+            // Sort individual groups alphabetically
+            toptierAgencies = sortBy(toptierAgencies, 'title');
+            subtierAgencies = sortBy(subtierAgencies, 'title');
 
-        // FEMA is no longer a toptier agency, so we want its subtier entries to come first
-        const fema = toptierAgencies.find((agency) => agency.title === 'Federal Emergency Management Agency (FEMA)');
-
-        if (fema) {
-            // remove FEMA from toptier agencies
-            toptierAgencies = toptierAgencies.filter((agency) => agency.title !== 'Federal Emergency Management Agency (FEMA)');
-            // Add it to the end of the subtier agencies list
-            subtierAgencies = subtierAgencies.concat([fema]);
+            agencies = slice(concat(toptierAgencies, subtierAgencies), 0, 10);
         }
-
-        agencies = slice(concat(toptierAgencies, subtierAgencies), 0, 10);
 
         this.setState({
             noResults,
@@ -169,6 +162,12 @@ export default class AgencyListContainer extends React.Component {
 
         // use the JS search library to search within the records
         const results = search.search(this.state.agencySearchString);
+
+        if ((this.state.agencySearchString.toLowerCase() === 'fem') || (this.state.agencySearchString.toLowerCase() === 'fema')) {
+            // don't change the order of results returned from the API
+            this.parseAutocompleteAgencies(slice(results, 0, 10));
+        }
+
         const toptier = [];
         const subtier = [];
 

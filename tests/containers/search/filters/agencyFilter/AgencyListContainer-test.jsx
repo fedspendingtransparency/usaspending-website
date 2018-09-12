@@ -11,7 +11,7 @@ import { OrderedMap } from 'immutable';
 import AgencyListContainer from 'containers/search/filters/AgencyListContainer';
 
 import { mockAgencies } from './mockAgencies';
-import { mockSecondaryResults } from './mockLocalSearch';
+import { mockSecondaryResults, mockFemaResults, mockResults } from './mockLocalSearch';
 
 jest.mock('helpers/searchHelper', () => require('../searchHelper'));
 jest.mock('js-search', () => require('./mockLocalSearch'));
@@ -110,45 +110,6 @@ describe('AgencyListContainer', () => {
 
             expect(agencyListContainer.state().autocompleteAgencies.length).toEqual(0);
         });
-        it('should move FEMA\'s toptier entry to the end of the list', () => {
-            const agencyListContainer = setup(initialFilters);
-            agencyListContainer.instance().parseAutocompleteAgencies([
-                {
-                    id: 14,
-                    toptier_flag: true,
-                    toptier_agency: {
-                        cgac_code: "058",
-                        fpds_code: "",
-                        abbreviation: "FEMA",
-                        name: "Federal Emergency Management Agency"
-                    },
-                    subtier_agency: {
-                        subtier_code: "5800",
-                        abbreviation: "FEMA",
-                        name: "Federal Emergency Management Agency"
-                    },
-                    office_agency: null
-                }, {
-                    id: 15,
-                    toptier_flag: false,
-                    toptier_agency: {
-                        cgac_code: "058",
-                        fpds_code: "",
-                        abbreviation: "FEMA",
-                        name: "Federal Emergency Management Agency"
-                    },
-                    subtier_agency: {
-                        subtier_code: "585D",
-                        abbreviation: "",
-                        name: "FEMA Region IV"
-                    },
-                    office_agency: null
-                }
-            ]);
-
-            expect(agencyListContainer.state().autocompleteAgencies[0].data.toptier_flag).toBeFalsy();
-            expect(agencyListContainer.state().autocompleteAgencies[1].data.toptier_flag).toBeTruthy();
-        });
         it('should clear the autocomplete list when the Autocomplete tells it to', () => {
             const agencyListContainer = setup(initialFilters);
             agencyListContainer.setState({
@@ -172,6 +133,34 @@ describe('AgencyListContainer', () => {
 
             expect(container.instance().parseAutocompleteAgencies).toHaveBeenCalledTimes(1);
             expect(container.instance().parseAutocompleteAgencies).toHaveBeenCalledWith(mockSecondaryResults);
+        });
+    });
+
+    describe('parseAutocompleteAgencies', () => {
+        it('should separate toptier and subtier agencies and alphabetize each group', async () => {
+            const container = setupShallow(initialFilters);
+            container.setState({
+                agencySearchString: 'abc'
+            });
+
+            container.instance().parseAutocompleteAgencies(mockResults);
+
+            // Toptier agencies should have been moved to the top of the list
+            expect(container.state().autocompleteAgencies[0].title).toEqual('Department ABC (ABC)');
+            expect(container.state().autocompleteAgencies[1].title).toEqual('Department XYZ (XYZ)');
+            expect(container.state().autocompleteAgencies[2].title).toEqual('DEF Agency (DEF)');
+            expect(container.state().autocompleteAgencies[2].subtitle).toEqual('Sub-Agency of Department ABC (ABC)');
+        });
+        it('should not change the order of results when searching for FEMA', async () => {
+            const container = setupShallow(initialFilters);
+            container.setState({
+                agencySearchString: 'fema'
+            });
+
+            container.instance().parseAutocompleteAgencies(mockFemaResults);
+
+            // Results should stay in the same order with a subtier agency at the top of the list
+            expect(container.state().autocompleteAgencies[0].toptier_flag).toBeFalsy;
         });
     });
 });
