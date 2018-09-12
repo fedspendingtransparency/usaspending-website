@@ -16,8 +16,6 @@
         @include justify-content(center);
         @include align-items(center);
         position: relative;
-        width: rem(155);
-        height: rem(36);
 
         border: none;
         background-color: $color-primary;

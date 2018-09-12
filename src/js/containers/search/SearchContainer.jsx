@@ -58,7 +58,8 @@ export class SearchContainer extends React.Component {
             hash: '',
             hashState: 'ready',
             lastUpdate: '',
-            downloadAvailable: false
+            downloadAvailable: false,
+            downloadInFlight: false
         };
 
         this.request = null;
@@ -355,10 +356,15 @@ export class SearchContainer extends React.Component {
         if (this.determineIfUnfiltered(filters)) {
             // don't make an API call when it's a blank state
             this.setState({
-                downloadAvailable: false
+                downloadAvailable: false,
+                downloadInFlight: false
             });
             return;
         }
+
+        this.setState({
+            downloadInFlight: true
+        });
 
         const operation = new SearchAwardsOperation();
         operation.fromState(filters);
@@ -382,6 +388,9 @@ export class SearchContainer extends React.Component {
             })
             .catch(() => {
                 this.downloadRequest = null;
+                this.setState({
+                    downloadInFlight: false
+                });
             });
     }
 
@@ -389,7 +398,8 @@ export class SearchContainer extends React.Component {
         const downloadAvailable = !data.transaction_rows_gt_limit;
 
         this.setState({
-            downloadAvailable
+            downloadAvailable,
+            downloadInFlight: false
         });
     }
 
@@ -401,6 +411,7 @@ export class SearchContainer extends React.Component {
                 noFiltersApplied={this.props.appliedFilters._empty}
                 lastUpdate={this.state.lastUpdate}
                 downloadAvailable={this.state.downloadAvailable}
+                downloadInFlight={this.state.downloadInFlight}
                 download={this.props.download}
                 requestsComplete={this.props.appliedFilters._complete} />
         );
