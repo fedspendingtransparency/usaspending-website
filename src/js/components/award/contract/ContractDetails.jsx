@@ -5,6 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import AwardDescription from 'containers/award/awards/AwardDescription';
+
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import * as SummaryPageHelper from 'helpers/summaryPageHelper';
 import { idvAwardTypes } from 'dataMapping/contracts/idvAwardTypes';
@@ -37,9 +40,9 @@ export default class ContractDetails extends React.Component {
                         }} />
                     <table>
                         <tbody>
-                            <DetailRow
+                            <AwardDescription
+                                selectedAward={award}
                                 title="Description"
-                                value={award.description}
                                 overflow={award.description.length > maxChars} />
                             <DetailRow
                                 title="Period of Performance"
