@@ -23,15 +23,15 @@
         text-align: center;
 
         &.recipient-landing__icon_parent {
-            background-color: #205493;
+            background-color: $color-primary-darker;
         }
 
         &.recipient-landing__icon_child {
-            background-color:#00A6D2;
+            background-color: $color-primary-alt-dark;
         }
 
         &.recipient-landing__icon_recipient {
-            background-color:#757575;
+            background-color: $color-gray-medium;
         }
     }
 
