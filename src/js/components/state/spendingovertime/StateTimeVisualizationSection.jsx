@@ -57,7 +57,7 @@ export default class StateTimeVisualizationSection extends React.Component {
             <section
                 id="state-awards-over-time"
                 className="state-section awards-over-time">
-                <h3 className="state-section__title">Awards Over Time</h3>
+                <h3 className="state-section__title">Transactions Over Time</h3>
                 <hr
                     className="results-divider"
                     ref={(hr) => {

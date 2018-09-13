@@ -29,7 +29,9 @@
             }
         }
         .download-filter__content {
-            padding-left: rem(40);
+            @include media($medium-screen) {
+                padding-left: rem(40);
+            }
             .download-filter__fy {
                 @import "fyPicker";
             }
@@ -62,7 +64,10 @@
     }
     @import "userSelections";
     .download-user-selections {
-        margin: rem(45) rem(20) rem(20) rem(20);
+        margin: 0;
+        @include media($medium-screen) {
+            margin: rem(45) rem(20) rem(20) rem(20);
+        }
         @include media($x-large-screen) {
             margin: rem(40) rem(30);
         }

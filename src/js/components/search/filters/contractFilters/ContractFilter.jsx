@@ -20,7 +20,7 @@ const propTypes = {
     dirtyFilters: PropTypes.symbol
 };
 
-const defaultShown = 4;
+const defaultShown = 5;
 
 const defaultState = {
     shown: defaultShown,
@@ -75,7 +75,7 @@ export default class ContractFilter extends React.Component {
             // looping on inverted filters
             invertedKeys.sort().forEach((key) => {
                 // need access to originalFilter[key] here but is undefined
-                if (contractFilters.length <= this.state.shown
+                if (contractFilters.length < this.state.shown
                     && (key.name !== null && key.name !== '')) {
                     contractFilters.push(
                         <PrimaryCheckboxType
@@ -100,7 +100,7 @@ export default class ContractFilter extends React.Component {
         const contractFilters = ContractFieldDefinitions[this.props.contractFilterOptions];
         let toggleButton = null;
 
-        if (contractFilters && Object.keys(contractFilters).length > 4) {
+        if (contractFilters && Object.keys(contractFilters).length > 5) {
             const remaining = Object.keys(contractFilters).length - this.state.shown;
             let shownStatement = `${remaining} ${this.state.shownType}`;
             let arrow = (<Icons.AngleDown alt={`See ${shownStatement}`} />);

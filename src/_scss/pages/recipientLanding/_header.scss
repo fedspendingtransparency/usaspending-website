@@ -7,7 +7,7 @@
     }
 
     .header-cell__text {
-        @include flex(0 0 auto);
+        @include flex(0 1 auto);
         margin-right: rem(20);
     }
 
