@@ -34,7 +34,7 @@ export default class UserSelections extends React.Component {
             );
         }
         return (
-            <div className="selection__content selection__content-required">required</div>
+            <div className="selection__content selection__content-required">Account not selected</div>
         );
     }
 
@@ -46,7 +46,7 @@ export default class UserSelections extends React.Component {
         }
 
         return (
-            <div className="selection__content selection__content-required">required</div>
+            <div className="selection__content selection__content-required">Agency not selected</div>
         );
     }
 
@@ -58,7 +58,7 @@ export default class UserSelections extends React.Component {
         }
 
         return (
-            <div className="selection__content selection__content-required">required</div>
+            <div className="selection__content selection__content-required">Budget function not selected</div>
         );
     }
 
@@ -70,7 +70,7 @@ export default class UserSelections extends React.Component {
         }
 
         return (
-            <div className="selection__content">&mdash;</div>
+            <div className="selection__content">Federal account not selected</div>
         );
     }
 
@@ -82,7 +82,7 @@ export default class UserSelections extends React.Component {
         }
 
         return (
-            <div className="selection__content">&mdash;</div>
+            <div className="selection__content">Budget sub-function not selected</div>
         );
     }
 
