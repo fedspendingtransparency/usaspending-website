@@ -63,7 +63,8 @@ export default class BudgetFilter extends React.Component {
                 code: 'all',
                 title: 'All'
             });
-        } else {
+        }
+ else {
             this.props.setBudgetSubfunctionList('');
         }
 
@@ -157,102 +158,105 @@ export default class BudgetFilter extends React.Component {
 
         return (
             <div className="download-filter">
-                <h3 className="download-filter__title">
-                    {icon} Select a <span className="download-filter__title_em">budget function</span> and <span className="download-filter__title_em">budget sub-function</span>.
-                </h3>
-                <div className="download-filter__content">
-                    <div className="filter-picker">
-                        <label className="select-label" htmlFor="agency-select">
+                <h4 className="download-filter__title">
+                    Budget Function
+                </h4>
+                <p className="download-filter__info">This is spending divided by a high level categorization based on purpose.</p>
+                <div className="download-filter__container">
+                    <div className="download-filter__content">
+                        <div className="filter-picker">
+                            <label className="select-label" htmlFor="agency-select">
                             Budget Function
-                        </label>
+                            </label>
 
-                        <div className="field-picker">
-                            <button
-                                className="selected-button"
-                                title={currentBudgetFunctionTitle}
-                                aria-label={currentBudgetFunctionTitle}
-                                onClick={this.toggleBudgetFunctionPicker}>
-                                <div className="label">
-                                    {currentBudgetFunctionTitle}
-                                </div>
-                                <div className="arrow-icon">
-                                    {budgetFunctionIcon}
-                                </div>
-                            </button>
+                            <div className="field-picker">
+                                <button
+                                    className="selected-button"
+                                    title={currentBudgetFunctionTitle}
+                                    aria-label={currentBudgetFunctionTitle}
+                                    onClick={this.toggleBudgetFunctionPicker}>
+                                    <div className="label">
+                                        {currentBudgetFunctionTitle}
+                                    </div>
+                                    <div className="arrow-icon">
+                                        {budgetFunctionIcon}
+                                    </div>
+                                </button>
 
-                            <div className={`field-list ${showBudgetFunctionPicker}`}>
-                                <ul>
-                                    <li className="field-item">
-                                        <button
-                                            className="item-button"
-                                            title="All"
-                                            aria-label="all"
-                                            name="All"
-                                            value="all"
-                                            onClick={this.handleBudgetFunctionSelect}>
+                                <div className={`field-list ${showBudgetFunctionPicker}`}>
+                                    <ul>
+                                        <li className="field-item">
+                                            <button
+                                                className="item-button"
+                                                title="All"
+                                                aria-label="all"
+                                                name="All"
+                                                value="all"
+                                                onClick={this.handleBudgetFunctionSelect}>
                                             All
-                                        </button>
-                                    </li>
-                                    <li className="field-item">
-                                        <button
-                                            className="item-button group-label"
-                                            title="CFO Agencies"
-                                            aria-label="CFO Agencies"
-                                            disabled >
+                                            </button>
+                                        </li>
+                                        <li className="field-item">
+                                            <button
+                                                className="item-button group-label"
+                                                title="CFO Agencies"
+                                                aria-label="CFO Agencies"
+                                                disabled >
                                             Budget Functions
-                                        </button>
-                                    </li>
-                                    {budgetFunctions}
-                                </ul>
+                                            </button>
+                                        </li>
+                                        {budgetFunctions}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div className="download-filter__content">
-                    <div className="federal-picker">
-                        <label className={`select-label ${budgetSubfunctionDisabled}`} htmlFor="federal-select">
+                    <div className="download-filter__content">
+                        <div className="federal-picker">
+                            <label className={`select-label ${budgetSubfunctionDisabled}`} htmlFor="federal-select">
                             Budget Sub-function
-                        </label>
-                        <div className="field-picker">
-                            <button
-                                className={`selected-button ${budgetSubfunctionDisabled}`}
-                                title={currentBudgetSubfunctionTitle}
-                                aria-label={currentBudgetSubfunctionTitle}
-                                disabled={disabled}
-                                onClick={this.toggleBudgetSubfunctionPicker} >
-                                <div className="label">
-                                    {currentBudgetSubfunctionTitle}
-                                </div>
-                                <div className="arrow-icon">
-                                    {budgetSubfunctionIcon}
-                                </div>
-                            </button>
+                            </label>
+                            <div className="field-picker">
+                                <button
+                                    className={`selected-button ${budgetSubfunctionDisabled}`}
+                                    title={currentBudgetSubfunctionTitle}
+                                    aria-label={currentBudgetSubfunctionTitle}
+                                    disabled={disabled}
+                                    onClick={this.toggleBudgetSubfunctionPicker} >
+                                    <div className="label">
+                                        {currentBudgetSubfunctionTitle}
+                                    </div>
+                                    <div className="arrow-icon">
+                                        {budgetSubfunctionIcon}
+                                    </div>
+                                </button>
 
-                            <div className={`field-list ${showBudgetSubfunctionPicker}`}>
-                                <ul>
-                                    <li className="field-item">
-                                        <button
-                                            className="item-button group-label"
-                                            title="Budget Sub-function"
-                                            aria-label="Budget sub-function"
-                                            disabled>
+                                <div className={`field-list ${showBudgetSubfunctionPicker}`}>
+                                    <ul>
+                                        <li className="field-item">
+                                            <button
+                                                className="item-button group-label"
+                                                title="Budget Sub-function"
+                                                aria-label="Budget sub-function"
+                                                disabled>
                                             Budget Sub-function
-                                        </button>
-                                    </li>
-                                    <li className="field-item indent">
-                                        <button
-                                            className="item-button"
-                                            title="All"
-                                            aria-label="all"
-                                            name="All"
-                                            value="all"
-                                            onClick={this.handleBudgetSubfunctionSelect}>
+                                            </button>
+                                        </li>
+                                        <li className="field-item indent">
+                                            <button
+                                                className="item-button"
+                                                title="All"
+                                                aria-label="all"
+                                                name="All"
+                                                value="all"
+                                                onClick={this.handleBudgetSubfunctionSelect}>
                                             All
-                                        </button>
-                                    </li>
-                                    {budgetSubfunctions}
-                                </ul>
+                                            </button>
+                                        </li>
+                                        {budgetSubfunctions}
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>

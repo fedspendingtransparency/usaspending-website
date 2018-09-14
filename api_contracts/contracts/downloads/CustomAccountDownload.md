@@ -36,7 +36,11 @@ This endpoint returns the generated file's metadata.
 
 This endpoint returns a list of budget functions with their associated title and code
 
-### Budget Function [GET]
+### Budget Function [POST]
+
++ Parameters
+    + agency: `all` (optional, string)
+    + federal_account: `212` (optional, string)
 
 + Response 200 (application/json)
     + Attributes

@@ -46,8 +46,8 @@ export const requestBudgetFunctionList = (params) => {
         promise: Axios.request({
             url: `v2/budget_functions/list_budget_functions/`,
             baseURL: kGlobalConstants.API,
-            method: 'get',
-            params,
+            method: 'post',
+            data: params,
             cancelToken: source.token
         }),
         cancel() {
@@ -63,7 +63,7 @@ export const requestBudgetSubfunctionList = (params) => {
             url: `v2/budget_functions/list_budget_subfunctions/`,
             baseURL: kGlobalConstants.API,
             method: 'post',
-            params,
+            data: params,
             cancelToken: source.token
         }),
         cancel() {

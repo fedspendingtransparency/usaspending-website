@@ -86,11 +86,6 @@ export default class AccountDataContent extends React.Component {
                     <form
                         className="download-center-form"
                         onSubmit={this.handleSubmit}>
-                        <AccountLevelFilter
-                            accountLevels={accountDownloadOptions.accountLevels}
-                            currentAccountLevel={accounts.accountLevel}
-                            updateFilter={this.props.updateFilter}
-                            valid={accounts.accountLevel !== ''} />
                         <AgencyFilter
                             agencies={this.props.agencies}
                             federalAccounts={this.props.federalAccounts}
@@ -107,6 +102,11 @@ export default class AccountDataContent extends React.Component {
                             setBudgetSubfunctionList={this.props.setBudgetSubfunctionList}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.budgetFunction.code !== ''} />
+                        <AccountLevelFilter
+                            accountLevels={accountDownloadOptions.accountLevels}
+                            currentAccountLevel={accounts.accountLevel}
+                            updateFilter={this.props.updateFilter}
+                            valid={accounts.accountLevel !== ''} />
                         <SubmissionTypeFilter
                             submissionTypes={accountDownloadOptions.submissionTypes}
                             currentSubmissionType={accounts.submissionType}

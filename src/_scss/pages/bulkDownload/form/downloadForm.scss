@@ -1,6 +1,9 @@
 .download-center-form {
     .download-filter {
         padding: rem(45) 0;
+        &:nth-of-type(1) {
+            padding: 0;
+        }
         h3.download-filter__title {
             @include h5;
             margin: 0;
@@ -28,6 +31,22 @@
                 }
             }
         }
+
+        h4.download-filter__title {
+            font-size: rem(18);
+            font-weight: 400;
+            padding-left: rem(40);
+        }
+
+        .download-filter__container {
+            display: flex;
+        }
+
+        .download-filter__info {
+            padding-left: rem(40);
+            font-weight: 200;
+        }
+
         .download-filter__content {
             @include media($medium-screen) {
                 padding-left: rem(40);
