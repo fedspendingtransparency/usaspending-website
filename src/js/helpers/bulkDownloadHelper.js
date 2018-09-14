@@ -107,67 +107,82 @@ export const requestArchiveFiles = (params) => {
 const mockData = {
     sections: [
         {
-            sectionName: 'Data Labels',
-            columns: [
-                {
-                    columnName: 'Data Element Label',
-                    cells: [
-                        {
-                            value: 'Lorem ipsum',
-                            subaward_term: false
-                        },
-                        {
-                            value: 'dolor sit amet',
-                            subaward_term: true
-                        }
-                    ]
-                },
-                {
-                    columnName: 'Definition',
-                    cells: [
-                        {
-                            value: 'Lorem ipsum',
-                            subaward_term: false
-                        },
-                        {
-                            value: 'dolor sit amet',
-                            subaward_term: true
-                        }
-                    ]
-                }
-            ]
+            name: 'Data Labels',
+            colspan: 2
         },
         {
-            sectionName: 'Data Attributes',
-            columns: [
-                {
-                    columnName: 'Data Type',
-                    cells: [
-                        {
-                            value: 'Lorem ipsum',
-                            subaward_term: false
-                        },
-                        {
-                            value: 'dolor sit amet',
-                            subaward_term: true
-                        }
-                    ]
-                },
-                {
-                    columnName: 'Max Character Length',
-                    cells: [
-                        {
-                            value: 'Lorem ipsum',
-                            subaward_term: false
-                        },
-                        {
-                            value: 'dolor sit amet',
-                            subaward_term: true
-                        }
-                    ]
-                }
-            ]
+            name: 'Data Attributes',
+            colspan: 2
+        },
+        {
+            name: 'Broker',
+            colspan: 2
+        },
+        {
+            name: 'Data Store',
+            colspan: 3
+        },
+        {
+            name: 'USAspending API',
+            colspan: 2
+        },
+        {
+            name: 'USAspending Download',
+            colspan: 4
+        },
+        {
+            name: 'Legacy USAspending',
+            colspan: 2
         }
+    ],
+    columns: [
+        'Data Element Label',
+        'Definition',
+        'Data Type',
+        'Max Character Length',
+        'Table',
+        'Element',
+        'Model',
+        'Class/Table',
+        'Element',
+        'Endpoint URL',
+        'Element',
+        'Award File',
+        'Award Element',
+        'Sub-award File',
+        'Sub-award Element',
+        'Award Element',
+        'Sub-award Element'
+    ],
+    rows: [
+        // Data Labels
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        // Data Attributes
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        // Broker
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        // Data Store
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus'],
+        // API
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        // Download
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae'],
+        // Legacy
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit']
     ]
 };
 

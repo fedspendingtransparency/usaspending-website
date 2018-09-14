@@ -16,7 +16,9 @@ export default class DataDictionaryContainer extends React.Component {
         this.state = {
             inFlight: true,
             error: false,
-            content: null
+            sections: [],
+            columns: [],
+            rows: []
         };
 
         this.request = null;
@@ -43,9 +45,10 @@ export default class DataDictionaryContainer extends React.Component {
         this.request.promise
             .then((res) => {
                 const content = res.data;
-                // TODO - Lizzie: parse content
                 this.setState({
-                    content,
+                    sections: content.sections,
+                    columns: content.columns,
+                    rows: content.rows,
                     inFlight: false,
                     error: false
                 });
@@ -62,7 +65,9 @@ export default class DataDictionaryContainer extends React.Component {
     render() {
         return (
             <DataDictionary
-                content={this.state.content} />
+                sections={this.state.sections}
+                columns={this.state.columns}
+                rows={this.state.rows} />
         );
     }
 }

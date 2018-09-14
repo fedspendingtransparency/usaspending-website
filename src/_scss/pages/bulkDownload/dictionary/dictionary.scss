@@ -2,8 +2,22 @@
     @include media($medium-screen) {
         padding: 0 rem(30);
     }
-    h2 {
+    .data-dictionary__title {
         margin-top: 0;
         font-weight: 400;
+    }
+    .data-dictionary__intro {
+        font-size: $small-font-size;
+    }
+    .data-dictionary__download {
+        @include display(flex);
+        @include justify-content(flex-end);
+        .data-dictionary__download-link {
+            font-size: $small-font-size;
+        }
+    }
+    .data-dictionary__table-wrapper {
+        overflow: scroll;
+        @import "./_dictionaryTable";
     }
 }
