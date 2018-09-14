@@ -30,14 +30,45 @@ export default class DataDictionaryTable extends React.Component {
         this.props.sections.forEach((section, i) => {
             const sectionColumns = this.props.columns.slice(start, start + section.colspan);
             columns.push(sectionColumns.map((col) => (
-                <th className={`section-${i}`}>
+                <th
+                    key={col}
+                    className={`section-${i}-col`}>
                     {col}
                 </th>
             )));
-
             start += section.colspan;
         });
         return columns;
+    }
+
+    generateBody() {
+        const rows = [];
+        this.props.rows.forEach((row, i) => {
+            rows.push(
+                <tr
+                    key={`row-${i}`}>
+                    {this.generateRow(row)}
+                </tr>
+            );
+        });
+        return rows;
+    }
+
+    generateRow(row) {
+        const cells = [];
+        let start = 0;
+        this.props.sections.forEach((section, i) => {
+            const sectionCells = row.slice(start, start + section.colspan);
+            cells.push(sectionCells.map((data) => (
+                <td
+                    key={data}
+                    className={`section-${i}-cell`}>
+                    {data}
+                </td>
+            )));
+            start += section.colspan;
+        });
+        return cells;
     }
 
     render() {
@@ -52,9 +83,7 @@ export default class DataDictionaryTable extends React.Component {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>TODO: rows</td>
-                    </tr>
+                    {this.generateBody()}
                 </tbody>
             </table>
         );

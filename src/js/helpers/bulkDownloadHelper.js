@@ -155,34 +155,9 @@ const mockData = {
         'Sub-award Element'
     ],
     rows: [
-        // Data Labels
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        // Data Attributes
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        // Broker
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        // Data Store
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus'],
-        // API
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        // Download
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae'],
-        // Legacy
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit']
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit']
     ]
 };
 

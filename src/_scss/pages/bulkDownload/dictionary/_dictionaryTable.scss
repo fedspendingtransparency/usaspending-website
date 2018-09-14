@@ -1,3 +1,94 @@
-.dictionary-table {
+/* Section Headings */
+$dictionary-green: rgb(216,227,190);
+$dictionary-gray: rgb(213, 214, 216);
+$dictionary-blue: rgb(194,209,226);
+$dictionary-purple: rgb(207,190,220);
+$dictionary-red: rgb(241,220,219);
+$dictionary-teal: rgb(184,222,231);
+$dictionary-orange: rgb(252,233,218);
 
+/* Column Headings */
+$dictionary-green-light: rgba(216,227,190,0.6);
+$dictionary-gray-light: rgba(213, 214, 216, 0.6);
+$dictionary-blue-light: rgba(194,209,226,0.6);
+$dictionary-purple-light: rgba(207,190,220,0.6);
+$dictionary-red-light: rgba(241,220,219,0.6);
+$dictionary-teal-light: rgba(184,222,231,0.6);
+$dictionary-orange-light: rgba(252,233,218,0.6);
+
+/* Table Cells */
+$dictionary-green-lighter: rgba(216,227,190,0.3);
+$dictionary-gray-lighter: rgba(213, 214, 216, 0.3);
+$dictionary-blue-lighter: rgba(194,209,226,0.3);
+$dictionary-purple-lighter: rgba(207,190,220,0.3);
+$dictionary-red-lighter: rgba(241,220,219,0.3);
+$dictionary-teal-lighter: rgba(184,222,231,0.3);
+$dictionary-orange-lighter: rgba(252,233,218,0.3);
+
+.dictionary-table {
+    .section-0 {
+        background-color: $dictionary-green;
+    }
+    .section-1 {
+        background-color: $dictionary-gray;
+    }
+    .section-2 {
+        background-color: $dictionary-blue;
+    }
+    .section-3 {
+        background-color: $dictionary-purple;
+    }
+    .section-4 {
+        background-color: $dictionary-red;
+    }
+    .section-5 {
+        background-color: $dictionary-teal;
+    }
+    .section-6 {
+        background-color: $dictionary-orange;
+    }
+
+    .section-0-col {
+        background-color: $dictionary-green-light;
+    }
+    .section-1-col {
+        background-color: $dictionary-gray-light;
+    }
+    .section-2-col {
+        background-color: $dictionary-blue-light;
+    }
+    .section-3-col {
+        background-color: $dictionary-purple-light;
+    }
+    .section-4-col {
+        background-color: $dictionary-red-light;
+    }
+    .section-5-col {
+        background-color: $dictionary-teal-light;
+    }
+    .section-6-col {
+        background-color: $dictionary-orange-light;
+    }
+
+    .section-0-cell {
+        background-color: $dictionary-green-lighter;
+    }
+    .section-1-cell {
+        background-color: $dictionary-gray-lighter;
+    }
+    .section-2-cell {
+        background-color: $dictionary-blue-lighter;
+    }
+    .section-3-cell {
+        background-color: $dictionary-purple-lighter;
+    }
+    .section-4-cell {
+        background-color: $dictionary-red-lighter;
+    }
+    .section-5-cell {
+        background-color: $dictionary-teal-lighter;
+    }
+    .section-6-cell {
+        background-color: $dictionary-orange-lighter;
+    }
 }
