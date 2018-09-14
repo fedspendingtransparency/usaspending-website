@@ -1,5 +1,5 @@
 /**
-  * AwardContainer.jsx
+  * AwardDescription.jsx
   * Created by Kwadwo Opoku-Debrah 09/10/2018
   **/
 
@@ -17,7 +17,7 @@ import * as awardActions from 'redux/actions/award/awardActions';
 const propTypes = {
     selectedAward: PropTypes.object,
     title: PropTypes.string,
-    overflow: PropTypes.bool
+    maxChars: PropTypes.number
 };
 
 export class AwardDescription extends React.Component {
@@ -77,7 +77,7 @@ export class AwardDescription extends React.Component {
             <DetailRow
                 title={this.props.title}
                 value={this.state.lastDescription}
-                overflow={this.props.overflow} />
+                maxChars={this.state.lastDescription ? this.state.lastDescription.length > this.props.maxChars : ''} />
         );
     }
 }

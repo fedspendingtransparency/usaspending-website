@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AwardDescription from 'containers/award/awards/AwardDescription';
+import AwardDescription from 'containers/award/contracts/AwardDescription';
 
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import * as SummaryPageHelper from 'helpers/summaryPageHelper';
@@ -43,7 +43,7 @@ export default class ContractDetails extends React.Component {
                             <AwardDescription
                                 selectedAward={award}
                                 title="Description"
-                                overflow={award.description.length > maxChars} />
+                                maxChars={maxChars} />
                             <DetailRow
                                 title="Period of Performance"
                                 value={popDate} />
