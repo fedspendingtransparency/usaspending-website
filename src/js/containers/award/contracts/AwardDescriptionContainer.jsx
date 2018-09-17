@@ -77,7 +77,7 @@ export class AwardDescriptionContainer extends React.Component {
             <DetailRow
                 title={this.props.title}
                 value={this.state.lastDescription}
-                overflow={this.state.lastDescription ? this.state.lastDescription.length > this.props.maxChars : ''} />
+                overflow={this.state.lastDescription ? this.state.lastDescription.length > this.props.maxChars : false} />
         );
     }
 }
