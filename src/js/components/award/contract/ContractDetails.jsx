@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AwardDescription from 'containers/award/contracts/AwardDescription';
+import AwardDescriptionContainer from 'containers/award/contracts/AwardDescriptionContainer';
 
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import * as SummaryPageHelper from 'helpers/summaryPageHelper';
@@ -40,7 +40,7 @@ export default class ContractDetails extends React.Component {
                         }} />
                     <table>
                         <tbody>
-                            <AwardDescription
+                            <AwardDescriptionContainer
                                 selectedAward={award}
                                 title="Description"
                                 maxChars={maxChars} />

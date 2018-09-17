@@ -1,5 +1,5 @@
 /**
-  * AwardDescription.jsx
+  * AwardDescriptionContainer.jsx
   * Created by Kwadwo Opoku-Debrah 09/10/2018
   **/
 
@@ -20,7 +20,7 @@ const propTypes = {
     maxChars: PropTypes.number
 };
 
-export class AwardDescription extends React.Component {
+export class AwardDescriptionContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -77,14 +77,14 @@ export class AwardDescription extends React.Component {
             <DetailRow
                 title={this.props.title}
                 value={this.state.lastDescription}
-                maxChars={this.state.lastDescription ? this.state.lastDescription.length > this.props.maxChars : ''} />
+                overflow={this.state.lastDescription ? this.state.lastDescription.length > this.props.maxChars : ''} />
         );
     }
 }
 
-AwardDescription.propTypes = propTypes;
+AwardDescriptionContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ award: state.award }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
-)(AwardDescription);
+)(AwardDescriptionContainer);
