@@ -119,62 +119,62 @@ export const requestDictionaryContent = () => {
     };
 };
 
-const mockData = {
-    sections: [
-        {
-            name: 'Data Labels',
-            colspan: 2
-        },
-        {
-            name: 'Data Attributes',
-            colspan: 2
-        },
-        {
-            name: 'Broker',
-            colspan: 2
-        },
-        {
-            name: 'Data Store',
-            colspan: 3
-        },
-        {
-            name: 'USAspending API',
-            colspan: 2
-        },
-        {
-            name: 'USAspending Download',
-            colspan: 4
-        },
-        {
-            name: 'Legacy USAspending',
-            colspan: 2
-        }
-    ],
-    columns: [
-        'Data Element Label',
-        'Definition',
-        'Data Type',
-        'Max Character Length',
-        'Table',
-        'Element',
-        'Model',
-        'Class/Table',
-        'Element',
-        'Endpoint URL',
-        'Element',
-        'Award File',
-        'Award Element',
-        'Sub-award File',
-        'Sub-award Element',
-        'Award Element',
-        'Sub-award Element'
-    ],
-    rows: [
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
-        ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit']
-    ]
-};
+// const mockData = {
+//     sections: [
+//         {
+//             name: 'Data Labels',
+//             colspan: 2
+//         },
+//         {
+//             name: 'Data Attributes',
+//             colspan: 2
+//         },
+//         {
+//             name: 'Broker',
+//             colspan: 2
+//         },
+//         {
+//             name: 'Data Store',
+//             colspan: 3
+//         },
+//         {
+//             name: 'USAspending API',
+//             colspan: 2
+//         },
+//         {
+//             name: 'USAspending Download',
+//             colspan: 4
+//         },
+//         {
+//             name: 'Legacy USAspending',
+//             colspan: 2
+//         }
+//     ],
+//     columns: [
+//         'Data Element Label',
+//         'Definition',
+//         'Data Type',
+//         'Max Character Length',
+//         'Table',
+//         'Element',
+//         'Model',
+//         'Class/Table',
+//         'Element',
+//         'Endpoint URL',
+//         'Element',
+//         'Award File',
+//         'Award Element',
+//         'Sub-award File',
+//         'Sub-award Element',
+//         'Award Element',
+//         'Sub-award Element'
+//     ],
+//     rows: [
+//         ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+//         ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit'],
+//         ['Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit', 'Sed purus purus', 'dignissim nec pharetra vitae', 'Lorem ipsum', 'dolor sit amet, consectetur adipiscing elit']
+//     ]
+// };
 
 // export const requestDictionaryContent = () => {
 //     const source = CancelToken.source();
