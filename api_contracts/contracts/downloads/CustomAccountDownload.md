@@ -1,9 +1,9 @@
 FORMAT: 1A
 HOST: https://api.usaspending.gov
 
-# Custom Account Download
+# Download Center
 
-These endpoints are used to power USAspending.gov's custom download pages. This data can be used to create account data files. 
+These endpoints are used to power USAspending.gov's download center. 
 
 # Custom Account Page
 
@@ -32,6 +32,18 @@ This endpoint returns the generated file's metadata.
     + Attributes
         + results (array[CustomDataResult], fixed-type)
 
+# Data Dictionary
+This endpoint powers USAspending.gov's data dictionary page.
+
+## Data Dictionary [/api/v2/resources/data_dictionary/]
+
+This endpoint returns data corresponding to the latest data dictionary csv file.
+
+### Data Dictonary [GET]
+
++ Response 200 (application/json)
+    + Attributes (DataDictionary)
+    
 # Data Structures
 
 ## CustomDataResult (object)
@@ -69,3 +81,14 @@ This endpoint returns the generated file's metadata.
     + `2`
     + `3`
     + `4`
+    
+## DataDictionary (object)
++ sections: (array[Section], fixed-type)
++ columns: `Data Element Label`, `Definition`, `Data Type` (required, array[string], fixed-type)
++ rows: (required, array, fixed-type)
+    + `Lorem ipsum`, `dolor sit amet`, `consectetur adipiscing elit` (array[string], fixed-type)
+
+## Section (object)
++ name: `Data Labels` (required, string)
++ colspan: 2 (required, number)
+    The number of columns in the section

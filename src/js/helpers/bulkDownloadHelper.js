@@ -104,6 +104,21 @@ export const requestArchiveFiles = (params) => {
     };
 };
 
+export const requestDictionaryContent = () => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/resources/data_dictionary/',
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 const mockData = {
     sections: [
         {
@@ -161,18 +176,18 @@ const mockData = {
     ]
 };
 
-export const requestDictionaryContent = () => {
-    const source = CancelToken.source();
-    return {
-        promise: new Promise((resolve) => {
-            window.setTimeout(() => {
-                resolve({
-                    data: mockData
-                });
-            }, 500);
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+// export const requestDictionaryContent = () => {
+//     const source = CancelToken.source();
+//     return {
+//         promise: new Promise((resolve) => {
+//             window.setTimeout(() => {
+//                 resolve({
+//                     data: mockData
+//                 });
+//             }, 500);
+//         }),
+//         cancel() {
+//             source.cancel();
+//         }
+//     };
+// };
