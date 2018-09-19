@@ -13,10 +13,10 @@ These endpoints support the individual Award pages that display data for a speci
 
 This endpoint returns a list of data that is associated with the award profile page.
 
-### Award [GET]
-
 + Parameters
-    + generated_unique_award_id
+    + generated_unique_award_id: 25764264
+
+### Award [GET]
 
 + Request A request with a contract id (application/json)
     + Attributes
@@ -25,7 +25,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + Response 200 (application/json)
     + Attributes (ContractResponse)
 
-+ Request A request with an id that is other than contract (application/json)
++ Request A request with a non-contract id (application/json)
      + Attributes
         + generated_unique_award_id: 42954959
 
@@ -156,9 +156,9 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + parent_award_piid: `1301` (required, string, nullable)
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
-+ awarding_agency: (required, Agency, fixed-type)
-+ funding_agency: (required, Agency, fixed-type)
-+ recipient: (required, Recipient, fixed-type)
++ awarding_agency (required, Agency, fixed-type)
++ funding_agency (required, Agency, fixed-type)
++ recipient (required, Recipient, fixed-type)
 + total_obligation (required, number)
 + base_and_all_options_value: 24242432 (required, number)
     The ceiling and amount of the award
@@ -186,9 +186,9 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + recipient_name: `Booz Allen Hamilton` (required, string, nullable)
 + recipient_unique_id: 2424224 (required, number, nullable)
 + parent_recipient_unique_id: 2424232 (required, number, nullable)
-+ location: (required, Location, nullable)
++ location (required, Location, nullable)
 + recipient_parent_name: `HoneyWell` (string, nullable)
-+ business_categories: (required, array[string])
++ business_categories (required, array[string])
 
 ## PerformancePeriod
 + period_of_performance_start_date: `2004-02-19` (required, string)
@@ -252,7 +252,7 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + type_of_contract_pric_desc: `FIRM FIXED PRICE` (required, string, nullable)
 
 ## Executive
-+ officers: (required, array[Officer])
++ officers (required, array[Officer])
 
 ## Officer
 + name: `John Doe` (required, string)
@@ -267,11 +267,11 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + cfda_objectives: `Some HTML string` (required, string, nullable)
 + cfda_number: `0.434` (required, string, nullable)
 + cfda_title: `Flood Insurance` (required, string, nullable)
-+ awarding_agency: (required, Agency, fixed-type)
-+ funding_agency: (required, Agency, fixed-type)
-+ recipient: (required, Recipient, fixed-type)
++ awarding_agency (required, Agency, fixed-type)
++ funding_agency (required, Agency, fixed-type)
++ recipient (required, Recipient, fixed-type)
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
-+ period_of_performance: (required, PerformancePeriod, fixed-type)
-+ place_of_performance: (required, Location, fixed-type)
++ period_of_performance (required, PerformancePeriod, fixed-type)
++ place_of_performance (required, Location, fixed-type)
 + executive_details (required, Executive, fixed-type)
