@@ -44,14 +44,23 @@ export default class RecipientLandingContent extends React.Component {
                 <div className="landing-page__info">
                     <div className="recipient-landing__labels-wrapper">
                         <RecipientLabels />
+                        <div className="recipient-landing__pagination recipient-landing__pagination_mobile">
+                            <Pagination
+                                onChangePage={this.props.onChangePage}
+                                pageNumber={this.props.pageNumber}
+                                totalItems={this.props.totalItems}
+                                pageSize={this.props.pageSize} />
+                        </div>
                         <RecipientLandingTabs
                             setTab={this.props.setTab} />
                     </div>
-                    <Pagination
-                        onChangePage={this.props.onChangePage}
-                        pageNumber={this.props.pageNumber}
-                        totalItems={this.props.totalItems}
-                        pageSize={this.props.pageSize} />
+                    <div className="recipient-landing__pagination recipient-landing__pagination_desktop">
+                        <Pagination
+                            onChangePage={this.props.onChangePage}
+                            pageNumber={this.props.pageNumber}
+                            totalItems={this.props.totalItems}
+                            pageSize={this.props.pageSize} />
+                    </div>
                 </div>
                 <RecipientLandingResultsSection
                     results={this.props.results}

@@ -3,7 +3,7 @@ HOST: https://api.usaspending.gov
 
 # Award Profile
 
-These endpoints are used to power USAspending.gov's award profile pages. This data can be used to view details about a specific award. 
+These endpoints are used to power USAspending.gov's award profile pages. This data can be used to view details about a specific award.
 
 # Group Award Page
 
@@ -47,10 +47,10 @@ This endpoint returns a list of sub-awards, their amount, action date, recipient
         + award_id: 123 (optional, string)
             The internal id of the award to filter on. If not included, all sub-awards are returned.
         + limit: 15 (optional, number)
-            The number of results to include per page. 
+            The number of results to include per page.
             + Default: 10
         + page: 1 (optional, number)
-            The page of results to return based on the limit. 
+            The page of results to return based on the limit.
             + Default: 1
         + sort: subaward_number (optional, enum[string])
             The field results are sorted by.
@@ -64,12 +64,12 @@ This endpoint returns a list of sub-awards, their amount, action date, recipient
         + order: desc (optional, string)
             The direction results are sorted by. `asc` for ascending, `desc` for descending.
             + Default: desc
-        
+
 + Response 200 (application/json)
     + Attributes
         + results (array[SubAwardResult], fixed-type)
         + page_metadata (PageMetaDataObject)
-        
+
 ## Transactions [/api/v2/transactions/]
 
 This endpoint returns a list of transactions, their amount, type, action date, action type, modification number, and description.
@@ -81,10 +81,10 @@ This endpoint returns a list of transactions, their amount, type, action date, a
         + award_id: 123 (required, number)
             The internal id of the award to filter on.
         + limit: 15 (optional, number)
-            The number of results to include per page. 
+            The number of results to include per page.
             + Default: 10
         + page: 1 (optional, number)
-            The page of results to return based on the limit. 
+            The page of results to return based on the limit.
             + Default: 1
         + sort: action_date (optional, enum[string])
             The field results are sorted by.
@@ -100,13 +100,13 @@ This endpoint returns a list of transactions, their amount, type, action date, a
         + order: desc (optional, string)
             The direction results are sorted by. `asc` for ascending, `desc` for descending.
             + Default: desc
-        
+
 + Response 200 (application/json)
     + Attributes
         + results (array[TransactionResult], fixed-type)
         + page_metadata (PageMetaDataObject)
 
-        
+
 # Data Structures
 
 ## SubAwardResult (object)
@@ -115,12 +115,12 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + subaward_number: `2-A` (required, string)
     The sub-award id.
 + description: description (required, string)
-+ action_date: `1999-01-15` (required, string) 
++ action_date: `1999-01-15` (required, string)
     Action date in the format `YYYY-MM-DD`.
 + amount: 1234.56 (required, number)
     Monetary value of the sub-award.
 + recipient_name: Recipient A (required, string)
-    
+
 ## TransactionResult (object)
 + id: `1` (required, string)
     The internal transaction id.
@@ -155,6 +155,7 @@ This endpoint returns a list of transactions, their amount, type, action date, a
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
 + description: `ewraijwrw` (required, string, nullable)
+    Description of the first transaction for this award
 + awarding_agency: (required, Agency, fixed-type)
 + funding_agency: (required, Agency, fixed-type)
 + recipient: (required, Recipient, fixed-type)

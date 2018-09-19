@@ -5,11 +5,73 @@
     @import "pages/accountLanding/searchSection";
     @import "components/pagination";
     @import "./_table";
-    @import "./_recipientLabels";
     @import "pages/search/results/table/_tableMessages";
     @import "pages/search/results/screens/screens";
     @import "pages/search/results/table/_tableTypes";
     @import "pages/search/results/table/_resultsTablePicker";
+
+    .recipient-landing__icon {
+        color: $color-white;
+        margin-right: rem(10);
+        padding: 0 rem(4) 0 rem(4);
+        border-radius: rem(3);
+        font-weight: 600;
+        font-size: rem(14);
+        display: inline-block;
+        width: rem(18);
+        height: rem(18);
+        text-align: center;
+
+        &.recipient-landing__icon_parent {
+            background-color: $color-primary-darker;
+        }
+
+        &.recipient-landing__icon_child {
+            background-color: $color-primary-alt-dark;
+        }
+
+        &.recipient-landing__icon_recipient {
+            background-color: $color-gray-medium;
+        }
+    }
+
+    .landing-page__info {
+        margin-top: rem(20);
+        @include display(flex);
+
+        .recipient-landing__labels-wrapper {
+            @import "./_recipientLabels";
+            @include flex(1);
+            @include align-self(flex-end);
+
+
+            .recipient-landing__pagination_mobile {
+                display: block;
+                @include media($tablet-screen) {
+                    display: none;
+                }
+                .pager {
+                    padding-top: rem(10);
+                }
+            }
+        }
+
+        .recipient-landing__pagination_desktop {
+            display: none;
+            border-bottom: 1px solid #aeb0b5;
+            @include media($tablet-screen) {
+                display: block;
+            }
+            .pagination {
+                @include flex-direction(column);
+                @include align-items(flex-end);
+                .pager {
+                    @include justify-content(flex-end);
+                    margin-top: rem(40);
+                }
+            }
+        }
+    }
 
     .table-types {
         margin-top: rem(5);
@@ -25,33 +87,13 @@
         }
     }
 
-    .pagination {
-        @include flex-direction(column);
-        @include align-items(flex-end);
-        &:nth-of-type(2) {
-            border-bottom: 1px solid #aeb0b5;
-        }
-        .pager {
-            @include justify-content(flex-end);
-            margin-top: rem(40);
-        }
-    }
-    .results-table-section { 
+    .results-table-section {
         position: relative;
         min-height: rem(200);
     }
 
-    .landing-page__info {
-        margin-top: rem(20);
-        @include display(flex);
-    }
-
-    .recipient-landing__labels-wrapper {
-        @include flex(1);
-        @include align-self(flex-end);
-    }
-
     .recipient-landing__results {
+        overflow-x: scroll;
         .recipient-list {
             margin-top: rem(15);
         }
@@ -66,37 +108,5 @@
                 font-weight: normal;
             }
         }
-    }
-
-    .recipient-landing__icon {
-        
-            color: $color-white;
-            margin-right: rem(10);
-            padding: 0 rem(4) 0 rem(4);
-            border-radius: rem(3);
-            font-weight: 600;
-            font-size: rem(14);
-            display: inline-block;
-            width: rem(18);
-            height: rem(18);
-            text-align: center;
-
-            &.recipient-landing__icon_parent {
-                background-color: #205493;
-            }
-
-            &.recipient-landing__icon_child {
-                background-color:#00A6D2;
-            }
-
-            &.recipient-landing__icon_recipient {
-                background-color:#757575;
-            }
-    }
-
-    .results-count {
-        font-style: italic;
-        padding: rem(20) 0;
-        font-size: rem(16);
     }
 }

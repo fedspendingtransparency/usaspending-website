@@ -3,6 +3,7 @@
     padding: rem(25);
     @include display(flex);
     @include justify-content(center);
+    @include flex-wrap(wrap);
     font-size: rem(18);
     .subscribe__icon {
         @include display(flex);

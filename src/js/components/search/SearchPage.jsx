@@ -27,6 +27,7 @@ const propTypes = {
     filters: PropTypes.object,
     lastUpdate: PropTypes.string,
     downloadAvailable: PropTypes.bool,
+    downloadInFlight: PropTypes.bool,
     requestsComplete: PropTypes.bool,
     noFiltersApplied: PropTypes.bool
 };
@@ -146,6 +147,7 @@ export default class SearchPage extends React.Component {
                     <div className="sticky-header__options">
                         <DownloadButton
                             downloadAvailable={this.props.downloadAvailable}
+                            downloadInFlight={this.props.downloadInFlight}
                             onClick={this.showModal}
                             disableHover={this.state.filterCount === 0} />
                     </div>

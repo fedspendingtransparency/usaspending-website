@@ -3,6 +3,10 @@
     .time-period-buttons {
         @include display(flex);
         @include flex-direction(row);
+        @include flex-wrap(wrap);
+        @include media($medium-screen) {
+            @include flex-wrap(nowrap);
+        }
         .column {
             margin-right: rem(20);
             .time-period-button {
