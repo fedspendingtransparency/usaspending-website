@@ -62,7 +62,7 @@ export default class TopFive extends React.Component {
         let disclaimer;
         if (this.props.category === 'country' || this.props.category === 'state_territory') {
             disclaimer = (
-                <span> <br /><strong>Note: </strong> <em> This data is based on Primary Place of Performance.</em> </span>
+                <span className="category-table__disclaimer"> <strong>Note: </strong> <em> This data is based on Primary Place of Performance.</em> </span>
             );
         }
         const rows = this.props.results.map((result, index) => (
