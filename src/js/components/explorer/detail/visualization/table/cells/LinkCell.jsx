@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import reactStringReplace from 'react-string-replace';
 
 const propTypes = {
     name: PropTypes.string,
