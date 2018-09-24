@@ -63,7 +63,7 @@ export default class StateTimeVisualizationTooltip extends React.Component {
                                 {dollarValue}
                             </div>
                             <div className="tooltip-label">
-                                Awarded Amount
+                                Amount Obligated
                             </div>
                         </div>
                     </div>
