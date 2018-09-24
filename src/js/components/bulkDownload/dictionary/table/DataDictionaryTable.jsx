@@ -16,10 +16,10 @@ export default class DataDictionaryTable extends React.Component {
     generateSectionHeadings() {
         return this.props.sections.map((section, i) => (
             <th
-                key={section.name}
+                key={section.section}
                 className={`section-${i}`}
                 colSpan={section.colspan}>
-                {section.name}
+                {section.section}
             </th>
         ));
     }
@@ -31,9 +31,9 @@ export default class DataDictionaryTable extends React.Component {
             const sectionColumns = this.props.columns.slice(start, start + section.colspan);
             columns.push(sectionColumns.map((col) => (
                 <th
-                    key={col}
+                    key={col.raw}
                     className={`section-${i}-col`}>
-                    {col}
+                    {col.display}
                 </th>
             )));
             start += section.colspan;
@@ -60,10 +60,8 @@ export default class DataDictionaryTable extends React.Component {
         this.props.sections.forEach((section, i) => {
             const sectionCells = row.slice(start, start + section.colspan);
             cells.push(sectionCells.map((data) => (
-                <td
-                    key={data}
-                    className={`section-${i}-cell`}>
-                    {data}
+                <td className={`section-${i}-cell`}>
+                    {data || `N/A`}
                 </td>
             )));
             start += section.colspan;

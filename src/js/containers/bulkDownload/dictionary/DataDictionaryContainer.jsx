@@ -47,7 +47,7 @@ export default class DataDictionaryContainer extends React.Component {
                 const content = res.data;
                 this.setState({
                     sections: content.sections,
-                    columns: content.columns,
+                    columns: content.headers,
                     rows: content.rows,
                     inFlight: false,
                     error: false

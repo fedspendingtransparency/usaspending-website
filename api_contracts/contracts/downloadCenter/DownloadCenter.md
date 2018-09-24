@@ -35,7 +35,7 @@ This endpoint returns the generated file's metadata.
 # Data Dictionary
 This endpoint powers USAspending.gov's data dictionary page.
 
-## Data Dictionary [/api/v2/resources/data_dictionary/]
+## Data Dictionary [/api/v2/references/data_dictionary/]
 
 This endpoint returns data corresponding to the latest data dictionary csv file.
 
@@ -83,12 +83,23 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
     + `4`
     
 ## DataDictionary (object)
++ metadata: [DictionaryMetadata]
 + sections: (array[Section], fixed-type)
-+ columns: `Data Element Label`, `Definition`, `Data Type` (required, array[string], fixed-type)
++ headers: (array[Column], fixed-type)
 + rows: (required, array, fixed-type)
     + `Lorem ipsum`, `dolor sit amet`, `consectetur adipiscing elit` (array[string], fixed-type)
 
 ## Section (object)
-+ name: `Data Labels` (required, string)
++ section: `Data Labels` (required, string)
 + colspan: 2 (required, number)
     The number of columns in the section
+    
+## Column (object)
++ raw: `award_file` (required, string)
++ display: `Award File` (required, string)
+
+## DictionaryMetadata (object)
++ total_rows: 393 (required, number)
++ total_columns: 12 (required, number)
++ file_name: `Data Transparency Rosetta Stone_Public_only.xlsx` (required, string)
++ total_size: `119.32KB` (required, string)
