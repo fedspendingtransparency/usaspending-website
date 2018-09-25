@@ -42,8 +42,8 @@ Using the response from the general Spending Explorer, you can drill down to mor
 
 + Response 200 (application/json)
     + Attributes (object)
-        + total: 126073789264.49 (required, number)
-        + 
+        + total: 126073789264.49 (required, number, nullable)
+            Total should only be null when there are no results.
         + end_date: `2017-09-30` (required, string)
             This is the "as-of" date for the data being returned.
         + results (required, array[SpendingExplorerGeneralResponse, SpendingExplorerGeneralUnreportedResponse], fixed-type)
@@ -63,7 +63,8 @@ Using the response from the general Spending Explorer, you can drill down to mor
 
 + Response 200 (application/json)
     + Attributes (object)
-        + total: 1410774412.52 (required, number)
+        + total: 1410774412.52 (required, number, nullable)
+            Total should only be null when there are no results.
         + end_date: `2017-09-30` (required, string)
             This is the "as-of" date for the data being returned.
         + results (required, array[SpendingExplorerDetailedResponse], fixed-type)
@@ -71,16 +72,16 @@ Using the response from the general Spending Explorer, you can drill down to mor
 # Data Structures
 
 ## GeneralFilter (object)
-+ fy: 2017 (required, string)
-+ quarter: 4 (required, enum[string])
++ fy: `2017` (required, string)
++ quarter: `4` (required, enum[string])
     + `1`
     + `2`
     + `3`
     + `4`
 
 ## DetailedFilter (object)
-+ fy: 2017 (required, string)
-+ quarter: 4 (required, enum[string])
++ fy: `2017` (required, string)
++ quarter: `4` (required, enum[string])
     + `1`
     + `2`
     + `3`
@@ -97,7 +98,7 @@ Using the response from the general Spending Explorer, you can drill down to mor
 
 ## SpendingExplorerGeneralResponse (object)
 + code: `019` (required, string)
-+ id: 315 (required, number)
++ id: `315` (required, string)
 + type: agency (required, string)
     The `type` will always be equal to the `type` parameter you provided in the request.
 + name: Department of State (required, string)
@@ -105,7 +106,7 @@ Using the response from the general Spending Explorer, you can drill down to mor
 
 ### SpendingExplorerDetailedResponse (object)
 + code: `0006` (required, string)
-+ id: 11367 (required, number)
++ id: `11367` (required, string)
 + type: `program_activity` (required, string)
     The `type` will always be equal to the `type` parameter you provided in the request.
 + name: Law Enforcement Operations (required, string)

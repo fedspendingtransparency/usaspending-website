@@ -1,13 +1,13 @@
 FORMAT: 1A
 HOST: https://api.usaspending.gov
 
-# Custom Account Download
+# Download Center
 
-These endpoints are used to power USAspending.gov's custom download pages. This data can be used to create account data files.
+These endpoints are used to power USAspending.gov's download center. This data can be used to create account data files.
 
-# Custom Account Page
+# Group Custom Account Data
 
-These endpoints generate files using the filters on the custom account.
+These endpoints power the generation of custom account data files.
 
 ## Custom Account Data [/api/v2/download/accounts/]
 

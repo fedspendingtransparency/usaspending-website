@@ -149,43 +149,45 @@ export default class AgencyListContainer extends React.Component {
     }
 
     performSecondarySearch(data) {
-        // search within the returned data
-        // create a search index with the API response records
-        const search = new Search('id');
-        search.addIndex(['toptier_agency', 'name']);
-        search.addIndex(['subtier_agency', 'name']);
-        search.addIndex(['toptier_agency', 'abbreviation']);
-        search.addIndex(['subtier_agency', 'abbreviation']);
-
-        // add the API response as the data source to search within
-        search.addDocuments(data);
-
-        // use the JS search library to search within the records
-        const results = search.search(this.state.agencySearchString);
-
         if ((this.state.agencySearchString.toLowerCase() === 'fem') || (this.state.agencySearchString.toLowerCase() === 'fema')) {
             // don't change the order of results returned from the API
-            this.parseAutocompleteAgencies(slice(results, 0, 10));
+            this.parseAutocompleteAgencies(slice(data, 0, 10));
         }
 
-        const toptier = [];
-        const subtier = [];
+        else {
+            // search within the returned data
+            // create a search index with the API response records
+            const search = new Search('id');
+            search.addIndex(['toptier_agency', 'name']);
+            search.addIndex(['subtier_agency', 'name']);
+            search.addIndex(['toptier_agency', 'abbreviation']);
+            search.addIndex(['subtier_agency', 'abbreviation']);
 
-        // re-group the responses by top tier and subtier
-        results.forEach((item) => {
-            if (item.toptier_flag) {
-                toptier.push(item);
-            }
-            else {
-                subtier.push(item);
-            }
-        });
+            // add the API response as the data source to search within
+            search.addDocuments(data);
 
-        // combine the two arrays and limit it to 10
-        const improvedResults = slice(concat(toptier, subtier), 0, 10);
+            // use the JS search library to search within the records
+            const results = search.search(this.state.agencySearchString);
 
-        // Add search results to Redux
-        this.parseAutocompleteAgencies(improvedResults);
+            const toptier = [];
+            const subtier = [];
+
+            // re-group the responses by top tier and subtier
+            results.forEach((item) => {
+                if (item.toptier_flag) {
+                    toptier.push(item);
+                }
+                else {
+                    subtier.push(item);
+                }
+            });
+
+            // combine the two arrays and limit it to 10
+            const improvedResults = slice(concat(toptier, subtier), 0, 10);
+
+            // Add search results to Redux
+            this.parseAutocompleteAgencies(improvedResults);
+        }
     }
 
     clearAutocompleteSuggestions() {

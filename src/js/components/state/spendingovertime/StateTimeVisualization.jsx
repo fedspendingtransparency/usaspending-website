@@ -10,7 +10,6 @@ import ChartMessage from 'components/search/visualizations/time/TimeVisualizatio
 import BarChart from 'components/search/visualizations/time/chart/BarChart';
 import TimeTooltip from './StateTimeVisualizationTooltip';
 
-
 const defaultProps = {
     groups: [],
     xSeries: [],
