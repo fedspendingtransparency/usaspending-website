@@ -84,7 +84,9 @@
             font-size: 1.8rem;
             margin-top: rem(10);
             span {
-              padding-left: rem(0.25);
+              padding-left: rem(2.5);
+              position: relative;
+              bottom: 2.25px;
             }
           }
         }

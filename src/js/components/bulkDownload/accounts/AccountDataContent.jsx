@@ -65,7 +65,8 @@ export default class AccountDataContent extends React.Component {
 
     validateForm(accounts) {
         const validForm = (
-            (accounts.agency.id !== '' || accounts.budgetFunction.code !== '')
+            (accounts.budgetFunction.code !== '')
+            && (accounts.agency.id !== '')
             && (accounts.submissionType !== '')
             && (accounts.fy !== '')
             && (accounts.quarter !== '')

@@ -51,7 +51,7 @@ export default class DownloadTooltip extends React.Component {
         const filters = this.props.filters;
         const requiredFields = [];
         if (!filters.agency.id || !filters.budgetFunction.code) {
-            requiredFields.push('Agency / Budget Function');
+            requiredFields.push('Budget Function / Agency');
         }
         if (!filters.submissionType) {
             requiredFields.push('File Type');
