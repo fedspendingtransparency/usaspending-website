@@ -15,7 +15,8 @@ const propTypes = {
     currentBudgetSubfunction: PropTypes.object,
     updateFilter: PropTypes.func,
     valid: PropTypes.bool,
-    setBudgetSubfunctionList: PropTypes.func
+    setBudgetSubfunctionList: PropTypes.func,
+    validAgencyId: PropTypes.bool
 };
 
 export default class BudgetFilter extends React.Component {
@@ -57,6 +58,13 @@ export default class BudgetFilter extends React.Component {
             title: target.name
         });
 
+        if (!this.props.validAgencyId) {
+            this.props.updateFilter('agency', {
+                id: 'all',
+                name: 'All'
+            });
+        }
+
         if (target.value !== 'all') {
             this.props.setBudgetSubfunctionList(budgetFunction);
             this.props.updateFilter('budgetSubfunction', {
@@ -64,7 +72,7 @@ export default class BudgetFilter extends React.Component {
                 title: 'All'
             });
         }
- else {
+        else {
             this.props.setBudgetSubfunctionList('');
         }
 

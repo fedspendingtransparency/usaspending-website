@@ -1,4 +1,4 @@
-.download-center-form {
+.download-center-form, .bulk-download {
     .download-filter {
         padding: rem(45) 0;
         &:nth-of-type(1) {
@@ -35,7 +35,7 @@
         h4.download-filter__title {
             font-size: rem(18);
             font-weight: 400;
-            padding-left: rem(40);
+            padding-left: rem(30);
         }
 
         .download-filter__container {
@@ -43,17 +43,50 @@
         }
 
         .download-filter__info {
-            padding-left: rem(40);
+            padding-left: rem(30);
             font-weight: 200;
+            .icon {
+              float: left;
+              margin-right: rem(10);
+              width: rem(18);
+              height: rem(18);
+
+              svg {
+                width: rem(18);
+                height: rem(18);
+                fill: $color-green;
+              }
+              &.invalid {
+                svg {
+                  fill: $color-secondary;
+                }
+              }
+            }
         }
 
         .download-filter__content {
             @include media($medium-screen) {
-                padding-left: rem(40);
+                padding-left: rem(30);
             }
             .download-filter__fy {
                 @import "fyPicker";
             }
+        }
+
+        &.download-filter-notice {
+          padding: 3rem 0 0 0;
+          .download-filter__title {
+            padding-left: rem(30);
+            padding-bottom: 0;
+          }
+          .download-filter__info {
+            padding-left: 0;
+            font-size: 1.8rem;
+            margin-top: rem(10);
+            span {
+              padding-left: rem(0.25);
+            }
+          }
         }
 
         .download-filter__content-note {

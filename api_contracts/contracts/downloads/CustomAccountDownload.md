@@ -3,7 +3,7 @@ HOST: https://api.usaspending.gov
 
 # Custom Account Download
 
-These endpoints are used to power USAspending.gov's custom download pages. This data can be used to create account data files. 
+These endpoints are used to power USAspending.gov's custom download pages. This data can be used to create account data files.
 
 # Custom Account Page
 
@@ -23,7 +23,7 @@ This endpoint returns the generated file's metadata.
                 + treasury_account
                 + federal_account
         + file_format: `csv` (optional, string)
-            The file format that should be returned. 
+            The file format that should be returned.
             + Default: `csv`
         + filters: (required, FilterObject)
             The filters used to filter the data
@@ -36,7 +36,7 @@ This endpoint returns the generated file's metadata.
 
 This endpoint returns a list of budget functions with their associated title and code
 
-### Budget Function [POST]
+### Budget Function [GET]
 
 + Parameters
     + agency: `all` (optional, string)
@@ -44,7 +44,7 @@ This endpoint returns a list of budget functions with their associated title and
 
 + Response 200 (application/json)
     + Attributes
-        + results (BudgetFunctionResults, fixed-type) 
+        + results (BudgetFunctionResults, fixed-type)
 
 ## Budget Subfunction [/api/v2/budget_functions/list_budget_subfunctions]
 
@@ -57,7 +57,7 @@ This endpoint returns a list of budget subfunctions with their associated title 
 
 + Response 200 (application/json)
     + Attributes
-        + results (BudgetSubfunctionResults, fixed-type) 
+        + results (BudgetSubfunctionResults, fixed-type)
 
 # Data Structures
 
@@ -77,7 +77,7 @@ This endpoint returns a list of budget subfunctions with their associated title 
         + finished
         + failed
 + seconds_elapsed `10.061132` (required, string)
-    
+
 ## FilterObject (object)
 + agency: `all` (optional, string)
     The agency to filter by. This field is an internal id.

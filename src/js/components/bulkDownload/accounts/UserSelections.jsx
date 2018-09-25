@@ -17,7 +17,6 @@ export default class UserSelections extends React.Component {
         super(props);
 
         this.generateAccountLevelString = this.generateAccountLevelString.bind(this);
-        this.generateAgencyString = this.generateAgencyString.bind(this);
         this.generateFederalAccountString = this.generateFederalAccountString.bind(this);
         this.generateSubmissionTypeString = this.generateSubmissionTypeString.bind(this);
         this.generateFyString = this.generateFyString.bind(this);
@@ -38,27 +37,15 @@ export default class UserSelections extends React.Component {
         );
     }
 
-    generateAgencyString() {
-        if (this.props.accounts.agency.name !== 'Select an Agency') {
+    generateBudgetAndAgencyFunctionString() {
+        if (this.props.accounts.budgetFunction.title !== 'Select a Budget Function' || this.props.accounts.agency.name !== 'Select an Agency') {
             return (
-                <div className="selection__content">{this.props.accounts.agency.name}</div>
+                <div className="selection__content">{this.props.accounts.budgetFunction.title} &amp; {this.props.accounts.agency.name}</div>
             );
         }
 
         return (
-            <div className="selection__content selection__content-required">Agency not selected</div>
-        );
-    }
-
-    generateBudgetFunctionString() {
-        if (this.props.accounts.budgetFunction.title !== 'Select a Budget Function') {
-            return (
-                <div className="selection__content">{this.props.accounts.budgetFunction.title}</div>
-            );
-        }
-
-        return (
-            <div className="selection__content selection__content-required">Budget function not selected</div>
+            <div className="selection__content selection__content-required">Budget function / Agency not selected</div>
         );
     }
 
@@ -125,19 +112,15 @@ export default class UserSelections extends React.Component {
                         </div>
                     </div>
                     <div className="selection">
-                        <div className="selection__heading">Agency</div>
-                        {this.generateAgencyString()}
-                    </div>
-                    <div className="selection">
                         <div className="selection__heading">Federal Account</div>
                         <div className="selection__content">
                             {this.generateFederalAccountString()}
                         </div>
                     </div>
                     <div className="selection">
-                        <div className="selection__heading">Budget Function</div>
+                        <div className="selection__heading">Budget Function / Agency</div>
                         <div className="selection__content">
-                            {this.generateBudgetFunctionString()}
+                            {this.generateBudgetAndAgencyFunctionString()}
                         </div>
                     </div>
                     <div className="selection">

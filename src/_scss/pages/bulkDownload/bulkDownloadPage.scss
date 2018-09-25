@@ -3,6 +3,8 @@
     @import "layouts/search/search";
     @import "layouts/default/stickyHeader/header";
 
+    @import "./form/downloadForm";
+
     .bulk-download {
         @import "../../mixins/fullSectionWrap";
         @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));

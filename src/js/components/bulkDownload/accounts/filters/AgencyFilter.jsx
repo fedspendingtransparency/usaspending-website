@@ -15,7 +15,8 @@ const propTypes = {
     currentFederalAccount: PropTypes.object,
     updateFilter: PropTypes.func,
     valid: PropTypes.bool,
-    setFederalAccountList: PropTypes.func
+    setFederalAccountList: PropTypes.func,
+    validBudgetFunctionCode: PropTypes.bool
 };
 
 export default class AgencyFilter extends React.Component {
@@ -57,6 +58,13 @@ export default class AgencyFilter extends React.Component {
             name: target.name
         });
 
+        if (!this.props.validBudgetFunctionCode) {
+            this.props.updateFilter('budgetFunction', {
+                code: 'all',
+                title: 'All'
+            });
+        }
+
         if (target.value !== 'all') {
             this.props.setFederalAccountList(agencyCode);
             this.props.updateFilter('federalAccount', {
@@ -64,7 +72,7 @@ export default class AgencyFilter extends React.Component {
                 name: 'All'
             });
         }
- else {
+        else {
             this.props.setFederalAccountList('');
         }
 
