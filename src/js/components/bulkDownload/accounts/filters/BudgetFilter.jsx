@@ -95,19 +95,6 @@ export default class BudgetFilter extends React.Component {
     }
 
     render() {
-        let icon = (
-            <div className="icon valid">
-                <Icons.CheckCircle />
-            </div>
-        );
-
-        if (!this.props.valid) {
-            icon = (
-                <div className="icon invalid">
-                    <Icons.ExclamationCircle />
-                </div>
-            );
-        }
         let budgetSubfunctionDisabled = 'disabled';
         let disabled = true;
         if (this.props.budgetSubfunctions.length > 0) {

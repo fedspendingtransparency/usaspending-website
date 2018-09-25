@@ -211,7 +211,7 @@ export class AccountDataContainer extends React.Component {
                 agencies={this.state.agencies}
                 budgetFunctions={this.state.budgetFunctions}
                 budgetSubfunctions={this.state.budgetSubfunctions}
-                setBudgetSubfunctionList={this.setBudgetSubfunctionList }
+                setBudgetSubfunctionList={this.setBudgetSubfunctionList}
                 clickedDownload={this.props.clickedDownload} />
         );
     }
@@ -223,4 +223,3 @@ export default connect(
     (state) => ({ bulkDownload: state.bulkDownload }),
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
 )(AccountDataContainer);
-
