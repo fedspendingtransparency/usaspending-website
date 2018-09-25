@@ -4,6 +4,7 @@
  */
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import kGlobalConstants from 'GlobalConstants';
 
 const BaseStateProfile = {
     populate(data) {
@@ -49,7 +50,7 @@ const BaseStateProfile = {
     },
     get flag() {
         if (this.id) {
-            return `https://s3-us-gov-west-1.amazonaws.com/da-public-files/usaspending_state_flags/${this.id}.png`;
+            return `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/state-flags/${this.id}.png`;
         }
         return '';
     }
