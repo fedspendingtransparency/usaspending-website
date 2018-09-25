@@ -30,8 +30,8 @@ export class RecipientModalContainer extends React.Component {
         this.state = {
             inFlight: false,
             error: false,
-            sortField: 'name',
-            sortDirection: 'asc',
+            sortField: '_amount',
+            sortDirection: 'desc',
             childRecipients: []
         };
 
@@ -46,7 +46,7 @@ export class RecipientModalContainer extends React.Component {
         }
         if (!isEqual(this.props.recipient.children, prevProps.recipient.children)) {
             // Sort the new results by the default sort order
-            this.updateSort('name', 'asc');
+            this.updateSort('_amount', 'desc');
         }
     }
 

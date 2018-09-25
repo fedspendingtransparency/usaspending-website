@@ -101,7 +101,10 @@
 
                 background-color: #646A70;
 
-                padding: rem(4) rem(28);
+                padding: rem(3) rem(18);
+                @include media($medium-screen) {
+                    padding: rem(4) rem(28);
+                }
 
                 &.quarter-picker__quarter_first {
                     border-radius: rem(30) 0 0 rem(30);

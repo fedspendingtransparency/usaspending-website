@@ -19,7 +19,7 @@
 
     .search-results-wrapper {
         @include flex(1 1 auto);
-        overflow: hidden;
+        overflow: visible;
 
         @include media($medium-screen) {
             margin-top: rem(32);

@@ -32,6 +32,29 @@ This endpoint returns the generated file's metadata.
     + Attributes
         + results (array[CustomDataResult], fixed-type)
 
+## Budget Function [/api/v2/budget_functions/list_budget_functions/]
+
+This endpoint returns a list of budget functions with their associated title and code
+
+### Budget Function [GET]
+
++ Response 200 (application/json)
+    + Attributes
+        + results (BudgetFunctionResults, fixed-type) 
+
+## Budget Subfunction [/api/v2/budget_functions/list_budget_subfunctions]
+
+This endpoint returns a list of budget subfunctions with their associated title and code
+
++ Parameters
+    + budget_function: `050` (required, string)
+
+### Budget Subfunction [POST]
+
++ Response 200 (application/json)
+    + Attributes
+        + results (BudgetSubfunctionResults, fixed-type) 
+
 # Data Structures
 
 ## CustomDataResult (object)
@@ -69,3 +92,19 @@ This endpoint returns the generated file's metadata.
     + `2`
     + `3`
     + `4`
++ budget_function: `050` (optional, string)
++ budget_subfunction: `053` (optional, string)
+
+## BudgetFunctionResults (object)
++ results (required, array[BudgetFunction], fixed-type)
+
+## BudgetFunction (object)
++ budget_function_code: `050` (required, string)
++ budget_function_title: `National Defense` (required, string)
+
+## BudgetSubfunctionResults (object)
++ results (required, array[BudgetSubfunction], fixed-type)
+
+## BudgetSubfunction(object)
++ budget_subfunction_code: `051` (required, string)
++ budget_subfunction_title: `Department of Defense-Military` (required, string)
