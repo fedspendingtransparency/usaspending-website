@@ -18,12 +18,17 @@ export default class DataDictionaryContainer extends React.Component {
             error: false,
             sections: [],
             columns: [],
-            rows: []
+            rows: [],
+            sort: {
+                field: '',
+                direction: ''
+            }
         };
 
         this.request = null;
 
         this.loadContent = this.loadContent.bind(this);
+        this.changeSort = this.changeSort.bind(this);
     }
 
     componentDidMount() {
@@ -48,10 +53,9 @@ export default class DataDictionaryContainer extends React.Component {
                 this.setState({
                     sections: content.sections,
                     columns: content.headers,
-                    rows: content.rows,
                     inFlight: false,
                     error: false
-                });
+                }, () => this.parseRows(content.rows));
             })
             .catch((err) => {
                 console.log(err);
@@ -62,12 +66,52 @@ export default class DataDictionaryContainer extends React.Component {
                 this.request = null;
             });
     }
+
+    parseRows(rows) {
+        // replace nulls with 'N/A'
+        const parsedRows = rows.map((row) =>
+            row.map((data) =>
+                data || 'N/A'
+            )
+        );
+
+        this.setState({
+            rows: parsedRows
+        });
+    }
+
+    changeSort(field, direction) {
+        // Get the index of the column we are sorting by
+        const index = this.state.columns.findIndex((col) => col.raw === field);
+
+        // Sort the rows based on their value at that index
+        let rows = this.state.rows.sort((a, b) => a[index].localeCompare(b[index]));
+
+        // Account for the sort direction
+        if (direction === 'asc') {
+            rows = rows.reverse();
+        }
+
+        // Update the state
+        this.setState({
+            sort: {
+                rows,
+                field,
+                direction
+            }
+        });
+    }
+
     render() {
         return (
             <DataDictionary
+                loading={this.state.inFlight}
+                error={this.state.error}
                 sections={this.state.sections}
                 columns={this.state.columns}
-                rows={this.state.rows} />
+                rows={this.state.rows}
+                sort={this.state.sort}
+                changeSort={this.changeSort} />
         );
     }
 }

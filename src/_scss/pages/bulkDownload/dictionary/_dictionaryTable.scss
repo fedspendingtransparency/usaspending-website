@@ -55,4 +55,31 @@ $dictionary-orange-lighter: #FFFBF8;
     .section-3-cell {
         background-color: $dictionary-orange-lighter;
     }
+
+    border: none;
+
+    .dictionary-table__head-row {
+        border: none;
+    }
+
+    .dictionary-table__head-cell {
+        border: solid rem(3) $color-white;
+        padding: rem(10);
+
+        @import "./_header";
+        @import "./_sorter";
+    }
+
+    .dictionary-table__body {
+        &.dictionary-table__body_hide {
+            display: none;
+        }
+    }
+
+    .dictionary-table__body-row {
+        .dictionary-table__body-cell {
+            border: solid rem(3) $color-white;
+            padding: rem(10);
+        }
+    }
 }

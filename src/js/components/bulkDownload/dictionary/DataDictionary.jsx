@@ -9,9 +9,13 @@ import PropTypes from 'prop-types';
 import DataDictionaryTable from './table/DataDictionaryTable';
 
 const propTypes = {
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
     sections: PropTypes.array,
     columns: PropTypes.array,
-    rows: PropTypes.array
+    rows: PropTypes.array,
+    sort: PropTypes.object,
+    changeSort: PropTypes.func
 };
 
 export default class DataDictionary extends React.Component {
