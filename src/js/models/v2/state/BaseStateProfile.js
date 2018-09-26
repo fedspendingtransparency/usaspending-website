@@ -50,7 +50,7 @@ const BaseStateProfile = {
     },
     get flag() {
         if (this.id) {
-            return `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/state-flags/${this.id}.png`;
+            return `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/state_flags/${this.id}.png`;
         }
         return '';
     }
