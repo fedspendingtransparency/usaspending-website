@@ -78,7 +78,7 @@ export const downloadOptions = [
     {
         label: 'Agency Submission Files',
         type: 'snapshots',
-        url: 'http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/',
+        url: `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/agency_submissions/`,
         code: 'submission',
         description: 'Raw, unadulterated data submitted by federal agencies in compliance with the DATA Act.',
         callToAction: 'Download Raw Files',
