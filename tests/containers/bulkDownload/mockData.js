@@ -129,17 +129,21 @@ export const mockRedux = {
                 id: '212',
                 name: "Mock Federal Account"
             },
+            budgetFunction: {
+                code: '300',
+                title: "Mock Budget Function"
+            },
+            budgetSubfunction: {
+                code: '123',
+                title: "Mock Budget Sub Function"
+            },
             agency: {
                 id: '123',
                 name: 'Mock Agency'
             },
-            budgetFunction: {
-                id: '345',
-                name: "Mock Budget Function"
-            },
-            submissionType: 'accountBalances',
             fy: '1989',
             quarter: '1',
+            submissionType: 'accountBalances',
             fileFormat: 'csv'
         },
         download: {

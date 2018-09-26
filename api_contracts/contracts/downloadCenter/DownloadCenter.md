@@ -44,7 +44,7 @@ This endpoint returns a list of budget functions with their associated title and
 
 + Response 200 (application/json)
     + Attributes
-        + results (BudgetFunctionResults, fixed-type)
+        + results (required, array[BudgetFunction], fixed-type)
 
 ## Budget Subfunction [/api/v2/budget_functions/list_budget_subfunctions]
 
@@ -57,7 +57,33 @@ This endpoint returns a list of budget subfunctions with their associated title 
 
 + Response 200 (application/json)
     + Attributes
-        + results (BudgetSubfunctionResults, fixed-type)
+        + results (required, array[BudgetSubfunction], fixed-type)
+
+## Agency Function [/api/v2/bulk_download/list_agencies/]
+
+This endpoint returns a list of agencies with their associated id and name
+
+### Agency Function [POST]
+
++ Parameters
+    + agency: 0 (required, number)
+
++ Response 200 (application/json)
+    + Attributes
+        + agencies (required, AgencyData, fixed-type)
+
+## Federal Account Function [/api/v1/federal_accounts/]
+
+This endpoint returns a list of federal accounts associated to a specific agency
+
+### Federal Account Function [POST]
+
++ Parameters
+    + filters: (required, array[AgencyCFO], fixed-type)
+
++ Response 200 (application/json)
+    + Attributes
+        + results (required, array[AgencyFederalAccountData], fixed-type)
 
 # Data Structures
 
@@ -79,6 +105,8 @@ This endpoint returns a list of budget subfunctions with their associated title 
 + seconds_elapsed `10.061132` (required, string)
 
 ## FilterObject (object)
++ budget_function: `050` (optional, string)
++ budget_subfunction: `053` (optional, string)
 + agency: `all` (optional, string)
     The agency to filter by. This field is an internal id.
     + Default: `all`
@@ -96,18 +124,30 @@ This endpoint returns a list of budget subfunctions with their associated title 
     + `2`
     + `3`
     + `4`
-+ budget_function: `050` (optional, string)
-+ budget_subfunction: `053` (optional, string)
 
-## BudgetFunctionResults (object)
-+ results (required, array[BudgetFunction], fixed-type)
+## AgencyData
++ cfo_agencies: (required, array[AgencyCFO])
++ other_agencies: (required, array[AgencyOtherAgencies])
++ federal_accounts: (required, array)
++ sub_agencies: (required, array)
+
+## AgencyCFO
++ name: `Department of Agriculture`
++ cgac_code: `012`
++ toptier_agency_id: `14`
+
+## AgencyOtherAgencies
++ cgac_code: `310`
++ name: `Access Board`
++ toptier_agency_id: `102`
+
+## AgencyFederalAccountData
++ account_title: `Salaries and Expenses, Departmental Management, Commerce`
++ id: `3656`
 
 ## BudgetFunction (object)
 + budget_function_code: `050` (required, string)
 + budget_function_title: `National Defense` (required, string)
-
-## BudgetSubfunctionResults (object)
-+ results (required, array[BudgetSubfunction], fixed-type)
 
 ## BudgetSubfunction(object)
 + budget_subfunction_code: `051` (required, string)
