@@ -3,7 +3,7 @@ HOST: https://api.usaspending.gov
 
 # Download Center
 
-These endpoints are used to power USAspending.gov's download center. This data can be used to create account data files.
+These endpoints are used to power USAspending.gov's download center.
 
 # Group Custom Account Data
 
@@ -38,10 +38,6 @@ This endpoint returns a list of budget functions with their associated title and
 
 ### Budget Function [GET]
 
-+ Parameters
-    + agency: `all` (optional, string)
-    + federal_account: `212` (optional, string)
-
 + Response 200 (application/json)
     + Attributes
         + results (required, array[BudgetFunction], fixed-type)
@@ -59,11 +55,11 @@ This endpoint returns a list of budget subfunctions with their associated title 
     + Attributes
         + results (required, array[BudgetSubfunction], fixed-type)
 
-## Agency Function [/api/v2/bulk_download/list_agencies/]
+## Agency List [/api/v2/bulk_download/list_agencies/]
 
 This endpoint returns a list of agencies with their associated id and name
 
-### Agency Function [POST]
+### Agency List [POST]
 
 + Parameters
     + agency: 0 (required, number)
@@ -72,11 +68,11 @@ This endpoint returns a list of agencies with their associated id and name
     + Attributes
         + agencies (required, AgencyData, fixed-type)
 
-## Federal Account Function [/api/v1/federal_accounts/]
+## Federal Accounts by Agency [/api/v1/federal_accounts/]
 
 This endpoint returns a list of federal accounts associated to a specific agency
 
-### Federal Account Function [POST]
+### Federal Accounts by Agency [POST]
 
 + Parameters
     + filters: (required, array[AgencyCFO], fixed-type)
@@ -132,18 +128,21 @@ This endpoint returns a list of federal accounts associated to a specific agency
 + sub_agencies: (required, array)
 
 ## AgencyCFO
-+ name: `Department of Agriculture`
-+ cgac_code: `012`
-+ toptier_agency_id: `14`
++ name: `Department of Agriculture` (required, string)
++ cgac_code: `012` (required, string)
++ toptier_agency_id: `14` (required, string)
 
 ## AgencyOtherAgencies
-+ cgac_code: `310`
-+ name: `Access Board`
-+ toptier_agency_id: `102`
++ cgac_code: `310` (required, string)
++ name: `Access Board` (required, string)
++ toptier_agency_id: `102` (required, string)
 
 ## AgencyFederalAccountData
-+ account_title: `Salaries and Expenses, Departmental Management, Commerce`
-+ id: `3656`
++ account_title: `Salaries and Expenses, Departmental Management, Commerce` (required, string)
++ id: `3656` (required, string)
++ agency_identifier: `012` (required, string)
++ federal_account_code: `012-0013` (optional, string)
++ main_account_code: `0013` (required, string)
 
 ## BudgetFunction (object)
 + budget_function_code: `050` (required, string)
