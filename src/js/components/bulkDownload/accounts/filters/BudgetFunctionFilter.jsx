@@ -19,7 +19,7 @@ const propTypes = {
     validAgencyId: PropTypes.bool
 };
 
-export default class BudgetFilter extends React.Component {
+export default class BudgetFunctionFilter extends React.Component {
     constructor(props) {
         super(props);
 
@@ -261,4 +261,4 @@ export default class BudgetFilter extends React.Component {
     }
 }
 
-BudgetFilter.propTypes = propTypes;
+BudgetFunctionFilter.propTypes = propTypes;

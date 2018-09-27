@@ -11,7 +11,7 @@ import { Glossary } from 'components/sharedComponents/icons/Icons';
 
 import AccountLevelFilter from './filters/AccountLevelFilter';
 import AgencyFilter from './filters/AgencyFilter';
-import BudgetFilter from './filters/BudgetFilter';
+import BudgetFunctionFilter from './filters/BudgetFunctionFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
 import UserSelections from './UserSelections';
@@ -90,7 +90,7 @@ export default class AccountDataContent extends React.Component {
                     <form
                         className="download-center-form"
                         onSubmit={this.handleSubmit}>
-                        <BudgetFilter
+                        <BudgetFunctionFilter
                             budgetFunctions={this.props.budgetFunctions}
                             budgetSubfunctions={this.props.budgetSubfunctions}
                             currentBudgetFunction={accounts.budgetFunction}
