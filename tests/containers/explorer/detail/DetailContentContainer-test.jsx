@@ -235,7 +235,7 @@ describe('DetailContentContainer', () => {
                 subdivision: 'federal_account',
                 title: 'Third Agency',
                 within: 'agency',
-                id: 3,
+                id: '3',
                 accountNumber: ''
             };
             const mockLoadData = jest.fn();
