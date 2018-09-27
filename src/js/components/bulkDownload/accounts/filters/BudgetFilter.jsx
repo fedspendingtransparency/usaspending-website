@@ -1,5 +1,5 @@
 /**
- * BudgetFilter.jsx
+ * BudgetFunctionFilter.jsx
  * Created by David Trinh 9/7/18
  */
 
@@ -45,7 +45,7 @@ export default class BudgetFilter extends React.Component {
     toggleBudgetSubfunctionPicker(e) {
         e.preventDefault();
         this.setState({
-            showBudgetSubfunctionPicker: !this.state.showFederalAccountPicker,
+            showBudgetSubfunctionPicker: !this.state.showBudgetSubfunctionPicker,
             showBudgetFunctionPicker: false
         });
     }

@@ -1,6 +1,6 @@
 /**
- * FilterSelection.jsx 9/21/18
- * Created by Kwadwo Opoku-Debrah
+ * FilterSelection.jsx
+ * Created by Kwadwo Opoku-Debrah  9/21/18
  */
 
 import React from 'react';
