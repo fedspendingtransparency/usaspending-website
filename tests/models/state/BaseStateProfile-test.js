@@ -5,6 +5,7 @@
 
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import { mockStateApi } from './mockStateApi';
+import kGlobalConstants from 'GlobalConstants';
 
 const state = Object.create(BaseStateProfile);
 state.populate(mockStateApi);
@@ -62,7 +63,7 @@ describe('BaseStateProfile', () => {
     });
     describe('State flag image', () => {
         it('should determine the filename based on FIPS', () => {
-            expect(state.flag).toEqual('https://s3-us-gov-west-1.amazonaws.com/da-public-files/usaspending_state_flags/06.png');
+            expect(state.flag).toEqual(`https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/state_flags/06.png`);
         });
     });
 });

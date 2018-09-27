@@ -18,7 +18,10 @@
 
     .explorer-detail-content {
         @include flex(1 1 auto);
-        padding: rem(40);
+        padding: rem(10);
+        @include media($tablet-screen) {
+            padding: rem(40);
+        }
         position: relative;
 
         &.detail-animate {
