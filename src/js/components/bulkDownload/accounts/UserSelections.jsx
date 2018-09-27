@@ -47,7 +47,7 @@ export default class UserSelections extends React.Component {
         }
 
         return (
-            <div className="selection__content selection__content-required">Agency not selected</div>
+            <div className="selection__content selection__content-required">Budget function or Agency required</div>
         );
     }
 
@@ -59,7 +59,7 @@ export default class UserSelections extends React.Component {
         }
 
         return (
-            <div className="selection__content selection__content-required">Budget function not selected </div>
+            <div className="selection__content selection__content-required">Budget function or Agency required</div>
         );
     }
 
