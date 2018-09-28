@@ -256,15 +256,6 @@ export default class AgencyFilter extends React.Component {
 
                                 <div className={`field-list ${showFederalAccountPicker}`}>
                                     <ul>
-                                        <li className="field-item">
-                                            <button
-                                                className="item-button group-label"
-                                                title="Federal Accounts"
-                                                aria-label="Federal Accounts"
-                                                disabled>
-                                            Federal Accounts
-                                            </button>
-                                        </li>
                                         <li className="field-item indent">
                                             <button
                                                 className="item-button"

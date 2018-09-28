@@ -191,15 +191,6 @@ export default class BudgetFunctionFilter extends React.Component {
                                             All
                                             </button>
                                         </li>
-                                        <li className="field-item">
-                                            <button
-                                                className="item-button group-label"
-                                                title="CFO Agencies"
-                                                aria-label="CFO Agencies"
-                                                disabled >
-                                            Budget Functions
-                                            </button>
-                                        </li>
                                         {budgetFunctions}
                                     </ul>
                                 </div>
@@ -229,15 +220,6 @@ export default class BudgetFunctionFilter extends React.Component {
 
                                 <div className={`field-list ${showBudgetSubfunctionPicker}`}>
                                     <ul>
-                                        <li className="field-item">
-                                            <button
-                                                className="item-button group-label"
-                                                title="Budget Sub-function"
-                                                aria-label="Budget sub-function"
-                                                disabled>
-                                            Budget Sub-function
-                                            </button>
-                                        </li>
                                         <li className="field-item indent">
                                             <button
                                                 className="item-button"
