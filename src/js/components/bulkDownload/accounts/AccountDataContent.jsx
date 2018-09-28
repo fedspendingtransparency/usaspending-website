@@ -12,10 +12,13 @@ import { Glossary } from 'components/sharedComponents/icons/Icons';
 
 import AccountLevelFilter from './filters/AccountLevelFilter';
 import AgencyFilter from './filters/AgencyFilter';
+import BudgetFunctionFilter from './filters/BudgetFunctionFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
 import UserSelections from './UserSelections';
 import SubmitButton from '../awards/SubmitButton';
+
+import FilterSelection from './filters/FilterSelection';
 
 const propTypes = {
     accounts: PropTypes.object,
@@ -24,7 +27,10 @@ const propTypes = {
     agencies: PropTypes.object,
     federalAccounts: PropTypes.array,
     clickedDownload: PropTypes.func,
-    setFederalAccountList: PropTypes.func
+    setFederalAccountList: PropTypes.func,
+    budgetFunctions: PropTypes.array,
+    setBudgetSubfunctionList: PropTypes.func,
+    budgetSubfunctions: PropTypes.array
 };
 
 export default class AccountDataContent extends React.Component {
@@ -60,7 +66,8 @@ export default class AccountDataContent extends React.Component {
 
     validateForm(accounts) {
         const validForm = (
-            (accounts.agency.id !== '')
+            (accounts.budgetFunction.code !== '')
+            && (accounts.agency.id !== '')
             && (accounts.submissionType !== '')
             && (accounts.fy !== '')
             && (accounts.quarter !== '')
@@ -80,14 +87,19 @@ export default class AccountDataContent extends React.Component {
                         <h2 className="download-center__title">Custom Account Data</h2>
                         <div className="download-center__beta">BETA</div>
                     </div>
+                    <FilterSelection valid={accounts.budgetFunction.code !== '' || accounts.agency.id !== ''} />
                     <form
                         className="download-center-form"
                         onSubmit={this.handleSubmit}>
-                        <AccountLevelFilter
-                            accountLevels={accountDownloadOptions.accountLevels}
-                            currentAccountLevel={accounts.accountLevel}
+                        <BudgetFunctionFilter
+                            budgetFunctions={this.props.budgetFunctions}
+                            budgetSubfunctions={this.props.budgetSubfunctions}
+                            currentBudgetFunction={accounts.budgetFunction}
+                            currentBudgetSubfunction={accounts.budgetSubfunction}
+                            setBudgetSubfunctionList={this.props.setBudgetSubfunctionList}
                             updateFilter={this.props.updateFilter}
-                            valid={accounts.accountLevel !== ''} />
+                            validAgencyId={accounts.agency.id !== ''}
+                            valid={accounts.budgetFunction.code !== ''} />
                         <AgencyFilter
                             agencies={this.props.agencies}
                             federalAccounts={this.props.federalAccounts}
@@ -95,7 +107,13 @@ export default class AccountDataContent extends React.Component {
                             currentFederalAccount={accounts.federalAccount}
                             setFederalAccountList={this.props.setFederalAccountList}
                             updateFilter={this.props.updateFilter}
+                            validBudgetFunctionCode={accounts.budgetFunction.code !== ''}
                             valid={accounts.agency.id !== ''} />
+                        <AccountLevelFilter
+                            accountLevels={accountDownloadOptions.accountLevels}
+                            currentAccountLevel={accounts.accountLevel}
+                            updateFilter={this.props.updateFilter}
+                            valid={accounts.accountLevel !== ''} />
                         <SubmissionTypeFilter
                             submissionTypes={accountDownloadOptions.submissionTypes}
                             currentSubmissionType={accounts.submissionType}
@@ -126,9 +144,9 @@ export default class AccountDataContent extends React.Component {
                             Account data covers all spending data, including non-award spending.
                         </p>
                         <p>
-                            The data is available on two different levels, federal account&nbsp;
+                            The data is available on two different levels, <strong>federal account</strong>&nbsp;
                             <a href="#/download_center/custom_account_data/?glossary=federal-account"><Glossary /></a>
-                            and treasury account&nbsp;
+                            and <strong>treasury account</strong>&nbsp;
                             <a href="#/download_center/custom_account_data/?glossary=treasury-account-symbol-tas"><Glossary /></a>
                             . Federal account data is essentially a &ldquo;roll-up&rdquo; of multiple treasury account data.
                         </p>
