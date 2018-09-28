@@ -59,6 +59,13 @@ $dictionary-orange-lighter: #FFFBF8;
     border: none;
     margin-top: 0;
 
+    .dictionary-table__message {
+        font-weight: $font-light;
+        text-align: center;
+        font-size: $h3-font-size;
+        padding-top: rem(60);
+    }
+
     .dictionary-table__head-row {
         border: none;
     }
@@ -81,6 +88,12 @@ $dictionary-orange-lighter: #FFFBF8;
         .dictionary-table__body-cell {
             border: solid rem(3) $color-white;
             padding: rem(10);
+            &.dictionary-table__body-cell_highlight-row {
+                background-color: lightyellow;
+            }
+            &.dictionary-table__body-cell_highlight-cell {
+                background-color: yellow;
+            }
         }
     }
 }
