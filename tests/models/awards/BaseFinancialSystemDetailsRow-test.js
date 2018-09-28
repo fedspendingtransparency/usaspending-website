@@ -16,7 +16,8 @@ const mockFinSys = {
     treasury_account: {
         federal_account: {
             account_title: 'Mock Account',
-            id: 456
+            agency_identifier: '123',
+            main_account_code: '4567'
         },
         tas_rendering_label: 'tas',
         budget_function_title: 'General Government',
@@ -47,7 +48,7 @@ describe('BaseFinancialSystemDetailsRow', () => {
     it('should create a federal account object', () => {
         expect(finSysRow.fedAccount).toEqual({
             title: 'Mock Account',
-            id: 456
+            id: '123-4567'
         });
     });
     it('should format the object class', () => {

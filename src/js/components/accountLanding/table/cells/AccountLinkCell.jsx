@@ -11,7 +11,7 @@ const propTypes = {
     name: PropTypes.string,
     rowIndex: PropTypes.number,
     column: PropTypes.string,
-    id: PropTypes.number,
+    accountNumber: PropTypes.string,
     accountSearchString: PropTypes.string
 };
 
@@ -32,7 +32,7 @@ export default class AccountLinkCell extends React.Component {
         return (
             <div className={`results-table-cell results-table-cell_column_${this.props.column}`}>
                 <div className="results-table-cell__content">
-                    <a href={`/#/federal_account/${this.props.id}`}>
+                    <a href={`/#/federal_account/${this.props.accountNumber}`}>
                         {name}
                     </a>
                 </div>

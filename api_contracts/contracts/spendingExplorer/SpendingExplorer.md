@@ -111,6 +111,8 @@ Using the response from the general Spending Explorer, you can drill down to mor
     The `type` will always be equal to the `type` parameter you provided in the request.
 + name: Law Enforcement Operations (required, string)
 + amount: 1116815570.99 (required, number)
++ account_number: `123-4567` (optional, string)
+    The response includes `account_number` when the requested `type` was `federal_account`.
 
 ## SpendingExplorerGeneralUnreportedResponse (object)
 + code (optional, nullable)
