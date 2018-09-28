@@ -12,6 +12,7 @@
     .data-dictionary__download {
         @include display(flex);
         @include justify-content(flex-end);
+        padding-bottom: rem(5);
         .data-dictionary__download-link {
             font-size: $small-font-size;
         }
@@ -20,4 +21,5 @@
         overflow: scroll;
         @import "./_dictionaryTable";
     }
+    @import "./_searchBar";
 }

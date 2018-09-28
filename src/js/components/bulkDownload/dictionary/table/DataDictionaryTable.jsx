@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import DataDictionaryTableSorter from './DataDictionaryTableSorter';
 
 const propTypes = {
+    searchTerm: PropTypes.string,
     loading: PropTypes.bool,
     error: PropTypes.bool,
     sections: PropTypes.array,
