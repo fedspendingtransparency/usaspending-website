@@ -6,8 +6,7 @@
 import React from 'react';
 
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
-import DataDictionary from "../../../components/bulkDownload/dictionary/DataDictionary";
-
+import DataDictionary from 'components/bulkDownload/dictionary/DataDictionary';
 
 export default class DataDictionaryContainer extends React.Component {
     constructor(props) {
@@ -96,14 +95,14 @@ export default class DataDictionaryContainer extends React.Component {
         let rows = this.state.rows.sort((a, b) => a[index].localeCompare(b[index]));
 
         // Account for the sort direction
-        if (direction === 'asc') {
+        if (direction === 'desc') {
             rows = rows.reverse();
         }
 
         // Update the state
         this.setState({
+            rows,
             sort: {
-                rows,
                 field,
                 direction
             }

@@ -72,31 +72,30 @@ $dictionary-yellow: #FFF694;
 
     .dictionary-table__head-row {
         border: none;
-    }
 
-    .dictionary-table__head-cell {
-        border: solid rem(3) $color-white;
-        padding: rem(10);
+        .dictionary-table__head-cell {
+            border: solid rem(3) $color-white;
+            padding: rem(10);
 
-        @import "./_header";
-        @import "./_sorter";
-    }
-
-    .dictionary-table__body {
-        &.dictionary-table__body_hide {
-            display: none;
+            @import "./_header";
+            @import "./_sorter";
         }
     }
 
-    .dictionary-table__body-row {
-        .dictionary-table__body-cell {
-            border: solid rem(3) $color-white;
-            padding: rem(10);
-            &.dictionary-table__body-cell_highlight-row {
+    .dictionary-table__body {
+        .dictionary-table__body-row {
+            &.dictionary-table__body-row_highlight-row {
                 background-color: $dictionary-yellow-light;
+                .dictionary-table__body-cell {
+                    background-color: $dictionary-yellow-light;
+                    &.dictionary-table__body-cell_highlight-cell {
+                        background-color: $dictionary-yellow;
+                    }
+                }
             }
-            &.dictionary-table__body-cell_highlight-cell {
-                background-color: $dictionary-yellow;
+            .dictionary-table__body-cell {
+                border: solid rem(3) $color-white;
+                padding: rem(10);
             }
         }
     }

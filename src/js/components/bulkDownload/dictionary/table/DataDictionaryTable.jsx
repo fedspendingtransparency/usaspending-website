@@ -77,9 +77,16 @@ export default class DataDictionaryTable extends React.Component {
 
         const rows = [];
         this.props.rows.forEach((row, i) => {
+            let rowClass = '';
+            if (this.props.searchTerm) {
+                const rowMatch = row.find((data) => data.toLowerCase().match(this.props.searchTerm.toLowerCase()));
+                if (rowMatch) {
+                    rowClass = 'dictionary-table__body-row_highlight-row';
+                }
+            }
             rows.push(
                 <tr
-                    className="dictionary-table__body-row"
+                    className={`dictionary-table__body-row ${rowClass}`}
                     key={`row-${i}`}>
                     {this.generateRow(row)}
                 </tr>
@@ -95,13 +102,6 @@ export default class DataDictionaryTable extends React.Component {
     generateRow(row) {
         const cells = [];
         let start = 0;
-        let rowClass = '';
-        if (this.props.searchTerm) {
-            const rowMatch = row.find((data) => data.toLowerCase().match(this.props.searchTerm.toLowerCase()));
-            if (rowMatch) {
-                rowClass = 'dictionary-table__body-cell_highlight-row';
-            }
-        }
         this.props.sections.forEach((section, i) => {
             const sectionCells = row.slice(start, start + section.colspan);
             cells.push(sectionCells.map((data) => {
@@ -110,7 +110,7 @@ export default class DataDictionaryTable extends React.Component {
                     cellClass = 'dictionary-table__body-cell_highlight-cell';
                 }
                 return (
-                    <td className={`dictionary-table__body-cell section-${i}-cell ${rowClass} ${cellClass}`}>
+                    <td className={`dictionary-table__body-cell section-${i}-cell ${cellClass}`}>
                         {data}
                     </td>
                 );
