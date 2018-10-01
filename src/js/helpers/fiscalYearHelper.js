@@ -43,7 +43,7 @@ export const defaultFiscalYear = () => {
     const newFiscalYearEndDate = moment([moment().year(), '9', '30']);
 
     if (today.isSameOrAfter(newFiscalYearStartDate) && today.isSameOrBefore(newFiscalYearEndDate)) {
-        return currentFiscalYear();
+        return newFiscalYearEndDate.year();
     }
 
     return currentFiscalYear() - 1;
