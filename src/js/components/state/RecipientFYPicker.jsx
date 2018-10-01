@@ -81,7 +81,7 @@ export default class FYPicker extends React.Component {
 
     render() {
         const fy = [];
-        const currentFY = FiscalYearHelper.defaultFiscalYear();
+        const currentFY = FiscalYearHelper.currentFiscalYear();
         const earliestFY = FiscalYearHelper.earliestFiscalYear;
         for (let year = currentFY; year >= earliestFY; year--) {
             const item = (

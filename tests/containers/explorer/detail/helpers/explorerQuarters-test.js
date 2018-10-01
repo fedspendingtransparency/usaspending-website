@@ -60,7 +60,7 @@ describe('explorerQuarters', () => {
                 year: 1911
             });
         });
-        it('should use the previous fiscal year as the fiscal year on October 1st', () => {
+        it('should use the previous fiscal year as the FY when the current date is between Oct 1 and Feb 14', () => {
             mockDate('2018-10-01');
             const output = explorerQuarters.mostRecentQuarter();
             expect(output).toEqual({
