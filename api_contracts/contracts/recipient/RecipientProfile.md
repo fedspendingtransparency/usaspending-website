@@ -13,37 +13,38 @@ This endpoint supports the recipient landing page, which provides a list of all 
 
 This endpoint returns a list of recipients, their level, DUNS, and amount.
 
-+ Parameters
-    + order: desc (optional, string)
-        The direction results are sorted by. `asc` for ascending, `desc` for descending.
-        + Default: desc
-    + sort: amount (optional, string)
-        The field results are sorted by.
-        + Default: amount
-        + Members
-            + name
-            + duns
-            + amount
-    + limit: 50 (optional, number)
-        The number of results to include per page.
-        + Default: 50
-    + page: 1 (optional, number)
-        The page of results to return based on the limit.
-        + Default: 1
-    + keyword: (optional, string)
-        The keyword results are filtered by. Searches on name and DUNS.
-    + award_type: all (optional, string)
-        The award type results are filtered by.
-        + Default: all
-        + Members
-            + all
-            + contracts
-            + grants
-            + loans
-            + direct_payments
-            + other_financial_assistance
-
 ### List Recipients [POST]
+
++ Request (application/json)
+    + Attributes (object)
+        + order: desc (optional, string)
+            The direction results are sorted by. `asc` for ascending, `desc` for descending.
+            + Default: desc
+        + sort: amount (optional, enum[string])
+            The field results are sorted by.
+            + Default: amount
+            + Members
+                + name
+                + duns
+                + amount
+        + limit: 50 (optional, number)
+            The number of results to include per page.
+            + Default: 50
+        + page: 1 (optional, number)
+            The page of results to return based on the limit.
+            + Default: 1
+        + keyword (optional, string)
+            The keyword results are filtered by. Searches on name and DUNS.
+        + award_type: all (optional, enum[string])
+            The award type results are filtered by.
+            + Default: all
+            + Members
+                + all
+                + contracts
+                + grants
+                + loans
+                + direct_payments
+                + other_financial_assistance
 
 + Response 200 (application/json)
     + Attributes (RecipientsListResponse)
@@ -102,7 +103,7 @@ This endpoint returns a the count of new awards grouped by time period in ascend
             + `fiscal_year`
             + `quarter`
             + `month`
-        + results: (array[TimeResult], fixed-type)
+        + results (array[TimeResult], fixed-type)
 
 # Data Structures
 
@@ -119,7 +120,7 @@ This endpoint returns a the count of new awards grouped by time period in ascend
     A unique identifier for the recipient at this `recipient_level`.
 + amount: 30020000000 (required, number)
     The aggregate monetary value of all transactions associated with this recipient for the trailing 12 months.
-+ `recipient_level`: C (required, string)
++ `recipient_level`: C (required, enum[string])
     A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient.
     + Members
         + R
@@ -147,14 +148,14 @@ This endpoint returns a the count of new awards grouped by time period in ascend
     Parent recipient's DUNS number. `null` if the recipient does not have a parent recipient, or the parent recipient's DUNS is not provided.
 + `parent_id`: `0036a0cb-0d88-2db3-59e0-0f9af8ffef57-P` (required, string, nullable)
     A unique identifier for the parent recipient. `null` if the recipient does not have a parent recipient.
-+ location: (required, RecipientLocation, fixed-type)
++ location (required, RecipientLocation, fixed-type)
 + `business_types`: `minority_owned_business`, `for_profit_organization` (required, array[string], fixed-type)
     An array of business type field names used to categorize recipients.
 + `total_transaction_amount`: 30020000000 (required, number)
     The aggregate monetary value of all transactions associated with this recipient for the given time period.
 + `total_transactions`: 327721 (required, number)
     The number of transactions associated with this recipient for the given time period.
-+ `recipient_level`: C (required, string)
++ `recipient_level`: C (required, enum[string])
     A letter representing the recipient level. `R` for neither parent nor child, `P` for Parent Recipient, or `C` for child recipient.
     + Members
         + R
@@ -164,25 +165,25 @@ This endpoint returns a the count of new awards grouped by time period in ascend
 ## RecipientLocation (object)
 + `address_line1`: 123 Sesame St (required, string, nullable)
     The first line of the recipient's street address.
-+ `address_line2`: (required, string, nullable)
++ `address_line2` (required, string, nullable)
     Second line of the recipient's street address.
-+ `address_line3`: (required, string, nullable)
++ `address_line3` (required, string, nullable)
     Third line of the recipient's street address.
-+ `foreign_province`: (required, string, nullable)
++ `foreign_province` (required, string, nullable)
     Name of the province in which the recipient is located, if it is outside the United States.
 + `city_name`: McLean (required, string, nullable)
     Name of the city in which the recipient is located.
-+ `county_name`: (required, string, nullable)
++ `county_name` (required, string, nullable)
     Name of the county in which the recipient is located.
 + `state_code`: VA (required, string, nullable)
     Code for the state in which the recipient is located.
 + zip: `22102` (required, string, nullable)
     Recipient's zip code (5 digits)
-+ zip4: (required, string, nullable)
++ zip4 (required, string, nullable)
     Recipient's zip code (4 digits)
-+ `foreign_postal_code`: (required, string, nullable)
++ `foreign_postal_code` (required, string, nullable)
     Recipient's postal code, if it is outside the United States.
-+ `country_name`: (required, string, nullable)
++ `country_name` (required, string, nullable)
      Name of the country in which the recipient is located.
 + `country_code`: USA (required, string, nullable)
      Code for the country in which the recipient is located.
@@ -202,13 +203,13 @@ This endpoint returns a the count of new awards grouped by time period in ascend
     The aggregate monetary value of transactions associated with this child recipient for the selected time period.
 
 ## TimeResult (object)
-+ time_period: (TimePeriodGroup)
++ time_period (required, TimePeriodGroup)
 + new_award_count_in_period: 25 (required, number)
     The count of new awards for this time period and the given filters.
     
 ## TimeFilterObject (object)
 + time_period (optional, array[TimePeriodObject], fixed-type)
-+ recipient_id: `123ABC-R` (optional, string)
++ recipient_id: `0036a0cb-0d88-2db3-59e0-0f9af8ffef57-P` (optional, string)
     A hash of recipient DUNS, name, and level. A unique identifier for recipients.
     
 ## TimePeriodGroup (object)

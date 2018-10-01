@@ -38,6 +38,17 @@ export const mockAgencies = {
     ]
 };
 
+export const mockBudgetFunctions = [
+    {
+        budget_function_code: "023",
+        budget_function_title: "Department of Robots"
+    },
+    {
+        budget_function_code: "052",
+        budget_function_title: "Department of Robots 2"
+    }
+];
+
 export const mockFederalAccounts = [
     {
         account_title: 'Account 1',
@@ -46,6 +57,17 @@ export const mockFederalAccounts = [
     {
         account_title: 'Account 2',
         id: 10
+    }
+];
+
+export const mockBudgetSubfunctions = [
+    {
+        budget_subfunction_code: "032",
+        budget_subfunction_title: "Mock Department 1"
+    },
+    {
+        budget_subfunction_code: "023",
+        budget_subfunction_title: "Mock Department 2"
     }
 ];
 
@@ -107,13 +129,21 @@ export const mockRedux = {
                 id: '212',
                 name: 'Mock Federal Account'
             },
+            budgetFunction: {
+                code: '300',
+                title: "Mock Budget Function"
+            },
+            budgetSubfunction: {
+                code: '123',
+                title: "Mock Budget Sub Function"
+            },
             agency: {
                 id: '123',
                 name: 'Mock Agency'
             },
-            submissionType: 'accountBalances',
             fy: '1989',
             quarter: '1',
+            submissionType: 'accountBalances',
             fileFormat: 'csv'
         },
         download: {

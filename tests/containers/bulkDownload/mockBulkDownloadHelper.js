@@ -1,4 +1,5 @@
-import { mockStatusResponse, mockAwardDownloadResponse, mockAgencies, mockArchiveResponse,
+
+import { mockStatusResponse, mockBudgetFunctions, mockBudgetSubfunctions, mockAwardDownloadResponse, mockAgencies, mockArchiveResponse,
     mockFederalAccounts, mockDictionary } from './mockData';
 
 export const requestAgenciesList = () => ({
@@ -9,6 +10,32 @@ export const requestAgenciesList = () => ({
                     agencies: mockAgencies,
                     sub_agencies: [],
                     federal_accounts: []
+                }
+            });
+        });
+    }),
+    cancel: jest.fn()
+});
+
+export const requestBudgetFunctionList = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: {
+                    results: mockBudgetFunctions
+                }
+            });
+        });
+    }),
+    cancel: jest.fn()
+});
+
+export const requestBudgetSubfunctionList = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: {
+                    results: mockBudgetSubfunctions
                 }
             });
         });

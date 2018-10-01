@@ -11,7 +11,7 @@ import { OrderedMap } from 'immutable';
 import AgencyListContainer from 'containers/search/filters/AgencyListContainer';
 
 import { mockAgencies } from './mockAgencies';
-import { mockSecondaryResults } from './mockLocalSearch';
+import { mockSecondaryResults, mockFemaResults, mockResults } from './mockLocalSearch';
 
 jest.mock('helpers/searchHelper', () => require('../searchHelper'));
 jest.mock('js-search', () => require('./mockLocalSearch'));
@@ -77,13 +77,13 @@ describe('AgencyListContainer', () => {
             // setup the agency list container
             const agencyListContainer = setup(initialFilters);
 
-            agencyListContainer.instance().queryAutocompleteAgencies('office of government')
+            agencyListContainer.instance().queryAutocompleteAgencies('office of government');
             await agencyListContainer.instance().agencySearchRequest.promise;
 
             expect(agencyListContainer.state().autocompleteAgencies.length).toEqual(mockSecondaryResults.length);
         });
 
-        it('should no display autocomplete agencies that have already previously selected', () => {
+        it('should not display autocomplete agencies that have already previously selected', () => {
             const agencyListContainer = setup(Object.assign({}, initialFilters, {
                 selectedAgencies: new OrderedMap({
                     '14_toptier': {}
@@ -133,6 +133,34 @@ describe('AgencyListContainer', () => {
 
             expect(container.instance().parseAutocompleteAgencies).toHaveBeenCalledTimes(1);
             expect(container.instance().parseAutocompleteAgencies).toHaveBeenCalledWith(mockSecondaryResults);
+        });
+    });
+
+    describe('parseAutocompleteAgencies', () => {
+        it('should separate toptier and subtier agencies and alphabetize each group', async () => {
+            const container = setupShallow(initialFilters);
+            container.setState({
+                agencySearchString: 'abc'
+            });
+
+            container.instance().parseAutocompleteAgencies(mockResults);
+
+            // Toptier agencies should have been moved to the top of the list
+            expect(container.state().autocompleteAgencies[0].title).toEqual('Department ABC (ABC)');
+            expect(container.state().autocompleteAgencies[1].title).toEqual('Department XYZ (XYZ)');
+            expect(container.state().autocompleteAgencies[2].title).toEqual('DEF Agency (DEF)');
+            expect(container.state().autocompleteAgencies[2].subtitle).toEqual('Sub-Agency of Department ABC (ABC)');
+        });
+        it('should not change the order of results when searching for FEMA', async () => {
+            const container = setupShallow(initialFilters);
+            container.setState({
+                agencySearchString: 'fema'
+            });
+
+            container.instance().parseAutocompleteAgencies(mockFemaResults);
+
+            // Results should stay in the same order with a subtier agency at the top of the list
+            expect(container.state().autocompleteAgencies[0].toptier_flag).toBeFalsy;
         });
     });
 });

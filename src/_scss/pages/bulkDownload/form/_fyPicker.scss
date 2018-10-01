@@ -99,9 +99,12 @@
                 line-height: rem(22);
                 font-weight: $font-bold;
 
-                background-color: #646A70;
+                background-color: $color-primary-alt-light;
 
-                padding: rem(4) rem(28);
+                padding: rem(3) rem(18);
+                @include media($medium-screen) {
+                    padding: rem(4) rem(28);
+                }
 
                 &.quarter-picker__quarter_first {
                     border-radius: rem(30) 0 0 rem(30);
@@ -112,13 +115,14 @@
 
                 &:hover, &:active, &.quarter-picker__quarter_active {
                     background-color: $color-primary;
-                    opacity: 1;
+                    opacity: 0.90;
                 }
 
                 &[disabled] {
-                    background-color: #45494D;
+                    background-color: $color-gray-lightest;
                     cursor: not-allowed;
-                    color: #7D848A;
+                    color: $color-gray-light;
+                    opacity: 0.90;
                 }
             }
         }

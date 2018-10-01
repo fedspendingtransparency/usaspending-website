@@ -1,6 +1,9 @@
-.download-center-form {
+.download-center-form, .bulk-download {
     .download-filter {
         padding: rem(45) 0;
+        &:nth-of-type(1) {
+            padding: 0;
+        }
         h3.download-filter__title {
             @include h5;
             margin: 0;
@@ -28,11 +31,64 @@
                 }
             }
         }
+
+        h4.download-filter__title {
+            font-size: rem(18);
+            font-weight: 400;
+            padding-left: rem(30);
+        }
+
+        .download-filter__container {
+            display: flex;
+        }
+
+        .download-filter__info {
+            padding-left: rem(30);
+            font-weight: 200;
+            .icon {
+              float: left;
+              margin-right: rem(10);
+              width: rem(18);
+              height: rem(18);
+
+              svg {
+                width: rem(18);
+                height: rem(18);
+                fill: $color-green;
+              }
+              &.invalid {
+                svg {
+                  fill: $color-secondary;
+                }
+              }
+            }
+        }
+
         .download-filter__content {
-            padding-left: rem(40);
+            @include media($medium-screen) {
+                padding-left: rem(30);
+            }
             .download-filter__fy {
                 @import "fyPicker";
             }
+        }
+
+        &.download-filter-notice {
+          padding: 3rem 0 0 0;
+          .download-filter__title {
+            padding-left: rem(30);
+            padding-bottom: 0;
+          }
+          .download-filter__info {
+            padding-left: 0;
+            font-size: 1.8rem;
+            margin-top: rem(10);
+            span {
+              padding-left: rem(2.5);
+              position: relative;
+              bottom: 2.25px;
+            }
+          }
         }
 
         .download-filter__content-note {
@@ -62,7 +118,10 @@
     }
     @import "userSelections";
     .download-user-selections {
-        margin: rem(45) rem(20) rem(20) rem(20);
+        margin: 0;
+        @include media($medium-screen) {
+            margin: rem(45) rem(20) rem(20) rem(20);
+        }
         @include media($x-large-screen) {
             margin: rem(40) rem(30);
         }

@@ -7,11 +7,11 @@ import Axios, { CancelToken } from 'axios';
 
 import kGlobalConstants from 'GlobalConstants';
 
-export const fetchFederalAccount = (id) => {
+export const fetchFederalAccount = (accountNumber) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v1/federal_accounts/${id}/`,
+            url: `v2/federal_accounts/${accountNumber}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
