@@ -40,10 +40,11 @@ export const defaultFiscalYear = () => {
     const newFiscalYearStartDate = moment()
         .startOf('year')
         .add(quarterCloseWindow, 'days');
-    const newFiscalYearEndDate = moment([moment().year(), '9', '30']);
+    // momentjs has zero-based months (https://momentjs.com/docs/#/get-set/month/)
+    const newFiscalYearEndDate = moment([moment().year(), '8', '30']);
 
     if (today.isSameOrAfter(newFiscalYearStartDate) && today.isSameOrBefore(newFiscalYearEndDate)) {
-        return newFiscalYearEndDate.year();
+        return currentFiscalYear.year();
     }
 
     return currentFiscalYear() - 1;
