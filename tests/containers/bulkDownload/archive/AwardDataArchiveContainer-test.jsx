@@ -65,7 +65,7 @@ describe('AwardDataArchiveContainer', () => {
                     name: 'mockType',
                     display: 'Mock Type'
                 },
-                fy: '2018'
+                fy: '2019'
             };
 
             container.instance().updateFilter('type', {
