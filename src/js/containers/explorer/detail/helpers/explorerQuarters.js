@@ -27,7 +27,6 @@ export const mostRecentQuarter = () => {
     quarter -= 1;
     if (quarter === 0) {
         quarter = 4;
-        year -= 1;
     }
 
     return {
