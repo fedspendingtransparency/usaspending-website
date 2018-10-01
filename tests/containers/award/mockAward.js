@@ -164,7 +164,7 @@ export const mockAward = {
                 state_controlled_institution_of_higher_learning: '0',
                 tribal_college: '0',
                 veterinary_college: '0',
-                educational_institution: '0',
+                higher_education: '0',
                 alaskan_native_servicing_institution: '0',
                 community_development_corporation: '0',
                 native_hawaiian_servicing_institution: '0',

@@ -100,7 +100,7 @@ export const mockRecipient = {
     state_controlled_institution_of_higher_learning: "f",
     tribal_college: "f",
     veterinary_college: "f",
-    educational_institution: "f",
+    higher_education: "f",
     alaskan_native_servicing_institution: "f",
     community_development_corporation: "f",
     native_hawaiian_servicing_institution: "f",
