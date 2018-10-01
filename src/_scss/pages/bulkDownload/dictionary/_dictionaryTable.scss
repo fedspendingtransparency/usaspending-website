@@ -16,6 +16,10 @@ $dictionary-gray-lighter: rgba(213, 214, 216, 0.3);
 $dictionary-teal-lighter: #F1F9FB;
 $dictionary-orange-lighter: #FFFBF8;
 
+/* Highlighted Cells */
+$dictionary-yellow-light: #FFFBD6;
+$dictionary-yellow: #FFF694;
+
 .dictionary-table {
     .section-0 {
         background-color: $dictionary-green;
@@ -89,10 +93,10 @@ $dictionary-orange-lighter: #FFFBF8;
             border: solid rem(3) $color-white;
             padding: rem(10);
             &.dictionary-table__body-cell_highlight-row {
-                background-color: lightyellow;
+                background-color: $dictionary-yellow-light;
             }
             &.dictionary-table__body-cell_highlight-cell {
-                background-color: yellow;
+                background-color: $dictionary-yellow;
             }
         }
     }

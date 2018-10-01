@@ -17,24 +17,12 @@ const propTypes = {
     columns: PropTypes.array,
     rows: PropTypes.array,
     sort: PropTypes.object,
-    changeSort: PropTypes.func
+    changeSort: PropTypes.func,
+    setSearchString: PropTypes.func,
+    searchTerm: PropTypes.string
 };
 
 export default class DataDictionary extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            searchTerm: ''
-        };
-        this.setSearchString = this.setSearchString.bind(this);
-    }
-
-    setSearchString(searchTerm) {
-        this.setState({
-            searchTerm
-        });
-    }
-
     render() {
         // TODO - Lizzie: add spreadsheet icon
         return (
@@ -53,10 +41,9 @@ export default class DataDictionary extends React.Component {
                     </a>
                 </div>
                 <DataDictionarySearchBar
-                    setSearchString={this.setSearchString} />
+                    setSearchString={this.props.setSearchString} />
                 <div className="data-dictionary__table-wrapper">
                     <DataDictionaryTable
-                        searchTerm={this.state.searchTerm}
                         {...this.props} />
                 </div>
             </div>

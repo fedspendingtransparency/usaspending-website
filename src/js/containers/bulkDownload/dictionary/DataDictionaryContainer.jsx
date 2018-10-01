@@ -22,17 +22,25 @@ export default class DataDictionaryContainer extends React.Component {
             sort: {
                 field: '',
                 direction: ''
-            }
+            },
+            searchTerm: ''
         };
 
         this.request = null;
 
         this.loadContent = this.loadContent.bind(this);
         this.changeSort = this.changeSort.bind(this);
+        this.setSearchString = this.setSearchString.bind(this);
     }
 
     componentDidMount() {
         this.loadContent();
+    }
+
+    setSearchString(searchTerm) {
+        this.setState({
+            searchTerm
+        });
     }
 
     loadContent() {
@@ -111,7 +119,9 @@ export default class DataDictionaryContainer extends React.Component {
                 columns={this.state.columns}
                 rows={this.state.rows}
                 sort={this.state.sort}
-                changeSort={this.changeSort} />
+                changeSort={this.changeSort}
+                setSearchString={this.setSearchString}
+                searchTerm={this.state.searchTerm} />
         );
     }
 }
