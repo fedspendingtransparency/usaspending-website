@@ -52,6 +52,3 @@ test/bin
 
 # Ignore Babel build cache
 cache/
-
-package-lock.json
-.idea/

@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import kGlobalConstants from 'GlobalConstants';
 
+import { Spreadsheet } from 'components/sharedComponents/icons/Icons';
 import DataDictionaryTable from './table/DataDictionaryTable';
 import DataDictionarySearchBar from "./DataDictionarySearchBar";
 
@@ -24,7 +25,6 @@ const propTypes = {
 
 export default class DataDictionary extends React.Component {
     render() {
-        // TODO - Lizzie: add spreadsheet icon
         return (
             <div className="data-dictionary">
                 <h2 className="data-dictionary__title">Data Dictionary</h2>
@@ -37,6 +37,9 @@ export default class DataDictionary extends React.Component {
                     <a
                         className="data-dictionary__download-link"
                         href={`https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx`}>
+                        <div className="data-dictionary__download-icon">
+                            <Spreadsheet />
+                        </div>
                         Download
                     </a>
                 </div>

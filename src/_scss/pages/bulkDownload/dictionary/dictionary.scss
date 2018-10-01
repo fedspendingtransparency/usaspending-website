@@ -14,6 +14,19 @@
         @include justify-content(flex-end);
         padding-bottom: rem(5);
         .data-dictionary__download-link {
+            @include display(flex);
+            @include align-items(center);
+            .data-dictionary__download-icon {
+                @include display(flex);
+                @include flex(0 0 auto);
+                height: rem(15);
+                width: rem(15);
+                padding-right: rem(5);
+                .usa-da-spreadsheet {
+                    height: rem(15);
+                    width: rem(15);
+                }
+            }
             font-size: $small-font-size;
         }
     }
