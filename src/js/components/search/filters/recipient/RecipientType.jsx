@@ -45,7 +45,7 @@ const defaultProps = {
         {
             id: 'recipient-higher-education',
             name: 'Higher Education',
-            filters: recipientTypeGroups.educational_institution
+            filters: recipientTypeGroups.higher_education
         },
         {
             id: 'recipient-government',

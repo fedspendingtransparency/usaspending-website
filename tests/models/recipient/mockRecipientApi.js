@@ -19,7 +19,7 @@ export const mockRecipientOverview = {
         country_code: 'USA',
         congressional_code: '05'
     },
-    business_types: ['minority_owned_business', 'educational_institution'],
+    business_types: ['minority_owned_business', 'higher_education'],
     total_transaction_amount: 30020000000,
     total_transactions: 327721,
     recipient_level: 'P'
