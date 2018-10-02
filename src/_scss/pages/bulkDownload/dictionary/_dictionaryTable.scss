@@ -76,6 +76,12 @@ $dictionary-yellow: #FFF694;
         .dictionary-table__head-cell {
             border: solid rem(3) $color-white;
             padding: rem(10);
+            &.dictionary-table__head-cell_first {
+                border-left: 0;
+            }
+            &.dictionary-table__head-cell_last {
+                border-right: 0;
+            }
 
             @import "./_header";
             @import "./_sorter";
@@ -96,6 +102,13 @@ $dictionary-yellow: #FFF694;
             .dictionary-table__body-cell {
                 border: solid rem(3) $color-white;
                 padding: rem(10);
+                vertical-align: top;
+                &.dictionary-table__body-cell_first {
+                    border-left: 0;
+                }
+                &.dictionary-table__body-cell_last {
+                    border-right: 0;
+                }
             }
         }
     }

@@ -21,14 +21,23 @@ const propTypes = {
 
 export default class DataDictionaryTable extends React.Component {
     generateSectionHeadings() {
-        return this.props.sections.map((section, i) => (
-            <th
-                key={section.section}
-                className={`dictionary-table__head-cell section-${i}`}
-                colSpan={section.colspan}>
-                {section.section}
-            </th>
-        ));
+        return this.props.sections.map((section, i) => {
+            let cellClass = '';
+            if (i === 0) {
+                cellClass = 'dictionary-table__head-cell_first';
+            }
+            else if (i === this.props.sections.length - 1) {
+                cellClass = 'dictionary-table__head-cell_last';
+            }
+            return (
+                <th
+                    key={section.section}
+                    className={`dictionary-table__head-cell section-${i} ${cellClass}`}
+                    colSpan={section.colspan}>
+                    {section.section}
+                </th>
+            );
+        });
     }
 
     generateColumnHeadings() {
@@ -36,24 +45,35 @@ export default class DataDictionaryTable extends React.Component {
         let start = 0;
         this.props.sections.forEach((section, i) => {
             const sectionColumns = this.props.columns.slice(start, start + section.colspan);
-            columns.push(sectionColumns.map((col) => (
-                <th
-                    key={col.raw}
-                    className={`dictionary-table__head-cell section-${i}-col`}>
-                    <div className="header-cell">
-                        <div className="header-cell__text">
-                            <div className="header-cell__title">
-                                {col.display}
+            columns.push(sectionColumns.map((col, j) => {
+                let cellClass = '';
+                if (i === 0 && j === 0) {
+                    // first cell in the row
+                    cellClass = 'dictionary-table__head-cell_first';
+                }
+                else if ((i === this.props.sections.length - 1) && (j === section.colspan - 1)) {
+                    // last cell in the row
+                    cellClass = 'dictionary-table__head-cell_last';
+                }
+                return (
+                    <th
+                        key={col.raw}
+                        className={`dictionary-table__head-cell section-${i}-col ${cellClass}`}>
+                        <div className="header-cell">
+                            <div className="header-cell__text">
+                                <div className="header-cell__title">
+                                    {col.display}
+                                </div>
                             </div>
+                            <DataDictionaryTableSorter
+                                field={col.raw}
+                                label={col.display}
+                                active={this.props.sort}
+                                changeSort={this.props.changeSort} />
                         </div>
-                        <DataDictionaryTableSorter
-                            field={col.raw}
-                            label={col.display}
-                            active={this.props.sort}
-                            changeSort={this.props.changeSort} />
-                    </div>
-                </th>
-            )));
+                    </th>
+                );
+            }));
             start += section.colspan;
         });
         return columns;
@@ -104,13 +124,22 @@ export default class DataDictionaryTable extends React.Component {
         let start = 0;
         this.props.sections.forEach((section, i) => {
             const sectionCells = row.slice(start, start + section.colspan);
-            cells.push(sectionCells.map((data) => {
-                let cellClass = '';
+            cells.push(sectionCells.map((data, j) => {
+                let highlightClass = '';
                 if (this.props.searchTerm && data.toLowerCase().match(this.props.searchTerm.toLowerCase())) {
-                    cellClass = 'dictionary-table__body-cell_highlight-cell';
+                    highlightClass = 'dictionary-table__body-cell_highlight-cell';
+                }
+                let cellClass = '';
+                if (i === 0 && j === 0) {
+                    // first cell in the row
+                    cellClass = 'dictionary-table__body-cell_first';
+                }
+                else if ((i === this.props.sections.length - 1) && (j === section.colspan - 1)) {
+                    // last cell in the row
+                    cellClass = 'dictionary-table__body-cell_last';
                 }
                 return (
-                    <td className={`dictionary-table__body-cell section-${i}-cell ${cellClass}`}>
+                    <td className={`dictionary-table__body-cell section-${i}-cell ${highlightClass} ${cellClass}`}>
                         {data}
                     </td>
                 );

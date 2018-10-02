@@ -36,7 +36,7 @@ export default class DataDictionary extends React.Component {
                 <div className="data-dictionary__download">
                     <a
                         className="data-dictionary__download-link"
-                        href={`https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx`}>
+                        href={`https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/docs/DATA+Transparency+Crosswalk.xlsx`}>
                         <div className="data-dictionary__download-icon">
                             <Spreadsheet />
                         </div>

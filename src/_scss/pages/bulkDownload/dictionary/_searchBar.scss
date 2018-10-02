@@ -1,6 +1,5 @@
 .dictionary-search {
     background-color: $color-gray-lightest;
-    border-left: solid rem(3) $color-white;
     padding: rem(10);
     .dictionary-search__form {
         @include display(flex);
