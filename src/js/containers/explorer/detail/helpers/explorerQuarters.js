@@ -18,16 +18,14 @@ export const mostRecentQuarter = () => {
     const todayAdjusted = moment().subtract(FiscalYearHelper.quarterCloseWindow, 'days');
     // determine the quarter that date was in
     let quarter = FiscalYearHelper.convertDateToQuarter(todayAdjusted);
-    // use currentFiscalYear because we will perform the same logic (but in a more quarter-specific
-    // manner) here as defaultFiscalYear
-    let year = FiscalYearHelper.currentFiscalYear();
+
+    const year = FiscalYearHelper.defaultFiscalYear();
 
     // now go back one additional quarter (so we go to the most recently closed quarter, rather than
     // the active in-progress quarter)
     quarter -= 1;
     if (quarter === 0) {
         quarter = 4;
-        year -= 1;
     }
 
     return {

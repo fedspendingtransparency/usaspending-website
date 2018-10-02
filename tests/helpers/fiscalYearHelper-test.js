@@ -65,6 +65,19 @@ describe('Fiscal Year helper functions', () => {
             // reset moment's date to the current time
             moment.now = () => (new Date());
         });
+
+
+        it('should use the previous fiscal year as the fiscal year on October 1st', () => {
+            // override the moment's library's internal time to a known mocked date
+            const mockedDate = moment('2018-10-01', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const currentFY = FiscalYearHelper.defaultFiscalYear();
+            expect(currentFY).toEqual(2018);
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
     });
 
     describe('convertFYtoDateRange', () => {
