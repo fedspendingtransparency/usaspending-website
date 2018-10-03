@@ -39,7 +39,7 @@ export class AccountContainer extends React.Component {
         super(props);
 
         this.state = {
-            currentId: '',
+            currentAccountNumber: '',
             loading: true,
             validAccount: true
         };
@@ -49,26 +49,26 @@ export class AccountContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.loadData(this.props.params.accountId);
+        this.loadData(this.props.params.accountNumber);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.params.accountId !== this.state.currentId) {
-            this.loadData(nextProps.params.accountId);
+        if (nextProps.params.accountNumber !== this.state.currentAccountNumber) {
+            this.loadData(nextProps.params.accountNumber);
         }
     }
 
-    loadData(id) {
+    loadData(accountNumber) {
         if (this.accountRequest) {
             this.accountRequest.cancel();
         }
 
         this.setState({
             loading: true,
-            currentId: id
+            currentAccountNumber: accountNumber
         });
 
-        this.accountRequest = AccountHelper.fetchFederalAccount(id);
+        this.accountRequest = AccountHelper.fetchFederalAccount(accountNumber);
 
         this.accountRequest.promise
             .then((res) => {
@@ -76,8 +76,6 @@ export class AccountContainer extends React.Component {
 
                 // update the redux store
                 this.parseAccount(res.data);
-
-                this.loadFiscalYearSnapshot(id);
 
                 this.setState({
                     validAccount: true
@@ -90,7 +88,7 @@ export class AccountContainer extends React.Component {
                     this.setState({
                         loading: false,
                         validAccount: false,
-                        currentId: id
+                        currentAccountNumber: accountNumber
                     });
 
                     console.log(err);
@@ -101,6 +99,7 @@ export class AccountContainer extends React.Component {
     parseAccount(data) {
         const account = new FederalAccount(data);
         this.props.setSelectedAccount(account);
+        this.loadFiscalYearSnapshot(account.id);
     }
 
     loadFiscalYearSnapshot(id) {

@@ -1,0 +1,24 @@
+.header-cell {
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(center);
+    &.header-cell_right {
+        @include justify-content(flex-end);
+    }
+    width: max-content;
+
+    .header-cell__text {
+        @include flex(1 1 auto);
+        margin-right: rem(15);
+    }
+
+    .header-cell__title {
+        text-align: left;
+        font-weight: $font-semibold;
+        color: $color-base;
+    }
+
+    .header-cell__sorter {
+        @include flex(0 0 rem(15));
+    }
+}

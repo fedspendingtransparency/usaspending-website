@@ -9,7 +9,8 @@ import { defaultQuarters } from 'containers/explorer/detail/helpers/explorerQuar
 export const ActiveScreen = new Record({
     within: '', // within is the data type that the total is a slice WITHIN
     subdivision: '', // subdivision is the data type that the total is being subdivided in the treemap
-    total: 0
+    total: 0,
+    accountNumber: ''
 });
 
 const initialQuarters = defaultQuarters();

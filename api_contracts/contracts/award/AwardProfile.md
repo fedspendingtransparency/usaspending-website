@@ -13,10 +13,10 @@ These endpoints support the individual Award pages that display data for a speci
 
 This endpoint returns a list of data that is associated with the award profile page.
 
-### Award [GET]
-
 + Parameters
-    + generated_unique_award_id
+    + generated_unique_award_id: 25764264
+
+### Award [GET]
 
 + Request A request with a contract id (application/json)
     + Attributes
@@ -25,126 +25,14 @@ This endpoint returns a list of data that is associated with the award profile p
 + Response 200 (application/json)
     + Attributes (ContractResponse)
 
-+ Request A request with an id that is other than contract (application/json)
++ Request A request with a non-contract id (application/json)
      + Attributes
         + generated_unique_award_id: 42954959
 
 + Response 200 (application/json)
     + Attributes (MiscResponse)
-
-# Group Tables
-
-These endpoints support the tables on the individual Award Profile pages.
-
-## SubAwards [/api/v2/subawards/]
-
-This endpoint returns a list of sub-awards, their amount, action date, recipient name, and description.
-
-### SubAwards [POST]
-
-+ Request (application/json)
-    + Attributes (object)
-        + award_id: 123 (optional, string)
-            The internal id of the award to filter on. If not included, all sub-awards are returned.
-        + limit: 15 (optional, number)
-            The number of results to include per page.
-            + Default: 10
-        + page: 1 (optional, number)
-            The page of results to return based on the limit.
-            + Default: 1
-        + sort: subaward_number (optional, enum[string])
-            The field results are sorted by.
-            + Default: subaward_number
-            + Members
-                + subaward_number
-                + description
-                + action_date
-                + amount
-                + recipient_name
-        + order: desc (optional, string)
-            The direction results are sorted by. `asc` for ascending, `desc` for descending.
-            + Default: desc
-
-+ Response 200 (application/json)
-    + Attributes
-        + results (array[SubAwardResult], fixed-type)
-        + page_metadata (PageMetaDataObject)
-
-## Transactions [/api/v2/transactions/]
-
-This endpoint returns a list of transactions, their amount, type, action date, action type, modification number, and description.
-
-### Transactions [POST]
-
-+ Request (application/json)
-    + Attributes (object)
-        + award_id: 123 (required, number)
-            The internal id of the award to filter on.
-        + limit: 15 (optional, number)
-            The number of results to include per page.
-            + Default: 10
-        + page: 1 (optional, number)
-            The page of results to return based on the limit.
-            + Default: 1
-        + sort: action_date (optional, enum[string])
-            The field results are sorted by.
-            + Default: action_date
-            + Members
-                + modification_number
-                + action_date
-                + federal_action_obligation
-                + face_value_loan_guarantee
-                + original_loan_subsidy_cost
-                + action_type_description
-                + description
-        + order: desc (optional, string)
-            The direction results are sorted by. `asc` for ascending, `desc` for descending.
-            + Default: desc
-
-+ Response 200 (application/json)
-    + Attributes
-        + results (array[TransactionResult], fixed-type)
-        + page_metadata (PageMetaDataObject)
-
-
+    
 # Data Structures
-
-## SubAwardResult (object)
-+ id: `1` (required, string)
-    The internal sub-award id.
-+ subaward_number: `2-A` (required, string)
-    The sub-award id.
-+ description: description (required, string)
-+ action_date: `1999-01-15` (required, string)
-    Action date in the format `YYYY-MM-DD`.
-+ amount: 1234.56 (required, number)
-    Monetary value of the sub-award.
-+ recipient_name: Recipient A (required, string)
-
-## TransactionResult (object)
-+ id: `1` (required, string)
-    The internal transaction id.
-+ type: A (required, string)
-    Award type code
-+ type_description: BPA (required, string)
-+ action_date: `1999-01-15` (required, string)
-    Action date in the format `YYYY-MM-DD`.
-+ action_type: C (required, string)
-    Action type code
-+ action_type_description: description (required, string)
-+ modification_number: `0` (required, string)
-+ description: MANAGEMENT AND OPERATIONS (required, string)
-+ federal_action_obligation: 1234.56 (required, number, nullable)
-    Monetary value of the transaction. Null for results with award type codes that correspond to loans.
-+ face_value_loan_guarantee: 1234.56 (required, number, nullable)
-    Face value of the loan. Null for results with award type codes that **do not** correspond to loans.
-+ original_loan_subsidy_cost: 234.12 (required, number, nullable)
-    Original subsidy cost of the loan. Null for results with award type codes that **do not** correspond to loans.
-
-## PageMetaDataObject (object)
-+ page: 1 (required, number)
-+ hasNext: false (required, boolean)
-+ hasPrevious: false (required, boolean)
 
 ## ContractResponse (object)
 + type: `A` (required, string)
@@ -156,9 +44,9 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + parent_award_piid: `1301` (required, string, nullable)
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
-+ awarding_agency: (required, Agency, fixed-type)
-+ funding_agency: (required, Agency, fixed-type)
-+ recipient: (required, Recipient, fixed-type)
++ awarding_agency (required, Agency, fixed-type)
++ funding_agency (required, Agency, fixed-type)
++ recipient (required, Recipient, fixed-type)
 + total_obligation (required, number)
 + base_and_all_options_value: 24242432 (required, number)
     The ceiling and amount of the award
@@ -186,9 +74,9 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + recipient_name: `Booz Allen Hamilton` (required, string, nullable)
 + recipient_unique_id: 2424224 (required, number, nullable)
 + parent_recipient_unique_id: 2424232 (required, number, nullable)
-+ location: (required, Location, nullable)
++ location (required, Location, nullable)
 + recipient_parent_name: `HoneyWell` (string, nullable)
-+ business_categories: (required, array[string])
++ business_categories (required, array[string])
 
 ## PerformancePeriod
 + period_of_performance_start_date: `2004-02-19` (required, string)
@@ -252,7 +140,7 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + type_of_contract_pric_desc: `FIRM FIXED PRICE` (required, string, nullable)
 
 ## Executive
-+ officers: (required, array[Officer])
++ officers (required, array[Officer])
 
 ## Officer
 + name: `John Doe` (required, string)
@@ -267,11 +155,180 @@ This endpoint returns a list of transactions, their amount, type, action date, a
 + cfda_objectives: `Some HTML string` (required, string, nullable)
 + cfda_number: `0.434` (required, string, nullable)
 + cfda_title: `Flood Insurance` (required, string, nullable)
-+ awarding_agency: (required, Agency, fixed-type)
-+ funding_agency: (required, Agency, fixed-type)
-+ recipient: (required, Recipient, fixed-type)
++ awarding_agency (required, Agency, fixed-type)
++ funding_agency (required, Agency, fixed-type)
++ recipient (required, Recipient, fixed-type)
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
-+ period_of_performance: (required, PerformancePeriod, fixed-type)
-+ place_of_performance: (required, Location, fixed-type)
++ period_of_performance (required, PerformancePeriod, fixed-type)
++ place_of_performance (required, Location, fixed-type)
 + executive_details (required, Executive, fixed-type)
+
+# Group Tables
+
+These endpoints support the tables on the individual Award Profile pages.
+
+## SubAwards [/api/v2/subawards/]
+
+This endpoint returns a list of sub-awards, their amount, action date, recipient name, and description.
+
+### SubAwards [POST]
+
++ Request (application/json)
+    + Attributes (object)
+        + award_id: 123 (optional, string)
+            The internal id of the award to filter on. If not included, all sub-awards are returned.
+        + limit: 15 (optional, number)
+            The number of results to include per page.
+            + Default: 10
+        + page: 1 (optional, number)
+            The page of results to return based on the limit.
+            + Default: 1
+        + sort: subaward_number (optional, enum[string])
+            The field results are sorted by.
+            + Default: subaward_number
+            + Members
+                + subaward_number
+                + description
+                + action_date
+                + amount
+                + recipient_name
+        + order: desc (optional, string)
+            The direction results are sorted by. `asc` for ascending, `desc` for descending.
+            + Default: desc
+
++ Response 200 (application/json)
+    + Attributes
+        + results (array[SubAwardResult], fixed-type)
+        + page_metadata (PageMetaDataObject)
+
+## Transactions [/api/v2/transactions/]
+
+This endpoint returns a list of transactions, their amount, type, action date, action type, modification number, and description.
+
+### Transactions [POST]
+
++ Request (application/json)
+    + Attributes (object)
+        + award_id: 123 (required, number)
+            The internal id of the award to filter on.
+        + limit: 15 (optional, number)
+            The number of results to include per page.
+            + Default: 10
+        + page: 1 (optional, number)
+            The page of results to return based on the limit.
+            + Default: 1
+        + sort: action_date (optional, enum[string])
+            The field results are sorted by.
+            + Default: `action_date`
+            + Members
+                + `modification_number`
+                + `action_date`
+                + `federal_action_obligation`
+                + `face_value_loan_guarantee`
+                + `original_loan_subsidy_cost`
+                + `action_type_description`
+                + description
+        + order: desc (optional, string)
+            The direction results are sorted by. `asc` for ascending, `desc` for descending.
+            + Default: desc
+
++ Response 200 (application/json)
+    + Attributes
+        + results (array[TransactionResult], fixed-type)
+        + page_metadata (PageMetaDataObject)
+
+## Financial System Details [/api/v2/accounts/awards]
+
+This endpoint returns financial accounts by award.
+
+## Financial System Details [POST]
+
++ Request (application/json)
+    + Attributes (object)
+        + award_id: `12178065` (required, string)
+            The internal id of the award to filter on.
+         + limit: 15 (optional, number)
+            The number of results to include per page.
+            + Default: 10
+        + page: 1 (optional, number)
+            The page of results to return based on the limit.
+            + Default: 1
+        + sort: `submission_date` (optional, enum[string])
+            The field results are sorted by.
+            + Default: `submission_date`
+            + Members
+                + `submission_date`
+                + `federal_account_name`
+                + `treasury_account_symbol`
+                + `program_activity_name`
+                + `object_class_name`
+                + `obligated_amount`
+        + order: desc (optional, string)
+            The direction results are sorted by. `asc` for ascending, `desc` for descending.
+            + Default: desc
+            
++ Response 200 (application/json)
+    + Attributes
+        + results (array[FinancialSystemDetailsResult], fixed-type)
+        + page_metadata (PageMetaDataObject)
+        + award_id: `12178065` (required, string)
+            The award id sent in the request.
+
+# Data Structures
+
+## SubAwardResult (object)
++ id: `1` (required, string)
+    The internal sub-award id.
++ subaward_number: `2-A` (required, string)
+    The sub-award id.
++ description: description (required, string)
++ action_date: `1999-01-15` (required, string)
+    Action date in the format `YYYY-MM-DD`.
++ amount: 1234.56 (required, number)
+    Monetary value of the sub-award.
++ recipient_name: Recipient A (required, string)
+
+## TransactionResult (object)
++ id: `1` (required, string)
+    The internal transaction id.
++ type: A (required, string)
+    Award type code
++ type_description: BPA (required, string)
++ action_date: `1999-01-15` (required, string)
+    Action date in the format `YYYY-MM-DD`.
++ action_type: C (required, string)
+    Action type code
++ action_type_description: description (required, string)
++ modification_number: `0` (required, string)
++ description: MANAGEMENT AND OPERATIONS (required, string)
++ federal_action_obligation: 1234.56 (required, number, nullable)
+    Monetary value of the transaction. Null for results with award type codes that correspond to loans.
++ face_value_loan_guarantee: 1234.56 (required, number, nullable)
+    Face value of the loan. Null for results with award type codes that **do not** correspond to loans.
++ original_loan_subsidy_cost: 234.12 (required, number, nullable)
+    Original subsidy cost of the loan. Null for results with award type codes that **do not** correspond to loans.
+
+## FinancialSystemDetailsResult(object)
++ submission_id: 123 (required, number)
++ reporting_fiscal_year: 2018 (required, number)
++ reporting_fiscal_quarter: 4 (required, number)
++ submission_date: `FY 2018 Q4` (required, string)
+    A string comprised of the reporting fiscal year and quarter that can be used for sorting by submission date.
++ obligated_amount: 45600000.00 (required, number)
++ federal_account_name: `Science, Energy Programs, Energy` (required, string)
++ federal_account_number: `089-0222` (required, string)
++ treasury_account_symbol: `089-X-0222-000` (required, string)
++ treasury_account_identifier: 19163 (required, number)
+    Internal id for the treasury account.
++ major_object_class_name: `Acquisition of assets` (required, string)
++ major_object_class_code: `30` (required, string)
++ object_class_name: `Land and structures` (required, string)
++ object_class_code: `320` (required, string)
++ program_activity_name: `ADVANCED SCIENTIFIC COMPUTING RESEARCH` (required, string)
++ program_activity_code: `0002` (required, string)
+
+## PageMetaDataObject (object)
++ page: 1 (required, number)
++ hasNext: false (required, boolean)
++ hasPrevious: false (required, boolean)

@@ -66,7 +66,7 @@ const routes = {
             }
         },
         {
-            path: '/federal_account/:accountId',
+            path: '/federal_account/:accountNumber',
             parent: '/federal_account',
             component: (cb) => {
                 require.ensure([], (require) => {
