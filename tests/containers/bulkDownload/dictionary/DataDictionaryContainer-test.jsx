@@ -20,8 +20,8 @@ describe('DataDictionaryContainer', () => {
 
         await container.instance().request.promise;
 
-        expect(container.state().sections).toEqual(mockDictionary.sections);
-        expect(container.state().columns).toEqual(mockDictionary.headers);
+        expect(container.state().sections).toEqual(mockDictionary.document.sections);
+        expect(container.state().columns).toEqual(mockDictionary.document.headers);
     });
     describe('parseRows', () => {
         it('should replace null values with N/A and update the state', () => {

@@ -82,35 +82,50 @@ export default class DataDictionaryTable extends React.Component {
     generateBody() {
         if (this.props.loading) {
             return (
-                <div className="dictionary-table__message">
-                    Loading...
-                </div>
+                <tbody className="dictionary-table__message">
+                    <tr>
+                        <td>
+                            Loading...
+                        </td>
+                    </tr>
+                </tbody>
             );
         }
         if (this.props.error) {
             return (
-                <div className="dictionary-table__message">
-                    There was an error loading your results.
-                </div>
+                <tbody className="dictionary-table__message">
+                    <tr>
+                        <td>
+                            There was an error loading your results.
+                        </td>
+                    </tr>
+                </tbody>
             );
         }
 
         const rows = [];
         this.props.rows.forEach((row, i) => {
-            let rowClass = '';
             if (this.props.searchTerm) {
                 const rowMatch = row.find((data) => data.toLowerCase().match(this.props.searchTerm.toLowerCase()));
                 if (rowMatch) {
-                    rowClass = 'dictionary-table__body-row_highlight-row';
+                    rows.push(
+                        <tr
+                            className="dictionary-table__body-row"
+                            key={`row-${i}`}>
+                            {this.generateRow(row)}
+                        </tr>
+                    );
                 }
             }
-            rows.push(
-                <tr
-                    className={`dictionary-table__body-row ${rowClass}`}
-                    key={`row-${i}`}>
-                    {this.generateRow(row)}
-                </tr>
-            );
+            else {
+                rows.push(
+                    <tr
+                        className="dictionary-table__body-row"
+                        key={`row-${i}`}>
+                        {this.generateRow(row)}
+                    </tr>
+                );
+            }
         });
         return (
             <tbody className="dictionary-table__body">

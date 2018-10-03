@@ -42,7 +42,8 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
 ### Data Dictonary [GET]
 
 + Response 200 (application/json)
-    + Attributes (DataDictionary)
+    + Attributes 
+        + document (DataDictionary)
     
 # Data Structures
 
@@ -83,11 +84,11 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
     + `4`
     
 ## DataDictionary (object)
-+ metadata: [DictionaryMetadata]
++ metadata (required, DictionaryMetadata)
 + sections: (array[Section], fixed-type)
 + headers: (array[Column], fixed-type)
 + rows: (required, array, fixed-type)
-    + `Lorem ipsum`, `dolor sit amet`, `consectetur adipiscing elit` (array[string], fixed-type)
+    + `Lorem ipsum`, `dolor sit amet`, `consectetur adipiscing elit` (array[string], nullable)
 
 ## Section (object)
 + section: `Data Labels` (required, string)
@@ -101,5 +102,5 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
 ## DictionaryMetadata (object)
 + total_rows: 393 (required, number)
 + total_columns: 12 (required, number)
-+ file_name: `Data Transparency Rosetta Stone_Public_only.xlsx` (required, string)
 + total_size: `119.32KB` (required, string)
++ download_location: `http://files-nonprod.usaspending.gov/docs/DATA+Transparency+Crosswalk.xlsx` (required, string)

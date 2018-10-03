@@ -68,6 +68,7 @@ $dictionary-yellow: #FFF694;
         text-align: center;
         font-size: $h3-font-size;
         padding-top: rem(60);
+        border: 0;
     }
 
     .dictionary-table__head-row {
@@ -90,15 +91,6 @@ $dictionary-yellow: #FFF694;
 
     .dictionary-table__body {
         .dictionary-table__body-row {
-            &.dictionary-table__body-row_highlight-row {
-                background-color: $dictionary-yellow-light;
-                .dictionary-table__body-cell {
-                    background-color: $dictionary-yellow-light;
-                    &.dictionary-table__body-cell_highlight-cell {
-                        background-color: $dictionary-yellow;
-                    }
-                }
-            }
             .dictionary-table__body-cell {
                 border: solid rem(3) $color-white;
                 padding: rem(10);
@@ -108,6 +100,9 @@ $dictionary-yellow: #FFF694;
                 }
                 &.dictionary-table__body-cell_last {
                     border-right: 0;
+                }
+                &.dictionary-table__body-cell_highlight-cell {
+                    background-color: $dictionary-yellow;
                 }
             }
         }

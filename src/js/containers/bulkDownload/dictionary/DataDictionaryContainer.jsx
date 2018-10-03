@@ -56,7 +56,7 @@ export default class DataDictionaryContainer extends React.Component {
 
         this.request.promise
             .then((res) => {
-                const content = res.data;
+                const content = res.data.document;
                 this.setState({
                     sections: content.sections,
                     columns: content.headers,
