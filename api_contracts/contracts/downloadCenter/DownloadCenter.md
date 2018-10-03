@@ -3,11 +3,11 @@ HOST: https://api.usaspending.gov
 
 # Download Center
 
-These endpoints are used to power USAspending.gov's download center.
+These endpoints are used to power USAspending.gov's download center. 
 
-# Group Custom Account Data
+# Custom Account Page
 
-These endpoints power the generation of custom account data files.
+These endpoints generate files using the filters on the custom account.
 
 ## Custom Account Data [/api/v2/download/accounts/]
 
@@ -23,7 +23,7 @@ This endpoint returns the generated file's metadata.
                 + treasury_account
                 + federal_account
         + file_format: `csv` (optional, string)
-            The file format that should be returned.
+            The file format that should be returned. 
             + Default: `csv`
         + filters: (required, FilterObject)
             The filters used to filter the data
@@ -32,55 +32,19 @@ This endpoint returns the generated file's metadata.
     + Attributes
         + results (array[CustomDataResult], fixed-type)
 
-## Budget Function [/api/v2/budget_functions/list_budget_functions/]
+# Data Dictionary
+This endpoint powers USAspending.gov's data dictionary page.
 
-This endpoint returns a list of budget functions with their associated title and code
+## Data Dictionary [/api/v2/references/data_dictionary/]
 
-### Budget Function [GET]
+This endpoint returns data corresponding to the latest data dictionary csv file.
 
-+ Response 200 (application/json)
-    + Attributes
-        + results (required, array[BudgetFunction], fixed-type)
-
-## Budget Subfunction [/api/v2/budget_functions/list_budget_subfunctions]
-
-This endpoint returns a list of budget subfunctions with their associated title and code
-
-+ Parameters
-    + budget_function: `050` (required, string)
-
-### Budget Subfunction [POST]
+### Data Dictonary [GET]
 
 + Response 200 (application/json)
-    + Attributes
-        + results (required, array[BudgetSubfunction], fixed-type)
-
-## Agency List [/api/v2/bulk_download/list_agencies/]
-
-This endpoint returns a list of agencies with their associated id and name
-
-### Agency List [POST]
-
-+ Parameters
-    + agency: 0 (required, number)
-
-+ Response 200 (application/json)
-    + Attributes
-        + agencies (required, AgencyData, fixed-type)
-
-## Federal Accounts by Agency [/api/v1/federal_accounts/]
-
-This endpoint returns a list of federal accounts associated to a specific agency
-
-### Federal Accounts by Agency [POST]
-
-+ Parameters
-    + filters: (required, array[AgencyCFO], fixed-type)
-
-+ Response 200 (application/json)
-    + Attributes
-        + results (required, array[AgencyFederalAccountData], fixed-type)
-
+    + Attributes 
+        + document (DataDictionary)
+    
 # Data Structures
 
 ## CustomDataResult (object)
@@ -99,10 +63,8 @@ This endpoint returns a list of federal accounts associated to a specific agency
         + finished
         + failed
 + seconds_elapsed `10.061132` (required, string)
-
+    
 ## FilterObject (object)
-+ budget_function: `050` (optional, string)
-+ budget_subfunction: `053` (optional, string)
 + agency: `all` (optional, string)
     The agency to filter by. This field is an internal id.
     + Default: `all`
@@ -120,34 +82,25 @@ This endpoint returns a list of federal accounts associated to a specific agency
     + `2`
     + `3`
     + `4`
+    
+## DataDictionary (object)
++ metadata (required, DictionaryMetadata)
++ sections: (array[Section], fixed-type)
++ headers: (array[Column], fixed-type)
++ rows: (required, array, fixed-type)
+    + `Lorem ipsum`, `dolor sit amet`, `consectetur adipiscing elit` (array[string], nullable)
 
-## AgencyData
-+ cfo_agencies: (required, array[AgencyCFO])
-+ other_agencies: (required, array[AgencyOtherAgencies])
-+ federal_accounts: (required, array)
-+ sub_agencies: (required, array)
+## Section (object)
++ section: `Data Labels` (required, string)
++ colspan: 2 (required, number)
+    The number of columns in the section
+    
+## Column (object)
++ raw: `award_file` (required, string)
++ display: `Award File` (required, string)
 
-## AgencyCFO
-+ name: `Department of Agriculture` (required, string)
-+ cgac_code: `012` (required, string)
-+ toptier_agency_id: `14` (required, string)
-
-## AgencyOtherAgencies
-+ cgac_code: `310` (required, string)
-+ name: `Access Board` (required, string)
-+ toptier_agency_id: `102` (required, string)
-
-## AgencyFederalAccountData
-+ account_title: `Salaries and Expenses, Departmental Management, Commerce` (required, string)
-+ id: `3656` (required, string)
-+ agency_identifier: `012` (required, string)
-+ federal_account_code: `012-0013` (optional, string)
-+ main_account_code: `0013` (required, string)
-
-## BudgetFunction (object)
-+ budget_function_code: `050` (required, string)
-+ budget_function_title: `National Defense` (required, string)
-
-## BudgetSubfunction(object)
-+ budget_subfunction_code: `051` (required, string)
-+ budget_subfunction_title: `Department of Defense-Military` (required, string)
+## DictionaryMetadata (object)
++ total_rows: 393 (required, number)
++ total_columns: 12 (required, number)
++ total_size: `119.32KB` (required, string)
++ download_location: `http://files-nonprod.usaspending.gov/docs/DATA+Transparency+Crosswalk.xlsx` (required, string)

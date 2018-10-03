@@ -7,7 +7,6 @@ import Axios, { CancelToken } from 'axios';
 
 import kGlobalConstants from 'GlobalConstants';
 
-
 export const requestAgenciesList = (params) => {
     const source = CancelToken.source();
     return {
@@ -128,6 +127,21 @@ export const requestArchiveFiles = (params) => {
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const requestDictionaryContent = () => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/references/data_dictionary/',
+            baseURL: kGlobalConstants.API,
+            method: 'get',
             cancelToken: source.token
         }),
         cancel() {

@@ -107,5 +107,16 @@ export const downloadOptions = [
         newTab: true,
         enabled: true,
         externalLink: false
+    },
+    {
+        label: 'Data Dictionary',
+        type: 'data_dictionary',
+        url: '#/download_center/data_dictionary',
+        code: 'dictionary',
+        description: 'TODO',
+        callToAction: 'Explore the Data Dictionary',
+        newTab: false,
+        enabled: true,
+        externalLink: false
     }
 ];

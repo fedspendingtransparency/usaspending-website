@@ -18,6 +18,7 @@ import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataCo
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import BulkDownloadModalContainer from
     'containers/bulkDownload/modal/BulkDownloadModalContainer';
+import DataDictionaryContainer from 'containers/bulkDownload/dictionary/DataDictionaryContainer';
 import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
 
 const propTypes = {
@@ -86,6 +87,11 @@ export default class BulkDownloadPage extends React.Component {
             downloadDataContent = (
                 <AccountDataContainer
                     clickedDownload={this.clickedDownload} />
+            );
+        }
+        if (this.props.dataType === 'data_dictionary') {
+            downloadDataContent = (
+                <DataDictionaryContainer />
             );
         }
         return (
