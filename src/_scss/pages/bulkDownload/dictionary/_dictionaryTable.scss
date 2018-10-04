@@ -68,7 +68,9 @@ $dictionary-yellow: #FFF694;
         text-align: center;
         font-size: $h3-font-size;
         padding-top: rem(60);
-        border: 0;
+        td {
+            border: 0;
+        }
     }
 
     .dictionary-table__head-row {
@@ -95,6 +97,8 @@ $dictionary-yellow: #FFF694;
                 border: solid rem(3) $color-white;
                 padding: rem(10);
                 vertical-align: top;
+                max-width: rem(300);
+                word-wrap: break-word;
                 &.dictionary-table__body-cell_first {
                     border-left: 0;
                 }
