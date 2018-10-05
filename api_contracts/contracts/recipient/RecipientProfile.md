@@ -214,9 +214,9 @@ This endpoint returns a the count of new awards grouped by time period in ascend
 
 ## TimePeriodGroup (object)
 + fiscal_year: `2018` (required, string)
-+ quarter: 1 (optional, string)
++ quarter: `1` (optional, string)
     Excluded when grouping by `fiscal_year` or `month`.
-+ month: 1 (optional, string)
++ month: `1` (optional, string)
     Excluded when grouping by `fiscal_year` or `quarter`.
 
 ## TimePeriodObject (object)

@@ -127,9 +127,9 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 
 ## TimePeriodGroup (object)
 + fiscal_year: `2018` (required, string)
-+ quarter: 1 (optional, string)
++ quarter: `1` (optional, string)
     Excluded when grouping by `fiscal_year` or `month`.
-+ month: 1 (optional, string)
++ month: `1` (optional, string)
     Excluded when grouping by `fiscal_year` or `quarter`.
 
 ## LocationObject (object)
