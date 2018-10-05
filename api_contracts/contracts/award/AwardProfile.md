@@ -36,8 +36,13 @@ This endpoint returns a list of data that is associated with the award profile p
 
 ## ContractResponse (object)
 + type: `A` (required, string)
-+ category: `contract` (required, string)
++ category: `contract` (required, enum[string])
     The category of what this award is
+    + Members
+        + Contract
+        + Grant
+        + Direct Payment
+        + Financial Assistance
 + type_description: `Definitive Contract` (required, string)
 + piid: 34242 (required, number)
     Award id
@@ -77,6 +82,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + location (required, Location, nullable)
 + recipient_parent_name: `HoneyWell` (string, nullable)
 + business_categories (required, array[string])
+    Name of business catagories in human readable format
 
 ## PerformancePeriod
 + period_of_performance_start_date: `2004-02-19` (required, string)
@@ -149,7 +155,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + amount: 234242 (required, number)
 
 ## MiscResponse (object)
-+ category: `other` (required, string)
++ category: `loans` (required, string)
 + type: `C` (required, string)
 + type_description: `Some loan` (required, string)
 + piid: 34242 (required, number)
@@ -165,6 +171,9 @@ This endpoint returns a list of data that is associated with the award profile p
 + period_of_performance (required, PerformancePeriod, fixed-type)
 + place_of_performance (required, Location, fixed-type)
 + executive_details (required, Executive, fixed-type)
++ total_subsidy_cost: 123 (required, number, nullable)
++ total_loan_value: 24343 (required, number, nullable)
++ total_obligation: 2324 (required, number, nullable)
 
 # Group Tables
 
