@@ -9,6 +9,8 @@ import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
 import BaseContractAdditionalDetails from './additionalDetails/BaseContractAdditionalDetails';
 import CoreAward from './CoreAward';
+import CoreExecutiveDetails from './CoreExecutiveDetails';
+import CorePeriodOfPerformance from './CorePeriodOfPerformance';
 
 const BaseContract = Object.create(CoreAward);
 
@@ -16,12 +18,10 @@ BaseContract.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
         id: data.piid,
-        internalId: data.id,
+        type: data.type,
+        typeDescription: data.type_description,
+        description: data.description,
         category: data.category,
-        startDate: data.period_of_performance_start_date,
-        endDate: data.period_of_performance_current_end_date
-            || ((data.latest_transaction && data.latest_transaction.contract_data)
-                && data.latest_transaction.contract_data.ordering_period_end_date),
         subawardTotal: data.total_subaward_amount,
         subawardCount: data.subaward_count
     };
@@ -38,7 +38,7 @@ BaseContract.populate = function populate(data) {
             city: data.place_of_performance.city_name,
             county: data.place_of_performance.county_name,
             stateCode: data.place_of_performance.state_code,
-            state: data.place_of_performance.state_name || data.place_of_performance.state_code,
+            state: data.place_of_performance.state_code,
             province: data.place_of_performance.foreign_province,
             zip5: data.place_of_performance.zip5,
             zip4: data.place_of_performance.zip4,
@@ -51,14 +51,23 @@ BaseContract.populate = function populate(data) {
         this.placeOfPerformance = placeOfPerformance;
     }
 
+    if (data.period_of_performance) {
+        const periodOfPerformanceData = {
+            startDate: data.period_of_performance_start_date,
+            endDate: data.period_of_performance_current_end_date
+        };
+        const periodOfPerformance = Object.create(CorePeriodOfPerformance);
+        periodOfPerformance.populateCore(periodOfPerformanceData);
+        this.periodOfPerformance = periodOfPerformance;
+    }
+
     const awardingAgency = Object.create(CoreAwardAgency);
     this.awardingAgency = awardingAgency;
     if (data.awarding_agency) {
         const awardingAgencyData = {
-            name: data.awarding_agency.toptier_agency && data.awarding_agency.toptier_agency.name,
-            subtierName: data.awarding_agency.subtier_agency && data.awarding_agency.subtier_agency.name,
-            officeName: data.latest_transaction && data.latest_transaction.contract_data
-                && data.latest_transaction.contract_data.awarding_office_name
+            name: data.toptier_agency,
+            subtierName: data.subtier_agency,
+            officeName: data.office_agency_name
         };
         awardingAgency.populateCore(awardingAgencyData);
     }
@@ -67,29 +76,27 @@ BaseContract.populate = function populate(data) {
     this.fundingAgency = fundingAgency;
     if (data.funding_agency) {
         const fundingAgencyData = {
-            name: data.funding_agency.toptier_agency && data.funding_agency.toptier_agency.name,
-            subtierName: data.funding_agency.subtier_agency && data.funding_agency.subtier_agency.name,
-            officeName: data.latest_transaction && data.latest_transaction.contract_data
-                && data.latest_transaction.contract_data.funding_office_name
+            name: data.toptier_agency,
+            subtierName: data.subtier_agency,
+            officeName: data.office_agency_name
         };
         fundingAgency.populateCore(fundingAgencyData);
     }
 
-    if (data.latest_transaction && data.latest_transaction.contract_data) {
+    if (data.latest_transaction_contract_data) {
         const additionalDetails = Object.create(BaseContractAdditionalDetails);
-        additionalDetails.populate(data.latest_transaction.contract_data);
+        additionalDetails.populate(data.latest_transaction_contract_data);
         this.additionalDetails = additionalDetails;
     }
 
-    this.parentAward = data.parent_award_piid || '--';
-    this.description = data.description || '--';
-    this.pricing = (data.latest_transaction && data.latest_transaction.contract_data
-            && data.latest_transaction.contract_data.type_of_contract_pric_desc) || '--';
+    if (data.executive_details) {
+        const executiveDetails = Object.create(CoreExecutiveDetails);
+        executiveDetails.populate(data.executive_details);
+        this.executiveDetails = executiveDetails;
+    }
 
-    this._contractType = (data.latest_transaction && data.latest_transaction.contract_data
-            && data.latest_transaction.contract_data.contract_award_type_desc) || '--';
-    this._idvType = (data.latest_transaction && data.latest_transaction.contract_data
-            && data.latest_transaction.contract_data.idv_type) || '--';
+    this.parentAward = data.parent_award_piid || '--';
+    this.pricing = data.latest_transaction_contract_data || '--';
 
     this._amount = parseFloat(data.base_and_all_options_value) || 0;
     this._ceiling = parseFloat(data.base_and_all_options_value) || 0;

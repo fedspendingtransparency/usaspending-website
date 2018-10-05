@@ -5,11 +5,7 @@
 
 const BaseContractAdditionalDetails = {
     populate(data) {
-        this.pricingCode = data.type_of_contract_pricing || '';
-        this.pricing = data.type_of_contract_pric_desc || '';
-
         // Parent Award Details
-
         this.idvType = data.idv_type_description || '--';
         this.idcType = data.type_of_idc_description || '--';
         this.idvAgencyId = data.referenced_idv_agency_iden || '--';
@@ -17,12 +13,12 @@ const BaseContractAdditionalDetails = {
 
         // Competition Details
         this.solicitationId = data.solicitation_identifier || '--';
-        this.solicitationProcedures = data.solicitation_procedur_desc || data.solicitation_procedures || '--';
+        this.solicitationProcedures = data.solicitation_procedures || '--';
         this.numberOffers = data.number_of_offers_received || '--';
-        this.extentCompeted = data.extent_compete_description || data.extent_competed || '--';
+        this.extentCompeted = data.extent_competed || '--';
         this.notCompeted = data.other_than_full_and_o_desc || '--';
         this.setAsideType = data.type_set_aside_description || '--';
-        this.commercialAcquisitionProcedures = data.commercial_item_acqui_desc || data.commercial_item_acquisitio || '--';
+        this.commercialAcquisitionProcedures = data.commercial_item_acquisitio || '--';
         this.commercialTestProgram = data.commercial_item_test_desc || '--';
         this.evaluatedPreference = data.evaluated_preference_desc || '--';
         this.fedBizOpps = data.fed_biz_opps_description || '--';
@@ -31,7 +27,7 @@ const BaseContractAdditionalDetails = {
 
         // Product or Service Details
         this._pscCode = data.product_or_service_code || '';
-        this._pscCodeDescription = data.product_or_service_co_desc || '';
+        this._pscCodeDescription = data.product_or_service_co_desc;
         this._naicsCode = data.naics || '';
         this._naicsDescription = data.naics_description || '';
         this.dodClaimantCode = data.dod_claimant_program_code || '--';
@@ -57,6 +53,7 @@ const BaseContractAdditionalDetails = {
         this.multiYearContract = data.multi_year_contract_desc || '--';
         this.purchaseCardAsPaymentMethod = data.purchase_card_as_paym_desc || '--';
         this.consolidated = data.consolidated_contract_desc || '--';
+        this.contractPriceDesc = data.type_of_contract_pric_desc || '--';
     },
     get pscCode() {
         if (this._pscCode && this._pscCodeDescription) {

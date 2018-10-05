@@ -17,8 +17,6 @@ BaseFinancialAssistance.populate = function populate(data) {
         id: data.fain || data.uri,
         internalId: data.id,
         category: data.category,
-        startDate: data.period_of_performance_start_date,
-        endDate: data.period_of_performance_current_end_date,
         subawardTotal: data.total_subaward_amount,
         subawardCount: data.subaward_count
     };
