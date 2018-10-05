@@ -45,7 +45,7 @@ This endpoint returns a list of the top results of specific categories sorted by
         + results (array[CategoryResult], fixed-type)
         + limit: 10 (required, number)
         + page_metadata (PageMetadataObject)
-        
+
 ## Spending Over Time [/api/v2/search/spending_over_time/]
 
 This endpoint returns a list of aggregated award amounts grouped by time period in ascending order (earliest to most recent).
@@ -124,12 +124,12 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 + `date_type`: `action_date` (optional, enum[string])
     + action_date
     + last_modified_date
-    
+
 ## TimePeriodGroup (object)
 + fiscal_year: `2018` (required, string)
-+ quarter: 1 (optional, number)
++ quarter: 1 (optional, string)
     Excluded when grouping by `fiscal_year` or `month`.
-+ month: 1 (optional, number)
++ month: 1 (optional, string)
     Excluded when grouping by `fiscal_year` or `quarter`.
 
 ## LocationObject (object)
