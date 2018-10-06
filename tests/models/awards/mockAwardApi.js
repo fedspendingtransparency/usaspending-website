@@ -195,7 +195,10 @@ place_of_performance: {
             amount: 12132
         }, {
             name: "Jake Doe",
-            amount: 23432
+            amount: null
+        }, {
+            name: null,
+            amount: null
         }]
     }
 };
