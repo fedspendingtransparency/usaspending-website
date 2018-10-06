@@ -8,7 +8,6 @@ import { mockLoan } from './mockAwardApi';
 
 const executiveDetails = Object.create(CoreExecutiveDetails);
 executiveDetails.populateCore(mockLoan.executive_details);
-console.log(executiveDetails);
 
 describe('CoreExecutiveDetails', () => {
     it('should format executive name and amount if executive name exists', () => {
