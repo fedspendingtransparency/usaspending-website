@@ -8,23 +8,23 @@ import CoreLocation from "models/v2/CoreLocation";
 import BaseAwardRecipient from "models/v2/awards/BaseAwardRecipient";
 import CoreAwardAgency from "models/v2/awards/CoreAwardAgency";
 
-import { mockLoanApi } from './mockAwardApi';
+import { mockLoan } from './mockAwardApi';
 
 const loan = Object.create(BaseFinancialAssistance);
-loan.populate(mockLoanApi);
+loan.populate(mockLoan);
 
 describe('Base Financial Assistance', () => {
     describe('monetary values', () => {
         it('should format the loan face value', () => {
-            expect(loan.faceValue).toEqual('$1,023');
+            expect(loan.faceValue).toEqual('$24,343');
         });
         it('should format the subsidy amount', () => {
-            expect(loan.subsidy).toEqual('$1,006');
+            expect(loan.subsidy).toEqual('$123');
         });
     });
     describe('cfdaProgram', () => {
         it('should format the CFDA fields', () => {
-            expect(loan.cfdaProgram).toEqual('789 - Mock CFDA Title');
+            expect(loan.cfdaProgram).toEqual('0.434 - Flood Insurance');
         });
     });
     describe('agencies', () => {

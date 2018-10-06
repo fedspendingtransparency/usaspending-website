@@ -8,73 +8,97 @@ import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
 import CoreAward from './CoreAward';
+import CoreExecutiveDetails from './CoreExecutiveDetails';
+import CorePeriodOfPerformance from './CorePeriodOfPerformance';
 
 const BaseFinancialAssistance = Object.create(CoreAward);
 
 BaseFinancialAssistance.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
-        id: data.fain || data.uri,
-        internalId: data.id,
+        id: data.piid,
+        type: data.type,
+        typeDescription: data.type_description,
+        description: data.description,
         category: data.category,
         subawardTotal: data.total_subaward_amount,
         subawardCount: data.subaward_count
     };
     this.populateCore(coreData);
 
-    const recipient = Object.create(BaseAwardRecipient);
-    recipient.populate(data.recipient);
-    this.recipient = recipient;
+    if (data.recipient) {
+        const recipient = Object.create(BaseAwardRecipient);
+        recipient.populate(data.recipient);
+        this.recipient = recipient;
+    }
+    if (data.place_of_performance) {
+        const placeOfPerformanceData = {
+            city: data.place_of_performance.city_name,
+            county: data.place_of_performance.county_name,
+            stateCode: data.place_of_performance.state_code,
+            state: data.place_of_performance.state_name || data.place_of_performance.state_code,
+            province: data.place_of_performance.foreign_province,
+            zip5: data.place_of_performance.zip5,
+            zip4: data.place_of_performance.zip4,
+            congressionalDistrict: data.place_of_performance.congressional_code,
+            country: data.place_of_performance.country_name,
+            countryCode: data.place_of_performance.location_country_code
+        };
 
-    const placeOfPerformanceData = {
-        city: data.place_of_performance.city_name,
-        county: data.place_of_performance.county_name,
-        stateCode: data.place_of_performance.state_code,
-        state: data.place_of_performance.state_name || data.place_of_performance.state_code,
-        province: data.place_of_performance.foreign_province,
-        zip5: data.place_of_performance.zip5,
-        zip4: data.place_of_performance.zip4,
-        congressionalDistrict: data.place_of_performance.congressional_code,
-        country: data.place_of_performance.country_name,
-        countryCode: data.place_of_performance.location_country_code
-    };
-    const placeOfPerformance = Object.create(CoreLocation);
-    placeOfPerformance.populateCore(placeOfPerformanceData);
-    this.placeOfPerformance = placeOfPerformance;
+        const placeOfPerformance = Object.create(CoreLocation);
+        placeOfPerformance.populateCore(placeOfPerformanceData);
+        this.placeOfPerformance = placeOfPerformance;
+    }
 
-    const awardingAgency = Object.create(CoreAwardAgency);
-    this.awardingAgency = awardingAgency;
+    if (data.period_of_performance) {
+        const periodOfPerformanceData = {
+            startDate: data.period_of_performance.period_of_performance_start_date,
+            endDate: data.period_of_performance.period_of_performance_current_end_date
+        };
+        const periodOfPerformance = Object.create(CorePeriodOfPerformance);
+        periodOfPerformance.populateCore(periodOfPerformanceData);
+        this.periodOfPerformance = periodOfPerformance;
+    }
+
     if (data.awarding_agency) {
         const awardingAgencyData = {
-            name: data.awarding_agency.toptier_agency && data.awarding_agency.toptier_agency.name,
-            subtierName: data.awarding_agency.subtier_agency && data.awarding_agency.subtier_agency.name,
-            officeName: data.latest_transaction && data.latest_transaction.assistance_data
-                && data.latest_transaction.assistance_data.awarding_office_name
+            toptierName: data.awarding_agency.toptier_agency.name,
+            toptierAbbr: data.awarding_agency.toptier_agency.abbreviation,
+            subtierName: data.awarding_agency.subtier_agency.name,
+            subtierAbbr: data.awarding_agency.subtier_agency.abbreviation,
+            officeName: data.awarding_agency.office_agency_name
         };
+        const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
+        this.awardingAgency = awardingAgency;
+    } else {
+        this.awardingAgency = {};
     }
 
-    const fundingAgency = Object.create(CoreAwardAgency);
-    this.fundingAgency = fundingAgency;
     if (data.funding_agency) {
         const fundingAgencyData = {
-            name: data.funding_agency.toptier_agency && data.funding_agency.toptier_agency.name,
-            subtierName: data.funding_agency.subtier_agency && data.funding_agency.subtier_agency.name,
-            officeName: data.latest_transaction && data.latest_transaction.assistance_data
-                && data.latest_transaction.assistance_data.funding_office_name
+            toptierName: data.funding_agency.toptier_agency.name,
+            toptierAbbr: data.funding_agency.toptier_agency.abbreviation,
+            subtierName: data.funding_agency.subtier_agency.name,
+            subtierAbbr: data.funding_agency.subtier_agency.abbreviation,
+            officeName: data.funding_agency.office_agency_name
         };
+        const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
+        this.fundingAgency = fundingAgency;
+    } else {
+        this.fundingAgency = {};
     }
 
-    this.description = data.description || '--';
-    this.typeDescription = data.type_description || '--';
+    if (data.executive_details) {
+        const executiveDetails = Object.create(CoreExecutiveDetails);
+        executiveDetails.populateCore(data.executive_details);
+        this.executiveDetails = executiveDetails;
+    }
 
-    this._cfdaNumber = (data.latest_transaction && data.latest_transaction.assistance_data
-            && data.latest_transaction.assistance_data.cfda_number) || '';
-    this._cfdaTitle = (data.latest_transaction && data.latest_transaction.assistance_data
-            && data.latest_transaction.assistance_data.cfda_title) || '';
-    this.cfdaProgramDescription = (data.latest_transaction && data.latest_transaction.assistance_data
-            && data.latest_transaction.assistance_data.cfda_objectives) || '--';
+    this._cfdaNumber = data.cfda_number || '';
+    this._cfdaTitle = data.cfda_title || '';
+    this.cfdaProgramDescription = data.cfda_objectives || '--';
 
     // populate the financial assistance-specific fields
     this._obligation = parseFloat(data.total_obligation) || 0;

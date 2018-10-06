@@ -4,18 +4,18 @@
  */
 
 
-import { mockContractApi } from '../mockAwardApi';
+import { mockContract } from '../mockAwardApi';
 import BaseContractAdditionalDetails from 'models/v2/awards/additionalDetails/BaseContractAdditionalDetails';
 
 const details = Object.create(BaseContractAdditionalDetails);
-details.populate(mockContractApi.latest_transaction.contract_data);
+details.populate(mockContract.latest_transaction_contract_data);
 
 describe('BaseContractAdditionalDetails', () => {
     it('should format psc code', () => {
-        expect(details.pscCode).toEqual('psc: product/service description');
+        expect(details.pscCode).toEqual('t324242: 423we');
     });
     it('should format naics code', () => {
-        expect(details.naicsCode).toEqual('naics');
+        expect(details.naicsCode).toEqual('35353');
     });
     it('should return -- for null values', () => {
         expect(details.clingerCohenAct).toEqual('--');

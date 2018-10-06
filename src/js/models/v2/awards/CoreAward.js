@@ -3,11 +3,8 @@
  * Created by Kevin Li 2/22/18
  */
 
-import moment from 'moment';
-import { formatMoney } from 'helpers/moneyFormatter';
 
-export const parseDate = (string) => moment(string, 'YYYY-MM-DD');
-export const formatDate = (date) => date.format('MM/DD/YYYY');
+import { formatMoney } from 'helpers/moneyFormatter';
 
 const CoreAward = {
     populateCore(data) {

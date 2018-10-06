@@ -5,26 +5,17 @@
 
 import BaseAwardRecipient from 'models/v2/awards/BaseAwardRecipient';
 import CoreLocation from 'models/v2/CoreLocation';
-import { mockContractApi } from './mockAwardApi';
+import { mockContract } from './mockAwardApi';
 
 const recipient = Object.create(BaseAwardRecipient);
-recipient.populate(mockContractApi.recipient);
+recipient.populate(mockContract.recipient);
 
 describe('BaseAwardRecipient', () => {
     it('should parse the business categories', () => {
-        expect(recipient.businessTypes).toEqual([
-            'Minority Owned Business',
-            'Nonprofit Organization'
+        expect(recipient.businessCategories).toEqual([
+            'Testing 1',
+            'Testing 2'
         ]);
-    });
-    it('should parse executive compensation', () => {
-        expect(recipient.officers).toEqual({
-            officer1: 'George Washington - $9,000',
-            officer2: 'John Adams - $7,001',
-            officer3: 'Thomas Jefferson - $6,000',
-            officer4: 'James Madison - $5,000',
-            officer5: '--'
-        });
     });
     it('should have a location property with CoreLocation in its prototype chain', () => {
         expect(Object.getPrototypeOf(recipient.location)).toEqual(CoreLocation);

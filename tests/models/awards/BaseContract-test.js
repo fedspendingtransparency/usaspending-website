@@ -9,32 +9,18 @@ import BaseAwardRecipient from "models/v2/awards/BaseAwardRecipient";
 import CoreAwardAgency from "models/v2/awards/CoreAwardAgency";
 import BaseContractAdditionalDetails from "models/v2/awards/additionalDetails/BaseContractAdditionalDetails";
 
-import { mockContractApi } from './mockAwardApi';
+import { mockContract } from './mockAwardApi';
 
 const contract = Object.create(BaseContract);
-contract.populate(mockContractApi);
+contract.populate(mockContract);
 
 describe('BaseContract', () => {
     describe('monetary values', () => {
         it('should format the contract amount', () => {
-            expect(contract.amount).toEqual('$1,024');
+            expect(contract.amount).toEqual('$234,234');
         });
         it('should format the obligated amount', () => {
-            expect(contract.obligation).toEqual('$1,023');
-        });
-    });
-    describe('awardType', () => {
-        it('should return the idv type for the idv category', () => {
-            const mockIdv = Object.assign({}, mockContractApi, {
-                category: null
-            });
-            const idv = Object.create(BaseContract);
-            idv.populate(mockIdv);
-
-            expect(idv.awardType).toEqual('mock idv type');
-        });
-        it('should return the contract type otherwise', () => {
-            expect(contract.awardType).toEqual('mock contract type');
+            expect(contract.obligation).toEqual('$123,231,313');
         });
     });
     describe('agencies', () => {

@@ -9,13 +9,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import Award from 'components/award/Award';
+import Award from 'components/awardv2/AwardV2';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 
 import BaseContract from 'models/v2/awards/BaseContract';
 import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
+
+require('pages/awardV2/awardPage.scss');
 
 
 const propTypes = {
@@ -35,11 +37,11 @@ export class AwardContainer extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getSelectedAward(this.props.params.awardId);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(nextProps) {
         if (this.props.params.awardId !== nextProps.params.awardId) {
             this.getSelectedAward(nextProps.params.awardId);
         }
@@ -101,7 +103,7 @@ export class AwardContainer extends React.Component {
             noAward: false
         });
 
-        if (data.category === 'contract' || !data.category) {
+        if (this.isAContract(data)) {
             const contract = Object.create(BaseContract);
             contract.populate(data);
             this.props.setSelectedAward(contract);
@@ -111,6 +113,10 @@ export class AwardContainer extends React.Component {
             financialAssistance.populate(data);
             this.props.setSelectedAward(financialAssistance);
         }
+    }
+
+    isAContract(data) {
+        return data.category !== 'loans';
     }
 
     render() {

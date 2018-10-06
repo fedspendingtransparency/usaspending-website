@@ -1,0 +1,23 @@
+.award-content__heading {
+    padding: rem(24) rem(10) rem(24) rem(30);
+    text-transform: uppercase;
+    font-size: rem(24);
+
+    .award-content__heading_bold {
+        font-weight: 600;
+    }
+
+    .award-content__divider {
+        border: solid 1px $color-dark-gray;
+    }
+
+    .award-content__glossary-icon {
+        vertical-align: middle;
+        display: inline-flex;
+        svg {
+            width: rem(19);
+            height: rem(25);
+            fill: $color-gray-icon;
+        }
+    }
+}

@@ -42,7 +42,7 @@ export default class Award extends React.Component {
             );
         }
         return (
-            <div className="usa-da-award-page">
+            <div className="usa-da-award-v2-page">
                 <MetaTags {...MetaTagHelper.awardPageMetaTags} />
                 <Header />
                 { awardInfo }

@@ -53,34 +53,42 @@ BaseContract.populate = function populate(data) {
 
     if (data.period_of_performance) {
         const periodOfPerformanceData = {
-            startDate: data.period_of_performance_start_date,
-            endDate: data.period_of_performance_current_end_date
+            startDate: data.period_of_performance.period_of_performance_start_date,
+            endDate: data.period_of_performance.period_of_performance_current_end_date
         };
         const periodOfPerformance = Object.create(CorePeriodOfPerformance);
         periodOfPerformance.populateCore(periodOfPerformanceData);
         this.periodOfPerformance = periodOfPerformance;
     }
 
-    const awardingAgency = Object.create(CoreAwardAgency);
-    this.awardingAgency = awardingAgency;
     if (data.awarding_agency) {
         const awardingAgencyData = {
-            name: data.toptier_agency,
-            subtierName: data.subtier_agency,
-            officeName: data.office_agency_name
+            toptierName: data.awarding_agency.toptier_agency.name,
+            toptierAbbr: data.awarding_agency.toptier_agency.abbreviation,
+            subtierName: data.awarding_agency.subtier_agency.name,
+            subtierAbbr: data.awarding_agency.subtier_agency.abbreviation,
+            officeName: data.awarding_agency.office_agency_name
         };
+        const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
+        this.awardingAgency = awardingAgency;
+    } else {
+        this.awardingAgency = {};
     }
 
-    const fundingAgency = Object.create(CoreAwardAgency);
-    this.fundingAgency = fundingAgency;
     if (data.funding_agency) {
         const fundingAgencyData = {
-            name: data.toptier_agency,
-            subtierName: data.subtier_agency,
-            officeName: data.office_agency_name
+            toptierName: data.funding_agency.toptier_agency.name,
+            toptierAbbr: data.funding_agency.toptier_agency.abbreviation,
+            subtierName: data.funding_agency.subtier_agency.name,
+            subtierAbbr: data.funding_agency.subtier_agency.abbreviation,
+            officeName: data.funding_agency.office_agency_name
         };
+        const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
+        this.fundingAgency = fundingAgency;
+    } else {
+        this.fundingAgency = {};
     }
 
     if (data.latest_transaction_contract_data) {
@@ -91,7 +99,7 @@ BaseContract.populate = function populate(data) {
 
     if (data.executive_details) {
         const executiveDetails = Object.create(CoreExecutiveDetails);
-        executiveDetails.populate(data.executive_details);
+        executiveDetails.populateCore(data.executive_details);
         this.executiveDetails = executiveDetails;
     }
 

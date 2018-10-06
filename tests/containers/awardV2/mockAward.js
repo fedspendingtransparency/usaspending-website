@@ -1,7 +1,8 @@
 /**
- * mockAwardApi.js
- * Created by Lizzie Salita 3/20/18
+ * mockAward.js
+ * Created by David Trinh 10/6/18
  */
+
 
 export const mockContract = {
     type: 'A',
@@ -11,7 +12,7 @@ export const mockContract = {
     piid: '34242',
     parent_award_piid: '1301',
     total_obligation: 123231313,
-    base_and_all_options_value: 234234.00,
+    base_and_all_options_value: 234234,
     subaward_count: 2342334,
     total_subaward_amount: 3242342,
     awarding_agency: {
@@ -25,7 +26,17 @@ export const mockContract = {
         },
         office_agency_name: 'STRATEGIC SYSTEMS'
     },
-    funding_agency: null,
+    funding_agency: {
+            toptier_agency: {
+                name: "Department of Justice",
+                abbreviation: "DOJ"
+            },
+            subtier_agency: {
+                name: 'Department of State',
+                abbreviation: 'DOS'
+            },
+            office_agency_name: 'STRATEGIC SYSTEMS 2'
+    },
     recipient: {
         recipient_name: 'Booz Allen Hamilton',
         recipient_unique_id: 123223,
@@ -147,7 +158,17 @@ awarding_agency: {
     },
     office_agency_name: 'STRATEGIC SYSTEMS'
 },
-funding_agency: null,
+funding_agency: {
+        toptier_agency: {
+            name: "Department of Justice",
+            abbreviation: "DOJ"
+        },
+        subtier_agency: {
+            name: 'Department of State',
+            abbreviation: 'DOS'
+        },
+        office_agency_name: 'STRATEGIC SYSTEMS 2'
+},
 recipient: {
     recipient_name: 'Booz Allen Hamilton',
     recipient_unique_id: 123223,
@@ -198,4 +219,17 @@ place_of_performance: {
             amount: 23432
         }]
     }
+};
+
+export const mockParams = {
+    params: {
+        awardId: 1234
+    },
+    award: {
+        selectedAward: mockContract
+    }
+};
+
+export const mockActions = {
+    setSelectedAward: jest.fn()
 };
