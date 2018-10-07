@@ -13,7 +13,7 @@
 
     .award-content__glossary-icon {
         vertical-align: middle;
-        display: inline-flex;
+        @include display(inline-flex);
         svg {
             width: rem(19);
             height: rem(25);
