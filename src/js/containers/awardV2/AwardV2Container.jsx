@@ -103,7 +103,7 @@ export class AwardContainer extends React.Component {
             noAward: false
         });
 
-        if (this.isAContract(data)) {
+        if (data.category !== 'loans') {
             const contract = Object.create(BaseContract);
             contract.populate(data);
             this.props.setSelectedAward(contract);
@@ -113,10 +113,6 @@ export class AwardContainer extends React.Component {
             financialAssistance.populate(data);
             this.props.setSelectedAward(financialAssistance);
         }
-    }
-
-    isAContract(data) {
-        return data.category !== 'loans';
     }
 
     render() {

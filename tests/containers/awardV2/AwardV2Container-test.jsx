@@ -86,29 +86,4 @@ describe('AwardV2Container', () => {
             expect(mockActions.setSelectedAward).toHaveBeenCalledWith(expectedAward);
         });
     });
-    describe('isAContract', () => {
-        it('should return true when the category type is a grant', () => {
-            const awardContainer = shallow(
-                <AwardContainer
-                    {...mockParams}
-                    {...mockActions} />);
-
-            const expectedAward = Object.create(BaseContract);
-            expectedAward.populate(mockContract);
-
-
-            expect(awardContainer.instance().isAContract(mockContract)).toBeTruthy();
-        });
-        it('should return false when the category type is a loan', () => {
-            const awardContainer = shallow(
-                <AwardContainer
-                    {...mockParams}
-                    {...mockActions} />);
-
-            const expectedAward = Object.create(BaseFinancialAssistance);
-            expectedAward.populate(mockLoan);
-
-            expect(awardContainer.instance().isAContract(mockLoan)).toBeFalsy();
-        });
-    });
 });
