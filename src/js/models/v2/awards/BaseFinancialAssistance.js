@@ -50,7 +50,8 @@ BaseFinancialAssistance.populate = function populate(data) {
         placeOfPerformance.populateCore(placeOfPerformanceData);
         this.placeOfPerformance = placeOfPerformance;
     }
-    if (data.period_of_performance_start_date || data.period_of_performance_current_end_date || data.period_of_performance) {
+    console.log(data.period_of_performance);
+    if (data.period_of_performance_start_date || data.period_of_performance_current_end_date || data.period_of_performance !== 'undefined') {
         const periodOfPerformanceData = {
             startDate: data.period_of_performance ? data.period_of_performance.period_of_performance_start_date : data.period_of_performance_start_date,
             endDate: data.period_of_performance ? data.period_of_performance.period_of_performance_current_end_date : data.period_of_performance_current_end_date
@@ -88,12 +89,6 @@ BaseFinancialAssistance.populate = function populate(data) {
         this.fundingAgency = fundingAgency;
     } else {
         this.fundingAgency = {};
-    }
-
-    if (data.executive_details) {
-        const executiveDetails = Object.create(CoreExecutiveDetails);
-        executiveDetails.populateCore(data.executive_details);
-        this.executiveDetails = executiveDetails;
     }
 
     this._cfdaNumber = (data.latest_transaction && data.latest_transaction.assistance_data

@@ -169,7 +169,6 @@ This endpoint returns a list of data that is associated with the award profile p
 + total_subaward_amount: 35345353453 (required, number)
 + period_of_performance (required, PerformancePeriod, fixed-type)
 + place_of_performance (required, Location, fixed-type)
-+ executive_details (required, Executive, fixed-type)
 + total_subsidy_cost: 123 (required, number, nullable)
 + total_loan_value: 24343 (required, number, nullable)
 + total_obligation: 2324 (required, number, nullable)

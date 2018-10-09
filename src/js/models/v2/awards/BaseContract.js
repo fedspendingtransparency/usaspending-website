@@ -52,7 +52,7 @@ BaseContract.populate = function populate(data) {
         this.placeOfPerformance = placeOfPerformance;
     }
 
-    if (data.period_of_performance_start_date || data.period_of_performance_current_end_date || data.period_of_performance) {
+    if (data.period_of_performance_start_date || data.period_of_performance_current_end_date || data.period_of_performance !== 'undefined') {
         const periodOfPerformanceData = {
             startDate: data.period_of_performance ? data.period_of_performance.period_of_performance_start_date : data.period_of_performance_start_date,
             endDate: data.period_of_performance ? data.period_of_performance.period_of_performance_current_end_date : data.period_of_performance_current_end_date
@@ -95,7 +95,7 @@ BaseContract.populate = function populate(data) {
         this.fundingAgency = {};
     }
 
-    if ((data.latest_transaction && data.latest_transaction.contract_data) || data.latest_transaction_contract_data) {
+    if ((data.latest_transaction && data.latest_transaction.contract_data) || data.latest_transaction_contract_data !== 'undefined') {
         const additionalDetails = Object.create(BaseContractAdditionalDetails);
         const additionalDetailsData = data.latest_transaction_contract_data ? data.latest_transaction_contract_data : (data.latest_transaction && data.latest_transaction.contract_data);
         additionalDetails.populate(additionalDetailsData);
