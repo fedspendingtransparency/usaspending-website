@@ -5,22 +5,22 @@
 import { formatMoney } from 'helpers/moneyFormatter';
 
 const parseExecutiveCompensation = (data) => {
-    const executiveCompensation = new Map();
+    const executiveCompensation = {};
     if (data) {
         data.forEach((officer, index) => {
             const name = officer.name || '';
             const amount = formatMoney(officer.amount) || 0;
             if (name) {
-                executiveCompensation.set(`Officer ${index + 1}`, `${name} - ${amount}`);
+                executiveCompensation[`officer${index + 1}`] = `${name} - ${amount}`;
             }
             else {
-                executiveCompensation.set(`Officer ${index + 1}`, '--');
+                executiveCompensation[`officer${index + 1}`] = '--';
             }
         });
     }
     else {
         for (let i = 1; i < 6; i++) {
-            executiveCompensation.set(`Officer ${i}`, '--');
+            executiveCompensation[`officer${i}`] = '--';
         }
     }
     return executiveCompensation;

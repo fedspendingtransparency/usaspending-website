@@ -66,7 +66,7 @@ export default class AgencyInfo extends React.Component {
     }
 
     render() {
-        const toptier = this.props[`${this.state.agencyType}Agency`].name;
+        const toptier = this.props[`${this.state.agencyType}Agency`].toptierName;
         const subtierName = this.props[`${this.state.agencyType}Agency`].subtierName;
         const officeName = this.props[`${this.state.agencyType}Agency`].officeName;
 

@@ -5,6 +5,10 @@
 
 const BaseContractAdditionalDetails = {
     populate(data) {
+        // Not used in the /v2/awards endpoint, but possibly used for /v1/awards
+        this.pricingCode = data.type_of_contract_pricing || '';
+        this.pricing = data.type_of_contract_pric_desc || '';
+
         // Parent Award Details
         this.idvType = data.idv_type_description || '--';
         this.idcType = data.type_of_idc_description || '--';
@@ -27,7 +31,7 @@ const BaseContractAdditionalDetails = {
 
         // Product or Service Details
         this._pscCode = data.product_or_service_code || '';
-        this._pscCodeDescription = data.product_or_service_co_desc;
+        this._pscCodeDescription = data.product_or_service_co_desc || '--';
         this._naicsCode = data.naics || '';
         this._naicsDescription = data.naics_description || '';
         this.dodClaimantCode = data.dod_claimant_program_code || '--';

@@ -10,22 +10,23 @@ const executiveDetails = Object.create(CoreExecutiveDetails);
 executiveDetails.populateCore(mockLoan.executive_details);
 
 describe('CoreExecutiveDetails', () => {
-    it('should format executive name and amount if executive name exists', () => {
-        expect(executiveDetails.officers.get("Officer 1")).toEqual('John Doe - $12,132');
+    it('should parse executive compensation', () => {
+        expect(executiveDetails.officers).toEqual({
+            officer1: "John Doe - $12,132",
+            officer2: "Jake Doe - $0",
+            officer3: "--"
+        });
     });
-    it('should use a $0 when amount is unpopulated', () => {
-        expect(executiveDetails.officers.get("Officer 2")).toEqual('Jake Doe - $0');
-    });
-    it('should use a -- when data is unpopulated', () => {
+    it('should parse executive compensation even without data', () => {
         const emptyExecutiveDetails = Object.create(CoreExecutiveDetails);
         const executiveDetailsData = [];
         emptyExecutiveDetails.populateCore(executiveDetailsData);
-        expect(emptyExecutiveDetails.officers.get("Officer 1")).toEqual('--');
-    });
-    it('should have 5 executives listed when data is unpopulated', () => {
-        const emptyExecutiveDetails = Object.create(CoreExecutiveDetails);
-        const executiveDetailsData = [];
-        emptyExecutiveDetails.populateCore(executiveDetailsData);
-        expect(emptyExecutiveDetails.officers.size).toEqual(5);
+        expect(emptyExecutiveDetails.officers).toEqual({
+            officer1: "--",
+            officer2: "--",
+            officer3: "--",
+            officer4: "--",
+            officer5: "--"
+        });
     });
 });

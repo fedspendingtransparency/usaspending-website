@@ -9,7 +9,7 @@ import BaseAwardRecipient from "models/v2/awards/BaseAwardRecipient";
 import CoreAwardAgency from "models/v2/awards/CoreAwardAgency";
 import BaseContractAdditionalDetails from "models/v2/awards/additionalDetails/BaseContractAdditionalDetails";
 
-import { mockContract } from './mockAwardApi';
+import { mockContract, mockAwardV1Api } from './mockAwardApi';
 
 const contract = Object.create(BaseContract);
 contract.populate(mockContract);
@@ -21,6 +21,22 @@ describe('BaseContract', () => {
         });
         it('should format the obligated amount', () => {
             expect(contract.obligation).toEqual('$123,231,313');
+        });
+    });
+    describe('awardType', () => {
+        const contract1 = Object.create(BaseContract);
+        contract1.populate(mockAwardV1Api);
+        it('should return the idv type for the idv category', () => {
+            const mockIdv = Object.assign({}, mockAwardV1Api, {
+                category: null
+            });
+            const idv = Object.create(BaseContract);
+            idv.populate(mockIdv);
+
+            expect(idv.awardType).toEqual('mock idv type');
+        });
+        it('should return the contract type otherwise', () => {
+            expect(contract1.awardType).toEqual('mock contract type');
         });
     });
     describe('agencies', () => {
@@ -45,7 +61,7 @@ describe('BaseContract', () => {
     });
     describe('Additional Details', () => {
         it('should be an object with BaseContractAdditionalDetails in its prototype chain', () => {
-           expect(Object.getPrototypeOf(contract.additionalDetails)).toEqual(BaseContractAdditionalDetails);
+            expect(Object.getPrototypeOf(contract.additionalDetails)).toEqual(BaseContractAdditionalDetails);
         });
     });
 });

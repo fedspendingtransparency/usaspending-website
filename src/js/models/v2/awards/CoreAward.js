@@ -10,6 +10,7 @@ const CoreAward = {
     populateCore(data) {
         this._category = data.category || 'idv'; // IDVs have null values
         this.id = data.id || '';
+        this.internalId = data.internalId || '';
         this.type = data.type || '';
         this.typeDescription = data.typeDescription || '';
         this.description = data.description || '--';

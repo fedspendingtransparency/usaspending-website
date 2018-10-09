@@ -19,6 +19,7 @@ BaseContract.populate = function populate(data) {
     const coreData = {
         id: data.piid,
         type: data.type,
+        internalId: data.id,
         typeDescription: data.type_description,
         description: data.description,
         category: data.category,
@@ -72,7 +73,8 @@ BaseContract.populate = function populate(data) {
         const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
         this.awardingAgency = awardingAgency;
-    } else {
+    }
+    else {
         this.awardingAgency = {};
     }
 
@@ -87,7 +89,8 @@ BaseContract.populate = function populate(data) {
         const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
         this.fundingAgency = fundingAgency;
-    } else {
+    }
+    else {
         this.fundingAgency = {};
     }
 
@@ -105,6 +108,11 @@ BaseContract.populate = function populate(data) {
 
     this.parentAward = data.parent_award_piid || '--';
     this.pricing = data.latest_transaction_contract_data || '--';
+
+    this._contractType = (data.latest_transaction && data.latest_transaction.contract_data
+        && data.latest_transaction.contract_data.contract_award_type_desc) || '--';
+    this._idvType = (data.latest_transaction && data.latest_transaction.contract_data
+        && data.latest_transaction.contract_data.idv_type) || '--';
 
     this._amount = parseFloat(data.base_and_all_options_value) || 0;
     this._ceiling = parseFloat(data.base_and_all_options_value) || 0;

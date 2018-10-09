@@ -50,7 +50,7 @@ export default class ContractAdditionalDetails extends React.Component {
                     title="Additional Details" />
                 <hr className="additional-group-divider" />
                 <AdditionalGroup
-                    data={award.recipient.officers}
+                    data={award.executiveDetails.officers}
                     fields={DataFields.compensationFields}
                     title="Executive Compensation" />
             </div>
