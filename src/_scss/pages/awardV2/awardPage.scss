@@ -9,7 +9,8 @@
     .award-content {
         margin: rem(35) rem(40);
         background-color: $color-white;
-        @import "./awardHeading";
+        @import "./awardContract";
+        @import "./awardFinance";
     }
 
 }

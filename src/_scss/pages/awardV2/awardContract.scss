@@ -1,17 +1,21 @@
-.award-content__heading {
+.award-contract {
     padding: rem(24) rem(10) rem(24) rem(30);
-    text-transform: uppercase;
-    font-size: rem(24);
+    
+    .award-contract__heading {
+        text-transform: uppercase;
+        font-size: rem(24);
 
-    .award-content__heading_bold {
-        font-weight: 600;
+        .award-contract__heading_bold {
+            font-weight: 600;
+        }
+
     }
 
-    .award-content__divider {
+    .award-contract__heading-divider {
         border: solid 1px $color-dark-gray;
     }
 
-    .award-content__glossary-icon {
+    .award-contract__heading-glossary {
         vertical-align: middle;
         @include display(inline-flex);
         svg {

@@ -49,7 +49,6 @@ BaseFinancialAssistance.populate = function populate(data) {
         placeOfPerformance.populateCore(placeOfPerformanceData);
         this.placeOfPerformance = placeOfPerformance;
     }
-    console.log(data.period_of_performance);
     if (data.period_of_performance_start_date || data.period_of_performance_current_end_date || data.period_of_performance !== 'undefined') {
         const periodOfPerformanceData = {
             startDate: data.period_of_performance ? data.period_of_performance.period_of_performance_start_date : data.period_of_performance_start_date,
