@@ -102,7 +102,7 @@ export class AwardContainer extends React.Component {
             noAward: false
         });
 
-        if (data.category === "contract") {
+        if (data.category === 'contract' || !data.category) {
             const contract = Object.create(BaseContract);
             contract.populate(data);
             this.props.setSelectedAward(contract);

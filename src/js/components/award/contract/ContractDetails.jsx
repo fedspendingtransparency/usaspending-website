@@ -25,8 +25,8 @@ export default class ContractDetails extends React.Component {
         if (award.category === 'idv') {
             awardType = idvAwardTypes[this.props.selectedAward.awardType] || '--';
         }
-        const timeRange = TimeRangeHelper.convertDatesToRange(award.periodOfPerformance._startDate, award.periodOfPerformance._endDate);
-        const popDate = `${this.props.selectedAward.periodOfPerformance.startDate} - ${this.props.selectedAward.periodOfPerformance.endDate} ${timeRange}` || '--';
+        const timeRange = TimeRangeHelper.convertDatesToRange(award._startDate, award._endDate);
+        const popDate = `${this.props.selectedAward.startDate} - ${this.props.selectedAward.endDate} ${timeRange}` || '--';
 
         const maxChars = SummaryPageHelper.maxDescriptionCharacters;
         return (

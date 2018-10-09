@@ -17,10 +17,10 @@ const propTypes = {
 export default class FinancialAssistanceDetails extends React.Component {
     render() {
         const award = this.props.selectedAward;
-        const timeRange = TimeRangeHelper.convertDatesToRange(award.periodOfPerformance._startDate, award.periodOfPerformance._endDate);
+        const timeRange = TimeRangeHelper.convertDatesToRange(award._startDate, award._endDate);
         let popDate = '--';
-        if (award.periodOfPerformance.startDate || award.periodOfPerformance.endDate) {
-            popDate = `${this.props.selectedAward.periodOfPerformance.startDate} - ${this.props.selectedAward.periodOfPerformance.endDate} ${timeRange}`;
+        if (award.startDate || award.endDate) {
+            popDate = `${this.props.selectedAward.startDate} - ${this.props.selectedAward.endDate} ${timeRange}`;
         }
         const maxChars = SummaryPageHelper.maxDescriptionCharacters;
         return (

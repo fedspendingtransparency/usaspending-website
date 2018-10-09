@@ -1,6 +1,6 @@
 /**
  * CoreExecutiveDetails.js
- * Created by David Trinh 10/5/18
+ * Created by David Trinh 10/9/18
  */
 import { formatMoney } from 'helpers/moneyFormatter';
 

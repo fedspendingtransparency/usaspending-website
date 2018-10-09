@@ -7,7 +7,7 @@ export const agencyFields = [
     {
         label: 'Awarding Agency',
         field: '__special',
-        parse: (data) => data.awardingAgency.toptierName
+        parse: (data) => data.awardingAgency.name
     },
     {
         label: 'Awarding Sub-Agency',
@@ -22,7 +22,7 @@ export const agencyFields = [
     {
         label: 'Funding Agency',
         field: '__special',
-        parse: (data) => data.fundingAgency.toptierName
+        parse: (data) => data.fundingAgency.name
     },
     {
         label: 'Funding Sub-Agency',

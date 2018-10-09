@@ -41,9 +41,9 @@ export class AwardContainer extends React.Component {
         this.getSelectedAward(this.props.params.awardId);
     }
 
-    componentDidUpdate(nextProps) {
-        if (this.props.params.awardId !== nextProps.params.awardId) {
-            this.getSelectedAward(nextProps.params.awardId);
+    componentDidUpdate(prevProps) {
+        if (this.props.params.awardId !== prevProps.params.awardId) {
+            this.getSelectedAward(prevProps.params.awardId);
         }
     }
 
