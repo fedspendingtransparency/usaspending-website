@@ -31,7 +31,7 @@ const BaseContractAdditionalDetails = {
 
         // Product or Service Details
         this._pscCode = data.product_or_service_code || '';
-        this._pscCodeDescription = data.product_or_service_co_desc || '--';
+        this._pscCodeDescription = data.product_or_service_co_desc || data.product_or_service_desc || '--';
         this._naicsCode = data.naics || '';
         this._naicsDescription = data.naics_description || '';
         this.dodClaimantCode = data.dod_claimant_program_code || '--';

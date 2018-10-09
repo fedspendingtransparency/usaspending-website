@@ -117,7 +117,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + small_business_competitive: `Yes` (required, string, nullable)
 + fair_opportunity_limi_desc: `test` (optional, string, nullable)
 + product_or_service_code: `t324242` (required, string, nullable)
-+ product_or_service_co_desc: `423we` (required, string, nullable)
++ product_or_service_desc: `423we` (required, string, nullable)
 + naics: `35353` (required, string, nullable)
 + naics_description: `323t2` (required, string, nullable)
 + dod_claimant_program_code: `ERWRWRWR5242-242` (required, string, nullable)

@@ -96,7 +96,7 @@ export const mockContract = {
         small_business_competitive: `Yes`,
         fair_opportunity_limi_desc: `test`,
         product_or_service_code: `t324242`,
-        product_or_service_co_desc: `423we`,
+        product_or_service_desc: `423we`,
         naics: `35353`,
         naics_description: null,
         dod_claimant_program_code: `ERWRWRWR5242-242`,

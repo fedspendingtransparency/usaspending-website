@@ -21,7 +21,7 @@ export const mockAwardV1Api = {
             contract_award_type_desc: 'mock contract type',
             awarding_office_name: 'Office of Cheesesteak',
             product_or_service_code: 'psc',
-            product_or_service_co_desc: 'product/service description',
+            product_or_service_desc: 'product/service description',
             naics: 'naics',
             naics_description: null,
             clinger_cohen_act_planning: null
