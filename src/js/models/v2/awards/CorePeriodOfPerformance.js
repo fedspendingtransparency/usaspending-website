@@ -10,8 +10,8 @@ export const formatDate = (date) => date.format('MM/DD/YYYY');
 
 const CorePeriodOfPerformance = {
     populateCore(data) {
-        this._startDate = parseDate(data.startDate) || null;
-        this._endDate = parseDate(data.endDate) || null;
+        this._startDate = (data.startDate && parseDate(data.startDate)) || '';
+        this._endDate = (data.endDate && parseDate(data.endDate)) || '';
     },
     get startDate() {
         if (this._startDate) {

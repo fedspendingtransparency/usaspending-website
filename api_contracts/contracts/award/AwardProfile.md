@@ -36,13 +36,7 @@ This endpoint returns a list of data that is associated with the award profile p
 
 ## ContractResponse (object)
 + type: `A` (required, string)
-+ category: `contract` (required, enum[string])
-    The category of what this award is
-    + Members
-        + Contract
-        + Grant
-        + Direct Payment
-        + Financial Assistance
++ category: `contract` (required, string)
 + type_description: `Definitive Contract` (required, string)
 + piid: 34242 (required, number)
     Award id
@@ -81,7 +75,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + parent_recipient_unique_id: 2424232 (required, number, nullable)
 + location (required, Location, nullable)
 + recipient_parent_name: `HoneyWell` (string, nullable)
-+ business_categories (required, array[string])
++ business_categories_name (required, array[string])
     Name of business catagories in human readable format
 
 ## PerformancePeriod
@@ -155,7 +149,12 @@ This endpoint returns a list of data that is associated with the award profile p
 + amount: 234242 (required, number)
 
 ## MiscResponse (object)
-+ category: `loans` (required, string)
++ category: `loan` (required, enum[string])
+    + Members
+        + loan
+        + other
+        + direct payment
+        + grant
 + type: `C` (required, string)
 + type_description: `Some loan` (required, string)
 + piid: 34242 (required, number)

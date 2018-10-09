@@ -17,12 +17,12 @@ const BaseContractAdditionalDetails = {
 
         // Competition Details
         this.solicitationId = data.solicitation_identifier || '--';
-        this.solicitationProcedures = data.solicitation_procedures || '--';
+        this.solicitationProcedures = data.solicitation_procedur_desc || data.solicitation_procedures || '--';
         this.numberOffers = data.number_of_offers_received || '--';
-        this.extentCompeted = data.extent_competed || '--';
+        this.extentCompeted = data.extent_compete_description || data.extent_competed || '--';
         this.notCompeted = data.other_than_full_and_o_desc || '--';
         this.setAsideType = data.type_set_aside_description || '--';
-        this.commercialAcquisitionProcedures = data.commercial_item_acquisitio || '--';
+        this.commercialAcquisitionProcedures = data.commercial_item_acqui_desc || data.commercial_item_acquisitio || '--';
         this.commercialTestProgram = data.commercial_item_test_desc || '--';
         this.evaluatedPreference = data.evaluated_preference_desc || '--';
         this.fedBizOpps = data.fed_biz_opps_description || '--';

@@ -8,17 +8,22 @@ import CoreLocation from 'models/v2/CoreLocation';
 
 import { getBusinessTypes } from 'helpers/businessTypesHelper';
 
-const parseBusinessCategories = (data) => {
-    if (data.business_categories) {
-        return data.business_categories;
-    }
-    return getBusinessTypes().reduce((parsed, type) => {
+const parseBusinessCategories = (data) => (
+    getBusinessTypes().reduce((parsed, type) => {
         if (data[type.fieldName]) {
             parsed.push(type.displayName);
         }
         return parsed;
-    }, []);
+    }, [])
+);
+
+const parseCategories = (data) => {
+    if (data.business_categories_name) {
+        return data.business_categories_name;
+    }
+    return parseBusinessCategories(data);
 };
+
 
 const BaseAwardRecipient = {
     populate(data) {
@@ -27,7 +32,7 @@ const BaseAwardRecipient = {
         this.duns = data.recipient_unique_id || '--';
         this.parentDuns = data.parent_recipient_unique_id || '--';
         this._businessTypes = data.business_types_description || '';
-        this._businessCategories = parseBusinessCategories(data);
+        this._businessCategories = parseCategories(data);
 
         // Recipient Location
         let locationData = {};

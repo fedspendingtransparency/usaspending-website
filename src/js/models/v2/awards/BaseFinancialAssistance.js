@@ -16,7 +16,7 @@ const BaseFinancialAssistance = Object.create(CoreAward);
 BaseFinancialAssistance.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
-        id: data.piid,
+        id: data.piid || data.fain || data.uri,
         internalId: data.id,
         type: data.type,
         typeDescription: data.type_description,
@@ -50,11 +50,10 @@ BaseFinancialAssistance.populate = function populate(data) {
         placeOfPerformance.populateCore(placeOfPerformanceData);
         this.placeOfPerformance = placeOfPerformance;
     }
-
-    if (data.period_of_performance) {
+    if (data.period_of_performance_start_date || data.period_of_performance_current_end_date || data.period_of_performance) {
         const periodOfPerformanceData = {
-            startDate: data.period_of_performance.period_of_performance_start_date,
-            endDate: data.period_of_performance.period_of_performance_current_end_date
+            startDate: data.period_of_performance ? data.period_of_performance.period_of_performance_start_date : data.period_of_performance_start_date,
+            endDate: data.period_of_performance ? data.period_of_performance.period_of_performance_current_end_date : data.period_of_performance_current_end_date
         };
         const periodOfPerformance = Object.create(CorePeriodOfPerformance);
         periodOfPerformance.populateCore(periodOfPerformanceData);
@@ -97,9 +96,12 @@ BaseFinancialAssistance.populate = function populate(data) {
         this.executiveDetails = executiveDetails;
     }
 
-    this._cfdaNumber = data.cfda_number || '';
-    this._cfdaTitle = data.cfda_title || '';
-    this.cfdaProgramDescription = data.cfda_objectives || '--';
+    this._cfdaNumber = (data.latest_transaction && data.latest_transaction.assistance_data
+        && data.latest_transaction.assistance_data.cfda_number) || data.cfda_number || '';
+    this._cfdaTitle = (data.latest_transaction && data.latest_transaction.assistance_data
+        && data.latest_transaction.assistance_data.cfda_title) || data.cfda_title || '';
+    this.cfdaProgramDescription = (data.latest_transaction && data.latest_transaction.assistance_data
+        && data.latest_transaction.assistance_data.cfda_objectives) || data.cfda_objectives || '--';
 
     // populate the financial assistance-specific fields
     this._obligation = parseFloat(data.total_obligation) || 0;

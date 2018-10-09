@@ -146,7 +146,7 @@ export const mockContract = {
             congressional_code: null
         },
         recipient_parent_name: 'HoneyWell',
-        business_categories: ['Testing 1', 'Testing 2']
+        business_categories_name: ['Testing 1', 'Testing 2']
     },
     period_of_performance: {
         period_of_performance_start_date: `2004-02-19`,
@@ -223,7 +223,7 @@ export const mockContract = {
 
 export const mockLoan = {
 type: 'C',
-category: 'loans',
+category: 'loan',
 type_description: 'Testing 123',
 description: 'MANAGEMENT AND OPERATION OF SANDIA NATIONAL LABORATORIES BY SANDIA CORPORATION, CONTRACT NO. DE-AC04-94AL85000',
 piid: '342332',
@@ -268,7 +268,7 @@ recipient: {
         congressional_code: null
     },
     recipient_parent_name: 'HoneyWell',
-    business_categories: ['Testing 1', 'Testing 2']
+    business_categories_name: ['Testing 1', 'Testing 2']
 },
 period_of_performance: {
     period_of_performance_start_date: `2004-02-19`,
