@@ -8,7 +8,6 @@ import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
 import CoreAward from './CoreAward';
-import CoreExecutiveDetails from './CoreExecutiveDetails';
 import CorePeriodOfPerformance from './CorePeriodOfPerformance';
 
 const BaseFinancialAssistance = Object.create(CoreAward);
