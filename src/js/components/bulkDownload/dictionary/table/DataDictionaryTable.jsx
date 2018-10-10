@@ -80,8 +80,7 @@ export default class DataDictionaryTable extends React.Component {
     }
 
     generateRows() {
-        const rows = [];
-        let noMatch = false;
+        let rows = [];
         this.props.rows.forEach((row, i) => {
             if (this.props.searchTerm) {
                 const rowMatch = row.find((data) => data.toLowerCase().match(this.props.searchTerm.toLowerCase()));
@@ -93,9 +92,6 @@ export default class DataDictionaryTable extends React.Component {
                             {this.generateRow(row)}
                         </tr>
                     );
-                }
-                else {
-                    noMatch = true;
                 }
             }
             else {
@@ -109,9 +105,8 @@ export default class DataDictionaryTable extends React.Component {
             }
         });
 
-        let result = rows;
-        if (noMatch) {
-            result = (
+        if (rows.length === 0 && this.props.searchTerm) {
+            rows = (
                 <tr className="dictionary-table__body-row">
                     <td
                         className="dictionary-table__body-cell dictionary-table__body-cell_message"
@@ -122,7 +117,7 @@ export default class DataDictionaryTable extends React.Component {
             );
         }
 
-        return result;
+        return rows;
     }
 
     generateRow(row) {
