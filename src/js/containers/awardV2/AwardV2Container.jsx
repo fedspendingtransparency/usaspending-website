@@ -14,8 +14,8 @@ import Award from 'components/awardv2/AwardV2';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 
-import BaseContract from 'models/v2/awards/BaseContract';
-import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
+import BaseContract from 'models/v2/awardsV2/BaseContract';
+import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
 
 require('pages/awardV2/awardPage.scss');
 

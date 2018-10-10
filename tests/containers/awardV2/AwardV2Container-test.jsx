@@ -10,8 +10,8 @@ import { AwardContainer } from 'containers/awardV2/AwardV2Container';
 
 import {mockContract, mockLoan, mockParams, mockActions} from './mockAward';
 
-import BaseContract from 'models/v2/awards/BaseContract';
-import BaseFinancialAssistance from "models/v2/awards/BaseFinancialAssistance";
+import BaseContract from 'models/v2/awardsV2/BaseContract';
+import BaseFinancialAssistance from "models/v2/awardsV2/BaseFinancialAssistance";
 
 jest.mock('helpers/searchHelper', () => require('./awardV2Helper'));
 

@@ -1,30 +1,31 @@
 /**
  * BaseFinancialAssistance-test.js
- * Created by Lizzie Salita 3/13/18
+ * Created by David Trinh 10/10/18
  */
 
-import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
+import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
 import CoreLocation from "models/v2/CoreLocation";
-import BaseAwardRecipient from "models/v2/awards/BaseAwardRecipient";
-import CoreAwardAgency from "models/v2/awards/CoreAwardAgency";
+import BaseAwardRecipient from "models/v2/awardsV2/BaseAwardRecipient";
+import CoreAwardAgency from "models/v2/awardsV2/CoreAwardAgency";
+import CorePeriodOfPerformance from 'models/v2/awardsV2/CorePeriodOfPerformance';
 
-import { mockLoanApi } from './mockAwardApi';
+import { mockLoan } from './mockAwardApi';
 
 const loan = Object.create(BaseFinancialAssistance);
-loan.populate(mockLoanApi);
+loan.populate(mockLoan);
 
 describe('Base Financial Assistance', () => {
     describe('monetary values', () => {
         it('should format the loan face value', () => {
-            expect(loan.faceValue).toEqual('$1,023');
+            expect(loan.faceValue).toEqual('$24,343');
         });
         it('should format the subsidy amount', () => {
-            expect(loan.subsidy).toEqual('$1,006');
+            expect(loan.subsidy).toEqual('$123');
         });
     });
     describe('cfdaProgram', () => {
         it('should format the CFDA fields', () => {
-            expect(loan.cfdaProgram).toEqual('789 - Mock CFDA Title');
+            expect(loan.cfdaProgram).toEqual('0.434 - Flood Insurance');
         });
     });
     describe('agencies', () => {
@@ -40,6 +41,11 @@ describe('Base Financial Assistance', () => {
     describe('Place of Performance', () => {
         it('should be an object with CoreLocation in its prototype chain', () => {
             expect(Object.getPrototypeOf(loan.placeOfPerformance)).toEqual(CoreLocation);
+        });
+    });
+    describe('Period of Performance', () => {
+        it('should be an object with CorePeriodOfPerformance in its prototype chain', () => {
+            expect(Object.getPrototypeOf(loan.periodOfPerformance)).toEqual(CorePeriodOfPerformance);
         });
     });
     describe('Recipient', () => {

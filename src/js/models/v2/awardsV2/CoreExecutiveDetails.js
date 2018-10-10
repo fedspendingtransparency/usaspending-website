@@ -7,29 +7,16 @@ import { formatMoney } from 'helpers/moneyFormatter';
 const parseExecutiveCompensation = (data) => {
     const executiveCompensation = {};
     if (data) {
-        if (Array.isArray(data)) {
-            data.forEach((officer, index) => {
-                const name = officer.name || '';
-                const amount = formatMoney(officer.amount) || 0;
-                if (name) {
-                    executiveCompensation[`officer${index + 1}`] = `${name} - ${amount}`;
-                }
-                else {
-                    executiveCompensation[`officer${index + 1}`] = '--';
-                }
-            });
-        } else {
-            for (let i = 1; i < 6; i++) {
-                const name = data[`officer_${i}_name`] || '';
-                const amount = formatMoney(data[`officer_${i}_amount`]) || 0;
-                if (name) {
-                    executiveCompensation[`officer${i}`] = `${name} - ${amount}`;
-                }
-                else {
-                    executiveCompensation[`officer${i}`] = '--';
-                }
+        data.forEach((officer, index) => {
+            const name = officer.name || '';
+            const amount = formatMoney(officer.amount) || 0;
+            if (name) {
+                executiveCompensation[`officer${index + 1}`] = `${name} - ${amount}`;
             }
-        }
+            else {
+                executiveCompensation[`officer${index + 1}`] = '--';
+            }
+        });
     }
     else {
         for (let i = 1; i < 6; i++) {

@@ -3,7 +3,7 @@
  * Created by David Trinh 10/6/18
  */
 
-import CorePeriodOfPerformance from 'models/v2/awards/CorePeriodOfPerformance';
+import CorePeriodOfPerformance from 'models/v2/awardsV2/CorePeriodOfPerformance';
 import { mockLoan } from './mockAwardApi';
 
 const periodOfPerformance = Object.create(CorePeriodOfPerformance);

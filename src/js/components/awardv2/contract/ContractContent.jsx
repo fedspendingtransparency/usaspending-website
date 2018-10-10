@@ -15,6 +15,7 @@ const propTypes = {
 
 export default class ContractContent extends React.Component {
     render() {
+        console.log(this.props.selectedAward.typeDescription);
         return (
             <div className="award-contract">
                 <div className="award-contract__heading">

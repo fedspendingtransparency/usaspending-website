@@ -67,7 +67,7 @@ export default class Award extends React.Component {
                 <StickyHeader>
                     {summaryBar}
                 </StickyHeader>
-                <main className="award-content">
+                <main className={!this.props.noAward ? "award-content" : ""}>
                     {content}
                 </main>
                 <Footer />

@@ -1,4 +1,3 @@
-
 /**
  * BaseAwardRecipient.js
  * Created by Kevin Li 2/22/18
