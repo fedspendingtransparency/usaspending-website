@@ -116,7 +116,7 @@ export const downloadOptions = [
         description: 'TODO',
         callToAction: 'Explore the Data Dictionary',
         newTab: false,
-        enabled: true,
+        enabled: false,
         externalLink: false
     }
 ];
