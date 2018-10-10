@@ -1,0 +1,27 @@
+.award-finance {
+    padding: rem(24) rem(10) rem(24) rem(30);
+    
+    .award-finance__heading {
+        text-transform: uppercase;
+        font-size: rem(24);
+
+        .award-finance__heading_bold {
+            font-weight: 600;
+        }
+
+    }
+
+    .award-finance__heading-divider {
+        border: solid 1px $color-dark-gray;
+    }
+
+    .award-finance__heading-glossary {
+        vertical-align: middle;
+        @include display(inline-flex);
+        svg {
+            width: rem(19);
+            height: rem(25);
+            fill: $color-gray-icon;
+        }
+    }
+}

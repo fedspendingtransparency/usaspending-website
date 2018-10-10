@@ -1,0 +1,16 @@
+.usa-da-award-v2-page {
+    @import "all";
+    @import "layouts/summary/summary";
+    @import "layouts/default/stickyHeader/header";
+
+    $color-gray-icon: #adafb4;
+    $color-dark-gray: #4a4a4a;
+
+    .award-content {
+        margin: rem(35) rem(40);
+        background-color: $color-white;
+        @import "./awardContract";
+        @import "./awardFinance";
+    }
+
+}

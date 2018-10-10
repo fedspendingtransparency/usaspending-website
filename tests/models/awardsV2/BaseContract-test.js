@@ -1,40 +1,28 @@
 /**
  * BaseContract-test.js
- * Created by Lizzie Salita 3/12/18
+ * Created by David Trinh 10/10/18
  */
 
-import BaseContract from 'models/v2/awards/BaseContract';
+import BaseContract from 'models/v2/awardsV2/BaseContract';
 import CoreLocation from "models/v2/CoreLocation";
-import BaseAwardRecipient from "models/v2/awards/BaseAwardRecipient";
-import CoreAwardAgency from "models/v2/awards/CoreAwardAgency";
-import BaseContractAdditionalDetails from "models/v2/awards/additionalDetails/BaseContractAdditionalDetails";
+import BaseAwardRecipient from "models/v2/awardsV2/BaseAwardRecipient";
+import CoreAwardAgency from "models/v2/awardsV2/CoreAwardAgency";
+import BaseContractAdditionalDetails from "models/v2/awardsV2/additionalDetails/BaseContractAdditionalDetails";
+import CorePeriodOfPerformance from 'models/v2/awardsV2/CorePeriodOfPerformance';
+import CoreExecutiveDetails from 'models/v2/awardsV2/CoreExecutiveDetails';
 
-import { mockContractApi } from './mockAwardApi';
+import { mockContract } from './mockAwardApi';
 
 const contract = Object.create(BaseContract);
-contract.populate(mockContractApi);
+contract.populate(mockContract);
 
 describe('BaseContract', () => {
     describe('monetary values', () => {
         it('should format the contract amount', () => {
-            expect(contract.amount).toEqual('$1,024');
+            expect(contract.amount).toEqual('$234,234');
         });
         it('should format the obligated amount', () => {
-            expect(contract.obligation).toEqual('$1,023');
-        });
-    });
-    describe('awardType', () => {
-        it('should return the idv type for the idv category', () => {
-            const mockIdv = Object.assign({}, mockContractApi, {
-                category: null
-            });
-            const idv = Object.create(BaseContract);
-            idv.populate(mockIdv);
-
-            expect(idv.awardType).toEqual('mock idv type');
-        });
-        it('should return the contract type otherwise', () => {
-            expect(contract.awardType).toEqual('mock contract type');
+            expect(contract.obligation).toEqual('$123,231,313');
         });
     });
     describe('agencies', () => {
@@ -52,6 +40,11 @@ describe('BaseContract', () => {
             expect(Object.getPrototypeOf(contract.placeOfPerformance)).toEqual(CoreLocation);
         });
     });
+    describe('Period of Performance', () => {
+        it('should be an object with CorePeriodOfPerformance in its prototype chain', () => {
+            expect(Object.getPrototypeOf(contract.periodOfPerformance)).toEqual(CorePeriodOfPerformance);
+        });
+    });
     describe('Recipient', () => {
         it('should be an object with BaseAwardRecipient in its prototype chain', () => {
             expect(Object.getPrototypeOf(contract.recipient)).toEqual(BaseAwardRecipient);
@@ -60,6 +53,11 @@ describe('BaseContract', () => {
     describe('Additional Details', () => {
         it('should be an object with BaseContractAdditionalDetails in its prototype chain', () => {
             expect(Object.getPrototypeOf(contract.additionalDetails)).toEqual(BaseContractAdditionalDetails);
+        });
+    });
+    describe('Executive Details', () => {
+        it('should be an object with CoreExecutiveDetails in its prototype chain', () => {
+            expect(Object.getPrototypeOf(contract.executiveDetails)).toEqual(CoreExecutiveDetails);
         });
     });
 });
