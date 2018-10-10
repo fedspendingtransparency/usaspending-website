@@ -130,7 +130,7 @@ export default class BudgetFunctionFilter extends React.Component {
                     value={budgetSubfunction.budget_subfunction_code}
                     onClick={this.handleBudgetSubfunctionSelect}
                     name={budgetSubfunction.budget_subfunction_title} >
-                    {budgetSubfunction.budget_subfunction_code} - {budgetSubfunction.budget_subfunction_title}
+                    {budgetSubfunction.budget_subfunction_title} - {budgetSubfunction.budget_subfunction_code}
                 </button>
             </li>
         ));

@@ -12,19 +12,6 @@
             @include span-columns(9);
         }
         margin-bottom: rem(30);
-        .download-center__heading {
-            @include display(flex);
-            @include align-items(flex-start);
-            .download-center__beta {
-                @include display(flex);
-                @include flex(0 0 auto);
-                margin: rem(5) 0 0 rem(30);
-                background-color: $color-gray-lightest;
-                height: fit-content;
-                padding: rem(2) rem(10);
-                font-size: $small-font-size;
-            }
-        }
         .download-center__title {
             @include display(flex);
             @include flex(1 1 auto);
