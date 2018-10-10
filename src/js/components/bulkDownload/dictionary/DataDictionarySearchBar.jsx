@@ -73,7 +73,7 @@ export default class DataDictionarySearchBar extends React.Component {
                         type="text"
                         value={this.state.term}
                         onChange={this.onChange}
-                        placeholder="Enter a term to find it..." />
+                        placeholder="Search by Term" />
                     <button
                         aria-label="Search"
                         className="dictionary-search__button"

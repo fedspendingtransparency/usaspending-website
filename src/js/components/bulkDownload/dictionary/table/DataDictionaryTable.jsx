@@ -79,31 +79,8 @@ export default class DataDictionaryTable extends React.Component {
         return columns;
     }
 
-    generateBody() {
-        if (this.props.loading) {
-            return (
-                <tbody className="dictionary-table__message">
-                    <tr>
-                        <td>
-                            Loading...
-                        </td>
-                    </tr>
-                </tbody>
-            );
-        }
-        if (this.props.error) {
-            return (
-                <tbody className="dictionary-table__message">
-                    <tr>
-                        <td>
-                            There was an error loading your results.
-                        </td>
-                    </tr>
-                </tbody>
-            );
-        }
-
-        const rows = [];
+    generateRows() {
+        let rows = [];
         this.props.rows.forEach((row, i) => {
             if (this.props.searchTerm) {
                 const rowMatch = row.find((data) => data.toLowerCase().match(this.props.searchTerm.toLowerCase()));
@@ -127,11 +104,20 @@ export default class DataDictionaryTable extends React.Component {
                 );
             }
         });
-        return (
-            <tbody className="dictionary-table__body">
-                {rows}
-            </tbody>
-        );
+
+        if (rows.length === 0 && this.props.searchTerm) {
+            rows = (
+                <tr className="dictionary-table__body-row">
+                    <td
+                        className="dictionary-table__body-cell dictionary-table__body-cell_message"
+                        colSpan={this.props.columns.length}>
+                        No terms matched your search.
+                    </td>
+                </tr>
+            );
+        }
+
+        return rows;
     }
 
     generateRow(row) {
@@ -165,18 +151,47 @@ export default class DataDictionaryTable extends React.Component {
     }
 
     render() {
+        let message = null;
+        let table = null;
+
+        if (this.props.loading) {
+            message = (
+                <div className="dictionary-table__message">
+                    Loading...
+                </div>
+            );
+        }
+
+        else if (this.props.error) {
+            message = (
+                <div className="dictionary-table__message">
+                    There was an error loading your results.
+                </div>
+            );
+        }
+
+        else {
+            table = (
+                <table className="dictionary-table__content">
+                    <thead className="dictionary-table__head">
+                        <tr className="dictionary-table__head-row">
+                            {this.generateSectionHeadings()}
+                        </tr>
+                        <tr className="dictionary-table__head-row">
+                            {this.generateColumnHeadings()}
+                        </tr>
+                    </thead>
+                    <tbody className="dictionary-table__body">
+                        {this.generateRows()}
+                    </tbody>
+                </table>
+            );
+        }
+
         return (
-            <table className="dictionary-table">
-                <thead className="dictionary-table__head">
-                    <tr className="dictionary-table__head-row">
-                        {this.generateSectionHeadings()}
-                    </tr>
-                    <tr className="dictionary-table__head-row">
-                        {this.generateColumnHeadings()}
-                    </tr>
-                </thead>
-                {this.generateBody()}
-            </table>
+            <div className="dictionary-table">
+                {message || table}
+            </div>
         );
     }
 }
