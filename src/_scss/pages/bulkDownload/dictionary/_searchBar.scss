@@ -7,7 +7,10 @@
         @include align-items(center);
         @include justify-content(flex-end);
         .dictionary-search__input {
-            @include flex(0 0 auto);
+            @include flex(1 1 auto);
+            @include media($medium-screen) {
+                @include flex(0 0 50%);
+            }
             padding: rem(10);
             border: solid rem(1) $color-gray-lighter;
             border-right: 0;
