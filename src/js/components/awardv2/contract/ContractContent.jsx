@@ -8,6 +8,9 @@ import PropTypes from 'prop-types';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
+import AwardRecipient from './AwardRecipient';
+
+
 const propTypes = {
     selectedAward: PropTypes.object,
     inFlight: PropTypes.bool
@@ -15,13 +18,13 @@ const propTypes = {
 
 export default class ContractContent extends React.Component {
     render() {
-        console.log(this.props.selectedAward.typeDescription);
         return (
             <div className="award-contract">
                 <div className="award-contract__heading">
                     <span className="award-contract__heading_bold">{this.props.selectedAward.typeDescription}</span> <div className="award-contract__heading-glossary"><Icons.Glossary /></div> | {this.props.selectedAward.id}
                     <hr className="award-contract__heading-divider" />
                 </div>
+                <AwardRecipient selectedAward={this.props.selectedAward} />
             </div>
         );
     }

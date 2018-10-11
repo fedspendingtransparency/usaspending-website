@@ -1,5 +1,6 @@
 .award-contract {
     padding: rem(24) rem(10) rem(24) rem(30);
+    @import "./_awardOverview";
     
     .award-contract__heading {
         text-transform: uppercase;
