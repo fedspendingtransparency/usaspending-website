@@ -193,11 +193,10 @@ This endpoint returns a the count of new awards grouped by time period in ascend
 
 ## ParentRecipient (object)
 + `parent_name`: The XYZ Corporation (required, string, nullable)
-    Parent recipient's name. `null` if the recipient does not have a parent recipient.
 + `parent_duns`: `001006361` (required, string, nullable)
-    Parent recipient's DUNS number. `null` if the recipient does not have a parent recipient, or the parent recipient's DUNS is not provided.
+    DUNS number
 + `parent_id`: `0036a0cb-0d88-2db3-59e0-0f9af8ffef57-P` (required, string, nullable)
-    A unique identifier for the parent recipient. `null` if the recipient does not have a parent recipient.
+    A unique identifier for the parent recipient.
 
 ## ChildRecipient (object)
 + name: Child of ABC Corporation (required, string, nullable)
