@@ -237,7 +237,8 @@ export class DetailContentContainer extends React.Component {
         const activeScreen = {
             total,
             within: request.within,
-            subdivision: request.subdivision
+            subdivision: request.subdivision,
+            accountNumber: request.accountNumber || ''
         };
 
         if (this.state.transitionSteps !== 0) {
@@ -347,7 +348,8 @@ export class DetailContentContainer extends React.Component {
             within: this.props.explorer.active.subdivision,
             subdivision: nextSubdivision,
             title: data.name,
-            id: data.id
+            id: data.id,
+            accountNumber: data.account_number || ''
         };
 
         this.props.resetExplorerTable();

@@ -61,7 +61,7 @@ export const recipientTypes = {
     'nonprofit': 'Nonprofit',
     'foundation': 'Foundation',
     'community_development_corporations': 'Community Development Corporations',
-    'educational_institution': 'Higher Education',
+    'higher_education': 'Higher Education',
     'public_institution_of_higher_education': 'Public Institution of Higher Education',
     'private_institution_of_higher_education': 'Private Institution of Higher Education',
     'minority_serving_institution_of_higher_education': 'Minority-Serving Institution of Higher Education',
@@ -139,7 +139,7 @@ export const recipientTypeGroups = {
         'foundation',
         'community_development_corporations'
     ],
-    educational_institution: [
+    higher_education: [
         'public_institution_of_higher_education',
         'private_institution_of_higher_education',
         'minority_serving_institution_of_higher_education',
@@ -169,7 +169,7 @@ export const groupKeys = [
     'veteran_owned_business',
     'special_designations',
     'nonprofit',
-    'educational_institution',
+    'higher_education',
     'government',
     'individuals'];
 
@@ -180,7 +180,7 @@ export const groupLabels = {
     veteran_owned_business: 'Veteran Owned Business',
     special_designations: 'Special Designations',
     nonprofit: 'Nonprofit',
-    educational_institution: 'Higher Education',
+    higher_education: 'Higher Education',
     government: 'Government',
     individuals: 'Individuals'
 };

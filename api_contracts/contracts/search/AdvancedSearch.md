@@ -69,7 +69,7 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
             + `fiscal_year`
             + `quarter`
             + `month`
-        + results: (array[TimeResult], fixed-type)
+        + results (array[TimeResult], fixed-type)
 
 # Data Structures
 
@@ -82,7 +82,7 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 + amount: 591230394.12 (required, number)
 
 ## TimeResult (object)
-+ time_period: (TimePeriodGroup)
++ time_period (required, TimePeriodGroup)
 + aggregated_amount: 200000000 (required, number)
     The aggregate award amount for this time period and the given filters.
 
@@ -92,35 +92,35 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 + hasPrevious: false (required, boolean)
 
 ## FilterObject (object)
-+ keywords: zombie, pizza (optional, array[string])
++ keywords: pizza (optional, array[string])
 + time_period (optional, array[TimePeriodObject], fixed-type)
 + place_of_performance_scope: domestic (optional, enum[string])
     + domestic
     + foreign
 + place_of_performance_locations (optional, array[LocationObject], fixed-type)
 + agencies (optional, array[AgencyObject])
-+ recipient_search_text: kearney (optional, array[string])
-+ recipient_id: `123ABC-R` (optional, string)
++ recipient_search_text: Hampton (optional, array[string])
++ recipient_id (optional, string)
     A hash of recipient DUNS, name, and level. A unique identifier for recipients, used for profile page urls.
 + recipient_scope: domestic (optional, enum[string])
     + domestic
     + foreign
 + recipient_locations (optional, array[LocationObject])
-+ recipient_type_names: Small Business (optional, array[string])
++ recipient_type_names: `category_business` (optional, array[string])
     See options at https://github.com/fedspendingtransparency/usaspending-api/wiki/Recipient-Business-Types
-+ award_type_codes: A, B, 03 (optional, array[string])
-+ award_ids: 1605SS17F00018, P063P151708, `AID-OFDA-G-14-00121-01` (optional, array[string])
++ award_type_codes: A, B, C, D (optional, array[string])
++ award_ids: SPE30018FLGFZ, SPE30018FLJFN (optional, array[string])
 + award_amounts (optional, array[AwardAmounts])
-+ program_numbers: 10.553 (optional, array[string])
-+ naics_codes: 336411 (optional, array[string])
-+ psc_codes: 1510 (optional, array[string])
-+ contract_pricing_type_codes: SAMPLECODE123 (optional, array[string])
-+ set_aside_type_codes: SAMPLECODE123 (optional, array[string])
-+ extent_competed_type_codes: SAMPLECODE123 (optional, array[string])
++ program_numbers: 10.331 (optional, array[string])
++ naics_codes: 311812 (optional, array[string])
++ psc_codes: 8940, 8910 (optional, array[string])
++ contract_pricing_type_codes: J (optional, array[string])
++ set_aside_type_codes: NONE (optional, array[string])
++ extent_competed_type_codes: A (optional, array[string])
 
 ## TimePeriodObject (object)
-+ start_date: `2016-10-01` (required, string)
-+ end_date: `2017-09-30` (required, string)
++ start_date: `2017-10-01` (required, string)
++ end_date: `2018-09-30` (required, string)
 + `date_type`: `action_date` (optional, enum[string])
     + action_date
     + last_modified_date
@@ -144,8 +144,8 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 + tier: toptier (required, enum[string])
     + `toptier`
     + `subtier`
-+ name: `Office of Pizza` (required, string)
++ name: `Department of Defense` (required, string)
 
 ## AwardAmounts (object)
-+ lower_bound: 5000.50 (optional, number)
-+ upper_bound: 6000.50 (optional, number)
++ lower_bound (optional, number)
++ upper_bound: 1000000 (optional, number)

@@ -424,3 +424,10 @@ CaretRight.defaultProps = {
     iconClass: 'usa-da-caret-right',
     alt: 'Icon Depicting an Caret Pointing Right'
 };
+
+export class Spreadsheet extends BaseIcon {}
+Spreadsheet.defaultProps = {
+    iconName: 'usa-da-spreadsheet',
+    iconClass: 'usa-da-spreadsheet',
+    alt: 'Icon Depicting a Spreadsheet'
+};

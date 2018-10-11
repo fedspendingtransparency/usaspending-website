@@ -3,6 +3,8 @@
     @import "layouts/search/search";
     @import "layouts/default/stickyHeader/header";
 
+    @import "./form/downloadForm";
+
     .bulk-download {
         @import "../../mixins/fullSectionWrap";
         @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
@@ -24,6 +26,7 @@
         .bulk-download__data {
             @import "downloadData";
             @import "archive/archive";
+            @import "dictionary/dictionary";
             @include span-columns(16);
             @include media($medium-screen) {
                 @include span-columns(12);

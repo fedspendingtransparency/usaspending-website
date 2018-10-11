@@ -78,7 +78,7 @@ export const downloadOptions = [
     {
         label: 'Agency Submission Files',
         type: 'snapshots',
-        url: 'http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/',
+        url: `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/agency_submissions/`,
         code: 'submission',
         description: 'Raw, unadulterated data submitted by federal agencies in compliance with the DATA Act.',
         callToAction: 'Download Raw Files',
@@ -89,7 +89,7 @@ export const downloadOptions = [
     {
         label: 'Database Download',
         type: '',
-        url: 'http://usaspending-db.s3-website-us-gov-west-1.amazonaws.com',
+        url: `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/database_download/`,
         code: 'database',
         description: 'Our entire database available as a download – the most complete download option available for advanced users.',
         callToAction: 'Explore Database Download',
@@ -105,6 +105,17 @@ export const downloadOptions = [
         description: 'An automated way for advanced users to access all the data behind USAspending.gov. Accessible documentation includes tutorials, best practices, and more.',
         callToAction: 'Explore Our API',
         newTab: true,
+        enabled: true,
+        externalLink: false
+    },
+    {
+        label: 'Data Dictionary',
+        type: 'data_dictionary',
+        url: '#/download_center/data_dictionary',
+        code: 'dictionary',
+        description: 'TODO',
+        callToAction: 'Explore the Data Dictionary',
+        newTab: false,
         enabled: true,
         externalLink: false
     }
