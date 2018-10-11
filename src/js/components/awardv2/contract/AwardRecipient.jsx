@@ -21,7 +21,7 @@ export default class AwardRecipient extends React.Component {
                     <span className="award-overview__awarding-detail">{`${award.awardingAgency.toptierName} ${award.awardingAgency.toptierAbbr}`}</span>
                 </div>
                 <div className="award-overview__recipient">
-                    <span className="award-overview__recipient_title">Recipient</span>
+                    <span className="award-overview__recipient-title">Recipient</span> <br />
                     <span className="award-overview__recipient-detail">{award.recipient.name}</span>
                 </div>
             </div>
