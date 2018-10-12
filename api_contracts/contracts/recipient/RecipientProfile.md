@@ -142,6 +142,7 @@ This endpoint returns a the count of new awards grouped by time period in ascend
     Recipient's DUNS (Data Universal Numbering System) number. `null` when no DUNS is provided.
 + `recipient_id`: `0036a0cb-0d88-2db3-59e0-0f9af8ffef57-C` (required, string)
     A unique identifier for the recipient.
++  parents: (required, array[ParentRecipient], fixed-type)
 + `parent_name`: The XYZ Corporation (required, string, nullable)
     Parent recipient's name. `null` if the recipient does not have a parent recipient.
 + `parent_duns`: `001006361` (required, string, nullable)
@@ -189,6 +190,13 @@ This endpoint returns a the count of new awards grouped by time period in ascend
      Code for the country in which the recipient is located.
 + `congressional_code`: `05` (required, string, nullable)
     Number for the recipient's congressional district.
+
+## ParentRecipient (object)
++ `parent_name`: The XYZ Corporation (required, string, nullable)
++ `parent_duns`: `001006361` (required, string, nullable)
+    DUNS number
++ `parent_id`: `0036a0cb-0d88-2db3-59e0-0f9af8ffef57-P` (required, string, nullable)
+    A unique identifier for the parent recipient.
 
 ## ChildRecipient (object)
 + name: Child of ABC Corporation (required, string, nullable)
