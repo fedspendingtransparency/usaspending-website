@@ -5,29 +5,49 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { startCase } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
+import AwardAmounts from '../visualizations/amounts/AwardAmounts';
+import AwardDescription from "../visualizations/description/AwardDescription";
 
 import AwardRecipient from './AwardRecipient';
 
 
 const propTypes = {
     selectedAward: PropTypes.object,
-    inFlight: PropTypes.bool
+    inFlight: PropTypes.bool,
+    id: PropTypes.string
 };
 
 export default class ContractContent extends React.Component {
     render() {
+        // TODO: determine glossary term for link
         return (
-            <div className="award-contract">
-                <div className="award-contract__heading">
-                    <span className="award-contract__heading_bold">{this.props.selectedAward.typeDescription}</span> <div className="award-contract__heading-glossary"><Icons.Glossary /></div> | {this.props.selectedAward.id}
-                    <hr className="award-contract__heading-divider" />
+            <div className="award award-contract">
+                <div className="award__heading">
+                    <div className="award__heading-text">{startCase(this.props.selectedAward.typeDescription)}</div>
+                    <div className="award__heading-glossary">
+                        <a href={`#/award_v2/${this.props.id}/?glossary=contract`}>
+                            <Icons.Glossary />
+                        </a>
+                    </div>
+                    <div className="award__heading-id">
+                        {this.props.selectedAward.id}
+                    </div>
                 </div>
-                <AwardRecipient selectedAward={this.props.selectedAward} />
+                <hr className="award__divider" />
+                <div className="award__row">
+                    <AwardRecipient selectedAward={this.props.selectedAward} />
+                </div>
+                <div className="award__row">
+                    <AwardAmounts
+                        award={this.props.selectedAward} />
+                    <AwardDescription
+                        award={this.props.selectedAward} />
+                </div>
             </div>
         );
     }
 }
 ContractContent.propTypes = propTypes;
-
