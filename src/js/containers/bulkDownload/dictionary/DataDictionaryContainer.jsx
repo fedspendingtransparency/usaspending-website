@@ -18,6 +18,7 @@ export default class DataDictionaryContainer extends React.Component {
             sections: [],
             columns: [],
             rows: [],
+            downloadLocation: '',
             sort: {
                 field: '',
                 direction: ''
@@ -60,6 +61,7 @@ export default class DataDictionaryContainer extends React.Component {
                 this.setState({
                     sections: content.sections,
                     columns: content.headers,
+                    downloadLocation: content.metadata.download_location,
                     inFlight: false,
                     error: false
                 }, () => this.parseRows(content.rows));
@@ -115,12 +117,7 @@ export default class DataDictionaryContainer extends React.Component {
     render() {
         return (
             <DataDictionary
-                loading={this.state.inFlight}
-                error={this.state.error}
-                sections={this.state.sections}
-                columns={this.state.columns}
-                rows={this.state.rows}
-                sort={this.state.sort}
+                {...this.state}
                 changeSort={this.changeSort}
                 setSearchString={this.setSearchString}
                 searchTerm={this.state.searchTerm} />
