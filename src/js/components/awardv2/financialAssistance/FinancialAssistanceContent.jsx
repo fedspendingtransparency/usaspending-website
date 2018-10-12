@@ -16,10 +16,10 @@ const propTypes = {
 export default class FinancialAssistanceContent extends React.Component {
     render() {
         return (
-            <div className="award-finance">
-                <div className="award-finance__heading">
-                    <span className="award-finance__heading_bold">{this.props.selectedAward.typeDescription}</span> <div className="award-finance__heading-glossary"><Icons.Glossary /></div> | {this.props.selectedAward.id}
-                    <hr className="award-finance__heading-divider" />
+            <div className="award-financial-assistance">
+                <div className="award__heading">
+                    <span className="award__heading_bold">{this.props.selectedAward.typeDescription}</span> <div className="award__heading-glossary"><Icons.Glossary /></div> | {this.props.selectedAward.id}
+                    <hr className="award__heading-divider" />
                 </div>
             </div>
         );

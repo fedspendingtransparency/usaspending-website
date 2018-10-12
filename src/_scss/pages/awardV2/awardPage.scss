@@ -3,14 +3,64 @@
     @import "layouts/summary/summary";
     @import "layouts/default/stickyHeader/header";
 
-    $color-gray-icon: #adafb4;
-    $color-dark-gray: #4a4a4a;
-
     .award-content {
         margin: rem(35) rem(40);
         background-color: $color-white;
+
+        // Shared award summary styles
+        .award {
+            padding: rem(24) rem(10) rem(24) rem(30);
+
+            .award__heading {
+                text-transform: uppercase;
+                font-size: rem(24);
+
+                .award-contract__heading_bold {
+                    font-weight: 600;
+                }
+
+            }
+
+            .award__heading-divider {
+                border: solid 1px $color-gray;
+            }
+
+            .award__heading-glossary {
+                vertical-align: middle;
+                @include display(inline-flex);
+                svg {
+                    width: rem(19);
+                    height: rem(25);
+                    fill: $color-gray-light;
+                }
+            }
+
+            .award__row {
+                @include display(flex);
+                @include flex-wrap(wrap);
+                @include justify-content(space-between);
+                @include align-items(flex-start);
+                @include media($medium-screen) {
+                    @include flex-wrap(nowrap);
+                }
+                .award__col {
+                    @include flex(1 1 auto);
+                    @include media($medium-screen) {
+                        @include flex(0 0 50%);
+                    }
+                    &:first-child {
+                        padding-right: rem(15);
+                    }
+                    &:last-child {
+                        padding-left: rem(15);
+                    }
+                }
+                @import "./visualizations/awardViz";
+            }
+        }
+
         @import "./awardContract";
-        @import "./awardFinance";
+        @import "./awardFinancialAssistance";
     }
 
 }

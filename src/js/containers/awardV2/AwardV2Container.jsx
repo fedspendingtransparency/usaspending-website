@@ -22,7 +22,8 @@ require('pages/awardV2/awardPage.scss');
 
 const propTypes = {
     setSelectedAward: PropTypes.func,
-    params: PropTypes.object
+    params: PropTypes.object,
+    award: PropTypes.object
 };
 
 export class AwardContainer extends React.Component {

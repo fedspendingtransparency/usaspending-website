@@ -17,7 +17,6 @@ import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import Error from '../sharedComponents/Error';
 
-
 const propTypes = {
     award: PropTypes.object,
     noAward: PropTypes.bool,
@@ -43,10 +42,11 @@ export default class Award extends React.Component {
                 );
             }
             else {
-                content = (<FinancialAssitanceContent
-                    {...this.props}
-                    inFlight={this.props.inFlight}
-                    selectedAward={this.props.award.selectedAward} />
+                content = (
+                    <FinancialAssitanceContent
+                        {...this.props}
+                        inFlight={this.props.inFlight}
+                        selectedAward={this.props.award.selectedAward} />
                 );
             }
         }
@@ -75,4 +75,5 @@ export default class Award extends React.Component {
         );
     }
 }
+
 Award.propTypes = propTypes;
