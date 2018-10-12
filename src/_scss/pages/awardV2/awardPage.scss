@@ -12,27 +12,42 @@
             padding: rem(24) rem(10) rem(24) rem(30);
 
             .award__heading {
-                text-transform: uppercase;
+                @include display(flex);
+                @include align-items(center);
                 font-size: rem(24);
-
-                .award-contract__heading_bold {
-                    font-weight: 600;
+                .award__heading-text {
+                    @include display(flex);
+                    @include flex(0 0 auto);
+                    font-weight: $font-semibold;
                 }
-
+                .award__heading-glossary {
+                    @include display(flex);
+                    @include flex(0 0 auto);
+                    padding: 0 rem(20) 0 rem(9);
+                    border-right: solid rem(2) $color-gray;
+                    a {
+                        width: rem(19);
+                        height: rem(25);
+                        svg {
+                            width: rem(19);
+                            height: rem(25);
+                            fill: $color-gray-light;
+                        }
+                        &:hover {
+                            cursor: pointer;
+                            svg {
+                                fill: $color-link;
+                            }
+                        }
+                    }
+                }
+                .award__heading-id {
+                    padding-left: rem(20);
+                }
             }
 
-            .award__heading-divider {
+            .award__divider {
                 border: solid 1px $color-gray;
-            }
-
-            .award__heading-glossary {
-                vertical-align: middle;
-                @include display(inline-flex);
-                svg {
-                    width: rem(19);
-                    height: rem(25);
-                    fill: $color-gray-light;
-                }
             }
 
             .award__row {
@@ -40,6 +55,7 @@
                 @include flex-wrap(wrap);
                 @include justify-content(space-between);
                 @include align-items(flex-start);
+                padding: rem(20) 0 rem(40);
                 @include media($medium-screen) {
                     @include flex-wrap(nowrap);
                 }

@@ -20,7 +20,8 @@ import Error from '../sharedComponents/Error';
 const propTypes = {
     award: PropTypes.object,
     noAward: PropTypes.bool,
-    inFlight: PropTypes.bool
+    inFlight: PropTypes.bool,
+    id: PropTypes.string
 };
 
 export default class Award extends React.Component {
