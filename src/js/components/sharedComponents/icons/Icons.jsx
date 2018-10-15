@@ -431,3 +431,11 @@ Spreadsheet.defaultProps = {
     iconClass: 'usa-da-spreadsheet',
     alt: 'Icon Depicting a Spreadsheet'
 };
+
+export class DollarSign extends BaseIcon {}
+DollarSign.defaultProps = {
+    iconName: 'usa-da-dollar-sign',
+    iconClass: 'usa-da-dollar-sign',
+    alt: 'Icon Depicting a Dollar Sign'
+};
+

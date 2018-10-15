@@ -1,5 +1,37 @@
 &.award-amounts {
     .award-amounts__content {
-        color: $color-primary-darker;
+        table.amounts-table {
+            margin: rem(15) 0;
+            font-size: $small-font-size;
+            border-collapse: separate;
+            border: solid rem(1) $color-gray-light;
+            border-radius: rem(5);
+            -moz-border-radius: rem(5);
+            tbody.amounts-table__body {
+                tr.amounts-table__row {
+                    td.amounts-table__data {
+                        padding: rem(8) rem(15);
+                        border: 0;
+                        border-bottom: solid $color-gray-light rem(1);
+                        background-color: transparent;
+                        text-align: right;
+                        font-weight: $font-light;
+                        &.amounts-table__data_title {
+                            text-align: left;
+                            font-weight: $font-normal;
+                            .amounts-table__subtitle {
+                                font-style: italic;
+                                font-weight: $font-light;
+                            }
+                        }
+                    }
+                    &:last-child {
+                        td.amounts-table__data {
+                            border-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

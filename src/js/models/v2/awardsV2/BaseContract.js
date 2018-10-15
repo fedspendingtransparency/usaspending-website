@@ -128,5 +128,10 @@ Object.defineProperty(BaseContract, 'obligation', {
         return formatMoney(this._obligation);
     }
 });
+Object.defineProperty(BaseContract, 'remaining', {
+    get() {
+        return formatMoney(this._obligation - this._amount);
+    }
+});
 
 export default BaseContract;

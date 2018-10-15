@@ -6,10 +6,10 @@
         @include align-items(center);
         .award-viz__icon {
             @include flex(0 0 auto);
-            height: rem(20);
-            width: rem(20);
             margin-right: rem(9);
             svg {
+                height: rem(20);
+                width: rem(20);
                 fill: $color-gray;
             }
         }
