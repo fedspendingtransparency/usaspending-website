@@ -55,6 +55,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
 + executive_details (required, Executive, fixed-type)
++ current_total_value_award (required, number)
 
 ## Agency (object)
 + toptier_agency (required, TopTierAgency, nullable)
@@ -83,6 +84,10 @@ This endpoint returns a list of data that is associated with the award profile p
     The starting date of the contract in the format `YYYY-MM-DD`
 + period_of_performance_current_end_date: `2005-02-19` (required, string)
     The ending date of the contract in the format `YYYY-MM-DD`
++ action_date: `2301-01-20` (required, string)
+    The date the award was awarded on
++ last_modified_date: `2301-02-20` (required, string)
++ potential_end_date: `2301-02-23` (required, string)
 
 ## Location
 + address_line1: `123 Sesame St` (required, string, nullable)

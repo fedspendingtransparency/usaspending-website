@@ -1,7 +1,7 @@
 .award-overview {
 
-    @include display(flex);
     width: 50%;
+    @include display(flex);
 
     .award-overview__awarding {
         background-color: #F5FBFC;
@@ -42,7 +42,6 @@
     .award-overview__recipient {
         height: rem(134);
         padding: rem(11) 0 0 rem(60);
-        width: 50%;
     }
 
     .award-overview__recipient-title {

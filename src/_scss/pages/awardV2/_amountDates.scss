@@ -1,0 +1,92 @@
+.award-amountdates {
+
+    @include display(flex);
+    @include justify-content(space-between);
+
+    .award-amountdates__amounts {
+        padding-top: rem(11);
+        width: 45%;
+        display: inline-block;
+    }
+    
+
+    .award-amountdates__amounts-heading {
+        @include display(flex);
+        @include justify-content(space-between);
+        width: 100%;
+    }
+
+    .award-amountdates__amounts-title {
+        font-size: rem(14);
+        font-weight: $font-semibold;
+    }
+    .award-amountdates__amounts-remaining {
+        font-size: rem(12);
+        text-transform: uppercase;
+    }
+
+    .award-amountdates__amounts-remaining-text {
+        padding-left: rem(2);
+        font-weight: $font-light;
+        text-transform: uppercase;
+    }
+
+    .award-amountdates__amounts-info {
+        padding-right: rem(3);
+        cursor: pointer;
+        svg {
+            width: rem(14);
+            height: rem(14);
+            fill: $color-gray-light;
+        }
+    }
+    
+    .award-amountdates__amounts-stats {
+        height: rem(3);
+        margin: rem(16) 0 rem(7) 0;
+    }
+
+    .award-amountdates__amounts-details-container {
+        @include display(flex);
+        @include flex-direction(column);
+        line-height: 1.39;
+        font-weight: $font-light;
+    }
+
+    .award-amountdates__amounts-details {
+        @include display(flex);
+        @include justify-content(space-between);
+        text-transform: capitalize;
+    }
+
+    %award-amountdates__amounts-circle {
+        height: rem(6);
+        width: rem(6);
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: rem(6);
+    }
+
+    .award-amountdates__amounts-circle_blue {
+        @extend %award-amountdates__amounts-circle;
+        background-color: #4773aa;
+    }
+
+    .award-amountdates__amounts-circle_gray {
+        @extend %award-amountdates__amounts-circle;
+        background-color: #c1ccda;
+    }
+
+    .award-amountdates__amounts-circle_light-gray {
+        @extend %award-amountdates__amounts-circle;
+        background-color: #ececec;
+    }
+
+    .award-amountdates__amounts-circle_dark-gray{
+        @extend %award-amountdates__amounts-circle;
+        background-color: #9B9B9B;
+    }
+
+   
+}

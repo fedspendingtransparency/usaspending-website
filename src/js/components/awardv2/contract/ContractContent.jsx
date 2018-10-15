@@ -12,6 +12,7 @@ import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 import AwardDescription from "../visualizations/description/AwardDescription";
 
 import AwardRecipient from './AwardRecipient';
+import AmountDates from './AmountDates';
 
 
 const propTypes = {
@@ -39,6 +40,7 @@ export default class ContractContent extends React.Component {
                 <hr className="award__divider" />
                 <div className="award__row">
                     <AwardRecipient selectedAward={this.props.selectedAward} />
+                    <AmountDates selectedAward={this.props.selectedAward} />
                 </div>
                 <div className="award__row">
                     <AwardAmounts

@@ -19,10 +19,13 @@ contract.populate(mockContract);
 describe('BaseContract', () => {
     describe('monetary values', () => {
         it('should format the contract amount', () => {
-            expect(contract.amount).toEqual('$234,234');
+            expect(contract.amount).toEqual('$234.23 thousand');
         });
         it('should format the obligated amount', () => {
-            expect(contract.obligation).toEqual('$123,231,313');
+            expect(contract.obligation).toEqual('$123.23 million');
+        });
+        it('should format the current total amount', () => {
+            expect(contract.currentTotal).toEqual('$1,000');
         });
     });
     describe('agencies', () => {
