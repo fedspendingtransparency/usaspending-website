@@ -20,12 +20,14 @@ const propTypes = {
 export default class FinancialAssistanceContent extends React.Component {
     render() {
         // TODO: determine glossary term for link
+        const type = this.props.selectedAward.typeDescription;
+        const category = this.props.selectedAward.category;
         return (
             <div className="award award-financial-assistance">
                 <div className="award__heading">
-                    <div className="award__heading-text">{startCase(this.props.selectedAward.typeDescription)}</div>
+                    <div className="award__heading-text">{startCase(type)}</div>
                     <div className="award__heading-glossary">
-                        <a href={`#/award_v2/${this.props.id}/?glossary=grant`}>
+                        <a href={`#/award_v2/${this.props.id}/?glossary=${category}`}>
                             <Icons.Glossary />
                         </a>
                     </div>

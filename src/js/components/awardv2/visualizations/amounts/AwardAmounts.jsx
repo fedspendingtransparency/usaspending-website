@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { otherAmounts, loanAmounts, grantAmounts } from 'dataMapping/award/awardAmounts';
-import { DollarSign, Table } from 'components/sharedComponents/icons/Icons';
+import { DollarSign } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     award: PropTypes.object
@@ -31,7 +31,7 @@ export default class AwardAmounts extends React.Component {
             const subtitle = data.subtitle ? (<span className="amounts-table__subtitle">({data.subtitle})</span>) : null;
             return (
                 <tr
-                    key={data.name}
+                    key={data.display}
                     className="amounts-table__row">
                     <td className="amounts-table__data amounts-table__data_title">{key} {data.display} {subtitle}</td>
                     <td className="amounts-table__data">{this.props.award[data.name] || '--'}</td>
@@ -58,16 +58,6 @@ export default class AwardAmounts extends React.Component {
                             {this.generateRows()}
                         </tbody>
                     </table>
-                    <a
-                        href="/"
-                        className="award-viz__link">
-                        <div className="award-viz__link-icon">
-                            <Table />
-                        </div>
-                        <div className="award-viz__link-text">
-                            View transactions table
-                        </div>
-                    </a>
                 </div>
             </div>
         );
