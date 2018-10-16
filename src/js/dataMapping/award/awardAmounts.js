@@ -3,8 +3,6 @@
  * Created by Lizzie Salita 10/15/18
  */
 
-// TODO - Lizzie: fill in missing fields
-
 export const otherAmounts = [
     {
         name: 'fundingObligated',
