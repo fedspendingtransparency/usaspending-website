@@ -7,7 +7,7 @@
 
 export const otherAmounts = [
     {
-        name: '',
+        name: 'fundingObligated',
         display: 'Funding Obligated',
         color: '#8ba6ca'
     },
@@ -17,7 +17,7 @@ export const otherAmounts = [
         color: '#4773aa'
     },
     {
-        name: '',
+        name: 'baseExercisedOptions',
         display: 'Base & Exercised Options',
         subtitle: 'current awarded amount',
         color: '#d6d7d9'
@@ -45,22 +45,22 @@ export const loanAmounts = [
 
 export const grantAmounts = [
     {
-        name: '',
+        name: 'fundingObligated',
         display: 'Funding Obligated',
         color: '#8ba6ca'
     },
     {
-        name: '',
+        name: 'federalObligation',
         display: 'Federal Action Obligated',
         color: '#4773aa'
     },
     {
-        name: '',
+        name: 'nonFederalFunding',
         display: 'Non-Federal Funding',
         color: '#47aaa7'
     },
     {
-        name: '',
+        name: 'totalFunding',
         display: 'Total Funding',
         color: '#aeb0b5'
     }

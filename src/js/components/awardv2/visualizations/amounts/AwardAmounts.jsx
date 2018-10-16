@@ -31,10 +31,10 @@ export default class AwardAmounts extends React.Component {
             const subtitle = data.subtitle ? (<span className="amounts-table__subtitle">({data.subtitle})</span>) : null;
             return (
                 <tr
-                    key={data.display}
+                    key={data.name}
                     className="amounts-table__row">
                     <td className="amounts-table__data amounts-table__data_title">{key} {data.display} {subtitle}</td>
-                    <td className="amounts-table__data">{this.props.award[data.name] || '--'}</td>
+                    <td className="amounts-table__data">{this.props.award[data.name]}</td>
                 </tr>
             );
         });
