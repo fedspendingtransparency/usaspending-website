@@ -5,23 +5,23 @@
 
 export const otherAmounts = [
     {
-        name: 'fundingObligated',
+        name: 'fundingObligatedFormatted',
         display: 'Funding Obligated',
         color: '#8ba6ca'
     },
     {
-        name: 'obligation',
+        name: 'obligationFormatted',
         display: 'Transaction Obligated',
         color: '#4773aa'
     },
     {
-        name: 'baseExercisedOptions',
+        name: 'baseExercisedOptionsFormatted',
         display: 'Base & Exercised Options',
         subtitle: 'current awarded amount',
         color: '#d6d7d9'
     },
     {
-        name: 'amount',
+        name: 'amountFormatted',
         display: 'Base & All Options',
         subtitle: 'total award value',
         color: '#f1f1f1'
@@ -30,12 +30,12 @@ export const otherAmounts = [
 
 export const loanAmounts = [
     {
-        name: 'faceValue',
+        name: 'faceValueFormatted',
         display: 'Face Value of Direct Loan',
         color: '#4773aa'
     },
     {
-        name: 'subsidy',
+        name: 'subsidyFormatted',
         display: 'Original Subsidy Cost',
         color: '#d16a20'
     }
@@ -43,22 +43,22 @@ export const loanAmounts = [
 
 export const grantAmounts = [
     {
-        name: 'fundingObligated',
+        name: 'fundingObligatedFormatted',
         display: 'Funding Obligated',
         color: '#8ba6ca'
     },
     {
-        name: 'federalObligation',
+        name: 'federalObligationFormatted',
         display: 'Federal Action Obligated',
         color: '#4773aa'
     },
     {
-        name: 'nonFederalFunding',
+        name: 'nonFederalFundingFormatted',
         display: 'Non-Federal Funding',
         color: '#47aaa7'
     },
     {
-        name: 'totalFunding',
+        name: 'totalFundingFormatted',
         display: 'Total Funding',
         color: '#aeb0b5'
     }
