@@ -65,7 +65,7 @@ export default class Hero extends React.Component {
                         {tooltip}
                         <hr className="homepage-hero__divider" />
                         <div className="homepage-hero__description">
-                            <strong className="homepage-hero__description homepage-hero__description_weight_bold">As the authoratitative resource for federal funding,</strong> USA Spending increases government transparency by making the data accessible, searchable, and reliable. See how the money was spent with tools to help you navigate spending from top to bottom.
+                            <strong className="homepage-hero__description homepage-hero__description_weight_bold">As the authoritative resource for federal spending,</strong> USA Spending increases government transparency by making this data accessible, searchable, and reliable. See how the money was spent with tools to help you navigate spending from top to bottom.
                         </div>
                     </div>
                     <HeroButton />
