@@ -1,5 +1,11 @@
 /* Styles specific to Contracts */
 
 .award-contract {
-
+    .accordion-content {
+      overflow: hidden;
+      height: 0;
+    }
+    .accordion-open .accordion-content {
+      height: auto;
+    }
 }
