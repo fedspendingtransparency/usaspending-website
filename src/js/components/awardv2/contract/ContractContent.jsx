@@ -10,7 +10,6 @@ import { startCase } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import AwardingAgency from './AwardingAgency';
 import Recipient from "./Recipient";
-import AdditionalInfo from "./AdditionalInfo";
 import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 import AwardDescription from "../visualizations/description/AwardDescription";
 
