@@ -23,7 +23,9 @@ BaseContract.populate = function populate(data) {
         description: data.description,
         category: data.category,
         subawardTotal: data.total_subaward_amount,
-        subawardCount: data.subaward_count
+        subawardCount: data.subaward_count,
+        fundingObligated: data.funding_obligated,
+        baseExercisedOptions: data.base_exercised_options
     };
     this.populateCore(coreData);
 
@@ -109,7 +111,6 @@ BaseContract.populate = function populate(data) {
     this.parentAward = data.parent_award_piid || '--';
     this.pricing = data.latest_transaction_contract_data || '--';
 
-    this._currentTotal = parseFloat(data.current_total_value_award) || '--';
     this._amount = parseFloat(data.base_and_all_options_value) || 0;
     this._obligation = parseFloat(data.total_obligation) || 0;
 };
@@ -132,26 +133,6 @@ Object.defineProperty(BaseContract, 'obligation', {
             return `${MoneyFormatter.formatMoneyWithPrecision(this._obligation / units.unit, 2)} ${units.longLabel}`;
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._obligation, 0);
-    }
-});
-Object.defineProperty(BaseContract, 'currentTotal', {
-    get() {
-        if (this._currentTotal >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._currentTotal);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._currentTotal / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._currentTotal, 0);
-    }
-});
-
-Object.defineProperty(BaseContract, 'remaining', {
-    get() {
-        const remaining = this._obligation - this._amount;
-        if (remaining >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(remaining);
-            return `${MoneyFormatter.formatMoneyWithPrecision(remaining / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(remaining, 0);
     }
 });
 

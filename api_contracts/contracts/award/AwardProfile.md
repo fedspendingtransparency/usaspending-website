@@ -55,7 +55,8 @@ This endpoint returns a list of data that is associated with the award profile p
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
 + executive_details (required, Executive, fixed-type)
-+ current_total_value_award (required, number)
++ funding_obligated (required, number, nullable)
++ base_exercised_options (required, number, nullable)
 
 ## Agency (object)
 + toptier_agency (required, TopTierAgency, nullable)
@@ -156,11 +157,13 @@ This endpoint returns a list of data that is associated with the award profile p
 ## MiscResponse (object)
 + category: `loan` (required, enum[string])
     + Members
-        + loan
+        + loans
         + other
         + direct payment
         + grant
 + type: `C` (required, string)
++ fain: `43533A3` (required, string, nullable)
++ uri: `5341QQ` (required, string, nullable)
 + type_description: `Some loan` (required, string)
 + piid: 34242 (required, number)
 + description: `ewraijwrw` (required, string, nullable)
@@ -177,6 +180,15 @@ This endpoint returns a list of data that is associated with the award profile p
 + total_subsidy_cost: 123 (required, number, nullable)
 + total_loan_value: 24343 (required, number, nullable)
 + total_obligation: 2324 (required, number, nullable)
++ base_and_all_options_value (required, number)
++ funding_obligated (required, number, nullable)
++ base_exercised_options (required, number, nullable)
++ federal_action_obligation (required, number, nullable)
+    null except for grants
++ non_federal_funding (required, number, nullable)
+    null except for grants
++ total_funding (required, number, nullable)
+    null except for grants
 
 # Group Tables
 

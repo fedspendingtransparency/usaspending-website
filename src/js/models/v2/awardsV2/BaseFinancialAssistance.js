@@ -3,7 +3,7 @@
  * Created by David Trinh 10/9/18
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
@@ -15,13 +15,16 @@ const BaseFinancialAssistance = Object.create(CoreAward);
 BaseFinancialAssistance.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
-        id: data.piid,
+        id: data.fain || data.uri,
         type: data.type,
         typeDescription: data.type_description,
         description: data.description,
         category: data.category,
         subawardTotal: data.total_subaward_amount,
-        subawardCount: data.subaward_count
+        subawardCount: data.subaward_count,
+        fundingObligated: data.funding_obligated,
+        baseExercisedOptions: data.base_exercised_options
+
     };
     this.populateCore(coreData);
 
@@ -98,22 +101,74 @@ BaseFinancialAssistance.populate = function populate(data) {
     this._obligation = parseFloat(data.total_obligation) || 0;
     this._faceValue = parseFloat(data.total_loan_value) || 0;
     this._subsidy = parseFloat(data.total_subsidy_cost) || 0;
+    this._baseAllOptions = parseFloat(data.base_and_all_options_value) || 0;
+    this._federalObligation = parseFloat(data.federal_action_obligation) || 0;
+    this._nonFederalFunding = parseFloat(data.non_federal_funding) || 0;
+    this._totalFunding = parseFloat(data.total_funding) || 0;
 };
 
 // getter functions
 Object.defineProperty(BaseFinancialAssistance, 'obligation', {
     get() {
-        return formatMoney(this._obligation);
+        if (this._obligation >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._obligation);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._obligation / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._obligation, 0);
     }
 });
 Object.defineProperty(BaseFinancialAssistance, 'faceValue', {
     get() {
-        return formatMoney(this._faceValue);
+        if (this._faceValue >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._faceValue);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._faceValue / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._faceValue, 0);
     }
 });
 Object.defineProperty(BaseFinancialAssistance, 'subsidy', {
     get() {
-        return formatMoney(this._subsidy);
+        if (this._subsidy >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._subsidy);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._subsidy / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._subsidy, 0);
+    }
+});
+Object.defineProperty(BaseFinancialAssistance, 'baseAllOptions', {
+    get() {
+        if (this._baseAllOptions >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._baseAllOptions);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseAllOptions / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._baseAllOptions, 0);
+    }
+});
+Object.defineProperty(BaseFinancialAssistance, 'federalObligation', {
+    get() {
+        if (this._federalObligation >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._federalObligation);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._federalObligation / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._federalObligation, 0);
+    }
+});
+Object.defineProperty(BaseFinancialAssistance, 'nonFederalFunding', {
+    get() {
+        if (this._nonFederalFunding >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._nonFederalFunding);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._nonFederalFunding / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._nonFederalFunding, 0);
+    }
+});
+Object.defineProperty(BaseFinancialAssistance, 'totalFunding', {
+    get() {
+        if (this._totalFunding >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalFunding);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalFunding / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalFunding, 0);
     }
 });
 Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {
