@@ -19,6 +19,9 @@
                         &.amounts-table__data_title {
                             text-align: left;
                             font-weight: $font-normal;
+                            svg {
+                                margin-right: rem(5);
+                            }
                             .amounts-table__subtitle {
                                 font-style: italic;
                                 font-weight: $font-light;

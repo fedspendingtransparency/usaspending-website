@@ -3,12 +3,11 @@
  * Created by David Trinh 10/9/18
  */
 
-
 import { formatMoney } from 'helpers/moneyFormatter';
 
 const CoreAward = {
     populateCore(data) {
-        this.category = data.category;
+        this._category = data.category;
         this.id = data.id || '';
         this.type = data.type || '';
         this.typeDescription = data.typeDescription || '--';
@@ -18,6 +17,12 @@ const CoreAward = {
     },
     get subawardTotal() {
         return formatMoney(this._subawardTotal);
+    },
+    get category() {
+        if (this._category === 'loans') {
+            return 'loan';
+        }
+        return this._category;
     }
 };
 

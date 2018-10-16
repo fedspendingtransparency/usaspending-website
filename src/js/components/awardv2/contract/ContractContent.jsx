@@ -9,7 +9,6 @@ import { startCase } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import AwardAmounts from '../visualizations/amounts/AwardAmounts';
-import AwardDescription from "../visualizations/description/AwardDescription";
 
 const propTypes = {
     selectedAward: PropTypes.object,
@@ -36,8 +35,6 @@ export default class ContractContent extends React.Component {
                 <hr className="award__divider" />
                 <div className="award__row">
                     <AwardAmounts
-                        award={this.props.selectedAward} />
-                    <AwardDescription
                         award={this.props.selectedAward} />
                 </div>
             </div>

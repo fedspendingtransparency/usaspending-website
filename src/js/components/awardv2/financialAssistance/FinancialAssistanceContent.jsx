@@ -9,6 +9,8 @@ import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import { startCase } from "lodash";
 
+import AwardAmounts from '../visualizations/amounts/AwardAmounts';
+
 const propTypes = {
     selectedAward: PropTypes.object,
     inFlight: PropTypes.bool,
@@ -32,6 +34,10 @@ export default class FinancialAssistanceContent extends React.Component {
                     </div>
                 </div>
                 <hr className="award__divider" />
+                <div className="award__row">
+                    <AwardAmounts
+                        award={this.props.selectedAward} />
+                </div>
             </div>
         );
     }

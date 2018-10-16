@@ -5,37 +5,63 @@
 
 // TODO - Lizzie: determine/create correct fields
 
-export const contractAmounts = [
+export const otherAmounts = [
     {
-        name: 'obligation',
+        name: 'fundingObligated',
         display: 'Funding Obligated',
         color: '#8ba6ca'
     },
     {
-        name: 'subawardTotal',
+        name: 'transactionObligated',
         display: 'Transaction Obligated',
         color: '#4773aa'
     },
     {
-        name: 'remaining',
-        display: 'Remaining Funding',
-        subtitle: 'against base & exercised options',
+        name: 'baseExercisedOptions',
+        display: 'Base & Exercised Options',
+        subtitle: 'current awarded amount',
         color: '#d6d7d9'
     },
     {
-        name: 'remaining',
-        display: 'Remaining Funding',
-        subtitle: 'against base & all options',
-        color: '#f1f1f1'
-    },
-    {
-        name: 'amount',
-        display: 'Base & Exercised Options',
-        subtitle: 'current awarded amount'
-    },
-    {
-        name: 'amount',
+        name: 'baseAllOptions',
         display: 'Base & All Options',
-        subtitle: 'total award value'
+        subtitle: 'total award value',
+        color: '#f1f1f1'
+    }
+];
+
+export const loanAmounts = [
+    {
+        name: 'fundingObligated',
+        display: 'Funding Obligated',
+        color: '#d16a20'
+    },
+    {
+        name: 'federalActionObligated',
+        display: 'Federal Action Obligated',
+        color: '#4773aa'
+    }
+];
+
+export const grantAmounts = [
+    {
+        name: 'fundingObligated',
+        display: 'Funding Obligated',
+        color: '#8ba6ca'
+    },
+    {
+        name: 'federalActionObligated',
+        display: 'Federal Action Obligated',
+        color: '#4773aa'
+    },
+    {
+        name: 'nonFederalFunding',
+        display: 'Non-Federal Funding',
+        color: '#47aaa7'
+    },
+    {
+        name: 'totalFunding',
+        display: 'Total Funding',
+        color: '#aeb0b5'
     }
 ];
