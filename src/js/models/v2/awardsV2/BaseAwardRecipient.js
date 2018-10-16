@@ -11,6 +11,7 @@ const BaseAwardRecipient = {
         this.internalId = data.legal_entity_id || '';
         this.name = data.recipient_name || 'Unknown';
         this.duns = data.recipient_unique_id || '--';
+        this.parentName = data.recipient_parent_name || '--';
         this.parentDuns = data.parent_recipient_unique_id || '--';
         this.businessCategories = data.business_categories_name;
 
