@@ -106,7 +106,7 @@ export default class AdditionalInfo extends React.Component {
                 <div className="award__row">
                     <div className="award__col globaltoggler">
                         <button
-                            className="award-amounts__content text-button"
+                            className="award-amounts__content text-button-container__button"
                             onClick={this.handleClick}>
                             {this.state.globalToggle ? 'Hide All' : 'Show All'}
                         </button>
