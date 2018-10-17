@@ -10,4 +10,9 @@
         font-weight: $font-normal;
         text-transform: uppercase;
     }
+    .award-viz .award-viz__heading .award-viz__icon {
+        height: rem(30);
+        width: rem(30);
+        margin-right: rem(3);
+    }
 }

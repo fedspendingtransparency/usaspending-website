@@ -33,7 +33,7 @@ export default class AwardingAgency extends React.Component {
             <div className="award__col award-viz award-amounts">
                 <div className="award-viz__heading">
                     <div className="award-viz__icon">
-                        <Agency />
+                        <img src="img/state-categories/recipient_duns.png" alt="Awarding Agency" />
                     </div>
                     <h3 className="award-viz__title">
                         Awarding Agency
@@ -61,7 +61,7 @@ export default class AwardingAgency extends React.Component {
                 </div>
                 <div className="text-button-container">
                     <hr />
-                    <button className="text-button" onClick={this.handleClick}>{this.state.open ? 'View Less' : 'View More'}</button>
+                    <button className="text-button-container__button" onClick={this.handleClick}>{this.state.open ? 'View Less' : 'View More'}</button>
                 </div>
             </div>
         );
