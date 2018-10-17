@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import { InfoCircle, Calendar } from 'components/sharedComponents/icons/Icons';
 
 import Accordion from './Accordion';
 
@@ -127,7 +127,7 @@ export default class AdditionalInfo extends React.Component {
                         <Accordion
                             globalToggle={this.state.globalToggle}
                             accordionName="Period Of Performance"
-                            accordionIcon={<InfoCircle />}
+                            accordionIcon={<Calendar />}
                             accordionData={data.PeriodOfPerformance} />
                         <Accordion
                             globalToggle={this.state.globalToggle}
@@ -144,7 +144,7 @@ export default class AdditionalInfo extends React.Component {
                         <Accordion
                             globalToggle={this.state.globalToggle}
                             accordionName="Aquisition Details"
-                            accordionIcon={<InfoCircle />}
+                            accordionIcon={<img src="img/state-categories/naics.png" alt="Aquisition Details" />}
                             accordionData={data.AquisitionDetails} />
                         <Accordion
                             globalToggle={this.state.globalToggle}

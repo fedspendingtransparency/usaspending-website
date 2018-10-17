@@ -41,6 +41,12 @@
       padding-right: rem(8);
       fill: $color-gray-medium;
    }
+   img {
+       width: 14%;
+       position: relative;
+       top: rem(3);
+       margin-right: rem(3);
+   }
    span:last-child {
    	margin-left: auto;
    }
