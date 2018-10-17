@@ -4,7 +4,7 @@
     }
     .globaltoggler {
     	color:$color-cool-blue;
-    	padding:12px 0;
+    	padding:rem(12) 0;
     }
 }
 
@@ -13,11 +13,11 @@
 }
 
 .accordion, .accordion-open {
-    margin-bottom:20px;
+    margin-bottom:rem(20);
 }
 .accordion-open .accordion-content {
   height: auto;
-  border: 1px solid $color-gray-lightest;
+  border: rem(1) solid $color-gray-lightest;
 }
 
 .accordion {
@@ -30,15 +30,15 @@
 .accordion-bar {
    cursor: pointer;
    background-color: $color-gray-lightest;
-   padding: 10px;
+   padding: rem(10);
    overflow: auto;
    color: $color-gray;
    display:flex;
    svg {
-      height: 18px;
+      height: rem(18);
       position: relative;
-      top: 4px;
-      padding-right: 8px;
+      top: rem(4);
+      padding-right: rem(8);
       fill: $color-gray-medium;
    }
    span:last-child {
@@ -54,8 +54,8 @@
 .accordion-content {
     .data-row {
        display:flex;
-       padding: 8px 35px;
-       border-bottom: 1px solid $color-gray-lightest;
+       padding: rem(8) rem(35);
+       border-bottom: rem(1) solid $color-gray-lightest;
        span {
           flex:1;
        }

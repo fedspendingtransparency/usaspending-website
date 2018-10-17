@@ -26,67 +26,68 @@ export default class AdditionalInfo extends React.Component {
         this.setState({ globalToggle: !this.state.globalToggle });
     }
     render() {
+        const awardData = this.props.award;
         const data = {
             parentAwardDetails: {
-                Parent_Award_ID: this.props.award.parentAward,
-                IDV_Type: this.props.award.additionalDetails.idvType,
-                IDC_Type: this.props.award.additionalDetails.idcType,
-                IDV_Agency_Identifier: this.props.award.additionalDetails.idvAgencyId,
-                Multiple_Or_Single_Award_IDV: this.props.award.additionalDetails.multipleIdv
+                'Parent Award ID': awardData.parentAward,
+                'IDV Type': awardData.additionalDetails.idvType,
+                'IDC Type': awardData.additionalDetails.idcType,
+                'IDV Agency Identifier': awardData.additionalDetails.idvAgencyId,
+                'Multiple Or Single Award IDV': awardData.additionalDetails.multipleIdv
             },
             PlaceOfPerformance: {
-                City: this.props.award.placeOfPerformance._city,
-                State: this.props.award.placeOfPerformance._state,
-                County: this.props.award.placeOfPerformance._county,
-                Zip_Code: this.props.award.placeOfPerformance._zip,
-                Congressional_District: this.props.award.placeOfPerformance._congressionalDistrict
+                City: awardData.placeOfPerformance._city,
+                State: awardData.placeOfPerformance._state,
+                County: awardData.placeOfPerformance._county,
+                'Zip Code': awardData.placeOfPerformance._zip,
+                'Congressional District': awardData.placeOfPerformance._congressionalDistrict
             },
             PeriodOfPerformance: {
-                Start_Date: this.props.award.periodOfPerformance.startDate,
-                Current_End_Date: this.props.award.periodOfPerformance.endDate,
-                Potential_End_Date: this.props.award.periodOfPerformance.potentendDate
+                'Start Date': awardData.periodOfPerformance.startDate,
+                'Current End Date': awardData.periodOfPerformance.endDate,
+                'Potential End Date': awardData.periodOfPerformance.potentendDate
             },
-            LesgislativeMandates: {
-                'Clinger-Cohen_Act_Compliant': this.props.award.additionalDetails.clingerCohenAct,
-                Subject_to_Construction_Wage_Rate_Requirements: this.props.award.additionalDetails.constructionWageRateReq,
-                Subject_to_Labor_Standards: this.props.award.additionalDetails.laborStandards,
-                'Subject_to_Materials,Supplies, Articles & Equipment': this.props.award.additionalDetails.materialSuppliesArticlesEquip
+            LegislativeMandates: {
+                'Clinger-Cohen Act Compliant': awardData.additionalDetails.clingerCohenAct,
+                'Subject to Construction Wage Rate Requirements': awardData.additionalDetails.constructionWageRateReq,
+                'Subject to Labor Standards': awardData.additionalDetails.laborStandards,
+                'Subject to Materials,Supplies, Articles & Equipment': awardData.additionalDetails.materialSuppliesArticlesEquip
             },
             AquisitionDetails: {
-                'Product Service Code (PSC)': this.props.award.additionalDetails.pscCode,
-                NAICS_Code: this.props.award.additionalDetails.naicsCode,
-                'DoD Claimant Code': this.props.award.additionalDetails.dodClaimantCode,
-                'DOD Aquisition Program': this.props.award.unknownplaceholder,
-                Information_Technology_Commercial_Item: this.props.award.unknownplaceholder,
-                Category: this.props.award.unknownplaceholder,
-                Sea_Transportation: this.props.award.additionalDetails.seaTransport
+                'Product Service Code (PSC)': awardData.additionalDetails.pscCode,
+                'NAICS Code': awardData.additionalDetails.naicsCode,
+                'DoD Claimant Code': awardData.additionalDetails.dodClaimantCode,
+                'DOD Aquisition Program': awardData.unknownplaceholder,
+                'Information Technology Commercial Item': awardData.unknownplaceholder,
+                Category: awardData.unknownplaceholder,
+                'Sea Transportation': awardData.additionalDetails.seaTransport
             },
             CompetitionDetails: {
-                Solicitation_ID: this.props.award.additionalDetails.solicitationId,
-                Solicitation_Procedures: this.props.award.additionalDetails.solicitationProcedures,
-                Number_of_Offers_Received: this.props.award.additionalDetails.numberOffers,
-                Extent_Completed: this.props.award.additionalDetails.extentCompeted,
-                Not_Completed_Reason: this.props.award.additionalDetails.notCompeted,
-                'Set-Aside Type': this.props.award.additionalDetails.setAsideType,
-                'Commercial Item Aquisition Procedures': this.props.award.additionalDetails.commercialAcquisitionProcedures,
-                'Commercial Item Test Program': this.props.award.additionalDetails.commercialTestProgram,
-                'Evaluated Preference': this.props.award.additionalDetails.evaluatedPreference,
-                Fed_Biz_Opps: this.props.award.additionalDetails.fedBizOpps,
-                'Small Business Competetiveness Demonstration': this.props.award.additionalDetails.smallBusinessCompetitivenessDemo,
-                Program: this.props.award.additionalDetails.programAcronym
+                'Solicitation ID': awardData.additionalDetails.solicitationId,
+                'Solicitation Procedures': awardData.additionalDetails.solicitationProcedures,
+                'Number of Offers Received': awardData.additionalDetails.numberOffers,
+                'Extent Completed': awardData.additionalDetails.extentCompeted,
+                'Not Completed Reason': awardData.additionalDetails.notCompeted,
+                'Set-Aside Type': awardData.additionalDetails.setAsideType,
+                'Commercial Item Aquisition Procedures': awardData.additionalDetails.commercialAcquisitionProcedures,
+                'Commercial Item Test Program': awardData.additionalDetails.commercialTestProgram,
+                'Evaluated Preference': awardData.additionalDetails.evaluatedPreference,
+                'Fed Biz Opps': awardData.additionalDetails.fedBizOpps,
+                'Small Business Competetiveness Demonstration': awardData.additionalDetails.smallBusinessCompetitivenessDemo,
+                Program: awardData.additionalDetails.programAcronym
             },
             AdditionalDetails: {
-                'Cost or Pricing Data': this.props.award.additionalDetails.costOrPricingData,
-                'Domestic or Foreign Entity': this.props.award.additionalDetails.domesticForeign,
-                'Fair Opportunity Limited Sources': this.props.award.additionalDetails.fairOpportunityLimitedSources,
-                'Interagency Contracting Authority': this.props.award.additionalDetails.interagencyContactingAuthority,
-                'Major Program': this.props.award.additionalDetails.majorProgram,
-                'Price Evaluation Adjustment Preference Percent Difference': this.props.award.additionalDetails.priceEvaluationAdjustmentPreference,
-                'Program Acronym': this.props.award.additionalDetails.programAcronym,
-                'Subcontracting Plan': this.props.award.additionalDetails.subcontractingPlan,
-                'Multi Year Contract': this.props.award.additionalDetails.multiYearContract,
-                'Purcahse Card as Payment Method': this.props.award.additionalDetails.purchaseCardAsPaymentMethod,
-                'Consolidated Contract': this.props.award.additionalDetails.consolidated
+                'Cost or Pricing Data': awardData.additionalDetails.costOrPricingData,
+                'Domestic or Foreign Entity': awardData.additionalDetails.domesticForeign,
+                'Fair Opportunity Limited Sources': awardData.additionalDetails.fairOpportunityLimitedSources,
+                'Interagency Contracting Authority': awardData.additionalDetails.interagencyContactingAuthority,
+                'Major Program': awardData.additionalDetails.majorProgram,
+                'Price Evaluation Adjustment Preference Percent Difference': awardData.additionalDetails.priceEvaluationAdjustmentPreference,
+                'Program Acronym': awardData.additionalDetails.programAcronym,
+                'Subcontracting Plan': awardData.additionalDetails.subcontractingPlan,
+                'Multi Year Contract': awardData.additionalDetails.multiYearContract,
+                'Purchase Card as Payment Method': awardData.additionalDetails.purchaseCardAsPaymentMethod,
+                'Consolidated Contract': awardData.additionalDetails.consolidated
             }
         };
         return (
@@ -132,12 +133,12 @@ export default class AdditionalInfo extends React.Component {
                             globalToggle={this.state.globalToggle}
                             accordionName="Lesgislative Mandates"
                             accordionIcon={<InfoCircle />}
-                            accordionData={data.LesgislativeMandates} />
+                            accordionData={data.LegislativeMandates} />
                         <Accordion
                             globalToggle={this.state.globalToggle}
                             accordionName="Executive Compensation"
                             accordionIcon={<InfoCircle />}
-                            accordionData={this.props.award.executiveDetails.officers} />
+                            accordionData={awardData.executiveDetails.officers} />
                     </div>
                     <div className="award__col">
                         <Accordion
