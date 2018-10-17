@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Agency } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     award: PropTypes.object
