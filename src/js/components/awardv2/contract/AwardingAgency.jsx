@@ -28,6 +28,7 @@ export default class AwardingAgency extends React.Component {
 
 
     render() {
+        const awardData = this.props.award;
         return (
             <div className="award__col award-viz award-amounts">
                 <div className="award-viz__heading">
@@ -40,7 +41,7 @@ export default class AwardingAgency extends React.Component {
                 </div>
                 <hr />
                 <div className="award-amounts__content">
-                    <h4>{this.props.award.awardingAgency.toptierName} ({this.props.award.awardingAgency.toptierAbbr})</h4>
+                    <h4>{awardData.awardingAgency.toptierName} ({awardData.awardingAgency.toptierAbbr})</h4>
                 </div>
                 <div className={`award__row ${this.state.open ? '' : 'hide'}`}>
                     <div className="award__col data-title">
@@ -51,11 +52,11 @@ export default class AwardingAgency extends React.Component {
                         <p>Funding Office</p>
                     </div>
                     <div className="award__col data-values">
-                        <p>{this.props.award.awardingAgency.subtierName} ({this.props.award.awardingAgency.subtierAbbr})</p>
-                        <p>{this.props.award.awardingAgency.officeName}</p>
-                        <p>{this.props.award.fundingAgency.toptierName} ({this.props.award.fundingAgency.toptierAbbr})</p>
-                        <p>{this.props.award.fundingAgency.subtierName} ({this.props.award.fundingAgency.subtierAbbr})</p>
-                        <p>{this.props.award.fundingAgency.officeName}</p>
+                        <p>{awardData.awardingAgency.subtierName} ({awardData.awardingAgency.subtierAbbr})</p>
+                        <p>{awardData.awardingAgency.officeName}</p>
+                        <p>{awardData.fundingAgency.toptierName} ({awardData.fundingAgency.toptierAbbr})</p>
+                        <p>{awardData.fundingAgency.subtierName} ({awardData.fundingAgency.subtierAbbr})</p>
+                        <p>{awardData.fundingAgency.officeName}</p>
                     </div>
                 </div>
                 <div className="text-button-container">

@@ -27,6 +27,7 @@ export default class Recipient extends React.Component {
     }
 
     render() {
+        const awardData = this.props.award;
         return (
             <div className="award__col award-viz award-amounts">
                 <div className="award-viz__heading">
@@ -39,7 +40,7 @@ export default class Recipient extends React.Component {
                 </div>
                 <hr />
                 <div className="award-amounts__content">
-                    <h4>{this.props.award.recipient.name}</h4>
+                    <h4>{awardData.recipient.name}</h4>
                 </div>
                 <div className={`award__row ${this.state.open ? '' : 'hide'}`}>
                     <div className="award__col data-title">
@@ -48,9 +49,9 @@ export default class Recipient extends React.Component {
                         <p>Parent DUNS</p>
                     </div>
                     <div className="award__col data-values">
-                        <p>{this.props.award.recipient.duns}</p>
-                        <p>{this.props.award.recipient.parentName}</p>
-                        <p>{this.props.award.recipient.parentDuns}</p>
+                        <p>{awardData.recipient.duns}</p>
+                        <p>{awardData.recipient.parentName}</p>
+                        <p>{awardData.recipient.parentDuns}</p>
                     </div>
                 </div>
 
@@ -59,15 +60,15 @@ export default class Recipient extends React.Component {
                         Address
                     </div>
                     <div className="award__col data-values">
-                        {this.props.award.recipient.location._address1}
+                        {awardData.recipient.location._address1}
                         <br />
-                        {this.props.award.recipient.location._address2}
+                        {awardData.recipient.location._address2}
                         <br />
-                        {this.props.award.recipient.location._address3}
+                        {awardData.recipient.location._address3}
                         <br />
-                        {this.props.award.recipient.location.regionalAddress}
+                        {awardData.recipient.location.regionalAddress}
                         <br />
-                        Congressional District: {this.props.award.recipient.location.congressionalDistrict}
+                        Congressional District: {awardData.recipient.location.congressionalDistrict}
                     </div>
                 </div>
 
@@ -77,7 +78,7 @@ export default class Recipient extends React.Component {
                     </div>
                     <div className="award__col data-values">
                         {
-                            this.props.award.recipient.businessCategories.map((item, index) => <span key={item}>{ (index ? ', ' : '') + item }</span>)
+                            awardData.recipient.businessCategories.map((item, index) => <span key={item}>{ (index ? ', ' : '') + item }</span>)
                         }
                     </div>
                 </div>
