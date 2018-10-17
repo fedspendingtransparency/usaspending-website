@@ -12,26 +12,30 @@ const propTypes = {
     accordionName: PropTypes.string,
     accordionIcon: PropTypes.object,
     accordionData: PropTypes.object,
-    globalOpen: PropTypes.bool
+    globalToggle: PropTypes.bool
 };
 
 export default class Accordion extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false
+            open: true
         };
         this.handleClick = this.handleClick.bind(this);
     }
     componentDidUpdate(prevProps) {
-        if (this.props.globalOpen !== prevProps.globalOpen) {
-            this.setState({
-                open: this.props.globalOpen
-            });
+        if (this.props.globalToggle !== prevProps.globalToggle) {
+            this.globalOverride();
         }
     }
     handleClick() {
         this.setState({ open: !this.state.open });
+    }
+
+    globalOverride() {
+        this.setState({
+            open: this.props.globalToggle
+        });
     }
 
     render() {
@@ -50,7 +54,7 @@ export default class Accordion extends React.Component {
                     {Object.keys(this.props.accordionData).map((key) => (
                         <div className="data-row">
                             <span key={key}>{key.split("_").join(" ")}</span>
-                            <span key={this.props.accordionData[key]}>{this.props.accordionData[key]}</span>
+                            <span key={this.props.accordionData[key]}>{this.props.accordionData[key] || 'not provided'}</span>
                         </div>
                     ))}
                 </div>
