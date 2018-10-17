@@ -37,7 +37,7 @@ export default class ContractContent extends React.Component {
                         {this.props.selectedAward.id}
                     </div>
                 </div>
-                <hr className="award__divider" />
+                <hr />
                 <div className="award__row">
                     <AwardRecipient selectedAward={this.props.selectedAward} />
                     <AmountDates selectedAward={this.props.selectedAward} />

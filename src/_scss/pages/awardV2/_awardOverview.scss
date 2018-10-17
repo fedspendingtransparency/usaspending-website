@@ -5,10 +5,11 @@
 
     .award-overview__awarding {
         background-color: #F5FBFC;
-        height: rem(134);
+        min-height: rem(134);
         padding: rem(11) 0 0 rem(13);
         width: 50%;
         position: relative;
+        word-wrap: break-word;
     }
 
     .award-overview__awarding:after {

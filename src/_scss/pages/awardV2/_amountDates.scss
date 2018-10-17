@@ -41,9 +41,25 @@
         }
     }
     
-    .award-amountdates__amounts-stats {
+    .award-amountdates__stats {
         height: rem(3);
         margin: rem(16) 0 rem(7) 0;
+        background-color: #ececec;
+        display: flex;
+    }
+
+    .award-amountdates__stats-obligated {
+        height: rem(3);        
+        background-color: #4773aa;
+    }
+
+    .award-amountdates__stats-exercised {
+        height: rem(3);
+    }
+
+    .award-amountdates__stats-time {
+        height: rem(3);
+        background-color: #9b9b9b;
     }
 
     .award-amountdates__amounts-details-container {
@@ -85,8 +101,9 @@
 
     .award-amountdates__amounts-circle_dark-gray{
         @extend %award-amountdates__amounts-circle;
-        background-color: #9B9B9B;
+        background-color: #d8d8d8;
     }
+
 
    
 }

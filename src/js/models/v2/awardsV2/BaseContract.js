@@ -126,6 +126,11 @@ Object.defineProperty(BaseContract, 'amount', {
         return MoneyFormatter.formatMoneyWithPrecision(this._amount, 0);
     }
 });
+Object.defineProperty(BaseContract, 'amountFormatted', {
+    get() {
+        return MoneyFormatter.formatMoney(this._amount);
+    }
+});
 Object.defineProperty(BaseContract, 'obligation', {
     get() {
         if (this._obligation >= MoneyFormatter.unitValues.MILLION) {
@@ -133,6 +138,21 @@ Object.defineProperty(BaseContract, 'obligation', {
             return `${MoneyFormatter.formatMoneyWithPrecision(this._obligation / units.unit, 2)} ${units.longLabel}`;
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._obligation, 0);
+    }
+});
+Object.defineProperty(BaseContract, 'obligationFormatted', {
+    get() {
+        return MoneyFormatter.formatMoney(this._obligation);
+    }
+});
+Object.defineProperty(BaseContract, 'remaining', {
+    get() {
+        const remaining = this._baseExercisedOptions - this._obligation;
+        if (remaining >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(remaining);
+            return `${MoneyFormatter.formatMoneyWithPrecision(remaining / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(remaining, 0);
     }
 });
 

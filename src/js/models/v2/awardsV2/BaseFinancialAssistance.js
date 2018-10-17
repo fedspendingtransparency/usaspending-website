@@ -110,6 +110,11 @@ BaseFinancialAssistance.populate = function populate(data) {
 // getter functions
 Object.defineProperty(BaseFinancialAssistance, 'obligation', {
     get() {
+        return MoneyFormatter.formatMoney(this._obligation);
+    }
+});
+Object.defineProperty(BaseFinancialAssistance, 'obligationFormatted', {
+    get() {
         if (this._obligation >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._obligation);
             return `${MoneyFormatter.formatMoneyWithPrecision(this._obligation / units.unit, 2)} ${units.longLabel}`;
@@ -126,6 +131,11 @@ Object.defineProperty(BaseFinancialAssistance, 'faceValue', {
         return MoneyFormatter.formatMoneyWithPrecision(this._faceValue, 0);
     }
 });
+Object.defineProperty(BaseFinancialAssistance, 'faceValueFormatted', {
+    get() {
+        return MoneyFormatter.formatMoney(this._faceValue);
+    }
+});
 Object.defineProperty(BaseFinancialAssistance, 'subsidy', {
     get() {
         if (this._subsidy >= MoneyFormatter.unitValues.MILLION) {
@@ -133,6 +143,11 @@ Object.defineProperty(BaseFinancialAssistance, 'subsidy', {
             return `${MoneyFormatter.formatMoneyWithPrecision(this._subsidy / units.unit, 2)} ${units.longLabel}`;
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._subsidy, 0);
+    }
+});
+Object.defineProperty(BaseFinancialAssistance, 'subsidyFormatted', {
+    get() {
+        return MoneyFormatter.formatMoney(this._subsidy);
     }
 });
 Object.defineProperty(BaseFinancialAssistance, 'baseAllOptions', {
@@ -144,6 +159,11 @@ Object.defineProperty(BaseFinancialAssistance, 'baseAllOptions', {
         return MoneyFormatter.formatMoneyWithPrecision(this._baseAllOptions, 0);
     }
 });
+Object.defineProperty(BaseFinancialAssistance, 'baseAllOptionsFormatted', {
+    get() {
+        return MoneyFormatter.formatMoney(this._baseAllOptions);
+    }
+});
 Object.defineProperty(BaseFinancialAssistance, 'federalObligation', {
     get() {
         if (this._federalObligation >= MoneyFormatter.unitValues.MILLION) {
@@ -151,6 +171,11 @@ Object.defineProperty(BaseFinancialAssistance, 'federalObligation', {
             return `${MoneyFormatter.formatMoneyWithPrecision(this._federalObligation / units.unit, 2)} ${units.longLabel}`;
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._federalObligation, 0);
+    }
+});
+Object.defineProperty(BaseFinancialAssistance, 'federalObligationFormatted', {
+    get() {
+        return MoneyFormatter.formatMoney(this._federalObligation);
     }
 });
 Object.defineProperty(BaseFinancialAssistance, 'nonFederalFunding', {
@@ -162,6 +187,11 @@ Object.defineProperty(BaseFinancialAssistance, 'nonFederalFunding', {
         return MoneyFormatter.formatMoneyWithPrecision(this._nonFederalFunding, 0);
     }
 });
+Object.defineProperty(BaseFinancialAssistance, 'nonFederalFundingFormatted', {
+    get() {
+        return MoneyFormatter.formatMoney(this._nonFederalFunding);
+    }
+});
 Object.defineProperty(BaseFinancialAssistance, 'totalFunding', {
     get() {
         if (this._totalFunding >= MoneyFormatter.unitValues.MILLION) {
@@ -169,6 +199,11 @@ Object.defineProperty(BaseFinancialAssistance, 'totalFunding', {
             return `${MoneyFormatter.formatMoneyWithPrecision(this._totalFunding / units.unit, 2)} ${units.longLabel}`;
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._totalFunding, 0);
+    }
+});
+Object.defineProperty(BaseFinancialAssistance, 'totalFundingFormatted', {
+    get() {
+        return MoneyFormatter.formatMoney(this._totalFunding);
     }
 });
 Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {

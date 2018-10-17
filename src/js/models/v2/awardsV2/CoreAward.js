@@ -32,6 +32,19 @@ const CoreAward = {
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._fundingObligated, 0);
     },
+    get fundingObligatedFormatted() {
+        return MoneyFormatter.formatMoney(this._fundingObligated);
+    },
+    get baseExercisedOptions() {
+        if (this._baseExercisedOptions >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._baseExercisedOptions);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseExercisedOptions / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._baseExercisedOptions, 0);
+    },
+    get baseExercisedOptionsFormatted() {
+        return MoneyFormatter.formatMoney(this._baseExercisedOptions);
+    },
     get category() {
         if (this._category === 'loans') {
             return 'loan';
