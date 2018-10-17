@@ -1,0 +1,62 @@
+.additionalInfo-wrapper .award__row {
+    padding:0;
+}
+
+.additionalInfo-wrapper .globaltoggler {
+	color:blue;
+	padding:12px 0;
+}
+
+.globaltoggler .award-amounts__content {
+    cursor:default;
+}
+
+.award__row__fullheading {
+    width:100%;
+}
+.accordion {
+    width:100%;
+}
+.accordion-bar {
+   cursor: pointer;
+   background-color: lightgrey;
+   padding: 10px;
+   overflow: auto;
+   color: black;
+   display:flex;
+}
+
+.accordion-bar svg {
+   height: 18px;
+   position: relative;
+   top: 4px;
+   padding-right: 8px;
+   fill: black;
+}
+
+.accordion-bar span:last-child {
+	margin-left: auto;
+}
+
+.accordion-content {
+  overflow: hidden;
+  height: 0;
+}
+.accordion-open .accordion-content {
+  height: auto;
+  border: 1px solid grey;
+}
+
+.accordion-content .data-row {
+   display:flex;
+   padding: 8px 35px;
+   border-bottom: 1px solid grey;
+}
+
+.accordion-content .data-row:last-child {
+   border-bottom: none;
+}
+
+.accordion-content .data-row span {
+   flex:1;
+}

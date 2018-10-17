@@ -1,29 +1,5 @@
 /* Styles specific to Contracts */
 
 .award-contract {
-    .accordion {
-        width:100%;
-    }
-    .accordion-bar {
-       cursor:pointer;
-       background-color:lightgrey;
-       padding: 10px;
-       overflow: auto;
-       color:grey,
-    }
-
-    .accordion-bar svg {
-       height: 18px;
-       position: relative;
-       top: 4px;
-       padding-left: 5px;
-       color:grey;
-    }
-
-    .accordion-content {
-      overflow: hidden;
-    }
-    .accordion-open .accordion-content {
-      height: auto;
-    }
+    @import "./_awardAdditionalInfo";
 }

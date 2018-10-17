@@ -15,32 +15,51 @@ const propTypes = {
 };
 
 export default class AdditionalInfo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            globalOpen: false
+        };
+        this.handleClick = this.handleClick.bind(this);
+    }
+    handleClick() {
+        this.setState({ globalOpen: !this.state.globalOpen });
+    }
     render() {
         const parentAwardDetails = {
-            parent_award_id: this.props.award.parentAward,
-            idvType: this.props.award.additionalDetails.idvType,
-            idcType: this.props.award.additionalDetails.idcType,
-            idvAgencyId: this.props.award.additionalDetails.idvAgencyId,
-            multipleIdv: this.props.award.additionalDetails.multipleIdv
+            Parent_Award_ID: this.props.award.parentAward,
+            IDV_Type: this.props.award.additionalDetails.idvType,
+            IDC_Type: this.props.award.additionalDetails.idcType,
+            IDV_Agency_Identifier: this.props.award.additionalDetails.idvAgencyId,
+            Multiple_Or_Single_Award_IDV: this.props.award.additionalDetails.multipleIdv
         };
         return (
-            <div className="award__col award-viz award-amounts">
-                <div className="award-viz__heading">
-                    <div className="award-viz__icon">
-                        <InfoCircle />
+            <div className="additionalInfo-wrapper">
+                <div className="award__row">
+                    <div className="award__row__fullheading award-viz">
+                        <div className="award-viz__heading">
+                            <div className="award-viz__icon">
+                                <InfoCircle />
+                            </div>
+                            <h3 className="award-viz__title">Additional Information</h3>
+                        </div>
+                        <hr />
                     </div>
-                    <h3 className="award-viz__title">
-                        Additional Information
-                    </h3>
                 </div>
-                <hr />
-                <div className="award-amounts__content">
-                    <span>Collapse All</span>
-                    <span className="hide">Show All</span>
+                <div className="award__row">
+                    <div className="award__col globaltoggler">
+                        <div className="award-amounts__content" tabIndex={0} role="button" onClick={this.handleClick}>
+                            {this.state.globalOpen ? 'Hide All' : 'Show All'}
+                        </div>
+                    </div>
                 </div>
-
-                <div className="award__row accordion">
-                    <Accordion accordionName="Parent Award Details" accordionIcon={<InfoCircle />} accordionData={parentAwardDetails} />
+                <div className="award__row award-amounts accordion">
+                    <div className="award__col">
+                        <Accordion globalOpen={this.state.globalOpen} accordionName="Parent Award Details" accordionIcon={<InfoCircle />} accordionData={parentAwardDetails} />
+                    </div>
+                    <div className="award__col">
+                        <Accordion globalOpen={this.state.globalOpen} accordionName="Parent Award Details2" accordionIcon={<InfoCircle />} accordionData={parentAwardDetails} />
+                    </div>
                 </div>
             </div>
         );
