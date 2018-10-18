@@ -37,7 +37,6 @@ This endpoint returns a list of data that is associated with the award profile p
 ## ContractResponse (object)
 + type: `A` (required, string)
 + category: `contract` (required, string)
-    The category of what this award is
 + type_description: `Definitive Contract` (required, string)
 + piid: 34242 (required, number)
     Award id
@@ -76,7 +75,8 @@ This endpoint returns a list of data that is associated with the award profile p
 + parent_recipient_unique_id: 2424232 (required, number, nullable)
 + location (required, Location, nullable)
 + recipient_parent_name: `HoneyWell` (string, nullable)
-+ business_categories (required, array[string])
++ business_categories_name (required, array[string])
+    Name of business catagories in human readable format
 
 ## PerformancePeriod
 + period_of_performance_start_date: `2004-02-19` (required, string)
@@ -117,7 +117,9 @@ This endpoint returns a list of data that is associated with the award profile p
 + small_business_competitive: `Yes` (required, string, nullable)
 + fair_opportunity_limi_desc: `test` (optional, string, nullable)
 + product_or_service_code: `t324242` (required, string, nullable)
++ product_or_service_desc: `423we` (required, string, nullable)
 + naics: `35353` (required, string, nullable)
++ naics_description: `323t2` (required, string, nullable)
 + dod_claimant_program_code: `ERWRWRWR5242-242` (required, string, nullable)
 + program_system_or_equipmen: `unknown` (optional, string, nullable)
 + information_technolog_desc: `ERWRWRWR5242-242` (string, nullable)
@@ -147,7 +149,12 @@ This endpoint returns a list of data that is associated with the award profile p
 + amount: 234242 (required, number)
 
 ## MiscResponse (object)
-+ category: `other` (required, string)
++ category: `loan` (required, enum[string])
+    + Members
+        + loan
+        + other
+        + direct payment
+        + grant
 + type: `C` (required, string)
 + type_description: `Some loan` (required, string)
 + piid: 34242 (required, number)
@@ -162,7 +169,9 @@ This endpoint returns a list of data that is associated with the award profile p
 + total_subaward_amount: 35345353453 (required, number)
 + period_of_performance (required, PerformancePeriod, fixed-type)
 + place_of_performance (required, Location, fixed-type)
-+ executive_details (required, Executive, fixed-type)
++ total_subsidy_cost: 123 (required, number, nullable)
++ total_loan_value: 24343 (required, number, nullable)
++ total_obligation: 2324 (required, number, nullable)
 
 # Group Tables
 

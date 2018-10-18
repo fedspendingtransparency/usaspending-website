@@ -1,0 +1,82 @@
+.usa-da-award-v2-page {
+    @import "all";
+    @import "layouts/summary/summary";
+    @import "layouts/default/stickyHeader/header";
+
+    .award-content {
+        margin: rem(35) rem(40);
+        background-color: $color-white;
+
+        // Shared award summary styles
+        .award {
+            padding: rem(24) rem(10) rem(24) rem(30);
+
+            .award__heading {
+                @include display(flex);
+                @include align-items(center);
+                font-size: rem(24);
+                .award__heading-text {
+                    @include display(flex);
+                    @include flex(0 0 auto);
+                    font-weight: $font-semibold;
+                }
+                .award__heading-glossary {
+                    @include display(flex);
+                    @include flex(0 0 auto);
+                    padding: 0 rem(20) 0 rem(9);
+                    border-right: solid rem(2) $color-gray;
+                    a {
+                        width: rem(19);
+                        height: rem(25);
+                        svg {
+                            width: rem(19);
+                            height: rem(25);
+                            fill: $color-gray-light;
+                        }
+                        &:hover {
+                            cursor: pointer;
+                            svg {
+                                fill: $color-link;
+                            }
+                        }
+                    }
+                }
+                .award__heading-id {
+                    padding-left: rem(20);
+                }
+            }
+
+            .award__divider {
+                border: solid 1px $color-gray;
+            }
+
+            .award__row {
+                @include display(flex);
+                @include flex-wrap(wrap);
+                @include justify-content(space-between);
+                @include align-items(flex-start);
+                padding: rem(20) 0 rem(40);
+                @include media($medium-screen) {
+                    @include flex-wrap(nowrap);
+                }
+                .award__col {
+                    @include flex(1 1 auto);
+                    @include media($medium-screen) {
+                        @include flex(0 0 50%);
+                    }
+                    &:first-child {
+                        padding-right: rem(15);
+                    }
+                    &:last-child {
+                        padding-left: rem(15);
+                    }
+                }
+                @import "./visualizations/awardViz";
+            }
+        }
+
+        @import "./awardContract";
+        @import "./awardFinancialAssistance";
+    }
+
+}

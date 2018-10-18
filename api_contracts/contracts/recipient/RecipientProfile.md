@@ -82,7 +82,7 @@ This endpoint returns a list of child recipients belonging to the given parent r
 
 + Response 200 (application/json)
     + Attributes (array[ChildRecipient], fixed-type)
-    
+
 ## New Awards Over Time [/api/v2/search/new_awards_over_time/]
 
 This endpoint returns a the count of new awards grouped by time period in ascending order (earliest to most recent).
@@ -142,6 +142,7 @@ This endpoint returns a the count of new awards grouped by time period in ascend
     Recipient's DUNS (Data Universal Numbering System) number. `null` when no DUNS is provided.
 + `recipient_id`: `0036a0cb-0d88-2db3-59e0-0f9af8ffef57-C` (required, string)
     A unique identifier for the recipient.
++  parents: (required, array[ParentRecipient], fixed-type)
 + `parent_name`: The XYZ Corporation (required, string, nullable)
     Parent recipient's name. `null` if the recipient does not have a parent recipient.
 + `parent_duns`: `001006361` (required, string, nullable)
@@ -190,6 +191,13 @@ This endpoint returns a the count of new awards grouped by time period in ascend
 + `congressional_code`: `05` (required, string, nullable)
     Number for the recipient's congressional district.
 
+## ParentRecipient (object)
++ `parent_name`: The XYZ Corporation (required, string, nullable)
++ `parent_duns`: `001006361` (required, string, nullable)
+    DUNS number
++ `parent_id`: `0036a0cb-0d88-2db3-59e0-0f9af8ffef57-P` (required, string, nullable)
+    A unique identifier for the parent recipient.
+
 ## ChildRecipient (object)
 + name: Child of ABC Corporation (required, string, nullable)
     Name of the child recipient. `null` if the child recipient's name is not provided.
@@ -206,17 +214,17 @@ This endpoint returns a the count of new awards grouped by time period in ascend
 + time_period (required, TimePeriodGroup)
 + new_award_count_in_period: 25 (required, number)
     The count of new awards for this time period and the given filters.
-    
+
 ## TimeFilterObject (object)
 + time_period (optional, array[TimePeriodObject], fixed-type)
 + recipient_id: `0036a0cb-0d88-2db3-59e0-0f9af8ffef57-P` (optional, string)
     A hash of recipient DUNS, name, and level. A unique identifier for recipients.
-    
+
 ## TimePeriodGroup (object)
 + fiscal_year: `2018` (required, string)
-+ quarter: 1 (optional, number)
++ quarter: `1` (optional, string)
     Excluded when grouping by `fiscal_year` or `month`.
-+ month: 1 (optional, number)
++ month: `1` (optional, string)
     Excluded when grouping by `fiscal_year` or `quarter`.
 
 ## TimePeriodObject (object)
