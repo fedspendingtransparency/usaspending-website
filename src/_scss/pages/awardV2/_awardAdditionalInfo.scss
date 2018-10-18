@@ -42,10 +42,11 @@
       fill: $color-gray-medium;
    }
    img {
-       width: 14%;
        position: relative;
-       top: rem(3);
-       margin-right: rem(3);
+       top: rem(5);
+       height: rem(20);
+       margin-right: rem(10);
+       opacity: 0.5;
    }
    span:last-child {
    	margin-left: auto;
@@ -60,7 +61,7 @@
 .accordion-content {
     .data-row {
        display:flex;
-       padding: rem(8) rem(35);
+       padding: rem(8) rem(40);
        border-bottom: rem(1) solid $color-gray-lightest;
        span {
           flex:1;
