@@ -143,7 +143,7 @@ export default class AdditionalInfo extends React.Component {
                     <div className="award__col">
                         <Accordion
                             globalToggle={this.state.globalToggle}
-                            accordionName="Aquisition Details"
+                            accordionName="Acquisition Details"
                             accordionIcon={<img src="img/state-categories/naics.png" alt="Aquisition Details" />}
                             accordionData={data.AquisitionDetails} />
                         <Accordion
