@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { AngleUp, AngleDown } from 'components/sharedComponents/icons/Icons';
+import { AngleRight, AngleDown } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     accordionName: PropTypes.string,
@@ -19,7 +19,7 @@ export default class Accordion extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: true
+            open: false
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -47,7 +47,7 @@ export default class Accordion extends React.Component {
                         {this.props.accordionName}
                     </span>
                     <span>
-                        {this.state.open ? <AngleDown /> : <AngleUp />}
+                        {this.state.open ? <AngleDown /> : <AngleRight />}
                     </span>
                 </div>
                 <div className="accordion-content">

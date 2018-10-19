@@ -18,7 +18,7 @@ export default class AdditionalInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            globalToggle: true
+            globalToggle: false
         };
         this.handleClick = this.handleClick.bind(this);
     }
@@ -108,7 +108,7 @@ export default class AdditionalInfo extends React.Component {
                         <button
                             className="award-amounts__content text-button-container__button"
                             onClick={this.handleClick}>
-                            {this.state.globalToggle ? 'Hide All' : 'Show All'}
+                            {this.state.globalToggle ? 'Collapse All' : 'Expand All'}
                         </button>
                     </div>
                 </div>
