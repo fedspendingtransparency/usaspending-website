@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 
 import * as Icons from 'components/sharedComponents/icons/Icons';
-import AwardingAgency from './AwardingAgency';
-import Recipient from "./Recipient";
+import AgencyRecipientContent from './AgencyRecipientContent';
 import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 import AwardDescription from "../visualizations/description/AwardDescription";
 
@@ -35,10 +34,8 @@ export default class ContractContent extends React.Component {
                         {this.props.selectedAward.id}
                     </div>
                 </div>
-                <div className="award__row agency-recipient">
-                    <AwardingAgency
-                        award={this.props.selectedAward} />
-                    <Recipient
+                <div className="agency-recipient">
+                    <AgencyRecipientContent
                         award={this.props.selectedAward} />
                 </div>
 

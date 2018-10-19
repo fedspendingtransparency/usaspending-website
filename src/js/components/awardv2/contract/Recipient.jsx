@@ -11,37 +11,11 @@ const propTypes = {
 };
 
 export default class Recipient extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            open: false
-        };
-
-        this.handleClick = this.handleClick.bind(this);
-    }
-
-    handleClick() {
-        this.setState({ open: !this.state.open });
-    }
-
     render() {
         const awardData = this.props.award;
         return (
             <div className="award__col award-viz award-amounts">
-                <div className="award-viz__heading">
-                    <div className="award-viz__icon">
-                        <img src="img/state-categories/awarding_agency.png" alt="Recipient" />
-                    </div>
-                    <h3 className="award-viz__title">
-                        Recipient
-                    </h3>
-                </div>
-                <hr />
-                <div className="award-amounts__content">
-                    <h4>{awardData.recipient.name}</h4>
-                </div>
-                <div className={`award__row ${this.state.open ? '' : 'hide'}`}>
+                <div className="award__row">
                     <div className="award__col data-title">
                         <p>DUNS</p>
                         <p>Parent Name</p>
@@ -54,7 +28,7 @@ export default class Recipient extends React.Component {
                     </div>
                 </div>
 
-                <div className={`award__row ${this.state.open ? '' : 'hide'}`}>
+                <div className="award__row">
                     <div className="award__col data-title">
                         Address
                     </div>
@@ -71,7 +45,7 @@ export default class Recipient extends React.Component {
                     </div>
                 </div>
 
-                <div className={`award__row ${this.state.open ? '' : 'hide'}`}>
+                <div className="award__row">
                     <div className="award__col data-title">
                         Recipient Types
                     </div>
@@ -80,11 +54,6 @@ export default class Recipient extends React.Component {
                             awardData.recipient.businessCategories.map((item, index) => <span key={item}>{ (index ? ', ' : '') + item }</span>)
                         }
                     </div>
-                </div>
-
-                <div className="text-button-container">
-                    <hr />
-                    <button className="text-button-container__button" onClick={this.handleClick}>{this.state.open ? 'View Less' : 'View More'}</button>
                 </div>
             </div>
         );
