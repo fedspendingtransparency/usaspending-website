@@ -72,6 +72,21 @@
                     }
                 }
                 @import "./visualizations/awardViz";
+
+                .text-button-container__button {
+                    background-color: transparent;
+                    color: $color-cool-blue;
+                    padding: 0;
+                    margin: 0;
+                }
+
+                hr {
+                    opacity: 0.5;
+                }
+
+                .data-values {
+                   font-weight: $font-light;
+                }
             }
         }
 
