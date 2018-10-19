@@ -1,5 +1,6 @@
 /* Styles specific to Contracts */
 
 .award-contract {
+    @import "./_awardAgencyRecipient";
     @import "./_awardAdditionalInfo";
 }
