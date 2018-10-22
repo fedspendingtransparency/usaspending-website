@@ -70,7 +70,7 @@ export default class Download extends React.Component {
                     forceClear={this.exitedSection} />
             </li>
         ));
-        const rightItems = downloadOptions.slice(3).map((item, index) => (
+        const rightItems = downloadOptions.slice(3, 6).map((item, index) => (
             <li
                 className="homepage-download__list-item"
                 key={item.code}>
