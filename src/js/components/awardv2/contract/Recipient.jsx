@@ -51,7 +51,7 @@ export default class Recipient extends React.Component {
                     </div>
                     <div className="award__col data-values">
                         {
-                            awardData.recipient.businessCategories.map((item, index) => <span key={item}>{ (index ? ', ' : '') + item }</span>)
+                            awardData.recipient.businessCategories ? awardData.recipient.businessCategories.map((item, index) => <span key={item}>{ (index ? ', ' : '') + item }</span>) : null
                         }
                     </div>
                 </div>
