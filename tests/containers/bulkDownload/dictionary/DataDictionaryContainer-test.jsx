@@ -15,13 +15,14 @@ jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper
 jest.mock('components/bulkDownload/dictionary/DataDictionary', () => jest.fn(() => null));
 
 describe('DataDictionaryContainer', () => {
-    it('should make an API call for the dictionary content on mount', async () => {
+    it('should make an API call for the dictionary content on mount and save res data to the state', async () => {
         const container = mount(<DataDictionaryContainer />);
 
         await container.instance().request.promise;
 
         expect(container.state().sections).toEqual(mockDictionary.document.sections);
         expect(container.state().columns).toEqual(mockDictionary.document.headers);
+        expect(container.state().downloadLocation).toEqual(mockDictionary.document.metadata.download_location);
     });
     describe('parseRows', () => {
         it('should replace null values with N/A and update the state', () => {

@@ -1,0 +1,19 @@
+.agency-recipient {
+    .award__row {
+        padding: rem(10);
+    }
+
+    p {
+        margin: rem(8) 0;
+    }
+    .award-amounts__content h4 {
+        margin-top: rem(20);
+        font-weight: $font-normal;
+        text-transform: uppercase;
+    }
+    .award-viz .award-viz__heading .award-viz__icon {
+        height: rem(30);
+        width: rem(30);
+        margin-right: rem(3);
+    }
+}
