@@ -113,7 +113,7 @@ export const downloadOptions = [
         type: 'data_dictionary',
         url: '#/download_center/data_dictionary',
         code: 'dictionary',
-        description: 'TODO',
+        description: '',
         callToAction: 'Explore the Data Dictionary',
         newTab: false,
         enabled: true,
