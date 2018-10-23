@@ -102,6 +102,7 @@ export class ExplorerTableContainer extends React.Component {
             const result = {
                 name: item.name,
                 id: item.id,
+                account_number: item.account_number,
                 obligated_amount: item.amount,
                 percent_of_total: percentageValue,
                 display: {
