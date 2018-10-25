@@ -1,6 +1,6 @@
 /* Styles specific to Contracts */
 
 .award-contract {
-    @import "./_awardOverview";
-    @import "./amountDates";
+    @import "./overview/_awardOverview";
+    @import "./overview/_amountDates";
 }

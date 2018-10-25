@@ -22,7 +22,7 @@ export default class AwardRecipient extends React.Component {
                 </div>
                 <div className="award-overview__recipient">
                     <span className="award-overview__recipient-title">Recipient</span> <br />
-                    <span className="award-overview__recipient-detail">{award.recipient.name}</span>
+                    <span className="award-overview__recipient-detail"><a href={`/#/recipient/${award.recipient.internalId}`}>{award.recipient.name}</a></span>
                 </div>
             </div>
         );

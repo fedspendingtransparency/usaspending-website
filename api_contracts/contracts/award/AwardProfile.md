@@ -59,6 +59,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + base_exercised_options (required, number, nullable)
 
 ## Agency (object)
++ id (required, string)
 + toptier_agency (required, TopTierAgency, nullable)
 + subtier_agency (required, SubTierAgency, nullable)
 + office_agency_name: `STRATEGIC SYSTEMS` (required, string, nullable)

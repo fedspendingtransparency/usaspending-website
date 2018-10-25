@@ -20,20 +20,12 @@ export default class AmountDates extends React.Component {
         const unformattedObligated = award._obligation;
         const unformattedExercisedOption = award._baseExercisedOptions;
         const baseAndAll = award._amount;
-        const obligatedPercentage = Math.round((unformattedObligated / baseAndAll) * 100);
-        const exercisedPercentage = Math.round((unformattedExercisedOption / baseAndAll) * 100);
-
-        // Here, we used linear gradients to represent the different colors in the stats bar. We take the obligated precentage as
-        // a starting point for the first color (for example 33%, the first color fills to 33% of the bar then stops),
-        // then we reuse the obligated perecentage as a starting point for the second color and have that second color end at the
-        // current percentage (for example the second color starts 33% and stops 66%). After that, we reuse the current percentage for the last color
-        // (for example, the last color starts at 66%, then fills up the rest of the bar)
-        // const style = {
-        //     background: `linear-gradient(to right, #4773aa ${obligatedPercentage}%, #c1ccda ${obligatedPercentage}%, #c1ccda ${currentPercentage}%, #ececec ${currentPercentage}%)`
-        // };
+        const obligatedPercentage = Math.round(Math.abs((unformattedObligated / baseAndAll) * 100));
+        const exercisedPercentage = Math.round(Math.abs((unformattedExercisedOption / baseAndAll) * 100)) - obligatedPercentage;
 
         const obligatedStyle = {
-            width: `${obligatedPercentage}%`
+            width: `${obligatedPercentage}%`,
+            backgroundColor: '#4773aa'
         };
 
         const exercisedStyle = {
@@ -44,50 +36,69 @@ export default class AmountDates extends React.Component {
         const timeRange = TimeRangeHelper.convertDatesToRange(award.periodOfPerformance._endDate, award.periodOfPerformance._potentialEndDate);
         const popDate = timeRange.substr(1).slice(0, -1) || '--';
 
-        const unformattedStartDate = award.periodOfPerformance._startDate;
         const unformattedEndDate = award.periodOfPerformance._endDate;
         const unformattedAwardDate = award.periodOfPerformance._awardDate;
         const unformattedPotentialEndDate = award.periodOfPerformance._potentialEndDate;
         const today = moment();
-        //const todayMarker = (today.diff(unformattedStartDate, "days")) / (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"));
+        const todayMarker = Math.round(((today.diff(unformattedAwardDate, "days")) / (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"))) * 100);
+        console.log(todayMarker);
         const totalDate = (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"));
-        const timePercentage = (unformattedEndDate.day() / totalDate);
-        console.log(unformattedEndDate.day());
+        const timePercentage = (unformattedEndDate.diff(unformattedAwardDate, 'days') / totalDate) * 100;
 
         const timeStyle = {
-            width: `${timePercentage}%`
+            width: `${timePercentage}%`,
+            backgroundColor: '#9b9b9b'
         };
 
-        console.log(timeStyle);
+        const lineStyle = {
+            position: 'absolute',
+            left: `${todayMarker}%`,
+            border: 'solid 1px rgba(245, 166, 35, 0.5)',
+            height: '13px',
+            top: '-10px'
+        };
+
+        const lineContentStyle = {
+            position: 'absolute',
+            textTransform: 'uppercase',
+            left: `${todayMarker + 1}%`,
+            top: '-11px',
+            color: 'rgb(245, 166, 35)',
+            fontSize: '8px'
+        };
 
         return (
             <div className="award__col award-amountdates">
                 <div className="award-amountdates__amounts">
-                    <div className="award-amountdates__amounts-heading">
-                        <span className="award-amountdates__amounts-title">Award Amounts <span className="award-amountdates__amounts-info"><Icons.InfoCircle /></span></span> <span className="award-amountdates__amounts-remaining">{award.remaining}<span className="award-amountdates__amounts-remaining-text">Remaining</span></span>
+                    <div className="award-amountdates__heading">
+                        <span className="award-amountdates__heading-title">Award Amounts <span className="award-amountdates__heading-info"><Icons.InfoCircle /></span></span> <span className="award-amountdates__heading-remaining">{award.remaining}<span className="award-amountdates__heading-remaining-text">Remaining</span></span>
                     </div>
-                    <div className="award-amountdates__stats">
-                        <div className="award-amountdates__stats-obligated" style={obligatedStyle} />
-                        <div className="award-amountdates__stats-exercised" style={exercisedStyle} />
+                    <div className="award-amountdates__stats-amounts">
+                        <div className="award-amountdates__stats-inner" style={obligatedStyle} />
+                        <div className="award-amountdates__stats-inner" style={exercisedStyle} />
                     </div>
-                    <div className="award-amountdates__amounts-details-container">
-                        <div className="award-amountdates__amounts-details"><span><span className="award-amountdates__amounts-circle_blue" />Transaction Obligated</span> <span>{award.obligation}</span></div>
-                        <div className="award-amountdates__amounts-details"><span><span className="award-amountdates__amounts-circle_dark-gray" />Base &amp; Exercised Options</span> <span>{award.baseExercisedOptions}</span></div>
-                        <div className="award-amountdates__amounts-details"><span>Base &amp; All Options</span> <span>{award.amount}</span></div>
+                    <div className="award-amountdates__details-container">
+                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_blue" />Transaction Obligated</span> <span>{award.obligation}</span></div>
+                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_gray" />Base &amp; Exercised Options</span> <span>{award.baseExercisedOptions}</span></div>
+                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_light-gray" />Base &amp; All Options</span> <span>{award.amount}</span></div>
                     </div>
                 </div>
                 <div className="award-amountdates__amounts">
-                    <div className="award-amountdates__amounts-heading">
-                        <span className="award-amountdates__amounts-title">Dates <span className="award-amountdates__amounts-info"><Icons.InfoCircle /></span></span> <span className="award-amountdates__amounts-remaining">{popDate}<span className="award-amountdates__amounts-remaining-text">Remaining</span></span>
+                    <div className="award-amountdates__heading">
+                        <span className="award-amountdates__heading-title">Dates <span className="award-amountdates__heading-info"><Icons.InfoCircle /></span></span> <span className="award-amountdates__heading-remaining">{popDate}<span className="award-amountdates__heading-remaining-text">Remaining</span></span>
                     </div>
-                    <div className="award-amountdates__stats">
-                        <div className="award-amountdates__stats-time" style={timeStyle} />
+                    <div className="award-amountdates__stats-dates">
+                        <div className="award-amountdates__stats-inner" style={timeStyle}>
+                            <div style={lineStyle} />
+                            <div style={lineContentStyle}>Today</div>
+                        </div>
+                        
                     </div>
-                    <div className="award-amountdates__amounts-details-container">
-                        <div className="award-amountdates__amounts-details"><span>Awarded on</span> <span>{award.periodOfPerformance.awardDate}</span></div>
-                        <div className="award-amountdates__amounts-details"><span>Last Modified on</span> <span>{award.periodOfPerformance.lastModifiedDate}</span></div>
-                        <div className="award-amountdates__amounts-details"><span><span className="award-amountdates__amounts-circle_dark-gray" />Current Completion Date</span> <span>{award.periodOfPerformance.endDate}</span></div>
-                        <div className="award-amountdates__amounts-details"><span><span className="award-amountdates__amounts-circle_light-gray" />Potential Completion Date</span> <span>{award.periodOfPerformance.potentialEndDate}</span></div>
+                    <div className="award-amountdates__details-container">
+                        <div className="award-amountdates__details award-amountdates__details_indent"><span>Awarded on</span> <span>{award.periodOfPerformance.awardDate}</span></div>
+                        <div className="award-amountdates__details award-amountdates__details_indent"><span>Last Modified on</span> <span>{award.periodOfPerformance.lastModifiedDate}</span></div>
+                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_dark-gray" />Current Completion Date</span> <span>{award.periodOfPerformance.endDate}</span></div>
+                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_light-gray" />Potential Completion Date</span> <span>{award.periodOfPerformance.potentialEndDate}</span></div>
                     </div>
                 </div>
             </div>

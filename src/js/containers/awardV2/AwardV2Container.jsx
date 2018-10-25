@@ -88,7 +88,7 @@ export class AwardContainer extends React.Component {
             funding_agency: null,
             recipient: {
                 recipient_name: 'Booz Allen Hamilton',
-                recipient_unique_id: 123223,
+                recipient_unique_id: '9a277fc5-50fc-685f-0f77-be0d96420a17-C',
                 parent_recipient_unique_id: 234242,
                 location: {
                     address_line1: '1515 EUBANK BLVD. SE',
