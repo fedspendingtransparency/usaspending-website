@@ -61,11 +61,11 @@ export class DownloadBottomBarContainer extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.download.pendingDownload && nextProps.download.showCollapsedProgress &&
-            !this.state.visible) {
-            this.requestDownload(nextProps.filters,
-                nextProps.download.columns, nextProps.download.type);
+    componentDidUpdate(prevProps) {
+        if (prevProps.download.pendingDownload && prevProps.download.showCollapsedProgress &&
+            !prevProps.state.visible) {
+            this.requestDownload(this.props.filters,
+                this.props.download.columns, this.props.download.type);
             this.displayBar();
         }
     }

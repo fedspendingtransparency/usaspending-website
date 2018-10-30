@@ -43,7 +43,7 @@ export default class FederalAccountContainer extends React.PureComponent {
         this.changePage = this.changePage.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.loadData(this.props.id, this.props.activeFY);
     }
 

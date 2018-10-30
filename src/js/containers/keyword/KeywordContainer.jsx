@@ -48,13 +48,13 @@ export class KeywordContainer extends React.Component {
         this.startDownload = this.startDownload.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.handleUrl(this.props.params.keyword);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.params.keyword !== nextProps.params.keyword) {
-            this.handleUrl(nextProps.params.keyword);
+    componentDidUpdate(prevProps) {
+        if (this.props.params.keyword !== prevProps.params.keyword) {
+            this.handleUrl(this.props.params.keyword);
         }
     }
 
