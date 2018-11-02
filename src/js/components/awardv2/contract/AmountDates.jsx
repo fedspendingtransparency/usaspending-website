@@ -41,7 +41,6 @@ export default class AmountDates extends React.Component {
         const unformattedPotentialEndDate = award.periodOfPerformance._potentialEndDate;
         const today = moment();
         const todayMarker = Math.round(((today.diff(unformattedAwardDate, "days")) / (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"))) * 100);
-        console.log(todayMarker);
         const totalDate = (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"));
         const timePercentage = (unformattedEndDate.diff(unformattedAwardDate, 'days') / totalDate) * 100;
 
@@ -55,7 +54,8 @@ export default class AmountDates extends React.Component {
             left: `${todayMarker}%`,
             border: 'solid 1px rgba(245, 166, 35, 0.5)',
             height: '13px',
-            top: '-10px'
+            top: '-10px',
+          //  display: 'none'
         };
 
         const lineContentStyle = {
@@ -64,7 +64,8 @@ export default class AmountDates extends React.Component {
             left: `${todayMarker + 1}%`,
             top: '-11px',
             color: 'rgb(245, 166, 35)',
-            fontSize: '8px'
+            fontSize: '8px',
+          //  display: 'none'
         };
 
         return (

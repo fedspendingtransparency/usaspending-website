@@ -24,9 +24,6 @@ describe('BaseContract', () => {
         it('should format the obligated amount', () => {
             expect(contract.obligation).toEqual('$123.23 million');
         });
-        it('should format the current total amount', () => {
-            expect(contract.currentTotal).toEqual('$1,000');
-        });
     });
     describe('agencies', () => {
         it('should only populate an awarding/funding agency if it is available in the API response', () => {

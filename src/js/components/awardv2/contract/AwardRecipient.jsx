@@ -18,7 +18,8 @@ export default class AwardRecipient extends React.Component {
             <div className="award__col award-overview">
                 <div className="award-overview__awarding">
                     <span className="award-overview__awarding-title">Awarding Agency</span> <br />
-                    <span className="award-overview__awarding-detail">{`${award.awardingAgency.toptierName} ${award.awardingAgency.toptierAbbr}`}</span>
+                    <span className="award-overview__awarding-detail">{`${award.awardingAgency.toptierName} ${award.awardingAgency.toptierAbbr}`}</span> <br />
+                    <a className="award-overview__awarding-info" href="#">View addtional information</a>
                 </div>
                 <div className="award-overview__recipient">
                     <span className="award-overview__recipient-title">Recipient</span> <br />

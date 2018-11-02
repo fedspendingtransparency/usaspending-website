@@ -10,7 +10,7 @@ export const mockContract = {
     base_and_all_options_value: 234234.00,
     subaward_count: 2342334,
     total_subaward_amount: 3242342,
-    current_total_value_award: 1000,
+    base_exercised_options: 234242,
     awarding_agency: {
         toptier_agency: {
             name: "Department of Defense",
