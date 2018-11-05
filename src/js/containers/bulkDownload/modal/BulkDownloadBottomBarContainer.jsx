@@ -54,9 +54,9 @@ export class BulkDownloadBottomBarContainer extends React.Component {
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         if (prevProps.bulkDownload.download.pendingDownload && prevProps.bulkDownload.download.showCollapsedProgress &&
-            !prevProps.state.visible) {
+            !prevState.visible) {
             this.checkStatus();
             this.displayBar();
         }
