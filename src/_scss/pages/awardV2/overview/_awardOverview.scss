@@ -8,6 +8,9 @@
         min-height: rem(134);
         padding: rem(11) 0 0 rem(13);
         width: 50%;
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(space-between);
         position: relative;
         word-wrap: break-word;
     }
@@ -29,7 +32,6 @@
         font-size: rem(14);
         font-weight: 600;
         display: inline-block;
-        margin-bottom: rem(6);
     }
 
     .award-overview__awarding-detail {
@@ -38,6 +40,16 @@
         text-transform: uppercase;
         font-weight: 600;
         line-height: 1.13;
+        margin-top: rem(-12);
+    }
+
+    .award-overview__awarding-icon {
+        padding-right: rem(5);
+        svg {
+            width: rem(12);
+            height: rem(12);
+            fill: #4975AB;
+        }
     }
 
     .award-overview__recipient {

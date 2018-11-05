@@ -34,7 +34,7 @@ export default class AmountDates extends React.Component {
         };
 
         const timeRange = TimeRangeHelper.convertDatesToRange(award.periodOfPerformance._endDate, award.periodOfPerformance._potentialEndDate);
-        const popDate = timeRange.substr(1).slice(0, -1) || '--';
+        let popDate = timeRange.substr(1).slice(0, -1) || '--';
 
         const unformattedEndDate = award.periodOfPerformance._endDate;
         const unformattedAwardDate = award.periodOfPerformance._awardDate;
@@ -42,7 +42,9 @@ export default class AmountDates extends React.Component {
         const today = moment();
         const todayMarker = Math.round(((today.diff(unformattedAwardDate, "days")) / (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"))) * 100);
         const totalDate = (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"));
-        const timePercentage = (unformattedEndDate.diff(unformattedAwardDate, 'days') / totalDate) * 100;
+        const timePercentage = Math.round((unformattedEndDate.diff(unformattedAwardDate, 'days') / totalDate) * 100);
+
+        let dateLabel = "Remaining";
 
         const timeStyle = {
             width: `${timePercentage}%`,
@@ -54,19 +56,24 @@ export default class AmountDates extends React.Component {
             left: `${todayMarker}%`,
             border: 'solid 1px rgba(245, 166, 35, 0.5)',
             height: '13px',
-            top: '-10px',
-          //  display: 'none'
+            top: '-10px'
         };
 
         const lineContentStyle = {
             position: 'absolute',
             textTransform: 'uppercase',
-            left: `${todayMarker + 1}%`,
+            left: `${todayMarker + 2}%`,
             top: '-11px',
             color: 'rgb(245, 166, 35)',
-            fontSize: '8px',
-          //  display: 'none'
+            fontSize: '8px'
         };
+
+        if (timePercentage === 100) {
+            lineStyle.display = 'none';
+            popDate = '';
+            lineContentStyle.display = 'none';
+            dateLabel = 'Completed';
+        }
 
         return (
             <div className="award__col award-amountdates">
@@ -86,7 +93,7 @@ export default class AmountDates extends React.Component {
                 </div>
                 <div className="award-amountdates__amounts">
                     <div className="award-amountdates__heading">
-                        <span className="award-amountdates__heading-title">Dates <span className="award-amountdates__heading-info"><Icons.InfoCircle /></span></span> <span className="award-amountdates__heading-remaining">{popDate}<span className="award-amountdates__heading-remaining-text">Remaining</span></span>
+                        <span className="award-amountdates__heading-title">Dates <span className="award-amountdates__heading-info"><Icons.InfoCircle /></span></span> <span className="award-amountdates__heading-remaining">{popDate}<span className="award-amountdates__heading-remaining-text">{dateLabel}</span></span>
                     </div>
                     <div className="award-amountdates__stats-dates">
                         <div className="award-amountdates__stats-inner" style={timeStyle}>

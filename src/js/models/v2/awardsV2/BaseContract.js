@@ -147,7 +147,7 @@ Object.defineProperty(BaseContract, 'obligationFormatted', {
 });
 Object.defineProperty(BaseContract, 'remaining', {
     get() {
-        const remaining = this._baseExercisedOptions - this._obligation;
+        const remaining = this._amount - this._obligation;
         if (remaining >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(remaining);
             return `${MoneyFormatter.formatMoneyWithPrecision(remaining / units.unit, 2)} ${units.longLabel}`;

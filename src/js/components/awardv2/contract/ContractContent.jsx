@@ -24,6 +24,12 @@ const propTypes = {
 export default class ContractContent extends React.Component {
     render() {
         // TODO: determine glossary term for link
+        let idLabel = "";
+        if (this.props.selectedAward.category === "contract") {
+            idLabel = "PIID"
+        } else {
+            idLabel = "IDVPIID"
+        }
         return (
             <div className="award award-contract">
                 <div className="award__heading">
@@ -34,6 +40,7 @@ export default class ContractContent extends React.Component {
                         </a>
                     </div>
                     <div className="award__heading-id">
+                        <span className="award__heading-lable">{idLabel}</span>
                         {this.props.selectedAward.id}
                     </div>
                 </div>

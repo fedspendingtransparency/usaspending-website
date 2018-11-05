@@ -19,7 +19,7 @@ export default class SummaryBar extends React.Component {
         return (
             <div className="sticky-header__title">
                 <h1 tabIndex={-1} id="main-focus">
-                    {category}&nbsp;Summary
+                    Award&nbsp;Summary
                 </h1>
             </div>
 

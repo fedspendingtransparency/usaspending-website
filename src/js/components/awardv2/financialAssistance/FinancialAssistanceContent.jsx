@@ -28,6 +28,7 @@ export default class FinancialAssistanceContent extends React.Component {
                         </a>
                     </div>
                     <div className="award__heading-id">
+                        <span className="award__heading-lable">PIID</span>
                         {this.props.selectedAward.id}
                     </div>
                 </div>
