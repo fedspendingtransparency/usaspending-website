@@ -9,20 +9,14 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import HeroButton from './HeroButton';
 import HeroTooltip from './HeroTooltip';
 
-// Fiscal year, document URL, and spending amount constants, updated yearly
+// Fiscal year, spending amount constants, to be updated yearly
 // last updated: 11/5/2018
-const FISCAL_YEAR = 2018;
-const FISCAL_DOCUMENT_URL = `https://www.fiscal.treasury.gov/fsreports/rpt/mthTreasStmt/mts0918.pdf`;
-const FISCAL_SPENDING_AMOUNT = `$4.11 trillion`;
+const fiscalYear = 2018;
+const fiscalSpendingAmount = `$4.11 trillion`;
 
 export default class Hero extends React.Component {
     constructor(props) {
         super(props);
-
-        this.fiscalData = {
-            fiscalYear: FISCAL_YEAR,
-            fiscalDocumentURL: FISCAL_DOCUMENT_URL
-        };
 
         this.state = {
             showInfoTooltip: false
@@ -49,7 +43,7 @@ export default class Hero extends React.Component {
         if (this.state.showInfoTooltip) {
             tooltip = (
                 <HeroTooltip
-                    fiscalData={this.fiscalData}
+                    fiscalYear={fiscalYear}
                     showInfoTooltip={this.state.showInfoTooltip}
                     closeTooltip={this.closeTooltip} />
             );
@@ -61,7 +55,7 @@ export default class Hero extends React.Component {
                     className="homepage-hero__wrapper">
                     <div className="homepage-hero__content">
                         <h1 className="homepage-hero__headline" tabIndex={-1}>
-                            In {FISCAL_YEAR}, the government spent <strong className="homepage-hero__headline homepage-hero__headline_weight_bold">{FISCAL_SPENDING_AMOUNT}.</strong>
+                            In {fiscalYear}, the government spent <strong className="homepage-hero__headline homepage-hero__headline_weight_bold">{fiscalSpendingAmount}.</strong>
                             <span className="homepage-hero__info_icon_holder">
                                 <button
                                     id="homepage-hero__info_icon"

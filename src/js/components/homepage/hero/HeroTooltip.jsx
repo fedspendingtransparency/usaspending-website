@@ -10,13 +10,10 @@ import { throttle } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    fiscalData: PropTypes.shape({
-        fiscalYear: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number
-        ]),
-        fiscalDocumentURL: PropTypes.string
-    }),
+    fiscalYear: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     closeTooltip: PropTypes.func,
     showInfoTooltip: PropTypes.bool
 };
@@ -111,9 +108,9 @@ export default class HeroTooltip extends React.Component {
                         Data Source:
                     </div>
                     <div className="homepage-hero-tooltip__tooltip_text">
-                        Fiscal Year {this.props.fiscalData.fiscalYear} net outlays as reported on the&nbsp;
+                        Fiscal Year {this.props.fiscalYear} net outlays as reported on the&nbsp;
                         <a
-                            href={this.props.fiscalData.fiscalDocumentURL}
+                            href="https://www.fiscal.treasury.gov/fsreports/rpt/mthTreasStmt/current.htm"
                             target="_blank"
                             rel="noopener noreferrer">
                             Monthly Treasury Statement
