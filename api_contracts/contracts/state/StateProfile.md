@@ -82,7 +82,7 @@ This endpoint returns the award amounts and totals, based on award type, of a sp
 
 ## StateBreakdown (object)
 + type: contracts (required, string)
-    Award types include 'contracts', 'grants', 'direct_payments', 'loans', 'other_financial_assistance'.
+    Award types include 'contracts', 'grants', 'direct_payments', 'loans', 'other_financial_assistance', 'idv'.
 + amount: 41725.9 (required, number)
     The aggregate value of awards of this type.
 + count: 4 (required, number)
