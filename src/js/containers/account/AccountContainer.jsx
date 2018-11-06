@@ -52,9 +52,9 @@ export class AccountContainer extends React.Component {
         this.loadData(this.props.params.accountNumber);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.params.accountNumber !== this.state.currentAccountNumber) {
-            this.loadData(nextProps.params.accountNumber);
+    componentDidUpdate(prevProps) {
+        if (prevProps.params.accountNumber !== this.props.params.accountNumber) {
+            this.loadData(this.props.params.accountNumber);
         }
     }
 

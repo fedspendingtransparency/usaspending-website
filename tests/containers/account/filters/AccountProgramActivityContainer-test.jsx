@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 import { OrderedSet } from 'immutable';
 
@@ -34,7 +34,7 @@ describe('AccountProgramActivityContainer', () => {
             });
 
             // Set up container with mocked Program Activity action
-            const accountProgramActivityContainer = shallow(
+            const accountProgramActivityContainer = mount(
                 <AccountProgramActivityContainer
                     reduxFilters={initialFilters}
                     toggleProgramActivity={mockReduxAction}
@@ -64,7 +64,7 @@ describe('AccountProgramActivityContainer', () => {
             });
 
             // Set up container with mocked Program Activity action
-            const accountProgramActivityContainer = shallow(
+            const accountProgramActivityContainer = mount(
                 <AccountProgramActivityContainer
                     reduxFilters={initialFilters}
                     toggleProgramActivity={mockReduxAction}
@@ -94,7 +94,7 @@ describe('AccountProgramActivityContainer', () => {
 
     describe('populateProgramActivities', () => {
         it('should fetch program activities on load', async () => {
-            const accountProgramActivityContainer = shallow(
+            const accountProgramActivityContainer = mount(
                 <AccountProgramActivityContainer
                     reduxFilters={initialFilters}
                     toggleProgramActivity={jest.fn()}
@@ -106,7 +106,7 @@ describe('AccountProgramActivityContainer', () => {
             const populateProgramActivitiesSpy = sinon.spy(
                 accountProgramActivityContainer.instance(), 'populateProgramActivities');
 
-            accountProgramActivityContainer.instance().componentWillMount();
+            accountProgramActivityContainer.instance().componentDidMount();
 
             await accountProgramActivityContainer.instance().searchRequest.promise;
 

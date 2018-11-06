@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import { ExplorerDetailPageContainer } from 'containers/explorer/detail/ExplorerDetailPageContainer';
 
@@ -23,7 +23,7 @@ describe('ExplorerDetailPageContainer', () => {
 
             const mockSetRoot = jest.fn();
 
-            shallow(<ExplorerDetailPageContainer
+            mount(<ExplorerDetailPageContainer
                 {...mockParams}
                 setExplorerRoot={mockSetRoot} />);
 
@@ -40,7 +40,7 @@ describe('ExplorerDetailPageContainer', () => {
 
             const mockSetRoot = jest.fn();
 
-            shallow(<ExplorerDetailPageContainer
+            mount(<ExplorerDetailPageContainer
                 {...mockParams}
                 setExplorerRoot={mockSetRoot} />);
 
@@ -57,7 +57,7 @@ describe('ExplorerDetailPageContainer', () => {
 
             const mockSetRoot = jest.fn();
 
-            shallow(<ExplorerDetailPageContainer
+            mount(<ExplorerDetailPageContainer
                 {...mockParams}
                 setExplorerRoot={mockSetRoot} />);
 

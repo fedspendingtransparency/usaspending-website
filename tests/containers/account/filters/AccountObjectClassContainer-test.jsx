@@ -5,7 +5,7 @@
 
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { OrderedSet } from 'immutable';
 
 import { AccountObjectClassContainer } from
@@ -26,7 +26,7 @@ const defaultFilters = {
 describe('AccountObjectClassContainer', () => {
     describe('loadAvailableOCs', () => {
         it('should perform an API request to get the relevant object classes for the current federal account', async () => {
-            const container = shallow(<AccountObjectClassContainer
+            const container = mount(<AccountObjectClassContainer
                 {...defaultFilters}
                 {...mockReduxActions} />);
             const mockParse = jest.fn();
