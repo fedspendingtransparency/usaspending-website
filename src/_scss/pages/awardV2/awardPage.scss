@@ -44,6 +44,12 @@
                 .award__heading-id {
                     padding-left: rem(20);
                 }
+
+                .award__heading-lable {
+                    font-weight: $font-semibold;
+                    display: inline-block;
+                    margin-right: rem(5);
+                }
             }
 
             .award__row {

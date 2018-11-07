@@ -1,9 +1,9 @@
-.award-overview {
+.award-recipient {
 
     width: 50%;
     @include display(flex);
 
-    .award-overview__awarding {
+    .award-recipient__awarding {
         background-color: #F5FBFC;
         min-height: rem(134);
         padding: rem(11) 0 0 rem(13);
@@ -15,7 +15,7 @@
         word-wrap: break-word;
     }
 
-    .award-overview__awarding:after {
+    .award-recipient__awarding:after {
         content: '';
         position: absolute;
         right: 0;
@@ -28,22 +28,22 @@
         margin-right: rem(-20);
     }
 
-    .award-overview__awarding-title {
+    .award-recipient__awarding-title {
         font-size: rem(14);
         font-weight: 600;
         display: inline-block;
     }
 
-    .award-overview__awarding-detail {
+    .award-recipient__awarding-detail {
         font-size: rem(16);
         color: #0074be;
         text-transform: uppercase;
-        font-weight: 600;
+        font-weight: $font-bold;
         line-height: 1.13;
         margin-top: rem(-12);
     }
 
-    .award-overview__awarding-icon {
+    .award-recipient__awarding-icon {
         padding-right: rem(5);
         svg {
             width: rem(12);
@@ -52,19 +52,19 @@
         }
     }
 
-    .award-overview__recipient {
+    .award-recipient__recipient {
         height: rem(134);
         padding: rem(11) 0 0 rem(60);
     }
 
-    .award-overview__recipient-title {
+    .award-recipient__recipient-title {
         font-size: rem(14);
-        font-weight: 600;
+        font-weight: $font-bold;
         display: inline-block;
         margin-bottom: rem(6);
     }
 
-    .award-overview__recipient-detail {
+    .award-recipient__recipient-detail {
         font-size: rem(16);
         color: #0074be;
         text-transform: uppercase;
