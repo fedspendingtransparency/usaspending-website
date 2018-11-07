@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    selectedAward: PropTypes.object
+    selectedAward: PropTypes.object,
+    jumpToSection: PropTypes.func
 };
 
 export default class AwardRecipient extends React.Component {
@@ -20,7 +21,7 @@ export default class AwardRecipient extends React.Component {
                 <div className="award-recipient__awarding">
                     <span className="award-recipient__awarding-title">Awarding Agency</span>
                     <span className="award-recipient__awarding-detail">{`${award.awardingAgency.toptierName} ${award.awardingAgency.toptierAbbr}`}</span> <br />
-                    <span><span className="award-recipient__awarding-icon"><Icons.ArrowDown /></span><a className="award-recipient__awarding-info" href="#">View additional information</a></span>
+                    <span><span className="award-recipient__awarding-icon"><Icons.ArrowDown /></span><span className="award-recipient__awarding-info" onClick={() => this.props.jumpToSection('additional-information')}>View additional information</span></span>
                 </div>
                 <div className="award-recipient__recipient">
                     <span className="award-recipient__recipient-title">Recipient</span> <br />

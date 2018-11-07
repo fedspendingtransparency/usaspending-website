@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import kGlobalConstants from 'GlobalConstants';
 
 import { Spreadsheet } from 'components/sharedComponents/icons/Icons';
 import DataDictionaryTable from './table/DataDictionaryTable';
@@ -20,7 +19,8 @@ const propTypes = {
     sort: PropTypes.object,
     changeSort: PropTypes.func,
     setSearchString: PropTypes.func,
-    searchTerm: PropTypes.string
+    searchTerm: PropTypes.string,
+    downloadLocation: PropTypes.string
 };
 
 export default class DataDictionary extends React.Component {
@@ -36,7 +36,7 @@ export default class DataDictionary extends React.Component {
                 <div className="data-dictionary__download">
                     <a
                         className="data-dictionary__download-link"
-                        href={`https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/docs/DATA+Transparency+Crosswalk.xlsx`}>
+                        href={this.props.downloadLocation}>
                         <div className="data-dictionary__download-icon">
                             <Spreadsheet />
                         </div>

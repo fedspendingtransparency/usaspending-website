@@ -207,8 +207,8 @@ export const mockDictionary = {
         metadata: {
             total_rows: 3,
             total_columns: 4,
-            file_name: 'Data Transparency Rosetta Stone_Public_only.xlsx',
-            total_size: '100.00KB'
+            total_size: '100.00KB',
+            download_location: 'http://files-nonprod.usaspending.gov/docs/DATA+Transparency+Crosswalk.xlsx'
         },
         sections: [
             {

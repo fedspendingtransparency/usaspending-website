@@ -36,7 +36,7 @@
 
     .award-recipient__awarding-detail {
         font-size: rem(16);
-        color: #0074be;
+        color: $color-primary;
         text-transform: uppercase;
         font-weight: $font-bold;
         line-height: 1.13;
@@ -45,11 +45,17 @@
 
     .award-recipient__awarding-icon {
         padding-right: rem(5);
+        cursor: pointer;
         svg {
             width: rem(12);
             height: rem(12);
             fill: #4975AB;
         }
+    }
+
+    .award-recipient__awarding-info {
+        color: $color-primary;
+        cursor: pointer;
     }
 
     .award-recipient__recipient {
@@ -66,7 +72,7 @@
 
     .award-recipient__recipient-detail {
         font-size: rem(16);
-        color: #0074be;
+        color: $color-primary;
         text-transform: uppercase;
         font-weight: 600;
         line-height: 1.13;
