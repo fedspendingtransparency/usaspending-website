@@ -12,6 +12,7 @@ export const mockContract = {
     total_subaward_amount: 3242342,
     base_exercised_options: 234242,
     awarding_agency: {
+        id: "234",
         toptier_agency: {
             name: "Department of Defense",
             abbreviation: "DOD"
@@ -137,6 +138,7 @@ export const mockLoan = {
     total_loan_value: 24343,
     total_subaward_amount: 32423342,
     awarding_agency: {
+        id: "323",
         toptier_agency: {
             name: "Department of Defense",
             abbreviation: "DOD"

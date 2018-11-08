@@ -27,10 +27,8 @@ export default class FinancialAssistanceContent extends React.Component {
                             <Icons.Glossary />
                         </a>
                     </div>
-                    <div className="award__heading-id">
-                        <span className="award__heading-lable">PIID</span>
-                        {this.props.selectedAward.id}
-                    </div>
+                    <span className="award__heading-lable">PIID</span>
+                    <span className="award__heading-id">{this.props.selectedAward.id}</span>
                 </div>
                 <hr className="award__divider" />
             </div>

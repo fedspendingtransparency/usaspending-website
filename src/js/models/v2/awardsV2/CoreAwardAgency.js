@@ -6,6 +6,7 @@
 const CoreAwardAgency = {
     toptierName: '--',
     populateCore(data) {
+        this.id = data.id || '--';
         this.toptierName = data.toptierName || '--';
         this.toptierAbbr = data.toptierAbbr || '';
         this.subtierName = data.subtierName || '';

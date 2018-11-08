@@ -28,34 +28,45 @@
         margin-right: rem(-20);
     }
 
-    .award-recipient__awarding-title {
+    %award-recipient__title {
         font-size: rem(14);
-        font-weight: 600;
+        font-weight: $font-semibold;
         display: inline-block;
     }
 
-    .award-recipient__awarding-detail {
+    %award-recipient__detail{
         font-size: rem(16);
         color: $color-primary;
         text-transform: uppercase;
-        font-weight: $font-bold;
+        font-weight: $font-semibold;
         line-height: 1.13;
+    }
+
+
+    .award-recipient__awarding-title {
+       @extend %award-recipient__title;
+    }
+
+    .award-recipient__awarding-detail {
+        @extend %award-recipient__detail;
         margin-top: rem(-12);
     }
 
     .award-recipient__awarding-icon {
-        padding-right: rem(5);
         cursor: pointer;
         svg {
-            width: rem(12);
-            height: rem(12);
+            width: rem(10);
+            height: rem(10);
             fill: #4975AB;
         }
     }
 
     .award-recipient__awarding-info {
         color: $color-primary;
-        cursor: pointer;
+        background-color: transparent;
+        margin: 0;
+        padding: 0 0 0 rem(5);
+        font-weight: $font-normal;
     }
 
     .award-recipient__recipient {
@@ -64,18 +75,12 @@
     }
 
     .award-recipient__recipient-title {
-        font-size: rem(14);
-        font-weight: $font-bold;
-        display: inline-block;
+        @extend %award-recipient__title;
         margin-bottom: rem(6);
     }
 
     .award-recipient__recipient-detail {
-        font-size: rem(16);
-        color: $color-primary;
-        text-transform: uppercase;
-        font-weight: 600;
-        line-height: 1.13;
+        @extend %award-recipient__detail;
     }
 
    

@@ -20,8 +20,8 @@ export default class AwardRecipient extends React.Component {
             <div className="award__col award-recipient">
                 <div className="award-recipient__awarding">
                     <span className="award-recipient__awarding-title">Awarding Agency</span>
-                    <span className="award-recipient__awarding-detail">{`${award.awardingAgency.toptierName} ${award.awardingAgency.toptierAbbr}`}</span> <br />
-                    <span><span className="award-recipient__awarding-icon"><Icons.ArrowDown /></span><span className="award-recipient__awarding-info" onClick={() => this.props.jumpToSection('additional-information')}>View additional information</span></span>
+                    <span className="award-recipient__awarding-detail"><a href={`/#/agency/${award.awardingAgency.id}`}>{`${award.awardingAgency.toptierName} ${award.awardingAgency.toptierAbbr}`}</a></span> <br />
+                    <span><span className="award-recipient__awarding-icon"><Icons.ArrowDown /></span><button className="award-recipient__awarding-info" onClick={() => this.props.jumpToSection('additional-information')}>View additional information</button></span>
                 </div>
                 <div className="award-recipient__recipient">
                     <span className="award-recipient__recipient-title">Recipient</span> <br />

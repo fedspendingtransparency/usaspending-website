@@ -29,9 +29,10 @@ export default class ContractContent extends React.Component {
         // TODO: determine glossary term for link
         let idLabel = "";
         if (this.props.selectedAward.category === "contract") {
-            idLabel = "PIID"
-        } else {
-            idLabel = "IDVPIID"
+            idLabel = "PIID";
+        }
+        else {
+            idLabel = "IDVPIID";
         }
         return (
             <div className="award award-contract">
@@ -42,10 +43,8 @@ export default class ContractContent extends React.Component {
                             <Icons.Glossary />
                         </a>
                     </div>
-                    <div className="award__heading-id">
-                        <span className="award__heading-lable">{idLabel}</span>
-                        {this.props.selectedAward.id}
-                    </div>
+                    <span className="award__heading-lable">{idLabel}</span>
+                    <span className="award__heading-id">{this.props.selectedAward.id}</span>
                 </div>
                 <hr />
                 <div className="award__row" id="award-overview">

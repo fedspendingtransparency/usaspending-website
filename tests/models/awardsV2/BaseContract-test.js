@@ -21,8 +21,11 @@ describe('BaseContract', () => {
         it('should format the contract amount', () => {
             expect(contract.amount).toEqual('$234.23 thousand');
         });
-        it('should format the obligated amount', () => {
+        it('should format the obligated amount with a label', () => {
             expect(contract.obligation).toEqual('$123.23 million');
+        });
+        it('should format the obligated amount', () => {
+            expect(contract.obligationFormatted).toEqual('$123,231,313');
         });
     });
     describe('agencies', () => {

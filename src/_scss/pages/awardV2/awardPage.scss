@@ -24,7 +24,6 @@
                     @include display(flex);
                     @include flex(0 0 auto);
                     padding: 0 rem(20) 0 rem(9);
-                    border-right: solid rem(1) $color-gray;
                     a {
                         width: rem(19);
                         height: rem(25);
@@ -42,11 +41,11 @@
                     }
                 }
                 .award__heading-id {
-                    padding-left: rem(20);
+                    font-weight: $font-light;
                 }
 
                 .award__heading-lable {
-                    font-weight: $font-semibold;
+                    font-weight: $font-normal;
                     display: inline-block;
                     margin-right: rem(5);
                 }

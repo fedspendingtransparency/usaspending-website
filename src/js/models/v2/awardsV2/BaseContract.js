@@ -68,6 +68,7 @@ BaseContract.populate = function populate(data) {
 
     if (data.awarding_agency) {
         const awardingAgencyData = {
+            id: data.awarding_agency.id,
             toptierName: data.awarding_agency.toptier_agency.name,
             toptierAbbr: data.awarding_agency.toptier_agency.abbreviation,
             subtierName: data.awarding_agency.subtier_agency.name,

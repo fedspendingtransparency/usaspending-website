@@ -44,7 +44,7 @@ export default class AmountDates extends React.Component {
         const totalDate = (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"));
         const timePercentage = Math.round((unformattedEndDate.diff(unformattedAwardDate, 'days') / totalDate) * 100);
 
-        let dateLabel = "Remaining";
+        let dateLabel = "Remains";
 
         const timeStyle = {
             width: `${timePercentage}%`,
@@ -79,7 +79,7 @@ export default class AmountDates extends React.Component {
             <div className="award__col award-amountdates">
                 <div className="award-amountdates__amounts">
                     <div className="award-amountdates__heading">
-                        <span className="award-amountdates__heading-title">Award Amounts <span className="award-amountdates__heading-info"><Icons.InfoCircle /></span></span> <span className="award-amountdates__heading-remaining">{award.remaining}<span className="award-amountdates__heading-remaining-text">Remaining</span></span>
+                        <span className="award-amountdates__heading-title">Award Amounts <span className="award-amountdates__heading-info"><Icons.InfoCircle /></span></span> <span className="award-amountdates__heading-remaining">{award.remaining}<span className="award-amountdates__heading-remaining-text">Remains</span></span>
                     </div>
                     <div className="award-amountdates__stats-amounts">
                         <div className="award-amountdates__stats-inner" style={obligatedStyle} />
@@ -100,7 +100,6 @@ export default class AmountDates extends React.Component {
                             <div style={lineStyle} />
                             <div style={lineContentStyle}>Today</div>
                         </div>
-                        
                     </div>
                     <div className="award-amountdates__details-container">
                         <div className="award-amountdates__details award-amountdates__details_indent"><span>Awarded on</span> <span>{award.periodOfPerformance.awardDate}</span></div>
