@@ -45,7 +45,6 @@ This endpoint returns a list of recipients, their level, DUNS, and amount.
                 + loans
                 + direct_payments
                 + other_financial_assistance
-                + idv
 
 + Response 200 (application/json)
     + Attributes (RecipientsListResponse)

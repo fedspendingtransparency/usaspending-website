@@ -9,6 +9,22 @@ These endpoints support the advanced search page and allow for complex filtering
 
 These endpoints return data that is grouped in preset units to support the various data visualizations on USAspending.gov's Advanced Search page.
 
+## Spending by Award Count [/api/v2/search/spending_by_award_count/]
+
+This endpoint takes award filters and fields, and returns the fields of the filtered awards.
+
+### Spending by Award Count [POST]
+
++ Request (application/json)
+    + Attributes (object)
+        + filters (required, FilterObject)
+        + subawards: false (optional, boolean)
+            True when you want to group by Subawards instead of Awards. Defaulted to False.
+
++ Response 200 (application/json)
+    + Attributes
+        + results (AwardTypeResult)
+
 ## Spending By Category [/api/v2/search/spending_by_category/]
 
 This endpoint returns a list of the top results of specific categories sorted by the total amounts in descending order.
@@ -73,6 +89,14 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 
 # Data Structures
 
+## AwardTypeResult (object)
++ grants : 200, (required, number)
++ loans : 100, (required, number)
++ contracts : 150, (required, number)
++ direct_payments : 100, (required, number)
++ other : 50, (required, number)
++ idv : 50, (required, number)
+
 ## CategoryResult (object)
 + id: 1 (required, number)
     The `id` is the database key.
@@ -108,7 +132,9 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 + recipient_locations (optional, array[LocationObject])
 + recipient_type_names: `category_business` (optional, array[string])
     See options at https://github.com/fedspendingtransparency/usaspending-api/wiki/Recipient-Business-Types
-+ award_type_codes: 01, 02, 03, 04 (optional, array[string])
++ award_type_codes: 02, 03, 04, 05, 06, 07, 08, 09, 10, 11, A, B, C, D, E, F, G, S, T, IDV_A, IDV_B, IDV_C, IDV_D, IDV_E (optional, array[string])
+    See use at
+    https://github.com/fedspendingtransparency/usaspending-api/wiki/Search-Filters-v2-Documentation#award-type
 + award_ids: SPE30018FLGFZ, SPE30018FLJFN (optional, array[string])
 + award_amounts (optional, array[AwardAmounts])
 + program_numbers: 10.331 (optional, array[string])
