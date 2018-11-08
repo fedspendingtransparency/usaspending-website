@@ -155,7 +155,6 @@ This endpoint returns a list of data that is associated with the award profile p
         + other
         + direct payment
         + grant
-        + idv
 + type: `C` (required, string)
 + type_description: `Some loan` (required, string)
 + piid: 34242 (required, number)

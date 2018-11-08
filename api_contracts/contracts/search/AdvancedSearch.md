@@ -132,7 +132,7 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 + recipient_locations (optional, array[LocationObject])
 + recipient_type_names: `category_business` (optional, array[string])
     See options at https://github.com/fedspendingtransparency/usaspending-api/wiki/Recipient-Business-Types
-+ award_type_codes: `02`, `03`, `04`, `05`, `06`, `07`, `08`, `09`, `10`, `11`, `A`, `B`, `C`, `D`, `E`, `F`, `G`, `S`, `T`, `IDV_A`, `IDV_B`, `IDV_C`, `IDV_D`, `IDV_E` (optional, array[string])
++ award_type_codes: `02`, `03`, `04`, `05`, `06`, `07`, `08`, `09`, `10`, `11`, `A`, `B`, `C`, `D`, `E`, `F`, `G`, `S`, `T`, `IDV_A`, `IDV_B_A`, `IDV_B_B`,`IDV_B_C` ,`IDV_C`, `IDV_D`, `IDV_E` (optional, array[string])
     See use at
     https://github.com/fedspendingtransparency/usaspending-api/wiki/Search-Filters-v2-Documentation#award-type
 + award_ids: SPE30018FLGFZ, SPE30018FLJFN (optional, array[string])
