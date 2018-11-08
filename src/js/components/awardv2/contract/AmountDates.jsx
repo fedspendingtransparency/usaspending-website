@@ -86,7 +86,7 @@ export default class AmountDates extends React.Component {
                         <div className="award-amountdates__stats-inner" style={exercisedStyle} />
                     </div>
                     <div className="award-amountdates__details-container">
-                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_blue" />Transaction Obligated</span> <span>{award.obligation}</span></div>
+                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_blue" />Obligated Amount</span> <span>{award.obligation}</span></div>
                         <div className="award-amountdates__details"><span><span className="award-amountdates__circle_gray" />Base &amp; Exercised Options</span> <span>{award.baseExercisedOptions}</span></div>
                         <div className="award-amountdates__details"><span><span className="award-amountdates__circle_light-gray" />Base &amp; All Options</span> <span>{award.amount}</span></div>
                     </div>
