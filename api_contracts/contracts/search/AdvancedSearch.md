@@ -7,7 +7,51 @@ These endpoints support the advanced search page and allow for complex filtering
 
 # Group Visualizations
 
-These endpoints return data that is grouped in preset units to support the various data visualizations on USAspending.gov's Advanced Search page.
+These endpoints return data that are grouped in preset units to support the various data visualizations on USAspending.gov's Advanced Search page.
+
+## Spending by Award [/api/v2/search/spending_by_award/]
+
+This endpoint takes award filters and fields, and returns the fields of the filtered awards.
+
+### Spending by Award [POST]
+
++ Request (application/json)
+    + Attributes (object)
+        + filters (optional, FilterObject)
+        + fields: [`Award ID`, `Recipient Name`, `Start Date`, `End Date`, `Award Amount`, `Awarding Agency`, `Awarding Sub Agency`, `Contract Award Type`, `Award Type`, `Funding Agency`, `Funding Sub Agency`] (optional, array[string]),
+            See options at https://github.com/fedspendingtransparency/usaspending-api/blob/stg/usaspending_api/api_docs/api_documentation/advanced_award_search/spending_by_award.md#fields
+        + limit: 60 (optional, number)
+            How many results are returned. If no limit is specified, the limit is set to 10.
+        + order: `desc` (optional, string)
+            Indicates what direction results should be sorted by. Valid options include asc for ascending order or desc for descending order. Defaults to asc.
+        + page: 1 (optional, number)
+            The page number that is currently returned.
+        + sort: `Award Amount` (optional, string)
+            Optional parameter indicating what value results should be sorted by. Valid options are any of the fields in the JSON objects in the response. Defaults to the first field provided.
+        + subawards: false (optional, boolean)
+            True when you want to group by Subawards instead of Awards. Defaulted to False.
+
++ Response 200 (application/json)
+    + Attributes
+        + limit: 60 (optional, number)
+        + results (array[SpendingCountAwardTypes])
+        + page_metadata (PageMetadataObject)
+
+## Spending by Award Count [/api/v2/search/spending_by_award_count/]
+
+This endpoint takes award filters, and returns the number of awards in each award type (Contracts, Loans, Direct Payments, Grants, Other and IDVs).
+
+### Spending by Award Count [POST]
+
++ Request (application/json)
+    + Attributes (object)
+        + filters (required, FilterObject)
+        + subawards: false (optional, boolean)
+            True when you want to group by Subawards instead of Awards. Defaulted to False.
+
++ Response 200 (application/json)
+    + Attributes
+        + results (AwardTypeResult)
 
 ## Spending By Category [/api/v2/search/spending_by_category/]
 
@@ -73,6 +117,47 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 
 # Data Structures
 
+## SpendingCountAwardTypes (object)
++ Recipient Name : `MULTIPLE RECIPIENTS` (optional, string)
++ Recipient DUNS Number: `001006360` (optional, string)
++ Awarding Agency : `Social Security Administration` (optional, string)
++ Awarding Agency Code : 01 (optional, number)
++ Awarding Sub Agency : `Social Security Administration` (optional, string)
++ Awarding Sub Agency Code : 01 (optional, number)
++ Funding Agency : `Social Security Administration` (optional, string)
++ Funding Agency Code : 01 (optional, number)
++ Funding Sub Agency : `Social Security Administration` (optional, string)
++ Funding Sub Agency Code : 01 (optional, number)
++ Place of Performance City Code : 01 (optional, number)
++ Place of Performance State Code : 02 (optional, number)
++ Place of Performance Country Code : 03 (optional, number)
++ Place of Performance Zip5 : 22205 (optional, number)
++ Period of Performance Start Date : `2002-10-13` (optional, string)
++ Period of Performance Current End Date : `2003-04-01` (optional, string)
++ Description : `description` (optional, string)
++ Last Modified Date : `2002-12-18` (optional, string)
++ Base Obligation Date : `2003-04-01` (optional, string)
++ Award ID : `N0001902C3002`  (optional, string)
++ Start Date : `2001-10-26` (optional, string)
++ End Date : `2019-07-31` (optional, string)
++ Award Amount : 1573663  (optional, number)
++ Award Type : `IDV_C` (optional, string)
++ Contract Award Type: `Federal Supply Schedule` (optional, string)
++ SAI Number : `4.5435` (optional, array[string])
++ CFDA Number : `10.553` (optional, array[string])
++ Issued Date : `2018-09-11` (optional, string)
++ Loan Value : 26358334512 (optional, number)
++ Subsidy Cost : 3000186413 (optional, number)
++ internal_id : 1018950  (optional, number)
+
+## AwardTypeResult (object)
++ grants : 1 (required, number)
++ loans : 1 (required, number)
++ contracts : 1 (required, number)
++ direct_payments : 1 (required, number)
++ other : 1 (required, number)
++ idvs : 1 (required, number)
+
 ## CategoryResult (object)
 + id: 1 (required, number)
     The `id` is the database key.
@@ -108,7 +193,9 @@ This endpoint returns a list of aggregated award amounts grouped by time period 
 + recipient_locations (optional, array[LocationObject])
 + recipient_type_names: `category_business` (optional, array[string])
     See options at https://github.com/fedspendingtransparency/usaspending-api/wiki/Recipient-Business-Types
-+ award_type_codes: A, B, C, D (optional, array[string])
++ award_type_codes: `02`, `03`, `04`, `05`, `06`, `07`, `08`, `09`, `10`, `11`, `A`, `B`, `C`, `D`, `E`, `F`, `G`, `S`, `T`, `IDV_A`, `IDV_B_A`, `IDV_B_B`,`IDV_B_C` ,`IDV_C`, `IDV_D`, `IDV_E` (optional, array[string])
+    See use at
+    https://github.com/fedspendingtransparency/usaspending-api/wiki/Search-Filters-v2-Documentation#award-type
 + award_ids: SPE30018FLGFZ, SPE30018FLJFN (optional, array[string])
 + award_amounts (optional, array[AwardAmounts])
 + program_numbers: 10.331 (optional, array[string])
