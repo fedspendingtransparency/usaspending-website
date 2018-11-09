@@ -1,4 +1,4 @@
-`FORMAT: 1A
+FORMAT: 1A
 HOST: https://api.usaspending.gov
 
 # Advanced Search
@@ -7,11 +7,11 @@ These endpoints support the advanced search page and allow for complex filtering
 
 # Group Visualizations
 
-These endpoints return data that is grouped in preset units to support the various data visualizations on USAspending.gov`s Advanced Search page.
+These endpoints return data that are grouped in preset units to support the various data visualizations on USAspending.gov`s Advanced Search page.
 
 ## Spending by Award [/api/v2/search/spending_by_award/]
 
-These endpoints return data that is grouped in preset units to support the various data visualizations on USAspending.gov`s Advanced Search page.
+This endpoint takes award filters and fields, and returns the fields of the filtered awards.
 
 ### Spending by Award [POST]
 
@@ -39,7 +39,7 @@ These endpoints return data that is grouped in preset units to support the vario
 
 ## Spending by Award Count [/api/v2/search/spending_by_award_count/]
 
-This endpoint takes award filters and fields, and returns the fields of the filtered awards.
+This endpoint takes award filters, and returns the number of awards in each award type (Contracts, Loans, Direct Payments, Grants, Other and IDVs).
 
 ### Spending by Award Count [POST]
 
