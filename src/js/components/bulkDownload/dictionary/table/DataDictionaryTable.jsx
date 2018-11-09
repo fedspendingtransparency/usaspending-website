@@ -172,19 +172,21 @@ export default class DataDictionaryTable extends React.Component {
 
         else {
             table = (
-                <table className="dictionary-table__content">
-                    <thead className="dictionary-table__head">
-                        <tr className="dictionary-table__head-row">
-                            {this.generateSectionHeadings()}
-                        </tr>
-                        <tr className="dictionary-table__head-row">
-                            {this.generateColumnHeadings()}
-                        </tr>
-                    </thead>
-                    <tbody className="dictionary-table__body">
-                        {this.generateRows()}
-                    </tbody>
-                </table>
+                <div className="data-table__scroll-wrapper">
+                    <table className="dictionary-table__content">
+                        <thead className="dictionary-table__head">
+                            <tr className="dictionary-table__head-row">
+                                {this.generateSectionHeadings()}
+                            </tr>
+                            <tr className="dictionary-table__head-row">
+                                {this.generateColumnHeadings()}
+                            </tr>
+                        </thead>
+                        <tbody className="dictionary-table__body">
+                            {this.generateRows()}
+                        </tbody>
+                    </table>
+                </div>
             );
         }
 
