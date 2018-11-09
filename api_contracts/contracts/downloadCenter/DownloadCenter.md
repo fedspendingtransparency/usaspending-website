@@ -3,7 +3,7 @@ HOST: https://api.usaspending.gov
 
 # Download Center
 
-These endpoints are used to power USAspending.gov's download center. 
+These endpoints are used to power USAspending.gov's download center.
 
 # Custom Account Page
 
@@ -23,7 +23,7 @@ This endpoint returns the generated file's metadata.
                 + treasury_account
                 + federal_account
         + file_format: `csv` (optional, string)
-            The file format that should be returned. 
+            The file format that should be returned.
             + Default: `csv`
         + filters: (required, FilterObject)
             The filters used to filter the data
@@ -42,10 +42,80 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
 ### Data Dictonary [GET]
 
 + Response 200 (application/json)
-    + Attributes 
+    + Attributes
         + document (DataDictionary)
-    
+
+
+## Download Count [/api/v2/download/count/]
+
+Returns the number of transactions that would be included in a download request for the given filter set.
+
+### Download Count Data [POST]
++ Request (application/json)
+    + Attributes (object)
+        + filters: (required, object)
+            + time_period (array[TimeRangeObject])
+
++ Response 200 (application/json)
+    + Attributes
+        + transaction_rows_gt_limit : true (required, boolean)
+            A boolean returning whether the transaction count is over the maximum row limit.
+
+## Reference Filter [/api/v1/references/filter/]
+
+Returns the number of transactions that would be included in a download request for the given filter set.
+
+### Reference Filter Data [POST]
++ Request (application/json)
+    + Attributes (object)
+        + filters: (optional, object)
+
++ Response 200 (application/json)
+    + Attributes
+        + hash : `96982f90346b1360dc5fb0a97d4b23fa` (required, string)
+
+## Reference Hash [/api/v1/references/hash/]
+
+Returns the number of transactions that would be included in a download request for the given filter set.
+
+### Reference Hash Data [POST]
++ Request (application/json)
+    + Attributes (object)
+        + hash : `96982f90346b1360dc5fb0a97d4b23fa` (required, string)
+
++ Response 200 (application/json)
+    + Attributes
+        + filter (optional, object)
+            + filters (optional, object)
+                + recipientDomesticForeign : `all` (required, string)
+                + selectedFundingAgencies : (required, object)
+                + selectedPSC : (required, object)
+                + awardAmounts : (required, object)
+                + selectedNAICS : (required, object)
+                + timePeriodFY : `2019` (required, array[string])
+                + selectedRecipients : (required, array[string])
+                + recipientType : (required, array[string])
+                + timePeriodEnd : (required, string)
+                + selectedRecipientLocations : (required, object)
+                + timePeriodStart : (required, string)
+                + locationDomesticForeign : `all` (required, string)
+                + extentCompeted : (required, array[string])
+                + selectedAwardingAgencies : (required, object)
+                + setAside : (required, array[string])
+                + pricingType : (required, array[string])
+                + awardType : (required, array[string])
+                + timePeriodType : `fy` (required, string)
+                + selectedCFDA : (required, object)
+                + keyword : (required, object)
+                + selectedAwardIDs : (required, object)
+                + selectedLocations : (required, object)
+            + version: `2017-11-21` (optional, string)
+
 # Data Structures
+
+## TimeRangeObject (object)
++ start_date : `2001-01-01` (required, string)
++ end_date : `2001-01-31` (required, string)
 
 ## CustomDataResult (object)
 + total_size: 35.055 (required, number)
@@ -63,7 +133,7 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
         + finished
         + failed
 + seconds_elapsed `10.061132` (required, string)
-    
+
 ## FilterObject (object)
 + agency: `all` (optional, string)
     The agency to filter by. This field is an internal id.
@@ -82,7 +152,7 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
     + `2`
     + `3`
     + `4`
-    
+
 ## DataDictionary (object)
 + metadata (required, DictionaryMetadata)
 + sections: (array[Section], fixed-type)
@@ -94,7 +164,7 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
 + section: `Data Labels` (required, string)
 + colspan: 2 (required, number)
     The number of columns in the section
-    
+
 ## Column (object)
 + raw: `award_file` (required, string)
 + display: `Award File` (required, string)
