@@ -18,6 +18,13 @@ const defaultProps = {
             filters: awardTypeGroups.contracts
         },
         {
+            id: 'indefinite-delivery-vehicle',
+            name: 'Indefinite Delivery Vehicle',
+            filters: awardTypeGroups.idv,
+            // Temporarily hide IDV children until later implementation
+            restrictChildren: true
+        },
+        {
             id: 'award-grants',
             name: 'Grants',
             filters: awardTypeGroups.grants
@@ -44,7 +51,8 @@ const propTypes = {
     awardTypes: PropTypes.arrayOf(PropTypes.object),
     awardType: PropTypes.object,
     bulkTypeChange: PropTypes.func,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    restrictChildren: PropTypes.bool
 };
 
 export default class AwardType extends React.Component {
