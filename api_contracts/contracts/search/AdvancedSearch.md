@@ -7,7 +7,7 @@ These endpoints support the advanced search page and allow for complex filtering
 
 # Group Visualizations
 
-These endpoints return data that are grouped in preset units to support the various data visualizations on USAspending.gov`s Advanced Search page.
+These endpoints return data that are grouped in preset units to support the various data visualizations on USAspending.gov's Advanced Search page.
 
 ## Spending by Award [/api/v2/search/spending_by_award/]
 
