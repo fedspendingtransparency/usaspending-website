@@ -30,7 +30,6 @@ $dictionary-yellow: #FFF694;
 }
 
 .dictionary-table {
-    overflow: auto;
     .dictionary-table__message {
         font-weight: $font-light;
         text-align: center;
@@ -42,13 +41,10 @@ $dictionary-yellow: #FFF694;
         }
     }
 
-    .data-table__scroll-wrapper {
-        height: rem(1050);
-    }
-
     .dictionary-table__content {
         border: none;
         margin-top: 0;
+        width: 100%;
 
         .dictionary-table__head-row {
             border: none;

@@ -51,11 +51,11 @@ export default class DataDictionary extends React.Component {
                 </div>
                 <DataDictionarySearchBar
                     setSearchString={this.props.setSearchString} />
+                <div className="data-dictionary__above-scroller" id="testing1" onScroll={this.scrollRightOne}>
+                    <div className="data-dictionary__scroller" />
+                </div>
                 <div className="data-dictionary__table-wrapper">
-                    <div className="data-dictionary__above-scroller" id="testing1" onScroll={this.scrollRightOne}>
-                        <div className="data-dictionary__scroller" />
-                    </div>
-                    <div id="testing2" onScroll={this.scrollRightTwo}>
+                    <div id="testing2" className="testing2" onScroll={this.scrollRightTwo}>
                         <DataDictionaryTable
                             {...this.props} />
                     </div>

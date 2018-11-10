@@ -1,3 +1,15 @@
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+
 .data-dictionary {
     @include media($medium-screen) {
         padding: 0 rem(30);
@@ -30,19 +42,28 @@
             font-size: $small-font-size;
         }
     }
-    .data-dictionary__table-wrapper {
-        .data-dictionary__above-scroller {
-            overflow-y: hidden;
-            overflow-x: scroll;
-            height: rem(7);
-            width: rem(1200);
-        }
-    
-        .data-dictionary__scroller {
-            height: rem(7);
-            width: rem(4500);
-        }
-        
+
+    .data-dictionary__above-scroller {
+        height: rem(7);
+        // width: rem(400);
+    }
+
+    .data-dictionary__above-scroller, .testing2 {
+        width: rem(300);
+        overflow-x: scroll;
+        //overflow-y:hidden;
+    }
+
+    .data-dictionary__scroller {
+        height: rem(7);
+        /* This width needs to be equal to the width of the table */
+        width: 100%;
+    }
+
+    .testing2 {
+        height: rem(1050);
+    }
+    .data-dictionary__table-wrapper {    
         @import "./_dictionaryTable";
     }
     @import "./_searchBar";
