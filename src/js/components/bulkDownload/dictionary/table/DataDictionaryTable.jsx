@@ -86,7 +86,6 @@ export default class DataDictionaryTable extends React.Component {
                     };
                     return (
                         <th
-                            
                             style={style}
                             key={col.raw}
                             className={`dictionary-table__head-cell section-${i}-col ${cellClass}`}>
