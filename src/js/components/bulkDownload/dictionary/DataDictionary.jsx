@@ -24,12 +24,6 @@ const propTypes = {
 };
 
 export default class DataDictionary extends React.Component {
-    scrollRightOne() {
-        document.getElementById("testing2").scrollLeft = document.getElementById("testing1").scrollLeft;
-    }
-    scrollRightTwo() {
-        document.getElementById("testing1").scrollLeft = document.getElementById("testing2").scrollLeft;
-    }
     render() {
         return (
             <div className="data-dictionary">
@@ -51,14 +45,9 @@ export default class DataDictionary extends React.Component {
                 </div>
                 <DataDictionarySearchBar
                     setSearchString={this.props.setSearchString} />
-                <div className="data-dictionary__above-scroller" id="testing1" onScroll={this.scrollRightOne}>
-                    <div className="data-dictionary__scroller" />
-                </div>
                 <div className="data-dictionary__table-wrapper">
-                    <div id="testing2" className="testing2" onScroll={this.scrollRightTwo}>
-                        <DataDictionaryTable
-                            {...this.props} />
-                    </div>
+                    <DataDictionaryTable
+                        {...this.props} />
                 </div>
             </div>
         );

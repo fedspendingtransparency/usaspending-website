@@ -20,6 +20,39 @@ const propTypes = {
 };
 
 export default class DataDictionaryTable extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.setTopBarRef = this.setTopBarRef.bind(this);
+        this.setBottomBarRef = this.setBottomBarRef.bind(this);
+        this.setHeaderDivRef = this.setHeaderDivRef.bind(this);
+        this.scrollRightTop = this.scrollRightTop.bind(this);
+        this.scrollRightBottom = this.scrollRightBottom.bind(this);
+    }
+    setTopBarRef(node) {
+        this.topBar = node;
+    }
+    setBottomBarRef(node) {
+        this.bottomBar = node;
+    }
+    setHeaderDivRef(node) {
+        this.headerDiv = node;
+    }
+    scrollRightTop(e) {
+        const topBar = document.getElementById("topBar");
+        const bottomBar = document.getElementById("bottomBar");
+        const headerDiv = document.getElementById("headerDiv");
+        bottomBar.scrollLeft = topBar.scrollLeft;
+        headerDiv.scrollLeft = e.target.scrollLeft;
+    }
+    scrollRightBottom(e) {
+        const topBar = document.getElementById("topBar");
+        const bottomBar = document.getElementById("bottomBar");
+        const headerDiv = document.getElementById("headerDiv");
+        topBar.scrollLeft = bottomBar.scrollLeft;
+        headerDiv.scrollLeft = e.target.scrollLeft;
+    }
+
     generateSectionHeadings() {
         return this.props.sections.map((section, i) => {
             let cellClass = '';
@@ -153,6 +186,7 @@ export default class DataDictionaryTable extends React.Component {
     render() {
         let message = null;
         let table = null;
+        let scrollVisible = false;
 
         if (this.props.loading) {
             message = (
@@ -171,25 +205,37 @@ export default class DataDictionaryTable extends React.Component {
         }
 
         else {
+            scrollVisible = true;
             table = (
-                <table className="dictionary-table__content">
-                    <thead className="dictionary-table__head">
-                        <tr className="dictionary-table__head-row">
-                            {this.generateSectionHeadings()}
-                        </tr>
-                        <tr className="dictionary-table__head-row">
-                            {this.generateColumnHeadings()}
-                        </tr>
-                    </thead>
-                    <tbody className="dictionary-table__body">
-                        {this.generateRows()}
-                    </tbody>
-                </table>
+                <div className="dictionary-table__container">
+                    <div className="dictionary-table__headers" id="headerDiv">
+                        <table className="dictionary-table__headers-table">
+                            <thead>
+                                <tr className="dictionary-table__headers-row">
+                                    {this.generateSectionHeadings()}
+                                </tr>
+                                <tr className="dictionary-table__headers-row">
+                                    {this.generateColumnHeadings()}
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div className="dictionary-table__content" id="bottomBar" onScroll={this.scrollRightBottom}>
+                        <table className="dictionary-table__content-table">
+                            <tbody className="dictionary-table__content-body">
+                                {this.generateRows()}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             );
         }
 
         return (
             <div className="dictionary-table">
+                <div className="dictionary-table__above-scroller" id="topBar" onScroll={this.scrollRightTop}>
+                    <div className="dictionary-table__scroller" />
+                </div>
                 {message || table}
             </div>
         );

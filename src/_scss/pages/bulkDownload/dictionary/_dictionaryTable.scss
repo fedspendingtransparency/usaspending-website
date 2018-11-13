@@ -29,7 +29,21 @@ $dictionary-yellow: #FFF694;
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
-.dictionary-table {
+.dictionary-table__above-scroller {
+    overflow-x: scroll;
+    height: rem(20); 
+    width: rem(100); 
+} 
+
+.dictionary-table__scroller {
+    height: rem(7);
+    width: rem(700); /* This needs to be changed to the outer width of the inner table */
+}
+
+.dictionary-table__container {
+    height: rem(1050);
+
+
     .dictionary-table__message {
         font-weight: $font-light;
         text-align: center;
@@ -41,12 +55,15 @@ $dictionary-yellow: #FFF694;
         }
     }
 
-    .dictionary-table__content {
-        border: none;
-        margin-top: 0;
+    .dictionary-table__headers {
+        overflow: hidden;
         width: 100%;
 
-        .dictionary-table__head-row {
+        .dictionary-table__headers-table {
+            margin: 0;
+        }
+        
+        .dictionary-table__headers-row {
             border: none;
 
             .dictionary-table__head-cell {
@@ -63,8 +80,24 @@ $dictionary-yellow: #FFF694;
                 @import "./_sorter";
             }
         }
+      
+    }
 
-        .dictionary-table__body {
+    .dictionary-table__content-table {
+        margin: 0;
+    }
+
+    .dictionary-table__content {
+        overflow-x: scroll;
+        height: rem(870);
+    }
+
+    .dictionary-table__content-body {
+        border: none;
+        margin-top: 0;
+        width: 100%;
+
+
             .dictionary-table__body-row {
                 .dictionary-table__body-cell {
                     border: solid rem(3) $color-white;
@@ -86,37 +119,36 @@ $dictionary-yellow: #FFF694;
                     }
                 }
             }
-        }
+    }
 
-        // Set the colors of each section
-        .section-0 {
-            background-color: $dictionary-green;
-        }
-        .section-1 {
-            background-color: $dictionary-teal;
-        }
-        .section-2 {
-            background-color: $dictionary-orange;
-        }
+       // Set the colors of each section
+    .section-0 {
+        background-color: $dictionary-green;
+    }
+    .section-1 {
+        background-color: $dictionary-teal;
+    }
+    .section-2 {
+        background-color: $dictionary-orange;
+    }
 
-        .section-0-col {
-            background-color: $dictionary-green-light;
-        }
-        .section-1-col {
-            background-color: $dictionary-teal-light;
-        }
-        .section-2-col {
-            background-color: $dictionary-orange-light;
-        }
+    .section-0-col {
+        background-color: $dictionary-green-light;
+    }
+    .section-1-col {
+        background-color: $dictionary-teal-light;
+    }
+    .section-2-col {
+        background-color: $dictionary-orange-light;
+    }
 
-        .section-0-cell {
-            background-color: $dictionary-green-lighter;
-        }
-        .section-1-cell {
-            background-color: $dictionary-teal-lighter;
-        }
-        .section-2-cell {
-            background-color: $dictionary-orange-lighter;
-        }
+    .section-0-cell {
+        background-color: $dictionary-green-lighter;
+    }
+    .section-1-cell {
+        background-color: $dictionary-teal-lighter;
+    }
+    .section-2-cell {
+        background-color: $dictionary-orange-lighter;
     }
 }
