@@ -188,32 +188,32 @@ Restores selected filter criteria, based on URL hash.
 List of filterable award types
 
 ## Default
--02
--03
--04
--05
--06
--07
--08
--09
--10
--11
--A
--B
--C
--D
--E
--F
--G
--S
--T
--IDV_A
--IDV_B_A
--IDV_B_B
--IDV_B_C
--IDV_C
--IDV_D
--IDV_E`
+- 02
+- 03
+- 04
+- 05
+- 06
+- 07
+- 08
+- 09
+- 10
+- 11
+- A
+- B
+- C
+- D
+- E
+- F
+- G
+- S
+- T
+- IDV_A
+- IDV_B_A
+- IDV_B_B
+- IDV_B_C
+- IDV_C
+- IDV_D
+- IDV_E`
 
 ## Items
 - (string)
