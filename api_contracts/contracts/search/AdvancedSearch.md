@@ -213,7 +213,7 @@ List of filterable award types
 - IDV_B_C
 - IDV_C
 - IDV_D
-- IDV_E`
+- IDV_E
 
 ## Items
 - (string)
