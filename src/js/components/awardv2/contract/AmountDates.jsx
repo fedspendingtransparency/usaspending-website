@@ -39,40 +39,54 @@ export default class AmountDates extends React.Component {
         const unformattedEndDate = award.periodOfPerformance._endDate;
         const unformattedAwardDate = award.periodOfPerformance._awardDate;
         const unformattedPotentialEndDate = award.periodOfPerformance._potentialEndDate;
-        const today = moment();
-        const todayMarker = Math.round(((today.diff(unformattedAwardDate, "days")) / (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"))) * 100);
-        const totalDate = (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"));
-        const timePercentage = Math.round((unformattedEndDate.diff(unformattedAwardDate, 'days') / totalDate) * 100);
 
         let dateLabel = "Remains";
-
-        const timeStyle = {
-            width: `${timePercentage}%`,
-            backgroundColor: '#9b9b9b'
+        let timeStyle = {
+            display: 'none'
         };
 
-        const lineStyle = {
-            position: 'absolute',
-            left: `${todayMarker}%`,
-            border: 'solid 1px rgba(245, 166, 35, 0.5)',
-            height: '13px',
-            top: '-10px'
+        let lineStyle = {
+            display: 'none'
         };
 
-        const lineContentStyle = {
-            position: 'absolute',
-            textTransform: 'uppercase',
-            left: `${todayMarker + 2}%`,
-            top: '-11px',
-            color: 'rgb(245, 166, 35)',
-            fontSize: '8px'
+        let lineContentStyle = {
+            display: 'none'
         };
 
-        if (timePercentage === 100) {
-            lineStyle.display = 'none';
-            popDate = '';
-            lineContentStyle.display = 'none';
-            dateLabel = 'Completed';
+        if (unformattedEndDate && unformattedAwardDate && unformattedPotentialEndDate) {
+            const today = moment();
+            const todayMarker = Math.round(((today.diff(unformattedAwardDate, "days")) / (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"))) * 100);
+            const totalDate = (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"));
+            const timePercentage = Math.round((unformattedEndDate.diff(unformattedAwardDate, 'days') / totalDate) * 100);
+
+            timeStyle = {
+                width: `${timePercentage}%`,
+                backgroundColor: '#9b9b9b'
+            };
+
+            lineStyle = {
+                position: 'absolute',
+                left: `${todayMarker}%`,
+                border: 'solid 1px rgba(245, 166, 35, 0.5)',
+                height: '13px',
+                top: '-10px'
+            };
+
+            lineContentStyle = {
+                position: 'absolute',
+                textTransform: 'uppercase',
+                left: `${todayMarker + 2}%`,
+                top: '-11px',
+                color: 'rgb(245, 166, 35)',
+                fontSize: '8px'
+            };
+
+            if (timePercentage === 100) {
+                lineStyle.display = 'none';
+                popDate = '';
+                lineContentStyle.display = 'none';
+                dateLabel = 'Completed';
+            }
         }
 
         return (
@@ -102,10 +116,10 @@ export default class AmountDates extends React.Component {
                         </div>
                     </div>
                     <div className="award-amountdates__details-container">
-                        <div className="award-amountdates__details award-amountdates__details_indent"><span>Awarded on</span> <span>{award.periodOfPerformance.awardDate}</span></div>
-                        <div className="award-amountdates__details award-amountdates__details_indent"><span>Last Modified on</span> <span>{award.periodOfPerformance.lastModifiedDate}</span></div>
-                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_dark-gray" />Current Completion Date</span> <span>{award.periodOfPerformance.endDate}</span></div>
-                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_light-gray" />Potential Completion Date</span> <span>{award.periodOfPerformance.potentialEndDate}</span></div>
+                        <div className="award-amountdates__details award-amountdates__details_indent"><span>Awarded on</span> <span>{award.periodOfPerformance.awardDate || '--'}</span></div>
+                        <div className="award-amountdates__details award-amountdates__details_indent"><span>Last Modified on</span> <span>{award.periodOfPerformance.lastModifiedDate || '--'}</span></div>
+                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_dark-gray" />Current Completion Date</span> <span>{award.periodOfPerformance.endDate || '--'}</span></div>
+                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_light-gray" />Potential Completion Date</span> <span>{award.periodOfPerformance.potentialEndDate || '--'}</span></div>
                     </div>
                 </div>
             </div>
