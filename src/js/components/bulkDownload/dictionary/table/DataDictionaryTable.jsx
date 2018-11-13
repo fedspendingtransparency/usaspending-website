@@ -104,6 +104,24 @@ export default class DataDictionaryTable extends React.Component {
                         </th>
                     );
                 }
+                return (
+                    <th
+                        key={col.raw}
+                        className={`dictionary-table__head-cell section-${i}-col ${cellClass}`}>
+                        <div className="header-cell">
+                            <div className="header-cell__text">
+                                <div className="header-cell__title">
+                                    {col.display}
+                                </div>
+                            </div>
+                            <DataDictionaryTableSorter
+                                field={col.raw}
+                                label={col.display}
+                                active={this.props.sort}
+                                changeSort={this.props.changeSort} />
+                        </div>
+                    </th>
+                );
             }));
             start += section.colspan;
         });
@@ -193,7 +211,6 @@ export default class DataDictionaryTable extends React.Component {
                 </div>
             );
         }
-
         else if (this.props.error) {
             message = (
                 <div className="dictionary-table__message">
@@ -231,7 +248,7 @@ export default class DataDictionaryTable extends React.Component {
 
         return (
             <div className="dictionary-table">
-                <div className="dictionary-table__above-scroller" id="topBar" onScroll={this.scrollRightTop}>
+                <div className={`dictionary-table__above-scroller ${scrollVisible ? '' : 'dictionary-table__above-scroller-hidden'}`} id="topBar" onScroll={this.scrollRightTop}>
                     <div className="dictionary-table__scroller" />
                 </div>
                 {message || table}

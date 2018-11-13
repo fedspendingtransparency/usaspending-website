@@ -29,6 +29,10 @@ $dictionary-yellow: #FFF694;
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
 
+.dictionary-table__above-scroller-hidden {
+    display: none;
+}
+
 .dictionary-table__above-scroller {
     overflow-x: scroll;
     height: rem(20);
@@ -39,20 +43,19 @@ $dictionary-yellow: #FFF694;
     width: rem(3024); /* This needs to be changed to the outer width of the inner table if width are not fixed */
 }
 
+.dictionary-table__message {
+    font-weight: $font-light;
+    text-align: center;
+    font-size: $h3-font-size;
+    padding-top: rem(60);
+    padding-bottom: rem(60);
+    td {
+        border: 0;
+    }
+}
+
 .dictionary-table__container {
     height: rem(1050);
-
-
-    .dictionary-table__message {
-        font-weight: $font-light;
-        text-align: center;
-        font-size: $h3-font-size;
-        padding-top: rem(60);
-        padding-bottom: rem(60);
-        td {
-            border: 0;
-        }
-    }
 
     .dictionary-table__headers {
         overflow: hidden;
