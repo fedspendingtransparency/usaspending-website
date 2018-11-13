@@ -43,7 +43,6 @@ This endpoint returns a list of data that is associated with the award profile p
 + type_description: `Definitive Contract` (required, string)
 + piid: 34242 (required, number)
     Award id
-+ idvpiid: `5341QQ` (required, string, nullable)
 + parent_award_piid: `1301` (required, string, nullable)
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
