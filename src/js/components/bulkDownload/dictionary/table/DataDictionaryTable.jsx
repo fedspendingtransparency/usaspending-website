@@ -23,21 +23,10 @@ export default class DataDictionaryTable extends React.Component {
     constructor(props) {
         super(props);
 
-        this.setTopBarRef = this.setTopBarRef.bind(this);
-        this.setBottomBarRef = this.setBottomBarRef.bind(this);
-        this.setHeaderDivRef = this.setHeaderDivRef.bind(this);
         this.scrollRightTop = this.scrollRightTop.bind(this);
         this.scrollRightBottom = this.scrollRightBottom.bind(this);
     }
-    setTopBarRef(node) {
-        this.topBar = node;
-    }
-    setBottomBarRef(node) {
-        this.bottomBar = node;
-    }
-    setHeaderDivRef(node) {
-        this.headerDiv = node;
-    }
+
     scrollRightTop(e) {
         const topBar = document.getElementById("topBar");
         const bottomBar = document.getElementById("bottomBar");
@@ -88,24 +77,34 @@ export default class DataDictionaryTable extends React.Component {
                     // last cell in the row
                     cellClass = 'dictionary-table__head-cell_last';
                 }
-                return (
-                    <th
-                        key={col.raw}
-                        className={`dictionary-table__head-cell section-${i}-col ${cellClass}`}>
-                        <div className="header-cell">
-                            <div className="header-cell__text">
-                                <div className="header-cell__title">
-                                    {col.display}
+                // let test = document.getElementById(`section-${i}-cell-row-${j}`).offsetWidth;
+                const bodyCells = document.getElementById(`section-${i}-cell-row-${j}`);
+                if (bodyCells) {
+                    const width = bodyCells.offsetWidth;
+                    const style = {
+                        minWidth: width
+                    };
+                    return (
+                        <th
+                            
+                            style={style}
+                            key={col.raw}
+                            className={`dictionary-table__head-cell section-${i}-col ${cellClass}`}>
+                            <div className="header-cell">
+                                <div className="header-cell__text">
+                                    <div className="header-cell__title">
+                                        {col.display}
+                                    </div>
                                 </div>
+                                <DataDictionaryTableSorter
+                                    field={col.raw}
+                                    label={col.display}
+                                    active={this.props.sort}
+                                    changeSort={this.props.changeSort} />
                             </div>
-                            <DataDictionaryTableSorter
-                                field={col.raw}
-                                label={col.display}
-                                active={this.props.sort}
-                                changeSort={this.props.changeSort} />
-                        </div>
-                    </th>
-                );
+                        </th>
+                    );
+                }
             }));
             start += section.colspan;
         });
@@ -173,7 +172,7 @@ export default class DataDictionaryTable extends React.Component {
                     cellClass = 'dictionary-table__body-cell_last';
                 }
                 return (
-                    <td className={`dictionary-table__body-cell section-${i}-cell ${highlightClass} ${cellClass}`}>
+                    <td className={`dictionary-table__body-cell section-${i}-cell ${highlightClass} ${cellClass}`} id={`section-${i}-cell-row-${j}`}>
                         {data}
                     </td>
                 );
@@ -221,7 +220,7 @@ export default class DataDictionaryTable extends React.Component {
                         </table>
                     </div>
                     <div className="dictionary-table__content" id="bottomBar" onScroll={this.scrollRightBottom}>
-                        <table className="dictionary-table__content-table">
+                        <table className="dictionary-table__content-table" id="dictionary-table__content-table">
                             <tbody className="dictionary-table__content-body">
                                 {this.generateRows()}
                             </tbody>

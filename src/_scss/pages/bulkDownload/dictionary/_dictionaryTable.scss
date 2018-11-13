@@ -31,13 +31,12 @@ $dictionary-yellow: #FFF694;
 
 .dictionary-table__above-scroller {
     overflow-x: scroll;
-    height: rem(20); 
-    width: rem(100); 
+    height: rem(20);
 } 
 
 .dictionary-table__scroller {
     height: rem(7);
-    width: rem(700); /* This needs to be changed to the outer width of the inner table */
+    width: rem(3024); /* This needs to be changed to the outer width of the inner table if width are not fixed */
 }
 
 .dictionary-table__container {
