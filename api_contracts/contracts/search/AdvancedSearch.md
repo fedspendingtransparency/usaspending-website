@@ -133,7 +133,7 @@ Returns the number of transactions that would be included in a download request 
 
 ## Generated Filter Hash for URL [/api/v1/references/filter/]
 
-Generates a hash for URL, based on selected filter criteria
+Generates a hash for URL, based on selected filter criteria.
 
 ### Generated Filter Hash for URL Data [POST]
 + Request (application/json)
