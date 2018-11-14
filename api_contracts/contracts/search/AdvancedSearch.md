@@ -18,7 +18,7 @@ This endpoint takes award filters and fields, and returns the fields of the filt
 + Request (application/json)
     + Attributes (object)
         + filters (optional, FilterObject)
-        + fields: (optional, SpendingByAwardFields)
+        + fields (optional, SpendingByAwardFields)
             See options at https://github.com/fedspendingtransparency/usaspending-api/blob/stg/usaspending_api/api_docs/api_documentation/advanced_award_search/spending_by_award.md#fields
         + limit: 60 (optional, number)
             How many results are returned. If no limit is specified, the limit is set to 10.
@@ -122,8 +122,7 @@ Returns the number of transactions that would be included in a download request 
 ### Download Count Data [POST]
 + Request (application/json)
     + Attributes (object)
-        + filters: (required, object)
-            + time_period (array[FilterObject])
+        + filters (required, FilterObject)
 
 + Response 200 (application/json)
     + Attributes
@@ -138,7 +137,7 @@ Generates a hash for URL, based on selected filter criteria.
 ### Generated Filter Hash for URL Data [POST]
 + Request (application/json)
     + Attributes (object)
-        + filters: (optional, object)
+        + filters (optional, FilterObject)
 
 + Response 200 (application/json)
     + Attributes
@@ -159,35 +158,35 @@ Restores selected filter criteria, based on URL hash.
         + filter (optional, object)
             + filters (optional, object)
                 + recipientDomesticForeign : `all` (required, string)
-                + selectedFundingAgencies : (required, object)
-                + selectedPSC : (required, object)
-                + awardAmounts : (required, object)
-                + selectedNAICS : (required, object)
+                + selectedFundingAgencies (required, object)
+                + selectedPSC (required, object)
+                + awardAmounts (required, object)
+                + selectedNAICS (required, object)
                 + timePeriodFY : `2019` (required, array[string])
-                + selectedRecipients : (required, array[string])
-                + recipientType : (required, array[string])
-                + timePeriodEnd : (required, string)
-                + selectedRecipientLocations : (required, object)
-                + timePeriodStart : (required, string)
+                + selectedRecipients (required, array[string])
+                + recipientType (required, array[string])
+                + timePeriodEnd (required, string)
+                + selectedRecipientLocations (required, object)
+                + timePeriodStart (required, string)
                 + locationDomesticForeign : `all` (required, string)
-                + extentCompeted : (required, array[string])
-                + selectedAwardingAgencies : (required, object)
-                + setAside : (required, array[string])
-                + pricingType : (required, array[string])
-                + awardType : (required, array[string])
+                + extentCompeted (required, array[string])
+                + selectedAwardingAgencies (required, object)
+                + setAside (required, array[string])
+                + pricingType (required, array[string])
+                + awardType (required, array[string])
                 + timePeriodType : `fy` (required, string)
-                + selectedCFDA : (required, object)
-                + keyword : (required, object)
-                + selectedAwardIDs : (required, object)
-                + selectedLocations : (required, object)
+                + selectedCFDA (required, object)
+                + keyword (required, object)
+                + selectedAwardIDs (required, object)
+                + selectedLocations (required, object)
             + version: `2017-11-21` (optional, string)
 
 # Data Structures
 
-# FilterObjectAwardTypes (array)
+## FilterObjectAwardTypes (array)
 List of filterable award types
 
-## Default
+### Default
 - 02
 - 03
 - 04
@@ -215,13 +214,13 @@ List of filterable award types
 - IDV_D
 - IDV_E
 
-## Items
+### Items
 - (string)
 
-# SpendingByAwardFields (array)
+## SpendingByAwardFields (array)
 List of table columns
 
-## Default
+### Default
 - Award ID
 - Recipient Name
 - Start Date
@@ -234,7 +233,7 @@ List of table columns
 - Funding Agency
 - Funding Sub Agency
 
-## Items
+### Items
 - (string)
 
 ## SpendingByAwardResponse (object)
@@ -313,7 +312,7 @@ List of table columns
 + recipient_locations (optional, array[LocationObject])
 + recipient_type_names: `category_business` (optional, array[string])
     See options at https://github.com/fedspendingtransparency/usaspending-api/wiki/Recipient-Business-Types
-+ award_type_codes: (optional, FilterObjectAwardTypes)
++ award_type_codes (optional, FilterObjectAwardTypes)
     See use at
     https://github.com/fedspendingtransparency/usaspending-api/wiki/Search-Filters-v2-Documentation#award-type
 + award_ids: SPE30018FLGFZ, SPE30018FLJFN (optional, array[string])

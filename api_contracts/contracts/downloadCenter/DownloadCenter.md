@@ -47,10 +47,6 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
 
 # Data Structures
 
-## TimeRangeObject (object)
-+ start_date : `2001-01-01` (required, string)
-+ end_date : `2001-01-31` (required, string)
-
 ## CustomDataResult (object)
 + total_size: 35.055 (required, number)
     The total size of the file being returned
