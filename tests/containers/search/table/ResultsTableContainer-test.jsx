@@ -251,17 +251,15 @@ describe('ResultsTableContainer', () => {
 
     describe('loadColumns', () => {
         it('should generate a column object in React state for every table type', () => {
-            const expectedKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'other', 'subcontracts', 'subgrants'];
+            const expectedKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'other', 'idvs', 'subcontracts', 'subgrants'];
             const container = shallow(<ResultsTableContainer
                 {...mockActions}
                 {...mockRedux} />);
 
             container.instance().loadColumns();
             const columnKeys = Object.keys(container.state().columns);
-            expect(
-                expectedKeys.every((key) => columnKeys.indexOf(key) > -1) &&
-                columnKeys.every((key) => expectedKeys.indexOf(key) > -1)
-            ).toBeTruthy();
+            expect(expectedKeys.every((key) => columnKeys.indexOf(key) > -1) &&
+                columnKeys.every((key) => expectedKeys.indexOf(key) > -1)).toBeTruthy();
         });
 
         it('should generate a column object that contains an array representing the order columns should appear in the table', () => {
@@ -454,10 +452,9 @@ describe('ResultsTableContainer', () => {
                 field: 'Loan Value',
                 direction: 'desc'
             });
-
         });
     });
-    
+
     describe('updateSort', () => {
         it('should set the sort state to the given values', () => {
             const container = shallow(<ResultsTableContainer

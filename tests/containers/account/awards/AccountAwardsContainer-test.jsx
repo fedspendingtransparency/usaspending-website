@@ -70,7 +70,7 @@ describe('AccountAwardsContainer', () => {
                 contracts: 2,
                 direct_payments: 0,
                 grants: 0,
-                idv: 0,
+                idvs: 0,
                 loans: 0,
                 other: 0
             });
