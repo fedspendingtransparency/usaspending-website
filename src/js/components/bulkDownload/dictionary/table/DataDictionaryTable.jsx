@@ -5,8 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { throttle } from 'lodash';
 import DataDictionaryTableSorter from './DataDictionaryTableSorter';
+
 
 const propTypes = {
     searchTerm: PropTypes.string,
@@ -23,10 +24,9 @@ export default class DataDictionaryTable extends React.Component {
     constructor(props) {
         super(props);
 
-        this.scrollRightTop = this.scrollRightTop.bind(this);
-        this.scrollRightBottom = this.scrollRightBottom.bind(this);
+        this.scrollRightTop = throttle(this.scrollRightTop.bind(this), 16);
+        this.scrollRightBottom = throttle(this.scrollRightBottom.bind(this), 16);
     }
-
     scrollRightTop(e) {
         const topBar = document.getElementById("topBar");
         const bottomBar = document.getElementById("bottomBar");
@@ -76,33 +76,6 @@ export default class DataDictionaryTable extends React.Component {
                 else if ((i === this.props.sections.length - 1) && (j === section.colspan - 1)) {
                     // last cell in the row
                     cellClass = 'dictionary-table__head-cell_last';
-                }
-                // let test = document.getElementById(`section-${i}-cell-row-${j}`).offsetWidth;
-                const bodyCells = document.getElementById(`section-${i}-cell-row-${j}`);
-                if (bodyCells) {
-                    const width = bodyCells.offsetWidth;
-                    const style = {
-                        minWidth: width
-                    };
-                    return (
-                        <th
-                            style={style}
-                            key={col.raw}
-                            className={`dictionary-table__head-cell section-${i}-col ${cellClass}`}>
-                            <div className="header-cell">
-                                <div className="header-cell__text">
-                                    <div className="header-cell__title">
-                                        {col.display}
-                                    </div>
-                                </div>
-                                <DataDictionaryTableSorter
-                                    field={col.raw}
-                                    label={col.display}
-                                    active={this.props.sort}
-                                    changeSort={this.props.changeSort} />
-                            </div>
-                        </th>
-                    );
                 }
                 return (
                     <th
@@ -189,7 +162,7 @@ export default class DataDictionaryTable extends React.Component {
                     cellClass = 'dictionary-table__body-cell_last';
                 }
                 return (
-                    <td className={`dictionary-table__body-cell section-${i}-cell ${highlightClass} ${cellClass}`} id={`section-${i}-cell-row-${j}`}>
+                    <td className={`dictionary-table__body-cell section-${i}-cell ${highlightClass} ${cellClass}`}>
                         {data}
                     </td>
                 );
@@ -246,10 +219,20 @@ export default class DataDictionaryTable extends React.Component {
             );
         }
 
+        const innerTable = document.getElementById("dictionary-table__content-table");
+        let width = 0;
+        if (innerTable) {
+            width = innerTable.offsetWidth;
+        }
+
+        const style = {
+            width
+        };
+
         return (
             <div className="dictionary-table">
                 <div className={`dictionary-table__above-scroller ${scrollVisible ? '' : 'dictionary-table__above-scroller-hidden'}`} id="topBar" onScroll={this.scrollRightTop}>
-                    <div className="dictionary-table__scroller" />
+                    <div className="dictionary-table__scroller" style={style} />
                 </div>
                 {message || table}
             </div>

@@ -28,6 +28,7 @@ $dictionary-yellow: #FFF694;
     background-color: rgba(0,0,0,.5);
     -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
 }
+.dictionary-table {
 
 .dictionary-table__above-scroller-hidden {
     display: none;
@@ -40,7 +41,6 @@ $dictionary-yellow: #FFF694;
 
 .dictionary-table__scroller {
     height: rem(7);
-    width: rem(3024); /* This needs to be changed to the outer width of the inner table if width are not fixed */
 }
 
 .dictionary-table__message {
@@ -55,7 +55,7 @@ $dictionary-yellow: #FFF694;
 }
 
 .dictionary-table__container {
-    height: rem(1050);
+    height: auto;
 
     .dictionary-table__headers {
         overflow: hidden;
@@ -63,6 +63,11 @@ $dictionary-yellow: #FFF694;
 
         .dictionary-table__headers-table {
             margin: 0;
+            table-layout: fixed;
+
+            th {
+                min-width: rem(300);
+            }
         }
         
         .dictionary-table__headers-row {
@@ -87,18 +92,21 @@ $dictionary-yellow: #FFF694;
 
     .dictionary-table__content-table {
         margin: 0;
+        table-layout: fixed;
+        td {
+            min-width: rem(300);
+        }
     }
 
     .dictionary-table__content {
         overflow-x: scroll;
-        height: rem(870);
+        max-height: rem(870);
     }
 
     .dictionary-table__content-body {
         border: none;
         margin-top: 0;
         width: 100%;
-
 
             .dictionary-table__body-row {
                 .dictionary-table__body-cell {
@@ -122,7 +130,6 @@ $dictionary-yellow: #FFF694;
                 }
             }
     }
-
        // Set the colors of each section
     .section-0 {
         background-color: $dictionary-green;
@@ -153,4 +160,6 @@ $dictionary-yellow: #FFF694;
     .section-2-cell {
         background-color: $dictionary-orange-lighter;
     }
+}
+
 }
