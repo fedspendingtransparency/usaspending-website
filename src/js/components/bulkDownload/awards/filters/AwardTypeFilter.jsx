@@ -33,7 +33,6 @@ export default class AwardTypeFilter extends React.Component {
     render() {
         const isValid = (
             this.props.currentAwardTypes.contracts ||
-            this.props.currentAwardTypes.idv ||
             this.props.currentAwardTypes.grants ||
             this.props.currentAwardTypes.directPayments ||
             this.props.currentAwardTypes.loans ||

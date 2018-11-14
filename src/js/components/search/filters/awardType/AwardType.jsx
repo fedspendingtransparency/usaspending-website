@@ -51,8 +51,7 @@ const propTypes = {
     awardTypes: PropTypes.arrayOf(PropTypes.object),
     awardType: PropTypes.object,
     bulkTypeChange: PropTypes.func,
-    dirtyFilters: PropTypes.symbol,
-    restrictChildren: PropTypes.bool
+    dirtyFilters: PropTypes.symbol
 };
 
 export default class AwardType extends React.Component {
