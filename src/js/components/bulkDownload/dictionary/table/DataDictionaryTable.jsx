@@ -222,7 +222,7 @@ export default class DataDictionaryTable extends React.Component {
         const innerTable = document.getElementById("dictionary-table__content-table");
         let width = 0;
         if (innerTable) {
-            width = innerTable.offsetWidth;
+            width = `${innerTable.offsetWidth}px`;
         }
 
         const style = {
