@@ -1,5 +1,6 @@
 /* Styles specific to Financial Assistance */
 
 .award-financial-assistance {
-
+    @import "./overview/_amountDates";
+    @import "./overview/_awardRecipient";
 }

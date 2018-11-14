@@ -9,10 +9,14 @@ import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import { startCase } from "lodash";
 
+import AwardRecipient from '../contract/AwardRecipient';
+import AmountDates from '../contract/AmountDates';
+
 const propTypes = {
     selectedAward: PropTypes.object,
     inFlight: PropTypes.bool,
-    id: PropTypes.string
+    id: PropTypes.string,
+    jumpToSection: PropTypes.func
 };
 
 export default class FinancialAssistanceContent extends React.Component {
@@ -31,6 +35,11 @@ export default class FinancialAssistanceContent extends React.Component {
                     <span className="award__heading-id">{this.props.selectedAward.id}</span>
                 </div>
                 <hr className="award__divider" />
+                <div className="award__row" id="award-overview">
+                    <AwardRecipient jumpToSection={this.props.jumpToSection} selectedAward={this.props.selectedAward} />
+                    <AmountDates selectedAward={this.props.selectedAward} />
+                </div>
+
             </div>
         );
     }

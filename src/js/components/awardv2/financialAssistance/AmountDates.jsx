@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ContractAmounts from './ContractAmounts';
-import ContractDates from './ContractDates';
+import FinancialAmounts from './FinancialAmounts';
+import FinancialDates from './FinancialDates';
 
 const propTypes = {
     selectedAward: PropTypes.object
@@ -17,8 +17,8 @@ export default class AmountDates extends React.Component {
     render() {
         return (
             <div className="award__col award-amountdates">
-                <ContractAmounts selectedAward={this.props.selectedAward} />
-                <ContractDates selectedAward={this.props.selectedAward} />
+                <FinancialAmounts selectedAward={this.props.selectedAward} />
+                <FinancialDates selectedAward={this.props.selectedAward} />
             </div>
         );
     }

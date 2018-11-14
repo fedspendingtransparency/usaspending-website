@@ -96,6 +96,7 @@ export default class Award extends React.Component {
                 content = (
                     <FinancialAssitanceContent
                         {...this.props}
+                        jumpToSection={this.jumpToSection}
                         inFlight={this.props.inFlight}
                         selectedAward={this.props.award.selectedAward} />
                 );
