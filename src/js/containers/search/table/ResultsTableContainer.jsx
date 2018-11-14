@@ -58,6 +58,11 @@ const tableTypes = [
         label: 'Other',
         internal: 'other',
         enabled: true
+    },
+    {
+        label: 'Contract IDVs',
+        internal: 'idvs',
+        enabled: true
     }
 ];
 
