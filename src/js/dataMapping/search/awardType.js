@@ -48,7 +48,7 @@ export const awardTypeGroups = {
 
 export const awardTypeGroupLabels = {
     contracts: 'Contracts',
-    idv: "Indefinite Vehicle Delivery",
+    idvs: "Indefinite Vehicle Delivery",
     grants: 'Grants',
     direct_payments: 'Direct Payments',
     loans: 'Loans',
