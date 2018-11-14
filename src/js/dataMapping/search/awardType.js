@@ -38,12 +38,11 @@ export const awardTypeCodes = {
 
 export const awardTypeGroups = {
     contracts: ['A', 'B', 'C', 'D'],
-    idv: ['IDV_A', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],
+    idvs: ['IDV_A', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],
     grants: ['02', '03', '04', '05'],
     direct_payments: ['10', '06'],
     loans: ['07', '08'],
-    other: ['09', '11'],
-    idvs: ['IDV_A', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E']
+    other: ['09', '11']
 };
 
 
@@ -53,8 +52,7 @@ export const awardTypeGroupLabels = {
     grants: 'Grants',
     direct_payments: 'Direct Payments',
     loans: 'Loans',
-    other: 'Other',
-    idvs: 'IDVs'
+    other: 'Other'
 };
 
 export const subawardTypeGroups = {
