@@ -10,7 +10,8 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import { startCase } from "lodash";
 
 import AwardRecipient from '../contract/AwardRecipient';
-import AmountDates from '../contract/AmountDates';
+import FinancialAmounts from './FinancialAmounts';
+import FinancialDates from './FinancialDates';
 
 const propTypes = {
     selectedAward: PropTypes.object,
@@ -37,7 +38,10 @@ export default class FinancialAssistanceContent extends React.Component {
                 <hr className="award__divider" />
                 <div className="award__row" id="award-overview">
                     <AwardRecipient jumpToSection={this.props.jumpToSection} selectedAward={this.props.selectedAward} />
-                    <AmountDates selectedAward={this.props.selectedAward} />
+                    <div className="award__col award-amountdates">
+                        <FinancialAmounts selectedAward={this.props.selectedAward} />
+                        <FinancialDates selectedAward={this.props.selectedAward} />
+                    </div>
                 </div>
 
             </div>

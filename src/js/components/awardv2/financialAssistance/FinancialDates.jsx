@@ -1,5 +1,5 @@
 /**
- * FanancialDates.jsx
+ * FinancialDates.jsx
  * Created by David Trinh 11/14/2018
  **/
 
