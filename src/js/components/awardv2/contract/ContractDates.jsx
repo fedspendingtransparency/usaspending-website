@@ -77,7 +77,10 @@ export default class ContractDates extends React.Component {
 
             <div className="award-amountdates__amounts">
                 <div className="award-amountdates__heading">
-                    <span className="award-amountdates__heading-title">Dates <span className="award-amountdates__heading-info"><Icons.InfoCircle /></span></span> <span className="award-amountdates__heading-remaining">{popDate}<span className="award-amountdates__heading-remaining-text">{dateLabel}</span></span>
+                    <div className="award-amountdates__heading-title">Dates
+                        <span className="award-amountdates__heading-info award-amountdates__heading-info_hide"><Icons.InfoCircle /></span>
+                    </div>
+                    <div className="award-amountdates__heading-remaining">{popDate}<span className="award-amountdates__heading-remaining-text">{dateLabel}</span></div>
                 </div>
                 <div className="award-amountdates__stats-dates">
                     <div className="award-amountdates__stats-inner" style={timeStyle}>

@@ -25,8 +25,8 @@ export default class AwardRecipient extends React.Component {
                     </div>
                     <br />
                     <div>
-                        <span className="award-recipient__awarding-icon"><Icons.ArrowDown /></span>
-                        <button className="award-recipient__awarding-info" onClick={() => this.props.jumpToSection('additional-information')}>View additional information</button>
+                        <span className={`award-recipient__awarding-icon ${award.category !== 'contract' ? 'award-recipient__awarding-icon_hide' : ''}`}><Icons.ArrowDown /></span>
+                        <button className={`award-recipient__awarding-info ${award.category !== 'contract' ? 'award-recipinet__awarding-info_hide' : ''}`} onClick={() => this.props.jumpToSection('additional-information')}>View additional information</button>
                     </div>
                 </div>
                 <div className="award-recipient__recipient">

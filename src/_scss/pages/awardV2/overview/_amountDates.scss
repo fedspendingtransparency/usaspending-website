@@ -40,6 +40,10 @@
             fill: $color-gray-border;
         }
     }
+
+    .award-amountdates__heading-info_hide {
+        display: none;
+    }
     
     .award-amountdates__stats-amounts {
         height: rem(3);

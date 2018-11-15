@@ -4,7 +4,8 @@
     @import "layouts/default/stickyHeader/header";
 
     .award-content {
-        margin: rem(35) rem(40);
+        @import "mixins/fullSectionWrap";
+        @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
         background-color: $color-white;
 
         // Shared award summary styles

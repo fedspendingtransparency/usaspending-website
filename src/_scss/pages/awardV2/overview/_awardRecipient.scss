@@ -61,12 +61,20 @@
         }
     }
 
+    .award-recipient__awarding-icon_hide {
+        display: none;
+    }
+
     .award-recipient__awarding-info {
         color: $color-primary;
         background-color: transparent;
         margin: 0;
         padding: 0 0 0 rem(5);
         font-weight: $font-normal;
+    }
+
+    .award-recipinet__awarding-info_hide {
+        display: none;
     }
 
     .award-recipient__recipient {

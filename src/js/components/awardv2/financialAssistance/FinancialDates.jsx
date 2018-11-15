@@ -74,25 +74,25 @@ export default class FinancialDates extends React.Component {
         }
 
         return (
-            <div className="award__col award-amountdates">
-                <div className="award-amountdates__amounts">
-                    <div className="award-amountdates__heading">
-                        <span className="award-amountdates__heading-title">Dates <span className="award-amountdates__heading-info"><Icons.InfoCircle /></span></span> <span className="award-amountdates__heading-remaining">{popDate}<span className="award-amountdates__heading-remaining-text">{dateLabel}</span></span>
-                    </div>
-                    <div className="award-amountdates__stats-dates">
-                        <div className="award-amountdates__stats-inner" style={timeStyle}>
-                            <div style={lineStyle} />
-                            <div style={lineContentStyle}>Today</div>
-                        </div>
-                    </div>
-                    <div className="award-amountdates__details-container">
-                        <div className="award-amountdates__details award-amountdates__details_indent"><span>Awarded on</span> <span>{award.periodOfPerformance.awardDate || '--'}</span></div>
-                        <div className="award-amountdates__details award-amountdates__details_indent"><span>Last Modified on</span> <span>{award.periodOfPerformance.lastModifiedDate || '--'}</span></div>
-                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_dark-gray" />Current Completion Date</span> <span>{award.periodOfPerformance.endDate || '--'}</span></div>
-                        <div className="award-amountdates__details"><span><span className="award-amountdates__circle_light-gray" />Potential Completion Date</span> <span>{award.periodOfPerformance.potentialEndDate || '--'}</span></div>
+
+            <div className="award-amountdates__amounts">
+                <div className="award-amountdates__heading">
+                    <span className="award-amountdates__heading-title">Dates <span className="award-amountdates__heading-info award-amountdates__heading-info_hide"><Icons.InfoCircle /></span></span> <span className="award-amountdates__heading-remaining">{popDate}<span className="award-amountdates__heading-remaining-text">{dateLabel}</span></span>
+                </div>
+                <div className="award-amountdates__stats-dates">
+                    <div className="award-amountdates__stats-inner" style={timeStyle}>
+                        <div style={lineStyle} />
+                        <div style={lineContentStyle}>Today</div>
                     </div>
                 </div>
+                <div className="award-amountdates__details-container">
+                    <div className="award-amountdates__details award-amountdates__details_indent"><span>Awarded on</span> <span>{award.periodOfPerformance.awardDate || '--'}</span></div>
+                    <div className="award-amountdates__details award-amountdates__details_indent"><span>Last Modified on</span> <span>{award.periodOfPerformance.lastModifiedDate || '--'}</span></div>
+                    <div className="award-amountdates__details"><span><span className="award-amountdates__circle_dark-gray" />Current Completion Date</span> <span>{award.periodOfPerformance.endDate || '--'}</span></div>
+                    <div className="award-amountdates__details"><span><span className="award-amountdates__circle_light-gray" />Potential Completion Date</span> <span>{award.periodOfPerformance.potentialEndDate || '--'}</span></div>
+                </div>
             </div>
+
         );
     }
 }
