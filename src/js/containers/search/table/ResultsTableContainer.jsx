@@ -40,7 +40,7 @@ const tableTypes = [
         enabled: true
     },
     {
-        label: 'Indefinite Delivery Vehicle',
+        label: 'Contract IDVs',
         internal: 'idvs',
         enabled: true
     },
