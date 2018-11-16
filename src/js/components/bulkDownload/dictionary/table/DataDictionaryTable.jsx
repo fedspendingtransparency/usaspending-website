@@ -21,12 +21,12 @@ const propTypes = {
 };
 
 export default class DataDictionaryTable extends React.Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
-        this.scrollRightTop = throttle(this.scrollRightTop.bind(this), 16);
-        this.scrollRightBottom = throttle(this.scrollRightBottom.bind(this), 16);
-    }
+    //     this.scrollRightTop = throttle(this.scrollRightTop.bind(this), 16);
+    //     this.scrollRightBottom = throttle(this.scrollRightBottom.bind(this), 16);
+    // }
     scrollRightTop(e) {
         const topBar = document.getElementById("topBar");
         const bottomBar = document.getElementById("bottomBar");
