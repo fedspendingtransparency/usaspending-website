@@ -47,13 +47,13 @@ export default class ObjectClassContainer extends React.PureComponent {
         this.showMinorObjectClasses = this.showMinorObjectClasses.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.fetchMajorObjectClasses(this.props.id, this.props.activeFY);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.id !== nextProps.id || this.props.activeFY !== nextProps.activeFY) {
-            this.fetchMajorObjectClasses(nextProps.id, nextProps.activeFY);
+    componentDidUpdate(prevProps) {
+        if (this.props.id !== prevProps.id || this.props.activeFY !== prevProps.activeFY) {
+            this.fetchMajorObjectClasses(this.props.id, this.props.activeFY);
         }
     }
 

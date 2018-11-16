@@ -32,7 +32,7 @@ export class AwardDescriptionContainer extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.setAwardDescription(this.props.selectedAward.internalId);
     }
 

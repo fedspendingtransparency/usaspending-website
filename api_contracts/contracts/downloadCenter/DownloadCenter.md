@@ -3,7 +3,7 @@ HOST: https://api.usaspending.gov
 
 # Download Center
 
-These endpoints are used to power USAspending.gov's download center. 
+These endpoints are used to power USAspending.gov's download center.
 
 # Custom Account Page
 
@@ -23,7 +23,7 @@ This endpoint returns the generated file's metadata.
                 + treasury_account
                 + federal_account
         + file_format: `csv` (optional, string)
-            The file format that should be returned. 
+            The file format that should be returned.
             + Default: `csv`
         + filters: (required, FilterObject)
             The filters used to filter the data
@@ -42,9 +42,9 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
 ### Data Dictonary [GET]
 
 + Response 200 (application/json)
-    + Attributes 
+    + Attributes
         + document (DataDictionary)
-    
+
 # Data Structures
 
 ## CustomDataResult (object)
@@ -63,7 +63,7 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
         + finished
         + failed
 + seconds_elapsed `10.061132` (required, string)
-    
+
 ## FilterObject (object)
 + agency: `all` (optional, string)
     The agency to filter by. This field is an internal id.
@@ -82,7 +82,7 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
     + `2`
     + `3`
     + `4`
-    
+
 ## DataDictionary (object)
 + metadata (required, DictionaryMetadata)
 + sections: (array[Section], fixed-type)
@@ -94,7 +94,7 @@ This endpoint returns data corresponding to the latest data dictionary csv file.
 + section: `Data Labels` (required, string)
 + colspan: 2 (required, number)
     The number of columns in the section
-    
+
 ## Column (object)
 + raw: `award_file` (required, string)
 + display: `Award File` (required, string)

@@ -39,7 +39,7 @@ describe('SearchContainer', () => {
         const handleInitialUrl = jest.fn();
         container.instance().handleInitialUrl = handleInitialUrl;
 
-        container.instance().componentWillMount();
+        container.instance().componentDidMount();
 
         expect(handleInitialUrl).toHaveBeenCalledTimes(1);
     });

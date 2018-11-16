@@ -10,6 +10,10 @@ import { throttle } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
+    fiscalYear: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     closeTooltip: PropTypes.func,
     showInfoTooltip: PropTypes.bool
 };
@@ -104,7 +108,7 @@ export default class HeroTooltip extends React.Component {
                         Data Source:
                     </div>
                     <div className="homepage-hero-tooltip__tooltip_text">
-                        Fiscal Year 2017 net outlays as reported on the&nbsp;
+                        Fiscal Year {this.props.fiscalYear} net outlays as reported on the&nbsp;
                         <a
                             href="https://www.fiscal.treasury.gov/fsreports/rpt/mthTreasStmt/current.htm"
                             target="_blank"

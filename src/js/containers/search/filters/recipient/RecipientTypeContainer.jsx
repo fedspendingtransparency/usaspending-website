@@ -41,9 +41,9 @@ export class RecipientTypeContainer extends React.Component {
         this.ungroupSelectedTypes(this.props.recipientType);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.recipientType !== this.props.recipientType) {
-            this.ungroupSelectedTypes(nextProps.recipientType);
+    componentDidUpdate(prevProps) {
+        if (prevProps.recipientType !== this.props.recipientType) {
+            this.ungroupSelectedTypes(this.props.recipientType);
         }
     }
 

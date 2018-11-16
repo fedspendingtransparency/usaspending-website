@@ -33,7 +33,7 @@ export default class RouterContainer extends React.Component {
         this.handleRouteChange = this.handleRouteChange.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // subscribe to the Router for changes
         Router.reactContainer = this;
         Router.startRouter();
