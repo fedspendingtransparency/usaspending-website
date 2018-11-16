@@ -1,0 +1,41 @@
+.data-dictionary {
+    @include media($medium-screen) {
+        padding: 0 rem(30);
+    }
+    .data-dictionary__title {
+        margin-top: 0;
+        font-weight: 400;
+    }
+    .data-dictionary__intro {
+        font-size: $small-font-size;
+    }
+    .data-dictionary__search-download {
+        @include display(flex);
+        @include justify-content(space-between);
+    }
+    .data-dictionary__download {
+        @include align-self(center);
+        padding-bottom: rem(5);
+        .data-dictionary__download-link {
+            @include display(flex);
+            @include align-items(center);
+            .data-dictionary__download-icon {
+                @include display(flex);
+                @include flex(0 0 auto);
+                height: rem(15);
+                width: rem(15);
+                padding-right: rem(5);
+                .usa-da-spreadsheet {
+                    height: rem(15);
+                    width: rem(15);
+                }
+            }
+            font-size: $small-font-size;
+        }
+    }
+
+    .data-dictionary__table-wrapper {
+        @import "./_dictionaryTable";
+    }
+    @import "./_searchBar";
+}

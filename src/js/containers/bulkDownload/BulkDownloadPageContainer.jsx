@@ -40,13 +40,13 @@ export class BulkDownloadPageContainer extends React.Component {
         this.startAccountDownload = this.startAccountDownload.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.validateDataType(this.props.params.type);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.params.type !== this.props.params.type) {
-            this.validateDataType(nextProps.params.type);
+    componentDidUpdate(prevProps) {
+        if (prevProps.params.type !== this.props.params.type) {
+            this.validateDataType(this.props.params.type);
         }
     }
 
@@ -136,6 +136,11 @@ export class BulkDownloadPageContainer extends React.Component {
     startAccountDownload() {
         const formState = this.props.bulkDownload.accounts;
 
+        const accountLevels = accountDownloadOptions.accountLevels;
+        const accountLevel = accountLevels.find((account) =>
+            account.name === formState.accountLevel
+        );
+
         // Get the submission type object
         const submissionTypes = accountDownloadOptions.submissionTypes;
         const submissionType = submissionTypes.find((type) =>
@@ -143,8 +148,9 @@ export class BulkDownloadPageContainer extends React.Component {
         );
 
         const params = {
-            account_level: 'treasury_account',
+            account_level: accountLevel.apiName,
             filters: {
+                budget_function: formState.budgetFunction.code,
                 agency: formState.agency.id,
                 submission_type: submissionType.apiName,
                 fy: formState.fy,
@@ -152,6 +158,14 @@ export class BulkDownloadPageContainer extends React.Component {
             },
             file_format: 'csv'
         };
+
+        if (formState.federalAccount.id !== '' && formState.federalAccount.id !== 'all') {
+            params.filters.federal_account = formState.federalAccount.id;
+        }
+
+        if (formState.budgetSubfunction.code !== '' && formState.budgetSubfunction.code !== 'all') {
+            params.filters.budget_subfunction = formState.budgetSubfunction.code;
+        }
 
         this.requestDownload(params, 'accounts');
 
@@ -216,4 +230,3 @@ export default connect(
     (state) => ({ bulkDownload: state.bulkDownload }),
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
 )(BulkDownloadPageContainer);
-

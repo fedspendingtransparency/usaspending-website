@@ -31,6 +31,8 @@
         box-shadow: 0 rem(5) rem(5) 0 rgba($color-black, .2);
         ul {
             @include unstyled-list;
+            @import "components/_comingSoon";
+            @include comingSoon;
             width: 100%;
             li.field-item {
                 width: 100%;
@@ -52,6 +54,23 @@
                         background-color: rgba(#fbeac3, .6);
                         color: $color-base;
                     }
+                }
+
+                .item-button.coming-soon {
+                    color: $color-gray-lighter;
+                    &:hover,
+                    &:active,
+                    &:focus {
+                        background-color: transparent;
+                    }
+                }
+                .coming-soon-icon {
+                    left: rem(185);
+                    bottom: rem(12);
+                }
+                .coming-soon-label {
+                    left: rem(200);
+                    bottom: rem(10);
                 }
             }
         }

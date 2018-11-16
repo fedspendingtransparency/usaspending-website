@@ -18,6 +18,8 @@ export default class UserSelections extends React.Component {
 
         this.generateAccountLevelString = this.generateAccountLevelString.bind(this);
         this.generateAgencyString = this.generateAgencyString.bind(this);
+        this.generateBudgetFunctionString = this.generateBudgetFunctionString.bind(this);
+        this.generateFederalAccountString = this.generateFederalAccountString.bind(this);
         this.generateSubmissionTypeString = this.generateSubmissionTypeString.bind(this);
         this.generateFyString = this.generateFyString.bind(this);
     }
@@ -33,7 +35,7 @@ export default class UserSelections extends React.Component {
             );
         }
         return (
-            <div className="selection__content selection__content-required">required</div>
+            <div className="selection__content selection__content-required">Account not selected</div>
         );
     }
 
@@ -45,7 +47,43 @@ export default class UserSelections extends React.Component {
         }
 
         return (
-            <div className="selection__content selection__content-required">required</div>
+            <div className="selection__content selection__content-required">Budget function or Agency required</div>
+        );
+    }
+
+    generateBudgetFunctionString() {
+        if (this.props.accounts.budgetFunction.title !== 'Select a Budget Function') {
+            return (
+                <div className="selection__content">{this.props.accounts.budgetFunction.title}</div>
+            );
+        }
+
+        return (
+            <div className="selection__content selection__content-required">Budget function or Agency required</div>
+        );
+    }
+
+    generateFederalAccountString() {
+        if (this.props.accounts.federalAccount.name !== 'Select a Federal Account') {
+            return (
+                <div className="selection__content">{this.props.accounts.federalAccount.name}</div>
+            );
+        }
+
+        return (
+            <div className="selection__content">Federal account not selected</div>
+        );
+    }
+
+    generateBudgetSubfunctionString() {
+        if (this.props.accounts.budgetSubfunction.title !== 'Select a Budget Sub-Function') {
+            return (
+                <div className="selection__content">{this.props.accounts.budgetSubfunction.title}</div>
+            );
+        }
+
+        return (
+            <div className="selection__content">Budget sub-function not selected</div>
         );
     }
 
@@ -82,9 +120,15 @@ export default class UserSelections extends React.Component {
                 <h3 className="download-user-selections__title">Your selected options are...</h3>
                 <div className="download-user-selections__left-col">
                     <div className="selection">
-                        <div className="selection__heading">Account Level</div>
+                        <div className="selection__heading">Budget Function</div>
                         <div className="selection__content">
-                            Treasury Account
+                            {this.generateBudgetFunctionString()}
+                        </div>
+                    </div>
+                    <div className="selection">
+                        <div className="selection__heading">Budget Sub-Function</div>
+                        <div className="selection__content">
+                            {this.generateBudgetSubfunctionString()}
                         </div>
                     </div>
                     <div className="selection">
@@ -92,29 +136,26 @@ export default class UserSelections extends React.Component {
                         {this.generateAgencyString()}
                     </div>
                     <div className="selection">
-                        <div className="selection__heading">File Type</div>
-                        {this.generateSubmissionTypeString()}
-                    </div>
-                    <div className="selection">
-                        <div className="selection__heading">File Format</div>
+                        <div className="selection__heading">Federal Account</div>
                         <div className="selection__content">
-                            CSV
+                            {this.generateFederalAccountString()}
+                        </div>
+                    </div>
+
+                    <div className="selection">
+                        <div className="selection__heading">Account Level</div>
+                        <div className="selection__content">
+                            {this.generateAccountLevelString()}
                         </div>
                     </div>
                 </div>
                 <div className="download-user-selections__right-col">
                     <div className="selection">
-                        <div className="selection__heading">&nbsp;</div>
-                        &nbsp;
+                        <div className="selection__heading">File Submission Type</div>
+                        {this.generateSubmissionTypeString()}
                     </div>
                     <div className="selection">
-                        <div className="selection__heading">Federal Account</div>
-                        <div className="selection__content">
-                            &mdash;
-                        </div>
-                    </div>
-                    <div className="selection">
-                        <div className="selection__heading">Time Period</div>
+                        <div className="selection__heading">Fiscal Year</div>
                         {this.generateFyString()}
                     </div>
                 </div>

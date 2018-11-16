@@ -11,7 +11,7 @@ jest.mock('helpers/stateHelper', () => require('./mockStateHelper'));
 
 import { StateContainer } from 'containers/state/StateContainer';
 import { mockActions, mockRedux, mockStateOverview } from './mockData';
-import BaseStateProfile from "../../../src/js/models/v2/state/BaseStateProfile";
+import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/state/StatePage', () => jest.fn(() => null));
@@ -96,8 +96,8 @@ describe('StateContainer', () => {
             {...updatedRedux}
             {...mockActions} />);
 
-        const setStateCenter = jest.fn();
-        container.instance().setStateCenter = setStateCenter;
+        const loadStateOverview = jest.fn();
+        container.instance().loadStateOverview = loadStateOverview;
 
         container.setProps({
             params: {
@@ -107,8 +107,7 @@ describe('StateContainer', () => {
 
         await container.instance().request.promise;
 
-        expect(setStateCenter).toHaveBeenCalledTimes(1);
-        expect(setStateCenter).toHaveBeenCalledWith('02');
+        expect(loadStateOverview).toHaveBeenLastCalledWith('02', 'latest');
     });
     it('should make an API call when the fiscal year changes', async () => {
         const container = mount(<StateContainer

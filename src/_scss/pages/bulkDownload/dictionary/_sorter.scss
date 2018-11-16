@@ -1,0 +1,20 @@
+.header-sorter {
+    .header-sorter__button {
+        @include button-unstyled;
+        width: rem(11);
+        height: rem(11);
+        display: block;
+
+        svg {
+            fill: $color-gray-light;
+            height: rem(11);
+            width: rem(11);
+        }
+
+        &.header-sorter__button_active {
+            svg {
+                fill: $color-gold;
+            }
+        }
+    }
+}

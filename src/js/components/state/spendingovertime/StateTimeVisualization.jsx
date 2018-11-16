@@ -10,7 +10,6 @@ import ChartMessage from 'components/search/visualizations/time/TimeVisualizatio
 import BarChart from 'components/search/visualizations/time/chart/BarChart';
 import TimeTooltip from './StateTimeVisualizationTooltip';
 
-
 const defaultProps = {
     groups: [],
     xSeries: [],
@@ -34,7 +33,8 @@ const propTypes = {
     height: PropTypes.number,
     data: PropTypes.object,
     loading: PropTypes.bool,
-    visualizationPeriod: PropTypes.string
+    visualizationPeriod: PropTypes.string,
+    color: PropTypes.string
 };
 /* eslint-enable react/no-unused-prop-types */
 
@@ -67,8 +67,8 @@ export default class StateTimeVisualization extends React.Component {
 
         const legend = [
             {
-                color: '#708893',
-                label: 'Awarded Amount',
+                color: this.props.color,
+                label: 'Amount Obligated',
                 offset: 0
             }];
 
@@ -87,8 +87,7 @@ export default class StateTimeVisualization extends React.Component {
                 rawLabels={this.props.data.rawLabels}
                 legend={legend}
                 showTooltip={this.showTooltip}
-                visualizationPeriod={this.props.visualizationPeriod}
-                activeLabel={this.state.tooltipData} />);
+                visualizationPeriod={this.props.visualizationPeriod} />);
         }
 
         let tooltip = null;

@@ -6,7 +6,7 @@ export const mockApiResponse = {
     end_date: '1984-06-30',
     results: [
         {
-            id: 1,
+            id: '1',
             type: 'agency',
             name: 'First Agency',
             code: 'agency-1',
@@ -14,7 +14,7 @@ export const mockApiResponse = {
             total: 75
         },
         {
-            id: 2,
+            id: '2',
             type: 'agency',
             name: 'Second Agency',
             code: 'agency-2',
@@ -22,7 +22,7 @@ export const mockApiResponse = {
             total: 15
         },
         {
-            id: 3,
+            id: '3',
             type: 'agency',
             name: 'Third Agency',
             code: 'agency-3',
@@ -36,7 +36,7 @@ export const mockAwardResponse = {
     total: 200,
     results: [
         {
-            id: 1,
+            id: '1',
             type: 'award',
             name: 'Award',
             code: '123',
@@ -90,19 +90,20 @@ export const mockReducerChild = {
 };
 
 export const mockLevelData = {
-    type: "agency",
+    type: 'agency',
     amount: 10,
-    id: 3,
-    name: "Third Agency",
-    code: "agency_3",
+    id: '3',
+    name: 'Third Agency',
+    code: 'agency_3',
     total: 100,
     percent: 0.0841,
-    percentString: "8.4%"
+    percentString: '8.4%'
 };
 
 export const mockDeeperRoot = {
     root: 'agency',
     fy: '1984',
+    quarter: '2',
     active: new ActiveScreen({
         within: 'federal_account',
         subdivision: 'award',
@@ -122,16 +123,16 @@ export const mockDeeperRoot = {
             title: 'Health'
         },
         {
-            within: "budget_subfunction",
-            subdivision: "federal_account",
-            title: "Health care services",
+            within: 'budget_subfunction',
+            subdivision: 'federal_account',
+            title: 'Health care services',
             total: 60
         }
     ])
 };
 
 export const mockActiveScreen = new ActiveScreen (
-    {"subdivision": "agency", "total": 100, "within": "root"}
+    {'subdivision': 'agency', 'total': 100, 'within': 'root'}
 );
 
 export const mockTable = {
@@ -144,35 +145,35 @@ export const mockTable = {
 
 export const mockParsedResults = [
     {
-        "display": {
-            "name": "First Agency",
-            "obligated_amount": "$75",
-            "percent_of_total": "75.00%"
+        'display': {
+            'name': 'First Agency',
+            'obligated_amount': '$75',
+            'percent_of_total': '75.00%'
         },
-        "id": 1,
-        "name": "First Agency",
-        "obligated_amount": 75,
-        "percent_of_total": 0.75
+        'id': '1',
+        'name': 'First Agency',
+        'obligated_amount': 75,
+        'percent_of_total': 0.75
     }, {
-        "display": {
-            "name": "Second Agency",
-            "obligated_amount": "$15",
-            "percent_of_total": "15.00%"
+        'display': {
+            'name': 'Second Agency',
+            'obligated_amount': '$15',
+            'percent_of_total': '15.00%'
         },
-        "id": 2,
-        "name": "Second Agency",
-        "obligated_amount": 15,
-        "percent_of_total": 0.15
+        'id': '2',
+        'name': 'Second Agency',
+        'obligated_amount': 15,
+        'percent_of_total': 0.15
     }, {
-        "display": {
-            "name": "Third Agency",
-            "obligated_amount": "$10",
-            "percent_of_total": "10.00%"
+        'display': {
+            'name': 'Third Agency',
+            'obligated_amount': '$10',
+            'percent_of_total': '10.00%'
         },
-        "id": 3,
-        "name": "Third Agency",
-        "obligated_amount": 10,
-        "percent_of_total": 0.1
+        'id': '3',
+        'name': 'Third Agency',
+        'obligated_amount': 10,
+        'percent_of_total': 0.1
     }
 ];
 

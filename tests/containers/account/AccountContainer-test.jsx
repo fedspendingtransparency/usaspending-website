@@ -20,7 +20,7 @@ const loadAccountSpy = sinon.spy(AccountContainer.prototype, 'loadData');
 const loadFiscalYearSnapshotSpy = sinon.spy(AccountContainer.prototype, 'loadFiscalYearSnapshot');
 
 const parameters = {
-    accountId: 2507
+    accountNumber: '123-4567'
 };
 
 // mock the child component by replacing it with a function that returns a null element
@@ -86,7 +86,7 @@ describe('AccountContainer', () => {
 
         container.setProps({
             params: {
-                accountId: 2508
+                accountNumber: '765-4321'
             }
         });
 

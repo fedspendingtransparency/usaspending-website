@@ -59,7 +59,7 @@ describe('BaseContract', () => {
     });
     describe('Additional Details', () => {
         it('should be an object with BaseContractAdditionalDetails in its prototype chain', () => {
-           expect(Object.getPrototypeOf(contract.additionalDetails)).toEqual(BaseContractAdditionalDetails);
+            expect(Object.getPrototypeOf(contract.additionalDetails)).toEqual(BaseContractAdditionalDetails);
         });
     });
 });

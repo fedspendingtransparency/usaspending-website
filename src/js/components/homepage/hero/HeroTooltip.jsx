@@ -10,7 +10,12 @@ import { throttle } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    closeTooltip: PropTypes.func
+    fiscalYear: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+    closeTooltip: PropTypes.func,
+    showInfoTooltip: PropTypes.bool
 };
 
 const tooltipWidth = 160;
@@ -28,15 +33,19 @@ export default class HeroTooltip extends React.Component {
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+        this.setWrapperRef = this.setWrapperRef.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
     }
 
     componentDidMount() {
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
+        document.addEventListener('mousedown', this.handleClickOutside);
     }
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
+        document.removeEventListener('mousedown', this.handleClickOutside);
     }
 
     getPosition() {
@@ -53,6 +62,16 @@ export default class HeroTooltip extends React.Component {
         }
 
         return { iconTop, iconLeft };
+    }
+
+    setWrapperRef(node) {
+        this.wrapperRef = node;
+    }
+
+    handleClickOutside(event) {
+        if (this.props.showInfoTooltip && this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+            this.props.closeTooltip();
+        }
     }
 
     handleWindowResize() {
@@ -73,7 +92,10 @@ export default class HeroTooltip extends React.Component {
     render() {
         return (
             <div
+                ref={this.setWrapperRef}
                 className="homepage-hero-tooltip"
+                onMouseLeave={this.props.closeTooltip}
+                onBlur={this.props.closeTooltip}
                 style={{
                     top: this.state.iconTop,
                     left: this.state.iconLeft
@@ -81,17 +103,12 @@ export default class HeroTooltip extends React.Component {
                 <div className="homepage-hero-tooltip__info_icon">
                     <Icons.InfoCircle />
                 </div>
-                <button
-                    className="homepage-hero-tooltip__close_icon"
-                    onClick={this.props.closeTooltip}>
-                    <Icons.Close />
-                </button>
                 <div className="homepage-hero-tooltip__text_holder">
                     <div className="homepage-hero-tooltip__tooltip_title">
                         Data Source:
                     </div>
                     <div className="homepage-hero-tooltip__tooltip_text">
-                        Fiscal Year 2017 net outlays as reported on the&nbsp;
+                        Fiscal Year {this.props.fiscalYear} net outlays as reported on the&nbsp;
                         <a
                             href="https://www.fiscal.treasury.gov/fsreports/rpt/mthTreasStmt/current.htm"
                             target="_blank"
@@ -103,6 +120,6 @@ export default class HeroTooltip extends React.Component {
             </div>
         );
     }
-};
+}
 
 HeroTooltip.propTypes = propTypes;

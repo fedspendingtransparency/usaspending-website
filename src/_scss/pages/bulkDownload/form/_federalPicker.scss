@@ -1,0 +1,89 @@
+.federal-picker {
+    @import 'elements/_titleSelector';
+    padding-top: rem(15);
+    &:first-child {
+        padding-top: 0;
+    }
+    margin-bottom: 0;
+    .select-label {
+        display: block;
+        text-transform: uppercase;
+        font-size: rem(13);
+        line-height: rem(17);
+
+        &.disabled {
+            color: $color-gray-light;
+        }
+    }
+    .field-picker {
+        display: block;
+        float: none;
+        .selected-button {
+            @include display(flex);
+            @include align-items(center);
+            @include button-unstyled;
+
+            border-bottom: 1px solid $color-gray-light;
+            padding: rem(4) 0 rem(4) 0;
+            .label {
+                @include display(flex);
+                @include flex(1 1 auto);
+                color: $color-gray;
+                font-size: rem(21);
+                line-height: rem(24);
+                font-weight: 200;
+            }
+            .arrow-icon {
+                @include display(flex);
+                @include flex(0 0 auto);
+            }
+            &.disabled {
+                .label {
+                    color: $color-gray-light;
+                }
+                .arrow-icon {
+                    svg {
+                        fill: $color-gray-light;
+                    }
+                }
+            }
+        }
+        .field-list {
+            ul {
+                background-color: $color-white;
+                border: 1px solid $color-gray-lighter;
+                max-height: rem(400);
+                overflow-y: scroll;
+
+                li.field-item {
+                    border: 0;
+                    .item-button {
+                        @include button-unstyled;
+                        color: $color-gray;
+                        font-size: $small-font-size;
+                        padding: rem(10);
+                        width: 100%;
+                        line-height: rem(15);
+
+                        &:hover, &:active, &.active {
+                            background-color: $color-gray-lightest;
+                            color: $color-primary;
+                        }
+                        &.group-label {
+                            &:hover, &:active, &.active {
+                                background-color: $color-white;
+                                color: $color-gray;
+                            }
+                        }
+                    }
+                    &.indent {
+                        .item-button {
+                            padding: rem(10) rem(10) rem(10) rem(15);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}

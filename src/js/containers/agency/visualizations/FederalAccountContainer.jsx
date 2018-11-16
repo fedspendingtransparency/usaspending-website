@@ -43,7 +43,7 @@ export default class FederalAccountContainer extends React.PureComponent {
         this.changePage = this.changePage.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.loadData(this.props.id, this.props.activeFY);
     }
 
@@ -132,10 +132,9 @@ export default class FederalAccountContainer extends React.PureComponent {
                 // the aggregate value is invalid (most likely null)
                 parsedValue = 0;
             }
-
             const account = result.account_title;
 
-            linkSeries.push(result.id);
+            linkSeries.push(result.account_number);
             labelSeries.push(account);
             dataSeries.push(parsedValue);
             const description = `${MoneyFormatter.formatMoney(parsedValue)} obligated for \

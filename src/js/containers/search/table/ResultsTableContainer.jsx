@@ -40,6 +40,11 @@ const tableTypes = [
         enabled: true
     },
     {
+        label: 'Contract IDVs',
+        internal: 'idvs',
+        enabled: true
+    },
+    {
         label: 'Grants',
         internal: 'grants',
         enabled: true

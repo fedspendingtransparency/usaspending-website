@@ -122,11 +122,11 @@ describe('DetailContentContainer', () => {
         it('should build the root object and update the trail', () => {
             const mockTrail =
                 [{
-                    "subdivision": "agency",
-                    "title": "",
-                    "total": 100,
-                    "within": "root",
-                    "id": ""
+                    subdivision: 'agency',
+                    title: '',
+                    total: 100,
+                    within: 'root',
+                    id: ''
                 }];
 
             const container = shallow(<DetailContentContainer
@@ -232,10 +232,11 @@ describe('DetailContentContainer', () => {
     describe('goDeeper', () => {
         it('should update the state, trail, and make an API call', () => {
             const mockRequest = {
-                "subdivision": "federal_account",
-                "title": "Third Agency",
-                "within": "agency",
-                "id": 3
+                subdivision: 'federal_account',
+                title: 'Third Agency',
+                within: 'agency',
+                id: '3',
+                accountNumber: ''
             };
             const mockLoadData = jest.fn();
             const container = shallow(<DetailContentContainer
@@ -296,9 +297,10 @@ describe('DetailContentContainer', () => {
     describe('changeSubdivisionType', () => {
         it('should revisualize the data without changing the trail or filters', () => {
             const mockRequest = {
-                "subdivision": "object_class",
-                "total": 100,
-                "within": "root"
+                subdivision: 'object_class',
+                total: 100,
+                within: 'root',
+                accountNumber: ''
             };
             const mockLoadData = jest.fn();
             const container = shallow(<DetailContentContainer
@@ -340,6 +342,7 @@ describe('DetailContentContainer', () => {
             container.instance().rewindToFilter(0);
 
             expect(mockPrepareRoot).toHaveBeenCalledTimes(1);
+            expect(mockPrepareRoot).toHaveBeenCalledWith('agency', '1984', '2');
         });
         it ('should overwrite the explorer trail and update the transition steps', () => {
             const container = mount(<DetailContentContainer

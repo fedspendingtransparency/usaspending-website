@@ -1,0 +1,62 @@
+.recipient-labels {
+    @import "pages/homepage/hero/_heroTooltip";
+    @include display(inline-flex);
+    margin: 0 0 rem(30) 0;
+
+    .recipient-labels-wrapper {
+        @include display(flex);
+        margin-right: rem(20);
+    }
+
+    .recipient-labels__icon-info {
+            @include align-self(center);
+            background-color: transparent;
+            margin: 0;
+            padding: 0;
+     
+             svg {
+                 width: rem(12);
+                 height: rem(12);
+                 fill: #555555;
+             }
+    }
+
+    .recipient-labels__text {
+        margin-right: rem(5);
+        font-size: rem(14);
+    }
+    @import "pages/homepage/hero/_heroTooltip";
+
+    .homepage-hero-tooltip {
+        // we don't want the tooltip to be on top of the fix header, this will make sure that
+        // it's stays under the fixed header when scrolling
+        z-index: 1;
+        width: rem(210);
+        .homepage-hero-tooltip__text_holder {
+          height: auto;
+          padding: 0 rem(15) 0 rem(35);
+        }
+      
+        .homepage-hero-tooltip__info_icon {
+          top: rem(15);
+          left: rem(15);
+        }
+      
+        .homepage-hero-tooltip__close_icon {
+          top: rem(15);
+          right: rem(10);
+        }
+      }
+    
+    .homepage-hero-tooltip:nth-child(2) {
+
+        .homepage-hero-tooltip__info_icon {
+            top: rem(6);
+          }
+        
+          .homepage-hero-tooltip__close_icon {
+            top: rem(6);
+          }
+
+    }
+}

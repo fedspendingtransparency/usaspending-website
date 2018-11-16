@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import kGlobalConstants from 'GlobalConstants';
 
 export default class DataQuality extends React.Component {
     render() {
@@ -55,7 +56,7 @@ export default class DataQuality extends React.Component {
                         <a
                             target="_blank"
                             rel="noopener noreferrer"
-                            href="/data/Federal%20Government%20Data%20Quality%20Summary%20FY2011-2016.pdf">
+                            href="https://sam.gov/sam/transcript/FY2012-2017_govt-wide_procurement_data_quality_summary.pdf">
                             Federal Government Procurement Data Quality Summary
                         </a>
                         &nbsp;about data submitted by the agencies to the Federal Procurement
@@ -64,7 +65,7 @@ export default class DataQuality extends React.Component {
                         raw quarterly submission files, including Quarterly Assurance Statements from Senior Accountable Officials of each agency about known data quality issues, are&nbsp;
                         <a
                             target="_blank"
-                            href="http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/"
+                            href={`https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/agency_submissions/`}
                             rel="noopener noreferrer"
                             aria-label="Raw quarterly submission files">
                             available here

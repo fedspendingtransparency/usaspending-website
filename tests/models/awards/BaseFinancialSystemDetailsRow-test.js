@@ -9,10 +9,15 @@ const mockFinSys = {
     financial_accounts_by_awards_id: '456789',
     certified_date: '1987-01-02',
     transaction_obligated_amount: '3021.99',
+    submission: {
+        reporting_fiscal_year: '2017',
+        reporting_fiscal_quarter: '2'
+    },
     treasury_account: {
         federal_account: {
             account_title: 'Mock Account',
-            id: 456
+            agency_identifier: '123',
+            main_account_code: '4567'
         },
         tas_rendering_label: 'tas',
         budget_function_title: 'General Government',
@@ -35,7 +40,7 @@ finSysRow.populate(mockFinSys);
 
 describe('BaseFinancialSystemDetailsRow', () => {
     it('should format the submission date', () => {
-        expect(finSysRow.submissionDate).toEqual('01/02/1987');
+        expect(finSysRow.submissionDate).toEqual('FY 2017 Q2');
     });
     it('should format the funding obligated amount', () => {
         expect(finSysRow.fundingObligated).toEqual('$3,022');
@@ -43,7 +48,7 @@ describe('BaseFinancialSystemDetailsRow', () => {
     it('should create a federal account object', () => {
         expect(finSysRow.fedAccount).toEqual({
             title: 'Mock Account',
-            id: 456
+            id: '123-4567'
         });
     });
     it('should format the object class', () => {

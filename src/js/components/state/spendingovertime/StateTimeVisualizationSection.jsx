@@ -55,9 +55,9 @@ export default class StateTimeVisualizationSection extends React.Component {
     render() {
         return (
             <section
-                id="state-awards-over-time"
-                className="state-section awards-over-time">
-                <h3 className="state-section__title">Awards Over Time</h3>
+                id="state-transactions-over-time"
+                className="state-section transactions-over-time">
+                <h3 className="state-section__title">Transactions Over Time</h3>
                 <hr
                     className="results-divider"
                     ref={(hr) => {
@@ -100,7 +100,8 @@ export default class StateTimeVisualizationSection extends React.Component {
                     visualizationPeriod={this.props.visualizationPeriod}
                     loading={this.props.loading}
                     data={this.props.data}
-                    width={this.state.visualizationWidth} />
+                    width={this.state.visualizationWidth}
+                    color="#708893" />
             </section>
         );
     }

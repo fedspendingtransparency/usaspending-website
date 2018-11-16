@@ -96,7 +96,7 @@ export default class BarXAxis extends React.Component {
     }
 
     // Finds the position of the label, under bar for years or
-    // average start and end for monthly/quartlery
+    // average start and end for monthly/quarterly
     calculateXPos(item, index, labelOffset, props) {
         if (props.visualizationPeriod === 'fiscal_year') {
             return props.scale(item.year) + (props.scale.bandwidth() / 2);

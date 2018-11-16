@@ -88,6 +88,7 @@ export default class StateOverview extends React.PureComponent {
         if (this.state.showInfoTooltip) {
             tooltip = (
                 <DetailsTooltip
+                    showInfoTooltip={this.state.showInfoTooltip}
                     closeTooltip={this.closeTooltip} />
             );
         }
@@ -127,6 +128,7 @@ export default class StateOverview extends React.PureComponent {
                                         id="details__info_icon"
                                         className="details__info_icon"
                                         onFocus={this.showTooltip}
+                                        onBlur={this.closeTooltip}
                                         onMouseEnter={this.showTooltip}
                                         onClick={this.showTooltip}>
                                         <InfoCircle />
@@ -137,15 +139,15 @@ export default class StateOverview extends React.PureComponent {
                             <table className="details__table">
                                 <tbody>
                                     <tr>
-                                        <td>Population</td>
+                                        <th>Population</th>
                                         <td>{this.props.stateProfile.population} {populationSourceYear}</td>
                                     </tr>
                                     <tr>
-                                        <td>Awarded Amount Per Capita</td>
+                                        <th>Awarded Amount Per Capita</th>
                                         <td>{this.props.stateProfile.awardAmountPerCapita}</td>
                                     </tr>
                                     <tr>
-                                        <td>Median Household Income</td>
+                                        <th>Median Household Income</th>
                                         <td>{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</td>
                                     </tr>
                                 </tbody>

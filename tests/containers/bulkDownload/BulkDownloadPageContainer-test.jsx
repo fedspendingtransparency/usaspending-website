@@ -7,11 +7,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import Router from './mockRouter';
 
-// mock the bulkDownload helper
-jest.mock('helpers/bulkDownloadHelper', () => require('./mockBulkDownloadHelper'));
-
 import { BulkDownloadPageContainer } from 'containers/bulkDownload/BulkDownloadPageContainer';
 import { mockActions, mockRedux } from './mockData';
+
+// mock the bulkDownload helper
+jest.mock('helpers/bulkDownloadHelper', () => require('./mockBulkDownloadHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/bulkDownload/BulkDownloadPage', () => jest.fn(() => null));
@@ -67,7 +67,7 @@ describe('BulkDownloadPageContainer', () => {
         });
         it('should not include the recipient location state filter for foreign locations', () => {
             const awards = Object.assign({}, mockRedux.bulkDownload.awards, {
-                location : {
+                location: {
                     country: {
                         code: 'FOREIGN',
                         name: 'All Foreign Countries'
@@ -119,7 +119,7 @@ describe('BulkDownloadPageContainer', () => {
         });
         it('should not include the recipient location filter for all countries', () => {
             const awards = Object.assign({}, mockRedux.bulkDownload.awards, {
-                location : {
+                location: {
                     country: {
                         code: 'all',
                         name: 'All'
@@ -166,7 +166,7 @@ describe('BulkDownloadPageContainer', () => {
         });
         it('should not include the state filter for all states', () => {
             const awards = Object.assign({}, mockRedux.bulkDownload.awards, {
-                location : {
+                location: {
                     country: {
                         code: 'USA',
                         name: 'United States'
@@ -241,7 +241,10 @@ describe('BulkDownloadPageContainer', () => {
             const expectedParams = {
                 account_level: 'treasury_account',
                 filters: {
+                    budget_function: '300',
+                    budget_subfunction: '123',
                     agency: '123',
+                    federal_account: '212',
                     submission_type: 'account_balances',
                     fy: '1989',
                     quarter: '1'

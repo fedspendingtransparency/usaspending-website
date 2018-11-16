@@ -9,6 +9,11 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import HeroButton from './HeroButton';
 import HeroTooltip from './HeroTooltip';
 
+// Fiscal year, spending amount constants, to be updated yearly
+// last updated: 11/5/2018
+const fiscalYear = 2018;
+const fiscalSpendingAmount = `$4.11 trillion`;
+
 export default class Hero extends React.Component {
     constructor(props) {
         super(props);
@@ -38,10 +43,11 @@ export default class Hero extends React.Component {
         if (this.state.showInfoTooltip) {
             tooltip = (
                 <HeroTooltip
+                    fiscalYear={fiscalYear}
+                    showInfoTooltip={this.state.showInfoTooltip}
                     closeTooltip={this.closeTooltip} />
             );
         }
-
         return (
             <section className="homepage-hero" aria-label="Introduction">
                 <div
@@ -49,7 +55,7 @@ export default class Hero extends React.Component {
                     className="homepage-hero__wrapper">
                     <div className="homepage-hero__content">
                         <h1 className="homepage-hero__headline" tabIndex={-1}>
-                            In 2017, the government spent <strong className="homepage-hero__headline homepage-hero__headline_weight_bold">$3.98 trillion.</strong>
+                            In {fiscalYear}, the government spent <strong className="homepage-hero__headline homepage-hero__headline_weight_bold">{fiscalSpendingAmount}.</strong>
                             <span className="homepage-hero__info_icon_holder">
                                 <button
                                     id="homepage-hero__info_icon"
@@ -64,7 +70,7 @@ export default class Hero extends React.Component {
                         {tooltip}
                         <hr className="homepage-hero__divider" />
                         <div className="homepage-hero__description">
-                            <strong className="homepage-hero__description homepage-hero__description_weight_bold">Curious to see how this money was spent?</strong> We hope so &mdash; we&apos;ve opened the conversation around federal spending and provide the tools to help you navigate the budget from top to bottom.
+                            <strong className="homepage-hero__description homepage-hero__description_weight_bold">USA Spending tracks federal spending to ensure taxpayers can see how their money is being used</strong> in communities across America. Learn more on how this money was spent with tools to help you navigate spending from top to bottom.
                         </div>
                     </div>
                     <HeroButton />

@@ -7,12 +7,59 @@ import Axios, { CancelToken } from 'axios';
 
 import kGlobalConstants from 'GlobalConstants';
 
-
 export const requestAgenciesList = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
             url: `v2/bulk_download/list_agencies/`,
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const requestFederalAccountList = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v1/federal_accounts/`,
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const requestBudgetFunctionList = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/budget_functions/list_budget_functions/`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const requestBudgetSubfunctionList = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/budget_functions/list_budget_subfunctions/`,
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -80,6 +127,21 @@ export const requestArchiveFiles = (params) => {
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const requestDictionaryContent = () => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/references/data_dictionary/',
+            baseURL: kGlobalConstants.API,
+            method: 'get',
             cancelToken: source.token
         }),
         cancel() {

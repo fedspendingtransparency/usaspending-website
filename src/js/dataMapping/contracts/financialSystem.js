@@ -30,7 +30,7 @@ const tableFields = {
             'fundingObligated'
         ],
         _sortFields: {
-            submissionDate: 'certified_date',
+            submissionDate: 'submission__reporting_fiscal_year',
             fedAccount: 'treasury_account__federal_account__account_title',
             tas: 'treasury_account__tas_rendering_label',
             programActivity: 'program_activity__program_activity_name',

@@ -1,0 +1,23 @@
+.usa-da-recipient-page {
+	@import "all";
+	@import "layouts/default/default";
+  @import "layouts/default/stickyHeader/header";
+
+	@import "pages/state/topFive/topFive";
+
+
+	$color-gray-border: #D8D8D8;
+	$color-blue-background: #F5FBFC;
+
+	.main-content {
+		@import "../../mixins/fullSectionWrap";
+		@include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
+		padding:  0;
+		@import "./_positioning";
+		@import "./_contentWrap";
+		@import "elements/_divider";
+		@import "./_overview";
+
+        @import "./_sidebar";
+	}
+}

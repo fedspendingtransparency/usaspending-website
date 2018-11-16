@@ -37,7 +37,7 @@ export const profileOptions = [
     {
         label: 'Recipients',
         url: '#/recipient',
-        enabled: false
+        enabled: true
     }
 ];
 
@@ -72,13 +72,13 @@ export const downloadOptions = [
         description: 'The best way to grab detailed subsets of account data, which offer a broad view of how the government allocates funding from top to bottom.',
         callToAction: 'Download Account Data',
         newTab: false,
-        enabled: false,
+        enabled: true,
         externalLink: false
     },
     {
         label: 'Agency Submission Files',
         type: 'snapshots',
-        url: 'http://usaspending-submissions.s3-website-us-gov-west-1.amazonaws.com/',
+        url: `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/agency_submissions/`,
         code: 'submission',
         description: 'Raw, unadulterated data submitted by federal agencies in compliance with the DATA Act.',
         callToAction: 'Download Raw Files',
@@ -87,15 +87,15 @@ export const downloadOptions = [
         externalLink: false
     },
     {
-        label: 'Database Snapshots',
+        label: 'Database Download',
         type: '',
-        url: 'https://aws.amazon.com/public-datasets/usaspending/',
+        url: `https://files${kGlobalConstants.DEV ? '-nonprod' : ''}.usaspending.gov/database_download/`,
         code: 'database',
-        description: 'Our entire database as a PostgreSQL snapshot \u2014 the most complete download option available for advanced users.',
-        callToAction: 'Explore Database Snapshot',
+        description: 'Our entire database available as a download – the most complete download option available for advanced users.',
+        callToAction: 'Explore Database Download',
         newTab: true,
         enabled: true,
-        externalLink: true
+        externalLink: false
     },
     {
         label: 'API',
@@ -105,6 +105,17 @@ export const downloadOptions = [
         description: 'An automated way for advanced users to access all the data behind USAspending.gov. Accessible documentation includes tutorials, best practices, and more.',
         callToAction: 'Explore Our API',
         newTab: true,
+        enabled: true,
+        externalLink: false
+    },
+    {
+        label: 'Data Dictionary',
+        type: 'data_dictionary',
+        url: '#/download_center/data_dictionary',
+        code: 'dictionary',
+        description: '',
+        callToAction: 'Explore the Data Dictionary',
+        newTab: false,
         enabled: true,
         externalLink: false
     }

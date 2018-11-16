@@ -1,0 +1,165 @@
+/* Section Headings */
+$dictionary-green: #D8E4BC;
+$dictionary-teal: #B7DEE8;
+$dictionary-orange: #FDE9D9;
+
+/* Column Headings */
+$dictionary-green-light: #E4ECD0;
+$dictionary-teal-light: #DBEEF3;
+$dictionary-orange-light: #FEF0E5;
+
+/* Table Cells */
+$dictionary-green-lighter: #F8FAF2;
+$dictionary-teal-lighter: #F1F9FB;
+$dictionary-orange-lighter: #FFFBF8;
+
+/* Highlighted Cells */
+$dictionary-yellow-light: #FFFBD6;
+$dictionary-yellow: #FFF694;
+
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+    height: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0,0,0,.5);
+    -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+}
+.dictionary-table {
+
+.dictionary-table__above-scroller-hidden {
+    display: none;
+}
+
+.dictionary-table__above-scroller {
+    overflow-x: scroll;
+    height: rem(20);
+} 
+
+.dictionary-table__scroller {
+    height: rem(7);
+}
+
+.dictionary-table__message {
+    font-weight: $font-light;
+    text-align: center;
+    font-size: $h3-font-size;
+    padding-top: rem(60);
+    padding-bottom: rem(60);
+    td {
+        border: 0;
+    }
+}
+
+.dictionary-table__container {
+    height: auto;
+
+    .dictionary-table__headers {
+        overflow: hidden;
+        width: 100%;
+
+        .dictionary-table__headers-table {
+            margin: 0;
+            table-layout: fixed;
+
+            th {
+                min-width: rem(300);
+            }
+        }
+        
+        .dictionary-table__headers-row {
+            border: none;
+
+            .dictionary-table__head-cell {
+                border: solid rem(3) $color-white;
+                padding: rem(10);
+                &.dictionary-table__head-cell_first {
+                    border-left: 0;
+                }
+                &.dictionary-table__head-cell_last {
+                    border-right: 0;
+                }
+
+                @import "./_header";
+                @import "./_sorter";
+            }
+        }
+      
+    }
+
+    .dictionary-table__content-table {
+        margin: 0;
+        table-layout: fixed;
+        td {
+            min-width: rem(300);
+        }
+    }
+
+    .dictionary-table__content {
+        overflow-x: scroll;
+        max-height: rem(870);
+    }
+
+    .dictionary-table__content-body {
+        border: none;
+        margin-top: 0;
+        width: 100%;
+
+            .dictionary-table__body-row {
+                .dictionary-table__body-cell {
+                    border: solid rem(3) $color-white;
+                    padding: rem(10);
+                    vertical-align: top;
+                    max-width: rem(300);
+                    word-wrap: break-word;
+                    &.dictionary-table__body-cell_first {
+                        border-left: 0;
+                    }
+                    &.dictionary-table__body-cell_last {
+                        border-right: 0;
+                    }
+                    &.dictionary-table__body-cell_highlight-cell {
+                        background-color: $dictionary-yellow;
+                    }
+                    &.dictionary-table__body-cell_message {
+                        font-weight: $font-light;
+                    }
+                }
+            }
+    }
+       // Set the colors of each section
+    .section-0 {
+        background-color: $dictionary-green;
+    }
+    .section-1 {
+        background-color: $dictionary-teal;
+    }
+    .section-2 {
+        background-color: $dictionary-orange;
+    }
+
+    .section-0-col {
+        background-color: $dictionary-green-light;
+    }
+    .section-1-col {
+        background-color: $dictionary-teal-light;
+    }
+    .section-2-col {
+        background-color: $dictionary-orange-light;
+    }
+
+    .section-0-cell {
+        background-color: $dictionary-green-lighter;
+    }
+    .section-1-cell {
+        background-color: $dictionary-teal-lighter;
+    }
+    .section-2-cell {
+        background-color: $dictionary-orange-lighter;
+    }
+}
+
+}

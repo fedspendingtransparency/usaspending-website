@@ -71,7 +71,7 @@ describe('AgencyContainer', () => {
         const mockLoad = jest.fn();
         container.instance().loadAgencyOverview = mockLoad;
 
-        container.instance().componentWillMount();
+        container.instance().componentDidMount();
         jest.runAllTicks();
 
         expect(mockLoad).toHaveBeenCalledTimes(1);
@@ -86,17 +86,17 @@ describe('AgencyContainer', () => {
         const mockLoad = jest.fn();
         container.instance().loadAgencyOverview = mockLoad;
 
-        const nextProps = Object.assign({}, mockRedux, {
+        const prevProps = Object.assign({}, mockRedux, {
             params: {
-                agencyId: '222'
+                agencyId: '232'
             }
         });
 
-        container.instance().componentWillReceiveProps(nextProps);
+        container.instance().componentDidUpdate(prevProps);
         jest.runAllTicks();
 
         expect(mockLoad).toHaveBeenCalledTimes(1);
-        expect(mockLoad).toHaveBeenCalledWith('222');
+        expect(mockLoad).toHaveBeenCalledWith('123');
     });
 
     describe('parseOverview', () => {

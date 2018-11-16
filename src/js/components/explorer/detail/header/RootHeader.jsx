@@ -50,6 +50,7 @@ export default class RootHeader extends React.Component {
         if (this.state.showInfoTooltip) {
             tooltip = (
                 <ExplorerInfoToolTip
+                    showInfoTooltip={this.state.showInfoTooltip}
                     closeTooltip={this.closeTooltip} />
             );
         }
@@ -75,6 +76,8 @@ export default class RootHeader extends React.Component {
                         <span>
                             <button
                                 id="detail-header__icon"
+                                onMouseLeave={this.closeTooltip}
+                                onBlur={this.closeTooltip}
                                 className="detail-header__icon"
                                 onFocus={this.showTooltip}
                                 onMouseEnter={this.showTooltip}

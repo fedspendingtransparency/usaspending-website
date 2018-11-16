@@ -1,0 +1,42 @@
+.recipient-list {
+    border: none;
+    .recipient-list__head-row {
+        border-bottom: solid 1px $color-gray-lighter;
+    }
+
+    .recipient-list__head-cell {
+        background-color: $color-white;
+        border: none;
+        padding-top: 0;
+
+        @import "./_header";
+        @import "pages/stateLanding/_sorter";
+    }
+
+    .recipient-list__body {
+        &.recipient-list__body_hide {
+            display: none;
+        }
+    }
+    .recipient-list__body-row {
+        &:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+    }
+    .recipient-list__body-cell {
+        background-color: transparent;
+        border: none;
+
+        &.recipient-list__body-cell_left {
+            text-align: left;
+        }
+
+        &.recipient-list__body-cell_center {
+            text-align: center;
+        }
+
+        &:last-child {
+            width: rem(320);
+        }
+    }
+}

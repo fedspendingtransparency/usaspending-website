@@ -237,7 +237,8 @@ export class DetailContentContainer extends React.Component {
         const activeScreen = {
             total,
             within: request.within,
-            subdivision: request.subdivision
+            subdivision: request.subdivision,
+            accountNumber: request.accountNumber || ''
         };
 
         if (this.state.transitionSteps !== 0) {
@@ -347,7 +348,8 @@ export class DetailContentContainer extends React.Component {
             within: this.props.explorer.active.subdivision,
             subdivision: nextSubdivision,
             title: data.name,
-            id: data.id
+            id: data.id,
+            accountNumber: data.account_number || ''
         };
 
         this.props.resetExplorerTable();
@@ -405,14 +407,15 @@ export class DetailContentContainer extends React.Component {
             this.setState({
                 transitionSteps: steps
             }, () => {
-                this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy);
+                this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy, this.props.explorer.quarter);
             });
             return;
         }
 
         // iterate through the trail to rebuild the filter set
         const newFilters = {
-            fy: this.props.explorer.fy
+            fy: this.props.explorer.fy,
+            quarter: this.props.explorer.quarter
         };
         const newTrail = [];
         // iterate through the trail and include only those filters up to the point we are rewinding

@@ -2,7 +2,7 @@
     .totals__amount {
         color: $color-vis-dark;
         font-size: rem(48);
-        line-height: rem(60);
+        line-height: rem(40);
         font-weight: $font-normal;
         text-transform: capitalize;
         padding-bottom: rem(10);
@@ -14,5 +14,9 @@
     }
     .state-overview__total {
         color: $color-vis-dark;
+    }
+    .totals__subawards {
+        padding: rem(23) 0;
+        font-weight: $font-normal;
     }
 }

@@ -19,4 +19,27 @@
             }
         }
     }
+    .landing-page__tagline {
+        text-align: center;
+        font-size: rem(18);
+        margin-top: rem(30);
+    }
+
+    .landing-page__tagline_light {
+        font-weight: 100;
+    }
+
+    .landing-page__tagline-icon {
+        width: rem(13);
+        height: rem(15);
+    }
+  .landing-page__disclaimer {
+      margin-top: rem(45);
+      .landing-page__note {
+        font-weight: bold;
+      }
+      .landing-page__entities {
+        font-style: italic;
+      }
+  }
 }

@@ -6,8 +6,20 @@
     @import "./_table";
 
     .state-landing__results {
+        overflow-x: scroll;
         .state-list {
             margin-top: rem(15);
+        }
+        .state-list__message {
+            margin: rem(90) auto;
+            font-size: rem(36);
+            font-weight: 300;
+            color: $color-base;
+            text-align: center;
+            .state-list__message_highlight {
+                color: $color-active;
+                font-weight: normal;
+            }
         }
     }
 

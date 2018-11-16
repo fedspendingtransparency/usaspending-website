@@ -1,0 +1,55 @@
+.recipient-content {
+	background-color: $color-white;
+	box-shadow: $container-shadow;
+	color: $color-base;
+	border-top: 1px solid $color-gray-border;
+	border-right: 1px solid $color-gray-border;
+	border-bottom: 1px solid $color-gray-border;
+
+	.recipient-section {
+		padding: rem(30);
+
+		h3.recipient-section__title {
+			margin: 0;
+			font-size: $h3-font-size;
+			font-weight: 300;
+			line-height: rem(47);
+		}
+
+		.recipient-section__description {
+			font-size: $lead-font-size;
+			font-weight: 300;
+			line-height: rem(25);
+			padding-bottom: rem(35);
+		}
+
+		hr.results-divider {
+			margin-bottom: rem(15);
+			margin-top: rem(5);
+		}
+
+		.recipient-section__row {
+			width: 100%;
+			@include media($tablet-screen) {
+				@include display(flex);
+			}
+			.recipient-section__viz {
+				width: 100%;
+				@include media($tablet-screen) {
+					@include flex(1 1 50%);
+				}
+				// Add 20px space between visualizations
+				&:first-child {
+					margin-right: rem(10);
+				}
+				&:last-child {
+					margin-left: rem(10);
+				}
+			}
+		}
+	}
+
+	@import "./overview";
+	@import "./spendingOverTime/recipientTimeVisualization";
+}
+

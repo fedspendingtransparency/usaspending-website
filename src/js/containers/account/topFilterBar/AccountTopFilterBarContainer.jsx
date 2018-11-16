@@ -38,9 +38,9 @@ export class AccountTopFilterBarContainer extends React.Component {
         this.prepareFilters(this.props.reduxFilters);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (!Object.is(nextProps.reduxFilters, this.props.reduxFilters)) {
-            this.prepareFilters(nextProps.reduxFilters);
+    componentDidUpdate(prevProps) {
+        if (!Object.is(prevProps.reduxFilters, this.props.reduxFilters)) {
+            this.prepareFilters(this.props.reduxFilters);
         }
     }
 

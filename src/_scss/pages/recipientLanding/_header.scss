@@ -1,0 +1,45 @@
+.header-cell {
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(center);
+    &.header-cell_right {
+        @include justify-content(flex-end);
+    }
+
+    .header-cell__text {
+        @include flex(0 1 auto);
+        margin-right: rem(20);
+    }
+
+    .header-cell__title {
+        text-align: left;
+        font-weight: $font-semibold;
+        color: $color-base;
+        font-size: rem(20);
+        line-height: rem(25);
+
+        &.header-cell__title_left {
+            text-align: left;
+        }
+
+        &.header-cell__title_center {
+            text-align: center;
+        }
+
+        &.header-cell__title_cap {
+            text-transform: uppercase;
+        }
+
+    }
+    .header-cell__subtitle {
+        text-align: right;
+        font-weight: $font-light;
+        color: $color-base;
+        font-size: rem(14);
+        line-height: rem(18);
+    }
+
+    .header-cell__sorter {
+        @include flex(0 0 rem(20));
+    }
+}

@@ -12,7 +12,7 @@ import AccountLandingResultsSection from './AccountLandingResultsSection';
 
 const propTypes = {
     results: PropTypes.array,
-    accountSearchString: PropTypes.string,
+    searchString: PropTypes.string,
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     columns: PropTypes.array,
@@ -39,6 +39,7 @@ export default class AccountLandingContent extends React.Component {
                 </div>
                 <AccountLandingSearchBar
                     setAccountSearchString={this.props.setAccountSearchString} />
+                <p className="landing-page__tagline">Curious to see how these accounts are organized? <span className="landing-page__tagline_light">Check out the Data Lab&#8217;s <a href="https://datalab.usaspending.gov/federal-account-explorer.html" target="_blank" rel="noopener noreferrer"><img className="landing-page__tagline-icon" src="img/sitemap.png" alt="sitemap icon" />Federal Account Explorer</a></span></p>
                 <Pagination
                     onChangePage={this.props.onChangePage}
                     pageNumber={this.props.pageNumber}
@@ -49,7 +50,7 @@ export default class AccountLandingContent extends React.Component {
                     results={this.props.results}
                     inFlight={this.props.inFlight}
                     error={this.props.error}
-                    accountSearchString={this.props.accountSearchString}
+                    searchString={this.props.searchString}
                     order={this.props.order}
                     updateSort={this.props.updateSort} />
                 <Pagination

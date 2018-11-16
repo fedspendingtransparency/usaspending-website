@@ -1,4 +1,6 @@
-import { mockStatusResponse, mockAwardDownloadResponse, mockAgencies, mockArchiveResponse } from './mockData';
+
+import { mockStatusResponse, mockBudgetFunctions, mockBudgetSubfunctions, mockAwardDownloadResponse, mockAgencies, mockArchiveResponse,
+    mockFederalAccounts, mockDictionary } from './mockData';
 
 export const requestAgenciesList = () => ({
     promise: new Promise((resolve) => {
@@ -8,6 +10,45 @@ export const requestAgenciesList = () => ({
                     agencies: mockAgencies,
                     sub_agencies: [],
                     federal_accounts: []
+                }
+            });
+        });
+    }),
+    cancel: jest.fn()
+});
+
+export const requestBudgetFunctionList = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: {
+                    results: mockBudgetFunctions
+                }
+            });
+        });
+    }),
+    cancel: jest.fn()
+});
+
+export const requestBudgetSubfunctionList = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: {
+                    results: mockBudgetSubfunctions
+                }
+            });
+        });
+    }),
+    cancel: jest.fn()
+});
+
+export const requestFederalAccountList = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: {
+                    results: mockFederalAccounts
                 }
             });
         });
@@ -42,6 +83,17 @@ export const requestArchiveFiles = () => ({
         process.nextTick(() => {
             resolve({
                 data: mockArchiveResponse
+            });
+        });
+    }),
+    cancel: jest.fn()
+});
+
+export const requestDictionaryContent = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: mockDictionary
             });
         });
     }),

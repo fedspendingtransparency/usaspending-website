@@ -9,7 +9,6 @@ import kGlobalConstants from 'GlobalConstants';
 export const earliestFiscalYear = 2008;
 export const earliestExplorerYear = 2017;
 export const earliestFederalAccountYear = 2017;
-export const todaysDate = moment().format('YYYY-MM-DD');
 
 // number of days to wait after the close of each quarter before enabling it
 export const quarterCloseWindow = 45;
@@ -41,7 +40,8 @@ export const defaultFiscalYear = () => {
     const newFiscalYearStartDate = moment()
         .startOf('year')
         .add(quarterCloseWindow, 'days');
-    const newFiscalYearEndDate = moment([moment().year(), '9', '30']);
+    // momentjs has zero-based months (https://momentjs.com/docs/#/get-set/month/)
+    const newFiscalYearEndDate = moment([moment().year(), '8', '30']);
 
     if (today.isSameOrAfter(newFiscalYearStartDate) && today.isSameOrBefore(newFiscalYearEndDate)) {
         return currentFiscalYear();

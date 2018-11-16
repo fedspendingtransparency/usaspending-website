@@ -29,7 +29,7 @@ export default class StateLandingContainer extends React.Component {
             results: []
         };
 
-        this.agenciesRequest = null;
+        this.request = null;
         this.setSearchString = this.setSearchString.bind(this);
         this.setSort = this.setSort.bind(this);
     }
@@ -56,6 +56,11 @@ export default class StateLandingContainer extends React.Component {
     }
 
     loadData() {
+        if (this.request) {
+            // a request is in-flight, cancel it
+            this.request.cancel();
+        }
+
         this.setState({
             loading: true,
             error: false
@@ -110,8 +115,21 @@ export default class StateLandingContainer extends React.Component {
         }
 
         // now sort the results by the appropriate table column and direction
-        const orderedResults = orderBy(results,
+        const sortedResults = orderBy(results,
             [this.state.sortField], [this.state.sortDirection]);
+
+        let orderedResults = sortedResults;
+
+        if (this.state.sortField === 'name') {
+            // Separate states and territories
+            const states = sortedResults.filter((result) => result.type === 'state' || result.type === 'district');
+            const territories = sortedResults.filter((result) => result.type === 'territory');
+            orderedResults = states.concat(territories);
+            if (this.state.sortDirection === 'desc') {
+                orderedResults = territories.concat(states);
+            }
+        }
+
         this.setState({
             results: orderedResults
         });

@@ -1,0 +1,39 @@
+.dictionary-search {
+    width: 60%;
+    .dictionary-search__form {
+        @include display(flex);
+        @include flex-direction(row);
+        @include align-items(center);
+        .dictionary-search__input {
+            @include flex(1 1 auto);
+            padding: rem(10);
+            border: solid rem(1) $color-gray-lighter;
+            border-right: 0;
+            height: rem(36);
+        }
+        .dictionary-search__button {
+            @include flex(0 0 auto);
+            @include button-unstyled;
+            padding: rem(10);
+            background-color: white;
+            height: rem(36);
+            border: solid rem(1) $color-gray-lighter;
+            border-left: 0;
+            .dictionary-search__button-icon {
+                height: rem(16);
+                width: rem(16);
+                svg {
+                    fill: $color-gray-light;
+                }
+            }
+            &:hover {
+                background-color: white;
+                .dictionary-search__button-icon {
+                    svg {
+                        fill: $color-gray;
+                    }
+                }
+            }
+        }
+    }
+}

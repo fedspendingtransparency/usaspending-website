@@ -10,7 +10,7 @@ const Analytics = {
         if (this.isDAP) {
             return window.gas(...args);
         }
-        else if (this.GA) {
+        else if (this.isGA) {
             return window.ga(...args);
         }
         // fall back if no library is loaded (most likely due to adblocking)

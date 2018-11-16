@@ -39,14 +39,14 @@ export class AgencyContainer extends React.Component {
         this.request = null;
         this.updateRequest = null;
     }
-    componentWillMount() {
+    componentDidMount() {
         this.loadAgencyOverview(this.props.params.agencyId);
         this.loadUpdateDate();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.params.agencyId !== nextProps.params.agencyId) {
-            this.loadAgencyOverview(nextProps.params.agencyId);
+    componentDidUpdate(prevProps) {
+        if (this.props.params.agencyId !== prevProps.params.agencyId) {
+            this.loadAgencyOverview(this.props.params.agencyId);
         }
     }
 
