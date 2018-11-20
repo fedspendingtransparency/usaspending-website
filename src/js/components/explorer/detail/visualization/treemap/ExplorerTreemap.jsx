@@ -220,11 +220,13 @@ export default class ExplorerTreemap extends React.Component {
         let loadingMessage = null;
         if (this.props.isLoading) {
             loadingMessage = (
-                <div className="explorer-vis__loading-message">
-                    <LoadingSpinner />
-                    <div className="explorer-vis__loading-title">Gathering your data...</div>
-                    <div className="explorer-vis__loading-subtitle">Updating Spending Explorer.</div>
-                    <div>This should only take a few moments...</div>
+                <div className="explorer-detail-content__loading">
+                    <div className="explorer-detail-content__loading-message">
+                        <LoadingSpinner />
+                        <div className="explorer-detail-content__loading-title">Gathering your data...</div>
+                        <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
+                        <div>This should only take a few moments...</div>
+                    </div>
                 </div>
             );
         }

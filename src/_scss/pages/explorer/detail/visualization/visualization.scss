@@ -10,35 +10,8 @@
         height: 0;
     }
 
-    .explorer-vis__loading-message {
+    .explorer-detail-content__loading {
         position: absolute;
-        height: 100%;
-        width: 100%;
-        background-color: rgba(241, 241, 241, 0.9);
-        text-align: center;
-        padding-top: 20vh;
-        font-size: rem(20);
-        .loading-animation {
-            width: rem(50);
-            height: rem(50);
-            margin-left: auto;
-            margin-right: auto;
-            @import "../../../search/results/screens/loading";
-            // override the color of the rectangles
-            svg.loading-bars {
-                rect {
-                    fill: $color-primary-alt-darkest;
-                }
-            }
-        }
-        .explorer-vis__loading-title {
-            font-size: $h4-font-size;
-            color: $color-primary-alt-darkest;
-            line-height: rem(45);
-        }
-        .explorer-vis__loading-subtitle {
-            font-weight: $font-semibold;
-        }
     }
 
     .explorer-vis__disclaimer {
