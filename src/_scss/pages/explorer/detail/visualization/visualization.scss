@@ -10,17 +10,36 @@
         height: 0;
     }
 
-	.explorer-vis__loading-text {
-		font-size: rem(36);
-		font-weight: 300;
-		color: $color-base;
-		text-align: center;
-		transition: opacity 0.25s;
-		// Don't show extra padding when it is empty
-		&.explorer-vis__loading-text_loading {
-			margin-bottom: rem(30);
-		}
-	}
+    .explorer-vis__loading-message {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(241, 241, 241, 0.9);
+        text-align: center;
+        padding-top: 20vh;
+        font-size: rem(20);
+        .loading-animation {
+            width: rem(50);
+            height: rem(50);
+            margin-left: auto;
+            margin-right: auto;
+            @import "../../../search/results/screens/loading";
+            // override the color of the rectangles
+            svg.loading-bars {
+                rect {
+                    fill: $color-primary-alt-darkest;
+                }
+            }
+        }
+        .explorer-vis__loading-title {
+            font-size: $h4-font-size;
+            color: $color-primary-alt-darkest;
+            line-height: rem(45);
+        }
+        .explorer-vis__loading-subtitle {
+            font-weight: $font-semibold;
+        }
+    }
 
     .explorer-vis__disclaimer {
         font-style: italic;
