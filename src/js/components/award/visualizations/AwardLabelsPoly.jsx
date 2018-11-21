@@ -25,7 +25,7 @@ export default class AwardLabelsPoly extends React.Component {
 
         this.generatePoly = this.generatePoly.bind(this);
     }
-    componentWillReceiveProps() {
+    componentDidUpdate() {
         this.generatePoly();
     }
 
