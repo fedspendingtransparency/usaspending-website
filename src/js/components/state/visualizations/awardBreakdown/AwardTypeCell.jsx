@@ -46,11 +46,8 @@ export default class AwardTypeCell extends React.Component {
         this.initialRender(this.props.label);
     }
 
-    componentWillReceiveProps(props) {
-        this.initialRender(props.label);
-    }
-
     componentDidUpdate() {
+        this.initialRender(this.props.label);
         if (!this.state.didProcess) {
             this.truncateText();
         }

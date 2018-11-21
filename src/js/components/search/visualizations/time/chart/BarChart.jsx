@@ -74,18 +74,19 @@ export default class BarChart extends React.Component {
         this.generateChart(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (!isEqual(nextProps, this.props)) {
-            this.generateChart(nextProps);
-        }
-    }
-
     shouldComponentUpdate(nextProps, nextState) {
         if (!isEqual(nextProps, this.props) || !isEqual(nextState, this.state)) {
             return true;
         }
         return false;
     }
+
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props)) {
+            this.generateChart(this.props);
+        }
+    }
+
 
     generateChart(props) {
         // flatten the Y values into a single array

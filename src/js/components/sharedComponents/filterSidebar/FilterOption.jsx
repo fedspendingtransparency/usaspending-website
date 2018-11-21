@@ -46,9 +46,9 @@ export default class FilterOption extends React.Component {
         }
     }
 
-    componentWillUpdate(nextProps) {
-        if (nextProps.defaultExpand !== this.props.defaultExpand && !this.state.isDirty) {
-            this.checkIfAutoExpanded(nextProps);
+    componentDidUpdate(prevProps) {
+        if (prevProps.defaultExpand !== this.props.defaultExpand && !this.state.isDirty) {
+            this.checkIfAutoExpanded(this.props);
         }
     }
 

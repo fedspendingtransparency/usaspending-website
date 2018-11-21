@@ -30,12 +30,12 @@ export default class GlossaryDefinition extends React.Component {
         this.clickedBack = this.clickedBack.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.checkDefinitions(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.checkDefinitions(nextProps);
+    componentDidUpdate() {
+        this.checkDefinitions(this.props);
     }
 
     checkDefinitions(props) {
