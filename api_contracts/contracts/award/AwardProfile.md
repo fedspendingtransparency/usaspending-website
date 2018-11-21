@@ -36,10 +36,31 @@ This endpoint returns a list of data that is associated with the award profile p
 
 ## ContractResponse (object)
 + type: `A` (required, string)
-+ category: `contract` (required, enum[string])
-    + Members
-        + contract
-        + idv
++ category: `contract` (required, string)
++ type_description: `Definitive Contract` (required, string)
++ piid: 34242 (required, number)
+    Award id
++ parent_award_piid: `1301` (required, string, nullable)
++ description: `ewraijwrw` (required, string, nullable)
+    Description of the first transaction for this award
++ awarding_agency (required, Agency, fixed-type)
++ funding_agency (required, Agency, fixed-type)
++ recipient (required, Recipient, fixed-type)
++ total_obligation (required, number)
++ base_and_all_options_value: 24242432 (required, number)
+    The ceiling and amount of the award
++ period_of_performance (required, PerformancePeriod, fixed-type)
++ place_of_performance (required, Location, fixed-type)
++ latest_transaction_contract_data (required, ContractDetails, fixed-type)
++ subaward_count: 430 (required, number)
++ total_subaward_amount: 35345353453 (required, number)
++ executive_details (required, Executive, fixed-type)
++ funding_obligated (required, number, nullable)
++ base_exercised_options (required, number, nullable)
+
+## IDVResponse (object)
++ type: `A` (required, string)
++ category: `idv` (required, string)
 + type_description: `Definitive Contract` (required, string)
 + piid: 34242 (required, number)
     Award id
@@ -158,7 +179,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + name: `John Doe` (required, string)
 + amount: 234242 (required, number)
 
-## MiscResponse (object)
+## FinancialAssistanceResponse (object)
 + category: `loan` (required, enum[string])
     + Members
         + loans
