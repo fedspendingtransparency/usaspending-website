@@ -162,6 +162,7 @@ export default class DetailContent extends React.Component {
             );
         }
         let header = (<RootHeader
+            isLoading={this.props.isLoading}
             root={this.props.root}
             fy={this.props.fy}
             lastUpdate={this.props.lastUpdate}
@@ -188,6 +189,7 @@ export default class DetailContent extends React.Component {
             }
 
             header = (<DetailHeader
+                isLoading={this.props.isLoading}
                 within={lastFilter.within}
                 title={lastFilter.title}
                 id={id}
