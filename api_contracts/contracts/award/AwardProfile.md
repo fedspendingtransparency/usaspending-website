@@ -59,9 +59,9 @@ This endpoint returns a list of data that is associated with the award profile p
 + base_exercised_options (required, number, nullable)
 
 ## IDVResponse (object)
-+ type: `A` (required, string)
++ type: `IDV_A` (required, string)
 + category: `idv` (required, string)
-+ type_description: `Definitive Contract` (required, string)
++ type_description: `BPA` (required, string)
 + piid: 34242 (required, number)
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
@@ -71,16 +71,14 @@ This endpoint returns a list of data that is associated with the award profile p
 + funding_agency (required, Agency, fixed-type)
 + recipient (required, Recipient, fixed-type)
 + total_obligation (required, number)
-+ base_and_all_options_value: 24242432 (required, number)
-    The ceiling and amount of the award
-+ period_of_performance (required, PerformancePeriod, fixed-type)
++ idv_dates (required, IDVPerformance, fixed-type)
 + place_of_performance (required, Location, fixed-type)
 + latest_transaction_contract_data (required, ContractDetails, fixed-type)
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
 + executive_details (required, Executive, fixed-type)
-+ funding_obligated (required, number, nullable)
-+ base_exercised_options (required, number, nullable)
++ parent_generated_unique_award_id (required, string)
+
 
 ## Agency (object)
 + id (required, string)
@@ -114,6 +112,12 @@ This endpoint returns a list of data that is associated with the award profile p
     The date the award was awarded on
 + last_modified_date: `2301-02-20` (required, string)
 + potential_end_date: `2301-02-23` (required, string)
+
+## IDVPerformance
++ start datee: `2004-02-19` (required, string)
+    The starting date of the idv in the format `YYYY-MM-DD`
++ last_modified_date: `2301-02-20` (required, string)
++ end_date: `2301-01-20` (required, string)
 
 ## Location
 + address_line1: `123 Sesame St` (required, string, nullable)
