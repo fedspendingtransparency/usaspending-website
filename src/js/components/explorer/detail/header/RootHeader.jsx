@@ -15,6 +15,7 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import ExplorerInfoToolTip from 'components/explorer/detail/ExplorerInfoTooltip';
 
 const propTypes = {
+    isLoading: PropTypes.bool,
     root: PropTypes.string,
     fy: PropTypes.string,
     total: PropTypes.number,
@@ -88,7 +89,7 @@ export default class RootHeader extends React.Component {
                     </div>
                     {tooltip}
                     <div className="detail-header__value">
-                        {formatTreemapValues(this.props.total)}
+                        {this.props.isLoading ? '--' : formatTreemapValues(this.props.total)}
                     </div>
                     <div className="detail-header__update">
                         Data as of {moment(this.props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}

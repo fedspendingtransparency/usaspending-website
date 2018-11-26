@@ -18,6 +18,7 @@ import ExplorerTableFields from 'dataMapping/explorer/explorerTableFields';
 import ExplorerTable from 'components/explorer/detail/visualization/table/ExplorerTable';
 
 const propTypes = {
+    isLoading: PropTypes.bool,
     order: PropTypes.object,
     setExplorerTableOrder: PropTypes.func,
     pageNumber: PropTypes.number,
@@ -170,6 +171,7 @@ export class ExplorerTableContainer extends React.Component {
     render() {
         return (
             <ExplorerTable
+                isLoading={this.props.isLoading}
                 results={this.state.pageOfItems}
                 columns={this.state.columns}
                 order={this.props.order}
