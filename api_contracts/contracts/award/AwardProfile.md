@@ -70,7 +70,6 @@ This endpoint returns a list of data that is associated with the award profile p
 + awarding_agency (required, Agency, fixed-type)
 + funding_agency (required, Agency, fixed-type)
 + recipient (required, Recipient, fixed-type)
-+ total_obligation (required, number)
 + idv_dates (required, IDVPerformance, fixed-type)
 + place_of_performance (required, Location, fixed-type)
 + latest_transaction_contract_data (required, ContractDetails, fixed-type)
