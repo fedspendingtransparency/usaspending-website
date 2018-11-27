@@ -207,6 +207,7 @@ List of filterable award types
 - S
 - T
 - IDV_A
+- IDV_B
 - IDV_B_A
 - IDV_B_B
 - IDV_B_C
