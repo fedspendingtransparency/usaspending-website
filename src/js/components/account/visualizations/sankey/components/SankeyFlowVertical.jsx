@@ -26,12 +26,8 @@ export default class SankeyFlowVertical extends React.Component {
         };
     }
 
-    // componentDidUpdate() {
-    //     this.calculatePath(this.props);
-    // }
-
-    componentWillReceiveProps(nextProps) {
-        this.calculatePath(nextProps);
+    componentDidUpdate() {
+        this.calculatePath(this.props);
     }
 
     calculatePath(props) {
