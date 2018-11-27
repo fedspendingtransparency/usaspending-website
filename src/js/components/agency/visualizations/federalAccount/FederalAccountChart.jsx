@@ -25,7 +25,7 @@ const propTypes = {
     isLastPage: PropTypes.bool
 };
 
-const rowHeight = 60;
+const rowHeight = 35;
 const axisHeight = 30;
 const maxRows = 10;
 
@@ -118,7 +118,8 @@ export default class FederalAccountChart extends React.Component {
                     linkSeries={this.props.linkSeries}
                     dataSeries={this.props.dataSeries}
                     descriptions={this.props.descriptions}
-                    height={(maxRows * rowHeight) + axisHeight}
+                    height={(this.props.dataSeries.length * rowHeight) + axisHeight}
+                    itemHeight={rowHeight}
                     minRows={maxRows}
                     width={this.props.width}
                     labelWidth={this.props.labelWidth}
