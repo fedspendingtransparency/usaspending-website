@@ -31,6 +31,13 @@ This endpoint returns a list of data that is associated with the award profile p
 
 + Response 200 (application/json)
     + Attributes (FinancialAssistanceResponse)
+
++ Request A request with a idv id (application/json)
+    + Attributes
+        + generated_unique_award_id: 6657452ew23
+
++ Response 200 (application/json)
+    + Attributes (IDVResponse)
     
 # Data Structures
 
