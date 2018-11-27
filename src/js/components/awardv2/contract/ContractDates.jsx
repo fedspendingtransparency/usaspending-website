@@ -24,7 +24,7 @@ export default class ContractDates extends React.Component {
         const unformattedAwardDate = award.periodOfPerformance._awardDate;
         const unformattedPotentialEndDate = award.periodOfPerformance._potentialEndDate;
 
-        let dateLabel = "Remains";
+        let dateLabel = "";
         let timeStyle = {
             display: 'none'
         };
@@ -38,6 +38,7 @@ export default class ContractDates extends React.Component {
         };
 
         if (unformattedEndDate && unformattedAwardDate && unformattedPotentialEndDate) {
+            dateLabel = "Remains";
             const today = moment();
             const todayMarker = Math.round(((today.diff(unformattedAwardDate, "days")) / (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"))) * 100);
             const totalDate = (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"));
