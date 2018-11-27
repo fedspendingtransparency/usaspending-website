@@ -30,7 +30,7 @@ This endpoint returns a list of data that is associated with the award profile p
         + generated_unique_award_id: 42954959
 
 + Response 200 (application/json)
-    + Attributes (MiscResponse)
+    + Attributes (FinancialAssistanceResponse)
     
 # Data Structures
 
@@ -38,7 +38,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + type: `A` (required, string)
 + category: `contract` (required, string)
 + type_description: `Definitive Contract` (required, string)
-+ piid: 34242 (required, number)
++ piid: `W31P4Q15A0024` (required, string)
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
 + description: `ewraijwrw` (required, string, nullable)
@@ -61,8 +61,8 @@ This endpoint returns a list of data that is associated with the award profile p
 ## IDVResponse (object)
 + type: `IDV_A` (required, string)
 + category: `idv` (required, string)
-+ type_description: `BPA` (required, string)
-+ piid: 34242 (required, number)
++ type_description: `Blanket Purchase Agreement` (required, string)
++ piid: `W31P4Q15A0024` (required, string)
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
 + description: `ewraijwrw` (required, string, nullable)
@@ -70,7 +70,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + awarding_agency (required, Agency, fixed-type)
 + funding_agency (required, Agency, fixed-type)
 + recipient (required, Recipient, fixed-type)
-+ idv_dates (required, IDVPerformance, fixed-type)
++ idv_dates (required, IdvDates, fixed-type)
 + place_of_performance (required, Location, fixed-type)
 + latest_transaction_contract_data (required, ContractDetails, fixed-type)
 + subaward_count: 430 (required, number)
@@ -112,11 +112,11 @@ This endpoint returns a list of data that is associated with the award profile p
 + last_modified_date: `2301-02-20` (required, string)
 + potential_end_date: `2301-02-23` (required, string)
 
-## IDVPerformance
-+ start datee: `2004-02-19` (required, string)
+## IdvDates
++ signed_date: `2004-02-19` (required, string)
     The starting date of the idv in the format `YYYY-MM-DD`
-+ last_modified_date: `2301-02-20` (required, string)
-+ end_date: `2301-01-20` (required, string)
++ effective_date: `2301-02-20` (required, string)
++ last_date_to_orde: `2301-01-20` (required, string)
 
 ## Location
 + address_line1: `123 Sesame St` (required, string, nullable)
@@ -193,7 +193,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + fain: `43533A3` (required, string, nullable)
 + uri: `5341QQ` (required, string, nullable)
 + type_description: `Some loan` (required, string)
-+ piid: 34242 (required, number)
++ piid: `W31P4Q15A0024` (required, string)
 + description: `ewraijwrw` (required, string, nullable)
 + cfda_objectives: `Some HTML string` (required, string, nullable)
 + cfda_number: `0.434` (required, string, nullable)
