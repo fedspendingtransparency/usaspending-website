@@ -122,8 +122,12 @@ export default class SankeyVisualizationVertical extends React.Component {
         this.generateChart(this.props);
     }
 
-    componentDidUpdate() {
-        this.generateChart(this.props);
+    // componentDidUpdate() {
+    //     this.generateChart(this.props);
+    // }
+
+    componentWillReceiveProps(nextProps) {
+        this.generateChart(nextProps);
     }
 
     generateLabel(amount, total) {

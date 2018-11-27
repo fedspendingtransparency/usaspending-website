@@ -50,9 +50,15 @@ export default class AccountOverview extends React.Component {
         window.addEventListener('resize', this.handleWindowResize);
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.account.id !== this.props.account.id) {
-            this.generateSummary(this.props.account);
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.account.id !== this.props.account.id) {
+    //         this.generateSummary(this.props.account);
+    //     }
+    // }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.account.id !== this.props.account.id) {
+            this.generateSummary(nextProps.account);
         }
     }
 
