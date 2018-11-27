@@ -42,10 +42,10 @@ export default class BulkDownloadPage extends React.Component {
         this.clickedDownload = this.clickedDownload.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate() {
         // Need to close the modal once the download is completed
-        if (this.state.showModal && nextProps.bulkDownload.download.expectedUrl === ""
-            && !nextProps.bulkDownload.download.showCollapsedProgress) {
+        if (this.state.showModal && this.props.bulkDownload.download.expectedUrl === ""
+            && !this.props.bulkDownload.download.showCollapsedProgress) {
             this.hideModal();
         }
     }

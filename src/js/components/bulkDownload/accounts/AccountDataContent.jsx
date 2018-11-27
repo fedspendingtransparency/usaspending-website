@@ -44,9 +44,9 @@ export default class AccountDataContent extends React.Component {
         this.resetForm = this.resetForm.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.accounts !== this.props.accounts) {
-            this.validateForm(nextProps.accounts);
+    componentDidUpdate(prevProps) {
+        if (prevProps.accounts !== this.props.accounts) {
+            this.validateForm(this.props.accounts);
         }
     }
 

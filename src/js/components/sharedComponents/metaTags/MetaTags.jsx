@@ -48,12 +48,12 @@ export default class MetaTags extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.generateTags();
     }
 
-    componentWillUpdate(nextProps) {
-        if (nextProps !== this.props) {
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
             this.generateTags();
         }
     }

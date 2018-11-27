@@ -37,9 +37,9 @@ export default class BarXAxis extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (!isEqual(nextProps, this.props)) {
-            this.drawAxis(nextProps);
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props)) {
+            this.drawAxis(this.props);
         }
     }
 

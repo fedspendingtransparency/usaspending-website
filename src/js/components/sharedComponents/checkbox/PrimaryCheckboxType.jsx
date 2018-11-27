@@ -70,13 +70,13 @@ export default class PrimaryCheckboxType extends React.Component {
         this.toggleChildren = this.toggleChildren.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.compareFiltersToChildren(this.props);
     }
 
-    componentWillUpdate(nextProps) {
-        if (nextProps.selectedCheckboxes.hashCode() !== this.props.selectedCheckboxes.hashCode()) {
-            this.compareFiltersToChildren(nextProps);
+    componentDidUpdate(prevProps) {
+        if (prevProps.selectedCheckboxes.hashCode() !== this.props.selectedCheckboxes.hashCode()) {
+            this.compareFiltersToChildren(this.props);
         }
     }
 
