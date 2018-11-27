@@ -120,10 +120,10 @@ This endpoint returns a list of data that is associated with the award profile p
 + potential_end_date: `2301-02-23` (required, string)
 
 ## IdvDates
-+ signed_date: `2004-02-19` (required, string)
++ start_date: `2004-02-19` (required, string)
     The starting date of the idv in the format `YYYY-MM-DD`
-+ effective_date: `2301-02-20` (required, string)
-+ last_date_to_orde: `2301-01-20` (required, string)
++ last_modified_date: `2301-02-20` (required, string)
++ end_date: `2301-01-20` (required, string)
 
 ## Location
 + address_line1: `123 Sesame St` (required, string, nullable)
