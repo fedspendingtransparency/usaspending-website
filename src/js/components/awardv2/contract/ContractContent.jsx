@@ -15,7 +15,7 @@ import AwardDescription from "../visualizations/description/AwardDescription";
 
 import AwardRecipient from './AwardRecipient';
 import ContractAmounts from './ContractAmounts';
-import ContractDates from './ContractDates';
+import AwardDates from '../shared/AwardDates';
 
 
 const propTypes = {
@@ -52,7 +52,7 @@ export default class ContractContent extends React.Component {
                     <AwardRecipient jumpToSection={this.props.jumpToSection} selectedAward={this.props.selectedAward} />
                     <div className="award__col award-amountdates">
                         <ContractAmounts selectedAward={this.props.selectedAward} />
-                        <ContractDates selectedAward={this.props.selectedAward} />
+                        <AwardDates selectedAward={this.props.selectedAward} />
                     </div>
                 </div>
 

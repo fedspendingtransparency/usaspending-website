@@ -11,7 +11,7 @@ import { startCase } from "lodash";
 
 import AwardRecipient from '../contract/AwardRecipient';
 import FinancialAmounts from './FinancialAmounts';
-import FinancialDates from './FinancialDates';
+import AwardDates from '../shared/AwardDates';
 
 const propTypes = {
     selectedAward: PropTypes.object,
@@ -40,7 +40,7 @@ export default class FinancialAssistanceContent extends React.Component {
                     <AwardRecipient jumpToSection={this.props.jumpToSection} selectedAward={this.props.selectedAward} />
                     <div className="award__col award-amountdates">
                         <FinancialAmounts selectedAward={this.props.selectedAward} />
-                        <FinancialDates selectedAward={this.props.selectedAward} />
+                        <AwardDates selectedAward={this.props.selectedAward} />
                     </div>
                 </div>
 

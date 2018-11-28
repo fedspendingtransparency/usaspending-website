@@ -1,5 +1,5 @@
 /**
- * FinancialDates.jsx
+ * AwardDates.jsx
  * Created by David Trinh 11/14/2018
  **/
 
@@ -14,7 +14,7 @@ const propTypes = {
     selectedAward: PropTypes.object
 };
 
-export default class FinancialDates extends React.Component {
+export default class AwardDates extends React.Component {
     render() {
         const award = this.props.selectedAward;
         const timeRange = TimeRangeHelper.convertDatesToRange(award.periodOfPerformance._endDate, award.periodOfPerformance._potentialEndDate);
@@ -24,7 +24,7 @@ export default class FinancialDates extends React.Component {
         const unformattedAwardDate = award.periodOfPerformance._awardDate;
         const unformattedPotentialEndDate = award.periodOfPerformance._potentialEndDate;
 
-        let dateLabel = "Remains";
+        let dateLabel = "";
         let timeStyle = {
             display: 'none'
         };
@@ -38,6 +38,7 @@ export default class FinancialDates extends React.Component {
         };
 
         if (unformattedEndDate && unformattedAwardDate && unformattedPotentialEndDate) {
+            dateLabel = "Remains";
             const today = moment();
             const todayMarker = Math.round(((today.diff(unformattedAwardDate, "days")) / (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"))) * 100);
             const totalDate = (unformattedPotentialEndDate.diff(unformattedAwardDate, "days"));
@@ -96,4 +97,4 @@ export default class FinancialDates extends React.Component {
         );
     }
 }
-FinancialDates.propTypes = propTypes;
+AwardDates.propTypes = propTypes;
