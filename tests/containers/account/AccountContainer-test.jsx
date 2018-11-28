@@ -8,7 +8,7 @@ import { mount, shallow } from 'enzyme';
 import sinon from 'sinon';
 
 import { AccountContainer } from 'containers/account/AccountContainer';
-import FederalAccount from 'models/account/FederalAccount';
+import FederalAccount from 'models/v2/account/FederalAccount';
 
 import { mockAccount, mockReduxAccount, mockSnapshot } from './mockAccount';
 

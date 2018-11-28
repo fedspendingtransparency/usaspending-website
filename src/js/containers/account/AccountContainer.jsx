@@ -14,7 +14,7 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as accountActions from 'redux/actions/account/accountActions';
 import * as filterActions from 'redux/actions/account/accountFilterActions';
 
-import FederalAccount from 'models/account/FederalAccount';
+import FederalAccount from 'models/v2/account/FederalAccount';
 import { fiscalYearSnapshotFields } from 'dataMapping/accounts/accountFields';
 
 import Account from 'components/account/Account';

@@ -27,7 +27,7 @@ export const requestFederalAccountList = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v1/federal_accounts/`,
+            url: `v2/federal_accounts/`,
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
