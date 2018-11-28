@@ -27,8 +27,8 @@ export default class ResultItem extends React.Component {
         this.prepareLabel(this.props);
     }
 
-    componentDidUpdate() {
-        this.prepareLabel(this.props);
+    componentWillReceiveProps(nextProps) {
+        this.prepareLabel(nextProps);
     }
 
     prepareLabel(props) {
