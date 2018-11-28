@@ -226,7 +226,6 @@ List of table columns
 - Recipient Name
 - Start Date
 - End Date
-- Last Date to Order
 - Award Amount
 - Awarding Agency
 - Awarding Sub Agency
