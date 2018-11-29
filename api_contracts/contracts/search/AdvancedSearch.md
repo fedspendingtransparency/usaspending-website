@@ -207,6 +207,7 @@ List of filterable award types
 - S
 - T
 - IDV_A
+- IDV_B
 - IDV_B_A
 - IDV_B_B
 - IDV_B_C
@@ -259,6 +260,7 @@ List of table columns
 + Award ID : `N0001902C3002`  (optional, string)
 + Start Date : `2001-10-26` (optional, string)
 + End Date : `2019-07-31` (optional, string)
++ Last Date to Order: `2022-08-12` (optional, string)
 + Award Amount : 1573663  (optional, number)
 + Award Type : `IDV_C` (optional, string)
 + Contract Award Type: `Federal Supply Schedule` (optional, string)
