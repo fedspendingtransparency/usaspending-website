@@ -3,7 +3,7 @@
  * Created by David Trinh 10/9/18
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
@@ -23,7 +23,9 @@ BaseContract.populate = function populate(data) {
         description: data.description,
         category: data.category,
         subawardTotal: data.total_subaward_amount,
-        subawardCount: data.subaward_count
+        subawardCount: data.subaward_count,
+        fundingObligated: data.funding_obligated,
+        baseExercisedOptions: data.base_exercised_options
     };
     this.populateCore(coreData);
 
@@ -54,7 +56,10 @@ BaseContract.populate = function populate(data) {
     if (data.period_of_performance) {
         const periodOfPerformanceData = {
             startDate: data.period_of_performance.period_of_performance_start_date,
-            endDate: data.period_of_performance.period_of_performance_current_end_date
+            endDate: data.period_of_performance.period_of_performance_current_end_date,
+            awardDate: data.period_of_performance.action_date,
+            lastModifiedDate: data.period_of_performance.last_modified_date,
+            potentialEndDate: data.period_of_performance.potential_end_date
         };
         const periodOfPerformance = Object.create(CorePeriodOfPerformance);
         periodOfPerformance.populateCore(periodOfPerformanceData);
@@ -63,6 +68,7 @@ BaseContract.populate = function populate(data) {
 
     if (data.awarding_agency) {
         const awardingAgencyData = {
+            id: data.awarding_agency.id,
             toptierName: data.awarding_agency.toptier_agency.name,
             toptierAbbr: data.awarding_agency.toptier_agency.abbreviation,
             subtierName: data.awarding_agency.subtier_agency.name,
@@ -107,7 +113,6 @@ BaseContract.populate = function populate(data) {
     this.pricing = data.latest_transaction_contract_data || '--';
 
     this._amount = parseFloat(data.base_and_all_options_value) || 0;
-    this._ceiling = parseFloat(data.base_and_all_options_value) || 0;
     this._obligation = parseFloat(data.total_obligation) || 0;
 };
 
@@ -115,17 +120,40 @@ BaseContract.populate = function populate(data) {
 // getter functions
 Object.defineProperty(BaseContract, 'amount', {
     get() {
-        return formatMoney(this._amount);
+        if (this._obligation >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._amount);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._amount / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._amount, 0);
     }
 });
-Object.defineProperty(BaseContract, 'ceiling', {
+Object.defineProperty(BaseContract, 'amountFormatted', {
     get() {
-        return formatMoney(this._ceiling);
+        return MoneyFormatter.formatMoney(this._amount);
     }
 });
 Object.defineProperty(BaseContract, 'obligation', {
     get() {
-        return formatMoney(this._obligation);
+        if (this._obligation >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._obligation);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._obligation / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._obligation, 0);
+    }
+});
+Object.defineProperty(BaseContract, 'obligationFormatted', {
+    get() {
+        return MoneyFormatter.formatMoney(this._obligation);
+    }
+});
+Object.defineProperty(BaseContract, 'remaining', {
+    get() {
+        const remaining = this._amount - this._obligation;
+        if (remaining >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(remaining);
+            return `${MoneyFormatter.formatMoneyWithPrecision(remaining / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(remaining, 0);
     }
 });
 

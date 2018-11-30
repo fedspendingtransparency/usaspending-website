@@ -43,7 +43,10 @@ This endpoint returns a list of data that is associated with the award profile p
 
 ## ContractResponse (object)
 + type: `A` (required, string)
-+ category: `contract` (required, string)
++ category: `contract` (required, enum[string])
+    + Members
+        + contract
+        + idv
 + type_description: `Definitive Contract` (required, string)
 + piid: `W31P4Q15A0024` (required, string)
     Award id

@@ -10,7 +10,9 @@ export const mockContract = {
     base_and_all_options_value: 234234.00,
     subaward_count: 2342334,
     total_subaward_amount: 3242342,
+    base_exercised_options: 234242,
     awarding_agency: {
+        id: "234",
         toptier_agency: {
             name: "Department of Defense",
             abbreviation: "DOD"
@@ -46,7 +48,10 @@ export const mockContract = {
     },
     period_of_performance: {
         period_of_performance_start_date: `2004-02-19`,
-        period_of_performance_current_end_date: `2005-02-19`
+        period_of_performance_current_end_date: `2005-02-19`,
+        action_date: `2005-02-18`,
+        last_modified_date: `2018-08-29`,
+        potential_end_date: `2027-04-30`
     },
     place_of_performance: {
         address_line1: '1515 EUBANK BLVD. SE',
@@ -133,6 +138,7 @@ export const mockLoan = {
     total_loan_value: 24343,
     total_subaward_amount: 32423342,
     awarding_agency: {
+        id: "323",
         toptier_agency: {
             name: "Department of Defense",
             abbreviation: "DOD"

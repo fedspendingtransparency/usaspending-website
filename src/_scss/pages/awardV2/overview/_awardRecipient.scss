@@ -1,0 +1,95 @@
+.award-recipient {
+
+    width: 50%;
+    @include display(flex);
+
+    .award-recipient__awarding {
+        background-color: #F5FBFC;
+        min-height: rem(134);
+        padding: rem(11) 0 0 rem(13);
+        width: 50%;
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(space-between);
+        position: relative;
+        word-wrap: break-word;
+    }
+
+    .award-recipient__awarding:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-top: rem(65) solid transparent;
+        border-left: rem(20) solid #F5FBFC;
+        border-bottom: rem(65) solid transparent;
+        margin-right: rem(-20);
+    }
+
+    %award-recipient__title {
+        font-size: rem(14);
+        font-weight: $font-semibold;
+        display: inline-block;
+    }
+
+    %award-recipient__detail{
+        font-size: rem(16);
+        color: $color-primary;
+        text-transform: uppercase;
+        font-weight: $font-semibold;
+        line-height: 1.13;
+    }
+
+
+    .award-recipient__awarding-title {
+       @extend %award-recipient__title;
+    }
+
+    .award-recipient__awarding-detail {
+        @extend %award-recipient__detail;
+        margin-top: rem(-12);
+    }
+
+    .award-recipient__awarding-icon {
+        cursor: pointer;
+        svg {
+            width: rem(10);
+            height: rem(10);
+            fill: #4975AB;
+        }
+    }
+
+    .award-recipient__awarding-icon_hide {
+        display: none;
+    }
+
+    .award-recipient__awarding-info {
+        color: $color-primary;
+        background-color: transparent;
+        margin: 0;
+        padding: 0 0 0 rem(5);
+        font-weight: $font-normal;
+    }
+
+    .award-recipinet__awarding-info_hide {
+        display: none;
+    }
+
+    .award-recipient__recipient {
+        height: rem(134);
+        padding: rem(11) 0 0 rem(60);
+    }
+
+    .award-recipient__recipient-title {
+        @extend %award-recipient__title;
+        margin-bottom: rem(6);
+    }
+
+    .award-recipient__recipient-detail {
+        @extend %award-recipient__detail;
+    }
+
+   
+}
