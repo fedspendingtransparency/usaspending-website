@@ -11,7 +11,7 @@ export const formatDate = (date) => date.format('MM/DD/YYYY');
 
 const CoreAward = {
     populateCore(data) {
-        this._category = data.category || 'idv'; // IDVs have null values
+        this._category = data.category;
         this.id = data.id || '';
         this.internalId = data.internalId || '';
         this._startDate = (
