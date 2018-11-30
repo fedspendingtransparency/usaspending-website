@@ -19,9 +19,10 @@ const propTypes = {
     compressed: PropTypes.bool
 };
 
-const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'other'];
+const groupKeys = ['contracts', 'idvs', 'grants', 'direct_payments', 'loans', 'other'];
 const groupLabels = {
     contracts: 'Contracts',
+    idvs: 'Indefinite Delivery Vehicles',
     grants: 'Grants',
     direct_payments: 'Direct Payments',
     loans: 'Loans',

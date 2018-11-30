@@ -66,7 +66,7 @@ export class SearchContainer extends React.Component {
         this.updateRequest = null;
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.handleInitialUrl(this.props.params.hash);
         this.requestDownloadAvailability(this.props.appliedFilters.filters);
     }

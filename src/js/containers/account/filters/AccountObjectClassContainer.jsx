@@ -37,13 +37,13 @@ export class AccountObjectClassContainer extends React.Component {
         this.updateMajorFilter = this.updateMajorFilter.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.loadAvailableOCs(this.props.accountId);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.accountId !== this.props.accountId) {
-            this.loadAvailableOCs(nextProps.accountId);
+    componentDidUpdate(prevProps) {
+        if (prevProps.accountId !== this.props.accountId) {
+            this.loadAvailableOCs(this.props.accountId);
         }
     }
 

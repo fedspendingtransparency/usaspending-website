@@ -89,15 +89,10 @@ export class TransactionsTableContainer extends React.Component {
 
         // generate the params
         const params = {
+            award_id: this.props.award.selectedAward.internalId,
             page,
-            filters: [
-                {
-                    field: 'award',
-                    operation: 'equals',
-                    value: this.props.award.selectedAward.internalId
-                }
-            ],
-            order: [this.formatSort()],
+            sort: this.state.sort.field,
+            order: this.state.sort.direction,
             limit: pageLimit
         };
 

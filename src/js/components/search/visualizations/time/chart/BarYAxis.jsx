@@ -32,12 +32,6 @@ export default class BarYAxis extends React.Component {
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (!isEqual(nextProps, this.props)) {
-            this.drawAxis(nextProps);
-        }
-    }
-
     shouldComponentUpdate(nextProps, nextState) {
         // reduce unnecessary renders
         if (!isEqual(nextProps, this.props)) {
@@ -48,6 +42,14 @@ export default class BarYAxis extends React.Component {
         }
         return false;
     }
+
+
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps, this.props)) {
+            this.drawAxis(this.props);
+        }
+    }
+
 
     drawAxis(props) {
         if (!props.scale) {

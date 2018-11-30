@@ -25,7 +25,7 @@ export default class SidebarLink extends React.Component {
         this.clickedLink = this.clickedLink.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.prepareLink();
     }
 

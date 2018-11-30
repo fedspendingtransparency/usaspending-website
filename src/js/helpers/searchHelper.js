@@ -231,7 +231,7 @@ export const fetchAwardTransaction = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v1/transactions/`,
+            url: `v2/transactions/`,
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,

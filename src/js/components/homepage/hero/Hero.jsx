@@ -9,6 +9,11 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import HeroButton from './HeroButton';
 import HeroTooltip from './HeroTooltip';
 
+// Fiscal year, spending amount constants, to be updated yearly
+// last updated: 11/5/2018
+const fiscalYear = 2018;
+const fiscalSpendingAmount = `$4.11 trillion`;
+
 export default class Hero extends React.Component {
     constructor(props) {
         super(props);
@@ -38,11 +43,11 @@ export default class Hero extends React.Component {
         if (this.state.showInfoTooltip) {
             tooltip = (
                 <HeroTooltip
+                    fiscalYear={fiscalYear}
                     showInfoTooltip={this.state.showInfoTooltip}
                     closeTooltip={this.closeTooltip} />
             );
         }
-
         return (
             <section className="homepage-hero" aria-label="Introduction">
                 <div
@@ -50,7 +55,7 @@ export default class Hero extends React.Component {
                     className="homepage-hero__wrapper">
                     <div className="homepage-hero__content">
                         <h1 className="homepage-hero__headline" tabIndex={-1}>
-                            In 2017, the government spent <strong className="homepage-hero__headline homepage-hero__headline_weight_bold">$3.98 trillion.</strong>
+                            In {fiscalYear}, the government spent <strong className="homepage-hero__headline homepage-hero__headline_weight_bold">{fiscalSpendingAmount}.</strong>
                             <span className="homepage-hero__info_icon_holder">
                                 <button
                                     id="homepage-hero__info_icon"

@@ -14,7 +14,6 @@ import ExplorerTableContainer from 'containers/explorer/detail/table/ExplorerTab
 import BreakdownDropdown from './toolbar/BreakdownDropdown';
 import ExplorerTreemap from './treemap/ExplorerTreemap';
 
-
 const propTypes = {
     isRoot: PropTypes.bool,
     isLoading: PropTypes.bool,
@@ -81,20 +80,17 @@ export default class ExplorerVisualization extends React.Component {
     }
 
     render() {
-        let loadingTextClass = '';
         let loadingTreemapClass = '';
         let loadingTableClass = '';
-        let loadingText = '';
         if (this.props.isLoading) {
-            loadingTextClass = 'explorer-vis__loading-text_loading';
             loadingTreemapClass = 'explorer-vis__treemap-transition__loading';
             loadingTableClass = 'explorer-vis__table-transition__loading';
-            loadingText = 'Loading data...';
         }
 
         let visualization = (
             <div className={`treemap-loading-transition ${loadingTreemapClass}`}>
                 <ExplorerTreemap
+                    isLoading={this.props.isLoading}
                     width={this.state.width}
                     data={this.props.data}
                     total={this.props.total}
@@ -109,6 +105,7 @@ export default class ExplorerVisualization extends React.Component {
             visualization = (
                 <div className={`explorer-vis__table-transition ${loadingTableClass}`}>
                     <ExplorerTableContainer
+                        isLoading={this.props.isLoading}
                         results={this.props.data}
                         total={this.props.total}
                         goDeeper={this.props.goDeeper}
@@ -147,7 +144,6 @@ export default class ExplorerVisualization extends React.Component {
 
         return (
             <div className="explorer-vis">
-                <div className={`explorer-vis__loading-text ${loadingTextClass}`}>{loadingText}</div>
                 {dropDown}
 
                 <div

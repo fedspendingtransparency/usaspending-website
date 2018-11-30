@@ -32,13 +32,15 @@ export class AwardDescriptionContainer extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.setAwardDescription(this.props.selectedAward.internalId);
     }
 
     setAwardDescription(id) {
         const params = {
-            order: ['action_date'],
+            award_id: this.props.selectedAward.internalId,
+            order: 'desc',
+            sort: 'action_date',
             filters: [
                 {
                     field: 'award',

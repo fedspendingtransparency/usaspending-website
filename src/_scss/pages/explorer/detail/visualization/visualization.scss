@@ -10,17 +10,9 @@
         height: 0;
     }
 
-	.explorer-vis__loading-text {
-		font-size: rem(36);
-		font-weight: 300;
-		color: $color-base;
-		text-align: center;
-		transition: opacity 0.25s;
-		// Don't show extra padding when it is empty
-		&.explorer-vis__loading-text_loading {
-			margin-bottom: rem(30);
-		}
-	}
+    .explorer-detail-content__loading {
+        position: absolute;
+    }
 
     .explorer-vis__disclaimer {
         font-style: italic;

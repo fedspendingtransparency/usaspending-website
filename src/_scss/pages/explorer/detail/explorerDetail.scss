@@ -70,5 +70,42 @@
                 height: rem(530);
             }
         }
+
+        .explorer-detail-content__loading {
+            height: 100%;
+            width: 100%;
+            background-color: rgba(241, 241, 241, 0.9);
+            @include display(flex);
+            @include align-items(center);
+            @include justify-content(center);
+            
+            .explorer-detail-content__loading-message {
+                display: block;
+                text-align: center;
+                font-size: rem(20);
+
+                .loading-animation {
+                    width: rem(50);
+                    height: rem(50);
+                    margin-left: auto;
+                    margin-right: auto;
+                    @import "../../search/results/screens/loading";
+                    // override the color of the rectangles
+                    svg.loading-bars {
+                        rect {
+                            fill: $color-primary-alt-darkest;
+                        }
+                    }
+                }
+                .explorer-detail-content__loading-title {
+                    font-size: $h4-font-size;
+                    color: $color-primary-alt-darkest;
+                    line-height: rem(45);
+                }
+                .explorer-detail-content__loading-subtitle {
+                    font-weight: $font-semibold;
+                }
+            }
+        }
     }
 }

@@ -79,7 +79,7 @@ export default class ChartBar extends React.Component {
         this.props.selectItem({
             label: this.props.label,
             value: this.props.value,
-            y: (this.props.index * this.props.height) + 20,
+            y: (this.props.index * this.props.height) + 12,
             x: (this.props.width / 2) + this.props.start + this.props.labelWidth
         });
     }
@@ -105,9 +105,9 @@ export default class ChartBar extends React.Component {
                 <rect
                     className={`chart-bar ${hoverClass}`}
                     x={this.props.start}
-                    y={20}
+                    y={12}
                     width={this.props.width}
-                    height={20} />
+                    height={12} />
                 <rect
                     className="chart-bar-hitzone"
                     x={0}

@@ -9,9 +9,12 @@
     .data-dictionary__intro {
         font-size: $small-font-size;
     }
-    .data-dictionary__download {
+    .data-dictionary__search-download {
         @include display(flex);
-        @include justify-content(flex-end);
+        @include justify-content(space-between);
+    }
+    .data-dictionary__download {
+        @include align-self(center);
         padding-bottom: rem(5);
         .data-dictionary__download-link {
             @include display(flex);
@@ -30,8 +33,8 @@
             font-size: $small-font-size;
         }
     }
+
     .data-dictionary__table-wrapper {
-        overflow: scroll;
         @import "./_dictionaryTable";
     }
     @import "./_searchBar";

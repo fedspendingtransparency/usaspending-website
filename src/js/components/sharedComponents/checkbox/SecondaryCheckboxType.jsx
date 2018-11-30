@@ -16,14 +16,16 @@ const propTypes = {
     toggleCheckboxType: PropTypes.func,
     filterType: PropTypes.string,
     selectedCheckboxes: PropTypes.object,
-    enableAnalytics: PropTypes.bool
+    enableAnalytics: PropTypes.bool,
+    restrictChildren: PropTypes.bool
 };
 
 const defaultProps = {
     id: `checkbox-${uniqueId()}`,
     filterType: '',
     selectedCheckboxes: new Set(),
-    enableAnalytics: false
+    enableAnalytics: false,
+    restrictChildren: false
 };
 
 export default class SecondaryCheckboxType extends React.Component {
@@ -80,7 +82,8 @@ export default class SecondaryCheckboxType extends React.Component {
                         id={elementId}
                         value={this.props.code}
                         checked={checked}
-                        onChange={this.toggleFilter} />
+                        onChange={this.toggleFilter}
+                        disabled={this.props.restrictChildren} />
                     <span className="checkbox-item-label">
                         {this.props.name}
                     </span>

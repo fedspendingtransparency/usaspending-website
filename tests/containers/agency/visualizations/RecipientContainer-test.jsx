@@ -141,7 +141,7 @@ describe('RecipientContainer', () => {
     describe('loadData', () => {
         it('should not include a scope when the scope state is "all"', async () => {
             const apiSpy = sinon.spy(require('helpers/agencyHelper'), 'fetchAwardRecipients');
-            const container = shallow(<RecipientContainer
+            const container = mount(<RecipientContainer
                 {...inboundProps} />);
 
             await container.instance().request.promise;
@@ -165,7 +165,7 @@ describe('RecipientContainer', () => {
 
         it('should include a scope when the scope state is not "all"', async () => {
             const apiSpy = sinon.spy(require('helpers/agencyHelper'), 'fetchAwardRecipients');
-            const container = shallow(<RecipientContainer
+            const container = mount(<RecipientContainer
                 {...inboundProps} />);
 
             await container.instance().request.promise;

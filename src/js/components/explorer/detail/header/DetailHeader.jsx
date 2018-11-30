@@ -23,7 +23,8 @@ const propTypes = {
     title: PropTypes.string,
     id: PropTypes.string,
     parent: PropTypes.string,
-    isTruncated: PropTypes.bool
+    isTruncated: PropTypes.bool,
+    isLoading: PropTypes.bool
 };
 
 const exitExplorer = (target) => {
@@ -126,7 +127,7 @@ const DetailHeader = (props) => {
                         FY {props.fy} obligated amount
                     </div>
                     <div className="amount-value">
-                        {formatTreemapValues(props.total)}
+                        {props.isLoading ? '--' : formatTreemapValues(props.total)}
                     </div>
                     <div className="update-date">
                         Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}

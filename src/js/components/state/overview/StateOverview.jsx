@@ -34,9 +34,9 @@ export default class StateOverview extends React.PureComponent {
         this.prepareOverview(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.stateProfile.id !== this.props.stateProfile.id) {
-            this.prepareOverview(nextProps);
+    componentDidUpdate(prevProps) {
+        if (prevProps.stateProfile.id !== this.props.stateProfile.id) {
+            this.prepareOverview(this.props);
         }
     }
 
