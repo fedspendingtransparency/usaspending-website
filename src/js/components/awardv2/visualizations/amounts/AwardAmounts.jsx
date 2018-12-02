@@ -11,8 +11,25 @@ const propTypes = {
     award: PropTypes.object
 };
 
-export default class AwardAmounts extends React.Component {
+export default class AwardAmounts extends React.Component {  
     render() {
+        const award = this.props.award;
+        const unformattedObligated = award._obligation;
+        const unformattedExercisedOption = award._baseExercisedOptions;
+        const baseAndAll = award._amount;
+        const obligatedPercentage = Math.round(Math.abs((unformattedObligated / baseAndAll) * 100));
+        const exercisedPercentage = Math.round(Math.abs((unformattedExercisedOption / baseAndAll) * 100)) - obligatedPercentage;
+
+        const obligatedStyle = {
+            width: `${obligatedPercentage}%`,
+            backgroundColor: '#4773aa'
+        };
+
+        const exercisedStyle = {
+            width: `${exercisedPercentage}%`,
+            backgroundColor: '#d8d8d8'
+        };
+
         return (
             <div className="award__col award-viz award-amounts">
                 <div className="award-viz__heading">
@@ -20,7 +37,7 @@ export default class AwardAmounts extends React.Component {
                         <Building />
                     </div>
                     <h3 className="award-viz__title">
-                        Amounts
+                        Combined Award Amounts
                     </h3>
                 </div>
                 <hr />
