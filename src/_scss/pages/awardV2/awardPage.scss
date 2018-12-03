@@ -4,12 +4,13 @@
     @import "layouts/default/stickyHeader/header";
 
     .award-content {
-        margin: rem(35) rem(40);
+        @import "mixins/fullSectionWrap";
+        @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
         background-color: $color-white;
 
         // Shared award summary styles
         .award {
-            padding: rem(24) rem(10) rem(24) rem(30);
+            padding: rem(24) rem(30) rem(24) rem(30);
 
             .award__heading {
                 @include display(flex);
@@ -24,7 +25,6 @@
                     @include display(flex);
                     @include flex(0 0 auto);
                     padding: 0 rem(20) 0 rem(9);
-                    border-right: solid rem(2) $color-gray;
                     a {
                         width: rem(19);
                         height: rem(25);
@@ -42,12 +42,14 @@
                     }
                 }
                 .award__heading-id {
-                    padding-left: rem(20);
+                    font-weight: $font-light;
                 }
-            }
 
-            .award__divider {
-                border: solid 1px $color-gray;
+                .award__heading-lable {
+                    font-weight: $font-normal;
+                    display: inline-block;
+                    margin-right: rem(5);
+                }
             }
 
             .award__row {

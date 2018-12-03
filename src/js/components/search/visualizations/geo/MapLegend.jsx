@@ -37,8 +37,8 @@ export default class MapLegend extends React.Component {
         this.prepareItems(this.props);
     }
 
-    componentDidUpdate() {
-        this.prepareItems(this.props);
+    componentWillReceiveProps(nextProps) {
+        this.prepareItems(nextProps);
     }
 
     prepareItems(props) {

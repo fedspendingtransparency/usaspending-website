@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import { find } from 'lodash';
+import { scrollToY } from 'helpers/scrollToHelper';
 
 import SummaryBar from './SummaryBarV2';
 import ContractContent from './contract/ContractContent';
@@ -24,7 +26,53 @@ const propTypes = {
     id: PropTypes.string
 };
 
+const awardSections = [
+    {
+        section: 'overview',
+        label: 'Overview'
+    },
+    {
+        section: 'additional-information',
+        label: 'Additional Information'
+    }
+];
+
 export default class Award extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            sectionPositions: [],
+            window: {
+                height: 0
+            }
+        };
+
+        this.jumpToSection = this.jumpToSection.bind(this);
+    }
+
+    jumpToSection(section = '') {
+        // we've been provided a section to jump to
+        // check if it's a valid section
+        const matchedSection = find(awardSections, {
+            section
+        });
+
+        if (!matchedSection) {
+            // no matching section
+            return;
+        }
+
+        // scroll to the correct section
+        const sectionDom = document.querySelector(`#award-${section}`);
+
+        if (!sectionDom) {
+            return;
+        }
+
+        const sectionTop = sectionDom.offsetTop - 145;
+        scrollToY(sectionTop, 700);
+    }
     render() {
         let content = null;
         let summaryBar = null;
@@ -38,6 +86,8 @@ export default class Award extends React.Component {
                 content = (
                     <ContractContent
                         {...this.props}
+                        sections={awardSections}
+                        jumpToSection={this.jumpToSection}
                         inFlight={this.props.inFlight}
                         selectedAward={this.props.award.selectedAward} />
                 );
@@ -46,6 +96,7 @@ export default class Award extends React.Component {
                 content = (
                     <FinancialAssitanceContent
                         {...this.props}
+                        jumpToSection={this.jumpToSection}
                         inFlight={this.props.inFlight}
                         selectedAward={this.props.award.selectedAward} />
                 );
