@@ -102,6 +102,7 @@ export const mockV2TableApi = {
             'Recipient Name': 'Blerg',
             'Start Date': '2011-01-01',
             'End Date': '2011-12-31',
+            'Last Date to Order': '2011-12-31',
             internal_id: 1
         }
     ]

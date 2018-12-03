@@ -26,7 +26,7 @@ describe('BaseContract', () => {
     describe('awardType', () => {
         it('should return the idv type for the idv category', () => {
             const mockIdv = Object.assign({}, mockContractApi, {
-                category: null
+                category: 'idv'
             });
             const idv = Object.create(BaseContract);
             idv.populate(mockIdv);

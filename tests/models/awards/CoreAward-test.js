@@ -6,7 +6,7 @@
 import CoreAward from 'models/v2/awards/CoreAward';
 
 const awardData = {
-    category: null,
+    category: 'loans',
     startDate: '1989-01-02',
     endDate: '1999-12-31',
     subawardTotal: '12004.75'
@@ -16,8 +16,8 @@ const award = Object.create(CoreAward);
 award.populateCore(awardData);
 
 describe('Core Award getter functions', () => {
-    it('should use IDV when the category is null', () => {
-        expect(award.category).toEqual('idv');
+    it('should change the loans category to be singular', () => {
+        expect(award.category).toEqual('loan');
     });
     it('should properly format the start and end dates', () => {
         expect(award.startDate).toEqual('01/02/1989');

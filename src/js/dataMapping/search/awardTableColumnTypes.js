@@ -6,6 +6,7 @@ export const awardTableColumnTypes = {
     'Recipient Name': 'string',
     'Start Date': 'date',
     'End Date': 'date',
+    'Last Date to Order': 'date',
     'Award Amount': 'currency',
     'Funding Agency': 'string',
     'Funding Sub Agency': 'string',
