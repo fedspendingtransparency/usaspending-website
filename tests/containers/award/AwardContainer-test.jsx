@@ -85,5 +85,22 @@ describe('AwardContainer', () => {
 
             expect(mockActions.setSelectedAward).toHaveBeenCalledWith(expectedAward);
         });
+        it('should parse returned IDV data and send to the Redux store', () => {
+            const awardContainer = shallow(
+                <AwardContainer
+                    {...mockParams}
+                    {...mockActions} />);
+
+            const mockIDV = Object.assign({}, mockApi, {
+                category: 'idv'
+            });
+
+            const expectedAward = Object.create(BaseContract);
+            expectedAward.populate(mockIDV);
+
+            awardContainer.instance().parseAward(mockIDV);
+
+            expect(mockActions.setSelectedAward).toHaveBeenCalledWith(expectedAward);
+        });
     });
 });
