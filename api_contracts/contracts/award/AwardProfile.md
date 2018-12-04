@@ -9,32 +9,33 @@ These endpoints are used to power USAspending.gov's award profile pages. This da
 
 These endpoints support the individual Award pages that display data for a specific award type.
 
-## Award [/api/v2/awards/{generated_unique_award_id}]
+## Award [/api/v2/awards/{award_id}]
 
 This endpoint returns a list of data that is associated with the award profile page.
 
 + Parameters
-    + generated_unique_award_id: `25764264` (required, string)
+    + award_id: `25764264` (required, string) 
+        Accepts the v2 generated award hash or internal database id.
 
 ### Award [GET]
 
 + Request A request with a contract id (application/json)
     + Attributes
-        + generated_unique_award_id: 25764264
+        + award_id: `25764264`
 
 + Response 200 (application/json)
     + Attributes (ContractResponse)
 
-+ Request A request with a non-contract id (application/json)
++ Request A request with a financial assistance id (application/json)
      + Attributes
-        + generated_unique_award_id: 42954959
+        + award_id: `42954959`
 
 + Response 200 (application/json)
     + Attributes (FinancialAssistanceResponse)
 
-+ Request A request with a idv id (application/json)
++ Request A request with an IDV id (application/json)
     + Attributes
-        + generated_unique_award_id: 6657452ew23
+        + award_id: `6657452ew23`
 
 + Response 200 (application/json)
     + Attributes (IDVResponse)
@@ -46,7 +47,6 @@ This endpoint returns a list of data that is associated with the award profile p
 + category: `contract` (required, enum[string])
     + Members
         + contract
-        + idv
 + type_description: `Definitive Contract` (required, string)
 + piid: `W31P4Q15A0024` (required, string)
     Award id
@@ -70,11 +70,16 @@ This endpoint returns a list of data that is associated with the award profile p
 
 ## IDVResponse (object)
 + type: `IDV_A` (required, string)
-+ category: `idv` (required, string)
++ category: `idv` (required, enum[string])
+    + Members
+        + idv
 + type_description: `Blanket Purchase Agreement` (required, string)
 + piid: `W31P4Q15A0024` (required, string)
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
+    Null if the IDV has no parent
++ parent_generated_unique_award_id (required, string, nullable)
+    Null if the IDV has no parent
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
 + awarding_agency (required, Agency, fixed-type)
@@ -86,7 +91,6 @@ This endpoint returns a list of data that is associated with the award profile p
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
 + executive_details (required, Executive, fixed-type)
-+ parent_generated_unique_award_id (required, string)
 
 
 ## Agency (object)
