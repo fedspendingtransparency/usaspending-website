@@ -18,8 +18,8 @@ export default class ContractContent extends React.Component {
             <div className="award award-idv">
                 <div className="award__heading">
                     <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
-                    <span className="award__heading-lable">PIID</span>
-                    <span className="award__heading-id">{this.props.overview.id}</span>
+                    <div className="award__heading-lable">{this.props.overview.id ? 'PIID' : ''}</div>
+                    <div className="award__heading-id">{this.props.overview.id}</div>
                 </div>
                 <hr />
             </div>

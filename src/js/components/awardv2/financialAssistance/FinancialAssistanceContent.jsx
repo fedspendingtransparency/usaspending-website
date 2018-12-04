@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 
 import { startCase } from "lodash";
 
-import AwardRecipient from '../contract/AwardRecipient';
-import AwardDates from '../shared/AwardDates';
+import AwardRecipient from '../visualizations/overview/AgencyRecipient';
+import AwardDates from '../visualizations/overview/AwardDates';
 
 const propTypes = {
     overview: PropTypes.object,
@@ -23,8 +23,8 @@ export default class FinancialAssistanceContent extends React.Component {
             <div className="award award-financial-assistance">
                 <div className="award__heading">
                     <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
-                    <span className="award__heading-lable">ID</span>
-                    <span className="award__heading-id">{this.props.overview.id}</span>
+                    <div className="award__heading-lable">{this.props.overview.id ? 'ID' : ''}</div>
+                    <div className="award__heading-id">{this.props.overview.id}</div>
                 </div>
                 <hr className="award__divider" />
                 <div className="award__row" id="award-overview">
