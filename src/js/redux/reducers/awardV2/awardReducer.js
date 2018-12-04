@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 12/4/18
  **/
 
-const initialState = {
+export const initialState = {
     id: '',
     category: '',
     overview: null
