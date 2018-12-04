@@ -12,16 +12,16 @@ import { isCancel } from 'axios';
 import Award from 'components/awardv2/AwardV2';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as awardActions from 'redux/actions/award/awardActions';
+import * as awardActions from 'redux/actions/awardV2/awardActions';
 
 import BaseContract from 'models/v2/awardsV2/BaseContract';
+import BaseIdv from 'models/v2/awardsV2/BaseIdv';
 import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
 
 require('pages/awardV2/awardPage.scss');
 
-
 const propTypes = {
-    setSelectedAward: PropTypes.func,
+    setAward: PropTypes.func,
     params: PropTypes.object,
     award: PropTypes.object
 };
@@ -44,7 +44,7 @@ export class AwardContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.params.awardId !== prevProps.params.awardId) {
-            this.getSelectedAward(prevProps.params.awardId);
+            this.getSelectedAward(this.props.params.awardId);
         }
     }
 
@@ -107,20 +107,24 @@ export class AwardContainer extends React.Component {
         if (data.category === 'contract') {
             const contract = Object.create(BaseContract);
             contract.populate(data);
-            this.props.setSelectedAward(contract);
+            this.props.setAward(contract, this.props.params.awardId);
+        }
+        else if (data.category === 'idv') {
+            const idv = Object.create(BaseIdv);
+            idv.populate(data);
+            this.props.setAward(idv, this.props.params.awardId);
         }
         else {
             const financialAssistance = Object.create(BaseFinancialAssistance);
             financialAssistance.populate(data);
-            this.props.setSelectedAward(financialAssistance);
+            this.props.setAward(financialAssistance, this.props.params.awardId);
         }
     }
 
     render() {
         return (
             <Award
-                {...this.props}
-                id={this.props.params.awardId}
+                award={this.props.award}
                 inFlight={this.state.inFlight}
                 noAward={this.state.noAward} />
         );
@@ -130,6 +134,6 @@ export class AwardContainer extends React.Component {
 AwardContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.award }),
+    (state) => ({ award: state.awardV2 }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
 )(AwardContainer);

@@ -14,7 +14,7 @@ These endpoints support the individual Award pages that display data for a speci
 This endpoint returns a list of data that is associated with the award profile page.
 
 + Parameters
-    + generated_unique_award_id: 25764264
+    + generated_unique_award_id: `25764264` (required, string)
 
 ### Award [GET]
 
@@ -90,7 +90,7 @@ This endpoint returns a list of data that is associated with the award profile p
 
 
 ## Agency (object)
-+ id (required, string)
++ id: `123` (required, string)
 + toptier_agency (required, TopTierAgency, nullable)
 + subtier_agency (required, SubTierAgency, nullable)
 + office_agency_name: `STRATEGIC SYSTEMS` (required, string, nullable)
