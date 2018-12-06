@@ -2,4 +2,11 @@
     .award-amounts__content {
         color: $color-primary-darker;
     }
+
+    .award-amounts__viz {
+        height: rem(40);
+        margin: rem(16) 0 rem(7) 0;
+        background-color: #ececec;
+        @include display(flex);
+    }
 }

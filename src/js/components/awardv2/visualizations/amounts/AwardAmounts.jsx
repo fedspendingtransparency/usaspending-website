@@ -11,12 +11,11 @@ const propTypes = {
     award: PropTypes.object
 };
 
-export default class AwardAmounts extends React.Component {  
+export default class AwardAmounts extends React.Component {
     render() {
-        const award = this.props.award;
-        const unformattedObligated = award._obligation;
-        const unformattedExercisedOption = award._baseExercisedOptions;
-        const baseAndAll = award._amount;
+        const unformattedObligated = 6497742681.42;
+        const unformattedExercisedOption = 12691821811.57;
+        const baseAndAll = 26504960197.57;
         const obligatedPercentage = Math.round(Math.abs((unformattedObligated / baseAndAll) * 100));
         const exercisedPercentage = Math.round(Math.abs((unformattedExercisedOption / baseAndAll) * 100)) - obligatedPercentage;
 
@@ -42,7 +41,14 @@ export default class AwardAmounts extends React.Component {
                 </div>
                 <hr />
                 <div className="award-amounts__content">
-                    Amounts content here
+                    <div className="award-amounts__viz">
+                        <div className="award-amountdates__viz-obligated" style={obligatedStyle} />
+                        <div className="award-amountdates__viz-excerised" style={exercisedStyle} />
+                    </div>
+                    <div>
+                        <hr />
+                        <span className="award-amounts__viz-label">Base &#38; All Options</span>
+                    </div>
                     <a
                         href="/"
                         className="award-viz__link">
