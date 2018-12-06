@@ -131,7 +131,7 @@ export default class AdditionalInfo extends React.Component {
                             accordionData={data.PeriodOfPerformance} />
                         <Accordion
                             globalToggle={this.state.globalToggle}
-                            accordionName="Lesgislative Mandates"
+                            accordionName="Legislative Mandates"
                             accordionIcon={<img src="img/award-summary/legislative-mandates.png" alt="Lesgislative Mandates" />}
                             accordionData={data.LegislativeMandates} />
                         <Accordion
