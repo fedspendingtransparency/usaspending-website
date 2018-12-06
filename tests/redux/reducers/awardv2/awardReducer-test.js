@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 12/4/18
  */
 
-import BaseContract from 'models/v2/awardsv2/BaseContract';
+import BaseContract from 'models/v2/awardsV2/BaseContract';
 
 import awardReducer, { initialState } from 'redux/reducers/awardv2/awardReducer';
 
