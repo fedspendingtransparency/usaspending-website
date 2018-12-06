@@ -47,6 +47,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + category: `contract` (required, enum[string])
     + Members
         + contract
++ generated_unique_award_id: `25764264` (required, string)
 + type_description: `Definitive Contract` (required, string)
 + piid: `W31P4Q15A0024` (required, string)
     Award id
@@ -73,6 +74,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + category: `idv` (required, enum[string])
     + Members
         + idv
++ generated_unique_award_id: `6657452ew23` (required, string)
 + type_description: `Blanket Purchase Agreement` (required, string)
 + piid: `W31P4Q15A0024` (required, string)
     Award id
@@ -204,6 +206,7 @@ This endpoint returns a list of data that is associated with the award profile p
         + direct payment
         + grant
 + type: `C` (required, string)
++ generated_unique_award_id: `42954959` (required, string)
 + fain: `43533A3` (required, string, nullable)
 + uri: `5341QQ` (required, string, nullable)
 + type_description: `Some loan` (required, string)

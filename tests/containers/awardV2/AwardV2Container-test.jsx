@@ -72,7 +72,7 @@ describe('AwardV2Container', () => {
 
             awardContainer.instance().parseAward(mockContract);
 
-            expect(mockActions.setAward).toHaveBeenCalledWith(expectedAward, '1234');
+            expect(mockActions.setAward).toHaveBeenCalledWith(expectedAward);
         });
         it('should parse returned IDV data and send to the Redux store', () => {
             const awardContainer = shallow(
@@ -85,7 +85,7 @@ describe('AwardV2Container', () => {
 
             awardContainer.instance().parseAward(mockIdv);
 
-            expect(mockActions.setAward).toHaveBeenCalledWith(expectedAward, '1234');
+            expect(mockActions.setAward).toHaveBeenCalledWith(expectedAward);
         });
         it('should parse returned financial assistance data and send to the Redux store', () => {
             const awardContainer = shallow(
@@ -98,7 +98,7 @@ describe('AwardV2Container', () => {
 
             awardContainer.instance().parseAward(mockLoan);
 
-            expect(mockActions.setAward).toHaveBeenCalledWith(expectedAward, '1234');
+            expect(mockActions.setAward).toHaveBeenCalledWith(expectedAward);
         });
     });
 });

@@ -19,23 +19,20 @@ describe('awardReducer', () => {
 
             const action = {
                 type: 'SET_AWARD',
-                overview: contractModel,
-                id: '123'
+                overview: contractModel
             };
 
             state = awardReducer(state, action);
 
             expect(state.overview).toEqual(contractModel);
-            expect(state.id).toEqual('123');
+            expect(state.id).toEqual('6657452ew23');
             expect(state.category).toEqual('contract');
         });
     });
     describe('RESET_STATE', () => {
         it('should reset the award to its initial state', () => {
             let state = awardReducer(undefined, {
-                overview: contractModel,
-                id: '123',
-                category: 'contract'
+                overview: contractModel
             });
 
             const action = {

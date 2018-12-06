@@ -107,17 +107,17 @@ export class AwardContainer extends React.Component {
         if (data.category === 'contract') {
             const contract = Object.create(BaseContract);
             contract.populate(data);
-            this.props.setAward(contract, this.props.params.awardId);
+            this.props.setAward(contract);
         }
         else if (data.category === 'idv') {
             const idv = Object.create(BaseIdv);
             idv.populate(data);
-            this.props.setAward(idv, this.props.params.awardId);
+            this.props.setAward(idv);
         }
         else {
             const financialAssistance = Object.create(BaseFinancialAssistance);
             financialAssistance.populate(data);
-            this.props.setAward(financialAssistance, this.props.params.awardId);
+            this.props.setAward(financialAssistance);
         }
     }
 

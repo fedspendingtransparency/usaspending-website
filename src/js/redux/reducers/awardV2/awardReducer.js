@@ -13,7 +13,7 @@ const awardReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_AWARD': {
             return Object.assign({}, state, {
-                id: action.id,
+                id: action.overview.generatedId,
                 category: action.overview.category,
                 overview: action.overview
             });
