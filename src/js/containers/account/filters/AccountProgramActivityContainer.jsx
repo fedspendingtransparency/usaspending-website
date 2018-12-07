@@ -37,14 +37,14 @@ export class AccountProgramActivityContainer extends React.Component {
         this.updateFilter = this.updateFilter.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         // clear out any previously selected program activities
         this.props.resetProgramActivity();
         this.populateProgramActivities();
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.account !== this.props.account) {
+    componentDidReceiveProps(prevProps) {
+        if (prevProps.account !== this.props.account) {
             // clear out any previously selected program activities
             this.props.resetProgramActivity();
             this.populateProgramActivities();

@@ -23,7 +23,8 @@ const propTypes = {
     filterType: PropTypes.string,
     types: PropTypes.object,
     selectedCheckboxes: PropTypes.object,
-    enableAnalytics: PropTypes.bool
+    enableAnalytics: PropTypes.bool,
+    restrictChildren: PropTypes.bool
 };
 
 const defaultProps = {
@@ -33,7 +34,8 @@ const defaultProps = {
     filterType: '',
     types: {},
     selectedCheckboxes: new Set(),
-    enableAnalytics: false
+    enableAnalytics: false,
+    restrictChildren: false
 };
 
 export default class PrimaryCheckboxType extends React.Component {
@@ -155,7 +157,7 @@ export default class PrimaryCheckboxType extends React.Component {
             arrowState={this.state.arrowState}
             toggleExpand={this.toggleSubItems}
             toggleChildren={this.toggleChildren}
-            hideArrow={this.state.selectedChildren} />);
+            hideArrow={this.state.selectedChildren || this.props.restrictChildren} />);
 
         let secondaryTypes = null;
 

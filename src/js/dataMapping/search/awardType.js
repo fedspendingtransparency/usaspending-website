@@ -10,6 +10,19 @@ export const awardTypeCodes = {
     'B': 'Purchase Orders (PO)',
     'C': 'Delivery Orders (DO)',
     'D': 'Definitive Contracts',
+    'E': 'Unknown Type',
+    'F': 'Cooperative Agreement',
+    'G': 'Grant for Research',
+    'S': 'Funded Space Act Agreement',
+    'T': 'Training Grant',
+    'IDV_A': 'Government-Wide Acquisition Contract (GWAC)',
+    'IDV_B': 'Multi-Agency Contract, Other Indefinite Delivery Contract (IDC)',
+    'IDV_B_A': 'INDEFINITE DELIVERY / REQUIREMENTS',
+    'IDV_B_B': 'INDEFINITE DELIVERY / INDEFINITE QUANTITY',
+    'IDV_B_C': 'INDEFINITE DELIVERY / DEFINITE QUANTITY',
+    'IDV_C': 'Federal Supply Schedule (FSS)',
+    'IDV_D': 'Basic Ordering Agreement (BOA)',
+    'IDV_E': 'Blanket Purchase Agreements (BPA) Calls',
     '02': 'Block Grant',
     '03': 'Formula Grant',
     '04': 'Project Grant',
@@ -21,10 +34,12 @@ export const awardTypeCodes = {
     '09': 'Insurance',
     '11': 'Other Financial Assistance'
 };
+
 /* eslint-enable quote-props */
 
 export const awardTypeGroups = {
     contracts: ['A', 'B', 'C', 'D'],
+    idvs: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],
     grants: ['02', '03', '04', '05'],
     direct_payments: ['10', '06'],
     loans: ['07', '08'],
@@ -34,6 +49,7 @@ export const awardTypeGroups = {
 
 export const awardTypeGroupLabels = {
     contracts: 'Contracts',
+    idvs: "Indefinite Vehicle Delivery",
     grants: 'Grants',
     direct_payments: 'Direct Payments',
     loans: 'Loans',

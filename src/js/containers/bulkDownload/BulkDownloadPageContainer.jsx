@@ -40,13 +40,13 @@ export class BulkDownloadPageContainer extends React.Component {
         this.startAccountDownload = this.startAccountDownload.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.validateDataType(this.props.params.type);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.params.type !== this.props.params.type) {
-            this.validateDataType(nextProps.params.type);
+    componentDidUpdate(prevProps) {
+        if (prevProps.params.type !== this.props.params.type) {
+            this.validateDataType(this.props.params.type);
         }
     }
 

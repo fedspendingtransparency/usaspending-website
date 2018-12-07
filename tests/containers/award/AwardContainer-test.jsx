@@ -42,20 +42,20 @@ describe('AwardContainer', () => {
         const getSelectedAward = jest.fn();
         container.instance().getSelectedAward = getSelectedAward;
 
-        container.instance().componentWillMount();
+        container.instance().componentDidMount();
         expect(getSelectedAward).toHaveBeenCalledTimes(1);
         expect(getSelectedAward).toHaveBeenCalledWith(1234);
 
-        const nextProps = Object.assign({}, mockParams, {
+        const prevProps = Object.assign({}, mockParams, {
             params: {
                 awardId: 222
             }
         });
 
-        container.instance().componentWillReceiveProps(nextProps);
+        container.instance().componentDidUpdate(prevProps);
 
         expect(getSelectedAward).toHaveBeenCalledTimes(2);
-        expect(getSelectedAward).toHaveBeenLastCalledWith(222);
+        expect(getSelectedAward).toHaveBeenLastCalledWith(1234);
     });
 
     describe('parseAward', () => {
@@ -82,6 +82,23 @@ describe('AwardContainer', () => {
             expectedAward.populate(mockFinancialAssistanceApi);
 
             awardContainer.instance().parseAward(mockFinancialAssistanceApi);
+
+            expect(mockActions.setSelectedAward).toHaveBeenCalledWith(expectedAward);
+        });
+        it('should parse returned IDV data and send to the Redux store', () => {
+            const awardContainer = shallow(
+                <AwardContainer
+                    {...mockParams}
+                    {...mockActions} />);
+
+            const mockIDV = Object.assign({}, mockApi, {
+                category: 'idv'
+            });
+
+            const expectedAward = Object.create(BaseContract);
+            expectedAward.populate(mockIDV);
+
+            awardContainer.instance().parseAward(mockIDV);
 
             expect(mockActions.setSelectedAward).toHaveBeenCalledWith(expectedAward);
         });

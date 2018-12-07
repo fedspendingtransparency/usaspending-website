@@ -36,13 +36,13 @@ export class AwardContainer extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.getSelectedAward(this.props.params.awardId);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.params.awardId !== nextProps.params.awardId) {
-            this.getSelectedAward(nextProps.params.awardId);
+    componentDidUpdate(prevProps) {
+        if (this.props.params.awardId !== prevProps.params.awardId) {
+            this.getSelectedAward(this.props.params.awardId);
         }
     }
 
@@ -102,7 +102,7 @@ export class AwardContainer extends React.Component {
             noAward: false
         });
 
-        if (data.category === 'contract' || !data.category) {
+        if (data.category === 'contract' || data.category === 'idv') {
             const contract = Object.create(BaseContract);
             contract.populate(data);
             this.props.setSelectedAward(contract);

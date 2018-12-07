@@ -5,8 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import DataDictionaryTableSorter from './DataDictionaryTableSorter';
+
 
 const propTypes = {
     searchTerm: PropTypes.string,
@@ -20,6 +20,21 @@ const propTypes = {
 };
 
 export default class DataDictionaryTable extends React.Component {
+    scrollRightTop(e) {
+        const topBar = document.getElementById("topBar");
+        const bottomBar = document.getElementById("bottomBar");
+        const headerDiv = document.getElementById("headerDiv");
+        bottomBar.scrollLeft = topBar.scrollLeft;
+        headerDiv.scrollLeft = e.target.scrollLeft;
+    }
+    scrollRightBottom(e) {
+        const topBar = document.getElementById("topBar");
+        const bottomBar = document.getElementById("bottomBar");
+        const headerDiv = document.getElementById("headerDiv");
+        topBar.scrollLeft = bottomBar.scrollLeft;
+        headerDiv.scrollLeft = e.target.scrollLeft;
+    }
+
     generateSectionHeadings() {
         return this.props.sections.map((section, i) => {
             let cellClass = '';
@@ -153,6 +168,7 @@ export default class DataDictionaryTable extends React.Component {
     render() {
         let message = null;
         let table = null;
+        let scrollVisible = false;
 
         if (this.props.loading) {
             message = (
@@ -161,7 +177,6 @@ export default class DataDictionaryTable extends React.Component {
                 </div>
             );
         }
-
         else if (this.props.error) {
             message = (
                 <div className="dictionary-table__message">
@@ -171,25 +186,47 @@ export default class DataDictionaryTable extends React.Component {
         }
 
         else {
+            scrollVisible = true;
             table = (
-                <table className="dictionary-table__content">
-                    <thead className="dictionary-table__head">
-                        <tr className="dictionary-table__head-row">
-                            {this.generateSectionHeadings()}
-                        </tr>
-                        <tr className="dictionary-table__head-row">
-                            {this.generateColumnHeadings()}
-                        </tr>
-                    </thead>
-                    <tbody className="dictionary-table__body">
-                        {this.generateRows()}
-                    </tbody>
-                </table>
+                <div className="dictionary-table__container">
+                    <div className="dictionary-table__headers" id="headerDiv">
+                        <table className="dictionary-table__headers-table">
+                            <thead>
+                                <tr className="dictionary-table__headers-row">
+                                    {this.generateSectionHeadings()}
+                                </tr>
+                                <tr className="dictionary-table__headers-row">
+                                    {this.generateColumnHeadings()}
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div className="dictionary-table__content" id="bottomBar" onScroll={this.scrollRightBottom}>
+                        <table className="dictionary-table__content-table" id="dictionary-table__content-table">
+                            <tbody className="dictionary-table__content-body">
+                                {this.generateRows()}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             );
         }
 
+        const innerTable = document.getElementById("dictionary-table__content-table");
+        let width = 0;
+        if (innerTable) {
+            width = `${innerTable.offsetWidth}px`;
+        }
+
+        const style = {
+            width
+        };
+
         return (
             <div className="dictionary-table">
+                <div className={`dictionary-table__above-scroller ${scrollVisible ? '' : 'dictionary-table__above-scroller-hidden'}`} id="topBar" onScroll={this.scrollRightTop}>
+                    <div className="dictionary-table__scroller" style={style} />
+                </div>
                 {message || table}
             </div>
         );

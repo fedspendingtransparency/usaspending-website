@@ -31,7 +31,7 @@ This endpoint returns a list of data that is associated with the award profile p
 
 + Response 200 (application/json)
     + Attributes (MiscResponse)
-    
+
 # Data Structures
 
 ## ContractResponse (object)
@@ -276,7 +276,7 @@ This endpoint returns financial accounts by award.
         + order: desc (optional, string)
             The direction results are sorted by. `asc` for ascending, `desc` for descending.
             + Default: desc
-            
+
 + Response 200 (application/json)
     + Attributes
         + results (array[FinancialSystemDetailsResult], fixed-type)
