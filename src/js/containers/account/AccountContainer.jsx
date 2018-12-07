@@ -14,7 +14,6 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as accountActions from 'redux/actions/account/accountActions';
 import * as filterActions from 'redux/actions/account/accountFilterActions';
 
-import FederalAccount from 'models/v2/account/FederalAccount';
 import { fiscalYearSnapshotFields } from 'dataMapping/accounts/accountFields';
 
 import Account from 'components/account/Account';
@@ -97,7 +96,7 @@ export class AccountContainer extends React.Component {
     }
 
     parseAccount(data) {
-        const account = new FederalAccount(data);
+        const account = new BaseFederalAccount(data);
         this.props.setSelectedAccount(account);
         this.loadFiscalYearSnapshot(account.id);
     }
