@@ -9,4 +9,69 @@
         background-color: #ececec;
         @include display(flex);
     }
+
+    .award-amounts__viz-label {
+        text-align: center;
+    }
+
+    .award-amounts__viz-line-up {
+        margin: rem(5) 0 rem(5) rem(1);
+        border-bottom: 1px solid black;
+        position: relative;
+        width: 99.5%;
+        height: rem(1);
+    }
+
+    .award-amounts__viz-line {
+        margin: rem(20) 0 rem(5) rem(1);
+        border-bottom: 1px solid black;
+        position: relative;
+        width: 99.5%;
+        height: rem(1);
+    }
+
+    .award-amounts__viz-line-up::after {
+        content: "";
+        position: absolute;
+        width: rem(1);
+        height: rem(10);
+        border-left: 1px solid black;
+        top: 0px;
+        right: -1px;
+    }
+
+    .award-amounts__viz-line-up::before {
+        content: "";
+        position: absolute;
+        width: rem(1);
+        height: rem(10);
+        border-left: 1px solid black;
+        top: 0px;
+        left: -1px;
+    }
+
+    .award-amounts__viz-line::after {
+        content: "";
+        position: absolute;
+        width: rem(1);
+        height: rem(10);
+        border-left: 1px solid black;
+        top: -8.5px;
+        right: -1px;
+    }
+
+    .award-amounts__viz-line::before {
+        content: "";
+        position: absolute;
+        width: rem(1);
+        height: rem(10);
+        border-left: 1px solid black;
+        top: -8.5px;
+        left: -1px;
+    }
+
+    .award-amounts__viz-desc {
+        font-size: rem(10);
+        color: #555555
+    }
 }

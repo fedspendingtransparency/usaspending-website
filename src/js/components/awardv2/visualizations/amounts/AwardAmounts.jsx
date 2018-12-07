@@ -18,6 +18,7 @@ export default class AwardAmounts extends React.Component {
         const baseAndAll = 26504960197.57;
         const obligatedPercentage = Math.round(Math.abs((unformattedObligated / baseAndAll) * 100));
         const exercisedPercentage = Math.round(Math.abs((unformattedExercisedOption / baseAndAll) * 100)) - obligatedPercentage;
+        const exercisedLabelPercentage = Math.round(Math.abs((unformattedExercisedOption) / baseAndAll) * 100);
 
         const obligatedStyle = {
             width: `${obligatedPercentage}%`,
@@ -27,6 +28,14 @@ export default class AwardAmounts extends React.Component {
         const exercisedStyle = {
             width: `${exercisedPercentage}%`,
             backgroundColor: '#d8d8d8'
+        };
+
+        const obligatedLableStyle = {
+            width: `${obligatedPercentage}%`
+        };
+
+        const exercisedLableStyle = {
+            width: `${exercisedLabelPercentage}%`
         };
 
         return (
@@ -41,13 +50,21 @@ export default class AwardAmounts extends React.Component {
                 </div>
                 <hr />
                 <div className="award-amounts__content">
+                    <div className="award-amounts__viz-label" style={exercisedLableStyle}>
+                        <div className="award-amounts__viz-desc">Combined Base &#38; Exercised Options</div>
+                        <div className="award-amounts__viz-line-up" />
+                    </div>
                     <div className="award-amounts__viz">
                         <div className="award-amountdates__viz-obligated" style={obligatedStyle} />
                         <div className="award-amountdates__viz-excerised" style={exercisedStyle} />
                     </div>
-                    <div>
-                        <hr />
-                        <span className="award-amounts__viz-label">Base &#38; All Options</span>
+                    <div className="award-amounts__viz-label" style={obligatedLableStyle}>
+                        <div className="award-amounts__viz-line" />
+                        <div className="award-amounts__viz-desc">Combined Obligated Amounts</div>
+                    </div>
+                    <div className="award-amounts__viz-label">
+                        <div className="award-amounts__viz-line" />
+                        <div className="award-amounts__viz-desc">Combined Base &#38; All Options</div>
                     </div>
                     <a
                         href="/"
