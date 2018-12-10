@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { startCase } from 'lodash';
+import IdvDates from './IdvDates';
 
 const propTypes = {
     overview: PropTypes.object
@@ -22,6 +23,10 @@ export default class ContractContent extends React.Component {
                     <div className="award__heading-id">{this.props.overview.id}</div>
                 </div>
                 <hr />
+                <div className="award__row" id="award-overview">
+                    <IdvDates
+                        dates={this.props.overview.dates} />
+                </div>
             </div>
         );
     }
