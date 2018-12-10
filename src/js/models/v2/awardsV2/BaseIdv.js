@@ -41,7 +41,7 @@ BaseIdv.populate = function populate(data) {
         const periodOfPerformanceData = {
             startDate: data.idv_dates.start_date,
             endDate: data.idv_dates.end_date,
-            lastModifiedDate: data.idv_dates.last_modified_date,
+            lastModifiedDate: data.idv_dates.last_modified_date
         };
         const periodOfPerformance = Object.create(CorePeriodOfPerformance);
         periodOfPerformance.populateCore(periodOfPerformanceData);
