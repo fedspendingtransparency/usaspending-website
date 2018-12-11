@@ -96,15 +96,7 @@ export default class IdvDates extends React.Component {
                 </div>
                 <div className="idv-dates__row">
                     <div className="idv-dates__label">
-                        Last Modified On
-                    </div>
-                    <div className="idv-dates__date">
-                        {dates.lastModifiedDate || '--'}
-                    </div>
-                </div>
-                <div className="idv-dates__row">
-                    <div className="idv-dates__label">
-                        End Date
+                        Last Date to Order
                     </div>
                     <div className="idv-dates__date">
                         {dates.endDate || '--'}

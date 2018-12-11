@@ -12,20 +12,14 @@ const propTypes = {
 
 export default class RelatedAwards extends React.Component {
     render() {
-        // TODO - Determine what to show when no parent
-        let parent = null;
+        let parentLink = 'N/A';
         if (this.props.overview.parentAward && this.props.overview.parentId) {
-            parent = (
-                <div className="related-awards__parent">
-                    <div className="related-awards__label">
-                        Parent Award
-                    </div>
-                    <a
-                        className="related-awards__link"
-                        href={`#/award_v2/${this.props.overview.parentId}`}>
-                        {this.props.overview.parentAward}
-                    </a>
-                </div>
+            parentLink = (
+                <a
+                    className="related-awards__link"
+                    href={`#/award_v2/${this.props.overview.parentId}`}>
+                    {this.props.overview.parentAward}
+                </a>
             );
         }
         return (
@@ -33,7 +27,12 @@ export default class RelatedAwards extends React.Component {
                 <div className="award-overview__title related-awards__title">
                     Related Awards
                 </div>
-                {parent}
+                <div className="related-awards__parent">
+                    <div className="related-awards__label">
+                        Parent Award
+                    </div>
+                    {parentLink}
+                </div>
             </div>
         );
     }
