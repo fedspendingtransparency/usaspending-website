@@ -4,6 +4,22 @@
         font-weight: $font-semibold;
         padding-bottom: rem(15);
     }
+
+    // Layout
+    @include display(flex);
+    .agency-recipient {
+        @include flex(0 0 50%);
+        padding-right: rem(10);
+    }
+    .related-awards {
+        @include flex(0 0 25%);
+        padding: 0 rem(10);
+    }
+    .idv-dates {
+        @include flex(0 0 25%);
+        padding-left: rem(10);
+    }
+
     @import "./agencyRecipient";
     @import "./relatedAwards";
     @import "./dates";

@@ -7,11 +7,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { startCase } from 'lodash';
+
+import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
 import RelatedAwards from '../visualizations/overview/RelatedAwards';
 import IdvDates from './IdvDates';
 
 const propTypes = {
-    overview: PropTypes.object
+    overview: PropTypes.object,
+    jumpToSection: PropTypes.func
 };
 
 export default class IdvContent extends React.Component {
@@ -30,6 +33,11 @@ export default class IdvContent extends React.Component {
                 </div>
                 <hr />
                 <div className="award__row award-overview" id="award-overview">
+                    <AgencyRecipient
+                        jumpToSection={this.props.jumpToSection}
+                        awardingAgency={this.props.overview.awardingAgency}
+                        category="idv"
+                        recipient={this.props.overview.recipient} />
                     <RelatedAwards
                         overview={this.props.overview} />
                     <IdvDates
