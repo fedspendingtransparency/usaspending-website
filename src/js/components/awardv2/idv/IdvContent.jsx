@@ -24,8 +24,10 @@ export default class IdvContent extends React.Component {
                 <div className="idv__heading">
                     <div className="idv__info">
                         <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
-                        <div className="award__heading-lable">{this.props.overview.id ? 'PIID' : ''}</div>
-                        <div className="award__heading-id">{this.props.overview.id}</div>
+                        <div className="award__heading-id">
+                            <div className="award__heading-lable">{this.props.overview.id ? 'PIID' : ''}</div>
+                            <div>{this.props.overview.id}</div>
+                        </div>
                     </div>
                     <div className="idv__last-modified">
                         Last Modified On: <span className="idv__last-modified idv__last-modified_date">{this.props.overview.dates.lastModifiedDate}</span>
