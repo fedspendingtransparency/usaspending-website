@@ -75,7 +75,7 @@ export default class IdvDates extends React.Component {
         return (
             <div className="idv-dates">
                 <div className="idv-dates__heading">
-                    <div className="idv-dates__title">
+                    <div className="award-overview__title idv-dates__title">
                         Dates
                     </div>
                     <div className="idv-dates__remaining">

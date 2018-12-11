@@ -7,13 +7,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { startCase } from 'lodash';
+import RelatedAwards from '../visualizations/overview/RelatedAwards';
 import IdvDates from './IdvDates';
 
 const propTypes = {
     overview: PropTypes.object
 };
 
-export default class ContractContent extends React.Component {
+export default class IdvContent extends React.Component {
     render() {
         return (
             <div className="award award-idv">
@@ -23,7 +24,9 @@ export default class ContractContent extends React.Component {
                     <div className="award__heading-id">{this.props.overview.id}</div>
                 </div>
                 <hr />
-                <div className="award__row" id="award-overview">
+                <div className="award__row award-overview" id="award-overview">
+                    <RelatedAwards
+                        overview={this.props.overview} />
                     <IdvDates
                         dates={this.props.overview.dates} />
                 </div>
@@ -32,4 +35,4 @@ export default class ContractContent extends React.Component {
     }
 }
 
-ContractContent.propTypes = propTypes;
+IdvContent.propTypes = propTypes;

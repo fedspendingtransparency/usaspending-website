@@ -71,11 +71,10 @@
                    font-weight: $font-light;
                 }
             }
+
+            @import "./visualizations/overview/overview";
         }
 
-        @import "./visualizations/overview/dates";
-        @import "./visualizations/overview/idvDates";
-        @import "./visualizations/overview/agencyRecipient";
         @import "./awardContract";
         @import "./awardFinancialAssistance";
     }

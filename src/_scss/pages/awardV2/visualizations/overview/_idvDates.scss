@@ -2,11 +2,10 @@
     .idv-dates__heading {
         @include display(flex);
         @include justify-content(space-between);
-        font-size: rem(14);
-        font-weight: $font-semibold;
         .idv-dates__title {
             @include display(flex);
             @include flex(0 0 auto);
+            padding-bottom: 0;
         }
         .idv-dates__remaining {
             @include display(flex);

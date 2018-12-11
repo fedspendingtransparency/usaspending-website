@@ -80,7 +80,7 @@ This endpoint returns a list of data that is associated with the award profile p
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
     Null if the IDV has no parent
-+ parent_generated_unique_award_id (required, string, nullable)
++ parent_generated_unique_award_id: `7757452ew25` (required, string, nullable)
     Null if the IDV has no parent
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
@@ -131,8 +131,8 @@ This endpoint returns a list of data that is associated with the award profile p
 ## IdvDates
 + start_date: `2004-02-19` (required, string)
     The starting date of the idv in the format `YYYY-MM-DD`
-+ last_modified_date: `2301-02-20` (required, string)
-+ end_date: `2301-01-20` (required, string)
++ last_modified_date: `2017-02-20` (required, string)
++ end_date: `2021-01-20` (required, string)
 
 ## Location
 + address_line1: `123 Sesame St` (required, string, nullable)
