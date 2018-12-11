@@ -1,0 +1,36 @@
+.tables-section {
+    @include clearfix();
+    float: left;
+    display: block;
+    width: 100%;
+    margin-top: rem(40);
+    margin-bottom: rem(20);
+    padding: rem(3) rem(35);
+    transition: opacity 0.25s ease;
+
+    .tables-width-master {
+        width: 100%;
+    }
+
+    .table-message {
+        margin-top: 1rem;
+        font-size: $small-font-size;
+        color: $color-base;
+        text-align: center;
+    }
+
+    @import "pages/award/table/_table";
+    @import "pages/search/results/table/_tableTypes";
+    @import "pages/search/results/table/_resultsTablePicker";
+
+    .field-picker {
+        float: none;
+        display: block;
+        @include media($tablet-screen) {
+            display: none;
+        }
+        .field-list {
+            z-index: $z-header - 1;
+        }
+    }
+}

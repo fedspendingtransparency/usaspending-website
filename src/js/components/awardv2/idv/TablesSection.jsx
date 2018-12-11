@@ -9,11 +9,11 @@ import { concat } from 'lodash';
 
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 
-import DetailsTabBar from '../award/details/DetailsTabBar';
-import ResultsTablePicker from '../search/table/ResultsTablePicker';
+import DetailsTabBar from '../../award/details/DetailsTabBar';
+import ResultsTablePicker from '../../search/table/ResultsTablePicker';
 
 const propTypes = {
-    selectedAward: PropTypes.object,
+    overview: PropTypes.object,
     activeTab: PropTypes.string,
     clickTab: PropTypes.func
 };
@@ -50,7 +50,7 @@ export default class TablesSection extends React.Component {
 
     componentDidUpdate(prevProps) {
         // check award changed
-        if (this.props.selectedAward.generatedId !== prevProps.selectedAward.generatedId) {
+        if (this.props.overview.generatedId !== prevProps.overview.generatedId) {
             // reset the tab
             this.props.clickTab('transaction');
         }
@@ -67,7 +67,7 @@ export default class TablesSection extends React.Component {
     }
 
     currentSection() {
-        const category = this.props.selectedAward.category;
+        const category = this.props.overview.category;
         switch (this.props.activeTab) {
             case 'transaction':
                 return (
@@ -86,7 +86,7 @@ export default class TablesSection extends React.Component {
         const tabs = concat([], commonTabs);
 
         return (
-            <div className="table-section" id="details-table-section">
+            <div className="tables-section" id="details-table-section">
                 <DetailsTabBar
                     tabOptions={tabs}
                     activeTab={this.props.activeTab}

@@ -7,12 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { startCase } from 'lodash';
+import AwardHistory from './AwardHistory';
 
 const propTypes = {
     overview: PropTypes.object
 };
 
-export default class ContractContent extends React.Component {
+export default class IdvContent extends React.Component {
     render() {
         return (
             <div className="award award-idv">
@@ -22,9 +23,12 @@ export default class ContractContent extends React.Component {
                     <div className="award__heading-id">{this.props.overview.id}</div>
                 </div>
                 <hr />
+                <div className="award__row">
+                    <AwardHistory overview={this.props.overview} />
+                </div>
             </div>
         );
     }
 }
 
-ContractContent.propTypes = propTypes;
+IdvContent.propTypes = propTypes;
