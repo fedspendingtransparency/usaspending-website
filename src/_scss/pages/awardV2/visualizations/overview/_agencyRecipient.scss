@@ -7,9 +7,6 @@
             min-height: rem(134);
             padding: rem(11) 0 0 rem(13);
             width: 50%;
-            @include display(flex);
-            @include flex-direction(column);
-            @include justify-content(space-between);
             position: relative;
             word-wrap: break-word;
         }
@@ -27,13 +24,13 @@
             margin-right: rem(-20);
         }
 
-        %agency-recipient__title {
+        .agency-recipient__title {
             font-size: rem(14);
             font-weight: $font-semibold;
-            display: inline-block;
+            padding-bottom: rem(11);
         }
 
-        %agency-recipient__detail{
+        .agency-recipient__detail{
             font-size: rem(16);
             color: $color-primary;
             text-transform: uppercase;
@@ -41,27 +38,9 @@
             line-height: 1.13;
         }
 
-        .agency-recipient__awarding-title {
-            @extend %agency-recipient__title;
-        }
-
-        .agency-recipient__awarding-detail {
-            @extend %agency-recipient__detail;
-            margin-top: rem(-12);
-        }
-
         .agency-recipient__recipient {
             height: rem(134);
             padding: rem(11) 0 0 rem(60);
-        }
-
-        .agency-recipient__recipient-title {
-            @extend %agency-recipient__title;
-            margin-bottom: rem(6);
-        }
-
-        .agency-recipient__recipient-detail {
-            @extend %agency-recipient__detail;
         }
     }
 

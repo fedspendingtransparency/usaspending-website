@@ -35,21 +35,20 @@ export default class AgencyRecipient extends React.Component {
             <div className="award__col agency-recipient">
                 <div className="agency-recipient__wrapper">
                     <div className="agency-recipient__awarding">
-                        <span className="agency-recipient__awarding-title">Awarding Agency</span>
-                        <div className="agency-recipient__awarding-detail">
+                        <div className="agency-recipient__title">Awarding Agency</div>
+                        <div className="agency-recipient__detail">
                             <a href={`/#/agency/${this.props.awardingAgency.id}`}>
                                 {this.props.awardingAgency.formattedToptier}
                             </a>
                         </div>
-                        <br />
                     </div>
                     <div className="agency-recipient__recipient">
-                        <span className="agency-recipient__recipient-title">Recipient</span> <br />
-                        <span className="agency-recipient__recipient-detail">
+                        <div className="agency-recipient__title">Recipient</div>
+                        <div className="agency-recipient__detail">
                             <a href={`/#/recipient/${this.props.recipient.internalId}`}>
                                 {this.props.recipient.name}
                             </a>
-                        </span>
+                        </div>
                     </div>
                 </div>
                 {additionalInfoLink}
