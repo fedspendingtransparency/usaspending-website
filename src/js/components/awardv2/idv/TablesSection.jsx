@@ -27,7 +27,7 @@ const commonTabs = [
     {
         label: 'Federal Account Funding',
         internal: 'federal',
-        enabled: false
+        enabled: true
     }
 ];
 
@@ -86,7 +86,7 @@ export default class TablesSection extends React.Component {
         const tabs = concat([], commonTabs);
 
         return (
-            <div className="tables-section" id="details-table-section">
+            <div className="tables-section">
                 <DetailsTabBar
                     tabOptions={tabs}
                     activeTab={this.props.activeTab}

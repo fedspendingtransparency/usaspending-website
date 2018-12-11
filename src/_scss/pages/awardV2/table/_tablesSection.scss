@@ -1,11 +1,8 @@
 .tables-section {
-    @include clearfix();
-    float: left;
     display: block;
     width: 100%;
-    margin-top: rem(40);
+    margin-top: rem(20);
     margin-bottom: rem(20);
-    padding: rem(3) rem(35);
     transition: opacity 0.25s ease;
 
     .tables-width-master {

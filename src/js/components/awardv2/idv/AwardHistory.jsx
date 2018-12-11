@@ -35,7 +35,7 @@ export default class AwardHistory extends React.Component {
                 <div className="award-history__title">Award History</div>
                 <hr />
                 <TablesSection
-                    selectedAward={this.props.overview}
+                    overview={this.props.overview}
                     clickTab={this.clickTab}
                     activeTab={this.state.activeTab} />
             </div>

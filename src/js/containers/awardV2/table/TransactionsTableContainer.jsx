@@ -53,7 +53,7 @@ export class TransactionsTableContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.award.id !== prevProps.award.id) {
+        if (this.props.award.overview.generatedId !== prevProps.award.overview.generatedId) {
             this.fetchTransactions(1, true);
         }
     }
@@ -74,7 +74,7 @@ export class TransactionsTableContainer extends React.Component {
     }
 
     fetchTransactions(page = 1, reset = false) {
-        if (!this.props.award.id) {
+        if (!this.props.award.overview.generatedId) {
             return;
         }
 
@@ -89,7 +89,7 @@ export class TransactionsTableContainer extends React.Component {
 
         // generate the params
         const params = {
-            award_id: this.props.award.id,
+            award_id: this.props.award.overview.generatedId,
             page,
             sort: this.state.sort.field,
             order: this.state.sort.direction,

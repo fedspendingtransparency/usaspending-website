@@ -1,0 +1,7 @@
+.award-history {
+    width: 100%; 
+    @import "./table/_tablesSection";
+    .award-history__title {
+        font-weight: $font-semibold;
+    }
+}
