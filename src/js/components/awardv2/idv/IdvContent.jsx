@@ -12,7 +12,7 @@ const propTypes = {
     overview: PropTypes.object
 };
 
-export default class ContractContent extends React.Component {
+export default class IdvContent extends React.Component {
     render() {
         return (
             <div className="award award-idv">
@@ -27,4 +27,4 @@ export default class ContractContent extends React.Component {
     }
 }
 
-ContractContent.propTypes = propTypes;
+IdvContent.propTypes = propTypes;
