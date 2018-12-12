@@ -27,7 +27,7 @@ export default class FinancialAssistanceContent extends React.Component {
                     <div className="award__heading-id">{this.props.overview.id}</div>
                 </div>
                 <hr className="award__divider" />
-                <div className="award__row" id="award-overview">
+                <div className="award__row award-overview" id="award-overview">
                     <AwardRecipient
                         jumpToSection={this.props.jumpToSection}
                         awardingAgency={this.props.overview.awardingAgency}
