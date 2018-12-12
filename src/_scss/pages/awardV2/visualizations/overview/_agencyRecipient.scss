@@ -1,9 +1,9 @@
-.award-recipient {
+.agency-recipient {
 
     width: 50%;
     @include display(flex);
 
-    .award-recipient__awarding {
+    .agency-recipient__awarding {
         background-color: #F5FBFC;
         min-height: rem(134);
         padding: rem(11) 0 0 rem(13);
@@ -15,7 +15,7 @@
         word-wrap: break-word;
     }
 
-    .award-recipient__awarding:after {
+    .agency-recipient__awarding:after {
         content: '';
         position: absolute;
         right: 0;
@@ -28,13 +28,13 @@
         margin-right: rem(-20);
     }
 
-    %award-recipient__title {
+    %agency-recipient__title {
         font-size: rem(14);
         font-weight: $font-semibold;
         display: inline-block;
     }
 
-    %award-recipient__detail{
+    %agency-recipient__detail{
         font-size: rem(16);
         color: $color-primary;
         text-transform: uppercase;
@@ -43,16 +43,16 @@
     }
 
 
-    .award-recipient__awarding-title {
-       @extend %award-recipient__title;
+    .agency-recipient__awarding-title {
+       @extend %agency-recipient__title;
     }
 
-    .award-recipient__awarding-detail {
-        @extend %award-recipient__detail;
+    .agency-recipient__awarding-detail {
+        @extend %agency-recipient__detail;
         margin-top: rem(-12);
     }
 
-    .award-recipient__awarding-icon {
+    .agency-recipient__awarding-icon {
         cursor: pointer;
         svg {
             width: rem(10);
@@ -61,11 +61,11 @@
         }
     }
 
-    .award-recipient__awarding-icon_hide {
+    .agency-recipient__awarding-icon_hide {
         display: none;
     }
 
-    .award-recipient__awarding-info {
+    .agency-recipient__awarding-info {
         color: $color-primary;
         background-color: transparent;
         margin: 0;
@@ -77,18 +77,18 @@
         display: none;
     }
 
-    .award-recipient__recipient {
+    .agency-recipient__recipient {
         height: rem(134);
         padding: rem(11) 0 0 rem(60);
     }
 
-    .award-recipient__recipient-title {
-        @extend %award-recipient__title;
+    .agency-recipient__recipient-title {
+        @extend %agency-recipient__title;
         margin-bottom: rem(6);
     }
 
-    .award-recipient__recipient-detail {
-        @extend %award-recipient__detail;
+    .agency-recipient__recipient-detail {
+        @extend %agency-recipient__detail;
     }
 
    
