@@ -36,7 +36,7 @@ export class TransactionsTableContainer extends React.Component {
             page: 1,
             sort: {
                 field: 'modification_number',
-                direction: 'desc'
+                direction: 'asc'
             },
             tableInstance: `${uniqueId()}`,
             transactions: []
