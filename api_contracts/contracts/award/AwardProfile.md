@@ -80,11 +80,12 @@ This endpoint returns a list of data that is associated with the award profile p
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
     Null if the IDV has no parent
-+ parent_generated_unique_award_id (required, string, nullable)
++ parent_generated_unique_award_id (required, ParentIDVDetails, fixed-type, nullable)
     Null if the IDV has no parent
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
 + awarding_agency (required, Agency, fixed-type)
++ foreign_funding_desc: `Yes` (required, string, nullable)
 + funding_agency (required, Agency, fixed-type)
 + recipient (required, Recipient, fixed-type)
 + idv_dates (required, IdvDates, fixed-type)
@@ -93,7 +94,16 @@ This endpoint returns a list of data that is associated with the award profile p
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
 + executive_details (required, Executive, fixed-type)
++ total_obligation: 2324 (required, number, nullable)
++ base_exercised_options (required, number, nullable)
++ base_and_all_options_value: 24242432 (required, number)
+    The ceiling and amount of the award
 
+## ParentIDVDetails (object)
++ agency_id: `123` (required, string)
++ referenced_idv_agency_iden: 430 (required, number)
++ piid: `345` (required, string)
++ parent_award_id: 5738 (required, number, nullable)
 
 ## Agency (object)
 + id: `123` (required, string)

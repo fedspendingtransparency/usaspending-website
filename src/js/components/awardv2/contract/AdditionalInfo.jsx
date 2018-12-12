@@ -30,19 +30,19 @@ export default class AdditionalInfo extends React.Component {
         const periodOfPerformanceData = awardData.periodOfPerformance || awardData.dates;
         const data = {
             agencyDetails: {
-                'Awarding Department': awardData.awardingAgency.department,
-                'Awarding Agency': `${awardData.awardingAgency.toptierName} (${awardData.awardingAgency.toptierAbbr})`,
+                'Awarding Department': `${awardData.awardingAgency.toptierName} (${awardData.awardingAgency.toptierAbbr})`,
+                'Awarding Agency': awardData.awardingAgency.subtierName,
                 'Awarding Office': awardData.awardingAgency.officeName,
-                'Contracting Department': awardData.fundingAgency.department,
-                'Contracting Agency': `${awardData.fundingAgency.toptierName} (${awardData.awardingAgency.toptierAbbr})`,
+                'Contracting Department': `${awardData.fundingAgency.toptierName} (${awardData.fundingAgency.toptierAbbr})`,
+                'Contracting Agency': awardData.fundingAgency.subtierName,
                 'Contracting Office': awardData.fundingAgency.officeName
             },
             parentAwardDetails: {
-                'Parent Award ID': awardData.parentAward,
+                'Parent Award ID': awardData.parentDetails.parent_award_id,
                 'IDV Type': awardData.additionalDetails.idvType,
                 'IDC Type': awardData.additionalDetails.idcType,
-                'IDV Agency Identifier': awardData.additionalDetails.idvAgencyId,
-                'Multiple Or Single Award IDV': awardData.additionalDetails.multipleIdv
+                'IDV Agency Identifier': awardData.parentDetails.agency_id,
+                'Multiple Or Single Award IDV': awardData.parentDetails.referenced_idv_agency_iden
             },
             PlaceOfPerformance: {
                 City: awardData.placeOfPerformance._city,
@@ -93,6 +93,7 @@ export default class AdditionalInfo extends React.Component {
                 'Cost or Pricing Data': awardData.additionalDetails.costOrPricingData,
                 'Domestic or Foreign Entity': awardData.additionalDetails.domesticForeign,
                 'Fair Opportunity Limited Sources': awardData.additionalDetails.fairOpportunityLimitedSources,
+                'Foreign Funding': awardData.additionalDetails.foreignFunding,
                 'Interagency Contracting Authority': awardData.additionalDetails.interagencyContactingAuthority,
                 'Major Program': awardData.additionalDetails.majorProgram,
                 'Price Evaluation Adjustment Preference Percent Difference': awardData.additionalDetails.priceEvaluationAdjustmentPreference,
@@ -100,7 +101,10 @@ export default class AdditionalInfo extends React.Component {
                 'Subcontracting Plan': awardData.additionalDetails.subcontractingPlan,
                 'Multi Year Contract': awardData.additionalDetails.multiYearContract,
                 'Purchase Card as Payment Method': awardData.additionalDetails.purchaseCardAsPaymentMethod,
-                'Consolidated Contract': awardData.additionalDetails.consolidated
+                'Consolidated Contract': awardData.additionalDetails.consolidated,
+                'Total Obligation': awardData.additionalDetails.total_obligation,
+                'Base Exercised Options': awardData.additionalDetails.base_exercised_options,
+                'Base and All Options Value': awardData.additionalDetails.base_and_all_options_value
             }
         };
         return (

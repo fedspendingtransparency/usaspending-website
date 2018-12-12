@@ -10,6 +10,7 @@ import CorePeriodOfPerformance from "./CorePeriodOfPerformance";
 import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 import BaseIdvAdditionalDetails from './additionalDetails/BaseContractAdditionalDetails';
 import BaseAwardRecipient from './BaseAwardRecipient';
+import BaseParentIDVDetails from './BaseParentIDVDetails';
 
 const BaseIdv = Object.create(CoreAward);
 
@@ -29,7 +30,20 @@ BaseIdv.populate = function populate(data) {
     this.populateCore(coreData);
 
     this.parentAward = data.parent_award_piid || '';
-    this.parentId = data.parent_generated_unique_award_id || '';
+    this.parentId = data.parent_generated_unique_award_id ? data.parent_generated_unique_award_id.parent_award_id : '';
+    this.parentDetails = data.parent_generated_unique_award_id;
+
+    if (data.parent_generated_unique_award_id) {
+        const parentDetailsData = {
+            agency_id: this.parentDetails.agency_id || '',
+            referenced_idv_agency_iden: this.parentDetails.referenced_idv_agency_iden || '--',
+            piid: this.parentDetails.piid || '',
+            parent_award_id: this.parentDetails.parent_award_id || ''
+        };
+        const parentIDVDetails = Object.create(BaseParentIDVDetails);
+        parentIDVDetails.populateCore(parentDetailsData);
+        this.parentIDVDetails = parentIDVDetails;
+    }
 
     if (data.recipient) {
         const recipient = Object.create(BaseAwardRecipient);
