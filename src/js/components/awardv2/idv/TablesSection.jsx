@@ -67,12 +67,10 @@ export default class TablesSection extends React.Component {
     }
 
     currentSection() {
-        const category = this.props.overview.category;
         switch (this.props.activeTab) {
             case 'transaction':
                 return (
                     <TransactionsTableContainer
-                        category={category}
                         tableWidth={this.state.tableWidth} />
                 );
             default:

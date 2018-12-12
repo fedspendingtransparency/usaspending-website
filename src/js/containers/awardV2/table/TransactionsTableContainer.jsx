@@ -13,15 +13,12 @@ import { uniqueId } from 'lodash';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
 
-import BaseAssistanceTransaction from 'models/v2/awards/transactions/BaseAssistanceTransaction';
 import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
-import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
 
 import TransactionsTable from 'components/award/table/TransactionsTable';
 
 const propTypes = {
-    award: PropTypes.object,
-    category: PropTypes.string
+    award: PropTypes.object
 };
 
 const pageLimit = 15;
@@ -117,17 +114,7 @@ export class TransactionsTableContainer extends React.Component {
         const transactions = [];
 
         data.results.forEach((item) => {
-            let transaction = null;
-            if (this.props.category === 'contract') {
-                transaction = Object.create(BaseContractTransaction);
-            }
-            else if (this.props.category === 'loan') {
-                transaction = Object.create(BaseLoanTransaction);
-            }
-            else {
-                transaction = Object.create(BaseAssistanceTransaction);
-            }
-
+            const transaction = Object.create(BaseContractTransaction);
             transaction.populate(item);
             transactions.push(transaction);
         });
