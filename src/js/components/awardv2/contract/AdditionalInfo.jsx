@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { InfoCircle, Calendar } from 'components/sharedComponents/icons/Icons';
+import { InfoCircle, Calendar, Agency } from 'components/sharedComponents/icons/Icons';
 
 import Accordion from './Accordion';
 
@@ -27,7 +27,16 @@ export default class AdditionalInfo extends React.Component {
     }
     render() {
         const awardData = this.props.overview;
+        const periodOfPerformanceData = awardData.periodOfPerformance || awardData.dates;
         const data = {
+            agencyDetails: {
+                'Awarding Department': awardData.awardingAgency.department,
+                'Awarding Agency': `${awardData.awardingAgency.toptierName} (${awardData.awardingAgency.toptierAbbr})`,
+                'Awarding Office': awardData.awardingAgency.officeName,
+                'Contracting Department': awardData.fundingAgency.department,
+                'Contracting Agency': `${awardData.fundingAgency.toptierName} (${awardData.awardingAgency.toptierAbbr})`,
+                'Contracting Office': awardData.fundingAgency.officeName
+            },
             parentAwardDetails: {
                 'Parent Award ID': awardData.parentAward,
                 'IDV Type': awardData.additionalDetails.idvType,
@@ -43,9 +52,9 @@ export default class AdditionalInfo extends React.Component {
                 'Congressional District': awardData.placeOfPerformance._congressionalDistrict
             },
             PeriodOfPerformance: {
-                'Start Date': awardData.periodOfPerformance.startDate,
-                'Current End Date': awardData.periodOfPerformance.endDate,
-                'Potential End Date': awardData.periodOfPerformance.potentendDate
+                'Start Date': periodOfPerformanceData.startDate,
+                'Current End Date': periodOfPerformanceData.endDate,
+                'Potential End Date': periodOfPerformanceData.potentendDate
             },
             LegislativeMandates: {
                 'Clinger-Cohen Act Compliant': awardData.additionalDetails.clingerCohenAct,
@@ -77,6 +86,10 @@ export default class AdditionalInfo extends React.Component {
                 Program: awardData.additionalDetails.programAcronym
             },
             AdditionalDetails: {
+                'IDV Type': awardData.additionalDetails.idvType,
+                'IDC Type': awardData.additionalDetails.idcType,
+                'IDV Agency Identifier': awardData.additionalDetails.idvAgencyId,
+                'Multiple Or Single Award IDV': awardData.additionalDetails.multipleIdv,
                 'Cost or Pricing Data': awardData.additionalDetails.costOrPricingData,
                 'Domestic or Foreign Entity': awardData.additionalDetails.domesticForeign,
                 'Fair Opportunity Limited Sources': awardData.additionalDetails.fairOpportunityLimitedSources,
@@ -114,6 +127,11 @@ export default class AdditionalInfo extends React.Component {
                 </div>
                 <div className="award__row award-amounts accordion">
                     <div className="award__col">
+                        <Accordion
+                            globalToggle={this.state.globalToggle}
+                            accordionName="Agency Details"
+                            accordionIcon={<Agency />}
+                            accordionData={data.agencyDetails} />
                         <Accordion
                             globalToggle={this.state.globalToggle}
                             accordionName="Parent Award Details"

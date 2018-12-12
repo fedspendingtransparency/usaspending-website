@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 
 import { startCase } from 'lodash';
 
+import AdditionalInfo from '../contract/AdditionalInfo';
+
 const propTypes = {
     overview: PropTypes.object
 };
@@ -22,6 +24,10 @@ export default class IdvContent extends React.Component {
                     <div className="award__heading-id">{this.props.overview.id}</div>
                 </div>
                 <hr />
+                <div className="award__agencyAdditional" id="award-additional-information">
+                    <AdditionalInfo
+                        overview={this.props.overview} />
+                </div>
             </div>
         );
     }

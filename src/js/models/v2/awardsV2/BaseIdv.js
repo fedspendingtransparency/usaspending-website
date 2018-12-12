@@ -6,6 +6,7 @@
 import CoreLocation from 'models/v2/CoreLocation';
 import CoreAward from './CoreAward';
 import CoreAwardAgency from './CoreAwardAgency';
+import CorePeriodOfPerformance from "./CorePeriodOfPerformance";
 import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 import BaseIdvAdditionalDetails from './additionalDetails/BaseContractAdditionalDetails';
 import BaseAwardRecipient from './BaseAwardRecipient';
@@ -52,6 +53,30 @@ BaseIdv.populate = function populate(data) {
         const placeOfPerformance = Object.create(CoreLocation);
         placeOfPerformance.populateCore(placeOfPerformanceData);
         this.placeOfPerformance = placeOfPerformance;
+    }
+
+    if (data.idv_dates) {
+        const periodOfPerformanceData = {
+            startDate: data.idv_dates.start_date,
+            endDate: data.idv_dates.end_date,
+            lastModifiedDate: data.idv_dates.last_modified_date
+        };
+        const periodOfPerformance = Object.create(CorePeriodOfPerformance);
+        periodOfPerformance.populateCore(periodOfPerformanceData);
+        this.dates = periodOfPerformance;
+    }
+
+    if (data.funding_agency) {
+        const fundingAgencyData = {
+            toptierName: data.funding_agency.toptier_agency.name,
+            toptierAbbr: data.funding_agency.toptier_agency.abbreviation,
+            subtierName: data.funding_agency.subtier_agency.name,
+            subtierAbbr: data.funding_agency.subtier_agency.abbreviation,
+            officeName: data.funding_agency.office_agency_name
+        };
+        const fundingAgency = Object.create(CoreAwardAgency);
+        fundingAgency.populateCore(fundingAgencyData);
+        this.fundingAgency = fundingAgency;
     }
 
     if (data.awarding_agency) {

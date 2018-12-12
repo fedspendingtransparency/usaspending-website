@@ -75,6 +75,7 @@
 
         @import "./visualizations/overview/dates";
         @import "./visualizations/overview/agencyRecipient";
+        @import "./_awardAdditionalInfo";
         @import "./awardContract";
         @import "./awardFinancialAssistance";
     }
