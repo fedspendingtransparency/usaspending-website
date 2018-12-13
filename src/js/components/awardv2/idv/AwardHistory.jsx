@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { AwardLoop } from 'components/sharedComponents/icons/Icons';
 import TablesSection from './TablesSection';
 
 const propTypes = {
@@ -32,7 +33,12 @@ export default class AwardHistory extends React.Component {
     render() {
         return (
             <div className="award-history">
-                <div className="award-history__title">Award History</div>
+                <div className="award-history__title">
+                    <span className="award-history__icon">
+                        <AwardLoop alt="Award History" />
+                    </span>&nbsp;
+                    Award History
+                </div>
                 <hr />
                 <TablesSection
                     overview={this.props.overview}

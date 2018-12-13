@@ -50,7 +50,7 @@ export class TransactionsTableContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.award.overview.generatedId !== prevProps.award.overview.generatedId) {
+        if (this.props.award.id !== prevProps.award.id) {
             this.fetchTransactions(1, true);
         }
     }
@@ -61,17 +61,8 @@ export class TransactionsTableContainer extends React.Component {
         }
     }
 
-    formatSort() {
-        let direction = '';
-        if (this.state.sort.direction === 'desc') {
-            direction = '-';
-        }
-
-        return `${direction}${this.state.sort.field}`;
-    }
-
     fetchTransactions(page = 1, reset = false) {
-        if (!this.props.award.overview.generatedId) {
+        if (!this.props.award.id) {
             return;
         }
 
@@ -86,7 +77,7 @@ export class TransactionsTableContainer extends React.Component {
 
         // generate the params
         const params = {
-            award_id: this.props.award.overview.generatedId,
+            award_id: this.props.award.id,
             page,
             sort: this.state.sort.field,
             order: this.state.sort.direction,

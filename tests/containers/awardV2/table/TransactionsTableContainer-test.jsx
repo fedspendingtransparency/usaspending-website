@@ -27,7 +27,7 @@ global.Promise = require.requireActual('promise');
 const mockRedux = {
     award:
     {
-        id: '42342',
+        id: '2342342',
         category: 'idv',
         overview: {
             generatedId: '2342342'
@@ -46,9 +46,7 @@ describe('TransactionsTableContainer-test', () => {
 
         container.setProps({
             award: {
-                overview: {
-                    generatedId: 2
-                }
+                id: '22'
             }
         });
 
