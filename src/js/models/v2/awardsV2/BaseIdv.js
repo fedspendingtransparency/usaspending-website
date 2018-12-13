@@ -30,8 +30,8 @@ BaseIdv.populate = function populate(data) {
     this.populateCore(coreData);
 
     this.parentAward = data.parent_award_piid || '';
-    this.parentId = data.parent_generated_unique_award_id ? data.parent_generated_unique_award_id.parent_award_id : '';
-    this.parentDetails = data.parent_generated_unique_award_id;
+    this.parentId = data.parent_generated_unique_award_id;
+    this.parentDetails = data.parent_unique_award;
 
     if (data.parent_generated_unique_award_id) {
         const parentDetailsData = {

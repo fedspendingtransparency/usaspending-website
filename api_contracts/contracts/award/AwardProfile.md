@@ -80,7 +80,9 @@ This endpoint returns a list of data that is associated with the award profile p
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
     Null if the IDV has no parent
-+ parent_generated_unique_award_id (required, ParentIDVDetails, fixed-type, nullable)
++ parent_generated_unique_award_id: `394` (required, nullable)
+    Null if the IDV has no parent
++ parent_unique_award (required, ParentIDVDetails, fixed-type, nullable)
     Null if the IDV has no parent
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
