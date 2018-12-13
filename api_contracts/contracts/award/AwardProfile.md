@@ -423,7 +423,7 @@ This endpoint returns aggregated award amounts for IDVs.
 # Data Structures
 
 ## AwardAmountsResponse (object)
-+ award_id: `12178065` (required, string)
++ award_id: 12178065 (required, number)
     The award id sent in the request.
 + generated_unique_award_id: `CONT_AW_1540_-NONE-_DJB30605051_-NONE-` (required, string)
 + idv_count: 0 (required, number)
