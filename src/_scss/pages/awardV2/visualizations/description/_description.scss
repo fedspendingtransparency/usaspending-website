@@ -32,9 +32,9 @@
                 @include display(flex);
                 .naics-psc__icon {
                     @include flex(0 0 auto);
-                    padding-left: rem(8);
+                    padding-left: rem(5);
                     svg {
-                        height: rem(15);
+                        height: rem(12);
                         width: rem(15);
                         fill: $color-gray-light;
                     }

@@ -11,6 +11,7 @@ import { startCase } from 'lodash';
 import AwardDescription from '../visualizations/description/AwardDescription';
 
 const propTypes = {
+    awardId: PropTypes.string,
     overview: PropTypes.object
 };
 
@@ -26,6 +27,7 @@ export default class IdvContent extends React.Component {
                 <hr />
                 <div className="award__row">
                     <AwardDescription
+                        awardId={this.props.awardId}
                         description={this.props.overview.description}
                         naics={this.props.overview.additionalDetails.naicsCode}
                         psc={this.props.overview.additionalDetails.pscCode} />

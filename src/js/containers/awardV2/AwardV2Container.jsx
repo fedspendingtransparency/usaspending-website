@@ -125,6 +125,7 @@ export class AwardContainer extends React.Component {
         return (
             <Award
                 award={this.props.award}
+                awardId={this.props.params.awardId}
                 inFlight={this.state.inFlight}
                 noAward={this.state.noAward} />
         );
