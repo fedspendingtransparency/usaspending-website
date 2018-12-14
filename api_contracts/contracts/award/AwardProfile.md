@@ -80,14 +80,11 @@ This endpoint returns a list of data that is associated with the award profile p
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
     Null if the IDV has no parent
-+ parent_generated_unique_award_id: `394` (required, nullable)
-    Null if the IDV has no parent
-+ parent_unique_award (required, ParentIDVDetails, fixed-type, nullable)
++ parent_generated_unique_award_id: `CONT_AW_9700_4730_W56HZV10AA913_GS10F0243K` (required, nullable)
     Null if the IDV has no parent
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
 + awarding_agency (required, Agency, fixed-type)
-+ foreign_funding_desc: `Yes` (required, string, nullable)
 + funding_agency (required, Agency, fixed-type)
 + recipient (required, Recipient, fixed-type)
 + idv_dates (required, IdvDates, fixed-type)
@@ -97,15 +94,9 @@ This endpoint returns a list of data that is associated with the award profile p
 + total_subaward_amount: 35345353453 (required, number)
 + executive_details (required, Executive, fixed-type)
 + total_obligation: 2324 (required, number, nullable)
-+ base_exercised_options (required, number, nullable)
++ base_exercised_options_val: 123 (required, number, nullable)
 + base_and_all_options_value: 24242432 (required, number)
     The ceiling and amount of the award
-
-## ParentIDVDetails (object)
-+ agency_id: `123` (required, string)
-+ referenced_idv_agency_iden: 430 (required, number)
-+ piid: `345` (required, string)
-+ parent_award_id: 5738 (required, number, nullable)
 
 ## Agency (object)
 + id: `123` (required, string)
@@ -179,7 +170,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + small_business_competitive: `Yes` (required, string, nullable)
 + fair_opportunity_limi_desc: `test` (optional, string, nullable)
 + product_or_service_code: `t324242` (required, string, nullable)
-+ product_or_service_desc: `423we` (required, string, nullable)
++ product_or_service_co_desc: `423we` (required, string, nullable)
 + naics: `35353` (required, string, nullable)
 + naics_description: `323t2` (required, string, nullable)
 + dod_claimant_program_code: `ERWRWRWR5242-242` (required, string, nullable)
@@ -350,7 +341,7 @@ This endpoint returns financial accounts by award.
         + order: desc (optional, string)
             The direction results are sorted by. `asc` for ascending, `desc` for descending.
             + Default: desc
-            
+
 + Response 200 (application/json)
     + Attributes
         + results (array[FinancialSystemDetailsResult], fixed-type)
