@@ -23,11 +23,6 @@ const commonTabs = [
         label: 'Transaction History',
         internal: 'transaction',
         enabled: true
-    },
-    {
-        label: 'Federal Account Funding',
-        internal: 'federal',
-        enabled: true
     }
 ];
 
