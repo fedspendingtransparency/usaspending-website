@@ -87,7 +87,9 @@ This endpoint returns a list of data that is associated with the award profile p
 + total_subaward_amount: 35345353453 (required, number)
 + executive_details (required, Executive, fixed-type)
 + parent_generated_unique_award_id (required, string)
-
++ total_obligation (required, number)
++ base_and_all_options_value: 24242432 (required, number)
++ base_exercised_options (required, number, nullable)
 
 ## Agency (object)
 + id (required, string)
