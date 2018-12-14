@@ -110,7 +110,7 @@ export default class HeroTooltip extends React.Component {
                     <div className="homepage-hero-tooltip__tooltip_text">
                         Fiscal Year {this.props.fiscalYear} net outlays as reported on the&nbsp;
                         <a
-                            href="https://www.fiscal.treasury.gov/fsreports/rpt/mthTreasStmt/current.htm"
+                            href="https://www.fiscal.treasury.gov/reports-statements/mts/current.html"
                             target="_blank"
                             rel="noopener noreferrer">
                             Monthly Treasury Statement
