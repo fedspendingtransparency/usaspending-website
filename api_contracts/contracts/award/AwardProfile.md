@@ -396,3 +396,33 @@ This endpoint returns financial accounts by award.
 + page: 1 (required, number)
 + hasNext: false (required, boolean)
 + hasPrevious: false (required, boolean)
+
+# Group IDV Awards Page
+
+These endpoints support IDVs only.
+
+## Award Amounts [/api/v2/awards/idvs/amounts/{award_id}]
+
+This endpoint returns aggregated award amounts for IDVs.
+
++ Parameters
+    + award_id: `12178065` (required, string)
+         Accepts the v2 generated award hash or internal database id.s
+
+### Award Amounts [GET]
+            
++ Response 200 (application/json)
+    + Attributes
+        + Attributes (AwardAmountsResponse)
+
+# Data Structures
+
+## AwardAmountsResponse (object)
++ award_id: 12178065 (required, number)
+    The award id sent in the request.
++ generated_unique_award_id: `CONT_AW_1540_NONE_DJB30605051_NONE` (required, string)
++ idv_count: 0 (required, number)
++ contract_count: 0 (required, number)
++ rollup_base_exercised_options_val: 0.00 (required, number)
++ rollup_base_and_all_options_value: 106321.10 (required, number)
++ rollup_total_obligation: 106321.10 (required, number)
