@@ -96,7 +96,7 @@ This endpoint returns a list of data that is associated with the award profile p
 
 
 ## Agency (object)
-+ id: `123` (required, string)
++ id: 123 (required, number)
 + toptier_agency (required, TopTierAgency, nullable)
 + subtier_agency (required, SubTierAgency, nullable)
 + office_agency_name: `STRATEGIC SYSTEMS` (required, string, nullable)
