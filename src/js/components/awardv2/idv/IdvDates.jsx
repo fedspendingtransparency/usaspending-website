@@ -15,7 +15,9 @@ const propTypes = {
 export default class IdvDates extends React.Component {
     render() {
         const dates = this.props.dates;
-        let timeline = null;
+        let timeline = (
+            <div className="timeline" />
+        );
         let remainingText = '';
         let remainingLabel = '';
 
@@ -91,7 +93,7 @@ export default class IdvDates extends React.Component {
                         Start Date
                     </div>
                     <div className="idv-dates__date">
-                        {dates.startDate || '--'}
+                        {dates.startDate || 'not provided'}
                     </div>
                 </div>
                 <div className="idv-dates__row">
@@ -99,7 +101,7 @@ export default class IdvDates extends React.Component {
                         Last Date to Order
                     </div>
                     <div className="idv-dates__date">
-                        {dates.endDate || '--'}
+                        {dates.endDate || 'not provided'}
                     </div>
                 </div>
             </div>
