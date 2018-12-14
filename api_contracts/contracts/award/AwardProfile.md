@@ -410,11 +410,6 @@ This endpoint returns aggregated award amounts for IDVs.
          Accepts the v2 generated award hash or internal database id.s
 
 ### Award Amounts [GET]
-
-+ Request (application/json)
-    + Attributes (object)
-        + award_id: `12178065` (required, string)
-            The generated award id of the award to filter on.
             
 + Response 200 (application/json)
     + Attributes
@@ -425,9 +420,9 @@ This endpoint returns aggregated award amounts for IDVs.
 ## AwardAmountsResponse (object)
 + award_id: 12178065 (required, number)
     The award id sent in the request.
-+ generated_unique_award_id: `CONT_AW_1540_-NONE-_DJB30605051_-NONE-` (required, string)
++ generated_unique_award_id: `Hello, world!` (required, string)
 + idv_count: 0 (required, number)
 + contract_count: 0 (required, number)
-+ rollup_base_exercised_options_val: `0.00` (required, number)
-+ rollup_base_and_all_options_value: `106321.10` (required, number)
-+ rollup_total_obligation: `106321.10` (required, number)
++ rollup_base_exercised_options_val: 0.00 (required, number)
++ rollup_base_and_all_options_value: 106321.10 (required, number)
++ rollup_total_obligation: 106321.10 (required, number)
