@@ -420,7 +420,7 @@ This endpoint returns aggregated award amounts for IDVs.
 ## AwardAmountsResponse (object)
 + award_id: 12178065 (required, number)
     The award id sent in the request.
-+ generated_unique_award_id: `Hello, world!` (required, string)
++ generated_unique_award_id: `CONT_AW_1540_NONE_DJB30605051_NONE` (required, string)
 + idv_count: 0 (required, number)
 + contract_count: 0 (required, number)
 + rollup_base_exercised_options_val: 0.00 (required, number)
