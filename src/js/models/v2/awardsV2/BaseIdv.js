@@ -26,22 +26,13 @@ BaseIdv.populate = function populate(data) {
         subawardTotal: data.total_subaward_amount,
         subawardCount: data.subaward_count
     };
-
     this.populateCore(coreData);
-
     this.parentAward = data.parent_award_piid || '';
     this.parentId = data.parent_generated_unique_award_id || '';
-    this.parentDetails = data.parent_unique_award;
 
     if (data.parent_generated_unique_award_id) {
-        const parentDetailsData = {
-            agency_id: this.parentDetails.agency_id || '',
-            referenced_idv_agency_iden: this.parentDetails.referenced_idv_agency_iden || '--',
-            piid: this.parentDetails.piid || '',
-            parent_award_id: this.parentDetails.parent_award_id || ''
-        };
         const parentIDVDetails = Object.create(BaseParentIDVDetails);
-        parentIDVDetails.populateCore(parentDetailsData);
+        parentIDVDetails.populateCore(data.parent_generated_unique_award_id);
         this.parentIDVDetails = parentIDVDetails;
     }
 
