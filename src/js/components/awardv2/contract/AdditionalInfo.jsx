@@ -32,7 +32,6 @@ export default class AdditionalInfo extends React.Component {
     }
     render() {
         const awardData = this.props.overview;
-        console.log(awardData, 'awardData');
         const periodOfPerformanceData = awardData.periodOfPerformance || awardData.dates;
         const data = {
             agencyDetails: {
