@@ -65,44 +65,42 @@ export default class AwardDescription extends React.Component {
         }
 
         return (
-            <div className="award__col award-description">
-                <div className="award__col award-viz award-amounts">
-                    <div className="award-viz__heading">
-                        <div className="award-viz__icon">
-                            <Building />
-                        </div>
-                        <h3 className="award-viz__title">
-                            Description
-                        </h3>
+            <div className="award__col award-viz award-description">
+                <div className="award-viz__heading">
+                    <div className="award-viz__icon">
+                        <Building />
                     </div>
-                    <hr />
-                    <div className="award-description__content">
-                        <p className="award-description__description">
-                            {value} {button}
-                        </p>
-                        <div className="award-description__naics-psc">
-                            <div className="naics-psc__section">
-                                <div className="naics-psc__heading">
-                                    NAICS
-                                    <div className="naics-psc__icon">
-                                        <a href={`#/award_v2/${this.props.awardId}/?glossary=naics`}>
-                                            <Glossary />
-                                        </a>
-                                    </div>
+                    <h3 className="award-viz__title">
+                        Description
+                    </h3>
+                </div>
+                <hr />
+                <div className="award-description__content">
+                    <p className="award-description__description">
+                        {value} {button}
+                    </p>
+                    <div className="award-description__naics-psc">
+                        <div className="naics-psc__section">
+                            <div className="naics-psc__heading">
+                                NAICS
+                                <div className="naics-psc__icon">
+                                    <a href={`#/award_v2/${this.props.awardId}/?glossary=naics`}>
+                                        <Glossary />
+                                    </a>
                                 </div>
-                                {this.props.naics}
                             </div>
-                            <div className="naics-psc__section naics-psc__section_psc">
-                                <div className="naics-psc__heading">
-                                    PSC
-                                    <div className="naics-psc__icon">
-                                        <a href={`#/award_v2/${this.props.awardId}/?glossary=productservice-code-psc`}>
-                                            <Glossary />
-                                        </a>
-                                    </div>
+                            {this.props.naics}
+                        </div>
+                        <div className="naics-psc__section naics-psc__section_psc">
+                            <div className="naics-psc__heading">
+                                PSC
+                                <div className="naics-psc__icon">
+                                    <a href={`#/award_v2/${this.props.awardId}/?glossary=productservice-code-psc`}>
+                                        <Glossary />
+                                    </a>
                                 </div>
-                                {this.props.psc}
                             </div>
+                            {this.props.psc}
                         </div>
                     </div>
                 </div>

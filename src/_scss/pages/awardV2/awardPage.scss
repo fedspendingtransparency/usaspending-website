@@ -16,20 +16,20 @@
                 @include display(flex);
                 @include align-items(center);
                 font-size: rem(24);
-                .award__heading-text {
-                    @include display(flex);
-                    @include flex(0 0 auto);
-                    font-weight: $font-semibold;
-                    padding-right: rem(20);
-                }
-                .award__heading-lable {
-                    font-weight: $font-normal;
-                    display: inline-block;
-                    padding-right: rem(10);
-                }
-                .award__heading-id {
-                    font-weight: $font-light;
-                }
+            }
+            .award__heading-text {
+                @include display(flex);
+                @include flex(0 0 auto);
+                font-weight: $font-semibold;
+                padding-right: rem(20);
+            }
+            .award__heading-lable {
+                font-weight: $font-normal;
+                display: inline-block;
+                padding-right: rem(10);
+            }
+            .award__heading-id {
+                font-weight: $font-light;
             }
 
             .award__row {
@@ -71,6 +71,8 @@
                    font-weight: $font-light;
                 }
             }
+
+            @import "./visualizations/overview/overview";
         }
 
         @import "./visualizations/overview/dates";
@@ -78,6 +80,7 @@
         @import "./visualizations/description/description";
         @import "./awardContract";
         @import "./awardFinancialAssistance";
+        @import "./awardIdv";
     }
 
 }
