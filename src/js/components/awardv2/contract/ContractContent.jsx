@@ -7,71 +7,40 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
-import AgencyRecipientContent from './AgencyRecipientContent';
-import AdditionalInfo from "./AdditionalInfo";
-import AwardAmounts from '../visualizations/amounts/AwardAmounts';
-import AwardDescription from "../visualizations/description/AwardDescription";
-
-import AwardRecipient from './AwardRecipient';
-import ContractAmounts from './ContractAmounts';
-import AwardDates from '../shared/AwardDates';
-
+import AdditionalInfo from './AdditionalInfo';
+import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
+import AwardDates from '../visualizations/overview/AwardDates';
 
 const propTypes = {
-    selectedAward: PropTypes.object,
-    inFlight: PropTypes.bool,
-    id: PropTypes.string,
+    overview: PropTypes.object,
     jumpToSection: PropTypes.func
 };
 
 export default class ContractContent extends React.Component {
     render() {
-        // TODO: determine glossary term for link
-        let idLabel = "";
-        if (this.props.selectedAward.category === "contract") {
-            idLabel = "PIID";
-        }
-        else {
-            idLabel = "IDVPIID";
-        }
         return (
             <div className="award award-contract">
                 <div className="award__heading">
-                    <div className="award__heading-text">{startCase(this.props.selectedAward.typeDescription)}</div>
-                    <div className="award__heading-glossary">
-                        <a href={`#/award_v2/${this.props.id}/?glossary=contract`}>
-                            <Icons.Glossary />
-                        </a>
-                    </div>
-                    <span className="award__heading-lable">{idLabel}</span>
-                    <span className="award__heading-id">{this.props.selectedAward.id}</span>
+                    <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
+                    <div className="award__heading-lable">{this.props.overview.id ? 'PIID' : ''}</div>
+                    <div className="award__heading-id">{this.props.overview.id}</div>
                 </div>
                 <hr />
                 <div className="award__row" id="award-overview">
-                    <AwardRecipient jumpToSection={this.props.jumpToSection} selectedAward={this.props.selectedAward} />
+                    <AgencyRecipient
+                        jumpToSection={this.props.jumpToSection}
+                        awardingAgency={this.props.overview.awardingAgency}
+                        category="contract"
+                        recipient={this.props.overview.recipient} />
                     <div className="award__col award-amountdates">
-                        <ContractAmounts selectedAward={this.props.selectedAward} />
-                        <AwardDates selectedAward={this.props.selectedAward} />
+                        <AwardDates
+                            overview={this.props.overview} />
                     </div>
-                </div>
-
-                <div className="agency-recipient">
-                    <AgencyRecipientContent
-                        award={this.props.selectedAward} />
                 </div>
 
                 <div className="award__agencyAdditional" id="award-additional-information">
                     <AdditionalInfo
-                        award={this.props.selectedAward} />
-                </div>
-
-                <hr className="award__divider" />
-                <div className="award__row">
-                    <AwardAmounts
-                        award={this.props.selectedAward} />
-                    <AwardDescription
-                        award={this.props.selectedAward} />
+                        overview={this.props.overview} />
                 </div>
             </div>
         );

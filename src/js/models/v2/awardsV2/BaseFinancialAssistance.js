@@ -16,6 +16,7 @@ BaseFinancialAssistance.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
         id: data.fain || data.uri,
+        generatedId: data.generated_unique_award_id,
         type: data.type,
         typeDescription: data.type_description,
         description: data.description,
