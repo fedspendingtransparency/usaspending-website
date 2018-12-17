@@ -431,3 +431,10 @@ Spreadsheet.defaultProps = {
     iconClass: 'usa-da-spreadsheet',
     alt: 'Icon Depicting a Spreadsheet'
 };
+
+export class AwardLoop extends BaseIcon {}
+AwardLoop.defaultProps = {
+    iconName: 'usa-da-award-history',
+    iconClass: 'usa-da-award-history',
+    alt: 'Icon Depicting Award History'
+};

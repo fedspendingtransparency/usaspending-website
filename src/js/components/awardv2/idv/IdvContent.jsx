@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { startCase } from 'lodash';
+import AwardHistory from './AwardHistory';
 
 import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
 import RelatedAwards from '../visualizations/overview/RelatedAwards';
@@ -44,6 +45,9 @@ export default class IdvContent extends React.Component {
                         overview={this.props.overview} />
                     <IdvDates
                         dates={this.props.overview.dates} />
+                </div>
+                <div className="award__row">
+                    <AwardHistory overview={this.props.overview} />
                 </div>
             </div>
         );
