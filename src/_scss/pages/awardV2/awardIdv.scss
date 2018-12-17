@@ -1,11 +1,15 @@
 .award-idv {
     .idv__heading {
-        @include display(flex);
-        @include justify-content(space-between);
-        .idv__info {
+        @include media($medium-screen) {
             @include display(flex);
+            @include justify-content(space-between);
+        }
+        .idv__info {
             @include align-items(center);
             @include justify-content(flex-start);
+            @include media($medium-screen) {
+                @include display(flex);
+            }
             font-size: rem(24);
         }
         .idv__last-modified {
