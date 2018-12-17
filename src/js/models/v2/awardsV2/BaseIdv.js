@@ -34,26 +34,15 @@ BaseIdv.populate = function populate(data) {
     this.parentId = data.parent_generated_unique_award_id || '';
 
     if (data.parent_award) {
-        const parentAwards = Object.create(BaseParentAwardDetails);
-        parentAwards.populateCore(data.parent_award);
-        this.parentAwardDetails = parentAwards;
+        const parentAwardDetails = Object.create(BaseParentAwardDetails);
+        parentAwardDetails.populateCore(data.parent_award);
+        this.parentAwardDetails = parentAwardDetails;
     }
 
     if (data.recipient) {
         const recipient = Object.create(BaseAwardRecipient);
         recipient.populate(data.recipient);
         this.recipient = recipient;
-    }
-
-    if (data.idv_dates) {
-        const periodOfPerformanceData = {
-            startDate: data.idv_dates.start_date,
-            endDate: data.idv_dates.end_date,
-            lastModifiedDate: data.idv_dates.last_modified_date
-        };
-        const periodOfPerformance = Object.create(CorePeriodOfPerformance);
-        periodOfPerformance.populateCore(periodOfPerformanceData);
-        this.dates = periodOfPerformance;
     }
 
     if (data.place_of_performance) {

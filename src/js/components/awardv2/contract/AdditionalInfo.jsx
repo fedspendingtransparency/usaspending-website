@@ -28,22 +28,22 @@ export default class AdditionalInfo extends React.Component {
     render() {
         const awardData = this.props.overview;
         const periodOfPerformanceData = awardData.periodOfPerformance || awardData.dates;
-        const parentAwards = awardData.parentAwardDetails;
+        const parentAwardDetails = awardData.parentAwardDetails;
         const data = {
             agencyDetails: {
-                'Awarding Department': `${awardData.awardingAgency.toptierName} (${awardData.awardingAgency.toptierAbbr})`,
+                'Awarding Department': awardData.awardingAgency.formattedToptier,
                 'Awarding Agency': awardData.awardingAgency.subtierName,
                 'Awarding Office': awardData.awardingAgency.officeName,
-                'Contracting Department': `${awardData.fundingAgency.toptierName} (${awardData.fundingAgency.toptierAbbr})`,
+                'Contracting Department': awardData.fundingAgency.formattedToptier,
                 'Contracting Agency': awardData.fundingAgency.subtierName,
                 'Contracting Office': awardData.fundingAgency.officeName
             },
             parentAwardDetails: {
-                'Parent Award ID': parentAwards ? parentAwards.awardId : '',
-                'IDV Type': parentAwards ? parentAwards.idvType : '',
-                'IDC Type': parentAwards ? parentAwards.idcType : '',
-                'IDV Agency Identifier': parentAwards ? parentAwards.agencyId : '',
-                'Multiple Or Single Award IDV': parentAwards ? parentAwards.multipleOrSingle : ''
+                'Parent Award ID': parentAwardDetails ? parentAwardDetails.awardId : '',
+                'IDV Type': parentAwardDetails ? parentAwardDetails.idvType : '',
+                'IDC Type': parentAwardDetails ? parentAwardDetails.idcType : '',
+                'IDV Agency Identifier': parentAwardDetails ? parentAwardDetails.agencyId : '',
+                'Multiple Or Single Award IDV': parentAwardDetails ? parentAwardDetails.multipleOrSingle : ''
             },
             PlaceOfPerformance: {
                 City: awardData.placeOfPerformance._city,
@@ -55,7 +55,7 @@ export default class AdditionalInfo extends React.Component {
             PeriodOfPerformance: {
                 'Start Date': periodOfPerformanceData.startDate,
                 'Current End Date': periodOfPerformanceData.endDate,
-                'Potential End Date': periodOfPerformanceData.potentendDate
+                'Potential End Date': periodOfPerformanceData.potentialEndDate
             },
             LegislativeMandates: {
                 'Clinger-Cohen Act Compliant': awardData.additionalDetails.clingerCohenAct,
@@ -69,7 +69,7 @@ export default class AdditionalInfo extends React.Component {
                 'DoD Claimant Code': awardData.additionalDetails.dodClaimantCode,
                 'DOD Aquisition Program': awardData.unknownplaceholder,
                 'Information Technology Commercial Item': awardData.unknownplaceholder,
-                Category: awardData.unknownplaceholder,
+                Category: awardData.itCommercialCategory,
                 'Sea Transportation': awardData.additionalDetails.seaTransport
             },
             CompetitionDetails: {

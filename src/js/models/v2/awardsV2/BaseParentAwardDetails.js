@@ -1,5 +1,5 @@
 /**
- * Parent Award Details.js
+ * Base Parent Award Details.js
  * Created by Kwadwo Opoku-Debrah 12/12/18
  */
 

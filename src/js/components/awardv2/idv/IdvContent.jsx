@@ -48,7 +48,7 @@ export default class IdvContent extends React.Component {
                     <IdvDates
                         dates={this.props.overview.dates} />
                 </div>
-                <div className="award__agencyAdditional" id="award-additional-information">
+                <div className="agency-additional" id="award-additional-information">
                     <AdditionalInfo
                         overview={this.props.overview} />
                 </div>
