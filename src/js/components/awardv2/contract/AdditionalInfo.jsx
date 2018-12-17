@@ -28,6 +28,7 @@ export default class AdditionalInfo extends React.Component {
     render() {
         const awardData = this.props.overview;
         const periodOfPerformanceData = awardData.periodOfPerformance || awardData.dates;
+        const parentAwards = awardData.parentAwardDetails;
         const data = {
             agencyDetails: {
                 'Awarding Department': `${awardData.awardingAgency.toptierName} (${awardData.awardingAgency.toptierAbbr})`,
@@ -38,11 +39,11 @@ export default class AdditionalInfo extends React.Component {
                 'Contracting Office': awardData.fundingAgency.officeName
             },
             parentAwardDetails: {
-                'Parent Award ID': awardData.parentAwardDetails.awardId,
-                'IDV Type': awardData.parentAwardDetails.idvType,
-                'IDC Type': awardData.parentAwardDetails.idcType,
-                'IDV Agency Identifier': awardData.parentAwardDetails.agencyId,
-                'Multiple Or Single Award IDV': awardData.parentAwardDetails.multipleOrSingle
+                'Parent Award ID': parentAwards ? parentAwards.awardId : '',
+                'IDV Type': parentAwards ? parentAwards.idvType : '',
+                'IDC Type': parentAwards ? parentAwards.idcType : '',
+                'IDV Agency Identifier': parentAwards ? parentAwards.agencyId : '',
+                'Multiple Or Single Award IDV': parentAwards ? parentAwards.multipleOrSingle : ''
             },
             PlaceOfPerformance: {
                 City: awardData.placeOfPerformance._city,
