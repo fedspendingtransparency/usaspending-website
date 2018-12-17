@@ -432,6 +432,13 @@ Spreadsheet.defaultProps = {
     alt: 'Icon Depicting a Spreadsheet'
 };
 
+export class SpeechBubble extends BaseIcon {}
+SpeechBubble.defaultProps = {
+    iconName: 'usa-da-speech-bubble',
+    iconClass: 'usa-da-speech-bubble',
+    alt: 'Icon Depicting a Speech Bubble'
+};
+
 export class AwardLoop extends BaseIcon {}
 AwardLoop.defaultProps = {
     iconName: 'usa-da-award-history',
