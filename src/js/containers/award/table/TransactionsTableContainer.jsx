@@ -89,7 +89,7 @@ export class TransactionsTableContainer extends React.Component {
 
         // generate the params
         const params = {
-            award_id: this.props.award.selectedAward.internalId,
+            award_id: this.props.award.selectedAward.internalId.toString(),
             page,
             sort: this.state.sort.field,
             order: this.state.sort.direction,
