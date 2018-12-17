@@ -66,6 +66,7 @@ export default class TablesSection extends React.Component {
             case 'transaction':
                 return (
                     <TransactionsTableContainer
+                        category={this.props.overview.category}
                         tableWidth={this.state.tableWidth} />
                 );
             default:

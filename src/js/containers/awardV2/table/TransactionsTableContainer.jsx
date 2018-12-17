@@ -18,7 +18,8 @@ import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractT
 import TransactionsTable from 'components/award/table/TransactionsTable';
 
 const propTypes = {
-    award: PropTypes.object
+    award: PropTypes.object,
+    category: PropTypes.string
 };
 
 const pageLimit = 15;
