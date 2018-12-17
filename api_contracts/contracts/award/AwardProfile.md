@@ -80,7 +80,7 @@ This endpoint returns a list of data that is associated with the award profile p
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
     Null if the IDV has no parent
-+ parent_generated_unique_award_id (required, string, nullable)
++ parent_generated_unique_award_id: `7757452ew25` (required, string, nullable)
     Null if the IDV has no parent
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
@@ -96,7 +96,7 @@ This endpoint returns a list of data that is associated with the award profile p
 
 
 ## Agency (object)
-+ id: `123` (required, string)
++ id: 123 (required, number)
 + toptier_agency (required, TopTierAgency, nullable)
 + subtier_agency (required, SubTierAgency, nullable)
 + office_agency_name: `STRATEGIC SYSTEMS` (required, string, nullable)
@@ -131,8 +131,8 @@ This endpoint returns a list of data that is associated with the award profile p
 ## IdvDates
 + start_date: `2004-02-19` (required, string)
     The starting date of the idv in the format `YYYY-MM-DD`
-+ last_modified_date: `2301-02-20` (required, string)
-+ end_date: `2301-01-20` (required, string)
++ last_modified_date: `2017-02-20` (required, string)
++ end_date: `2021-01-20` (required, string)
 
 ## Location
 + address_line1: `123 Sesame St` (required, string, nullable)
@@ -403,3 +403,33 @@ This endpoint returns financial accounts by award.
 + page: 1 (required, number)
 + hasNext: false (required, boolean)
 + hasPrevious: false (required, boolean)
+
+# Group IDV Awards Page
+
+These endpoints support IDVs only.
+
+## Award Amounts [/api/v2/awards/idvs/amounts/{award_id}]
+
+This endpoint returns aggregated award amounts for IDVs.
+
++ Parameters
+    + award_id: `12178065` (required, string)
+         Accepts the v2 generated award hash or internal database id.s
+
+### Award Amounts [GET]
+            
++ Response 200 (application/json)
+    + Attributes
+        + Attributes (AwardAmountsResponse)
+
+# Data Structures
+
+## AwardAmountsResponse (object)
++ award_id: 12178065 (required, number)
+    The award id sent in the request.
++ generated_unique_award_id: `CONT_AW_1540_NONE_DJB30605051_NONE` (required, string)
++ idv_count: 0 (required, number)
++ contract_count: 0 (required, number)
++ rollup_base_exercised_options_val: 0.00 (required, number)
++ rollup_base_and_all_options_value: 106321.10 (required, number)
++ rollup_total_obligation: 106321.10 (required, number)

@@ -32,10 +32,10 @@ export const convertDatesToRange = (startDate, endDate) => {
         }
 
         if (monthString && yearString) {
-            return `(${yearString}, ${monthString})`;
+            return `${yearString}, ${monthString}`;
         }
         else if (monthString || yearString) {
-            return `(${monthString}${yearString})`;
+            return `${monthString}${yearString}`;
         }
         return '';
     }
