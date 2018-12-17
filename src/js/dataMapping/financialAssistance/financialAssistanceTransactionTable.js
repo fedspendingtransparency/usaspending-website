@@ -30,7 +30,7 @@ const tableSearchFields = {
             modificationNumber: 'modification_number',
             actionDate: 'action_date',
             federalActionObligation: 'federal_action_obligation',
-            actionTypeDescription: 'action_type_description',
+            actionTypeDescription: 'action_type',
             description: 'description'
         },
         modificationNumber: 'Modification Number',

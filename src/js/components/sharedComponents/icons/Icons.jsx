@@ -438,3 +438,10 @@ SpeechBubble.defaultProps = {
     iconClass: 'usa-da-speech-bubble',
     alt: 'Icon Depicting a Speech Bubble'
 };
+
+export class AwardLoop extends BaseIcon {}
+AwardLoop.defaultProps = {
+    iconName: 'usa-da-award-history',
+    iconClass: 'usa-da-award-history',
+    alt: 'Icon Depicting Award History'
+};

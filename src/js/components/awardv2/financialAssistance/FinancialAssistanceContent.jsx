@@ -23,8 +23,10 @@ export default class FinancialAssistanceContent extends React.Component {
             <div className="award award-financial-assistance">
                 <div className="award__heading">
                     <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
-                    <div className="award__heading-lable">{this.props.overview.id ? 'ID' : ''}</div>
-                    <div className="award__heading-id">{this.props.overview.id}</div>
+                    <div className="award__heading-id">
+                        <div className="award__heading-lable">{this.props.overview.id ? 'ID' : ''}</div>
+                        <div>{this.props.overview.id}</div>
+                    </div>
                 </div>
                 <hr className="award__divider" />
                 <div className="award__row award-overview" id="award-overview">

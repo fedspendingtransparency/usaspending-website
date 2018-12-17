@@ -95,7 +95,8 @@ export default class Award extends React.Component {
                 content = (
                     <IdvContent
                         awardId={this.props.awardId}
-                        overview={overview} />
+                        overview={overview}
+                        jumpToSection={this.jumpToSection} />
                 );
             }
             else {
