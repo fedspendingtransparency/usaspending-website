@@ -144,7 +144,7 @@ const PrivacyPage = () => (
             <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://www.fiscal.treasury.gov/fsreports/rpt/fspia/fs_pia.htm">
+                href="https://www.fiscal.treasury.gov/pia.html">
                 Privacy Impact Assessment (PIA)
             </a>&nbsp;performed on USAspending.gov.
         </p>

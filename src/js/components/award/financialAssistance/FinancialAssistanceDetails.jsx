@@ -20,7 +20,7 @@ export default class FinancialAssistanceDetails extends React.Component {
         const timeRange = TimeRangeHelper.convertDatesToRange(award._startDate, award._endDate);
         let popDate = '--';
         if (award.startDate || award.endDate) {
-            popDate = `${this.props.selectedAward.startDate} - ${this.props.selectedAward.endDate} ${timeRange}`;
+            popDate = `${this.props.selectedAward.startDate} - ${this.props.selectedAward.endDate} (${timeRange})`;
         }
         const maxChars = SummaryPageHelper.maxDescriptionCharacters;
         return (
