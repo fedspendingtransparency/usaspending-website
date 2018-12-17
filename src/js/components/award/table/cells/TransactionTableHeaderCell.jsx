@@ -58,7 +58,6 @@ export default class TransactionTableHeaderCell extends React.Component {
 
         const direction = e.currentTarget.value;
         const apiFieldName = tableMapping.table._mapping[this.props.column];
-        console.log(apiFieldName);
         this.props.setTransactionSort({
             direction,
             field: apiFieldName

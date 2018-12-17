@@ -52,7 +52,7 @@ export default class TransactionsTable extends React.Component {
 
     tableMapping() {
         let tableMapping = assistanceMapping;
-        if (this.props.category === 'contract' || this.props.category === 'idv') {
+        if (this.props.category === 'contract') {
             tableMapping = contractMapping;
         }
         else if (this.props.category === 'loan') {
