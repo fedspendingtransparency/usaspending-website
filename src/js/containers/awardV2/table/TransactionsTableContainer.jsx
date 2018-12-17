@@ -114,7 +114,7 @@ export class TransactionsTableContainer extends React.Component {
         const meta = data.page_metadata;
         const newState = {
             page: meta.page,
-            nextPage: meta.has_next_page,
+            nextPage: meta.hasNext,
             inFlight: false
         };
 
