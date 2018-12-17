@@ -11,12 +11,7 @@ import { InfoCircle, Calendar, Agency } from 'components/sharedComponents/icons/
 import Accordion from './Accordion';
 
 const propTypes = {
-    overview: PropTypes.object,
-    idv: PropTypes.bool
-};
-
-const defaultProps = {
-    idv: false
+    overview: PropTypes.object
 };
 
 export default class AdditionalInfo extends React.Component {
@@ -43,18 +38,11 @@ export default class AdditionalInfo extends React.Component {
                 'Contracting Office': awardData.fundingAgency.officeName
             },
             parentAwardDetails: {
-                'Parent Award ID': awardData.parentAward,
-                'IDV Type': awardData.additionalDetails.idvType,
-                'IDC Type': awardData.additionalDetails.idcType,
-                'IDV Agency Identifier': awardData.additionalDetails.agency_id,
-                'Multiple Or Single Award IDV': awardData.additionalDetails.referenced_idv_agency_iden
-            },
-            parentIDVDetails: {
-                'Parent Award ID': awardData.parentIDVDetails.parent_award_id,
-                'IDV Type': awardData.additionalDetails.idvType,
-                'IDC Type': awardData.additionalDetails.idcType,
-                'IDV Agency Identifier': awardData.parentIDVDetails ? awardData.parentIDVDetails.agency_id : '',
-                'Multiple Or Single Award IDV': awardData.parentIDVDetails.referenced_idv_agency_iden
+                'Parent Award ID': awardData.parentAwardDetails.awardId,
+                'IDV Type': awardData.parentAwardDetails.idvType,
+                'IDC Type': awardData.parentAwardDetails.idcType,
+                'IDV Agency Identifier': awardData.parentAwardDetails.agencyId,
+                'Multiple Or Single Award IDV': awardData.parentAwardDetails.multipleOrSingle
             },
             PlaceOfPerformance: {
                 City: awardData.placeOfPerformance._city,
@@ -148,17 +136,11 @@ export default class AdditionalInfo extends React.Component {
                             accordionName="Agency Details"
                             accordionIcon={<Agency />}
                             accordionData={data.agencyDetails} />
-                        {this.props.idv ?
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Parent IDV Award Details"
-                                accordionIcon={<img src="img/award-summary/parent-award-details.png" alt="Parent Award Details" />}
-                                accordionData={data.parentIDVDetails} />
-                            : <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Parent Award Details"
-                                accordionIcon={<img src="img/award-summary/parent-award-details.png" alt="Parent Award Details" />}
-                                accordionData={data.parentAwardDetails} />}
+                        <Accordion
+                            globalToggle={this.state.globalToggle}
+                            accordionName="Parent Award Details"
+                            accordionIcon={<img src="img/award-summary/parent-award-details.png" alt="Parent Award Details" />}
+                            accordionData={data.parentAwardDetails} />
                         <Accordion
                             globalToggle={this.state.globalToggle}
                             accordionName="Place Of Performance"
@@ -202,5 +184,4 @@ export default class AdditionalInfo extends React.Component {
         );
     }
 }
-AdditionalInfo.defaultProps = defaultProps;
 AdditionalInfo.propTypes = propTypes;

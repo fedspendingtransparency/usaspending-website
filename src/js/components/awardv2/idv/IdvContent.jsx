@@ -26,8 +26,7 @@ export default class IdvContent extends React.Component {
                 <hr />
                 <div className="award__agencyAdditional" id="award-additional-information">
                     <AdditionalInfo
-                        overview={this.props.overview}
-                        idv />
+                        overview={this.props.overview} />
                 </div>
             </div>
         );

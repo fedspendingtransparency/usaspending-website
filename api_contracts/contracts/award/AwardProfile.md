@@ -82,6 +82,7 @@ This endpoint returns a list of data that is associated with the award profile p
     Null if the IDV has no parent
 + parent_generated_unique_award_id: `CONT_AW_9700_4730_W56HZV10AA913_GS10F0243K` (required, nullable)
     Null if the IDV has no parent
++ parent_award (required, ParentIDVDetails, fixed-type, nullable)
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
 + awarding_agency (required, Agency, fixed-type)
@@ -103,6 +104,14 @@ This endpoint returns a list of data that is associated with the award profile p
 + toptier_agency (required, TopTierAgency, nullable)
 + subtier_agency (required, SubTierAgency, nullable)
 + office_agency_name: `STRATEGIC SYSTEMS` (required, string, nullable)
+
+## ParentIDVDetails (object)
++ award_id: 5738 (required, number, nullable)
++ idv_type_description: `test` (required, string, nullable)
++ type_of_idc_description: `r3w` (required, string, nullable)
++ agency_id: `123` (required, string)
++ multiple_or_single_aw_desc: `something` (required, string)
++ piid: `345` (required, string)
 
 ## TopTierAgency (object)
 + name: `Department of Defense` (required, string, nullable)
@@ -420,7 +429,7 @@ This endpoint returns aggregated award amounts for IDVs.
          Accepts the v2 generated award hash or internal database id.s
 
 ### Award Amounts [GET]
-            
+
 + Response 200 (application/json)
     + Attributes
         + Attributes (AwardAmountsResponse)
