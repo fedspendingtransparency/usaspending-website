@@ -22,6 +22,7 @@ import Error from '../sharedComponents/Error';
 
 const propTypes = {
     award: PropTypes.object,
+    awardId: PropTypes.string,
     noAward: PropTypes.bool,
     inFlight: PropTypes.bool
 };
@@ -93,6 +94,7 @@ export default class Award extends React.Component {
             else if (overview.category === 'idv') {
                 content = (
                     <IdvContent
+                        awardId={this.props.awardId}
                         overview={overview}
                         jumpToSection={this.jumpToSection} />
                 );

@@ -8,14 +8,15 @@ import PropTypes from 'prop-types';
 
 import { startCase } from 'lodash';
 import AwardHistory from './AwardHistory';
-
 import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
 import RelatedAwards from '../visualizations/overview/RelatedAwards';
 import IdvDates from './IdvDates';
 
+import AwardDescription from '../visualizations/description/AwardDescription';
 import AdditionalInfo from '../contract/AdditionalInfo';
 
 const propTypes = {
+    awardId: PropTypes.string,
     overview: PropTypes.object,
     jumpToSection: PropTypes.func
 };
@@ -48,13 +49,19 @@ export default class IdvContent extends React.Component {
                     <IdvDates
                         dates={this.props.overview.dates} />
                 </div>
+                <div className="award__row">
+                    <div className="award__col" />
+                    <AwardDescription
+                        awardId={this.props.awardId}
+                        description={this.props.overview.description}
+                        naics={this.props.overview.additionalDetails.naicsCode}
+                        psc={this.props.overview.additionalDetails.pscCode} />
+                </div>
                 <div className="agency-additional" id="award-additional-information">
                     <AdditionalInfo
                         overview={this.props.overview} />
                 </div>
-                <div className="award__row">
-                    <AwardHistory overview={this.props.overview} />
-                </div>
+                <AwardHistory overview={this.props.overview} />
             </div>
         );
     }
