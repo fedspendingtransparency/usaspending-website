@@ -2,6 +2,8 @@
     .idv-dates__heading {
         @include display(flex);
         @include justify-content(space-between);
+        @include align-items(flex-end);
+        padding-bottom: rem(11);
         .idv-dates__title {
             @include display(flex);
             @include flex(0 0 auto);
