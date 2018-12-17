@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Building, Glossary, AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
+import { SpeechBubble, Glossary, AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -68,7 +68,7 @@ export default class AwardDescription extends React.Component {
             <div className="award__col award-viz award-description">
                 <div className="award-viz__heading">
                     <div className="award-viz__icon">
-                        <Building />
+                        <SpeechBubble />
                     </div>
                     <h3 className="award-viz__title">
                         Description

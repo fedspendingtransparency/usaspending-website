@@ -431,3 +431,10 @@ Spreadsheet.defaultProps = {
     iconClass: 'usa-da-spreadsheet',
     alt: 'Icon Depicting a Spreadsheet'
 };
+
+export class SpeechBubble extends BaseIcon {}
+SpeechBubble.defaultProps = {
+    iconName: 'usa-da-speech-bubble',
+    iconClass: 'usa-da-speech-bubble',
+    alt: 'Icon Depicting a Speech Bubble'
+};
