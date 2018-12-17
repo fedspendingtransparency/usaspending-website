@@ -26,7 +26,7 @@ export default class ContractContent extends React.Component {
                     <div className="award__heading-id">{this.props.overview.id}</div>
                 </div>
                 <hr />
-                <div className="award__row" id="award-overview">
+                <div className="award__row award-overview" id="award-overview">
                     <AgencyRecipient
                         jumpToSection={this.props.jumpToSection}
                         awardingAgency={this.props.overview.awardingAgency}
