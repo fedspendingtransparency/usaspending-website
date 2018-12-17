@@ -19,6 +19,7 @@ import { fiscalYearSnapshotFields } from 'dataMapping/accounts/accountFields';
 import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
+import BaseFederalAccount from 'models/v2/account/BaseFederalAccount';
 
 require('pages/account/accountPage.scss');
 

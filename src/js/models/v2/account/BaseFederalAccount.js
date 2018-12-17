@@ -13,25 +13,29 @@ const BaseFederalAccount = {
         this.accountName = data.account_name || null;
         this.accountNumber = data.accountNumber || null;
         this.budgetaryResources = data.budgetaryResources || null;
-        this.accountId = data.account_id || null;
+        this.accountId = data.id || data.account_id || null;
+        this.totals = {
+            available: data.totals.available || false,
+            obligated: data.totals.obligated || '',
+            unobligated: data.totals.unobligated || '',
+            budgetAuthority: data.totals.budgetAuthority || '',
+            outlay: data.total.outlay || "Not available",
+            balanceBroughtForward: data.totals.balanceBroughtForward || 0,
+            otherBudgetaryResources: data.totals.otherBudgetaryResources || 0,
+            appropriations: data.totals.appropriations || 0
+        };
     },
     get agencyId() {
-        if (!this.agencyId) {
-            return null;
-        }
         return this.agencyId;
     },
     get accountName() {
-        if (!this.accountName) {
-            return null;
-        }
         return this.accountNumber();
     },
-    get accountNumber(){
-        if (!this.accountNumber) {
-            return null;
-        }
+    get accountNumber() {
         return this.accountNumber;
+    },
+    get accountID() {
+        return this.accountId;
     }
 
 };
