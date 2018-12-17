@@ -93,7 +93,8 @@ export default class Award extends React.Component {
             else if (overview.category === 'idv') {
                 content = (
                     <IdvContent
-                        overview={overview} />
+                        overview={overview}
+                        jumpToSection={this.jumpToSection} />
                 );
             }
             else {
