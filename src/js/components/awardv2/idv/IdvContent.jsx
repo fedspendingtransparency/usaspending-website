@@ -7,13 +7,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { startCase } from 'lodash';
+
+import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
 import RelatedAwards from '../visualizations/overview/RelatedAwards';
 import IdvDates from './IdvDates';
 
 import AdditionalInfo from '../contract/AdditionalInfo';
 
 const propTypes = {
-    overview: PropTypes.object
+    overview: PropTypes.object,
+    jumpToSection: PropTypes.func
 };
 
 export default class IdvContent extends React.Component {
@@ -23,8 +26,10 @@ export default class IdvContent extends React.Component {
                 <div className="idv__heading">
                     <div className="idv__info">
                         <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
-                        <div className="award__heading-lable">{this.props.overview.id ? 'PIID' : ''}</div>
-                        <div className="award__heading-id">{this.props.overview.id}</div>
+                        <div className="award__heading-id">
+                            <div className="award__heading-lable">{this.props.overview.id ? 'PIID' : ''}</div>
+                            <div>{this.props.overview.id}</div>
+                        </div>
                     </div>
                     <div className="idv__last-modified">
                         Last Modified On: <span className="idv__last-modified idv__last-modified_date">{this.props.overview.dates.lastModifiedDate}</span>
@@ -32,6 +37,11 @@ export default class IdvContent extends React.Component {
                 </div>
                 <hr />
                 <div className="award__row award-overview" id="award-overview">
+                    <AgencyRecipient
+                        jumpToSection={this.props.jumpToSection}
+                        awardingAgency={this.props.overview.awardingAgency}
+                        category="idv"
+                        recipient={this.props.overview.recipient} />
                     <RelatedAwards
                         overview={this.props.overview} />
                     <IdvDates

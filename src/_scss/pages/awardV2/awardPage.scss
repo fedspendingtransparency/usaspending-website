@@ -15,6 +15,10 @@
             .award__heading {
                 @include display(flex);
                 @include align-items(center);
+                @include flex-wrap(wrap);
+                @include media($medium-screen) {
+                    flex-wrap: nowrap;
+                }
                 font-size: rem(24);
             }
             .award__heading-text {
@@ -29,6 +33,7 @@
                 padding-right: rem(10);
             }
             .award__heading-id {
+                @include display(flex);
                 font-weight: $font-light;
             }
 
