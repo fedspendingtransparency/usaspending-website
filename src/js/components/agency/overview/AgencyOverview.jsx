@@ -45,9 +45,9 @@ export default class AgencyOverview extends React.PureComponent {
         this.prepareOverview(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.agency.id !== this.props.agency.id) {
-            this.prepareOverview(nextProps);
+    componentDidUpdate(prevProps) {
+        if (prevProps.agency.id !== this.props.agency.id) {
+            this.prepareOverview(this.props);
         }
     }
 

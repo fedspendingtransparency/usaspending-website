@@ -16,7 +16,6 @@ const defaultProps = {
     linkSeries: [],
     descriptions: [],
     width: 0,
-    height: 630, // 60px * 10 rows + 30px padding
     loading: true,
     error: false,
     disableTooltip: false,
@@ -80,9 +79,14 @@ export default class RankVisualization extends React.Component {
             }
         }
         else if (this.props.dataSeries.length > 0) {
+            const itemHeight = 35;
+            // Height is number of results * item height + 30px padding
+            const height = (this.props.dataSeries.length * itemHeight) + 30;
             chart = (
                 <HorizontalChart
                     {...this.props}
+                    itemHeight={itemHeight}
+                    height={height}
                     selectItem={this.selectItem}
                     deselectItem={this.deselectItem} />
             );

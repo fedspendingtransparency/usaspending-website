@@ -46,9 +46,9 @@ export default class AwardDataContent extends React.Component {
         this.resetForm = this.resetForm.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.awards !== this.props.awards) {
-            this.validateForm(nextProps.awards);
+    componentDidUpdate(prevProps) {
+        if (prevProps.awards !== this.props.awards) {
+            this.validateForm(this.props.awards);
         }
     }
 

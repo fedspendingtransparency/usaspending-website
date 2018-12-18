@@ -58,8 +58,8 @@ export default class TimePeriodFilter extends React.Component {
         this.prepopulateDatePickers();
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.synchronizeDatePickers(nextProps);
+    componentDidUpdate() {
+        this.synchronizeDatePickers(this.props);
     }
 
     prepopulateDatePickers() {

@@ -16,7 +16,7 @@ periodOfPerformance.populateCore(periodOfPerformanceData);
 
 describe('CorePeriodOfPerformance', () => {
     it('should format the start date and end date', () => {
-        expect(periodOfPerformance.startDate).toEqual('02/19/2004');
-        expect(periodOfPerformance.endDate).toEqual('02/19/2005');
+        expect(periodOfPerformance.startDate).toEqual('Feb. 19, 2004');
+        expect(periodOfPerformance.endDate).toEqual('Feb. 19, 2005');
     });
 });

@@ -6,9 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import RootHeader from './header/RootHeader';
 import DetailHeader from './header/DetailHeader';
-
 import ExplorerVisualization from './visualization/ExplorerVisualization';
 import FakeScreens from './FakeScreens';
 import NoAwardsScreen from './NoAwardsScreen';
@@ -56,17 +56,17 @@ export default class DetailContent extends React.Component {
         this.updateChart(this.props.data);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.transitionSteps !== 0 && nextProps.transition !== this.props.transition) {
-            if (nextProps.transition === 'start') {
-                this.startTransition(nextProps.transitionSteps);
+    componentDidUpdate(prevProps) {
+        if (prevProps.transitionSteps !== 0 && prevProps.transition !== this.props.transition) {
+            if (this.props.transition === 'start') {
+                this.startTransition(this.props.transitionSteps);
             }
-            else if (nextProps.transition === 'end') {
+            else if (this.props.transition === 'end') {
                 this.finishTransition();
             }
         }
-        else if (nextProps.data !== this.props.data) {
-            this.updateChart(nextProps.data);
+        else if (prevProps.data !== this.props.data) {
+            this.updateChart(this.props.data);
         }
     }
 
@@ -149,10 +149,20 @@ export default class DetailContent extends React.Component {
                     className="explorer-detail-content"
                     ref={(div) => {
                         this.wrapperDiv = div;
-                    }} />
+                    }}>
+                    <div className="explorer-detail-content__loading">
+                        <div className="explorer-detail-content__loading-message">
+                            <LoadingSpinner />
+                            <div className="explorer-detail-content__loading-title">Gathering your data...</div>
+                            <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
+                            <div>This should only take a few moments...</div>
+                        </div>
+                    </div>
+                </div>
             );
         }
         let header = (<RootHeader
+            isLoading={this.props.isLoading}
             root={this.props.root}
             fy={this.props.fy}
             lastUpdate={this.props.lastUpdate}
@@ -179,6 +189,7 @@ export default class DetailContent extends React.Component {
             }
 
             header = (<DetailHeader
+                isLoading={this.props.isLoading}
                 within={lastFilter.within}
                 title={lastFilter.title}
                 id={id}

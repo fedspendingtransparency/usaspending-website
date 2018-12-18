@@ -34,7 +34,7 @@ export default class FederalAccountTooltip extends React.Component {
         const containerX = this.containerDiv.getBoundingClientRect().left;
         const windowWidth = window.innerWidth;
 
-        const offsetY = 25;
+        const offsetY = -10;
 
         // determine the tooltip direction
         let direction = 'left';

@@ -6,32 +6,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
 import { startCase } from "lodash";
 
+import AwardRecipient from '../visualizations/overview/AgencyRecipient';
+import AwardDates from '../visualizations/overview/AwardDates';
+
 const propTypes = {
-    selectedAward: PropTypes.object,
-    inFlight: PropTypes.bool,
-    id: PropTypes.string
+    overview: PropTypes.object,
+    jumpToSection: PropTypes.func
 };
 
 export default class FinancialAssistanceContent extends React.Component {
     render() {
-        // TODO: determine glossary term for link
+        // TODO: Determine if we should label with FAIN/ URI instead of ID
         return (
             <div className="award award-financial-assistance">
                 <div className="award__heading">
-                    <div className="award__heading-text">{startCase(this.props.selectedAward.typeDescription)}</div>
-                    <div className="award__heading-glossary">
-                        <a href={`#/award_v2/${this.props.id}/?glossary=grant`}>
-                            <Icons.Glossary />
-                        </a>
-                    </div>
+                    <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
                     <div className="award__heading-id">
-                        {this.props.selectedAward.id}
+                        <div className="award__heading-lable">{this.props.overview.id ? 'ID' : ''}</div>
+                        <div>{this.props.overview.id}</div>
                     </div>
                 </div>
                 <hr className="award__divider" />
+                <div className="award__row award-overview" id="award-overview">
+                    <AwardRecipient
+                        jumpToSection={this.props.jumpToSection}
+                        awardingAgency={this.props.overview.awardingAgency}
+                        category={this.props.overview.category}
+                        recipient={this.props.overview.recipient} />
+                    <div className="award__col award-amountdates">
+                        <AwardDates
+                            overview={this.props.overview} />
+                    </div>
+                </div>
             </div>
         );
     }

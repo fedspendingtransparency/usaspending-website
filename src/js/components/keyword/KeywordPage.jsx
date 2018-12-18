@@ -47,10 +47,10 @@ export default class KeywordPage extends React.Component {
         this.clickedDownload = this.clickedDownload.bind(this);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate() {
         // Need to close the modal once the download is completed
-        if (this.state.showModal && nextProps.download.expectedUrl === ""
-            && !nextProps.download.showCollapsedProgress) {
+        if (this.state.showModal && this.props.download.expectedUrl === ""
+            && !this.props.download.showCollapsedProgress) {
             this.hideModal();
         }
     }
