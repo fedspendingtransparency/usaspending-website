@@ -139,15 +139,15 @@ export default class AgencyFilter extends React.Component {
         const accounts = this.props.federalAccounts.map((account) => (
             <li
                 className="field-item indent"
-                key={`field-${account.accountId}`}>
+                key={`field-${account.accountNumber}`}>
                 <button
                     className="item-button"
                     title={account.accountName}
                     aria-label={account.accountName}
-                    value={account.accountId}
+                    value={account.accountNumber}
                     onClick={this.handleFederalAccountSelect}
                     name={account.accountName} >
-                    {account.accountId} - {account.accountName}
+                    {account.accountNumber} - {account.accountName}
                 </button>
             </li>
         ));

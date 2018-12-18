@@ -19,7 +19,7 @@ import { fiscalYearSnapshotFields } from 'dataMapping/accounts/accountFields';
 import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
-import BaseFederalAccount from 'models/v2/account/BaseFederalAccount';
+import FederalAccount from 'models/account/FederalAccount';
 
 require('pages/account/accountPage.scss');
 
@@ -97,7 +97,7 @@ export class AccountContainer extends React.Component {
     }
 
     parseAccount(data) {
-        const account = new BaseFederalAccount(data);
+        const account = new FederalAccount(data);
         this.props.setSelectedAccount(account);
         this.loadFiscalYearSnapshot(account.id);
     }
