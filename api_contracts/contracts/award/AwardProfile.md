@@ -183,6 +183,8 @@ This endpoint returns a list of data that is associated with the award profile p
 + naics: `35353` (required, string, nullable)
 + naics_description: `323t2` (required, string, nullable)
 + dod_claimant_program_code: `ERWRWRWR5242-242` (required, string, nullable)
++ dod_aquisition_program: `dod aquisition` (required, string, nullable)
++ information_technology_commercial_item: `commercial item` (required, string, nullable)
 + program_system_or_equipmen: `unknown` (optional, string, nullable)
 + information_technolog_desc: `ERWRWRWR5242-242` (string, nullable)
 + sea_transportation_desc: `seaworld` (string, nullable)

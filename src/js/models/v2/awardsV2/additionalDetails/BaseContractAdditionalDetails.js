@@ -54,6 +54,8 @@ const BaseContractAdditionalDetails = {
         this.purchaseCardAsPaymentMethod = data.purchase_card_as_paym_desc || '--';
         this.consolidated = data.consolidated_contract_desc || '--';
         this.contractPriceDesc = data.type_of_contract_pric_desc || '--';
+        this.dodAquisitionProgram = data.dod_aquisition_program || '--';
+        this.InfoTechCommercialItem = data.information_technology_commercial_item || '--';
     },
     get pscCode() {
         if (this._pscCode && this._pscCodeDescription) {
