@@ -11,14 +11,14 @@ import moment from 'moment';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    selectedAward: PropTypes.object
+    overview: PropTypes.object
 };
 
 export default class AwardDates extends React.Component {
     render() {
-        const award = this.props.selectedAward;
+        const award = this.props.overview;
         const timeRange = TimeRangeHelper.convertDatesToRange(award.periodOfPerformance._endDate, award.periodOfPerformance._potentialEndDate);
-        let popDate = timeRange.substr(1).slice(0, -1) || '--';
+        let popDate = timeRange || '--';
 
         const unformattedEndDate = award.periodOfPerformance._endDate;
         const unformattedAwardDate = award.periodOfPerformance._awardDate;

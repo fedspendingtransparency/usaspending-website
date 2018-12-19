@@ -26,7 +26,7 @@ const FOIAPage = () => (
             <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href="https://fiscal.treasury.gov/foia/foia_home.htm">
+                href="https://fiscal.treasury.gov/foia.html">
                 FOIA website
             </a>.
         </p>

@@ -9,6 +9,7 @@ import { mockLoan } from './mockAwardApi';
 const agency = Object.create(CoreAwardAgency);
 const agencyData = {
     toptierName: mockLoan.awarding_agency.toptier_agency.name,
+    toptierAbbr: mockLoan.awarding_agency.toptier_agency.abbreviation,
     subtierName: mockLoan.awarding_agency.subtier_agency.name,
     officeName: mockLoan.awarding_agency.office_agency_name
 };
@@ -35,5 +36,8 @@ describe('CoreAwardAgency', () => {
     it('should use a -- for agency name when it is unpopulated', () => {
         const emptyAgency = Object.create(CoreAwardAgency);
         expect(emptyAgency.toptierName).toEqual('--');
+    });
+    it('should format the name and abbreviation when both are provided', () => {
+       expect(agency.formattedToptier).toEqual('Department of Defense (DOD)');
     });
 });

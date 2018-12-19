@@ -8,9 +8,11 @@ import { mount, shallow } from 'enzyme';
 
 import { AwardContainer } from 'containers/awardV2/AwardV2Container';
 
-import {mockContract, mockLoan, mockParams, mockActions} from './mockAward';
+import { mockParams, mockActions } from './mockAward';
+import { mockContract, mockLoan, mockIdv } from '../../models/awardsV2/mockAwardApi';
 
 import BaseContract from 'models/v2/awardsV2/BaseContract';
+import BaseIdv from 'models/v2/awardsV2/BaseIdv';
 import BaseFinancialAssistance from "models/v2/awardsV2/BaseFinancialAssistance";
 
 jest.mock('helpers/searchHelper', () => require('./awardV2Helper'));
@@ -44,18 +46,18 @@ describe('AwardV2Container', () => {
 
         container.instance().componentDidMount();
         expect(getSelectedAward).toHaveBeenCalledTimes(1);
-        expect(getSelectedAward).toHaveBeenCalledWith(1234);
+        expect(getSelectedAward).toHaveBeenCalledWith('1234');
 
-        const nextProps = Object.assign({}, mockParams, {
+        const prevProps = Object.assign({}, mockParams, {
             params: {
-                awardId: 222
+                awardId: '222'
             }
         });
 
-        container.instance().componentDidUpdate(nextProps);
+        container.instance().componentDidUpdate(prevProps);
 
         expect(getSelectedAward).toHaveBeenCalledTimes(2);
-        expect(getSelectedAward).toHaveBeenLastCalledWith(222);
+        expect(getSelectedAward).toHaveBeenLastCalledWith('1234');
     });
 
     describe('parseAward', () => {
@@ -70,7 +72,20 @@ describe('AwardV2Container', () => {
 
             awardContainer.instance().parseAward(mockContract);
 
-            expect(mockActions.setSelectedAward).toHaveBeenCalledWith(expectedAward);
+            expect(mockActions.setAward).toHaveBeenCalledWith(expectedAward);
+        });
+        it('should parse returned IDV data and send to the Redux store', () => {
+            const awardContainer = shallow(
+                <AwardContainer
+                    {...mockParams}
+                    {...mockActions} />);
+
+            const expectedAward = Object.create(BaseIdv);
+            expectedAward.populate(mockIdv);
+
+            awardContainer.instance().parseAward(mockIdv);
+
+            expect(mockActions.setAward).toHaveBeenCalledWith(expectedAward);
         });
         it('should parse returned financial assistance data and send to the Redux store', () => {
             const awardContainer = shallow(
@@ -83,7 +98,7 @@ describe('AwardV2Container', () => {
 
             awardContainer.instance().parseAward(mockLoan);
 
-            expect(mockActions.setSelectedAward).toHaveBeenCalledWith(expectedAward);
+            expect(mockActions.setAward).toHaveBeenCalledWith(expectedAward);
         });
     });
 });

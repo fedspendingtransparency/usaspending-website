@@ -34,7 +34,7 @@ const tableSearchFields = {
             actionDate: 'action_date',
             faceValue: 'face_value_loan_guarantee',
             subsidy: 'original_loan_subsidy_cost',
-            actionTypeDescription: 'action_type_description',
+            actionTypeDescription: 'action_type',
             description: 'description'
         },
         modificationNumber: 'Modification Number',

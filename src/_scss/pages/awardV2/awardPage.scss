@@ -15,41 +15,26 @@
             .award__heading {
                 @include display(flex);
                 @include align-items(center);
+                @include flex-wrap(wrap);
+                @include media($medium-screen) {
+                    flex-wrap: nowrap;
+                }
                 font-size: rem(24);
-                .award__heading-text {
-                    @include display(flex);
-                    @include flex(0 0 auto);
-                    font-weight: $font-semibold;
-                }
-                .award__heading-glossary {
-                    @include display(flex);
-                    @include flex(0 0 auto);
-                    padding: 0 rem(20) 0 rem(9);
-                    a {
-                        width: rem(19);
-                        height: rem(25);
-                        svg {
-                            width: rem(19);
-                            height: rem(25);
-                            fill: $color-gray-light;
-                        }
-                        &:hover {
-                            cursor: pointer;
-                            svg {
-                                fill: $color-link;
-                            }
-                        }
-                    }
-                }
-                .award__heading-id {
-                    font-weight: $font-light;
-                }
-
-                .award__heading-lable {
-                    font-weight: $font-normal;
-                    display: inline-block;
-                    margin-right: rem(5);
-                }
+            }
+            .award__heading-text {
+                @include display(flex);
+                @include flex(0 0 auto);
+                font-weight: $font-semibold;
+                padding-right: rem(20);
+            }
+            .award__heading-lable {
+                font-weight: $font-normal;
+                display: inline-block;
+                padding-right: rem(10);
+            }
+            .award__heading-id {
+                @include display(flex);
+                font-weight: $font-light;
             }
 
             .award__row {
@@ -73,6 +58,7 @@
                         padding-left: rem(15);
                     }
                 }
+
                 @import "./visualizations/awardViz";
 
                 .text-button-container__button {
@@ -91,25 +77,13 @@
                 }
             }
 
-            .text-button-container__button {
-                background-color: transparent;
-                color: $color-cool-blue;
-                padding: 0;
-                margin: 0;
-            }
-
-            hr {
-                opacity: 0.5;
-            }
-
-            .data-values {
-               font-weight: $font-light;
-            }
-
+            @import "./visualizations/overview/overview";
+            @import "./visualizations/description/description";
         }
 
         @import "./awardContract";
         @import "./awardFinancialAssistance";
+        @import "./awardIdv";
     }
 
 }

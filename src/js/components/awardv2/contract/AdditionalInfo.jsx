@@ -11,7 +11,7 @@ import { InfoCircle, Calendar } from 'components/sharedComponents/icons/Icons';
 import Accordion from './Accordion';
 
 const propTypes = {
-    award: PropTypes.object
+    overview: PropTypes.object
 };
 
 export default class AdditionalInfo extends React.Component {
@@ -26,7 +26,7 @@ export default class AdditionalInfo extends React.Component {
         this.setState({ globalToggle: !this.state.globalToggle });
     }
     render() {
-        const awardData = this.props.award;
+        const awardData = this.props.overview;
         const data = {
             parentAwardDetails: {
                 'Parent Award ID': awardData.parentAward,

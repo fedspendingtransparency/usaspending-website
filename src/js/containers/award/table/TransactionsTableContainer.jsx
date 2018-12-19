@@ -89,7 +89,7 @@ export class TransactionsTableContainer extends React.Component {
 
         // generate the params
         const params = {
-            award_id: this.props.award.selectedAward.internalId,
+            award_id: this.props.award.selectedAward.internalId.toString(),
             page,
             sort: this.state.sort.field,
             order: this.state.sort.direction,
@@ -136,7 +136,7 @@ export class TransactionsTableContainer extends React.Component {
         const meta = data.page_metadata;
         const newState = {
             page: meta.page,
-            nextPage: meta.has_next_page,
+            nextPage: meta.hasNext,
             inFlight: false
         };
 

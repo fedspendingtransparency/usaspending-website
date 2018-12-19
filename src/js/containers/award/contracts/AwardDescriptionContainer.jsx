@@ -38,7 +38,7 @@ export class AwardDescriptionContainer extends React.Component {
 
     setAwardDescription(id) {
         const params = {
-            award_id: this.props.selectedAward.internalId,
+            award_id: this.props.selectedAward.internalId.toString(),
             order: 'desc',
             sort: 'action_date',
             filters: [
