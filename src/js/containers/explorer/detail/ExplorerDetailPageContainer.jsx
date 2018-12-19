@@ -24,9 +24,9 @@ export class ExplorerDetailPageContainer extends React.Component {
         this.validateRoot(this.props.params.root);
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.params.root !== this.props.params.root) {
-            this.validateRoot(this.props.params.root);
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.params.root !== this.props.params.root) {
+            this.validateRoot(nextProps.params.root);
         }
     }
 
