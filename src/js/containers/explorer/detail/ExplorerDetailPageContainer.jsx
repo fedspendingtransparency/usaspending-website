@@ -20,7 +20,7 @@ const propTypes = {
 };
 
 export class ExplorerDetailPageContainer extends React.Component {
-    componentDidMount() {
+    componentWillMount() {
         this.validateRoot(this.props.params.root);
     }
 
