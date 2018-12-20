@@ -127,6 +127,7 @@ This endpoint returns a list of data that is associated with the award profile p
     The date the award was awarded on
 + last_modified_date: `2301-02-20` (required, string)
 + potential_end_date: `2301-02-23` (required, string)
++ ordering_period_end_date: `2301-02-23` (required, string, nullable)
 
 ## IdvDates
 + start_date: `2004-02-19` (required, string)
@@ -422,6 +423,49 @@ This endpoint returns aggregated award amounts for IDVs.
     + Attributes
         + Attributes (AwardAmountsResponse)
 
+## IDV Related Awards [/api/v2/awards/idvs/awards]
+
+This endpoint returns related awards for IDVs.
+
++ Parameters
+    + award_id: `12178065` (required, string)
+         Accepts the v2 generated award hash or internal database id.s
+
+### IDV Related Awards [POST]
+
++ Request (application/json)
+    + Attributes (object)
+        + award_id: 123 (optional, string)
+            The internal id of the award to filter on.
+        + idv: true (optional, boolean)
+             Field to request an IDV or a regular contract award
+        + limit: 15 (optional, number)
+            The number of results to include per page.
+            + Default: 10
+        + page: 1 (optional, number)
+            The page of results to return based on the limit.
+            + Default: 1
+        + sort: start_date (optional, enum[string])
+            The field results are sorted by.
+            + Default: start_date
+            + Members
+                + `award_id`
+                + `start_date`
+                + `description`
+                + `end_date`
+                + `last_date_to_order`
+                + `funding_agency`
+                + `award_type`
+                + `obligated_amount`
+        + order: desc (optional, string)
+            The direction results are sorted by. `asc` for ascending, `desc` for descending.
+            + Default: desc
+            
++ Response 200 (application/json)
+    + Attributes
+        + results (array[IDVRelatedAwardsResponse], fixed-type)
+        + page_metadata (PageMetaDataObject)
+
 # Data Structures
 
 ## AwardAmountsResponse (object)
@@ -433,3 +477,43 @@ This endpoint returns aggregated award amounts for IDVs.
 + rollup_base_exercised_options_val: 0.00 (required, number)
 + rollup_base_and_all_options_value: 106321.10 (required, number)
 + rollup_total_obligation: 106321.10 (required, number)
+
+## IDVRelatedAwardsResponse (object)
++ award_id: 12178065 (required, number)
+    The award id sent in the request.
++ generated_unique_award_id: `CONT_AW_1540_NONE_DJB30605051_NONE` (required, string)
++ funding_agency (required, Agency, fixed-type)
++ award_type: `BPA`(required, string)
++ obligated_amount: 242342 (required, number)
++ period_of_performance (required, PerformancePeriod, fixed-type)
++ description: `reerwrawa` (required, string, nullable)
+
+## PageMetaDataObject (object)
++ page: 1 (required, number)
++ hasNext: false (required, boolean)
++ hasPrevious: false (required, boolean)
+
+## Agency (object)
++ id: 123 (required, number)
++ toptier_agency (required, TopTierAgency, nullable)
++ subtier_agency (required, SubTierAgency, nullable)
++ office_agency_name: `STRATEGIC SYSTEMS` (required, string, nullable)
+
+## TopTierAgency (object)
++ name: `Department of Defense` (required, string, nullable)
++ abbreviation: `DOD` (required, string, nullable)
+
+## SubTierAgency (object)
++ name: `Department of Navy` (required, string, nullable)
++ abbreviation: `DON` (required, string, nullable)
+
+## PerformancePeriod
++ period_of_performance_start_date: `2004-02-19` (required, string, nullable)
+    The starting date of the contract in the format `YYYY-MM-DD`
++ period_of_performance_current_end_date: `2005-02-19` (required, string, nullable)
+    The ending date of the contract in the format `YYYY-MM-DD`
++ action_date: `2301-01-20` (required, string)
+    The date the award was awarded on
++ last_modified_date: `2301-02-20` (required, string)
++ potential_end_date: `2301-02-23` (required, string)
++ last_date_to_ordere: `2301-02-23` (required, string, nullable)
