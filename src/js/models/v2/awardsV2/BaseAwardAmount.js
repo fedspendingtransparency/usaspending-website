@@ -12,9 +12,8 @@ const BaseAwardAmount = {
         this.generatedId = data.generated_unique_award_id || '';
         this.idvCount = data.idv_count || 0;
         this.contractCount = data.contract_count || 0;
-        this._subawardTotal = parseFloat(data.subawardTotal) || 0;
-        this.subawardCount = parseFloat(data.subawardCount) || 0;
-        this._fundingObligated = parseFloat(data.fundingObligated) || 0;
+        this._rolledUpBaseAllOptions = parseFloat(data.rollup_base_and_all_options_value) || 0;
+        this._obligation = parseFloat(data.rollup_total_obligation) || 0;
         this._rolledBaseExercisedOptions = parseFloat(data.rollup_base_exercised_options_val) || 0;
     }
 };
