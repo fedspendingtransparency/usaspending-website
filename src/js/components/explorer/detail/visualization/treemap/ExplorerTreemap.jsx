@@ -12,9 +12,11 @@ import { remove } from 'lodash';
 
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 
+import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import TreemapCell from './TreemapCell';
 
 const propTypes = {
+    isLoading: PropTypes.bool,
     width: PropTypes.number,
     height: PropTypes.number,
     data: PropTypes.object,
@@ -39,7 +41,7 @@ export default class ExplorerTreemap extends React.Component {
         this.selectedCell = this.selectedCell.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.buildVirtualChart(this.props);
     }
 
@@ -215,8 +217,23 @@ export default class ExplorerTreemap extends React.Component {
                 goToUnreported={this.props.goToUnreported} />
         ));
 
+        let loadingMessage = null;
+        if (this.props.isLoading) {
+            loadingMessage = (
+                <div className="explorer-detail-content__loading">
+                    <div className="explorer-detail-content__loading-message">
+                        <LoadingSpinner />
+                        <div className="explorer-detail-content__loading-title">Gathering your data...</div>
+                        <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
+                        <div>This should only take a few moments...</div>
+                    </div>
+                </div>
+            );
+        }
+
         return (
             <div className="explorer-treemap">
+                {loadingMessage}
                 <svg
                     className="treemap"
                     width="100%"
