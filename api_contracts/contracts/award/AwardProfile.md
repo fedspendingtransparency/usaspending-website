@@ -427,16 +427,12 @@ This endpoint returns aggregated award amounts for IDVs.
 
 This endpoint returns related awards for IDVs.
 
-+ Parameters
-    + award_id: `12178065` (required, string)
-         Accepts the v2 generated award hash or internal database id.s
-
 ### IDV Related Awards [POST]
 
 + Request (application/json)
     + Attributes (object)
-        + award_id: 123 (optional, string)
-            The internal id of the award to filter on.
+        + award_id: `12178065342fsg` (optional, string)
+            The v2 generated award hash or internal database id.
         + idv: true (optional, boolean)
              Field to request an IDV or a regular contract award
         + limit: 15 (optional, number)
@@ -449,7 +445,7 @@ This endpoint returns related awards for IDVs.
             The field results are sorted by.
             + Default: start_date
             + Members
-                + `award_id`
+                + `piid`
                 + `start_date`
                 + `description`
                 + `end_date`
@@ -482,6 +478,7 @@ This endpoint returns related awards for IDVs.
 + award_id: 12178065 (required, number)
     The award id sent in the request.
 + generated_unique_award_id: `CONT_AW_1540_NONE_DJB30605051_NONE` (required, string)
++ piid: `W31P4Q15A0024` (required, string)
 + funding_agency (required, Agency, fixed-type)
 + award_type: `BPA`(required, string)
 + obligated_amount: 242342 (required, number)
@@ -512,8 +509,4 @@ This endpoint returns related awards for IDVs.
     The starting date of the contract in the format `YYYY-MM-DD`
 + period_of_performance_current_end_date: `2005-02-19` (required, string, nullable)
     The ending date of the contract in the format `YYYY-MM-DD`
-+ action_date: `2301-01-20` (required, string)
-    The date the award was awarded on
-+ last_modified_date: `2301-02-20` (required, string)
-+ potential_end_date: `2301-02-23` (required, string)
 + last_date_to_ordere: `2301-02-23` (required, string, nullable)
