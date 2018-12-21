@@ -13,6 +13,7 @@ import RelatedAwards from '../visualizations/overview/RelatedAwards';
 import IdvDates from './IdvDates';
 
 import AwardDescription from '../visualizations/description/AwardDescription';
+import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -49,7 +50,8 @@ export default class IdvContent extends React.Component {
                         dates={this.props.overview.dates} />
                 </div>
                 <div className="award__row">
-                    <div className="award__col" />
+                    <AwardAmounts
+                        award={this.props.overview} />
                     <AwardDescription
                         awardId={this.props.awardId}
                         description={this.props.overview.description}
