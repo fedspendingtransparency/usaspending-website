@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 
 import RootHeader from './header/RootHeader';
 import DetailHeader from './header/DetailHeader';
-
 import ExplorerVisualization from './visualization/ExplorerVisualization';
 import FakeScreens from './FakeScreens';
 import NoAwardsScreen from './NoAwardsScreen';
@@ -64,9 +63,9 @@ export default class DetailContent extends React.Component {
             else if (nextProps.transition === 'end') {
                 this.finishTransition();
             }
-        }
-        else if (nextProps.data !== this.props.data) {
-            this.updateChart(nextProps.data);
+            else if (nextProps.data !== this.props.data) {
+                this.updateChart(nextProps.data);
+            }
         }
     }
 

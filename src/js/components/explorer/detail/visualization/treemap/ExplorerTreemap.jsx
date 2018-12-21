@@ -39,7 +39,7 @@ export default class ExplorerTreemap extends React.Component {
         this.selectedCell = this.selectedCell.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.buildVirtualChart(this.props);
     }
 
