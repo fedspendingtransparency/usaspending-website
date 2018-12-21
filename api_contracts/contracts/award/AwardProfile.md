@@ -482,8 +482,12 @@ This endpoint returns related awards for IDVs.
 + funding_agency (required, Agency, fixed-type)
 + award_type: `BPA`(required, string)
 + obligated_amount: 242342 (required, number)
-+ period_of_performance (required, PerformancePeriod, fixed-type)
 + description: `reerwrawa` (required, string, nullable)
++ period_of_performance_start_date: `2004-02-19` (required, string, nullable)
+    The starting date of the contract in the format `YYYY-MM-DD`
++ period_of_performance_current_end_date: `2005-02-19` (required, string, nullable)
+    The ending date of the contract in the format `YYYY-MM-DD`
++ last_date_to_order: `2301-02-23` (required, string, nullable)
 
 ## PageMetaDataObject (object)
 + page: 1 (required, number)
@@ -503,10 +507,3 @@ This endpoint returns related awards for IDVs.
 ## SubTierAgency (object)
 + name: `Department of Navy` (required, string, nullable)
 + abbreviation: `DON` (required, string, nullable)
-
-## PerformancePeriod
-+ period_of_performance_start_date: `2004-02-19` (required, string, nullable)
-    The starting date of the contract in the format `YYYY-MM-DD`
-+ period_of_performance_current_end_date: `2005-02-19` (required, string, nullable)
-    The ending date of the contract in the format `YYYY-MM-DD`
-+ last_date_to_ordere: `2301-02-23` (required, string, nullable)
