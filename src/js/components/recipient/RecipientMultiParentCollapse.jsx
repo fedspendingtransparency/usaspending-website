@@ -9,9 +9,6 @@ import PropTypes from 'prop-types';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    topLink: PropTypes.string,
-    topName: PropTypes.string,
-    topDuns: PropTypes.string,
     parents: PropTypes.array
 };
 
@@ -32,25 +29,31 @@ export default class RecipientMultiParentCollapse extends React.Component {
         });
     }
     renderMultipleParents() {
-        // {this.props.parents}
-        // TODO: Refactor out inline style
         const drawnArray = [];
-        this.props.parents.forEach((value) => {
+        for (let i = 1; i < this.props.parents.length; i++) {
+            const currentValue = this.props.parents[i];
             drawnArray.push(
                 <a
-                    style={{ display: 'block' }}
-                    key={value.parent_duns}
-                    href={`#/recipient/${value.parent_id}`}>
-                    {value.parent_name} {value.parent_duns}
+                    className="recipient-overview__multiparents"
+                    key={currentValue.parent_duns}
+                    href={`#/recipient/${currentValue.parent_id}`}>
+                    {currentValue.parent_name}
+                    {currentValue.parent_duns ? `(${currentValue.parent_duns})` : ''}
                 </a>
             );
-        });
+        }
         return drawnArray;
     }
 
+    // TODO: Swap the "show" button to hide when dropdown is open
 
     render() {
         const isSingleParent = this.props.parents.length < 2;
+        const initialParent = this.props.parents[0];
+        let initialDuns = '';
+        if (initialParent.parent_duns) {
+            initialDuns = `(${initialParent.parent_duns})`;
+        }
         return (
             <div className="recipient-overview__parent">
                 {
@@ -68,11 +71,19 @@ export default class RecipientMultiParentCollapse extends React.Component {
                     isSingleParent ?
                         <a
                             className="recipient-overview__parent-link"
-                            href={this.props.topLink}>
-                            {this.props.topName} {this.props.topDuns}
+                            href={`#/recipient/${initialParent.parent_id}`}>
+                            {initialParent.parent_name} {initialDuns}
                         </a> :
-                        <div className={this.state.open ? '' : 'hide'}>
-                            {this.renderMultipleParents()}
+                        <div>
+                            <a
+                                key={initialDuns}
+                                className="recipient-overview__multiparents"
+                                href={`#/recipient/${initialParent.parent_id}`}>
+                                {initialParent.parent_name} {initialDuns}
+                            </a>
+                            <div className={this.state.open ? '' : 'hide'}>
+                                {this.renderMultipleParents()}
+                            </div>
                         </div>
                 }
                 {
@@ -80,7 +91,7 @@ export default class RecipientMultiParentCollapse extends React.Component {
                         '' :
                         <button
                             className="usa-button-link"
-                            onClick={this.collapse}>Show {this.props.parents.length} more
+                            onClick={this.collapse}>Show {this.props.parents.length - 1} more
                         </button>
                 }
             </div>

@@ -23,6 +23,9 @@
 			a {
 				width: fit-content;
 			}
+			.recipient-overview__multiparents {
+				display: block;
+			}
             .recipient-overview__parent-link {
                 font-weight: $font-semibold;
                 color: $color-primary;

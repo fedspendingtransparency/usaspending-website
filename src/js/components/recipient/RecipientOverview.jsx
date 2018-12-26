@@ -31,14 +31,7 @@ export default class RecipientOverview extends React.Component {
                     Child Recipient
                 </div>
             );
-            let parentDuns = '';
-            if (recipient.parentDuns) {
-                parentDuns = `(${recipient.parentDuns})`;
-            }
             parent = (<RecipientMultiParentCollapse
-                topLink={`#/recipient/${recipient.parentId}`}
-                topName={recipient.parentName}
-                topDuns={parentDuns}
                 parents={recipient.parents} />);
         }
         else if (recipient.level === 'P') {
