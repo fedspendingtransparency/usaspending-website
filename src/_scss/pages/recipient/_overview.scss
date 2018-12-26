@@ -14,6 +14,15 @@
 		}
         .recipient-overview__parent {
             font-size: $small-font-size;
+			svg {
+			    width: 13px;
+			    top: 2px;
+			    margin-left: 2px;
+			    position: relative;
+			}
+			a {
+				width: fit-content;
+			}
             .recipient-overview__parent-link {
                 font-weight: $font-semibold;
                 color: $color-primary;

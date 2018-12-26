@@ -17,6 +17,7 @@ const BaseRecipientOverview = {
         this.parentName = data.parent_name || '';
         this.parentDuns = data.parent_duns || '';
         this.parentId = data.parent_id || '';
+        this.parents = data.parents || [];
         this._totalAmount = parseFloat(data.total_transaction_amount) || 0;
         this._totalTransactions = parseFloat(data.total_transactions) || 0;
         this._businessTypes = data.business_types || [];
