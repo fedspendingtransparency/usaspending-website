@@ -1,0 +1,27 @@
+.tooltip-popover-container {
+  cursor: default;
+  display: inline-block;
+  position: relative;
+
+  .tooltip-popover {
+    background-color: $color-white;
+    border-radius: 5px;
+    bottom: 25px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    color: $color-base;
+    display: none;
+    left: -130px;
+    font-weight: 400;
+    padding: 7px 10px;
+    position: absolute;
+    width: 415px;
+    z-index: 4;
+    text-align: left;
+  }
+
+  &:hover {
+      .tooltip-popover {
+        display: block;
+      }
+    }
+}

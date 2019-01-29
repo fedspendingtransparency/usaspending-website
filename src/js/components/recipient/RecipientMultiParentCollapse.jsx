@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import { InfoCircle, AngleDown } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     parents: PropTypes.array
@@ -45,8 +45,6 @@ export default class RecipientMultiParentCollapse extends React.Component {
         return drawnArray;
     }
 
-    // TODO: Swap the "show" button to hide when dropdown is open
-
     render() {
         const isSingleParent = this.props.parents.length < 2;
         const initialParent = this.props.parents[0];
@@ -58,23 +56,50 @@ export default class RecipientMultiParentCollapse extends React.Component {
             <div className="recipient-overview__parent">
                 {
                     isSingleParent ?
-                        <span>
+                        // Render only top level parent if there's only 1 parent
+                        <div className="recipient-overview__parent">
                             This recipient is a child of &nbsp;
-                        </span> :
-                        <div>
-                            This recipient is associated with multiple parents in the dataset:
-                            <InfoCircle /> &nbsp;
+                            <a
+                                className="recipient-overview__parent-link"
+                                href={`#/recipient/${initialParent.parent_id}`}>
+                                {initialParent.parent_name} {initialDuns}
+                            </a>
                         </div>
+                        :
+                        // Render top level parent, then allow hide/show of other parents
+                        <div className="recipient-overview__parent">
+                            This recipient is associated with multiple parents in the dataset:
+                            <span className="tooltip-popover-container">
+                                <InfoCircle />
+                                <span className="tooltip-popover above">
+                                    <div>
+                                        <InfoCircle />
+                                    </div>
+                                    <div>
+                                        <p className="title">Explanation of Multiple Parents</p>
+                                        <p className="title">
+                                            This recipient is asssociated with multiple parents in the dataset.
+                                            Among other cases, this could result from:
+                                        </p>
 
-                }
-                {
-                    isSingleParent ?
-                        <a
-                            className="recipient-overview__parent-link"
-                            href={`#/recipient/${initialParent.parent_id}`}>
-                            {initialParent.parent_name} {initialDuns}
-                        </a> :
-                        <div>
+                                        <p>
+                                            1) A legal entity was bought or sold to another legal entity
+                                        </p>
+                                        <p>
+                                            2) An internal restructuring of large company caused a legal entity
+                                            to list another parent
+                                        </p>
+                                        <p>
+                                            3) A new entity was created to be used solely as the parent legal
+                                            entity for a large organization
+                                        </p>
+                                        <p>
+                                            4) Data entry errors of parent information in SAM.gov or Dun and
+                                            Bradstreet that were not immediately corrected
+                                        </p>
+                                    </div>
+                                </span>
+                            </span> &nbsp;
                             <a
                                 key={initialDuns}
                                 className="recipient-overview__multiparents"
@@ -84,15 +109,14 @@ export default class RecipientMultiParentCollapse extends React.Component {
                             <div className={this.state.open ? '' : 'hide'}>
                                 {this.renderMultipleParents()}
                             </div>
+                            <button className="usa-button-link" onClick={this.collapse}>
+                                {
+                                    this.state.open ?
+                                        <span>Hide <AngleDown /></span> :
+                                        <span>Show {this.props.parents.length - 1} more</span>
+                                }
+                            </button>
                         </div>
-                }
-                {
-                    isSingleParent ?
-                        '' :
-                        <button
-                            className="usa-button-link"
-                            onClick={this.collapse}>Show {this.props.parents.length - 1} more
-                        </button>
                 }
             </div>
         );
