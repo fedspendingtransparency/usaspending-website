@@ -9,37 +9,37 @@ These endpoints are used to power USAspending.gov's award profile pages. This da
 
 These endpoints support the individual Award pages that display data for a specific award type.
 
-## Award [/api/v2/awards/{award_id}]
+## Awards [/api/v2/awards/{award_id}/]
 
 This endpoint returns a list of data that is associated with the award profile page.
 
 + Parameters
-    + award_id: `25764264` (required, string) 
+    + award_id: `TEST` (required, string)
         Accepts the v2 generated award hash or internal database id.
 
 ### Award [GET]
 
 + Request A request with a contract id (application/json)
-    + Attributes
-        + award_id: `25764264`
+    + Parameters
+        + `award_id`: `CONT_AW_9700_-NONE-_SP045003WG347_-NONE-`
 
 + Response 200 (application/json)
     + Attributes (ContractResponse)
 
 + Request A request with a financial assistance id (application/json)
-     + Attributes
-        + award_id: `42954959`
+    + Parameters
+        + `award_id`: `ASST_AW_1665_0000000000001828_-NONE-`
 
 + Response 200 (application/json)
     + Attributes (FinancialAssistanceResponse)
 
 + Request A request with an IDV id (application/json)
-    + Attributes
-        + award_id: `6657452ew23`
+    + Parameters
+        + `award_id`: `CONT_AW_9700_-NONE-_N0018918D0057_-NONE-`
 
 + Response 200 (application/json)
     + Attributes (IDVResponse)
-    
+
 # Data Structures
 
 ## ContractResponse (object)
@@ -152,13 +152,13 @@ This endpoint returns a list of data that is associated with the award profile p
 + address_line3 (required, string, nullable)
 + foreign_province (required, string, nullable)
 + city_name: `McLean` (required, string, nullable)
-+ county_name `Fairfax` (required, string, nullable)
++ county_name: `Fairfax` (required, string, nullable)
 + state_code: `VA` (required, string, nullable)
 + zip5: `22102` (required, string, nullable)
 + zip4 (required, string, nullable)
 + foreign_postal_code (required, string, nullable)
 + country_name (required, string, nullable)
-+ location_country_code `TW` (required, string, nullable)
++ location_country_code: `TW` (required, string, nullable)
 + congressional_code: `05` (required, string, nullable)
 
 ## ContractDetails
@@ -323,7 +323,7 @@ This endpoint returns a list of transactions, their amount, type, action date, a
         + results (array[TransactionResult], fixed-type)
         + page_metadata (PageMetaDataObject)
 
-## Financial System Details [/api/v2/accounts/awards]
+## Financial System Details [/api/v2/accounts/awards/]
 
 This endpoint returns financial accounts by award.
 
@@ -422,7 +422,7 @@ This endpoint returns financial accounts by award.
 
 These endpoints support IDVs only.
 
-## Award Amounts [/api/v2/awards/idvs/amounts/{award_id}]
+## Award Amounts [/api/v2/awards/idvs/amounts/{award_id}/]
 
 This endpoint returns aggregated award amounts for IDVs.
 
