@@ -40,7 +40,7 @@ export default class ContractContent extends React.Component {
                     </div>
                 </div>
 
-                <div className="award__agencyAdditional" id="award-additional-information">
+                <div className="agency-additional" id="award-additional-information">
                     <AdditionalInfo
                         overview={this.props.overview} />
                 </div>

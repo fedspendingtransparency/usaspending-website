@@ -9,37 +9,37 @@ These endpoints are used to power USAspending.gov's award profile pages. This da
 
 These endpoints support the individual Award pages that display data for a specific award type.
 
-## Award [/api/v2/awards/{award_id}]
+## Awards [/api/v2/awards/{award_id}/]
 
 This endpoint returns a list of data that is associated with the award profile page.
 
 + Parameters
-    + award_id: `25764264` (required, string) 
+    + award_id: `TEST` (required, string)
         Accepts the v2 generated award hash or internal database id.
 
 ### Award [GET]
 
 + Request A request with a contract id (application/json)
-    + Attributes
-        + award_id: `25764264`
+    + Parameters
+        + `award_id`: `CONT_AW_9700_-NONE-_SP045003WG347_-NONE-`
 
 + Response 200 (application/json)
     + Attributes (ContractResponse)
 
 + Request A request with a financial assistance id (application/json)
-     + Attributes
-        + award_id: `42954959`
+    + Parameters
+        + `award_id`: `ASST_AW_1665_0000000000001828_-NONE-`
 
 + Response 200 (application/json)
     + Attributes (FinancialAssistanceResponse)
 
 + Request A request with an IDV id (application/json)
-    + Attributes
-        + award_id: `6657452ew23`
+    + Parameters
+        + `award_id`: `CONT_AW_9700_-NONE-_N0018918D0057_-NONE-`
 
 + Response 200 (application/json)
     + Attributes (IDVResponse)
-    
+
 # Data Structures
 
 ## ContractResponse (object)
@@ -80,8 +80,9 @@ This endpoint returns a list of data that is associated with the award profile p
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
     Null if the IDV has no parent
-+ parent_generated_unique_award_id: `7757452ew25` (required, string, nullable)
++ parent_generated_unique_award_id: `CONT_AW_9700_4730_W56HZV10AA913_GS10F0243K` (required, nullable)
     Null if the IDV has no parent
++ parent_award (required, ParentIDVDetails, fixed-type, nullable)
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
 + awarding_agency (required, Agency, fixed-type)
@@ -93,13 +94,24 @@ This endpoint returns a list of data that is associated with the award profile p
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
 + executive_details (required, Executive, fixed-type)
-
++ total_obligation: 2324 (required, number, nullable)
++ base_exercised_options_val: 123 (required, number, nullable)
++ base_and_all_options_value: 24242432 (required, number)
+    The ceiling and amount of the award
 
 ## Agency (object)
 + id: 123 (required, number)
 + toptier_agency (required, TopTierAgency, nullable)
 + subtier_agency (required, SubTierAgency, nullable)
 + office_agency_name: `STRATEGIC SYSTEMS` (required, string, nullable)
+
+## ParentIDVDetails (object)
++ award_id: 5738 (required, number, nullable)
++ idv_type_description: `test` (required, string, nullable)
++ type_of_idc_description: `r3w` (required, string, nullable)
++ agency_id: `123` (required, string)
++ multiple_or_single_aw_desc: `something` (required, string)
++ piid: `345` (required, string)
 
 ## TopTierAgency (object)
 + name: `Department of Defense` (required, string, nullable)
@@ -131,8 +143,8 @@ This endpoint returns a list of data that is associated with the award profile p
 ## IdvDates
 + start_date: `2004-02-19` (required, string)
     The starting date of the idv in the format `YYYY-MM-DD`
-+ last_modified_date: `2017-02-20` (required, string)
-+ end_date: `2021-01-20` (required, string)
++ last_modified_date: `2301-02-20` (required, string)
++ end_date: `2301-01-20` (required, string)
 
 ## Location
 + address_line1: `123 Sesame St` (required, string, nullable)
@@ -140,13 +152,13 @@ This endpoint returns a list of data that is associated with the award profile p
 + address_line3 (required, string, nullable)
 + foreign_province (required, string, nullable)
 + city_name: `McLean` (required, string, nullable)
-+ county_name `Fairfax` (required, string, nullable)
++ county_name: `Fairfax` (required, string, nullable)
 + state_code: `VA` (required, string, nullable)
 + zip5: `22102` (required, string, nullable)
 + zip4 (required, string, nullable)
 + foreign_postal_code (required, string, nullable)
 + country_name (required, string, nullable)
-+ location_country_code `TW` (required, string, nullable)
++ location_country_code: `TW` (required, string, nullable)
 + congressional_code: `05` (required, string, nullable)
 
 ## ContractDetails
@@ -167,10 +179,12 @@ This endpoint returns a list of data that is associated with the award profile p
 + small_business_competitive: `Yes` (required, string, nullable)
 + fair_opportunity_limi_desc: `test` (optional, string, nullable)
 + product_or_service_code: `t324242` (required, string, nullable)
-+ product_or_service_desc: `423we` (required, string, nullable)
++ product_or_service_co_desc: `423we` (required, string, nullable)
 + naics: `35353` (required, string, nullable)
 + naics_description: `323t2` (required, string, nullable)
 + dod_claimant_program_code: `ERWRWRWR5242-242` (required, string, nullable)
++ dod_aquisition_program: `dod aquisition` (required, string, nullable)
++ information_technology_commercial_item: `commercial item` (required, string, nullable)
 + program_system_or_equipmen: `unknown` (optional, string, nullable)
 + information_technolog_desc: `ERWRWRWR5242-242` (string, nullable)
 + sea_transportation_desc: `seaworld` (string, nullable)
@@ -309,7 +323,7 @@ This endpoint returns a list of transactions, their amount, type, action date, a
         + results (array[TransactionResult], fixed-type)
         + page_metadata (PageMetaDataObject)
 
-## Financial System Details [/api/v2/accounts/awards]
+## Financial System Details [/api/v2/accounts/awards/]
 
 This endpoint returns financial accounts by award.
 
@@ -338,7 +352,7 @@ This endpoint returns financial accounts by award.
         + order: desc (optional, string)
             The direction results are sorted by. `asc` for ascending, `desc` for descending.
             + Default: desc
-            
+
 + Response 200 (application/json)
     + Attributes
         + results (array[FinancialSystemDetailsResult], fixed-type)
@@ -408,7 +422,7 @@ This endpoint returns financial accounts by award.
 
 These endpoints support IDVs only.
 
-## Award Amounts [/api/v2/awards/idvs/amounts/{award_id}]
+## Award Amounts [/api/v2/awards/idvs/amounts/{award_id}/]
 
 This endpoint returns aggregated award amounts for IDVs.
 
@@ -417,7 +431,7 @@ This endpoint returns aggregated award amounts for IDVs.
          Accepts the v2 generated award hash or internal database id.s
 
 ### Award Amounts [GET]
-            
+
 + Response 200 (application/json)
     + Attributes
         + Attributes (AwardAmountsResponse)
