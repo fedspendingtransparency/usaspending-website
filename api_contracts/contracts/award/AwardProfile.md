@@ -431,7 +431,7 @@ This endpoint returns related awards for IDVs.
 
 + Request (application/json)
     + Attributes (object)
-        + award_id: `12178065342fsg` (optional, string)
+        + award_id: `12178065342fsg` (required, string)
             The v2 generated award hash or internal database id.
         + idv: true (optional, boolean)
              Field to request an IDV or a regular contract award
@@ -446,9 +446,9 @@ This endpoint returns related awards for IDVs.
             + Default: start_date
             + Members
                 + `piid`
-                + `start_date`
+                + `period_of_performance_start_date`
                 + `description`
-                + `end_date`
+                + `period_of_performance_current_end_date`
                 + `last_date_to_order`
                 + `funding_agency`
                 + `award_type`
