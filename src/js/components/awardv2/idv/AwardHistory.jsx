@@ -37,7 +37,7 @@ export default class AwardHistory extends React.Component {
                     <span className="award-history__icon">
                         <AwardLoop alt="Award History" />
                     </span>&nbsp;
-                    Award History
+                    Award History for this IDV
                 </div>
                 <hr />
                 <TablesSection
