@@ -489,21 +489,3 @@ This endpoint returns related awards for IDVs.
     The ending date of the contract in the format `YYYY-MM-DD`
 + last_date_to_order: `2301-02-23` (required, string, nullable)
 
-## PageMetaDataObject (object)
-+ page: 1 (required, number)
-+ hasNext: false (required, boolean)
-+ hasPrevious: false (required, boolean)
-
-## Agency (object)
-+ id: 123 (required, number)
-+ toptier_agency (required, TopTierAgency, nullable)
-+ subtier_agency (required, SubTierAgency, nullable)
-+ office_agency_name: `STRATEGIC SYSTEMS` (required, string, nullable)
-
-## TopTierAgency (object)
-+ name: `Department of Defense` (required, string, nullable)
-+ abbreviation: `DOD` (required, string, nullable)
-
-## SubTierAgency (object)
-+ name: `Department of Navy` (required, string, nullable)
-+ abbreviation: `DON` (required, string, nullable)
