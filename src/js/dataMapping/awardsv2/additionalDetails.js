@@ -16,7 +16,7 @@ const additionalDetails = (awardData) => {
             'Contracting Office': awardData.fundingAgency.officeName
         },
         parentAwardDetails: {
-            'Parent Award ID': parentAwardDetails ? parentAwardDetails.awardId : '',
+            'Parent Award ID': parentAwardDetails ? parentAwardDetails.piid : '',
             'IDV Type': parentAwardDetails ? parentAwardDetails.idvType : '',
             'IDC Type': parentAwardDetails ? parentAwardDetails.idcType : '',
             'IDV Agency Identifier': parentAwardDetails ? parentAwardDetails.agencyId : '',
@@ -32,7 +32,7 @@ const additionalDetails = (awardData) => {
         PeriodOfPerformance: {
             'Start Date': periodOfPerformanceData.startDate,
             'Current End Date': periodOfPerformanceData.endDate,
-            'Potential End Date': periodOfPerformanceData.potentialEndDate
+            'Potential End Date': periodOfPerformanceData.lastModifiedDate
         },
         LegislativeMandates: {
             'Clinger-Cohen Act Compliant': awardData.additionalDetails.clingerCohenAct,

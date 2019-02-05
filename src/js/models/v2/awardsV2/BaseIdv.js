@@ -47,13 +47,17 @@ BaseIdv.populate = function populate(data) {
 
     if (data.place_of_performance) {
         const placeOfPerformanceData = {
+            address1: data.place_of_performance.address_line1,
+            address2: data.place_of_performance.address_line2,
+            address3: data.place_of_performance.address_line3,
+            province: data.place_of_performance.foreign_province,
             city: data.place_of_performance.city_name,
             county: data.place_of_performance.county_name,
             stateCode: data.place_of_performance.state_code,
             state: data.place_of_performance.state_code,
-            province: data.place_of_performance.foreign_province,
             zip5: data.place_of_performance.zip5,
             zip4: data.place_of_performance.zip4,
+            foreignPostalCode: data.place_of_performance.foreign_postal_code,
             congressionalDistrict: data.place_of_performance.congressional_code,
             country: data.place_of_performance.country_name,
             countryCode: data.place_of_performance.location_country_code
