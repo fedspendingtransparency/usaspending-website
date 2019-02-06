@@ -15,7 +15,10 @@
         .recipient-overview__parent {
             font-size: $small-font-size;
 			@import "components/visualizations/tooltip/_csstooltip.scss";
-			.tooltip-popover {
+			.tooltip-popover-container .tooltip-popover {
+				width: 415px;
+				bottom: 35px;
+				left: -203px;
 				svg {
 					width: 20px;
 				}
