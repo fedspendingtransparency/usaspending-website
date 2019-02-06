@@ -76,11 +76,11 @@
                    font-weight: $font-light;
                 }
             }
-
+            
             @import "./visualizations/overview/overview";
             @import "./visualizations/description/description";
         }
-
+        @import "./_awardAdditionalInfo";
         @import "./awardContract";
         @import "./awardFinancialAssistance";
         @import "./awardIdv";

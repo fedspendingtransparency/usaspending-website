@@ -87,7 +87,7 @@ export const mockContract = {
         small_business_competitive: 'Yes',
         fair_opportunity_limi_desc: 'test',
         product_or_service_code: 't324242',
-        product_or_service_desc: '423we',
+        product_or_service_co_desc: '423we',
         naics: '35353',
         naics_description: null,
         dod_claimant_program_code: 'ERWRWRWR5242-242',
@@ -237,6 +237,14 @@ export const mockIdv = {
         recipient_parent_name: 'HoneyWell',
         business_categories_name: ['Testing 1', 'Testing 2']
     },
+    parent_award: {
+        award_id: 5738,
+        idv_type_description: "test",
+        type_of_idc_description: "r3w",
+        agency_id: "123",
+        multiple_or_single_aw_desc: "something",
+        piid: "345"
+    },
     idv_dates: {
         start_date: '2004-02-19',
         last_modified_date: '2301-02-20',
@@ -275,7 +283,7 @@ export const mockIdv = {
         small_business_competitive: 'Yes',
         fair_opportunity_limi_desc: 'test',
         product_or_service_code: 't324242',
-        product_or_service_desc: '423we',
+        product_or_service_co_desc: '423we',
         naics: '35353',
         naics_description: null,
         dod_claimant_program_code: 'ERWRWRWR5242-242',

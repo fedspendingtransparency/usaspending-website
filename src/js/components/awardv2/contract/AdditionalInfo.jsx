@@ -6,7 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { InfoCircle, Calendar } from 'components/sharedComponents/icons/Icons';
+import { InfoCircle, Calendar, Agency } from 'components/sharedComponents/icons/Icons';
+
+import additionalDetails from 'dataMapping/awardsv2/additionalDetails';
 
 import Accordion from './Accordion';
 
@@ -27,69 +29,7 @@ export default class AdditionalInfo extends React.Component {
     }
     render() {
         const awardData = this.props.overview;
-        const data = {
-            parentAwardDetails: {
-                'Parent Award ID': awardData.parentAward,
-                'IDV Type': awardData.additionalDetails.idvType,
-                'IDC Type': awardData.additionalDetails.idcType,
-                'IDV Agency Identifier': awardData.additionalDetails.idvAgencyId,
-                'Multiple Or Single Award IDV': awardData.additionalDetails.multipleIdv
-            },
-            PlaceOfPerformance: {
-                City: awardData.placeOfPerformance._city,
-                State: awardData.placeOfPerformance._state,
-                County: awardData.placeOfPerformance._county,
-                'Zip Code': awardData.placeOfPerformance._zip,
-                'Congressional District': awardData.placeOfPerformance._congressionalDistrict
-            },
-            PeriodOfPerformance: {
-                'Start Date': awardData.periodOfPerformance.startDate,
-                'Current End Date': awardData.periodOfPerformance.endDate,
-                'Potential End Date': awardData.periodOfPerformance.potentendDate
-            },
-            LegislativeMandates: {
-                'Clinger-Cohen Act Compliant': awardData.additionalDetails.clingerCohenAct,
-                'Subject to Construction Wage Rate Requirements': awardData.additionalDetails.constructionWageRateReq,
-                'Subject to Labor Standards': awardData.additionalDetails.laborStandards,
-                'Subject to Materials,Supplies, Articles & Equipment': awardData.additionalDetails.materialSuppliesArticlesEquip
-            },
-            AquisitionDetails: {
-                'Product Service Code (PSC)': awardData.additionalDetails.pscCode,
-                'NAICS Code': awardData.additionalDetails.naicsCode,
-                'DoD Claimant Code': awardData.additionalDetails.dodClaimantCode,
-                'DOD Aquisition Program': awardData.unknownplaceholder,
-                'Information Technology Commercial Item': awardData.unknownplaceholder,
-                Category: awardData.unknownplaceholder,
-                'Sea Transportation': awardData.additionalDetails.seaTransport
-            },
-            CompetitionDetails: {
-                'Solicitation ID': awardData.additionalDetails.solicitationId,
-                'Solicitation Procedures': awardData.additionalDetails.solicitationProcedures,
-                'Number of Offers Received': awardData.additionalDetails.numberOffers,
-                'Extent Completed': awardData.additionalDetails.extentCompeted,
-                'Not Completed Reason': awardData.additionalDetails.notCompeted,
-                'Set-Aside Type': awardData.additionalDetails.setAsideType,
-                'Commercial Item Aquisition Procedures': awardData.additionalDetails.commercialAcquisitionProcedures,
-                'Commercial Item Test Program': awardData.additionalDetails.commercialTestProgram,
-                'Evaluated Preference': awardData.additionalDetails.evaluatedPreference,
-                'Fed Biz Opps': awardData.additionalDetails.fedBizOpps,
-                'Small Business Competetiveness Demonstration': awardData.additionalDetails.smallBusinessCompetitivenessDemo,
-                Program: awardData.additionalDetails.programAcronym
-            },
-            AdditionalDetails: {
-                'Cost or Pricing Data': awardData.additionalDetails.costOrPricingData,
-                'Domestic or Foreign Entity': awardData.additionalDetails.domesticForeign,
-                'Fair Opportunity Limited Sources': awardData.additionalDetails.fairOpportunityLimitedSources,
-                'Interagency Contracting Authority': awardData.additionalDetails.interagencyContactingAuthority,
-                'Major Program': awardData.additionalDetails.majorProgram,
-                'Price Evaluation Adjustment Preference Percent Difference': awardData.additionalDetails.priceEvaluationAdjustmentPreference,
-                'Program Acronym': awardData.additionalDetails.programAcronym,
-                'Subcontracting Plan': awardData.additionalDetails.subcontractingPlan,
-                'Multi Year Contract': awardData.additionalDetails.multiYearContract,
-                'Purchase Card as Payment Method': awardData.additionalDetails.purchaseCardAsPaymentMethod,
-                'Consolidated Contract': awardData.additionalDetails.consolidated
-            }
-        };
+        const data = additionalDetails(this.props.overview);
         return (
             <div className="additionalInfo-wrapper">
                 <div className="award__row">
@@ -116,6 +56,11 @@ export default class AdditionalInfo extends React.Component {
                     <div className="award__col">
                         <Accordion
                             globalToggle={this.state.globalToggle}
+                            accordionName="Agency Details"
+                            accordionIcon={<Agency />}
+                            accordionData={data.agencyDetails} />
+                        <Accordion
+                            globalToggle={this.state.globalToggle}
                             accordionName="Parent Award Details"
                             accordionIcon={<img src="img/award-summary/parent-award-details.png" alt="Parent Award Details" />}
                             accordionData={data.parentAwardDetails} />
@@ -131,7 +76,7 @@ export default class AdditionalInfo extends React.Component {
                             accordionData={data.PeriodOfPerformance} />
                         <Accordion
                             globalToggle={this.state.globalToggle}
-                            accordionName="Lesgislative Mandates"
+                            accordionName="Legislative Mandates"
                             accordionIcon={<img src="img/award-summary/legislative-mandates.png" alt="Lesgislative Mandates" />}
                             accordionData={data.LegislativeMandates} />
                         <Accordion
