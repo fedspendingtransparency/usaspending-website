@@ -7,7 +7,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { RecipientTimeVisualizationSectionContainer } from
-        'containers/recipient/RecipientTimeVisualizationSectionContainer';
+    'containers/recipient/RecipientTimeVisualizationSectionContainer';
 
 import { mockActions, mockRedux, mockTimes, mockYears, mockQuarters, mockMonths, mockTrendline } from './mockData';
 
@@ -95,7 +95,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
                 rawLabels: [
                     { period: 'Q3', year: 'FY 1979' },
                     { period: 'Q4', year: 'FY 1979' },
-                    {period: 'Q1', year: 'FY 1980'}
+                    { period: 'Q1', year: 'FY 1980' }
                 ]
             };
 
@@ -135,21 +135,21 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
         });
     });
 
-    describe('parseTrendlineData', () => {
-       it('should set the state to the returned new award count values', () => {
-           // mount the container
-           const container =
-               shallow(<RecipientTimeVisualizationSectionContainer
-                   {...mockRedux}
-                   {...mockActions} />);
+    describe("parseTrendlineData", () => {
+        it("should set the state to the returned new award count values", () => {
+            // mount the container
+            const container = shallow (
+                <RecipientTimeVisualizationSectionContainer
+                    {...mockRedux}
+                    {...mockActions} />);
 
-           container.instance().parseTrendlineData(mockTrendline);
+            container.instance().parseTrendlineData(mockTrendline);
 
-           // validate the state contains the correctly parsed values
-           const expected = [25, 45, 15];
+            // validate the state contains the correctly parsed values
+            const expected = [25, 45, 15];
 
-           expect(container.state().zSeries).toEqual(expected);
-       });
+            expect(container.state().zSeries).toEqual(expected);
+        });
     });
 
     describe('generateTime', () => {

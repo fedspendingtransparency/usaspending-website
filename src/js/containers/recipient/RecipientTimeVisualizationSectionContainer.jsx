@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import moment from 'moment';
 
 import * as recipientActions from 'redux/actions/recipient/recipientActions';
 
@@ -84,10 +85,19 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
 
         const earliestYear = FiscalYearHelper.earliestFiscalYear;
         const thisYear = FiscalYearHelper.currentFiscalYear();
+        const startDate = FiscalYearHelper.convertFYToDateRange(earliestYear)[0];
+        let endDate = FiscalYearHelper.convertFYToDateRange(thisYear)[1];
+
+        if (this.state.visualizationPeriod !== 'fiscal_year') {
+            // use the end of this month
+            const endOfMonth = moment().endOf('month');
+            endDate = endOfMonth.format('YYYY-MM-DD');
+        }
+
         const timePeriod = [
             {
-                start_date: FiscalYearHelper.convertFYToDateRange(earliestYear)[0],
-                end_date: FiscalYearHelper.convertFYToDateRange(thisYear)[1]
+                start_date: startDate,
+                end_date: endDate
             }
         ];
 
@@ -135,10 +145,19 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
 
         const earliestYear = FiscalYearHelper.earliestFiscalYear;
         const thisYear = FiscalYearHelper.currentFiscalYear();
+        const startDate = FiscalYearHelper.convertFYToDateRange(earliestYear)[0];
+        let endDate = FiscalYearHelper.convertFYToDateRange(thisYear)[1];
+
+        if (this.state.visualizationPeriod !== 'fiscal_year') {
+            // use the end of this month
+            const endOfMonth = moment().endOf('month');
+            endDate = endOfMonth.format('YYYY-MM-DD');
+        }
+
         const timePeriod = [
             {
-                start_date: FiscalYearHelper.convertFYToDateRange(earliestYear)[0],
-                end_date: FiscalYearHelper.convertFYToDateRange(thisYear)[1]
+                start_date: startDate,
+                end_date: endDate
             }
         ];
 
