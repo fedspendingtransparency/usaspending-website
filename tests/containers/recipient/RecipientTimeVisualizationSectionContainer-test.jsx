@@ -44,6 +44,26 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
         expect(fetchTrendlineData).toHaveBeenCalledTimes(1);
     });
 
+    describe('updateVisualizationPeriod', () => {
+        it('should change the component state and make 2 API calls', () => {
+            const container = mount(<RecipientTimeVisualizationSectionContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            const fetchData = jest.fn();
+            container.instance().fetchData = fetchData;
+
+            const fetchTrendlineData = jest.fn();
+            container.instance().fetchTrendlineData = fetchTrendlineData;
+
+            container.instance().updateVisualizationPeriod('quarter');
+
+            expect(container.state().visualizationPeriod).toEqual('quarter');
+            expect(fetchData).toHaveBeenCalled();
+            expect(fetchTrendlineData).toHaveBeenCalled();
+        });
+    });
+
     describe('parseData', () => {
         it('should properly restructure the API data for the awards over time chart for fiscal year series', () => {
             // mount the container
