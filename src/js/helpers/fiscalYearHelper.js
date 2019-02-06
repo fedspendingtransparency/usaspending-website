@@ -37,6 +37,14 @@ export const defaultFiscalYear = () => {
     // Calculate the configurable delay for Q1 close so that we aren't requesting data
     // for a new FY when no data exists in it yet
     const today = moment();
+
+    // Delay FY 2019 Q1
+    const startDelayRange = moment('02/01/2019', 'MM/DD/YYYY');
+    const endDelayRange = moment('03/20/2019', 'MM/DD/YYYY');
+    if (today.isSameOrAfter(startDelayRange) && today.isSameOrBefore(endDelayRange)) {
+        return 2018;
+    }
+
     const newFiscalYearStartDate = moment()
         .startOf('year')
         .add(quarterCloseWindow, 'days');
