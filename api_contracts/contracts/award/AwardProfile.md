@@ -58,16 +58,17 @@ This endpoint returns a list of data that is associated with the award profile p
 + funding_agency (required, Agency, fixed-type)
 + recipient (required, Recipient, fixed-type)
 + total_obligation (required, number)
-+ base_and_all_options_value: 24242432 (required, number)
++ base_and_all_options: 24242432 (required, number)
     The ceiling and amount of the award
-+ period_of_performance (required, PerformancePeriod, fixed-type)
++ period_of_performance (required, PeriodOfPerformance, fixed-type)
 + place_of_performance (required, Location, fixed-type)
 + latest_transaction_contract_data (required, ContractDetails, fixed-type)
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
 + executive_details (required, Executive, fixed-type)
-+ funding_obligated (required, number, nullable)
++ transaction_obligated_amount: 10700 (required, number, nullable)
 + base_exercised_options (required, number, nullable)
++ date_signed: `2006-01-15` (required, string, nullable)
 
 ## IDVResponse (object)
 + type: `IDV_A` (required, string)
@@ -88,16 +89,17 @@ This endpoint returns a list of data that is associated with the award profile p
 + awarding_agency (required, Agency, fixed-type)
 + funding_agency (required, Agency, fixed-type)
 + recipient (required, Recipient, fixed-type)
-+ idv_dates (required, IdvDates, fixed-type)
++ idv_dates (required, PeriodOfPerformance, fixed-type)
 + place_of_performance (required, Location, fixed-type)
 + latest_transaction_contract_data (required, ContractDetails, fixed-type)
 + subaward_count: 430 (required, number)
 + total_subaward_amount: 35345353453 (required, number)
 + executive_details (required, Executive, fixed-type)
 + total_obligation: 2324 (required, number, nullable)
-+ base_exercised_options_val: 123 (required, number, nullable)
-+ base_and_all_options_value: 24242432 (required, number)
++ base_exercised_options: 123 (required, number, nullable)
++ base_and_all_options: 24242432 (required, number)
     The ceiling and amount of the award
++ date_signed: `2006-01-15` (required, string, nullable)
 
 ## Agency (object)
 + id: 123 (required, number)
@@ -123,29 +125,28 @@ This endpoint returns a list of data that is associated with the award profile p
 
 ## Recipient (object)
 + recipient_name: `Booz Allen Hamilton` (required, string, nullable)
-+ recipient_unique_id: 2424224 (required, number, nullable)
-+ parent_recipient_unique_id: 2424232 (required, number, nullable)
++ recipient_hash: `e4096343-5e8f-352a-f8af-d2a8b0f0ae68-C` (required, string)
++ recipient_unique_id: `2424224` (required, string, nullable)
+    The recipient's DUNS
++ parent_recipient_unique_id: `2424232` (required, string, nullable)
+    The recipient's parent's DUNS
 + location (required, Location, nullable)
-+ recipient_parent_name: `HoneyWell` (string, nullable)
-+ business_categories_name (required, array[string])
-    Name of business catagories in human readable format
+    The recipeint's location
++ parent_recipient_name: `HoneyWell` (string, nullable)
++ business_categories (required, array[string])
+    Names of the recipients' business catagories in human readable format
 
-## PerformancePeriod
-+ period_of_performance_start_date: `2004-02-19` (required, string)
-    The starting date of the contract in the format `YYYY-MM-DD`
-+ period_of_performance_current_end_date: `2005-02-19` (required, string)
-    The ending date of the contract in the format `YYYY-MM-DD`
-+ action_date: `2301-01-20` (required, string)
-    The date the award was awarded on
-+ last_modified_date: `2301-02-20` (required, string)
-+ potential_end_date: `2301-02-23` (required, string)
-+ ordering_period_end_date: `2301-02-23` (required, string, nullable)
-
-## IdvDates
+##PeriodOfPerformance
 + start_date: `2004-02-19` (required, string)
-    The starting date of the idv in the format `YYYY-MM-DD`
++ end_date: `2005-02-19` (required, string)
+    Corresponds to database fields current_end_date for contracts and ordering_period_end_date for IDVs
 + last_modified_date: `2301-02-20` (required, string)
-+ end_date: `2301-01-20` (required, string)
++ potential_end_date: `2301-02-23` (required, string, nullable)
+
+##PeriodOfPerformanceAssistance
++ start_date: `2004-02-19` (required, string)
++ end_date: `2005-02-19` (required, string)
++ last_modified_date: `2301-02-20` (required, string)
 
 ## Location
 + address_line1: `123 Sesame St` (required, string, nullable)
@@ -169,7 +170,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + multiple_or_single_aw_desc: `testing` (required, string, nullable)
 + solicitation_identifier: `DE-2342-323-SOL` (required, string, nullable)
 + solicitation_procedures: `Quote` (required, string, nullable)
-+ number_of_offers_received: `4` (required, number, nullable)
++ number_of_offers_received: `4` (required, string, nullable)
 + extent_competed: `Full` (required, string, nullable)
 + other_than_full_and_o_desc: `none` (required, string, nullable)
 + type_set_aside_description: `No set aside used` (required, string, nullable)
@@ -177,17 +178,17 @@ This endpoint returns a list of data that is associated with the award profile p
 + commercial_item_test_desc: `PROCEDURE NOT USED` (required, string, nullable)
 + evaluated_preference_desc: `NO` (required, string, nullable)
 + fed_biz_opps_description: `No Preference Used` (required, string, nullable)
-+ small_business_competitive: `Yes` (required, string, nullable)
++ small_business_competitive: true (required, boolean)
 + fair_opportunity_limi_desc: `test` (optional, string, nullable)
 + product_or_service_code: `t324242` (required, string, nullable)
-+ product_or_service_co_desc: `423we` (required, string, nullable)
++ product_or_service_desc: `423we` (required, string, nullable)
 + naics: `35353` (required, string, nullable)
 + naics_description: `323t2` (required, string, nullable)
 + dod_claimant_program_code: `ERWRWRWR5242-242` (required, string, nullable)
-+ dod_aquisition_program: `dod aquisition` (required, string, nullable)
-+ information_technology_commercial_item: `commercial item` (required, string, nullable)
-+ program_system_or_equipmen: `unknown` (optional, string, nullable)
-+ information_technolog_desc: `ERWRWRWR5242-242` (string, nullable)
++ dod_acquisition_program_code: `dod123` (required, string, nullable)
++ dod_acquisition_program_description: `dod acquisition` (required, string, nullable)
++ information_technology_commercial_item_category_code: `ERWRWRWR5242-242` (required, string, nullable)
++ information_technology_commercial_item_category: `commercial item` (string, nullable)
 + sea_transportation_desc: `seaworld` (string, nullable)
 + clinger_cohen_act_pla_desc: `NO` (required, string, nullable)
 + construction_wage_rat_desc: `TES` (required, string, nullable)
@@ -231,24 +232,25 @@ This endpoint returns a list of data that is associated with the award profile p
 + cfda_number: `0.434` (required, string, nullable)
 + cfda_title: `Flood Insurance` (required, string, nullable)
 + awarding_agency (required, Agency, fixed-type)
-+ funding_agency (required, Agency, fixed-type)
++ funding_agency (required, Agency, fixed-type, nullable)
 + recipient (required, Recipient, fixed-type)
 + subaward_count: 430 (required, number)
-+ total_subaward_amount: 35345353453 (required, number)
-+ period_of_performance (required, PerformancePeriod, fixed-type)
++ total_subaward_amount: 35345353453 (required, number, nullable)
++ period_of_performance (required, PeriodOfPerformanceAssistance, fixed-type)
 + place_of_performance (required, Location, fixed-type)
 + total_subsidy_cost: 123 (required, number, nullable)
+    null except for loans
 + total_loan_value: 24343 (required, number, nullable)
+    null except for loans
 + total_obligation: 2324 (required, number, nullable)
-+ base_and_all_options_value (required, number)
-+ funding_obligated (required, number, nullable)
++ transaction_obligated amount (required, number, nullable)
+    Used for Funding Obligated on Grants pages
 + base_exercised_options (required, number, nullable)
-+ federal_action_obligation (required, number, nullable)
-    null except for grants
 + non_federal_funding (required, number, nullable)
     null except for grants
 + total_funding (required, number, nullable)
     null except for grants
++ date_signed: `2006-01-15` (required, string, nullable)
 
 # Group Tables
 
@@ -485,7 +487,7 @@ This endpoint returns related awards for IDVs.
 + idv_count: 0 (required, number)
 + contract_count: 0 (required, number)
 + rollup_base_exercised_options_val: 0.00 (required, number)
-+ rollup_base_and_all_options_value: 106321.10 (required, number)
++ rollup_base_and_all_options: 106321.10 (required, number)
 + rollup_total_obligation: 106321.10 (required, number)
 
 ## IDVRelatedAwardsResponse (object)
