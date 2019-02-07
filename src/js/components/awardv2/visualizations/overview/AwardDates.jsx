@@ -21,7 +21,7 @@ export default class AwardDates extends React.Component {
         let popDate = timeRange || '--';
 
         const unformattedEndDate = award.periodOfPerformance._endDate;
-        const unformattedAwardDate = award.dateSigned;
+        const unformattedAwardDate = award._dateSigned;
         const unformattedPotentialEndDate = award.periodOfPerformance._potentialEndDate;
 
         let dateLabel = "";
