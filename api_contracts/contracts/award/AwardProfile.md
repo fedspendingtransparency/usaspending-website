@@ -437,7 +437,7 @@ This endpoint returns aggregated award amounts for IDVs.
     + Attributes
         + Attributes (AwardAmountsResponse)
 
-## IDV Related Awards [/api/v2/awards/idvs/awards]
+## IDV Related Awards [/api/v2/awards/idvs/awards/]
 
 This endpoint returns related awards for IDVs.
 
@@ -455,7 +455,7 @@ This endpoint returns related awards for IDVs.
         + page: 1 (optional, number)
             The page of results to return based on the limit.
             + Default: 1
-        + sort: start_date (optional, enum[string])
+        + sort: `period_of_performance_start_date` (optional, enum[string])
             The field results are sorted by.
             + Default: start_date
             + Members
