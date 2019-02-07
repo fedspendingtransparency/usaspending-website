@@ -8,12 +8,12 @@ import CoreLocation from 'models/v2/CoreLocation';
 
 const BaseAwardRecipient = {
     populate(data) {
-        this.internalId = data.recipient_unique_id || '';
+        this.internalId = data.recipient_hash || '';
         this.name = data.recipient_name || 'Unknown';
         this.duns = data.recipient_unique_id || '--';
         this.parentName = data.recipient_parent_name || '--';
         this.parentDuns = data.parent_recipient_unique_id || '--';
-        this.businessCategories = data.business_categories_name;
+        this.businessCategories = data.business_categories;
 
         // Recipient Location
         let locationData = {};

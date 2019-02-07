@@ -22,17 +22,16 @@ const BaseContractAdditionalDetails = {
         this.commercialTestProgram = data.commercial_item_test_desc || '--';
         this.evaluatedPreference = data.evaluated_preference_desc || '--';
         this.fedBizOpps = data.fed_biz_opps_description || '--';
-        this.smallBusinessCompetitivenessDemo = data.small_business_competitive || '--';
+        this.smallBusinessCompetitive = (data.small_business_competitive && 'Yes') || 'No';
         this.fairOpportunityLimitedSources = data.fair_opportunity_limi_desc || '--';
 
         // Product or Service Details
         this._pscCode = data.product_or_service_code || '';
-        this._pscCodeDescription = data.product_or_service_co_desc || '--';
+        this._pscCodeDescription = data.product_or_service_co_desc || '';
         this._naicsCode = data.naics || '';
         this._naicsDescription = data.naics_description || '';
         this.dodClaimantCode = data.dod_claimant_program_code || '--';
-        this.programSystemOrEquipmentCode = data.program_system_or_equipmen || '--';
-        this.itCommercialCategory = data.information_technolog_desc || '--';
+        this.itCommercialCategory = data.information_technology_commercial_item_category || '--';
         this.seaTransport = data.sea_transportation_desc || '--';
 
         // Legislative Mandates
@@ -54,8 +53,9 @@ const BaseContractAdditionalDetails = {
         this.purchaseCardAsPaymentMethod = data.purchase_card_as_paym_desc || '--';
         this.consolidated = data.consolidated_contract_desc || '--';
         this.contractPriceDesc = data.type_of_contract_pric_desc || '--';
-        this.dodAquisitionProgram = data.dod_aquisition_program || '--';
-        this.InfoTechCommercialItem = data.information_technology_commercial_item || '--';
+        this.dodAcquisitionProgramCode = data.dod_acquisition_program_code || '';
+        this.dodAcquisitionProgramDescription = data.dod_acquisition_program_description || '';
+        this.infoTechCommercialItem = data.information_technology_commercial_item_category_code || '--';
     },
     get pscCode() {
         if (this._pscCode && this._pscCodeDescription) {
@@ -72,6 +72,15 @@ const BaseContractAdditionalDetails = {
         }
         else if (this._naicsCode || this._naicsDescription) {
             return `${this._naicsCode}${this._naicsDescription}`;
+        }
+        return '--';
+    },
+    get dodAcquisitionProgram() {
+        if (this.dodAcquisitionProgramCode && this.dodAcquisitionProgramDescription) {
+            return `${this.dodAcquisitionProgramCode}: ${this.dodAcquisitionProgramDescription}`;
+        }
+        else if (this.dodAcquisitionProgramCode || this.dodAcquisitionProgramDescription) {
+            return `${this.dodAcquisitionProgramCode}${this.dodAcquisitionProgramDescription}`;
         }
         return '--';
     }
