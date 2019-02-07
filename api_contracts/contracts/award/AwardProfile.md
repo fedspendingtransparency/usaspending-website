@@ -513,7 +513,7 @@ This endpoint returns related awards for IDVs.
 + idv_count: 0 (required, number)
 + contract_count: 0 (required, number)
 + rollup_base_exercised_options_val: 0.00 (required, number)
-+ rollup_base_and_all_options: 106321.10 (required, number)
++ rollup_base_and_all_options_value: 106321.10 (required, number)
 + rollup_total_obligation: 106321.10 (required, number)
 
 ## IDVRelatedAwardsResponse (object)
