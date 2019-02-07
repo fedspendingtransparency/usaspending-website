@@ -44,8 +44,8 @@ const additionalDetails = (awardData) => {
             'Product Service Code (PSC)': awardData.additionalDetails.pscCode,
             'NAICS Code': awardData.additionalDetails.naicsCode,
             'DoD Claimant Code': awardData.additionalDetails.dodClaimantCode,
-            'DOD Aquisition Program': awardData.additionalDetails.dodAquisitionProgram,
-            'Information Technology Commercial Item': awardData.additionalDetails.InfoTechCommercialItem,
+            'DOD Acquisition Program': awardData.additionalDetails.dodAcquisitionProgram,
+            'Information Technology Commercial Item': awardData.additionalDetails.infoTechCommercialItem,
             Category: awardData.itCommercialCategory,
             'Sea Transportation': awardData.additionalDetails.seaTransport
         },
@@ -60,7 +60,7 @@ const additionalDetails = (awardData) => {
             'Commercial Item Test Program': awardData.additionalDetails.commercialTestProgram,
             'Evaluated Preference': awardData.additionalDetails.evaluatedPreference,
             'Fed Biz Opps': awardData.additionalDetails.fedBizOpps,
-            'Small Business Competetiveness Demonstration': awardData.additionalDetails.smallBusinessCompetitivenessDemo,
+            'Small Business Competetiveness Demonstration': awardData.additionalDetails.smallBusinessCompetitive,
             Program: awardData.additionalDetails.programAcronym
         },
         AdditionalDetails: {
@@ -82,7 +82,7 @@ const additionalDetails = (awardData) => {
             'Consolidated Contract': awardData.additionalDetails.consolidated,
             'Total Obligation': awardData.additionalDetails.total_obligation,
             'Base Exercised Options': awardData.additionalDetails.base_exercised_options,
-            'Base and All Options Value': awardData.additionalDetails.base_and_all_options_value
+            'Base and All Options Value': awardData.additionalDetails.base_and_all_options
         }
     };
 

@@ -255,7 +255,7 @@ This endpoint returns a list of data that is associated with the award profile p
 + information_technology_commercial_item_category: `commercial item` (string, nullable)
 + sea_transportation_desc: `seaworld` (string, nullable)
 + clinger_cohen_act_pla_desc: `NO` (required, string, nullable)
-+ construction_wage_rat_desc: `TES` (required, string, nullable)
++ construction_wage_rat_desc: `YES` (required, string, nullable)
 + labor_standards_descrip: `NO` (required, string, nullable)
 + materials_supplies_descrip: `YES` (required, string, nullable)
 + cost_or_pricing_data_desc: `No` (required, string, nullable)
