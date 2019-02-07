@@ -35,13 +35,13 @@ export default class GlossarySearchResults extends React.Component {
         this.selectTerm = this.selectTerm.bind(this);
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.groupResults(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.glossary.search.results !== this.props.glossary.search.results) {
-            this.groupResults(nextProps);
+    componentDidUpdate(prevProps) {
+        if (prevProps.glossary.search.results !== this.props.glossary.search.results) {
+            this.groupResults(this.props);
         }
     }
 

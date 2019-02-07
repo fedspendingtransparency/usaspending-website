@@ -57,9 +57,9 @@ export default class DetailsSection extends React.Component {
         window.addEventListener('resize', this.setTableWidth);
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentDidUpdate(prevProps) {
         // check award changed
-        if (this.props.selectedAward.internalId !== nextProps.selectedAward.internalId) {
+        if (this.props.selectedAward.internalId !== prevProps.selectedAward.internalId) {
             // reset the tab
             this.props.clickTab('transaction');
         }

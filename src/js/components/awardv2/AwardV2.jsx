@@ -8,10 +8,13 @@ import PropTypes from 'prop-types';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
+import { find } from 'lodash';
+import { scrollToY } from 'helpers/scrollToHelper';
 
 import SummaryBar from './SummaryBarV2';
 import ContractContent from './contract/ContractContent';
-import FinancialAssitanceContent from './financialAssistance/FinancialAssistanceContent';
+import IdvContent from './idv/IdvContent';
+import FinancialAssistanceContent from './financialAssistance/FinancialAssistanceContent';
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
@@ -19,35 +22,88 @@ import Error from '../sharedComponents/Error';
 
 const propTypes = {
     award: PropTypes.object,
+    awardId: PropTypes.string,
     noAward: PropTypes.bool,
-    inFlight: PropTypes.bool,
-    id: PropTypes.string
+    inFlight: PropTypes.bool
 };
 
+const awardSections = [
+    {
+        section: 'overview',
+        label: 'Overview'
+    },
+    {
+        section: 'additional-information',
+        label: 'Additional Information'
+    }
+];
+
 export default class Award extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            sectionPositions: [],
+            window: {
+                height: 0
+            }
+        };
+
+        this.jumpToSection = this.jumpToSection.bind(this);
+    }
+
+    jumpToSection(section = '') {
+        // we've been provided a section to jump to
+        // check if it's a valid section
+        const matchedSection = find(awardSections, {
+            section
+        });
+
+        if (!matchedSection) {
+            // no matching section
+            return;
+        }
+
+        // scroll to the correct section
+        const sectionDom = document.querySelector(`#award-${section}`);
+
+        if (!sectionDom) {
+            return;
+        }
+
+        const sectionTop = sectionDom.offsetTop - 145;
+        scrollToY(sectionTop, 700);
+    }
+
     render() {
         let content = null;
         let summaryBar = null;
-        const award = this.props.award.selectedAward;
-        if (award) {
+        const overview = this.props.award.overview;
+        if (overview) {
             summaryBar = (
                 <SummaryBar
-                    selectedAward={this.props.award.selectedAward} />
+                    category={overview.category} />
             );
-            if (award.category === "contract") {
+            if (overview.category === 'contract') {
                 content = (
                     <ContractContent
-                        {...this.props}
-                        inFlight={this.props.inFlight}
-                        selectedAward={this.props.award.selectedAward} />
+                        overview={overview}
+                        jumpToSection={this.jumpToSection} />
+                );
+            }
+            else if (overview.category === 'idv') {
+                content = (
+                    <IdvContent
+                        awardId={this.props.awardId}
+                        overview={overview}
+                        jumpToSection={this.jumpToSection} />
                 );
             }
             else {
                 content = (
-                    <FinancialAssitanceContent
-                        {...this.props}
-                        inFlight={this.props.inFlight}
-                        selectedAward={this.props.award.selectedAward} />
+                    <FinancialAssistanceContent
+                        overview={overview}
+                        jumpToSection={this.jumpToSection} />
                 );
             }
         }
@@ -61,6 +117,7 @@ export default class Award extends React.Component {
                 </div>
             );
         }
+
         return (
             <div className="usa-da-award-v2-page">
                 <MetaTags {...MetaTagHelper.awardPageMetaTags} />
@@ -68,7 +125,7 @@ export default class Award extends React.Component {
                 <StickyHeader>
                     {summaryBar}
                 </StickyHeader>
-                <main className={!this.props.noAward ? "award-content" : ""}>
+                <main className={!this.props.noAward ? 'award-content' : ''}>
                     {content}
                 </main>
                 <Footer />

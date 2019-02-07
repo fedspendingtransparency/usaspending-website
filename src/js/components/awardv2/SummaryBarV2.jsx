@@ -9,20 +9,21 @@ import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 
 const propTypes = {
-    selectedAward: PropTypes.object
+    category: PropTypes.string
 };
 
 export default class SummaryBar extends React.Component {
     render() {
-        const award = this.props.selectedAward;
-        const category = startCase(award.category);
+        let title = startCase(this.props.category);
+        if (this.props.category === 'idv') {
+            title = 'Indefinite Delivery Vehicle';
+        }
         return (
             <div className="sticky-header__title">
                 <h1 tabIndex={-1} id="main-focus">
-                    {category}&nbsp;Summary
+                    {title} Summary
                 </h1>
             </div>
-
         );
     }
 }

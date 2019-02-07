@@ -22,13 +22,13 @@ export default class SmartLink extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         this.transformLink(this.props.href);
     }
 
-    componentWillUpdate(nextProps) {
-        if (nextProps !== this.props) {
-            this.transformLink(nextProps.href);
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
+            this.transformLink(this.props.href);
         }
     }
 
