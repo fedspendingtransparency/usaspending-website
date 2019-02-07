@@ -43,63 +43,65 @@ This endpoint returns a list of data that is associated with the award profile p
 # Data Structures
 
 ## ContractResponse (object)
-+ type: `A` (required, string)
 + category: `contract` (required, enum[string])
     + Members
         + contract
-+ generated_unique_award_id: `25764264` (required, string)
++ type: `A` (required, string)
 + type_description: `Definitive Contract` (required, string)
++ generated_unique_award_id: `25764264` (required, string)
 + piid: `W31P4Q15A0024` (required, string)
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
+    null if the contract has no parent
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
++ transaction_obligated_amount: 10700 (required, number, nullable)
++ total_obligation: 30400 (required, number)
++ base_exercised_options: 23000 (required, number, nullable)
++ base_and_all_options: 24242432 (required, number)
+    The ceiling and amount of the award
++ date_signed: `2006-01-15` (required, string, nullable)
++ subaward_count: 430 (required, number)
++ total_subaward_amount: 35345353453 (required, number)
 + awarding_agency (required, Agency, fixed-type)
 + funding_agency (required, Agency, fixed-type)
 + recipient (required, Recipient, fixed-type)
-+ total_obligation (required, number)
-+ base_and_all_options: 24242432 (required, number)
-    The ceiling and amount of the award
 + period_of_performance (required, PeriodOfPerformance, fixed-type)
 + place_of_performance (required, Location, fixed-type)
 + latest_transaction_contract_data (required, ContractDetails, fixed-type)
-+ subaward_count: 430 (required, number)
-+ total_subaward_amount: 35345353453 (required, number)
 + executive_details (required, Executive, fixed-type)
-+ transaction_obligated_amount: 10700 (required, number, nullable)
-+ base_exercised_options (required, number, nullable)
-+ date_signed: `2006-01-15` (required, string, nullable)
 
 ## IDVResponse (object)
-+ type: `IDV_A` (required, string)
 + category: `idv` (required, enum[string])
     + Members
         + idv
-+ generated_unique_award_id: `6657452ew23` (required, string)
++ type: `IDV_A` (required, string)
 + type_description: `Blanket Purchase Agreement` (required, string)
++ generated_unique_award_id: `6657452ew23` (required, string)
 + piid: `W31P4Q15A0024` (required, string)
     Award id
 + parent_award_piid: `1301` (required, string, nullable)
     Null if the IDV has no parent
 + parent_generated_unique_award_id: `CONT_AW_9700_4730_W56HZV10AA913_GS10F0243K` (required, nullable)
     Null if the IDV has no parent
-+ parent_award (required, ParentIDVDetails, fixed-type, nullable)
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
-+ awarding_agency (required, Agency, fixed-type)
-+ funding_agency (required, Agency, fixed-type)
-+ recipient (required, Recipient, fixed-type)
-+ idv_dates (required, PeriodOfPerformance, fixed-type)
-+ place_of_performance (required, Location, fixed-type)
-+ latest_transaction_contract_data (required, ContractDetails, fixed-type)
-+ subaward_count: 430 (required, number)
-+ total_subaward_amount: 35345353453 (required, number)
-+ executive_details (required, Executive, fixed-type)
 + total_obligation: 2324 (required, number, nullable)
 + base_exercised_options: 123 (required, number, nullable)
 + base_and_all_options: 24242432 (required, number)
     The ceiling and amount of the award
 + date_signed: `2006-01-15` (required, string, nullable)
++ subaward_count: 430 (required, number)
++ total_subaward_amount: 35345353453 (required, number)
++ awarding_agency (required, Agency, fixed-type)
++ funding_agency (required, Agency, fixed-type)
++ recipient (required, Recipient, fixed-type)
++ period_of_performance (required, PeriodOfPerformance, fixed-type)
++ place_of_performance (required, Location, fixed-type)
++ latest_transaction_contract_data (required, ContractDetails, fixed-type)
++ executive_details (required, Executive, fixed-type)
++ parent_award (required, ParentIDVDetails, fixed-type, nullable)
+
 
 ## Agency (object)
 + id: 123 (required, number)
@@ -215,42 +217,42 @@ This endpoint returns a list of data that is associated with the award profile p
 + amount: 234242 (required, number)
 
 ## FinancialAssistanceResponse (object)
-+ category: `loan` (required, enum[string])
++ category: `loans` (required, enum[string])
     + Members
         + loans
         + other
         + direct payment
         + grant
 + type: `C` (required, string)
++ type_description: `Some loan` (required, string)
 + generated_unique_award_id: `42954959` (required, string)
++ piid: `W31P4Q15A0024` (required, string)
 + fain: `43533A3` (required, string, nullable)
 + uri: `5341QQ` (required, string, nullable)
-+ type_description: `Some loan` (required, string)
-+ piid: `W31P4Q15A0024` (required, string)
 + description: `ewraijwrw` (required, string, nullable)
++ transaction_obligated_amount: 10700 (required, number, nullable)
+    Used for Funding Obligated on Grants pages
++ total_obligation: 2324 (required, number, nullable)
++ base_exercised_options (required, number, nullable)
++ total_subsidy_cost: 123 (required, number, nullable)
+    null except for loans
++ total_loan_value: 24343 (required, number, nullable)
+    null except for loans
++ non_federal_funding (required, number, nullable)
+    null except for grants
++ total_funding (required, number, nullable)
+    null except for grants
++ date_signed: `2006-01-15` (required, string, nullable)
++ subaward_count: 430 (required, number)
++ total_subaward_amount: 35345353453 (required, number, nullable)
 + cfda_objectives: `Some HTML string` (required, string, nullable)
 + cfda_number: `0.434` (required, string, nullable)
 + cfda_title: `Flood Insurance` (required, string, nullable)
 + awarding_agency (required, Agency, fixed-type)
 + funding_agency (required, Agency, fixed-type, nullable)
 + recipient (required, Recipient, fixed-type)
-+ subaward_count: 430 (required, number)
-+ total_subaward_amount: 35345353453 (required, number, nullable)
 + period_of_performance (required, PeriodOfPerformanceAssistance, fixed-type)
 + place_of_performance (required, Location, fixed-type)
-+ total_subsidy_cost: 123 (required, number, nullable)
-    null except for loans
-+ total_loan_value: 24343 (required, number, nullable)
-    null except for loans
-+ total_obligation: 2324 (required, number, nullable)
-+ transaction_obligated amount (required, number, nullable)
-    Used for Funding Obligated on Grants pages
-+ base_exercised_options (required, number, nullable)
-+ non_federal_funding (required, number, nullable)
-    null except for grants
-+ total_funding (required, number, nullable)
-    null except for grants
-+ date_signed: `2006-01-15` (required, string, nullable)
 
 # Group Tables
 
