@@ -60,14 +60,13 @@ This endpoint returns a list of data that is associated with the award profile p
     null if the contract has no parent
 + description: `ewraijwrw` (required, string, nullable)
     Description of the first transaction for this award
-+ transaction_obligated_amount: 10700 (required, number, nullable)
 + total_obligation: 30400 (required, number)
 + base_exercised_options: 23000 (required, number, nullable)
 + base_and_all_options: 24500 (required, number)
     The ceiling and amount of the award
 + date_signed: `2006-01-15` (required, string, nullable)
 + subaward_count: 430 (required, number)
-+ total_subaward_amount: 35345353453 (required, number)
++ total_subaward_amount: 35345353453 (required, number, nullable)
 + awarding_agency (required, Agency, fixed-type)
 + funding_agency (required, Agency, fixed-type)
 + recipient (required, Recipient, fixed-type)
@@ -106,7 +105,7 @@ This endpoint returns a list of data that is associated with the award profile p
     The ceiling and amount of the award
 + date_signed: `2006-01-15` (required, string, nullable)
 + subaward_count: 430 (required, number)
-+ total_subaward_amount: 35345353453 (required, number)
++ total_subaward_amount: 35345353453 (required, number, nullable)
 + awarding_agency (required, Agency, fixed-type)
 + funding_agency (required, Agency, fixed-type)
 + recipient (required, Recipient, fixed-type)
@@ -137,7 +136,6 @@ This endpoint returns a list of data that is associated with the award profile p
         + `11`
 + type_description: `Direct Loans` (required, string)
 + generated_unique_award_id: `42954959` (required, string)
-+ piid: `W31P4Q15A0024` (required, string)
 + fain: `43533A3` (required, string, nullable)
 + uri: `5341QQ` (required, string, nullable)
 + description: `ewraijwrw` (required, string, nullable)
@@ -208,9 +206,9 @@ This endpoint returns a list of data that is associated with the award profile p
 + potential_end_date: `2301-02-23` (required, string, nullable)
 
 ##PeriodOfPerformanceAssistance
-+ start_date: `2004-02-19` (required, string)
-+ end_date: `2005-02-19` (required, string)
-+ last_modified_date: `2301-02-20` (required, string)
++ start_date: `2004-02-19` (required, string, nullable)
++ end_date: `2005-02-19` (required, string, nullable)
++ last_modified_date: `2301-02-20` (required, string, nullable)
 
 ## Location
 + address_line1: `123 Sesame St` (required, string, nullable)
