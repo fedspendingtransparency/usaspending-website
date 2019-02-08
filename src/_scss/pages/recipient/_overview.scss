@@ -18,12 +18,17 @@
 			.tooltip-popover-container .tooltip-popover {
 				width: 415px;
 				bottom: 35px;
-				left: -203px;
+				left: -200px;
+				font-style: italic;
+				font-size: rem(12);
 				svg {
-					width: 20px;
+					margin-left: 2px;
+					height: rem(15);
+					width: rem(15);
+					fill: $color-gray-medium;
 				}
 				div:first-child {
-					width: 8%;
+					width: 6%;
 					float: left;
 				}
 				div:last-child {
@@ -31,12 +36,17 @@
 					float: left;
 				}
 				.title {
-					font-weight: bold;
+					color: $color-gray-medium;
+					font-weight: $font-semibold;
+					&:first-child {
+						font-style: normal;
+					}
 				}
 
 				p {
 				    line-height: 1.25;
 				    margin-top: 0;
+					margin-bottom: 15px;
 					&:first-child {
 					    margin-top: 3px;
 					}
@@ -45,8 +55,13 @@
 			svg {
 			    width: 13px;
 			    top: 2px;
-			    margin-left: 2px;
+				fill: $color-gray-light;
+			    margin-left: 5px;
 			    position: relative;
+
+				&:hover {
+					fill: $color-gray-medium;
+				}
 			}
 			a {
 				width: fit-content;

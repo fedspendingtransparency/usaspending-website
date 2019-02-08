@@ -78,7 +78,7 @@ export default class RecipientMultiParentCollapse extends React.Component {
                                     <div>
                                         <p className="title">Explanation of Multiple Parents</p>
                                         <p className="title">
-                                            This recipient is asssociated with multiple parents in the dataset.
+                                            This recipient is associated with multiple parents in the dataset.
                                             Among other cases, this could result from:
                                         </p>
 
@@ -86,7 +86,7 @@ export default class RecipientMultiParentCollapse extends React.Component {
                                             1) A legal entity was bought or sold to another legal entity
                                         </p>
                                         <p>
-                                            2) An internal restructuring of large company caused a legal entity
+                                            2) An internal restructuring of a large company caused a legal entity
                                             to list another parent
                                         </p>
                                         <p>
