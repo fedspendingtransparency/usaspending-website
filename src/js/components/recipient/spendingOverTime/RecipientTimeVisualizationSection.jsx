@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
 import TimeVisualizationPeriodButton from 'components/search/visualizations/time/TimeVisualizationPeriodButton';
-import StateTimeVisualization from 'components/state/spendingovertime/StateTimeVisualization';
+import RecipientTimeVisualization from './RecipientTimeVisualization';
 
 const propTypes = {
     data: PropTypes.object,
@@ -96,7 +96,7 @@ export default class RecipientTimeVisualizationSection extends React.Component {
                     </div>
                 </div>
 
-                <StateTimeVisualization
+                <RecipientTimeVisualization
                     visualizationPeriod={this.props.visualizationPeriod}
                     loading={this.props.loading}
                     error={this.props.error}

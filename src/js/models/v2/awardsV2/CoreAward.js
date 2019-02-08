@@ -3,8 +3,8 @@
  * Created by David Trinh 10/9/18
  */
 
-
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { parseDate, formatDate } from './CorePeriodOfPerformance';
 
 const CoreAward = {
     populateCore(data) {
@@ -16,8 +16,9 @@ const CoreAward = {
         this.description = data.description || '--';
         this._subawardTotal = parseFloat(data.subawardTotal) || 0;
         this.subawardCount = parseFloat(data.subawardCount) || 0;
-        this._fundingObligated = parseFloat(data.fundingObligated) || 0;
+        this._totalObligation = parseFloat(data.totalObligation) || 0;
         this._baseExercisedOptions = parseFloat(data.baseExercisedOptions) || 0;
+        this._dateSigned = (data.dateSigned && parseDate(data.dateSigned)) || '';
     },
     get subawardTotal() {
         if (this._subawardTotal >= MoneyFormatter.unitValues.MILLION) {
@@ -26,15 +27,15 @@ const CoreAward = {
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._subawardTotal, 0);
     },
-    get fundingObligated() {
-        if (this._fundingObligated >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._fundingObligated);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._fundingObligated / units.unit, 2)} ${units.longLabel}`;
+    get totalObligation() {
+        if (this._totalObligation >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalObligation / units.unit, 2)} ${units.longLabel}`;
         }
-        return MoneyFormatter.formatMoneyWithPrecision(this._fundingObligated, 0);
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation, 0);
     },
-    get fundingObligatedFormatted() {
-        return MoneyFormatter.formatMoney(this._fundingObligated);
+    get totalObligationFormatted() {
+        return MoneyFormatter.formatMoney(this._totalObligation);
     },
     get baseExercisedOptions() {
         if (this._baseExercisedOptions >= MoneyFormatter.unitValues.MILLION) {
@@ -51,6 +52,12 @@ const CoreAward = {
             return 'loan';
         }
         return this._category;
+    },
+    get dateSigned() {
+        if (this._dateSigned) {
+            return formatDate(this._dateSigned);
+        }
+        return '';
     }
 };
 

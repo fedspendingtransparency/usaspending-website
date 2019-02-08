@@ -14,6 +14,7 @@ import IdvDates from './IdvDates';
 
 import AwardDescription from '../visualizations/description/AwardDescription';
 import AwardAmounts from '../visualizations/amounts/AwardAmounts';
+import AdditionalInfo from '../contract/AdditionalInfo';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -57,6 +58,10 @@ export default class IdvContent extends React.Component {
                         description={this.props.overview.description}
                         naics={this.props.overview.additionalDetails.naicsCode}
                         psc={this.props.overview.additionalDetails.pscCode} />
+                </div>
+                <div className="agency-additional" id="award-additional-information">
+                    <AdditionalInfo
+                        overview={this.props.overview} />
                 </div>
                 <AwardHistory overview={this.props.overview} />
             </div>
