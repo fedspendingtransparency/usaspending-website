@@ -12,7 +12,6 @@ import BaseIdvAdditionalDetails from './additionalDetails/BaseContractAdditional
 import BaseAwardRecipient from './BaseAwardRecipient';
 import BaseParentAwardDetails from './BaseParentAwardDetails';
 
-
 const BaseIdv = Object.create(CoreAward);
 
 BaseIdv.populate = function populate(data) {
@@ -25,7 +24,10 @@ BaseIdv.populate = function populate(data) {
         description: data.description,
         category: data.category,
         subawardTotal: data.total_subaward_amount,
-        subawardCount: data.subaward_count
+        subawardCount: data.subaward_count,
+        totalObligation: data.total_obligation,
+        baseExercisedOptions: data.base_exercised_options,
+        dateSigned: data.date_signed
     };
 
     this.populateCore(coreData);
@@ -67,11 +69,11 @@ BaseIdv.populate = function populate(data) {
         this.placeOfPerformance = placeOfPerformance;
     }
 
-    if (data.idv_dates) {
+    if (data.period_of_performance) {
         const periodOfPerformanceData = {
-            startDate: data.idv_dates.start_date,
-            endDate: data.idv_dates.end_date,
-            lastModifiedDate: data.idv_dates.last_modified_date
+            startDate: data.period_of_performance.start_date,
+            endDate: data.period_of_performance.end_date,
+            lastModifiedDate: data.period_of_performance.last_modified_date
         };
         const periodOfPerformance = Object.create(CorePeriodOfPerformance);
         periodOfPerformance.populateCore(periodOfPerformanceData);

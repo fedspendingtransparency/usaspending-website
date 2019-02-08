@@ -1,4 +1,3 @@
-
 export const mockContract = {
     type: 'A',
     category: 'contract',
@@ -7,8 +6,9 @@ export const mockContract = {
     piid: '34242',
     generated_unique_award_id: '6657452ew23',
     parent_award_piid: '1301',
+    date_signed: '2005-02-18',
     total_obligation: 123231313,
-    base_and_all_options_value: 234234.00,
+    base_and_all_options: 234234.00,
     subaward_count: 2342334,
     total_subaward_amount: 3242342,
     base_exercised_options: 234242,
@@ -27,6 +27,7 @@ export const mockContract = {
     funding_agency: null,
     recipient: {
         recipient_name: 'Booz Allen Hamilton',
+        recipient_hash: '1023984-C',
         recipient_unique_id: 123223,
         parent_recipient_unique_id: 234242,
         location: {
@@ -45,12 +46,11 @@ export const mockContract = {
             congressional_code: null
         },
         recipient_parent_name: 'HoneyWell',
-        business_categories_name: ['Testing 1', 'Testing 2']
+        business_categories: ['Testing 1', 'Testing 2']
     },
     period_of_performance: {
-        period_of_performance_start_date: '2004-02-19',
-        period_of_performance_current_end_date: '2005-02-19',
-        action_date: '2005-02-18',
+        start_date: '2004-02-19',
+        end_date: '2005-02-19',
         last_modified_date: '2018-08-29',
         potential_end_date: '2027-04-30'
     },
@@ -84,15 +84,14 @@ export const mockContract = {
         commercial_item_test_desc: 'PROCEDURE NOT USED',
         evaluated_preference_desc: 'NO',
         fed_biz_opps_description: 'No Preference Used',
-        small_business_competitive: 'Yes',
+        small_business_competitive: true,
         fair_opportunity_limi_desc: 'test',
         product_or_service_code: 't324242',
         product_or_service_co_desc: '423we',
         naics: '35353',
         naics_description: null,
         dod_claimant_program_code: 'ERWRWRWR5242-242',
-        program_system_or_equipmen: 'unknown',
-        information_technolog_desc: 'ERWRWRWR5242-242',
+        information_technology_commercial_item_category: 'ERWRWRWR5242-242',
         sea_transportation_desc: 'seaworld',
         clinger_cohen_act_pla_desc: null,
         construction_wage_rat_desc: 'TES',
@@ -131,6 +130,7 @@ export const mockLoan = {
     fain: '342332',
     generated_unique_award_id: '6657452ew23',
     parent_award_piid: '1301',
+    date_signed: '2005-02-18',
     cfda_objectives: 'Testing testing testing',
     cfda_number: '0.434',
     cfda_title: 'Flood Insurance',
@@ -154,8 +154,8 @@ export const mockLoan = {
     funding_agency: null,
     recipient: {
         recipient_name: 'Booz Allen Hamilton',
-        recipient_unique_id: 123223,
-        parent_recipient_unique_id: 234242,
+        recipient_unique_id: '123223',
+        parent_recipient_unique_id: '234242',
         location: {
             address_line1: '1515 EUBANK BLVD. SE',
             address_line2: 'P.O. BOX 5800, MS-0180, 87185-0180',
@@ -171,12 +171,12 @@ export const mockLoan = {
             location_country_code: null,
             congressional_code: null
         },
-        recipient_parent_name: 'HoneyWell',
+        parent_recipient_name: 'HoneyWell',
         business_categories_name: ['Testing 1', 'Testing 2']
     },
     period_of_performance: {
-        period_of_performance_start_date: '2004-02-19',
-        period_of_performance_current_end_date: '2005-02-19'
+        start_date: '2004-02-19',
+        end_date: '2005-02-19'
     },
     place_of_performance: {
         address_line1: '1515 EUBANK BLVD. SE',
@@ -204,6 +204,7 @@ export const mockIdv = {
     parent_award_piid: '1301',
     parent_generated_unique_award_id: '',
     description: 'ewraijwrw',
+    date_signed: '2005-02-18',
     awarding_agency: {
         toptier_agency: {
             name: 'Department of Defense',
@@ -217,8 +218,9 @@ export const mockIdv = {
     },
     recipient: {
         recipient_name: 'Booz Allen Hamilton',
-        recipient_unique_id: 123223,
-        parent_recipient_unique_id: 234242,
+        recipient_hash: '1023984-C',
+        recipient_unique_id: '123223',
+        parent_recipient_unique_id: '234242',
         location: {
             address_line1: '1515 EUBANK BLVD. SE',
             address_line2: 'P.O. BOX 5800, MS-0180, 87185-0180',
@@ -234,8 +236,8 @@ export const mockIdv = {
             location_country_code: null,
             congressional_code: null
         },
-        recipient_parent_name: 'HoneyWell',
-        business_categories_name: ['Testing 1', 'Testing 2']
+        parent_recipient_name: 'HoneyWell',
+        business_categories: ['Testing 1', 'Testing 2']
     },
     parent_award: {
         award_id: 5738,
@@ -280,15 +282,14 @@ export const mockIdv = {
         commercial_item_test_desc: 'PROCEDURE NOT USED',
         evaluated_preference_desc: 'NO',
         fed_biz_opps_description: 'No Preference Used',
-        small_business_competitive: 'Yes',
+        small_business_competitive: true,
         fair_opportunity_limi_desc: 'test',
         product_or_service_code: 't324242',
         product_or_service_co_desc: '423we',
         naics: '35353',
         naics_description: null,
         dod_claimant_program_code: 'ERWRWRWR5242-242',
-        program_system_or_equipmen: 'unknown',
-        information_technolog_desc: 'ERWRWRWR5242-242',
+        information_technology_commercial_item_category: 'ERWRWRWR5242-242',
         sea_transportation_desc: 'seaworld',
         clinger_cohen_act_pla_desc: null,
         construction_wage_rat_desc: 'TES',

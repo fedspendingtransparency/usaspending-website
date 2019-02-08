@@ -8,8 +8,8 @@ import { mockLoan } from './mockAwardApi';
 
 const periodOfPerformance = Object.create(CorePeriodOfPerformance);
 const periodOfPerformanceData = {
-    startDate: mockLoan.period_of_performance.period_of_performance_start_date,
-    endDate: mockLoan.period_of_performance.period_of_performance_current_end_date
+    startDate: mockLoan.period_of_performance.start_date,
+    endDate: mockLoan.period_of_performance.end_date
 };
 periodOfPerformance.populateCore(periodOfPerformanceData);
 
