@@ -6,7 +6,7 @@
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-const BaseAwardAmount = {
+const BaseAwardAmounts = {
     populateCore(data) {
         this.id = data.award_id || '';
         this.generatedId = data.generated_unique_award_id || '';
@@ -25,7 +25,6 @@ const BaseAwardAmount = {
     get rolledBaseAllOptions() {
         return MoneyFormatter.formatMoney(this._rolledBaseAllOptions);
     }
-    
 };
 
-export default BaseAwardAmount;
+export default BaseAwardAmounts;

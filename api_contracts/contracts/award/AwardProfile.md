@@ -455,7 +455,7 @@ This endpoint returns aggregated award amounts for IDVs.
 
 + Parameters
     + award_id: `12178065` (required, string)
-         Accepts the v2 generated award hash or internal database id.s
+         Accepts the v2 generated award hash or internal database ids
 
 ### Award Amounts [GET]
 

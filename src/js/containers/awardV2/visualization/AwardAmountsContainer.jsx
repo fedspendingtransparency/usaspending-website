@@ -5,44 +5,36 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import Award from 'components/awardv2/AwardV2';
-
 import * as SearchHelper from 'helpers/searchHelper';
-import * as awardActions from 'redux/actions/awardV2/awardActions';
-
-import BaseContract from 'models/v2/awardsV2/BaseContract';
-import BaseIdv from 'models/v2/awardsV2/BaseIdv';
-import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
+import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
+import AggregatedAwardAmounts from 'components/awardv2/visualizations/amounts/AggregatedAwardAmounts';
 
 const propTypes = {
-    setAward: PropTypes.func,
-    params: PropTypes.object,
-    award: PropTypes.object
+    awardId: PropTypes.string
 };
 
-export class AwardAmountReferenceContainer extends React.Component {
+export default class AwardAmountsContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.awardRequest = null;
 
         this.state = {
-            noAward: false,
-            inFlight: false
+            error: false,
+            inFlight: false,
+            awardAmounts: null
         };
     }
 
     componentDidMount() {
-        this.getSelectedAward(this.props.params.awardId);
+        this.getSelectedAward(this.props.awardId);
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.params.awardId !== prevProps.params.awardId) {
-            this.getSelectedAward(this.props.params.awardId);
+        if (this.props.awardId !== prevProps.awardId) {
+            this.getSelectedAward(this.props.awardId);
         }
     }
 
@@ -62,7 +54,7 @@ export class AwardAmountReferenceContainer extends React.Component {
             inFlight: true
         });
 
-        this.awardRequest = SearchHelper.fetchAwardV2(id);
+        this.awardRequest = SearchHelper.fetchAwardsAmount(id);
 
         this.awardRequest.promise
             .then((results) => {
@@ -83,10 +75,9 @@ export class AwardAmountReferenceContainer extends React.Component {
                     // Got cancelled
                 }
                 else if (error.response) {
-                    // Errored out but got response, toggle noAward flag
                     this.awardRequest = null;
                     this.setState({
-                        noAward: true
+                        error: true
                     });
                 }
                 else {
@@ -99,37 +90,22 @@ export class AwardAmountReferenceContainer extends React.Component {
 
     parseAward(data) {
         this.setState({
-            noAward: false
+            error: false
         });
-
-        if (data.category === 'contract') {
-            const contract = Object.create(BaseContract);
-            contract.populate(data);
-            this.props.setAward(contract);
-        }
-        else if (data.category === 'idv') {
-            const idv = Object.create(BaseIdv);
-            idv.populate(data);
-            this.props.setAward(idv);
-        }
-        else {
-            const financialAssistance = Object.create(BaseFinancialAssistance);
-            financialAssistance.populate(data);
-            this.props.setAward(financialAssistance);
-        }
+        const awardAmounts = Object.create(BaseAwardAmounts);
+        BaseAwardAmounts.populate(data);
+        this.setState({
+            awardAmounts
+        });
     }
 
     render() {
         return (
             <div>
+                <AggregatedAwardAmounts awardAmounts={this.state.awardAmounts} />
             </div>
         );
     }
 }
 
-AwardAmountReferenceContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({ award: state.awardV2 }),
-    (dispatch) => bindActionCreators(awardActions, dispatch)
-)(AwardAmountReferenceContainer );
+AwardAmountsContainer.propTypes = propTypes;
