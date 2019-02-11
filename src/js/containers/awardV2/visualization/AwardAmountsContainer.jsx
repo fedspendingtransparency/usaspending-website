@@ -15,6 +15,8 @@ const propTypes = {
     awardId: PropTypes.string
 };
 
+//TODO write test for this container
+
 export default class AwardAmountsContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -23,7 +25,7 @@ export default class AwardAmountsContainer extends React.Component {
 
         this.state = {
             error: false,
-            inFlight: false,
+            inFlight: true,
             awardAmounts: null
         };
     }
@@ -93,7 +95,7 @@ export default class AwardAmountsContainer extends React.Component {
             error: false
         });
         const awardAmounts = Object.create(BaseAwardAmounts);
-        BaseAwardAmounts.populate(data);
+        awardAmounts.populate(data);
         this.setState({
             awardAmounts
         });
@@ -102,7 +104,7 @@ export default class AwardAmountsContainer extends React.Component {
     render() {
         return (
             <div>
-                <AggregatedAwardAmounts awardAmounts={this.state.awardAmounts} />
+                <AggregatedAwardAmounts awardAmounts={this.state.awardAmounts} loading={this.state.inFlight} error={this.state.error} />
             </div>
         );
     }

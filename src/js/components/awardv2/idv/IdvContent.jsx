@@ -24,7 +24,6 @@ const propTypes = {
 
 export default class IdvContent extends React.Component {
     render() {
-        console.log(this.props.awardId);
         return (
             <div className="award award-idv">
                 <div className="idv__heading">

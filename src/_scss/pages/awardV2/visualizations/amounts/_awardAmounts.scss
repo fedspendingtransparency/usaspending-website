@@ -3,10 +3,35 @@
         color: $color-primary-darker;
     }
 
-    .award_amounts__banner {
+    .award-amounts__banner {
         background-color: #F3FAFC;
-        padding: rem(10);
+        color: #525252;
+        font-size: rem(14);
         margin: rem(30) 0;
+        display: flex;
+        padding: 0 rem(10) 0 rem(10);
+    }
+
+    .award-amounts__banner-info-icon {
+        margin-top: rem(18);
+        margin-right: rem(5);
+        cursor: pointer;
+        svg {
+            width: rem(15);
+            height: rem(15);
+            fill: #00A6D2;
+        }
+    }
+
+
+    .award-amounts__banner-close-icon {
+        margin-top: rem(18);
+        cursor: pointer;
+        svg {
+            width: rem(10);
+            height: rem(10);
+            fill: #5B616B;
+        }
     }
 
     .award-amounts__viz {
@@ -14,6 +39,7 @@
         margin: rem(16) 0 rem(7) 0;
         background-color: #ececec;
         @include display(flex);
+        border: 2px solid #4773AA;
     }
 
     .award-amounts__viz-label {
@@ -76,8 +102,14 @@
         left: -1px;
     }
 
+
+    .award-amounts__viz-desc-top {
+        font-size: rem(16);
+        color: #555555;
+    }
+
     .award-amounts__viz-desc {
-        font-size: rem(10);
+        font-size: rem(12);
         color: #555555
     }
     .award-amounts__data-wrapper {
@@ -86,9 +118,11 @@
 
     .award-amounts__data-content {
         border: 1px #D5D6D8 solid;
-        padding: rem(5);
+        padding: rem(8);
         display: flex;
         justify-content: space-between;
+        font-size: rem(16);
+        color: #525252;
         &:nth-of-type(1) {
             border-radius: rem(5) rem(5) 0 0;
             border-bottom: 0;
@@ -122,7 +156,9 @@
 
     .award-amounts__data {
         border: 1px #D5D6D8 solid;
-        padding: rem(5);
+        padding: rem(8);
+        font-size: rem(16);
+        color: #525252;
         margin-top: rem(10);
         border-radius: rem(5);
         display: flex;

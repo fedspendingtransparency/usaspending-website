@@ -5,17 +5,24 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'components/sharedComponents/icons/Icons';
+import { Table, InfoCircle, Close } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    awardAmounts: PropTypes.object
+    awardAmounts: PropTypes.object,
+    loading: PropTypes.bool,
+    error: PropTypes.bool
 };
 
 export default class AggregatedAwardAmounts extends React.Component {
+    componentDidUpdate(prevProps) {
+        if (this.props.awardAmounts !== prevProps.awardAmounts) {
+            console.log(this.props.awardAmounts.rolledBaseExercisedOptionsFormatted);
+        }
+    }
     render() {
-        const unformattedObligated = 6497742681.42;
-        const unformattedExercisedOption = 12691821811.57;
-        const baseAndAll = 26504960197.57;
+        const unformattedObligated = 1;
+        const unformattedExercisedOption = 1;
+        const baseAndAll = 1;
         const obligatedPercentage = Math.round(Math.abs((unformattedObligated / baseAndAll) * 100));
         const exercisedPercentage = Math.round(Math.abs((unformattedExercisedOption / baseAndAll) * 100)) - obligatedPercentage;
         const exercisedLabelPercentage = Math.round(Math.abs((unformattedExercisedOption) / baseAndAll) * 100);
@@ -40,11 +47,13 @@ export default class AggregatedAwardAmounts extends React.Component {
 
         return (
             <div className="award-amounts__content">
-                <div className="award_amounts__banner">
+                <div className="award-amounts__banner">
+                    <span className="award-amounts__banner-info-icon"><InfoCircle /></span>
                     <p>The information in this tab is pulled from the combined data of awards that reference this IDV, not the IDV itself. To see those awards, scroll to the <a href="/">referencing awards table</a> on this page.</p>
+                    <span className="award-amounts__banner-close-icon"><Close /></span>
                 </div>
+                <div className="award-amounts__viz-desc-top">Combined Obligated Amounts</div>
                 <div className="award-amounts__viz-label" style={obligatedLableStyle}>
-                    <div className="award-amounts__viz-desc">Combined Obligated Amounts</div>
                     <div className="award-amounts__viz-line-up" />
                 </div>
                 <div className="award-amounts__viz">
