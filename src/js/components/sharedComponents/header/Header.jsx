@@ -22,7 +22,8 @@ export default class Header extends React.Component {
         super(props);
 
         this.state = {
-            showBanner: false
+            showInfoBanner: false,
+            showWarningBanner: false
         };
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
@@ -33,7 +34,14 @@ export default class Header extends React.Component {
         if (!Cookies.get('usaspending_info_banner')) {
             // cookie does not exist, show the banner
             this.setState({
-                showBanner: true
+                showInfoBanner: true
+            });
+        }
+
+        if (!Cookies.get('usaspending_warning_banner')) {
+            // cookie does not exist, show the banner
+            this.setState({
+                showWarningBanner: true
             });
         }
     }
@@ -50,24 +58,44 @@ export default class Header extends React.Component {
             mainFocus.focus();
         }
     }
-    closeBanner() {
+    closeBanner(bannerType, cookieName) {
         // set a cookie to hide the banner in the future
-        Cookies.set('usaspending_info_banner', 'hide', { expires: 730 });
+        // Cookies.set('usaspending_info_banner', 'hide', { expires: 730 });
+        Cookies.set(cookieName, 'hide', { expires: 730 });
         this.setState({
-            showBanner: false
+            [bannerType]: false
         });
     }
 
     render() {
-        let banner = (
+        let infoBanner = (
             <InfoBanner
                 closeBanner={this.closeBanner} />
         );
-        if (!this.state.showBanner) {
-            banner = null;
+
+        if (!this.state.showInfoBanner) {
+            infoBanner = null;
         }
-        else if (kGlobalConstants.IN_BETA) {
-            banner = (
+
+        if (this.state.showInfoBanner) {
+            infoBanner = (
+                <InfoBanner
+                    closeBanner={this.closeBanner} />
+            );
+        }
+
+
+        let warningBanner = (
+            <WarningBanner
+                closeBanner={this.closeBanner} />
+        );
+
+        if (!this.state.showWarningBanner) {
+            warningBanner = null;
+        }
+
+        if (this.state.showWarningBanner) {
+            warningBanner = (
                 <WarningBanner
                     closeBanner={this.closeBanner} />
             );
@@ -122,7 +150,8 @@ export default class Header extends React.Component {
                                 alt="U.S. flag" />
                         </div>
                     </div>
-                    {banner}
+                    {infoBanner}
+                    {warningBanner}
                     <NavBar />
                 </header>
                 <GlossaryContainer />
@@ -131,4 +160,3 @@ export default class Header extends React.Component {
         );
     }
 }
-

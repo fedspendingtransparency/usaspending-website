@@ -15,6 +15,13 @@ const clickedBannerLink = (route) => {
 };
 
 export default class InfoBanner extends React.Component {
+    constructor(props) {
+        super(props);
+        this.bannerClosed = this.bannerClosed.bind(this);
+    }
+    bannerClosed() {
+        this.props.closeBanner('showInfoBanner', 'usaspending_info_banner');
+    }
     render() {
         return (
             <div className="info-banner">
@@ -48,7 +55,7 @@ export default class InfoBanner extends React.Component {
                         className="info-banner__close-button"
                         title="Dismiss message"
                         aria-label="Dismiss message"
-                        onClick={this.props.closeBanner}>
+                        onClick={this.bannerClosed}>
                         <Close alt="Dismiss message" />
                     </button>
                 </div>
@@ -58,4 +65,3 @@ export default class InfoBanner extends React.Component {
 }
 
 InfoBanner.propTypes = propTypes;
-

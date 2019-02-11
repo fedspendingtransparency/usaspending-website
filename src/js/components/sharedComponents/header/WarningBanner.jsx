@@ -1,44 +1,49 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from '../icons/Icons';
+import { Close, ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     closeBanner: PropTypes.func
 };
 
 export default class WarningBanner extends React.Component {
+    constructor(props) {
+        super(props);
+        this.bannerClosed = this.bannerClosed.bind(this);
+    }
+    bannerClosed() {
+        this.props.closeBanner('showWarningBanner', 'usaspending_warning_banner');
+    }
     render() {
         return (
             <div className="info-banner info-banner_warning">
                 <div className="info-banner__content">
                     <div className="info-banner__alert-icon">
                         <i className="usa-da-icon">
-                            <Icons.ExclamationTriangle />
+                            <ExclamationTriangle alt="Warning" />
                         </i>
                     </div>
                     <div className="info-banner__alert-text">
-                        This site is in beta. To view the production site, visit&nbsp;
-                        <a
-                            href="https://www.usaspending.gov"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            USAspending.gov
-                        </a>.
-                        We&#39;re updating this site on a rolling basis and we&#39;d love your feedback!
-                        Share your thoughts&nbsp;
-                        <a
-                            href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            here
-                        </a>.
+                        <div className="info-banner__title-text">
+                            FY19 Q1 financial data is delayed.
+                        </div>
+                        Due to the recent partial lapse in appropriations,
+                        FY19Q1 financial data is&nbsp;
+                        <strong>
+                        delayed until March 21st
+                        </strong>.
+                        The spending explorer, federal
+                        account pages, and custom account download will update at that time
+                        to <br />incorporate FY19Q1 data.
+                        The award data ( including advanced and keyword search engines) will
+                        <strong> not </strong> be affected by this delay.
                     </div>
                     <button
                         className="info-banner__close-button"
                         title="Dismiss message"
                         aria-label="Dismiss message"
-                        onClick={this.props.closeBanner}>
-                        <Icons.Close alt="Dismiss message" />
+                        onClick={this.bannerClosed}>
+                        <Close alt="Dismiss message" />
                     </button>
                 </div>
             </div>
