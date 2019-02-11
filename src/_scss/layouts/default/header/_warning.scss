@@ -11,7 +11,7 @@
             @include flex(0 0 auto);
             padding: rem(5) rem(15);
             svg {
-                margin-top: rem(8);
+                margin-top: rem(4);
                 height: rem(26);
                 width: rem(26);
                 fill: $color-primary-alt-light;
@@ -29,7 +29,6 @@
                 font-weight: 600;
                 line-height: rem(22);
                 padding-bottom: rem(3);
-                padding-top: rem(40);
             }
         }
         .info-banner__close-button {
