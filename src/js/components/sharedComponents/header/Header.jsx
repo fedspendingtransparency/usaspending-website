@@ -37,6 +37,7 @@ export default class Header extends React.Component {
             });
         }
 
+        // check if the warning banner cookie exists
         if (!Cookies.get('usaspending_warning_banner')) {
             // cookie does not exist, show the banner
             this.setState({
@@ -58,8 +59,7 @@ export default class Header extends React.Component {
         }
     }
     closeBanner(bannerType, cookieName) {
-        // set a cookie to hide the banner in the future
-        // Cookies.set('usaspending_info_banner', 'hide', { expires: 730 });
+        // set a cookie to hide the banner in the future if banner is closed
         Cookies.set(cookieName, 'hide', { expires: 730 });
         this.setState({
             [bannerType]: false
@@ -76,14 +76,6 @@ export default class Header extends React.Component {
             infoBanner = null;
         }
 
-        if (this.state.showInfoBanner) {
-            infoBanner = (
-                <InfoBanner
-                    closeBanner={this.closeBanner} />
-            );
-        }
-
-
         let warningBanner = (
             <WarningBanner
                 closeBanner={this.closeBanner} />
@@ -91,13 +83,6 @@ export default class Header extends React.Component {
 
         if (!this.state.showWarningBanner) {
             warningBanner = null;
-        }
-
-        if (this.state.showWarningBanner) {
-            warningBanner = (
-                <WarningBanner
-                    closeBanner={this.closeBanner} />
-            );
         }
         return (
             <div className="site-header">

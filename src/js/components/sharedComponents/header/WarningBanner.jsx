@@ -35,7 +35,7 @@ export default class WarningBanner extends React.Component {
                         The spending explorer, federal
                         account pages, and custom account download will update at that time
                         to <br />incorporate FY19Q1 data.
-                        The award data ( including advanced and keyword search engines) will
+                        The award data (including advanced and keyword search engines) will
                         <strong> not </strong> be affected by this delay.
                     </div>
                     <button
