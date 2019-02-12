@@ -1,0 +1,43 @@
+.tooltip-popover-container {
+  cursor: default;
+  display: inline-block;
+  position: relative;
+
+  .tooltip-popover {
+    background-color: $color-white;
+    border-radius: 5px;
+    bottom: 25px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    color: $color-base;
+    display: none;
+    left: -130px;
+    font-weight: 400;
+    padding: 7px 10px;
+    position: absolute;
+    width: 300px;
+    z-index: 4;
+    text-align: left;
+  }
+
+  &:hover {
+      .tooltip-popover {
+        display: block;
+
+        &::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            margin-left: -10px;
+            bottom: -20px;
+            left: 50%;
+            box-sizing: border-box;
+            border: 10px solid black;
+            border-color: transparent transparent #ffffff #ffffff;
+            transform-origin: 0 0;
+            transform: rotate(-45deg);
+            box-shadow: -2px 2px 2px 0 rgba(0, 0, 0, 0.25);
+         }
+      }
+    }
+}

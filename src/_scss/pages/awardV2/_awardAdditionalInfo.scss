@@ -23,7 +23,8 @@
 .accordion {
     width:100%;
     .data-row span:first-child {
-        text-transform :capitalize
+        text-transform :capitalize;
+        padding-right: rem(20);
     }
 }
 

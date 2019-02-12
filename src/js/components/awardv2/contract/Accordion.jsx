@@ -51,12 +51,13 @@ export default class Accordion extends React.Component {
                     </span>
                 </div>
                 <div className="accordion-content">
-                    {Object.keys(this.props.accordionData).map((key) => (
-                        <div className="data-row">
-                            <span key={key}>{key}</span>
-                            <span key={this.props.accordionData[key]}>{this.props.accordionData[key] || 'not provided'}</span>
-                        </div>
-                    ))}
+                    {
+                        Object.keys(this.props.accordionData).map((keyValue) => (
+                            <div key={keyValue} className="data-row">
+                                <span>{keyValue}</span>
+                                <span>{this.props.accordionData[keyValue] || 'not provided'}</span>
+                            </div>
+                        ))}
                 </div>
             </div>
         );

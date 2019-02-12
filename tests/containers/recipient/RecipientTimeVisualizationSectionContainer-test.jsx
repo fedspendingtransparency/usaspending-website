@@ -7,7 +7,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { RecipientTimeVisualizationSectionContainer } from
-        'containers/recipient/RecipientTimeVisualizationSectionContainer';
+    'containers/recipient/RecipientTimeVisualizationSectionContainer';
 
 import { mockActions, mockRedux, mockTimes, mockYears, mockQuarters, mockMonths, mockTrendline } from './mockData';
 
@@ -42,6 +42,26 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
         await container.instance().trendlineRequest.promise;
 
         expect(fetchTrendlineData).toHaveBeenCalledTimes(1);
+    });
+
+    describe('updateVisualizationPeriod', () => {
+        it('should change the component state and make 2 API calls', () => {
+            const container = mount(<RecipientTimeVisualizationSectionContainer
+                {...mockRedux}
+                {...mockActions} />);
+
+            const fetchData = jest.fn();
+            container.instance().fetchData = fetchData;
+
+            const fetchTrendlineData = jest.fn();
+            container.instance().fetchTrendlineData = fetchTrendlineData;
+
+            container.instance().updateVisualizationPeriod('quarter');
+
+            expect(container.state().visualizationPeriod).toEqual('quarter');
+            expect(fetchData).toHaveBeenCalled();
+            expect(fetchTrendlineData).toHaveBeenCalled();
+        });
     });
 
     describe('parseData', () => {
@@ -95,7 +115,7 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
                 rawLabels: [
                     { period: 'Q3', year: 'FY 1979' },
                     { period: 'Q4', year: 'FY 1979' },
-                    {period: 'Q1', year: 'FY 1980'}
+                    { period: 'Q1', year: 'FY 1980' }
                 ]
             };
 
@@ -135,21 +155,21 @@ describe('RecipientTimeVisualizationSectionContainer', () => {
         });
     });
 
-    describe('parseTrendlineData', () => {
-       it('should set the state to the returned new award count values', () => {
-           // mount the container
-           const container =
-               shallow(<RecipientTimeVisualizationSectionContainer
-                   {...mockRedux}
-                   {...mockActions} />);
+    describe("parseTrendlineData", () => {
+        it("should set the state to the returned new award count values", () => {
+            // mount the container
+            const container = shallow (
+                <RecipientTimeVisualizationSectionContainer
+                    {...mockRedux}
+                    {...mockActions} />);
 
-           container.instance().parseTrendlineData(mockTrendline);
+            container.instance().parseTrendlineData(mockTrendline);
 
-           // validate the state contains the correctly parsed values
-           const expected = [25, 45, 15];
+            // validate the state contains the correctly parsed values
+            const expected = [25, 45, 15];
 
-           expect(container.state().zSeries).toEqual(expected);
-       });
+            expect(container.state().zSeries).toEqual(expected);
+        });
     });
 
     describe('generateTime', () => {

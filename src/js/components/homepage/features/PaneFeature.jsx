@@ -11,10 +11,10 @@ const PaneFeature = () => (
             <h2 className="feature-pane__title">Featured Content</h2>
             <div className="feature-pane__content-wrapper">
                 <div className="feature-pane__content">
-                    <h3 className="feature-pane__content-title">Discover the Data Lab</h3>
-                    <p className="feature-pane_content-text">Data visualizations to help you understand government spending. See what our data can do.</p>
+                    <h3 className="feature-pane__content-title">New! – Daily Treasury Statement Tracker</h3>
+                    <p className="feature-pane_content-text">Explore how much money the federal government spends each day, month, and fiscal year using an interactive tool that visualizes the Daily Treasury Statement.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="https://datalab.usaspending.gov/" target="_blank" rel="noopener noreferrer" className="feature-pane__button">Visit the Data Lab</a>
+                        <a href="https://datalab.usaspending.gov/dts.html" target="_blank" rel="noopener noreferrer" className="feature-pane__button">Explore the Data</a>
                     </div>
                 </div>
                 <div className="feature-pane__content-divider" />

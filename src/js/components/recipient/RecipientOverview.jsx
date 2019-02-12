@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { CaretRight } from 'components/sharedComponents/icons/Icons';
+import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 
 const propTypes = {
     recipient: PropTypes.object,
@@ -30,15 +31,8 @@ export default class RecipientOverview extends React.Component {
                     Child Recipient
                 </div>
             );
-            let parentDuns = '';
-            if (recipient.parentDuns) {
-                parentDuns = `(${recipient.parentDuns})`;
-            }
-            parent = (
-                <div className="recipient-overview__parent">
-                    This recipient is a child of <a className="recipient-overview__parent-link" href={`#/recipient/${recipient.parentId}`}>{recipient.parentName} {parentDuns}</a>
-                </div>
-            );
+            parent = (<RecipientMultiParentCollapse
+                parents={recipient.parents} />);
         }
         else if (recipient.level === 'P') {
             // This is a parent recipient

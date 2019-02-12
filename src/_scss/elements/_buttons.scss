@@ -199,3 +199,14 @@ button,
 .usa-button-unstyled {
     @include button-unstyled;
 }
+
+.usa-button-link {
+    @include button-unstyled;
+    color: $color-primary;
+    margin-top: rem(3);
+    cursor: pointer;
+    width: fit-content;
+    &:hover {
+        color: $color-primary;
+    }
+}

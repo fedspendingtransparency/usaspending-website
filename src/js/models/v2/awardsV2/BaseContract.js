@@ -25,8 +25,9 @@ BaseContract.populate = function populate(data) {
         category: data.category,
         subawardTotal: data.total_subaward_amount,
         subawardCount: data.subaward_count,
-        fundingObligated: data.funding_obligated,
-        baseExercisedOptions: data.base_exercised_options
+        totalObligation: data.total_obligation,
+        baseExercisedOptions: data.base_exercised_options,
+        dateSigned: data.date_signed
     };
     this.populateCore(coreData);
 
@@ -56,9 +57,8 @@ BaseContract.populate = function populate(data) {
 
     if (data.period_of_performance) {
         const periodOfPerformanceData = {
-            startDate: data.period_of_performance.period_of_performance_start_date,
-            endDate: data.period_of_performance.period_of_performance_current_end_date,
-            awardDate: data.period_of_performance.action_date,
+            startDate: data.period_of_performance.start_date,
+            endDate: data.period_of_performance.end_date,
             lastModifiedDate: data.period_of_performance.last_modified_date,
             potentialEndDate: data.period_of_performance.potential_end_date
         };
@@ -113,8 +113,7 @@ BaseContract.populate = function populate(data) {
     this.parentAward = data.parent_award_piid || '--';
     this.pricing = data.latest_transaction_contract_data || '--';
 
-    this._amount = parseFloat(data.base_and_all_options_value) || 0;
-    this._obligation = parseFloat(data.total_obligation) || 0;
+    this._amount = parseFloat(data.base_and_all_options) || 0;
 };
 
 
@@ -131,20 +130,6 @@ Object.defineProperty(BaseContract, 'amount', {
 Object.defineProperty(BaseContract, 'amountFormatted', {
     get() {
         return MoneyFormatter.formatMoney(this._amount);
-    }
-});
-Object.defineProperty(BaseContract, 'obligation', {
-    get() {
-        if (this._obligation >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._obligation);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._obligation / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._obligation, 0);
-    }
-});
-Object.defineProperty(BaseContract, 'obligationFormatted', {
-    get() {
-        return MoneyFormatter.formatMoney(this._obligation);
     }
 });
 Object.defineProperty(BaseContract, 'remaining', {
