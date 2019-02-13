@@ -57,11 +57,11 @@ export default class IdvContent extends React.Component {
                         naics={this.props.overview.additionalDetails.naicsCode}
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
+                <AwardHistory overview={this.props.overview} />
                 <div className="agency-additional" id="award-additional-information">
                     <AdditionalInfo
                         overview={this.props.overview} />
                 </div>
-                <AwardHistory overview={this.props.overview} />
             </div>
         );
     }
