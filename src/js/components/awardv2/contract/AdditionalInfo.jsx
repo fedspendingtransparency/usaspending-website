@@ -31,76 +31,70 @@ export default class AdditionalInfo extends React.Component {
         const awardData = this.props.overview;
         const data = additionalDetails(this.props.overview);
         return (
-            <div className="additionalInfo-wrapper">
-                <div className="award__row">
-                    <div className="award__row__fullheading award-viz">
-                        <div className="award-viz__heading">
-                            <div className="award-viz__icon">
-                                <InfoCircle />
-                            </div>
-                            <h3 className="award-viz__title">Additional Information</h3>
+            <div id="award-additional-information" className="additional-info">
+                <div className="award-viz">
+                    <div className="award-viz__heading">
+                        <div className="award-viz__icon">
+                            <InfoCircle />
                         </div>
-                        <hr />
+                        <h3 className="award-viz__title">Additional Information</h3>
                     </div>
-                </div>
-                <div className="award__row">
-                    <div className="award__col globaltoggler">
-                        <button
-                            className="award-amounts__content text-button-container__button"
-                            onClick={this.handleClick}>
-                            {this.state.globalToggle ? 'Collapse All' : 'Expand All'}
-                        </button>
-                    </div>
-                </div>
-                <div className="award__row award-amounts accordion">
-                    <div className="award__col">
-                        <Accordion
-                            globalToggle={this.state.globalToggle}
-                            accordionName="Agency Details"
-                            accordionIcon={<Agency />}
-                            accordionData={data.agencyDetails} />
-                        <Accordion
-                            globalToggle={this.state.globalToggle}
-                            accordionName="Parent Award Details"
-                            accordionIcon={<img src="img/award-summary/parent-award-details.png" alt="Parent Award Details" />}
-                            accordionData={data.parentAwardDetails} />
-                        <Accordion
-                            globalToggle={this.state.globalToggle}
-                            accordionName="Place Of Performance"
-                            accordionIcon={<img src="img/award-summary/place-of-performance.png" alt="Place Of Performance" />}
-                            accordionData={data.PlaceOfPerformance} />
-                        <Accordion
-                            globalToggle={this.state.globalToggle}
-                            accordionName="Period Of Performance"
-                            accordionIcon={<Calendar />}
-                            accordionData={data.PeriodOfPerformance} />
-                        <Accordion
-                            globalToggle={this.state.globalToggle}
-                            accordionName="Legislative Mandates"
-                            accordionIcon={<img src="img/award-summary/legislative-mandates.png" alt="Lesgislative Mandates" />}
-                            accordionData={data.LegislativeMandates} />
-                        <Accordion
-                            globalToggle={this.state.globalToggle}
-                            accordionName="Executive Compensation"
-                            accordionIcon={<img src="img/award-summary/executive-compensation.png" alt="Executive Compensation" />}
-                            accordionData={awardData.executiveDetails.officers} />
-                    </div>
-                    <div className="award__col">
-                        <Accordion
-                            globalToggle={this.state.globalToggle}
-                            accordionName="Acquisition Details"
-                            accordionIcon={<img src="img/state-categories/naics.png" alt="Aquisition Details" />}
-                            accordionData={data.AquisitionDetails} />
-                        <Accordion
-                            globalToggle={this.state.globalToggle}
-                            accordionName="Competition Details"
-                            accordionIcon={<img src="img/award-summary/competition-details.png" alt="Competition Details" />}
-                            accordionData={data.CompetitionDetails} />
-                        <Accordion
-                            globalToggle={this.state.globalToggle}
-                            accordionName="Additional Details"
-                            accordionIcon={<img src="img/award-summary/additional-details.png" alt="Additional Details" />}
-                            accordionData={data.AdditionalDetails} />
+                    <hr />
+                    <button
+                        className="award-viz__button"
+                        onClick={this.handleClick}>
+                        {this.state.globalToggle ? 'Collapse All' : 'Expand All'}
+                    </button>
+                    <div className="award__row">
+                        <div className="award__col">
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Agency Details"
+                                accordionIcon={<Agency />}
+                                accordionData={data.agencyDetails} />
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Parent Award Details"
+                                accordionIcon={<img src="img/award-summary/parent-award-details.png" alt="Parent Award Details" />}
+                                accordionData={data.parentAwardDetails} />
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Place Of Performance"
+                                accordionIcon={<img src="img/award-summary/place-of-performance.png" alt="Place Of Performance" />}
+                                accordionData={data.PlaceOfPerformance} />
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Period Of Performance"
+                                accordionIcon={<Calendar />}
+                                accordionData={data.PeriodOfPerformance} />
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Legislative Mandates"
+                                accordionIcon={<img src="img/award-summary/legislative-mandates.png" alt="Lesgislative Mandates" />}
+                                accordionData={data.LegislativeMandates} />
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Executive Compensation"
+                                accordionIcon={<img src="img/award-summary/executive-compensation.png" alt="Executive Compensation" />}
+                                accordionData={awardData.executiveDetails.officers} />
+                        </div>
+                        <div className="award__col">
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Acquisition Details"
+                                accordionIcon={<img src="img/state-categories/naics.png" alt="Aquisition Details" />}
+                                accordionData={data.AquisitionDetails} />
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Competition Details"
+                                accordionIcon={<img src="img/award-summary/competition-details.png" alt="Competition Details" />}
+                                accordionData={data.CompetitionDetails} />
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Additional Details"
+                                accordionIcon={<img src="img/award-summary/additional-details.png" alt="Additional Details" />}
+                                accordionData={data.AdditionalDetails} />
+                        </div>
                     </div>
                 </div>
             </div>

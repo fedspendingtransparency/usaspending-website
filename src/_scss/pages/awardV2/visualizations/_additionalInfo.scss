@@ -1,0 +1,60 @@
+.additional-info {
+    .accordion {
+        margin-bottom: rem(20);
+
+        .accordion__content {
+            overflow: hidden;
+            height: 0;
+        }
+
+        &.accordion_open {
+            .accordion__content {
+                height: auto;
+                border: rem(1) solid $color-gray-lightest;
+
+                .accordion__data-row {
+                    display: flex;
+                    padding: rem(8) rem(40);
+                    border-bottom: rem(1) solid $color-gray-lightest;
+
+                    span {
+                        flex: 1;
+                    }
+
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                }
+            }
+        }
+
+        .accordion__bar {
+            cursor: pointer;
+            background-color: $color-gray-lightest;
+            padding: rem(10);
+            overflow: auto;
+            color: $color-gray;
+            display: flex;
+
+            svg {
+                height: rem(18);
+                position: relative;
+                top: rem(4);
+                padding-right: rem(8);
+                fill: $color-gray-medium;
+            }
+
+            img {
+                position: relative;
+                top: rem(5);
+                height: rem(20);
+                margin-right: rem(10);
+                opacity: 0.5;
+            }
+
+            span:last-child {
+                margin-left: auto;
+            }
+        }
+    }
+}

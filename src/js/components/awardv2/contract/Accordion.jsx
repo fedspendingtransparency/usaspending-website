@@ -40,8 +40,13 @@ export default class Accordion extends React.Component {
 
     render() {
         return (
-            <div className={this.state.open ? 'accordion-open' : 'accordion'}>
-                <div className="accordion-bar" tabIndex={0} role="button" onKeyPress={this.handleClick} onClick={this.handleClick}>
+            <div className={this.state.open ? 'accordion accordion_open' : 'accordion'}>
+                <div
+                    className="accordion__bar"
+                    tabIndex={0}
+                    role="button"
+                    onKeyPress={this.handleClick}
+                    onClick={this.handleClick}>
                     <span>
                         {this.props.accordionIcon}
                         {this.props.accordionName}
@@ -50,10 +55,12 @@ export default class Accordion extends React.Component {
                         {this.state.open ? <AngleDown /> : <AngleRight />}
                     </span>
                 </div>
-                <div className="accordion-content">
+                <div className="accordion__content">
                     {
                         Object.keys(this.props.accordionData).map((keyValue) => (
-                            <div key={keyValue} className="data-row">
+                            <div
+                                key={keyValue}
+                                className="accordion__data-row">
                                 <span>{keyValue}</span>
                                 <span>{this.props.accordionData[keyValue] || 'not provided'}</span>
                             </div>
