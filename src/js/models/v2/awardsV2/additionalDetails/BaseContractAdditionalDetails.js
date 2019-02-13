@@ -27,7 +27,7 @@ const BaseContractAdditionalDetails = {
 
         // Product or Service Details
         this._pscCode = data.product_or_service_code || '';
-        this._pscCodeDescription = data.product_or_service_co_desc || '';
+        this._pscDescription = data.product_or_service_desc || '';
         this._naicsCode = data.naics || '';
         this._naicsDescription = data.naics_description || '';
         this.dodClaimantCode = data.dod_claimant_program_code || '--';
@@ -58,11 +58,11 @@ const BaseContractAdditionalDetails = {
         this.infoTechCommercialItem = data.information_technology_commercial_item_category_code || '--';
     },
     get pscCode() {
-        if (this._pscCode && this._pscCodeDescription) {
-            return `${this._pscCode}: ${this._pscCodeDescription}`;
+        if (this._pscCode && this._pscDescription) {
+            return `${this._pscCode}: ${this._pscDescription}`;
         }
-        else if (this._pscCode || this._pscCodeDescription) {
-            return `${this._pscCode}${this._pscCodeDescription}`;
+        else if (this._pscCode || this._pscDescription) {
+            return `${this._pscCode}${this._pscDescription}`;
         }
         return '--';
     },
