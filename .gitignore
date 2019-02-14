@@ -52,3 +52,6 @@ test/bin
 
 # Ignore Babel build cache
 cache/
+
+# JetBrains IDEs
+**/.idea/
