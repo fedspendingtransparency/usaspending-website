@@ -14,12 +14,8 @@ const propTypes = {
 };
 
 export default class AggregatedAwardAmounts extends React.Component {
-    componentDidUpdate(prevProps) {
-        if (this.props.awardAmounts !== prevProps.awardAmounts) {
-            console.log(this.props.awardAmounts.rolledBaseExercisedOptionsFormatted);
-        }
-    }
     render() {
+        console.log(this.props.loading);
         const unformattedObligated = 1;
         const unformattedExercisedOption = 1;
         const baseAndAll = 1;

@@ -52,21 +52,17 @@ export default class AwardAmountsContainer extends React.Component {
             this.awardRequest.cancel();
         }
 
-        this.setState({
-            inFlight: true
-        });
-
         this.awardRequest = SearchHelper.fetchAwardsAmount(id);
 
         this.awardRequest.promise
             .then((results) => {
                 const awardData = results.data;
 
+                this.parseAward(awardData);
+
                 this.setState({
                     inFlight: false
                 });
-
-                this.parseAward(awardData);
 
                 // operation has resolved
                 this.awardRequest = null;
