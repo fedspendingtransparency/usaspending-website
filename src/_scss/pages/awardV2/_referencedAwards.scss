@@ -1,0 +1,8 @@
+.referenced-awards {
+    .referenced-awards__content {
+        @import 'pages/search/results/table/tableTypes';
+        .table-types {
+            width: 100%;
+        }
+    }
+}

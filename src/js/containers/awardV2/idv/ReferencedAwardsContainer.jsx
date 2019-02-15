@@ -19,11 +19,13 @@ const propTypes = {
 const tableTypes = [
     {
         label: 'Contract IDVs',
-        internal: 'idvs'
+        internal: 'idvs',
+        enabled: true
     },
     {
         label: 'Contracts',
-        internal: 'contracts'
+        internal: 'contracts',
+        enabled: true
     }
 ];
 
@@ -42,6 +44,8 @@ export class ReferencedAwardsContainer extends React.Component {
         };
 
         this.request = null;
+
+        this.switchTab = this.switchTab.bind(this);
     }
 
     componentDidMount() {
@@ -98,12 +102,19 @@ export class ReferencedAwardsContainer extends React.Component {
 
     // TODO - Lizzie: implement changePage
 
-    // TODO - Lizzie: implement switchTab
+    switchTab(tableType) {
+        if (tableType !== this.state.tableType) {
+            this.setState({
+                tableType
+            });
+        }
+    }
 
     render() {
         return (
             <ReferencedAwardsSection
                 {...this.state}
+                switchTab={this.switchTab}
                 tableTypes={tableTypes} />
         );
     }

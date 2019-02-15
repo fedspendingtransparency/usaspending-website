@@ -6,8 +6,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import DetailsTabBar from 'components/award/details/DetailsTabBar';
+
 const propTypes = {
-    results: PropTypes.array
+    results: PropTypes.array,
+    inFlight: PropTypes.bool,
+    error: PropTypes.bool,
+    page: PropTypes.number,
+    sort: PropTypes.string,
+    order: PropTypes.string,
+    tableType: PropTypes.string,
+    tableTypes: PropTypes.array,
+    switchTab: PropTypes.func
 };
 
 export default class ReferencedAwardsSection extends React.Component {
@@ -20,6 +30,12 @@ export default class ReferencedAwardsSection extends React.Component {
                         <h3 className="award-viz__title">Awards that Reference this IDV</h3>
                     </div>
                     <hr />
+                    <div className="award__row referenced-awards__content">
+                        <DetailsTabBar
+                            activeTab={this.props.tableType}
+                            clickTab={this.props.switchTab}
+                            tabOptions={this.props.tableTypes} />
+                    </div>
                 </div>
             </div>
         );
