@@ -34,7 +34,7 @@ export default class IdvContent extends React.Component {
                         </div>
                     </div>
                     <div className="idv__last-modified">
-                        Last Modified On: <span className="idv__last-modified idv__last-modified_date">{this.props.overview.dates.lastModifiedDate}</span>
+                        Last Modified On: <span className="idv__last-modified idv__last-modified_date">{this.props.overview.dates.lastModifiedDateLong}</span>
                     </div>
                 </div>
                 <hr />
