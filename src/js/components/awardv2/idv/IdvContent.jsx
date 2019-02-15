@@ -5,13 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { startCase } from 'lodash';
+
+import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsContainer';
 import AwardHistory from './AwardHistory';
 import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
 import RelatedAwards from '../visualizations/overview/RelatedAwards';
 import IdvDates from './IdvDates';
-
 import AwardDescription from '../visualizations/description/AwardDescription';
 import AdditionalInfo from '../contract/AdditionalInfo';
 
@@ -57,6 +57,7 @@ export default class IdvContent extends React.Component {
                         naics={this.props.overview.additionalDetails.naicsCode}
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
+                <ReferencedAwardsContainer />
                 <div className="agency-additional" id="award-additional-information">
                     <AdditionalInfo
                         overview={this.props.overview} />
