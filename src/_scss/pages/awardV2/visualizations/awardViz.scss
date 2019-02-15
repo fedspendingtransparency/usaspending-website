@@ -1,5 +1,7 @@
 /* Shared Award Visualization styles */
 .award-viz {
+    @import "pages/search/results/table/_tableTypes";
+    @import "pages/search/results/table/_resultsTablePicker";
     .award-viz__heading {
         @include display(flex);
         @include justify-content(flex-start);
@@ -20,6 +22,9 @@
             font-size: rem(18);
             font-weight: $font-semibold;
         }
+    }
+    .award-viz__tab {
+        
     }
     .award-viz__link {
         @include display(flex);

@@ -15,8 +15,6 @@ const propTypes = {
     awardId: PropTypes.string
 };
 
-//TODO write test for this container
-
 export default class AwardAmountsContainer extends React.Component {
     constructor(props) {
         super(props);
