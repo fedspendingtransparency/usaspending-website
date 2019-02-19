@@ -5,11 +5,17 @@
 
     .award-amounts__banner {
         background-color: #F3FAFC;
+        display: flex;
         color: #525252;
         font-size: rem(14);
         margin: rem(30) 0;
         display: flex;
         padding: 0 rem(10) 0 rem(10);
+        justify-content: space-between;
+    }
+
+    .award-amounts__banner-info {
+        display: flex;
     }
 
     .award-amounts__banner-info-icon {

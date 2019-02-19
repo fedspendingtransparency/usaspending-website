@@ -52,7 +52,8 @@ export default class IdvContent extends React.Component {
                 </div>
                 <div className="award__row">
                     <AwardAmounts
-                        awardId={this.props.awardId} />
+                        awardId={this.props.awardId}
+                        overview={this.props.overview} />
                     <AwardDescription
                         awardId={this.props.awardId}
                         description={this.props.overview.description}

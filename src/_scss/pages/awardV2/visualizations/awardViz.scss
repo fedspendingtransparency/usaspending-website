@@ -23,9 +23,6 @@
             font-weight: $font-semibold;
         }
     }
-    .award-viz__tab {
-        
-    }
     .award-viz__link {
         @include display(flex);
         @include justify-content(flex-start);

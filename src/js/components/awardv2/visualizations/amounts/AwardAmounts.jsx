@@ -8,8 +8,10 @@ import PropTypes from 'prop-types';
 import AwardAmountsContainer from 'containers/awardV2/visualization/AwardAmountsContainer';
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
+import IDVAmounts from './IDVAmounts';
 
 const propTypes = {
+    overview: PropTypes.object,
     awardId: PropTypes.string
 };
 
@@ -41,6 +43,9 @@ export default class AwardAmounts extends React.Component {
                 label: 'This IDV'
             }
         ];
+
+        const awards = this.props.overview;
+        const content = this.state.active === 'awards' ? (<AwardAmountsContainer awardId={this.props.awardId} />) : (<IDVAmounts awards={awards} />);
         return (
             <div className="award__col award-viz award-amounts">
                 <div className="award-viz__heading">
@@ -60,7 +65,7 @@ export default class AwardAmounts extends React.Component {
                         active={this.state.active}
                         switchTab={this.switchTab} />
                 </div>
-                <AwardAmountsContainer awardId={this.props.awardId} />
+                {content}
             </div>
         );
     }
