@@ -46,18 +46,26 @@ export class ReferencedAwardsContainer extends React.Component {
         this.request = null;
 
         this.switchTab = this.switchTab.bind(this);
+        this.changePage = this.changePage.bind(this);
+        this.updateSort = this.updateSort.bind(this);
     }
 
     componentDidMount() {
-        // make the API call
+        if (this.props.award.id) {
+            this.loadResults();
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.award.id !== prevProps.award.id) {
+            this.loadResults();
+        }
     }
 
     loadResults() {
         if (this.request) {
             this.request.cancel();
         }
-
-        console.log(this.props.award);
 
         const params = {
             award_id: this.props.award.id,
@@ -76,7 +84,7 @@ export class ReferencedAwardsContainer extends React.Component {
         this.request = IdvHelper.fetchReferencedAwards(params);
         this.request.promise
             .then((res) => {
-                this.parseAwards(res.results);
+                this.parseAwards(res.data.results);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -98,9 +106,23 @@ export class ReferencedAwardsContainer extends React.Component {
         });
     }
 
-    // TODO - Lizzie: implement updateSort
+    updateSort(sort, order) {
+        this.setState({
+            sort,
+            order,
+            page: 1
+        }, () => {
+            this.loadResults();
+        });
+    }
 
-    // TODO - Lizzie: implement changePage
+    changePage(page) {
+        this.setState({
+            page
+        }, () => {
+            this.loadResults();
+        });
+    }
 
     switchTab(tableType) {
         if (tableType !== this.state.tableType) {
@@ -115,6 +137,8 @@ export class ReferencedAwardsContainer extends React.Component {
             <ReferencedAwardsSection
                 {...this.state}
                 switchTab={this.switchTab}
+                changePage={this.changePage}
+                updateSort={this.updateSort}
                 tableTypes={tableTypes} />
         );
     }
