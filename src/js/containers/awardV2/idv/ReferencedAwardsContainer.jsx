@@ -33,14 +33,17 @@ export class ReferencedAwardsContainer extends React.Component {
     constructor(props) {
         super(props);
 
+        // TODO - Lizzie: remove hard-coded total items
         this.state = {
             page: 1,
+            limit: 10,
             tableType: 'idvs',
             sort: 'period_of_performance_start_date',
             order: 'desc',
             inFlight: true,
             error: false,
-            results: []
+            results: [],
+            totalItems: 45
         };
 
         this.request = null;
@@ -70,7 +73,7 @@ export class ReferencedAwardsContainer extends React.Component {
         const params = {
             award_id: this.props.award.id,
             idv: this.state.tableType === 'idvs',
-            limit: 10,
+            limit: this.state.limit,
             page: this.state.page,
             sort: this.state.sort,
             order: this.state.order
