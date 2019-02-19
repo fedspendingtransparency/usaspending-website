@@ -19,11 +19,11 @@ periodOfPerformance.populateCore(periodOfPerformanceData);
 
 describe('CorePeriodOfPerformance', () => {
     it('should format the dates to MM/DD/YYYY', () => {
-        expect(periodOfPerformance.startDate).toEqual('2/19/2005');
-        expect(periodOfPerformance.endDate).toEqual('2/19/2005');
-        expect(periodOfPerformance.awardDate).toEqual('2/18/2005');
-        expect(periodOfPerformance.lastModifiedDate).toEqual('3/1/2006');
-        expect(periodOfPerformance.potentialEndDate).toEqual('4/30/2027');
+        expect(periodOfPerformance.startDate).toEqual('02/19/2004');
+        expect(periodOfPerformance.endDate).toEqual('02/19/2005');
+        expect(periodOfPerformance.awardDate).toEqual('02/18/2005');
+        expect(periodOfPerformance.lastModifiedDate).toEqual('03/01/2006');
+        expect(periodOfPerformance.potentialEndDate).toEqual('04/30/2027');
     });
     it('should format the dates to MMM DD, YYYY', () => {
         expect(periodOfPerformance.startDateLong).toEqual('Feb 19, 2004');
