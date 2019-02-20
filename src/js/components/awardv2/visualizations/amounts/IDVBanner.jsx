@@ -23,8 +23,10 @@ export default class IDVBanner extends React.Component {
         return (
 
             <div className="award-amounts__banner">
-                <span className="award-amounts__banner-info-icon"><InfoCircle /></span>
-                <p>The information on this tab comes from the data directly attributed to this IDV.</p>
+                <div className="award-amounts__banner-info">
+                    <span className="award-amounts__banner-info-icon"><InfoCircle /></span>
+                    <p>The information on this tab comes from the data directly attributed to this IDV.</p>
+                </div>
                 <button
                     className="award-amounts__banner-close-icon"
                     title="Dismiss message"
