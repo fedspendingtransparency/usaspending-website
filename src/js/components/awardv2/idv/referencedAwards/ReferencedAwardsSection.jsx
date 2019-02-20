@@ -27,7 +27,6 @@ const propTypes = {
 
 export default class ReferencedAwardsSection extends React.Component {
     render() {
-        console.log(this.props.results);
         return (
             <div id="idv-referenced-awards" className="referenced-awards">
                 <div className="award-viz">

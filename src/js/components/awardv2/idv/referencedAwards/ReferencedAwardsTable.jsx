@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { referencedAwardsColumns } from 'dataMapping/awardsv2/referencedAwards';
 
 import Pagination from 'components/sharedComponents/Pagination';
+import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
 
 const propTypes = {
     tableType: PropTypes.string,
@@ -20,15 +21,28 @@ const propTypes = {
     limit: PropTypes.number,
     sort: PropTypes.string,
     order: PropTypes.string,
-    changePage: PropTypes.func
+    changePage: PropTypes.func,
+    updateSort: PropTypes.func
 };
 
 export default class ReferencedAwardsTable extends React.Component {
     generateHeaderCells() {
-        // TODO - Lizzie: implement sorting
         return referencedAwardsColumns[this.props.tableType].map((col) => (
-            <th key={col.field}>
-                {col.label}
+            <th
+                className="referenced-awards-table__head-cell"
+                key={col.field}>
+                <div className="header-cell">
+                    <div className="header-cell__text">
+                        <div className="header-cell__title">
+                            {col.label}
+                        </div>
+                    </div>
+                    <StateLandingTableSorter
+                        field={col.field}
+                        label={col.label}
+                        active={{ field: this.props.sort, direction: this.props.order }}
+                        setSort={this.props.updateSort} />
+                </div>
             </th>
         ));
     }
@@ -36,7 +50,9 @@ export default class ReferencedAwardsTable extends React.Component {
         return this.props.results.map((row) => {
             const columns = referencedAwardsColumns[this.props.tableType];
             return (
-                <tr key={`row-${row.internalId}`}>
+                <tr
+                    className="referenced-awards-table__body-row"
+                    key={`row-${row.internalId}`}>
                     {columns.map((col) => {
                         let data = row[col.name];
                         if (col.name === 'piid') {
@@ -44,7 +60,11 @@ export default class ReferencedAwardsTable extends React.Component {
                         }
                         // TODO - Lizzie: agency link
                         return (
-                            <td key={data}>{data || '--'}</td>
+                            <td
+                                className={`referenced-awards-table__body-cell ${col.name === 'obligatedAmount' ? 'recipient-list__body-cell_right' : ''}`}
+                                key={data}>
+                                {data || '--'}
+                            </td>
                         );
                     })}
                 </tr>
@@ -69,7 +89,7 @@ export default class ReferencedAwardsTable extends React.Component {
             content = (
                 <table className="referenced-awards-table">
                     <thead className="referenced-awards-table__head">
-                        <tr>
+                        <tr className="referenced-awards-table__head-row">
                             {this.generateHeaderCells()}
                         </tr>
                     </thead>
