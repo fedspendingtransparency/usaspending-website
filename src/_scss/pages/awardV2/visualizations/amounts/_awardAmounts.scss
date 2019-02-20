@@ -31,8 +31,8 @@
 
 
     .award-amounts__banner-close-icon {
-        margin-top: rem(18);
-        cursor: pointer;
+        margin: 0;
+        background-color: unset;
         svg {
             width: rem(10);
             height: rem(10);
