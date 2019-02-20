@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import * as IdvHelper from 'helpers/idvHelper';
-// TODO - Lizzie: import data mapping
+import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardResult';
 import ReferencedAwardsSection from 'components/awardv2/idv/referencedAwards/ReferencedAwardsSection';
 
 const propTypes = {
@@ -100,8 +100,13 @@ export class ReferencedAwardsContainer extends React.Component {
             });
     }
 
-    parseAwards(results) {
-        // TODO - Lizzie: create the model
+    parseAwards(data) {
+        const results = data.map((result) => {
+            const referencedAward = Object.create(BaseReferencedAwardResult);
+            referencedAward.populate(result);
+            return referencedAward;
+        });
+
         this.setState({
             inFlight: false,
             error: false,
@@ -131,6 +136,8 @@ export class ReferencedAwardsContainer extends React.Component {
         if (tableType !== this.state.tableType) {
             this.setState({
                 tableType
+            }, () => {
+                this.loadResults();
             });
         }
     }

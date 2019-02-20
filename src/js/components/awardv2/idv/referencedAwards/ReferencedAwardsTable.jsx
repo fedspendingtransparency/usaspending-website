@@ -25,21 +25,48 @@ const propTypes = {
 
 export default class ReferencedAwardsTable extends React.Component {
     generateHeaderCells() {
+        // TODO - Lizzie: implement sorting
         return referencedAwardsColumns[this.props.tableType].map((col) => (
             <th key={col.field}>
                 {col.label}
             </th>
         ));
     }
+    generateRows() {
+        return this.props.results.map((row) => {
+            const columns = referencedAwardsColumns[this.props.tableType];
+            return (
+                <tr key={`row-${row.internalId}`}>
+                    {columns.map((col) => {
+                        let data = row[col.name];
+                        if (col.name === 'piid') {
+                            data = (<a href={`/#/award_v2/${row.internalId}`}>{row[col.name]}</a>);
+                        }
+                        // TODO - Lizzie: agency link
+                        return (
+                            <td key={data}>{data || '--'}</td>
+                        );
+                    })}
+                </tr>
+            );
+        });
+    }
+
     render() {
-        // TODO - Lizzie: handle loading and error states
-        return (
-            <div className="referenced-awards-results">
-                <Pagination
-                    totalItems={this.props.totalItems}
-                    pageSize={this.props.limit}
-                    pageNumber={this.props.page}
-                    onChangePage={this.props.changePage} />
+        let message = null;
+        let content = null;
+
+        if (this.props.inFlight) {
+            message = (<div>Loading...</div>);
+            content = null;
+        }
+        else if (this.props.error) {
+            message = (<div>An error occurred.</div>);
+            content = null;
+        }
+        else if (this.props.results.length > 0) {
+            message = null;
+            content = (
                 <table className="referenced-awards-table">
                     <thead className="referenced-awards-table__head">
                         <tr>
@@ -47,13 +74,21 @@ export default class ReferencedAwardsTable extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                Results here
-                            </td>
-                        </tr>
+                        {this.generateRows()}
                     </tbody>
                 </table>
+            );
+        }
+
+        return (
+            <div className="referenced-awards-results">
+                <Pagination
+                    totalItems={this.props.totalItems}
+                    pageSize={this.props.limit}
+                    pageNumber={this.props.page}
+                    onChangePage={this.props.changePage} />
+                {content}
+                {message}
                 <Pagination
                     totalItems={this.props.totalItems}
                     pageSize={this.props.limit}
