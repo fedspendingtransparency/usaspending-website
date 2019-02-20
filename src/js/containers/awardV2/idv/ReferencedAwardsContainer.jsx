@@ -135,7 +135,8 @@ export class ReferencedAwardsContainer extends React.Component {
     switchTab(tableType) {
         if (tableType !== this.state.tableType) {
             this.setState({
-                tableType
+                tableType,
+                page: 1
             }, () => {
                 this.loadResults();
             });

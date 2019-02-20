@@ -12,7 +12,7 @@ const BaseReferencedAwardResult = {
         this.internalId = data.generated_unique_award_id || '';
         this.piid = data.piid || '';
         this.awardType = data.award_type || '';
-        this.description = data.description || '';
+        this._description = data.description || '';
         this.agency = data.funding_agency || '';
         this._obligatedAmount = data.obligated_amount || 0;
         this._lastDateToOrder = parseDate(data.last_date_to_order || null);
@@ -39,6 +39,13 @@ const BaseReferencedAwardResult = {
     },
     get obligatedAmount() {
         return formatMoney(this._obligatedAmount);
+    },
+    get description() {
+        const maxChars = 200;
+        if (this._description.length > maxChars) {
+            return `${this._description.substring(0, maxChars)}...`;
+        }
+        return this._description;
     }
 };
 

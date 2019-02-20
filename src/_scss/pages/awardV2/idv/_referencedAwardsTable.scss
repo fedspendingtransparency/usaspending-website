@@ -17,6 +17,7 @@
                     .header-cell__title {
                         font-weight: 600;
                         font-size: $small-font-size;
+                        white-space: nowrap;
                     }
                 }
             }
