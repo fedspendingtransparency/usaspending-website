@@ -1,6 +1,9 @@
 &.award-amounts {
+    $border-gray: #555555;
+
     .award-amounts__content {
         color: $color-primary-darker;
+        margin-top: rem(30);
     }
 
     .award-amounts__banner {
@@ -25,10 +28,9 @@
         svg {
             width: rem(15);
             height: rem(15);
-            fill: #00A6D2;
+            fill: $color-primary-alt-dark;
         }
     }
-
 
     .award-amounts__banner-close-icon {
         margin: 0;
@@ -45,7 +47,7 @@
         margin: rem(16) 0 rem(7) 0;
         background-color: #ececec;
         @include display(flex);
-        border: 2px solid #4773AA;
+        border: 2px solid $color-cool-blue-light;
     }
 
     .award-amounts__viz-label {
@@ -111,12 +113,12 @@
 
     .award-amounts__viz-desc-top {
         font-size: rem(16);
-        color: #555555;
+        color: $border-gray;
     }
 
     .award-amounts__viz-desc {
         font-size: rem(12);
-        color: #555555
+        color: $border-gray;
     }
     .award-amounts__data-wrapper {
         margin-top: rem(30);
@@ -148,7 +150,7 @@
     }
 
     .award-amounts__data-icon_blue {
-        background-color: #4773AA;
+        background-color: $color-cool-blue-light;
     }
 
     .award-amounts__data-icon_gray {
