@@ -97,10 +97,10 @@ export default class AggregatedAwardAmountsInfo extends React.Component {
                 <a
                     href="/"
                     className="award-viz__link">
-                    <div className="award-viz__link-icon">
+                    <div className="award-viz__link-icon award-viz__link-icon_hidden">
                         <Table />
                     </div>
-                    <div className="award-viz__link-text">
+                    <div className="award-viz__link-text award-viz__link-text_hidden">
                             View referencing awards table
                     </div>
                 </a>

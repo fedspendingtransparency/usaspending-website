@@ -40,6 +40,9 @@
                 fill: $color-link;
             }
         }
+        .award-viz__link-icon_hidden {
+            display: none;
+        }
         .award-viz__link-text {
             @include display(flex);
             @include flex(0 0 auto);
@@ -54,6 +57,9 @@
                     fill: $color-visited;
                 }
             }
+        }
+        .award-viz__link-text_hidden {
+            display: none;
         }
     }
 
