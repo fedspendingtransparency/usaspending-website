@@ -20,7 +20,7 @@ const defaultProps = {
         {
             id: 'indefinite-delivery-vehicle',
             name: 'Contract IDVs',
-            filters: awardTypeGroups.idvs,
+            filters: awardTypeGroups.idvs
         },
         {
             id: 'award-grants',
