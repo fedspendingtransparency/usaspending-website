@@ -21,8 +21,6 @@ const defaultProps = {
             id: 'indefinite-delivery-vehicle',
             name: 'Contract IDVs',
             filters: awardTypeGroups.idvs,
-            // Temporarily hide IDV children until later implementation
-            restrictChildren: true
         },
         {
             id: 'award-grants',
