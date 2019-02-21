@@ -327,7 +327,7 @@ export const mockReferencedAwards = {
         {
             award_id: 8330000,
             award_type: "DO",
-            description: "4524345064!OTHER GROCERY AND R",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
             funding_agency: "DEPARTMENT OF DEFENSE (DOD)",
             funding_agency_id: 884,
             generated_unique_award_id: "CONT_AW_9700_9700_71T0_SPM30008D3155",
