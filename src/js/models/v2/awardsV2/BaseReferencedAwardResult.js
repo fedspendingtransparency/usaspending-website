@@ -14,6 +14,7 @@ const BaseReferencedAwardResult = {
         this.awardType = data.award_type || '';
         this._description = data.description || '';
         this.agency = data.funding_agency || '';
+        this.agencyId = data.funding_agency_id || '';
         this._obligatedAmount = data.obligated_amount || 0;
         this._lastDateToOrder = parseDate(data.last_date_to_order || null);
         this._endDate = parseDate(data.period_of_performance_current_end_date || null);

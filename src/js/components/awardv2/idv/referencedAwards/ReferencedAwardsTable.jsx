@@ -58,7 +58,9 @@ export default class ReferencedAwardsTable extends React.Component {
                         if (col.name === 'piid') {
                             data = (<a href={`/#/award_v2/${row.internalId}`}>{row[col.name]}</a>);
                         }
-                        // TODO - Lizzie: agency link
+                        if (col.name === 'agency' && row.agencyId) {
+                            data = (<a href={`/#/agency/${row.agencyId}`}>{row[col.name]}</a>);
+                        }
                         return (
                             <td
                                 className={`referenced-awards-table__body-cell ${col.name === 'obligatedAmount' ? 'recipient-list__body-cell_right' : ''}`}
