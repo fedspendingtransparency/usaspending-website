@@ -12,8 +12,8 @@ executiveDetails.populateCore(mockContract.executive_details);
 describe('CoreExecutiveDetails', () => {
     it('should parse executive compensation', () => {
         expect(executiveDetails.officers).toEqual({
-            officer1: "John Doe - $12,132",
-            officer2: "Jake Doe - $0"
+            "Officer 1": "John Doe - $12,132",
+            "Officer 2": "Jake Doe - $0"
         });
     });
     it('should parse executive compensation even without data', () => {
@@ -21,11 +21,11 @@ describe('CoreExecutiveDetails', () => {
         const executiveDetailsData = [];
         emptyExecutiveDetails.populateCore(executiveDetailsData);
         expect(emptyExecutiveDetails.officers).toEqual({
-            officer1: "--",
-            officer2: "--",
-            officer3: "--",
-            officer4: "--",
-            officer5: "--"
+            "Officer 1": "--",
+            "Officer 2": "--",
+            "Officer 3": "--",
+            "Officer 4": "--",
+            "Officer 5": "--"
         });
     });
 });
