@@ -14,7 +14,7 @@ import StateLandingTableSorter from 'components/stateLanding/table/StateLandingT
 const propTypes = {
     tableType: PropTypes.string,
     results: PropTypes.array,
-    totalItems: PropTypes.number,
+    counts: PropTypes.object,
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     page: PropTypes.number,
@@ -64,7 +64,7 @@ export default class ReferencedAwardsTable extends React.Component {
                         return (
                             <td
                                 className={`referenced-awards-table__body-cell ${col.name === 'obligatedAmount' ? 'recipient-list__body-cell_right' : ''}`}
-                                key={data}>
+                                key={row[col.name]}>
                                 {data || '--'}
                             </td>
                         );
@@ -102,17 +102,19 @@ export default class ReferencedAwardsTable extends React.Component {
             );
         }
 
+        const totalItems = this.props.counts[this.props.tableType];
+
         return (
             <div className="referenced-awards-results">
                 <Pagination
-                    totalItems={this.props.totalItems}
+                    totalItems={totalItems}
                     pageSize={this.props.limit}
                     pageNumber={this.props.page}
                     onChangePage={this.props.changePage} />
                 {content}
                 {message}
                 <Pagination
-                    totalItems={this.props.totalItems}
+                    totalItems={totalItems}
                     pageSize={this.props.limit}
                     pageNumber={this.props.page}
                     onChangePage={this.props.changePage} />

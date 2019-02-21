@@ -6,12 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DetailsTabBar from 'components/award/details/DetailsTabBar';
+import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ReferencedAwardsTable from './ReferencedAwardsTable';
 
 const propTypes = {
     results: PropTypes.array,
-    totalItems: PropTypes.number,
+    counts: PropTypes.object,
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     page: PropTypes.number,
@@ -35,10 +35,11 @@ export default class ReferencedAwardsSection extends React.Component {
                     </div>
                     <hr />
                     <div className="referenced-awards__content">
-                        <DetailsTabBar
-                            activeTab={this.props.tableType}
-                            clickTab={this.props.switchTab}
-                            tabOptions={this.props.tableTypes} />
+                        <ResultsTableTabs
+                            active={this.props.tableType}
+                            switchTab={this.props.switchTab}
+                            types={this.props.tableTypes}
+                            counts={this.props.counts} />
                         <ReferencedAwardsTable
                             {...this.props} />
                     </div>

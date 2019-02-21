@@ -33,7 +33,6 @@ export class ReferencedAwardsContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        // TODO - Lizzie: remove hard-coded total items
         this.state = {
             page: 1,
             limit: 10,
@@ -43,9 +42,13 @@ export class ReferencedAwardsContainer extends React.Component {
             inFlight: true,
             error: false,
             results: [],
-            totalItems: 45
+            counts: {
+                idvs: 0,
+                contracts: 0
+            }
         };
 
+        this.countRequest = null;
         this.request = null;
 
         this.switchTab = this.switchTab.bind(this);
@@ -55,13 +58,13 @@ export class ReferencedAwardsContainer extends React.Component {
 
     componentDidMount() {
         if (this.props.award.id) {
-            this.loadResults();
+            this.pickDefaultTab();
         }
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.award.id !== prevProps.award.id) {
-            this.loadResults();
+            this.pickDefaultTab();
         }
     }
 
@@ -100,6 +103,36 @@ export class ReferencedAwardsContainer extends React.Component {
             });
     }
 
+    pickDefaultTab() {
+        // get the referenced award counts for the current award
+        if (this.countRequest) {
+            this.countRequest.cancel();
+        }
+
+        this.setState({
+            inFlight: true,
+            error: false
+        });
+
+        this.countRequest = IdvHelper.fetchReferencedAwardsCounts({
+            award_id: this.props.award.id
+        });
+
+        this.countRequest.promise
+            .then((res) => {
+                this.parseTabCounts(res.data);
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    this.setState({
+                        inFlight: false,
+                        error: true
+                    });
+                    console.log(err);
+                }
+            });
+    }
+
     parseAwards(data) {
         const results = data.map((result) => {
             const referencedAward = Object.create(BaseReferencedAwardResult);
@@ -112,6 +145,19 @@ export class ReferencedAwardsContainer extends React.Component {
             error: false,
             results
         });
+    }
+
+    parseTabCounts(data) {
+        this.setState({
+            counts: data
+        });
+
+        if (data.idvs === 0 && data.contracts !== 0) {
+            this.switchTab('contracts');
+        }
+        else {
+            this.loadResults();
+        }
     }
 
     updateSort(sort, order) {

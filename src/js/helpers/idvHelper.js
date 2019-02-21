@@ -21,3 +21,19 @@ export const fetchReferencedAwards = (params) => {
         }
     };
 };
+
+export const fetchReferencedAwardsCounts = (params) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/awards/idvs/awards/count/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
