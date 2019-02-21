@@ -10,6 +10,9 @@ import { referencedAwardsColumns } from 'dataMapping/awardsv2/referencedAwards';
 
 import Pagination from 'components/sharedComponents/Pagination';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
+import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
+import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 
 const propTypes = {
     tableType: PropTypes.string,
@@ -79,11 +82,11 @@ export default class ReferencedAwardsTable extends React.Component {
         let content = null;
 
         if (this.props.inFlight) {
-            message = (<div>Loading...</div>);
+            message = (<ResultsTableLoadingMessage />);
             content = null;
         }
         else if (this.props.error) {
-            message = (<div>An error occurred.</div>);
+            message = (<ResultsTableErrorMessage />);
             content = null;
         }
         else if (this.props.results.length > 0) {
@@ -101,6 +104,10 @@ export default class ReferencedAwardsTable extends React.Component {
                 </table>
             );
         }
+        else {
+            message = (<ResultsTableNoResults />);
+            content = null;
+        }
 
         const totalItems = this.props.counts[this.props.tableType];
 
@@ -112,7 +119,9 @@ export default class ReferencedAwardsTable extends React.Component {
                     pageNumber={this.props.page}
                     onChangePage={this.props.changePage} />
                 {content}
-                {message}
+                <div className="results-table-message-container">
+                    {message}
+                </div>
                 <Pagination
                     totalItems={totalItems}
                     pageSize={this.props.limit}

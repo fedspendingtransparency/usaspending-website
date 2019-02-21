@@ -9,6 +9,18 @@
         .referenced-awards-results {
             @import 'components/pagination';
             @import './referencedAwardsTable';
+            @import '../../search/results/table/tableMessages';
+            .results-table-message-container {
+                position: relative;
+                .loading-animation {
+                    @import "../../search/results/screens/loading";
+                }
+                .results-table-no-results {
+                    .description {
+                        display: none;
+                    }
+                }
+            }
         }
     }
 }
