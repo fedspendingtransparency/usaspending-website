@@ -321,3 +321,33 @@ export const mockIdv = {
     subaward_count: 430,
     total_subaward_amount: 35345353453
 };
+
+export const mockReferencedAwards = {
+    results: [
+        {
+            award_id: 8330000,
+            award_type: "DO",
+            description: "4524345064!OTHER GROCERY AND R",
+            funding_agency: "DEPARTMENT OF DEFENSE (DOD)",
+            funding_agency_id: 884,
+            generated_unique_award_id: "CONT_AW_9700_9700_71T0_SPM30008D3155",
+            last_date_to_order: null,
+            obligated_amount: 4080.71,
+            period_of_performance_current_end_date: "2013-05-06",
+            period_of_performance_start_date: "2013-04-28",
+            piid: "71T0"
+        }
+    ],
+    page_metadata: {
+        hasPrevious: false,
+        next: 2,
+        hasNext: true,
+        previous: null,
+        page: 1
+    }
+};
+
+export const mockReferencedAwardCounts = {
+    idvs: 45,
+    contracts: 50
+};
