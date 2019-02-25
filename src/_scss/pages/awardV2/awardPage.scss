@@ -50,12 +50,12 @@
                     @include flex(1 1 auto);
                     @include media($medium-screen) {
                         @include flex(0 0 50%);
-                    }
-                    &:first-child {
-                        padding-right: rem(15);
-                    }
-                    &:last-child {
-                        padding-left: rem(15);
+                        &:first-child {
+                            padding-right: rem(15);
+                        }
+                        &:last-child {
+                            padding-left: rem(15);
+                        }
                     }
                 }
 
