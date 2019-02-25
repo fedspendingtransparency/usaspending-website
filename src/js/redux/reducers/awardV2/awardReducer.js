@@ -6,7 +6,11 @@
 export const initialState = {
     id: '',
     category: '',
-    overview: null
+    overview: null,
+    counts: {
+        contracts: 0,
+        idvs: 0
+    }
 };
 
 const awardReducer = (state = initialState, action) => {
@@ -16,6 +20,11 @@ const awardReducer = (state = initialState, action) => {
                 id: action.overview.generatedId,
                 category: action.overview.category,
                 overview: action.overview
+            });
+        }
+        case 'SET_COUNTS': {
+            return Object.assign({}, state, {
+                counts: action.counts
             });
         }
         case 'RESET_AWARD': {

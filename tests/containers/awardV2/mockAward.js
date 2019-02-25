@@ -26,6 +26,10 @@ export const mockRedux = {
     award: {
         id: '1234',
         category: 'contract',
-        overview: mockIdv
+        overview: mockIdv,
+        counts: {
+            idvs: 45,
+            contracts: 52
+        }
     }
 };

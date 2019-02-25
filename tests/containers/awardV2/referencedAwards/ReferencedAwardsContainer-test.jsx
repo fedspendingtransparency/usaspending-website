@@ -7,11 +7,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { ReferencedAwardsContainer } from 'containers/awardV2/idv/ReferencedAwardsContainer';
-
-import { mockRedux } from '../mockAward';
-import { mockReferencedAwards, mockReferencedAwardCounts } from '../../../models/awardsV2/mockAwardApi';
-
 import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardResult';
+import { mockRedux } from '../mockAward';
+import { mockReferencedAwards } from '../../../models/awardsV2/mockAwardApi';
 
 jest.mock('helpers/idvHelper', () => require('./mockIdvHelper'));
 
@@ -19,24 +17,23 @@ jest.mock('helpers/idvHelper', () => require('./mockIdvHelper'));
 jest.mock('components/awardv2/idv/referencedAwards/ReferencedAwardsSection', () => jest.fn(() => null));
 
 describe('ReferencedAwardsContainer', () => {
-    it('should make an API call for the award counts on mount', async () => {
+    it('should call pickDefaultTab onMount', () => {
         const container = shallow(<ReferencedAwardsContainer
             {...mockRedux} />);
 
-        const parseTabCounts = jest.fn();
-        container.instance().parseTabCounts = parseTabCounts;
+        const pickDefaultTab = jest.fn();
+        container.instance().pickDefaultTab = pickDefaultTab;
 
         container.instance().componentDidMount();
-        await container.instance().countRequest.promise;
 
-        expect(parseTabCounts).toHaveBeenCalledWith({ idvs: 45, contracts: 50 });
+        expect(pickDefaultTab).toHaveBeenCalled();
     });
-    it('should make an API call for the award counts when the award id changes', async () => {
+    it('should call pickDefaultTab when the award ID changes', () => {
         const container = shallow(<ReferencedAwardsContainer
             {...mockRedux} />);
 
-        const parseTabCounts = jest.fn();
-        container.instance().parseTabCounts = parseTabCounts;
+        const pickDefaultTab = jest.fn();
+        container.instance().pickDefaultTab = pickDefaultTab;
 
         const prevProps = {
             award: {
@@ -45,23 +42,21 @@ describe('ReferencedAwardsContainer', () => {
         };
 
         container.instance().componentDidUpdate(prevProps);
-        await container.instance().countRequest.promise;
 
-        expect(parseTabCounts).toHaveBeenCalledWith(mockReferencedAwardCounts);
+        expect(pickDefaultTab).toHaveBeenCalled();
     });
-    describe('parseTabCounts', () => {
-        it('should make an API call for the referenced awards and update the state', async () => {
+    describe('pickDefaultTab', () => {
+        it('should make an API call for the referenced awards', async () => {
             const container = shallow(<ReferencedAwardsContainer
                 {...mockRedux} />);
 
             const parseAwards = jest.fn();
             container.instance().parseAwards = parseAwards;
 
-            container.instance().parseTabCounts(mockReferencedAwardCounts);
+            container.instance().pickDefaultTab();
             await container.instance().request.promise;
 
             expect(parseAwards).toHaveBeenCalled();
-            expect(container.state().counts).toEqual(mockReferencedAwardCounts);
         });
     });
     describe('parseAwards', () => {

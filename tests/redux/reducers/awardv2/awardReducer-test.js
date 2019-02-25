@@ -29,6 +29,24 @@ describe('awardReducer', () => {
             expect(state.category).toEqual('contract');
         });
     });
+    describe('SET_COUNTS', () => {
+        it('should set the referenced award counts to the provided object', () => {
+            let state = awardReducer(undefined, {});
+
+            const action = {
+                type: 'SET_COUNTS',
+                counts: {
+                    idvs: 42,
+                    contracts: 55
+                }
+            };
+
+            state = awardReducer(state, action);
+
+            expect(state.counts.idvs).toEqual(42);
+            expect(state.counts.contracts).toEqual(55);
+        });
+    });
     describe('RESET_STATE', () => {
         it('should reset the award to its initial state', () => {
             let state = awardReducer(undefined, {

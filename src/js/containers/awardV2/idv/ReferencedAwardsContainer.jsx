@@ -41,14 +41,9 @@ export class ReferencedAwardsContainer extends React.Component {
             order: 'desc',
             inFlight: true,
             error: false,
-            results: [],
-            counts: {
-                idvs: 0,
-                contracts: 0
-            }
+            results: []
         };
 
-        this.countRequest = null;
         this.request = null;
 
         this.switchTab = this.switchTab.bind(this);
@@ -104,33 +99,13 @@ export class ReferencedAwardsContainer extends React.Component {
     }
 
     pickDefaultTab() {
-        // get the referenced award counts for the current award
-        if (this.countRequest) {
-            this.countRequest.cancel();
+        const counts = this.props.award.counts;
+        if (counts.idvs === 0 && counts.contracts !== 0) {
+            this.switchTab('contracts');
         }
-
-        this.setState({
-            inFlight: true,
-            error: false
-        });
-
-        this.countRequest = IdvHelper.fetchReferencedAwardsCounts({
-            award_id: this.props.award.id
-        });
-
-        this.countRequest.promise
-            .then((res) => {
-                this.parseTabCounts(res.data);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    this.setState({
-                        inFlight: false,
-                        error: true
-                    });
-                    console.log(err);
-                }
-            });
+        else {
+            this.loadResults();
+        }
     }
 
     parseAwards(data) {
@@ -145,19 +120,6 @@ export class ReferencedAwardsContainer extends React.Component {
             error: false,
             results
         });
-    }
-
-    parseTabCounts(data) {
-        this.setState({
-            counts: data
-        });
-
-        if (data.idvs === 0 && data.contracts !== 0) {
-            this.switchTab('contracts');
-        }
-        else {
-            this.loadResults();
-        }
     }
 
     updateSort(sort, order) {
@@ -193,6 +155,7 @@ export class ReferencedAwardsContainer extends React.Component {
         return (
             <ReferencedAwardsSection
                 {...this.state}
+                counts={this.props.award.counts}
                 switchTab={this.switchTab}
                 changePage={this.changePage}
                 updateSort={this.updateSort}
