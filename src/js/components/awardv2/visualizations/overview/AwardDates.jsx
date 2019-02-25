@@ -21,7 +21,7 @@ export default class AwardDates extends React.Component {
         let popDate = timeRange || '--';
 
         const unformattedEndDate = award.periodOfPerformance._endDate;
-        const unformattedAwardDate = award.periodOfPerformance._awardDate;
+        const unformattedAwardDate = award._dateSigned;
         const unformattedPotentialEndDate = award.periodOfPerformance._potentialEndDate;
 
         let dateLabel = "";
@@ -73,9 +73,9 @@ export default class AwardDates extends React.Component {
                 dateLabel = 'Completed';
             }
         }
+        // TODO: handle Financial Assistance awards, which have no potential end date
 
         return (
-
             <div className="award-amountdates__amounts">
                 <div className="award-amountdates__heading">
                     <span className="award-amountdates__heading-title">Dates <span className="award-amountdates__heading-info award-amountdates__heading-info_hide"><Icons.InfoCircle /></span></span> <span className="award-amountdates__heading-remaining">{popDate}<span className="award-amountdates__heading-remaining-text">{dateLabel}</span></span>
@@ -87,7 +87,7 @@ export default class AwardDates extends React.Component {
                     </div>
                 </div>
                 <div className="award-amountdates__details-container">
-                    <div className="award-amountdates__details award-amountdates__details_indent"><span>Awarded on</span> <span>{award.periodOfPerformance.awardDate || '--'}</span></div>
+                    <div className="award-amountdates__details award-amountdates__details_indent"><span>Awarded on</span> <span>{award.dateSigned || '--'}</span></div>
                     <div className="award-amountdates__details award-amountdates__details_indent"><span>Last Modified on</span> <span>{award.periodOfPerformance.lastModifiedDate || '--'}</span></div>
                     <div className="award-amountdates__details"><span><span className="award-amountdates__circle_dark-gray" />Current Completion Date</span> <span>{award.periodOfPerformance.endDate || '--'}</span></div>
                     <div className="award-amountdates__details"><span><span className="award-amountdates__circle_light-gray" />Potential Completion Date</span> <span>{award.periodOfPerformance.potentialEndDate || '--'}</span></div>

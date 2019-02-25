@@ -14,9 +14,69 @@
 		}
         .recipient-overview__parent {
             font-size: $small-font-size;
+			@import "components/visualizations/tooltip/_csstooltip.scss";
+			.tooltip-popover-container .tooltip-popover {
+				width: 415px;
+				bottom: 35px;
+				left: -200px;
+				font-style: italic;
+				font-size: rem(12);
+				svg {
+					margin-left: 2px;
+					height: rem(15);
+					width: rem(15);
+					fill: $color-gray-medium;
+				}
+				div:first-child {
+					width: 6%;
+					float: left;
+				}
+				div:last-child {
+					width: 90%;
+					float: left;
+				}
+				.title {
+					color: $color-gray-medium;
+					font-weight: $font-semibold;
+					&:first-child {
+						font-style: normal;
+					}
+				}
+
+				p {
+				    line-height: 1.25;
+				    margin-top: 0;
+					margin-bottom: 15px;
+					&:first-child {
+					    margin-top: 3px;
+					}
+				}
+			}
+			svg {
+			    width: 13px;
+			    top: 2px;
+				fill: $color-gray-light;
+			    margin-left: 5px;
+			    position: relative;
+
+				&:hover {
+					fill: $color-gray-medium;
+				}
+			}
+			a {
+				width: fit-content;
+			}
+			.recipient-overview__multiparents {
+				display: block;
+			}
             .recipient-overview__parent-link {
                 font-weight: $font-semibold;
                 color: $color-primary;
+            }
+            .usa-button-link svg {
+                width: 10px;
+                top: 1px;
+                fill: $color-primary;
             }
         }
         .recipient-overview__children {

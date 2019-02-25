@@ -9,6 +9,7 @@ import BaseAwardRecipient from "models/v2/awardsV2/BaseAwardRecipient";
 import CoreAwardAgency from "models/v2/awardsV2/CoreAwardAgency";
 import BaseContractAdditionalDetails from "models/v2/awardsV2/additionalDetails/BaseContractAdditionalDetails";
 import CoreExecutiveDetails from 'models/v2/awardsV2/CoreExecutiveDetails';
+import BaseParentAwardDetails from 'models/v2/awardsV2/BaseParentAwardDetails';
 
 import { mockIdv } from './mockAwardApi';
 
@@ -24,6 +25,11 @@ describe('BaseIdv', () => {
     describe('Place of Performance', () => {
         it('should be an object with CoreLocation in its prototype chain', () => {
             expect(Object.getPrototypeOf(contract.placeOfPerformance)).toEqual(CoreLocation);
+        });
+    });
+    describe('Parent Award Details', () => {
+        it('should be an object with parentAwardDetails in its prototype chain', () => {
+            expect(Object.getPrototypeOf(contract.parentAwardDetails)).toEqual(BaseParentAwardDetails);
         });
     });
     describe('Recipient', () => {
