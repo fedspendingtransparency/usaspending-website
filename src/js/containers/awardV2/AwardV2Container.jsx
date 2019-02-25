@@ -110,7 +110,6 @@ export class AwardContainer extends React.Component {
             this.props.setAward(contract);
         }
         else if (data.category === 'idv') {
-            console.log(data);
             const idv = Object.create(BaseIdv);
             idv.populate(data);
             this.props.setAward(idv);
