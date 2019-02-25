@@ -5,7 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ChartLoadingMessage from 'components/search/visualizations/ChartLoadingMessage';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
 import ChartError from 'components/search/visualizations/ChartError';
 import AggregatedAwardAmountsInfo from 'components/awardv2/visualizations/amounts/AggregatedAwardAmountsInfo';
 
@@ -20,7 +21,14 @@ export default class AggregatedAwardAmounts extends React.Component {
         let data = null;
         if (this.props.loading) {
             // API request is still pending
-            data = (<ChartLoadingMessage />);
+            data = (
+                <div className="visualization-message-container">
+                    <div className="visualization-loading">
+                        <div className="message">
+                    Gathering your data...
+                        </div>
+                    </div>
+                </div>);
         }
         else if (this.props.error) {
             data = (<ChartError />);
@@ -32,7 +40,13 @@ export default class AggregatedAwardAmounts extends React.Component {
 
         return (
             <div>
-                {data}
+                <CSSTransitionGroup
+                    transitionName="visualization-content-fade"
+                    transitionLeaveTimeout={225}
+                    transitionEnterTimeout={195}
+                    transitionLeave>
+                    {data}
+                </CSSTransitionGroup>
             </div>
         );
     }

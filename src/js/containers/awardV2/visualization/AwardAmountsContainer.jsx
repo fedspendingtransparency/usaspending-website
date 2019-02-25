@@ -1,5 +1,5 @@
 /**
-  * AwardAmountReferenceContainer.jsx
+  * AwardAmountsContainer.jsx
   * Created by David Trinh 2/8/2019
   **/
 
