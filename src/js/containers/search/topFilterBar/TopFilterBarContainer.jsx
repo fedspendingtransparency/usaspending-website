@@ -617,7 +617,7 @@ export class TopFilterBarContainer extends React.Component {
 
     determineAwardTypeCount(values) {
         const fullGroups = [];
-        const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'other'];
+        const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'idvs', 'other'];
 
         groupKeys.forEach((key) => {
             const fullMembership = AwardType.awardTypeGroups[key];
