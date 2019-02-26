@@ -18,6 +18,7 @@ const CoreAward = {
         this.subawardCount = parseFloat(data.subawardCount) || 0;
         this._totalObligation = parseFloat(data.totalObligation) || 0;
         this._baseExercisedOptions = parseFloat(data.baseExercisedOptions) || 0;
+        this._baseAndAllOptions = parseFloat(data.baseAndAllOptions) || 0;
         this._dateSigned = (data.dateSigned && parseDate(data.dateSigned)) || '';
     },
     get subawardTotal() {
@@ -46,6 +47,16 @@ const CoreAward = {
     },
     get baseExercisedOptionsFormatted() {
         return MoneyFormatter.formatMoney(this._baseExercisedOptions);
+    },
+    get baseAndAllOptions() {
+        if (this._baseAndAllOptions >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._baseAndAllOptions);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseAndAllOptions / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._baseAndAllOptions, 0);
+    },
+    get baseAndAllOptionsFormatted() {
+        return MoneyFormatter.formatMoney(this._baseAndAllOptions);
     },
     get category() {
         if (this._category === 'loans') {

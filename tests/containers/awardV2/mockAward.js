@@ -21,7 +21,6 @@ export const mockActions = {
     resetAward: jest.fn()
 };
 
-
 export const mockRedux = {
     award: {
         id: '1234',
