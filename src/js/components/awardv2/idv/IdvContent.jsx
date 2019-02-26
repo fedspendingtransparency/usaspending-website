@@ -46,12 +46,14 @@ export default class IdvContent extends React.Component {
                         category="idv"
                         recipient={this.props.overview.recipient} />
                     <RelatedAwards
+                        jumpToSection={this.props.jumpToSection}
                         overview={this.props.overview} />
                     <IdvDates
                         dates={this.props.overview.dates} />
                 </div>
                 <div className="award__row">
                     <AwardAmounts
+                        jumpToSection={this.props.jumpToSection}
                         awardId={this.props.awardId}
                         overview={this.props.overview} />
                     <AwardDescription

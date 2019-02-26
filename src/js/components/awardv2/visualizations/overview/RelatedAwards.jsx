@@ -5,9 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Table } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    overview: PropTypes.object
+    overview: PropTypes.object,
+    jumpToSection: PropTypes.func
 };
 
 export default class RelatedAwards extends React.Component {
@@ -23,7 +25,7 @@ export default class RelatedAwards extends React.Component {
             );
         }
         return (
-            <div className="related-awards">
+            <div className="award-viz related-awards">
                 <div className="award-overview__title related-awards__title">
                     Related Awards
                 </div>
@@ -33,6 +35,16 @@ export default class RelatedAwards extends React.Component {
                     </div>
                     {parentLink}
                 </div>
+                <button
+                    onClick={() => this.props.jumpToSection('referenced-awards')}
+                    className="award-viz__button">
+                    <div className="award-viz__link-icon">
+                        <Table />
+                    </div>
+                    <div className="award-viz__link-text">
+                        View referencing awards table
+                    </div>
+                </button>
             </div>
         );
     }

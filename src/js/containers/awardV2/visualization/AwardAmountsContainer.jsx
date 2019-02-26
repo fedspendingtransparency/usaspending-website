@@ -16,7 +16,8 @@ import AggregatedAwardAmounts from 'components/awardv2/visualizations/amounts/Ag
 
 const propTypes = {
     awardId: PropTypes.string,
-    setCounts: PropTypes.func
+    setCounts: PropTypes.func,
+    jumpToSection: PropTypes.func
 };
 
 export class AwardAmountsContainer extends React.Component {
@@ -108,7 +109,10 @@ export class AwardAmountsContainer extends React.Component {
     render() {
         return (
             <div>
-                <AggregatedAwardAmounts {...this.state} loading={this.state.inFlight} />
+                <AggregatedAwardAmounts
+                    {...this.state}
+                    loading={this.state.inFlight}
+                    jumpToSection={this.props.jumpToSection} />
             </div>
         );
     }

@@ -12,7 +12,8 @@ import IDVAmounts from './IDVAmounts';
 
 const propTypes = {
     overview: PropTypes.object,
-    awardId: PropTypes.string
+    awardId: PropTypes.string,
+    jumpToSection: PropTypes.func
 };
 
 export default class AwardAmounts extends React.Component {
@@ -45,7 +46,14 @@ export default class AwardAmounts extends React.Component {
         ];
 
         const awards = this.props.overview;
-        const content = this.state.active === 'awards' ? (<AwardAmountsContainer awardId={this.props.awardId} />) : (<IDVAmounts awards={awards} />);
+        const content = this.state.active === 'awards' ? (
+            <AwardAmountsContainer
+                jumpToSection={this.props.jumpToSection}
+                awardId={this.props.awardId} />
+        ) : (
+            <IDVAmounts
+                awards={awards} />
+        );
         return (
             <div className="award__col award-viz award-amounts">
                 <div className="award-viz__heading">

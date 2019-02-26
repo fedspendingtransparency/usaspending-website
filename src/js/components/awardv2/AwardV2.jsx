@@ -35,6 +35,10 @@ const awardSections = [
     {
         section: 'additional-information',
         label: 'Additional Information'
+    },
+    {
+        section: 'referenced-awards',
+        label: 'Referenced Awards'
     }
 ];
 
