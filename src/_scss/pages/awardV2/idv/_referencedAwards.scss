@@ -1,0 +1,26 @@
+.referenced-awards {
+    .referenced-awards__content {
+        padding-top: rem(20);
+        padding-bottom: rem(40);
+        @import 'pages/search/results/table/tableTypes';
+        .table-types {
+            width: 100%;
+        }
+        .referenced-awards-results {
+            @import 'components/pagination';
+            @import './referencedAwardsTable';
+            @import '../../search/results/table/tableMessages';
+            .results-table-message-container {
+                position: relative;
+                .loading-animation {
+                    @import "../../search/results/screens/loading";
+                }
+                .results-table-no-results {
+                    .description {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

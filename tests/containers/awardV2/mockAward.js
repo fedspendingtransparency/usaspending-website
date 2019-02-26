@@ -3,7 +3,7 @@
  * Created by David Trinh 10/6/18
  */
 
-import { mockContract } from '../../models/awardsV2/mockAwardApi';
+import { mockContract, mockIdv } from '../../models/awardsV2/mockAwardApi';
 
 export const mockParams = {
     params: {
@@ -18,6 +18,19 @@ export const mockParams = {
 
 export const mockActions = {
     setAward: jest.fn(),
+    setCounts: jest.fn(),
     resetAward: jest.fn()
 };
 
+export const mockRedux = {
+    awardId: '1234',
+    award: {
+        id: '1234',
+        category: 'idv',
+        overview: mockIdv,
+        counts: {
+            idvs: 45,
+            contracts: 52
+        }
+    }
+};

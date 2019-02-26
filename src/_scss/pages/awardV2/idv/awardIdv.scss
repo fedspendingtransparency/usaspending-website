@@ -21,6 +21,7 @@
     }
   }
 
-  @import "./_awardHistory";
-  @import './visualizations/amounts/awardAmounts';
+  @import './awardHistory';
+  @import './referencedAwards';
+  @import './awardAmounts';
 }

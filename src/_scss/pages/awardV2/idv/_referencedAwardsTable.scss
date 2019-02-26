@@ -1,0 +1,46 @@
+.referenced-awards-table {
+    border: none;
+    margin-top: 0;
+    font-size: rem(12);
+    .referenced-awards-table__head-row {
+        border-bottom: solid 1px $color-gray-lighter;
+    }
+    .referenced-awards-table__head {
+        .referenced-awards-table__head-cell{
+            @import '../../recipientLanding/header';
+            @import '../../stateLanding/sorter';
+            background-color: $color-white;
+            border: 0;
+            padding: rem(15) rem(10);
+            .header-cell {
+                .header-cell__text {
+                    .header-cell__title {
+                        font-weight: 600;
+                        font-size: $small-font-size;
+                        white-space: nowrap;
+                    }
+                }
+                &.header-cell_right {
+                    justify-content: flex-end;
+                    padding-right: rem(10);
+                }
+            }
+        }
+    }
+
+    .referenced-awards-table__body-row {
+        &:nth-child(even) {
+            background-color: #f7f7f7;
+        }
+    }
+    .referenced-awards-table__body-cell {
+        background-color: transparent;
+        border: none;
+        padding: rem(10);
+
+        &.recipient-list__body-cell_right {
+            text-align: right;
+            padding-right: rem(20);
+        }
+    }
+}
