@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Cookies from 'js-cookie';
 
 import { Table } from 'components/sharedComponents/icons/Icons';
 import AwardsBanner from './AwardsBanner';
@@ -16,31 +15,6 @@ const propTypes = {
 };
 
 export default class AggregatedAwardAmountsInfo extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            showAwardsBanner: false
-        };
-        this.closeBanner = this.closeBanner.bind(this);
-    }
-    componentWillMount() {
-        // check if the info banner cookie exists
-        if (!Cookies.get('usaspending_awards_banner')) {
-            // cookie does not exist, show the banner
-            this.setState({
-                showAwardsBanner: true
-            });
-        }
-    }
-
-    closeBanner(bannerType, cookieName) {
-        // set a cookie to hide the banner in the future if banner is closed
-        Cookies.set(cookieName, 'hide', { expires: 730 });
-        this.setState({
-            [bannerType]: false
-        });
-    }
     render() {
         const awardAmounts = this.props.awardAmounts;
         const exercisedLabelPercentage = Math.round(Math.abs((awardAmounts._rolledBaseExercisedOptions) / awardAmounts._rolledBaseAllOptions) * 100);
@@ -63,18 +37,10 @@ export default class AggregatedAwardAmountsInfo extends React.Component {
         const exercisedLableStyle = {
             width: `${exercisedLabelPercentage}%`
         };
-        let awardsBanner = (
-            <AwardsBanner
-                closeBanner={this.closeBanner} />
-        );
-
-        if (!this.state.showAwardsBanner) {
-            awardsBanner = null;
-        }
 
         return (
             <div className="award-amounts__content">
-                {awardsBanner}
+                <AwardsBanner />
                 <div className="award-amounts__viz-desc-top"><strong>{awardAmounts.obligationFormatted}</strong> Combined Obligated Amounts</div>
                 <div className="award-amounts__viz-label" style={obligatedLableStyle}>
                     <div className="award-amounts__viz-line-up" />
