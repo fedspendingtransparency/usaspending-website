@@ -1,4 +1,6 @@
 .additional-info {
+    padding: rem(40) 0 rem(60);
+
     .accordion {
         margin-bottom: rem(20);
 
@@ -10,19 +12,26 @@
         &.accordion_open {
             .accordion__content {
                 height: auto;
-                border: rem(1) solid $color-gray-lightest;
+                border: rem(2) solid $color-gray-lightest;
 
-                .accordion__data-row {
-                    display: flex;
-                    padding: rem(8) rem(40);
-                    border-bottom: rem(1) solid $color-gray-lightest;
+                .accordion-table {
+                    margin: 0;
 
-                    span {
-                        flex: 1;
-                    }
+                    .accordion-table__row {
+                        border-bottom: rem(2) solid $color-gray-lightest;
+                        padding: rem(8) rem(40);
 
-                    &:last-child {
-                        border-bottom: none;
+                        td {
+                            border: 0;
+
+                            &:last-child {
+                                font-weight: $font-light;
+                            }
+                        }
+
+                        &:last-child {
+                            border-bottom: none;
+                        }
                     }
                 }
             }

@@ -42,7 +42,7 @@
                 @include flex-wrap(wrap);
                 @include justify-content(space-between);
                 @include align-items(flex-start);
-                padding: rem(20) 0 rem(40);
+                padding: rem(40) 0 rem(60);
                 @include media($medium-screen) {
                     @include flex-wrap(nowrap);
                 }
@@ -50,12 +50,12 @@
                     @include flex(1 1 auto);
                     @include media($medium-screen) {
                         @include flex(0 0 50%);
-                    }
-                    &:first-child {
-                        padding-right: rem(15);
-                    }
-                    &:last-child {
-                        padding-left: rem(15);
+                        &:first-child {
+                            padding-right: rem(15);
+                        }
+                        &:last-child {
+                            padding-left: rem(15);
+                        }
                     }
                 }
 
