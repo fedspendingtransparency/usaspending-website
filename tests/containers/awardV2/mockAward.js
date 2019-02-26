@@ -18,13 +18,15 @@ export const mockParams = {
 
 export const mockActions = {
     setAward: jest.fn(),
+    setCounts: jest.fn(),
     resetAward: jest.fn()
 };
 
 export const mockRedux = {
+    awardId: '1234',
     award: {
         id: '1234',
-        category: 'contract',
+        category: 'idv',
         overview: mockIdv,
         counts: {
             idvs: 45,

@@ -6,9 +6,9 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import AwardAmountsContainer from 'containers/awardV2/visualization/AwardAmountsContainer';
+import { AwardAmountsContainer } from 'containers/awardV2/visualization/AwardAmountsContainer';
 
-import { mockAwardsAmountParams } from './mockAward';
+import { mockRedux, mockActions } from './mockAward';
 import { mockAwardAmounts } from '../../models/awardsV2/mockAwardApi';
 
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
@@ -19,15 +19,12 @@ jest.mock('helpers/searchHelper', () => require('./awardV2Helper'));
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/awardv2/visualizations/amounts/AggregatedAwardAmounts.jsx', () => jest.fn(() => null));
 
-const mockParams = {
-    awardId: '1234'
-};
-
 describe('AwardAmountsContainer', () => {
     it('should make an API call for the award amounts on mount', async () => {
         const container = mount(
             <AwardAmountsContainer
-                {...mockParams} />);
+                {...mockActions}
+                {...mockRedux} />);
 
         const parseAward = jest.fn();
         container.instance().parseAward = parseAward;
@@ -37,9 +34,9 @@ describe('AwardAmountsContainer', () => {
     });
 
     it('should make an API call when the award ID props changes', () => {
-        const container = shallow(
-            <AwardAmountsContainer
-                {...mockParams} />);
+        const container = shallow(<AwardAmountsContainer
+            {...mockActions}
+            {...mockRedux} />);
 
         const getSelectedAward = jest.fn();
         container.instance().getSelectedAward = getSelectedAward;
@@ -48,7 +45,7 @@ describe('AwardAmountsContainer', () => {
         expect(getSelectedAward).toHaveBeenCalledTimes(1);
         expect(getSelectedAward).toHaveBeenCalledWith('1234');
 
-        const prevProps = Object.assign({}, mockAwardsAmountParams, {
+        const prevProps = Object.assign({}, mockRedux, {
             awardId: '222'
         });
 
@@ -60,8 +57,9 @@ describe('AwardAmountsContainer', () => {
 
     describe('parseAward', () => {
         it('should parse returned award amounts data and set data as the award amounts state', () => {
-            const container = shallow(
-                <AwardAmountsContainer {...mockParams} />);
+            const container = shallow(<AwardAmountsContainer
+                {...mockRedux}
+                {...mockActions} />);
 
             const expectedAwardAmounts = Object.create(BaseAwardAmounts);
             expectedAwardAmounts.populate(mockAwardAmounts);
