@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { isEqual } from 'lodash';
 
 import * as IdvHelper from 'helpers/idvHelper';
 import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardResult';
@@ -52,13 +53,13 @@ export class ReferencedAwardsContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.award.id) {
+        if (this.props.award.id && this.props.award.counts) {
             this.pickDefaultTab();
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.award.id !== prevProps.award.id) {
+        if (this.props.award.id !== prevProps.award.id || !isEqual(this.props.award.counts, prevProps.award.counts)) {
             this.pickDefaultTab();
         }
     }

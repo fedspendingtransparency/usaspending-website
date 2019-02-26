@@ -27,6 +27,16 @@ const propTypes = {
 
 export default class ReferencedAwardsSection extends React.Component {
     render() {
+        let tabs = null;
+        if (this.props.counts) {
+            tabs = (
+                <ResultsTableTabs
+                    active={this.props.tableType}
+                    switchTab={this.props.switchTab}
+                    types={this.props.tableTypes}
+                    counts={this.props.counts} />
+            );
+        }
         return (
             <div id="idv-referenced-awards" className="referenced-awards">
                 <div className="award-viz">
@@ -38,11 +48,7 @@ export default class ReferencedAwardsSection extends React.Component {
                     </div>
                     <hr />
                     <div className="referenced-awards__content">
-                        <ResultsTableTabs
-                            active={this.props.tableType}
-                            switchTab={this.props.switchTab}
-                            types={this.props.tableTypes}
-                            counts={this.props.counts} />
+                        {tabs}
                         <ReferencedAwardsTable
                             {...this.props} />
                     </div>

@@ -5,17 +5,21 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import * as SearchHelper from 'helpers/searchHelper';
+import * as awardActions from 'redux/actions/awardV2/awardActions';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AggregatedAwardAmounts from 'components/awardv2/visualizations/amounts/AggregatedAwardAmounts';
 
 const propTypes = {
-    awardId: PropTypes.string
+    awardId: PropTypes.string,
+    setCounts: PropTypes.func
 };
 
-export default class AwardAmountsContainer extends React.Component {
+export class AwardAmountsContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -93,6 +97,12 @@ export default class AwardAmountsContainer extends React.Component {
         this.setState({
             awardAmounts
         });
+
+        // Store the counts in Redux for use in the referenced awards table
+        this.props.setCounts({
+            idvs: data.idv_count,
+            contracts: data.contract_count
+        });
     }
 
     render() {
@@ -105,3 +115,8 @@ export default class AwardAmountsContainer extends React.Component {
 }
 
 AwardAmountsContainer.propTypes = propTypes;
+
+export default connect(
+    (state) => ({ award: state.awardV2 }),
+    (dispatch) => bindActionCreators(awardActions, dispatch)
+)(AwardAmountsContainer);

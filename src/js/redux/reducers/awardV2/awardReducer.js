@@ -7,10 +7,7 @@ export const initialState = {
     id: '',
     category: '',
     overview: null,
-    counts: {
-        contracts: 0,
-        idvs: 0
-    }
+    counts: null
 };
 
 const awardReducer = (state = initialState, action) => {
