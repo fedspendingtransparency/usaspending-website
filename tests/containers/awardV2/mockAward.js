@@ -20,3 +20,4 @@ export const mockActions = {
     setAward: jest.fn(),
     resetAward: jest.fn()
 };
+
