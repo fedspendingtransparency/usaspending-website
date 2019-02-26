@@ -20,6 +20,9 @@
                         white-space: nowrap;
                     }
                 }
+                &.header-cell_right {
+                    justify-content: flex-end;
+                }
             }
         }
     }

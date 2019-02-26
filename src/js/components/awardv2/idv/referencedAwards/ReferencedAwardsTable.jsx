@@ -34,7 +34,7 @@ export default class ReferencedAwardsTable extends React.Component {
             <th
                 className="referenced-awards-table__head-cell"
                 key={col.field}>
-                <div className="header-cell">
+                <div className={col.name === 'obligatedAmount' ? 'header-cell header-cell_right' : 'header-cell'}>
                     <div className="header-cell__text">
                         <div className="header-cell__title">
                             {col.label}
