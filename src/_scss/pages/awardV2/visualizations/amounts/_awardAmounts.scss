@@ -1,5 +1,6 @@
 &.award-amounts {
     $border-gray: #555555;
+    $border-light-gray: #d5d6d8;
 
     .award-amounts__content {
         color: $color-primary-darker;
@@ -60,7 +61,7 @@
 
     .award-amounts__viz-line-up {
         margin: rem(5) 0 rem(5) rem(1);
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $border-light-gray;
         position: relative;
         width: 99.5%;
         height: rem(1);
@@ -68,7 +69,7 @@
 
     .award-amounts__viz-line {
         margin: rem(20) 0 rem(5) rem(1);
-        border-bottom: 1px solid black;
+        border-bottom: 1px solid $border-light-gray;
         position: relative;
         width: 99.5%;
         height: rem(1);
@@ -79,7 +80,7 @@
         position: absolute;
         width: rem(1);
         height: rem(10);
-        border-left: 1px solid black;
+        border-left: 1px solid $border-light-gray;
         top: 0px;
         right: -1px;
     }
@@ -89,7 +90,7 @@
         position: absolute;
         width: rem(1);
         height: rem(10);
-        border-left: 1px solid black;
+        border-left: 1px solid $border-light-gray;
         top: 0px;
         left: -1px;
     }
@@ -99,7 +100,7 @@
         position: absolute;
         width: rem(1);
         height: rem(10);
-        border-left: 1px solid black;
+        border-left: 1px solid $border-light-gray;
         top: -8.5px;
         right: -1px;
     }
@@ -109,7 +110,7 @@
         position: absolute;
         width: rem(1);
         height: rem(10);
-        border-left: 1px solid black;
+        border-left: 1px solid $border-light-gray;
         top: -8.5px;
         left: -1px;
     }
@@ -129,7 +130,7 @@
     }
 
     .award-amounts__data-content {
-        border: 1px #D5D6D8 solid;
+        border: 1px $border-light-gray solid;
         padding: rem(8);
         display: flex;
         justify-content: space-between;
@@ -167,7 +168,7 @@
     }
 
     .award-amounts__data {
-        border: 1px #D5D6D8 solid;
+        border: 1px $border-light-gray solid;
         padding: rem(8);
         font-size: rem(16);
         color: #525252;
