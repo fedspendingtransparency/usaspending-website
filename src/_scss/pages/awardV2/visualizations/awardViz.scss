@@ -1,5 +1,14 @@
 /* Shared Award Visualization styles */
 .award-viz {
+    @import "pages/search/results/table/_tableTypes";
+    @import "pages/search/results/table/_resultsTablePicker";
+    @import "pages/search/results/visualizations/_messages";
+   
+    .visualization-message-container {
+        margin-top: rem(30);
+        height: rem(112);
+        padding-top: rem(45);
+    }
     .award-viz__heading {
         @include display(flex);
         @include justify-content(flex-start);
@@ -38,6 +47,9 @@
                 fill: $color-link;
             }
         }
+        .award-viz__link-icon_hidden {
+            display: none;
+        }
         .award-viz__link-text {
             @include display(flex);
             @include flex(0 0 auto);
@@ -52,6 +64,9 @@
                     fill: $color-visited;
                 }
             }
+        }
+        .award-viz__link-text_hidden {
+            display: none;
         }
     }
 

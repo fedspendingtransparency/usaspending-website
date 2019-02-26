@@ -320,3 +320,13 @@ export const mockIdv = {
     subaward_count: 430,
     total_subaward_amount: 35345353453
 };
+
+export const mockAwardAmounts = {
+    award_id: 12178065,
+    generated_unique_award_id: null,
+    idv_count: 100,
+    contract_count: 10,
+    rollup_base_exercised_options_val: 10000000,
+    rollup_base_and_all_options_value: 106987321.10,
+    rollup_total_obligation: 1623321.02
+};
