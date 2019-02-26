@@ -87,13 +87,20 @@ export default class AwardDates extends React.Component {
                     </div>
                 </div>
                 <div className="award-amountdates__details-container">
-                    <div className="award-amountdates__details award-amountdates__details_indent"><span>Awarded on</span> <span>{award.dateSigned || '--'}</span></div>
-                    <div className="award-amountdates__details award-amountdates__details_indent"><span>Last Modified on</span> <span>{award.periodOfPerformance.lastModifiedDate || '--'}</span></div>
-                    <div className="award-amountdates__details"><span><span className="award-amountdates__circle_dark-gray" />Current Completion Date</span> <span>{award.periodOfPerformance.endDate || '--'}</span></div>
-                    <div className="award-amountdates__details"><span><span className="award-amountdates__circle_light-gray" />Potential Completion Date</span> <span>{award.periodOfPerformance.potentialEndDate || '--'}</span></div>
+                    <div className="award-amountdates__details award-amountdates__details_indent">
+                        <span>Awarded on</span> <span>{award.dateSignedLong || '--'}</span>
+                    </div>
+                    <div className="award-amountdates__details award-amountdates__details_indent">
+                        <span>Last Modified on</span> <span>{award.periodOfPerformance.lastModifiedDateLong || '--'}</span>
+                    </div>
+                    <div className="award-amountdates__details">
+                        <span><span className="award-amountdates__circle_dark-gray" />Current Completion Date</span> <span>{award.periodOfPerformance.endDateLong || '--'}</span>
+                    </div>
+                    <div className="award-amountdates__details">
+                        <span><span className="award-amountdates__circle_light-gray" />Potential Completion Date</span> <span>{award.periodOfPerformance.potentialEndDateLong || '--'}</span>
+                    </div>
                 </div>
             </div>
-
         );
     }
 }

@@ -176,7 +176,8 @@ export const mockLoan = {
     },
     period_of_performance: {
         start_date: '2004-02-19',
-        end_date: '2005-02-19'
+        end_date: '2005-02-19',
+        last_modified_date: '2006-03-01'
     },
     place_of_performance: {
         address_line1: '1515 EUBANK BLVD. SE',

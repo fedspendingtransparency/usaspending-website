@@ -30,6 +30,13 @@
             font-weight: $font-semibold;
         }
     }
+    .award-viz__button {
+        @include button-unstyled;
+        color: $color-link;
+        &:hover, &:focus {
+            color: $color-visited;
+        }
+    }
     .award-viz__link {
         @include display(flex);
         @include justify-content(flex-start);
@@ -69,7 +76,4 @@
             display: none;
         }
     }
-
-    // Import specific visualization styles
-    @import "./amounts/awardAmounts";
 }
