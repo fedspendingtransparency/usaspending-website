@@ -1,8 +1,0 @@
-node_modules/
-schemas/
-docs/
-provider/
-!scripts/*
-
-.DS_Store
-npm-debug.log
