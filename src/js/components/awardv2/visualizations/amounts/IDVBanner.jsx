@@ -21,7 +21,6 @@ export default class IDVBanner extends React.Component {
     }
     render() {
         return (
-
             <div className={`award-amounts__banner ${!this.state.toggle ? "award-amounts__banner_hidden" : ""}`}>
                 <div className="award-amounts__banner-info">
                     <span className="award-amounts__banner-info-icon"><InfoCircle /></span>
