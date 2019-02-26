@@ -42,7 +42,7 @@
                 @include flex-wrap(wrap);
                 @include justify-content(space-between);
                 @include align-items(flex-start);
-                padding: rem(20) 0 rem(40);
+                padding: rem(40) 0 rem(60);
                 @include media($medium-screen) {
                     @include flex-wrap(nowrap);
                 }
@@ -50,40 +50,26 @@
                     @include flex(1 1 auto);
                     @include media($medium-screen) {
                         @include flex(0 0 50%);
+                        &:first-child {
+                            padding-right: rem(15);
+                        }
+                        &:last-child {
+                            padding-left: rem(15);
+                        }
                     }
-                    &:first-child {
-                        padding-right: rem(15);
-                    }
-                    &:last-child {
-                        padding-left: rem(15);
-                    }
-                }
-
-                @import "./visualizations/awardViz";
-
-                .text-button-container__button {
-                    background-color: transparent;
-                    color: $color-cool-blue;
-                    padding: 0;
-                    margin: 0;
                 }
 
                 hr {
                     opacity: 0.5;
                 }
-
-                .data-values {
-                   font-weight: $font-light;
-                }
             }
-            
+            @import "./visualizations/awardViz";
             @import "./visualizations/overview/overview";
             @import "./visualizations/description/description";
+            @import "./visualizations/additionalInfo";
         }
-        @import "./_awardAdditionalInfo";
         @import "./awardContract";
         @import "./awardFinancialAssistance";
-        @import "./awardIdv";
+        @import "./idv/awardIdv";
     }
-
 }

@@ -20,6 +20,7 @@ describe('BaseIdv', () => {
     describe('agency', () => {
         it('should format toptier and subtier names', () => {
             expect(Object.getPrototypeOf(contract.awardingAgency)).toEqual(CoreAwardAgency);
+            expect(Object.getPrototypeOf(contract.fundingAgency)).toEqual(CoreAwardAgency);
         });
     });
     describe('Place of Performance', () => {

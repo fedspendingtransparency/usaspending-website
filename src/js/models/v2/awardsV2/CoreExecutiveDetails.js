@@ -6,21 +6,21 @@ import { formatMoney } from 'helpers/moneyFormatter';
 
 const parseExecutiveCompensation = (data) => {
     const executiveCompensation = {};
-    if (data) {
+    if (data && data.length > 0) {
         data.forEach((officer, index) => {
             const name = officer.name || '';
             const amount = formatMoney(officer.amount) || 0;
             if (name) {
-                executiveCompensation[`officer${index + 1}`] = `${name} - ${amount}`;
+                executiveCompensation[`Officer ${index + 1}`] = `${name} - ${amount}`;
             }
             else {
-                executiveCompensation[`officer${index + 1}`] = '--';
+                executiveCompensation[`Officer ${index + 1}`] = '--';
             }
         });
     }
     else {
         for (let i = 1; i < 6; i++) {
-            executiveCompensation[`officer${i}`] = '--';
+            executiveCompensation[`Officer ${i}`] = '--';
         }
     }
     return executiveCompensation;
@@ -28,7 +28,7 @@ const parseExecutiveCompensation = (data) => {
 
 const CoreExecutiveDetails = {
     populateCore(data) {
-        this.officers = parseExecutiveCompensation(data.officers) || null;
+        this.officers = parseExecutiveCompensation(data.officers);
     }
 };
 
