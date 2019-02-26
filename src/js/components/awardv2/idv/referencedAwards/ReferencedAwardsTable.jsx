@@ -67,7 +67,7 @@ export default class ReferencedAwardsTable extends React.Component {
                         return (
                             <td
                                 className={`referenced-awards-table__body-cell ${col.name === 'obligatedAmount' ? 'recipient-list__body-cell_right' : ''}`}
-                                key={row[col.name]}>
+                                key={`${row.internalId}-${col.name}`}>
                                 {data || '--'}
                             </td>
                         );
