@@ -98,7 +98,7 @@ export default class AwardAmountsContainer extends React.Component {
     render() {
         return (
             <div>
-                <AggregatedAwardAmounts awardAmounts={this.state.awardAmounts} loading={this.state.inFlight} error={this.state.error} />
+                <AggregatedAwardAmounts {...this.state} loading={this.state.inFlight} />
             </div>
         );
     }

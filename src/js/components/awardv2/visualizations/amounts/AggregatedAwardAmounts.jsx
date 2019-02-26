@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import ChartError from 'components/search/visualizations/ChartError';
 import AggregatedAwardAmountsInfo from 'components/awardv2/visualizations/amounts/AggregatedAwardAmountsInfo';
@@ -40,13 +39,7 @@ export default class AggregatedAwardAmounts extends React.Component {
 
         return (
             <div>
-                <CSSTransitionGroup
-                    transitionName="visualization-content-fade"
-                    transitionLeaveTimeout={225}
-                    transitionEnterTimeout={195}
-                    transitionLeave>
-                    {data}
-                </CSSTransitionGroup>
+                {data}
             </div>
         );
     }

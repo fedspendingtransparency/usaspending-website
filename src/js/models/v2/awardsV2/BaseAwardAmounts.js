@@ -51,6 +51,9 @@ const BaseAwardAmounts = {
     },
     get exercisedPercentage() {
         return Math.round(Math.abs((this._rolledBaseExercisedOptions / this._rolledBaseAllOptions) * 100)) - Math.round(Math.abs((this._obligation / this._rolledBaseAllOptions) * 100));
+    },
+    get exercisedLabelPercentage() {
+        return Math.round(Math.abs((this._rolledBaseExercisedOptions) / this._rolledBaseAllOptions) * 100);
     }
 };
 
