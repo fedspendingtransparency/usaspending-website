@@ -37,3 +37,18 @@ export const fetchReferencedAwardsCounts = (params) => {
         }
     };
 };
+
+export const fetchAwardAmounts = (awardId) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/awards/idvs/amounts/${awardId}/`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

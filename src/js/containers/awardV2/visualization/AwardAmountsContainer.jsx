@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import * as SearchHelper from 'helpers/searchHelper';
+import * as IdvHelper from 'helpers/idvHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AggregatedAwardAmounts from 'components/awardv2/visualizations/amounts/AggregatedAwardAmounts';
@@ -55,7 +55,7 @@ export class AwardAmountsContainer extends React.Component {
             this.awardRequest.cancel();
         }
 
-        this.awardRequest = SearchHelper.fetchAwardsAmount(id);
+        this.awardRequest = IdvHelper.fetchAwardAmounts(id);
 
         this.awardRequest.promise
             .then((results) => {
