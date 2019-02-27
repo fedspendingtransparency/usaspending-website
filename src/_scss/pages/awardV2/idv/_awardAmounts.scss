@@ -16,6 +16,10 @@
         display: flex;
         padding: 0 rem(10) 0 rem(10);
         justify-content: space-between;
+        .award-viz__button {
+            margin: 0;
+            display: inline
+        }
     }
 
     .award-amounts__banner_hidden {

@@ -40,7 +40,8 @@ export default class AggregatedAwardAmountsInfo extends React.Component {
 
         return (
             <div className="award-amounts__content">
-                <AwardsBanner />
+                <AwardsBanner
+                    jumpToSection={this.props.jumpToSection} />
                 <div className="award-amounts__viz-desc-top"><strong>{awardAmounts.obligationFormatted}</strong> Combined Obligated Amounts</div>
                 <div className="award-amounts__viz-label" style={obligatedLableStyle}>
                     <div className="award-amounts__viz-line-up" />
