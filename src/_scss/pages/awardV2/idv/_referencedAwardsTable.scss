@@ -20,6 +20,10 @@
                         white-space: nowrap;
                     }
                 }
+                &.header-cell_right {
+                    justify-content: flex-end;
+                    padding-right: rem(10);
+                }
             }
         }
     }
@@ -36,6 +40,7 @@
 
         &.recipient-list__body-cell_right {
             text-align: right;
+            padding-right: rem(20);
         }
     }
 }
