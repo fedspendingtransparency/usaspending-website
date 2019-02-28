@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import moment from 'moment';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     dates: PropTypes.object
@@ -79,6 +80,14 @@ export default class IdvDates extends React.Component {
                 <div className="idv-dates__heading">
                     <div className="award-overview__title idv-dates__title">
                         Dates
+                        <button
+                            onBlur={this.closeTooltip}
+                            className="award__icon"
+                            onFocus={this.showTooltip}
+                            onMouseEnter={this.showTooltip}
+                            onClick={this.showTooltip}>
+                            <Icons.InfoCircle alt="Information" />
+                        </button>
                     </div>
                     <div className="idv-dates__remaining">
                         {remainingText}
