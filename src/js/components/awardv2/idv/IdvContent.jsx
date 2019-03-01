@@ -19,6 +19,7 @@ import AdditionalInfo from '../contract/AdditionalInfo';
 const propTypes = {
     awardId: PropTypes.string,
     overview: PropTypes.object,
+    counts: PropTypes.object,
     jumpToSection: PropTypes.func
 };
 
@@ -46,6 +47,7 @@ export default class IdvContent extends React.Component {
                         category="idv"
                         recipient={this.props.overview.recipient} />
                     <RelatedAwards
+                        counts={this.props.counts}
                         jumpToSection={this.props.jumpToSection}
                         overview={this.props.overview} />
                     <IdvDates

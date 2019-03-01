@@ -9,7 +9,8 @@ import { Table } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     overview: PropTypes.object,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    counts: PropTypes.object
 };
 
 export default class RelatedAwards extends React.Component {
@@ -24,6 +25,14 @@ export default class RelatedAwards extends React.Component {
                 </a>
             );
         }
+        let referencedCount = null;
+        if (this.props.counts) {
+            referencedCount = (
+                <div className="related-awards__label related-awards__label_count">
+                    {this.props.counts.total} Awards Reference this IDV
+                </div>
+            );
+        }
         return (
             <div className="award-viz related-awards">
                 <div className="award-overview__title related-awards__title">
@@ -35,6 +44,7 @@ export default class RelatedAwards extends React.Component {
                     </div>
                     {parentLink}
                 </div>
+                {referencedCount}
                 <button
                     onClick={() => this.props.jumpToSection('referenced-awards')}
                     className="award-viz__button">
