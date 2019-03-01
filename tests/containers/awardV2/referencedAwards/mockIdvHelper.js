@@ -1,12 +1,11 @@
-import { mockContract, mockAwardAmounts } from '../../models/awardsV2/mockAwardApi';
+import { mockReferencedAwardCounts, mockReferencedAwards } from '../../../models/awardsV2/mockAwardApi';
 
-// Fetch Individual Awards
-export const fetchAwardV2 = () => (
+export const fetchReferencedAwardsCounts = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: mockContract
+                    data: mockReferencedAwardCounts
                 });
             });
         }),
@@ -14,12 +13,12 @@ export const fetchAwardV2 = () => (
     }
 );
 
-export const fetchAwardsAmount = () => (
+export const fetchReferencedAwards = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {
                 resolve({
-                    data: mockAwardAmounts
+                    data: mockReferencedAwards
                 });
             });
         }),

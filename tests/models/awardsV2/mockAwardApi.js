@@ -176,7 +176,8 @@ export const mockLoan = {
     },
     period_of_performance: {
         start_date: '2004-02-19',
-        end_date: '2005-02-19'
+        end_date: '2005-02-19',
+        last_modified_date: '2006-03-01'
     },
     place_of_performance: {
         address_line1: '1515 EUBANK BLVD. SE',
@@ -319,4 +320,39 @@ export const mockIdv = {
     },
     subaward_count: 430,
     total_subaward_amount: 35345353453
+};
+
+export const mockReferencedAwards = {
+    results: [
+        {
+            award_id: 8330000,
+            award_type: "DO",
+            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+            funding_agency: "DEPARTMENT OF DEFENSE (DOD)",
+            funding_agency_id: 884,
+            generated_unique_award_id: "CONT_AW_9700_9700_71T0_SPM30008D3155",
+            last_date_to_order: null,
+            obligated_amount: 4080.71,
+            period_of_performance_current_end_date: "2013-05-06",
+            period_of_performance_start_date: "2013-04-28",
+            piid: "71T0"
+        }
+    ],
+    page_metadata: {
+        hasPrevious: false,
+        next: 2,
+        hasNext: true,
+        previous: null,
+        page: 1
+    }
+};
+
+export const mockAwardAmounts = {
+    award_id: 12178065,
+    generated_unique_award_id: null,
+    idv_count: 100,
+    contract_count: 10,
+    rollup_base_exercised_options_val: 10000000,
+    rollup_base_and_all_options_value: 106987321.10,
+    rollup_total_obligation: 1623321.02
 };

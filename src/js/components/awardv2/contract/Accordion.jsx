@@ -40,8 +40,13 @@ export default class Accordion extends React.Component {
 
     render() {
         return (
-            <div className={this.state.open ? 'accordion-open' : 'accordion'}>
-                <div className="accordion-bar" tabIndex={0} role="button" onKeyPress={this.handleClick} onClick={this.handleClick}>
+            <div className={this.state.open ? 'accordion accordion_open' : 'accordion'}>
+                <div
+                    className="accordion__bar"
+                    tabIndex={0}
+                    role="button"
+                    onKeyPress={this.handleClick}
+                    onClick={this.handleClick}>
                     <span>
                         {this.props.accordionIcon}
                         {this.props.accordionName}
@@ -50,14 +55,21 @@ export default class Accordion extends React.Component {
                         {this.state.open ? <AngleDown /> : <AngleRight />}
                     </span>
                 </div>
-                <div className="accordion-content">
-                    {
-                        Object.keys(this.props.accordionData).map((keyValue) => (
-                            <div key={keyValue} className="data-row">
-                                <span>{keyValue}</span>
-                                <span>{this.props.accordionData[keyValue] || 'not provided'}</span>
-                            </div>
-                        ))}
+                <div className="accordion__content">
+                    <table className="accordion-table">
+                        <tbody>
+                            {
+                                Object.keys(this.props.accordionData).map((keyValue) => (
+                                    <tr
+                                        key={keyValue}
+                                        className="accordion-table__row">
+                                        <td>{keyValue}</td>
+                                        <td>{this.props.accordionData[keyValue] || 'not provided'}</td>
+                                    </tr>
+                                ))}
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         );

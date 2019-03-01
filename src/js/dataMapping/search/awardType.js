@@ -17,9 +17,9 @@ export const awardTypeCodes = {
     'T': 'Training Grant',
     'IDV_A': 'Government-Wide Acquisition Contract (GWAC)',
     'IDV_B': 'Multi-Agency Contract, Other Indefinite Delivery Contract (IDC)',
-    'IDV_B_A': 'INDEFINITE DELIVERY / REQUIREMENTS',
-    'IDV_B_B': 'INDEFINITE DELIVERY / INDEFINITE QUANTITY',
-    'IDV_B_C': 'INDEFINITE DELIVERY / DEFINITE QUANTITY',
+    'IDV_B_A': 'IDC Indefinite Delivery Contract / Requirements',
+    'IDV_B_B': 'IDC Indefinite Delivery Contract / Indefinite Quantity',
+    'IDV_B_C': 'IDC Indefinite Delivery Contract / Definite Quantity',
     'IDV_C': 'Federal Supply Schedule (FSS)',
     'IDV_D': 'Basic Ordering Agreement (BOA)',
     'IDV_E': 'Blanket Purchase Agreements (BPA) Calls',
@@ -49,7 +49,7 @@ export const awardTypeGroups = {
 
 export const awardTypeGroupLabels = {
     contracts: 'Contracts',
-    idvs: "Indefinite Vehicle Delivery",
+    idvs: "Indefinite Delivery Vehicle",
     grants: 'Grants',
     direct_payments: 'Direct Payments',
     loans: 'Loans',
