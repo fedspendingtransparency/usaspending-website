@@ -13,8 +13,7 @@ import { uniqueId } from 'lodash';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
 
-// TODO: Refactor this
-import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
+import BaseFederalAccount from 'models/v2/awards/transactions/BaseFederalAccount';
 
 import FedAccountTable from 'components/award/table/FedAccountTable';
 
@@ -34,7 +33,7 @@ export class FedAccountTableContainer extends React.Component {
             nextPage: false,
             page: 1,
             sort: {
-                field: 'modification_number',
+                field: 'piid',
                 direction: 'asc'
             },
             tableInstance: `${uniqueId()}`,
@@ -107,7 +106,7 @@ export class FedAccountTableContainer extends React.Component {
         const transactions = [];
 
         data.results.forEach((item) => {
-            const transaction = Object.create(BaseContractTransaction);
+            const transaction = Object.create(BaseFederalAccount);
             transaction.populate(item);
             transactions.push(transaction);
         });

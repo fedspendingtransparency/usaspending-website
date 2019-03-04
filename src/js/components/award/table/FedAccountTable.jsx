@@ -6,11 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import contractMapping from 'dataMapping/contracts/transactionTable';
-import assistanceMapping from
-    'dataMapping/financialAssistance/financialAssistanceTransactionTable';
-import loanMapping from 'dataMapping/financialAssistance/loanTransactionTable';
-
+import contractMapping from 'dataMapping/contracts/federalAccountFunding';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
@@ -50,19 +46,8 @@ export default class FedAccountTable extends React.Component {
         }
     }
 
-    tableMapping() {
-        let tableMapping = assistanceMapping;
-        if (this.props.category === 'contract') {
-            tableMapping = contractMapping;
-        }
-        else if (this.props.category === 'loan') {
-            tableMapping = loanMapping;
-        }
-        return tableMapping;
-    }
-
     headerCellRender(columnIndex) {
-        const tableMapping = this.tableMapping();
+        const tableMapping = contractMapping;
         const column = tableMapping.table._order[columnIndex];
         const displayName = tableMapping.table[column];
 
@@ -80,7 +65,7 @@ export default class FedAccountTable extends React.Component {
     }
 
     bodyCellRender(columnIndex, rowIndex) {
-        const tableMapping = this.tableMapping();
+        const tableMapping = contractMapping;
         const column = tableMapping.table._order[columnIndex];
         const item = this.props.transactions[rowIndex];
 
@@ -97,7 +82,7 @@ export default class FedAccountTable extends React.Component {
     buildTable() {
         let totalWidth = 0;
 
-        const tableMapping = this.tableMapping();
+        const tableMapping = contractMapping;
 
         const columns = tableMapping.table._order.map((column, i) => {
             const columnX = totalWidth;
@@ -141,7 +126,6 @@ export default class FedAccountTable extends React.Component {
                 ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
-                <p>WHAT</p>
                 <IBTable
                     rowHeight={rowHeight}
                     rowCount={this.props.transactions.length}

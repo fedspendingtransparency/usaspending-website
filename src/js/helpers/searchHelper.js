@@ -263,8 +263,7 @@ export const fetchAwardFedAccountFunding = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            // TODO: New endpoint is "awards/idvs/funding/"
-            url: `v2/transactions/`,
+            url: `v2/awards/idvs/funding/`,
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
