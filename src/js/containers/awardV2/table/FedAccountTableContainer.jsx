@@ -14,8 +14,7 @@ import * as IdvHelper from 'helpers/idvHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
 
 import BaseFederalAccount from 'models/v2/awardsV2/BaseFederalAccount';
-
-import FedAccountTable from 'components/award/table/FedAccountTable';
+import FedAccountTable from 'components/awardv2/table/FedAccountTable';
 
 const propTypes = {
     award: PropTypes.object,
