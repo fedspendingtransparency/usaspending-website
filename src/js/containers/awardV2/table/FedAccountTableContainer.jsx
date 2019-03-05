@@ -10,10 +10,10 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId } from 'lodash';
 
-import * as SearchHelper from 'helpers/searchHelper';
+import * as IdvHelper from 'helpers/idvHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
 
-import BaseFederalAccount from 'models/v2/awards/transactions/BaseFederalAccount';
+import BaseFederalAccount from 'models/v2/awardsV2/BaseFederalAccount';
 
 import FedAccountTable from 'components/award/table/FedAccountTable';
 
@@ -42,17 +42,17 @@ export class FedAccountTableContainer extends React.Component {
 
         this.fedAccountRequest = null;
 
-        this.nextTransactionPage = this.nextTransactionPage.bind(this);
+        this.nextSubmissionPage = this.nextSubmissionPage.bind(this);
         this.changeSort = this.changeSort.bind(this);
     }
 
     componentDidMount() {
-        this.fetchTransactions(1, true);
+        this.fetchSubmissions(1, true);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.award.id !== prevProps.award.id) {
-            this.fetchTransactions(1, true);
+            this.fetchSubmissions(1, true);
         }
     }
 
@@ -62,7 +62,7 @@ export class FedAccountTableContainer extends React.Component {
         }
     }
 
-    fetchTransactions(page = 1, reset = false) {
+    fetchSubmissions(page = 1, reset = false) {
         if (!this.props.award.id) {
             return;
         }
@@ -85,7 +85,7 @@ export class FedAccountTableContainer extends React.Component {
             limit: pageLimit
         };
 
-        this.fedAccountRequest = SearchHelper.fetchAwardFedAccountFunding(params);
+        this.fedAccountRequest = IdvHelper.fetchAwardFedAccountFunding(params);
 
         this.fedAccountRequest.promise
             .then((res) => {
@@ -131,7 +131,7 @@ export class FedAccountTableContainer extends React.Component {
         this.setState(newState);
     }
 
-    nextTransactionPage() {
+    nextSubmissionPage() {
         if (!this.state.nextPage || this.state.inFlight) {
             return;
         }
@@ -140,14 +140,14 @@ export class FedAccountTableContainer extends React.Component {
         this.setState({
             page: nextPage
         });
-        this.fetchTransactions(nextPage, false);
+        this.fetchSubmissions(nextPage, false);
     }
 
     changeSort(sort) {
         this.setState({
             sort
         }, () => {
-            this.fetchTransactions(1, true);
+            this.fetchSubmissions(1, true);
         });
     }
 
@@ -157,7 +157,7 @@ export class FedAccountTableContainer extends React.Component {
                 {...this.props}
                 {...this.state}
                 changeSort={this.changeSort}
-                nextTransactionPage={this.nextTransactionPage} />
+                nextSubmissionPage={this.nextSubmissionPage} />
         );
     }
 }

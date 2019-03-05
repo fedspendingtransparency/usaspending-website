@@ -10,6 +10,7 @@ const propTypes = {
     data: PropTypes.string,
     rowIndex: PropTypes.number,
     column: PropTypes.string,
+    link: PropTypes.string,
     isLastColumn: PropTypes.bool
 };
 
@@ -36,7 +37,14 @@ export default class FederalAccountTableGenericCell extends React.Component {
         return (
             <div className={`transaction-generic-cell ${rowClass}`} title={content}>
                 <div className="cell-content">
-                    {content}
+                    {
+                        this.props.link ?
+                            <a
+                                target="_blank"
+                                href={`${this.props.link}`}>
+                                {this.props.data}
+                            </a> : content
+                    }
                 </div>
             </div>
         );

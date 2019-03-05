@@ -322,6 +322,16 @@ export const mockIdv = {
     total_subaward_amount: 35345353453
 };
 
+export const mockAwardAmounts = {
+    award_id: 12178065,
+    generated_unique_award_id: null,
+    idv_count: 100,
+    contract_count: 10,
+    rollup_base_exercised_options_val: 10000000,
+    rollup_base_and_all_options_value: 106987321.10,
+    rollup_total_obligation: 1623321.02
+};
+
 export const mockReferencedAwards = {
     results: [
         {
@@ -347,12 +357,17 @@ export const mockReferencedAwards = {
     }
 };
 
-export const mockAwardAmounts = {
-    award_id: 12178065,
-    generated_unique_award_id: null,
-    idv_count: 100,
-    contract_count: 10,
-    rollup_base_exercised_options_val: 10000000,
-    rollup_base_and_all_options_value: 106987321.10,
-    rollup_total_obligation: 1623321.02
+export const mockSubmission = {
+    account_title: "Sandwich & Subs Account",
+    award_id: 1111111,
+    generated_unique_award_id: "CONT_AW_1111_1111_10KSC011F0000_NNK11MA14C",
+    object_class: "111",
+    object_class_name: "Research Bread Types",
+    piid: "111D111B1111",
+    program_activity_code: "1111",
+    program_activity_name: "Sandwich Logistics",
+    reporting_agency_name: "National Department of Sandwich Making & Eating",
+    reporting_fiscal_quarter: 2,
+    reporting_fiscal_year: 2018,
+    transaction_obligated_amount: 9469
 };

@@ -25,7 +25,7 @@ const propTypes = {
     tableWidth: PropTypes.number,
     inFlight: PropTypes.bool,
     sort: PropTypes.object,
-    nextTransactionPage: PropTypes.func.isRequired,
+    nextSubmissionPage: PropTypes.func.isRequired,
     changeSort: PropTypes.func.isRequired
 };
 
@@ -69,11 +69,22 @@ export default class FedAccountTable extends React.Component {
         const item = this.props.transactions[rowIndex];
 
         const isLast = columnIndex === tableMapping.table._order.length - 1;
+        let isLink;
 
+        if (column === 'id') {
+            isLink = `#/award/${item.id}`;
+        }
+        if (column === 'agency') {
+            isLink = `#/agency/${item.agency_id}`;
+        }
+        if (column === 'fedAccount') {
+            isLink = `#/federal_account/${item.agency_id}-${item.main_account_code}`;
+        }
         return (
             <FederalAccountTableGenericCell
                 rowIndex={rowIndex}
                 data={item[column]}
+                link={isLink}
                 isLastColumn={isLast} />
         );
     }
@@ -133,7 +144,7 @@ export default class FedAccountTable extends React.Component {
                     bodyWidth={this.props.tableWidth}
                     bodyHeight={tableHeight}
                     columns={tableValues.columns}
-                    onReachedBottom={this.props.nextTransactionPage}
+                    onReachedBottom={this.props.nextSubmissionPage}
                     headerCellRender={this.headerCellRender}
                     bodyCellRender={this.bodyCellRender}
                     ref={(table) => {

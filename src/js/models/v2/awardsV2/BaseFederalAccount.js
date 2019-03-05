@@ -11,10 +11,12 @@ const BaseFederalAccount = {
         this.reportingFiscalQuarter = data.reporting_fiscal_quarter || null;
 
         this.id = data.piid || 0;
+        this.main_account_code = data.main_account_code || 0;
         this.agency = data.reporting_agency_name || '';
         this.fedAccount = data.account_title || '';
         this.program_activity_code = data.program_activity_code || '';
         this.program_activity_name = data.program_activity_name || '';
+        this.agency_id = data.agency_id || '';
 
         this.object_class_name = data.object_class_name || '';
         this.object_class = data.object_class || '';
@@ -40,13 +42,16 @@ Object.defineProperty(BaseFederalAccount, 'programActivity', {
         if (this.program_activity_code && this.program_activity_name) {
             return `${this.program_activity_code} - ${this.program_activity_name}`;
         }
+        else if (this.program_activity_code || this.program_activity_name) {
+            return `${this.program_activity_code}${this.program_activity_name}`;
+        }
         return '--';
     }
 });
 Object.defineProperty(BaseFederalAccount, 'objectClass', {
     get() {
         if (this.object_class_name && this.object_class) {
-            return `${this.object_class_name} ${this.object_class}`;
+            return `${this.object_class} - ${this.object_class_name}`;
         }
         return '--';
     }
