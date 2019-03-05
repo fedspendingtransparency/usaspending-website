@@ -10,9 +10,9 @@ import contractMapping from 'dataMapping/contracts/federalAccountFunding';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
-import TransactionTableHeaderCell from './cells/TransactionTableHeaderCell';
+import FederalAccountTableHeaderCell from './cells/FederalAccountTableHeaderCell';
 
-import TransactionTableGenericCell from './cells/TransactionTableGenericCell';
+import FederalAccountTableGenericCell from './cells/FederalAccountTableGenericCell';
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
@@ -26,8 +26,7 @@ const propTypes = {
     inFlight: PropTypes.bool,
     sort: PropTypes.object,
     nextTransactionPage: PropTypes.func.isRequired,
-    changeSort: PropTypes.func.isRequired,
-    category: PropTypes.string
+    changeSort: PropTypes.func.isRequired
 };
 
 export default class FedAccountTable extends React.Component {
@@ -54,7 +53,7 @@ export default class FedAccountTable extends React.Component {
         const isLast = columnIndex === tableMapping.table._order.length - 1;
 
         return (
-            <TransactionTableHeaderCell
+            <FederalAccountTableHeaderCell
                 column={column}
                 label={displayName}
                 order={this.props.sort}
@@ -72,7 +71,7 @@ export default class FedAccountTable extends React.Component {
         const isLast = columnIndex === tableMapping.table._order.length - 1;
 
         return (
-            <TransactionTableGenericCell
+            <FederalAccountTableGenericCell
                 rowIndex={rowIndex}
                 data={item[column]}
                 isLastColumn={isLast} />

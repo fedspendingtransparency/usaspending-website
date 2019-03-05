@@ -1,6 +1,6 @@
 /**
  * financialSystem.js
- * Created by Kevin Li 3/6/17
+ * Created by Kwadwo Opoku-Debrah 04/04/19
  */
 
 const tableFields = {
