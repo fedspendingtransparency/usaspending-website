@@ -13,7 +13,7 @@ import { uniqueId } from 'lodash';
 import * as IdvHelper from 'helpers/idvHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
 
-import BaseFederalAccount from 'models/v2/awardsV2/BaseFederalAccount';
+import BaseFederalAccountFunding from 'models/v2/awardsV2/BaseFederalAccountFunding';
 import FedAccountTable from 'components/awardv2/table/FedAccountTable';
 
 const propTypes = {
@@ -36,7 +36,7 @@ export class FedAccountTableContainer extends React.Component {
                 direction: 'asc'
             },
             tableInstance: `${uniqueId()}`,
-            transactions: []
+            fundingResults: []
         };
 
         this.fedAccountRequest = null;
@@ -102,12 +102,12 @@ export class FedAccountTableContainer extends React.Component {
     }
 
     parseTransactions(data, reset) {
-        const transactions = [];
+        const fundingResults = [];
 
         data.results.forEach((item) => {
-            const transaction = Object.create(BaseFederalAccount);
-            transaction.populate(item);
-            transactions.push(transaction);
+            const fundingResult = Object.create(BaseFederalAccountFunding);
+            fundingResult.populate(item);
+            fundingResults.push(fundingResult);
         });
 
         // update the metadata
@@ -120,11 +120,11 @@ export class FedAccountTableContainer extends React.Component {
 
         if (reset) {
             newState.tableInstance = `${uniqueId()}`;
-            newState.transactions = transactions;
+            newState.fundingResults = fundingResults;
         }
         else {
             // append to the current results
-            newState.transactions = this.state.transactions.concat(transactions);
+            newState.fundingResults = this.state.fundingResults.concat(fundingResults);
         }
 
         this.setState(newState);

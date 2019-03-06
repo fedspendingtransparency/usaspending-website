@@ -1,14 +1,13 @@
-
 /**
  * FederalAccountTableHeaderCell.jsx
- * Created by Kevin Li 2/25/17
+ * Created by Kwadwo Opoku-Debrah 04/04/19
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
-import tableMapping from 'dataMapping/contracts/transactionTable';
+import tableMapping from 'dataMapping/awardsv2/federalAccountFunding';
 
 const propTypes = {
     label: PropTypes.string,
@@ -57,7 +56,7 @@ export default class FederalAccountTableHeaderCell extends React.Component {
         e.stopPropagation();
 
         const direction = e.currentTarget.value;
-        const apiFieldName = tableMapping.table._mapping[this.props.column];
+        const apiFieldName = tableMapping.table._sortFields[this.props.column];
         this.props.setTransactionSort({
             direction,
             field: apiFieldName
@@ -73,7 +72,7 @@ export default class FederalAccountTableHeaderCell extends React.Component {
 
     render() {
         // highlight the active arrows
-        const apiFieldName = tableMapping.table._mapping[this.props.column];
+        const apiFieldName = tableMapping.table._sortFields[this.props.column];
         let activeAsc = '';
         let activeDesc = '';
         if (apiFieldName === this.props.order.field) {

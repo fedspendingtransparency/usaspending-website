@@ -1,9 +1,9 @@
 /**
- * financialSystem.js
+ * federalAccountFunding.js
  * Created by Kwadwo Opoku-Debrah 04/04/19
  */
 
-const tableFields = {
+const tableMapping = {
     columnWidths: {
         submissionDate: 0,
         id: 0,
@@ -33,12 +33,12 @@ const tableFields = {
             'fundingObligated'
         ],
         _sortFields: {
-            submissionDate: 'submission__reporting_fiscal_year',
+            submissionDate: 'reporting_fiscal_date',
             id: 'piid',
-            agency: 'treasury_account__federal_account__reporting_agency_name',
-            fedAccount: 'treasury_account__federal_account__account_title',
-            programActivity: 'program_activity__program_activity_name',
-            objectClass: 'object_class__object_class_name',
+            agency: 'reporting_agency_name',
+            fedAccount: 'account_title',
+            programActivity: 'program_activity',
+            objectClass: 'object_class',
             fundingObligated: 'transaction_obligated_amount'
         },
         submissionDate: 'Submission Date',
@@ -51,4 +51,4 @@ const tableFields = {
     }
 };
 
-export default tableFields;
+export default tableMapping;

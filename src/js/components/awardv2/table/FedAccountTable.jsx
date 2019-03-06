@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import contractMapping from 'dataMapping/contracts/federalAccountFunding';
+import tableMapping from 'dataMapping/awardsv2/federalAccountFunding';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
@@ -20,7 +20,7 @@ const rowHeight = 40;
 const tableHeight = 10.5 * rowHeight;
 
 const propTypes = {
-    transactions: PropTypes.array,
+    fundingResults: PropTypes.array,
     tableInstance: PropTypes.string,
     tableWidth: PropTypes.number,
     inFlight: PropTypes.bool,
@@ -46,7 +46,6 @@ export default class FedAccountTable extends React.Component {
     }
 
     headerCellRender(columnIndex) {
-        const tableMapping = contractMapping;
         const column = tableMapping.table._order[columnIndex];
         const displayName = tableMapping.table[column];
 
@@ -64,9 +63,8 @@ export default class FedAccountTable extends React.Component {
     }
 
     bodyCellRender(columnIndex, rowIndex) {
-        const tableMapping = contractMapping;
         const column = tableMapping.table._order[columnIndex];
-        const item = this.props.transactions[rowIndex];
+        const item = this.props.fundingResults[rowIndex];
 
         const isLast = columnIndex === tableMapping.table._order.length - 1;
         let isLink;
@@ -91,8 +89,6 @@ export default class FedAccountTable extends React.Component {
 
     buildTable() {
         let totalWidth = 0;
-
-        const tableMapping = contractMapping;
 
         const columns = tableMapping.table._order.map((column, i) => {
             const columnX = totalWidth;
@@ -138,7 +134,7 @@ export default class FedAccountTable extends React.Component {
                 }}>
                 <IBTable
                     rowHeight={rowHeight}
-                    rowCount={this.props.transactions.length}
+                    rowCount={this.props.fundingResults.length}
                     headerHeight={50}
                     contentWidth={tableValues.width}
                     bodyWidth={this.props.tableWidth}
