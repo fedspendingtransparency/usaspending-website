@@ -9,9 +9,9 @@ import PropTypes from 'prop-types';
 import tableMapping from 'dataMapping/awardsv2/federalAccountFunding';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
+import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import FederalAccountTableHeaderCell from './cells/FederalAccountTableHeaderCell';
-
 import FederalAccountTableGenericCell from './cells/FederalAccountTableGenericCell';
 
 const rowHeight = 40;
@@ -126,6 +126,11 @@ export default class FedAccountTable extends React.Component {
             loadingClass = 'loading';
         }
 
+        let message = null;
+        if (this.props.fundingResults.length === 0) {
+            message = (<ResultsTableNoResults />);
+        }
+
         return (
             <div
                 className={`transactions-table ${loadingClass}`}
@@ -146,6 +151,9 @@ export default class FedAccountTable extends React.Component {
                     ref={(table) => {
                         this.tableComponent = table;
                     }} />
+                <div className="results-table-message-container">
+                    {message}
+                </div>
             </div>
         );
     }
