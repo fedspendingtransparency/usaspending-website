@@ -1,6 +1,6 @@
 /**
  * FederalAccountTableGenericCell.jsx
- * Created by Kevin Li 2/25/17
+ * Created by Kwadwo Opoku-Debrah 04/04/19
  */
 
 import React from 'react';

@@ -357,7 +357,7 @@ export const mockReferencedAwards = {
     }
 };
 
-export const mockSubmission = {
+export const mockFederalAccountFunding = {
     account_title: "Sandwich & Subs Account",
     award_id: 1111111,
     generated_unique_award_id: "CONT_AW_1111_1111_10KSC011F0000_NNK11MA14C",
