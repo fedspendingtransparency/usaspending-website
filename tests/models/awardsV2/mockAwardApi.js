@@ -358,16 +358,27 @@ export const mockReferencedAwards = {
 };
 
 export const mockFederalAccountFunding = {
-    account_title: "Sandwich & Subs Account",
-    award_id: 1111111,
-    generated_unique_award_id: "CONT_AW_1111_1111_10KSC011F0000_NNK11MA14C",
-    object_class: "111",
-    object_class_name: "Research Bread Types",
-    piid: "111D111B1111",
-    program_activity_code: "1111",
-    program_activity_name: "Sandwich Logistics",
-    reporting_agency_name: "National Department of Sandwich Making & Eating",
-    reporting_fiscal_quarter: 2,
-    reporting_fiscal_year: 2018,
-    transaction_obligated_amount: 9469
+    results: [
+        {
+            account_title: "Sandwich & Subs Account",
+            award_id: 1111111,
+            generated_unique_award_id: "CONT_AW_1111_1111_10KSC011F0000_NNK11MA14C",
+            object_class: "111",
+            object_class_name: "Research Bread Types",
+            piid: "111D111B1111",
+            program_activity_code: "1111",
+            program_activity_name: "Sandwich Logistics",
+            reporting_agency_name: "National Department of Sandwich Making & Eating",
+            reporting_fiscal_quarter: 2,
+            reporting_fiscal_year: 2018,
+            transaction_obligated_amount: 9469
+        }
+    ],
+    page_metadata: {
+        page: 1,
+        previous: null,
+        hasPrevious: false,
+        hasNext: false,
+        next: null
+    }
 };

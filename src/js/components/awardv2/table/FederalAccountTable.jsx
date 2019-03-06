@@ -25,7 +25,7 @@ const propTypes = {
     tableWidth: PropTypes.number,
     inFlight: PropTypes.bool,
     sort: PropTypes.object,
-    nextSubmissionPage: PropTypes.func.isRequired,
+    nextPage: PropTypes.func.isRequired,
     changeSort: PropTypes.func.isRequired
 };
 
@@ -140,7 +140,7 @@ export default class FedAccountTable extends React.Component {
                     bodyWidth={this.props.tableWidth}
                     bodyHeight={tableHeight}
                     columns={tableValues.columns}
-                    onReachedBottom={this.props.nextSubmissionPage}
+                    onReachedBottom={this.props.nextPage}
                     headerCellRender={this.headerCellRender}
                     bodyCellRender={this.bodyCellRender}
                     ref={(table) => {

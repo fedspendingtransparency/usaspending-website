@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { concat } from 'lodash';
 
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
-import FedAccountTableContainer from 'containers/awardV2/table/FedAccountTableContainer';
+import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
 
 import DetailsTabBar from '../../award/details/DetailsTabBar';
 import ResultsTablePicker from '../../search/table/ResultsTablePicker';
@@ -77,7 +77,7 @@ export default class TablesSection extends React.Component {
                 );
             case 'fedaccount':
                 return (
-                    <FedAccountTableContainer
+                    <FederalAccountTableContainer
                         category={this.props.overview.category}
                         tableWidth={this.state.tableWidth} />
                 );

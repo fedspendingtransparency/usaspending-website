@@ -7,7 +7,7 @@ import BaseFederalAccount from 'models/v2/awardsV2/BaseFederalAccountFunding';
 import { mockFederalAccountFunding } from './mockAwardApi';
 
 const row = Object.create(BaseFederalAccount);
-row.populate(mockFederalAccountFunding);
+row.populate(mockFederalAccountFunding.results[0]);
 
 describe('Base Financial Assistance', () => {
     describe('Submission Date', () => {

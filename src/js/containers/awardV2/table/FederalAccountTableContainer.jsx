@@ -1,5 +1,5 @@
 /**
- * FedAccountTableContainer.jsx
+ * FederalAccountTableContainer.jsx
  * Created by Kwadwo Opoku-Debrah 02/15/2019
  */
 
@@ -14,7 +14,7 @@ import * as IdvHelper from 'helpers/idvHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
 
 import BaseFederalAccountFunding from 'models/v2/awardsV2/BaseFederalAccountFunding';
-import FedAccountTable from 'components/awardv2/table/FedAccountTable';
+import FederalAccountTable from 'components/awardv2/table/FederalAccountTable';
 
 const propTypes = {
     award: PropTypes.object,
@@ -23,7 +23,7 @@ const propTypes = {
 
 const pageLimit = 15;
 
-export class FedAccountTableContainer extends React.Component {
+export class FederalAccountTableContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -41,7 +41,7 @@ export class FedAccountTableContainer extends React.Component {
 
         this.fedAccountRequest = null;
 
-        this.nextSubmissionPage = this.nextSubmissionPage.bind(this);
+        this.nextPage = this.nextPage.bind(this);
         this.changeSort = this.changeSort.bind(this);
     }
 
@@ -88,7 +88,7 @@ export class FedAccountTableContainer extends React.Component {
 
         this.fedAccountRequest.promise
             .then((res) => {
-                this.parseTransactions(res.data, reset);
+                this.parseFundingData(res.data, reset);
             })
             .catch((err) => {
                 this.fedAccountRequest = null;
@@ -101,7 +101,7 @@ export class FedAccountTableContainer extends React.Component {
             });
     }
 
-    parseTransactions(data, reset) {
+    parseFundingData(data, reset) {
         const fundingResults = [];
 
         data.results.forEach((item) => {
@@ -130,7 +130,7 @@ export class FedAccountTableContainer extends React.Component {
         this.setState(newState);
     }
 
-    nextSubmissionPage() {
+    nextPage() {
         if (!this.state.nextPage || this.state.inFlight) {
             return;
         }
@@ -152,18 +152,18 @@ export class FedAccountTableContainer extends React.Component {
 
     render() {
         return (
-            <FedAccountTable
+            <FederalAccountTable
                 {...this.props}
                 {...this.state}
                 changeSort={this.changeSort}
-                nextSubmissionPage={this.nextSubmissionPage} />
+                nextPage={this.nextPage} />
         );
     }
 }
 
-FedAccountTableContainer.propTypes = propTypes;
+FederalAccountTableContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ award: state.awardV2 }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
-)(FedAccountTableContainer);
+)(FederalAccountTableContainer);
