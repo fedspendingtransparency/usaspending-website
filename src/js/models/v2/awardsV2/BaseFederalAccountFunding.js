@@ -1,6 +1,6 @@
 /**
  * BaseFederalAccountFunding.js
- * Created by Kwadwo Opoku-Debrah 04/04/19
+ * Created by Kwadwo Opoku-Debrah 03/04/19
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
@@ -10,12 +10,14 @@ const BaseFederalAccount = {
         this.reportingFiscalYear = data.reporting_fiscal_year || null;
         this.reportingFiscalQuarter = data.reporting_fiscal_quarter || null;
         this.id = data.piid || 0;
-        this.mainAccountCode = data.main_account_code || 0;
+        this.generatedId = data.generated_unique_award_id;
+        this._mainAccountCode = data.main_account_code || 0;
         this.agency = data.reporting_agency_name || '';
+        this.reportingAgencyId = data.reporting_agency_id;
         this.fedAccount = data.account_title || '';
         this._programActivityCode = data.program_activity_code || '';
         this._programActivityName = data.program_activity_name || '';
-        this.agencyId = data.agency_id || '';
+        this._agencyId = data.agency_id || '';
         this._objectClassName = data.object_class_name || '';
         this._objectClass = data.object_class || '';
         this._fundingObligated = parseFloat(data.transaction_obligated_amount) || 0;
@@ -54,6 +56,14 @@ Object.defineProperty(BaseFederalAccount, 'objectClass', {
             return `${this._objectClassName}${this._objectClass}`;
         }
         return '--';
+    }
+});
+Object.defineProperty(BaseFederalAccount, 'accountNumber', {
+    get() {
+        if (this._agencyId && this._mainAccountCode) {
+            return `${this._agencyId}-${this._mainAccountCode}`;
+        }
+        return '';
     }
 });
 

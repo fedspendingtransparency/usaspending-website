@@ -30,4 +30,9 @@ describe('Base Financial Assistance', () => {
             expect(row.programActivity).toEqual('1111 - Sandwich Logistics');
         });
     });
+    describe('Account Number', () => {
+        it('should format the account number using the agency id and main account code', () => {
+            expect(row.accountNumber).toEqual('091-1901');
+        });
+    });
 });

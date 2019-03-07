@@ -70,13 +70,13 @@ export default class FedAccountTable extends React.Component {
         let isLink;
 
         if (column === 'id') {
-            isLink = `#/award/${item.id}`;
+            isLink = `#/award/${item.generatedId}`;
         }
         if (column === 'agency') {
-            isLink = `#/agency/${item.agencyId}`;
+            isLink = `#/agency/${item.reportingAgencyId}`;
         }
         if (column === 'fedAccount') {
-            isLink = `#/federal_account/${item.agencyId}-${item.mainAccountCode}`;
+            isLink = `#/federal_account/${item.accountNumber}`;
         }
         return (
             <FederalAccountTableGenericCell
