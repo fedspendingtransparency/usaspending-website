@@ -122,12 +122,11 @@ export default class FedAccountTable extends React.Component {
         const tableValues = this.buildTable();
 
         let loadingClass = '';
+        let message = null;
         if (this.props.inFlight) {
             loadingClass = 'loading';
         }
-
-        let message = null;
-        if (this.props.fundingResults.length === 0) {
+        else if (this.props.fundingResults.length === 0) {
             message = (<ResultsTableNoResults />);
         }
 
