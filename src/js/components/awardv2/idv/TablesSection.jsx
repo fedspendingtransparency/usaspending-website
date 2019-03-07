@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { concat } from 'lodash';
 
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
+import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
 
 import DetailsTabBar from '../../award/details/DetailsTabBar';
 import ResultsTablePicker from '../../search/table/ResultsTablePicker';
@@ -22,6 +23,11 @@ const commonTabs = [
     {
         label: 'Transaction History',
         internal: 'transaction',
+        enabled: true
+    },
+    {
+        label: 'Federal Account Funding',
+        internal: 'fedaccount',
         enabled: true
     }
 ];
@@ -66,6 +72,12 @@ export default class TablesSection extends React.Component {
             case 'transaction':
                 return (
                     <TransactionsTableContainer
+                        category={this.props.overview.category}
+                        tableWidth={this.state.tableWidth} />
+                );
+            case 'fedaccount':
+                return (
+                    <FederalAccountTableContainer
                         category={this.props.overview.category}
                         tableWidth={this.state.tableWidth} />
                 );

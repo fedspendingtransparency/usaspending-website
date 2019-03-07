@@ -242,11 +242,11 @@ export const mockIdv = {
     },
     parent_award: {
         award_id: 5738,
-        idv_type_description: "test",
-        type_of_idc_description: "r3w",
-        agency_id: "123",
-        multiple_or_single_aw_desc: "something",
-        piid: "345"
+        idv_type_description: 'test',
+        type_of_idc_description: 'r3w',
+        agency_id: '123',
+        multiple_or_single_aw_desc: 'something',
+        piid: '345'
     },
     idv_dates: {
         start_date: '2004-02-19',
@@ -322,20 +322,30 @@ export const mockIdv = {
     total_subaward_amount: 35345353453
 };
 
+export const mockAwardAmounts = {
+    award_id: 12178065,
+    generated_unique_award_id: null,
+    idv_count: 100,
+    contract_count: 10,
+    rollup_base_exercised_options_val: 10000000,
+    rollup_base_and_all_options_value: 106987321.10,
+    rollup_total_obligation: 1623321.02
+};
+
 export const mockReferencedAwards = {
     results: [
         {
             award_id: 8330000,
-            award_type: "DO",
-            description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-            funding_agency: "DEPARTMENT OF DEFENSE (DOD)",
+            award_type: 'DO',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            funding_agency: 'DEPARTMENT OF DEFENSE (DOD)',
             funding_agency_id: 884,
-            generated_unique_award_id: "CONT_AW_9700_9700_71T0_SPM30008D3155",
+            generated_unique_award_id: 'CONT_AW_9700_9700_71T0_SPM30008D3155',
             last_date_to_order: null,
             obligated_amount: 4080.71,
-            period_of_performance_current_end_date: "2013-05-06",
-            period_of_performance_start_date: "2013-04-28",
-            piid: "71T0"
+            period_of_performance_current_end_date: '2013-05-06',
+            period_of_performance_start_date: '2013-04-28',
+            piid: '71T0'
         }
     ],
     page_metadata: {
@@ -347,12 +357,31 @@ export const mockReferencedAwards = {
     }
 };
 
-export const mockAwardAmounts = {
-    award_id: 12178065,
-    generated_unique_award_id: null,
-    idv_count: 100,
-    contract_count: 10,
-    rollup_base_exercised_options_val: 10000000,
-    rollup_base_and_all_options_value: 106987321.10,
-    rollup_total_obligation: 1623321.02
+export const mockFederalAccountFunding = {
+    results: [
+        {
+            account_title: 'Sandwich & Subs Account',
+            award_id: 1111111,
+            generated_unique_award_id: 'CONT_AW_1111_1111_10KSC011F0000_NNK11MA14C',
+            object_class: '111',
+            object_class_name: 'Research Bread Types',
+            piid: '111D111B1111',
+            program_activity_code: '1111',
+            program_activity_name: 'Sandwich Logistics',
+            reporting_agency_name: 'National Department of Sandwich Making & Eating',
+            reporting_agency_id: '987',
+            reporting_fiscal_quarter: 2,
+            reporting_fiscal_year: 2018,
+            transaction_obligated_amount: 9469,
+            agency_id: '091',
+            main_account_code: '1901'
+        }
+    ],
+    page_metadata: {
+        page: 1,
+        previous: null,
+        hasPrevious: false,
+        hasNext: false,
+        next: null
+    }
 };
