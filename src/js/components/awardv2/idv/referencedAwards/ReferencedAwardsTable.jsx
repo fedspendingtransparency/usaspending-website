@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { find } from 'lodash';
 
 import { referencedAwardsColumns } from 'dataMapping/awardsv2/referencedAwards';
 
@@ -21,19 +20,17 @@ const propTypes = {
     counts: PropTypes.object,
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
-    // page: PropTypes.number,
+    page: PropTypes.object,
     limit: PropTypes.number,
-    // sort: PropTypes.string,
-    // order: PropTypes.string,
+    sort: PropTypes.object,
+    order: PropTypes.object,
     changePage: PropTypes.func,
-    updateSort: PropTypes.func,
-    tableTypes: PropTypes.array
+    updateSort: PropTypes.func
 };
 
 export default class ReferencedAwardsTable extends React.Component {
     generateHeaderCells() {
-        const { tableTypes, tableType } = this.props;
-        const activeTab = find(tableTypes, { internal: tableType });
+        const { tableType, sort, order } = this.props;
         return referencedAwardsColumns[this.props.tableType].map((col) => (
             <th
                 className="referenced-awards-table__head-cell"
@@ -47,8 +44,7 @@ export default class ReferencedAwardsTable extends React.Component {
                     <StateLandingTableSorter
                         field={col.field}
                         label={col.label}
-                        // active={{ field: this.props.sort, direction: this.props.order }}
-                        active={{field: activeTab.sort, direction: activeTab.order }}
+                        active={{ field: sort[tableType], direction: order[tableType] }}
                         setSort={this.props.updateSort} />
                 </div>
             </th>
@@ -116,14 +112,13 @@ export default class ReferencedAwardsTable extends React.Component {
 
 
         const totalItems = (this.props.counts && this.props.counts[this.props.tableType]) || 0;
-        const { tableTypes, tableType } = this.props;
-        const activeTab = find(tableTypes, { internal: tableType });
+        const { page, tableType } = this.props;
         return (
             <div className="referenced-awards-results">
                 <Pagination
                     totalItems={totalItems}
                     pageSize={this.props.limit}
-                    pageNumber={activeTab.page}
+                    pageNumber={page[tableType]}
                     onChangePage={this.props.changePage} />
                 {content}
                 <div className="results-table-message-container">
@@ -132,7 +127,7 @@ export default class ReferencedAwardsTable extends React.Component {
                 <Pagination
                     totalItems={totalItems}
                     pageSize={this.props.limit}
-                    pageNumber={activeTab.page}
+                    pageNumber={page[tableType]}
                     onChangePage={this.props.changePage} />
             </div>
         );

@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { isEqual, find, assign, remove, findIndex } from 'lodash';
+import { isEqual } from 'lodash';
 
 import * as IdvHelper from 'helpers/idvHelper';
 import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardResult';
@@ -21,18 +21,12 @@ const tableTypes = [
     {
         label: 'Contract IDVs',
         internal: 'idvs',
-        enabled: true,
-        sort: 'period_of_performance_start_date',
-        order: 'desc',
-        page: 1
+        enabled: true
     },
     {
         label: 'Contracts',
         internal: 'contracts',
-        enabled: true,
-        sort: 'period_of_performance_start_date',
-        order: 'desc',
-        page: 1
+        enabled: true
     }
 ];
 
@@ -41,12 +35,21 @@ export class ReferencedAwardsContainer extends React.Component {
         super(props);
 
         this.state = {
-            // page: 1,
             limit: 10,
             tableType: 'idvs',
-            // sort: 'period_of_performance_start_date',
+            sort: {
+                idvs: 'period_of_performance_start_date',
+                contracts: 'period_of_performance_start_date'
+            },
+            page: {
+                idvs: 1,
+                contracts: 1
+            },
+            order: {
+                idvs: 'desc',
+                contracts: 'desc'
+            },
             tableTypes,
-            // order: 'desc',
             inFlight: true,
             error: false,
             results: []
@@ -76,18 +79,17 @@ export class ReferencedAwardsContainer extends React.Component {
             this.request.cancel();
         }
 
-        const activeTab = find(this.state.tableTypes,
-            { internal: this.state.tableType });
-            console.log( ' This : ', this );
-            console.log( ' This State : ', this.state );
-            console.log( ' Active Tab : ', activeTab );
+        const {
+            tableType, page, sort, order
+        } = this.state;
+
         const params = {
             award_id: this.props.award.id,
             idv: this.state.tableType === 'idvs',
             limit: this.state.limit,
-            page: activeTab.page,
-            sort: activeTab.sort,
-            order: activeTab.order
+            page: page[tableType],
+            sort: sort[tableType],
+            order: order[tableType]
         };
 
         this.setState({
@@ -135,60 +137,23 @@ export class ReferencedAwardsContainer extends React.Component {
         });
     }
 
-    // getActiveTable() {
-    //     const { tableType } = this.state;
-    //     return find(this.state.tableTypes, { internal: tableType });
-    // }
-
-    updateTableType(params) {
-        const { tableType } = this.state;
-        const tables = this.state.tableTypes;
-        const activeTab = find(tables, { internal: tableType });
-        const activeTabIndex = findIndex(tables, { internal: tableType });
-        console.log( ' New Tables : ', tables.splice(activeTabIndex, 1, assign(activeTab, params)));
-        return tables.splice(activeTabIndex, 1, assign(activeTab, params));
-    }
-
-    // updateTableTypes(...params) {
-    //     const { tableType } = this.state;
-    //     const tabs = this.state.tableTypes;
-    //     const activeTab = find(tabs, { internal: tableType });
-    //     console.log( 'Active Tab : ', activeTab );
-    //     remove(tabs, { internal: tableType });
-    //     tabs.push(assign(activeTab, ...params));
-
-    //     return tabs;
-    // }
-
-    updateSort(sort, order) {
-        // const { tableType } = this.state;
-        // const tabs = this.state.tableTypes;
-        // const activeTab = find(tabs, { internal: tableType });
-        // const activeTabIndex = findIndex(tabs, { internal: tableType });
-        // tabs.splice(activeTabIndex, 1, assign(activeTab, { sort, order }));
-
-        // this.setState({
-        //     sort,
-        //     order,
-        //     page: 1
-        // }, () => {
-        //     this.loadResults();
-        // });
+    updateSort(newSort, newOrder) {
+        const { tableType, sort, order } = this.state;
+        sort[tableType] = newSort;
+        order[tableType] = newOrder;
         this.setState({
-            tableTypes: this.updateTableType({ sort, order })
+            sort,
+            order
         }, () => {
             this.loadResults();
         });
     }
 
-    changePage(page) {
-        // const { tableType } = this.state;
-        // const tabs = this.state.tableTypes;
-        // const activeTab = find(tabs, { internal: tableType });
-        // const activeTabIndex = findIndex(tabs, { internal: tableType });
-        // tabs.splice(activeTabIndex, 1, assign(activeTab, { page }));
+    changePage(newPage) {
+        const { tableType, page } = this.state;
+        page[tableType] = newPage;
         this.setState({
-            tableTypes: this.updateTableType({ page })
+            page
         }, () => {
             this.loadResults();
         });
@@ -198,7 +163,6 @@ export class ReferencedAwardsContainer extends React.Component {
         if (tableType !== this.state.tableType) {
             this.setState({
                 tableType
-                // page: 1
             }, () => {
                 this.loadResults();
             });
