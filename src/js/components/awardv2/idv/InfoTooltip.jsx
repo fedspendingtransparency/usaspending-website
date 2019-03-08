@@ -51,7 +51,7 @@ export default class InfoTooltip extends React.Component {
 
     measureOffset() {
         const targetElement = this.referenceDiv;
-        const offsetTop = targetElement.offsetTop - 35;
+        const offsetTop = targetElement.offsetTop - 15;
         const offsetRight = window.innerWidth - targetElement.offsetLeft - targetElement.clientWidth - 315;
         this.setState({
             offsetTop,
