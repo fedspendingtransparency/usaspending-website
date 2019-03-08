@@ -13,6 +13,7 @@ import AwardRecipient from '../visualizations/overview/AgencyRecipient';
 import AwardDates from '../visualizations/overview/AwardDates';
 
 const propTypes = {
+    awardId: PropTypes.string,
     overview: PropTypes.object,
     jumpToSection: PropTypes.func
 };
