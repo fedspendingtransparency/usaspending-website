@@ -81,7 +81,7 @@ export default class IdvDates extends React.Component {
                 <div className="idv-dates__heading">
                     <div className="award-overview__title idv-dates__title">
                         Dates
-                        <InfoTooltip>
+                        <InfoTooltip left>
                             <div className="info-tooltip__title">Dates</div>
                             <div className="info-tooltip__text">
                                 <p>The dates below are described in more detail:</p>

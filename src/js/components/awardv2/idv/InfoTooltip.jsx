@@ -9,7 +9,8 @@ import { throttle } from 'lodash';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    left: PropTypes.bool
 };
 
 export default class InfoTooltip extends React.Component {
@@ -52,7 +53,10 @@ export default class InfoTooltip extends React.Component {
     measureOffset() {
         const targetElement = this.referenceDiv;
         const offsetTop = targetElement.offsetTop - 15;
-        const offsetRight = window.innerWidth - targetElement.offsetLeft - targetElement.clientWidth - 315;
+        let offsetRight = window.innerWidth - targetElement.offsetLeft - targetElement.clientWidth - 315;
+        if (this.props.left) {
+            offsetRight = (window.innerWidth - targetElement.offsetLeft - 10) + targetElement.clientWidth;
+        }
         this.setState({
             offsetTop,
             offsetRight
@@ -61,12 +65,11 @@ export default class InfoTooltip extends React.Component {
 
     render() {
         let tooltip = null;
+        const style = {
+            top: this.state.offsetTop,
+            right: this.state.offsetRight
+        };
         if (this.state.showInfoTooltip) {
-            const style = {
-                top: this.state.offsetTop,
-                right: this.state.offsetRight
-            };
-
             tooltip = (
                 <div
                     className="info-tooltip-spacer"
@@ -76,7 +79,7 @@ export default class InfoTooltip extends React.Component {
                         id="info-tooltip"
                         role="tooltip">
                         <div className="info-tooltip__interior">
-                            <div className="tooltip-pointer" />
+                            <div className={`tooltip-pointer ${this.props.left ? 'right' : ''}`} />
                             <div className="info-tooltip__content">
                                 <div className="info-tooltip__message">
                                     {this.props.children}
