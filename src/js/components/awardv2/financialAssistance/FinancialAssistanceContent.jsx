@@ -5,9 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { startCase } from "lodash";
 
+import { Glossary } from 'components/sharedComponents/icons/Icons';
+import { glossaryLinks } from 'dataMapping/search/awardType';
 import AwardRecipient from '../visualizations/overview/AgencyRecipient';
 import AwardDates from '../visualizations/overview/AwardDates';
 
@@ -18,11 +19,23 @@ const propTypes = {
 
 export default class FinancialAssistanceContent extends React.Component {
     render() {
+        const glossarySlug = glossaryLinks[this.props.overview.type];
+        let glossaryLink = null;
+        if (glossarySlug) {
+            glossaryLink = (
+                <a href={`/#/award_v2/${this.props.awardId}?glossary=${glossarySlug}`}>
+                    <Glossary />
+                </a>
+            );
+        }
         // TODO: Determine if we should label with FAIN/ URI instead of ID
         return (
             <div className="award award-financial-assistance">
                 <div className="award__heading">
                     <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
+                    <div className="award__heading-icon">
+                        {glossaryLink}
+                    </div>
                     <div className="award__heading-id">
                         <div className="award__heading-lable">{this.props.overview.id ? 'ID' : ''}</div>
                         <div>{this.props.overview.id}</div>

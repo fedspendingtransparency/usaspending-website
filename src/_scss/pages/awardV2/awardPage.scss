@@ -27,6 +27,22 @@
                 font-weight: $font-semibold;
                 padding-right: rem(20);
             }
+            .award__heading-icon {
+                @include display(flex);
+                @include flex(0 0 auto);
+                padding-right: rem(15);
+                svg {
+                    @include display(flex);
+                    fill: $color-gray-light;
+                    height: rem(20);
+                    width: rem(20);
+                }
+                &:hover, &:focus {
+                    svg {
+                        fill: $color-gray;
+                    }
+                }
+            }
             .award__heading-lable {
                 font-weight: $font-normal;
                 display: inline-block;
