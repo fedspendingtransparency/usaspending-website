@@ -139,11 +139,15 @@ export class ReferencedAwardsContainer extends React.Component {
 
     updateSort(newSort, newOrder) {
         const { tableType, sort, order } = this.state;
-        sort[tableType] = newSort;
-        order[tableType] = newOrder;
+        const updatedSort = Object.assign({}, sort, {
+            [tableType]: newSort
+        });
+        const updatedOrder = Object.assign({}, order, {
+            [tableType]: newOrder
+        });
         this.setState({
-            sort,
-            order
+            sort: updatedSort,
+            order: updatedOrder
         }, () => {
             this.loadResults();
         });
@@ -151,9 +155,11 @@ export class ReferencedAwardsContainer extends React.Component {
 
     changePage(newPage) {
         const { tableType, page } = this.state;
-        page[tableType] = newPage;
+        const updatedPage = Object.assign({}, page, {
+            [tableType]: newPage
+        });
         this.setState({
-            page
+            page: updatedPage
         }, () => {
             this.loadResults();
         });
