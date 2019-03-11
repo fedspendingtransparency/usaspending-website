@@ -93,7 +93,7 @@ export default class IdvDates extends React.Component {
                         Start Date
                     </div>
                     <div className="idv-dates__date">
-                        {dates.startDate || 'not provided'}
+                        {dates.startDateLong || 'not provided'}
                     </div>
                 </div>
                 <div className="idv-dates__row">
@@ -101,7 +101,7 @@ export default class IdvDates extends React.Component {
                         Last Date to Order
                     </div>
                     <div className="idv-dates__date">
-                        {dates.endDate || 'not provided'}
+                        {dates.endDateLong || 'not provided'}
                     </div>
                 </div>
             </div>

@@ -27,6 +27,7 @@ BaseIdv.populate = function populate(data) {
         subawardCount: data.subaward_count,
         totalObligation: data.total_obligation,
         baseExercisedOptions: data.base_exercised_options,
+        baseAndAllOptions: data.base_and_all_options,
         dateSigned: data.date_signed
     };
 
@@ -35,18 +36,19 @@ BaseIdv.populate = function populate(data) {
     this.parentAward = data.parent_award_piid || '';
     this.parentId = data.parent_generated_unique_award_id || '';
 
+    const parentAwardDetails = Object.create(BaseParentAwardDetails);
     if (data.parent_award) {
-        const parentAwardDetails = Object.create(BaseParentAwardDetails);
         parentAwardDetails.populateCore(data.parent_award);
-        this.parentAwardDetails = parentAwardDetails;
     }
+    this.parentAwardDetails = parentAwardDetails;
 
+    const recipient = Object.create(BaseAwardRecipient);
     if (data.recipient) {
-        const recipient = Object.create(BaseAwardRecipient);
         recipient.populate(data.recipient);
-        this.recipient = recipient;
     }
+    this.recipient = recipient;
 
+    const placeOfPerformance = Object.create(CoreLocation);
     if (data.place_of_performance) {
         const placeOfPerformanceData = {
             address1: data.place_of_performance.address_line1,
@@ -64,22 +66,22 @@ BaseIdv.populate = function populate(data) {
             country: data.place_of_performance.country_name,
             countryCode: data.place_of_performance.location_country_code
         };
-        const placeOfPerformance = Object.create(CoreLocation);
         placeOfPerformance.populateCore(placeOfPerformanceData);
-        this.placeOfPerformance = placeOfPerformance;
     }
+    this.placeOfPerformance = placeOfPerformance;
 
+    const periodOfPerformance = Object.create(CorePeriodOfPerformance);
     if (data.period_of_performance) {
         const periodOfPerformanceData = {
             startDate: data.period_of_performance.start_date,
             endDate: data.period_of_performance.end_date,
             lastModifiedDate: data.period_of_performance.last_modified_date
         };
-        const periodOfPerformance = Object.create(CorePeriodOfPerformance);
         periodOfPerformance.populateCore(periodOfPerformanceData);
-        this.dates = periodOfPerformance;
     }
+    this.dates = periodOfPerformance;
 
+    const fundingAgency = Object.create(CoreAwardAgency);
     if (data.funding_agency) {
         const fundingAgencyData = {
             toptierName: data.funding_agency.toptier_agency.name,
@@ -88,11 +90,11 @@ BaseIdv.populate = function populate(data) {
             subtierAbbr: data.funding_agency.subtier_agency.abbreviation,
             officeName: data.funding_agency.office_agency_name
         };
-        const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
-        this.fundingAgency = fundingAgency;
     }
+    this.fundingAgency = fundingAgency;
 
+    const awardingAgency = Object.create(CoreAwardAgency);
     if (data.awarding_agency) {
         const awardingAgencyData = {
             id: data.awarding_agency.id,
@@ -102,19 +104,15 @@ BaseIdv.populate = function populate(data) {
             subtierAbbr: data.awarding_agency.subtier_agency.abbreviation,
             officeName: data.awarding_agency.office_agency_name
         };
-        const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
-        this.awardingAgency = awardingAgency;
     }
-    else {
-        this.awardingAgency = {};
-    }
+    this.awardingAgency = awardingAgency;
 
+    const additionalDetails = Object.create(BaseIdvAdditionalDetails);
     if (data.latest_transaction_contract_data) {
-        const additionalDetails = Object.create(BaseIdvAdditionalDetails);
         additionalDetails.populate(data.latest_transaction_contract_data);
-        this.additionalDetails = additionalDetails;
     }
+    this.additionalDetails = additionalDetails;
 
     const executiveDetails = Object.create(CoreExecutiveDetails);
     executiveDetails.populateCore(data.executive_details);

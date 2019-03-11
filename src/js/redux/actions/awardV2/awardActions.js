@@ -7,6 +7,11 @@ export const setAward = (state) => ({
     overview: state
 });
 
+export const setCounts = (state) => ({
+    type: 'SET_COUNTS',
+    counts: state
+});
+
 export const resetAward = () => ({
     type: 'RESET_AWARD'
 });
