@@ -61,7 +61,7 @@
     "sass-loader": "^6.0.6",
     "sinon": "^2.3.8",
     "style-loader": "^0.18.2",
-    "webpack": "^2.7.0",
+    "webpack": "^4.29.6",
     "webpack-bundle-analyzer": "^2.8.2",
     "webpack-dev-server": "^2.5.0",
     "webpack-merge": "^4.1.0",
