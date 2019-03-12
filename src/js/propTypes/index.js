@@ -16,5 +16,5 @@ export const AWARD_V2_OVERVIEW_PROPS = PropTypes.shape({
     _baseAndAllOptions: PropTypes.number,
     _dateSigned: PropTypes.object, // moment
     parentAward: PropTypes.string,
-    parentId: PropTypes.string,
+    parentId: PropTypes.string
 });
