@@ -20,12 +20,26 @@
     @import "pages/search/results/table/_tableTypes";
     @import "pages/search/results/table/_resultsTablePicker";
 
+    @import "../../search/results/table/tableMessages";
+
+    .results-table-message-container {
+        position: relative;
+        .results-table-no-results {
+            .description {
+                display: none;
+            }
+        }
+    }
+
     .field-picker {
         float: none;
         display: block;
+
         @include media($tablet-screen) {
             display: none;
         }
+
+
         .field-list {
             z-index: $z-header - 1;
         }

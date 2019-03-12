@@ -5,6 +5,7 @@
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { parseDate, formatDate } from './CorePeriodOfPerformance';
+import { longTypeDescriptionsByAwardTypes } from "../../../dataMapping/awardsv2/longAwardTypeDescriptions";
 
 const CoreAward = {
     populateCore(data) {
@@ -12,7 +13,11 @@ const CoreAward = {
         this.id = data.id || '';
         this.generatedId = data.generatedId || '';
         this.type = data.type || '';
-        this.typeDescription = data.typeDescription || '--';
+        this.typeDescription = data.typeDescription || "--";
+        this.longTypeDescription =
+          longTypeDescriptionsByAwardTypes[data.type] ||
+          data.typeDescription ||
+          "--";
         this.description = data.description || '--';
         this._subawardTotal = parseFloat(data.subawardTotal) || 0;
         this.subawardCount = parseFloat(data.subawardCount) || 0;

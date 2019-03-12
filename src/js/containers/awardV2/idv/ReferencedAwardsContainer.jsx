@@ -35,11 +35,21 @@ export class ReferencedAwardsContainer extends React.Component {
         super(props);
 
         this.state = {
-            page: 1,
             limit: 10,
             tableType: 'idvs',
-            sort: 'period_of_performance_start_date',
-            order: 'desc',
+            sort: {
+                idvs: 'period_of_performance_start_date',
+                contracts: 'period_of_performance_start_date'
+            },
+            page: {
+                idvs: 1,
+                contracts: 1
+            },
+            order: {
+                idvs: 'desc',
+                contracts: 'desc'
+            },
+            tableTypes,
             inFlight: true,
             error: false,
             results: []
@@ -69,13 +79,17 @@ export class ReferencedAwardsContainer extends React.Component {
             this.request.cancel();
         }
 
+        const {
+            tableType, page, sort, order
+        } = this.state;
+
         const params = {
             award_id: this.props.award.id,
             idv: this.state.tableType === 'idvs',
             limit: this.state.limit,
-            page: this.state.page,
-            sort: this.state.sort,
-            order: this.state.order
+            page: page[tableType],
+            sort: sort[tableType],
+            order: order[tableType]
         };
 
         this.setState({
@@ -123,19 +137,29 @@ export class ReferencedAwardsContainer extends React.Component {
         });
     }
 
-    updateSort(sort, order) {
+    updateSort(newSort, newOrder) {
+        const { tableType, sort, order } = this.state;
+        const updatedSort = Object.assign({}, sort, {
+            [tableType]: newSort
+        });
+        const updatedOrder = Object.assign({}, order, {
+            [tableType]: newOrder
+        });
         this.setState({
-            sort,
-            order,
-            page: 1
+            sort: updatedSort,
+            order: updatedOrder
         }, () => {
             this.loadResults();
         });
     }
 
-    changePage(page) {
+    changePage(newPage) {
+        const { tableType, page } = this.state;
+        const updatedPage = Object.assign({}, page, {
+            [tableType]: newPage
+        });
         this.setState({
-            page
+            page: updatedPage
         }, () => {
             this.loadResults();
         });
@@ -144,8 +168,7 @@ export class ReferencedAwardsContainer extends React.Component {
     switchTab(tableType) {
         if (tableType !== this.state.tableType) {
             this.setState({
-                tableType,
-                page: 1
+                tableType
             }, () => {
                 this.loadResults();
             });
