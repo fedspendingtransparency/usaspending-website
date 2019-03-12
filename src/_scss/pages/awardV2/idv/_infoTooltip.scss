@@ -8,7 +8,7 @@
         }
     }
     .info-tooltip {
-        width: rem(300);
+        width: rem(375);
         .info-tooltip__interior {
             position: relative;
             // inherit from the standard tooltip arrow style
@@ -43,6 +43,7 @@
                     }
                     .info-tooltip__text {
                         padding: 0 rem(15) rem(15);
+                        font-weight: $font-normal;
                         ul {
                             margin: 0;
                             padding-left: 0;
