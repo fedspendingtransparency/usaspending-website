@@ -28,7 +28,7 @@ export default class IdvContent extends React.Component {
             <div className="award award-idv">
                 <div className="idv__heading">
                     <div className="idv__info">
-                        <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
+                        <div className="award__heading-text">{startCase(this.props.overview.longTypeDescription)}</div>
                         <div className="award__heading-id">
                             <div className="award__heading-lable">{this.props.overview.id ? 'PIID' : ''}</div>
                             <div>{this.props.overview.id}</div>
