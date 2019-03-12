@@ -35,6 +35,36 @@ export const awardTypeCodes = {
     '11': 'Other Financial Assistance'
 };
 
+export const glossaryLinks = {
+    'A': 'blanket-purchase-agreement-bpa',
+    'B': '',
+    'C': 'delivery-order-contract',
+    'D': 'definitive-contract',
+    'E': '',
+    'F': 'cooperative-agreement',
+    'G': '',
+    'S': '',
+    'T': '',
+    'IDV_A': 'government-wide-acquisition-contract-gwac',
+    'IDV_B': 'indefinite-delivery-contract-idc',
+    'IDV_B_A': 'indefinite-delivery-requirements',
+    'IDV_B_B': 'indefinite-delivery-indefinite-quantity-idiq-contract',
+    'IDV_B_C': 'indefinite-delivery-contract-idc',
+    'IDV_C': 'federal-supply-schedule-fss',
+    'IDV_D': 'basic-ordering-agreement-boa',
+    'IDV_E': 'blanket-purchase-agreement-bpa',
+    '02': 'block-grant',
+    '03': 'formula-grant',
+    '04': '',
+    '05': 'cooperative-agreement',
+    '10': 'direct-payment-with-unrestricted-use',
+    '06': 'direct-payment-for-specified-use',
+    '07': 'direct-loan',
+    '08': 'guaranteed-insured-loans',
+    '09': 'insurance',
+    '11': 'other-financial-assistance'
+};
+
 /* eslint-enable quote-props */
 
 export const awardTypeGroups = {
