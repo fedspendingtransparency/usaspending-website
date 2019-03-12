@@ -13,8 +13,8 @@ const CoreAward = {
         this.id = data.id || '';
         this.generatedId = data.generatedId || '';
         this.type = data.type || '';
-        this.typeDescription =
-          typeDescriptionsByAwardTypes[data.type] || data.typeDescription || "--";
+        this.typeDescription = data.typeDescription || "--";
+        this.longTypeDescription = typeDescriptionsByAwardTypes[data.type] || data.typeDescription || "--";
         this.description = data.description || '--';
         this._subawardTotal = parseFloat(data.subawardTotal) || 0;
         this.subawardCount = parseFloat(data.subawardCount) || 0;
