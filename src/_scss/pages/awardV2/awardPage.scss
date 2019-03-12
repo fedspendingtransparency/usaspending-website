@@ -25,7 +25,7 @@
                 @include display(flex);
                 @include flex(0 0 auto);
                 font-weight: $font-semibold;
-                padding-right: rem(20);
+                padding-right: rem(10);
             }
             .award__heading-icon {
                 @include display(flex);
