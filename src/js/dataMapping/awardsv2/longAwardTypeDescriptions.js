@@ -3,7 +3,7 @@
  * Created by Max Kendall 3/8/19
  */
 
-export const typeDescriptionsByAwardTypes = {
+export const longTypeDescriptionsByAwardTypes = {
   IDV_A: "Government Wide Acquisition Contract",
   IDV_B: "Multi-Agency Contract, Other Indefinite Delivery Contract",
   IDV_B_A: "Indefinite Delivery Contract / Requirements",
