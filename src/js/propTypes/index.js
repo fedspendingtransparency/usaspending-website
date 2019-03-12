@@ -1,4 +1,4 @@
-// using PropTypes.shape({}) to define precise properties of commonly used props
+
 import PropTypes from 'prop-types';
 
 export const AWARD_V2_OVERVIEW_PROPS = PropTypes.shape({
@@ -14,7 +14,7 @@ export const AWARD_V2_OVERVIEW_PROPS = PropTypes.shape({
     _totalObligation: PropTypes.number,
     _baseExercisedOptions: PropTypes.number,
     _baseAndAllOptions: PropTypes.number,
-    _dateSigned: PropTypes.string,
+    _dateSigned: PropTypes.object, // moment
     parentAward: PropTypes.string,
     parentId: PropTypes.string,
 });
