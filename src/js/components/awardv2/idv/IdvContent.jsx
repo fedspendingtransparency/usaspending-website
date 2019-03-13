@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { startCase } from 'lodash';
 
 import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsContainer';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
@@ -40,7 +39,7 @@ export default class IdvContent extends React.Component {
             <div className="award award-idv">
                 <div className="idv__heading">
                     <div className="idv__info">
-                        <div className="award__heading-text">{startCase(this.props.overview.longTypeDescription)}</div>
+                        <div className="award__heading-text">{this.props.overview.longTypeDescription}</div>
                         <div className="award__heading-icon">
                             {glossaryLink}
                         </div>
