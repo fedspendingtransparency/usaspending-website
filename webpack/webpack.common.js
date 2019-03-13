@@ -8,7 +8,8 @@ const GitHashPlugin = require('./plugins/git-hash-plugin');
 module.exports = {
     context: path.resolve(__dirname, '../src'),
     entry: {
-        vendor: ['mapbox-gl/dist/mapbox-gl', 'lodash', 'moment', 'commonmark', 'immutable', 'react'],
+        // no longer need to separate the app from the vendor. Source: https://webpack.js.org/concepts/entry-points/#separate-app-and-vendor-entries
+        // vendor: ['mapbox-gl/dist/mapbox-gl', 'lodash', 'moment', 'commonmark', 'immutable', 'react'],
         app: './entry.js'
     },
     output: {
@@ -98,9 +99,10 @@ module.exports = {
             inject: false,
             template: path.resolve(__dirname, '../src/index.html'),
             filename: 'index.html'
-        }),
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor'
         })
+        // no longer need to separate the app from the vendor. Source: https://webpack.js.org/concepts/entry-points/#separate-app-and-vendor-entries
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'vendor'
+        // })
     ]
 };
