@@ -50,6 +50,16 @@ module.exports = {
                     'sass-loader',
                 ]
             },
+            // shouldn't need this
+            // {
+            //     test: /\.scss$/,
+            //     use: [
+            //         "style-loader",
+            //         MiniCssExtractPlugin.loader,
+            //         "css-loader",
+            //         "sass-loader"
+            //     ]
+            // },
             // {
             //     test: /\.scss$/,
             //     use: ExtractTextPlugin.extract({
