@@ -9,7 +9,7 @@ import { concat } from 'lodash';
 
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
-
+import { federalAccountFundingInfo, transactionHistoryInfo } from '../idv/InfoTooltipContent';
 import DetailsTabBar from '../../award/details/DetailsTabBar';
 import ResultsTablePicker from '../../search/table/ResultsTablePicker';
 
@@ -23,12 +23,14 @@ const commonTabs = [
     {
         label: 'Transaction History',
         internal: 'transaction',
-        enabled: true
+        enabled: true,
+        tooltipContent: federalAccountFundingInfo
     },
     {
         label: 'Federal Account Funding',
         internal: 'fedaccount',
-        enabled: true
+        enabled: true,
+        tooltipContent: transactionHistoryInfo
     }
 ];
 
