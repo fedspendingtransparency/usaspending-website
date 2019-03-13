@@ -2,7 +2,7 @@
  * CoreAward.js
  * Created by David Trinh 10/9/18
  */
-
+import { startCase } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { parseDate, formatDate } from './CorePeriodOfPerformance';
 import { longTypeDescriptionsByAwardTypes } from "../../../dataMapping/awardsv2/longAwardTypeDescriptions";
@@ -16,7 +16,7 @@ const CoreAward = {
         this.typeDescription = data.typeDescription || "--";
         this.longTypeDescription =
           longTypeDescriptionsByAwardTypes[data.type] ||
-          data.typeDescription ||
+          startCase(data.typeDescription) ||
           "--";
         this.description = data.description || '--';
         this._subawardTotal = parseFloat(data.subawardTotal) || 0;
