@@ -1,9 +1,11 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
 const GitHashPlugin = require('./plugins/git-hash-plugin');
+
+const devMode = process.env.NODE_ENV !== 'production'
 
 module.exports = {
     context: path.resolve(__dirname, '../src'),
@@ -40,42 +42,51 @@ module.exports = {
                 }
             },
             {
-                test: /\.scss$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {
-                                sourceMap: () => {
-                                    if (process.env.NODE_ENV === 'production') {
-                                        return false;
-                                    }
-                                    return true;
-                                },
-                                minimize: () => {
-                                    if (process.env.NODE_ENV === 'production') {
-                                        return true;
-                                    }
-                                    return false;
-                                }
-                            }
-                        },
-                        {
-                            loader: 'sass-loader',
-                            options: {
-                                includePaths: ['./src/_scss', './node_modules'],
-                                sourceMap: () => {
-                                    if (process.env.NODE_ENV === 'production') {
-                                        return false;
-                                    }
-                                    return true;
-                                }
-                            }
-                        }
-                    ]
-                })
+                test: /\.(sa|sc|c)ss$/,
+                use: [
+                    devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'postcss-loader',
+                    'sass-loader',
+                ]
             },
+            // {
+            //     test: /\.scss$/,
+            //     use: ExtractTextPlugin.extract({
+            //         fallback: 'style-loader',
+            //         use: [
+            //             {
+            //                 loader: 'css-loader',
+            //                 options: {
+            //                     sourceMap: () => {
+            //                         if (process.env.NODE_ENV === 'production') {
+            //                             return false;
+            //                         }
+            //                         return true;
+            //                     },
+            //                     minimize: () => {
+            //                         if (process.env.NODE_ENV === 'production') {
+            //                             return true;
+            //                         }
+            //                         return false;
+            //                     }
+            //                 }
+            //             },
+            //             {
+            //                 loader: 'sass-loader',
+            //                 options: {
+            //                     includePaths: ['./src/_scss', './node_modules'],
+            //                     sourceMap: () => {
+            //                         if (process.env.NODE_ENV === 'production') {
+            //                             return false;
+            //                         }
+            //                         return true;
+            //                     }
+            //                 }
+            //             }
+            //         ]
+            //     })
+            // },
             {
                 include: /src(\/|\\)(fonts|graphics|img|data)/,
                 loader: 'file-loader',
@@ -90,9 +101,9 @@ module.exports = {
             root: path.resolve(__dirname, '../')
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-        new ExtractTextPlugin({
-            filename: 'css/style.[hash].css',
-            allChunks: true
+        new miniCssExtractPlugin({
+            filename: devMode ? '[name].css' : '[name].[chunkhash].css',
+            chunkFilename: devMode ? '[id].css' : '[id].[chunkhash].css',
         }),
         new GitHashPlugin(),
         new HtmlWebpackPlugin({ // copy the index.html file out of /src into /public and update with the current JS files
