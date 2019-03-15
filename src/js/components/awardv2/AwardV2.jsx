@@ -91,6 +91,7 @@ export default class Award extends React.Component {
             if (overview.category === 'contract') {
                 content = (
                     <ContractContent
+                        awardId={this.props.awardId}
                         overview={overview}
                         jumpToSection={this.jumpToSection} />
                 );
@@ -107,6 +108,7 @@ export default class Award extends React.Component {
             else {
                 content = (
                     <FinancialAssistanceContent
+                        awardId={this.props.awardId}
                         overview={overview}
                         jumpToSection={this.jumpToSection} />
                 );
