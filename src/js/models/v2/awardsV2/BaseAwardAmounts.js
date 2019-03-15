@@ -54,9 +54,6 @@ const BaseAwardAmounts = {
     },
     get exercisedLabelPercentage() {
         return Math.round(Math.abs((this._rolledBaseExercisedOptions) / this._rolledBaseAllOptions) * 100);
-    },
-    get totalCount() {
-        return this.idvCount + this.contractCount;
     }
 };
 

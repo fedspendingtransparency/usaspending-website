@@ -100,6 +100,7 @@ export class AwardAmountsContainer extends React.Component {
         });
 
         // Store the counts in Redux for use in the referenced awards table
+        // and related awards section
         this.props.setCounts({
             idvs: data.idv_count,
             contracts: data.contract_count,

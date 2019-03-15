@@ -7,8 +7,7 @@ export const initialState = {
     id: '',
     category: '',
     overview: null,
-    counts: null,
-    aggregatedAmounts: null
+    counts: null
 };
 
 const awardReducer = (state = initialState, action) => {
@@ -23,11 +22,6 @@ const awardReducer = (state = initialState, action) => {
         case 'SET_COUNTS': {
             return Object.assign({}, state, {
                 counts: action.counts
-            });
-        }
-        case 'SET_AMOUNTS': {
-            return Object.assign({}, state, {
-                aggregatedAmounts: action.amounts
             });
         }
         case 'RESET_AWARD': {

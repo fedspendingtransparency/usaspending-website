@@ -12,11 +12,6 @@ export const setCounts = (state) => ({
     counts: state
 });
 
-export const setAggregatedAmounts = (state) => ({
-    type: 'SET_AMOUNTS',
-    amounts: state
-});
-
 export const resetAward = () => ({
     type: 'RESET_AWARD'
 });

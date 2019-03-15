@@ -76,6 +76,7 @@
                 }
                 .award__col {
                     @include flex(1 1 auto);
+                    // Add padding between columns when they are stacked in mobile
                     &:first-child {
                         padding-bottom: rem(60);
                     }
