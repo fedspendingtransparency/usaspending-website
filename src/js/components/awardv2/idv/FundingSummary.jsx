@@ -15,7 +15,6 @@ const FundingSummary = ({
     awardingAgencyCount,
     federalAccountCount
 }) => (
-    // should be reusing styles for award-amounts and award-amounts__data
     <div className="award__col award-viz award-funding-summary">
         <div className="award-viz__heading">
             <div className="award-viz__icon">
