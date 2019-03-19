@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Pie } from '../../sharedComponents/icons/Icons';
+import { formatMoneyWithPrecision } from '../../../helpers/moneyFormatter';
 
 const propTypes = {
     totalTransactionObligatedAmount: PropTypes.number,
@@ -25,7 +26,7 @@ const FundingSummary = ({
         <hr />
         <div className="award-funding-summary__data">
             <span>Total Funding Obligated</span>
-            <span>{totalTransactionObligatedAmount}</span>
+            <span>{formatMoneyWithPrecision(totalTransactionObligatedAmount, 2)}</span>
         </div>
         <div className="award-funding-summary__data">
             <span>Total Count Of Awarding Agencies</span>
