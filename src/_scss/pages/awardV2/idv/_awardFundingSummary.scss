@@ -1,10 +1,5 @@
 .award-funding-summary {
-    // TODO change these into extensions
-    // @extend .award-amounts;
-    // @extend %column-less-table__container;
     .award-funding-summary__data {
-        // TODO change these into extensions
-        // @extend .award-amounts__data;
         @extend %column-less-table__row;
         margin: 0;
         span:last-of-type {
