@@ -54,3 +54,19 @@ export const fetchAwardFedAccountFunding = (params) => {
         }
     };
 };
+
+export const fetchAwardFundingSummary = (awardId) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/awards/idvs/funding-rollup/`,
+            baseURL: kGlobalConstants.API,
+            method: "post",
+            data: { award_id: awardId },
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
