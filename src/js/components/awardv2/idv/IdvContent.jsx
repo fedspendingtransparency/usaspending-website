@@ -83,7 +83,6 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    {/* TODO: DEV-2303 add new component */}
                     <AwardMetaDataContainer />
                 </div>
                 <ReferencedAwardsContainer />
