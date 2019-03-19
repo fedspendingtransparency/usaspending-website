@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Pie } from '../../sharedComponents/icons/Icons';
 
 const propTypes = {
@@ -13,7 +14,8 @@ const FundingSummary = ({
     awardingAgencyCount,
     federalAccountCount
 }) => (
-    <div className="award__col award-viz">
+    // should be reusing styles for award-amounts and award-amounts__data
+    <div className="award__col award-viz award-funding-summary">
         <div className="award-viz__heading">
             <div className="award-viz__icon">
                 <Pie />
@@ -21,8 +23,18 @@ const FundingSummary = ({
             <h3 className="award-viz__title">Federal Account Funding</h3>
         </div>
         <hr />
-        <p>Funding Details Table goes here</p>
-        <p>data: {`${totalTransactionObligatedAmount}, ${awardingAgencyCount}, ${federalAccountCount}`}</p>
+        <div className="award-funding-summary__data">
+            <span>Total Funding Obligated</span>
+            <span>{totalTransactionObligatedAmount}</span>
+        </div>
+        <div className="award-funding-summary__data">
+            <span>Total Count Of Awarding Agencies</span>
+            <span>{awardingAgencyCount}</span>
+        </div>
+        <div className="award-funding-summary__data">
+            <span>Total Count of Federal Accounts</span>
+            <span>{federalAccountCount}</span>
+        </div>
     </div>
 );
 
