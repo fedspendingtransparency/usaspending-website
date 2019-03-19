@@ -13,6 +13,7 @@ import AwardHistory from './AwardHistory';
 import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
 import RelatedAwards from '../visualizations/overview/RelatedAwards';
 import IdvDates from './IdvDates';
+import FundingSummary from './FundingSummary';
 import AwardDescription from '../visualizations/description/AwardDescription';
 import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 import AdditionalInfo from '../contract/AdditionalInfo';
@@ -39,30 +40,37 @@ export default class IdvContent extends React.Component {
             <div className="award award-idv">
                 <div className="idv__heading">
                     <div className="idv__info">
-                        <div className="award__heading-text">{this.props.overview.longTypeDescription}</div>
+                        <div className="award__heading-text">
+                            {this.props.overview.longTypeDescription}
+                        </div>
                         <div className="award__heading-icon">
                             {glossaryLink}
                         </div>
                         <div className="award__heading-id">
-                            <div className="award__heading-lable">{this.props.overview.id ? 'PIID' : ''}</div>
+                            <div className="award__heading-lable">
+                                {this.props.overview.id ? "PIID" : ""}
+                            </div>
                             <div>{this.props.overview.id}</div>
                         </div>
                     </div>
                     <div className="idv__last-modified">
-                        Last Modified On: <span className="idv__last-modified idv__last-modified_date">{this.props.overview.dates.lastModifiedDateLong}</span>
+                Last Modified On:{" "}
+                        <span className="idv__last-modified idv__last-modified_date">
+                            {this.props.overview.dates.lastModifiedDateLong}
+                        </span>
                     </div>
                 </div>
                 <hr />
-                <div className="award__row award-overview" id="award-overview">
+                <div
+                    className="award__row award-overview"
+                    id="award-overview">
                     <AgencyRecipient
                         jumpToSection={this.props.jumpToSection}
                         awardingAgency={this.props.overview.awardingAgency}
                         category="idv"
                         recipient={this.props.overview.recipient} />
-                    <RelatedAwards
-                        overview={this.props.overview} />
-                    <IdvDates
-                        dates={this.props.overview.dates} />
+                    <RelatedAwards overview={this.props.overview} />
+                    <IdvDates dates={this.props.overview.dates} />
                 </div>
                 <div className="award__row">
                     <AwardAmounts
@@ -74,10 +82,13 @@ export default class IdvContent extends React.Component {
                         naics={this.props.overview.additionalDetails.naicsCode}
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
+                <div className="award__row">
+                    {/* TODO: DEV-2303 add new component */}
+                    <FundingSummary />
+                </div>
                 <ReferencedAwardsContainer />
                 <AwardHistory overview={this.props.overview} />
-                <AdditionalInfo
-                    overview={this.props.overview} />
+                <AdditionalInfo overview={this.props.overview} />
             </div>
         );
     }
