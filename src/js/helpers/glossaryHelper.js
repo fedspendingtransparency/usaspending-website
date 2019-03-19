@@ -8,22 +8,20 @@ import Axios, { CancelToken } from 'axios';
 import kGlobalConstants from 'GlobalConstants';
 
 // perform search is a cancellable promise
-export const fetchAllTerms = () =>
-    // const source = CancelToken.source();
-    ({ promise: Promise.resolve() })
-;
-// return {
-//     promise: Axios.request({
-//         url: 'v1/references/glossary/?limit=500',
-//         baseURL: kGlobalConstants.API,
-//         method: 'get',
-//         cancelToken: source.token
-//     }),
-//     cancel() {
-//         source.cancel();
-//     }
-// };
-
+export const fetchAllTerms = () => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v1/references/glossary/?limit=500',
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
 
 export const fetchSearchResults = (params) => {
     const source = CancelToken.source();
