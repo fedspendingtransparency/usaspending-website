@@ -13,10 +13,10 @@ import AwardHistory from './AwardHistory';
 import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
 import RelatedAwards from '../visualizations/overview/RelatedAwards';
 import IdvDates from './IdvDates';
-import FundingSummary from './FundingSummary';
 import AwardDescription from '../visualizations/description/AwardDescription';
 import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 import AdditionalInfo from '../contract/AdditionalInfo';
+import AwardMetaDataContainer from '../../../containers/awardV2/idv/AwardMetaDataContainer';
 import { AWARD_V2_OVERVIEW_PROPS } from '../../../propTypes';
 
 const propTypes = {
@@ -84,7 +84,7 @@ export default class IdvContent extends React.Component {
                 </div>
                 <div className="award__row">
                     {/* TODO: DEV-2303 add new component */}
-                    <FundingSummary />
+                    <AwardMetaDataContainer />
                 </div>
                 <ReferencedAwardsContainer />
                 <AwardHistory overview={this.props.overview} />
