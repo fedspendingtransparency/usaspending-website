@@ -21,7 +21,7 @@ require('pages/award/awardPage.scss');
 
 const propTypes = {
     setSelectedAward: PropTypes.func,
-    params: PropTypes.object
+    awardId: PropTypes.string
 };
 
 export class AwardContainer extends React.Component {
@@ -37,12 +37,12 @@ export class AwardContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.getSelectedAward(this.props.params.awardId);
+        this.getSelectedAward(this.props.awardId);
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.params.awardId !== prevProps.params.awardId) {
-            this.getSelectedAward(this.props.params.awardId);
+        if (this.props.awardId !== prevProps.awardId) {
+            this.getSelectedAward(this.props.awardId);
         }
     }
 
