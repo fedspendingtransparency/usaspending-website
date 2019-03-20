@@ -3,75 +3,101 @@
     @import "pages/search/results/table/_tableTypes";
     @import "pages/search/results/table/_resultsTablePicker";
     @import "pages/search/results/visualizations/_messages";
-   
+
     .visualization-message-container {
         margin-top: rem(30);
         height: rem(112);
         padding-top: rem(45);
     }
+
     .award-viz__heading {
         @include display(flex);
         @include justify-content(flex-start);
         @include align-items(center);
+
         .award-viz__icon {
             @include flex(0 0 auto);
+
             height: rem(20);
             width: rem(20);
             margin-right: rem(9);
+
             svg {
                 fill: $color-gray;
             }
         }
+
         h3.award-viz__title {
+            @include display(flex);
             @include flex(1 1 auto);
+
             margin: 0;
             line-height: $base-line-height;
             font-size: rem(18);
             font-weight: $font-semibold;
         }
+
+        .award__info-wrapper {
+            @include display(flex);
+            @include flex(0 0 auto);
+            @include align-self(flex-end);
+        }
     }
+
     .award-viz__button {
         @include button-unstyled;
+
         color: $color-link;
+
         &:hover, &:focus {
             color: $color-visited;
         }
     }
+
     .award-viz__link {
         @include display(flex);
         @include justify-content(flex-start);
         @include flex(0 0 auto);
         @include align-items(center);
+
         width: fit-content;
         padding: rem(4) 0;
+
         .award-viz__link-icon {
             @include display(flex);
             @include flex(0 0 auto);
+
             margin-right: rem(5);
+
             svg {
                 height: rem(15);
                 width: rem(15);
                 fill: $color-link;
             }
         }
+
         .award-viz__link-icon_hidden {
             display: none;
         }
+
         .award-viz__link-text {
             @include display(flex);
             @include flex(0 0 auto);
         }
+
         &:hover {
             cursor: pointer;
             text-decoration: none;
         }
+
         &:visited, &:hover {
-            .award-viz__link-icon{
+            .award-viz__link-icon {
                 svg {
                     fill: $color-visited;
                 }
             }
         }
+
         .award-viz__link-text_hidden {
             display: none;
         }
