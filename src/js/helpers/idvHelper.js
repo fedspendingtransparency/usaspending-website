@@ -59,7 +59,7 @@ export const fetchAwardFundingSummary = (awardId) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/awards/idvs/funding-rollup/`,
+            url: `v2/awards/idvs/funding_rollup/`,
             baseURL: kGlobalConstants.API,
             method: "post",
             data: { award_id: awardId },
