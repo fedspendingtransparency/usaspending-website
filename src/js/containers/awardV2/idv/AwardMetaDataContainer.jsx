@@ -24,8 +24,7 @@ class AwardMetaDataContainer extends React.Component {
     }
     async componentWillMount() {
         try {
-            const summary = await fetchAwardFundingSummary(this.props.awardId).promise;
-            const data = summary.data.results[0];
+            const { data } = await fetchAwardFundingSummary(this.props.awardId).promise;
             this.setState({
                 totalTransactionObligatedAmount: data.total_transaction_obligated_amount,
                 awardingAgencyCount: data.awarding_agency_count,
