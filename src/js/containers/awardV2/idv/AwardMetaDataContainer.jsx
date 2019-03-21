@@ -13,7 +13,7 @@ const defaultProps = {
     awardId: "0"
 };
 
-class AwardMetaDataContainer extends React.Component {
+export class AwardMetaDataContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,19 +22,24 @@ class AwardMetaDataContainer extends React.Component {
             federalAccountCount: 0
         };
     }
-    async componentWillMount() {
+    async componentDidMount() {
         try {
             const { data } = await fetchAwardFundingSummary(this.props.awardId).promise;
-            this.setState({
-                totalTransactionObligatedAmount: data.total_transaction_obligated_amount,
-                awardingAgencyCount: data.awarding_agency_count,
-                federalAccountCount: data.federal_account_count
-            });
+            this.updateSummaryData(data);
         }
         catch (error) {
             console.log("handle this error: ", error);
         }
     }
+
+    updateSummaryData(data) {
+        this.setState({
+            totalTransactionObligatedAmount: data.total_transaction_obligated_amount,
+            awardingAgencyCount: data.awarding_agency_count,
+            federalAccountCount: data.federal_account_count
+        });
+    }
+
     render() {
         return <FundingSummary {...this.state} />;
     }
