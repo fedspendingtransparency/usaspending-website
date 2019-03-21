@@ -12,7 +12,8 @@ import AggregatedAwardAmountsInfo from 'components/awardv2/visualizations/amount
 const propTypes = {
     awardAmounts: PropTypes.object,
     loading: PropTypes.bool,
-    error: PropTypes.bool
+    error: PropTypes.bool,
+    jumpToSection: PropTypes.func
 };
 
 export default class AggregatedAwardAmounts extends React.Component {
@@ -24,7 +25,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                 <div className="visualization-message-container">
                     <div className="visualization-loading">
                         <div className="message">
-                    Gathering your data...
+                            Gathering your data...
                         </div>
                     </div>
                 </div>);
@@ -34,7 +35,11 @@ export default class AggregatedAwardAmounts extends React.Component {
         }
         else {
             // only mount the chart component if there is data to display
-            data = (<AggregatedAwardAmountsInfo awardAmounts={this.props.awardAmounts} />);
+            data = (
+                <AggregatedAwardAmountsInfo
+                    jumpToSection={this.props.jumpToSection}
+                    awardAmounts={this.props.awardAmounts} />
+            );
         }
 
         return (
