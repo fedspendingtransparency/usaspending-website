@@ -46,11 +46,15 @@
 
     .award-viz__button {
         @include button-unstyled;
-
+        @include display(flex);
+        line-height: normal;
         color: $color-link;
 
         &:hover, &:focus {
             color: $color-visited;
+            svg {
+                fill: $color-visited;
+            }
         }
     }
 
@@ -101,5 +105,22 @@
         .award-viz__link-text_hidden {
             display: none;
         }
+    }
+    .award-viz__link-icon {
+        @include display(flex);
+        @include flex(0 0 auto);
+        margin-right: rem(5);
+        svg {
+            height: rem(15);
+            width: rem(15);
+            fill: $color-link;
+        }
+    }
+    .award-viz__link-icon_hidden {
+        display: none;
+    }
+    .award-viz__link-text {
+        @include display(flex);
+        @include flex(0 0 auto);
     }
 }
