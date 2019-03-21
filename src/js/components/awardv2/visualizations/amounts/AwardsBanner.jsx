@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { InfoCircle, Close } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    jumpToSection: PropTypes.func
+    jumpToReferencedAwardsTable: PropTypes.func
 };
 
 export default class AwardsBanner extends React.Component {
@@ -29,15 +29,13 @@ export default class AwardsBanner extends React.Component {
 
             <div className={`award-amounts__banner ${!this.state.toggle ? "award-amounts__banner_hidden" : ""}`}>
                 <span className="award-amounts__banner-info-icon"><InfoCircle /></span>
-                <p>The information in this tab is pulled from the combined data of awards that reference this IDV, not the IDV itself. To see those awards, scroll to the
-                    &nbsp;
+                <p>The information in this tab is pulled from the combined data of awards that reference this IDV, not the IDV itself. To see those awards, scroll to the&nbsp;
                     <button
-                        onClick={() => this.props.jumpToSection('referenced-awards')}
+                        onClick={this.props.jumpToReferencedAwardsTable}
                         className="award-viz__button">
                         referencing awards table
                     </button>
-                    &nbsp;
-                    on this page.
+                    &nbsp;on this page.
                 </p>
                 <button
                     className="award-amounts__banner-close-icon"

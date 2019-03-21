@@ -16,6 +16,14 @@ const propTypes = {
 };
 
 export default class AggregatedAwardAmountsInfo extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
+    }
+    jumpToReferencedAwardsTable() {
+        this.props.jumpToSection('referenced-awards');
+    }
     render() {
         const awardAmounts = this.props.awardAmounts;
         const exercisedLabelPercentage = Math.round(Math.abs((awardAmounts._rolledBaseExercisedOptions) / awardAmounts._rolledBaseAllOptions) * 100);
@@ -41,7 +49,7 @@ export default class AggregatedAwardAmountsInfo extends React.Component {
         return (
             <div className="award-amounts__content">
                 <AwardsBanner
-                    jumpToSection={this.props.jumpToSection} />
+                    jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
                 <div className="award-amounts__viz-desc-top"><strong>{awardAmounts.obligationFormatted}</strong> Combined Obligated Amounts</div>
                 <div className="award-amounts__viz-label" style={obligatedLableStyle}>
                     <div className="award-amounts__viz-line-up" />
@@ -62,7 +70,7 @@ export default class AggregatedAwardAmountsInfo extends React.Component {
                     <span>Awards that Reference this IDV</span><span>{awardAmounts.idvCount + awardAmounts.contractCount}</span>
                 </div>
                 <button
-                    onClick={() => this.props.jumpToSection('referenced-awards')}
+                    onClick={this.jumpToReferencedAwardsTable}
                     className="award-viz__button">
                     <div className="award-viz__link-icon">
                         <Table />

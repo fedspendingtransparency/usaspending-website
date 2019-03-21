@@ -16,6 +16,14 @@ const propTypes = {
 };
 
 export default class RelatedAwards extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
+    }
+    jumpToReferencedAwardsTable() {
+        this.props.jumpToSection('referenced-awards');
+    }
     render() {
         let parentLink = 'N/A';
         if (this.props.overview.parentAward && this.props.overview.parentId) {
@@ -66,7 +74,7 @@ export default class RelatedAwards extends React.Component {
                 </div>
                 {referencedCount}
                 <button
-                    onClick={() => this.props.jumpToSection('referenced-awards')}
+                    onClick={this.jumpToReferencedAwardsTable}
                     className="award-viz__button">
                     <div className="award-viz__link-icon">
                         <Table />
