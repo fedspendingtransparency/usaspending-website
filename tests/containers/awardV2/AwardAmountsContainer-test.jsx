@@ -45,8 +45,12 @@ describe('AwardAmountsContainer', () => {
         expect(getSelectedAward).toHaveBeenCalledTimes(1);
         expect(getSelectedAward).toHaveBeenCalledWith('1234');
 
+        const updatedAward = Object.assign({}, mockRedux.award, {
+            id: '222'
+        });
+
         const prevProps = Object.assign({}, mockRedux, {
-            awardId: '222'
+            award: updatedAward
         });
 
         container.instance().componentDidUpdate(prevProps);

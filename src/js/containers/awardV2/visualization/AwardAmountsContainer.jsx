@@ -15,7 +15,7 @@ import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AggregatedAwardAmounts from 'components/awardv2/visualizations/amounts/AggregatedAwardAmounts';
 
 const propTypes = {
-    awardId: PropTypes.string,
+    award: PropTypes.object,
     setCounts: PropTypes.func,
     jumpToSection: PropTypes.func
 };
@@ -34,12 +34,12 @@ export class AwardAmountsContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.getSelectedAward(this.props.awardId);
+        this.getSelectedAward(this.props.award.id);
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.awardId !== prevProps.awardId) {
-            this.getSelectedAward(this.props.awardId);
+        if (this.props.award.id !== prevProps.award.id) {
+            this.getSelectedAward(this.props.award.id);
         }
     }
 
