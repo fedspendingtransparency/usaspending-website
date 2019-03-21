@@ -21,10 +21,9 @@ jest.mock('components/award/Award', () => jest.fn(() => null));
 describe('AwardContainer', () => {
     it('should make an API call for the selected award on mount', async () => {
 
-        const container = mount(
-            <AwardContainer
-                {...mockParams}
-                {...mockActions} />);
+        const container = mount(<AwardContainer
+            {...mockParams}
+            {...mockActions} />);
 
         const parseAward = jest.fn();
         container.instance().parseAward = parseAward;
@@ -34,10 +33,9 @@ describe('AwardContainer', () => {
     });
 
     it('should make an API call when the award ID parameter changes', () => {
-        const container = shallow (
-            <AwardContainer
-                {...mockParams}
-                {...mockActions} />);
+        const container = shallow(<AwardContainer
+            {...mockParams}
+            {...mockActions} />);
 
         const getSelectedAward = jest.fn();
         container.instance().getSelectedAward = getSelectedAward;
@@ -47,9 +45,7 @@ describe('AwardContainer', () => {
         expect(getSelectedAward).toHaveBeenCalledWith(1234);
 
         const prevProps = Object.assign({}, mockParams, {
-            params: {
-                awardId: 222
-            }
+            awardId: '222'
         });
 
         container.instance().componentDidUpdate(prevProps);
@@ -60,10 +56,9 @@ describe('AwardContainer', () => {
 
     describe('parseAward', () => {
         it('should parse returned contract data and send to the Redux store', () => {
-            const awardContainer = shallow(
-                <AwardContainer
-                    {...mockParams}
-                    {...mockActions} />);
+            const awardContainer = shallow(<AwardContainer
+                {...mockParams}
+                {...mockActions} />);
 
             const expectedAward = Object.create(BaseContract);
             expectedAward.populate(mockApi);
@@ -73,10 +68,9 @@ describe('AwardContainer', () => {
             expect(mockActions.setSelectedAward).toHaveBeenCalledWith(expectedAward);
         });
         it('should parse returned financial assistance data and send to the Redux store', () => {
-            const awardContainer = shallow(
-                <AwardContainer
-                    {...mockParams}
-                    {...mockActions} />);
+            const awardContainer = shallow(<AwardContainer
+                {...mockParams}
+                {...mockActions} />);
 
             const expectedAward = Object.create(BaseFinancialAssistance);
             expectedAward.populate(mockFinancialAssistanceApi);
@@ -86,10 +80,9 @@ describe('AwardContainer', () => {
             expect(mockActions.setSelectedAward).toHaveBeenCalledWith(expectedAward);
         });
         it('should parse returned IDV data and send to the Redux store', () => {
-            const awardContainer = shallow(
-                <AwardContainer
-                    {...mockParams}
-                    {...mockActions} />);
+            const awardContainer = shallow(<AwardContainer
+                {...mockParams}
+                {...mockActions} />);
 
             const mockIDV = Object.assign({}, mockApi, {
                 category: 'idv'
