@@ -28,7 +28,11 @@ export class AwardMetaDataContainer extends React.Component {
             this.updateSummaryData(data);
         }
         catch (error) {
-            console.log("handle this error: ", error);
+            this.updateSummaryData({
+                total_transaction_obligated_amount: "N/A",
+                awarding_agency_count: "N/A",
+                federal_account_count: "N/A"
+            });
         }
     }
 

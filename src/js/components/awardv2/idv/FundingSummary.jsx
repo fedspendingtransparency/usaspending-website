@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoneyWithPrecision } from '../../../helpers/moneyFormatter';
 
 const propTypes = {
-    totalTransactionObligatedAmount: PropTypes.number,
-    awardingAgencyCount: PropTypes.number,
-    federalAccountCount: PropTypes.number
+    totalTransactionObligatedAmount: PropTypes.oneOf(PropTypes.number, PropTypes.string),
+    awardingAgencyCount: PropTypes.oneOf(PropTypes.number, PropTypes.string),
+    federalAccountCount: PropTypes.oneOf(PropTypes.number, PropTypes.string)
 };
 
 const FundingSummary = ({
@@ -25,7 +25,10 @@ const FundingSummary = ({
         <hr />
         <div className="award-funding-summary__data">
             <span>Total Funding Obligated</span>
-            <span>{formatMoneyWithPrecision(totalTransactionObligatedAmount, 2)}</span>
+            <span>{typeof totalTransactionObligatedAmount === "number"
+                ? formatMoneyWithPrecision(totalTransactionObligatedAmount, 2)
+                : totalTransactionObligatedAmount}
+            </span>
         </div>
         <div className="award-funding-summary__data">
             <span>Total Count Of Awarding Agencies</span>
