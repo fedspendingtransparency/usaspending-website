@@ -38,7 +38,7 @@ export default class ReferencedAwardsSection extends React.Component {
             );
         }
         return (
-            <div id="idv-referenced-awards" className="referenced-awards">
+            <div id="award-referenced-awards" className="referenced-awards">
                 <div className="award-viz">
                     <div className="award-viz__heading">
                         <div className="award-viz__icon">

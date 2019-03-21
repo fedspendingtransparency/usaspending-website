@@ -10,5 +10,11 @@
     .related-awards__label {
         font-weight: $font-light;
         padding-bottom: rem(5);
+        &.related-awards__label_count {
+            padding-top: rem(10);
+        }
+    }
+    .award-viz__button {
+        padding: rem(5) 0;
     }
 }

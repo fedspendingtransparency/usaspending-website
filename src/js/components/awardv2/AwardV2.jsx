@@ -34,6 +34,10 @@ const awardSections = [
     {
         section: 'additional-information',
         label: 'Additional Information'
+    },
+    {
+        section: 'referenced-awards',
+        label: 'Referenced Awards'
     }
 ];
 
@@ -96,6 +100,7 @@ export default class Award extends React.Component {
                     <IdvContent
                         awardId={this.props.award.id}
                         overview={overview}
+                        counts={this.props.award.counts}
                         jumpToSection={this.jumpToSection} />
                 );
             }
