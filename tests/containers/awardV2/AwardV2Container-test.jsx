@@ -17,7 +17,7 @@ import BaseFinancialAssistance from "models/v2/awardsV2/BaseFinancialAssistance"
 
 jest.mock('helpers/searchHelper', () => require('./awardV2Helper'));
 
-// mock the child components by replacing them with functions that return a null elements
+// mock the child components by replacing them with functions that return null elements
 jest.mock('components/awardv2/AwardV2', () => jest.fn(() => null));
 jest.mock('containers/award/AwardContainer', () => jest.fn(() => null));
 
