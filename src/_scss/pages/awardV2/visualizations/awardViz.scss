@@ -47,7 +47,7 @@
     .award-viz__button {
         @include button-unstyled;
         @include display(flex);
-
+        line-height: normal;
         color: $color-link;
 
         &:hover, &:focus {
