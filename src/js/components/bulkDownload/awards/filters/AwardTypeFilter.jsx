@@ -36,7 +36,8 @@ export default class AwardTypeFilter extends React.Component {
             this.props.currentAwardTypes.grants ||
             this.props.currentAwardTypes.directPayments ||
             this.props.currentAwardTypes.loans ||
-            this.props.currentAwardTypes.otherFinancialAssistance
+            this.props.currentAwardTypes.otherFinancialAssistance ||
+            this.props.currentAwardTypes.idvs
         );
 
         let icon = (

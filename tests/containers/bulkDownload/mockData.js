@@ -96,7 +96,8 @@ export const mockRedux = {
                 grants: true,
                 directPayments: false,
                 loans: true,
-                otherFinancialAssistance: false
+                otherFinancialAssistance: false,
+                idvs: false
             },
             agency: {
                 id: '123',

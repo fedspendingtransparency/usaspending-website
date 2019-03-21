@@ -43,6 +43,11 @@ export const awardDownloadOptions = {
             name: 'otherFinancialAssistance',
             label: 'Other Financial Assistance',
             apiName: 'other_financial_assistance'
+        },
+        {
+            name: 'idvs',
+            label: 'IDVs',
+            apiName: 'idvs'
         }
     ],
     dateTypes: [

@@ -20,7 +20,8 @@ export const initialState = {
             grants: false,
             directPayments: false,
             loans: false,
-            otherFinancialAssistance: false
+            otherFinancialAssistance: false,
+            idvs: false
         },
         agency: {
             id: '',

@@ -79,7 +79,7 @@ export default class AwardDataContent extends React.Component {
         const validForm = (
             (awards.awardLevels.primeAwards || awards.awardLevels.subAwards)
             && (awards.awardTypes.contracts || awards.awardTypes.grants || awards.awardTypes.directPayments
-                || awards.awardTypes.loans || awards.awardTypes.otherFinancialAssistance)
+                || awards.awardTypes.loans || awards.awardTypes.otherFinancialAssistance || awards.awardTypes.idvs)
             && this.state.validDates && (awards.dateType !== '')
             && (awards.agency.id !== '')
             && (awards.location !== '')
@@ -93,7 +93,6 @@ export default class AwardDataContent extends React.Component {
 
     render() {
         const awards = this.props.awards;
-
         const currentAgencies = {
             agency: awards.agency,
             subAgency: awards.subAgency
