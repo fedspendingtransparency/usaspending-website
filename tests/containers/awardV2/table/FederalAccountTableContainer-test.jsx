@@ -14,7 +14,7 @@ import { mockFederalAccountFunding } from '../../../models/awardsV2/mockAwardApi
 import BaseFederalAccountFunding from 'models/v2/awardsV2/BaseFederalAccountFunding';
 
 // mock the IDV helper
-jest.mock('helpers/idvHelper', () => require('../referencedAwards/mockIdvHelper'));
+jest.mock('helpers/idvHelper', () => require('../idv/mockIdvHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/awardv2/table/FederalAccountTable', () =>
