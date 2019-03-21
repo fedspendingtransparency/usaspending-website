@@ -1,5 +1,5 @@
 /**
- * entry.js
+ * index.js
  * Created by Kevin Li 6/20/17
  * This is the main entry point for Webpack, which will follow a series of imports and requires
  * to determine which assets are used by the app.
