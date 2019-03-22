@@ -14,7 +14,7 @@ export const fetchAwardV2 = () => (
     }
 );
 
-export const fetchAwardsAmount = () => (
+export const fetchAwardAmounts = () => (
     {
         promise: new Promise((resolve) => {
             process.nextTick(() => {

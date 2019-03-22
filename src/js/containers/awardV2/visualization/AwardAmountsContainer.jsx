@@ -9,14 +9,15 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import * as SearchHelper from 'helpers/searchHelper';
+import * as IdvHelper from 'helpers/idvHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AggregatedAwardAmounts from 'components/awardv2/visualizations/amounts/AggregatedAwardAmounts';
 
 const propTypes = {
-    awardId: PropTypes.string,
-    setCounts: PropTypes.func
+    award: PropTypes.object,
+    setCounts: PropTypes.func,
+    jumpToSection: PropTypes.func
 };
 
 export class AwardAmountsContainer extends React.Component {
@@ -33,12 +34,12 @@ export class AwardAmountsContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.getSelectedAward(this.props.awardId);
+        this.getSelectedAward(this.props.award.id);
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.awardId !== prevProps.awardId) {
-            this.getSelectedAward(this.props.awardId);
+        if (this.props.award.id !== prevProps.award.id) {
+            this.getSelectedAward(this.props.award.id);
         }
     }
 
@@ -54,7 +55,7 @@ export class AwardAmountsContainer extends React.Component {
             this.awardRequest.cancel();
         }
 
-        this.awardRequest = SearchHelper.fetchAwardsAmount(id);
+        this.awardRequest = IdvHelper.fetchAwardAmounts(id);
 
         this.awardRequest.promise
             .then((results) => {
@@ -99,16 +100,21 @@ export class AwardAmountsContainer extends React.Component {
         });
 
         // Store the counts in Redux for use in the referenced awards table
+        // and related awards section
         this.props.setCounts({
             idvs: data.idv_count,
-            contracts: data.contract_count
+            contracts: data.contract_count,
+            total: data.idv_count + data.contract_count
         });
     }
 
     render() {
         return (
             <div>
-                <AggregatedAwardAmounts {...this.state} loading={this.state.inFlight} />
+                <AggregatedAwardAmounts
+                    {...this.state}
+                    loading={this.state.inFlight}
+                    jumpToSection={this.props.jumpToSection} />
             </div>
         );
     }

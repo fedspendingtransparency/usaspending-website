@@ -5,14 +5,25 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Table } from 'components/sharedComponents/icons/Icons';
 
 import InfoTooltip from '../../idv/InfoTooltip';
 
 const propTypes = {
-    overview: PropTypes.object
+    overview: PropTypes.object,
+    jumpToSection: PropTypes.func,
+    counts: PropTypes.object
 };
 
 export default class RelatedAwards extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
+    }
+    jumpToReferencedAwardsTable() {
+        this.props.jumpToSection('referenced-awards');
+    }
     render() {
         let parentLink = 'N/A';
         if (this.props.overview.parentAward && this.props.overview.parentId) {
@@ -24,9 +35,16 @@ export default class RelatedAwards extends React.Component {
                 </a>
             );
         }
+        let referencedCount = null;
+        if (this.props.counts) {
+            referencedCount = (
+                <div className="related-awards__label related-awards__label_count">
+                    {this.props.counts.total} Awards Reference this IDV
+                </div>
+            );
+        }
         return (
-            <div
-                className="related-awards">
+            <div className="award-viz related-awards">
                 <div className="award-overview__title related-awards__title">
                     Related Awards
                     <InfoTooltip>
@@ -54,6 +72,17 @@ export default class RelatedAwards extends React.Component {
                     </div>
                     {parentLink}
                 </div>
+                {referencedCount}
+                <button
+                    onClick={this.jumpToReferencedAwardsTable}
+                    className="award-viz__button">
+                    <div className="award-viz__link-icon">
+                        <Table />
+                    </div>
+                    <div className="award-viz__link-text">
+                        View referencing awards table
+                    </div>
+                </button>
             </div>
         );
     }

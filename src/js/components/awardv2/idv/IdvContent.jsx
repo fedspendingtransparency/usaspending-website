@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { startCase } from 'lodash';
 
 import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsContainer';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
@@ -17,10 +16,11 @@ import IdvDates from './IdvDates';
 import AwardDescription from '../visualizations/description/AwardDescription';
 import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 import AdditionalInfo from '../contract/AdditionalInfo';
-import { AWARD_V2_OVERVIEW_PROPS } from '../../../propTypes';
+import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
 
 const propTypes = {
     awardId: PropTypes.string,
+    counts: AWARD_V2_COUNTS_PROPS,
     overview: AWARD_V2_OVERVIEW_PROPS,
     jumpToSection: PropTypes.func
 };
@@ -40,7 +40,7 @@ export default class IdvContent extends React.Component {
             <div className="award award-idv">
                 <div className="idv__heading">
                     <div className="idv__info">
-                        <div className="award__heading-text">{startCase(this.props.overview.longTypeDescription)}</div>
+                        <div className="award__heading-text">{this.props.overview.longTypeDescription}</div>
                         <div className="award__heading-icon">
                             {glossaryLink}
                         </div>
@@ -61,12 +61,15 @@ export default class IdvContent extends React.Component {
                         category="idv"
                         recipient={this.props.overview.recipient} />
                     <RelatedAwards
+                        counts={this.props.counts}
+                        jumpToSection={this.props.jumpToSection}
                         overview={this.props.overview} />
                     <IdvDates
                         dates={this.props.overview.dates} />
                 </div>
                 <div className="award__row">
                     <AwardAmounts
+                        jumpToSection={this.props.jumpToSection}
                         awardId={this.props.awardId}
                         overview={this.props.overview} />
                     <AwardDescription

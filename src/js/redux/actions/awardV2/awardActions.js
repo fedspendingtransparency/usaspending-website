@@ -2,14 +2,14 @@
  * Created by Lizzie Salita 12/4/18
  */
 
-export const setAward = (state) => ({
+export const setAward = (overview) => ({
     type: 'SET_AWARD',
-    overview: state
+    overview
 });
 
-export const setCounts = (state) => ({
+export const setCounts = (counts) => ({
     type: 'SET_COUNTS',
-    counts: state
+    counts
 });
 
 export const resetAward = () => ({
