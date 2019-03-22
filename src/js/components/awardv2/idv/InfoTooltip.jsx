@@ -72,15 +72,18 @@ export default class InfoTooltip extends React.Component {
         };
         if (this.state.showInfoTooltip) {
             tooltip = (
-                <div
-                    className="info-tooltip-spacer"
-                    style={style}>
+                <div className="info-tooltip-spacer" style={style}>
                     <div
                         className="info-tooltip"
                         id="info-tooltip"
+                        onMouseEnter={this.showTooltip}
+                        onMouseLeave={this.closeTooltip}
                         role="tooltip">
                         <div className="info-tooltip__interior">
-                            <div className={`tooltip-pointer ${this.props.left ? 'right' : ''}`} />
+                            <div
+                                className={`tooltip-pointer ${
+                                    this.props.left ? "right" : ""
+                                }`} />
                             <div className="info-tooltip__content">
                                 <div className="info-tooltip__message">
                                     {this.props.children}
@@ -93,9 +96,10 @@ export default class InfoTooltip extends React.Component {
         }
         return (
             <div className="award__info-wrapper">
-                <div ref={(div) => {
-                    this.referenceDiv = div;
-                }}>
+                <div
+                    ref={(div) => {
+                        this.referenceDiv = div;
+                    }}>
                     <div
                         role="button"
                         tabIndex="0"
@@ -104,7 +108,6 @@ export default class InfoTooltip extends React.Component {
                         onFocus={this.showTooltip}
                         onKeyPress={this.showTooltip}
                         onMouseEnter={this.showTooltip}
-                        onMouseLeave={this.closeTooltip}
                         onClick={this.showTooltip}>
                         <InfoCircle alt="Information" />
                     </div>
