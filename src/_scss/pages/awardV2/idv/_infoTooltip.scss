@@ -8,7 +8,6 @@
         }
     }
     .info-tooltip {
-        width: rem(375);
         .info-tooltip__interior {
             position: relative;
             // inherit from the standard tooltip arrow style
@@ -32,7 +31,7 @@
                 background-color: $color-white;
                 border: solid rem(1) $color-gray-light;
                 .info-tooltip__message {
-                    @include flex(1 1 auto);
+                    width: 100%;
                     text-align: left;
                     font-size: $small-font-size;
                     .info-tooltip__title {
@@ -48,6 +47,15 @@
                             margin: 0;
                             padding-left: 0;
                             list-style-type: none;
+                        }
+                        .info-tooltip__text__list {
+                            display: flex;
+                            flex-wrap: wrap;
+                            flex-direction: column;
+                            li {
+                                margin-right: rem(5);
+                                margin: 0;
+                            }
                         }
                     }
                 }

@@ -36,7 +36,7 @@ export const transactionHistoryInfo = (
                modification. It uses a letter code system that maps to
                the following descriptions:
             </p>
-            <ul>
+            <ul className="info-tooltip__text__list">
                 <li>
                     <strong>A</strong> – Additional Work
                 </li>
