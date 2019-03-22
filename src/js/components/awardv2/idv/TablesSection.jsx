@@ -20,16 +20,16 @@ const propTypes = {
 
 const tabs = [
     {
-        label: 'Transaction History',
-        internal: 'transaction',
-        enabled: true,
-        tooltipContent: federalAccountFundingInfo
-    },
-    {
-        label: 'Federal Account Funding',
-        internal: 'fedaccount',
+        label: "Transaction History",
+        internal: "transaction",
         enabled: true,
         tooltipContent: transactionHistoryInfo
+    },
+    {
+        label: "Federal Account Funding",
+        internal: "fedaccount",
+        enabled: true,
+        tooltipContent: federalAccountFundingInfo
     }
 ];
 
