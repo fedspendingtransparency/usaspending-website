@@ -11,14 +11,22 @@ import AwardsBanner from './AwardsBanner';
 
 
 const propTypes = {
-    awardAmounts: PropTypes.object
+    awardAmounts: PropTypes.object,
+    jumpToSection: PropTypes.func
 };
 
 export default class AggregatedAwardAmountsInfo extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
+    }
+    jumpToReferencedAwardsTable() {
+        this.props.jumpToSection('referenced-awards');
+    }
     render() {
         const awardAmounts = this.props.awardAmounts;
         const exercisedLabelPercentage = Math.round(Math.abs((awardAmounts._rolledBaseExercisedOptions) / awardAmounts._rolledBaseAllOptions) * 100);
-
 
         const obligatedStyle = {
             width: `${awardAmounts.obligatedPercentage}%`,
@@ -40,7 +48,8 @@ export default class AggregatedAwardAmountsInfo extends React.Component {
 
         return (
             <div className="award-amounts__content">
-                <AwardsBanner />
+                <AwardsBanner
+                    jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
                 <div className="award-amounts__viz-desc-top"><strong>{awardAmounts.obligationFormatted}</strong> Combined Obligated Amounts</div>
                 <div className="award-amounts__viz-label" style={obligatedLableStyle}>
                     <div className="award-amounts__viz-line-up" />
@@ -60,16 +69,16 @@ export default class AggregatedAwardAmountsInfo extends React.Component {
                 <div className="award-amounts__data">
                     <span>Awards that Reference this IDV</span><span>{awardAmounts.idvCount + awardAmounts.contractCount}</span>
                 </div>
-                <a
-                    href="/"
-                    className="award-viz__link">
-                    <div className="award-viz__link-icon award-viz__link-icon_hidden">
+                <button
+                    onClick={this.jumpToReferencedAwardsTable}
+                    className="award-viz__button">
+                    <div className="award-viz__link-icon">
                         <Table />
                     </div>
-                    <div className="award-viz__link-text award-viz__link-text_hidden">
+                    <div className="award-viz__link-text">
                             View referencing awards table
                     </div>
-                </a>
+                </button>
                 <div className="award-amounts__data-wrapper">
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Combined Obligated Amount</div>

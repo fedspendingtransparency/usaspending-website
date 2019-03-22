@@ -1,6 +1,18 @@
 .additional-info {
     padding: rem(40) 0 rem(60);
 
+    .award__row {
+        .award__col {
+            // Override space between columns when stacked in mobile
+            &:first-child {
+                padding-bottom: 0;
+            }
+            &:last-child {
+                padding-top: 0;
+            }
+        }
+    }
+
     .accordion {
         margin-bottom: rem(20);
 
