@@ -119,3 +119,45 @@ export const federalAccountFundingInfo = (
         </div>
     </div>
 );
+
+export const relatedAwardsInfo = (
+    <div>
+        <div className="info-tooltip__title">
+             Awards Under this IDV
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+               This section displays the awards that have been made under
+               this Indefinite Delivery Vehicle (IDV). IDV contracts are
+               a special kind of contract which aren&apos;t directly
+               associated with award amounts. This is because IDV
+               contracts merely act as a means, or vehicle, for agencies
+               to procure an indefinite amount of goods and services from
+               vendors within a specific time frame. For this reason, the
+               awards made under the IDV are where the agency&apos;s
+               spending actually occurs, not the IDV itself. The awards
+               under an IDV are sometimes known or referred to as:
+            </p>
+            <ul>
+                <li>
+                    <strong>Task Order</strong>
+                </li>
+                <li>
+                    <strong>Delivery Order</strong>
+                </li>
+                <li>
+                    <strong>Purchase Order</strong>
+                </li>
+                <li>
+                    <strong>Blanket Purchase Agreement (BPA)</strong>
+                </li>
+            </ul>
+            <p>
+               Calls The awards under an IDV can also sometimes be yet
+               another IDV. We show both IDV contracts and (non-IDV)
+               contracts made under this IDV in the two tabs below,
+               respectively.
+            </p>
+        </div>
+    </div>
+);
