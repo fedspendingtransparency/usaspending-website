@@ -22,6 +22,14 @@
 
     @import "../../search/results/table/tableMessages";
 
+    .table-types {
+        @include display(flex);
+
+        .table-type-toggle {
+            @include display(flex);
+        }
+    }
+
     .results-table-message-container {
         position: relative;
         .results-table-no-results {

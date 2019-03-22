@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { concat } from 'lodash';
 
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
@@ -19,7 +18,7 @@ const propTypes = {
     clickTab: PropTypes.func
 };
 
-const commonTabs = [
+const tabs = [
     {
         label: 'Transaction History',
         internal: 'transaction',
@@ -90,8 +89,6 @@ export default class TablesSection extends React.Component {
 
     render() {
         const content = this.currentSection();
-
-        const tabs = concat([], commonTabs);
 
         return (
             <div className="tables-section">

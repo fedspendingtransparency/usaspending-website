@@ -42,7 +42,7 @@ export default class RelatedAwards extends React.Component {
                                     <strong>Parent Award</strong> – The parent award is an IDV award that this contract was made under.  Click on the link to view more information on this award&apos;s parent.
                                 </li>
                                 <li>
-                                    <strong>Parent Award Orders Under this IDV</strong> – This is a count of how many awards were made under this IDV.  Click on the link to see more information about all of those orders.
+                                    <strong>Award Orders Under this IDV</strong> – This is a count of how many awards were made under this IDV.  Click on the link to see more information about all of those orders.
                                 </li>
                             </ul>
                         </div>

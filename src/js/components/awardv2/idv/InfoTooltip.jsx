@@ -96,15 +96,18 @@ export default class InfoTooltip extends React.Component {
                 <div ref={(div) => {
                     this.referenceDiv = div;
                 }}>
-                    <button
+                    <div
+                        role="button"
+                        tabIndex="0"
                         onBlur={this.closeTooltip}
                         className="award__icon"
                         onFocus={this.showTooltip}
+                        onKeyPress={this.showTooltip}
                         onMouseEnter={this.showTooltip}
                         onMouseLeave={this.closeTooltip}
                         onClick={this.showTooltip}>
                         <InfoCircle alt="Information" />
-                    </button>
+                    </div>
                     {tooltip}
                 </div>
             </div>
