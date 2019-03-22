@@ -10,7 +10,12 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     children: PropTypes.node,
-    left: PropTypes.bool
+    left: PropTypes.bool,
+    wide: PropTypes.bool
+};
+
+const defaultProps = {
+    wide: false
 };
 
 export default class InfoTooltip extends React.Component {
@@ -53,14 +58,15 @@ export default class InfoTooltip extends React.Component {
     measureOffset() {
         const targetElement = this.referenceDiv;
         const offsetTop = targetElement.offsetTop - 15;
-        const tooltipWidth = 375;
+        const tooltipWidth = this.props.wide ? 750 : 375;
         let offsetRight = window.innerWidth - targetElement.offsetLeft - targetElement.clientWidth - tooltipWidth - 30;
         if (this.props.left) {
             offsetRight = (window.innerWidth - targetElement.offsetLeft - 25) + targetElement.clientWidth;
         }
         this.setState({
             offsetTop,
-            offsetRight
+            offsetRight,
+            width: tooltipWidth
         });
     }
 
@@ -68,11 +74,14 @@ export default class InfoTooltip extends React.Component {
         let tooltip = null;
         const style = {
             top: this.state.offsetTop,
-            right: this.state.offsetRight
+            right: this.state.offsetRight,
+            width: this.state.width
         };
         if (this.state.showInfoTooltip) {
             tooltip = (
-                <div className="info-tooltip-spacer" style={style}>
+                <div
+                    className="info-tooltip-spacer"
+                    style={style}>
                     <div
                         className="info-tooltip"
                         id="info-tooltip"
@@ -118,4 +127,5 @@ export default class InfoTooltip extends React.Component {
     }
 }
 
+InfoTooltip.defaultProps = defaultProps;
 InfoTooltip.propTypes = propTypes;

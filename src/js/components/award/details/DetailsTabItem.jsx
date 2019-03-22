@@ -15,7 +15,8 @@ const propTypes = {
     active: PropTypes.bool,
     enabled: PropTypes.bool,
     clickTab: PropTypes.func,
-    tooltipContent: PropTypes.node
+    tooltipContent: PropTypes.node,
+    tooltipProps: PropTypes.shape({ wide: PropTypes.bool })
 };
 
 export default class DetailsTabItem extends React.Component {
@@ -50,7 +51,7 @@ export default class DetailsTabItem extends React.Component {
         let infoTooltip = null;
         if (this.props.tooltipContent) {
             infoTooltip = (
-                <InfoTooltip>
+                <InfoTooltip {...this.props.tooltipProps}>
                     {this.props.tooltipContent}
                 </InfoTooltip>);
         }

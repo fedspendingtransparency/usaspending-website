@@ -23,13 +23,15 @@ const tabs = [
         label: "Transaction History",
         internal: "transaction",
         enabled: true,
-        tooltipContent: transactionHistoryInfo
+        tooltipContent: transactionHistoryInfo,
+        tooltipProps: { wide: true }
     },
     {
         label: "Federal Account Funding",
         internal: "fedaccount",
         enabled: true,
-        tooltipContent: federalAccountFundingInfo
+        tooltipContent: federalAccountFundingInfo,
+        tooltipProps: { wide: true }
     }
 ];
 
