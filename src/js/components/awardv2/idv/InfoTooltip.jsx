@@ -85,8 +85,6 @@ export default class InfoTooltip extends React.Component {
                     <div
                         className="info-tooltip"
                         id="info-tooltip"
-                        onMouseEnter={this.showTooltip}
-                        onMouseLeave={this.closeTooltip}
                         role="tooltip">
                         <div className="info-tooltip__interior">
                             <div
@@ -117,6 +115,7 @@ export default class InfoTooltip extends React.Component {
                         onFocus={this.showTooltip}
                         onKeyPress={this.showTooltip}
                         onMouseEnter={this.showTooltip}
+                        onMouseLeave={this.closeTooltip}
                         onClick={this.showTooltip}>
                         <InfoCircle alt="Information" />
                     </div>
