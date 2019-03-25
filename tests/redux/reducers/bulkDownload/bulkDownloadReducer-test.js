@@ -78,7 +78,8 @@ describe('bulkDownloadReducer', () => {
                         grants: true,
                         directPayments: true,
                         loans: false,
-                        otherFinancialAssistance: false
+                        otherFinancialAssistance: false,
+                        idvs: false
                     },
                     agency: {
                         id: '123',

@@ -29,7 +29,7 @@ export default class DownloadTooltip extends React.Component {
             requiredFields.push('Award Level');
         }
         if (!filters.awardTypes.contracts && !filters.awardTypes.grants && !filters.awardTypes.directPayments
-            && !filters.awardTypes.loans && !filters.awardTypes.otherFinancialAssistance) {
+            && !filters.awardTypes.loans && !filters.awardTypes.otherFinancialAssistance && !filters.awardTypes.idvs) {
             requiredFields.push('Award Type');
         }
         if (!this.props.validDates || !filters.dateType) {
