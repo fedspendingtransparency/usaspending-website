@@ -22,8 +22,7 @@ import Error from '../sharedComponents/Error';
 
 const propTypes = {
     award: PropTypes.object,
-    noAward: PropTypes.bool,
-    inFlight: PropTypes.bool
+    noAward: PropTypes.bool
 };
 
 const awardSections = [
