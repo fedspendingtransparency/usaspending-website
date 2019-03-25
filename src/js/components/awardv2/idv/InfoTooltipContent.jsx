@@ -123,7 +123,7 @@ export const federalAccountFundingInfo = (
 export const relatedAwardsInfo = (
     <div>
         <div className="info-tooltip__title">
-             Awards Under this IDV
+             Award Orders Made Under this IDV
         </div>
         <div className="info-tooltip__text">
             <p>
