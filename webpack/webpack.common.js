@@ -19,21 +19,24 @@ module.exports = {
         extensions: [".js", ".jsx", ".json"],
         modules: ["node_modules"]
     },
+    stats: {
+        colors: true
+    },
     module: {
         noParse: /(mapbox-gl)\.js$/,
         rules: [
             {
                 test: /\.js$|jsx$/,
                 exclude: /node_modules/,
+                options: { presets: ["es2015"] },
                 loader: "babel-loader" // the babel loader tells webpack to compile JS/JSX files using Babel
             },
             {
-                test: /\.(sa|sc|c)ss$/,
+                test: /\.s?[ac]ss$/,
                 use: [
-                    "style-loader",
                     MiniCssExtractPlugin.loader,
-                    "css-loader",
-                    "sass-loader"
+                    { loader: 'css-loader', options: { url: false, sourceMap: true } },
+                    { loader: 'sass-loader', options: { sourceMap: true } }
                 ]
             },
             {
@@ -52,8 +55,7 @@ module.exports = {
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new MiniCssExtractPlugin({
-            filename: devMode ? "[name].css" : "[name].[chunkhash].css",
-            chunkFilename: devMode ? "[id].css" : "[id].[chunkhash].css"
+            filename: "main.css"
         }),
         // new GitHashPlugin(),
         new HtmlWebpackPlugin({
