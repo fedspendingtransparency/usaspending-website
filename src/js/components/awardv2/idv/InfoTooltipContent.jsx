@@ -149,7 +149,7 @@ export const relatedAwardsInfo = (
                     <strong>Purchase Order</strong>
                 </li>
                 <li>
-                    <strong>Blanket Purchase Agreement (BPA)</strong>
+                    <strong>Blanket Purchase Agreement (BPA) Calls</strong>
                 </li>
             </ul>
             <p>
