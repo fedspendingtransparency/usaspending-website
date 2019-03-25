@@ -25,7 +25,23 @@
                 @include display(flex);
                 @include flex(0 0 auto);
                 font-weight: $font-semibold;
-                padding-right: rem(20);
+                padding-right: rem(10);
+            }
+            .award__heading-icon {
+                @include display(flex);
+                @include flex(0 0 auto);
+                padding-right: rem(15);
+                svg {
+                    @include display(flex);
+                    fill: $color-gray-light;
+                    height: rem(20);
+                    width: rem(20);
+                }
+                &:hover, &:focus {
+                    svg {
+                        fill: $color-gray;
+                    }
+                }
             }
             .award__heading-lable {
                 font-weight: $font-normal;
@@ -35,6 +51,18 @@
             .award__heading-id {
                 @include display(flex);
                 font-weight: $font-light;
+            }
+
+            .award__icon {
+                background-color: transparent;
+                margin: 0 0 0 rem(5);
+                padding: 0;
+        
+                svg {
+                    width: rem(15);
+                    height: rem(15);
+                    fill: $color-gray-border;
+                }
             }
 
             .award__row {

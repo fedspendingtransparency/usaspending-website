@@ -5,7 +5,6 @@ import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import RedirectModalContainer from 'containers/redirectModal/RedirectModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
 
-import WarningBanner from './WarningBanner';
 import InfoBanner from './InfoBanner';
 import NavBar from './NavBar';
 
@@ -21,8 +20,7 @@ export default class Header extends React.Component {
         super(props);
 
         this.state = {
-            showInfoBanner: false,
-            showWarningBanner: false
+            showInfoBanner: false
         };
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
@@ -34,14 +32,6 @@ export default class Header extends React.Component {
             // cookie does not exist, show the banner
             this.setState({
                 showInfoBanner: true
-            });
-        }
-
-        // check if the warning banner cookie exists
-        if (!Cookies.get('usaspending_warning_banner')) {
-            // cookie does not exist, show the banner
-            this.setState({
-                showWarningBanner: true
             });
         }
     }
@@ -74,15 +64,6 @@ export default class Header extends React.Component {
 
         if (!this.state.showInfoBanner) {
             infoBanner = null;
-        }
-
-        let warningBanner = (
-            <WarningBanner
-                closeBanner={this.closeBanner} />
-        );
-
-        if (!this.state.showWarningBanner) {
-            warningBanner = null;
         }
         return (
             <div className="site-header">
@@ -135,7 +116,6 @@ export default class Header extends React.Component {
                         </div>
                     </div>
                     {infoBanner}
-                    {warningBanner}
                     <NavBar />
                 </header>
                 <GlossaryContainer />

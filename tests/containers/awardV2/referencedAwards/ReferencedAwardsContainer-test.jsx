@@ -79,8 +79,8 @@ describe('ReferencedAwardsContainer', () => {
             container.instance().updateSort('obligated_amount', 'asc');
             await container.instance().request.promise;
 
-            expect(container.state().sort).toEqual('obligated_amount');
-            expect(container.state().order).toEqual('asc');
+            expect(container.state().sort.idvs).toEqual('obligated_amount');
+            expect(container.state().order.idvs).toEqual('asc');
             expect(parseAwards).toHaveBeenCalled();
         });
     });
@@ -95,7 +95,7 @@ describe('ReferencedAwardsContainer', () => {
             container.instance().changePage(2);
             await container.instance().request.promise;
 
-            expect(container.state().page).toEqual(2);
+            expect(container.state().page.idvs).toEqual(2);
             expect(parseAwards).toHaveBeenCalled();
         });
     });

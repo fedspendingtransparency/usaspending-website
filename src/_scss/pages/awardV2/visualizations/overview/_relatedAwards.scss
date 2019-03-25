@@ -1,4 +1,12 @@
 .related-awards {
+    .related-awards__title {
+        @include display(flex);
+        .award__info-wrapper {
+            width: fit-content;
+            @include display(flex);
+            @include flex(0 0 auto);
+        }
+    }
     .related-awards__label {
         font-weight: $font-light;
         padding-bottom: rem(5);

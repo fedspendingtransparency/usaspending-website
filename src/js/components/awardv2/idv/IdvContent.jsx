@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 
 import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsContainer';
+import { Glossary } from 'components/sharedComponents/icons/Icons';
+import { glossaryLinks } from 'dataMapping/search/awardType';
 import AwardHistory from './AwardHistory';
 import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
 import RelatedAwards from '../visualizations/overview/RelatedAwards';
@@ -15,20 +17,33 @@ import IdvDates from './IdvDates';
 import AwardDescription from '../visualizations/description/AwardDescription';
 import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 import AdditionalInfo from '../contract/AdditionalInfo';
+import { AWARD_V2_OVERVIEW_PROPS } from '../../../propTypes';
 
 const propTypes = {
     awardId: PropTypes.string,
-    overview: PropTypes.object,
+    overview: AWARD_V2_OVERVIEW_PROPS,
     jumpToSection: PropTypes.func
 };
 
 export default class IdvContent extends React.Component {
     render() {
+        const glossarySlug = glossaryLinks[this.props.overview.type];
+        let glossaryLink = null;
+        if (glossarySlug) {
+            glossaryLink = (
+                <a href={`/#/award_v2/${this.props.awardId}?glossary=${glossarySlug}`}>
+                    <Glossary />
+                </a>
+            );
+        }
         return (
             <div className="award award-idv">
                 <div className="idv__heading">
                     <div className="idv__info">
-                        <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
+                        <div className="award__heading-text">{startCase(this.props.overview.longTypeDescription)}</div>
+                        <div className="award__heading-icon">
+                            {glossaryLink}
+                        </div>
                         <div className="award__heading-id">
                             <div className="award__heading-lable">{this.props.overview.id ? 'PIID' : ''}</div>
                             <div>{this.props.overview.id}</div>
