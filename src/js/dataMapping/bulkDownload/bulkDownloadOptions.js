@@ -25,14 +25,19 @@ export const awardDownloadOptions = {
             apiName: 'contracts'
         },
         {
+            name: 'directPayments',
+            label: 'Direct Payments',
+            apiName: 'direct_payments'
+        },
+        {
             name: 'grants',
             label: 'Grants',
             apiName: 'grants'
         },
         {
-            name: 'directPayments',
-            label: 'Direct Payments',
-            apiName: 'direct_payments'
+            name: 'idvs',
+            label: 'IDVs',
+            apiName: 'idvs'
         },
         {
             name: 'loans',
@@ -43,11 +48,6 @@ export const awardDownloadOptions = {
             name: 'otherFinancialAssistance',
             label: 'Other Financial Assistance',
             apiName: 'other_financial_assistance'
-        },
-        {
-            name: 'idvs',
-            label: 'IDVs',
-            apiName: 'idvs'
         }
     ],
     dateTypes: [
