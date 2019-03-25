@@ -134,12 +134,7 @@
     }
 
     .award-amounts__data-content {
-        border: 1px $border-light-gray solid;
-        padding: rem(8);
-        display: flex;
-        justify-content: space-between;
-        font-size: rem(16);
-        color: #525252;
+        @extend %column-less-table__row;
         &:nth-of-type(1) {
             border-radius: rem(5) rem(5) 0 0;
             border-bottom: 0;
@@ -173,5 +168,7 @@
 
     .award-amounts__data {
         @extend %column-less-table__row;
+        margin: rem(40) 0 rem(10) 0;
+        border-radius: rem(5);
     }
 }
