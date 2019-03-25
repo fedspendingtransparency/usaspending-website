@@ -1,5 +1,5 @@
 /**
- * AwardsAmountContainer-test.js
+ * AwardAmountsContainer-test.js
  * Created by David Trinh 2/14/2019
  **/
 
@@ -14,7 +14,7 @@ import { mockAwardAmounts } from '../../models/awardsV2/mockAwardApi';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 
 
-jest.mock('helpers/searchHelper', () => require('./awardV2Helper'));
+jest.mock('helpers/idvHelper', () => require('./awardV2Helper'));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/awardv2/visualizations/amounts/AggregatedAwardAmounts.jsx', () => jest.fn(() => null));
@@ -45,8 +45,12 @@ describe('AwardAmountsContainer', () => {
         expect(getSelectedAward).toHaveBeenCalledTimes(1);
         expect(getSelectedAward).toHaveBeenCalledWith('1234');
 
+        const updatedAward = Object.assign({}, mockRedux.award, {
+            id: '222'
+        });
+
         const prevProps = Object.assign({}, mockRedux, {
-            awardId: '222'
+            award: updatedAward
         });
 
         container.instance().componentDidUpdate(prevProps);

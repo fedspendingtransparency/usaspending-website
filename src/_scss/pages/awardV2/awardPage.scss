@@ -10,7 +10,7 @@
 
         // Shared award summary styles
         .award {
-            padding: rem(24) rem(30) rem(24) rem(30);
+            padding: rem(24) rem(30);
 
             .award__heading {
                 @include display(flex);
@@ -76,13 +76,22 @@
                 }
                 .award__col {
                     @include flex(1 1 auto);
+                    // Add padding between columns when they are stacked in mobile
+                    &:first-child {
+                        padding-bottom: rem(60);
+                    }
+                    &:last-child {
+                        padding-top: rem(40);
+                    }
                     @include media($medium-screen) {
                         @include flex(0 0 50%);
                         &:first-child {
                             padding-right: rem(15);
+                            padding-bottom: 0;
                         }
                         &:last-child {
                             padding-left: rem(15);
+                            padding-top: 0;
                         }
                     }
                 }
