@@ -7,12 +7,6 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
     mode: 'development',
-    plugins: [
-        // new BundleAnalyzerPlugin(),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('development') // indicate to libraries that this is in prod mode (which may affect their behavior for debugging)
-        })
-    ],
     devtool: 'eval',
     devServer: {
         contentBase: path.resolve(__dirname, 'public'),
