@@ -8,5 +8,6 @@ export const awardTypeLabels = {
     grants: 'Grants',
     direct_payments: 'Direct Payments',
     loans: 'Loans',
-    other_financial_assistance: 'Other Financial Assistance'
+    other_financial_assistance: 'Other Financial Assistance',
+    idvs: 'IDVs'
 };
