@@ -1,3 +1,5 @@
+// TODO: Add support for assets and external css
+
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -6,10 +8,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: {
-        app: "./src/index.js"
+        app: "./src/index.js",
+        vendor: ['mapbox-gl/dist/mapbox-gl', 'lodash', 'moment', 'commonmark', 'immutable', 'react']
     },
     output: {
-        filename: "main.js"
+        filename: "[name].bundle.js"
     },
     // use the optimization configuration property
     resolve: {
@@ -61,8 +64,6 @@ module.exports = {
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new HtmlWebpackPlugin({
-            // copy the index.html file out of /src into /public and update with the current JS files
-            inject: false,
             template: path.resolve(__dirname, "../src/index.html"),
             chunksSortMode: "none"
         }),
