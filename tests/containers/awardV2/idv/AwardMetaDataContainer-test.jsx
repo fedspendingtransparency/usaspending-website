@@ -4,7 +4,7 @@
  * */
 
 import React from "react";
-import { shallow, mount } from "enzyme";
+import { mount } from "enzyme";
 
 import { AwardMetaDataContainer } from "../../../../src/js/containers/awardV2/idv/AwardMetaDataContainer";
 import { mockAwardFundingMetaData } from "../../../models/awardsV2/mockAwardApi";
