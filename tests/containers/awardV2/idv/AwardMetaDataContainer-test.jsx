@@ -4,31 +4,34 @@
  * */
 
 import React from "react";
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 
 import { AwardMetaDataContainer } from "../../../../src/js/containers/awardV2/idv/AwardMetaDataContainer";
-import { mockRedux } from "../mockAward";
 import { mockAwardFundingMetaData } from "../../../models/awardsV2/mockAwardApi";
 
 jest.mock("helpers/idvHelper", () => require("./mockIdvHelper"));
 
 describe("AwardMetaDataContainer", () => {
     let container;
+    const mockGetAwardMetaData = jest.fn();
+
     beforeEach(() => {
-        container = shallow(<AwardMetaDataContainer {...mockRedux} />);
+        container = mount(<AwardMetaDataContainer awardId="123" />);
+        // container.instance().getAwardMetaData = mockGetAwardMetaData;
     });
 
-    it("calls class method to update state on componentDidMount", async () => {
-        const mockUpdateSummaryData = jest.fn();
-        container.instance().updateSummaryData = mockUpdateSummaryData;
-        await container.instance().componentDidMount();
-        expect(mockUpdateSummaryData).toHaveBeenCalledWith(mockAwardFundingMetaData);
-    });
-    it("then updates state with payload from API", async () => {
+    it("componentDidMount -- makes api call then updates state", async () => {
         await container.instance().componentDidMount();
         const { state } = container.instance();
+
         expect(state.totalTransactionObligatedAmount).toEqual(mockAwardFundingMetaData.total_transaction_obligated_amount);
         expect(state.awardingAgencyCount).toEqual(mockAwardFundingMetaData.awarding_agency_count);
         expect(state.federalAccountCount).toEqual(mockAwardFundingMetaData.federal_account_count);
+    });
+
+    it("componentDidUpdate -- makes api call w/ new award id", async () => {
+        container.instance().getAwardMetaData = mockGetAwardMetaData;
+        container.setProps({ awardId: "456" });
+        expect(mockGetAwardMetaData).toHaveBeenCalled();
     });
 });
