@@ -17,7 +17,6 @@ describe("AwardMetaDataContainer", () => {
 
     beforeEach(() => {
         container = mount(<AwardMetaDataContainer awardId="123" />);
-        // container.instance().getAwardMetaData = mockGetAwardMetaData;
     });
 
     it("componentDidMount -- makes api call then updates state", async () => {
