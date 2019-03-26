@@ -22,26 +22,34 @@ export class AwardMetaDataContainer extends React.Component {
             federalAccountCount: 0
         };
     }
+
     async componentDidMount() {
-        try {
-            const { data } = await fetchAwardFundingSummary(this.props.awardId).promise;
-            this.updateSummaryData(data);
-        }
-        catch (error) {
-            this.updateSummaryData({
-                total_transaction_obligated_amount: "N/A",
-                awarding_agency_count: "N/A",
-                federal_account_count: "N/A"
-            });
+        await this.getAwardMetaData();
+    }
+
+    async componentDidUpdate(prevProps) {
+        if (prevProps.awardId !== this.props.awardId) {
+            await this.getAwardMetaData();
         }
     }
 
-    updateSummaryData(data) {
-        this.setState({
-            totalTransactionObligatedAmount: data.total_transaction_obligated_amount,
-            awardingAgencyCount: data.awarding_agency_count,
-            federalAccountCount: data.federal_account_count
-        });
+    async getAwardMetaData() {
+        try {
+            const { data } = await fetchAwardFundingSummary(this.props.awardId).promise;
+            this.setState({
+                totalTransactionObligatedAmount: data.total_transaction_obligated_amount,
+                awardingAgencyCount: data.awarding_agency_count,
+                federalAccountCount: data.federal_account_count
+            });
+        }
+        catch (error) {
+            this.setState({
+                totalTransactionObligatedAmount: "N/A",
+                awardingAgencyCount: "N/A",
+                federalAccountCount: "N/A"
+            });
+            console.log(error);
+        }
     }
 
     render() {
