@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ReferencedAwardsTable from './ReferencedAwardsTable';
+import InfoToolTip from "../InfoTooltip";
+import { relatedAwardsInfo } from '../InfoTooltipContent';
 
 const propTypes = {
     results: PropTypes.array,
@@ -38,13 +40,16 @@ export default class ReferencedAwardsSection extends React.Component {
             );
         }
         return (
-            <div id="idv-referenced-awards" className="referenced-awards">
+            <div id="award-referenced-awards" className="referenced-awards">
                 <div className="award-viz">
                     <div className="award-viz__heading">
                         <div className="award-viz__icon">
                             <img src="img/icon-hierarchy.png" alt="pedigree chart" />
                         </div>
                         <h3 className="award-viz__title">Awards that Reference this IDV</h3>
+                        <InfoToolTip left>
+                            {relatedAwardsInfo}
+                        </InfoToolTip>
                     </div>
                     <hr />
                     <div className="referenced-awards__content">

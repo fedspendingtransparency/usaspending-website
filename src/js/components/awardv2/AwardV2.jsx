@@ -22,9 +22,7 @@ import Error from '../sharedComponents/Error';
 
 const propTypes = {
     award: PropTypes.object,
-    awardId: PropTypes.string,
-    noAward: PropTypes.bool,
-    inFlight: PropTypes.bool
+    noAward: PropTypes.bool
 };
 
 const awardSections = [
@@ -35,6 +33,10 @@ const awardSections = [
     {
         section: 'additional-information',
         label: 'Additional Information'
+    },
+    {
+        section: 'referenced-awards',
+        label: 'Referenced Awards'
     }
 ];
 
@@ -87,7 +89,7 @@ export default class Award extends React.Component {
             if (overview.category === 'contract') {
                 content = (
                     <ContractContent
-                        awardId={this.props.awardId}
+                        awardId={this.props.award.id}
                         overview={overview}
                         jumpToSection={this.jumpToSection} />
                 );
@@ -95,15 +97,16 @@ export default class Award extends React.Component {
             else if (overview.category === 'idv') {
                 content = (
                     <IdvContent
-                        awardId={this.props.awardId}
+                        awardId={this.props.award.id}
                         overview={overview}
+                        counts={this.props.award.counts}
                         jumpToSection={this.jumpToSection} />
                 );
             }
             else {
                 content = (
                     <FinancialAssistanceContent
-                        awardId={this.props.awardId}
+                        awardId={this.props.award.id}
                         overview={overview}
                         jumpToSection={this.jumpToSection} />
                 );

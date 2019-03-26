@@ -9,13 +9,17 @@
 
     .award-amounts__banner {
         background-color: #F3FAFC;
-        display: flex;
+        @include display(flex);
+        @include align-items(flex-start);
+        @include justify-content(space-between);
         color: #525252;
         font-size: rem(14);
         margin: rem(30) 0;
-        display: flex;
         padding: 0 rem(10) 0 rem(10);
-        justify-content: space-between;
+        .award-viz__button {
+            margin: 0;
+            display: inline
+        }
     }
 
     .award-amounts__banner_hidden {
@@ -23,13 +27,12 @@
     }
 
     .award-amounts__banner-info {
-        display: flex;
+        @include display(flex);
     }
 
     .award-amounts__banner-info-icon {
         margin-top: rem(18);
         margin-right: rem(5);
-        cursor: pointer;
         svg {
             width: rem(15);
             height: rem(15);
@@ -39,6 +42,7 @@
 
     .award-amounts__banner-close-icon {
         margin: 0;
+        margin-top: rem(8);
         background-color: unset;
         svg {
             width: rem(10);
@@ -130,12 +134,7 @@
     }
 
     .award-amounts__data-content {
-        border: 1px $border-light-gray solid;
-        padding: rem(8);
-        display: flex;
-        justify-content: space-between;
-        font-size: rem(16);
-        color: #525252;
+        @extend %column-less-table__row;
         &:nth-of-type(1) {
             border-radius: rem(5) rem(5) 0 0;
             border-bottom: 0;
@@ -168,13 +167,8 @@
     }
 
     .award-amounts__data {
-        border: 1px $border-light-gray solid;
-        padding: rem(8);
-        font-size: rem(16);
-        color: #525252;
+        @extend %column-less-table__row;
         margin: rem(40) 0 rem(10) 0;
         border-radius: rem(5);
-        display: flex;
-        justify-content: space-between;
     }
 }

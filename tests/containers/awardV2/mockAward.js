@@ -23,7 +23,6 @@ export const mockActions = {
 };
 
 export const mockRedux = {
-    awardId: '1234',
     award: {
         id: '1234',
         category: 'idv',

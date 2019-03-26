@@ -38,6 +38,21 @@ export const fetchReferencedAwardsCounts = (params) => {
     };
 };
 
+export const fetchAwardAmounts = (awardId) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/awards/idvs/amounts/${awardId}/`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
 // Fetch IDV Award Federal Account Funding Data
 export const fetchAwardFedAccountFunding = (params) => {
     const source = CancelToken.source();
@@ -47,6 +62,22 @@ export const fetchAwardFedAccountFunding = (params) => {
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const fetchAwardFundingSummary = (awardId) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/awards/idvs/funding_rollup/`,
+            baseURL: kGlobalConstants.API,
+            method: "post",
+            data: { award_id: awardId },
             cancelToken: source.token
         }),
         cancel() {

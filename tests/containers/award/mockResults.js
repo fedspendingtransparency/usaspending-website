@@ -1444,9 +1444,7 @@ export const mockFinancialAssistanceApi = {
 };
 
 export const mockParams = {
-    params: {
-        awardId: 1234
-    },
+    awardId: 1234,
     award: {
         selectedAward: {
             category: "contract",
