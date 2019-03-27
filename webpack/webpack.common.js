@@ -9,7 +9,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
     entry: {
         app: "./src/index.js",
-        vendor: ['mapbox-gl/dist/mapbox-gl', 'lodash', 'moment', 'commonmark', 'immutable', 'react']
+        vendor: [
+            "mapbox-gl/dist/mapbox-gl",
+            "lodash",
+            "moment",
+            "commonmark",
+            "immutable",
+            "react"
+        ]
     },
     output: {
         filename: "[name].bundle.js"
@@ -21,6 +28,11 @@ module.exports = {
     },
     stats: {
         colors: true
+    },
+    optimization: {
+        namedChunks: true,
+        mergeDuplicateChunks: true,
+        removeEmptyChunks: true
     },
     module: {
         noParse: /(mapbox-gl)\.js$/,
@@ -53,7 +65,7 @@ module.exports = {
                 test: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg)$/,
                 loader: "file-loader",
                 query: {
-                    name: "[path][name].[ext]"
+                    name: "[name].[ext]"
                 }
             }
         ]
