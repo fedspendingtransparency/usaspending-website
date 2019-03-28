@@ -55,7 +55,10 @@
         margin: rem(16) 0 rem(7) 0;
         background-color: #ececec;
         @include display(flex);
-        border: 2px solid $color-cool-blue-light;
+        border: 2px solid $border-gray;
+        .award-amountdates__viz-obligated {
+            border: solid rem(2) $border-light-gray;
+        }
     }
 
     .award-amounts-viz__label {
