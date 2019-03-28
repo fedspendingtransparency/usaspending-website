@@ -18,7 +18,7 @@ const FundingSummary = ({
     <div className="award__col award-viz award-funding-summary">
         <div className="award-viz__heading">
             <div className="award-viz__icon">
-                <FontAwesomeIcon icon="chart-pie" />
+                <FontAwesomeIcon size="lg" icon="chart-pie" />
             </div>
             <h3 className="award-viz__title">Federal Account Funding</h3>
         </div>

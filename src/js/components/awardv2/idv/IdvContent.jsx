@@ -16,6 +16,7 @@ import IdvDates from './IdvDates';
 import AwardDescription from '../visualizations/description/AwardDescription';
 import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 import AdditionalInfo from '../contract/AdditionalInfo';
+import ComingSoonSection from "./ComingSoonSection";
 import AwardMetaDataContainer from '../../../containers/awardV2/idv/AwardMetaDataContainer';
 import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
 
@@ -89,7 +90,7 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    <div className="award__col" />
+                    <ComingSoonSection title="Idv Activity" icon="chart-area" />
                     <AwardMetaDataContainer />
                 </div>
                 <ReferencedAwardsContainer />

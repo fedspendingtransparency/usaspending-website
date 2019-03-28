@@ -13,7 +13,6 @@ const propTypes = {
 };
 
 const defaultProps = {
-    icon: "chart-pie",
     toolTip: false
 };
 
@@ -27,7 +26,7 @@ const ComingSoonSection = ({
     <div className="award__col award-viz award-funding-summary">
         <div className="award-viz__heading">
             <div className="award-viz__icon">
-                <FontAwesomeIcon icon={icon} />
+                <FontAwesomeIcon size="lg" icon={icon} />
             </div>
             <h3 className="award-viz__title">{title}</h3>
             {toolTip &&
