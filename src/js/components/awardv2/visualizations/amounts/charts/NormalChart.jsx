@@ -35,7 +35,9 @@ export default class NormalChart extends React.Component {
 
         return (
             <div>
-                <div className="award-amounts__viz-desc-top"><strong>{awardAmounts.obligationFormatted}</strong> Combined Obligated Amounts</div>
+                <div className="award-amounts__viz-desc-top">
+                    <strong>{awardAmounts.obligationFormatted}</strong> <br />Combined Obligated Amounts
+                </div>
                 <div className="award-amounts__viz-label" style={obligatedLableStyle}>
                     <div className="award-amounts__viz-line-up" />
                 </div>
@@ -45,11 +47,15 @@ export default class NormalChart extends React.Component {
                 </div>
                 <div className="award-amounts__viz-label" style={exercisedLableStyle}>
                     <div className="award-amounts__viz-line" />
-                    <div className="award-amounts__viz-desc"><strong>{awardAmounts.rolledBaseExercisedOptionsFormatted}</strong> Combined Current Award Amounts</div>
+                    <div className="award-amounts__viz-desc">
+                        <strong>{awardAmounts.rolledBaseExercisedOptionsFormatted}</strong> <br />Combined Current Award Amounts
+                    </div>
                 </div>
                 <div className="award-amounts__viz-label">
                     <div className="award-amounts__viz-line" />
-                    <div className="award-amounts__viz-desc"><strong>{awardAmounts.rolledBaseAllOptionsFormatted}</strong> Combined Potential Award Amounts</div>
+                    <div className="award-amounts__viz-desc">
+                        <strong>{awardAmounts.rolledBaseAllOptionsFormatted}</strong> <br />Combined Potential Award Amounts
+                    </div>
                 </div>
             </div>
         );

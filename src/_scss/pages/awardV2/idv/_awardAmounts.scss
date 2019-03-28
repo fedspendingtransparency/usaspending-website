@@ -3,7 +3,6 @@
     $border-light-gray: #d5d6d8;
 
     .award-amounts__content {
-        color: $color-primary-darker;
         margin-top: rem(30);
     }
 
@@ -65,7 +64,7 @@
 
     .award-amounts__viz-line-up {
         margin: rem(5) 0 rem(5) rem(1);
-        border-bottom: 1px solid $border-light-gray;
+        border-bottom: 1px solid $color-cool-blue-light;
         position: relative;
         width: 99.5%;
         height: rem(1);
@@ -84,7 +83,7 @@
         position: absolute;
         width: rem(1);
         height: rem(10);
-        border-left: 1px solid $border-light-gray;
+        border-left: 1px solid $color-cool-blue-light;
         top: 0px;
         right: -1px;
     }
@@ -94,7 +93,7 @@
         position: absolute;
         width: rem(1);
         height: rem(10);
-        border-left: 1px solid $border-light-gray;
+        border-left: 1px solid $color-cool-blue-light;
         top: 0px;
         left: -1px;
     }
@@ -121,13 +120,25 @@
 
 
     .award-amounts__viz-desc-top {
-        font-size: rem(16);
+        font-size: $base-font-size;
         color: $border-gray;
+        padding-left: rem(5);
+        margin-bottom: rem(15);
+        border-left: solid rem(4) $color-cool-blue-light;
+        strong {
+            font-size: $h4-font-size;
+        }
     }
 
     .award-amounts__viz-desc {
-        font-size: rem(12);
+        font-size: $base-font-size;
         color: $border-gray;
+        text-align: right;
+        padding-right: rem(5);
+        border-right: outset rem(4) $border-light-gray;
+        strong {
+            font-size: $lead-font-size;
+        }
     }
     .award-amounts__data-wrapper {
         margin-top: rem(30);
