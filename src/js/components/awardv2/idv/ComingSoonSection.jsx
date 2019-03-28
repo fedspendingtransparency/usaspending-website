@@ -9,11 +9,14 @@ const propTypes = {
     icon: PropTypes.string,
     toolTip: PropTypes.bool,
     toolTipAlignLeft: PropTypes.bool,
-    toolTipContent: PropTypes.node
+    toolTipContent: PropTypes.node,
+    includeHeader: PropTypes.bool,
+    children: PropTypes.node
 };
 
 const defaultProps = {
-    toolTip: false
+    toolTip: false,
+    includeHeader: false
 };
 
 const ComingSoonSection = ({
@@ -21,25 +24,34 @@ const ComingSoonSection = ({
     icon,
     toolTip,
     toolTipAlignLeft,
-    toolTipContent
-}) => (
-    <div className="award__col award-viz award-funding-summary">
-        <div className="award-viz__heading">
-            <div className="award-viz__icon">
-                <FontAwesomeIcon size="lg" icon={icon} />
+    toolTipContent,
+    includeHeader,
+    children
+}) => {
+    const renderChildren = () => (children || <h4>Coming Soon</h4>);
+
+    if (includeHeader) {
+        return (
+            <div className="award__col award-viz award-funding-summary" >
+                <div className="award-viz__heading">
+                    <div className="award-viz__icon">
+                        <FontAwesomeIcon size="lg" icon={icon} />
+                    </div>
+                    <h3 className="award-viz__title">{title}</h3>
+                    {toolTip &&
+                        <InfoTooltip left={toolTipAlignLeft}>
+                            {toolTipContent}
+                        </InfoTooltip>}
+                </div>
+                <hr />
+                <div className="coming-soon__section">
+                    {renderChildren()}
+                </div>
             </div>
-            <h3 className="award-viz__title">{title}</h3>
-            {toolTip &&
-                <InfoTooltip left={toolTipAlignLeft}>
-                    {toolTipContent}
-                </InfoTooltip>}
-        </div>
-        <hr />
-        <div className="coming-soon__section">
-            <h4>Coming Soon</h4>
-        </div>
-    </div>
-);
+        );
+    }
+    return <div className="coming-soon__section">{renderChildren()}</div>;
+};
 
 ComingSoonSection.propTypes = propTypes;
 ComingSoonSection.defaultProps = defaultProps;
