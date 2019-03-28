@@ -17,8 +17,7 @@
         padding: rem(10);
         height: rem(50);
         vertical-align: middle;
-        position: relative;
-        top: rem(1);
+        margin-bottom: -0.1rem;
         @include media($large-screen) {
             padding: rem(15);
         }

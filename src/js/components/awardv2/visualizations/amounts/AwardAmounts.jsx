@@ -70,7 +70,7 @@ export default class AwardAmounts extends React.Component {
                             </p>
                             <ul>
                                 <li>
-                                    <strong>Awards Under this IDV</strong> – The information within this tab is derived from the data of every award made under this IDV, not the IDV award itself. This is done because award amount data is not typically found in IDV award records themselves. In order to provide a better idea of the actual value of the IDV as a whole, award amounts are taken from every award made under the IDV and then aggregated (or summed together) and presented here.
+                                    <strong>Award Orders Made Under this IDV</strong> – The information within this tab is derived from the data of every award made under this IDV, not the IDV award itself. This is done because award amount data is not typically found in IDV award records themselves. In order to provide a better idea of the actual value of the IDV as a whole, award amounts are taken from every award made under the IDV and then aggregated (or summed together) and presented here.
                                 </li>
                                 <li>
                                     <strong>This IDV</strong> – This tab contains data that is directly attributed to the IDV record summarized on this page. This data does not include the data attributed to the awards made under it.  In many cases, the data directly attributed to an IDV record does not show actual award amounts, which is why the amounts in this tab are often $0.

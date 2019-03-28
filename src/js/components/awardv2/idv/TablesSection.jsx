@@ -5,11 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { concat } from 'lodash';
 
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
-
+import { federalAccountFundingInfo, transactionHistoryInfo } from '../idv/InfoTooltipContent';
 import DetailsTabBar from '../../award/details/DetailsTabBar';
 import ResultsTablePicker from '../../search/table/ResultsTablePicker';
 
@@ -19,16 +18,20 @@ const propTypes = {
     clickTab: PropTypes.func
 };
 
-const commonTabs = [
+const tabs = [
     {
-        label: 'Transaction History',
-        internal: 'transaction',
-        enabled: true
+        label: "Transaction History",
+        internal: "transaction",
+        enabled: true,
+        tooltipContent: transactionHistoryInfo,
+        tooltipProps: { wide: true }
     },
     {
-        label: 'Federal Account Funding',
-        internal: 'fedaccount',
-        enabled: true
+        label: "Federal Account Funding",
+        internal: "fedaccount",
+        enabled: true,
+        tooltipContent: federalAccountFundingInfo,
+        tooltipProps: { wide: true }
     }
 ];
 
@@ -88,8 +91,6 @@ export default class TablesSection extends React.Component {
 
     render() {
         const content = this.currentSection();
-
-        const tabs = concat([], commonTabs);
 
         return (
             <div className="tables-section">

@@ -68,6 +68,9 @@
     "webpack-parallel-uglify-plugin": "^0.4.2"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.15",
+    "@fortawesome/free-solid-svg-icons": "^5.7.2",
+    "@fortawesome/react-fontawesome": "^0.1.4",
     "accounting": "^0.4.1",
     "autoprefixer": "^6.7.7",
     "axios": "^0.15.2",
