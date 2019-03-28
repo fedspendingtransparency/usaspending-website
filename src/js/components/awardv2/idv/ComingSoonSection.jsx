@@ -36,7 +36,7 @@ const ComingSoonSection = ({
         </div>
         <hr />
         <div className="coming-soon__section">
-            <p>Coming Soon</p>
+            <h4>Coming Soon</h4>
         </div>
     </div>
 );

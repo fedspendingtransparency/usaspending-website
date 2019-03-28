@@ -1,0 +1,10 @@
+.coming-soon__section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h4 {
+        font-weight: 500;
+        line-height: 3rem;
+        color: $color-gray-light;
+    }
+}
