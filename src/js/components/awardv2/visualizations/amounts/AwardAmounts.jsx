@@ -13,7 +13,6 @@ import InfoTooltip from '../../idv/InfoTooltip';
 
 const propTypes = {
     overview: PropTypes.object,
-    awardId: PropTypes.string,
     jumpToSection: PropTypes.func
 };
 
