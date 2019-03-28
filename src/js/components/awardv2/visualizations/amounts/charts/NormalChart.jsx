@@ -41,9 +41,11 @@ export default class NormalChart extends React.Component {
                 <div className="award-amounts-viz__label" style={obligatedLableStyle}>
                     <div className="award-amounts-viz__line-up" />
                 </div>
-                <div className="award-amounts-viz__bar">
-                    <div className="award-amountdates__viz-obligated" style={obligatedStyle} />
-                    <div className="award-amountdates__viz-excerised" style={exercisedStyle} />
+                <div className="award-amounts-viz__bar-wrapper">
+                    <div className="award-amounts-viz__bar">
+                        <div className="award-amountdates__viz-obligated" style={obligatedStyle} />
+                        <div className="award-amountdates__viz-excerised" style={exercisedStyle} />
+                    </div>
                 </div>
                 <div className="award-amounts-viz__label" style={exercisedLableStyle}>
                     <div className="award-amounts-viz__line" />

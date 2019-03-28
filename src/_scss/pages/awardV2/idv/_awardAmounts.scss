@@ -50,14 +50,18 @@
         }
     }
 
-    .award-amounts-viz__bar {
-        height: rem(40);
+    .award-amounts-viz__bar-wrapper {
+        border: rem(2) solid $border-gray;
+        background-color: $color-white;
         margin: rem(16) 0 rem(7) 0;
-        background-color: #ececec;
-        @include display(flex);
-        border: 2px solid $border-gray;
-        .award-amountdates__viz-obligated {
-            border: solid rem(2) $border-light-gray;
+        padding: rem(3);
+        .award-amounts-viz__bar {
+            height: rem(40);
+            background-color: #ececec;
+            @include display(flex);
+            .award-amountdates__viz-obligated {
+                border: solid rem(4) $border-light-gray;
+            }
         }
     }
 
