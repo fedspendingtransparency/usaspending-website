@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import ChartError from 'components/search/visualizations/ChartError';
 import { Table } from 'components/sharedComponents/icons/Icons';
 import AwardsBanner from './AwardsBanner';
-import AggregatedAwardAmountsInfo from './AggregatedAwardAmountsInfo';
+import AggregatedAwardAmountsInfo from './charts/NormalChart';
 
 
 const propTypes = {
@@ -45,7 +45,8 @@ export default class AggregatedAwardAmounts extends React.Component {
             content = (<ChartError />);
         }
         else {
-            // only mount the chart component if there is data to display
+            // TODO - Lizzie: determine which scenario this is
+            // and render the corresponding visualization component
             const awardAmounts = this.props.awardAmounts;
             content = (
                 <div className="award-amounts__content">
@@ -53,7 +54,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                         jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
                     <AggregatedAwardAmountsInfo awardAmounts={this.props.awardAmounts} />
                     <div className="award-amounts__data">
-                        <span>Awards that Reference this IDV</span><span>{awardAmounts.idvCount + awardAmounts.contractCount}</span>
+                        <span>Awards Under this IDV</span><span>{awardAmounts.idvCount + awardAmounts.contractCount}</span>
                     </div>
                     <button
                         onClick={this.jumpToReferencedAwardsTable}
@@ -67,15 +68,15 @@ export default class AggregatedAwardAmounts extends React.Component {
                     </button>
                     <div className="award-amounts__data-wrapper">
                         <div className="award-amounts__data-content">
-                            <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Combined Obligated Amount</div>
+                            <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Combined Obligated Amounts</div>
                             <span>{awardAmounts.obligation}</span>
                         </div>
                         <div className="award-amounts__data-content">
-                            <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Combined Base &#38; Exercised Options</div>
+                            <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Combined Current Award Amounts</div>
                             <span>{awardAmounts.rolledBaseExercisedOptions}</span>
                         </div>
                         <div className="award-amounts__data-content">
-                            <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Combined Base &#38; All Options</div>
+                            <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Combined Potential Award Amounts</div>
                             <span>{awardAmounts.rolledBaseAllOptions}</span>
                         </div>
                     </div>

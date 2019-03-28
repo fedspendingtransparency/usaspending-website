@@ -36,7 +36,7 @@ export default class AwardAmounts extends React.Component {
             {
                 enabled: true,
                 internal: 'awards',
-                label: 'Awards that Reference this IDV'
+                label: 'Award Orders Under this IDV'
             },
             {
                 enabled: true,

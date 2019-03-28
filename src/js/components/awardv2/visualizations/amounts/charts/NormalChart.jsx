@@ -1,5 +1,5 @@
 /**
- * AggregatedAwardAmountsInfo.jsx
+ * NormalChart.jsx
  * Created by David Trinh 2/15/19
  **/
 
@@ -10,7 +10,7 @@ const propTypes = {
     awardAmounts: PropTypes.object
 };
 
-export default class AggregatedAwardAmountsInfo extends React.Component {
+export default class NormalChart extends React.Component {
     render() {
         const awardAmounts = this.props.awardAmounts;
         const exercisedLabelPercentage = Math.round(Math.abs((awardAmounts._rolledBaseExercisedOptions) / awardAmounts._rolledBaseAllOptions) * 100);
@@ -45,15 +45,14 @@ export default class AggregatedAwardAmountsInfo extends React.Component {
                 </div>
                 <div className="award-amounts__viz-label" style={exercisedLableStyle}>
                     <div className="award-amounts__viz-line" />
-                    <div className="award-amounts__viz-desc"><strong>{awardAmounts.rolledBaseExercisedOptionsFormatted}</strong> Combined Base &#38; Exercised Options</div>
+                    <div className="award-amounts__viz-desc"><strong>{awardAmounts.rolledBaseExercisedOptionsFormatted}</strong> Combined Current Award Amounts</div>
                 </div>
                 <div className="award-amounts__viz-label">
                     <div className="award-amounts__viz-line" />
-                    <div className="award-amounts__viz-desc"><strong>{awardAmounts.rolledBaseAllOptionsFormatted}</strong> Combined Base &#38; All Options</div>
+                    <div className="award-amounts__viz-desc"><strong>{awardAmounts.rolledBaseAllOptionsFormatted}</strong> Combined Potential Award Amounts</div>
                 </div>
-                
             </div>
         );
     }
 }
-AggregatedAwardAmountsInfo.propTypes = propTypes;
+NormalChart.propTypes = propTypes;
