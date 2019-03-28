@@ -50,7 +50,7 @@
         }
     }
 
-    .award-amounts__viz {
+    .award-amounts-viz__bar {
         height: rem(40);
         margin: rem(16) 0 rem(7) 0;
         background-color: #ececec;
@@ -58,11 +58,11 @@
         border: 2px solid $color-cool-blue-light;
     }
 
-    .award-amounts__viz-label {
+    .award-amounts-viz__label {
         text-align: center;
     }
 
-    .award-amounts__viz-line-up {
+    .award-amounts-viz__line-up {
         margin: rem(5) 0 rem(5) rem(1);
         border-bottom: 1px solid $color-cool-blue-light;
         position: relative;
@@ -70,7 +70,7 @@
         height: rem(1);
     }
 
-    .award-amounts__viz-line {
+    .award-amounts-viz__line {
         margin: rem(20) 0 rem(5) rem(1);
         border-bottom: 1px solid $border-light-gray;
         position: relative;
@@ -78,7 +78,7 @@
         height: rem(1);
     }
 
-    .award-amounts__viz-line-up::after {
+    .award-amounts-viz__line-up::after {
         content: "";
         position: absolute;
         width: rem(1);
@@ -88,7 +88,7 @@
         right: -1px;
     }
 
-    .award-amounts__viz-line-up::before {
+    .award-amounts-viz__line-up::before {
         content: "";
         position: absolute;
         width: rem(1);
@@ -98,7 +98,7 @@
         left: -1px;
     }
 
-    .award-amounts__viz-line::after {
+    .award-amounts-viz__line::after {
         content: "";
         position: absolute;
         width: rem(1);
@@ -108,7 +108,7 @@
         right: -1px;
     }
 
-    .award-amounts__viz-line::before {
+    .award-amounts-viz__line::before {
         content: "";
         position: absolute;
         width: rem(1);
@@ -119,7 +119,7 @@
     }
 
 
-    .award-amounts__viz-desc-top {
+    .award-amounts-viz__desc-top {
         font-size: $base-font-size;
         color: $border-gray;
         padding-left: rem(5);
@@ -130,14 +130,28 @@
         }
     }
 
-    .award-amounts__viz-desc {
-        font-size: $base-font-size;
-        color: $border-gray;
-        text-align: right;
-        padding-right: rem(5);
-        border-right: outset rem(4) $border-light-gray;
-        strong {
-            font-size: $lead-font-size;
+    .award-amounts-viz__desc {
+        @include display(flex);
+        @include align-items(flex-end);
+        .award-amounts-viz__desc-text {
+            @include flex(1 1 auto);
+            display: block;
+            font-size: $base-font-size;
+            color: $border-gray;
+            text-align: right;
+            padding-right: rem(10);
+            strong {
+                font-size: $lead-font-size;
+            }
+        }
+        .award-amounts-viz__legend-line {
+            @include flex(0 0 rem(5));
+            height: rem(45);
+            background-color: $border-light-gray;
+            &.award-amounts-viz__legend-line_potential {
+                border: solid rem(1) $border-gray;
+                background-color: #ececec;
+            }
         }
     }
     .award-amounts__data-wrapper {

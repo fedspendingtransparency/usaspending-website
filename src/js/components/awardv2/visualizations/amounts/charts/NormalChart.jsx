@@ -34,27 +34,33 @@ export default class NormalChart extends React.Component {
         };
 
         return (
-            <div>
-                <div className="award-amounts__viz-desc-top">
-                    <strong>{awardAmounts.obligationFormatted}</strong> <br />Combined Obligated Amounts
+            <div className="award-amounts-viz">
+                <div className="award-amounts-viz__desc-top">
+                    <strong>{awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
                 </div>
-                <div className="award-amounts__viz-label" style={obligatedLableStyle}>
-                    <div className="award-amounts__viz-line-up" />
+                <div className="award-amounts-viz__label" style={obligatedLableStyle}>
+                    <div className="award-amounts-viz__line-up" />
                 </div>
-                <div className="award-amounts__viz">
+                <div className="award-amounts-viz__bar">
                     <div className="award-amountdates__viz-obligated" style={obligatedStyle} />
                     <div className="award-amountdates__viz-excerised" style={exercisedStyle} />
                 </div>
-                <div className="award-amounts__viz-label" style={exercisedLableStyle}>
-                    <div className="award-amounts__viz-line" />
-                    <div className="award-amounts__viz-desc">
-                        <strong>{awardAmounts.rolledBaseExercisedOptionsFormatted}</strong> <br />Combined Current Award Amounts
+                <div className="award-amounts-viz__label" style={exercisedLableStyle}>
+                    <div className="award-amounts-viz__line" />
+                    <div className="award-amounts-viz__desc">
+                        <div className="award-amounts-viz__desc-text">
+                            <strong>{awardAmounts.rolledBaseExercisedOptionsFormatted}</strong><br />Combined Current Award Amounts
+                        </div>
+                        <div className="award-amounts-viz__legend-line" />
                     </div>
                 </div>
-                <div className="award-amounts__viz-label">
-                    <div className="award-amounts__viz-line" />
-                    <div className="award-amounts__viz-desc">
-                        <strong>{awardAmounts.rolledBaseAllOptionsFormatted}</strong> <br />Combined Potential Award Amounts
+                <div className="award-amounts-viz__label">
+                    <div className="award-amounts-viz__line" />
+                    <div className="award-amounts-viz__desc">
+                        <div className="award-amounts-viz__desc-text">
+                            <strong>{awardAmounts.rolledBaseAllOptionsFormatted}</strong><br />Combined Potential Award Amounts
+                        </div>
+                        <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
                     </div>
                 </div>
             </div>
