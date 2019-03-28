@@ -34,8 +34,8 @@ const SpendingExplorerFeature = () => (
                 <div className="feature-spending-explorer__image-wrapper feature-spending-explorer__image-wrapper_mobile">
                     <img
                         className="feature-spending-explorer__image"
-                        src={src}
-                        srcSet={`${src} 1x ${src} 2x`}
+                        src={spendingExplorerSrc}
+                        srcSet={`${spendingExplorerSrc} 1x ${spendingExplorerSrc} 2x`}
                         alt="Screenshot of the Spending Explorer" />
                 </div>
                 <div className="homepage-feature-description">
