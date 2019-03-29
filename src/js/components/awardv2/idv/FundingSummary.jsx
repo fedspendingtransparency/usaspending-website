@@ -19,33 +19,36 @@ const FundingSummary = ({
     federalAccountCount
 }) => (
     <div className="award__col award-viz award-funding-summary">
-        <div className="award-viz__heading">
-            <div className="award-viz__icon">
-                <FontAwesomeIcon size="lg" icon="chart-pie" />
-            </div>
-            <h3 className="award-viz__title">Federal Account Funding</h3>
-            {/* <InfoToolTip left>
+        <div className="award__col__content">
+            <div className="award-viz__heading">
+                <div className="award-viz__icon">
+                    <FontAwesomeIcon size="lg" icon="chart-pie" />
+                </div>
+                <h3 className="award-viz__title">Federal Account Funding</h3>
+                {/* <InfoToolTip left>
                 {federalAccountFundingInfo}
             </InfoToolTip> */}
-        </div>
-        <hr />
-        <h4>Federal Accounts</h4>
-        <ComingSoonSection />
-        <h4>Summary of Federal Accounts used by this IDV</h4>
-        <div className="award-funding-summary__data">
-            <span>Total Funding Obligated</span>
-            <span>{typeof totalTransactionObligatedAmount === "number"
-                ? formatMoneyWithPrecision(totalTransactionObligatedAmount, 2)
-                : totalTransactionObligatedAmount}
-            </span>
-        </div>
-        <div className="award-funding-summary__data">
-            <span>Total Count Of Awarding Agencies</span>
-            <span>{awardingAgencyCount}</span>
-        </div>
-        <div className="award-funding-summary__data">
-            <span>Total Count of Federal Accounts</span>
-            <span>{federalAccountCount}</span>
+            </div>
+            <hr />
+            <h4>Federal Accounts</h4>
+            <ComingSoonSection className="federal-accounts" />
+            <h4>Summary of Federal Accounts used by this IDV</h4>
+            <div className="award-funding-summary__data">
+                <span>Total Funding Obligated</span>
+                <span>
+                    {typeof totalTransactionObligatedAmount === "number"
+                        ? formatMoneyWithPrecision(totalTransactionObligatedAmount, 2)
+                        : totalTransactionObligatedAmount}
+                </span>
+            </div>
+            <div className="award-funding-summary__data">
+                <span>Total Count Of Awarding Agencies</span>
+                <span>{awardingAgencyCount}</span>
+            </div>
+            <div className="award-funding-summary__data">
+                <span>Total Count of Federal Accounts</span>
+                <span>{federalAccountCount}</span>
+            </div>
         </div>
     </div>
 );
