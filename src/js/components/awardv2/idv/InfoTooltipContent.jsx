@@ -3,7 +3,7 @@ import React from 'react';
 // Mapping of section identifier to tooltip content JSX
 
 export const transactionHistoryInfo = (
-    <div>
+    <div className="transaction-history-tt">
         <div className="info-tooltip__title">Transaction History</div>
         <div className="info-tooltip__text">
             <p>
@@ -32,11 +32,11 @@ export const transactionHistoryInfo = (
                 </li>
             </ul>
             <p>
-               Action Type – This column describes the reason behind a
-               modification. It uses a letter code system that maps to
-               the following descriptions:
+                <strong>Action Type</strong> – This column describes the
+               reason behind a modification. It uses a letter code system
+               that maps to the following descriptions:
             </p>
-            <ul className="info-tooltip__text__list">
+            <ul className="info-tooltip__list">
                 <li>
                     <strong>A</strong> – Additional Work
                 </li>
