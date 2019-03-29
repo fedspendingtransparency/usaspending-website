@@ -15,4 +15,8 @@
             border-top: 0;
         }
     }
+    .federal-accounts {
+        @extend %coming-soon-idv;
+        height: 200px;
+    }
 }

@@ -66,16 +66,14 @@
             }
 
             .award__row {
-                @include display(flex);
-                @include flex-wrap(wrap);
-                @include justify-content(space-between);
-                @include align-items(flex-start);
+                display: flex;
+                flex-wrap: wrap;
                 padding: rem(40) 0 rem(60);
                 @include media($medium-screen) {
-                    @include flex-wrap(nowrap);
+                    flex-wrap: nowrap;
                 }
                 .award__col {
-                    @include flex(1 1 auto);
+                    flex: 1 1 auto;
                     // Add padding between columns when they are stacked in mobile
                     &:first-child {
                         padding-bottom: rem(60);
@@ -83,8 +81,14 @@
                     &:last-child {
                         padding-top: rem(40);
                     }
+                    .award__col__content {
+                        height: 100%;
+                        h4:first-of-type {
+                            margin-top: 0;
+                        }
+                    }
                     @include media($medium-screen) {
-                        @include flex(0 0 50%);
+                        flex: 0 0 50%;
                         &:first-child {
                             padding-right: rem(15);
                             padding-bottom: 0;
@@ -93,6 +97,10 @@
                             padding-left: rem(15);
                             padding-top: 0;
                         }
+                    }
+                    @include media($tablet-screen) {
+                        // forces content to go to single column layout 
+                        min-width: 450px;
                     }
                 }
 
