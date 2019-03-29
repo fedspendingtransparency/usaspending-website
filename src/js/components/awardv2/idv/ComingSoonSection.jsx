@@ -41,6 +41,8 @@ const ComingSoonSection = ({
         )
     );
 
+    const comingSoonClass = className || "coming-soon__section";
+
     if (includeHeader) {
         return (
             <div className="award__col award-viz">
@@ -58,7 +60,7 @@ const ComingSoonSection = ({
                         )}
                     </div>
                     <hr />
-                    <div className={cx({ [className]: className !== null, "coming-soon__section": className === null })}>
+                    <div className={comingSoonClass}>
                         {renderChildren()}
                     </div>
                 </div>
@@ -66,7 +68,7 @@ const ComingSoonSection = ({
         );
     }
     return (
-        <div className={cx({ [className]: className !== null, "coming-soon__section": className === null })}>
+        <div className={comingSoonClass}>
             {renderChildren()}
         </div>
     );
