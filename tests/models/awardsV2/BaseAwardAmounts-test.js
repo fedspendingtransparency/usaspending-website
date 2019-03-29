@@ -14,10 +14,10 @@ describe('BaseAwardAmounts', () => {
         expect(awardAmounts.generatedId).toEqual('');
     });
     it('should format the rolled base exercised options', () => {
-        expect(awardAmounts.rolledBaseExercisedOptions).toEqual('$10,000,000.00');
+        expect(awardAmounts.combinedPotentialAwardAmounts).toEqual('$10,000,000.00');
     });
     it('should format the rolled base exercised options with units', () => {
-        expect(awardAmounts.rolledBaseExercisedOptionsFormatted).toEqual('$10.0 M');
+        expect(awardAmounts.combinedPotentialAwardAmountsFormatted).toEqual('$10.0 M');
     });
     it('should format the obligated amount', () => {
         expect(awardAmounts.obligation).toEqual('$1,623,321.02');
@@ -25,11 +25,12 @@ describe('BaseAwardAmounts', () => {
     it('should format the obligation options with units', () => {
         expect(awardAmounts.obligationFormatted).toEqual('$1.6 M');
     });
+    // TODO - Lizzie: test negative obligated amounts
     it('should format the rolled base and all options', () => {
-        expect(awardAmounts.rolledBaseAllOptions).toEqual('$106,987,321.10');
+        expect(awardAmounts.combinedCurrentAwardAmounts).toEqual('$106,987,321.10');
     });
     it('should format the rolled base and all options with units', () => {
-        expect(awardAmounts.rolledBaseAllOptionsFormatted).toEqual('$107.0 M');
+        expect(awardAmounts.combinedCurrentAwardAmountsFormatted).toEqual('$107.0 M');
     });
     it('should calculate the right obligated percentage', () => {
         expect(awardAmounts.obligatedPercentage).toEqual(2);

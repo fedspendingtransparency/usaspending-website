@@ -73,11 +73,11 @@ export default class AggregatedAwardAmounts extends React.Component {
                         </div>
                         <div className="award-amounts__data-content">
                             <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Combined Current Award Amounts</div>
-                            <span>{awardAmounts.rolledBaseExercisedOptions}</span>
+                            <span>{awardAmounts.combinedCurrentAwardAmounts}</span>
                         </div>
                         <div className="award-amounts__data-content">
                             <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Combined Potential Award Amounts</div>
-                            <span>{awardAmounts.rolledBaseAllOptions}</span>
+                            <span>{awardAmounts.combinedPotentialAwardAmounts}</span>
                         </div>
                     </div>
                 </div>
