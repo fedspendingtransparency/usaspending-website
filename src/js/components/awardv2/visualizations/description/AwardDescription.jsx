@@ -99,7 +99,7 @@ export default class AwardDescription extends React.Component {
                             <div className="naics-psc__heading">
                                 NAICS
                                 <div className="naics-psc__icon">
-                                    <a href={`#/award_v2/${this.props.awardId}/?glossary=naics`}>
+                                    <a href={`#/award/${this.props.awardId}/?glossary=naics`}>
                                         <Glossary />
                                     </a>
                                 </div>
@@ -110,7 +110,7 @@ export default class AwardDescription extends React.Component {
                             <div className="naics-psc__heading">
                                 PSC
                                 <div className="naics-psc__icon">
-                                    <a href={`#/award_v2/${this.props.awardId}/?glossary=productservice-code-psc`}>
+                                    <a href={`#/award/${this.props.awardId}/?glossary=productservice-code-psc`}>
                                         <Glossary />
                                     </a>
                                 </div>

@@ -32,7 +32,7 @@ export default class IdvContent extends React.Component {
         let glossaryLink = null;
         if (glossarySlug) {
             glossaryLink = (
-                <a href={`/#/award_v2/${this.props.awardId}?glossary=${glossarySlug}`}>
+                <a href={`/#/award/${this.props.awardId}?glossary=${glossarySlug}`}>
                     <Glossary />
                 </a>
             );
