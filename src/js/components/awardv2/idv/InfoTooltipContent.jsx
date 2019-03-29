@@ -153,7 +153,7 @@ export const relatedAwardsInfo = (
                 </li>
             </ul>
             <p>
-               Calls The awards under an IDV can also sometimes be yet
+               The awards under an IDV can also sometimes be yet
                another IDV. We show both IDV contracts and (non-IDV)
                contracts made under this IDV in the two tabs below,
                respectively.
