@@ -121,7 +121,7 @@ export const federalAccountFundingInfo = (
 );
 
 export const relatedAwardsInfo = (
-    <div>
+    <div className="related-awards-tt">
         <div className="info-tooltip__title">
              Award Orders Made Under this IDV
         </div>
@@ -135,28 +135,22 @@ export const relatedAwardsInfo = (
                to procure an indefinite amount of goods and services from
                vendors within a specific time frame. For this reason, the
                awards made under the IDV are where the agency&apos;s
-               spending actually occurs, not the IDV itself. The awards
-               under an IDV are sometimes known or referred to as:
+               spending actually occurs, not the IDV itself.
             </p>
-            <ul>
-                <li>
-                    <strong>Task Order</strong>
-                </li>
-                <li>
-                    <strong>Delivery Order</strong>
-                </li>
-                <li>
-                    <strong>Purchase Order</strong>
-                </li>
-                <li>
-                    <strong>Blanket Purchase Agreement (BPA) Calls</strong>
-                </li>
+            <p>
+               The awards under an IDV are sometimes known or referred to
+               as:
+            </p>
+            <ul className="info-tooltip__list">
+                <li>Task Order</li>
+                <li>Delivery Order</li>
+                <li>Purchase Order</li>
+                <li>Blanket Purchase Agreement (BPA) Calls</li>
             </ul>
             <p>
-               The awards under an IDV can also sometimes be yet
-               another IDV. We show both IDV contracts and (non-IDV)
-               contracts made under this IDV in the two tabs below,
-               respectively.
+               The awards under an IDV can also sometimes be yet another
+               IDV. We show both IDV contracts and (non-IDV) contracts
+               made under this IDV in the two tabs below, respectively.
             </p>
         </div>
     </div>

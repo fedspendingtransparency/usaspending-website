@@ -82,7 +82,7 @@ export default class InfoTooltip extends React.Component {
             right: this.state.offsetRight,
             width: this.state.width
         };
-        if (this.state.showInfoTooltip) {
+        if (true) {
             tooltip = (
                 <div
                     className="info-tooltip-spacer"
