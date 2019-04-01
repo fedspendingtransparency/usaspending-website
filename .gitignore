@@ -30,6 +30,7 @@ node_modules
 dev
 build
 public
+dist
 .tern-port
 
 # Ignore generated constants file
