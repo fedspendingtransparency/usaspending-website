@@ -13,13 +13,13 @@ export const determineScenario = (amounts) => {
     const potential = amounts._combinedPotentialAwardAmounts;
 
     if (obligated >= 0) {
-        if (obligated <= current <= potential) {
+        if (obligated <= current && current <= potential) {
             return 'normal';
         }
-        else if (current <= obligated <= potential) {
+        else if (current <= obligated && obligated <= potential) {
             return 'exceedsCurrent';
         }
-        else if (current <= potential <= obligated) {
+        else if (current <= potential && potential <= obligated) {
             return 'exceedsPotential';
         }
     }
