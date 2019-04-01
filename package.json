@@ -5,12 +5,12 @@
   "repository": "fedspendingtransparency/usaspending-website",
   "main": "src/index.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --progress --config ./webpack/webpack.dev.config.js",
+    "start": "webpack-dev-server --open --config ./webpack/webpack.dev.config.js",
     "test": "./node_modules/.bin/jest; exit 0;",
     "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
     "errors": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
-    "dev": "./node_modules/.bin/webpack --progress --config ./webpack/webpack.dev.config.js",
-    "prod": "./node_modules/.bin/webpack -p --progress --config ./webpack/webpack.prod.config.js",
+    "dev": "webpack --config ./webpack/webpack.dev.config.js",
+    "prod": "webpack --config ./webpack/webpack.prod.config.js",
     "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;",
     "sass": "./node_modules/.bin/webpack-dev-server --progress --config ./webpack/webpack.dev.sass.config.js"
   },
@@ -55,6 +55,7 @@
     "json-loader": "^0.5.4",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.5.3",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
     "react-dom": "^15.6.0",
     "react-test-renderer": "^15.6.0",
     "sass-loader": "^6.0.6",
