@@ -6,10 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { determineScenario } from 'helpers/aggregatedAmountsHelper';
 import ChartError from 'components/search/visualizations/ChartError';
 import { Table } from 'components/sharedComponents/icons/Icons';
 import AwardsBanner from './AwardsBanner';
-import AggregatedAwardAmountsInfo from './charts/NormalChart';
+import NormalChart from './charts/NormalChart';
 
 
 const propTypes = {
@@ -45,14 +46,22 @@ export default class AggregatedAwardAmounts extends React.Component {
             content = (<ChartError />);
         }
         else {
-            // TODO - Lizzie: determine which scenario this is
-            // and render the corresponding visualization component
             const awardAmounts = this.props.awardAmounts;
+            const visualizationType = determineScenario(awardAmounts);
+            let visualization;
+            switch (visualizationType) {
+                case ('normal'):
+                    visualization = (<NormalChart awardAmounts={awardAmounts} />);
+                    break;
+                default:
+                    visualization = 'Insufficient Data';
+            }
+
             content = (
                 <div className="award-amounts__content">
                     <AwardsBanner
                         jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
-                    <AggregatedAwardAmountsInfo awardAmounts={this.props.awardAmounts} />
+                    {visualization}
                     <div className="award-amounts__data">
                         <span>Awards Under this IDV</span><span>{awardAmounts.idvCount + awardAmounts.contractCount}</span>
                     </div>
