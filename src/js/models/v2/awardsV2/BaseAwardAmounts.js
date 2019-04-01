@@ -29,10 +29,15 @@ const BaseAwardAmounts = {
         return MoneyFormatter.formatMoneyWithPrecision(this._obligation, 2);
     },
     get obligationFormatted() {
-        // TODO - Lizzie: handle negative values
-        if (this._obligation >= MoneyFormatter.unitValues.MILLION) {
+        if (Math.abs(this._obligation) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._obligation);
+            if (this._obligation < 0) {
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._obligation) / units.unit, 1)} ${units.unitLabel})`;
+            }
             return `${MoneyFormatter.formatMoneyWithPrecision(this._obligation / units.unit, 1)} ${units.unitLabel}`;
+        }
+        else if (this._obligation < 0) {
+            return `(${Math.abs(MoneyFormatter.formatMoney(this._obligation))})`;
         }
         return MoneyFormatter.formatMoney(this._obligation);
     },
