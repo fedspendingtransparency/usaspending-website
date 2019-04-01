@@ -54,7 +54,12 @@ export default class AggregatedAwardAmounts extends React.Component {
                     visualization = (<NormalChart awardAmounts={awardAmounts} />);
                     break;
                 default:
-                    visualization = 'Insufficient Data';
+                    visualization = (
+                        <div className="award-amounts-viz award-amounts-viz_insufficient">
+                            <h4>Chart Not Available</h4>
+                            <p>Data in this instance is not suitable for charting.</p>
+                        </div>
+                    );
             }
 
             content = (
