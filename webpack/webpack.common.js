@@ -1,5 +1,3 @@
-// TODO: Add support for assets and external css
-
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -8,20 +6,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: {
-        app: "./src/index.js",
-        vendor: [
-            "mapbox-gl/dist/mapbox-gl",
-            "lodash",
-            "moment",
-            "commonmark",
-            "immutable",
-            "react"
-        ]
+        app: "./index.js"
     },
     output: {
-        filename: "[name].bundle.js"
+        filename: "[name].[chunkhash].bundle.js"
     },
-    // use the optimization configuration property
+    context: path.resolve(__dirname, "../src"),
     resolve: {
         extensions: [".js", ".jsx"],
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")]
@@ -45,7 +35,12 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                use: [{ loader: MiniCssExtractPlugin.loader }, "css-loader"]
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                    "css-loader"
+                ]
             },
             {
                 test: /\.scss$/,
@@ -62,10 +57,17 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg)$/,
+                test: /\.(png|svg|ico|gif|jpg)$/,
                 loader: "file-loader",
                 query: {
-                    name: "[name].[ext]"
+                    name: "img/[name].[ext]"
+                }
+            },
+            {
+                test: /\.(eot|ttf|woff|woff2|)$/,
+                loader: "file-loader",
+                query: {
+                    name: "font/[name].[ext]"
                 }
             }
         ]
