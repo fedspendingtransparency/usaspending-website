@@ -83,9 +83,6 @@
                     }
                     .award__col__content {
                         height: 100%;
-                        h4:first-of-type {
-                            margin-top: 0;
-                        }
                     }
                     @include media($medium-screen) {
                         flex: 0 0 50%;

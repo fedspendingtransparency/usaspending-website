@@ -24,13 +24,12 @@ const FundingSummary = ({
                 <div className="award-viz__icon">
                     <FontAwesomeIcon size="lg" icon="chart-pie" />
                 </div>
-                <h3 className="award-viz__title">Federal Account Funding</h3>
+                <h3 className="award-viz__title">Federal Accounts</h3>
                 {/* <InfoToolTip left>
                 {federalAccountFundingInfo}
             </InfoToolTip> */}
             </div>
             <hr />
-            <h4>Federal Accounts</h4>
             <ComingSoonSection className="federal-accounts" />
             <h4>Summary of Federal Accounts used by this IDV</h4>
             <div className="award-funding-summary__data">
