@@ -9,20 +9,27 @@ module.exports = {
         app: "./index.js"
     },
     output: {
-        filename: "[name].[chunkhash].bundle.js"
+        filename: "[name].[contenthash].bundle.js",
+        chunkFilename: "[name].[chunkhash].chunk.js"
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
         extensions: [".js", ".jsx"],
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")]
     },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                }
+            }
+        }
+    },
     stats: {
         colors: true
-    },
-    optimization: {
-        namedChunks: true,
-        mergeDuplicateChunks: true,
-        removeEmptyChunks: true
     },
     module: {
         noParse: /(mapbox-gl)\.js$/,
@@ -81,7 +88,10 @@ module.exports = {
             template: path.resolve(__dirname, "../src/index.html"),
             chunksSortMode: "none"
         }),
-        new MiniCssExtractPlugin(),
+        new MiniCssExtractPlugin({
+            filename: "[name].css",
+            chunkFilename: "[id].chunk.css"
+        }),
         new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
     // new GitHashPlugin()
     ]

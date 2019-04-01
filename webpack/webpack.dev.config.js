@@ -6,14 +6,20 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
-    mode: 'development',
-    devtool: 'source-map',
-    plugins: [
-        new BundleAnalyzerPlugin()
-    ],
+    mode: "development",
+    devtool: "inline-source-map",
+    optimization: {
+        namedChunks: true,
+        mergeDuplicateChunks: true,
+        removeEmptyChunks: true,
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
+    plugins: [new BundleAnalyzerPlugin()],
     devServer: {
-        contentBase: path.resolve(__dirname, 'public'),
-        host: '0.0.0.0', // this allows VMs to access the server
+        contentBase: path.resolve(__dirname, "public"),
+        host: "0.0.0.0", // this allows VMs to access the server
         port: 3000,
         disableHostCheck: true
     }
