@@ -1,25 +1,34 @@
-const path = require('path');
-const webpack = require('webpack');
-const merge = require('webpack-merge');
-const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+const merge = require('webpack-merge');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
     mode: "production",
-    plugins: [
-        new BundleAnalyzerPlugin(),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production') // indicate to libraries that this is in prod mode (which may affect their behavior for debugging)
-        }),
-        new ParallelUglifyPlugin({
-            uglifyJS: {
-                compress: {
-                    warnings: false
+    devtool: "source-map",
+    // https://webpack.js.org/plugins/mini-css-extract-plugin/#minimizing-for-production
+    optimization: {
+        runtimeChunk: "single",
+        splitChunks: {
+            chunks: "all",
+            maxInitialRequests: Infinity,
+            minSize: 0,
+            cacheGroups: {
+                vendors: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: "vendors",
+                    chunks: "all"
                 },
-                sourceMap: false
+                styles: {
+                    name: "styles",
+                    test: /\.css$/,
+                    // all css in one file
+                    chunks: "all",
+                    enforce: true
+                }
             }
-        })
-    ]
+        }
+    },
+    plugins: [new BundleAnalyzerPlugin(), new OptimizeCssAssetsPlugin()]
 });
