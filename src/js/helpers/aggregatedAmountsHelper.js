@@ -9,25 +9,19 @@
 
 export const determineScenario = (amounts) => {
     const obligated = amounts._obligation;
-    const ccaa = amounts._combinedCurrentAwardAmounts;
-    const cpaa = amounts._combinedPotentialAwardAmounts;
+    const current = amounts._combinedCurrentAwardAmounts;
+    const potential = amounts._combinedPotentialAwardAmounts;
 
     if (obligated >= 0) {
-        if (obligated <= ccaa && obligated <= cpaa) {
+        if (obligated <= current <= potential) {
             return 'normal';
         }
-        else if (obligated > ccaa && obligated <= cpaa) {
+        else if (current <= obligated <= potential) {
             return 'exceedsCurrent';
         }
-        else if (obligated > ccaa && obligated > cpaa) {
-            return 'exceedsBoth';
+        else if (current <= potential <= obligated) {
+            return 'exceedsPotential';
         }
-    }
-    else if (Math.abs(obligated) <= cpaa) {
-        return 'deobligated';
-    }
-    else if (Math.abs(obligated) > cpaa) {
-        return 'overDeobligated';
     }
 
     return 'insufficientData';
