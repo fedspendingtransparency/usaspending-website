@@ -1,6 +1,6 @@
 /**
- * NormalChart.jsx
- * Created by David Trinh 2/15/19
+ * ExceedsCurrentChart.jsx
+ * Created by Lizzie Salita 4/2/19
  **/
 
 import React from 'react';
@@ -10,26 +10,29 @@ const propTypes = {
     awardAmounts: PropTypes.object
 };
 
-export default class NormalChart extends React.Component {
+export default class ExceedsCurrentChart extends React.Component {
     render() {
         const awardAmounts = this.props.awardAmounts;
+        const currentPercentage = Math.round((awardAmounts._combinedCurrentAwardAmounts / awardAmounts._combinedPotentialAwardAmounts) * 100);
+        const exceededPercentage = Math.round(((awardAmounts._obligation - awardAmounts._combinedCurrentAwardAmounts) / awardAmounts._combinedPotentialAwardAmounts) * 100);
 
-        const obligatedStyle = {
-            width: `${awardAmounts.obligatedPercentage}%`,
+        console.log('difference', awardAmounts._obligation - awardAmounts._combinedCurrentAwardAmounts);
+        console.log(exceededPercentage);
+        const currentStyle = {
+            width: `${currentPercentage}%`,
             backgroundColor: '#4773aa'
         };
 
-        const currentStyle = {
-            width: `${awardAmounts.currentPercentage}%`,
-            backgroundColor: '#d8d8d8'
+        const exceededStyle = {
+            width: `${exceededPercentage}%`
         };
 
         const obligatedLabelStyle = {
-            width: `${awardAmounts.obligatedPercentage}%`
+            width: `${currentPercentage + exceededPercentage}%`
         };
 
         const currentLabelStyle = {
-            width: `${awardAmounts.currentLabelPercentage}%`
+            width: `${currentPercentage}%`
         };
 
         return (
@@ -42,8 +45,8 @@ export default class NormalChart extends React.Component {
                 </div>
                 <div className="award-amounts-viz__bar-wrapper">
                     <div className="award-amounts-viz__bar">
-                        <div className="award-amounts-viz__obligated" style={obligatedStyle} />
-                        <div className="award-amounts-viz__excerised" style={currentStyle} />
+                        <div className="award-amounts-viz__obligated" style={currentStyle} />
+                        <div className="award-amounts-viz__exceeded" style={exceededStyle} />
                     </div>
                 </div>
                 <div className="award-amounts-viz__label" style={currentLabelStyle}>
@@ -68,4 +71,4 @@ export default class NormalChart extends React.Component {
         );
     }
 }
-NormalChart.propTypes = propTypes;
+ExceedsCurrentChart.propTypes = propTypes;

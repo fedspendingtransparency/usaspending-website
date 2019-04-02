@@ -73,8 +73,19 @@
             height: rem(40);
             background-color: #ececec;
             @include display(flex);
-            .award-amountdates__viz-obligated {
+            .award-amounts-viz__obligated {
                 border: solid rem(4) $border-light-gray;
+            }
+            .award-amounts-viz__exceeded {
+                border-top: solid rem(4) $color-gray-lightest;
+                border-bottom: solid rem(4) $color-gray-lightest;
+                background: repeating-linear-gradient(
+                    45deg,
+                    $color-cool-blue-light,
+                    $color-cool-blue-light 8px,
+                    $color-gold 2px,
+                    $color-gold 10px
+                );
             }
         }
     }

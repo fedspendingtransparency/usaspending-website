@@ -54,10 +54,10 @@ const BaseAwardAmounts = {
     get obligatedPercentage() {
         return Math.round(Math.abs((this._obligation / this._combinedPotentialAwardAmounts) * 100));
     },
-    get exercisedPercentage() {
+    get currentPercentage() {
         return Math.round(Math.abs((this._combinedCurrentAwardAmounts / this._combinedPotentialAwardAmounts) * 100)) - Math.round(Math.abs((this._obligation / this._combinedPotentialAwardAmounts) * 100));
     },
-    get exercisedLabelPercentage() {
+    get currentLabelPercentage() {
         return Math.round(Math.abs((this._combinedCurrentAwardAmounts) / this._combinedPotentialAwardAmounts) * 100);
     }
 };

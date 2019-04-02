@@ -11,6 +11,7 @@ import ChartError from 'components/search/visualizations/ChartError';
 import { Table } from 'components/sharedComponents/icons/Icons';
 import AwardsBanner from './AwardsBanner';
 import NormalChart from './charts/NormalChart';
+import ExceedsCurrentChart from './charts/ExceedsCurrentChart';
 
 
 const propTypes = {
@@ -52,6 +53,9 @@ export default class AggregatedAwardAmounts extends React.Component {
             switch (visualizationType) {
                 case ('normal'):
                     visualization = (<NormalChart awardAmounts={awardAmounts} />);
+                    break;
+                case ('exceedsCurrent'):
+                    visualization = (<ExceedsCurrentChart awardAmounts={awardAmounts} />);
                     break;
                 default:
                     visualization = (
