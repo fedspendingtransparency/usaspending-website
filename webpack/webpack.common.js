@@ -37,7 +37,9 @@ module.exports = {
             {
                 test: /\.js$|jsx$/,
                 exclude: /node_modules/,
-                options: { presets: ["es2015"] },
+                options: {
+                    presets: ['@babel/preset-env']
+                },
                 loader: "babel-loader"
             },
             {
@@ -90,7 +92,7 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({
             filename: "[name].css",
-            chunkFilename: "[id].chunk.css"
+            chunkFilename: "[id].[hash].css"
         }),
         new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
     // new GitHashPlugin()

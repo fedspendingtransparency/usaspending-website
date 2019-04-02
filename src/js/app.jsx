@@ -8,7 +8,7 @@ import kGlobalConstants from 'GlobalConstants';
 import AppContainer from 'containers/AppContainer';
 
 library.add(fontAwesomeIcons);
-require('babel-polyfill');
+require('@babel/polyfill');
 require('helpers/rafPolyfill');
 
 const appDiv = document.getElementById('app');
