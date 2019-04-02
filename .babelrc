@@ -5,8 +5,7 @@
         "ie": "10"
       }
     }],
-    "@babel/preset-react",
-    "minify"
+    "@babel/preset-react"
   ],
   "plugins": [
     ["module-resolver", {
