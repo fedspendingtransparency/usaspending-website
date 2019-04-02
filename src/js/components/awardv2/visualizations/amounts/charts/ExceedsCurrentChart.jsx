@@ -16,8 +16,6 @@ export default class ExceedsCurrentChart extends React.Component {
         const currentPercentage = Math.round((awardAmounts._combinedCurrentAwardAmounts / awardAmounts._combinedPotentialAwardAmounts) * 100);
         const exceededPercentage = Math.round(((awardAmounts._obligation - awardAmounts._combinedCurrentAwardAmounts) / awardAmounts._combinedPotentialAwardAmounts) * 100);
 
-        console.log('difference', awardAmounts._obligation - awardAmounts._combinedCurrentAwardAmounts);
-        console.log(exceededPercentage);
         const currentStyle = {
             width: `${currentPercentage}%`,
             backgroundColor: '#4773aa'

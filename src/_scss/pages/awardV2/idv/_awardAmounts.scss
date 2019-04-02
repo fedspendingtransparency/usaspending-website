@@ -82,9 +82,9 @@
                 background: repeating-linear-gradient(
                     45deg,
                     $color-cool-blue-light,
-                    $color-cool-blue-light 8px,
-                    $color-gold 2px,
-                    $color-gold 10px
+                    $color-cool-blue-light rem(8),
+                    $color-gold rem(2),
+                    $color-gold rem(10)
                 );
             }
         }
@@ -220,7 +220,18 @@
 
     .award-amounts__data-icon_transparent {
         background-color: white;
-        border: 2px solid #BBBBBB;
+        border: rem(2) solid #BBBBBB;
+    }
+
+    .award-amounts__data-icon_overspending {
+        background: repeating-linear-gradient(
+            45deg,
+            $color-white,
+            $color-white rem(5),
+            $color-gold rem(2),
+            $color-gold rem(7)
+        );
+        border: rem(1) solid $color-gold;
     }
 
     .award-amounts__data {

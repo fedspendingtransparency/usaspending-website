@@ -50,12 +50,19 @@ export default class AggregatedAwardAmounts extends React.Component {
             const awardAmounts = this.props.awardAmounts;
             const visualizationType = determineScenario(awardAmounts);
             let visualization;
+            let extraRow = null;
             switch (visualizationType) {
                 case ('normal'):
                     visualization = (<NormalChart awardAmounts={awardAmounts} />);
                     break;
                 case ('exceedsCurrent'):
                     visualization = (<ExceedsCurrentChart awardAmounts={awardAmounts} />);
+                    extraRow = (
+                        <div className="award-amounts__data-content">
+                            <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />Exceeds Combined Current Award Amounts</div>
+                            <span>{awardAmounts.overspending}</span>
+                        </div>
+                    );
                     break;
                 default:
                     visualization = (
@@ -97,6 +104,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                             <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Combined Potential Award Amounts</div>
                             <span>{awardAmounts.combinedPotentialAwardAmounts}</span>
                         </div>
+                        {extraRow}
                     </div>
                 </div>
             );
