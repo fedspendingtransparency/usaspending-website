@@ -80,7 +80,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(["dist", "cache"], {
+        new CleanWebpackPlugin(["dist", "./node_modules/.cache"], {
             root: path.resolve(__dirname, "../")
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
