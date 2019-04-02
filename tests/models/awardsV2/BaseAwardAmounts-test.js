@@ -43,7 +43,10 @@ describe('BaseAwardAmounts', () => {
     it('should calculate the right obligated percentage', () => {
         expect(awardAmounts.obligatedPercentage).toEqual(2);
     });
-    it('should calculate the right exercised percentage', () => {
-        expect(awardAmounts.exercisedPercentage).toEqual(7);
+    it('should calculate the right percentage for width of the current combined award amounts bar', () => {
+        expect(awardAmounts.currentPercentage).toEqual(7);
+    });
+    it('should calculate the right percentage for width of the current combined award amounts label', () => {
+        expect(awardAmounts.currentLabelPercentage).toEqual(9);
     });
 });

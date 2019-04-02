@@ -55,9 +55,11 @@ const BaseAwardAmounts = {
         return Math.round(Math.abs((this._obligation / this._combinedPotentialAwardAmounts) * 100));
     },
     get currentPercentage() {
+        // Calculates the percentage to use as the width of the combined current award amounts bar
         return Math.round(Math.abs((this._combinedCurrentAwardAmounts / this._combinedPotentialAwardAmounts) * 100)) - Math.round(Math.abs((this._obligation / this._combinedPotentialAwardAmounts) * 100));
     },
     get currentLabelPercentage() {
+        // Calculates the percentage to use as the width of the combined current award amounts label
         return Math.round(Math.abs((this._combinedCurrentAwardAmounts) / this._combinedPotentialAwardAmounts) * 100);
     }
 };
