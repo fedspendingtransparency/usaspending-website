@@ -1,7 +1,8 @@
-
 const merge = require('webpack-merge');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const CompressionPlugin = require('compression-webpack-plugin');
+
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
@@ -15,11 +16,6 @@ module.exports = merge(common, {
             maxInitialRequests: Infinity,
             minSize: 0,
             cacheGroups: {
-                vendors: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: "vendors",
-                    chunks: "all"
-                },
                 styles: {
                     name: "styles",
                     test: /\.css$/,
@@ -30,5 +26,12 @@ module.exports = merge(common, {
             }
         }
     },
-    plugins: [new BundleAnalyzerPlugin(), new OptimizeCssAssetsPlugin()]
+    plugins: [
+        new BundleAnalyzerPlugin(),
+        new OptimizeCssAssetsPlugin(),
+        new CompressionPlugin({
+            cache: true
+        })
+        // try using manual minimizer for js
+    ]
 });
