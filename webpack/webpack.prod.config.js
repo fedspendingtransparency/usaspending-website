@@ -34,7 +34,18 @@ module.exports = merge(common, {
                     enforce: true
                 }
             }
-        }
+        },
+        namedChunks: false,
+        namedModules: false,
+        nodeEnv: 'production',
+        flagIncludedChunks: true,
+        occurrenceOrder: true,
+        sideEffects: true,
+        usedExports: true,
+        concatenateModules: true,
+        noEmitOnErrors: true,
+        checkWasmTypes: true,
+        minimize: true
     },
     plugins: [
         new BundleAnalyzerPlugin(),
