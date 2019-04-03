@@ -81,11 +81,6 @@
                     &:last-child {
                         padding-top: rem(40);
                     }
-                    .award__col__content {
-                        height: 100%;
-                        @include display(flex);
-                        @include flex-direction(column);
-                    }
                     @include media($medium-screen) {
                         @include flex(0 0 50%);
                         &:first-child {
@@ -100,6 +95,15 @@
                     @include media($tablet-screen) {
                         // forces content to go to single column layout 
                         min-width: 450px;
+                    }
+                    .award__col__content {
+                        height: 100%;
+                        @include display(flex);
+                        @include flex-direction(column);
+                        h4 {
+                            font-size: rem(16px);
+                            font-weight: $font-semibold;
+                        }
                     }
                 }
 
