@@ -8,7 +8,13 @@ import kGlobalConstants from 'GlobalConstants';
 import AppContainer from 'containers/AppContainer';
 
 library.add(fontAwesomeIcons);
-require('babel-polyfill');
+/**
+ * babel 7 removed the ECMAScript proposals from babel-polyfill.
+ * See link here for this implementation: https://babeljs.io/docs/en/v7-migration
+ * Also using the transform-runtime plugin for the test env.
+*/
+require("core-js");
+require("regenerator-runtime/runtime");
 require('helpers/rafPolyfill');
 
 const appDiv = document.getElementById('app');
