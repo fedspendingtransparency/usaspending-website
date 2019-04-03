@@ -135,7 +135,7 @@
 
     .award-amounts__data-content {
         @extend %column-less-table__row;
-        &:nth-of-type(1) {
+        &:first-of-type {
             border-radius: rem(5) rem(5) 0 0;
             border-bottom: 0;
         }
