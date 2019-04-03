@@ -14,32 +14,13 @@
         "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;",
         "sass": "./node_modules/.bin/webpack-dev-server --progress --config ./webpack/webpack.dev.sass.config.js"
     },
-    "jest": {
-        "rootDir": ".",
-        "testRegex": "tests/.*-(test)\\.jsx?$",
-        "verbose": true,
-        "bail": false,
-        "collectCoverage": true,
-        "collectCoverageFrom": [
-            "src/js/containers/**/*.{js,jsx}",
-            "src/js/redux/reducers/**/*.{js,jsx}",
-            "!node_modules/**",
-            "!public/**"
-        ],
-        "moduleNameMapper": {
-            "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-            "\\.(css|less|scss)$": "identity-obj-proxy"
-        }
-    },
     "author": "",
     "license": "SEE LICENSE IN LICENSE.MD",
     "devDependencies": {
         "@babel/core": "^7.4.0",
+        "@babel/plugin-transform-runtime": "^7.4.3",
         "@babel/preset-env": "^7.4.2",
         "@babel/preset-react": "^7.0.0",
-        "babel-jest": "^20.0.3",
-        "babel-minify-webpack-plugin": "^0.3.1",
-        "babel-preset-minify": "^0.5.0",
         "clean-webpack-plugin": "^0.1.16",
         "compression-webpack-plugin": "^2.0.0",
         "css-loader": "^0.28.4",
@@ -52,6 +33,7 @@
         "eslint-plugin-react": "7.5.1",
         "identity-obj-proxy": "^3.0.0",
         "jest": "^24.6.0",
+        "jest-cli": "^24.6.0",
         "json-loader": "^0.5.4",
         "mini-css-extract-plugin": "^0.5.0",
         "node-sass": "^4.5.3",
@@ -69,7 +51,6 @@
         "webpack-parallel-uglify-plugin": "^0.4.2"
     },
     "dependencies": {
-        "@babel/polyfill": "^7.4.0",
         "@fortawesome/fontawesome-svg-core": "^1.2.15",
         "@fortawesome/free-solid-svg-icons": "^5.7.2",
         "@fortawesome/react-fontawesome": "^0.1.4",
@@ -80,6 +61,7 @@
         "babel-plugin-module-resolver": "^3.2.0",
         "clipboard": "^1.6.1",
         "commonmark": "^0.27.0",
+        "core-js": "3",
         "d3-hierarchy": "^1.1.4",
         "d3-interpolate": "^1.1.4",
         "d3-scale": "^1.0.4",
@@ -88,7 +70,6 @@
         "history": "^4.6.1",
         "html-webpack-plugin": "^3.2.0",
         "immutable": "^3.8.1",
-        "jest-cli": "^20.0.4",
         "js-cookie": "^2.1.0",
         "js-search": "^1.4.2",
         "lodash": "^4.6.1",
@@ -118,6 +99,7 @@
         "react-transition-group": "^1.1.2",
         "redux": "3.7.1",
         "redux-perf-middleware": "^1.2.2",
+        "regenerator-runtime": "^0.13.2",
         "svg4everybody": "^2.0.3",
         "tinycolor2": "^1.3.0",
         "uswds": "^0.13.1",

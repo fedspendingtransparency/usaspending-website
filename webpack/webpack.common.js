@@ -37,9 +37,6 @@ module.exports = {
             {
                 test: /\.js$|jsx$/,
                 exclude: /node_modules/,
-                options: {
-                    presets: ['@babel/preset-env']
-                },
                 loader: "babel-loader"
             },
             {
@@ -82,7 +79,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(["dist", "./node_modules/.cache"], {
+        new CleanWebpackPlugin(["dist", "cache"], {
             root: path.resolve(__dirname, "../")
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
