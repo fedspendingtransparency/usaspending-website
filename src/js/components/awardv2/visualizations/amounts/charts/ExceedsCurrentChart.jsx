@@ -35,8 +35,16 @@ export default class ExceedsCurrentChart extends React.Component {
 
         return (
             <div className="award-amounts-viz">
-                <div className="award-amounts-viz__desc-top">
-                    <strong>{awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
+                <div className="award-amounts-viz__desc-top-wrapper">
+                    <div className="award-amounts-viz__desc-top">
+                        <strong>{awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
+                    </div>
+                    <div className="award-amounts-viz__desc">
+                        <div className="award-amounts-viz__desc-text">
+                            <strong>{awardAmounts.overspendingFormatted}</strong><br />Exceeds Combined Current Award Amounts
+                        </div>
+                        <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_overspending" />
+                    </div>
                 </div>
                 <div className="award-amounts-viz__label" style={obligatedLabelStyle}>
                     <div className="award-amounts-viz__line-up" />
