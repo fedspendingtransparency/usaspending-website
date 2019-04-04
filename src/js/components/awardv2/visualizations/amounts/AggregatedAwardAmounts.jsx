@@ -6,10 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { determineScenario } from 'helpers/aggregatedAmountsHelper';
 import ChartError from 'components/search/visualizations/ChartError';
 import { Table } from 'components/sharedComponents/icons/Icons';
 import AwardsBanner from './AwardsBanner';
-import AggregatedAwardAmountsInfo from './charts/NormalChart';
+import NormalChart from './charts/NormalChart';
 
 
 const propTypes = {
@@ -45,14 +46,27 @@ export default class AggregatedAwardAmounts extends React.Component {
             content = (<ChartError />);
         }
         else {
-            // TODO - Lizzie: determine which scenario this is
-            // and render the corresponding visualization component
             const awardAmounts = this.props.awardAmounts;
+            const visualizationType = determineScenario(awardAmounts);
+            let visualization;
+            switch (visualizationType) {
+                case ('normal'):
+                    visualization = (<NormalChart awardAmounts={awardAmounts} />);
+                    break;
+                default:
+                    visualization = (
+                        <div className="award-amounts-viz award-amounts-viz_insufficient">
+                            <h4>Chart Not Available</h4>
+                            <p>Data in this instance is not suitable for charting.</p>
+                        </div>
+                    );
+            }
+
             content = (
                 <div className="award-amounts__content">
                     <AwardsBanner
                         jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
-                    <AggregatedAwardAmountsInfo awardAmounts={this.props.awardAmounts} />
+                    {visualization}
                     <div className="award-amounts__data">
                         <span>Awards Under this IDV</span><span>{awardAmounts.idvCount + awardAmounts.contractCount}</span>
                     </div>
@@ -73,11 +87,11 @@ export default class AggregatedAwardAmounts extends React.Component {
                         </div>
                         <div className="award-amounts__data-content">
                             <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Combined Current Award Amounts</div>
-                            <span>{awardAmounts.rolledBaseExercisedOptions}</span>
+                            <span>{awardAmounts.combinedCurrentAwardAmounts}</span>
                         </div>
                         <div className="award-amounts__data-content">
                             <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Combined Potential Award Amounts</div>
-                            <span>{awardAmounts.rolledBaseAllOptions}</span>
+                            <span>{awardAmounts.combinedPotentialAwardAmounts}</span>
                         </div>
                     </div>
                 </div>

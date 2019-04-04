@@ -9,15 +9,21 @@ import { mockAwardAmounts } from './mockAwardApi';
 const awardAmounts = Object.create(BaseAwardAmounts);
 awardAmounts.populate(mockAwardAmounts);
 
+const awardAmountsNeg = Object.create(BaseAwardAmounts);
+const negativeObligation = {
+    rollup_total_obligation: -1623321.02
+};
+awardAmountsNeg.populate(negativeObligation);
+
 describe('BaseAwardAmounts', () => {
     it('should have an empty string as a unique generated id if the field is null or undefined', () => {
         expect(awardAmounts.generatedId).toEqual('');
     });
-    it('should format the rolled base exercised options', () => {
-        expect(awardAmounts.rolledBaseExercisedOptions).toEqual('$10,000,000.00');
+    it('should format the combined current award amounts amounts', () => {
+        expect(awardAmounts.combinedCurrentAwardAmounts).toEqual('$10,000,000.00');
     });
-    it('should format the rolled base exercised options with units', () => {
-        expect(awardAmounts.rolledBaseExercisedOptionsFormatted).toEqual('$10.0 M');
+    it('should format the combined current award amounts amounts with units', () => {
+        expect(awardAmounts.combinedCurrentAwardAmountsFormatted).toEqual('$10.0 M');
     });
     it('should format the obligated amount', () => {
         expect(awardAmounts.obligation).toEqual('$1,623,321.02');
@@ -25,11 +31,14 @@ describe('BaseAwardAmounts', () => {
     it('should format the obligation options with units', () => {
         expect(awardAmounts.obligationFormatted).toEqual('$1.6 M');
     });
-    it('should format the rolled base and all options', () => {
-        expect(awardAmounts.rolledBaseAllOptions).toEqual('$106,987,321.10');
+    it('should format negative obligations', () => {
+        expect(awardAmountsNeg.obligationFormatted).toEqual('($1.6 M)');
     });
-    it('should format the rolled base and all options with units', () => {
-        expect(awardAmounts.rolledBaseAllOptionsFormatted).toEqual('$107.0 M');
+    it('should format the combined potential award amounts amounts', () => {
+        expect(awardAmounts.combinedPotentialAwardAmounts).toEqual('$106,987,321.10');
+    });
+    it('should format the combined potential award amounts amounts with units', () => {
+        expect(awardAmounts.combinedPotentialAwardAmountsFormatted).toEqual('$107.0 M');
     });
     it('should calculate the right obligated percentage', () => {
         expect(awardAmounts.obligatedPercentage).toEqual(2);

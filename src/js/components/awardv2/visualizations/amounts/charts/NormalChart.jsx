@@ -13,7 +13,7 @@ const propTypes = {
 export default class NormalChart extends React.Component {
     render() {
         const awardAmounts = this.props.awardAmounts;
-        const exercisedLabelPercentage = Math.round(Math.abs((awardAmounts._rolledBaseExercisedOptions) / awardAmounts._rolledBaseAllOptions) * 100);
+        const exercisedLabelPercentage = Math.round(Math.abs((awardAmounts._combinedCurrentAwardAmounts) / awardAmounts._combinedPotentialAwardAmounts) * 100);
 
         const obligatedStyle = {
             width: `${awardAmounts.obligatedPercentage}%`,
@@ -51,7 +51,7 @@ export default class NormalChart extends React.Component {
                     <div className="award-amounts-viz__line" />
                     <div className="award-amounts-viz__desc">
                         <div className="award-amounts-viz__desc-text">
-                            <strong>{awardAmounts.rolledBaseExercisedOptionsFormatted}</strong><br />Combined Current Award Amounts
+                            <strong>{awardAmounts.combinedCurrentAwardAmountsFormatted}</strong><br />Combined Current Award Amounts
                         </div>
                         <div className="award-amounts-viz__legend-line" />
                     </div>
@@ -60,7 +60,7 @@ export default class NormalChart extends React.Component {
                     <div className="award-amounts-viz__line" />
                     <div className="award-amounts-viz__desc">
                         <div className="award-amounts-viz__desc-text">
-                            <strong>{awardAmounts.rolledBaseAllOptionsFormatted}</strong><br />Combined Potential Award Amounts
+                            <strong>{awardAmounts.combinedPotentialAwardAmountsFormatted}</strong><br />Combined Potential Award Amounts
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
                     </div>
