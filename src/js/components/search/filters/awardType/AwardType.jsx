@@ -45,6 +45,11 @@ const awardTypesData = [
     }
 ];
 
+const awardTypeCodesData = {
+    ...awardTypeCodes,
+    IDV_E: "Blanket Purchase Agreements (BPA)"
+};
+
 const propTypes = {
     awardTypes: PropTypes.arrayOf(PropTypes.object),
     awardType: PropTypes.object,
@@ -61,18 +66,16 @@ export default class AwardType extends React.Component {
         }
     }
     render() {
-        const awardTypes = (
-            awardTypesData.map((type, index) => (
-                <PrimaryCheckboxType
-                    {...type}
-                    {...this.props}
-                    key={index}
-                    types={awardTypeCodes}
-                    filterType="Award"
-                    selectedCheckboxes={this.props.awardType}
-                    bulkTypeChange={this.props.bulkTypeChange} />
-            )
-            ));
+        const awardTypes = awardTypesData.map((type, index) => (
+            <PrimaryCheckboxType
+                {...type}
+                {...this.props}
+                key={index}
+                types={awardTypeCodesData}
+                filterType="Award"
+                selectedCheckboxes={this.props.awardType}
+                bulkTypeChange={this.props.bulkTypeChange} />
+        ));
 
         return (
             <div className="award-type-filter search-filter checkbox-type-filter">
