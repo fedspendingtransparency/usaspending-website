@@ -10,41 +10,40 @@ import { awardTypeGroups, awardTypeCodes } from 'dataMapping/search/awardType';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
-const defaultProps = {
-    awardTypes: [
-        {
-            id: 'award-contracts',
-            name: 'Contracts',
-            filters: awardTypeGroups.contracts
-        },
-        {
-            id: 'indefinite-delivery-vehicle',
-            name: 'Contract IDVs',
-            // Consider possibly removing this from awardTypeGroups as the model changed in DEV-2226
-            filters: awardTypeGroups.idvs.filter((filter) => filter !== "IDV_B")
-        },
-        {
-            id: 'award-grants',
-            name: 'Grants',
-            filters: awardTypeGroups.grants
-        },
-        {
-            id: 'award-direct-payments',
-            name: 'Direct Payments',
-            filters: awardTypeGroups.direct_payments
-        },
-        {
-            id: 'award-loans',
-            name: 'Loans',
-            filters: awardTypeGroups.loans
-        },
-        {
-            id: 'award-other',
-            name: 'Other',
-            filters: awardTypeGroups.other
-        }
-    ]
-};
+const awardTypesData = [
+    {
+        id: 'award-contracts',
+        name: 'Contracts',
+        filters: awardTypeGroups.contracts
+    },
+    {
+        id: 'indefinite-delivery-vehicle',
+        name: 'Contract IDVs',
+        // Consider possibly removing this from awardTypeGroups dataMap as the model changed in DEV-2226
+        filters: awardTypeGroups.idvs
+            .filter((filter) => filter !== "IDV_B")
+    },
+    {
+        id: 'award-grants',
+        name: 'Grants',
+        filters: awardTypeGroups.grants
+    },
+    {
+        id: 'award-direct-payments',
+        name: 'Direct Payments',
+        filters: awardTypeGroups.direct_payments
+    },
+    {
+        id: 'award-loans',
+        name: 'Loans',
+        filters: awardTypeGroups.loans
+    },
+    {
+        id: 'award-other',
+        name: 'Other',
+        filters: awardTypeGroups.other
+    }
+];
 
 const propTypes = {
     awardTypes: PropTypes.arrayOf(PropTypes.object),
@@ -63,7 +62,7 @@ export default class AwardType extends React.Component {
     }
     render() {
         const awardTypes = (
-            this.props.awardTypes.map((type, index) => (
+            awardTypesData.map((type, index) => (
                 <PrimaryCheckboxType
                     {...type}
                     {...this.props}
@@ -90,5 +89,4 @@ export default class AwardType extends React.Component {
         );
     }
 }
-AwardType.defaultProps = defaultProps;
 AwardType.propTypes = propTypes;
