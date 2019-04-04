@@ -7,7 +7,7 @@
 
 /* eslint-disable import/prefer-default-export */
 
-export const determineScenario = (amounts) => {
+export const determineSpendingScenario = (amounts) => {
     const obligated = amounts._obligation;
     const current = amounts._combinedCurrentAwardAmounts;
     const potential = amounts._combinedPotentialAwardAmounts;

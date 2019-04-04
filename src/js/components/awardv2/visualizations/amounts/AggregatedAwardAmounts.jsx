@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { determineScenario } from 'helpers/aggregatedAmountsHelper';
+import { determineSpendingScenario } from 'helpers/aggregatedAmountsHelper';
 import ChartError from 'components/search/visualizations/ChartError';
 import { Table } from 'components/sharedComponents/icons/Icons';
 import AwardsBanner from './AwardsBanner';
@@ -34,7 +34,7 @@ export default class AggregatedAwardAmounts extends React.Component {
 
     generateVisualization() {
         const awardAmounts = this.props.awardAmounts;
-        const visualizationType = determineScenario(awardAmounts);
+        const visualizationType = determineSpendingScenario(awardAmounts);
         let visualization;
         let overspendingRow = null;
         switch (visualizationType) {
