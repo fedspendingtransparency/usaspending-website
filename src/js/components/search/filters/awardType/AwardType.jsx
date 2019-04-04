@@ -20,7 +20,8 @@ const defaultProps = {
         {
             id: 'indefinite-delivery-vehicle',
             name: 'Contract IDVs',
-            filters: awardTypeGroups.idvs
+            // Consider possibly removing this from awardTypeGroups as the model changed in DEV-2226
+            filters: awardTypeGroups.idvs.filter((filter) => filter !== "IDV_B")
         },
         {
             id: 'award-grants',
@@ -62,15 +63,16 @@ export default class AwardType extends React.Component {
     }
     render() {
         const awardTypes = (
-            this.props.awardTypes.map((type, index) =>
-                (<PrimaryCheckboxType
+            this.props.awardTypes.map((type, index) => (
+                <PrimaryCheckboxType
                     {...type}
                     {...this.props}
                     key={index}
                     types={awardTypeCodes}
                     filterType="Award"
                     selectedCheckboxes={this.props.awardType}
-                    bulkTypeChange={this.props.bulkTypeChange} />)
+                    bulkTypeChange={this.props.bulkTypeChange} />
+            )
             ));
 
         return (
