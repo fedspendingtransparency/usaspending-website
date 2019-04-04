@@ -49,15 +49,6 @@ describe('BaseAwardAmounts', () => {
     it('should format the combined potential award amounts amounts with units', () => {
         expect(awardAmounts.combinedPotentialAwardAmountsFormatted).toEqual('$107.0 M');
     });
-    it('should calculate the right obligated percentage', () => {
-        expect(awardAmounts.obligatedPercentage).toEqual(2);
-    });
-    it('should calculate the right percentage for width of the current combined award amounts bar', () => {
-        expect(awardAmounts.currentPercentage).toEqual(7);
-    });
-    it('should calculate the right percentage for width of the current combined award amounts label', () => {
-        expect(awardAmounts.currentLabelPercentage).toEqual(9);
-    });
     it('should format the amount overspent', () => {
         expect(awardAmountsOverspent.overspending).toEqual('$2,500,000.00');
     });
