@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 
 const propTypes = {
     awardAmounts: PropTypes.object
@@ -12,36 +13,36 @@ const propTypes = {
 
 export default class ExceedsCurrentChart extends React.Component {
     render() {
-        const awardAmounts = this.props.awardAmounts;
-        const currentPercentage = Math.round((awardAmounts._combinedCurrentAwardAmounts / awardAmounts._combinedPotentialAwardAmounts) * 100);
-        const exceededPercentage = Math.round(((awardAmounts._obligation - awardAmounts._combinedCurrentAwardAmounts) / awardAmounts._combinedPotentialAwardAmounts) * 100);
+        const obligation = this.props.awardAmounts._obligation;
+        const current = this.props.awardAmounts._combinedCurrentAwardAmounts;
+        const potential = this.props.awardAmounts._combinedPotentialAwardAmounts;
 
-        const currentStyle = {
-            width: `${currentPercentage}%`,
+        const currentBarStyle = {
+            width: generatePercentage(current / potential),
             backgroundColor: '#4773aa'
         };
 
-        const exceededStyle = {
-            width: `${exceededPercentage}%`
+        const overspendingBarStyle = {
+            width: generatePercentage((obligation - current) / potential)
         };
 
         const obligatedLabelStyle = {
-            width: `${currentPercentage + exceededPercentage}%`
+            width: generatePercentage(obligation / potential)
         };
 
         const currentLabelStyle = {
-            width: `${currentPercentage}%`
+            width: generatePercentage(current / potential)
         };
 
         return (
             <div className="award-amounts-viz">
                 <div className="award-amounts-viz__desc-top-wrapper">
                     <div className="award-amounts-viz__desc-top">
-                        <strong>{awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
+                        <strong>{this.props.awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
                     </div>
                     <div className="award-amounts-viz__desc">
                         <div className="award-amounts-viz__desc-text">
-                            <strong>{awardAmounts.overspendingFormatted}</strong><br />Exceeds Combined Current Award Amounts
+                            <strong>{this.props.awardAmounts.overspendingFormatted}</strong><br />Exceeds Combined Current Award Amounts
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_overspending" />
                     </div>
@@ -51,15 +52,15 @@ export default class ExceedsCurrentChart extends React.Component {
                 </div>
                 <div className="award-amounts-viz__bar-wrapper">
                     <div className="award-amounts-viz__bar">
-                        <div className="award-amounts-viz__obligated" style={currentStyle} />
-                        <div className="award-amounts-viz__exceeded" style={exceededStyle} />
+                        <div className="award-amounts-viz__obligated" style={currentBarStyle} />
+                        <div className="award-amounts-viz__exceeded" style={overspendingBarStyle} />
                     </div>
                 </div>
                 <div className="award-amounts-viz__label" style={currentLabelStyle}>
                     <div className="award-amounts-viz__line" />
                     <div className="award-amounts-viz__desc">
                         <div className="award-amounts-viz__desc-text">
-                            <strong>{awardAmounts.combinedCurrentAwardAmountsFormatted}</strong><br />Combined Current Award Amounts
+                            <strong>{this.props.awardAmounts.combinedCurrentAwardAmountsFormatted}</strong><br />Combined Current Award Amounts
                         </div>
                         <div className="award-amounts-viz__legend-line" />
                     </div>
@@ -68,7 +69,7 @@ export default class ExceedsCurrentChart extends React.Component {
                     <div className="award-amounts-viz__line" />
                     <div className="award-amounts-viz__desc">
                         <div className="award-amounts-viz__desc-text">
-                            <strong>{awardAmounts.combinedPotentialAwardAmountsFormatted}</strong><br />Combined Potential Award Amounts
+                            <strong>{this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}</strong><br />Combined Potential Award Amounts
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
                     </div>

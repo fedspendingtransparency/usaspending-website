@@ -5,8 +5,6 @@
 
 // Handle edge cases in the IDV Combined Award Amounts visualization
 
-/* eslint-disable import/prefer-default-export */
-
 export const determineSpendingScenario = (amounts) => {
     const obligated = amounts._obligation;
     const current = amounts._combinedCurrentAwardAmounts;
@@ -27,4 +25,4 @@ export const determineSpendingScenario = (amounts) => {
     return 'insufficientData';
 };
 
-/* eslint-enable import/prefer-default-export */
+export const generatePercentage = (value) => `${(value * 100).toFixed(2)}%`;
