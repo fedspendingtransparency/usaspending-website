@@ -90,7 +90,7 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    <ComingSoonSection includeHeader title="Idv Activity" icon="chart-area" />
+                    <ComingSoonSection includeHeader title="IDV Activity" icon="chart-area" />
                     <AwardMetaDataContainer />
                 </div>
                 <ReferencedAwardsContainer />
