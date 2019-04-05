@@ -59,7 +59,7 @@ export default class ExceedsPotentialChart extends React.Component {
                         <div className="award-amounts-viz__desc-text">
                             <strong>{this.props.awardAmounts.extremeOverspendingFormatted}</strong><br />Exceeds Potential Award Amounts
                         </div>
-                        <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_exterme-overspending" />
+                        <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_extreme-overspending" />
                     </div>
                 </div>
                 <div className="award-amounts-viz__label" style={obligatedLabelStyle}>
