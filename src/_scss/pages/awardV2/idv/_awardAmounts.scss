@@ -189,6 +189,14 @@
             strong {
                 font-size: $lead-font-size;
             }
+            .award-amounts-viz__desc-text-wrapper {
+                @include display(flex);
+                @include justify-content(flex-end);
+                @include align-items(center);
+                .award__info-wrapper {
+                    margin-right: rem(5);
+                }
+            }
         }
         .award-amounts-viz__legend-line {
             @include flex(0 0 rem(5));
