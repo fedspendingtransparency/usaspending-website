@@ -88,6 +88,38 @@
                 );
             }
         }
+        &.award-amounts-viz__bar-wrapper_extreme-overspending {
+            border: 0;
+            padding: 0;
+            .award-amounts-viz__bar {
+                height: rem(50);
+                background-color: transparent;
+                .award-amounts-viz__potential-wrapper {
+                    @include display(flex);
+                    border: rem(2) solid $border-gray;
+                    padding: rem(2);
+                    background-color: $color-white;
+                    .award-amounts-viz__current {
+                        border: solid rem(4) $border-light-gray;
+                    }
+                    .award-amounts-viz__potential {
+                        border-top: solid rem(4) $color-white;
+                        border-bottom: solid rem(4) $color-white;
+                    }
+                }
+                .award-amounts-viz__exceeded-potential {
+                    height: rem(34);
+                    @include align-self(center);
+                    background: repeating-linear-gradient(
+                        45deg,
+                        $color-cool-blue-light,
+                        $color-cool-blue-light rem(8),
+                        $color-secondary rem(2),
+                        $color-secondary rem(10)
+                    );
+                }
+            }
+        }
     }
 
     .award-amounts-viz__label {
