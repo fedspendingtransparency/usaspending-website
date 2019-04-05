@@ -19,9 +19,7 @@ const awardTypesData = [
     {
         id: 'indefinite-delivery-vehicle',
         name: 'Contract IDVs',
-        // Consider possibly removing this from awardTypeGroups dataMap as the model changed in DEV-2226
         filters: awardTypeGroups.idvs
-            .filter((filter) => filter !== "IDV_B")
     },
     {
         id: 'award-grants',
@@ -65,16 +63,17 @@ export default class AwardType extends React.Component {
         }
     }
     render() {
-        const awardTypes = awardTypesData.map((type, index) => (
-            <PrimaryCheckboxType
-                {...type}
-                {...this.props}
-                key={index}
-                types={awardTypeCodesData}
-                filterType="Award"
-                selectedCheckboxes={this.props.awardType}
-                bulkTypeChange={this.props.bulkTypeChange} />
-        ));
+        const awardTypes = awardTypesData
+            .map((type, index) => (
+                <PrimaryCheckboxType
+                    {...type}
+                    {...this.props}
+                    key={index}
+                    types={awardTypeCodesData}
+                    filterType="Award"
+                    selectedCheckboxes={this.props.awardType}
+                    bulkTypeChange={this.props.bulkTypeChange} />
+            ));
 
         return (
             <div className="award-type-filter search-filter checkbox-type-filter">
