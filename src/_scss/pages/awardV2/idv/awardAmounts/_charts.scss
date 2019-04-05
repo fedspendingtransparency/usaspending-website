@@ -1,55 +1,4 @@
-.award-amounts {
-    $border-gray: #555555;
-    $border-light-gray: #d5d6d8;
-
-    .award-amounts__content {
-        margin-top: rem(30);
-    }
-
-    .award-amounts__banner {
-        background-color: #F3FAFC;
-        @include display(flex);
-        @include align-items(flex-start);
-        @include justify-content(space-between);
-        color: #525252;
-        font-size: rem(14);
-        margin: rem(30) 0;
-        padding: 0 rem(10) 0 rem(10);
-        .award-viz__button {
-            margin: 0;
-            display: inline
-        }
-    }
-
-    .award-amounts__banner_hidden {
-        display: none;
-    }
-
-    .award-amounts__banner-info {
-        @include display(flex);
-    }
-
-    .award-amounts__banner-info-icon {
-        margin-top: rem(18);
-        margin-right: rem(5);
-        svg {
-            width: rem(15);
-            height: rem(15);
-            fill: $color-primary-alt-dark;
-        }
-    }
-
-    .award-amounts__banner-close-icon {
-        margin: 0;
-        margin-top: rem(8);
-        background-color: unset;
-        svg {
-            width: rem(10);
-            height: rem(10);
-            fill: #5B616B;
-        }
-    }
-
+.award-amounts-viz {
     .award-amounts-viz_insufficient {
         background-color: $color-gray-lightest;
         text-align: center;
@@ -142,41 +91,36 @@
         height: rem(1);
     }
 
-    .award-amounts-viz__line-up::after {
+    %award-amounts-viz__line-indicator {
         content: "";
         position: absolute;
         width: rem(1);
         height: rem(10);
+    }
+
+    .award-amounts-viz__line-up::after {
+        @extend %award-amounts-viz__line-indicator;
         border-left: 1px solid $color-cool-blue-light;
         top: 0px;
         right: -1px;
     }
 
     .award-amounts-viz__line-up::before {
-        content: "";
-        position: absolute;
-        width: rem(1);
-        height: rem(10);
+        @extend %award-amounts-viz__line-indicator;
         border-left: 1px solid $color-cool-blue-light;
         top: 0px;
         left: -1px;
     }
 
     .award-amounts-viz__line::after {
-        content: "";
-        position: absolute;
-        width: rem(1);
-        height: rem(10);
+        @extend %award-amounts-viz__line-indicator;
         border-left: 1px solid $border-light-gray;
         top: -8.5px;
         right: -1px;
     }
 
     .award-amounts-viz__line::before {
-        content: "";
-        position: absolute;
-        width: rem(1);
-        height: rem(10);
+        @extend %award-amounts-viz__line-indicator;
         border-left: 1px solid $border-light-gray;
         top: -8.5px;
         left: -1px;
@@ -251,68 +195,5 @@
                 );
             }
         }
-    }
-    .award-amounts__data-wrapper {
-        margin-top: rem(30);
-    }
-
-    .award-amounts__data-content {
-        @extend %column-less-table__row;
-        border-bottom: 0;
-        &:nth-of-type(1) {
-            border-radius: rem(5) rem(5) 0 0;
-        }
-        &:last-of-type {
-            border-radius: 0 0 rem(5) rem(5);
-            border-bottom: solid rem(1) $border-light-gray;
-        }
-    }
-
-    .award-amounts__data-icon {
-        height: rem(10);
-        width: rem(10);
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: rem(5);
-    }
-
-    .award-amounts__data-icon_blue {
-        background-color: $color-cool-blue-light;
-    }
-
-    .award-amounts__data-icon_gray {
-        background-color: #BBBBBB;
-    }
-
-    .award-amounts__data-icon_transparent {
-        background-color: white;
-        border: rem(2) solid #BBBBBB;
-    }
-
-    .award-amounts__data-icon_overspending {
-        background: repeating-linear-gradient(
-            45deg,
-            $color-white,
-            $color-white rem(5),
-            $color-gold rem(2),
-            $color-gold rem(7)
-        );
-        border: rem(1) solid $color-gold;
-    }
-    .award-amounts__data-icon_extreme-overspending {
-        background: repeating-linear-gradient(
-            45deg,
-            $color-white,
-            $color-white rem(5),
-            $color-secondary rem(2),
-            $color-secondary rem(7)
-        );
-        border: rem(1) solid $color-secondary;
-    }
-
-    .award-amounts__data {
-        @extend %column-less-table__row;
-        margin: rem(40) 0 rem(10) 0;
-        border-radius: rem(5);
     }
 }
