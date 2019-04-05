@@ -161,3 +161,16 @@ export const relatedAwardsInfo = (
         </div>
     </div>
 );
+
+export const awardAmountsOverspendingInfo = (
+    <div>
+        <div className="info-tooltip__title">
+             Exceeds Combined Current Award Amounts
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+               More information coming soon
+            </p>
+        </div>
+    </div>
+);
