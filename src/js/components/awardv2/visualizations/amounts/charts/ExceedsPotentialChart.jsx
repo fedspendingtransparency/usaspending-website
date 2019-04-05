@@ -7,6 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 
+import InfoTooltip from 'components/awardv2/idv/InfoTooltip';
+import { awardAmountsExtremeOverspendingInfo } from 'components/awardv2/idv/InfoTooltipContent';
+
 const propTypes = {
     awardAmounts: PropTypes.object
 };
@@ -57,7 +60,10 @@ export default class ExceedsPotentialChart extends React.Component {
                     </div>
                     <div className="award-amounts-viz__desc">
                         <div className="award-amounts-viz__desc-text">
-                            <strong>{this.props.awardAmounts.extremeOverspendingFormatted}</strong><br />Exceeds Potential Award Amounts
+                            <strong>{this.props.awardAmounts.extremeOverspendingFormatted}</strong><br />
+                            <div className="award-amounts-viz__desc-text-wrapper">
+                                <InfoTooltip>{awardAmountsExtremeOverspendingInfo}</InfoTooltip>Exceeds Potential Award Amounts
+                            </div>
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_extreme-overspending" />
                     </div>
