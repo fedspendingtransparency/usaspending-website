@@ -129,6 +129,7 @@ export class AwardContainer extends React.Component {
         if (!this.state.inFlight) {
             if (this.props.award.category === 'idv' || isV2url) {
                 content = (<Award
+                    awardId={this.props.params.awardId}
                     award={this.props.award}
                     noAward={this.state.noAward} />);
             }

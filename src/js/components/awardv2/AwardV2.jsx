@@ -21,6 +21,7 @@ import Footer from '../sharedComponents/Footer';
 import Error from '../sharedComponents/Error';
 
 const propTypes = {
+    awardId: PropTypes.string,
     award: PropTypes.object,
     noAward: PropTypes.bool
 };
@@ -89,7 +90,7 @@ export default class Award extends React.Component {
             if (overview.category === 'contract') {
                 content = (
                     <ContractContent
-                        awardId={this.props.award.id}
+                        awardId={this.props.awardId}
                         overview={overview}
                         jumpToSection={this.jumpToSection} />
                 );
@@ -97,7 +98,7 @@ export default class Award extends React.Component {
             else if (overview.category === 'idv') {
                 content = (
                     <IdvContent
-                        awardId={this.props.award.id}
+                        awardId={this.props.awardId}
                         overview={overview}
                         counts={this.props.award.counts}
                         jumpToSection={this.jumpToSection} />
@@ -106,7 +107,7 @@ export default class Award extends React.Component {
             else {
                 content = (
                     <FinancialAssistanceContent
-                        awardId={this.props.award.id}
+                        awardId={this.props.awardId}
                         overview={overview}
                         jumpToSection={this.jumpToSection} />
                 );
