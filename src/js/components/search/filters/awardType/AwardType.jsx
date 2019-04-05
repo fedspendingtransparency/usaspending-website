@@ -45,10 +45,9 @@ const awardTypesData = [
     }
 ];
 
-const awardTypeCodesData = {
-    ...awardTypeCodes,
+const awardTypeCodesData = Object.assign(awardTypeCodes, {
     IDV_E: "Blanket Purchase Agreements (BPA)"
-};
+});
 
 const propTypes = {
     awardTypes: PropTypes.arrayOf(PropTypes.object),
