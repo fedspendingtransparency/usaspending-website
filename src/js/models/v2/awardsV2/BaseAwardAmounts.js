@@ -7,7 +7,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const BaseAwardAmounts = {
     populate(data) {
-        this.id = data.award_id || '';
+        this.id = (data.award_id && `${data.award_id}`) || '';
         this.generatedId = data.generated_unique_award_id || '';
         this.idvCount = data.idv_count || 0;
         this.contractCount = data.contract_count || 0;

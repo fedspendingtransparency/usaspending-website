@@ -13,10 +13,10 @@ import AwardsBanner from './AwardsBanner';
 import NormalChart from './charts/NormalChart';
 import ExceedsCurrentChart from './charts/ExceedsCurrentChart';
 import ExceedsPotentialChart from './charts/ExceedsPotentialChart';
-
+import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 
 const propTypes = {
-    awardAmounts: PropTypes.object,
+    awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     jumpToSection: PropTypes.func

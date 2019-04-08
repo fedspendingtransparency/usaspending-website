@@ -4,14 +4,14 @@
  **/
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 
 import InfoTooltip from 'components/awardv2/idv/InfoTooltip';
 import { awardAmountsExtremeOverspendingInfo } from 'components/awardv2/idv/InfoTooltipContent';
+import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../../propTypes';
 
 const propTypes = {
-    awardAmounts: PropTypes.object
+    awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS
 };
 
 export default class ExceedsPotentialChart extends React.Component {

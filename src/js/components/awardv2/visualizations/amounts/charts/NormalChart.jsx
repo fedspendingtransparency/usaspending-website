@@ -4,11 +4,11 @@
  **/
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
+import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../../propTypes';
 
 const propTypes = {
-    awardAmounts: PropTypes.object
+    awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS
 };
 
 export default class NormalChart extends React.Component {
