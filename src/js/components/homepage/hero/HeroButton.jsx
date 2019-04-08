@@ -24,6 +24,8 @@ const HeroButton = () => {
         }
     };
 
+    console.log("ANGLE DOWN: ", AngleDown);
+
     return (
         <div className="hero-button">
             <div className="hero-button__wrapper">
