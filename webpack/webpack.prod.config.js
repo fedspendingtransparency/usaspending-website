@@ -1,4 +1,5 @@
 const merge = require('webpack-merge');
+const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -20,7 +21,20 @@ module.exports = merge(common, {
             }),
             new OptimizeCssAssetsPlugin({})
         ],
+        nodeEnv: "production",
+        namedChunks: false,
+        namedModules: false,
+        flagIncludedChunks: true,
+        occurrenceOrder: true,
+        sideEffects: true,
+        providedExports: true,
+        removeAvailableModules: true,
+        usedExports: true,
+        concatenateModules: true,
+        noEmitOnErrors: true,
+        checkWasmTypes: true,
         runtimeChunk: "single",
+        minimize: true,
         splitChunks: {
             chunks: "all",
             maxInitialRequests: Infinity,
@@ -34,27 +48,15 @@ module.exports = merge(common, {
                     enforce: true
                 }
             }
-        },
-        namedChunks: false,
-        namedModules: false,
-        nodeEnv: 'production',
-        flagIncludedChunks: true,
-        occurrenceOrder: true,
-        sideEffects: true,
-        usedExports: true,
-        concatenateModules: true,
-        noEmitOnErrors: true,
-        checkWasmTypes: true,
-        minimize: true
+        }
     },
     plugins: [
         new BundleAnalyzerPlugin(),
-        new CompressionPlugin({
-            cache: true
+        new webpack.DefinePlugin({
+            "process.env.NODE_ENV": JSON.stringify("production") // indicate to libraries that this is in prod mode (which may affect their behavior for debugging)
         }),
         new MiniCssExtractPlugin({
-            filename: '[contenthash].css'
+            filename: "[contenthash].css"
         })
-        // try using manual minimizer for js
     ]
 });
