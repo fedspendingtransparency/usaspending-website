@@ -6,7 +6,7 @@
 import * as AggregatedAmountsHelper from 'helpers/aggregatedAmountsHelper';
 
 describe('Aggregated Amounts helper functions', () => {
-    describe('determineScenario', () => {
+    describe('determineSpendingScenario', () => {
         it('should return "normal" when obligated amount is less than current and potential', () => {
             const mockAmounts = {
                 _obligation: 50,
@@ -55,6 +55,11 @@ describe('Aggregated Amounts helper functions', () => {
             };
             const mockedScenario = AggregatedAmountsHelper.determineScenario(mockAmounts);
             expect(mockedScenario).toEqual("insufficientData");
+        });
+    });
+    describe('generatePercentage', () => {
+        it('should format the given value as a percentage, rounded to 2 decimal places', () => {
+            expect(AggregatedAmountsHelper.generatePercentage(0.23456)).toEqual('23.46%');
         });
     });
 });

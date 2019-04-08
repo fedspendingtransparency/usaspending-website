@@ -73,8 +73,19 @@
             height: rem(40);
             background-color: #ececec;
             @include display(flex);
-            .award-amountdates__viz-obligated {
+            .award-amounts-viz__obligated {
                 border: solid rem(4) $border-light-gray;
+            }
+            .award-amounts-viz__exceeded {
+                border-top: solid rem(4) $color-gray-lightest;
+                border-bottom: solid rem(4) $color-gray-lightest;
+                background: repeating-linear-gradient(
+                    45deg,
+                    $color-cool-blue-light,
+                    $color-cool-blue-light rem(8),
+                    $color-gold rem(2),
+                    $color-gold rem(10)
+                );
             }
         }
     }
@@ -139,6 +150,20 @@
         left: -1px;
     }
 
+    .award-amounts-viz__desc-top-wrapper {
+        @include display(flex);
+        @include justify-content(space-between);
+        @include align-items(flex-end);
+        padding-bottom: rem(15);
+        .award-amounts-viz__desc-top {
+            margin-bottom: 0;
+            @include flex(1 1 auto);
+        }
+        .award-amounts-viz__desc {
+            text-align: right;
+            @include flex(1 1 auto);
+        }
+    }
 
     .award-amounts-viz__desc-top {
         font-size: $base-font-size;
@@ -164,6 +189,14 @@
             strong {
                 font-size: $lead-font-size;
             }
+            .award-amounts-viz__desc-text-wrapper {
+                @include display(flex);
+                @include justify-content(flex-end);
+                @include align-items(center);
+                .award__info-wrapper {
+                    margin-right: rem(5);
+                }
+            }
         }
         .award-amounts-viz__legend-line {
             @include flex(0 0 rem(5));
@@ -172,6 +205,16 @@
             &.award-amounts-viz__legend-line_potential {
                 border: solid rem(1) $border-gray;
                 background-color: #ececec;
+            }
+            &.award-amounts-viz__legend-line_overspending {
+                border: solid rem(1) $color-gold;
+                background: repeating-linear-gradient(
+                    45deg,
+                    $color-white,
+                    $color-white rem(5),
+                    $color-gold rem(2),
+                    $color-gold rem(7)
+                );
             }
         }
     }
@@ -209,7 +252,18 @@
 
     .award-amounts__data-icon_transparent {
         background-color: white;
-        border: 2px solid #BBBBBB;
+        border: rem(2) solid #BBBBBB;
+    }
+
+    .award-amounts__data-icon_overspending {
+        background: repeating-linear-gradient(
+            45deg,
+            $color-white,
+            $color-white rem(5),
+            $color-gold rem(2),
+            $color-gold rem(7)
+        );
+        border: rem(1) solid $color-gold;
     }
 
     .award-amounts__data {

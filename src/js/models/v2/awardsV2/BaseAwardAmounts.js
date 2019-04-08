@@ -51,14 +51,15 @@ const BaseAwardAmounts = {
         }
         return MoneyFormatter.formatMoney(this._combinedCurrentAwardAmounts);
     },
-    get obligatedPercentage() {
-        return Math.round(Math.abs((this._obligation / this._combinedPotentialAwardAmounts) * 100));
+    get overspending() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._obligation - this._combinedCurrentAwardAmounts, 2);
     },
-    get exercisedPercentage() {
-        return Math.round(Math.abs((this._combinedCurrentAwardAmounts / this._combinedPotentialAwardAmounts) * 100)) - Math.round(Math.abs((this._obligation / this._combinedPotentialAwardAmounts) * 100));
-    },
-    get exercisedLabelPercentage() {
-        return Math.round(Math.abs((this._combinedCurrentAwardAmounts) / this._combinedPotentialAwardAmounts) * 100);
+    get overspendingFormatted() {
+        if (this._obligation - this._combinedCurrentAwardAmounts >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._obligation - this._combinedCurrentAwardAmounts);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._obligation - this._combinedCurrentAwardAmounts) / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._obligation - this._combinedCurrentAwardAmounts);
     }
 };
 

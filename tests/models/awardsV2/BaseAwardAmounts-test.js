@@ -13,7 +13,16 @@ const awardAmountsNeg = Object.create(BaseAwardAmounts);
 const negativeObligation = {
     rollup_total_obligation: -1623321.02
 };
+
+const awardAmountsOverspent = Object.create(BaseAwardAmounts);
+const overspending = {
+    rollup_base_exercised_options_val: 5000000.00,
+    rollup_base_and_all_options_value: 10000000.00,
+    rollup_total_obligation: 7500000.00
+};
+
 awardAmountsNeg.populate(negativeObligation);
+awardAmountsOverspent.populate(overspending);
 
 describe('BaseAwardAmounts', () => {
     it('should have an empty string as a unique generated id if the field is null or undefined', () => {
@@ -40,10 +49,10 @@ describe('BaseAwardAmounts', () => {
     it('should format the combined potential award amounts amounts with units', () => {
         expect(awardAmounts.combinedPotentialAwardAmountsFormatted).toEqual('$107.0 M');
     });
-    it('should calculate the right obligated percentage', () => {
-        expect(awardAmounts.obligatedPercentage).toEqual(2);
+    it('should format the amount overspent', () => {
+        expect(awardAmountsOverspent.overspending).toEqual('$2,500,000.00');
     });
-    it('should calculate the right exercised percentage', () => {
-        expect(awardAmounts.exercisedPercentage).toEqual(7);
+    it('should format the amount overspent with units', () => {
+        expect(awardAmountsOverspent.overspendingFormatted).toEqual('$2.5 M');
     });
 });

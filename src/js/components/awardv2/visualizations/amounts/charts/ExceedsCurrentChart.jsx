@@ -1,31 +1,32 @@
 /**
- * NormalChart.jsx
- * Created by David Trinh 2/15/19
+ * ExceedsCurrentChart.jsx
+ * Created by Lizzie Salita 4/2/19
  **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 
+import InfoTooltip from 'components/awardv2/idv/InfoTooltip';
+import { awardAmountsOverspendingInfo } from 'components/awardv2/idv/InfoTooltipContent';
+
 const propTypes = {
     awardAmounts: PropTypes.object
 };
 
-export default class NormalChart extends React.Component {
+export default class ExceedsCurrentChart extends React.Component {
     render() {
-        // Rename properties to improve readability of the calculations
         const obligation = this.props.awardAmounts._obligation;
         const current = this.props.awardAmounts._combinedCurrentAwardAmounts;
         const potential = this.props.awardAmounts._combinedPotentialAwardAmounts;
 
-        const obligatedBarStyle = {
-            width: generatePercentage(obligation / potential),
+        const currentBarStyle = {
+            width: generatePercentage(current / potential),
             backgroundColor: '#4773aa'
         };
 
-        const currentBarStyle = {
-            width: generatePercentage((current - obligation) / potential),
-            backgroundColor: '#d8d8d8'
+        const overspendingBarStyle = {
+            width: generatePercentage((obligation - current) / potential)
         };
 
         const obligatedLabelStyle = {
@@ -38,16 +39,27 @@ export default class NormalChart extends React.Component {
 
         return (
             <div className="award-amounts-viz">
-                <div className="award-amounts-viz__desc-top">
-                    <strong>{this.props.awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
+                <div className="award-amounts-viz__desc-top-wrapper">
+                    <div className="award-amounts-viz__desc-top">
+                        <strong>{this.props.awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
+                    </div>
+                    <div className="award-amounts-viz__desc">
+                        <div className="award-amounts-viz__desc-text">
+                            <strong>{this.props.awardAmounts.overspendingFormatted}</strong><br />
+                            <div className="award-amounts-viz__desc-text-wrapper">
+                                <InfoTooltip>{awardAmountsOverspendingInfo}</InfoTooltip> Exceeds Combined Current Award Amounts
+                            </div>
+                        </div>
+                        <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_overspending" />
+                    </div>
                 </div>
                 <div className="award-amounts-viz__label" style={obligatedLabelStyle}>
                     <div className="award-amounts-viz__line-up" />
                 </div>
                 <div className="award-amounts-viz__bar-wrapper">
                     <div className="award-amounts-viz__bar">
-                        <div className="award-amounts-viz__obligated" style={obligatedBarStyle} />
-                        <div className="award-amounts-viz__excerised" style={currentBarStyle} />
+                        <div className="award-amounts-viz__obligated" style={currentBarStyle} />
+                        <div className="award-amounts-viz__exceeded" style={overspendingBarStyle} />
                     </div>
                 </div>
                 <div className="award-amounts-viz__label" style={currentLabelStyle}>
@@ -72,4 +84,4 @@ export default class NormalChart extends React.Component {
         );
     }
 }
-NormalChart.propTypes = propTypes;
+ExceedsCurrentChart.propTypes = propTypes;

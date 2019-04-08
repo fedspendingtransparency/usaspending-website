@@ -155,3 +155,25 @@ export const relatedAwardsInfo = (
         </div>
     </div>
 );
+
+export const awardAmountsOverspendingInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Exceeds Combined Current Award Amount
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+            The award orders underneath this IDV have a combined
+            obligated amount that exceeds their combined current award
+            amount. In other words, collectively speaking, the award
+            orders under this IDV have obligated more money than what
+            was made available to spend at this time (their combined
+            current awards amounts).
+            </p>
+            <p>
+            This can occur because of missing data, errors in the
+            data, or violations of procurement policy.
+            </p>
+        </div>
+    </div>
+);
