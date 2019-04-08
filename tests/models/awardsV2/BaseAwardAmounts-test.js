@@ -21,8 +21,16 @@ const overspending = {
     rollup_total_obligation: 7500000.00
 };
 
+const awardAmountsExtremeOverspent = Object.create(BaseAwardAmounts);
+const extremeOverspending = {
+    rollup_base_exercised_options_val: 2500000.00,
+    rollup_base_and_all_options_value: 5000000.00,
+    rollup_total_obligation: 10000000.00
+};
+
 awardAmountsNeg.populate(negativeObligation);
 awardAmountsOverspent.populate(overspending);
+awardAmountsExtremeOverspent.populate(extremeOverspending);
 
 describe('BaseAwardAmounts', () => {
     it('should have an empty string as a unique generated id if the field is null or undefined', () => {
@@ -48,6 +56,18 @@ describe('BaseAwardAmounts', () => {
     });
     it('should format the combined potential award amounts amounts with units', () => {
         expect(awardAmounts.combinedPotentialAwardAmountsFormatted).toEqual('$107.0 M');
+    });
+    it('should format the amount by which obligations exceed the current amounts', () => {
+        expect(awardAmountsOverspent.overspending).toEqual('$2,500,000.00');
+    });
+    it('should format the amount by which obligations exceed the current amounts with units', () => {
+        expect(awardAmountsOverspent.overspendingFormatted).toEqual('$2.5 M');
+    });
+    it('should format the amount by which obligations exceed the potential amounts', () => {
+        expect(awardAmountsExtremeOverspent.extremeOverspending).toEqual('$5,000,000.00');
+    });
+    it('should format the amount by which obligations exceed the potential amounts with units', () => {
+        expect(awardAmountsExtremeOverspent.extremeOverspendingFormatted).toEqual('$5.0 M');
     });
     it('should format the amount overspent', () => {
         expect(awardAmountsOverspent.overspending).toEqual('$2,500,000.00');

@@ -12,10 +12,11 @@ import { Table } from 'components/sharedComponents/icons/Icons';
 import AwardsBanner from './AwardsBanner';
 import NormalChart from './charts/NormalChart';
 import ExceedsCurrentChart from './charts/ExceedsCurrentChart';
-
+import ExceedsPotentialChart from './charts/ExceedsPotentialChart';
+import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 
 const propTypes = {
-    awardAmounts: PropTypes.object,
+    awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     jumpToSection: PropTypes.func
@@ -47,6 +48,15 @@ export default class AggregatedAwardAmounts extends React.Component {
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />Exceeds Combined Current Award Amounts</div>
                         <span>{awardAmounts.overspending}</span>
+                    </div>
+                );
+                break;
+            case ('exceedsPotential'):
+                visualization = (<ExceedsPotentialChart awardAmounts={awardAmounts} />);
+                overspendingRow = (
+                    <div className="award-amounts__data-content">
+                        <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />Exceeds Combined Potential Award Amounts</div>
+                        <span>{awardAmounts.extremeOverspending}</span>
                     </div>
                 );
                 break;

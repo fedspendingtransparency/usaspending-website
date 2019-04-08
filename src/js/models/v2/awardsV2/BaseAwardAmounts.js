@@ -7,7 +7,7 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const BaseAwardAmounts = {
     populate(data) {
-        this.id = data.award_id || '';
+        this.id = (data.award_id && `${data.award_id}`) || '';
         this.generatedId = data.generated_unique_award_id || '';
         this.idvCount = data.idv_count || 0;
         this.contractCount = data.contract_count || 0;
@@ -60,6 +60,16 @@ const BaseAwardAmounts = {
             return `${MoneyFormatter.formatMoneyWithPrecision((this._obligation - this._combinedCurrentAwardAmounts) / units.unit, 1)} ${units.unitLabel}`;
         }
         return MoneyFormatter.formatMoney(this._obligation - this._combinedCurrentAwardAmounts);
+    },
+    get extremeOverspending() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._obligation - this._combinedPotentialAwardAmounts, 2);
+    },
+    get extremeOverspendingFormatted() {
+        if (this._obligation - this._combinedPotentialAwardAmounts >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._obligation - this._combinedPotentialAwardAmounts);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._obligation - this._combinedPotentialAwardAmounts) / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._obligation - this._combinedPotentialAwardAmounts);
     }
 };
 
