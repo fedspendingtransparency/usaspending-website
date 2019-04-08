@@ -1,14 +1,20 @@
-.award-funding-summary {
-    .award-funding-summary__data {
-        @extend %column-less-table__row;
-        margin: 0;
-        &:nth-of-type(2) {
-            border-radius: rem(5) rem(5) 0 0;
-            border-bottom: 0;
+.federal-accounts {
+    .award-funding-summary__table {
+        .award-funding-summary__data {
+            @extend %column-less-table__row;
+            margin: 0;
+            &:first-of-type {
+                border-radius: rem(5) rem(5) 0 0;
+                border-bottom: 0;
+            }
+            &:last-of-type {
+                border-radius: 0 0 rem(5) rem(5);
+                border-top: 0;
+            }
         }
-        &:last-of-type {
-            border-radius: 0 0 rem(5) rem(5);
-            border-top: 0;
-        }
+    }
+    .federal-accounts__section {
+        @extend %coming-soon-idv;
+        height: 200px;
     }
 }

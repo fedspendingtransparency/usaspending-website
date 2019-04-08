@@ -41,6 +41,11 @@ export class AwardMetaDataContainer extends React.Component {
         this.awardMetaDataRequest = fetchAwardFundingSummary(this.props.awardId);
         try {
             const { data } = await this.awardMetaDataRequest.promise;
+            Object.keys(data).forEach((key) => {
+                if (data[key] === 0) {
+                    data[key] = "N/A";
+                }
+            });
             this.setState({
                 totalTransactionObligatedAmount: data.total_transaction_obligated_amount,
                 awardingAgencyCount: data.awarding_agency_count,

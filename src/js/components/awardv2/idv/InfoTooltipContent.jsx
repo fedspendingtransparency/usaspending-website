@@ -3,7 +3,7 @@ import React from 'react';
 // Mapping of section identifier to tooltip content JSX
 
 export const transactionHistoryInfo = (
-    <div>
+    <div className="transaction-history-tt">
         <div className="info-tooltip__title">Transaction History</div>
         <div className="info-tooltip__text">
             <p>
@@ -32,11 +32,11 @@ export const transactionHistoryInfo = (
                 </li>
             </ul>
             <p>
-               Action Type – This column describes the reason behind a
-               modification. It uses a letter code system that maps to
-               the following descriptions:
+                <strong>Action Type</strong> – This column describes the
+               reason behind a modification. It uses a letter code system
+               that maps to the following descriptions:
             </p>
-            <ul className="info-tooltip__text__list">
+            <ul className="info-tooltip__list">
                 <li>
                     <strong>A</strong> – Additional Work
                 </li>
@@ -121,7 +121,7 @@ export const federalAccountFundingInfo = (
 );
 
 export const relatedAwardsInfo = (
-    <div>
+    <div className="related-awards-tt">
         <div className="info-tooltip__title">
              Award Orders Made Under this IDV
         </div>
@@ -135,28 +135,22 @@ export const relatedAwardsInfo = (
                to procure an indefinite amount of goods and services from
                vendors within a specific time frame. For this reason, the
                awards made under the IDV are where the agency&apos;s
-               spending actually occurs, not the IDV itself. The awards
-               under an IDV are sometimes known or referred to as:
+               spending actually occurs, not the IDV itself.
             </p>
-            <ul>
-                <li>
-                    <strong>Task Order</strong>
-                </li>
-                <li>
-                    <strong>Delivery Order</strong>
-                </li>
-                <li>
-                    <strong>Purchase Order</strong>
-                </li>
-                <li>
-                    <strong>Blanket Purchase Agreement (BPA) Calls</strong>
-                </li>
+            <p>
+               The awards under an IDV are sometimes known or referred to
+               as:
+            </p>
+            <ul className="info-tooltip__list">
+                <li>Task Order</li>
+                <li>Delivery Order</li>
+                <li>Purchase Order</li>
+                <li>Blanket Purchase Agreement (BPA) Calls</li>
             </ul>
             <p>
-               Calls The awards under an IDV can also sometimes be yet
-               another IDV. We show both IDV contracts and (non-IDV)
-               contracts made under this IDV in the two tabs below,
-               respectively.
+               The awards under an IDV can also sometimes be yet another
+               IDV. We show both IDV contracts and (non-IDV) contracts
+               made under this IDV in the two tabs below, respectively.
             </p>
         </div>
     </div>
@@ -165,11 +159,20 @@ export const relatedAwardsInfo = (
 export const awardAmountsOverspendingInfo = (
     <div>
         <div className="info-tooltip__title">
-             Exceeds Combined Current Award Amounts
+            Exceeds Combined Current Award Amount
         </div>
         <div className="info-tooltip__text">
             <p>
-               More information coming soon
+            The award orders underneath this IDV have a combined
+            obligated amount that exceeds their combined current award
+            amount. In other words, collectively speaking, the award
+            orders under this IDV have obligated more money than what
+            was made available to spend at this time (their combined
+            current awards amounts).
+            </p>
+            <p>
+            This can occur because of missing data, errors in the
+            data, or violations of procurement policy.
             </p>
         </div>
     </div>

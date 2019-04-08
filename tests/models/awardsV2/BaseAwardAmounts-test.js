@@ -69,4 +69,10 @@ describe('BaseAwardAmounts', () => {
     it('should format the amount by which obligations exceed the potential amounts with units', () => {
         expect(awardAmountsExtremeOverspent.extremeOverspendingFormatted).toEqual('$5.0 M');
     });
+    it('should format the amount overspent', () => {
+        expect(awardAmountsOverspent.overspending).toEqual('$2,500,000.00');
+    });
+    it('should format the amount overspent with units', () => {
+        expect(awardAmountsOverspent.overspendingFormatted).toEqual('$2.5 M');
+    });
 });
