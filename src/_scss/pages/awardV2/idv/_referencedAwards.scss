@@ -10,6 +10,10 @@
             @import 'components/pagination';
             @import './referencedAwardsTable';
             @import '../../search/results/table/tableMessages';
+            overflow-x: scroll;
+            @include media($medium-screen) {
+                overflow-x: auto;
+            }
             .results-table-message-container {
                 position: relative;
                 .loading-animation {

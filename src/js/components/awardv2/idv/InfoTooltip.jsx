@@ -10,7 +10,12 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     children: PropTypes.node,
-    left: PropTypes.bool
+    left: PropTypes.bool,
+    wide: PropTypes.bool
+};
+
+const defaultProps = {
+    wide: false
 };
 
 export default class InfoTooltip extends React.Component {
@@ -53,14 +58,20 @@ export default class InfoTooltip extends React.Component {
     measureOffset() {
         const targetElement = this.referenceDiv;
         const offsetTop = targetElement.offsetTop - 15;
-        const tooltipWidth = 375;
+        let tooltipWidth = 375;
+        if (this.props.wide) {
+            tooltipWidth = (window.innerWidth - targetElement.offsetLeft > 700)
+                ? 700
+                : window.innerWidth - targetElement.offsetLeft - 100;
+        }
         let offsetRight = window.innerWidth - targetElement.offsetLeft - targetElement.clientWidth - tooltipWidth - 30;
         if (this.props.left) {
-            offsetRight = (window.innerWidth - targetElement.offsetLeft - 25) + targetElement.clientWidth;
+            offsetRight = (window.innerWidth - targetElement.offsetLeft) + targetElement.clientWidth;
         }
         this.setState({
             offsetTop,
-            offsetRight
+            offsetRight,
+            width: tooltipWidth
         });
     }
 
@@ -68,7 +79,8 @@ export default class InfoTooltip extends React.Component {
         let tooltip = null;
         const style = {
             top: this.state.offsetTop,
-            right: this.state.offsetRight
+            right: this.state.offsetRight,
+            width: this.state.width
         };
         if (this.state.showInfoTooltip) {
             tooltip = (
@@ -80,7 +92,10 @@ export default class InfoTooltip extends React.Component {
                         id="info-tooltip"
                         role="tooltip">
                         <div className="info-tooltip__interior">
-                            <div className={`tooltip-pointer ${this.props.left ? 'right' : ''}`} />
+                            <div
+                                className={`tooltip-pointer ${
+                                    this.props.left ? "right" : ""
+                                }`} />
                             <div className="info-tooltip__content">
                                 <div className="info-tooltip__message">
                                     {this.props.children}
@@ -93,18 +108,22 @@ export default class InfoTooltip extends React.Component {
         }
         return (
             <div className="award__info-wrapper">
-                <div ref={(div) => {
-                    this.referenceDiv = div;
-                }}>
-                    <button
+                <div
+                    ref={(div) => {
+                        this.referenceDiv = div;
+                    }}>
+                    <div
+                        role="button"
+                        tabIndex="0"
                         onBlur={this.closeTooltip}
                         className="award__icon"
                         onFocus={this.showTooltip}
+                        onKeyPress={this.showTooltip}
                         onMouseEnter={this.showTooltip}
                         onMouseLeave={this.closeTooltip}
                         onClick={this.showTooltip}>
                         <InfoCircle alt="Information" />
-                    </button>
+                    </div>
                     {tooltip}
                 </div>
             </div>
@@ -112,4 +131,5 @@ export default class InfoTooltip extends React.Component {
     }
 }
 
+InfoTooltip.defaultProps = defaultProps;
 InfoTooltip.propTypes = propTypes;

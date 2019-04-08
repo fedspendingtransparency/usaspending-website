@@ -9,7 +9,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
+import Router from 'containers/router/Router';
 import Award from 'components/awardv2/AwardV2';
+import AwardV1Container from 'containers/award/AwardContainer';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
@@ -122,13 +124,20 @@ export class AwardContainer extends React.Component {
     }
 
     render() {
-        return (
-            <Award
-                award={this.props.award}
-                awardId={this.props.params.awardId}
-                inFlight={this.state.inFlight}
-                noAward={this.state.noAward} />
-        );
+        const isV2url = Router.history.location.pathname.includes('award_v2');
+        let content = null;
+        if (!this.state.inFlight) {
+            if (this.props.award.category === 'idv' || isV2url) {
+                content = (<Award
+                    awardId={this.props.params.awardId}
+                    award={this.props.award}
+                    noAward={this.state.noAward} />);
+            }
+            else {
+                content = (<AwardV1Container awardId={this.props.params.awardId} />);
+            }
+        }
+        return content;
     }
 }
 

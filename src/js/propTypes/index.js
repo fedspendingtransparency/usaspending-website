@@ -18,3 +18,9 @@ export const AWARD_V2_OVERVIEW_PROPS = PropTypes.shape({
     parentAward: PropTypes.string,
     parentId: PropTypes.string
 });
+
+export const AWARD_V2_COUNTS_PROPS = PropTypes.shape({
+    contracts: PropTypes.number,
+    idvs: PropTypes.number,
+    total: PropTypes.number
+});

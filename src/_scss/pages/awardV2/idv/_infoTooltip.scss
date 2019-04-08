@@ -1,4 +1,4 @@
-.award__info-wrapper{
+.award__info-wrapper {
     .info-tooltip-spacer {
         display: none;
         @include media($medium-screen) {
@@ -7,8 +7,14 @@
             z-index: 9;
         }
     }
+    .award__icon {
+        &:hover {
+            svg {
+                fill: $color-gray;
+            }
+        }
+    }
     .info-tooltip {
-        width: rem(375);
         .info-tooltip__interior {
             position: relative;
             // inherit from the standard tooltip arrow style
@@ -32,7 +38,7 @@
                 background-color: $color-white;
                 border: solid rem(1) $color-gray-light;
                 .info-tooltip__message {
-                    @include flex(1 1 auto);
+                    width: 100%;
                     text-align: left;
                     font-size: $small-font-size;
                     .info-tooltip__title {
@@ -48,6 +54,27 @@
                             margin: 0;
                             padding-left: 0;
                             list-style-type: none;
+                        }
+                        .info-tooltip__list {
+                            display: flex;
+                            flex-wrap: wrap;
+                            flex-direction: column;
+                            li {
+                                margin: 0;
+                                margin-right: rem(5);
+                                padding: 0;
+                            }
+                        }
+                    }
+                    .related-awards-tt {
+                        p:nth-of-type(2) {
+                            padding-bottom:0;
+                            margin-bottom: 0;
+                        }
+                    }
+                    .transaction-history-tt {
+                        p:nth-of-type(3) {
+                            margin-bottom: 0;
                         }
                     }
                 }

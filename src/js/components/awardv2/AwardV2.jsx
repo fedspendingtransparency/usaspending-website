@@ -21,10 +21,9 @@ import Footer from '../sharedComponents/Footer';
 import Error from '../sharedComponents/Error';
 
 const propTypes = {
-    award: PropTypes.object,
     awardId: PropTypes.string,
-    noAward: PropTypes.bool,
-    inFlight: PropTypes.bool
+    award: PropTypes.object,
+    noAward: PropTypes.bool
 };
 
 const awardSections = [
@@ -35,6 +34,10 @@ const awardSections = [
     {
         section: 'additional-information',
         label: 'Additional Information'
+    },
+    {
+        section: 'referenced-awards',
+        label: 'Referenced Awards'
     }
 ];
 
@@ -97,6 +100,7 @@ export default class Award extends React.Component {
                     <IdvContent
                         awardId={this.props.awardId}
                         overview={overview}
+                        counts={this.props.award.counts}
                         jumpToSection={this.jumpToSection} />
                 );
             }

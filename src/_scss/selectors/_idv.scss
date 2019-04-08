@@ -1,0 +1,34 @@
+%column-less-table__row {
+    border: 1px #d5d6d8 solid;
+    padding: rem(8);
+    font-size: rem(16);
+    display: flex;
+    justify-content: space-between;
+    color: #525252;
+}
+
+%coming-soon-idv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $color-gray-lightest;
+    padding: rem(24) rem(24) rem(36) rem(36);
+    div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        h4 {
+            font-weight: $font-semibold;
+            font-size: $h6-font-size;
+            line-height: 3rem;
+            color: $color-gray-dark;
+            margin-bottom: 0;
+     
+        }
+        p {
+            margin-top: 0;
+            text-align: center;
+        }
+    }
+}

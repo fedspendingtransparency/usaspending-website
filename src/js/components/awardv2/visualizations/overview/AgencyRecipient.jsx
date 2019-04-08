@@ -15,6 +15,14 @@ const propTypes = {
 };
 
 export default class AgencyRecipient extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.jumpToAdditionalInfo = this.jumpToAdditionalInfo.bind(this);
+    }
+    jumpToAdditionalInfo() {
+        this.props.jumpToSection('additional-information');
+    }
     render() {
         let additionalInfoLink = null;
         if (this.props.category === 'contract' || this.props.category === 'idv') {
@@ -22,7 +30,7 @@ export default class AgencyRecipient extends React.Component {
                 <div>
                     <button
                         className="agency-recipient__awarding-info"
-                        onClick={() => this.props.jumpToSection('additional-information')}>
+                        onClick={this.jumpToAdditionalInfo}>
                         <span className="agency-recipient__awarding-icon">
                             <Icons.ArrowDown />
                         </span>

@@ -61,7 +61,7 @@ const routes = {
             parent: '/award',
             component: (cb) => {
                 require.ensure([], (require) => {
-                    cb(require('containers/award/AwardContainer').default);
+                    cb(require('containers/awardV2/AwardV2Container').default);
                 });
             }
         },

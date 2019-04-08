@@ -7,13 +7,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
+import InfoTooltip from 'components/awardv2/idv/InfoTooltip';
 
 const propTypes = {
     label: PropTypes.string,
     internal: PropTypes.string,
     active: PropTypes.bool,
     enabled: PropTypes.bool,
-    clickTab: PropTypes.func
+    clickTab: PropTypes.func,
+    tooltipContent: PropTypes.node,
+    tooltipProps: PropTypes.shape({ wide: PropTypes.bool })
 };
 
 export default class DetailsTabItem extends React.Component {
@@ -45,6 +48,13 @@ export default class DetailsTabItem extends React.Component {
             status = '';
             disabledStatus = false;
         }
+        let infoTooltip = null;
+        if (this.props.tooltipContent) {
+            infoTooltip = (
+                <InfoTooltip {...this.props.tooltipProps}>
+                    {this.props.tooltipContent}
+                </InfoTooltip>);
+        }
 
         return (
             <button
@@ -54,6 +64,7 @@ export default class DetailsTabItem extends React.Component {
                 disabled={disabledStatus}>
                 {this.props.label}
                 {comingSoon}
+                {infoTooltip}
             </button>
         );
     }

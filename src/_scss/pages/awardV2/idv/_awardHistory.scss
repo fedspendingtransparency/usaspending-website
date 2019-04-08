@@ -2,16 +2,4 @@
     padding: rem(40) 0 rem(60);
     width: 100%; 
     @import "./table/_tablesSection";
-
-    .award-history__icon {
-        svg {
-            width: rem(16);
-            height: rem(16);
-            fill: $color-base;
-        }
-    }
-    .award-history__title {
-        font-weight: $font-semibold;
-        font-size: rem(18);
-    }
 }
