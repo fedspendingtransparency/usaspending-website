@@ -1,4 +1,5 @@
 const merge = require('webpack-merge');
+const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CompressionPlugin = require('compression-webpack-plugin');
@@ -28,8 +29,7 @@ module.exports = merge(common, {
         runtimeChunk: "single",
         splitChunks: {
             chunks: "all",
-            maxInitialRequests: Infinity,
-            minSize: 0,
+            maxInitialRequests: Infinity, // default is 3
             cacheGroups: {
                 styles: {
                     // all css in one file
@@ -37,6 +37,11 @@ module.exports = merge(common, {
                     test: /\.css$/,
                     chunks: "all",
                     enforce: true
+                },
+                default: {
+                    minChunks: 2,
+                    priority: -20,
+                    reuseExistingChunk: true
                 }
             }
         }
@@ -44,7 +49,13 @@ module.exports = merge(common, {
     plugins: [
         new BundleAnalyzerPlugin(),
         new MiniCssExtractPlugin({
-            filename: "[contenthash].css"
+            filename: "[name].css"
+        }),
+        new webpack.optimize.MinChunkSizePlugin({
+            minChunkSize: 750000
+        }),
+        new webpack.debug.ProfilingPlugin({
+            outputPath: "bundleProfile.json"
         })
     ]
 });
