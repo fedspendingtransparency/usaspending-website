@@ -11,6 +11,14 @@ const common = require('./webpack.common');
 module.exports = merge(common, {
     mode: "production",
     devtool: "source-map",
+    stats: {
+        assets: true,
+        chunks: true,
+        builtAt: true,
+        cached: true,
+        version: true,
+        warnings: true
+    },
     // https://webpack.js.org/plugins/mini-css-extract-plugin/#minimizing-for-production
     optimization: {
         minimizer: [
@@ -32,7 +40,7 @@ module.exports = merge(common, {
             maxInitialRequests: Infinity, // default is 3
             cacheGroups: {
                 styles: {
-                    // all css in one file
+                    // all css in one file -- https://github.com/webpack-contrib/mini-css-extract-plugin
                     name: "styles",
                     test: /\.css$/,
                     chunks: "all",
@@ -49,7 +57,7 @@ module.exports = merge(common, {
     plugins: [
         new BundleAnalyzerPlugin(),
         new MiniCssExtractPlugin({
-            filename: "[name].css"
+            filename: "[name].[contenthash].css"
         }),
         new webpack.optimize.MinChunkSizePlugin({
             minChunkSize: 750000
