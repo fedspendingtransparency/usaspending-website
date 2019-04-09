@@ -10,40 +10,38 @@ import { awardTypeGroups, awardTypeCodes } from 'dataMapping/search/awardType';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
-const defaultProps = {
-    awardTypes: [
-        {
-            id: 'award-contracts',
-            name: 'Contracts',
-            filters: awardTypeGroups.contracts
-        },
-        {
-            id: 'indefinite-delivery-vehicle',
-            name: 'Contract IDVs',
-            filters: awardTypeGroups.idvs
-        },
-        {
-            id: 'award-grants',
-            name: 'Grants',
-            filters: awardTypeGroups.grants
-        },
-        {
-            id: 'award-direct-payments',
-            name: 'Direct Payments',
-            filters: awardTypeGroups.direct_payments
-        },
-        {
-            id: 'award-loans',
-            name: 'Loans',
-            filters: awardTypeGroups.loans
-        },
-        {
-            id: 'award-other',
-            name: 'Other',
-            filters: awardTypeGroups.other
-        }
-    ]
-};
+const awardTypesData = [
+    {
+        id: 'award-contracts',
+        name: 'Contracts',
+        filters: awardTypeGroups.contracts
+    },
+    {
+        id: 'indefinite-delivery-vehicle',
+        name: 'Contract IDVs',
+        filters: awardTypeGroups.idvs
+    },
+    {
+        id: 'award-grants',
+        name: 'Grants',
+        filters: awardTypeGroups.grants
+    },
+    {
+        id: 'award-direct-payments',
+        name: 'Direct Payments',
+        filters: awardTypeGroups.direct_payments
+    },
+    {
+        id: 'award-loans',
+        name: 'Loans',
+        filters: awardTypeGroups.loans
+    },
+    {
+        id: 'award-other',
+        name: 'Other',
+        filters: awardTypeGroups.other
+    }
+];
 
 const propTypes = {
     awardTypes: PropTypes.arrayOf(PropTypes.object),
@@ -61,16 +59,16 @@ export default class AwardType extends React.Component {
         }
     }
     render() {
-        const awardTypes = (
-            this.props.awardTypes.map((type, index) =>
-                (<PrimaryCheckboxType
+        const awardTypes = awardTypesData
+            .map((type, index) => (
+                <PrimaryCheckboxType
                     {...type}
                     {...this.props}
                     key={index}
                     types={awardTypeCodes}
                     filterType="Award"
                     selectedCheckboxes={this.props.awardType}
-                    bulkTypeChange={this.props.bulkTypeChange} />)
+                    bulkTypeChange={this.props.bulkTypeChange} />
             ));
 
         return (
@@ -88,5 +86,4 @@ export default class AwardType extends React.Component {
         );
     }
 }
-AwardType.defaultProps = defaultProps;
 AwardType.propTypes = propTypes;

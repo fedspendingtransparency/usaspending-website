@@ -5,7 +5,7 @@
 
 export const longTypeDescriptionsByAwardTypes = {
     IDV_A: "Government Wide Acquisition Contract",
-    IDV_B: "Multi-Agency Contract, Other Indefinite Delivery Contract",
+    IDV_B: "Indefinite Delivery Contract",
     IDV_B_A: "Indefinite Delivery Contract / Requirements",
     IDV_B_B: "Indefinite Delivery Contract / Indefinite Quantity",
     IDV_B_C: "Indefinite Delivery Contract / Definite Quantity",
