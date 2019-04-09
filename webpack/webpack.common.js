@@ -3,14 +3,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 
 module.exports = {
     entry: {
         app: "./index.js"
     },
     output: {
-        filename: "[name].[contenthash].bundle.js"
+    // https://webpack.js.org/guides/caching/
+        filename: "[name].[contenthash].js"
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
@@ -85,10 +85,8 @@ module.exports = {
             chunksSortMode: "none"
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].[hash].css"
+            filename: "[name].[contenthash].css"
         }),
-        new ProgressBarPlugin(),
         new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
     // new GitHashPlugin()
     ]
