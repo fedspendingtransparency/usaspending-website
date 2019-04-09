@@ -43,10 +43,6 @@ const awardTypesData = [
     }
 ];
 
-const awardTypeCodesData = Object.assign(awardTypeCodes, {
-    IDV_E: "Blanket Purchase Agreements (BPA)"
-});
-
 const propTypes = {
     awardTypes: PropTypes.arrayOf(PropTypes.object),
     awardType: PropTypes.object,
@@ -69,7 +65,7 @@ export default class AwardType extends React.Component {
                     {...type}
                     {...this.props}
                     key={index}
-                    types={awardTypeCodesData}
+                    types={awardTypeCodes}
                     filterType="Award"
                     selectedCheckboxes={this.props.awardType}
                     bulkTypeChange={this.props.bulkTypeChange} />
