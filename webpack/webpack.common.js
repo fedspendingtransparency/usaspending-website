@@ -3,14 +3,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const ProgressBarPlugin = require("progress-bar-webpack-plugin");
 
 module.exports = {
     entry: {
         app: "./index.js"
     },
     output: {
-        filename: "[name].[contenthash].bundle.js",
-        chunkFilename: "[name].[chunkhash].chunk.js"
+        filename: "[name].[contenthash].bundle.js"
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
@@ -27,9 +27,6 @@ module.exports = {
                 }
             }
         }
-    },
-    stats: {
-        colors: true
     },
     module: {
         noParse: /(mapbox-gl)\.js$/,
@@ -79,7 +76,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(["dist", "cache"], {
+        new CleanWebpackPlugin(["dist"], {
             root: path.resolve(__dirname, "../")
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -91,6 +88,7 @@ module.exports = {
             filename: "[name].css",
             chunkFilename: "[id].[hash].css"
         }),
+        new ProgressBarPlugin(),
         new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
     // new GitHashPlugin()
     ]
