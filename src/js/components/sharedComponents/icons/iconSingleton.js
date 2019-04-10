@@ -15,7 +15,7 @@ export class IconSingleton {
         this.svgRequested = false;
 
         this.notificationName = 'usa-da-icons.loaded';
-        this.svgPath = 'graphics/icons.svg';
+        this.svgPath = 'img/icons.svg';
     }
 
     downloadIcons() {

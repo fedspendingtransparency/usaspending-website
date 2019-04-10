@@ -9,8 +9,8 @@
         "test": "./node_modules/.bin/jest; exit 0;",
         "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
         "errors": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
-        "dev": "webpack --config ./webpack/webpack.dev.config.js",
-        "prod": "webpack --config ./webpack/webpack.prod.config.js",
+        "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
+        "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
         "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;",
         "sass": "./node_modules/.bin/webpack-dev-server --progress --config ./webpack/webpack.dev.sass.config.js"
     },
@@ -22,7 +22,6 @@
         "@babel/preset-env": "^7.4.2",
         "@babel/preset-react": "^7.0.0",
         "clean-webpack-plugin": "^0.1.16",
-        "compression-webpack-plugin": "^2.0.0",
         "css-loader": "^0.28.4",
         "enzyme": "^3.9.0",
         "enzyme-adapter-react-16": "^1.11.2",
@@ -48,8 +47,7 @@
         "webpack-bundle-analyzer": "^2.8.2",
         "webpack-cli": "^3.2.3",
         "webpack-dev-server": "^3.2.1",
-        "webpack-merge": "^4.1.0",
-        "webpack-parallel-uglify-plugin": "^0.4.2"
+        "webpack-merge": "^4.1.0"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.15",

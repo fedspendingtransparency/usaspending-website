@@ -9,8 +9,8 @@ module.exports = {
         app: "./index.js"
     },
     output: {
-        filename: "[name].[contenthash].bundle.js",
-        chunkFilename: "[name].[chunkhash].chunk.js"
+    // https://webpack.js.org/guides/caching/
+        filename: "[name].[contenthash].js"
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
@@ -27,9 +27,6 @@ module.exports = {
                 }
             }
         }
-    },
-    stats: {
-        colors: true
     },
     module: {
         noParse: /(mapbox-gl)\.js$/,
@@ -79,7 +76,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(["dist", "cache"], {
+        new CleanWebpackPlugin(["dist"], {
             root: path.resolve(__dirname, "../")
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
@@ -88,8 +85,7 @@ module.exports = {
             chunksSortMode: "none"
         }),
         new MiniCssExtractPlugin({
-            filename: "[name].css",
-            chunkFilename: "[id].[hash].css"
+            filename: "[name].[contenthash].css"
         }),
         new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
     // new GitHashPlugin()

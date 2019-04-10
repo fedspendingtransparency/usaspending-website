@@ -6,8 +6,6 @@
 import React from 'react';
 import Analytics from 'helpers/analytics/Analytics';
 
-import spendingExplorerSrc from "../../../../img/homepage-spending-explorer.png";
-
 const clickedHomepageLink = (route) => {
     Analytics.event({
         category: 'Homepage - Link',
@@ -21,8 +19,8 @@ const SpendingExplorerFeature = () => (
             <div className="feature-spending-explorer__image-wrapper feature-spending-explorer__image-wrapper_desktop">
                 <img
                     className="feature-spending-explorer__image"
-                    src={spendingExplorerSrc}
-                    srcSet={`${spendingExplorerSrc} 1x ${spendingExplorerSrc} 2x`}
+                    src="img/homepage-spending-explorer.png"
+                    srcSet="img/homepage-spending-explorer.png 1x, img/homepage-spending-explorer@2x.png 2x"
                     alt="Screenshot of the Spending Explorer" />
             </div>
             <div className="feature-spending-explorer__content">
@@ -34,8 +32,8 @@ const SpendingExplorerFeature = () => (
                 <div className="feature-spending-explorer__image-wrapper feature-spending-explorer__image-wrapper_mobile">
                     <img
                         className="feature-spending-explorer__image"
-                        src={spendingExplorerSrc}
-                        srcSet={`${spendingExplorerSrc} 1x ${spendingExplorerSrc} 2x`}
+                        src="img/homepage-spending-explorer.png"
+                        srcSet="img/homepage-spending-explorer.png 1x, img/homepage-spending-explorer@2x.png 2x"
                         alt="Screenshot of the Spending Explorer" />
                 </div>
                 <div className="homepage-feature-description">
