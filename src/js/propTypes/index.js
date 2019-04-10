@@ -24,3 +24,13 @@ export const AWARD_V2_COUNTS_PROPS = PropTypes.shape({
     idvs: PropTypes.number,
     total: PropTypes.number
 });
+
+export const AWARD_V2_AGGREGATED_AMOUNTS_PROPS = PropTypes.shape({
+    id: PropTypes.string,
+    generatedId: PropTypes.string,
+    idvCount: PropTypes.number,
+    contractCount: PropTypes.number,
+    _combinedPotentialAwardAmounts: PropTypes.number,
+    _obligation: PropTypes.number,
+    _combinedCurrentAwardAmounts: PropTypes.number
+});

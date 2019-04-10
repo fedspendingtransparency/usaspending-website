@@ -38,6 +38,8 @@ const defaultProps = {
     restrictChildren: false
 };
 
+// sub-filters hidden from the user, but  passed to the API when the parent filter is selected
+const excludedSubFilters = ["IDV_B"];
 export default class PrimaryCheckboxType extends React.Component {
     static logPrimaryTypeFilterEvent(type, filter) {
         Analytics.event({
@@ -162,13 +164,16 @@ export default class PrimaryCheckboxType extends React.Component {
         let secondaryTypes = null;
 
         if (this.state.showSubItems) {
-            secondaryTypes = this.props.filters.map((code) =>
-                (<SecondaryCheckboxType
-                    {...this.props}
-                    code={code}
-                    name={this.props.types[code]}
-                    key={`${this.props.id} - ${code}`}
-                    id={`secondary-checkbox-${uniqueId()}`} />));
+            secondaryTypes = this.props.filters
+                .filter((subFilter) => !excludedSubFilters.includes(subFilter))
+                .map((code) => (
+                    <SecondaryCheckboxType
+                        {...this.props}
+                        code={code}
+                        name={this.props.types[code]}
+                        key={`${this.props.id} - ${code}`}
+                        id={`secondary-checkbox-${uniqueId()}`} />
+                ));
         }
 
         if (this.props.filters.length === 0) {

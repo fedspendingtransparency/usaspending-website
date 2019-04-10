@@ -22,7 +22,7 @@ export const awardTypeCodes = {
     'IDV_B_C': 'IDC Indefinite Delivery Contract / Definite Quantity',
     'IDV_C': 'Federal Supply Schedule (FSS)',
     'IDV_D': 'Basic Ordering Agreement (BOA)',
-    'IDV_E': 'Blanket Purchase Agreements (BPA) Calls',
+    'IDV_E': 'Blanket Purchase Agreements (BPA)',
     '02': 'Block Grant',
     '03': 'Formula Grant',
     '04': 'Project Grant',

@@ -58,14 +58,8 @@ export class AwardAmountsContainer extends React.Component {
         this.awardRequest = IdvHelper.fetchAwardAmounts(id);
 
         this.awardRequest.promise
-            .then((results) => {
-                const awardData = results.data;
-
-                this.parseAward(awardData);
-
-                this.setState({
-                    inFlight: false
-                });
+            .then((res) => {
+                this.parseAward(res.data);
 
                 // operation has resolved
                 this.awardRequest = null;
@@ -78,7 +72,8 @@ export class AwardAmountsContainer extends React.Component {
                 else if (error.response) {
                     this.awardRequest = null;
                     this.setState({
-                        error: true
+                        error: true,
+                        inFlight: false
                     });
                 }
                 else {
@@ -90,13 +85,12 @@ export class AwardAmountsContainer extends React.Component {
     }
 
     parseAward(data) {
-        this.setState({
-            error: false
-        });
         const awardAmounts = Object.create(BaseAwardAmounts);
         awardAmounts.populate(data);
         this.setState({
-            awardAmounts
+            awardAmounts,
+            error: false,
+            inFlight: false
         });
 
         // Store the counts in Redux for use in the referenced awards table
@@ -113,7 +107,6 @@ export class AwardAmountsContainer extends React.Component {
             <div>
                 <AggregatedAwardAmounts
                     {...this.state}
-                    loading={this.state.inFlight}
                     jumpToSection={this.props.jumpToSection} />
             </div>
         );
