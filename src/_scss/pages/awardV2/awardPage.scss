@@ -68,11 +68,9 @@
             .award__row {
                 @include display(flex);
                 @include flex-wrap(wrap);
-                @include justify-content(space-between);
-                @include align-items(flex-start);
                 padding: rem(40) 0 rem(60);
                 @include media($medium-screen) {
-                    @include flex-wrap(nowrap);
+                    @include flex-wrap(nowrap)
                 }
                 .award__col {
                     @include flex(1 1 auto);
@@ -94,10 +92,24 @@
                             padding-top: 0;
                         }
                     }
+                    @include media($tablet-screen) {
+                        // forces content to go to single column layout 
+                        min-width: 450px;
+                    }
+                    .award__col__content {
+                        height: 100%;
+                        @include display(flex);
+                        @include flex-direction(column);
+                        h4 {
+                            font-size: rem(16px);
+                            font-weight: $font-semibold;
+                        }
+                    }
                 }
 
                 hr {
                     opacity: 0.5;
+                    width: 100%;
                 }
             }
             @import "./visualizations/awardViz";
