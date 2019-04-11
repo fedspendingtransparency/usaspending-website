@@ -87,6 +87,6 @@ export const awardTypeGroupLabels = {
 };
 
 export const subawardTypeGroups = {
-    subcontracts: awardTypeGroups.contracts,
+    subcontracts: awardTypeGroups.contracts.concat(awardTypeGroups.idvs),
     subgrants: awardTypeGroups.grants
 };
