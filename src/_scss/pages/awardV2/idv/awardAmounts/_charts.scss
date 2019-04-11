@@ -1,5 +1,5 @@
 .award-amounts-viz {
-    .award-amounts-viz_insufficient {
+    &.award-amounts-viz_insufficient {
         background-color: $color-gray-lightest;
         text-align: center;
         padding: rem(100) rem(15);
