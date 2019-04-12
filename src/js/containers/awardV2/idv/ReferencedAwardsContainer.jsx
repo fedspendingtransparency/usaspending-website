@@ -19,13 +19,18 @@ const propTypes = {
 
 const tableTypes = [
     {
-        label: 'Contract IDVs',
-        internal: 'idvs',
+        label: 'Child Awards',
+        internal: 'child_awards',
         enabled: true
     },
     {
-        label: 'Contracts',
-        internal: 'contracts',
+        label: 'Child IDVs',
+        internal: 'child_idvs',
+        enabled: true
+    },
+    {
+        label: 'Grandchild Awards',
+        internal: 'grandchild_awards',
         enabled: true
     }
 ];
@@ -36,18 +41,21 @@ export class ReferencedAwardsContainer extends React.Component {
 
         this.state = {
             limit: 10,
-            tableType: 'idvs',
+            tableType: 'child_idvs',
             sort: {
-                idvs: 'period_of_performance_start_date',
-                contracts: 'period_of_performance_start_date'
+                child_idvs: 'period_of_performance_start_date',
+                child_awards: 'period_of_performance_start_date',
+                grandchild_awards: 'period_of_performance_start_date'
             },
             page: {
-                idvs: 1,
-                contracts: 1
+                child_idvs: 1,
+                child_awards: 1,
+                grandchild_awards: 1
             },
             order: {
-                idvs: 'desc',
-                contracts: 'desc'
+                child_idvs: 'desc',
+                child_awards: 'desc',
+                grandchild_awards: 'desc'
             },
             tableTypes,
             inFlight: true,
@@ -85,7 +93,7 @@ export class ReferencedAwardsContainer extends React.Component {
 
         const params = {
             award_id: this.props.award.id,
-            idv: this.state.tableType === 'idvs',
+            type: this.state.tableType,
             limit: this.state.limit,
             page: page[tableType],
             sort: sort[tableType],
@@ -114,9 +122,9 @@ export class ReferencedAwardsContainer extends React.Component {
     }
 
     pickDefaultTab() {
-        const counts = this.props.award.counts;
-        if (counts.idvs === 0 && counts.contracts !== 0) {
-            this.switchTab('contracts');
+        const { counts } = this.props.award;
+        if (counts.child_idvs === 0 && counts.child_awards !== 0) {
+            this.switchTab('child_awards');
         }
         else {
             this.loadResults();

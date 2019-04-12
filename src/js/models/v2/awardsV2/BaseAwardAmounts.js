@@ -9,8 +9,9 @@ const BaseAwardAmounts = {
     populate(data) {
         this.id = (data.award_id && `${data.award_id}`) || '';
         this.generatedId = data.generated_unique_award_id || '';
-        this.idvCount = data.idv_count || 0;
-        this.contractCount = data.contract_count || 0;
+        this.childIDVCount = data.child_idv_count || 0;
+        this.childAwardCount = data.child_award_count || 0;
+        this.grandchildAwardCount = data.grandchild_award_count || 0;
         this._combinedPotentialAwardAmounts = parseFloat(data.rollup_base_and_all_options_value) || 0;
         this._obligation = parseFloat(data.rollup_total_obligation) || 0;
         this._combinedCurrentAwardAmounts = parseFloat(data.rollup_base_exercised_options_val) || 0;

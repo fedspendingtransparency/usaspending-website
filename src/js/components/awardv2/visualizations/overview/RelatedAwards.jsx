@@ -24,6 +24,30 @@ export default class RelatedAwards extends React.Component {
     jumpToReferencedAwardsTable() {
         this.props.jumpToSection('referenced-awards');
     }
+
+    pluralizeTitle(count, title) {
+        return `${count} ${title} ${count === 1 ? 'Order' : 'Orders'}`;
+    }
+
+    referencedCount() {
+        const { counts } = this.props;
+        if (!counts) return null;
+
+        return (
+            <div>
+                <div className="related-awards__label related-awards__label_count">
+                    {this.pluralizeTitle(counts.child_award_counts, 'Child Award')}
+                </div>
+                <div className="related-awards__label related-awards__label_count">
+                    {this.pluralizeTitle(counts.child_idv_counts, 'Child IDV')}
+                </div>
+                <div className="related-awards__label related-awards__label_count">
+                    {this.pluralizeTitle(counts.grandchild_award_counts, 'Grandchild Award')}
+                </div>
+            </div>
+        );
+    }
+
     render() {
         let parentLink = 'N/A';
         if (this.props.overview.parentAward && this.props.overview.parentId) {
@@ -35,14 +59,7 @@ export default class RelatedAwards extends React.Component {
                 </a>
             );
         }
-        let referencedCount = null;
-        if (this.props.counts) {
-            referencedCount = (
-                <div className="related-awards__label related-awards__label_count">
-                    {this.props.counts.total} Awards Reference this IDV
-                </div>
-            );
-        }
+
         return (
             <div className="award-viz related-awards">
                 <div className="award-overview__title related-awards__title">
@@ -72,7 +89,7 @@ export default class RelatedAwards extends React.Component {
                     </div>
                     {parentLink}
                 </div>
-                {referencedCount}
+                {this.referencedCount()}
                 <button
                     onClick={this.jumpToReferencedAwardsTable}
                     className="award-viz__button">

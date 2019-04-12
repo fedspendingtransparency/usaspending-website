@@ -74,8 +74,13 @@ export default class AggregatedAwardAmounts extends React.Component {
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
                 {visualization}
-                <div className="award-amounts__data">
-                    <span>Awards Under this IDV</span><span>{awardAmounts.idvCount + awardAmounts.contractCount}</span>
+                <div className="award-amounts-children__data-wrapper">
+                    <div className="award-amounts-children__data-content">
+                        <div>Child Award Orders</div><span>{awardAmounts.childIDVCount}</span>
+                    </div>
+                    <div className="award-amounts-children__data-content">
+                        <div>Grandchild Award Orders</div><span>{awardAmounts.grandchildAwardCount}</span>
+                    </div>
                 </div>
                 <button
                     onClick={this.jumpToReferencedAwardsTable}
