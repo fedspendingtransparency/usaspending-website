@@ -26,3 +26,14 @@ export const fetchAwardAmounts = () => (
         cancel: jest.fn()
     }
 );
+
+export const fetchIdvDownloadFile = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: mockAwardAmounts
+            });
+        });
+    }),
+    cancel: jest.fn()
+});
