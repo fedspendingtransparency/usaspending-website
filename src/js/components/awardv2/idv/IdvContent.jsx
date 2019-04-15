@@ -18,7 +18,6 @@ import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 import AdditionalInfo from '../contract/AdditionalInfo';
 import ComingSoonSection from "./ComingSoonSection";
 import AwardMetaDataContainer from '../../../containers/awardV2/idv/AwardMetaDataContainer';
-import BulkDownloadBottomBarContainer from "../../../containers/bulkDownload/modal/BulkDownloadBottomBarContainer";
 import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
 
 const propTypes = {
@@ -99,7 +98,6 @@ export default class IdvContent extends React.Component {
                 <ReferencedAwardsContainer />
                 <AwardHistory overview={this.props.overview} />
                 <AdditionalInfo overview={this.props.overview} />
-                <BulkDownloadBottomBarContainer />
             </div>
         );
     }
