@@ -11,21 +11,28 @@ awardAmounts.populate(mockAwardAmounts);
 
 const awardAmountsNeg = Object.create(BaseAwardAmounts);
 const negativeObligation = {
-    rollup_total_obligation: -1623321.02
+    child_award_total_obligation: -811660.51,
+    grandchild_award_total_obligation: -811660.51
 };
 
 const awardAmountsOverspent = Object.create(BaseAwardAmounts);
 const overspending = {
-    rollup_base_exercised_options_val: 5000000.00,
-    rollup_base_and_all_options_value: 10000000.00,
-    rollup_total_obligation: 7500000.00
+    child_award_base_exercised_options_val: 2500000,
+    grandchild_award_base_exercised_options_val: 2500000,
+    child_award_base_and_all_options_value: 5000000,
+    grandchild_award_base_and_all_options_value: 5000000,
+    child_award_total_obligation: 3750000,
+    grandchild_award_total_obligation: 3750000
 };
 
 const awardAmountsExtremeOverspent = Object.create(BaseAwardAmounts);
 const extremeOverspending = {
-    rollup_base_exercised_options_val: 2500000.00,
-    rollup_base_and_all_options_value: 5000000.00,
-    rollup_total_obligation: 10000000.00
+    child_award_base_exercised_options_val: 1250000,
+    grandchild_award_base_exercised_options_val: 1250000,
+    child_award_base_and_all_options_value: 2500000,
+    grandchild_award_base_and_all_options_value: 2500000,
+    child_award_total_obligation: 5000000,
+    grandchild_award_total_obligation: 5000000
 };
 
 awardAmountsNeg.populate(negativeObligation);

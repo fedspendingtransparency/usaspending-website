@@ -79,8 +79,8 @@ describe('ReferencedAwardsContainer', () => {
             container.instance().updateSort('obligated_amount', 'asc');
             await container.instance().request.promise;
 
-            expect(container.state().sort.idvs).toEqual('obligated_amount');
-            expect(container.state().order.idvs).toEqual('asc');
+            expect(container.state().sort.child_idvs).toEqual('obligated_amount');
+            expect(container.state().order.child_idvs).toEqual('asc');
             expect(parseAwards).toHaveBeenCalled();
         });
     });
@@ -95,7 +95,7 @@ describe('ReferencedAwardsContainer', () => {
             container.instance().changePage(2);
             await container.instance().request.promise;
 
-            expect(container.state().page.idvs).toEqual(2);
+            expect(container.state().page.child_idvs).toEqual(2);
             expect(parseAwards).toHaveBeenCalled();
         });
     });
@@ -107,10 +107,10 @@ describe('ReferencedAwardsContainer', () => {
             const parseAwards = jest.fn();
             container.instance().parseAwards = parseAwards;
 
-            container.instance().switchTab('contracts');
+            container.instance().switchTab('child_awards');
             await container.instance().request.promise;
 
-            expect(container.state().tableType).toEqual('contracts');
+            expect(container.state().tableType).toEqual('child_awards');
             expect(parseAwards).toHaveBeenCalled();
         });
     });
