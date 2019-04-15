@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
@@ -14,7 +13,13 @@ import Award from 'components/awardv2/AwardV2';
 import AwardV1Container from 'containers/award/AwardContainer';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as awardActions from 'redux/actions/awardV2/awardActions';
+import { setAward } from 'redux/actions/awardV2/awardActions';
+import {
+    setDownloadCollapsed,
+    setDownloadPending,
+    setDownloadExpectedFile,
+    setDownloadExpectedUrl
+} from "redux/actions/bulkDownload/bulkDownloadActions";
 
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import BaseIdv from 'models/v2/awardsV2/BaseIdv';
@@ -25,6 +30,11 @@ require('pages/awardV2/awardPage.scss');
 
 const propTypes = {
     setAward: PropTypes.func,
+    handleDownloadRequest: PropTypes.func,
+    setDownloadCollapsed: PropTypes.func,
+    setDownloadPending: PropTypes.func,
+    setDownloadExpectedFile: PropTypes.func,
+    setDownloadExpectedUrl: PropTypes.func,
     params: PropTypes.object,
     award: PropTypes.object
 };
@@ -38,9 +48,10 @@ export class AwardContainer extends React.Component {
 
         this.state = {
             noAward: false,
-            inFlight: false
+            inFlight: false,
+            showDownloadModal: false
         };
-
+        this.hideDownloadModal = this.hideDownloadModal.bind(this);
         this.downloadData = this.downloadData.bind(this);
     }
 
@@ -128,6 +139,7 @@ export class AwardContainer extends React.Component {
     }
 
     async downloadData() {
+        this.setState({ showDownloadModal: true });
         if (this.downloadRequest) {
             this.downloadRequest.cancel();
         }
@@ -137,20 +149,30 @@ export class AwardContainer extends React.Component {
 
         try {
             const { data } = await this.downloadRequest.promise;
-            // add handleDownloadRequest
-            console.log("data: ", data.results);
+            this.props.setDownloadExpectedUrl(data.results.url);
+            this.props.setDownloadExpectedFile(data.results.file_name);
+            this.props.setDownloadPending(true);
         }
         catch (err) {
             console.log(err);
         }
     }
 
+    hideDownloadModal() {
+        this.setState({ showDownloadModal: false });
+    }
+
     render() {
         const isV2url = Router.history.location.pathname.includes('award_v2');
+        const downloadModalProps = {
+            mounted: this.state.showDownloadModal,
+            hideModal: this.hideDownloadModal
+        };
         let content = null;
         if (!this.state.inFlight) {
             if (this.props.award.category === 'idv' || isV2url) {
                 content = (<Award
+                    downloadModalProps={downloadModalProps}
                     downloadData={this.downloadData}
                     awardId={this.props.params.awardId}
                     award={this.props.award}
@@ -168,6 +190,11 @@ AwardContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ award: state.awardV2 }),
-    (dispatch) => bindActionCreators(awardActions, dispatch)
-    // add handleDownloadRequest
+    (dispatch) => ({
+        setDownloadExpectedUrl: (url) => dispatch(setDownloadExpectedUrl(url)),
+        setDownloadExpectedFile: (fileName) => dispatch(setDownloadExpectedFile(fileName)),
+        setDownloadPending: (bool) => dispatch(setDownloadPending(bool)),
+        setDownloadCollapsed: (bool) => dispatch(setDownloadCollapsed(bool)),
+        setAward: (overview) => dispatch(setAward(overview))
+    })
 )(AwardContainer);
