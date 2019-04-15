@@ -10,7 +10,8 @@ import { startCase } from 'lodash';
 import DownloadButton from '../search/header/DownloadButton';
 
 const propTypes = {
-    category: PropTypes.string
+    category: PropTypes.string,
+    downloadData: PropTypes.func
 };
 
 export default class SummaryBar extends React.Component {
@@ -18,8 +19,13 @@ export default class SummaryBar extends React.Component {
         let title = startCase(this.props.category);
         let downloadBtn = null;
         if (this.props.category === 'idv') {
-            title = 'Indefinite Delivery Vehicle';
-            downloadBtn = <DownloadButton disableHover />;
+            title = 'Indefinite Delivery Vehicles';
+            downloadBtn = (
+                <DownloadButton
+                    disableHover
+                    downloadAvailable
+                    onClick={this.props.downloadData} />
+            );
         }
         return (
             <div className="sticky-header__title">

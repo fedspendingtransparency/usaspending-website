@@ -19,6 +19,7 @@ import * as awardActions from 'redux/actions/awardV2/awardActions';
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import BaseIdv from 'models/v2/awardsV2/BaseIdv';
 import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
+import { fetchIdvDownloadFile } from '../../helpers/idvHelper';
 
 require('pages/awardV2/awardPage.scss');
 
@@ -33,11 +34,14 @@ export class AwardContainer extends React.Component {
         super(props);
 
         this.awardRequest = null;
+        this.downloadRequest = null;
 
         this.state = {
             noAward: false,
             inFlight: false
         };
+
+        this.downloadData = this.downloadData.bind(this);
     }
 
     componentDidMount() {
@@ -123,12 +127,35 @@ export class AwardContainer extends React.Component {
         }
     }
 
+    async downloadData() {
+        if (this.downloadRequest) {
+            this.downloadRequest.cancel();
+        }
+
+        this.setState({ inFlight: true });
+        const mockAwardId = "CONT_AW_9700_-NONE-_N0018918D0057_-NONE-";
+        this.downloadRequest = fetchIdvDownloadFile(mockAwardId);
+
+        try {
+            const { data } = await this.downloadRequest.promise;
+            console.log('data: ', data.url);
+            this.setState({ inFlight: false });
+            // TODO re-use bulkDownloadModal here
+        }
+        catch (err) {
+            console.log(err);
+            this.setState({ inFlight: false });
+            // TODO re-use bulkDownloadModal here
+        }
+    }
+
     render() {
         const isV2url = Router.history.location.pathname.includes('award_v2');
         let content = null;
         if (!this.state.inFlight) {
             if (this.props.award.category === 'idv' || isV2url) {
                 content = (<Award
+                    downloadData={this.downloadData}
                     awardId={this.props.params.awardId}
                     award={this.props.award}
                     noAward={this.state.noAward} />);

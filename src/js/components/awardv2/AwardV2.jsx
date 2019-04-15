@@ -23,7 +23,8 @@ import Error from '../sharedComponents/Error';
 const propTypes = {
     awardId: PropTypes.string,
     award: PropTypes.object,
-    noAward: PropTypes.bool
+    noAward: PropTypes.bool,
+    downloadData: PropTypes.func
 };
 
 const awardSections = [
@@ -85,6 +86,7 @@ export default class Award extends React.Component {
         if (overview) {
             summaryBar = (
                 <SummaryBar
+                    downloadData={this.props.downloadData}
                     category={overview.category} />
             );
             if (overview.category === 'contract') {
