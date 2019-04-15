@@ -36,13 +36,13 @@ export default class RelatedAwards extends React.Component {
         return (
             <div>
                 <div className="related-awards__label related-awards__label_count">
-                    {this.pluralizeTitle(counts.child_award_counts, 'Child Award')}
+                    {this.pluralizeTitle(counts.child_award_count, 'Child Award')}
                 </div>
                 <div className="related-awards__label related-awards__label_count">
-                    {this.pluralizeTitle(counts.child_idv_counts, 'Child IDV')}
+                    {this.pluralizeTitle(counts.child_idv_count, 'Child IDV')}
                 </div>
                 <div className="related-awards__label related-awards__label_count">
-                    {this.pluralizeTitle(counts.grandchild_award_counts, 'Grandchild Award')}
+                    {this.pluralizeTitle(counts.grandchild_award_count, 'Grandchild Award')}
                 </div>
             </div>
         );

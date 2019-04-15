@@ -12,9 +12,15 @@ const BaseAwardAmounts = {
         this.childIDVCount = data.child_idv_count || 0;
         this.childAwardCount = data.child_award_count || 0;
         this.grandchildAwardCount = data.grandchild_award_count || 0;
-        this._combinedPotentialAwardAmounts = parseFloat(data.rollup_base_and_all_options_value) || 0;
-        this._obligation = parseFloat(data.rollup_total_obligation) || 0;
-        this._combinedCurrentAwardAmounts = parseFloat(data.rollup_base_exercised_options_val) || 0;
+        this._combinedPotentialAwardAmounts = parseFloat(
+            data.child_award_base_and_all_options_value + data.grandchild_award_base_and_all_options_value
+        ) || 0;
+        this._obligation = parseFloat(
+            data.child_award_total_obligation + data.grandchild_award_total_obligation
+        ) || 0;
+        this._combinedCurrentAwardAmounts = parseFloat(
+            data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
+        ) || 0;
     },
     get combinedPotentialAwardAmounts() {
         return MoneyFormatter.formatMoneyWithPrecision(this._combinedPotentialAwardAmounts, 2);
