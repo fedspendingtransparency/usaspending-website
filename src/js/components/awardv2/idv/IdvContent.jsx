@@ -18,6 +18,7 @@ import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 import AdditionalInfo from '../contract/AdditionalInfo';
 import ComingSoonSection from "./ComingSoonSection";
 import AwardMetaDataContainer from '../../../containers/awardV2/idv/AwardMetaDataContainer';
+import BulkDownloadBottomBarContainer from "../../../containers/bulkDownload/modal/BulkDownloadBottomBarContainer";
 import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
 
 const propTypes = {
@@ -75,8 +76,7 @@ export default class IdvContent extends React.Component {
                         counts={this.props.counts}
                         jumpToSection={this.props.jumpToSection}
                         overview={this.props.overview} />
-                    <IdvDates
-                        dates={this.props.overview.dates} />
+                    <IdvDates dates={this.props.overview.dates} />
                 </div>
                 <div className="award__row">
                     <AwardAmounts
@@ -90,12 +90,16 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    <ComingSoonSection includeHeader title="IDV Activity" icon="chart-area" />
+                    <ComingSoonSection
+                        includeHeader
+                        title="IDV Activity"
+                        icon="chart-area" />
                     <AwardMetaDataContainer />
                 </div>
                 <ReferencedAwardsContainer />
                 <AwardHistory overview={this.props.overview} />
                 <AdditionalInfo overview={this.props.overview} />
+                <BulkDownloadBottomBarContainer />
             </div>
         );
     }

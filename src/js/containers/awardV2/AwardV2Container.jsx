@@ -132,20 +132,16 @@ export class AwardContainer extends React.Component {
             this.downloadRequest.cancel();
         }
 
-        this.setState({ inFlight: true });
         const mockAwardId = "CONT_AW_9700_-NONE-_N0018918D0057_-NONE-";
         this.downloadRequest = fetchIdvDownloadFile(mockAwardId);
 
         try {
             const { data } = await this.downloadRequest.promise;
-            console.log('data: ', data.url);
-            this.setState({ inFlight: false });
-            // TODO re-use bulkDownloadModal here
+            // add handleDownloadRequest
+            console.log("data: ", data.results);
         }
         catch (err) {
             console.log(err);
-            this.setState({ inFlight: false });
-            // TODO re-use bulkDownloadModal here
         }
     }
 
@@ -173,4 +169,5 @@ AwardContainer.propTypes = propTypes;
 export default connect(
     (state) => ({ award: state.awardV2 }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
+    // add handleDownloadRequest
 )(AwardContainer);
