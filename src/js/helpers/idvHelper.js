@@ -85,3 +85,23 @@ export const fetchAwardFundingSummary = (awardId) => {
         }
     };
 };
+
+export const fetchIdvDownloadFile = (awardId) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: `v2/download/idvs/`,
+            // baseURL: kGlobalConstants.API,
+            baseURL: "http://localhost:5000/api/",
+            method: "post",
+            headers: {
+                "content-type": "application/json"
+            },
+            params: { award_id: awardId },
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
