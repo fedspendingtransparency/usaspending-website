@@ -33,7 +33,7 @@ export default class AwardHistory extends React.Component {
 
     render() {
         return (
-            <div className="award-viz award-history">
+            <div id="award-award-history" className="award-viz award-history">
                 <div className="award-viz__heading">
                     <div className="award-viz__icon">
                         <AwardLoop alt="Award History" />
