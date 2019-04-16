@@ -391,3 +391,14 @@ export const mockAwardFundingMetaData = {
     awarding_agency_count: 27,
     federal_account_count: 47
 };
+
+export const mockFileDownloadResponse = {
+    total_size: 35.055,
+    file_name: `012_account_balances_20180613140845.zip`,
+    total_rows: 652,
+    total_columns: 27,
+    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status: `finished`,
+    seconds_elapsed: `10.061132`
+};
+

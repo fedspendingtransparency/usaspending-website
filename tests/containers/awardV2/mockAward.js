@@ -22,7 +22,8 @@ export const mockActions = {
     resetAward: jest.fn(),
     setDownloadExpectedUrl: jest.fn(),
     setDownloadExpectedFile: jest.fn(),
-    setDownloadPending: jest.fn()
+    setDownloadPending: jest.fn(),
+    setDownloadCollapsed: jest.fn()
 };
 
 export const mockRedux = {

@@ -96,13 +96,13 @@ describe('AwardV2Container', () => {
     describe('downloadData', () => {
         const awardContainer = getAwardContainer();
         const downloadRequest = {
-            promise: jest.fn(() => ({ results: { url: 'test', file_name: 'test.csv' } })),
+            promise: jest.fn(() => Promise.resolve({ results: { url: 'test', file_name: 'test.csv' } })),
             cancel: jest.fn()
         };
 
         it("calls action-creator fns in props", async () => {
-            awardContainer.instance().downloadRequest = downloadRequest;
             await awardContainer.instance().downloadData();
+            expect(mockActions.setDownloadCollapsed).toHaveBeenCalled();
             expect(mockActions.setDownloadExpectedUrl).toHaveBeenCalled();
             expect(mockActions.setDownloadExpectedFile).toHaveBeenCalled();
             expect(mockActions.setDownloadPending).toHaveBeenCalled();
@@ -112,11 +112,6 @@ describe('AwardV2Container', () => {
             awardContainer.instance().downloadRequest = downloadRequest;
             await awardContainer.instance().downloadData();
             expect(downloadRequest.cancel).toHaveBeenCalled();
-        });
-        it('sets local state property', async () => {
-            awardContainer.instance().downloadRequest = downloadRequest;
-            await awardContainer.instance().downloadData();
-            expect(awardContainer.instance().state.showDownloadModal).toEqual(true);
         });
     });
 });
