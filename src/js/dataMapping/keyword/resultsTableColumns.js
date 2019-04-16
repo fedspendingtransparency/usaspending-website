@@ -14,6 +14,17 @@ const contractColumns = [
     'Award Type'
 ];
 
+const defaultIdvColumns = [
+    'Award ID',
+    'Recipient Name',
+    'Start Date',
+    'Last Date to Order',
+    'Award Amount',
+    'Awarding Agency',
+    'Awarding Sub Agency',
+    'Contract Award Type'
+];
+
 const grantColumns = [
     'Award ID',
     'Mod',
@@ -62,6 +73,7 @@ const otherColumns = [
 export const availableColumns = (type) => {
     const columns = {
         contracts: contractColumns,
+        idvs: defaultIdvColumns,
         grants: grantColumns,
         direct_payments: directPaymentColumns,
         loans: loanColumns,
@@ -74,6 +86,7 @@ export const availableColumns = (type) => {
 export const defaultSort = (type) => {
     const columns = {
         contracts: 'Transaction Amount',
+        idvs: 'Award Amount',
         grants: 'Transaction Amount',
         direct_payments: 'Transaction Amount',
         loans: 'Loan Value',

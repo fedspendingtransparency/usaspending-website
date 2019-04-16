@@ -27,6 +27,10 @@ const tableTypes = [
         internal: 'contracts'
     },
     {
+        label: 'Contract IDVs',
+        internal: 'idvs'
+    },
+    {
         label: 'Grants',
         internal: 'grants'
     },
