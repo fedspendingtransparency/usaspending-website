@@ -15,22 +15,6 @@ const propTypes = {
 };
 
 export default class AwardHistory extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeTab: "transaction"
-        };
-
-        this.clickTab = this.clickTab.bind(this);
-    }
-
-    clickTab(tab) {
-        this.setState({
-            activeTab: tab
-        });
-    }
-
     render() {
         return (
             <div id="award-award-history" className="award-viz award-history">
@@ -58,8 +42,8 @@ export default class AwardHistory extends React.Component {
                 <hr />
                 <TablesSection
                     overview={this.props.overview}
-                    clickTab={this.clickTab}
-                    activeTab={this.state.activeTab} />
+                    clickTab={this.props.setActiveTab}
+                    activeTab={this.props.activeTab} />
             </div>
         );
     }

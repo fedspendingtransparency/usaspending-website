@@ -7,7 +7,7 @@ import FundingSummary from '../../../components/awardv2/idv/FundingSummary';
 
 const propTypes = {
     awardId: PropTypes.string,
-    jumpToSection: PropTypes.func
+    jumpToFederalAccountsHistory: PropTypes.func
 };
 
 const defaultProps = {
@@ -63,7 +63,7 @@ export class AwardMetaDataContainer extends React.Component {
     }
 
     render() {
-        return <FundingSummary {...this.state} jumpToSection={this.props.jumpToSection} />;
+        return <FundingSummary {...this.state} jumpToFederalAccountsHistory={this.props.jumpToFederalAccountsHistory} />;
     }
 }
 
