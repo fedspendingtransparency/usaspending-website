@@ -91,7 +91,7 @@ export default class IdvContent extends React.Component {
                 </div>
                 <div className="award__row">
                     <ComingSoonSection includeHeader title="IDV Activity" icon="chart-area" />
-                    <AwardMetaDataContainer />
+                    <AwardMetaDataContainer jumpToSection={this.props.jumpToSection} />
                 </div>
                 <ReferencedAwardsContainer />
                 <AwardHistory overview={this.props.overview} />
