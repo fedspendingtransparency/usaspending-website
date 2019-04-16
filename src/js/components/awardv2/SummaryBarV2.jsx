@@ -11,7 +11,8 @@ import DownloadButton from '../search/header/DownloadButton';
 
 const propTypes = {
     category: PropTypes.string,
-    downloadData: PropTypes.func
+    downloadData: PropTypes.func,
+    isDownloadPending: PropTypes.bool
 };
 
 export default class SummaryBar extends React.Component {
@@ -22,8 +23,8 @@ export default class SummaryBar extends React.Component {
             title = 'Indefinite Delivery Vehicles';
             downloadBtn = (
                 <DownloadButton
-                    disableHover
                     downloadAvailable
+                    downloadInFlight={this.props.isDownloadPending}
                     onClick={this.props.downloadData} />
             );
         }

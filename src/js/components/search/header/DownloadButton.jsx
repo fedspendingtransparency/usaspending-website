@@ -79,9 +79,7 @@ export default class DownloadButton extends React.Component {
                     aria-describedby="no-download-hover"
                     aria-disabled={!this.props.downloadAvailable}
                     onClick={this.onClick}>
-                    <div className="label">
-                        {buttonText}
-                    </div>
+                    <div className="label">{buttonText}</div>
                 </button>
             </div>
         );

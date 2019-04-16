@@ -19,7 +19,6 @@ import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import Error from '../sharedComponents/Error';
-import BulkDownloadModalContainer from "../../containers/bulkDownload/modal/BulkDownloadModalContainer";
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -29,7 +28,8 @@ const propTypes = {
     downloadModalProps: PropTypes.shape({
         mounted: PropTypes.bool,
         hideModal: PropTypes.func
-    })
+    }),
+    isDownloadPending: PropTypes.bool
 };
 
 const awardSections = [
@@ -91,6 +91,7 @@ export default class Award extends React.Component {
         if (overview) {
             summaryBar = (
                 <SummaryBar
+                    isDownloadPending={this.props.isDownloadPending}
                     downloadData={this.props.downloadData}
                     category={overview.category} />
             );
@@ -140,7 +141,6 @@ export default class Award extends React.Component {
                 </StickyHeader>
                 <main className={!this.props.noAward ? 'award-content' : ''}>
                     {content}
-                    <BulkDownloadModalContainer {...this.props.downloadModalProps} />
                 </main>
                 <Footer />
             </div>

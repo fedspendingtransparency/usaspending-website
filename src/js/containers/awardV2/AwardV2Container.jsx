@@ -36,7 +36,8 @@ const propTypes = {
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
     params: PropTypes.object,
-    award: PropTypes.object
+    award: PropTypes.object,
+    isDownloadPending: PropTypes.bool
 };
 
 export class AwardContainer extends React.Component {
@@ -48,10 +49,8 @@ export class AwardContainer extends React.Component {
 
         this.state = {
             noAward: false,
-            inFlight: false,
-            showDownloadModal: false
+            inFlight: false
         };
-        this.hideDownloadModal = this.hideDownloadModal.bind(this);
         this.downloadData = this.downloadData.bind(this);
     }
 
@@ -139,7 +138,9 @@ export class AwardContainer extends React.Component {
     }
 
     async downloadData() {
-        this.setState({ showDownloadModal: true });
+        // don't show a modal about the download
+        this.props.setDownloadCollapsed(true);
+
         if (this.downloadRequest) {
             this.downloadRequest.cancel();
         }
@@ -149,9 +150,9 @@ export class AwardContainer extends React.Component {
 
         try {
             const { data } = await this.downloadRequest.promise;
+            this.props.setDownloadPending(true);
             this.props.setDownloadExpectedUrl(data.results.url);
             this.props.setDownloadExpectedFile(data.results.file_name);
-            this.props.setDownloadPending(true);
         }
         catch (err) {
             console.log(err);
@@ -164,19 +165,17 @@ export class AwardContainer extends React.Component {
 
     render() {
         const isV2url = Router.history.location.pathname.includes('award_v2');
-        const downloadModalProps = {
-            mounted: this.state.showDownloadModal,
-            hideModal: this.hideDownloadModal
-        };
         let content = null;
         if (!this.state.inFlight) {
             if (this.props.award.category === 'idv' || isV2url) {
-                content = (<Award
-                    downloadModalProps={downloadModalProps}
-                    downloadData={this.downloadData}
-                    awardId={this.props.params.awardId}
-                    award={this.props.award}
-                    noAward={this.state.noAward} />);
+                content = (
+                    <Award
+                        isDownloadPending={this.props.isDownloadPending}
+                        downloadData={this.downloadData}
+                        awardId={this.props.params.awardId}
+                        award={this.props.award}
+                        noAward={this.state.noAward} />
+                );
             }
             else {
                 content = (<AwardV1Container awardId={this.props.params.awardId} />);
@@ -189,7 +188,7 @@ export class AwardContainer extends React.Component {
 AwardContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.awardV2 }),
+    (state) => ({ award: state.awardV2, isDownloadPending: state.bulkDownload.download.pendingDownload }),
     (dispatch) => ({
         setDownloadExpectedUrl: (url) => dispatch(setDownloadExpectedUrl(url)),
         setDownloadExpectedFile: (fileName) => dispatch(setDownloadExpectedFile(fileName)),
