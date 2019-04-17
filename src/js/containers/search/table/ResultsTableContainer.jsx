@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, intersection } from 'lodash';
+import { uniqueId, intersection, map } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -132,10 +132,10 @@ export class ResultsTableContainer extends React.Component {
         // load every possible table column up front, so we don't need to deal with this when
         // switching tabs
         const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
-            const visibleColumns = defaultColumns(type.internal);
+            const visibleColumns = map(defaultColumns(type.internal), (data) => data.title);
             const parsedColumns = {};
-            visibleColumns.forEach((title) => {
-                parsedColumns[title] = this.createColumn(title);
+            defaultColumns(type.internal).forEach((data) => {
+                parsedColumns[data.title] = this.createColumn(data.displayName, data.title);
             });
 
             return Object.assign({}, cols, {
@@ -145,13 +145,12 @@ export class ResultsTableContainer extends React.Component {
                 }
             });
         }, {});
-
         this.setState({
             columns
         });
     }
 
-    createColumn(title) {
+    createColumn(displayName, title) {
         // create an object that integrates with the expected column data structure used by
         // the table component
         // const dataType = awardTableColumnTypes[title];
@@ -165,8 +164,8 @@ export class ResultsTableContainer extends React.Component {
 
         const column = {
             columnName: title,
-            displayName: title,
-            width: measureTableHeader(title),
+            displayName: displayName || title,
+            width: measureTableHeader(displayName || title),
             defaultDirection: direction
         };
 

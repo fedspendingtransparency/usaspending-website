@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { uniqueId } from 'lodash';
+import { uniqueId, map } from 'lodash';
 import * as KeywordHelper from 'helpers/keywordHelper';
 import { availableColumns, defaultSort } from 'dataMapping/keyword/resultsTableColumns';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
@@ -176,7 +176,7 @@ export default class ResultsTableContainer extends React.Component {
         }
         const resultLimit = 35;
 
-        const requestFields = availableColumns(this.state.tableType);
+        const requestFields = map(availableColumns(this.state.tableType), (data) => data.title);
         const tableType = this.state.tableType;
 
         const params = {
@@ -236,7 +236,7 @@ export default class ResultsTableContainer extends React.Component {
         const currentSortField = this.state.sort.field;
 
         // check if the current sort field is available in the table type
-        const availableFields = availableColumns(tab);
+        const availableFields = map(availableColumns(tab), (data) => data.title);
         if (availableFields.indexOf(currentSortField) === -1) {
             // the sort field doesn't exist, use the table type's default field
             const field = defaultSort(tab);
@@ -292,15 +292,15 @@ export default class ResultsTableContainer extends React.Component {
     loadColumns() {
         const columns = {};
         tableTypes.forEach((type) => {
-            const allColumns = availableColumns(type.internal);
+            const allColumns = map(availableColumns(type.internal), (data) => data.title);
 
             const parsedColumns = {};
-            allColumns.forEach((title) => {
-                parsedColumns[title] =
+            availableColumns(type.internal).forEach((data) => {
+                parsedColumns[data.title] =
                 {
-                    columnName: title,
-                    displayName: title,
-                    width: measureTableHeader(title),
+                    columnName: data.title,
+                    displayName: data.displayName || data.title,
+                    width: measureTableHeader(data.displayName || data.title),
                     defaultDirection: 'desc'
                 };
             });
