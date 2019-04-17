@@ -2,7 +2,6 @@ const merge = require('webpack-merge');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const CompressionPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
@@ -63,7 +62,7 @@ module.exports = merge(common, {
             minChunkSize: 750000
         }),
         new webpack.debug.ProfilingPlugin({
-            outputPath: "bundleProfile.json"
+            outputPath: "../stats.json"
         })
     ]
 });
