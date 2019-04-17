@@ -97,7 +97,8 @@ export default class IdvContent extends React.Component {
                     <RelatedAwards
                         counts={this.props.counts}
                         jumpToSection={this.props.jumpToSection}
-                        overview={this.props.overview} />
+                        overview={this.props.overview}
+                        awardId={this.props.awardId} />
                     <IdvDates
                         dates={this.props.overview.dates} />
                 </div>

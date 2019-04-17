@@ -5,14 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'components/sharedComponents/icons/Icons';
-
+import { map } from 'lodash';
+import { Glossary } from 'components/sharedComponents/icons/Icons';
 import InfoTooltip from '../../idv/InfoTooltip';
 
 const propTypes = {
     overview: PropTypes.object,
     jumpToSection: PropTypes.func,
-    counts: PropTypes.object
+    counts: PropTypes.object,
+    awardId: PropTypes.string
 };
 
 export default class RelatedAwards extends React.Component {
@@ -25,27 +26,42 @@ export default class RelatedAwards extends React.Component {
         this.props.jumpToSection('referenced-awards');
     }
 
-    pluralizeTitle(count, title) {
-        return `${count} ${title} ${count === 1 ? 'Order' : 'Orders'}`;
-    }
-
-    referencedCount() {
+    referencedAwardCounts() {
         const { counts } = this.props;
         if (!counts) return null;
+        const childData = [
+            {
+                count: counts.child_award_count,
+                name: 'Child Award',
+                glossary: 'contract'
+            },
+            {
+                count: counts.child_idv_count,
+                name: 'Child IDV',
+                glossary: 'IDV'
+            },
+            {
+                count: counts.grandchild_award_count,
+                name: 'Grandchild Award',
+                glossary: 'award'
+            }
+        ];
 
-        return (
-            <div>
-                <div className="related-awards__label related-awards__label_count">
-                    {this.pluralizeTitle(counts.child_award_count, 'Child Award')}
-                </div>
-                <div className="related-awards__label related-awards__label_count">
-                    {this.pluralizeTitle(counts.child_idv_count, 'Child IDV')}
-                </div>
-                <div className="related-awards__label related-awards__label_count">
-                    {this.pluralizeTitle(counts.grandchild_award_count, 'Grandchild Award')}
+        return map(childData, (data) => (
+            <div key={data.glossary} className="related-awards__label related-awards__label_count">
+                <button
+                    onClick={this.jumpToReferencedAwardsTable}
+                    className="award-viz__button">
+                    {data.count}
+                </button>
+                {data.name} {data.count === 1 ? 'Order' : 'Orders'}
+                <div className="related-awards__glossary-icon">
+                    <a href={`/#/award/${this.props.awardId}?glossary=${data.glossary}`}>
+                        <Glossary />
+                    </a>
                 </div>
             </div>
-        );
+        ));
     }
 
     render() {
@@ -89,17 +105,7 @@ export default class RelatedAwards extends React.Component {
                     </div>
                     {parentLink}
                 </div>
-                {this.referencedCount()}
-                <button
-                    onClick={this.jumpToReferencedAwardsTable}
-                    className="award-viz__button">
-                    <div className="award-viz__link-icon">
-                        <Table />
-                    </div>
-                    <div className="award-viz__link-text">
-                        View referencing awards table
-                    </div>
-                </button>
+                {this.referencedAwardCounts()}
             </div>
         );
     }

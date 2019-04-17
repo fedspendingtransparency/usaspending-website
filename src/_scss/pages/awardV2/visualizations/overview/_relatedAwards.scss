@@ -13,6 +13,23 @@
         &.related-awards__label_count {
             padding-top: rem(10);
         }
+        .related-awards__glossary-icon {
+            @include display(inline-flex);
+            // @include flex-wrap(nowrap);
+            // @include flex(0 0 auto);
+            padding-left: rem(5);
+            svg {
+                @include display(flex);
+                fill: $color-gray-light;
+                height: rem(20);
+                width: rem(20);
+            }
+            &:hover, &:focus {
+                svg {
+                    fill: $color-gray;
+                }
+            }
+        }
     }
     .award-viz__button {
         padding: rem(5) 0;
