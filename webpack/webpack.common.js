@@ -3,6 +3,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const GitRevisionPlugin = require('git-revision-webpack-plugin');
+
+const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
+
+console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
+console.log("Branch for this build: ", gitRevisionPlugin.branch());
 
 module.exports = {
     entry: {
@@ -88,6 +94,5 @@ module.exports = {
             filename: "[name].[contenthash].css"
         }),
         new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
-    // new GitHashPlugin()
     ]
 };
