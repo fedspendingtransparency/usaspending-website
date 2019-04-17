@@ -11,7 +11,9 @@ import TablesSection from './TablesSection';
 import InfoTooltip from './InfoTooltip';
 
 const propTypes = {
-    overview: PropTypes.object
+    overview: PropTypes.object,
+    setActiveTab: PropTypes.func,
+    activeTab: PropTypes.string
 };
 
 export default class AwardHistory extends React.Component {
