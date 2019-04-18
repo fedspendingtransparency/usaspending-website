@@ -14,6 +14,10 @@
         "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
     },
     "author": "",
+    "engines": {
+        "node": ">=6.11.0",
+        "npm": ">=3.10.10"
+    },
     "license": "SEE LICENSE IN LICENSE.MD",
     "devDependencies": {
         "@babel/core": "^7.4.0",
