@@ -6,24 +6,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
-import { Glossary } from 'components/sharedComponents/icons/Icons';
 import InfoTooltip from '../../idv/InfoTooltip';
 
 const propTypes = {
     overview: PropTypes.object,
     jumpToSection: PropTypes.func,
-    counts: PropTypes.object,
-    awardId: PropTypes.string
+    counts: PropTypes.object
 };
 
 export default class RelatedAwards extends React.Component {
     constructor(props) {
         super(props);
 
-        this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
+        this.jumpToReferencedAwardsTableChildAwardsTab =
+        this.jumpToReferencedAwardsTableChildAwardsTab.bind(this);
+        this.jumpToReferencedAwardsTableChildIDVsTab =
+        this.jumpToReferencedAwardsTableChildIDVsTab.bind(this);
+        this.jumpToReferencedAwardsTableGrandchildAwardsTab =
+        this.jumpToReferencedAwardsTableGrandchildAwardsTab.bind(this);
     }
-    jumpToReferencedAwardsTable() {
-        this.props.jumpToSection('referenced-awards');
+
+    jumpToReferencedAwardsTableChildAwardsTab() {
+        this.props.jumpToSection(
+            'referenced-awards',
+            { tableType: 'child_awards' }
+        );
+    }
+    jumpToReferencedAwardsTableChildIDVsTab() {
+        this.props.jumpToSection(
+            'referenced-awards',
+            { tableType: 'child_idvs' }
+        );
+    }
+    jumpToReferencedAwardsTableGrandchildAwardsTab() {
+        this.props.jumpToSection(
+            'referenced-awards',
+            { tableType: 'grandchild_awards' }
+        );
     }
 
     referencedAwardCounts() {
@@ -31,37 +50,46 @@ export default class RelatedAwards extends React.Component {
         if (!counts) return null;
         const childData = [
             {
-                count: counts.child_award_count,
+                count: counts.child_award_count || 'N/A',
                 name: 'Child Award',
+                funcName: 'ChildAwards',
                 glossary: 'contract'
             },
             {
-                count: counts.child_idv_count,
+                count: counts.child_idv_count || 'N/A',
                 name: 'Child IDV',
+                funcName: 'ChildIDVs',
                 glossary: 'IDV'
             },
             {
-                count: counts.grandchild_award_count,
+                count: counts.grandchild_award_count || 'N/A',
                 name: 'Grandchild Award',
+                funcName: 'GrandchildAwards',
                 glossary: 'award'
             }
         ];
 
-        return map(childData, (data) => (
-            <div key={data.glossary} className="related-awards__label related-awards__label_count">
-                <button
-                    onClick={this.jumpToReferencedAwardsTable}
-                    className="award-viz__button">
-                    {data.count}
-                </button>
-                {data.name} {data.count === 1 ? 'Order' : 'Orders'}
-                <div className="related-awards__glossary-icon">
-                    <a href={`/#/award/${this.props.awardId}?glossary=${data.glossary}`}>
-                        <Glossary />
-                    </a>
+        return (
+            <div className="related-awards__label related-awards__label_count">
+                <div className="related-awards__counts">
+                    {map(childData, (data) => (
+                        <button
+                            key={`${data.glossary}count`}
+                            className="award-viz__button"
+                            onClick={this[`jumpToReferencedAwardsTable${data.funcName}Tab`]}>
+                            {data.count}
+                        </button>
+                    ))}
+                </div>
+                <div className="related-awards__description">
+                    {map(childData, (data) => (
+                        <div key={`${data.glossary}text`} className="related-awards__text">
+                            {data.name} {data.count === 1 ? 'Order' : 'Orders'}
+                        </div>
+                    ))}
                 </div>
             </div>
-        ));
+        );
     }
 
     render() {
@@ -105,7 +133,9 @@ export default class RelatedAwards extends React.Component {
                     </div>
                     {parentLink}
                 </div>
-                {this.referencedAwardCounts()}
+                <div className="related-awards__children">
+                    {this.referencedAwardCounts()}
+                </div>
             </div>
         );
     }

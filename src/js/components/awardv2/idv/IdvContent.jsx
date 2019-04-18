@@ -24,7 +24,9 @@ const propTypes = {
     awardId: PropTypes.string,
     counts: AWARD_V2_COUNTS_PROPS,
     overview: AWARD_V2_OVERVIEW_PROPS,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    tableType: PropTypes.string,
+    switchTab: PropTypes.func
 };
 
 export default class IdvContent extends React.Component {
@@ -97,8 +99,7 @@ export default class IdvContent extends React.Component {
                     <RelatedAwards
                         counts={this.props.counts}
                         jumpToSection={this.props.jumpToSection}
-                        overview={this.props.overview}
-                        awardId={this.props.awardId} />
+                        overview={this.props.overview} />
                     <IdvDates
                         dates={this.props.overview.dates} />
                 </div>
@@ -117,7 +118,9 @@ export default class IdvContent extends React.Component {
                     <ComingSoonSection includeHeader title="IDV Activity" icon="chart-area" />
                     <AwardMetaDataContainer jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>
-                <ReferencedAwardsContainer />
+                <ReferencedAwardsContainer
+                    tableType={this.props.tableType}
+                    switchTab={this.props.switchTab} />
                 <AwardHistory activeTab={this.state.awardHistoryActiveTab} setActiveTab={this.setActiveTab} overview={this.props.overview} />
                 <AdditionalInfo overview={this.props.overview} />
             </div>

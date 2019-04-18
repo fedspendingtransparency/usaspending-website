@@ -76,10 +76,13 @@ export default class AggregatedAwardAmounts extends React.Component {
                 {visualization}
                 <div className="award-amounts-children__data-wrapper">
                     <div className="award-amounts-children__data-content">
-                        <div>Child Award Orders</div><span>{awardAmounts.childIDVCount}</span>
+                        <div>Count of Total Orders</div><span>{awardAmounts.childIDVCount + awardAmounts.grandchildAwardCount}</span>
                     </div>
                     <div className="award-amounts-children__data-content">
-                        <div>Grandchild Award Orders</div><span>{awardAmounts.grandchildAwardCount}</span>
+                        <div>Count of Child Award Orders</div><span>{awardAmounts.childIDVCount}</span>
+                    </div>
+                    <div className="award-amounts-children__data-content">
+                        <div>Count of Grandchild Award Orders</div><span>{awardAmounts.grandchildAwardCount}</span>
                     </div>
                 </div>
                 <button
@@ -89,7 +92,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                         <Table />
                     </div>
                     <div className="award-viz__link-text">
-                        View referencing awards table
+                        View award orders table
                     </div>
                 </button>
                 <div className="award-amounts__data-wrapper">

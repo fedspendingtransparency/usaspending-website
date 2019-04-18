@@ -14,22 +14,24 @@ import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardRes
 import ReferencedAwardsSection from 'components/awardv2/idv/referencedAwards/ReferencedAwardsSection';
 
 const propTypes = {
-    award: PropTypes.object
+    award: PropTypes.object,
+    tableType: PropTypes.string,
+    switchTab: PropTypes.func
 };
 
 const tableTypes = [
     {
-        label: 'Child Awards',
+        label: 'Child Award Orders',
         internal: 'child_awards',
         enabled: true
     },
     {
-        label: 'Child IDVs',
+        label: 'Child IDV Orders',
         internal: 'child_idvs',
         enabled: true
     },
     {
-        label: 'Grandchild Awards',
+        label: 'Grandchild Award Orders',
         internal: 'grandchild_awards',
         enabled: true
     }
@@ -38,10 +40,8 @@ const tableTypes = [
 export class ReferencedAwardsContainer extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             limit: 10,
-            tableType: 'child_idvs',
             sort: {
                 child_idvs: 'period_of_performance_start_date',
                 child_awards: 'period_of_performance_start_date',
@@ -80,6 +80,8 @@ export class ReferencedAwardsContainer extends React.Component {
         if (this.props.award.id !== prevProps.award.id || !isEqual(this.props.award.counts, prevProps.award.counts)) {
             this.pickDefaultTab();
         }
+
+        if (this.props.tableType !== prevProps.tableType) this.loadResults();
     }
 
     loadResults() {
@@ -88,12 +90,14 @@ export class ReferencedAwardsContainer extends React.Component {
         }
 
         const {
-            tableType, page, sort, order
+            page, sort, order
         } = this.state;
+
+        const { tableType } = this.props;
 
         const params = {
             award_id: this.props.award.id,
-            type: this.state.tableType,
+            type: tableType,
             limit: this.state.limit,
             page: page[tableType],
             sort: sort[tableType],
@@ -123,8 +127,8 @@ export class ReferencedAwardsContainer extends React.Component {
 
     pickDefaultTab() {
         const { counts } = this.props.award;
-        if (counts.child_idvs === 0 && counts.child_awards !== 0) {
-            this.switchTab('child_awards');
+        if (counts.child_awards === 0 && counts.child_idvs !== 0) {
+            this.switchTab('child_idvs');
         }
         else {
             this.loadResults();
@@ -146,7 +150,8 @@ export class ReferencedAwardsContainer extends React.Component {
     }
 
     updateSort(newSort, newOrder) {
-        const { tableType, sort, order } = this.state;
+        const { sort, order } = this.state;
+        const { tableType } = this.props;
         const updatedSort = Object.assign({}, sort, {
             [tableType]: newSort
         });
@@ -162,9 +167,9 @@ export class ReferencedAwardsContainer extends React.Component {
     }
 
     changePage(newPage) {
-        const { tableType, page } = this.state;
+        const { page } = this.state;
         const updatedPage = Object.assign({}, page, {
-            [tableType]: newPage
+            [this.props.tableType]: newPage
         });
         this.setState({
             page: updatedPage
@@ -174,13 +179,7 @@ export class ReferencedAwardsContainer extends React.Component {
     }
 
     switchTab(tableType) {
-        if (tableType !== this.state.tableType) {
-            this.setState({
-                tableType
-            }, () => {
-                this.loadResults();
-            });
-        }
+        this.props.switchTab(tableType);
     }
 
     render() {
@@ -191,6 +190,7 @@ export class ReferencedAwardsContainer extends React.Component {
                 switchTab={this.switchTab}
                 changePage={this.changePage}
                 updateSort={this.updateSort}
+                tableType={this.props.tableType}
                 tableTypes={tableTypes} />
         );
     }
