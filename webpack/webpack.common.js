@@ -68,17 +68,10 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|svg|ico|gif|jpg)$/,
-                loader: "file-loader",
+                include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg)$/,
+                loader: 'file-loader',
                 query: {
-                    name: "img/[name].[ext]"
-                }
-            },
-            {
-                test: /\.(eot|ttf|woff|woff2|)$/,
-                loader: "file-loader",
-                query: {
-                    name: "font/[name].[ext]"
+                    name: '[path][name].[ext]'
                 }
             }
         ]
