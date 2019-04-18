@@ -9,7 +9,6 @@ const common = require('./webpack.common');
 
 module.exports = merge(common, {
     mode: "production",
-    devtool: "source-map",
     stats: {
         assets: true,
         chunks: true,
@@ -18,13 +17,11 @@ module.exports = merge(common, {
         version: true,
         warnings: true
     },
-    // https://webpack.js.org/plugins/mini-css-extract-plugin/#minimizing-for-production
     optimization: {
         minimizer: [
             new UglifyJsPlugin({
                 cache: true,
-                parallel: true,
-                sourceMap: true
+                parallel: true
             }),
             new OptimizeCssAssetsPlugin({})
         ],
