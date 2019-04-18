@@ -10,6 +10,8 @@ const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse
 console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
 console.log("Branch for this build: ", gitRevisionPlugin.branch());
 
+const isProduction = (process.env.NODE_ENV === 'production');
+
 module.exports = {
     entry: {
         app: "./index.js"
@@ -55,11 +57,11 @@ module.exports = {
                 test: /\.scss$/,
                 use: [
                     { loader: MiniCssExtractPlugin.loader },
-                    { loader: "css-loader", options: { url: false, sourceMap: true } },
+                    { loader: "css-loader", options: { url: false, sourceMap: !isProduction } },
                     {
                         loader: "sass-loader",
                         options: {
-                            sourceMap: true,
+                            sourceMap: !isProduction,
                             includePaths: ["./src/_scss", "./node_modules"]
                         }
                     }
