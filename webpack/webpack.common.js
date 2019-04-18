@@ -19,7 +19,8 @@ module.exports = {
     output: {
     // https://webpack.js.org/guides/caching/
         publicPath: "/",
-        filename: "[name].[contenthash].js"
+        filename: "[name].[contenthash].js",
+        path: path.resolve(__dirname, "../public")
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
@@ -78,7 +79,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(["dist"], {
+        new CleanWebpackPlugin(["public"], {
             root: path.resolve(__dirname, "../")
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
