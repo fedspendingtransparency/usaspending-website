@@ -3,18 +3,21 @@ import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoneyWithPrecision } from '../../../helpers/moneyFormatter';
+import { Table } from "../../sharedComponents/icons/Icons";
 import ComingSoonSection from "./ComingSoonSection";
 
 const propTypes = {
     totalTransactionObligatedAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     awardingAgencyCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    federalAccountCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    federalAccountCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    jumpToFederalAccountsHistory: PropTypes.func
 };
 
 const FundingSummary = ({
     totalTransactionObligatedAmount,
     awardingAgencyCount,
-    federalAccountCount
+    federalAccountCount,
+    jumpToFederalAccountsHistory
 }) => (
     <div className="award__col award-viz federal-accounts">
         <div className="award__col__content">
@@ -45,6 +48,12 @@ const FundingSummary = ({
                     <span>{federalAccountCount}</span>
                 </div>
             </div>
+            <button onClick={jumpToFederalAccountsHistory} className="award-viz__button">
+                <div className="award-viz__link-icon">
+                    <Table />
+                </div>
+                <div className="award-viz__link-text">View Federal Account Funding</div>
+            </button>
         </div>
     </div>
 );

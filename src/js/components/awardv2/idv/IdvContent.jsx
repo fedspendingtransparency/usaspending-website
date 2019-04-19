@@ -28,6 +28,29 @@ const propTypes = {
 };
 
 export default class IdvContent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            awardHistoryActiveTab: 'transaction' // or fedaccount
+        };
+
+        this.setActiveTab = this.setActiveTab.bind(this);
+        this.jumpToFederalAccountsHistory = this.jumpToFederalAccountsHistory.bind(this);
+    }
+
+    setActiveTab(activeTab = 'transaction') {
+        this.setState({
+            awardHistoryActiveTab: activeTab
+        });
+    }
+
+    jumpToFederalAccountsHistory() {
+        this.setState({
+            awardHistoryActiveTab: 'fedaccount'
+        });
+        this.props.jumpToSection('award-history');
+    }
+
     render() {
         const glossarySlug = glossaryLinks[this.props.overview.type];
         let glossaryLink = null;
@@ -89,14 +112,11 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    <ComingSoonSection
-                        includeHeader
-                        title="IDV Activity"
-                        icon="chart-area" />
-                    <AwardMetaDataContainer />
+                    <ComingSoonSection includeHeader title="IDV Activity" icon="chart-area" />
+                    <AwardMetaDataContainer jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>
                 <ReferencedAwardsContainer />
-                <AwardHistory overview={this.props.overview} />
+                <AwardHistory activeTab={this.state.awardHistoryActiveTab} setActiveTab={this.setActiveTab} overview={this.props.overview} />
                 <AdditionalInfo overview={this.props.overview} />
             </div>
         );

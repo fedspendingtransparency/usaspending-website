@@ -44,6 +44,10 @@ const awardSections = [
     {
         section: 'referenced-awards',
         label: 'Referenced Awards'
+    },
+    {
+        section: 'award-history',
+        label: 'Award History'
     }
 ];
 
