@@ -159,10 +159,6 @@ export class AwardContainer extends React.Component {
         }
     }
 
-    hideDownloadModal() {
-        this.setState({ showDownloadModal: false });
-    }
-
     render() {
         const isV2url = Router.history.location.pathname.includes('award_v2');
         let content = null;
