@@ -19,7 +19,7 @@ import {
     setDownloadPending,
     setDownloadExpectedFile,
     setDownloadExpectedUrl
-} from "redux/actions/bulkDownload/bulkDownloadActions";
+} from 'redux/actions/bulkDownload/bulkDownloadActions';
 
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import BaseIdv from 'models/v2/awardsV2/BaseIdv';
