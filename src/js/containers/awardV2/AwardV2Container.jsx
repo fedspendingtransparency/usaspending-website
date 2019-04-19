@@ -140,6 +140,8 @@ export class AwardContainer extends React.Component {
     async downloadData() {
         // don't show a modal about the download
         this.props.setDownloadCollapsed(true);
+        // disable download button
+        this.props.setDownloadPending(true);
 
         if (this.downloadRequest) {
             this.downloadRequest.cancel();
@@ -149,10 +151,9 @@ export class AwardContainer extends React.Component {
         this.downloadRequest = fetchIdvDownloadFile(mockAwardId);
 
         try {
-            const { data } = await this.downloadRequest.promise;
-            this.props.setDownloadPending(true);
-            this.props.setDownloadExpectedUrl(data.results.url);
-            this.props.setDownloadExpectedFile(data.results.file_name);
+            const data = await this.downloadRequest.promise;
+            this.props.setDownloadExpectedUrl(data.url);
+            this.props.setDownloadExpectedFile(data.file_name);
             this.downloadRequest = null;
         }
         catch (err) {
