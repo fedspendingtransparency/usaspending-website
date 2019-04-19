@@ -11,6 +11,7 @@ import InfoTooltip from '../../idv/InfoTooltip';
 const propTypes = {
     overview: PropTypes.object,
     jumpToSection: PropTypes.func,
+    setRelatedAwardsTab: PropTypes.func,
     counts: PropTypes.object
 };
 
@@ -27,22 +28,16 @@ export default class RelatedAwards extends React.Component {
     }
 
     jumpToReferencedAwardsTableChildAwardsTab() {
-        this.props.jumpToSection(
-            'referenced-awards',
-            { tableType: 'child_awards' }
-        );
+        this.props.setRelatedAwardsTab('child_awards');
+        this.props.jumpToSection('referenced-awards');
     }
     jumpToReferencedAwardsTableChildIDVsTab() {
-        this.props.jumpToSection(
-            'referenced-awards',
-            { tableType: 'child_idvs' }
-        );
+        this.props.setRelatedAwardsTab('child_idvs');
+        this.props.jumpToSection('referenced-awards');
     }
     jumpToReferencedAwardsTableGrandchildAwardsTab() {
-        this.props.jumpToSection(
-            'referenced-awards',
-            { tableType: 'grandchild_awards' }
-        );
+        this.props.setRelatedAwardsTab('grandchild_awards');
+        this.props.jumpToSection('referenced-awards');
     }
 
     referencedAwardCounts() {

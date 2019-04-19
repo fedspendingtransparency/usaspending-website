@@ -54,22 +54,12 @@ export default class Award extends React.Component {
             window: {
                 height: 0
             },
-            tableType: 'child_awards'
         };
 
         this.jumpToSection = this.jumpToSection.bind(this);
-        this.switchTab = this.switchTab.bind(this);
     }
 
-    switchTab(tableType) {
-        if (tableType !== this.state.tableType) {
-            this.setState({
-                tableType
-            });
-        }
-    }
-
-    jumpToSection(section = '', updateState) {
+    jumpToSection(section = '') {
         // we've been provided a section to jump to
         // check if it's a valid section
         const matchedSection = find(awardSections, {
@@ -90,10 +80,6 @@ export default class Award extends React.Component {
 
         const sectionTop = sectionDom.offsetTop - 145;
         scrollToY(sectionTop, 700);
-        if (updateState) {
-            const newState = Object.assign({}, updateState);
-            this.setState(newState);
-        }
     }
 
     render() {
@@ -119,9 +105,7 @@ export default class Award extends React.Component {
                         awardId={this.props.awardId}
                         overview={overview}
                         counts={this.props.award.counts}
-                        jumpToSection={this.jumpToSection}
-                        tableType={this.state.tableType}
-                        switchTab={this.switchTab} />
+                        jumpToSection={this.jumpToSection} />
                 );
             }
             else {
