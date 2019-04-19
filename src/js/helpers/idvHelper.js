@@ -90,14 +90,13 @@ export const fetchIdvDownloadFile = (awardId) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/download/idvs/`,
-            // baseURL: kGlobalConstants.API,
-            baseURL: "http://localhost:5000/api/",
+            url: `v2/download/idv/`,
+            baseURL: kGlobalConstants.API,
             method: "post",
             headers: {
                 "content-type": "application/json"
             },
-            params: { award_id: awardId },
+            data: { award_id: awardId },
             cancelToken: source.token
         }),
         cancel() {
