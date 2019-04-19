@@ -35,7 +35,7 @@ export const fetchIdvDownloadFile = () => ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
             resolve({
-                data: { results: mockFileDownloadResponse }
+                data: mockFileDownloadResponse
             });
         });
     }),
