@@ -153,9 +153,11 @@ export class AwardContainer extends React.Component {
             this.props.setDownloadPending(true);
             this.props.setDownloadExpectedUrl(data.results.url);
             this.props.setDownloadExpectedFile(data.results.file_name);
+            this.downloadRequest = null;
         }
         catch (err) {
             console.log(err);
+            this.downloadRequest = null;
         }
     }
 
