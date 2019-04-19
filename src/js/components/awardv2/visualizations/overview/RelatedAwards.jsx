@@ -50,19 +50,19 @@ export default class RelatedAwards extends React.Component {
         if (!counts) return null;
         const childData = [
             {
-                count: counts.child_award_count || 'N/A',
+                count: counts.child_awards,
                 name: 'Child Award',
                 funcName: 'ChildAwards',
                 glossary: 'contract'
             },
             {
-                count: counts.child_idv_count || 'N/A',
+                count: counts.child_idvs,
                 name: 'Child IDV',
                 funcName: 'ChildIDVs',
                 glossary: 'IDV'
             },
             {
-                count: counts.grandchild_award_count || 'N/A',
+                count: counts.grandchild_awards,
                 name: 'Grandchild Award',
                 funcName: 'GrandchildAwards',
                 glossary: 'award'

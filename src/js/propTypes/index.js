@@ -22,7 +22,7 @@ export const AWARD_V2_OVERVIEW_PROPS = PropTypes.shape({
 export const AWARD_V2_COUNTS_PROPS = PropTypes.shape({
     child_awards: PropTypes.number,
     child_idvs: PropTypes.number,
-    granchild_awards: PropTypes.number,
+    grandchild_awards: PropTypes.number,
     total: PropTypes.number
 });
 
