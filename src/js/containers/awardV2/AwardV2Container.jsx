@@ -151,7 +151,7 @@ export class AwardContainer extends React.Component {
         this.downloadRequest = fetchIdvDownloadFile(mockAwardId);
 
         try {
-            const data = await this.downloadRequest.promise;
+            const { data } = await this.downloadRequest.promise;
             this.props.setDownloadExpectedUrl(data.url);
             this.props.setDownloadExpectedFile(data.file_name);
             this.downloadRequest = null;
