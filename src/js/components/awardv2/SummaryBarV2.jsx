@@ -20,7 +20,7 @@ export default class SummaryBar extends React.Component {
         let title = startCase(this.props.category);
         let downloadBtn = null;
         if (this.props.category === 'idv') {
-            title = 'Indefinite Delivery Vehicles';
+            title = 'Indefinite Delivery Vehicle';
             downloadBtn = (
                 <DownloadButton
                     downloadAvailable
