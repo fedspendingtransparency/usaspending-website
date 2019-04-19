@@ -1,5 +1,6 @@
 .federal-accounts {
     .award-funding-summary__table {
+        margin-bottom: rem(10);
         .award-funding-summary__data {
             @extend %column-less-table__row;
             margin: 0;

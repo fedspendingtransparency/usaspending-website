@@ -11,29 +11,15 @@ import TablesSection from './TablesSection';
 import InfoTooltip from './InfoTooltip';
 
 const propTypes = {
-    overview: PropTypes.object
+    overview: PropTypes.object,
+    setActiveTab: PropTypes.func,
+    activeTab: PropTypes.string
 };
 
 export default class AwardHistory extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeTab: "transaction"
-        };
-
-        this.clickTab = this.clickTab.bind(this);
-    }
-
-    clickTab(tab) {
-        this.setState({
-            activeTab: tab
-        });
-    }
-
     render() {
         return (
-            <div className="award-viz award-history">
+            <div id="award-award-history" className="award-viz award-history">
                 <div className="award-viz__heading">
                     <div className="award-viz__icon">
                         <AwardLoop alt="Award History" />
@@ -58,8 +44,8 @@ export default class AwardHistory extends React.Component {
                 <hr />
                 <TablesSection
                     overview={this.props.overview}
-                    clickTab={this.clickTab}
-                    activeTab={this.state.activeTab} />
+                    clickTab={this.props.setActiveTab}
+                    activeTab={this.props.activeTab} />
             </div>
         );
     }

@@ -6,7 +6,8 @@ import { fetchAwardFundingSummary } from '../../../helpers/idvHelper';
 import FundingSummary from '../../../components/awardv2/idv/FundingSummary';
 
 const propTypes = {
-    awardId: PropTypes.string
+    awardId: PropTypes.string,
+    jumpToFederalAccountsHistory: PropTypes.func
 };
 
 const defaultProps = {
@@ -62,7 +63,7 @@ export class AwardMetaDataContainer extends React.Component {
     }
 
     render() {
-        return <FundingSummary {...this.state} />;
+        return <FundingSummary {...this.state} jumpToFederalAccountsHistory={this.props.jumpToFederalAccountsHistory} />;
     }
 }
 
