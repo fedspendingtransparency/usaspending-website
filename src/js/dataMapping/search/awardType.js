@@ -49,7 +49,7 @@ export const glossaryLinks = {
     'IDV_B': 'indefinite-delivery-contract-idc',
     'IDV_B_A': 'indefinite-delivery-requirements',
     'IDV_B_B': 'indefinite-delivery-indefinite-quantity-idiq-contract',
-    'IDV_B_C': 'indefinite-delivery-contract-idc',
+    'IDV_B_C': 'indefinite-delivery-contract-definite-quantity',
     'IDV_C': 'federal-supply-schedule-fss',
     'IDV_D': 'basic-ordering-agreement-boa',
     'IDV_E': 'blanket-purchase-agreement-bpa',
