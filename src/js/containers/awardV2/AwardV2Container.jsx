@@ -140,8 +140,6 @@ export class AwardContainer extends React.Component {
     async downloadData() {
         // don't show a modal about the download
         this.props.setDownloadCollapsed(true);
-        // disable download button
-        this.props.setDownloadPending(true);
 
         if (this.downloadRequest) {
             this.downloadRequest.cancel();
@@ -154,6 +152,8 @@ export class AwardContainer extends React.Component {
             const { data } = await this.downloadRequest.promise;
             this.props.setDownloadExpectedUrl(data.url);
             this.props.setDownloadExpectedFile(data.file_name);
+            // disable download button
+            this.props.setDownloadPending(true);
             this.downloadRequest = null;
         }
         catch (err) {
