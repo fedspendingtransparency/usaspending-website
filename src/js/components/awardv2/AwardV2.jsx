@@ -53,7 +53,7 @@ export default class Award extends React.Component {
             sectionPositions: [],
             window: {
                 height: 0
-            },
+            }
         };
 
         this.jumpToSection = this.jumpToSection.bind(this);
