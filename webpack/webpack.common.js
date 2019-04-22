@@ -18,7 +18,9 @@ module.exports = {
     },
     output: {
     // https://webpack.js.org/guides/caching/
-        filename: "[name].[contenthash].js"
+        publicPath: "/",
+        filename: "[name].[contenthash].js",
+        path: path.resolve(__dirname, "../public")
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
@@ -68,23 +70,16 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(png|svg|ico|gif|jpg)$/,
-                loader: "file-loader",
+                include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg)$/,
+                loader: 'file-loader',
                 query: {
-                    name: "img/[name].[ext]"
-                }
-            },
-            {
-                test: /\.(eot|ttf|woff|woff2|)$/,
-                loader: "file-loader",
-                query: {
-                    name: "font/[name].[ext]"
+                    name: '[path][name].[ext]'
                 }
             }
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(["dist"], {
+        new CleanWebpackPlugin(["public"], {
             root: path.resolve(__dirname, "../")
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
