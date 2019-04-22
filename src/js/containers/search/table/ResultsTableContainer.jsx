@@ -132,11 +132,12 @@ export class ResultsTableContainer extends React.Component {
         // load every possible table column up front, so we don't need to deal with this when
         // switching tabs
         const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
-            const visibleColumns = map(defaultColumns(type.internal), (data) => data.title);
-            const parsedColumns = {};
-            defaultColumns(type.internal).forEach((data) => {
-                parsedColumns[data.title] = this.createColumn(data.displayName, data.title);
-            });
+            const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
+            const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => {
+                return Object.assign({}, parsedCols, {
+                    [data.title]: this.createColumn(data.displayName, data.title)
+                });
+            }, {});
 
             return Object.assign({}, cols, {
                 [type.internal]: {
