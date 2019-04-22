@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, intersection, map } from 'lodash';
+import { uniqueId, intersection } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -133,11 +133,9 @@ export class ResultsTableContainer extends React.Component {
         // switching tabs
         const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
             const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
-            const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => {
-                return Object.assign({}, parsedCols, {
-                    [data.title]: this.createColumn(data.displayName, data.title)
-                });
-            }, {});
+            const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
+                [data.title]: this.createColumn(data.displayName, data.title)
+            }), {});
 
             return Object.assign({}, cols, {
                 [type.internal]: {
