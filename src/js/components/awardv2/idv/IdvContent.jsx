@@ -98,8 +98,7 @@ export default class IdvContent extends React.Component {
                         counts={this.props.counts}
                         jumpToSection={this.props.jumpToSection}
                         overview={this.props.overview} />
-                    <IdvDates
-                        dates={this.props.overview.dates} />
+                    <IdvDates dates={this.props.overview.dates} />
                 </div>
                 <div className="award__row">
                     <AwardAmounts
