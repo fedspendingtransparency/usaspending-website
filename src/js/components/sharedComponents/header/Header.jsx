@@ -107,7 +107,7 @@ export default class Header extends React.Component {
                         </ul>
                         <div className="official-banner__wrapper">
                             <div className="official-banner__text">
-                                An official website of the U.S. government Kinda ish really its by booz allen
+                                An official website of the U.S. government
                             </div>
                             <img
                                 className="official-banner__flag"
