@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
 
 import Router from 'containers/router/Router';
@@ -187,11 +188,11 @@ AwardContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ award: state.awardV2, isDownloadPending: state.bulkDownload.download.pendingDownload }),
-    (dispatch) => ({
-        setDownloadExpectedUrl: (url) => dispatch(setDownloadExpectedUrl(url)),
-        setDownloadExpectedFile: (fileName) => dispatch(setDownloadExpectedFile(fileName)),
-        setDownloadPending: (bool) => dispatch(setDownloadPending(bool)),
-        setDownloadCollapsed: (bool) => dispatch(setDownloadCollapsed(bool)),
-        setAward: (overview) => dispatch(setAward(overview))
-    })
+    (dispatch) => bindActionCreators({
+        setDownloadExpectedUrl,
+        setDownloadExpectedFile,
+        setDownloadPending,
+        setDownloadCollapsed,
+        setAward
+    }, dispatch)
 )(AwardContainer);
