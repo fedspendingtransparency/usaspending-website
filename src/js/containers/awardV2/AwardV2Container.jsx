@@ -145,8 +145,7 @@ export class AwardContainer extends React.Component {
             this.downloadRequest.cancel();
         }
 
-        const mockAwardId = "CONT_AW_9700_-NONE-_N0018918D0057_-NONE-";
-        this.downloadRequest = fetchIdvDownloadFile(mockAwardId);
+        this.downloadRequest = fetchIdvDownloadFile(this.props.params.awardId);
 
         try {
             const { data } = await this.downloadRequest.promise;
