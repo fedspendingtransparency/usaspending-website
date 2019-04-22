@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { isEqual } from 'lodash';
+import { isEqual, pick, findKey } from 'lodash';
 
 import * as IdvHelper from 'helpers/idvHelper';
 import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardResult';
@@ -17,6 +17,10 @@ const propTypes = {
     award: PropTypes.object,
     tableType: PropTypes.string,
     switchTab: PropTypes.func
+};
+
+const defaultProps = {
+    tableType: 'child_awards'
 };
 
 const tableTypes = [
@@ -127,8 +131,11 @@ export class ReferencedAwardsContainer extends React.Component {
 
     pickDefaultTab() {
         const { counts } = this.props.award;
-        if (counts.child_awards === 0 && counts.child_idvs !== 0) {
-            this.switchTab('child_idvs');
+        const tableKeys = tableTypes.map((type) => type.internal);
+        const tableCounts = pick(counts, tableKeys);
+        const defaultTab = findKey(tableCounts, (count) => count !== 0);
+        if (counts.child_awards === 0 && defaultTab) {
+            this.switchTab(defaultTab);
         }
         else {
             this.loadResults();
@@ -197,6 +204,7 @@ export class ReferencedAwardsContainer extends React.Component {
 }
 
 ReferencedAwardsContainer.propTypes = propTypes;
+ReferencedAwardsContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({
