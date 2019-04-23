@@ -56,3 +56,19 @@
     }
 }
 
+.award-amounts-children__data-wrapper {
+  margin-top: rem(30);
+  margin-bottom: rem(15);
+  
+  .award-amounts-children__data-content {
+      @extend %column-less-table__row;
+      border-bottom: 0;
+      &:nth-of-type(1) {
+          border-radius: rem(5) rem(5) 0 0;
+      }
+      &:last-of-type {
+          border-radius: 0 0 rem(5) rem(5);
+          border-bottom: solid rem(1) $border-light-gray;
+      }
+  }
+}

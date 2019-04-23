@@ -31,17 +31,27 @@ export default class IdvContent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            awardHistoryActiveTab: 'transaction' // or fedaccount
+            awardHistoryActiveTab: 'transaction', // or fedaccount
+            relatedAwardsActiveTab: 'child_awards'
         };
 
-        this.setActiveTab = this.setActiveTab.bind(this);
+        this.setHistoryActiveTab = this.setHistoryActiveTab.bind(this);
+        this.setRelatedAwardsTab = this.setRelatedAwardsTab.bind(this);
         this.jumpToFederalAccountsHistory = this.jumpToFederalAccountsHistory.bind(this);
     }
 
-    setActiveTab(activeTab = 'transaction') {
+    setHistoryActiveTab(activeTab = 'transaction') {
         this.setState({
             awardHistoryActiveTab: activeTab
         });
+    }
+
+    setRelatedAwardsTab(relatedAwardsActiveTab) {
+        if (relatedAwardsActiveTab !== this.state.relatedAwardsActiveTab) {
+            this.setState({
+                relatedAwardsActiveTab
+            });
+        }
     }
 
     jumpToFederalAccountsHistory() {
@@ -97,6 +107,7 @@ export default class IdvContent extends React.Component {
                     <RelatedAwards
                         counts={this.props.counts}
                         jumpToSection={this.props.jumpToSection}
+                        setRelatedAwardsTab={this.setRelatedAwardsTab}
                         overview={this.props.overview} />
                     <IdvDates dates={this.props.overview.dates} />
                 </div>
@@ -115,8 +126,10 @@ export default class IdvContent extends React.Component {
                     <ComingSoonSection includeHeader title="IDV Activity" icon="chart-area" />
                     <AwardMetaDataContainer jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>
-                <ReferencedAwardsContainer />
-                <AwardHistory activeTab={this.state.awardHistoryActiveTab} setActiveTab={this.setActiveTab} overview={this.props.overview} />
+                <ReferencedAwardsContainer
+                    tableType={this.state.relatedAwardsActiveTab}
+                    switchTab={this.setRelatedAwardsTab} />
+                <AwardHistory activeTab={this.state.awardHistoryActiveTab} setActiveTab={this.setHistoryActiveTab} overview={this.props.overview} />
                 <AdditionalInfo overview={this.props.overview} />
             </div>
         );
