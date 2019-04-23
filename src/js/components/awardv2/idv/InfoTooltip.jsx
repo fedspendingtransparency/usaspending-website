@@ -51,7 +51,7 @@ export default class InfoTooltip extends React.Component {
 
     closeTooltip() {
         this.setState({
-            showInfoTooltip: false
+            showInfoTooltip: true
         });
     }
 
@@ -59,7 +59,14 @@ export default class InfoTooltip extends React.Component {
         const targetElement = this.referenceDiv;
         const offsetTop = targetElement.offsetTop - 15;
         let tooltipWidth = 375;
-        if (this.props.wide) {
+        // is the t.t. in a section that takes up the full width of the screen?
+        const isTooltipJustifiedRight = (window.innerWidth - targetElement.offsetLeft) < window.innerWidth / 6;
+
+        if (this.props.wide && isTooltipJustifiedRight) {
+            tooltipWidth = 700;
+        }
+        else if (this.props.wide) {
+            // is there at least 700px of space to the right for the t.t.?
             tooltipWidth = (window.innerWidth - targetElement.offsetLeft > 700)
                 ? 700
                 : window.innerWidth - targetElement.offsetLeft - 100;
