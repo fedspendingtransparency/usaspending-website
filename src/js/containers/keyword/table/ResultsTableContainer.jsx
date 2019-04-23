@@ -293,17 +293,18 @@ export default class ResultsTableContainer extends React.Component {
         const columns = {};
         tableTypes.forEach((type) => {
             const allColumns = map(availableColumns(type.internal), (data) => data.title);
-
-            const parsedColumns = {};
-            availableColumns(type.internal).forEach((data) => {
-                parsedColumns[data.title] =
+            const parsedColumns = availableColumns(type.internal).reduce((result, data) => Object.assign(
+                {},
+                result,
                 {
-                    columnName: data.title,
-                    displayName: data.displayName || data.title,
-                    width: measureTableHeader(data.displayName || data.title),
-                    defaultDirection: 'desc'
-                };
-            });
+                    [data.title]: {
+                        columnName: data.title,
+                        displayName: data.displayName || data.title,
+                        width: measureTableHeader(data.displayName || data.title),
+                        defaultDirection: 'desc'
+                    }
+                }),
+            {});
 
             columns[type.internal] = {
                 visibleOrder: allColumns,
