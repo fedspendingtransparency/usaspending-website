@@ -127,22 +127,7 @@ export class KeywordContainer extends React.Component {
 
         const params = {
             filters: {
-                keyword: this.state.keyword,
-                // temporarily hard-code FYs 2015, 2016, & 2017 to match the data in elastic search
-                time_period: [
-                    {
-                        start_date: "2014-10-01",
-                        end_date: "2015-09-30"
-                    },
-                    {
-                        start_date: "2015-10-01",
-                        end_date: "2016-09-30"
-                    },
-                    {
-                        start_date: "2016-10-01",
-                        end_date: "2017-09-30"
-                    }
-                ]
+                keyword: this.state.keyword
             }
         };
 
