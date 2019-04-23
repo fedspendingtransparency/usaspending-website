@@ -19,7 +19,11 @@ export const mockParams = {
 export const mockActions = {
     setAward: jest.fn(),
     setCounts: jest.fn(),
-    resetAward: jest.fn()
+    resetAward: jest.fn(),
+    setDownloadExpectedUrl: jest.fn(),
+    setDownloadExpectedFile: jest.fn(),
+    setDownloadPending: jest.fn(),
+    setDownloadCollapsed: jest.fn()
 };
 
 export const mockRedux = {

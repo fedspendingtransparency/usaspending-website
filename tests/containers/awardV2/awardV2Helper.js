@@ -1,4 +1,8 @@
-import { mockContract, mockAwardAmounts } from '../../models/awardsV2/mockAwardApi';
+import {
+    mockContract,
+    mockAwardAmounts,
+    mockFileDownloadResponse
+} from "../../models/awardsV2/mockAwardApi";
 
 // Fetch Individual Awards
 export const fetchAwardV2 = () => (
@@ -26,3 +30,14 @@ export const fetchAwardAmounts = () => (
         cancel: jest.fn()
     }
 );
+
+export const fetchIdvDownloadFile = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: mockFileDownloadResponse
+            });
+        });
+    }),
+    cancel: jest.fn()
+});
