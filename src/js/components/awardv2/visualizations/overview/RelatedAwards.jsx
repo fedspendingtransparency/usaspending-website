@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
+import { formatNumber } from 'helpers/moneyFormatter';
 import InfoTooltip from '../../idv/InfoTooltip';
 
 const propTypes = {
@@ -45,19 +46,19 @@ export default class RelatedAwards extends React.Component {
         if (!counts) return null;
         const childData = [
             {
-                count: counts.child_awards,
+                count: formatNumber(counts.child_awards),
                 name: 'Child Award',
                 funcName: 'ChildAwards',
                 glossary: 'contract'
             },
             {
-                count: counts.child_idvs,
+                count: formatNumber(counts.child_idvs),
                 name: 'Child IDV',
                 funcName: 'ChildIDVs',
                 glossary: 'IDV'
             },
             {
-                count: counts.grandchild_awards,
+                count: formatNumber(counts.grandchild_awards),
                 name: 'Grandchild Award',
                 funcName: 'GrandchildAwards',
                 glossary: 'award'
