@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { formatNumber } from 'helpers/moneyFormatter';
 
 import { determineSpendingScenario } from 'helpers/aggregatedAmountsHelper';
 import ChartError from 'components/search/visualizations/ChartError';
@@ -78,16 +79,16 @@ export default class AggregatedAwardAmounts extends React.Component {
                     <div className="award-amounts-children__data-content">
                         <div>Count of Total Orders</div>
                         <span>
-                            {awardAmounts.childAwardCount + awardAmounts.grandchildAwardCount}
+                            {formatNumber(awardAmounts.childAwardCount + awardAmounts.grandchildAwardCount)}
                         </span>
                     </div>
                     <div className="award-amounts-children__data-content">
                         <div>Count of Child Award Orders</div>
-                        <span>{awardAmounts.childAwardCount}</span>
+                        <span>{formatNumber(awardAmounts.childAwardCount)}</span>
                     </div>
                     <div className="award-amounts-children__data-content">
                         <div>Count of Grandchild Award Orders</div>
-                        <span>{awardAmounts.grandchildAwardCount}</span>
+                        <span>{formatNumber(awardAmounts.grandchildAwardCount)}</span>
                     </div>
                 </div>
                 <button
