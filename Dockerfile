@@ -1,4 +1,4 @@
-FROM node:6
+FROM node:10.15.3
 
 RUN mkdir /node-workspace
 COPY package.json /node-workspace 
