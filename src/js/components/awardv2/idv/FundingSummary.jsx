@@ -52,7 +52,7 @@ const FundingSummary = ({
                 <div className="award-viz__link-icon">
                     <Table />
                 </div>
-                <div className="award-viz__link-text">View Federal Account Funding</div>
+                <div className="award-viz__link-text">View federal funding submissions</div>
             </button>
         </div>
     </div>
