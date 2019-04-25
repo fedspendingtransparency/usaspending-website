@@ -7,9 +7,6 @@ module.exports = merge(common, {
     mode: "development",
     devtool: "inline-source-map",
     optimization: {
-        namedChunks: true,
-        mergeDuplicateChunks: true,
-        removeEmptyChunks: true,
         splitChunks: {
             chunks: 'all'
         }
