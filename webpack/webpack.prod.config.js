@@ -25,15 +25,9 @@ module.exports = merge(common, {
             }),
             new OptimizeCssAssetsPlugin({})
         ],
-        sideEffects: true,
-        providedExports: true,
-        removeAvailableModules: true,
-        usedExports: true,
-        concatenateModules: true,
         runtimeChunk: "single",
         splitChunks: {
             chunks: "all",
-            maxInitialRequests: Infinity, // default is 3
             cacheGroups: {
                 styles: {
                     // all css in one file -- https://github.com/webpack-contrib/mini-css-extract-plugin
