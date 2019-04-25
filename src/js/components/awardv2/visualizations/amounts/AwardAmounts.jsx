@@ -60,7 +60,7 @@ export default class AwardAmounts extends React.Component {
                     <h3 className="award-viz__title">
                         $ Award Amounts
                     </h3>
-                    <InfoTooltip>
+                    <InfoTooltip wide>
                         { awardAmountsInfo }
                     </InfoTooltip>
                 </div>
