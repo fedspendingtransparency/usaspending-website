@@ -4,7 +4,9 @@ import React from 'react';
 
 export const transactionHistoryInfo = (
     <div className="transaction-history-tt">
-        <div className="info-tooltip__title">Transaction History</div>
+        <div className="info-tooltip__title">
+            Transaction History
+        </div>
         <div className="info-tooltip__text">
             <p>
                The Transaction History tab displays modification records
@@ -88,7 +90,9 @@ export const transactionHistoryInfo = (
 
 export const federalAccountFundingInfo = (
     <div>
-        <div className="info-tooltip__title">Federal Account Funding</div>
+        <div className="info-tooltip__title">
+            Federal Account Funding
+        </div>
         <div className="info-tooltip__text">
             <p>
                 Each row in this table represents a submission of a transaction by the awarding agency  that commits a specific amount of funding to this award. The columns in this table represent the following:
@@ -190,6 +194,102 @@ export const awardAmountsExtremeOverspendingInfo = (
             <p>
                 This can occur because of missing data, errors in the data, or violations of procurement policy.
             </p>
+        </div>
+    </div>
+);
+
+export const summaryRelatedAwardsInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Related Awards
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+                Related Awards refers to two possible types of awards related to this IDV:
+            </p>
+            <ul>
+                <li>
+                    <strong>Parent Award</strong> – The parent award is an IDV award that this contract was made under.  Click on the link to view more information on this award&apos;s parent.
+                </li>
+                <li>
+                    <strong>Award Orders Under this IDV</strong> – This is a count of how many awards were made under this IDV.  Click on the link to see more information about all of those orders.
+                </li>
+            </ul>
+        </div>
+    </div>
+);
+
+export const descriptionInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Description
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+                The description of the award is provided by the contract officer who submitted this award data. The quality of these descriptions can vary as they are largely dependent on their author and agency standards.
+            </p>
+            <p>
+                Also shown below are codes from two sets, North American Industry Classification System (NAICS) and Product Service Codes (PSC), used to categorize awards by what they are or are for.
+            </p>
+            <p>
+                Click on the glossary icons for more information on those systems.
+            </p>
+        </div>
+    </div>
+);
+
+export const awardAmountsInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Award Amounts
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+                This section provides information on the value of the award at two different levels, shown separately under the following tabs:
+            </p>
+            <ul>
+                <li>
+                    <strong>Award Orders Made Under this IDV</strong> – The information within this tab is derived from the data of every award made under this IDV, not the IDV award itself. This is done because award amount data is not typically found in IDV award records themselves. In order to provide a better idea of the actual value of the IDV as a whole, award amounts are taken from every award made under the IDV and then aggregated (or summed together) and presented here.
+                </li>
+                <li>
+                    <strong>This IDV</strong> – This tab contains data that is directly attributed to the IDV record summarized on this page. This data does not include the data attributed to the awards made under it.  In many cases, the data directly attributed to an IDV record does not show actual award amounts, which is why the amounts in this tab are often $0.
+                </li>
+            </ul>
+        </div>
+    </div>
+);
+
+export const awardHistoryInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Award History
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+                <strong>Transaction History</strong> – This table contains historical changes made to this award, shown as individual modification records. This information is reported by the Awarding Agency&apos;s contracting office.
+            </p>
+            <p>
+                <strong>Federal Account Funding</strong> – The data documenting the funding, or the actual transactions made my an agency to obligate money, of an award can be found in this table. This data comes from the Awarding Agency&apos;s financial accounting offices.
+            </p>
+        </div>
+    </div>
+);
+
+export const datesInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Dates
+        </div>
+        <div className="info-tooltip__text">
+            <p>The dates below are described in more detail:</p>
+            <ul>
+                <li>
+                    <strong>Start Date</strong> – This is the effective date, or when the IDV was made available for use by agencies.
+                </li>
+                <li>
+                    <strong>End Date</strong> – This is the last date for agencies to make purchases under this IDV.
+                </li>
+            </ul>
         </div>
     </div>
 );

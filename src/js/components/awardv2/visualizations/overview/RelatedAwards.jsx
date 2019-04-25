@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import { formatNumber } from 'helpers/moneyFormatter';
 import InfoTooltip from '../../idv/InfoTooltip';
+import { summaryRelatedAwardsInfo } from '../../idv/InfoTooltipContent';
 
 const propTypes = {
     overview: PropTypes.object,
@@ -105,22 +106,7 @@ export default class RelatedAwards extends React.Component {
                 <div className="award-overview__title related-awards__title">
                     Related Awards
                     <InfoTooltip left>
-                        <div className="info-tooltip__title">
-                            Related Awards
-                        </div>
-                        <div className="info-tooltip__text">
-                            <p>
-                                Related Awards refers to two possible types of awards related to this IDV:
-                            </p>
-                            <ul>
-                                <li>
-                                    <strong>Parent Award</strong> – The parent award is an IDV award that this contract was made under.  Click on the link to view more information on this award&apos;s parent.
-                                </li>
-                                <li>
-                                    <strong>Award Orders Under this IDV</strong> – This is a count of how many awards were made under this IDV.  Click on the link to see more information about all of those orders.
-                                </li>
-                            </ul>
-                        </div>
+                        {summaryRelatedAwardsInfo}
                     </InfoTooltip>
                 </div>
                 <div className="related-awards__parent">
