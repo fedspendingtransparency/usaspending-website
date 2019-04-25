@@ -172,15 +172,15 @@ export const relatedAwardsInfo = (
             <ul>
                 <li>
                     <em><strong>*Child award order</strong> refers to award orders made
-                    directly under this IDV (IDV &equals;&gt; Award).</em>
+                    directly under this IDV (IDV &gt; Award).</em>
                 </li>
                 <li>
                     <em><strong>*Child IDV order</strong> refers to IDVs made directly
-                    under this IDV (IDV &equals;&gt; IDV).</em>
+                    under this IDV (IDV &gt; IDV).</em>
                 </li>
                 <li>
                     <em><strong>*Grandchild award order</strong> refers to award orders
-                    made within a child IDV order (IDV &equals;&gt; IDV &equals;&gt;
+                    made within a child IDV order (IDV &gt; IDV &gt;
                       Award).</em>
                 </li>
                 <li>
@@ -254,19 +254,19 @@ export const summaryRelatedAwardsInfo = (
                 </li>
                 <li>
                     <strong>Child Award Order</strong> – This refers to the count
-                    of award orders made directly under this IDV (IDV &equals;&gt;
+                    of award orders made directly under this IDV (IDV &gt;
                       Award).  Click on the count to view the child award orders
                       of this IDV.
                 </li>
                 <li>
                     <strong>Child IDV Order</strong> – This refers to the count
-                    of IDVs made directly under this IDV (IDV &equals;&gt; IDV).
+                    of IDVs made directly under this IDV (IDV &gt; IDV).
                     Click on this count to view the child IDV orders of this IDV.
                 </li>
                 <li>
                     <strong>Grandchild Award Order</strong> – This refers to the
                     count of award orders made within child IDV Orders under this
-                    IDV (IDV &equals;&gt; IDV &equals;&gt; Award). Click on this
+                    IDV (IDV &gt; IDV &gt; Award). Click on this
                     count to view the grandchild award orders of this IDV.
                 </li>
             </ul>
@@ -321,15 +321,15 @@ export const awardAmountsInfo = (
                 </li>
                 <li>
                     <em><strong>*Child award order</strong> refers to award orders made
-                    directly under this IDV (IDV &equals;&gt; Award).</em>
+                    directly under this IDV (IDV &gt; Award).</em>
                 </li>
                 <li>
                     <em><strong>*Child IDV order</strong> refers to IDVs made directly
-                    under this IDV (IDV &equals;&gt; IDV).</em>
+                    under this IDV (IDV &gt; IDV).</em>
                 </li>
                 <li>
                     <em><strong>*Grandchild award order</strong> refers to award orders
-                    made within a child IDV order (IDV &equals;&gt; IDV &equals;&gt;
+                    made within a child IDV order (IDV &gt; IDV &gt;
                       Award).</em>
                 </li>
                 <li>
@@ -439,15 +439,15 @@ export const idvActivityInfo = (
             <ul>
                 <li>
                     <em><strong>*Child award order</strong> refers to award orders made
-                    directly under this IDV (IDV &equals;&gt; Award).</em>
+                    directly under this IDV (IDV &gt; Award).</em>
                 </li>
                 <li>
                     <em><strong>*Child IDV order</strong> refers to IDVs made directly
-                    under this IDV (IDV &equals;&gt; IDV).</em>
+                    under this IDV (IDV &gt; IDV).</em>
                 </li>
                 <li>
                     <em><strong>*Grandchild award order</strong> refers to award orders
-                    made within a child IDV order (IDV &equals;&gt; IDV &equals;&gt;
+                    made within a child IDV order (IDV &gt; IDV &gt;
                       Award).</em>
                 </li>
                 <li>
@@ -518,15 +518,15 @@ export const federalAccountsInfo = (
               </li>
               <li>
                   <em><strong>*Child award order</strong> refers to award orders made
-                  directly under this IDV (IDV &equals;&gt; Award).</em>
+                  directly under this IDV (IDV &gt; Award).</em>
               </li>
               <li>
                   <em><strong>*Child IDV order</strong> refers to IDVs made directly
-                  under this IDV (IDV &equals;&gt; IDV).</em>
+                  under this IDV (IDV &gt; IDV).</em>
               </li>
               <li>
                   <em><strong>*Grandchild award order</strong> refers to award orders
-                  made within a child IDV order (IDV &equals;&gt; IDV &equals;&gt;
+                  made within a child IDV order (IDV &gt; IDV &gt;
                     Award).</em>
               </li>
               <li>
