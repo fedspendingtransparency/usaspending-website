@@ -1,6 +1,6 @@
 module.exports = {
     rootDir: ".",
-    testRegex: "__tests__/.*-(test)\\.jsx?$",
+    testRegex: "tests/.*-(test)\\.jsx?$",
     verbose: true,
     bail: false,
     collectCoverage: true,
@@ -24,5 +24,5 @@ module.exports = {
         "\\.(css|less|scss)$": "identity-obj-proxy"
         // "(.*).scss$": "<rootDir>/__tests__/stylesStub.js"
     },
-    setupFilesAfterEnv: ["<rootDir>/__tests__/setup.js"]
+    setupFilesAfterEnv: ["<rootDir>/tests/setup.js"]
 };
