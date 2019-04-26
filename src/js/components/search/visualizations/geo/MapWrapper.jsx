@@ -98,7 +98,6 @@ export default class MapWrapper extends React.Component {
     }
 
     componentDidMount() {
-        console.log(this.props.data);
         this.displayData();
         if (!this.props.stateProfile) {
             this.prepareBroadcastReceivers();
