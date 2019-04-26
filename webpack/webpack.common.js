@@ -30,10 +30,23 @@ module.exports = {
     optimization: {
         splitChunks: {
             cacheGroups: {
+                default: false,
+                vendors: false,
+                // all imported code from node_modules is a single file
                 vendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
-                    chunks: 'all'
+                    chunks: 'all',
+                    priority: 20
+                },
+                // code shared between at least 2 modules, is put into a common chunk file
+                common: {
+                    name: 'common',
+                    minChunks: 2,
+                    chunks: 'all',
+                    priority: 10,
+                    reuseExistingChunk: true,
+                    enforce: true
                 }
             }
         }
