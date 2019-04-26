@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoneyWithPrecision } from '../../../helpers/moneyFormatter';
 import { Table } from "../../sharedComponents/icons/Icons";
 import ComingSoonSection from "./ComingSoonSection";
+import InfoTooltip from './InfoTooltip';
+import { federalAccountsInfo } from './InfoTooltipContent';
 
 const propTypes = {
     totalTransactionObligatedAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -26,6 +28,9 @@ const FundingSummary = ({
                     <FontAwesomeIcon size="lg" icon="chart-pie" />
                 </div>
                 <h3 className="award-viz__title">Federal Accounts</h3>
+                <InfoTooltip left wide>
+                    {federalAccountsInfo}
+                </InfoTooltip>
             </div>
             <hr />
             <ComingSoonSection className="federal-accounts__section" />
