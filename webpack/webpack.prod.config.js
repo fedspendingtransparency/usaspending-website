@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+// const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const common = require('./webpack.common');
 
@@ -43,10 +44,11 @@ module.exports = merge(common, {
             filename: "[name].[contenthash].css"
         }),
         new webpack.optimize.MinChunkSizePlugin({
-            minChunkSize: 750000
+            minChunkSize: 350000
         }),
         new webpack.debug.ProfilingPlugin({
             outputPath: "../stats.json"
         })
+        // new BundleAnalyzer()
     ]
 });
