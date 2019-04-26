@@ -392,9 +392,7 @@ export const idvActivityInfo = (
         </div>
         <div className="info-tooltip__text">
             <p>
-                <strong>How to read this visual:</strong>
-            </p>
-            <p>
+                <strong>How to read this visual:</strong><br />
                 Each bar represents a child award order* or grandchild award order*
                 made underneath this indefinite delivery vehicle (IDV). Each bar's
                 position on the vertical axis indicates its potential award amount.
@@ -407,24 +405,18 @@ export const idvActivityInfo = (
                 bar means the award has obligated half of its potential award amount.
             </p>
             <p>
-                <strong>Data shown in this visual:</strong>
-            </p>
-            <p>
+                <strong>Data shown in this visual:</strong><br />
                 This visual shows the award orders made under this IDV. This includes
                  child award orders* made directly underneath this IDV, as well
                  as grandchild award orders* made under child IDV orders*.
             </p>
             <p>
-                <strong>Data not shown in this visual:</strong>
-            </p>
-            <p>
+                <strong>Data not shown in this visual:</strong><br />
                 This visual does not show the IDV itself* nor does it show the child
                 IDV orders* made under this IDV.
             </p>
             <p>
-                <strong>Options when viewing the awards:</strong>
-            </p>
-            <p>
+                <strong>Options when viewing the awards:</strong><br />
                 Awards orders are shown 10 at a time and in descending order according
                 to their respective potential award amounts. Use the page number
                 links at the top-right of this section to view more.
@@ -467,9 +459,7 @@ export const federalAccountsInfo = (
         </div>
         <div className="info-tooltip__text">
           <p>
-              <strong>How to read this visual:</strong>
-          </p>
-          <p>
+              <strong>How to read this visual:</strong><br />
               The funding committed to the award orders made under this indefinite
               delivery vehicle (IDV) is shown here. Each rectangle represents a
               different federal account. The size of each rectangle indicates the
@@ -477,31 +467,23 @@ export const federalAccountsInfo = (
               account.
           </p>
           <p>
-              <strong>Data shown in this visual:</strong>
-          </p>
-          <p>
+              <strong>Data shown in this visual:</strong><br />
               Funding data* from all child award orders* and grandchild award orders*
               are summed and categorized by the federal account it came from.
           </p>
           <p>
-              <strong>Data not shown in this visual:</strong>
-          </p>
-          <p>
+              <strong>Data not shown in this visual:</strong><br />
               This section does not show any federal account funding directly attached
               to the IDV itself* (if any) nor funding directly attached to its child
               IDV orders* (if any).
           </p>
           <p>
-              <strong>Viewing options for this visual:</strong>
-          </p>
-          <p>
+              <strong>Viewing options for this visual:</strong><br />
               You can view this data as a treemap or as a list by clicking on the
               buttons at the top right corner of this section.
           </p>
           <p>
-              <strong>Summary table:</strong>
-          </p>
-          <p>
+              <strong>Summary table:</strong><br />
               Also included is a summary table showing the total federal account
               funding committed across all award orders made underneath this IDV,
               as well as the counts of federal funding accounts and awarding agencies
