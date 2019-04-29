@@ -18,15 +18,10 @@ const plugins = [
             root: ["src/js"]
         }
     ],
+    "@babel/plugin-transform-runtime",
     "react-hot-loader/babel"
 ];
 
-if (process.env.NODE_ENV === 'test') {
-    // regenerator-runtime is undefined in tests unless we include this plugin:
-    plugins.push(
-        "@babel/plugin-transform-runtime"
-    );
-}
 module.exports = {
     presets,
     plugins
