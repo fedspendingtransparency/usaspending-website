@@ -1,0 +1,84 @@
+.tooltip-wrapper {
+    .tooltip-spacer {
+        display: none;
+        @include media($medium-screen) {
+            display: block;
+            position: absolute;
+            z-index: 9;
+        }
+    }
+    .award__icon {
+        &:hover {
+            svg {
+                fill: $color-gray;
+            }
+        }
+    }
+    .tooltip {
+        .tooltip__interior {
+            position: relative;
+            // inherit from the standard tooltip arrow style
+            $color-tooltip-border: $color-gray-light;
+            @import "components/visualizations/tooltip/_arrow";
+            .tooltip-pointer {
+                // override the coloring
+                &:after {
+                    background: $color-gray-lightest;
+                }
+                z-index: 2;
+                top: rem(15);
+            }
+            .tooltip__content {
+                @include display(flex);
+                @include flex-direction(row);
+                @include justify-content(center);
+                @include align-items(center);
+                position: relative;
+                box-shadow: $box-shadow;
+                background-color: $color-white;
+                border: solid rem(1) $color-gray-light;
+                .tooltip__message {
+                    width: 100%;
+                    text-align: left;
+                    font-size: $small-font-size;
+                    .tooltip__title {
+                        background-color: $color-gray-lightest;
+                        padding: rem(10) rem(15);
+                        font-weight: $font-bold;
+                        z-index: 10;
+                    }
+                    .tooltip__text {
+                        padding: 0 rem(15) rem(15);
+                        font-weight: $font-normal;
+                        ul {
+                            margin: 0;
+                            padding-left: 0;
+                            list-style-type: none;
+                        }
+                        .tooltip__list {
+                            display: flex;
+                            flex-wrap: wrap;
+                            flex-direction: column;
+                            li {
+                                margin: 0;
+                                margin-right: rem(5);
+                                padding: 0;
+                            }
+                        }
+                    }
+                    .related-awards-tt {
+                        p:nth-of-type(2) {
+                            padding-bottom:0;
+                            margin-bottom: 0;
+                        }
+                    }
+                    .transaction-history-tt {
+                        p:nth-of-type(3) {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
