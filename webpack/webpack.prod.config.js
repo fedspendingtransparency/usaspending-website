@@ -44,11 +44,11 @@ module.exports = merge(common, {
             filename: "[name].[contenthash].css"
         }),
         new webpack.optimize.MinChunkSizePlugin({
-            minChunkSize: 350000
+            minChunkSize: 300000
         }),
         new webpack.debug.ProfilingPlugin({
             outputPath: "../stats.json"
         })
-        // new BundleAnalyzer()
+        // new BundleAnalyzer({ analyzerPort: 1234 })
     ]
 });
