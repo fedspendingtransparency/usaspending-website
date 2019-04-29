@@ -11,7 +11,6 @@ import AppContainer from 'containers/AppContainer';
  * Also using the transform-runtime plugin for the test env.
 */
 require("core-js");
-require("regenerator-runtime/runtime");
 require('helpers/rafPolyfill');
 
 library.add(faChartArea, faChartPie);
