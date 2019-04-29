@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ComingSoonSection from "./ComingSoonSection";
@@ -9,25 +8,25 @@ import { idvActivityInfo } from './InfoTooltipContent';
 const propTypes = {
 };
 
-const IdvActivity = ({
-}) => (
-    <div className="award__col award-viz idv-activity">
-        <div className="award__col__content">
-            <div className="award-viz__heading">
-                <div className="award-viz__icon">
-                    <FontAwesomeIcon size="lg" icon="chart-area" />
+export default class IdvActivity extends React.Component {
+    render() {
+        return (
+            <div className="award__col award-viz idv-activity">
+                <div className="award__col__content">
+                    <div className="award-viz__heading">
+                        <div className="award-viz__icon">
+                            <FontAwesomeIcon size="lg" icon="chart-area" />
+                        </div>
+                        <h3 className="award-viz__title">IDV Activity</h3>
+                        <InfoTooltip left wide>
+                            {idvActivityInfo}
+                        </InfoTooltip>
+                    </div>
+                    <hr />
+                    <ComingSoonSection className="idv-activity__section" />
                 </div>
-                <h3 className="award-viz__title">IDV Activity</h3>
-                <InfoTooltip left wide>
-                    {idvActivityInfo}
-                </InfoTooltip>
             </div>
-            <hr />
-            <ComingSoonSection className="idv-activity__section" />
-        </div>
-    </div>
-);
-
+        );
+    }
+}
 IdvActivity.propTypes = propTypes;
-
-export default IdvActivity;

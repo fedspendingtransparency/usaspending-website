@@ -16,8 +16,7 @@ import IdvDates from './IdvDates';
 import AwardDescription from '../visualizations/description/AwardDescription';
 import AwardAmounts from '../visualizations/amounts/AwardAmounts';
 import AdditionalInfo from '../contract/AdditionalInfo';
-import ComingSoonSection from "./ComingSoonSection";
-import IdvActivity from "./IdvActivity";
+import IdvActivity from './IdvActivity';
 import AwardMetaDataContainer from '../../../containers/awardV2/idv/AwardMetaDataContainer';
 import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
 
@@ -125,12 +124,16 @@ export default class IdvContent extends React.Component {
                 </div>
                 <div className="award__row">
                     <IdvActivity />
-                    <AwardMetaDataContainer jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
+                    <AwardMetaDataContainer
+                        jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>
                 <ReferencedAwardsContainer
                     tableType={this.state.relatedAwardsActiveTab}
                     switchTab={this.setRelatedAwardsTab} />
-                <AwardHistory activeTab={this.state.awardHistoryActiveTab} setActiveTab={this.setHistoryActiveTab} overview={this.props.overview} />
+                <AwardHistory
+                    activeTab={this.state.awardHistoryActiveTab}
+                    setActiveTab={this.setHistoryActiveTab}
+                    overview={this.props.overview} />
                 <AdditionalInfo overview={this.props.overview} />
             </div>
         );
