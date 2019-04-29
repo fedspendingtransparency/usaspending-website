@@ -8,6 +8,8 @@ import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 
 import InfoTooltip from 'components/awardv2/idv/InfoTooltip';
 import { awardAmountsExtremeOverspendingInfo } from 'components/awardv2/idv/InfoTooltipContent';
+import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
+
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../../propTypes';
 
 const propTypes = {
@@ -56,44 +58,87 @@ export default class ExceedsPotentialChart extends React.Component {
             <div className="award-amounts-viz">
                 <div className="award-amounts-viz__desc-top-wrapper">
                     <div className="award-amounts-viz__desc-top">
-                        <strong>{this.props.awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
+                        <TooltipWrapper
+                            tooltipComponent={awardAmountsExtremeOverspendingInfo}>
+                            <strong>
+                                {this.props.awardAmounts.obligationFormatted}
+                            </strong>
+                            <br /> Combined Obligated Amounts
+                        </TooltipWrapper>
                     </div>
                     <div className="award-amounts-viz__desc">
                         <div className="award-amounts-viz__desc-text">
-                            <strong>{this.props.awardAmounts.extremeOverspendingFormatted}</strong><br />
+                            <strong>
+                                {
+                                    this.props.awardAmounts
+                                        .extremeOverspendingFormatted
+                                }
+                            </strong>
+                            <br />
                             <div className="award-amounts-viz__desc-text-wrapper">
-                                <InfoTooltip>{awardAmountsExtremeOverspendingInfo}</InfoTooltip>Exceeds Combined Potential Award Amounts
+                                <InfoTooltip>
+                                    {awardAmountsExtremeOverspendingInfo}
+                                </InfoTooltip>
+                    Exceeds Combined Potential Award Amounts
                             </div>
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_extreme-overspending" />
                     </div>
                 </div>
-                <div className="award-amounts-viz__label" style={obligatedLabelStyle}>
+                <div
+                    className="award-amounts-viz__label"
+                    style={obligatedLabelStyle}>
                     <div className="award-amounts-viz__line-up" />
                 </div>
                 <div className="award-amounts-viz__bar-wrapper award-amounts-viz__bar-wrapper_extreme-overspending">
                     <div className="award-amounts-viz__bar">
-                        <div className="award-amounts-viz__potential-wrapper" style={potentialWrapperStyle}>
-                            <div className="award-amounts-viz__current" style={currentBarStyle} />
-                            <div className="award-amounts-viz__potential" style={potentialBarStyle} />
+                        <div
+                            className="award-amounts-viz__potential-wrapper"
+                            style={potentialWrapperStyle}>
+                            <div
+                                className="award-amounts-viz__current"
+                                style={currentBarStyle} />
+                            <div
+                                className="award-amounts-viz__potential"
+                                style={potentialBarStyle} />
                         </div>
-                        <div className="award-amounts-viz__exceeded-potential" style={overspendingBarStyle} />
+                        <div
+                            className="award-amounts-viz__exceeded-potential"
+                            style={overspendingBarStyle} />
                     </div>
                 </div>
-                <div className="award-amounts-viz__label" style={currentLabelStyle}>
+                <div
+                    className="award-amounts-viz__label"
+                    style={currentLabelStyle}>
                     <div className="award-amounts-viz__line" />
                     <div className="award-amounts-viz__desc">
                         <div className="award-amounts-viz__desc-text">
-                            <strong>{this.props.awardAmounts.combinedCurrentAwardAmountsFormatted}</strong><br />Combined Current Award Amounts
+                            <strong>
+                                {
+                                    this.props.awardAmounts
+                                        .combinedCurrentAwardAmountsFormatted
+                                }
+                            </strong>
+                            <br />
+                  Combined Current Award Amounts
                         </div>
                         <div className="award-amounts-viz__legend-line" />
                     </div>
                 </div>
-                <div className="award-amounts-viz__label" style={potentialLabelStyle}>
+                <div
+                    className="award-amounts-viz__label"
+                    style={potentialLabelStyle}>
                     <div className="award-amounts-viz__line" />
                     <div className="award-amounts-viz__desc">
                         <div className="award-amounts-viz__desc-text">
-                            <strong>{this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}</strong><br />Combined Potential Award Amounts
+                            <strong>
+                                {
+                                    this.props.awardAmounts
+                                        .combinedPotentialAwardAmountsFormatted
+                                }
+                            </strong>
+                            <br />
+                  Combined Potential Award Amounts
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
                     </div>
