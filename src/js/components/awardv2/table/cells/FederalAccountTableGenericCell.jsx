@@ -41,6 +41,7 @@ export default class FederalAccountTableGenericCell extends React.Component {
                         this.props.link ?
                             <a
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 href={`${this.props.link}`}>
                                 {this.props.data}
                             </a> : content

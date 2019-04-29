@@ -4,9 +4,7 @@ import React from 'react';
 
 export const transactionHistoryInfo = (
     <div className="transaction-history-tt">
-        <div className="info-tooltip__title">
-            Transaction History
-        </div>
+        <div className="info-tooltip__title">Transaction History</div>
         <div className="info-tooltip__text">
             <p>
                The Transaction History tab displays modification records
@@ -145,12 +143,12 @@ export const relatedAwardsInfo = (
                 Delivery Vehicle (IDV).
             </p>
             <p>
-                IDVs are a special kind of contract which usually aren't directly
+                IDVs are a special kind of contract which usually aren&rsquo;t directly
                 associated with award amounts. This is because IDVs merely act as
                 a means, or “vehicle”, for agencies to purchase an indefinite amount
                 of goods or services from vendors within a specific time frame.
                 For this reason, the award orders made under the IDV are where all
-                (or most) of the agency's spending related to an IDV occurs, not
+                (or most) of the agency&rsquo;s spending related to an IDV occurs, not
                 the IDV itself*.
             </p>
             <p>
@@ -171,22 +169,30 @@ export const relatedAwardsInfo = (
             </p>
             <ul>
                 <li>
-                    <em><strong>*Child award order</strong> refers to award orders made
-                    directly under this IDV (IDV &gt; Award).</em>
+                    <em>
+                        <strong>*Child award order</strong> refers to award orders made
+                        directly under this IDV (IDV &gt; Award).
+                    </em>
                 </li>
                 <li>
-                    <em><strong>*Child IDV order</strong> refers to IDVs made directly
-                    under this IDV (IDV &gt; IDV).</em>
+                    <em>
+                        <strong>*Child IDV order</strong> refers to IDVs made directly
+                        under this IDV (IDV &gt; IDV).
+                    </em>
                 </li>
                 <li>
-                    <em><strong>*Grandchild award order</strong> refers to award orders
-                    made within a child IDV order (IDV &gt; IDV &gt;
-                      Award).</em>
+                    <em>
+                        <strong>*Grandchild award order</strong> refers to award orders
+                        made within a child IDV order (IDV &gt; IDV &gt;
+                          Award).
+                    </em>
                 </li>
                 <li>
-                    <em><strong>*IDV itself</strong> refers to the top-level IDV this
-                    page is summarizing, not including any of its child award orders
-                    or child IDV orders.</em>
+                    <em>
+                        <strong>*IDV itself</strong> refers to the top-level IDV this
+                        page is summarizing, not including any of its child award orders
+                        or child IDV orders.
+                    </em>
                 </li>
             </ul>
         </div>
@@ -250,24 +256,23 @@ export const summaryRelatedAwardsInfo = (
                 <li>
                     <strong>Parent Award</strong> – The parent award is the IDV
                     award that this IDV was made under.  Click on the link to view
-                    more information on this IDV's parent award.
+                    more information on this IDV&rsquo;s parent award.
                 </li>
                 <li>
                     <strong>Child Award Order</strong> – This refers to the count
-                    of award orders made directly under this IDV (IDV &gt;
-                      Award).  Click on the count to view the child award orders
-                      of this IDV.
+                    of award orders made directly under this IDV (IDV &gt; Award).
+                     Click on the count to view the child award orders of this IDV.
                 </li>
                 <li>
                     <strong>Child IDV Order</strong> – This refers to the count
-                    of IDVs made directly under this IDV (IDV &gt; IDV).
-                    Click on this count to view the child IDV orders of this IDV.
+                    of IDVs made directly under this IDV (IDV &gt; IDV). Click
+                     on this count to view the child IDV orders of this IDV.
                 </li>
                 <li>
                     <strong>Grandchild Award Order</strong> – This refers to the
                     count of award orders made within child IDV Orders under this
-                    IDV (IDV &gt; IDV &gt; Award). Click on this
-                    count to view the grandchild award orders of this IDV.
+                    IDV (IDV &gt; IDV &gt; Award). Click on this count to view
+                     the grandchild award orders of this IDV.
                 </li>
             </ul>
         </div>
@@ -305,37 +310,62 @@ export const awardAmountsInfo = (
         </div>
         <div className="info-tooltip__text">
             <p>
-                This section provides information on the value of this indefinite delivery vehicle (IDV) at two different levels, shown separately under the following tabs:
+                This section provides information on the value of this indefinite
+                delivery vehicle (IDV) at two different levels, shown separately
+                under the following tabs:
             </p>
             <ul>
                 <li>
                     <p>
-                        <strong>Award Orders Made Under this IDV</strong> – The information within this tab is derived from the spending data of every award order made under this IDV, including child award orders* and grandchild award orders*.  It does not include the spending data of the IDV itself* or its child IDV orders*. This is because award amount data is not typically found in IDVs themselves. In order to provide a better idea of the actual value of the IDV as a whole, award amounts are taken from its award orders and then aggregated (or summed together) and then presented here.
+                        <strong>Award Orders Made Under this IDV</strong> – The
+                        information within this tab is derived from the spending
+                        data of every award order made under this IDV, including
+                        child award orders* and grandchild award orders*.  It does
+                        not include the spending data of the IDV itself* or its
+                        child IDV orders*. This is because award amount data is
+                        not typically found in IDVs themselves. In order to provide
+                        a better idea of the actual value of the IDV as a whole,
+                        award amounts are taken from its award orders and then aggregated
+                        (or summed together) and then presented here.
                     </p>
                     <p>
-                        Counts of the total amount of orders as well as the child award orders and grandchild award orders are also displayed in a table below the bar chart.
+                        Counts of the total amount of orders as well as the child
+                        award orders and grandchild award orders are also displayed
+                        in a table below the bar chart.
                     </p>
                 </li>
                 <li>
-                    <strong>This IDV</strong> – This tab contains spending data that is directly attributed to the IDV record summarized on this page. This data does not include the spending data attributed to any awards or IDVs made under it.  In many cases, the data directly attributed to an IDV record does not show actual award amounts, which is why the amounts in this tab are often $0.
+                    <strong>This IDV</strong> – This tab contains spending data
+                    that is directly attributed to the IDV record summarized on
+                    this page. This data does not include the spending data attributed
+                    to any awards or IDVs made under it.  In many cases, the data
+                    directly attributed to an IDV record does not show actual award
+                    amounts, which is why the amounts in this tab are often $0.
                 </li>
                 <li>
-                    <em><strong>*Child award order</strong> refers to award orders made
-                    directly under this IDV (IDV &gt; Award).</em>
+                    <em>
+                        <strong>*Child award order</strong> refers to award orders made
+                        directly under this IDV (IDV &gt; Award).
+                    </em>
                 </li>
                 <li>
-                    <em><strong>*Child IDV order</strong> refers to IDVs made directly
-                    under this IDV (IDV &gt; IDV).</em>
+                    <em>
+                        <strong>*Child IDV order</strong> refers to IDVs made directly
+                        under this IDV (IDV &gt; IDV).
+                    </em>
                 </li>
                 <li>
-                    <em><strong>*Grandchild award order</strong> refers to award orders
-                    made within a child IDV order (IDV &gt; IDV &gt;
-                      Award).</em>
+                    <em>
+                        <strong>*Grandchild award order</strong> refers to award orders
+                        made within a child IDV order (IDV &gt; IDV &gt; Award).
+                    </em>
                 </li>
                 <li>
-                    <em><strong>*IDV itself</strong> refers to the top-level IDV this
-                    page is summarizing, not including any of its child award orders
-                    or child IDV orders.</em>
+                    <em>
+                        <strong>*IDV itself</strong> refers to the top-level IDV this
+                        page is summarizing, not including any of its child award orders
+                        or child IDV orders.
+                    </em>
                 </li>
             </ul>
         </div>
@@ -394,13 +424,13 @@ export const idvActivityInfo = (
             <p>
                 <strong>How to read this visual:</strong><br />
                 Each bar represents a child award order* or grandchild award order*
-                made underneath this indefinite delivery vehicle (IDV). Each bar's
+                made underneath this indefinite delivery vehicle (IDV). Each bar&rsquo;s
                 position on the vertical axis indicates its potential award amount.
                 Where the left side of each bar begins on the horizontal axis indicates
                 the start date of its period of performance. Where the right side
                 of each bar ends on the horizontal axis indicates the end date of
                 its period of performance. The green part of each bar shows how
-                much of the award order's potential award amount has been obligated.
+                much of the award order&rsquo;s potential award amount has been obligated.
                 For example, a green bar reaching half of the width of the grey
                 bar means the award has obligated half of its potential award amount.
             </p>
@@ -423,29 +453,36 @@ export const idvActivityInfo = (
             </p>
             <p>
                 You can get more details on each award order by hovering your cursor
-                over the award order's bar.
+                over the award order&rsquo;s bar.
             </p>
             <p>
                 The dates below are described in more detail:
             </p>
             <ul>
                 <li>
-                    <em><strong>*Child award order</strong> refers to award orders made
-                    directly under this IDV (IDV &gt; Award).</em>
+                    <em>
+                        <strong>*Child award order</strong> refers to award orders made
+                        directly under this IDV (IDV &gt; Award).
+                    </em>
                 </li>
                 <li>
-                    <em><strong>*Child IDV order</strong> refers to IDVs made directly
-                    under this IDV (IDV &gt; IDV).</em>
+                    <em>
+                        <strong>*Child IDV order</strong> refers to IDVs made directly
+                        under this IDV (IDV &gt; IDV).
+                    </em>
                 </li>
                 <li>
-                    <em><strong>*Grandchild award order</strong> refers to award orders
-                    made within a child IDV order (IDV &gt; IDV &gt;
-                      Award).</em>
+                    <em>
+                        <strong>*Grandchild award order</strong> refers to award orders
+                        made within a child IDV order (IDV &gt; IDV &gt; Award).
+                    </em>
                 </li>
                 <li>
-                    <em><strong>*IDV itself</strong> refers to the top-level IDV this
-                    page is summarizing, not including any of its child award orders
-                    or child IDV orders.</em>
+                    <em>
+                        <strong>*IDV itself</strong> refers to the top-level IDV this
+                        page is summarizing, not including any of its child award orders
+                        or child IDV orders.
+                    </em>
                 </li>
             </ul>
         </div>
@@ -458,65 +495,74 @@ export const federalAccountsInfo = (
             Federal Accounts
         </div>
         <div className="info-tooltip__text">
-          <p>
-              <strong>How to read this visual:</strong><br />
-              The funding committed to the award orders made under this indefinite
-              delivery vehicle (IDV) is shown here. Each rectangle represents a
-              different federal account. The size of each rectangle indicates the
-              fraction of the total funding for this IDV provided by that federal
-              account.
-          </p>
-          <p>
-              <strong>Data shown in this visual:</strong><br />
-              Funding data* from all child award orders* and grandchild award orders*
-              are summed and categorized by the federal account it came from.
-          </p>
-          <p>
-              <strong>Data not shown in this visual:</strong><br />
-              This section does not show any federal account funding directly attached
-              to the IDV itself* (if any) nor funding directly attached to its child
-              IDV orders* (if any).
-          </p>
-          <p>
-              <strong>Viewing options for this visual:</strong><br />
-              You can view this data as a treemap or as a list by clicking on the
-              buttons at the top right corner of this section.
-          </p>
-          <p>
-              <strong>Summary table:</strong><br />
-              Also included is a summary table showing the total federal account
-              funding committed across all award orders made underneath this IDV,
-              as well as the counts of federal funding accounts and awarding agencies
-              involved with these award orders.
-          </p>
-          <ul>
-              <li>
-                  <em><strong>*Funding data</strong> refers to award-level accounting/financial
-                  data submitted by government agencies which is linked to complementary
-                  data they previously submitted from their award systems. . This
-                  is the same data available for download in the Download Center,
-                  under Custom Account Download by selecting “Account Breakdown by
-                  Award” within the “File Type” section.</em>
-              </li>
-              <li>
-                  <em><strong>*Child award order</strong> refers to award orders made
-                  directly under this IDV (IDV &gt; Award).</em>
-              </li>
-              <li>
-                  <em><strong>*Child IDV order</strong> refers to IDVs made directly
-                  under this IDV (IDV &gt; IDV).</em>
-              </li>
-              <li>
-                  <em><strong>*Grandchild award order</strong> refers to award orders
-                  made within a child IDV order (IDV &gt; IDV &gt;
-                    Award).</em>
-              </li>
-              <li>
-                  <em><strong>*IDV itself</strong> refers to the top-level IDV this
-                  page is summarizing, not including any of its child award orders
-                  or child IDV orders.</em>
-              </li>
-          </ul>
+            <p>
+                <strong>How to read this visual:</strong><br />
+                The funding committed to the award orders made under this indefinite
+                delivery vehicle (IDV) is shown here. Each rectangle represents a
+                different federal account. The size of each rectangle indicates the
+                fraction of the total funding for this IDV provided by that federal
+                account.
+            </p>
+            <p>
+                <strong>Data shown in this visual:</strong><br />
+                Funding data* from all child award orders* and grandchild award orders*
+                are summed and categorized by the federal account it came from.
+            </p>
+            <p>
+                <strong>Data not shown in this visual:</strong><br />
+                This section does not show any federal account funding directly attached
+                to the IDV itself* (if any) nor funding directly attached to its child
+                IDV orders* (if any).
+            </p>
+            <p>
+                <strong>Viewing options for this visual:</strong><br />
+                You can view this data as a treemap or as a list by clicking on the
+                buttons at the top right corner of this section.
+            </p>
+            <p>
+                <strong>Summary table:</strong><br />
+                Also included is a summary table showing the total federal account
+                funding committed across all award orders made underneath this IDV,
+                as well as the counts of federal funding accounts and awarding agencies
+                involved with these award orders.
+            </p>
+            <ul>
+                <li>
+                    <em>
+                        <strong>*Funding data</strong> refers to award-level accounting/financial
+                        data submitted by government agencies which is linked to complementary
+                        data they previously submitted from their award systems. . This
+                        is the same data available for download in the Download Center,
+                        under Custom Account Download by selecting “Account Breakdown by
+                        Award” within the “File Type” section.
+                    </em>
+                </li>
+                <li>
+                    <em>
+                        <strong>*Child award order</strong> refers to award orders made
+                        directly under this IDV (IDV &gt; Award).
+                    </em>
+                </li>
+                <li>
+                    <em>
+                        <strong>*Child IDV order</strong> refers to IDVs made directly
+                        under this IDV (IDV &gt; IDV).
+                    </em>
+                </li>
+                <li>
+                    <em>
+                        <strong>*Grandchild award order</strong> refers to award orders
+                        made within a child IDV order (IDV &gt; IDV &gt; Award).
+                    </em>
+                </li>
+                <li>
+                    <em>
+                        <strong>*IDV itself</strong> refers to the top-level IDV this
+                        page is summarizing, not including any of its child award orders
+                        or child IDV orders.
+                    </em>
+                </li>
+            </ul>
         </div>
     </div>
 );
