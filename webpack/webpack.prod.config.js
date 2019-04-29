@@ -45,9 +45,6 @@ module.exports = merge(common, {
         }),
         new webpack.optimize.MinChunkSizePlugin({
             minChunkSize: 300000
-        }),
-        new webpack.debug.ProfilingPlugin({
-            outputPath: "../stats.json"
         })
         // new BundleAnalyzer({ analyzerPort: 1234 })
     ]
