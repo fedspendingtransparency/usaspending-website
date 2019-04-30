@@ -11,6 +11,7 @@ import { awardAmountsExtremeOverspendingInfo } from 'components/awardv2/idv/Info
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../../propTypes';
+import { CombinedObligatedAmounts } from "../../../idv/TooltipContent";
 
 const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS
@@ -58,13 +59,11 @@ export default class ExceedsPotentialChart extends React.Component {
             <div className="award-amounts-viz">
                 <div className="award-amounts-viz__desc-top-wrapper">
                     <div className="award-amounts-viz__desc-top">
-                        <TooltipWrapper
-                            tooltipComponent={awardAmountsExtremeOverspendingInfo}>
-                            <strong>
-                                {this.props.awardAmounts.obligationFormatted}
-                            </strong>
-                            <br /> Combined Obligated Amounts
-                        </TooltipWrapper>
+                        <strong>
+                            {this.props.awardAmounts.obligationFormatted}
+                        </strong>
+                        <br />
+                Combined Obligated Amounts
                     </div>
                     <div className="award-amounts-viz__desc">
                         <div className="award-amounts-viz__desc-text">
@@ -95,9 +94,21 @@ export default class ExceedsPotentialChart extends React.Component {
                         <div
                             className="award-amounts-viz__potential-wrapper"
                             style={potentialWrapperStyle}>
-                            <div
-                                className="award-amounts-viz__current"
-                                style={currentBarStyle} />
+                            <TooltipWrapper
+                                styles={{ width: currentBarStyle.width }}
+                                verticalCenter
+                                className="combined-obligated-tt__container"
+                                tooltipComponent={
+                                    <CombinedObligatedAmounts
+                                        total={
+                                            this.props.awardAmounts.obligationFormatted
+                                        }
+                                        count={this.props.awardAmounts.childAwardCount} />
+                                }>
+                                <div
+                                    className="award-amounts-viz__current"
+                                    style={{ width: generatePercentage(1), backgroundColor: currentBarStyle.backgroundColor }} />
+                            </TooltipWrapper>
                             <div
                                 className="award-amounts-viz__potential"
                                 style={potentialBarStyle} />
