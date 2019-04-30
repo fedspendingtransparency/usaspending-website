@@ -1,0 +1,41 @@
+.tooltip__content {
+    @include display(flex);
+    @include flex-direction(row);
+    @include justify-content(center);
+    @include align-items(center);
+    position: relative;
+    box-shadow: $box-shadow;
+    background-color: $color-white;
+    border: solid rem(1) $color-gray-light;
+    .tooltip__message {
+        width: 100%;
+        text-align: left;
+        font-size: $small-font-size;
+        .tooltip__title {
+            background-color: $color-gray-lightest;
+            padding: rem(10) rem(15);
+            font-weight: $font-bold;
+            z-index: 10;
+        }
+        .tooltip__text {
+            padding: 0 rem(15) rem(15);
+            font-weight: $font-normal;
+            ul {
+                margin: 0;
+                padding-left: 0;
+                list-style-type: none;
+            }
+            .tooltip__list {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                li {
+                    margin: 0;
+                    margin-right: rem(5);
+                    padding: 0;
+                }
+            }
+        }
+        @import './customTooltipContent';
+    }
+}
