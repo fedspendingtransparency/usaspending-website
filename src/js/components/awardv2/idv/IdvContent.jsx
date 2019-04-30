@@ -10,12 +10,12 @@ import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsCo
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import AwardHistory from './AwardHistory';
-import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
-import RelatedAwards from '../visualizations/overview/RelatedAwards';
+import AgencyRecipient from '../shared/overview/AgencyRecipient';
+import RelatedAwards from '../shared/overview/RelatedAwards';
 import IdvDates from './IdvDates';
-import AwardDescription from '../visualizations/description/AwardDescription';
-import AwardAmounts from '../visualizations/amounts/AwardAmounts';
-import AdditionalInfo from '../contract/AdditionalInfo';
+import AwardDescription from '../shared/description/AwardDescription';
+import AwardAmounts from './amounts/AwardAmounts';
+import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import IdvActivity from './IdvActivity';
 import AwardMetaDataContainer from '../../../containers/awardV2/idv/AwardMetaDataContainer';
 import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';

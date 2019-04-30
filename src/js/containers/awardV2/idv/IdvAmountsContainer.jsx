@@ -12,7 +12,7 @@ import { isCancel } from 'axios';
 import * as IdvHelper from 'helpers/idvHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
-import AggregatedAwardAmounts from 'components/awardv2/visualizations/amounts/AggregatedAwardAmounts';
+import AggregatedAwardAmounts from 'components/awardv2/idv/amounts/AggregatedAwardAmounts';
 
 const propTypes = {
     award: PropTypes.object,
