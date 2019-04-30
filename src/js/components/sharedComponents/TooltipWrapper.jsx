@@ -6,18 +6,23 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { throttle } from "lodash";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     children: PropTypes.node,
     tooltipComponent: PropTypes.node,
     left: PropTypes.bool,
-    wide: PropTypes.bool
+    wide: PropTypes.bool,
+    icon: PropTypes.string
 };
 
 const defaultProps = {
     wide: false
 };
 
+const tooltipIcons = {
+    info: <FontAwesomeIcon className="tooltip__icon" icon="info-circle" />
+};
 export default class TooltipWrapper extends React.Component {
     constructor(props) {
         super(props);
@@ -114,13 +119,14 @@ export default class TooltipWrapper extends React.Component {
                         role="button"
                         tabIndex="0"
                         onBlur={this.closeTooltip}
-                        className="award__icon"
+                        className="tooltip__hover-wrapper"
                         onFocus={this.showTooltip}
                         onKeyPress={this.showTooltip}
                         onMouseEnter={this.showTooltip}
                         onMouseLeave={this.closeTooltip}
                         onClick={this.showTooltip}>
                         {this.props.children}
+                        {this.props.icon && tooltipIcons[this.props.icon]}
                     </div>
                     {tooltip}
                 </div>

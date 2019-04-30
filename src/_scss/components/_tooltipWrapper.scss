@@ -1,17 +1,19 @@
 .tooltip-wrapper {
+    .tooltip__hover-wrapper {
+        .tooltip__icon {
+            color: $color-gray-border;
+            margin: 0 $global-mrg / 2;
+            &:hover {
+                color: $color-gray;
+            }
+        }
+    }
     .tooltip-spacer {
         display: none;
         @include media($medium-screen) {
             display: block;
             position: absolute;
             z-index: 9;
-        }
-    }
-    .award__icon {
-        &:hover {
-            svg {
-                fill: $color-gray;
-            }
         }
     }
     .tooltip {
