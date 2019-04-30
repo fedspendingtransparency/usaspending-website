@@ -13,11 +13,14 @@ const propTypes = {
     tooltipComponent: PropTypes.node,
     left: PropTypes.bool,
     wide: PropTypes.bool,
-    icon: PropTypes.string
+    icon: PropTypes.string,
+    styles: PropTypes.shape({}), // currently only using width
+    verticalCenter: PropTypes.bool // vertically centers tooltip content relative to this.props.children
 };
 
 const defaultProps = {
-    wide: false
+    wide: false,
+    verticalCenter: false
 };
 
 const tooltipIcons = {
@@ -62,7 +65,10 @@ export default class TooltipWrapper extends React.Component {
 
     measureOffset() {
         const targetElement = this.referenceDiv;
-        const offsetTop = targetElement.offsetTop - 15;
+        const offsetTop = (this.props.verticalCenter)
+            ? (targetElement.offsetTop - 15) + (targetElement.clientHeight / 2)
+            : targetElement.offsetTop - 15;
+
         let tooltipWidth = 375;
         if (this.props.wide) {
             tooltipWidth = (window.innerWidth - targetElement.offsetLeft > 700)
@@ -110,7 +116,7 @@ export default class TooltipWrapper extends React.Component {
             );
         }
         return (
-            <div className="tooltip-wrapper">
+            <div className="tooltip-wrapper" style={this.props.styles}>
                 <div
                     ref={(div) => {
                         this.referenceDiv = div;
