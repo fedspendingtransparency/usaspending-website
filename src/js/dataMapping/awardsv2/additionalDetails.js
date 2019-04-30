@@ -11,9 +11,9 @@ const additionalDetails = (awardData) => {
             'Awarding Department': awardData.awardingAgency.formattedToptier,
             'Awarding Agency': awardData.awardingAgency.subtierName,
             'Awarding Office': awardData.awardingAgency.officeName,
-            'Contracting Department': awardData.fundingAgency.formattedToptier,
-            'Contracting Agency': awardData.fundingAgency.subtierName,
-            'Contracting Office': awardData.fundingAgency.officeName
+            'Funding Department': awardData.fundingAgency.formattedToptier,
+            'Funding Agency': awardData.fundingAgency.subtierName,
+            'Funding Office': awardData.fundingAgency.officeName
         },
         parentAwardDetails: {
             'Parent Award ID': parentAwardDetails ? parentAwardDetails.piid : '',
