@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 
-import { fetchAwardFundingSummary, fetchAwardFederalAccounts } from '../../../helpers/idvHelper';
-import FederalAccountsSummary from '../../../components/awardv2/idv/federalAccounts/FederalAccountsSummary';
+import { fetchAwardFundingSummary, fetchAwardFederalAccounts } from 'helpers/idvHelper';
+import FederalAccountsSummary from 'components/awardv2/idv/federalAccounts/FederalAccountsSummary';
 import FederalAccountSummary from 'models/v2/awardsV2/FederalAccountSummary';
 
 const propTypes = {

@@ -1,12 +1,12 @@
 .federal-accounts-table {
   border: none;
   margin-top: 0;
+  margin-bottom: rem(7);
   font-size: rem(12);
   .federal-accounts-table__head-row {
       border-bottom: solid 1px $color-gray-lighter;
   }
   .federal-accounts-table__head {
-      max-width: 100%;
       .federal-accounts-table__head-cell {
           @import '../../recipientLanding/header';
           @import '../../stateLanding/sorter';
@@ -22,6 +22,7 @@
           }
           .header-cell {
             .header-cell__text {
+              margin-right: rem(10);
               .header-cell__title {
                   font-weight: 600;
                   font-size: $small-font-size;
@@ -35,7 +36,7 @@
   .federal-accounts-table__body-cell {
       background-color: transparent;
       border: none;
-      padding: rem(10);
+      padding: rem(7);
       white-space: nowrap;
 
       &.right {
@@ -43,7 +44,7 @@
       }
 
       &.offset-right {
-        padding-right: rem(43);
+        padding-right: rem(34);
       }
   }
 }

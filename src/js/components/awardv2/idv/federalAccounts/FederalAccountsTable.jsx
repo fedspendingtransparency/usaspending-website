@@ -28,7 +28,6 @@ const propTypes = {
 };
 
 export default class FederalAccountsTable extends React.Component {
-
     getHeaders() {
         const { sort, order, updateSort } = this.props;
         return map(tableMapping, (header) => (

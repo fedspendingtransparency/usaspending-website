@@ -14,10 +14,10 @@ const FederalAccountSummary = {
         this.fundingAgency = data.funding_agency || '';
     },
     get federalAccountName() {
-        const maxChars = 31;
+        const maxChars = 36;
         const upperName = this._federalAccountName.toUpperCase();
         if (upperName.length <= maxChars) return upperName;
-        const truncated = upperName.substring(0, 31);
+        const truncated = upperName.substring(0, 36);
         return `${truncated}...`;
     },
     get obligatedAmount() {

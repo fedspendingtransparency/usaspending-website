@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import FederalAccountsTable from './FederalAccountsTable';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { formatMoneyWithPrecision } from '../../../../helpers/moneyFormatter';
 import { Table } from "../../../sharedComponents/icons/Icons";
 
