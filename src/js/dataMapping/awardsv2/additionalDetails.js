@@ -17,10 +17,10 @@ const additionalDetails = (awardData) => {
         },
         parentAwardDetails: {
             'Parent Award ID': parentAwardDetails ? parentAwardDetails.piid : '',
-            'IDV Type': parentAwardDetails ? parentAwardDetails.idvType : '',
-            'IDC Type': parentAwardDetails ? parentAwardDetails.idcType : '',
-            'IDV Agency Identifier': parentAwardDetails ? parentAwardDetails.agencyId : '',
-            'Multiple Or Single Award IDV': parentAwardDetails ? parentAwardDetails.multipleOrSingle : ''
+            'Parent IDV Type': parentAwardDetails ? parentAwardDetails.idvType : '',
+            'Parent IDC Type': parentAwardDetails ? parentAwardDetails.idcType : '',
+            'Parent IDV Agency Identifier': parentAwardDetails ? parentAwardDetails.agencyId : '',
+            'Multiple Or Single Parent Award IDV': parentAwardDetails ? parentAwardDetails.multipleOrSingle : ''
         },
         PlaceOfPerformance: {
             City: awardData.placeOfPerformance._city,
