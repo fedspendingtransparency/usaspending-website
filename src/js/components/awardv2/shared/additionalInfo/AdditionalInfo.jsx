@@ -30,6 +30,16 @@ export default class AdditionalInfo extends React.Component {
     render() {
         const awardData = this.props.overview;
         const data = additionalDetails(this.props.overview);
+        let placeOfPerformance = null;
+        if (this.props.overview._category !== 'idv') {
+            placeOfPerformance = (
+                <Accordion
+                    globalToggle={this.state.globalToggle}
+                    accordionName="Place Of Performance"
+                    accordionIcon={<img src="img/award-summary/place-of-performance.png" alt="Place Of Performance" />}
+                    accordionData={data.PlaceOfPerformance} />
+            );
+        }
         return (
             <div id="award-additional-information" className="additional-info">
                 <div className="award-viz">
@@ -57,11 +67,7 @@ export default class AdditionalInfo extends React.Component {
                                 accordionName="Parent Award Details"
                                 accordionIcon={<img src="img/award-summary/parent-award-details.png" alt="Parent Award Details" />}
                                 accordionData={data.parentAwardDetails} />
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Place Of Performance"
-                                accordionIcon={<img src="img/award-summary/place-of-performance.png" alt="Place Of Performance" />}
-                                accordionData={data.PlaceOfPerformance} />
+                            {placeOfPerformance}
                             <Accordion
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Period Of Performance"
