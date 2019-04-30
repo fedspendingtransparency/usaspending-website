@@ -406,3 +406,31 @@ export const mockFileDownloadResponse = {
     seconds_elapsed: `10.061132`
 };
 
+export const mockAwardFederalAccounts = {
+    page_metadata: {
+        count: 5,
+        hasNext: true,
+        hasPrevious: false,
+        next: 2,
+        page: 1,
+        previous: null
+    },
+    results: [
+        {
+            account_title: "Salaries and Expenses, United States Attorneys, Justice",
+            federal_account: "015-0322",
+            total_transaction_obligated_amount: 5632.5
+        },
+        {
+            account_title: "National Institute of Environmental Health Sciences, National Institutes of Health",
+            federal_account: "075-0862",
+            total_transaction_obligated_amount: 40
+        },
+        {
+            account_title: "Salaries and Expenses, Social Security Administration",
+            federal_account: "028-8704",
+            total_transaction_obligated_amount: 887.27
+        }
+    ],
+    total: 4745.23
+};
