@@ -36,6 +36,10 @@
                         td {
                             border: 0;
 
+                            &:first-child {
+                                white-space: nowrap;
+                            }
+
                             &:last-child {
                                 font-weight: $font-light;
                             }

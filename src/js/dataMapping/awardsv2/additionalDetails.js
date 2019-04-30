@@ -45,7 +45,7 @@ const additionalDetails = (awardData) => {
             'NAICS Code': awardData.additionalDetails.naicsCode,
             'DoD Claimant Code': awardData.additionalDetails.dodClaimantCode,
             'DOD Acquisition Program': awardData.additionalDetails.dodAcquisitionProgram,
-            'Information Technology Commercial Item': awardData.additionalDetails.infoTechCommercialItem,
+            'Information Technology Commercial Item Category': awardData.additionalDetails.infoTechCommercialItem,
             Category: awardData.itCommercialCategory,
             'Sea Transportation': awardData.additionalDetails.seaTransport
         },
@@ -60,7 +60,7 @@ const additionalDetails = (awardData) => {
             'Commercial Item Test Program': awardData.additionalDetails.commercialTestProgram,
             'Evaluated Preference': awardData.additionalDetails.evaluatedPreference,
             'Fed Biz Opps': awardData.additionalDetails.fedBizOpps,
-            'Small Business Competetiveness Demonstration': awardData.additionalDetails.smallBusinessCompetitive,
+            'Small Business Competitiveness Demonstration Program': awardData.additionalDetails.smallBusinessCompetitive,
             Program: awardData.additionalDetails.programAcronym
         },
         AdditionalDetails: {
