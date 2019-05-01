@@ -8,17 +8,16 @@ const additionalDetails = (awardData) => {
     const parentAwardDetails = awardData.parentAwardDetails;
     const data = {
         agencyDetails: {
-            'Awarding Department': awardData.awardingAgency.formattedToptier,
-            'Awarding Agency': awardData.awardingAgency.subtierName,
+            'Awarding Agency': awardData.awardingAgency.formattedToptier,
+            'Awarding Sub-Agency': awardData.awardingAgency.subtierName,
             'Awarding Office': awardData.awardingAgency.officeName,
-            'Funding Department': awardData.fundingAgency.formattedToptier,
-            'Funding Agency': awardData.fundingAgency.subtierName,
+            'Funding Agency': awardData.fundingAgency.formattedToptier,
+            'Funding Sub-Agency': awardData.fundingAgency.subtierName,
             'Funding Office': awardData.fundingAgency.officeName
         },
         parentAwardDetails: {
             'Parent Award ID': parentAwardDetails ? parentAwardDetails.piid : '',
             'Parent IDV Type': parentAwardDetails ? parentAwardDetails.idvType : '',
-            'Parent IDC Type': parentAwardDetails ? parentAwardDetails.idcType : '',
             'Parent IDV Agency Identifier': parentAwardDetails ? parentAwardDetails.agencyId : '',
             'Multiple Or Single Parent Award IDV': parentAwardDetails ? parentAwardDetails.multipleOrSingle : ''
         },
