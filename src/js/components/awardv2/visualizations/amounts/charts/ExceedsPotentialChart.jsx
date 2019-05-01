@@ -4,7 +4,6 @@
  **/
 
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 
@@ -12,15 +11,8 @@ import InfoTooltip from 'components/awardv2/idv/InfoTooltip';
 import { awardAmountsExtremeOverspendingInfo } from 'components/awardv2/idv/InfoTooltipContent';
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 
-import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../../propTypes';
+import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes';
 import { CombinedObligatedAmounts, CombinedPotentialAmounts, CombinedCurrentAmounts } from "../../../idv/TooltipContent";
-
-const TOOLTIP_PROPS = PropTypes.shape({
-    isControlled: PropTypes.bool,
-    isVisible: PropTypes.bool,
-    closeCurrentTooltip: PropTypes.func,
-    showTooltip: PropTypes.func
-});
 
 const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
