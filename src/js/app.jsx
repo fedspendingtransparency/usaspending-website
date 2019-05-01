@@ -2,11 +2,35 @@ import React from 'react';
 import Perf from 'react-addons-perf';
 import { render } from 'react-dom';
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faChartPie, faChartArea } from "@fortawesome/free-solid-svg-icons";
+import {
+    faChartPie,
+    faChartArea,
+    faLandmark,
+    faMapMarkerAlt,
+    faCalendarAlt,
+    faLevelUpAlt,
+    faPencilAlt,
+    faTag,
+    faUserTie,
+    faChartBar,
+    faEllipsisH
+} from "@fortawesome/free-solid-svg-icons";
 import kGlobalConstants from 'GlobalConstants';
 import AppContainer from 'containers/AppContainer';
 
-library.add(faChartArea, faChartPie);
+library.add(
+    faChartArea,
+    faChartPie,
+    faLandmark,
+    faLevelUpAlt,
+    faMapMarkerAlt,
+    faCalendarAlt,
+    faPencilAlt,
+    faUserTie,
+    faTag,
+    faChartBar,
+    faEllipsisH
+);
 require('babel-polyfill');
 require('helpers/rafPolyfill');
 

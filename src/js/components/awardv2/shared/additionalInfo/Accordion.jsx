@@ -5,12 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { AngleRight, AngleDown } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     accordionName: PropTypes.string,
-    accordionIcon: PropTypes.object,
+    accordionIcon: PropTypes.string,
     accordionData: PropTypes.object,
     globalToggle: PropTypes.bool
 };
@@ -48,7 +49,7 @@ export default class Accordion extends React.Component {
                     onKeyPress={this.handleClick}
                     onClick={this.handleClick}>
                     <span>
-                        {this.props.accordionIcon}
+                        <FontAwesomeIcon size="lg" icon={this.props.accordionIcon} />
                         {this.props.accordionName}
                     </span>
                     <span>
