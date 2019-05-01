@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { InfoCircle, Calendar, Agency } from 'components/sharedComponents/icons/Icons';
+import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 import additionalDetails from 'dataMapping/awardsv2/additionalDetails';
 

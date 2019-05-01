@@ -13,7 +13,9 @@ import {
     faTag,
     faUserTie,
     faChartBar,
-    faEllipsisH
+    faEllipsisH,
+    faAngleDown,
+    faAngleRight
 } from "@fortawesome/free-solid-svg-icons";
 import kGlobalConstants from 'GlobalConstants';
 import AppContainer from 'containers/AppContainer';
@@ -29,7 +31,9 @@ library.add(
     faUserTie,
     faTag,
     faChartBar,
-    faEllipsisH
+    faEllipsisH,
+    faAngleDown,
+    faAngleRight
 );
 require('babel-polyfill');
 require('helpers/rafPolyfill');

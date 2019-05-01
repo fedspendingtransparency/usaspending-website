@@ -7,8 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { AngleRight, AngleDown } from 'components/sharedComponents/icons/Icons';
-
 const propTypes = {
     accordionName: PropTypes.string,
     accordionIcon: PropTypes.string,
@@ -53,7 +51,7 @@ export default class Accordion extends React.Component {
                         {this.props.accordionName}
                     </span>
                     <span>
-                        {this.state.open ? <AngleDown /> : <AngleRight />}
+                        {this.state.open ? <FontAwesomeIcon size="lg" icon="angle-down" /> : <FontAwesomeIcon size="lg" icon="angle-right" />}
                     </span>
                 </div>
                 <div className="accordion__content">
