@@ -12,7 +12,7 @@ import { awardAmountsExtremeOverspendingInfo } from 'components/awardv2/idv/Info
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes';
-import { CombinedObligatedAmounts, CombinedPotentialAmounts, CombinedCurrentAmounts } from "../../../idv/TooltipContent";
+import { CombinedObligatedAmounts, CombinedPotentialAmounts, CombinedCurrentAmounts, CombinedExceedsPotentialAmounts } from "../../../idv/TooltipContent";
 
 const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
@@ -59,7 +59,7 @@ export default class ExceedsPotentialChart extends React.Component {
             width: generatePercentage(potential / obligation)
         };
 
-        const { obligatedTooltipProps, currentTooltipProps, potentialTooltipProps } = this.props;
+        const { obligatedTooltipProps, currentTooltipProps, potentialTooltipProps, exceedsPotentialTooltipProps } = this.props;
 
         return (
             <div className="award-amounts-viz">
@@ -81,7 +81,16 @@ export default class ExceedsPotentialChart extends React.Component {
                         Combined Obligated Amounts
                     </div>
                     <div className="award-amounts-viz__desc">
-                        <div className="award-amounts-viz__desc-text">
+                        <div
+                            className="award-amounts-viz__desc-text"
+                            role="button"
+                            tabIndex="0"
+                            onBlur={exceedsPotentialTooltipProps.closeTooltip}
+                            onFocus={exceedsPotentialTooltipProps.showTooltip}
+                            onKeyPress={exceedsPotentialTooltipProps.showTooltip}
+                            onMouseEnter={exceedsPotentialTooltipProps.showTooltip}
+                            onMouseLeave={exceedsPotentialTooltipProps.closeTooltip}
+                            onClick={exceedsPotentialTooltipProps.showTooltip}>
                             <strong>{this.props.awardAmounts.extremeOverspendingFormatted}</strong>
                             <br />
                             <div className="award-amounts-viz__desc-text-wrapper">
@@ -94,58 +103,70 @@ export default class ExceedsPotentialChart extends React.Component {
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_extreme-overspending" />
                     </div>
                 </div>
+                <div
+                    className="award-amounts-viz__label"
+                    style={obligatedLabelStyle}>
+                    <div className="award-amounts-viz__line-up" />
+                </div>
                 <TooltipWrapper
                     className="combined-obligated-tt__container"
                     styles={obligatedLabelStyle}
                     controlledProps={obligatedTooltipProps}
+                    offsetAdjustments={{ top: 0 }}
                     tooltipComponent={
                         <CombinedObligatedAmounts
                             total={this.props.awardAmounts.obligationFormatted}
-                            count={this.props.awardAmounts.childAwardCount} />
-                    }>
-                    <div
-                        className="award-amounts-viz__label"
-                        style={obligatedLabelStyle}>
-                        <div className="award-amounts-viz__line-up" />
-                    </div>
-                </TooltipWrapper>
-                <div className="award-amounts-viz__bar-wrapper award-amounts-viz__bar-wrapper_extreme-overspending">
-                    <div className="award-amounts-viz__bar">
-                        <div
-                            className="award-amounts-viz__potential-wrapper"
-                            style={potentialWrapperStyle}>
+                            count={this.props.awardAmounts.childAwardCount} />}>
+                    <div className="award-amounts-viz__bar-wrapper award-amounts-viz__bar-wrapper_extreme-overspending">
+                        <div className="award-amounts-viz__bar">
+                            <div
+                                className="award-amounts-viz__potential-wrapper"
+                                style={potentialWrapperStyle}>
+                                <TooltipWrapper
+                                    styles={{ width: currentBarStyle.width }}
+                                    className="combined-current-tt__container"
+                                    controlledProps={currentTooltipProps}
+                                    offsetAdjustments={{ top: 0 }}
+                                    tooltipComponent={
+                                        <CombinedCurrentAmounts
+                                            total={this.props.awardAmounts.combinedCurrentAwardAmountsFormatted}
+                                            count={this.props.awardAmounts.childAwardCount} />
+                                    }>
+                                    <div
+                                        className="award-amounts-viz__current"
+                                        style={{ width: generatePercentage(1), backgroundColor: currentBarStyle.backgroundColor }} />
+                                </TooltipWrapper>
+                                <TooltipWrapper
+                                    styles={{ width: potentialBarStyle.width }}
+                                    className="combined-potential-tt__container"
+                                    controlledProps={potentialTooltipProps}
+                                    offsetAdjustments={{ top: 0 }}
+                                    tooltipComponent={
+                                        <CombinedPotentialAmounts
+                                            total={this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}
+                                            count={this.props.awardAmounts.childAwardCount} />
+                                    }>
+                                    <div
+                                        className="award-amounts-viz__potential"
+                                        style={{ width: generatePercentage(1), backgroundColor: potentialBarStyle.backgroundColor }} />
+                                </TooltipWrapper>
+                            </div>
                             <TooltipWrapper
-                                styles={{ width: currentBarStyle.width }}
-                                className="combined-current-tt__container"
-                                controlledProps={currentTooltipProps}
-                                tooltipComponent={
-                                    <CombinedCurrentAmounts
-                                        total={this.props.awardAmounts.combinedCurrentAwardAmountsFormatted}
-                                        count={this.props.awardAmounts.childAwardCount} />
-                                }>
-                                <div
-                                    className="award-amounts-viz__current"
-                                    style={{ width: generatePercentage(1), backgroundColor: currentBarStyle.backgroundColor }} />
-                            </TooltipWrapper>
-                            <TooltipWrapper
-                                styles={{ width: potentialBarStyle.width }}
+                                styles={{ width: overspendingBarStyle.width }}
                                 className="combined-potential-tt__container"
-                                controlledProps={potentialTooltipProps}
+                                controlledProps={exceedsPotentialTooltipProps}
+                                offsetAdjustments={{ top: 0 }}
                                 tooltipComponent={
-                                    <CombinedPotentialAmounts
+                                    <CombinedExceedsPotentialAmounts
                                         total={this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}
-                                        count={this.props.awardAmounts.childAwardCount} />
-                                }>
+                                        count={this.props.awardAmounts.childAwardCount} />}>
                                 <div
-                                    className="award-amounts-viz__potential"
-                                    style={{ width: generatePercentage(1), backgroundColor: potentialBarStyle.backgroundColor }} />
+                                    className="award-amounts-viz__exceeded-potential"
+                                    style={{ width: generatePercentage(1) }} />
                             </TooltipWrapper>
                         </div>
-                        <div
-                            className="award-amounts-viz__exceeded-potential"
-                            style={overspendingBarStyle} />
                     </div>
-                </div>
+                </TooltipWrapper>
                 <div
                     className="award-amounts-viz__label"
                     style={currentLabelStyle}>
