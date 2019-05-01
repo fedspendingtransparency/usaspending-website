@@ -14,13 +14,22 @@ const propTypes = {
     left: PropTypes.bool,
     wide: PropTypes.bool,
     icon: PropTypes.string,
+    controlledProps: PropTypes.shape({
+        isControlled: PropTypes.bool,
+        showTooltip: PropTypes.func,
+        closeTooltip: PropTypes.func,
+        isVisible: PropTypes.bool
+    }),
     styles: PropTypes.shape({}), // currently only using width
     verticalCenter: PropTypes.bool // vertically centers tooltip content relative to this.props.children
 };
 
 const defaultProps = {
     wide: false,
-    verticalCenter: false
+    verticalCenter: false,
+    controlledProps: {
+        isControlled: false
+    }
 };
 
 const tooltipIcons = {
@@ -35,6 +44,7 @@ export default class TooltipWrapper extends React.Component {
             offsetTop: 0,
             offsetRight: 0
         };
+
         this.showTooltip = this.showTooltip.bind(this);
         this.closeTooltip = this.closeTooltip.bind(this);
         this.measureOffset = throttle(this.measureOffset.bind(this), 16);
@@ -52,15 +62,25 @@ export default class TooltipWrapper extends React.Component {
     }
 
     showTooltip() {
-        this.setState({
-            showTooltip: true
-        });
+        if (!this.props.controlledProps.isControlled) {
+            this.setState({
+                showTooltip: true
+            });
+        }
+        else {
+            this.props.controlledProps.showTooltip();
+        }
     }
 
     closeTooltip() {
-        this.setState({
-            showTooltip: true
-        });
+        if (!this.props.controlledProps.isControlled) {
+            this.setState({
+                showTooltip: true
+            });
+        }
+        else {
+            this.props.controlledProps.closeTooltip();
+        }
     }
 
     measureOffset() {
@@ -85,19 +105,17 @@ export default class TooltipWrapper extends React.Component {
     }
 
     render() {
+        const showTooltip = (this.props.controlledProps.isControlled) ? this.props.controlledProps.isVisible : this.state.showTooltip;
         let tooltip = null;
         const style = {
             bottom: this.state.offsetBottom,
             left: this.state.offsetLeft,
             width: this.state.width
         };
-        if (this.state.showTooltip) {
+        if (showTooltip) {
             tooltip = (
                 <div className="tooltip-spacer" style={style}>
-                    <div
-                        className="tooltip"
-                        id="tooltip"
-                        role="tooltip">
+                    <div className="tooltip" id="tooltip" role="tooltip">
                         <div className="tooltip__interior">
                             <div
                                 className={`tooltip-pointer ${
@@ -122,8 +140,8 @@ export default class TooltipWrapper extends React.Component {
                     <div
                         role="button"
                         tabIndex="0"
-                        onBlur={this.closeTooltip}
                         className="tooltip__hover-wrapper"
+                        onBlur={this.closeTooltip}
                         onFocus={this.showTooltip}
                         onKeyPress={this.showTooltip}
                         onMouseEnter={this.showTooltip}
