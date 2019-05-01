@@ -65,7 +65,6 @@ const additionalDetails = (awardData) => {
         AdditionalDetails: {
             'IDV Type': awardData.additionalDetails.idvType,
             'IDC Type': awardData.additionalDetails.idcType,
-            'IDV Agency Identifier': awardData.additionalDetails.idvAgencyId,
             'Multiple Or Single Award IDV': awardData.additionalDetails.multipleIdv,
             'Cost or Pricing Data': awardData.additionalDetails.costOrPricingData,
             'Domestic or Foreign Entity': awardData.additionalDetails.domesticForeign,
@@ -78,10 +77,7 @@ const additionalDetails = (awardData) => {
             'Subcontracting Plan': awardData.additionalDetails.subcontractingPlan,
             'Multi Year Contract': awardData.additionalDetails.multiYearContract,
             'Purchase Card as Payment Method': awardData.additionalDetails.purchaseCardAsPaymentMethod,
-            'Consolidated Contract': awardData.additionalDetails.consolidated,
-            'Total Obligation': awardData.additionalDetails.total_obligation,
-            'Base Exercised Options': awardData.additionalDetails.base_exercised_options,
-            'Base and All Options Value': awardData.additionalDetails.base_and_all_options
+            'Consolidated Contract': awardData.additionalDetails.consolidated
         }
     };
 
