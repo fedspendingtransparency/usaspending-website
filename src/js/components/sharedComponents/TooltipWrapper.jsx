@@ -59,29 +59,27 @@ export default class TooltipWrapper extends React.Component {
 
     closeTooltip() {
         this.setState({
-            showTooltip: false
+            showTooltip: true
         });
     }
 
     measureOffset() {
-        const targetElement = this.referenceDiv;
-        const offsetTop = (this.props.verticalCenter)
-            ? (targetElement.offsetTop - 15) + (targetElement.clientHeight / 2)
-            : targetElement.offsetTop - 15;
+        const ttContainer = this.tooltipContainer;
+        const offsetBottom = ttContainer.clientHeight;
 
         let tooltipWidth = 375;
         if (this.props.wide) {
-            tooltipWidth = (window.innerWidth - targetElement.offsetLeft > 700)
+            tooltipWidth = (window.innerWidth - ttContainer.offsetLeft > 700)
                 ? 700
-                : window.innerWidth - targetElement.offsetLeft - 100;
+                : window.innerWidth - ttContainer.offsetLeft - 100;
         }
-        let offsetRight = window.innerWidth - targetElement.offsetLeft - targetElement.clientWidth - tooltipWidth - 30;
+        let offsetLeft = ttContainer.clientWidth + 15;
         if (this.props.left) {
-            offsetRight = (window.innerWidth - targetElement.offsetLeft) + targetElement.clientWidth;
+            offsetLeft = (window.innerWidth - ttContainer.offsetLeft) + ttContainer.clientWidth;
         }
         this.setState({
-            offsetTop,
-            offsetRight,
+            offsetBottom,
+            offsetLeft,
             width: tooltipWidth
         });
     }
@@ -89,8 +87,8 @@ export default class TooltipWrapper extends React.Component {
     render() {
         let tooltip = null;
         const style = {
-            top: this.state.offsetTop,
-            right: this.state.offsetRight,
+            bottom: this.state.offsetBottom,
+            left: this.state.offsetLeft,
             width: this.state.width
         };
         if (this.state.showTooltip) {
@@ -119,7 +117,7 @@ export default class TooltipWrapper extends React.Component {
             <div className="tooltip-wrapper" style={this.props.styles}>
                 <div
                     ref={(div) => {
-                        this.referenceDiv = div;
+                        this.tooltipContainer = div;
                     }}>
                     <div
                         role="button"
