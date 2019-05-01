@@ -20,6 +20,9 @@ const propTypes = {
         closeTooltip: PropTypes.func,
         isVisible: PropTypes.bool
     }),
+    offsetAdjustments: PropTypes.shape({
+        top: PropTypes.number
+    }),
     styles: PropTypes.shape({}), // currently only using width
     verticalCenter: PropTypes.bool // vertically centers tooltip content relative to this.props.children
 };
@@ -27,6 +30,9 @@ const propTypes = {
 const defaultProps = {
     wide: false,
     verticalCenter: false,
+    offsetAdjustments: {
+        top: -15
+    },
     controlledProps: {
         isControlled: false
     }
@@ -75,7 +81,7 @@ export default class TooltipWrapper extends React.Component {
     closeTooltip() {
         if (!this.props.controlledProps.isControlled) {
             this.setState({
-                showTooltip: true
+                showTooltip: false
             });
         }
         else {
@@ -84,22 +90,28 @@ export default class TooltipWrapper extends React.Component {
     }
 
     measureOffset() {
-        const ttContainer = this.tooltipContainer;
-        const offsetBottom = ttContainer.clientHeight;
-
+        const tooltipContainer = this.tooltipContainer;
+        const offsetTop = tooltipContainer.offsetTop + this.props.offsetAdjustments.top;
         let tooltipWidth = 375;
-        if (this.props.wide) {
-            tooltipWidth = (window.innerWidth - ttContainer.offsetLeft > 700)
-                ? 700
-                : window.innerWidth - ttContainer.offsetLeft - 100;
+        // is the tooltip in a section that takes up the full width of the screen?
+        const isTooltipJustifiedRight = (window.innerWidth - tooltipContainer.offsetLeft) < window.innerWidth / 6;
+
+        if (this.props.wide && isTooltipJustifiedRight) {
+            tooltipWidth = 700;
         }
-        let offsetLeft = ttContainer.clientWidth + 15;
+        else if (this.props.wide) {
+            // is there at least 801px of space to the left/right for the tooltip?
+            tooltipWidth = (window.innerWidth - tooltipContainer.offsetLeft > 800)
+                ? 700
+                : window.innerWidth - tooltipContainer.offsetLeft - 100;
+        }
+        let offsetRight = window.innerWidth - tooltipContainer.offsetLeft - tooltipContainer.clientWidth - tooltipWidth - 30;
         if (this.props.left) {
-            offsetLeft = (window.innerWidth - ttContainer.offsetLeft) + ttContainer.clientWidth;
+            offsetRight = (window.innerWidth - tooltipContainer.offsetLeft) + tooltipContainer.clientWidth;
         }
         this.setState({
-            offsetBottom,
-            offsetLeft,
+            offsetTop,
+            offsetRight,
             width: tooltipWidth
         });
     }
@@ -108,8 +120,8 @@ export default class TooltipWrapper extends React.Component {
         const showTooltip = (this.props.controlledProps.isControlled) ? this.props.controlledProps.isVisible : this.state.showTooltip;
         let tooltip = null;
         const style = {
-            bottom: this.state.offsetBottom,
-            left: this.state.offsetLeft,
+            top: this.state.offsetTop,
+            right: this.state.offsetRight,
             width: this.state.width
         };
         if (showTooltip) {
