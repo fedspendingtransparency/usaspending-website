@@ -30,14 +30,44 @@ export default class AdditionalInfo extends React.Component {
     render() {
         const awardData = this.props.overview;
         const data = additionalDetails(this.props.overview);
+        // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
+        // Use different Period of Performance and Additional Details mappings for IDVs
+        let periodOfPerformance = (
+            <Accordion
+                globalToggle={this.state.globalToggle}
+                accordionName="Period Of Performance"
+                accordionIcon={<Calendar />}
+                accordionData={data.idvPeriodOfPerformance} />
+        );
+        let additionalDetailsSection = (
+            <Accordion
+                globalToggle={this.state.globalToggle}
+                accordionName="Additional Details"
+                accordionIcon={<img src="img/award-summary/additional-details.png" alt="Additional Details" />}
+                accordionData={data.idvAdditionalDetails} />
+        );
         if (this.props.overview._category !== 'idv') {
             placeOfPerformance = (
                 <Accordion
                     globalToggle={this.state.globalToggle}
                     accordionName="Place Of Performance"
                     accordionIcon={<img src="img/award-summary/place-of-performance.png" alt="Place Of Performance" />}
-                    accordionData={data.PlaceOfPerformance} />
+                    accordionData={data.placeOfPerformance} />
+            );
+            periodOfPerformance = (
+                <Accordion
+                    globalToggle={this.state.globalToggle}
+                    accordionName="Period Of Performance"
+                    accordionIcon={<Calendar />}
+                    accordionData={data.periodOfPerformance} />
+            );
+            additionalDetailsSection = (
+                <Accordion
+                    globalToggle={this.state.globalToggle}
+                    accordionName="Additional Details"
+                    accordionIcon={<img src="img/award-summary/additional-details.png" alt="Additional Details" />}
+                    accordionData={data.additionalDetails} />
             );
         }
         return (
@@ -68,16 +98,12 @@ export default class AdditionalInfo extends React.Component {
                                 accordionIcon={<img src="img/award-summary/parent-award-details.png" alt="Parent Award Details" />}
                                 accordionData={data.parentAwardDetails} />
                             {placeOfPerformance}
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Period Of Performance"
-                                accordionIcon={<Calendar />}
-                                accordionData={data.PeriodOfPerformance} />
+                            {periodOfPerformance}
                             <Accordion
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Legislative Mandates"
                                 accordionIcon={<img src="img/award-summary/legislative-mandates.png" alt="Lesgislative Mandates" />}
-                                accordionData={data.LegislativeMandates} />
+                                accordionData={data.legislativeMandates} />
                             <Accordion
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Executive Compensation"
@@ -89,17 +115,13 @@ export default class AdditionalInfo extends React.Component {
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Acquisition Details"
                                 accordionIcon={<img src="img/state-categories/naics.png" alt="Aquisition Details" />}
-                                accordionData={data.AquisitionDetails} />
+                                accordionData={data.aquisitionDetails} />
                             <Accordion
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Competition Details"
                                 accordionIcon={<img src="img/award-summary/competition-details.png" alt="Competition Details" />}
-                                accordionData={data.CompetitionDetails} />
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Additional Details"
-                                accordionIcon={<img src="img/award-summary/additional-details.png" alt="Additional Details" />}
-                                accordionData={data.AdditionalDetails} />
+                                accordionData={data.competitionDetails} />
+                            {additionalDetailsSection}
                         </div>
                     </div>
                 </div>

@@ -21,34 +21,37 @@ const additionalDetails = (awardData) => {
             'Parent IDV Agency Identifier': parentAwardDetails ? parentAwardDetails.agencyId : '',
             'Multiple Or Single Parent Award IDV': parentAwardDetails ? parentAwardDetails.multipleOrSingle : ''
         },
-        PlaceOfPerformance: {
+        placeOfPerformance: {
             City: awardData.placeOfPerformance._city,
             State: awardData.placeOfPerformance._state,
             County: awardData.placeOfPerformance._county,
             'Zip Code': awardData.placeOfPerformance._zip,
             'Congressional District': awardData.placeOfPerformance._congressionalDistrict
         },
-        PeriodOfPerformance: {
+        periodOfPerformance: {
             'Start Date': periodOfPerformanceData.startDate,
             'Current End Date': periodOfPerformanceData.endDate,
             'Potential End Date': periodOfPerformanceData.lastModifiedDate
         },
-        LegislativeMandates: {
+        idvPeriodOfPerformance: {
+            'Start Date': periodOfPerformanceData.startDate,
+            'Last Date to Order': periodOfPerformanceData.endDate
+        },
+        legislativeMandates: {
             'Clinger-Cohen Act Compliant': awardData.additionalDetails.clingerCohenAct,
             'Subject to Construction Wage Rate Requirements': awardData.additionalDetails.constructionWageRateReq,
             'Subject to Labor Standards': awardData.additionalDetails.laborStandards,
             'Subject to Materials,Supplies, Articles & Equipment': awardData.additionalDetails.materialSuppliesArticlesEquip
         },
-        AquisitionDetails: {
+        aquisitionDetails: {
             'Product Service Code (PSC)': awardData.additionalDetails.pscCode,
             'NAICS Code': awardData.additionalDetails.naicsCode,
             'DoD Claimant Code': awardData.additionalDetails.dodClaimantCode,
             'DOD Acquisition Program': awardData.additionalDetails.dodAcquisitionProgram,
             'Information Technology Commercial Item Category': awardData.additionalDetails.infoTechCommercialItem,
-            Category: awardData.itCommercialCategory,
             'Sea Transportation': awardData.additionalDetails.seaTransport
         },
-        CompetitionDetails: {
+        competitionDetails: {
             'Solicitation ID': awardData.additionalDetails.solicitationId,
             'Solicitation Procedures': awardData.additionalDetails.solicitationProcedures,
             'Number of Offers Received': awardData.additionalDetails.numberOffers,
@@ -59,10 +62,9 @@ const additionalDetails = (awardData) => {
             'Commercial Item Test Program': awardData.additionalDetails.commercialTestProgram,
             'Evaluated Preference': awardData.additionalDetails.evaluatedPreference,
             'Fed Biz Opps': awardData.additionalDetails.fedBizOpps,
-            'Small Business Competitiveness Demonstration Program': awardData.additionalDetails.smallBusinessCompetitive,
-            Program: awardData.additionalDetails.programAcronym
+            'Small Business Competitiveness Demonstration Program': awardData.additionalDetails.smallBusinessCompetitive
         },
-        AdditionalDetails: {
+        additionalDetails: {
             'IDV Type': awardData.additionalDetails.idvType,
             'IDC Type': awardData.additionalDetails.idcType,
             'Multiple Or Single Award IDV': awardData.additionalDetails.multipleIdv,
@@ -77,6 +79,21 @@ const additionalDetails = (awardData) => {
             'Subcontracting Plan': awardData.additionalDetails.subcontractingPlan,
             'Multi Year Contract': awardData.additionalDetails.multiYearContract,
             'Purchase Card as Payment Method': awardData.additionalDetails.purchaseCardAsPaymentMethod,
+            'Consolidated Contract': awardData.additionalDetails.consolidated
+        },
+        idvAdditionalDetails: {
+            'IDV Type': awardData.additionalDetails.idvType,
+            'IDC Type': awardData.additionalDetails.idcType,
+            'Multiple Or Single Award IDV': awardData.additionalDetails.multipleIdv,
+            'Cost or Pricing Data': awardData.additionalDetails.costOrPricingData,
+            'Domestic or Foreign Entity': awardData.additionalDetails.domesticForeign,
+            'Fair Opportunity Limited Sources': awardData.additionalDetails.fairOpportunityLimitedSources,
+            'Foreign Funding': awardData.additionalDetails.foreignFunding,
+            'Interagency Contracting Authority': awardData.additionalDetails.interagencyContactingAuthority,
+            'Major Program': awardData.additionalDetails.majorProgram,
+            'Program Acronym': awardData.additionalDetails.programAcronym,
+            'Subcontracting Plan': awardData.additionalDetails.subcontractingPlan,
+            'Multi Year Contract': awardData.additionalDetails.multiYearContract,
             'Consolidated Contract': awardData.additionalDetails.consolidated
         }
     };
