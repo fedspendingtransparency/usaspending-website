@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { SpeechBubble, Glossary, AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
 import InfoTooltip from '../../idv/InfoTooltip';
+import { descriptionInfo } from '../../idv/InfoTooltipContent';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -75,18 +76,7 @@ export default class AwardDescription extends React.Component {
                         Description
                     </h3>
                     <InfoTooltip left>
-                        <div className="info-tooltip__title">Description</div>
-                        <div className="info-tooltip__text">
-                            <p>
-                                The description of the award is provided by the contract officer who submitted this award data. The quality of these descriptions can vary as they are largely dependent on their author and agency standards.
-                            </p>
-                            <p>
-                                Also shown below are codes from two sets, North American Industry Classification System (NAICS) and Product Service Codes (PSC), used to categorize awards by what they are or are for.
-                            </p>
-                            <p>
-                                Click on the glossary icons for more information on those systems.
-                            </p>
-                        </div>
+                        {descriptionInfo}
                     </InfoTooltip>
                 </div>
                 <hr />
