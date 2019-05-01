@@ -54,3 +54,39 @@ CombinedPotentialAmounts.propTypes = {
     total: PropTypes.string,
     count: PropTypes.number
 };
+
+export const CombinedExceedsPotentialAmounts = ({
+    total,
+    count
+}) => (
+    <div className="combined-exceeded-potential-tt">
+        <div className="tooltip__title">Combined Exceeds Potential Amounts</div>
+        <div className="tooltip__amount">{`${total} from ${count}`} <strong>awards</strong></div>
+        <div className="tooltip__text">
+            <p>This is a description of what the data means etc etc etc</p>
+        </div>
+    </div>
+);
+
+CombinedExceedsPotentialAmounts.propTypes = {
+    total: PropTypes.string,
+    count: PropTypes.number
+};
+
+export const CombinedExceedsCurrentAmounts = ({
+    total,
+    count
+}) => (
+    <div className="combined-exceeded-potential-tt">
+        <div className="tooltip__title">Combined Exceeds Current Amounts</div>
+        <div className="tooltip__amount">{`${total} from ${count}`} <strong>awards</strong></div>
+        <div className="tooltip__text">
+            <p>This is a description of what the data means etc etc etc</p>
+        </div>
+    </div>
+);
+
+CombinedExceedsCurrentAmounts.propTypes = {
+    total: PropTypes.string,
+    count: PropTypes.number
+};
