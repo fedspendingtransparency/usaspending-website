@@ -23,15 +23,126 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
+const tooltipMap = {
+    obligated: "showObligatedTooltip",
+    current: "showCurrentTooltip",
+    potential: "showPotentialTooltip",
+    exceeds: "showExceedsTooltip"
+};
+
 export default class AggregatedAwardAmounts extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            showObligatedTooltip: false,
+            showCurrentTooltip: false,
+            showPotentialTooltip: false,
+            showExceedsTooltip: false
+        };
 
         this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
+        this.closeObligatedTooltip = this.closeTooltip.bind(this, "obligated");
+        this.showObligatedTooltip = this.showTooltip.bind(this, "obligated");
+        this.closeCurrentTooltip = this.closeTooltip.bind(this, "current");
+        this.showCurrentTooltip = this.showTooltip.bind(this, "current");
+        this.closePotentialTooltip = this.closeTooltip.bind(this, "potential");
+        this.showPotentialTooltip = this.showTooltip.bind(this, "potential");
+    }
+
+    getTooltipProps(chartType) {
+        switch (chartType) {
+            case "exceedsCurrent":
+                return {
+                    obligatedTooltipProps: {
+                        isControlled: true,
+                        isVisible: this.state.showObligatedTooltip,
+                        closeTooltip: this.closeObligatedTooltip,
+                        showTooltip: this.showObligatedTooltip
+                    },
+                    currentTooltipProps: {
+                        isControlled: true,
+                        isVisible: this.state.showCurrentTooltip,
+                        closeTooltip: this.closeCurrentTooltip,
+                        showTooltip: this.showCurrentTooltip
+                    },
+                    potentialTooltipProps: {
+                        isControlled: true,
+                        isVisible: this.state.showPotentialTooltip,
+                        closeTooltip: this.closePotentialTooltip,
+                        showTooltip: this.showPotentialTooltip
+                    }
+                    // exceedsCurrentTooltipProps: {
+                    //     isControlled: true,
+                    //     isVisible: this.state.showExceedsCurrentTooltip,
+                    //     closeTooltip: this.closeExceedsCurrentTooltip,
+                    //     showTooltip: this.showExceedsCurrentTooltip
+                    // }
+                };
+            case "exceedsPotential":
+                return {
+                    obligatedTooltipProps: {
+                        isControlled: true,
+                        isVisible: this.state.showObligatedTooltip,
+                        closeTooltip: this.closeObligatedTooltip,
+                        showTooltip: this.showObligatedTooltip
+                    },
+                    currentTooltipProps: {
+                        isControlled: true,
+                        isVisible: this.state.showCurrentTooltip,
+                        closeTooltip: this.closeCurrentTooltip,
+                        showTooltip: this.showCurrentTooltip
+                    },
+                    potentialTooltipProps: {
+                        isControlled: true,
+                        isVisible: this.state.showPotentialTooltip,
+                        closeTooltip: this.closePotentialTooltip,
+                        showTooltip: this.showPotentialTooltip
+                    }
+                    // exceedsPotentialTooltipProps: {
+                    //     isControlled: true,
+                    //     isVisible: this.state.showExceedsPotentialTooltip,
+                    //     closeTooltip: this.closeExceedsPotentialTooltip,
+                    //     showTooltip: this.showExceedsPotentialTooltip
+                    // }
+                };
+            default:
+                return {
+                    obligatedTooltipProps: {
+                        isControlled: true,
+                        isVisible: this.state.showObligatedTooltip,
+                        closeTooltip: this.closeObligatedTooltip,
+                        showTooltip: this.showObligatedTooltip
+                    },
+                    currentTooltipProps: {
+                        isControlled: true,
+                        isVisible: this.state.showCurrentTooltip,
+                        closeTooltip: this.closeCurrentTooltip,
+                        showTooltip: this.showCurrentTooltip
+                    },
+                    potentialTooltipProps: {
+                        isControlled: true,
+                        isVisible: this.state.showPotentialTooltip,
+                        closeTooltip: this.closePotentialTooltip,
+                        showTooltip: this.showPotentialTooltip
+                    }
+                };
+        }
     }
 
     jumpToReferencedAwardsTable() {
         this.props.jumpToSection('referenced-awards');
+    }
+
+    showTooltip(tooltip) {
+        this.setState({
+            [tooltipMap[tooltip]]: true
+        });
+    }
+
+    closeTooltip(tooltip) {
+        this.setState({
+            [tooltipMap[tooltip]]: false
+        });
     }
 
     generateVisualization() {
@@ -41,10 +152,10 @@ export default class AggregatedAwardAmounts extends React.Component {
         let overspendingRow = null;
         switch (visualizationType) {
             case ('normal'):
-                visualization = (<NormalChart awardAmounts={awardAmounts} />);
+                visualization = (<NormalChart {...this.getTooltipProps('normal')} awardAmounts={awardAmounts} />);
                 break;
             case ('exceedsCurrent'):
-                visualization = (<ExceedsCurrentChart awardAmounts={awardAmounts} />);
+                visualization = (<ExceedsCurrentChart {...this.getTooltipProps('exceedsCurrent')} awardAmounts={awardAmounts} />);
                 overspendingRow = (
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />Exceeds Combined Current Award Amounts</div>
@@ -53,7 +164,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                 );
                 break;
             case ('exceedsPotential'):
-                visualization = (<ExceedsPotentialChart awardAmounts={awardAmounts} />);
+                visualization = (<ExceedsPotentialChart {...this.getTooltipProps('exceedsPotential')} awardAmounts={awardAmounts} />);
                 overspendingRow = (
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />Exceeds Combined Potential Award Amounts</div>
