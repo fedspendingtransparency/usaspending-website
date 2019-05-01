@@ -27,7 +27,8 @@ const tooltipMap = {
     obligated: "showObligatedTooltip",
     current: "showCurrentTooltip",
     potential: "showPotentialTooltip",
-    exceeds: "showExceedsTooltip"
+    exceedsCurrent: "showExceedsCurrentTooltip",
+    exceedsPotential: "showExceedsPotentialTooltip"
 };
 
 export default class AggregatedAwardAmounts extends React.Component {
@@ -37,7 +38,8 @@ export default class AggregatedAwardAmounts extends React.Component {
             showObligatedTooltip: false,
             showCurrentTooltip: false,
             showPotentialTooltip: false,
-            showExceedsTooltip: false
+            showExceedsCurrentTooltip: false,
+            showExceedsPotentialTooltip: false
         };
 
         this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
@@ -47,6 +49,10 @@ export default class AggregatedAwardAmounts extends React.Component {
         this.showCurrentTooltip = this.showTooltip.bind(this, "current");
         this.closePotentialTooltip = this.closeTooltip.bind(this, "potential");
         this.showPotentialTooltip = this.showTooltip.bind(this, "potential");
+        this.closeExceedsCurrentExceededTooltip = this.closeTooltip.bind(this, "exceedsCurrent");
+        this.showExceedsCurrentExceededTooltip = this.showTooltip.bind(this, "exceedsCurrent");
+        this.closeExceedsPotentialTooltip = this.closeTooltip.bind(this, "exceedsPotential");
+        this.showExceedsPotentialTooltip = this.showTooltip.bind(this, "exceedsPotential");
     }
 
     getTooltipProps(chartType) {
@@ -70,13 +76,13 @@ export default class AggregatedAwardAmounts extends React.Component {
                         isVisible: this.state.showPotentialTooltip,
                         closeTooltip: this.closePotentialTooltip,
                         showTooltip: this.showPotentialTooltip
+                    },
+                    exceedsCurrentTooltipProps: {
+                        isControlled: true,
+                        isVisible: this.state.showExceedsCurrentTooltip,
+                        closeTooltip: this.closeExceedsCurrentTooltip,
+                        showTooltip: this.showExceedsCurrentTooltip
                     }
-                    // exceedsCurrentTooltipProps: {
-                    //     isControlled: true,
-                    //     isVisible: this.state.showExceedsCurrentTooltip,
-                    //     closeTooltip: this.closeExceedsCurrentTooltip,
-                    //     showTooltip: this.showExceedsCurrentTooltip
-                    // }
                 };
             case "exceedsPotential":
                 return {
@@ -97,13 +103,13 @@ export default class AggregatedAwardAmounts extends React.Component {
                         isVisible: this.state.showPotentialTooltip,
                         closeTooltip: this.closePotentialTooltip,
                         showTooltip: this.showPotentialTooltip
+                    },
+                    exceedsPotentialTooltipProps: {
+                        isControlled: true,
+                        isVisible: this.state.showExceedsPotentialTooltip,
+                        closeTooltip: this.closeExceedsPotentialTooltip,
+                        showTooltip: this.showExceedsPotentialTooltip
                     }
-                    // exceedsPotentialTooltipProps: {
-                    //     isControlled: true,
-                    //     isVisible: this.state.showExceedsPotentialTooltip,
-                    //     closeTooltip: this.closeExceedsPotentialTooltip,
-                    //     showTooltip: this.showExceedsPotentialTooltip
-                    // }
                 };
             default:
                 return {
@@ -137,6 +143,10 @@ export default class AggregatedAwardAmounts extends React.Component {
         this.setState({
             [tooltipMap[tooltip]]: true
         });
+        // hide the other tooltips
+        Object.keys(this.state)
+            .filter((key) => key !== tooltipMap[tooltip])
+            .forEach((key) => this.setState({ [key]: false }));
     }
 
     closeTooltip(tooltip) {
