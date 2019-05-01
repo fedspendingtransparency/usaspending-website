@@ -20,7 +20,7 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-export class AwardAmountsContainer extends React.Component {
+export class IdvAmountsContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -114,9 +114,9 @@ export class AwardAmountsContainer extends React.Component {
     }
 }
 
-AwardAmountsContainer.propTypes = propTypes;
+IdvAmountsContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ award: state.awardV2 }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
-)(AwardAmountsContainer);
+)(IdvAmountsContainer);
