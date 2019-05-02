@@ -113,9 +113,7 @@ export class GlossaryContainer extends React.Component {
         });
 
         this.request = GlossaryHelper.fetchSearchResults({
-            fields: ['term'],
-            value: input,
-            matched_objects: true,
+            search_text: input,
             limit: 500
         });
 
@@ -129,7 +127,7 @@ export class GlossaryContainer extends React.Component {
 
                 this.request = null;
 
-                this.parseTerms(res.data.matched_objects.term);
+                this.parseTerms(res.data.matched_terms);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
