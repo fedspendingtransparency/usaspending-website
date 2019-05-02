@@ -9,30 +9,54 @@
     border: solid rem(1) $color-gray-light;
     .tooltip__message {
         width: 100%;
-        text-align: left;
         font-size: $small-font-size;
         .tooltip__title {
+            font-size: $small-font-size;
             background-color: $color-gray-lightest;
             padding: rem(10) rem(15);
             font-weight: $font-bold;
             z-index: 10;
+            margin-top: 0;
+            text-align: center;
+        }
+        .tooltip__amount {
+            margin: 0;
+            text-align: center;
+            font-size: $small-font-size;
+            font-weight: $font-normal; 
+            span:first-of-type {
+                font-size: $base-font-size * 1.25;
+                font-weight: $font-bold;
+            }
+            span:last-of-type {
+                font-size: $base-font-size;
+                font-weight: $font-normal * 1.25;
+            }
         }
         .tooltip__text {
-            padding: 0 rem(15) rem(15);
+            padding: 0 rem(15);
             font-weight: $font-normal;
+            text-align: center;
+            @include display(flex);
+            @include flex-direction(column);
             ul {
                 margin: 0;
                 padding-left: 0;
                 list-style-type: none;
             }
-            .tooltip__list {
-                display: flex;
-                flex-wrap: wrap;
-                flex-direction: column;
-                li {
-                    margin: 0;
-                    margin-right: rem(5);
-                    padding: 0;
+        }
+        .tooltip__list {
+            padding: 0 rem(15);
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            list-style-type: none;
+            li {
+                text-align: center;
+                list-style: none;
+                padding-bottom: rem(10);
+                &:last-of-type {
+                    padding-bottom: 0;
                 }
             }
         }
