@@ -63,7 +63,7 @@ export default class Accordion extends React.Component {
                                         key={keyValue}
                                         className="accordion-table__row">
                                         <td>{keyValue}</td>
-                                        <td>{this.props.accordionData[keyValue] || 'not provided'}</td>
+                                        <td>{this.props.accordionData[keyValue] || '--'}</td>
                                     </tr>
                                 ))}
                         </tbody>
