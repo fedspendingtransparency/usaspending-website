@@ -95,7 +95,7 @@ export default class ExceedsCurrentChart extends React.Component {
                         offsetAdjustments={{ top: 0 }}
                         tooltipComponent={
                             <CombinedPotentialAmounts
-                                total={this.props.awardAmounts.obligationFormatted}
+                                total={this.props.awardAmounts.combinedPotentialAwardAmounts}
                                 count={this.props.awardAmounts.childAwardCount} />}>
                         <div className="award-amounts-viz__bar">{/* Combined Potential */}
                             <TooltipWrapper
@@ -105,7 +105,7 @@ export default class ExceedsCurrentChart extends React.Component {
                                 offsetAdjustments={{ top: 0 }}
                                 tooltipComponent={
                                     <CombinedObligatedAmounts
-                                        total={this.props.awardAmounts.obligationFormatted}
+                                        total={this.props.awardAmounts.obligation}
                                         count={this.props.awardAmounts.childAwardCount} />}>
                                 <TooltipWrapper
                                     className="combined-current-tt__container"
@@ -114,7 +114,7 @@ export default class ExceedsCurrentChart extends React.Component {
                                     offsetAdjustments={{ top: 0 }}
                                     tooltipComponent={
                                         <CombinedCurrentAmounts
-                                            total={this.props.awardAmounts.obligationFormatted}
+                                            total={this.props.awardAmounts.combinedCurrentAwardAmounts}
                                             count={this.props.awardAmounts.childAwardCount} />}>
                                     <div className="award-amounts-viz__obligated" style={{ backgroundColor: currentBarStyle.backgroundColor }} />{/* Obligated/Current */}
                                 </TooltipWrapper>
@@ -125,7 +125,7 @@ export default class ExceedsCurrentChart extends React.Component {
                                     offsetAdjustments={{ top: 0 }}
                                     tooltipComponent={
                                         <CombinedExceedsCurrentAmounts
-                                            total={this.props.awardAmounts.obligationFormatted}
+                                            total={this.props.awardAmounts.overspending}
                                             count={this.props.awardAmounts.childAwardCount} />}>
                                     <div className="award-amounts-viz__exceeded" style={{ backgroundColor: overspendingBarStyle.backgroundColor }} />{/* Obligated/Overspending */}
                                 </TooltipWrapper>

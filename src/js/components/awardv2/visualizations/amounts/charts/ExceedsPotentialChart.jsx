@@ -116,7 +116,7 @@ export default class ExceedsPotentialChart extends React.Component {
                     offsetAdjustments={{ top: 0 }}
                     tooltipComponent={
                         <CombinedObligatedAmounts
-                            total={this.props.awardAmounts.obligationFormatted}
+                            total={this.props.awardAmounts.obligation}
                             count={this.props.awardAmounts.childAwardCount} />}>
                     <div className="award-amounts-viz__bar-wrapper award-amounts-viz__bar-wrapper_extreme-overspending">
                         <div className="award-amounts-viz__bar">
@@ -130,7 +130,7 @@ export default class ExceedsPotentialChart extends React.Component {
                                     offsetAdjustments={{ top: 0 }}
                                     tooltipComponent={
                                         <CombinedCurrentAmounts
-                                            total={this.props.awardAmounts.combinedCurrentAwardAmountsFormatted}
+                                            total={this.props.awardAmounts.combinedCurrentAwardAmounts}
                                             count={this.props.awardAmounts.childAwardCount} />
                                     }>
                                     <div
@@ -159,7 +159,7 @@ export default class ExceedsPotentialChart extends React.Component {
                                 offsetAdjustments={{ top: 0 }}
                                 tooltipComponent={
                                     <CombinedExceedsPotentialAmounts
-                                        total={this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}
+                                        total={this.props.awardAmounts.overspending}
                                         count={this.props.awardAmounts.childAwardCount} />}>
                                 <div
                                     className="award-amounts-viz__exceeded-potential"

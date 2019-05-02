@@ -150,10 +150,9 @@ export default class AggregatedAwardAmounts extends React.Component {
     }
 
     closeTooltip(tooltip) {
-        // this.setState({
-        //     [tooltipMap[tooltip]]: true
-        // });
-        console.log("YO", tooltip);
+        this.setState({
+            [tooltipMap[tooltip]]: false
+        });
     }
 
     generateVisualization() {

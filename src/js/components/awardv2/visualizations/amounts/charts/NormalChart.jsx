@@ -67,7 +67,7 @@ export default class NormalChart extends React.Component {
                         controlledProps={potentialTooltipProps}
                         tooltipComponent={
                             <CombinedPotentialAmounts
-                                total={this.props.awardAmounts.obligationFormatted}
+                                total={this.props.awardAmounts.combinedPotentialAwardAmounts}
                                 count={this.props.awardAmounts.childAwardCount} />}>
                         <div className="award-amounts-viz__bar">
                             <TooltipWrapper
@@ -77,7 +77,7 @@ export default class NormalChart extends React.Component {
                                 controlledProps={obligatedTooltipProps}
                                 tooltipComponent={
                                     <CombinedObligatedAmounts
-                                        total={this.props.awardAmounts.obligationFormatted}
+                                        total={this.props.awardAmounts.obligation}
                                         count={this.props.awardAmounts.childAwardCount} />}>
                                 <div className="award-amounts-viz__obligated" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
                             </TooltipWrapper>
@@ -88,7 +88,7 @@ export default class NormalChart extends React.Component {
                                 controlledProps={currentTooltipProps}
                                 tooltipComponent={
                                     <CombinedCurrentAmounts
-                                        total={this.props.awardAmounts.obligationFormatted}
+                                        total={this.props.awardAmounts.combinedCurrentAwardAmounts}
                                         count={this.props.awardAmounts.childAwardCount} />}>
                                 <div className="award-amounts-viz__excerised" style={{ backgroundColor: currentBarStyle.backgroundColor }} />
                             </TooltipWrapper>
