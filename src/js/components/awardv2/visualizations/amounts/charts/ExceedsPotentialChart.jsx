@@ -18,7 +18,8 @@ const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
     obligatedTooltipProps: TOOLTIP_PROPS,
     currentTooltipProps: TOOLTIP_PROPS,
-    potentialTooltipProps: TOOLTIP_PROPS
+    potentialTooltipProps: TOOLTIP_PROPS,
+    exceedsPotentialTooltipProps: TOOLTIP_PROPS
 };
 
 export default class ExceedsPotentialChart extends React.Component {
