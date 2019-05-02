@@ -1,6 +1,8 @@
 .tooltip-wrapper {
     div:first-of-type {
         height: 100%;
+        width: 100%;
+        @include display(flex);
     }
     .tooltip__hover-wrapper {
         .tooltip__icon {
