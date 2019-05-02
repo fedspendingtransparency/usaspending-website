@@ -38,7 +38,7 @@ export default class AggregatedAwardAmounts extends React.Component {
             showObligatedTooltip: false,
             showCurrentTooltip: false,
             showPotentialTooltip: false,
-            showExceedsCurrentTooltip: true,
+            showExceedsCurrentTooltip: false,
             showExceedsPotentialTooltip: false
         };
 
