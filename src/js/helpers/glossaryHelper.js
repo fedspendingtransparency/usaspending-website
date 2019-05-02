@@ -27,7 +27,7 @@ export const fetchSearchResults = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v1/references/glossary/autocomplete/',
+            url: 'v2/autocomplete/glossary/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
