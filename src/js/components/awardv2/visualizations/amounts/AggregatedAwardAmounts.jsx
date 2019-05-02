@@ -49,8 +49,8 @@ export default class AggregatedAwardAmounts extends React.Component {
         this.showCurrentTooltip = this.showTooltip.bind(this, "current");
         this.closePotentialTooltip = this.closeTooltip.bind(this, "potential");
         this.showPotentialTooltip = this.showTooltip.bind(this, "potential");
-        this.closeExceedsCurrentExceededTooltip = this.closeTooltip.bind(this, "exceedsCurrent");
-        this.showExceedsCurrentExceededTooltip = this.showTooltip.bind(this, "exceedsCurrent");
+        this.closeExceedsCurrentTooltip = this.closeTooltip.bind(this, "exceedsCurrent");
+        this.showExceedsCurrentTooltip = this.showTooltip.bind(this, "exceedsCurrent");
         this.closeExceedsPotentialTooltip = this.closeTooltip.bind(this, "exceedsPotential");
         this.showExceedsPotentialTooltip = this.showTooltip.bind(this, "exceedsPotential");
     }
