@@ -54,7 +54,7 @@ export default class NormalChart extends React.Component {
                     onKeyPress={obligatedTooltipProps.showTooltip}
                     onMouseEnter={obligatedTooltipProps.showTooltip}
                     onMouseLeave={obligatedTooltipProps.closeTooltip}
-                    onClick={obligatedTooltipProps.showTooltip}>                
+                    onClick={obligatedTooltipProps.showTooltip}>
                     <strong>{this.props.awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
                 </div>
                 <div className="award-amounts-viz__label" style={obligatedLabelStyle}>

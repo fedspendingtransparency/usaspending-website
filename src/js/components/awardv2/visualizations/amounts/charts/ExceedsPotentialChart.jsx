@@ -60,7 +60,12 @@ export default class ExceedsPotentialChart extends React.Component {
             width: generatePercentage(potential / obligation)
         };
 
-        const { obligatedTooltipProps, currentTooltipProps, potentialTooltipProps, exceedsPotentialTooltipProps } = this.props;
+        const {
+            obligatedTooltipProps,
+            currentTooltipProps,
+            potentialTooltipProps,
+            exceedsPotentialTooltipProps
+        } = this.props;
 
         return (
             <div className="award-amounts-viz">
@@ -113,7 +118,7 @@ export default class ExceedsPotentialChart extends React.Component {
                     className="combined-obligated-tt__container"
                     styles={obligatedLabelStyle}
                     controlledProps={obligatedTooltipProps}
-                    offsetAdjustments={{ top: 0 }}
+                    offsetAdjustments={{ top: 20 }}
                     tooltipComponent={
                         <CombinedObligatedAmounts
                             total={this.props.awardAmounts.obligation}
