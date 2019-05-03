@@ -149,7 +149,7 @@ export default class ExceedsPotentialChart extends React.Component {
                                     offsetAdjustments={{ top: 0 }}
                                     tooltipComponent={
                                         <CombinedPotentialAmounts
-                                            total={this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}
+                                            total={this.props.awardAmounts.combinedPotentialAwardAmounts}
                                             count={this.props.awardAmounts.childAwardCount} />
                                     }>
                                     <div
@@ -164,7 +164,7 @@ export default class ExceedsPotentialChart extends React.Component {
                                 offsetAdjustments={{ top: 0 }}
                                 tooltipComponent={
                                     <CombinedExceedsPotentialAmounts
-                                        total={this.props.awardAmounts.overspending}
+                                        total={this.props.awardAmounts.extremeOverspending}
                                         count={this.props.awardAmounts.childAwardCount} />}>
                                 <div
                                     className="award-amounts-viz__exceeded-potential"
