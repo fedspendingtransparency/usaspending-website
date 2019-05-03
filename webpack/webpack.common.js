@@ -88,6 +88,14 @@ module.exports = {
                 query: {
                     name: '[path][name].[ext]'
                 }
+            },
+            {
+                test: /\.(json)$/,
+                type: 'javascript/auto',
+                loader: 'file-loader',
+                query: {
+                    name: '[path][name].[ext]'
+                }
             }
         ]
     },
