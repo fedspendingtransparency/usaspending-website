@@ -31,6 +31,12 @@ const tooltipMap = {
     exceedsPotential: "showExceedsPotentialTooltip"
 };
 
+const showAndCloseTooltipConstructor = (ctx, type) => {
+    const titleCaseType = `${type[0].toUpperCase()}${type.substring(1)}`;
+    ctx[`show${titleCaseType}Tooltip`] = ctx.showTooltip.bind(ctx, type);
+    ctx[`close${titleCaseType}Tooltip`] = ctx.closeTooltip.bind(ctx, type);
+};
+
 export default class AggregatedAwardAmounts extends React.Component {
     constructor(props) {
         super(props);
@@ -43,16 +49,9 @@ export default class AggregatedAwardAmounts extends React.Component {
         };
 
         this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
-        this.closeObligatedTooltip = this.closeTooltip.bind(this, "obligated");
-        this.showObligatedTooltip = this.showTooltip.bind(this, "obligated");
-        this.closeCurrentTooltip = this.closeTooltip.bind(this, "current");
-        this.showCurrentTooltip = this.showTooltip.bind(this, "current");
-        this.closePotentialTooltip = this.closeTooltip.bind(this, "potential");
-        this.showPotentialTooltip = this.showTooltip.bind(this, "potential");
-        this.closeExceedsCurrentTooltip = this.closeTooltip.bind(this, "exceedsCurrent");
-        this.showExceedsCurrentTooltip = this.showTooltip.bind(this, "exceedsCurrent");
-        this.closeExceedsPotentialTooltip = this.closeTooltip.bind(this, "exceedsPotential");
-        this.showExceedsPotentialTooltip = this.showTooltip.bind(this, "exceedsPotential");
+        Object.keys(tooltipMap).forEach((tooltip) => {
+            showAndCloseTooltipConstructor(this, tooltip);
+        });
     }
 
     getTooltipProps(chartType) {
