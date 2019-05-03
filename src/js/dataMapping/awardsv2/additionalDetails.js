@@ -41,7 +41,7 @@ const additionalDetails = (awardData) => {
             'Clinger-Cohen Act Compliant': awardData.additionalDetails.clingerCohenAct,
             'Subject to Construction Wage Rate Requirements': awardData.additionalDetails.constructionWageRateReq,
             'Subject to Labor Standards': awardData.additionalDetails.laborStandards,
-            'Subject to Materials,Supplies, Articles & Equipment': awardData.additionalDetails.materialSuppliesArticlesEquip
+            'Subject to Materials, Supplies, Articles & Equipment': awardData.additionalDetails.materialSuppliesArticlesEquip
         },
         aquisitionDetails: {
             'Product Service Code (PSC)': awardData.additionalDetails.pscCode,
