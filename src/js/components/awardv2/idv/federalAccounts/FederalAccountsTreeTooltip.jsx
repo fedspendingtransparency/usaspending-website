@@ -1,6 +1,6 @@
 /**
  * FederalAccountsTreeTooltip.jsx
- * Created by Kevin Li 8/25/17
+ * Created by Jonathan Hill 5/2/19
  */
 
 import React from 'react';
@@ -13,8 +13,15 @@ const propTypes = {
     _federalAccountName: PropTypes.string,
     _obligatedAmount: PropTypes.number,
     _percent: PropTypes.number,
-    _funding_agency_name: PropTypes.string,
-    _funding_agency_abbreviation: PropTypes.string
+    _fundingAgencyName: PropTypes.string,
+    _fundingAgencyAbbreviation: PropTypes.string,
+    _fundingAgencyId: PropTypes.number,
+    federalAccountName: PropTypes.string,
+    obligatedAmount: PropTypes.string,
+    percent: PropTypes.string,
+    fundingAgencyName: PropTypes.string,
+    fundingAgencyAbbreviation: PropTypes.string,
+    fundingAgencyId: PropTypes.number
 };
 
 export default class FederalAccountsTreeTooltip extends React.Component {
@@ -83,11 +90,15 @@ export default class FederalAccountsTreeTooltip extends React.Component {
     }
 
     render() {
-        const name = this.props._federalAccountName;
-        const dollarValue = MoneyFormatter.formatTreemapValues(this.props._obligatedAmount);
-        const percentString = `${Math.round(this.props._percent)}%`;
+        const { percent, obligatedAmount, _federalAccountName } = this.props;
+        // TODO - allow subtitles to be clickable
+        // const subtitle = (
+        //     <a href={`/#/agency/${this.props._fundingAgencyId}`}>
+        //         {`${this.props._fundingAgencyName} (${this.props._fundingAgencyAbbreviation})`}
+        //     </a>
+        // );
         const subtitle =
-        `Funding Agency: ${this.props._funding_agency_name} (${this.props._funding_agency_abbreviation})`;
+        `${this.props._fundingAgencyName} (${this.props._fundingAgencyAbbreviation})`;
 
         return (
             <div className="visualization-tooltip">
@@ -100,26 +111,26 @@ export default class FederalAccountsTreeTooltip extends React.Component {
                     <div
                         className={`tooltip-pointer ${this.state.direction}`} />
                     <div className="tooltip-title">
-                        {name}
+                        {_federalAccountName}
                     </div>
                     <div className="tooltip-subtitle">
-                        {subtitle}
+                        Funding Agency: {subtitle}
                     </div>
                     <div className="tooltip-body">
                         <div className="tooltip-left">
                             <div className="tooltip-value">
-                                {dollarValue}
+                                {obligatedAmount}
                             </div>
                             <div className="tooltip-label">
-                                Total Amount
+                                Funded Amount
                             </div>
                         </div>
                         <div className="tooltip-right">
                             <div className="tooltip-value">
-                                {percentString}
+                                {percent}
                             </div>
                             <div className="tooltip-label">
-                                Percent
+                                Percent of Total
                             </div>
                         </div>
                     </div>

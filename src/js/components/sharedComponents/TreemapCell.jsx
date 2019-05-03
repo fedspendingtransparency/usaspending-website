@@ -78,9 +78,10 @@ export default class TreemapCell extends React.Component {
             y
         };
 
-        this.props.showTooltip(position, Object.assign({}, this.props.data, {
+        this.props.showTooltip(position, {
+            ...this.props.data,
             isAward: this.props.data.type === 'award'
-        }));
+        });
 
         this.setState({
             backgroundColor: highlightColor,

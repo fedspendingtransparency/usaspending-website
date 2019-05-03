@@ -40,11 +40,18 @@ export default class FederalAccountsSection extends React.Component {
             tooltip: {
                 x: 0,
                 y: 0,
-                name: '',
-                code: '',
-                amount: 0,
+                _federalAccountName: '',
+                _obligatedAmount: 0,
+                _percent: 0,
+                _fundingAgencyName: '',
+                _fundingAgencyAbbreviation: '',
+                _fundingAgencyId: 0,
+                federalAccountName: '',
+                obligatedAmount: 0,
                 percent: 0,
-                total: 0
+                fundingAgencyName: '',
+                fundingAgencyAbbreviation: '',
+                fundingAgencyId: 0
             }
         };
 
@@ -79,7 +86,7 @@ export default class FederalAccountsSection extends React.Component {
     showTooltip(position, data) {
         this.setState({
             showTooltip: true,
-            tooltip: Object.assign({}, position, data)
+            tooltip: { ...position, ...data }
         });
     }
 
@@ -126,7 +133,7 @@ export default class FederalAccountsSection extends React.Component {
                                     changeView={this.changeView}
                                     active={!isTreeView} />
                             </div>}
-                            {(!isTreeView && federalAccounts.length > 0)
+                            {(!inFlight && !error && !isTreeView && federalAccounts.length > 0)
                             && <FederalAccountsTable {...this.props} />}
                             <div
                                 className="federal-accounts-vis__width-reference"

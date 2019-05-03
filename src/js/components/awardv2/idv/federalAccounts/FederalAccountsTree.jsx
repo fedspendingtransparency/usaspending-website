@@ -102,7 +102,6 @@ export default class FederalAccountsTree extends React.Component {
             const cell = this.buildVirtualCell(item, scale);
             cells.push(cell);
         });
-
         this.setState({
             virtualChart: cells
         });
@@ -137,7 +136,7 @@ export default class FederalAccountsTree extends React.Component {
             height,
             x: data.x0,
             y: data.y0,
-            data: Object.assign({}, data.data),
+            data: data.data,
             color,
             title: {
                 text: title,
@@ -205,12 +204,11 @@ export default class FederalAccountsTree extends React.Component {
                 selectedCell={this.selectedCell}
                 showTooltip={this.props.showTooltip}
                 hideTooltip={this.props.hideTooltip} />
-                // goToUnreported={this.props.goToUnreported} />
         ));
 
         return (
             <div>
-                <h4>Federal Accounts</h4>
+                <h4 id="federal-account-treemap-title">Federal Accounts</h4>
                 <div className="federal-accounts-treemap">
                     <svg
                         className="treemap"

@@ -102,8 +102,8 @@ export class AwardMetaDataContainer extends React.Component {
 
     parseFederalAccounts(response) {
         const federalAccounts = response.results.map((account) => {
-            const newAccount = Object.create(FederalAccountSummary);
-            newAccount.populate(account, this.state.totalTransactionObligatedAmount);
+            const newAccount =
+            new FederalAccountSummary(account, response.total);
             return newAccount;
         });
         this.setState({

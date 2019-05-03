@@ -10,6 +10,7 @@
   "plugins": [
     ["module-resolver", {
         "root": ["src/js"]
-    }]
+    }],
+    "transform-object-rest-spread"
   ]
 }

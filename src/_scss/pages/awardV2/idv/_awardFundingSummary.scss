@@ -6,16 +6,23 @@
     left: 0;
 
     .tooltip {
-        position: relative;
+      position: relative;
       max-width: rem(500);
-
-        .disclaimer-total {
-            margin-bottom: rem(15);
-            padding: rem(0) rem(15);
-            font-size: rem(12);
-            font-style: italic;
-            text-align: center;
-        }
+      .tooltip-title {
+        background-color: #eeeeee;
+      }
+      .tooltip-subtitle {
+        text-align: center;
+        background-color: #f8f8f8;
+        padding: $global-pad ($global-pad * 2);
+      }
+      .disclaimer-total {
+          margin-bottom: rem(15);
+          padding: rem(0) rem(15);
+          font-size: rem(12);
+          font-style: italic;
+          text-align: center;
+      }
     }
   }
   .federal-accounts__section {
@@ -30,6 +37,9 @@
       overflow-x: scroll;
       @include media($medium-screen) {
         overflow-x: auto;
+      }
+      #federal-account-treemap-title {
+        margin-top: 0;
       }
       .results-table-message-container {
           position: relative;

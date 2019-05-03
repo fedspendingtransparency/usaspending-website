@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map } from 'lodash';
+import { map, uniqueId } from 'lodash';
 
 import tableMapping from 'dataMapping/awardsv2/federalAccountSectionTable';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
@@ -47,7 +47,7 @@ export default class FederalAccountsTable extends React.Component {
         return this.props.federalAccounts.map((account) => (
             <tr
                 className="federal-accounts-table__body-row"
-                key={`row-${account._obligatedAmount}`}>
+                key={`row-${uniqueId()}`}>
                 {map(tableMapping, (header, key) => {
                     let cellData = account[key];
                     if (key === 'federalAccountName') {
@@ -67,7 +67,7 @@ export default class FederalAccountsTable extends React.Component {
                     return (
                         <td
                             className={header.classname}
-                            key={`cell-${account._obligatedAmount}-${header.displayName}`}>
+                            key={`${uniqueId()}`}>
                             {cellData}
                         </td>
                     );
