@@ -33,11 +33,11 @@ export default class FederalAccountsTable extends React.Component {
                             {header.displayName}
                         </div>
                     </div>
-                    <StateLandingTableSorter
+                    {header.field && <StateLandingTableSorter
                         field={header.field}
                         label={header.displayName}
                         active={{ field: sort, direction: order }}
-                        setSort={updateSort} />
+                        setSort={updateSort} />}
                 </div>
             </th>
         ));
@@ -57,10 +57,10 @@ export default class FederalAccountsTable extends React.Component {
                             </a>
                         );
                     }
-                    else if (key === 'fundingAgency') {
+                    else if (key === 'fundingAgencyName') {
                         cellData = (
-                            <a href={`${header.href}${account.fundingAgency}`}>
-                                {account[key]}
+                            <a href={`${header.href}${account._fundingAgencyId}`}>
+                                {`(${account._fundingAgencyAbbreviation}) ${account[key]}`}
                             </a>
                         );
                     }
