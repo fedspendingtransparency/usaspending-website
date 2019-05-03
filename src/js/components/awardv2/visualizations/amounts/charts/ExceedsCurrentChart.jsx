@@ -22,9 +22,9 @@ const propTypes = {
 
 export default class ExceedsCurrentChart extends React.Component {
     render() {
-        const obligation = this.props.awardAmounts._obligation; // 98M
-        const current = this.props.awardAmounts._combinedCurrentAwardAmounts; // 96M
-        const potential = this.props.awardAmounts._combinedPotentialAwardAmounts; // 101 M
+        const obligation = this.props.awardAmounts._obligation;
+        const current = this.props.awardAmounts._combinedCurrentAwardAmounts;
+        const potential = this.props.awardAmounts._combinedPotentialAwardAmounts;
 
         const currentBarStyle = {
             width: generatePercentage(current / obligation),
