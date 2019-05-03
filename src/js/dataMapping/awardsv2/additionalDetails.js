@@ -46,7 +46,7 @@ const additionalDetails = (awardData) => {
         aquisitionDetails: {
             'Product Service Code (PSC)': awardData.additionalDetails.pscCode,
             'NAICS Code': awardData.additionalDetails.naicsCode,
-            'DoD Claimant Code': awardData.additionalDetails.dodClaimantCode,
+            'DoD Claimant Code': awardData.additionalDetails.dodClaimantProgram,
             'DOD Acquisition Program': awardData.additionalDetails.dodAcquisitionProgram,
             'Information Technology Commercial Item Category': awardData.additionalDetails.infoTechCommercialItem,
             'Sea Transportation': awardData.additionalDetails.seaTransport
