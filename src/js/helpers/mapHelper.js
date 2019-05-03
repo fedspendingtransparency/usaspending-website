@@ -475,3 +475,22 @@ export const performZIPGeocode = (zip) => {
         }
     };
 };
+
+export const fetchCityResults = (term) => {
+    const source = CancelToken.source();
+    console.log(term);
+    return {
+        promise: new Promise((resolve) => {
+            window.setTimeout(() => {
+                resolve({
+                    data: {
+                        results: ['New York', 'Manhattan', 'NYC']
+                    }
+                });
+            }, 500);
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { concat } from 'lodash';
 
-import { fetchLocationList, performZIPGeocode } from 'helpers/mapHelper';
+import { fetchLocationList, performZIPGeocode, fetchCityResults } from 'helpers/mapHelper';
 
 import LocationPicker from 'components/search/filters/location/LocationPicker';
 
@@ -33,6 +33,9 @@ const defaultSelections = {
         state: '',
         name: ''
     },
+    city: {
+        name: ''
+    },
     district: {
         code: '',
         district: '',
@@ -53,9 +56,11 @@ export default class LocationPickerContainer extends React.Component {
             availableStates: [],
             availableCounties: [],
             availableDistricts: [],
+            availableCities: [],
             country: Object.assign({}, defaultSelections.country),
             state: Object.assign({}, defaultSelections.state),
             county: Object.assign({}, defaultSelections.county),
+            city: Object.assign({}, defaultSelections.city),
             district: Object.assign({}, defaultSelections.district),
             zip: Object.assign({}, defaultSelections.zip)
         };
@@ -64,6 +69,7 @@ export default class LocationPickerContainer extends React.Component {
         // keep the CD request seperate bc they may be parallel with county
         this.districtRequest = null;
         this.zipRequest = null;
+        this.cityRequest = null;
 
         this.loadStates = this.loadStates.bind(this);
         this.loadCounties = this.loadCounties.bind(this);
@@ -259,6 +265,10 @@ export default class LocationPickerContainer extends React.Component {
         entity = 'Country';
         identifier += this.state.country.code;
 
+        if (this.state.city.name !== '') {
+            location.city = this.state.city.name;
+        }
+
         if (this.state.state.code !== '') {
             location.state = this.state.state.code;
             title = this.state.state.name;
@@ -349,6 +359,27 @@ export default class LocationPickerContainer extends React.Component {
                 if (!isCancel(err)) {
                     console.log(err);
                     this.zipRequest = null;
+                }
+            });
+    }
+
+    fetchCityAutocomplete(term) {
+        if (this.cityRequest) {
+            this.cityRequest.cancel();
+        }
+
+        this.cityRequest = fetchCityResults(term);
+
+        this.cityRequest.promise
+            .then((res) => {
+                this.setState({
+                    availableCities: res.data.results
+                });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.cityRequest = null;
                 }
             });
     }

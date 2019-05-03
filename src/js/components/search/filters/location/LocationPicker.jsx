@@ -13,12 +13,14 @@ const propTypes = {
     country: PropTypes.object,
     state: PropTypes.object,
     county: PropTypes.object,
+    city: PropTypes.object,
     district: PropTypes.object,
     zip: PropTypes.object,
     availableCountries: PropTypes.array,
     availableStates: PropTypes.array,
     availableCounties: PropTypes.array,
     availableDistricts: PropTypes.array,
+    availableCities: PropTypes.array,
     selectEntity: PropTypes.func,
     loadStates: PropTypes.func,
     loadCounties: PropTypes.func,
@@ -138,7 +140,7 @@ export default class LocationPicker extends React.Component {
                         <EntityDropdown
                             scope="country"
                             placeholder="Select a country"
-                            title="Country"
+                            title="COUNTRY"
                             value={this.props.country}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableCountries}
@@ -148,7 +150,7 @@ export default class LocationPicker extends React.Component {
                         <EntityDropdown
                             scope="state"
                             placeholder="Select a state"
-                            title="State"
+                            title="STATE (US ONLY)"
                             value={this.props.state}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableStates}
@@ -159,7 +161,7 @@ export default class LocationPicker extends React.Component {
                         <EntityDropdown
                             scope="county"
                             placeholder="Select a county"
-                            title="County"
+                            title="COUNTY (US ONLY)"
                             value={this.props.county}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableCounties}
@@ -168,10 +170,21 @@ export default class LocationPicker extends React.Component {
                     </div>
                     <div className="location-item">
                         <EntityDropdown
+                            scope="city"
+                            placeholder="Enter a city"
+                            title="CITY"
+                            value={this.props.city}
+                            options={this.props.availableCities}
+                            selectEntity={this.props.selectEntity}
+                            enabled={this.props.country.code !== ''}
+                            generateWarning={this.generateWarning} />
+                    </div>
+                    <div className="location-item">
+                        <EntityDropdown
                             scope="district"
                             matchKey="district"
                             placeholder={districtPlaceholder}
-                            title="Congressional District"
+                            title="CONGRESSIONAL DISTRICT (US ONLY)"
                             value={this.props.district}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableDistricts}
