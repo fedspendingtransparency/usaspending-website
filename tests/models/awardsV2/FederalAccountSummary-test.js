@@ -19,11 +19,23 @@ describe('FederalAccountSummary Model', () => {
         expect(federalAccountSummary._obligatedAmount)
             .toEqual(account.total_transaction_obligated_amount);
     });
+    it('should have private field fundingAgencyName', () => {
+        expect(federalAccountSummary._fundingAgencyName)
+            .toEqual(account.funding_agency_name);
+    });
+    it('should have private field fundingAgencyAbbreviation', () => {
+        expect(federalAccountSummary._fundingAgencyAbbreviation)
+            .toEqual(account.funding_agency_abbreviation);
+    });
+    it('should have private field fundingAgencyAbbreviation', () => {
+        expect(federalAccountSummary._fundingAgencyId)
+            .toEqual(account.funding_agency_id);
+    });
     it('should have field federalAccount', () => {
         expect(federalAccountSummary.federalAccount).toEqual(account.federal_account);
     });
     it('should have a field obligateAmount', () => {
-        expect(federalAccountSummary.obligatedAmount).toEqual('$5,633');
+        expect(federalAccountSummary.obligatedAmount).toEqual("$42,029,540");
     });
     describe('FederalAccountSummary Model federalAccountName', () => {
         // Test three scenarios
@@ -65,6 +77,27 @@ describe('FederalAccountSummary Model', () => {
             account.total_transaction_obligated_amount = 100;
             federalAccountSummary.populate(account, 5000000);
             expect(federalAccountSummary.percent).toEqual('Less than 0.01%');
+        });
+    });
+    describe('FederalAccountSummary Model fundingAgencyName', () => {
+        // Test three scenarios
+        // 1. name is < 34 chars
+        it('should format fundingAgencyName < 36 characters properly', () => {
+            account.funding_agency_name = 'Jimmy Timmy';
+            federalAccountSummary.populate(account, 100);
+            expect(federalAccountSummary.fundingAgencyName).toEqual('JIMMY TIMMY');
+        });
+        // 2. name is 34 chars
+        it('should format fundingAgencyName = 36 characters properly', () => {
+            account.funding_agency_name = 'JimmyTimmyJimmyTimmyJimmyTimmy111111';
+            federalAccountSummary.populate(account, 100);
+            expect(federalAccountSummary.fundingAgencyName).toEqual('JIMMYTIMMYJIMMYTIMMYJIMMYTIMMY111111');
+        });
+        // 3. name is > 34 chars
+        it('should format fundingAgencyName > 36 characters properly', () => {
+            account.funding_agency_name = 'JimmyTimmyJimmyTimmyJimmyTimmy1111JimmyTimmyJimmyTimmy';
+            federalAccountSummary.populate(account, 100);
+            expect(federalAccountSummary.fundingAgencyName).toEqual('JIMMYTIMMYJIMMYTIMMYJIMMYTIMMY1111JI...');
         });
     });
 });

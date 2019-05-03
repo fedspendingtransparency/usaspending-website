@@ -11,7 +11,9 @@ const FederalAccountSummary = {
         this._obligatedAmount = data.total_transaction_obligated_amount || 0;
         this.federalAccount = data.federal_account || '';
         this._percent = (data.total_transaction_obligated_amount / total) * 100;
-        this.fundingAgency = data.funding_agency || '';
+        this._fundingAgencyName = data.funding_agency_name || '';
+        this._fundingAgencyAbbreviation = data.funding_agency_abbreviation || '';
+        this._fundingAgencyId = data.funding_agency_id || '';
     },
     get federalAccountName() {
         const maxChars = 36;
@@ -31,6 +33,13 @@ const FederalAccountSummary = {
             return `${decimal.slice(0, end)}%`;
         }
         return `${decimal}%`;
+    },
+    get fundingAgencyName() {
+        const maxChars = 36;
+        const upperName = this._fundingAgencyName.toUpperCase();
+        if (upperName.length <= maxChars) return upperName;
+        const truncated = upperName.substring(0, 36);
+        return `${truncated}...`;
     }
 };
 

@@ -20,9 +20,8 @@ const tableMapping = {
         field: 'total_transaction_obligated_amount',
         classname: 'federal-accounts-table__body-cell right'
     },
-    fundingAgency: {
+    fundingAgencyName: {
         displayName: 'Funding Agency',
-        field: 'funding_agency',
         classname: 'federal-accounts-table__body-cell',
         href: '/#/agency/'
     }

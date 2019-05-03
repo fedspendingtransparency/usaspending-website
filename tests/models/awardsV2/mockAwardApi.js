@@ -408,29 +408,40 @@ export const mockFileDownloadResponse = {
 
 export const mockAwardFederalAccounts = {
     page_metadata: {
-        count: 5,
+        count: 3,
         hasNext: true,
         hasPrevious: false,
-        next: 2,
+        next: 0,
         page: 1,
         previous: null
     },
     results: [
         {
-            account_title: "Salaries and Expenses, United States Attorneys, Justice",
-            federal_account: "015-0322",
-            total_transaction_obligated_amount: 5632.5
+            account_title: 'Operations Support,Internal Revenue Service, Treasury',
+            federal_account: '020-0919',
+            funding_agency_abbreviation: 'TREAS',
+            funding_agency_id: 456,
+            funding_agency_name: 'Department of the Treasury',
+            total_transaction_obligated_amount: 42029539.53
         },
+        
         {
-            account_title: "National Institute of Environmental Health Sciences, National Institutes of Health",
-            federal_account: "075-0862",
-            total_transaction_obligated_amount: 40
+            account_title: 'Program Management, Centers for Medicare and Medicaid Services',
+            federal_account: '075-0511',
+            funding_agency_abbreviation: 'HHS',
+            funding_agency_id: 806,
+            funding_agency_name: 'Department of Health and Human Services',
+            total_transaction_obligated_amount: 37865386
         },
+        
         {
-            account_title: "Salaries and Expenses, Social Security Administration",
-            federal_account: "028-8704",
-            total_transaction_obligated_amount: 887.27
+            account_title: 'Diplomatic and Consular Programs, State',
+            federal_account: '019-0113',
+            funding_agency_abbreviation: 'DOS',
+            funding_agency_id: 315,
+            funding_agency_name: 'Department of State',
+            total_transaction_obligated_amount: 32912320.74
         }
     ],
-    total: 4745.23
+    total: 271716259.64
 };
