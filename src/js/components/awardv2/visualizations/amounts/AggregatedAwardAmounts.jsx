@@ -55,83 +55,23 @@ export default class AggregatedAwardAmounts extends React.Component {
     }
 
     getTooltipProps(chartType) {
-        switch (chartType) {
-            case "exceedsCurrent":
-                return {
-                    obligatedTooltipProps: {
-                        isControlled: true,
-                        isVisible: this.state.showObligatedTooltip,
-                        closeTooltip: this.closeObligatedTooltip,
-                        showTooltip: this.showObligatedTooltip
-                    },
-                    currentTooltipProps: {
-                        isControlled: true,
-                        isVisible: this.state.showCurrentTooltip,
-                        closeTooltip: this.closeCurrentTooltip,
-                        showTooltip: this.showCurrentTooltip
-                    },
-                    potentialTooltipProps: {
-                        isControlled: true,
-                        isVisible: this.state.showPotentialTooltip,
-                        closeTooltip: this.closePotentialTooltip,
-                        showTooltip: this.showPotentialTooltip
-                    },
-                    exceedsCurrentTooltipProps: {
-                        isControlled: true,
-                        isVisible: this.state.showExceedsCurrentTooltip,
-                        closeTooltip: this.closeExceedsCurrentTooltip,
-                        showTooltip: this.showExceedsCurrentTooltip
-                    }
-                };
-            case "exceedsPotential":
-                return {
-                    obligatedTooltipProps: {
-                        isControlled: true,
-                        isVisible: this.state.showObligatedTooltip,
-                        closeTooltip: this.closeObligatedTooltip,
-                        showTooltip: this.showObligatedTooltip
-                    },
-                    currentTooltipProps: {
-                        isControlled: true,
-                        isVisible: this.state.showCurrentTooltip,
-                        closeTooltip: this.closeCurrentTooltip,
-                        showTooltip: this.showCurrentTooltip
-                    },
-                    potentialTooltipProps: {
-                        isControlled: true,
-                        isVisible: this.state.showPotentialTooltip,
-                        closeTooltip: this.closePotentialTooltip,
-                        showTooltip: this.showPotentialTooltip
-                    },
-                    exceedsPotentialTooltipProps: {
-                        isControlled: true,
-                        isVisible: this.state.showExceedsPotentialTooltip,
-                        closeTooltip: this.closeExceedsPotentialTooltip,
-                        showTooltip: this.showExceedsPotentialTooltip
-                    }
-                };
-            default:
-                return {
-                    obligatedTooltipProps: {
-                        isControlled: true,
-                        isVisible: this.state.showObligatedTooltip,
-                        closeTooltip: this.closeObligatedTooltip,
-                        showTooltip: this.showObligatedTooltip
-                    },
-                    currentTooltipProps: {
-                        isControlled: true,
-                        isVisible: this.state.showCurrentTooltip,
-                        closeTooltip: this.closeCurrentTooltip,
-                        showTooltip: this.showCurrentTooltip
-                    },
-                    potentialTooltipProps: {
-                        isControlled: true,
-                        isVisible: this.state.showPotentialTooltip,
-                        closeTooltip: this.closePotentialTooltip,
-                        showTooltip: this.showPotentialTooltip
-                    }
-                };
+        // these are the tooltips needed for every spending scenario & corresponding chart type
+        const tooltips = ["obligated", "current", "potential"];
+        if (!tooltips.includes(chartType)) {
+            tooltips.push(chartType);
         }
+
+        return tooltips.reduce((acc, tooltip) => {
+            const titleCaseScenario = `${tooltip[0].toUpperCase()}${tooltip.substring(1)}`;
+            return Object.assign(acc, {
+                [`${tooltip}TooltipProps`]: {
+                    isControlled: true,
+                    isVisible: this.state[`show${titleCaseScenario}Tooltip`],
+                    closeTooltip: this[`close${titleCaseScenario}Tooltip`],
+                    showTooltip: this[`show${titleCaseScenario}Tooltip`]
+                }
+            });
+        }, {});
     }
 
     jumpToReferencedAwardsTable() {
