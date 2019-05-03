@@ -29,6 +29,21 @@
     .view-buttons {
       @include viewTypeButton();
       text-align: right;
+      .view-button {
+        .icon {
+          width: rem(14);
+          height: rem(15);
+          svg {
+            fill: #828080;
+            width: rem(14);
+            height: rem(15);
+          }
+        }
+        &.active {
+          background-color: #0066b4;
+          border-color: #0066b4;
+        }
+      }
     }
     .federal-accounts-results {
       @import 'components/pagination';
@@ -46,6 +61,9 @@
           .loading-animation {
               @import "../../search/results/screens/loading";
           }
+      }
+      .explorer-cell-box:hover {
+          background-color: #f49c20;
       }
     }
   }

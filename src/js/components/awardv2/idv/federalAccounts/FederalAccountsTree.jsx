@@ -24,7 +24,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    height: 330
+    height: 185
 };
 
 export default class FederalAccountsTree extends React.Component {
@@ -89,7 +89,7 @@ export default class FederalAccountsTree extends React.Component {
 
         let scale = scaleLinear()
             .domain([minValue, maxValue])
-            .range(['#47BAD9', '#1C4956']);
+            .range(['#f2f6f9', '#9bb1cf']);
         if (treeItems.length === 1) {
             // in the event that we only have one data item, mock the scale function to only
             // return one color
@@ -200,6 +200,7 @@ export default class FederalAccountsTree extends React.Component {
         const cells = this.state.virtualChart.map((cell) => (
             <TreemapCell
                 {...cell}
+                highlightColor="#f49c20"
                 key={`${cell.data._obligatedAmount}-${cell.data.federalAccount}`}
                 selectedCell={this.selectedCell}
                 showTooltip={this.props.showTooltip}

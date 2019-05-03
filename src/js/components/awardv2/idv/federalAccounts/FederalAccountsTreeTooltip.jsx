@@ -114,7 +114,7 @@ export default class FederalAccountsTreeTooltip extends React.Component {
                         {_federalAccountName}
                     </div>
                     <div className="tooltip-subtitle">
-                        Funding Agency: {subtitle}
+                        FUNDING AGENCY: {subtitle}
                     </div>
                     <div className="tooltip-body">
                         <div className="tooltip-left">

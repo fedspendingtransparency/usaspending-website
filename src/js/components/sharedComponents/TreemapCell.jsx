@@ -20,7 +20,8 @@ const propTypes = {
     selectedCell: PropTypes.func,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    goToUnreported: PropTypes.func
+    goToUnreported: PropTypes.func,
+    highlightColor: PropTypes.string
 };
 
 const highlightColor = '#fdb81e';
@@ -84,7 +85,7 @@ export default class TreemapCell extends React.Component {
         });
 
         this.setState({
-            backgroundColor: highlightColor,
+            backgroundColor: this.props.highlightColor || highlightColor,
             active: 'active'
         });
     }

@@ -6,7 +6,7 @@ import { Table, Tree } from 'components/sharedComponents/icons/Icons';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import ResultsTableMessage from 'components/search/table/ResultsTableMessage';
+import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import FederalAccountsTreeTooltip from
     'components/awardv2/idv/federalAccounts/FederalAccountsTreeTooltip';
 import FederalAccountsTable from './FederalAccountsTable';
@@ -116,7 +116,7 @@ export default class FederalAccountsSection extends React.Component {
                                 {inFlight && <ResultsTableLoadingMessage />}
                                 {(error && !inFlight) && <ResultsTableErrorMessage />}
                                 {(!federalAccounts.length && !inFlight && !error)
-                                && <ResultsTableMessage message="No results found." />}
+                                && <ResultsTableNoResults description=" " />}
                             </div>
                             {(!inFlight && !error && federalAccounts.length > 0) &&
                             <div className="view-buttons">

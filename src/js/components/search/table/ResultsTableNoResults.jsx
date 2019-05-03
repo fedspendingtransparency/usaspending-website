@@ -4,17 +4,24 @@
   **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const ResultsTableNoResults = () => (
+const propTypes = {
+    description: PropTypes.string
+};
+
+const ResultsTableNoResults = ({ description }) => (
     <div className="results-table-no-results">
         <div className="no-results-icon" />
         <div className="title">
             No results found.
         </div>
         <div className="description">
-            Try again using different filters.
+            {description || 'Try again using different filters.'}
         </div>
     </div>
 );
+
+ResultsTableNoResults.propTypes = propTypes;
 
 export default ResultsTableNoResults;
