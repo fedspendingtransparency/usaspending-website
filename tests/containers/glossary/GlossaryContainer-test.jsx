@@ -20,6 +20,7 @@ global.Promise = require.requireActual('promise');
 // spy on specific functions inside the component
 const populateCacheSpy = sinon.spy(GlossaryContainer.prototype, 'populateCache');
 const performSearchSpy = sinon.spy(GlossaryContainer.prototype, 'performSearch');
+const populateGlossaryWithAllTermsSpy = sinon.spy(GlossaryContainer.prototype, 'populateGlossaryWithAllTerms');
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/glossary/AnimatedGlossaryWrapper', () =>
@@ -58,17 +59,21 @@ const unmockGlossaryHelper = () => {
 };
 
 describe('GlossaryContainer', () => {
+    mockGlossaryHelper('populateCache', 'resolve', mockCache);
+    mockGlossaryHelper('performSearch', 'resolve', mockSearch);
+
+    mount(<GlossaryContainer
+        {...mockActions}
+        glossary={initialState} />);
+    jest.runAllTicks();
+
     it('should populate the cache via an API call on mount', () => {
-        mockGlossaryHelper('populateCache', 'resolve', mockCache);
-        mockGlossaryHelper('performSearch', 'resolve', mockSearch);
-
-        mount(<GlossaryContainer
-            {...mockActions}
-            glossary={initialState} />);
-        jest.runAllTicks();
-
         expect(populateCacheSpy.callCount).toEqual(1);
+        expect(performSearchSpy.callCount).toEqual(0);
+        expect(populateGlossaryWithAllTermsSpy.callCount).toEqual(0);
         populateCacheSpy.reset();
+        performSearchSpy.reset();
+        populateGlossaryWithAllTermsSpy.reset();
     });
 
     it('should only populate the cache when it is empty', () => {
@@ -77,6 +82,7 @@ describe('GlossaryContainer', () => {
 
         populateCacheSpy.reset();
         performSearchSpy.reset();
+        populateGlossaryWithAllTermsSpy.reset();
 
         mount(<GlossaryContainer
             {...mockActions}
@@ -85,8 +91,36 @@ describe('GlossaryContainer', () => {
 
         expect(populateCacheSpy.callCount).toEqual(0);
         expect(performSearchSpy.callCount).toEqual(1);
+        expect(populateGlossaryWithAllTermsSpy.callCount).toEqual(1);
+
         populateCacheSpy.reset();
         performSearchSpy.reset();
+        populateGlossaryWithAllTermsSpy.reset();
+    });
+
+    it('should only call populateGlossaryWithAllTerms when search term is empty', () => {
+        populateCacheSpy.reset();
+        performSearchSpy.reset();
+        populateGlossaryWithAllTermsSpy.reset();
+
+        const mockDataWithDefinedSearchTerm = Object.assign(mockData, {
+            search: {
+                input: 'test',
+                results: mockData.search.results
+            }
+        });
+
+        mount(<GlossaryContainer
+            {...mockActions}
+            glossary={mockDataWithDefinedSearchTerm} />);
+        jest.runAllTicks();
+
+        expect(populateGlossaryWithAllTermsSpy.callCount).toEqual(0);
+        expect(performSearchSpy.callCount).toEqual(1);
+        
+        populateCacheSpy.reset();
+        performSearchSpy.reset();
+        populateGlossaryWithAllTermsSpy.reset();
     });
 
     describe('writeCache', () => {

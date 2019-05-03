@@ -42,6 +42,7 @@ export class GlossaryContainer extends React.Component {
         this.request = null;
 
         this.performSearch = this.performSearch.bind(this);
+        this.populateGlossaryWithAllTerms = this.populateGlossaryWithAllTerms.bind(this);
     }
     componentDidMount() {
         GlossaryListenerSingleton.subscribe(this);
