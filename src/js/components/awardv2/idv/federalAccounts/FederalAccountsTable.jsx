@@ -10,13 +10,8 @@ import { map } from 'lodash';
 import tableMapping from 'dataMapping/awardsv2/federalAccountSectionTable';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
 import Pagination from 'components/sharedComponents/Pagination';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 
 const propTypes = {
-    inFlight: PropTypes.bool,
-    error: PropTypes.bool,
     page: PropTypes.number,
     limit: PropTypes.number,
     sort: PropTypes.string,
@@ -52,7 +47,7 @@ export default class FederalAccountsTable extends React.Component {
         return this.props.federalAccounts.map((account) => (
             <tr
                 className="federal-accounts-table__body-row"
-                key={`row-${account.federalAccount}`}>
+                key={`row-${account._obligatedAmount}`}>
                 {map(tableMapping, (header, key) => {
                     let cellData = account[key];
                     if (key === 'federalAccountName') {
@@ -72,7 +67,7 @@ export default class FederalAccountsTable extends React.Component {
                     return (
                         <td
                             className={header.classname}
-                            key={`cell-${account.federalAccount}-${header.displayName}`}>
+                            key={`cell-${account._obligatedAmount}-${header.displayName}`}>
                             {cellData}
                         </td>
                     );
@@ -104,15 +99,9 @@ export default class FederalAccountsTable extends React.Component {
     }
 
     render() {
-        const { inFlight, error, federalAccounts } = this.props;
         return (
-            <div className="federal-accounts-results">
-                <div className="results-table-message-container">
-                    {inFlight && <ResultsTableLoadingMessage />}
-                    {(error && !inFlight) && <ResultsTableErrorMessage />}
-                    {(!federalAccounts.length && !inFlight && !error) && <ResultsTableNoResults />}
-                </div>
-                {(federalAccounts.length > 0 && !inFlight && !error) && this.renderTable()}
+            <div>
+                {this.renderTable()}
             </div>
         );
     }

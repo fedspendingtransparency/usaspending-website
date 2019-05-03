@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 
 import { fetchAwardFundingSummary, fetchAwardFederalAccounts } from 'helpers/idvHelper';
-import FederalAccountsSummary from 'components/awardv2/idv/federalAccounts/FederalAccountsSummary';
+import FederalAccountsSection from 'components/awardv2/idv/federalAccounts/FederalAccountsSection';
 import FederalAccountSummary from 'models/v2/awardsV2/FederalAccountSummary';
 
 const propTypes = {
@@ -124,10 +124,11 @@ export class AwardMetaDataContainer extends React.Component {
 
     render() {
         return (
-            <FederalAccountsSummary
+            <FederalAccountsSection
                 {...this.state}
                 changePage={this.changePage}
                 updateSort={this.updateSort}
+                changeView={this.changeView}
                 jumpToFederalAccountsHistory={this.props.jumpToFederalAccountsHistory} />
         );
     }
