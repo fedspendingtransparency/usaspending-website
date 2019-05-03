@@ -82,10 +82,21 @@ export class GlossaryContainer extends React.Component {
         this.request.promise
             .then((res) => {
                 this.writeCache(res.data.results);
-
+                this.request = null;
+                // if there is no search input, auto-populate glossary results w/ all terms
+                if (!this.props.glossary.search.input) {
+                    this.parseTerms(res.data.results);
+                    this.setState({
+                        loading: false,
+                        searchLoading: false,
+                        error: false
+                    });
+                }
+                else {
                 // okay now perform the search (which will be the same data most of the time,
                 // but potentially not)
-                this.performSearch();
+                    this.performSearch();
+                }
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -101,20 +112,59 @@ export class GlossaryContainer extends React.Component {
             });
     }
 
-    performSearch() {
-        const input = this.props.glossary.search.input;
+    populateGlossaryWithAllTerms() {
+        this.setState({
+            searchLoading: true
+        });
 
         if (this.request) {
             this.request.cancel();
         }
 
-        this.setState({
-            searchLoading: true
-        });
+        this.request = GlossaryHelper.fetchAllTerms();
+        this.request.promise
+            .then((res) => {
+                this.parseTerms(res.data.results);
+                this.request = null;
+                this.setState({
+                    loading: false,
+                    searchLoading: false,
+                    error: false
+                });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.setState({
+                        loading: false,
+                        searchLoading: false,
+                        error: true
+                    });
+                }
+                this.request = null;
+            });
+    }
+
+    performSearch() {
+        const { input } = this.props.glossary.search;
+
+        if (!input) {
+            // if there is no search input, auto-populate glossary results w/ all terms
+            this.populateGlossaryWithAllTerms();
+            return;
+        }
+
+        if (this.request) {
+            this.request.cancel();
+        }
 
         this.request = GlossaryHelper.fetchSearchResults({
             search_text: input,
             limit: 500
+        });
+
+        this.setState({
+            searchLoading: true
         });
 
         this.request.promise
@@ -138,17 +188,12 @@ export class GlossaryContainer extends React.Component {
                         error: true
                     });
                 }
-
                 this.request = null;
             });
     }
 
     parseTerms(data) {
-        const terms = [];
-        data.forEach((result) => {
-            const term = new Definition(result);
-            terms.push(term);
-        });
+        const terms = data.map((result) => new Definition(result));
 
         this.props.setGlossaryResults(terms);
 
@@ -161,11 +206,9 @@ export class GlossaryContainer extends React.Component {
     }
 
     writeCache(data) {
-        const terms = {};
-        data.forEach((result) => {
-            const term = new Definition(result);
-            terms[result.slug] = term;
-        });
+        const terms = data.reduce((acc, searchResult) => Object.assign(acc, {
+            [searchResult.slug]: new Definition(searchResult)
+        }), {});
 
         this.props.setGlossaryCache(terms);
     }
