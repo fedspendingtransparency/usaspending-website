@@ -15,6 +15,7 @@ import NormalChart from './charts/NormalChart';
 import ExceedsCurrentChart from './charts/ExceedsCurrentChart';
 import ExceedsPotentialChart from './charts/ExceedsPotentialChart';
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
+import { CombinedObligatedAmounts, CombinedCurrentAmounts, CombinedPotentialAmounts, CombinedExceedsCurrentAmounts, CombinedExceedsPotentialAmounts } from '../../idv/TooltipContent';
 
 const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
@@ -23,7 +24,7 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-const tooltipMap = {
+const tooltipStateBySpendingCategory = {
     obligated: "showObligatedTooltip",
     current: "showCurrentTooltip",
     potential: "showPotentialTooltip",
@@ -31,10 +32,12 @@ const tooltipMap = {
     exceedsPotential: "showExceedsPotentialTooltip"
 };
 
-const showAndCloseTooltipConstructor = (ctx, type) => {
-    const titleCaseType = `${type[0].toUpperCase()}${type.substring(1)}`;
-    ctx[`show${titleCaseType}Tooltip`] = ctx.showTooltip.bind(ctx, type);
-    ctx[`close${titleCaseType}Tooltip`] = ctx.closeTooltip.bind(ctx, type);
+const createShowAndCloseTooltipMethod = (ctx, category) => {
+    // ctx is `this`
+    // type is one of: obligated, current, potential, exceedsCurrent, or exceedsPotential
+    const titleCasedCategory = `${category[0].toUpperCase()}${category.substring(1)}`;
+    ctx[`show${titleCasedCategory}Tooltip`] = ctx.showSpendingCategoryTooltip.bind(ctx, category);
+    ctx[`close${titleCasedCategory}Tooltip`] = ctx.closeSpendingCategoryTooltip.bind(ctx, category);
 };
 
 export default class AggregatedAwardAmounts extends React.Component {
@@ -49,27 +52,70 @@ export default class AggregatedAwardAmounts extends React.Component {
         };
 
         this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
-        Object.keys(tooltipMap).forEach((tooltip) => {
-            showAndCloseTooltipConstructor(this, tooltip);
-        });
+        this.getTooltipPropsByCategory = this.getTooltipPropsByCategory.bind(this);
+        this.getTooltipPropsBySpendingScenario = this.getTooltipPropsBySpendingScenario.bind(this);
+        Object.keys(tooltipStateBySpendingCategory)
+            .forEach((spendingCategory) => {
+                // for each spending category, add a show/close tool tip method
+                createShowAndCloseTooltipMethod(this, spendingCategory);
+            });
     }
 
-    getTooltipProps(chartType) {
-        // these are the tooltips needed for every spending scenario & corresponding chart type
-        const tooltips = ["obligated", "current", "potential"];
-        if (!tooltips.includes(chartType)) {
-            tooltips.push(chartType);
-        }
+    getTooltipPropsByCategory(category) {
+        const { awardAmounts } = this.props;
+        const map = {
+            obligated: {
+                offsetAdjustments: { top: 0 },
+                className: "combined-obligated-tt__container",
+                tooltipComponent: <CombinedObligatedAmounts total={awardAmounts.obligation} count={awardAmounts.childAwardCount} />
+            },
+            current: {
+                offsetAdjustments: { top: 0 },
+                className: "combined-current-tt__container",
+                tooltipComponent: <CombinedCurrentAmounts total={awardAmounts.combinedCurrentAwardAmounts} count={awardAmounts.childAwardCount} />
+            },
+            potential: {
+                offsetAdjustments: { top: 0 },
+                className: "combined-potential-tt__container",
+                tooltipComponent: <CombinedPotentialAmounts total={awardAmounts.combinedPotentialAwardAmounts} count={awardAmounts.childAwardCount} />
+            },
+            exceedsCurrent: {
+                offsetAdjustments: { top: 0 },
+                className: "combined-exceeds-current-tt__container",
+                tooltipComponent: <CombinedExceedsCurrentAmounts total={awardAmounts.overspending} count={awardAmounts.childAwardCount} />
+            },
+            exceedsPotential: {
+                offsetAdjustments: { top: 0 },
+                className: "combined-exceeds-potential-tt__container",
+                tooltipComponent: <CombinedExceedsPotentialAmounts total={awardAmounts.extremeOverspending} count={awardAmounts.childAwardCount} />
+            }
+        };
 
-        return tooltips.reduce((acc, tooltip) => {
-            const titleCaseScenario = `${tooltip[0].toUpperCase()}${tooltip.substring(1)}`;
+        return map[category];
+    }
+
+    getTooltipPropsBySpendingScenario(spendingScenario) {
+        // these are the award amount visualizations needed for every spending scenario
+        const spendingCategories = ["obligated", "current", "potential"];
+        if (spendingScenario !== "normal") {
+            // if exceedsPotential or exceedsCurrent is the spending scenario, add it here as a spendingCategory...
+            spendingCategories.push(spendingScenario);
+        }
+        
+        // Build object with shape: { category1ToolTipProps: {}, category2ToolTipProps: {}, ... }
+        return spendingCategories.reduce((acc, category) => {
+            // used to reference methods in camelCase
+            const titleCasedCategory = `${category[0].toUpperCase()}${category.substring(1)}`;
+            const propsForCategory = this.getTooltipPropsByCategory(category);
             return Object.assign(acc, {
-                [`${tooltip}TooltipProps`]: {
-                    isControlled: true,
-                    isVisible: this.state[`show${titleCaseScenario}Tooltip`],
-                    closeTooltip: this[`close${titleCaseScenario}Tooltip`],
-                    showTooltip: this[`show${titleCaseScenario}Tooltip`]
-                }
+                [`${category}TooltipProps`]: Object.assign(propsForCategory, {
+                    controlledProps: {
+                        isControlled: true,
+                        isVisible: this.state[`show${titleCasedCategory}Tooltip`],
+                        closeTooltip: this[`close${titleCasedCategory}Tooltip`],
+                        showTooltip: this[`show${titleCasedCategory}Tooltip`]
+                    }
+                })
             });
         }, {});
     }
@@ -78,19 +124,19 @@ export default class AggregatedAwardAmounts extends React.Component {
         this.props.jumpToSection('referenced-awards');
     }
 
-    showTooltip(tooltip) {
+    showSpendingCategoryTooltip(category) {
         this.setState({
-            [tooltipMap[tooltip]]: true
-        });
-        // hide the other tooltips
-        Object.keys(this.state)
-            .filter((key) => key !== tooltipMap[tooltip])
-            .forEach((key) => this.setState({ [key]: false }));
+            [tooltipStateBySpendingCategory[category]]: true
+        }, () => Object.keys(this.state)
+            // hide all other tooltips
+            .filter((tooltipState) => tooltipState !== tooltipStateBySpendingCategory[category])
+            .forEach((tooltipState) => this.setState({ [tooltipState]: false }))
+        );
     }
 
-    closeTooltip(tooltip) {
+    closeSpendingCategoryTooltip(category) {
         this.setState({
-            [tooltipMap[tooltip]]: false
+            [tooltipStateBySpendingCategory[category]]: false
         });
     }
 
@@ -101,10 +147,10 @@ export default class AggregatedAwardAmounts extends React.Component {
         let overspendingRow = null;
         switch (visualizationType) {
             case ('normal'):
-                visualization = (<NormalChart {...this.getTooltipProps('normal')} awardAmounts={awardAmounts} />);
+                visualization = (<NormalChart {...this.getTooltipPropsBySpendingScenario('normal')} awardAmounts={awardAmounts} />);
                 break;
             case ('exceedsCurrent'):
-                visualization = (<ExceedsCurrentChart {...this.getTooltipProps('exceedsCurrent')} awardAmounts={awardAmounts} />);
+                visualization = (<ExceedsCurrentChart {...this.getTooltipPropsBySpendingScenario('exceedsCurrent')} awardAmounts={awardAmounts} />);
                 overspendingRow = (
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />Exceeds Combined Current Award Amounts</div>
@@ -113,7 +159,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                 );
                 break;
             case ('exceedsPotential'):
-                visualization = (<ExceedsPotentialChart {...this.getTooltipProps('exceedsPotential')} awardAmounts={awardAmounts} />);
+                visualization = (<ExceedsPotentialChart {...this.getTooltipPropsBySpendingScenario('exceedsPotential')} awardAmounts={awardAmounts} />);
                 overspendingRow = (
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />Exceeds Combined Potential Award Amounts</div>
