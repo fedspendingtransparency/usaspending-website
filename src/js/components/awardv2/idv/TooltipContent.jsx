@@ -12,9 +12,9 @@ export const CombinedObligatedAmounts = ({
             <p>This amount is how much money has been obligated, or promised by the government, to be paid to the recipients for all the award orders underneath this indefinite delivery vehicle (IDV), including both child award orders* and grandchild award orders* nested under a child IDV order* (if any). This does not include obligations directly attached to any child IDV orders*, or to the IDV itself*.</p>
         </div>
         <ul className="tooltip__list">
-            <li><strong>*Child award order</strong> refers to award orders made directly under this IDV (IDV => Award).</li>
-            <li><strong>*Child IDV order</strong> refers to IDVs made directly under this IDV (IDV => IDV).</li>
-            <li><strong>*Grandchild award order</strong> refers to award orders made within a child IDV order (IDV => IDV => Award).</li>
+            <li><strong>*Child award order</strong> refers to award orders made directly under this IDV (IDV &gt; Award).</li>
+            <li><strong>*Child IDV order</strong> refers to IDVs made directly under this IDV (IDV &gt; IDV).</li>
+            <li><strong>*Grandchild award order</strong> refers to award orders made within a child IDV order (IDV &gt; IDV &gt; Award).</li>
             <li><strong>*IDV</strong> itself refers to the top-level IDV this page is summarizing, not including any of its child award orders or child IDV orders.</li>
         </ul>
     </div>
@@ -36,10 +36,10 @@ export const CombinedCurrentAmounts = ({
             <p>Collectively, this is how much money is currently available across all award orders made underneath this indefinite delivery vehicle (IDV), including both child award orders* and grandchild award orders* made under a child IDV order* (if any).  The maximum amount available is calculated by adding the “Total Base & Exercised Options” amount (also known as the contract ceiling amount or current award amount) across each award order underneath this IDV. This does not include obligations directly attached to any child IDV orders*, or to the IDV itself.</p>
         </div>
         <ul className="tooltip__list">
-            <li><strong>*Child award order</strong> refers to award orders made directly under this IDV (IDV => Award).</li>
-            <li><strong>*Child IDV order</strong> refers to IDVs made directly under this IDV (IDV => IDV).</li>
-            <li><strong>*Grandchild award order</strong> refers to award orders made within a child IDV order (IDV => IDV => Award).</li>
-            <li><strong>*IDV</strong> itself refers to the top-level IDV this page is summarizing, not including any of its child award orders or child IDV orders.</li>
+            <li><strong>*Child award order</strong> refers to award orders made directly under this IDV (IDV &gt; Award).</li>
+            <li><strong>*Child IDV order</strong> refers to IDVs made directly under this IDV (IDV &gt; IDV).</li>
+            <li><strong>*Grandchild award order</strong> refers to award orders made within a child IDV order (IDV &gt; IDV &gt; Award).</li>
+            <li><strong>*IDV itself</strong> refers to the top-level IDV this page is summarizing, not including any of its child award orders or child IDV orders.</li>
         </ul>
     </div>
 );
@@ -60,8 +60,8 @@ export const CombinedPotentialAmounts = ({
             <p>This is the collective potential award amount of all of the award orders underneath this indefinite delivery vehicle (IDV), if all contract options are exercised.  You can think of this as the collective maximum award amount of all of the award orders made underneath this IDV, or the total award capacity of this IDV. This does not include obligations directly attached to any child IDV orders*, or to the IDV itself.</p>
         </div>
         <ul className="tooltip__list">
-            <li><strong>*Child IDV order</strong> refers to IDVs made directly under this IDV (IDV => IDV).</li>
-            <li><strong>*IDV</strong> itself refers to the top-level IDV this page is summarizing, not including any of its child award orders or child IDV orders.</li>
+            <li><strong>*Child IDV order</strong> refers to IDVs made directly under this IDV (IDV &gt; IDV).</li>
+            <li><strong>*IDV itself</strong> refers to the top-level IDV this page is summarizing, not including any of its child award orders or child IDV orders.</li>
         </ul>
     </div>
 );
