@@ -478,16 +478,15 @@ export const performZIPGeocode = (zip) => {
 
 export const fetchCityResults = (term) => {
     const source = CancelToken.source();
-    console.log(term);
     return {
-        promise: new Promise((resolve) => {
-            window.setTimeout(() => {
-                resolve({
-                    data: {
-                        results: ['New York', 'Manhattan', 'NYC']
-                    }
-                });
-            }, 500);
+        promise: Axios.request({
+            baseURL: 'http://8839592f.ngrok.io/api/',
+            url: `v2/autocomplete/city/`,
+            params: {
+                search_text: term
+            },
+            method: 'get',
+            cancelToken: source.token
         }),
         cancel() {
             source.cancel();

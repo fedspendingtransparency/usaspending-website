@@ -62,7 +62,8 @@ export default class LocationPickerContainer extends React.Component {
             county: Object.assign({}, defaultSelections.county),
             city: Object.assign({}, defaultSelections.city),
             district: Object.assign({}, defaultSelections.district),
-            zip: Object.assign({}, defaultSelections.zip)
+            zip: Object.assign({}, defaultSelections.zip),
+            citySearchString: ''
         };
 
         this.listRequest = null;
@@ -84,6 +85,8 @@ export default class LocationPickerContainer extends React.Component {
         this.createLocationObject = this.createLocationObject.bind(this);
         this.addLocation = this.addLocation.bind(this);
         this.validateZip = this.validateZip.bind(this);
+
+        this.setCitySearchString = this.setCitySearchString.bind(this);
     }
 
     componentDidMount() {
@@ -299,7 +302,6 @@ export default class LocationPickerContainer extends React.Component {
             standalone
         };
 
-
         return {
             identifier,
             display,
@@ -363,12 +365,25 @@ export default class LocationPickerContainer extends React.Component {
             });
     }
 
-    fetchCityAutocomplete(term) {
+    setCitySearchString(citySearchString) {
+        this.setState(
+            {
+                citySearchString
+            },
+            () => {
+                if (citySearchString.length > 2) {
+                    this.fetchCityAutocomplete();
+                }
+            }
+        );
+    }
+
+    fetchCityAutocomplete() {
         if (this.cityRequest) {
             this.cityRequest.cancel();
         }
 
-        this.cityRequest = fetchCityResults(term);
+        this.cityRequest = fetchCityResults(this.state.citySearchString);
 
         this.cityRequest.promise
             .then((res) => {
@@ -428,7 +443,8 @@ export default class LocationPickerContainer extends React.Component {
                 selectEntity={this.selectEntity}
                 createLocationObject={this.createLocationObject}
                 addLocation={this.addLocation}
-                validateZip={this.validateZip} />
+                validateZip={this.validateZip}
+                setCitySearchString={this.setCitySearchString} />
         );
     }
 }

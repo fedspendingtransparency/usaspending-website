@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EntityDropdown from './EntityDropdown';
+import EntityDropdownAutocomplete from './EntityDropdownAutocomplete';
 import ZIPField from './ZIPField';
 
 const propTypes = {
@@ -30,7 +31,9 @@ const propTypes = {
     clearDistricts: PropTypes.func,
     createLocationObject: PropTypes.func,
     addLocation: PropTypes.func,
-    validateZip: PropTypes.func
+    validateZip: PropTypes.func,
+    setCitySearchString: PropTypes.func,
+    citySearchString: PropTypes.string
 };
 
 export default class LocationPicker extends React.Component {
@@ -169,7 +172,7 @@ export default class LocationPicker extends React.Component {
                             generateWarning={this.generateWarning} />
                     </div>
                     <div className="location-item">
-                        <EntityDropdown
+                        <EntityDropdownAutocomplete
                             scope="city"
                             placeholder="Enter a city"
                             title="CITY"
@@ -177,7 +180,9 @@ export default class LocationPicker extends React.Component {
                             options={this.props.availableCities}
                             selectEntity={this.props.selectEntity}
                             enabled={this.props.country.code !== ''}
-                            generateWarning={this.generateWarning} />
+                            generateWarning={this.generateWarning}
+                            setSearchString={this.props.setCitySearchString}
+                            searchString={this.props.citySearchString} />
                     </div>
                     <div className="location-item">
                         <EntityDropdown
