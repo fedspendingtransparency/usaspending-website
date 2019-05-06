@@ -2,6 +2,7 @@
     @import "all";
     @import "layouts/summary/summary";
     @import "layouts/default/stickyHeader/header";
+    @import "layouts/tabbedSearch/header/downloadButton";
 
     .award-content {
         @import "mixins/fullSectionWrap";
@@ -120,5 +121,6 @@
         @import "./awardContract";
         @import "./awardFinancialAssistance";
         @import "./idv/awardIdv";
+        @import "layouts/search/header/downloadButton";
     }
 }

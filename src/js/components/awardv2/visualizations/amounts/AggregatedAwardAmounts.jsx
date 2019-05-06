@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { formatNumber } from 'helpers/moneyFormatter';
 
 import { determineSpendingScenario } from 'helpers/aggregatedAmountsHelper';
 import ChartError from 'components/search/visualizations/ChartError';
@@ -74,8 +75,21 @@ export default class AggregatedAwardAmounts extends React.Component {
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
                 {visualization}
-                <div className="award-amounts__data">
-                    <span>Awards Under this IDV</span><span>{awardAmounts.idvCount + awardAmounts.contractCount}</span>
+                <div className="award-amounts-children__data-wrapper">
+                    <div className="award-amounts-children__data-content">
+                        <div>Count of Total Orders</div>
+                        <span>
+                            {formatNumber(awardAmounts.childAwardCount + awardAmounts.grandchildAwardCount)}
+                        </span>
+                    </div>
+                    <div className="award-amounts-children__data-content">
+                        <div>Count of Child Award Orders</div>
+                        <span>{formatNumber(awardAmounts.childAwardCount)}</span>
+                    </div>
+                    <div className="award-amounts-children__data-content">
+                        <div>Count of Grandchild Award Orders</div>
+                        <span>{formatNumber(awardAmounts.grandchildAwardCount)}</span>
+                    </div>
                 </div>
                 <button
                     onClick={this.jumpToReferencedAwardsTable}
@@ -84,7 +98,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                         <Table />
                     </div>
                     <div className="award-viz__link-text">
-                        View referencing awards table
+                        View award orders table
                     </div>
                 </button>
                 <div className="award-amounts__data-wrapper">

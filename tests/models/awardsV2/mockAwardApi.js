@@ -325,11 +325,15 @@ export const mockIdv = {
 export const mockAwardAmounts = {
     award_id: 12178065,
     generated_unique_award_id: null,
-    idv_count: 100,
-    contract_count: 10,
-    rollup_base_exercised_options_val: 10000000,
-    rollup_base_and_all_options_value: 106987321.10,
-    rollup_total_obligation: 1623321.02
+    child_idv_count: 100,
+    child_award_count: 10,
+    child_award_base_exercised_options_val: 5000000,
+    grandchild_award_base_exercised_options_val: 5000000,
+    child_award_base_and_all_options_value: 53493660.55,
+    grandchild_award_base_and_all_options_value: 53493660.55,
+    child_award_total_obligation: 811660.51,
+    grandchild_award_total_obligation: 811660.51
+
 };
 
 export const mockReferencedAwards = {
@@ -391,3 +395,14 @@ export const mockAwardFundingMetaData = {
     awarding_agency_count: 27,
     federal_account_count: 47
 };
+
+export const mockFileDownloadResponse = {
+    total_size: 35.055,
+    file_name: `012_account_balances_20180613140845.zip`,
+    total_rows: 652,
+    total_columns: 27,
+    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status: `finished`,
+    seconds_elapsed: `10.061132`
+};
+

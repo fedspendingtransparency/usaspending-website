@@ -7,7 +7,7 @@
 // We only have one export but want to maintain consistency with other files
 
 export const referencedAwardsColumns = {
-    idvs: [
+    child_idvs: [
         {
             name: 'piid',
             label: 'Award ID',
@@ -44,7 +44,44 @@ export const referencedAwardsColumns = {
             field: 'description'
         }
     ],
-    contracts: [
+    child_awards: [
+        {
+            name: 'piid',
+            label: 'Award ID',
+            field: 'piid'
+        },
+        {
+            name: 'agency',
+            label: 'Contracting Agency',
+            field: 'funding_agency'
+        },
+        {
+            name: 'awardType',
+            label: 'Award Type',
+            field: 'award_type'
+        },
+        {
+            name: 'obligatedAmount',
+            label: 'Obligated Amount',
+            field: 'obligated_amount'
+        },
+        {
+            name: 'startDate',
+            label: 'Start Date',
+            field: 'period_of_performance_start_date'
+        },
+        {
+            name: 'endDate',
+            label: 'End Date',
+            field: 'period_of_performance_current_end_date'
+        },
+        {
+            name: 'description',
+            label: 'Description',
+            field: 'description'
+        }
+    ],
+    grandchild_awards: [
         {
             name: 'piid',
             label: 'Award ID',
