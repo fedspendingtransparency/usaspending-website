@@ -101,7 +101,7 @@ export default class AggregatedAwardAmounts extends React.Component {
             // if exceedsPotential or exceedsCurrent is the spending scenario, add it here as a spendingCategory...
             spendingCategories.push(spendingScenario);
         }
-        
+
         // Build object with shape: { category1ToolTipProps: {}, category2ToolTipProps: {}, ... }
         return spendingCategories.reduce((acc, category) => {
             // used to reference methods in camelCase
@@ -109,6 +109,7 @@ export default class AggregatedAwardAmounts extends React.Component {
             const propsForCategory = this.getTooltipPropsByCategory(category);
             return Object.assign(acc, {
                 [`${category}TooltipProps`]: Object.assign(propsForCategory, {
+                    wide: true,
                     controlledProps: {
                         isControlled: true,
                         isVisible: this.state[`show${titleCasedCategory}Tooltip`],

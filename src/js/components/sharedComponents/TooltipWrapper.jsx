@@ -23,8 +23,7 @@ const propTypes = {
     offsetAdjustments: PropTypes.shape({
         top: PropTypes.number
     }),
-    styles: PropTypes.shape({}), // currently only using width
-    verticalCenter: PropTypes.bool // vertically centers tooltip content relative to this.props.children
+    styles: PropTypes.shape({}) // currently only using width
 };
 
 const defaultProps = {
@@ -101,10 +100,11 @@ export default class TooltipWrapper extends React.Component {
         }
         else if (this.props.wide) {
             // is there at least 801px of space to the left/right for the tooltip?
-            tooltipWidth = (window.innerWidth - tooltipContainer.offsetLeft > 800)
-                ? 700
-                : window.innerWidth - tooltipContainer.offsetLeft - 100;
+            tooltipWidth = ((tooltipContainer.offsetLeft + tooltipContainer.clientWidth) - window.innerWidth > 800)
+                ? 650
+                : window.innerWidth - (tooltipContainer.offsetLeft + tooltipContainer.clientWidth) - 100;
         }
+
         let offsetRight = window.innerWidth - tooltipContainer.offsetLeft - tooltipContainer.clientWidth - tooltipWidth - 30;
         if (this.props.left) {
             offsetRight = (window.innerWidth - tooltipContainer.offsetLeft) + tooltipContainer.clientWidth;
