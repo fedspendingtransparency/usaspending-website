@@ -11,7 +11,7 @@ const account = mockAwardFederalAccounts.results[0];
 let federalAccountSummary = new FederalAccountSummary(account, 271716259.64);
 
 describe('FederalAccountSummary Model', () => {
-    it('should have private field _federalAccountName', () => {
+    it('should have field _federalAccountName', () => {
         expect(federalAccountSummary._federalAccountName).toEqual(account.account_title);
     });
     it('should have field _obligatedAmount', () => {
