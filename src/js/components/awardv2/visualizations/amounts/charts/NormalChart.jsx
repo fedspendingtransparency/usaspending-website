@@ -7,7 +7,6 @@ import React from 'react';
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes';
-import { CombinedCurrentAmounts, CombinedObligatedAmounts, CombinedPotentialAmounts } from '../../../idv/TooltipContent';
 
 const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
@@ -49,47 +48,24 @@ export default class NormalChart extends React.Component {
                     className="award-amounts-viz__desc-top"
                     role="button"
                     tabIndex="0"
-                    onBlur={obligatedTooltipProps.closeTooltip}
-                    onFocus={obligatedTooltipProps.showTooltip}
-                    onKeyPress={obligatedTooltipProps.showTooltip}
-                    onMouseEnter={obligatedTooltipProps.showTooltip}
-                    onMouseLeave={obligatedTooltipProps.closeTooltip}
-                    onClick={obligatedTooltipProps.showTooltip}>
+                    onBlur={obligatedTooltipProps.controlledProps.closeTooltip}
+                    onFocus={obligatedTooltipProps.controlledProps.showTooltip}
+                    onKeyPress={obligatedTooltipProps.controlledProps.showTooltip}
+                    onMouseEnter={obligatedTooltipProps.controlledProps.showTooltip}
+                    onMouseLeave={obligatedTooltipProps.controlledProps.closeTooltip}
+                    onClick={obligatedTooltipProps.controlledProps.showTooltip}>
                     <strong>{this.props.awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
                 </div>
                 <div className="award-amounts-viz__label" style={obligatedLabelStyle}>
                     <div className="award-amounts-viz__line-up" />
                 </div>
                 <div className="award-amounts-viz__bar-wrapper">
-                    <TooltipWrapper
-                        offsetAdjustments={{ top: 0 }}
-                        className="combined-obligated-tt__container"
-                        controlledProps={potentialTooltipProps}
-                        tooltipComponent={
-                            <CombinedPotentialAmounts
-                                total={this.props.awardAmounts.combinedPotentialAwardAmounts}
-                                count={this.props.awardAmounts.childAwardCount} />}>
+                    <TooltipWrapper {...potentialTooltipProps}>
                         <div className="award-amounts-viz__bar">
-                            <TooltipWrapper
-                                offsetAdjustments={{ top: 0 }}
-                                styles={{ width: obligatedBarStyle.width }}
-                                className="combined-obligated-tt__container"
-                                controlledProps={obligatedTooltipProps}
-                                tooltipComponent={
-                                    <CombinedObligatedAmounts
-                                        total={this.props.awardAmounts.obligation}
-                                        count={this.props.awardAmounts.childAwardCount} />}>
+                            <TooltipWrapper {...obligatedTooltipProps} styles={{ width: obligatedBarStyle.width }}>
                                 <div className="award-amounts-viz__obligated" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
                             </TooltipWrapper>
-                            <TooltipWrapper
-                                offsetAdjustments={{ top: 0 }}
-                                styles={{ width: currentBarStyle.width }}
-                                className="combined-current-tt__container"
-                                controlledProps={currentTooltipProps}
-                                tooltipComponent={
-                                    <CombinedCurrentAmounts
-                                        total={this.props.awardAmounts.combinedCurrentAwardAmounts}
-                                        count={this.props.awardAmounts.childAwardCount} />}>
+                            <TooltipWrapper {...currentTooltipProps} styles={{ width: currentBarStyle.width }}>
                                 <div className="award-amounts-viz__excerised" style={{ backgroundColor: currentBarStyle.backgroundColor }} />
                             </TooltipWrapper>
                         </div>
@@ -102,12 +78,12 @@ export default class NormalChart extends React.Component {
                             className="award-amounts-viz__desc-text"
                             role="button"
                             tabIndex="0"
-                            onBlur={currentTooltipProps.closeTooltip}
-                            onFocus={currentTooltipProps.showTooltip}
-                            onKeyPress={currentTooltipProps.showTooltip}
-                            onMouseEnter={currentTooltipProps.showTooltip}
-                            onMouseLeave={currentTooltipProps.closeTooltip}
-                            onClick={currentTooltipProps.showTooltip}>
+                            onBlur={currentTooltipProps.controlledProps.closeTooltip}
+                            onFocus={currentTooltipProps.controlledProps.showTooltip}
+                            onKeyPress={currentTooltipProps.controlledProps.showTooltip}
+                            onMouseEnter={currentTooltipProps.controlledProps.showTooltip}
+                            onMouseLeave={currentTooltipProps.controlledProps.closeTooltip}
+                            onClick={currentTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.combinedCurrentAwardAmountsFormatted}</strong><br />Combined Current Award Amounts
                         </div>
                         <div className="award-amounts-viz__legend-line" />
@@ -120,12 +96,12 @@ export default class NormalChart extends React.Component {
                             className="award-amounts-viz__desc-text"
                             role="button"
                             tabIndex="0"
-                            onBlur={potentialTooltipProps.closeTooltip}
-                            onFocus={potentialTooltipProps.showTooltip}
-                            onKeyPress={potentialTooltipProps.showTooltip}
-                            onMouseEnter={potentialTooltipProps.showTooltip}
-                            onMouseLeave={potentialTooltipProps.closeTooltip}
-                            onClick={potentialTooltipProps.showTooltip}>
+                            onBlur={potentialTooltipProps.controlledProps.closeTooltip}
+                            onFocus={potentialTooltipProps.controlledProps.showTooltip}
+                            onKeyPress={potentialTooltipProps.controlledProps.showTooltip}
+                            onMouseEnter={potentialTooltipProps.controlledProps.showTooltip}
+                            onMouseLeave={potentialTooltipProps.controlledProps.closeTooltip}
+                            onClick={potentialTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}</strong><br />Combined Potential Award Amounts
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
