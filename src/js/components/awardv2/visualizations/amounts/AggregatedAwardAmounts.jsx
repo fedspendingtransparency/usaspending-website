@@ -127,11 +127,11 @@ export default class AggregatedAwardAmounts extends React.Component {
     showSpendingCategoryTooltip(category) {
         this.setState({
             [tooltipStateBySpendingCategory[category]]: true
-        }, () => Object.keys(this.state)
-            // hide all other tooltips
+        });
+        // hide all other tooltips
+        Object.keys(this.state)
             .filter((tooltipState) => tooltipState !== tooltipStateBySpendingCategory[category])
-            .forEach((tooltipState) => this.setState({ [tooltipState]: false }))
-        );
+            .forEach((tooltipState) => this.setState({ [tooltipState]: false }));
     }
 
     closeSpendingCategoryTooltip(category) {
