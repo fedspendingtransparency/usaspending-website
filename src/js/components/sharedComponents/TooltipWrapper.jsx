@@ -21,7 +21,8 @@ const propTypes = {
         isVisible: PropTypes.bool
     }),
     offsetAdjustments: PropTypes.shape({
-        top: PropTypes.number
+        top: PropTypes.number,
+        right: PropTypes.number
     }),
     styles: PropTypes.shape({}) // currently only using width
 };
@@ -30,7 +31,8 @@ const defaultProps = {
     wide: false,
     verticalCenter: false,
     offsetAdjustments: {
-        top: -15
+        top: -15, // InfoToolTip offset
+        right: 30 // InfoToolTip offset
     },
     controlledProps: {
         isControlled: false
@@ -105,7 +107,7 @@ export default class TooltipWrapper extends React.Component {
                 : window.innerWidth - (tooltipContainer.offsetLeft + tooltipContainer.clientWidth) - 100;
         }
 
-        let offsetRight = window.innerWidth - tooltipContainer.offsetLeft - tooltipContainer.clientWidth - tooltipWidth - 30;
+        let offsetRight = window.innerWidth - tooltipContainer.offsetLeft - tooltipContainer.clientWidth - tooltipWidth - this.props.offsetAdjustments.right;
         if (this.props.left) {
             offsetRight = (window.innerWidth - tooltipContainer.offsetLeft) + tooltipContainer.clientWidth;
         }
