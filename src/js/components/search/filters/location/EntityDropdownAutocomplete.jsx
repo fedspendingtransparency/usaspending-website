@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Mousetrap from 'mousetrap';
 
 import { AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
 
@@ -42,13 +41,23 @@ export default class EntityDropdownAutocomplete extends React.Component {
 
         this.toggleDropdown = this.toggleDropdown.bind(this);
         this.closeDropdown = this.closeDropdown.bind(this);
-        this.focusNext = this.focusNext.bind(this);
-        this.focusPrev = this.focusPrev.bind(this);
         this.clickedItem = this.clickedItem.bind(this);
         this.handleDeselection = this.handleDeselection.bind(this);
 
         this.mouseEnter = this.mouseEnter.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
+    }
+
+    componentDidUpdate(prevProps) {
+        // Show the autocomplete results when they first become available
+        if (prevProps.options.length === 0 && this.props.options.length > 0) {
+            this.openDropdown();
+        }
+    }
+
+    onChange(e) {
+        const value = e.target.value;
+        this.props.setSearchString(value);
     }
 
     handleDeselection(e) {
@@ -59,26 +68,15 @@ export default class EntityDropdownAutocomplete extends React.Component {
     }
 
     openDropdown() {
-        this.setState(
-            {
-                expanded: true
-            },
-            () => {
-                this.bindAccessibility();
-            }
-        );
+        this.setState({
+            expanded: true
+        });
     }
 
     closeDropdown() {
-        this.setState(
-            {
-                expanded: false
-            },
-            () => {
-                this.dropdownButton.focus();
-                this.unbindAccessibility();
-            }
-        );
+        this.setState({
+            expanded: false
+        });
     }
 
     toggleDropdown(e) {
@@ -92,71 +90,9 @@ export default class EntityDropdownAutocomplete extends React.Component {
     }
 
     clickedItem(item) {
+        this.props.setSearchString(item.name);
         this.props.selectEntity(this.props.scope, item);
         this.closeDropdown();
-    }
-
-    bindAccessibility() {
-        document.addEventListener('mousedown', this.handleDeselection);
-        Mousetrap.bind('esc', this.closeDropdown);
-        Mousetrap.bind('down', this.focusNext);
-        Mousetrap.bind('up', this.focusPrev);
-
-        this.dropdownRef = this.wrapperDiv.querySelector('.geo-entity-list');
-
-        let activeSelection = this.wrapperDiv.querySelector('.active');
-        if (!activeSelection) {
-            // no item has been selected yet in the dropdown so focus on the first item
-            activeSelection = this.wrapperDiv.querySelector('.geo-entity-list .list-item');
-        }
-        activeSelection.focus();
-    }
-
-    unbindAccessibility() {
-        document.removeEventListener('mousedown', this.handleDeselection);
-        Mousetrap.unbind('esc', this.closeDropdown);
-        Mousetrap.unbind('down', this.focusNext);
-        Mousetrap.unbind('up', this.focusPrev);
-    }
-
-    focusNext(e) {
-        const active = document.activeElement;
-        if (active && this.dropdownRef && this.dropdownRef.contains(active)) {
-            // a dropdown list item is currently selected
-            e.preventDefault();
-            // nth-child is 1 indexed but listindex is based on the array so it is 0 indexed
-            // add 1 to the index to bring them in line
-            const currentIndex = parseInt(active.getAttribute('data-listindex'), 10) + 1;
-            if (currentIndex + 1 < this.props.options.length) {
-                // we're not at the end of the list
-                const nextItem = document.querySelector(
-                    `.geo-entity-list li:nth-child(${currentIndex + 1}) .list-item`
-                );
-                if (nextItem) {
-                    nextItem.focus();
-                }
-            }
-        }
-    }
-
-    focusPrev(e) {
-        const active = document.activeElement;
-        if (active && this.dropdownRef && this.dropdownRef.contains(active)) {
-            // a dropdown list item is currently selected
-            e.preventDefault();
-            // nth-child is 1 indexed but listindex is based on the array so it is 0 indexed
-            // add 1 to the index to bring them in line
-            const currentIndex = parseInt(active.getAttribute('data-listindex'), 10) + 1;
-            if (currentIndex - 1 > 0) {
-                // we're not at the start of the list
-                const prevItem = document.querySelector(
-                    `.geo-entity-list li:nth-child(${currentIndex - 1}) .list-item`
-                );
-                if (prevItem) {
-                    prevItem.focus();
-                }
-            }
-        }
     }
 
     mouseEnter() {
@@ -176,11 +112,6 @@ export default class EntityDropdownAutocomplete extends React.Component {
                 showWarning: false
             });
         }
-    }
-
-    onChange(e) {
-        const value = e.target.value;
-        this.props.setSearchString(value);
     }
 
     render() {
@@ -210,27 +141,28 @@ export default class EntityDropdownAutocomplete extends React.Component {
             <div className="geo-entity-item">
                 <label
                     className={`location-label ${disabled}`}
-                    htmlFor={`${this.props.scope}-button`}>
+                    htmlFor={`${this.props.scope}-autocomplete`}>
                     {this.props.title}
+                    <div
+                        id={`${this.props.scope}-autocomplete`}
+                        className={`geo-entity-dropdown ${disabled}`}
+                        onMouseOver={this.mouseEnter}
+                        onFocus={this.mouseEnter}
+                        onMouseOut={this.mouseLeave}
+                        onBlur={this.mouseLeave}
+                        tabIndex={-1}
+                        ref={(div) => {
+                            this.wrapperDiv = div;
+                        }}>
+                        <input
+                            disabled={!this.props.enabled}
+                            type="text"
+                            value={this.props.searchString}
+                            onChange={this.onChange.bind(this)}
+                            placeholder={this.props.placeholder} />
+                        {dropdown}
+                    </div>
                 </label>
-                <div
-                    className={`geo-entity-dropdown ${disabled}`}
-                    onMouseOver={this.mouseEnter}
-                    onFocus={this.mouseEnter}
-                    onMouseOut={this.mouseLeave}
-                    onBlur={this.mouseLeave}
-                    tabIndex={-1}
-                    ref={(div) => {
-                        this.wrapperDiv = div;
-                    }}>
-                    <input
-                        disabled={!this.props.enabled}
-                        type="text"
-                        value={this.props.searchString}
-                        onChange={this.onChange.bind(this)}
-                        placeholder={this.props.placeholder} />
-                    {dropdown}
-                </div>
             </div>
         );
     }

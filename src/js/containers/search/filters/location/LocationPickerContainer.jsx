@@ -93,6 +93,19 @@ export default class LocationPickerContainer extends React.Component {
         this.loadCountries();
     }
 
+    setCitySearchString(citySearchString) {
+        this.setState(
+            {
+                citySearchString
+            },
+            () => {
+                if (citySearchString.length > 2) {
+                    this.fetchCityAutocomplete();
+                }
+            }
+        );
+    }
+
     loadCountries() {
         if (this.listRequest) {
             this.listRequest.cancel();
@@ -270,6 +283,10 @@ export default class LocationPickerContainer extends React.Component {
 
         if (this.state.city.name !== '') {
             location.city = this.state.city.name;
+            title = this.state.city.name;
+            standalone = this.state.city.name;
+            entity = 'City';
+            identifier += `_${this.state.city.name}`;
         }
 
         if (this.state.state.code !== '') {
@@ -365,19 +382,6 @@ export default class LocationPickerContainer extends React.Component {
             });
     }
 
-    setCitySearchString(citySearchString) {
-        this.setState(
-            {
-                citySearchString
-            },
-            () => {
-                if (citySearchString.length > 2) {
-                    this.fetchCityAutocomplete();
-                }
-            }
-        );
-    }
-
     fetchCityAutocomplete() {
         if (this.cityRequest) {
             this.cityRequest.cancel();
@@ -387,9 +391,7 @@ export default class LocationPickerContainer extends React.Component {
 
         this.cityRequest.promise
             .then((res) => {
-                this.setState({
-                    availableCities: res.data.results
-                });
+                this.parseCities(res.data.results);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -397,6 +399,17 @@ export default class LocationPickerContainer extends React.Component {
                     this.cityRequest = null;
                 }
             });
+    }
+
+    parseCities(results) {
+        // Convert the array of strings to an array of objects for consistency
+        const availableCities = results.map((city) => ({
+            name: city,
+            code: city
+        }));
+        this.setState({
+            availableCities
+        });
     }
 
     parseZip(data, zip) {
