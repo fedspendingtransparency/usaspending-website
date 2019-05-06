@@ -12,7 +12,6 @@ import { awardAmountsExtremeOverspendingInfo } from 'components/awardv2/idv/Info
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes';
-import { CombinedObligatedAmounts, CombinedPotentialAmounts, CombinedCurrentAmounts, CombinedExceedsPotentialAmounts } from "../../../idv/TooltipContent";
 
 const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
@@ -74,12 +73,12 @@ export default class ExceedsPotentialChart extends React.Component {
                         className="award-amounts-viz__desc-top"
                         role="button"
                         tabIndex="0"
-                        onBlur={obligatedTooltipProps.closeTooltip}
-                        onFocus={obligatedTooltipProps.showTooltip}
-                        onKeyPress={obligatedTooltipProps.showTooltip}
-                        onMouseEnter={obligatedTooltipProps.showTooltip}
-                        onMouseLeave={obligatedTooltipProps.closeTooltip}
-                        onClick={obligatedTooltipProps.showTooltip}>
+                        onBlur={obligatedTooltipProps.controlledProps.closeTooltip}
+                        onFocus={obligatedTooltipProps.controlledProps.showTooltip}
+                        onKeyPress={obligatedTooltipProps.controlledProps.showTooltip}
+                        onMouseEnter={obligatedTooltipProps.controlledProps.showTooltip}
+                        onMouseLeave={obligatedTooltipProps.controlledProps.closeTooltip}
+                        onClick={obligatedTooltipProps.controlledProps.showTooltip}>
                         <strong>
                             {this.props.awardAmounts.obligationFormatted}
                         </strong>
@@ -91,12 +90,12 @@ export default class ExceedsPotentialChart extends React.Component {
                             className="award-amounts-viz__desc-text"
                             role="button"
                             tabIndex="0"
-                            onBlur={exceedsPotentialTooltipProps.closeTooltip}
-                            onFocus={exceedsPotentialTooltipProps.showTooltip}
-                            onKeyPress={exceedsPotentialTooltipProps.showTooltip}
-                            onMouseEnter={exceedsPotentialTooltipProps.showTooltip}
-                            onMouseLeave={exceedsPotentialTooltipProps.closeTooltip}
-                            onClick={exceedsPotentialTooltipProps.showTooltip}>
+                            onBlur={exceedsPotentialTooltipProps.controlledProps.closeTooltip}
+                            onFocus={exceedsPotentialTooltipProps.controlledProps.showTooltip}
+                            onKeyPress={exceedsPotentialTooltipProps.controlledProps.showTooltip}
+                            onMouseEnter={exceedsPotentialTooltipProps.controlledProps.showTooltip}
+                            onMouseLeave={exceedsPotentialTooltipProps.controlledProps.closeTooltip}
+                            onClick={exceedsPotentialTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.extremeOverspendingFormatted}</strong>
                             <br />
                             <div className="award-amounts-viz__desc-text-wrapper">
@@ -114,58 +113,24 @@ export default class ExceedsPotentialChart extends React.Component {
                     style={obligatedLabelStyle}>
                     <div className="award-amounts-viz__line-up" />
                 </div>
-                <TooltipWrapper
-                    className="combined-obligated-tt__container"
-                    styles={obligatedLabelStyle}
-                    controlledProps={obligatedTooltipProps}
-                    offsetAdjustments={{ top: 20 }}
-                    tooltipComponent={
-                        <CombinedObligatedAmounts
-                            total={this.props.awardAmounts.obligation}
-                            count={this.props.awardAmounts.childAwardCount} />}>
+                <TooltipWrapper {...obligatedTooltipProps} styles={obligatedLabelStyle} offsetAdjustments={{ top: 20 }}>
                     <div className="award-amounts-viz__bar-wrapper award-amounts-viz__bar-wrapper_extreme-overspending">
                         <div className="award-amounts-viz__bar">
                             <div
                                 className="award-amounts-viz__potential-wrapper"
                                 style={potentialWrapperStyle}>
-                                <TooltipWrapper
-                                    styles={{ width: currentBarStyle.width }}
-                                    className="combined-current-tt__container"
-                                    controlledProps={currentTooltipProps}
-                                    offsetAdjustments={{ top: 0 }}
-                                    tooltipComponent={
-                                        <CombinedCurrentAmounts
-                                            total={this.props.awardAmounts.combinedCurrentAwardAmounts}
-                                            count={this.props.awardAmounts.childAwardCount} />
-                                    }>
+                                <TooltipWrapper {...currentTooltipProps} styles={{ width: currentBarStyle.width }}>
                                     <div
                                         className="award-amounts-viz__current"
                                         style={{ width: generatePercentage(1), backgroundColor: currentBarStyle.backgroundColor }} />
                                 </TooltipWrapper>
-                                <TooltipWrapper
-                                    styles={{ width: potentialBarStyle.width }}
-                                    className="combined-potential-tt__container"
-                                    controlledProps={potentialTooltipProps}
-                                    offsetAdjustments={{ top: 0 }}
-                                    tooltipComponent={
-                                        <CombinedPotentialAmounts
-                                            total={this.props.awardAmounts.combinedPotentialAwardAmounts}
-                                            count={this.props.awardAmounts.childAwardCount} />
-                                    }>
+                                <TooltipWrapper {...potentialTooltipProps} styles={{ width: potentialBarStyle.width }}>
                                     <div
                                         className="award-amounts-viz__potential"
                                         style={{ width: generatePercentage(1), backgroundColor: potentialBarStyle.backgroundColor }} />
                                 </TooltipWrapper>
                             </div>
-                            <TooltipWrapper
-                                styles={{ width: overspendingBarStyle.width }}
-                                className="combined-potential-tt__container"
-                                controlledProps={exceedsPotentialTooltipProps}
-                                offsetAdjustments={{ top: 0 }}
-                                tooltipComponent={
-                                    <CombinedExceedsPotentialAmounts
-                                        total={this.props.awardAmounts.extremeOverspending}
-                                        count={this.props.awardAmounts.childAwardCount} />}>
+                            <TooltipWrapper {...exceedsPotentialTooltipProps} styles={{ width: overspendingBarStyle.width }}>
                                 <div
                                     className="award-amounts-viz__exceeded-potential"
                                     style={{ width: generatePercentage(1) }} />
@@ -182,12 +147,12 @@ export default class ExceedsPotentialChart extends React.Component {
                             className="award-amounts-viz__desc-text"
                             role="button"
                             tabIndex="0"
-                            onBlur={currentTooltipProps.closeTooltip}
-                            onFocus={currentTooltipProps.showTooltip}
-                            onKeyPress={currentTooltipProps.showTooltip}
-                            onMouseEnter={currentTooltipProps.showTooltip}
-                            onMouseLeave={currentTooltipProps.closeTooltip}
-                            onClick={currentTooltipProps.showTooltip}>
+                            onBlur={currentTooltipProps.controlledProps.closeTooltip}
+                            onFocus={currentTooltipProps.controlledProps.showTooltip}
+                            onKeyPress={currentTooltipProps.controlledProps.showTooltip}
+                            onMouseEnter={currentTooltipProps.controlledProps.showTooltip}
+                            onMouseLeave={currentTooltipProps.controlledProps.closeTooltip}
+                            onClick={currentTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.combinedCurrentAwardAmountsFormatted}</strong>
                             <br />
                             Combined Current Award Amounts
@@ -204,12 +169,12 @@ export default class ExceedsPotentialChart extends React.Component {
                             className="award-amounts-viz__desc-text"
                             role="button"
                             tabIndex="0"
-                            onBlur={potentialTooltipProps.closeTooltip}
-                            onFocus={potentialTooltipProps.showTooltip}
-                            onKeyPress={potentialTooltipProps.showTooltip}
-                            onMouseEnter={potentialTooltipProps.showTooltip}
-                            onMouseLeave={potentialTooltipProps.closeTooltip}
-                            onClick={potentialTooltipProps.showTooltip}>
+                            onBlur={potentialTooltipProps.controlledProps.closeTooltip}
+                            onFocus={potentialTooltipProps.controlledProps.showTooltip}
+                            onKeyPress={potentialTooltipProps.controlledProps.showTooltip}
+                            onMouseEnter={potentialTooltipProps.controlledProps.showTooltip}
+                            onMouseLeave={potentialTooltipProps.controlledProps.closeTooltip}
+                            onClick={potentialTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}</strong>
                             <br />
                             Combined Potential Award Amounts
