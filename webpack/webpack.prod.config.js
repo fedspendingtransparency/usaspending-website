@@ -1,25 +1,49 @@
-const path = require('path');
-const webpack = require('webpack');
 const merge = require('webpack-merge');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ParallelUglifyPlugin = require('webpack-parallel-uglify-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const webpack = require('webpack');
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
-    plugins: [
-        // new BundleAnalyzerPlugin(),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production') // indicate to libraries that this is in prod mode (which may affect their behavior for debugging)
-        }),
-        new ParallelUglifyPlugin({
-            uglifyJS: {
-                compress: {
-                    warnings: false
-                },
-                sourceMap: false
+    mode: "production",
+    stats: {
+        assets: true,
+        chunks: true,
+        builtAt: true,
+        cached: true,
+        version: true,
+        warnings: true
+    },
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                cache: true,
+                parallel: true
+            }),
+            new OptimizeCssAssetsPlugin({})
+        ],
+        runtimeChunk: "single",
+        splitChunks: {
+            chunks: "all",
+            cacheGroups: {
+                styles: {
+                    // all css in one file -- https://github.com/webpack-contrib/mini-css-extract-plugin
+                    name: "styles",
+                    test: /\.css$/,
+                    chunks: "all",
+                    enforce: true
+                }
             }
+        }
+    },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: "[name].[contenthash].css"
+        }),
+        new webpack.optimize.MinChunkSizePlugin({
+            minChunkSize: 300000
         })
     ]
 });
