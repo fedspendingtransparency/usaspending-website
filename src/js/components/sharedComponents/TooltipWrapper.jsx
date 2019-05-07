@@ -102,7 +102,7 @@ export default class TooltipWrapper extends React.Component {
         }
         else if (this.props.wide) {
             // is there at least 801px of space to the left/right for the tooltip?
-            tooltipWidth = ((tooltipContainer.offsetLeft + tooltipContainer.clientWidth) - window.innerWidth > 800)
+            tooltipWidth = (window.innerWidth - (tooltipContainer.offsetLeft + tooltipContainer.clientWidth) > 800)
                 ? 650
                 : window.innerWidth - (tooltipContainer.offsetLeft + tooltipContainer.clientWidth) - 100;
         }
