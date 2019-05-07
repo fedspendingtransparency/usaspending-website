@@ -78,7 +78,7 @@ export default class FederalAccountsTable extends React.Component {
 
     renderTable() {
         return (
-            <div>
+            <div className="federal-accounts-table-renderer">
                 <table className="federal-accounts-table">
                     <thead className="federal-accounts-table__head">
                         <tr className="federal-accounts-table__head-row">
@@ -100,7 +100,7 @@ export default class FederalAccountsTable extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className="federal-accounts-table-holder">
                 {this.renderTable()}
             </div>
         );

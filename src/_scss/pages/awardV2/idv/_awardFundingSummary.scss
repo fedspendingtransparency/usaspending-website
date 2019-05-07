@@ -1,4 +1,5 @@
 .federal-accounts {
+  width: 100%;
   .visualization-tooltip {
     @import "components/visualizations/tooltip/_tooltip";
     position: fixed;
@@ -26,6 +27,7 @@
     }
   }
   .federal-accounts__section {
+    width: 100%;
     .view-buttons {
       @include viewTypeButton();
       text-align: right;
@@ -49,6 +51,16 @@
       @import 'components/pagination';
       @import './federalAccountsTable';
       @import '../../search/results/table/tableMessages';
+      width: 100%;
+      .render-holder {
+        width: 100%;
+      }
+      .federal-accounts-table-renderer {
+        width: 100%;
+      }
+      .federal-accounts-table-holder {
+        width: 100%;
+      }
       overflow-x: scroll;
       @include media($medium-screen) {
         overflow-x: auto;
