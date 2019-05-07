@@ -27,6 +27,7 @@
     }
   }
   .federal-accounts__section {
+    height: 100%;
     width: 100%;
     .view-buttons {
       @include viewTypeButton();
@@ -52,9 +53,6 @@
       @import './federalAccountsTable';
       @import '../../search/results/table/tableMessages';
       width: 100%;
-      .render-holder {
-        width: 100%;
-      }
       .federal-accounts-table-renderer {
         width: 100%;
         overflow-x: scroll;
@@ -73,6 +71,27 @@
       }
       .results-table-message-container {
           position: relative;
+          background-color: rgb(246, 246, 246);
+          .results-table-loading {
+            margin-bottom: rem(100);
+          }
+          .no-results-container {
+            text-align: center;
+            margin-top: rem(100);
+            margin-bottom: rem(100);
+            .no-results-title {
+              h4 {
+                margin-bottom: 0;
+                vertical-align: bottom;
+              }
+            }
+            .no-results-message {
+              p {
+                margin-top: 0;
+                vertical-align: top;
+              }
+            }
+          }
           .loading-animation {
               @import "../../search/results/screens/loading";
           }

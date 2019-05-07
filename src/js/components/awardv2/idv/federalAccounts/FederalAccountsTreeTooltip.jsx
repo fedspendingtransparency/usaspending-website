@@ -90,12 +90,6 @@ export default class FederalAccountsTreeTooltip extends React.Component {
 
     render() {
         const { percent, obligatedAmount, _federalAccountName } = this.props;
-        // TODO - allow subtitles to be clickable
-        // const subtitle = (
-        //     <a href={`/#/agency/${this.props._fundingAgencyId}`}>
-        //         {`${this.props._fundingAgencyName} (${this.props._fundingAgencyAbbreviation})`}
-        //     </a>
-        // );
         const subtitle =
         `${this.props._fundingAgencyName} (${this.props._fundingAgencyAbbreviation})`;
 

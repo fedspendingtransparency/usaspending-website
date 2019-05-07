@@ -116,20 +116,10 @@ export default class FederalAccountsTree extends React.Component {
         const formattedSubtitle =
         `${MoneyFormatter.formatMoneyWithPrecision((amount / units.unit), 1)}${units.unitLabel}`;
         const usableWidth = width;
-        let name = data.data._federalAccountName;
-        const isUnreported = data.data._federalAccountName === "Unreported Data";
-        if (isUnreported) {
-            name = "Unreported Data*";
-        }
+        const name = data.data._federalAccountName;
         const title = this.truncateText(name, 'title', usableWidth);
         const subtitle = this.truncateText(formattedSubtitle, 'subtitle', usableWidth);
-        let color = scale(amount);
-
-        if (isUnreported) {
-            // use the gray color for unreported data, instead of the usual calculated
-            // color
-            color = 'rgb(103,103,103)';
-        }
+        const color = scale(amount);
 
         const cell = {
             width,
