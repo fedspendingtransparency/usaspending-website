@@ -2,6 +2,7 @@
  * IDVAmounts.jsx
  * Created by David Trinh 2/19/19
  **/
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import IDVBanner from './IDVBanner';

@@ -58,10 +58,7 @@
             display: flex;
 
             svg {
-                height: rem(18);
-                position: relative;
-                top: rem(4);
-                padding-right: rem(8);
+                margin-right: rem(8);
                 fill: $color-gray-medium;
             }
 

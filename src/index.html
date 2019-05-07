@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +9,8 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.usaspending.gov/" />
     <meta property="og:title" content="USAspending.gov" />
-    <meta property="og:description" content="USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government." />
+    <meta property="og:description"
+        content="USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government." />
     <meta property="og:site_name" content="USAspending.gov" />
     <meta property="og:image" content="https://www.usaspending.gov/img/FacebookOG.png" />
 
@@ -16,7 +18,8 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:domain" value="usaspending.gov" />
     <meta name="twitter:title" value="USAspending.gov" />
-    <meta name="twitter:description" value="USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government." />
+    <meta name="twitter:description"
+        value="USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government." />
     <meta name="twitter:image" content="https://www.usaspending.gov/img/TwitterCard.png" />
     <meta name="twitter:url" value="https://www.usaspending.gov/" />
     <meta name="twitter:label1" value="" />
@@ -25,16 +28,23 @@
     <meta name="twitter:data2" value="" />
 
     <title>USAspending.gov</title>
-    <link rel="stylesheet" href="<%= htmlWebpackPlugin.files.css %>" />
     <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css" rel="stylesheet" />
     <link rel="shortcut icon" href="img/favicon.ico">
 
-    <script async type="text/javascript" id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=TREAS&subagency=FS"></script>
-
+    <script async type="text/javascript" id="_fed_an_ua_tag"
+        src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=TREAS&subagency=FS"></script>
+    <!-- Google Analytics -->
+    <script>
+        window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
+        ga('create', 'UA-60737492-1', 'auto');
+        ga('create', 'UA-92617810-1', 'auto', 'testTracker');
+    </script>
+    <script async src='https://www.google-analytics.com/analytics.js'></script>
+    <!-- End Google Analytics -->
 </head>
+
 <body>
     <div id="app"></div>
-    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.vendor.entry %>"></script>
-    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.app.entry %>"></script>
 </body>
+
 </html>
