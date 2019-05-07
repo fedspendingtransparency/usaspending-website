@@ -65,27 +65,27 @@ export default class AggregatedAwardAmounts extends React.Component {
         const { awardAmounts } = this.props;
         const map = {
             obligated: {
-                offsetAdjustments: { top: 0, right: 20 },
+                offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-obligated-tt__container",
                 tooltipComponent: <CombinedObligatedAmounts total={awardAmounts.obligation} count={awardAmounts.childAwardCount} />
             },
             current: {
-                offsetAdjustments: { top: 0, right: 20 },
+                offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-current-tt__container",
                 tooltipComponent: <CombinedCurrentAmounts total={awardAmounts.combinedCurrentAwardAmounts} count={awardAmounts.childAwardCount} />
             },
             potential: {
-                offsetAdjustments: { top: 0, right: 20 },
+                offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-potential-tt__container",
                 tooltipComponent: <CombinedPotentialAmounts total={awardAmounts.combinedPotentialAwardAmounts} count={awardAmounts.childAwardCount} />
             },
             exceedsCurrent: {
-                offsetAdjustments: { top: 0, right: 20 },
+                offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-exceeds-current-tt__container",
                 tooltipComponent: <CombinedExceedsCurrentAmounts total={awardAmounts.overspending} count={awardAmounts.childAwardCount} />
             },
             exceedsPotential: {
-                offsetAdjustments: { top: 0, right: 20 },
+                offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-exceeds-potential-tt__container",
                 tooltipComponent: <CombinedExceedsPotentialAmounts total={awardAmounts.extremeOverspending} count={awardAmounts.childAwardCount} />
             }

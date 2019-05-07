@@ -113,7 +113,7 @@ export default class ExceedsPotentialChart extends React.Component {
                     style={obligatedLabelStyle}>
                     <div className="award-amounts-viz__line-up" />
                 </div>
-                <TooltipWrapper {...obligatedTooltipProps} styles={obligatedLabelStyle} offsetAdjustments={{ top: 20 }}>
+                <TooltipWrapper {...obligatedTooltipProps} styles={obligatedLabelStyle} offsetAdjustments={{ top: 17.5, right: 30 }}>
                     <div className="award-amounts-viz__bar-wrapper award-amounts-viz__bar-wrapper_extreme-overspending">
                         <div className="award-amounts-viz__bar">
                             <div
@@ -130,7 +130,7 @@ export default class ExceedsPotentialChart extends React.Component {
                                         style={{ width: generatePercentage(1), backgroundColor: potentialBarStyle.backgroundColor }} />
                                 </TooltipWrapper>
                             </div>
-                            <TooltipWrapper {...exceedsPotentialTooltipProps} styles={{ width: overspendingBarStyle.width }}>
+                            <TooltipWrapper {...exceedsPotentialTooltipProps} styles={{ width: overspendingBarStyle.width }} offsetAdjustments={{ top: -5, right: 30 }}>
                                 <div
                                     className="award-amounts-viz__exceeded-potential"
                                     style={{ width: generatePercentage(1) }} />
