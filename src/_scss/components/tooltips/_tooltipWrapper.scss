@@ -1,0 +1,40 @@
+.tooltip-wrapper {
+    div:first-of-type {
+        height: 100%;
+        width: 100%;
+        @include display(flex);
+    }
+    .tooltip__hover-wrapper {
+        .tooltip__icon {
+            color: $color-gray-border;
+            margin: 0 $global-mrg / 2;
+            &:hover {
+                color: $color-gray;
+            }
+        }
+    }
+    .tooltip-spacer {
+        display: none;
+        @include media($medium-screen) {
+            display: block;
+            position: absolute;
+            z-index: 9;
+        }
+    }
+    .tooltip {
+        .tooltip__interior {
+            position: relative;
+            // inherit from the standard tooltip arrow style
+            $color-tooltip-border: $color-gray-light;
+            @import "components/visualizations/tooltip/_arrow";
+            .tooltip-pointer {
+                // override the coloring
+                &:after {
+                    background: $color-gray-lightest;
+                }
+                z-index: 2;
+                top: rem(15);
+            }
+        }
+    }
+}
