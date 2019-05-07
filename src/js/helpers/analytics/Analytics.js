@@ -3,31 +3,33 @@
  * Created by Kevin Li 2/2/18
  */
 
+import kGlobalConstants from 'GlobalConstants';
 
 const Analytics = {
     _prefix: 'USAspending - ',
     _execute(...args) {
-        if (this.isDAP) {
-            return window.gas(...args);
+        if (this.isDAP && !kGlobalConstants.DEV) {
+            window.gas(...args);
         }
-        else if (this.isGA) {
-            return window.ga(...args);
+        if (this.isGA) {
+            window.ga(...args);
         }
-        // fall back if no library is loaded (most likely due to adblocking)
         return null;
     },
     get isDAP() {
         return Boolean(window.gas && typeof window.gas === 'function');
     },
     get isGA() {
-        return Boolean(!this.isDAP && window.ga && typeof window.ga === 'function');
+        return Boolean(window.ga && typeof window.ga === 'function');
     },
     event(args) {
         if (!args.category || !args.action) {
             return;
         }
+        // Use the test tracker for non-prod environments
+        const tracker = kGlobalConstants.DEV ? 'testTracker.send' : 'send';
         this._execute(
-            'send',
+            tracker,
             'event',
             `${this._prefix}${args.category}`,
             args.action,
@@ -39,11 +41,13 @@ const Analytics = {
     pageview(args) {
         let path = args;
         let title;
+        // Use the test tracker for non-prod environments
+        const tracker = kGlobalConstants.DEV ? 'testTracker.send' : 'send';
         if (typeof args === 'object') {
             ({ path, title } = args);
         }
         this._execute(
-            'send',
+            tracker,
             'pageview',
             path,
             title
