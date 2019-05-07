@@ -36,4 +36,3 @@ export default class NoResultsMessage extends Component {
 
 NoResultsMessage.propTypes = propTypes;
 NoResultsMessage.defaultProps = defaultProps;
- 
