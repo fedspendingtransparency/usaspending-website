@@ -4,7 +4,7 @@ const presets = [
         {
             targets: {
                 ie: "10",
-                node: "current"
+                node: "10"
             }
         }
     ],
