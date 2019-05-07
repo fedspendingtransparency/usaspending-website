@@ -15,7 +15,7 @@ export const CombinedObligatedAmounts = ({
             <li><strong>*Child award order</strong> refers to award orders made directly under this IDV (IDV &gt; Award).</li>
             <li><strong>*Child IDV order</strong> refers to IDVs made directly under this IDV (IDV &gt; IDV).</li>
             <li><strong>*Grandchild award order</strong> refers to award orders made within a child IDV order (IDV &gt; IDV &gt; Award).</li>
-            <li><strong>*IDV</strong> itself refers to the top-level IDV this page is summarizing, not including any of its child award orders or child IDV orders.</li>
+            <li><strong>*IDV itself</strong> refers to the top-level IDV this page is summarizing, not including any of its child award orders or child IDV orders.</li>
         </ul>
     </div>
 );
