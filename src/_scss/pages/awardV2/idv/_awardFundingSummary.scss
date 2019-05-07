@@ -1,21 +1,36 @@
 .federal-accounts {
+  .federal-accounts__section {
+    .federal-accounts-results {
+      @import 'components/pagination';
+      @import './federalAccountsTable';
+      @import '../../search/results/table/tableMessages';
+      overflow-x: scroll;
+      @include media($medium-screen) {
+        overflow-x: auto;
+      }
+      .results-table-message-container {
+          position: relative;
+          .loading-animation {
+              @import "../../search/results/screens/loading";
+          }
+      }
+    }
+  }
+  .federal-accounts-summary__section {
     .award-funding-summary__table {
-        margin-bottom: rem(10);
-        .award-funding-summary__data {
-            @extend %column-less-table__row;
-            margin: 0;
-            &:first-of-type {
-                border-radius: rem(5) rem(5) 0 0;
-                border-bottom: 0;
-            }
-            &:last-of-type {
-                border-radius: 0 0 rem(5) rem(5);
-                border-top: 0;
-            }
-        }
+      margin-bottom: rem(10);
+      .award-funding-summary__data {
+          @extend %column-less-table__row;
+          margin: 0;
+          &:first-of-type {
+              border-radius: rem(5) rem(5) 0 0;
+              border-bottom: 0;
+          }
+          &:last-of-type {
+              border-radius: 0 0 rem(5) rem(5);
+              border-top: 0;
+          }
+      }
     }
-    .federal-accounts__section {
-        @extend %coming-soon-idv;
-        height: 200px;
-    }
+  }
 }

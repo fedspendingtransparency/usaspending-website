@@ -4,7 +4,7 @@
  */
 
 import pathToRegExp from 'path-to-regexp';
-import createHistory from 'history/createHashHistory';
+import { createHashHistory as createHistory } from 'history';
 import queryString from 'query-string';
 
 import Routes from './RouterRoutes';

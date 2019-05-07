@@ -17,9 +17,9 @@ Assumptions:
 
 ### Install Prerequisites and Code
 
-1. If you're not already running Node.js, download and run the installer for your operating system. We build using **Node.js 6.11.x (LTS)**: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
+1. If you're not already running Node.js, download and run the installer for your operating system. We build using **Node.js 10.15.3 (LTS)**: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
 
-2. You should also have *npm* (Node's package manager). This is typically included as part of the Node.js install. We use version 3.10.x. This is used to install the software dependencies the web site and the build system require.
+2. You should also have *npm* (Node's package manager). This is typically included as part of the Node.js install. We use version 6.4.1. This is used to install the software dependencies the web site and the build system require.
 
 3. From the command line, clone the USAspending website repository from GitHub to your local machine:
 
