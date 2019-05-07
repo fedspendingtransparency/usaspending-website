@@ -5,18 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { map } from 'lodash';
+import { map, uniqueId } from 'lodash';
 
 import tableMapping from 'dataMapping/awardsv2/federalAccountSectionTable';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
 import Pagination from 'components/sharedComponents/Pagination';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 
 const propTypes = {
-    inFlight: PropTypes.bool,
-    error: PropTypes.bool,
     page: PropTypes.number,
     limit: PropTypes.number,
     sort: PropTypes.string,
@@ -52,7 +47,7 @@ export default class FederalAccountsTable extends React.Component {
         return this.props.federalAccounts.map((account) => (
             <tr
                 className="federal-accounts-table__body-row"
-                key={`row-${account._obligatedAmount}`}>
+                key={`row-${uniqueId()}`}>
                 {map(tableMapping, (header, key) => {
                     let cellData = account[key];
                     if (key === 'federalAccountName') {
@@ -72,7 +67,7 @@ export default class FederalAccountsTable extends React.Component {
                     return (
                         <td
                             className={header.classname}
-                            key={`cell-${account._obligatedAmount}-${header.displayName}`}>
+                            key={`${uniqueId()}`}>
                             {cellData}
                         </td>
                     );
@@ -83,7 +78,7 @@ export default class FederalAccountsTable extends React.Component {
 
     renderTable() {
         return (
-            <div>
+            <div className="federal-accounts-table-renderer">
                 <table className="federal-accounts-table">
                     <thead className="federal-accounts-table__head">
                         <tr className="federal-accounts-table__head-row">
@@ -94,25 +89,19 @@ export default class FederalAccountsTable extends React.Component {
                         {this.getRows()}
                     </tbody>
                 </table>
-                <Pagination
-                    totalItems={this.props.total}
-                    pageSize={this.props.limit}
-                    pageNumber={this.props.page}
-                    onChangePage={this.props.changePage} />
             </div>
         );
     }
 
     render() {
-        const { inFlight, error, federalAccounts } = this.props;
         return (
-            <div className="federal-accounts-results">
-                <div className="results-table-message-container">
-                    {inFlight && <ResultsTableLoadingMessage />}
-                    {(error && !inFlight) && <ResultsTableErrorMessage />}
-                    {(!federalAccounts.length && !inFlight && !error) && <ResultsTableNoResults />}
-                </div>
-                {(federalAccounts.length > 0 && !inFlight && !error) && this.renderTable()}
+            <div className="federal-accounts-table-holder">
+                {this.renderTable()}
+                <Pagination
+                    totalItems={this.props.total}
+                    pageSize={this.props.limit}
+                    pageNumber={this.props.page}
+                    onChangePage={this.props.changePage} />
             </div>
         );
     }

@@ -22,7 +22,7 @@ const tableMapping = {
     },
     fundingAgencyName: {
         displayName: 'Funding Agency',
-        classname: 'federal-accounts-table__body-cell',
+        classname: 'federal-accounts-table__body-cell offset-left',
         href: '/#/agency/'
     }
 };
