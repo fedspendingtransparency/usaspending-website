@@ -35,3 +35,10 @@ export const AWARD_V2_AGGREGATED_AMOUNTS_PROPS = PropTypes.shape({
     _obligation: PropTypes.number,
     _combinedCurrentAwardAmounts: PropTypes.number
 });
+
+export const TOOLTIP_PROPS = PropTypes.shape({
+    isControlled: PropTypes.bool,
+    isVisible: PropTypes.bool,
+    closeCurrentTooltip: PropTypes.func,
+    showTooltip: PropTypes.func
+});

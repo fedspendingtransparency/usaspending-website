@@ -43,6 +43,8 @@
             .award-amounts-viz__bar {
                 height: rem(50);
                 background-color: transparent;
+                @include display(flex);
+                @include align-items(center);
                 .award-amounts-viz__potential-wrapper {
                     @include display(flex);
                     border: rem(2) solid $border-gray;

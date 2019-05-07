@@ -58,7 +58,7 @@ export const fetchAwardFedAccountFunding = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/awards/idvs/funding/`,
+            url: 'v2/awards/idvs/funding/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -74,7 +74,7 @@ export const fetchAwardFundingSummary = (awardId) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/awards/idvs/funding_rollup/`,
+            url: 'v2/awards/idvs/funding_rollup/',
             baseURL: kGlobalConstants.API,
             method: "post",
             data: { award_id: awardId },
@@ -90,13 +90,29 @@ export const fetchIdvDownloadFile = (awardId) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/download/idv/`,
+            url: 'v2/download/idv/',
             baseURL: kGlobalConstants.API,
             method: "post",
             headers: {
                 "content-type": "application/json"
             },
             data: { award_id: awardId },
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const fetchAwardFederalAccounts = (data) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/awards/idvs/accounts/',
+            baseURL: kGlobalConstants.API,
+            method: 'post',
+            data,
             cancelToken: source.token
         }),
         cancel() {
