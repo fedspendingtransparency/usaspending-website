@@ -406,3 +406,42 @@ export const mockFileDownloadResponse = {
     seconds_elapsed: `10.061132`
 };
 
+export const mockAwardFederalAccounts = {
+    page_metadata: {
+        count: 3,
+        hasNext: true,
+        hasPrevious: false,
+        next: 0,
+        page: 1,
+        previous: null
+    },
+    results: [
+        {
+            account_title: 'Operations Support,Internal Revenue Service, Treasury',
+            federal_account: '020-0919',
+            funding_agency_abbreviation: 'TREAS',
+            funding_agency_id: 456,
+            funding_agency_name: 'Department of the Treasury',
+            total_transaction_obligated_amount: 42029539.53
+        },
+        
+        {
+            account_title: 'Program Management, Centers for Medicare and Medicaid Services',
+            federal_account: '075-0511',
+            funding_agency_abbreviation: 'HHS',
+            funding_agency_id: 806,
+            funding_agency_name: 'Department of Health and Human Services',
+            total_transaction_obligated_amount: 37865386
+        },
+        
+        {
+            account_title: 'Diplomatic and Consular Programs, State',
+            federal_account: '019-0113',
+            funding_agency_abbreviation: 'DOS',
+            funding_agency_id: 315,
+            funding_agency_name: 'Department of State',
+            total_transaction_obligated_amount: 32912320.74
+        }
+    ],
+    total: 271716259.64
+};
