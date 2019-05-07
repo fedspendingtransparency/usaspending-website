@@ -89,11 +89,6 @@ export default class FederalAccountsTable extends React.Component {
                         {this.getRows()}
                     </tbody>
                 </table>
-                <Pagination
-                    totalItems={this.props.total}
-                    pageSize={this.props.limit}
-                    pageNumber={this.props.page}
-                    onChangePage={this.props.changePage} />
             </div>
         );
     }
@@ -102,6 +97,11 @@ export default class FederalAccountsTable extends React.Component {
         return (
             <div className="federal-accounts-table-holder">
                 {this.renderTable()}
+                <Pagination
+                    totalItems={this.props.total}
+                    pageSize={this.props.limit}
+                    pageNumber={this.props.page}
+                    onChangePage={this.props.changePage} />
             </div>
         );
     }

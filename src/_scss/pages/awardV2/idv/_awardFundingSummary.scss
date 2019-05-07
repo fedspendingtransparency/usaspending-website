@@ -57,13 +57,13 @@
       }
       .federal-accounts-table-renderer {
         width: 100%;
+        overflow-x: scroll;
+        @include media($medium-screen) {
+          overflow-x: auto;
+        }
       }
       .federal-accounts-table-holder {
         width: 100%;
-      }
-      overflow-x: scroll;
-      @include media($medium-screen) {
-        overflow-x: auto;
       }
       #federal-account-treemap-title {
         margin-top: 0;
