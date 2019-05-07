@@ -5,12 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { AngleRight, AngleDown } from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     accordionName: PropTypes.string,
-    accordionIcon: PropTypes.object,
+    accordionIcon: PropTypes.string,
     accordionData: PropTypes.object,
     globalToggle: PropTypes.bool
 };
@@ -48,11 +47,11 @@ export default class Accordion extends React.Component {
                     onKeyPress={this.handleClick}
                     onClick={this.handleClick}>
                     <span>
-                        {this.props.accordionIcon}
+                        <FontAwesomeIcon size="lg" icon={this.props.accordionIcon} />
                         {this.props.accordionName}
                     </span>
                     <span>
-                        {this.state.open ? <AngleDown /> : <AngleRight />}
+                        {this.state.open ? <FontAwesomeIcon size="lg" icon="angle-down" /> : <FontAwesomeIcon size="lg" icon="angle-right" />}
                     </span>
                 </div>
                 <div className="accordion__content">
@@ -64,7 +63,7 @@ export default class Accordion extends React.Component {
                                         key={keyValue}
                                         className="accordion-table__row">
                                         <td>{keyValue}</td>
-                                        <td>{this.props.accordionData[keyValue] || 'not provided'}</td>
+                                        <td>{this.props.accordionData[keyValue] || '--'}</td>
                                     </tr>
                                 ))}
                         </tbody>

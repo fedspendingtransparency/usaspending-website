@@ -1,28 +1,28 @@
 /**
- * AwardAmountsContainer-test.js
+ * IdvAmountsContainer-test.js
  * Created by David Trinh 2/14/2019
  **/
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { AwardAmountsContainer } from 'containers/awardV2/visualization/AwardAmountsContainer';
+import { IdvAmountsContainer } from 'containers/awardV2/idv/IdvAmountsContainer';
 
-import { mockRedux, mockActions } from './mockAward';
-import { mockAwardAmounts } from '../../models/awardsV2/mockAwardApi';
+import { mockRedux, mockActions } from '../mockAward';
+import { mockAwardAmounts } from '../../../models/awardsV2/mockAwardApi';
 
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 
 
-jest.mock('helpers/idvHelper', () => require('./awardV2Helper'));
+jest.mock('helpers/idvHelper', () => require('../awardV2Helper'));
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/awardv2/visualizations/amounts/AggregatedAwardAmounts.jsx', () => jest.fn(() => null));
+jest.mock('components/awardv2/idv/amounts/AggregatedAwardAmounts.jsx', () => jest.fn(() => null));
 
-describe('AwardAmountsContainer', () => {
+describe('IdvAmountsContainer', () => {
     it('should make an API call for the award amounts on mount', async () => {
         const container = mount(
-            <AwardAmountsContainer
+            <IdvAmountsContainer
                 {...mockActions}
                 {...mockRedux} />);
 
@@ -34,7 +34,7 @@ describe('AwardAmountsContainer', () => {
     });
 
     it('should make an API call when the award ID props changes', () => {
-        const container = shallow(<AwardAmountsContainer
+        const container = shallow(<IdvAmountsContainer
             {...mockActions}
             {...mockRedux} />);
 
@@ -61,7 +61,7 @@ describe('AwardAmountsContainer', () => {
 
     describe('parseAward', () => {
         it('should parse returned award amounts data and set data as the award amounts state', () => {
-            const container = shallow(<AwardAmountsContainer
+            const container = shallow(<IdvAmountsContainer
                 {...mockRedux}
                 {...mockActions} />);
 
