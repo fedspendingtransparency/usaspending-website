@@ -21,7 +21,11 @@ const propTypes = {
     height: PropTypes.number,
     goDeeper: PropTypes.func,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    page: PropTypes.number,
+    limit: PropTypes.number,
+    total: PropTypes.number,
+    changePage: PropTypes.func
 };
 
 const defaultProps = {
