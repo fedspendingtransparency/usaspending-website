@@ -13,6 +13,7 @@ import { remove } from 'lodash';
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import TreemapCell from 'components/sharedComponents/TreemapCell';
+import Pagination from 'components/sharedComponents/Pagination';
 
 const propTypes = {
     data: PropTypes.array,
@@ -198,7 +199,7 @@ export default class FederalAccountsTree extends React.Component {
         ));
 
         return (
-            <div>
+            <div className="federal-accounts-treemap-view">
                 <h4 id="federal-account-treemap-title">Federal Accounts</h4>
                 <div className="federal-accounts-treemap">
                     <svg
@@ -208,6 +209,11 @@ export default class FederalAccountsTree extends React.Component {
                         {cells}
                     </svg>
                 </div>
+                <Pagination
+                    totalItems={this.props.total}
+                    pageSize={this.props.limit}
+                    pageNumber={this.props.page}
+                    onChangePage={this.props.changePage} />
             </div>
         );
     }

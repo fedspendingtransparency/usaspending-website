@@ -143,9 +143,12 @@ export default class FederalAccountsSection extends React.Component {
                                     this.widthRef = div;
                                 }} />
                             {(isTreeView && federalAccounts.length > 0) && <FederalAccountsTree
+                                limit={this.props.limit}
+                                page={this.props.page}
+                                changePage={this.props.changePage}
                                 width={this.state.width}
                                 data={this.props.federalAccounts}
-                                total={this.props.totalTransactionObligatedAmount}
+                                total={this.props.total}
                                 showTooltip={this.showTooltip}
                                 hideTooltip={this.hideTooltip} />}
                         </div>

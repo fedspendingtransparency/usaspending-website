@@ -53,6 +53,11 @@
       @import './federalAccountsTable';
       @import '../../search/results/table/tableMessages';
       width: 100%;
+      .federal-accounts-treemap-view {
+        .pager {
+          display: none;
+        }
+      }
       .federal-accounts-table-renderer {
         width: 100%;
         overflow-x: scroll;
