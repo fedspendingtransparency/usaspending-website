@@ -115,11 +115,6 @@ export default class EntityDropdownAutocomplete extends React.Component {
     }
 
     render() {
-        let icon = <AngleDown alt="Open dropdown" />;
-        if (this.state.expanded) {
-            icon = <AngleUp alt="Close dropdown" />;
-        }
-
         let dropdown = null;
         if (this.state.expanded) {
             dropdown = (
@@ -145,7 +140,7 @@ export default class EntityDropdownAutocomplete extends React.Component {
                     {this.props.title}
                     <div
                         id={`${this.props.scope}-autocomplete`}
-                        className={`geo-entity-dropdown ${disabled}`}
+                        className={`geo-entity-dropdown geo-entity-dropdown_autocomplete ${disabled}`}
                         onMouseOver={this.mouseEnter}
                         onFocus={this.mouseEnter}
                         onMouseOut={this.mouseLeave}
@@ -155,6 +150,7 @@ export default class EntityDropdownAutocomplete extends React.Component {
                             this.wrapperDiv = div;
                         }}>
                         <input
+                            className="geo-entity-dropdown__input"
                             disabled={!this.props.enabled}
                             type="text"
                             value={this.props.searchString}

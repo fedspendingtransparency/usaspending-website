@@ -35,6 +35,15 @@
             &.disabled {
                 opacity: 0.4;
             }
+
+            .geo-entity-dropdown_autocomplete {
+                input.geo-entity-dropdown__input {
+                    height: rem(26);
+                    width: 100%;
+                    font-size: $small-font-size;
+                }
+                @import "./geo-entity-list";
+            }
         }
 
         .add-location {
