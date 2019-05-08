@@ -1,21 +1,121 @@
 .federal-accounts {
-    .award-funding-summary__table {
-        margin-bottom: rem(10);
-        .award-funding-summary__data {
-            @extend %column-less-table__row;
-            margin: 0;
-            &:first-of-type {
-                border-radius: rem(5) rem(5) 0 0;
-                border-bottom: 0;
-            }
-            &:last-of-type {
-                border-radius: 0 0 rem(5) rem(5);
-                border-top: 0;
-            }
+  width: 100%;
+  .visualization-tooltip {
+    @import "components/visualizations/tooltip/_tooltip";
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    .tooltip {
+      position: relative;
+      max-width: rem(500);
+      .tooltip-title {
+        background-color: #eeeeee;
+      }
+      .tooltip-subtitle {
+        text-align: center;
+        background-color: #f8f8f8;
+        padding: $global-pad ($global-pad * 2);
+      }
+      .disclaimer-total {
+          margin-bottom: rem(15);
+          padding: rem(0) rem(15);
+          font-size: rem(12);
+          font-style: italic;
+          text-align: center;
+      }
+    }
+  }
+  .federal-accounts__section {
+    height: 100%;
+    width: 100%;
+    .view-buttons {
+      @include viewTypeButton();
+      text-align: right;
+      .view-button {
+        .icon {
+          width: rem(14);
+          height: rem(15);
+          svg {
+            fill: #828080;
+            width: rem(14);
+            height: rem(15);
+          }
         }
+        &.active {
+          background-color: #0066b4;
+          border-color: #0066b4;
+        }
+      }
     }
-    .federal-accounts__section {
-        @extend %coming-soon-idv;
-        height: 200px;
+    .federal-accounts-results {
+      @import 'components/pagination';
+      @import './federalAccountsTable';
+      @import '../../search/results/table/tableMessages';
+      width: 100%;
+      .federal-accounts-table-renderer {
+        width: 100%;
+        overflow-x: scroll;
+        @include media($medium-screen) {
+          overflow-x: auto;
+        }
+      }
+      .federal-accounts-table-holder {
+        width: 100%;
+      }
+      #federal-account-treemap-title {
+        margin-top: 0;
+      }
+      .explorer-cell-title {
+        font-weight: bold;
+      }
+      .results-table-message-container {
+          position: relative;
+          background-color: rgb(246, 246, 246);
+          .results-table-loading {
+            margin-bottom: rem(100);
+          }
+          .no-results-container {
+            text-align: center;
+            margin-top: rem(100);
+            margin-bottom: rem(100);
+            .no-results-title {
+              h4 {
+                margin-bottom: 0;
+                vertical-align: bottom;
+              }
+            }
+            .no-results-message {
+              p {
+                margin-top: 0;
+                vertical-align: top;
+              }
+            }
+          }
+          .loading-animation {
+              @import "../../search/results/screens/loading";
+          }
+      }
+      .explorer-cell-box:hover {
+          background-color: #f49c20;
+      }
     }
+  }
+  .federal-accounts-summary__section {
+    .award-funding-summary__table {
+      margin-bottom: rem(10);
+      .award-funding-summary__data {
+          @extend %column-less-table__row;
+          margin: 0;
+          &:first-of-type {
+              border-radius: rem(5) rem(5) 0 0;
+              border-bottom: 0;
+          }
+          &:last-of-type {
+              border-radius: 0 0 rem(5) rem(5);
+              border-top: 0;
+          }
+      }
+    }
+  }
 }

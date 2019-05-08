@@ -11,9 +11,8 @@ import { scaleLinear } from 'd3-scale';
 import { remove } from 'lodash';
 
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
-
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
-import TreemapCell from './TreemapCell';
+import TreemapCell from 'components/sharedComponents/TreemapCell';
 
 const propTypes = {
     isLoading: PropTypes.bool,

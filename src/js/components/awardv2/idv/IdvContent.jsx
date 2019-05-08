@@ -10,13 +10,13 @@ import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsCo
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import AwardHistory from './AwardHistory';
-import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
-import RelatedAwards from '../visualizations/overview/RelatedAwards';
+import AgencyRecipient from '../shared/overview/AgencyRecipient';
+import RelatedAwards from '../shared/overview/RelatedAwards';
 import IdvDates from './IdvDates';
-import AwardDescription from '../visualizations/description/AwardDescription';
-import AwardAmounts from '../visualizations/amounts/AwardAmounts';
-import AdditionalInfo from '../contract/AdditionalInfo';
-import ComingSoonSection from "./ComingSoonSection";
+import AwardDescription from '../shared/description/AwardDescription';
+import AwardAmounts from './amounts/AwardAmounts';
+import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
+import IdvActivity from './IdvActivity';
 import AwardMetaDataContainer from '../../../containers/awardV2/idv/AwardMetaDataContainer';
 import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
 
@@ -123,13 +123,17 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    <ComingSoonSection includeHeader title="IDV Activity" icon="chart-area" />
-                    <AwardMetaDataContainer jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
+                    <IdvActivity />
+                    <AwardMetaDataContainer
+                        jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>
                 <ReferencedAwardsContainer
                     tableType={this.state.relatedAwardsActiveTab}
                     switchTab={this.setRelatedAwardsTab} />
-                <AwardHistory activeTab={this.state.awardHistoryActiveTab} setActiveTab={this.setHistoryActiveTab} overview={this.props.overview} />
+                <AwardHistory
+                    activeTab={this.state.awardHistoryActiveTab}
+                    setActiveTab={this.setHistoryActiveTab}
+                    overview={this.props.overview} />
                 <AdditionalInfo overview={this.props.overview} />
             </div>
         );
