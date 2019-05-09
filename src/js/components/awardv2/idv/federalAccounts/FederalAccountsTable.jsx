@@ -10,6 +10,9 @@ import { map, uniqueId } from 'lodash';
 import tableMapping from 'dataMapping/awardsv2/federalAccountSectionTable';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
 import Pagination from 'components/sharedComponents/Pagination';
+import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 
 const propTypes = {
     page: PropTypes.number,
@@ -19,7 +22,9 @@ const propTypes = {
     total: PropTypes.number,
     federalAccounts: PropTypes.array,
     changePage: PropTypes.func,
-    updateSort: PropTypes.func
+    updateSort: PropTypes.func,
+    inFlight: PropTypes.bool,
+    error: PropTypes.bool
 };
 
 export default class FederalAccountsTable extends React.Component {
@@ -94,8 +99,17 @@ export default class FederalAccountsTable extends React.Component {
     }
 
     render() {
+        const { inFlight, error, federalAccounts } = this.props;
         return (
             <div className="federal-accounts-table-holder">
+                <div className="results-table-message-container">
+                    {inFlight && <ResultsTableLoadingMessage />}
+                    {(error && !inFlight) && <ResultsTableErrorMessage />}
+                    {(!federalAccounts.length && !inFlight && !error)
+                    && <NoResultsMessage
+                        title="Chart Not Available"
+                        message="No available data to display." />}
+                </div>
                 {this.renderTable()}
                 <Pagination
                     totalItems={this.props.total}
