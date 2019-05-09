@@ -46,7 +46,7 @@ export const recipientTypes = {
     'historically_underutilized_business_firm': 'Historically Underutilized Business (HUBZone) Firm',
     'labor_surplus_area_firm': 'Labor Surplus Area Firm',
     'sba_certified_8a_joint_venture': 'SBA Certified 8a Joint Venture',
-    'self_certified_small_disadvanted_business': 'Self-Certified Disadvantaged Business',
+    'self_certified_small_disadvanted_business': 'Self-Certified Small Disadvantaged Business',
     'small_agricultural_cooperative': 'Small Agricultural Cooperative',
     'small_disadvantaged_business': 'Small Disadvantaged Business',
     'community_developed_corporation_owned_firm': 'Community Developed Corporation Owned Firm',
