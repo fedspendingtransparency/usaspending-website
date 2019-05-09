@@ -191,7 +191,6 @@ export default class FederalAccountsTree extends React.Component {
             return null;
         }
         const { inFlight, error, allFederalAccounts } = this.props;
-        const keys = {};
         const cells = this.state.virtualChart.map((cell) => (
             <TreemapCell
                 {...cell}
@@ -221,10 +220,12 @@ export default class FederalAccountsTree extends React.Component {
                         {cells}
                     </svg>
                 </div>
-                {(!inFlight && !error && allFederalAccounts.length > 0)
-                  && <div className="federal-accounts-treemap-count">
-                      {`${this.props.allFederalAccounts.length} ${naming}`}
-                  </div>}
+                {
+                    (!inFlight && !error && allFederalAccounts.length > 0) &&
+                    <div className="federal-accounts-treemap-count">
+                        {`${this.props.allFederalAccounts.length} ${naming}`}
+                    </div>
+                }
             </div>
         );
     }

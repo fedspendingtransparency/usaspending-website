@@ -91,6 +91,7 @@ export class AwardMetaDataContainer extends React.Component {
             this.allFederalAccountsRequest.cancel();
         }
         this.setState({ inFlightTreemap: true, errorTreemap: false });
+        /* eslint disable-next-line */
         async function* paginationFunction(awardId) {
             let hasNext = true;
             const limit = 10;
