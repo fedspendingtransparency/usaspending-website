@@ -90,6 +90,8 @@
         "jsx-a11y/label-has-for": [1],
         // downgrade array index as React key to warning (though it should be higher, this would
         // be an expensive refactor)
-        "react/no-array-index-key": [1]
+        "react/no-array-index-key": [1],
+        // allow ES6 async generator functions
+        "import/no-named-as-default-member": 0
     }
 }
