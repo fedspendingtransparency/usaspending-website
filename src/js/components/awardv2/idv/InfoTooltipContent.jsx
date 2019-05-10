@@ -222,11 +222,11 @@ export const awardAmountsOverspendingInfo = (
 );
 
 export const awardAmountsExtremeOverspendingInfo = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="info-tt__container exceeds-potential-info-tt">
+        <div className="tooltip__title">
              Exceeds Combined Potential Award Amounts
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 The award orders made underneath this IDV have a combined obligated
                 amount that exceeds their combined potential award amounts. In other
