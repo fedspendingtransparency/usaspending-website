@@ -451,7 +451,6 @@ export const mockAwardFederalAccounts = {
             funding_agency_name: 'Department of the Treasury',
             total_transaction_obligated_amount: 42029539.53
         },
-        
         {
             account_title: 'Program Management, Centers for Medicare and Medicaid Services',
             federal_account: '075-0511',
@@ -460,7 +459,6 @@ export const mockAwardFederalAccounts = {
             funding_agency_name: 'Department of Health and Human Services',
             total_transaction_obligated_amount: 37865386
         },
-        
         {
             account_title: 'Diplomatic and Consular Programs, State',
             federal_account: '019-0113',

@@ -5,42 +5,66 @@
 
 import { formatMoney } from 'helpers/moneyFormatter';
 
-const FederalAccountSummary = {
-    populate(data, total) {
+export default class FederalAccountSummary {
+    constructor(data, total) {
         this._federalAccountName = data.account_title || '';
         this._obligatedAmount = data.total_transaction_obligated_amount || 0;
-        this.federalAccount = data.federal_account || '';
+        this._federalAccount = data.federal_account || '';
         this._percent = (data.total_transaction_obligated_amount / total) * 100;
         this._fundingAgencyName = data.funding_agency_name || '';
         this._fundingAgencyAbbreviation = data.funding_agency_abbreviation || '';
         this._fundingAgencyId = data.funding_agency_id || '';
-    },
-    get federalAccountName() {
-        const maxChars = 36;
-        const upperName = this._federalAccountName.toUpperCase();
-        if (upperName.length <= maxChars) return upperName;
-        const truncated = upperName.substring(0, 36);
-        return `${truncated}...`;
-    },
-    get obligatedAmount() {
-        return formatMoney(this._obligatedAmount);
-    },
-    get percent() {
-        const decimal = this._percent.toFixed(2);
-        if (decimal === '0.00') return 'Less than 0.01%';
-        if (decimal[0] !== '0') {
-            const end = decimal.length - 3;
-            return `${decimal.slice(0, end)}%`;
-        }
-        return `${decimal}%`;
-    },
-    get fundingAgencyName() {
-        const maxChars = 36;
-        const upperName = this._fundingAgencyName.toUpperCase();
-        if (upperName.length <= maxChars) return upperName;
-        const truncated = upperName.substring(0, 36);
-        return `${truncated}...`;
-    }
-};
+        this._total = total || 0;
 
-export default FederalAccountSummary;
+        Object.defineProperties(this, {
+            federalAccountName: {
+                enumerable: true,
+                get: () => {
+                    const maxChars = 36;
+                    const upperName = this._federalAccountName.toUpperCase();
+                    if (upperName.length <= maxChars) return upperName;
+                    const truncated = upperName.substring(0, 36);
+                    return `${truncated}...`;
+                }
+            },
+            obligatedAmount: {
+                enumerable: true,
+                get: () => formatMoney(this._obligatedAmount)
+            },
+            federalAccount: {
+                enumerable: true,
+                get: () => this._federalAccount || ''
+            },
+            percent: {
+                enumerable: true,
+                get: () => {
+                    const decimal = this._percent.toFixed(2);
+                    if (decimal === '0.00') return 'Less than 0.01%';
+                    if (decimal[0] !== '0') {
+                        const end = decimal.length - 3;
+                        return `${decimal.slice(0, end)}%`;
+                    }
+                    return `${decimal}%`;
+                }
+            },
+            fundingAgencyName: {
+                enumerable: true,
+                get: () => {
+                    const maxChars = 36;
+                    const upperName = this._fundingAgencyName.toUpperCase();
+                    if (upperName.length <= maxChars) return upperName;
+                    const truncated = upperName.substring(0, 36);
+                    return `${truncated}...`;
+                }
+            },
+            fundingAgencyAbbreviation: {
+                enumerable: true,
+                get: () => this._fundingAgencyAbbreviation || ''
+            },
+            fundingAgencyId: {
+                enumerable: true,
+                get: () => this._fundingAgencyId || ''
+            }
+        });
+    }
+}

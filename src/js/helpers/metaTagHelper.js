@@ -331,4 +331,20 @@ export const recipientPageMetaTags = {
     twitter_data2: ""
 };
 
+export const accountLandingPageMetaTags = {
+    og_url: "https://usaspending.gov/",
+    og_title: "USAspending.gov",
+    og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    og_site_name: "USAspending.gov",
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`,
+    twitter_title: "USAspending.gov",
+    twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
+    twitter_url: "https://usaspending.gov/",
+    twitter_label1: "",
+    twitter_data1: "",
+    twitter_label2: "",
+    twitter_data2: ""
+};
+
 /* eslint-enable max-len */
