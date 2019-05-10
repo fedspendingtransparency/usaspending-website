@@ -259,6 +259,9 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     selectEntity(level, value) {
+        if (level === 'city' && this.state.state.code !== value.code) {
+            this.setState({ state: this.state.availableStates.find((state) => state.code === value.code) });
+        }
         this.setState({
             [level]: value
         });
@@ -404,8 +407,8 @@ export default class LocationPickerContainer extends React.Component {
     parseCities(results) {
         // Convert the array of strings to an array of objects for consistency
         const availableCities = results.map((city) => ({
-            name: city,
-            code: city
+            name: city.city_name,
+            code: city.state_code
         }));
         this.setState({
             availableCities
