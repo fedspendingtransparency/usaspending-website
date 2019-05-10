@@ -24,7 +24,7 @@ const propTypes = {
         top: PropTypes.number,
         right: PropTypes.number
     }),
-    styles: PropTypes.shape({}) // currently only using width
+    styles: PropTypes.shape({})
 };
 
 const defaultProps = {
