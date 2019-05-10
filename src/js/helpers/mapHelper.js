@@ -477,15 +477,22 @@ export const performZIPGeocode = (zip) => {
 };
 
 export const fetchCityResults = (term) => {
+    console.log("term is : ", term);
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            baseURL: 'http://8839592f.ngrok.io/api/',
+            baseURL: `${kGlobalConstants.API}`,
             url: `v2/autocomplete/city/`,
-            params: {
-                search_text: term
+            data: {
+                search_text: `Springfield`,
+                limit: 40,
+                filter: {
+                    country_code: `USA`,
+                    scope: `recipient_location`,
+                    state_code: `SC`
+                }
             },
-            method: 'get',
+            method: 'post',
             cancelToken: source.token
         }),
         cancel() {
