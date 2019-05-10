@@ -15,7 +15,8 @@ import {
     faChartBar,
     faEllipsisH,
     faAngleDown,
-    faAngleRight
+    faAngleRight,
+    faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -40,7 +41,8 @@ library.add(
     faChartBar,
     faEllipsisH,
     faAngleDown,
-    faAngleRight
+    faAngleRight,
+    faInfoCircle
 );
 
 const appDiv = document.getElementById('app');
