@@ -386,6 +386,7 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     fetchCityAutocomplete() {
+        // TODO dev-2642: Add loading and no results state
         if (this.cityRequest) {
             this.cityRequest.cancel();
         }
