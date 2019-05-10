@@ -477,7 +477,6 @@ export const performZIPGeocode = (zip) => {
 };
 
 export const fetchCityResults = (term) => {
-    console.log("term is : ", term);
     const source = CancelToken.source();
     return {
         promise: Axios.request({
