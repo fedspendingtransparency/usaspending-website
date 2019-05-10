@@ -40,19 +40,14 @@ export default class EntityDropdownAutocomplete extends React.Component {
         this.dropdownRef = null;
 
         this.toggleDropdown = this.toggleDropdown.bind(this);
+        this.openDropdown = this.openDropdown.bind(this);
         this.closeDropdown = this.closeDropdown.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.clickedItem = this.clickedItem.bind(this);
         this.handleDeselection = this.handleDeselection.bind(this);
 
         this.mouseEnter = this.mouseEnter.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
-    }
-
-    componentDidUpdate(prevProps) {
-        // Show the autocomplete results when they first become available
-        if (prevProps.options.length === 0 && this.props.options.length > 0) {
-            this.openDropdown();
-        }
     }
 
     onChange(e) {
@@ -155,7 +150,8 @@ export default class EntityDropdownAutocomplete extends React.Component {
                             disabled={!this.props.enabled}
                             type="text"
                             value={this.props.searchString}
-                            onChange={this.onChange.bind(this)}
+                            onClick={this.openDropdown}
+                            onChange={this.onChange}
                             placeholder={this.props.placeholder} />
                         {dropdown}
                     </div>
