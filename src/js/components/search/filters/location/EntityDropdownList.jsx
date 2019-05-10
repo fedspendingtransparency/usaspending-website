@@ -11,7 +11,12 @@ const propTypes = {
     matchKey: PropTypes.string,
     options: PropTypes.array,
     value: PropTypes.object,
-    clickedItem: PropTypes.func
+    clickedItem: PropTypes.func,
+    showNameAndCode: PropTypes.bool
+};
+
+const defaultProps = {
+    showNameAndCode: false
 };
 
 const alphabetRegex = /([a-z]|[0-9])/;
@@ -33,6 +38,8 @@ const EntityDropdownList = (props) => {
             }
         }
 
+        const displayText = (props.showNameAndCode) ? `${item.name}, ${item.code}` : item.name;
+
         return (
             <li
                 key={item.code}>
@@ -42,7 +49,7 @@ const EntityDropdownList = (props) => {
                     aria-label={item.name}
                     data-listindex={i}
                     onClick={props.clickedItem.bind(null, item)}>
-                    {item.name}
+                    {displayText}
                 </button>
             </li>
         );
@@ -59,5 +66,6 @@ const EntityDropdownList = (props) => {
 };
 
 EntityDropdownList.propTypes = propTypes;
+EntityDropdownList.defaultProps = defaultProps;
 
 export default EntityDropdownList;
