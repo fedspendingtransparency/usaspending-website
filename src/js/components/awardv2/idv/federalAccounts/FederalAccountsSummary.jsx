@@ -30,7 +30,7 @@ const FederalAccountsSummary = ({
                     </span>
                 </div>
                 <div className="award-funding-summary__data">
-                    <span>Total Count Of Funding Agencies</span>
+                    <span>Total Count of Funding Agencies</span>
                     <span>{awardingAgencyCount}</span>
                 </div>
                 <div className="award-funding-summary__data">

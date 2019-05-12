@@ -47,7 +47,6 @@ export class AwardMetaDataContainer extends React.Component {
         await this.getAwardMetaData();
         await this.getAllFederalAccounts();
         await this.getFederalAccounts();
-        
     }
 
     async componentDidUpdate(prevProps) {
@@ -55,7 +54,6 @@ export class AwardMetaDataContainer extends React.Component {
             await this.getAwardMetaData();
             await this.getAllFederalAccounts();
             await this.getFederalAccounts();
-            
         }
     }
 
@@ -93,20 +91,20 @@ export class AwardMetaDataContainer extends React.Component {
         this.setState({ inFlightTreemap: true, errorTreemap: false });
         async function* paginationFunction(awardId) {
             let hasNext = true;
-            const limit = 10;
+            const limit = 100;
             const sort = 'total_transaction_obligated_amount';
             let page = 1;
             const order = 'desc';
             while (hasNext) {
                 this.allFederalAccountsRequest = fetchAwardFederalAccounts({
-                  limit, sort, page, order, award_id: awardId
+                    limit, sort, page, order, award_id: awardId
                 });
                 const response = await this.allFederalAccountsRequest.promise;
                 hasNext = response.data.page_metadata.hasNext;
                 page++;
                 yield response.data;
             }
-        };
+        }
         async function handleResponse(awardId) {
             const iterator = paginationFunction(awardId);
             const allFederalAccounts = [];
@@ -116,7 +114,7 @@ export class AwardMetaDataContainer extends React.Component {
                 totalAccounts = federalAccounts.page_metadata.count;
             }
             return { allFederalAccounts, totalAccounts };
-        };
+        }
         try {
             const allFederalAccounts = await handleResponse(this.props.awardId);
             this.parseAllFederalAccounts(allFederalAccounts);
@@ -166,7 +164,8 @@ export class AwardMetaDataContainer extends React.Component {
     parseAllFederalAccounts(data) {
         const allFederalAccounts = data.allFederalAccounts.reduce((result, account) => {
             if (account.total_transaction_obligated_amount > 0) {
-                result.push(new FederalAccountSummary(account, this.state.totalTransactionObligatedAmount));
+                result.push(
+                    new FederalAccountSummary(account, this.state.totalTransactionObligatedAmount));
             }
             return result;
         }, []);

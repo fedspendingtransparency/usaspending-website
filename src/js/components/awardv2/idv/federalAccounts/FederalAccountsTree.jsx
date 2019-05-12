@@ -191,6 +191,14 @@ export default class FederalAccountsTree extends React.Component {
             return null;
         }
         const { inFlight, error, allFederalAccounts } = this.props;
+
+        const naming = allFederalAccounts.length === 1 ? 'result' : 'results';
+        let loadingMessage = null;
+        let errorMessage = null;
+        let noResultsMessage = null;
+        let resultsCount = null;
+        let treeMap = null;
+
         const cells = this.state.virtualChart.map((cell) => (
             <TreemapCell
                 {...cell}
@@ -200,32 +208,47 @@ export default class FederalAccountsTree extends React.Component {
                 showTooltip={this.props.showTooltip}
                 hideTooltip={this.props.hideTooltip} />
         ));
-        const naming = this.props.allFederalAccounts.length === 1 ? 'result' : 'results';
+
+        if (inFlight) {
+            loadingMessage = (<ResultsTableLoadingMessage />);
+        }
+        if (error) {
+            errorMessage = (<ResultsTableErrorMessage />);
+        }
+        if ((allFederalAccounts.length === 0) && !error && !inFlight) {
+            noResultsMessage = (<NoResultsMessage
+                title="Chart Not Available"
+                message="No available data to display." />);
+        }
+        if ((allFederalAccounts.length !== 0) && !error && !inFlight) {
+            resultsCount = (
+                <div className="federal-accounts-treemap-count">
+                    {`${this.props.allFederalAccounts.length} ${naming}`}
+                </div>
+            );
+        }
+        if ((allFederalAccounts.length > 0) && !error && !inFlight) {
+            treeMap = (
+                <svg
+                    className="treemap"
+                    width="100%"
+                    height={this.props.height}>
+                    {cells}
+                </svg>
+            );
+        }
         return (
             <div>
                 <h4 id="federal-account-treemap-title">Federal Accounts</h4>
                 <div className="results-table-message-container">
-                    {inFlight && <ResultsTableLoadingMessage />}
-                    {(error && !inFlight) && <ResultsTableErrorMessage />}
-                    {(!allFederalAccounts.length && !inFlight && !error)
-                    && <NoResultsMessage
-                        title="Chart Not Available"
-                        message="No available data to display." />}
+                    {loadingMessage}
+                    {errorMessage}
+                    {noResultsMessage}
                 </div>
                 <div className="federal-accounts-treemap">
-                    <svg
-                        className="treemap"
-                        width="100%"
-                        height={this.props.height}>
-                        {cells}
-                    </svg>
+                    {treeMap}
                 </div>
-                {
-                    (!inFlight && !error && allFederalAccounts.length > 0) &&
-                    <div className="federal-accounts-treemap-count">
-                        {`${this.props.allFederalAccounts.length} ${naming}`}
-                    </div>
-                }
+                {resultsCount}
             </div>
         );
     }
