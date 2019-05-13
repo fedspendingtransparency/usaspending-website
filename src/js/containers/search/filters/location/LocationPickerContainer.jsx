@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { concat } from 'lodash';
 
-import { fetchLocationList, performZIPGeocode, fetchCityResults } from 'helpers/mapHelper';
+import { fetchLocationList, performZIPGeocode, fetchCityResults, getCitySearchRequestObj } from 'helpers/mapHelper';
 
 import LocationPicker from 'components/search/filters/location/LocationPicker';
 
@@ -87,6 +87,7 @@ export default class LocationPickerContainer extends React.Component {
         this.validateZip = this.validateZip.bind(this);
 
         this.setCitySearchString = this.setCitySearchString.bind(this);
+        this.fetchCityAutocomplete = this.fetchCityAutocomplete.bind(this);
     }
 
     componentDidMount() {
@@ -391,7 +392,12 @@ export default class LocationPickerContainer extends React.Component {
             this.cityRequest.cancel();
         }
 
-        this.cityRequest = fetchCityResults(this.state.citySearchString);
+        // const { citySearchString, country, state } = this.state;
+
+        // const req = getCitySearchRequestObj(citySearchString, state.code, country.code);
+
+        // this.cityRequest = fetchCityResults(req);
+        this.cityRequest = fetchCityResults();
 
         this.cityRequest.promise
             .then((res) => {
