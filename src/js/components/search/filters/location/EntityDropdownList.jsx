@@ -39,6 +39,7 @@ const EntityDropdownList = (props) => {
         }
 
         const displayText = (props.showNameAndCode) ? `${item.name}, ${item.code}` : item.name;
+        const handleSelection = props.clickedItem.bind(null, item);
 
         return (
             <li
@@ -48,7 +49,7 @@ const EntityDropdownList = (props) => {
                     title={item.name}
                     aria-label={item.name}
                     data-listindex={i}
-                    onClick={props.clickedItem.bind(null, item)}>
+                    onMouseDown={handleSelection}>
                     {displayText}
                 </button>
             </li>

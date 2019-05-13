@@ -46,8 +46,8 @@ export default class EntityDropdownAutocomplete extends React.Component {
         this.clickedItem = this.clickedItem.bind(this);
         this.handleDeselection = this.handleDeselection.bind(this);
 
-        this.mouseEnter = this.mouseEnter.bind(this);
-        this.mouseLeave = this.mouseLeave.bind(this);
+        this.showWarning = this.showWarning.bind(this);
+        this.hideWarning = this.hideWarning.bind(this);
     }
 
     onChange(e) {
@@ -90,7 +90,7 @@ export default class EntityDropdownAutocomplete extends React.Component {
         this.closeDropdown();
     }
 
-    mouseEnter() {
+    showWarning() {
         if (this.props.enabled) {
             // active filter, do nothing
             return;
@@ -101,7 +101,7 @@ export default class EntityDropdownAutocomplete extends React.Component {
         });
     }
 
-    mouseLeave() {
+    hideWarning() {
         if (this.state.showWarning) {
             this.setState({
                 showWarning: false
@@ -137,10 +137,10 @@ export default class EntityDropdownAutocomplete extends React.Component {
                     <div
                         id={`${this.props.scope}-autocomplete`}
                         className={`geo-entity-dropdown geo-entity-dropdown_autocomplete ${disabled}`}
-                        onMouseOver={this.mouseEnter}
-                        onFocus={this.mouseEnter}
-                        onMouseOut={this.mouseLeave}
-                        onBlur={this.mouseLeave}
+                        onMouseOver={this.showWarning}
+                        onFocus={this.showWarning}
+                        onMouseOut={this.hideWarning}
+                        onBlur={this.hideWarning}
                         tabIndex={-1}
                         ref={(div) => {
                             this.wrapperDiv = div;
@@ -152,7 +152,8 @@ export default class EntityDropdownAutocomplete extends React.Component {
                             value={this.props.searchString}
                             onClick={this.openDropdown}
                             onChange={this.onChange}
-                            placeholder={this.props.placeholder} />
+                            placeholder={this.props.placeholder}
+                            onBlur={this.closeDropdown} />
                         {dropdown}
                     </div>
                 </label>
