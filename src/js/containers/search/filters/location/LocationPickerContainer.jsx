@@ -334,7 +334,6 @@ export default class LocationPickerContainer extends React.Component {
     addLocation() {
         const locationObject = this.createLocationObject();
         if (locationObject) {
-            console.log("UYEEEEEEEAAAAAAAAHHHHHHHH>>>>.......", locationObject);
             this.props.addLocation(locationObject);
         }
     }
