@@ -289,12 +289,12 @@ export default class LocationPickerContainer extends React.Component {
         if (this.state.city.name !== '') {
             location.city = this.state.city.name;
             title = this.state.city.name;
-            standalone = this.state.city.name;
+            standalone = `${this.state.city.name}, ${this.state.state.code}`;
             entity = 'City';
             identifier += `_${this.state.city.name}`;
         }
 
-        if (this.state.state.code !== '') {
+        else if (this.state.state.code !== '') {
             location.state = this.state.state.code;
             title = this.state.state.name;
             standalone = this.state.state.name;
@@ -334,6 +334,7 @@ export default class LocationPickerContainer extends React.Component {
     addLocation() {
         const locationObject = this.createLocationObject();
         if (locationObject) {
+            console.log("UYEEEEEEEAAAAAAAAHHHHHHHH>>>>.......", locationObject);
             this.props.addLocation(locationObject);
         }
     }
@@ -389,16 +390,12 @@ export default class LocationPickerContainer extends React.Component {
 
     fetchCityAutocomplete() {
         // TODO dev-2642: Add loading and no results state
+        const { citySearchString, country, state } = this.state;
         if (this.cityRequest) {
             this.cityRequest.cancel();
         }
 
-        // const { citySearchString, country, state } = this.state;
-
-        // const req = getCitySearchRequestObj(citySearchString, state.code, country.code, this.props.scope);
-
-        // this.cityRequest = fetchCityResults(req);
-        this.cityRequest = fetchCityResults();
+        this.cityRequest = fetchCityResults(getCitySearchRequestObj(citySearchString, state.code, country.code, this.props.scope));
 
         this.cityRequest.promise
             .then((res) => {
