@@ -16,7 +16,7 @@ import IdvDates from './IdvDates';
 import AwardDescription from '../shared/description/AwardDescription';
 import AwardAmounts from './amounts/AwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
-import IdvActivity from './IdvActivity';
+import IdvActivityContainer from 'containers/awardv2/idv/IdvActivityContainer';
 import AwardMetaDataContainer from '../../../containers/awardV2/idv/AwardMetaDataContainer';
 import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
 
@@ -123,7 +123,7 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    <IdvActivity />
+                    <IdvActivityContainer />
                     <AwardMetaDataContainer
                         jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>
