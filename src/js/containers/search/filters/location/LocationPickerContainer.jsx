@@ -289,7 +289,7 @@ export default class LocationPickerContainer extends React.Component {
         if (this.state.city.name !== '') {
             location.city = this.state.city.name;
             title = this.state.city.name;
-            standalone = `${this.state.city.name}, ${this.state.state.code}`;
+            standalone = `${this.state.city.name}`;
             entity = 'City';
             identifier += `_${this.state.city.name}`;
         }
@@ -398,7 +398,12 @@ export default class LocationPickerContainer extends React.Component {
 
         this.cityRequest.promise
             .then((res) => {
-                this.parseCities(res.data.results);
+                if (res.data.results.length === 0) {
+                    this.parseCities([{ city_name: "No results found", state_code: "NA-000 " }]);
+                }
+                else {
+                    this.parseCities(res.data.results);
+                }
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -409,13 +414,13 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     parseCities(results) {
-        // Convert the array of strings to an array of objects for consistency
-        const availableCities = results.map((city) => ({
-            name: city.city_name,
-            code: city.state_code
-        }));
         this.setState({
-            availableCities
+            availableCities: results.map((city) => ({
+                name: (city.state_code === "NA-000")
+                    ? city.city_name
+                    : `${city.city_name}, ${city.state_code}`,
+                code: city.state_code
+            }))
         });
     }
 
