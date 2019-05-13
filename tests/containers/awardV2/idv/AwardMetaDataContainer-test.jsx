@@ -14,6 +14,7 @@ jest.mock("helpers/idvHelper", () => require("./mockIdvHelper"));
 describe("AwardMetaDataContainer", () => {
     let container;
     const mockGetAwardMetaData = jest.fn();
+    const getAllFederalAccounts = jest.fn();
     const getFederalAccounts = jest.fn();
 
     beforeEach(() => {
@@ -21,6 +22,7 @@ describe("AwardMetaDataContainer", () => {
     });
 
     it("componentDidMount -- makes api call then updates state", async () => {
+        container.instance().getAllFederalAccounts = getAllFederalAccounts;
         container.instance().getFederalAccounts = getFederalAccounts;
         await container.instance().componentDidMount();
         const { state } = container.instance();
@@ -28,14 +30,17 @@ describe("AwardMetaDataContainer", () => {
             .toEqual(mockAwardFundingMetaData.total_transaction_obligated_amount);
         expect(state.awardingAgencyCount).toEqual(mockAwardFundingMetaData.awarding_agency_count);
         expect(state.federalAccountCount).toEqual(mockAwardFundingMetaData.federal_account_count);
+        expect(getAllFederalAccounts).toHaveBeenCalled();
         expect(getFederalAccounts).toHaveBeenCalled();
     });
 
     it("componentDidUpdate -- makes api call w/ new award id", async () => {
         container.instance().getAwardMetaData = mockGetAwardMetaData;
+        container.instance().getAllFederalAccounts = getAllFederalAccounts;
         container.instance().getFederalAccounts = getFederalAccounts;
         container.setProps({ awardId: "456" });
         expect(mockGetAwardMetaData).toHaveBeenCalled();
+        expect(getAllFederalAccounts).toHaveBeenCalled();
         expect(getFederalAccounts).toHaveBeenCalled();
     });
 
