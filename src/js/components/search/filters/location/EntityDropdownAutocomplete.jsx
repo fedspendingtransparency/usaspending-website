@@ -114,7 +114,6 @@ export default class EntityDropdownAutocomplete extends React.Component {
         if (this.state.expanded) {
             dropdown = (
                 <EntityDropdownList
-                    showNameAndCode
                     matchKey={this.props.matchKey}
                     scope={this.props.scope}
                     value={this.props.value}
