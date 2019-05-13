@@ -1,6 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import { fetchIdvActivity } from 'helpers/idvHelper';
@@ -86,7 +86,8 @@ export class IdvActivityContainer extends React.Component {
 
     render() {
         return (
-            <IdvActivity />
+            <IdvActivity
+                {...this.state} />
         );
     }
 }
