@@ -369,6 +369,16 @@ export const visualizationColors = [
     '#083546'
 ];
 
+const defaultCitySearchRequestObj = {
+    search_text: `Springfield`,
+    limit: 40,
+    filter: {
+        country_code: `USA`,
+        scope: `recipient_location`,
+        state_code: `SC`
+    }
+};
+
 
 export const stateNameFromCode = (code) => {
     if ({}.hasOwnProperty.call(stateNames, code)) {
@@ -476,21 +486,14 @@ export const performZIPGeocode = (zip) => {
     };
 };
 
-export const fetchCityResults = (term) => {
+export const fetchCityResults = (citySearchRequestObj = defaultCitySearchRequestObj) => {
     const source = CancelToken.source();
+
     return {
         promise: Axios.request({
             baseURL: `${kGlobalConstants.API}`,
             url: `v2/autocomplete/city/`,
-            data: {
-                search_text: `Springfield`,
-                limit: 40,
-                filter: {
-                    country_code: `USA`,
-                    scope: `recipient_location`,
-                    state_code: `SC`
-                }
-            },
+            data: citySearchRequestObj,
             method: 'post',
             cancelToken: source.token
         }),
