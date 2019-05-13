@@ -23,11 +23,11 @@ export default class IDVAmounts extends React.Component {
                         <span>{awards.totalObligationFormatted}</span>
                     </div>
                     <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Base &#38; Exercised Options</div>
+                        <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Current Award Amount</div>
                         <span>{awards.baseExercisedOptionsFormatted}</span>
                     </div>
                     <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Base &#38; All Options</div>
+                        <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Potential Award Amount</div>
                         <span>{awards.baseAndAllOptionsFormatted}</span>
                     </div>
                 </div>
