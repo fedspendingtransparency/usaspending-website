@@ -399,7 +399,7 @@ export default class LocationPickerContainer extends React.Component {
         this.cityRequest.promise
             .then((res) => {
                 if (res.data.results.length === 0) {
-                    this.parseCities([{ city_name: "No matching results", state_code: "NA-000 " }]);
+                    this.parseCities([{ city_name: "No matching results", state_code: "NA-000" }]);
                 }
                 else {
                     this.parseCities(res.data.results);
