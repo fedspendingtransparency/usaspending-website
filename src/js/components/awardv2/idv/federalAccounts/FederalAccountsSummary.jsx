@@ -7,6 +7,7 @@ import { Table } from "../../../sharedComponents/icons/Icons";
 const propTypes = {
     totalTransactionObligatedAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     awardingAgencyCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    fundingAgencyCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     federalAccountCount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     jumpToFederalAccountsHistory: PropTypes.func
 };
@@ -14,6 +15,7 @@ const propTypes = {
 const FederalAccountsSummary = ({
     totalTransactionObligatedAmount,
     awardingAgencyCount,
+    fundingAgencyCount,
     federalAccountCount,
     jumpToFederalAccountsHistory
 }) => (
@@ -30,8 +32,16 @@ const FederalAccountsSummary = ({
                     </span>
                 </div>
                 <div className="award-funding-summary__data">
+<<<<<<< HEAD
                     <span>Total Count of Funding Agencies</span>
+=======
+                    <span>Total Count of Awarding Agencies</span>
+>>>>>>> Dev-2628 add awarding agency to federal account summary table
                     <span>{awardingAgencyCount}</span>
+                </div>
+                <div className="award-funding-summary__data">
+                    <span>Total Count of Funding Agencies</span>
+                    <span>{fundingAgencyCount}</span>
                 </div>
                 <div className="award-funding-summary__data">
                     <span>Total Count of Federal Accounts</span>
