@@ -24,6 +24,7 @@ const EntityDropdownList = (props) => {
         }
 
         let letterClass = '';
+        const noResultsFound = item.code === "NA-000" ? "no-matching-results" : "";
         // variable matchKeys allow us to match by numeric codes for congressional district
         // instead of display name
         if (item[props.matchKey] !== '') {
@@ -39,7 +40,7 @@ const EntityDropdownList = (props) => {
             <li
                 key={item.code}>
                 <button
-                    className={`list-item ${active} letter-${letterClass}`}
+                    className={`list-item ${active} letter-${letterClass} ${noResultsFound}`}
                     title={item.name}
                     aria-label={item.name}
                     data-listindex={i}

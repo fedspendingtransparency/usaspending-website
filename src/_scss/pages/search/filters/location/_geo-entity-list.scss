@@ -30,4 +30,10 @@
             color: $color-primary;
         }
     }
+    .no-matching-results {
+        color: red;
+        &:hover {
+            color: red;
+        }
+    }
 }
