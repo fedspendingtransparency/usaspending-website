@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash';
 
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
@@ -204,7 +203,7 @@ export default class FederalAccountsTree extends React.Component {
             <TreemapCell
                 {...cell}
                 highlightColor="#f49c20"
-                key={`${uniqueId(cell.data.federalAccount)}`}
+                key={`${cell.data.federalAccount}${cell.data.fundingAgencyId}`}
                 selectedCell={this.selectedCell}
                 showTooltip={this.props.showTooltip}
                 hideTooltip={this.props.hideTooltip} />
