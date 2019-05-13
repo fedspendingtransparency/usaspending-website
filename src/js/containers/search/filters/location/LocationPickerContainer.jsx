@@ -14,7 +14,8 @@ import LocationPicker from 'components/search/filters/location/LocationPicker';
 
 const propTypes = {
     selectedLocations: PropTypes.object,
-    addLocation: PropTypes.func
+    addLocation: PropTypes.func,
+    scope: PropTypes.string // one of "recipient_location", "primary_place_of_performance"
 };
 
 const defaultSelections = {
@@ -394,7 +395,7 @@ export default class LocationPickerContainer extends React.Component {
 
         // const { citySearchString, country, state } = this.state;
 
-        // const req = getCitySearchRequestObj(citySearchString, state.code, country.code);
+        // const req = getCitySearchRequestObj(citySearchString, state.code, country.code, this.props.scope);
 
         // this.cityRequest = fetchCityResults(req);
         this.cityRequest = fetchCityResults();

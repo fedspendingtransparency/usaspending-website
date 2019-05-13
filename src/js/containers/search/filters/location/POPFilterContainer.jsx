@@ -43,6 +43,7 @@ export class POPFilterContainer extends React.Component {
         return (
             <div>
                 <LocationPickerContainer
+                    scope="primary_place_of_performance"
                     selectedLocations={this.props.selectedLocations}
                     addLocation={this.addLocation} />
                 <SelectedLocations
