@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ComingSoonSection from "./ComingSoonSection";
-import InfoTooltip from './InfoTooltip';
-import { idvActivityInfo } from './InfoTooltipContent';
+import ComingSoonSection from "../ComingSoonSection";
+import InfoTooltip from '../InfoTooltip';
+import { idvActivityInfo } from '../InfoTooltipContent';
 
 const propTypes = {
 };
