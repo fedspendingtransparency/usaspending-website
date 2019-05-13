@@ -20,7 +20,6 @@ const plugins = [
     ],
     "@babel/plugin-transform-runtime",
     "@babel/plugin-proposal-object-rest-spread",
-    "@babel/plugin-proposal-async-generator-functions",
     "react-hot-loader/babel"
 ];
 

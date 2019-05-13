@@ -108,12 +108,10 @@ export class AwardMetaDataContainer extends React.Component {
         async function handleResponse(awardId) {
             const iterator = paginationFunction(awardId);
             const allFederalAccounts = [];
-            let totalAccounts = 0;
             for await (const federalAccounts of iterator) {
                 allFederalAccounts.push(...federalAccounts.results);
-                totalAccounts = federalAccounts.page_metadata.count;
             }
-            return { allFederalAccounts, totalAccounts };
+            return allFederalAccounts;
         }
         try {
             const allFederalAccounts = await handleResponse(this.props.awardId);
@@ -162,7 +160,7 @@ export class AwardMetaDataContainer extends React.Component {
     }
 
     parseAllFederalAccounts(data) {
-        const allFederalAccounts = data.allFederalAccounts.reduce((result, account) => {
+        const allFederalAccounts = data.reduce((result, account) => {
             if (account.total_transaction_obligated_amount > 0) {
                 result.push(
                     new FederalAccountSummary(account, this.state.totalTransactionObligatedAmount));
@@ -170,7 +168,6 @@ export class AwardMetaDataContainer extends React.Component {
             return result;
         }, []);
         this.setState({
-            total: data.totalAccounts,
             allFederalAccounts,
             inFlightTreemap: false,
             errorTreemap: false
