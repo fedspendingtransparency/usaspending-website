@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ComingSoonSection from "../ComingSoonSection";
@@ -6,10 +7,34 @@ import InfoTooltip from '../InfoTooltip';
 import { idvActivityInfo } from '../InfoTooltipContent';
 
 const propTypes = {
+    awards: PropTypes.array,
+    comingSoon: PropTypes.bool,
+    inFlight: PropTypes.bool,
+    error: PropTypes.bool,
+    page: PropTypes.number,
+    count: PropTypes.number
 };
 
 export default class IdvActivity extends React.Component {
     render() {
+        let content = (
+            <ComingSoonSection className="idv-activity__section" />
+        );
+        if (!this.props.comingSoon) {
+            if (this.props.inFlight) {
+                content = (<p>Loading...</p>);
+            }
+            else if (this.props.error) {
+                content = (<p>There was an error loading the data.</p>);
+            }
+            else if (this.props.awards.length === 0) {
+                content = (<p>No results found.</p>);
+            }
+            else {
+                content = (<p>Chart here.</p>);
+            }
+        }
+
         return (
             <div className="award__col award-viz idv-activity">
                 <div className="award__col__content">
@@ -23,7 +48,7 @@ export default class IdvActivity extends React.Component {
                         </InfoTooltip>
                     </div>
                     <hr />
-                    <ComingSoonSection className="idv-activity__section" />
+                    {content}
                 </div>
             </div>
         );
