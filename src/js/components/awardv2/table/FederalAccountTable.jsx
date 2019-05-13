@@ -78,6 +78,9 @@ export default class FedAccountTable extends React.Component {
         if (column === 'fedAccount') {
             isLink = item.accountNumber && `#/federal_account/${item.accountNumber}`;
         }
+        if (column === 'awardingAgencyName') {
+            isLink = item.awardingAgencyName && `#/agency/${item.awardingAgencyName}`;
+        }
         return (
             <FederalAccountTableGenericCell
                 rowIndex={rowIndex}
