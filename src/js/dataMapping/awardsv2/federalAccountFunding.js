@@ -38,7 +38,7 @@ const tableMapping = {
         _sortFields: {
             submissionDate: 'reporting_fiscal_date',
             id: 'piid',
-            agency: 'reporting_agency_name',
+            agency: 'funding_agency_name',
             awardingAgencyName: 'awarding_agency_name',
             fedAccount: 'account_title',
             programActivity: 'program_activity',
