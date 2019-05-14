@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
-
 import EntityDropdownList from './EntityDropdownList';
 
 const propTypes = {
