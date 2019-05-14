@@ -1,15 +1,17 @@
 .geo-entity-list {
     @include unstyled-list;
     z-index: $z-header - 1;
-
-    position: absolute;
-    top: rem(25);
-
     background-color: $color-white;
     border: 1px solid $color-gray-lighter;
     box-shadow: $box-shadow;
-
     max-height: rem(680);
+    margin: 0;
+    list-style-type: none;
+    padding-left: 0;
+    background-color: #fff;
+    border: 1px solid #d6d7d9;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    width: 100%;
     overflow-y: auto;
 
     li {
