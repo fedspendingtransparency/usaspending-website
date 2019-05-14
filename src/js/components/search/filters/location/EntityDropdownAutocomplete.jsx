@@ -86,7 +86,9 @@ export default class EntityDropdownAutocomplete extends React.Component {
 
     clickedItem(item) {
         this.props.setSearchString(item.name);
-        this.props.selectEntity(this.props.scope, item);
+        if (item.code !== "NA-000") {
+            this.props.selectEntity(this.props.scope, item);
+        }
         this.closeDropdown();
     }
 
