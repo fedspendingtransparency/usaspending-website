@@ -13,7 +13,9 @@ const propTypes = {
     page: PropTypes.number,
     count: PropTypes.number,
     changePage: PropTypes.func,
-    awards: PropTypes.array
+    awards: PropTypes.array,
+    xSeries: PropTypes.array,
+    ySeries: PropTypes.array
 };
 
 export default class IdvActivityVisualization extends React.Component {
@@ -31,6 +33,8 @@ export default class IdvActivityVisualization extends React.Component {
         const chart = (
             <ActivityChart
                 awards={this.props.awards}
+                xSeries={this.props.xSeries}
+                ySeries={this.props.ySeries}
                 height={height} />
         );
         return (

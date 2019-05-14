@@ -14,7 +14,9 @@ const propTypes = {
     error: PropTypes.bool,
     page: PropTypes.number,
     count: PropTypes.number,
-    changePage: PropTypes.func
+    changePage: PropTypes.func,
+    xSeries: PropTypes.array,
+    ySeries: PropTypes.array
 };
 
 export default class IdvActivity extends React.Component {
@@ -37,7 +39,9 @@ export default class IdvActivity extends React.Component {
                     page={this.props.page}
                     count={this.props.count}
                     awards={this.props.awards}
-                    changePage={this.props.changePage} />);
+                    changePage={this.props.changePage}
+                    xSeries={this.props.xSeries}
+                    ySeries={this.props.ySeries} />);
             }
         }
 
