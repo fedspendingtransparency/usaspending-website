@@ -18,6 +18,10 @@ const propTypes = {
     scope: PropTypes.string // one of "recipient_location", "primary_place_of_performance"
 };
 
+const defaultProps = {
+    scope: "primary_place_of_performance"
+};
+
 const defaultSelections = {
     country: {
         code: '',
@@ -475,3 +479,4 @@ export default class LocationPickerContainer extends React.Component {
 }
 
 LocationPickerContainer.propTypes = propTypes;
+LocationPickerContainer.defaultProps = defaultProps;
