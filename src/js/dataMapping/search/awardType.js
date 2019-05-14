@@ -3,26 +3,21 @@
   * Created by Kevin Li 11/4/16
   **/
 
+import { longTypeDescriptionsByAwardTypes } from "../../dataMapping/awardsv2/longAwardTypeDescriptions";
+
 /* eslint-disable quote-props */
 // disable quote-props for consistency sake (we need leading zeroes)
 export const awardTypeCodes = {
-    'A': 'Blanket Purchase Agreements (BPA) Calls',
-    'B': 'Purchase Orders (PO)',
-    'C': 'Delivery Orders (DO)',
-    'D': 'Definitive Contracts',
-    'E': 'Unknown Type',
-    'F': 'Cooperative Agreement',
-    'G': 'Grant for Research',
-    'S': 'Funded Space Act Agreement',
-    'T': 'Training Grant',
-    'IDV_A': 'Government-Wide Acquisition Contract (GWAC)',
-    'IDV_B': 'Multi-Agency Contract, Other Indefinite Delivery Contract (IDC)',
-    'IDV_B_A': 'IDC Indefinite Delivery Contract / Requirements',
-    'IDV_B_B': 'IDC Indefinite Delivery Contract / Indefinite Quantity',
-    'IDV_B_C': 'IDC Indefinite Delivery Contract / Definite Quantity',
-    'IDV_C': 'Federal Supply Schedule (FSS)',
-    'IDV_D': 'Basic Ordering Agreement (BOA)',
-    'IDV_E': 'Blanket Purchase Agreements (BPA)',
+    A: 'Blanket Purchase Agreements (BPA) Calls',
+    B: 'Purchase Orders (PO)',
+    C: 'Delivery Orders (DO)',
+    D: 'Definitive Contracts',
+    E: 'Unknown Type',
+    F: 'Cooperative Agreement',
+    G: 'Grant for Research',
+    S: 'Funded Space Act Agreement',
+    T: 'Training Grant',
+    ...longTypeDescriptionsByAwardTypes,
     '02': 'Block Grant',
     '03': 'Formula Grant',
     '04': 'Project Grant',
