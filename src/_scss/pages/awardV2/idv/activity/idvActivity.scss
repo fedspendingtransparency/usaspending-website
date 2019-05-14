@@ -1,0 +1,15 @@
+$obligated-green: #94BFA2;
+.idv-activity {
+    .activity-visualization {
+        @import '../../../../components/pagination';
+        @import '../../../../components/visualizations/legend';
+        .visualization-legend {
+            .visualization-legend__circle {
+                background-color: $color-gray-light;
+                &.visualization-legend__circle_obligated {
+                    background-color: $obligated-green;
+                }
+            }
+        }
+    }
+}
