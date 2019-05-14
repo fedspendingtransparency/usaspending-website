@@ -257,6 +257,19 @@ describe('LocationPickerContainer', () => {
                 const location = container.instance().createLocationObject();
                 expect(location.identifier).toEqual('ABC_AK_99');
             });
+            it('when a city is selected, it creates the right object', () => {
+                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+                container.setState({
+                    country: {
+                        code: 'ABC',
+                        name: 'A Big Country'
+                    },
+                    city: { name: "test, TST" }
+                });
+
+                const location = container.instance().createLocationObject();
+                expect(location.identifier).toEqual('ABC_test');
+            });
         });
 
         describe('API filter object', () => {
