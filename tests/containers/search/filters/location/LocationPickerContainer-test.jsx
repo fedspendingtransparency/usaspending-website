@@ -9,7 +9,7 @@ import { shallow } from 'enzyme';
 import LocationPickerContainer from 'containers/search/filters/location/LocationPickerContainer';
 
 import { mockPickerRedux } from './mockLocations';
-import { mockCountries, mockStates, mockCounties, mockDistricts, mockValidZip, mockInvalidZip } from './mockMapHelper';
+import { mockCountries, mockStates, mockCounties, mockDistricts, mockValidZip, mockInvalidZip, mockCityAutocompleteResponse } from './mockMapHelper';
 
 global.Promise = require.requireActual('promise');
 
@@ -598,25 +598,23 @@ describe('LocationPickerContainer', () => {
         });
     });
     describe('parseCities', () => {
-        it('', () => {
+        it('sets availableCities w/ city name and state code unless it is a no results object', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.instance().parseCountries(mockCountries);
 
-            expect(container.state().availableCountries).toEqual([
-                {
-                    code: 'USA',
-                    name: 'UNITED STATES'
-                }, {
-                    code: 'FOREIGN',
-                    name: 'ALL FOREIGN COUNTRIES'
-                }, {
-                    code: '',
-                    name: '---'
-                }, {
-                    code: 'ABC',
-                    name: 'A Big Country'
-                }
-            ]);
+            // Important - this response is not from the API, we call parseCities w/ this parameter when results.length === 0
+            const emptyAPIResponse = [{ city_name: "No matching results", state_code: "NA-000" }];
+            const defaultAPIResponse = mockCityAutocompleteResponse.results;
+            const defaultAvailableCitiesState = [{
+                name: `${defaultAPIResponse[0].city_name}, ${defaultAPIResponse[0].state_code}`,
+                code: defaultAPIResponse[0].state_code
+            }];
+            const emptyAvailableCitiesState = [{ name: "No matching results", code: "NA-000" }];
+
+            container.instance().parseCities(defaultAPIResponse);
+            expect(container.state().availableCities).toEqual(defaultAvailableCitiesState);
+
+            container.instance().parseCities(emptyAPIResponse);
+            expect(container.state().availableCities).toEqual(emptyAvailableCitiesState);
         });
     });
 });
