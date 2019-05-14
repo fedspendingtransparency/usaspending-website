@@ -290,35 +290,36 @@ export default class LocationPickerContainer extends React.Component {
         entity = 'Country';
         identifier += this.state.country.code;
 
-        if (this.state.city.name !== '') {
-            location.city = this.state.city.name;
-            title = this.state.city.name;
-            standalone = `${this.state.city.name}`;
-            entity = 'City';
-            identifier += `_${this.state.city.name}`;
-        }
-
-        else if (this.state.state.code !== '') {
+        if (this.state.state.code !== '') {
             location.state = this.state.state.code;
             title = this.state.state.name;
             standalone = this.state.state.name;
             entity = 'State';
             identifier += `_${this.state.state.code}`;
+        }
 
-            if (this.state.county.code !== '') {
-                location.county = this.state.county.fips;
-                title = this.state.county.name;
-                standalone = `${this.state.county.name}, ${this.state.state.code}`;
-                entity = 'County';
-                identifier += `_${this.state.county.fips}`;
-            }
-            else if (this.state.district.code !== '') {
-                location.district = this.state.district.district;
-                title = this.state.district.name;
-                standalone = this.state.district.name;
-                entity = 'Congressional district';
-                identifier += `_${this.state.district.district}`;
-            }
+        if (this.state.city.name !== '') {
+            const city = this.state.city.name.split(',')[0];
+            location.city = city;
+            title = this.state.city.name;
+            standalone = `${this.state.city.name}`;
+            entity = 'City';
+            identifier += `_${city}`;
+        }
+
+        if (this.state.county.code !== '') {
+            location.county = this.state.county.fips;
+            title = this.state.county.name;
+            standalone = `${this.state.county.name}, ${this.state.state.code}`;
+            entity = 'County';
+            identifier += `_${this.state.county.fips}`;
+        }
+        else if (this.state.district.code !== '') {
+            location.district = this.state.district.district;
+            title = this.state.district.name;
+            standalone = this.state.district.name;
+            entity = 'Congressional district';
+            identifier += `_${this.state.district.district}`;
         }
 
         // generate a display tag
