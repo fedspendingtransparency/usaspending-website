@@ -172,6 +172,13 @@ describe('LocationPickerContainer', () => {
                 name: 'A Big Country'
             });
         });
+        it('if level is city, should auto-populate corresponding state if different from previous state', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.instance().setState({ availableStates: [{ code: 'TST' }] });
+            container.instance().selectEntity('city', { name: 'test', code: 'TST' });
+            expect(container.state().state.code).toEqual('TST');
+            expect(container.state().city.name).toEqual('test');
+        });
     });
 
     describe('createLocationObject', () => {
@@ -588,6 +595,28 @@ describe('LocationPickerContainer', () => {
 
             container.instance().addZip();
             expect(mockAdd).toHaveBeenCalledTimes(0);
+        });
+    });
+    describe('parseCities', () => {
+        it('', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.instance().parseCountries(mockCountries);
+
+            expect(container.state().availableCountries).toEqual([
+                {
+                    code: 'USA',
+                    name: 'UNITED STATES'
+                }, {
+                    code: 'FOREIGN',
+                    name: 'ALL FOREIGN COUNTRIES'
+                }, {
+                    code: '',
+                    name: '---'
+                }, {
+                    code: 'ABC',
+                    name: 'A Big Country'
+                }
+            ]);
         });
     });
 });
