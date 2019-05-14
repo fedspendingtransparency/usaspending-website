@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ComingSoonSection from "../ComingSoonSection";
 import InfoTooltip from '../InfoTooltip';
 import { idvActivityInfo } from '../InfoTooltipContent';
+import IdvActivityVisualization from './IdvActivityVisualization';
 
 const propTypes = {
     awards: PropTypes.array,
@@ -12,7 +13,8 @@ const propTypes = {
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     page: PropTypes.number,
-    count: PropTypes.number
+    count: PropTypes.number,
+    changePage: PropTypes.func
 };
 
 export default class IdvActivity extends React.Component {
@@ -31,7 +33,11 @@ export default class IdvActivity extends React.Component {
                 content = (<p>No results found.</p>);
             }
             else {
-                content = (<p>Chart here.</p>);
+                content = (<IdvActivityVisualization
+                    page={this.props.page}
+                    count={this.props.count}
+                    awards={this.props.awards}
+                    changePage={this.props.changePage} />);
             }
         }
 

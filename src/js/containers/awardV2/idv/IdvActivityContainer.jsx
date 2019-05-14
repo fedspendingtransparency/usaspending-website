@@ -23,6 +23,8 @@ export class IdvActivityContainer extends React.Component {
         };
 
         this.idvActivityRequest = null;
+
+        this.changePage = this.changePage.bind(this);
     }
 
     async componentDidMount() {
@@ -87,7 +89,8 @@ export class IdvActivityContainer extends React.Component {
     render() {
         return (
             <IdvActivity
-                {...this.state} />
+                {...this.state}
+                changePage={this.changePage} />
         );
     }
 }
