@@ -84,6 +84,18 @@ describe('FederalAccountSummary Model', () => {
             federalAccountSummary = new FederalAccountSummary(account, 5000000);
             expect(federalAccountSummary.percent).toEqual('Less than 0.01%');
         });
+        // 4. Percentage is Zero
+        it('should format a negative percent', () => {
+            account.total_transaction_obligated_amount = 0;
+            federalAccountSummary = new FederalAccountSummary(account, 5000000);
+            expect(federalAccountSummary.percent).toEqual('0%');
+        });
+        // 5. Percentage is Negative
+        it('should format a negative percent', () => {
+            account.total_transaction_obligated_amount = -100;
+            federalAccountSummary = new FederalAccountSummary(account, 5000000);
+            expect(federalAccountSummary.percent).toEqual('N/A');
+        });
     });
     describe('FederalAccountSummary Model fundingAgencyName', () => {
         // Test three scenarios

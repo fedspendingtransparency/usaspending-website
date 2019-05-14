@@ -38,6 +38,8 @@ export default class FederalAccountSummary {
             percent: {
                 enumerable: true,
                 get: () => {
+                    if (this._obligatedAmount < 0) return 'N/A';
+                    if (this._obligatedAmount === 0) return '0%';
                     const decimal = this._percent.toFixed(2);
                     if (decimal === '0.00') return 'Less than 0.01%';
                     if (decimal[0] !== '0') {
