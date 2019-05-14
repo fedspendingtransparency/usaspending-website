@@ -42,9 +42,13 @@ export default class IdvActivityVisualization extends React.Component {
                     pageSize={10} />
                 {chart}
                 <div className="visualization-legend">
-                    <div className="visualization-legend__circle" />
+                    <div className="visualization-legend__circle visualization-legend__circle_obligated" />
                     <div className="visualization-legend__label">
                         Obligated
+                    </div>
+                    <div className="visualization-legend__circle visualization-legend__circle" />
+                    <div className="visualization-legend__label">
+                        Funding Remaining
                     </div>
                 </div>
             </div>
