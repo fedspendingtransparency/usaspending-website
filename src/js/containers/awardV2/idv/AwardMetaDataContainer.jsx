@@ -118,7 +118,7 @@ export class AwardMetaDataContainer extends React.Component {
             this.parseAllFederalAccounts(allFederalAccounts);
         }
         catch (e) {
-            if (!isCancel(e)) this.setState({ inflight: false, error: true });
+            if (!isCancel(e)) this.setState({ inFlightTreemap: false, errorTreemap: true });
             console.log(' Error : ', e);
         }
     }
