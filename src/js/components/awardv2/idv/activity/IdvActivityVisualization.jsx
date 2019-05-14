@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { throttle } from 'lodash';
 
 import Pagination from 'components/sharedComponents/Pagination';
 import ActivityChart from './chart/ActivityChart';
@@ -22,12 +23,37 @@ export default class IdvActivityVisualization extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showTooltip: false
+            showTooltip: false,
+            windowWidth: 0,
+            visualizationWidth: 0
         };
+
+        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+    }
+
+    componentDidMount() {
+        this.handleWindowResize();
+        window.addEventListener('resize', this.handleWindowResize);
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    handleWindowResize() {
+        // determine if the width changed
+        const windowWidth = window.innerWidth;
+        if (this.state.windowWidth !== windowWidth) {
+            // width changed, update the visualization width
+            this.setState({
+                windowWidth,
+                visualizationWidth: this.sectionRef.offsetWidth
+            });
+        }
     }
 
     render() {
-        const itemHeight = 20;
+        const itemHeight = 30;
         // Height is number of results * item height + 30px padding
         const height = (this.props.awards.length * itemHeight) + 30;
         const chart = (
@@ -35,10 +61,16 @@ export default class IdvActivityVisualization extends React.Component {
                 awards={this.props.awards}
                 xSeries={this.props.xSeries}
                 ySeries={this.props.ySeries}
-                height={height} />
+                height={height}
+                itemHeight={itemHeight}
+                width={this.state.visualizationWidth} />
         );
         return (
-            <div className="activity-visualization">
+            <div
+                ref={(widthRef) => {
+                    this.sectionRef = widthRef;
+                }}
+                className="activity-visualization">
                 <Pagination
                     onChangePage={this.props.changePage}
                     pageNumber={this.props.page}

@@ -12,6 +12,7 @@ import { scaleLinear } from 'd3-scale';
 const propTypes = {
     awards: PropTypes.array,
     height: PropTypes.number,
+    width: PropTypes.number,
     itemHeight: PropTypes.number,
     xSeries: PropTypes.array,
     ySeries: PropTypes.array
@@ -25,6 +26,7 @@ export default class ActivityChart extends React.Component {
             xScale: null,
             yScale: null,
             xRange: [],
+            yRange: [],
             bars: []
         };
     }
@@ -54,8 +56,9 @@ export default class ActivityChart extends React.Component {
         yRange.push(maxValueY);
         xRange.push(minValueX);
         xRange.push(maxValueX);
-        console.log('xRange', xRange);
-        console.log('yRange', yRange);
+
+        const xScale = scaleLinear().domain(xRange).range([0, this.props.width]).nice();
+        const yScale = scaleLinear().domain(yRange).range([0, this.props.height]).nice();
     }
     render() {
         return (
