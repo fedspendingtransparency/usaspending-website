@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import moment from 'moment';
 
 import { fetchIdvActivity } from 'helpers/idvHelper';
 import IdvActivity from 'components/awardv2/idv/activity/IdvActivity';
@@ -18,6 +19,8 @@ export class IdvActivityContainer extends React.Component {
             page: 1,
             count: 0,
             awards: [],
+            xSeries: [],
+            ySeries: [],
             inFlight: true,
             error: false
         };
@@ -52,7 +55,6 @@ export class IdvActivityContainer extends React.Component {
         try {
             const { data } = await this.idvActivityRequest.promise;
             this.setState({
-                page: data.page_metadata.page,
                 count: data.page_metadata.count,
                 error: false
             }, () => this.parseAwards(data.results));
@@ -74,8 +76,16 @@ export class IdvActivityContainer extends React.Component {
             idvActivityBar.populate(award);
             return idvActivityBar;
         });
+
+        const startDates = awards.map((award) => award._startDate.valueOf());
+        const endDates = awards.map((award) => award._endDate.valueOf());
+        const xSeries = startDates.concat(endDates);
+        const ySeries = awards.map((award) => award._awardedAmount);
+
         this.setState({
             awards,
+            xSeries,
+            ySeries,
             inFlight: false
         });
     }
