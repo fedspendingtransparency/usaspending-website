@@ -173,7 +173,8 @@ export default class LocationPicker extends React.Component {
                             generateWarning={this.generateWarning} />
                     </div>
                     <div className="location-item">
-                        <EntityDropdownAutocomplete
+                        <EntityDropdown
+                            type="autocomplete"
                             loading={this.props.loading}
                             scope="city"
                             placeholder="Enter a city"

@@ -33,8 +33,7 @@ export default class EntityDropdownAutocomplete extends React.Component {
         super(props);
 
         this.state = {
-            expanded: false,
-            value: ''
+            expanded: false
         };
 
         this.dropdownRef = null;
