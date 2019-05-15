@@ -24,6 +24,7 @@ export default class ActivityChartBar extends React.Component {
     }
 
     render() {
+        // TODO: use this.props.data to create the green obligated section
         return (
             <g
                 className="activity-chart-bar"
