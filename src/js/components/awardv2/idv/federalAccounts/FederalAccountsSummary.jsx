@@ -32,11 +32,7 @@ const FederalAccountsSummary = ({
                     </span>
                 </div>
                 <div className="award-funding-summary__data">
-<<<<<<< HEAD
-                    <span>Total Count of Funding Agencies</span>
-=======
                     <span>Total Count of Awarding Agencies</span>
->>>>>>> Dev-2628 add awarding agency to federal account summary table
                     <span>{awardingAgencyCount}</span>
                 </div>
                 <div className="award-funding-summary__data">
