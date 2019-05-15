@@ -19,7 +19,8 @@ const propTypes = {
     enabled: PropTypes.bool,
     matchKey: PropTypes.string,
     setSearchString: PropTypes.func,
-    searchString: PropTypes.string
+    searchString: PropTypes.string,
+    loading: PropTypes.bool
 };
 
 const defaultProps = {
@@ -111,10 +112,6 @@ export default class EntityDropdownAutocomplete extends React.Component {
     }
 
     render() {
-        let icon = <FontAwesomeIcon icon="angle-down" />;
-        if (this.state.expanded) {
-            icon = <FontAwesomeIcon icon="angle-up" />;
-        }
         let dropdown = null;
         if (this.state.expanded) {
             dropdown = (
@@ -160,7 +157,9 @@ export default class EntityDropdownAutocomplete extends React.Component {
                                 placeholder={this.props.placeholder}
                                 onBlur={this.closeDropdown} />
                             <div className="icon">
-                                {icon}
+                                {this.state.expanded && !this.props.loading && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
+                                {this.state.expanded && this.props.loading && <FontAwesomeIcon onClick={this.toggleDropdown} icon="spinner" spin />}
+                                {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
                             </div>
                         </div>
                         {dropdown}

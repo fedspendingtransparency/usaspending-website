@@ -16,7 +16,9 @@ import {
     faEllipsisH,
     faAngleDown,
     faAngleRight,
-    faSpinner
+    faChevronUp,
+    faSpinner,
+    faChevronDown
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -42,6 +44,8 @@ library.add(
     faEllipsisH,
     faAngleDown,
     faAngleRight,
+    faChevronDown,
+    faChevronUp,
     faSpinner
 );
 

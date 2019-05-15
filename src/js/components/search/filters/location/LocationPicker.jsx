@@ -33,7 +33,8 @@ const propTypes = {
     addLocation: PropTypes.func,
     validateZip: PropTypes.func,
     setCitySearchString: PropTypes.func,
-    citySearchString: PropTypes.string
+    citySearchString: PropTypes.string,
+    loading: PropTypes.bool
 };
 
 export default class LocationPicker extends React.Component {
@@ -173,6 +174,7 @@ export default class LocationPicker extends React.Component {
                     </div>
                     <div className="location-item">
                         <EntityDropdownAutocomplete
+                            loading={this.props.loading}
                             scope="city"
                             placeholder="Enter a city"
                             title="CITY"

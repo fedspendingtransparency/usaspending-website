@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
 import { uniqueId } from 'lodash';
 
-import { AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
@@ -189,11 +189,6 @@ export default class EntityDropdown extends React.Component {
     }
 
     render() {
-        let icon = <AngleDown alt="Open dropdown" />;
-        if (this.state.expanded) {
-            icon = <AngleUp alt="Close dropdown" />;
-        }
-
         let placeholder = '';
         let label = this.props.value.name;
         if (this.props.value.code === '') {
@@ -257,7 +252,8 @@ export default class EntityDropdown extends React.Component {
                             {label}
                         </div>
                         <div className="icon">
-                            {icon}
+                            {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
+                            {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
                         </div>
                     </button>
                     {dropdown}
