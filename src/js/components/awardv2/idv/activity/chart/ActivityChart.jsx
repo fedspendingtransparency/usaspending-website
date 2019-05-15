@@ -9,6 +9,8 @@ import moment from 'moment';
 import { isEqual, min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
+import ActivityChartBar from './ActivityChartBar';
+
 const propTypes = {
     awards: PropTypes.array,
     height: PropTypes.number,
@@ -30,11 +32,11 @@ export default class ActivityChart extends React.Component {
             bars: []
         };
     }
-    componentDidMount() {
-        this.generateChart();
-    }
     componentDidUpdate(prevProps) {
         if (!isEqual(this.props.awards, prevProps.awards)) {
+            this.generateChart();
+        }
+        if (!isEqual(this.props.width, prevProps.width)) {
             this.generateChart();
         }
     }
@@ -57,14 +59,52 @@ export default class ActivityChart extends React.Component {
         xRange.push(minValueX);
         xRange.push(maxValueX);
 
-        const xScale = scaleLinear().domain(xRange).range([0, this.props.width]).nice();
-        const yScale = scaleLinear().domain(yRange).range([0, this.props.height]).nice();
+        const xScale = scaleLinear()
+            .domain(xRange)
+            .range([0, this.props.width])
+            .nice();
+        const yScale = scaleLinear()
+            .domain(yRange)
+            .range([0, this.props.height - 30])
+            .nice();
+
+        const bars = this.props.awards.map((bar, index) => {
+            const start = xScale(bar._startDate.valueOf());
+            const end = xScale(bar._endDate.valueOf());
+            const width = end - start;
+            const yPosition = (this.props.height - 30) - yScale(bar._awardedAmount);
+            const description = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, an awarded amount of ${bar.awardedAmount}, and an obligated amount of ${bar.obligatedAmount}.`;
+            return (
+                <ActivityChartBar
+                    key={`bar-${bar._awardedAmount}-${index}`}
+                    index={index}
+                    height={10}
+                    start={start}
+                    width={width}
+                    yPosition={yPosition}
+                    data={bar}
+                    description={description} />
+            );
+        });
+
+        this.setState({
+            xRange,
+            yRange,
+            xScale,
+            yScale,
+            bars
+        });
     }
     render() {
         return (
-            <div className="activity-chart">
-                Chart here
-            </div>
+            <svg
+                className="activity-chart"
+                width={this.props.width}
+                height={this.props.height}>
+                <g>
+                    {this.state.bars}
+                </g>
+            </svg>
         );
     }
 }

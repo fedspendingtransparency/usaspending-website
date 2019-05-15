@@ -53,16 +53,13 @@ export default class IdvActivityVisualization extends React.Component {
     }
 
     render() {
-        const itemHeight = 30;
-        // Height is number of results * item height + 30px padding
-        const height = (this.props.awards.length * itemHeight) + 30;
+        const height = 360;
         const chart = (
             <ActivityChart
                 awards={this.props.awards}
                 xSeries={this.props.xSeries}
                 ySeries={this.props.ySeries}
                 height={height}
-                itemHeight={itemHeight}
                 width={this.state.visualizationWidth} />
         );
         return (
