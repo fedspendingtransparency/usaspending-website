@@ -184,8 +184,8 @@ export default class EntityDropdown extends React.Component {
     }
 
     pressedLetter(e) {
-        // check if the key press is a letter
-        if (alphabetRegex.test(e.key)) {
+        // check if the key press is a letter (only for non-autocomplete dropdowns)
+        if (this.props.type === "button" && (alphabetRegex.test(e.key))) {
             // it is a letter
             e.preventDefault();
             // jump to the first entry
