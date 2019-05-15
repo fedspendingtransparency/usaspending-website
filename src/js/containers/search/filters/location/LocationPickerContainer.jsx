@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { concat } from 'lodash';
+import { concat, debounce } from 'lodash';
 
 import { fetchLocationList, performZIPGeocode, fetchCityResults, getCitySearchRequestObj } from 'helpers/mapHelper';
 
@@ -94,23 +94,19 @@ export default class LocationPickerContainer extends React.Component {
 
         this.setCitySearchString = this.setCitySearchString.bind(this);
         this.fetchCityAutocomplete = this.fetchCityAutocomplete.bind(this);
+        this.debouncedCitySearch = debounce(this.fetchCityAutocomplete, 500).bind(this);
     }
 
     componentDidMount() {
         this.loadCountries();
     }
 
-    setCitySearchString(citySearchString) {
-        this.setState(
-            {
-                citySearchString
-            },
-            () => {
-                if (citySearchString.length > 2) {
-                    this.fetchCityAutocomplete();
-                }
+    setCitySearchString(citySearchString, performFetch = true) {
+        this.setState({ citySearchString }, () => {
+            if (citySearchString.length > 2 && performFetch) {
+                this.debouncedCitySearch();
             }
-        );
+        });
     }
 
     loadCountries() {
@@ -394,7 +390,6 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     fetchCityAutocomplete() {
-        // TODO dev-2642: Add loading and no results state
         const { citySearchString, country, state } = this.state;
         if (this.cityRequest) {
             this.cityRequest.cancel();
