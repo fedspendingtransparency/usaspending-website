@@ -29,11 +29,15 @@ export class AwardMetaDataContainer extends React.Component {
             order: 'desc',
             total: 0,
             inFlight: true,
+            inFlightTreemap: true,
             error: false,
-            federalAccounts: []
+            errorTreemap: true,
+            federalAccounts: [],
+            allFederalAccounts: []
         };
         this.awardMetaDataRequest = null;
         this.federalAccountsRequest = null;
+        this.allFederalAccountsRequest = null;
 
         this.changePage = this.changePage.bind(this);
         this.updateSort = this.updateSort.bind(this);
@@ -41,12 +45,14 @@ export class AwardMetaDataContainer extends React.Component {
 
     async componentDidMount() {
         await this.getAwardMetaData();
+        await this.getAllFederalAccounts();
         await this.getFederalAccounts();
     }
 
     async componentDidUpdate(prevProps) {
         if (prevProps.awardId !== this.props.awardId) {
             await this.getAwardMetaData();
+            await this.getAllFederalAccounts();
             await this.getFederalAccounts();
         }
     }
@@ -78,6 +84,45 @@ export class AwardMetaDataContainer extends React.Component {
         }
     }
 
+    async getAllFederalAccounts() {
+        if (this.allFederalAccountsRequest) {
+            this.allFederalAccountsRequest.cancel();
+        }
+        this.setState({ inFlightTreemap: true, errorTreemap: false });
+        async function* paginationFunction(awardId) {
+            let hasNext = true;
+            const limit = 100;
+            const sort = 'total_transaction_obligated_amount';
+            let page = 1;
+            const order = 'desc';
+            while (hasNext) {
+                this.allFederalAccountsRequest = fetchAwardFederalAccounts({
+                    limit, sort, page, order, award_id: awardId
+                });
+                const response = await this.allFederalAccountsRequest.promise;
+                hasNext = response.data.page_metadata.hasNext;
+                page++;
+                yield response.data;
+            }
+        }
+        async function handleResponse(awardId) {
+            const iterator = paginationFunction(awardId);
+            const allFederalAccounts = [];
+            for await (const federalAccounts of iterator) {
+                allFederalAccounts.push(...federalAccounts.results);
+            }
+            return allFederalAccounts;
+        }
+        try {
+            const allFederalAccounts = await handleResponse(this.props.awardId);
+            this.parseAllFederalAccounts(allFederalAccounts);
+        }
+        catch (e) {
+            if (!isCancel(e)) this.setState({ inFlightTreemap: false, errorTreemap: true });
+            console.log(' Error : ', e);
+        }
+    }
+
     async getFederalAccounts() {
         if (this.federalAccountsRequest) {
             this.federalAccountsRequest.cancel();
@@ -103,7 +148,7 @@ export class AwardMetaDataContainer extends React.Component {
     parseFederalAccounts(response) {
         const federalAccounts = response.results.map((account) => {
             const newAccount =
-            new FederalAccountSummary(account, response.total);
+            new FederalAccountSummary(account, this.state.totalTransactionObligatedAmount);
             return newAccount;
         });
         this.setState({
@@ -111,6 +156,21 @@ export class AwardMetaDataContainer extends React.Component {
             federalAccounts,
             inFlight: false,
             error: false
+        });
+    }
+
+    parseAllFederalAccounts(data) {
+        const allFederalAccounts = data.reduce((result, account) => {
+            if (account.total_transaction_obligated_amount > 0) {
+                result.push(
+                    new FederalAccountSummary(account, this.state.totalTransactionObligatedAmount));
+            }
+            return result;
+        }, []);
+        this.setState({
+            allFederalAccounts,
+            inFlightTreemap: false,
+            errorTreemap: false
         });
     }
 

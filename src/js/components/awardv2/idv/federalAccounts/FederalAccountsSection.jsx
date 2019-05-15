@@ -4,25 +4,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Table, Tree } from 'components/sharedComponents/icons/Icons';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 import FederalAccountsTreeTooltip from
     'components/awardv2/idv/federalAccounts/FederalAccountsTreeTooltip';
 import FederalAccountsTable from './FederalAccountsTable';
 import FederalAccountsTree from './FederalAccountsTree';
 import FederalAccountsSummary from './FederalAccountsSummary';
 
+
 const propTypes = {
     totalTransactionObligatedAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     inFlight: PropTypes.bool,
+    inFlightTreemap: PropTypes.bool,
     error: PropTypes.bool,
+    errorTreemap: PropTypes.bool,
     page: PropTypes.number,
     limit: PropTypes.number,
     sort: PropTypes.string,
     order: PropTypes.string,
     total: PropTypes.number,
     federalAccounts: PropTypes.array,
+    allFederalAccounts: PropTypes.array,
     changePage: PropTypes.func,
     updateSort: PropTypes.func,
     isTreeView: PropTypes.bool,
@@ -98,7 +99,6 @@ export default class FederalAccountsSection extends React.Component {
 
     render() {
         const { isTreeView } = this.state;
-        const { inFlight, error, federalAccounts } = this.props;
         return (
             <div className="award__col award-viz federal-accounts">
                 {this.state.showTooltip && <FederalAccountsTreeTooltip {...this.state.tooltip} />}
@@ -112,15 +112,6 @@ export default class FederalAccountsSection extends React.Component {
                     <hr />
                     <div className="federal-accounts__section">
                         <div className="federal-accounts-results">
-                            <div className="results-table-message-container">
-                                {inFlight && <ResultsTableLoadingMessage />}
-                                {(error && !inFlight) && <ResultsTableErrorMessage />}
-                                {(!federalAccounts.length && !inFlight && !error)
-                                && <NoResultsMessage
-                                    title="Chart Not Available"
-                                    message="No available data to display." />}
-                            </div>
-                            {(!inFlight && !error && federalAccounts.length > 0) &&
                             <div className="view-buttons">
                                 <ViewTypeButton
                                     value="tree"
@@ -134,17 +125,19 @@ export default class FederalAccountsSection extends React.Component {
                                     icon={<Table alt="Table Icon" />}
                                     changeView={this.changeView}
                                     active={!isTreeView} />
-                            </div>}
-                            {(!inFlight && !error && !isTreeView && federalAccounts.length > 0)
-                            && <FederalAccountsTable {...this.props} />}
+                            </div>
+                            {!isTreeView && <FederalAccountsTable {...this.props} />}
                             <div
                                 className="federal-accounts-vis__width-reference"
                                 ref={(div) => {
                                     this.widthRef = div;
                                 }} />
-                            {(isTreeView && federalAccounts.length > 0) && <FederalAccountsTree
+                            {isTreeView && <FederalAccountsTree
+                                allFederalAccounts={this.props.allFederalAccounts}
+                                error={this.props.errorTreemap}
+                                inFlight={this.props.inFlightTreemap}
                                 width={this.state.width}
-                                data={this.props.federalAccounts}
+                                data={this.props.allFederalAccounts}
                                 total={this.props.totalTransactionObligatedAmount}
                                 showTooltip={this.showTooltip}
                                 hideTooltip={this.hideTooltip} />}

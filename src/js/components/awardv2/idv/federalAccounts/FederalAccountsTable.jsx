@@ -10,6 +10,9 @@ import { map, uniqueId } from 'lodash';
 import tableMapping from 'dataMapping/awardsv2/federalAccountSectionTable';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
 import Pagination from 'components/sharedComponents/Pagination';
+import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 
 const propTypes = {
     page: PropTypes.number,
@@ -19,7 +22,9 @@ const propTypes = {
     total: PropTypes.number,
     federalAccounts: PropTypes.array,
     changePage: PropTypes.func,
-    updateSort: PropTypes.func
+    updateSort: PropTypes.func,
+    inFlight: PropTypes.bool,
+    error: PropTypes.bool
 };
 
 export default class FederalAccountsTable extends React.Component {
@@ -77,31 +82,62 @@ export default class FederalAccountsTable extends React.Component {
     }
 
     renderTable() {
-        return (
-            <div className="federal-accounts-table-renderer">
-                <table className="federal-accounts-table">
-                    <thead className="federal-accounts-table__head">
-                        <tr className="federal-accounts-table__head-row">
-                            {this.getHeaders()}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.getRows()}
-                    </tbody>
-                </table>
-            </div>
-        );
+        if ((this.props.federalAccounts.length > 0) && !this.props.error && !this.props.inFlight) {
+            return (
+                <div className="federal-accounts-table-renderer">
+                    <table className="federal-accounts-table">
+                        <thead className="federal-accounts-table__head">
+                            <tr className="federal-accounts-table__head-row">
+                                {this.getHeaders()}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.getRows()}
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
+        return null;
     }
 
     render() {
-        return (
-            <div className="federal-accounts-table-holder">
-                {this.renderTable()}
+        const { inFlight, error, federalAccounts } = this.props;
+        let loadingMessage = null;
+        let errorMessage = null;
+        let noResultsMessage = null;
+        let pagination = null;
+
+        if (inFlight) {
+            loadingMessage = (<ResultsTableLoadingMessage />);
+        }
+        if (error) {
+            errorMessage = (<ResultsTableErrorMessage />);
+        }
+        if ((federalAccounts.length === 0) && !error && !inFlight) {
+            noResultsMessage = (<NoResultsMessage
+                title="Chart Not Available"
+                message="No available data to display." />);
+        }
+        if ((federalAccounts.length > 0) && !error && !inFlight) {
+            pagination = (
                 <Pagination
                     totalItems={this.props.total}
                     pageSize={this.props.limit}
                     pageNumber={this.props.page}
                     onChangePage={this.props.changePage} />
+            );
+        }
+
+        return (
+            <div className="federal-accounts-table-holder">
+                <div className="results-table-message-container">
+                    {loadingMessage}
+                    {errorMessage}
+                    {noResultsMessage}
+                </div>
+                {this.renderTable()}
+                {pagination}
             </div>
         );
     }
