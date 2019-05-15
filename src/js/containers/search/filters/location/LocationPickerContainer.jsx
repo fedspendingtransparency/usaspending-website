@@ -394,24 +394,32 @@ export default class LocationPickerContainer extends React.Component {
         if (this.cityRequest) {
             this.cityRequest.cancel();
         }
-        this.setState({ loading: true });
+        console.log("WUT THE HECK IS HAPPENING");
+        if (!this.state.loading) {
+            this.setState({ loading: true });
+        }
+
         this.cityRequest = fetchCityResults(getCitySearchRequestObj(citySearchString, state.code, country.code, this.props.scope));
 
         this.cityRequest.promise
             .then((res) => {
-                this.setState({ loading: false });
                 if (res.data.results.length === 0) {
                     this.parseCities([{ city_name: "No matching results", state_code: "NA-000" }]);
                 }
                 else {
                     this.parseCities(res.data.results);
                 }
+                this.cityRequest = null;
             })
             .catch((err) => {
-                this.setState({ loading: false });
                 if (!isCancel(err)) {
                     console.log(err);
                     this.cityRequest = null;
+                }
+            })
+            .finally(() => {
+                if (!this.cityRequest) {
+                    this.setState({ loading: false });
                 }
             });
     }
