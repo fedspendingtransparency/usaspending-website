@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import EntityDropdownList from './EntityDropdownList';
 
@@ -110,6 +111,10 @@ export default class EntityDropdownAutocomplete extends React.Component {
     }
 
     render() {
+        let icon = <FontAwesomeIcon icon="angle-down" />;
+        if (this.state.expanded) {
+            icon = <FontAwesomeIcon icon="angle-up" />;
+        }
         let dropdown = null;
         if (this.state.expanded) {
             dropdown = (
@@ -144,15 +149,20 @@ export default class EntityDropdownAutocomplete extends React.Component {
                         ref={(div) => {
                             this.wrapperDiv = div;
                         }}>
-                        <input
-                            className="geo-entity-dropdown__input"
-                            disabled={!this.props.enabled}
-                            type="text"
-                            value={this.props.searchString}
-                            onClick={this.openDropdown}
-                            onChange={this.onChange}
-                            placeholder={this.props.placeholder}
-                            onBlur={this.closeDropdown} />
+                        <div className="autocomplete__input">
+                            <input
+                                className="geo-entity-dropdown__input"
+                                disabled={!this.props.enabled}
+                                type="text"
+                                value={this.props.searchString}
+                                onClick={this.openDropdown}
+                                onChange={this.onChange}
+                                placeholder={this.props.placeholder}
+                                onBlur={this.closeDropdown} />
+                            <div className="icon">
+                                {icon}
+                            </div>
+                        </div>
                         {dropdown}
                     </div>
                 </label>

@@ -11,7 +11,6 @@
 
     .location-picker-divider {
         border: none;
-        border-bottom: 1px solid $color-gray-lighter;
         margin-left: rem(5);
         margin-right: rem(5);
     }
@@ -29,7 +28,7 @@
 
         .location-label {
             padding: rem(5) 0;
-            font-size: $smallest-font-size;
+            font-size: $base-font-size;
             text-transform: uppercase;
 
             &.disabled {
@@ -37,10 +36,31 @@
             }
 
             .geo-entity-dropdown_autocomplete {
-                input.geo-entity-dropdown__input {
-                    height: rem(26);
+                .autocomplete__input {
+                    @include display(flex);
+                    @include justify-content(center);
+                    @include align-items(center);
+                    position: relative;
                     width: 100%;
-                    font-size: $small-font-size;
+                    height: 4rem;
+                    margin-top: rem(5);
+                    .geo-entity-dropdown__input {
+                        height: 100%;
+                        width: 100%;
+                        font-size: $small-font-size;
+                        border: 1px solid $color-gray-lighter;
+                        padding: rem(5);
+                    }
+                    .icon {
+                        @include flex(0 0 auto);
+                        position: absolute;
+                        width: rem(15);
+                        height: rem(15);
+                        right: rem(15);
+                        svg {
+                            fill: $color-gray;
+                        }
+                    }
                 }
                 @import "./geo-entity-list";
             }
