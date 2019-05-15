@@ -11,5 +11,13 @@ $obligated-green: #94BFA2;
                 }
             }
         }
+        .activity-chart {
+            .activity-chart-bar {
+                padding: rem(10) 0;
+                .activity-chart-bar__content {
+                    fill: $color-gray-light;
+                }
+            }
+        }
     }
 }

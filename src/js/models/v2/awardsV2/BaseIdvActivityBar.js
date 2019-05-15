@@ -24,6 +24,9 @@ const BaseIdvActivityBar = {
     get awardedAmount() {
         return MoneyFormatter.formatMoneyWithPrecision(this._awardedAmount, 2);
     },
+    get obligatedAmount() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._obligatedAmount, 2);
+    },
     get startDate() {
         return this._startDate && formatDate(this._startDate);
     },
