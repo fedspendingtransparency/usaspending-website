@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
-import { uniqueId } from 'lodash';
+import { uniqueId, isEqual } from 'lodash';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -64,6 +64,12 @@ export default class EntityDropdown extends React.Component {
         this.handleTextInputChange = this.handleTextInputChange.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.type === 'autocomplete' && (!isEqual(prevProps.options, this.props.options))) {
+            this.openDropdown();
+        }
+    }
+
     handleTextInputChange(e) {
         this.props.setSearchString(e.target.value);
     }
@@ -76,9 +82,7 @@ export default class EntityDropdown extends React.Component {
     }
 
     openDropdown() {
-        this.setState({
-            expanded: true
-        }, () => {
+        this.setState({ expanded: (this.props.options.length > 0) }, () => {
             this.bindAccessibility();
         });
     }
@@ -87,7 +91,9 @@ export default class EntityDropdown extends React.Component {
         this.setState({
             expanded: false
         }, () => {
-            this.dropdownButton.focus();
+            if (this.dropdown) {
+                this.dropdown.focus();
+            }
             this.unbindAccessibility();
         });
     }
@@ -104,7 +110,8 @@ export default class EntityDropdown extends React.Component {
 
     clickedItem(item) {
         if (this.props.type === "autocomplete") {
-            this.props.setSearchString(item.name);
+            // just update the search string, don't perform search
+            this.props.setSearchString(item.name, false);
         }
         if (item.code !== "NA-000") {
             this.props.selectEntity(this.props.scope, item);
@@ -126,7 +133,10 @@ export default class EntityDropdown extends React.Component {
             // no item has been selected yet in the dropdown so focus on the first item
             activeSelection = this.wrapperDiv.querySelector('.geo-entity-list .list-item');
         }
-        activeSelection.focus();
+        if (this.props.type === "button") {
+            // we don't want to move focus to the dropdown if we're using autocomplete
+            activeSelection.focus();
+        }
     }
 
     unbindAccessibility() {
@@ -227,11 +237,13 @@ export default class EntityDropdown extends React.Component {
                         onClick={this.openDropdown}
                         onChange={this.handleTextInputChange}
                         placeholder={this.props.placeholder}
-                        onBlur={this.closeDropdown} />
+                        ref={(dropdown) => {
+                            this.dropdown = dropdown;
+                        }} />
                     <div className="icon">
                         {this.state.expanded && !loading && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
-                        {this.state.expanded && loading && <FontAwesomeIcon onClick={this.toggleDropdown} icon="spinner" spin />}
-                        {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
+                        {!this.state.expanded && !loading && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
+                        {loading && <FontAwesomeIcon onClick={this.toggleDropdown} icon="spinner" spin />}
                     </div>
                 </div>
             );
@@ -249,8 +261,8 @@ export default class EntityDropdown extends React.Component {
                 aria-owns={`geo-dropdown-${scope}`}
                 aria-describedby={this.state.warningId}
                 disabled={!enabled || options.length === 0}
-                ref={(button) => {
-                    this.dropdownButton = button;
+                ref={(dropdown) => {
+                    this.dropdown = dropdown;
                 }}>
                 <div className="label">
                     {label}
