@@ -11,6 +11,7 @@ import { scaleLinear } from 'd3-scale';
 
 import ActivityChartBar from './ActivityChartBar';
 import ActivityXAxis from './ActivityXAxis';
+import ActivityYAxis from './ActivityYAxis';
 
 const propTypes = {
     awards: PropTypes.array,
@@ -18,7 +19,15 @@ const propTypes = {
     width: PropTypes.number,
     itemHeight: PropTypes.number,
     xSeries: PropTypes.array,
-    ySeries: PropTypes.array
+    ySeries: PropTypes.array,
+    padding: PropTypes.object
+};
+
+const defaultProps = {
+    padding: {
+        left: 45,
+        bottom: 30
+    }
 };
 
 export default class ActivityChart extends React.Component {
@@ -32,7 +41,8 @@ export default class ActivityChart extends React.Component {
             yRange: [],
             bars: [],
             yTicks: null,
-            xTicks: null
+            xTicks: null,
+            xAxisPos: 0
         };
     }
     componentDidUpdate(prevProps) {
@@ -66,17 +76,28 @@ export default class ActivityChart extends React.Component {
         xRange.push(minValueX);
         xRange.push(maxValueX);
 
+        // calculate what the visible area of the chart itself will be (excluding the axes and their
+        // labels)
+        const graphWidth = this.props.width - this.props.padding.left;
+        const graphHeight = this.props.height - this.props.padding.bottom;
+
         // Create the scales using D3
         // domain is the data range, and range is the
         // range of possible pixel positions along the axis
         const xScale = scaleLinear()
             .domain(xRange)
-            .range([0, this.props.width])
+            .range([0, graphWidth])
             .nice();
         const yScale = scaleLinear()
             .domain(yRange)
-            .range([0, this.props.height - 30]) // give 30px of padding for the bars to clear the edge of the viz
+            .range([0, graphHeight])
             .nice();
+
+        // calculate the X axis Y position
+        let xAxisPos = 0;
+        if (minValueY !== 0) {
+            xAxisPos = yScale(0);
+        }
 
         // Map each award to a "bar" component
         const bars = this.props.awards.map((bar, index) => {
@@ -104,6 +125,7 @@ export default class ActivityChart extends React.Component {
             xScale,
             yScale,
             bars,
+            xAxisPos,
             yTicks: yScale.ticks(6),
             xTicks: xScale.ticks(5)
         });
@@ -113,14 +135,26 @@ export default class ActivityChart extends React.Component {
             <svg
                 className="activity-chart"
                 width={this.props.width}
-                height={this.props.height + 30}>
-                <g className="activity-chart-body">
+                height={this.props.height + 45}>
+                <g
+                    className="activity-chart-body"
+                    transform="translate(0,45)">
+                    <ActivityYAxis
+                        height={this.props.height - this.props.padding.bottom}
+                        width={this.props.width - this.props.padding.left}
+                        padding={this.props.padding}
+                        data={this.props.ySeries}
+                        scale={this.state.yScale}
+                        ticks={this.state.yTicks} />
                     <ActivityXAxis
-                        height={this.props.height}
-                        width={this.props.width}
+                        height={this.props.height - this.props.padding.bottom}
+                        width={this.props.width - this.props.padding.left}
+                        padding={this.props.padding}
                         ticks={this.state.xTicks}
-                        scale={this.state.xScale} />
-                    <g className="activity-chart-data">
+                        scale={this.state.xScale}
+                        axisPos={this.state.xAxisPos} />
+                    <g
+                        className="activity-chart-data">
                         {this.state.bars}
                     </g>
                 </g>
@@ -130,3 +164,4 @@ export default class ActivityChart extends React.Component {
 }
 
 ActivityChart.propTypes = propTypes;
+ActivityChart.defaultProps = defaultProps;
