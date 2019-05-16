@@ -1,33 +1,21 @@
 /**
- * ActivityXAxis.jsx
+ * ActivityYAxis.jsx
  * Created by Lizzie Salita 5/16/19
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
-import moment from 'moment';
-import { convertDateToFY } from 'helpers/fiscalYearHelper';
-import ActivityXAxisItem from './ActivityXAxisItem';
-
-const defaultProps = {
-    padding: {
-        left: 0,
-        bottom: 0,
-        top: 0,
-        right: 0
-    },
-    width: 0
-};
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+import ActivityYAxisItem from './ActivityYAxisItem';
 
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    padding: PropTypes.object,
-    axisPos: PropTypes.number
+    padding: PropTypes.object
 };
 
-export default class ActivityXAxis extends React.Component {
+export default class ActivityYAxis extends React.Component {
     constructor(props) {
         super(props);
 
@@ -49,13 +37,21 @@ export default class ActivityXAxis extends React.Component {
             return;
         }
 
+        // determine the numerical unit to display in the Y axis labels
+        const units = MoneyFormatter.calculateUnits(props.data);
+
         // generate the labels
         const tickLabels = props.ticks.map((tick) => {
-            // TODO: adjust x-axis labels based on the time span
-            // i.e. for smaller range show quarters,
-            // for larger ranges don't show every FY
-            const fiscalYear = convertDateToFY(moment(tick));
-            return `FY ${fiscalYear}`;
+            let formattedValue = MoneyFormatter.formatMoneyWithPrecision(tick / units.unit, units.precision);
+            
+            if (tick === 0) {
+                formattedValue = '$0';
+            }
+            else {
+                formattedValue += units.unitLabel;
+            }
+
+            return formattedValue;
         });
 
         // draw the grid lines
@@ -64,20 +60,22 @@ export default class ActivityXAxis extends React.Component {
 
         let description = '';
         if (tickLabels.length > 0) {
-            description = `The X-axis of the chart, showing a range of dates from `;
+            description = `The Y-axis of the chart, showing a range of awarded amounts from `;
             description += `${tickLabels[0]} to ${tickLabels[tickLabels.length - 1]}`;
         }
 
-        // set all the labels 20px below the X axis
-        const yPos = this.props.height + 20;
+        // set all the labels 20px to the left of the Y axis
+        const xPos = props.padding.left - 20;
 
         // iterate through the D3 generated tick marks and add them to the chart
         const labels = props.ticks.map((tick, i) => {
             // calculate the X position
-            // D3 scale returns the tick positions as pixels from the start of the axis
-            const xPos = props.scale(tick);
+            // D3 scale returns the tick positions as pixels from the start of the axis (top as min)
+            // but we want to display the axis as top max, bottom min, so invert the Y position by
+            // subtracting from the total Y axis height
+            const yPos = props.height - props.scale(tick);
 
-            return (<ActivityXAxisItem
+            return (<ActivityYAxisItem
                 x={xPos}
                 y={yPos}
                 label={`${tickLabels[i]}`}
@@ -99,19 +97,17 @@ export default class ActivityXAxis extends React.Component {
             strokeWidth: '1'
         };
         return (
-            <g
-                className="bar-axis"
-                transform={`translate(${this.props.padding.left},0)`}>
-                <title>X-Axis</title>
+            <g className="bar-axis">
+                <title>Y-Axis</title>
                 <desc>
                     {this.state.description}
                 </desc>
                 <line
-                    className="x-axis"
-                    x1={0}
-                    y1={-1 * this.props.axisPos}
-                    x2={this.props.width}
-                    y2={-1 * this.props.axisPos}
+                    className="y-axis"
+                    x1={this.props.padding.left}
+                    y1={0}
+                    x2={this.props.padding.left}
+                    y2={this.props.height}
                     style={lineStyle} />
                 <g className="axis-labels">
                     {this.state.labels}
@@ -121,5 +117,4 @@ export default class ActivityXAxis extends React.Component {
     }
 }
 
-ActivityXAxis.propTypes = propTypes;
-ActivityXAxis.defaultProps = defaultProps;
+ActivityYAxis.propTypes = propTypes;
