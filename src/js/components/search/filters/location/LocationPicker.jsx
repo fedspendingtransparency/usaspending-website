@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EntityDropdown from './EntityDropdown';
-import EntityDropdownAutocomplete from './EntityDropdownAutocomplete';
 import ZIPField from './ZIPField';
 
 const propTypes = {
