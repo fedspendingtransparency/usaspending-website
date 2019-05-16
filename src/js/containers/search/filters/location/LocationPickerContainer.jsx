@@ -426,7 +426,7 @@ export default class LocationPickerContainer extends React.Component {
     parseCities(results) {
         this.setState({
             availableCities: results.map((city) => ({
-                name: (city.state_code === "NA-000")
+                name: (city.state_code === "NA-000" || !city.state_code) // NA-000 is no results found
                     ? city.city_name
                     : `${city.city_name}, ${city.state_code}`,
                 code: city.state_code
