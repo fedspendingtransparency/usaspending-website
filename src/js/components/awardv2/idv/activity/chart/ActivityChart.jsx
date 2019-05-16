@@ -10,6 +10,7 @@ import { isEqual, min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
 import ActivityChartBar from './ActivityChartBar';
+import ActivityXAxis from './ActivityXAxis';
 
 const propTypes = {
     awards: PropTypes.array,
@@ -29,7 +30,9 @@ export default class ActivityChart extends React.Component {
             yScale: null,
             xRange: [],
             yRange: [],
-            bars: []
+            bars: [],
+            yTicks: null,
+            xTicks: null
         };
     }
     componentDidUpdate(prevProps) {
@@ -100,7 +103,9 @@ export default class ActivityChart extends React.Component {
             yRange,
             xScale,
             yScale,
-            bars
+            bars,
+            yTicks: yScale.ticks(6),
+            xTicks: xScale.ticks(5)
         });
     }
     render() {
@@ -108,9 +113,16 @@ export default class ActivityChart extends React.Component {
             <svg
                 className="activity-chart"
                 width={this.props.width}
-                height={this.props.height}>
-                <g>
-                    {this.state.bars}
+                height={this.props.height + 30}>
+                <g className="activity-chart-body">
+                    <ActivityXAxis
+                        height={this.props.height}
+                        width={this.props.width}
+                        ticks={this.state.xTicks}
+                        scale={this.state.xScale} />
+                    <g className="activity-chart-data">
+                        {this.state.bars}
+                    </g>
                 </g>
             </svg>
         );
