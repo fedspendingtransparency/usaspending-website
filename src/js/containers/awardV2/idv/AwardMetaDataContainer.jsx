@@ -22,6 +22,7 @@ export class AwardMetaDataContainer extends React.Component {
         this.state = {
             totalTransactionObligatedAmount: 0,
             awardingAgencyCount: 0,
+            fundingAgencyCount: 0,
             federalAccountCount: 0,
             limit: 10,
             sort: 'total_transaction_obligated_amount',
@@ -72,6 +73,7 @@ export class AwardMetaDataContainer extends React.Component {
             this.setState({
                 totalTransactionObligatedAmount: data.total_transaction_obligated_amount,
                 awardingAgencyCount: data.awarding_agency_count,
+                fundingAgencyCount: data.funding_agency_count,
                 federalAccountCount: data.federal_account_count
             });
         }
@@ -79,6 +81,7 @@ export class AwardMetaDataContainer extends React.Component {
             this.setState({
                 totalTransactionObligatedAmount: "N/A",
                 awardingAgencyCount: "N/A",
+                fundingAgencyCount: 'N/A',
                 federalAccountCount: "N/A"
             });
         }

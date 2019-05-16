@@ -107,13 +107,13 @@
       .award-funding-summary__data {
           @extend %column-less-table__row;
           margin: 0;
-          &:first-of-type {
+          border-bottom: 0;
+          &:nth-of-type(1) {
               border-radius: rem(5) rem(5) 0 0;
-              border-bottom: 0;
           }
           &:last-of-type {
               border-radius: 0 0 rem(5) rem(5);
-              border-top: 0;
+              border-bottom: solid rem(1) #d5d6d8;
           }
       }
     }
