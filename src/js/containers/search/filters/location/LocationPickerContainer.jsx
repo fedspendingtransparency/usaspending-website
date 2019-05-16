@@ -394,7 +394,6 @@ export default class LocationPickerContainer extends React.Component {
         if (this.cityRequest) {
             this.cityRequest.cancel();
         }
-        console.log("WUT THE HECK IS HAPPENING");
         if (!this.state.loading) {
             this.setState({ loading: true });
         }
