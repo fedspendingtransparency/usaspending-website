@@ -476,19 +476,31 @@ export const performZIPGeocode = (zip) => {
 };
 
 export const getCitySearchRequestObj = (
-    searchText = "Springfield",
-    state = "SC",
-    country = "USA",
-    scope = "recipient_location"
-) => ({
-    search_text: searchText,
-    limit: 40,
-    filter: {
-        country_code: country,
-        scope,
-        state_code: state
+    searchText = "",
+    state = "",
+    country = "",
+    scope = "" // recipient_location or primary_place_of_performance
+) => {
+    if (state) {
+        return {
+            search_text: searchText,
+            limit: 40,
+            filter: {
+                country_code: country,
+                scope,
+                state_code: state
+            }
+        };
     }
-});
+    return {
+        search_text: searchText,
+        limit: 40,
+        filter: {
+            country_code: country,
+            scope
+        }
+    };
+};
 
 export const fetchCityResults = (reqObj = getCitySearchRequestObj()) => {
     const source = CancelToken.source();
