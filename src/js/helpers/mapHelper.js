@@ -475,31 +475,14 @@ export const performZIPGeocode = (zip) => {
     };
 };
 
-export const getCitySearchRequestObj = (
-    searchText = "",
-    state = "",
-    country = "",
-    scope = "" // recipient_location or primary_place_of_performance
-) => {
+export const getCitySearchRequestObj = (searchText = "", state = "", country = "", scope = "") => {
+    const requestObj = { search_text: searchText, limit: 40, filter: { country_code: country, scope } };
+
     if (state) {
-        return {
-            search_text: searchText,
-            limit: 40,
-            filter: {
-                country_code: country,
-                scope,
-                state_code: state
-            }
-        };
+        requestObj.filter.state_code = state;
     }
-    return {
-        search_text: searchText,
-        limit: 40,
-        filter: {
-            country_code: country,
-            scope
-        }
-    };
+
+    return requestObj;
 };
 
 export const fetchCityResults = (reqObj = getCitySearchRequestObj()) => {
