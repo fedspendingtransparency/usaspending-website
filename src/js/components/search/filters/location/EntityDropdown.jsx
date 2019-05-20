@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
+import { EntityDropdownAutocomplete } from './EntityDropdownAutocomplete';
 
 const propTypes = {
     value: PropTypes.object,
@@ -215,68 +216,19 @@ export default class EntityDropdown extends React.Component {
         }
     }
 
-    renderDropdownType() {
+    render() {
         const {
-            scope, enabled, type, options, value, searchString, loading
+            type, scope, generateWarning, title, enabled, options, value, searchString, loading
         } = this.props;
+
+        const isAutocomplete = (type === 'autocomplete');
+
+        let dropdown = null;
         let placeholder = '';
         let label = value.name;
-        if (value.code === '') {
-            placeholder = 'placeholder';
-            label = this.props.placeholder;
-        }
+        let disabled = '';
+        let hideWarning = 'hide';
 
-        if (type === 'autocomplete') {
-            return (
-                <div className="autocomplete__input">
-                    <input
-                        className="geo-entity-dropdown__input"
-                        disabled={!enabled}
-                        type="text"
-                        value={searchString}
-                        onClick={this.openDropdown}
-                        onChange={this.handleTextInputChange}
-                        placeholder={this.props.placeholder}
-                        ref={(dropdown) => {
-                            this.dropdown = dropdown;
-                        }} />
-                    <div className="icon">
-                        {this.state.expanded && !loading && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
-                        {!this.state.expanded && !loading && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
-                        {loading && <FontAwesomeIcon onClick={this.toggleDropdown} icon="spinner" spin />}
-                    </div>
-                </div>
-            );
-        }
-
-        return (
-            <button
-                id={`${scope}-button`}
-                className={`active-selection ${placeholder}`}
-                onClick={this.toggleDropdown}
-                title={label}
-                aria-label={label}
-                aria-haspopup="true"
-                aria-expanded={this.state.expanded}
-                aria-owns={`geo-dropdown-${scope}`}
-                aria-describedby={this.state.warningId}
-                disabled={!enabled || options.length === 0}
-                ref={(dropdown) => {
-                    this.dropdown = dropdown;
-                }}>
-                <div className="label">
-                    {label}
-                </div>
-                <div className="icon">
-                    {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
-                    {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
-                </div>
-            </button>
-        );
-    }
-
-    render() {
-        let dropdown = null;
         if (this.state.expanded) {
             dropdown = (<EntityDropdownList
                 matchKey={this.props.matchKey}
@@ -286,21 +238,19 @@ export default class EntityDropdown extends React.Component {
                 clickedItem={this.clickedItem} />);
         }
 
-        let disabled = '';
+        if (value.code === '') {
+            placeholder = 'placeholder';
+            label = this.props.placeholder;
+        }
         if (!this.props.enabled) {
             disabled = 'disabled';
         }
 
-        let hideWarning = 'hide';
         if (!this.props.enabled && this.state.showWarning) {
             hideWarning = '';
         }
-        const {
-            type, scope, generateWarning, title
-        } = this.props;
 
-        const inputContainer = this.renderDropdownType();
-        const autocompleteClass = (type === 'autocomplete') ? 'geo-entity-dropdown_autocomplete' : null;
+        const autocompleteClass = isAutocomplete ? 'geo-entity-dropdown_autocomplete' : null;
         return (
             <div
                 className="geo-entity-item">
@@ -320,7 +270,42 @@ export default class EntityDropdown extends React.Component {
                     ref={(div) => {
                         this.wrapperDiv = div;
                     }}>
-                    {inputContainer}
+                    {!isAutocomplete &&
+                        <button
+                            id={`${scope}-button`}
+                            className={`active-selection ${placeholder}`}
+                            onClick={this.toggleDropdown}
+                            title={label}
+                            aria-label={label}
+                            aria-haspopup="true"
+                            aria-expanded={this.state.expanded}
+                            aria-owns={`geo-dropdown-${scope}`}
+                            aria-describedby={this.state.warningId}
+                            disabled={!enabled || options.length === 0}
+                            ref={(dd) => {
+                                this.dropdown = dd;
+                            }}>
+                            <div className="label">
+                                {label}
+                            </div>
+                            <div className="icon">
+                                {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
+                                {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
+                            </div>
+                        </button>
+                    }
+                    {isAutocomplete &&
+                        <EntityDropdownAutocomplete
+                            searchString={searchString}
+                            enabled={enabled}
+                            openDropdown={this.openDropdown}
+                            handleTextInputChange={this.handleTextInputChange}
+                            toggleDropdown={this.toggleDropdown}
+                            placeholder={this.props.placeholder}
+                            context={this} // used to create dropdown ref
+                            expanded={this.state.expanded}
+                            loading={loading} />
+                    }
                     {dropdown}
                 </div>
                 <div
