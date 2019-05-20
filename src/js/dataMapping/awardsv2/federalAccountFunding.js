@@ -43,7 +43,7 @@ const tableMapping = {
         },
         submissionDate: 'Submission Date',
         id: 'Award ID',
-        agency: 'Agency',
+        agency: 'Funding Agency',
         fedAccount: 'Federal Account Name',
         programActivity: 'Program Activity',
         objectClass: 'Object Class',

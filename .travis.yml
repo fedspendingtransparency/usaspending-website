@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   # latest in each series
-  - "6"
+  - "10"
 # Need a C++ compiler
 addons:
   apt:

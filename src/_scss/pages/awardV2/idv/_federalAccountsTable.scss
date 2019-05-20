@@ -1,0 +1,54 @@
+.federal-accounts-table {
+  border: none;
+  margin-top: 0;
+  margin-bottom: rem(7);
+  font-size: rem(12);
+  .federal-accounts-table__head-row {
+      border-bottom: solid 1px $color-gray-lighter;
+  }
+  .federal-accounts-table__head {
+      .federal-accounts-table__head-cell {
+          @import '../../recipientLanding/header';
+          @import '../../stateLanding/sorter';
+          background-color: $color-white;
+          border: 0;
+          padding: rem(15) rem(10);
+          .header-sorter {
+            .header-sorter__button {
+              svg {
+                fill: #e1e2e3;
+              }
+            }
+          }
+          .header-cell {
+            .header-cell__text {
+              margin-right: rem(10);
+              .header-cell__title {
+                  font-weight: 600;
+                  font-size: $small-font-size;
+                  white-space: nowrap;
+              }
+            }
+          }
+      }
+  }
+
+  .federal-accounts-table__body-cell {
+      background-color: transparent;
+      border: none;
+      padding: rem(7);
+      white-space: nowrap;
+
+      &.right {
+          text-align: right;
+      }
+
+      &.offset-right {
+        padding-right: rem(34);
+      }
+
+      &.offset-left {
+        padding-left: rem(10);
+      }
+  }
+}
