@@ -28,6 +28,7 @@ const propTypes = {
     clearStates: PropTypes.func,
     clearCounties: PropTypes.func,
     clearDistricts: PropTypes.func,
+    clearCities: PropTypes.func,
     createLocationObject: PropTypes.func,
     addLocation: PropTypes.func,
     validateZip: PropTypes.func,
@@ -55,10 +56,11 @@ export default class LocationPicker extends React.Component {
                 // user has selected USA, load the state list
                 this.props.loadStates();
             }
-            else if (this.props.country.code === 'USA') {
+            else if (this.props.country.code !== 'USA') {
                 // the user previously selected USA but it is no longer selected
                 this.props.clearStates();
             }
+            else
         }
 
         if (prevProps.state.code !== this.props.state.code) {
