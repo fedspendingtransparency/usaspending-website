@@ -15,7 +15,8 @@ import LocationPicker from 'components/search/filters/location/LocationPicker';
 const propTypes = {
     selectedLocations: PropTypes.object,
     addLocation: PropTypes.func,
-    scope: PropTypes.string // one of "recipient_location", "primary_place_of_performance"
+    scope: PropTypes.string, // one of "recipient_location", "primary_place_of_performance"
+    enableCitySearch: PropTypes.bool
 };
 
 const defaultProps = {
@@ -390,6 +391,9 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     fetchCityAutocomplete() {
+        if (!this.props.enableCitySearch) {
+            return;
+        }
         const { citySearchString, country, state } = this.state;
         if (this.cityRequest) {
             this.cityRequest.cancel();
@@ -468,6 +472,7 @@ export default class LocationPickerContainer extends React.Component {
         return (
             <LocationPicker
                 {...this.state}
+                enableCitySearch={this.props.enableCitySearch}
                 selectedLocations={this.props.selectedLocations}
                 loadStates={this.loadStates}
                 loadCounties={this.loadCounties}

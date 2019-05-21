@@ -33,7 +33,12 @@ const propTypes = {
     validateZip: PropTypes.func,
     setCitySearchString: PropTypes.func,
     citySearchString: PropTypes.string,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    enableCitySearch: PropTypes.bool
+};
+
+const defaultProps = {
+    enableCitySearch: false
 };
 
 export default class LocationPicker extends React.Component {
@@ -171,21 +176,22 @@ export default class LocationPicker extends React.Component {
                             enabled={this.props.state.code !== '' && this.props.district.district === ''}
                             generateWarning={this.generateWarning} />
                     </div>
-                    <div className="location-item">
-                        <EntityDropdown
-                            type="autocomplete"
-                            loading={this.props.loading}
-                            scope="city"
-                            placeholder="Enter a city"
-                            title="CITY"
-                            value={this.props.city}
-                            options={this.props.availableCities}
-                            selectEntity={this.props.selectEntity}
-                            enabled={this.props.country.code !== ''}
-                            generateWarning={this.generateWarning}
-                            setSearchString={this.props.setCitySearchString}
-                            searchString={this.props.citySearchString} />
-                    </div>
+                    {this.props.enableCitySearch &&
+                        <div className="location-item">
+                            <EntityDropdown
+                                type="autocomplete"
+                                loading={this.props.loading}
+                                scope="city"
+                                placeholder="Enter a city"
+                                title="CITY"
+                                value={this.props.city}
+                                options={this.props.availableCities}
+                                selectEntity={this.props.selectEntity}
+                                enabled={this.props.country.code !== ''}
+                                generateWarning={this.generateWarning}
+                                setSearchString={this.props.setCitySearchString}
+                                searchString={this.props.citySearchString} />
+                        </div>}
                     <div className="location-item">
                         <EntityDropdown
                             scope="district"
@@ -216,3 +222,4 @@ export default class LocationPicker extends React.Component {
 }
 
 LocationPicker.propTypes = propTypes;
+LocationPicker.defaultProps = defaultProps;
