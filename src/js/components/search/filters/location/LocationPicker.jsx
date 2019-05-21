@@ -28,7 +28,7 @@ const propTypes = {
     clearStates: PropTypes.func,
     clearCounties: PropTypes.func,
     clearDistricts: PropTypes.func,
-    clearCities: PropTypes.func,
+    clearCitiesAndSelectedCity: PropTypes.func,
     createLocationObject: PropTypes.func,
     addLocation: PropTypes.func,
     validateZip: PropTypes.func,
@@ -53,26 +53,31 @@ export default class LocationPicker extends React.Component {
     componentDidUpdate(prevProps) {
         const stateChanged = (prevProps.state.code !== this.props.state.code);
         const countryChanged = (prevProps.country.code !== this.props.country.code);
+        const isCityInState = ( // if selected city is inside the selected state, don't clear the selected city!
+            this.props.state.code === this.props.city.code
+        );
 
         if (countryChanged && this.props.country.code === "USA") {
             // user has selected USA, load the state list
             this.props.loadStates();
-            this.props.clearCities();
+            this.props.clearCitiesAndSelectedCity();
         }
         else if (countryChanged && prevProps.country.code === 'USA') {
             // the user previously selected USA but it is no longer selected
             this.props.clearStates();
-            this.props.clearCities();
+            this.props.clearCitiesAndSelectedCity();
         }
-        if (stateChanged && this.props.state.code) {
+        if (stateChanged && this.props.state.code && !isCityInState) {
             // state code changed, load the counties
             this.props.loadCounties(this.props.state.code.toLowerCase());
             // also the districts
             this.props.loadDistricts(this.props.state.code.toLowerCase());
+            this.props.clearCitiesAndSelectedCity();
         }
-        else if (stateChanged && !this.props.state.code) {
+        else if (stateChanged && !this.props.state.code && !isCityInState) {
             this.props.clearCounties();
             this.props.clearDistricts();
+            this.props.clearCitiesAndSelectedCity();
         }
     }
 
