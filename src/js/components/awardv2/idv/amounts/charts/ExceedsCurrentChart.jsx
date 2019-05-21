@@ -6,8 +6,6 @@
 import React from 'react';
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 
-import InfoTooltip from 'components/awardv2/idv/InfoTooltip';
-import { awardAmountsOverspendingInfo } from 'components/awardv2/idv/InfoTooltipContent';
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes';
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 
@@ -77,7 +75,7 @@ export default class ExceedsCurrentChart extends React.Component {
                             onClick={exceedsCurrentTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.overspendingFormatted}</strong><br />
                             <div className="award-amounts-viz__desc-text-wrapper">
-                                <InfoTooltip>{awardAmountsOverspendingInfo}</InfoTooltip> Exceeds Combined Current Award Amounts
+                                Exceeds Combined Current Award Amounts
                             </div>
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_overspending" />

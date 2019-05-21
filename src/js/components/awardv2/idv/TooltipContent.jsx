@@ -33,7 +33,7 @@ export const CombinedCurrentAmounts = ({
         <h4 className="tooltip__title">Combined Current Award Amounts</h4>
         <h5 className="tooltip__amount"><span>{total}</span> from <span>{`${count} award orders`}</span></h5>
         <div className="tooltip__text">
-            <p>Collectively, this is how much money is currently available across all award orders made underneath this indefinite delivery vehicle (IDV), including both child award orders* and grandchild award orders* made under a child IDV order* (if any).  The maximum amount available is calculated by adding the “Total Base & Exercised Options” amount (also known as the contract ceiling amount or current award amount) across each award order underneath this IDV. This does not include obligations directly attached to any child IDV orders*, or to the IDV itself.</p>
+            <p>Collectively, this is how much money is currently available across all award orders made underneath this indefinite delivery vehicle (IDV), including both child award orders* and grandchild award orders* made under a child IDV order* (if any).  The maximum amount available is calculated by adding the “Total Base & Exercised Options” amount (also known as the contract ceiling amount or current award amount) across each award order underneath this IDV. This does not include obligations directly attached to any child IDV orders*, or to the IDV itself*.</p>
         </div>
         <ul className="tooltip__list">
             <li><strong>*Child award order</strong> refers to award orders made directly under this IDV (IDV &gt; Award).</li>
@@ -57,7 +57,7 @@ export const CombinedPotentialAmounts = ({
         <h4 className="tooltip__title">Combined Potential Award Amounts</h4>
         <h5 className="tooltip__amount"><span>{total}</span> from <span>{`${count} award orders`}</span></h5>
         <div className="tooltip__text">
-            <p>This is the collective potential award amount of all of the award orders underneath this indefinite delivery vehicle (IDV), if all contract options are exercised.  You can think of this as the collective maximum award amount of all of the award orders made underneath this IDV, or the total award capacity of this IDV. This does not include obligations directly attached to any child IDV orders*, or to the IDV itself.</p>
+            <p>This is the collective potential award amount of all of the award orders underneath this indefinite delivery vehicle (IDV), if all contract options are exercised.  You can think of this as the collective maximum award amount of all of the award orders made underneath this IDV, or the total award capacity of this IDV. This does not include obligations directly attached to any child IDV orders*, or to the IDV itself*.</p>
         </div>
         <ul className="tooltip__list">
             <li><strong>*Child IDV order</strong> refers to IDVs made directly under this IDV (IDV &gt; IDV).</li>

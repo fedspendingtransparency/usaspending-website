@@ -184,7 +184,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                 {visualization}
                 <div className="award-amounts-children__data-wrapper">
                     <div className="award-amounts-children__data-content">
-                        <div>Count of Total Orders</div>
+                        <div>Count of Total Award Orders</div>
                         <span>
                             {formatNumber(awardAmounts.childAwardCount + awardAmounts.grandchildAwardCount)}
                         </span>
