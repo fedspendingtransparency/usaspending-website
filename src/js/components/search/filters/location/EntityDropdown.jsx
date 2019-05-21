@@ -229,7 +229,7 @@ export default class EntityDropdown extends React.Component {
         let disabled = '';
         let hideWarning = 'hide';
 
-        if (this.state.expanded) {
+        if (this.state.expanded && !loading) {
             dropdown = (<EntityDropdownList
                 matchKey={this.props.matchKey}
                 scope={this.props.scope}
