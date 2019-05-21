@@ -51,29 +51,28 @@ export default class LocationPicker extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.country.code !== this.props.country.code) {
-            if (this.props.country.code === 'USA') {
-                // user has selected USA, load the state list
-                this.props.loadStates();
-            }
-            else if (this.props.country.code !== 'USA') {
-                // the user previously selected USA but it is no longer selected
-                this.props.clearStates();
-            }
-            else
-        }
+        const stateChanged = (prevProps.state.code !== this.props.state.code);
+        const countryChanged = (prevProps.country.code !== this.props.country.code);
 
-        if (prevProps.state.code !== this.props.state.code) {
-            if (this.props.state.code !== '') {
-                // state code changed, load the counties
-                this.props.loadCounties(this.props.state.code.toLowerCase());
-                // also the districts
-                this.props.loadDistricts(this.props.state.code.toLowerCase());
-            }
-            else {
-                this.props.clearCounties();
-                this.props.clearDistricts();
-            }
+        if (countryChanged && this.props.country.code === "USA") {
+            // user has selected USA, load the state list
+            this.props.loadStates();
+            this.props.clearCities();
+        }
+        else if (countryChanged && prevProps.country.code === 'USA') {
+            // the user previously selected USA but it is no longer selected
+            this.props.clearStates();
+            this.props.clearCities();
+        }
+        if (stateChanged && this.props.state.code) {
+            // state code changed, load the counties
+            this.props.loadCounties(this.props.state.code.toLowerCase());
+            // also the districts
+            this.props.loadDistricts(this.props.state.code.toLowerCase());
+        }
+        else if (stateChanged && !this.props.state.code) {
+            this.props.clearCounties();
+            this.props.clearDistricts();
         }
     }
 

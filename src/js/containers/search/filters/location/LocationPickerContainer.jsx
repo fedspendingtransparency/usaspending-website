@@ -86,6 +86,7 @@ export default class LocationPickerContainer extends React.Component {
         this.clearStates = this.clearStates.bind(this);
         this.clearCounties = this.clearCounties.bind(this);
         this.clearDistricts = this.clearDistricts.bind(this);
+        this.clearCities = this.clearCities.bind(this);
 
         this.selectEntity = this.selectEntity.bind(this);
 
@@ -180,6 +181,12 @@ export default class LocationPickerContainer extends React.Component {
         this.setState({
             availableStates: [],
             state: Object.assign({}, defaultSelections.state)
+        });
+    }
+
+    clearCities() {
+        this.setState({
+            availableCities: []
         });
     }
 
@@ -479,6 +486,7 @@ export default class LocationPickerContainer extends React.Component {
                 loadCounties={this.loadCounties}
                 loadDistricts={this.loadDistricts}
                 clearStates={this.clearStates}
+                clearCities={this.clearCities}
                 clearCounties={this.clearCounties}
                 clearDistricts={this.clearDistricts}
                 selectEntity={this.selectEntity}
