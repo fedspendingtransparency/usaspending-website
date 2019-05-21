@@ -348,23 +348,6 @@ export const fetchAwardIDs = (params) => {
     };
 };
 
-// make API call to awards total aggregation endpoint
-export const performTransactionsTotalSearch = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v1/transactions/total/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
 // make API call to categories total endpoint
 // Use this in the Spending By Category search for Budget Categories
 export const performCategorySearch = (params) => {
