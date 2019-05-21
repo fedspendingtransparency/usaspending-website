@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 const propTypes = {
     scope: PropTypes.string,
@@ -38,7 +39,7 @@ const EntityDropdownList = (props) => {
 
         return (
             <li
-                key={item.code}>
+                key={uniqueId(item.code)}>
                 <button
                     className={`list-item ${active} letter-${letterClass} ${noResultsFound}`}
                     title={item.name}
