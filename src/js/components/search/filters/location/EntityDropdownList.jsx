@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 const propTypes = {
     scope: PropTypes.string,
@@ -24,6 +25,7 @@ const EntityDropdownList = (props) => {
         }
 
         let letterClass = '';
+        const noResultsFound = item.code === "NA-000" ? "no-matching-results" : "";
         // variable matchKeys allow us to match by numeric codes for congressional district
         // instead of display name
         if (item[props.matchKey] !== '') {
@@ -33,15 +35,17 @@ const EntityDropdownList = (props) => {
             }
         }
 
+        const handleSelection = props.clickedItem.bind(null, item);
+
         return (
             <li
-                key={item.code}>
+                key={uniqueId(item.code)}>
                 <button
-                    className={`list-item ${active} letter-${letterClass}`}
+                    className={`list-item ${active} letter-${letterClass} ${noResultsFound}`}
                     title={item.name}
                     aria-label={item.name}
                     data-listindex={i}
-                    onClick={props.clickedItem.bind(null, item)}>
+                    onMouseDown={handleSelection}>
                     {item.name}
                 </button>
             </li>

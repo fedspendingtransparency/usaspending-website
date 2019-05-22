@@ -6,15 +6,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { concat } from 'lodash';
+import { concat, debounce } from 'lodash';
 
-import { fetchLocationList, performZIPGeocode } from 'helpers/mapHelper';
+import { fetchLocationList, performZIPGeocode, fetchCityResults, getCitySearchRequestObj } from 'helpers/mapHelper';
 
 import LocationPicker from 'components/search/filters/location/LocationPicker';
 
 const propTypes = {
     selectedLocations: PropTypes.object,
-    addLocation: PropTypes.func
+    addLocation: PropTypes.func,
+    scope: PropTypes.string, // one of "recipient_location", "primary_place_of_performance"
+    enableCitySearch: PropTypes.bool
+};
+
+const defaultProps = {
+    scope: "primary_place_of_performance"
 };
 
 const defaultSelections = {
@@ -32,6 +38,10 @@ const defaultSelections = {
         fips: '',
         state: '',
         name: ''
+    },
+    city: {
+        name: '',
+        code: ''
     },
     district: {
         code: '',
@@ -53,17 +63,22 @@ export default class LocationPickerContainer extends React.Component {
             availableStates: [],
             availableCounties: [],
             availableDistricts: [],
+            availableCities: [],
             country: Object.assign({}, defaultSelections.country),
             state: Object.assign({}, defaultSelections.state),
             county: Object.assign({}, defaultSelections.county),
+            city: Object.assign({}, defaultSelections.city),
             district: Object.assign({}, defaultSelections.district),
-            zip: Object.assign({}, defaultSelections.zip)
+            zip: Object.assign({}, defaultSelections.zip),
+            citySearchString: '',
+            loading: false
         };
 
         this.listRequest = null;
         // keep the CD request seperate bc they may be parallel with county
         this.districtRequest = null;
         this.zipRequest = null;
+        this.cityRequest = null;
 
         this.loadStates = this.loadStates.bind(this);
         this.loadCounties = this.loadCounties.bind(this);
@@ -72,16 +87,29 @@ export default class LocationPickerContainer extends React.Component {
         this.clearStates = this.clearStates.bind(this);
         this.clearCounties = this.clearCounties.bind(this);
         this.clearDistricts = this.clearDistricts.bind(this);
+        this.clearCitiesAndSelectedCity = this.clearCitiesAndSelectedCity.bind(this);
 
         this.selectEntity = this.selectEntity.bind(this);
 
         this.createLocationObject = this.createLocationObject.bind(this);
         this.addLocation = this.addLocation.bind(this);
         this.validateZip = this.validateZip.bind(this);
+
+        this.setCitySearchString = this.setCitySearchString.bind(this);
+        this.fetchCityAutocomplete = this.fetchCityAutocomplete.bind(this);
+        this.debouncedCitySearch = debounce(this.fetchCityAutocomplete, 500).bind(this);
     }
 
     componentDidMount() {
         this.loadCountries();
+    }
+
+    setCitySearchString(citySearchString, performFetch = true) {
+        this.setState({ citySearchString }, () => {
+            if (citySearchString.length > 2 && performFetch) {
+                this.debouncedCitySearch();
+            }
+        });
     }
 
     loadCountries() {
@@ -154,6 +182,14 @@ export default class LocationPickerContainer extends React.Component {
         this.setState({
             availableStates: [],
             state: Object.assign({}, defaultSelections.state)
+        });
+    }
+
+    clearCitiesAndSelectedCity() {
+        this.setState({
+            availableCities: [],
+            city: defaultSelections.city,
+            citySearchString: ''
         });
     }
 
@@ -237,6 +273,10 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     selectEntity(level, value) {
+        if (level === 'city' && this.state.state.code !== value.code && value.code) {
+            this.setState({ state: this.state.availableStates.find((state) => state.code === value.code) });
+        }
+
         this.setState({
             [level]: value
         });
@@ -265,21 +305,30 @@ export default class LocationPickerContainer extends React.Component {
             standalone = this.state.state.name;
             entity = 'State';
             identifier += `_${this.state.state.code}`;
+        }
 
-            if (this.state.county.code !== '') {
-                location.county = this.state.county.fips;
-                title = this.state.county.name;
-                standalone = `${this.state.county.name}, ${this.state.state.code}`;
-                entity = 'County';
-                identifier += `_${this.state.county.fips}`;
-            }
-            else if (this.state.district.code !== '') {
-                location.district = this.state.district.district;
-                title = this.state.district.name;
-                standalone = this.state.district.name;
-                entity = 'Congressional district';
-                identifier += `_${this.state.district.district}`;
-            }
+        if (this.state.county.code !== '') {
+            location.county = this.state.county.fips;
+            title = this.state.county.name;
+            standalone = `${this.state.county.name}, ${this.state.state.code}`;
+            entity = 'County';
+            identifier += `_${this.state.county.fips}`;
+        }
+        else if (this.state.district.code !== '') {
+            location.district = this.state.district.district;
+            title = this.state.district.name;
+            standalone = this.state.district.name;
+            entity = 'Congressional district';
+            identifier += `_${this.state.district.district}`;
+        }
+
+        if (this.state.city.name !== '') {
+            const city = this.state.city.name.split(',')[0];
+            location.city = city;
+            title = this.state.city.name;
+            standalone = `${this.state.city.name}`;
+            entity = 'City';
+            identifier += `_${city}`;
         }
 
         // generate a display tag
@@ -288,7 +337,6 @@ export default class LocationPickerContainer extends React.Component {
             entity,
             standalone
         };
-
 
         return {
             identifier,
@@ -353,6 +401,54 @@ export default class LocationPickerContainer extends React.Component {
             });
     }
 
+    fetchCityAutocomplete() {
+        if (!this.props.enableCitySearch) {
+            return;
+        }
+        const { citySearchString, country, state } = this.state;
+        if (this.cityRequest) {
+            this.cityRequest.cancel();
+        }
+        if (!this.state.loading) {
+            this.setState({ loading: true });
+        }
+
+        this.cityRequest = fetchCityResults(getCitySearchRequestObj(citySearchString, state.code, country.code, this.props.scope));
+
+        this.cityRequest.promise
+            .then((res) => {
+                if (res.data.results.length === 0) {
+                    this.parseCities([{ city_name: "No matching results", state_code: "NA-000" }]);
+                }
+                else {
+                    this.parseCities(res.data.results);
+                }
+                this.cityRequest = null;
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.cityRequest = null;
+                }
+            })
+            .finally(() => {
+                if (!this.cityRequest) {
+                    this.setState({ loading: false });
+                }
+            });
+    }
+
+    parseCities(results) {
+        this.setState({
+            availableCities: results.map((city) => ({
+                name: (city.state_code === "NA-000" || !city.state_code) // NA-000 is no results found
+                    ? city.city_name
+                    : `${city.city_name}, ${city.state_code}`,
+                code: city.state_code
+            }))
+        });
+    }
+
     parseZip(data, zip) {
         if (data.features && data.features.length > 0) {
             // this is a valid zip code
@@ -387,19 +483,23 @@ export default class LocationPickerContainer extends React.Component {
         return (
             <LocationPicker
                 {...this.state}
+                enableCitySearch={this.props.enableCitySearch}
                 selectedLocations={this.props.selectedLocations}
                 loadStates={this.loadStates}
                 loadCounties={this.loadCounties}
                 loadDistricts={this.loadDistricts}
                 clearStates={this.clearStates}
+                clearCitiesAndSelectedCity={this.clearCitiesAndSelectedCity}
                 clearCounties={this.clearCounties}
                 clearDistricts={this.clearDistricts}
                 selectEntity={this.selectEntity}
                 createLocationObject={this.createLocationObject}
                 addLocation={this.addLocation}
-                validateZip={this.validateZip} />
+                validateZip={this.validateZip}
+                setCitySearchString={this.setCitySearchString} />
         );
     }
 }
 
 LocationPickerContainer.propTypes = propTypes;
+LocationPickerContainer.defaultProps = defaultProps;

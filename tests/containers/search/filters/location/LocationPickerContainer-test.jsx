@@ -9,7 +9,7 @@ import { shallow } from 'enzyme';
 import LocationPickerContainer from 'containers/search/filters/location/LocationPickerContainer';
 
 import { mockPickerRedux } from './mockLocations';
-import { mockCountries, mockStates, mockCounties, mockDistricts, mockValidZip, mockInvalidZip } from './mockMapHelper';
+import { mockCountries, mockStates, mockCounties, mockDistricts, mockValidZip, mockInvalidZip, mockCityAutocompleteResponse } from './mockMapHelper';
 
 global.Promise = require.requireActual('promise');
 
@@ -172,6 +172,13 @@ describe('LocationPickerContainer', () => {
                 name: 'A Big Country'
             });
         });
+        it('if level is city, should auto-populate corresponding state if different from previous state', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.instance().setState({ availableStates: [{ code: 'TST' }] });
+            container.instance().selectEntity('city', { name: 'test', code: 'TST' });
+            expect(container.state().state.code).toEqual('TST');
+            expect(container.state().city.name).toEqual('test');
+        });
     });
 
     describe('createLocationObject', () => {
@@ -228,7 +235,7 @@ describe('LocationPickerContainer', () => {
                 const location = container.instance().createLocationObject();
                 expect(location.identifier).toEqual('ABC_AK_000');
             });
-            it('should create an identifier that contains the country, state, and district codes if a district is selected', () => {
+            it('when a district is selected -- identifier should contain the country, state, and district codes', () => {
                 const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
                 container.setState({
                     country: {
@@ -249,6 +256,29 @@ describe('LocationPickerContainer', () => {
 
                 const location = container.instance().createLocationObject();
                 expect(location.identifier).toEqual('ABC_AK_99');
+            });
+            it('when a city is selected -- identifier should countain the city details', () => {
+                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+                container.setState({
+                    country: {
+                        code: 'ABC',
+                        name: 'A Big Country'
+                    },
+                    city: { name: "test, TST" },
+                    county: {
+                        code: 'XX000',
+                        fips: '000',
+                        state: 'AK',
+                        name: 'Fake County'
+                    },
+                    state: {
+                        name: "test",
+                        code: "TST"
+                    }
+                });
+
+                const location = container.instance().createLocationObject();
+                expect(location.identifier).toEqual('ABC_TST_000_test');
             });
         });
 
@@ -588,6 +618,26 @@ describe('LocationPickerContainer', () => {
 
             container.instance().addZip();
             expect(mockAdd).toHaveBeenCalledTimes(0);
+        });
+    });
+    describe('parseCities', () => {
+        it('sets availableCities w/ city name and state code unless it is a no results object', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+
+            // Important - this response is not from the API, we call parseCities w/ this parameter when results.length === 0
+            const emptyAPIResponse = [{ city_name: "No matching results", state_code: "NA-000" }];
+            const defaultAPIResponse = mockCityAutocompleteResponse.results;
+            const defaultAvailableCitiesState = [{
+                name: `${defaultAPIResponse[0].city_name}, ${defaultAPIResponse[0].state_code}`,
+                code: defaultAPIResponse[0].state_code
+            }];
+            const emptyAvailableCitiesState = [{ name: "No matching results", code: "NA-000" }];
+
+            container.instance().parseCities(defaultAPIResponse);
+            expect(container.state().availableCities).toEqual(defaultAvailableCitiesState);
+
+            container.instance().parseCities(emptyAPIResponse);
+            expect(container.state().availableCities).toEqual(emptyAvailableCitiesState);
         });
     });
 });
