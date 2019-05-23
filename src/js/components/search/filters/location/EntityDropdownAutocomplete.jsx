@@ -49,8 +49,6 @@ export const EntityDropdownAutocomplete = ({
                 self.dropdown = dropdown;
             }} />
         <div className="icon">
-            {expanded && !loading && <FontAwesomeIcon onClick={toggleDropdown} icon="chevron-up" />}
-            {!expanded && !loading && <FontAwesomeIcon onClick={toggleDropdown} icon="chevron-down" />}
             {loading && <FontAwesomeIcon onClick={toggleDropdown} icon="spinner" spin />}
         </div>
     </div>
