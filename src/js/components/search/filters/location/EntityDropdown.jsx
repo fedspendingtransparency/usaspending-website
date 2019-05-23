@@ -222,6 +222,8 @@ export default class EntityDropdown extends React.Component {
         } = this.props;
 
         const isAutocomplete = (type === 'autocomplete');
+        const autocompleteClass = isAutocomplete ? 'geo-entity-dropdown_autocomplete' : null;
+        const warningField = title.split(" (")[0];
 
         let dropdown = null;
         let placeholder = '';
@@ -250,7 +252,6 @@ export default class EntityDropdown extends React.Component {
             hideWarning = '';
         }
 
-        const autocompleteClass = isAutocomplete ? 'geo-entity-dropdown_autocomplete' : null;
         return (
             <div
                 className="geo-entity-item">
@@ -312,7 +313,7 @@ export default class EntityDropdown extends React.Component {
                     id={this.state.warningId}
                     aria-hidden={hideWarning === 'hide'}>
                     <EntityWarning
-                        message={generateWarning(title)} />
+                        message={generateWarning(warningField)} />
                 </div>
             </div>
         );
