@@ -303,7 +303,6 @@ export default class EntityDropdown extends React.Component {
                             toggleDropdown={this.toggleDropdown}
                             placeholder={this.props.placeholder}
                             context={this} // used to create dropdown ref
-                            expanded={this.state.expanded}
                             loading={loading} />
                     }
                     {dropdown}

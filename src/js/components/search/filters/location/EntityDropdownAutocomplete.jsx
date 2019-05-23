@@ -32,7 +32,6 @@ export const EntityDropdownAutocomplete = ({
     toggleDropdown,
     placeholder,
     context, // the $this variable
-    expanded,
     loading
 }) => (
     <div className="autocomplete__input">
