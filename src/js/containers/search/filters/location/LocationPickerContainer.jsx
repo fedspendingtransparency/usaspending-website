@@ -105,7 +105,8 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     setCitySearchString(citySearchString, performFetch = true) {
-        this.setState({ citySearchString }, () => {
+        // we don't perform fetch when the user is clicking on a city search dropdown option
+        this.setState({ citySearchString, availableCities: [] }, () => {
             if (citySearchString.length > 2 && performFetch) {
                 this.debouncedCitySearch();
             }
