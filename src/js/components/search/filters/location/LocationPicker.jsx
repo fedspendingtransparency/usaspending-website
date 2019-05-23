@@ -192,7 +192,7 @@ export default class LocationPicker extends React.Component {
                                 type="autocomplete"
                                 loading={this.props.loading}
                                 scope="city"
-                                placeholder="Enter a city"
+                                placeholder="Enter a City"
                                 title="CITY"
                                 value={this.props.city}
                                 options={this.props.availableCities}
