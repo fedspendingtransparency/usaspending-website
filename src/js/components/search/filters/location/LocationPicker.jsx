@@ -124,7 +124,7 @@ export default class LocationPicker extends React.Component {
                 const selectedField = (district.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
                 return (
                     <span>
-                        You cannot select both a <span className="field">{(selectedField === "county" && county.code) ? selectedField : "city"}</span> and a <span className="field"> {field}</span>.
+                        You cannot select both a <span className="field">{(selectedField === "county" && !county.code) ? "city" : selectedField}</span> and a <span className="field"> {field}</span>.
                     </span>
                 );
             }
