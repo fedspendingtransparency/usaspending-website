@@ -60,6 +60,8 @@ export default class EntityDropdown extends React.Component {
         this.clickedItem = this.clickedItem.bind(this);
         this.handleDeselection = this.handleDeselection.bind(this);
 
+        this.getSelectedItemKey = this.getSelectedItemKey.bind(this);
+
         this.mouseEnter = this.mouseEnter.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
         this.handleTextInputChange = this.handleTextInputChange.bind(this);
@@ -69,6 +71,10 @@ export default class EntityDropdown extends React.Component {
         if (this.props.type === 'autocomplete' && (!isEqual(prevProps.options, this.props.options))) {
             this.openDropdown();
         }
+    }
+
+    getSelectedItemIdentifier() {
+        return this.props.value[this.props.matchKey];
     }
 
     handleTextInputChange(e) {
@@ -232,10 +238,11 @@ export default class EntityDropdown extends React.Component {
         let hideWarning = 'hide';
 
         if (this.state.expanded && !loading) {
+            const selectedItemKey = this.getSelectedItemIdentifier();
             dropdown = (<EntityDropdownList
                 matchKey={this.props.matchKey}
                 scope={this.props.scope}
-                value={this.props.value}
+                selectedItemKey={selectedItemKey}
                 options={this.props.options}
                 clickedItem={this.clickedItem} />);
         }
