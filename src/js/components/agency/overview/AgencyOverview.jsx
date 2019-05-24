@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import { capitalize, throttle } from 'lodash';
 import { convertQuarterToDate } from 'helpers/fiscalYearHelper';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -28,6 +30,7 @@ export default class AgencyOverview extends React.PureComponent {
             logo: '',
             mission: '',
             website: '',
+            congressionalJustificationUrl: '',
             asOfDate: '',
             formattedBudgetAuthority: '',
             percentageElement: '',
@@ -56,40 +59,55 @@ export default class AgencyOverview extends React.PureComponent {
     }
 
     prepareOverview(props) {
+        const { agency } = props;
         let logo = null;
         let hideLogo = 'hide';
-        if (props.agency.logo !== '') {
+        if (agency.logo !== '') {
             hideLogo = '';
             logo = (<img
-                src={`graphics/agency/${props.agency.logo}`}
-                alt={props.agency.name} />);
+                src={`graphics/agency/${agency.logo}`}
+                alt={agency.name} />);
         }
 
         let mission = 'Not available';
-        if (props.agency.mission !== '') {
-            mission = props.agency.mission;
+        if (agency.mission !== '') {
+            mission = agency.mission;
         }
 
         let website = 'Not available';
-        if (props.agency.website !== '') {
+        if (agency.website !== '') {
             website = (
                 <a
                     className="agency-website"
-                    href={props.agency.website}
+                    href={agency.website}
                     target="_blank"
                     rel="noopener noreferrer">
-                    {props.agency.website}
+                    {`${agency.website} `}
+                    <FontAwesomeIcon icon="external-link-alt" />
                 </a>
             );
         }
+        const cjUrl = agency.congressionalJustificationUrl
+            !== 'Not Available' ?
+            (
+                <a
+                    className="agency-website"
+                    href={agency.congressionalJustificationUrl}
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    {`${agency.congressionalJustificationUrl} `}
+                    <FontAwesomeIcon icon="external-link-alt" />
+                </a>
+            ) : agency.congressionalJustificationUrl;
+
 
         // Move props to variables for readability
-        const budgetAuthority = props.agency.budgetAuthority;
+        const budgetAuthority = agency.budgetAuthority;
 
-        const federalBudget = props.agency.federalBudget;
+        const federalBudget = agency.federalBudget;
 
-        const fy = parseInt(props.agency.activeFY, 10);
-        const quarter = parseInt(props.agency.activeFQ, 10);
+        const fy = parseInt(agency.activeFY, 10);
+        const quarter = parseInt(agency.activeFQ, 10);
 
         // Generate "as of" date
         const endOfQuarter = convertQuarterToDate(quarter, fy);
@@ -120,6 +138,7 @@ export default class AgencyOverview extends React.PureComponent {
             logo,
             mission,
             website,
+            cjUrl,
             asOfDate,
             formattedBudgetAuthority,
             percentageElement,
@@ -185,7 +204,12 @@ export default class AgencyOverview extends React.PureComponent {
                                     {this.state.website}
                                 </div>
                             </div>
-
+                            <div className="group">
+                                <h5>Congressional Justification of Budget (CJ)</h5>
+                                <div className="agency-website">
+                                    {this.state.cjUrl}
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div

@@ -10,6 +10,7 @@ const defaultValues = {
     name: '',
     mission: '',
     website: '',
+    congressionalJustificationUrl: null,
     logo: '',
     activeFY: '',
     activeFQ: '',
@@ -26,6 +27,7 @@ const remapData = (data) => {
         name: 'agency_name',
         mission: 'mission',
         website: 'website',
+        congressionalJustificationUrl: 'congressional_justification_url',
         logo: 'icon_filename',
         activeFY: 'active_fy',
         activeFQ: 'active_fq',
@@ -37,7 +39,11 @@ const remapData = (data) => {
     const remapFuncs = {
         budgetAuthority: (raw) => parseFloat(raw),
         federalBudget: (raw) => parseFloat(raw),
-        obligatedAmount: (raw) => parseFloat(raw)
+        obligatedAmount: (raw) => parseFloat(raw),
+        congressionalJustificationUrl: (raw) => {
+            if (!raw) return 'Not Available';
+            return raw;
+        }
     };
 
     for (const modelProp in remap) {

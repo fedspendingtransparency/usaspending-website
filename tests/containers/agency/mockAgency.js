@@ -23,6 +23,7 @@ export const mockRedux = {
             name: 'Department of Test',
             mission: 'Mission text',
             website: 'https://www.google.com',
+            congressionalJustificationUrl: 'https://www.google.com/cj',
             logo: 'test.png',
             activeFY: '2017',
             activeFQ: '2',
