@@ -54,7 +54,8 @@ export default class LocationPicker extends React.Component {
         const stateChanged = (prevProps.state.code !== this.props.state.code);
         const countryChanged = (prevProps.country.code !== this.props.country.code);
         const isCityInState = ( // if selected city is inside the selected state, don't clear the selected city!
-            this.props.state.code === this.props.city.code
+            this.props.state.code === this.props.city.code &&
+            this.props.state.code && this.props.city.code
         );
 
         if (countryChanged && this.props.country.code === "USA") {
