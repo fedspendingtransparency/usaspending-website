@@ -4,6 +4,7 @@ export const mockApi = {
     results: {
         current_total_budget_authority_amount: 1000,
         website: 'https://www.google.com',
+        congressional_justification_url: 'https://www.google.com/cj',
         mission: 'Mission text',
         obligated_amount: 15,
         outlay_amount: 12,
