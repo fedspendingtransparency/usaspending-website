@@ -111,6 +111,9 @@ export default class LocationPickerContainer extends React.Component {
                 this.debouncedCitySearch();
             }
         });
+        if (!citySearchString) {
+            this.clearCitiesAndSelectedCity();
+        }
     }
 
     loadCountries() {
