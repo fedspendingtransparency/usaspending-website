@@ -60,7 +60,7 @@ export default class EntityDropdown extends React.Component {
         this.clickedItem = this.clickedItem.bind(this);
         this.handleDeselection = this.handleDeselection.bind(this);
 
-        this.getSelectedItemKey = this.getSelectedItemKey.bind(this);
+        this.getSelectedItemIdentifier = this.getSelectedItemIdentifier.bind(this);
 
         this.mouseEnter = this.mouseEnter.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
