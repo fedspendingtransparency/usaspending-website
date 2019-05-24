@@ -11,16 +11,23 @@ const propTypes = {
     scope: PropTypes.string,
     matchKey: PropTypes.string,
     options: PropTypes.array,
-    value: PropTypes.object,
+    selectedItem: PropTypes.string,
     clickedItem: PropTypes.func
 };
 
 const alphabetRegex = /([a-z]|[0-9])/;
 
 const EntityDropdownList = (props) => {
-    const options = props.options.map((item, i) => {
+    const {
+        scope,
+        matchKey,
+        selectedItem,
+        options,
+        clickedItem
+    } = props;
+    const list = options.map((item, i) => {
         let active = '';
-        if (item.code === props.value.code && item.code !== '') {
+        if (item[matchKey] === selectedItem && selectedItem !== '') {
             active = 'active';
         }
 
@@ -28,14 +35,14 @@ const EntityDropdownList = (props) => {
         const noResultsFound = item.code === "NA-000" ? "no-matching-results" : "";
         // variable matchKeys allow us to match by numeric codes for congressional district
         // instead of display name
-        if (item[props.matchKey] !== '') {
-            const firstLetter = item[props.matchKey].substring(0, 1).toLowerCase();
+        if (item[matchKey] !== '') {
+            const firstLetter = item[matchKey].substring(0, 1).toLowerCase();
             if (alphabetRegex.test(firstLetter)) {
                 letterClass = firstLetter;
             }
         }
 
-        const handleSelection = props.clickedItem.bind(null, item);
+        const handleSelection = clickedItem.bind(null, item);
 
         return (
             <li
@@ -54,10 +61,10 @@ const EntityDropdownList = (props) => {
 
     return (
         <ul
-            id={`geo-dropdown-${props.scope}`}
+            id={`geo-dropdown-${scope}`}
             className="geo-entity-list"
             role="listbox">
-            {options}
+            {list}
         </ul>
     );
 };

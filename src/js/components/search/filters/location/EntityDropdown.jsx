@@ -238,11 +238,11 @@ export default class EntityDropdown extends React.Component {
         let hideWarning = 'hide';
 
         if (this.state.expanded && !loading) {
-            const selectedItemKey = this.getSelectedItemIdentifier();
+            const selectedItem = this.getSelectedItemIdentifier();
             dropdown = (<EntityDropdownList
                 matchKey={this.props.matchKey}
                 scope={this.props.scope}
-                selectedItemKey={selectedItemKey}
+                selectedItem={selectedItem}
                 options={this.props.options}
                 clickedItem={this.clickedItem} />);
         }
