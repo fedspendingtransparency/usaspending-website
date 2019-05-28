@@ -186,7 +186,7 @@ export class ResultsTableContainer extends React.Component {
 
         const searchParams = new SearchAwardsOperation();
         searchParams.fromState(this.props.filters);
-
+        console.log("Filters ", searchParams.toParams());
         this.tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParams.toParams(),
             subawards: this.props.subaward,

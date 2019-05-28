@@ -181,6 +181,7 @@ class SearchAwardsOperation {
             const locationSet = [];
             this.selectedRecipientLocations.forEach((location) => {
                 if (location.filter.country && location.filter.country === 'FOREIGN') {
+                    // TODO: DEV-2751, build foreign city request object!
                     filters[rootKeys.recipientLocationScope] = 'foreign';
                 }
                 else {
@@ -202,6 +203,7 @@ class SearchAwardsOperation {
             const locationSet = [];
             this.selectedLocations.forEach((location) => {
                 if (location.filter.country && location.filter.country === 'FOREIGN') {
+                    // TODO: DEV-2751, build foreign city request object!
                     filters[rootKeys.placeOfPerformanceScope] = 'foreign';
                 }
                 else {
