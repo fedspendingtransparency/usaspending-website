@@ -72,14 +72,15 @@ export default class LocationPicker extends React.Component {
             //  since USA isn't selected and wasn't previously selected, only clear cities
             this.props.clearCitiesAndSelectedCity();
         }
-        if (stateChanged && this.props.state.code && !isCityInState) {
-            // state code changed, load the counties
+        if (stateChanged && this.props.state.code) {
+            // state code changed, load the counties & districts
             this.props.loadCounties(this.props.state.code.toLowerCase());
-            // also the districts
             this.props.loadDistricts(this.props.state.code.toLowerCase());
-            this.props.clearCitiesAndSelectedCity();
+            if (!isCityInState) {
+                this.props.clearCitiesAndSelectedCity();
+            }
         }
-        else if (stateChanged && !this.props.state.code && !isCityInState) {
+        else if (stateChanged && !this.props.state.code) {
             this.props.clearCounties();
             this.props.clearDistricts();
             this.props.clearCitiesAndSelectedCity();
