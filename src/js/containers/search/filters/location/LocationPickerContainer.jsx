@@ -274,7 +274,8 @@ export default class LocationPickerContainer extends React.Component {
 
     selectEntity(level, value) {
         if (level === 'city' && this.state.state.code !== value.code && value.code) {
-            this.setState({ state: this.state.availableStates.find((state) => state.code === value.code) });
+            const selectedState = this.state.availableStates.find((state) => state.code === value.code) || defaultSelections.state;
+            this.setState({ state: selectedState });
         }
 
         this.setState({
