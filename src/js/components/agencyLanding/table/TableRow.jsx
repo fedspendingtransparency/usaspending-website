@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AgencyLinkCell from './cells/AgencyLinkCell';
 import GenericCell from './cells/GenericCell';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     columns: PropTypes.array.isRequired,
