@@ -52,15 +52,17 @@ export default class ResultsTable extends React.Component {
     }
 
     headerCellRender(columnIndex) {
-        const columnId = this.props.columns.visibleOrder[columnIndex];
-        const column = this.props.columns.data[columnId];
-        const isLast = (columnIndex + 1) === this.props.columns.visibleOrder.length;
+        const { columns } = this.props;
+        const columnId = columns.visibleOrder[columnIndex];
+        const column = columns.data[columnId];
+        const isLast = (columnIndex + 1) === columns.visibleOrder.length;
         const isActive = this.props.sort.field === column.columnName;
         return (
             <ResultsTableHeaderCell
                 isLast={isLast}
                 isActive={isActive}
                 title={column.columnName}
+                displayName={column.displayName}
                 defaultDirection={column.defaultDirection}
                 currentSort={this.props.sort}
                 updateSort={this.props.updateSort} />

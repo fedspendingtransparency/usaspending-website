@@ -4,7 +4,7 @@ const presets = [
         {
             targets: {
                 ie: "10",
-                node: "current"
+                node: "10"
             }
         }
     ],
@@ -19,6 +19,7 @@ const plugins = [
         }
     ],
     "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-object-rest-spread",
     "react-hot-loader/babel"
 ];
 

@@ -14,7 +14,7 @@ export const searchOptions = [
     {
         label: 'Keyword Search',
         url: '#/keyword_search',
-        enabled: kGlobalConstants.KEYWORD_AVAILABLE
+        enabled: true
     }
 ];
 

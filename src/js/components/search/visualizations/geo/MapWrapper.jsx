@@ -59,8 +59,8 @@ const mapboxSources = {
     congressionalDistrict: {
         label: 'congressional district',
         minZoom: 4,
-        url: 'mapbox://usaspending.51fn3vaz',
-        layer: 'tl_2017_us_cd115-4w4nmz',
+        url: 'mapbox://usaspending.a4bkzui0',
+        layer: 'tl_2018_us_cd116-34qpds',
         filterKey: 'GEOID' // the GEOID is state FIPS + district
     },
     zip: {

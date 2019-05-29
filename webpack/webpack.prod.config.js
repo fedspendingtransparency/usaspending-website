@@ -3,7 +3,6 @@ const webpack = require('webpack');
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-// const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const common = require('./webpack.common');
 
@@ -46,6 +45,5 @@ module.exports = merge(common, {
         new webpack.optimize.MinChunkSizePlugin({
             minChunkSize: 300000
         })
-        // new BundleAnalyzer({ analyzerPort: 1234 })
     ]
 });

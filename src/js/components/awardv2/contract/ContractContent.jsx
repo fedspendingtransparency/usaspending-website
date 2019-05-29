@@ -9,9 +9,9 @@ import { startCase } from 'lodash';
 
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import AdditionalInfo from './AdditionalInfo';
-import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
-import AwardDates from '../visualizations/overview/AwardDates';
+import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
+import AgencyRecipient from '../shared/overview/AgencyRecipient';
+import AwardDates from '../shared/overview/AwardDates';
 
 const propTypes = {
     awardId: PropTypes.string,

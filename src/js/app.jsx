@@ -2,7 +2,24 @@ import React from 'react';
 import { render } from 'react-dom';
 import { hot } from "react-hot-loader";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faChartPie, faChartArea } from "@fortawesome/free-solid-svg-icons";
+import {
+    faChartPie,
+    faChartArea,
+    faLandmark,
+    faMapMarkerAlt,
+    faCalendarAlt,
+    faLevelUpAlt,
+    faPencilAlt,
+    faTag,
+    faUserTie,
+    faChartBar,
+    faEllipsisH,
+    faAngleDown,
+    faAngleRight,
+    faChevronUp,
+    faSpinner,
+    faChevronDown
+} from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
 /**
@@ -13,7 +30,24 @@ import AppContainer from 'containers/AppContainer';
 require("core-js");
 require('helpers/rafPolyfill');
 
-library.add(faChartArea, faChartPie);
+library.add(
+    faChartArea,
+    faChartPie,
+    faLandmark,
+    faLevelUpAlt,
+    faMapMarkerAlt,
+    faCalendarAlt,
+    faPencilAlt,
+    faUserTie,
+    faTag,
+    faChartBar,
+    faEllipsisH,
+    faAngleDown,
+    faAngleRight,
+    faChevronDown,
+    faChevronUp,
+    faSpinner
+);
 
 const appDiv = document.getElementById('app');
 const App = render(

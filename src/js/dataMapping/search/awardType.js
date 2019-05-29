@@ -17,9 +17,9 @@ export const awardTypeCodes = {
     'T': 'Training Grant',
     'IDV_A': 'Government-Wide Acquisition Contract (GWAC)',
     'IDV_B': 'Multi-Agency Contract, Other Indefinite Delivery Contract (IDC)',
-    'IDV_B_A': 'IDC Indefinite Delivery Contract / Requirements',
-    'IDV_B_B': 'IDC Indefinite Delivery Contract / Indefinite Quantity',
-    'IDV_B_C': 'IDC Indefinite Delivery Contract / Definite Quantity',
+    'IDV_B_A': 'Indefinite Delivery / Requirements Contract',
+    'IDV_B_B': 'Indefinite Delivery / Indefinite Quantity (IDIQ) Contract',
+    'IDV_B_C': 'Indefinite Delivery / Definite Quantity Contract',
     'IDV_C': 'Federal Supply Schedule (FSS)',
     'IDV_D': 'Basic Ordering Agreement (BOA)',
     'IDV_E': 'Blanket Purchase Agreements (BPA)',
@@ -49,7 +49,7 @@ export const glossaryLinks = {
     'IDV_B': 'indefinite-delivery-contract-idc',
     'IDV_B_A': 'indefinite-delivery-requirements',
     'IDV_B_B': 'indefinite-delivery-indefinite-quantity-idiq-contract',
-    'IDV_B_C': 'indefinite-delivery-contract-idc',
+    'IDV_B_C': 'indefinite-delivery-contract-definite-quantity',
     'IDV_C': 'federal-supply-schedule-fss',
     'IDV_D': 'basic-ordering-agreement-boa',
     'IDV_E': 'blanket-purchase-agreement-bpa',
@@ -87,6 +87,6 @@ export const awardTypeGroupLabels = {
 };
 
 export const subawardTypeGroups = {
-    subcontracts: awardTypeGroups.contracts,
+    subcontracts: awardTypeGroups.contracts.concat(awardTypeGroups.idvs),
     subgrants: awardTypeGroups.grants
 };

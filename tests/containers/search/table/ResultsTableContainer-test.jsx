@@ -279,10 +279,10 @@ describe('ResultsTableContainer', () => {
                 {...mockActions}
                 {...mockRedux} />);
 
-            const output = container.instance().createColumn('Test Column');
+            const output = container.instance().createColumn('Test Display Name', 'Test Column');
             expect(output).toEqual({
                 columnName: 'Test Column',
-                displayName: 'Test Column',
+                displayName: 'Test Display Name',
                 width: 220,
                 defaultDirection: 'desc'
             });

@@ -3,86 +3,99 @@
  * Created by David Trinh 10/9/18
  */
 
+const parseCodeAndDescription = (code, description) => {
+    if (code && description) {
+        return `${code}: ${description}`;
+    }
+    else if (code || description) {
+        return `${code}${description}`;
+    }
+    return '--';
+};
+
 const BaseContractAdditionalDetails = {
     populate(data) {
         // Parent Award Details
         this.idvType = data.idv_type_description || '--';
         this.idcType = data.type_of_idc_description || '--';
         this.idvAgencyId = data.referenced_idv_agency_iden || '--';
-        this.multipleIdv = data.multiple_or_single_aw_desc || '--';
+        this.multipleIdv = data.multiple_or_single_award_description || '--';
 
         // Competition Details
         this.solicitationId = data.solicitation_identifier || '--';
-        this.solicitationProcedures = data.solicitation_procedures || '--';
+        this._solicitationProcedures = data.solicitation_procedures || '';
+        this._solicitationProceduresDescription = data.solicitation_procedures_description || '';
         this.numberOffers = data.number_of_offers_received || '--';
-        this.extentCompeted = data.extent_competed || '--';
-        this.notCompeted = data.other_than_full_and_o_desc || '--';
+        this._extentCompeted = data.extent_competed || '';
+        this._extentCompetedDescription = data.extent_competed_description || '';
+        this.notCompeted = data.other_than_full_and_open_description || '--';
         this.setAsideType = data.type_set_aside_description || '--';
-        this.commercialAcquisitionProcedures = data.commercial_item_acquisitio || '--';
-        this.commercialTestProgram = data.commercial_item_test_desc || '--';
-        this.evaluatedPreference = data.evaluated_preference_desc || '--';
+        this._commercialAcquisitionProcedures = data.commercial_item_acquisition || '';
+        this._commercialAcquisitionProceduresDescription = data.commercial_item_acquisition_description || '';
+        this.commercialTestProgram = data.commercial_item_test_program_description || '--';
+        this.evaluatedPreference = data.evaluated_preference_description || '--';
         this.fedBizOpps = data.fed_biz_opps_description || '--';
         this.smallBusinessCompetitive = (data.small_business_competitive && 'Yes') || 'No';
-        this.fairOpportunityLimitedSources = data.fair_opportunity_limi_desc || '--';
+        this.fairOpportunityLimitedSources = data.fair_opportunity_limited_description || '--';
 
         // Product or Service Details
         this._pscCode = data.product_or_service_code || '';
-        this._pscDescription = data.product_or_service_desc || '';
+        this._pscDescription = data.product_or_service_description || '';
         this._naicsCode = data.naics || '';
         this._naicsDescription = data.naics_description || '';
-        this.dodClaimantCode = data.dod_claimant_program_code || '--';
+        this._dodClaimantCode = data.dod_claimant_program || '';
+        this._dodClaimantDescription = data.dod_claimant_program_description || '';
         this.itCommercialCategory = data.information_technology_commercial_item_category || '--';
-        this.seaTransport = data.sea_transportation_desc || '--';
+        this.seaTransport = data.sea_transportation_description || '--';
 
         // Legislative Mandates
-        this.clingerCohenAct = data.clinger_cohen_act_pla_desc || '--';
-        this.constructionWageRateReq = data.construction_wage_rat_desc || '--';
-        this.laborStandards = data.labor_standards_descrip || '--';
-        this.materialSuppliesArticlesEquip = data.materials_supplies_descrip || '--';
+        this.clingerCohenAct = data.clinger_cohen_act_planning_description || '--';
+        this.constructionWageRateReq = data.construction_wage_rate_description || '--';
+        this.laborStandards = data.labor_standards_description || '--';
+        this.materialSuppliesArticlesEquip = data.materials_supplies_description || '--';
 
         // Additional Details
-        this.costOrPricingData = data.cost_or_pricing_data_desc || '--';
-        this.domesticForeign = data.domestic_or_foreign_e_desc || '--';
-        this.foreignFunding = data.foreign_funding_desc || '--';
-        this.interagencyContactingAuthority = data.interagency_contract_desc || '--';
+        this.costOrPricingData = data.cost_or_pricing_data_description || '--';
+        this.domesticForeign = data.domestic_or_foreign_entity_description || '--';
+        this.foreignFunding = data.foreign_funding_description || '--';
+        this.interagencyContactingAuthority = data.interagency_contracting_authority_description || '--';
         this.majorProgram = data.major_program || '--';
-        this.priceEvaluationAdjustmentPreference = data.price_evaluation_adjustmen || '--';
+        this.priceEvaluationAdjustmentPreference = data.price_evaluation_adjustment || '--';
         this.programAcronym = data.program_acronym || '--';
-        this.subcontractingPlan = data.subcontracting_plan || '--';
-        this.multiYearContract = data.multi_year_contract_desc || '--';
-        this.purchaseCardAsPaymentMethod = data.purchase_card_as_paym_desc || '--';
-        this.consolidated = data.consolidated_contract_desc || '--';
-        this.contractPriceDesc = data.type_of_contract_pric_desc || '--';
-        this.dodAcquisitionProgramCode = data.dod_acquisition_program_code || '';
-        this.dodAcquisitionProgramDescription = data.dod_acquisition_program_description || '';
-        this.infoTechCommercialItem = data.information_technology_commercial_item_category_code || '--';
+        this._subcontractingPlan = data.subcontracting_plan || '';
+        this._subcontractingPlanDescription = data.subcontracting_plan_description || '';
+        this.multiYearContract = data.multi_year_contract_description || '--';
+        this.purchaseCardAsPaymentMethod = data.purchase_card_as_payment_method_description || '--';
+        this.consolidated = data.consolidated_contract_description || '--';
+        this.contractPriceDesc = data.type_of_contract_pricing_description || '--';
+        this._dodAcquisitionProgramCode = data.dod_acquisition_program || '';
+        this._dodAcquisitionProgramDescription = data.dod_acquisition_program_description || '';
+        this._infoTechCommercialItem = data.information_technology_commercial_item_category || '';
+        this._infoTechCommercialItemDescription = data.information_technology_commercial_item_category_description || '';
     },
     get pscCode() {
-        if (this._pscCode && this._pscDescription) {
-            return `${this._pscCode}: ${this._pscDescription}`;
-        }
-        else if (this._pscCode || this._pscDescription) {
-            return `${this._pscCode}${this._pscDescription}`;
-        }
-        return '--';
+        return parseCodeAndDescription(this._pscCode, this._pscDescription);
     },
     get naicsCode() {
-        if (this._naicsCode && this._naicsDescription) {
-            return `${this._naicsCode}: ${this._naicsDescription}`;
-        }
-        else if (this._naicsCode || this._naicsDescription) {
-            return `${this._naicsCode}${this._naicsDescription}`;
-        }
-        return '--';
+        return parseCodeAndDescription(this._naicsCode, this._naicsDescription);
     },
     get dodAcquisitionProgram() {
-        if (this.dodAcquisitionProgramCode && this.dodAcquisitionProgramDescription) {
-            return `${this.dodAcquisitionProgramCode}: ${this.dodAcquisitionProgramDescription}`;
-        }
-        else if (this.dodAcquisitionProgramCode || this.dodAcquisitionProgramDescription) {
-            return `${this.dodAcquisitionProgramCode}${this.dodAcquisitionProgramDescription}`;
-        }
-        return '--';
+        return parseCodeAndDescription(this._dodAcquisitionProgramCode, this._dodAcquisitionProgramDescription);
+    },
+    get extentCompeted() {
+        return parseCodeAndDescription(this._extentCompeted, this._extentCompetedDescription);
+    },
+    get solicitationProcedures() {
+        return parseCodeAndDescription(this._solicitationProcedures, this._solicitationProceduresDescription);
+    },
+    get subcontractingPlan() {
+        return parseCodeAndDescription(this._subcontractingPlan, this._subcontractingPlanDescription);
+    },
+    get commercialAcquisitionProcedures() {
+        return parseCodeAndDescription(this._commercialAcquisitionProcedures, this._commercialAcquisitionProceduresDescription);
+    },
+    get dodClaimantProgram() {
+        return parseCodeAndDescription(this._dodClaimantCode, this._dodClaimantDescription);
     }
 };
 
