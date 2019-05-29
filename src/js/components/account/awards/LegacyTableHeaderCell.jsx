@@ -73,7 +73,7 @@ const TableHeaderCell = (props) => {
                     <div className="header-label">
                         {props.title}
                     </div>
-                    <div className="header-icons">
+                    {props.defaultDirection && <div className="header-icons">
                         <button
                             onClick={clickedSort}
                             className={`sort-icon${activeAsc}`}
@@ -92,7 +92,7 @@ const TableHeaderCell = (props) => {
                             <ArrowDown
                                 alt={`Sort table by descending ${props.title}`} />
                         </button>
-                    </div>
+                    </div>}
                 </div>
             </div>
         </div>

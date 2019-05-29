@@ -135,7 +135,6 @@ export class AgencyLandingContainer extends React.Component {
 
     parseAgencies(data) {
         const agencies = [];
-
         data.results.forEach((item) => {
             // Format budget authority amount
             const formattedCurrency =
@@ -162,7 +161,9 @@ export class AgencyLandingContainer extends React.Component {
                 display: {
                     agency_name: `${item.agency_name} (${item.abbreviation})`,
                     budget_authority_amount: formattedCurrency,
-                    percentage_of_total_budget_authority: percent
+                    percentage_of_total_budget_authority: percent,
+                    congressional_justification_url: item.congressional_justification_url
+                    || 'not available'
                 }
             };
             agencies.push(agency);

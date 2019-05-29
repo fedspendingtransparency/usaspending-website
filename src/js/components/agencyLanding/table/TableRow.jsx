@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AgencyLinkCell from './cells/AgencyLinkCell';
 import GenericCell from './cells/GenericCell';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     columns: PropTypes.array.isRequired,
@@ -34,6 +35,31 @@ export default class TableRow extends React.PureComponent {
                             id={this.props.agency.agency_id}
                             agencySearchString={this.props.agencySearchString}
                             column={column.columnName} />
+                    </td>
+                );
+            }
+            if (column.columnName === 'congressional_justification_url') {
+                if (this.props.agency.display[column.columnName] !== 'not available') {
+                    return (
+                        <td
+                            className={rowClass}
+                            key={`${column.columnName}-${this.props.agency.agency_id}`}>
+                            <div className={`column-${column.columnName}`}>
+                                <div className="cell-content">
+                                    <a href={`${this.props.agency.display[column.columnName]}`}>
+                                        {`${this.props.agency.display[column.columnName]} `}
+                                        <FontAwesomeIcon icon="external-link-alt" />
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                    );
+                }
+                return (
+                    <td
+                        className={rowClass}
+                        key={`${column.columnName}-${this.props.agency.agency_id}`}>
+                        {this.props.agency.display[column.columnName]}
                     </td>
                 );
             }
