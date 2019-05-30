@@ -60,6 +60,8 @@ export default class EntityDropdown extends React.Component {
         this.clickedItem = this.clickedItem.bind(this);
         this.handleDeselection = this.handleDeselection.bind(this);
 
+        this.getSelectedItemIdentifier = this.getSelectedItemIdentifier.bind(this);
+
         this.mouseEnter = this.mouseEnter.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
         this.handleTextInputChange = this.handleTextInputChange.bind(this);
@@ -69,6 +71,10 @@ export default class EntityDropdown extends React.Component {
         if (this.props.type === 'autocomplete' && (!isEqual(prevProps.options, this.props.options))) {
             this.openDropdown();
         }
+    }
+
+    getSelectedItemIdentifier() {
+        return this.props.value[this.props.matchKey];
     }
 
     handleTextInputChange(e) {
@@ -222,6 +228,8 @@ export default class EntityDropdown extends React.Component {
         } = this.props;
 
         const isAutocomplete = (type === 'autocomplete');
+        const autocompleteClass = isAutocomplete ? 'geo-entity-dropdown_autocomplete' : null;
+        const warningField = title.split(" (")[0];
 
         let dropdown = null;
         let placeholder = '';
@@ -230,10 +238,11 @@ export default class EntityDropdown extends React.Component {
         let hideWarning = 'hide';
 
         if (this.state.expanded && !loading) {
+            const selectedItem = this.getSelectedItemIdentifier();
             dropdown = (<EntityDropdownList
                 matchKey={this.props.matchKey}
                 scope={this.props.scope}
-                value={this.props.value}
+                selectedItem={selectedItem}
                 options={this.props.options}
                 clickedItem={this.clickedItem} />);
         }
@@ -250,7 +259,6 @@ export default class EntityDropdown extends React.Component {
             hideWarning = '';
         }
 
-        const autocompleteClass = isAutocomplete ? 'geo-entity-dropdown_autocomplete' : null;
         return (
             <div
                 className="geo-entity-item">
@@ -303,7 +311,6 @@ export default class EntityDropdown extends React.Component {
                             toggleDropdown={this.toggleDropdown}
                             placeholder={this.props.placeholder}
                             context={this} // used to create dropdown ref
-                            expanded={this.state.expanded}
                             loading={loading} />
                     }
                     {dropdown}
@@ -313,7 +320,7 @@ export default class EntityDropdown extends React.Component {
                     id={this.state.warningId}
                     aria-hidden={hideWarning === 'hide'}>
                     <EntityWarning
-                        message={generateWarning(title)} />
+                        message={generateWarning(warningField)} />
                 </div>
             </div>
         );
