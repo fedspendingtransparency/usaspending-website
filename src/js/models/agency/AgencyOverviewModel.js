@@ -41,7 +41,7 @@ const remapData = (data) => {
         federalBudget: (raw) => parseFloat(raw),
         obligatedAmount: (raw) => parseFloat(raw),
         congressionalJustificationUrl: (raw) => {
-            if (!raw) return 'Not Available';
+            if (!raw) return 'not available';
             return raw;
         }
     };

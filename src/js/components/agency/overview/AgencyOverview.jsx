@@ -88,7 +88,7 @@ export default class AgencyOverview extends React.PureComponent {
             );
         }
         const cjUrl = agency.congressionalJustificationUrl
-            !== 'Not Available' ?
+            !== 'not available' ?
             (
                 <a
                     className="agency-website"
