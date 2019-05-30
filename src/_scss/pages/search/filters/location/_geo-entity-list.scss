@@ -1,0 +1,41 @@
+.geo-entity-list {
+    @include unstyled-list;
+    z-index: $z-header - 1;
+    background-color: $color-white;
+    border: 1px solid $color-gray-lighter;
+    box-shadow: $box-shadow;
+    max-height: rem(680);
+    margin: 0;
+    list-style-type: none;
+    padding-left: 0;
+    background-color: #fff;
+    border: 1px solid #d6d7d9;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    overflow-y: auto;
+
+    li {
+        display: block;
+        min-width: rem(250);
+    }
+
+    .list-item {
+        @include button-unstyled;
+        color: $color-gray;
+        font-size: $small-font-size;
+        padding: rem(10);
+
+        width: 100%;
+
+        &:hover, &:active, &.active {
+            background-color: $color-gray-lightest;
+            color: $color-primary;
+        }
+    }
+    .no-matching-results {
+        color: red;
+        &:hover {
+            color: red;
+        }
+    }
+}
