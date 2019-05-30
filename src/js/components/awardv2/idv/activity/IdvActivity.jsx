@@ -53,7 +53,7 @@ export default class IdvActivity extends React.Component {
                             <FontAwesomeIcon size="lg" icon="chart-area" />
                         </div>
                         <h3 className="award-viz__title">IDV Activity</h3>
-                        <InfoTooltip left wide>
+                        <InfoTooltip wide>
                             {idvActivityInfo}
                         </InfoTooltip>
                     </div>
