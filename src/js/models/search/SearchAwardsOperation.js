@@ -81,7 +81,6 @@ class SearchAwardsOperation {
     toParams() {
         // Convert the search operation into JS objects
         const filters = {};
-        console.log(Object.keys(this).forEach((key) => console.log(key, this[key])));
         // Add keyword
         if (this.keyword.length > 0) {
             filters[rootKeys.keywords] = this.keyword;
