@@ -105,11 +105,15 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     setCitySearchString(citySearchString, performFetch = true) {
-        this.setState({ citySearchString }, () => {
+        // we don't perform fetch when the user is clicking on a city search dropdown option
+        this.setState({ citySearchString, availableCities: [] }, () => {
             if (citySearchString.length > 2 && performFetch) {
                 this.debouncedCitySearch();
             }
         });
+        if (!citySearchString) {
+            this.clearCitiesAndSelectedCity();
+        }
     }
 
     loadCountries() {
@@ -274,7 +278,8 @@ export default class LocationPickerContainer extends React.Component {
 
     selectEntity(level, value) {
         if (level === 'city' && this.state.state.code !== value.code && value.code) {
-            this.setState({ state: this.state.availableStates.find((state) => state.code === value.code) });
+            const selectedState = this.state.availableStates.find((state) => state.code === value.code) || defaultSelections.state;
+            this.setState({ state: selectedState });
         }
 
         this.setState({
