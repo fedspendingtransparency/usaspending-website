@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import { isEqual, min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 

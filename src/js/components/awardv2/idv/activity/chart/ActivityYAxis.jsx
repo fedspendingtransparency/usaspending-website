@@ -43,7 +43,7 @@ export default class ActivityYAxis extends React.Component {
         // generate the labels
         const tickLabels = props.ticks.map((tick) => {
             let formattedValue = MoneyFormatter.formatMoneyWithPrecision(tick / units.unit, units.precision);
-            
+
             if (tick === 0) {
                 formattedValue = '$0';
             }
