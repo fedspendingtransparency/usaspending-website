@@ -1,4 +1,5 @@
 .agency-overview {
+  width: 100%;
     @include clearfix();
     .title-wrapper {
         @include display(flex);
@@ -23,9 +24,11 @@
     }
 
     .overview-content {
+      width: 100%;
       @include display(flex);
       @include flex-wrap(wrap);
         .agency-details {
+          width: 100%;
             @include media($tablet-screen) {
                 @include span-columns(8);
             }
@@ -36,6 +39,7 @@
             }
 
             .lower-details {
+                width: 100%;
                 @include display(inline-flex);
                 @include flex-wrap(wrap);
                 margin-top: rem(0);
@@ -48,11 +52,11 @@
                       padding-right: rem(60);
                     }
                     h5 {
+                        @include flex-wrap(wrap);
                         font-size: rem(16);
                         font-weight: 600;
                         line-height: rem(20);
                         margin: rem(5) 0;
-                        white-space: nowrap;
                     }
 
                     .agency-website {
