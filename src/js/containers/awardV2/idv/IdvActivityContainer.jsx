@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import moment from 'moment';
 
 import { fetchIdvActivity } from 'helpers/idvHelper';
 import IdvActivity from 'components/awardv2/idv/activity/IdvActivity';
