@@ -72,7 +72,7 @@ export default class IdvContent extends React.Component {
                 </a>
             );
         }
-        console.log("isV2url: ", this.props.isV2url);
+
         return (
             <div className="award award-idv">
                 <div className="idv__heading">
