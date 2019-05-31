@@ -36,6 +36,8 @@ export class AccountRankVisualizationContainer extends React.Component {
             dataSeries: [],
             descriptions: [],
             page: 1,
+            total: 40,
+            limit: 10,
             next: null,
             previous: null,
             hasNextPage: false,
@@ -165,8 +167,8 @@ ${MoneyFormatter.formatMoney(adjustedValue)}`;
             loading: false,
             next: data.page_metadata.next,
             previous: data.page_metadata.previous,
-            hasNextPage: data.page_metadata.has_next_page,
-            hasPreviousPage: data.page_metadata.has_previous_page
+            hasNextPage: data.page_metadata.has_next,
+            hasPreviousPage: data.page_metadata.has_previous
         });
     }
 

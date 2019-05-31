@@ -20,14 +20,16 @@ const propTypes = {
     itemHeight: PropTypes.number,
     xSeries: PropTypes.array,
     ySeries: PropTypes.array,
-    padding: PropTypes.object
+    padding: PropTypes.object,
+    barHeight: PropTypes.number
 };
 
 const defaultProps = {
     padding: {
         left: 45,
         bottom: 30
-    }
+    },
+    barHeight: 10
 };
 
 export default class ActivityChart extends React.Component {
@@ -101,16 +103,17 @@ export default class ActivityChart extends React.Component {
 
         // Map each award to a "bar" component
         const bars = this.props.awards.map((bar, index) => {
-            const start = xScale(bar._startDate.valueOf());
-            const end = xScale(bar._endDate.valueOf());
+            const { padding, barHeight, height } = this.props;
+            const start = xScale(bar._startDate.valueOf()) + padding.left;
+            const end = xScale(bar._endDate.valueOf()) + padding.left;
             const width = end - start;
-            const yPosition = (this.props.height - 30) - yScale(bar._awardedAmount);
+            const yPosition = (height - 30) - yScale(bar._awardedAmount) - barHeight;
             const description = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, an awarded amount of ${bar.awardedAmount}, and an obligated amount of ${bar.obligatedAmount}.`;
             return (
                 <ActivityChartBar
                     key={`bar-${bar._awardedAmount}-${index}`}
                     index={index}
-                    height={10}
+                    height={barHeight}
                     start={start}
                     width={width}
                     yPosition={yPosition}
@@ -142,6 +145,7 @@ export default class ActivityChart extends React.Component {
                     <ActivityYAxis
                         height={this.props.height - this.props.padding.bottom}
                         width={this.props.width - this.props.padding.left}
+                        barHeight={this.props.barHeight}
                         padding={this.props.padding}
                         data={this.props.ySeries}
                         scale={this.state.yScale}
