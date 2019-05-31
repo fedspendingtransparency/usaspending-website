@@ -364,7 +364,7 @@ export const datesInfo = (
                     when the IDV was made available for use by agencies.
                 </li>
                 <li>
-                    <strong>End Date</strong> – This is the last date for agencies
+                    <strong>Ordering Period End Date</strong> – This is the last date for agencies
                     to make purchases under this IDV.
                 </li>
             </ul>
