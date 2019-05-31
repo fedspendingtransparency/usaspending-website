@@ -28,7 +28,7 @@ const subawardFields = {
         ],
         _sortFields: {
             number: 'subaward_number',
-            recipient: 'recipient__recipient_name',
+            recipient: 'recipient_name',
             actionDate: 'action_date',
             amount: 'amount',
             description: 'description'
