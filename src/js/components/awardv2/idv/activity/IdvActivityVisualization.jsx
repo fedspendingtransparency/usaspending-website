@@ -12,6 +12,7 @@ import ActivityChart from './chart/ActivityChart';
 
 const propTypes = {
     page: PropTypes.number,
+    total: PropTypes.number,
     count: PropTypes.number,
     changePage: PropTypes.func,
     awards: PropTypes.array,
@@ -71,8 +72,8 @@ export default class IdvActivityVisualization extends React.Component {
                 <Pagination
                     onChangePage={this.props.changePage}
                     pageNumber={this.props.page}
-                    totalItems={this.props.count}
-                    pageSize={10} />
+                    totalItems={this.props.total}
+                    pageSize={this.props.count} />
                 {chart}
                 <div className="visualization-legend">
                     <div className="visualization-legend__circle visualization-legend__circle_obligated" />

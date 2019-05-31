@@ -16,7 +16,8 @@ export class IdvActivityContainer extends React.Component {
         super(props);
         this.state = {
             page: 1,
-            count: 0,
+            limit: 10,
+            total: 0,
             awards: [],
             xSeries: [],
             ySeries: [],
@@ -54,7 +55,7 @@ export class IdvActivityContainer extends React.Component {
         try {
             const { data } = await this.idvActivityRequest.promise;
             this.setState({
-                count: data.page_metadata.count,
+                total: data.page_metadata.total,
                 error: false
             }, () => this.parseAwards(data.results));
         }

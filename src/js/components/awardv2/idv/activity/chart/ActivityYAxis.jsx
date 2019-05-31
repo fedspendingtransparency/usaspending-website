@@ -12,7 +12,12 @@ import ActivityYAxisItem from './ActivityYAxisItem';
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    padding: PropTypes.object
+    padding: PropTypes.object,
+    barHeight: PropTypes.number
+};
+
+const defaultProps = {
+    barHeight: 10
 };
 
 export default class ActivityYAxis extends React.Component {
@@ -43,7 +48,6 @@ export default class ActivityYAxis extends React.Component {
         // generate the labels
         const tickLabels = props.ticks.map((tick) => {
             let formattedValue = MoneyFormatter.formatMoneyWithPrecision(tick / units.unit, units.precision);
-
             if (tick === 0) {
                 formattedValue = '$0';
             }
@@ -105,7 +109,7 @@ export default class ActivityYAxis extends React.Component {
                 <line
                     className="y-axis"
                     x1={this.props.padding.left}
-                    y1={0}
+                    y1={-this.props.barHeight}
                     x2={this.props.padding.left}
                     y2={this.props.height}
                     style={lineStyle} />
@@ -118,3 +122,4 @@ export default class ActivityYAxis extends React.Component {
 }
 
 ActivityYAxis.propTypes = propTypes;
+ActivityYAxis.defaultProps = defaultProps;

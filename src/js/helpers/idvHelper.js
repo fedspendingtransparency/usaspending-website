@@ -169,8 +169,14 @@ export const fetchIdvActivity = () => {
                             grandchild: true
                         }],
                         page_metadata: {
+                            hasNext: true,
                             count: 40,
-                            page: 1
+                            hasPrevious: false,
+                            limit: 10,
+                            next: 2,
+                            page: 1,
+                            previous: null,
+                            total: 40
                         }
                     }
                 }, 500);
