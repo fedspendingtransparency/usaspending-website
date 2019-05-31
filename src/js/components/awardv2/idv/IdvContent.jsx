@@ -24,7 +24,8 @@ const propTypes = {
     awardId: PropTypes.string,
     counts: AWARD_V2_COUNTS_PROPS,
     overview: AWARD_V2_OVERVIEW_PROPS,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    isV2url: PropTypes.bool
 };
 
 export default class IdvContent extends React.Component {
@@ -71,6 +72,7 @@ export default class IdvContent extends React.Component {
                 </a>
             );
         }
+
         return (
             <div className="award award-idv">
                 <div className="idv__heading">
@@ -123,7 +125,7 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    <IdvActivityContainer />
+                    <IdvActivityContainer comingSoon={!this.props.isV2url} />
                     <AwardMetaDataContainer
                         jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>

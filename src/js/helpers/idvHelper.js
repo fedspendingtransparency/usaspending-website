@@ -170,6 +170,7 @@ export const fetchIdvActivity = () => {
                         }],
                         page_metadata: {
                             hasNext: true,
+                            count: 40,
                             hasPrevious: false,
                             limit: 10,
                             next: 2,

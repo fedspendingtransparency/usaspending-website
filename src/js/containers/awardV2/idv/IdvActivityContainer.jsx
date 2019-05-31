@@ -100,6 +100,7 @@ export class IdvActivityContainer extends React.Component {
         return (
             <IdvActivity
                 {...this.state}
+                {...this.props}
                 changePage={this.changePage} />
         );
     }

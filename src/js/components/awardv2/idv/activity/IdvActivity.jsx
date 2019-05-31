@@ -13,6 +13,7 @@ const propTypes = {
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     page: PropTypes.number,
+    count: PropTypes.number,
     total: PropTypes.number,
     limit: PropTypes.number,
     changePage: PropTypes.func,
@@ -55,7 +56,7 @@ export default class IdvActivity extends React.Component {
                             <FontAwesomeIcon size="lg" icon="chart-area" />
                         </div>
                         <h3 className="award-viz__title">IDV Activity</h3>
-                        <InfoTooltip left wide>
+                        <InfoTooltip wide>
                             {idvActivityInfo}
                         </InfoTooltip>
                     </div>
