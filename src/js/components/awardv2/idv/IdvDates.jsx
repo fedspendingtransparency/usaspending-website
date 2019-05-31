@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import moment from 'moment';
 import InfoTooltip from './InfoTooltip';
+import { datesInfo } from './InfoTooltipContent';
 
 const propTypes = {
     dates: PropTypes.object
@@ -82,18 +83,7 @@ export default class IdvDates extends React.Component {
                     <div className="award-overview__title idv-dates__title">
                         Dates
                         <InfoTooltip left>
-                            <div className="info-tooltip__title">Dates</div>
-                            <div className="info-tooltip__text">
-                                <p>The dates below are described in more detail:</p>
-                                <ul>
-                                    <li>
-                                        <strong>Start Date</strong> – This is the effective date, or when the IDV was made available for use by agencies.
-                                    </li>
-                                    <li>
-                                        <strong>End Date</strong> – This is the last date for agencies to make purchases under this IDV.
-                                    </li>
-                                </ul>
-                            </div>
+                            {datesInfo}
                         </InfoTooltip>
                     </div>
                     <div className="idv-dates__remaining">

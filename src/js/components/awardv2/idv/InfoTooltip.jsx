@@ -59,8 +59,15 @@ export default class InfoTooltip extends React.Component {
         const targetElement = this.referenceDiv;
         const offsetTop = targetElement.offsetTop - 15;
         let tooltipWidth = 375;
-        if (this.props.wide) {
-            tooltipWidth = (window.innerWidth - targetElement.offsetLeft > 700)
+        // is the tooltip in a section that takes up the full width of the screen?
+        const isTooltipJustifiedRight = (window.innerWidth - targetElement.offsetLeft) < window.innerWidth / 6;
+
+        if (this.props.wide && isTooltipJustifiedRight) {
+            tooltipWidth = 700;
+        }
+        else if (this.props.wide) {
+            // is there at least 801px of space to the left/right for the tooltip?
+            tooltipWidth = (window.innerWidth - targetElement.offsetLeft > 800)
                 ? 700
                 : window.innerWidth - targetElement.offsetLeft - 100;
         }

@@ -81,7 +81,6 @@ class SearchAwardsOperation {
     toParams() {
         // Convert the search operation into JS objects
         const filters = {};
-
         // Add keyword
         if (this.keyword.length > 0) {
             filters[rootKeys.keywords] = this.keyword;
@@ -180,12 +179,10 @@ class SearchAwardsOperation {
         if (this.selectedRecipientLocations.length > 0) {
             const locationSet = [];
             this.selectedRecipientLocations.forEach((location) => {
-                if (location.filter.country && location.filter.country === 'FOREIGN') {
+                if (location.filter.country && location.filter.country !== 'USA') {
                     filters[rootKeys.recipientLocationScope] = 'foreign';
                 }
-                else {
-                    locationSet.push(location.filter);
-                }
+                locationSet.push(location.filter);
             });
 
             if (locationSet.length > 0) {
@@ -201,12 +198,10 @@ class SearchAwardsOperation {
         if (this.selectedLocations.length > 0) {
             const locationSet = [];
             this.selectedLocations.forEach((location) => {
-                if (location.filter.country && location.filter.country === 'FOREIGN') {
+                if (location.filter.country && location.filter.country !== 'USA') {
                     filters[rootKeys.placeOfPerformanceScope] = 'foreign';
                 }
-                else {
-                    locationSet.push(location.filter);
-                }
+                locationSet.push(location.filter);
             });
 
             if (locationSet.length > 0) {

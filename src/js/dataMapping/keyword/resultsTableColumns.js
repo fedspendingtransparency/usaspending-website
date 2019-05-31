@@ -4,64 +4,76 @@
  */
 
 const contractColumns = [
-    'Award ID',
-    'Mod',
-    'Recipient Name',
-    'Action Date',
-    'Transaction Amount',
-    'Awarding Agency',
-    'Awarding Sub Agency',
-    'Award Type'
+    { title: 'Award ID' },
+    { title: 'Mod' },
+    { title: 'Recipient Name' },
+    { title: 'Action Date' },
+    { title: 'Transaction Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Award Type' }
+];
+
+const idvColumns = [
+    { title: 'Award ID' },
+    { title: 'Mod' },
+    { title: 'Recipient Name' },
+    { title: 'Action Date' },
+    { title: 'Transaction Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { displayName: 'IDV Type', title: 'Award Type' }
 ];
 
 const grantColumns = [
-    'Award ID',
-    'Mod',
-    'Recipient Name',
-    'Action Date',
-    'Transaction Amount',
-    'Awarding Agency',
-    'Awarding Sub Agency',
-    'Award Type'
+    { title: 'Award ID' },
+    { title: 'Mod' },
+    { title: 'Recipient Name' },
+    { title: 'Action Date' },
+    { title: 'Transaction Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Award Type' }
 ];
 
 const loanColumns = [
-    'Award ID',
-    'Mod',
-    'Recipient Name',
-    'Action Date',
-    'Loan Value',
-    'Subsidy Cost',
-    'Awarding Agency',
-    'Awarding Sub Agency',
-    'Award Type'
+    { title: 'Award ID' },
+    { title: 'Mod' },
+    { title: 'Recipient Name' },
+    { title: 'Action Date' },
+    { title: 'Loan Value' },
+    { title: 'Subsidy Cost' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Award Type' }
 ];
 
 const directPaymentColumns = [
-    'Award ID',
-    'Mod',
-    'Recipient Name',
-    'Action Date',
-    'Transaction Amount',
-    'Awarding Agency',
-    'Awarding Sub Agency',
-    'Award Type'
+    { title: 'Award ID' },
+    { title: 'Mod' },
+    { title: 'Recipient Name' },
+    { title: 'Action Date' },
+    { title: 'Transaction Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Award Type' }
 ];
 
 const otherColumns = [
-    'Award ID',
-    'Mod',
-    'Recipient Name',
-    'Action Date',
-    'Transaction Amount',
-    'Awarding Agency',
-    'Awarding Sub Agency',
-    'Award Type'
+    { title: 'Award ID' },
+    { title: 'Mod' },
+    { title: 'Recipient Name' },
+    { title: 'Action Date' },
+    { title: 'Transaction Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Award Type' }
 ];
 
 export const availableColumns = (type) => {
     const columns = {
         contracts: contractColumns,
+        idvs: idvColumns,
         grants: grantColumns,
         direct_payments: directPaymentColumns,
         loans: loanColumns,
@@ -74,6 +86,7 @@ export const availableColumns = (type) => {
 export const defaultSort = (type) => {
     const columns = {
         contracts: 'Transaction Amount',
+        idvs: 'Award Amount',
         grants: 'Transaction Amount',
         direct_payments: 'Transaction Amount',
         loans: 'Loan Value',

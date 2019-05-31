@@ -1,0 +1,27 @@
+.related-awards-tt {
+    p:nth-of-type(2) {
+        padding-bottom:0;
+        margin-bottom: 0;
+    }
+}
+.transaction-history-tt {
+    p:nth-of-type(3) {
+        margin-bottom: 0;
+    }
+}
+.combined-obligated-tt,
+.combined-current-tt,
+.combined-potential-tt,
+.combined-exceeds-potential-tt,
+.combined-exceeds-current-tt {
+    @include display(flex);
+    @include flex-direction(column);
+    @include align-items(center);
+    .tooltip__title {
+        width: 100%;
+        margin-bottom: $global-mrg / 2;
+    }
+    .tooltip__list li {
+        font-style: italic;
+    }
+}

@@ -1,0 +1,28 @@
+@mixin viewTypeButton {
+  .view-button {
+    background-color: $color-white;
+    border: solid 1px $color-gray-light;
+    padding: rem(5) rem(15);
+    .icon {
+        @include flex(0 0 auto);
+        width: rem(20);
+        height: rem(20);
+  
+        svg {
+            width: rem(20);
+            height: rem(20);
+            fill: $color-gray-light;
+        }
+    }
+    &.active {
+        background-color: $color-primary-alt-dark;
+        border-color: $color-primary-alt-dark;
+        .icon {
+  
+            svg {
+                fill: $color-white;
+            }
+        }
+    }
+  }
+}

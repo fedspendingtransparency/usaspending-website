@@ -46,8 +46,8 @@ export default class ReferencedAwardsSection extends React.Component {
                         <div className="award-viz__icon">
                             <img src="img/icon-hierarchy.png" alt="pedigree chart" />
                         </div>
-                        <h3 className="award-viz__title">Award Orders Made Under this IDV</h3>
-                        <InfoToolTip left>
+                        <h3 className="award-viz__title">Orders Made Under this IDV</h3>
+                        <InfoToolTip left wide>
                             {relatedAwardsInfo}
                         </InfoToolTip>
                     </div>

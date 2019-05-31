@@ -132,11 +132,10 @@ export class ResultsTableContainer extends React.Component {
         // load every possible table column up front, so we don't need to deal with this when
         // switching tabs
         const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
-            const visibleColumns = defaultColumns(type.internal);
-            const parsedColumns = {};
-            visibleColumns.forEach((title) => {
-                parsedColumns[title] = this.createColumn(title);
-            });
+            const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
+            const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
+                [data.title]: this.createColumn(data.displayName, data.title)
+            }), {});
 
             return Object.assign({}, cols, {
                 [type.internal]: {
@@ -145,13 +144,12 @@ export class ResultsTableContainer extends React.Component {
                 }
             });
         }, {});
-
         this.setState({
             columns
         });
     }
 
-    createColumn(title) {
+    createColumn(displayName, title) {
         // create an object that integrates with the expected column data structure used by
         // the table component
         // const dataType = awardTableColumnTypes[title];
@@ -165,8 +163,8 @@ export class ResultsTableContainer extends React.Component {
 
         const column = {
             columnName: title,
-            displayName: title,
-            width: measureTableHeader(title),
+            displayName: displayName || title,
+            width: measureTableHeader(displayName || title),
             defaultDirection: direction
         };
 
@@ -188,7 +186,6 @@ export class ResultsTableContainer extends React.Component {
 
         const searchParams = new SearchAwardsOperation();
         searchParams.fromState(this.props.filters);
-
         this.tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParams.toParams(),
             subawards: this.props.subaward,

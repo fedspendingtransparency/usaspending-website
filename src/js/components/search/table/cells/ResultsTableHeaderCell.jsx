@@ -11,6 +11,7 @@ const propTypes = {
     isLast: PropTypes.bool,
     isActive: PropTypes.bool,
     title: PropTypes.string,
+    displayName: PropTypes.string,
     defaultDirection: PropTypes.string,
     currentSort: PropTypes.object,
     updateSort: PropTypes.func
@@ -71,7 +72,7 @@ const TableHeaderCell = (props) => {
                 tabIndex={0}>
                 <div className="header-sort">
                     <div className="header-label">
-                        {props.title}
+                        {props.displayName}
                     </div>
                     <div className="header-icons">
                         <button

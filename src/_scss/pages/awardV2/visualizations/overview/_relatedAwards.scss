@@ -11,10 +11,26 @@
         font-weight: $font-light;
         padding-bottom: rem(5);
         &.related-awards__label_count {
+            @include display(flex);
             padding-top: rem(10);
         }
     }
-    .award-viz__button {
-        padding: rem(5) 0;
+    .related-awards__counts {
+        @include display(flex);
+        @include flex-direction(column);
+        @include align-items(right);
+        @include justify-content(right);
+        margin-right: rem(8);
+        .award-viz__button {
+          font-size: rem(16);
+          display: block;
+          text-align: right;
+        }
+    }
+    .related-awards__description {
+      @include display(flex);
+      @include flex-direction(column);
+      @include justify-content(center);
+      @include align-items(left);
     }
 }

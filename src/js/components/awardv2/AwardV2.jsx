@@ -23,7 +23,14 @@ import Error from '../sharedComponents/Error';
 const propTypes = {
     awardId: PropTypes.string,
     award: PropTypes.object,
-    noAward: PropTypes.bool
+    noAward: PropTypes.bool,
+    downloadData: PropTypes.func,
+    downloadModalProps: PropTypes.shape({
+        mounted: PropTypes.bool,
+        hideModal: PropTypes.func
+    }),
+    isDownloadPending: PropTypes.bool,
+    isV2url: PropTypes.bool
 };
 
 const awardSections = [
@@ -38,6 +45,10 @@ const awardSections = [
     {
         section: 'referenced-awards',
         label: 'Referenced Awards'
+    },
+    {
+        section: 'award-history',
+        label: 'Award History'
     }
 ];
 
@@ -82,9 +93,12 @@ export default class Award extends React.Component {
         let content = null;
         let summaryBar = null;
         const overview = this.props.award.overview;
+        const { isV2url } = this.props;
         if (overview) {
             summaryBar = (
                 <SummaryBar
+                    isDownloadPending={this.props.isDownloadPending}
+                    downloadData={this.props.downloadData}
                     category={overview.category} />
             );
             if (overview.category === 'contract') {
@@ -98,6 +112,7 @@ export default class Award extends React.Component {
             else if (overview.category === 'idv') {
                 content = (
                     <IdvContent
+                        isV2url={isV2url}
                         awardId={this.props.awardId}
                         overview={overview}
                         counts={this.props.award.counts}

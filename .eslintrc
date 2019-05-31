@@ -4,8 +4,8 @@
 // see: https://github.com/airbnb/javascript
 {
     "extends": "airbnb",
-    "env": {
-        "es6": true
+    "parserOptions": {
+      "ecmaVersion": 2018
     },
     "globals": {
         "window": true,
@@ -57,10 +57,8 @@
         "no-underscore-dangle": [0, {
             "allowAfterThis": true
         }],
-        // allow ++ and -- in for loops
-        "no-plusplus": [2, {
-            "allowForLoopAfterthoughts": true
-        }],
+        // allow ++ and --
+        "no-plusplus": [0],
         // allow continue statements
         "no-continue": [0],
         // allow named exports in files with default exports in order to expose containers
@@ -90,6 +88,8 @@
         "jsx-a11y/label-has-for": [1],
         // downgrade array index as React key to warning (though it should be higher, this would
         // be an expensive refactor)
-        "react/no-array-index-key": [1]
+        "react/no-array-index-key": [1],
+        // allow await in for-await-in loops
+        "no-await-in-loop": [0]
     }
 }

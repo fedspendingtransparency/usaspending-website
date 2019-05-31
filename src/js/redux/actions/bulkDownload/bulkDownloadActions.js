@@ -57,3 +57,9 @@ export const setDownloadCollapsed = (state) => ({
 export const resetDownload = () => ({
     type: 'RESET_BULK_DOWNLOAD'
 });
+
+export const handleDownloadRequest = (res) => (dispatch) => {
+    dispatch(setDownloadExpectedUrl(res.url));
+    dispatch(setDownloadExpectedFile(res.file_name));
+    dispatch(setDownloadPending(true));
+};

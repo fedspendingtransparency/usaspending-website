@@ -20,8 +20,9 @@ export const AWARD_V2_OVERVIEW_PROPS = PropTypes.shape({
 });
 
 export const AWARD_V2_COUNTS_PROPS = PropTypes.shape({
-    contracts: PropTypes.number,
-    idvs: PropTypes.number,
+    child_awards: PropTypes.number,
+    child_idvs: PropTypes.number,
+    grandchild_awards: PropTypes.number,
     total: PropTypes.number
 });
 
@@ -33,4 +34,11 @@ export const AWARD_V2_AGGREGATED_AMOUNTS_PROPS = PropTypes.shape({
     _combinedPotentialAwardAmounts: PropTypes.number,
     _obligation: PropTypes.number,
     _combinedCurrentAwardAmounts: PropTypes.number
+});
+
+export const TOOLTIP_PROPS = PropTypes.shape({
+    isControlled: PropTypes.bool,
+    isVisible: PropTypes.bool,
+    closeCurrentTooltip: PropTypes.func,
+    showTooltip: PropTypes.func
 });

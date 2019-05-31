@@ -38,11 +38,14 @@
 
             .sticky-header__title {
                 @include flex(1 1 auto);
+                @include display(flex);
+                @include justify-content(center);
                 h1 {
                     font-size: rem(24);
                     line-height: rem(31);
                     font-weight: $font-semibold;
                     margin: 0;
+                    margin-right: auto;
                 }
             }
 
