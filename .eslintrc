@@ -18,6 +18,7 @@
             }
         }
     },
+    "plugins": ["react-hooks"], // contains linting for react-hooks best practices
     // overrides to the Airbnb style follow
     "rules": {
         // indentation should be 4 spaces (use soft tabs) and switch cases should be indented
@@ -90,6 +91,8 @@
         // be an expensive refactor)
         "react/no-array-index-key": [1],
         // allow await in for-await-in loops
-        "no-await-in-loop": [0]
+        "no-await-in-loop": [0],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn"
     }
 }
