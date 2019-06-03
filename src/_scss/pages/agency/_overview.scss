@@ -43,8 +43,9 @@
                 @include display(inline-flex);
                 @include flex-wrap(wrap);
                 margin-top: rem(0);
-                @include media($tablet-screen) {
+                @media (max-width: $tablet-screen) {
                     margin-top: rem(10);
+                    margin-bottom: rem(30);
                 }
 
                 .group {
