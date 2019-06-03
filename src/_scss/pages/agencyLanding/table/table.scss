@@ -19,13 +19,19 @@
 				td {
 					border: 0;
 					.cell-content {
-						float: right;
+            float: right;
+            text-align: right;
 					}
 					&:first-child {
 						.cell-content {
 							float: left;
 						}
-					}
+          }
+          &:nth-child(2) {
+            .cell-content {
+              float: left;
+            }
+          }
 				}
 			}
 			.award-result-header-cell {
