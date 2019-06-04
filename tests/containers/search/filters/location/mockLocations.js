@@ -9,5 +9,6 @@ export const mockRedux = {
 
 export const mockPickerRedux = {
     selectedLocations: new OrderedMap(),
-    addLocation: jest.fn()
+    addLocation: jest.fn(),
+    scope: "primary_place_of_performance"
 };

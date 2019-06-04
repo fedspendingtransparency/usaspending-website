@@ -103,7 +103,6 @@ export class FederalAccountTableContainer extends React.Component {
 
     parseFundingData(data, reset) {
         const fundingResults = [];
-
         data.results.forEach((item) => {
             const fundingResult = Object.create(BaseFederalAccountFunding);
             fundingResult.populate(item);
