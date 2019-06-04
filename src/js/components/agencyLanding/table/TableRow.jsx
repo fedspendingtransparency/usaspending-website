@@ -46,7 +46,9 @@ export default class TableRow extends React.PureComponent {
                             key={`${column.columnName}-${this.props.agency.agency_id}`}>
                             <div className={`column-${column.columnName}`}>
                                 <div className="cell-content">
-                                    <a href={`${this.props.agency.display[column.columnName]}`}>
+                                    <a
+                                        href={`${this.props.agency.display[column.columnName]}`}
+                                        target="_blank">
                                         {`${this.props.agency.display[column.columnName]} `}
                                         <FontAwesomeIcon icon="external-link-alt" />
                                     </a>
