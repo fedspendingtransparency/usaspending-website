@@ -42,7 +42,7 @@ export default class DownloadButton extends React.Component {
 
     onClick(e) {
         e.preventDefault();
-        if (this.props.downloadAvailable || !this.props.downloadInFlight) {
+        if (this.props.downloadAvailable && !this.props.downloadInFlight) {
             this.props.onClick();
         }
     }
