@@ -104,7 +104,7 @@ export default class IdvDates extends React.Component {
                 </div>
                 <div className="idv-dates__row">
                     <div className="idv-dates__label">
-                        Last Date to Order
+                    Ordering Period End Date
                     </div>
                     <div className="idv-dates__date">
                         {dates.endDateLong || 'not provided'}

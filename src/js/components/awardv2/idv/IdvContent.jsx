@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsContainer';
+import IdvActivityContainer from 'containers/awardV2/idv/IdvActivityContainer';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import AwardHistory from './AwardHistory';
@@ -16,7 +17,6 @@ import IdvDates from './IdvDates';
 import AwardDescription from '../shared/description/AwardDescription';
 import AwardAmounts from './amounts/AwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
-import IdvActivity from './IdvActivity';
 import AwardMetaDataContainer from '../../../containers/awardV2/idv/AwardMetaDataContainer';
 import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
 
@@ -24,7 +24,8 @@ const propTypes = {
     awardId: PropTypes.string,
     counts: AWARD_V2_COUNTS_PROPS,
     overview: AWARD_V2_OVERVIEW_PROPS,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    isV2url: PropTypes.bool
 };
 
 export default class IdvContent extends React.Component {
@@ -71,6 +72,7 @@ export default class IdvContent extends React.Component {
                 </a>
             );
         }
+
         return (
             <div className="award award-idv">
                 <div className="idv__heading">
@@ -123,7 +125,7 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    <IdvActivity />
+                    <IdvActivityContainer comingSoon={!this.props.isV2url} />
                     <AwardMetaDataContainer
                         jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>

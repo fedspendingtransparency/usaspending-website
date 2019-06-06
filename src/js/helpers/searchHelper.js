@@ -422,7 +422,7 @@ export const performSubawardSearch = (data) => {
     return {
         promise: Axios.request({
             data,
-            url: 'v1/subawards/',
+            url: 'v2/subawards/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             cancelToken: source.token

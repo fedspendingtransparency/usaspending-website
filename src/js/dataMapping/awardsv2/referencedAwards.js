@@ -35,7 +35,7 @@ export const referencedAwardsColumns = {
         },
         {
             name: 'lastDateToOrder',
-            label: 'Last Date to Order',
+            label: 'Ordering Period End Date',
             field: 'last_date_to_order'
         },
         {

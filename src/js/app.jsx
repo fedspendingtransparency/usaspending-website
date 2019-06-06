@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import { hot } from "react-hot-loader";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+    faExternalLinkAlt,
     faChartPie,
     faChartArea,
     faLandmark,
@@ -31,6 +32,7 @@ require("core-js");
 require('helpers/rafPolyfill');
 
 library.add(
+    faExternalLinkAlt,
     faChartArea,
     faChartPie,
     faLandmark,
