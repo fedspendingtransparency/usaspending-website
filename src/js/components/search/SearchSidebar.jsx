@@ -14,6 +14,7 @@ import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSectionContainer from 'containers/search/filters/location/LocationSectionContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
+import ProgramSourceContainer from 'containers/search/filters/programSource/ProgramSourceContainer';
 import RecipientTypeContainer from 'containers/search/filters/recipient/RecipientTypeContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
 import AwardAmountSearchContainer from
@@ -39,6 +40,7 @@ const filters = {
         'Agency',
         'Location',
         'Recipient',
+        'Program Source (TAS)',
         'Recipient Type',
         'Award Amount',
         'Award ID',
@@ -56,6 +58,7 @@ const filters = {
         AgencyContainer,
         LocationSectionContainer,
         RecipientSearchContainer,
+        ProgramSourceContainer,
         RecipientTypeContainer,
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
@@ -68,6 +71,7 @@ const filters = {
     ],
     accessories: [
         KeywordHover,
+        null,
         null,
         null,
         null,
