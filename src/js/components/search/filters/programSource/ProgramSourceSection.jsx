@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TreasuryAccountFilterContainer from 'containers/search/filters/programSource/TreasuryAccountFilterContainer';
-import AccountFilterContainer from 'containers/search/filters/programSource/FederalAccountFilterContainer';
+import TreasuryAccountFilters from './TreasuryAccountFilters';
+import AccountFilters from './FederalAccountFilters';
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
@@ -63,7 +63,7 @@ export default class ProgramSourceSectionSection extends React.Component {
     render() {
         const activeTreasury = this.state.activeTab === 'treasury' ? '' : 'inactive';
         const activeFederal = this.state.activeTab === 'federal' ? '' : 'inactive';
-        const filter = this.state.activeTab === 'treasury' ? <TreasuryAccountFilterContainer /> : <AccountFilterContainer />;
+        const filter = this.state.activeTab === 'treasury' ? <TreasuryAccountFilters /> : <AccountFilters />;
 
         return (
             <div className="program-source-filter search-filter">
