@@ -27,8 +27,22 @@ const filters = [
     }
 ];
 export class FederalAccountFilters extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.selectSource = this.selectSource.bind(this);
+    }
+
+    selectSource() {
+        console.log('Selected a source');
+    }
+
     render() {
-        const federalFilters = filters.map((filter) => <SourceSelectFilter {...filter} />);
+        const federalFilters = filters.map((filter) =>
+            (<SourceSelectFilter
+                key={filter.code}
+                selectSource={this.selectSource}
+                {...filter} />));
         return (
             <div className="program-source-tab">
                 <form className="program-source-components">

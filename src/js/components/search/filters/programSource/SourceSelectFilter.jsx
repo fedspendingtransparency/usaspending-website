@@ -5,29 +5,140 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual, differenceWith } from 'lodash';
+
+import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
     label: PropTypes.string,
     code: PropTypes.string,
     characterLimit: PropTypes.number,
     required: PropTypes.bool,
-    options: PropTypes.array
+    options: PropTypes.array,
+    selectedSources: PropTypes.array,
+    selectSource: PropTypes.func
 };
 
 const defaultProps = {
-    options: []
+    // TODO - Lizzie: remove mock data
+    options: [
+        {
+            code: '020',
+            name: 'Department of the Treasury (TREAS)'
+        },
+        {
+            code: '014',
+            name: 'Department of the Interior (DOI)'
+        },
+        {
+            code: '068',
+            name: 'Environmental Protection Agency (EPA)'
+        }
+    ],
+    selectedSources: [],
+    required: false
 };
 
 export class SourceSelectFilter extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            searchString: '',
+            autocompleteOptions: [],
+            noResults: false
+        };
+
+        this.handleTextInput = this.handleTextInput.bind(this);
+        this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
+        this.timeout = null;
+    }
+
+    parseAutocompleteOptions(options) {
+        const values = [];
+        if (options && options.length > 0) {
+            options.forEach((item) => {
+                values.push({
+                    title: `${item.code} - ${item.name}`,
+                    subtitle: '',
+                    data: item
+                });
+            });
+        }
+
+        this.setState({
+            autocompleteOptions: values
+        });
+    }
+
+    queryAutocomplete(input) {
+        this.setState({
+            noResults: false
+        });
+
+        // Only search if input is 2 or more characters
+        if (input.length >= 2) {
+            this.setState({
+                searchString: input
+            });
+
+            let autocompleteOptions = [];
+
+            const matches = this.props.options.filter((source) => (source.code.includes(this.state.searchString)));
+            // Filter out any selectedSources that may be in the result set
+            if (this.props.selectedSources && this.props.selectedSources.length > 0) {
+                autocompleteOptions = differenceWith(matches, this.props.selectedSources, isEqual);
+            }
+            else {
+                autocompleteOptions = matches;
+            }
+
+            this.parseAutocompleteOptions(autocompleteOptions);
+
+            this.setState({
+                noResults: autocompleteOptions.length === 0
+            });
+        }
+    }
+
+    clearAutocompleteSuggestions() {
+        this.setState({
+            autocompleteOptions: []
+        });
+    }
+
+    handleTextInput(programSourceInput) {
+        // Clear existing sources to ensure user can't select an old or existing one
+        this.setState({
+            autocompleteOptions: []
+        });
+
+        // Grab input, clear any exiting timeout
+        const input = programSourceInput.target.value;
+        window.clearTimeout(this.timeout);
+
+        // Perform search if user doesn't type again for 300ms
+        this.timeout = window.setTimeout(() => {
+            this.queryAutocomplete(input);
+        }, 300);
+    }
+
     render() {
         return (
-            <div className="source-select-filter">
-                <label htmlFor={this.props.code}>{`${this.props.label} (${this.props.code.toUpperCase()})`}</label>
-                <input
-                    id={this.props.code}
-                    type="text"
-                    maxLength={this.props.characterLimit}
-                    placeholder={`Enter ${this.props.code.toUpperCase()} value (${this.props.characterLimit} characters)`} />
+            <div className="program-source-select-filter">
+                <label>{`${this.props.label} (${this.props.code.toUpperCase()})`}</label>
+                <Autocomplete
+                    values={this.props.options}
+                    handleTextInput={this.handleTextInput}
+                    onSelect={this.props.selectSource}
+                    placeholder={`Enter ${this.props.code.toUpperCase()} value (${this.props.characterLimit} characters)`}
+                    errorHeader={`Unknown ${this.props.code.toUpperCase()}`}
+                    errorMessage={`We were unable to find that ${this.props.code.toUpperCase()}`}
+                    ref={(input) => {
+                        this.programSourceList = input;
+                    }}
+                    clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+                    noResults={this.state.noResults} />
             </div>
         );
     }

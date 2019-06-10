@@ -17,7 +17,7 @@ const propTypes = {
     dirtyFilters: PropTypes.symbol
 };
 
-export default class ProgramSourceSectionSection extends React.Component {
+export default class ProgramSourceSection extends React.Component {
     constructor(props) {
         super(props);
 
@@ -106,4 +106,4 @@ export default class ProgramSourceSectionSection extends React.Component {
     }
 }
 
-ProgramSourceSectionSection.propTypes = propTypes;
+ProgramSourceSection.propTypes = propTypes;

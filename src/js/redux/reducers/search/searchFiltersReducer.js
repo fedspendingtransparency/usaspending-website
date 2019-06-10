@@ -36,7 +36,8 @@ export const requiredTypes = {
     selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
-    extentCompeted: Set
+    extentCompeted: Set,
+    programSources: OrderedMap
 };
 
 export const initialState = {
@@ -61,7 +62,19 @@ export const initialState = {
     selectedPSC: new OrderedMap(),
     pricingType: new Set(),
     setAside: new Set(),
-    extentCompeted: new Set()
+    extentCompeted: new Set(),
+    programSources: {
+        treasuryAccount: {
+            aid: '',
+            main: '',
+            sub: ''
+        },
+        federalAccount: {
+            aid: '',
+            main: '',
+            sub: ''
+        }
+    }
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -108,6 +121,30 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 selectedRecipientLocations: state.selectedRecipientLocations.set(action.location.identifier, action.location)
             });
+        }
+
+        // Program Source (TAS) Filter
+        case 'UPDATE_TREASURY_ACCOUNT': {
+            const treasuryAccount = Object.assign({}, state.programSources.treasuryAccount, {
+                [action.type]: action.value
+            });
+
+            const programSources = Object.assign({}, state.programSources, {
+                treasuryAccount
+            });
+
+            return Object.assign({}, state, programSources);
+        }
+        case 'UPDATE_FEDERAL_ACCOUNT': {
+            const federalAccount = Object.assign({}, state.programSources.federalAccount, {
+                [action.type]: action.value
+            });
+
+            const programSources = Object.assign({}, state.programSources, {
+                federalAccount
+            });
+
+            return Object.assign({}, state, programSources);
         }
 
         // Agency Filter
