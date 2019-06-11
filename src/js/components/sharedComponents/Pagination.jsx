@@ -150,7 +150,7 @@ export default class Pagination extends React.Component {
         }
         let resultsText = (
             <div className="pagination__totals">
-                `${rangeStart}-${rangeEnd} of ${formatNumberWithPrecision(this.props.totalItems, 0)} results` 
+                `${rangeStart}-${rangeEnd} of ${formatNumberWithPrecision(this.props.totalItems, 0)} results`
             </div>
         );
         if (this.props.resultsText) resultsText = this.props.resultsText;
