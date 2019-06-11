@@ -115,9 +115,9 @@ export default class ActivityChart extends React.Component {
             const obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
             const yPosition = (height - 30) - yScale(bar._awardedAmount) - barHeight;
             const description = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, an awarded amount of ${bar.awardedAmount}, and an obligated amount of ${bar.obligatedAmount}.`;
-            
+
             return (
-                <g 
+                <g
                     key={`bar-${bar._awardedAmount}-${index}`}
                     description={description}>
                     {/* awarded amount bar */}
