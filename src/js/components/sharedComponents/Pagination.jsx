@@ -13,7 +13,8 @@ const propTypes = {
     onChangePage: PropTypes.func.isRequired,
     pageNumber: PropTypes.number,
     totalItems: PropTypes.number,
-    pageSize: PropTypes.number
+    pageSize: PropTypes.number,
+    resultsText: PropTypes.element
 };
 
 export default class Pagination extends React.Component {
@@ -147,7 +148,12 @@ export default class Pagination extends React.Component {
         if (pager.currentPage === pager.endPage) {
             rangeEnd = pager.totalItems;
         }
-        const resultsText = `${rangeStart}-${rangeEnd} of ${formatNumberWithPrecision(this.props.totalItems, 0)} results`;
+        let resultsText = (
+            <div className="pagination__totals">
+                `${rangeStart}-${rangeEnd} of ${formatNumberWithPrecision(this.props.totalItems, 0)} results` 
+            </div>
+        );
+        if (this.props.resultsText) resultsText = this.props.resultsText;
 
         if (!pager.pages || pager.pages.length <= 1) {
             // don't display pager if there is only 1 page
@@ -157,9 +163,7 @@ export default class Pagination extends React.Component {
 
         return (
             <div className="pagination">
-                <div className="pagination__totals">
-                    {resultsText}
-                </div>
+                {resultsText}
                 <ul className="pager">
                     <li className="pager__item">
                         <button
