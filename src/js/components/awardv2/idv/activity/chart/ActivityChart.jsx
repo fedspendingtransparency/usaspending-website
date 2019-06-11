@@ -114,31 +114,28 @@ export default class ActivityChart extends React.Component {
             // scale the abligated amount to create the correct width
             const obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
             const yPosition = (height - 30) - yScale(bar._awardedAmount) - barHeight;
-            const awardBarDescription = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, adn an awarded amount of ${bar.awardedAmount}.`;
-            const obligatedBarDescription = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, and an obligated amount of ${bar.obligatedAmount}.`;
-            const awardedClassName = { 'activity-chart-bar__awarded-content': true };
-            const obligatedClassName = { 'activity-chart-bar__obligated-content': true };
+            const description = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, an awarded amount of ${bar.awardedAmount}, and an obligated amount of ${bar.obligatedAmount}.`;
+            
             return (
-                <g key={`bar-${bar._awardedAmount}-${index}`}>
+                <g 
+                    key={`bar-${bar._awardedAmount}-${index}`}
+                    description={description}>
                     {/* awarded amount bar */}
                     <ActivityChartBar
                         index={index}
                         height={barHeight}
                         start={start}
                         width={width}
-                        yPosition={yPosition}
-                        description={awardBarDescription}
-                        classNames={awardedClassName} />
+                        yPosition={yPosition} />
                     {/* obligated amount bar */}
                     <ActivityChartBar
+                        isObligated
                         key={`bar-${bar._obligatedAmount}-${bar.id}`}
                         index={index}
                         height={barHeight}
                         start={start}
                         width={obligatedAmountWidth}
-                        yPosition={yPosition}
-                        description={obligatedBarDescription}
-                        classNames={obligatedClassName} />
+                        yPosition={yPosition} />
                 </g>
             );
         });

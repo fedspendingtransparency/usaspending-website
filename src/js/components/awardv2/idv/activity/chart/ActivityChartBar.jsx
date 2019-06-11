@@ -5,14 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import cx from 'classnames';
 
 const propTypes = {
     start: PropTypes.number,
     width: PropTypes.number,
     yPosition: PropTypes.number,
     description: PropTypes.string,
-    classNames: PropTypes.object
+    classNames: PropTypes.object,
+    isObligated: PropTypes.bool
 };
 
 export default class ActivityChartBar extends React.Component {
@@ -25,7 +25,8 @@ export default class ActivityChartBar extends React.Component {
     }
 
     render() {
-        const classNames = cx(this.props.classNames);
+        let classNames = 'activity-chart-bar__awarded-content';
+        if (this.props.isObligated) classNames = 'activity-chart-bar__obligated-content';
         return (
             <g
                 className="activity-chart-bar"
