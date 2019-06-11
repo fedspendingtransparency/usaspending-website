@@ -6,14 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TreasuryAccountFilters from './TreasuryAccountFilters';
-import AccountFilters from './FederalAccountFilters';
-
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import TreasuryAccountFilters from './TreasuryAccountFilters';
+import FederalAccountFilters from './FederalAccountFilters';
+import SelectedSources from './SelectedSources';
 
 const propTypes = {
-    selectedTreasurySources: PropTypes.object,
-    selectedFederalSources: PropTypes.object,
+    selectedSources: PropTypes.object,
     dirtyFilters: PropTypes.symbol
 };
 
@@ -23,10 +22,17 @@ export default class ProgramSourceSection extends React.Component {
 
         this.state = {
             // TODO - Lizzie: change to 'treasury' in final version
-            activeTab: 'federal'
+            activeTab: 'federal',
+            federalAccountComponents: {
+                aid: '',
+                main: '',
+                sub: ''
+            }
         };
 
         this.toggleTab = this.toggleTab.bind(this);
+        this.updateFederalAccountComponent = this.updateFederalAccountComponent.bind(this);
+        this.createFederalAccountFilter = this.createFederalAccountFilter.bind(this);
     }
 
     componentDidMount() {
@@ -41,16 +47,16 @@ export default class ProgramSourceSection extends React.Component {
         }
     }
 
-    // openDefaultTab() {
-    //     // check if the federal account or treasury account (default) tab should be enabled
-    //     // based on the currently selected filters
-    //     if (this.props.selectedFederalSources.count() > 0 && this.props.selectedTreasurySources.count() === 0) {
-    //         // there are Federal Account filters and no Treasury Account filters
-    //         this.setState({
-    //             activeTab: 'federal'
-    //         });
-    //     }
-    // }
+    updateFederalAccountComponent(field, value) {
+        const updatedComponents = Object.assign({}, this.state.federalAccountComponents, {
+            [field]: value
+        });
+        this.setState({
+            federalAccountComponents: updatedComponents
+        });
+    }
+
+    // TODO - Lizzie: implement openDefaultTab()
 
     toggleTab(e) {
         const type = e.target.value;
@@ -60,10 +66,31 @@ export default class ProgramSourceSection extends React.Component {
         });
     }
 
+    createFederalAccountFilter(e) {
+        e.preventDefault();
+        const components = this.state.federalAccountComponents;
+        const filterId = `${components.aid}-${components.main || 'MAIN'}-${components.sub || 'SUB'}`;
+        console.log(filterId);
+        // TODO - Lizzie: Add filter to Redux
+    }
+
     render() {
-        const activeTreasury = this.state.activeTab === 'treasury' ? '' : 'inactive';
-        const activeFederal = this.state.activeTab === 'federal' ? '' : 'inactive';
-        const filter = this.state.activeTab === 'treasury' ? <TreasuryAccountFilters /> : <AccountFilters />;
+        const activeTab = this.state.activeTab;
+        const activeTreasury = activeTab === 'treasury' ? '' : 'inactive';
+        const activeFederal = activeTab === 'federal' ? '' : 'inactive';
+        const filter = this.state.activeTab === 'treasury' ? <TreasuryAccountFilters /> : (
+            <FederalAccountFilters
+                updateComponent={this.updateFederalAccountComponent}
+                components={this.state.federalAccountComponents}
+                createFilter={this.createFederalAccountFilter} />);
+
+        let selectedSources = null;
+        if (this.props.selectedSources) {
+            selectedSources = (
+                <SelectedSources
+                    selectedSources={this.props.selectedSources}
+                    activeTab={activeTab} />);
+        }
 
         return (
             <div className="program-source-filter search-filter">
@@ -97,6 +124,7 @@ export default class ProgramSourceSection extends React.Component {
                 </ul>
                 <div className="toggle-border" />
                 {filter}
+                {selectedSources}
                 <SubmitHint
                     ref={(component) => {
                         this.hint = component;

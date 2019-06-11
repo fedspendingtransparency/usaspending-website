@@ -4,7 +4,14 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 import SourceSelectFilter from './SourceSelectFilter';
+
+const propTypes = {
+    updateComponent: PropTypes.func,
+    components: PropTypes.object,
+    createFilter: PropTypes.func
+};
 
 const filters = [
     {
@@ -26,22 +33,13 @@ const filters = [
         required: false
     }
 ];
-export class FederalAccountFilters extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.selectSource = this.selectSource.bind(this);
-    }
-
-    selectSource() {
-        console.log('Selected a source');
-    }
-
+export default class FederalAccountFilters extends React.Component {
     render() {
         const federalFilters = filters.map((filter) =>
             (<SourceSelectFilter
                 key={filter.code}
-                selectSource={this.selectSource}
+                updateComponent={this.props.updateComponent}
                 {...filter} />));
         return (
             <div className="program-source-tab">
@@ -50,10 +48,16 @@ export class FederalAccountFilters extends React.Component {
                         Federal Account Components
                     </div>
                     {federalFilters}
+                    <button
+                        disabled={!this.props.components.aid}
+                        onClick={this.props.createFilter}
+                        className="program-source-components__button">
+                        Add Filter
+                    </button>
                 </form>
             </div>
         );
     }
 }
 
-export default FederalAccountFilters;
+FederalAccountFilters.propTypes = propTypes;

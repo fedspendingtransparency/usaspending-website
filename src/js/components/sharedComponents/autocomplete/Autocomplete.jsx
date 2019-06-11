@@ -19,7 +19,8 @@ const propTypes = {
     errorMessage: PropTypes.string,
     maxSuggestions: PropTypes.number,
     label: PropTypes.string,
-    noResults: PropTypes.bool
+    noResults: PropTypes.bool,
+    characterLimit: PropTypes.number
 };
 
 const defaultProps = {
@@ -29,7 +30,8 @@ const defaultProps = {
     errorMessage: '',
     maxSuggestions: 10,
     label: '',
-    noResults: false
+    noResults: false,
+    characterLimit: 524288 // default for HTML input elements
 };
 
 export default class Autocomplete extends React.Component {
@@ -261,7 +263,8 @@ export default class Autocomplete extends React.Component {
                         tabIndex={0}
                         aria-controls={this.state.autocompleteId}
                         aria-activedescendant={activeDescendant}
-                        aria-autocomplete="list" />
+                        aria-autocomplete="list"
+                        maxLength={this.props.characterLimit} />
                     <div
                         className="screen-reader-description"
                         role="alert">

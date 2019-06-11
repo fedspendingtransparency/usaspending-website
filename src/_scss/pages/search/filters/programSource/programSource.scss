@@ -1,4 +1,27 @@
 .program-source-filter {
     @import '../location/tabs';
     padding: 0 $global-pad rem(20);
+    .program-source-components {
+        .program-source-components__heading {
+            padding: rem(15) 0;
+            font-weight: $font-semibold;
+        }
+        .program-source-components__button {
+            margin-top: rem(15);
+            width: 100%;
+            cursor: pointer;
+
+            &:disabled {
+                background-color: $color-gray-lightest;
+                border: 1px solid $color-gray-lighter;
+                color: $color-gray-light;
+                cursor: not-allowed;
+            }
+        }
+        .program-source-select-filter {
+            padding-bottom: rem(15);
+            @import "elements/filters/_errorMessage";
+            @import "elements/filters/_typeahead";
+        }
+    }
 }

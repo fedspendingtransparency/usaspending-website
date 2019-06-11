@@ -16,7 +16,7 @@ const propTypes = {
     required: PropTypes.bool,
     options: PropTypes.array,
     selectedSources: PropTypes.array,
-    selectSource: PropTypes.func
+    updateComponent: PropTypes.func
 };
 
 const defaultProps = {
@@ -51,6 +51,7 @@ export class SourceSelectFilter extends React.Component {
 
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
+        this.selectSourceComponent = this.selectSourceComponent.bind(this);
         this.timeout = null;
     }
 
@@ -101,6 +102,10 @@ export class SourceSelectFilter extends React.Component {
         }
     }
 
+    selectSourceComponent(selectedSource) {
+        this.props.updateComponent(this.props.code, selectedSource.code);
+    }
+
     clearAutocompleteSuggestions() {
         this.setState({
             autocompleteOptions: []
@@ -128,17 +133,18 @@ export class SourceSelectFilter extends React.Component {
             <div className="program-source-select-filter">
                 <label>{`${this.props.label} (${this.props.code.toUpperCase()})`}</label>
                 <Autocomplete
-                    values={this.props.options}
+                    values={this.state.autocompleteOptions}
                     handleTextInput={this.handleTextInput}
-                    onSelect={this.props.selectSource}
+                    onSelect={this.selectSourceComponent}
                     placeholder={`Enter ${this.props.code.toUpperCase()} value (${this.props.characterLimit} characters)`}
                     errorHeader={`Unknown ${this.props.code.toUpperCase()}`}
-                    errorMessage={`We were unable to find that ${this.props.code.toUpperCase()}`}
+                    errorMessage={`We were unable to find that ${this.props.label}`}
                     ref={(input) => {
                         this.programSourceList = input;
                     }}
                     clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                    noResults={this.state.noResults} />
+                    noResults={this.state.noResults}
+                    characterLimit={this.props.characterLimit} />
             </div>
         );
     }
