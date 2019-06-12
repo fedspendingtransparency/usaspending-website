@@ -101,6 +101,13 @@
       }
     }
   }
+  .federal-accounts__section--note {
+    font-size: 14px;
+    padding-top: $global-pad;
+    strong {
+      font-weight: 600;
+    }
+  }
   .federal-accounts-summary__section {
     .award-funding-summary__table {
       margin-bottom: rem(10);
