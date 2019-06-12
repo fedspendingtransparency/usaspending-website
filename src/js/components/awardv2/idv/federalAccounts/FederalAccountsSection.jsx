@@ -144,7 +144,7 @@ export default class FederalAccountsSection extends React.Component {
                         </div>
                     </div>
                     <span className="federal-accounts__section--note">
-                        <strong>NOTE: </strong>result count may differ between treemap view and table view. Treemap view only displays accounts with a positive combined obligated amount, while table view displays all accounts.
+                        <strong>NOTE: </strong>Result count may differ between treemap view and table view. Treemap view only displays accounts with a positive combined obligated amount, while table view displays all accounts.
                     </span>
                     <FederalAccountsSummary {...this.props} />
                 </div>
