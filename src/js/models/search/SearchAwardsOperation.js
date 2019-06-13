@@ -179,7 +179,7 @@ class SearchAwardsOperation {
         if (this.selectedRecipientLocations.length > 0) {
             const locationSet = [];
             this.selectedRecipientLocations.forEach((location) => {
-                if (location.filter.country && location.filter.country !== 'USA') {
+                if (location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.recipientLocationScope] = 'foreign';
                 }
                 locationSet.push(location.filter);
@@ -198,7 +198,7 @@ class SearchAwardsOperation {
         if (this.selectedLocations.length > 0) {
             const locationSet = [];
             this.selectedLocations.forEach((location) => {
-                if (location.filter.country && location.filter.country !== 'USA') {
+                if (location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.placeOfPerformanceScope] = 'foreign';
                 }
                 locationSet.push(location.filter);
