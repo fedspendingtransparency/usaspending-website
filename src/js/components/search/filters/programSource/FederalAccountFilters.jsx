@@ -18,29 +18,37 @@ const filters = [
         label: 'Agency Identifier',
         code: 'aid',
         characterLimit: 3,
-        required: true
+        required: true,
+        autocomplete: true
     },
     {
         label: 'Main Account Code',
         code: 'main',
         characterLimit: 4,
-        required: false
+        required: false,
+        autocomplete: false
     },
     {
         label: 'Sub-Account Code',
         code: 'sub',
         characterLimit: 3,
-        required: false
+        required: false,
+        autocomplete: false
     }
 ];
 
 export default class FederalAccountFilters extends React.Component {
     render() {
-        const federalFilters = filters.map((filter) =>
-            (<SourceSelectFilter
-                key={filter.code}
-                updateComponent={this.props.updateComponent}
-                {...filter} />));
+        const federalFilters = filters.map((filter) => {
+            if (filter.autocomplete) {
+                return (<SourceSelectFilter
+                    key={filter.code}
+                    updateComponent={this.props.updateComponent}
+                    {...filter} />);
+            }
+            return (<div>{filter.code}</div>);
+        });
+
         return (
             <div className="program-source-tab">
                 <form className="program-source-components">

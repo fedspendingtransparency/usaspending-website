@@ -99,6 +99,17 @@ export const updateRecipientLocations = (state) => ({
     location: state
 });
 
+// Program Source Filter
+export const updateFederalAccountComponents = (state) => ({
+    type: 'UPDATE_FEDERAL_ACCOUNT_COMPONENTS',
+    source: state
+});
+
+export const updateTreasuryAccountComponents = (state) => ({
+    type: 'UPDATE_TREASURY_ACCOUNT_COMPONENTS',
+    source: state
+});
+
 // Award Type Filter
 export const toggleAwardType = (state) => ({
     type: 'TOGGLE_SEARCH_FILTER_AWARD_TYPE',

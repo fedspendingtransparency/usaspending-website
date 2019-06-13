@@ -17,6 +17,8 @@ import * as ContractFilterFunctions from './filters/contractFilterFunctions';
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
+
+// TODO - Lizzie: update the filter store version when Program Source is enabled in prod
 export const filterStoreVersion = '2017-11-21';
 
 export const requiredTypes = {
@@ -124,7 +126,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
 
         // Program Source (TAS) Filter
-        case 'UPDATE_TREASURY_ACCOUNT': {
+        case 'UPDATE_TREASURY_ACCOUNT_COMPONENTS': {
             const treasuryAccount = Object.assign({}, state.programSources.treasuryAccount, {
                 [action.type]: action.value
             });
@@ -135,7 +137,7 @@ const searchFiltersReducer = (state = initialState, action) => {
 
             return Object.assign({}, state, programSources);
         }
-        case 'UPDATE_FEDERAL_ACCOUNT': {
+        case 'UPDATE_FEDERAL_ACCOUNT_COMPONENTS': {
             const federalAccount = Object.assign({}, state.programSources.federalAccount, {
                 [action.type]: action.value
             });
