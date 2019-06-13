@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { range } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
+import { calculatePageRange } from 'helpers/paginationHelper';
 
 const propTypes = {
     onChangePage: PropTypes.func.isRequired,
@@ -143,14 +144,10 @@ export default class Pagination extends React.Component {
     render() {
         const pager = this.getPager();
 
-        const rangeStart = ((pager.currentPage - 1) * pager.pageSize) + 1;
-        let rangeEnd = pager.currentPage * (pager.pageSize);
-        if (pager.currentPage === pager.endPage) {
-            rangeEnd = pager.totalItems;
-        }
+        const pageRange = calculatePageRange(pager.currentPage, pager.pageSize, pager.totalItems);
         let resultsText = (
             <div className="pagination__totals">
-                {rangeStart}-{rangeEnd} of {formatNumberWithPrecision(this.props.totalItems, 0)} results
+                {formatNumberWithPrecision(pageRange.start, 0)}-{formatNumberWithPrecision(pageRange.end, 0)} of {formatNumberWithPrecision(this.props.totalItems, 0)} results
             </div>
         );
         if (this.props.resultsText) resultsText = this.props.resultsText;
