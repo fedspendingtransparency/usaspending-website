@@ -176,7 +176,7 @@ export const fetchIdvActivity = () => {
                             next: 2,
                             page: 1,
                             previous: null,
-                            total: 40
+                            total: 111
                         }
                     }
                 }, 500);
