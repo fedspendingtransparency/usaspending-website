@@ -9,9 +9,14 @@ import PropTypes from 'prop-types';
 const propTypes = {
     start: PropTypes.number,
     width: PropTypes.number,
+    height: PropTypes.number,
     yPosition: PropTypes.number,
     description: PropTypes.string,
-    data: PropTypes.object
+    data: PropTypes.object,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func,
+    x0: PropTypes.number,
+    y0: PropTypes.number
 };
 
 export default class ActivityChartBar extends React.Component {
@@ -21,6 +26,25 @@ export default class ActivityChartBar extends React.Component {
         this.state = {
             isHovering: false
         };
+
+        this.enteredCell = this.enteredCell.bind(this);
+        this.exitedCell = this.exitedCell.bind(this);
+    }
+
+    enteredCell() {
+        const { data } = this.props;
+        const x = this.element.getBoundingClientRect().left + (this.props.width / 2);
+        const y = this.element.getBoundingClientRect().top + (this.props.height / 2);
+        console.log(' This Element : ', this.element);
+        console.log(' This Bounding Rect : ', this.element.getBoundingClientRect());
+        console.log(' Entering Cell X, Y : ', x, y);
+        data.x = x;
+        data.y = y;
+        this.props.showTooltip({ x, y }, data);
+    }
+
+    exitedCell() {
+        this.props.hideTooltip();
     }
 
     render() {
@@ -28,7 +52,12 @@ export default class ActivityChartBar extends React.Component {
         return (
             <g
                 className="activity-chart-bar"
-                aria-label={this.props.description}>
+                aria-label={this.props.description}
+                onMouseMove={this.enteredCell}
+                onMouseLeave={this.exitedCell}
+                ref={(g) => {
+                    this.element = g;
+                }}>
                 <desc>
                     {this.props.description}
                 </desc>
@@ -37,7 +66,7 @@ export default class ActivityChartBar extends React.Component {
                     x={this.props.start}
                     y={this.props.yPosition}
                     width={this.props.width}
-                    height={10} />
+                    height={this.props.height} />
             </g>
         );
     }

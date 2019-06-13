@@ -3,6 +3,11 @@ $obligated-green: #94BFA2;
     .activity-visualization {
         @import '../../../../components/pagination';
         @import '../../../../components/visualizations/legend';
+        .visualization-tooltip {
+          @import "components/visualizations/tooltip/_tooltip";
+          height: 0;
+          width: 0;
+        }
         .visualization-legend {
             .visualization-legend__circle {
                 background-color: $color-gray-light;

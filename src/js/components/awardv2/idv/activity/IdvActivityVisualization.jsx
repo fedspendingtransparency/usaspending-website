@@ -9,6 +9,8 @@ import { throttle } from 'lodash';
 
 import Pagination from 'components/sharedComponents/Pagination';
 import ActivityChart from './chart/ActivityChart';
+import ActivityChartTooltip from './ActivityChartTooltip';
+
 
 const propTypes = {
     page: PropTypes.number,
@@ -24,12 +26,15 @@ export default class IdvActivityVisualization extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showTooltip: false,
             windowWidth: 0,
-            visualizationWidth: 0
+            visualizationWidth: 0,
+            isShowingTooltip: false,
+            toolTipData: null
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+        this.showTooltip = this.showTooltip.bind(this);
+        this.hideTooltip = this.hideTooltip.bind(this);
     }
 
     componentDidMount() {
@@ -53,6 +58,19 @@ export default class IdvActivityVisualization extends React.Component {
         }
     }
 
+    showTooltip(position, data) {
+        this.setState({
+            isShowingTooltip: true,
+            toolTipData: data
+        });
+    }
+
+    hideTooltip() {
+        this.setState({
+            isShowingTooltip: false
+        });
+    }
+
     render() {
         const height = 360;
         const chart = (
@@ -61,8 +79,14 @@ export default class IdvActivityVisualization extends React.Component {
                 xSeries={this.props.xSeries}
                 ySeries={this.props.ySeries}
                 height={height}
-                width={this.state.visualizationWidth} />
+                width={this.state.visualizationWidth}
+                showTooltip={this.showTooltip}
+                hideTooltip={this.hideTooltip} />
         );
+        let tt = null;
+        if (this.state.isShowingTooltip) {
+            tt = (<ActivityChartTooltip data={this.state.toolTipData} />);
+        }
         return (
             <div
                 ref={(widthRef) => {
@@ -85,6 +109,7 @@ export default class IdvActivityVisualization extends React.Component {
                         Funding Remaining
                     </div>
                 </div>
+                {tt}
             </div>
         );
     }

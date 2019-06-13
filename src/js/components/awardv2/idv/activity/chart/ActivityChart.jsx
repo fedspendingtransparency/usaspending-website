@@ -20,7 +20,9 @@ const propTypes = {
     xSeries: PropTypes.array,
     ySeries: PropTypes.array,
     padding: PropTypes.object,
-    barHeight: PropTypes.number
+    barHeight: PropTypes.number,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func
 };
 
 const defaultProps = {
@@ -28,7 +30,7 @@ const defaultProps = {
         left: 45,
         bottom: 30
     },
-    barHeight: 10
+    barHeight: 30
 };
 
 export default class ActivityChart extends React.Component {
@@ -111,12 +113,15 @@ export default class ActivityChart extends React.Component {
             return (
                 <ActivityChartBar
                     key={`bar-${bar._awardedAmount}-${index}`}
+                    padding={this.props.padding}
                     index={index}
                     height={barHeight}
                     start={start}
                     width={width}
                     yPosition={yPosition}
                     data={bar}
+                    showTooltip={this.props.showTooltip}
+                    hideTooltip={this.props.hideTooltip}
                     description={description} />
             );
         });
