@@ -7,7 +7,7 @@ $obligated-green: #94BFA2;
         @import '../../../../components/visualizations/legend';
         .visualization-legend {
             .visualization-legend__circle {
-                background-color: $color-gray-light;
+                background-color: #D8D8D8;
                 &.visualization-legend__circle_obligated {
                     background-color: $obligated-green;
                 }
