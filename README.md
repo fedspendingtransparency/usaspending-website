@@ -1,8 +1,27 @@
 # USAspending Website
 
-[![Build Status](https://travis-ci.org/fedspendingtransparency/usaspending-website.svg?branch=dev)](https://travis-ci.org/fedspendingtransparency/usaspending-website) [![Test Coverage](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/badges/coverage.svg)](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/coverage)
+[![Build Status](https://travis-ci.com/fedspendingtransparency/usaspending-website.svg?branch=dev)](https://travis-ci.com/fedspendingtransparency/usaspending-website) [![Test Coverage](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/badges/coverage.svg)](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/coverage)
 
-[The USAspending website](https://beta.usaspending.gov/) is the public-facing site offering information on Government spending for the United States.
+[The USAspending website](https://www.usaspending.gov/) is the public-facing site offering information on Government spending for the United States.
+
+## Docker Set Up
+
+The quickets way to run a local version of the code is with  [Docker](https://www.docker.com/), using the provided Dockerfile.
+
+**You will need to create your GlobalConstants files first (see below).** Then, to build the Docker image, artifacts, and run in a simple Nginx configuration:
+
+```
+# from usaspending-website root, build the container image
+docker build -t usaspending-website .
+
+# generate static artifacts in ./public
+docker run -i --rm=true -v $(pwd)/public:/node-workspace/public usaspending-website /bin/sh -c 'npm run dev'
+
+# mount the static artifacts to an nginx image and run
+docker run -p 8020:80 -v $(pwd)/public:/usr/share/nginx/html:ro nginx
+```
+
+The app should now be running at `http://localhost:8020`.
 
 ## Development Set Up
 
