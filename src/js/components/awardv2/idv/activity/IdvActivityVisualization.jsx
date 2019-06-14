@@ -6,14 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-
+import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
+import { calculatePageRange } from 'helpers/paginationHelper';
 import Pagination from 'components/sharedComponents/Pagination';
 import ActivityChart from './chart/ActivityChart';
 
 const propTypes = {
     page: PropTypes.number,
     total: PropTypes.number,
-    count: PropTypes.number,
+    limit: PropTypes.number,
     changePage: PropTypes.func,
     awards: PropTypes.array,
     xSeries: PropTypes.array,
@@ -63,6 +64,14 @@ export default class IdvActivityVisualization extends React.Component {
                 height={height}
                 width={this.state.visualizationWidth} />
         );
+        const pageRange = calculatePageRange(this.props.page, this.props.limit, this.props.total);
+        const start = formatNumberWithPrecision(pageRange.start, 0);
+        const end = formatNumberWithPrecision(pageRange.end, 0);
+        const resultsText = (
+            <div className="pagination__totals">
+                Displaying award orders <strong>{start}-{end}</strong> of {formatNumberWithPrecision(this.props.total, 0)}
+            </div>
+        );
         return (
             <div
                 ref={(widthRef) => {
@@ -73,7 +82,8 @@ export default class IdvActivityVisualization extends React.Component {
                     onChangePage={this.props.changePage}
                     pageNumber={this.props.page}
                     totalItems={this.props.total}
-                    pageSize={this.props.count} />
+                    pageSize={this.props.limit}
+                    resultsText={resultsText} />
                 {chart}
                 <div className="visualization-legend">
                     <div className="visualization-legend__circle visualization-legend__circle_obligated" />
