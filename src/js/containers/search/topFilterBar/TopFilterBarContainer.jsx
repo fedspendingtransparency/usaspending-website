@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { orderBy, difference, concat, indexOf } from 'lodash';
+import kGlobalConstants from 'GlobalConstants';
 
 import moment from 'moment';
 
@@ -107,6 +108,17 @@ export class TopFilterBarContainer extends React.Component {
         const recipientTypeFilters = this.prepareRecipientTypes(props);
         if (recipientTypeFilters) {
             filters.push(recipientTypeFilters);
+        }
+
+        // prepare the Program Source filters
+        const selectedTreasuryAccountFilters = this.prepareTreasuryAccounts(props);
+        if (selectedTreasuryAccountFilters && kGlobalConstants.DEV) {
+            filters.push(selectedTreasuryAccountFilters);
+        }
+
+        const selectedFederalAccountFilters = this.prepareFederalAccounts(props);
+        if (selectedFederalAccountFilters && kGlobalConstants.DEV) {
+            filters.push(selectedFederalAccountFilters);
         }
 
         // prepare Award ID filters
@@ -294,6 +306,46 @@ export class TopFilterBarContainer extends React.Component {
         if (selected) {
             filter.code = 'selectedLocations';
             filter.name = 'Place of Performance';
+            return filter;
+        }
+        return null;
+    }
+
+    prepareFederalAccounts(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.federalAccounts.count() > 0) {
+            // federal account components have been selected
+            selected = true;
+            filter.values = props.federalAccounts.toArray();
+        }
+
+        if (selected) {
+            filter.code = 'federalAccounts';
+            filter.name = 'Federal Account';
+            return filter;
+        }
+        return null;
+    }
+
+    prepareTreasuryAccounts(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.treasuryAccounts.count() > 0) {
+            // treasury account components have been selected
+            selected = true;
+            filter.values = props.federalAccounts.toArray();
+        }
+
+        if (selected) {
+            filter.code = 'treasuryAccounts';
+            filter.name = 'Treasury Account';
             return filter;
         }
         return null;
