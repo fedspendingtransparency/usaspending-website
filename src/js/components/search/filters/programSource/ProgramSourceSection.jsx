@@ -12,7 +12,10 @@ import FederalAccountFilters from './FederalAccountFilters';
 import SelectedSources from './SelectedSources';
 
 const propTypes = {
-    selectedSources: PropTypes.object,
+    selectedTreasuryComponents: PropTypes.object,
+    selectedFederalComponents: PropTypes.object,
+    updateFederalAccountComponents: PropTypes.func,
+    updateTreasuryAccountComponents: PropTypes.func,
     dirtyFilters: PropTypes.symbol
 };
 
@@ -32,7 +35,7 @@ export default class ProgramSourceSection extends React.Component {
 
         this.toggleTab = this.toggleTab.bind(this);
         this.updateFederalAccountComponent = this.updateFederalAccountComponent.bind(this);
-        this.createFederalAccountFilter = this.createFederalAccountFilter.bind(this);
+        this.createFederalAccountFilters = this.createFederalAccountFilters.bind(this);
     }
 
     componentDidMount() {
@@ -48,6 +51,7 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     updateFederalAccountComponent(field, value) {
+        // Updates the component state
         const updatedComponents = Object.assign({}, this.state.federalAccountComponents, {
             [field]: value
         });
@@ -66,12 +70,28 @@ export default class ProgramSourceSection extends React.Component {
         });
     }
 
-    createFederalAccountFilter(e) {
+    createFederalAccountFilters(e) {
         e.preventDefault();
-        const components = this.state.federalAccountComponents;
-        const filterId = `${components.aid}-${components.main || 'MAIN'}-${components.sub || 'SUB'}`;
-        console.log(filterId);
-        // TODO - Lizzie: Add filter to Redux
+        if (this.state.activeTab === 'federal') {
+            const components = this.state.federalAccountComponents;
+            for (let [key, value] of Object.entries(components)) {
+                console.log(`${key}: ${value}`);
+                if (value) {
+                    this.props.updateFederalAccountComponents({
+                        code: key,
+                        value
+                    });
+                }
+            }
+            // Clear the values after they have been applied
+            this.setState({
+                federalAccountComponents: {
+                    aid: '',
+                    main: '',
+                    sub: ''
+                }
+            });
+        }
     }
 
     render() {
@@ -81,15 +101,16 @@ export default class ProgramSourceSection extends React.Component {
         const filter = this.state.activeTab === 'treasury' ? <TreasuryAccountFilters /> : (
             <FederalAccountFilters
                 updateComponent={this.updateFederalAccountComponent}
-                components={this.state.federalAccountComponents}
-                createFilter={this.createFederalAccountFilter} />);
+                createFilters={this.createFederalAccountFilters}
+                components={this.state.federalAccountComponents} />);
 
         let selectedSources = null;
-        if (this.props.selectedSources) {
+        if (activeTab === 'federal' && this.props.selectedFederalComponents) {
+            console.log(this.props.selectedFederalComponents);
             selectedSources = (
                 <SelectedSources
-                    selectedSources={this.props.selectedSources}
-                    activeTab={activeTab} />);
+                    removeSource={this.createFederalAccountFilters}
+                    selectedSources={this.props.selectedFederalComponents} />);
         }
 
         return (
@@ -124,7 +145,9 @@ export default class ProgramSourceSection extends React.Component {
                 </ul>
                 <div className="toggle-border" />
                 {filter}
-                {selectedSources}
+                <div className="program-source-filter__selected">
+                    {selectedSources}
+                </div>
                 <SubmitHint
                     ref={(component) => {
                         this.hint = component;

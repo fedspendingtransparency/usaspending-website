@@ -18,8 +18,8 @@ export default class SelectedSources extends React.Component {
         const shownSource = [];
 
         this.props.selectedSources.entrySeq().forEach((entry) => {
-            const source = entry[1].code;
-            const sourceDescription = entry[1].name;
+            const source = entry[1].code.toUpperCase();
+            const sourceDescription = entry[1].value;
 
             const value = (<ShownValue
                 label={`${source} - ${sourceDescription}`}

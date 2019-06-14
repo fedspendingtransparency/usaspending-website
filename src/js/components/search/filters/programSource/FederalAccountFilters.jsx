@@ -11,7 +11,7 @@ import SourceTextFilter from './SourceTextFilter';
 const propTypes = {
     updateComponent: PropTypes.func,
     components: PropTypes.object,
-    createFilter: PropTypes.func
+    createFilters: PropTypes.func
 };
 
 const filters = [
@@ -53,6 +53,7 @@ export default class FederalAccountFilters extends React.Component {
                 <SourceTextFilter
                     key={filter.code}
                     updateComponent={this.props.updateComponent}
+                    value={this.props.components[filter.code]}
                     {...filter} />
             );
         });
@@ -66,7 +67,7 @@ export default class FederalAccountFilters extends React.Component {
                     {federalFilters}
                     <button
                         disabled={!this.props.components.aid}
-                        onClick={this.props.createFilter}
+                        onClick={this.props.createFilters}
                         className="program-source-components__button">
                         Add Filter
                     </button>

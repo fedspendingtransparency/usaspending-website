@@ -1,6 +1,8 @@
 .program-source-filter {
     @import '../location/tabs';
     @import "../singleSubmit";
+    @import "elements/filters/_selectedFilterBtn";
+    @import "mixins/selectedFilterWrap";
     padding: 0 $global-pad rem(20);
     .program-source-components {
         .program-source-components__heading {
@@ -54,5 +56,8 @@
                 margin-bottom: .5rem;
             }
         }
+    }
+    .program-source-filter__selected {
+        @include selected-filter-wrap;
     }
 }

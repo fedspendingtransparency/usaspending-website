@@ -13,6 +13,7 @@ import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 import * as OtherFilterFunctions from './filters/OtherFilterFunctions';
 import * as ContractFilterFunctions from './filters/contractFilterFunctions';
+import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunctions';
 
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
@@ -39,7 +40,8 @@ export const requiredTypes = {
     pricingType: Set,
     setAside: Set,
     extentCompeted: Set,
-    programSources: OrderedMap
+    treasuryAccounts: OrderedMap,
+    federalAccounts: OrderedMap
 };
 
 export const initialState = {
@@ -65,18 +67,8 @@ export const initialState = {
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set(),
-    programSources: {
-        treasuryAccount: {
-            aid: '',
-            main: '',
-            sub: ''
-        },
-        federalAccount: {
-            aid: '',
-            main: '',
-            sub: ''
-        }
-    }
+    federalAccounts: new OrderedMap(),
+    treasuryAccounts: new OrderedMap()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -127,26 +119,16 @@ const searchFiltersReducer = (state = initialState, action) => {
 
         // Program Source (TAS) Filter
         case 'UPDATE_TREASURY_ACCOUNT_COMPONENTS': {
-            const treasuryAccount = Object.assign({}, state.programSources.treasuryAccount, {
-                [action.type]: action.value
+            return Object.assign({}, state, {
+                treasuryAccounts: ProgramSourceFilterFunctions.updateSelectedSources(
+                    state.treasuryAccounts, action.source)
             });
-
-            const programSources = Object.assign({}, state.programSources, {
-                treasuryAccount
-            });
-
-            return Object.assign({}, state, programSources);
         }
         case 'UPDATE_FEDERAL_ACCOUNT_COMPONENTS': {
-            const federalAccount = Object.assign({}, state.programSources.federalAccount, {
-                [action.type]: action.value
+            return Object.assign({}, state, {
+                federalAccounts: ProgramSourceFilterFunctions.updateSelectedSources(
+                    state.federalAccounts, action.source)
             });
-
-            const programSources = Object.assign({}, state.programSources, {
-                federalAccount
-            });
-
-            return Object.assign({}, state, programSources);
         }
 
         // Agency Filter
