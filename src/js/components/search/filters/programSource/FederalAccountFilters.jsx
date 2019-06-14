@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SourceSelectFilter from './SourceSelectFilter';
+import SourceTextFilter from './SourceTextFilter';
 
 const propTypes = {
     updateComponent: PropTypes.func,
@@ -41,12 +42,19 @@ export default class FederalAccountFilters extends React.Component {
     render() {
         const federalFilters = filters.map((filter) => {
             if (filter.autocomplete) {
-                return (<SourceSelectFilter
+                return (
+                    <SourceSelectFilter
+                        key={filter.code}
+                        updateComponent={this.props.updateComponent}
+                        {...filter} />
+                );
+            }
+            return (
+                <SourceTextFilter
                     key={filter.code}
                     updateComponent={this.props.updateComponent}
-                    {...filter} />);
-            }
-            return (<div>{filter.code}</div>);
+                    {...filter} />
+            );
         });
 
         return (

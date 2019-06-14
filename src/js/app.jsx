@@ -3,23 +3,24 @@ import { render } from 'react-dom';
 import { hot } from "react-hot-loader";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-    faExternalLinkAlt,
-    faChartPie,
-    faChartArea,
-    faLandmark,
-    faMapMarkerAlt,
-    faCalendarAlt,
-    faLevelUpAlt,
-    faPencilAlt,
-    faTag,
-    faUserTie,
-    faChartBar,
-    faEllipsisH,
     faAngleDown,
     faAngleRight,
+    faCalendarAlt,
+    faChartArea,
+    faChartBar,
+    faChartPie,
+    faChevronDown,
     faChevronUp,
+    faEllipsisH,
+    faExternalLinkAlt,
+    faLandmark,
+    faLevelUpAlt,
+    faMapMarkerAlt,
+    faPencilAlt,
+    faSearch,
     faSpinner,
-    faChevronDown
+    faTag,
+    faUserTie
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -32,23 +33,24 @@ require("core-js");
 require('helpers/rafPolyfill');
 
 library.add(
-    faExternalLinkAlt,
+    faAngleDown,
+    faAngleRight,
+    faCalendarAlt,
     faChartArea,
+    faChartBar,
     faChartPie,
+    faChevronDown,
+    faChevronUp,
+    faEllipsisH,
+    faExternalLinkAlt,
     faLandmark,
     faLevelUpAlt,
     faMapMarkerAlt,
-    faCalendarAlt,
     faPencilAlt,
-    faUserTie,
+    faSearch,
+    faSpinner,
     faTag,
-    faChartBar,
-    faEllipsisH,
-    faAngleDown,
-    faAngleRight,
-    faChevronDown,
-    faChevronUp,
-    faSpinner
+    faUserTie
 );
 
 const appDiv = document.getElementById('app');

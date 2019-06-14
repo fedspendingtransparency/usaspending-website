@@ -1,5 +1,6 @@
 .program-source-filter {
     @import '../location/tabs';
+    @import "../singleSubmit";
     padding: 0 $global-pad rem(20);
     .program-source-components {
         .program-source-components__heading {
@@ -22,6 +23,36 @@
             padding-bottom: rem(15);
             @import "elements/filters/_errorMessage";
             @import "elements/filters/_typeahead";
+        }
+        .program-source-text-filter {
+            padding-bottom: rem(15);
+            .program-source-text-filter__wrapper {
+                @include display(flex);
+                @include align-items(stretch);
+                .program-source-text-filter__input {
+                    font-size: $small-font-size;
+                    height: rem(40);
+                    margin: 0 auto;
+                    padding: 11px 8px 11px 8px;
+                    @include display(flex);
+                    @include flex(1 1 auto);
+            
+                    @include placeholder {
+                        color: $color-placeholder;
+                    }
+                }
+                .program-source-text-filter__button {
+                    @include flex(0 0 auto);
+                    @include singleSubmit();
+                    color: $color-gray;
+                }
+            }
+            .program-source-text-filter__label {
+                color: $color-gray;
+                font-size: $small-font-size;
+                margin-top: 0;
+                margin-bottom: .5rem;
+            }
         }
     }
 }
