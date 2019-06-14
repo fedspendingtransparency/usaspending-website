@@ -90,6 +90,11 @@ describe('AgencyLandingContainer', () => {
                     displayName: "Agency Name"
                 },
                 {
+                    columnName: "congressional_justification_url",
+                    defaultDirection: undefined,
+                    displayName: "Congressional Justification of Budget (CJ)"
+                },
+                {
                     columnName: "budget_authority_amount",
                     defaultDirection: "desc",
                     displayName: "Budgetary Resources"

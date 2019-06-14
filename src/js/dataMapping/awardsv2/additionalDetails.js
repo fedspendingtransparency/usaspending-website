@@ -35,7 +35,7 @@ const additionalDetails = (awardData) => {
         },
         idvPeriodOfPerformance: {
             'Start Date': periodOfPerformanceData.startDate,
-            'Last Date to Order': periodOfPerformanceData.endDate
+            'Ordering Period End Date': periodOfPerformanceData.endDate
         },
         legislativeMandates: {
             'Clinger-Cohen Act Compliant': awardData.additionalDetails.clingerCohenAct,

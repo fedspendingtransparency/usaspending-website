@@ -169,6 +169,7 @@ export class AwardContainer extends React.Component {
             if (this.props.award.category === 'idv' || isV2url) {
                 content = (
                     <Award
+                        isV2url={isV2url}
                         isDownloadPending={this.props.isDownloadPending}
                         downloadData={this.downloadData}
                         awardId={this.props.params.awardId}

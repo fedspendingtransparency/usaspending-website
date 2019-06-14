@@ -450,6 +450,8 @@ describe('TopFilterBarContainer', () => {
                 reduxFilters: Object.assign({}, stateWithoutDefault)
             });
 
+            topBarContainer.update();
+
             expect(topBarContainer.find(TopFilterBar)).toHaveLength(0);
         });
     });

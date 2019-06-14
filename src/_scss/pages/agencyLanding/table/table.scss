@@ -19,13 +19,20 @@
 				td {
 					border: 0;
 					.cell-content {
-						float: right;
+            float: right;
+            text-align: right;
 					}
 					&:first-child {
 						.cell-content {
 							float: left;
 						}
-					}
+          }
+          &:nth-child(2) {
+            .cell-content {
+              float: left;
+              text-align: left;
+            }
+          }
 				}
 			}
 			.award-result-header-cell {
@@ -51,7 +58,10 @@
 							font-weight: 600;
 						}
 					}
-				}
+        }
+        svg.svg-inline--fa {
+          width: 0.8em;
+        }
 				// gray out even rows
 				.row-even {
 					background-color: #f7f7f7;
