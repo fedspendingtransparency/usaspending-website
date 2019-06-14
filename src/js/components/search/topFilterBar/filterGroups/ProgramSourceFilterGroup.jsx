@@ -26,8 +26,6 @@ export default class ProgramSourceFilterGroup extends React.Component {
 
     removeFilter(value) {
         // remove a single filter item
-        // this.props.removeFilter(this.props.filter.code, value);
-        // remove a single filter item
         const newValue = this.props.redux.reduxFilters[this.props.filter.code].delete(value);
         this.props.redux.updateGenericFilter({
             type: this.props.filter.code,
