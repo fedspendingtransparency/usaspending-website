@@ -36,6 +36,7 @@ export default class ProgramSourceSection extends React.Component {
         this.toggleTab = this.toggleTab.bind(this);
         this.updateFederalAccountComponent = this.updateFederalAccountComponent.bind(this);
         this.createFederalAccountFilters = this.createFederalAccountFilters.bind(this);
+        this.removeAccountFilter = this.removeAccountFilter.bind(this);
     }
 
     componentDidMount() {
@@ -70,12 +71,10 @@ export default class ProgramSourceSection extends React.Component {
         });
     }
 
-    createFederalAccountFilters(e) {
-        e.preventDefault();
+    createFederalAccountFilters() {
         if (this.state.activeTab === 'federal') {
             const components = this.state.federalAccountComponents;
-            for (let [key, value] of Object.entries(components)) {
-                console.log(`${key}: ${value}`);
+            for (const [key, value] of Object.entries(components)) {
                 if (value) {
                     this.props.updateFederalAccountComponents({
                         code: key,
@@ -94,6 +93,13 @@ export default class ProgramSourceSection extends React.Component {
         }
     }
 
+    removeAccountFilter(code, value) {
+        this.props.updateFederalAccountComponents({
+            code,
+            value
+        });
+    }
+
     render() {
         const activeTab = this.state.activeTab;
         const activeTreasury = activeTab === 'treasury' ? '' : 'inactive';
@@ -106,10 +112,9 @@ export default class ProgramSourceSection extends React.Component {
 
         let selectedSources = null;
         if (activeTab === 'federal' && this.props.selectedFederalComponents) {
-            console.log(this.props.selectedFederalComponents);
             selectedSources = (
                 <SelectedSources
-                    removeSource={this.createFederalAccountFilters}
+                    removeSource={this.removeAccountFilter}
                     selectedSources={this.props.selectedFederalComponents} />);
         }
 
@@ -145,9 +150,7 @@ export default class ProgramSourceSection extends React.Component {
                 </ul>
                 <div className="toggle-border" />
                 {filter}
-                <div className="program-source-filter__selected">
-                    {selectedSources}
-                </div>
+                {selectedSources}
                 <SubmitHint
                     ref={(component) => {
                         this.hint = component;

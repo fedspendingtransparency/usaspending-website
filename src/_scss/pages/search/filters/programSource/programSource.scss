@@ -3,7 +3,9 @@
     @import "../singleSubmit";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
+    
     padding: 0 $global-pad rem(20);
+    
     .program-source-components {
         .program-source-components__heading {
             padding: rem(15) 0;
@@ -57,7 +59,13 @@
             }
         }
     }
-    .program-source-filter__selected {
+    .selected-filters {
         @include selected-filter-wrap;
+    }
+    .shown {
+        min-height: rem(18);
+    }
+    .visually-hidden {
+        display: none;
     }
 }

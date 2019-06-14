@@ -15,7 +15,7 @@ const propTypes = {
 
 export default class SelectedSources extends React.Component {
     render() {
-        const shownSource = [];
+        const shownSources = [];
 
         this.props.selectedSources.entrySeq().forEach((entry) => {
             const source = entry[1].code.toUpperCase();
@@ -24,15 +24,15 @@ export default class SelectedSources extends React.Component {
             const value = (<ShownValue
                 label={`${source} - ${sourceDescription}`}
                 key={source}
-                removeValue={this.props.removeSource.bind(null, entry[1])} />);
-            shownSource.push(value);
+                removeValue={this.props.removeSource.bind(null, entry[1].code, entry[1].value)} />);
+            shownSources.push(value);
         });
 
         return (
             <div
                 className="selected-filters"
                 role="status">
-                {shownSource}
+                {shownSources}
             </div>
         );
     }
