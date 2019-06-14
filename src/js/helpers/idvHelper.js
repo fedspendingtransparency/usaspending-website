@@ -160,8 +160,8 @@ export const fetchIdvActivity = () => {
                             awarding_agency_id: 153,
                             generated_unique_award_id: "CONT_AW_12D2_4730_AG3151B140009_GS23F0170L",
                             last_date_to_order: "2015-04-06",
-                            awarded_amount: 12000.0,
-                            obligated_amount: 47840.0,
+                            awarded_amount: 47840.0,
+                            obligated_amount: 12000.0,
                             period_of_performance_start_date: "2014-04-07",
                             piid: "AG3151B140009",
                             recipient_name: "Booz Allen Hamilton",
@@ -176,7 +176,7 @@ export const fetchIdvActivity = () => {
                             next: 2,
                             page: 1,
                             previous: null,
-                            total: 40
+                            total: 111
                         }
                     }
                 }, 500);

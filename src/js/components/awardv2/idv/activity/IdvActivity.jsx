@@ -13,7 +13,6 @@ const propTypes = {
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     page: PropTypes.number,
-    count: PropTypes.number,
     total: PropTypes.number,
     limit: PropTypes.number,
     changePage: PropTypes.func,
@@ -40,7 +39,7 @@ export default class IdvActivity extends React.Component {
                 content = (<IdvActivityVisualization
                     page={this.props.page}
                     total={this.props.total}
-                    count={this.props.limit}
+                    limit={this.props.limit}
                     awards={this.props.awards}
                     changePage={this.props.changePage}
                     xSeries={this.props.xSeries}

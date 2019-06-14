@@ -92,13 +92,6 @@ export default class ActivityChart extends React.Component {
             .domain(yRange)
             .range([0, graphHeight])
             .nice();
-
-        // calculate the X axis Y position
-        let xAxisPos = 0;
-        if (minValueY !== 0) {
-            xAxisPos = yScale(0);
-        }
-
         // Map each award to a "bar" component
         const bars = this.props.awards.map((bar, index) => {
             const { padding, barHeight, height } = this.props;
@@ -146,7 +139,6 @@ export default class ActivityChart extends React.Component {
             xScale,
             yScale,
             bars,
-            xAxisPos,
             yTicks: yScale.ticks(6),
             xTicks: xScale.ticks(5)
         });
@@ -173,8 +165,7 @@ export default class ActivityChart extends React.Component {
                         width={this.props.width - this.props.padding.left}
                         padding={this.props.padding}
                         ticks={this.state.xTicks}
-                        scale={this.state.xScale}
-                        axisPos={this.state.xAxisPos} />
+                        scale={this.state.xScale} />
                     <g
                         className="activity-chart-data">
                         {this.state.bars}
