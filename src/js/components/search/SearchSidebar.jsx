@@ -111,9 +111,9 @@ export default class SearchSidebar extends React.Component {
         });
 
         if (kGlobalConstants.DEV) {
-            filters.options[6] = 'Program Source';
-            filters.components[6] = ProgramSourceContainer;
-            filters.accessories[6] = null;
+            filters.options[4] = 'Program Source (TAS)';
+            filters.components[4] = ProgramSourceContainer;
+            filters.accessories[4] = null;
         }
 
         return (

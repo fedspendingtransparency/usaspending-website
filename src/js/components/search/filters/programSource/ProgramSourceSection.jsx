@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-import TreasuryAccountFilters from './TreasuryAccountFilters';
 import FederalAccountFilters from './FederalAccountFilters';
 import SelectedSources from './SelectedSources';
 
@@ -104,7 +103,7 @@ export default class ProgramSourceSection extends React.Component {
         const activeTab = this.state.activeTab;
         const activeTreasury = activeTab === 'treasury' ? '' : 'inactive';
         const activeFederal = activeTab === 'federal' ? '' : 'inactive';
-        const filter = this.state.activeTab === 'treasury' ? <TreasuryAccountFilters /> : (
+        const filter = (
             <FederalAccountFilters
                 updateComponent={this.updateFederalAccountComponent}
                 createFilters={this.createFederalAccountFilters}
@@ -131,7 +130,7 @@ export default class ProgramSourceSection extends React.Component {
                             aria-checked={this.state.activeTab === 'treasury'}
                             title="Treasury Account"
                             aria-label="Treasury Account"
-                            onClick={this.toggleTab}>
+                            disabled >
                             Treasury Account
                         </button>
                     </li>

@@ -32,7 +32,9 @@ export const mockFilters = {
             selectedPSC: {},
             pricingType: [],
             setAside: [],
-            extentCompeted: []
+            extentCompeted: [],
+            federalAccounts: {},
+            treasuryAccounts: {}
         }
     }
 };
