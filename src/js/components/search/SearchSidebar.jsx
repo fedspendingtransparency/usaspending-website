@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import kGlobalConstants from 'GlobalConstants';
 
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
 
@@ -40,7 +41,6 @@ const filters = {
         'Agency',
         'Location',
         'Recipient',
-        'Program Source (TAS)',
         'Recipient Type',
         'Award Amount',
         'Award ID',
@@ -58,7 +58,6 @@ const filters = {
         AgencyContainer,
         LocationSectionContainer,
         RecipientSearchContainer,
-        ProgramSourceContainer,
         RecipientTypeContainer,
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
@@ -71,7 +70,6 @@ const filters = {
     ],
     accessories: [
         KeywordHover,
-        null,
         null,
         null,
         null,
@@ -111,6 +109,12 @@ export default class SearchSidebar extends React.Component {
                 expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
             }
         });
+
+        if (kGlobalConstants.DEV) {
+            filters.options[6] = 'Program Source';
+            filters.components[6] = ProgramSourceContainer;
+            filters.accessories[6] = null;
+        }
 
         return (
             <div

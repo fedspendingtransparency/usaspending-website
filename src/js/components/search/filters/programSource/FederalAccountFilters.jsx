@@ -46,6 +46,8 @@ export default class FederalAccountFilters extends React.Component {
                     <SourceSelectFilter
                         key={filter.code}
                         updateComponent={this.props.updateComponent}
+                        selectedSources={[this.props.components[filter.code]]}
+                        createFilters={this.props.createFilters}
                         {...filter} />
                 );
             }
@@ -58,6 +60,9 @@ export default class FederalAccountFilters extends React.Component {
             );
         });
 
+        const components = this.props.components;
+        const enabled = components.aid || components.main || components.sub;
+
         return (
             <div className="program-source-tab">
                 <form className="program-source-components">
@@ -66,10 +71,10 @@ export default class FederalAccountFilters extends React.Component {
                     </div>
                     {federalFilters}
                     <button
-                        disabled={!this.props.components.aid}
+                        disabled={!enabled}
                         onClick={this.props.createFilters}
                         className="program-source-components__button">
-                        Add Filter
+                        Add Filter(s)
                     </button>
                 </form>
             </div>
