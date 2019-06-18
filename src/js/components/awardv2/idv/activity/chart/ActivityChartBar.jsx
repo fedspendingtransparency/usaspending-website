@@ -14,7 +14,8 @@ const propTypes = {
     description: PropTypes.string,
     data: PropTypes.object,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    isObligated: PropTypes.bool
 };
 
 export default class ActivityChartBar extends React.Component {
@@ -27,13 +28,13 @@ export default class ActivityChartBar extends React.Component {
 
     enteredCell() {
         const { data } = this.props;
+        // get bar left position and add half the width to center position the tooltip
         const x = this.element.getBoundingClientRect().left + (this.props.width / 2);
+        // get bar top position and add half the height of the bar to center position the tooltip
         const y = this.element.getBoundingClientRect().top + (this.props.height / 2);
-        console.log(' This Element : ', this.element);
-        console.log(' This Bounding Rect : ', this.element.getBoundingClientRect());
-        console.log(' Entering Cell X, Y : ', x, y);
         data.x = this.props.start + (this.props.width / 2);
         data.y = (360 - this.props.yPosition) + (this.props.height / 2);
+        // TODO - verify you still need the first param position { x, y }
         this.props.showTooltip({ x, y }, data);
     }
 
@@ -42,6 +43,9 @@ export default class ActivityChartBar extends React.Component {
     }
 
     render() {
+        console.log(' Props : ', this.props);
+        let classNames = 'activity-chart-bar__awarded-content';
+        if (this.props.isObligated) classNames = 'activity-chart-bar__obligated-content';
         return (
             <g
                 className="activity-chart-bar"
@@ -55,6 +59,7 @@ export default class ActivityChartBar extends React.Component {
                     {this.props.description}
                 </desc>
                 <rect
+                    className={classNames}
                     x={this.props.start}
                     y={this.props.yPosition}
                     width={this.props.width}

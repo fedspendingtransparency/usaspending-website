@@ -117,7 +117,6 @@ export default class ActivityChart extends React.Component {
                     description={description}>
                     {/* awarded amount bar */}
                     <ActivityChartBar
-                        padding={this.props.padding}
                         index={index}
                         height={barHeight}
                         start={start}
@@ -135,7 +134,11 @@ export default class ActivityChart extends React.Component {
                         height={barHeight}
                         start={start}
                         width={obligatedAmountWidth}
-                        yPosition={yPosition} />
+                        yPosition={yPosition}
+                        data={bar}
+                        showTooltip={this.props.showTooltip}
+                        hideTooltip={this.props.hideTooltip}
+                        description={description} />
                 </g>
             );
         });
