@@ -1,7 +1,8 @@
 $obligated-green: #94BFA2;
 .idv-activity {
-  width: 100%;
-    .activity-visualization {
+    width: 100%;
+    .award__col__content {
+      .activity-visualization {
         @import '../../../../components/pagination';
         @import '../../../../components/visualizations/legend';
         .visualization-tooltip {
@@ -64,19 +65,23 @@ $obligated-green: #94BFA2;
         }
         .visualization-legend {
             .visualization-legend__circle {
-                background-color: $color-gray-light;
+                background-color: #D8D8D8;
                 &.visualization-legend__circle_obligated {
                     background-color: $obligated-green;
                 }
             }
         }
         .activity-chart {
-            .activity-chart-bar {
-                padding: rem(10) 0;
-                .activity-chart-bar__content {
-                    fill: $color-gray-light;
-                }
+          .activity-chart-bar {
+            padding: rem(10) 0;
+            .activity-chart-bar__awarded-content {
+                fill: #D8D8D8;
             }
+            .activity-chart-bar__obligated-content {
+              fill: $obligated-green;
+            }
+          }
         }
     }
+  }
 }

@@ -371,6 +371,8 @@ export const mockReferencedAwards = {
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
             funding_agency: 'DEPARTMENT OF DEFENSE (DOD)',
             funding_agency_id: 884,
+            awarding_agency: 'Department of Defense',
+            awarding_agency_id: 884,
             generated_unique_award_id: 'CONT_AW_9700_9700_71T0_SPM30008D3155',
             last_date_to_order: null,
             obligated_amount: 4080.71,

@@ -23,8 +23,7 @@ const defaultProps = {
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    padding: PropTypes.object,
-    axisPos: PropTypes.number
+    padding: PropTypes.object
 };
 
 export default class ActivityXAxis extends React.Component {
@@ -75,7 +74,7 @@ export default class ActivityXAxis extends React.Component {
         const labels = props.ticks.map((tick, i) => {
             // calculate the X position
             // D3 scale returns the tick positions as pixels from the start of the axis
-            const xPos = props.scale(tick);
+            const xPos = props.scale(tick) + this.props.padding.left;
 
             return (<ActivityXAxisItem
                 x={xPos}
@@ -109,9 +108,9 @@ export default class ActivityXAxis extends React.Component {
                 <line
                     className="x-axis"
                     x1={0}
-                    y1={-1 * this.props.axisPos}
+                    y1={this.props.height}
                     x2={this.props.width}
-                    y2={-1 * this.props.axisPos}
+                    y2={this.props.height}
                     style={lineStyle} />
                 <g className="axis-labels">
                     {this.state.labels}

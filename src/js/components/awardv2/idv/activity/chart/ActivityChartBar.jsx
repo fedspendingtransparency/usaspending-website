@@ -14,9 +14,7 @@ const propTypes = {
     description: PropTypes.string,
     data: PropTypes.object,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func,
-    x0: PropTypes.number,
-    y0: PropTypes.number
+    hideTooltip: PropTypes.func
 };
 
 export default class ActivityChartBar extends React.Component {
@@ -44,7 +42,6 @@ export default class ActivityChartBar extends React.Component {
     }
 
     render() {
-        // TODO: use this.props.data to create the green obligated section
         return (
             <g
                 className="activity-chart-bar"
@@ -58,7 +55,6 @@ export default class ActivityChartBar extends React.Component {
                     {this.props.description}
                 </desc>
                 <rect
-                    className="activity-chart-bar__content"
                     x={this.props.start}
                     y={this.props.yPosition}
                     width={this.props.width}

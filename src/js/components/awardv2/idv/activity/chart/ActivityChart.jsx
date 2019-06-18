@@ -16,7 +16,6 @@ const propTypes = {
     awards: PropTypes.array,
     height: PropTypes.number,
     width: PropTypes.number,
-    itemHeight: PropTypes.number,
     xSeries: PropTypes.array,
     ySeries: PropTypes.array,
     padding: PropTypes.object,
@@ -95,34 +94,49 @@ export default class ActivityChart extends React.Component {
             .domain(yRange)
             .range([0, graphHeight])
             .nice();
-
-        // calculate the X axis Y position
-        let xAxisPos = 0;
-        if (minValueY !== 0) {
-            xAxisPos = yScale(0);
-        }
-
         // Map each award to a "bar" component
         const bars = this.props.awards.map((bar, index) => {
             const { padding, barHeight, height } = this.props;
             const start = xScale(bar._startDate.valueOf()) + padding.left;
             const end = xScale(bar._endDate.valueOf()) + padding.left;
             const width = end - start;
+            // create a scale for obligated amount width using awarded amount
+            // and the awarded amount width
+            const obligatedAmountScale = scaleLinear()
+                .domain([0, bar._awardedAmount])
+                .range([0, width])
+                .nice();
+            // scale the abligated amount to create the correct width
+            const obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
             const yPosition = (height - 30) - yScale(bar._awardedAmount) - barHeight;
             const description = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, an awarded amount of ${bar.awardedAmount}, and an obligated amount of ${bar.obligatedAmount}.`;
+
             return (
-                <ActivityChartBar
+                <g
                     key={`bar-${bar._awardedAmount}-${index}`}
-                    padding={this.props.padding}
-                    index={index}
-                    height={barHeight}
-                    start={start}
-                    width={width}
-                    yPosition={yPosition}
-                    data={bar}
-                    showTooltip={this.props.showTooltip}
-                    hideTooltip={this.props.hideTooltip}
-                    description={description} />
+                    description={description}>
+                    {/* awarded amount bar */}
+                    <ActivityChartBar
+                        padding={this.props.padding}
+                        index={index}
+                        height={barHeight}
+                        start={start}
+                        width={width}
+                        yPosition={yPosition}
+                        data={bar}
+                        showTooltip={this.props.showTooltip}
+                        hideTooltip={this.props.hideTooltip}
+                        description={description} />
+                    {/* obligated amount bar */}
+                    <ActivityChartBar
+                        isObligated
+                        key={`bar-${bar._obligatedAmount}-${bar.id}`}
+                        index={index}
+                        height={barHeight}
+                        start={start}
+                        width={obligatedAmountWidth}
+                        yPosition={yPosition} />
+                </g>
             );
         });
 
@@ -132,7 +146,6 @@ export default class ActivityChart extends React.Component {
             xScale,
             yScale,
             bars,
-            xAxisPos,
             yTicks: yScale.ticks(6),
             xTicks: xScale.ticks(5)
         });
@@ -159,8 +172,7 @@ export default class ActivityChart extends React.Component {
                         width={this.props.width - this.props.padding.left}
                         padding={this.props.padding}
                         ticks={this.state.xTicks}
-                        scale={this.state.xScale}
-                        axisPos={this.state.xAxisPos} />
+                        scale={this.state.xScale} />
                     <g
                         className="activity-chart-data">
                         {this.state.bars}
