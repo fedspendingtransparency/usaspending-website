@@ -114,7 +114,7 @@ export class SubawardsContainer extends React.Component {
 
         const newState = {
             page: data.page_metadata.page,
-            nextPage: data.page_metadata.has_next_page,
+            nextPage: data.page_metadata.hasNext,
             inFlight: false
         };
 
@@ -138,8 +138,10 @@ export class SubawardsContainer extends React.Component {
     }
 
     loadNextPage() {
+        console.log("YOOOOOOOOOOOOOO LOAD NEXT PAGE BRAH");
         if (!this.state.nextPage || this.state.inFlight) {
             // no more pages
+            console.log("WHY");
             return;
         }
 
