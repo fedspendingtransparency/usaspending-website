@@ -1,12 +1,66 @@
 $obligated-green: #94BFA2;
 .idv-activity {
+  width: 100%;
     .activity-visualization {
         @import '../../../../components/pagination';
         @import '../../../../components/visualizations/legend';
         .visualization-tooltip {
           @import "components/visualizations/tooltip/_tooltip";
-          height: 0;
-          width: 0;
+          .tooltip {
+            box-shadow: 0 0 10px rgba(174, 176, 180, 0.9);
+            border-radius: 6px;
+            border: none;
+            pointer-events: visible;
+            font-size: rem(14rem);
+            color: #555;
+            background-color: #f5f5f5;
+            .tooltip-title {
+              color: #444444;
+              // font-size: rem(15);
+              background-color: #f5f5f5;
+              text-align: left;
+              font-weight: normal;
+              padding: 0 0 0 rem(20em);
+              margin-bottom: 0;
+              margin-top: rem(7.5em);
+            }
+            .tooltip-body {
+              @include display(flex);
+              padding: 0 0 rem(7.5em) rem(20rem);
+              // font-size: rem(12);
+              .tooltip-body__row {
+                @include display(flex);
+                @include flex-basis(100%);
+                @include justify-content(left);
+                .tooltip-body__row-info {
+                  padding-bottom: rem(5em);
+                  .tooltip-body__row-info-title {
+                    color: #444444;
+                    font-size: rem(13rem);
+                    white-space: nowrap;
+                    // font-weight: bold;
+                    padding-bottom: rem(0.3em);
+                    margin-top: rem(4em);
+                    margin-bottom: 0;
+                  }
+                  .tooltip-body__row-info-data {
+                    white-space: nowrap;
+                    a {
+                      white-space: nowrap;
+                    }
+                  }
+                }
+                .tooltip-body__row-info:nth-child(1) {
+                  padding-right: rem(30em);
+                }
+                .tooltip-body__row-info {
+                  &.second-child {
+                    padding-right: rem(30em);
+                  }
+                }
+              }
+            }
+          }
         }
         .visualization-legend {
             .visualization-legend__circle {

@@ -23,10 +23,6 @@ export default class ActivityChartBar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isHovering: false
-        };
-
         this.enteredCell = this.enteredCell.bind(this);
         this.exitedCell = this.exitedCell.bind(this);
     }
@@ -38,8 +34,8 @@ export default class ActivityChartBar extends React.Component {
         console.log(' This Element : ', this.element);
         console.log(' This Bounding Rect : ', this.element.getBoundingClientRect());
         console.log(' Entering Cell X, Y : ', x, y);
-        data.x = x;
-        data.y = y;
+        data.x = this.props.start + (this.props.width / 2);
+        data.y = (360 - this.props.yPosition) + (this.props.height / 2);
         this.props.showTooltip({ x, y }, data);
     }
 

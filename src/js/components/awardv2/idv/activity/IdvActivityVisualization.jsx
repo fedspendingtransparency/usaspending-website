@@ -29,12 +29,16 @@ export default class IdvActivityVisualization extends React.Component {
             windowWidth: 0,
             visualizationWidth: 0,
             isShowingTooltip: false,
+            isHoveringInBar: false,
             toolTipData: null
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.showTooltip = this.showTooltip.bind(this);
         this.hideTooltip = this.hideTooltip.bind(this);
+        this.mouseIsInTooltipDiv = this.mouseIsInTooltipDiv.bind(this);
+        this.mouseOutOfTooltipDiv = this.mouseOutOfTooltipDiv.bind(this);
+
     }
 
     componentDidMount() {
@@ -59,16 +63,30 @@ export default class IdvActivityVisualization extends React.Component {
     }
 
     showTooltip(position, data) {
-        this.setState({
-            isShowingTooltip: true,
-            toolTipData: data
-        });
+        if (!this.state.isShowingTooltip) {
+            this.setState({
+                isShowingTooltip: true,
+                toolTipData: data
+            });
+        }
     }
 
     hideTooltip() {
+        if (!this.state.isHoveringInBar) this.setState({ isShowingTooltip: false });
+    }
+
+    mouseIsInTooltipDiv() {
         this.setState({
-            isShowingTooltip: false
+            isShowingTooltip: true,
+            isHoveringInBar: true
         });
+    }
+
+    mouseOutOfTooltipDiv() {
+        this.setState({
+            isShowingTooltip: false,
+            isHoveringInBar: false
+        }, () => this.hideTooltip());
     }
 
     render() {
@@ -85,7 +103,10 @@ export default class IdvActivityVisualization extends React.Component {
         );
         let tt = null;
         if (this.state.isShowingTooltip) {
-            tt = (<ActivityChartTooltip data={this.state.toolTipData} />);
+            tt = (<ActivityChartTooltip
+                data={this.state.toolTipData}
+                mouseIsInTooltipDiv={this.mouseIsInTooltipDiv}
+                mouseOutOfTooltipDiv={this.mouseOutOfTooltipDiv} />);
         }
         return (
             <div
@@ -99,6 +120,7 @@ export default class IdvActivityVisualization extends React.Component {
                     totalItems={this.props.total}
                     pageSize={this.props.count} />
                 {chart}
+                {tt}
                 <div className="visualization-legend">
                     <div className="visualization-legend__circle visualization-legend__circle_obligated" />
                     <div className="visualization-legend__label">
@@ -109,7 +131,6 @@ export default class IdvActivityVisualization extends React.Component {
                         Funding Remaining
                     </div>
                 </div>
-                {tt}
             </div>
         );
     }

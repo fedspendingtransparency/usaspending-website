@@ -30,7 +30,7 @@ const defaultProps = {
         left: 45,
         bottom: 30
     },
-    barHeight: 30
+    barHeight: 10
 };
 
 export default class ActivityChart extends React.Component {
