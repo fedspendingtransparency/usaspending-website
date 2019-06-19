@@ -23,3 +23,15 @@ export const mockAgency = {
     agencyType: 'subtier'
 };
 
+export const mockTreasuryAccount = {
+    code: 'aid',
+    value: '123',
+    identifier: 'aid_123'
+};
+
+export const mockFederalAccount = {
+    code: 'main',
+    value: '4567',
+    identifier: 'main_4567'
+};
+
