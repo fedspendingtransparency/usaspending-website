@@ -39,7 +39,6 @@ export default class IdvActivityVisualization extends React.Component {
         this.hideTooltip = this.hideTooltip.bind(this);
         this.mouseIsInTooltipDiv = this.mouseIsInTooltipDiv.bind(this);
         this.mouseOutOfTooltipDiv = this.mouseOutOfTooltipDiv.bind(this);
-
     }
 
     componentDidMount() {
