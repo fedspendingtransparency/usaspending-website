@@ -172,15 +172,16 @@ export default class LocationPickerContainer extends React.Component {
 
     parseStates(data) {
         // prepend a blank state to act as a de-select option
-        let states = [];
         if (data.states.length > 0) {
-            states = concat([Object.assign({}, defaultLocationValues.state, {
-                name: 'All states'
-            })], data.states);
+            const states = [...data.states, { ...defaultLocationValues.state, name: 'All States' }]
+                .map((state) => ({ ...state, autoPopulated: false }));
+            this.setState({
+                availableStates: states
+            });
         }
-        this.setState({
-            availableStates: states
-        });
+        else {
+            this.setState({ availableStates: [] });
+        }
     }
 
     clearStates() {
@@ -278,21 +279,19 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     selectEntity(level, value) {
-        const newValue = value;
-        const containsAutopopulatedProperty = !Object.keys(newValue).some((key) => key === 'autoPopulated');
-
-        if (level === 'city' && this.state.state.code !== newValue.code && newValue.code) {
-            const selectedState = this.state.availableStates
-                .filter((state) => state.code === newValue.code)
+        const shouldAutoPopulateState = (
+            level === 'city' &&
+            this.state.state.code !== value.code &&
+            value.code
+        );
+        if (shouldAutoPopulateState) {
+            const stateFromCity = this.state.availableStates
+                .filter((state) => state.code === value.code)
                 .reduce((acc, state) => ({ ...acc, ...state, autoPopulated: true }), defaultLocationValues.state);
-            this.setState({ state: selectedState });
+            this.setState({ state: stateFromCity });
         }
-        else if (level === 'state' && !containsAutopopulatedProperty) {
-            newValue.autoPopulated = false;
-        }
-
         this.setState({
-            [level]: newValue
+            [level]: value
         });
     }
 
