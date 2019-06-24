@@ -6,6 +6,7 @@
 const additionalDetails = (awardData) => {
     const periodOfPerformanceData = awardData.periodOfPerformance || awardData.dates;
     const parentAwardDetails = awardData.parentAwardDetails;
+    const recipientLocation = awardData.recipient.location;
     const data = {
         agencyDetails: {
             'Awarding Agency': awardData.awardingAgency.formattedToptier,
@@ -50,6 +51,14 @@ const additionalDetails = (awardData) => {
             'DOD Acquisition Program': awardData.additionalDetails.dodAcquisitionProgram,
             'Information Technology Commercial Item Category': awardData.additionalDetails.infoTechCommercialItem,
             'Sea Transportation': awardData.additionalDetails.seaTransport
+        },
+        recipientDetails: {
+            Recipient: awardData.recipient.name,
+            DUNS: awardData.recipient.duns,
+            'Parent Name': awardData.recipient.parentName,
+            'Parent DUNS': awardData.recipient.parentDuns,
+            Address: `${recipientLocation.streetAddress}, ${recipientLocation.regionalAddress}`,
+            'Business Types': awardData.recipient.businessCategories
         },
         competitionDetails: {
             'Solicitation ID': awardData.additionalDetails.solicitationId,
