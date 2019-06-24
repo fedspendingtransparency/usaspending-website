@@ -23,8 +23,6 @@ const MoreInfo = () => (
                 </a>
                 &nbsp;and the&nbsp;
                 <a
-                    target="_blank"
-                    rel="noopener noreferrer"
                     href="https://www.usaspending.gov/#/download_center/data_dictionary">
                     Data Dictionary
                 </a>

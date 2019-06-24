@@ -108,9 +108,9 @@ export default class Footer extends React.Component {
                                             title="Data Lab" />
                                     </li>
                                     <li>
-                                        <FooterExternalLink
-                                            link="https://www.usaspending.gov/#/download_center/data_dictionary"
-                                            title="Data Dictionary" />
+                                        <a href="https://www.usaspending.gov/#/download_center/data_dictionary">
+                                            Data Dictionary
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
