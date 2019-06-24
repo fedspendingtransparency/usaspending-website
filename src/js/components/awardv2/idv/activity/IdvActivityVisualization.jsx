@@ -30,8 +30,11 @@ export default class IdvActivityVisualization extends React.Component {
             windowWidth: 0,
             visualizationWidth: 0,
             isShowingTooltip: false,
-            isHoveringInBar: false,
-            toolTipData: null
+            isHoveringInTooltip: false,
+            toolTipData: null,
+            awards: props.awards,
+            showTooltipStroke: false,
+            awardIndexForTooltip: 0
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
@@ -62,38 +65,52 @@ export default class IdvActivityVisualization extends React.Component {
         }
     }
 
-    showTooltip(position, data) {
+    showTooltip(data) {
         if (!this.state.isShowingTooltip) {
             this.setState({
                 isShowingTooltip: true,
-                toolTipData: data
+                toolTipData: data,
+                showTooltipStroke: true,
+                awardIndexForTooltip: data.index
             });
         }
     }
 
-    hideTooltip() {
-        if (!this.state.isHoveringInBar) this.setState({ isShowingTooltip: false });
+    hideTooltip(data) {
+        if (!this.state.isHoveringInTooltip) {
+            this.setState({
+                isShowingTooltip: false,
+                showTooltipStroke: false,
+                awardIndexForTooltip: 0
+            });
+        }
     }
 
-    mouseIsInTooltipDiv() {
+    mouseIsInTooltipDiv(data) {
         this.setState({
             isShowingTooltip: true,
-            isHoveringInBar: true
+            isHoveringInTooltip: true,
+            showTooltipStroke: true,
+            awardIndexForTooltip: data.index
         });
     }
 
-    mouseOutOfTooltipDiv() {
+    mouseOutOfTooltipDiv(data) {
         this.setState({
             isShowingTooltip: false,
-            isHoveringInBar: false
-        }, () => this.hideTooltip());
+            isHoveringInTooltip: false,
+            showTooltipStroke: false,
+            awardIndexForTooltip: 0
+        }, () => this.hideTooltip(data));
     }
 
     render() {
         const height = 360;
         const chart = (
             <ActivityChart
-                awards={this.props.awards}
+                awards={this.state.awards}
+                showTooltipStroke={this.state.showTooltipStroke}
+                awardIndexForTooltip={this.state.awardIndexForTooltip}
                 xSeries={this.props.xSeries}
                 ySeries={this.props.ySeries}
                 height={height}
@@ -128,6 +145,7 @@ export default class IdvActivityVisualization extends React.Component {
                     totalItems={this.props.total}
                     pageSize={this.props.limit}
                     resultsText={resultsText} />
+                <div>{this.state.color ? 'true' : 'false'}</div>
                 {chart}
                 {tt}
                 <div className="visualization-legend">

@@ -22,10 +22,15 @@ export default class IdvActivityTooltip extends React.Component {
                 transform: ''
             },
             windowWidth: 0,
-            windowHeight: 0
+            windowHeight: 0,
+            awardingAgency: props.data.awardingAgencyName,
+            recipient: props.data.recipientName,
+            truncated: false
         };
 
         this.measureWindow = this.measureWindow.bind(this);
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseLeave = this.mouseLeave.bind(this);
     }
     componentDidMount() {
         this.measureWindow();
@@ -57,60 +62,105 @@ export default class IdvActivityTooltip extends React.Component {
     }
 
     positionTooltip() {
+        // award and bar info
+        const { data } = this.props;
         // measure the tooltip width
-        const tooltipWidth = this.div.offsetWidth;
-        const containerX = this.containerDiv.getBoundingClientRect().left;
-        // let direction = 'right';
-        let direction = 'center';
         const awardAgencyDiv = this.awardAgencyDiv.getBoundingClientRect().width;
         const recipientDiv = this.recipientDiv.getBoundingClientRect().width;
-        const tooltipBody = this.tooltipBody.getBoundingClientRect().width;
-        console.log(' awardAgencyDiv Width : ', awardAgencyDiv);
-        console.log(' recipientDiv Width : ', recipientDiv);
-        // calculate the padding between the elements and the tooltip body
-        const tooltipBodyPadding = tooltipBody - (awardAgencyDiv + recipientDiv);
-        // const theTooltipWidth = (awardAgencyDiv + recipientDiv + tooltipBodyPadding) - 488;
-        const theTooltipWidth = awardAgencyDiv + recipientDiv + 70;
-        // adjust the X position so the tooltip is centered at X
-        let adjustedX = this.props.data.x;
-        let adjustedY = this.props.data.y;
-        // if (this.props.data.x + tooltipWidth >= this.state.windowWidth) {
-        //     direction = 'right';
-        //     adjustedX = this.props.data.x - tooltipWidth - 20;
-        // }
-        // this.div.style.top = `${this.props.data.y}px`;
-        // this.div.style.left = `${this.props.data.x}px`;
+        const divHeight = this.div.getBoundingClientRect().height;
+        console.log(' Awarding Agency Width : ', awardAgencyDiv);
+        console.log(' Recipient Div : ', recipientDiv);
+        let theTooltipWidth = awardAgencyDiv + recipientDiv + 70;
+        let xPosition = data.x;
+        let yPosition = data.y;
+        // ajust Y position: if bar y position (considering the y
+        // of the bar is the distance from the bottom of the graph because the graph starts at 0)
+        // is smaller than the tooltip height show tooltip on top of bar
+        if (this.props.data.y < divHeight) {
+            yPosition += (divHeight + 7);
+        }
+        // console.log(' Graph Width : ', this.props.data.graphWidth);
+        // console.log(' Start : ', this.props.data.start);
+        // console.log(' Bar Width : ', this.props.data.barWidth);
+        // console.log(' Tooltip Width : ', theTooltipWidth);
+
+        // get the spacing from the start of the graph to the start of the bar
+        const spacingFromStartToBar = data.graphWidth - (data.graphWidth - data.start);
+        // get the spacing from the end of the bar to the end of the graph
+        const spacingFromEndofBar = data.graphWidth - (spacingFromStartToBar + data.barWidth);
+        const totalAvailableWidthToTheLeft = spacingFromStartToBar + data.barWidth;
+        const totalAvailableWidthToTheRight = data.graphWidth - spacingFromStartToBar;
+
+        let truncatedAgency;
+        let truncatedRecipient;
+        if (data.graphWidth <= theTooltipWidth) {
+            truncatedAgency = `${data.awardingAgencyName.substring(0, 7).trim()}...`;
+            truncatedRecipient = `${data.recipientName.substring(0, 7).trim()}...`;
+            const startDateDiv = this.startDateDiv.getBoundingClientRect().width;
+            const endDateDiv = this.endDateDiv.getBoundingClientRect().width;
+            const amountsDiv = this.amountsDiv.getBoundingClientRect().width;
+            theTooltipWidth = startDateDiv + endDateDiv + amountsDiv + 100;
+        }
         this.setState({
-            direction,
+            awardingAgency: truncatedAgency || data.awardingAgencyName,
+            recipient: truncatedRecipient || data.recipientName,
+            truncated: true
+        });
+        // if the area from the start of the bar to the end of the graph is larger than the tooltip
+        // width, position the tooltip to the left of the bar
+        let left = false;
+        if (totalAvailableWidthToTheRight < totalAvailableWidthToTheLeft) {
+            const percentage = 0.9 * data.barWidth;
+            xPosition -= (theTooltipWidth - percentage);
+            left = true;
+        }
+        // console.log('left : ', left);
+        // console.log('Tooltip Width : ', theTooltipWidth);
+        // console.log('Right Available width : ', totalAvailableWidthToTheRight);
+        if (!left && (theTooltipWidth > totalAvailableWidthToTheRight)) {
+            const overshowing = theTooltipWidth - totalAvailableWidthToTheRight;
+            xPosition -= overshowing;
+        }
+
+        this.setState({
             tooltipStyle: {
-                transform: `translate(${adjustedX}px,-${adjustedY}px)`,
+                transform: `translate(${xPosition}px,-${yPosition}px)`,
                 width: `${theTooltipWidth}px`
-                // bottom: `${this.props.data.y}px`,
-                // left: `${adjustedX}px`
-                // position: {
-                //     x: `${this.props.data.y}px`,
-                //     y: `${adjustedX}px`
-                // }
             }
         });
     }
 
+    mouseEnter() {
+        this.props.mouseIsInTooltipDiv(this.props.data);
+    }
+
+    mouseLeave() {
+        this.props.mouseOutOfTooltipDiv(this.props.data);
+    }
+
     render() {
         const { data } = this.props;
-        console.log(' DATA : ', data);
-        // const { percent, obligatedAmount, _federalAccountName } = this.props;
-        // const subtitle =
-        // `${this.props._fundingAgencyName} (${this.props._fundingAgencyAbbreviation})`;
+        const awardedAgencyHover = (
+            <div className="awarded-agency-hover">
+                {data.awardingAgencyName}
+            </div>
+        );
+        const recipientHover = (
+            <div className="recipient-hover">
+                {data.recipientName}
+            </div>
+        );
 
         return (
-            <div className="visualization-tooltip"
+            <div
+                className="visualization-tooltip"
                 ref={(div) => {
                     this.containerDiv = div;
                 }}>
                 <div
-                    className={`tooltip ${this.state.direction}`}
-                    onMouseEnter={this.props.mouseIsInTooltipDiv}
-                    onMouseLeave={this.props.mouseOutOfTooltipDiv}
+                    className="tooltip"
+                    onMouseEnter={this.mouseEnter}
+                    onMouseLeave={this.mouseLeave}
                     style={this.state.tooltipStyle}
                     ref={(div) => {
                         this.div = div;
@@ -118,7 +168,8 @@ export default class IdvActivityTooltip extends React.Component {
                     <h5 className="tooltip-title">
                         { data.grandchild ? 'GRANDCHILD' : 'CHILD'} AWARD
                     </h5>
-                    <div className="tooltip-body"
+                    <div
+                        className="tooltip-body"
                         ref={(div) => {
                             this.tooltipBody = div;
                         }}>
@@ -128,7 +179,11 @@ export default class IdvActivityTooltip extends React.Component {
                                     PIID
                                 </h6>
                                 <div className="tooltip-body__row-info-data">
-                                    <a href={`https://www.usaspending.gov/#/award/${data.piid}`}>{data.piid}</a>
+                                    <a
+                                        href={
+                                            `https://www.usaspending.gov/#/award/${data.piid}`}>
+                                        {data.piid}
+                                    </a>
                                 </div>
                             </div>
                             <div className="tooltip-body__row-info">
@@ -136,7 +191,12 @@ export default class IdvActivityTooltip extends React.Component {
                                     Parent IDV PIID
                                 </h6>
                                 <div className="tooltip-body__row-info-data">
-                                    <a href={`https://www.usaspending.gov/#/award/${data.piid}`}>NeedParentPiid</a>
+                                    <a
+                                        href={
+                                            `https://www.usaspending.gov/#/award/${data.piid}`
+                                        }>
+                                    NeedParentPiid
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -146,40 +206,58 @@ export default class IdvActivityTooltip extends React.Component {
                                     Awarding Agency
                                 </h6>
                                 <div
-                                    className="tooltip-body__row-info-data"
+                                    className="tooltip-body__row-info-data awardingAgencyName"
                                     ref={(div) => {
                                         this.awardAgencyDiv = div;
                                     }}>
-                                    <a href={`https://www.usaspending.gov/#/agency/${data.awardingAgencyId}`}>
-                                        {data.awardingAgencyName}
+                                    <a
+                                        href={
+                                            `https://www.usaspending.gov/#/agency/
+                                            ${data.awardingAgencyId}`
+                                        }>
+                                        {this.state.awardingAgency}
                                     </a>
                                 </div>
+                                {awardedAgencyHover}
                             </div>
                             <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title">
                                     Recipient
                                 </h6>
                                 <div
-                                    className="tooltip-body__row-info-data"
+                                    className="tooltip-body__row-info-data recipientName"
                                     ref={(div) => {
                                         this.recipientDiv = div;
                                     }}>
-                                    <a href={`https://www.usaspending.gov/#/recipient/${data.recipientId}`}>
-                                        {data.recipientName.toUpperCase()}
+                                    <a
+                                        href={
+                                            `https://www.usaspending.gov/#/recipient/
+                                            ${data.recipientId}`
+                                        }>
+                                        {this.state.recipient.toUpperCase()}
                                     </a>
                                 </div>
+                                {recipientHover}
                             </div>
                         </div>
                         <div className="tooltip-body__row">
                             <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title">Start</h6>
-                                <div className="tooltip-body__row-info-data">
+                                <div
+                                    className="tooltip-body__row-info-data"
+                                    ref={(d) => {
+                                        this.startDateDiv = d;
+                                    }}>
                                     {data.startDate}
                                 </div>
                             </div>
                             <div className="tooltip-body__row-info second-child">
                                 <h6 className="tooltip-body__row-info-title">End</h6>
-                                <div className="tooltip-body__row-info-data">
+                                <div
+                                    className="tooltip-body__row-info-data"
+                                    ref={(d) => {
+                                        this.endDateDiv = d;
+                                    }}>
                                     {data.endDate}
                                 </div>
                             </div>
@@ -187,8 +265,15 @@ export default class IdvActivityTooltip extends React.Component {
                                 <h6 className="tooltip-body__row-info-title">
                                     Awarded Amount
                                 </h6>
-                                <div className="tooltip-body__row-info-data">
-                                    <strong>{data._obligatedAmount !== 0 ? data.obligatedAmount : '--'} </strong>
+                                <div
+                                    className="tooltip-body__row-info-data"
+                                    ref={(d) => {
+                                        this.amountsDiv = d;
+                                    }}>
+                                    <strong>
+                                        {data._obligatedAmount !== 0 ?
+                                            `${data.obligatedAmount} ` : '-- '}
+                                    </strong>
                                     of {data._awardedAmount !== 0 ? data.awardedAmount : '--'}
                                 </div>
                             </div>

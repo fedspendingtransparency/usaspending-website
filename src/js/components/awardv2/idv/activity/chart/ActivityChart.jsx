@@ -21,7 +21,9 @@ const propTypes = {
     padding: PropTypes.object,
     barHeight: PropTypes.number,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func
+    hideTooltip: PropTypes.func,
+    showTooltipStroke: PropTypes.bool,
+    awardIndexForTooltip: PropTypes.number
 };
 
 const defaultProps = {
@@ -48,6 +50,9 @@ export default class ActivityChart extends React.Component {
         };
     }
     componentDidUpdate(prevProps) {
+        if (!isEqual(this.props.awardIndexForTooltip, prevProps.awardIndexForTooltip)) {
+            this.generateChart();
+        }
         if (!isEqual(this.props.awards, prevProps.awards)) {
             this.generateChart();
         }
@@ -82,7 +87,6 @@ export default class ActivityChart extends React.Component {
         // labels)
         const graphWidth = this.props.width - this.props.padding.left;
         const graphHeight = this.props.height - this.props.padding.bottom;
-
         // Create the scales using D3
         // domain is the data range, and range is the
         // range of possible pixel positions along the axis
@@ -96,6 +100,7 @@ export default class ActivityChart extends React.Component {
             .nice();
         // Map each award to a "bar" component
         const bars = this.props.awards.map((bar, index) => {
+            const data = bar;
             const { padding, barHeight, height } = this.props;
             const start = xScale(bar._startDate.valueOf()) + padding.left;
             const end = xScale(bar._endDate.valueOf()) + padding.left;
@@ -109,20 +114,36 @@ export default class ActivityChart extends React.Component {
             // scale the abligated amount to create the correct width
             const obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
             const yPosition = (height - 30) - yScale(bar._awardedAmount) - barHeight;
+            // adding these for the tooltip positioning
+            data.index = index;
+            data.graphWidth = graphWidth;
+            data.graphHeight = graphHeight;
+            data.start = start;
+            data.barWidth = width;
+            // need to use awarded width to properly align tooltip
+            // data.x = this.props.start + (width / 2);
+            // data.x = this.props.start + (0.1 * width);
+            data.x = start;
+            data.y = (360 - yPosition) - ((this.props.barHeight / 2) - 1);
             const description = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, an awarded amount of ${bar.awardedAmount}, and an obligated amount of ${bar.obligatedAmount}.`;
-
+            let style = null;
+            if (this.props.showTooltipStroke && this.props.awardIndexForTooltip === index) {
+                style = { stroke: '#3676b6', strokeWidth: 1 };
+            }
             return (
                 <g
+                    className="activity-chart-bar-container"
                     key={`bar-${bar._awardedAmount}-${index}`}
                     description={description}>
                     {/* awarded amount bar */}
                     <ActivityChartBar
+                        style={style}
                         index={index}
                         height={barHeight}
                         start={start}
                         width={width}
                         yPosition={yPosition}
-                        data={bar}
+                        data={data}
                         showTooltip={this.props.showTooltip}
                         hideTooltip={this.props.hideTooltip}
                         description={description} />
@@ -133,9 +154,10 @@ export default class ActivityChart extends React.Component {
                         index={index}
                         height={barHeight}
                         start={start}
+                        awardedWidth={width}
                         width={obligatedAmountWidth}
                         yPosition={yPosition}
-                        data={bar}
+                        data={data}
                         showTooltip={this.props.showTooltip}
                         hideTooltip={this.props.hideTooltip}
                         description={description} />
