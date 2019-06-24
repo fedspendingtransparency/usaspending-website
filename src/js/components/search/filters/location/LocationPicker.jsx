@@ -84,11 +84,13 @@ export default class LocationPicker extends React.Component {
                 this.props.clearCitiesAndSelectedCity();
             }
         }
-        else if (manuallyPopulatedStateChanged && !this.props.state.code) {
+        else if (stateChanged && !this.props.state.code) {
             // manually selected state was removed, clear counties, districts & cities
             this.props.clearCounties();
             this.props.clearDistricts();
-            this.props.clearCitiesAndSelectedCity();
+            if (manuallyPopulatedStateChanged) {
+                this.props.clearCitiesAndSelectedCity();
+            }
         }
 
         if (cityDeselected && this.props.state.autoPopulated) {
