@@ -173,7 +173,7 @@ export default class LocationPickerContainer extends React.Component {
     parseStates(data) {
         // prepend a blank state to act as a de-select option
         if (data.states.length > 0) {
-            const states = [...data.states, { ...defaultLocationValues.state, name: 'All States' }]
+            const states = [{ ...defaultLocationValues.state, name: 'All states' }, ...data.states]
                 .map((state) => ({ ...state, autoPopulated: false }));
             this.setState({
                 availableStates: states

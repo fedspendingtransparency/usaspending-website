@@ -52,7 +52,8 @@ describe('LocationPickerContainer', () => {
                     fips: '',
                     name: 'All states',
                     autoPopulated: false
-                }, {
+                },
+                {
                     fips: '00',
                     code: 'IN',
                     name: 'Indiana',
