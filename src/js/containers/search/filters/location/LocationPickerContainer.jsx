@@ -23,7 +23,7 @@ const defaultProps = {
     scope: "primary_place_of_performance"
 };
 
-const defaultSelections = {
+export const defaultLocationValues = {
     country: {
         code: '',
         name: ''
@@ -65,12 +65,12 @@ export default class LocationPickerContainer extends React.Component {
             availableCounties: [],
             availableDistricts: [],
             availableCities: [],
-            country: Object.assign({}, defaultSelections.country),
-            state: Object.assign({}, defaultSelections.state),
-            county: Object.assign({}, defaultSelections.county),
-            city: Object.assign({}, defaultSelections.city),
-            district: Object.assign({}, defaultSelections.district),
-            zip: Object.assign({}, defaultSelections.zip),
+            country: Object.assign({}, defaultLocationValues.country),
+            state: Object.assign({}, defaultLocationValues.state),
+            county: Object.assign({}, defaultLocationValues.county),
+            city: Object.assign({}, defaultLocationValues.city),
+            district: Object.assign({}, defaultLocationValues.district),
+            zip: Object.assign({}, defaultLocationValues.zip),
             citySearchString: '',
             loading: false
         };
@@ -174,7 +174,7 @@ export default class LocationPickerContainer extends React.Component {
         // prepend a blank state to act as a de-select option
         let states = [];
         if (data.states.length > 0) {
-            states = concat([Object.assign({}, defaultSelections.state, {
+            states = concat([Object.assign({}, defaultLocationValues.state, {
                 name: 'All states'
             })], data.states);
         }
@@ -186,14 +186,14 @@ export default class LocationPickerContainer extends React.Component {
     clearStates() {
         this.setState({
             availableStates: [],
-            state: Object.assign({}, defaultSelections.state)
+            state: Object.assign({}, defaultLocationValues.state)
         });
     }
 
     clearCitiesAndSelectedCity() {
         this.setState({
             availableCities: [],
-            city: defaultSelections.city,
+            city: defaultLocationValues.city,
             citySearchString: ''
         });
     }
@@ -220,20 +220,20 @@ export default class LocationPickerContainer extends React.Component {
         // prepend a blank county to act as a de-select option
         let counties = [];
         if (data.counties.length > 0) {
-            counties = concat([Object.assign({}, defaultSelections.county, {
+            counties = concat([Object.assign({}, defaultLocationValues.county, {
                 name: 'All counties'
             })], data.counties);
         }
         this.setState({
             availableCounties: counties,
-            county: Object.assign({}, defaultSelections.county)
+            county: Object.assign({}, defaultLocationValues.county)
         });
     }
 
     clearCounties() {
         this.setState({
             availableCounties: [],
-            county: Object.assign({}, defaultSelections.county)
+            county: Object.assign({}, defaultLocationValues.county)
         });
     }
 
@@ -259,34 +259,35 @@ export default class LocationPickerContainer extends React.Component {
         // prepend a blank district to act as a de-select option
         let districts = [];
         if (data.districts.length > 0) {
-            districts = concat([Object.assign({}, defaultSelections.district, {
+            districts = concat([Object.assign({}, defaultLocationValues.district, {
                 name: 'All congressional districts'
             })], data.districts);
         }
 
         this.setState({
             availableDistricts: districts,
-            district: Object.assign({}, defaultSelections.district)
+            district: Object.assign({}, defaultLocationValues.district)
         });
     }
 
     clearDistricts() {
         this.setState({
             availableDistricts: [],
-            district: Object.assign({}, defaultSelections.district)
+            district: Object.assign({}, defaultLocationValues.district)
         });
     }
 
     selectEntity(level, value) {
         const newValue = value;
+        const containsAutopopulatedProperty = !Object.keys(newValue).some((key) => key === 'autoPopulated');
 
         if (level === 'city' && this.state.state.code !== newValue.code && newValue.code) {
             const selectedState = this.state.availableStates
                 .filter((state) => state.code === newValue.code)
-                .reduce((acc, state) => ({ ...acc, ...state, autoPopulated: true }), defaultSelections.state);
+                .reduce((acc, state) => ({ ...acc, ...state, autoPopulated: true }), defaultLocationValues.state);
             this.setState({ state: selectedState });
         }
-        else if (level === 'state') {
+        else if (level === 'state' && !containsAutopopulatedProperty) {
             newValue.autoPopulated = false;
         }
 
