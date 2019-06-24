@@ -31,7 +31,8 @@ const defaultSelections = {
     state: {
         code: '',
         fips: '',
-        name: ''
+        name: '',
+        autoPopulated: false // from city selection
     },
     county: {
         code: '',
@@ -277,13 +278,20 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     selectEntity(level, value) {
-        if (level === 'city' && this.state.state.code !== value.code && value.code) {
-            const selectedState = this.state.availableStates.find((state) => state.code === value.code) || defaultSelections.state;
+        const newValue = value;
+
+        if (level === 'city' && this.state.state.code !== newValue.code && newValue.code) {
+            const selectedState = this.state.availableStates
+                .filter((state) => state.code === newValue.code)
+                .reduce((acc, state) => ({ ...acc, ...state, autoPopulated: true }), defaultSelections.state);
             this.setState({ state: selectedState });
+        }
+        else if (level === 'state') {
+            newValue.autoPopulated = false;
         }
 
         this.setState({
-            [level]: value
+            [level]: newValue
         });
     }
 
