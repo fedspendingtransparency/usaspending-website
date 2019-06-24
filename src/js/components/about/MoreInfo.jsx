@@ -23,7 +23,7 @@ const MoreInfo = () => (
                 </a>
                 &nbsp;and the&nbsp;
                 <a
-                    href="https://www.usaspending.gov/#/download_center/data_dictionary">
+                    href="/#/download_center/data_dictionary">
                     Data Dictionary
                 </a>
                 .
