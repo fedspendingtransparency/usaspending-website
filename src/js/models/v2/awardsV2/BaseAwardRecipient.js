@@ -3,17 +3,8 @@
  * Created by David Trinh 10/9/18
  */
 
-import { getBusinessTypes } from 'helpers/businessTypesHelper';
-import CoreLocation from 'models/v2/CoreLocation';
 
-const parseBusinessCategories = (data) => (
-    getBusinessTypes().reduce((parsed, type) => {
-        if (data.includes(type.fieldName)) {
-            parsed.push(type.displayName);
-        }
-        return parsed;
-    }, [])
-);
+import CoreLocation from 'models/v2/CoreLocation';
 
 const BaseAwardRecipient = {
     populate(data) {
@@ -22,7 +13,7 @@ const BaseAwardRecipient = {
         this.duns = data.recipient_unique_id || '--';
         this.parentName = data.recipient_parent_name || '--';
         this.parentDuns = data.parent_recipient_unique_id || '--';
-        this.businessCategories = parseBusinessCategories(data.business_categories);
+        this.businessCategories = data.business_categories;
 
         // Recipient Location
         let locationData = {};

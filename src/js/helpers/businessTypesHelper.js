@@ -3,8 +3,6 @@
  * Created by Lizzie Salita 8/7/17
  */
 
-/* eslint-disable import/prefer-default-export */
-// We only have one export but want to maintain consistency with other files
 export const getBusinessTypes = () => {
     const businessTypes =
         [
@@ -343,4 +341,3 @@ export const getBusinessTypes = () => {
         ];
     return businessTypes;
 };
-/* eslint-enable import/prefer-default-export */
