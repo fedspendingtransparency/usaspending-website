@@ -50,11 +50,13 @@ describe('LocationPickerContainer', () => {
                 {
                     code: '',
                     fips: '',
-                    name: 'All states'
+                    name: 'All states',
+                    autoPopulated: false
                 }, {
                     fips: '00',
                     code: 'IN',
-                    name: 'Indiana'
+                    name: 'Indiana',
+                    autoPopulated: false
                 }
             ]);
         });
@@ -112,7 +114,8 @@ describe('LocationPickerContainer', () => {
             expect(container.state().state).toEqual({
                 code: '',
                 fips: '',
-                name: ''
+                name: '',
+                autoPopulated: false
             });
         });
     });
