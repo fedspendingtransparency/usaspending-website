@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
 import { EntityDropdownAutocomplete } from './EntityDropdownAutocomplete';
+import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
 
 const propTypes = {
     value: PropTypes.object,
@@ -65,6 +66,8 @@ export default class EntityDropdown extends React.Component {
         this.mouseEnter = this.mouseEnter.bind(this);
         this.mouseLeave = this.mouseLeave.bind(this);
         this.handleTextInputChange = this.handleTextInputChange.bind(this);
+        this.resetSelectedItem = this.resetSelectedItem.bind(this);
+        this.handleOnKeyDown = this.handleOnKeyDown.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -77,8 +80,18 @@ export default class EntityDropdown extends React.Component {
         return this.props.value[this.props.matchKey];
     }
 
+    resetSelectedItem() {
+        this.props.selectEntity(this.props.scope, defaultLocationValues[this.props.scope]);
+    }
+
     handleTextInputChange(e) {
         this.props.setSearchString(e.target.value);
+    }
+
+    handleOnKeyDown(e) {
+        if (e.keyCode === 8) { // backspace
+            this.resetSelectedItem();
+        }
     }
 
     handleDeselection(e) {
@@ -307,6 +320,7 @@ export default class EntityDropdown extends React.Component {
                             searchString={searchString}
                             enabled={enabled}
                             openDropdown={this.openDropdown}
+                            handleOnKeyDown={this.handleOnKeyDown}
                             handleTextInputChange={this.handleTextInputChange}
                             toggleDropdown={this.toggleDropdown}
                             placeholder={this.props.placeholder}
