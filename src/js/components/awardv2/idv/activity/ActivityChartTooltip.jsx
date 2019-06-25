@@ -192,7 +192,7 @@ export default class IdvActivityTooltip extends React.Component {
                                     {
                                         this.getLinks(
                                             `award/${data.parentAwardId}`,
-                                            data.parentAwardName
+                                            data.parentAwardId
                                         )
                                     }
                                 </div>
