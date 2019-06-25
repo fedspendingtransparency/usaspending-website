@@ -7,11 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual, min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
-
+import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
 import ActivityChartBar from './ActivityChartBar';
 import ActivityXAxis from './ActivityXAxis';
 import ActivityYAxis from './ActivityYAxis';
-import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
 
 const propTypes = {
     awards: PropTypes.array,

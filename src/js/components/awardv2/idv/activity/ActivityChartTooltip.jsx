@@ -30,7 +30,6 @@ export default class IdvActivityTooltip extends React.Component {
 
         this.measureWindow = this.measureWindow.bind(this);
         this.mouseEnter = this.mouseEnter.bind(this);
-        this.mouseLeave = this.mouseLeave.bind(this);
     }
     componentDidMount() {
         this.measureWindow();
@@ -141,10 +140,6 @@ export default class IdvActivityTooltip extends React.Component {
         this.props.mouseIsInTooltipDiv(this.props.data);
     }
 
-    mouseLeave() {
-        this.props.mouseOutOfTooltipDiv(this.props.data);
-    }
-
     render() {
         const { data } = this.props;
         const awardedAgencyHover = (
@@ -167,7 +162,7 @@ export default class IdvActivityTooltip extends React.Component {
                 <div
                     className="tooltip"
                     onMouseEnter={this.mouseEnter}
-                    onMouseLeave={this.mouseLeave}
+                    onMouseLeave={this.props.mouseOutOfTooltipDiv}
                     style={this.state.tooltipStyle}
                     ref={(div) => {
                         this.div = div;

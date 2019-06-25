@@ -76,7 +76,7 @@ export default class IdvActivityVisualization extends React.Component {
         }
     }
 
-    hideTooltip(data) {
+    hideTooltip() {
         if (!this.state.isHoveringInTooltip) {
             this.setState({
                 isShowingTooltip: false,
@@ -95,13 +95,13 @@ export default class IdvActivityVisualization extends React.Component {
         });
     }
 
-    mouseOutOfTooltipDiv(data) {
+    mouseOutOfTooltipDiv() {
         this.setState({
             isShowingTooltip: false,
             isHoveringInTooltip: false,
             showTooltipStroke: false,
             awardIndexForTooltip: null
-        }, () => this.hideTooltip(data));
+        }, () => this.hideTooltip());
     }
 
     render() {
