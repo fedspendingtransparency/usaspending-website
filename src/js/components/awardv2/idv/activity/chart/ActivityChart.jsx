@@ -11,6 +11,7 @@ import { scaleLinear } from 'd3-scale';
 import ActivityChartBar from './ActivityChartBar';
 import ActivityXAxis from './ActivityXAxis';
 import ActivityYAxis from './ActivityYAxis';
+import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
 
 const propTypes = {
     awards: PropTypes.array,
@@ -120,18 +121,22 @@ export default class ActivityChart extends React.Component {
             data.graphHeight = graphHeight;
             data.start = start;
             data.barWidth = width;
-            // need to use awarded width to properly align tooltip
-            // data.x = this.props.start + (width / 2);
-            // data.x = this.props.start + (0.1 * width);
             data.x = start;
             data.y = (360 - yPosition) - ((this.props.barHeight / 2) - 1);
-            const description = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, an awarded amount of ${bar.awardedAmount}, and an obligated amount of ${bar.obligatedAmount}.`;
+            // create percentage for description
+            // not handling bad data as that will be handled elsewhere
+            const percentage = calculateTreemapPercentage(bar._obligatedAmount, bar._awardedAmount);
+            const description = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, an awarded amount of ${bar.awardedAmount} displayed in grey, and an obligated amount of ${bar.obligatedAmount}, displayed in green. (${percentage})`;
             let style = null;
-            if (this.props.showTooltipStroke && this.props.awardIndexForTooltip === index) {
+            // show stroke on bar when entering tooltip div
+            // checks to make sure the mouse is in a tooltip
+            // and to make sure we have the index of the correct bar
+            if (this.props.showTooltipStroke && (this.props.awardIndexForTooltip === index)) {
                 style = { stroke: '#3676b6', strokeWidth: 1 };
             }
             return (
                 <g
+                    tabIndex="0"
                     className="activity-chart-bar-container"
                     key={`bar-${bar._awardedAmount}-${index}`}
                     description={description}>
@@ -145,8 +150,7 @@ export default class ActivityChart extends React.Component {
                         yPosition={yPosition}
                         data={data}
                         showTooltip={this.props.showTooltip}
-                        hideTooltip={this.props.hideTooltip}
-                        description={description} />
+                        hideTooltip={this.props.hideTooltip} />
                     {/* obligated amount bar */}
                     <ActivityChartBar
                         isObligated
@@ -159,8 +163,7 @@ export default class ActivityChart extends React.Component {
                         yPosition={yPosition}
                         data={data}
                         showTooltip={this.props.showTooltip}
-                        hideTooltip={this.props.hideTooltip}
-                        description={description} />
+                        hideTooltip={this.props.hideTooltip} />
                 </g>
             );
         });

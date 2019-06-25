@@ -34,7 +34,7 @@ export default class IdvActivityVisualization extends React.Component {
             toolTipData: null,
             awards: props.awards,
             showTooltipStroke: false,
-            awardIndexForTooltip: 0
+            awardIndexForTooltip: null
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
@@ -81,7 +81,7 @@ export default class IdvActivityVisualization extends React.Component {
             this.setState({
                 isShowingTooltip: false,
                 showTooltipStroke: false,
-                awardIndexForTooltip: 0
+                awardIndexForTooltip: null
             });
         }
     }
@@ -100,7 +100,7 @@ export default class IdvActivityVisualization extends React.Component {
             isShowingTooltip: false,
             isHoveringInTooltip: false,
             showTooltipStroke: false,
-            awardIndexForTooltip: 0
+            awardIndexForTooltip: null
         }, () => this.hideTooltip(data));
     }
 
@@ -130,7 +130,8 @@ export default class IdvActivityVisualization extends React.Component {
         const end = formatNumberWithPrecision(pageRange.end, 0);
         const resultsText = (
             <div className="pagination__totals">
-                Displaying award orders <strong>{start}-{end}</strong> of {formatNumberWithPrecision(this.props.total, 0)}
+                Displaying award orders <strong>{start}-{end}</strong> of {
+                    formatNumberWithPrecision(this.props.total, 0)}
             </div>
         );
         return (
@@ -145,11 +146,12 @@ export default class IdvActivityVisualization extends React.Component {
                     totalItems={this.props.total}
                     pageSize={this.props.limit}
                     resultsText={resultsText} />
-                <div>{this.state.color ? 'true' : 'false'}</div>
                 {chart}
                 {tt}
                 <div className="visualization-legend">
-                    <div className="visualization-legend__circle visualization-legend__circle_obligated" />
+                    <div
+                        className="visualization-legend__circle
+                        visualization-legend__circle_obligated" />
                     <div className="visualization-legend__label">
                         Obligated
                     </div>

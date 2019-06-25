@@ -60,10 +60,29 @@ $obligated-green: #94BFA2;
                   }
                 }
               }
+              .tooltip-body__row-info-data__awarding-agency-name-hover{
+                display: none;
+              }
+              .tooltip-body__row-info-data__awarding-recipient-hover {
+                display: none;
+              }
+              .tooltip-body__row-info-data__awarding-agency-name:hover {
+                .tooltip-body__row-info-data__awarding-agency-name-hover {
+                  @include display(flex);
+                  white-space: normal;
+                }
+              } 
+              .tooltip-body__row-info-data__recipient-name:hover {
+                .tooltip-body__row-info-data__awarding-recipient-hover {
+                  @include display(flex);
+                  white-space: normal;
+                }
+              } 
             }
           }
         }
         .visualization-legend {
+          margin-left: 10px;
             .visualization-legend__circle {
                 background-color: #D8D8D8;
                 &.visualization-legend__circle_obligated {
@@ -90,22 +109,6 @@ $obligated-green: #94BFA2;
           stroke: rgb(0,0,0);
           stroke-width: 1;
         }
-        .awarded-agency-hover {
-          display: none;
-        }
-        .recipient-hover {
-          display: none;
-        }
-        .awardingAgencyName:hover {
-          .awarded-agency-hover {
-            display: block;
-          }
-        } 
-        .recipientName:hover {
-          .recipient-hover {
-            display: block;
-          }
-        } 
     }
   }
 }

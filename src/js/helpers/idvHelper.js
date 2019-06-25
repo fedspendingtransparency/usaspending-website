@@ -154,7 +154,8 @@ export const fetchIdvActivity = () => {
                             recipient_name: "Booz Allen Hamilton (BAH)",
                             recipient_id: "9a277fc5-50fc-685f-0f77-be0d96420a17-C",
                             grandchild: false
-                        }, {
+                        },
+                        {
                             award_id: 69216438,
                             awarding_agency: "DEPARTMENT OF AGRICULTURE (USDA)",
                             awarding_agency_id: 153,
