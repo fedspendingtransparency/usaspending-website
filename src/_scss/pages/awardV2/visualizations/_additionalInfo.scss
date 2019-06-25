@@ -39,6 +39,10 @@
                             &:last-child {
                                 font-weight: $font-light;
                             }
+
+                            &.accordion-table__data_info-tooltip {
+                                @include display(flex);
+                            }
                         }
 
                         &:last-child {

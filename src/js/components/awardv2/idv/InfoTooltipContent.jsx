@@ -523,3 +523,25 @@ export const federalAccountsInfo = (
         </div>
     </div>
 );
+
+export const idvStartDateInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Start Date
+        </div>
+        <div className="info-tooltip__text">
+            <p>Selected based on the earliest Start Date across all transactions on this IDV.</p>
+        </div>
+    </div>
+);
+
+export const idvEndDateInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Ordering Period End Date
+        </div>
+        <div className="info-tooltip__text">
+            <p>Selected based on the latest Ordering Period End Date across all transactions on this IDV.</p>
+        </div>
+    </div>
+);

@@ -12,6 +12,7 @@ import additionalDetails from 'dataMapping/awardsv2/additionalDetails';
 import additionalDetailsIdv from 'dataMapping/awardsv2/additionalDetailsIdv';
 
 import Accordion from './Accordion';
+import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 
 const propTypes = {
     overview: PropTypes.object
@@ -33,6 +34,7 @@ export default class AdditionalInfo extends React.Component {
         const data = this.props.overview._category === 'idv' ? additionalDetailsIdv(this.props.overview) : additionalDetails(this.props.overview);
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
+        let periodOfPerformance = (<IdvPeriodOfPerformance accordionData={data.periodOfPerformance} />);
         if (this.props.overview._category !== 'idv') {
             placeOfPerformance = (
                 <Accordion
@@ -40,6 +42,13 @@ export default class AdditionalInfo extends React.Component {
                     accordionName="Place Of Performance"
                     accordionIcon="map-marker-alt"
                     accordionData={data.placeOfPerformance} />
+            );
+            periodOfPerformance = (
+                <Accordion
+                    globalToggle={this.state.globalToggle}
+                    accordionName="Period Of Performance"
+                    accordionIcon="calendar-alt"
+                    accordionData={data.periodOfPerformance} />
             );
         }
         return (
@@ -70,11 +79,7 @@ export default class AdditionalInfo extends React.Component {
                                 accordionIcon="level-up-alt"
                                 accordionData={data.parentAwardDetails} />
                             {placeOfPerformance}
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Period Of Performance"
-                                accordionIcon="calendar-alt"
-                                accordionData={data.periodOfPerformance} />
+                            {periodOfPerformance}
                             <Accordion
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Legislative Mandates"
