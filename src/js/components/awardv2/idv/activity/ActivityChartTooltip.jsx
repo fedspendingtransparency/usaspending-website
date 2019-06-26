@@ -1,6 +1,6 @@
 /**
- * FederalAccountsTreeTooltip.jsx
- * Created by Jonathan Hill 5/2/19
+ * IdvActivityTooltip.jsx
+ * Created by Jonathan Hill 6/24/19
  */
 
 import React from 'react';
@@ -79,41 +79,65 @@ export default class IdvActivityTooltip extends React.Component {
         });
     }
 
+    truncateText(awardingAgencyNameDiv, recipientNameDiv, theTooltipWidth) {
+        const { graphWidth, recipientName, awardingAgencyName } = this.props.data;
+        if (this.props.data.graphWidth < theTooltipWidth) {
+            // get awardingAgencyName truncated width based on the tooltip width and graph width
+            const truncatedTextWidthAgency =
+            (graphWidth * awardingAgencyNameDiv) / theTooltipWidth;
+            // get recipientName truncated width based on the tooltip width and graph width
+            const truncatedTextWidthRecipient =
+            (graphWidth * recipientNameDiv) / theTooltipWidth;
+            // we now have a ratio of the truncated width to the total width,
+            // and we have the total length
+            // we can now find the appropriate truncated
+            // length for the awardingAgencyName and recipientName
+            const truncatedTextLengthAgency = Math.floor(
+                ((truncatedTextWidthAgency * awardingAgencyName.length) / awardingAgencyNameDiv) / 2);
+            const truncatedTextLengthRecipient = Math.floor(
+                ((truncatedTextWidthRecipient * recipientName.length) / recipientNameDiv) / 2);
+            const truncatedAgency = `${awardingAgencyName
+                .substring(0, truncatedTextLengthAgency).trim()}...`;
+            const truncatedRecipient = `${recipientName
+                .substring(0, truncatedTextLengthRecipient).trim()}...`;
+            this.setState({
+                awardingAgency: truncatedAgency,
+                recipient: truncatedRecipient,
+                truncated: true
+            });
+        }
+    }
+
     positionTooltip() {
         // award bar info ( BaseIdvActivityBar ) and data needed to display correctly
         const { data } = this.props;
         // measure the tooltip width
-        const awardAgencyDiv = this.awardAgencyDiv.getBoundingClientRect().width;
-        const recipientDiv = this.recipientDiv.getBoundingClientRect().width;
-        const divHeight = this.div.getBoundingClientRect().height;
-
-        let theTooltipWidth = awardAgencyDiv + recipientDiv + 70;
+        const awardingAgencyNameDiv = this.awardAgencyDiv.getBoundingClientRect().width;
+        const recipientNameDiv = this.recipientDiv.getBoundingClientRect().width;
+        const tooltipDivHeight = this.div.getBoundingClientRect().height;
+        // set the tooltip width to be the width of the largest row
+        let theTooltipWidth = awardingAgencyNameDiv + recipientNameDiv + 70;
         let xPosition = data.x;
         let yPosition = data.y;
-
         // measuring from bottom of graph ( graph starts at 0 so we already have the height, with data.y)
         // if data.y is smaller than the height of the tooltip, show on top
-        if (this.props.data.y < divHeight) {
-            yPosition += (divHeight + 7);
+        if (yPosition < tooltipDivHeight) {
+            yPosition += (tooltipDivHeight + 7);
         }
-
         // get the spacing from start of graph to start of bar
         const spacingFromStartToBar = data.graphWidth - (data.graphWidth - data.start);
         // get spacing from end of bar to the start of graph
         const totalAvailableWidthToTheLeft = spacingFromStartToBar + data.barWidth;
         // get spacing from start of bar to the end of graph
         const totalAvailableWidthToTheRight = data.graphWidth - spacingFromStartToBar;
-
-        // if the area from the start of the bar to the end of the graph is larger than the tooltip
-        // width, position the tooltip to the left of the bar
-        let left = false;
         // show left if there is greater witdth to the left
+        let left;
         if (totalAvailableWidthToTheRight < totalAvailableWidthToTheLeft) {
             const percentage = 0.9 * data.barWidth;
             xPosition -= (theTooltipWidth - percentage);
             left = true;
         }
-        // if we are displaying right && the tooltip is bigger than the graph
+        // if we are displaying right && the tooltip is bigger than the available width
         // we are out of scope of the graph
         if (!left && (theTooltipWidth > totalAvailableWidthToTheRight)) {
             const overshowing = theTooltipWidth - totalAvailableWidthToTheRight;
@@ -126,38 +150,18 @@ export default class IdvActivityTooltip extends React.Component {
             theTooltipWidth += difference;
             xPosition = 0;
         }
-        let truncatedAgency;
-        let truncatedRecipient;
-        // truncate text when the tooltip is bigger than the graph
-        if (data.graphWidth < theTooltipWidth) {
-            // get awardingAgencyName truncated width based on the tooltip width and graph width
-            const truncatedTextWidthAgency = (data.graphWidth * awardAgencyDiv) / theTooltipWidth;
-            // get recipientName truncated width based on the tooltip width and graph width
-            const truncatedTextWidthRecipient = (data.graphWidth * recipientDiv) / theTooltipWidth;
-            // we now have a ratio of the truncated width to the total width, and we have the total length
-            // we can now find the appropriate truncated length for the awardingAgencyName and recipientName
-            const truncatedTextLengthAgency = Math.floor(
-                ((truncatedTextWidthAgency * data.awardingAgencyName.length) / awardAgencyDiv) / 2);
-            const truncatedTextLengthRecipient = Math.floor(
-                ((truncatedTextWidthRecipient * data.recipientName.length) / recipientDiv) / 2);
-            truncatedAgency = `${data.awardingAgencyName
-                .substring(0, truncatedTextLengthAgency).trim()}...`;
-            truncatedRecipient = `${data.recipientName
-                .substring(0, truncatedTextLengthRecipient).trim()}...`;
-            const startDateDiv = this.startDateDiv.getBoundingClientRect().width;
-            const endDateDiv = this.endDateDiv.getBoundingClientRect().width;
-            const amountsDiv = this.amountsDiv.getBoundingClientRect().width;
-            theTooltipWidth = startDateDiv + endDateDiv + amountsDiv + 100;
-        }
 
+        const startDateDiv = this.startDateDiv.getBoundingClientRect().width;
+        const endDateDiv = this.endDateDiv.getBoundingClientRect().width;
+        const amountsDiv = this.amountsDiv.getBoundingClientRect().width;
+        // truncate text when the tooltip is bigger than the graph
+        this.truncateText(awardingAgencyNameDiv, recipientNameDiv, theTooltipWidth);
+        if (this.state.truncated) theTooltipWidth = startDateDiv + endDateDiv + amountsDiv + 100;
         this.setState({
             tooltipStyle: {
                 transform: `translate(${xPosition}px,-${yPosition}px)`,
                 width: `${theTooltipWidth}px`
-            },
-            awardingAgency: truncatedAgency || data.awardingAgencyName,
-            recipient: truncatedRecipient || data.recipientName,
-            truncated: truncatedAgency
+            }
         });
     }
 
