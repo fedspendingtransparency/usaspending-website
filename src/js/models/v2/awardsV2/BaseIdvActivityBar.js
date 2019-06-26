@@ -13,10 +13,12 @@ const BaseIdvActivityBar = {
         this.awardingAgencyName = data.awarding_agency || '--';
         this.parentAwardId = data.parent_award_id || '--';
         this.awardingAgencyId = (data.awarding_agency_id && `${data.awarding_agency_id}`) || '--';
-        this._endDate = (data.last_date_to_order && parseDate(data.last_date_to_order)) || '--';
+        this._endDate = data.last_date_to_order ? parseDate(data.last_date_to_order) : '--';
         this._awardedAmount = data.awarded_amount || 0;
         this._obligatedAmount = data.obligated_amount || 0;
-        this._startDate = (data.period_of_performance_start_date && parseDate(data.period_of_performance_start_date)) || null;
+        this._startDate =
+        data.period_of_performance_start_date ?
+            parseDate(data.period_of_performance_start_date) : '--';
         this.piid = data.piid || '--';
         this.recipientName = data.recipient_name || '--';
         this.recipientId = data.recipient_id || '--';
@@ -35,10 +37,10 @@ const BaseIdvActivityBar = {
         ${units.unitLabel}`;
     },
     get startDate() {
-        return this._startDate ? formatDate(this._startDate) : '--';
+        return (this._startDate !== '--') ? formatDate(this._startDate) : this._endDate;
     },
     get endDate() {
-        return this._endDate ? formatDate(this._endDate) : '--';
+        return (this._endDate !== '--') ? formatDate(this._endDate) : this._endDate;
     }
 };
 
