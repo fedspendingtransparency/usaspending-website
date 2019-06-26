@@ -8,10 +8,13 @@ import PropTypes from 'prop-types';
 
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import Warning from 'components/sharedComponents/autocomplete/Warning';
+import EntityWarning from 'components/search/filters/location/EntityWarning';
 
 const propTypes = {
     zip: PropTypes.object,
-    validateZip: PropTypes.func
+    validateZip: PropTypes.func,
+    generateWarning: PropTypes.func,
+    isUSA: PropTypes.bool
 };
 
 export default class ZIPField extends React.Component {
@@ -20,12 +23,15 @@ export default class ZIPField extends React.Component {
 
         this.state = {
             zip: '',
-            enabled: false
+            enabled: false,
+            showNonUsWarning: false
         };
 
         this.changedText = this.changedText.bind(this);
         this.submitForm = this.submitForm.bind(this);
         this.pressedButton = this.pressedButton.bind(this);
+        this.showWarning = this.showWarning.bind(this);
+        this.hideWarning = this.hideWarning.bind(this);
     }
 
     changedText(e) {
@@ -43,6 +49,19 @@ export default class ZIPField extends React.Component {
         this.props.validateZip(this.state.zip);
     }
 
+    showWarning() {
+        if (!this.props.isUSA) {
+            this.setState({ showNonUsWarning: true });
+        }
+    }
+
+    hideWarning() {
+        console.log("hide warning ");
+        if (this.state.showNonUsWarning) {
+            this.setState({ showNonUsWarning: false });
+        }
+    }
+
     render() {
         let error = null;
         if (this.props.zip.invalid !== '') {
@@ -53,7 +72,7 @@ export default class ZIPField extends React.Component {
 
         return (
             <form
-                className="location-filter-form"
+                className="location-filter-form geo-entity-item"
                 onSubmit={this.submitForm}>
                 <div className="zip-field">
                     <label
@@ -69,14 +88,23 @@ export default class ZIPField extends React.Component {
                             placeholder="Enter a ZIP code"
                             maxLength={5}
                             value={this.state.zip}
+                            onFocus={this.showWarning}
+                            onMouseEnter={this.showWarning}
+                            onBlur={this.hideWarning}
+                            onMouseLeave={this.hideWarning}
                             onChange={this.changedText} />
                         <IndividualSubmit
                             className="zip-submit"
-                            disabled={!this.state.enabled}
+                            disabled={(!this.state.enabled || !this.props.isUSA)}
                             onClick={this.pressedButton}
                             label="Filter by ZIP code" />
                     </div>
                     {error}
+                </div>
+                <div
+                    className={`geo-warning ${this.state.showNonUsWarning ? '' : 'hide'}`}
+                    aria-hidden={!this.state.showNonUsWarning}>
+                    <EntityWarning message={this.props.generateWarning('ZIP CODE')} />
                 </div>
             </form>
         );
