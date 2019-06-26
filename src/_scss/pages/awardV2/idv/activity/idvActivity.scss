@@ -58,24 +58,6 @@ $obligated-green: #94BFA2;
                   }
                 }
               }
-              .tooltip-body__row-info-data__awarding-agency-name-hover{
-                display: none;
-              }
-              .tooltip-body__row-info-data__awarding-recipient-hover {
-                display: none;
-              }
-              .tooltip-body__row-info-data__awarding-agency-name:hover {
-                .tooltip-body__row-info-data__awarding-agency-name-hover {
-                  @include display(flex);
-                  white-space: normal;
-                }
-              } 
-              .tooltip-body__row-info-data__recipient-name:hover {
-                .tooltip-body__row-info-data__awarding-recipient-hover {
-                  @include display(flex);
-                  white-space: normal;
-                }
-              } 
             }
           }
         }
