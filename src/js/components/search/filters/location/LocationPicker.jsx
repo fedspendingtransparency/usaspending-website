@@ -250,6 +250,8 @@ export default class LocationPicker extends React.Component {
                 </form>
                 <hr className="location-picker-divider" />
                 <ZIPField
+                    generateWarning={this.generateWarning}
+                    isUSA={this.props.country.code === "USA"}
                     zip={this.props.zip}
                     validateZip={this.props.validateZip} />
             </div>
