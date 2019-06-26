@@ -18,7 +18,7 @@ const additionalDetails = (awardData) => {
         parentAwardDetails: {
             'Parent Award ID': parentAwardDetails ? parentAwardDetails.piid : '',
             'Parent IDV Type': parentAwardDetails ? parentAwardDetails.idvType : '',
-            'Parent IDV Agency Name': parentAwardDetails ? parentAwardDetails.agencyId : '',
+            'Parent IDV Agency Name': parentAwardDetails ? parentAwardDetails.agencyName : '',
             'Multiple Or Single Parent Award IDV': parentAwardDetails ? parentAwardDetails.multipleOrSingle : ''
         },
         periodOfPerformance: {

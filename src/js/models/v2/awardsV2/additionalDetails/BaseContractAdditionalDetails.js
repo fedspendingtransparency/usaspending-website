@@ -30,6 +30,7 @@ const BaseContractAdditionalDetails = {
         this.idvType = data.idv_type_description || '--';
         this.idcType = data.type_of_idc_description || '--';
         this.idvAgencyId = data.referenced_idv_agency_iden || '--';
+        this.idvAgencyName = data.referenced_idv_agency_desc || '--';
         this.multipleIdv = data.multiple_or_single_award_description || '--';
 
         // Competition Details
