@@ -80,8 +80,8 @@ export default class IdvActivityTooltip extends React.Component {
     }
 
     truncateText(awardingAgencyNameDiv, recipientNameDiv, theTooltipWidth) {
-        const { graphWidth, recipientName, awardingAgencyName } = this.props.data;
-        if (this.props.data.graphWidth < theTooltipWidth) {
+        return new Promise((resolve) => {
+            const { graphWidth, recipientName, awardingAgencyName } = this.props.data;
             // get awardingAgencyName truncated width based on the tooltip width and graph width
             const truncatedTextWidthAgency =
             (graphWidth * awardingAgencyNameDiv) / theTooltipWidth;
@@ -104,11 +104,11 @@ export default class IdvActivityTooltip extends React.Component {
                 awardingAgency: truncatedAgency,
                 recipient: truncatedRecipient,
                 truncated: true
-            });
-        }
+            }, () => resolve());
+        });
     }
 
-    positionTooltip() {
+    async positionTooltip() {
         // award bar info ( BaseIdvActivityBar ) and data needed to display correctly
         const { data } = this.props;
         // measure the tooltip width
@@ -155,7 +155,9 @@ export default class IdvActivityTooltip extends React.Component {
         const endDateDiv = this.endDateDiv.getBoundingClientRect().width;
         const amountsDiv = this.amountsDiv.getBoundingClientRect().width;
         // truncate text when the tooltip is bigger than the graph
-        this.truncateText(awardingAgencyNameDiv, recipientNameDiv, theTooltipWidth);
+        if (data.graphWidth < theTooltipWidth) {
+            await this.truncateText(awardingAgencyNameDiv, recipientNameDiv, theTooltipWidth);
+        }
         if (this.state.truncated) theTooltipWidth = startDateDiv + endDateDiv + amountsDiv + 100;
         this.setState({
             tooltipStyle: {
