@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { throttle } from 'lodash';
 
 const propTypes = {
     data: PropTypes.object,
@@ -28,7 +29,7 @@ export default class IdvActivityTooltip extends React.Component {
             truncated: false
         };
 
-        this.measureWindow = this.measureWindow.bind(this);
+        throttle(this.measureWindow = this.measureWindow.bind(this), 50);
         this.mouseEnter = this.mouseEnter.bind(this);
     }
     componentDidMount() {
@@ -46,12 +47,17 @@ export default class IdvActivityTooltip extends React.Component {
         window.removeEventListener('resize', this.measureWindow);
     }
 
-    getLinks(path, data) {
+    getLinks(path, data, params) {
         if (data === '--') {
             return (<div>{data}</div>);
         }
+        let title;
+        if (this.state.truncated) {
+            title = params;
+        }
         return (
             <a
+                title={title}
                 href={
                     `/#/${path}`}>
                 {data}
@@ -85,38 +91,30 @@ export default class IdvActivityTooltip extends React.Component {
         let xPosition = data.x;
         let yPosition = data.y;
 
+        // measuring from bottom of graph ( graph starts at 0 so we already have the height, with data.y)
+        // if data.y is smaller than the height of the tooltip, show on top
         if (this.props.data.y < divHeight) {
             yPosition += (divHeight + 7);
         }
 
-        // get the spacing from the start of the graph to the start of the bar
+        // get the spacing from start of graph to start of bar
         const spacingFromStartToBar = data.graphWidth - (data.graphWidth - data.start);
+        // get spacing from end of bar to the start of graph
         const totalAvailableWidthToTheLeft = spacingFromStartToBar + data.barWidth;
+        // get spacing from start of bar to the end of graph
         const totalAvailableWidthToTheRight = data.graphWidth - spacingFromStartToBar;
 
-        let truncatedAgency;
-        let truncatedRecipient;
-        if (data.graphWidth <= theTooltipWidth) {
-            truncatedAgency = `${data.awardingAgencyName.substring(0, 7).trim()}...`;
-            truncatedRecipient = `${data.recipientName.substring(0, 7).trim()}...`;
-            const startDateDiv = this.startDateDiv.getBoundingClientRect().width;
-            const endDateDiv = this.endDateDiv.getBoundingClientRect().width;
-            const amountsDiv = this.amountsDiv.getBoundingClientRect().width;
-            theTooltipWidth = startDateDiv + endDateDiv + amountsDiv + 100;
-        }
-        this.setState({
-            awardingAgency: truncatedAgency || data.awardingAgencyName,
-            recipient: truncatedRecipient || data.recipientName,
-            truncated: truncatedAgency
-        });
         // if the area from the start of the bar to the end of the graph is larger than the tooltip
         // width, position the tooltip to the left of the bar
         let left = false;
+        // show left if there is greater witdth to the left
         if (totalAvailableWidthToTheRight < totalAvailableWidthToTheLeft) {
             const percentage = 0.9 * data.barWidth;
             xPosition -= (theTooltipWidth - percentage);
             left = true;
         }
+        // if we are displaying right && the tooltip is bigger than the graph
+        // we are out of scope of the graph
         if (!left && (theTooltipWidth > totalAvailableWidthToTheRight)) {
             const overshowing = theTooltipWidth - totalAvailableWidthToTheRight;
             xPosition -= overshowing;
@@ -128,11 +126,38 @@ export default class IdvActivityTooltip extends React.Component {
             theTooltipWidth += difference;
             xPosition = 0;
         }
+        let truncatedAgency;
+        let truncatedRecipient;
+        // truncate text when the tooltip is bigger than the graph
+        if (data.graphWidth < theTooltipWidth) {
+            // get awardingAgencyName truncated width based on the tooltip width and graph width
+            const truncatedTextWidthAgency = (data.graphWidth * awardAgencyDiv) / theTooltipWidth;
+            // get recipientName truncated width based on the tooltip width and graph width
+            const truncatedTextWidthRecipient = (data.graphWidth * recipientDiv) / theTooltipWidth;
+            // we now have a ratio of the truncated width to the total width, and we have the total length
+            // we can now find the appropriate truncated length for the awardingAgencyName and recipientName
+            const truncatedTextLengthAgency = Math.floor(
+                ((truncatedTextWidthAgency * data.awardingAgencyName.length) / awardAgencyDiv) / 2);
+            const truncatedTextLengthRecipient = Math.floor(
+                ((truncatedTextWidthRecipient * data.recipientName.length) / recipientDiv) / 2);
+            truncatedAgency = `${data.awardingAgencyName
+                .substring(0, truncatedTextLengthAgency).trim()}...`;
+            truncatedRecipient = `${data.recipientName
+                .substring(0, truncatedTextLengthRecipient).trim()}...`;
+            const startDateDiv = this.startDateDiv.getBoundingClientRect().width;
+            const endDateDiv = this.endDateDiv.getBoundingClientRect().width;
+            const amountsDiv = this.amountsDiv.getBoundingClientRect().width;
+            theTooltipWidth = startDateDiv + endDateDiv + amountsDiv + 100;
+        }
+
         this.setState({
             tooltipStyle: {
                 transform: `translate(${xPosition}px,-${yPosition}px)`,
                 width: `${theTooltipWidth}px`
-            }
+            },
+            awardingAgency: truncatedAgency || data.awardingAgencyName,
+            recipient: truncatedRecipient || data.recipientName,
+            truncated: truncatedAgency
         });
     }
 
@@ -142,16 +167,6 @@ export default class IdvActivityTooltip extends React.Component {
 
     render() {
         const { data } = this.props;
-        const awardedAgencyHover = (
-            <div className="tooltip-body__row-info-data__awarding-agency-name-hover">
-                {data.awardingAgencyName}
-            </div>
-        );
-        const recipientHover = (
-            <div className="tooltip-body__row-info-data__awarding-recipient-hover">
-                {data.recipientName}
-            </div>
-        );
 
         return (
             <div
@@ -212,10 +227,10 @@ export default class IdvActivityTooltip extends React.Component {
                                     {
                                         this.getLinks(
                                             `agency/${data.awardingAgencyId}`,
-                                            this.state.awardingAgency
+                                            this.state.awardingAgency,
+                                            data.awardingAgencyName
                                         )
                                     }
-                                    {this.state.truncated && awardedAgencyHover}
                                 </div>
                             </div>
                             <div className="tooltip-body__row-info">
@@ -231,10 +246,10 @@ export default class IdvActivityTooltip extends React.Component {
                                     {
                                         this.getLinks(
                                             `recipient/${data.recipientId}`,
-                                            this.state.recipient.toUpperCase()
+                                            this.state.recipient.toUpperCase(),
+                                            data.recipientName
                                         )
                                     }
-                                    {this.state.truncated && recipientHover}
                                 </div>
                             </div>
                         </div>

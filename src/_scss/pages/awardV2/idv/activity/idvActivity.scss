@@ -1,6 +1,6 @@
 $obligated-green: #94BFA2;
 .idv-activity {
-    width: 100%;
+  width: 100%;
     .award__col__content {
       .activity-visualization {
         @import '../../../../components/pagination';
@@ -15,9 +15,9 @@ $obligated-green: #94BFA2;
             font-size: rem(14rem);
             color: #555;
             background-color: #f5f5f5;
+            min-width: 310px;
             .tooltip-title {
               color: #444444;
-              // font-size: rem(15);
               background-color: #f5f5f5;
               text-align: left;
               font-weight: normal;
@@ -28,7 +28,6 @@ $obligated-green: #94BFA2;
             .tooltip-body {
               @include display(flex);
               padding: 0 0 rem(7.5em) rem(10rem);
-              // font-size: rem(12);
               .tooltip-body__row {
                 @include display(flex);
                 @include flex-basis(100%);
@@ -39,7 +38,6 @@ $obligated-green: #94BFA2;
                     color: #444444;
                     font-size: rem(13rem);
                     white-space: nowrap;
-                    // font-weight: bold;
                     padding-bottom: rem(0.3em);
                     margin-top: rem(4em);
                     margin-bottom: 0;
@@ -91,23 +89,27 @@ $obligated-green: #94BFA2;
             }
         }
         .activity-chart {
-          .activity-chart-bar-container:hover .activity-chart-bar__awarded-content {
-            stroke: #3676b6;
-            stroke-width: 1;
-          }
-          .activity-chart-bar {
-            padding: rem(10) 0;
-            .activity-chart-bar__awarded-content {
-              fill: #D8D8D8;
+          .activity-chart-body {
+            .activity-chart-data {
+              .activity-chart-bar-container:hover .activity-chart-bar__awarded-content {
+                stroke: #3676b6;
+                stroke-width: 1;
+              }
+              .activity-chart-bar {
+                padding: rem(10) 0;
+                .activity-chart-bar__awarded-content {
+                  fill: #D8D8D8;
+                }
+                .activity-chart-bar__obligated-content {
+                  fill: $obligated-green;
+                }
+              }
             }
-            .activity-chart-bar__obligated-content {
-              fill: $obligated-green;
+            .axis {
+              stroke: rgb(0,0,0);
+              stroke-width: 1;
             }
           }
-        }
-        .axis {
-          stroke: rgb(0,0,0);
-          stroke-width: 1;
         }
     }
   }

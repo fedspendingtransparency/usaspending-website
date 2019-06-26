@@ -11,6 +11,7 @@ import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
 import ActivityChartBar from './ActivityChartBar';
 import ActivityXAxis from './ActivityXAxis';
 import ActivityYAxis from './ActivityYAxis';
+import { nextTick } from 'q';
 
 const propTypes = {
     awards: PropTypes.array,
@@ -98,6 +99,7 @@ export default class ActivityChart extends React.Component {
             .domain(yRange)
             .range([0, graphHeight])
             .nice();
+
         // Map each award to a "bar" component
         const bars = this.props.awards.map((bar, index) => {
             const data = bar;
