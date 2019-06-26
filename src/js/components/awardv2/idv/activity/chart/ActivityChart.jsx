@@ -11,7 +11,6 @@ import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
 import ActivityChartBar from './ActivityChartBar';
 import ActivityXAxis from './ActivityXAxis';
 import ActivityYAxis from './ActivityYAxis';
-import { nextTick } from 'q';
 
 const propTypes = {
     awards: PropTypes.array,
