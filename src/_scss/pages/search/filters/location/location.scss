@@ -84,7 +84,9 @@
                 @include display(flex);
                 @include justify-content(center);
                 @include align-items(center);
-
+                &.disabled {
+                    opacity: 0.4;
+                }
                 .zip-input {
                     @include flex(1 1 auto);
                     margin-right: rem(4);
