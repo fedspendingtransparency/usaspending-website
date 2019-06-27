@@ -3,7 +3,6 @@
  * Created by David Trinh 10/9/18
  */
 
-
 import CoreLocation from 'models/v2/CoreLocation';
 
 const BaseAwardRecipient = {
@@ -11,7 +10,7 @@ const BaseAwardRecipient = {
         this.internalId = data.recipient_hash || '';
         this.name = data.recipient_name || 'Unknown';
         this.duns = data.recipient_unique_id || '--';
-        this.parentName = data.parent_recipient_name || '--';
+        this.parentName = data.parent_recipient_name || '';
         this.parentDuns = data.parent_recipient_unique_id || '--';
         this.parentInternalId = data.parent_recipient_hash || '';
         this.businessCategories = data.business_categories;

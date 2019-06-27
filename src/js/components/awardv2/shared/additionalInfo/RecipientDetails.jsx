@@ -20,11 +20,13 @@ export default class RecipientDetails extends React.Component {
         };
         this.handleClick = this.handleClick.bind(this);
     }
+
     componentDidUpdate(prevProps) {
         if (this.props.globalToggle !== prevProps.globalToggle) {
             this.globalOverride();
         }
     }
+
     handleClick() {
         this.setState({ open: !this.state.open });
     }
@@ -33,6 +35,16 @@ export default class RecipientDetails extends React.Component {
         this.setState({
             open: this.props.globalToggle
         });
+    }
+
+    formatLink(internalId, name) {
+        if (internalId && name) {
+            return (<a href={`#/recipient/${internalId}`}>{name}</a>);
+        }
+        else if (internalId) {
+            return (<a href={`#/recipient/${internalId}`}>Unknown</a>);
+        }
+        return name;
     }
 
     render() {
@@ -58,7 +70,9 @@ export default class RecipientDetails extends React.Component {
                             <tr
                                 className="accordion-table__row">
                                 <td>Recipient</td>
-                                <td><a href={this.props.data.internalId}>{this.props.data.name}</a></td>
+                                <td>
+                                    {this.formatLink(this.props.data.internalId, this.props.data.name)}
+                                </td>
                             </tr>
                             <tr
                                 className="accordion-table__row">
@@ -68,7 +82,9 @@ export default class RecipientDetails extends React.Component {
                             <tr
                                 className="accordion-table__row">
                                 <td>Parent Name</td>
-                                <td><a href={this.props.data.parentInternalId}>{this.props.data.parentName}</a></td>
+                                <td>
+                                    {this.formatLink(this.props.data.parentInternalId, this.props.data.parentName)}
+                                </td>
                             </tr>
                             <tr
                                 className="accordion-table__row">
