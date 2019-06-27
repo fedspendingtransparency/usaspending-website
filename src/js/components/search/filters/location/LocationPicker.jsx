@@ -53,6 +53,7 @@ export default class LocationPicker extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        // a state that was autoPopulated and then removed via city de-selection will have prevProps.state.autoPopulated === true
         const manuallyPopulatedStateChanged = (!prevProps.state.autoPopulated && (prevProps.state.code !== this.props.state.code));
         const manuallyPopulatedCountryChanged = (!this.props.country.autoPopulated && (prevProps.country.code !== this.props.country.code));
         const stateChanged = (prevProps.state.code !== this.props.state.code);
