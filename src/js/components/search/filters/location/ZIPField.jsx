@@ -56,13 +56,13 @@ export default class ZIPField extends React.Component {
     }
 
     hideWarning() {
-        console.log("hide warning ");
         if (this.state.showNonUsWarning) {
             this.setState({ showNonUsWarning: false });
         }
     }
 
     render() {
+        const disabledClass = this.props.isUSA ? '' : 'disabled';
         let error = null;
         if (this.props.zip.invalid !== '') {
             error = (<Warning
@@ -76,17 +76,18 @@ export default class ZIPField extends React.Component {
                 onSubmit={this.submitForm}>
                 <div className="zip-field">
                     <label
-                        className="location-label"
+                        className={`location-label ${disabledClass}`}
                         htmlFor="location-picker-zip">
                         ZIP Code
                     </label>
-                    <div className="zip-content">
+                    <div className={`zip-content ${disabledClass}`}>
                         <input
                             id="location-picker-zip"
                             className="zip-input"
                             type="text"
                             placeholder="Enter a ZIP code"
                             maxLength={5}
+                            disabled={!this.props.isUSA}
                             value={this.state.zip}
                             onFocus={this.showWarning}
                             onMouseEnter={this.showWarning}
