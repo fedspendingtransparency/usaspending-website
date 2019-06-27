@@ -36,6 +36,15 @@
                         td {
                             border: 0;
 
+                            .accordion-table__list {
+                                list-style-type: none;
+                                margin: 0;
+                                padding: 0;
+                                li {
+                                    margin: 0;
+                                }
+                            }
+
                             &:last-child {
                                 font-weight: $font-light;
                             }

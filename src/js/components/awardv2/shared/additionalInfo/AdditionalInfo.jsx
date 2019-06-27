@@ -11,6 +11,7 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import additionalDetails from 'dataMapping/awardsv2/additionalDetails';
 
 import Accordion from './Accordion';
+import RecipientDetails from './RecipientDetails';
 
 const propTypes = {
     overview: PropTypes.object
@@ -111,11 +112,9 @@ export default class AdditionalInfo extends React.Component {
                                 accordionData={awardData.executiveDetails.officers} />
                         </div>
                         <div className="award__col">
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Recipient Details"
-                                accordionIcon="building"
-                                accordionData={data.recipientDetails} />
+                            <RecipientDetails
+                                data={this.props.overview.recipient}
+                                globalToggle={this.state.globalToggle} />
                             <Accordion
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Acquisition Details"
