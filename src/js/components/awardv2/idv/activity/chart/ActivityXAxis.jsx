@@ -54,7 +54,8 @@ export default class ActivityXAxis extends React.Component {
             // i.e. for smaller range show quarters,
             // for larger ranges don't show every FY
             const fiscalYear = convertDateToFY(moment(tick));
-            return `FY ${fiscalYear}`;
+            const fiscalYearTwoNumber = fiscalYear.toString().slice(2);
+            return `FY${fiscalYearTwoNumber}`;
         });
 
         // draw the grid lines
@@ -74,7 +75,7 @@ export default class ActivityXAxis extends React.Component {
         const labels = props.ticks.map((tick, i) => {
             // calculate the X position
             // D3 scale returns the tick positions as pixels from the start of the axis
-            const xPos = props.scale(tick) + this.props.padding.left;
+            const xPos = props.scale(tick);
 
             return (<ActivityXAxisItem
                 x={xPos}
@@ -92,11 +93,6 @@ export default class ActivityXAxis extends React.Component {
     }
 
     render() {
-        // TODO: move this to sass file
-        const lineStyle = {
-            stroke: 'rgb(0,0,0)',
-            strokeWidth: '1'
-        };
         return (
             <g
                 className="bar-axis"
@@ -106,12 +102,11 @@ export default class ActivityXAxis extends React.Component {
                     {this.state.description}
                 </desc>
                 <line
-                    className="x-axis"
+                    className="axis x-axis"
                     x1={0}
                     y1={this.props.height}
                     x2={this.props.width}
-                    y2={this.props.height}
-                    style={lineStyle} />
+                    y2={this.props.height} />
                 <g className="axis-labels">
                     {this.state.labels}
                 </g>

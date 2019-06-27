@@ -151,10 +151,11 @@ export const fetchIdvActivity = () => {
                             awarded_amount: 20000.0,
                             period_of_performance_start_date: "2014-10-01",
                             piid: "GS33FCA001",
-                            recipient_name: "Booz Allen Hamilton",
+                            recipient_name: "Booz Allen Hamilton (BAH)",
                             recipient_id: "9a277fc5-50fc-685f-0f77-be0d96420a17-C",
                             grandchild: false
-                        }, {
+                        },
+                        {
                             award_id: 69216438,
                             awarding_agency: "DEPARTMENT OF AGRICULTURE (USDA)",
                             awarding_agency_id: 153,
@@ -164,7 +165,7 @@ export const fetchIdvActivity = () => {
                             obligated_amount: 12000.0,
                             period_of_performance_start_date: "2014-04-07",
                             piid: "AG3151B140009",
-                            recipient_name: "Booz Allen Hamilton",
+                            recipient_name: "Booz Allen Hamilton (BAH)",
                             recipient_id: "9a277fc5-50fc-685f-0f77-be0d96420a17-C",
                             grandchild: true
                         }],

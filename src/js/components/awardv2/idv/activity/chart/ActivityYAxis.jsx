@@ -95,11 +95,6 @@ export default class ActivityYAxis extends React.Component {
     }
 
     render() {
-        // TODO: move this to sass file
-        const lineStyle = {
-            stroke: 'rgb(0,0,0)',
-            strokeWidth: '1'
-        };
         return (
             <g className="bar-axis">
                 <title>Y-Axis</title>
@@ -107,12 +102,11 @@ export default class ActivityYAxis extends React.Component {
                     {this.state.description}
                 </desc>
                 <line
-                    className="y-axis"
+                    className="axis y-axis"
                     x1={this.props.padding.left}
                     y1={-this.props.barHeight}
                     x2={this.props.padding.left}
-                    y2={this.props.height}
-                    style={lineStyle} />
+                    y2={this.props.height} />
                 <g className="axis-labels">
                     {this.state.labels}
                 </g>
