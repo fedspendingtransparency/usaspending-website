@@ -58,12 +58,7 @@
                 background-color: transparent;
                 margin: 0 0 0 rem(5);
                 padding: 0;
-        
-                svg {
-                    width: rem(15);
-                    height: rem(15);
-                    fill: $color-gray-border;
-                }
+                color: $color-gray-border;
             }
 
             .award__row {
