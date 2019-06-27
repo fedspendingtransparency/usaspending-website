@@ -67,9 +67,15 @@ describe('componentDidMount', () => {
             expect(defaultProps.loadCounties).toHaveBeenCalledTimes(1);
             expect(defaultProps.loadDistricts).toHaveBeenCalledTimes(1);
         });
+
         it('does not clear the selected city if it is within the newly selected state', () => {
-            const wrapper = shallow(<LocationPicker {...{ ...defaultProps, state: { ...defaultProps.state, code: "GA" }, city: { ...defaultProps.city, code: "GA" } }} />);
-            wrapper.instance().componentDidUpdate({ ...defaultProps, state: { ...defaultProps.state, code: "SC" }, city: { ...defaultProps.city, code: "SC" } });
+            const wrapper = shallow(<LocationPicker {...{
+                ...defaultProps,
+                country: { ...defaultProps.country, code: "USA" },
+                state: { ...defaultProps.state, code: "GA" },
+                city: { ...defaultProps.city, code: "GA" }
+            }} />);
+            wrapper.instance().componentDidUpdate({ ...defaultProps, country: { ...defaultProps.country, code: "USA" }, state: { ...defaultProps.state, code: "SC" }, city: { ...defaultProps.city, code: "SC" } });
             expect(defaultProps.clearCitiesAndSelectedCity).not.toHaveBeenCalled();
         });
 
@@ -116,7 +122,7 @@ describe('componentDidMount', () => {
         });
     });
 
-    describe('When the selected city changes', () => {
+    describe('When the selected city is deselected', () => {
         it('clears the selected state if the previous state selection was auto-populated', () => {
             const wrapper = shallow(<LocationPicker {...{ ...defaultProps, state: { ...defaultProps.state, code: 'GA', autoPopulated: true } }} />).instance();
             wrapper.componentDidUpdate({ ...defaultProps, city: { ...defaultProps.city, name: "Atlanta" }, state: { ...defaultProps.state, code: 'GA', autoPopulated: true } });
@@ -128,6 +134,25 @@ describe('componentDidMount', () => {
         it('persists the selected state if (a) the city is within the state and (b) the state was selected manually', () => {
             const wrapper = shallow(<LocationPicker {...{ ...defaultProps, state: { ...defaultProps.state, code: 'GA' } }} />).instance();
             wrapper.componentDidUpdate({ ...defaultProps, city: { ...defaultProps.city, name: "Atlanta" }, state: { ...defaultProps.state, code: 'GA' } });
+            expect(defaultProps.selectEntity).not.toHaveBeenCalled();
+        });
+
+        it('clears the selected country if it was auto-populated', () => {
+            const countrySelection = { ...defaultProps.country, code: 'GBR', autoPopulated: true };
+            const citySelection = { ...defaultProps.city, name: "London" };
+            const wrapper = shallow(<LocationPicker {...{ ...defaultProps, country: countrySelection }} />).instance();
+            wrapper.componentDidUpdate({ ...defaultProps, city: citySelection, country: countrySelection });
+            expect(defaultProps.selectEntity).toHaveBeenCalledWith('country', { code: "FOREIGN", name: "ALL FOREIGN COUNTRIES", autoPopulated: true });
+        });
+
+        jest.resetAllMocks();
+
+        it('persists the selected country if (a) the city is within the country and (b) the country was manually selected', () => {
+            const previousCountry = { ...defaultProps.country, code: 'FOREIGN', autoPopulated: true };
+            const currentCountry = { ...defaultProps.country, code: 'GBR', autoPopulated: false };
+            const citySelection = { ...defaultProps.city, name: "London", code: 'GBR' };
+            const wrapper = shallow(<LocationPicker {...{ ...defaultProps, city: citySelection, country: currentCountry }} />).instance();
+            wrapper.componentDidUpdate({ ...defaultProps, city: citySelection, country: previousCountry });
             expect(defaultProps.selectEntity).not.toHaveBeenCalled();
         });
     });
