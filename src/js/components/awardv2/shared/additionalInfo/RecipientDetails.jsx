@@ -37,14 +37,17 @@ export default class RecipientDetails extends React.Component {
         });
     }
 
-    formatLink(internalId, name) {
+    formatRecipientLink(internalId, name) {
         if (internalId && name) {
             return (<a href={`#/recipient/${internalId}`}>{name}</a>);
         }
         else if (internalId) {
             return (<a href={`#/recipient/${internalId}`}>Unknown</a>);
         }
-        return name;
+        else if (name) {
+            return name;
+        }
+        return '--';
     }
 
     render() {
@@ -71,7 +74,7 @@ export default class RecipientDetails extends React.Component {
                                 className="accordion-table__row">
                                 <td>Recipient</td>
                                 <td>
-                                    {this.formatLink(this.props.data.internalId, this.props.data.name)}
+                                    {this.formatRecipientLink(this.props.data.internalId, this.props.data.name)}
                                 </td>
                             </tr>
                             <tr
@@ -83,7 +86,7 @@ export default class RecipientDetails extends React.Component {
                                 className="accordion-table__row">
                                 <td>Parent Name</td>
                                 <td>
-                                    {this.formatLink(this.props.data.parentInternalId, this.props.data.parentName)}
+                                    {this.formatRecipientLink(this.props.data.parentInternalId, this.props.data.parentName)}
                                 </td>
                             </tr>
                             <tr
