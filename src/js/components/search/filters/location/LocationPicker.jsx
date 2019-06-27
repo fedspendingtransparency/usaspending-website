@@ -54,25 +54,32 @@ export default class LocationPicker extends React.Component {
 
     componentDidUpdate(prevProps) {
         const manuallyPopulatedStateChanged = (!prevProps.state.autoPopulated && (prevProps.state.code !== this.props.state.code));
+        const manuallyPopulatedCountryChanged = (!this.props.country.autoPopulated && (prevProps.country.code !== this.props.country.code));
         const stateChanged = (prevProps.state.code !== this.props.state.code);
         const countryChanged = (prevProps.country.code !== this.props.country.code);
         const isCityInState = ( // selected city is w/in the selected state
+            this.props.country.code === 'USA' &&
             this.props.state.code === this.props.city.code &&
             this.props.state.code && this.props.city.code
         );
+
         const cityDeselected = (prevProps.city.name && !this.props.city.name);
 
         if (countryChanged && this.props.country.code === "USA") {
             // user has selected USA, load the state list
             this.props.loadStates();
-            this.props.clearCitiesAndSelectedCity();
+            if (manuallyPopulatedCountryChanged) {
+                this.props.clearCitiesAndSelectedCity();
+            }
         }
         else if (countryChanged && prevProps.country.code === 'USA') {
             // the user previously selected USA, need to clear these out
             this.props.clearStates();
-            this.props.clearCitiesAndSelectedCity();
+            if (manuallyPopulatedCountryChanged) {
+                this.props.clearCitiesAndSelectedCity();
+            }
         }
-        else if (countryChanged) {
+        else if (manuallyPopulatedCountryChanged) {
             //  since USA isn't selected and wasn't previously selected, only clear cities
             this.props.clearCitiesAndSelectedCity();
         }
@@ -96,6 +103,9 @@ export default class LocationPicker extends React.Component {
         if (cityDeselected && this.props.state.autoPopulated) {
             // city was deselected which auto populated state selection, so clear the state selection
             this.props.selectEntity('state', defaultLocationValues.state);
+        }
+        else if (cityDeselected && this.props.country.autoPopulated) {
+            this.props.selectEntity('country', { code: "FOREIGN", name: "ALL FOREIGN COUNTRIES", autoPopulated: true });
         }
     }
 
