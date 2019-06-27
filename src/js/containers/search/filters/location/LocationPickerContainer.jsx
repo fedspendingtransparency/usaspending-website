@@ -317,10 +317,10 @@ export default class LocationPickerContainer extends React.Component {
         else if (shouldAutoPopulateCountry) {
             const countryFromCity = this.state.availableCountries
                 .filter((country) => country.code === value.code)
-                .reduce((acc, country) => ({ ...acc, ...country, autoPopulated: true }), {
-                    code: "FOREIGN",
-                    name: "ALL FOREIGN COUNTRIES"
-                });
+                .reduce(
+                    (acc, country) => ({ ...acc, ...country, autoPopulated: true }),
+                    { code: "FOREIGN", name: "ALL FOREIGN COUNTRIES" }
+                );
             this.setState({ country: countryFromCity });
         }
         this.setState({
