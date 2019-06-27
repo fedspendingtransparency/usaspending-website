@@ -34,7 +34,11 @@ export default class AdditionalInfo extends React.Component {
         const data = this.props.overview._category === 'idv' ? additionalDetailsIdv(this.props.overview) : additionalDetails(this.props.overview);
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
-        let periodOfPerformance = (<IdvPeriodOfPerformance accordionData={data.periodOfPerformance} />);
+        let periodOfPerformance = (
+            <IdvPeriodOfPerformance
+                accordionData={data.periodOfPerformance}
+                globalToggle={this.state.globalToggle} />
+        );
         if (this.props.overview._category !== 'idv') {
             placeOfPerformance = (
                 <Accordion
