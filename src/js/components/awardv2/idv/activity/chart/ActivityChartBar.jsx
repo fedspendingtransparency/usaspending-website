@@ -9,19 +9,30 @@ import PropTypes from 'prop-types';
 const propTypes = {
     start: PropTypes.number,
     width: PropTypes.number,
+    height: PropTypes.number,
     yPosition: PropTypes.number,
     description: PropTypes.string,
-    classNames: PropTypes.object,
-    isObligated: PropTypes.bool
+    data: PropTypes.object,
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func,
+    isObligated: PropTypes.bool,
+    style: PropTypes.object
 };
 
 export default class ActivityChartBar extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isHovering: false
-        };
+        this.enteredCell = this.enteredCell.bind(this);
+        this.exitedCell = this.exitedCell.bind(this);
+    }
+
+    enteredCell() {
+        this.props.showTooltip(this.props.data);
+    }
+
+    exitedCell() {
+        this.props.hideTooltip(this.props.data);
     }
 
     render() {
@@ -30,16 +41,22 @@ export default class ActivityChartBar extends React.Component {
         return (
             <g
                 className="activity-chart-bar"
-                aria-label={this.props.description}>
+                aria-label={this.props.description}
+                onMouseMove={this.enteredCell}
+                onMouseLeave={this.exitedCell}
+                ref={(g) => {
+                    this.element = g;
+                }}>
                 <desc>
                     {this.props.description}
                 </desc>
                 <rect
                     className={classNames}
+                    style={this.props.style}
                     x={this.props.start}
                     y={this.props.yPosition}
                     width={this.props.width}
-                    height={10} />
+                    height={this.props.height} />
             </g>
         );
     }
