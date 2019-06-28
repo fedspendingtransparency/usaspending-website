@@ -8,10 +8,8 @@
         }
     }
     .award__icon {
-        &:hover {
-            svg {
-                fill: $color-gray;
-            }
+        &:hover, &:focus {
+            color: $color-gray;
         }
     }
     .info-tooltip {
