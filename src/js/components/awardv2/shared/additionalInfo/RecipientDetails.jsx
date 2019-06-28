@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 
 const propTypes = {
     data: PropTypes.object,
@@ -51,13 +52,14 @@ export default class RecipientDetails extends React.Component {
     }
 
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.handleClick);
         return (
             <div className={this.state.open ? 'accordion accordion_open' : 'accordion'}>
                 <div
                     className="accordion__bar"
                     tabIndex={0}
                     role="button"
-                    onKeyPress={this.handleClick}
+                    onKeyDown={onKeyDownHandler}
                     onClick={this.handleClick}>
                     <span>
                         <FontAwesomeIcon size="lg" icon="building" />
