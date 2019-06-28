@@ -3,14 +3,19 @@
  * Created by Kevin Li 10/30/17
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { isCancel } from 'axios';
-import { concat, debounce } from 'lodash';
+import React from "react";
+import PropTypes from "prop-types";
+import { isCancel } from "axios";
+import { concat, debounce } from "lodash";
 
-import { fetchLocationList, performZIPGeocode, fetchCityResults, getCitySearchRequestObj } from 'helpers/mapHelper';
+import {
+    fetchLocationList,
+    performZIPGeocode,
+    fetchCityResults,
+    getCitySearchRequestObj
+} from "helpers/mapHelper";
 
-import LocationPicker from 'components/search/filters/location/LocationPicker';
+import LocationPicker from "components/search/filters/location/LocationPicker";
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -25,33 +30,34 @@ const defaultProps = {
 
 export const defaultLocationValues = {
     country: {
-        code: '',
-        name: ''
+        code: "",
+        name: "",
+        autoPopulated: false
     },
     state: {
-        code: '',
-        fips: '',
-        name: '',
+        code: "",
+        fips: "",
+        name: "",
         autoPopulated: false // from city selection
     },
     county: {
-        code: '',
-        fips: '',
-        state: '',
-        name: ''
+        code: "",
+        fips: "",
+        state: "",
+        name: ""
     },
     city: {
-        name: '',
-        code: ''
+        name: "",
+        code: ""
     },
     district: {
-        code: '',
-        district: '',
-        name: ''
+        code: "",
+        district: "",
+        name: ""
     },
     zip: {
-        valid: '',
-        invalid: ''
+        valid: "",
+        invalid: ""
     }
 };
 
@@ -71,7 +77,7 @@ export default class LocationPickerContainer extends React.Component {
             city: Object.assign({}, defaultLocationValues.city),
             district: Object.assign({}, defaultLocationValues.district),
             zip: Object.assign({}, defaultLocationValues.zip),
-            citySearchString: '',
+            citySearchString: "",
             loading: false
         };
 
@@ -122,7 +128,7 @@ export default class LocationPickerContainer extends React.Component {
             this.listRequest.cancel();
         }
 
-        this.listRequest = fetchLocationList('countries');
+        this.listRequest = fetchLocationList("countries");
 
         this.listRequest.promise
             .then((res) => {
@@ -137,16 +143,12 @@ export default class LocationPickerContainer extends React.Component {
 
     parseCountries(data) {
         // put USA and an "all foreign countries" option at the start of the list
-        const countries = concat([{
-            code: 'USA',
-            name: 'UNITED STATES'
-        }, {
-            code: 'FOREIGN',
-            name: 'ALL FOREIGN COUNTRIES'
-        }, {
-            code: '',
-            name: '---'
-        }], data.countries);
+        const countries = [
+            { code: "USA", name: "UNITED STATES" },
+            { code: "FOREIGN", name: "ALL FOREIGN COUNTRIES" },
+            { code: "", name: "---" },
+            ...data.countries
+        ].map((country) => ({ ...country, autoPopulated: false }));
         this.setState({
             availableCountries: countries
         });
@@ -157,7 +159,7 @@ export default class LocationPickerContainer extends React.Component {
             this.listRequest.cancel();
         }
 
-        this.listRequest = fetchLocationList('states');
+        this.listRequest = fetchLocationList("states");
 
         this.listRequest.promise
             .then((res) => {
@@ -173,8 +175,10 @@ export default class LocationPickerContainer extends React.Component {
     parseStates(data) {
         // prepend a blank state to act as a de-select option
         if (data.states.length > 0) {
-            const states = [{ ...defaultLocationValues.state, name: 'All states' }, ...data.states]
-                .map((state) => ({ ...state, autoPopulated: false }));
+            const states = [
+                { ...defaultLocationValues.state, name: "All states" },
+                ...data.states
+            ].map((state) => ({ ...state, autoPopulated: false }));
             this.setState({
                 availableStates: states
             });
@@ -195,7 +199,7 @@ export default class LocationPickerContainer extends React.Component {
         this.setState({
             availableCities: [],
             city: defaultLocationValues.city,
-            citySearchString: ''
+            citySearchString: ""
         });
     }
 
@@ -221,9 +225,14 @@ export default class LocationPickerContainer extends React.Component {
         // prepend a blank county to act as a de-select option
         let counties = [];
         if (data.counties.length > 0) {
-            counties = concat([Object.assign({}, defaultLocationValues.county, {
-                name: 'All counties'
-            })], data.counties);
+            counties = concat(
+                [
+                    Object.assign({}, defaultLocationValues.county, {
+                        name: "All counties"
+                    })
+                ],
+                data.counties
+            );
         }
         this.setState({
             availableCounties: counties,
@@ -260,9 +269,14 @@ export default class LocationPickerContainer extends React.Component {
         // prepend a blank district to act as a de-select option
         let districts = [];
         if (data.districts.length > 0) {
-            districts = concat([Object.assign({}, defaultLocationValues.district, {
-                name: 'All congressional districts'
-            })], data.districts);
+            districts = concat(
+                [
+                    Object.assign({}, defaultLocationValues.district, {
+                        name: "All congressional districts"
+                    })
+                ],
+                data.districts
+            );
         }
 
         this.setState({
@@ -280,15 +294,34 @@ export default class LocationPickerContainer extends React.Component {
 
     selectEntity(level, value) {
         const shouldAutoPopulateState = (
-            level === 'city' &&
+            level === "city" &&
+            this.state.country.code === "USA" &&
             this.state.state.code !== value.code &&
+            value.code
+        );
+        const shouldAutoPopulateCountry = (
+            level === "city" &&
+            this.state.country.code !== "USA" &&
+            this.state.country.code !== value.code &&
             value.code
         );
         if (shouldAutoPopulateState) {
             const stateFromCity = this.state.availableStates
                 .filter((state) => state.code === value.code)
-                .reduce((acc, state) => ({ ...acc, ...state, autoPopulated: true }), defaultLocationValues.state);
+                .reduce(
+                    (acc, state) => ({ ...acc, ...state, autoPopulated: true }),
+                    defaultLocationValues.state
+                );
             this.setState({ state: stateFromCity });
+        }
+        else if (shouldAutoPopulateCountry) {
+            const countryFromCity = this.state.availableCountries
+                .filter((country) => country.code === value.code)
+                .reduce(
+                    (acc, country) => ({ ...acc, ...country, autoPopulated: true }),
+                    { code: "FOREIGN", name: "ALL FOREIGN COUNTRIES" }
+                );
+            this.setState({ country: countryFromCity });
         }
         this.setState({
             [level]: value
@@ -298,49 +331,49 @@ export default class LocationPickerContainer extends React.Component {
     createLocationObject() {
         // create a location object
         const location = {};
-        let title = '';
-        let standalone = '';
-        let entity = '';
-        let identifier = '';
-        if (this.state.country.code === '') {
+        let title = "";
+        let standalone = "";
+        let entity = "";
+        let identifier = "";
+        if (this.state.country.code === "") {
             // do nothing, it's an empty filter
             return null;
         }
         location.country = this.state.country.code;
         title = this.state.country.name;
         standalone = this.state.country.name;
-        entity = 'Country';
+        entity = "Country";
         identifier += this.state.country.code;
 
-        if (this.state.state.code !== '') {
+        if (this.state.state.code !== "") {
             location.state = this.state.state.code;
             title = this.state.state.name;
             standalone = this.state.state.name;
-            entity = 'State';
+            entity = "State";
             identifier += `_${this.state.state.code}`;
         }
 
-        if (this.state.county.code !== '') {
+        if (this.state.county.code !== "") {
             location.county = this.state.county.fips;
             title = this.state.county.name;
             standalone = `${this.state.county.name}, ${this.state.state.code}`;
-            entity = 'County';
+            entity = "County";
             identifier += `_${this.state.county.fips}`;
         }
-        else if (this.state.district.code !== '') {
+        else if (this.state.district.code !== "") {
             location.district = this.state.district.district;
             title = this.state.district.name;
             standalone = this.state.district.name;
-            entity = 'Congressional district';
+            entity = "Congressional district";
             identifier += `_${this.state.district.district}`;
         }
 
-        if (this.state.city.name !== '') {
-            const city = this.state.city.name.split(',')[0];
+        if (this.state.city.name !== "") {
+            const city = this.state.city.name.split(",")[0];
             location.city = city;
             title = this.state.city.name;
             standalone = `${this.state.city.name}`;
-            entity = 'City';
+            entity = "City";
             identifier += `_${city}`;
         }
 
@@ -366,7 +399,7 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     addZip() {
-        if (this.state.zip.valid === '') {
+        if (this.state.zip.valid === "") {
             // no zip
             return;
         }
@@ -376,11 +409,11 @@ export default class LocationPickerContainer extends React.Component {
             identifier: `USA_${this.state.zip.valid}`,
             display: {
                 title: this.state.zip.valid,
-                entity: 'ZIP Code',
+                entity: "ZIP Code",
                 standalone: this.state.zip.valid
             },
             filter: {
-                country: 'USA',
+                country: "USA",
                 zip: this.state.zip.valid
             }
         };
@@ -426,7 +459,9 @@ export default class LocationPickerContainer extends React.Component {
             this.setState({ loading: true });
         }
 
-        this.cityRequest = fetchCityResults(getCitySearchRequestObj(citySearchString, state.code, country.code, this.props.scope));
+        this.cityRequest = fetchCityResults(
+            getCitySearchRequestObj(citySearchString, state.code, country.code, this.props.scope)
+        );
 
         this.cityRequest.promise
             .then((res) => {
@@ -454,9 +489,10 @@ export default class LocationPickerContainer extends React.Component {
     parseCities(results) {
         this.setState({
             availableCities: results.map((city) => ({
-                name: (city.state_code === "NA-000" || !city.state_code) // NA-000 is no results found
-                    ? city.city_name
-                    : `${city.city_name}, ${city.state_code}`,
+                name:
+                    city.state_code === "NA-000" || !city.state_code // NA-000 is no results found
+                        ? city.city_name
+                        : `${city.city_name}, ${city.state_code}`,
                 code: city.state_code
             }))
         });
@@ -475,21 +511,24 @@ export default class LocationPickerContainer extends React.Component {
     invalidZip(zip) {
         this.setState({
             zip: {
-                valid: '',
+                valid: "",
                 invalid: zip
             }
         });
     }
 
     validZip(zip) {
-        this.setState({
-            zip: {
-                valid: zip,
-                invalid: ''
+        this.setState(
+            {
+                zip: {
+                    valid: zip,
+                    invalid: ""
+                }
+            },
+            () => {
+                this.addZip(zip);
             }
-        }, () => {
-            this.addZip(zip);
-        });
+        );
     }
 
     render() {

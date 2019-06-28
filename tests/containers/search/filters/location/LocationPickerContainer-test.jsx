@@ -27,16 +27,20 @@ describe('LocationPickerContainer', () => {
             expect(container.state().availableCountries).toEqual([
                 {
                     code: 'USA',
-                    name: 'UNITED STATES'
+                    name: 'UNITED STATES',
+                    autoPopulated: false
                 }, {
                     code: 'FOREIGN',
-                    name: 'ALL FOREIGN COUNTRIES'
+                    name: 'ALL FOREIGN COUNTRIES',
+                    autoPopulated: false
                 }, {
                     code: '',
-                    name: '---'
+                    name: '---',
+                    autoPopulated: false
                 }, {
                     code: 'ABC',
-                    name: 'A Big Country'
+                    name: 'A Big Country',
+                    autoPopulated: false
                 }
             ]);
         });
@@ -163,24 +167,38 @@ describe('LocationPickerContainer', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
             expect(container.state().country).toEqual({
                 code: '',
-                name: ''
+                name: '',
+                autoPopulated: false
             });
 
             container.instance().selectEntity('country', {
                 code: 'ABC',
-                name: 'A Big Country'
+                name: 'A Big Country',
+                autoPopulated: false
             });
 
             expect(container.state().country).toEqual({
                 code: 'ABC',
-                name: 'A Big Country'
+                name: 'A Big Country',
+                autoPopulated: false
             });
         });
-        it('if level is city, should auto-populate corresponding state if different from previous state', () => {
+        it('if level is city, should auto-populate selected state to city\'s state (if different)', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.instance().setState({ availableStates: [{ code: 'TST' }] });
+            container.instance().setState({ availableStates: [{ code: 'TST' }], country: { code: "USA" } });
             container.instance().selectEntity('city', { name: 'test', code: 'TST' });
             expect(container.state().state.code).toEqual('TST');
+            expect(container.state().city.name).toEqual('test');
+        });
+
+        it('if level is city, should auto-populate selected country to city\'s country (if different)', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.instance().setState({
+                availableCountries: [{ code: 'GBR' }, { code: 'FOREIGN' }, { code: 'USA' }],
+                country: { code: "FOREIGN" }
+            });
+            container.instance().selectEntity('city', { name: 'test', code: 'GBR' });
+            expect(container.state().country.code).toEqual('GBR');
             expect(container.state().city.name).toEqual('test');
         });
     });
