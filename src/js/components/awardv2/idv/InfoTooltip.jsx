@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     children: PropTypes.node,
@@ -129,7 +129,7 @@ export default class InfoTooltip extends React.Component {
                         onMouseEnter={this.showTooltip}
                         onMouseLeave={this.closeTooltip}
                         onClick={this.showTooltip}>
-                        <InfoCircle alt="Information" />
+                        <FontAwesomeIcon icon="info-circle" />
                     </div>
                     {tooltip}
                 </div>

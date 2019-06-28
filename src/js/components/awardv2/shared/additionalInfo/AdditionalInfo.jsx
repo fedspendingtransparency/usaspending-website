@@ -9,9 +9,11 @@ import PropTypes from 'prop-types';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 import additionalDetails from 'dataMapping/awardsv2/additionalDetails';
+import additionalDetailsIdv from 'dataMapping/awardsv2/additionalDetailsIdv';
 
 import Accordion from './Accordion';
 import RecipientDetails from './RecipientDetails';
+import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 
 const propTypes = {
     overview: PropTypes.object
@@ -30,23 +32,13 @@ export default class AdditionalInfo extends React.Component {
     }
     render() {
         const awardData = this.props.overview;
-        const data = additionalDetails(this.props.overview);
+        const data = this.props.overview._category === 'idv' ? additionalDetailsIdv(this.props.overview) : additionalDetails(this.props.overview);
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
-        // Use different Period of Performance and Additional Details mappings for IDVs
         let periodOfPerformance = (
-            <Accordion
-                globalToggle={this.state.globalToggle}
-                accordionName="Period Of Performance"
-                accordionIcon="calendar-alt"
-                accordionData={data.idvPeriodOfPerformance} />
-        );
-        let additionalDetailsSection = (
-            <Accordion
-                globalToggle={this.state.globalToggle}
-                accordionName="Additional Details"
-                accordionIcon="ellipsis-h"
-                accordionData={data.idvAdditionalDetails} />
+            <IdvPeriodOfPerformance
+                accordionData={data.periodOfPerformance}
+                globalToggle={this.state.globalToggle} />
         );
         if (this.props.overview._category !== 'idv') {
             placeOfPerformance = (
@@ -62,13 +54,6 @@ export default class AdditionalInfo extends React.Component {
                     accordionName="Period Of Performance"
                     accordionIcon="calendar-alt"
                     accordionData={data.periodOfPerformance} />
-            );
-            additionalDetailsSection = (
-                <Accordion
-                    globalToggle={this.state.globalToggle}
-                    accordionName="Additional Details"
-                    accordionIcon="ellipsis-h"
-                    accordionData={data.additionalDetails} />
             );
         }
         return (
@@ -125,7 +110,11 @@ export default class AdditionalInfo extends React.Component {
                                 accordionName="Competition Details"
                                 accordionIcon="chart-bar"
                                 accordionData={data.competitionDetails} />
-                            {additionalDetailsSection}
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Additional Details"
+                                accordionIcon="ellipsis-h"
+                                accordionData={data.additionalDetails} />
                         </div>
                     </div>
                 </div>

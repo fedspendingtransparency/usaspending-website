@@ -19,7 +19,7 @@
     text-align: left;
   }
 
-  &:hover {
+  &:hover, &:focus {
       .tooltip-popover {
         display: block;
 

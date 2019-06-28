@@ -25,6 +25,7 @@
             .accordion__content {
                 height: auto;
                 border: rem(2) solid $color-gray-lightest;
+                overflow: visible;
 
                 .accordion-table {
                     margin: 0;
@@ -47,6 +48,24 @@
 
                             &:last-child {
                                 font-weight: $font-light;
+                            }
+
+                            &.accordion-table__data_info-tooltip {
+                                @include display(flex);
+                                @import '../../../components/visualizations/tooltip/csstooltip';
+                                .tooltip-popover-container {
+                                    margin-left: rem(5);
+                                    color: $color-gray-lighter;
+                                    &:hover, &:focus {
+                                        color: $color-gray-medium;
+                                    }
+                                    .tooltip-popover {
+                                        // override the positioning to be centered over the icon
+                                        bottom: rem(35);
+                                        left: rem(-145);
+                                        font-size: $small-font-size;
+                                    }
+                                }
                             }
                         }
 

@@ -28,4 +28,25 @@ describe('BaseContractAdditionalDetails', () => {
     it('should return -- for null values', () => {
         expect(details.clingerCohenAct).toEqual('--');
     });
+    it('should return the string \'TRUE\' for true boolean values', () => {
+        const trueContractDetails = Object.assign({}, mockIdv.latest_transaction_contract_data, {
+            small_business_competitive: true
+        });
+        const updatedDetailsTrue = Object.create(BaseContractAdditionalDetails);
+        updatedDetailsTrue.populate(trueContractDetails);
+
+        expect(updatedDetailsTrue.smallBusinessCompetitive).toEqual('TRUE');
+    });
+    it('should return the string \'FALSE\' for true boolean values', () => {
+        expect(details.smallBusinessCompetitive).toEqual('FALSE');
+    });
+    it('should return \'--\' for null/undefined values', () => {
+        const nullContractDetails = Object.assign({}, mockIdv.latest_transaction_contract_data, {
+            small_business_competitive: null
+        });
+        const updatedDetailsNull = Object.create(BaseContractAdditionalDetails);
+        updatedDetailsNull.populate(nullContractDetails);
+
+        expect(updatedDetailsNull.smallBusinessCompetitive).toEqual('--');
+    });
 });
