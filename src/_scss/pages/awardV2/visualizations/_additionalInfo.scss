@@ -3,6 +3,7 @@
 
     .award__row {
         .award__col {
+            width: 100%;
             // Override space between columns when stacked in mobile
             &:first-child {
                 padding-bottom: 0;
@@ -36,6 +37,16 @@
 
                         td {
                             border: 0;
+                            vertical-align: top;
+
+                            .accordion-table__list {
+                                list-style-type: none;
+                                margin: 0;
+                                padding: 0;
+                                li {
+                                    margin: 0;
+                                }
+                            }
 
                             &:last-child {
                                 font-weight: $font-light;

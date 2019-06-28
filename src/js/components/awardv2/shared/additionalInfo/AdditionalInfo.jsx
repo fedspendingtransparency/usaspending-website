@@ -12,6 +12,7 @@ import additionalDetails from 'dataMapping/awardsv2/additionalDetails';
 import additionalDetailsIdv from 'dataMapping/awardsv2/additionalDetailsIdv';
 
 import Accordion from './Accordion';
+import RecipientDetails from './RecipientDetails';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 
 const propTypes = {
@@ -96,6 +97,9 @@ export default class AdditionalInfo extends React.Component {
                                 accordionData={awardData.executiveDetails.officers} />
                         </div>
                         <div className="award__col">
+                            <RecipientDetails
+                                data={this.props.overview.recipient}
+                                globalToggle={this.state.globalToggle} />
                             <Accordion
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Acquisition Details"
