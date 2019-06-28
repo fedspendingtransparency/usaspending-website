@@ -73,7 +73,12 @@ export default class ZIPField extends React.Component {
         return (
             <form
                 className="location-filter-form geo-entity-item"
-                onSubmit={this.submitForm}>
+                onSubmit={this.submitForm}
+                onFocus={this.showWarning}
+                onMouseEnter={this.showWarning}
+                onBlur={this.hideWarning}
+                onMouseLeave={this.hideWarning}
+                onChange={this.changedText}>
                 <div className="zip-field">
                     <label
                         className={`location-label ${disabledClass}`}
@@ -88,12 +93,7 @@ export default class ZIPField extends React.Component {
                             placeholder="Enter a ZIP code"
                             maxLength={5}
                             disabled={!this.props.isUSA}
-                            value={this.state.zip}
-                            onFocus={this.showWarning}
-                            onMouseEnter={this.showWarning}
-                            onBlur={this.hideWarning}
-                            onMouseLeave={this.hideWarning}
-                            onChange={this.changedText} />
+                            value={this.state.zip} />
                         <IndividualSubmit
                             className="zip-submit"
                             disabled={(!this.state.enabled || !this.props.isUSA)}
