@@ -5,8 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import EntityDropdown from './EntityDropdown';
 import ZIPField from './ZIPField';
+import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -51,12 +53,14 @@ export default class LocationPicker extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        const manuallyPopulatedStateChanged = (!prevProps.state.autoPopulated && (prevProps.state.code !== this.props.state.code));
         const stateChanged = (prevProps.state.code !== this.props.state.code);
         const countryChanged = (prevProps.country.code !== this.props.country.code);
-        const isCityInState = ( // if selected city is inside the selected state, don't clear the selected city!
+        const isCityInState = ( // selected city is w/in the selected state
             this.props.state.code === this.props.city.code &&
             this.props.state.code && this.props.city.code
         );
+        const cityDeselected = (prevProps.city.name && !this.props.city.name);
 
         if (countryChanged && this.props.country.code === "USA") {
             // user has selected USA, load the state list
@@ -73,17 +77,25 @@ export default class LocationPicker extends React.Component {
             this.props.clearCitiesAndSelectedCity();
         }
         if (stateChanged && this.props.state.code) {
-            // state code changed, load the counties & districts
+            // new state selected , load the corresponding counties & districts
             this.props.loadCounties(this.props.state.code.toLowerCase());
             this.props.loadDistricts(this.props.state.code.toLowerCase());
-            if (!isCityInState) {
+            if (!isCityInState) { // only clear the city if the new state does not contain selected city
                 this.props.clearCitiesAndSelectedCity();
             }
         }
         else if (stateChanged && !this.props.state.code) {
+            // manually selected state was removed, clear counties, districts & cities
             this.props.clearCounties();
             this.props.clearDistricts();
-            this.props.clearCitiesAndSelectedCity();
+            if (manuallyPopulatedStateChanged) {
+                this.props.clearCitiesAndSelectedCity();
+            }
+        }
+
+        if (cityDeselected && this.props.state.autoPopulated) {
+            // city was deselected which auto populated state selection, so clear the state selection
+            this.props.selectEntity('state', defaultLocationValues.state);
         }
     }
 
