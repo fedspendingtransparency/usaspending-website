@@ -245,6 +245,7 @@ export const mockIdv = {
         idv_type_description: 'test',
         type_of_idc_description: 'r3w',
         agency_id: '123',
+        agency_name: 'test',
         multiple_or_single_aw_desc: 'something',
         piid: '345'
     },
