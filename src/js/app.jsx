@@ -20,7 +20,7 @@ import {
     faChevronUp,
     faSpinner,
     faChevronDown,
-    faBuilding
+    faBuilding,
     faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
@@ -51,7 +51,7 @@ library.add(
     faChevronDown,
     faChevronUp,
     faSpinner,
-    faBuilding
+    faBuilding,
     faInfoCircle
 );
 
