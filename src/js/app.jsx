@@ -19,7 +19,8 @@ import {
     faAngleRight,
     faChevronUp,
     faSpinner,
-    faChevronDown
+    faChevronDown,
+    faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -48,7 +49,8 @@ library.add(
     faAngleRight,
     faChevronDown,
     faChevronUp,
-    faSpinner
+    faSpinner,
+    faInfoCircle
 );
 
 const appDiv = document.getElementById('app');
