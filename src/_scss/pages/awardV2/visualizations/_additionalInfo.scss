@@ -3,6 +3,7 @@
 
     .award__row {
         .award__col {
+            width: 100%;
             // Override space between columns when stacked in mobile
             &:first-child {
                 padding-bottom: 0;
