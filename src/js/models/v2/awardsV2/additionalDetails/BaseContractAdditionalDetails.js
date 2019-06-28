@@ -13,12 +13,24 @@ const parseCodeAndDescription = (code, description) => {
     return '--';
 };
 
+const handleBoolean = (value) => {
+    // differentiate between null/undefined and false values for boolean fields
+    if (value) {
+        return 'TRUE';
+    }
+    else if (value === false) {
+        return 'FALSE';
+    }
+    return '--';
+};
+
 const BaseContractAdditionalDetails = {
     populate(data) {
         // Parent Award Details
         this.idvType = data.idv_type_description || '--';
         this.idcType = data.type_of_idc_description || '--';
         this.idvAgencyId = data.referenced_idv_agency_iden || '--';
+        this.idvAgencyName = data.referenced_idv_agency_desc || '--';
         this.multipleIdv = data.multiple_or_single_award_description || '--';
 
         // Competition Details
@@ -35,7 +47,7 @@ const BaseContractAdditionalDetails = {
         this.commercialTestProgram = data.commercial_item_test_program_description || '--';
         this.evaluatedPreference = data.evaluated_preference_description || '--';
         this.fedBizOpps = data.fed_biz_opps_description || '--';
-        this.smallBusinessCompetitive = (data.small_business_competitive && 'Yes') || 'No';
+        this._smallBusinessCompetitive = data.small_business_competitive;
         this.fairOpportunityLimitedSources = data.fair_opportunity_limited_description || '--';
 
         // Product or Service Details
@@ -96,6 +108,9 @@ const BaseContractAdditionalDetails = {
     },
     get dodClaimantProgram() {
         return parseCodeAndDescription(this._dodClaimantCode, this._dodClaimantDescription);
+    },
+    get smallBusinessCompetitive() {
+        return handleBoolean(this._smallBusinessCompetitive);
     }
 };
 

@@ -97,6 +97,10 @@ $obligated-green: #94BFA2;
                     background-color: $obligated-green;
                 }
             }
+            .visualization-legend__label {
+              @include flex(0 0 auto);
+              padding-right: rem(45);
+            }
         }
         .activity-chart {
           .activity-chart-body {
