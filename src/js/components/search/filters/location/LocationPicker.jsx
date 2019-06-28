@@ -151,6 +151,8 @@ export default class LocationPicker extends React.Component {
     }
 
     render() {
+        const isUSA = this.props.country.code === "USA";
+
         const isCityEnabled = (
             this.props.country.code !== "" &&
             !this.props.county.code &&
@@ -166,7 +168,6 @@ export default class LocationPicker extends React.Component {
             !this.props.county.code &&
             !this.props.city.code
         );
-        const isStateEnabled = (this.props.country.code === 'USA');
 
         let districtPlaceholder = 'Select a congressional district';
         if (this.props.state.code !== '' && this.props.availableDistricts.length === 0) {
@@ -210,7 +211,7 @@ export default class LocationPicker extends React.Component {
                             value={this.props.state}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableStates}
-                            enabled={isStateEnabled}
+                            enabled={isUSA}
                             generateWarning={this.generateWarning} />
                     </div>
                     <div className="location-item">
@@ -261,9 +262,15 @@ export default class LocationPicker extends React.Component {
                     </button>
                 </form>
                 <hr className="location-picker-divider" />
-                <ZIPField
-                    zip={this.props.zip}
-                    validateZip={this.props.validateZip} />
+                <div className="location-item">
+                    <div className="geo-entity-item">
+                        <ZIPField
+                            generateWarning={this.generateWarning}
+                            isUSA={isUSA}
+                            zip={this.props.zip}
+                            validateZip={this.props.validateZip} />
+                    </div>
+                </div>
             </div>
         );
     }
