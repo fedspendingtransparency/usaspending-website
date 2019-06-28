@@ -11,7 +11,8 @@ const propTypes = {
     width: PropTypes.number,
     yPosition: PropTypes.number,
     description: PropTypes.string,
-    data: PropTypes.object
+    classNames: PropTypes.object,
+    isObligated: PropTypes.bool
 };
 
 export default class ActivityChartBar extends React.Component {
@@ -24,7 +25,8 @@ export default class ActivityChartBar extends React.Component {
     }
 
     render() {
-        // TODO: use this.props.data to create the green obligated section
+        let classNames = 'activity-chart-bar__awarded-content';
+        if (this.props.isObligated) classNames = 'activity-chart-bar__obligated-content';
         return (
             <g
                 className="activity-chart-bar"
@@ -33,7 +35,7 @@ export default class ActivityChartBar extends React.Component {
                     {this.props.description}
                 </desc>
                 <rect
-                    className="activity-chart-bar__content"
+                    className={classNames}
                     x={this.props.start}
                     y={this.props.yPosition}
                     width={this.props.width}
