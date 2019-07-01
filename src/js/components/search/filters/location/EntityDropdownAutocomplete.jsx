@@ -12,6 +12,7 @@ const propTypes = {
     placeholder: PropTypes.string,
     openDropdown: PropTypes.func,
     handleTextInputChange: PropTypes.func,
+    handleOnKeyDown: PropTypes.func,
     toggleDropdown: PropTypes.func,
     context: PropTypes.shape({}), // the $this variable of the parent, used to create a ref
     expanded: PropTypes.bool,
@@ -32,7 +33,8 @@ export const EntityDropdownAutocomplete = ({
     toggleDropdown,
     placeholder,
     context, // the $this variable
-    loading
+    loading,
+    handleOnKeyDown
 }) => (
     <div className="autocomplete__input">
         <input
@@ -41,6 +43,7 @@ export const EntityDropdownAutocomplete = ({
             type="text"
             value={searchString}
             onClick={openDropdown}
+            onKeyDown={handleOnKeyDown}
             onChange={handleTextInputChange}
             placeholder={placeholder}
             ref={(dropdown) => {

@@ -1,10 +1,10 @@
 /**
- * additionalDetails.js
- * Created by Kwadwo Opoku-Debrah 12/17/18
+ * additionalDetailsIdv.js
+ * Created by Lizzie Salita 6/20/19
  */
 
 const additionalDetails = (awardData) => {
-    const periodOfPerformanceData = awardData.periodOfPerformance;
+    const periodOfPerformanceData = awardData.dates;
     const parentAwardDetails = awardData.parentAwardDetails;
     const data = {
         agencyDetails: {
@@ -18,20 +18,12 @@ const additionalDetails = (awardData) => {
         parentAwardDetails: {
             'Parent Award ID': parentAwardDetails ? parentAwardDetails.piid : '',
             'Parent IDV Type': parentAwardDetails ? parentAwardDetails.idvType : '',
-            'Parent IDV Agency Name': parentAwardDetails ? parentAwardDetails.agencyId : '',
+            'Parent IDV Agency Name': parentAwardDetails ? parentAwardDetails.agencyName : '',
             'Multiple Or Single Parent Award IDV': parentAwardDetails ? parentAwardDetails.multipleOrSingle : ''
-        },
-        placeOfPerformance: {
-            City: awardData.placeOfPerformance._city,
-            State: awardData.placeOfPerformance._state,
-            County: awardData.placeOfPerformance._county,
-            'Zip Code': awardData.placeOfPerformance._zip,
-            'Congressional District': awardData.placeOfPerformance._congressionalDistrict
         },
         periodOfPerformance: {
             'Start Date': periodOfPerformanceData.startDate,
-            'Current End Date': periodOfPerformanceData.endDate,
-            'Potential End Date': periodOfPerformanceData.lastModifiedDate
+            'Ordering Period End Date': periodOfPerformanceData.endDate
         },
         legislativeMandates: {
             'Clinger-Cohen Act Compliant': awardData.additionalDetails.clingerCohenAct,
@@ -43,8 +35,6 @@ const additionalDetails = (awardData) => {
             'Product Service Code (PSC)': awardData.additionalDetails.pscCode,
             'NAICS Code': awardData.additionalDetails.naicsCode,
             'DoD Claimant Code': awardData.additionalDetails.dodClaimantProgram,
-            'DOD Acquisition Program': awardData.additionalDetails.dodAcquisitionProgram,
-            'Information Technology Commercial Item Category': awardData.additionalDetails.infoTechCommercialItem,
             'Sea Transportation': awardData.additionalDetails.seaTransport
         },
         competitionDetails: {
@@ -70,11 +60,9 @@ const additionalDetails = (awardData) => {
             'Foreign Funding': awardData.additionalDetails.foreignFunding,
             'Interagency Contracting Authority': awardData.additionalDetails.interagencyContactingAuthority,
             'Major Program': awardData.additionalDetails.majorProgram,
-            'Price Evaluation Adjustment Preference Percent Difference': awardData.additionalDetails.priceEvaluationAdjustmentPreference,
             'Program Acronym': awardData.additionalDetails.programAcronym,
             'Subcontracting Plan': awardData.additionalDetails.subcontractingPlan,
             'Multi Year Contract': awardData.additionalDetails.multiYearContract,
-            'Purchase Card as Payment Method': awardData.additionalDetails.purchaseCardAsPaymentMethod,
             'Consolidated Contract': awardData.additionalDetails.consolidated
         }
     };

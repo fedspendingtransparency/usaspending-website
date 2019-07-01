@@ -30,6 +30,7 @@ export const mockContract = {
         recipient_hash: '1023984-C',
         recipient_unique_id: 123223,
         parent_recipient_unique_id: 234242,
+        parent_recipient_name: 'HoneyWell',
         location: {
             address_line1: '1515 EUBANK BLVD. SE',
             address_line2: 'P.O. BOX 5800, MS-0180, 87185-0180',
@@ -45,7 +46,6 @@ export const mockContract = {
             location_country_code: null,
             congressional_code: null
         },
-        recipient_parent_name: 'HoneyWell',
         business_categories: ['Testing 1', 'Testing 2']
     },
     period_of_performance: {
@@ -222,6 +222,8 @@ export const mockIdv = {
         recipient_hash: '1023984-C',
         recipient_unique_id: '123223',
         parent_recipient_unique_id: '234242',
+        parent_recipient_name: 'HoneyWell',
+        parent_recipient_hash: '98765432-P',
         location: {
             address_line1: '1515 EUBANK BLVD. SE',
             address_line2: 'P.O. BOX 5800, MS-0180, 87185-0180',
@@ -237,7 +239,6 @@ export const mockIdv = {
             location_country_code: null,
             congressional_code: null
         },
-        parent_recipient_name: 'HoneyWell',
         business_categories: ['Testing 1', 'Testing 2']
     },
     parent_award: {
@@ -245,6 +246,7 @@ export const mockIdv = {
         idv_type_description: 'test',
         type_of_idc_description: 'r3w',
         agency_id: '123',
+        agency_name: 'test',
         multiple_or_single_aw_desc: 'something',
         piid: '345'
     },
