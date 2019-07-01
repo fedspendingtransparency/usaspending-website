@@ -13,7 +13,7 @@ describe('Aggregated Amounts helper functions', () => {
                 _combinedCurrentAwardAmounts: 75,
                 _combinedPotentialAwardAmounts: 100
             };
-            const mockedScenario = AggregatedAmountsHelper.determineScenario(mockAmounts);
+            const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
             expect(mockedScenario).toEqual("normal");
         });
 
@@ -23,7 +23,7 @@ describe('Aggregated Amounts helper functions', () => {
                 _combinedCurrentAwardAmounts: 50,
                 _combinedPotentialAwardAmounts: 100
             };
-            const mockedScenario = AggregatedAmountsHelper.determineScenario(mockAmounts);
+            const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
             expect(mockedScenario).toEqual("exceedsCurrent");
         });
 
@@ -33,7 +33,7 @@ describe('Aggregated Amounts helper functions', () => {
                 _combinedCurrentAwardAmounts: 50,
                 _combinedPotentialAwardAmounts: 75
             };
-            const mockedScenario = AggregatedAmountsHelper.determineScenario(mockAmounts);
+            const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
             expect(mockedScenario).toEqual("exceedsPotential");
         });
 
@@ -43,7 +43,7 @@ describe('Aggregated Amounts helper functions', () => {
                 _combinedCurrentAwardAmounts: 75,
                 _combinedPotentialAwardAmounts: 100
             };
-            const mockedScenario = AggregatedAmountsHelper.determineScenario(mockAmounts);
+            const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
             expect(mockedScenario).toEqual("insufficientData");
         });
 
@@ -53,7 +53,7 @@ describe('Aggregated Amounts helper functions', () => {
                 _combinedCurrentAwardAmounts: 100,
                 _combinedPotentialAwardAmounts: 75
             };
-            const mockedScenario = AggregatedAmountsHelper.determineScenario(mockAmounts);
+            const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
             expect(mockedScenario).toEqual("insufficientData");
         });
     });
