@@ -1,10 +1,94 @@
 $obligated-green: #94BFA2;
 .idv-activity {
-    width: 100%;
+  width: 100%;
     .award__col__content {
+      @import '../../../search/results/table/tableMessages';
+      .results-table-message-container {
+        position: relative;
+        background-color: rgb(246, 246, 246);
+        .results-table-loading {
+          margin-bottom: rem(100);
+        }
+        .no-results-container {
+          text-align: center;
+          margin-top: rem(100);
+          margin-bottom: rem(100);
+          .no-results-title {
+            h4 {
+              margin-bottom: 0;
+              vertical-align: bottom;
+            }
+          }
+          .no-results-message {
+            p {
+              margin-top: 0;
+              vertical-align: top;
+            }
+          }
+        }
+        .loading-animation {
+            @import "../../../search/results/screens/loading";
+        }
+      }
       .activity-visualization {
         @import '../../../../components/pagination';
         @import '../../../../components/visualizations/legend';
+        .visualization-tooltip {
+          @import "components/visualizations/tooltip/_tooltip";
+          .tooltip {
+            box-shadow: 0 0 10px rgba(174, 176, 180, 0.9);
+            border-radius: 6px;
+            border: none;
+            pointer-events: visible;
+            font-size: rem(14rem);
+            color: #555;
+            background-color: #f5f5f5;
+            min-width: 310px;
+            .tooltip-title {
+              color: #444444;
+              background-color: #f5f5f5;
+              text-align: left;
+              font-weight: normal;
+              padding: 0 0 0 rem(10em);
+              margin-bottom: 0;
+              margin-top: rem(7.5em);
+            }
+            .tooltip-body {
+              @include display(flex);
+              padding: 0 0 rem(7.5em) rem(10rem);
+              .tooltip-body__row {
+                @include display(flex);
+                @include flex-basis(100%);
+                @include justify-content(left);
+                .tooltip-body__row-info {
+                  padding-bottom: rem(5em);
+                  .tooltip-body__row-info-title {
+                    color: #444444;
+                    font-size: rem(13rem);
+                    white-space: nowrap;
+                    padding-bottom: rem(0.3em);
+                    margin-top: rem(4em);
+                    margin-bottom: 0;
+                  }
+                  .tooltip-body__row-info-data {
+                    white-space: nowrap;
+                    a {
+                      white-space: nowrap;
+                    }
+                  }
+                }
+                .tooltip-body__row-info:nth-child(1) {
+                  padding-right: rem(30em);
+                }
+                .tooltip-body__row-info {
+                  &.second-child {
+                    padding-right: rem(30em);
+                  }
+                }
+              }
+            }
+          }
+        }
         .visualization-legend {
             .visualization-legend__circle {
                 background-color: #D8D8D8;
@@ -12,15 +96,31 @@ $obligated-green: #94BFA2;
                     background-color: $obligated-green;
                 }
             }
+            .visualization-legend__label {
+              @include flex(0 0 auto);
+              padding-right: rem(45);
+            }
         }
         .activity-chart {
-          .activity-chart-bar {
-            padding: rem(10) 0;
-            .activity-chart-bar__awarded-content {
-                fill: #D8D8D8;
+          .activity-chart-body {
+            .activity-chart-data {
+              .activity-chart-bar-container:hover .activity-chart-bar__awarded-content {
+                stroke: #3676b6;
+                stroke-width: 1;
+              }
+              .activity-chart-bar {
+                padding: rem(10) 0;
+                .activity-chart-bar__awarded-content {
+                  fill: #D8D8D8;
+                }
+                .activity-chart-bar__obligated-content {
+                  fill: $obligated-green;
+                }
+              }
             }
-            .activity-chart-bar__obligated-content {
-              fill: $obligated-green;
+            .axis {
+              stroke: rgb(0,0,0);
+              stroke-width: 1;
             }
           }
         }

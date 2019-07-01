@@ -15,8 +15,12 @@ export class IdvActivityContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            page: 1,
+            hasNext: false,
+            hasPrevious: null,
             limit: 10,
+            next: 0,
+            page: 1,
+            previous: null,
             total: 0,
             awards: [],
             xSeries: [],
@@ -55,6 +59,12 @@ export class IdvActivityContainer extends React.Component {
         try {
             const { data } = await this.idvActivityRequest.promise;
             this.setState({
+                hasNext: data.page_metadata.hasNext,
+                hasPrevious: data.page_metadata.hasPrevious,
+                limit: data.page_metadata.limit,
+                next: data.page_metadata.next,
+                page: data.page_metadata.page,
+                previous: data.page_metadata.previous,
                 total: data.page_metadata.total,
                 error: false
             }, () => this.parseAwards(data.results));

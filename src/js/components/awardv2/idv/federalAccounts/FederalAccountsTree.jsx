@@ -157,7 +157,6 @@ export default class FederalAccountsTree extends React.Component {
         else if (type === 'subtitle') {
             labelWidth = measureTreemapValue(text);
         }
-
         // check to see if the full label will fit
         if (labelWidth > maxWidth) {
             // label won't fit, let's cut it down

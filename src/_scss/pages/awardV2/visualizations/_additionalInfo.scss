@@ -3,6 +3,7 @@
 
     .award__row {
         .award__col {
+            width: 100%;
             // Override space between columns when stacked in mobile
             &:first-child {
                 padding-bottom: 0;
@@ -25,6 +26,7 @@
             .accordion__content {
                 height: auto;
                 border: rem(2) solid $color-gray-lightest;
+                overflow: visible;
 
                 .accordion-table {
                     margin: 0;
@@ -35,9 +37,37 @@
 
                         td {
                             border: 0;
+                            vertical-align: top;
+
+                            .accordion-table__list {
+                                list-style-type: none;
+                                margin: 0;
+                                padding: 0;
+                                li {
+                                    margin: 0;
+                                }
+                            }
 
                             &:last-child {
                                 font-weight: $font-light;
+                            }
+
+                            &.accordion-table__data_info-tooltip {
+                                @include display(flex);
+                                @import '../../../components/visualizations/tooltip/csstooltip';
+                                .tooltip-popover-container {
+                                    margin-left: rem(5);
+                                    color: $color-gray-lighter;
+                                    &:hover, &:focus {
+                                        color: $color-gray-medium;
+                                    }
+                                    .tooltip-popover {
+                                        // override the positioning to be centered over the icon
+                                        bottom: rem(35);
+                                        left: rem(-145);
+                                        font-size: $small-font-size;
+                                    }
+                                }
                             }
                         }
 
