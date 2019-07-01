@@ -202,7 +202,7 @@ export default class IdvActivityTooltip extends React.Component {
                                     PIID
                                 </h6>
                                 <div className="tooltip-body__row-info-data">
-                                    {this.getLinks(`award/${data.piid}`, data.piid)}
+                                    {this.getLinks(`award/${data.id}`, data.piid)}
                                 </div>
                             </div>
                             <div className="tooltip-body__row-info">
@@ -213,7 +213,7 @@ export default class IdvActivityTooltip extends React.Component {
                                     {
                                         this.getLinks(
                                             `award/${data.parentAwardId}`,
-                                            data.parentAwardId
+                                            data.parentAwardPIID
                                         )
                                     }
                                 </div>
