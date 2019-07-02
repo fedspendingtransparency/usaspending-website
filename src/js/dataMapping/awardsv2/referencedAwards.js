@@ -14,9 +14,9 @@ export const referencedAwardsColumns = {
             field: 'piid'
         },
         {
-            name: 'agency',
-            label: 'Contracting Agency',
-            field: 'funding_agency'
+            name: 'awardingAgency',
+            label: 'Awarding Agency',
+            field: 'awarding_agency'
         },
         {
             name: 'awardType',
@@ -51,9 +51,9 @@ export const referencedAwardsColumns = {
             field: 'piid'
         },
         {
-            name: 'agency',
-            label: 'Contracting Agency',
-            field: 'funding_agency'
+            name: 'awardingAgency',
+            label: 'Awarding Agency',
+            field: 'awarding_agency'
         },
         {
             name: 'awardType',
@@ -88,9 +88,9 @@ export const referencedAwardsColumns = {
             field: 'piid'
         },
         {
-            name: 'agency',
-            label: 'Contracting Agency',
-            field: 'funding_agency'
+            name: 'awardingAgency',
+            label: 'Awarding Agency',
+            field: 'awarding_agency'
         },
         {
             name: 'awardType',

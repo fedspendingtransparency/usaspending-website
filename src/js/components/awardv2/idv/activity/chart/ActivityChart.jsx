@@ -16,7 +16,6 @@ const propTypes = {
     awards: PropTypes.array,
     height: PropTypes.number,
     width: PropTypes.number,
-    itemHeight: PropTypes.number,
     xSeries: PropTypes.array,
     ySeries: PropTypes.array,
     padding: PropTypes.object,
@@ -99,18 +98,38 @@ export default class ActivityChart extends React.Component {
             const start = xScale(bar._startDate.valueOf()) + padding.left;
             const end = xScale(bar._endDate.valueOf()) + padding.left;
             const width = end - start;
+            // create a scale for obligated amount width using awarded amount
+            // and the awarded amount width
+            const obligatedAmountScale = scaleLinear()
+                .domain([0, bar._awardedAmount])
+                .range([0, width])
+                .nice();
+            // scale the abligated amount to create the correct width
+            const obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
             const yPosition = (height - 30) - yScale(bar._awardedAmount) - barHeight;
             const description = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, an awarded amount of ${bar.awardedAmount}, and an obligated amount of ${bar.obligatedAmount}.`;
+
             return (
-                <ActivityChartBar
+                <g
                     key={`bar-${bar._awardedAmount}-${index}`}
-                    index={index}
-                    height={barHeight}
-                    start={start}
-                    width={width}
-                    yPosition={yPosition}
-                    data={bar}
-                    description={description} />
+                    description={description}>
+                    {/* awarded amount bar */}
+                    <ActivityChartBar
+                        index={index}
+                        height={barHeight}
+                        start={start}
+                        width={width}
+                        yPosition={yPosition} />
+                    {/* obligated amount bar */}
+                    <ActivityChartBar
+                        isObligated
+                        key={`bar-${bar._obligatedAmount}-${bar.id}`}
+                        index={index}
+                        height={barHeight}
+                        start={start}
+                        width={obligatedAmountWidth}
+                        yPosition={yPosition} />
+                </g>
             );
         });
 
