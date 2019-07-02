@@ -75,7 +75,7 @@ export default class ActivityXAxis extends React.Component {
         const labels = props.ticks.map((tick, i) => {
             // calculate the X position
             // D3 scale returns the tick positions as pixels from the start of the axis
-            const xPos = props.scale(tick);
+            const xPos = props.scale(tick) + this.props.padding.left;
 
             return (<ActivityXAxisItem
                 x={xPos}
