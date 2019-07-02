@@ -102,6 +102,7 @@ export class IdvActivityContainer extends React.Component {
 
     changePage(page) {
         this.setState({
+            inFlight: true,
             page
         }, () => this.loadAwards());
     }
