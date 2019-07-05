@@ -15,13 +15,13 @@ const BaseIdvActivityBar = {
         this.parentGeneratedId = data.parent_generated_unique_award_id || '--';
         this.parentAwardPIID = data.parent_award_piid || '--';
         this.awardingAgencyId = (data.awarding_agency_id && `${data.awarding_agency_id}`) || '--';
-        this._endDate = data.period_of_performance_ultimate_end_date ?
-            parseDate(data.period_of_performance_ultimate_end_date) : '--';
+        this._endDate = data.period_of_performance_potential_end_date ?
+            parseDate(data.period_of_performance_potential_end_date) : null;
         this._awardedAmount = data.awarded_amount || 0;
         this._obligatedAmount = data.obligated_amount || 0;
         this._startDate =
         data.period_of_performance_start_date ?
-            parseDate(data.period_of_performance_start_date) : '--';
+            parseDate(data.period_of_performance_start_date) : null;
         this.piid = data.piid || '--';
         this.recipientName = data.recipient_name || '--';
         this.recipientId = data.recipient_id || '--';
@@ -40,10 +40,10 @@ const BaseIdvActivityBar = {
         ${units.unitLabel}`;
     },
     get startDate() {
-        return (this._startDate !== '--') ? formatDate(this._startDate) : this._endDate;
+        return this._startDate ? formatDate(this._startDate) : '--';
     },
     get endDate() {
-        return (this._endDate !== '--') ? formatDate(this._endDate) : this._endDate;
+        return this._endDate ? formatDate(this._endDate) : '--';
     }
 };
 
