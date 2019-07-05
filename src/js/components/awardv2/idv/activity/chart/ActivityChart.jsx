@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { isEqual, min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
+import VerticalTodayLine from '../../../../sharedComponents/VerticalTodayLine';
 import ActivityChartBar from './ActivityChartBar';
 import ActivityXAxis from './ActivityXAxis';
 import ActivityYAxis from './ActivityYAxis';
@@ -178,32 +179,43 @@ export default class ActivityChart extends React.Component {
             xTicks: xScale.ticks(5)
         });
     }
+
     render() {
+        const { width, height, padding } = this.props;
+        const { xScale, xRange } = this.state;
         return (
             <svg
                 className="activity-chart"
-                width={this.props.width}
-                height={this.props.height + 45}>
+                width={width}
+                height={height + 45}>
                 <g
                     className="activity-chart-body"
                     transform="translate(0,45)">
                     <ActivityYAxis
-                        height={this.props.height - this.props.padding.bottom}
-                        width={this.props.width - this.props.padding.left}
+                        height={height - padding.bottom}
+                        width={width - padding.left}
                         barHeight={this.props.barHeight}
-                        padding={this.props.padding}
+                        padding={padding}
                         data={this.props.ySeries}
                         scale={this.state.yScale}
                         ticks={this.state.yTicks} />
                     <ActivityXAxis
-                        height={this.props.height - this.props.padding.bottom}
-                        width={this.props.width - this.props.padding.left}
-                        padding={this.props.padding}
+                        height={height - padding.bottom}
+                        width={width - padding.left}
+                        padding={padding}
                         ticks={this.state.xTicks}
-                        scale={this.state.xScale} />
+                        scale={xScale} />
                     <g
                         className="activity-chart-data">
                         {this.state.bars}
+                        {xScale && <VerticalTodayLine
+                            xScale={xScale}
+                            y1={0}
+                            y2={height - 30}
+                            xMax={xRange[1]}
+                            xMin={xRange[0]}
+                            padding={padding.left}
+                            usePadding />}
                     </g>
                 </g>
             </svg>

@@ -1,5 +1,6 @@
 $obligated-green: #94BFA2;
 .idv-activity {
+  @import '../../../../components/verticalTodayLine';
   width: 100%;
     .award__col__content {
       @import '../../../search/results/table/tableMessages';
@@ -121,7 +122,14 @@ $obligated-green: #94BFA2;
             }
             .axis {
               stroke: rgb(0,0,0);
-              stroke-width: 1;
+              stroke-width: 0.2;
+              shape-rendering: crispEdges;
+            }
+            .y-axis__text {
+              font-size: rem(14rem);
+            }
+            .x-axis__text {
+              font-size: rem(14rem);
             }
           }
         }
