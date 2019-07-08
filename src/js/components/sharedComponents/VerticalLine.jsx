@@ -16,7 +16,7 @@ const propTypes = {
     xMin: PropTypes.number, // max possible value of x
     xValue: PropTypes.number, // actual value of x
     showTextRight: PropTypes.bool, // show text to the right of line
-    showTextleft: PropTypes.bool, // show text to the left of line
+    showTextLeft: PropTypes.bool, // show text to the left of line
     textY: PropTypes.number, // show text at this height
     description: PropTypes.string
 };
@@ -33,7 +33,7 @@ export default class VerticalLine extends Component {
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
         this.textDiv = null;
         // React will call this function when the DOM draws it ( React Callback Refs )
-        this.setTextDiv = element => {
+        this.setTextDiv = (element) => {
             this.textDiv = element;
             this.positionText();
         };
