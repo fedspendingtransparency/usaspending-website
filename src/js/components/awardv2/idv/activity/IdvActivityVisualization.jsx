@@ -160,6 +160,13 @@ export default class IdvActivityVisualization extends React.Component {
                         Funding Remaining
                     </div>
                 </div>
+                <div className="activity-visualization-note">
+                    <p>
+                        <strong>Note: </strong>
+                        if an award has a zero or negative obligated amount,
+                        or is missing an end date, it is not displayed in this chart.
+                    </p>
+                </div>
             </div>
         );
     }
