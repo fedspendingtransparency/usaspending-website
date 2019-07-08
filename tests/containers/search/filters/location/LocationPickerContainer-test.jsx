@@ -205,6 +205,7 @@ describe('LocationPickerContainer', () => {
 
     describe('createLocationObject', () => {
         describe('location identifiers', () => {
+            // COUNTRY IDENTIFIER
             it('should create an identifier that is equal to the country code if only a country is selected', () => {
                 const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
                 container.setState({
@@ -217,6 +218,7 @@ describe('LocationPickerContainer', () => {
                 const location = container.instance().createLocationObject();
                 expect(location.identifier).toEqual('ABC');
             });
+            // STATE IDENTIFIER
             it('should create an identifier that contains the country code and state code if a state is selected', () => {
                 const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
                 container.setState({
@@ -234,6 +236,7 @@ describe('LocationPickerContainer', () => {
                 const location = container.instance().createLocationObject();
                 expect(location.identifier).toEqual('ABC_AK');
             });
+            // COUNTY IDENTIFIER
             it('should create an identifier that contains the country, state, and county codes if a county is selected', () => {
                 const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
                 container.setState({
@@ -257,6 +260,7 @@ describe('LocationPickerContainer', () => {
                 const location = container.instance().createLocationObject();
                 expect(location.identifier).toEqual('ABC_AK_000');
             });
+            // DISTRICT IDENTIFIER
             it('when a district is selected -- identifier should contain the country, state, and district codes', () => {
                 const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
                 container.setState({
@@ -279,6 +283,8 @@ describe('LocationPickerContainer', () => {
                 const location = container.instance().createLocationObject();
                 expect(location.identifier).toEqual('ABC_AK_99');
             });
+
+            // CITY IDENTIFIER
             it('when a city is selected -- identifier should contain the city details', () => {
                 const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
                 container.setState({
@@ -296,37 +302,38 @@ describe('LocationPickerContainer', () => {
                 const location = container.instance().createLocationObject();
                 expect(location.identifier).toEqual('ABC_TST_test');
             });
-        });
-
-        it('should handle cities with commas', () => {
-            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.setState({
-                country: {
-                    code: 'GBR',
-                    name: 'United Kingdom'
-                },
-                city: {
-                    code: "GBR",
-                    name: "London, Kent"
-                }
-            });
-
-            const location = container.instance().createLocationObject();
-            expect(location).toEqual({
-                identifier: 'GBR_London, Kent',
-                display: {
-                    title: 'London, Kent',
-                    entity: 'City',
-                    standalone: 'London, Kent'
-                },
-                filter: {
-                    country: 'GBR',
-                    city: 'London, Kent'
-                }
+            // CITY w/ COMMAS IDENTIFIER
+            it('should handle cities with commas', () => {
+                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+                container.setState({
+                    country: {
+                        code: 'GBR',
+                        name: 'United Kingdom'
+                    },
+                    city: {
+                        code: "GBR",
+                        name: "London, Kent"
+                    }
+                });
+    
+                const location = container.instance().createLocationObject();
+                expect(location).toEqual({
+                    identifier: 'GBR_London, Kent',
+                    display: {
+                        title: 'London, Kent',
+                        entity: 'City',
+                        standalone: 'London, Kent'
+                    },
+                    filter: {
+                        country: 'GBR',
+                        city: 'London, Kent'
+                    }
+                });
             });
         });
 
         describe('API filter object', () => {
+            // COUNTRY API REQUEST OBJECT
             it('should create a filter object that contains only the country code if only a country is selected', () => {
                 const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
                 container.setState({
@@ -341,6 +348,7 @@ describe('LocationPickerContainer', () => {
                     country: 'ABC'
                 });
             });
+            // STATE API REQUEST OBJECT
             it('should create filter object that contains the country code and state code if a state is selected', () => {
                 const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
                 container.setState({
@@ -361,6 +369,7 @@ describe('LocationPickerContainer', () => {
                     state: 'AK'
                 });
             });
+            // COUNTY API REQUEST OBJECT
             it('should create a filter object that contains the country, state, and county codes if a county is selected', () => {
                 const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
                 container.setState({
@@ -388,6 +397,7 @@ describe('LocationPickerContainer', () => {
                     county: '000'
                 });
             });
+            // DISTRICT API REQUEST OBJECT
             it('should create a filter object that contains the country, state, and district codes if a district is selected', () => {
                 const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
                 container.setState({
@@ -414,6 +424,7 @@ describe('LocationPickerContainer', () => {
                     district: '99'
                 });
             });
+            // CITY API REQUEST OBJECT
         });
 
 
