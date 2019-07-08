@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { isEqual, min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
-import VerticalTodayLine from '../../../../sharedComponents/VerticalTodayLine';
+import VerticalLine from '../../../../sharedComponents/VerticalLine';
 import ActivityChartBar from './ActivityChartBar';
 import ActivityXAxis from './ActivityXAxis';
 import ActivityYAxis from './ActivityYAxis';
@@ -207,7 +207,8 @@ export default class ActivityChart extends React.Component {
                         scale={xScale} />
                     <g
                         className="activity-chart-data">
-                        {xScale && <VerticalTodayLine
+                        {/* Today Line */}
+                        {xScale && <VerticalLine
                             xScale={xScale}
                             y1={-10}
                             y2={height - 30}

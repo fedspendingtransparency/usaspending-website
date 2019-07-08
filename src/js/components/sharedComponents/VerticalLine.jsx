@@ -21,7 +21,7 @@ const propTypes = {
     description: PropTypes.string
 };
 
-export default class VerticalTodayLine extends Component {
+export default class VerticalLine extends Component {
     constructor(props) {
         super(props);
 
@@ -98,17 +98,17 @@ export default class VerticalTodayLine extends Component {
         if ((xValue > xMax) && (xValue < xMin)) return null;
         const linePosition = this.positionLine();
         return (
-            <g className="vertical-today-line__container">
+            <g className="vertical-line__container">
                 <desc>{this.description}</desc>
                 <text
-                    id="vertical-today-line__text"
+                    id="vertical-line__text"
                     x={this.state.textX}
                     y={this.state.textY}
                     ref={this.setTextDiv}>
                     {text || 'Today'}
                 </text>
                 <line
-                    id="vertical-today-line"
+                    id="vertical-line"
                     x1={linePosition}
                     x2={linePosition}
                     y1={y1}
@@ -118,4 +118,4 @@ export default class VerticalTodayLine extends Component {
     }
 }
 
-VerticalTodayLine.propTypes = propTypes;
+VerticalLine.propTypes = propTypes;
