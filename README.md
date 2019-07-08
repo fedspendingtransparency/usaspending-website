@@ -51,27 +51,9 @@ Assumptions:
         $ npm install
 
 
-### Create Configurations
+### Configuration File
 
-The `usaspending-website` folder provides three sample `GlobalConstants` files:
-
- * `sampleGlobalConstants_dev.js`
- * `sampleGlobalConstants_prod.js`.
-
-Use these sample files to create files named `GlobalConstants_dev.js` and `GlobalConstants_prod.js` respectively.
-
-You **must** have *both* `GlobalConstants_dev.js` and `GlobalConstants_prod.js` created before building the application. 
-
-The sample files require you to provide values for:
-
-* `API` (string) is the base API URL for the server that is hosting the API.
-	* The USAspending API is located at `https://api.usaspending.gov/api/`, with the trailing slash included.
-* `DEV` (boolean) indicates if you are running the application in development mode or for production use. Enabling development mode activates certain debugging functionality at the expense of some performance.
-* `PERF_LOG` (boolean) indicates if you want to enable performance logging data in the JavaScript console. This requires `DEV` to be enabled as well.
-
-`DEV` and `PERF_LOG` should be disabled when deploying to a hosted public, staging, or production environment.
-
-**TIP!** You can use separate `GlobalConstants_dev.js` and `GlobalConstants_prod.js` files to point to different API endpoints that align with different environments.
+The `usaspending-website` folder provides a single configuration file named `GlobalConstants.js`. Here you may adjust the `API` property to use either a local api or the production api.
 
 ### Build Application
 
@@ -84,7 +66,7 @@ If you are building the web site for a hosted production environment, run:
 ```bash
 	$ npm run prod
 ```
-This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and the `GlobalConstants_prod.js` file is used as the GlobalConstants file.
+This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and the `GlobalConstants.js` file will use the production api.
 
 #### Local Development
 
@@ -94,7 +76,7 @@ Finally, if you are a frontend developer, use:
 	$ npm start
 ```
 
-This will build the frontend files to the `/public` directory and also start a web server on port 3000. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled and the `GlobalConstants_dev.js` file is used as the GlobalConstants file. Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
+This will build the frontend files to the `/public` directory and also start a web server on port 3000. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled and the `GlobalConstants.js` file will assume the use of a local api. Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
 
 This mode also differs from `production` by using incremental Webpack builds. This means that the code is recompiled every time a change is detected in a source JS/JSX file, but the builds are *incremental*, meaning they take significantly less time than a complete build by recycling compiled code for unmodified parts. When making changes to the source code, you should always develop in `dev` mode to take advantage of this feature.
 
