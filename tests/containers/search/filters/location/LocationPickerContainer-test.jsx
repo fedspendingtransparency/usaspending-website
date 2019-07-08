@@ -298,6 +298,34 @@ describe('LocationPickerContainer', () => {
             });
         });
 
+        it('should handle cities with commas', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.setState({
+                country: {
+                    code: 'GBR',
+                    name: 'United Kingdom'
+                },
+                city: {
+                    code: "GBR",
+                    name: "London, Kent"
+                }
+            });
+
+            const location = container.instance().createLocationObject();
+            expect(location).toEqual({
+                identifier: 'GBR_London, Kent',
+                display: {
+                    title: 'London, Kent',
+                    entity: 'City',
+                    standalone: 'London, Kent'
+                },
+                filter: {
+                    country: 'GBR',
+                    city: 'London, Kent'
+                }
+            });
+        });
+
         describe('API filter object', () => {
             it('should create a filter object that contains only the country code if only a country is selected', () => {
                 const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
