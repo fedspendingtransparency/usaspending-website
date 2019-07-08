@@ -97,9 +97,10 @@ export default class VerticalLine extends Component {
         // show nothing if not within x Range
         if ((xValue > xMax) && (xValue < xMin)) return null;
         const linePosition = this.positionLine();
+        const description = this.description();
         return (
             <g className="vertical-line__container">
-                <desc>{this.description}</desc>
+                <desc>{description}</desc>
                 <text
                     id="vertical-line__text"
                     x={this.state.textX}
