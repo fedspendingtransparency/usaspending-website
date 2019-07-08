@@ -80,7 +80,7 @@ export default class IdvActivityTooltip extends React.Component {
     }
 
     truncateText(awardingAgencyNameDiv, recipientNameDiv, theTooltipWidth) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             const { graphWidth, recipientName, awardingAgencyName } = this.props.data;
             // get awardingAgencyName truncated width based on the tooltip width and graph width
             const truncatedTextWidthAgency =

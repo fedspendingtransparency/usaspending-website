@@ -39,7 +39,7 @@
         // downgrade extra semicolons to warnings
         "no-extra-semi": [1],
         // require parens in arrow functions with single arguments for improved readability
-        "arrow-parens": [2, "always"],
+        "arrow-parens": [2, "as-needed"],
         // allow double-quoted strings
         "quotes": [0],
         // allow for loops

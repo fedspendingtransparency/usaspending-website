@@ -1,5 +1,11 @@
-#vertical-today-line {
-  stroke: rgb(0,0,0);
-  stroke-width: 0.2;
-  shape-rendering: crispEdges;
+.vertical-today-line__container {
+  #vertical-today-line {
+    stroke: rgb(0,0,0);
+    stroke-width: 0.2;
+    shape-rendering: crispEdges;
+  }
+  
+  #vertical-today-line__text {
+    font-size: rem(12);
+  }
 }

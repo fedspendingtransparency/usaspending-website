@@ -207,15 +207,15 @@ export default class ActivityChart extends React.Component {
                         scale={xScale} />
                     <g
                         className="activity-chart-data">
-                        {this.state.bars}
                         {xScale && <VerticalTodayLine
                             xScale={xScale}
-                            y1={0}
+                            y1={-10}
                             y2={height - 30}
+                            textY={0}
                             xMax={xRange[1]}
                             xMin={xRange[0]}
-                            padding={padding.left}
-                            usePadding />}
+                            showTextLeft />}
+                        {this.state.bars}
                     </g>
                 </g>
             </svg>
