@@ -5,8 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import EntityDropdown from './EntityDropdown';
 import ZIPField from './ZIPField';
+import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -51,39 +53,60 @@ export default class LocationPicker extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        // a state that was autoPopulated and then removed via city de-selection will have prevProps.state.autoPopulated === true
+        const manuallyPopulatedStateChanged = (!prevProps.state.autoPopulated && (prevProps.state.code !== this.props.state.code));
+        const manuallyPopulatedCountryChanged = (!this.props.country.autoPopulated && (prevProps.country.code !== this.props.country.code));
         const stateChanged = (prevProps.state.code !== this.props.state.code);
         const countryChanged = (prevProps.country.code !== this.props.country.code);
-        const isCityInState = ( // if selected city is inside the selected state, don't clear the selected city!
+        const isCityInState = ( // selected city is w/in the selected state
+            this.props.country.code === 'USA' &&
             this.props.state.code === this.props.city.code &&
             this.props.state.code && this.props.city.code
         );
 
+        const cityDeselected = (prevProps.city.name && !this.props.city.name);
+
         if (countryChanged && this.props.country.code === "USA") {
             // user has selected USA, load the state list
             this.props.loadStates();
-            this.props.clearCitiesAndSelectedCity();
+            if (manuallyPopulatedCountryChanged) {
+                this.props.clearCitiesAndSelectedCity();
+            }
         }
         else if (countryChanged && prevProps.country.code === 'USA') {
             // the user previously selected USA, need to clear these out
             this.props.clearStates();
-            this.props.clearCitiesAndSelectedCity();
+            if (manuallyPopulatedCountryChanged) {
+                this.props.clearCitiesAndSelectedCity();
+            }
         }
-        else if (countryChanged) {
+        else if (manuallyPopulatedCountryChanged) {
             //  since USA isn't selected and wasn't previously selected, only clear cities
             this.props.clearCitiesAndSelectedCity();
         }
         if (stateChanged && this.props.state.code) {
-            // state code changed, load the counties & districts
+            // new state selected , load the corresponding counties & districts
             this.props.loadCounties(this.props.state.code.toLowerCase());
             this.props.loadDistricts(this.props.state.code.toLowerCase());
-            if (!isCityInState) {
+            if (!isCityInState) { // only clear the city if the new state does not contain selected city
                 this.props.clearCitiesAndSelectedCity();
             }
         }
         else if (stateChanged && !this.props.state.code) {
+            // manually selected state was removed, clear counties, districts & cities
             this.props.clearCounties();
             this.props.clearDistricts();
-            this.props.clearCitiesAndSelectedCity();
+            if (manuallyPopulatedStateChanged) {
+                this.props.clearCitiesAndSelectedCity();
+            }
+        }
+
+        if (cityDeselected && this.props.state.autoPopulated) {
+            // city was deselected which auto populated state selection, so clear the state selection
+            this.props.selectEntity('state', defaultLocationValues.state);
+        }
+        else if (cityDeselected && this.props.country.autoPopulated) {
+            this.props.selectEntity('country', { code: "FOREIGN", name: "ALL FOREIGN COUNTRIES", autoPopulated: true });
         }
     }
 
@@ -139,6 +162,8 @@ export default class LocationPicker extends React.Component {
     }
 
     render() {
+        const isUSA = this.props.country.code === "USA";
+
         const isCityEnabled = (
             this.props.country.code !== "" &&
             !this.props.county.code &&
@@ -154,7 +179,6 @@ export default class LocationPicker extends React.Component {
             !this.props.county.code &&
             !this.props.city.code
         );
-        const isStateEnabled = (this.props.country.code === 'USA');
 
         let districtPlaceholder = 'Select a congressional district';
         if (this.props.state.code !== '' && this.props.availableDistricts.length === 0) {
@@ -198,7 +222,7 @@ export default class LocationPicker extends React.Component {
                             value={this.props.state}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableStates}
-                            enabled={isStateEnabled}
+                            enabled={isUSA}
                             generateWarning={this.generateWarning} />
                     </div>
                     <div className="location-item">
@@ -249,9 +273,15 @@ export default class LocationPicker extends React.Component {
                     </button>
                 </form>
                 <hr className="location-picker-divider" />
-                <ZIPField
-                    zip={this.props.zip}
-                    validateZip={this.props.validateZip} />
+                <div className="location-item">
+                    <div className="geo-entity-item">
+                        <ZIPField
+                            generateWarning={this.generateWarning}
+                            isUSA={isUSA}
+                            zip={this.props.zip}
+                            validateZip={this.props.validateZip} />
+                    </div>
+                </div>
             </div>
         );
     }

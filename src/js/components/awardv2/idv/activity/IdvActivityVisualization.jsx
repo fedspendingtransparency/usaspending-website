@@ -10,6 +10,8 @@ import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculatePageRange } from 'helpers/paginationHelper';
 import Pagination from 'components/sharedComponents/Pagination';
 import ActivityChart from './chart/ActivityChart';
+import ActivityChartTooltip from './ActivityChartTooltip';
+
 
 const propTypes = {
     page: PropTypes.number,
@@ -25,12 +27,21 @@ export default class IdvActivityVisualization extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            showTooltip: false,
             windowWidth: 0,
-            visualizationWidth: 0
+            visualizationWidth: 0,
+            isShowingTooltip: false,
+            isHoveringInTooltip: false,
+            toolTipData: null,
+            awards: props.awards,
+            showTooltipStroke: false,
+            awardIndexForTooltip: null
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+        this.showTooltip = this.showTooltip.bind(this);
+        this.hideTooltip = this.hideTooltip.bind(this);
+        this.mouseIsInTooltipDiv = this.mouseIsInTooltipDiv.bind(this);
+        this.mouseOutOfTooltipDiv = this.mouseOutOfTooltipDiv.bind(this);
     }
 
     componentDidMount() {
@@ -54,22 +65,73 @@ export default class IdvActivityVisualization extends React.Component {
         }
     }
 
+    showTooltip(data) {
+        if (!this.state.isShowingTooltip) {
+            this.setState({
+                isShowingTooltip: true,
+                toolTipData: data,
+                showTooltipStroke: true,
+                awardIndexForTooltip: data.index
+            });
+        }
+    }
+
+    hideTooltip() {
+        if (!this.state.isHoveringInTooltip) {
+            this.setState({
+                isShowingTooltip: false,
+                showTooltipStroke: false,
+                awardIndexForTooltip: null
+            });
+        }
+    }
+
+    mouseIsInTooltipDiv(data) {
+        this.setState({
+            isShowingTooltip: true,
+            isHoveringInTooltip: true,
+            showTooltipStroke: true,
+            awardIndexForTooltip: data.index
+        });
+    }
+
+    mouseOutOfTooltipDiv() {
+        this.setState({
+            isShowingTooltip: false,
+            isHoveringInTooltip: false,
+            showTooltipStroke: false,
+            awardIndexForTooltip: null
+        }, () => this.hideTooltip());
+    }
+
     render() {
         const height = 360;
         const chart = (
             <ActivityChart
-                awards={this.props.awards}
+                awards={this.state.awards}
+                showTooltipStroke={this.state.showTooltipStroke}
+                awardIndexForTooltip={this.state.awardIndexForTooltip}
                 xSeries={this.props.xSeries}
                 ySeries={this.props.ySeries}
                 height={height}
-                width={this.state.visualizationWidth} />
+                width={this.state.visualizationWidth}
+                showTooltip={this.showTooltip}
+                hideTooltip={this.hideTooltip} />
         );
+        let tt = null;
+        if (this.state.isShowingTooltip) {
+            tt = (<ActivityChartTooltip
+                data={this.state.toolTipData}
+                mouseIsInTooltipDiv={this.mouseIsInTooltipDiv}
+                mouseOutOfTooltipDiv={this.mouseOutOfTooltipDiv} />);
+        }
         const pageRange = calculatePageRange(this.props.page, this.props.limit, this.props.total);
         const start = formatNumberWithPrecision(pageRange.start, 0);
         const end = formatNumberWithPrecision(pageRange.end, 0);
         const resultsText = (
             <div className="pagination__totals">
-                Displaying award orders <strong>{start}-{end}</strong> of {formatNumberWithPrecision(this.props.total, 0)}
+                Displaying award orders <strong>{start}-{end}</strong> of {
+                    formatNumberWithPrecision(this.props.total, 0)}
             </div>
         );
         return (
@@ -85,8 +147,11 @@ export default class IdvActivityVisualization extends React.Component {
                     pageSize={this.props.limit}
                     resultsText={resultsText} />
                 {chart}
+                {tt}
                 <div className="visualization-legend">
-                    <div className="visualization-legend__circle visualization-legend__circle_obligated" />
+                    <div
+                        className="visualization-legend__circle
+                        visualization-legend__circle_obligated" />
                     <div className="visualization-legend__label">
                         Obligated
                     </div>
