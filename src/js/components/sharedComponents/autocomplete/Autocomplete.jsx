@@ -20,7 +20,8 @@ const propTypes = {
     maxSuggestions: PropTypes.number,
     label: PropTypes.string,
     noResults: PropTypes.bool,
-    characterLimit: PropTypes.number
+    characterLimit: PropTypes.number,
+    retainValue: PropTypes.bool
 };
 
 const defaultProps = {
@@ -31,7 +32,8 @@ const defaultProps = {
     maxSuggestions: 10,
     label: '',
     noResults: false,
-    characterLimit: 524288 // default for HTML input elements
+    characterLimit: 524288, // default for HTML input elements
+    retainValue: false
 };
 
 export default class Autocomplete extends React.Component {
@@ -81,7 +83,9 @@ export default class Autocomplete extends React.Component {
 
         target.addEventListener('blur', () => {
             this.close();
-            target.value = "";
+            if (!this.props.retainValue) {
+                target.value = '';
+            }
         });
 
         // enable tab keyboard shortcut for selection
@@ -90,11 +94,13 @@ export default class Autocomplete extends React.Component {
             if (e.keyCode === 13) {
                 e.preventDefault();
                 this.select(this.props.values[this.state.selectedIndex]);
-                target.value = "";
+                if (!this.props.retainValue) {
+                    target.value = '';
+                }
             }
             // Tab or Escape
             else if (e.keyCode === 9 || e.keyCode === 27) {
-                target.value = "";
+                target.value = '';
                 this.close();
             }
             // Previous
@@ -202,10 +208,16 @@ export default class Autocomplete extends React.Component {
 
         this.props.onSelect(selectedItem, isValid);
 
-        // Important - clear internal typeahead state value
-        this.setState({
-            value: ''
-        });
+        if (this.props.retainValue) {
+            this.autocompleteInput.value = selectedItem.code;
+        }
+
+        else {
+            // Clear internal typeahead state value
+            this.setState({
+                value: ''
+            });
+        }
     }
 
     generateWarning() {

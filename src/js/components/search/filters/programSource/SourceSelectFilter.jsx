@@ -142,6 +142,7 @@ export class SourceSelectFilter extends React.Component {
                     values={this.state.autocompleteOptions}
                     handleTextInput={this.handleTextInput}
                     onSelect={this.selectSourceComponent}
+                    retainValue
                     placeholder={`Enter ${this.props.code.toUpperCase()} value (${this.props.characterLimit} characters)`}
                     errorHeader={`Unknown ${this.props.code.toUpperCase()}`}
                     errorMessage={`We were unable to find that ${this.props.label}`}
