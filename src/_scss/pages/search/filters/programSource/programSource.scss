@@ -27,6 +27,14 @@
             padding-bottom: rem(15);
             @import "elements/filters/_errorMessage";
             @import "elements/filters/_typeahead";
+            .program-source-select-filter__label {
+                @include display(flex);
+                @include justify-content(space-between);
+                .program-source-select-filter__label-required {
+                    color: $color-secondary;
+                    text-align: right;
+                }
+            }
         }
         .program-source-text-filter {
             padding-bottom: rem(15);

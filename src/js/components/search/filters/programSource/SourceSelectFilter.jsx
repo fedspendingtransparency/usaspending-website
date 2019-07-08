@@ -131,9 +131,13 @@ export class SourceSelectFilter extends React.Component {
     }
 
     render() {
+        const requiredIndicator = this.props.required ? (<span className="program-source-select-filter__label-required">Required</span>) : '';
         return (
             <div className="program-source-select-filter">
-                <label>{`${this.props.label} (${this.props.code.toUpperCase()})`}</label>
+                <label className="program-source-select-filter__label">
+                    {`${this.props.label} (${this.props.code.toUpperCase()})`}
+                    {requiredIndicator}
+                </label>
                 <Autocomplete
                     values={this.state.autocompleteOptions}
                     handleTextInput={this.handleTextInput}

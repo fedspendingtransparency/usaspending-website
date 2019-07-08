@@ -19,49 +19,29 @@ const filters = [
         label: 'Agency Identifier',
         code: 'aid',
         characterLimit: 3,
-        required: true,
-        autocomplete: true
+        required: true
     },
     {
         label: 'Main Account Code',
         code: 'main',
         characterLimit: 4,
-        required: false,
-        autocomplete: false
-    },
-    {
-        label: 'Sub-Account Code',
-        code: 'sub',
-        characterLimit: 3,
-        required: false,
-        autocomplete: false
+        required: true
     }
 ];
 
 export default class FederalAccountFilters extends React.Component {
     render() {
-        const federalFilters = filters.map((filter) => {
-            if (filter.autocomplete) {
-                return (
-                    <SourceSelectFilter
-                        key={filter.code}
-                        updateComponent={this.props.updateComponent}
-                        selectedSources={[this.props.components[filter.code]]}
-                        createFilters={this.props.createFilters}
-                        {...filter} />
-                );
-            }
-            return (
-                <SourceTextFilter
-                    key={filter.code}
-                    updateComponent={this.props.updateComponent}
-                    value={this.props.components[filter.code]}
-                    {...filter} />
-            );
-        });
+        const federalFilters = filters.map((filter) => (
+            <SourceSelectFilter
+                key={filter.code}
+                updateComponent={this.props.updateComponent}
+                selectedSources={[this.props.components[filter.code]]}
+                createFilters={this.props.createFilters}
+                {...filter} />
+        ));
 
         const components = this.props.components;
-        const enabled = components.aid || components.main || components.sub;
+        const enabled = components.aid && components.main;
 
         return (
             <div className="program-source-tab">
@@ -74,7 +54,7 @@ export default class FederalAccountFilters extends React.Component {
                         disabled={!enabled}
                         onClick={this.props.createFilters}
                         className="program-source-components__button">
-                        Add Filter(s)
+                        Add Filter
                     </button>
                 </form>
             </div>

@@ -27,8 +27,7 @@ export default class ProgramSourceSection extends React.Component {
             activeTab: 'federal',
             federalAccountComponents: {
                 aid: '',
-                main: '',
-                sub: ''
+                main: ''
             }
         };
 
@@ -85,8 +84,7 @@ export default class ProgramSourceSection extends React.Component {
             this.setState({
                 federalAccountComponents: {
                     aid: '',
-                    main: '',
-                    sub: ''
+                    main: ''
                 }
             });
         }
