@@ -369,7 +369,7 @@ export default class LocationPickerContainer extends React.Component {
         }
 
         if (this.state.city.name !== "") {
-            const city = this.state.city.name.split(",")[0];
+            const city = this.state.city.name.split(", ").filter((str) => str !== this.state.city.code).join(", ");
             location.city = city;
             title = this.state.city.name;
             standalone = `${this.state.city.name}`;
