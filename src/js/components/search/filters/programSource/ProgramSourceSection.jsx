@@ -33,8 +33,8 @@ export default class ProgramSourceSection extends React.Component {
 
         this.toggleTab = this.toggleTab.bind(this);
         this.updateFederalAccountComponent = this.updateFederalAccountComponent.bind(this);
-        this.createFederalAccountFilters = this.createFederalAccountFilters.bind(this);
-        this.removeAccountFilter = this.removeAccountFilter.bind(this);
+        this.applyFilter = this.applyFilter.bind(this);
+        this.removeFilter = this.removeFilter.bind(this);
     }
 
     componentDidMount() {
@@ -69,17 +69,11 @@ export default class ProgramSourceSection extends React.Component {
         });
     }
 
-    createFederalAccountFilters() {
+    applyFilter() {
         if (this.state.activeTab === 'federal') {
             const components = this.state.federalAccountComponents;
-            for (const [key, value] of Object.entries(components)) {
-                if (value) {
-                    this.props.updateFederalAccountComponents({
-                        code: key,
-                        value
-                    });
-                }
-            }
+            const identifier = `${components.aid}-${components.main}`;
+            this.props.updateFederalAccountComponents(identifier);
             // Clear the values after they have been applied
             this.setState({
                 federalAccountComponents: {
@@ -90,11 +84,10 @@ export default class ProgramSourceSection extends React.Component {
         }
     }
 
-    removeAccountFilter(code, value) {
-        this.props.updateFederalAccountComponents({
-            code,
-            value
-        });
+    removeFilter(identifier) {
+        if (this.state.activeTab === 'federal') {
+            this.props.updateFederalAccountComponents(identifier);
+        }
     }
 
     render() {
@@ -104,14 +97,14 @@ export default class ProgramSourceSection extends React.Component {
         const filter = (
             <FederalAccountFilters
                 updateComponent={this.updateFederalAccountComponent}
-                createFilters={this.createFederalAccountFilters}
+                applyFilter={this.applyFilter}
                 components={this.state.federalAccountComponents} />);
 
         let selectedSources = null;
         if (activeTab === 'federal' && this.props.selectedFederalComponents) {
             selectedSources = (
                 <SelectedSources
-                    removeSource={this.removeAccountFilter}
+                    removeSource={this.removeFilter}
                     selectedSources={this.props.selectedFederalComponents} />);
         }
 

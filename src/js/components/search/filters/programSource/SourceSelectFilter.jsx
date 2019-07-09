@@ -16,8 +16,7 @@ const propTypes = {
     required: PropTypes.bool,
     options: PropTypes.array,
     selectedSources: PropTypes.array,
-    updateComponent: PropTypes.func,
-    createFilters: PropTypes.func
+    updateComponent: PropTypes.func
 };
 
 const defaultProps = {
@@ -105,7 +104,6 @@ export class SourceSelectFilter extends React.Component {
 
     selectSourceComponent(selectedSource) {
         this.props.updateComponent(this.props.code, selectedSource.code);
-        this.props.createFilters();
     }
 
     clearAutocompleteSuggestions() {

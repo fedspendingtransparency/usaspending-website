@@ -40,8 +40,8 @@ export const requiredTypes = {
     pricingType: Set,
     setAside: Set,
     extentCompeted: Set,
-    treasuryAccounts: OrderedMap,
-    federalAccounts: OrderedMap
+    treasuryAccounts: Set,
+    federalAccounts: Set
 };
 
 export const initialState = {
@@ -67,8 +67,8 @@ export const initialState = {
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set(),
-    federalAccounts: new OrderedMap(),
-    treasuryAccounts: new OrderedMap()
+    federalAccounts: new Set(),
+    treasuryAccounts: new Set()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {

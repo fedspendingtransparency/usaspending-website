@@ -5,20 +5,14 @@
 
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other query modules
-export const updateSelectedSources = (state, component) => {
+export const updateSelectedSources = (state, sourceIdentifier) => {
     let updatedSet = state;
-    // generate an identifier string based on IDs and component
-    const sourceIdentifier =
-        `${component.code}_${component.value}`;
 
     if (updatedSet.has(sourceIdentifier)) {
         updatedSet = updatedSet.delete(sourceIdentifier);
     }
     else {
-        const sourceObject = Object.assign({}, component, {
-            identifier: sourceIdentifier
-        });
-        updatedSet = updatedSet.set(sourceIdentifier, sourceObject);
+        updatedSet = updatedSet.add(sourceIdentifier);
     }
 
     return updatedSet;

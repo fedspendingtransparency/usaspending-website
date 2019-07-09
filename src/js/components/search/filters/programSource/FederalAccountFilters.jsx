@@ -6,12 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SourceSelectFilter from './SourceSelectFilter';
-import SourceTextFilter from './SourceTextFilter';
 
 const propTypes = {
     updateComponent: PropTypes.func,
     components: PropTypes.object,
-    createFilters: PropTypes.func
+    applyFilter: PropTypes.func
 };
 
 const filters = [
@@ -36,7 +35,6 @@ export default class FederalAccountFilters extends React.Component {
                 key={filter.code}
                 updateComponent={this.props.updateComponent}
                 selectedSources={[this.props.components[filter.code]]}
-                createFilters={this.props.createFilters}
                 {...filter} />
         ));
 
@@ -52,7 +50,7 @@ export default class FederalAccountFilters extends React.Component {
                     {federalFilters}
                     <button
                         disabled={!enabled}
-                        onClick={this.props.createFilters}
+                        onClick={this.props.applyFilter}
                         className="program-source-components__button">
                         Add Filter
                     </button>

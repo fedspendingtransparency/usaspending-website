@@ -17,14 +17,11 @@ export default class SelectedSources extends React.Component {
     render() {
         const shownSources = [];
 
-        this.props.selectedSources.entrySeq().forEach((entry) => {
-            const source = entry[1].code.toUpperCase();
-            const sourceDescription = entry[1].value;
-
+        this.props.selectedSources.forEach((identifier) => {
             const value = (<ShownValue
-                label={`${source} - ${sourceDescription}`}
-                key={source}
-                removeValue={this.props.removeSource.bind(null, entry[1].code, entry[1].value)} />);
+                label={identifier}
+                key={identifier}
+                removeValue={this.props.removeSource.bind(null, identifier)} />);
             shownSources.push(value);
         });
 
