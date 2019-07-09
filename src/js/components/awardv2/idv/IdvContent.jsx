@@ -125,7 +125,7 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    <IdvActivityContainer comingSoon={!this.props.isV2url} />
+                    <IdvActivityContainer />
                     <AwardMetaDataContainer
                         jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>
