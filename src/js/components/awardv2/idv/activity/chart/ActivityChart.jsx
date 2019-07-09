@@ -61,7 +61,8 @@ export default class ActivityChart extends React.Component {
             this.generateChart();
         }
     }
-    generateChart() {
+
+    xyRange() {
         const yRange = [];
         const xRange = [];
         // If there is only one item, manually set the min and max values
@@ -83,11 +84,20 @@ export default class ActivityChart extends React.Component {
         yRange.push(maxValueY);
         xRange.push(minValueX);
         xRange.push(maxValueX);
+        return { xRange, yRange };
+    }
 
+    graphWidthAndHeight() {
         // calculate what the visible area of the chart itself will be (excluding the axes and their
         // labels)
         const graphWidth = this.props.width - this.props.padding.left;
         const graphHeight = this.props.height - this.props.padding.bottom;
+        return { graphWidth, graphHeight };
+    }
+
+    generateChart() {
+        const { xRange, yRange } = this.xyRange();
+        const { graphWidth, graphHeight } = this.graphWidthAndHeight();
         // Create the scales using D3
         // domain is the data range, and range is the
         // range of possible pixel positions along the axis
