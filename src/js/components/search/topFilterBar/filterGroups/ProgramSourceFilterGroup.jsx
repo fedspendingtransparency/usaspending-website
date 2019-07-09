@@ -47,8 +47,8 @@ export default class ProgramSourceFilterGroup extends React.Component {
 
         this.props.filter.values.forEach((value) => {
             const tag = {
-                value: value.identifier,
-                title: `${value.code.toUpperCase()} | ${value.value}`,
+                value,
+                title: `${value} | Federal Account Components`,
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };

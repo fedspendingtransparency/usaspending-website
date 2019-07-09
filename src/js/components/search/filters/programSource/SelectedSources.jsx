@@ -19,7 +19,7 @@ export default class SelectedSources extends React.Component {
 
         this.props.selectedSources.forEach((identifier) => {
             const value = (<ShownValue
-                label={identifier}
+                label={`${identifier} - Federal Account Components`}
                 key={identifier}
                 removeValue={this.props.removeSource.bind(null, identifier)} />);
             shownSources.push(value);

@@ -33,6 +33,9 @@ const defaultProps = {
         {
             code: '068',
             name: 'Environmental Protection Agency (EPA)'
+        },
+        {
+            code: '9876'
         }
     ],
     selectedSources: [],
@@ -60,8 +63,8 @@ export class SourceSelectFilter extends React.Component {
         if (options && options.length > 0) {
             options.forEach((item) => {
                 values.push({
-                    title: `${item.code} - ${item.name}`,
-                    subtitle: '',
+                    title: item.code,
+                    subtitle: item.name || '',
                     data: item
                 });
             });
