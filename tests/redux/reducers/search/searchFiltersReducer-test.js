@@ -305,23 +305,22 @@ describe('searchFiltersReducer', () => {
             source: mockTreasuryAccount
         };
 
-        const component = 'aid_123';
+        const component = '098-765-****-2008-X-321';
 
-        const expectedComponent = mockTreasuryAccount;
 
-        it('should add the provided TAS component if it does not currently exist in the filter', () => {
+        it('should add the provided TAS component if it does not currently exist', () => {
             const updatedState = searchFiltersReducer(undefined, action);
 
-            expect(updatedState.treasuryAccounts).toEqual(new OrderedMap([[component, expectedComponent]]));
+            expect(updatedState.treasuryAccounts).toEqual(new Set([component]));
         });
 
         it('should remove the provided TAS component if it already exists in the filter', () => {
             const startingState = Object.assign({}, initialState, {
-                treasuryAccounts: new OrderedMap([[component, expectedComponent]])
+                treasuryAccounts: new Set([component])
             });
 
             const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.treasuryAccounts).toEqual(new OrderedMap());
+            expect(updatedState.treasuryAccounts).toEqual(new Set());
         });
     });
 
@@ -331,23 +330,21 @@ describe('searchFiltersReducer', () => {
             source: mockFederalAccount
         };
 
-        const component = 'main_4567';
+        const component = '234-5678';
 
-        const expectedComponent = mockFederalAccount;
-
-        it('should add the provided TAS component if it does not currently exist in the filter', () => {
+        it('should add the provided TAS components if it does not currently exist', () => {
             const updatedState = searchFiltersReducer(undefined, action);
 
-            expect(updatedState.federalAccounts).toEqual(new OrderedMap([[component, expectedComponent]]));
+            expect(updatedState.federalAccounts).toEqual(new Set([component]));
         });
 
         it('should remove the provided TAS component if it already exists in the filter', () => {
             const startingState = Object.assign({}, initialState, {
-                federalAccounts: new OrderedMap([[component, expectedComponent]])
+                federalAccounts: new Set([component])
             });
 
             const updatedState = searchFiltersReducer(startingState, action);
-            expect(updatedState.federalAccounts).toEqual(new OrderedMap());
+            expect(updatedState.federalAccounts).toEqual(new Set());
         });
     });
 

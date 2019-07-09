@@ -32,8 +32,8 @@ export const mockFilters = {
             pricingType: [],
             setAside: [],
             extentCompeted: [],
-            federalAccounts: {},
-            treasuryAccounts: {}
+            federalAccounts: [],
+            treasuryAccounts: []
         }
     }
 };
