@@ -51,7 +51,8 @@ export class IdvActivityContainer extends React.Component {
 
         const params = {
             award_id: this.props.awardId,
-            page: this.state.page
+            page: this.state.page,
+            hide_edge_cases: true
         };
 
         this.idvActivityRequest = fetchIdvActivity(params);
