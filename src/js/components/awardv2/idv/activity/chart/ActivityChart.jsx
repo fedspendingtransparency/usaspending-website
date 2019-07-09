@@ -135,12 +135,30 @@ export default class ActivityChart extends React.Component {
             if (this.props.showTooltipStroke && (this.props.awardIndexForTooltip === index)) {
                 style = { stroke: '#3676b6', strokeWidth: 1 };
             }
+            // handle overspending
+            let overspentStyle = null;
+            let overspentWidth = null;
+            if (bar._obligatedAmount > bar._awardedAmount) {
+                overspentStyle = { fill: "url(#diagonalHatch)" };
+                overspentWidth = width;
+            }
             return (
                 <g
                     tabIndex="0"
                     className="activity-chart-bar-container"
                     key={`bar-${bar._awardedAmount}-${index}`}
                     description={description}>
+                    <defs>
+                        <pattern
+                            id="diagonalHatch"
+                            width="10"
+                            height="10"
+                            patternTransform="rotate(135 0 0)"
+                            patternUnits="userSpaceOnUse">
+                            <rect width="100%" height={barHeight} fill="#94BFA2" />
+                            <rect width="2" height={barHeight} fill="rgb(188,92,35)" />
+                        </pattern>
+                    </defs>
                     {/* awarded amount bar */}
                     <ActivityChartBar
                         style={style}
@@ -160,9 +178,10 @@ export default class ActivityChart extends React.Component {
                         height={barHeight}
                         start={start}
                         awardedWidth={width}
-                        width={obligatedAmountWidth}
+                        width={overspentWidth || obligatedAmountWidth}
                         yPosition={yPosition}
                         data={data}
+                        style={overspentStyle}
                         showTooltip={this.props.showTooltip}
                         hideTooltip={this.props.hideTooltip} />
                 </g>
