@@ -1,5 +1,6 @@
 .federal-accounts {
   width: 100%;
+  @import 'components/Note';
   .visualization-tooltip {
     @import "components/visualizations/tooltip/_tooltip";
     position: fixed;
@@ -99,14 +100,6 @@
       .explorer-cell-box:hover {
           background-color: #f49c20;
       }
-    }
-  }
-  .federal-accounts__section--note {
-    font-size: 14px;
-    padding-top: $global-pad;
-    width: 100%;
-    strong {
-      font-weight: 600;
     }
   }
   .federal-accounts-summary__section {

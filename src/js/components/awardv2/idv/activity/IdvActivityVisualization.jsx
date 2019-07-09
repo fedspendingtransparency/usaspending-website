@@ -9,6 +9,7 @@ import { throttle } from 'lodash';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculatePageRange } from 'helpers/paginationHelper';
 import Pagination from 'components/sharedComponents/Pagination';
+import Note from 'components/sharedComponents/Note';
 import ActivityChart from './chart/ActivityChart';
 import ActivityChartTooltip from './ActivityChartTooltip';
 
@@ -106,6 +107,8 @@ export default class IdvActivityVisualization extends React.Component {
 
     render() {
         const height = 360;
+        const message = `if an award has a zero or negative obligated amount,
+        or is missing an end date, it is not displayed in this chart.`;
         const chart = (
             <ActivityChart
                 awards={this.state.awards}
@@ -161,11 +164,7 @@ export default class IdvActivityVisualization extends React.Component {
                     </div>
                 </div>
                 <div className="activity-visualization-note">
-                    <p>
-                        <strong>Note: </strong>
-                        if an award has a zero or negative obligated amount,
-                        or is missing an end date, it is not displayed in this chart.
-                    </p>
+                    <Note message={message} />
                 </div>
             </div>
         );
