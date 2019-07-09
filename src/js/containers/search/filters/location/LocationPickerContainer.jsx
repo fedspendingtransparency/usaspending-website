@@ -61,6 +61,16 @@ export const defaultLocationValues = {
     }
 };
 
+const locationProperties = ["country", "state", "district", "county", "city"];
+// Map to unique value for this.state.locationProperty
+const locationPropertyAccessorMap = {
+    country: 'code',
+    city: 'name',
+    district: 'district',
+    state: 'code',
+    county: 'fips'
+};
+
 export default class LocationPickerContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -329,66 +339,33 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     createLocationObject() {
-        // create a location object
-        const location = {};
-        let title = "";
-        let standalone = "";
-        let entity = "";
-        let identifier = "";
-        if (this.state.country.code === "") {
-            // do nothing, it's an empty filter
-            return null;
-        }
-        location.country = this.state.country.code;
-        title = this.state.country.name;
-        standalone = this.state.country.name;
-        entity = "Country";
-        identifier += this.state.country.code;
-
-        if (this.state.state.code !== "") {
-            location.state = this.state.state.code;
-            title = this.state.state.name;
-            standalone = this.state.state.name;
-            entity = "State";
-            identifier += `_${this.state.state.code}`;
-        }
-
-        if (this.state.county.code !== "") {
-            location.county = this.state.county.fips;
-            title = this.state.county.name;
-            standalone = `${this.state.county.name}, ${this.state.state.code}`;
-            entity = "County";
-            identifier += `_${this.state.county.fips}`;
-        }
-        else if (this.state.district.code !== "") {
-            location.district = this.state.district.district;
-            title = this.state.district.name;
-            standalone = this.state.district.name;
-            entity = "Congressional district";
-            identifier += `_${this.state.district.district}`;
-        }
-
-        if (this.state.city.name !== "") {
-            const city = this.state.city.name.split(",")[0];
-            location.city = city;
-            title = this.state.city.name;
-            standalone = `${this.state.city.name}`;
-            entity = "City";
-            identifier += `_${city}`;
-        }
-
-        // generate a display tag
-        const display = {
-            title,
-            entity,
-            standalone
-        };
-
-        return {
-            identifier,
-            display,
-            filter: location
-        };
+        return Object.keys(this.state)
+            .filter((prop) => locationProperties.includes(prop) && this.state[prop].code !== '')
+            .reduce((acc, prop) => {
+                const accessor = locationPropertyAccessorMap[prop];
+                // removes ', <State/Country>' appended to city
+                const parsedKeyValue = prop === 'city'
+                    ? this.state.city.name.split(", ").filter((str) => str !== this.state.city.code).join(", ")
+                    : this.state[prop][accessor];
+                return {
+                    identifier: prop === 'country' // init identifier value w/o appended '_'
+                        ? this.state.country.code
+                        : `${acc.identifier}_${parsedKeyValue}`,
+                    filter: {
+                        ...acc.filter,
+                        [prop]: parsedKeyValue
+                    },
+                    display: {
+                        entity: prop === 'district'
+                            ? 'Congressional district'
+                            : `${prop.substr(0, 1).toUpperCase()}${prop.substr(1)}`,
+                        standalone: prop === 'county'
+                            ? `${this.state.county.name}, ${this.state.state.code}`
+                            : this.state[prop].name,
+                        title: this.state[prop].name
+                    }
+                };
+            }, { identifier: '', display: { entity: '', title: '', standalone: '' }, filter: {} });
     }
 
     addLocation() {
