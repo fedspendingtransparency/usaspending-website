@@ -82,7 +82,6 @@ export class IdvActivityContainer extends React.Component {
     }
 
     parseAwards(results) {
-        results[0].obligated_amount = results[0].awarded_amount * 2;
         const awards = results.map((award) => {
             const idvActivityBar = Object.create(BaseIdvActivityBar);
             idvActivityBar.populate(award);
