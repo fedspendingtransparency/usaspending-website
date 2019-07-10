@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Table, Tree } from 'components/sharedComponents/icons/Icons';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
+import Note from 'components/sharedComponents/Note';
 import FederalAccountsTreeTooltip from
     'components/awardv2/idv/federalAccounts/FederalAccountsTreeTooltip';
 import FederalAccountsTable from './FederalAccountsTable';
@@ -99,6 +100,9 @@ export default class FederalAccountsSection extends React.Component {
 
     render() {
         const { isTreeView } = this.state;
+        const message = `Result count may differ between treemap view and table view.
+        Treemap view only displays accounts with a positive combined obligated amount,
+        while table view displays all accounts.`;
         return (
             <div className="award__col award-viz federal-accounts">
                 {this.state.showTooltip && <FederalAccountsTreeTooltip {...this.state.tooltip} />}
@@ -144,7 +148,7 @@ export default class FederalAccountsSection extends React.Component {
                         </div>
                     </div>
                     <span className="federal-accounts__section--note">
-                        <strong>NOTE: </strong>Result count may differ between treemap view and table view. Treemap view only displays accounts with a positive combined obligated amount, while table view displays all accounts.
+                        <Note message={message} />
                     </span>
                     <FederalAccountsSummary {...this.props} />
                 </div>
