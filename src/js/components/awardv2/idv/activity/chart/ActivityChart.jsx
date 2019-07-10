@@ -44,10 +44,11 @@ export default class ActivityChart extends React.Component {
             yScale: null,
             xRange: [],
             yRange: [],
-            bars: [],
             yTicks: null,
             xTicks: null,
-            xAxisPos: 0
+            xAxisPos: 0,
+            graphWidth: 0,
+            graphHeight: 0
         };
     }
     componentDidUpdate(prevProps) {
@@ -181,14 +182,13 @@ export default class ActivityChart extends React.Component {
             .range([0, graphHeight])
             .nice();
 
-        const bars = this.getBars(xScale, yScale, graphWidth, graphHeight);
-
         this.setState({
             xRange,
             yRange,
             xScale,
             yScale,
-            bars,
+            graphWidth,
+            graphHeight,
             yTicks: yScale.ticks(6),
             xTicks: xScale.ticks(5)
         });
@@ -196,7 +196,14 @@ export default class ActivityChart extends React.Component {
 
     render() {
         const { width, height, padding } = this.props;
-        const { xScale, xRange } = this.state;
+        const {
+            xScale,
+            yScale,
+            xRange,
+            graphWidth,
+            graphHeight
+        } = this.state;
+        const bars = this.getBars(xScale, yScale, graphWidth, graphHeight);
         return (
             <svg
                 className="activity-chart"
@@ -230,7 +237,7 @@ export default class ActivityChart extends React.Component {
                             xMax={xRange[1]}
                             xMin={xRange[0]}
                             showTextLeft />}
-                        {this.state.bars}
+                        {bars}
                     </g>
                 </g>
             </svg>
