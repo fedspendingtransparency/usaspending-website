@@ -166,7 +166,7 @@ export default class ActivityChart extends React.Component {
                     backgroundWidth="100%"
                     backgroundHeight={barHeightString}
                     backgroundFill="#D8D8D8"
-                    fillWidth={`${data.percentageWidth}%`}
+                    fillWidth={`${data.obligatedAmountWidth}`}
                     fillHeight={barHeightString}
                     fillFill="#94BFA2" />
             );
