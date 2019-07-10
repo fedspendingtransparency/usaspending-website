@@ -62,56 +62,9 @@ export default class ActivityChart extends React.Component {
         }
     }
 
-    xyRange() {
-        const yRange = [];
-        const xRange = [];
-        // If there is only one item, manually set the min and max values
-        // Y Axis (Awarded Amounts) will go from zero to the one award's amount
-        let minValueY = 0;
-        let maxValueY = this.props.awards[0]._awardedAmount;
-        // X Axis (Dates) will go from the award's start date to its end date
-        let minValueX = this.props.awards[0]._startDate.valueOf();
-        let maxValueX = this.props.awards[0]._endDate.valueOf();
-
-        // Otherwise, find the min and max of all values for awarded amounts and dates
-        if (this.props.awards.length > 1) {
-            minValueY = min(this.props.ySeries);
-            maxValueY = max(this.props.ySeries);
-            minValueX = min(this.props.xSeries);
-            maxValueX = max(this.props.xSeries);
-        }
-        yRange.push(minValueY);
-        yRange.push(maxValueY);
-        xRange.push(minValueX);
-        xRange.push(maxValueX);
-        return { xRange, yRange };
-    }
-
-    graphWidthAndHeight() {
-        // calculate what the visible area of the chart itself will be (excluding the axes and their
-        // labels)
-        const graphWidth = this.props.width - this.props.padding.left;
-        const graphHeight = this.props.height - this.props.padding.bottom;
-        return { graphWidth, graphHeight };
-    }
-
-    generateChart() {
-        const { xRange, yRange } = this.xyRange();
-        const { graphWidth, graphHeight } = this.graphWidthAndHeight();
-        // Create the scales using D3
-        // domain is the data range, and range is the
-        // range of possible pixel positions along the axis
-        const xScale = scaleLinear()
-            .domain(xRange)
-            .range([0, graphWidth])
-            .nice();
-        const yScale = scaleLinear()
-            .domain(yRange)
-            .range([0, graphHeight])
-            .nice();
-
+    getBars(xScale, yScale, graphWidth, graphHeight) {
         // Map each award to a "bar" component
-        const bars = this.props.awards.map((bar, index) => {
+        return this.props.awards.map((bar, index) => {
             const data = bar;
             const { padding, barHeight, height } = this.props;
             const start = xScale(bar._startDate.valueOf()) + padding.left;
@@ -178,6 +131,57 @@ export default class ActivityChart extends React.Component {
                 </g>
             );
         });
+    }
+
+    xyRange() {
+        const yRange = [];
+        const xRange = [];
+        // If there is only one item, manually set the min and max values
+        // Y Axis (Awarded Amounts) will go from zero to the one award's amount
+        let minValueY = 0;
+        let maxValueY = this.props.awards[0]._awardedAmount;
+        // X Axis (Dates) will go from the award's start date to its end date
+        let minValueX = this.props.awards[0]._startDate.valueOf();
+        let maxValueX = this.props.awards[0]._endDate.valueOf();
+
+        // Otherwise, find the min and max of all values for awarded amounts and dates
+        if (this.props.awards.length > 1) {
+            minValueY = min(this.props.ySeries);
+            maxValueY = max(this.props.ySeries);
+            minValueX = min(this.props.xSeries);
+            maxValueX = max(this.props.xSeries);
+        }
+        yRange.push(minValueY);
+        yRange.push(maxValueY);
+        xRange.push(minValueX);
+        xRange.push(maxValueX);
+        return { xRange, yRange };
+    }
+
+    graphWidthAndHeight() {
+        // calculate what the visible area of the chart itself will be (excluding the axes and their
+        // labels)
+        const graphWidth = this.props.width - this.props.padding.left;
+        const graphHeight = this.props.height - this.props.padding.bottom;
+        return { graphWidth, graphHeight };
+    }
+
+    generateChart() {
+        const { xRange, yRange } = this.xyRange();
+        const { graphWidth, graphHeight } = this.graphWidthAndHeight();
+        // Create the scales using D3
+        // domain is the data range, and range is the
+        // range of possible pixel positions along the axis
+        const xScale = scaleLinear()
+            .domain(xRange)
+            .range([0, graphWidth])
+            .nice();
+        const yScale = scaleLinear()
+            .domain(yRange)
+            .range([0, graphHeight])
+            .nice();
+
+        const bars = this.getBars(xScale, yScale, graphWidth, graphHeight);
 
         this.setState({
             xRange,
