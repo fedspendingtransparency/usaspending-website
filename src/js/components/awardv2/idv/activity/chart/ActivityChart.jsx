@@ -53,17 +53,19 @@ export default class ActivityChart extends React.Component {
     }
     componentDidUpdate(prevProps) {
         if (!isEqual(this.props.awardIndexForTooltip, prevProps.awardIndexForTooltip)) {
-            this.generateChart();
+            this.generateChartData();
         }
         if (!isEqual(this.props.awards, prevProps.awards)) {
-            this.generateChart();
+            this.generateChartData();
         }
         if (!isEqual(this.props.width, prevProps.width)) {
-            this.generateChart();
+            this.generateChartData();
         }
     }
 
-    getBars(xScale, yScale, graphWidth, graphHeight) {
+    getBars() {
+        const { xScale, yScale, graphWidth, graphHeight } = this.state;
+        if (!xScale) return null;
         // Map each award to a "bar" component
         return this.props.awards.map((bar, index) => {
             const data = bar;
@@ -167,7 +169,7 @@ export default class ActivityChart extends React.Component {
         return { graphWidth, graphHeight };
     }
 
-    generateChart() {
+    generateChartData() {
         const { xRange, yRange } = this.xyRange();
         const { graphWidth, graphHeight } = this.graphWidthAndHeight();
         // Create the scales using D3
@@ -196,14 +198,8 @@ export default class ActivityChart extends React.Component {
 
     render() {
         const { width, height, padding } = this.props;
-        const {
-            xScale,
-            yScale,
-            xRange,
-            graphWidth,
-            graphHeight
-        } = this.state;
-        const bars = this.getBars(xScale, yScale, graphWidth, graphHeight);
+        const { xScale, xRange } = this.state;
+        const bars = this.getBars();
         return (
             <svg
                 className="activity-chart"
