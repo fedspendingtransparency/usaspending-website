@@ -48,9 +48,11 @@ export default class ActivityChart extends React.Component {
             xTicks: null,
             xAxisPos: 0,
             graphWidth: 0,
-            graphHeight: 0
+            graphHeight: 0,
+            bars: []
         };
     }
+
     componentDidUpdate(prevProps) {
         if (!isEqual(this.props.awardIndexForTooltip, prevProps.awardIndexForTooltip)) {
             this.generateChartData();
@@ -63,44 +65,19 @@ export default class ActivityChart extends React.Component {
         }
     }
 
-    getBars() {
-        const { xScale, yScale, graphWidth, graphHeight } = this.state;
-        if (!xScale) return null;
+    createBars() {
+        if (!this.state.bars) return null;
         // Map each award to a "bar" component
-        return this.props.awards.map((bar, index) => {
-            const data = bar;
-            const { padding, barHeight, height } = this.props;
-            const start = xScale(bar._startDate.valueOf()) + padding.left;
-            const end = xScale(bar._endDate.valueOf()) + padding.left;
-            const width = end - start;
-            // create a scale for obligated amount width using awarded amount
-            // and the awarded amount width
-            const obligatedAmountScale = scaleLinear()
-                .domain([0, bar._awardedAmount])
-                .range([0, width])
-                .nice();
-            // scale the abligated amount to create the correct width
-            const obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
-            const yPosition = (height - 30) - yScale(bar._awardedAmount) - barHeight;
-            // adding these for the tooltip positioning
-            data.index = index;
-            data.graphWidth = graphWidth;
-            data.graphHeight = graphHeight;
-            data.start = start;
-            data.barWidth = width;
-            data.x = start;
-            data.y = (360 - yPosition) - ((this.props.barHeight / 2) - 1);
-            // create percentage for description
-            // not handling bad data as that will be handled elsewhere
-            const percentage = calculateTreemapPercentage(bar._obligatedAmount, bar._awardedAmount);
-            const description = `A ${bar.grandchild ? 'grandchild' : 'child'} award with a start date of ${bar.startDate}, an end date of ${bar.endDate}, an awarded amount of ${bar.awardedAmount} displayed in grey, and an obligated amount of ${bar.obligatedAmount}, displayed in green. (${percentage})`;
-            let style = null;
-            // show stroke on bar when entering tooltip div
-            // checks to make sure the mouse is in a tooltip
-            // and to make sure we have the index of the correct bar
-            if (this.props.showTooltipStroke && (this.props.awardIndexForTooltip === index)) {
-                style = { stroke: '#3676b6', strokeWidth: 1 };
-            }
+        return this.state.bars.map((bar, index) => {
+            const {
+                style,
+                barHeight,
+                start,
+                barWidth,
+                yPosition,
+                obligatedAmountWidth,
+                description
+            } = bar;
             return (
                 <g
                     tabIndex="0"
@@ -113,9 +90,9 @@ export default class ActivityChart extends React.Component {
                         index={index}
                         height={barHeight}
                         start={start}
-                        width={width}
+                        width={barWidth}
                         yPosition={yPosition}
-                        data={data}
+                        data={bar}
                         showTooltip={this.props.showTooltip}
                         hideTooltip={this.props.hideTooltip} />
                     {/* obligated amount bar */}
@@ -125,15 +102,67 @@ export default class ActivityChart extends React.Component {
                         index={index}
                         height={barHeight}
                         start={start}
-                        awardedWidth={width}
+                        awardedWidth={barWidth}
                         width={obligatedAmountWidth}
                         yPosition={yPosition}
-                        data={data}
+                        data={bar}
                         showTooltip={this.props.showTooltip}
                         hideTooltip={this.props.hideTooltip} />
                 </g>
             );
         });
+    }
+
+    generateBarData() {
+        const {
+            xScale,
+            yScale,
+            graphWidth,
+            graphHeight
+        } = this.state;
+        // Map each award to a "bar" component
+        const bars = this.props.awards.map((bar, index) => {
+            const data = bar;
+            const { padding, barHeight, height } = this.props;
+            const start = xScale(bar._startDate.valueOf()) + padding.left;
+            const end = xScale(bar._endDate.valueOf()) + padding.left;
+            data.barWidth = end - start;
+            // create a scale for obligated amount width using awarded amount
+            // and the awarded amount width
+            const obligatedAmountScale = scaleLinear()
+                .domain([0, bar._awardedAmount])
+                .range([0, data.barWidth])
+                .nice();
+            // scale the abligated amount to create the correct width
+            data.obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
+            data.yPosition = (height - 30) - yScale(bar._awardedAmount) - barHeight;
+            // adding these for the tooltip positioning
+            data.index = index;
+            data.graphWidth = graphWidth;
+            data.graphHeight = graphHeight;
+            data.start = start;
+            data.x = start;
+            data.y = (360 - data.yPosition) - ((this.props.barHeight / 2) - 1);
+            // create percentage for description
+            // not handling bad data as that will be handled elsewhere
+            const percentage = calculateTreemapPercentage(bar._obligatedAmount, bar._awardedAmount);
+            data.description = `A ${bar.grandchild ?
+                'grandchild' : 'child'} award with a start date of ${bar.startDate},
+                an end date of ${bar.endDate},
+                an awarded amount of ${bar.awardedAmount} displayed in grey,
+                and an obligated amount of ${bar.obligatedAmount},
+                displayed in green. (${percentage})`;
+            data.barHeight = barHeight;
+            data.style = null;
+            // show stroke on bar when entering tooltip div
+            // checks to make sure the mouse is in a tooltip
+            // and to make sure we have the index of the correct bar
+            if (this.props.showTooltipStroke && (this.props.awardIndexForTooltip === index)) {
+                data.style = { stroke: '#3676b6', strokeWidth: 1 };
+            }
+            return data;
+        });
+        this.setState({ bars });
     }
 
     xyRange() {
@@ -193,13 +222,13 @@ export default class ActivityChart extends React.Component {
             graphHeight,
             yTicks: yScale.ticks(6),
             xTicks: xScale.ticks(5)
-        });
+        }, () => this.generateBarData());
     }
 
     render() {
         const { width, height, padding } = this.props;
         const { xScale, xRange } = this.state;
-        const bars = this.getBars();
+        const bars = this.createBars();
         return (
             <svg
                 className="activity-chart"
