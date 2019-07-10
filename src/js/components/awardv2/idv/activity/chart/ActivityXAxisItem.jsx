@@ -16,7 +16,10 @@ export default class ActivityXAxisItem extends React.Component {
     render() {
         return (
             <g className="axis-item x-axis">
-                <text textAnchor="middle" transform={`translate(${this.props.x},${this.props.y})`}>
+                <text
+                    className="x-axis__text"
+                    textAnchor="middle"
+                    transform={`translate(${this.props.x},${this.props.y})`}>
                     {this.props.label}
                 </text>
             </g>
