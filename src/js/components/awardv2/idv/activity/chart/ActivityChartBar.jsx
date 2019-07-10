@@ -16,7 +16,8 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     isObligated: PropTypes.bool,
-    style: PropTypes.object
+    style: PropTypes.object,
+    pattern: PropTypes.object
 };
 
 export default class ActivityChartBar extends React.Component {
@@ -47,6 +48,7 @@ export default class ActivityChartBar extends React.Component {
                 ref={(g) => {
                     this.element = g;
                 }}>
+                <defs>{this.props.pattern}</defs>
                 <desc>
                     {this.props.description}
                 </desc>
