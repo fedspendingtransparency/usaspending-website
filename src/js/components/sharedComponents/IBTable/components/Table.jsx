@@ -171,31 +171,30 @@ export default class Table extends React.Component {
     }
 
     render() {
+        const tableRequiresScroll = (this.props.rowCount * this.props.rowHeight) > this.props.bodyHeight;
         const visibleWidth = Math.min(this.props.bodyWidth, this.props.contentWidth);
-        // On single row increate the row height so that windows horizontal scroll bar
-        // does not block the data
-        const visibleHeight = this.props.rowCount !== 1 ? Math.min(this.props.bodyHeight,
-            this.props.rowCount * this.props.rowHeight) : this.props.rowHeight + 2;
-        const style = {
-            minWidth: visibleWidth,
-            maxWidth: visibleWidth,
-            maxHeight: visibleHeight + this.props.headerHeight + this.state.scrollbarHeight,
-            minHeight: visibleHeight + this.props.headerHeight + this.state.scrollbarHeight
-        };
-
+        const visibleHeight = Math.min(this.props.bodyHeight, this.props.rowCount * this.props.rowHeight);
         const headerStyle = {
             minWidth: visibleWidth,
             maxWidth: visibleWidth,
             maxHeight: this.props.headerHeight,
             minHeight: this.props.headerHeight
         };
-
+        const style = {
+            minWidth: visibleWidth,
+            maxWidth: visibleWidth,
+            minHeight: visibleHeight + this.props.headerHeight + this.state.scrollbarHeight
+        };
         const bodyStyle = {
             minWidth: visibleWidth,
             maxWidth: visibleWidth,
-            maxHeight: visibleHeight + this.state.scrollbarHeight,
             minHeight: visibleHeight + this.state.scrollbarHeight
         };
+
+        if (tableRequiresScroll) {
+            style.maxHeight = visibleHeight + this.props.headerHeight + this.state.scrollbarHeight;
+            bodyStyle.maxHeight = visibleHeight + this.state.scrollbarHeight;
+        }
 
         const contentStyle = {
             width: this.props.contentWidth,
