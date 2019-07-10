@@ -249,7 +249,7 @@ export default class ActivityChart extends React.Component {
             graphHeight,
             yTicks: yScale.ticks(6),
             xTicks: xScale.ticks(5)
-        }, () => this.generateBarData());
+        }, this.generateBarData);
     }
 
     render() {
