@@ -111,6 +111,8 @@ export default class SearchSidebar extends React.Component {
         });
 
         if (kGlobalConstants.DEV) {
+            // Insert the Program Source filter in dev environments
+            // TODO - Lizzie: initialize in the filter object when this feature is released
             filters.options[4] = 'Program Source (TAS)';
             filters.components[4] = ProgramSourceContainer;
             filters.accessories[4] = null;

@@ -11,10 +11,8 @@ import FederalAccountFilters from './FederalAccountFilters';
 import SelectedSources from './SelectedSources';
 
 const propTypes = {
-    selectedTreasuryComponents: PropTypes.object,
     selectedFederalComponents: PropTypes.object,
     updateFederalAccountComponents: PropTypes.func,
-    updateTreasuryAccountComponents: PropTypes.func,
     dirtyFilters: PropTypes.symbol
 };
 
@@ -60,6 +58,7 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     // TODO - Lizzie: implement openDefaultTab()
+    // to switch to the first tab with a filter already applied
 
     toggleTab(e) {
         const type = e.target.value;

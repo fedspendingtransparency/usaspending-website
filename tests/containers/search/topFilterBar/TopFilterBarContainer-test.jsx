@@ -438,13 +438,7 @@ describe('TopFilterBarContainer', () => {
         expect(topBarContainer.state().filters).toHaveLength(0);
 
         const programSourceFilter = Object.assign({}, stateWithoutDefault, {
-            federalAccounts: new OrderedMap({
-                AID_001: {
-                    code: 'aid',
-                    value: '001',
-                    identifier: 'AID_001'
-                }
-            })
+            federalAccounts: new Set(['123-4567'])
         });
 
         topBarContainer.setProps({
@@ -457,11 +451,7 @@ describe('TopFilterBarContainer', () => {
         const expectedFilterState = {
             code: 'federalAccounts',
             name: 'Federal Account',
-            values: [{
-                code: 'aid',
-                value: '001',
-                identifier: 'AID_001'
-            }]
+            values: ['123-4567']
         };
 
         expect(filterItem).toEqual(expectedFilterState);
