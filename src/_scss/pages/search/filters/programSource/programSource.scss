@@ -11,16 +11,23 @@
             padding: rem(15) 0;
             font-weight: $font-semibold;
         }
-        .program-source-components__button {
-            margin-top: rem(15);
-            width: 100%;
-            cursor: pointer;
-
-            &:disabled {
-                background-color: $color-gray-lightest;
-                border: 1px solid $color-gray-lighter;
-                color: $color-gray-light;
-                cursor: not-allowed;
+        .program-source-components__button-wrapper {
+            position: relative;
+            @import '../location/warning';
+            .warning-tooltip {
+                top: rem(5);
+            }
+            .program-source-components__button {
+                margin-top: rem(15);
+                width: 100%;
+                cursor: pointer;
+    
+                &:disabled {
+                    background-color: $color-gray-lightest;
+                    border: 1px solid $color-gray-lighter;
+                    color: $color-gray-light;
+                    cursor: not-allowed;
+                }
             }
         }
         .program-source-select-filter {
@@ -34,36 +41,6 @@
                     color: $color-secondary;
                     text-align: right;
                 }
-            }
-        }
-        .program-source-text-filter {
-            padding-bottom: rem(15);
-            .program-source-text-filter__wrapper {
-                @include display(flex);
-                @include align-items(stretch);
-                .program-source-text-filter__input {
-                    font-size: $small-font-size;
-                    height: rem(40);
-                    margin: 0 auto;
-                    padding: 11px 8px 11px 8px;
-                    @include display(flex);
-                    @include flex(1 1 auto);
-            
-                    @include placeholder {
-                        color: $color-placeholder;
-                    }
-                }
-                .program-source-text-filter__button {
-                    @include flex(0 0 auto);
-                    @include singleSubmit();
-                    color: $color-gray;
-                }
-            }
-            .program-source-text-filter__label {
-                color: $color-gray;
-                font-size: $small-font-size;
-                margin-top: 0;
-                margin-bottom: .5rem;
             }
         }
     }
