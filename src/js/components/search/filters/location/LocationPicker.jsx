@@ -50,7 +50,7 @@ export default class LocationPicker extends React.Component {
         super(props);
 
         this.submitForm = this.submitForm.bind(this);
-        this.generateWarning = this.generateWarning.bind(this);
+        this.generateDisclaimer = this.generateDisclaimer.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -116,7 +116,7 @@ export default class LocationPicker extends React.Component {
         e.preventDefault();
     }
 
-    generateWarning(field) {
+    generateDisclaimer(field) {
         if (!this.props.country.code) {
             // no country provided
             return (
@@ -226,7 +226,7 @@ export default class LocationPicker extends React.Component {
                             value={this.props.country}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableCountries}
-                            generateWarning={this.generateWarning} />
+                            generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     <div className="location-item">
                         <EntityDropdown
@@ -237,7 +237,7 @@ export default class LocationPicker extends React.Component {
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableStates}
                             enabled={isUSA}
-                            generateWarning={this.generateWarning} />
+                            generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     <div className="location-item">
                         <EntityDropdown
@@ -248,7 +248,7 @@ export default class LocationPicker extends React.Component {
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableCounties}
                             enabled={isCountyEnabled}
-                            generateWarning={this.generateWarning} />
+                            generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     {this.props.enableCitySearch &&
                         <div className="location-item">
@@ -263,7 +263,7 @@ export default class LocationPicker extends React.Component {
                                 options={this.props.availableCities}
                                 selectEntity={this.props.selectEntity}
                                 enabled={isCityEnabled}
-                                generateWarning={this.generateWarning}
+                                generateDisclaimer={this.generateDisclaimer}
                                 setSearchString={this.props.setCitySearchString}
                                 searchString={this.props.citySearchString}
                                 showDisclaimer={showDisclaimer} />
@@ -278,7 +278,7 @@ export default class LocationPicker extends React.Component {
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableDistricts}
                             enabled={isDistrictEnabled}
-                            generateWarning={this.generateWarning} />
+                            generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     <button
                         className="add-location"
@@ -292,7 +292,7 @@ export default class LocationPicker extends React.Component {
                 <div className="location-item">
                     <div className="geo-entity-item">
                         <ZIPField
-                            generateWarning={this.generateWarning}
+                            generateDisclaimer={this.generateDisclaimer}
                             isUSA={isUSA}
                             zip={this.props.zip}
                             validateZip={this.props.validateZip} />

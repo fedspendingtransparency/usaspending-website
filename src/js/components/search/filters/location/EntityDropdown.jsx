@@ -23,7 +23,7 @@ const propTypes = {
     selectEntity: PropTypes.func,
     field: PropTypes.string,
     enabled: PropTypes.bool,
-    generateWarning: PropTypes.func,
+    generateDisclaimer: PropTypes.func,
     matchKey: PropTypes.string,
     setSearchString: PropTypes.func,
     searchString: PropTypes.string,
@@ -239,7 +239,7 @@ export default class EntityDropdown extends React.Component {
 
     render() {
         const {
-            type, field, generateWarning, title, enabled, options, value, searchString, loading
+            type, field, generateDisclaimer, title, enabled, options, value, searchString, loading
         } = this.props;
 
         const isAutocomplete = (type === 'autocomplete');
@@ -338,7 +338,7 @@ export default class EntityDropdown extends React.Component {
                     id={this.state.warningId}
                     aria-hidden={hideWarning === 'hide'}>
                     <EntityWarning
-                        message={generateWarning(warningField)} />
+                        message={generateDisclaimer(warningField)} />
                 </div>
             </div>
         );
