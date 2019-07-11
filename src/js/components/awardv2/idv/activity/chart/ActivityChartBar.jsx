@@ -15,7 +15,6 @@ const propTypes = {
     data: PropTypes.object,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    isObligated: PropTypes.bool,
     style: PropTypes.object,
     pattern: PropTypes.object
 };
@@ -37,8 +36,6 @@ export default class ActivityChartBar extends React.Component {
     }
 
     render() {
-        let classNames = 'activity-chart-bar__awarded-content';
-        if (this.props.isObligated) classNames = 'activity-chart-bar__obligated-content';
         return (
             <g
                 className="activity-chart-bar"
@@ -53,7 +50,6 @@ export default class ActivityChartBar extends React.Component {
                     {this.props.description}
                 </desc>
                 <rect
-                    className={classNames}
                     style={this.props.style}
                     x={this.props.start}
                     y={this.props.yPosition}

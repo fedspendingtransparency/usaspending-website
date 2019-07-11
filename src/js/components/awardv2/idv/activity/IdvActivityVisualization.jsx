@@ -44,7 +44,7 @@ export default class IdvActivityVisualization extends React.Component {
         this.hideTooltip = this.hideTooltip.bind(this);
         this.mouseIsInTooltipDiv = this.mouseIsInTooltipDiv.bind(this);
         this.mouseOutOfTooltipDiv = this.mouseOutOfTooltipDiv.bind(this);
-        this.isOverspent = this.isOverspent.bind(this);
+        this.setOverspent = this.setOverspent.bind(this);
     }
 
     componentDidMount() {
@@ -54,6 +54,10 @@ export default class IdvActivityVisualization extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    setOverspent() {
+        this.setState({ isOverspent: true });
     }
 
     handleWindowResize() {
@@ -66,10 +70,6 @@ export default class IdvActivityVisualization extends React.Component {
                 visualizationWidth: this.sectionRef.offsetWidth
             });
         }
-    }
-
-    isOverspent() {
-        this.setState({ isOverspent: true });
     }
 
     showTooltip(data) {
@@ -126,7 +126,7 @@ export default class IdvActivityVisualization extends React.Component {
                 width={this.state.visualizationWidth}
                 showTooltip={this.showTooltip}
                 hideTooltip={this.hideTooltip}
-                isOverspent={this.isOverspent} />
+                setOverspent={this.setOverspent} />
         );
         let tt = null;
         if (this.state.isShowingTooltip) {
