@@ -16,7 +16,8 @@ const propTypes = {
     required: PropTypes.bool,
     options: PropTypes.array,
     selectedSources: PropTypes.array,
-    updateComponent: PropTypes.func
+    updateComponent: PropTypes.func,
+    dirtyFilters: PropTypes.symbol
 };
 
 const defaultProps = {
@@ -80,8 +81,8 @@ export class SourceSelectFilter extends React.Component {
             noResults: false
         });
 
-        // Only search if input is 2 or more characters
-        if (input.length >= 2) {
+        // Only search if input is 1 or more characters
+        if (input.length >= 1) {
             this.setState({
                 searchString: input
             });
@@ -144,6 +145,7 @@ export class SourceSelectFilter extends React.Component {
                     handleTextInput={this.handleTextInput}
                     onSelect={this.selectSourceComponent}
                     retainValue
+                    dirtyFilters={this.props.dirtyFilters}
                     placeholder={`Enter ${this.props.code.toUpperCase()} value (${this.props.characterLimit} characters)`}
                     errorHeader={`Unknown ${this.props.code.toUpperCase()}`}
                     errorMessage={`We were unable to find that ${this.props.label}`}

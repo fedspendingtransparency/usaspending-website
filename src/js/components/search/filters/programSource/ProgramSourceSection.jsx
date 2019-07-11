@@ -97,7 +97,8 @@ export default class ProgramSourceSection extends React.Component {
             <FederalAccountFilters
                 updateComponent={this.updateFederalAccountComponent}
                 applyFilter={this.applyFilter}
-                components={this.state.federalAccountComponents} />);
+                components={this.state.federalAccountComponents}
+                dirtyFilters={this.props.dirtyFilters} />);
 
         let selectedSources = null;
         if (activeTab === 'federal' && this.props.selectedFederalComponents) {

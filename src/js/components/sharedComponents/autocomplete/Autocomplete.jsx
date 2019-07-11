@@ -21,7 +21,8 @@ const propTypes = {
     label: PropTypes.string,
     noResults: PropTypes.bool,
     characterLimit: PropTypes.number,
-    retainValue: PropTypes.bool
+    retainValue: PropTypes.bool,
+    dirtyFilters: PropTypes.symbol
 };
 
 const defaultProps = {
@@ -33,7 +34,8 @@ const defaultProps = {
     label: '',
     noResults: false,
     characterLimit: 524288, // default for HTML input elements
-    retainValue: false
+    retainValue: false,
+    dirtyFilters: Symbol('')
 };
 
 export default class Autocomplete extends React.Component {
@@ -62,6 +64,9 @@ export default class Autocomplete extends React.Component {
         }
         else if (this.props.noResults !== prevProps.noResults) {
             this.toggleWarning();
+        }
+        if (!isEqual(prevProps.dirtyFilters, this.props.dirtyFilters)) {
+            this.clearInternalState();
         }
     }
 
@@ -218,6 +223,13 @@ export default class Autocomplete extends React.Component {
                 value: ''
             });
         }
+    }
+
+    clearInternalState() {
+        this.setState({
+            value: ''
+        });
+        this.autocompleteInput.value = '';
     }
 
     generateWarning() {

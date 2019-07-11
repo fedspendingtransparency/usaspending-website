@@ -11,7 +11,8 @@ import SourceSelectFilter from './SourceSelectFilter';
 const propTypes = {
     updateComponent: PropTypes.func,
     components: PropTypes.object,
-    applyFilter: PropTypes.func
+    applyFilter: PropTypes.func,
+    dirtyFilters: PropTypes.symbol
 };
 
 const filters = [
@@ -54,12 +55,13 @@ export default class FederalAccountFilters extends React.Component {
     }
 
     render() {
-        const federalFilters = filters.map((filter) => (
+        const federalFilters = filters.map((option) => (
             <SourceSelectFilter
-                key={filter.code}
+                dirtyFilters={this.props.dirtyFilters}
+                key={option.code}
                 updateComponent={this.props.updateComponent}
-                selectedSources={[this.props.components[filter.code]]}
-                {...filter} />
+                selectedSources={[this.props.components[option.code]]}
+                {...option} />
         ));
 
         const components = this.props.components;
