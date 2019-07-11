@@ -20,7 +20,7 @@ import LocationPicker from "components/search/filters/location/LocationPicker";
 const propTypes = {
     selectedLocations: PropTypes.object,
     addLocation: PropTypes.func,
-    scope: PropTypes.string, // one of "recipient_location", "primary_place_of_performance"
+    scope: PropTypes.oneOf(["primary_place_of_performance", "recipient_location"]),
     enableCitySearch: PropTypes.bool
 };
 
@@ -512,6 +512,7 @@ export default class LocationPickerContainer extends React.Component {
         return (
             <LocationPicker
                 {...this.state}
+                scope={this.props.scope}
                 enableCitySearch={this.props.enableCitySearch}
                 selectedLocations={this.props.selectedLocations}
                 loadStates={this.loadStates}
