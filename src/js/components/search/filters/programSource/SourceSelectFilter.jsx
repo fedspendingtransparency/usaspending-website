@@ -146,6 +146,7 @@ export class SourceSelectFilter extends React.Component {
                     onSelect={this.selectSourceComponent}
                     retainValue
                     dirtyFilters={this.props.dirtyFilters}
+                    minCharsToSearch={1}
                     placeholder={`Enter ${this.props.code.toUpperCase()} value (${this.props.characterLimit} characters)`}
                     errorHeader={`Unknown ${this.props.code.toUpperCase()}`}
                     errorMessage={`We were unable to find that ${this.props.label}`}

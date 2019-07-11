@@ -22,7 +22,8 @@ const propTypes = {
     noResults: PropTypes.bool,
     characterLimit: PropTypes.number,
     retainValue: PropTypes.bool,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    minCharsToSearch: PropTypes.number
 };
 
 const defaultProps = {
@@ -35,7 +36,8 @@ const defaultProps = {
     noResults: false,
     characterLimit: 524288, // default for HTML input elements
     retainValue: false,
-    dirtyFilters: Symbol('')
+    dirtyFilters: Symbol(''),
+    minCharsToSearch: 2
 };
 
 export default class Autocomplete extends React.Component {
@@ -165,12 +167,12 @@ export default class Autocomplete extends React.Component {
             showWarning: false
         });
 
-        if (input.length === 1) {
-            // Ensure user has typed 2 or more characters before searching
+        if (input.length === (this.props.minCharsToSearch - 1)) {
+            // Ensure user has typed the minimum number of characters before searching
             this.createTimeout(true, input, 1000);
         }
         else {
-            // Clear timeout when input is cleared or longer than 2 characters
+            // Clear timeout when input is cleared or longer than the min characters
             this.cancelTimeout();
         }
     }
@@ -236,10 +238,10 @@ export default class Autocomplete extends React.Component {
         if (this.state.showWarning) {
             let errorProps = {};
 
-            if (this.state.value && this.state.value.length === 1) {
+            if (this.state.value && this.state.value.length < this.props.minCharsToSearch) {
                 errorProps = {
                     header: 'Error',
-                    description: 'Please enter more than one character.'
+                    description: `Please enter more than ${this.props.minCharsToSearch - 1} character${this.props.minCharsToSearch > 2 ? 's' : ''}.`
                 };
             }
             else {
