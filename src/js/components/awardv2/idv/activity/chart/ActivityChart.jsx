@@ -8,8 +8,7 @@ import PropTypes from 'prop-types';
 import { isEqual, min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
-import Hatch from 'components/sharedComponents/patterns/Hatch';
-import StandardFill from 'components/sharedComponents/patterns/StandardFill';
+import TwoRectangles from 'components/sharedComponents/patterns/TwoRectangles';
 import VerticalLine from 'components/sharedComponents/VerticalLine';
 import ActivityChartBar from './ActivityChartBar';
 import ActivityXAxis from './ActivityXAxis';
@@ -26,7 +25,8 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     showTooltipStroke: PropTypes.bool,
-    awardIndexForTooltip: PropTypes.number
+    awardIndexForTooltip: PropTypes.number,
+    isOverspent: PropTypes.func
 };
 
 const defaultProps = {
@@ -113,7 +113,7 @@ export default class ActivityChart extends React.Component {
         // Map each award to a "bar" component
         const bars = this.props.awards.map((bar, index) => {
             const data = bar;
-            const { padding, barHeight, height } = this.props;
+            const { padding, barHeight, height, isOverspent } = this.props;
             const start = xScale(bar._startDate.valueOf()) + padding.left;
             const end = xScale(bar._endDate.valueOf()) + padding.left;
             data.barWidth = end - start;
@@ -149,6 +149,7 @@ export default class ActivityChart extends React.Component {
             // handle overspending
             if (bar._obligatedAmount > bar._awardedAmount) {
                 data.style = { fill: "url(#diagonalHatch)" };
+                isOverspent();
             }
             // show stroke on bar when entering tooltip div
             // checks to make sure the mouse is in a tooltip
@@ -159,7 +160,7 @@ export default class ActivityChart extends React.Component {
             // bar normal design
             const barHeightString = data.barHeight.toString();
             data.pattern = (
-                <StandardFill
+                <TwoRectangles
                     id={`normal${index}`}
                     width={barHeightString}
                     height={barHeightString}
@@ -173,7 +174,7 @@ export default class ActivityChart extends React.Component {
             // bar overspending design
             if (bar._obligatedAmount > bar._awardedAmount) {
                 data.pattern = (
-                    <Hatch
+                    <TwoRectangles
                         id="diagonalHatch"
                         width={barHeightString}
                         height={barHeightString}
@@ -182,9 +183,9 @@ export default class ActivityChart extends React.Component {
                         backgroundWidth="100%"
                         backgroundHeight={barHeightString}
                         backgroundFill="#94BFA2"
-                        hatchWidth="2"
-                        hatchHeight={barHeightString}
-                        hatchFill="rgb(188,92,35)" />
+                        fillWidth="2"
+                        fillHeight={barHeightString}
+                        fillFill="rgb(188,92,35)" />
                 );
             }
             return data;

@@ -1,5 +1,5 @@
 /**
- * ActivityChart.jsx
+ * TwoRectangles.jsx
  * Created by Jonathan Hill 07/10/19
  **/
 
@@ -15,12 +15,12 @@ const propTypes = {
     backgroundWidth: PropTypes.string,
     backgroundHeight: PropTypes.string,
     backgroundFill: PropTypes.string,
-    hatchWidth: PropTypes.string,
-    hatchHeight: PropTypes.string,
-    hatchFill: PropTypes.string
+    fillWidth: PropTypes.string,
+    fillHeight: PropTypes.string,
+    fillFill: PropTypes.string
 };
 
-const Hatch = ({
+const TwoRectangles = ({
     id,
     width,
     height,
@@ -29,9 +29,9 @@ const Hatch = ({
     backgroundWidth,
     backgroundHeight,
     backgroundFill,
-    hatchWidth,
-    hatchHeight,
-    hatchFill
+    fillWidth,
+    fillHeight,
+    fillFill
 }) => (
     <pattern
         id={id}
@@ -40,10 +40,10 @@ const Hatch = ({
         patternTransform={patternTransform}
         patternUnits={patternUnits}>
         <rect width={backgroundWidth} height={backgroundHeight} fill={backgroundFill} />
-        <rect width={hatchWidth} height={hatchHeight} fill={hatchFill} />
+        <rect width={fillWidth} height={fillHeight} fill={fillFill} />
     </pattern>
 );
 
-Hatch.propTypes = propTypes;
+TwoRectangles.propTypes = propTypes;
 
-export default Hatch;
+export default TwoRectangles;

@@ -100,7 +100,15 @@ $obligated-green: #94BFA2;
                 border-radius: rem(8);
                 background-color: #D8D8D8;
                 &.visualization-legend__circle_obligated {
-                    background-color: $obligated-green;
+                  background-color: $obligated-green;
+                }
+                &.visualization-legend__circle_overspent {
+                  background: repeating-linear-gradient( 
+                    45deg,
+                    $obligated-green,
+                    $obligated-green 4px,
+                    rgb(188,92,35) 4px,
+                    rgb(188,92,35) 6px);
                 }
             }
             .visualization-legend__label {
