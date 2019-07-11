@@ -127,6 +127,13 @@ export default class LocationPicker extends React.Component {
                 </span>
             );
         }
+        else if (this.props.country.code !== 'USA' && field === 'CITY' && this.props.scope === "primary_place_of_performance") {
+            return (
+                <span>
+                    Place of Performance data for foreign cities is limited and may return fewer results.
+                </span>
+            );
+        }
         else if (this.props.country.code === 'USA') {
             const {
                 state,
@@ -142,13 +149,6 @@ export default class LocationPicker extends React.Component {
                         Please select a&nbsp;
                         <span className="field">state</span> before selecting a&nbsp;
                         <span className="field">{field}</span>.
-                    </span>
-                );
-            }
-            else if (this.props.country.code !== 'USA' && field === 'CITY' && this.props.scope === "primary_place_of_performance") {
-                return (
-                    <span>
-                        Place of Performance data for foreign cities is limited and may return fewer results.
                     </span>
                 );
             }
