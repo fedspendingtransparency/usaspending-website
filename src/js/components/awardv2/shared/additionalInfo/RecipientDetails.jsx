@@ -102,6 +102,7 @@ export default class RecipientDetails extends React.Component {
                                 <td>
                                     <div>{this.props.data.location.streetAddress}</div>
                                     <div>{this.props.data.location.regionalAddress}</div>
+                                    <div>{this.props.data.location.fullCongressionalDistrict}</div>
                                 </td>
                             </tr>
                             <tr
