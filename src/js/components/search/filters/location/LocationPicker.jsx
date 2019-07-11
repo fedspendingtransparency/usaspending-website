@@ -145,6 +145,13 @@ export default class LocationPicker extends React.Component {
                     </span>
                 );
             }
+            else if (this.props.country.code !== 'USA' && field === 'CITY' && this.props.scope === "primary_place_of_performance") {
+                return (
+                    <span>
+                        Place of Performance data for foreign cities is limited and may return fewer results.
+                    </span>
+                );
+            }
             else if (countyOrDistrictSelected || (city.code && (!district.district || !county.code))) {
                 const selectedField = (district.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
                 return (
@@ -199,6 +206,12 @@ export default class LocationPicker extends React.Component {
                 isAddFilterDisabled = true;
             }
         }
+
+        const showDisclaimer = (
+            this.props.scope === 'primary_place_of_performance' &&
+            this.props.country.code !== 'USA' &&
+            this.props.country.code !== ''
+        );
 
         return (
             <div>
