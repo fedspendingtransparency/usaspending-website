@@ -37,7 +37,8 @@ const propTypes = {
     setCitySearchString: PropTypes.func,
     citySearchString: PropTypes.string,
     loading: PropTypes.bool,
-    enableCitySearch: PropTypes.bool
+    enableCitySearch: PropTypes.bool,
+    scope: PropTypes.oneOf(["primary_place_of_performance", "recipient_location"])
 };
 
 const defaultProps = {
@@ -206,7 +207,7 @@ export default class LocationPicker extends React.Component {
                     onSubmit={this.submitForm}>
                     <div className="location-item">
                         <EntityDropdown
-                            scope="country"
+                            field="country"
                             placeholder="Select a country"
                             title="COUNTRY"
                             value={this.props.country}
@@ -216,7 +217,7 @@ export default class LocationPicker extends React.Component {
                     </div>
                     <div className="location-item">
                         <EntityDropdown
-                            scope="state"
+                            field="state"
                             placeholder="Select a state"
                             title="STATE (US ONLY)"
                             value={this.props.state}
@@ -227,7 +228,7 @@ export default class LocationPicker extends React.Component {
                     </div>
                     <div className="location-item">
                         <EntityDropdown
-                            scope="county"
+                            field="county"
                             placeholder="Select a county"
                             title="COUNTY (US ONLY)"
                             value={this.props.county}
@@ -241,7 +242,8 @@ export default class LocationPicker extends React.Component {
                             <EntityDropdown
                                 type="autocomplete"
                                 loading={this.props.loading}
-                                scope="city"
+                                field="city"
+                                scope={this.props.scope}
                                 placeholder="Enter a City"
                                 title="CITY"
                                 value={this.props.city}
@@ -250,11 +252,12 @@ export default class LocationPicker extends React.Component {
                                 enabled={isCityEnabled}
                                 generateWarning={this.generateWarning}
                                 setSearchString={this.props.setCitySearchString}
-                                searchString={this.props.citySearchString} />
+                                searchString={this.props.citySearchString}
+                                showDisclaimer={showDisclaimer} />
                         </div>}
                     <div className="location-item">
                         <EntityDropdown
-                            scope="district"
+                            field="district"
                             matchKey="district"
                             placeholder={districtPlaceholder}
                             title="CONGRESSIONAL DISTRICT (US ONLY)"
