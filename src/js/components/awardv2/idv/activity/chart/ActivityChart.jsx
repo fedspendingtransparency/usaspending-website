@@ -113,7 +113,12 @@ export default class ActivityChart extends React.Component {
         // Map each award to a "bar" component
         const bars = this.props.awards.map((bar, index) => {
             const data = bar;
-            const { padding, barHeight, height, isOverspent } = this.props;
+            const {
+                padding,
+                barHeight,
+                height,
+                isOverspent
+            } = this.props;
             const start = xScale(bar._startDate.valueOf()) + padding.left;
             const end = xScale(bar._endDate.valueOf()) + padding.left;
             data.barWidth = end - start;
