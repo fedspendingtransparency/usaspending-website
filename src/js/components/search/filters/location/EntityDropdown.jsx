@@ -219,8 +219,8 @@ export default class EntityDropdown extends React.Component {
     }
 
     mouseEnter() {
-        if (this.props.enabled) {
-            // active filter, do nothing
+        if (this.props.enabled && !this.props.showDisclaimer) {
+            // active filter, w/ no disclaimer/warning do nothing
             return;
         }
 
@@ -270,7 +270,8 @@ export default class EntityDropdown extends React.Component {
             disabled = 'disabled';
         }
 
-        if (!this.props.enabled && this.state.showWarning) {
+        if (this.state.showWarning) {
+            // even if this is enabled, still showWarning b/c we're also showingDisclaimer now
             hideWarning = '';
         }
 
@@ -326,6 +327,7 @@ export default class EntityDropdown extends React.Component {
                             handleTextInputChange={this.handleTextInputChange}
                             toggleDropdown={this.toggleDropdown}
                             placeholder={this.props.placeholder}
+                            showDisclaimer={this.props.showDisclaimer}
                             context={this} // used to create dropdown ref
                             loading={loading} />
                     }
