@@ -289,7 +289,7 @@ export default class TimePeriod extends React.Component {
                         role="menu">
                         <li>
                             <button
-                                className={`date-toggle ${activeClassFY}`}
+                                className={`tab-toggle ${activeClassFY}`}
                                 value="fy"
                                 role="menuitemradio"
                                 aria-checked={this.props.activeTab === 'fy'}
@@ -301,7 +301,7 @@ export default class TimePeriod extends React.Component {
                         </li>
                         <li>
                             <button
-                                className={`date-toggle ${activeClassDR}`}
+                                className={`tab-toggle ${activeClassDR}`}
                                 id="filter-date-range-tab"
                                 value="dr"
                                 role="menuitemradio"

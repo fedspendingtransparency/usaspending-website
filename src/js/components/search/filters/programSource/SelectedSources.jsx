@@ -15,15 +15,12 @@ const propTypes = {
 
 export default class SelectedSources extends React.Component {
     render() {
-        const shownSources = [];
-
-        this.props.selectedSources.forEach((identifier) => {
-            const value = (<ShownValue
+        const shownSources = this.props.selectedSources.map((identifier) => (
+            (<ShownValue
                 label={`FA # | ${identifier}`}
                 key={identifier}
-                removeValue={this.props.removeSource.bind(null, identifier)} />);
-            shownSources.push(value);
-        });
+                removeValue={this.props.removeSource.bind(null, identifier)} />)
+        ));
 
         return (
             <div

@@ -43,20 +43,12 @@ export default class ProgramSourceFilterGroup extends React.Component {
     }
 
     generateTags() {
-        const tags = [];
-
-        this.props.filter.values.forEach((value) => {
-            const tag = {
-                value,
-                title: `FA # | ${value}`,
-                isSpecial: false,
-                removeFilter: this.removeFilter
-            };
-
-            tags.push(tag);
-        });
-
-        return tags;
+        return this.props.filter.values.map((value) => ({
+            value,
+            title: `FA # | ${value}`,
+            isSpecial: false,
+            removeFilter: this.removeFilter
+        }));
     }
 
     render() {

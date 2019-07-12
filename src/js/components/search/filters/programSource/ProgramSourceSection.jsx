@@ -115,7 +115,7 @@ export default class ProgramSourceSection extends React.Component {
                     role="menu">
                     <li>
                         <button
-                            className={`date-toggle ${activeTreasury}`}
+                            className={`tab-toggle ${activeTreasury}`}
                             value="treasury"
                             role="menuitemradio"
                             aria-checked={this.state.activeTab === 'treasury'}
@@ -127,7 +127,7 @@ export default class ProgramSourceSection extends React.Component {
                     </li>
                     <li>
                         <button
-                            className={`date-toggle ${activeFederal}`}
+                            className={`tab-toggle ${activeFederal}`}
                             value="federal"
                             role="menuitemradio"
                             aria-checked={this.state.activeTab === 'federal'}

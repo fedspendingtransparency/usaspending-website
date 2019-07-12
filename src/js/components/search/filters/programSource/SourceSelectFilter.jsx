@@ -60,16 +60,11 @@ export class SourceSelectFilter extends React.Component {
     }
 
     parseAutocompleteOptions(options) {
-        const values = [];
-        if (options && options.length > 0) {
-            options.forEach((item) => {
-                values.push({
-                    title: item.code,
-                    subtitle: item.name || '',
-                    data: item
-                });
-            });
-        }
+        const values = options.map((item) => ({
+            title: item.code,
+            subtitle: item.name || '',
+            data: item
+        }));
 
         this.setState({
             autocompleteOptions: values

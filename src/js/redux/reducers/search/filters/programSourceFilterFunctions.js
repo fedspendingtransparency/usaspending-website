@@ -5,8 +5,8 @@
 
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other query modules
-export const updateSelectedSources = (state, sourceIdentifier) => {
-    let updatedSet = state;
+export const updateSelectedSources = (currentSources, sourceIdentifier) => {
+    let updatedSet = currentSources;
 
     if (updatedSet.has(sourceIdentifier)) {
         updatedSet = updatedSet.delete(sourceIdentifier);
