@@ -23,15 +23,15 @@ export default class Development extends React.Component {
                 className="about-section-wrapper"
                 id="about-development">
                 <h2 className="about-section-title">
-                    Development and Release Notes
+                    Development and Releases
                 </h2>
                 <div className="about-section-content">
                     <p>
-                        USAspending is developed using agile methods. Our current release approach begins with a two-week development sprint, followed by a two-week testing period (concurrent with the subsequent development sprint). As such, about four weeks pass between the start of a sprint and its updates reaching production; however, because we concurrently test the previous sprint while developing the next sprint, the end result is still website updates roughly every two weeks. If you would like to receive regular release notes via e-mail, please&nbsp;
+                        USAspending.gov is developed using agile methods. Our current release approach is a two-week development sprint, followed by a two-week testing period, followed by public release. We begin coding the next sprint at the same time we&rsquo;re testing the first sprint, so updates are published to the website about every two weeks. If you want us to send you the Release Notes when an update goes out, please&nbsp;
                         <a
                             href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.">
                             sign up here
-                        </a>. We maintain a collection of all previous release notes&nbsp;
+                        </a>. Previous Release Notes are available&nbsp;
                         <button
                             className="usa-button-link"
                             role="link"
