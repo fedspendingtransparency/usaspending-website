@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, differenceWith } from 'lodash';
+import { isEqual, differenceWith, debounce } from 'lodash';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -53,10 +53,14 @@ export class SourceSelectFilter extends React.Component {
             noResults: false
         };
 
+        this.queryAutocompleteDebounced = debounce(this.queryAutocomplete, 300);
         this.handleTextInput = this.handleTextInput.bind(this);
         this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
         this.selectSourceComponent = this.selectSourceComponent.bind(this);
-        this.timeout = null;
+    }
+
+    componentWillUnmount() {
+        this.queryAutocompleteDebounced.cancel();
     }
 
     parseAutocompleteOptions(options) {
@@ -73,7 +77,8 @@ export class SourceSelectFilter extends React.Component {
 
     queryAutocomplete(input) {
         this.setState({
-            noResults: false
+            noResults: false,
+            autocompleteOptions: []
         });
 
         // Only search if input is 1 or more characters
@@ -111,20 +116,9 @@ export class SourceSelectFilter extends React.Component {
         });
     }
 
-    handleTextInput(programSourceInput) {
-        // Clear existing sources to ensure user can't select an old or existing one
-        this.setState({
-            autocompleteOptions: []
-        });
-
-        // Grab input, clear any exiting timeout
-        const input = programSourceInput.target.value;
-        window.clearTimeout(this.timeout);
-
-        // Perform search if user doesn't type again for 300ms
-        this.timeout = window.setTimeout(() => {
-            this.queryAutocomplete(input);
-        }, 300);
+    handleTextInput(event) {
+        event.persist();
+        this.queryAutocompleteDebounced(event.target.value);
     }
 
     render() {

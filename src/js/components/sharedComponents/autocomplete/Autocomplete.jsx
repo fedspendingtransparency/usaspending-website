@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, find, uniqueId } from 'lodash';
+import { isEqual, find, uniqueId, debounce } from 'lodash';
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
@@ -54,6 +54,9 @@ export default class Autocomplete extends React.Component {
             autocompleteId: `autocomplete-${uniqueId()}`,
             statusId: `autocomplete-status-${uniqueId()}`
         };
+
+        this.checkValidityDebounced = debounce(this.checkValidity, 1000);
+        this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
@@ -74,10 +77,12 @@ export default class Autocomplete extends React.Component {
 
     componentWillUnmount() {
         this.props.clearAutocompleteSuggestions();
+        this.checkValidityDebounced.cancel();
     }
 
     onChange(e) {
-        this.checkValidity(e.target.value);
+        e.persist();
+        this.checkValidityDebounced(e.target.value);
         this.props.handleTextInput(e);
         this.setState({
             value: e.target.value,
@@ -167,30 +172,13 @@ export default class Autocomplete extends React.Component {
             showWarning: false
         });
 
-        if (input.length === (this.props.minCharsToSearch - 1)) {
+        if (input.length < this.props.minCharsToSearch) {
             // Ensure user has typed the minimum number of characters before searching
-            this.createTimeout(true, input, 1000);
-        }
-        else {
-            // Clear timeout when input is cleared or longer than the min characters
-            this.cancelTimeout();
-        }
-    }
-
-    createTimeout(warning, input, delay) {
-        this.cancelTimeout();
-
-        this.timeout = window.setTimeout(() => {
             this.setState({
                 value: input,
-                showWarning: warning
+                showWarning: true
             });
-        }, delay);
-    }
-
-    cancelTimeout() {
-        window.clearTimeout(this.timeout);
-        this.timeout = null;
+        }
     }
 
     changedText(e) {
