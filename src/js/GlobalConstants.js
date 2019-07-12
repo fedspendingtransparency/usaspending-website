@@ -5,9 +5,6 @@
 
 // use the correct GlobalConstants file based on the current environment
 
-const path = require('path');
-const fs = require('fs');
-
 // Production ENV values
 const prod = {
     // PROD
@@ -45,13 +42,5 @@ const globalConstants = {
     production: prod
 };
 
-const getConfigFile = () => {
-    if (fs.existsSync(path.resolve(__dirname, "../../globalConstants.js"))) {
-        // eslint-disable-next-line global-require
-        return require("../../globalConstants");
-    }
-    return globalConstants[process.env.NODE_ENV];
-};
-
-export default getConfigFile();
+export default globalConstants[process.env.NODE_ENV];
 
