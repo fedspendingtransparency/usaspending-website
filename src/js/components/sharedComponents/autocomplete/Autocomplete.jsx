@@ -95,7 +95,9 @@ export default class Autocomplete extends React.Component {
 
         target.addEventListener('blur', () => {
             this.close();
-            target.value = '';
+            if (!this.props.retainValue) {
+                target.value = '';
+            }
         });
 
         // enable tab keyboard shortcut for selection
