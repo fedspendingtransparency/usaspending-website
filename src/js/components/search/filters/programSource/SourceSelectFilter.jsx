@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, differenceWith, debounce } from 'lodash';
+import { debounce } from 'lodash';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -87,21 +87,13 @@ export class SourceSelectFilter extends React.Component {
                 searchString: input
             });
 
-            let autocompleteOptions = [];
+            const matches = this.props.options
+                .filter((source) => source.code.includes(this.state.searchString));
 
-            const matches = this.props.options.filter((source) => (source.code.includes(this.state.searchString)));
-            // Filter out any selectedSources that may be in the result set
-            if (this.props.selectedSources && this.props.selectedSources.length > 0) {
-                autocompleteOptions = differenceWith(matches, this.props.selectedSources, isEqual);
-            }
-            else {
-                autocompleteOptions = matches;
-            }
-
-            this.parseAutocompleteOptions(autocompleteOptions);
+            this.parseAutocompleteOptions(matches);
 
             this.setState({
-                noResults: autocompleteOptions.length === 0
+                noResults: matches.length === 0
             });
         }
     }
