@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { isEqual, min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
-import VerticalLine from '../../../../sharedComponents/VerticalLine';
+import TwoRectangles from 'components/sharedComponents/patterns/TwoRectangles';
+import VerticalLine from 'components/sharedComponents/VerticalLine';
 import ActivityChartBar from './ActivityChartBar';
 import ActivityXAxis from './ActivityXAxis';
 import ActivityYAxis from './ActivityYAxis';
@@ -24,7 +25,8 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     showTooltipStroke: PropTypes.bool,
-    awardIndexForTooltip: PropTypes.number
+    awardIndexForTooltip: PropTypes.number,
+    setOverspent: PropTypes.func
 };
 
 const defaultProps = {
@@ -70,14 +72,56 @@ export default class ActivityChart extends React.Component {
         // Map each award to a "bar" component
         return this.state.bars.map((bar, index) => {
             const {
-                style,
                 barHeight,
                 start,
                 barWidth,
                 yPosition,
-                obligatedAmountWidth,
                 description
             } = bar;
+            let { style } = bar;
+            // bar styling normal
+            style = { fill: `url(#normal${index}` };
+            // handle overspending style
+            if (bar._obligatedAmount > bar._awardedAmount) {
+                style = { fill: "url(#diagonalHatch)" };
+            }
+            // show stroke on bar when entering tooltip div
+            // checks to make sure the mouse is in a tooltip
+            // and to make sure we have the index of the correct bar
+            if (this.props.showTooltipStroke && (this.props.awardIndexForTooltip === index)) {
+                style = { stroke: '#3676b6', strokeWidth: 1, ...style };
+            }
+            // bar normal design
+            const barHeightString = barHeight.toString();
+            let pattern = (
+                <TwoRectangles
+                    id={`normal${index}`}
+                    width={barHeightString}
+                    height={barHeightString}
+                    backgroundWidth="100%"
+                    backgroundHeight={barHeightString}
+                    backgroundFill="#D8D8D8"
+                    fillWidth={`${bar.obligatedAmountWidth}`}
+                    fillHeight={barHeightString}
+                    fillFill="#94BFA2" />
+            );
+            // bar overspending design
+            if (bar._obligatedAmount > bar._awardedAmount) {
+                pattern = (
+                    <TwoRectangles
+                        id="diagonalHatch"
+                        width={barHeightString}
+                        height={barHeightString}
+                        patternTransform="rotate(135, 0, 0)"
+                        patternUnits="userSpaceOnUse"
+                        backgroundWidth="100%"
+                        backgroundHeight={barHeightString}
+                        backgroundFill="#94BFA2"
+                        fillWidth="2"
+                        fillHeight={barHeightString}
+                        fillFill="rgb(188,92,35)" />
+                );
+            }
             return (
                 <g
                     tabIndex="0"
@@ -87,23 +131,11 @@ export default class ActivityChart extends React.Component {
                     {/* awarded amount bar */}
                     <ActivityChartBar
                         style={style}
+                        pattern={pattern}
                         index={index}
                         height={barHeight}
                         start={start}
                         width={barWidth}
-                        yPosition={yPosition}
-                        data={bar}
-                        showTooltip={this.props.showTooltip}
-                        hideTooltip={this.props.hideTooltip} />
-                    {/* obligated amount bar */}
-                    <ActivityChartBar
-                        isObligated
-                        key={`bar-${bar._obligatedAmount}-${bar.id}`}
-                        index={index}
-                        height={barHeight}
-                        start={start}
-                        awardedWidth={barWidth}
-                        width={obligatedAmountWidth}
                         yPosition={yPosition}
                         data={bar}
                         showTooltip={this.props.showTooltip}
@@ -123,7 +155,11 @@ export default class ActivityChart extends React.Component {
         // Map each award to a "bar" component
         const bars = this.props.awards.map((bar, index) => {
             const data = bar;
-            const { padding, barHeight, height } = this.props;
+            const {
+                padding,
+                barHeight,
+                height
+            } = this.props;
             const start = xScale(bar._startDate.valueOf()) + padding.left;
             const end = xScale(bar._endDate.valueOf()) + padding.left;
             data.barWidth = end - start;
@@ -153,12 +189,8 @@ export default class ActivityChart extends React.Component {
                 and an obligated amount of ${bar.obligatedAmount},
                 displayed in green. (${percentage})`;
             data.barHeight = barHeight;
-            data.style = null;
-            // show stroke on bar when entering tooltip div
-            // checks to make sure the mouse is in a tooltip
-            // and to make sure we have the index of the correct bar
-            if (this.props.showTooltipStroke && (this.props.awardIndexForTooltip === index)) {
-                data.style = { stroke: '#3676b6', strokeWidth: 1 };
+            if (bar._obligatedAmount > bar._awardedAmount) {
+                this.props.setOverspent();
             }
             return data;
         });

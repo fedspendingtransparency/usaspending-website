@@ -35,7 +35,8 @@ export default class IdvActivityVisualization extends React.Component {
             toolTipData: null,
             awards: props.awards,
             showTooltipStroke: false,
-            awardIndexForTooltip: null
+            awardIndexForTooltip: null,
+            isOverspent: false
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
@@ -43,6 +44,7 @@ export default class IdvActivityVisualization extends React.Component {
         this.hideTooltip = this.hideTooltip.bind(this);
         this.mouseIsInTooltipDiv = this.mouseIsInTooltipDiv.bind(this);
         this.mouseOutOfTooltipDiv = this.mouseOutOfTooltipDiv.bind(this);
+        this.setOverspent = this.setOverspent.bind(this);
     }
 
     componentDidMount() {
@@ -52,6 +54,10 @@ export default class IdvActivityVisualization extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    setOverspent() {
+        this.setState({ isOverspent: true });
     }
 
     handleWindowResize() {
@@ -119,7 +125,8 @@ export default class IdvActivityVisualization extends React.Component {
                 height={height}
                 width={this.state.visualizationWidth}
                 showTooltip={this.showTooltip}
-                hideTooltip={this.hideTooltip} />
+                hideTooltip={this.hideTooltip}
+                setOverspent={this.setOverspent} />
         );
         let tt = null;
         if (this.state.isShowingTooltip) {
@@ -162,6 +169,15 @@ export default class IdvActivityVisualization extends React.Component {
                     <div className="visualization-legend__label">
                         Funding Remaining
                     </div>
+                    {this.state.isOverspent && <div
+                        className="visualization-legend__circle
+                        visualization-legend__circle_overspent" />}
+                    {
+                        this.state.isOverspent &&
+                        <div className="visualization-legend__label">
+                            Over Obligated
+                        </div>
+                    }
                 </div>
                 <div className="activity-visualization-note">
                     <Note message={message} />
