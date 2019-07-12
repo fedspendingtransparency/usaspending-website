@@ -8,7 +8,7 @@ import CoreLocation from 'models/v2/CoreLocation';
 const BaseAwardRecipient = {
     populate(data) {
         this.internalId = data.recipient_hash || '';
-        this.name = data.recipient_name || 'Unknown';
+        this._name = data.recipient_name || '';
         this.duns = data.recipient_unique_id || '--';
         this.parentName = data.parent_recipient_name || '';
         this.parentDuns = data.parent_recipient_unique_id || '--';
@@ -37,6 +37,9 @@ const BaseAwardRecipient = {
         const location = Object.create(CoreLocation);
         location.populateCore(locationData);
         this.location = location;
+    },
+    get name() {
+        return this._name || 'Unknown';
     }
 };
 

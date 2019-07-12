@@ -76,7 +76,7 @@ export default class RecipientDetails extends React.Component {
                                 className="accordion-table__row">
                                 <td>Recipient</td>
                                 <td>
-                                    {this.formatRecipientLink(this.props.data.internalId, this.props.data.name)}
+                                    {this.formatRecipientLink(this.props.data.internalId, this.props.data._name)}
                                 </td>
                             </tr>
                             <tr
