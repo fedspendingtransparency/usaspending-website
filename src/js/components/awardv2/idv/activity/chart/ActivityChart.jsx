@@ -258,7 +258,12 @@ export default class ActivityChart extends React.Component {
 
     render() {
         const { width, height, padding } = this.props;
-        const { xScale, xRange, graphHeight, graphWidth } = this.state;
+        const {
+            xScale,
+            xRange,
+            graphHeight,
+            graphWidth
+        } = this.state;
         const bars = this.createBars();
         return (
             <svg
