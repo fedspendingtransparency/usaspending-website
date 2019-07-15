@@ -18,7 +18,8 @@ const propTypes = {
     showTextRight: PropTypes.bool, // show text to the right of line
     showTextLeft: PropTypes.bool, // show text to the left of line
     textY: PropTypes.number, // show text at this height
-    description: PropTypes.string
+    description: PropTypes.string,
+    adjustmentX: PropTypes.number // adjust x for padding
 };
 
 export default class VerticalLine extends Component {
@@ -62,9 +63,10 @@ export default class VerticalLine extends Component {
             xValue,
             showTextRight,
             showTextLeft,
-            textY
+            textY,
+            adjustmentX
         } = this.props;
-        let positionX = xScale(xValue || Date.now());
+        let positionX = xScale(xValue || Date.now()) + (adjustmentX || 0);
         // the text div starts null since React only calls the callback ref function
         // when the DOM draws the element, without this you will get an error since
         // we will be call properties on null
@@ -84,12 +86,14 @@ export default class VerticalLine extends Component {
             y2,
             xValue,
             xMax,
-            xMin
+            xMin,
+            adjustmentX,
+            xScale
         } = this.props;
         // show nothing if not within x Range
         if ((xValue > xMax) && (xValue < xMin)) return null;
         const description = this.props.description || 'A vertical line representing today\'s date';
-        const linePosition = this.props.xScale(this.props.xValue || Date.now());
+        const linePosition = xScale(xValue || Date.now()) + (adjustmentX || 0);
         return (
             <g className="vertical-line__container">
                 <desc>{description}</desc>

@@ -159,23 +159,28 @@ export default class IdvActivityVisualization extends React.Component {
                 {chart}
                 {tt}
                 <div className="visualization-legend">
-                    <div
-                        className="visualization-legend__circle
-                        visualization-legend__circle_obligated" />
-                    <div className="visualization-legend__label">
-                        Obligated
-                    </div>
-                    <div className="visualization-legend__circle visualization-legend__circle" />
-                    <div className="visualization-legend__label">
-                        Funding Remaining
-                    </div>
-                    {this.state.isOverspent && <div
-                        className="visualization-legend__circle
-                        visualization-legend__circle_overspent" />}
-                    {
-                        this.state.isOverspent &&
+                    <div className="visualization-legend__item">
+                        <div
+                            className="visualization-legend__circle
+                            visualization-legend__circle_obligated" />
                         <div className="visualization-legend__label">
-                            Over Obligated
+                            Obligated
+                        </div>
+                    </div>
+                    <div className="visualization-legend__item">
+                        <div className="visualization-legend__circle visualization-legend__circle" />
+                        <div className="visualization-legend__label">
+                            Funding Remaining
+                        </div>
+                    </div>
+                    {this.state.isOverspent &&
+                        <div className="visualization-legen__item">
+                            <div
+                                className="visualization-legend__circle
+                                visualization-legend__circle_overspent" />
+                            <div className="visualization-legend__label">
+                                Over Obligated
+                            </div>
                         </div>
                     }
                 </div>

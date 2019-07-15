@@ -167,8 +167,7 @@ export default class ActivityChart extends React.Component {
             // and the awarded amount width
             const obligatedAmountScale = scaleLinear()
                 .domain([0, bar._awardedAmount])
-                .range([0, data.barWidth])
-                .nice();
+                .range([0, data.barWidth]);
             // scale the abligated amount to create the correct width
             data.obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
             data.yPosition = (height - 30) - yScale(bar._awardedAmount) - barHeight;
@@ -178,7 +177,7 @@ export default class ActivityChart extends React.Component {
             data.graphHeight = graphHeight;
             data.start = start;
             data.x = start;
-            data.y = (360 - data.yPosition) - ((this.props.barHeight / 2) - 1);
+            data.y = (360 - data.yPosition) - (this.props.barHeight - 4);
             // create percentage for description
             // not handling bad data as that will be handled elsewhere
             const percentage = calculateTreemapPercentage(bar._obligatedAmount, bar._awardedAmount);
@@ -259,7 +258,7 @@ export default class ActivityChart extends React.Component {
 
     render() {
         const { width, height, padding } = this.props;
-        const { xScale, xRange } = this.state;
+        const { xScale, xRange, graphHeight, graphWidth } = this.state;
         const bars = this.createBars();
         return (
             <svg
@@ -278,11 +277,12 @@ export default class ActivityChart extends React.Component {
                         scale={this.state.yScale}
                         ticks={this.state.yTicks} />
                     <ActivityXAxis
-                        height={height - padding.bottom}
-                        width={width - padding.left}
+                        height={graphHeight}
+                        width={graphWidth}
                         padding={padding}
                         ticks={this.state.xTicks}
-                        scale={xScale} />
+                        scale={xScale}
+                        endOf />
                     <g
                         className="activity-chart-data">
                         {/* Today Line */}
@@ -293,7 +293,8 @@ export default class ActivityChart extends React.Component {
                             textY={0}
                             xMax={xRange[1]}
                             xMin={xRange[0]}
-                            showTextLeft />}
+                            showTextLeft
+                            adjustmentX={padding.left} />}
                         {bars}
                     </g>
                 </g>
