@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ComingSoonSection from "../ComingSoonSection";
 import InfoTooltip from '../InfoTooltip';
@@ -25,17 +27,18 @@ export default class IdvActivity extends React.Component {
         let content = (
             <ComingSoonSection className="idv-activity__section" />
         );
+        let message;
         if (!this.props.comingSoon) {
             if (this.props.inFlight) {
-                content = (<p>Loading...</p>);
+                message = (<ResultsTableLoadingMessage />);
             }
             else if (this.props.error) {
-                content = (<p>There was an error loading the data.</p>);
+                message = (<ResultsTableErrorMessage />);
             }
-            else if (this.props.awards.length === 0) {
-                content = (<p>No results found.</p>);
+            else if (!this.props.awards.length) {
+                message = (<NoResultsMessage />);
             }
-            else {
+            if (!message) {
                 content = (<IdvActivityVisualization
                     page={this.props.page}
                     total={this.props.total}
@@ -44,6 +47,9 @@ export default class IdvActivity extends React.Component {
                     changePage={this.props.changePage}
                     xSeries={this.props.xSeries}
                     ySeries={this.props.ySeries} />);
+            }
+            else {
+                content = null;
             }
         }
 
@@ -60,6 +66,9 @@ export default class IdvActivity extends React.Component {
                         </InfoTooltip>
                     </div>
                     <hr />
+                    <div className="results-table-message-container">
+                        {message}
+                    </div>
                     {content}
                 </div>
             </div>
