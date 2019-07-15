@@ -8,15 +8,13 @@ import { Set, OrderedMap } from 'immutable';
 import searchFiltersReducer, { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { awardRanges } from 'dataMapping/search/awardAmount';
 
-import { mockRecipient, mockAgency } from './mock/mockFilters';
+import { mockRecipient, mockAgency, mockTreasuryAccount, mockFederalAccount } from './mock/mockFilters';
 
 jest.mock('helpers/fiscalYearHelper', () => require('./mockFiscalYearHelper'));
 
 describe('searchFiltersReducer', () => {
     it('should return the initial state by default', () => {
-        expect(
-            searchFiltersReducer(undefined, {})
-        ).toEqual(initialState);
+        expect(searchFiltersReducer(undefined, {})).toEqual(initialState);
     });
 
     describe('TOGGLE_SEARCH_FILTER_AWARD_TYPE', () => {
@@ -28,11 +26,7 @@ describe('searchFiltersReducer', () => {
         it('should add a value if it does not currently exist in the set', () => {
             const startingState = Object.assign({}, initialState);
 
-            expect(
-                searchFiltersReducer(startingState, action).awardType
-            ).toEqual(new Set([
-                '09'
-            ]));
+            expect(searchFiltersReducer(startingState, action).awardType).toEqual(new Set(['09']));
         });
 
         it('should remove a value if currently exists in the set', () => {
@@ -40,9 +34,7 @@ describe('searchFiltersReducer', () => {
                 awardType: new Set(['09'])
             });
 
-            expect(
-                searchFiltersReducer(startingState, action).awardType
-            ).toEqual(new Set([]));
+            expect(searchFiltersReducer(startingState, action).awardType).toEqual(new Set([]));
         });
     });
 
@@ -54,20 +46,17 @@ describe('searchFiltersReducer', () => {
 
         const keyword = 'testing';
 
-
         it('should add the provided keyword if it does not currently exist in the filter', () => {
             const updatedState = searchFiltersReducer(undefined, action);
 
-            expect(updatedState.keyword).toEqual(
-                new OrderedMap({ testing: keyword })
-            );
+            expect(updatedState.keyword).toEqual(new OrderedMap({ testing: keyword }));
         });
 
         it('should not override the previous keyword, if the new keyword does not already exist', () => {
             const startingState = Object.assign({}, initialState, {
-                keyword: new OrderedMap({ moretesting: "moretesting" })
+                keyword: new OrderedMap({ moretesting: 'moretesting' })
             });
-            
+
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.keyword).toEqual(new OrderedMap({
                 moretesting: 'moretesting',
@@ -75,7 +64,6 @@ describe('searchFiltersReducer', () => {
             }));
         });
 
-       
         it('should remove the provided keyword if already exists in the filter', () => {
             const startingState = Object.assign({}, initialState, {
                 keyword: new OrderedMap({ testing: keyword })
@@ -90,30 +78,19 @@ describe('searchFiltersReducer', () => {
         it('should add the provided values when the direction is "add"', () => {
             const action = {
                 type: 'BULK_SEARCH_FILTER_AWARD_TYPE',
-                awardTypes: [
-                    '10',
-                    '06'
-                ],
+                awardTypes: ['10', '06'],
                 direction: 'add'
             };
 
             const startingState = Object.assign({}, initialState);
 
-            expect(
-                searchFiltersReducer(startingState, action).awardType
-            ).toEqual(new Set([
-                '10',
-                '06'
-            ]));
+            expect(searchFiltersReducer(startingState, action).awardType).toEqual(new Set(['10', '06']));
         });
 
         it('should remove the provided values when the direction is "remove"', () => {
             const action = {
                 type: 'BULK_SEARCH_FILTER_AWARD_TYPE',
-                awardTypes: [
-                    '10',
-                    '06'
-                ],
+                awardTypes: ['10', '06'],
                 direction: 'remove'
             };
 
@@ -121,11 +98,7 @@ describe('searchFiltersReducer', () => {
                 awardType: new Set(['09', '10', '06'])
             });
 
-            expect(
-                searchFiltersReducer(startingState, action).awardType
-            ).toEqual(new Set([
-                '09'
-            ]));
+            expect(searchFiltersReducer(startingState, action).awardType).toEqual(new Set(['09']));
         });
     });
 
@@ -134,22 +107,14 @@ describe('searchFiltersReducer', () => {
             const action = {
                 type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
                 dateType: 'fy',
-                fy: [
-                    '1778',
-                    '1777',
-                    '1775'
-                ],
+                fy: ['1778', '1777', '1775'],
                 start: null,
                 end: null
             };
 
             const expected = {
                 timePeriodType: 'fy',
-                timePeriodFY: new Set([
-                    '1778',
-                    '1777',
-                    '1775'
-                ]),
+                timePeriodFY: new Set(['1778', '1777', '1775']),
                 timePeriodStart: null,
                 timePeriodEnd: null
             };
@@ -288,16 +253,14 @@ describe('searchFiltersReducer', () => {
             agency: mockAgency
         };
 
-        const agency = "1788_subtier";
+        const agency = '1788_subtier';
 
         const expectedAgency = mockAgency;
 
         it('should add the provided agency if it does not currently exist in the filter', () => {
             const updatedState = searchFiltersReducer(undefined, action);
 
-            expect(updatedState.selectedAwardingAgencies).toEqual(
-                new OrderedMap([[agency, expectedAgency]])
-            );
+            expect(updatedState.selectedAwardingAgencies).toEqual(new OrderedMap([[agency, expectedAgency]]));
         });
 
         it('should remove the provided agency if already exists in the filter', () => {
@@ -316,16 +279,14 @@ describe('searchFiltersReducer', () => {
             agency: mockAgency
         };
 
-        const agency = "1788_subtier";
+        const agency = '1788_subtier';
 
         const expectedAgency = mockAgency;
 
         it('should add the provided agency if it does not currently exist in the filter', () => {
             const updatedState = searchFiltersReducer(undefined, action);
 
-            expect(updatedState.selectedFundingAgencies).toEqual(
-                new OrderedMap([[agency, expectedAgency]])
-            );
+            expect(updatedState.selectedFundingAgencies).toEqual(new OrderedMap([[agency, expectedAgency]]));
         });
 
         it('should remove the provided agency if already exists in the filter', () => {
@@ -335,6 +296,55 @@ describe('searchFiltersReducer', () => {
 
             const updatedState = searchFiltersReducer(startingState, action);
             expect(updatedState.selectedFundingAgencies).toEqual(new OrderedMap());
+        });
+    });
+
+    describe('UPDATE_TREASURY_ACCOUNT_COMPONENTS', () => {
+        const action = {
+            type: 'UPDATE_TREASURY_ACCOUNT_COMPONENTS',
+            source: mockTreasuryAccount
+        };
+
+        const component = '098-765-****-2008-X-321';
+
+
+        it('should add the provided TAS component if it does not currently exist', () => {
+            const updatedState = searchFiltersReducer(undefined, action);
+
+            expect(updatedState.treasuryAccounts).toEqual(new Set([component]));
+        });
+
+        it('should remove the provided TAS component if it already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                treasuryAccounts: new Set([component])
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.treasuryAccounts).toEqual(new Set());
+        });
+    });
+
+    describe('UPDATE_FEDERAL_ACCOUNT_COMPONENTS', () => {
+        const action = {
+            type: 'UPDATE_FEDERAL_ACCOUNT_COMPONENTS',
+            source: mockFederalAccount
+        };
+
+        const component = '234-5678';
+
+        it('should add the provided TAS components if it does not currently exist', () => {
+            const updatedState = searchFiltersReducer(undefined, action);
+
+            expect(updatedState.federalAccounts).toEqual(new Set([component]));
+        });
+
+        it('should remove the provided TAS component if it already exists in the filter', () => {
+            const startingState = Object.assign({}, initialState, {
+                federalAccounts: new Set([component])
+            });
+
+            const updatedState = searchFiltersReducer(startingState, action);
+            expect(updatedState.federalAccounts).toEqual(new Set());
         });
     });
 
@@ -349,9 +359,7 @@ describe('searchFiltersReducer', () => {
         it('should add the Recipient if it does not currently exist in the filter', () => {
             const updatedState = searchFiltersReducer(undefined, action);
 
-            expect(updatedState.selectedRecipients).toEqual(
-                new Set([recipient])
-            );
+            expect(updatedState.selectedRecipients).toEqual(new Set([recipient]));
         });
 
         it('should remove the Recipient if already exists in the filter', () => {
@@ -365,36 +373,38 @@ describe('searchFiltersReducer', () => {
     });
 
     describe('UPDATE_RECIPIENT_DOMESTIC_FORIEGN', () => {
-        it('should set the Recipient domestic/foreign filter ' +
-            'scope to the input string', () => {
-            const action = {
-                type: 'UPDATE_RECIPIENT_DOMESTIC_FORIEGN',
-                selection: 'domestic'
-            };
+        it(
+            'should set the Recipient domestic/foreign filter ' + 'scope to the input string',
+            () => {
+                const action = {
+                    type: 'UPDATE_RECIPIENT_DOMESTIC_FORIEGN',
+                    selection: 'domestic'
+                };
 
-            const updatedState = searchFiltersReducer(undefined, action);
-            expect(updatedState.recipientDomesticForeign).toEqual('domestic');
-        });
+                const updatedState = searchFiltersReducer(undefined, action);
+                expect(updatedState.recipientDomesticForeign).toEqual('domestic');
+            }
+        );
     });
 
     describe('UPDATE_RECIPIENT_LOCATIONS', () => {
         const action = {
             type: 'UPDATE_RECIPIENT_LOCATIONS',
             location: {
-                place_type: "COUNTY",
+                place_type: 'COUNTY',
                 matched_ids: [22796],
-                place: "McLean",
-                parent: "KENTUCKY"
+                place: 'McLean',
+                parent: 'KENTUCKY'
             }
         };
 
         const recipientCityId = `22796_McLean_COUNTY`;
 
         const expectedRecipientCity = {
-            place_type: "COUNTY",
+            place_type: 'COUNTY',
             matched_ids: [22796],
-            place: "McLean",
-            parent: "KENTUCKY",
+            place: 'McLean',
+            parent: 'KENTUCKY',
             identifier: recipientCityId
         };
 
@@ -426,11 +436,7 @@ describe('searchFiltersReducer', () => {
         it('should add a value if it does not currently exist in the set', () => {
             const startingState = Object.assign({}, initialState);
 
-            expect(
-                searchFiltersReducer(startingState, action).recipientType
-            ).toEqual(new Set([
-                'small_business'
-            ]));
+            expect(searchFiltersReducer(startingState, action).recipientType).toEqual(new Set(['small_business']));
         });
 
         it('should remove a value if currently exists in the set', () => {
@@ -438,9 +444,7 @@ describe('searchFiltersReducer', () => {
                 recipientType: new Set(['small_business'])
             });
 
-            expect(
-                searchFiltersReducer(startingState, action).recipientType
-            ).toEqual(new Set([]));
+            expect(searchFiltersReducer(startingState, action).recipientType).toEqual(new Set([]));
         });
     });
 
@@ -448,30 +452,19 @@ describe('searchFiltersReducer', () => {
         it('should add the provided values when the direction is "add"', () => {
             const action = {
                 type: 'BULK_SEARCH_FILTER_RECIPIENT_TYPES',
-                recipientTypes: [
-                    'small_business',
-                    'other_than_small_business'
-                ],
+                recipientTypes: ['small_business', 'other_than_small_business'],
                 direction: 'add'
             };
 
             const startingState = Object.assign({}, initialState);
 
-            expect(
-                searchFiltersReducer(startingState, action).recipientType
-            ).toEqual(new Set([
-                'small_business',
-                'other_than_small_business'
-            ]));
+            expect(searchFiltersReducer(startingState, action).recipientType).toEqual(new Set(['small_business', 'other_than_small_business']));
         });
 
         it('should remove the provided values when the direction is "remove"', () => {
             const action = {
                 type: 'BULK_SEARCH_FILTER_RECIPIENT_TYPES',
-                recipientTypes: [
-                    'small_business',
-                    'other_than_small_business'
-                ],
+                recipientTypes: ['small_business', 'other_than_small_business'],
                 direction: 'remove'
             };
 
@@ -483,11 +476,7 @@ describe('searchFiltersReducer', () => {
                 ])
             });
 
-            expect(
-                searchFiltersReducer(startingState, action).recipientType
-            ).toEqual(new Set([
-                'alaskan_native_owned_business'
-            ]));
+            expect(searchFiltersReducer(startingState, action).recipientType).toEqual(new Set(['alaskan_native_owned_business']));
         });
     });
 
@@ -495,7 +484,7 @@ describe('searchFiltersReducer', () => {
         const predefinedRangeAction = {
             type: 'UPDATE_AWARD_AMOUNTS',
             awardAmounts: {
-                amount: "range-1",
+                amount: 'range-1',
                 searchType: 'range'
             }
         };
@@ -508,99 +497,112 @@ describe('searchFiltersReducer', () => {
             }
         };
 
-        const predefinedAwardAmount = "range-1";
+        const predefinedAwardAmount = 'range-1';
         const expectedpredefinedAwardAmount = awardRanges[predefinedAwardAmount];
 
         const specificAwardAmount = [10000, 20000];
 
-        it('should add the predefined Award Amount ' +
-            'if it does not currently exist in the filter', () => {
-            const updatedState = searchFiltersReducer(undefined, predefinedRangeAction);
-            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
-                [predefinedAwardAmount]: expectedpredefinedAwardAmount
-            }));
-        });
-
-        it('should remove the predefined Award Amount ' +
-            'if it already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                awardAmounts: new OrderedMap({
+        it(
+            'should add the predefined Award Amount ' +
+                'if it does not currently exist in the filter',
+            () => {
+                const updatedState = searchFiltersReducer(undefined, predefinedRangeAction);
+                expect(updatedState.awardAmounts).toEqual(new OrderedMap({
                     [predefinedAwardAmount]: expectedpredefinedAwardAmount
-                })
-            });
+                }));
+            }
+        );
 
-            const updatedState = searchFiltersReducer(startingState, predefinedRangeAction);
-            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
-        });
+        it(
+            'should remove the predefined Award Amount ' + 'if it already exists in the filter',
+            () => {
+                const startingState = Object.assign({}, initialState, {
+                    awardAmounts: new OrderedMap({
+                        [predefinedAwardAmount]: expectedpredefinedAwardAmount
+                    })
+                });
 
-        it('should add the specific Award Amount ' +
-            'if it does not currently exist in the filter', () => {
-            const updatedState = searchFiltersReducer(undefined, specificRangeAction);
-            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
-                specific: specificAwardAmount
-            }));
-        });
+                const updatedState = searchFiltersReducer(startingState, predefinedRangeAction);
+                expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
+            }
+        );
 
-        it('should remove the specific Award Amount ' +
-            'if it already exists in the filter', () => {
-            const startingState = Object.assign({}, initialState, {
-                awardAmounts: new OrderedMap({
+        it(
+            'should add the specific Award Amount ' +
+                'if it does not currently exist in the filter',
+            () => {
+                const updatedState = searchFiltersReducer(undefined, specificRangeAction);
+                expect(updatedState.awardAmounts).toEqual(new OrderedMap({
                     specific: specificAwardAmount
-                })
-            });
+                }));
+            }
+        );
 
-            const updatedState = searchFiltersReducer(startingState, specificRangeAction);
-            expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
-        });
+        it(
+            'should remove the specific Award Amount ' + 'if it already exists in the filter',
+            () => {
+                const startingState = Object.assign({}, initialState, {
+                    awardAmounts: new OrderedMap({
+                        specific: specificAwardAmount
+                    })
+                });
 
-        it('should remove a specific Award Amount ' +
-            'if a predefined Award Amount is specified', () => {
-            const startingState = Object.assign({}, initialState, {
-                awardAmounts: new OrderedMap({
-                    specific: specificAwardAmount
-                })
-            });
+                const updatedState = searchFiltersReducer(startingState, specificRangeAction);
+                expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
+            }
+        );
 
-            const updatedState = searchFiltersReducer(startingState, predefinedRangeAction);
-            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
-                [predefinedAwardAmount]: expectedpredefinedAwardAmount
-            }));
-        });
+        it(
+            'should remove a specific Award Amount ' + 'if a predefined Award Amount is specified',
+            () => {
+                const startingState = Object.assign({}, initialState, {
+                    awardAmounts: new OrderedMap({
+                        specific: specificAwardAmount
+                    })
+                });
 
-        it('should remove a predefined Award Amount ' +
-            'if a specific Award Amount is specified', () => {
-            const startingState = Object.assign({}, initialState, {
-                awardAmounts: new OrderedMap({
+                const updatedState = searchFiltersReducer(startingState, predefinedRangeAction);
+                expect(updatedState.awardAmounts).toEqual(new OrderedMap({
                     [predefinedAwardAmount]: expectedpredefinedAwardAmount
-                })
-            });
+                }));
+            }
+        );
 
-            const updatedState = searchFiltersReducer(startingState, specificRangeAction);
-            expect(updatedState.awardAmounts).toEqual(new OrderedMap({
-                specific: specificAwardAmount
-            }));
-        });
+        it(
+            'should remove a predefined Award Amount ' + 'if a specific Award Amount is specified',
+            () => {
+                const startingState = Object.assign({}, initialState, {
+                    awardAmounts: new OrderedMap({
+                        [predefinedAwardAmount]: expectedpredefinedAwardAmount
+                    })
+                });
+
+                const updatedState = searchFiltersReducer(startingState, specificRangeAction);
+                expect(updatedState.awardAmounts).toEqual(new OrderedMap({
+                    specific: specificAwardAmount
+                }));
+            }
+        );
     });
-
 
     describe('UPDATE_SELECTED_CFDA', () => {
         const action = {
             type: 'UPDATE_SELECTED_CFDA',
             cfda: {
-                identifier: "10.101",
-                program_number: "10.101",
-                popular_name: "",
-                program_title: "Hawaii Sugar Disaster Program"
+                identifier: '10.101',
+                program_number: '10.101',
+                popular_name: '',
+                program_title: 'Hawaii Sugar Disaster Program'
             }
         };
 
-        const cfdaNum = "10.101";
+        const cfdaNum = '10.101';
 
         const expectedCFDA = {
-            identifier: "10.101",
-            program_number: "10.101",
-            popular_name: "",
-            program_title: "Hawaii Sugar Disaster Program"
+            identifier: '10.101',
+            program_number: '10.101',
+            popular_name: '',
+            program_title: 'Hawaii Sugar Disaster Program'
         };
 
         it('should add the provided cfda if it does not currently exist in the filter', () => {
@@ -626,18 +628,18 @@ describe('searchFiltersReducer', () => {
         const action = {
             type: 'UPDATE_SELECTED_NAICS',
             naics: {
-                identifier: "333318",
-                naics: "333318",
-                naics_description: "OTHER COMMERCIAL AND SERVICE INDUSTRY MACHINERY MANUFACTURING"
+                identifier: '333318',
+                naics: '333318',
+                naics_description: 'OTHER COMMERCIAL AND SERVICE INDUSTRY MACHINERY MANUFACTURING'
             }
         };
 
-        const naicsNum = "333318";
+        const naicsNum = '333318';
 
         const expectedNAICS = {
-            identifier: "333318",
-            naics: "333318",
-            naics_description: "OTHER COMMERCIAL AND SERVICE INDUSTRY MACHINERY MANUFACTURING"
+            identifier: '333318',
+            naics: '333318',
+            naics_description: 'OTHER COMMERCIAL AND SERVICE INDUSTRY MACHINERY MANUFACTURING'
         };
 
         it('should add the provided naics if it does not currently exist in the filter', () => {
@@ -663,15 +665,15 @@ describe('searchFiltersReducer', () => {
         const action = {
             type: 'UPDATE_SELECTED_PSC',
             psc: {
-                product_or_service_code: "1375"
+                product_or_service_code: '1375'
             }
         };
 
-        const pscNum = "1375";
+        const pscNum = '1375';
 
         const expectedPSC = {
-            identifier: "1375",
-            product_or_service_code: "1375"
+            identifier: '1375',
+            product_or_service_code: '1375'
         };
 
         it('should add the provided psc if it does not currently exist in the filter', () => {
@@ -713,9 +715,7 @@ describe('searchFiltersReducer', () => {
                 pricingType: new Set(['B', 'L'])
             });
 
-            expect(
-                searchFiltersReducer(startingState, action).pricingType
-            ).toEqual(new Set(['L']));
+            expect(searchFiltersReducer(startingState, action).pricingType).toEqual(new Set(['L']));
         });
 
         it('should add new values to an existing set', () => {
@@ -728,9 +728,7 @@ describe('searchFiltersReducer', () => {
                 pricingType: new Set(['M', 'J', 'L'])
             });
 
-            expect(
-                searchFiltersReducer(startingState, action).pricingType
-            ).toEqual(new Set(['M', 'J', 'L', 'B']));
+            expect(searchFiltersReducer(startingState, action).pricingType).toEqual(new Set(['M', 'J', 'L', 'B']));
         });
     });
 
@@ -770,101 +768,97 @@ describe('searchFiltersReducer', () => {
     });
 
     describe('RESET_SEARCH_TIME_FILTER', () => {
-        it('should reset the fields relevant to time period filtering to their initial state'
-        + ' values after fiscal years change', () => {
-            const firstAction = {
-                type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
-                dateType: 'fy',
-                fy: [
-                    '1778',
-                    '1777',
-                    '1775'
-                ],
-                start: null,
-                end: null
-            };
+        it(
+            'should reset the fields relevant to time period filtering to their initial state' +
+                ' values after fiscal years change',
+            () => {
+                const firstAction = {
+                    type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
+                    dateType: 'fy',
+                    fy: ['1778', '1777', '1775'],
+                    start: null,
+                    end: null
+                };
 
-            const resetAction = {
-                type: 'RESET_SEARCH_TIME_FILTER'
-            };
+                const resetAction = {
+                    type: 'RESET_SEARCH_TIME_FILTER'
+                };
 
-            const expectedFirst = {
-                timePeriodType: 'fy',
-                timePeriodFY: new Set([
-                    '1778',
-                    '1777',
-                    '1775'
-                ]),
-                timePeriodStart: null,
-                timePeriodEnd: null
-            };
+                const expectedFirst = {
+                    timePeriodType: 'fy',
+                    timePeriodFY: new Set(['1778', '1777', '1775']),
+                    timePeriodStart: null,
+                    timePeriodEnd: null
+                };
 
-            const expectedSecond = {
-                timePeriodType: 'fy',
-                timePeriodFY: new Set(),
-                timePeriodStart: null,
-                timePeriodEnd: null
-            };
+                const expectedSecond = {
+                    timePeriodType: 'fy',
+                    timePeriodFY: new Set(),
+                    timePeriodStart: null,
+                    timePeriodEnd: null
+                };
 
-            // perform the first action to change the time period filter values
-            let updatedState = searchFiltersReducer(undefined, firstAction);
-            // validate that the search filters changed
-            Object.keys(expectedFirst).forEach((key) => {
-                expect(updatedState[key]).toEqual(expectedFirst[key]);
-            });
+                // perform the first action to change the time period filter values
+                let updatedState = searchFiltersReducer(undefined, firstAction);
+                // validate that the search filters changed
+                Object.keys(expectedFirst).forEach((key) => {
+                    expect(updatedState[key]).toEqual(expectedFirst[key]);
+                });
 
+                // reset the time period filters
+                updatedState = searchFiltersReducer(updatedState, resetAction);
+                // validate that the search filters reset
+                Object.keys(expectedSecond).forEach((key) => {
+                    expect(updatedState[key]).toEqual(expectedSecond[key]);
+                });
+            }
+        );
 
-            // reset the time period filters
-            updatedState = searchFiltersReducer(updatedState, resetAction);
-            // validate that the search filters reset
-            Object.keys(expectedSecond).forEach((key) => {
-                expect(updatedState[key]).toEqual(expectedSecond[key]);
-            });
-        });
+        it(
+            'should reset the fields relevant to time period filtering to their initial state' +
+                ' values after a date range changes',
+            () => {
+                const firstAction = {
+                    type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
+                    dateType: 'dr',
+                    fy: [],
+                    start: '1776-01-01',
+                    end: '1776-12-31'
+                };
 
-        it('should reset the fields relevant to time period filtering to their initial state'
-        + ' values after a date range changes', () => {
-            const firstAction = {
-                type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
-                dateType: 'dr',
-                fy: [],
-                start: '1776-01-01',
-                end: '1776-12-31'
-            };
+                const resetAction = {
+                    type: 'RESET_SEARCH_TIME_FILTER'
+                };
 
-            const resetAction = {
-                type: 'RESET_SEARCH_TIME_FILTER'
-            };
+                const expectedFirst = {
+                    timePeriodType: 'dr',
+                    timePeriodFY: new Set(),
+                    timePeriodStart: '1776-01-01',
+                    timePeriodEnd: '1776-12-31'
+                };
 
-            const expectedFirst = {
-                timePeriodType: 'dr',
-                timePeriodFY: new Set(),
-                timePeriodStart: '1776-01-01',
-                timePeriodEnd: '1776-12-31'
-            };
+                const expectedSecond = {
+                    timePeriodType: 'fy',
+                    timePeriodFY: new Set(),
+                    timePeriodStart: null,
+                    timePeriodEnd: null
+                };
 
-            const expectedSecond = {
-                timePeriodType: 'fy',
-                timePeriodFY: new Set(),
-                timePeriodStart: null,
-                timePeriodEnd: null
-            };
+                // perform the first action to change the time period filter values
+                let updatedState = searchFiltersReducer(undefined, firstAction);
+                // validate that the search filters changed
+                Object.keys(expectedFirst).forEach((key) => {
+                    expect(updatedState[key]).toEqual(expectedFirst[key]);
+                });
 
-            // perform the first action to change the time period filter values
-            let updatedState = searchFiltersReducer(undefined, firstAction);
-            // validate that the search filters changed
-            Object.keys(expectedFirst).forEach((key) => {
-                expect(updatedState[key]).toEqual(expectedFirst[key]);
-            });
-
-
-            // reset the time period filters
-            updatedState = searchFiltersReducer(updatedState, resetAction);
-            // validate that the search filters reset
-            Object.keys(expectedSecond).forEach((key) => {
-                expect(updatedState[key]).toEqual(expectedSecond[key]);
-            });
-        });
+                // reset the time period filters
+                updatedState = searchFiltersReducer(updatedState, resetAction);
+                // validate that the search filters reset
+                Object.keys(expectedSecond).forEach((key) => {
+                    expect(updatedState[key]).toEqual(expectedSecond[key]);
+                });
+            }
+        );
     });
 
     describe('CLEAR_SEARCH_FILTER_TYPE', () => {
@@ -894,57 +888,52 @@ describe('searchFiltersReducer', () => {
     });
 
     describe('CLEAR_SEARCH_FILTER_ALL', () => {
-        it('should reset the search filters to the initial state after multiple actions have been'
-            + ' performed', () => {
-            const firstAction = {
-                type: 'UPDATE_DOMESTIC_FOREIGN',
-                selection: 'domestic'
-            };
+        it(
+            'should reset the search filters to the initial state after multiple actions have been' +
+                ' performed',
+            () => {
+                const firstAction = {
+                    type: 'UPDATE_DOMESTIC_FOREIGN',
+                    selection: 'domestic'
+                };
 
-            const secondAction = {
-                type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
-                dateType: 'fy',
-                fy: [
-                    '1778',
-                    '1777',
-                    '1775'
-                ],
-                start: null,
-                end: null
-            };
+                const secondAction = {
+                    type: 'UPDATE_SEARCH_FILTER_TIME_PERIOD',
+                    dateType: 'fy',
+                    fy: ['1778', '1777', '1775'],
+                    start: null,
+                    end: null
+                };
 
-            const firstExpected = 'domestic';
-            const secondExpected = {
-                timePeriodType: 'fy',
-                timePeriodFY: new Set([
-                    '1778',
-                    '1777',
-                    '1775'
-                ]),
-                timePeriodStart: null,
-                timePeriodEnd: null
-            };
+                const firstExpected = 'domestic';
+                const secondExpected = {
+                    timePeriodType: 'fy',
+                    timePeriodFY: new Set(['1778', '1777', '1775']),
+                    timePeriodStart: null,
+                    timePeriodEnd: null
+                };
 
-            // perform the first action that updates the domestic/foreign scope
-            let updatedState = searchFiltersReducer(undefined, firstAction);
-            expect(updatedState.locationDomesticForeign).toEqual(firstExpected);
+                // perform the first action that updates the domestic/foreign scope
+                let updatedState = searchFiltersReducer(undefined, firstAction);
+                expect(updatedState.locationDomesticForeign).toEqual(firstExpected);
 
-            // perform the second action to modify the time period
-            updatedState = searchFiltersReducer(updatedState, secondAction);
-            Object.keys(secondExpected).forEach((key) => {
-                expect(updatedState[key]).toEqual(secondExpected[key]);
-            });
+                // perform the second action to modify the time period
+                updatedState = searchFiltersReducer(updatedState, secondAction);
+                Object.keys(secondExpected).forEach((key) => {
+                    expect(updatedState[key]).toEqual(secondExpected[key]);
+                });
 
-            // validate that the changes from the first action remained
-            expect(updatedState.locationDomesticForeign).toEqual(firstExpected);
+                // validate that the changes from the first action remained
+                expect(updatedState.locationDomesticForeign).toEqual(firstExpected);
 
-            // reset the state to its initial value
-            const finalAction = {
-                type: 'CLEAR_SEARCH_FILTER_ALL'
-            };
-            updatedState = searchFiltersReducer(updatedState, finalAction);
-            expect(updatedState).toEqual(initialState);
-        });
+                // reset the state to its initial value
+                const finalAction = {
+                    type: 'CLEAR_SEARCH_FILTER_ALL'
+                };
+                updatedState = searchFiltersReducer(updatedState, finalAction);
+                expect(updatedState).toEqual(initialState);
+            }
+        );
     });
 
     describe('RESTORE_HASHED_FILTERS', () => {
@@ -963,7 +952,7 @@ describe('searchFiltersReducer', () => {
                 type: 'RESTORE_HASHED_FILTERS',
                 filters: {
                     recipientDomesticForeign: 'domestic',
-                    timePeriodFY: new Set (['1999'])
+                    timePeriodFY: new Set(['1999'])
                 }
             };
             state = searchFiltersReducer(state, action);

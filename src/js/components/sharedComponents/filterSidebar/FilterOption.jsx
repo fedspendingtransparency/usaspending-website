@@ -12,7 +12,7 @@ import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {
     name: PropTypes.string,
-    component: PropTypes.func,
+    component: PropTypes.object,
     disabled: PropTypes.bool,
     defaultExpand: PropTypes.bool,
     accessory: PropTypes.func
