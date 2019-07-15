@@ -174,7 +174,7 @@ export default class IdvActivityVisualization extends React.Component {
                         </div>
                     </div>
                     {this.state.isOverspent &&
-                        <div className="visualization-legen__item">
+                        <div className="visualization-legend__item">
                             <div
                                 className="visualization-legend__circle
                                 visualization-legend__circle_overspent" />
