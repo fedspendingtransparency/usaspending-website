@@ -31,14 +31,11 @@ const defaultProps = {
     columns: []
 };
 
+const scrollbarHeight = 10;
 
 export default class Table extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            scrollbarHeight: 0
-        };
 
         this._restorePointerTimer = null;
 
@@ -153,25 +150,9 @@ export default class Table extends React.Component {
         RenderQueue.addWrite(pointerOperation);
     }
 
-    _measureHorizontalScrollbar() {
-        let scrollbarHeight = 0;
-        // measure how much vertical space is inside the container
-        const containerInternalHeight = this._tableWrapper.clientHeight;
-        // measure how much vertical space the container takes up on the page
-        const containerExternalHeight = this._tableWrapper.offsetHeight;
-
-        if (containerInternalHeight < containerExternalHeight) {
-            // the internal height is less than the external height, this means that some of the
-            // internal height height is being blocked by a horizontal scrollbar (which takes up
-            // vertical space)
-            scrollbarHeight = containerExternalHeight - containerInternalHeight;
-        }
-
-        return scrollbarHeight;
-    }
 
     render() {
-        const tableRequiresScroll = (this.props.rowCount * this.props.rowHeight) > this.props.bodyHeight;
+        const needsVerticalScroll = (this.props.rowCount * this.props.rowHeight) > this.props.bodyHeight;
         const visibleWidth = Math.min(this.props.bodyWidth, this.props.contentWidth);
         const visibleHeight = Math.min(this.props.bodyHeight, this.props.rowCount * this.props.rowHeight);
         const headerStyle = {
@@ -183,17 +164,17 @@ export default class Table extends React.Component {
         const style = {
             minWidth: visibleWidth,
             maxWidth: visibleWidth,
-            minHeight: visibleHeight + this.props.headerHeight + this.state.scrollbarHeight
+            minHeight: visibleHeight + this.props.headerHeight
         };
         const bodyStyle = {
             minWidth: visibleWidth,
             maxWidth: visibleWidth,
-            minHeight: visibleHeight + this.state.scrollbarHeight
+            height: needsVerticalScroll ? visibleHeight : visibleHeight + scrollbarHeight
         };
 
-        if (tableRequiresScroll) {
-            style.maxHeight = visibleHeight + this.props.headerHeight + this.state.scrollbarHeight;
-            bodyStyle.maxHeight = visibleHeight + this.state.scrollbarHeight;
+        if (needsVerticalScroll) {
+            style.maxHeight = visibleHeight + this.props.headerHeight;
+            bodyStyle.maxHeight = visibleHeight;
         }
 
         const contentStyle = {
