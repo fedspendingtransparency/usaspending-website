@@ -431,6 +431,31 @@ describe('TopFilterBarContainer', () => {
             expect(filterItem).toEqual(expectedFilterState);
         });
     });
+    it('should update component state with Redux program source filters when available', () => {
+        // mount the container with default props
+        const topBarContainer = setup(defaultProps);
+
+        expect(topBarContainer.state().filters).toHaveLength(0);
+
+        const programSourceFilter = Object.assign({}, stateWithoutDefault, {
+            federalAccounts: new Set(['123-4567'])
+        });
+
+        topBarContainer.setProps({
+            reduxFilters: programSourceFilter
+        });
+
+        expect(topBarContainer.state().filters).toHaveLength(1);
+
+        const filterItem = topBarContainer.state().filters[0];
+        const expectedFilterState = {
+            code: 'federalAccounts',
+            name: 'Federal Account',
+            values: ['123-4567']
+        };
+
+        expect(filterItem).toEqual(expectedFilterState);
+    });
 
     describe('filter removal', () => {
         it('should hide the top filter bar when all filters are cleared', () => {

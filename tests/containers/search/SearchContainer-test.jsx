@@ -8,11 +8,10 @@ import { shallow } from 'enzyme';
 import { Set } from 'immutable';
 
 import { SearchContainer } from 'containers/search/SearchContainer';
-import * as SearchHelper from 'helpers/searchHelper';
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { initialState as initialApplied } from 'redux/reducers/search/appliedFiltersReducer';
 
-import { mockHash, mockFilters, mockRedux, mockActions } from './mockSearchHashes';
+import { mockFilters, mockRedux, mockActions } from './mockSearchHashes';
 import Router from './mockRouter';
 
 // force Jest to use native Node promises

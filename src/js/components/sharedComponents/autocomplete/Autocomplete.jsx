@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, find, uniqueId } from 'lodash';
+import { isEqual, find, uniqueId, debounce } from 'lodash';
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
@@ -19,7 +19,11 @@ const propTypes = {
     errorMessage: PropTypes.string,
     maxSuggestions: PropTypes.number,
     label: PropTypes.string,
-    noResults: PropTypes.bool
+    noResults: PropTypes.bool,
+    characterLimit: PropTypes.number,
+    retainValue: PropTypes.bool,
+    dirtyFilters: PropTypes.symbol,
+    minCharsToSearch: PropTypes.number
 };
 
 const defaultProps = {
@@ -29,7 +33,11 @@ const defaultProps = {
     errorMessage: '',
     maxSuggestions: 10,
     label: '',
-    noResults: false
+    noResults: false,
+    characterLimit: 524288, // default for HTML input elements
+    retainValue: false,
+    dirtyFilters: Symbol(''),
+    minCharsToSearch: 2
 };
 
 export default class Autocomplete extends React.Component {
@@ -46,6 +54,9 @@ export default class Autocomplete extends React.Component {
             autocompleteId: `autocomplete-${uniqueId()}`,
             statusId: `autocomplete-status-${uniqueId()}`
         };
+
+        this.checkValidityDebounced = debounce(this.checkValidity, 1000);
+        this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
@@ -59,14 +70,19 @@ export default class Autocomplete extends React.Component {
         else if (this.props.noResults !== prevProps.noResults) {
             this.toggleWarning();
         }
+        if (!isEqual(prevProps.dirtyFilters, this.props.dirtyFilters)) {
+            this.clearInternalState();
+        }
     }
 
     componentWillUnmount() {
         this.props.clearAutocompleteSuggestions();
+        this.checkValidityDebounced.cancel();
     }
 
     onChange(e) {
-        this.checkValidity(e.target.value);
+        e.persist();
+        this.checkValidityDebounced(e.target.value);
         this.props.handleTextInput(e);
         this.setState({
             value: e.target.value,
@@ -79,7 +95,9 @@ export default class Autocomplete extends React.Component {
 
         target.addEventListener('blur', () => {
             this.close();
-            target.value = "";
+            if (!this.props.retainValue) {
+                target.value = '';
+            }
         });
 
         // enable tab keyboard shortcut for selection
@@ -88,11 +106,13 @@ export default class Autocomplete extends React.Component {
             if (e.keyCode === 13) {
                 e.preventDefault();
                 this.select(this.props.values[this.state.selectedIndex]);
-                target.value = "";
+                if (!this.props.retainValue) {
+                    target.value = '';
+                }
             }
             // Tab or Escape
             else if (e.keyCode === 9 || e.keyCode === 27) {
-                target.value = "";
+                target.value = '';
                 this.close();
             }
             // Previous
@@ -152,30 +172,13 @@ export default class Autocomplete extends React.Component {
             showWarning: false
         });
 
-        if (input.length === 1) {
-            // Ensure user has typed 2 or more characters before searching
-            this.createTimeout(true, input, 1000);
-        }
-        else {
-            // Clear timeout when input is cleared or longer than 2 characters
-            this.cancelTimeout();
-        }
-    }
-
-    createTimeout(warning, input, delay) {
-        this.cancelTimeout();
-
-        this.timeout = window.setTimeout(() => {
+        if (input.length < this.props.minCharsToSearch) {
+            // Ensure user has typed the minimum number of characters before searching
             this.setState({
                 value: input,
-                showWarning: warning
+                showWarning: true
             });
-        }, delay);
-    }
-
-    cancelTimeout() {
-        window.clearTimeout(this.timeout);
-        this.timeout = null;
+        }
     }
 
     changedText(e) {
@@ -200,20 +203,33 @@ export default class Autocomplete extends React.Component {
 
         this.props.onSelect(selectedItem, isValid);
 
-        // Important - clear internal typeahead state value
+        if (this.props.retainValue) {
+            this.autocompleteInput.value = selectedItem.code;
+        }
+
+        else {
+            // Clear internal typeahead state value
+            this.setState({
+                value: ''
+            });
+        }
+    }
+
+    clearInternalState() {
         this.setState({
             value: ''
         });
+        this.autocompleteInput.value = '';
     }
 
     generateWarning() {
         if (this.state.showWarning) {
             let errorProps = {};
 
-            if (this.state.value && this.state.value.length === 1) {
+            if (this.state.value && this.state.value.length < this.props.minCharsToSearch) {
                 errorProps = {
                     header: 'Error',
-                    description: 'Please enter more than one character.'
+                    description: `Please enter more than ${this.props.minCharsToSearch - 1} character${this.props.minCharsToSearch > 2 ? 's' : ''}.`
                 };
             }
             else {
@@ -261,7 +277,8 @@ export default class Autocomplete extends React.Component {
                         tabIndex={0}
                         aria-controls={this.state.autocompleteId}
                         aria-activedescendant={activeDescendant}
-                        aria-autocomplete="list" />
+                        aria-autocomplete="list"
+                        maxLength={this.props.characterLimit} />
                     <div
                         className="screen-reader-description"
                         role="alert">
