@@ -10,7 +10,8 @@ import FederalAccountsTreeTooltip from
 import FederalAccountsTable from './FederalAccountsTable';
 import FederalAccountsTree from './FederalAccountsTree';
 import FederalAccountsSummary from './FederalAccountsSummary';
-
+import InfoToolTip from "../InfoTooltip";
+import { federalAccountsInfo } from "../InfoTooltipContent";
 
 const propTypes = {
     totalTransactionObligatedAmount: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -112,6 +113,9 @@ export default class FederalAccountsSection extends React.Component {
                             <FontAwesomeIcon size="lg" icon="chart-pie" />
                         </div>
                         <h3 className="award-viz__title">Federal Accounts</h3>
+                        <InfoToolTip left wide>
+                            {federalAccountsInfo}
+                        </InfoToolTip>
                     </div>
                     <hr />
                     <div className="federal-accounts__section">

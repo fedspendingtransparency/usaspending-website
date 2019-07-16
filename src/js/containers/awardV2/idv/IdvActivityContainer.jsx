@@ -87,7 +87,6 @@ export class IdvActivityContainer extends React.Component {
             idvActivityBar.populate(award);
             return idvActivityBar;
         });
-
         const startDates = awards.map((award) => award._startDate.valueOf());
         const endDates = awards.map((award) => award._endDate.valueOf());
         const xSeries = startDates.concat(endDates);

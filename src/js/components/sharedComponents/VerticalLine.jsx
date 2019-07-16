@@ -1,5 +1,5 @@
 /**
- * VerticalTodayLine.jsx
+ * VerticalLine.jsx
  * Created by Jonathan Hill 07/05/19
  **/
 

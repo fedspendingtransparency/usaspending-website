@@ -1,5 +1,5 @@
 /**
- * IdvActivityTooltip.jsx
+ * ActivityChartTooltip.jsx
  * Created by Jonathan Hill 6/24/19
  */
 

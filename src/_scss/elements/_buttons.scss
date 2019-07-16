@@ -200,6 +200,18 @@ button,
     @include button-unstyled;
 }
 
+@mixin button-link {
+    @include button-unstyled;
+    color: $color-primary;
+    cursor: pointer;
+    width: fit-content;
+    display: inline-block;
+    &:hover {
+        color: $color-primary-darker;
+        text-decoration: underline;
+    }
+}
+
 .usa-button-link {
     @include button-unstyled;
     color: $color-primary;
