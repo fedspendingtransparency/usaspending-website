@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+
 const propTypes = {
     searchString: PropTypes.string,
     placeholder: PropTypes.string,
@@ -17,7 +19,8 @@ const propTypes = {
     context: PropTypes.shape({}), // the $this variable of the parent, used to create a ref
     expanded: PropTypes.bool,
     enabled: PropTypes.bool,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    showDisclaimer: PropTypes.bool
 };
 
 const defaultProps = {
@@ -34,7 +37,8 @@ export const EntityDropdownAutocomplete = ({
     placeholder,
     context, // the $this variable
     loading,
-    handleOnKeyDown
+    handleOnKeyDown,
+    showDisclaimer
 }) => (
     <div className="autocomplete__input">
         <input
@@ -52,6 +56,7 @@ export const EntityDropdownAutocomplete = ({
             }} />
         <div className="icon">
             {loading && <FontAwesomeIcon onClick={toggleDropdown} icon="spinner" spin />}
+            {!loading && showDisclaimer && <ExclamationTriangle alt="warning" />}
         </div>
     </div>
 );

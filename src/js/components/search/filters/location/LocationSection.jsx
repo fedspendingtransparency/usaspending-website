@@ -82,7 +82,7 @@ export default class LocationSection extends React.Component {
                     role="menu">
                     <li>
                         <button
-                            className={`date-toggle ${activePop}`}
+                            className={`tab-toggle ${activePop}`}
                             value="pop"
                             role="menuitemradio"
                             aria-checked={this.state.activeTab === 'pop'}
@@ -94,7 +94,7 @@ export default class LocationSection extends React.Component {
                     </li>
                     <li>
                         <button
-                            className={`date-toggle ${activeRecipient}`}
+                            className={`tab-toggle ${activeRecipient}`}
                             value="recipient"
                             role="menuitemradio"
                             aria-checked={this.state.activeTab === 'recipient'}

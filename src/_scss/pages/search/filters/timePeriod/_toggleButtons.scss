@@ -5,7 +5,7 @@ ul.toggle-buttons {
     margin-top: 0 !important;
     li {
         display: inline;
-        button.date-toggle {
+        button.tab-toggle {
             border: 1px solid $color-gray-lighter;
             border-bottom: 1px solid $color-white;
             background-color: $color-white;
@@ -31,7 +31,7 @@ ul.toggle-buttons {
             display: none;
         }
         @include media($large-screen) {
-            button.date-toggle {
+            button.tab-toggle {
                 font-size: $small-font-size;
             }
         }

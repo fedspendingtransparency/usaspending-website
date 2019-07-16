@@ -16,6 +16,7 @@ import DataSources from './DataSources';
 import DataQuality from './DataQuality';
 import MoreInfo from './MoreInfo';
 import Contact from './Contact';
+import Development from './Development';
 
 const aboutSections = [
     {
@@ -33,6 +34,10 @@ const aboutSections = [
     {
         section: 'data-quality',
         label: 'Data Quality'
+    },
+    {
+        section: 'development',
+        label: 'Development and Releases'
     },
     {
         section: 'more-info',
@@ -229,6 +234,7 @@ export default class AboutContent extends React.Component {
                         <Background />
                         <DataSources />
                         <DataQuality />
+                        <Development />
                         <MoreInfo />
                         <Contact />
                     </div>

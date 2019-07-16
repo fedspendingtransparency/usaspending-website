@@ -237,20 +237,6 @@ export const mockApi = {
             "recipient_flag": true,
             "is_fpds": true,
             "transaction_unique_id": "NONE"
-        },
-        "officers": {
-            "legal_entity": 98140463,
-            "officer_1_name": "Thomas E Mason",
-            "officer_1_amount": "905226.00",
-            "officer_2_name": "Jeffrey W Smith",
-            "officer_2_amount": "713363.00",
-            "officer_3_name": "Michelle V Buchanan",
-            "officer_3_amount": "584927.00",
-            "officer_4_name": "Alan S Icenhour",
-            "officer_4_amount": "576762.00",
-            "officer_5_name": "James B Roberto",
-            "officer_5_amount": "573902.00",
-            "update_date": "2018-03-01"
         }
     },
     "place_of_performance": {
@@ -524,20 +510,6 @@ export const mockApi = {
                 "recipient_flag": true,
                 "is_fpds": true,
                 "transaction_unique_id": "NONE"
-            },
-            "officers": {
-                "legal_entity": 98140463,
-                "officer_1_name": "Thomas E Mason",
-                "officer_1_amount": "905226.00",
-                "officer_2_name": "Jeffrey W Smith",
-                "officer_2_amount": "713363.00",
-                "officer_3_name": "Michelle V Buchanan",
-                "officer_3_amount": "584927.00",
-                "officer_4_name": "Alan S Icenhour",
-                "officer_4_amount": "576762.00",
-                "officer_5_name": "James B Roberto",
-                "officer_5_amount": "573902.00",
-                "update_date": "2018-03-01"
             }
         },
         "place_of_performance": {
@@ -858,7 +830,17 @@ export const mockApi = {
             "last_modified": "2018-02-23 15:06:48",
             "initial_report_date": "2018-02-23",
             "created_at": "2018-02-24T11:43:43.257667",
-            "updated_at": "2018-02-25T11:36:45.751639"
+            "updated_at": "2018-02-25T11:36:45.751639",
+            "officer_1_name": "Thomas E Mason",
+            "officer_1_amount": "905226.00",
+            "officer_2_name": "Jeffrey W Smith",
+            "officer_2_amount": "713363.00",
+            "officer_3_name": "Michelle V Buchanan",
+            "officer_3_amount": "584927.00",
+            "officer_4_name": "Alan S Icenhour",
+            "officer_4_amount": "576762.00",
+            "officer_5_name": "James B Roberto",
+            "officer_5_amount": "573902.00"
         }
     }
 };
@@ -1324,8 +1306,7 @@ export const mockFinancialAssistanceApi = {
                 "recipient_flag": true,
                 "is_fpds": false,
                 "transaction_unique_id": "5_7530_1805NY5MAP_7530-227-1805NY5MAP-5-1-2018-93778-75-0512-NON"
-            },
-            "officers": null
+            }
         },
         "place_of_performance": {
             "location_id": 150868557,
@@ -1474,13 +1455,6 @@ export const mockParams = {
                     _countryCode: "",
                     _state: "IN",
                     _congressionalDistrict: ""
-                },
-                officers: {
-                    officer1: "George Washington - $9,000",
-                    officer2: "John Adams - $7,000",
-                    officer3: "Thomas Jefferson - $6,000",
-                    officer4: "James Madison - $5,000",
-                    officer5: "James Monroe - $5,000"
                 }
             },
             placeOfPerformance: {
@@ -1548,7 +1522,14 @@ export const mockParams = {
                 subcontractingPlan: "PLAN REQUIRED - INCENTIVE NOT INCLUDED ",
                 multiYearContract: "N",
                 purchaseCardAsPaymentMethod: "N",
-                consolidated: "NO"
+                consolidated: "NO",
+                officers: {
+                    officer1: "George Washington - $9,000",
+                    officer2: "John Adams - $7,000",
+                    officer3: "Thomas Jefferson - $6,000",
+                    officer4: "James Madison - $5,000",
+                    officer5: "James Monroe - $5,000"
+                }
             },
             parentAward: null,
             description: "mock description",
