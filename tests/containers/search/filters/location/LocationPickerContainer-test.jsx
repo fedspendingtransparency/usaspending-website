@@ -204,285 +204,195 @@ describe('LocationPickerContainer', () => {
     });
 
     describe('createLocationObject', () => {
-        describe('location identifiers', () => {
-            it('should create an identifier that is equal to the country code if only a country is selected', () => {
-                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-                container.setState({
-                    country: {
-                        code: 'ABC',
-                        name: 'A Big Country'
-                    }
-                });
-
-                const location = container.instance().createLocationObject();
+        describe('Country selection', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.setState({
+                country: {
+                    code: 'ABC',
+                    name: 'A Big Country'
+                }
+            });
+            const location = container.instance().createLocationObject();
+            it('locationObject.identifier is correct', () => {
                 expect(location.identifier).toEqual('ABC');
             });
-            it('should create an identifier that contains the country code and state code if a state is selected', () => {
-                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-                container.setState({
-                    country: {
-                        code: 'ABC',
-                        name: 'A Big Country'
-                    },
-                    state: {
-                        code: 'AK',
-                        fips: 'XX',
-                        name: 'Alaska'
-                    }
-                });
 
-                const location = container.instance().createLocationObject();
-                expect(location.identifier).toEqual('ABC_AK');
-            });
-            it('should create an identifier that contains the country, state, and county codes if a county is selected', () => {
-                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-                container.setState({
-                    country: {
-                        code: 'ABC',
-                        name: 'A Big Country'
-                    },
-                    state: {
-                        code: 'AK',
-                        fips: 'XX',
-                        name: 'Alaska'
-                    },
-                    county: {
-                        code: 'XX000',
-                        fips: '000',
-                        state: 'AK',
-                        name: 'Fake County'
-                    }
-                });
-
-                const location = container.instance().createLocationObject();
-                expect(location.identifier).toEqual('ABC_AK_000');
-            });
-            it('when a district is selected -- identifier should contain the country, state, and district codes', () => {
-                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-                container.setState({
-                    country: {
-                        code: 'ABC',
-                        name: 'A Big Country'
-                    },
-                    state: {
-                        code: 'AK',
-                        fips: 'XX',
-                        name: 'Alaska'
-                    },
-                    district: {
-                        code: 'XX',
-                        district: '99',
-                        name: 'AK-99'
-                    }
-                });
-
-                const location = container.instance().createLocationObject();
-                expect(location.identifier).toEqual('ABC_AK_99');
-            });
-            it('when a city is selected -- identifier should countain the city details', () => {
-                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-                container.setState({
-                    country: {
-                        code: 'ABC',
-                        name: 'A Big Country'
-                    },
-                    city: { name: "test, TST" },
-                    county: {
-                        code: 'XX000',
-                        fips: '000',
-                        state: 'AK',
-                        name: 'Fake County'
-                    },
-                    state: {
-                        name: "test",
-                        code: "TST"
-                    }
-                });
-
-                const location = container.instance().createLocationObject();
-                expect(location.identifier).toEqual('ABC_TST_000_test');
-            });
-        });
-
-        describe('API filter object', () => {
-            it('should create a filter object that contains only the country code if only a country is selected', () => {
-                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-                container.setState({
-                    country: {
-                        code: 'ABC',
-                        name: 'A Big Country'
-                    }
-                });
-
-                const location = container.instance().createLocationObject();
+            it('locationObject.filter is correct', () => {
                 expect(location.filter).toEqual({
                     country: 'ABC'
                 });
             });
-            it('should create filter object that contains the country code and state code if a state is selected', () => {
-                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-                container.setState({
-                    country: {
-                        code: 'ABC',
-                        name: 'A Big Country'
-                    },
-                    state: {
-                        code: 'AK',
-                        fips: 'XX',
-                        name: 'Alaska'
-                    }
-                });
+            it('locationObject.display is correct', () => {
 
-                const location = container.instance().createLocationObject();
+            });
+        });
+        describe('State selection', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.setState({
+                country: {
+                    code: 'ABC',
+                    name: 'A Big Country'
+                },
+                state: {
+                    code: 'AK',
+                    fips: 'XX',
+                    name: 'Alaska'
+                }
+            });
+            const location = container.instance().createLocationObject();
+
+            it('locationObject.identifier is correct', () => {
+                expect(location.identifier).toEqual('ABC_AK');
+            });
+            it('locationObject.filter is correct', () => {
                 expect(location.filter).toEqual({
                     country: 'ABC',
                     state: 'AK'
                 });
             });
-            it('should create a filter object that contains the country, state, and county codes if a county is selected', () => {
-                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-                container.setState({
-                    country: {
-                        code: 'ABC',
-                        name: 'A Big Country'
-                    },
-                    state: {
-                        code: 'AK',
-                        fips: 'XX',
-                        name: 'Alaska'
-                    },
-                    county: {
-                        code: 'XX000',
-                        fips: '000',
-                        state: 'AK',
-                        name: 'Fake County'
-                    }
-                });
+            it('locationObject.display is correct', () => {
 
-                const location = container.instance().createLocationObject();
+            });
+        });
+        describe('City selection', () => {
+            const domesticContainer = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            // Test for handling cities w/ commas
+            const commaContainer = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+
+            domesticContainer.setState({
+                country: {
+                    code: 'USA',
+                    name: 'United States'
+                },
+                city: { name: "Atlanta, GA", code: "GA" },
+                state: {
+                    name: "Georgia",
+                    code: "GA"
+                }
+            });
+            commaContainer.setState({
+                country: {
+                    code: 'GBR',
+                    name: 'United Kingdom'
+                },
+                city: {
+                    code: "GBR",
+                    name: "London, Kent"
+                }
+            });
+
+            const domesticLocation = domesticContainer.instance().createLocationObject();
+            const commaLocation = commaContainer.instance().createLocationObject();
+
+            it('locationObject.identifier is correct', () => {
+                expect(domesticLocation.identifier).toEqual('USA_GA_Atlanta');
+                expect(commaLocation.identifier).toEqual('GBR_London, Kent');
+            });
+            it('locationObject.filter is correct', () => {
+                expect(domesticLocation.filter).toEqual({
+                    country: 'USA',
+                    state: 'GA',
+                    city: 'Atlanta'
+                });
+                expect(commaLocation.filter).toEqual({
+                    country: 'GBR',
+                    city: 'London, Kent'
+                });
+            });
+            it('locationObject.display is correct', () => {
+                expect(domesticLocation.display).toEqual({
+                    title: 'Atlanta, GA',
+                    entity: 'City',
+                    standalone: 'Atlanta, GA'
+                });
+                expect(commaLocation.display).toEqual({
+                    title: 'London, Kent',
+                    entity: 'City',
+                    standalone: 'London, Kent'
+                });
+            });
+        });
+        describe('County selection', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.setState({
+                country: {
+                    code: 'ABC',
+                    name: 'A Big Country'
+                },
+                state: {
+                    code: 'AK',
+                    fips: 'XX',
+                    name: 'Alaska'
+                },
+                county: {
+                    code: 'XX000',
+                    fips: '000',
+                    state: 'AK',
+                    name: 'Fake County'
+                }
+            });
+
+            const location = container.instance().createLocationObject();
+
+            it('locationObject.identifier is correct', () => {
+                expect(location.identifier).toEqual('ABC_AK_000');
+            });
+            it('locationObject.filter is correct', () => {
                 expect(location.filter).toEqual({
                     country: 'ABC',
                     state: 'AK',
                     county: '000'
                 });
             });
-            it('should create a filter object that contains the country, state, and district codes if a district is selected', () => {
-                const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-                container.setState({
-                    country: {
-                        code: 'ABC',
-                        name: 'A Big Country'
-                    },
-                    state: {
-                        code: 'AK',
-                        fips: 'XX',
-                        name: 'Alaska'
-                    },
-                    district: {
-                        code: 'XX',
-                        district: '99',
-                        name: 'AK-99'
-                    }
+            it('locationObject.display is correct', () => {
+                expect(location.display).toEqual({
+                    standalone: 'Fake County, AK',
+                    entity: 'County',
+                    title: 'Fake County'
                 });
+            });
+        });
+        describe('District selection', () => {
+            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            container.setState({
+                country: {
+                    code: 'ABC',
+                    name: 'A Big Country'
+                },
+                state: {
+                    code: 'AK',
+                    fips: 'XX',
+                    name: 'Alaska'
+                },
+                district: {
+                    code: 'XX',
+                    district: '99',
+                    name: 'AK-99'
+                }
+            });
 
-                const location = container.instance().createLocationObject();
+            const location = container.instance().createLocationObject();
+
+            it('locationObject.identifier is correct', () => {
+                expect(location.identifier).toEqual('ABC_AK_99');
+            });
+            it('locationObject.filter is correct', () => {
                 expect(location.filter).toEqual({
                     country: 'ABC',
                     state: 'AK',
                     district: '99'
                 });
             });
-        });
-
-
-        it('should generate a standalone title for counties in county, state format', () => {
-            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.setState({
-                country: {
-                    code: 'ABC',
-                    name: 'A Big Country'
-                },
-                state: {
-                    code: 'AK',
-                    fips: 'XX',
-                    name: 'Alaska'
-                },
-                county: {
-                    code: 'XX000',
-                    fips: '000',
-                    state: 'AK',
-                    name: 'Fake County'
-                }
-            });
-
-            const location = container.instance().createLocationObject();
-            expect(location.display.standalone).toEqual('Fake County, AK');
-        });
-
-        it('should generate a display object with title, standalone title, and entity values that are used for location tags', () => {
-            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.setState({
-                country: {
-                    code: 'ABC',
-                    name: 'A Big Country'
-                },
-                state: {
-                    code: 'AK',
-                    fips: 'XX',
-                    name: 'Alaska'
-                },
-                county: {
-                    code: 'XX000',
-                    fips: '000',
-                    state: 'AK',
-                    name: 'Fake County'
-                }
-            });
-
-            const location = container.instance().createLocationObject();
-            expect(location.display).toEqual({
-                title: 'Fake County',
-                entity: 'County',
-                standalone: 'Fake County, AK'
-            });
-        });
-
-        it('should output an object with identifier code, display object, and an object formatted for the API', () => {
-            const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.setState({
-                country: {
-                    code: 'ABC',
-                    name: 'A Big Country'
-                },
-                state: {
-                    code: 'AK',
-                    fips: 'XX',
-                    name: 'Alaska'
-                },
-                county: {
-                    code: 'XX000',
-                    fips: '000',
-                    state: 'AK',
-                    name: 'Fake County'
-                }
-            });
-
-            const location = container.instance().createLocationObject();
-            expect(location).toEqual({
-                identifier: 'ABC_AK_000',
-                display: {
-                    title: 'Fake County',
-                    entity: 'County',
-                    standalone: 'Fake County, AK'
-                },
-                filter: {
-                    country: 'ABC',
-                    state: 'AK',
-                    county: '000'
-                }
+            it('locationObject.display is correct', () => {
+                expect(location.display).toEqual({
+                    entity: 'Congressional district',
+                    title: 'AK-99',
+                    standalone: 'AK-99'
+                });
             });
         });
     });
+
     describe('addLocation', () => {
         it('should call the addLocation prop to add the location to Redux', () => {
             const mockAdd = jest.fn();

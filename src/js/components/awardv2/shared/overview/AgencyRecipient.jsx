@@ -23,6 +23,15 @@ export default class AgencyRecipient extends React.Component {
     jumpToAdditionalInfo() {
         this.props.jumpToSection('additional-information');
     }
+    formatRecipientLink(internalId, name) {
+        if (internalId && name) {
+            return (<a href={`#/recipient/${internalId}`}>{name}</a>);
+        }
+        else if (internalId) {
+            return (<a href={`#/recipient/${internalId}`}>Unknown</a>);
+        }
+        return name;
+    }
     render() {
         let additionalInfoLink = null;
         if (this.props.category === 'contract' || this.props.category === 'idv') {
@@ -53,9 +62,7 @@ export default class AgencyRecipient extends React.Component {
                     <div className="agency-recipient__recipient">
                         <div className="agency-recipient__title">Recipient</div>
                         <div className="agency-recipient__detail">
-                            <a href={`/#/recipient/${this.props.recipient.internalId}`}>
-                                {this.props.recipient.name}
-                            </a>
+                            {this.formatRecipientLink(this.props.recipient.internalId, this.props.recipient.name)}
                         </div>
                     </div>
                 </div>

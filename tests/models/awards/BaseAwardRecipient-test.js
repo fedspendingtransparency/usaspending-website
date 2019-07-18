@@ -17,15 +17,6 @@ describe('BaseAwardRecipient', () => {
             'Nonprofit Organization'
         ]);
     });
-    it('should parse executive compensation', () => {
-        expect(recipient.officers).toEqual({
-            officer1: 'George Washington - $9,000',
-            officer2: 'John Adams - $7,001',
-            officer3: 'Thomas Jefferson - $6,000',
-            officer4: 'James Madison - $5,000',
-            officer5: '--'
-        });
-    });
     it('should have a location property with CoreLocation in its prototype chain', () => {
         expect(Object.getPrototypeOf(recipient.location)).toEqual(CoreLocation);
     });

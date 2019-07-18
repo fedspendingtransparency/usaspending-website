@@ -57,6 +57,10 @@
             margin: rem(19) 0 rem(38);
             padding: rem(16) rem(32);
             text-decoration: none;
+            &.usa-button-link {
+                @include button-link;
+                font-size: rem(18);
+            }
         }
 
         .about-section-content-inline-buttons {
