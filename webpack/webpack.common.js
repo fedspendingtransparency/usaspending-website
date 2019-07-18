@@ -19,7 +19,7 @@ const getGlobalConstantsFile = () => {
     if (fs.existsSync(secretConstants)) {
         return secretConstants;
     }
-    return path.resolve(__dirname, '../GlobalConstants.js');
+    return path.resolve(__dirname, '../src/js/GlobalConstants.js');
 };
 
 const globalConstantsFile = getGlobalConstantsFile();
