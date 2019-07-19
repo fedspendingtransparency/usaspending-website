@@ -12,5 +12,5 @@ export default {
     OVERRIDE_FISCAL_YEAR: false,
     FISCAL_YEAR: 2017,
     MAPBOX_TOKEN:
-    "pk.eyJ1IjoidXNhc3BlbmRpbmciLCJhIjoiY2l6ZnZjcmh0MDBtbDMybWt6NDR4cjR6ZSJ9.zsCqjJgrMDOA-i1RcCvGvg"
+    ""
 };
