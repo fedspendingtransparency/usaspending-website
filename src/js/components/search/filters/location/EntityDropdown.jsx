@@ -13,7 +13,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
 import { EntityDropdownAutocomplete } from './EntityDropdownAutocomplete';
-import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
+import { defaultLocationValues }
+    from "../../../../containers/search/filters/location/LocationPickerContainer";
 
 const propTypes = {
     value: PropTypes.object,
