@@ -332,7 +332,8 @@ export default class EntityDropdown extends React.Component {
                     }
                     {dropdown}
                 </div>
-                {generateDisclaimer && <div
+                {generateDisclaimer &&
+                <div
                     className={`geo-warning ${hideWarning}`}
                     id={this.state.warningId}
                     aria-hidden={hideWarning === 'hide'}>
