@@ -34,9 +34,7 @@ dist
 .tern-port
 
 # Ignore generated constants file
-GlobalConstants_dev.js
-GlobalConstants_local.js
-GlobalConstants_prod.js
+GlobalConstants.js
 
 
 # Ignore Nightwatch globals and results
