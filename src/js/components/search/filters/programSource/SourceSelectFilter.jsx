@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { debounce } from 'lodash';
+import { debounce, isEqual } from 'lodash';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -15,30 +15,13 @@ const propTypes = {
     characterLimit: PropTypes.number,
     required: PropTypes.bool,
     options: PropTypes.array,
-    selectedSources: PropTypes.array,
     updateComponent: PropTypes.func,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    fetchAutocompleteResults: PropTypes.func
 };
 
 const defaultProps = {
-    // TODO - Lizzie: remove mock data
-    options: [
-        {
-            code: '020',
-            name: 'Department of the Treasury (TREAS)'
-        },
-        {
-            code: '014',
-            name: 'Department of the Interior (DOI)'
-        },
-        {
-            code: '068',
-            name: 'Environmental Protection Agency (EPA)'
-        },
-        {
-            code: '9876'
-        }
-    ],
+    options: [],
     selectedSources: [],
     required: false
 };
@@ -59,12 +42,18 @@ export class SourceSelectFilter extends React.Component {
         this.selectSourceComponent = this.selectSourceComponent.bind(this);
     }
 
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps.options, this.props.options)) {
+            this.parseAutocompleteOptions();
+        }
+    }
+
     componentWillUnmount() {
         this.queryAutocompleteDebounced.cancel();
     }
 
-    parseAutocompleteOptions(options) {
-        const values = options.map((item) => ({
+    parseAutocompleteOptions() {
+        const values = this.props.options.map((item) => ({
             title: item.code,
             subtitle: item.name || '',
             data: item
@@ -76,25 +65,9 @@ export class SourceSelectFilter extends React.Component {
     }
 
     queryAutocomplete(input) {
-        this.setState({
-            noResults: false,
-            autocompleteOptions: []
-        });
-
         // Only search if input is 1 or more characters
         if (input.length >= 1) {
-            this.setState({
-                searchString: input
-            });
-
-            const matches = this.props.options
-                .filter((source) => source.code.includes(this.state.searchString));
-
-            this.parseAutocompleteOptions(matches);
-
-            this.setState({
-                noResults: matches.length === 0
-            });
+            this.props.fetchAutocompleteResults(input);
         }
     }
 

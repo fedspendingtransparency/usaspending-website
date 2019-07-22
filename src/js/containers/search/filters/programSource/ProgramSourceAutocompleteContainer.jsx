@@ -8,10 +8,13 @@ import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 
 import * as ProgramSourceHelper from 'helpers/programSourceHelper';
+import SourceSelectFilter from 'components/search/filters/programSource/SourceSelectFilter';
 
 const propTypes = {
-    component: PropTypes.string.isRequired,
-    filters: PropTypes.object
+    component: PropTypes.object,
+    selectedSources: PropTypes.array,
+    updateComponent: PropTypes.func,
+    dirtyFilters: PropTypes.symbol
 };
 
 export default class ProgramSourceAutocompleteContainer extends React.Component {
@@ -28,10 +31,16 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
         this.fetchAutocompleteResults = this.fetchAutocompleteResults.bind(this);
     }
 
-    fetchAutocompleteResults() {
+    componentWillUnmount() {
+        if (this.autocompleteRequest) {
+            this.autocompleteRequest.cancel();
+        }
+    }
+
+    fetchAutocompleteResults(input) {
         if (this.autocompleteRequest) {
             // a request is in-flight, cancel it
-            this.agenciesRequest.cancel();
+            this.autocompleteRequest.cancel();
         }
 
         this.setState({
@@ -42,19 +51,18 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
         // create the params
         const params = {
             // TODO - Lizzie: use currentSelections to create the filters object
-            filters: {},
+            filters: {
+                [this.props.component.code]: input
+            },
             limit: 10
         };
 
-        const helperFunction = `fetch${this.props.component.toUpperCase()}s`;
+        const helperFunction = `fetch${this.props.component.code.toUpperCase()}s`;
         this.autocompleteRequest = ProgramSourceHelper[helperFunction](params);
 
         this.autocompleteRequest.promise
             .then((res) => {
-                this.setState({
-                    inFlight: false,
-                    results: res.data
-                });
+                this.parseResults(res.data.results);
             })
             .catch((err) => {
                 this.autocompleteRequest = null;
@@ -67,14 +75,36 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
                 }
             });
     }
+
+    parseResults(results) {
+        let parsedResults = [];
+        if (this.props.component.code === 'aid' || this.props.component.code === 'ata') {
+            parsedResults = results.map((agency) => {
+                const abbreviation = agency.agency_abbreviation ? ` (${agency.agency_abbreviation})` : '';
+                return ({
+                    code: agency.aid,
+                    name: `${agency.agency_name}${abbreviation}`
+                });
+            });
+        }
+        else {
+            parsedResults = results.map((option) => ({ code: option }));
+        }
+        this.setState({
+            inFlight: false,
+            results: parsedResults
+        });
+    }
+
     render() {
         return (
-            <div>
-                <button onClick={this.fetchAutocompleteResults}>
-                    {this.props.component.toUpperCase()}
-                </button>
-                {JSON.stringify(this.state.results)}
-            </div>
+            <SourceSelectFilter
+                {...this.props.component}
+                options={this.state.results}
+                selectedSources={this.props.selectedSources}
+                updateComponent={this.props.updateComponent}
+                fetchAutocompleteResults={this.fetchAutocompleteResults}
+                dirtyFilters={this.props.dirtyFilters} />
         );
     }
 }

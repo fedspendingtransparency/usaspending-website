@@ -45,10 +45,9 @@ export default class FederalAccountFilters extends React.Component {
             <ProgramSourceAutocompleteContainer
                 dirtyFilters={this.props.dirtyFilters}
                 key={option.code}
-                component={option.code}
+                component={option}
                 filters={this.props.components}
-                updateComponent={this.props.updateComponent}
-                {...option} />
+                updateComponent={this.props.updateComponent} />
         ));
 
         const components = this.props.components;
