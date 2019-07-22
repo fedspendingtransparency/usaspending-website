@@ -46,7 +46,7 @@ export default class FederalAccountFilters extends React.Component {
                 dirtyFilters={this.props.dirtyFilters}
                 key={option.code}
                 component={option}
-                filters={this.props.components}
+                selectedSources={this.props.components}
                 updateComponent={this.props.updateComponent} />
         ));
 

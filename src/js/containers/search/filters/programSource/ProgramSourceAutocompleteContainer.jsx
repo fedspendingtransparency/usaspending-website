@@ -6,13 +6,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
+import { pickBy } from 'lodash';
 
 import * as ProgramSourceHelper from 'helpers/programSourceHelper';
 import SourceSelectFilter from 'components/search/filters/programSource/SourceSelectFilter';
 
 const propTypes = {
     component: PropTypes.object,
-    selectedSources: PropTypes.array,
+    selectedSources: PropTypes.object,
     updateComponent: PropTypes.func,
     dirtyFilters: PropTypes.symbol
 };
@@ -48,12 +49,15 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
             error: false
         });
 
+        // Create the filter object from current selections and the input value
+        let filters = this.props.selectedSources;
+        filters[this.props.component.code] = input;
+        // Exclude filters with empty values
+        filters = pickBy(filters);
+
         // create the params
         const params = {
-            // TODO - Lizzie: use currentSelections to create the filters object
-            filters: {
-                [this.props.component.code]: input
-            },
+            filters,
             limit: 10
         };
 
