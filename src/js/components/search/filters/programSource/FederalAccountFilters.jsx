@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EntityWarning from 'components/search/filters/location/EntityWarning';
-import SourceSelectFilter from './SourceSelectFilter';
+import ProgramSourceAutocompleteContainer from 'containers/search/filters/programSource/ProgramSourceAutocompleteContainer';
 
 const propTypes = {
     updateComponent: PropTypes.func,
@@ -56,9 +56,11 @@ export default class FederalAccountFilters extends React.Component {
 
     render() {
         const federalFilters = filters.map((option) => (
-            <SourceSelectFilter
+            <ProgramSourceAutocompleteContainer
                 dirtyFilters={this.props.dirtyFilters}
                 key={option.code}
+                component={option.code}
+                filters={this.props.components}
                 updateComponent={this.props.updateComponent}
                 selectedSources={[this.props.components[option.code]]}
                 {...option} />
