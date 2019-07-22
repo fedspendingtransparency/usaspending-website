@@ -9,7 +9,7 @@ export const determineSpendingScenario = (amounts) => {
     const obligated = amounts._obligation;
     const current = amounts._combinedCurrentAwardAmounts;
     const potential = amounts._combinedPotentialAwardAmounts;
-    
+
     if (obligated === 0 && current === 0 && potential === 0) {
         return null;
     }
