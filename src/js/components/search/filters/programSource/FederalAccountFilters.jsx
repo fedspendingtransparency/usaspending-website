@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EntityWarning from 'components/search/filters/location/EntityWarning';
 import ProgramSourceAutocompleteContainer from 'containers/search/filters/programSource/ProgramSourceAutocompleteContainer';
+import { federalAccountComponents } from 'dataMapping/search/programSourceComponents';
 
 const propTypes = {
     updateComponent: PropTypes.func,
@@ -14,21 +15,6 @@ const propTypes = {
     applyFilter: PropTypes.func,
     dirtyFilters: PropTypes.symbol
 };
-
-const filters = [
-    {
-        label: 'Agency Identifier',
-        code: 'aid',
-        characterLimit: 3,
-        required: true
-    },
-    {
-        label: 'Main Account Code',
-        code: 'main',
-        characterLimit: 4,
-        required: true
-    }
-];
 
 export default class FederalAccountFilters extends React.Component {
     constructor(props) {
@@ -55,14 +41,13 @@ export default class FederalAccountFilters extends React.Component {
     }
 
     render() {
-        const federalFilters = filters.map((option) => (
+        const federalFilters = federalAccountComponents.map((option) => (
             <ProgramSourceAutocompleteContainer
                 dirtyFilters={this.props.dirtyFilters}
                 key={option.code}
                 component={option.code}
                 filters={this.props.components}
                 updateComponent={this.props.updateComponent}
-                selectedSources={[this.props.components[option.code]]}
                 {...option} />
         ));
 
