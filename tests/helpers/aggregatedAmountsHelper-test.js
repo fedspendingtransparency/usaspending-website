@@ -47,6 +47,16 @@ describe('Aggregated Amounts helper functions', () => {
             expect(mockedScenario).toEqual("insufficientData");
         });
 
+        it('should return null when all values are zero', () => {
+            const mockAmounts = {
+                _obligation: 0,
+                _combinedCurrentAwardAmounts: 0,
+                _combinedPotentialAwardAmounts: 0
+            };
+            const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
+            expect(mockedScenario).toEqual(null);
+        });
+
         it('should return "insufficientData" when current amount exceeds potential amount', () => {
             const mockAmounts = {
                 _obligation: 50,
