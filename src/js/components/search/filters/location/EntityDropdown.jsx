@@ -7,13 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
 import { uniqueId, isEqual } from 'lodash';
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { defaultLocationValues }
+    from "containers/search/filters/location/LocationPickerContainer";
 
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
 import { EntityDropdownAutocomplete } from './EntityDropdownAutocomplete';
-import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
 
 const propTypes = {
     value: PropTypes.object,
@@ -332,13 +332,14 @@ export default class EntityDropdown extends React.Component {
                     }
                     {dropdown}
                 </div>
+                {generateDisclaimer &&
                 <div
                     className={`geo-warning ${hideWarning}`}
                     id={this.state.warningId}
                     aria-hidden={hideWarning === 'hide'}>
                     <EntityWarning
                         message={generateDisclaimer(warningField)} />
-                </div>
+                </div>}
             </div>
         );
     }
