@@ -167,8 +167,7 @@ export default class ActivityChart extends React.Component {
             // and the awarded amount width
             const obligatedAmountScale = scaleLinear()
                 .domain([0, bar._awardedAmount])
-                .range([0, data.barWidth])
-                .nice();
+                .range([0, data.barWidth]);
             // scale the abligated amount to create the correct width
             data.obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
             data.yPosition = (height - 30) - yScale(bar._awardedAmount) - barHeight;
