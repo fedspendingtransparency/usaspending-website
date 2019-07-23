@@ -7,13 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
 import { uniqueId, isEqual } from 'lodash';
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { defaultLocationValues }
+    from "containers/search/filters/location/LocationPickerContainer";
 
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
 import { EntityDropdownAutocomplete } from './EntityDropdownAutocomplete';
-import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
 
 const propTypes = {
     value: PropTypes.object,
@@ -219,14 +219,13 @@ export default class EntityDropdown extends React.Component {
     }
 
     mouseEnter() {
-        if (this.props.enabled && !this.props.showDisclaimer) {
-            // active filter, w/ no disclaimer/warning do nothing
-            return;
+        const shouldShowWarning = (!this.props.enabled || this.props.showDisclaimer);
+        // If field is disabled, show the warning as to why if its not already showing
+        if (shouldShowWarning && !this.state.showWarning) {
+            this.setState({
+                showWarning: true
+            });
         }
-
-        this.setState({
-            showWarning: true
-        });
     }
 
     mouseLeave() {
@@ -239,7 +238,7 @@ export default class EntityDropdown extends React.Component {
 
     render() {
         const {
-            type, field, generateDisclaimer, title, enabled, options, value, searchString, loading
+            type, field, generateDisclaimer, title, enabled, options, value, searchString, loading, showDisclaimer
         } = this.props;
 
         const isAutocomplete = (type === 'autocomplete');
@@ -327,19 +326,20 @@ export default class EntityDropdown extends React.Component {
                             handleTextInputChange={this.handleTextInputChange}
                             toggleDropdown={this.toggleDropdown}
                             placeholder={this.props.placeholder}
-                            showDisclaimer={this.props.showDisclaimer}
+                            showDisclaimer={showDisclaimer}
                             context={this} // used to create dropdown ref
                             loading={loading} />
                     }
                     {dropdown}
                 </div>
+                {generateDisclaimer &&
                 <div
                     className={`geo-warning ${hideWarning}`}
                     id={this.state.warningId}
                     aria-hidden={hideWarning === 'hide'}>
                     <EntityWarning
                         message={generateDisclaimer(warningField)} />
-                </div>
+                </div>}
             </div>
         );
     }
