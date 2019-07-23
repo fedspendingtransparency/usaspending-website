@@ -35,7 +35,7 @@ export default class LocationFilter extends React.Component {
         super(props);
 
         this.updateLocationFilter = this.updateLocationFilter.bind(this);
-        this.generateWarning = this.generateWarning.bind(this);
+        this.generateDisclaimer = this.generateDisclaimer.bind(this);
     }
 
 
@@ -58,7 +58,7 @@ export default class LocationFilter extends React.Component {
         }
     }
 
-    generateWarning(field) {
+    generateDisclaimer(field) {
         if (!this.props.currentLocation.country.code) {
             // no country provided
             return (
@@ -102,7 +102,8 @@ export default class LocationFilter extends React.Component {
                         value={this.props.currentLocation.country}
                         selectEntity={this.updateLocationFilter}
                         options={countryOptions}
-                        generateWarning={this.generateWarning} />
+                        field="country"
+                        generateDisclaimer={this.generateDisclaimer} />
                     <EntityDropdown
                         scope="state"
                         placeholder="Select a State"
@@ -110,8 +111,9 @@ export default class LocationFilter extends React.Component {
                         value={this.props.currentLocation.state}
                         selectEntity={this.updateLocationFilter}
                         options={states}
+                        field="state"
                         enabled={this.props.currentLocation.country.code === 'USA'}
-                        generateWarning={this.generateWarning} />
+                        generateDisclaimer={this.generateDisclaimer} />
                 </div>
             </div>
         );
