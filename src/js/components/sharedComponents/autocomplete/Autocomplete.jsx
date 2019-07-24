@@ -133,6 +133,10 @@ export default class Autocomplete extends React.Component {
     }
 
     close() {
+        // clear the input value if not a valid selection
+        if (this.props.retainValue && !this.props.values[this.state.selectedIndex]) {
+            this.autocompleteInput.value = '';
+        }
         this.setState({
             shown: false,
             showWarning: false
