@@ -203,7 +203,7 @@ export default class Autocomplete extends React.Component {
 
         this.props.onSelect(selectedItem, isValid);
 
-        if (this.props.retainValue) {
+        if (this.props.retainValue && isValid) {
             this.autocompleteInput.value = selectedItem.code;
         }
 

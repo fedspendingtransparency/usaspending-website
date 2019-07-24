@@ -53,8 +53,8 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
             noResults: false
         });
 
-        // Create the filter object from current selections and the input value
-        let filters = this.props.selectedSources;
+        // Make a copy of the current selections
+        let filters = Object.assign({}, this.props.selectedSources);
         filters[this.props.component.code] = input;
         // Exclude filters with empty values
         filters = pickBy(filters);
@@ -108,8 +108,10 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
         });
     }
 
-    selectSourceComponent(selectedSource) {
-        this.props.updateComponent(this.props.component.code, selectedSource.code);
+    selectSourceComponent(selectedSource, isValid) {
+        if (selectedSource && isValid) {
+            this.props.updateComponent(this.props.component.code, selectedSource.code);
+        }
     }
 
     clearAutocompleteSuggestions() {
