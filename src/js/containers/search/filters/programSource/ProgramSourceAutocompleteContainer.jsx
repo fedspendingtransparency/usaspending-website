@@ -15,7 +15,8 @@ const propTypes = {
     component: PropTypes.object,
     selectedSources: PropTypes.object,
     updateComponent: PropTypes.func,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    clearSelection: PropTypes.func
 };
 
 export default class ProgramSourceAutocompleteContainer extends React.Component {
@@ -122,6 +123,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
 
     handleTextInput(event) {
         event.persist();
+        this.props.clearSelection(this.props.component.code);
         this.queryAutocompleteDebounced(event.target.value);
     }
 

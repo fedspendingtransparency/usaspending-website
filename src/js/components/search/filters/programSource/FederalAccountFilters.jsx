@@ -13,7 +13,8 @@ const propTypes = {
     updateComponent: PropTypes.func,
     components: PropTypes.object,
     applyFilter: PropTypes.func,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    clearSelection: PropTypes.func
 };
 
 export default class FederalAccountFilters extends React.Component {
@@ -47,7 +48,8 @@ export default class FederalAccountFilters extends React.Component {
                 key={option.code}
                 component={option}
                 selectedSources={this.props.components}
-                updateComponent={this.props.updateComponent} />
+                updateComponent={this.props.updateComponent}
+                clearSelection={this.props.clearSelection} />
         ));
 
         const components = this.props.components;

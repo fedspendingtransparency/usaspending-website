@@ -52,7 +52,8 @@ export default class Autocomplete extends React.Component {
             selectedIndex: -1,
             showWarning: false,
             autocompleteId: `autocomplete-${uniqueId()}`,
-            statusId: `autocomplete-status-${uniqueId()}`
+            statusId: `autocomplete-status-${uniqueId()}`,
+            staged: false
         };
 
         this.checkValidityDebounced = debounce(this.checkValidity, 1000);
@@ -86,7 +87,8 @@ export default class Autocomplete extends React.Component {
         this.props.handleTextInput(e);
         this.setState({
             value: e.target.value,
-            selectedIndex: 0
+            selectedIndex: 0,
+            staged: false
         });
     }
 
@@ -134,8 +136,8 @@ export default class Autocomplete extends React.Component {
 
     close() {
         // clear the input value if not a valid selection
-        if (this.props.retainValue && !this.props.values[this.state.selectedIndex]) {
-            this.autocompleteInput.value = '';
+        if (this.props.retainValue && !this.state.staged) {
+            this.clearInternalState();
         }
         this.setState({
             shown: false,
@@ -185,14 +187,8 @@ export default class Autocomplete extends React.Component {
         }
     }
 
-    changedText(e) {
-        this.setState({
-            value: e.target.value
-        });
-    }
-
-    isValidSelection(input) {
-        return find(this.props.values, input);
+    isValidSelection(selection) {
+        return find(this.props.values, selection);
     }
 
     bubbleUpChange(selection) {
@@ -203,6 +199,9 @@ export default class Autocomplete extends React.Component {
 
         if (isValid) {
             selectedItem = selection.data;
+            this.setState({
+                staged: true
+            });
         }
 
         this.props.onSelect(selectedItem, isValid);
