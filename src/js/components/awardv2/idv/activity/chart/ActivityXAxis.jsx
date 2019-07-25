@@ -47,16 +47,9 @@ export default class ActivityXAxis extends React.Component {
         if (!props.scale) {
             return;
         }
-
-        // generate the labels
-        const tickLabels = props.ticks.map((tick) => {
-            // TODO: adjust x-axis labels based on the time span
-            // i.e. for smaller range show quarters,
-            // for larger ranges don't show every FY
-            const fiscalYear = convertDateToFY(moment(tick));
-            const fiscalYearTwoNumber = fiscalYear.toString().slice(2);
-            return `FY${fiscalYearTwoNumber}`;
-        });
+        console.log(' Ticks : ', props.ticks);
+        // isolate the labels
+        const tickLabels = props.ticks.map((tick) => tick.label);
 
         // draw the grid lines
         const lineStart = -5;
@@ -75,7 +68,7 @@ export default class ActivityXAxis extends React.Component {
         const labels = props.ticks.map((tick, i) => {
             // calculate the X position
             // D3 scale returns the tick positions as pixels from the start of the axis
-            const xPos = props.scale(tick) + this.props.padding.left;
+            const xPos = props.scale(tick.date);
             // remove erroneous ticks
             if (xPos >= this.props.width) return null;
 
