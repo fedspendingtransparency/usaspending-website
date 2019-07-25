@@ -61,20 +61,20 @@ export default class ProgramSourceSection extends React.Component {
 
     updateComponent(field, value) {
         // Updates the component state
-        const updatedComponents = Object.assign({}, this.state[`${this.state.activeTab}Components`], {
+        const updatedComponents = Object.assign({}, this.state[`${this.state.activeTab}AccountComponents`], {
             [field]: value
         });
         this.setState({
-            [`${this.state.activeTab}Components`]: updatedComponents
+            [`${this.state.activeTab}AccountComponents`]: updatedComponents
         });
     }
 
     clearSelection(field) {
-        const updatedComponents = Object.assign({}, this.state[`${this.state.activeTab}Components`], {
+        const updatedComponents = Object.assign({}, this.state[`${this.state.activeTab}AccountComponents`], {
             [field]: ''
         });
         this.setState({
-            [`${this.state.activeTab}Components`]: updatedComponents
+            [`${this.state.activeTab}AccountComponents`]: updatedComponents
         });
     }
 
@@ -178,7 +178,8 @@ export default class ProgramSourceSection extends React.Component {
                             role="menuitemradio"
                             aria-checked={this.state.activeTab === 'treasury'}
                             title="Treasury Account"
-                            aria-label="Treasury Account" >
+                            aria-label="Treasury Account"
+                            onClick={this.toggleTab} >
                             Treasury Account
                         </button>
                     </li>
