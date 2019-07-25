@@ -15,7 +15,8 @@ const propTypes = {
     component: PropTypes.object,
     selectedSources: PropTypes.object,
     updateComponent: PropTypes.func,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    clearSelection: PropTypes.func
 };
 
 export default class ProgramSourceAutocompleteContainer extends React.Component {
@@ -53,8 +54,8 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
             noResults: false
         });
 
-        // Create the filter object from current selections and the input value
-        let filters = this.props.selectedSources;
+        // Make a copy of the current selections
+        let filters = Object.assign({}, this.props.selectedSources);
         filters[this.props.component.code] = input;
         // Exclude filters with empty values
         filters = pickBy(filters);
@@ -108,8 +109,10 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
         });
     }
 
-    selectSourceComponent(selectedSource) {
-        this.props.updateComponent(this.props.component.code, selectedSource.code);
+    selectSourceComponent(selectedSource, isValid) {
+        if (selectedSource && isValid) {
+            this.props.updateComponent(this.props.component.code, selectedSource.code);
+        }
     }
 
     clearAutocompleteSuggestions() {
@@ -120,6 +123,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
 
     handleTextInput(event) {
         event.persist();
+        this.props.clearSelection(this.props.component.code);
         this.queryAutocompleteDebounced(event.target.value);
     }
 

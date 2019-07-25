@@ -45,6 +45,7 @@ export default class ProgramSourceSection extends React.Component {
         this.updateTreasuryAccountComponent = this.updateTreasuryAccountComponent.bind(this);
         this.applyFilter = this.applyFilter.bind(this);
         this.removeFilter = this.removeFilter.bind(this);
+        this.clearFederalAccountSelection = this.clearFederalAccountSelection.bind(this);
     }
 
     componentDidMount() {
@@ -76,6 +77,15 @@ export default class ProgramSourceSection extends React.Component {
         });
         this.setState({
             treasuryAccountComponents: updatedComponents
+        });
+    }
+
+    clearFederalAccountSelection(field) {
+        const updatedComponents = Object.assign({}, this.state.federalAccountComponents, {
+            [field]: ''
+        });
+        this.setState({
+            federalAccountComponents: updatedComponents
         });
     }
 
@@ -146,7 +156,8 @@ export default class ProgramSourceSection extends React.Component {
                 updateComponent={this.updateFederalAccountComponent}
                 applyFilter={this.applyFilter}
                 components={this.state.federalAccountComponents}
-                dirtyFilters={this.props.dirtyFilters} />);
+                dirtyFilters={this.props.dirtyFilters}
+                clearSelection={this.clearFederalAccountSelection} />);
 
         let selectedSources = null;
         if (activeTab === 'federal' && this.props.selectedFederalComponents) {
