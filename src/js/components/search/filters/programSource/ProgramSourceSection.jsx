@@ -48,7 +48,7 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     componentDidMount() {
-        // this.openDefaultTab();
+        this.openDefaultTab();
     }
 
     componentDidUpdate(prevProps) {
@@ -78,8 +78,14 @@ export default class ProgramSourceSection extends React.Component {
         });
     }
 
-    // TODO - Lizzie: implement openDefaultTab()
-    // to switch to the first tab with a filter already applied
+    openDefaultTab() {
+        // switch to the federal account tab if it has a filter applied and TAS does not
+        if (this.props.selectedFederalComponents.size > 0 && this.props.selectedTreasuryComponents.size === 0) {
+            this.setState({
+                activeTab: 'federal'
+            });
+        }
+    }
 
     toggleTab(e) {
         const type = e.target.value;
