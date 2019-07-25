@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, find, uniqueId, debounce } from 'lodash';
+import { isEqual, find, uniqueId } from 'lodash';
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
@@ -56,7 +56,6 @@ export default class Autocomplete extends React.Component {
             staged: false
         };
 
-        this.checkValidityDebounced = debounce(this.checkValidity, 1000);
         this.onChange = this.onChange.bind(this);
     }
 
@@ -78,12 +77,11 @@ export default class Autocomplete extends React.Component {
 
     componentWillUnmount() {
         this.props.clearAutocompleteSuggestions();
-        this.checkValidityDebounced.cancel();
     }
 
     onChange(e) {
         e.persist();
-        this.checkValidityDebounced(e.target.value);
+        this.checkValidity(e.target.value);
         this.props.handleTextInput(e);
         this.setState({
             value: e.target.value,
