@@ -124,6 +124,52 @@ export const convertDateToQuarter = (date) => {
     return quarter;
 };
 
+export const nearestQuarterDate = (date) => {
+    // Returns the nearest fiscal quarter date
+    const momentDate = moment(date);
+    const month = momentDate.month();
+    const milliseconds = momentDate.valueOf();
+
+    // get the previous and future quarter months
+    let prev;
+    let future;
+    // first quarter
+    if (month >= 9 && month <= 11) {
+        prev = '10';
+        future = '01';
+    }
+    // second quarter
+    else if (month >= 0 && month <= 2) {
+        prev = '01';
+        future = '04';
+    }
+    // third quarter
+    else if (month >= 3 && month <= 5) {
+        prev = '04';
+        future = '07';
+    }
+    // fourth quarter
+    else if (month >= 6 && month <= 8) {
+        prev = '07';
+        future = '10';
+    }
+
+    let year = momentDate.year();
+    if (month === 11) year += 1;
+
+    // get the previous & future quarter start dates for comparison
+    const prevMillis = moment(`${prev}-01-${year}`, "MM-DD-YYYY").valueOf();
+    const futureMillis = moment(`${future}-01-${year}`, "MM-DD-YYYY").valueOf();
+
+    const prevDifference = milliseconds - prev;
+    const futureDifference = future - milliseconds;
+
+    // if the current date is closer to the start of the quarter
+    if (prevDifference < futureDifference) return prevMillis;
+    // return the start of the next quarter
+    return futureMillis;
+}
+
 export const getTrailingTwelveMonths = () => {
     const oneYearAgo = moment().subtract(1, 'year');
     return [oneYearAgo.format('YYYY-MM-DD'), moment().format('YYYY-MM-DD')];

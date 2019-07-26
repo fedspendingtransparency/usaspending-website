@@ -10,6 +10,7 @@ import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculatePageRange } from 'helpers/paginationHelper';
 import Pagination from 'components/sharedComponents/Pagination';
 import Note from 'components/sharedComponents/Note';
+import DefaultPicker from 'components/sharedComponents/pickers/DefaultPicker';
 import ActivityChart from './chart/ActivityChart';
 import ActivityChartTooltip from './ActivityChartTooltip';
 
@@ -21,7 +22,8 @@ const propTypes = {
     changePage: PropTypes.func,
     awards: PropTypes.array,
     xSeries: PropTypes.array,
-    ySeries: PropTypes.array
+    ySeries: PropTypes.array,
+    selectedItemFunc: PropTypes.func
 };
 
 export default class IdvActivityVisualization extends React.Component {
@@ -45,6 +47,7 @@ export default class IdvActivityVisualization extends React.Component {
         this.mouseIsInTooltipDiv = this.mouseIsInTooltipDiv.bind(this);
         this.mouseOutOfTooltipDiv = this.mouseOutOfTooltipDiv.bind(this);
         this.setOverspent = this.setOverspent.bind(this);
+        this.createMenuData = this.createMenuData.bind(this);
     }
 
     componentDidMount() {
@@ -111,6 +114,26 @@ export default class IdvActivityVisualization extends React.Component {
         }, () => this.hideTooltip());
     }
 
+    createMenuData() {
+        return [
+            {
+                key: '10',
+                value: 10,
+                label: '10'
+            },
+            {
+                key: '50',
+                value: 50,
+                label: '50'
+            },
+            {
+                key: '100',
+                value: 100,
+                label: '100'
+            }
+        ];
+    }
+
     render() {
         const height = 360;
         const message = `if an award has a zero or negative obligated amount,
@@ -138,9 +161,10 @@ export default class IdvActivityVisualization extends React.Component {
         const pageRange = calculatePageRange(this.props.page, this.props.limit, this.props.total);
         const start = formatNumberWithPrecision(pageRange.start, 0);
         const end = formatNumberWithPrecision(pageRange.end, 0);
+        const menuData = this.createMenuData();
         const resultsText = (
             <div className="pagination__totals">
-                Displaying award orders <strong>{start}-{end}</strong> of {
+                Displaying award orders <span className="current-page-numbers">{start}-{end}</span> of {
                     formatNumberWithPrecision(this.props.total, 0)}
             </div>
         );
@@ -150,27 +174,37 @@ export default class IdvActivityVisualization extends React.Component {
                     this.sectionRef = widthRef;
                 }}
                 className="activity-visualization">
+                <div className="activity-visualization-title">
+                  Award Amounts and Periods of Performance of Award Orders
+                </div>
                 <Pagination
                     onChangePage={this.props.changePage}
                     pageNumber={this.props.page}
                     totalItems={this.props.total}
                     pageSize={this.props.limit}
                     resultsText={resultsText} />
+                <DefaultPicker
+                    prepend="Show"
+                    append="per page"
+                    menuData={menuData}
+                    defaultSelection={this.props.limit}
+                    selectedItemFunc={this.props.selectedItemFunc} />
                 {chart}
                 {tt}
+                <div className="activity-x-label">Period of Performance</div>
                 <div className="visualization-legend">
                     <div className="visualization-legend__item">
                         <div
                             className="visualization-legend__circle
                             visualization-legend__circle_obligated" />
                         <div className="visualization-legend__label">
-                            Obligated
+                            % Obligated of Potential Award Amount
                         </div>
                     </div>
                     <div className="visualization-legend__item">
                         <div className="visualization-legend__circle visualization-legend__circle" />
                         <div className="visualization-legend__label">
-                            Funding Remaining
+                            % of Potential Funding Remaining
                         </div>
                     </div>
                     {this.state.isOverspent &&

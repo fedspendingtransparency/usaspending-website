@@ -31,10 +31,46 @@ $obligated-green: #94BFA2;
         .loading-animation {
             @import "../../../search/results/screens/loading";
         }
+        .results-table-error {
+          .icon {
+            width: rem(36);
+            height: rem(36);
+            svg {
+              width: rem(36);
+              height: rem(36);
+            }
+          }
+          .title {
+            font-size: rem(20);
+            line-height: rem(45);
+          }
+          .description {
+            font-size: rem(16);
+            line-height: rem(10);
+          }
+        }
       }
       .activity-visualization {
+        @import "components/_defaultPicker";
+        @include defaultPicker;
         @import '../../../../components/pagination';
         @import '../../../../components/visualizations/legend';
+        .activity-visualization-title {
+          margin-top: rem(10);
+          margin-bottom: rem(18);
+          font-weight: $font-semibold;
+        }
+        .activity-x-label {
+          font-size: rem(12);
+          font-weight: $font-semibold;
+          text-align: center;
+        }
+        .default-picker {
+          margin-top: rem(5);
+        }
+        .current-page-numbers {
+          font-weight: $font-semibold;
+        }
         .visualization-tooltip {
           @import "components/visualizations/tooltip/_tooltip";
           .tooltip {

@@ -10,7 +10,6 @@ import IdvActivityVisualization from './IdvActivityVisualization';
 
 const propTypes = {
     awards: PropTypes.array,
-    comingSoon: PropTypes.bool,
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     page: PropTypes.number,
@@ -18,7 +17,8 @@ const propTypes = {
     limit: PropTypes.number,
     changePage: PropTypes.func,
     xSeries: PropTypes.array,
-    ySeries: PropTypes.array
+    ySeries: PropTypes.array,
+    selectedItemFunc: PropTypes.func
 };
 
 export default class IdvActivity extends React.Component {
@@ -42,7 +42,8 @@ export default class IdvActivity extends React.Component {
                 awards={this.props.awards}
                 changePage={this.props.changePage}
                 xSeries={this.props.xSeries}
-                ySeries={this.props.ySeries} />);
+                ySeries={this.props.ySeries}
+                selectedItemFunc={this.props.selectedItemFunc} />);
         }
 
         return (

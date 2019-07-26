@@ -7,8 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual, min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
-import { timeMonth, timeYear, timeInterval } from 'd3-time';
+// import { timeMonth, timeYear, timeInterval } from 'd3-time';
 import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
+import { nearestQuarterDate } from 'helpers/fiscalYearHelper';
 import TwoRectangles from 'components/sharedComponents/patterns/TwoRectangles';
 import VerticalLine from 'components/sharedComponents/VerticalLine';
 import ActivityChartBar from './ActivityChartBar';
@@ -66,6 +67,19 @@ export default class ActivityChart extends React.Component {
         if (!isEqual(this.props.width, prevProps.width)) {
             this.generateChartData();
         }
+    }
+
+    getXTickDateAndLabel(date) {
+        // const dateMillis = date.getTime();
+        const newDate = new Date(date);
+        const month = newDate.getMonth();
+        let year = newDate.getFullYear();
+        if (month === 9) year += 1;
+        // add 1 to the year because it is the next fiscal year
+        const shortYear = (year).toString().slice(-2);
+        const shortMonth = newDate.toLocaleString('en-us', { month: 'short' }).toUpperCase();
+        const label = `${shortMonth} FY '${shortYear}`;
+        return { date: newDate, label };
     }
 
     createBars() {
@@ -152,7 +166,6 @@ export default class ActivityChart extends React.Component {
             graphWidth,
             graphHeight
         } = this.state;
-        console.log(' Awards : ', this.props.awards);
         // Map each award to a "bar" component
         const bars = this.props.awards.map((bar, index) => {
             const data = bar;
@@ -171,14 +184,15 @@ export default class ActivityChart extends React.Component {
                 .range([0, data.barWidth]);
             // scale the abligated amount to create the correct width
             data.obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
-            data.yPosition = (height - 30) - yScale(bar._awardedAmount) - barHeight;
+            data.yPosition = (height - 30) - yScale(bar._obligatedAmount) - barHeight;
             // adding these for the tooltip positioning
             data.index = index;
             data.graphWidth = graphWidth;
             data.graphHeight = graphHeight;
             data.start = start;
+            data.end = end;
             data.x = start;
-            data.y = (360 - data.yPosition) - (this.props.barHeight - 4);
+            data.y = (385 - data.yPosition) - (this.props.barHeight - 4);
             // create percentage for description
             // not handling bad data as that will be handled elsewhere
             const percentage = calculateTreemapPercentage(bar._obligatedAmount, bar._awardedAmount);
@@ -203,7 +217,7 @@ export default class ActivityChart extends React.Component {
         // If there is only one item, manually set the min and max values
         // Y Axis (Awarded Amounts) will go from zero to the one award's amount
         let minValueY = 0;
-        let maxValueY = this.props.awards[0]._awardedAmount;
+        let maxValueY = this.props.awards[0]._obligatedAmount;
         // X Axis (Dates) will go from the award's start date to its end date
         let minValueX = this.props.awards[0]._startDate.valueOf();
         let maxValueX = this.props.awards[0]._endDate.valueOf();
@@ -230,91 +244,101 @@ export default class ActivityChart extends React.Component {
         return { graphWidth, graphHeight };
     }
 
-    atMostSixTicks(array, limit = 6) {
-        // given an array is greater than 6 elements
-        // recursively remove the first element then last element
-        const recurse = (array, prev) => {
-            if (array.length > limit) {
-                if (!prev) {
-                    array.shift();
-                    recurse(array, true);
-                }
-                else {
-                    array.pop();
-                    recurse(array, false);
-                }
-                // const filteredArray = array.filter((tick) => {
-                //     return tick % 2 !== 0;
-                // });
-                // recurse(filteredArray);
-            }
-            return array;
-        };
-        return recurse(array);
-    }
+    // atMostSixTicks(array, limit = 6) {
+    //     // given an array is greater than 6 elements
+    //     // recursively remove the first element then last element
+    //     const recurse = (array, prev) => {
+    //         if (array.length > limit) {
+    //             if (!prev) {
+    //                 array.shift();
+    //                 recurse(array, true);
+    //             }
+    //             else {
+    //                 array.pop();
+    //                 recurse(array, false);
+    //             }
+    //             // const filteredArray = array.filter((tick) => {
+    //             //     return tick % 2 !== 0;
+    //             // });
+    //             // recurse(filteredArray);
+    //         }
+    //         return array;
+    //     };
+    //     return recurse(array);
+    // }
 
-    getXTickDateAndLabel(date) {
-        const dateMillis = date.getTime();
-        // add 1 to the year because it is the next fiscal year
-        const shortYear = (date.getFullYear() + 1).toString().slice(-2);
-        const shortMonth = date.toLocaleString('en-us', { month: 'short' }).toUpperCase();
-        const label = `${shortMonth} FY '${shortYear}`;
-        return { date: dateMillis, label };
-    }
+    // createXTicksData(fiscalYearCount, fiscalQuarterDates) {
+    //     const step = (fiscalYearCount > 6) ? Math.round(fiscalYearCount / 6) : fiscalYearCount;
+    //     // > 3 year range in graph
+    //     // only use start of fiscal years
+    //     if (fiscalYearCount > 3) {
+    //         console.log(' Step : ', step);
+    //         // reduce based on correct fiscal months providing date and label for ticks
+    //         const fiscalDates = fiscalQuarterDates.reduce((acc, val) => {
+    //             if (val.getMonth() === 9) {
+    //                 acc.push(this.getXTickDateAndLabel(val));
+    //                 return acc;
+    //             }
+    //             return acc;
+    //         }, []);
+    //         console.log(' Unfiltered Dates 6 : ', fiscalDates);
+    //         const filteredFiscalDates = fiscalDates.filter((date, index) => index === 0 || ((index + 1) % step === 0));
+    //         console.log(' Filtered Ticks 6 : ', filteredFiscalDates);
+    //         return this.atMostSixTicks(filteredFiscalDates);
+    //     }
+    //     // 3 < x < 6 years
+    //     // < 3 years
+    //     // < 1 year
+    //     const fiscalDates = fiscalQuarterDates.reduce((acc, val) => {
+    //         const month = val.getMonth();
+    //         if (month === 3 || month === 9) {
+    //             acc.push(this.getXTickDateAndLabel(val));
+    //             return acc;
+    //         }
+    //         return acc;
+    //     }, []);
+    //     console.log(' Un Filtered Ticks <= 3 : ', fiscalDates);
+    //     const filteredFiscalDates = fiscalDates.filter((date, index) => index === 0 || ((index + 1) % step === 0));
+    //     console.log(' Filtered Ticks <= 3 : ', filteredFiscalDates);
+    //     return this.atMostSixTicks(filteredFiscalDates);
+    // }
 
-    createXTicksData(fiscalYearCount, fiscalQuarterDates) {
-        const step = (fiscalYearCount > 6) ? Math.round(fiscalYearCount / 6) : fiscalYearCount;
-        // > 3 year range in graph
-        // only use start of fiscal years
-        if (fiscalYearCount > 3) {
-            console.log(' Step : ', step);
-            // reduce based on correct fiscal months providing date and label for ticks
-            const fiscalDates = fiscalQuarterDates.reduce((acc, val) => {
-                if (val.getMonth() === 9) {
-                    acc.push(this.getXTickDateAndLabel(val));
-                    return acc;
-                }
-                return acc;
-            }, []);
-            console.log(' Unfiltered Dates 6 : ', fiscalDates);
-            const filteredFiscalDates = fiscalDates.filter((date, index) => index === 0 || ((index + 1) % step === 0));
-            console.log(' Filtered Ticks 6 : ', filteredFiscalDates);
-            return this.atMostSixTicks(filteredFiscalDates);
-        }
-        // 3 < x < 6 years
-        // < 3 years
-        // < 1 year
-        const fiscalDates = fiscalQuarterDates.reduce((acc, val) => {
-            const month = val.getMonth();
-            if (month === 3 || month === 9) {
-                acc.push(this.getXTickDateAndLabel(val));
+    // createFiscalYearDates(xRange, xScale, graphWidth) {
+    //     // count number of fiscal years
+    //     const startOfGraphMillis = xScale.invert(0);
+    //     const endOfGraphMillis = xScale.invert(graphWidth);
+    //     // count of fiscal years
+    //     const fiscalYearCount = timeYear.count(
+    //         new Date(startOfGraphMillis),
+    //         new Date(endOfGraphMillis)
+    //     );
+    //     // fiscal quarters
+    //     const fiscalQuarterDates = timeMonth.every(3).range(
+    //         // new Date(timeYear.ceil(startOfGraphMillis)),
+    //         // new Date(timeYear.floor(endOfGraphMillis))
+    //         new Date(startOfGraphMillis),
+    //         new Date(endOfGraphMillis)
+    //     );
+    //     return this.createXTicksData(fiscalYearCount, fiscalQuarterDates);
+    // }
+
+    createXTicks(xScale, graphWidth) {
+        const xTicks = xScale.ticks(5);
+        const startOfGraphMillis = xScale.invert(0);
+        const endOfGraphMillis = xScale.invert(graphWidth);
+        return xTicks.reduce((acc, tick) => {
+            // find nearest quarter date
+            const quarterMillis = nearestQuarterDate(tick);
+            // since we are finding the nearest quarter date from D3's generated ticks
+            // we could be manipulating the date to a position off the graph
+            // this if statement removes those dates
+            if (startOfGraphMillis <= quarterMillis && quarterMillis <= endOfGraphMillis) {
+                // format tick with date and label
+                acc.push(this.getXTickDateAndLabel(quarterMillis));
                 return acc;
             }
             return acc;
         }, []);
-        console.log(' Un Filtered Ticks <= 3 : ', fiscalDates);
-        const filteredFiscalDates = fiscalDates.filter((date, index) => index === 0 || ((index + 1) % step === 0));
-        console.log(' Filtered Ticks <= 3 : ', filteredFiscalDates);
-        return this.atMostSixTicks(filteredFiscalDates);
-    }
-
-    createFiscalYearDates(xRange, xScale, graphWidth) {
-        // count number of fiscal years
-        const startOfGraphMillis = xScale.invert(0);
-        const endOfGraphMillis = xScale.invert(graphWidth);
-        // count of fiscal years
-        const fiscalYearCount = timeYear.count(
-            new Date(startOfGraphMillis),
-            new Date(endOfGraphMillis)
-        );
-        // fiscal quarters
-        const fiscalQuarterDates = timeMonth.every(3).range(
-            // new Date(timeYear.ceil(startOfGraphMillis)),
-            // new Date(timeYear.floor(endOfGraphMillis))
-            new Date(startOfGraphMillis),
-            new Date(endOfGraphMillis)
-        );
-        return this.createXTicksData(fiscalYearCount, fiscalQuarterDates);
     }
 
     generateChartData() {
@@ -332,7 +356,8 @@ export default class ActivityChart extends React.Component {
             .range([0, graphHeight])
             .nice();
 
-        const xTicks = this.createFiscalYearDates(xRange, xScale, graphWidth);
+        // const xTicks = this.createFiscalYearDates(xRange, xScale, graphWidth);
+        const xTicks = this.createXTicks(xScale, graphWidth);
 
         this.setState({
             xRange,
@@ -347,19 +372,18 @@ export default class ActivityChart extends React.Component {
     }
 
     render() {
+        const bars = this.createBars();
         const { width, height, padding } = this.props;
         const {
             xScale,
             xRange,
-            graphHeight,
             graphWidth
         } = this.state;
-        const bars = this.createBars();
         return (
             <svg
                 className="activity-chart"
                 width={width}
-                height={height + 45}>
+                height={height + 45 + 25}>
                 <g
                     className="activity-chart-body"
                     transform="translate(0,45)">
@@ -372,23 +396,22 @@ export default class ActivityChart extends React.Component {
                         scale={this.state.yScale}
                         ticks={this.state.yTicks} />
                     <ActivityXAxis
-                        height={graphHeight}
+                        height={height - padding.bottom}
                         width={graphWidth}
                         padding={padding}
                         ticks={this.state.xTicks}
-                        scale={xScale}
-                        endOf />
+                        scale={xScale} />
                     <g
                         className="activity-chart-data">
                         {/* Today Line */}
                         {xScale && <VerticalLine
                             xScale={xScale}
                             y1={-10}
-                            y2={height - 30}
+                            y2={height - padding.bottom}
                             textY={0}
                             xMax={xRange[1]}
                             xMin={xRange[0]}
-                            showTextLeft
+                            showTextPosition="top"
                             adjustmentX={padding.left} />}
                         {bars}
                     </g>

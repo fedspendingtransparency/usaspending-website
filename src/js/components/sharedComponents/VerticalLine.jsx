@@ -15,8 +15,7 @@ const propTypes = {
     xMax: PropTypes.number, // max possible value of x
     xMin: PropTypes.number, // max possible value of x
     xValue: PropTypes.number, // actual value of x
-    showTextRight: PropTypes.bool, // show text to the right of line
-    showTextLeft: PropTypes.bool, // show text to the left of line
+    showTextPosition: PropTypes.string, // show text left, right, and top are valid
     textY: PropTypes.number, // show text at this height
     description: PropTypes.string,
     adjustmentX: PropTypes.number // adjust x for padding
@@ -61,22 +60,26 @@ export default class VerticalLine extends Component {
         const {
             xScale,
             xValue,
-            showTextRight,
-            showTextLeft,
+            showTextPosition,
             textY,
             adjustmentX
         } = this.props;
         let positionX = xScale(xValue || Date.now()) + (adjustmentX || 0);
+        let modifiedTextY = textY;
         // the text div starts null since React only calls the callback ref function
         // when the DOM draws the element, without this you will get an error since
         // we will be call properties on null
         if (this.textDiv) {
             const textDivDimensions = this.textDiv.getBoundingClientRect();
             const width = textDivDimensions.width;
-            if (showTextLeft) positionX -= (width + 4);
-            if (showTextRight) positionX += 4;
+            if (showTextPosition === 'left') positionX -= (width + 4);
+            if (showTextPosition === 'right') positionX += 4;
+            if (showTextPosition === 'top') {
+                modifiedTextY -= 12;
+                positionX -= (width / 2);
+            }
         }
-        this.setState({ textX: positionX, textY });
+        this.setState({ textX: positionX, textY: modifiedTextY });
     }
 
     render() {

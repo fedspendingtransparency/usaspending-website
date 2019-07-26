@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
-import moment from 'moment';
-import { convertDateToFY } from 'helpers/fiscalYearHelper';
 import ActivityXAxisItem from './ActivityXAxisItem';
 
 const defaultProps = {
@@ -47,7 +45,6 @@ export default class ActivityXAxis extends React.Component {
         if (!props.scale) {
             return;
         }
-        console.log(' Ticks : ', props.ticks);
         // isolate the labels
         const tickLabels = props.ticks.map((tick) => tick.label);
 
@@ -67,7 +64,7 @@ export default class ActivityXAxis extends React.Component {
         // iterate through the D3 generated tick marks and add them to the chart
         const labels = props.ticks.map((tick, i) => {
             // calculate the X position
-            // D3 scale returns the tick positions as pixels from the start of the axis
+            // D3 scale returns the tick positions as pixels
             const xPos = props.scale(tick.date);
             // remove erroneous ticks
             if (xPos >= this.props.width) return null;
@@ -78,7 +75,9 @@ export default class ActivityXAxis extends React.Component {
                 label={`${tickLabels[i]}`}
                 key={`label-y-${tick}-${i}`}
                 lineStart={lineStart}
-                lineEnd={lineEnd} />);
+                lineEnd={lineEnd}
+                transform={`translate(${xPos - 15},${yPos + 15}) rotate(325)`}
+                line />);
         });
 
         this.setState({
