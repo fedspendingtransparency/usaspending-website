@@ -99,7 +99,10 @@ export default class ProgramSourceSection extends React.Component {
         if (this.state.activeTab === 'federal') {
             const components = this.state.federalAccountComponents;
             const identifier = `${components.aid}-${components.main}`;
-            this.props.updateFederalAccountComponents(identifier);
+            this.props.updateFederalAccountComponents({
+                identifier,
+                values: this.state.federalAccountComponents
+            });
             // Clear the values after they have been applied
             this.setState({
                 federalAccountComponents: {
@@ -111,7 +114,10 @@ export default class ProgramSourceSection extends React.Component {
         else {
             const components = this.state.treasuryAccountComponents;
             const identifier = `${components.ata || '***'}-${components.aid}-${components.bpoa || '****'}-${components.epoa || '****'}-${components.a || '*'}-${components.main || '****'}-${components.sub || '***'}`;
-            this.props.updateTreasuryAccountComponents(identifier);
+            this.props.updateTreasuryAccountComponents({
+                identifier,
+                values: this.state.treasuryAccountComponents
+            });
             // Clear the values after they have been applied
             this.setState({
                 treasuryAccountComponents: {
@@ -129,10 +135,14 @@ export default class ProgramSourceSection extends React.Component {
 
     removeFilter(identifier) {
         if (this.state.activeTab === 'federal') {
-            this.props.updateFederalAccountComponents(identifier);
+            this.props.updateFederalAccountComponents({
+                identifier, values: {}
+            });
         }
         else {
-            this.props.updateTreasuryAccountComponents(identifier);
+            this.props.updateTreasuryAccountComponents({
+                identifier, values: {}
+            });
         }
     }
 

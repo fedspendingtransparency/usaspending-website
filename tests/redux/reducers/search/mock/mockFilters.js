@@ -23,7 +23,24 @@ export const mockAgency = {
     agencyType: 'subtier'
 };
 
-export const mockTreasuryAccount = '098-765-****-2008-X-321';
+export const mockTreasuryAccount = {
+    identifier: '098-765-****-2008-X-****-321',
+    values: {
+        ata: '098',
+        aid: '765',
+        bpoa: '',
+        epoa: '2008',
+        a: 'X',
+        main: '',
+        sub: '321'
+    }
+};
 
-export const mockFederalAccount = '234-5678';
+export const mockFederalAccount = {
+    identifier: '234-5678',
+    values: {
+        aid: '234',
+        main: '5678'
+    }
+};
 
