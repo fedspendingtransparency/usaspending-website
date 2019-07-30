@@ -1,9 +1,32 @@
 .award-amounts {
     $border-gray: #555555;
     $border-light-gray: #d5d6d8;
-
     .award-amounts__content {
-        margin-top: rem(30);
+      margin-top: rem(30);
+      @import '../search/results/table/tableMessages';
+      .results-table-message-container {
+        position: relative;
+        background-color: rgb(246, 246, 246);
+        .no-results-container {
+          text-align: center;
+          margin-top: rem(100);
+          margin-bottom: rem(100);
+          .no-results-title {
+            h4 {
+              margin-bottom: 0;
+              vertical-align: bottom;
+              font-size: rem(18);
+              font-weight: $font-semibold;
+            }
+          }
+          .no-results-message {
+            p {
+              margin-top: 0;
+              vertical-align: top;
+            }
+          }
+        }
+      }
     }
 
     .award-amounts__banner {
