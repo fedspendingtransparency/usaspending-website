@@ -18,6 +18,7 @@ export const defaultFilters = {
     locationDomesticForeign: 'all',
     budgetFunctions: new OrderedMap(),
     federalAccounts: new OrderedMap(),
+    treasuryAccounts: new OrderedMap(),
     objectClasses: new OrderedMap(),
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
