@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, find, uniqueId, debounce } from 'lodash';
+import { isEqual, find, uniqueId } from 'lodash';
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
@@ -52,10 +52,10 @@ export default class Autocomplete extends React.Component {
             selectedIndex: -1,
             showWarning: false,
             autocompleteId: `autocomplete-${uniqueId()}`,
-            statusId: `autocomplete-status-${uniqueId()}`
+            statusId: `autocomplete-status-${uniqueId()}`,
+            staged: false
         };
 
-        this.checkValidityDebounced = debounce(this.checkValidity, 1000);
         this.onChange = this.onChange.bind(this);
     }
 
@@ -77,16 +77,23 @@ export default class Autocomplete extends React.Component {
 
     componentWillUnmount() {
         this.props.clearAutocompleteSuggestions();
-        this.checkValidityDebounced.cancel();
     }
 
     onChange(e) {
         e.persist();
-        this.checkValidityDebounced(e.target.value);
-        this.props.handleTextInput(e);
+        this.checkValidity(e.target.value);
+        let selectedIndex = 0;
+        if (e.target.value) {
+            this.props.handleTextInput(e);
+        }
+        else {
+            selectedIndex = -1;
+            this.close();
+        }
         this.setState({
             value: e.target.value,
-            selectedIndex: 0
+            selectedIndex,
+            staged: false
         });
     }
 
@@ -133,6 +140,10 @@ export default class Autocomplete extends React.Component {
     }
 
     close() {
+        // clear the input value if not a valid selection
+        if (this.props.retainValue && !this.state.staged) {
+            this.clearInternalState();
+        }
         this.setState({
             shown: false,
             showWarning: false
@@ -181,14 +192,8 @@ export default class Autocomplete extends React.Component {
         }
     }
 
-    changedText(e) {
-        this.setState({
-            value: e.target.value
-        });
-    }
-
-    isValidSelection(input) {
-        return find(this.props.values, input);
+    isValidSelection(selection) {
+        return find(this.props.values, selection);
     }
 
     bubbleUpChange(selection) {
@@ -199,11 +204,14 @@ export default class Autocomplete extends React.Component {
 
         if (isValid) {
             selectedItem = selection.data;
+            this.setState({
+                staged: true
+            });
         }
 
         this.props.onSelect(selectedItem, isValid);
 
-        if (this.props.retainValue) {
+        if (this.props.retainValue && isValid) {
             this.autocompleteInput.value = selectedItem.code;
         }
 
