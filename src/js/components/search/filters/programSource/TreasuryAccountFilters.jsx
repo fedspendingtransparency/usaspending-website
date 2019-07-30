@@ -7,14 +7,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import EntityWarning from 'components/search/filters/location/EntityWarning';
 import ProgramSourceAutocompleteContainer from 'containers/search/filters/programSource/ProgramSourceAutocompleteContainer';
-import { treasuryAccountComponents } from 'dataMapping/search/programSourceComponents';
+import { treasuryAccountComponents, federalAccountComponents } from 'dataMapping/search/programSourceComponents';
 
 const propTypes = {
     updateComponent: PropTypes.func,
     components: PropTypes.object,
     applyFilter: PropTypes.func,
     dirtyFilters: PropTypes.symbol,
-    clearSelection: PropTypes.func
+    clearSelection: PropTypes.func,
+    activeTab: PropTypes.string
 };
 
 export default class TreasuryAccountFilters extends React.Component {
@@ -30,7 +31,7 @@ export default class TreasuryAccountFilters extends React.Component {
     }
 
     showWarning() {
-        if (!this.props.components.aid) {
+        if (!(this.props.components.aid && this.props.components.main)) {
             this.setState({ showWarning: true });
         }
     }
@@ -42,26 +43,50 @@ export default class TreasuryAccountFilters extends React.Component {
     }
 
     render() {
-        const treasuryFilters = treasuryAccountComponents.map((option) => (
-            <ProgramSourceAutocompleteContainer
-                dirtyFilters={this.props.dirtyFilters}
-                key={option.code}
-                component={option}
-                selectedSources={this.props.components}
-                updateComponent={this.props.updateComponent}
-                clearSelection={this.props.clearSelection} />
-        ));
+        let filters = [];
+        if (this.props.activeTab === 'treasury') {
+            filters = treasuryAccountComponents.map((option) => (
+                <ProgramSourceAutocompleteContainer
+                    dirtyFilters={this.props.dirtyFilters}
+                    key={option.code}
+                    component={option}
+                    selectedSources={this.props.components}
+                    updateComponent={this.props.updateComponent}
+                    clearSelection={this.props.clearSelection} />
+            ));
+        }
+        else {
+            filters = federalAccountComponents.map((option) => (
+                <ProgramSourceAutocompleteContainer
+                    dirtyFilters={this.props.dirtyFilters}
+                    key={option.code}
+                    component={option}
+                    selectedSources={this.props.components}
+                    updateComponent={this.props.updateComponent}
+                    clearSelection={this.props.clearSelection} />
+            ));
+        }
 
         const components = this.props.components;
-        const enabled = components.aid;
+        const enabled = components.aid && components.main;
+
+        let message = "Enter values for AID and MAIN";
+        if (components.aid && !components.main) {
+            message = "Enter value for MAIN";
+        }
+        else if (!components.aid && components.main) {
+            message = "Enter value for AID";
+        }
+
+        const heading = this.props.activeTab === 'treasury' ? 'Treasury' : 'Federal';
 
         return (
             <div className="program-source-tab">
                 <form className="program-source-components">
                     <div className="program-source-components__heading">
-                        Treasury Account Components
+                        {heading} Account Components
                     </div>
-                    {treasuryFilters}
+                    {filters}
                     <div
                         className="program-source-components__button-wrapper"
                         onFocus={this.showWarning}
@@ -77,7 +102,7 @@ export default class TreasuryAccountFilters extends React.Component {
                         <div
                             className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
                             aria-hidden={enabled}>
-                            <EntityWarning message="Enter a value for AID" />
+                            <EntityWarning message={message} />
                         </div>
                     </div>
                 </form>

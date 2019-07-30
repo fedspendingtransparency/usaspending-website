@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-import FederalAccountFilters from './FederalAccountFilters';
 import TreasuryAccountFilters from './TreasuryAccountFilters';
 import SelectedSources from './SelectedSources';
 
@@ -140,20 +139,15 @@ export default class ProgramSourceSection extends React.Component {
         const activeTab = this.state.activeTab;
         const activeTreasury = activeTab === 'treasury' ? '' : 'inactive';
         const activeFederal = activeTab === 'federal' ? '' : 'inactive';
-        const filter = (activeTab === 'treasury') ? (
+        const filter = (
             <TreasuryAccountFilters
                 updateComponent={this.updateComponent}
                 applyFilter={this.applyFilter}
                 components={this.state.treasuryAccountComponents}
                 dirtyFilters={this.props.dirtyFilters}
-                clearSelection={this.clearSelection} />
-        ) : (
-            <FederalAccountFilters
-                updateComponent={this.updateComponent}
-                applyFilter={this.applyFilter}
-                components={this.state.federalAccountComponents}
-                dirtyFilters={this.props.dirtyFilters}
-                clearSelection={this.clearSelection} />);
+                clearSelection={this.clearSelection}
+                activeTab={activeTab} />
+        );
 
         let selectedSources = null;
         if (activeTab === 'federal' && this.props.selectedFederalComponents) {
