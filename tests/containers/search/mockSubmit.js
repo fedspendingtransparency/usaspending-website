@@ -1,5 +1,5 @@
-import { initialState as initialApplied } from 'redux/reducers/search/appliedFiltersReducer'
-import { initialState as initialStaged } from 'redux/reducers/search/searchFiltersReducer'
+import { initialState as initialApplied } from 'redux/reducers/search/appliedFiltersReducer';
+import { initialState as initialStaged } from 'redux/reducers/search/searchFiltersReducer';
 
 export const mockRedux = {
     requestsComplete: true,
