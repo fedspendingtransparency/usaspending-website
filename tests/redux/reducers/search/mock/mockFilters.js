@@ -23,3 +23,7 @@ export const mockAgency = {
     agencyType: 'subtier'
 };
 
+export const mockTreasuryAccount = '098-765-****-2008-X-321';
+
+export const mockFederalAccount = '234-5678';
+

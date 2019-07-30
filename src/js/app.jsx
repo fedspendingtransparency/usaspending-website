@@ -3,25 +3,26 @@ import { render } from 'react-dom';
 import { hot } from "react-hot-loader";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-    faExternalLinkAlt,
-    faChartPie,
-    faChartArea,
-    faLandmark,
-    faMapMarkerAlt,
-    faCalendarAlt,
-    faLevelUpAlt,
-    faPencilAlt,
-    faTag,
-    faUserTie,
-    faChartBar,
-    faEllipsisH,
     faAngleDown,
     faAngleRight,
-    faChevronUp,
-    faSpinner,
-    faChevronDown,
     faBuilding,
-    faInfoCircle
+    faCalendarAlt,
+    faChartArea,
+    faChartBar,
+    faChartPie,
+    faChevronDown,
+    faChevronUp,
+    faEllipsisH,
+    faExternalLinkAlt,
+    faInfoCircle,
+    faLandmark,
+    faLevelUpAlt,
+    faMapMarkerAlt,
+    faPencilAlt,
+    faSearch,
+    faSpinner,
+    faTag,
+    faUserTie
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -34,25 +35,26 @@ require("core-js");
 require('helpers/rafPolyfill');
 
 library.add(
-    faExternalLinkAlt,
+    faAngleDown,
+    faAngleRight,
+    faBuilding,
+    faCalendarAlt,
     faChartArea,
+    faChartBar,
     faChartPie,
+    faChevronDown,
+    faChevronUp,
+    faEllipsisH,
+    faExternalLinkAlt,
+    faInfoCircle,
     faLandmark,
     faLevelUpAlt,
     faMapMarkerAlt,
-    faCalendarAlt,
     faPencilAlt,
-    faUserTie,
-    faTag,
-    faChartBar,
-    faEllipsisH,
-    faAngleDown,
-    faAngleRight,
-    faChevronDown,
-    faChevronUp,
+    faSearch,
     faSpinner,
-    faBuilding,
-    faInfoCircle
+    faTag,
+    faUserTie
 );
 
 const appDiv = document.getElementById('app');

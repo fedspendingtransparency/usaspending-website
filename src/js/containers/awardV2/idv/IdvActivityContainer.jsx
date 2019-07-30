@@ -51,7 +51,8 @@ export class IdvActivityContainer extends React.Component {
 
         const params = {
             award_id: this.props.awardId,
-            page: this.state.page
+            page: this.state.page,
+            hide_edge_cases: true
         };
 
         this.idvActivityRequest = fetchIdvActivity(params);
@@ -86,7 +87,6 @@ export class IdvActivityContainer extends React.Component {
             idvActivityBar.populate(award);
             return idvActivityBar;
         });
-
         const startDates = awards.map((award) => award._startDate.valueOf());
         const endDates = awards.map((award) => award._endDate.valueOf());
         const xSeries = startDates.concat(endDates);

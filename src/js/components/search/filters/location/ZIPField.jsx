@@ -13,7 +13,7 @@ import EntityWarning from 'components/search/filters/location/EntityWarning';
 const propTypes = {
     zip: PropTypes.object,
     validateZip: PropTypes.func,
-    generateWarning: PropTypes.func,
+    generateDisclaimer: PropTypes.func,
     isUSA: PropTypes.bool
 };
 
@@ -105,7 +105,7 @@ export default class ZIPField extends React.Component {
                 <div
                     className={`geo-warning ${this.state.showNonUsWarning ? '' : 'hide'}`}
                     aria-hidden={!this.state.showNonUsWarning}>
-                    <EntityWarning message={this.props.generateWarning('ZIP CODE')} />
+                    <EntityWarning message={this.props.generateDisclaimer('ZIP CODE')} />
                 </div>
             </form>
         );

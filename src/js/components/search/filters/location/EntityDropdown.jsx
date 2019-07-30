@@ -7,13 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
 import { uniqueId, isEqual } from 'lodash';
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { defaultLocationValues }
+    from "containers/search/filters/location/LocationPickerContainer";
 
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
 import { EntityDropdownAutocomplete } from './EntityDropdownAutocomplete';
-import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
 
 const propTypes = {
     value: PropTypes.object,
@@ -21,21 +21,23 @@ const propTypes = {
     title: PropTypes.string,
     options: PropTypes.array,
     selectEntity: PropTypes.func,
-    scope: PropTypes.string,
+    field: PropTypes.string,
     enabled: PropTypes.bool,
-    generateWarning: PropTypes.func,
+    generateDisclaimer: PropTypes.func,
     matchKey: PropTypes.string,
     setSearchString: PropTypes.func,
     searchString: PropTypes.string,
     loading: PropTypes.bool,
-    type: PropTypes.oneOf(["autocomplete", "button"])
+    type: PropTypes.oneOf(["autocomplete", "button"]),
+    showDisclaimer: PropTypes.bool
 };
 
 const defaultProps = {
     enabled: true,
     matchKey: 'name',
     type: "button",
-    loading: false
+    loading: false,
+    showDisclaimer: false
 };
 
 const alphabetRegex = /([a-z]|[0-9])/;
@@ -81,7 +83,7 @@ export default class EntityDropdown extends React.Component {
     }
 
     resetSelectedItem() {
-        this.props.selectEntity(this.props.scope, defaultLocationValues[this.props.scope]);
+        this.props.selectEntity(this.props.field, defaultLocationValues[this.props.field]);
     }
 
     handleTextInputChange(e) {
@@ -134,7 +136,7 @@ export default class EntityDropdown extends React.Component {
             this.props.setSearchString(item.name, false);
         }
         if (item.code !== "NA-000") {
-            this.props.selectEntity(this.props.scope, item);
+            this.props.selectEntity(this.props.field, item);
         }
         this.closeDropdown();
     }
@@ -217,14 +219,13 @@ export default class EntityDropdown extends React.Component {
     }
 
     mouseEnter() {
-        if (this.props.enabled) {
-            // active filter, do nothing
-            return;
+        const shouldShowWarning = (!this.props.enabled || this.props.showDisclaimer);
+        // If field is disabled, show the warning as to why if its not already showing
+        if (shouldShowWarning && !this.state.showWarning) {
+            this.setState({
+                showWarning: true
+            });
         }
-
-        this.setState({
-            showWarning: true
-        });
     }
 
     mouseLeave() {
@@ -237,7 +238,7 @@ export default class EntityDropdown extends React.Component {
 
     render() {
         const {
-            type, scope, generateWarning, title, enabled, options, value, searchString, loading
+            type, field, generateDisclaimer, title, enabled, options, value, searchString, loading, showDisclaimer
         } = this.props;
 
         const isAutocomplete = (type === 'autocomplete');
@@ -254,7 +255,7 @@ export default class EntityDropdown extends React.Component {
             const selectedItem = this.getSelectedItemIdentifier();
             dropdown = (<EntityDropdownList
                 matchKey={this.props.matchKey}
-                scope={this.props.scope}
+                scope={this.props.field}
                 selectedItem={selectedItem}
                 options={this.props.options}
                 clickedItem={this.clickedItem} />);
@@ -268,7 +269,8 @@ export default class EntityDropdown extends React.Component {
             disabled = 'disabled';
         }
 
-        if (!this.props.enabled && this.state.showWarning) {
+        if (this.state.showWarning) {
+            // even if this is enabled, still showWarning b/c we're also showingDisclaimer now
             hideWarning = '';
         }
 
@@ -277,11 +279,11 @@ export default class EntityDropdown extends React.Component {
                 className="geo-entity-item">
                 <label
                     className={`location-label ${disabled}`}
-                    htmlFor={`${scope}-${type}`}>
+                    htmlFor={`${field}-${type}`}>
                     {this.props.title}
                 </label>
                 <div
-                    id={`${scope}-${type}`}
+                    id={`${field}-${type}`}
                     className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}
                     onMouseOver={this.mouseEnter}
                     onFocus={this.mouseEnter}
@@ -293,14 +295,14 @@ export default class EntityDropdown extends React.Component {
                     }}>
                     {!isAutocomplete &&
                         <button
-                            id={`${scope}-button`}
+                            id={`${field}-button`}
                             className={`active-selection ${placeholder}`}
                             onClick={this.toggleDropdown}
                             title={label}
                             aria-label={label}
                             aria-haspopup="true"
                             aria-expanded={this.state.expanded}
-                            aria-owns={`geo-dropdown-${scope}`}
+                            aria-owns={`geo-dropdown-${field}`}
                             aria-describedby={this.state.warningId}
                             disabled={!enabled || options.length === 0}
                             ref={(dd) => {
@@ -324,18 +326,20 @@ export default class EntityDropdown extends React.Component {
                             handleTextInputChange={this.handleTextInputChange}
                             toggleDropdown={this.toggleDropdown}
                             placeholder={this.props.placeholder}
+                            showDisclaimer={showDisclaimer}
                             context={this} // used to create dropdown ref
                             loading={loading} />
                     }
                     {dropdown}
                 </div>
+                {generateDisclaimer &&
                 <div
                     className={`geo-warning ${hideWarning}`}
                     id={this.state.warningId}
                     aria-hidden={hideWarning === 'hide'}>
                     <EntityWarning
-                        message={generateWarning(warningField)} />
-                </div>
+                        message={generateDisclaimer(warningField)} />
+                </div>}
             </div>
         );
     }

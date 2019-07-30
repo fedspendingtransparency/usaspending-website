@@ -37,7 +37,8 @@ const propTypes = {
     setCitySearchString: PropTypes.func,
     citySearchString: PropTypes.string,
     loading: PropTypes.bool,
-    enableCitySearch: PropTypes.bool
+    enableCitySearch: PropTypes.bool,
+    scope: PropTypes.oneOf(["primary_place_of_performance", "recipient_location"])
 };
 
 const defaultProps = {
@@ -49,7 +50,7 @@ export default class LocationPicker extends React.Component {
         super(props);
 
         this.submitForm = this.submitForm.bind(this);
-        this.generateWarning = this.generateWarning.bind(this);
+        this.generateDisclaimer = this.generateDisclaimer.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -115,7 +116,7 @@ export default class LocationPicker extends React.Component {
         e.preventDefault();
     }
 
-    generateWarning(field) {
+    generateDisclaimer(field) {
         if (!this.props.country.code) {
             // no country provided
             return (
@@ -123,6 +124,13 @@ export default class LocationPicker extends React.Component {
                     Please select a&nbsp;
                     <span className="field">country</span> before selecting a&nbsp;
                     <span className="field">{field}</span>.
+                </span>
+            );
+        }
+        else if (this.props.country.code !== 'USA' && field === 'CITY' && this.props.scope === "primary_place_of_performance") {
+            return (
+                <span>
+                    Place of Performance data for foreign cities is limited and may return fewer results.
                 </span>
             );
         }
@@ -199,6 +207,12 @@ export default class LocationPicker extends React.Component {
             }
         }
 
+        const showDisclaimer = (
+            this.props.scope === 'primary_place_of_performance' &&
+            this.props.country.code !== 'USA' &&
+            this.props.country.code !== ''
+        );
+
         return (
             <div>
                 <form
@@ -206,55 +220,57 @@ export default class LocationPicker extends React.Component {
                     onSubmit={this.submitForm}>
                     <div className="location-item">
                         <EntityDropdown
-                            scope="country"
+                            field="country"
                             placeholder="Select a country"
                             title="COUNTRY"
                             value={this.props.country}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableCountries}
-                            generateWarning={this.generateWarning} />
+                            generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     <div className="location-item">
                         <EntityDropdown
-                            scope="state"
+                            field="state"
                             placeholder="Select a state"
                             title="STATE (US ONLY)"
                             value={this.props.state}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableStates}
                             enabled={isUSA}
-                            generateWarning={this.generateWarning} />
+                            generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     <div className="location-item">
                         <EntityDropdown
-                            scope="county"
+                            field="county"
                             placeholder="Select a county"
                             title="COUNTY (US ONLY)"
                             value={this.props.county}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableCounties}
                             enabled={isCountyEnabled}
-                            generateWarning={this.generateWarning} />
+                            generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     {this.props.enableCitySearch &&
                         <div className="location-item">
                             <EntityDropdown
                                 type="autocomplete"
                                 loading={this.props.loading}
-                                scope="city"
+                                field="city"
+                                scope={this.props.scope}
                                 placeholder="Enter a City"
                                 title="CITY"
                                 value={this.props.city}
                                 options={this.props.availableCities}
                                 selectEntity={this.props.selectEntity}
                                 enabled={isCityEnabled}
-                                generateWarning={this.generateWarning}
+                                generateDisclaimer={this.generateDisclaimer}
                                 setSearchString={this.props.setCitySearchString}
-                                searchString={this.props.citySearchString} />
+                                searchString={this.props.citySearchString}
+                                showDisclaimer={showDisclaimer} />
                         </div>}
                     <div className="location-item">
                         <EntityDropdown
-                            scope="district"
+                            field="district"
                             matchKey="district"
                             placeholder={districtPlaceholder}
                             title="CONGRESSIONAL DISTRICT (US ONLY)"
@@ -262,7 +278,7 @@ export default class LocationPicker extends React.Component {
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableDistricts}
                             enabled={isDistrictEnabled}
-                            generateWarning={this.generateWarning} />
+                            generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     <button
                         className="add-location"
@@ -276,7 +292,7 @@ export default class LocationPicker extends React.Component {
                 <div className="location-item">
                     <div className="geo-entity-item">
                         <ZIPField
-                            generateWarning={this.generateWarning}
+                            generateDisclaimer={this.generateDisclaimer}
                             isUSA={isUSA}
                             zip={this.props.zip}
                             validateZip={this.props.validateZip} />

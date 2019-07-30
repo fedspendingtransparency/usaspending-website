@@ -1,5 +1,5 @@
 /**
- * IdvActivityTooltip.jsx
+ * ActivityChartTooltip.jsx
  * Created by Jonathan Hill 6/24/19
  */
 
@@ -173,6 +173,15 @@ export default class IdvActivityTooltip extends React.Component {
 
     render() {
         const { data } = this.props;
+        const parentIDVData = data.grandchild ?
+            (
+                <div>
+                    This IDV &#62; {this.getLinks(
+                        `award/${data.parentGeneratedId}`,
+                        data.parentAwardPIID)}
+                </div>
+            )
+            : 'This IDV';
 
         return (
             <div
@@ -207,15 +216,10 @@ export default class IdvActivityTooltip extends React.Component {
                             </div>
                             <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title first-titles">
-                                    Parent Award
+                                    Parent IDV
                                 </h6>
                                 <div className="tooltip-body__row-info-data">
-                                    {
-                                        this.getLinks(
-                                            `award/${data.parentAwardId}`,
-                                            data.parentAwardPIID
-                                        )
-                                    }
+                                    {data.parentGeneratedId ? parentIDVData : <div>--</div>}
                                 </div>
                             </div>
                         </div>
@@ -282,7 +286,7 @@ export default class IdvActivityTooltip extends React.Component {
                             </div>
                             <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title">
-                                    Awarded Amount
+                                    Obligated Amount
                                 </h6>
                                 <div
                                     className="tooltip-body__row-info-data"

@@ -24,7 +24,15 @@ export const mockContractApi = {
             product_or_service_co_desc: 'product/service description',
             naics: 'naics',
             naics_description: null,
-            clinger_cohen_act_planning: null
+            clinger_cohen_act_planning: null,
+            officer_1_name: 'George Washington',
+            officer_1_amount: '9000.00',
+            officer_2_name: 'John Adams',
+            officer_2_amount: '7000.99',
+            officer_3_name: 'Thomas Jefferson',
+            officer_3_amount: '6000.01',
+            officer_4_name: 'James Madison',
+            officer_4_amount: '5000.00'
         }
     },
     place_of_performance: {
@@ -48,16 +56,6 @@ export const mockContractApi = {
             city_name: 'Pawnee',
             state_code: 'IN',
             zip5: '12345'
-        },
-        officers: {
-            officer_1_name: 'George Washington',
-            officer_1_amount: '9000.00',
-            officer_2_name: 'John Adams',
-            officer_2_amount: '7000.99',
-            officer_3_name: 'Thomas Jefferson',
-            officer_3_amount: '6000.01',
-            officer_4_name: 'James Madison',
-            officer_4_amount: '5000.00'
         }
     }
 };

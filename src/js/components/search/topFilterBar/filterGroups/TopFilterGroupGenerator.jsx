@@ -21,6 +21,7 @@ import PSCFilterGroup from './PSCFilterGroup';
 import PricingTypeFilterGroup from './PricingTypeFilterGroup';
 import SetAsideFilterGroup from './SetAsideFilterGroup';
 import ExtentCompetedFilterGroup from './ExtentCompetedFilterGroup';
+import ProgramSourceFilterGroup from './ProgramSourceFilterGroup';
 
 export const topFilterGroupGenerator = (config = {
     filter: {
@@ -55,6 +56,10 @@ export const topFilterGroupGenerator = (config = {
                 key={groupKey}
                 {...config}
                 toggle="recipientDomesticForeign" />);
+        case 'federalAccounts':
+            return <ProgramSourceFilterGroup key={groupKey} {...config} />;
+        case 'treasuryAccounts':
+            return <ProgramSourceFilterGroup key={groupKey} {...config} />;
         case 'recipientType':
             return <RecipientTypeFilterGroup key={groupKey} {...config} />;
         case 'selectedAwardIDs':
