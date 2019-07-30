@@ -90,9 +90,9 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
             parsedResults = results.map((agency) => {
                 const abbreviation = agency.agency_abbreviation ? ` (${agency.agency_abbreviation})` : '';
                 return ({
-                    title: agency.aid,
+                    title: agency[this.props.component.code],
                     subtitle: `${agency.agency_name}${abbreviation}`,
-                    data: { code: agency.aid }
+                    data: { code: agency[this.props.component.code] }
                 });
             });
         }

@@ -48,7 +48,7 @@ export const treasuryAccountComponents = [
         label: 'Main Account Code',
         code: 'main',
         characterLimit: 4,
-        required: false
+        required: true
     },
     {
         label: 'Sub Account Code',

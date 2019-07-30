@@ -7,12 +7,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-import FederalAccountFilters from './FederalAccountFilters';
+import TreasuryAccountFilters from './TreasuryAccountFilters';
 import SelectedSources from './SelectedSources';
 
 const propTypes = {
     selectedFederalComponents: PropTypes.object,
+    selectedTreasuryComponents: PropTypes.object,
     updateFederalAccountComponents: PropTypes.func,
+    updateTreasuryAccountComponents: PropTypes.func,
     dirtyFilters: PropTypes.symbol
 };
 
@@ -21,23 +23,27 @@ export default class ProgramSourceSection extends React.Component {
         super(props);
 
         this.state = {
-            // TODO - Lizzie: change to 'treasury' in final version
-            activeTab: 'federal',
-            federalAccountComponents: {
+            activeTab: 'treasury',
+            components: {
+                ata: '',
                 aid: '',
-                main: ''
+                bpoa: '',
+                epoa: '',
+                a: '',
+                main: '',
+                sub: ''
             }
         };
 
         this.toggleTab = this.toggleTab.bind(this);
-        this.updateFederalAccountComponent = this.updateFederalAccountComponent.bind(this);
+        this.updateComponent = this.updateComponent.bind(this);
         this.applyFilter = this.applyFilter.bind(this);
         this.removeFilter = this.removeFilter.bind(this);
-        this.clearFederalAccountSelection = this.clearFederalAccountSelection.bind(this);
+        this.clearSelection = this.clearSelection.bind(this);
     }
 
     componentDidMount() {
-        // this.openDefaultTab();
+        this.openDefaultTab();
     }
 
     componentDidUpdate(prevProps) {
@@ -48,27 +54,33 @@ export default class ProgramSourceSection extends React.Component {
         }
     }
 
-    updateFederalAccountComponent(field, value) {
+    updateComponent(field, value) {
         // Updates the component state
-        const updatedComponents = Object.assign({}, this.state.federalAccountComponents, {
+        const updatedComponents = Object.assign({}, this.state.components, {
             [field]: value
         });
         this.setState({
-            federalAccountComponents: updatedComponents
+            components: updatedComponents
         });
     }
 
-    clearFederalAccountSelection(field) {
-        const updatedComponents = Object.assign({}, this.state.federalAccountComponents, {
+    clearSelection(field) {
+        const updatedComponents = Object.assign({}, this.state.components, {
             [field]: ''
         });
         this.setState({
-            federalAccountComponents: updatedComponents
+            components: updatedComponents
         });
     }
 
-    // TODO - Lizzie: implement openDefaultTab()
-    // to switch to the first tab with a filter already applied
+    openDefaultTab() {
+        // switch to the federal account tab if it has a filter applied and TAS does not
+        if (this.props.selectedFederalComponents.size > 0 && this.props.selectedTreasuryComponents.size === 0) {
+            this.setState({
+                activeTab: 'federal'
+            });
+        }
+    }
 
     toggleTab(e) {
         const type = e.target.value;
@@ -79,23 +91,35 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     applyFilter() {
+        const components = this.state.components;
         if (this.state.activeTab === 'federal') {
-            const components = this.state.federalAccountComponents;
             const identifier = `${components.aid}-${components.main}`;
             this.props.updateFederalAccountComponents(identifier);
-            // Clear the values after they have been applied
-            this.setState({
-                federalAccountComponents: {
-                    aid: '',
-                    main: ''
-                }
-            });
         }
+        else {
+            const identifier = `${components.ata || '***'}-${components.aid}-${components.bpoa || '****'}-${components.epoa || '****'}-${components.a || '*'}-${components.main || '****'}-${components.sub || '***'}`;
+            this.props.updateTreasuryAccountComponents(identifier);
+        }
+        // Clear the values after they have been applied
+        this.setState({
+            components: {
+                ata: '',
+                aid: '',
+                bpoa: '',
+                epoa: '',
+                a: '',
+                main: '',
+                sub: ''
+            }
+        });
     }
 
     removeFilter(identifier) {
         if (this.state.activeTab === 'federal') {
             this.props.updateFederalAccountComponents(identifier);
+        }
+        else {
+            this.props.updateTreasuryAccountComponents(identifier);
         }
     }
 
@@ -103,20 +127,32 @@ export default class ProgramSourceSection extends React.Component {
         const activeTab = this.state.activeTab;
         const activeTreasury = activeTab === 'treasury' ? '' : 'inactive';
         const activeFederal = activeTab === 'federal' ? '' : 'inactive';
+        const components = this.state.components;
         const filter = (
-            <FederalAccountFilters
-                updateComponent={this.updateFederalAccountComponent}
+            <TreasuryAccountFilters
+                updateComponent={this.updateComponent}
                 applyFilter={this.applyFilter}
-                components={this.state.federalAccountComponents}
+                components={components}
                 dirtyFilters={this.props.dirtyFilters}
-                clearSelection={this.clearFederalAccountSelection} />);
+                clearSelection={this.clearSelection}
+                activeTab={activeTab} />
+        );
 
         let selectedSources = null;
         if (activeTab === 'federal' && this.props.selectedFederalComponents) {
             selectedSources = (
                 <SelectedSources
                     removeSource={this.removeFilter}
+                    label="FA #"
                     selectedSources={this.props.selectedFederalComponents} />);
+        }
+        else if (activeTab === 'treasury' && this.props.selectedTreasuryComponents) {
+            selectedSources = (
+                <SelectedSources
+                    removeSource={this.removeFilter}
+                    label="TAS #"
+                    selectedSources={this.props.selectedTreasuryComponents} />
+            );
         }
 
         return (
@@ -132,7 +168,7 @@ export default class ProgramSourceSection extends React.Component {
                             aria-checked={this.state.activeTab === 'treasury'}
                             title="Treasury Account"
                             aria-label="Treasury Account"
-                            disabled >
+                            onClick={this.toggleTab} >
                             Treasury Account
                         </button>
                     </li>
