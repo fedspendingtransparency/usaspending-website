@@ -152,7 +152,8 @@ export default class NAICSListContainer extends React.Component {
                     this.naicsList = input;
                 }}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.state.noResults} />
+                noResults={this.state.noResults}
+                minCharsToSearch={3} />
         );
     }
 }

@@ -380,9 +380,10 @@ export const idvActivityInfo = (
         <div className="info-tooltip__text">
             <p>
                 <strong>How to read this visual:</strong><br />
-                Each bar represents a child award order* or grandchild award order*
+                Each bar represents a <strong>child award order*</strong> or
+                <strong> grandchild award order* </strong>
                 made underneath this indefinite delivery vehicle (IDV). Each bar&rsquo;s
-                position on the vertical axis indicates its potential award amount.
+                position on the vertical axis indicates its <strong>obligated amount</strong>.
                 Where the left side of each bar begins on the horizontal axis indicates
                 the start date of its period of performance. Where the right side
                 of each bar ends on the horizontal axis indicates the end date of
@@ -394,44 +395,43 @@ export const idvActivityInfo = (
             <p>
                 <strong>Data shown in this visual:</strong><br />
                 This visual shows the award orders made under this IDV. This includes
-                 child award orders* made directly underneath this IDV, as well
-                 as grandchild award orders* made under child IDV orders*.
+                <strong> child award orders*</strong> made directly underneath this IDV, as well
+                as <strong>grandchild award orders* </strong>
+                made under <strong>child IDV orders*</strong>.
             </p>
             <p>
                 <strong>Data not shown in this visual:</strong><br />
-                This visual does not show the IDV itself* nor does it show the child
-                IDV orders* made under this IDV.
+                This visual does not show the <strong>IDV itself*</strong> nor does it show the
+                <strong> child IDV orders*</strong> made under this IDV.
             </p>
             <p>
                 <strong>Options when viewing the awards:</strong><br />
-                Awards orders are shown 10 at a time and in descending order according
-                to their respective potential award amounts. Use the page number
-                links at the top-right of this section to view more.
+                Awards orders are shown 10, 50, or 100 at a time (user choice)
+                and in descending order according to their respective
+                <strong> obligated amounts</strong>. Use the page number links at the top-right
+                of this section to view more.
             </p>
             <p>
                 You can get more details on each award order by hovering your cursor
                 over the award order&rsquo;s bar.
             </p>
-            <p>
-                The dates below are described in more detail:
-            </p>
             <ul>
                 <li>
                     <em>
                         <strong>*Child award order</strong> refers to award orders made
-                        directly under this IDV (IDV &gt; Award).
+                        directly under this IDV (IDV =&gt; <strong>Award</strong>).
                     </em>
                 </li>
                 <li>
                     <em>
                         <strong>*Child IDV order</strong> refers to IDVs made directly
-                        under this IDV (IDV &gt; IDV).
+                        under this IDV (IDV =&gt; <strong>IDV</strong>).
                     </em>
                 </li>
                 <li>
                     <em>
                         <strong>*Grandchild award order</strong> refers to award orders
-                        made within a child IDV order (IDV &gt; IDV &gt; Award).
+                        made within a child IDV order (IDV =&gt; IDV =&gt; <strong>Award</strong>).
                     </em>
                 </li>
                 <li>

@@ -19,8 +19,7 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
 
-// TODO - Lizzie: update the filter store version when Program Source is enabled in prod
-export const filterStoreVersion = '2017-11-21';
+export const filterStoreVersion = '2019-07-26';
 
 export const requiredTypes = {
     keyword: OrderedMap,
@@ -40,8 +39,8 @@ export const requiredTypes = {
     pricingType: Set,
     setAside: Set,
     extentCompeted: Set,
-    treasuryAccounts: Set,
-    federalAccounts: Set
+    treasuryAccounts: OrderedMap,
+    federalAccounts: OrderedMap
 };
 
 export const initialState = {
@@ -67,8 +66,8 @@ export const initialState = {
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set(),
-    federalAccounts: new Set(),
-    treasuryAccounts: new Set()
+    federalAccounts: new OrderedMap(),
+    treasuryAccounts: new OrderedMap()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {

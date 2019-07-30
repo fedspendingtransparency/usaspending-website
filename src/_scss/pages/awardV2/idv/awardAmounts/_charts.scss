@@ -1,18 +1,4 @@
 .award-amounts-viz {
-    &.award-amounts-viz_insufficient {
-        background-color: $color-gray-lightest;
-        text-align: center;
-        padding: rem(100) rem(15);
-        h4 {
-            font-weight: $font-semibold;
-            font-size: rem(18);
-            margin: 0;
-        }
-        p {
-            margin: 0;
-        }
-    }
-
     .award-amounts-viz__bar-wrapper {
         border: rem(2) solid $border-gray;
         background-color: $color-white;

@@ -5,14 +5,14 @@
 
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other query modules
-export const updateSelectedSources = (currentSources, sourceIdentifier) => {
+export const updateSelectedSources = (currentSources, source) => {
     let updatedSet = currentSources;
 
-    if (updatedSet.has(sourceIdentifier)) {
-        updatedSet = updatedSet.delete(sourceIdentifier);
+    if (updatedSet.has(source.identifier)) {
+        updatedSet = updatedSet.delete(source.identifier);
     }
     else {
-        updatedSet = updatedSet.add(sourceIdentifier);
+        updatedSet = updatedSet.set(source.identifier, source.values);
     }
 
     return updatedSet;
