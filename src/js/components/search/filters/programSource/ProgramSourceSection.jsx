@@ -24,11 +24,7 @@ export default class ProgramSourceSection extends React.Component {
 
         this.state = {
             activeTab: 'treasury',
-            federalAccountComponents: {
-                aid: '',
-                main: ''
-            },
-            treasuryAccountComponents: {
+            components: {
                 ata: '',
                 aid: '',
                 bpoa: '',
@@ -60,20 +56,20 @@ export default class ProgramSourceSection extends React.Component {
 
     updateComponent(field, value) {
         // Updates the component state
-        const updatedComponents = Object.assign({}, this.state[`${this.state.activeTab}AccountComponents`], {
+        const updatedComponents = Object.assign({}, this.state.components, {
             [field]: value
         });
         this.setState({
-            [`${this.state.activeTab}AccountComponents`]: updatedComponents
+            components: updatedComponents
         });
     }
 
     clearSelection(field) {
-        const updatedComponents = Object.assign({}, this.state[`${this.state.activeTab}AccountComponents`], {
+        const updatedComponents = Object.assign({}, this.state.components, {
             [field]: ''
         });
         this.setState({
-            [`${this.state.activeTab}AccountComponents`]: updatedComponents
+            components: updatedComponents
         });
     }
 
@@ -95,35 +91,27 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     applyFilter() {
+        const components = this.state.components;
         if (this.state.activeTab === 'federal') {
-            const components = this.state.federalAccountComponents;
             const identifier = `${components.aid}-${components.main}`;
             this.props.updateFederalAccountComponents(identifier);
-            // Clear the values after they have been applied
-            this.setState({
-                federalAccountComponents: {
-                    aid: '',
-                    main: ''
-                }
-            });
         }
         else {
-            const components = this.state.treasuryAccountComponents;
             const identifier = `${components.ata || '***'}-${components.aid}-${components.bpoa || '****'}-${components.epoa || '****'}-${components.a || '*'}-${components.main || '****'}-${components.sub || '***'}`;
             this.props.updateTreasuryAccountComponents(identifier);
-            // Clear the values after they have been applied
-            this.setState({
-                treasuryAccountComponents: {
-                    ata: '',
-                    aid: '',
-                    bpoa: '',
-                    epoa: '',
-                    a: '',
-                    main: '',
-                    sub: ''
-                }
-            });
         }
+        // Clear the values after they have been applied
+        this.setState({
+            components: {
+                ata: '',
+                aid: '',
+                bpoa: '',
+                epoa: '',
+                a: '',
+                main: '',
+                sub: ''
+            }
+        });
     }
 
     removeFilter(identifier) {
@@ -139,7 +127,7 @@ export default class ProgramSourceSection extends React.Component {
         const activeTab = this.state.activeTab;
         const activeTreasury = activeTab === 'treasury' ? '' : 'inactive';
         const activeFederal = activeTab === 'federal' ? '' : 'inactive';
-        const components = activeTab === 'treasury' ? this.state.treasuryAccountComponents : this.state.federalAccountComponents;
+        const components = this.state.components;
         const filter = (
             <TreasuryAccountFilters
                 updateComponent={this.updateComponent}
