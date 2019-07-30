@@ -16,7 +16,13 @@ const propTypes = {
 
 export default class ActivityXAxisItem extends React.Component {
     render() {
-        const { x, y, label, transform, line } = this.props;
+        const {
+            x,
+            y,
+            label,
+            transform,
+            line
+        } = this.props;
         return (
             <g className="axis-item x-axis">
                 {line && <line
