@@ -149,11 +149,12 @@ export default class ProgramSourceSection extends React.Component {
         const activeTab = this.state.activeTab;
         const activeTreasury = activeTab === 'treasury' ? '' : 'inactive';
         const activeFederal = activeTab === 'federal' ? '' : 'inactive';
+        const components = activeTab === 'treasury' ? this.state.treasuryAccountComponents : this.state.federalAccountComponents;
         const filter = (
             <TreasuryAccountFilters
                 updateComponent={this.updateComponent}
                 applyFilter={this.applyFilter}
-                components={this.state.treasuryAccountComponents}
+                components={components}
                 dirtyFilters={this.props.dirtyFilters}
                 clearSelection={this.clearSelection}
                 activeTab={activeTab} />
