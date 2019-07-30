@@ -22,7 +22,7 @@ export default class ActivityXAxisItem extends React.Component {
                 {line && <line
                     className="axis y-axis"
                     x1={x}
-                    y1={y - 15}
+                    y1={y - 12}
                     x2={x}
                     y2={y - 20} />}
                 <text

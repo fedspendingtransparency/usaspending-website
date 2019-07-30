@@ -177,18 +177,6 @@ export default class IdvActivityVisualization extends React.Component {
                 <div className="activity-visualization-title">
                   Award Amounts and Periods of Performance of Award Orders
                 </div>
-                <Pagination
-                    onChangePage={this.props.changePage}
-                    pageNumber={this.props.page}
-                    totalItems={this.props.total}
-                    pageSize={this.props.limit}
-                    resultsText={resultsText} />
-                <DefaultPicker
-                    prepend="Show"
-                    append="per page"
-                    menuData={menuData}
-                    defaultSelection={this.props.limit}
-                    selectedItemFunc={this.props.selectedItemFunc} />
                 {chart}
                 {tt}
                 <div className="activity-x-label">Period of Performance</div>
@@ -218,6 +206,18 @@ export default class IdvActivityVisualization extends React.Component {
                         </div>
                     }
                 </div>
+                <Pagination
+                    onChangePage={this.props.changePage}
+                    pageNumber={this.props.page}
+                    totalItems={this.props.total}
+                    pageSize={this.props.limit}
+                    resultsText={resultsText} />
+                <DefaultPicker
+                    prepend="Show"
+                    append="per page"
+                    menuData={menuData}
+                    defaultSelection={this.props.limit}
+                    selectedItemFunc={this.props.selectedItemFunc} />
                 <div className="activity-visualization-note">
                     <Note message={message} />
                 </div>

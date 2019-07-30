@@ -75,7 +75,7 @@ export default class VerticalLine extends Component {
             if (showTextPosition === 'left') positionX -= (width + 4);
             if (showTextPosition === 'right') positionX += 4;
             if (showTextPosition === 'top') {
-                modifiedTextY -= 12;
+                modifiedTextY -= 15;
                 positionX -= (width / 2);
             }
         }

@@ -154,21 +154,19 @@ export const nearestQuarterDate = (date) => {
         future = '10';
     }
 
-    let year = momentDate.year();
-    if (month === 11) year += 1;
+    const prevYear = momentDate.year();
+    let futureYear = momentDate.year();
+    if (month === 11 || month === 10 || month === 9) futureYear += 1;
 
     // get the previous & future quarter start dates for comparison
-    const prevMillis = moment(`${prev}-01-${year}`, "MM-DD-YYYY").valueOf();
-    const futureMillis = moment(`${future}-01-${year}`, "MM-DD-YYYY").valueOf();
+    const prevMillis = moment(`${prev}-01-${prevYear}`, "MM-DD-YYYY").valueOf();
+    const futureMillis = moment(`${future}-01-${futureYear}`, "MM-DD-YYYY").valueOf();
 
-    const prevDifference = milliseconds - prev;
-    const futureDifference = future - milliseconds;
-
-    // if the current date is closer to the start of the quarter
-    if (prevDifference < futureDifference) return prevMillis;
-    // return the start of the next quarter
-    return futureMillis;
-}
+    const prevDifference = milliseconds - prevMillis;
+    const futureDifference = futureMillis - milliseconds;
+    // return the closest quarter date
+    return (prevDifference < futureDifference) ? prevMillis : futureMillis;
+};
 
 export const getTrailingTwelveMonths = () => {
     const oneYearAgo = moment().subtract(1, 'year');

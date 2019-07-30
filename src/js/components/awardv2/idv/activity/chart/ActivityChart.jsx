@@ -99,11 +99,13 @@ export default class ActivityChart extends React.Component {
             if (bar._obligatedAmount > bar._awardedAmount) {
                 style = { fill: "url(#diagonalHatch)" };
             }
+            style = { stroke: 'white', strokeWidth: 1, ...style };
             // show stroke on bar when entering tooltip div
             // checks to make sure the mouse is in a tooltip
             // and to make sure we have the index of the correct bar
             if (this.props.showTooltipStroke && (this.props.awardIndexForTooltip === index)) {
-                style = { stroke: '#3676b6', strokeWidth: 1, ...style };
+                style.stroke = '#3676b6';
+                style.strokeWidth = 1;
             }
             // bar normal design
             const barHeightString = barHeight.toString();
@@ -403,6 +405,7 @@ export default class ActivityChart extends React.Component {
                         scale={xScale} />
                     <g
                         className="activity-chart-data">
+                        {bars}
                         {/* Today Line */}
                         {xScale && <VerticalLine
                             xScale={xScale}
@@ -413,7 +416,6 @@ export default class ActivityChart extends React.Component {
                             xMin={xRange[0]}
                             showTextPosition="top"
                             adjustmentX={padding.left} />}
-                        {bars}
                     </g>
                 </g>
             </svg>
