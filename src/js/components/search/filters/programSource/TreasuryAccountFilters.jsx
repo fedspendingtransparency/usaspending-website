@@ -42,10 +42,9 @@ export default class TreasuryAccountFilters extends React.Component {
         }
     }
 
-    render() {
-        let filters = [];
+    generateFilters() {
         if (this.props.activeTab === 'treasury') {
-            filters = treasuryAccountComponents.map((option) => (
+            return treasuryAccountComponents.map((option) => (
                 <ProgramSourceAutocompleteContainer
                     dirtyFilters={this.props.dirtyFilters}
                     key={option.code}
@@ -55,18 +54,18 @@ export default class TreasuryAccountFilters extends React.Component {
                     clearSelection={this.props.clearSelection} />
             ));
         }
-        else {
-            filters = federalAccountComponents.map((option) => (
-                <ProgramSourceAutocompleteContainer
-                    dirtyFilters={this.props.dirtyFilters}
-                    key={option.code}
-                    component={option}
-                    selectedSources={this.props.components}
-                    updateComponent={this.props.updateComponent}
-                    clearSelection={this.props.clearSelection} />
-            ));
-        }
+        return federalAccountComponents.map((option) => (
+            <ProgramSourceAutocompleteContainer
+                dirtyFilters={this.props.dirtyFilters}
+                key={option.code}
+                component={option}
+                selectedSources={this.props.components}
+                updateComponent={this.props.updateComponent}
+                clearSelection={this.props.clearSelection} />
+        ));
+    }
 
+    render() {
         const components = this.props.components;
         const enabled = components.aid && components.main;
 
@@ -86,7 +85,7 @@ export default class TreasuryAccountFilters extends React.Component {
                     <div className="program-source-components__heading">
                         {heading} Account Components
                     </div>
-                    {filters}
+                    {this.generateFilters()}
                     <div
                         className="program-source-components__button-wrapper"
                         onFocus={this.showWarning}
