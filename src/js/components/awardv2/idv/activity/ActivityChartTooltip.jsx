@@ -218,7 +218,7 @@ export default class IdvActivityTooltip extends React.Component {
                             </div>
                             <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title first-titles">
-                                    Parent IDV
+                                    {data.grandchild ? 'Grandparent' : 'Parent'} IDV
                                 </h6>
                                 <div className="tooltip-body__row-info-data">
                                     {data.parentGeneratedId ? parentIDVData : <div>--</div>}

@@ -186,7 +186,8 @@ export default class ActivityChart extends React.Component {
                 .range([0, data.barWidth]);
             // scale the abligated amount to create the correct width
             data.obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
-            data.yPosition = (height - 30) - yScale(bar._obligatedAmount) - barHeight;
+            // -1 for the stroke covering the x-axis
+            data.yPosition = (height - 30) - yScale(bar._obligatedAmount) - barHeight - 1;
             // adding these for the tooltip positioning
             data.index = index;
             data.graphWidth = graphWidth;
