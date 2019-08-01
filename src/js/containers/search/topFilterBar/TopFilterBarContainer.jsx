@@ -317,7 +317,7 @@ export class TopFilterBarContainer extends React.Component {
             values: []
         };
 
-        if (props.federalAccounts.count() > 0) {
+        if (props.federalAccounts && props.federalAccounts.count() > 0) {
             // federal account components have been selected
             selected = true;
             filter.values = props.federalAccounts.toArray();
@@ -337,7 +337,7 @@ export class TopFilterBarContainer extends React.Component {
             values: []
         };
 
-        if (props.treasuryAccounts.count() > 0) {
+        if (props.treasuryAccounts && props.treasuryAccounts.count() > 0) {
             // treasury account components have been selected
             selected = true;
             filter.values = props.federalAccounts.toArray();
