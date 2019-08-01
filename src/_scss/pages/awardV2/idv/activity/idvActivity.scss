@@ -1,7 +1,6 @@
 $obligated-green: #94BFA2;
 .idv-activity {
   @import '../../../../components/verticalLine';
-  width: 100%;
   @import '../../../../components/Note';
     .award__col__content {
       @import '../../../search/results/table/tableMessages';
@@ -148,7 +147,7 @@ $obligated-green: #94BFA2;
           @include display(flex);
           @include flex-wrap(wrap);
             .visualization-legend__item {
-              @include display(inline-flex);
+              @include display(flex);
               margin-top: rem(13);
               margin-bottom: rem(10);
               padding-right: rem(15);
@@ -173,11 +172,11 @@ $obligated-green: #94BFA2;
             }
             .visualization-legend__label {
               font-size: rem(14);
-              @include flex(0 0 auto);
             }
           }
         }
         .activity-chart {
+          overflow: visible;
           .activity-chart-body {
             .activity-chart-data {
               .activity-chart-bar-container:hover .activity-chart-bar__awarded-content {

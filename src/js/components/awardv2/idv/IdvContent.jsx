@@ -24,8 +24,7 @@ const propTypes = {
     awardId: PropTypes.string,
     counts: AWARD_V2_COUNTS_PROPS,
     overview: AWARD_V2_OVERVIEW_PROPS,
-    jumpToSection: PropTypes.func,
-    isV2url: PropTypes.bool
+    jumpToSection: PropTypes.func
 };
 
 export default class IdvContent extends React.Component {
