@@ -124,7 +124,9 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
     handleTextInput(event) {
         event.persist();
         this.props.clearSelection(this.props.component.code);
-        this.queryAutocompleteDebounced(event.target.value);
+        if (event.target.value) {
+            this.queryAutocompleteDebounced(event.target.value);
+        }
     }
 
     render() {
