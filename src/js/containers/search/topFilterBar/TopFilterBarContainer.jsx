@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { orderBy, difference, concat, indexOf } from 'lodash';
-import kGlobalConstants from 'GlobalConstants';
 
 import moment from 'moment';
 
