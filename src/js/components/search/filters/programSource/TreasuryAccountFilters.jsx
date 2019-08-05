@@ -1,36 +1,24 @@
 /**
- * FederalAccountFilters.jsx
- * Created by Lizzie Salita 6/6/19
+ * TreasuryAccountFilters.jsx
+ * Created by Lizzie Salita 7/24/19
  */
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import EntityWarning from 'components/search/filters/location/EntityWarning';
-import SourceSelectFilter from './SourceSelectFilter';
+import ProgramSourceAutocompleteContainer from 'containers/search/filters/programSource/ProgramSourceAutocompleteContainer';
+import { treasuryAccountComponents, federalAccountComponents } from 'dataMapping/search/programSourceComponents';
 
 const propTypes = {
     updateComponent: PropTypes.func,
     components: PropTypes.object,
     applyFilter: PropTypes.func,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    clearSelection: PropTypes.func,
+    activeTab: PropTypes.string
 };
 
-const filters = [
-    {
-        label: 'Agency Identifier',
-        code: 'aid',
-        characterLimit: 3,
-        required: true
-    },
-    {
-        label: 'Main Account Code',
-        code: 'main',
-        characterLimit: 4,
-        required: true
-    }
-];
-
-export default class FederalAccountFilters extends React.Component {
+export default class TreasuryAccountFilters extends React.Component {
     constructor(props) {
         super(props);
 
@@ -43,7 +31,7 @@ export default class FederalAccountFilters extends React.Component {
     }
 
     showWarning() {
-        if (!this.props.components.aid || !this.props.components.main) {
+        if (!(this.props.components.aid && this.props.components.main)) {
             this.setState({ showWarning: true });
         }
     }
@@ -54,26 +42,50 @@ export default class FederalAccountFilters extends React.Component {
         }
     }
 
-    render() {
-        const federalFilters = filters.map((option) => (
-            <SourceSelectFilter
+    generateFilters() {
+        if (this.props.activeTab === 'treasury') {
+            return treasuryAccountComponents.map((option) => (
+                <ProgramSourceAutocompleteContainer
+                    dirtyFilters={this.props.dirtyFilters}
+                    key={option.code}
+                    component={option}
+                    selectedSources={this.props.components}
+                    updateComponent={this.props.updateComponent}
+                    clearSelection={this.props.clearSelection} />
+            ));
+        }
+        return federalAccountComponents.map((option) => (
+            <ProgramSourceAutocompleteContainer
                 dirtyFilters={this.props.dirtyFilters}
                 key={option.code}
+                component={option}
+                selectedSources={this.props.components}
                 updateComponent={this.props.updateComponent}
-                selectedSources={[this.props.components[option.code]]}
-                {...option} />
+                clearSelection={this.props.clearSelection} />
         ));
+    }
 
+    render() {
         const components = this.props.components;
         const enabled = components.aid && components.main;
+
+        let message = "Enter values for AID and MAIN";
+        if (components.aid && !components.main) {
+            message = "Enter value for MAIN";
+        }
+        else if (!components.aid && components.main) {
+            message = "Enter value for AID";
+        }
+
+        const heading = this.props.activeTab === 'treasury' ? 'Treasury' : 'Federal';
 
         return (
             <div className="program-source-tab">
                 <form className="program-source-components">
                     <div className="program-source-components__heading">
-                        Federal Account Components
+                        {heading} Account Components
                     </div>
-                    {federalFilters}
+                    {this.generateFilters()}
                     <div
                         className="program-source-components__button-wrapper"
                         onFocus={this.showWarning}
@@ -89,7 +101,7 @@ export default class FederalAccountFilters extends React.Component {
                         <div
                             className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
                             aria-hidden={enabled}>
-                            <EntityWarning message="Enter values for AID and MAIN" />
+                            <EntityWarning message={message} />
                         </div>
                     </div>
                 </form>
@@ -98,4 +110,4 @@ export default class FederalAccountFilters extends React.Component {
     }
 }
 
-FederalAccountFilters.propTypes = propTypes;
+TreasuryAccountFilters.propTypes = propTypes;
