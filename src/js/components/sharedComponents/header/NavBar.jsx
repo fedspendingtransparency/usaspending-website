@@ -61,11 +61,6 @@ export default class NavBar extends React.Component {
     }
 
     render() {
-        let betaClass = '';
-        if (kGlobalConstants.IN_BETA) {
-            betaClass = 'site-logo__wrapper_beta';
-        }
-
         let mobileNav = null;
         if (this.state.showMobileNav) {
             mobileNav = (
@@ -80,7 +75,7 @@ export default class NavBar extends React.Component {
                 aria-label="Site navigation">
                 <div className="site-navigation__wrapper">
                     <div className="site-navigation__logo site-logo">
-                        <div className={`site-logo__wrapper ${betaClass}`} id="logo">
+                        <div className="site-logo__wrapper" id="logo">
                             <a
                                 className="site-logo__link"
                                 href="#/"
