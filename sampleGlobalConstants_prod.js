@@ -7,7 +7,6 @@ const kGlobalConstants = {
     LOCAL: false,
     DEV: false,
     PERF_LOG: false,
-    IN_BETA: true,
     MAPBOX_TOKEN: ''
 };
 
