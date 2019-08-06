@@ -1,4 +1,3 @@
-$obligated-green: #94BFA2;
 .idv-activity {
   @import '../../../../components/verticalLine';
   @import '../../../../components/Note';
@@ -55,7 +54,7 @@ $obligated-green: #94BFA2;
         .default-picker {
           .default-picker__header {
             .default-picker__button {
-              border-bottom: 2px solid #6DADD8;
+              border-bottom: 2px solid $color-link;
             }
           }
         }
@@ -159,13 +158,13 @@ $obligated-green: #94BFA2;
                 border-radius: rem(8);
                 background-color: #D8D8D8;
                 &.visualization-legend__circle_obligated {
-                  background-color: $obligated-green;
+                  background-color: $color-vis-green-light;
                 }
                 &.visualization-legend__circle_overspent {
                   background: repeating-linear-gradient( 
                     45deg,
-                    $obligated-green,
-                    $obligated-green 4px,
+                    $color-vis-green-light,
+                    $color-vis-green-light 4px,
                     rgb(188,92,35) 4px,
                     rgb(188,92,35) 6px);
                 }

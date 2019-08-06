@@ -24,7 +24,7 @@
           .default-picker__button {
               @include button-unstyled;
               @include display(inline-flex);
-              border-bottom: 1px solid #0066b4;
+              border-bottom: 1px solid $color-link;
           }
 
           .default-picker__button-text {
@@ -37,7 +37,7 @@
           }
 
           .default-picker__button-icon {
-              color: #0066b4;
+              color: $color-link;
           }
       }
 
