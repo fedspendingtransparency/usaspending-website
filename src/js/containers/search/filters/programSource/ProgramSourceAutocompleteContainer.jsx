@@ -127,6 +127,9 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
         if (event.target.value) {
             this.queryAutocompleteDebounced(event.target.value);
         }
+        else {
+            this.clearAutocompleteSuggestions();
+        }
     }
 
     render() {
