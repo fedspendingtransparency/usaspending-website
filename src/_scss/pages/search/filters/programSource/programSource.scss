@@ -36,9 +36,10 @@
             @import "elements/filters/_typeahead";
             .program-source-select-filter__label {
                 @include display(flex);
-                @include justify-content(space-between);
                 @import '../../../../components/visualizations/tooltip/csstooltip';
                 .tooltip-popover-container {
+                    @include display(flex);
+                    @include flex (0 0 auto);
                     margin-left: rem(5);
                     color: $color-gray-lighter;
                     &:hover, &:focus {
@@ -73,6 +74,9 @@
                     }           
                 }
                 .program-source-select-filter__label-required {
+                    @include display(flex);
+                    @include justify-content(flex-end);
+                    @include flex (1 1 auto);
                     color: $color-secondary;
                     text-align: right;
                 }

@@ -6,9 +6,9 @@
 
 export const programSourceInfo = {
     ata: {
-        heading: "Allocation Transfer Agency Identifier",
-        definition: "The allocation agency identifies the department or agency that is receiving funds through an allocation (non-expenditure) transfer.",
-        example: "020"
+        heading: 'Allocation Transfer Agency Identifier',
+        definition: 'The allocation agency identifies the department or agency that is receiving funds through an allocation (non-expenditure) transfer.',
+        example: '020'
     },
     aid: {
         heading: 'Agency Identifier',
@@ -27,7 +27,7 @@ export const programSourceInfo = {
     },
     a: {
         heading: 'Availability Type Code',
-        definition: 'In appropriations accounts, the availability type code identifies an unlimited period to incur new obligations; this is denoted by the letter \"X\".',
+        definition: 'In appropriations accounts, the availability type code identifies an unlimited period to incur new obligations; this is denoted by the letter "X".',
         example: 'X'
     },
     main: {
