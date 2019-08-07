@@ -68,22 +68,6 @@ describe('explorerQuarters', () => {
                 year: 2018
             });
         });
-        it('should delay the release of FY 2019 Q1 data until March 21, 2019', () => {
-            mockDate('2019-03-20');
-            const output = explorerQuarters.mostRecentQuarter();
-            expect(output).toEqual({
-                quarter: 4,
-                year: 2018
-            });
-        });
-        it('should return 2019 Q1 on March 21, 2019', () => {
-            mockDate('2019-03-21');
-            const output = explorerQuarters.mostRecentQuarter();
-            expect(output).toEqual({
-                quarter: 1,
-                year: 2019
-            });
-        });
     });
 
     describe('lastCompletedQuarterInFY', () => {
