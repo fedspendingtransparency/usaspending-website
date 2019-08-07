@@ -83,10 +83,8 @@ export default class Autocomplete extends React.Component {
         e.persist();
         this.checkValidity(e.target.value);
         let selectedIndex = 0;
-        if (e.target.value) {
-            this.props.handleTextInput(e);
-        }
-        else {
+        this.props.handleTextInput(e);
+        if (!e.target.value) {
             selectedIndex = -1;
             this.close();
         }
