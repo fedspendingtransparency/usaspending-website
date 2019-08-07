@@ -403,9 +403,8 @@ export const idvActivityInfo = (
                 <strong>Data not shown in this visual:</strong><br />
                 This visual does not show the <strong>IDV itself*</strong> nor does it show the
                 <strong> child IDV orders*</strong> made under this IDV.
-                <strong> If an award has a zero or negative obligated amount,
+                If an award has a zero or negative obligated amount,
                 or is missing an end date, it is not displayed.
-                </strong>
             </p>
             <p>
                 <strong>Options when viewing the awards:</strong><br />
