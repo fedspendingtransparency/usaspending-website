@@ -33,9 +33,8 @@ public
 dist
 .tern-port
 
-# Ignore generated constants file
+# Ignore secret constants file
 GlobalConstants.js
-
 
 # Ignore Nightwatch globals and results
 test/globals.js
