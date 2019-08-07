@@ -2,8 +2,7 @@
  * explorerQuarters-test.js
  * Created by Kevin Li 2/16/18
  */
-import moment from 'moment';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+
 import * as explorerQuarters from 'containers/explorer/detail/helpers/explorerQuarters';
 
 const nativeDate = Date.now;
@@ -11,7 +10,7 @@ const nativeDate = Date.now;
 const mockDate = (date) => {
     // mock the current date
     const month = parseInt(date.substring(5, 7), 10) - 1; // month is zero-indexed
-    const day = parseInt(date.substring(8));
+    const day = parseInt(date.substring(8), 10);
     const mock = new Date(date.substring(0, 4), month, day);
     Date.now = () => mock;
 };
