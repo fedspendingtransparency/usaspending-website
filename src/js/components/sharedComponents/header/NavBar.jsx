@@ -3,7 +3,6 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Analytics from 'helpers/analytics/Analytics';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
-import kGlobalConstants from 'GlobalConstants';
 import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navigation/menuOptions';
 
 import NavBarGlossaryLink from './NavBarGlossaryLink';
