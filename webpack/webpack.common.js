@@ -10,7 +10,6 @@ const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse
 
 console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
 console.log("Branch for this build: ", gitRevisionPlugin.branch());
-console.log("Global Constants ENV", process.env.GLOBAL_CONSTANTS_ENV);
 
 const isProduction = (process.env.NODE_ENV === 'production');
 
@@ -127,9 +126,6 @@ module.exports = {
         new webpack.NormalModuleReplacementPlugin(
             /.*GlobalConstants/,
             globalConstantsFile
-        ),
-        new webpack.DefinePlugin({
-            'process.env.GLOBAL_CONSTANTS_ENV': JSON.stringify(process.env.GLOBAL_CONSTANTS_ENV)
-        })
+        )
     ]
 };
