@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -10,18 +9,9 @@ const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse
 
 console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
 console.log("Branch for this build: ", gitRevisionPlugin.branch());
+console.log("API URL is", process.env.USASPENDING_API.URL);
 
 const isProduction = (process.env.NODE_ENV === 'production');
-
-const getGlobalConstantsFile = () => {
-    const secretConstants = path.resolve(__dirname, `../GlobalConstants.js`);
-    if (fs.existsSync(secretConstants)) {
-        return secretConstants;
-    }
-    return path.resolve(__dirname, '../src/js/GlobalConstants.js');
-};
-
-const globalConstantsFile = getGlobalConstantsFile();
 
 module.exports = {
     entry: {
@@ -123,9 +113,8 @@ module.exports = {
             filename: "[name].[contenthash].css"
         }),
         new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
-        new webpack.NormalModuleReplacementPlugin(
-            /.*GlobalConstants/,
-            globalConstantsFile
-        )
+        new webpack.DefinePlugin({
+            'process.env.API_URL': JSON.stringify(process.env.USASPENDING_API.URL)
+        })
     ]
 };
