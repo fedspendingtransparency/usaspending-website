@@ -9,7 +9,7 @@ const globalConstants = {
     GITHUB: "",
     GA_TRACKING_ID: "UA-92617810-1",
     LOCAL: false,
-    DEV: (process.env.NODE_ENV === 'development'),
+    DEV: (process.env.IS_DEV === 'true'),
     KEYWORD_AVAILABLE: true,
     PERF_LOG: false,
     OVERRIDE_FISCAL_YEAR: false,
