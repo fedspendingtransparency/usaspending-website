@@ -53,7 +53,7 @@ Assumptions:
 
 ### Configuration File
 
-The `usaspending-website` folder provides a single configuration file named `GlobalConstants.js`. Here you may adjust the `API` property to use either a local api or the production api.
+The `usaspending-website` folder provides a single configuration file named `GlobalConstants.js`. Here you may adjust the `API` property to use either a local api or the production api. By default, `npm run start` uses the local API url. To use the production API, simply overwrite the `API` property or rewrite the `npm` script to use `webpack.prod.config.js`.
 
 ### Build Application
 
