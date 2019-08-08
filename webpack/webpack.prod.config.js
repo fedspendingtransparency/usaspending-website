@@ -44,6 +44,14 @@ module.exports = merge(common, {
         }),
         new webpack.optimize.MinChunkSizePlugin({
             minChunkSize: 300000
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                API_URL: process.env.USASPENDING_API
+                    ? JSON.stringify(JSON.parse(process.env.USASPENDING_API).URL)
+                    : JSON.stringify("https://api.usaspending.gov/api/"),
+                IS_DEV: JSON.stringify('false')
+            }
         })
     ]
 });

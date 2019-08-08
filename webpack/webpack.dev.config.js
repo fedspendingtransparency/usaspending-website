@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
 
@@ -16,5 +17,15 @@ module.exports = merge(common, {
         host: "0.0.0.0", // this allows VMs to access the server
         port: 3000,
         disableHostCheck: true
-    }
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                API_URL: process.env.USASPENDING_API
+                    ? JSON.stringify(JSON.parse(process.env.USASPENDING_API).URL)
+                    : JSON.stringify("http://localhost:8000/api/"),
+                IS_DEV: JSON.stringify('true')
+            }
+        })
+    ]
 });
