@@ -4,7 +4,6 @@
  */
 
 const globalConstants = {
-    // PROD
     API: process.env.API_URL,
     LOCAL_ROOT: "",
     GITHUB: "",
