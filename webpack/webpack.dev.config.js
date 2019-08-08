@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
@@ -17,6 +17,24 @@ module.exports = merge(common, {
         host: "0.0.0.0", // this allows VMs to access the server
         port: 3000,
         disableHostCheck: true
+    },
+    module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                use: [
+                    { loader: MiniCssExtractPlugin.loader },
+                    { loader: "css-loader", options: { url: false, sourceMap: true } },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true,
+                            includePaths: ["./src/_scss", "./node_modules"]
+                        }
+                    }
+                ]
+            }
+        ]
     },
     plugins: [
         new webpack.DefinePlugin({
