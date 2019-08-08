@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AngleRight, AngleDown, InfoCircle } from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     hideArrow: PropTypes.bool,
@@ -13,7 +14,8 @@ const propTypes = {
     arrowState: PropTypes.string,
     name: PropTypes.string,
     disabled: PropTypes.bool,
-    accessory: PropTypes.func
+    accessory: PropTypes.func,
+    glossarySlug: PropTypes.string
 };
 
 export default class FilterExpandButton extends React.Component {
@@ -103,6 +105,16 @@ export default class FilterExpandButton extends React.Component {
             }
         }
 
+        let glossaryLink = null;
+        if (this.props.glossarySlug) {
+            // TODO: add the search url hash
+            glossaryLink = (
+                <div className="filter-toggle__glossary">
+                    <a href={`#/search/?glossary=${this.props.glossarySlug}`}><FontAwesomeIcon icon="book" /></a>
+                </div>
+            );
+        }
+
         return (
             <div className="filter-toggle">
                 <button
@@ -117,6 +129,7 @@ export default class FilterExpandButton extends React.Component {
                     <div className="filter-toggle__name">
                         {this.props.name}
                     </div>
+                    {glossaryLink}
                 </button>
                 <div className="filter-toggle__accessory">
                     {accessoryIcon}

@@ -83,6 +83,22 @@ const filters = {
         null,
         null,
         null
+    ],
+    glossaryEntries: [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
     ]
 };
 
@@ -117,6 +133,7 @@ export default class SearchSidebar extends React.Component {
                 filters.options.splice(4, 0, 'Program Source (TAS)');
                 filters.components.splice(4, 0, ProgramSourceContainer);
                 filters.accessories.splice(4, 0, null);
+                filters.glossaryEntries.splice(4, 0, 'treasury-account-symbol');
             }
         }
 
