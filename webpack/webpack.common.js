@@ -9,10 +9,8 @@ const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse
 
 console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
 console.log("Branch for this build: ", gitRevisionPlugin.branch());
-console.log("API URL is", process.env.USASPENDING_API.URL);
 
-const isProduction = (process.env.NODE_ENV === 'production');
-
+const isProduction = false;
 module.exports = {
     entry: {
         app: "./index.js"
@@ -112,9 +110,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
-        new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
-        new webpack.DefinePlugin({
-            'process.env.API_URL': JSON.stringify(process.env.USASPENDING_API.URL)
-        })
+        new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
     ]
 };
