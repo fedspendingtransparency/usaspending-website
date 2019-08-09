@@ -14,16 +14,6 @@ export const handlePotentialStrings = (input) => {
 };
 
 export const mostRecentQuarter = () => {
-    // Delay Q1 of 2019 because of the gov't shutdown
-    const startDelayRange = moment('02/01/2019', 'MM/DD/YYYY');
-    const endDelayRange = moment('03/20/2019', 'MM/DD/YYYY');
-    if (moment().isSameOrAfter(startDelayRange) && moment().isSameOrBefore(endDelayRange)) {
-        return {
-            quarter: 4,
-            year: 2018
-        };
-    }
-
     // go back 45 days prior to today
     const todayAdjusted = moment().subtract(FiscalYearHelper.quarterCloseWindow, 'days');
     // determine the quarter that date was in
