@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import kGlobalConstants from 'GlobalConstants';
 
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
 
@@ -39,6 +38,7 @@ const filters = {
         'Time Period',
         'Award Type',
         'Agency',
+        'Program Source (TAS)',
         'Location',
         'Recipient',
         'Recipient Type',
@@ -56,6 +56,7 @@ const filters = {
         TimePeriodContainer,
         AwardTypeContainer,
         AgencyContainer,
+        ProgramSourceContainer,
         LocationSectionContainer,
         RecipientSearchContainer,
         RecipientTypeContainer,
@@ -70,6 +71,7 @@ const filters = {
     ],
     accessories: [
         KeywordHover,
+        null,
         null,
         null,
         null,
@@ -109,16 +111,6 @@ export default class SearchSidebar extends React.Component {
                 expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
             }
         });
-
-        if (kGlobalConstants.DEV) {
-            // Insert the Program Source filter in dev environments
-            // TODO - Lizzie: initialize in the filter object when this feature is released
-            if (filters.options[4] !== 'Program Source (TAS)') {
-                filters.options.splice(4, 0, 'Program Source (TAS)');
-                filters.components.splice(4, 0, ProgramSourceContainer);
-                filters.accessories.splice(4, 0, null);
-            }
-        }
 
         return (
             <div
