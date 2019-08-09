@@ -65,9 +65,15 @@ module.exports = merge(common, {
         }),
         new webpack.DefinePlugin({
             'process.env': {
-                API_URL: process.env.USASPENDING_API
-                    ? JSON.stringify(JSON.parse(process.env.USASPENDING_API).URL)
-                    : JSON.stringify("https://api.usaspending.gov/api/"),
+                API: process.env.API
+                    ? JSON.stringify(process.env.API)
+                    : JSON.stringify("http://localhost:8000/api/"),
+                MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
+                    ? JSON.stringify(process.env.MAPBOX_TOKEN)
+                    : JSON.stringify(""),
+                GA_TRACKING_ID: process.env.GA_TRACKING_ID
+                    ? JSON.stringify(process.env.GA_TRACKING_ID)
+                    : JSON.stringify(""),
                 IS_DEV: JSON.stringify('false')
             }
         })
