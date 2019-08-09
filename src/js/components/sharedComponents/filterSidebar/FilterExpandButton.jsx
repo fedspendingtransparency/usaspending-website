@@ -15,7 +15,7 @@ const propTypes = {
     name: PropTypes.string,
     disabled: PropTypes.bool,
     accessory: PropTypes.func,
-    glossarySlug: PropTypes.string
+    glossaryUrl: PropTypes.string
 };
 
 export default class FilterExpandButton extends React.Component {
@@ -106,11 +106,10 @@ export default class FilterExpandButton extends React.Component {
         }
 
         let glossaryLink = null;
-        if (this.props.glossarySlug) {
-            // TODO: add the search url hash
+        if (this.props.glossaryUrl) {
             glossaryLink = (
                 <div className="filter-toggle__glossary">
-                    <a href={`#/search/?glossary=${this.props.glossarySlug}`}><FontAwesomeIcon icon="book" /></a>
+                    <a href={this.props.glossaryUrl}><FontAwesomeIcon icon="book" /></a>
                 </div>
             );
         }
@@ -129,8 +128,8 @@ export default class FilterExpandButton extends React.Component {
                     <div className="filter-toggle__name">
                         {this.props.name}
                     </div>
-                    {glossaryLink}
                 </button>
+                {glossaryLink}
                 <div className="filter-toggle__accessory">
                     {accessoryIcon}
                     {accessoryView}

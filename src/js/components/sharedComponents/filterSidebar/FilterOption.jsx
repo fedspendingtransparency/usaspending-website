@@ -16,7 +16,7 @@ const propTypes = {
     disabled: PropTypes.bool,
     defaultExpand: PropTypes.bool,
     accessory: PropTypes.func,
-    glossarySlug: PropTypes.string
+    glossaryUrl: PropTypes.string
 };
 
 const defaultProps = {
@@ -118,7 +118,7 @@ export default class FilterOption extends React.Component {
                     arrowState={this.state.arrowState}
                     name={this.props.name}
                     disabled={disabledStatus}
-                    glossarySlug={this.props.glossarySlug} />
+                    glossaryUrl={this.props.glossaryUrl} />
                 {searchOption}
                 {comingSoon}
             </div>
