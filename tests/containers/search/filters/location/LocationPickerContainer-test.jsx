@@ -416,6 +416,38 @@ describe('LocationPickerContainer', () => {
         });
     });
 
+    describe('cleanBadLocationData', () => {
+        const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+        container.setState({
+            country: {
+                code: 'GBR',
+                name: 'United Kingdom'
+            },
+            city: {
+                code: 'United Kingdom',
+                name: 'Londonderry'
+            }
+        });
+        const goodLocationData = container.instance().createLocationObject();
+        const badLocationData = {
+            ...goodLocationData,
+            filter: {
+                ...goodLocationData.filter,
+                country: 'FOREIGN'
+            }
+        };
+
+        it('badLocationData to be cleaned up', () => {
+            const cleanData = container.instance().cleanBadLocationData(badLocationData);
+            expect(cleanData.filter.country).toEqual(container.instance().state.city.code);
+        });
+
+        it('goodLocationData to be unchanged', () => {
+            const newLocationObject = container.instance().cleanBadLocationData(goodLocationData);
+            expect(newLocationObject.filter.country).toEqual(goodLocationData.filter.country);
+        });
+    });
+
     describe('addLocation', () => {
         it('should call the addLocation prop to add the location to Redux', () => {
             const mockAdd = jest.fn();
