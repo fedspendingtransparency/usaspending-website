@@ -258,6 +258,8 @@ describe('LocationPickerContainer', () => {
             const domesticContainer = shallow(<LocationPickerContainer {...mockPickerRedux} />);
             // Test for handling cities w/ commas
             const commaContainer = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            // Test for handling cities w/ a code that doesn't match any countries
+            const invalidCountryCodeContainer = shallow(<LocationPickerContainer {...mockPickerRedux} />);
 
             domesticContainer.setState({
                 country: {
@@ -280,13 +282,25 @@ describe('LocationPickerContainer', () => {
                     name: "London, Kent"
                 }
             });
+            invalidCountryCodeContainer.setState({
+                country: {
+                    code: 'FOREIGN',
+                    name: 'ALL FOREIGN COUNTRIES'
+                },
+                city: {
+                    code: "United Kingdom",
+                    name: "Londonderry, United Kingdom"
+                }
+            });
 
             const domesticLocation = domesticContainer.instance().createLocationObject();
             const commaLocation = commaContainer.instance().createLocationObject();
+            const invalidCountryCodeLocation = invalidCountryCodeContainer.instance().createLocationObject();
 
             it('locationObject.identifier is correct', () => {
                 expect(domesticLocation.identifier).toEqual('USA_GA_Atlanta');
                 expect(commaLocation.identifier).toEqual('GBR_London, Kent');
+                expect(invalidCountryCodeLocation.identifier).toEqual('FOREIGN_Londonderry');
             });
             it('locationObject.filter is correct', () => {
                 expect(domesticLocation.filter).toEqual({
@@ -297,6 +311,10 @@ describe('LocationPickerContainer', () => {
                 expect(commaLocation.filter).toEqual({
                     country: 'GBR',
                     city: 'London, Kent'
+                });
+                expect(invalidCountryCodeLocation.filter).toEqual({
+                    country: 'United Kingdom',
+                    city: 'Londonderry'
                 });
             });
             it('locationObject.display is correct', () => {
@@ -309,6 +327,11 @@ describe('LocationPickerContainer', () => {
                     title: 'London, Kent',
                     entity: 'City',
                     standalone: 'London, Kent'
+                });
+                expect(invalidCountryCodeLocation.display).toEqual({
+                    title: 'Londonderry, United Kingdom',
+                    entity: 'City',
+                    standalone: 'Londonderry, United Kingdom'
                 });
             });
         });
