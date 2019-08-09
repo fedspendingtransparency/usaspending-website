@@ -1,7 +1,5 @@
-$obligated-green: #94BFA2;
 .idv-activity {
   @import '../../../../components/verticalLine';
-  width: 100%;
   @import '../../../../components/Note';
     .award__col__content {
       @import '../../../search/results/table/tableMessages';
@@ -31,10 +29,60 @@ $obligated-green: #94BFA2;
         .loading-animation {
             @import "../../../search/results/screens/loading";
         }
+        .results-table-error {
+          .icon {
+            width: rem(36);
+            height: rem(36);
+            svg {
+              width: rem(36);
+              height: rem(36);
+            }
+          }
+          .title {
+            font-size: rem(20);
+            line-height: rem(45);
+          }
+          .description {
+            font-size: rem(16);
+            line-height: rem(10);
+          }
+        }
       }
       .activity-visualization {
+        @import "components/_defaultPicker";
+        @include defaultPicker;
+        .default-picker {
+          .default-picker__header {
+            .default-picker__button {
+              border-bottom: 2px solid $color-link;
+            }
+          }
+        }
         @import '../../../../components/pagination';
         @import '../../../../components/visualizations/legend';
+        .activity-visualization-title {
+          margin-top: rem(10);
+          margin-bottom: rem(18);
+          font-weight: $font-semibold;
+        }
+        .activity-x-label {
+          font-size: rem(12);
+          font-weight: $font-semibold;
+          text-align: center;
+        }
+        .current-page-numbers {
+          font-weight: $font-semibold;
+        }
+        .pagination {
+          margin-top: rem(20);
+          .pager {
+            .pager__item:last-child {
+              .pager__button {
+                 margin-right: 0;
+              }
+            }
+          }
+        }
         .visualization-tooltip {
           @import "components/visualizations/tooltip/_tooltip";
           .tooltip {
@@ -92,32 +140,42 @@ $obligated-green: #94BFA2;
           }
         }
         .visualization-legend {
-          margin-left: 10px;
-            .visualization-legend__circle {
+          background-color: #F4F3F3;
+          border-radius: 3px;
+          margin-top: rem(35);
+          @include display(flex);
+          @include flex-wrap(wrap);
+            .visualization-legend__item {
+              @include display(flex);
+              margin-top: rem(13);
+              margin-bottom: rem(10);
+              padding-right: rem(15);
+              padding-left: rem(7);
+              .visualization-legend__circle {
                 @include flex(0 0 rem(16));
                 height: rem(16);
                 width: rem(16);
                 border-radius: rem(8);
                 background-color: #D8D8D8;
                 &.visualization-legend__circle_obligated {
-                  background-color: $obligated-green;
+                  background-color: $color-vis-green-light;
                 }
                 &.visualization-legend__circle_overspent {
                   background: repeating-linear-gradient( 
                     45deg,
-                    $obligated-green,
-                    $obligated-green 4px,
+                    $color-vis-green-light,
+                    $color-vis-green-light 4px,
                     rgb(188,92,35) 4px,
                     rgb(188,92,35) 6px);
                 }
             }
             .visualization-legend__label {
               font-size: rem(14);
-              @include flex(0 0 auto);
-              padding-right: rem(45);
             }
+          }
         }
         .activity-chart {
+          overflow: visible;
           .activity-chart-body {
             .activity-chart-data {
               .activity-chart-bar-container:hover .activity-chart-bar__awarded-content {
@@ -127,6 +185,9 @@ $obligated-green: #94BFA2;
               .activity-chart-bar {
                 padding: rem(10) 0;
               }
+            }
+            .bar-axis {
+              width: 100%;
             }
             .axis {
               stroke: rgb(0,0,0);

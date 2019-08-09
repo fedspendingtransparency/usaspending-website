@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import { formatMoney } from 'helpers/moneyFormatter';
 
 const propTypes = {
     data: PropTypes.object,
@@ -122,7 +123,7 @@ export default class IdvActivityTooltip extends React.Component {
         // measuring from bottom of graph ( graph starts at 0 so we already have the height, with data.y)
         // if data.y is smaller than the height of the tooltip, show on top
         if (yPosition < tooltipDivHeight) {
-            yPosition += (tooltipDivHeight + 7);
+            yPosition += (tooltipDivHeight + (data.barHeight - 2));
         }
         // get the spacing from start of graph to start of bar
         const spacingFromStartToBar = data.graphWidth - (data.graphWidth - data.start);
@@ -182,6 +183,7 @@ export default class IdvActivityTooltip extends React.Component {
                 </div>
             )
             : 'This IDV';
+        const amountTitle = `${formatMoney(data._obligatedAmount)} of ${formatMoney(data._awardedAmount)}`;
 
         return (
             <div
@@ -216,7 +218,7 @@ export default class IdvActivityTooltip extends React.Component {
                             </div>
                             <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title first-titles">
-                                    Parent IDV
+                                    {data.grandchild ? 'Grandparent' : 'Parent'} IDV
                                 </h6>
                                 <div className="tooltip-body__row-info-data">
                                     {data.parentGeneratedId ? parentIDVData : <div>--</div>}
@@ -292,7 +294,8 @@ export default class IdvActivityTooltip extends React.Component {
                                     className="tooltip-body__row-info-data"
                                     ref={(d) => {
                                         this.amountsDiv = d;
-                                    }}>
+                                    }}
+                                    title={amountTitle}>
                                     <strong>
                                         {data._obligatedAmount !== 0 ?
                                             `${data.obligatedAmount} ` : '-- '}

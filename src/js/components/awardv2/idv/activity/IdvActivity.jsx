@@ -4,14 +4,12 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ComingSoonSection from "../ComingSoonSection";
 import InfoTooltip from '../InfoTooltip';
 import { idvActivityInfo } from '../InfoTooltipContent';
 import IdvActivityVisualization from './IdvActivityVisualization';
 
 const propTypes = {
     awards: PropTypes.array,
-    comingSoon: PropTypes.bool,
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     page: PropTypes.number,
@@ -19,38 +17,33 @@ const propTypes = {
     limit: PropTypes.number,
     changePage: PropTypes.func,
     xSeries: PropTypes.array,
-    ySeries: PropTypes.array
+    ySeries: PropTypes.array,
+    selectedItemFunc: PropTypes.func
 };
 
 export default class IdvActivity extends React.Component {
     render() {
-        let content = (
-            <ComingSoonSection className="idv-activity__section" />
-        );
+        let content;
         let message;
-        if (!this.props.comingSoon) {
-            if (this.props.inFlight) {
-                message = (<ResultsTableLoadingMessage />);
-            }
-            else if (this.props.error) {
-                message = (<ResultsTableErrorMessage />);
-            }
-            else if (!this.props.awards.length) {
-                message = (<NoResultsMessage />);
-            }
-            if (!message) {
-                content = (<IdvActivityVisualization
-                    page={this.props.page}
-                    total={this.props.total}
-                    limit={this.props.limit}
-                    awards={this.props.awards}
-                    changePage={this.props.changePage}
-                    xSeries={this.props.xSeries}
-                    ySeries={this.props.ySeries} />);
-            }
-            else {
-                content = null;
-            }
+        if (this.props.inFlight) {
+            message = (<ResultsTableLoadingMessage />);
+        }
+        else if (this.props.error) {
+            message = (<ResultsTableErrorMessage />);
+        }
+        else if (!this.props.awards.length) {
+            message = (<NoResultsMessage />);
+        }
+        else {
+            content = (<IdvActivityVisualization
+                page={this.props.page}
+                total={this.props.total}
+                limit={this.props.limit}
+                awards={this.props.awards}
+                changePage={this.props.changePage}
+                xSeries={this.props.xSeries}
+                ySeries={this.props.ySeries}
+                selectedItemFunc={this.props.selectedItemFunc} />);
         }
 
         return (
