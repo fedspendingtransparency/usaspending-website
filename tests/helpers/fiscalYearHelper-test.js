@@ -28,9 +28,33 @@ describe('Fiscal Year helper functions', () => {
             moment.now = () => (new Date());
         });
 
+        it('should use the current calendar year as the fiscal year on Sept 30', () => {
+            // override the moment's library's internal time to a known mocked date
+            const mockedDate = moment('2015-09-30', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const currentFY = FiscalYearHelper.currentFiscalYear();
+            expect(currentFY).toEqual(2015);
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+
         it('should use the next calendar year as the fiscal year for months on or after October', () => {
             // override the moment's library's internal time to a known mocked date
             const mockedDate = moment('2015-11-01', 'YYYY-MM-DD').toDate();
+            moment.now = () => (mockedDate);
+
+            const currentFY = FiscalYearHelper.currentFiscalYear();
+            expect(currentFY).toEqual(2016);
+
+            // reset moment's date to the current time
+            moment.now = () => (new Date());
+        });
+
+        it('should use the next calendar year as the fiscal year on October 1', () => {
+            // override the moment's library's internal time to a known mocked date
+            const mockedDate = moment('2015-10-01', 'YYYY-MM-DD').toDate();
             moment.now = () => (mockedDate);
 
             const currentFY = FiscalYearHelper.currentFiscalYear();
@@ -78,28 +102,6 @@ describe('Fiscal Year helper functions', () => {
             // reset moment's date to the current time
             moment.now = () => (new Date());
         });
-
-        it('should delay the switchover to 2019 until March 21, 2019', () => {
-            const mockedDate = moment('2019-03-20', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
-
-            const currentFY = FiscalYearHelper.defaultFiscalYear();
-            expect(currentFY).toEqual(2018);
-
-            // reset moment's date to the current time
-            moment.now = () => (new Date());
-        });
-
-        it('should return 2019 on March 21, 2019', () => {
-            const mockedDate = moment('2019-03-21', 'YYYY-MM-DD').toDate();
-            moment.now = () => (mockedDate);
-
-            const currentFY = FiscalYearHelper.defaultFiscalYear();
-            expect(currentFY).toEqual(2019);
-
-            // reset moment's date to the current time
-            moment.now = () => (new Date());
-        });
     });
 
     describe('convertFYtoDateRange', () => {
@@ -132,6 +134,57 @@ describe('Fiscal Year helper functions', () => {
             const expectedDates = ['2018-05-20', '2019-05-20'];
 
             expect(FiscalYearHelper.getTrailingTwelveMonths()).toEqual(expectedDates);
+        });
+    });
+    
+    describe('nearestQuarterDate', () => {
+        describe('Fiscal Quarter 1 Oct-Dec', () => {
+            it('10-14-2019 - should return this quarter start quarter date in millis', () => {
+                const mockedDate = moment('10-14-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = moment('10-01-2019', 'MM-DD-YYYY').valueOf();
+                expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
+            });
+            it('12-01-2019 - should return future quarter start date in millis', () => {
+                const mockedDate = moment('12-15-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = moment('01-01-2020', 'MM-DD-YYYY').valueOf();
+                expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
+            });
+        });
+        describe('Fiscal Quarter 2 Jan-March', () => {
+            it('01-14-2019 - should return this quarter start quarter date in millis', () => {
+                const mockedDate = moment('01-14-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = moment('01-01-2019', 'MM-DD-YYYY').valueOf();
+                expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
+            });
+            it('02-15-2019 - should return future quarter start date in millis', () => {
+                const mockedDate = moment('02-15-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = moment('04-01-2019', 'MM-DD-YYYY').valueOf();
+                expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
+            });
+        });
+        describe('Fiscal Quarter 3 April-June', () => {
+            it('04-14-2019 - should return this quarter start quarter date in millis', () => {
+                const mockedDate = moment('04-14-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = moment('04-01-2019', 'MM-DD-YYYY').valueOf();
+                expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
+            });
+            it('05-29-2019 - should return future quarter start date in millis', () => {
+                const mockedDate = moment('05-29-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = moment('07-01-2019', 'MM-DD-YYYY').valueOf();
+                expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
+            });
+        });
+        describe('Fiscal Quarter 4 July-September', () => {
+            it('07-14-2019 - should return this quarter start quarter date in millis', () => {
+                const mockedDate = moment('07-14-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = moment('07-01-2019', 'MM-DD-YYYY').valueOf();
+                expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
+            });
+            it('08-29-2019 - should return future quarter start date in millis', () => {
+                const mockedDate = moment('08-29-2019', 'MM-DD-YYYY').valueOf();
+                const expectedDate = moment('10-01-2019', 'MM-DD-YYYY').valueOf();
+                expect(FiscalYearHelper.nearestQuarterDate(mockedDate)).toEqual(expectedDate);
+            });
         });
     });
 });

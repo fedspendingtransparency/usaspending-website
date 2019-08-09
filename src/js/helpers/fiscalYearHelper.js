@@ -38,13 +38,6 @@ export const defaultFiscalYear = () => {
     // for a new FY when no data exists in it yet
     const today = moment();
 
-    // Delay FY 2019 Q1
-    const startDelayRange = moment('02/01/2019', 'MM/DD/YYYY');
-    const endDelayRange = moment('03/20/2019', 'MM/DD/YYYY');
-    if (today.isSameOrAfter(startDelayRange) && today.isSameOrBefore(endDelayRange)) {
-        return 2018;
-    }
-
     const newFiscalYearStartDate = moment()
         .startOf('year')
         .add(quarterCloseWindow, 'days');
@@ -122,6 +115,50 @@ export const convertDateToQuarter = (date) => {
     }
 
     return quarter;
+};
+
+export const nearestQuarterDate = (date) => {
+    // Returns the nearest fiscal quarter date
+    const momentDate = moment(date);
+    const month = momentDate.month();
+    const milliseconds = momentDate.valueOf();
+
+    // get the previous and future quarter months
+    let prev;
+    let future;
+    // first quarter
+    if (month >= 9 && month <= 11) {
+        prev = '10';
+        future = '01';
+    }
+    // second quarter
+    else if (month >= 0 && month <= 2) {
+        prev = '01';
+        future = '04';
+    }
+    // third quarter
+    else if (month >= 3 && month <= 5) {
+        prev = '04';
+        future = '07';
+    }
+    // fourth quarter
+    else if (month >= 6 && month <= 8) {
+        prev = '07';
+        future = '10';
+    }
+
+    const prevYear = momentDate.year();
+    let futureYear = momentDate.year();
+    if (month === 11 || month === 10 || month === 9) futureYear += 1;
+
+    // get the previous & future quarter start dates for comparison
+    const prevMillis = moment(`${prev}-01-${prevYear}`, "MM-DD-YYYY").valueOf();
+    const futureMillis = moment(`${future}-01-${futureYear}`, "MM-DD-YYYY").valueOf();
+
+    const prevDifference = milliseconds - prevMillis;
+    const futureDifference = futureMillis - milliseconds;
+    // return the closest quarter date
+    return (prevDifference < futureDifference) ? prevMillis : futureMillis;
 };
 
 export const getTrailingTwelveMonths = () => {

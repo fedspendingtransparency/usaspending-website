@@ -88,5 +88,5 @@ export const awardTypeGroupLabels = {
 
 export const subawardTypeGroups = {
     subcontracts: awardTypeGroups.contracts.concat(awardTypeGroups.idvs),
-    subgrants: awardTypeGroups.grants
+    subgrants: awardTypeGroups.grants.concat(awardTypeGroups.direct_payments).concat(awardTypeGroups.loans).concat(awardTypeGroups.other)
 };
