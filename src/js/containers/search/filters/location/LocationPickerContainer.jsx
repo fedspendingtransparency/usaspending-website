@@ -360,7 +360,10 @@ export default class LocationPickerContainer extends React.Component {
                     if (filterData.city && filterData.country.toLowerCase() === 'foreign') {
                         return {
                             ...acc,
-                            country: this.state.city.code
+                            filter: {
+                                ...acc.filter,
+                                country: this.state.city.code
+                            }
                         };
                     }
                 }
