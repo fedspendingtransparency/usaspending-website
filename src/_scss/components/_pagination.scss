@@ -1,27 +1,14 @@
 .pagination {
     @include display(flex);
-    @include flex-direction(row);
     @include align-items(center);
     @include flex-wrap(wrap);
-    @include media($medium-screen) {
-        @include flex-wrap(nowrap);
-    }
     .pagination__totals {
         @include flex(1 1 auto);
-        @include media($tablet-screen) {
-            @include flex(0 0 auto);
-        }
     }
     .pager {
         @include display(flex);
-        @include flex-direction(row);
-        @include justify-content(flex-start);
         @include flex(0 0 auto);
         padding-left: 0;
-        @include media($tablet-screen) {
-            @include justify-content(flex-end);
-            @include flex(1 1 auto);
-        }
         list-style-type: none;
         margin: 0;
         .pager__item {
