@@ -91,7 +91,7 @@ const filters = {
         null,
         null,
         null,
-        'treasury-account-symbol',
+        'treasury-account-symbol-tas',
         null,
         null,
         null,
