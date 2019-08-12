@@ -78,6 +78,9 @@
                     @include display(flex);
                     @include justify-content(flex-end);
                     @include flex (1 1 auto);
+                    @include align-self(center);
+                    flex-wrap: wrap;
+                    padding-left: rem(5);
                     color: $color-secondary;
                     text-align: right;
                 }
