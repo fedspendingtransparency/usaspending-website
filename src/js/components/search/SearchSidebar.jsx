@@ -85,13 +85,31 @@ const filters = {
         null,
         null,
         null
+    ],
+    glossaryEntries: [
+        null,
+        null,
+        null,
+        null,
+        'treasury-account-symbol-tas',
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
     ]
 };
 
 const propTypes = {
     mobile: PropTypes.bool,
     filters: PropTypes.object,
-    requestsComplete: PropTypes.bool
+    requestsComplete: PropTypes.bool,
+    hash: PropTypes.string
 };
 
 const defaultProps = {
@@ -126,7 +144,10 @@ export default class SearchSidebar extends React.Component {
                 <div className="sidebar-top-submit">
                     <SearchSidebarSubmitContainer />
                 </div>
-                <FilterSidebar {...filters} expanded={expanded} />
+                <FilterSidebar
+                    {...filters}
+                    expanded={expanded}
+                    hash={this.props.hash} />
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />
                 </div>
