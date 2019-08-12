@@ -3,7 +3,7 @@ export default {
     API: "http://localhost:8000/api/",
     LOCAL_ROOT: "",
     GITHUB: "",
-    GA_TRACKING_ID: "UA-92617810-1",
+    GA_TRACKING_ID: "",
     LOCAL: false,
     DEV: true,
     IN_BETA: false,
