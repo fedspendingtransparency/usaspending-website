@@ -50,3 +50,6 @@ cache/
 
 # JetBrains IDEs
 **/.idea/
+
+# bash script
+usa_spending.sh
