@@ -6,6 +6,7 @@
 import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
     from 'dataMapping/search/awardsOperationKeys';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import { pickBy } from 'lodash';
 
 class SearchAwardsOperation {
     constructor() {
@@ -19,6 +20,9 @@ class SearchAwardsOperation {
 
         this.awardingAgencies = [];
         this.fundingAgencies = [];
+
+        this.tasSources = [];
+        this.accountSources = [];
 
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
@@ -56,6 +60,9 @@ class SearchAwardsOperation {
 
         this.awardingAgencies = state.selectedAwardingAgencies.toArray();
         this.fundingAgencies = state.selectedFundingAgencies.toArray();
+
+        this.tasSources = state.treasuryAccounts.toArray();
+        this.accountSources = state.federalAccounts.toArray();
 
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
@@ -169,6 +176,21 @@ class SearchAwardsOperation {
             });
 
             filters[rootKeys.agencies] = agencies;
+        }
+
+        // Add Program Sources
+        if (this.tasSources.length > 0 || this.accountSources.length > 0) {
+            const tasCodes = [];
+
+            this.accountSources.forEach((accountObject) => {
+                tasCodes.push(pickBy(accountObject));
+            });
+
+            this.tasSources.forEach((tasObject) => {
+                tasCodes.push(pickBy(tasObject));
+            });
+
+            filters[rootKeys.tasSources] = tasCodes;
         }
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types

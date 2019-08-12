@@ -10,6 +10,7 @@ import { formatNumber } from 'helpers/moneyFormatter';
 import { determineSpendingScenario } from 'helpers/aggregatedAmountsHelper';
 import ChartError from 'components/search/visualizations/ChartError';
 import { Table } from 'components/sharedComponents/icons/Icons';
+import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 import AwardsBanner from './AwardsBanner';
 import NormalChart from './charts/NormalChart';
 import ExceedsCurrentChart from './charts/ExceedsCurrentChart';
@@ -170,9 +171,10 @@ export default class AggregatedAwardAmounts extends React.Component {
                 break;
             default:
                 visualization = (
-                    <div className="award-amounts-viz award-amounts-viz_insufficient">
-                        <h4>Chart Not Available</h4>
-                        <p>Data in this instance is not suitable for charting.</p>
+                    <div className="results-table-message-container">
+                        <NoResultsMessage
+                            title="Chart Not Available"
+                            message="Data in this instance is not suitable for charting" />
                     </div>
                 );
         }

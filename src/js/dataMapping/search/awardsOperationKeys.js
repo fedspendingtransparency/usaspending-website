@@ -8,6 +8,7 @@ export const rootKeys = {
     timePeriod: 'time_period',
     awardType: 'award_type_codes',
     agencies: 'agencies',
+    tasSources: 'tas_codes',
     recipients: 'recipient_search_text',
     recipientLocationScope: 'recipient_scope',
     recipientLocation: 'recipient_locations',
