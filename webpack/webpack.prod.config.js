@@ -65,8 +65,8 @@ module.exports = merge(common, {
         }),
         new webpack.DefinePlugin({
             'process.env': {
-                API: process.env.API
-                    ? JSON.stringify(process.env.API)
+                USASPENDING_API: process.env.USASPENDING_API
+                    ? JSON.stringify(process.env.USASPENDING_API)
                     : JSON.stringify("https://api.usaspending.gov/api/"),
                 MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
                     ? JSON.stringify(process.env.MAPBOX_TOKEN)
