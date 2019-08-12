@@ -4,7 +4,7 @@
  */
 
 const globalConstants = {
-    API: process.env.APIL,
+    API: process.env.API,
     LOCAL_ROOT: "",
     GITHUB: "",
     GA_TRACKING_ID: process.env.GA_TRACKING_ID,
