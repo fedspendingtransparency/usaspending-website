@@ -67,7 +67,7 @@ module.exports = merge(common, {
             'process.env': {
                 API: process.env.API
                     ? JSON.stringify(process.env.API)
-                    : JSON.stringify("http://localhost:8000/api/"),
+                    : JSON.stringify("https://api.usaspending.gov/api/"),
                 MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
                     ? JSON.stringify(process.env.MAPBOX_TOKEN)
                     : JSON.stringify(""),
