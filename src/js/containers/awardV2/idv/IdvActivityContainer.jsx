@@ -17,7 +17,7 @@ export class IdvActivityContainer extends React.Component {
         this.state = {
             hasNext: false,
             hasPrevious: null,
-            limit: 10,
+            limit: 50,
             next: 0,
             page: 1,
             previous: null,
@@ -32,6 +32,7 @@ export class IdvActivityContainer extends React.Component {
         this.idvActivityRequest = null;
 
         this.changePage = this.changePage.bind(this);
+        this.selectedItemFunc = this.selectedItemFunc.bind(this);
     }
 
     async componentDidMount() {
@@ -52,7 +53,8 @@ export class IdvActivityContainer extends React.Component {
         const params = {
             award_id: this.props.awardId,
             page: this.state.page,
-            hide_edge_cases: true
+            hide_edge_cases: true,
+            limit: this.state.limit
         };
 
         this.idvActivityRequest = fetchIdvActivity(params);
@@ -90,7 +92,7 @@ export class IdvActivityContainer extends React.Component {
         const startDates = awards.map((award) => award._startDate.valueOf());
         const endDates = awards.map((award) => award._endDate.valueOf());
         const xSeries = startDates.concat(endDates);
-        const ySeries = awards.map((award) => award._awardedAmount);
+        const ySeries = awards.map((award) => award._obligatedAmount);
 
         this.setState({
             awards,
@@ -107,12 +109,21 @@ export class IdvActivityContainer extends React.Component {
         }, () => this.loadAwards());
     }
 
+    selectedItemFunc(limit) {
+        this.setState({
+            limit,
+            inFlight: true,
+            page: 1
+        }, () => this.loadAwards());
+    }
+
     render() {
         return (
             <IdvActivity
                 {...this.state}
                 {...this.props}
-                changePage={this.changePage} />
+                changePage={this.changePage}
+                selectedItemFunc={this.selectedItemFunc} />
         );
     }
 }

@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { orderBy, difference, concat, indexOf } from 'lodash';
-import kGlobalConstants from 'GlobalConstants';
 
 import moment from 'moment';
 
@@ -112,12 +111,12 @@ export class TopFilterBarContainer extends React.Component {
 
         // prepare the Program Source filters
         const selectedTreasuryAccountFilters = this.prepareTreasuryAccounts(props);
-        if (selectedTreasuryAccountFilters && kGlobalConstants.DEV) {
+        if (selectedTreasuryAccountFilters) {
             filters.push(selectedTreasuryAccountFilters);
         }
 
         const selectedFederalAccountFilters = this.prepareFederalAccounts(props);
-        if (selectedFederalAccountFilters && kGlobalConstants.DEV) {
+        if (selectedFederalAccountFilters) {
             filters.push(selectedFederalAccountFilters);
         }
 

@@ -52,7 +52,7 @@ export default class ActivityYAxis extends React.Component {
                 formattedValue = '$0';
             }
             else {
-                formattedValue += units.unitLabel;
+                formattedValue = `${formattedValue} ${units.unitLabel}`;
             }
 
             return formattedValue;

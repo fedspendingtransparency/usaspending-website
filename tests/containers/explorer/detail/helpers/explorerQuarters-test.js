@@ -2,8 +2,7 @@
  * explorerQuarters-test.js
  * Created by Kevin Li 2/16/18
  */
-import moment from 'moment';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+
 import * as explorerQuarters from 'containers/explorer/detail/helpers/explorerQuarters';
 
 const nativeDate = Date.now;
@@ -11,7 +10,7 @@ const nativeDate = Date.now;
 const mockDate = (date) => {
     // mock the current date
     const month = parseInt(date.substring(5, 7), 10) - 1; // month is zero-indexed
-    const day = parseInt(date.substring(8));
+    const day = parseInt(date.substring(8), 10);
     const mock = new Date(date.substring(0, 4), month, day);
     Date.now = () => mock;
 };
@@ -66,22 +65,6 @@ describe('explorerQuarters', () => {
             expect(output).toEqual({
                 quarter: 3,
                 year: 2018
-            });
-        });
-        it('should delay the release of FY 2019 Q1 data until March 21, 2019', () => {
-            mockDate('2019-03-20');
-            const output = explorerQuarters.mostRecentQuarter();
-            expect(output).toEqual({
-                quarter: 4,
-                year: 2018
-            });
-        });
-        it('should return 2019 Q1 on March 21, 2019', () => {
-            mockDate('2019-03-21');
-            const output = explorerQuarters.mostRecentQuarter();
-            expect(output).toEqual({
-                quarter: 1,
-                year: 2019
             });
         });
     });
