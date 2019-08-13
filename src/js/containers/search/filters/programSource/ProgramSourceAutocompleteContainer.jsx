@@ -7,9 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { pickBy, debounce } from 'lodash';
+import { programSourceInfo } from 'dataMapping/search/programSourceInfoTooltipContent';
 
 import * as ProgramSourceHelper from 'helpers/programSourceHelper';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
+import ProgramSourceInfoTooltipContent from 'components/search/filters/programSource/ProgramSourceInfoTooltip';
 
 const propTypes = {
     component: PropTypes.object,
@@ -138,6 +140,10 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
             <div className="program-source-select-filter">
                 <label className="program-source-select-filter__label">
                     {`${this.props.component.label} (${this.props.component.code.toUpperCase()})`}
+                    <ProgramSourceInfoTooltipContent
+                        heading={programSourceInfo[this.props.component.code].heading}
+                        definition={programSourceInfo[this.props.component.code].definition}
+                        example={programSourceInfo[this.props.component.code].example} />
                     {requiredIndicator}
                 </label>
                 <Autocomplete
