@@ -1,6 +1,7 @@
 import React from 'react';
 import { startCase } from 'lodash';
 
+import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_SECTION_PROPS, AWARD_PAGE_WRAPPER_PROPS } from "../../../propTypes/index";
 
 export const AwardPageWrapper = ({
@@ -13,7 +14,11 @@ export const AwardPageWrapper = ({
     <div className={`award award-${awardType}`}>
         <div className="award__heading">
             <div className="award__heading-text">{startCase(awardTypeDescription)}</div>
-            <div className="award__heading-icon">{glossaryLink}</div>
+            <div className="award__heading-icon">
+                <a href={glossaryLink}>
+                    <Glossary />
+                </a>
+            </div>
             <div className="award__heading-id">
                 <div className="award__heading-label">{identifier ? 'PIID' : ''}</div>
                 <div>{identifier}</div>
