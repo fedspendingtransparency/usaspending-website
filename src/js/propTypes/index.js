@@ -42,3 +42,17 @@ export const TOOLTIP_PROPS = PropTypes.shape({
     closeCurrentTooltip: PropTypes.func,
     showTooltip: PropTypes.func
 });
+
+export const AWARD_SECTION_PROPS = {
+    type: PropTypes.oneOf(["row", "column"]),
+    id: PropTypes.string,
+    children: PropTypes.node
+};
+
+export const AWARD_PAGE_WRAPPER_PROPS = {
+    awardType: PropTypes.oneOf(["idv", "contract", "grant"]),
+    awardTypeDescription: PropTypes.string,
+    glossaryLink: PropTypes.string,
+    identifier: PropTypes.string,
+    children: PropTypes.node
+};
