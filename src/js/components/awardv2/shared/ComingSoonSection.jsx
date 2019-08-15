@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import InfoTooltip from './InfoTooltip';
+import InfoTooltip from '../idv/InfoTooltip';
+import { AwardSection } from '.';
 
 const propTypes = {
     title: PropTypes.string,
@@ -44,7 +45,7 @@ const ComingSoonSection = ({
 
     if (includeHeader) {
         return (
-            <div className="award__col award-viz">
+            <AwardSection type="column" className="award-viz">
                 <div className="award__col__content">
                     <div className="award-viz__heading">
                         {icon &&
@@ -63,7 +64,7 @@ const ComingSoonSection = ({
                         {renderChildren()}
                     </div>
                 </div>
-            </div>
+            </AwardSection>
         );
     }
     return (
