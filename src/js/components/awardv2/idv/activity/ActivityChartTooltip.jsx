@@ -48,8 +48,8 @@ export default class IdvActivityTooltip extends React.Component {
         window.removeEventListener('resize', this.measureWindow);
     }
 
-    getLinks(path, data, params) {
-        if (data === '--') {
+    getLinks(path, id, data, params) {
+        if (data === '--' || id === '--') {
             return (<div>{data}</div>);
         }
         let title;
@@ -59,8 +59,7 @@ export default class IdvActivityTooltip extends React.Component {
         return (
             <a
                 title={title}
-                href={
-                    `/#/${path}`}>
+                href={`/#/${path}/${id}`}>
                 {data}
             </a>
         );
@@ -178,7 +177,8 @@ export default class IdvActivityTooltip extends React.Component {
             (
                 <div>
                     This IDV &#62; {this.getLinks(
-                        `award/${data.parentGeneratedId}`,
+                        `award`,
+                        data.parentGeneratedId,
                         data.parentAwardPIID)}
                 </div>
             )
@@ -213,7 +213,7 @@ export default class IdvActivityTooltip extends React.Component {
                                     PIID
                                 </h6>
                                 <div className="tooltip-body__row-info-data">
-                                    {this.getLinks(`award/${data.id}`, data.piid)}
+                                    {this.getLinks(`award`, data.id, data.piid)}
                                 </div>
                             </div>
                             <div className="tooltip-body__row-info">
@@ -238,7 +238,8 @@ export default class IdvActivityTooltip extends React.Component {
                                     }}>
                                     {
                                         this.getLinks(
-                                            `agency/${data.awardingAgencyId}`,
+                                            `agency`,
+                                            data.awardingAgencyId,
                                             this.state.awardingAgency,
                                             data.awardingAgencyName
                                         )
@@ -257,7 +258,8 @@ export default class IdvActivityTooltip extends React.Component {
                                     }}>
                                     {
                                         this.getLinks(
-                                            `recipient/${data.recipientId}`,
+                                            `recipient`,
+                                            data.recipientId,
                                             this.state.recipient.toUpperCase(),
                                             data.recipientName
                                         )
