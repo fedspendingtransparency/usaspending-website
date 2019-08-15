@@ -12,6 +12,7 @@ import { glossaryLinks } from 'dataMapping/search/awardType';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
+import { AwardSection, AwardPageWrapper } from '../shared';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -31,35 +32,25 @@ export default class ContractContent extends React.Component {
             );
         }
         return (
-            <div className="award award-contract">
-                <div className="award__heading">
-                    <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
-                    <div className="award__heading-icon">
-                        {glossaryLink}
-                    </div>
-                    <div className="award__heading-id">
-                        <div className="award__heading-lable">{this.props.overview.id ? 'PIID' : ''}</div>
-                        <div>{this.props.overview.id}</div>
-                    </div>
-                </div>
-                <hr />
-                <div className="award__row award-overview" id="award-overview">
-                    <AgencyRecipient
-                        jumpToSection={this.props.jumpToSection}
-                        awardingAgency={this.props.overview.awardingAgency}
-                        category="contract"
-                        recipient={this.props.overview.recipient} />
-                    <div className="award__col award-amountdates">
-                        <AwardDates
-                            overview={this.props.overview} />
-                    </div>
-                </div>
-
-                <div className="agency-additional" id="award-additional-information">
-                    <AdditionalInfo
-                        overview={this.props.overview} />
-                </div>
-            </div>
+            <AwardPageWrapper
+                glossaryLink={glossaryLink}
+                identifier={this.props.overview.id}
+                awardTypeDescription={this.props.overview.typeDescription}
+                awardType="contract">
+                <AwardSection type="row" className="award-overview" id="award-overview">
+                    <AwardSection type="column" className="award-amountdates">
+                        <AgencyRecipient
+                            jumpToSection={this.props.jumpToSection}
+                            awardingAgency={this.props.overview.awardingAgency}
+                            category="contract"
+                            recipient={this.props.overview.recipient} />
+                    </AwardSection>
+                    <AwardSection type="column" className="award-amountdates">
+                        <AwardDates overview={this.props.overview} />
+                    </AwardSection>
+                </AwardSection>
+                <AdditionalInfo overview={this.props.overview} />
+            </AwardPageWrapper>
         );
     }
 }
