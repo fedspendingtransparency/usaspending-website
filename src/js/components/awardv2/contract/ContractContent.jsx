@@ -24,11 +24,37 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-const awardAmountProperties = ["_totalObligation", "_baseAndAllOptions", "_baseExercisedOptions"];
+const awardAmountProperties = [
+    "id",
+    "generatedId",
+    "_totalObligation",
+    "_baseExercisedOptions",
+    "_amount",
+    "totalObligation",
+    "totalObligationFormatted",
+    "baseExercisedOptions",
+    "baseExercisedOptionsFormatted",
+    "amount",
+    "amountFormatted"
+];
+// Does this need to go in a model or a data mapping?
 const awardAmountMap = {
-    _totalObligation: "_combinedCurrentAwardAmounts",
-    _baseAndAllOptions: "_combinedPotentialAwardAmounts",
-    _baseExercisedOptions: "_obligation"
+    _totalObligation: "_obligation",
+    _baseExercisedOptions: "_combinedCurrentAwardAmounts",
+    _amount: "_combinedPotentialAwardAmounts",
+    totalObligationFormatted: "obligationFormatted",
+    baseExercisedOptionsFormatted: "combinedCurrentAwardAmountsFormatted",
+    amountFormatted: "combinedPotentialAwardAmountsFormatted",
+    amount: "combinedPotentialAwardAmounts"
+};
+
+const defaultTooltipProps = {
+    controlledProps: {
+        isControlled: false,
+        isVisible: false,
+        closeCurrentTooltip: () => console.log("close tooltip"),
+        showTooltip: () => console.log("open tooltip")
+    }
 };
 
 export default class ContractContent extends React.Component {
@@ -37,27 +63,41 @@ export default class ContractContent extends React.Component {
         this.renderChart = this.renderChart.bind(this);
     }
     renderChart(overview = this.props.overview) {
-        const amounts = Object.keys(overview)
-            .filter((key) => awardAmountProperties.includes(key))
-            .reduce((acc, item) => ({
+        const awardAmounts = awardAmountProperties
+            .reduce((acc, key) => ({
                 ...acc,
-                [awardAmountMap[item]]: overview[item]
+                [awardAmountMap[key] || key]: overview[key]
             }), { _obligation: 0, _combinedCurrentAwardAmounts: 0, _combinedPotentialAwardAmounts: 0 });
-        switch (determineSpendingScenario(amounts)) {
+        switch (determineSpendingScenario(awardAmounts)) {
             case "exceedsCurrent":
                 console.log("exceedsCurrent");
-                return;
-                // return <ExceedsCurrentChart />;
+                return (
+                    <ExceedsCurrentChart
+                        awardAmounts={awardAmounts}
+                        obligatedTooltipProps={defaultTooltipProps}
+                        currentTooltipProps={defaultTooltipProps}
+                        potentialTooltipProps={defaultTooltipProps} />
+                );
             case "exceedsPotential":
                 console.log("exceedsPotential");
-                return;
-                // return <ExceedsPotentialChart />;
+                return (
+                    <ExceedsPotentialChart
+                        awardAmounts={awardAmounts}
+                        obligatedTooltipProps={defaultTooltipProps}
+                        currentTooltipProps={defaultTooltipProps}
+                        potentialTooltipProps={defaultTooltipProps} />
+                );
             case "normal":
                 console.log("normal");
-                return;
-                // return <NormalChart/>;
+                return (
+                    <NormalChart
+                        awardAmounts={awardAmounts}
+                        obligatedTooltipProps={defaultTooltipProps}
+                        currentTooltipProps={defaultTooltipProps}
+                        potentialTooltipProps={defaultTooltipProps} />
+                );
             default:
-                console.log("default");
+                return null;
         }
     }
 
@@ -66,7 +106,7 @@ export default class ContractContent extends React.Component {
         const glossaryLink = glossarySlug
             ? `/#/award_v2/${this.props.awardId}?glossary=${glossarySlug}`
             : null;
-        const vizualization = this.renderChart(this.props.overview);
+        const visualization = this.renderChart(this.props.overview);
         return (
             <AwardPageWrapper
                 glossaryLink={glossaryLink}
@@ -86,8 +126,12 @@ export default class ContractContent extends React.Component {
                     </AwardSection>
                 </AwardSection>
                 <AwardSection type="row">
-                    <AwardSection type="column">
-                        HI
+                    <AwardSection type="column" className="award-viz award-amounts">
+                        <div>
+                            <div className="award-amounts__content">
+                                {visualization}
+                            </div>
+                        </div>
                     </AwardSection>
                     <ComingSoonSection title="Description" includeHeader />
                 </AwardSection>
