@@ -1,5 +1,5 @@
 /**
-  * searchHelper.js
+  * idvHelper.js
   * Created by Lizzie Salita 2/14/19
   **/
 
@@ -70,7 +70,7 @@ export const fetchAwardFedAccountFunding = (params) => {
     };
 };
 
-export const fetchAwardFundingSummary = (awardId) => {
+export const fetchIdvFundingSummary = (awardId) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
@@ -105,7 +105,7 @@ export const fetchIdvDownloadFile = (awardId) => {
     };
 };
 
-export const fetchAwardFederalAccounts = (data) => {
+export const fetchIdvFederalAccounts = (data) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({

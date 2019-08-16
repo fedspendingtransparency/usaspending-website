@@ -22,6 +22,7 @@ import {
     faPencilAlt,
     faSearch,
     faSpinner,
+    faTable,
     faTag,
     faUserTie
 } from "@fortawesome/free-solid-svg-icons";
@@ -55,6 +56,7 @@ library.add(
     faPencilAlt,
     faSearch,
     faSpinner,
+    faTable,
     faTag,
     faUserTie
 );
