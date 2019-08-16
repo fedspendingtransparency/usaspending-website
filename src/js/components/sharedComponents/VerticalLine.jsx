@@ -82,37 +82,56 @@ export default class VerticalLine extends Component {
         this.setState({ textX: positionX, textY: modifiedTextY });
     }
 
-    render() {
+    verticalLine() {
         const {
-            text,
-            y1,
-            y2,
-            xValue,
-            xMax,
             xMin,
+            xMax,
+            xValue,
+            xScale,
             adjustmentX,
-            xScale
+            y1,
+            y2
         } = this.props;
-        const linePosition = xScale(xValue || Date.now()) + (adjustmentX || 0);
+        const linePosition = xScale(xValue) + (adjustmentX || 0);
+        // get x position of minimum
+        const minimumX = xScale(xMin);
+        // get x position of maximum
+        const maximumX = xScale(xMax);
+        if ((linePosition > maximumX) || (linePosition < minimumX)) return null;
+        return (
+            <line
+                id="vertical-line"
+                x1={linePosition}
+                x2={linePosition}
+                y1={y1}
+                y2={y2} />
+        );
+    }
+
+    text(lineIsDisplayed) {
+        const { text } = this.props;
+        if (!lineIsDisplayed || !text) return null;
+        return (
+            <text
+                id="vertical-line__text"
+                x={this.state.textX}
+                y={this.state.textY}
+                ref={this.setTextDiv}>
+                {text}
+            </text>
+        );
+    }
+
+    render() {
         // show nothing if not within x Range
-        if ((linePosition > xMax) || (linePosition < xMin)) return null;
+        const verticalLine = this.verticalLine();
+        const text = this.text(verticalLine);
         const description = this.props.description || 'A vertical line representing today\'s date';
         return (
             <g className="vertical-line__container">
                 <desc>{description}</desc>
-                <text
-                    id="vertical-line__text"
-                    x={this.state.textX}
-                    y={this.state.textY}
-                    ref={this.setTextDiv}>
-                    {text || 'Today'}
-                </text>
-                <line
-                    id="vertical-line"
-                    x1={linePosition}
-                    x2={linePosition}
-                    y1={y1}
-                    y2={y2} />
+                {text}
+                {verticalLine}
             </g>
         );
     }
