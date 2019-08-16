@@ -100,7 +100,7 @@ export default class ProgramSourceSection extends React.Component {
             });
         }
         else {
-            const identifier = `${components.ata || '***'}-${components.aid}-${components.bpoa || '****'}-${components.epoa || '****'}-${components.a || '*'}-${components.main || '****'}-${components.sub || '***'}`;
+            const identifier = `${components.ata || '***'}-${components.aid}-${components.bpoa || '****'}/${components.epoa || '****'}-${components.a || '*'}-${components.main || '****'}-${components.sub || '***'}`;
             this.props.updateTreasuryAccountComponents({
                 identifier,
                 values: components
