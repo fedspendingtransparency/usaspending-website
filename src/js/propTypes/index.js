@@ -56,3 +56,8 @@ export const AWARD_PAGE_WRAPPER_PROPS = {
     identifier: PropTypes.string,
     children: PropTypes.node
 };
+
+export const AWARD_SECTION_HEADER_PROPS = {
+    icon: PropTypes.oneOf([PropTypes.string, PropTypes.node]),
+    title: PropTypes.string
+};

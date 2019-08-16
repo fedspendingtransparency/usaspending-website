@@ -2,7 +2,11 @@ import React from 'react';
 import { startCase } from 'lodash';
 
 import { Glossary } from '../../sharedComponents/icons/Icons';
-import { AWARD_SECTION_PROPS, AWARD_PAGE_WRAPPER_PROPS } from "../../../propTypes/index";
+import {
+    AWARD_SECTION_PROPS,
+    AWARD_PAGE_WRAPPER_PROPS,
+    AWARD_SECTION_HEADER_PROPS
+} from "../../../propTypes/index";
 
 export const AwardPageWrapper = ({
     awardType,
@@ -41,6 +45,28 @@ export const AwardSection = ({
     type,
     className = "",
     children
-}) => <div id={id} className={`${classMap[type]} ${className}`}>{children}</div>;
+}) => (
+    <div id={id} className={`${classMap[type]} ${className}`}>
+        {children}
+    </div>
+);
 
 AwardSection.propTypes = AWARD_SECTION_PROPS;
+
+export const AwardSectionHeader = ({
+    icon,
+    title
+}) => (
+    <React.Fragment>
+        <div className="award-viz__heading">
+            {icon && <div className="award-viz__icon">{icon}</div>}
+            <h3 className="award-viz__title">{title}</h3>
+            {/* <InfoToolTip left wide>
+                {federalAccountsInfo}
+            </InfoToolTip> */}
+        </div>
+        <hr />
+    </React.Fragment>
+);
+
+AwardSectionHeader.propTypes = AWARD_SECTION_HEADER_PROPS;
