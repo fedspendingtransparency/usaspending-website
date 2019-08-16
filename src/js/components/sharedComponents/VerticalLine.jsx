@@ -93,10 +93,10 @@ export default class VerticalLine extends Component {
             adjustmentX,
             xScale
         } = this.props;
-        // show nothing if not within x Range
-        if ((xValue > xMax) && (xValue < xMin)) return null;
-        const description = this.props.description || 'A vertical line representing today\'s date';
         const linePosition = xScale(xValue || Date.now()) + (adjustmentX || 0);
+        // show nothing if not within x Range
+        if ((linePosition > xMax) || (linePosition < xMin)) return null;
+        const description = this.props.description || 'A vertical line representing today\'s date';
         return (
             <g className="vertical-line__container">
                 <desc>{description}</desc>
