@@ -107,17 +107,7 @@ export default class ProgramSourceSection extends React.Component {
             });
         }
         // Clear the values after they have been applied
-        this.setState({
-            components: {
-                ata: '',
-                aid: '',
-                bpoa: '',
-                epoa: '',
-                a: '',
-                main: '',
-                sub: ''
-            }
-        });
+        this.clearValues();
     }
 
     removeFilter(identifier) {
@@ -131,6 +121,21 @@ export default class ProgramSourceSection extends React.Component {
                 identifier, values: {}
             });
         }
+        this.clearValues();
+    }
+
+    clearValues() {
+        this.setState({
+            components: {
+                ata: '',
+                aid: '',
+                bpoa: '',
+                epoa: '',
+                a: '',
+                main: '',
+                sub: ''
+            }
+        });
     }
 
     render() {
