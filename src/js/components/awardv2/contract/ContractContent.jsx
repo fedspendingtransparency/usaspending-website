@@ -15,8 +15,9 @@ import NormalChart from '../shared/charts/NormalChart';
 import ExceedsCurrentChart from '../shared/charts/ExceedsCurrentChart';
 import ExceedsPotentialChart from '../shared/charts/ExceedsPotentialChart';
 
-import { AwardSection, AwardPageWrapper } from '../shared';
+import { AwardSection, AwardPageWrapper, AwardSectionHeader } from '../shared';
 import ComingSoonSection from '../shared/ComingSoonSection';
+import NoResultsMessage from '../../sharedComponents/NoResultsMessage';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -24,28 +25,25 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-const awardAmountProperties = [
+const overviewProperties = [
     "id",
     "generatedId",
     "_totalObligation",
     "_baseExercisedOptions",
-    "_amount",
+    "_baseAndAllOptions",
     "totalObligation",
-    "totalObligationFormatted",
     "baseExercisedOptions",
     "baseExercisedOptionsFormatted",
-    "amount",
-    "amountFormatted"
+    "baseAndAllOptions"
 ];
 // Does this need to go in a model or a data mapping?
-const awardAmountMap = {
+const awardAmountValueByOverviewKey = {
     _totalObligation: "_obligation",
     _baseExercisedOptions: "_combinedCurrentAwardAmounts",
-    _amount: "_combinedPotentialAwardAmounts",
-    totalObligationFormatted: "obligationFormatted",
-    baseExercisedOptionsFormatted: "combinedCurrentAwardAmountsFormatted",
-    amountFormatted: "combinedPotentialAwardAmountsFormatted",
-    amount: "combinedPotentialAwardAmounts"
+    _baseAndAllOptions: "_combinedPotentialAwardAmounts",
+    totalObligation: "obligationFormatted",
+    baseExercisedOptions: "combinedCurrentAwardAmountsFormatted",
+    baseAndAllOptions: "combinedPotentialAwardAmountsFormatted"
 };
 
 const defaultTooltipProps = {
@@ -63,32 +61,31 @@ export default class ContractContent extends React.Component {
         this.renderChart = this.renderChart.bind(this);
     }
     renderChart(overview = this.props.overview) {
-        const awardAmounts = awardAmountProperties
+        const awardAmounts = overviewProperties
             .reduce((acc, key) => ({
                 ...acc,
-                [awardAmountMap[key] || key]: overview[key]
+                [awardAmountValueByOverviewKey[key] || key]: overview[key]
             }), { _obligation: 0, _combinedCurrentAwardAmounts: 0, _combinedPotentialAwardAmounts: 0 });
         switch (determineSpendingScenario(awardAmounts)) {
             case "exceedsCurrent":
-                console.log("exceedsCurrent");
                 return (
                     <ExceedsCurrentChart
                         awardAmounts={awardAmounts}
                         obligatedTooltipProps={defaultTooltipProps}
                         currentTooltipProps={defaultTooltipProps}
-                        potentialTooltipProps={defaultTooltipProps} />
+                        potentialTooltipProps={defaultTooltipProps}
+                        exceedsCurrentTooltipProps={defaultTooltipProps} />
                 );
             case "exceedsPotential":
-                console.log("exceedsPotential");
                 return (
                     <ExceedsPotentialChart
                         awardAmounts={awardAmounts}
                         obligatedTooltipProps={defaultTooltipProps}
                         currentTooltipProps={defaultTooltipProps}
-                        potentialTooltipProps={defaultTooltipProps} />
+                        potentialTooltipProps={defaultTooltipProps}
+                        exceedsPotentialTooltipProps={defaultTooltipProps} />
                 );
             case "normal":
-                console.log("normal");
                 return (
                     <NormalChart
                         awardAmounts={awardAmounts}
@@ -97,7 +94,13 @@ export default class ContractContent extends React.Component {
                         potentialTooltipProps={defaultTooltipProps} />
                 );
             default:
-                return null;
+                return (
+                    <div className="results-table-message-container">
+                        <NoResultsMessage
+                            title="Chart Not Available"
+                            message="Data in this instance is not suitable for charting" />
+                    </div>
+                );
         }
     }
 
@@ -127,9 +130,12 @@ export default class ContractContent extends React.Component {
                 </AwardSection>
                 <AwardSection type="row">
                     <AwardSection type="column" className="award-viz award-amounts">
-                        <div>
-                            <div className="award-amounts__content">
-                                {visualization}
+                        <div className="award__col__content">
+                            <AwardSectionHeader title="$ Award Amounts" />
+                            <div>
+                                <div className="award-amounts__content">
+                                    {visualization}
+                                </div>
                             </div>
                         </div>
                     </AwardSection>
