@@ -39,7 +39,7 @@ const classMap = {
 export const AwardSection = ({
     id,
     type,
-    className,
+    className = "",
     children
 }) => <div id={id} className={`${classMap[type]} ${className}`}>{children}</div>;
 
