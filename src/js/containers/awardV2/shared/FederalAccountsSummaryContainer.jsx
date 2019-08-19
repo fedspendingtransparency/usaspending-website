@@ -47,7 +47,7 @@ export class FederalAccountsSummaryContainer extends React.Component {
         if (this.request) {
             this.request.cancel();
         }
-        if (this.props.category === "idv") {
+        if (this.props.category === 'idv') {
             this.request = fetchIdvFundingSummary(this.props.awardId);
         }
         else {
