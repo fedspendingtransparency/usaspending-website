@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
+import { remove } from 'lodash';
 
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
@@ -24,8 +25,7 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     inFlight: PropTypes.bool,
-    error: PropTypes.bool,
-    allFederalAccounts: PropTypes.array
+    error: PropTypes.bool
 };
 
 const defaultProps = {
@@ -58,6 +58,9 @@ export default class FederalAccountsTree extends React.Component {
 
     buildVirtualChart(props) {
         const data = props.data;
+
+        // remove negative values because we can't display those in the treemap
+        remove(data, (account) => parseFloat(account._obligatedAmount) <= 0);
 
         // parse the inbound data into D3's treemap hierarchy structure
         const treemapData = hierarchy({
@@ -189,9 +192,10 @@ export default class FederalAccountsTree extends React.Component {
         if (this.props.width <= 0) {
             return null;
         }
-        const { inFlight, error, allFederalAccounts } = this.props;
+        const { inFlight, error } = this.props;
+        const noResults = this.state.virtualChart.length === 0;
 
-        const naming = allFederalAccounts.length === 1 ? 'result' : 'results';
+        const naming = this.state.virtualChart.length === 1 ? 'result' : 'results';
         let loadingMessage = null;
         let errorMessage = null;
         let noResultsMessage = null;
@@ -211,22 +215,15 @@ export default class FederalAccountsTree extends React.Component {
         if (inFlight) {
             loadingMessage = (<ResultsTableLoadingMessage />);
         }
-        if (error) {
+        else if (error) {
             errorMessage = (<ResultsTableErrorMessage />);
         }
-        if ((allFederalAccounts.length === 0) && !error && !inFlight) {
+        else if (noResults) {
             noResultsMessage = (<NoResultsMessage
                 title="Chart Not Available"
                 message="No available data to display." />);
         }
-        if ((allFederalAccounts.length !== 0) && !error && !inFlight) {
-            resultsCount = (
-                <div className="federal-accounts-treemap-count">
-                    {`${this.props.allFederalAccounts.length} ${naming}`}
-                </div>
-            );
-        }
-        if ((allFederalAccounts.length > 0) && !error && !inFlight) {
+        else {
             treeMap = (
                 <svg
                     className="treemap"
@@ -234,6 +231,11 @@ export default class FederalAccountsTree extends React.Component {
                     height={this.props.height}>
                     {cells}
                 </svg>
+            );
+            resultsCount = (
+                <div className="federal-accounts-treemap-count">
+                    {`${this.state.virtualChart.length} ${naming}`}
+                </div>
             );
         }
         return (

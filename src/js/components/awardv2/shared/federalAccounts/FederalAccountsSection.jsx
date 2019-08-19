@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import FederalAccountsVizContainer from 'containers/awardV2/FederalAccountsVizContainer';
 import FederalAccountsSummaryContainer from 'containers/awardV2/FederalAccountsSummaryContainer';
 import Note from 'components/sharedComponents/Note';
 
@@ -33,6 +34,7 @@ export default class FederalAccountsSection extends React.Component {
                         </InfoToolTip>
                     </div>
                     <hr />
+                    <FederalAccountsVizContainer />
                     <span className="federal-accounts__section--note">
                         <Note message={message} />
                     </span>
