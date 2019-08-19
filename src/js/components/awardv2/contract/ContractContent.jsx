@@ -10,14 +10,10 @@ import { glossaryLinks } from 'dataMapping/search/awardType';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
-import { determineSpendingScenario } from "../../../helpers/aggregatedAmountsHelper";
-import NormalChart from '../shared/charts/NormalChart';
-import ExceedsCurrentChart from '../shared/charts/ExceedsCurrentChart';
-import ExceedsPotentialChart from '../shared/charts/ExceedsPotentialChart';
 
-import { AwardSection, AwardPageWrapper, AwardSectionHeader } from '../shared';
+import { AwardSection, AwardPageWrapper } from '../shared';
 import ComingSoonSection from '../shared/ComingSoonSection';
-import NoResultsMessage from '../../sharedComponents/NoResultsMessage';
+import AwardAmounts from './AwardAmounts';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -28,22 +24,28 @@ const propTypes = {
 const overviewProperties = [
     "id",
     "generatedId",
-    "_totalObligation",
-    "_baseExercisedOptions",
-    "_baseAndAllOptions",
+    "_totalObligation", // obligation
+    "_baseExercisedOptions", // current
+    "_baseAndAllOptions", // potential
     "totalObligation",
+    "totalObligationFormatted",
     "baseExercisedOptions",
     "baseExercisedOptionsFormatted",
-    "baseAndAllOptions"
+    "baseAndAllOptions",
+    "baseAndAllOptionsFormatted"
 ];
+
 // Does this need to go in a model or a data mapping?
 const awardAmountValueByOverviewKey = {
     _totalObligation: "_obligation",
-    _baseExercisedOptions: "_combinedCurrentAwardAmounts",
-    _baseAndAllOptions: "_combinedPotentialAwardAmounts",
     totalObligation: "obligationFormatted",
+    totalObligationFormatted: "obligation",
+    _baseExercisedOptions: "_combinedCurrentAwardAmounts",
     baseExercisedOptions: "combinedCurrentAwardAmountsFormatted",
-    baseAndAllOptions: "combinedPotentialAwardAmountsFormatted"
+    baseExercisedOptionsFormatted: "combinedCurrentAwardAmounts",
+    _baseAndAllOptions: "_combinedPotentialAwardAmounts",
+    baseAndAllOptions: "combinedPotentialAwardAmountsFormatted",
+    baseAndAllOptionsFormatted: "combinedPotentialAwardAmounts"
 };
 
 const defaultTooltipProps = {
@@ -56,60 +58,19 @@ const defaultTooltipProps = {
 };
 
 export default class ContractContent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.renderChart = this.renderChart.bind(this);
-    }
-    renderChart(overview = this.props.overview) {
-        const awardAmounts = overviewProperties
-            .reduce((acc, key) => ({
-                ...acc,
-                [awardAmountValueByOverviewKey[key] || key]: overview[key]
-            }), { _obligation: 0, _combinedCurrentAwardAmounts: 0, _combinedPotentialAwardAmounts: 0 });
-        switch (determineSpendingScenario(awardAmounts)) {
-            case "exceedsCurrent":
-                return (
-                    <ExceedsCurrentChart
-                        awardAmounts={awardAmounts}
-                        obligatedTooltipProps={defaultTooltipProps}
-                        currentTooltipProps={defaultTooltipProps}
-                        potentialTooltipProps={defaultTooltipProps}
-                        exceedsCurrentTooltipProps={defaultTooltipProps} />
-                );
-            case "exceedsPotential":
-                return (
-                    <ExceedsPotentialChart
-                        awardAmounts={awardAmounts}
-                        obligatedTooltipProps={defaultTooltipProps}
-                        currentTooltipProps={defaultTooltipProps}
-                        potentialTooltipProps={defaultTooltipProps}
-                        exceedsPotentialTooltipProps={defaultTooltipProps} />
-                );
-            case "normal":
-                return (
-                    <NormalChart
-                        awardAmounts={awardAmounts}
-                        obligatedTooltipProps={defaultTooltipProps}
-                        currentTooltipProps={defaultTooltipProps}
-                        potentialTooltipProps={defaultTooltipProps} />
-                );
-            default:
-                return (
-                    <div className="results-table-message-container">
-                        <NoResultsMessage
-                            title="Chart Not Available"
-                            message="Data in this instance is not suitable for charting" />
-                    </div>
-                );
-        }
-    }
-
     render() {
+        console.log("totalObligation", this.props.overview.totalObligation);
+        console.log("totalObligation formatted", this.props.overview.totalObligationFormatted);
+
         const glossarySlug = glossaryLinks[this.props.overview.type];
         const glossaryLink = glossarySlug
             ? `/#/award_v2/${this.props.awardId}?glossary=${glossarySlug}`
             : null;
-        const visualization = this.renderChart(this.props.overview);
+        const awardAmountsProps = overviewProperties
+            .reduce((acc, key) => ({
+                ...acc,
+                [awardAmountValueByOverviewKey[key] || key]: this.props.overview[key]
+            }), { _obligation: 0, _combinedCurrentAwardAmounts: 0, _combinedPotentialAwardAmounts: 0 });
         return (
             <AwardPageWrapper
                 glossaryLink={glossaryLink}
@@ -129,16 +90,9 @@ export default class ContractContent extends React.Component {
                     </AwardSection>
                 </AwardSection>
                 <AwardSection type="row">
-                    <AwardSection type="column" className="award-viz award-amounts">
-                        <div className="award__col__content">
-                            <AwardSectionHeader title="$ Award Amounts" />
-                            <div>
-                                <div className="award-amounts__content">
-                                    {visualization}
-                                </div>
-                            </div>
-                        </div>
-                    </AwardSection>
+                    <AwardAmounts
+                        awardAmountsProps={awardAmountsProps}
+                        tooltipProps={defaultTooltipProps} />
                     <ComingSoonSection title="Description" includeHeader />
                 </AwardSection>
                 <AdditionalInfo overview={this.props.overview} />
