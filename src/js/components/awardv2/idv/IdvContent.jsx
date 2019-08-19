@@ -126,6 +126,7 @@ export default class IdvContent extends React.Component {
                 <div className="award__row">
                     <IdvActivityContainer />
                     <FederalAccountsSection
+                        idv
                         jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>
                 <ReferencedAwardsContainer

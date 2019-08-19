@@ -56,18 +56,22 @@ export default class FederalAccountsSummary extends React.Component {
     }
     render() {
         const category = this.props.category === 'idv' ? 'IDV' : startCase(this.props.category);
+        // TODO - show the table link on all award pages once the Award History section has been implemented
+        const tableLink = this.props.category === 'idv' ? (
+            <button onClick={this.props.jumpToFederalAccountsHistory} className="award-viz__button">
+                <div className="award-viz__link-icon">
+                    <FontAwesomeIcon icon="table" />
+                </div>
+                {<div className="award-viz__link-text">View federal funding submissions</div>}
+            </button>
+        ) : null;
         return (
             <div>
                 <div className="federal-accounts-summary__section">
                     <h4>Summary of Federal Accounts used by this {category}</h4>
                     {this.generateTable()}
                 </div>
-                <button onClick={this.props.jumpToFederalAccountsHistory} className="award-viz__button">
-                    <div className="award-viz__link-icon">
-                        <FontAwesomeIcon icon="table" />
-                    </div>
-                    <div className="award-viz__link-text">View federal funding submissions</div>
-                </button>
+                {tableLink}
             </div>
         );
     }

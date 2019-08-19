@@ -12,6 +12,7 @@ import { glossaryLinks } from 'dataMapping/search/awardType';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
+import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -54,7 +55,10 @@ export default class ContractContent extends React.Component {
                             overview={this.props.overview} />
                     </div>
                 </div>
-
+                <div className="award__row">
+                    <FederalAccountsSection
+                        jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
+                </div>
                 <div className="agency-additional" id="award-additional-information">
                     <AdditionalInfo
                         overview={this.props.overview} />
