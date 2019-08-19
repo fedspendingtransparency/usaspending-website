@@ -11,6 +11,7 @@ import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import AwardRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
+import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -53,6 +54,9 @@ export default class FinancialAssistanceContent extends React.Component {
                         <AwardDates
                             overview={this.props.overview} />
                     </div>
+                </div>
+                <div className="award__row">
+                    <FederalAccountsSection />
                 </div>
             </div>
         );

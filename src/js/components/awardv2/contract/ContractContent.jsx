@@ -56,8 +56,7 @@ export default class ContractContent extends React.Component {
                     </div>
                 </div>
                 <div className="award__row">
-                    <FederalAccountsSection
-                        jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
+                    <FederalAccountsSection />
                 </div>
                 <div className="agency-additional" id="award-additional-information">
                     <AdditionalInfo
