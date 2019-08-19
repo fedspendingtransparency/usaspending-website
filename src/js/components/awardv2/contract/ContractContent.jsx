@@ -50,7 +50,7 @@ const awardAmountValueByOverviewKey = {
 
 const defaultTooltipProps = {
     controlledProps: {
-        isControlled: false,
+        isControlled: true,
         isVisible: false,
         closeCurrentTooltip: () => console.log("close tooltip"),
         showTooltip: () => console.log("open tooltip")
@@ -59,9 +59,6 @@ const defaultTooltipProps = {
 
 export default class ContractContent extends React.Component {
     render() {
-        console.log("totalObligation", this.props.overview.totalObligation);
-        console.log("totalObligation formatted", this.props.overview.totalObligationFormatted);
-
         const glossarySlug = glossaryLinks[this.props.overview.type];
         const glossaryLink = glossarySlug
             ? `/#/award_v2/${this.props.awardId}?glossary=${glossarySlug}`

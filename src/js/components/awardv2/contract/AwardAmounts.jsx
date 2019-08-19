@@ -85,6 +85,20 @@ const AwardAmounts = ({
                 <div>
                     <div className="award-amounts__content">
                         {visualization}
+                        <div className="award-amounts__data-wrapper">
+                            <div className="award-amounts__data-content">
+                                <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Obligated Amounts</div>
+                                <span>{awardAmountsProps.obligation}</span>
+                            </div>
+                            <div className="award-amounts__data-content">
+                                <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Current Award Amounts</div>
+                                <span>{awardAmountsProps.combinedCurrentAwardAmounts}</span>
+                            </div>
+                            <div className="award-amounts__data-content">
+                                <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Potential Award Amounts</div>
+                                <span>{awardAmountsProps.combinedPotentialAwardAmounts}</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
