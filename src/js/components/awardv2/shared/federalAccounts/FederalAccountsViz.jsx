@@ -5,8 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// TODO - Lizzie: switch to FontAwesome
 import { Table, Tree } from 'components/sharedComponents/icons/Icons';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import FederalAccountsTreeTooltip from
