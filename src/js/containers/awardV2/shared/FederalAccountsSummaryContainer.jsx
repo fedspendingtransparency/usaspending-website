@@ -24,7 +24,6 @@ export class FederalAccountsSummaryContainer extends React.Component {
         super(props);
         this.state = {
             inFlight: true,
-            error: false,
             summary: null
         };
 
@@ -59,10 +58,8 @@ export class FederalAccountsSummaryContainer extends React.Component {
         }
         catch (error) {
             if (!isCancel(error)) {
-                this.setState({
-                    error: true,
-                    inFlight: false
-                });
+                // Send an empty object to display N/A for the values
+                this.parseFundingRollup({});
                 console.log(error);
             }
         }
@@ -72,7 +69,6 @@ export class FederalAccountsSummaryContainer extends React.Component {
         const summary = Object.create(BaseFundingRollup);
         summary.populate(data);
         this.setState({
-            error: false,
             inFlight: false,
             summary
         });

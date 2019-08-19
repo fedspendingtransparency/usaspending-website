@@ -7,13 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-// TODO - Lizzie: import error and loading messages
+import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 
 const propTypes = {
     summary: PropTypes.object,
     inFlight: PropTypes.bool,
-    error: PropTypes.bool,
     category: PropTypes.string,
     jumpToFederalAccountsHistory: PropTypes.func
 };
@@ -22,10 +20,11 @@ export default class FederalAccountsSummary extends React.Component {
     generateTable() {
         let table;
         if (this.props.inFlight) {
-            table = (<div>Loading...</div>);
-        }
-        else if (this.props.error) {
-            table = (<div>Error</div>);
+            table = (
+                <div className="results-table-message-container">
+                    <ResultsTableLoadingMessage />
+                </div>
+            );
         }
         else {
             const summary = this.props.summary;
@@ -66,11 +65,9 @@ export default class FederalAccountsSummary extends React.Component {
             </button>
         ) : null;
         return (
-            <div>
-                <div className="federal-accounts-summary__section">
-                    <h4>Summary of Federal Accounts used by this {category}</h4>
-                    {this.generateTable()}
-                </div>
+            <div className="federal-accounts-summary__section">
+                <h4>Summary of Federal Accounts used by this {category}</h4>
+                {this.generateTable()}
                 {tableLink}
             </div>
         );
