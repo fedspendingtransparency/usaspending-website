@@ -297,8 +297,6 @@ export default class ActivityChart extends React.Component {
         const bars = this.createBars();
         const { width, height, padding } = this.props;
         const currentDate = Date.now();
-        console.log(' Current Date : ', currentDate);
-        console.log(' Type Of Current Date : ', currentDate);
         const {
             xScale,
             xRange,
