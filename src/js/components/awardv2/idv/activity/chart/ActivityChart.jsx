@@ -296,6 +296,7 @@ export default class ActivityChart extends React.Component {
     render() {
         const bars = this.createBars();
         const { width, height, padding } = this.props;
+        const currentDate = Date.now();
         const {
             xScale,
             xRange,
@@ -334,8 +335,10 @@ export default class ActivityChart extends React.Component {
                             y1={-10}
                             y2={height - padding.bottom}
                             textY={0}
+                            text="Today"
                             xMax={xRange[1]}
                             xMin={xRange[0]}
+                            xValue={currentDate}
                             showTextPosition="top"
                             adjustmentX={padding.left} />}
                     </g>
