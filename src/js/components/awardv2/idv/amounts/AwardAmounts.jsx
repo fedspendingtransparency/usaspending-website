@@ -49,6 +49,7 @@ export default class AwardAmounts extends React.Component {
         const awards = this.props.overview;
         const content = this.state.active === 'awards' ? (
             <AwardAmountsSectionContainer
+                awardType="idv"
                 jumpToSection={this.props.jumpToSection} />
         ) : (
             <IDVAmounts

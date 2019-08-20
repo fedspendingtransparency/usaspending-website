@@ -88,6 +88,7 @@ export default class ContractContent extends React.Component {
                 </AwardSection>
                 <AwardSection type="row">
                     <AwardAmountsSectionContainer
+                        awardType="contract"
                         awardAmountsProps={awardAmountsProps}
                         tooltipProps={defaultTooltipProps} />
                     <ComingSoonSection title="Description" includeHeader />
