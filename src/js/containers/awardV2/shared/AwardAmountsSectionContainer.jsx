@@ -25,7 +25,6 @@ const propTypes = {
 export class AwardAmountsSectionContainer extends React.Component {
     constructor(props) {
         super(props);
-
         this.awardRequest = null;
 
         this.state = {
@@ -37,13 +36,21 @@ export class AwardAmountsSectionContainer extends React.Component {
 
     componentDidMount() {
         if (this.props.awardType === 'idv') {
-            this.getSelectedAward(this.props.award.id);
+            this.getIdvChildAwardAmounts(this.props.award.id);
+        }
+        else {
+            this.parseAwardAmounts(this.props.award);
         }
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.award.id !== prevProps.award.id && this.props.awardType === 'idv') {
-            this.getSelectedAward(this.props.award.id);
+        if (this.props.award.id !== prevProps.award.id) {
+            if (this.props.awardType === 'idv') {
+                this.getIdvChildAwardAmounts(this.props.award.id);
+            }
+            else {
+                this.parseAwardAmounts(this.props.award);
+            }
         }
     }
 
@@ -53,7 +60,7 @@ export class AwardAmountsSectionContainer extends React.Component {
         }
     }
 
-    getSelectedAward(id) {
+    getIdvChildAwardAmounts(id) {
         if (this.awardRequest) {
             // A request is currently in-flight, cancel it
             this.awardRequest.cancel();
@@ -63,7 +70,7 @@ export class AwardAmountsSectionContainer extends React.Component {
 
         this.awardRequest.promise
             .then((res) => {
-                this.parseAward(res.data);
+                this.parseAwardAmounts(res.data);
 
                 // operation has resolved
                 this.awardRequest = null;
@@ -88,9 +95,9 @@ export class AwardAmountsSectionContainer extends React.Component {
             });
     }
 
-    parseAward(data) {
+    parseAwardAmounts(data, awardType = this.props.awardType) {
         const awardAmounts = Object.create(BaseAwardAmounts);
-        awardAmounts.populate(data);
+        awardAmounts.populate(data, awardType);
         this.setState({
             awardAmounts,
             error: false,
@@ -108,6 +115,7 @@ export class AwardAmountsSectionContainer extends React.Component {
     }
 
     render() {
+        console.log("totalObligationFormatted", this.props.award.overview.totalObligationFormatted);
         if (this.props.awardType === 'idv') {
             return (
                 <div>
