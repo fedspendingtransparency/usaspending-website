@@ -6,7 +6,7 @@
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const BaseAwardAmounts = {
-    populate(data) {
+    populateIdv(data) {
         this.id = (data.award_id && `${data.award_id}`) || '';
         this.generatedId = data.generated_unique_award_id || '';
         this.childIDVCount = data.child_idv_count || 0;
@@ -21,6 +21,14 @@ const BaseAwardAmounts = {
         this._combinedCurrentAwardAmounts = parseFloat(
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
+    },
+    populate(data, awardType) {
+        if (awardType === 'idv') {
+            this.populateIdv(data);
+        }
+        else {
+            // do something here for grants and contracts
+        }
     },
     get combinedPotentialAwardAmounts() {
         return MoneyFormatter.formatMoneyWithPrecision(this._combinedPotentialAwardAmounts, 2);
