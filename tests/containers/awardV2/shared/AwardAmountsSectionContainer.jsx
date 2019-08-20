@@ -37,12 +37,12 @@ describe('AwardAmountsSectionContainer', () => {
             {...mockActions}
             {...mockRedux} />);
 
-        const getSelectedAward = jest.fn();
-        container.instance().getSelectedAward = getSelectedAward;
+        const getIdvChildAwardAmounts = jest.fn();
+        container.instance().getIdvChildAwardAmounts = getIdvChildAwardAmounts;
 
         container.instance().componentDidMount();
-        expect(getSelectedAward).toHaveBeenCalledTimes(1);
-        expect(getSelectedAward).toHaveBeenCalledWith('1234');
+        expect(getIdvChildAwardAmounts).toHaveBeenCalledTimes(1);
+        expect(getIdvChildAwardAmounts).toHaveBeenCalledWith('1234');
 
         const updatedAward = Object.assign({}, mockRedux.award, {
             id: '222'
@@ -54,8 +54,8 @@ describe('AwardAmountsSectionContainer', () => {
 
         container.instance().componentDidUpdate(prevProps);
 
-        expect(getSelectedAward).toHaveBeenCalledTimes(2);
-        expect(getSelectedAward).toHaveBeenLastCalledWith('1234');
+        expect(getIdvChildAwardAmounts).toHaveBeenCalledTimes(2);
+        expect(getIdvChildAwardAmounts).toHaveBeenLastCalledWith('1234');
     });
 
     describe('parseAward', () => {
