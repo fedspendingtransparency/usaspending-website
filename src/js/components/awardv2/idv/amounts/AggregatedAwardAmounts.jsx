@@ -12,9 +12,9 @@ import ChartError from 'components/search/visualizations/ChartError';
 import { Table } from 'components/sharedComponents/icons/Icons';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 import AwardsBanner from './AwardsBanner';
-import NormalChart from '../../shared/charts/NormalChart';
-import ExceedsCurrentChart from '../../shared/charts/ExceedsCurrentChart';
-import ExceedsPotentialChart from '../../shared/charts/ExceedsPotentialChart';
+import NormalChart from '../../shared/awardAmountsSection/charts/NormalChart';
+import ExceedsCurrentChart from '../../shared/awardAmountsSection/charts/ExceedsCurrentChart';
+import ExceedsPotentialChart from '../../shared/awardAmountsSection/charts/ExceedsPotentialChart';
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 import { CombinedObligatedAmounts, CombinedCurrentAmounts, CombinedPotentialAmounts, CombinedExceedsCurrentAmounts, CombinedExceedsPotentialAmounts } from '../../idv/TooltipContent';
 
