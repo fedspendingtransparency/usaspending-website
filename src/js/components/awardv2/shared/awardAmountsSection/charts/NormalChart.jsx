@@ -5,8 +5,8 @@
 
 import React from 'react';
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
-import TooltipWrapper from "../../../sharedComponents/TooltipWrapper";
-import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../propTypes/index';
+import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
+import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 
 const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
