@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { AwardSection, AwardSectionHeader } from '../shared';
-import { determineSpendingScenario } from "../../../helpers/aggregatedAmountsHelper";
-import NormalChart from '../shared/charts/NormalChart';
-import ExceedsCurrentChart from '../shared/charts/ExceedsCurrentChart';
-import ExceedsPotentialChart from '../shared/charts/ExceedsPotentialChart';
-import NoResultsMessage from '../../sharedComponents/NoResultsMessage';
+import { AwardSection, AwardSectionHeader } from '../../shared';
+import { determineSpendingScenario } from "../../../../helpers/aggregatedAmountsHelper";
+import NormalChart from './charts/NormalChart';
+import ExceedsCurrentChart from './charts/ExceedsCurrentChart';
+import ExceedsPotentialChart from './charts/ExceedsPotentialChart';
+import NoResultsMessage from '../../../sharedComponents/NoResultsMessage';
 
 const propTypes = {
     awardAmountsProps: PropTypes.shape({
