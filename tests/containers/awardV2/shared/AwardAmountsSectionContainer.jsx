@@ -6,7 +6,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { AwardAmountsSectionContainer } from 'containers/awardV2/idv/AwardAmountsSectionContainer';
+import { AwardAmountsSectionContainer } from 'containers/awardV2/shared/AwardAmountsSectionContainer';
 
 import { mockRedux, mockActions } from '../mockAward';
 import { mockAwardAmounts } from '../../../models/awardsV2/mockAwardApi';

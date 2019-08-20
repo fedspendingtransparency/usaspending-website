@@ -13,7 +13,7 @@ import AwardDates from '../shared/overview/AwardDates';
 
 import { AwardSection, AwardPageWrapper } from '../shared';
 import ComingSoonSection from '../shared/ComingSoonSection';
-import AwardAmounts from './AwardAmounts';
+import AwardAmountsSectionContainer from '../../../containers/awardV2/shared/AwardAmountsSectionContainer';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -87,7 +87,7 @@ export default class ContractContent extends React.Component {
                     </AwardSection>
                 </AwardSection>
                 <AwardSection type="row">
-                    <AwardAmounts
+                    <AwardAmountsSectionContainer
                         awardAmountsProps={awardAmountsProps}
                         tooltipProps={defaultTooltipProps} />
                     <ComingSoonSection title="Description" includeHeader />
