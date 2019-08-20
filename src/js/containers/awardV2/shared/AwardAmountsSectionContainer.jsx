@@ -16,7 +16,6 @@ import AggregatedAwardAmounts from 'components/awardv2/idv/amounts/AggregatedAwa
 import AwardAmountsSection from "../../../components/awardv2/shared/awardAmountsSection/index";
 
 const propTypes = {
-    awardType: PropTypes.oneOf(["idv", "contract", "financial-assistance"]),
     award: PropTypes.object,
     setCounts: PropTypes.func,
     jumpToSection: PropTypes.func
@@ -35,7 +34,7 @@ export class AwardAmountsSectionContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.awardType === 'idv') {
+        if (this.props.award.category === 'idv') {
             this.getIdvChildAwardAmounts(this.props.award.id);
         }
         else {
@@ -45,7 +44,7 @@ export class AwardAmountsSectionContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.award.id !== prevProps.award.id) {
-            if (this.props.awardType === 'idv') {
+            if (this.props.award.category === 'idv') {
                 this.getIdvChildAwardAmounts(this.props.award.id);
             }
             else {
@@ -95,7 +94,7 @@ export class AwardAmountsSectionContainer extends React.Component {
             });
     }
 
-    parseAwardAmounts(data, awardType = this.props.awardType) {
+    parseAwardAmounts(data, awardType = this.props.award.category) {
         const awardAmounts = Object.create(BaseAwardAmounts);
         awardAmounts.populate(data, awardType);
         this.setState({
@@ -115,8 +114,7 @@ export class AwardAmountsSectionContainer extends React.Component {
     }
 
     render() {
-        console.log("totalObligationFormatted", this.props.award.overview.totalObligationFormatted);
-        if (this.props.awardType === 'idv') {
+        if (this.props.award.category === 'idv') {
             return (
                 <div>
                     <AggregatedAwardAmounts
