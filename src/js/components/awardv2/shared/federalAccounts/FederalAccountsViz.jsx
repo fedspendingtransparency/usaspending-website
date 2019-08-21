@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Tree } from 'components/sharedComponents/icons/Icons';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import FederalAccountsTreeTooltip from
     './FederalAccountsTreeTooltip';
@@ -104,13 +103,13 @@ export default class FederalAccountsViz extends React.Component {
                         <ViewTypeButton
                             value="tree"
                             label="Treemap"
-                            icon={<Tree alt="Treemap Icon" />}
+                            icon="th-large"
                             changeView={this.changeView}
                             active={isTreeView} />
                         <ViewTypeButton
                             value="table"
                             label="Table"
-                            icon={<Table alt="Table Icon" />}
+                            icon="table"
                             changeView={this.changeView}
                             active={!isTreeView} />
                     </div>

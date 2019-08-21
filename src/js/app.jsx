@@ -24,6 +24,7 @@ import {
     faSpinner,
     faTable,
     faTag,
+    faThLarge,
     faUserTie
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
@@ -58,6 +59,7 @@ library.add(
     faSpinner,
     faTable,
     faTag,
+    faThLarge,
     faUserTie
 );
 

@@ -62,18 +62,9 @@
       @include viewTypeButton();
       text-align: right;
       .view-button {
-        .icon {
-          width: rem(14);
-          height: rem(15);
-          svg {
-            fill: #828080;
-            width: rem(14);
-            height: rem(15);
-          }
-        }
         &.active {
-          background-color: #0066b4;
-          border-color: #0066b4;
+          background-color: $color-primary;
+          border-color: $color-primary;
         }
       }
     }
