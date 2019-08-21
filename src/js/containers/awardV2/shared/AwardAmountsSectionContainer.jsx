@@ -96,7 +96,7 @@ export class AwardAmountsSectionContainer extends React.Component {
     }
 
     parseAwardAmounts(data, awardType = this.props.award.category) {
-        if (awardType === 'idv') {
+        if (awardType === 'idv' || awardType === 'financial-assistance') {
             const awardAmounts = Object.create(BaseAwardAmounts);
             awardAmounts.populate(data, awardType);
             this.setState({
@@ -120,16 +120,16 @@ export class AwardAmountsSectionContainer extends React.Component {
     }
 
     render() {
-        if (this.props.award.category === 'idv' && this.state.awardAmounts) {
-            return (
-                <div>
-                    <AggregatedAwardAmounts
-                        awardAmounts={this.state.awardAmounts}
-                        jumpToSection={this.props.jumpToSection} />
-                </div>
-            );
-        }
         if (this.state.awardAmounts) {
+            if (this.props.award.category === 'idv') {
+                return (
+                    <div>
+                        <AggregatedAwardAmounts
+                            awardAmounts={this.state.awardAmounts}
+                            jumpToSection={this.props.jumpToSection} />
+                    </div>
+                );
+            }
             return (
                 <AwardAmountsSection
                     tooltipProps={this.props.tooltipProps}
