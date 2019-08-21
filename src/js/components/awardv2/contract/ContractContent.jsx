@@ -21,33 +21,6 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-const overviewProperties = [
-    "id",
-    "generatedId",
-    "_totalObligation", // obligation
-    "_baseExercisedOptions", // current
-    "_baseAndAllOptions", // potential
-    "totalObligation",
-    "totalObligationFormatted",
-    "baseExercisedOptions",
-    "baseExercisedOptionsFormatted",
-    "baseAndAllOptions",
-    "baseAndAllOptionsFormatted"
-];
-
-// Does this need to go in a model or a data mapping?
-const awardAmountValueByOverviewKey = {
-    _totalObligation: "_obligation",
-    totalObligation: "obligationFormatted",
-    totalObligationFormatted: "obligation",
-    _baseExercisedOptions: "_combinedCurrentAwardAmounts",
-    baseExercisedOptions: "combinedCurrentAwardAmountsFormatted",
-    baseExercisedOptionsFormatted: "combinedCurrentAwardAmounts",
-    _baseAndAllOptions: "_combinedPotentialAwardAmounts",
-    baseAndAllOptions: "combinedPotentialAwardAmountsFormatted",
-    baseAndAllOptionsFormatted: "combinedPotentialAwardAmounts"
-};
-
 const defaultTooltipProps = {
     controlledProps: {
         isControlled: true,
@@ -63,11 +36,6 @@ export default class ContractContent extends React.Component {
         const glossaryLink = glossarySlug
             ? `/#/award_v2/${this.props.awardId}?glossary=${glossarySlug}`
             : null;
-        const awardAmountsProps = overviewProperties
-            .reduce((acc, key) => ({
-                ...acc,
-                [awardAmountValueByOverviewKey[key] || key]: this.props.overview[key]
-            }), { _obligation: 0, _combinedCurrentAwardAmounts: 0, _combinedPotentialAwardAmounts: 0 });
         return (
             <AwardPageWrapper
                 glossaryLink={glossaryLink}
@@ -87,9 +55,7 @@ export default class ContractContent extends React.Component {
                     </AwardSection>
                 </AwardSection>
                 <AwardSection type="row">
-                    <AwardAmountsSectionContainer
-                        awardAmountsProps={awardAmountsProps}
-                        tooltipProps={defaultTooltipProps} />
+                    <AwardAmountsSectionContainer tooltipProps={defaultTooltipProps} />
                     <ComingSoonSection title="Description" includeHeader />
                 </AwardSection>
                 <AdditionalInfo overview={this.props.overview} />
