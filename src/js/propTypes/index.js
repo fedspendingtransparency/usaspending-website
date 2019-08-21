@@ -31,9 +31,9 @@ export const AWARD_V2_AGGREGATED_AMOUNTS_PROPS = PropTypes.shape({
     generatedId: PropTypes.string,
     idvCount: PropTypes.number,
     contractCount: PropTypes.number,
-    _combinedPotentialAwardAmounts: PropTypes.number,
-    _obligation: PropTypes.number,
-    _combinedCurrentAwardAmounts: PropTypes.number
+    _baseAndAllOptions: PropTypes.number,
+    _totalObligation: PropTypes.number,
+    _baseExercisedOptions: PropTypes.number
 });
 
 export const TOOLTIP_PROPS = PropTypes.shape({

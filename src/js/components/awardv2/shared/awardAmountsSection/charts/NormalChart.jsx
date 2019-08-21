@@ -18,9 +18,9 @@ const propTypes = {
 export default class NormalChart extends React.Component {
     render() {
         // Rename properties to improve readability of the calculations
-        const obligation = this.props.awardAmounts._obligation;
-        const current = this.props.awardAmounts._combinedCurrentAwardAmounts;
-        const potential = this.props.awardAmounts._combinedPotentialAwardAmounts;
+        const obligation = this.props.awardAmounts._totalObligation;
+        const current = this.props.awardAmounts._baseExercisedOptions;
+        const potential = this.props.awardAmounts._baseAndAllOptions;
 
         const obligatedBarStyle = {
             width: generatePercentage(obligation / potential),
@@ -54,7 +54,7 @@ export default class NormalChart extends React.Component {
                     onMouseEnter={obligatedTooltipProps.controlledProps.showTooltip}
                     onMouseLeave={obligatedTooltipProps.controlledProps.closeTooltip}
                     onClick={obligatedTooltipProps.controlledProps.showTooltip}>
-                    <strong>{this.props.awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
+                    <strong>{this.props.awardAmounts.totalObligationFormatted}</strong><br />Combined Obligated Amounts
                 </div>
                 <div className="award-amounts-viz__label" style={obligatedLabelStyle}>
                     <div className="award-amounts-viz__line-up" />
@@ -84,7 +84,7 @@ export default class NormalChart extends React.Component {
                             onMouseEnter={currentTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={currentTooltipProps.controlledProps.closeTooltip}
                             onClick={currentTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.combinedCurrentAwardAmountsFormatted}</strong><br />Combined Current Award Amounts
+                            <strong>{this.props.awardAmounts.baseExercisedOptionsFormatted}</strong><br />Combined Current Award Amounts
                         </div>
                         <div className="award-amounts-viz__legend-line" />
                     </div>
@@ -102,7 +102,7 @@ export default class NormalChart extends React.Component {
                             onMouseEnter={potentialTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={potentialTooltipProps.controlledProps.closeTooltip}
                             onClick={potentialTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}</strong><br />Combined Potential Award Amounts
+                            <strong>{this.props.awardAmounts.baseAndAllOptionsFormatted}</strong><br />Combined Potential Award Amounts
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
                     </div>

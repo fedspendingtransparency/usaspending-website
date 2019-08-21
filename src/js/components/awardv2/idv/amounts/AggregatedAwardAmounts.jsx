@@ -68,17 +68,17 @@ export default class AggregatedAwardAmounts extends React.Component {
             obligated: {
                 offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-obligated-tt__container",
-                tooltipComponent: <CombinedObligatedAmounts total={awardAmounts.obligation} count={awardAmounts.childAwardCount} />
+                tooltipComponent: <CombinedObligatedAmounts total={awardAmounts.totalObligation} count={awardAmounts.childAwardCount} />
             },
             current: {
                 offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-current-tt__container",
-                tooltipComponent: <CombinedCurrentAmounts total={awardAmounts.combinedCurrentAwardAmounts} count={awardAmounts.childAwardCount} />
+                tooltipComponent: <CombinedCurrentAmounts total={awardAmounts.baseExercisedOptions} count={awardAmounts.childAwardCount} />
             },
             potential: {
                 offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-potential-tt__container",
-                tooltipComponent: <CombinedPotentialAmounts total={awardAmounts.combinedPotentialAwardAmounts} count={awardAmounts.childAwardCount} />
+                tooltipComponent: <CombinedPotentialAmounts total={awardAmounts.baseAndAllOptions} count={awardAmounts.childAwardCount} />
             },
             exceedsCurrent: {
                 offsetAdjustments: { top: 0, right: 30 },
@@ -213,15 +213,15 @@ export default class AggregatedAwardAmounts extends React.Component {
                 <div className="award-amounts__data-wrapper">
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Combined Obligated Amounts</div>
-                        <span>{awardAmounts.obligation}</span>
+                        <span>{awardAmounts.totalObligation}</span>
                     </div>
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Combined Current Award Amounts</div>
-                        <span>{awardAmounts.combinedCurrentAwardAmounts}</span>
+                        <span>{awardAmounts.baseExercisedOptionsFormatted}</span>
                     </div>
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Combined Potential Award Amounts</div>
-                        <span>{awardAmounts.combinedPotentialAwardAmounts}</span>
+                        <span>{awardAmounts.baseAndAllOptions}</span>
                     </div>
                     {overspendingRow}
                 </div>

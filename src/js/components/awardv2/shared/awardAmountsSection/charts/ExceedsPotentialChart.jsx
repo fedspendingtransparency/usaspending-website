@@ -19,9 +19,9 @@ const propTypes = {
 
 export default class ExceedsPotentialChart extends React.Component {
     render() {
-        const obligation = this.props.awardAmounts._obligation;
-        const current = this.props.awardAmounts._combinedCurrentAwardAmounts;
-        const potential = this.props.awardAmounts._combinedPotentialAwardAmounts;
+        const obligation = this.props.awardAmounts._totalObligation;
+        const current = this.props.awardAmounts._baseExercisedOptions;
+        const potential = this.props.awardAmounts._baseAndAllOptions;
 
         const overspendingBarStyle = {
             width: generatePercentage((obligation - potential) / obligation)
@@ -76,7 +76,7 @@ export default class ExceedsPotentialChart extends React.Component {
                         onMouseLeave={obligatedTooltipProps.controlledProps.closeTooltip}
                         onClick={obligatedTooltipProps.controlledProps.showTooltip}>
                         <strong>
-                            {this.props.awardAmounts.obligationFormatted}
+                            {this.props.awardAmounts.totalObligationFormatted}
                         </strong>
                         <br />
                         Combined Obligated Amounts
@@ -146,7 +146,7 @@ export default class ExceedsPotentialChart extends React.Component {
                             onMouseEnter={currentTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={currentTooltipProps.controlledProps.closeTooltip}
                             onClick={currentTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.combinedCurrentAwardAmountsFormatted}</strong>
+                            <strong>{this.props.awardAmounts.baseExercisedOptionsFormatted}</strong>
                             <br />
                             Combined Current Award Amounts
                         </div>
@@ -168,7 +168,7 @@ export default class ExceedsPotentialChart extends React.Component {
                             onMouseEnter={potentialTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={potentialTooltipProps.controlledProps.closeTooltip}
                             onClick={potentialTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}</strong>
+                            <strong>{this.props.awardAmounts.baseAndAllOptionsFormatted}</strong>
                             <br />
                             Combined Potential Award Amounts
                         </div>

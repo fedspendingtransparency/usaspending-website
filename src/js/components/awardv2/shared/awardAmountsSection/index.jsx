@@ -12,13 +12,13 @@ const propTypes = {
     awardAmountsProps: PropTypes.shape({
         id: PropTypes.string,
         generatedId: PropTypes.string,
-        _obligation: PropTypes.number,
+        _totalObligation: PropTypes.number,
         obligation: PropTypes.string,
         obligationFormatted: PropTypes.string,
-        _combinedCurrentAwardAmounts: PropTypes.number,
-        combinedCurrentAwardAmounts: PropTypes.string,
-        combinedCurrentAwardAmountsFormatted: PropTypes.string,
-        _combinedPotentialAwardAmounts: PropTypes.number,
+        _baseExercisedOptions: PropTypes.number,
+        baseExercisedOptions: PropTypes.string,
+        baseExercisedOptionsFormatted: PropTypes.string,
+        _baseAndAllOptions: PropTypes.number,
         combinedPotentialAwardAmounts: PropTypes.string,
         combinedPotentialAwardAmountsFormatted: PropTypes.string,
         baseExercisedOptionsFormated: PropTypes.string
@@ -88,15 +88,15 @@ const AwardAmounts = ({
                         <div className="award-amounts__data-wrapper">
                             <div className="award-amounts__data-content">
                                 <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Obligated Amounts</div>
-                                <span>{awardAmountsProps.obligation}</span>
+                                <span>{awardAmountsProps.totalObligation}</span>
                             </div>
                             <div className="award-amounts__data-content">
                                 <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Current Award Amounts</div>
-                                <span>{awardAmountsProps.combinedCurrentAwardAmounts}</span>
+                                <span>{awardAmountsProps.baseExercisedOptions}</span>
                             </div>
                             <div className="award-amounts__data-content">
                                 <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Potential Award Amounts</div>
-                                <span>{awardAmountsProps.combinedPotentialAwardAmounts}</span>
+                                <span>{awardAmountsProps.baseAndAllOptions}</span>
                             </div>
                         </div>
                     </div>
