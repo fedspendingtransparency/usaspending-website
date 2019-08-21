@@ -127,7 +127,7 @@ export default class EntityDropdown extends React.Component {
             return;
         }
 
-        this.openDropdown();
+        if (this.props.enabled) this.openDropdown();
     }
 
     clickedItem(item) {
