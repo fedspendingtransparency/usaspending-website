@@ -25,16 +25,16 @@ const BaseAwardAmounts = {
         ) || 0;
     },
     populateGrant(data) {
-        this._totalObligation = data.total_obligation;
-        this._totalFunding = data.total_funding;
-        this._nonFederalFunding = data.non_federal_funding;
+        this._totalObligation = data._totalObligation;
+        this._totalFunding = data._totalFunding;
+        this._nonFederalFunding = data._nonFederalFunding;
     },
     populate(data, awardType) {
         this.populateBase(data);
         if (awardType === 'idv') {
             this.populateIdv(data);
         }
-        else if (awardType === 'financial-assistance') {
+        else if (awardType === 'grant') {
             this.populateGrant(data);
         }
     },
