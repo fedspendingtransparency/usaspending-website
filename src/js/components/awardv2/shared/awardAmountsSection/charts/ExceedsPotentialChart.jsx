@@ -4,12 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 
 const propTypes = {
+    awardType: PropTypes.string,
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
     obligatedTooltipProps: TOOLTIP_PROPS,
     currentTooltipProps: TOOLTIP_PROPS,
@@ -62,6 +64,8 @@ export default class ExceedsPotentialChart extends React.Component {
             exceedsPotentialTooltipProps
         } = this.props;
 
+        const isIdv = (this.props.awardType === 'idv');
+
         return (
             <div className="award-amounts-viz">
                 <div className="award-amounts-viz__desc-top-wrapper">
@@ -76,10 +80,10 @@ export default class ExceedsPotentialChart extends React.Component {
                         onMouseLeave={obligatedTooltipProps.controlledProps.closeTooltip}
                         onClick={obligatedTooltipProps.controlledProps.showTooltip}>
                         <strong>
-                            {this.props.awardAmounts.totalObligationFormatted}
+                            {this.props.awardAmounts.totalObligation}
                         </strong>
                         <br />
-                        Combined Obligated Amounts
+                        {isIdv ? "Combined Obligated Amounts" : "Obligated Amounts"}
                     </div>
                     <div className="award-amounts-viz__desc">
                         <div
@@ -95,7 +99,7 @@ export default class ExceedsPotentialChart extends React.Component {
                             <strong>{this.props.awardAmounts.extremeOverspendingFormatted}</strong>
                             <br />
                             <div className="award-amounts-viz__desc-text-wrapper">
-                                Exceeds Combined Potential Award Amounts
+                                {isIdv ? "Exceeds Combined Potential Award Amounts" : "Exceeds Potential Award Amounts"}
                             </div>
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_extreme-overspending" />
@@ -146,9 +150,9 @@ export default class ExceedsPotentialChart extends React.Component {
                             onMouseEnter={currentTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={currentTooltipProps.controlledProps.closeTooltip}
                             onClick={currentTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.baseExercisedOptionsFormatted}</strong>
+                            <strong>{this.props.awardAmounts.baseExercisedOptions}</strong>
                             <br />
-                            Combined Current Award Amounts
+                            {isIdv ? "Combined Current Award Amounts" : "Current Award Amounts"}
                         </div>
                         <div className="award-amounts-viz__legend-line" />
                     </div>
@@ -168,9 +172,9 @@ export default class ExceedsPotentialChart extends React.Component {
                             onMouseEnter={potentialTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={potentialTooltipProps.controlledProps.closeTooltip}
                             onClick={potentialTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.baseAndAllOptionsFormatted}</strong>
+                            <strong>{this.props.awardAmounts.baseAndAllOptions}</strong>
                             <br />
-                            Combined Potential Award Amounts
+                            {isIdv ? "Combined Potential Award Amounts" : "Potential Award Amounts"}
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
                     </div>

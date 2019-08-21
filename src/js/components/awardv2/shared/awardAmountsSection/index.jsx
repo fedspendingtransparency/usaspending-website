@@ -9,7 +9,8 @@ import ExceedsPotentialChart from './charts/ExceedsPotentialChart';
 import NoResultsMessage from '../../../sharedComponents/NoResultsMessage';
 
 const propTypes = {
-    awardAmountsProps: PropTypes.shape({
+    awardOverview: PropTypes.shape({
+        // Probably more...? Need to define this elsewhere
         id: PropTypes.string,
         generatedId: PropTypes.string,
         _totalObligation: PropTypes.number,
@@ -34,14 +35,15 @@ const propTypes = {
 };
 
 const AwardAmounts = ({
-    awardAmountsProps,
+    awardOverview,
     tooltipProps
 }) => {
-    const renderChart = (awardAmounts = awardAmountsProps) => {
+    const renderChart = (awardAmounts = awardOverview) => {
         switch (determineSpendingScenario(awardAmounts)) {
             case "exceedsCurrent":
                 return (
                     <ExceedsCurrentChart
+                        awardType={awardOverview.category}
                         awardAmounts={awardAmounts}
                         obligatedTooltipProps={tooltipProps}
                         currentTooltipProps={tooltipProps}
@@ -51,6 +53,7 @@ const AwardAmounts = ({
             case "exceedsPotential":
                 return (
                     <ExceedsPotentialChart
+                        awardType={awardOverview.category}
                         awardAmounts={awardAmounts}
                         obligatedTooltipProps={tooltipProps}
                         currentTooltipProps={tooltipProps}
@@ -60,6 +63,7 @@ const AwardAmounts = ({
             case "normal":
                 return (
                     <NormalChart
+                        awardType={awardOverview.category}
                         awardAmounts={awardAmounts}
                         obligatedTooltipProps={tooltipProps}
                         currentTooltipProps={tooltipProps}
@@ -76,7 +80,7 @@ const AwardAmounts = ({
         }
     };
 
-    const visualization = renderChart(awardAmountsProps);
+    const visualization = renderChart(awardOverview);
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">
@@ -88,15 +92,15 @@ const AwardAmounts = ({
                         <div className="award-amounts__data-wrapper">
                             <div className="award-amounts__data-content">
                                 <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Obligated Amounts</div>
-                                <span>{awardAmountsProps.totalObligation}</span>
+                                <span>{awardOverview.totalObligation}</span>
                             </div>
                             <div className="award-amounts__data-content">
                                 <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Current Award Amounts</div>
-                                <span>{awardAmountsProps.baseExercisedOptions}</span>
+                                <span>{awardOverview.baseExercisedOptions}</span>
                             </div>
                             <div className="award-amounts__data-content">
                                 <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Potential Award Amounts</div>
-                                <span>{awardAmountsProps.baseAndAllOptions}</span>
+                                <span>{awardOverview.baseAndAllOptions}</span>
                             </div>
                         </div>
                     </div>

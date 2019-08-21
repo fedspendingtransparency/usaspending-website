@@ -133,7 +133,7 @@ export class AwardAmountsSectionContainer extends React.Component {
             return (
                 <AwardAmountsSection
                     tooltipProps={this.props.tooltipProps}
-                    awardAmountsProps={this.state.awardAmounts}
+                    awardOverview={this.state.awardAmounts}
                     jumpToSection={this.props.jumpToSection} />
             );
         }
