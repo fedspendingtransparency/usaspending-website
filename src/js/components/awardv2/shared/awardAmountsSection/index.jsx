@@ -92,15 +92,15 @@ const AwardAmounts = ({
                         <div className="award-amounts__data-wrapper">
                             <div className="award-amounts__data-content">
                                 <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Obligated Amounts</div>
-                                <span>{awardOverview.totalObligation}</span>
+                                <span>{awardOverview.totalObligationFormatted}</span>
                             </div>
                             <div className="award-amounts__data-content">
                                 <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Current Award Amounts</div>
-                                <span>{awardOverview.baseExercisedOptions}</span>
+                                <span>{awardOverview.baseExercisedOptionsFormatted}</span>
                             </div>
                             <div className="award-amounts__data-content">
                                 <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Potential Award Amounts</div>
-                                <span>{awardOverview.baseAndAllOptions}</span>
+                                <span>{awardOverview.baseAndAllOptionsFormatted}</span>
                             </div>
                         </div>
                     </div>

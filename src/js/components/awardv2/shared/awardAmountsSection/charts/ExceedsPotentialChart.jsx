@@ -80,7 +80,7 @@ export default class ExceedsPotentialChart extends React.Component {
                         onMouseLeave={obligatedTooltipProps.controlledProps.closeTooltip}
                         onClick={obligatedTooltipProps.controlledProps.showTooltip}>
                         <strong>
-                            {this.props.awardAmounts.totalObligation}
+                            {this.props.awardAmounts.totalObligationAbbreviated}
                         </strong>
                         <br />
                         {isIdv ? "Combined Obligated Amounts" : "Obligated Amounts"}
@@ -96,7 +96,7 @@ export default class ExceedsPotentialChart extends React.Component {
                             onMouseEnter={exceedsPotentialTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={exceedsPotentialTooltipProps.controlledProps.closeTooltip}
                             onClick={exceedsPotentialTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.extremeOverspendingFormatted}</strong>
+                            <strong>{this.props.awardAmounts.extremeOverspendingAbbreviated}</strong>
                             <br />
                             <div className="award-amounts-viz__desc-text-wrapper">
                                 {isIdv ? "Exceeds Combined Potential Award Amounts" : "Exceeds Potential Award Amounts"}
@@ -150,7 +150,7 @@ export default class ExceedsPotentialChart extends React.Component {
                             onMouseEnter={currentTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={currentTooltipProps.controlledProps.closeTooltip}
                             onClick={currentTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.baseExercisedOptions}</strong>
+                            <strong>{this.props.awardAmounts.baseExercisedOptionsAbbreviated}</strong>
                             <br />
                             {isIdv ? "Combined Current Award Amounts" : "Current Award Amounts"}
                         </div>
@@ -172,7 +172,7 @@ export default class ExceedsPotentialChart extends React.Component {
                             onMouseEnter={potentialTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={potentialTooltipProps.controlledProps.closeTooltip}
                             onClick={potentialTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.baseAndAllOptions}</strong>
+                            <strong>{this.props.awardAmounts.baseAndAllOptionsAbbreviated}</strong>
                             <br />
                             {isIdv ? "Combined Potential Award Amounts" : "Potential Award Amounts"}
                         </div>
