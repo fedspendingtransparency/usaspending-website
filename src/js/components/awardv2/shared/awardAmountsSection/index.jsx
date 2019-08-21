@@ -7,8 +7,11 @@ import NormalChart from './charts/NormalChart';
 import ExceedsCurrentChart from './charts/ExceedsCurrentChart';
 import ExceedsPotentialChart from './charts/ExceedsPotentialChart';
 import NoResultsMessage from '../../../sharedComponents/NoResultsMessage';
+import GrantChart from './charts/GrantChart';
+import AwardAmountsTable from './AwardAmountsTable';
 
 const propTypes = {
+    awardType: PropTypes.oneOf(['idv', 'contract', 'grant']),
     awardOverview: PropTypes.shape({
         // Probably more...? Need to define this elsewhere
         id: PropTypes.string,
@@ -23,6 +26,7 @@ const propTypes = {
         combinedPotentialAwardAmounts: PropTypes.string,
         combinedPotentialAwardAmountsFormatted: PropTypes.string,
         baseExercisedOptionsFormated: PropTypes.string
+        // DEV-2991 TODO: Add Props for Grant Type
     }),
     tooltipProps: PropTypes.shape({
         controlledProps: PropTypes.shape({
@@ -33,12 +37,43 @@ const propTypes = {
         })
     })
 };
+// contractAndIdvCategories + grantCategories live in the AwardOverviewObject
+const contractAndIdvCategories = ['totalObligationFormatted', 'baseExercisedOptionsFormatted', 'baseAndAllOptionsFormatted'];
+const grantCategories = ['totalObligationFormatted', 'nonFederalFundingFormatted', 'totalFundingFormatted'];
+const tableTitleByAwardTypeByCategory = {
+    idv: {
+        baseExercisedOptionsFormatted: 'Combined Current Amounts',
+        baseAndAllOptionsFormatted: 'Combined Potential Amounts',
+        totalObligationFormatted: 'Combined Obligated Amounts'
+    },
+    contract: {
+        baseExercisedOptionsFormatted: 'Current Amount',
+        baseAndAllOptionsFormatted: 'Potential Amount',
+        totalObligationFormatted: 'Obligated Amount'
+    },
+    grant: {
+        totalFundingFormatted: 'Total Funding',
+        nonFederalFundingFormatted: 'Non-Federal Funding',
+        totalObligationFormatted: 'Obligated Amount'
+    }
+};
 
 const AwardAmounts = ({
+    awardType,
     awardOverview,
     tooltipProps
 }) => {
     const renderChart = (awardAmounts = awardOverview) => {
+        if (awardType === 'grant') {
+            return (
+                <GrantChart
+                    awardAmounts={awardAmounts}
+                    obligatedTooltipProps={tooltipProps}
+                    currentTooltipProps={tooltipProps}
+                    potentialTooltipProps={tooltipProps}
+                    exceedsCurrentTooltipProps={tooltipProps} />
+            );
+        }
         switch (determineSpendingScenario(awardAmounts)) {
             case "exceedsCurrent":
                 return (
@@ -79,8 +114,18 @@ const AwardAmounts = ({
                 );
         }
     };
+    // Returns: { titleInTable: AwardCategoryAmount }
+    const buildAmountMapByCategoryTitle = (accumulator, category) => ({
+        ...accumulator,
+        [tableTitleByAwardTypeByCategory[awardType][category]]: awardOverview[category]
+    });
 
     const visualization = renderChart(awardOverview);
+
+    // build a map using the relevant keys for the awardType
+    const amountMapByCategoryTitle = (awardType === 'idv' || awardType === 'contract')
+        ? contractAndIdvCategories.reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {})
+        : grantCategories.reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {});
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">
@@ -89,20 +134,7 @@ const AwardAmounts = ({
                 <div>
                     <div className="award-amounts__content">
                         {visualization}
-                        <div className="award-amounts__data-wrapper">
-                            <div className="award-amounts__data-content">
-                                <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Obligated Amounts</div>
-                                <span>{awardOverview.totalObligationFormatted}</span>
-                            </div>
-                            <div className="award-amounts__data-content">
-                                <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Current Award Amounts</div>
-                                <span>{awardOverview.baseExercisedOptionsFormatted}</span>
-                            </div>
-                            <div className="award-amounts__data-content">
-                                <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Potential Award Amounts</div>
-                                <span>{awardOverview.baseAndAllOptionsFormatted}</span>
-                            </div>
-                        </div>
+                        <AwardAmountsTable amountMapByCategoryTitle={amountMapByCategoryTitle} />
                     </div>
                 </div>
             </div>
