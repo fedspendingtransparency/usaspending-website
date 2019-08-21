@@ -7,7 +7,7 @@ import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import { mockAwardAmounts } from './mockAwardApi';
 
 const awardAmounts = Object.create(BaseAwardAmounts);
-awardAmounts.populate(mockAwardAmounts);
+awardAmounts.populate(mockAwardAmounts, "idv");
 
 const awardAmountsNeg = Object.create(BaseAwardAmounts);
 const negativeObligation = {
@@ -35,34 +35,34 @@ const extremeOverspending = {
     grandchild_award_total_obligation: 5000000
 };
 
-awardAmountsNeg.populate(negativeObligation);
-awardAmountsOverspent.populate(overspending);
-awardAmountsExtremeOverspent.populate(extremeOverspending);
+awardAmountsNeg.populate(negativeObligation, "idv");
+awardAmountsOverspent.populate(overspending, "idv");
+awardAmountsExtremeOverspent.populate(extremeOverspending, "idv");
 
 describe('BaseAwardAmounts', () => {
     it('should have an empty string as a unique generated id if the field is null or undefined', () => {
         expect(awardAmounts.generatedId).toEqual('');
     });
     it('should format the combined current award amounts amounts', () => {
-        expect(awardAmounts.combinedCurrentAwardAmounts).toEqual('$10,000,000.00');
+        expect(awardAmounts.baseExercisedOptions).toEqual('$10,000,000.00');
     });
     it('should format the combined current award amounts amounts with units', () => {
-        expect(awardAmounts.combinedCurrentAwardAmountsFormatted).toEqual('$10.0 M');
+        expect(awardAmounts.baseExercisedOptionsFormatted).toEqual('$10.0 M');
     });
     it('should format the obligated amount', () => {
-        expect(awardAmounts.obligation).toEqual('$1,623,321.02');
+        expect(awardAmounts.totalObligation).toEqual('$1,623,321.02');
     });
-    it('should format the obligation options with units', () => {
-        expect(awardAmounts.obligationFormatted).toEqual('$1.6 M');
+    it('should format the totalObligation options with units', () => {
+        expect(awardAmounts.totalObligationFormatted).toEqual('$1.6 M');
     });
     it('should format negative obligations', () => {
-        expect(awardAmountsNeg.obligationFormatted).toEqual('($1.6 M)');
+        expect(awardAmountsNeg.totalObligationFormatted).toEqual('($1.6 M)');
     });
     it('should format the combined potential award amounts amounts', () => {
-        expect(awardAmounts.combinedPotentialAwardAmounts).toEqual('$106,987,321.10');
+        expect(awardAmounts.baseAndAllOptions).toEqual('$106,987,321.10');
     });
     it('should format the combined potential award amounts amounts with units', () => {
-        expect(awardAmounts.combinedPotentialAwardAmountsFormatted).toEqual('$107.0 M');
+        expect(awardAmounts.baseAndAllOptionsFormatted).toEqual('$107.0 M');
     });
     it('should format the amount by which obligations exceed the current amounts', () => {
         expect(awardAmountsOverspent.overspending).toEqual('$2,500,000.00');
