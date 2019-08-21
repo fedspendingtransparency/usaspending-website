@@ -24,10 +24,18 @@ const BaseAwardAmounts = {
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
     },
+    populateGrant(data) {
+        this._totalObligation = data.total_obligation;
+        this._totalFunding = data.total_funding;
+        this._nonFederalFunding = data.non_federal_funding;
+    },
     populate(data, awardType) {
         this.populateBase(data);
         if (awardType === 'idv') {
             this.populateIdv(data);
+        }
+        else if (awardType === 'financial-assistance') {
+            this.populateGrant(data);
         }
     },
     get baseAndAllOptionsFormatted() {
@@ -85,6 +93,26 @@ const BaseAwardAmounts = {
             return `${MoneyFormatter.formatMoneyWithPrecision((this._totalObligation - this._baseAndAllOptions) / units.unit, 1)} ${units.unitLabel}`;
         }
         return MoneyFormatter.formatMoney(this._totalObligation - this._baseAndAllOptions);
+    },
+    get totalFundingAbbreviated() {
+        if (this._totalFunding >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalFunding);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._totalFunding) / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._totalFunding);
+    },
+    get totalFundingFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalFunding, 2);
+    },
+    get nonFederalFundingFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._nonFederalFunding, 2);
+    },
+    get nonFederalFundingAbbreviated() {
+        if (this._nonFederalFunding >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._nonFederalFunding);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._nonFederalFunding) / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._nonFederalFunding);
     }
 };
 
