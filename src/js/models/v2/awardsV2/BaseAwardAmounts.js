@@ -30,20 +30,20 @@ const BaseAwardAmounts = {
             this.populateIdv(data);
         }
     },
-    get baseAndAllOptions() {
+    get baseAndAllOptionsFormatted() {
         return MoneyFormatter.formatMoneyWithPrecision(this._baseAndAllOptions, 2);
     },
-    get baseAndAllOptionsFormatted() {
+    get baseAndAllOptionsAbbreviated() {
         if (this._baseAndAllOptions >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._baseAndAllOptions);
             return `${MoneyFormatter.formatMoneyWithPrecision(this._baseAndAllOptions / units.unit, 1)} ${units.unitLabel}`;
         }
         return MoneyFormatter.formatMoney(this._baseAndAllOptions);
     },
-    get totalObligation() {
+    get totalObligationFormatted() {
         return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation, 2);
     },
-    get totalObligationFormatted() {
+    get totalObligationAbbreviated() {
         if (Math.abs(this._totalObligation) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation);
             if (this._totalObligation < 0) {
@@ -56,30 +56,30 @@ const BaseAwardAmounts = {
         }
         return MoneyFormatter.formatMoney(this._totalObligation);
     },
-    get baseExercisedOptions() {
+    get baseExercisedOptionsFormatted() {
         return MoneyFormatter.formatMoneyWithPrecision(this._baseExercisedOptions, 2);
     },
-    get baseExercisedOptionsFormatted() {
+    get baseExercisedOptionsAbbreviated() {
         if (this._baseExercisedOptions >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._baseExercisedOptions);
             return `${MoneyFormatter.formatMoneyWithPrecision(this._baseExercisedOptions / units.unit, 1)} ${units.unitLabel}`;
         }
         return MoneyFormatter.formatMoney(this._baseExercisedOptions);
     },
-    get overspending() {
+    get overspendingFormatted() {
         return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation - this._baseExercisedOptions, 2);
     },
-    get overspendingFormatted() {
+    get overspendingAbbreviated() {
         if (this._totalObligation - this._baseExercisedOptions >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation - this._baseExercisedOptions);
             return `${MoneyFormatter.formatMoneyWithPrecision((this._totalObligation - this._baseExercisedOptions) / units.unit, 1)} ${units.unitLabel}`;
         }
         return MoneyFormatter.formatMoney(this._totalObligation - this._baseExercisedOptions);
     },
-    get extremeOverspending() {
+    get extremeOverspendingFormatted() {
         return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation - this._baseAndAllOptions, 2);
     },
-    get extremeOverspendingFormatted() {
+    get extremeOverspendingAbbreviated() {
         if (this._totalObligation - this._baseAndAllOptions >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation - this._baseAndAllOptions);
             return `${MoneyFormatter.formatMoneyWithPrecision((this._totalObligation - this._baseAndAllOptions) / units.unit, 1)} ${units.unitLabel}`;
