@@ -18,7 +18,8 @@ import AwardAmountsSection from "../../../components/awardv2/shared/awardAmounts
 const propTypes = {
     award: PropTypes.object,
     setCounts: PropTypes.func,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    tooltipProps: PropTypes.object
 };
 
 export class AwardAmountsSectionContainer extends React.Component {
@@ -38,7 +39,7 @@ export class AwardAmountsSectionContainer extends React.Component {
             this.getIdvChildAwardAmounts(this.props.award.id);
         }
         else {
-            this.parseAwardAmounts(this.props.award);
+            this.parseAwardAmounts(this.props.award.overview, this.props.award.category);
         }
     }
 
@@ -48,7 +49,7 @@ export class AwardAmountsSectionContainer extends React.Component {
                 this.getIdvChildAwardAmounts(this.props.award.id);
             }
             else {
-                this.parseAwardAmounts(this.props.award);
+                this.parseAwardAmounts(this.props.award.overview);
             }
         }
     }
@@ -69,7 +70,7 @@ export class AwardAmountsSectionContainer extends React.Component {
 
         this.awardRequest.promise
             .then((res) => {
-                this.parseAwardAmounts(res.data);
+                this.parseAwardAmounts(res.data, "idv");
 
                 // operation has resolved
                 this.awardRequest = null;
@@ -95,35 +96,48 @@ export class AwardAmountsSectionContainer extends React.Component {
     }
 
     parseAwardAmounts(data, awardType = this.props.award.category) {
-        const awardAmounts = Object.create(BaseAwardAmounts);
-        awardAmounts.populate(data, awardType);
-        this.setState({
-            awardAmounts,
-            error: false,
-            inFlight: false
-        });
+        if (awardType === 'idv') {
+            const awardAmounts = Object.create(BaseAwardAmounts);
+            awardAmounts.populate(data, awardType);
+            this.setState({
+                awardAmounts,
+                error: false,
+                inFlight: false
+            });
 
-        // Store the counts in Redux for use in the referenced awards table
-        // and related awards section
-        this.props.setCounts({
-            child_awards: data.child_award_count,
-            child_idvs: data.child_idv_count,
-            grandchild_awards: data.grandchild_award_count,
-            total: data.child_idv_count + data.child_award_count + data.grandchild_award_count
-        });
+            // Store the counts in Redux for use in the referenced awards table
+            // and related awards section
+            this.props.setCounts({
+                child_awards: data.child_award_count,
+                child_idvs: data.child_idv_count,
+                grandchild_awards: data.grandchild_award_count,
+                total: data.child_idv_count + data.child_award_count + data.grandchild_award_count
+            });
+        }
+        else {
+            this.setState({ awardAmounts: data });
+        }
     }
 
     render() {
-        if (this.props.award.category === 'idv') {
+        if (this.props.award.category === 'idv' && this.state.awardAmounts) {
             return (
                 <div>
                     <AggregatedAwardAmounts
-                        {...this.state}
+                        awardAmounts={this.state.awardAmounts}
                         jumpToSection={this.props.jumpToSection} />
                 </div>
             );
         }
-        return <AwardAmountsSection {...this.props} />;
+        if (this.state.awardAmounts) {
+            return (
+                <AwardAmountsSection
+                    tooltipProps={this.props.tooltipProps}
+                    awardAmountsProps={this.state.awardAmounts}
+                    jumpToSection={this.props.jumpToSection} />
+            );
+        }
+        return null;
     }
 }
 
