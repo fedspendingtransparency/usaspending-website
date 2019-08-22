@@ -36,7 +36,8 @@ export default class GrantChart extends React.Component {
 
         const nonFederalFundingBarStyle = {
             width: generatePercentage(nonFederalFunding / totalFunding),
-            backgroundColor: '#47AAA7'
+            backgroundColor: '#47AAA7',
+            right: obligatedBarStyle.width
         };
 
         const totalFundingColor = "#C4C4C4";
@@ -46,7 +47,12 @@ export default class GrantChart extends React.Component {
         };
 
         const { currentTooltipProps, obligatedTooltipProps, potentialTooltipProps } = this.props;
-
+        const nonFFTooltipStyles = {
+            width: nonFederalFundingBarStyle.width,
+            right: nonFederalFundingBarStyle.right,
+            padding: '3.5px',
+            position: 'relative'
+        };
         return (
             <div className="award-amounts-viz">
                 <div
@@ -68,16 +74,16 @@ export default class GrantChart extends React.Component {
                     <TooltipWrapper {...potentialTooltipProps} style={{ backgroundColor: totalFundingColor }}>
                         <div className="award-amounts-viz__bar">
                             <TooltipWrapper {...obligatedTooltipProps} styles={{ width: obligatedBarStyle.width }}>
-                                <div className="award-amounts-viz__obligated" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
+                                <div className="award-amounts-viz__obligated--grants" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
                             </TooltipWrapper>
-                            <TooltipWrapper {...currentTooltipProps} styles={{ width: nonFederalFundingBarStyle.width }}>
-                                <div className="award-amounts-viz__excerised" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
+                            <TooltipWrapper {...currentTooltipProps} styles={{ ...nonFFTooltipStyles }}>
+                                <div className="award-amounts-viz__non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
                             </TooltipWrapper>
                         </div>
                     </TooltipWrapper>
                 </div>
                 <div className="award-amounts-viz__label" style={nonFederalFundingLabelStyle}>
-                    <div className="award-amounts-viz__line" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
+                    <div className="award-amounts-viz__line--non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
                     <div className="award-amounts-viz__desc">
                         <div
                             className="award-amounts-viz__desc-text"
