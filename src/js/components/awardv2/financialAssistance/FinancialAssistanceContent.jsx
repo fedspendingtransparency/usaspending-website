@@ -9,7 +9,7 @@ import { startCase } from "lodash";
 
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import AwardAmountsSectionHeader from '../../../containers/awardV2/shared/AwardAmountsSectionContainer';
+import AwardAmountsSectionContainer from '../../../containers/awardV2/shared/AwardAmountsSectionContainer';
 import AwardRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
 import { AwardSection } from '../shared';
@@ -68,7 +68,7 @@ export default class FinancialAssistanceContent extends React.Component {
                 </div>
                 <AwardSection type="row">
                     <AwardSection type="column">
-                        <AwardAmountsSectionHeader
+                        <AwardAmountsSectionContainer
                             tooltipProps={defaultTooltipProps}
                             jumptoSection={this.props.jumpToSection} />
                     </AwardSection>
