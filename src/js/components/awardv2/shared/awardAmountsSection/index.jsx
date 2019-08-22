@@ -37,26 +37,6 @@ const propTypes = {
         })
     })
 };
-// contractAndIdvCategories + grantCategories live in the AwardOverviewObject
-const contractAndIdvCategories = ['totalObligationFormatted', 'baseExercisedOptionsFormatted', 'baseAndAllOptionsFormatted'];
-const grantCategories = ['totalObligationFormatted', 'nonFederalFundingFormatted', 'totalFundingFormatted'];
-const tableTitleByAwardTypeByCategory = {
-    idv: {
-        baseExercisedOptionsFormatted: 'Combined Current Amounts',
-        baseAndAllOptionsFormatted: 'Combined Potential Amounts',
-        totalObligationFormatted: 'Combined Obligated Amounts'
-    },
-    contract: {
-        baseExercisedOptionsFormatted: 'Current Amount',
-        baseAndAllOptionsFormatted: 'Potential Amount',
-        totalObligationFormatted: 'Obligated Amount'
-    },
-    grant: {
-        totalFundingFormatted: 'Total Funding',
-        nonFederalFundingFormatted: 'Non-Federal Funding',
-        totalObligationFormatted: 'Obligated Amount'
-    }
-};
 
 const AwardAmounts = ({
     awardType,
@@ -114,18 +94,8 @@ const AwardAmounts = ({
                 );
         }
     };
-    // Returns: { titleInTable: AwardCategoryAmount }
-    const buildAmountMapByCategoryTitle = (accumulator, category) => ({
-        ...accumulator,
-        [tableTitleByAwardTypeByCategory[awardType][category]]: awardOverview[category]
-    });
 
     const visualization = renderChart(awardOverview);
-
-    // build a map using the relevant keys for the awardType
-    const amountMapByCategoryTitle = (awardType === 'idv' || awardType === 'contract')
-        ? contractAndIdvCategories.reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {})
-        : grantCategories.reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {});
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">
@@ -134,7 +104,7 @@ const AwardAmounts = ({
                 <div>
                     <div className="award-amounts__content">
                         {visualization}
-                        <AwardAmountsTable amountMapByCategoryTitle={amountMapByCategoryTitle} />
+                        <AwardAmountsTable awardData={awardOverview} awardType={awardType} />
                     </div>
                 </div>
             </div>
