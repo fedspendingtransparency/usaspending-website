@@ -76,9 +76,11 @@ export default class GrantChart extends React.Component {
                             <TooltipWrapper {...obligatedTooltipProps} styles={{ width: obligatedBarStyle.width }}>
                                 <div className="award-amounts-viz__obligated--grants" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
                             </TooltipWrapper>
-                            <TooltipWrapper {...currentTooltipProps} styles={{ ...nonFFTooltipStyles }}>
-                                <div className="award-amounts-viz__non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
-                            </TooltipWrapper>
+                            {nonFederalFunding > 0 &&
+                                <TooltipWrapper {...currentTooltipProps} styles={{ ...nonFFTooltipStyles }}>
+                                    <div className="award-amounts-viz__non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
+                                </TooltipWrapper>
+                            }
                         </div>
                     </TooltipWrapper>
                 </div>
