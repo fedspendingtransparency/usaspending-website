@@ -17,6 +17,7 @@ import ExceedsCurrentChart from '../../shared/awardAmountsSection/charts/Exceeds
 import ExceedsPotentialChart from '../../shared/awardAmountsSection/charts/ExceedsPotentialChart';
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 import { CombinedObligatedAmounts, CombinedCurrentAmounts, CombinedPotentialAmounts, CombinedExceedsCurrentAmounts, CombinedExceedsPotentialAmounts } from '../../idv/TooltipContent';
+import AwardAmountsTable from '../../shared/awardAmountsSection/AwardAmountsTable';
 
 const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
@@ -143,10 +144,11 @@ export default class AggregatedAwardAmounts extends React.Component {
     }
 
     generateVisualization() {
-        const awardAmounts = this.props.awardAmounts;
+        const { awardAmounts } = this.props;
         const visualizationType = determineSpendingScenario(awardAmounts);
         let visualization;
         let overspendingRow = null;
+
         switch (visualizationType) {
             case ('normal'):
                 visualization = (<NormalChart awardType="idv" {...this.getTooltipPropsBySpendingScenario('normal')} awardAmounts={awardAmounts} />);
@@ -156,7 +158,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                 overspendingRow = (
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />Exceeds Combined Current Award Amounts</div>
-                        <span>{awardAmounts.overspending}</span>
+                        <span>{awardAmounts.overspendingFormatted}</span>
                     </div>
                 );
                 break;
@@ -165,7 +167,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                 overspendingRow = (
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />Exceeds Combined Potential Award Amounts</div>
-                        <span>{awardAmounts.extremeOverspending}</span>
+                        <span>{awardAmounts.extremeOverspendingFormatted}</span>
                     </div>
                 );
                 break;
@@ -210,21 +212,9 @@ export default class AggregatedAwardAmounts extends React.Component {
                         View award orders table
                     </div>
                 </button>
-                <div className="award-amounts__data-wrapper">
-                    <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Combined Obligated Amounts</div>
-                        <span>{awardAmounts.totalObligationFormatted}</span>
-                    </div>
-                    <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Combined Current Award Amounts</div>
-                        <span>{awardAmounts.baseExercisedOptionsFormatted}</span>
-                    </div>
-                    <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Combined Potential Award Amounts</div>
-                        <span>{awardAmounts.baseAndAllOptionsFormatted}</span>
-                    </div>
+                <AwardAmountsTable awardType="idv" awardData={awardAmounts}>
                     {overspendingRow}
-                </div>
+                </AwardAmountsTable>
             </div>
         );
     }
