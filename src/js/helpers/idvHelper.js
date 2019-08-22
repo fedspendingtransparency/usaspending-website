@@ -74,7 +74,7 @@ export const fetchIdvFundingSummary = (awardId) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/awards/idvs/funding_rollup/',
+            url: 'v2/idvs/funding_rollup/',
             baseURL: kGlobalConstants.API,
             method: "post",
             data: { award_id: awardId },
@@ -109,7 +109,7 @@ export const fetchIdvFederalAccounts = (data) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/awards/idvs/accounts/',
+            url: 'v2/idvs/accounts/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data,
