@@ -31,9 +31,14 @@ const tableTitleByAwardTypeByCategory = {
 };
 
 const awardTableClassMap = {
-    0: "award-amounts__data-icon_blue",
-    1: "award-amounts__data-icon_gray",
-    2: "award-amounts__data-icon_transparent"
+    "Combined Obligated Amounts": "award-amounts__data-icon_blue",
+    "Combined Current Amounts": "award-amounts__data-icon_gray",
+    "Combined Potential Amounts": "award-amounts__data-icon_transparent",
+    "Obligated Amount": "award-amounts__data-icon_blue",
+    "Current Amount": "award-amounts__data-icon_gray",
+    "Potential Amount": "award-amounts__data-icon_transparent",
+    "Non-Federal Funding": "award-amounts__data-icon_green",
+    "Total Funding": "award-amounts__data-icon_transparent"
 };
 
 const AwardAmountsTable = ({
@@ -54,17 +59,18 @@ const AwardAmountsTable = ({
         ...accumulator,
         [tableTitleByAwardTypeByCategory[awardType][category]]: awardData[category]
     });
- 
+    
     // build a map using the relevant keys for the awardType
     const amountMapByCategoryTitle = (awardType === 'idv' || awardType === 'contract')
         ? contractAndIdvCategories.reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {})
         : grantCategories.reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {});
+
     return (
         <div className="award-amounts__data-wrapper">
             {Object.keys(amountMapByCategoryTitle)
-                .map((title, index) => (
+                .map((title) => (
                     <div key={uniqueId(title)} className="award-amounts__data-content">
-                        <div><span className={`award-amounts__data-icon ${awardTableClassMap[index]}`} />{title}</div>
+                        <div><span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />{title}</div>
                         <span>{amountMapByCategoryTitle[title]}</span>
                     </div>
                 ))
