@@ -33,11 +33,13 @@ export default class GrantChart extends React.Component {
         const obligatedLabelStyle = {
             width: generatePercentage(obligation / totalFunding)
         };
-        
+
         const nonFederalFundingBarStyle = {
             width: generatePercentage(nonFederalFunding / totalFunding),
-            backgroundColor: '#d8d8d8'
+            backgroundColor: '#47AAA7'
         };
+
+        const totalFundingColor = "#C4C4C4";
 
         const nonFederalFundingLabelStyle = {
             width: generatePercentage(nonFederalFunding / totalFunding)
@@ -63,7 +65,7 @@ export default class GrantChart extends React.Component {
                     <div className="award-amounts-viz__line-up" />
                 </div>
                 <div className="award-amounts-viz__bar-wrapper">
-                    <TooltipWrapper {...potentialTooltipProps}>
+                    <TooltipWrapper {...potentialTooltipProps} style={{ backgroundColor: totalFundingColor }}>
                         <div className="award-amounts-viz__bar">
                             <TooltipWrapper {...obligatedTooltipProps} styles={{ width: obligatedBarStyle.width }}>
                                 <div className="award-amounts-viz__obligated" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
@@ -75,7 +77,7 @@ export default class GrantChart extends React.Component {
                     </TooltipWrapper>
                 </div>
                 <div className="award-amounts-viz__label" style={nonFederalFundingLabelStyle}>
-                    <div className="award-amounts-viz__line" />
+                    <div className="award-amounts-viz__line" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
                     <div className="award-amounts-viz__desc">
                         <div
                             className="award-amounts-viz__desc-text"
@@ -89,11 +91,11 @@ export default class GrantChart extends React.Component {
                             onClick={currentTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
                         </div>
-                        <div className="award-amounts-viz__legend-line" />
+                        <div className="award-amounts-viz__legend-line" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
                     </div>
                 </div>
                 <div className="award-amounts-viz__label">
-                    <div className="award-amounts-viz__line" />
+                    <div className="award-amounts-viz__line" style={{ backgroundColor: totalFundingColor }} />
                     <div className="award-amounts-viz__desc">
                         <div
                             className="award-amounts-viz__desc-text"
@@ -107,7 +109,7 @@ export default class GrantChart extends React.Component {
                             onClick={potentialTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.totalFundingAbbreviated}</strong><br />Total Funding
                         </div>
-                        <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
+                        <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" style={{ backgroundColor: totalFundingColor }} />
                     </div>
                 </div>
             </div>
