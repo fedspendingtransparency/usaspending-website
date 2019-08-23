@@ -556,7 +556,6 @@ export const mockAwards = {
                 id: 1611,
                 toptier_agency: {
                     cgac_code: "089",
-                    fpds_code: "8900",
                     abbreviation: "DOE",
                     name: "Department of Energy"
                 },
@@ -571,7 +570,6 @@ export const mockAwards = {
                 id: 1805,
                 toptier_agency: {
                     cgac_code: "097",
-                    fpds_code: "9700",
                     abbreviation: "DOD",
                     name: "Department of Defense"
                 },

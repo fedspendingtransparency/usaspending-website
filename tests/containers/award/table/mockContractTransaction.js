@@ -19,7 +19,6 @@ const item = {
             id: 1305,
             toptier_agency: {
                 cgac_code: "036",
-                fpds_code: "3600",
                 abbreviation: "VA",
                 name: "Department of Veterans Affairs"
             },
@@ -34,7 +33,6 @@ const item = {
             id: 1305,
             toptier_agency: {
                 cgac_code: "036",
-                fpds_code: "3600",
                 abbreviation: "VA",
                 name: "Department of Veterans Affairs"
             },
