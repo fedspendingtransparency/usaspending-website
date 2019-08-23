@@ -76,7 +76,6 @@ export const mockAward = {
                 "toptier_flag": true,
                 "toptier_agency": {
                     "cgac_code": "089",
-                    "fpds_code": "8900",
                     "abbreviation": "DOE",
                     "name": "Department of Energy"
                 },
@@ -92,7 +91,6 @@ export const mockAward = {
                 "toptier_flag": true,
                 "toptier_agency": {
                     "cgac_code": "089",
-                    "fpds_code": "8900",
                     "abbreviation": "DOE",
                     "name": "Department of Energy"
                 },

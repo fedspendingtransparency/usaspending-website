@@ -30,7 +30,6 @@ export const mockAwardIDs = {
                     create_date: null,
                     update_date: null,
                     cgac_code: "012",
-                    fpds_code: "1200",
                     name: "AGRICULTURE, DEPARTMENT OF"
                 },
                 subtier_agency: {
@@ -77,7 +76,6 @@ export const mockAwardIDs = {
                     create_date: null,
                     update_date: null,
                     cgac_code: "070",
-                    fpds_code: "7000",
                     name: "HOMELAND SECURITY, DEPARTMENT OF"
                 },
                 subtier_agency: {
@@ -330,7 +328,6 @@ export const mockAwardIDs = {
                     create_date: null,
                     update_date: null,
                     cgac_code: "075",
-                    fpds_code: "7500",
                     name: "HEALTH AND HUMAN SERVICES, DEPARTMENT OF"
                 },
                 subtier_agency: {
@@ -351,7 +348,6 @@ export const mockAwardIDs = {
                     create_date: null,
                     update_date: null,
                     cgac_code: "075",
-                    fpds_code: "7500",
                     name: "HEALTH AND HUMAN SERVICES, DEPARTMENT OF"
                 },
                 subtier_agency: {
