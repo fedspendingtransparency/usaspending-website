@@ -100,24 +100,14 @@ export default class ProgramSourceSection extends React.Component {
             });
         }
         else {
-            const identifier = `${components.ata || '***'}-${components.aid}-${components.bpoa || '****'}-${components.epoa || '****'}-${components.a || '*'}-${components.main || '****'}-${components.sub || '***'}`;
+            const identifier = `${components.ata || '***'}-${components.aid}-${components.bpoa || '****'}/${components.epoa || '****'}-${components.a || '*'}-${components.main || '****'}-${components.sub || '***'}`;
             this.props.updateTreasuryAccountComponents({
                 identifier,
                 values: components
             });
         }
         // Clear the values after they have been applied
-        this.setState({
-            components: {
-                ata: '',
-                aid: '',
-                bpoa: '',
-                epoa: '',
-                a: '',
-                main: '',
-                sub: ''
-            }
-        });
+        this.clearValues();
     }
 
     removeFilter(identifier) {
@@ -131,6 +121,21 @@ export default class ProgramSourceSection extends React.Component {
                 identifier, values: {}
             });
         }
+        this.clearValues();
+    }
+
+    clearValues() {
+        this.setState({
+            components: {
+                ata: '',
+                aid: '',
+                bpoa: '',
+                epoa: '',
+                a: '',
+                main: '',
+                sub: ''
+            }
+        });
     }
 
     render() {
