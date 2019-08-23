@@ -53,13 +53,13 @@ const AwardAmountsTable = ({
      * so we're relying on the parent in this case because we cant deduce the spending scenario
      **/
     const overspendingRow = children;
- 
+
     // Returns: { titleInTable: AwardCategoryAmount }
     const buildAmountMapByCategoryTitle = (accumulator, category) => ({
         ...accumulator,
         [tableTitleByAwardTypeByCategory[awardType][category]]: awardData[category]
     });
-    
+
     // build a map using the relevant keys for the awardType
     const amountMapByCategoryTitle = (awardType === 'idv' || awardType === 'contract')
         ? contractAndIdvCategories.reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {})
