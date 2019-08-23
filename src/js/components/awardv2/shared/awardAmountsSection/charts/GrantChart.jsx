@@ -36,11 +36,11 @@ export default class GrantChart extends React.Component {
 
         const nonFederalFundingBarStyle = {
             width: generatePercentage(nonFederalFunding / totalFunding),
-            backgroundColor: '#47AAA7',
+            backgroundColor: '#4773aa',
             right: obligatedBarStyle.width
         };
 
-        const totalFundingColor = "#C4C4C4";
+        const totalFundingColor = "#BBBBBB";
 
         const nonFederalFundingLabelStyle = {
             width: generatePercentage(nonFederalFunding / totalFunding)
@@ -50,9 +50,11 @@ export default class GrantChart extends React.Component {
         const nonFFTooltipStyles = {
             width: nonFederalFundingBarStyle.width,
             right: nonFederalFundingBarStyle.right,
+            border: "5px solid #47AAA7",
             padding: '3.5px',
             position: 'relative'
         };
+
         return (
             <div className="award-amounts-viz">
                 <div
@@ -72,8 +74,8 @@ export default class GrantChart extends React.Component {
                 </div>
                 <div className="award-amounts-viz__bar-wrapper">
                     <TooltipWrapper {...potentialTooltipProps} style={{ backgroundColor: totalFundingColor }}>
-                        <div className="award-amounts-viz__bar">
-                            <TooltipWrapper {...obligatedTooltipProps} styles={{ width: obligatedBarStyle.width }}>
+                        <div className="award-amounts-viz__bar" style={{ backgroundColor: totalFundingColor }}>
+                            <TooltipWrapper {...obligatedTooltipProps} styles={{ width: obligatedBarStyle.width, border: "5px solid #BBB" }}>
                                 <div className="award-amounts-viz__obligated--grants" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
                             </TooltipWrapper>
                             {nonFederalFunding > 0 &&
@@ -99,7 +101,7 @@ export default class GrantChart extends React.Component {
                             onClick={currentTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
                         </div>
-                        <div className="award-amounts-viz__legend-line" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
+                        <div className="award-amounts-viz__legend-line" style={{ backgroundColor: "#47AAA7" }} />
                     </div>
                 </div>
                 <div className="award-amounts-viz__label">

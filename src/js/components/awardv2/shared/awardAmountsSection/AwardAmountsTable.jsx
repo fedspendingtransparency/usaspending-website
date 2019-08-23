@@ -38,7 +38,7 @@ const awardTableClassMap = {
     "Current Amount": "award-amounts__data-icon_gray",
     "Potential Amount": "award-amounts__data-icon_transparent",
     "Non-Federal Funding": "award-amounts__data-icon_green",
-    "Total Funding": "award-amounts__data-icon_transparent"
+    "Total Funding": "award-amounts__data-icon_gray"
 };
 
 const AwardAmountsTable = ({
