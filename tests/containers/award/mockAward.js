@@ -79,8 +79,7 @@ export const mockAward = {
                     subtier_code: '8900',
                     abbreviation: '',
                     name: 'Department of Energy'
-                },
-                office_agency: null
+                }
             },
             funding_agency: {
                 id: 1805,
@@ -101,8 +100,7 @@ export const mockAward = {
                     subtier_code: '5700',
                     abbreviation: '',
                     name: 'Department of the Air Force'
-                },
-                office_agency: null
+                }
             },
             recipient: {
                 legal_entity_id: 7113228,

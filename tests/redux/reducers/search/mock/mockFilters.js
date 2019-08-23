@@ -18,7 +18,6 @@ export const mockAgency = {
         subtier_code: "1700",
         name: "DEPT OF THE NAVY"
     },
-    office_agency: null,
     agencyType: 'subtier'
 };
 

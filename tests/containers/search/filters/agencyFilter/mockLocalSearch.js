@@ -11,8 +11,7 @@ export const mockSecondaryResults = [
             subtier_code: '0400',
             abbreviation: '',
             name: 'Government Publishing Office'
-        },
-        office_agency: null
+        }
     },
     {
         id: 1125,
@@ -26,8 +25,7 @@ export const mockSecondaryResults = [
             subtier_code: '9549',
             abbreviation: '',
             name: 'Office of Government Ethics'
-        },
-        office_agency: null
+        }
     }
 ];
 
