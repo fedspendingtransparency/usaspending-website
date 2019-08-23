@@ -7,7 +7,6 @@ export const mockAwardingAgency = {
         create_date: "2017-01-31T21:25:39.810344Z",
         update_date: "2017-01-31T21:25:39.936439Z",
         cgac_code: "097",
-        fpds_code: "9700",
         name: "DEPT OF DEFENSE"
     },
     subtier_agency: {
@@ -29,7 +28,6 @@ export const mockFundingAgency = {
         create_date: "2017-01-31T21:25:39.810344Z",
         update_date: "2017-01-31T21:25:39.936439Z",
         cgac_code: "097",
-        fpds_code: "9700",
         name: "DEPT OF DEFENSE"
     },
     subtier_agency: {

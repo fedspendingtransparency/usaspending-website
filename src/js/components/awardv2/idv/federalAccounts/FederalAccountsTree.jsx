@@ -238,7 +238,6 @@ export default class FederalAccountsTree extends React.Component {
         }
         return (
             <div>
-                <h4 id="federal-account-treemap-title">Federal Accounts</h4>
                 <div className="results-table-message-container">
                     {loadingMessage}
                     {errorMessage}

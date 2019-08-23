@@ -4,7 +4,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "434",
-            fpds_code: "9549",
             abbreviation: "OGE",
             name: "Office of Government Ethics"
         },
@@ -19,7 +18,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "004",
-            fpds_code: "0400",
             abbreviation: "GPO",
             name: "Government Publishing Office"
         },
@@ -34,7 +32,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "005",
-            fpds_code: "0500",
             abbreviation: "GAO",
             name: "Government Accountability Office"
         },
@@ -49,7 +46,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "062",
-            fpds_code: "6201",
             abbreviation: "OSC",
             name: "Office of Special Counsel"
         },
@@ -64,7 +60,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "024",
-            fpds_code: "2400",
             abbreviation: "OPM",
             name: "Office of Personnel Management"
         },
@@ -79,7 +74,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "514",
-            fpds_code: "9568",
             abbreviation: "BBG",
             name: "Broadcasting Board of Governors"
         },
@@ -94,7 +88,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "011",
-            fpds_code: "1100",
             abbreviation: "EOP",
             name: "Executive Office of the President"
         },
@@ -109,7 +102,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "008",
-            fpds_code: "0800",
             abbreviation: "CBO",
             name: "Congressional Budget Office"
         },
@@ -124,7 +116,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "435",
-            fpds_code: "4849",
             abbreviation: "ONHIR",
             name: "Office of Navajo and Hopi Indian Relocation"
         },
@@ -139,7 +130,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "015",
-            fpds_code: "1500",
             abbreviation: "DOJ",
             name: "Department of Justice"
         },
@@ -154,7 +144,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "013",
-            fpds_code: "1300",
             abbreviation: "DOC",
             name: "Department of Commerce"
         },
@@ -169,7 +158,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "534",
-            fpds_code: "5200",
             abbreviation: "ARCTIC GAS",
             name: "Office of the Federal Coordinator for Alaska Natural Gas Transportation Projects"
         },
@@ -184,7 +172,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "534",
-            fpds_code: "5200",
             abbreviation: "ARCTIC GAS",
             name: "Office of the Federal Coordinator for Alaska Natural Gas Transportation Projects"
         },
@@ -199,7 +186,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "019",
-            fpds_code: "1900",
             abbreviation: "DOS",
             name: "Department of State"
         },
@@ -214,7 +200,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "097",
-            fpds_code: "9700",
             abbreviation: "DOD",
             name: "Department of Defense"
         },
@@ -229,7 +214,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "016",
-            fpds_code: "1600",
             abbreviation: "DOL",
             name: "Department of Labor"
         },
@@ -244,7 +228,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "003",
-            fpds_code: "0300",
             abbreviation: "LOC",
             name: "Library of Congress"
         },
@@ -259,7 +242,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "511",
-            fpds_code: "9594",
             abbreviation: "CSOSA",
             name: "Court Services and Offender Supervision Agency"
         },
@@ -274,7 +256,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "089",
-            fpds_code: "8900",
             abbreviation: "DOE",
             name: "Department of Energy"
         },
@@ -289,7 +270,6 @@ export const mockAgencies = {
         toptier_flag: true,
         toptier_agency: {
             cgac_code: "458",
-            fpds_code: "9580",
             abbreviation: "USIP",
             name: "United States Institute of Peace"
         },
