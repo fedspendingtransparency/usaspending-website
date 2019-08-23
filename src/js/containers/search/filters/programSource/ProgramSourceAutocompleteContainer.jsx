@@ -53,7 +53,12 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
         }
 
         this.setState({
-            noResults: false
+            noResults: false,
+            autocompleteOptions: [{
+                title: 'Loading...',
+                subtitle: '',
+                data: { code: '' }
+            }]
         });
 
         // Make a copy of the current selections
@@ -79,7 +84,8 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
                 this.autocompleteRequest = null;
                 if (!isCancel(err)) {
                     this.setState({
-                        noResults: true
+                        noResults: true,
+                        autocompleteOptions: []
                     });
                     console.log(err);
                 }

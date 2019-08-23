@@ -67,7 +67,7 @@ export default class Autocomplete extends React.Component {
         if (!isEqual(prevProps.values, this.props.values)) {
             this.open();
         }
-        else if (this.props.noResults !== prevProps.noResults) {
+        if (this.props.noResults !== prevProps.noResults) {
             this.toggleWarning();
         }
         if (!isEqual(prevProps.dirtyFilters, this.props.dirtyFilters)) {
