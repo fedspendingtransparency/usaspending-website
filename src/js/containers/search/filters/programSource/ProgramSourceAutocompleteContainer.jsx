@@ -27,6 +27,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
 
         this.state = {
             noResults: false,
+            inFlight: false,
             searchString: '',
             autocompleteOptions: []
         };
@@ -54,11 +55,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
 
         this.setState({
             noResults: false,
-            autocompleteOptions: [{
-                title: 'Loading...',
-                subtitle: '',
-                data: { code: '' }
-            }]
+            inFlight: true
         });
 
         // Make a copy of the current selections
@@ -85,7 +82,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
                 if (!isCancel(err)) {
                     this.setState({
                         noResults: true,
-                        autocompleteOptions: []
+                        inFlight: false
                     });
                     console.log(err);
                 }
@@ -113,7 +110,8 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
         }
         this.setState({
             autocompleteOptions: parsedResults,
-            noResults: parsedResults.length === 0
+            noResults: parsedResults.length === 0,
+            inFlight: false
         });
     }
 
@@ -167,6 +165,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
                     }}
                     clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
                     noResults={this.state.noResults}
+                    inFlight={this.state.inFlight}
                     characterLimit={this.props.component.characterLimit} />
             </div>
         );
