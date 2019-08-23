@@ -5,6 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual, find, uniqueId } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
@@ -23,7 +24,8 @@ const propTypes = {
     characterLimit: PropTypes.number,
     retainValue: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
-    minCharsToSearch: PropTypes.number
+    minCharsToSearch: PropTypes.number,
+    inFlight: PropTypes.bool
 };
 
 const defaultProps = {
@@ -67,7 +69,7 @@ export default class Autocomplete extends React.Component {
         if (!isEqual(prevProps.values, this.props.values)) {
             this.open();
         }
-        else if (this.props.noResults !== prevProps.noResults) {
+        if (this.props.noResults !== prevProps.noResults) {
             this.toggleWarning();
         }
         if (!isEqual(prevProps.dirtyFilters, this.props.dirtyFilters)) {
@@ -262,6 +264,12 @@ export default class Autocomplete extends React.Component {
                 status = `${selectedString} (${this.state.selectedIndex + 1} of ${valueCount})`;
             }
         }
+        const loadingIndicator = this.props.inFlight ?
+            (
+                <div className="usa-da-typeahead__loading-icon">
+                    <FontAwesomeIcon icon="spinner" spin />
+                </div>
+            ) : null;
 
         return (
             <div
@@ -272,19 +280,22 @@ export default class Autocomplete extends React.Component {
                 aria-haspopup="true">
                 <div className="usa-da-typeahead">
                     <p>{this.props.label}</p>
-                    <input
-                        className="autocomplete"
-                        ref={(t) => {
-                            this.autocompleteInput = t;
-                        }}
-                        type="text"
-                        placeholder={this.props.placeholder}
-                        onChange={this.onChange.bind(this)}
-                        tabIndex={0}
-                        aria-controls={this.state.autocompleteId}
-                        aria-activedescendant={activeDescendant}
-                        aria-autocomplete="list"
-                        maxLength={this.props.characterLimit} />
+                    <div className="usa-da-typeahead__input">
+                        <input
+                            className="autocomplete"
+                            ref={(t) => {
+                                this.autocompleteInput = t;
+                            }}
+                            type="text"
+                            placeholder={this.props.placeholder}
+                            onChange={this.onChange.bind(this)}
+                            tabIndex={0}
+                            aria-controls={this.state.autocompleteId}
+                            aria-activedescendant={activeDescendant}
+                            aria-autocomplete="list"
+                            maxLength={this.props.characterLimit} />
+                        {loadingIndicator}
+                    </div>
                     <div
                         className="screen-reader-description"
                         role="alert">

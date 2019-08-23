@@ -107,6 +107,10 @@ export default class ProgramSourceSection extends React.Component {
             });
         }
         // Clear the values after they have been applied
+        this.clearInternalState();
+    }
+
+    clearInternalState() {
         this.setState({
             components: {
                 ata: '',
@@ -131,6 +135,7 @@ export default class ProgramSourceSection extends React.Component {
                 identifier, values: {}
             });
         }
+        this.clearInternalState();
     }
 
     render() {
