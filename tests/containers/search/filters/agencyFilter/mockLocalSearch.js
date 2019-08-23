@@ -4,6 +4,7 @@ export const mockSecondaryResults = [
         toptier_flag: true,
         toptier_agency: {
             cgac_code: '004',
+            fpds_code: '0400',
             abbreviation: 'GPO',
             name: 'Government Publishing Office'
         },
@@ -19,6 +20,7 @@ export const mockSecondaryResults = [
         toptier_flag: true,
         toptier_agency: {
             cgac_code: '434',
+            fpds_code: '9549',
             abbreviation: 'OGE',
             name: 'Office of Government Ethics'
         },

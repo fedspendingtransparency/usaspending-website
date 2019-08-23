@@ -95,6 +95,7 @@ describe('AgencyListContainer', () => {
                     toptier_flag: true,
                     toptier_agency: {
                         cgac_code: "004",
+                        fpds_code: "0400",
                         abbreviation: "GPO",
                         name: "Government Publishing Office"
                     },

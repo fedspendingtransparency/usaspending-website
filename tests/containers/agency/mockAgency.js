@@ -53,6 +53,7 @@ export const mockCgacApi = {
             toptier_agency: {
                 abbreviation: '',
                 cgac_code: '1200',
+                fpds_code: '1200',
                 name: 'Under Secretary for Rural Development'
             },
             toptier_flag: true
@@ -72,6 +73,7 @@ export const mockCgacLoad = {
         toptier_agency: {
             abbreviation: '',
             cgac_code: '1200',
+            fpds_code: '1200',
             name: 'Under Secretary for Rural Development'
         },
         toptier_flag: true

@@ -60,8 +60,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
 
         // Make a copy of the current selections
         let filters = Object.assign({}, this.props.selectedSources);
-        // All the components are numbers except Availability Type Code, which we want to be case insensitive
-        filters[this.props.component.code] = input.toUpperCase();
+        filters[this.props.component.code] = input;
         // Exclude filters with empty values
         filters = pickBy(filters);
 

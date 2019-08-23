@@ -69,6 +69,7 @@ export const mockAward = {
                     create_date: null,
                     update_date: '2017-03-08T22:27:33.723892Z',
                     cgac_code: '089',
+                    fpds_code: '8900',
                     abbreviation: 'DOE',
                     name: 'Department of Energy'
                 },
@@ -91,6 +92,7 @@ export const mockAward = {
                     create_date: null,
                     update_date: '2017-03-08T22:27:44.239782Z',
                     cgac_code: '097',
+                    fpds_code: '9700',
                     abbreviation: 'DOD',
                     name: 'Department of Defense'
                 },

@@ -19,6 +19,7 @@ const items = {
             id: 802,
             toptier_agency: {
                 cgac_code: "075",
+                fpds_code: "7500",
                 abbreviation: "HHS",
                 name: "Department of Health and Human Services"
             },
@@ -33,6 +34,7 @@ const items = {
             id: 1404,
             toptier_agency: {
                 cgac_code: "480",
+                fpds_code: "",
                 abbreviation: "WW1CC",
                 name: "World War I Centennial Commission"
             },
