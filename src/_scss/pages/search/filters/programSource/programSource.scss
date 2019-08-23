@@ -31,6 +31,7 @@
                 }
                 .tooltip-popover {
                     left: 0;
+                    bottom: rem(30);
                 }
             }
 
@@ -56,6 +57,9 @@
 
                     .program-source-info-tooltip__definition {
                         padding: rem(10) rem(15) 0;
+                        a:hover {
+                            cursor: pointer;
+                        }
                     }
 
                     .program-source-info-tooltip__example {
