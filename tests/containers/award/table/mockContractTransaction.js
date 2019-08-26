@@ -26,8 +26,7 @@ const item = {
                 subtier_code: "3600",
                 abbreviation: "",
                 name: "Department of Veterans Affairs"
-            },
-            office_agency: null
+            }
         },
         funding_agency: {
             id: 1305,
@@ -40,8 +39,7 @@ const item = {
                 subtier_code: "3600",
                 abbreviation: "",
                 name: "Department of Veterans Affairs"
-            },
-            office_agency: null
+            }
         },
         recipient: {
             legal_entity_id: 1576,

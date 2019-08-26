@@ -26,8 +26,7 @@ const items = {
                 subtier_code: "7530",
                 abbreviation: "",
                 name: "Centers for Medicare and Medicaid Services"
-            },
-            office_agency: null
+            }
         },
         funding_agency: {
             id: 1404,
@@ -36,8 +35,7 @@ const items = {
                 abbreviation: "WW1CC",
                 name: "World War I Centennial Commission"
             },
-            subtier_agency: null,
-            office_agency: null
+            subtier_agency: null
         },
         recipient: {
             legal_entity_id: 113704139,
