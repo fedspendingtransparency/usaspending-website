@@ -12,7 +12,8 @@ const defaultProps = {
     options: [],
     components: [],
     expanded: [],
-    accessories: []
+    accessories: [],
+    glossaryEntries: []
 };
 
 const propTypes = {
