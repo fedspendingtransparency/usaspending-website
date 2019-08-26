@@ -29,15 +29,13 @@ const BaseIdvActivityBar = {
     },
     get awardedAmount() {
         const units = MoneyFormatter.calculateUnitForSingleValue(this._awardedAmount, 1);
-        return `
-        ${MoneyFormatter.formatMoneyWithPrecision((this._awardedAmount / units.unit), 1)}
-        ${units.unitLabel}`;
+        return `${MoneyFormatter.formatMoneyWithPrecision((this._awardedAmount / units.unit), 1)}
+         ${units.unitLabel}`;
     },
     get obligatedAmount() {
         const units = MoneyFormatter.calculateUnitForSingleValue(this._obligatedAmount, 1);
-        return `
-        ${MoneyFormatter.formatMoneyWithPrecision((this._obligatedAmount / units.unit), 1)}
-        ${units.unitLabel}`;
+        return `${MoneyFormatter.formatMoneyWithPrecision((this._obligatedAmount / units.unit), 1)}
+         ${units.unitLabel}`;
     },
     get startDate() {
         return this._startDate ? formatDate(this._startDate) : '--';

@@ -1,0 +1,81 @@
+@mixin defaultPicker {
+  .default-picker {
+      @include display(inline-flex);
+      .default-picker__header {
+          @include display(flex);
+          @include justify-content(flex-start);
+          @include align-items(center);
+
+          .default-picker__icon {
+            &:first-child {
+                padding-right: rem(4); 
+              }
+            &:last-child {
+                padding-left: rem(6);
+            }
+          }
+
+          .default-picker__dropdown-container {
+              @include flex(0 1 auto);
+              @include align-self(stretch);
+              position: relative;
+          }
+
+          .default-picker__button {
+              @include button-unstyled;
+              @include display(inline-flex);
+              border-bottom: 1px solid $color-link;
+          }
+
+          .default-picker__button-text {
+              @include flex(1 1 auto);
+              margin-right: rem(5);
+              margin-left: rem(5);
+              color: $color-base;
+              font-weight: $font-semibold;
+              font-size: rem(16);
+          }
+
+          .default-picker__button-icon {
+              color: $color-link;
+          }
+      }
+
+      .default-picker__list {
+          @include unstyled-list;
+          position: absolute;
+          left: 0;
+          right: 0;
+          border: 1px solid #d0d1d4;
+          background-color: white;
+
+          &.default-picker__list_hidden {
+              display: none;
+          }
+
+          .default-picker__list-item {
+              border-top: 1px solid #d0d1d4;
+
+              &:first-child {
+                  border-top: none;
+              }
+
+              &:hover, &:active {
+                background-color: #efefef;
+              }
+          }
+
+          .default-picker__item {
+              @include button-unstyled;
+              color: #464B53;
+              font-size: rem(16);
+              text-align: center;
+              width: 100%;
+
+              &:hover, &:active {
+                  background-color: #efefef;
+              }
+          }
+      }
+  }
+}

@@ -115,6 +115,7 @@ export default class LocationPickerContainer extends React.Component {
         this.setCitySearchString = this.setCitySearchString.bind(this);
         this.fetchCityAutocomplete = this.fetchCityAutocomplete.bind(this);
         this.debouncedCitySearch = debounce(this.fetchCityAutocomplete, 500).bind(this);
+        this.cleanBadLocationData = this.cleanBadLocationData.bind(this);
     }
 
     componentDidMount() {
@@ -307,13 +308,13 @@ export default class LocationPickerContainer extends React.Component {
             level === "city" &&
             this.state.country.code === "USA" &&
             this.state.state.code !== value.code &&
-            value.code
+            (value.code)
         );
         const shouldAutoPopulateCountry = (
             level === "city" &&
             this.state.country.code !== "USA" &&
             this.state.country.code !== value.code &&
-            value.code
+            (value.code)
         );
         if (shouldAutoPopulateState) {
             const stateFromCity = this.state.availableStates
@@ -338,8 +339,41 @@ export default class LocationPickerContainer extends React.Component {
         });
     }
 
+    /**
+     * This function was necessary to handle bad location data.
+     * It overrides local state, which is an anti-pattern.
+     * The specific condition this handles is when a city is returned from the api
+     * which does not have a country code associated with it that exists within our availableCountries array in local state.
+     * In this case, the back end team has requested we pass them the country code associated with the city itself in the API response.
+     * That is what this function is intended to accomplish.
+     * We are not setting this value (city.code) to this.state.country because it would have additional
+     * side effects across the component's children and introduce even greater complexity.
+     * The specific example this was created to handle was searching by city, recipient location, londonderry.
+     **/
+
+    cleanBadLocationData(locationObject) {
+        const cleanLocationObject = Object.keys(locationObject)
+            .reduce((acc, locationProperty) => {
+                if (locationProperty === 'filter') {
+                    // only cleaning data passed to api which is the .filter property
+                    const filterData = locationObject[locationProperty];
+                    if (filterData.city && filterData.country.toLowerCase() === 'foreign') {
+                        return {
+                            ...acc,
+                            filter: {
+                                ...acc.filter,
+                                country: this.state.city.code
+                            }
+                        };
+                    }
+                }
+                return acc;
+            }, locationObject);
+        return cleanLocationObject;
+    }
+
     createLocationObject() {
-        return Object.keys(this.state)
+        const locationObject = Object.keys(this.state)
             .filter((prop) => locationProperties.includes(prop) && this.state[prop].code !== '')
             .reduce((acc, prop) => {
                 const accessor = locationPropertyAccessorMap[prop];
@@ -366,6 +400,8 @@ export default class LocationPickerContainer extends React.Component {
                     }
                 };
             }, { identifier: '', display: { entity: '', title: '', standalone: '' }, filter: {} });
+
+        return this.cleanBadLocationData(locationObject);
     }
 
     addLocation() {

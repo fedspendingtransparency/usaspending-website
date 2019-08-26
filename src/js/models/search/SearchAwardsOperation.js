@@ -199,12 +199,11 @@ class SearchAwardsOperation {
         }
 
         if (this.selectedRecipientLocations.length > 0) {
-            const locationSet = [];
-            this.selectedRecipientLocations.forEach((location) => {
-                if (location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
+            const locationSet = this.selectedRecipientLocations.map((location) => {
+                if (!location.filter.city && location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.recipientLocationScope] = 'foreign';
                 }
-                locationSet.push(location.filter);
+                return location.filter;
             });
 
             if (locationSet.length > 0) {
@@ -218,12 +217,11 @@ class SearchAwardsOperation {
 
         // Add Locations
         if (this.selectedLocations.length > 0) {
-            const locationSet = [];
-            this.selectedLocations.forEach((location) => {
-                if (location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
+            const locationSet = this.selectedLocations.map((location) => {
+                if (!location.filter.city && location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.placeOfPerformanceScope] = 'foreign';
                 }
-                locationSet.push(location.filter);
+                return location.filter;
             });
 
             if (locationSet.length > 0) {

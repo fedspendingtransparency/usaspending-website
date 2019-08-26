@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import kGlobalConstants from 'GlobalConstants';
 
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
 
@@ -39,6 +38,7 @@ const filters = {
         'Time Period',
         'Award Type',
         'Agency',
+        'Program Source (TAS)',
         'Location',
         'Recipient',
         'Recipient Type',
@@ -56,6 +56,7 @@ const filters = {
         TimePeriodContainer,
         AwardTypeContainer,
         AgencyContainer,
+        ProgramSourceContainer,
         LocationSectionContainer,
         RecipientSearchContainer,
         RecipientTypeContainer,
@@ -82,6 +83,24 @@ const filters = {
         null,
         null,
         null,
+        null,
+        null
+    ],
+    glossaryEntries: [
+        null,
+        null,
+        null,
+        null,
+        'treasury-account-symbol-tas',
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
     ]
 };
@@ -89,7 +108,8 @@ const filters = {
 const propTypes = {
     mobile: PropTypes.bool,
     filters: PropTypes.object,
-    requestsComplete: PropTypes.bool
+    requestsComplete: PropTypes.bool,
+    hash: PropTypes.string
 };
 
 const defaultProps = {
@@ -110,16 +130,6 @@ export default class SearchSidebar extends React.Component {
             }
         });
 
-        if (kGlobalConstants.DEV) {
-            // Insert the Program Source filter in dev environments
-            // TODO - Lizzie: initialize in the filter object when this feature is released
-            if (filters.options[4] !== 'Program Source (TAS)') {
-                filters.options.splice(4, 0, 'Program Source (TAS)');
-                filters.components.splice(4, 0, ProgramSourceContainer);
-                filters.accessories.splice(4, 0, null);
-            }
-        }
-
         return (
             <div
                 className="search-sidebar"
@@ -134,7 +144,10 @@ export default class SearchSidebar extends React.Component {
                 <div className="sidebar-top-submit">
                     <SearchSidebarSubmitContainer />
                 </div>
-                <FilterSidebar {...filters} expanded={expanded} />
+                <FilterSidebar
+                    {...filters}
+                    expanded={expanded}
+                    hash={this.props.hash} />
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />
                 </div>

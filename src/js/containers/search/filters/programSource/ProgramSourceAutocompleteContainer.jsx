@@ -7,9 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { pickBy, debounce } from 'lodash';
+import { programSourceInfo } from 'dataMapping/search/programSourceInfoTooltipContent';
 
 import * as ProgramSourceHelper from 'helpers/programSourceHelper';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
+import ProgramSourceInfoTooltipContent from 'components/search/filters/programSource/ProgramSourceInfoTooltip';
 
 const propTypes = {
     component: PropTypes.object,
@@ -25,6 +27,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
 
         this.state = {
             noResults: false,
+            inFlight: false,
             searchString: '',
             autocompleteOptions: []
         };
@@ -51,7 +54,8 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
         }
 
         this.setState({
-            noResults: false
+            noResults: false,
+            inFlight: true
         });
 
         // Make a copy of the current selections
@@ -77,7 +81,8 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
                 this.autocompleteRequest = null;
                 if (!isCancel(err)) {
                     this.setState({
-                        noResults: true
+                        noResults: true,
+                        inFlight: false
                     });
                     console.log(err);
                 }
@@ -105,7 +110,8 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
         }
         this.setState({
             autocompleteOptions: parsedResults,
-            noResults: parsedResults.length === 0
+            noResults: parsedResults.length === 0,
+            inFlight: false
         });
     }
 
@@ -124,7 +130,12 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
     handleTextInput(event) {
         event.persist();
         this.props.clearSelection(this.props.component.code);
-        this.queryAutocompleteDebounced(event.target.value);
+        if (event.target.value) {
+            this.queryAutocompleteDebounced(event.target.value);
+        }
+        else {
+            this.clearAutocompleteSuggestions();
+        }
     }
 
     render() {
@@ -133,6 +144,10 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
             <div className="program-source-select-filter">
                 <label className="program-source-select-filter__label">
                     {`${this.props.component.label} (${this.props.component.code.toUpperCase()})`}
+                    <ProgramSourceInfoTooltipContent
+                        heading={programSourceInfo[this.props.component.code].heading}
+                        definition={programSourceInfo[this.props.component.code].definition}
+                        example={programSourceInfo[this.props.component.code].example} />
                     {requiredIndicator}
                 </label>
                 <Autocomplete
@@ -150,6 +165,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
                     }}
                     clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
                     noResults={this.state.noResults}
+                    inFlight={this.state.inFlight}
                     characterLimit={this.props.component.characterLimit} />
             </div>
         );

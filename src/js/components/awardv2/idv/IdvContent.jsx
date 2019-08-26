@@ -24,8 +24,7 @@ const propTypes = {
     awardId: PropTypes.string,
     counts: AWARD_V2_COUNTS_PROPS,
     overview: AWARD_V2_OVERVIEW_PROPS,
-    jumpToSection: PropTypes.func,
-    isV2url: PropTypes.bool
+    jumpToSection: PropTypes.func
 };
 
 export default class IdvContent extends React.Component {
@@ -125,7 +124,7 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    <IdvActivityContainer comingSoon={!this.props.isV2url} />
+                    <IdvActivityContainer />
                     <AwardMetaDataContainer
                         jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>

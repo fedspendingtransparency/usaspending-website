@@ -258,6 +258,8 @@ describe('LocationPickerContainer', () => {
             const domesticContainer = shallow(<LocationPickerContainer {...mockPickerRedux} />);
             // Test for handling cities w/ commas
             const commaContainer = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+            // Test for handling cities w/ a code that doesn't match any countries
+            const invalidCountryCodeContainer = shallow(<LocationPickerContainer {...mockPickerRedux} />);
 
             domesticContainer.setState({
                 country: {
@@ -280,13 +282,25 @@ describe('LocationPickerContainer', () => {
                     name: "London, Kent"
                 }
             });
+            invalidCountryCodeContainer.setState({
+                country: {
+                    code: 'FOREIGN',
+                    name: 'ALL FOREIGN COUNTRIES'
+                },
+                city: {
+                    code: "United Kingdom",
+                    name: "Londonderry, United Kingdom"
+                }
+            });
 
             const domesticLocation = domesticContainer.instance().createLocationObject();
             const commaLocation = commaContainer.instance().createLocationObject();
+            const invalidCountryCodeLocation = invalidCountryCodeContainer.instance().createLocationObject();
 
             it('locationObject.identifier is correct', () => {
                 expect(domesticLocation.identifier).toEqual('USA_GA_Atlanta');
                 expect(commaLocation.identifier).toEqual('GBR_London, Kent');
+                expect(invalidCountryCodeLocation.identifier).toEqual('FOREIGN_Londonderry');
             });
             it('locationObject.filter is correct', () => {
                 expect(domesticLocation.filter).toEqual({
@@ -297,6 +311,10 @@ describe('LocationPickerContainer', () => {
                 expect(commaLocation.filter).toEqual({
                     country: 'GBR',
                     city: 'London, Kent'
+                });
+                expect(invalidCountryCodeLocation.filter).toEqual({
+                    country: 'United Kingdom',
+                    city: 'Londonderry'
                 });
             });
             it('locationObject.display is correct', () => {
@@ -309,6 +327,11 @@ describe('LocationPickerContainer', () => {
                     title: 'London, Kent',
                     entity: 'City',
                     standalone: 'London, Kent'
+                });
+                expect(invalidCountryCodeLocation.display).toEqual({
+                    title: 'Londonderry, United Kingdom',
+                    entity: 'City',
+                    standalone: 'Londonderry, United Kingdom'
                 });
             });
         });
@@ -390,6 +413,38 @@ describe('LocationPickerContainer', () => {
                     standalone: 'AK-99'
                 });
             });
+        });
+    });
+
+    describe('cleanBadLocationData', () => {
+        const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
+        container.setState({
+            country: {
+                code: 'GBR',
+                name: 'United Kingdom'
+            },
+            city: {
+                code: 'United Kingdom',
+                name: 'Londonderry'
+            }
+        });
+        const goodLocationData = container.instance().createLocationObject();
+        const badLocationData = {
+            ...goodLocationData,
+            filter: {
+                ...goodLocationData.filter,
+                country: 'FOREIGN'
+            }
+        };
+
+        it('badLocationData to be cleaned up', () => {
+            const cleanData = container.instance().cleanBadLocationData(badLocationData);
+            expect(cleanData.filter.country).toEqual(container.instance().state.city.code);
+        });
+
+        it('goodLocationData to be unchanged', () => {
+            const newLocationObject = container.instance().cleanBadLocationData(goodLocationData);
+            expect(newLocationObject.filter.country).toEqual(goodLocationData.filter.country);
         });
     });
 

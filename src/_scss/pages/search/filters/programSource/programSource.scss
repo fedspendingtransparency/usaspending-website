@@ -34,10 +34,69 @@
             padding-bottom: rem(15);
             @import "elements/filters/_errorMessage";
             @import "elements/filters/_typeahead";
+            .usa-da-typeahead__input {
+                @include display(flex);
+                position: relative;
+                background-color: $color-white;
+                border: 1px solid $color-gray-lighter;
+                input {
+                    border: 0;
+                    width: 100%;
+                }
+                .usa-da-typeahead__loading-icon {
+                    @include flex(0 0 auto);
+                    @include align-self(center);
+                    position: absolute;
+                    right: rem(15);
+                }
+            }
             .program-source-select-filter__label {
                 @include display(flex);
-                @include justify-content(space-between);
+                @import '../../../../components/visualizations/tooltip/csstooltip';
+                .tooltip-popover-container {
+                    @include display(flex);
+                    @include flex (0 0 auto);
+                    @include align-items(center);
+                    margin-left: rem(5);
+                    color: $color-gray-lighter;
+                    &:hover, &:focus {
+                        color: $color-gray-medium;
+                    }
+                    .tooltip-popover {
+                        // override the positioning to be centered over the icon
+                        bottom: rem(35);
+                        left: rem(-145);
+                        padding: 0;
+                        font-size: $small-font-size;
+                        &.program-source-info-tooltip {
+                            box-shadow: $box-shadow;
+                            background-color: $color-white;
+                            border: solid rem(1) $color-gray-light;
+                            .program-source-info-tooltip__heading {
+                                background-color: $color-gray-lightest;
+                                border-top-left-radius: rem(5);
+                                border-top-right-radius: rem(5);
+                                padding: rem(10) rem(15);
+                                font-weight: $font-bold;
+                            }
+                            .program-source-info-tooltip__definition {
+                                padding: rem(10) rem(15) 0;
+                            }
+                            .program-source-info-tooltip__example {
+                                font-weight: $font-bold;
+                                font-style: italic;
+                                padding: rem(10) rem(15) rem(15);
+                            }
+                        }
+                    }           
+                }
                 .program-source-select-filter__label-required {
+                    @include display(flex);
+                    @include justify-content(flex-end);
+                    @include flex (1 1 auto);
+                    @include align-self(center);
+                    flex-wrap: wrap;
+                    padding-left: rem(5);
                     color: $color-secondary;
                     text-align: right;
                 }

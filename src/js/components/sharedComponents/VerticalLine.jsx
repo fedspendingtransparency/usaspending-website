@@ -15,10 +15,10 @@ const propTypes = {
     xMax: PropTypes.number, // max possible value of x
     xMin: PropTypes.number, // max possible value of x
     xValue: PropTypes.number, // actual value of x
-    showTextRight: PropTypes.bool, // show text to the right of line
-    showTextLeft: PropTypes.bool, // show text to the left of line
+    showTextPosition: PropTypes.string, // show text left, right, and top are valid
     textY: PropTypes.number, // show text at this height
-    description: PropTypes.string
+    description: PropTypes.string,
+    adjustmentX: PropTypes.number // adjust x for padding
 };
 
 export default class VerticalLine extends Component {
@@ -60,52 +60,78 @@ export default class VerticalLine extends Component {
         const {
             xScale,
             xValue,
-            showTextRight,
-            showTextLeft,
-            textY
+            showTextPosition,
+            textY,
+            adjustmentX
         } = this.props;
-        let positionX = xScale(xValue || Date.now());
+        let positionX = xScale(xValue || Date.now()) + (adjustmentX || 0);
+        let modifiedTextY = textY;
         // the text div starts null since React only calls the callback ref function
         // when the DOM draws the element, without this you will get an error since
         // we will be call properties on null
         if (this.textDiv) {
             const textDivDimensions = this.textDiv.getBoundingClientRect();
             const width = textDivDimensions.width;
-            if (showTextLeft) positionX -= (width + 4);
-            if (showTextRight) positionX += 4;
+            if (showTextPosition === 'left') positionX -= (width + 4);
+            if (showTextPosition === 'right') positionX += 4;
+            if (showTextPosition === 'top') {
+                modifiedTextY -= 15;
+                positionX -= (width / 2);
+            }
         }
-        this.setState({ textX: positionX, textY });
+        this.setState({ textX: positionX, textY: modifiedTextY });
+    }
+
+    verticalLine() {
+        const {
+            xMin,
+            xMax,
+            xValue,
+            xScale,
+            adjustmentX,
+            y1,
+            y2
+        } = this.props;
+        const linePosition = xScale(xValue) + (adjustmentX || 0);
+        // get x position of minimum
+        const minimumX = xScale(xMin);
+        // get x position of maximum
+        const maximumX = xScale(xMax);
+        if ((linePosition > maximumX) || (linePosition < minimumX)) return null;
+        return (
+            <line
+                id="vertical-line"
+                x1={linePosition}
+                x2={linePosition}
+                y1={y1}
+                y2={y2} />
+        );
+    }
+
+    text(lineIsDisplayed) {
+        const { text } = this.props;
+        if (!lineIsDisplayed || !text) return null;
+        return (
+            <text
+                id="vertical-line__text"
+                x={this.state.textX}
+                y={this.state.textY}
+                ref={this.setTextDiv}>
+                {text}
+            </text>
+        );
     }
 
     render() {
-        const {
-            text,
-            y1,
-            y2,
-            xValue,
-            xMax,
-            xMin
-        } = this.props;
         // show nothing if not within x Range
-        if ((xValue > xMax) && (xValue < xMin)) return null;
+        const verticalLine = this.verticalLine();
+        const text = this.text(verticalLine);
         const description = this.props.description || 'A vertical line representing today\'s date';
-        const linePosition = this.props.xScale(this.props.xValue || Date.now());
         return (
             <g className="vertical-line__container">
                 <desc>{description}</desc>
-                <text
-                    id="vertical-line__text"
-                    x={this.state.textX}
-                    y={this.state.textY}
-                    ref={this.setTextDiv}>
-                    {text || 'Today'}
-                </text>
-                <line
-                    id="vertical-line"
-                    x1={linePosition}
-                    x2={linePosition}
-                    y1={y1}
-                    y2={y2} />
+                {text}
+                {verticalLine}
             </g>
         );
     }
