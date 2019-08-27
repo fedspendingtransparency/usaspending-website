@@ -70,7 +70,7 @@ export class AwardAmountsSectionContainer extends React.Component {
 
         this.awardRequest.promise
             .then((res) => {
-                this.parseAwardAmounts(res.data, "idv");
+                this.parseAwardAmounts(res.data, 'idv');
 
                 // operation has resolved
                 this.awardRequest = null;
