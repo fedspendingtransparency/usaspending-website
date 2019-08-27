@@ -1,7 +1,7 @@
 /**
-  * AwardAmountsContainer.jsx
-  * Created by David Trinh 2/8/2019
-  **/
+ * AwardAmountsContainer.jsx
+ * Created by David Trinh 2/8/2019
+ **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -13,18 +13,17 @@ import * as IdvHelper from 'helpers/idvHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AggregatedAwardAmounts from 'components/awardv2/idv/amounts/AggregatedAwardAmounts';
-import AwardAmountsSection from "../../../components/awardv2/shared/awardAmountsSection/index";
 
 const propTypes = {
     award: PropTypes.object,
     setCounts: PropTypes.func,
-    jumpToSection: PropTypes.func,
-    tooltipProps: PropTypes.object
+    jumpToSection: PropTypes.func
 };
 
-export class IdvAwardAmountsSectionContainer extends React.Component {
+export class IdvAmountsContainer extends React.Component {
     constructor(props) {
         super(props);
+
         this.awardRequest = null;
 
         this.state = {
@@ -35,22 +34,12 @@ export class IdvAwardAmountsSectionContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.award.category === 'idv') {
-            this.getIdvChildAwardAmounts(this.props.award.id);
-        }
-        else {
-            this.parseAwardAmounts(this.props.award.overview, this.props.award.category);
-        }
+        this.getSelectedAward(this.props.award.id);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.award.id !== prevProps.award.id) {
-            if (this.props.award.category === 'idv') {
-                this.getIdvChildAwardAmounts(this.props.award.id);
-            }
-            else {
-                this.parseAwardAmounts(this.props.award.overview);
-            }
+            this.getSelectedAward(this.props.award.id);
         }
     }
 
@@ -60,7 +49,7 @@ export class IdvAwardAmountsSectionContainer extends React.Component {
         }
     }
 
-    getIdvChildAwardAmounts(id) {
+    getSelectedAward(id) {
         if (this.awardRequest) {
             // A request is currently in-flight, cancel it
             this.awardRequest.cancel();
@@ -70,7 +59,7 @@ export class IdvAwardAmountsSectionContainer extends React.Component {
 
         this.awardRequest.promise
             .then((res) => {
-                this.parseAwardAmounts(res.data, "idv");
+                this.parseAward(res.data);
 
                 // operation has resolved
                 this.awardRequest = null;
@@ -95,56 +84,37 @@ export class IdvAwardAmountsSectionContainer extends React.Component {
             });
     }
 
-    parseAwardAmounts(data, awardType = this.props.award.category) {
-        if (awardType === 'idv' || awardType === 'grant') {
-            const awardAmounts = Object.create(BaseAwardAmounts);
-            awardAmounts.populate(data, awardType);
-            this.setState({
-                awardAmounts,
-                error: false,
-                inFlight: false
-            });
+    parseAward(data) {
+        const awardAmounts = Object.create(BaseAwardAmounts);
+        awardAmounts.populate(data, 'idv');
+        this.setState({
+            awardAmounts,
+            error: false,
+            inFlight: false
+        });
 
-            // Store the counts in Redux for use in the referenced awards table
-            // and related awards section
-            this.props.setCounts({
-                child_awards: data.child_award_count,
-                child_idvs: data.child_idv_count,
-                grandchild_awards: data.grandchild_award_count,
-                total: data.child_idv_count + data.child_award_count + data.grandchild_award_count
-            });
-        }
-        else {
-            this.setState({ awardAmounts: data });
-        }
+        // Store the counts in Redux for use in the referenced awards table
+        // and related awards section
+        this.props.setCounts({
+            child_awards: data.child_award_count,
+            child_idvs: data.child_idv_count,
+            grandchild_awards: data.grandchild_award_count,
+            total: data.child_idv_count + data.child_award_count + data.grandchild_award_count
+        });
     }
 
     render() {
-        if (this.state.awardAmounts) {
-            if (this.props.award.category === 'idv') {
-                return (
-                    <div>
-                        <AggregatedAwardAmounts
-                            awardAmounts={this.state.awardAmounts}
-                            jumpToSection={this.props.jumpToSection} />
-                    </div>
-                );
-            }
-            return (
-                <AwardAmountsSection
-                    awardType={this.props.award.category}
-                    tooltipProps={this.props.tooltipProps}
-                    awardOverview={this.state.awardAmounts}
-                    jumpToSection={this.props.jumpToSection} />
-            );
-        }
-        return null;
+        return (
+            <div>
+                <AggregatedAwardAmounts {...this.state} jumpToSection={this.props.jumpToSection} />
+            </div>
+        );
     }
 }
 
-IdvAwardAmountsSectionContainer.propTypes = propTypes;
+IdvAmountsContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ award: state.awardV2 }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
-)(IdvAwardAmountsSectionContainer);
+)(IdvAmountsContainer);
