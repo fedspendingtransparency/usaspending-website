@@ -14,7 +14,7 @@ const propTypes = {
     description: PropTypes.string
 };
 
-const ProgramSourceAutocompleteContainer = (props) => (
+const ProgramSourceInfoTooltip = (props) => (
     <div
         className={`tooltip-popover-container ${props.description ? 'tooltip-popover-container_description' : ''}`}
         tabIndex="0"
@@ -35,5 +35,5 @@ const ProgramSourceAutocompleteContainer = (props) => (
     </div>
 );
 
-ProgramSourceAutocompleteContainer.propTypes = propTypes;
-export default ProgramSourceAutocompleteContainer;
+ProgramSourceInfoTooltip.propTypes = propTypes;
+export default ProgramSourceInfoTooltip;
