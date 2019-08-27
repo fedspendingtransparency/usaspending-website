@@ -47,7 +47,6 @@ export const mockApi = {
             toptier_flag: false,
             toptier_agency: {
                 cgac_code: "075",
-                fpds_code: "7500",
                 abbreviation: "HHS",
                 name: "Department of Health and Human Services"
             },
@@ -55,8 +54,7 @@ export const mockApi = {
                 subtier_code: "7523",
                 abbreviation: "",
                 name: "Centers for Disease Control and Prevention"
-            },
-            office_agency: null
+            }
         },
         recipient: {
             legal_entity_id: 1317601,

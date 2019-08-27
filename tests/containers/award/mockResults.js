@@ -38,7 +38,6 @@ export const mockApi = {
             "create_date": "2018-01-31T19:53:06.173880Z",
             "update_date": "2018-03-07T19:54:57.995826Z",
             "cgac_code": "089",
-            "fpds_code": "8900",
             "abbreviation": "DOE",
             "name": "Department of Energy",
             "mission": "The mission of the Energy Department is to ensure America's security and prosperity by addressing its energy, environmental and nuclear challenges through transformative science and technology solutions.",
@@ -52,8 +51,7 @@ export const mockApi = {
             "subtier_code": "8900",
             "abbreviation": "DOE",
             "name": "Department of Energy"
-        },
-        "office_agency": null
+        }
     },
     "funding_agency": {
         "id": 930,
@@ -65,7 +63,6 @@ export const mockApi = {
             "create_date": "2018-01-31T19:53:06.173880Z",
             "update_date": "2018-03-07T19:54:57.995826Z",
             "cgac_code": "089",
-            "fpds_code": "8900",
             "abbreviation": "DOE",
             "name": "Department of Energy",
             "mission": "The mission of the Energy Department is to ensure America's security and prosperity by addressing its energy, environmental and nuclear challenges through transformative science and technology solutions.",
@@ -79,8 +76,7 @@ export const mockApi = {
             "subtier_code": "8900",
             "abbreviation": "DOE",
             "name": "Department of Energy"
-        },
-        "office_agency": null
+        }
     },
     "recipient": {
         "legal_entity_id": 98140463,
@@ -311,7 +307,6 @@ export const mockApi = {
                 "create_date": "2018-01-31T19:53:06.173880Z",
                 "update_date": "2018-03-07T19:54:57.995826Z",
                 "cgac_code": "089",
-                "fpds_code": "8900",
                 "abbreviation": "DOE",
                 "name": "Department of Energy",
                 "mission": "The mission of the Energy Department is to ensure America's security and prosperity by addressing its energy, environmental and nuclear challenges through transformative science and technology solutions.",
@@ -325,8 +320,7 @@ export const mockApi = {
                 "subtier_code": "8900",
                 "abbreviation": "DOE",
                 "name": "Department of Energy"
-            },
-            "office_agency": null
+            }
         },
         "funding_agency": {
             "id": 930,
@@ -338,7 +332,6 @@ export const mockApi = {
                 "create_date": "2018-01-31T19:53:06.173880Z",
                 "update_date": "2018-03-07T19:54:57.995826Z",
                 "cgac_code": "089",
-                "fpds_code": "8900",
                 "abbreviation": "DOE",
                 "name": "Department of Energy",
                 "mission": "The mission of the Energy Department is to ensure America's security and prosperity by addressing its energy, environmental and nuclear challenges through transformative science and technology solutions.",
@@ -352,8 +345,7 @@ export const mockApi = {
                 "subtier_code": "8900",
                 "abbreviation": "DOE",
                 "name": "Department of Energy"
-            },
-            "office_agency": null
+            }
         },
         "recipient": {
             "legal_entity_id": 98140463,
@@ -885,7 +877,6 @@ export const mockFinancialAssistanceApi = {
             "create_date": "2018-01-31T19:53:04.542546Z",
             "update_date": "2018-03-07T19:54:56.115928Z",
             "cgac_code": "075",
-            "fpds_code": "7500",
             "abbreviation": "HHS",
             "name": "Department of Health and Human Services",
             "mission": "It is the mission of the U.S. Department of Health & Human Services (HHS) to enhance and protect the health and well-being of all Americans. We fulfill that mission by providing for effective health and human services and fostering advances in medicine, public health, and social services.",
@@ -899,8 +890,7 @@ export const mockFinancialAssistanceApi = {
             "subtier_code": "7530",
             "abbreviation": "CMS",
             "name": "Centers for Medicare and Medicaid Services"
-        },
-        "office_agency": null
+        }
     },
     "funding_agency": null,
     "recipient": {
@@ -1133,7 +1123,6 @@ export const mockFinancialAssistanceApi = {
                 "create_date": "2018-01-31T19:53:04.542546Z",
                 "update_date": "2018-03-07T19:54:56.115928Z",
                 "cgac_code": "075",
-                "fpds_code": "7500",
                 "abbreviation": "HHS",
                 "name": "Department of Health and Human Services",
                 "mission": "It is the mission of the U.S. Department of Health & Human Services (HHS) to enhance and protect the health and well-being of all Americans. We fulfill that mission by providing for effective health and human services and fostering advances in medicine, public health, and social services.",
@@ -1147,8 +1136,7 @@ export const mockFinancialAssistanceApi = {
                 "subtier_code": "7530",
                 "abbreviation": "CMS",
                 "name": "Centers for Medicare and Medicaid Services"
-            },
-            "office_agency": null
+            }
         },
         "funding_agency": null,
         "recipient": {

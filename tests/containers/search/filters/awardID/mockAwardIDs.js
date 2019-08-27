@@ -30,7 +30,6 @@ export const mockAwardIDs = {
                     create_date: null,
                     update_date: null,
                     cgac_code: "012",
-                    fpds_code: "1200",
                     name: "AGRICULTURE, DEPARTMENT OF"
                 },
                 subtier_agency: {
@@ -39,8 +38,7 @@ export const mockAwardIDs = {
                     update_date: null,
                     subtier_code: "1205",
                     name: "USDA, OFFICE OF THE CHIEF FINANCIAL OFFICER"
-                },
-                office_agency: null
+                }
             },
             funding_agency: null,
             recipient: null,
@@ -77,7 +75,6 @@ export const mockAwardIDs = {
                     create_date: null,
                     update_date: null,
                     cgac_code: "070",
-                    fpds_code: "7000",
                     name: "HOMELAND SECURITY, DEPARTMENT OF"
                 },
                 subtier_agency: {
@@ -86,8 +83,7 @@ export const mockAwardIDs = {
                     update_date: null,
                     subtier_code: "7022",
                     name: "FEDERAL EMERGENCY MANAGEMENT AGENCY"
-                },
-                office_agency: null
+                }
             },
             funding_agency: null,
             recipient: {
@@ -330,7 +326,6 @@ export const mockAwardIDs = {
                     create_date: null,
                     update_date: null,
                     cgac_code: "075",
-                    fpds_code: "7500",
                     name: "HEALTH AND HUMAN SERVICES, DEPARTMENT OF"
                 },
                 subtier_agency: {
@@ -339,8 +334,7 @@ export const mockAwardIDs = {
                     update_date: null,
                     subtier_code: "7524",
                     name: "FOOD AND DRUG ADMINISTRATION"
-                },
-                office_agency: null
+                }
             },
             funding_agency: {
                 id: 1508,
@@ -351,7 +345,6 @@ export const mockAwardIDs = {
                     create_date: null,
                     update_date: null,
                     cgac_code: "075",
-                    fpds_code: "7500",
                     name: "HEALTH AND HUMAN SERVICES, DEPARTMENT OF"
                 },
                 subtier_agency: {
@@ -360,8 +353,7 @@ export const mockAwardIDs = {
                     update_date: null,
                     subtier_code: "7524",
                     name: "FOOD AND DRUG ADMINISTRATION"
-                },
-                office_agency: null
+                }
             },
             recipient: {
                 legal_entity_id: 61210,
