@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import TreasuryAccountFilters from './TreasuryAccountFilters';
 import SelectedSources from './SelectedSources';
+import ProgramSourceInfoTooltip from './ProgramSourceInfoTooltip';
 
 const propTypes = {
     selectedFederalComponents: PropTypes.object,
@@ -169,6 +170,25 @@ export default class ProgramSourceSection extends React.Component {
                     selectedSources={this.props.selectedTreasuryComponents} />
             );
         }
+        const dataNote = (
+            <React.Fragment>
+                This filter uses Account Breakdown by Award data (available&nbsp;
+                <a
+                    href="/#/download_center/custom_account_data"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    here
+                </a>
+                &nbsp;in full) submitted by agencies to Treasury under the requirements of the DATA Act of 2014, which went into effect in FY17Q2. As such, this data (and thus this filter) only covers award transactions from January 2017 onward. Awards that began prior to that point will only surface via this filter if they have financial modifications post-January 2017. Note that a subset of agency-submitted Account Breakdown by Award data is not definitively linkable to a single Federal Award; unlinked data cannot be and is not used by this filter, but is available along with the rest of the Account Breakdown by Award Data in the&nbsp;
+                <a
+                    href="/#/download_center/custom_account_data"
+                    target="_blank"
+                    rel="noopener noreferrer">
+                    Custom Account Data
+                </a>
+                &nbsp;section.
+            </React.Fragment>
+        );
 
         return (
             <div className="program-source-filter search-filter">
@@ -203,6 +223,10 @@ export default class ProgramSourceSection extends React.Component {
                 <div className="toggle-border" />
                 {filter}
                 {selectedSources}
+                <ProgramSourceInfoTooltip
+                    definition={dataNote}
+                    heading="A note about our TAS data sources"
+                    description="A note about our TAS data sources." />
                 <SubmitHint
                     ref={(component) => {
                         this.hint = component;
