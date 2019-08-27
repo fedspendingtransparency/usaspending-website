@@ -18,7 +18,6 @@ const items = {
             id: 1611,
             toptier_agency: {
                 cgac_code: "089",
-                fpds_code: "8900",
                 abbreviation: "DOE",
                 name: "Department of Energy"
             },
@@ -26,8 +25,7 @@ const items = {
                 subtier_code: "8900",
                 abbreviation: "",
                 name: "Department of Energy"
-            },
-            office_agency: null
+            }
         },
         funding_agency: null,
         recipient: {

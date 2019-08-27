@@ -61,9 +61,6 @@ export const AwardSectionHeader = ({
         <div className="award-viz__heading">
             {icon && <div className="award-viz__icon">{icon}</div>}
             <h3 className="award-viz__title">{title}</h3>
-            {/* <InfoToolTip left wide>
-                {federalAccountsInfo}
-            </InfoToolTip> */}
         </div>
         <hr />
     </React.Fragment>

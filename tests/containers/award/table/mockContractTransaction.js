@@ -19,7 +19,6 @@ const item = {
             id: 1305,
             toptier_agency: {
                 cgac_code: "036",
-                fpds_code: "3600",
                 abbreviation: "VA",
                 name: "Department of Veterans Affairs"
             },
@@ -27,14 +26,12 @@ const item = {
                 subtier_code: "3600",
                 abbreviation: "",
                 name: "Department of Veterans Affairs"
-            },
-            office_agency: null
+            }
         },
         funding_agency: {
             id: 1305,
             toptier_agency: {
                 cgac_code: "036",
-                fpds_code: "3600",
                 abbreviation: "VA",
                 name: "Department of Veterans Affairs"
             },
@@ -42,8 +39,7 @@ const item = {
                 subtier_code: "3600",
                 abbreviation: "",
                 name: "Department of Veterans Affairs"
-            },
-            office_agency: null
+            }
         },
         recipient: {
             legal_entity_id: 1576,
