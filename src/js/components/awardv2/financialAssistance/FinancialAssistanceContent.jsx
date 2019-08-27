@@ -9,7 +9,7 @@ import { startCase } from "lodash";
 
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import AwardAmountsSection from '../shared/awardAmountsSection';
+import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AwardRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
 import { AwardSection } from '../shared';

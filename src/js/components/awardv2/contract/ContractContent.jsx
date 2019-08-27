@@ -13,7 +13,7 @@ import AwardDates from '../shared/overview/AwardDates';
 
 import { AwardSection, AwardPageWrapper } from '../shared';
 import ComingSoonSection from '../shared/ComingSoonSection';
-import AwardAmountsSection from '../shared/awardAmountsSection';
+import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 
 const propTypes = {
     awardId: PropTypes.string,
