@@ -22,7 +22,7 @@ const propTypes = {
     tooltipProps: PropTypes.object
 };
 
-export class AwardAmountsSectionContainer extends React.Component {
+export class IdvAwardAmountsSectionContainer extends React.Component {
     constructor(props) {
         super(props);
         this.awardRequest = null;
@@ -142,9 +142,9 @@ export class AwardAmountsSectionContainer extends React.Component {
     }
 }
 
-AwardAmountsSectionContainer.propTypes = propTypes;
+IdvAwardAmountsSectionContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ award: state.awardV2 }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
-)(AwardAmountsSectionContainer);
+)(IdvAwardAmountsSectionContainer);
