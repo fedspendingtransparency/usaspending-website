@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { AwardSection, AwardSectionHeader } from '../../shared';
+import AwardSection from '../AwardSection';
+import AwardSectionHeader from '../AwardSectionHeader';
 import { determineSpendingScenario } from "../../../../helpers/aggregatedAmountsHelper";
 import NormalChart from './charts/NormalChart';
 import ExceedsCurrentChart from './charts/ExceedsCurrentChart';

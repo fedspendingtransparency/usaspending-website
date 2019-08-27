@@ -12,7 +12,7 @@ import { glossaryLinks } from 'dataMapping/search/awardType';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AwardRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
-import { AwardSection } from '../shared';
+import AwardSection from '../shared/AwardSection';
 import ComingSoonSection from "../shared/ComingSoonSection";
 import BaseAwardAmounts from "../../../models/v2/awardsV2/BaseAwardAmounts";
 

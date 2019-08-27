@@ -10,8 +10,8 @@ import { glossaryLinks } from 'dataMapping/search/awardType';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
-
-import { AwardSection, AwardPageWrapper } from '../shared';
+import AwardPageWrapper from '../shared/AwardPageWrapper';
+import AwardSection from '../shared/AwardSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 
