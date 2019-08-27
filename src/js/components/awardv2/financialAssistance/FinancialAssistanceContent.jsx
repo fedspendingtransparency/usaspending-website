@@ -38,7 +38,7 @@ export default class FinancialAssistanceContent extends React.Component {
                         {glossaryLink}
                     </div>
                     <div className="award__heading-id">
-                        <div className="award__heading-lable">{this.props.overview.id ? 'ID' : ''}</div>
+                        <div className="award__heading-label">{this.props.overview.id ? 'ID' : ''}</div>
                         <div>{this.props.overview.id}</div>
                     </div>
                 </div>

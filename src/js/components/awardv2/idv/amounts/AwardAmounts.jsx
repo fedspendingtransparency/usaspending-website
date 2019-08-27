@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import IdvAmountsContainer from 'containers/awardV2/idv/IdvAmountsContainer';
+import AwardAmountsSectionContainer from 'containers/awardV2/shared/AwardAmountsSectionContainer';
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import IDVAmounts from './IDVAmounts';
@@ -48,7 +48,7 @@ export default class AwardAmounts extends React.Component {
 
         const awards = this.props.overview;
         const content = this.state.active === 'awards' ? (
-            <IdvAmountsContainer
+            <AwardAmountsSectionContainer
                 jumpToSection={this.props.jumpToSection} />
         ) : (
             <IDVAmounts

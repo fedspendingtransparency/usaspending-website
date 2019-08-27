@@ -12,9 +12,9 @@ import ChartError from 'components/search/visualizations/ChartError';
 import { Table } from 'components/sharedComponents/icons/Icons';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 import AwardsBanner from './AwardsBanner';
-import NormalChart from './charts/NormalChart';
-import ExceedsCurrentChart from './charts/ExceedsCurrentChart';
-import ExceedsPotentialChart from './charts/ExceedsPotentialChart';
+import NormalChart from '../../shared/awardAmountsSection/charts/NormalChart';
+import ExceedsCurrentChart from '../../shared/awardAmountsSection/charts/ExceedsCurrentChart';
+import ExceedsPotentialChart from '../../shared/awardAmountsSection/charts/ExceedsPotentialChart';
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 import { CombinedObligatedAmounts, CombinedCurrentAmounts, CombinedPotentialAmounts, CombinedExceedsCurrentAmounts, CombinedExceedsPotentialAmounts } from '../../idv/TooltipContent';
 
@@ -68,27 +68,27 @@ export default class AggregatedAwardAmounts extends React.Component {
             obligated: {
                 offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-obligated-tt__container",
-                tooltipComponent: <CombinedObligatedAmounts total={awardAmounts.obligation} count={awardAmounts.childAwardCount} />
+                tooltipComponent: <CombinedObligatedAmounts total={awardAmounts.totalObligationFormatted} count={awardAmounts.childAwardCount} />
             },
             current: {
                 offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-current-tt__container",
-                tooltipComponent: <CombinedCurrentAmounts total={awardAmounts.combinedCurrentAwardAmounts} count={awardAmounts.childAwardCount} />
+                tooltipComponent: <CombinedCurrentAmounts total={awardAmounts.baseExercisedOptionsFormatted} count={awardAmounts.childAwardCount} />
             },
             potential: {
                 offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-potential-tt__container",
-                tooltipComponent: <CombinedPotentialAmounts total={awardAmounts.combinedPotentialAwardAmounts} count={awardAmounts.childAwardCount} />
+                tooltipComponent: <CombinedPotentialAmounts total={awardAmounts.baseAndAllOptionsFormatted} count={awardAmounts.childAwardCount} />
             },
             exceedsCurrent: {
                 offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-exceeds-current-tt__container",
-                tooltipComponent: <CombinedExceedsCurrentAmounts total={awardAmounts.overspending} count={awardAmounts.childAwardCount} />
+                tooltipComponent: <CombinedExceedsCurrentAmounts total={awardAmounts.overspendingFormatted} count={awardAmounts.childAwardCount} />
             },
             exceedsPotential: {
                 offsetAdjustments: { top: 0, right: 30 },
                 className: "combined-exceeds-potential-tt__container",
-                tooltipComponent: <CombinedExceedsPotentialAmounts total={awardAmounts.extremeOverspending} count={awardAmounts.childAwardCount} />
+                tooltipComponent: <CombinedExceedsPotentialAmounts total={awardAmounts.extremeOverspendingFormatted} count={awardAmounts.childAwardCount} />
             }
         };
 
@@ -149,10 +149,10 @@ export default class AggregatedAwardAmounts extends React.Component {
         let overspendingRow = null;
         switch (visualizationType) {
             case ('normal'):
-                visualization = (<NormalChart {...this.getTooltipPropsBySpendingScenario('normal')} awardAmounts={awardAmounts} />);
+                visualization = (<NormalChart awardType="idv" {...this.getTooltipPropsBySpendingScenario('normal')} awardAmounts={awardAmounts} />);
                 break;
             case ('exceedsCurrent'):
-                visualization = (<ExceedsCurrentChart {...this.getTooltipPropsBySpendingScenario('exceedsCurrent')} awardAmounts={awardAmounts} />);
+                visualization = (<ExceedsCurrentChart awardType="idv" {...this.getTooltipPropsBySpendingScenario('exceedsCurrent')} awardAmounts={awardAmounts} />);
                 overspendingRow = (
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />Exceeds Combined Current Award Amounts</div>
@@ -161,7 +161,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                 );
                 break;
             case ('exceedsPotential'):
-                visualization = (<ExceedsPotentialChart {...this.getTooltipPropsBySpendingScenario('exceedsPotential')} awardAmounts={awardAmounts} />);
+                visualization = (<ExceedsPotentialChart awardType="idv" {...this.getTooltipPropsBySpendingScenario('exceedsPotential')} awardAmounts={awardAmounts} />);
                 overspendingRow = (
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />Exceeds Combined Potential Award Amounts</div>
@@ -213,15 +213,15 @@ export default class AggregatedAwardAmounts extends React.Component {
                 <div className="award-amounts__data-wrapper">
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Combined Obligated Amounts</div>
-                        <span>{awardAmounts.obligation}</span>
+                        <span>{awardAmounts.totalObligationFormatted}</span>
                     </div>
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Combined Current Award Amounts</div>
-                        <span>{awardAmounts.combinedCurrentAwardAmounts}</span>
+                        <span>{awardAmounts.baseExercisedOptionsFormatted}</span>
                     </div>
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Combined Potential Award Amounts</div>
-                        <span>{awardAmounts.combinedPotentialAwardAmounts}</span>
+                        <span>{awardAmounts.baseAndAllOptionsFormatted}</span>
                     </div>
                     {overspendingRow}
                 </div>
