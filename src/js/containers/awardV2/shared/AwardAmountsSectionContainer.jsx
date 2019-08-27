@@ -124,6 +124,8 @@ export class AwardAmountsSectionContainer extends React.Component {
             return (
                 <div>
                     <AggregatedAwardAmounts
+                        inFlight={this.state.inFlight}
+                        error={this.state.error}
                         awardAmounts={this.state.awardAmounts}
                         jumpToSection={this.props.jumpToSection} />
                 </div>
