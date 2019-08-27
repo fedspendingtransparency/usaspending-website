@@ -46,6 +46,7 @@ export default class FinancialAssistanceContent extends React.Component {
         const awardAmountData = Object.create(BaseAwardAmounts);
         awardAmountData.populate(this.props.overview, this.props.overview.category);
         // TODO: Determine if we should label with FAIN/ URI instead of ID
+        // TODO: Implement AwardPageWrapper, AwardSection etc...
         return (
             <div className="award award-financial-assistance">
                 <div className="award__heading">
