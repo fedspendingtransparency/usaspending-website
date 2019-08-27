@@ -106,6 +106,22 @@
             @import "elements/filters/_errorMessage";
             @import "elements/filters/_typeahead";
 
+            .usa-da-typeahead__input {
+                @include display(flex);
+                position: relative;
+                background-color: $color-white;
+                border: 1px solid $color-gray-lighter;
+                input {
+                    border: 0;
+                    width: 100%;
+                }
+                .usa-da-typeahead__loading-icon {
+                    @include flex(0 0 auto);
+                    @include align-self(center);
+                    position: absolute;
+                    right: rem(15);
+                }
+            }
             .program-source-select-filter__label {
                 @include display(flex);
 

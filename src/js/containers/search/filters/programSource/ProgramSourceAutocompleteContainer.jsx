@@ -27,6 +27,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
 
         this.state = {
             noResults: false,
+            inFlight: false,
             searchString: '',
             autocompleteOptions: []
         };
@@ -53,12 +54,14 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
         }
 
         this.setState({
-            noResults: false
+            noResults: false,
+            inFlight: true
         });
 
         // Make a copy of the current selections
         let filters = Object.assign({}, this.props.selectedSources);
-        filters[this.props.component.code] = input;
+        // All the components are numbers except Availability Type Code, which we want to be case insensitive
+        filters[this.props.component.code] = input.toUpperCase();
         // Exclude filters with empty values
         filters = pickBy(filters);
 
@@ -79,7 +82,8 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
                 this.autocompleteRequest = null;
                 if (!isCancel(err)) {
                     this.setState({
-                        noResults: true
+                        noResults: true,
+                        inFlight: false
                     });
                     console.log(err);
                 }
@@ -107,7 +111,8 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
         }
         this.setState({
             autocompleteOptions: parsedResults,
-            noResults: parsedResults.length === 0
+            noResults: parsedResults.length === 0,
+            inFlight: false
         });
     }
 
@@ -161,6 +166,7 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
                     }}
                     clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
                     noResults={this.state.noResults}
+                    inFlight={this.state.inFlight}
                     characterLimit={this.props.component.characterLimit} />
             </div>
         );
