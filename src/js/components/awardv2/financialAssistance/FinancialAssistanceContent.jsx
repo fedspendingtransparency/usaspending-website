@@ -9,11 +9,12 @@ import { startCase } from "lodash";
 
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import IdvAwardAmountsSectionContainer from '../../../containers/awardV2/idv/IdvAwardAmountsSectionContainer';
+import AwardAmountsSection from '../shared/awardAmountsSection';
 import AwardRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
 import { AwardSection } from '../shared';
 import ComingSoonSection from "../shared/ComingSoonSection";
+import BaseAwardAmounts from "../../../models/v2/awardsV2/BaseAwardAmounts";
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -41,6 +42,9 @@ export default class FinancialAssistanceContent extends React.Component {
                 </a>
             );
         }
+
+        const awardAmountData = Object.create(BaseAwardAmounts);
+        awardAmountData.populate(this.props.overview, this.props.overview.category);
         // TODO: Determine if we should label with FAIN/ URI instead of ID
         return (
             <div className="award award-financial-assistance">
@@ -68,7 +72,9 @@ export default class FinancialAssistanceContent extends React.Component {
                 </div>
                 <AwardSection type="row">
                     <AwardSection type="column">
-                        <IdvAwardAmountsSectionContainer
+                        <AwardAmountsSection
+                            awardType={this.props.overview.category}
+                            awardOverview={awardAmountData}
                             tooltipProps={defaultTooltipProps}
                             jumptoSection={this.props.jumpToSection} />
                     </AwardSection>
