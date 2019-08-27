@@ -87,7 +87,7 @@ export default class GrantChart extends React.Component {
                     </TooltipWrapper>
                 </div>
                 <div className="award-amounts-viz__label" style={nonFederalFundingLabelStyle}>
-                    <div className="award-amounts-viz__line--non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
+                    {nonFederalFunding > 0 && <div className="award-amounts-viz__line--non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />}
                     <div className="award-amounts-viz__desc">
                         <div
                             className="award-amounts-viz__desc-text"
