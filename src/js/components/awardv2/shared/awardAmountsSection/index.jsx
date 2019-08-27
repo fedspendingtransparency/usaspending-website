@@ -9,33 +9,12 @@ import ExceedsPotentialChart from './charts/ExceedsPotentialChart';
 import NoResultsMessage from '../../../sharedComponents/NoResultsMessage';
 import GrantChart from './charts/GrantChart';
 import AwardAmountsTable from './AwardAmountsTable';
+import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, TOOLTIP_PROPS, AWARD_TYPE_PROPS } from '../../../../propTypes';
 
 const propTypes = {
-    awardType: PropTypes.oneOf(['idv', 'contract', 'grant']),
-    awardOverview: PropTypes.shape({
-        // Probably more...? Need to define this elsewhere
-        id: PropTypes.string,
-        generatedId: PropTypes.string,
-        _totalObligation: PropTypes.number,
-        obligation: PropTypes.string,
-        obligationFormatted: PropTypes.string,
-        _baseExercisedOptions: PropTypes.number,
-        baseExercisedOptions: PropTypes.string,
-        baseExercisedOptionsFormatted: PropTypes.string,
-        _baseAndAllOptions: PropTypes.number,
-        combinedPotentialAwardAmounts: PropTypes.string,
-        combinedPotentialAwardAmountsFormatted: PropTypes.string,
-        baseExercisedOptionsFormated: PropTypes.string
-        // DEV-2991 TODO: Add Props for Grant Type
-    }),
-    tooltipProps: PropTypes.shape({
-        controlledProps: PropTypes.shape({
-            isControlled: PropTypes.bool,
-            isVisible: PropTypes.bool,
-            closeCurrentTooltip: PropTypes.func,
-            showTooltip: PropTypes.func
-        })
-    })
+    awardType: AWARD_TYPE_PROPS,
+    awardOverview: AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS,
+    tooltipProps: TOOLTIP_PROPS
 };
 
 const AwardAmounts = ({
