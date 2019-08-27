@@ -223,4 +223,15 @@ $grants-line-color: #47AAA7;
             }
         }
     }
+    .award-amounts-viz__desc--nff-zero {
+        .award-amounts-viz__desc-text {
+            order: 1;
+            margin-left: 10px;
+            min-width: rem(160);
+            text-align: left;
+        }
+        .award-amounts-viz__legend-line {
+            height: rem(45);
+        }
+    }
 }

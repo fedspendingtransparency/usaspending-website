@@ -46,6 +46,8 @@ export default class GrantChart extends React.Component {
             width: generatePercentage(nonFederalFunding / totalFunding)
         };
 
+        const nonFederalFundingIsZero = (nonFederalFunding === 0);
+
         const { currentTooltipProps, obligatedTooltipProps, potentialTooltipProps } = this.props;
         const nonFFTooltipStyles = {
             width: nonFederalFundingBarStyle.width,
@@ -78,7 +80,7 @@ export default class GrantChart extends React.Component {
                             <TooltipWrapper {...obligatedTooltipProps} styles={{ width: obligatedBarStyle.width, border: "5px solid #BBB" }}>
                                 <div className="award-amounts-viz__obligated--grants" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
                             </TooltipWrapper>
-                            {nonFederalFunding > 0 &&
+                            {!nonFederalFundingIsZero &&
                                 <TooltipWrapper {...currentTooltipProps} styles={{ ...nonFFTooltipStyles }}>
                                     <div className="award-amounts-viz__non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
                                 </TooltipWrapper>
@@ -87,8 +89,11 @@ export default class GrantChart extends React.Component {
                     </TooltipWrapper>
                 </div>
                 <div className="award-amounts-viz__label" style={nonFederalFundingLabelStyle}>
-                    {nonFederalFunding > 0 && <div className="award-amounts-viz__line--non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />}
-                    <div className="award-amounts-viz__desc">
+                    {!nonFederalFundingIsZero > 0 && <div className="award-amounts-viz__line--non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />}
+                    <div
+                        className={`${nonFederalFundingIsZero
+                            ? 'award-amounts-viz__desc award-amounts-viz__desc--nff-zero'
+                            : 'award-amounts-viz__desc'}`}>
                         <div
                             className="award-amounts-viz__desc-text"
                             role="button"
