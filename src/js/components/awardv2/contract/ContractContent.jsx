@@ -10,10 +10,10 @@ import { glossaryLinks } from 'dataMapping/search/awardType';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
-
-import { AwardSection, AwardPageWrapper } from '../shared';
+import AwardPageWrapper from '../shared/AwardPageWrapper';
+import AwardSection from '../shared/AwardSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
-import AwardAmountsSection from '../shared/awardAmountsSection';
+import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -36,6 +36,7 @@ export default class ContractContent extends React.Component {
         const glossaryLink = glossarySlug
             ? `/#/award_v2/${this.props.awardId}?glossary=${glossarySlug}`
             : null;
+
         return (
             <AwardPageWrapper
                 glossaryLink={glossaryLink}
@@ -56,8 +57,10 @@ export default class ContractContent extends React.Component {
                 </AwardSection>
                 <AwardSection type="row">
                     <AwardAmountsSection
-                        tooltipProps={defaultTooltipProps}
-                        awardOverview={this.props.overview} />
+                        awardType={this.props.overview.category}
+                        jumpToSection={this.props.jumpToSection}
+                        awardOverview={this.props.overview}
+                        tooltipProps={defaultTooltipProps} />
                     <ComingSoonSection title="Description" includeHeader />
                 </AwardSection>
                 <AdditionalInfo overview={this.props.overview} />

@@ -1,44 +1,38 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import { AwardSection, AwardSectionHeader } from '../../shared';
+import AwardSection from '../AwardSection';
+import AwardSectionHeader from '../AwardSectionHeader';
 import { determineSpendingScenario } from "../../../../helpers/aggregatedAmountsHelper";
 import NormalChart from './charts/NormalChart';
 import ExceedsCurrentChart from './charts/ExceedsCurrentChart';
 import ExceedsPotentialChart from './charts/ExceedsPotentialChart';
 import NoResultsMessage from '../../../sharedComponents/NoResultsMessage';
+import GrantChart from './charts/GrantChart';
+import AwardAmountsTable from './AwardAmountsTable';
+import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, TOOLTIP_PROPS, AWARD_TYPE_PROPS } from '../../../../propTypes';
 
 const propTypes = {
-    awardOverview: PropTypes.shape({
-        // Probably more...? Need to define this elsewhere
-        id: PropTypes.string,
-        generatedId: PropTypes.string,
-        _totalObligation: PropTypes.number,
-        obligation: PropTypes.string,
-        obligationFormatted: PropTypes.string,
-        _baseExercisedOptions: PropTypes.number,
-        baseExercisedOptions: PropTypes.string,
-        baseExercisedOptionsFormatted: PropTypes.string,
-        _baseAndAllOptions: PropTypes.number,
-        combinedPotentialAwardAmounts: PropTypes.string,
-        combinedPotentialAwardAmountsFormatted: PropTypes.string,
-        baseExercisedOptionsFormated: PropTypes.string
-    }),
-    tooltipProps: PropTypes.shape({
-        controlledProps: PropTypes.shape({
-            isControlled: PropTypes.bool,
-            isVisible: PropTypes.bool,
-            closeCurrentTooltip: PropTypes.func,
-            showTooltip: PropTypes.func
-        })
-    })
+    awardType: AWARD_TYPE_PROPS,
+    awardOverview: AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS,
+    tooltipProps: TOOLTIP_PROPS
 };
 
 const AwardAmounts = ({
+    awardType,
     awardOverview,
     tooltipProps
 }) => {
     const renderChart = (awardAmounts = awardOverview) => {
+        if (awardType === 'grant') {
+            return (
+                <GrantChart
+                    awardAmounts={awardAmounts}
+                    obligatedTooltipProps={tooltipProps}
+                    currentTooltipProps={tooltipProps}
+                    potentialTooltipProps={tooltipProps}
+                    exceedsCurrentTooltipProps={tooltipProps} />
+            );
+        }
         switch (determineSpendingScenario(awardAmounts)) {
             case "exceedsCurrent":
                 return (
@@ -89,20 +83,7 @@ const AwardAmounts = ({
                 <div>
                     <div className="award-amounts__content">
                         {visualization}
-                        <div className="award-amounts__data-wrapper">
-                            <div className="award-amounts__data-content">
-                                <div><span className="award-amounts__data-icon award-amounts__data-icon_blue" />Obligated Amounts</div>
-                                <span>{awardOverview.totalObligationFormatted}</span>
-                            </div>
-                            <div className="award-amounts__data-content">
-                                <div><span className="award-amounts__data-icon award-amounts__data-icon_gray" />Current Award Amounts</div>
-                                <span>{awardOverview.baseExercisedOptionsFormatted}</span>
-                            </div>
-                            <div className="award-amounts__data-content">
-                                <div><span className="award-amounts__data-icon award-amounts__data-icon_transparent" />Potential Award Amounts</div>
-                                <span>{awardOverview.baseAndAllOptionsFormatted}</span>
-                            </div>
-                        </div>
+                        <AwardAmountsTable awardData={awardOverview} awardType={awardType} />
                     </div>
                 </div>
             </div>

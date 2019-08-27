@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import InfoTooltip from '../idv/InfoTooltip';
-import { AwardSection } from '.';
+import AwardSection from './AwardSection';
 
 const propTypes = {
     title: PropTypes.string,
