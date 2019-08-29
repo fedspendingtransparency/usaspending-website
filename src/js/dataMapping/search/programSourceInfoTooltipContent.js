@@ -37,7 +37,7 @@ export const programSourceInfo = {
     },
     sub: {
         heading: 'Sub Account Code',
-        definition: 'This is a component of the TAS. Identifies a Treasury-defined subdivision of the main account. This field cannot be blank. Subaccount 000 indicates the Parent account.',
+        definition: 'Sub Account Code (SUB) is a component of the TAS that identifies a Treasury-defined subdivision of a Federal Account (AID + MAIN). Most Federal Accounts do not have subdivisions. 000 is the default SUB; if 000 is the only SUB under a given Federal Account, it has not been subdivided.',
         example: '001'
     }
 };
