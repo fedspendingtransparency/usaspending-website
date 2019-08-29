@@ -139,6 +139,7 @@ export default class TooltipWrapper extends React.Component {
             .filter((key) => ['offsetTop', 'offsetLeft', 'width'].includes(key))
             .reduce((acc, item) => {
                 if (item === 'offsetLeft') return { ...acc, left: this.state[item] };
+                if (item === 'offsetTop') return { ...acc, top: this.state[item] };
                 return { ...acc, [item]: this.state[item] };
             }, {});
         if (showTooltip) {
