@@ -22,8 +22,11 @@ import {
     faPencilAlt,
     faSearch,
     faSpinner,
+    faSquare,
     faTag,
-    faUserTie
+    faUserTie,
+    faMinusSquare,
+    faCheckSquare
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -44,6 +47,7 @@ library.add(
     faChartArea,
     faChartBar,
     faChartPie,
+    faCheckSquare,
     faChevronDown,
     faChevronUp,
     faEllipsisH,
@@ -52,9 +56,11 @@ library.add(
     faLandmark,
     faLevelUpAlt,
     faMapMarkerAlt,
+    faMinusSquare,
     faPencilAlt,
     faSearch,
     faSpinner,
+    faSquare,
     faTag,
     faUserTie
 );
