@@ -20,11 +20,9 @@ export default class AwardAmounts extends React.Component {
             <AwardSection type="column" className="award-viz award-amounts">
                 <div className="award__col__content">
                     <AwardSectionHeader title="$ Award Amounts" />
-                    <div>
-                        <div className="award-amounts__content">
-                            <AwardAmountsChart awardOverview={this.props.awardOverview} awardType={this.props.awardType} />
-                            <AwardAmountsTable awardData={awardOverview} awardType={awardType} />
-                        </div>
+                    <div className="award-amounts__content">
+                        <AwardAmountsChart awardOverview={this.props.awardOverview} awardType={this.props.awardType} />
+                        <AwardAmountsTable awardData={awardOverview} awardType={awardType} />
                     </div>
                 </div>
             </AwardSection>
