@@ -135,13 +135,14 @@ export default class IdvActivityTooltip extends React.Component {
                     arrayOfDivsToTruncate[index],
                     arrayOfDivText[index].length));
             const truncatedText = truncatedLengths.reduce((acc, truncatedLength, index) => {
+                const newText = this.truncateText(
+                    arrayOfDivText[index],
+                    truncatedLength,
+                    arrayOfProperties[index]
+                );
                 return {
                     ...acc,
-                    ...this.truncateText(
-                        arrayOfDivText[index],
-                        truncatedLength,
-                        arrayOfProperties[index]
-                    )
+                    ...newText
                 };
             }, {});
             // truncated to true adds titles to the a tags
