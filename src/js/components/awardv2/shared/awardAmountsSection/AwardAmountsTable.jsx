@@ -5,7 +5,8 @@ import { uniqueId } from 'lodash';
 const propTypes = {
     children: PropTypes.node,
     awardType: PropTypes.oneOf(['contract', 'idv', 'grant']),
-    awardData: PropTypes.shape({})
+    awardData: PropTypes.shape({}),
+    spendingScenario: PropTypes.string
 };
 
 // contractAndIdvCategories + grantCategories live in the awardData props object
@@ -44,7 +45,7 @@ const awardTableClassMap = {
 const AwardAmountsTable = ({
     awardData,
     awardType,
-    children
+    spendingScenario
 }) => {
     /*
      * we have to do this because right now whenever there's any kind of overspending
@@ -52,7 +53,29 @@ const AwardAmountsTable = ({
      * irrespective of whether the award exceedsPotential or exceedsCurrent
      * so we're relying on the parent in this case because we cant deduce the spending scenario
      **/
-    const overspendingRow = children;
+
+    const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario) => {
+        switch (scenario) {
+            case ('normal'):
+                return null;
+            case ('exceedsCurrent'):
+                return (
+                    <div className="award-amounts__data-content">
+                        <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />Exceeds Combined Current Award Amounts</div>
+                        <span>{awardAmounts.overspendingFormatted}</span>
+                    </div>
+                );
+            case ('exceedsPotential'):
+                return (
+                    <div className="award-amounts__data-content">
+                        <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />Exceeds Combined Potential Award Amounts</div>
+                        <span>{awardAmounts.extremeOverspendingFormatted}</span>
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
 
     // Returns: { titleInTable: AwardCategoryAmount }
     const buildAmountMapByCategoryTitle = (accumulator, category) => ({
@@ -64,6 +87,8 @@ const AwardAmountsTable = ({
     const amountMapByCategoryTitle = (awardType === 'idv' || awardType === 'contract')
         ? contractAndIdvCategories.reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {})
         : grantCategories.reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {});
+
+    const overspendingRow = getOverSpendingRow(awardData, spendingScenario);
 
     return (
         <div className="award-amounts__data-wrapper">

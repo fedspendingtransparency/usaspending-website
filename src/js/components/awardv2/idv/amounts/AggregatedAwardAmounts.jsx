@@ -10,13 +10,8 @@ import { formatNumber } from 'helpers/moneyFormatter';
 import { determineSpendingScenario } from 'helpers/aggregatedAmountsHelper';
 import ChartError from 'components/search/visualizations/ChartError';
 import { Table } from 'components/sharedComponents/icons/Icons';
-import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 import AwardsBanner from './AwardsBanner';
-import NormalChart from '../../shared/awardAmountsSection/charts/NormalChart';
-import ExceedsCurrentChart from '../../shared/awardAmountsSection/charts/ExceedsCurrentChart';
-import ExceedsPotentialChart from '../../shared/awardAmountsSection/charts/ExceedsPotentialChart';
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
-import { CombinedObligatedAmounts, CombinedCurrentAmounts, CombinedPotentialAmounts, CombinedExceedsCurrentAmounts, CombinedExceedsPotentialAmounts } from '../../idv/TooltipContent';
 import AwardAmountsTable from '../../shared/awardAmountsSection/AwardAmountsTable';
 import AwardAmountsChart from '../../shared/awardAmountsSection/charts/AwardAmountsChart';
 
@@ -27,46 +22,8 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-const tooltipStateBySpendingCategory = {
-    obligated: "showObligatedTooltip",
-    current: "showCurrentTooltip",
-    potential: "showPotentialTooltip",
-    exceedsCurrent: "showExceedsCurrentTooltip",
-    exceedsPotential: "showExceedsPotentialTooltip"
-};
-
-const createShowAndCloseTooltipMethod = (ctx, category) => {
-    // ctx is `this`
-    // type is one of: obligated, current, potential, exceedsCurrent, or exceedsPotential
-    const titleCasedCategory = `${category[0].toUpperCase()}${category.substring(1)}`;
-    ctx[`show${titleCasedCategory}Tooltip`] = ctx.showSpendingCategoryTooltip.bind(ctx, category);
-    ctx[`close${titleCasedCategory}Tooltip`] = ctx.closeSpendingCategoryTooltip.bind(ctx, category);
-};
 
 export default class AggregatedAwardAmounts extends React.Component {
-    getOverSpendingRow(awardAmounts = this.props.awardAmounts) {
-        switch (determineSpendingScenario(awardAmounts)) {
-            case ('normal'):
-                return null;
-            case ('exceedsCurrent'):
-                return (
-                    <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />Exceeds Combined Current Award Amounts</div>
-                        <span>{awardAmounts.overspendingFormatted}</span>
-                    </div>
-                );
-            case ('exceedsPotential'):
-                return (
-                    <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />Exceeds Combined Potential Award Amounts</div>
-                        <span>{awardAmounts.extremeOverspendingFormatted}</span>
-                    </div>
-                );
-            default:
-                return null;
-        }
-    }
-
     jumpToReferencedAwardsTable() {
         this.props.jumpToSection('referenced-awards');
     }
@@ -88,13 +45,12 @@ export default class AggregatedAwardAmounts extends React.Component {
         }
 
         const { awardAmounts } = this.props;
-        const overspendingRow = this.getOverSpendingRow(awardAmounts);
-
+        const spendingScenario = determineSpendingScenario(awardAmounts);
         return (
             <div className="award-amounts__content">
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
-                <AwardAmountsChart awardOverview={awardAmounts} awardType="idv" />
+                <AwardAmountsChart awardOverview={awardAmounts} awardType="idv" spendingScenario={spendingScenario} />
                 <div className="award-amounts-children__data-wrapper">
                     <div className="award-amounts-children__data-content">
                         <div>Count of Total Award Orders</div>
@@ -121,9 +77,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                         View award orders table
                     </div>
                 </button>
-                <AwardAmountsTable awardType="idv" awardData={awardAmounts}>
-                    {overspendingRow}
-                </AwardAmountsTable>
+                <AwardAmountsTable awardType="idv" awardData={awardAmounts} spendingScenario={spendingScenario} />
             </div>
         );
     }
