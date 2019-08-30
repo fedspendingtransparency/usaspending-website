@@ -213,7 +213,7 @@ export default class AwardAmountsChart extends Component {
                 );
         }
     }
-    
+
     render() {
         const visualization = this.renderChart(this.props.awardOverview, this.props.awardType, this.props.spendingScenario);
         return (
