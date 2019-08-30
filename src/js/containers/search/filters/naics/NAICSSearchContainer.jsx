@@ -29,7 +29,38 @@ export class NAICSSearchContainer extends React.Component {
 
         this.state = {
             checked: [],
-            expanded: []
+            expanded: [],
+            nodes: [{
+                value: 'mars',
+                label: 'Mars',
+                children: [
+                    {
+                        value: 'phobos',
+                        label: 'Phobos',
+                        expanded: true,
+                        checked: true,
+                        children: [
+                            {
+                                value: 'jim',
+                                label: 'Jim'
+                            },
+                            {
+                                value: 'bob',
+                                label: 'Bob'
+                            }
+                        ]
+                    },
+                    { value: 'deimos', label: 'Deimos' }
+                ]
+            },
+            {
+                value: 'jupiter',
+                label: 'Jupiter',
+                children: [
+                    { value: 'dontknow', label: 'DontKnow' },
+                    { value: 'Who', label: 'Who' }
+                ]
+            }]
         };
 
         // Bind functions
@@ -62,35 +93,7 @@ export class NAICSSearchContainer extends React.Component {
     }
 
     nodes() {
-        return [{
-            value: 'mars',
-            label: 'Mars',
-            children: [
-                {
-                    value: 'phobos',
-                    label: 'Phobos',
-                    children: [
-                        {
-                            value: 'jim',
-                            label: 'Jim'
-                        },
-                        {
-                            value: 'bob',
-                            label: 'Bob'
-                        }
-                    ],
-                },
-                { value: 'deimos', label: 'Deimos' }
-            ]
-        },
-        {
-            value: 'jupiter',
-            label: 'Jupiter',
-            children: [
-                { value: 'dontknow', label: 'DontKnow' },
-                { value: 'Who', label: 'Who' }
-            ]
-        }];
+        return this.state.nodes;
     }
 
     checked(checked) {
