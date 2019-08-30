@@ -22,15 +22,7 @@ export const CurrentAmountTooltip = () => (
         </div>
     </div>
 );
-// export const ExceedsCurrentAmount = () => (
-//     <div className="combined-obligated-tt">
-//         <h4 className="tooltip__title">Combined Obligated Amounts</h4>
-//         <h5 className="tooltip__amount"><span>{total}</span> from <span>{`${count} award orders`}</span></h5>
-//         <div className="tooltip__text">
-//             <p>This is the amount that has been obligated, or promised by the government, to be paid to the recipient.</p>
-//         </div>
-//     </div>
-// );
+
 export const PotentialAmountTooltip = () => (
     <div className="combined-obligated-tt">
         <h4 className="tooltip__title">Potential Award Amount</h4>
@@ -39,15 +31,6 @@ export const PotentialAmountTooltip = () => (
         </div>
     </div>
 );
-// export const ExceedsPotentialAmount = () => (
-//     <div className="combined-obligated-tt">
-//         <h4 className="tooltip__title">Combined Obligated Amounts</h4>
-//         <h5 className="tooltip__amount"><span>{total}</span> from <span>{`${count} award orders`}</span></h5>
-//         <div className="tooltip__text">
-//             <p>This is the amount that has been obligated, or promised by the government, to be paid to the recipient.</p>
-//         </div>
-//     </div>
-// );
 
 ObligatedAmountTooltip.propTypes = propTypes;
 CurrentAmountTooltip.propTypes = propTypes;
