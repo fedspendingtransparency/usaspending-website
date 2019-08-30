@@ -10,6 +10,7 @@ import GrantChart from './GrantChart';
 import { ObligatedAmountTooltip, CurrentAmountTooltip, PotentialAmountTooltip } from '../Tooltips';
 
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
+import { CombinedObligatedAmounts, CombinedCurrentAmounts, CombinedPotentialAmounts, CombinedExceedsCurrentAmounts, CombinedExceedsPotentialAmounts } from "../../../idv/TooltipContent";
 
 const propTypes = {
     awardType: PropTypes.string,
@@ -57,7 +58,7 @@ export default class AwardAmountsChart extends Component {
         };
         this.renderChart = this.renderChart.bind(this);
         this.getTooltipPropsBySpendingScenario = this.getTooltipPropsBySpendingScenario.bind(this);
-        this.getTooltipPropsByCategory = this.getTooltipPropsByCategory.bind(this);
+        this.getTooltipPropsByAwardTypeAndSpendingCategory = this.getTooltipPropsByAwardTypeAndSpendingCategory.bind(this);
         Object.keys(tooltipStateBySpendingCategory)
             .forEach((spendingCategory) => {
                 // for each spending category, add a show/close tool tip method
@@ -65,39 +66,58 @@ export default class AwardAmountsChart extends Component {
             });
     }
 
-    getTooltipPropsByCategory(category) {
+    getTooltipPropsByAwardTypeAndSpendingCategory(awardType, category, tooltipData = this.props.awardOverview) {
         const map = {
-            obligated: {
-                offsetAdjustments: { top: 0, right: 30 },
-                className: "combined-obligated-tt__container",
-                tooltipComponent: <ObligatedAmountTooltip />
+            idv: {
+                obligated: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    className: "combined-obligated-tt__container",
+                    tooltipComponent: <CombinedObligatedAmounts total={tooltipData.obligatedFormatted} count={tooltipData.childAwardCount} />
+                },
+                current: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    className: "combined-current-tt__container",
+                    tooltipComponent: <CombinedCurrentAmounts total={tooltipData.baseAndExercisedOptionsFormatted} count={tooltipData.childAwardCount} />
+                },
+                potential: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    className: "combined-potential-tt__container",
+                    tooltipComponent: <CombinedPotentialAmounts total={tooltipData.baseAndAllOptionsFormatted} count={tooltipData.childAwardCount} />
+                },
+                exceedsCurrent: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    className: "combined-exceeds-current-tt__container",
+                    tooltipComponent: <CombinedExceedsCurrentAmounts total={tooltipData.overspendingFormatted} count={tooltipData.childAwardCount} />
+                },
+                exceedsPotential: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    className: "combined-exceeds-potential-tt__container",
+                    tooltipComponent: <CombinedExceedsPotentialAmounts total={tooltipData.extremeOverspendingFormatted} count={tooltipData.childAwardCount} />
+                }
             },
-            current: {
-                offsetAdjustments: { top: 0, right: 30 },
-                className: "combined-current-tt__container",
-                tooltipComponent: <CurrentAmountTooltip />
-            },
-            potential: {
-                offsetAdjustments: { top: 0, right: 30 },
-                className: "combined-potential-tt__container",
-                tooltipComponent: <PotentialAmountTooltip />
+            contract: {
+                obligated: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    className: "combined-obligated-tt__container",
+                    tooltipComponent: <ObligatedAmountTooltip />
+                },
+                current: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    className: "combined-current-tt__container",
+                    tooltipComponent: <CurrentAmountTooltip />
+                },
+                potential: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    className: "combined-potential-tt__container",
+                    tooltipComponent: <PotentialAmountTooltip />
+                }
             }
-            // exceedsCurrent: {
-            //     offsetAdjustments: { top: 0, right: 30 },
-            //     className: "combined-exceeds-current-tt__container",
-            //     tooltipComponent: <CombinedExceedsCurrentAmounts total={awardAmounts.overspendingFormatted} count={awardAmounts.childAwardCount} />
-            // },
-            // exceedsPotential: {
-            //     offsetAdjustments: { top: 0, right: 30 },
-            //     className: "combined-exceeds-potential-tt__container",
-            //     tooltipComponent: <CombinedExceedsPotentialAmounts total={awardAmounts.extremeOverspendingFormatted} count={awardAmounts.childAwardCount} />
-            // }
         };
 
-        return map[category];
+        return map[awardType][category];
     }
 
-    getTooltipPropsBySpendingScenario(spendingScenario) {
+    getTooltipPropsBySpendingScenario(spendingScenario, awardType = this.props.awardType) {
         // these are the award amount visualizations needed for every spending scenario
         const spendingCategories = ["obligated", "current", "potential"];
         if (spendingScenario !== "normal") {
@@ -109,7 +129,7 @@ export default class AwardAmountsChart extends Component {
         return spendingCategories.reduce((acc, category) => {
             // used to reference methods in camelCase
             const titleCasedCategory = `${category[0].toUpperCase()}${category.substring(1)}`;
-            const propsForCategory = this.getTooltipPropsByCategory(category);
+            const propsForCategory = this.getTooltipPropsByAwardTypeAndSpendingCategory(awardType, category);
             return Object.assign(acc, {
                 [`${category}TooltipProps`]: Object.assign(propsForCategory, {
                     wide: true,
@@ -140,9 +160,7 @@ export default class AwardAmountsChart extends Component {
         });
     }
 
-    renderChart(awardAmounts = this.props.awardOverview) {
-        const { awardType } = this.props;
-
+    renderChart(awardAmounts = this.props.awardOverview, awardType = this.props.awardType) {
         if (awardType === 'grant') {
             return (
                 <GrantChart
@@ -157,21 +175,21 @@ export default class AwardAmountsChart extends Component {
             case "exceedsCurrent":
                 return (
                     <ExceedsCurrentChart
-                        {...this.getTooltipPropsBySpendingScenario('exceedsCurrent')}
+                        {...this.getTooltipPropsBySpendingScenario('exceedsCurrent', awardType)}
                         awardType={awardType}
                         awardAmounts={awardAmounts} />
                 );
             case "exceedsPotential":
                 return (
                     <ExceedsPotentialChart
-                        {...this.getTooltipPropsBySpendingScenario('exceedsPotential')}
+                        {...this.getTooltipPropsBySpendingScenario('exceedsPotential', awardType)}
                         awardType={awardType}
                         awardAmounts={awardAmounts} />
                 );
             case "normal":
                 return (
                     <NormalChart
-                        {...this.getTooltipPropsBySpendingScenario('normal')}
+                        {...this.getTooltipPropsBySpendingScenario('normal', awardType)}
                         awardType={awardType}
                         awardAmounts={awardAmounts} />
                 );
@@ -187,7 +205,7 @@ export default class AwardAmountsChart extends Component {
     }
     
     render() {
-        const visualization = this.renderChart(this.props.awardOverview);
+        const visualization = this.renderChart(this.props.awardOverview, this.props.awardType);
         return (
             <React.Fragment>
                 {visualization}
