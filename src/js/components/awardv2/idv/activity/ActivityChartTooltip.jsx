@@ -176,7 +176,7 @@ export default class IdvActivityTooltip extends React.Component {
         const parentIDVData = data.grandchild ?
             (
                 <div>
-                    This IDV &#62; {this.getLinks(
+                    {this.getLinks(
                         'award',
                         data.parentGeneratedId,
                         data.parentAwardPIID)}
@@ -216,9 +216,20 @@ export default class IdvActivityTooltip extends React.Component {
                                     {this.getLinks('award', data.id, data.piid)}
                                 </div>
                             </div>
+                            {
+                                data.grandchild &&
+                                <div className="tooltip-body__row-info" id="grandparentLabel">
+                                    <h6 className="tooltip-body__row-info-title first-titles">
+                                        Grandparent IDV
+                                    </h6>
+                                    <div className="tooltip-body__row-info-data">
+                                        This IDV
+                                    </div>
+                                </div>
+                            }
                             <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title first-titles">
-                                    {data.grandchild ? 'Grandparent' : 'Parent'} IDV
+                                    Parent IDV
                                 </h6>
                                 <div className="tooltip-body__row-info-data">
                                     {data.parentGeneratedId ? parentIDVData : <div>--</div>}
