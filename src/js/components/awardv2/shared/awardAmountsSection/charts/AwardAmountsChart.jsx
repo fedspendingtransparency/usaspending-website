@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { determineSpendingScenario } from "../../../../../helpers/aggregatedAmountsHelper";
 import NormalChart from './NormalChart';
 import ExceedsCurrentChart from './ExceedsCurrentChart';
 import ExceedsPotentialChart from './ExceedsPotentialChart';
@@ -18,7 +17,8 @@ const propTypes = {
     obligatedTooltipProps: TOOLTIP_PROPS,
     currentTooltipProps: TOOLTIP_PROPS,
     potentialTooltipProps: TOOLTIP_PROPS,
-    exceedsCurrentTooltipProps: TOOLTIP_PROPS
+    exceedsCurrentTooltipProps: TOOLTIP_PROPS,
+    spendingScenario: PropTypes.string
 };
 
 const tooltipStateBySpendingCategory = {
@@ -110,6 +110,16 @@ export default class AwardAmountsChart extends Component {
                     offsetAdjustments: { top: 0, right: 30 },
                     className: "combined-potential-tt__container",
                     tooltipComponent: <PotentialAmountTooltip />
+                },
+                exceedsPotential: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    className: "combined-potential-tt__container",
+                    tooltipComponent: <PotentialAmountTooltip />
+                },
+                exceedsCurrent: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    className: "combined-current-tt__container",
+                    tooltipComponent: <CurrentAmountTooltip />
                 }
             }
         };
@@ -160,7 +170,7 @@ export default class AwardAmountsChart extends Component {
         });
     }
 
-    renderChart(awardAmounts = this.props.awardOverview, awardType = this.props.awardType) {
+    renderChart(awardAmounts = this.props.awardOverview, awardType = this.props.awardType, spendingScenario = this.props.spendingScenario) {
         if (awardType === 'grant') {
             return (
                 <GrantChart
@@ -171,7 +181,7 @@ export default class AwardAmountsChart extends Component {
                     exceedsCurrentTooltipProps={defaultTooltipProps} />
             );
         }
-        switch (determineSpendingScenario(awardAmounts)) {
+        switch (spendingScenario) {
             case "exceedsCurrent":
                 return (
                     <ExceedsCurrentChart
@@ -205,7 +215,7 @@ export default class AwardAmountsChart extends Component {
     }
     
     render() {
-        const visualization = this.renderChart(this.props.awardOverview, this.props.awardType);
+        const visualization = this.renderChart(this.props.awardOverview, this.props.awardType, this.props.spendingScenario);
         return (
             <React.Fragment>
                 {visualization}
