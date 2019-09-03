@@ -17,23 +17,19 @@ const propTypes = {
 
 export default class SummaryBar extends React.Component {
     render() {
-        let title = startCase(this.props.category);
-        let downloadBtn = null;
-        if (this.props.category === 'idv') {
-            title = 'Indefinite Delivery Vehicle';
-            downloadBtn = (
-                <DownloadButton
-                    downloadAvailable
-                    downloadInFlight={this.props.isDownloadPending}
-                    onClick={this.props.downloadData} />
-            );
-        }
+        const title = (this.props.category === 'idv')
+            ? 'Indefinite Delivery Vehicle'
+            : startCase(this.props.category);
+
         return (
             <div className="sticky-header__title">
                 <h1 tabIndex={-1} id="main-focus">
                     {title} Summary
                 </h1>
-                {downloadBtn}
+                <DownloadButton
+                    downloadAvailable
+                    downloadInFlight={this.props.isDownloadPending}
+                    onClick={this.props.downloadData} />
             </div>
         );
     }
