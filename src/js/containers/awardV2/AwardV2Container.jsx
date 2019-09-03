@@ -25,7 +25,7 @@ import {
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import BaseIdv from 'models/v2/awardsV2/BaseIdv';
 import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
-import { fetchIdvDownloadFile } from '../../helpers/idvHelper';
+import { fetchAwardDownloadFile } from '../../helpers/downloadHelper';
 
 require('pages/awardV2/awardPage.scss');
 
@@ -146,7 +146,7 @@ export class AwardContainer extends React.Component {
             this.downloadRequest.cancel();
         }
 
-        this.downloadRequest = fetchIdvDownloadFile(this.props.params.awardId);
+        this.downloadRequest = fetchAwardDownloadFile(this.props.award.category, this.props.params.awardId);
 
         try {
             const { data } = await this.downloadRequest.promise;
