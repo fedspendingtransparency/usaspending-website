@@ -52,8 +52,7 @@ export const mockApi = {
             "subtier_code": "8900",
             "abbreviation": "DOE",
             "name": "Department of Energy"
-        },
-        "office_agency": null
+        }
     },
     "funding_agency": {
         "id": 930,
@@ -79,8 +78,7 @@ export const mockApi = {
             "subtier_code": "8900",
             "abbreviation": "DOE",
             "name": "Department of Energy"
-        },
-        "office_agency": null
+        }
     },
     "recipient": {
         "legal_entity_id": 98140463,
@@ -325,8 +323,7 @@ export const mockApi = {
                 "subtier_code": "8900",
                 "abbreviation": "DOE",
                 "name": "Department of Energy"
-            },
-            "office_agency": null
+            }
         },
         "funding_agency": {
             "id": 930,
@@ -352,8 +349,7 @@ export const mockApi = {
                 "subtier_code": "8900",
                 "abbreviation": "DOE",
                 "name": "Department of Energy"
-            },
-            "office_agency": null
+            }
         },
         "recipient": {
             "legal_entity_id": 98140463,
@@ -899,8 +895,7 @@ export const mockFinancialAssistanceApi = {
             "subtier_code": "7530",
             "abbreviation": "CMS",
             "name": "Centers for Medicare and Medicaid Services"
-        },
-        "office_agency": null
+        }
     },
     "funding_agency": null,
     "recipient": {
@@ -1147,8 +1142,7 @@ export const mockFinancialAssistanceApi = {
                 "subtier_code": "7530",
                 "abbreviation": "CMS",
                 "name": "Centers for Medicare and Medicaid Services"
-            },
-            "office_agency": null
+            }
         },
         "funding_agency": null,
         "recipient": {

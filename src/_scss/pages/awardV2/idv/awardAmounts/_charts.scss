@@ -1,3 +1,11 @@
+$grants-line-color: #47AAA7;
+%award-amounts-viz__line-indicator {
+    content: "";
+    position: absolute;
+    width: rem(1);
+    height: rem(10);
+}
+
 .award-amounts-viz {
     .award-amounts-viz__bar-wrapper {
         border: rem(2) solid $border-gray;
@@ -10,6 +18,13 @@
             @include display(flex);
             .award-amounts-viz__obligated {
                 border: solid rem(4) $border-light-gray;
+            }
+            .award-amounts-viz__obligated--grants {
+                border: none;
+            }
+            .award-amounts-viz__non-federal-funding {
+                position: relative;
+                padding: 3.5px;
             }
             .award-amounts-viz__exceeded {
                 border-top: solid rem(4) $color-gray-lightest;
@@ -79,11 +94,27 @@
         height: rem(1);
     }
 
-    %award-amounts-viz__line-indicator {
-        content: "";
-        position: absolute;
-        width: rem(1);
-        height: rem(10);
+    .award-amounts-viz__line--non-federal-funding {
+        margin: rem(20) 0 rem(5) rem(1);
+        border-bottom: 1px solid $border-light-gray;
+        position: relative;
+        width: 99.5%;
+        height: rem(1);
+        border-bottom: 1px solid $grants-line-color;
+    }
+
+    .award-amounts-viz__line--non-federal-funding::before {
+        @extend %award-amounts-viz__line-indicator;
+        top: -9px;
+        right: -1px;
+        left: -1px;
+        border-left: 1px solid $grants-line-color;
+    }
+    .award-amounts-viz__line--non-federal-funding:after {
+        @extend %award-amounts-viz__line-indicator;
+        top: -9px;
+        right: -1px;
+        border-left: 1px solid $grants-line-color; 
     }
 
     .award-amounts-viz__line-up::after {
@@ -190,6 +221,17 @@
                     $color-secondary rem(7)
                 );
             }
+        }
+    }
+    .award-amounts-viz__desc--nff-zero {
+        .award-amounts-viz__desc-text {
+            order: 1;
+            margin-left: 10px;
+            min-width: rem(160);
+            text-align: left;
+        }
+        .award-amounts-viz__legend-line {
+            height: rem(45);
         }
     }
 }

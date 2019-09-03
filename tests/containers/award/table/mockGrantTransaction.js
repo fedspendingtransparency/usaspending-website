@@ -26,8 +26,7 @@ const items = {
                 subtier_code: "8900",
                 abbreviation: "",
                 name: "Department of Energy"
-            },
-            office_agency: null
+            }
         },
         funding_agency: null,
         recipient: {

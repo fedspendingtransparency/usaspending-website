@@ -39,8 +39,7 @@ export const mockAwardIDs = {
                     update_date: null,
                     subtier_code: "1205",
                     name: "USDA, OFFICE OF THE CHIEF FINANCIAL OFFICER"
-                },
-                office_agency: null
+                }
             },
             funding_agency: null,
             recipient: null,
@@ -86,8 +85,7 @@ export const mockAwardIDs = {
                     update_date: null,
                     subtier_code: "7022",
                     name: "FEDERAL EMERGENCY MANAGEMENT AGENCY"
-                },
-                office_agency: null
+                }
             },
             funding_agency: null,
             recipient: {
@@ -339,8 +337,7 @@ export const mockAwardIDs = {
                     update_date: null,
                     subtier_code: "7524",
                     name: "FOOD AND DRUG ADMINISTRATION"
-                },
-                office_agency: null
+                }
             },
             funding_agency: {
                 id: 1508,
@@ -360,8 +357,7 @@ export const mockAwardIDs = {
                     update_date: null,
                     subtier_code: "7524",
                     name: "FOOD AND DRUG ADMINISTRATION"
-                },
-                office_agency: null
+                }
             },
             recipient: {
                 legal_entity_id: 61210,

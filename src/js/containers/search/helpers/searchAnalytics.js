@@ -43,7 +43,6 @@ export const convertDateRange = (range) => {
 export const parseAgency = (agency) => {
     const toptier = agency.toptier_agency;
     const subtier = agency.subtier_agency;
-    const office = agency.office_agency;
     if (agency.agencyType === 'toptier') {
         if (toptier.abbreviation) {
             return `${toptier.name} (${toptier.abbreviation})/${toptier.cgac_code}`;
@@ -55,9 +54,6 @@ export const parseAgency = (agency) => {
             return `${subtier.name} (${subtier.abbreviation})/${subtier.subtier_code} - ${toptier.name}/${toptier.cgac_code}`;
         }
         return `${subtier.name}/${subtier.subtier_code} - ${toptier.name}/${toptier.cgac_code}`;
-    }
-    else if (agency.agencyType === 'office') {
-        return `${office.name}/${office.aac_code} - ${toptier.name}/${toptier.cgac_code}`;
     }
     return null;
 };

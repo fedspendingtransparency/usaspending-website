@@ -84,8 +84,7 @@ export const mockAward = {
                     "subtier_code": "8900",
                     "abbreviation": "DOE",
                     "name": "Department of Energy"
-                },
-                "office_agency": null
+                }
             },
             "funding_agency": {
                 "id": 915,
@@ -100,8 +99,7 @@ export const mockAward = {
                     "subtier_code": "8900",
                     "abbreviation": "DOE",
                     "name": "Department of Energy"
-                },
-                "office_agency": null
+                }
             },
             "recipient": {
                 "legal_entity_id": 106877,

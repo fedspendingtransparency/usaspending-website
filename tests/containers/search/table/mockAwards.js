@@ -55,8 +55,7 @@ export const mockApi = {
                 subtier_code: "7523",
                 abbreviation: "",
                 name: "Centers for Disease Control and Prevention"
-            },
-            office_agency: null
+            }
         },
         recipient: {
             legal_entity_id: 1317601,

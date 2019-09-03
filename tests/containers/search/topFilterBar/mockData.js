@@ -16,8 +16,7 @@ export const mockAwardingAgency = {
         update_date: "2017-01-31T21:25:39.691244Z",
         subtier_code: "1700",
         name: "DEPT OF THE NAVY"
-    },
-    office_agency: null
+    }
 };
 
 export const mockFundingAgency = {
@@ -38,8 +37,7 @@ export const mockFundingAgency = {
         update_date: "2017-01-31T21:25:39.691244Z",
         subtier_code: "1700",
         name: "DEPT OF THE NAVY"
-    },
-    office_agency: null
+    }
 };
 
 export const mockRecipient = {
