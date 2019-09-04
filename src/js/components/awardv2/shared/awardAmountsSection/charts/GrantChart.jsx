@@ -14,8 +14,8 @@ const propTypes = {
     awardType: PropTypes.string,
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
     obligatedTooltipProps: TOOLTIP_PROPS,
-    currentTooltipProps: TOOLTIP_PROPS,
-    potentialTooltipProps: TOOLTIP_PROPS
+    nonFederalFundingTooltipProps: TOOLTIP_PROPS,
+    totalFundingTooltipProps: TOOLTIP_PROPS
 };
 
 export default class GrantChart extends React.Component {
@@ -48,7 +48,7 @@ export default class GrantChart extends React.Component {
 
         const nonFederalFundingIsZero = (nonFederalFunding === 0);
 
-        const { currentTooltipProps, obligatedTooltipProps, potentialTooltipProps } = this.props;
+        const { nonFederalFundingTooltipProps, obligatedTooltipProps, totalFundingTooltipProps } = this.props;
         const nonFFTooltipStyles = {
             width: nonFederalFundingBarStyle.width,
             right: nonFederalFundingBarStyle.right,
@@ -75,13 +75,13 @@ export default class GrantChart extends React.Component {
                     <div className="award-amounts-viz__line-up" />
                 </div>
                 <div className="award-amounts-viz__bar-wrapper">
-                    <TooltipWrapper {...potentialTooltipProps} style={{ backgroundColor: totalFundingColor }}>
+                    <TooltipWrapper {...totalFundingTooltipProps} style={{ backgroundColor: totalFundingColor }}>
                         <div className="award-amounts-viz__bar" style={{ backgroundColor: totalFundingColor }}>
                             <TooltipWrapper {...obligatedTooltipProps} styles={{ width: obligatedBarStyle.width, border: "5px solid #BBB" }}>
                                 <div className="award-amounts-viz__obligated--grants" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
                             </TooltipWrapper>
                             {!nonFederalFundingIsZero &&
-                                <TooltipWrapper {...currentTooltipProps} styles={{ ...nonFFTooltipStyles }}>
+                                <TooltipWrapper {...nonFederalFundingTooltipProps} styles={{ ...nonFFTooltipStyles }}>
                                     <div className="award-amounts-viz__non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
                                 </TooltipWrapper>
                             }
@@ -98,12 +98,12 @@ export default class GrantChart extends React.Component {
                             className="award-amounts-viz__desc-text"
                             role="button"
                             tabIndex="0"
-                            onBlur={currentTooltipProps.controlledProps.closeTooltip}
-                            onFocus={currentTooltipProps.controlledProps.showTooltip}
-                            onKeyPress={currentTooltipProps.controlledProps.showTooltip}
-                            onMouseEnter={currentTooltipProps.controlledProps.showTooltip}
-                            onMouseLeave={currentTooltipProps.controlledProps.closeTooltip}
-                            onClick={currentTooltipProps.controlledProps.showTooltip}>
+                            onBlur={nonFederalFundingTooltipProps.controlledProps.closeTooltip}
+                            onFocus={nonFederalFundingTooltipProps.controlledProps.showTooltip}
+                            onKeyPress={nonFederalFundingTooltipProps.controlledProps.showTooltip}
+                            onMouseEnter={nonFederalFundingTooltipProps.controlledProps.showTooltip}
+                            onMouseLeave={nonFederalFundingTooltipProps.controlledProps.closeTooltip}
+                            onClick={nonFederalFundingTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
                         </div>
                         <div className="award-amounts-viz__legend-line" style={{ backgroundColor: "#47AAA7" }} />
@@ -116,12 +116,12 @@ export default class GrantChart extends React.Component {
                             className="award-amounts-viz__desc-text"
                             role="button"
                             tabIndex="0"
-                            onBlur={potentialTooltipProps.controlledProps.closeTooltip}
-                            onFocus={potentialTooltipProps.controlledProps.showTooltip}
-                            onKeyPress={potentialTooltipProps.controlledProps.showTooltip}
-                            onMouseEnter={potentialTooltipProps.controlledProps.showTooltip}
-                            onMouseLeave={potentialTooltipProps.controlledProps.closeTooltip}
-                            onClick={potentialTooltipProps.controlledProps.showTooltip}>
+                            onBlur={totalFundingTooltipProps.controlledProps.closeTooltip}
+                            onFocus={totalFundingTooltipProps.controlledProps.showTooltip}
+                            onKeyPress={totalFundingTooltipProps.controlledProps.showTooltip}
+                            onMouseEnter={totalFundingTooltipProps.controlledProps.showTooltip}
+                            onMouseLeave={totalFundingTooltipProps.controlledProps.closeTooltip}
+                            onClick={totalFundingTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.totalFundingAbbreviated}</strong><br />Total Funding
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" style={{ backgroundColor: totalFundingColor }} />
