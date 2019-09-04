@@ -13,7 +13,6 @@ import AwardDates from '../shared/overview/AwardDates';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
-import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 
 const propTypes = {
@@ -26,8 +25,8 @@ const defaultTooltipProps = {
     controlledProps: {
         isControlled: true,
         isVisible: false,
-        closeCurrentTooltip: () => console.log("close tooltip"),
-        showTooltip: () => console.log("open tooltip")
+        closeCurrentTooltip: () => {},
+        showTooltip: () => {}
     }
 };
 

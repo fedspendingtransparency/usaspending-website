@@ -9,12 +9,13 @@ import { startCase } from "lodash";
 
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
+import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AwardRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardSection from '../shared/AwardSection';
-import BaseAwardAmounts from "../../../models/v2/awardsV2/BaseAwardAmounts";
+import ComingSoonSection from '../shared/ComingSoonSection';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -26,8 +27,8 @@ const defaultTooltipProps = {
     controlledProps: {
         isControlled: true,
         isVisible: false,
-        closeTooltip: () => console.log("close tooltip"),
-        showTooltip: () => console.log("open tooltip")
+        closeTooltip: () => {},
+        showTooltip: () => {}
     }
 };
 
@@ -43,8 +44,19 @@ export default class FinancialAssistanceContent extends React.Component {
             );
         }
 
-        const awardAmountData = Object.create(BaseAwardAmounts);
-        awardAmountData.populate(this.props.overview, this.props.overview.category);
+        let amountsSection = (<ComingSoonSection />);
+        if (this.props.overview.category === 'grant') {
+            const awardAmountData = Object.create(BaseAwardAmounts);
+            awardAmountData.populate(this.props.overview, this.props.overview.category);
+            amountsSection = (
+                <AwardAmountsSection
+                    awardType={this.props.overview.category}
+                    awardOverview={awardAmountData}
+                    tooltipProps={defaultTooltipProps}
+                    jumptoSection={this.props.jumpToSection} />
+            );
+        }
+
         // TODO: Determine if we should label with FAIN/ URI instead of ID
         // TODO: Implement AwardPageWrapper, AwardSection etc...
         return (
@@ -73,11 +85,7 @@ export default class FinancialAssistanceContent extends React.Component {
                 </div>
                 <AwardSection type="row">
                     <AwardSection type="column">
-                        <AwardAmountsSection
-                            awardType={this.props.overview.category}
-                            awardOverview={awardAmountData}
-                            tooltipProps={defaultTooltipProps}
-                            jumptoSection={this.props.jumpToSection} />
+                        {amountsSection}
                     </AwardSection>
                     <AwardSection type="column">
                         <FederalAccountsSection />
