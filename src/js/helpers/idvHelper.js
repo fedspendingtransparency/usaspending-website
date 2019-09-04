@@ -10,7 +10,7 @@ export const fetchReferencedAwards = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/awards/idvs/awards/',
+            url: 'v2/idvs/awards/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -42,7 +42,7 @@ export const fetchAwardAmounts = (awardId) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/awards/idvs/amounts/${awardId}/`,
+            url: `v2/idvs/amounts/${awardId}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
@@ -58,7 +58,7 @@ export const fetchAwardFedAccountFunding = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/awards/idvs/funding/',
+            url: 'v2/idvs/funding/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data: params,
@@ -125,7 +125,7 @@ export const fetchIdvActivity = (data) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: 'v2/awards/idvs/activity/',
+            url: 'v2/idvs/activity/',
             baseURL: kGlobalConstants.API,
             method: 'post',
             data,
