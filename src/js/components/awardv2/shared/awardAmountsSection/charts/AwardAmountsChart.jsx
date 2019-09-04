@@ -6,7 +6,7 @@ import ExceedsCurrentChart from './ExceedsCurrentChart';
 import ExceedsPotentialChart from './ExceedsPotentialChart';
 import NoResultsMessage from '../../../../sharedComponents/NoResultsMessage';
 import GrantChart from './GrantChart';
-import { ObligatedAmountTooltip, CurrentAmountTooltip, PotentialAmountTooltip } from '../Tooltips';
+import { ObligatedAmountTooltip, CurrentAmountTooltip, PotentialAmountTooltip, NonFederalFundingTooltip, TotalFundingTooltip } from '../Tooltips';
 
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 import { CombinedObligatedAmounts, CombinedCurrentAmounts, CombinedPotentialAmounts, CombinedExceedsCurrentAmounts, CombinedExceedsPotentialAmounts } from "../../../idv/TooltipContent";
@@ -26,7 +26,9 @@ const tooltipStateBySpendingCategory = {
     current: "showCurrentTooltip",
     potential: "showPotentialTooltip",
     exceedsCurrent: "showExceedsCurrentTooltip",
-    exceedsPotential: "showExceedsPotentialTooltip"
+    exceedsPotential: "showExceedsPotentialTooltip",
+    nonFederalFunding: "showNonFederalFundingTooltip",
+    totalFunding: "showTotalFundingTooltip"
 };
 
 const createShowAndCloseTooltipMethod = (ctx, category) => {
@@ -35,15 +37,6 @@ const createShowAndCloseTooltipMethod = (ctx, category) => {
     const titleCasedCategory = `${category[0].toUpperCase()}${category.substring(1)}`;
     ctx[`show${titleCasedCategory}Tooltip`] = ctx.showSpendingCategoryTooltip.bind(ctx, category);
     ctx[`close${titleCasedCategory}Tooltip`] = ctx.closeSpendingCategoryTooltip.bind(ctx, category);
-};
-
-const defaultTooltipProps = {
-    controlledProps: {
-        isControlled: true,
-        isVisible: false,
-        closeTooltip: () => console.log("close tooltip"),
-        showTooltip: () => console.log("open tooltip")
-    }
 };
 
 export default class AwardAmountsChart extends Component {
@@ -111,15 +104,33 @@ export default class AwardAmountsChart extends Component {
                     offsetAdjustments: { top: 0, right: 30 },
                     tooltipComponent: <CurrentAmountTooltip />
                 }
+            },
+            assistance: {
+                obligated: {
+                    offsetAdjustments: { top: -7, right: 30 },
+                    tooltipComponent: <ObligatedAmountTooltip />
+                },
+                nonFederalFunding: {
+                    offsetAdjustments: { top: -10, right: 0 },
+                    tooltipComponent: <NonFederalFundingTooltip />
+                },
+                totalFunding: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    tooltipComponent: <TotalFundingTooltip />
+                }
             }
         };
-
-        return map[awardType][category];
+        if (Object.keys(map).includes(awardType)) {
+            return map[awardType][category];
+        }
+        return map.assistance[category];
     }
 
     getTooltipPropsBySpendingScenario(spendingScenario, awardType = this.props.awardType) {
         // these are the award amount visualizations needed for every spending scenario
-        const spendingCategories = ["obligated", "current", "potential"];
+        const spendingCategories = (awardType === "grant")
+            ? ["obligated", "nonFederalFunding", "totalFunding"]
+            : ["obligated", "current", "potential"];
         if (spendingScenario !== "normal") {
             // if exceedsPotential or exceedsCurrent is the spending scenario, add it here as a spendingCategory...
             spendingCategories.push(spendingScenario);
@@ -164,11 +175,8 @@ export default class AwardAmountsChart extends Component {
         if (awardType === 'grant') {
             return (
                 <GrantChart
-                    awardAmounts={awardAmounts}
-                    obligatedTooltipProps={defaultTooltipProps}
-                    currentTooltipProps={defaultTooltipProps}
-                    potentialTooltipProps={defaultTooltipProps}
-                    exceedsCurrentTooltipProps={defaultTooltipProps} />
+                    {...this.getTooltipPropsBySpendingScenario('normal', awardType)}
+                    awardAmounts={awardAmounts} />
             );
         }
         switch (spendingScenario) {
