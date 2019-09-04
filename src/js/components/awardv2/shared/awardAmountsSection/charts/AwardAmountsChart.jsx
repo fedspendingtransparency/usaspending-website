@@ -71,54 +71,44 @@ export default class AwardAmountsChart extends Component {
             idv: {
                 obligated: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    className: "combined-obligated-tt__container",
                     tooltipComponent: <CombinedObligatedAmounts total={tooltipData.obligatedFormatted} count={tooltipData.childAwardCount} />
                 },
                 current: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    className: "combined-current-tt__container",
                     tooltipComponent: <CombinedCurrentAmounts total={tooltipData.baseAndExercisedOptionsFormatted} count={tooltipData.childAwardCount} />
                 },
                 potential: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    className: "combined-potential-tt__container",
                     tooltipComponent: <CombinedPotentialAmounts total={tooltipData.baseAndAllOptionsFormatted} count={tooltipData.childAwardCount} />
                 },
                 exceedsCurrent: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    className: "combined-exceeds-current-tt__container",
                     tooltipComponent: <CombinedExceedsCurrentAmounts total={tooltipData.overspendingFormatted} count={tooltipData.childAwardCount} />
                 },
                 exceedsPotential: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    className: "combined-exceeds-potential-tt__container",
                     tooltipComponent: <CombinedExceedsPotentialAmounts total={tooltipData.extremeOverspendingFormatted} count={tooltipData.childAwardCount} />
                 }
             },
             contract: {
                 obligated: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    className: "combined-obligated-tt__container",
                     tooltipComponent: <ObligatedAmountTooltip />
                 },
                 current: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    className: "combined-current-tt__container",
                     tooltipComponent: <CurrentAmountTooltip />
                 },
                 potential: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    className: "combined-potential-tt__container",
                     tooltipComponent: <PotentialAmountTooltip />
                 },
                 exceedsPotential: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    className: "combined-potential-tt__container",
                     tooltipComponent: <PotentialAmountTooltip />
                 },
                 exceedsCurrent: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    className: "combined-current-tt__container",
                     tooltipComponent: <CurrentAmountTooltip />
                 }
             }
