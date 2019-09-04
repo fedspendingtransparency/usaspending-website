@@ -78,12 +78,12 @@ export const fetchAssistanceDownloadFile = (awardId) => {
     return {
         promise: Axios.request({
             url: 'v2/download/assistance/',
-            baseURL: "http://localhost:5000/api/",
+            baseURL: kGlobalConstants.API,
             method: "post",
             headers: {
                 "content-type": "application/json"
             },
-            data: { award_id: "ASST_NON_12FA00PY52375933_12D2" },
+            data: { award_id: awardId },
             cancelToken: source.token
         }),
         cancel() {
@@ -97,12 +97,12 @@ export const fetchContractDownloadFile = (awardId) => {
     return {
         promise: Axios.request({
             url: 'v2/download/contract/',
-            baseURL: "http://localhost:5000/api/",
+            baseURL: kGlobalConstants.API,
             method: "post",
             headers: {
                 "content-type": "application/json"
             },
-            data: { award_id: "CONT_AWD_UZ02_9700_SPM2DV11D9200_9700" },
+            data: { award_id: awardId },
             cancelToken: source.token
         }),
         cancel() {
@@ -112,7 +112,6 @@ export const fetchContractDownloadFile = (awardId) => {
 };
 
 export const fetchAwardDownloadFile = (awardType, awardId) => {
-    console.log("awardType", awardType);
     if (financialAssistanceAwardTypes.includes(awardType)) {
         return fetchAssistanceDownloadFile(awardId);
     }
