@@ -7,7 +7,6 @@ import Axios, { CancelToken } from 'axios';
 
 import kGlobalConstants from 'GlobalConstants';
 import { fetchIdvDownloadFile } from './idvHelper';
-import { financialAssistanceAwardTypes } from '../dataMapping/awardsv2/awardTypes';
 
 export const requestAwardTable = (params) => {
     const source = CancelToken.source();
@@ -112,13 +111,12 @@ export const fetchContractDownloadFile = (awardId) => {
 };
 
 export const fetchAwardDownloadFile = (awardType, awardId) => {
-    if (financialAssistanceAwardTypes.includes(awardType)) {
-        return fetchAssistanceDownloadFile(awardId);
-    }
-    else if (awardType === 'idv') {
+    if (awardType === 'idv') {
         return fetchIdvDownloadFile(awardId);
     }
     else if (awardType === 'contract') {
         return fetchContractDownloadFile(awardId);
     }
+
+    return fetchAssistanceDownloadFile(awardId);
 };
