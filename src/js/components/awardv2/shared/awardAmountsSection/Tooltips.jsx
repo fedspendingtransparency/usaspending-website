@@ -32,6 +32,24 @@ export const PotentialAmountTooltip = () => (
     </div>
 );
 
+export const TotalFundingTooltip = () => (
+    <div className="combined-obligated-tt">
+        <h4 className="tooltip__title">Total Funding</h4>
+        <div className="tooltip__text">
+            <p>This is the sum of the federal action obligation and the non-federal funding amounts.</p>
+        </div>
+    </div>
+);
+
+export const NonFederalFundingTooltip = () => (
+    <div className="combined-obligated-tt">
+        <h4 className="tooltip__title">Non-Federal Funding</h4>
+        <div className="tooltip__text">
+            <p>This is the total amount of the award funded by non-federal source(s).</p>
+        </div>
+    </div>
+);
+
 ObligatedAmountTooltip.propTypes = propTypes;
 CurrentAmountTooltip.propTypes = propTypes;
 PotentialAmountTooltip.propTypes = propTypes;
