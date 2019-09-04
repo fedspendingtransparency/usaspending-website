@@ -26,7 +26,6 @@ const agency = {
         create_date: "2017-01-31T21:25:39.810344Z",
         update_date: "2017-01-31T21:25:39.936439Z",
         cgac_code: "097",
-        fpds_code: "9700",
         name: "DEPT OF DEFENSE"
     },
     subtier_agency: {
@@ -35,8 +34,7 @@ const agency = {
         update_date: "2017-01-31T21:25:39.691244Z",
         subtier_code: "1700",
         name: "DEPT OF THE NAVY"
-    },
-    office_agency: null
+    }
 };
 
 describe('AgencyContainer', () => {
@@ -53,7 +51,6 @@ describe('AgencyContainer', () => {
                             create_date: "2017-01-31T21:25:39.810344Z",
                             update_date: "2017-01-31T21:25:39.936439Z",
                             cgac_code: "097",
-                            fpds_code: "9700",
                             name: "DEPT OF DEFENSE"
                         },
                         subtier_agency: {
@@ -62,8 +59,7 @@ describe('AgencyContainer', () => {
                             update_date: "2017-01-31T21:25:39.691244Z",
                             subtier_code: "1700",
                             name: "DEPT OF THE NAVY"
-                        },
-                        office_agency: null
+                        }
                     }
                 });
             });
@@ -100,7 +96,6 @@ describe('AgencyContainer', () => {
                             create_date: "2017-01-31T21:25:39.810344Z",
                             update_date: "2017-01-31T21:25:39.936439Z",
                             cgac_code: "097",
-                            fpds_code: "9700",
                             name: "DEPT OF DEFENSE"
                         },
                         subtier_agency: {
@@ -109,8 +104,7 @@ describe('AgencyContainer', () => {
                             update_date: "2017-01-31T21:25:39.691244Z",
                             subtier_code: "1700",
                             name: "DEPT OF THE NAVY"
-                        },
-                        office_agency: null
+                        }
                     }
                 });
             });
@@ -150,7 +144,6 @@ describe('AgencyContainer', () => {
                             create_date: "2017-01-31T21:25:39.810344Z",
                             update_date: "2017-01-31T21:25:39.936439Z",
                             cgac_code: "097",
-                            fpds_code: "9700",
                             name: "DEPT OF DEFENSE"
                         },
                         subtier_agency: {
@@ -159,8 +152,7 @@ describe('AgencyContainer', () => {
                             update_date: "2017-01-31T21:25:39.691244Z",
                             subtier_code: "1700",
                             name: "DEPT OF THE NAVY"
-                        },
-                        office_agency: null
+                        }
                     }
                 });
             });
@@ -197,7 +189,6 @@ describe('AgencyContainer', () => {
                             create_date: "2017-01-31T21:25:39.810344Z",
                             update_date: "2017-01-31T21:25:39.936439Z",
                             cgac_code: "097",
-                            fpds_code: "9700",
                             name: "DEPT OF DEFENSE"
                         },
                         subtier_agency: {
@@ -206,8 +197,7 @@ describe('AgencyContainer', () => {
                             update_date: "2017-01-31T21:25:39.691244Z",
                             subtier_code: "1700",
                             name: "DEPT OF THE NAVY"
-                        },
-                        office_agency: null
+                        }
                     }
                 });
             });

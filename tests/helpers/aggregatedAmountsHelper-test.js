@@ -9,9 +9,9 @@ describe('Aggregated Amounts helper functions', () => {
     describe('determineSpendingScenario', () => {
         it('should return "normal" when obligated amount is less than current and potential', () => {
             const mockAmounts = {
-                _obligation: 50,
-                _combinedCurrentAwardAmounts: 75,
-                _combinedPotentialAwardAmounts: 100
+                _totalObligation: 50,
+                _baseExercisedOptions: 75,
+                _baseAndAllOptions: 100
             };
             const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
             expect(mockedScenario).toEqual("normal");
@@ -19,9 +19,9 @@ describe('Aggregated Amounts helper functions', () => {
 
         it('should return "exceedsCurrent" for overspending', () => {
             const mockAmounts = {
-                _obligation: 75,
-                _combinedCurrentAwardAmounts: 50,
-                _combinedPotentialAwardAmounts: 100
+                _totalObligation: 75,
+                _baseExercisedOptions: 50,
+                _baseAndAllOptions: 100
             };
             const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
             expect(mockedScenario).toEqual("exceedsCurrent");
@@ -29,9 +29,9 @@ describe('Aggregated Amounts helper functions', () => {
 
         it('should return "exceedsPotential" for extreme overspending', () => {
             const mockAmounts = {
-                _obligation: 100,
-                _combinedCurrentAwardAmounts: 50,
-                _combinedPotentialAwardAmounts: 75
+                _totalObligation: 100,
+                _baseExercisedOptions: 50,
+                _baseAndAllOptions: 75
             };
             const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
             expect(mockedScenario).toEqual("exceedsPotential");
@@ -39,9 +39,9 @@ describe('Aggregated Amounts helper functions', () => {
 
         it('should return "insufficientData" for negative obligations', () => {
             const mockAmounts = {
-                _obligation: -55,
-                _combinedCurrentAwardAmounts: 75,
-                _combinedPotentialAwardAmounts: 100
+                _totalObligation: -55,
+                _baseExercisedOptions: 75,
+                _baseAndAllOptions: 100
             };
             const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
             expect(mockedScenario).toEqual("insufficientData");
@@ -49,9 +49,9 @@ describe('Aggregated Amounts helper functions', () => {
 
         it('should return null when all values are zero', () => {
             const mockAmounts = {
-                _obligation: 0,
-                _combinedCurrentAwardAmounts: 0,
-                _combinedPotentialAwardAmounts: 0
+                _totalObligation: 0,
+                _baseExercisedOptions: 0,
+                _baseAndAllOptions: 0
             };
             const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
             expect(mockedScenario).toEqual(null);
@@ -59,9 +59,9 @@ describe('Aggregated Amounts helper functions', () => {
 
         it('should return "insufficientData" when current amount exceeds potential amount', () => {
             const mockAmounts = {
-                _obligation: 50,
-                _combinedCurrentAwardAmounts: 100,
-                _combinedPotentialAwardAmounts: 75
+                _totalObligation: 50,
+                _baseExercisedOptions: 100,
+                _baseAndAllOptions: 75
             };
             const mockedScenario = AggregatedAmountsHelper.determineSpendingScenario(mockAmounts);
             expect(mockedScenario).toEqual("insufficientData");

@@ -95,7 +95,6 @@ describe('AgencyListContainer', () => {
                     toptier_flag: true,
                     toptier_agency: {
                         cgac_code: "004",
-                        fpds_code: "0400",
                         abbreviation: "GPO",
                         name: "Government Publishing Office"
                     },
@@ -103,8 +102,7 @@ describe('AgencyListContainer', () => {
                         subtier_code: "0400",
                         abbreviation: "",
                         name: "Government Publishing Office"
-                    },
-                    office_agency: null
+                    }
                 }
             ]);
 
@@ -119,7 +117,7 @@ describe('AgencyListContainer', () => {
             expect(agencyListContainer.state().autocompleteAgencies.length).toEqual(1);
 
             agencyListContainer.instance().clearAutocompleteSuggestions();
-            expect(agencyListContainer.state().autocompleteAgencies.length).toEqual(0);            
+            expect(agencyListContainer.state().autocompleteAgencies.length).toEqual(0);
         });
     });
 

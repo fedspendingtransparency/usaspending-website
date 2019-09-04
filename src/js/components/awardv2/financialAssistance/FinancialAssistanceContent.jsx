@@ -9,14 +9,26 @@ import { startCase } from "lodash";
 
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
+import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AwardRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
+import AwardSection from '../shared/AwardSection';
+import BaseAwardAmounts from "../../../models/v2/awardsV2/BaseAwardAmounts";
 
 const propTypes = {
     awardId: PropTypes.string,
     overview: PropTypes.object,
     jumpToSection: PropTypes.func
+};
+
+const defaultTooltipProps = {
+    controlledProps: {
+        isControlled: true,
+        isVisible: false,
+        closeTooltip: () => console.log("close tooltip"),
+        showTooltip: () => console.log("open tooltip")
+    }
 };
 
 export default class FinancialAssistanceContent extends React.Component {
@@ -30,7 +42,11 @@ export default class FinancialAssistanceContent extends React.Component {
                 </a>
             );
         }
+
+        const awardAmountData = Object.create(BaseAwardAmounts);
+        awardAmountData.populate(this.props.overview, this.props.overview.category);
         // TODO: Determine if we should label with FAIN/ URI instead of ID
+        // TODO: Implement AwardPageWrapper, AwardSection etc...
         return (
             <div className="award award-financial-assistance">
                 <div className="award__heading">
@@ -39,7 +55,7 @@ export default class FinancialAssistanceContent extends React.Component {
                         {glossaryLink}
                     </div>
                     <div className="award__heading-id">
-                        <div className="award__heading-lable">{this.props.overview.id ? 'ID' : ''}</div>
+                        <div className="award__heading-label">{this.props.overview.id ? 'ID' : ''}</div>
                         <div>{this.props.overview.id}</div>
                     </div>
                 </div>
@@ -55,9 +71,18 @@ export default class FinancialAssistanceContent extends React.Component {
                             overview={this.props.overview} />
                     </div>
                 </div>
-                <div className="award__row">
-                    <FederalAccountsSection />
-                </div>
+                <AwardSection type="row">
+                    <AwardSection type="column">
+                        <AwardAmountsSection
+                            awardType={this.props.overview.category}
+                            awardOverview={awardAmountData}
+                            tooltipProps={defaultTooltipProps}
+                            jumptoSection={this.props.jumpToSection} />
+                    </AwardSection>
+                    <AwardSection type="column">
+                        <FederalAccountsSection />
+                    </AwardSection>
+                </AwardSection>
             </div>
         );
     }

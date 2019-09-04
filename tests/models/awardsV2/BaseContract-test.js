@@ -22,10 +22,16 @@ describe('BaseContract', () => {
             expect(contract.amount).toEqual('$234,234');
         });
         it('should format the obligated amount with a label', () => {
-            expect(contract.totalObligation).toEqual('$123.23 million');
+            expect(contract.totalObligationAbbreviated).toEqual('$123.23 million');
         });
         it('should format the obligated amount', () => {
             expect(contract.totalObligationFormatted).toEqual('$123,231,313');
+        });
+        it('should format the current (base_exercised_options) amount', () => {
+            expect(contract.baseExercisedOptionsFormatted).toEqual('$234,242');
+        });
+        it('should format the potential (base_and_all_options) amount', () => {
+            expect(contract.baseAndAllOptionsFormatted).toEqual('$234,234');
         });
     });
     describe('agencies', () => {

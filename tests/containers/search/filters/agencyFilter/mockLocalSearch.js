@@ -4,7 +4,6 @@ export const mockSecondaryResults = [
         toptier_flag: true,
         toptier_agency: {
             cgac_code: '004',
-            fpds_code: '0400',
             abbreviation: 'GPO',
             name: 'Government Publishing Office'
         },
@@ -12,15 +11,13 @@ export const mockSecondaryResults = [
             subtier_code: '0400',
             abbreviation: '',
             name: 'Government Publishing Office'
-        },
-        office_agency: null
+        }
     },
     {
         id: 1125,
         toptier_flag: true,
         toptier_agency: {
             cgac_code: '434',
-            fpds_code: '9549',
             abbreviation: 'OGE',
             name: 'Office of Government Ethics'
         },
@@ -28,8 +25,7 @@ export const mockSecondaryResults = [
             subtier_code: '9549',
             abbreviation: '',
             name: 'Office of Government Ethics'
-        },
-        office_agency: null
+        }
     }
 ];
 

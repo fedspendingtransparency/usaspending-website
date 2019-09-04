@@ -1,7 +1,7 @@
 /**
-  * AwardAmountsContainer.jsx
-  * Created by David Trinh 2/8/2019
-  **/
+ * AwardAmountsContainer.jsx
+ * Created by David Trinh 2/8/2019
+ **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -86,7 +86,7 @@ export class IdvAmountsContainer extends React.Component {
 
     parseAward(data) {
         const awardAmounts = Object.create(BaseAwardAmounts);
-        awardAmounts.populate(data);
+        awardAmounts.populate(data, 'idv');
         this.setState({
             awardAmounts,
             error: false,
@@ -106,9 +106,7 @@ export class IdvAmountsContainer extends React.Component {
     render() {
         return (
             <div>
-                <AggregatedAwardAmounts
-                    {...this.state}
-                    jumpToSection={this.props.jumpToSection} />
+                <AggregatedAwardAmounts {...this.state} jumpToSection={this.props.jumpToSection} />
             </div>
         );
     }

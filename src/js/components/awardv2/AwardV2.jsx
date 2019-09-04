@@ -92,7 +92,7 @@ export default class Award extends React.Component {
     render() {
         let content = null;
         let summaryBar = null;
-        const overview = this.props.award.overview;
+        const { overview } = this.props.award;
         const { isV2url } = this.props;
         if (overview) {
             summaryBar = (

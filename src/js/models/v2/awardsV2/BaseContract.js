@@ -27,7 +27,8 @@ BaseContract.populate = function populate(data) {
         subawardCount: data.subaward_count,
         totalObligation: data.total_obligation,
         baseExercisedOptions: data.base_exercised_options,
-        dateSigned: data.date_signed
+        dateSigned: data.date_signed,
+        baseAndAllOptions: data.base_and_all_options
     };
     this.populateCore(coreData);
 

@@ -83,7 +83,7 @@ export default class IdvContent extends React.Component {
                             {glossaryLink}
                         </div>
                         <div className="award__heading-id">
-                            <div className="award__heading-lable">
+                            <div className="award__heading-label">
                                 {this.props.overview.id ? "PIID" : ""}
                             </div>
                             <div>{this.props.overview.id}</div>
