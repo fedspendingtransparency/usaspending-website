@@ -6,7 +6,6 @@
 import Axios, { CancelToken } from 'axios';
 
 import kGlobalConstants from 'GlobalConstants';
-import { fetchIdvDownloadFile } from './idvHelper';
 
 export const requestAwardTable = (params) => {
     const source = CancelToken.source();
@@ -110,13 +109,21 @@ export const fetchContractDownloadFile = (awardId) => {
     };
 };
 
-export const fetchAwardDownloadFile = (awardType, awardId) => {
-    if (awardType === 'idv') {
-        return fetchIdvDownloadFile(awardId);
-    }
-    else if (awardType === 'contract') {
-        return fetchContractDownloadFile(awardId);
-    }
-
-    return fetchAssistanceDownloadFile(awardId);
+export const fetchIdvDownloadFile = (awardId) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            url: 'v2/download/idv/',
+            baseURL: kGlobalConstants.API,
+            method: "post",
+            headers: {
+                "content-type": "application/json"
+            },
+            data: { award_id: awardId },
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
 };
