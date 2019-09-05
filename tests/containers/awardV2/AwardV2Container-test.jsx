@@ -113,4 +113,25 @@ describe('AwardV2Container', () => {
             expect(downloadRequest.cancel).toHaveBeenCalled();
         });
     });
+
+    describe('fetchAwardDownloadFile', () => {
+        it('returns the contract helper for contract awards', async () => {
+            const awardContainer = getAwardContainer();
+            let result = await awardContainer.instance().fetchAwardDownloadFile();
+            result = await result.promise;
+            expect(result.data.file_name).toEqual('contract.zip');
+        });
+
+        it('returns the idv helper for idv awards', async () => {
+            const awardContainer = getAwardContainer({ ...mockParams, award: { ...mockParams.award, category: "idv" } });
+            const result = await awardContainer.instance().fetchAwardDownloadFile().promise;
+            expect(result.data.file_name).toEqual('idv.zip');
+        });
+
+        it('returns the assistance helper for assistance awards', async () => {
+            const awardContainer = getAwardContainer({ ...mockParams, award: { ...mockParams.award, category: "grant" } });
+            const result = await awardContainer.instance().fetchAwardDownloadFile().promise;
+            expect(result.data.file_name).toEqual('assistance.zip');
+        });
+    });
 });

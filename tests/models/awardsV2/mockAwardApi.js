@@ -429,9 +429,29 @@ export const mockAwardFundingMetaData = {
     federal_account_count: 47
 };
 
-export const mockFileDownloadResponse = {
+export const mockFileDownloadResponseIdv = {
     total_size: 35.055,
-    file_name: `012_account_balances_20180613140845.zip`,
+    file_name: `idv.zip`,
+    total_rows: 652,
+    total_columns: 27,
+    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status: `finished`,
+    seconds_elapsed: `10.061132`
+};
+
+export const mockFileDownloadResponseContract = {
+    total_size: 35.055,
+    file_name: `contract.zip`,
+    total_rows: 652,
+    total_columns: 27,
+    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status: `finished`,
+    seconds_elapsed: `10.061132`
+};
+
+export const mockFileDownloadResponseAssistance = {
+    total_size: 35.055,
+    file_name: `assistance.zip`,
     total_rows: 652,
     total_columns: 27,
     url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
