@@ -14,6 +14,7 @@ import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSec
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
+import ComingSoonSection from '../shared/ComingSoonSection';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -62,6 +63,14 @@ export default class ContractContent extends React.Component {
                             jumpToSection={this.props.jumpToSection}
                             awardOverview={this.props.overview}
                             tooltipProps={defaultTooltipProps} />
+                    </AwardSection>
+                    <AwardSection type="column">
+                        <ComingSoonSection title="Description" includeHeader />
+                    </AwardSection>
+                </AwardSection>
+                <AwardSection type="row">
+                    <AwardSection type="column">
+                        <ComingSoonSection title="Contract Activity" includeHeader />
                     </AwardSection>
                     <AwardSection type="column">
                         <FederalAccountsSection />
