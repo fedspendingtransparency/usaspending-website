@@ -139,7 +139,7 @@ export class AwardContainer extends React.Component {
         }
     }
 
-    fetchAwardDownloadFile(awardCategory, awardId) {
+    fetchAwardDownloadFile(awardCategory = this.props.award.category, awardId = this.props.params.awardId) {
         if (awardCategory === 'idv') {
             return fetchIdvDownloadFile(awardId);
         }
