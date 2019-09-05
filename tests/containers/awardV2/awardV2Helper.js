@@ -31,7 +31,7 @@ export const fetchAwardAmounts = () => (
     }
 );
 
-export const fetchIdvDownloadFile = () => ({
+export const fetchAwardDownloadFile = () => ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
             resolve({
