@@ -6,10 +6,9 @@ import ExceedsCurrentChart from './ExceedsCurrentChart';
 import ExceedsPotentialChart from './ExceedsPotentialChart';
 import NoResultsMessage from '../../../../sharedComponents/NoResultsMessage';
 import GrantChart from './GrantChart';
-import { ObligatedAmountTooltip, CurrentAmountTooltip, PotentialAmountTooltip } from '../Tooltips';
-
-import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
+import { ObligatedAmountTooltip, ExceedsCurrentAmountTooltip, CurrentAmountTooltip, ExceedsPotentialAmountTooltip, PotentialAmountTooltip } from '../Tooltips';
 import { CombinedObligatedAmounts, CombinedCurrentAmounts, CombinedPotentialAmounts, CombinedExceedsCurrentAmounts, CombinedExceedsPotentialAmounts } from "../../../idv/TooltipContent";
+import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 
 const propTypes = {
     awardType: PropTypes.string,
@@ -105,11 +104,11 @@ export default class AwardAmountsChart extends Component {
                 },
                 exceedsPotential: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    tooltipComponent: <PotentialAmountTooltip />
+                    tooltipComponent: <ExceedsPotentialAmountTooltip />
                 },
                 exceedsCurrent: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    tooltipComponent: <CurrentAmountTooltip />
+                    tooltipComponent: <ExceedsCurrentAmountTooltip />
                 }
             }
         };
