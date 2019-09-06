@@ -18,10 +18,4 @@ describe('Core Award getter functions', () => {
     it('should format the subaward total', () => {
         expect(award.subawardTotal).toEqual('$12,005');
     });
-    it('should format the base exercised options', () => {
-        expect(award.baseExercisedOptionsAbbreviated).toEqual('$2.34 million');
-    });
-    it('should format the total obligation', () => {
-        expect(award.totalObligationAbbreviated).toEqual('$12.35 million');
-    });
 });
