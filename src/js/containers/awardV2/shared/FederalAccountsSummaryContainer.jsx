@@ -6,17 +6,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
 
 import { fetchIdvFundingSummary } from 'helpers/idvHelper';
 import { fetchAwardFundingSummary } from 'helpers/awardSummaryHelper';
+import { setTotalTransactionObligatedAmount } from 'redux/actions/awardV2/awardActions';
 import BaseFundingRollup from 'models/v2/awardsV2/BaseFundingRollup';
 import FederalAccountsSummary from 'components/awardv2/shared/federalAccounts/FederalAccountsSummary';
 
 const propTypes = {
     awardId: PropTypes.string,
     category: PropTypes.string,
-    jumpToFederalAccountsHistory: PropTypes.func
+    jumpToFederalAccountsHistory: PropTypes.func,
+    setTotalTransactionObligatedAmount: PropTypes.func
 };
 
 export class FederalAccountsSummaryContainer extends React.Component {
@@ -72,6 +75,9 @@ export class FederalAccountsSummaryContainer extends React.Component {
             inFlight: false,
             summary
         });
+        // Store the total transaction obligated amount in Redux
+        // for use in the table view to calculate percentages
+        this.props.setTotalTransactionObligatedAmount(summary._obligatedAmount);
     }
 
     render() {
@@ -91,4 +97,9 @@ const mapStateToProps = (state) => ({
     category: state.awardV2.category
 });
 
-export default connect(mapStateToProps, null)(FederalAccountsSummaryContainer);
+export default connect(
+    mapStateToProps,
+    (dispatch) => bindActionCreators({
+        setTotalTransactionObligatedAmount
+    }, dispatch)
+)(FederalAccountsSummaryContainer);

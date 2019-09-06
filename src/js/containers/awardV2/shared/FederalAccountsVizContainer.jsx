@@ -15,7 +15,8 @@ import FederalAccountsViz from 'components/awardv2/shared/federalAccounts/Federa
 
 const propTypes = {
     awardId: PropTypes.string,
-    category: PropTypes.string
+    category: PropTypes.string,
+    totalTransactionObligatedAmount: PropTypes.number
 };
 
 export class FederalAccountsVizContainer extends React.Component {
@@ -39,13 +40,13 @@ export class FederalAccountsVizContainer extends React.Component {
     }
 
     async componentDidMount() {
-        if (this.props.awardId && this.props.category) {
+        if (this.props.totalTransactionObligatedAmount && this.props.awardId && this.props.category) {
             await this.getFederalAccounts();
         }
     }
 
     async componentDidUpdate(prevProps) {
-        if (prevProps.awardId !== this.props.awardId && (this.props.awardId && this.props.category)) {
+        if (prevProps.totalTransactionObligatedAmount !== this.props.totalTransactionObligatedAmount && (this.props.totalTransactionObligatedAmount)) {
             await this.getFederalAccounts();
         }
     }
@@ -82,7 +83,8 @@ export class FederalAccountsVizContainer extends React.Component {
 
     parseFederalAccounts(results) {
         const federalAccounts = results.map((account) => {
-            const newAccount = new BaseFederalAccount(account, this.state.totalTransactionObligatedAmount);
+            // get the totalTransactionObligatedAmount from Redux
+            const newAccount = new BaseFederalAccount(account, this.props.totalTransactionObligatedAmount);
             return newAccount;
         });
 
@@ -115,7 +117,8 @@ FederalAccountsVizContainer.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
     awardId: state.awardV2.id,
-    category: state.awardV2.category
+    category: state.awardV2.category,
+    totalTransactionObligatedAmount: state.awardV2.totalTransactionObligatedAmount
 });
 
 export default connect(mapStateToProps, null)(FederalAccountsVizContainer);
