@@ -47,12 +47,12 @@ export default class FederalAccountsTree extends React.Component {
         this.buildVirtualChart(this.props);
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.data !== this.props.data) {
-            this.buildVirtualChart(nextProps);
+    componentDidUpdate(prevProps) {
+        if (prevProps.data !== this.props.data) {
+            this.buildVirtualChart(this.props);
         }
-        else if (nextProps.width !== this.props.width || nextProps.height !== this.props.height) {
-            this.buildVirtualChart(nextProps);
+        else if (prevProps.width !== this.props.width || prevProps.height !== this.props.height) {
+            this.buildVirtualChart(this.props);
         }
     }
 
@@ -68,7 +68,7 @@ export default class FederalAccountsTree extends React.Component {
         })
             // tell D3 how to extract the monetary value out of the object
             .sum((d) => d._obligatedAmount)
-            .sort((a, b) => b.height - a.height || b.value - a.value); // sort the objects
+            .sort((a, b) => b._obligatedAmount - a._obligatedAmount); // sort the objects
 
         // set up a function for generating the treemap of the specified size and style
         const tree = treemap()
