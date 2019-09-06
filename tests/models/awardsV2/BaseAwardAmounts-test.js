@@ -40,7 +40,7 @@ awardAmountsOverspent.populate(overspending, "idv");
 awardAmountsExtremeOverspent.populate(extremeOverspending, "idv");
 
 describe('BaseAwardAmounts', () => {
-    describe('IDV Award Amounts', () => {
+    describe('IDV Award Type', () => {
         it('should have an empty string as a unique generated id if the field is null or undefined', () => {
             expect(awardAmounts.generatedId).toEqual('');
         });
@@ -84,11 +84,18 @@ describe('BaseAwardAmounts', () => {
             expect(awardAmountsOverspent.overspendingAbbreviated).toEqual('$2.5 M');
         });
     });
+    /*
+      * IDVs/Contracts/Grants all share the same getters tested above.
+      * The only difference is when an IDV Award is passed to BaseAwardAmounts.populate(awardType, data) fn
+      * The data parameter is coming straight from the api and so is snake_cased_like_this.
+      * For the Contract/FinancialAssistance award types, on the other hand, the data is expected to be in the following
+      * format: _likeThis because the data parameter in this context has already been parsed by the CoreAward
+      * Model
+    */
     describe('Contract Award Amounts', () => {
         const contractAwardAmounts = Object.create(BaseAwardAmounts);
         contractAwardAmounts.populate(mockContract, "contract");
         const arrayOfObjectProperties = Object.keys(contractAwardAmounts);
-
         it('does not create IDV specific properties', () => {
             expect(arrayOfObjectProperties.includes("childIDVCount")).toEqual(false);
             expect(arrayOfObjectProperties.includes("childAwardCount")).toEqual(false);
