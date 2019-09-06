@@ -115,7 +115,8 @@ export default class TooltipWrapper extends React.Component {
         }
 
         if (this.props.left) {
-            const startingPositionLeft = spaceToLeft - tooltipWidth; // minus tooltipWidth b/c right corner of toolTip is flush w/ left edge of toolTip container
+            // minus tooltipWidth b/c right corner of toolTip is flush w/ left edge of toolTip container
+            const startingPositionLeft = spaceToLeft - tooltipWidth;
             this.setState({
                 offsetTop,
                 offsetLeft: startingPositionLeft - horizontalPadding,
@@ -123,7 +124,8 @@ export default class TooltipWrapper extends React.Component {
             });
         }
         else {
-            const startingPositionLeft = spaceToLeft + ttContainerWidth; // plus ttContainerWidth b/c left corner of toolTip is flush w/ right edge of toolTip container
+            // plus ttContainerWidth b/c left corner of toolTip is flush w/ right edge of toolTip container
+            const startingPositionLeft = spaceToLeft + ttContainerWidth;
             this.setState({
                 offsetTop,
                 offsetLeft: startingPositionLeft + horizontalPadding,
