@@ -16,50 +16,62 @@ const shallowSetup = (props) => shallow(<FederalAccountsVizContainer {...props} 
 describe('FederalAccountsVizContainer', () => {
     const getFederalAccounts = jest.fn();
 
-    it('componentDidMount -- makes api call then updates state', async () => {
-        const container = setup({
-            awardId: '123',
-            category: 'idv'
+    describe('componentDidMount', () => {
+        it('should not make an api call', async () => {
+            const container = setup({
+                awardId: '123',
+                category: 'idv',
+                totalTransactionObligatedAmount: 0
+            });
+            container.instance().getFederalAccounts = getFederalAccounts;
+            await container.instance().componentDidMount();
+            expect(getFederalAccounts).toHaveBeenCalledTimes(0);
         });
-        container.instance().getFederalAccounts = getFederalAccounts;
-        await container.instance().componentDidMount();
-        expect(getFederalAccounts).toHaveBeenCalled();
     });
 
-    it('componentDidUpdate -- makes api call w/ new award id', async () => {
-        const container = setup({
-            awardId: '123',
-            category: 'idv'
+    describe('componentDidUpdate', () => {
+        it('should make an api call when totalTransactionObligatedAmount changes', async () => {
+            const container = setup({
+                awardId: '123',
+                category: 'idv',
+                totalTransactionObligatedAmount: 0
+            });
+            container.instance().getFederalAccounts = getFederalAccounts;
+            container.setProps({ totalTransactionObligatedAmount: 12345 });
+            expect(container.instance().getFederalAccounts).toHaveBeenCalled();
         });
-        container.instance().getFederalAccounts = getFederalAccounts;
-        container.setProps({ awardId: '456' });
-        expect(container.instance().getFederalAccounts).toHaveBeenCalled();
     });
 
-    it('updateSort -- should update the sort & order state & fetch sorted accounts', async () => {
-        const container = shallowSetup({
-            awardId: '123',
-            category: 'idv'
+    describe('updateSort', () => {
+        it('should update the sort & order state & fetch sorted accounts', async () => {
+            const container = shallowSetup({
+                awardId: '123',
+                category: 'idv',
+                totalTransactionObligatedAmount: 12345
+            });
+            container.instance().getFederalAccounts = getFederalAccounts;
+            container.instance().updateSort('account_title', 'asc');
+
+            const { state } = container.instance();
+
+            expect(state.sort).toEqual('account_title');
+            expect(state.order).toEqual('asc');
+            expect(container.instance().getFederalAccounts).toHaveBeenCalled();
         });
-        container.instance().getFederalAccounts = getFederalAccounts;
-        container.instance().updateSort('account_title', 'asc');
-
-        const { state } = container.instance();
-
-        expect(state.sort).toEqual('account_title');
-        expect(state.order).toEqual('asc');
-        expect(container.instance().getFederalAccounts).toHaveBeenCalled();
     });
 
-    it('changePage -- should update the page state & fetch more accounts', async () => {
-        const container = shallowSetup({
-            awardId: '123',
-            category: 'idv'
-        });
-        container.instance().getFederalAccounts = getFederalAccounts;
-        container.instance().changePage(2);
+    describe('changePage', () => {
+        it('should update the page state & fetch more accounts', async () => {
+            const container = shallowSetup({
+                awardId: '123',
+                category: 'idv',
+                totalTransactionObligatedAmount: 12345
+            });
+            container.instance().getFederalAccounts = getFederalAccounts;
+            container.instance().changePage(2);
 
-        expect(container.instance().state.page).toEqual(2);
-        expect(container.instance().getFederalAccounts).toHaveBeenCalled();
+            expect(container.instance().state.page).toEqual(2);
+            expect(container.instance().getFederalAccounts).toHaveBeenCalled();
+        });
     });
 });

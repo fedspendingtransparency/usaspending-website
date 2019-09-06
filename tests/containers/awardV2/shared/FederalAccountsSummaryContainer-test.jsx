@@ -13,12 +13,14 @@ import { mockAwardFundingMetaData } from '../../../models/awardsV2/mockAwardApi'
 jest.mock('helpers/idvHelper', () => require('../idv/mockIdvHelper'));
 
 const setup = (props) => mount(<FederalAccountsSummaryContainer {...props} />);
+const setTotalTransactionObligatedAmount = jest.fn();
 
 describe('FederalAccountsSummaryContainer', () => {
     it('should make an API call when componentDidMount is invoked', async () => {
         const container = setup({
             awardId: '123',
-            category: 'idv'
+            category: 'idv',
+            setTotalTransactionObligatedAmount
         });
         const getAwardMetaData = jest.fn();
         container.instance().getAwardMetaData = getAwardMetaData;
@@ -29,7 +31,8 @@ describe('FederalAccountsSummaryContainer', () => {
     it('should make a new API call when the award id changes', async () => {
         const container = setup({
             awardId: '123',
-            category: 'idv'
+            category: 'idv',
+            setTotalTransactionObligatedAmount
         });
         const getAwardMetaData = jest.fn();
         container.instance().getAwardMetaData = getAwardMetaData;
@@ -40,7 +43,8 @@ describe('FederalAccountsSummaryContainer', () => {
         it('should set state.summary to an object with BaseFundingRollup in its prototype chain', () => {
             const container = setup({
                 awardId: '123',
-                category: 'idv'
+                category: 'idv',
+                setTotalTransactionObligatedAmount
             });
             container.instance().parseFundingRollup(mockAwardFundingMetaData);
 
