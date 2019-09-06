@@ -64,14 +64,10 @@ export default class ContractContent extends React.Component {
                             awardOverview={this.props.overview}
                             tooltipProps={defaultTooltipProps} />
                     </AwardSection>
-                    <AwardSection type="column">
-                        <ComingSoonSection title="Description" includeHeader />
-                    </AwardSection>
+                    <ComingSoonSection title="Description" includeHeader />
                 </AwardSection>
                 <AwardSection type="row">
-                    <AwardSection type="column">
-                        <ComingSoonSection title="Contract Activity" includeHeader />
-                    </AwardSection>
+                    <ComingSoonSection title="Contract Activity" includeHeader />
                     <AwardSection type="column">
                         <FederalAccountsSection />
                     </AwardSection>

@@ -54,6 +54,24 @@
     .loading-animation {
         @import "../../search/results/screens/loading";
     }
+    .results-table-error {
+      .icon {
+        width: rem(36);
+        height: rem(36);
+        svg {
+          width: rem(36);
+          height: rem(36);
+        }
+      }
+      .title {
+        font-size: rem(20);
+        line-height: rem(45);
+      }
+      .description {
+        font-size: rem(16);
+        line-height: rem(10);
+      }
+    }
 }
   .federal-accounts__section {
     height: 100%;

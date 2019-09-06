@@ -87,14 +87,10 @@ export default class FinancialAssistanceContent extends React.Component {
                     <AwardSection type="column">
                         {amountsSection}
                     </AwardSection>
-                    <AwardSection type="column">
-                        <ComingSoonSection title="Description" includeHeader />
-                    </AwardSection>
+                    <ComingSoonSection title="Description" includeHeader />
                 </AwardSection>
                 <AwardSection type="row">
-                    <AwardSection type="column">
-                        <ComingSoonSection title="CFDA Program / Assistance Listing Information" includeHeader />
-                    </AwardSection>
+                    <ComingSoonSection title="CFDA Program / Assistance Listing Information" includeHeader />
                     <AwardSection type="column">
                         <FederalAccountsSection />
                     </AwardSection>
