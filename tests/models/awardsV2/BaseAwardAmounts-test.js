@@ -4,7 +4,7 @@
  */
 
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
-import { mockAwardAmounts } from './mockAwardApi';
+import { mockAwardAmounts, mockContract, mockGrant } from './mockAwardApi';
 
 const awardAmounts = Object.create(BaseAwardAmounts);
 awardAmounts.populate(mockAwardAmounts, "idv");
@@ -84,17 +84,34 @@ describe('BaseAwardAmounts', () => {
             expect(awardAmountsOverspent.overspendingAbbreviated).toEqual('$2.5 M');
         });
     });
-    describe('Non-IDV Award Amounts', () => {
-        const nonIdvAwardAmounts = Object.create(BaseAwardAmounts);
-        nonIdvAwardAmounts.populate(mockAwardAmounts, "contract");
+    describe('Contract Award Amounts', () => {
+        const contractAwardAmounts = Object.create(BaseAwardAmounts);
+        contractAwardAmounts.populate(mockContract, "contract");
+        const arrayOfObjectProperties = Object.keys(contractAwardAmounts);
+
         it('does not create IDV specific properties', () => {
-            const arrayOfObjectProperties = Object.keys(nonIdvAwardAmounts);
             expect(arrayOfObjectProperties.includes("childIDVCount")).toEqual(false);
             expect(arrayOfObjectProperties.includes("childAwardCount")).toEqual(false);
             expect(arrayOfObjectProperties.includes("grandchildAwardCount")).toEqual(false);
-            expect(arrayOfObjectProperties.includes("_baseAndAllOptions")).toEqual(false);
-            expect(arrayOfObjectProperties.includes("_totalObligation")).toEqual(false);
-            expect(arrayOfObjectProperties.includes("_baseExercisedOptions")).toEqual(false);
+        });
+    });
+    describe('Grant Award Amounts', () => {
+        const grantAwardAmounts = Object.create(BaseAwardAmounts);
+        grantAwardAmounts.populate(mockGrant, "grant");
+        const arrayOfObjectProperties = Object.keys(grantAwardAmounts);
+
+        it('does not create IDV specific properties', () => {
+            expect(arrayOfObjectProperties.includes("childIDVCount")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("childAwardCount")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("grandchildAwardCount")).toEqual(false);
+        });
+        it('creates grant specific properties w/ correct formatting', () => {
+            expect(grantAwardAmounts._nonFederalFunding).toEqual(1130000);
+            expect(grantAwardAmounts.nonFederalFundingFormatted).toEqual("$1,130,000.00");
+            expect(grantAwardAmounts.nonFederalFundingAbbreviated).toEqual("$1.1 M");
+            expect(grantAwardAmounts._totalFunding).toEqual(1130000000);
+            expect(grantAwardAmounts.totalFundingFormatted).toEqual("$1,130,000,000.00");
+            expect(grantAwardAmounts.totalFundingAbbreviated).toEqual("$1.1 B");
         });
     });
 });
