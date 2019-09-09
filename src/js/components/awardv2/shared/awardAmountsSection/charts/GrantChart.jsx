@@ -40,7 +40,7 @@ export default class GrantChart extends React.Component {
             right: obligatedBarStyle.width
         };
 
-        const totalFundingColor = "#BBBBBB";
+        const totalFundingColor = "#FFF";
 
         const nonFederalFundingLabelStyle = {
             width: generatePercentage(nonFederalFunding / totalFunding)
@@ -77,7 +77,7 @@ export default class GrantChart extends React.Component {
                 <div className="award-amounts-viz__bar-wrapper">
                     <TooltipWrapper {...totalFundingTooltipProps} style={{ backgroundColor: totalFundingColor }}>
                         <div className="award-amounts-viz__bar" style={{ backgroundColor: totalFundingColor }}>
-                            <TooltipWrapper {...obligatedTooltipProps} styles={{ width: obligatedBarStyle.width, border: "5px solid #BBB" }}>
+                            <TooltipWrapper {...obligatedTooltipProps} styles={{ width: obligatedBarStyle.width }}>
                                 <div className="award-amounts-viz__obligated--grants" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
                             </TooltipWrapper>
                             {!nonFederalFundingIsZero &&
