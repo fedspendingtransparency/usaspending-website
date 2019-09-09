@@ -15,6 +15,9 @@ const shallowSetup = (props) => shallow(<FederalAccountsVizContainer {...props} 
 
 describe('FederalAccountsVizContainer', () => {
     const getFederalAccounts = jest.fn();
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
 
     describe('componentDidMount', () => {
         it('should not make an api call', async () => {
@@ -72,6 +75,66 @@ describe('FederalAccountsVizContainer', () => {
 
             expect(container.instance().state.page).toEqual(2);
             expect(container.instance().getFederalAccounts).toHaveBeenCalled();
+        });
+    });
+
+    describe('changeView', () => {
+        it('should update the state', async () => {
+            const container = shallowSetup({
+                awardId: '123',
+                category: 'idv',
+                totalTransactionObligatedAmount: 12345
+            });
+
+            container.instance().changeView('table');
+            expect(container.instance().state.view).toEqual('table');
+        });
+        it('should make an API call to fetch accounts when the view changes', async () => {
+            const container = shallowSetup({
+                awardId: '123',
+                category: 'idv',
+                totalTransactionObligatedAmount: 12345
+            });
+            container.instance().getFederalAccounts = getFederalAccounts;
+            container.instance().changeView('table');
+
+            expect(container.instance().getFederalAccounts).toHaveBeenCalled();
+        });
+        it('should reset the page number to 1', async () => {
+            const container = shallowSetup({
+                awardId: '123',
+                category: 'idv',
+                totalTransactionObligatedAmount: 12345
+            });
+            container.instance().changePage(2);
+            expect(container.instance().state.page).toEqual(2);
+
+            container.instance().changeView('table');
+            expect(container.instance().state.page).toEqual(1);
+        });
+        it('should change the limit to 10 for the table view', async () => {
+            const container = shallowSetup({
+                awardId: '123',
+                category: 'idv',
+                totalTransactionObligatedAmount: 12345
+            });
+            container.instance().changeView('table');
+
+            expect(container.instance().state.limit).toEqual(10);
+        });
+        it('should do nothing if the view is already set to the provided value', async () => {
+            const container = shallowSetup({
+                awardId: '123',
+                category: 'idv',
+                totalTransactionObligatedAmount: 12345
+            });
+            container.instance().getFederalAccounts = getFederalAccounts;
+            container.instance().getFederalAccounts = getFederalAccounts;
+            container.instance().changeView('tree');
+
+            expect(container.instance().getFederalAccounts).toHaveBeenCalledTimes(0);
+            expect(container.instance().state.limit).toEqual(100);
+            expect(container.instance().state.view).toEqual('tree');
         });
     });
 });
