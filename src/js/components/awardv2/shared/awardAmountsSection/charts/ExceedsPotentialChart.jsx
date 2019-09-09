@@ -83,7 +83,7 @@ export default class ExceedsPotentialChart extends React.Component {
                             {this.props.awardAmounts.totalObligationAbbreviated}
                         </strong>
                         <br />
-                        {isIdv ? "Combined Obligated Amounts" : "Obligated Amounts"}
+                        {isIdv ? "Combined Obligated Amounts" : "Obligated Amount"}
                     </div>
                     <div className="award-amounts-viz__desc">
                         <div
