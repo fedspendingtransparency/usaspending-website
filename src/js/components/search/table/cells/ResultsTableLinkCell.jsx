@@ -10,7 +10,7 @@ const propTypes = {
     rowIndex: PropTypes.number,
     column: PropTypes.string,
     isLastColumn: PropTypes.bool,
-    id: PropTypes.number,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     value: PropTypes.string
 };
 
