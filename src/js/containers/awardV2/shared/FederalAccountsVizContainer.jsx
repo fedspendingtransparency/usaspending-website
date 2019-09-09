@@ -61,8 +61,12 @@ export class FederalAccountsVizContainer extends React.Component {
             limit, sort, page, order
         } = this.state;
         const params = {
-            limit, sort, page, order, award_id: this.props.awardId
+            limit, sort, order, award_id: this.props.awardId
         };
+        // Only add page number for the table view
+        if (this.state.view === 'table') {
+            params.page = page;
+        }
         this.setState({ inFlight: true, error: false });
         if (this.props.category === 'idv') {
             this.request = fetchIdvFederalAccounts(params);
@@ -110,8 +114,7 @@ export class FederalAccountsVizContainer extends React.Component {
             const limit = view === 'tree' ? 100 : 10;
             this.setState({
                 view,
-                limit,
-                page: 1
+                limit
             }, () => {
                 this.getFederalAccounts();
             });

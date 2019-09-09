@@ -100,18 +100,6 @@ describe('FederalAccountsVizContainer', () => {
 
             expect(container.instance().getFederalAccounts).toHaveBeenCalled();
         });
-        it('should reset the page number to 1', async () => {
-            const container = shallowSetup({
-                awardId: '123',
-                category: 'idv',
-                totalTransactionObligatedAmount: 12345
-            });
-            container.instance().changePage(2);
-            expect(container.instance().state.page).toEqual(2);
-
-            container.instance().changeView('table');
-            expect(container.instance().state.page).toEqual(1);
-        });
         it('should change the limit to 10 for the table view', async () => {
             const container = shallowSetup({
                 awardId: '123',
