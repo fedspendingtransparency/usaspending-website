@@ -26,7 +26,7 @@ const defaultTooltipProps = {
     controlledProps: {
         isControlled: true,
         isVisible: false,
-        closeCurrentTooltip: () => console.log("close tooltip"),
+        closeTooltip: () => console.log("close tooltip"),
         showTooltip: () => console.log("open tooltip")
     }
 };
