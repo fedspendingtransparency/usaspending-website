@@ -22,15 +22,6 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-const defaultTooltipProps = {
-    controlledProps: {
-        isControlled: true,
-        isVisible: false,
-        closeTooltip: () => console.log("close tooltip"),
-        showTooltip: () => console.log("open tooltip")
-    }
-};
-
 export default class ContractContent extends React.Component {
     render() {
         const { overview, awardId, jumpToSection } = this.props;
@@ -61,10 +52,9 @@ export default class ContractContent extends React.Component {
                 </AwardSection>
                 <AwardSection type="row">
                     <AwardAmountsSection
-                        awardType={overview.category}
-                        jumpToSection={jumpToSection}
-                        awardOverview={awardAmountData}
-                        tooltipProps={defaultTooltipProps} />
+                        awardType={this.props.overview.category}
+                        jumpToSection={this.props.jumpToSection}
+                        awardOverview={awardAmountData} />
                     <ComingSoonSection title="Description" includeHeader />
                 </AwardSection>
                 <AdditionalInfo overview={overview} />

@@ -43,7 +43,7 @@ export const AWARD_SECTION_PROPS = {
 };
 
 export const AWARD_PAGE_WRAPPER_PROPS = {
-    awardType: PropTypes.oneOf(["idv", "contract", "grant"]),
+    awardType: PropTypes.oneOf(["idv", "contract", "financial-assistance"]),
     awardTypeDescription: PropTypes.string,
     glossaryLink: PropTypes.string,
     identifier: PropTypes.string,
