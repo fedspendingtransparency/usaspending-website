@@ -13,10 +13,14 @@ const propTypes = {
     tooltipProps: TOOLTIP_PROPS
 };
 
+const financialAssistanceAwardTypes = ['grant', 'direct payment', 'loan', 'other'];
+
 export default class AwardAmounts extends React.Component {
     render() {
         const { awardOverview, awardType } = this.props;
-        const spendingScenario = determineSpendingScenario(awardOverview);
+        const spendingScenario = financialAssistanceAwardTypes.includes(awardType)
+            ? 'normal'
+            : determineSpendingScenario(awardOverview);
         return (
             <AwardSection type="column" className="award-viz award-amounts">
                 <div className="award__col__content">
