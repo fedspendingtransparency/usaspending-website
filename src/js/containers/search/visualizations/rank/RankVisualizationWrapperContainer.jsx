@@ -194,7 +194,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
             dataSeries.push(result._amount);
 
             if (this.state.scope === 'recipient_duns') {
-                linkSeries.push(result.recipientId);
+                const recipientLink = result.recipientId ? `#/recipient/${result.recipientId}` : '';
+                linkSeries.push(recipientLink);
             }
 
             const description = `Spending by ${result.name}: ${result.amount}`;
