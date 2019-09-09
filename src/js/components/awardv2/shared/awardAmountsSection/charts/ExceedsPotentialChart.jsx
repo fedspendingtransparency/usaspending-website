@@ -83,7 +83,7 @@ export default class ExceedsPotentialChart extends React.Component {
                             {this.props.awardAmounts.totalObligationAbbreviated}
                         </strong>
                         <br />
-                        {isIdv ? "Combined Obligated Amounts" : "Obligated Amounts"}
+                        {isIdv ? "Combined Obligated Amounts" : "Obligated Amount"}
                     </div>
                     <div className="award-amounts-viz__desc">
                         <div
@@ -99,7 +99,7 @@ export default class ExceedsPotentialChart extends React.Component {
                             <strong>{this.props.awardAmounts.extremeOverspendingAbbreviated}</strong>
                             <br />
                             <div className="award-amounts-viz__desc-text-wrapper">
-                                {isIdv ? "Exceeds Combined Potential Award Amounts" : "Exceeds Potential Award Amounts"}
+                                {isIdv ? "Exceeds Combined Potential Award Amounts" : "Exceeds Potential Award Amount"}
                             </div>
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_extreme-overspending" />
@@ -152,7 +152,7 @@ export default class ExceedsPotentialChart extends React.Component {
                             onClick={currentTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.baseExercisedOptionsAbbreviated}</strong>
                             <br />
-                            {isIdv ? "Combined Current Award Amounts" : "Current Award Amounts"}
+                            {isIdv ? "Combined Current Award Amounts" : "Current Award Amount"}
                         </div>
                         <div className="award-amounts-viz__legend-line" />
                     </div>
@@ -174,7 +174,7 @@ export default class ExceedsPotentialChart extends React.Component {
                             onClick={potentialTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.baseAndAllOptionsAbbreviated}</strong>
                             <br />
-                            {isIdv ? "Combined Potential Award Amounts" : "Potential Award Amounts"}
+                            {isIdv ? "Combined Potential Award Amounts" : "Potential Award Amount"}
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
                     </div>

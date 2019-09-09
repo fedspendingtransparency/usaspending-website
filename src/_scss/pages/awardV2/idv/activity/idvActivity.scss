@@ -1,4 +1,5 @@
 .idv-activity {
+  width: 100%;
   @import '../../../../components/verticalLine';
   @import '../../../../components/Note';
     .award__col__content {
@@ -49,9 +50,11 @@
         }
       }
       .activity-visualization {
+        width: 100%;
         @import "components/_defaultPicker";
         @include defaultPicker;
         .default-picker {
+          width: 100%;
           .default-picker__header {
             .default-picker__button {
               border-bottom: 2px solid $color-link;
@@ -61,11 +64,13 @@
         @import '../../../../components/pagination';
         @import '../../../../components/visualizations/legend';
         .activity-visualization-title {
+          width: 100%;
           margin-top: rem(10);
           margin-bottom: rem(18);
           font-weight: $font-semibold;
         }
         .activity-x-label {
+          width: 100%;
           font-size: rem(12);
           font-weight: $font-semibold;
           text-align: center;
@@ -74,6 +79,7 @@
           font-weight: $font-semibold;
         }
         .pagination {
+          width: 100%;
           margin-top: rem(20);
           .pager {
             .pager__item:last-child {
@@ -130,6 +136,9 @@
                 .tooltip-body__row-info:nth-child(1) {
                   padding-right: rem(30em);
                 }
+                #grandparentLabel {
+                  padding-right: rem(30);
+                }
                 .tooltip-body__row-info {
                   &.second-child {
                     padding-right: rem(30em);
@@ -140,6 +149,7 @@
           }
         }
         .visualization-legend {
+          width: 100%;
           background-color: #F4F3F3;
           border-radius: 3px;
           margin-top: rem(35);
@@ -200,6 +210,9 @@
               font-size: rem(12rem);
             }
           }
+        }
+        .activity-visualization-note {
+          width: 100%;
         }
     }
   }

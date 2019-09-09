@@ -61,20 +61,15 @@ export default class ContractContent extends React.Component {
                     </AwardSection>
                 </AwardSection>
                 <AwardSection type="row">
-                    <AwardSection type="column">
-                        <AwardAmountsSection
-                            awardType={overview.category}
-                            jumpToSection={this.props.jumpToSection}
-                            awardOverview={overview}
-                            tooltipProps={defaultTooltipProps} />
-                    </AwardSection>
+                    <AwardAmountsSection
+                        awardType={this.props.overview.category}
+                        jumpToSection={this.props.jumpToSection}
+                        awardOverview={awardAmountData} />
                     <ComingSoonSection title="Description" includeHeader />
                 </AwardSection>
                 <AwardSection type="row">
                     <ComingSoonSection title="Contract Activity" includeHeader />
-                    <AwardSection type="column">
-                        <FederalAccountsSection />
-                    </AwardSection>
+                    <FederalAccountsSection />
                 </AwardSection>
                 <AdditionalInfo overview={overview} />
             </AwardPageWrapper>

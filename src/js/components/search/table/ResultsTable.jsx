@@ -12,7 +12,7 @@ import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableHeaderCell from './cells/ResultsTableHeaderCell';
 import ResultsTableFormattedCell from './cells/ResultsTableFormattedCell';
-import ResultsTableAwardIdCell from './cells/ResultsTableAwardIdCell';
+import ResultsTableLinkCell from './cells/ResultsTableLinkCell';
 
 const propTypes = {
     results: PropTypes.array,
@@ -75,8 +75,14 @@ export default class ResultsTable extends React.Component {
         };
 
         if (column.columnName === 'Award ID') {
-            cellClass = ResultsTableAwardIdCell;
+            cellClass = ResultsTableLinkCell;
             props.id = this.props.results[rowIndex].internal_id;
+            props.column = 'award';
+        }
+        else if (column.columnName === 'Recipient Name' && this.props.results[rowIndex].recipient_id) {
+            cellClass = ResultsTableLinkCell;
+            props.id = this.props.results[rowIndex].recipient_id;
+            props.column = 'recipient';
         }
 
         return React.createElement(

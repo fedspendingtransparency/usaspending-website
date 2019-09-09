@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableGenericCell from 'components/search/table/cells/ResultsTableGenericCell';
-import ResultsTableAwardIdCell from 'components/search/table/cells/ResultsTableAwardIdCell';
+import ResultsTableLinkCell from 'components/search/table/cells/ResultsTableLinkCell';
 
 import AccountTableSearchFields from 'dataMapping/search/accountTableSearchFields';
 
@@ -77,11 +77,11 @@ export default class LegacyResultsTable extends React.Component {
 
         if (column.columnName === 'award_id') {
             return (
-                <ResultsTableAwardIdCell
+                <ResultsTableLinkCell
                     rowIndex={rowIndex}
                     id={this.props.results[rowIndex].internalId}
                     value={this.props.results[rowIndex].awardId}
-                    column={column.columnName}
+                    column="award"
                     isLastColumn={isLast} />
             );
         }
