@@ -28,7 +28,7 @@ export class FederalAccountsVizContainer extends React.Component {
             page: 1,
             order: 'desc',
             total: 0,
-            inFlight: true,
+            inFlight: false,
             error: false,
             federalAccounts: [],
             view: 'tree'
