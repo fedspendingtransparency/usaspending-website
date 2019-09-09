@@ -116,7 +116,6 @@ export default class IdvActivityTooltip extends React.Component {
         return { [propertyName]: text };
     }
 
-    
     decideOnTooltipWidth(arrayOfDivWidths, tooltipWidth) {
         // get truncated widths of the first two rows
         // add padding for the first two rows
