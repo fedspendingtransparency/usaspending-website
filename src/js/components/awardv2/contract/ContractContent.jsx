@@ -31,7 +31,7 @@ export default class ContractContent extends React.Component {
             : null;
         const awardAmountData = Object.create(BaseAwardAmounts);
         awardAmountData.populate(overview, overview.category);
-        console.log("data", awardAmountData);
+
         return (
             <AwardPageWrapper
                 glossaryLink={glossaryLink}
