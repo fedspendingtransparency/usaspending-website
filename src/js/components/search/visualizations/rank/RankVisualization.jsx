@@ -24,6 +24,7 @@ const defaultProps = {
 
 const propTypes = {
     dataSeries: PropTypes.array,
+    linkSeries: PropTypes.array,
     descriptions: PropTypes.array,
     loading: PropTypes.bool,
     error: PropTypes.bool,

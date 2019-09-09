@@ -11,7 +11,7 @@ import { keywordTableColumnTypes } from 'dataMapping/keyword/keywordTableColumnT
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableFormattedCell from 'components/search/table/cells/ResultsTableFormattedCell';
-import ResultsTableAwardIdCell from 'components/search/table/cells/ResultsTableAwardIdCell';
+import ResultsTableLinkCell from 'components/search/table/cells/ResultsTableLinkCell';
 import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
 
 const propTypes = {
@@ -82,8 +82,9 @@ export default class ResultsTable extends React.Component {
         };
 
         if (column.columnName === 'Award ID') {
-            cellClass = ResultsTableAwardIdCell;
+            cellClass = ResultsTableLinkCell;
             props.id = parseInt(this.props.results[rowIndex].internal_id, 10);
+            props.column = 'award';
         }
 
         return React.createElement(
