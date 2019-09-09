@@ -17,17 +17,6 @@ const contract = Object.create(BaseContract);
 contract.populate(mockContract);
 
 describe('BaseContract', () => {
-    describe('monetary values', () => {
-        it('should format the contract amount', () => {
-            expect(contract.amount).toEqual('$234,234');
-        });
-        it('should format the obligated amount with a label', () => {
-            expect(contract.totalObligation).toEqual('$123.23 million');
-        });
-        it('should format the obligated amount', () => {
-            expect(contract.totalObligationFormatted).toEqual('$123,231,313');
-        });
-    });
     describe('agencies', () => {
         it('should only populate an awarding/funding agency if it is available in the API response', () => {
             const emptyAgency = Object.create(CoreAwardAgency);

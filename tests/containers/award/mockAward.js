@@ -17,10 +17,8 @@ export const mockAward = {
         type_description: 'Unknown Type',
         awarding_agency_name: 'Department of Energy',
         awarding_subtier_name: 'Department of Energy',
-        awarding_office_name: '',
         funding_agency_name: 'Department of Defense',
         funding_subtier_name: 'Department of the Air Force',
-        funding_office_name: '',
         recipient_street: '1515 EUBANK BLVD. SEundefinednull',
         recipient_city: 'ALBUQUERQUE',
         recipient_state_province: 'IL',
@@ -69,7 +67,6 @@ export const mockAward = {
                     create_date: null,
                     update_date: '2017-03-08T22:27:33.723892Z',
                     cgac_code: '089',
-                    fpds_code: '8900',
                     abbreviation: 'DOE',
                     name: 'Department of Energy'
                 },
@@ -80,8 +77,7 @@ export const mockAward = {
                     subtier_code: '8900',
                     abbreviation: '',
                     name: 'Department of Energy'
-                },
-                office_agency: null
+                }
             },
             funding_agency: {
                 id: 1805,
@@ -92,7 +88,6 @@ export const mockAward = {
                     create_date: null,
                     update_date: '2017-03-08T22:27:44.239782Z',
                     cgac_code: '097',
-                    fpds_code: '9700',
                     abbreviation: 'DOD',
                     name: 'Department of Defense'
                 },
@@ -103,8 +98,7 @@ export const mockAward = {
                     subtier_code: '5700',
                     abbreviation: '',
                     name: 'Department of the Air Force'
-                },
-                office_agency: null
+                }
             },
             recipient: {
                 legal_entity_id: 7113228,

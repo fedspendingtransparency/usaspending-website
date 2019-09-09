@@ -33,36 +33,6 @@ const CoreAward = {
         }
         return MoneyFormatter.formatMoneyWithPrecision(this._subawardTotal, 0);
     },
-    get totalObligation() {
-        if (this._totalObligation >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalObligation / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation, 0);
-    },
-    get totalObligationFormatted() {
-        return MoneyFormatter.formatMoney(this._totalObligation);
-    },
-    get baseExercisedOptions() {
-        if (this._baseExercisedOptions >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._baseExercisedOptions);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseExercisedOptions / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._baseExercisedOptions, 0);
-    },
-    get baseExercisedOptionsFormatted() {
-        return MoneyFormatter.formatMoney(this._baseExercisedOptions);
-    },
-    get baseAndAllOptions() {
-        if (this._baseAndAllOptions >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._baseAndAllOptions);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseAndAllOptions / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._baseAndAllOptions, 0);
-    },
-    get baseAndAllOptionsFormatted() {
-        return MoneyFormatter.formatMoney(this._baseAndAllOptions);
-    },
     get category() {
         if (this._category === 'loans') {
             return 'loan';

@@ -4,14 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
-
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
-
-import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes';
+import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 
 const propTypes = {
+    awardType: PropTypes.string,
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
     obligatedTooltipProps: TOOLTIP_PROPS,
     currentTooltipProps: TOOLTIP_PROPS,
@@ -21,9 +21,9 @@ const propTypes = {
 
 export default class ExceedsPotentialChart extends React.Component {
     render() {
-        const obligation = this.props.awardAmounts._obligation;
-        const current = this.props.awardAmounts._combinedCurrentAwardAmounts;
-        const potential = this.props.awardAmounts._combinedPotentialAwardAmounts;
+        const obligation = this.props.awardAmounts._totalObligation;
+        const current = this.props.awardAmounts._baseExercisedOptions;
+        const potential = this.props.awardAmounts._baseAndAllOptions;
 
         const overspendingBarStyle = {
             width: generatePercentage((obligation - potential) / obligation)
@@ -64,6 +64,8 @@ export default class ExceedsPotentialChart extends React.Component {
             exceedsPotentialTooltipProps
         } = this.props;
 
+        const isIdv = (this.props.awardType === 'idv');
+
         return (
             <div className="award-amounts-viz">
                 <div className="award-amounts-viz__desc-top-wrapper">
@@ -78,10 +80,10 @@ export default class ExceedsPotentialChart extends React.Component {
                         onMouseLeave={obligatedTooltipProps.controlledProps.closeTooltip}
                         onClick={obligatedTooltipProps.controlledProps.showTooltip}>
                         <strong>
-                            {this.props.awardAmounts.obligationFormatted}
+                            {this.props.awardAmounts.totalObligationAbbreviated}
                         </strong>
                         <br />
-                        Combined Obligated Amounts
+                        {isIdv ? "Combined Obligated Amounts" : "Obligated Amounts"}
                     </div>
                     <div className="award-amounts-viz__desc">
                         <div
@@ -94,10 +96,10 @@ export default class ExceedsPotentialChart extends React.Component {
                             onMouseEnter={exceedsPotentialTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={exceedsPotentialTooltipProps.controlledProps.closeTooltip}
                             onClick={exceedsPotentialTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.extremeOverspendingFormatted}</strong>
+                            <strong>{this.props.awardAmounts.extremeOverspendingAbbreviated}</strong>
                             <br />
                             <div className="award-amounts-viz__desc-text-wrapper">
-                                Exceeds Combined Potential Award Amounts
+                                {isIdv ? "Exceeds Combined Potential Award Amounts" : "Exceeds Potential Award Amounts"}
                             </div>
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_extreme-overspending" />
@@ -148,9 +150,9 @@ export default class ExceedsPotentialChart extends React.Component {
                             onMouseEnter={currentTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={currentTooltipProps.controlledProps.closeTooltip}
                             onClick={currentTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.combinedCurrentAwardAmountsFormatted}</strong>
+                            <strong>{this.props.awardAmounts.baseExercisedOptionsAbbreviated}</strong>
                             <br />
-                            Combined Current Award Amounts
+                            {isIdv ? "Combined Current Award Amounts" : "Current Award Amounts"}
                         </div>
                         <div className="award-amounts-viz__legend-line" />
                     </div>
@@ -170,9 +172,9 @@ export default class ExceedsPotentialChart extends React.Component {
                             onMouseEnter={potentialTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={potentialTooltipProps.controlledProps.closeTooltip}
                             onClick={potentialTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}</strong>
+                            <strong>{this.props.awardAmounts.baseAndAllOptionsAbbreviated}</strong>
                             <br />
-                            Combined Potential Award Amounts
+                            {isIdv ? "Combined Potential Award Amounts" : "Potential Award Amounts"}
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
                     </div>

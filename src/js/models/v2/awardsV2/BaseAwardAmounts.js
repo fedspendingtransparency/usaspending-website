@@ -6,77 +6,121 @@
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const BaseAwardAmounts = {
-    populate(data) {
+    populateBase(data) {
         this.id = (data.award_id && `${data.award_id}`) || '';
         this.generatedId = data.generated_unique_award_id || '';
+    },
+    populateIdv(data) {
         this.childIDVCount = data.child_idv_count || 0;
         this.childAwardCount = data.child_award_count || 0;
         this.grandchildAwardCount = data.grandchild_award_count || 0;
-        this._combinedPotentialAwardAmounts = parseFloat(
+        this._baseAndAllOptions = parseFloat(
             data.child_award_base_and_all_options_value + data.grandchild_award_base_and_all_options_value
         ) || 0;
-        this._obligation = parseFloat(
+        this._totalObligation = parseFloat(
             data.child_award_total_obligation + data.grandchild_award_total_obligation
         ) || 0;
-        this._combinedCurrentAwardAmounts = parseFloat(
+        this._baseExercisedOptions = parseFloat(
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
     },
-    get combinedPotentialAwardAmounts() {
-        return MoneyFormatter.formatMoneyWithPrecision(this._combinedPotentialAwardAmounts, 2);
+    populateGrant(data) {
+        this._totalObligation = data._totalObligation;
+        this._totalFunding = data._totalFunding;
+        this._nonFederalFunding = data._nonFederalFunding;
     },
-    get combinedPotentialAwardAmountsFormatted() {
-        if (this._combinedPotentialAwardAmounts >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._combinedPotentialAwardAmounts);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._combinedPotentialAwardAmounts / units.unit, 1)} ${units.unitLabel}`;
+    populateContract(data) {
+        this._totalObligation = data._totalObligation;
+        this._baseExercisedOptions = data._baseExercisedOptions;
+        this._baseAndAllOptions = data._baseAndAllOptions;
+    },
+    populate(data, awardType) {
+        this.populateBase(data);
+        if (awardType === 'idv') {
+            this.populateIdv(data);
         }
-        return MoneyFormatter.formatMoney(this._combinedPotentialAwardAmounts);
+        else if (awardType === 'contract') {
+            this.populateContract(data);
+        }
+        else if (awardType === 'grant') {
+            this.populateGrant(data);
+        }
     },
-    get obligation() {
-        return MoneyFormatter.formatMoneyWithPrecision(this._obligation, 2);
+    get baseAndAllOptionsFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._baseAndAllOptions, 2);
     },
-    get obligationFormatted() {
-        if (Math.abs(this._obligation) >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._obligation);
-            if (this._obligation < 0) {
-                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._obligation) / units.unit, 1)} ${units.unitLabel})`;
+    get baseAndAllOptionsAbbreviated() {
+        if (this._baseAndAllOptions >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._baseAndAllOptions);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseAndAllOptions / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._baseAndAllOptions);
+    },
+    get totalObligationFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation, 2);
+    },
+    get totalObligationAbbreviated() {
+        if (Math.abs(this._totalObligation) >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation);
+            if (this._totalObligation < 0) {
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._totalObligation) / units.unit, 1)} ${units.unitLabel})`;
             }
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._obligation / units.unit, 1)} ${units.unitLabel}`;
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalObligation / units.unit, 1)} ${units.unitLabel}`;
         }
-        else if (this._obligation < 0) {
-            return `(${Math.abs(MoneyFormatter.formatMoney(this._obligation))})`;
+        else if (this._totalObligation < 0) {
+            return `(${Math.abs(MoneyFormatter.formatMoney(this._totalObligation))})`;
         }
-        return MoneyFormatter.formatMoney(this._obligation);
+        return MoneyFormatter.formatMoney(this._totalObligation);
     },
-    get combinedCurrentAwardAmounts() {
-        return MoneyFormatter.formatMoneyWithPrecision(this._combinedCurrentAwardAmounts, 2);
+    get baseExercisedOptionsFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._baseExercisedOptions, 2);
     },
-    get combinedCurrentAwardAmountsFormatted() {
-        if (this._combinedCurrentAwardAmounts >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._combinedCurrentAwardAmounts);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._combinedCurrentAwardAmounts / units.unit, 1)} ${units.unitLabel}`;
+    get baseExercisedOptionsAbbreviated() {
+        if (this._baseExercisedOptions >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._baseExercisedOptions);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseExercisedOptions / units.unit, 1)} ${units.unitLabel}`;
         }
-        return MoneyFormatter.formatMoney(this._combinedCurrentAwardAmounts);
-    },
-    get overspending() {
-        return MoneyFormatter.formatMoneyWithPrecision(this._obligation - this._combinedCurrentAwardAmounts, 2);
+        return MoneyFormatter.formatMoney(this._baseExercisedOptions);
     },
     get overspendingFormatted() {
-        if (this._obligation - this._combinedCurrentAwardAmounts >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._obligation - this._combinedCurrentAwardAmounts);
-            return `${MoneyFormatter.formatMoneyWithPrecision((this._obligation - this._combinedCurrentAwardAmounts) / units.unit, 1)} ${units.unitLabel}`;
-        }
-        return MoneyFormatter.formatMoney(this._obligation - this._combinedCurrentAwardAmounts);
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation - this._baseExercisedOptions, 2);
     },
-    get extremeOverspending() {
-        return MoneyFormatter.formatMoneyWithPrecision(this._obligation - this._combinedPotentialAwardAmounts, 2);
+    get overspendingAbbreviated() {
+        if (this._totalObligation - this._baseExercisedOptions >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation - this._baseExercisedOptions);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._totalObligation - this._baseExercisedOptions) / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._totalObligation - this._baseExercisedOptions);
     },
     get extremeOverspendingFormatted() {
-        if (this._obligation - this._combinedPotentialAwardAmounts >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._obligation - this._combinedPotentialAwardAmounts);
-            return `${MoneyFormatter.formatMoneyWithPrecision((this._obligation - this._combinedPotentialAwardAmounts) / units.unit, 1)} ${units.unitLabel}`;
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation - this._baseAndAllOptions, 2);
+    },
+    get extremeOverspendingAbbreviated() {
+        if (this._totalObligation - this._baseAndAllOptions >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation - this._baseAndAllOptions);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._totalObligation - this._baseAndAllOptions) / units.unit, 1)} ${units.unitLabel}`;
         }
-        return MoneyFormatter.formatMoney(this._obligation - this._combinedPotentialAwardAmounts);
+        return MoneyFormatter.formatMoney(this._totalObligation - this._baseAndAllOptions);
+    },
+    get totalFundingAbbreviated() {
+        if (this._totalFunding >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalFunding);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._totalFunding) / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._totalFunding);
+    },
+    get totalFundingFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalFunding, 2);
+    },
+    get nonFederalFundingFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._nonFederalFunding, 2);
+    },
+    get nonFederalFundingAbbreviated() {
+        if (this._nonFederalFunding >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._nonFederalFunding);
+            return `${MoneyFormatter.formatMoneyWithPrecision((this._nonFederalFunding) / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._nonFederalFunding);
     }
 };
 

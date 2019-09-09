@@ -4,10 +4,10 @@
  */
 
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
-import { mockAwardAmounts } from './mockAwardApi';
+import { mockAwardAmounts, mockContract, mockGrant } from './mockAwardApi';
 
 const awardAmounts = Object.create(BaseAwardAmounts);
-awardAmounts.populate(mockAwardAmounts);
+awardAmounts.populate(mockAwardAmounts, "idv");
 
 const awardAmountsNeg = Object.create(BaseAwardAmounts);
 const negativeObligation = {
@@ -35,51 +35,90 @@ const extremeOverspending = {
     grandchild_award_total_obligation: 5000000
 };
 
-awardAmountsNeg.populate(negativeObligation);
-awardAmountsOverspent.populate(overspending);
-awardAmountsExtremeOverspent.populate(extremeOverspending);
+awardAmountsNeg.populate(negativeObligation, "idv");
+awardAmountsOverspent.populate(overspending, "idv");
+awardAmountsExtremeOverspent.populate(extremeOverspending, "idv");
 
 describe('BaseAwardAmounts', () => {
-    it('should have an empty string as a unique generated id if the field is null or undefined', () => {
-        expect(awardAmounts.generatedId).toEqual('');
+    describe('IDV Award Type', () => {
+        it('should have an empty string as a unique generated id if the field is null or undefined', () => {
+            expect(awardAmounts.generatedId).toEqual('');
+        });
+        it('should format the combined current award amounts amounts', () => {
+            expect(awardAmounts.baseExercisedOptionsFormatted).toEqual('$10,000,000.00');
+        });
+        it('should format the combined current award amounts amounts with units', () => {
+            expect(awardAmounts.baseExercisedOptionsAbbreviated).toEqual('$10.0 M');
+        });
+        it('should format the obligated amount', () => {
+            expect(awardAmounts.totalObligationFormatted).toEqual('$1,623,321.02');
+        });
+        it('should format the totalObligation options with units', () => {
+            expect(awardAmounts.totalObligationAbbreviated).toEqual('$1.6 M');
+        });
+        it('should format negative obligations', () => {
+            expect(awardAmountsNeg.totalObligationAbbreviated).toEqual('($1.6 M)');
+        });
+        it('should format the combined potential award amounts amounts', () => {
+            expect(awardAmounts.baseAndAllOptionsFormatted).toEqual('$106,987,321.10');
+        });
+        it('should format the combined potential award amounts amounts with units', () => {
+            expect(awardAmounts.baseAndAllOptionsAbbreviated).toEqual('$107.0 M');
+        });
+        it('should format the amount by which obligations exceed the current amounts', () => {
+            expect(awardAmountsOverspent.overspendingFormatted).toEqual('$2,500,000.00');
+        });
+        it('should format the amount by which obligations exceed the current amounts with units', () => {
+            expect(awardAmountsOverspent.overspendingAbbreviated).toEqual('$2.5 M');
+        });
+        it('should format the amount by which obligations exceed the potential amounts', () => {
+            expect(awardAmountsExtremeOverspent.extremeOverspendingFormatted).toEqual('$5,000,000.00');
+        });
+        it('should format the amount by which obligations exceed the potential amounts with units', () => {
+            expect(awardAmountsExtremeOverspent.extremeOverspendingAbbreviated).toEqual('$5.0 M');
+        });
+        it('should format the amount overspent', () => {
+            expect(awardAmountsOverspent.overspendingFormatted).toEqual('$2,500,000.00');
+        });
+        it('should format the amount overspent with units', () => {
+            expect(awardAmountsOverspent.overspendingAbbreviated).toEqual('$2.5 M');
+        });
     });
-    it('should format the combined current award amounts amounts', () => {
-        expect(awardAmounts.combinedCurrentAwardAmounts).toEqual('$10,000,000.00');
+    /*
+      * IDVs/Contracts/Grants all share the same getters tested above.
+      * The only difference is when an IDV Award is passed to BaseAwardAmounts.populate(awardType, data) fn
+      * The data parameter is coming straight from the api and so is snake_cased_like_this.
+      * For the Contract/FinancialAssistance award types, on the other hand, the data is expected to be in the following
+      * format: _likeThis because the data parameter in this context has already been parsed by the CoreAward
+      * Model
+    */
+    describe('Contract Award Amounts', () => {
+        const contractAwardAmounts = Object.create(BaseAwardAmounts);
+        contractAwardAmounts.populate(mockContract, "contract");
+        const arrayOfObjectProperties = Object.keys(contractAwardAmounts);
+        it('does not create IDV specific properties', () => {
+            expect(arrayOfObjectProperties.includes("childIDVCount")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("childAwardCount")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("grandchildAwardCount")).toEqual(false);
+        });
     });
-    it('should format the combined current award amounts amounts with units', () => {
-        expect(awardAmounts.combinedCurrentAwardAmountsFormatted).toEqual('$10.0 M');
-    });
-    it('should format the obligated amount', () => {
-        expect(awardAmounts.obligation).toEqual('$1,623,321.02');
-    });
-    it('should format the obligation options with units', () => {
-        expect(awardAmounts.obligationFormatted).toEqual('$1.6 M');
-    });
-    it('should format negative obligations', () => {
-        expect(awardAmountsNeg.obligationFormatted).toEqual('($1.6 M)');
-    });
-    it('should format the combined potential award amounts amounts', () => {
-        expect(awardAmounts.combinedPotentialAwardAmounts).toEqual('$106,987,321.10');
-    });
-    it('should format the combined potential award amounts amounts with units', () => {
-        expect(awardAmounts.combinedPotentialAwardAmountsFormatted).toEqual('$107.0 M');
-    });
-    it('should format the amount by which obligations exceed the current amounts', () => {
-        expect(awardAmountsOverspent.overspending).toEqual('$2,500,000.00');
-    });
-    it('should format the amount by which obligations exceed the current amounts with units', () => {
-        expect(awardAmountsOverspent.overspendingFormatted).toEqual('$2.5 M');
-    });
-    it('should format the amount by which obligations exceed the potential amounts', () => {
-        expect(awardAmountsExtremeOverspent.extremeOverspending).toEqual('$5,000,000.00');
-    });
-    it('should format the amount by which obligations exceed the potential amounts with units', () => {
-        expect(awardAmountsExtremeOverspent.extremeOverspendingFormatted).toEqual('$5.0 M');
-    });
-    it('should format the amount overspent', () => {
-        expect(awardAmountsOverspent.overspending).toEqual('$2,500,000.00');
-    });
-    it('should format the amount overspent with units', () => {
-        expect(awardAmountsOverspent.overspendingFormatted).toEqual('$2.5 M');
+    describe('Grant Award Amounts', () => {
+        const grantAwardAmounts = Object.create(BaseAwardAmounts);
+        grantAwardAmounts.populate(mockGrant, "grant");
+        const arrayOfObjectProperties = Object.keys(grantAwardAmounts);
+
+        it('does not create IDV specific properties', () => {
+            expect(arrayOfObjectProperties.includes("childIDVCount")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("childAwardCount")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("grandchildAwardCount")).toEqual(false);
+        });
+        it('creates grant specific properties w/ correct formatting', () => {
+            expect(grantAwardAmounts._nonFederalFunding).toEqual(1130000);
+            expect(grantAwardAmounts.nonFederalFundingFormatted).toEqual("$1,130,000.00");
+            expect(grantAwardAmounts.nonFederalFundingAbbreviated).toEqual("$1.1 M");
+            expect(grantAwardAmounts._totalFunding).toEqual(1130000000);
+            expect(grantAwardAmounts.totalFundingFormatted).toEqual("$1,130,000,000.00");
+            expect(grantAwardAmounts.totalFundingAbbreviated).toEqual("$1.1 B");
+        });
     });
 });

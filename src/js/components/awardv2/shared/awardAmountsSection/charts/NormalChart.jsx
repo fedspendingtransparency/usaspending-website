@@ -4,11 +4,14 @@
  **/
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
-import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes';
+import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 
 const propTypes = {
+    awardType: PropTypes.string,
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
     obligatedTooltipProps: TOOLTIP_PROPS,
     currentTooltipProps: TOOLTIP_PROPS,
@@ -18,9 +21,9 @@ const propTypes = {
 export default class NormalChart extends React.Component {
     render() {
         // Rename properties to improve readability of the calculations
-        const obligation = this.props.awardAmounts._obligation;
-        const current = this.props.awardAmounts._combinedCurrentAwardAmounts;
-        const potential = this.props.awardAmounts._combinedPotentialAwardAmounts;
+        const obligation = this.props.awardAmounts._totalObligation;
+        const current = this.props.awardAmounts._baseExercisedOptions;
+        const potential = this.props.awardAmounts._baseAndAllOptions;
 
         const obligatedBarStyle = {
             width: generatePercentage(obligation / potential),
@@ -42,6 +45,8 @@ export default class NormalChart extends React.Component {
 
         const { currentTooltipProps, obligatedTooltipProps, potentialTooltipProps } = this.props;
 
+        const isIdv = (this.props.awardType === 'idv');
+
         return (
             <div className="award-amounts-viz">
                 <div
@@ -54,7 +59,7 @@ export default class NormalChart extends React.Component {
                     onMouseEnter={obligatedTooltipProps.controlledProps.showTooltip}
                     onMouseLeave={obligatedTooltipProps.controlledProps.closeTooltip}
                     onClick={obligatedTooltipProps.controlledProps.showTooltip}>
-                    <strong>{this.props.awardAmounts.obligationFormatted}</strong><br />Combined Obligated Amounts
+                    <strong>{this.props.awardAmounts.totalObligationAbbreviated}</strong><br />{isIdv ? "Combined Obligated Amounts" : "Obligated Amounts"}
                 </div>
                 <div className="award-amounts-viz__label" style={obligatedLabelStyle}>
                     <div className="award-amounts-viz__line-up" />
@@ -84,7 +89,7 @@ export default class NormalChart extends React.Component {
                             onMouseEnter={currentTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={currentTooltipProps.controlledProps.closeTooltip}
                             onClick={currentTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.combinedCurrentAwardAmountsFormatted}</strong><br />Combined Current Award Amounts
+                            <strong>{this.props.awardAmounts.baseExercisedOptionsAbbreviated}</strong><br />{isIdv ? "Combined Current Award Amounts" : "Current Award Amounts"}
                         </div>
                         <div className="award-amounts-viz__legend-line" />
                     </div>
@@ -102,7 +107,7 @@ export default class NormalChart extends React.Component {
                             onMouseEnter={potentialTooltipProps.controlledProps.showTooltip}
                             onMouseLeave={potentialTooltipProps.controlledProps.closeTooltip}
                             onClick={potentialTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.combinedPotentialAwardAmountsFormatted}</strong><br />Combined Potential Award Amounts
+                            <strong>{this.props.awardAmounts.baseAndAllOptionsAbbreviated}</strong><br />{isIdv ? "Combined Potential Award Amounts" : "Potential Award Amounts"}
                         </div>
                         <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
                     </div>
