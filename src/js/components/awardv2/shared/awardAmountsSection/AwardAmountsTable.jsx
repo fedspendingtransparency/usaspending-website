@@ -54,21 +54,21 @@ const AwardAmountsTable = ({
      * so we're relying on the parent in this case because we cant deduce the spending scenario
      **/
 
-    const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario) => {
+    const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario, type = awardType) => {
         switch (scenario) {
             case ('normal'):
                 return null;
             case ('exceedsCurrent'):
                 return (
                     <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />Exceeds Combined Current Award Amounts</div>
+                        <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />{type === 'idv' ? 'Exceeds Combined Current Award Amounts' : 'Exceeds Combined Current Award Amount'}</div>
                         <span>{awardAmounts.overspendingFormatted}</span>
                     </div>
                 );
             case ('exceedsPotential'):
                 return (
                     <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />Exceeds Combined Potential Award Amounts</div>
+                        <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />{type === 'idv' ? 'Exceeds Combined Potential Award Amounts' : 'Exceeds Combined Potential Award Amount'}</div>
                         <span>{awardAmounts.extremeOverspendingFormatted}</span>
                     </div>
                 );
