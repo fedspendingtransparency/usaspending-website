@@ -122,6 +122,12 @@ export const mockContract = {
 
 };
 
+export const mockGrant = {
+    ...mockContract,
+    _totalFunding: 1130000000, // 1.13 Billion
+    _nonFederalFunding: 1130000 // 1.13 Million
+};
+
 export const mockLoan = {
     type: 'C',
     category: 'loan',
@@ -362,7 +368,6 @@ export const mockAwardAmounts = {
     grandchild_award_base_and_all_options_value: 53493660.55,
     child_award_total_obligation: 811660.51,
     grandchild_award_total_obligation: 811660.51
-
 };
 
 export const mockReferencedAwards = {

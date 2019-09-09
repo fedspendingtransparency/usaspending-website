@@ -29,10 +29,18 @@ const BaseAwardAmounts = {
         this._totalFunding = data._totalFunding;
         this._nonFederalFunding = data._nonFederalFunding;
     },
+    populateContract(data) {
+        this._totalObligation = data._totalObligation;
+        this._baseExercisedOptions = data._baseExercisedOptions;
+        this._baseAndAllOptions = data._baseAndAllOptions;
+    },
     populate(data, awardType) {
         this.populateBase(data);
         if (awardType === 'idv') {
             this.populateIdv(data);
+        }
+        else if (awardType === 'contract') {
+            this.populateContract(data);
         }
         else if (awardType === 'grant') {
             this.populateGrant(data);
