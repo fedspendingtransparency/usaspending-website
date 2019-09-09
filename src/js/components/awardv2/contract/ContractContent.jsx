@@ -23,15 +23,6 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-const defaultTooltipProps = {
-    controlledProps: {
-        isControlled: true,
-        isVisible: false,
-        closeCurrentTooltip: () => {},
-        showTooltip: () => {}
-    }
-};
-
 export default class ContractContent extends React.Component {
     render() {
         const { overview, awardId, jumpToSection } = this.props;
