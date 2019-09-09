@@ -31,7 +31,7 @@ export default class ContractContent extends React.Component {
             : null;
         const awardAmountData = Object.create(BaseAwardAmounts);
         awardAmountData.populate(overview, overview.category);
-
+        console.log("data", awardAmountData);
         return (
             <AwardPageWrapper
                 glossaryLink={glossaryLink}
@@ -54,7 +54,7 @@ export default class ContractContent extends React.Component {
                     <AwardAmountsSection
                         awardType={this.props.overview.category}
                         jumpToSection={this.props.jumpToSection}
-                        awardOverview={this.props.overview} />
+                        awardOverview={awardAmountData} />
                     <ComingSoonSection title="Description" includeHeader />
                 </AwardSection>
                 <AdditionalInfo overview={overview} />
