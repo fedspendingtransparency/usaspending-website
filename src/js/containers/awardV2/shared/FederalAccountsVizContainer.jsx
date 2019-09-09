@@ -23,20 +23,22 @@ export class FederalAccountsVizContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            limit: 10,
+            limit: 100,
             sort: 'total_transaction_obligated_amount',
             page: 1,
             order: 'desc',
             total: 0,
             inFlight: true,
             error: false,
-            federalAccounts: []
+            federalAccounts: [],
+            view: 'tree'
         };
 
         this.request = null;
 
         this.changePage = this.changePage.bind(this);
         this.updateSort = this.updateSort.bind(this);
+        this.changeView = this.changeView.bind(this);
     }
 
     async componentDidMount() {
@@ -103,12 +105,26 @@ export class FederalAccountsVizContainer extends React.Component {
         this.setState({ page }, () => this.getFederalAccounts());
     }
 
+    changeView(view) {
+        if (this.state.view !== view) {
+            const limit = view === 'tree' ? 100 : 10;
+            this.setState({
+                view,
+                limit,
+                page: 1
+            }, () => {
+                this.getFederalAccounts();
+            });
+        }
+    }
+
     render() {
         return (
             <FederalAccountsViz
                 {...this.state}
                 changePage={this.changePage}
-                updateSort={this.updateSort} />
+                updateSort={this.updateSort}
+                changeView={this.changeView} />
         );
     }
 }

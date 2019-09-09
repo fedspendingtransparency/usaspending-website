@@ -20,8 +20,10 @@ const propTypes = {
     order: PropTypes.string,
     total: PropTypes.number,
     federalAccounts: PropTypes.array,
+    view: PropTypes.string,
     changePage: PropTypes.func,
-    updateSort: PropTypes.func
+    updateSort: PropTypes.func,
+    changeView: PropTypes.func
 };
 
 export default class FederalAccountsViz extends React.Component {
@@ -30,7 +32,6 @@ export default class FederalAccountsViz extends React.Component {
 
         this.state = {
             width: 0,
-            view: 'tree',
             showTooltip: false,
             tooltip: {
                 x: 0,
@@ -51,7 +52,6 @@ export default class FederalAccountsViz extends React.Component {
         };
 
         this.measureWidth = this.measureWidth.bind(this);
-        this.changeView = this.changeView.bind(this);
         this.showTooltip = this.showTooltip.bind(this);
         this.hideTooltip = this.hideTooltip.bind(this);
     }
@@ -72,14 +72,6 @@ export default class FederalAccountsViz extends React.Component {
         });
     }
 
-    changeView(view) {
-        if (this.state.view !== view) {
-            this.setState({
-                view
-            });
-        }
-    }
-
     showTooltip(position, data) {
         this.setState({
             showTooltip: true,
@@ -94,7 +86,7 @@ export default class FederalAccountsViz extends React.Component {
     }
 
     render() {
-        const isTreeView = this.state.view === 'tree';
+        const isTreeView = this.props.view === 'tree';
         return (
             <div className="federal-accounts__section">
                 {this.state.showTooltip && <FederalAccountsTreeTooltip {...this.state.tooltip} />}
@@ -104,13 +96,13 @@ export default class FederalAccountsViz extends React.Component {
                             value="tree"
                             label="Treemap"
                             icon="th-large"
-                            changeView={this.changeView}
+                            changeView={this.props.changeView}
                             active={isTreeView} />
                         <ViewTypeButton
                             value="table"
                             label="Table"
                             icon="table"
-                            changeView={this.changeView}
+                            changeView={this.props.changeView}
                             active={!isTreeView} />
                     </div>
                     {!isTreeView && <FederalAccountsTable {...this.props} />}
