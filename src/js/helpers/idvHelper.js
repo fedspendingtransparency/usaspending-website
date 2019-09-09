@@ -86,25 +86,6 @@ export const fetchAwardFundingSummary = (awardId) => {
     };
 };
 
-export const fetchIdvDownloadFile = (awardId) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/download/idv/',
-            baseURL: kGlobalConstants.API,
-            method: "post",
-            headers: {
-                "content-type": "application/json"
-            },
-            data: { award_id: awardId },
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
 export const fetchAwardFederalAccounts = (data) => {
     const source = CancelToken.source();
     return {
