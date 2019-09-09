@@ -34,7 +34,7 @@ export default class FinancialAssistanceContent extends React.Component {
         return (
             <AwardPageWrapper
                 identifier={awardId}
-                glssaryLink={glossaryLink}
+                glossaryLink={glossaryLink}
                 awardTypeDescription={overview.typeDescription}
                 className="award-financial-assistance">
                 <AwardSection type="row" className="award-overview" id="award-overview">
