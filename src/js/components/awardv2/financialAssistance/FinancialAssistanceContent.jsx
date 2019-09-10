@@ -7,12 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
+import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AwardRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
+import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardSection from '../shared/AwardSection';
-import ComingSoonSection from "../shared/ComingSoonSection";
-import BaseAwardAmounts from "../../../models/v2/awardsV2/BaseAwardAmounts";
+import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 
 const propTypes = {
@@ -21,12 +22,34 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
+const defaultTooltipProps = {
+    controlledProps: {
+        isControlled: true,
+        isVisible: false,
+        closeTooltip: () => {},
+        showTooltip: () => {}
+    }
+};
+
 export default class FinancialAssistanceContent extends React.Component {
     render() {
         const { awardId, overview, jumpToSection } = this.props;
         const glossaryLink = glossaryLinks[overview.type]
             ? `/#/award_v2/${awardId}?glossary=${glossaryLinks[overview.type]}`
             : null;
+
+        let amountsSection = (<ComingSoonSection title="Award Amounts" includeHeader />);
+        if (this.props.overview.category === 'grant') {
+            const awardAmountData = Object.create(BaseAwardAmounts);
+            awardAmountData.populate(this.props.overview, this.props.overview.category);
+            amountsSection = (
+                <AwardAmountsSection
+                    awardType={this.props.overview.category}
+                    awardOverview={awardAmountData}
+                    tooltipProps={defaultTooltipProps}
+                    jumptoSection={this.props.jumpToSection} />
+            );
+        }
 
         const awardAmountData = Object.create(BaseAwardAmounts);
         awardAmountData.populate(overview, overview.category);
@@ -48,11 +71,12 @@ export default class FinancialAssistanceContent extends React.Component {
                     </AwardSection>
                 </AwardSection>
                 <AwardSection type="row">
-                    <AwardAmountsSection
-                        awardType={overview.category}
-                        awardOverview={awardAmountData}
-                        jumptoSection={jumpToSection} />
+                    {amountsSection}
                     <ComingSoonSection title="Description" includeHeader />
+                </AwardSection>
+                <AwardSection type="row">
+                    <ComingSoonSection title="CFDA Program / Assistance Listing Information" includeHeader />
+                    <FederalAccountsSection />
                 </AwardSection>
             </AwardPageWrapper>
         );

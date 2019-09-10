@@ -5,12 +5,13 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     active: PropTypes.bool,
     value: PropTypes.string,
     label: PropTypes.string,
-    icon: PropTypes.element.isRequired,
+    icon: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
     changeView: PropTypes.func
 };
@@ -49,9 +50,7 @@ export default class ViewTypeButton extends React.Component {
                 aria-label={description}
                 onClick={this.clickedButton}
                 disabled={this.props.disabled}>
-                <div className="icon">
-                    {this.props.icon}
-                </div>
+                <FontAwesomeIcon icon={this.props.icon} />
             </button>
         );
     }

@@ -112,7 +112,9 @@
             @import "./visualizations/overview/overview";
             @import "./visualizations/description/description";
             @import "./visualizations/additionalInfo";
+            @import "./visualizations/awardFundingSummary";
         }
+        @import "./comingSoon";
         @import "./awardContract";
         @import "./awardFinancialAssistance";
         @import "./idv/awardIdv";

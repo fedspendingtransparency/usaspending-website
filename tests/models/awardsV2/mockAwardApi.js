@@ -431,6 +431,7 @@ export const mockFederalAccountFunding = {
 export const mockAwardFundingMetaData = {
     total_transaction_obligated_amount: 42946881.56,
     awarding_agency_count: 27,
+    funding_agency_count: 28,
     federal_account_count: 47
 };
 

@@ -7,14 +7,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
+import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
+import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
-import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
-import BaseAwardAmounts from '../../../models/v2/awardsV2/BaseAwardAmounts';
+import ComingSoonSection from '../shared/ComingSoonSection';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -56,6 +57,10 @@ export default class ContractContent extends React.Component {
                         jumpToSection={this.props.jumpToSection}
                         awardOverview={awardAmountData} />
                     <ComingSoonSection title="Description" includeHeader />
+                </AwardSection>
+                <AwardSection type="row">
+                    <ComingSoonSection title="Contract Activity" includeHeader />
+                    <FederalAccountsSection />
                 </AwardSection>
                 <AdditionalInfo overview={overview} />
             </AwardPageWrapper>
