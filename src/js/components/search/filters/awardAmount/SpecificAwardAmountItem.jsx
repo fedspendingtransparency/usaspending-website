@@ -5,11 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 
-import * as AwardAmountHelper from 'helpers/awardAmountHelper';
+import { ensureInputIsNumeric, formatAwardAmountItemLabel } from 'helpers/awardAmountHelper';
 import AwardAmountItem from './AwardAmountItem';
+import EntityWarning from '../location/EntityWarning';
 
 const propTypes = {
     searchSpecificRange: PropTypes.func
@@ -20,51 +20,72 @@ export default class SpecificAwardAmountItem extends React.Component {
         super(props);
 
         this.state = {
-            min: 0,
-            max: 0,
-            hideCustom: true
+            min: null,
+            max: null,
+            showWarning: false,
+            warningMessage: ''
         };
 
         this.searchSpecificRange = this.searchSpecificRange.bind(this);
+        this.onKeyDown = this.onKeyDown.bind(this);
+        this.minChange = this.minChange.bind(this);
+        this.maxChange = this.maxChange.bind(this);
     }
 
-    componentDidMount() {
-        this.setupInputListeners();
+    onKeyDown(e) {
+        // Enter
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            this.searchSpecificRange();
+        }
     }
 
-    setupInputListeners() {
-        [this.minValue, this.maxValue].forEach((target) => {
-            target.addEventListener('keydown', (e) => {
-                // Enter
-                if (e.keyCode === 13) {
-                    e.preventDefault();
-                    this.searchSpecificRange();
-                }
-            });
-        });
+    minChange(e) {
+        const min = ensureInputIsNumeric(e.target.value);
+        this.setState({ min }, this.verifyNumberLogic);
+        // this.verifyNumberLogic();
+    }
+
+    maxChange(e) {
+        const max = ensureInputIsNumeric(e.target.value);
+        this.setState({ max }, this.verifyNumberLogic);
+        // this.verifyNumberLogic();
     }
 
     searchSpecificRange() {
-        const min = AwardAmountHelper.ensureInputIsNumeric(this.minValue.value);
-        let max = AwardAmountHelper.ensureInputIsNumeric(this.maxValue.value);
-
-        if (min >= max) {
-            // If minimum is larger than maximum, take minimum value
-            max = 0;
-        }
-
-        this.setState({
-            min,
-            max,
-            hideCustom: false
-        });
-
+        const { min, max } = this.state;
         this.props.searchSpecificRange([min, max]);
     }
 
-    render() {
-        const hide = this.state.hideCustom ? ' hide' : '';
+    verifyNumberLogic() {
+        const { min, max } = this.state;
+        let showWarning = false;
+        const warningMessage = 'Please choose a min less than the max';
+        const minIsNull = (!min && min !== 0);
+        const maxIsNull = (!max && max !== 0);
+        if (min < max) showWarning = false;
+        if (min > max) showWarning = true;
+        if (minIsNull) showWarning = false;
+        if (maxIsNull) showWarning = false;
+        if (showWarning !== this.state.showWarning) {
+            this.setState({ showWarning, warningMessage });
+        }
+    }
 
+    render() {
+        const {
+            min,
+            max,
+            showWarning,
+            warningMessage
+        } = this.state;
+        const hide = (
+            (!min && min !== 0) &&
+            (!max && max !== 0)) ? ' hide' : '';
+        let disabled = !!hide;
+        if (showWarning) disabled = true;
+
+        const label = formatAwardAmountItemLabel([min, max]);
         return (
             <div className="specific-award-amount">
                 <hr className="specific-award-amount-divider" />
@@ -73,33 +94,36 @@ export default class SpecificAwardAmountItem extends React.Component {
                     role="status">
                     <AwardAmountItem
                         {...this.props}
-                        values={[this.state.min, this.state.max]}
+                        label={label}
                         key="award-range-specific"
                         rangeID="specific"
-                        toggleSelection={this.searchSpecificRange.bind(this)} />
+                        toggleSelection={this.searchSpecificRange} />
                 </div>
-
+                {
+                    showWarning &&
+                    <div className="award-amount-warning">
+                        <EntityWarning message={warningMessage} />
+                    </div>
+                }
                 <div className="specific-award-amount-wrapper">
                     <span>$</span>
                     <input
                         type="text"
                         placeholder="Min"
                         className="specific-award-min"
-                        ref={(input) => {
-                            this.minValue = input;
-                        }} />
+                        onChange={this.minChange} />
                     <span>to</span>
                     <input
                         type="text"
                         placeholder="Max"
                         className="specific-award-max"
-                        ref={(input) => {
-                            this.maxValue = input;
-                        }} />
+                        onChange={this.maxChange} />
                     <IndividualSubmit
+                        disabled={disabled}
                         className="award-amount-submit"
                         onClick={this.searchSpecificRange}
-                        label="Filter by custom award amount range" />
+                        label="Filter by custom award amount range"
+                        onKeyDown={this.onKeyDown} />
                 </div>
             </div>
         );

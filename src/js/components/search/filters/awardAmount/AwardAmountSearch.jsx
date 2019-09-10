@@ -46,7 +46,6 @@ export default class AwardAmountSearch extends React.Component {
     searchSpecificRange(selections) {
         const min = AwardAmountHelper.ensureInputIsNumeric(selections[0]);
         const max = AwardAmountHelper.ensureInputIsNumeric(selections[1]);
-
         this.props.selectAwardRange([min, max], searchTypes.SPECIFIC);
     }
 

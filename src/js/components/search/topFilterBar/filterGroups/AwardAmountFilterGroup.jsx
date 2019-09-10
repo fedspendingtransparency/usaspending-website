@@ -45,7 +45,7 @@ export default class AwardAmountFilterGroup extends React.Component {
         Object.keys(awardAmounts).forEach((key) => {
             const tag = {
                 value: key,
-                title: AwardAmountFormatter.formatAwardAmountRange(awardAmounts[key]),
+                title: AwardAmountFormatter.formatAwardAmountItemLabel(awardAmounts[key]),
                 isSpecial: false,
                 removeFilter: this.removeFilter
             };

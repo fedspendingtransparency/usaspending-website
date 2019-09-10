@@ -5,11 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 
 const propTypes = {
     awardAmounts: PropTypes.object,
-    values: PropTypes.array,
+    label: PropTypes.string,
     rangeID: PropTypes.string,
     toggleSelection: PropTypes.func
 };
@@ -20,11 +19,8 @@ const defaultProps = {
 };
 
 export default class AwardAmountItem extends React.Component {
-    formatRange() {
-        return AwardAmountHelper.formatAwardAmountRange(this.props.values);
-    }
-
     render() {
+        if (!this.props.label) return null;
         const checked = this.props.awardAmounts.has(this.props.rangeID);
 
         return (
@@ -37,7 +33,7 @@ export default class AwardAmountItem extends React.Component {
                         checked={checked}
                         onChange={this.props.toggleSelection.bind(this)} />
                     <label htmlFor={`award-amount-${this.props.rangeID}`}>
-                        {this.formatRange()}
+                        {this.props.label}
                     </label>
                 </div>
             </li>
