@@ -27,6 +27,52 @@
       }
     }
   }
+  @import '../../search/results/table/tableMessages';
+  .results-table-message-container {
+    position: relative;
+    background-color: rgb(246, 246, 246);
+    .results-table-loading {
+      margin-bottom: rem(100);
+    }
+    .no-results-container {
+      text-align: center;
+      margin-top: rem(100);
+      margin-bottom: rem(100);
+      .no-results-title {
+        h4 {
+          margin-bottom: 0;
+          vertical-align: bottom;
+        }
+      }
+      .no-results-message {
+        p {
+          margin-top: 0;
+          vertical-align: top;
+        }
+      }
+    }
+    .loading-animation {
+        @import "../../search/results/screens/loading";
+    }
+    .results-table-error {
+      .icon {
+        width: rem(36);
+        height: rem(36);
+        svg {
+          width: rem(36);
+          height: rem(36);
+        }
+      }
+      .title {
+        font-size: rem(20);
+        line-height: rem(45);
+      }
+      .description {
+        font-size: rem(16);
+        line-height: rem(10);
+      }
+    }
+}
   .federal-accounts__section {
     height: 100%;
     width: 100%;
@@ -34,25 +80,15 @@
       @include viewTypeButton();
       text-align: right;
       .view-button {
-        .icon {
-          width: rem(14);
-          height: rem(15);
-          svg {
-            fill: #828080;
-            width: rem(14);
-            height: rem(15);
-          }
-        }
         &.active {
-          background-color: #0066b4;
-          border-color: #0066b4;
+          background-color: $color-primary;
+          border-color: $color-primary;
         }
       }
     }
     .federal-accounts-results {
       @import 'components/pagination';
       @import './federalAccountsTable';
-      @import '../../search/results/table/tableMessages';
       width: 100%;
       .federal-accounts-table-renderer {
         width: 100%;
@@ -66,33 +102,6 @@
       }
       .explorer-cell-title {
         font-weight: bold;
-      }
-      .results-table-message-container {
-          position: relative;
-          background-color: rgb(246, 246, 246);
-          .results-table-loading {
-            margin-bottom: rem(100);
-          }
-          .no-results-container {
-            text-align: center;
-            margin-top: rem(100);
-            margin-bottom: rem(100);
-            .no-results-title {
-              h4 {
-                margin-bottom: 0;
-                vertical-align: bottom;
-              }
-            }
-            .no-results-message {
-              p {
-                margin-top: 0;
-                vertical-align: top;
-              }
-            }
-          }
-          .loading-animation {
-              @import "../../search/results/screens/loading";
-          }
       }
       .explorer-cell-box:hover {
           background-color: #f49c20;

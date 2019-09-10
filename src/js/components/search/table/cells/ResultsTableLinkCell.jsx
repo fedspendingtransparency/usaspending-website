@@ -1,5 +1,5 @@
 /**
-  * ResultsTableAwardIdCell.jsx
+  * ResultsTableLinkCell.jsx
   * Created by Emily Gullo 02/08/2017
   **/
 
@@ -10,11 +10,11 @@ const propTypes = {
     rowIndex: PropTypes.number,
     column: PropTypes.string,
     isLastColumn: PropTypes.bool,
-    id: PropTypes.number,
+    id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     value: PropTypes.string
 };
 
-const ResultsTableAwardIdCell = (props) => {
+const ResultsTableLinkCell = (props) => {
     // cell needs to have some content or it will collapse
     // replace with a &nbsp; if there's no data
     let content = props.value;
@@ -36,7 +36,7 @@ const ResultsTableAwardIdCell = (props) => {
     return (
         <div className={`award-result-generic-cell ${rowClass}`}>
             <div className="cell-content">
-                <a href={`/#/award/${props.id}`}>
+                <a href={`/#/${props.column}/${props.id}`}>
                     {content}
                 </a>
             </div>
@@ -44,6 +44,6 @@ const ResultsTableAwardIdCell = (props) => {
     );
 };
 
-ResultsTableAwardIdCell.propTypes = propTypes;
+ResultsTableLinkCell.propTypes = propTypes;
 
-export default ResultsTableAwardIdCell;
+export default ResultsTableLinkCell;

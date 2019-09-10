@@ -19,6 +19,7 @@ const BaseSpendingByCategoryResult = {
         this._name = data.name || '--';
         this._code = data.code || '';
         this._amount = data.amount || 0;
+        this.recipientId = data.recipient_id || '';
 
         this._nameTemplate = defaultNameTemplate;
     },

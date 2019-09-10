@@ -5,16 +5,14 @@
 
 import React from 'react';
 import { mount } from 'enzyme';
+import { RankVisualizationWrapperContainer } from
+    'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
+import { Set } from 'immutable';
+import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
+import { mockActions } from '../time/mockData';
 
 // mock the search helper
 jest.mock('helpers/searchHelper', () => require('./spendingByCategoryHelper'));
-
-import { RankVisualizationWrapperContainer } from
-    'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
-
-import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
-import { mockActions } from '../time/mockData';
-import { Set } from 'immutable';
 
 // mock the child components by replacing them with a function that returns a null element
 jest.mock('components/search/visualizations/rank/sections/SpendingByAgencySection', () =>
@@ -153,6 +151,7 @@ describe('RankVisualizationWrapperContainer', () => {
                 error: false,
                 labelSeries: ['First Agency (FA)', 'Second Agency (SA)'],
                 dataSeries: ['456', '123'],
+                linkSeries: [],
                 descriptions: ['Spending by First Agency (FA): $456', 'Spending by Second Agency (SA): $123'],
                 page: 1,
                 scope: 'awarding_agency',
@@ -163,6 +162,24 @@ describe('RankVisualizationWrapperContainer', () => {
             };
 
             expect(container.state()).toEqual(expectedState);
+        });
+        it('should add to the linkSeries for Spending by Recipient', async () => {
+            // mount the container
+            const container = mount(<RankVisualizationWrapperContainer
+                reduxFilters={defaultFilters}
+                {...mockActions} />);
+
+            // change the scope to industry code
+            container.instance().changeSpendingBy('recipient');
+
+            container.instance().componentDidMount();
+            await container.instance().apiRequest.promise;
+
+            // The mock helper is returning agency results,
+            // so when recipient ids are missing they should resolve to empty strings
+            const expectedLinkSeries = ['', ''];
+
+            expect(container.state().linkSeries).toEqual(expectedLinkSeries);
         });
     });
 

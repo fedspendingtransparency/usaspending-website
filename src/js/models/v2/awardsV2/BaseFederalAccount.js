@@ -1,11 +1,11 @@
 /**
- * FederalAccountSummary.js
+ * BaseFederalAccount.js
  * Created by Jonathan Hill 04/25/19
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
 
-export default class FederalAccountSummary {
+export default class BaseFederalAccount {
     constructor(data, total) {
         this._federalAccountName = data.account_title || '';
         this._obligatedAmount = data.total_transaction_obligated_amount || 0;

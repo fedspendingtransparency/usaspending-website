@@ -1,7 +1,9 @@
 import {
     mockContract,
     mockAwardAmounts,
-    mockFileDownloadResponse
+    mockFileDownloadResponseIdv,
+    mockFileDownloadResponseAssistance,
+    mockFileDownloadResponseContract
 } from "../../models/awardsV2/mockAwardApi";
 
 // Fetch Individual Awards
@@ -35,7 +37,29 @@ export const fetchIdvDownloadFile = () => ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
             resolve({
-                data: mockFileDownloadResponse
+                data: mockFileDownloadResponseIdv
+            });
+        });
+    }),
+    cancel: jest.fn()
+});
+
+export const fetchContractDownloadFile = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: mockFileDownloadResponseContract
+            });
+        });
+    }),
+    cancel: jest.fn()
+});
+
+export const fetchAssistanceDownloadFile = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({
+                data: mockFileDownloadResponseAssistance
             });
         });
     }),
