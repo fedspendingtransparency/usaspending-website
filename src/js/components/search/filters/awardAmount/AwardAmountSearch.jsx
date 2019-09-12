@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { awardRanges, searchTypes } from 'dataMapping/search/awardAmount';
+import { awardRanges } from 'dataMapping/search/awardAmount';
 
 import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
@@ -14,7 +14,7 @@ import SpecificAwardAmountItem from './SpecificAwardAmountItem';
 
 const propTypes = {
     selectAwardRange: PropTypes.func,
-    awardAmountRanges: PropTypes.object,
+    awardAmountRanges: PropTypes.array,
     awardAmounts: PropTypes.object,
     dirtyFilters: PropTypes.symbol
 };
@@ -40,33 +40,40 @@ export default class AwardAmountSearch extends React.Component {
     }
 
     toggleSelection(selection) {
-        this.props.selectAwardRange(selection, searchTypes.RANGE);
+        console.log(' Toggling : ', selection);
+        this.props.selectAwardRange(selection);
     }
 
     searchSpecificRange(selections) {
         const min = AwardAmountHelper.ensureInputIsNumeric(selections[0]);
         const max = AwardAmountHelper.ensureInputIsNumeric(selections[1]);
-        this.props.selectAwardRange([min, max], searchTypes.SPECIFIC);
+        this.props.selectAwardRange([min, max]);
+    }
+
+    awareAmountCheckboxes() {
+        const { awardAmountRanges, awardAmounts } = this.props;
+        return awardAmountRanges.map((range) => {
+            const { label, value } = range;
+            const name = AwardAmountHelper.formatAwardAmountRange(
+                value, { precision: 0 });
+            return (
+                <PrimaryCheckboxType
+                    {...this.props}
+                    key={label}
+                    id={`award-${label}`}
+                    name={name}
+                    value={value}
+                    types={awardRanges}
+                    code={label}
+                    filterType="Award Amount"
+                    selectedCheckboxes={awardAmounts}
+                    toggleCheckboxType={this.toggleSelection} />
+            );
+        });
     }
 
     render() {
-        const awardAmountRangeItems = [];
-        Object.keys(this.props.awardAmountRanges).forEach((key) => {
-            awardAmountRangeItems.push(
-                <PrimaryCheckboxType
-                    {...this.props}
-                    key={key}
-                    id={`award-${key}`}
-                    name={AwardAmountHelper.formatAwardAmountRange(
-                        this.props.awardAmountRanges[key])}
-                    value={key}
-                    types={awardRanges}
-                    code={key}
-                    filterType="Award Amount"
-                    selectedCheckboxes={this.props.awardAmounts}
-                    toggleCheckboxType={this.toggleSelection} />);
-        });
-
+        const awardAmountRangeItems = this.awareAmountCheckboxes();
         return (
             <div className="award-amount-filter search-filter checkbox-type-filter">
                 <div className="filter-item-wrap">

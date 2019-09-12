@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 
-import { ensureInputIsNumeric, formatAwardAmountItemLabel } from 'helpers/awardAmountHelper';
+import { ensureInputIsNumeric, formatAwardAmountRange } from 'helpers/awardAmountHelper';
 import AwardAmountItem from './AwardAmountItem';
 import EntityWarning from '../location/EntityWarning';
 
@@ -85,7 +85,7 @@ export default class SpecificAwardAmountItem extends React.Component {
         let disabled = !!hide;
         if (showWarning) disabled = true;
 
-        const label = formatAwardAmountItemLabel([min, max]);
+        const label = formatAwardAmountRange([min, max], { precision: 2 });
         return (
             <div className="specific-award-amount">
                 <hr className="specific-award-amount-divider" />

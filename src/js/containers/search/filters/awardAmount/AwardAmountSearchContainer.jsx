@@ -27,9 +27,8 @@ export class AwardAmountSearchContainer extends React.Component {
         this.selectAwardRange = this.selectAwardRange.bind(this);
     }
 
-    selectAwardRange(amount, searchType) {
-        const updateParams = { amount, searchType };
-        this.props.updateAwardAmounts(updateParams);
+    selectAwardRange(awardAmountRange) {
+        this.props.updateAwardAmounts(awardAmountRange);
     }
 
     dirtyFilters() {

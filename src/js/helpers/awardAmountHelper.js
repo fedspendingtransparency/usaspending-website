@@ -7,31 +7,35 @@ import Accounting from 'accounting';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 // formats the pre-made checkboxes
-export const formatAwardAmountRange = (range) => {
-    const min = MoneyFormatter.calculateUnitForSingleValue(range[0]);
-    const max = MoneyFormatter.calculateUnitForSingleValue(range[1]);
+// export const formatAwardAmountRange = (range) => {
+//     const min = MoneyFormatter.calculateUnitForSingleValue(range[0]);
+//     const max = MoneyFormatter.calculateUnitForSingleValue(range[1]);
 
-    const minValue = Math.round((10 * range[0]) / min.unit) / 10;
-    const maxValue = Math.round((10 * range[1]) / max.unit) / 10;
+//     const minValue = Math.round((10 * range[0]) / min.unit) / 10;
+//     const maxValue = Math.round((10 * range[1]) / max.unit) / 10;
 
-    const minLabel = `${minValue}${min.unitLabel}`;
-    const maxLabel = `${maxValue}${max.unitLabel}`;
+//     const minLabel = `${minValue}${min.unitLabel}`;
+//     const maxLabel = `${maxValue}${max.unitLabel}`;
 
-    if (range[0] === 0 && range[1] === 0) {
-        return `$0 & Above`;
-    }
-    else if (range[0] === 0) {
-        return `Under $${maxLabel}`;
-    }
-    else if (range[1] === 0) {
-        return `$${minLabel} & Above`;
-    }
-    return `$${minLabel} - $${maxLabel}`;
-};
+//     if (range[0] === 0 && range[1] === 0) {
+//         return `$0 & Above`;
+//     }
+//     else if (range[0] === 0) {
+//         return `Under $${maxLabel}`;
+//     }
+//     else if (range[1] === 0) {
+//         return `$${minLabel} & Above`;
+//     }
+//     return `$${minLabel} - $${maxLabel}`;
+// };
+
 // formats the specific checkboxes
-export const formatAwardAmountItemLabel = (range) => {
-    const minLabel = `$${range[0]}`;
-    const maxLabel = `$${range[1]}`;
+// options are NPM accounting package options
+export const formatAwardAmountRange = (range, options) => {
+    // const minLabel = `$${range[0]}`;
+    // const maxLabel = `$${range[1]}`;
+    const minLabel = MoneyFormatter.formatMoneyWithPrecision(range[0], options);
+    const maxLabel = MoneyFormatter.formatMoneyWithPrecision(range[1], options);
     let label = `${minLabel} - ${maxLabel}`;
     if (range[0] === 0 && range[1] === 0) {
         label = `$0 - $0`;
