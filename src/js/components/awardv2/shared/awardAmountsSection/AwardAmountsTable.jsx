@@ -12,6 +12,18 @@ const propTypes = {
 // contractAndIdvCategories + grantCategories live in the awardData props object
 const contractAndIdvCategories = ['totalObligationFormatted', 'baseExercisedOptionsFormatted', 'baseAndAllOptionsFormatted'];
 const grantCategories = ['totalObligationFormatted', 'nonFederalFundingFormatted', 'totalFundingFormatted'];
+const loanCategories = ['faceValueFormatted', 'subsidyFormatted'];
+
+const getSpendingCategories = (awardType) => {
+    const map = {
+        grant: grantCategories,
+        loan: loanCategories
+    };
+    if (Object.keys(map).includes(awardType)) {
+        return map[awardType];
+    }
+    return contractAndIdvCategories;
+};
 
 const tableTitleByAwardTypeByCategory = {
     idv: {
@@ -28,6 +40,10 @@ const tableTitleByAwardTypeByCategory = {
         totalFundingFormatted: 'Total Funding',
         nonFederalFundingFormatted: 'Non-Federal Funding',
         totalObligationFormatted: 'Obligated Amount'
+    },
+    loan: {
+        faceValueFormatted: 'Face Value of Direct Loan',
+        subsidyFormatted: 'Original Subsidy Cost'
     }
 };
 
@@ -84,9 +100,8 @@ const AwardAmountsTable = ({
     });
 
     // build a map using the relevant keys for the awardType
-    const amountMapByCategoryTitle = (awardType === 'idv' || awardType === 'contract')
-        ? contractAndIdvCategories.reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {})
-        : grantCategories.reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {});
+    const amountMapByCategoryTitle = getSpendingCategories(awardType)
+        .reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {});
 
     const overspendingRow = getOverSpendingRow(awardData, spendingScenario);
 
