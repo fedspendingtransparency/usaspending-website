@@ -84,6 +84,12 @@ export default class ResultsTable extends React.Component {
             props.id = this.props.results[rowIndex].recipient_id;
             props.column = 'recipient';
         }
+        else if (column.columnName === 'Prime Recipient Name' && this.props.results[rowIndex].prime_award_recipient_id) {
+            // for Sub-Awards
+            cellClass = ResultsTableLinkCell;
+            props.id = this.props.results[rowIndex].prime_award_recipient_id;
+            props.column = 'recipient';
+        }
 
         return React.createElement(
             cellClass,
