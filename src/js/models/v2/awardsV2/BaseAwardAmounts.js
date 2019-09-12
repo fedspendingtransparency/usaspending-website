@@ -24,6 +24,10 @@ const BaseAwardAmounts = {
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
     },
+    populateLoan(data) {
+        this._subsidy = data._faceValue;
+        this._faceValue = data._subsidy;
+    },
     populateGrant(data) {
         this._totalObligation = data._totalObligation;
         this._totalFunding = data._totalFunding;
@@ -44,6 +48,9 @@ const BaseAwardAmounts = {
         }
         else if (awardType === 'grant') {
             this.populateGrant(data);
+        }
+        else if (awardType === 'loan') {
+            this.populateLoan(data);
         }
     },
     get baseAndAllOptionsFormatted() {
@@ -121,6 +128,26 @@ const BaseAwardAmounts = {
             return `${MoneyFormatter.formatMoneyWithPrecision((this._nonFederalFunding) / units.unit, 1)} ${units.unitLabel}`;
         }
         return MoneyFormatter.formatMoney(this._nonFederalFunding);
+    },
+    get faceValueAbbreviated() {
+        if (this._faceValue >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._faceValue);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._faceValue / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._faceValue, 0);
+    },
+    get faceValueFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._faceValue, 0);
+    },
+    get subsidyAbbreviated() {
+        if (this._subsidy >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._subsidy);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._subsidy / units.unit, 2)} ${units.longLabel}`;
+        }
+        return MoneyFormatter.formatMoneyWithPrecision(this._subsidy, 0);
+    },
+    get subsidyFormatted() {
+        return MoneyFormatter.formatMoney(this._subsidy);
     }
 };
 
