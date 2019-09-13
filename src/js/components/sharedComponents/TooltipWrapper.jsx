@@ -173,11 +173,26 @@ export default class TooltipWrapper extends React.Component {
                         role="button"
                         tabIndex="0"
                         className="tooltip__hover-wrapper"
-                        onBlur={this.closeTooltip}
-                        onFocus={this.showTooltip}
-                        onKeyPress={this.showTooltip}
-                        onMouseEnter={this.showTooltip}
-                        onMouseLeave={this.closeTooltip}
+                        onBlur={() => {
+                            console.log("blur from viz");
+                            this.closeTooltip();
+                        }}
+                        onFocus={() => {
+                            console.log("focus from viz");
+                            this.showTooltip();
+                        }}
+                        onKeyPress={() => {
+                            console.log("keypress from viz");
+                            this.showTooltip();
+                        }}
+                        onMouseEnter={() => {
+                            console.log("mouseenter from viz", this.props.styles.backgroundColor);
+                            this.showTooltip();
+                        }}
+                        onMouseLeave={() => {
+                            console.log("mouseleave from viz");
+                            this.closeTooltip();
+                        }}
                         onClick={this.showTooltip}>
                         {this.props.children}
                         {this.props.icon && tooltipIcons[this.props.icon]}
