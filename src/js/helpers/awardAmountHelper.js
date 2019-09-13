@@ -4,7 +4,7 @@
  */
 
 import Accounting from 'accounting';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 
 // formats the pre-made checkboxes
 // export const formatAwardAmountRange = (range) => {
@@ -34,8 +34,8 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 export const formatAwardAmountRange = (range, options) => {
     // const minLabel = `$${range[0]}`;
     // const maxLabel = `$${range[1]}`;
-    const minLabel = MoneyFormatter.formatMoneyWithPrecision(range[0], options);
-    const maxLabel = MoneyFormatter.formatMoneyWithPrecision(range[1], options);
+    const minLabel = formatMoneyWithPrecision(range[0], options);
+    const maxLabel = formatMoneyWithPrecision(range[1], options);
     let label = `${minLabel} - ${maxLabel}`;
     if (range[0] === 0 && range[1] === 0) {
         label = `$0 - $0`;

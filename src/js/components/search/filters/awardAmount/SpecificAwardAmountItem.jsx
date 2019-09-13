@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 
 import { ensureInputIsNumeric, formatAwardAmountRange } from 'helpers/awardAmountHelper';
-import AwardAmountItem from './AwardAmountItem';
 import EntityWarning from '../location/EntityWarning';
 
 const propTypes = {
@@ -79,26 +78,17 @@ export default class SpecificAwardAmountItem extends React.Component {
             showWarning,
             warningMessage
         } = this.state;
-        const hide = (
-            (!min && min !== 0) &&
-            (!max && max !== 0)) ? ' hide' : '';
-        let disabled = !!hide;
+        // const hide = (
+        //     (!min && min !== 0) &&
+        //     (!max && max !== 0)) ? ' hide' : '';
+        let disabled = (!min && min !== 0) &&
+        (!max && max !== 0);
         if (showWarning) disabled = true;
 
-        const label = formatAwardAmountRange([min, max], { precision: 2 });
+        // const label = formatAwardAmountRange([min, max], { precision: 2 });
         return (
             <div className="specific-award-amount">
                 <hr className="specific-award-amount-divider" />
-                <div
-                    className={`award-amount-item-wrapper${hide}`}
-                    role="status">
-                    <AwardAmountItem
-                        {...this.props}
-                        label={label}
-                        key="award-range-specific"
-                        rangeID="specific"
-                        toggleSelection={this.searchSpecificRange} />
-                </div>
                 {
                     showWarning &&
                     <div className="award-amount-warning">

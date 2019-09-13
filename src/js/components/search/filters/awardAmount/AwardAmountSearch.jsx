@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { awardRanges } from 'dataMapping/search/awardAmount';
-
+import { reduce } from 'lodash';
 import * as AwardAmountHelper from 'helpers/awardAmountHelper';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
@@ -14,7 +14,7 @@ import SpecificAwardAmountItem from './SpecificAwardAmountItem';
 
 const propTypes = {
     selectAwardRange: PropTypes.func,
-    awardAmountRanges: PropTypes.array,
+    awardAmountRanges: PropTypes.object,
     awardAmounts: PropTypes.object,
     dirtyFilters: PropTypes.symbol
 };
@@ -40,7 +40,6 @@ export default class AwardAmountSearch extends React.Component {
     }
 
     toggleSelection(selection) {
-        console.log(' Toggling : ', selection);
         this.props.selectAwardRange(selection);
     }
 
@@ -52,24 +51,24 @@ export default class AwardAmountSearch extends React.Component {
 
     awareAmountCheckboxes() {
         const { awardAmountRanges, awardAmounts } = this.props;
-        return awardAmountRanges.map((range) => {
-            const { label, value } = range;
+        return reduce(awardAmountRanges, (result, value, key) => {
             const name = AwardAmountHelper.formatAwardAmountRange(
                 value, { precision: 0 });
-            return (
-                <PrimaryCheckboxType
+            result.push(
+                (<PrimaryCheckboxType
                     {...this.props}
-                    key={label}
-                    id={`award-${label}`}
+                    key={key}
+                    id={`award-${key}`}
                     name={name}
-                    value={value}
+                    value={key}
                     types={awardRanges}
-                    code={label}
+                    code={value}
                     filterType="Award Amount"
                     selectedCheckboxes={awardAmounts}
-                    toggleCheckboxType={this.toggleSelection} />
+                    toggleCheckboxType={this.toggleSelection} />)
             );
-        });
+            return result;
+        }, []);
     }
 
     render() {

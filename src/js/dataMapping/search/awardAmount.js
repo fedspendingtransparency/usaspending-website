@@ -2,27 +2,10 @@
  * Created by michaelbray on 3/7/17.
  */
 
-const awardRanges = [
-    {
-        label: 'range-0',
-        value: [null, 1000000]
-    },
-    {
-        label: 'range-1',
-        value: [1000000, 25000000]
-    },
-    {
-        label: 'range-2',
-        value: [25000000, 100000000]
-    },
-    {
-        label: 'range-3',
-        value: [100000000, 500000000]
-    },
-    {
-        label: 'range-4',
-        value: [500000000, null]
-    }
-];
-
-export default awardRanges;
+export const awardRanges = {
+    "range-0": [null, 1000000],
+    "range-1": [1000000, 25000000],
+    "range-2": [25000000, 100000000],
+    "range-3": [100000000, 500000000],
+    "range-4": [500000000, null]
+};

@@ -12,61 +12,58 @@ import { isEqual } from 'lodash';
 // min and max are numbers or null
 export const updateAwardAmounts = (state, value) => {
     let awardAmounts = state;
-    // this is just the name of the property we set
-    // the award range array to in redux
-    const awardProperty = 'awardRange';
-    console.log(' Update Set : ', awardAmounts.toObject());
-    console.log(' Value : ', value);
-    // value.amount will either be:
-    // 1) an integer, corresponding to included awardRanges
-    // 2) an array, with two items, corresponding to user input
 
-    const currentAwardArray = awardAmounts.get(awardProperty);
-    // add the range if one does not exist
-    if (!awardAmounts) {
+    // value will be an array [min, max] or a string
+    // 'range-1' signifying a range from awardRanges
+    // min and max will be a number or null
+    // null signifies postitive or negative infinity
+
+    // delete a specific range if it exists
+    const specific = awardAmounts.get('specific');
+    if (specific) awardAmounts.delete('specific');
+    // get any possible range
+    const range0 = awardAmounts.get('range-0');
+    const range1 = awardAmounts.get('range-1');
+    const range2 = awardAmounts.get('range-2');
+    const range3 = awardAmounts.get('range-3');
+    const range4 = awardAmounts.get('range-4');
+    // create an array of possible current award ranges to filter
+    const rangeArray = [
+        range0,
+        range1,
+        range2,
+        range3,
+        range4
+    ];
+    // the current award range
+    const currentRange = rangeArray.filter((range) => {
+        if (range) return range;
+    }).flatMap((range) => range);
+    if (currentRange) awardAmounts.delete(currentRange);
+    // check if value is a string
+    const valueIsAString = typeof value === 'string';
+    // get the new award range
+    // checkbox range logic
+    const newAwardRange = awardRanges[value];
+    // if there is no current range, add it
+    if (valueIsAString && (currentRange.length === 0)) {
         awardAmounts = new OrderedMap({
-            awardRange: value
+            [value]: newAwardRange
         });
     }
-    // if the same range exists, remove it
-    // this happens if a user unchecks a checkbox
-    // or deletes both min and max input boxes
-    else if (isEqual(currentAwardArray, value) || isEqual([null, null], value)) {
-        awardAmounts.delete(awardProperty);
+    // set the new range if it is not the same as the current range
+    if (valueIsAString && !isEqual(currentRange, newAwardRange)) {
+        awardAmounts = new OrderedMap({
+            [value]: newAwardRange
+        });
     }
-    // update the awardRange
-    else {
-        awardAmounts.set(awardProperty, value);
+    // specific input logic
+    // value is a specific amount which is an array [min,max]
+    if (!valueIsAString && !isEqual(specific, value)) {
+        awardAmounts = new OrderedMap({
+            specific: value
+        });
     }
-    // if (value.searchType === 'specific') {
-    // Toggle specific range selection
-    // if () {
-    //     awardAmounts = awardAmounts.set(awardProperty, value);
-    // }
-    // else {
-    // Replace entire existing set with specific range
-    // awardAmounts = new OrderedMap({
-    //     awardRange: value
-    // });
-    // }
-    // }
-    // else {
-    //     const awardRangeID = `${value.amount}`;
-
-    //     // Remove Specific filter if it exists
-    //     if (updatedSet.has('specific')) {
-    //         updatedSet = updatedSet.delete('specific');
-    //     }
-
-    //     // Toggle range selection
-    //     if (updatedSet.has(awardRangeID)) {
-    //         updatedSet = updatedSet.delete(awardRangeID);
-    //     }
-    //     else {
-    //         updatedSet = updatedSet.set(awardRangeID, awardRanges[value.amount]);
-    //     }
-    // }
-
     return awardAmounts;
 };
 /* eslint-enable import/prefer-default-export */
