@@ -71,25 +71,25 @@ export default class TooltipWrapper extends React.Component {
         window.removeEventListener("resize", this.measureOffset);
     }
 
-    showTooltip() {
+    showTooltip(e) {
         if (!this.props.controlledProps.isControlled) {
             this.setState({
                 showTooltip: true
             });
         }
         else {
-            this.props.controlledProps.showTooltip();
+            this.props.controlledProps.showTooltip(e);
         }
     }
 
-    closeTooltip() {
+    closeTooltip(e) {
         if (!this.props.controlledProps.isControlled) {
             this.setState({
                 showTooltip: false
             });
         }
         else {
-            this.props.controlledProps.closeTooltip();
+            this.props.controlledProps.closeTooltip(e);
         }
     }
 
@@ -173,26 +173,11 @@ export default class TooltipWrapper extends React.Component {
                         role="button"
                         tabIndex="0"
                         className="tooltip__hover-wrapper"
-                        onBlur={() => {
-                            console.log("blur from viz");
-                            this.closeTooltip();
-                        }}
-                        onFocus={() => {
-                            console.log("focus from viz");
-                            this.showTooltip();
-                        }}
-                        onKeyPress={() => {
-                            console.log("keypress from viz");
-                            this.showTooltip();
-                        }}
-                        onMouseEnter={() => {
-                            console.log("mouseenter from viz", this.props.styles.backgroundColor);
-                            this.showTooltip();
-                        }}
-                        onMouseLeave={() => {
-                            console.log("mouseleave from viz");
-                            this.closeTooltip();
-                        }}
+                        onBlur={this.closeTooltip}
+                        onFocus={this.showTooltip}
+                        onKeyPress={this.showTooltip}
+                        onMouseOver={this.showTooltip}
+                        onMouseOut={this.closeTooltip}
                         onClick={this.showTooltip}>
                         {this.props.children}
                         {this.props.icon && tooltipIcons[this.props.icon]}

@@ -47,7 +47,17 @@ export default class GrantChart extends React.Component {
             width: generatePercentage(nonFederalFunding / totalFunding)
         };
 
-        const { nonFederalFundingTooltipProps, obligatedTooltipProps, totalFundingTooltipProps } = this.props;
+        const zeroNonFederalFundingTooltipProps = {
+            ...this.props.nonFederalFundingTooltipProps,
+            controlledProps: {
+                isControlled: true,
+                isVisible: this.props.nonFederalFundingTooltipProps.controlledProps.isVisible,
+                closeTooltip: () => false,
+                showTooltip: () => false
+            }
+        };
+
+        const { obligatedTooltipProps, nonFederalFundingTooltipProps, totalFundingTooltipProps } = this.props;
 
         const nonFFTooltipStyles = {
             width: nonFederalFundingBarStyle.width,
@@ -66,8 +76,8 @@ export default class GrantChart extends React.Component {
                     onBlur={obligatedTooltipProps.controlledProps.closeTooltip}
                     onFocus={obligatedTooltipProps.controlledProps.showTooltip}
                     onKeyPress={obligatedTooltipProps.controlledProps.showTooltip}
-                    onMouseEnter={obligatedTooltipProps.controlledProps.showTooltip}
-                    onMouseLeave={obligatedTooltipProps.controlledProps.closeTooltip}
+                    onMouseOver={obligatedTooltipProps.controlledProps.showTooltip}
+                    onMouseOut={obligatedTooltipProps.controlledProps.closeTooltip}
                     onClick={obligatedTooltipProps.controlledProps.showTooltip}>
                     <strong>{this.props.awardAmounts.totalObligationAbbreviated}</strong><br />Obligated Amount
                 </div>
@@ -80,10 +90,15 @@ export default class GrantChart extends React.Component {
                             <TooltipWrapper {...obligatedTooltipProps} styles={{ width: obligatedBarStyle.width }}>
                                 <div className="award-amounts-viz__obligated--grants" style={{ width: generatePercentage(1), backgroundColor: obligatedBarStyle.backgroundColor }} />
                             </TooltipWrapper>
-                            <TooltipWrapper {...nonFederalFundingTooltipProps} styles={{ ...nonFFTooltipStyles }}>
-                                <div className="award-amounts-viz__non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
-                                {/* <div className="award-amounts-viz__excerised" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} /> */}
-                            </TooltipWrapper>
+                            {nonFederalFundingIsZero &&
+                                <TooltipWrapper {...zeroNonFederalFundingTooltipProps} styles={nonFFTooltipStyles}>
+                                    <div className="award-amounts-viz__non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
+                                </TooltipWrapper>}
+                            {!nonFederalFundingIsZero &&
+                                <TooltipWrapper {...nonFederalFundingTooltipProps} styles={nonFFTooltipStyles}>
+                                    <div className="award-amounts-viz__non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />
+                                </TooltipWrapper>
+                            }
                         </div>
                     </TooltipWrapper>
                 </div>
@@ -99,8 +114,8 @@ export default class GrantChart extends React.Component {
                             onBlur={nonFederalFundingTooltipProps.controlledProps.closeTooltip}
                             onFocus={nonFederalFundingTooltipProps.controlledProps.showTooltip}
                             onKeyPress={nonFederalFundingTooltipProps.controlledProps.showTooltip}
-                            onMouseEnter={nonFederalFundingTooltipProps.controlledProps.showTooltip}
-                            onMouseLeave={nonFederalFundingTooltipProps.controlledProps.closeTooltip}
+                            onMouseOver={nonFederalFundingTooltipProps.controlledProps.showTooltip}
+                            onMouseOut={nonFederalFundingTooltipProps.controlledProps.closeTooltip}
                             onClick={nonFederalFundingTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
                         </div>
@@ -114,26 +129,11 @@ export default class GrantChart extends React.Component {
                             className="award-amounts-viz__desc-text"
                             role="button"
                             tabIndex="0"
-                            onBlur={() => {
-                                console.log("onBlur");
-                                totalFundingTooltipProps.controlledProps.closeTooltip();
-                            }}
-                            onFocus={() => {
-                                console.log("onFocus");
-                                totalFundingTooltipProps.controlledProps.showTooltip();
-                            }}
-                            onKeyPress={() => {
-                                console.log("onKeyPress");
-                                totalFundingTooltipProps.controlledProps.showTooltip();
-                            }}
-                            onMouseEnter={() => {
-                                console.log("onMouseEnter");
-                                totalFundingTooltipProps.controlledProps.showTooltip();
-                            }}
-                            onMouseLeave={() => {
-                                console.log("onMouseLeave");
-                                totalFundingTooltipProps.controlledProps.closeTooltip();
-                            }}
+                            onBlur={totalFundingTooltipProps.controlledProps.closeTooltip}
+                            onFocus={totalFundingTooltipProps.controlledProps.showTooltip}
+                            onKeyPress={totalFundingTooltipProps.controlledProps.showTooltip}
+                            onMouseOver={totalFundingTooltipProps.controlledProps.showTooltip}
+                            onMouseOut={totalFundingTooltipProps.controlledProps.closeTooltip}
                             onClick={totalFundingTooltipProps.controlledProps.showTooltip}>
                             <strong>{this.props.awardAmounts.totalFundingAbbreviated}</strong><br />Total Funding
                         </div>

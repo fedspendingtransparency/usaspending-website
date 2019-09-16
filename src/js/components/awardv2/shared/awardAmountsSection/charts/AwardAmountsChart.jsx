@@ -34,8 +34,17 @@ const createShowAndCloseTooltipMethod = (ctx, category) => {
     // ctx is `this`
     // type is one of: obligated, current, potential, exceedsCurrent, or exceedsPotential
     const titleCasedCategory = `${category[0].toUpperCase()}${category.substring(1)}`;
-    ctx[tooltipStateBySpendingCategory[category]] = ctx.showSpendingCategoryTooltip.bind(ctx, category);
-    ctx[`close${titleCasedCategory}Tooltip`] = ctx.closeSpendingCategoryTooltip.bind(ctx, category);
+    ctx[tooltipStateBySpendingCategory[category]] = (e) => {
+        console.log(e.type.toUpperCase(), tooltipStateBySpendingCategory[category]);
+        e.stopPropagation();
+        e.preventDefault();
+        console.log("is propogation stopped for event? ", e.isPropagationStopped());
+        ctx.showSpendingCategoryTooltip.call(ctx, category);
+    };
+    ctx[`close${titleCasedCategory}Tooltip`] = (e) => {
+        console.log(e.type.toUpperCase());
+        ctx.closeSpendingCategoryTooltip.call(ctx, category);
+    };
 };
 
 export default class AwardAmountsChart extends Component {
