@@ -34,15 +34,10 @@ const createShowAndCloseTooltipMethod = (ctx, category) => {
     // ctx is `this`
     // type is one of: obligated, current, potential, exceedsCurrent, or exceedsPotential
     const titleCasedCategory = `${category[0].toUpperCase()}${category.substring(1)}`;
-    ctx[tooltipStateBySpendingCategory[category]] = (e) => {
-        console.log(e.type.toUpperCase(), tooltipStateBySpendingCategory[category]);
-        e.stopPropagation();
-        e.preventDefault();
-        console.log("is propogation stopped for event? ", e.isPropagationStopped());
+    ctx[tooltipStateBySpendingCategory[category]] = () => {
         ctx.showSpendingCategoryTooltip.call(ctx, category);
     };
-    ctx[`close${titleCasedCategory}Tooltip`] = (e) => {
-        console.log(e.type.toUpperCase());
+    ctx[`close${titleCasedCategory}Tooltip`] = () => {
         ctx.closeSpendingCategoryTooltip.call(ctx, category);
     };
 };
