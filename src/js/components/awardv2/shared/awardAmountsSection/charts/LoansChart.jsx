@@ -1,6 +1,6 @@
 /**
  * NormalChart.jsx
- * Created by David Trinh 2/15/19
+ * Created by Maxwell Kendall 9/16/19
  **/
 
 import React from 'react';
