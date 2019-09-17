@@ -25,7 +25,7 @@ export default class LoansChart extends React.Component {
 
         const subsidyBarStyle = {
             width: generatePercentage(subsidy / faceValue),
-            backgroundColor: '#4773aa'
+            backgroundColor: '#F5A623'
         };
 
         const subsidyLabelStyle = {
