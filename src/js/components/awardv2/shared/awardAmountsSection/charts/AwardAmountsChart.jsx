@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import NormalChart from './NormalChart';
@@ -30,6 +30,14 @@ const getSpendingCategoriesByAwardType = (awardType) => {
     return spendingCategoriesByAwardType.contract;
 };
 
+export const useTooltips = (arrayOfTooltips) => {
+    const [activeTooltip, setActiveTooltip] = useState('');
+    return [
+        activeTooltip,
+        () => setActiveTooltip(''),
+        ...arrayOfTooltips.map((tt) => () => setActiveTooltip(tt))
+    ];
+};
 export default class AwardAmountsChart extends Component {
     constructor(props) {
         super(props);
@@ -197,9 +205,7 @@ export default class AwardAmountsChart extends Component {
                 );
             case "loan":
                 return (
-                    <LoansChart
-                        {...this.getTooltipPropsBySpendingScenario('normal', awardType)}
-                        awardAmounts={awardAmounts} />
+                    <LoansChart awardAmounts={awardAmounts} />
                 );
             default: // idvs and contracts
                 return this.renderChartBySpendingScenario(spendingScenario);
