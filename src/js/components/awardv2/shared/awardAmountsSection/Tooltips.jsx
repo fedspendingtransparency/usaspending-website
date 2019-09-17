@@ -69,6 +69,24 @@ export const NonFederalFundingTooltip = () => (
     </div>
 );
 
+export const SubsidyTooltip = () => (
+    <div className="combined-obligated-tt">
+        <h4 className="tooltip__title">Original Subsidy Cost</h4>
+        <div className="tooltip__text">
+            <p>This is the sum of the federal action obligation and the non-federal funding amounts.</p>
+        </div>
+    </div>
+);
+
+export const FaceValueTooltip = () => (
+    <div className="combined-obligated-tt">
+        <h4 className="tooltip__title">Face Value of Direct Loan</h4>
+        <div className="tooltip__text">
+            <p>This is the sum of the federal action obligation and the non-federal funding amounts.</p>
+        </div>
+    </div>
+);
+
 ObligatedAmountTooltip.propTypes = propTypes;
 CurrentAmountTooltip.propTypes = propTypes;
 PotentialAmountTooltip.propTypes = propTypes;

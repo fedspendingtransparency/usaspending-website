@@ -6,7 +6,7 @@ import ExceedsCurrentChart from './ExceedsCurrentChart';
 import ExceedsPotentialChart from './ExceedsPotentialChart';
 import NoResultsMessage from '../../../../sharedComponents/NoResultsMessage';
 import GrantChart from './GrantChart';
-import { ObligatedAmountTooltip, ExceedsCurrentAmountTooltip, CurrentAmountTooltip, ExceedsPotentialAmountTooltip, PotentialAmountTooltip, NonFederalFundingTooltip, TotalFundingTooltip } from '../Tooltips';
+import { ObligatedAmountTooltip, ExceedsCurrentAmountTooltip, CurrentAmountTooltip, ExceedsPotentialAmountTooltip, PotentialAmountTooltip, NonFederalFundingTooltip, TotalFundingTooltip, SubsidyTooltip, FaceValueTooltip } from '../Tooltips';
 import { CombinedObligatedAmounts, CombinedCurrentAmounts, CombinedPotentialAmounts, CombinedExceedsCurrentAmounts, CombinedExceedsPotentialAmounts } from "../../../idv/TooltipContent";
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../../propTypes/index';
 import LoansChart from './LoansChart';
@@ -134,11 +134,11 @@ export default class AwardAmountsChart extends Component {
             loan: {
                 subsidy: {
                     offsetAdjustments: { top: 0, right: 30 },
-                    tooltipComponent: <TotalFundingTooltip />
+                    tooltipComponent: <SubsidyTooltip />
                 },
                 faceValue: {
                     offsetAdjustments: { top: -7, right: 30 },
-                    tooltipComponent: <ObligatedAmountTooltip />
+                    tooltipComponent: <FaceValueTooltip />
                 }
             }
         };
