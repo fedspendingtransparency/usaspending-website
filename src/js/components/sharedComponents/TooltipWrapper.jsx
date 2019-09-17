@@ -176,8 +176,8 @@ export default class TooltipWrapper extends React.Component {
                         onBlur={this.closeTooltip}
                         onFocus={this.showTooltip}
                         onKeyPress={this.showTooltip}
-                        onMouseOver={this.showTooltip}
-                        onMouseOut={this.closeTooltip}
+                        onMouseEnter={this.showTooltip}
+                        onMouseLeave={this.closeTooltip}
                         onClick={this.showTooltip}>
                         {this.props.children}
                         {this.props.icon && tooltipIcons[this.props.icon]}
