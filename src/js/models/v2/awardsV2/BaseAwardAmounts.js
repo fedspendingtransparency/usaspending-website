@@ -25,8 +25,8 @@ const BaseAwardAmounts = {
         ) || 0;
     },
     populateLoan(data) {
-        this._subsidy = data._faceValue;
-        this._faceValue = data._subsidy;
+        this._subsidy = data._subsidy;
+        this._faceValue = data._faceValue;
     },
     populateGrant(data) {
         this._totalObligation = data._totalObligation;
