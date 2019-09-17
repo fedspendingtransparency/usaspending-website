@@ -22,6 +22,7 @@ export default class LoansChart extends React.Component {
         // Rename properties to improve readability of the calculations
         const subsidy = this.props.awardAmounts._subsidy;
         const faceValue = this.props.awardAmounts._faceValue;
+        const isSubsidyZero = (subsidy === 0);
 
         const subsidyBarAndLabelStyles = {
             width: generatePercentage(subsidy / faceValue),
@@ -34,27 +35,37 @@ export default class LoansChart extends React.Component {
 
         return (
             <div className="award-amounts-viz">
-                <div
-                    className="award-amounts-viz__desc-top--loans"
-                    role="button"
-                    tabIndex="0"
-                    onBlur={subsidyTooltipProps.controlledProps.closeTooltip}
-                    onFocus={subsidyTooltipProps.controlledProps.showTooltip}
-                    onKeyPress={subsidyTooltipProps.controlledProps.showTooltip}
-                    onMouseEnter={subsidyTooltipProps.controlledProps.showTooltip}
-                    onMouseLeave={subsidyTooltipProps.controlledProps.closeTooltip}
-                    onClick={subsidyTooltipProps.controlledProps.showTooltip}>
-                    <strong>{this.props.awardAmounts.subsidyAbbreviated}</strong><br />Original Subsidy Cost
-                </div>
-                <div className="award-amounts-viz__label" style={subsidyBarAndLabelStyles}>
-                    <div className="award-amounts-viz__line-up--loans" />
-                </div>
+                {!isSubsidyZero &&
+                    <div
+                        className="award-amounts-viz__desc-top--loans"
+                        role="button"
+                        tabIndex="0"
+                        onBlur={subsidyTooltipProps.controlledProps.closeTooltip}
+                        onFocus={subsidyTooltipProps.controlledProps.showTooltip}
+                        onKeyPress={subsidyTooltipProps.controlledProps.showTooltip}
+                        onMouseEnter={subsidyTooltipProps.controlledProps.showTooltip}
+                        onMouseLeave={subsidyTooltipProps.controlledProps.closeTooltip}
+                        onClick={subsidyTooltipProps.controlledProps.showTooltip}>
+                        <strong>{this.props.awardAmounts.subsidyAbbreviated}</strong><br />Original Subsidy Cost
+                        <div className="award-amounts-viz__label" style={subsidyBarAndLabelStyles}>
+                            <div className="award-amounts-viz__line-up--loans" />
+                        </div>
+                    </div>}
+                {isSubsidyZero &&
+                    <TooltipWrapper {...subsidyTooltipProps}>
+                        <div className="award-amounts-viz__desc-top--loans" role="button" tabIndex="0">
+                            <strong>{this.props.awardAmounts.subsidyAbbreviated}</strong><br />Original Subsidy Cost
+                        </div>
+                    </TooltipWrapper>
+                }
                 <div className="award-amounts-viz__bar-wrapper">
                     <TooltipWrapper {...faceValueTooltipProps} style={{ backgroundColor: faceValueColor }}>
-                        <div className="award-amounts-viz__bar" style={{ backgroundColor: faceValueColor }}>
-                            <TooltipWrapper {...subsidyTooltipProps} styles={{ width: subsidyBarAndLabelStyles.width }}>
-                                <div className="award-amounts-viz__obligated--grants" style={{ width: generatePercentage(1), backgroundColor: subsidyBarAndLabelStyles.backgroundColor }} />
-                            </TooltipWrapper>
+                        <div className="award-amounts-viz__bar" style={{ backgroundColor: faceValueColor, width: '100%' }}>
+                            {!isSubsidyZero &&
+                                <TooltipWrapper {...subsidyTooltipProps} styles={{ width: subsidyBarAndLabelStyles.width }}>
+                                    <div className="award-amounts-viz__obligated--grants" style={{ width: generatePercentage(1), backgroundColor: subsidyBarAndLabelStyles.backgroundColor }} />
+                                </TooltipWrapper>}
+                            {isSubsidyZero && <div className="award-amounts-viz__obligated--grants" style={subsidyBarAndLabelStyles} />}
                         </div>
                     </TooltipWrapper>
                 </div>
