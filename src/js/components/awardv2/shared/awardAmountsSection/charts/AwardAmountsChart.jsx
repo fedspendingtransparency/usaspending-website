@@ -160,7 +160,6 @@ export default class AwardAmountsChart extends Component {
         return spendingCategories.reduce((acc, category) => {
             // used to reference methods in camelCase
             const titleCasedCategory = `${category[0].toUpperCase()}${category.substring(1)}`;
-            console.log("category", category);
             const propsForCategory = this.getTooltipPropsByAwardTypeAndSpendingCategory(awardType, category);
             return Object.assign(acc, {
                 [`${category}TooltipProps`]: Object.assign(propsForCategory, {

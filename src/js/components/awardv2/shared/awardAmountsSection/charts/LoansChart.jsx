@@ -20,16 +20,12 @@ const propTypes = {
 export default class LoansChart extends React.Component {
     render() {
         // Rename properties to improve readability of the calculations
-        const subsidy = this.props.awardAmounts.subsidy;
+        const subsidy = this.props.awardAmounts._subsidy;
         const faceValue = this.props.awardAmounts._faceValue;
 
-        const subsidyBarStyle = {
+        const subsidyBarAndLabelStyles = {
             width: generatePercentage(subsidy / faceValue),
             backgroundColor: '#F5A623'
-        };
-
-        const subsidyLabelStyle = {
-            width: generatePercentage(subsidy / faceValue)
         };
 
         const faceValueColor = "#FFF";
@@ -39,7 +35,7 @@ export default class LoansChart extends React.Component {
         return (
             <div className="award-amounts-viz">
                 <div
-                    className="award-amounts-viz__desc-top"
+                    className="award-amounts-viz__desc-top--loans"
                     role="button"
                     tabIndex="0"
                     onBlur={subsidyTooltipProps.controlledProps.closeTooltip}
@@ -50,14 +46,14 @@ export default class LoansChart extends React.Component {
                     onClick={subsidyTooltipProps.controlledProps.showTooltip}>
                     <strong>{this.props.awardAmounts.subsidyAbbreviated}</strong><br />Original Subsidy Cost
                 </div>
-                <div className="award-amounts-viz__label" style={subsidyLabelStyle}>
-                    <div className="award-amounts-viz__line-up" />
+                <div className="award-amounts-viz__label" style={subsidyBarAndLabelStyles}>
+                    <div className="award-amounts-viz__line-up--loans" />
                 </div>
                 <div className="award-amounts-viz__bar-wrapper">
                     <TooltipWrapper {...faceValueTooltipProps} style={{ backgroundColor: faceValueColor }}>
                         <div className="award-amounts-viz__bar" style={{ backgroundColor: faceValueColor }}>
-                            <TooltipWrapper {...subsidyTooltipProps} styles={{ width: subsidyBarStyle.width }}>
-                                <div className="award-amounts-viz__obligated--grants" style={{ width: generatePercentage(1), backgroundColor: subsidyBarStyle.backgroundColor }} />
+                            <TooltipWrapper {...subsidyTooltipProps} styles={{ width: subsidyBarAndLabelStyles.width }}>
+                                <div className="award-amounts-viz__obligated--grants" style={{ width: generatePercentage(1), backgroundColor: subsidyBarAndLabelStyles.backgroundColor }} />
                             </TooltipWrapper>
                         </div>
                     </TooltipWrapper>
