@@ -72,10 +72,15 @@ describe('Award Amounts Advanced Search Filter Helper', () => {
         });
     });
 
-    describe('Only Allow Two Decimal Places', () => {
+    describe('Format Number', () => {
         const normalNumber = 55.67;
         const tooManyLeadingZeros = '00000055.67';
         const tooManyDecimalPlaces = 55.67498464546;
+        it('should return an empty string', () => {
+            const formattedNumber = formatNumber('');
+            expect(formattedNumber).toEqual('');
+        });
+
         it('should return the normal number', () => {
             const formattedNumber = formatNumber(normalNumber);
             expect(formattedNumber).toEqual(normalNumber);

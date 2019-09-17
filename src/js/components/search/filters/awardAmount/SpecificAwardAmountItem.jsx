@@ -57,7 +57,7 @@ export default class SpecificAwardAmountItem extends React.Component {
         const min = Number(this.state.min);
         const max = Number(this.state.max);
         let showWarning = false;
-        const warningMessage = 'Please choose a min less than the max';
+        const warningMessage = 'Please choose a min that is less than or equal to the max';
         const minIsNull = (!min && min !== 0);
         const maxIsNull = (!max && max !== 0);
         if (min < max) showWarning = false;
