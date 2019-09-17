@@ -46,7 +46,7 @@ export default class AwardAmountsChart extends Component {
         this.getTooltipPropsBySpendingScenario = this.getTooltipPropsBySpendingScenario.bind(this);
         this.getTooltipPropsByAwardTypeAndSpendingCategory = this.getTooltipPropsByAwardTypeAndSpendingCategory.bind(this);
     }
-
+    // this fn is horrible, needs to go!!!
     getTooltipPropsByAwardTypeAndSpendingCategory(awardType, category, tooltipData = this.props.awardOverview) {
         const map = {
             idv: {
@@ -120,7 +120,7 @@ export default class AwardAmountsChart extends Component {
         };
         return map[awardType][category];
     }
-    // Most of this this fn will be unnecessary w/ hooks
+    // This fn will be unnecessary w/ hooks
     getTooltipPropsBySpendingScenario(spendingScenario, awardType = this.props.awardType) {
         // these are the award amount visualizations needed for every spending scenario
         const spendingCategories = getSpendingCategoriesByAwardType(awardType);
@@ -149,6 +149,7 @@ export default class AwardAmountsChart extends Component {
         }, {});
     }
 
+    // Completely unnecessary w/ hooks!
     setActiveTooltip(category) {
         this.setState({
             activeTooltip: category
