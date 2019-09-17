@@ -41,9 +41,6 @@ export const useTooltips = (arrayOfTooltips) => {
 export default class AwardAmountsChart extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            activeTooltip: false // enum: oneOf([null, obligated", "current", "potential", "subsidy", "faceValue", "nonFederalFunding", "totalFunding"])
-        };
         this.renderChartByAwardType = this.renderChartByAwardType.bind(this);
         this.renderChartBySpendingScenario = this.renderChartBySpendingScenario.bind(this);
         this.getTooltipPropsBySpendingScenario = this.getTooltipPropsBySpendingScenario.bind(this);
