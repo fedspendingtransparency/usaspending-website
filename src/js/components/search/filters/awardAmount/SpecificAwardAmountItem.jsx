@@ -53,6 +53,7 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     verifyNumberLogic() {
+        if (this.state.max === '') return;
         const min = Number(this.state.min);
         const max = Number(this.state.max);
         let showWarning = false;
