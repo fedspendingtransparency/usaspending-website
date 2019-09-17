@@ -24,6 +24,7 @@ export const formatAwardAmountRange = (range, options = 2) => {
 };
 
 export const formatNumber = (input) => {
+    if (input === '') return '';
     const splitDecimal = input.toString().split('.');
     // remove preceding zeros from whole number
     const newWholeNumber = parseInt(splitDecimal[0], 10).toString();
