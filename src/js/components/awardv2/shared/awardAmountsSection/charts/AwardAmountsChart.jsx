@@ -17,30 +17,10 @@ const propTypes = {
     spendingScenario: PropTypes.string
 };
 
-const tooltipStateBySpendingCategory = {
-    obligated: "showObligatedTooltip",
-    current: "showCurrentTooltip",
-    potential: "showPotentialTooltip",
-    exceedsCurrent: "showExceedsCurrentTooltip",
-    exceedsPotential: "showExceedsPotentialTooltip",
-    nonFederalFunding: "showNonFederalFundingTooltip",
-    totalFunding: "showTotalFundingTooltip",
-    faceValue: "showFaceValueTooltip",
-    subsidy: "showSubsidyTooltip"
-};
-
 const spendingCategoriesByAwardType = {
     grant: ["obligated", "nonFederalFunding", "totalFunding"],
     loan: ["subsidy", "faceValue"],
     contract: ["obligated", "current", "potential"]
-};
-
-const createShowAndCloseTooltipMethod = (ctx, category) => {
-    // ctx is `this`
-    // type is one of: obligated, current, potential, exceedsCurrent, or exceedsPotential
-    const titleCasedCategory = `${category[0].toUpperCase()}${category.substring(1)}`;
-    ctx[`show${titleCasedCategory}Tooltip`] = ctx.showSpendingCategoryTooltip.bind(ctx, category);
-    ctx[`close${titleCasedCategory}Tooltip`] = ctx.closeSpendingCategoryTooltip.bind(ctx, category);
 };
 
 const getSpendingCategoriesByAwardType = (awardType) => {
@@ -54,21 +34,12 @@ export default class AwardAmountsChart extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            showObligatedTooltip: false,
-            showCurrentTooltip: false,
-            showPotentialTooltip: false,
-            showExceedsCurrentTooltip: false,
-            showExceedsPotentialTooltip: false
+            activeTooltip: false // enum: oneOf([null, obligated", "current", "potential", "subsidy", "faceValue", "nonFederalFunding", "totalFunding"])
         };
         this.renderChartByAwardType = this.renderChartByAwardType.bind(this);
         this.renderChartBySpendingScenario = this.renderChartBySpendingScenario.bind(this);
         this.getTooltipPropsBySpendingScenario = this.getTooltipPropsBySpendingScenario.bind(this);
         this.getTooltipPropsByAwardTypeAndSpendingCategory = this.getTooltipPropsByAwardTypeAndSpendingCategory.bind(this);
-        Object.keys(tooltipStateBySpendingCategory)
-            .forEach((spendingCategory) => {
-                // for each spending category, add a show/close tool tip method
-                createShowAndCloseTooltipMethod(this, spendingCategory);
-            });
     }
 
     getTooltipPropsByAwardTypeAndSpendingCategory(awardType, category, tooltipData = this.props.awardOverview) {
@@ -142,10 +113,7 @@ export default class AwardAmountsChart extends Component {
                 }
             }
         };
-        if (Object.keys(map).includes(awardType)) {
-            return map[awardType][category];
-        }
-        return map.assistance[category];
+        return map[awardType][category];
     }
 
     getTooltipPropsBySpendingScenario(spendingScenario, awardType = this.props.awardType) {
@@ -156,38 +124,29 @@ export default class AwardAmountsChart extends Component {
             spendingCategories.push(spendingScenario);
         }
 
-        // Build object with shape: { category1ToolTipProps: {}, category2ToolTipProps: {}, ... }
+        // Build object with shape: { obligatedToolTipProps: {}, potentialToolTipProps: {}, ... }
         return spendingCategories.reduce((acc, category) => {
             // used to reference methods in camelCase
-            const titleCasedCategory = `${category[0].toUpperCase()}${category.substring(1)}`;
             const propsForCategory = this.getTooltipPropsByAwardTypeAndSpendingCategory(awardType, category);
+            const closeTooltip = this.setActiveTooltip.bind(this, null);
+            const showTooltip = this.setActiveTooltip.bind(this, category);
             return Object.assign(acc, {
                 [`${category}TooltipProps`]: Object.assign(propsForCategory, {
                     wide: true,
                     controlledProps: {
                         isControlled: true,
-                        isVisible: this.state[`show${titleCasedCategory}Tooltip`],
-                        closeTooltip: this[`close${titleCasedCategory}Tooltip`],
-                        showTooltip: this[`show${titleCasedCategory}Tooltip`]
+                        isVisible: (this.state.activeTooltip === category),
+                        closeTooltip,
+                        showTooltip
                     }
                 })
             });
         }, {});
     }
 
-    showSpendingCategoryTooltip(category) {
+    setActiveTooltip(category) {
         this.setState({
-            [tooltipStateBySpendingCategory[category]]: true
-        });
-        // hide all other tooltips
-        Object.keys(this.state)
-            .filter((tooltipState) => tooltipState !== tooltipStateBySpendingCategory[category])
-            .forEach((tooltipState) => this.setState({ [tooltipState]: false }));
-    }
-
-    closeSpendingCategoryTooltip(category) {
-        this.setState({
-            [tooltipStateBySpendingCategory[category]]: false
+            activeTooltip: category
         });
     }
 
