@@ -89,24 +89,25 @@ export default class GrantChart extends React.Component {
                     </TooltipWrapper>
                 </div>
                 <div className="award-amounts-viz__label" style={nonFederalFundingLabelStyle}>
-                    {!nonFederalFundingIsZero > 0 && <div className="award-amounts-viz__line--non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />}
+                    {!nonFederalFundingIsZero && <div className="award-amounts-viz__line--non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />}
                     <div className={`${nonFederalFundingIsZero ? 'award-amounts-viz__desc award-amounts-viz__desc--nff-zero' : 'award-amounts-viz__desc'}`}>
-                        {!nonFederalFundingIsZero &&
-                            <div
-                                className="award-amounts-viz__desc-text"
-                                role="button"
-                                tabIndex="0"
-                                onBlur={obligatedTooltipProps.controlledProps.closeTooltip}
-                                onFocus={obligatedTooltipProps.controlledProps.showTooltip}
-                                onKeyPress={obligatedTooltipProps.controlledProps.showTooltip}
-                                onMouseOver={obligatedTooltipProps.controlledProps.showTooltip}
-                                onMouseOut={obligatedTooltipProps.controlledProps.closeTooltip}
-                                onClick={obligatedTooltipProps.controlledProps.showTooltip}>
-                                <div className="award-amounts-viz__desc-text" role="button" tabIndex="0">
+                        {!nonFederalFundingIsZero && (
+                            <React.Fragment>
+                                <div
+                                    className="award-amounts-viz__desc-text"
+                                    role="button"
+                                    tabIndex="0"
+                                    onBlur={nonFederalFundingTooltipProps.controlledProps.closeTooltip}
+                                    onFocus={nonFederalFundingTooltipProps.controlledProps.showTooltip}
+                                    onKeyPress={nonFederalFundingTooltipProps.controlledProps.showTooltip}
+                                    onMouseOver={nonFederalFundingTooltipProps.controlledProps.showTooltip}
+                                    onMouseOut={nonFederalFundingTooltipProps.controlledProps.closeTooltip}
+                                    onClick={nonFederalFundingTooltipProps.controlledProps.showTooltip}>
                                     <strong>{this.props.awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
                                 </div>
                                 <div className="award-amounts-viz__legend-line" style={{ backgroundColor: "#47AAA7" }} />
-                            </div>}
+                            </React.Fragment>
+                        )}
                         {nonFederalFundingIsZero &&
                             <TooltipWrapper {...nonFederalFundingTooltipProps} offsetAdjustments={{ top: 0 }} styles={{ ...nonFFTooltipStyles, width: 'auto', right: 0 }}>
                                 <div className="award-amounts-viz__desc-text" role="button" tabIndex="0">
