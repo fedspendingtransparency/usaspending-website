@@ -75,51 +75,51 @@ export default class AwardAmountsChart extends Component {
         const map = {
             idv: {
                 obligated: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <CombinedObligatedAmounts total={tooltipData.obligatedFormatted} count={tooltipData.childAwardCount} />
                 },
                 current: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <CombinedCurrentAmounts total={tooltipData.baseAndExercisedOptionsFormatted} count={tooltipData.childAwardCount} />
                 },
                 potential: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <CombinedPotentialAmounts total={tooltipData.baseAndAllOptionsFormatted} count={tooltipData.childAwardCount} />
                 },
                 exceedsCurrent: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <CombinedExceedsCurrentAmounts total={tooltipData.overspendingFormatted} count={tooltipData.childAwardCount} />
                 },
                 exceedsPotential: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <CombinedExceedsPotentialAmounts total={tooltipData.extremeOverspendingFormatted} count={tooltipData.childAwardCount} />
                 }
             },
             contract: {
                 obligated: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <ObligatedAmountTooltip />
                 },
                 current: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <CurrentAmountTooltip />
                 },
                 potential: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <PotentialAmountTooltip />
                 },
                 exceedsPotential: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <ExceedsPotentialAmountTooltip />
                 },
                 exceedsCurrent: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <ExceedsCurrentAmountTooltip />
                 }
             },
             grant: {
                 obligated: {
-                    offsetAdjustments: { top: -7, right: 30 },
+                    offsetAdjustments: { top: -7 },
                     tooltipComponent: <ObligatedAmountTooltip />
                 },
                 nonFederalFunding: {
@@ -127,17 +127,17 @@ export default class AwardAmountsChart extends Component {
                     tooltipComponent: <NonFederalFundingTooltip />
                 },
                 totalFunding: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <TotalFundingTooltip />
                 }
             },
             loan: {
                 subsidy: {
-                    offsetAdjustments: { top: 0, right: 30 },
+                    offsetAdjustments: { top: 0 },
                     tooltipComponent: <SubsidyTooltip />
                 },
                 faceValue: {
-                    offsetAdjustments: { top: -7, right: 30 },
+                    offsetAdjustments: { top: -7 },
                     tooltipComponent: <FaceValueTooltip />
                 }
             }
