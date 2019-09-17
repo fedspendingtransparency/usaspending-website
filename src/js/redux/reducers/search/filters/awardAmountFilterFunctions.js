@@ -4,7 +4,7 @@
 
 import { awardRanges } from 'dataMapping/search/awardAmount';
 import { OrderedMap } from 'immutable';
-import { isEqual } from 'lodash';
+import { isEqual, flatten, map, compact, each } from 'lodash';
 
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other files
@@ -12,34 +12,30 @@ import { isEqual } from 'lodash';
 // min and max are numbers or null
 export const updateAwardAmounts = (state, value) => {
     let awardAmounts = state;
-
     // value will be an array [min, max] or a string
-    // 'range-1' signifying a range from awardRanges
-    // min and max will be a number or null
+    // e.g. string, 'range-1' signifying a range from awardRanges
+    // e.g. [min, max], min and max will be a number or null
     // null signifies postitive or negative infinity
 
-    // delete a specific range if it exists
-    const specific = awardAmounts.get('specific');
-    if (specific) awardAmounts.delete('specific');
     // get any possible range
-    const range0 = awardAmounts.get('range-0');
-    const range1 = awardAmounts.get('range-1');
-    const range2 = awardAmounts.get('range-2');
-    const range3 = awardAmounts.get('range-3');
-    const range4 = awardAmounts.get('range-4');
-    // create an array of possible current award ranges to filter
-    const rangeArray = [
-        range0,
-        range1,
-        range2,
-        range3,
-        range4
-    ];
-    // the current award range
-    const currentRange = rangeArray.filter((range) => {
-        if (range) return range;
-    }).flatMap((range) => range);
-    if (currentRange) awardAmounts.delete(currentRange);
+    // mapkeys, gets any current range that exists in redux since we will not know the key
+    // compact,, removes any falsey from the array
+    // flatten, since the range will be an array we will have [[min, max]]
+    // and we need to flatten this into [min, max]
+    const currentRange = flatten(
+        compact(
+            map(awardRanges, (val, key) => awardAmounts.get(key))));
+    // if the current range is the same as what a user checked
+    // set award amounts to be empty since the user is unchecking the same
+    // checkbox
+    if (currentRange.length !== 0) {
+        // find the correct range key and delete it
+        each(awardRanges, (val) => {
+            if (isEqual(val, currentRange)) {
+                awardAmounts = new OrderedMap({});
+            }
+        });
+    }
     // check if value is a string
     const valueIsAString = typeof value === 'string';
     // get the new award range
@@ -59,7 +55,7 @@ export const updateAwardAmounts = (state, value) => {
     }
     // specific input logic
     // value is a specific amount which is an array [min,max]
-    if (!valueIsAString && !isEqual(specific, value)) {
+    if (!valueIsAString) {
         awardAmounts = new OrderedMap({
             specific: value
         });

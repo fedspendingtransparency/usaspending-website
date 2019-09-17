@@ -11,17 +11,29 @@ import { Close } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     label: PropTypes.string,
-    remove: PropTypes.func
+    removeFilter: PropTypes.func,
+    name: PropTypes.string
 };
 
 export default class SelectedAwardAmountBound extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.removeFilter = this.removeFilter.bind(this);
+    }
+
+    removeFilter() {
+        const { removeFilter, name } = this.props;
+        removeFilter(name);
+    }
+
     render() {
-        const { label, remove } = this.props;
+        const { label } = this.props;
         return (
             <button
                 className="shown-filter-button"
                 value={label}
-                onClick={remove}
+                onClick={this.removeFilter}
                 title="Click to remove."
                 aria-label={`Applied filter: ${label}`}>
                 <span className="close">

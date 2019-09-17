@@ -12,13 +12,16 @@ import { each } from 'lodash';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import AwardAmountSearch from 'components/search/filters/awardAmount/AwardAmountSearch';
-import SelectedAwardAmountBound from 'components/search/filters/awardAmount/SelectedAwardAmountBound';
-import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import SelectedAwardAmountBound from
+    'components/search/filters/awardAmount/SelectedAwardAmountBound';
+import { formatAwardAmountRange } from 'helpers/awardAmountHelper';
+
 
 const propTypes = {
     updateAwardAmounts: PropTypes.func,
     awardAmounts: PropTypes.object,
-    appliedAmounts: PropTypes.object
+    appliedAmounts: PropTypes.object,
+    updateGenericFilter: PropTypes.func
 };
 
 export class AwardAmountSearchContainer extends React.Component {
@@ -27,7 +30,7 @@ export class AwardAmountSearchContainer extends React.Component {
 
         // Bind functions
         this.selectAwardRange = this.selectAwardRange.bind(this);
-        this.remove = this.remove.bind(this);
+        this.removeFilter = this.removeFilter.bind(this);
     }
 
     selectAwardRange(awardAmountRange) {
@@ -41,49 +44,42 @@ export class AwardAmountSearchContainer extends React.Component {
         return Symbol('dirty amount');
     }
 
-    remove() {
-
-    };
+    removeFilter(key) {
+        const newValue = this.props.awardAmounts.delete(key);
+        this.props.updateGenericFilter({
+            type: 'awardAmounts',
+            value: newValue
+        });
+    }
 
     stagedFilters() {
-        console.log(' Staged Filters : ', this.props.awardAmounts.toObject());
         const filterObject = this.props.awardAmounts.toObject();
-        // [min, max]
         let stagedFilter;
         let name;
-        each(filterObject, (range, val, key) => {
+        each(filterObject, (val, key) => {
             stagedFilter = val;
             name = key;
         });
         if (!stagedFilter) return null;
-        return stagedFilter.map((bound, index) => {
-            if (!bound) return;
-            const amount = formatMoneyWithPrecision(bound, { precision: 2 });
-            const minOrMaxLabel = (index === 0) ? 'Min' : 'Max';
-            const label = `${minOrMaxLabel} | ${amount}`;
-            return (
-                <SelectedAwardAmountBound
-                    {...this.props}
-                    name={name}
-                    label={label}
-                    key="award-range-specific"
-                    rangeID="specific"
-                    toggleSelection={this.searchSpecificRange} />
-            );
-        });
-        return null;
+        const label = formatAwardAmountRange(stagedFilter);
+        return (
+            <SelectedAwardAmountBound
+                removeFilter={this.removeFilter}
+                name={name}
+                label={label} />
+        );
     }
 
     render() {
         const stagedFilters = this.stagedFilters();
         return (
-            <div>
+            <div className="award-amount-filter">
                 <AwardAmountSearch
                     dirtyFilters={this.dirtyFilters()}
                     awardAmounts={this.props.awardAmounts}
                     selectAwardRange={this.selectAwardRange} />
                 <div
-                    className="award-amount-item-wrapper"
+                    className="selected-filters"
                     role="status">
                     {stagedFilters}
                 </div>

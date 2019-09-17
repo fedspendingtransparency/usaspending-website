@@ -3,43 +3,17 @@
  * Created by michaelbray on 3/7/17.
  */
 
-import Accounting from 'accounting';
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-
-// formats the pre-made checkboxes
-// export const formatAwardAmountRange = (range) => {
-//     const min = MoneyFormatter.calculateUnitForSingleValue(range[0]);
-//     const max = MoneyFormatter.calculateUnitForSingleValue(range[1]);
-
-//     const minValue = Math.round((10 * range[0]) / min.unit) / 10;
-//     const maxValue = Math.round((10 * range[1]) / max.unit) / 10;
-
-//     const minLabel = `${minValue}${min.unitLabel}`;
-//     const maxLabel = `${maxValue}${max.unitLabel}`;
-
-//     if (range[0] === 0 && range[1] === 0) {
-//         return `$0 & Above`;
-//     }
-//     else if (range[0] === 0) {
-//         return `Under $${maxLabel}`;
-//     }
-//     else if (range[1] === 0) {
-//         return `$${minLabel} & Above`;
-//     }
-//     return `$${minLabel} - $${maxLabel}`;
-// };
 
 // formats the specific checkboxes
 // options are NPM accounting package options
-export const formatAwardAmountRange = (range, options) => {
-    // const minLabel = `$${range[0]}`;
-    // const maxLabel = `$${range[1]}`;
+export const formatAwardAmountRange = (range, options = 2) => {
     const minLabel = formatMoneyWithPrecision(range[0], options);
     const maxLabel = formatMoneyWithPrecision(range[1], options);
     let label = `${minLabel} - ${maxLabel}`;
-    if (range[0] === 0 && range[1] === 0) {
-        label = `$0 - $0`;
-    }
+    // if (range[0] === 0 && range[1] === 0) {
+    //     label = `$0 - $0`;
+    // }
     if (!range[0] && (range[0] !== 0)) {
         label = `Under ${maxLabel}`;
     }
@@ -49,12 +23,14 @@ export const formatAwardAmountRange = (range, options) => {
     return label;
 };
 
-export const ensureInputIsNumeric = (input) => {
-    if (!input && input !== 0) return null;
-    // Format user input
-    const cleanInput = Accounting.unformat(input.toString());
-    if (isNaN(Number(cleanInput)) || cleanInput === '') {
-        return null;
+export const formatNumber = (input) => {
+    const splitDecimal = input.toString().split('.');
+    // remove preceding zeros from whole number
+    const newWholeNumber = parseInt(splitDecimal[0], 10).toString();
+    const newNumberString = `${newWholeNumber}.${splitDecimal[1] || ''}`;
+    // handle decimal formatting
+    if (splitDecimal.length > 1 && splitDecimal[1].length > 2) {
+        return Number(Number(newNumberString).toFixed(2));
     }
-    return Number(cleanInput);
+    return Number(newNumberString);
 };

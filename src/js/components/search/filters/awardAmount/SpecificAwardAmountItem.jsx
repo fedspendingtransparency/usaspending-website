@@ -6,8 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
-
-import { ensureInputIsNumeric, formatAwardAmountRange } from 'helpers/awardAmountHelper';
+import { formatNumber } from 'helpers/awardAmountHelper';
 import EntityWarning from '../location/EntityWarning';
 
 const propTypes = {
@@ -19,8 +18,8 @@ export default class SpecificAwardAmountItem extends React.Component {
         super(props);
 
         this.state = {
-            min: null,
-            max: null,
+            min: '',
+            max: '',
             showWarning: false,
             warningMessage: ''
         };
@@ -40,15 +39,13 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     minChange(e) {
-        const min = ensureInputIsNumeric(e.target.value);
+        const min = formatNumber(e.target.value);
         this.setState({ min }, this.verifyNumberLogic);
-        // this.verifyNumberLogic();
     }
 
     maxChange(e) {
-        const max = ensureInputIsNumeric(e.target.value);
+        const max = formatNumber(e.target.value);
         this.setState({ max }, this.verifyNumberLogic);
-        // this.verifyNumberLogic();
     }
 
     searchSpecificRange() {
@@ -57,7 +54,8 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     verifyNumberLogic() {
-        const { min, max } = this.state;
+        const min = Number(this.state.min);
+        const max = Number(this.state.max);
         let showWarning = false;
         const warningMessage = 'Please choose a min less than the max';
         const minIsNull = (!min && min !== 0);
@@ -78,14 +76,10 @@ export default class SpecificAwardAmountItem extends React.Component {
             showWarning,
             warningMessage
         } = this.state;
-        // const hide = (
-        //     (!min && min !== 0) &&
-        //     (!max && max !== 0)) ? ' hide' : '';
         let disabled = (!min && min !== 0) &&
         (!max && max !== 0);
         if (showWarning) disabled = true;
 
-        // const label = formatAwardAmountRange([min, max], { precision: 2 });
         return (
             <div className="specific-award-amount">
                 <hr className="specific-award-amount-divider" />
@@ -98,15 +92,19 @@ export default class SpecificAwardAmountItem extends React.Component {
                 <div className="specific-award-amount-wrapper">
                     <span>$</span>
                     <input
-                        type="text"
+                        type="number"
                         placeholder="Min"
+                        step="none"
                         className="specific-award-min"
+                        value={min}
                         onChange={this.minChange} />
                     <span>to</span>
                     <input
-                        type="text"
+                        type="number"
                         placeholder="Max"
+                        step="none"
                         className="specific-award-max"
+                        value={max}
                         onChange={this.maxChange} />
                     <IndividualSubmit
                         disabled={disabled}

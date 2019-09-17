@@ -44,8 +44,8 @@ export default class AwardAmountSearch extends React.Component {
     }
 
     searchSpecificRange(selections) {
-        const min = AwardAmountHelper.ensureInputIsNumeric(selections[0]);
-        const max = AwardAmountHelper.ensureInputIsNumeric(selections[1]);
+        const min = selections[0];
+        const max = selections[1];
         this.props.selectAwardRange([min, max]);
     }
 
@@ -53,7 +53,7 @@ export default class AwardAmountSearch extends React.Component {
         const { awardAmountRanges, awardAmounts } = this.props;
         return reduce(awardAmountRanges, (result, value, key) => {
             const name = AwardAmountHelper.formatAwardAmountRange(
-                value, { precision: 0 });
+                value, 0);
             result.push(
                 (<PrimaryCheckboxType
                     {...this.props}
@@ -74,7 +74,7 @@ export default class AwardAmountSearch extends React.Component {
     render() {
         const awardAmountRangeItems = this.awareAmountCheckboxes();
         return (
-            <div className="award-amount-filter search-filter checkbox-type-filter">
+            <div className="search-filter checkbox-type-filter">
                 <div className="filter-item-wrap">
                     <ul className="award-amounts checkbox-types">
                         {awardAmountRangeItems}
