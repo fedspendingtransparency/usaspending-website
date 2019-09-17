@@ -32,6 +32,9 @@
             appearance: none;
             margin: 0; 
         }
+        input[type=number] {
+          -moz-appearance:textfield;
+        }
         span {
             padding-right: 0.5rem;
         }

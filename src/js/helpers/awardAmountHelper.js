@@ -19,16 +19,3 @@ export const formatAwardAmountRange = (range, options = 2) => {
     }
     return label;
 };
-
-export const formatNumber = (input) => {
-    if (input === '') return '';
-    const splitDecimal = input.toString().split('.');
-    // remove preceding zeros from whole number
-    const newWholeNumber = parseInt(splitDecimal[0], 10).toString();
-    const newNumberString = `${newWholeNumber}.${splitDecimal[1] || ''}`;
-    // handle decimal formatting
-    if (splitDecimal.length > 1 && splitDecimal[1].length > 2) {
-        return Number(Number(newNumberString).toFixed(2));
-    }
-    return Number(newNumberString);
-};

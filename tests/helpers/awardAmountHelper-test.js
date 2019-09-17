@@ -71,29 +71,4 @@ describe('Award Amounts Advanced Search Filter Helper', () => {
             });
         });
     });
-
-    describe('Only Allow Two Decimal Places', () => {
-        const normalNumber = 55.67;
-        const tooManyLeadingZeros = '00000055.67';
-        const tooManyDecimalPlaces = 55.67498464546;
-        it('should return and empty string when there is no input', () => {
-            const formattedNumber = formatNumber('');
-            expect(formattedNumber).toEqual('');
-        });
-
-        it('should return the normal number', () => {
-            const formattedNumber = formatNumber(normalNumber);
-            expect(formattedNumber).toEqual(normalNumber);
-        });
-
-        it('should remove the leading zeros number', () => {
-            const formattedNumber = formatNumber(tooManyLeadingZeros);
-            expect(formattedNumber).toEqual(normalNumber);
-        });
-
-        it('should return a number with two decimal places', () => {
-            const formattedNumber = formatNumber(tooManyDecimalPlaces);
-            expect(formattedNumber).toEqual(normalNumber);
-        });
-    });
 });

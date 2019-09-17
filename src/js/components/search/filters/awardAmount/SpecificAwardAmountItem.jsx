@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
-import { formatNumber } from 'helpers/awardAmountHelper';
 import EntityWarning from '../location/EntityWarning';
 
 const propTypes = {
@@ -39,12 +38,12 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     minChange(e) {
-        const min = formatNumber(e.target.value);
+        const min = e.target.value;
         this.setState({ min }, this.verifyNumberLogic);
     }
 
     maxChange(e) {
-        const max = formatNumber(e.target.value);
+        const max = e.target.value;
         this.setState({ max }, this.verifyNumberLogic);
     }
 
@@ -79,7 +78,6 @@ export default class SpecificAwardAmountItem extends React.Component {
         let disabled = (!min && min !== 0) &&
         (!max && max !== 0);
         if (showWarning) disabled = true;
-
         return (
             <div className="specific-award-amount">
                 <hr className="specific-award-amount-divider" />
