@@ -120,7 +120,7 @@ export default class AwardAmountsChart extends Component {
         };
         return map[awardType][category];
     }
-
+    // Most of this this fn will be unnecessary w/ hooks
     getTooltipPropsBySpendingScenario(spendingScenario, awardType = this.props.awardType) {
         // these are the award amount visualizations needed for every spending scenario
         const spendingCategories = getSpendingCategoriesByAwardType(awardType);
@@ -140,7 +140,7 @@ export default class AwardAmountsChart extends Component {
                     wide: true,
                     controlledProps: {
                         isControlled: true,
-                        isVisible: (this.state.activeTooltip === category),
+                        // isVisible: (this.state.activeTooltip === category), triggers error due to refactor
                         closeTooltip,
                         showTooltip
                     }
