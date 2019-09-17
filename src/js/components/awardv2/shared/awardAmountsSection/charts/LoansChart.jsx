@@ -52,9 +52,10 @@ export default class LoansChart extends React.Component {
                         </div>
                     </div>}
                 {isSubsidyZero &&
-                    <TooltipWrapper {...subsidyTooltipProps}>
+                    <TooltipWrapper {...subsidyTooltipProps} styles={{ width: '200px' }}>
                         <div className="award-amounts-viz__desc-top--loans" role="button" tabIndex="0">
-                            <strong>{this.props.awardAmounts.subsidyAbbreviated}</strong><br />Original Subsidy Cost
+                            <strong>{this.props.awardAmounts.subsidyAbbreviated}</strong>
+                            <span>Original Subsidy Cost</span>
                         </div>
                     </TooltipWrapper>
                 }
