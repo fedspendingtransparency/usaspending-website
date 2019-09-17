@@ -73,16 +73,16 @@ export const SubsidyTooltip = () => (
     <div className="combined-obligated-tt">
         <h4 className="tooltip__title">Original Subsidy Cost</h4>
         <div className="tooltip__text">
-            <p>This is the sum of the federal action obligation and the non-federal funding amounts.</p>
+            <p>This is the total estimated long-term cost to the Government of the direct loan or loan guarantee, excluding administrative costs.</p>
         </div>
     </div>
 );
 
 export const FaceValueTooltip = () => (
     <div className="combined-obligated-tt">
-        <h4 className="tooltip__title">Face Value of Direct Loan</h4>
+        <h4 className="tooltip__title">Face Value of Direct Loan or Loan Guarantee</h4>
         <div className="tooltip__text">
-            <p>This is the sum of the federal action obligation and the non-federal funding amounts.</p>
+            <p>This is the full amount of the loan/loan guarantee awarded to the recipient.</p>
         </div>
     </div>
 );
