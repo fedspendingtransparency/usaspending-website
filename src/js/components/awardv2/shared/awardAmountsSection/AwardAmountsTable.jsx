@@ -12,7 +12,7 @@ const propTypes = {
 // contractAndIdvCategories + grantCategories live in the awardData props object
 const contractAndIdvCategories = ['totalObligationFormatted', 'baseExercisedOptionsFormatted', 'baseAndAllOptionsFormatted'];
 const grantCategories = ['totalObligationFormatted', 'nonFederalFundingFormatted', 'totalFundingFormatted'];
-const loanCategories = ['faceValueFormatted', 'subsidyFormatted'];
+const loanCategories = ['subsidyFormatted', 'faceValueFormatted'];
 
 const getSpendingCategories = (awardType) => {
     const map = {
@@ -42,8 +42,8 @@ const tableTitleByAwardTypeByCategory = {
         totalObligationFormatted: 'Obligated Amount'
     },
     loan: {
-        faceValueFormatted: 'Face Value of Direct Loan',
-        subsidyFormatted: 'Original Subsidy Cost'
+        subsidyFormatted: 'Original Subsidy Cost',
+        faceValueFormatted: 'Face Value of Direct Loan'
     }
 };
 
@@ -55,7 +55,9 @@ const awardTableClassMap = {
     "Current Amount": "award-amounts__data-icon_gray",
     "Potential Amount": "award-amounts__data-icon_transparent",
     "Non-Federal Funding": "award-amounts__data-icon_green",
-    "Total Funding": "award-amounts__data-icon_gray"
+    "Total Funding": "award-amounts__data-icon_gray",
+    "Face Value of Direct Loan": "award-amounts__data-icon_transparent",
+    "Original Subsidy Cost": "award-amounts__data-icon_yellow"
 };
 
 const AwardAmountsTable = ({
