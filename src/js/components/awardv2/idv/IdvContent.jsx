@@ -10,7 +10,7 @@ import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsCo
 import IdvActivityContainer from 'containers/awardV2/idv/IdvActivityContainer';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import AwardHistory from './AwardHistory';
+import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import RelatedAwards from '../shared/overview/RelatedAwards';
 import IdvDates from './IdvDates';
