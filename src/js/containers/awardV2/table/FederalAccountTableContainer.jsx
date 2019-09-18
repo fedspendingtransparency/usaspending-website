@@ -15,6 +15,7 @@ import * as awardActions from 'redux/actions/awardV2/awardActions';
 
 import BaseFederalAccountFunding from 'models/v2/awardsV2/BaseFederalAccountFunding';
 import FederalAccountTable from 'components/awardv2/table/FederalAccountTable';
+import { fetchFederalAccountFunding } from '../../../helpers/awardHistoryHelper';
 
 const propTypes = {
     award: PropTypes.object,
@@ -61,8 +62,8 @@ export class FederalAccountTableContainer extends React.Component {
         }
     }
 
-    fetchSubmissions(page = 1, reset = false) {
-        if (!this.props.award.id) {
+    fetchSubmissions(page = 1, reset = false, award = this.props.award) {
+        if (!award.id) {
             return;
         }
 
@@ -77,14 +78,16 @@ export class FederalAccountTableContainer extends React.Component {
 
         // generate the params
         const params = {
-            award_id: this.props.award.id,
+            award_id: award.id,
             page,
             sort: this.state.sort.field,
             order: this.state.sort.direction,
             limit: pageLimit
         };
 
-        this.fedAccountRequest = IdvHelper.fetchAwardFedAccountFunding(params);
+        this.fedAccountRequest = (award.category === 'idv')
+            ? IdvHelper.fetchAwardFedAccountFunding(params)
+            : fetchFederalAccountFunding(params.award_id);
 
         this.fedAccountRequest.promise
             .then((res) => {
