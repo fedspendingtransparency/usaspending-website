@@ -27,6 +27,13 @@ const tabs = [
         tooltipProps: { wide: true }
     },
     {
+        label: "Sub-Awards",
+        internal: "subawards",
+        enabled: true,
+        tooltipContent: transactionHistoryInfo,
+        tooltipProps: { wide: true }
+    },
+    {
         label: "Federal Account Funding",
         internal: "fedaccount",
         enabled: true,
@@ -90,16 +97,18 @@ export default class TablesSection extends React.Component {
     }
 
     render() {
+        const isIdv = this.props.overview.category === 'idv';
         const content = this.currentSection();
+        const tabOptions = tabs.filter((tab) => ((isIdv && tab.internal !== 'subawards') || !isIdv));
 
         return (
             <div className="tables-section">
                 <DetailsTabBar
-                    tabOptions={tabs}
+                    tabOptions={tabOptions}
                     activeTab={this.props.activeTab}
                     clickTab={this.props.clickTab} />
                 <ResultsTablePicker
-                    types={tabs}
+                    types={tabOptions}
                     active={this.props.activeTab}
                     switchTab={this.props.clickTab} />
                 <div
