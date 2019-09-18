@@ -43,8 +43,6 @@ export default class AwardAmountsChart extends Component {
         super(props);
         this.renderChartByAwardType = this.renderChartByAwardType.bind(this);
         this.renderChartBySpendingScenario = this.renderChartBySpendingScenario.bind(this);
-        this.getTooltipPropsBySpendingScenario = this.getTooltipPropsBySpendingScenario.bind(this);
-        this.getTooltipPropsByAwardTypeAndSpendingCategory = this.getTooltipPropsByAwardTypeAndSpendingCategory.bind(this);
     }
     // this fn is horrible, needs to go!!!
     getTooltipPropsByAwardTypeAndSpendingCategory(awardType, category, tooltipData = this.props.awardOverview) {
@@ -120,41 +118,6 @@ export default class AwardAmountsChart extends Component {
         };
         return map[awardType][category];
     }
-    // This fn will be unnecessary w/ hooks
-    getTooltipPropsBySpendingScenario(spendingScenario, awardType = this.props.awardType) {
-        // these are the award amount visualizations needed for every spending scenario
-        const spendingCategories = getSpendingCategoriesByAwardType(awardType);
-        if (spendingScenario !== "normal") {
-            // if exceedsPotential or exceedsCurrent is the spending scenario, add it here as a spendingCategory...
-            spendingCategories.push(spendingScenario);
-        }
-
-        // Build object with shape: { obligatedToolTipProps: {}, potentialToolTipProps: {}, ... }
-        return spendingCategories.reduce((acc, category) => {
-            // used to reference methods in camelCase
-            const propsForCategory = this.getTooltipPropsByAwardTypeAndSpendingCategory(awardType, category);
-            const closeTooltip = this.setActiveTooltip.bind(this, null);
-            const showTooltip = this.setActiveTooltip.bind(this, category);
-            return Object.assign(acc, {
-                [`${category}TooltipProps`]: Object.assign(propsForCategory, {
-                    wide: true,
-                    controlledProps: {
-                        isControlled: true,
-                        // isVisible: (this.state.activeTooltip === category), triggers error due to refactor
-                        closeTooltip,
-                        showTooltip
-                    }
-                })
-            });
-        }, {});
-    }
-
-    // Completely unnecessary w/ hooks!
-    setActiveTooltip(category) {
-        this.setState({
-            activeTooltip: category
-        });
-    }
 
     renderChartBySpendingScenario(
         spendingScenario = this.props.spendingScenario,
@@ -197,9 +160,7 @@ export default class AwardAmountsChart extends Component {
         switch (awardType) {
             case "grant":
                 return (
-                    <GrantChart
-                        {...this.getTooltipPropsBySpendingScenario('normal', awardType)}
-                        awardAmounts={awardAmounts} />
+                    <GrantChart awardAmounts={awardAmounts} />
                 );
             case "loan":
                 return (
