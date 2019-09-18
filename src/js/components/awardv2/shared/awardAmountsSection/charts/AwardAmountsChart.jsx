@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import NormalChart from './NormalChart';
@@ -6,8 +6,6 @@ import ExceedsCurrentChart from './ExceedsCurrentChart';
 import ExceedsPotentialChart from './ExceedsPotentialChart';
 import NoResultsMessage from '../../../../sharedComponents/NoResultsMessage';
 import GrantChart from './GrantChart';
-import { ObligatedAmountTooltip, ExceedsCurrentAmountTooltip, CurrentAmountTooltip, ExceedsPotentialAmountTooltip, PotentialAmountTooltip, NonFederalFundingTooltip, TotalFundingTooltip, SubsidyTooltip, FaceValueTooltip } from '../Tooltips';
-import { CombinedObligatedAmounts, CombinedCurrentAmounts, CombinedPotentialAmounts, CombinedExceedsCurrentAmounts, CombinedExceedsPotentialAmounts } from "../../../idv/TooltipContent";
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../../propTypes/index';
 import LoansChart from './LoansChart';
 
@@ -17,19 +15,7 @@ const propTypes = {
     spendingScenario: PropTypes.string
 };
 
-const spendingCategoriesByAwardType = {
-    grant: ["obligated", "nonFederalFunding", "totalFunding"],
-    loan: ["subsidy", "faceValue"],
-    contract: ["obligated", "current", "potential"]
-};
-
-const getSpendingCategoriesByAwardType = (awardType) => {
-    if (Object.keys(spendingCategoriesByAwardType).includes(awardType)) {
-        return spendingCategoriesByAwardType[awardType];
-    }
-    return spendingCategoriesByAwardType.contract;
-};
-
+// eslint-disable-next-line import/prefer-default-export
 export const useTooltips = (arrayOfTooltips) => {
     const [activeTooltip, setActiveTooltip] = useState('');
     return [
@@ -38,6 +24,7 @@ export const useTooltips = (arrayOfTooltips) => {
         ...arrayOfTooltips.map((tt) => () => setActiveTooltip(tt))
     ];
 };
+
 const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
     const renderChartBySpendingScenario = (
         scenario = spendingScenario,
@@ -90,3 +77,5 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
 };
 
 AwardAmountsChart.propTypes = propTypes;
+
+export default AwardAmountsChart;
