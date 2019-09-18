@@ -11,7 +11,7 @@ import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import SelectedKeywords from './SelectedKeywords';
 
 const propTypes = {
-    selectedKeyword: PropTypes.object,
+    selectedKeywords: PropTypes.array,
     toggleKeyword: PropTypes.func,
     dirtyFilter: PropTypes.symbol
 };
@@ -63,13 +63,9 @@ export default class Keyword extends React.Component {
             'aria-controls': 'selected-keyword-tags'
         };
 
-        let selectedKeywords = null;
-
-        if (this.props.selectedKeyword.size > 0) {
-            selectedKeywords = (<SelectedKeywords
-                toggleKeyword={this.props.toggleKeyword}
-                selectedKeyword={this.props.selectedKeyword} />);
-        }
+        const selectedKeywords = (<SelectedKeywords
+            toggleKeyword={this.props.toggleKeyword}
+            selectedKeywords={this.props.selectedKeywords} />);
 
         return (
             <div className="keyword-filter search-filter">
