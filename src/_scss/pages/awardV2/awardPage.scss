@@ -113,13 +113,14 @@
             @import "./visualizations/description/description";
             @import "./visualizations/additionalInfo";
             @import "./visualizations/awardFundingSummary";
+            @import "./shared/awardHistorySection";
+            @import "./shared/awardAmountsSection/index";
+            @import "./shared/infoTooltip";
         }
         @import "./comingSoon";
         @import "./awardContract";
         @import "./awardFinancialAssistance";
         @import "./idv/awardIdv";
         @import "layouts/search/header/downloadButton";
-        @import "./shared/awardHistorySection";
-        @import "./shared/awardAmountsSection/index";
     }
 }

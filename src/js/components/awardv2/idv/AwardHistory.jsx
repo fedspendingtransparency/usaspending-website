@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
 import TablesSection from './TablesSection';
-import InfoTooltip from './InfoTooltip';
 import { awardHistoryInfo } from './InfoTooltipContent';
+import AwardSectionHeader from '../shared/AwardSectionHeader';
 
 const propTypes = {
     overview: PropTypes.object,
@@ -17,28 +17,24 @@ const propTypes = {
     activeTab: PropTypes.string
 };
 
-export default class AwardHistory extends React.Component {
-    render() {
-        return (
-            <div id="award-award-history" className="award-viz award-history">
-                <div className="award-viz__heading">
-                    <div className="award-viz__icon">
-                        <AwardLoop alt="Award History" />
-                    </div>
-                    <h3 className="award-viz__title">
-                        Award History for this IDV
-                    </h3>
-                    <InfoTooltip left>
-                        {awardHistoryInfo}
-                    </InfoTooltip>
-                </div>
-                <hr />
-                <TablesSection
-                    overview={this.props.overview}
-                    clickTab={this.props.setActiveTab}
-                    activeTab={this.props.activeTab} />
-            </div>
-        );
-    }
-}
+const AwardHistory = ({ overview, setActiveTab, activeTab }) => {
+    const sectionTitle = (overview.category === 'idv')
+        ? "Award History for this IDV"
+        : "Award History";
+    return (
+        <div id="award-award-history" className="award-viz award-history">
+            <AwardSectionHeader
+                title={sectionTitle}
+                icon={<AwardLoop alt="Award History" />}
+                tooltip={awardHistoryInfo} />
+            <TablesSection
+                overview={overview}
+                clickTab={setActiveTab}
+                activeTab={activeTab} />
+        </div>
+    );
+};
+
 AwardHistory.propTypes = propTypes;
+
+export default AwardHistory;

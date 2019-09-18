@@ -52,7 +52,8 @@ export const AWARD_PAGE_WRAPPER_PROPS = {
 
 export const AWARD_SECTION_HEADER_PROPS = {
     icon: PropTypes.oneOf([PropTypes.string, PropTypes.node]),
-    title: PropTypes.string
+    title: PropTypes.string,
+    tooltip: PropTypes.node
 };
 const awardOverviewAwardAmountsSectionBase = {
     _baseAndAllOptions: PropTypes.number,
