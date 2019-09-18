@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import InfoTooltip from '../idv/InfoTooltip';
+import InfoTooltip from '../shared/InfoTooltip';
 import AwardSection from './AwardSection';
 
 const propTypes = {

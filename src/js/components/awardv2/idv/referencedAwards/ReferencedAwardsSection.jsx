@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ReferencedAwardsTable from './ReferencedAwardsTable';
-import InfoToolTip from "../InfoTooltip";
-import { relatedAwardsInfo } from '../InfoTooltipContent';
+import InfoToolTip from "../../shared/InfoTooltip";
+import { relatedAwardsInfo } from '../../shared/InfoTooltipContent';
 
 const propTypes = {
     results: PropTypes.array,

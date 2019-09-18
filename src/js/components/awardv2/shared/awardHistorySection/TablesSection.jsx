@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
-import { federalAccountFundingInfo, transactionHistoryInfo } from '../idv/InfoTooltipContent';
-import DetailsTabBar from '../../award/details/DetailsTabBar';
-import ResultsTablePicker from '../../search/table/ResultsTablePicker';
+import { federalAccountFundingInfo, transactionHistoryInfo } from '../InfoTooltipContent';
+import DetailsTabBar from '../../../award/details/DetailsTabBar';
+import ResultsTablePicker from '../../../search/table/ResultsTablePicker';
 
 const propTypes = {
     overview: PropTypes.object,

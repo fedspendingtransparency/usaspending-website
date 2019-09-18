@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-import InfoTooltip from 'components/awardv2/idv/InfoTooltip';
+import InfoTooltip from 'components/awardv2/shared/InfoTooltip';
 
 const propTypes = {
     label: PropTypes.string,
