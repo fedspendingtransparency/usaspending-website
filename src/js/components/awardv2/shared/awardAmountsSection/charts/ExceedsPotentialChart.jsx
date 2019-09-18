@@ -8,6 +8,17 @@ import PropTypes from 'prop-types';
 
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
+import {
+    CombinedObligatedAmounts,
+    CombinedCurrentAmounts,
+    CombinedPotentialAmounts,
+    CombinedExceedsPotentialAmounts,
+    ObligatedAmountTooltip,
+    CurrentAmountTooltip,
+    PotentialAmountTooltip,
+    ExceedsPotentialAmountTooltip
+} from "../Tooltips";
+import { useTooltips } from "./AwardAmountsChart";
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 
 const propTypes = {
@@ -19,168 +30,228 @@ const propTypes = {
     exceedsPotentialTooltipProps: TOOLTIP_PROPS
 };
 
-export default class ExceedsPotentialChart extends React.Component {
-    render() {
-        const obligation = this.props.awardAmounts._totalObligation;
-        const current = this.props.awardAmounts._baseExercisedOptions;
-        const potential = this.props.awardAmounts._baseAndAllOptions;
+const tooltipPropsByAwardTypeAndSpendingCategory = (type, category, data) => {
+    const map = {
+        idv: {
+            obligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedObligatedAmounts total={data.obligatedFormatted} count={data.childAwardCount} />
+            },
+            current: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedCurrentAmounts total={data.baseAndExercisedOptionsFormatted} count={data.childAwardCount} />
+            },
+            potential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedPotentialAmounts total={data.baseAndAllOptionsFormatted} count={data.childAwardCount} />
+            },
+            exceedsPotential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedExceedsPotentialAmounts total={data.extremeOverspendingFormatted} count={data.childAwardCount} />
+            }
+        },
+        contract: {
+            obligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <ObligatedAmountTooltip />
+            },
+            current: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CurrentAmountTooltip />
+            },
+            potential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <PotentialAmountTooltip />
+            },
+            exceedsPotential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <ExceedsPotentialAmountTooltip />
+            }
+        }
+    };
 
-        const overspendingBarStyle = {
-            width: generatePercentage((obligation - potential) / obligation)
-        };
+    return map[type][category];
+};
+const ExceedsPotentialChart = ({ awardType, awardAmounts }) => {
+    const [
+        activeTooltip,
+        closeTooltip,
+        showObligatedTooltip,
+        showCurrentTooltip,
+        showPotentialTooltip,
+        showExceedsPotentialTooltip
+    ] = useTooltips(["obligated", "current", "potential", "exceedsPotential"]);
 
-        const potentialWrapperStyle = {
-            width: generatePercentage(potential / obligation)
-        };
+    const buildTooltipProps = (spendingCategory, isVisible, showTooltip, type = awardType) => ({
+        ...tooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, awardAmounts),
+        wide: true,
+        controlledProps: {
+            isControlled: true,
+            isVisible,
+            showTooltip,
+            closeTooltip
+        }
+    });
 
-        // currentBar and potentialBar live inside the potentialWrapper div,
-        // so their widths are divided by potential
-        const potentialBarStyle = {
-            width: generatePercentage((potential - current) / potential),
-            backgroundColor: '#4773aa'
-        };
+    const isIdv = (awardType === 'idv');
+    const obligation = awardAmounts._totalObligation;
+    const current = awardAmounts._baseExercisedOptions;
+    const potential = awardAmounts._baseAndAllOptions;
 
-        const currentBarStyle = {
-            width: generatePercentage(current / potential),
-            backgroundColor: '#4773aa'
-        };
+    const overspendingBarStyle = {
+        width: generatePercentage((obligation - potential) / obligation)
+    };
 
-        const obligatedLabelStyle = {
-            width: '100%'
-        };
+    const potentialWrapperStyle = {
+        width: generatePercentage(potential / obligation)
+    };
 
-        const currentLabelStyle = {
-            width: generatePercentage(current / obligation)
-        };
+    // currentBar and potentialBar live inside the potentialWrapper div,
+    // so their widths are divided by potential
+    const potentialBarStyle = {
+        width: generatePercentage((potential - current) / potential),
+        backgroundColor: '#4773aa'
+    };
 
-        const potentialLabelStyle = {
-            width: generatePercentage(potential / obligation)
-        };
+    const currentBarStyle = {
+        width: generatePercentage(current / potential),
+        backgroundColor: '#4773aa'
+    };
 
-        const {
-            obligatedTooltipProps,
-            currentTooltipProps,
-            potentialTooltipProps,
-            exceedsPotentialTooltipProps
-        } = this.props;
+    const obligatedLabelStyle = {
+        width: '100%'
+    };
 
-        const isIdv = (this.props.awardType === 'idv');
+    const currentLabelStyle = {
+        width: generatePercentage(current / obligation)
+    };
 
-        return (
-            <div className="award-amounts-viz">
-                <div className="award-amounts-viz__desc-top-wrapper">
+    const potentialLabelStyle = {
+        width: generatePercentage(potential / obligation)
+    };
+
+    const propsForObligatedTooltip = buildTooltipProps("obligated", (activeTooltip === "obligated"), showObligatedTooltip);
+    const propsForCurrentTooltip = buildTooltipProps("current", (activeTooltip === "current"), showCurrentTooltip);
+    const propsForPotentialTooltip = buildTooltipProps("potential", (activeTooltip === "potential"), showPotentialTooltip);
+    const propsForExceedsPotentialTooltip = buildTooltipProps("exceedsPotential", (activeTooltip === "exceedsCurrent"), showExceedsCurrentTooltip);
+
+    return (
+        <div className="award-amounts-viz">
+            <div className="award-amounts-viz__desc-top-wrapper">
+                <div
+                    className="award-amounts-viz__desc-top"
+                    role="button"
+                    tabIndex="0"
+                    onBlur={closeTooltip}
+                    onFocus={showObligatedTooltip}
+                    onKeyPress={showObligatedTooltip}
+                    onMouseEnter={showObligatedTooltip}
+                    onMouseLeave={closeTooltip}
+                    onClick={showObligatedTooltip}>
+                    <strong>
+                        {awardAmounts.totalObligationAbbreviated}
+                    </strong>
+                    <br />
+                    {isIdv ? "Combined Obligated Amounts" : "Obligated Amount"}
+                </div>
+                <div className="award-amounts-viz__desc">
                     <div
-                        className="award-amounts-viz__desc-top"
+                        className="award-amounts-viz__desc-text"
                         role="button"
                         tabIndex="0"
-                        onBlur={obligatedTooltipProps.controlledProps.closeTooltip}
-                        onFocus={obligatedTooltipProps.controlledProps.showTooltip}
-                        onKeyPress={obligatedTooltipProps.controlledProps.showTooltip}
-                        onMouseEnter={obligatedTooltipProps.controlledProps.showTooltip}
-                        onMouseLeave={obligatedTooltipProps.controlledProps.closeTooltip}
-                        onClick={obligatedTooltipProps.controlledProps.showTooltip}>
-                        <strong>
-                            {this.props.awardAmounts.totalObligationAbbreviated}
-                        </strong>
+                        onBlur={closeTooltip}
+                        onFocus={showExceedsPotentialTooltip}
+                        onKeyPress={showExceedsPotentialTooltip}
+                        onMouseEnter={showExceedsPotentialTooltip}
+                        onMouseLeave={closeTooltip}
+                        onClick={showExceedsPotentialTooltip}>
+                        <strong>{awardAmounts.extremeOverspendingAbbreviated}</strong>
                         <br />
-                        {isIdv ? "Combined Obligated Amounts" : "Obligated Amount"}
-                    </div>
-                    <div className="award-amounts-viz__desc">
-                        <div
-                            className="award-amounts-viz__desc-text"
-                            role="button"
-                            tabIndex="0"
-                            onBlur={exceedsPotentialTooltipProps.controlledProps.closeTooltip}
-                            onFocus={exceedsPotentialTooltipProps.controlledProps.showTooltip}
-                            onKeyPress={exceedsPotentialTooltipProps.controlledProps.showTooltip}
-                            onMouseEnter={exceedsPotentialTooltipProps.controlledProps.showTooltip}
-                            onMouseLeave={exceedsPotentialTooltipProps.controlledProps.closeTooltip}
-                            onClick={exceedsPotentialTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.extremeOverspendingAbbreviated}</strong>
-                            <br />
-                            <div className="award-amounts-viz__desc-text-wrapper">
-                                {isIdv ? "Exceeds Combined Potential Award Amounts" : "Exceeds Potential Award Amount"}
-                            </div>
-                        </div>
-                        <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_extreme-overspending" />
-                    </div>
-                </div>
-                <div
-                    className="award-amounts-viz__label"
-                    style={obligatedLabelStyle}>
-                    <div className="award-amounts-viz__line-up" />
-                </div>
-                <TooltipWrapper {...obligatedTooltipProps} styles={obligatedLabelStyle} offsetAdjustments={{ top: 17.5, right: 30 }}>
-                    <div className="award-amounts-viz__bar-wrapper award-amounts-viz__bar-wrapper_extreme-overspending">
-                        <div className="award-amounts-viz__bar">
-                            <div
-                                className="award-amounts-viz__potential-wrapper"
-                                style={potentialWrapperStyle}>
-                                <TooltipWrapper {...currentTooltipProps} styles={{ width: currentBarStyle.width }}>
-                                    <div
-                                        className="award-amounts-viz__current"
-                                        style={{ width: generatePercentage(1), backgroundColor: currentBarStyle.backgroundColor }} />
-                                </TooltipWrapper>
-                                <TooltipWrapper {...potentialTooltipProps} styles={{ width: potentialBarStyle.width }}>
-                                    <div
-                                        className="award-amounts-viz__potential"
-                                        style={{ width: generatePercentage(1), backgroundColor: potentialBarStyle.backgroundColor }} />
-                                </TooltipWrapper>
-                            </div>
-                            <TooltipWrapper {...exceedsPotentialTooltipProps} styles={{ width: overspendingBarStyle.width }} offsetAdjustments={{ top: -5, right: 30 }}>
-                                <div
-                                    className="award-amounts-viz__exceeded-potential"
-                                    style={{ width: generatePercentage(1) }} />
-                            </TooltipWrapper>
+                        <div className="award-amounts-viz__desc-text-wrapper">
+                            {isIdv ? "Exceeds Combined Potential Award Amounts" : "Exceeds Potential Award Amount"}
                         </div>
                     </div>
-                </TooltipWrapper>
-                <div
-                    className="award-amounts-viz__label"
-                    style={currentLabelStyle}>
-                    <div className="award-amounts-viz__line" />
-                    <div className="award-amounts-viz__desc">
-                        <div
-                            className="award-amounts-viz__desc-text"
-                            role="button"
-                            tabIndex="0"
-                            onBlur={currentTooltipProps.controlledProps.closeTooltip}
-                            onFocus={currentTooltipProps.controlledProps.showTooltip}
-                            onKeyPress={currentTooltipProps.controlledProps.showTooltip}
-                            onMouseEnter={currentTooltipProps.controlledProps.showTooltip}
-                            onMouseLeave={currentTooltipProps.controlledProps.closeTooltip}
-                            onClick={currentTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.baseExercisedOptionsAbbreviated}</strong>
-                            <br />
-                            {isIdv ? "Combined Current Award Amounts" : "Current Award Amount"}
-                        </div>
-                        <div className="award-amounts-viz__legend-line" />
-                    </div>
-                </div>
-                <div
-                    className="award-amounts-viz__label"
-                    style={potentialLabelStyle}>
-                    <div className="award-amounts-viz__line" />
-                    <div className="award-amounts-viz__desc">
-                        <div
-                            className="award-amounts-viz__desc-text"
-                            role="button"
-                            tabIndex="0"
-                            onBlur={potentialTooltipProps.controlledProps.closeTooltip}
-                            onFocus={potentialTooltipProps.controlledProps.showTooltip}
-                            onKeyPress={potentialTooltipProps.controlledProps.showTooltip}
-                            onMouseEnter={potentialTooltipProps.controlledProps.showTooltip}
-                            onMouseLeave={potentialTooltipProps.controlledProps.closeTooltip}
-                            onClick={potentialTooltipProps.controlledProps.showTooltip}>
-                            <strong>{this.props.awardAmounts.baseAndAllOptionsAbbreviated}</strong>
-                            <br />
-                            {isIdv ? "Combined Potential Award Amounts" : "Potential Award Amount"}
-                        </div>
-                        <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
-                    </div>
+                    <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_extreme-overspending" />
                 </div>
             </div>
-        );
-    }
-}
+            <div
+                className="award-amounts-viz__label"
+                style={obligatedLabelStyle}>
+                <div className="award-amounts-viz__line-up" />
+            </div>
+            <TooltipWrapper {...propsForObligatedTooltip} styles={obligatedLabelStyle} offsetAdjustments={{ top: 17.5, right: 30 }}>
+                <div className="award-amounts-viz__bar-wrapper award-amounts-viz__bar-wrapper_extreme-overspending">
+                    <div className="award-amounts-viz__bar">
+                        <div
+                            className="award-amounts-viz__potential-wrapper"
+                            style={potentialWrapperStyle}>
+                            <TooltipWrapper {...propsForPotentialTooltip} styles={{ width: currentBarStyle.width }}>
+                                <div
+                                    className="award-amounts-viz__current"
+                                    style={{ width: generatePercentage(1), backgroundColor: currentBarStyle.backgroundColor }} />
+                            </TooltipWrapper>
+                            <TooltipWrapper {...propsForCurrentTooltip} styles={{ width: potentialBarStyle.width }}>
+                                <div
+                                    className="award-amounts-viz__potential"
+                                    style={{ width: generatePercentage(1), backgroundColor: potentialBarStyle.backgroundColor }} />
+                            </TooltipWrapper>
+                        </div>
+                        <TooltipWrapper {...propsForExceedsPotentialTooltip} styles={{ width: overspendingBarStyle.width }} offsetAdjustments={{ top: -5, right: 30 }}>
+                            <div
+                                className="award-amounts-viz__exceeded-potential"
+                                style={{ width: generatePercentage(1) }} />
+                        </TooltipWrapper>
+                    </div>
+                </div>
+            </TooltipWrapper>
+            <div
+                className="award-amounts-viz__label"
+                style={currentLabelStyle}>
+                <div className="award-amounts-viz__line" />
+                <div className="award-amounts-viz__desc">
+                    <div
+                        className="award-amounts-viz__desc-text"
+                        role="button"
+                        tabIndex="0"
+                        onBlur={closeTooltip}
+                        onFocus={showCurrentTooltip}
+                        onKeyPress={showCurrentTooltip}
+                        onMouseEnter={showCurrentTooltip}
+                        onMouseLeave={closeTooltip}
+                        onClick={showCurrentTooltip}>
+                        <strong>{awardAmounts.baseExercisedOptionsAbbreviated}</strong>
+                        <br />
+                        {isIdv ? "Combined Current Award Amounts" : "Current Award Amount"}
+                    </div>
+                    <div className="award-amounts-viz__legend-line" />
+                </div>
+            </div>
+            <div
+                className="award-amounts-viz__label"
+                style={potentialLabelStyle}>
+                <div className="award-amounts-viz__line" />
+                <div className="award-amounts-viz__desc">
+                    <div
+                        className="award-amounts-viz__desc-text"
+                        role="button"
+                        tabIndex="0"
+                        onBlur={closeTooltip}
+                        onFocus={showPotentialTooltip}
+                        onKeyPress={showPotentialTooltip}
+                        onMouseEnter={showPotentialTooltip}
+                        onMouseLeave={closeTooltip}
+                        onClick={showPotentialTooltip}>
+                        <strong>{awardAmounts.baseAndAllOptionsAbbreviated}</strong>
+                        <br />
+                        {isIdv ? "Combined Potential Award Amounts" : "Potential Award Amount"}
+                    </div>
+                    <div className="award-amounts-viz__legend-line award-amounts-viz__legend-line_potential" />
+                </div>
+            </div>
+        </div>
+    );
+};
+
 ExceedsPotentialChart.propTypes = propTypes;
+
+export default ExceedsPotentialChart;
