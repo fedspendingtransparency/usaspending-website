@@ -38,126 +38,35 @@ export const useTooltips = (arrayOfTooltips) => {
         ...arrayOfTooltips.map((tt) => () => setActiveTooltip(tt))
     ];
 };
-export default class AwardAmountsChart extends Component {
-    constructor(props) {
-        super(props);
-        this.renderChartByAwardType = this.renderChartByAwardType.bind(this);
-        this.renderChartBySpendingScenario = this.renderChartBySpendingScenario.bind(this);
-    }
-    // this fn is horrible, needs to go!!!
-    getTooltipPropsByAwardTypeAndSpendingCategory(awardType, category, tooltipData = this.props.awardOverview) {
-        const map = {
-            idv: {
-                obligated: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <CombinedObligatedAmounts total={tooltipData.obligatedFormatted} count={tooltipData.childAwardCount} />
-                },
-                current: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <CombinedCurrentAmounts total={tooltipData.baseAndExercisedOptionsFormatted} count={tooltipData.childAwardCount} />
-                },
-                potential: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <CombinedPotentialAmounts total={tooltipData.baseAndAllOptionsFormatted} count={tooltipData.childAwardCount} />
-                },
-                exceedsCurrent: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <CombinedExceedsCurrentAmounts total={tooltipData.overspendingFormatted} count={tooltipData.childAwardCount} />
-                },
-                exceedsPotential: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <CombinedExceedsPotentialAmounts total={tooltipData.extremeOverspendingFormatted} count={tooltipData.childAwardCount} />
-                }
-            },
-            contract: {
-                obligated: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <ObligatedAmountTooltip />
-                },
-                current: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <CurrentAmountTooltip />
-                },
-                potential: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <PotentialAmountTooltip />
-                },
-                exceedsPotential: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <ExceedsPotentialAmountTooltip />
-                },
-                exceedsCurrent: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <ExceedsCurrentAmountTooltip />
-                }
-            },
-            grant: {
-                obligated: {
-                    offsetAdjustments: { top: -7 },
-                    tooltipComponent: <ObligatedAmountTooltip />
-                },
-                nonFederalFunding: {
-                    offsetAdjustments: { top: -10, right: 0 },
-                    tooltipComponent: <NonFederalFundingTooltip />
-                },
-                totalFunding: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <TotalFundingTooltip />
-                }
-            },
-            loan: {
-                subsidy: {
-                    offsetAdjustments: { top: 0 },
-                    tooltipComponent: <SubsidyTooltip />
-                },
-                faceValue: {
-                    offsetAdjustments: { top: -7 },
-                    tooltipComponent: <FaceValueTooltip />
-                }
-            }
-        };
-        return map[awardType][category];
-    }
-
-    renderChartBySpendingScenario(
-        spendingScenario = this.props.spendingScenario,
-        awardType = this.props.awardType,
-        awardAmounts = this.props.awardOverview) {
-        switch (spendingScenario) {
+const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
+    const renderChartBySpendingScenario = (
+        scenario = spendingScenario,
+        type = awardType,
+        awardAmounts = awardOverview) => {
+        switch (scenario) {
             case "exceedsCurrent":
                 return (
-                    <ExceedsCurrentChart
-                        {...this.getTooltipPropsBySpendingScenario('exceedsCurrent', awardType)}
-                        awardType={awardType}
-                        awardAmounts={awardAmounts} />
+                    <ExceedsCurrentChart awardType={type} awardAmounts={awardAmounts} />
                 );
             case "exceedsPotential":
                 return (
-                    <ExceedsPotentialChart
-                        {...this.getTooltipPropsBySpendingScenario('exceedsPotential', awardType)}
-                        awardType={awardType}
-                        awardAmounts={awardAmounts} />
+                    <ExceedsPotentialChart awardType={type} awardAmounts={awardAmounts} />
                 );
             case "normal":
                 return (
-                    <NormalChart
-                        {...this.getTooltipPropsBySpendingScenario('normal', awardType)}
-                        awardType={awardType}
-                        awardAmounts={awardAmounts} />
+                    <NormalChart awardType={type} awardAmounts={awardAmounts} />
                 );
             default:
                 return (
                     <div className="results-table-message-container">
-                        <NoResultsMessage
-                            title="Chart Not Available"
-                            message="Data in this instance is not suitable for charting" />
+                        <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
                     </div>
                 );
         }
-    }
+    };
 
-    renderChartByAwardType(awardAmounts = this.props.awardOverview, awardType = this.props.awardType, spendingScenario = this.props.spendingScenario) {
-        switch (awardType) {
+    const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
+        switch (type) {
             case "grant":
                 return (
                     <GrantChart awardAmounts={awardAmounts} />
@@ -167,18 +76,17 @@ export default class AwardAmountsChart extends Component {
                     <LoansChart awardAmounts={awardAmounts} />
                 );
             default: // idvs and contracts
-                return this.renderChartBySpendingScenario(spendingScenario);
+                return renderChartBySpendingScenario(scenario);
         }
-    }
+    };
 
-    render() {
-        const visualization = this.renderChartByAwardType(this.props.awardOverview, this.props.awardType, this.props.spendingScenario);
-        return (
-            <React.Fragment>
-                {visualization}
-            </React.Fragment>
-        );
-    }
-}
+    const visualization = renderChartByAwardType(awardOverview, awardType, spendingScenario);
+
+    return (
+        <React.Fragment>
+            {visualization}
+        </React.Fragment>
+    );
+};
 
 AwardAmountsChart.propTypes = propTypes;
