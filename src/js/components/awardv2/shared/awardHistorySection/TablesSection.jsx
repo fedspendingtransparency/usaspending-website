@@ -11,6 +11,7 @@ import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccoun
 import { federalAccountFundingInfo, transactionHistoryInfo } from '../InfoTooltipContent';
 import DetailsTabBar from '../../../award/details/DetailsTabBar';
 import ResultsTablePicker from '../../../search/table/ResultsTablePicker';
+import { getAwardHistoryCounts } from "../../../../helpers/awardHistoryHelper";
 
 const propTypes = {
     overview: PropTypes.object,
@@ -28,14 +29,14 @@ const tabs = [
     },
     {
         label: "Sub-Awards",
-        internal: "subawards",
+        internal: "subaward",
         enabled: true,
         tooltipContent: transactionHistoryInfo,
         tooltipProps: { wide: true }
     },
     {
         label: "Federal Account Funding",
-        internal: "fedaccount",
+        internal: "federal_account",
         enabled: true,
         tooltipContent: federalAccountFundingInfo,
         tooltipProps: { wide: true }
@@ -77,6 +78,16 @@ export default class TablesSection extends React.Component {
         this.setState({ tableWidth });
     }
 
+    getTabOptions(award = this.props.overview) {
+        const isIdv = award.category === 'idv';
+        return tabs
+            .filter((tab) => ((isIdv && tab.internal !== 'subaward') || !isIdv))
+            .map(async (tab) => {
+                // const count = await getAwardHistoryCounts(tab.internal, award.id).promise;
+                return { ...tab, count: 10 };
+            });
+    }
+
     currentSection() {
         switch (this.props.activeTab) {
             case 'transaction':
@@ -85,7 +96,7 @@ export default class TablesSection extends React.Component {
                         category={this.props.overview.category}
                         tableWidth={this.state.tableWidth} />
                 );
-            case 'fedaccount':
+            case 'federal_account':
                 return (
                     <FederalAccountTableContainer
                         category={this.props.overview.category}
@@ -97,9 +108,8 @@ export default class TablesSection extends React.Component {
     }
 
     render() {
-        const isIdv = this.props.overview.category === 'idv';
         const content = this.currentSection();
-        const tabOptions = tabs.filter((tab) => ((isIdv && tab.internal !== 'subawards') || !isIdv));
+        const tabOptions = this.getTabOptions();
 
         return (
             <div className="tables-section">
