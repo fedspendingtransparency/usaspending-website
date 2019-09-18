@@ -133,7 +133,7 @@ const ExceedsPotentialChart = ({ awardType, awardAmounts }) => {
     const propsForObligatedTooltip = buildTooltipProps("obligated", (activeTooltip === "obligated"), showObligatedTooltip);
     const propsForCurrentTooltip = buildTooltipProps("current", (activeTooltip === "current"), showCurrentTooltip);
     const propsForPotentialTooltip = buildTooltipProps("potential", (activeTooltip === "potential"), showPotentialTooltip);
-    const propsForExceedsPotentialTooltip = buildTooltipProps("exceedsPotential", (activeTooltip === "exceedsCurrent"), showExceedsCurrentTooltip);
+    const propsForExceedsPotentialTooltip = buildTooltipProps("exceedsPotential", (activeTooltip === "exceedsPotential"), showExceedsPotentialTooltip);
 
     return (
         <div className="award-amounts-viz">
