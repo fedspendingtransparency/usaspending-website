@@ -48,7 +48,9 @@ export default class ContractContent extends React.Component {
                             recipient={overview.recipient} />
                     </AwardSection>
                     <AwardSection type="column" className="award-amountdates">
-                        <AwardDates overview={overview} />
+                        <AwardDates
+                            awardType={overview.category}
+                            dates={overview.periodOfPerformance} />
                     </AwardSection>
                 </AwardSection>
                 <AwardSection type="row">

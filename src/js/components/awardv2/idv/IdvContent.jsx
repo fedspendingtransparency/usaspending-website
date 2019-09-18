@@ -13,7 +13,7 @@ import { glossaryLinks } from 'dataMapping/search/awardType';
 import AwardHistory from './AwardHistory';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import RelatedAwards from '../shared/overview/RelatedAwards';
-import IdvDates from './IdvDates';
+import IdvDates from '../shared/overview/AwardDates';
 import AwardDescription from '../shared/description/AwardDescription';
 import AwardAmounts from './amounts/AwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
@@ -110,7 +110,9 @@ export default class IdvContent extends React.Component {
                         jumpToSection={this.props.jumpToSection}
                         setRelatedAwardsTab={this.setRelatedAwardsTab}
                         overview={this.props.overview} />
-                    <IdvDates dates={this.props.overview.dates} />
+                    <IdvDates
+                        awardType={this.props.overview.category}
+                        dates={this.props.overview.dates} />
                 </div>
                 <div className="award__row">
                     <AwardAmounts

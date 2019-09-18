@@ -39,9 +39,9 @@ export default class FinancialAssistanceContent extends React.Component {
             : null;
 
         let amountsSection = (<ComingSoonSection title="Award Amounts" includeHeader />);
-        if (this.props.overview.category === 'grant') {
+        if (overview.category === 'grant') {
             const awardAmountData = Object.create(BaseAwardAmounts);
-            awardAmountData.populate(this.props.overview, this.props.overview.category);
+            awardAmountData.populate(overview, overview.category);
             amountsSection = (
                 <AwardAmountsSection
                     awardType={this.props.overview.category}
@@ -67,7 +67,9 @@ export default class FinancialAssistanceContent extends React.Component {
                         category={overview.category}
                         recipient={overview.recipient} />
                     <AwardSection type="column" className="award-amountdates">
-                        <AwardDates overview={overview} />
+                        <AwardDates
+                            awardType={overview.category}
+                            dates={overview.periodOfPerformance} />
                     </AwardSection>
                 </AwardSection>
                 <AwardSection type="row">
