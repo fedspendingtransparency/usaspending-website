@@ -61,7 +61,7 @@ export default class DetailsTabItem extends React.Component {
         
         let count = null;
 
-        if (this.props.count) {
+        if (this.props.count || this.props.count === 0) {
             count = (
                 <div className={`count-badge ${activeClass}`}>
                     {formatNumber(this.props.count)}

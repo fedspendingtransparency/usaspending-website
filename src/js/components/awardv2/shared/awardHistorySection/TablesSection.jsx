@@ -48,16 +48,19 @@ export default class TablesSection extends React.Component {
         super(props);
 
         this.state = {
-            tableWidth: 0
+            tableWidth: 0,
+            tabs
         };
-
+        this.countRequest = null;
         this.setTableWidth = this.setTableWidth.bind(this);
     }
+
     componentDidMount() {
         // set the initial table width
         this.setTableWidth();
         // watch the window for size changes
         window.addEventListener('resize', this.setTableWidth);
+        this.getCounts();
     }
 
     componentDidUpdate(prevProps) {
@@ -65,6 +68,7 @@ export default class TablesSection extends React.Component {
         if (this.props.overview.generatedId !== prevProps.overview.generatedId) {
             // reset the tab
             this.props.clickTab('transaction');
+            this.getCounts();
         }
     }
 
@@ -73,19 +77,27 @@ export default class TablesSection extends React.Component {
         window.removeEventListener('resize', this.setTableWidth);
     }
 
+    getCounts(award = this.props.overview) {
+        if (this.countRequest) {
+            this.countRequest.cancel();
+        }
+
+        const isIdv = award.category === 'idv';
+        const tabsWithCounts = tabs
+            .filter((tab) => ((isIdv && tab.internal !== 'subaward') || !isIdv))
+            .map(async (tab) => {
+                this.countRequest = getAwardHistoryCounts(tab.internal, award.generatedId);
+                const { data } = await this.countRequest.promise;
+                return { ...tab, count: data[`${tab.internal}s`] };
+            });
+        Promise.all(tabsWithCounts).then((result) => {
+            this.setState({ tabs: result });
+        });
+    }
+
     setTableWidth() {
         const tableWidth = this.tableWidthController.clientWidth - 2;
         this.setState({ tableWidth });
-    }
-
-    getTabOptions(award = this.props.overview) {
-        const isIdv = award.category === 'idv';
-        return tabs
-            .filter((tab) => ((isIdv && tab.internal !== 'subaward') || !isIdv))
-            .map(async (tab) => {
-                // const count = await getAwardHistoryCounts(tab.internal, award.id).promise;
-                return { ...tab, count: 10 };
-            });
     }
 
     currentSection() {
@@ -109,30 +121,33 @@ export default class TablesSection extends React.Component {
 
     render() {
         const content = this.currentSection();
-        const tabOptions = this.getTabOptions();
+        const tabOptions = this.state.tabs;
 
-        return (
-            <div className="tables-section">
-                <DetailsTabBar
-                    tabOptions={tabOptions}
-                    activeTab={this.props.activeTab}
-                    clickTab={this.props.clickTab} />
-                <ResultsTablePicker
-                    types={tabOptions}
-                    active={this.props.activeTab}
-                    switchTab={this.props.clickTab} />
-                <div
-                    className="tables-width-master"
-                    ref={(div) => {
-                        // this is an empty div that scales via CSS
-                        // the results table width will follow this div's width
-                        this.tableWidthController = div;
-                    }} />
-                <div className="tables-content">
-                    {content}
+        if (tabOptions.length > 0) {
+            return (
+                <div className="tables-section">
+                    <DetailsTabBar
+                        tabOptions={tabOptions}
+                        activeTab={this.props.activeTab}
+                        clickTab={this.props.clickTab} />
+                    <ResultsTablePicker
+                        types={tabOptions}
+                        active={this.props.activeTab}
+                        switchTab={this.props.clickTab} />
+                    <div
+                        className="tables-width-master"
+                        ref={(div) => {
+                            // this is an empty div that scales via CSS
+                            // the results table width will follow this div's width
+                            this.tableWidthController = div;
+                        }} />
+                    <div className="tables-content">
+                        {content}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        return null;
     }
 }
 

@@ -17,6 +17,7 @@ export const getAwardHistoryCounts = (type, awardId) => {
             url: `v2/awards/count/${type}/${awardId}`,
             baseURL: kGlobalConstants.API,
             method: 'post',
+            data: { award_id: awardId },
             cancelToken: source.token
         }),
         cancel() {
