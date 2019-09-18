@@ -153,14 +153,14 @@ $loans-line-color: #F5A623;
     .award-amounts-viz__line::after {
         @extend %award-amounts-viz__line-indicator;
         border-left: 1px solid $border-light-gray;
-        top: -8.5px;
+        top: -9px;
         right: -1px;
     }
 
     .award-amounts-viz__line::before {
         @extend %award-amounts-viz__line-indicator;
         border-left: 1px solid $border-light-gray;
-        top: -8.5px;
+        top: -9px;
         left: -1px;
     }
 

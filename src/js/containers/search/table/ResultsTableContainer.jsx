@@ -313,7 +313,7 @@ export class ResultsTableContainer extends React.Component {
             }
         });
 
-        requestFields.push('recipient_id');
+        requestFields.push('recipient_id', 'prime_award_recipient_id');
 
         // parse the redux search order into the API-consumable format
         const searchOrder = this.state.sort;

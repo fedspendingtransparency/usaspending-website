@@ -62,6 +62,8 @@ const GrantChart = ({ awardAmounts }) => {
     const nonFederalFunding = awardAmounts._nonFederalFunding;
     const totalFunding = awardAmounts._totalFunding;
 
+    const nonFederalFundingIsZero = (nonFederalFunding === 0);
+
     const obligatedBarStyle = {
         width: generatePercentage(obligation / totalFunding),
         backgroundColor: '#4773aa'
@@ -73,23 +75,21 @@ const GrantChart = ({ awardAmounts }) => {
 
     const nonFederalFundingBarStyle = {
         width: generatePercentage(nonFederalFunding / totalFunding),
-        backgroundColor: '#4773aa',
+        backgroundColor: nonFederalFundingIsZero ? 'none' : '#4773aa',
         right: obligatedBarStyle.width
     };
 
     const totalFundingColor = "#FFF";
 
     const nonFederalFundingLabelStyle = {
-        width: generatePercentage(nonFederalFunding / totalFunding)
+        width: nonFederalFundingIsZero ? '100%' : generatePercentage(nonFederalFunding / totalFunding)
     };
-
-    const nonFederalFundingIsZero = (nonFederalFunding === 0);
 
     const nonFFTooltipStyles = {
         width: nonFederalFundingBarStyle.width,
         right: nonFederalFundingBarStyle.right,
-        border: "5px solid #47AAA7",
-        padding: '3.5px',
+        border: nonFederalFundingIsZero ? 'none' : "5px solid #47AAA7",
+        padding: nonFederalFundingIsZero ? '0px' : '3.5px',
         position: 'relative'
     };
 
@@ -130,24 +130,34 @@ const GrantChart = ({ awardAmounts }) => {
             </div>
             <div className="award-amounts-viz__label" style={nonFederalFundingLabelStyle}>
                 {!nonFederalFundingIsZero > 0 && <div className="award-amounts-viz__line--non-federal-funding" style={{ backgroundColor: nonFederalFundingBarStyle.backgroundColor }} />}
-                <div
-                    className={`${nonFederalFundingIsZero
-                        ? 'award-amounts-viz__desc award-amounts-viz__desc--nff-zero'
-                        : 'award-amounts-viz__desc'}`}>
-                    <div
-                        className="award-amounts-viz__desc-text"
-                        role="button"
-                        tabIndex="0"
-                        onBlur={closeTooltip}
-                        onFocus={showNonFederalFundingTooltip}
-                        onKeyPress={showNonFederalFundingTooltip}
-                        onMouseEnter={showNonFederalFundingTooltip}
-                        onMouseLeave={closeTooltip}
-                        onClick={showNonFederalFundingTooltip}>
-                        <strong>{awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
-                    </div>
-                    <div className="award-amounts-viz__legend-line" style={{ backgroundColor: "#47AAA7" }} />
+                <div className={`${nonFederalFundingIsZero ? 'award-amounts-viz__desc award-amounts-viz__desc--nff-zero' : 'award-amounts-viz__desc'}`}>
+                    {!nonFederalFundingIsZero && (
+                        <React.Fragment>
+                            <div
+                                className="award-amounts-viz__desc-text"
+                                role="button"
+                                tabIndex="0"
+                                onBlur={closeTooltip}
+                                onFocus={showNonFederalFundingTooltip}
+                                onKeyPress={showNonFederalFundingTooltip}
+                                onMouseOver={showNonFederalFundingTooltip}
+                                onMouseOut={closeTooltip}
+                                onClick={showNonFederalFundingTooltip}>
+                                <strong>{this.props.awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
+                            </div>
+                            <div className="award-amounts-viz__legend-line" style={{ backgroundColor: "#47AAA7" }} />
+                        </React.Fragment>
+                    )}
+                    {nonFederalFundingIsZero &&
+                        <TooltipWrapper {...propsForNonFederalFundingTooltip} styles={{ ...nonFFTooltipStyles, width: 'auto', right: 0 }}>
+                            <div className="award-amounts-viz__desc-text" role="button" tabIndex="0">
+                                <strong>{this.props.awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
+                            </div>
+                            <div className="award-amounts-viz__legend-line" style={{ backgroundColor: "#47AAA7" }} />
+                        </TooltipWrapper>
+                    }
                 </div>
+                <div className="award-amounts-viz__legend-line" style={{ backgroundColor: "#47AAA7" }} />
             </div>
             <div className="award-amounts-viz__label">
                 <div className="award-amounts-viz__line" style={{ backgroundColor: totalFundingColor }} />

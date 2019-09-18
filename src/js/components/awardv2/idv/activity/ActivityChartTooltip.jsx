@@ -190,6 +190,17 @@ export default class IdvActivityTooltip extends React.Component {
         // 70px = 10px ( Left padding ) + 30px ( Right padding of first div )
         // + 10px ( Right spacing for end of tooltip )
         let theTooltipWidth = awardingAgencyNameDiv + recipientNameDiv + 50;
+        // getting the first row
+        const piidDiv = this.piidDiv.getBoundingClientRect().width;
+        const parentDiv = this.parentDiv.getBoundingClientRect().width;
+        // with the addition of the granparent section in the first row
+        // the first row can now be longer than the second row
+        // we will check for that below and set the starting width for the tooltip
+        if (this.grandparentDiv) {
+            const grandparentDiv = this.grandparentDiv.getBoundingClientRect().width;
+            const totalFirstRowWidth = piidDiv + parentDiv + grandparentDiv + 90;
+            if (totalFirstRowWidth > theTooltipWidth) theTooltipWidth = totalFirstRowWidth;
+        }
         // x Position of the Award Bar ( start )
         let xPosition = data.x;
         // distance from the top of the graph to the middle of the bar
@@ -230,9 +241,6 @@ export default class IdvActivityTooltip extends React.Component {
             const startDateDiv = this.startDateDiv.getBoundingClientRect().width;
             const endDateDiv = this.endDateDiv.getBoundingClientRect().width;
             const amountsDiv = this.amountsDiv.getBoundingClientRect().width;
-            // getting the first row
-            const piidDiv = this.piidDiv.getBoundingClientRect().width;
-            const parentDiv = this.parentDiv.getBoundingClientRect().width;
             // this is the width of the last row
             // the smallest width allowed since we have to keep it inline
             // 100px = 10px ( Left of Row ) + 60px ( Two divs padding right )
