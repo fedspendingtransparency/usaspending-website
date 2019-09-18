@@ -3,7 +3,7 @@
  * Created by David Trinh 10/9/2018
  **/
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
@@ -16,6 +16,7 @@ import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
+import AwardHistory from '../idv/AwardHistory';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -23,49 +24,53 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-export default class ContractContent extends React.Component {
-    render() {
-        const { overview, awardId, jumpToSection } = this.props;
-        const glossarySlug = glossaryLinks[overview.type];
-        const glossaryLink = glossarySlug
-            ? `/#/award_v2/${awardId}?glossary=${glossarySlug}`
-            : null;
-        const awardAmountData = Object.create(BaseAwardAmounts);
-        awardAmountData.populate(overview, overview.category);
+const ContractContent = ({ awardId, overview, jumpToSection }) => {
+    const [activeTab, setActiveTab] = useState("transaction");
+    const glossarySlug = glossaryLinks[overview.type];
+    const glossaryLink = glossarySlug
+        ? `/#/award_v2/${awardId}?glossary=${glossarySlug}`
+        : null;
 
-        return (
-            <AwardPageWrapper
-                glossaryLink={glossaryLink}
-                identifier={overview.id}
-                awardTypeDescription={overview.typeDescription}
-                awardType="contract">
-                <AwardSection type="row" className="award-overview" id="award-overview">
-                    <AwardSection type="column" className="award-amountdates">
-                        <AgencyRecipient
-                            jumpToSection={jumpToSection}
-                            awardingAgency={overview.awardingAgency}
-                            category="contract"
-                            recipient={overview.recipient} />
-                    </AwardSection>
-                    <AwardSection type="column" className="award-amountdates">
-                        <AwardDates overview={overview} />
-                    </AwardSection>
+    const awardAmountData = Object.create(BaseAwardAmounts);
+    awardAmountData.populate(overview, overview.category);
+
+    return (
+        <AwardPageWrapper
+            glossaryLink={glossaryLink}
+            identifier={overview.id}
+            awardTypeDescription={overview.typeDescription}
+            awardType="contract">
+            <AwardSection type="row" className="award-overview" id="award-overview">
+                <AwardSection type="column" className="award-amountdates">
+                    <AgencyRecipient
+                        jumpToSection={jumpToSection}
+                        awardingAgency={overview.awardingAgency}
+                        category="contract"
+                        recipient={overview.recipient} />
                 </AwardSection>
-                <AwardSection type="row">
-                    <AwardAmountsSection
-                        awardType={this.props.overview.category}
-                        jumpToSection={this.props.jumpToSection}
-                        awardOverview={awardAmountData} />
-                    <ComingSoonSection title="Description" includeHeader />
+                <AwardSection type="column" className="award-amountdates">
+                    <AwardDates overview={overview} />
                 </AwardSection>
-                <AwardSection type="row">
-                    <ComingSoonSection title="Contract Activity" includeHeader />
-                    <FederalAccountsSection />
-                </AwardSection>
-                <AdditionalInfo overview={overview} />
-            </AwardPageWrapper>
-        );
-    }
-}
+            </AwardSection>
+            <AwardSection type="row">
+                <AwardAmountsSection
+                    awardType={overview.category}
+                    jumpToSection={jumpToSection}
+                    awardOverview={awardAmountData} />
+                <ComingSoonSection title="Description" includeHeader />
+            </AwardSection>
+            <AwardSection type="row">
+                <ComingSoonSection title="Contract Activity" includeHeader />
+                <FederalAccountsSection />
+            </AwardSection>
+            <AwardSection type="row">
+                <AwardHistory overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
+            </AwardSection>
+            <AdditionalInfo overview={overview} />
+        </AwardPageWrapper>
+    );
+};
 
 ContractContent.propTypes = propTypes;
+
+export default ContractContent;

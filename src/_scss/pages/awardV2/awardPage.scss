@@ -119,5 +119,7 @@
         @import "./awardFinancialAssistance";
         @import "./idv/awardIdv";
         @import "layouts/search/header/downloadButton";
+        @import "./shared/awardHistorySection";
+        @import "./shared/awardAmountsSection/index";
     }
 }
