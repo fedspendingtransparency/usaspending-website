@@ -34,8 +34,12 @@ const createShowAndCloseTooltipMethod = (ctx, category) => {
     // ctx is `this`
     // type is one of: obligated, current, potential, exceedsCurrent, or exceedsPotential
     const titleCasedCategory = `${category[0].toUpperCase()}${category.substring(1)}`;
-    ctx[`show${titleCasedCategory}Tooltip`] = ctx.showSpendingCategoryTooltip.bind(ctx, category);
-    ctx[`close${titleCasedCategory}Tooltip`] = ctx.closeSpendingCategoryTooltip.bind(ctx, category);
+    ctx[tooltipStateBySpendingCategory[category]] = () => {
+        ctx.showSpendingCategoryTooltip.call(ctx, category);
+    };
+    ctx[`close${titleCasedCategory}Tooltip`] = () => {
+        ctx.closeSpendingCategoryTooltip.call(ctx, category);
+    };
 };
 
 export default class AwardAmountsChart extends Component {
@@ -46,7 +50,9 @@ export default class AwardAmountsChart extends Component {
             showCurrentTooltip: false,
             showPotentialTooltip: false,
             showExceedsCurrentTooltip: false,
-            showExceedsPotentialTooltip: false
+            showExceedsPotentialTooltip: false,
+            showNonFederalFundingTooltip: false,
+            showTotalFundingTooltip: false
         };
         this.renderChart = this.renderChart.bind(this);
         this.getTooltipPropsBySpendingScenario = this.getTooltipPropsBySpendingScenario.bind(this);
@@ -122,6 +128,7 @@ export default class AwardAmountsChart extends Component {
         if (Object.keys(map).includes(awardType)) {
             return map[awardType][category];
         }
+
         return map.assistance[category];
     }
 
