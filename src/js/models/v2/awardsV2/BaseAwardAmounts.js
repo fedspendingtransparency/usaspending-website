@@ -132,22 +132,22 @@ const BaseAwardAmounts = {
     get faceValueAbbreviated() {
         if (this._faceValue >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._faceValue);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._faceValue / units.unit, 2)} ${units.longLabel}`;
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._faceValue / units.unit, 1)} ${units.unitLabel}`;
         }
-        return MoneyFormatter.formatMoneyWithPrecision(this._faceValue, 0);
+        return MoneyFormatter.formatMoney(this._faceValue);
     },
     get faceValueFormatted() {
-        return MoneyFormatter.formatMoneyWithPrecision(this._faceValue, 0);
+        return MoneyFormatter.formatMoneyWithPrecision(this._faceValue, 2);
     },
     get subsidyAbbreviated() {
         if (this._subsidy >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._subsidy);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._subsidy / units.unit, 2)} ${units.longLabel}`;
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._subsidy / units.unit, 1)} ${units.unitLabel}`;
         }
-        return MoneyFormatter.formatMoneyWithPrecision(this._subsidy, 0);
+        return MoneyFormatter.formatMoney(this._subsidy);
     },
     get subsidyFormatted() {
-        return MoneyFormatter.formatMoney(this._subsidy);
+        return MoneyFormatter.formatMoneyWithPrecision(this._subsidy, 2);
     }
 };
 
