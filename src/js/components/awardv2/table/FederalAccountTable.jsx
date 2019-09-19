@@ -77,25 +77,24 @@ export default class FedAccountTable extends React.Component {
         const item = this.props.fundingResults[rowIndex];
 
         const isLast = columnIndex === this.tableMapping.table._order.length - 1;
-        let isLink;
-
+        let link;
         if (column === 'id') {
-            isLink = item.awardId && `#/award/${item.awardId}`;
+            link = item.awardId ? `#/award/${item.awardId}` : null;
         }
         if (column === 'agency') {
-            isLink = item.fundingAgencyId && `#/agency/${item.fundingAgencyId}`;
+            link = item.fundingAgencyId ? `#/agency/${item.fundingAgencyId}` : null;
         }
         if (column === 'fedAccount') {
-            isLink = item.accountNumber && `#/federal_account/${item.accountNumber}`;
+            link = item.accountNumber ? `#/federal_account/${item.accountNumber}` : null;
         }
         if (column === 'awardingAgencyName') {
-            isLink = item.awardingAgencyId && `#/agency/${item.awardingAgencyId}`;
+            link = item.awardingAgencyId ? `#/agency/${item.awardingAgencyId}` : null;
         }
         return (
             <FederalAccountTableGenericCell
                 rowIndex={rowIndex}
                 data={item[column]}
-                link={isLink}
+                link={link}
                 isLastColumn={isLast} />
         );
     }
