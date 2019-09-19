@@ -158,7 +158,7 @@ export class SubawardsContainer extends React.Component {
     }
 
     render() {
-        const award = this.props.isV2 ? this.props.v2Award : this.props.award;
+        const award = this.props.isV2 ? this.props.v2Award.overview : this.props.award;
         return (
             <SubawardsTable
                 {...this.props}
