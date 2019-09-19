@@ -113,9 +113,9 @@
             @import "./visualizations/description/description";
             @import "./visualizations/additionalInfo";
             @import "./visualizations/awardFundingSummary";
-            @import "./shared/awardHistorySection";
             @import "./shared/awardAmountsSection/index";
             @import "./shared/infoTooltip";
+            @import "./shared/awardHistorySection";
         }
         @import "./comingSoon";
         @import "./awardContract";

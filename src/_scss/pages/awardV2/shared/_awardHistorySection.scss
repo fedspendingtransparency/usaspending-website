@@ -1,5 +1,21 @@
 .award-history {
     padding: rem(40) 0 rem(60);
     width: 100%; 
+    .subaward-totals {
+        @include display(flex);
+        margin-top: 1.5rem;
+        justify-content: center;
+        .total-item {
+            padding: $global-pad;
+            .total-label {
+                
+            }
+            .total-value {
+                font-weight: bold;
+            }
+        }
+    }
+
     @import "./table/_tablesSection";
+
 }
