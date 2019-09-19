@@ -143,7 +143,7 @@ const GrantChart = ({ awardAmounts }) => {
                                 onMouseOver={showNonFederalFundingTooltip}
                                 onMouseOut={closeTooltip}
                                 onClick={showNonFederalFundingTooltip}>
-                                <strong>{this.props.awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
+                                <strong>{awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
                             </div>
                             <div className="award-amounts-viz__legend-line" style={{ backgroundColor: "#47AAA7" }} />
                         </React.Fragment>
@@ -151,7 +151,7 @@ const GrantChart = ({ awardAmounts }) => {
                     {nonFederalFundingIsZero &&
                         <TooltipWrapper {...propsForNonFederalFundingTooltip} styles={{ ...nonFFTooltipStyles, width: 'auto', right: 0 }}>
                             <div className="award-amounts-viz__desc-text" role="button" tabIndex="0">
-                                <strong>{this.props.awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
+                                <strong>{awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
                             </div>
                             <div className="award-amounts-viz__legend-line" style={{ backgroundColor: "#47AAA7" }} />
                         </TooltipWrapper>
