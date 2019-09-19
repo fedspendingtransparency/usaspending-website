@@ -18,7 +18,10 @@ import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
 import SubawardsTable from 'components/award/subawards/SubawardsTable';
 
 const propTypes = {
-    award: PropTypes.object
+    award: PropTypes.object,
+    v2Award: PropTypes.object,
+    isV2: PropTypes.bool,
+    awardId: PropTypes.string
 };
 
 const pageLimit = 15;
@@ -52,7 +55,12 @@ export class SubawardsContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.award.internalId !== this.props.award.internalId) {
+        if (!this.props.isV2) {
+            if (prevProps.award.internalId !== this.props.award.internalId) {
+                this.fetchSubawards(1, true);
+            }
+        }
+        else if (this.props.awardId !== prevProps.awardId) {
             this.fetchSubawards(1, true);
         }
     }
@@ -61,18 +69,20 @@ export class SubawardsContainer extends React.Component {
         this.unmounted = true;
     }
 
-    fetchSubawards(page = 1, reset = false) {
+    fetchSubawards(page = 1, reset = false, isV2 = this.props.isV2) {
         if (this.subawardRequest) {
             // cancel in-flight requests
             this.subawardRequest.cancel();
         }
+
+        const awardId = isV2 ? this.props.awardId : this.props.award.internalId;
 
         const params = {
             page,
             limit: pageLimit,
             sort: this.state.sort.field,
             order: this.state.sort.direction,
-            award_id: this.props.award.internalId
+            award_id: awardId
         };
 
         this.setState({
@@ -148,10 +158,12 @@ export class SubawardsContainer extends React.Component {
     }
 
     render() {
+        const award = this.props.isV2 ? this.props.v2Award : this.props.award;
         return (
             <SubawardsTable
                 {...this.props}
                 {...this.state}
+                award={award}
                 inFlight={this.state.inFlight}
                 changeSort={this.changeSort}
                 loadNextPage={this.loadNextPage} />
@@ -163,7 +175,8 @@ SubawardsContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        award: state.award.selectedAward
+        award: state.award.selectedAward,
+        v2Award: state.awardV2
     }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
 )(SubawardsContainer);
