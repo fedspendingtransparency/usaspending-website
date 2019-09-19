@@ -11,24 +11,14 @@ import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 import { useTooltips } from "./AwardAmountsChart";
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
-import { SubsidyTooltip, FaceValueTooltip } from "../Tooltips";
+import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
+
 
 const propTypes = {
     awardType: PropTypes.string,
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
     subsidyTooltipProps: TOOLTIP_PROPS,
     faceValueTooltipProps: TOOLTIP_PROPS
-};
-
-const tooltipPropsBySpendingCategory = {
-    subsidy: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <SubsidyTooltip />
-    },
-    faceValue: {
-        offsetAdjustments: { top: -7 },
-        tooltipComponent: <FaceValueTooltip />
-    }
 };
 
 const LoansChart = ({ awardAmounts }) => {
@@ -39,8 +29,8 @@ const LoansChart = ({ awardAmounts }) => {
         showFaceValueTooltip
     ] = useTooltips(["subsidy", "faceValue"]);
 
-    const buildTooltipProps = (spendingCategory, isVisible, showTooltip) => ({
-        ...tooltipPropsBySpendingCategory[spendingCategory],
+    const buildTooltipProps = (spendingCategory, isVisible, showTooltip, data = awardAmounts) => ({
+        ...getTooltipPropsByAwardTypeAndSpendingCategory('loan', spendingCategory, data),
         wide: true,
         controlledProps: {
             isControlled: true,

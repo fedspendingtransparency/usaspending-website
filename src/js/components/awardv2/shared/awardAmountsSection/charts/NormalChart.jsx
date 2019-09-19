@@ -9,14 +9,8 @@ import PropTypes from 'prop-types';
 import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
-import {
-    CombinedObligatedAmounts,
-    CombinedCurrentAmounts,
-    CombinedPotentialAmounts,
-    ObligatedAmountTooltip,
-    CurrentAmountTooltip,
-    PotentialAmountTooltip
-} from "../Tooltips";
+import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
+
 import { useTooltips } from './AwardAmountsChart';
 
 const propTypes = {
@@ -25,41 +19,6 @@ const propTypes = {
     obligatedTooltipProps: TOOLTIP_PROPS,
     currentTooltipProps: TOOLTIP_PROPS,
     potentialTooltipProps: TOOLTIP_PROPS
-};
-
-const tooltipPropsByAwardTypeAndSpendingCategory = (type, category, data) => {
-    const map = {
-        idv: {
-            obligated: {
-                offsetAdjustments: { top: 0 },
-                tooltipComponent: <CombinedObligatedAmounts total={data.obligatedFormatted} count={data.childAwardCount} />
-            },
-            current: {
-                offsetAdjustments: { top: 0 },
-                tooltipComponent: <CombinedCurrentAmounts total={data.baseAndExercisedOptionsFormatted} count={data.childAwardCount} />
-            },
-            potential: {
-                offsetAdjustments: { top: 0 },
-                tooltipComponent: <CombinedPotentialAmounts total={data.baseAndAllOptionsFormatted} count={data.childAwardCount} />
-            }
-        },
-        contract: {
-            obligated: {
-                offsetAdjustments: { top: 0 },
-                tooltipComponent: <ObligatedAmountTooltip />
-            },
-            current: {
-                offsetAdjustments: { top: 0 },
-                tooltipComponent: <CurrentAmountTooltip />
-            },
-            potential: {
-                offsetAdjustments: { top: 0 },
-                tooltipComponent: <PotentialAmountTooltip />
-            }
-        }
-    };
-
-    return map[type][category];
 };
 
 const NormalChart = ({ awardType, awardAmounts }) => {
@@ -75,7 +34,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
     const isIdv = (awardType === 'idv');
 
     const buildTooltipProps = (spendingCategory, isVisible, showTooltip, type = awardType) => ({
-        ...tooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, awardAmounts),
+        ...getTooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, awardAmounts),
         wide: true,
         controlledProps: {
             isControlled: true,

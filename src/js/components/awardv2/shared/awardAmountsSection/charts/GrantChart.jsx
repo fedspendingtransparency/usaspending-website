@@ -11,7 +11,7 @@ import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 import { useTooltips } from "./AwardAmountsChart";
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
-import { ObligatedAmountTooltip, NonFederalFundingTooltip, TotalFundingTooltip } from "../Tooltips";
+import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
 
 
 const propTypes = {
@@ -20,21 +20,6 @@ const propTypes = {
     obligatedTooltipProps: TOOLTIP_PROPS,
     nonFederalFundingTooltipProps: TOOLTIP_PROPS,
     totalFundingTooltipProps: TOOLTIP_PROPS
-};
-
-const tooltipPropsBySpendingCategory = {
-    obligated: {
-        offsetAdjustments: { top: -7 },
-        tooltipComponent: <ObligatedAmountTooltip />
-    },
-    nonFederalFunding: {
-        offsetAdjustments: { top: -10, right: 0 },
-        tooltipComponent: <NonFederalFundingTooltip />
-    },
-    totalFunding: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <TotalFundingTooltip />
-    }
 };
 
 const GrantChart = ({ awardAmounts }) => {
@@ -47,7 +32,7 @@ const GrantChart = ({ awardAmounts }) => {
     ] = useTooltips(["obligated", "nonFederalFunding", "totalFunding"]);
 
     const buildTooltipProps = (spendingCategory, isVisible, showTooltip) => ({
-        ...tooltipPropsBySpendingCategory[spendingCategory],
+        ...getTooltipPropsByAwardTypeAndSpendingCategory('grant', spendingCategory),
         wide: true,
         controlledProps: {
             isControlled: true,
