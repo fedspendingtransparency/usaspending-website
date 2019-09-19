@@ -6,17 +6,14 @@ import ExceedsCurrentChart from './ExceedsCurrentChart';
 import ExceedsPotentialChart from './ExceedsPotentialChart';
 import NoResultsMessage from '../../../../sharedComponents/NoResultsMessage';
 import GrantChart from './GrantChart';
-import { ObligatedAmountTooltip, ExceedsCurrentAmountTooltip, CurrentAmountTooltip, ExceedsPotentialAmountTooltip, PotentialAmountTooltip, NonFederalFundingTooltip, TotalFundingTooltip } from '../Tooltips';
+import { ObligatedAmountTooltip, ExceedsCurrentAmountTooltip, CurrentAmountTooltip, ExceedsPotentialAmountTooltip, PotentialAmountTooltip, NonFederalFundingTooltip, TotalFundingTooltip, SubsidyTooltip, FaceValueTooltip } from '../Tooltips';
 import { CombinedObligatedAmounts, CombinedCurrentAmounts, CombinedPotentialAmounts, CombinedExceedsCurrentAmounts, CombinedExceedsPotentialAmounts } from "../../../idv/TooltipContent";
-import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
+import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../../propTypes/index';
+import LoansChart from './LoansChart';
 
 const propTypes = {
     awardType: PropTypes.string,
     awardOverview: AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS,
-    obligatedTooltipProps: TOOLTIP_PROPS,
-    currentTooltipProps: TOOLTIP_PROPS,
-    potentialTooltipProps: TOOLTIP_PROPS,
-    exceedsCurrentTooltipProps: TOOLTIP_PROPS,
     spendingScenario: PropTypes.string
 };
 
@@ -27,7 +24,15 @@ const tooltipStateBySpendingCategory = {
     exceedsCurrent: "showExceedsCurrentTooltip",
     exceedsPotential: "showExceedsPotentialTooltip",
     nonFederalFunding: "showNonFederalFundingTooltip",
-    totalFunding: "showTotalFundingTooltip"
+    totalFunding: "showTotalFundingTooltip",
+    faceValue: "showFaceValueTooltip",
+    subsidy: "showSubsidyTooltip"
+};
+
+const spendingCategoriesByAwardType = {
+    grant: ["obligated", "nonFederalFunding", "totalFunding"],
+    loan: ["subsidy", "faceValue"],
+    contract: ["obligated", "current", "potential"]
 };
 
 const createShowAndCloseTooltipMethod = (ctx, category) => {
@@ -42,6 +47,13 @@ const createShowAndCloseTooltipMethod = (ctx, category) => {
     };
 };
 
+const getSpendingCategoriesByAwardType = (awardType) => {
+    if (Object.keys(spendingCategoriesByAwardType).includes(awardType)) {
+        return spendingCategoriesByAwardType[awardType];
+    }
+    return spendingCategoriesByAwardType.contract;
+};
+
 export default class AwardAmountsChart extends Component {
     constructor(props) {
         super(props);
@@ -54,7 +66,8 @@ export default class AwardAmountsChart extends Component {
             showNonFederalFundingTooltip: false,
             showTotalFundingTooltip: false
         };
-        this.renderChart = this.renderChart.bind(this);
+        this.renderChartByAwardType = this.renderChartByAwardType.bind(this);
+        this.renderChartBySpendingScenario = this.renderChartBySpendingScenario.bind(this);
         this.getTooltipPropsBySpendingScenario = this.getTooltipPropsBySpendingScenario.bind(this);
         this.getTooltipPropsByAwardTypeAndSpendingCategory = this.getTooltipPropsByAwardTypeAndSpendingCategory.bind(this);
         Object.keys(tooltipStateBySpendingCategory)
@@ -110,7 +123,7 @@ export default class AwardAmountsChart extends Component {
                     tooltipComponent: <ExceedsCurrentAmountTooltip />
                 }
             },
-            assistance: {
+            grant: {
                 obligated: {
                     offsetAdjustments: { top: -7, right: 30 },
                     tooltipComponent: <ObligatedAmountTooltip />
@@ -123,6 +136,16 @@ export default class AwardAmountsChart extends Component {
                     offsetAdjustments: { top: 0, right: 30 },
                     tooltipComponent: <TotalFundingTooltip />
                 }
+            },
+            loan: {
+                subsidy: {
+                    offsetAdjustments: { top: 0, right: 30 },
+                    tooltipComponent: <SubsidyTooltip />
+                },
+                faceValue: {
+                    offsetAdjustments: { top: -7, right: 30 },
+                    tooltipComponent: <FaceValueTooltip />
+                }
             }
         };
         if (Object.keys(map).includes(awardType)) {
@@ -134,9 +157,7 @@ export default class AwardAmountsChart extends Component {
 
     getTooltipPropsBySpendingScenario(spendingScenario, awardType = this.props.awardType) {
         // these are the award amount visualizations needed for every spending scenario
-        const spendingCategories = (awardType === "grant")
-            ? ["obligated", "nonFederalFunding", "totalFunding"]
-            : ["obligated", "current", "potential"];
+        const spendingCategories = getSpendingCategoriesByAwardType(awardType);
         if (spendingScenario !== "normal") {
             // if exceedsPotential or exceedsCurrent is the spending scenario, add it here as a spendingCategory...
             spendingCategories.push(spendingScenario);
@@ -177,14 +198,10 @@ export default class AwardAmountsChart extends Component {
         });
     }
 
-    renderChart(awardAmounts = this.props.awardOverview, awardType = this.props.awardType, spendingScenario = this.props.spendingScenario) {
-        if (awardType === 'grant') {
-            return (
-                <GrantChart
-                    {...this.getTooltipPropsBySpendingScenario('normal', awardType)}
-                    awardAmounts={awardAmounts} />
-            );
-        }
+    renderChartBySpendingScenario(
+        spendingScenario = this.props.spendingScenario,
+        awardType = this.props.awardType,
+        awardAmounts = this.props.awardOverview) {
         switch (spendingScenario) {
             case "exceedsCurrent":
                 return (
@@ -218,8 +235,27 @@ export default class AwardAmountsChart extends Component {
         }
     }
 
+    renderChartByAwardType(awardAmounts = this.props.awardOverview, awardType = this.props.awardType, spendingScenario = this.props.spendingScenario) {
+        switch (awardType) {
+            case "grant":
+                return (
+                    <GrantChart
+                        {...this.getTooltipPropsBySpendingScenario('normal', awardType)}
+                        awardAmounts={awardAmounts} />
+                );
+            case "loan":
+                return (
+                    <LoansChart
+                        {...this.getTooltipPropsBySpendingScenario('normal', awardType)}
+                        awardAmounts={awardAmounts} />
+                );
+            default: // idvs and contracts
+                return this.renderChartBySpendingScenario(spendingScenario);
+        }
+    }
+
     render() {
-        const visualization = this.renderChart(this.props.awardOverview, this.props.awardType, this.props.spendingScenario);
+        const visualization = this.renderChartByAwardType(this.props.awardOverview, this.props.awardType, this.props.spendingScenario);
         return (
             <React.Fragment>
                 {visualization}
