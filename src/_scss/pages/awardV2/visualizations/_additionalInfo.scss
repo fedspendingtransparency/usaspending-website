@@ -87,6 +87,7 @@
                 height: auto;
                 border: rem(2) solid $color-gray-lightest;
                 overflow: visible;
+                width: 100%;
                     .accordion-row {
                         border-bottom: rem(2) solid $color-gray-lightest;
                         padding: rem(8) rem(40);
@@ -97,7 +98,6 @@
                           @include flex-direction(column);
                           flex-basis: 100%;
                           flex: 1;
-                          padding-left: rem(11);
                         }
                         .accordion-row__data {
                           @include flex-direction(column);

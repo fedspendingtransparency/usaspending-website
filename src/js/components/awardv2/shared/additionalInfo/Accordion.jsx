@@ -12,6 +12,7 @@ import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 const propTypes = {
     accordionName: PropTypes.string,
     accordionIcon: PropTypes.string,
+    iconClassName: PropTypes.string,
     accordionData: PropTypes.object,
     globalToggle: PropTypes.bool
 };
@@ -100,14 +101,15 @@ export default class Accordion extends React.Component {
     }
 
     render() {
-        const { accordionName, accordionIcon } = this.props;
+        const { accordionName, accordionIcon, iconClassName } = this.props;
         const onKeyDownHandler = createOnKeyDownHandler(this.handleClick);
         const accordionBody = this.accordionBody();
         const open = this.state.open ?
             (<FontAwesomeIcon className="accordion-caret" size="lg" icon="angle-down" />) :
             (<FontAwesomeIcon className="accordion-caret" size="lg" icon="angle-right" />);
+        const openClassName = this.state.open ? 'accordion accordion_open' : 'accordion';
         return (
-            <div className={this.state.open ? 'accordion accordion_open' : 'accordion'}>
+            <div className={openClassName}>
                 <div
                     className="accordion__bar"
                     tabIndex={0}
@@ -115,7 +117,7 @@ export default class Accordion extends React.Component {
                     onKeyDown={onKeyDownHandler}
                     onClick={this.handleClick}>
                     <span>
-                        <FontAwesomeIcon size="lg" icon={accordionIcon} />
+                        <FontAwesomeIcon className={iconClassName} size="lg" icon={accordionIcon} />
                         {accordionName}
                     </span>
                     <span>

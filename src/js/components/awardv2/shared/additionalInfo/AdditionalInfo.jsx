@@ -46,6 +46,7 @@ export default class AdditionalInfo extends React.Component {
     render() {
         const { overview } = this.props;
         const data = this.data();
+        console.log(' Data : ', data);
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
         let periodOfPerformance = (
@@ -66,6 +67,7 @@ export default class AdditionalInfo extends React.Component {
                     globalToggle={this.state.globalToggle}
                     accordionName="Period Of Performance"
                     accordionIcon="calendar-alt"
+                    iconClassName="accordion-icon-calendar-alt"
                     accordionData={data.periodOfPerformance} />
             );
         }
@@ -93,7 +95,7 @@ export default class AdditionalInfo extends React.Component {
                             <Accordion
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Parent Award Details"
-                                accordionIcon="level-up-alt"
+                                accordionIcon="sitemap"
                                 accordionData={data.parentAwardDetails} />
                             {placeOfPerformance}
                             {periodOfPerformance}
