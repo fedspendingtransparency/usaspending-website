@@ -6,13 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import additionalDetails from 'dataMapping/awardsv2/additionalDetails';
 import additionalDetailsIdv from 'dataMapping/awardsv2/additionalDetailsIdv';
 
 import Accordion from './Accordion';
-import RecipientDetails from './RecipientDetails';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 
 const propTypes = {
@@ -61,11 +60,10 @@ export default class AdditionalInfo extends React.Component {
                 <div className="award-viz">
                     <div className="award-viz__heading">
                         <div className="award-viz__icon">
-                            <InfoCircle />
+                            <FontAwesomeIcon size="lg" icon="info" />
                         </div>
                         <h3 className="award-viz__title">Additional Information</h3>
                     </div>
-                    <hr />
                     <button
                         className="award-viz__button"
                         onClick={this.handleClick}>
@@ -90,16 +88,13 @@ export default class AdditionalInfo extends React.Component {
                                 accordionName="Legislative Mandates"
                                 accordionIcon="pencil-alt"
                                 accordionData={data.legislativeMandates} />
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Executive Compensation"
-                                accordionIcon="user-tie"
-                                accordionData={awardData.executiveDetails.officers} />
                         </div>
                         <div className="award__col">
-                            <RecipientDetails
-                                data={this.props.overview.recipient}
-                                globalToggle={this.state.globalToggle} />
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Recipient Details"
+                                accordionIcon="building"
+                                accordionData={data.recipientDetails} />
                             <Accordion
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Acquisition Details"
@@ -115,6 +110,11 @@ export default class AdditionalInfo extends React.Component {
                                 accordionName="Additional Details"
                                 accordionIcon="ellipsis-h"
                                 accordionData={data.additionalDetails} />
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Executive Compensation"
+                                accordionIcon="user-tie"
+                                accordionData={awardData.executiveDetails.officers} />
                         </div>
                     </div>
                 </div>

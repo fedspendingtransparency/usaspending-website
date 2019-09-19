@@ -6,6 +6,7 @@
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
+import BaseParentAwardDetails from './BaseParentAwardDetails';
 import CoreAwardAgency from './CoreAwardAgency';
 import BaseContractAdditionalDetails from './additionalDetails/BaseContractAdditionalDetails';
 import CoreAward from './CoreAward';
@@ -106,6 +107,12 @@ BaseContract.populate = function populate(data) {
         additionalDetails.populate(data.latest_transaction_contract_data);
         this.additionalDetails = additionalDetails;
     }
+
+    const parentAwardDetails = Object.create(BaseParentAwardDetails);
+    if (data.parent_award) {
+        parentAwardDetails.populateCore(data.parent_award);
+    }
+    this.parentAwardDetails = parentAwardDetails;
 
     const executiveDetails = Object.create(CoreExecutiveDetails);
     executiveDetails.populateCore(data.executive_details);
