@@ -79,6 +79,7 @@ export default class Accordion extends React.Component {
 
     accordionBody() {
         const { accordionData } = this.props;
+        if (!accordionData) return null;
         return Object.keys(accordionData).map((key) => {
             let data = accordionData[key] || '--';
             // display data as a link, address or list
@@ -89,6 +90,7 @@ export default class Accordion extends React.Component {
                     data = this[awardInfo.type](awardInfo.data);
                 }
             }
+
             return (
                 <div
                     key={key}
