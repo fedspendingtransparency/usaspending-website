@@ -48,7 +48,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
                 awardType={overview.category}
                 awardOverview={awardAmountData}
                 tooltipProps={defaultTooltipProps}
-                jumptoSection={jumpToSection} />
+                jumpToSection={jumpToSection} />
         );
     }
 
