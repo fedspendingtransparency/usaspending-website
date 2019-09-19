@@ -16,6 +16,7 @@ import TransactionTableGenericCell from 'components/award/table/cells/Transactio
 import SubawardsHeaderCell from 'components/award/subawards/cells/SubawardsHeaderCell';
 import SummaryPageTableMessage from 'components/award/table/SummaryPageTableMessage';
 
+import ResultsTableNoResults from '../../search/table/ResultsTableNoResults';
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
@@ -30,7 +31,8 @@ const propTypes = {
     sort: PropTypes.object,
     loadNextPage: PropTypes.func,
     changeSort: PropTypes.func,
-    tableInstance: PropTypes.string
+    tableInstance: PropTypes.string,
+    isV2: PropTypes.bool
 };
 
 export default class SubawardsTable extends React.Component {
@@ -133,7 +135,9 @@ export default class SubawardsTable extends React.Component {
 
         let message = null;
         if (this.props.subawards.length === 0 && !this.props.inFlight) {
-            message = (<SummaryPageTableMessage message="No sub-awards found." />);
+            message = this.props.isV2
+                ? <ResultsTableNoResults />
+                : (<SummaryPageTableMessage message="No sub-awards found." />);
         }
 
         return (
@@ -176,7 +180,8 @@ export default class SubawardsTable extends React.Component {
                             this.tableComponent = table;
                         }} />
                 </div>
-                {message}
+                {this.props.isV2 && <div className="results-table-message-container">{message}</div>}
+                {!this.props.isV2 && message}
             </div>
         );
     }
