@@ -135,12 +135,12 @@ const ExceedsPotentialChart = ({ awardType, awardAmounts }) => {
                         <div
                             className="award-amounts-viz__potential-wrapper"
                             style={potentialWrapperStyle}>
-                            <TooltipWrapper {...propsForPotentialTooltip} styles={{ width: currentBarStyle.width }}>
+                            <TooltipWrapper {...propsForCurrentTooltip} styles={{ width: currentBarStyle.width }}>
                                 <div
                                     className="award-amounts-viz__current"
                                     style={{ width: generatePercentage(1), backgroundColor: currentBarStyle.backgroundColor }} />
                             </TooltipWrapper>
-                            <TooltipWrapper {...propsForCurrentTooltip} styles={{ width: potentialBarStyle.width }}>
+                            <TooltipWrapper {...propsForPotentialTooltip} styles={{ width: potentialBarStyle.width }}>
                                 <div
                                     className="award-amounts-viz__potential"
                                     style={{ width: generatePercentage(1), backgroundColor: potentialBarStyle.backgroundColor }} />
