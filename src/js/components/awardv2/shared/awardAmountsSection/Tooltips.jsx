@@ -7,7 +7,7 @@ const propTypes = {
 };
 
 export const ObligatedAmountTooltip = () => (
-    <div className="combined-obligated-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Obligated Amount</h4>
         <div className="tooltip__text">
             <p>This is the amount that has been obligated, or promised by the government, to be paid to the recipient.</p>
@@ -16,7 +16,7 @@ export const ObligatedAmountTooltip = () => (
 );
 
 export const CurrentAmountTooltip = () => (
-    <div className="combined-obligated-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Current Award Amount</h4>
         <div className="tooltip__text">
             <p>This is the amount currently available for obligation based on the currently-exercised options of this contract.</p>
@@ -25,7 +25,7 @@ export const CurrentAmountTooltip = () => (
 );
 
 export const ExceedsCurrentAmountTooltip = () => (
-    <div className="combined-obligated-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Exceeds Current Award Amount</h4>
         <div className="tooltip__text">
             <p>This amount indicates how much this award has been over-obligated against its current award amount.</p>
@@ -34,7 +34,7 @@ export const ExceedsCurrentAmountTooltip = () => (
 );
 
 export const PotentialAmountTooltip = () => (
-    <div className="combined-obligated-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Potential Award Amount</h4>
         <div className="tooltip__text">
             <p>This is the potential amount available to obligate if all of the contract  options are exercised. You can think of this as the maximum award amount (sometimes referred to as the ceiling amount or capacity of the contract).</p>
@@ -43,7 +43,7 @@ export const PotentialAmountTooltip = () => (
 );
 
 export const ExceedsPotentialAmountTooltip = () => (
-    <div className="combined-obligated-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Exceeds Potential Award Amount</h4>
         <div className="tooltip__text">
             <p>This amount indicates how much this award has been over-obligated against its potential award amount.</p>
@@ -52,7 +52,7 @@ export const ExceedsPotentialAmountTooltip = () => (
 );
 
 export const TotalFundingTooltip = () => (
-    <div className="combined-obligated-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Total Funding</h4>
         <div className="tooltip__text">
             <p>This is the sum of the federal action obligation and the non-federal funding amounts.</p>
@@ -61,7 +61,7 @@ export const TotalFundingTooltip = () => (
 );
 
 export const NonFederalFundingTooltip = () => (
-    <div className="combined-obligated-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Non-Federal Funding</h4>
         <div className="tooltip__text">
             <p>This is the total amount of the award funded by non-federal source(s).</p>
@@ -69,31 +69,40 @@ export const NonFederalFundingTooltip = () => (
     </div>
 );
 
-export const SubsidyTooltip = () => (
-    <div className="combined-obligated-tt">
+export const SubsidyTooltip = ({ total }) => (
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Original Subsidy Cost</h4>
+        <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
             <p>This is the total estimated long-term cost to the Government of the direct loan or loan guarantee, excluding administrative costs.</p>
         </div>
     </div>
 );
 
-export const FaceValueTooltip = () => (
-    <div className="combined-obligated-tt">
+SubsidyTooltip.propTypes = {
+    total: PropTypes.string
+};
+
+export const FaceValueTooltip = ({ total }) => (
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Face Value of Direct Loan or Loan Guarantee</h4>
+        <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
             <p>This is the full amount of the loan/loan guarantee awarded to the recipient.</p>
         </div>
     </div>
 );
 
-// IDVs:
+FaceValueTooltip.propTypes = {
+    total: PropTypes.string
+};
 
+// IDVs:
 export const CombinedObligatedAmounts = ({
     total,
     count
 }) => (
-    <div className="combined-obligated-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Combined Obligated Amounts</h4>
         <h5 className="tooltip__amount"><span>{total}</span> from <span>{`${count} award orders`}</span></h5>
         <div className="tooltip__text">
@@ -117,7 +126,7 @@ export const CombinedCurrentAmounts = ({
     total,
     count
 }) => (
-    <div className="combined-obligated-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Combined Current Award Amounts</h4>
         <h5 className="tooltip__amount"><span>{total}</span> from <span>{`${count} award orders`}</span></h5>
         <div className="tooltip__text">
@@ -141,7 +150,7 @@ export const CombinedPotentialAmounts = ({
     total,
     count
 }) => (
-    <div className="combined-potential-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Combined Potential Award Amounts</h4>
         <h5 className="tooltip__amount"><span>{total}</span> from <span>{`${count} award orders`}</span></h5>
         <div className="tooltip__text">
@@ -163,7 +172,7 @@ export const CombinedExceedsPotentialAmounts = ({
     total,
     count
 }) => (
-    <div className="combined-exceeds-potential-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Exceeds Combined Potential Award Amounts</h4>
         <h5 className="tooltip__amount"><span>{total}</span> from <span>{`${count} award orders`}</span></h5>
         <div className="tooltip__text">
@@ -182,7 +191,7 @@ export const CombinedExceedsCurrentAmounts = ({
     total,
     count
 }) => (
-    <div className="combined-exceeds-current-tt">
+    <div className="award-amounts-tt">
         <h4 className="tooltip__title">Exceeds Combined Current Award Amount</h4>
         <h5 className="tooltip__amount"><span>{total}</span> from <span>{`${count} award orders`}</span></h5>
         <div className="tooltip__text">
@@ -200,3 +209,78 @@ CombinedExceedsCurrentAmounts.propTypes = {
 ObligatedAmountTooltip.propTypes = propTypes;
 CurrentAmountTooltip.propTypes = propTypes;
 PotentialAmountTooltip.propTypes = propTypes;
+
+export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, data = {}) => {
+    const map = {
+        idv: {
+            obligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedObligatedAmounts total={data.totalObligationFormatted} count={data.childAwardCount} />
+            },
+            current: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedCurrentAmounts total={data.baseExercisedOptionsFormatted} count={data.childAwardCount} />
+            },
+            potential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedPotentialAmounts total={data.baseAndAllOptionsFormatted} count={data.childAwardCount} />
+            },
+            exceedsCurrent: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedExceedsCurrentAmounts total={data.overspendingFormatted} count={data.childAwardCount} />
+            },
+            exceedsPotential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedExceedsPotentialAmounts total={data.extremeOverspendingFormatted} count={data.childAwardCount} />
+            }
+        },
+        contract: {
+            obligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <ObligatedAmountTooltip />
+            },
+            current: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CurrentAmountTooltip />
+            },
+            potential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <PotentialAmountTooltip />
+            },
+            exceedsCurrent: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <ExceedsCurrentAmountTooltip />
+            },
+            exceedsPotential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <ExceedsPotentialAmountTooltip />
+            }
+        },
+        grant: {
+            obligated: {
+                offsetAdjustments: { top: -7 },
+                tooltipComponent: <ObligatedAmountTooltip />
+            },
+            nonFederalFunding: {
+                offsetAdjustments: { top: -10, right: 0 },
+                tooltipComponent: <NonFederalFundingTooltip />
+            },
+            totalFunding: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <TotalFundingTooltip />
+            }
+        },
+        loan: {
+            subsidy: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <SubsidyTooltip total={data.subsidyFormatted} />
+            },
+            faceValue: {
+                offsetAdjustments: { top: -7 },
+                tooltipComponent: <FaceValueTooltip total={data.faceValueFormatted} />
+            }
+        }
+    };
+
+    return map[type][category];
+};
