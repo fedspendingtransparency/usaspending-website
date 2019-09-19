@@ -6,7 +6,7 @@
 import { formatMoney } from 'helpers/moneyFormatter';
 
 const BaseFederalAccount = {
-    populate(data) {
+    populateIdv(data) {
         this.reportingFiscalYear = data.reporting_fiscal_year || null;
         this.reportingFiscalQuarter = data.reporting_fiscal_quarter || null;
         this.id = data.piid || 0;
@@ -24,8 +24,36 @@ const BaseFederalAccount = {
         this._objectClassName = data.object_class_name || '';
         this._objectClass = data.object_class || '';
         this._fundingObligated = parseFloat(data.transaction_obligated_amount) || 0;
+    },
+
+    populateNonIdv(data) {
+        this.reportingFiscalYear = data.reporting_fiscal_year || null;
+        this.reportingFiscalQuarter = data.reporting_fiscal_quarter || null;
+        this.id = data.piid || 0;
+        this.awardId = data.award_id || '';
+        this.generatedId = data.generated_unique_award_id || '';
+        this._mainAccountCode = data.main_account_code || 0;
+        this.agency = data.funding_agency_name || '';
+        this.fundingAgencyId = data.funding_agency_id || '';
+        this.awardingAgencyId = data.awarding_agency_id || '';
+        this.awardingAgencyName = data.awarding_agency_name || '';
+        this.fedAccount = data.account_title || '';
+        this._programActivityCode = data.program_activity_code || '';
+        this._programActivityName = data.program_activity_name || '';
+        this._agencyId = data.agency_id || '';
+        this._objectClassName = data.object_class_name || '';
+        this._objectClass = data.object_class || '';
+        this._fundingObligated = parseFloat(data.transaction_obligated_amount) || 0;
+    },
+
+    populate(data, type) {
+        if (type === 'idv') {
+            this.populateIdv(data);
+        }
+        else this.populateNonIdv(data);
     }
 };
+
 Object.defineProperty(BaseFederalAccount, 'fundingObligated', {
     get() {
         return formatMoney(this._fundingObligated);

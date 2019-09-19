@@ -3,7 +3,7 @@
  * Created by Kwadwo Opoku-Debrah 04/04/19
  */
 
-const tableMapping = {
+const idvTableMapping = {
     columnWidths: {
         submissionDate: 0,
         id: 0,
@@ -56,4 +56,4 @@ const tableMapping = {
     }
 };
 
-export default tableMapping;
+export idvTableMapping;

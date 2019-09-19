@@ -104,13 +104,13 @@ export class FederalAccountTableContainer extends React.Component {
             });
     }
 
-    parseFundingData(data, reset) {
-        const fundingResults = [];
-        data.results.forEach((item) => {
-            const fundingResult = Object.create(BaseFederalAccountFunding);
-            fundingResult.populate(item);
-            fundingResults.push(fundingResult);
-        });
+    parseFundingData(data, reset, award = this.props.award) {
+        const fundingResults = data.results
+            .map((item) => {
+                const fundingResult = Object.create(BaseFederalAccountFunding);
+                fundingResult.populate(item, award.overview.category);
+                return fundingResult;
+            });
 
         // update the metadata
         const meta = data.page_metadata;
