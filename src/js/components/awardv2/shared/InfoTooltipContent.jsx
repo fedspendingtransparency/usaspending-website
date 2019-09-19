@@ -329,7 +329,7 @@ export const awardAmountsInfo = (
     </div>
 );
 
-export const awardHistoryInfo = (
+export const awardHistoryIdv = (
     <div>
         <div className="info-tooltip__title">
             Award History
@@ -346,6 +346,28 @@ export const awardHistoryInfo = (
                 the funding, or the actual transactions made my an agency to obligate
                 money, of an award can be found in this table. This data comes from
                 the Awarding Agency&apos;s financial accounting offices.
+            </p>
+        </div>
+    </div>
+);
+
+export const awardHistoryContract = (
+    <div>
+        <div className="info-tooltip__title">
+            Award History
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+                <strong>Award History</strong> – This section displays all of this award&apos;s transactions (modifications), sub-awards, and federal account funding data by row. The tables display only a small set of the available data fields.  To download the full set, including data attributes not displayed here and all related sub-award and federal account data, click the “Download” button at the top-right of this page.
+            </p>
+            <p>
+                <strong>Transaction History</strong> – This table contains historical changes made to this contract award, shown as individual modification records. This information is reported by the Awarding Agency&apos;s contracting officer.
+            </p>
+            <p>
+                <strong>Sub-Awards</strong> - This table contains any sub-awards reported by this award&apos;s recipient.
+            </p>
+            <p>
+                <strong>Federal Account Funding</strong> - Funding data directly submitted from agency financial accounting systems, known as Award Financial or Account Breakdown by Award data. This connects award spending to the appropriation, budgeting and allocation processes, which channel Congressional and Administration intent and determine how much money is assigned to each federal account.
             </p>
         </div>
     </div>
