@@ -1,6 +1,6 @@
 import React from 'react';
 import { AWARD_SECTION_HEADER_PROPS } from "../../../propTypes/index";
-import InfoTooltip from '../idv/InfoTooltip';
+import InfoTooltip from '../shared/InfoTooltip';
 
 const AwardSectionHeader = ({
     icon,

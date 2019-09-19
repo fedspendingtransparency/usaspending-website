@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import { formatNumber } from 'helpers/moneyFormatter';
-import InfoTooltip from '../../idv/InfoTooltip';
-import { summaryRelatedAwardsInfo } from '../../idv/InfoTooltipContent';
+import InfoTooltip from '../../shared/InfoTooltip';
+import { summaryRelatedAwardsInfo } from '../../shared/InfoTooltipContent';
 
 const propTypes = {
     overview: PropTypes.object,

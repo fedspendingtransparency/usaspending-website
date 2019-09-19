@@ -16,7 +16,7 @@ import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
-import AwardHistory from '../idv/AwardHistory';
+import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 
 const propTypes = {
     awardId: PropTypes.string,

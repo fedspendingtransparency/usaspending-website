@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import moment from 'moment';
-import InfoTooltip from './InfoTooltip';
-import { datesInfo } from './InfoTooltipContent';
+import InfoTooltip from '../shared/InfoTooltip';
+import { datesInfo } from '../shared/InfoTooltipContent';
 
 const propTypes = {
     dates: PropTypes.object
