@@ -8,14 +8,14 @@ import Axios, { CancelToken } from 'axios';
 import kGlobalConstants from 'GlobalConstants';
 
 // Get federal accounts
-export const fetchFederalAccountFunding = (awardId) => {
+export const fetchFederalAccountFunding = (params) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
             url: 'v2/awards/funding/',
             baseURL: kGlobalConstants.API,
             method: 'post',
-            data: { award_id: awardId },
+            data: params,
             cancelToken: source.token
         }),
         cancel() {
