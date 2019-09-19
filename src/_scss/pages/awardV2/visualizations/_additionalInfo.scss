@@ -151,6 +151,11 @@
             svg {
                 margin-right: rem(8);
                 fill: $color-gray-medium;
+
+                &.accordion-caret {
+                  fill: $color-cool-blue;
+                  color: $color-cool-blue;
+                }
             }
 
             img {

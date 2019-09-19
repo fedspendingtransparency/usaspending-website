@@ -103,6 +103,9 @@ export default class Accordion extends React.Component {
         const { accordionName, accordionIcon } = this.props;
         const onKeyDownHandler = createOnKeyDownHandler(this.handleClick);
         const accordionBody = this.accordionBody();
+        const open = this.state.open ?
+            (<FontAwesomeIcon className="accordion-caret" size="lg" icon="angle-down" />) :
+            (<FontAwesomeIcon className="accordion-caret" size="lg" icon="angle-right" />);
         return (
             <div className={this.state.open ? 'accordion accordion_open' : 'accordion'}>
                 <div
@@ -116,7 +119,7 @@ export default class Accordion extends React.Component {
                         {accordionName}
                     </span>
                     <span>
-                        {this.state.open ? <FontAwesomeIcon size="lg" icon="angle-down" /> : <FontAwesomeIcon size="lg" icon="angle-right" />}
+                        {open}
                     </span>
                 </div>
                 <div className="accordion__content">
