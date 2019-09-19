@@ -36,7 +36,7 @@ export default class AdditionalInfo extends React.Component {
         const category = overview._category;
         if (category === 'idv') return additionalDetailsIdv(overview);
         if (category === 'contract') return additionalDetailsContract(overview);
-        if (category === 'definitive contract') return additionalDetailsContract(overview);;
+        if (category === 'definitive contract') return additionalDetailsContract(overview);
         if (category === 'grant') return null;
         if (category === 'loan') return null;
         if (category === 'direct payment') return null;
