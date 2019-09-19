@@ -4,7 +4,7 @@ import { uniqueId } from 'lodash';
 
 const propTypes = {
     children: PropTypes.node,
-    awardType: PropTypes.oneOf(['contract', 'idv', 'grant']),
+    awardType: PropTypes.oneOf(['contract', 'idv', 'grant', 'loan']),
     awardData: PropTypes.shape({}),
     spendingScenario: PropTypes.string
 };
