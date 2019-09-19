@@ -68,10 +68,10 @@ export class FederalAccountTableContainer extends React.Component {
 
     setDefaultSort(category = this.props.category) {
         if (category === 'idv') {
-            this.setState({ sort: 'piid' });
+            this.setState((prevState) => ({ sort: { ...prevState.sort, field: 'piid' } }));
         }
         else {
-            this.setState({ sort: 'reporting_fiscal_date' });
+            this.setState((prevState) => ({ sort: { ...prevState.sort, field: 'reporting_fiscal_date' } }));
         }
     }
 
@@ -117,11 +117,11 @@ export class FederalAccountTableContainer extends React.Component {
             });
     }
 
-    parseFundingData(data, reset, award = this.props.award) {
+    parseFundingData(data, reset) {
         const fundingResults = data.results
             .map((item) => {
                 const fundingResult = Object.create(BaseFederalAccountFunding);
-                fundingResult.populate(item, award.overview.category);
+                fundingResult.populate(item);
                 return fundingResult;
             });
 
