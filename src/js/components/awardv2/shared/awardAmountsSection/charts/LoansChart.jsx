@@ -31,7 +31,7 @@ const LoansChart = ({ awardAmounts }) => {
 
     const buildTooltipProps = (spendingCategory, isVisible, showTooltip, data = awardAmounts) => ({
         ...getTooltipPropsByAwardTypeAndSpendingCategory('loan', spendingCategory, data),
-        wide: true,
+        wide: false,
         controlledProps: {
             isControlled: true,
             isVisible,

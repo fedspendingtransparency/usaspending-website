@@ -72,7 +72,7 @@ export const NonFederalFundingTooltip = () => (
 export const SubsidyTooltip = ({ total }) => (
     <div className="award-amounts-tt">
         <h4 className="tooltip__title">Original Subsidy Cost</h4>
-        <h5 className="tooltip__amount">{total}</h5>
+        <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
             <p>This is the total estimated long-term cost to the Government of the direct loan or loan guarantee, excluding administrative costs.</p>
         </div>
@@ -86,7 +86,7 @@ SubsidyTooltip.propTypes = {
 export const FaceValueTooltip = ({ total }) => (
     <div className="award-amounts-tt">
         <h4 className="tooltip__title">Face Value of Direct Loan or Loan Guarantee</h4>
-        <h5 className="tooltip__amount">{total}</h5>
+        <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
             <p>This is the full amount of the loan/loan guarantee awarded to the recipient.</p>
         </div>
@@ -98,7 +98,6 @@ FaceValueTooltip.propTypes = {
 };
 
 // IDVs:
-
 export const CombinedObligatedAmounts = ({
     total,
     count
