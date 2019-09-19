@@ -62,6 +62,7 @@ export default class FedAccountTable extends React.Component {
 
         return (
             <FederalAccountTableHeaderCell
+                tableMapping={this.tableMapping}
                 column={column}
                 label={displayName}
                 order={this.props.sort}
