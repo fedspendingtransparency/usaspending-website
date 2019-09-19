@@ -46,7 +46,6 @@ export default class AdditionalInfo extends React.Component {
     render() {
         const { overview } = this.props;
         const data = this.data();
-        console.log(' Data : ', data);
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
         let periodOfPerformance = (
