@@ -14,10 +14,11 @@ import AwardSectionHeader from '../AwardSectionHeader';
 const propTypes = {
     overview: PropTypes.object,
     setActiveTab: PropTypes.func,
-    activeTab: PropTypes.string
+    activeTab: PropTypes.string,
+    awardId: PropTypes.string
 };
 
-const AwardHistory = ({ overview, setActiveTab, activeTab }) => {
+const AwardHistory = ({ overview, setActiveTab, activeTab, awardId }) => {
     const sectionTitle = (overview.category === 'idv')
         ? "Award History for this IDV"
         : "Award History";
@@ -33,6 +34,7 @@ const AwardHistory = ({ overview, setActiveTab, activeTab }) => {
                 tooltip={tooltip}
                 tooltipWide={(overview.category === 'contract')} />
             <TablesSection
+                awardId={awardId}
                 overview={overview}
                 clickTab={setActiveTab}
                 activeTab={activeTab} />

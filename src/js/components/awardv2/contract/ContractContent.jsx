@@ -64,7 +64,7 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
                 <FederalAccountsSection />
             </AwardSection>
             <AwardSection type="row">
-                <AwardHistory overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
+                <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
             </AwardSection>
             <AdditionalInfo overview={overview} />
         </AwardPageWrapper>
