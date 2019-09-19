@@ -12,48 +12,47 @@ const additionalDetailsContracts = (awardData) => {
         placeOfPerformance,
         recipient
     } = awardData;
-    const awardingAgencyLinkPath = awardingAgency.id ? `/#/agency/${awardingAgency.id}` : null;
     const data = {
         agencyDetails: {
             'Awarding Agency': {
                 type: 'link',
                 data: {
-                    path: awardingAgencyLinkPath,
+                    path: awardingAgency.id ? `/#/agency/${awardingAgency.id}` : null,
                     title: awardingAgency.formattedToptier
                 }
             },
             'Awarding Sub-Agency': {
                 type: 'link',
                 data: {
-                    path: awardingAgencyLinkPath,
+                    path: awardingAgency.subtierId ? `/#/agency/${awardingAgency.subtierId}` : null,
                     title: awardingAgency.subtierName
                 }
             },
             'Awarding Office': {
                 type: 'link',
                 data: {
-                    path: awardingAgencyLinkPath,
+                    path: awardingAgency.officeId ? `/#/agency/${awardingAgency.officeId}` : null,
                     title: awardingAgency.officeName
                 }
             },
             'Funding Agency': {
                 type: 'link',
                 data: {
-                    path: awardingAgencyLinkPath,
+                    path: fundingAgency.id ? `/#/agency/${fundingAgency.id}` : null,
                     title: fundingAgency.formattedToptier
                 }
             },
             'Funding Sub-Agency': {
                 type: 'link',
                 data: {
-                    path: awardingAgencyLinkPath,
+                    path: fundingAgency.subtierId ? `/#/agency/${fundingAgency.subtierId}` : null,
                     title: fundingAgency.subtierName
                 }
             },
             'Funding Office': {
                 type: 'link',
                 data: {
-                    path: awardingAgencyLinkPath,
+                    path: fundingAgency.officeId ? `/#/agency/${fundingAgency.officeId}` : null,
                     title: fundingAgency.officeName
                 }
             }
