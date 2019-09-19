@@ -1,9 +1,9 @@
 /**
- * additionalDetails.js
+ * additionalDetails.js -> additonalDetailsContracts.js
  * Created by Kwadwo Opoku-Debrah 12/17/18
  */
 
-const additionalDetails = (awardData) => {
+const additionalDetailsContracts = (awardData) => {
     const {
         awardingAgency,
         fundingAgency,
@@ -169,4 +169,4 @@ const additionalDetails = (awardData) => {
     return data;
 };
 
-export default additionalDetails;
+export default additionalDetailsContracts;

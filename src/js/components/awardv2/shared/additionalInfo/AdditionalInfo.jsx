@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import additionalDetails from 'dataMapping/awardsv2/additionalDetails';
+import additionalDetailsContract from 'dataMapping/awardsv2/additionalDetailsContract';
+// import additionalDetailsFinancialAssistance from 'dataMapping/awardsv2/additionalDetailsFinancialAssistance';
 import additionalDetailsIdv from 'dataMapping/awardsv2/additionalDetailsIdv';
 
 import Accordion from './Accordion';
@@ -29,9 +30,22 @@ export default class AdditionalInfo extends React.Component {
     handleClick() {
         this.setState({ globalToggle: !this.state.globalToggle });
     }
+
+    data() {
+        const { overview } = this.props;
+        const category = overview._category;
+        if (category === 'idv') return additionalDetailsIdv(overview);
+        if (category === 'contract') return additionalDetailsContract(overview);
+        if (category === 'definitive contract') return additionalDetailsContract(overview);;
+        if (category === 'grant') return null;
+        if (category === 'loan') return null;
+        if (category === 'direct payment') return null;
+        if (category === 'other') return null;
+        return {};
+    }
     render() {
-        const awardData = this.props.overview;
-        const data = this.props.overview._category === 'idv' ? additionalDetailsIdv(this.props.overview) : additionalDetails(this.props.overview);
+        const { overview } = this.props;
+        const data = this.data();
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
         let periodOfPerformance = (
@@ -114,7 +128,7 @@ export default class AdditionalInfo extends React.Component {
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Executive Compensation"
                                 accordionIcon="user-tie"
-                                accordionData={awardData.executiveDetails.officers} />
+                                accordionData={overview.executiveDetails.officers} />
                         </div>
                     </div>
                 </div>
