@@ -79,8 +79,8 @@ export default class DetailsTabItem extends React.Component {
                     <span>{this.props.label}</span>
                     {comingSoon}
                     {count}
-                    {infoTooltip}
                 </div>
+                {infoTooltip}
             </button>
         );
     }
