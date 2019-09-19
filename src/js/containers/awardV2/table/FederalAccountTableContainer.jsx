@@ -33,7 +33,7 @@ export class FederalAccountTableContainer extends React.Component {
             nextPage: false,
             page: 1,
             sort: {
-                field: 'piid',
+                field: null,
                 direction: 'asc'
             },
             tableInstance: `${uniqueId()}`,
@@ -46,7 +46,8 @@ export class FederalAccountTableContainer extends React.Component {
         this.changeSort = this.changeSort.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await this.setDefaultSort(this.props.category);
         this.fetchSubmissions(1, true);
     }
 
@@ -54,11 +55,23 @@ export class FederalAccountTableContainer extends React.Component {
         if (this.props.award.id !== prevProps.award.id) {
             this.fetchSubmissions(1, true);
         }
+        if (this.props.category !== prevProps.category) {
+            this.setDefaultSort(this.props.category);
+        }
     }
 
     componentWillUnmount() {
         if (this.fedAccountRequest) {
             this.fedAccountRequest.cancel();
+        }
+    }
+
+    setDefaultSort(category = this.props.category) {
+        if (category === 'idv') {
+            this.setState({ sort: 'piid' });
+        }
+        else {
+            this.setState({ sort: 'reporting_fiscal_date' });
         }
     }
 
@@ -87,7 +100,7 @@ export class FederalAccountTableContainer extends React.Component {
 
         this.fedAccountRequest = (award.category === 'idv')
             ? IdvHelper.fetchAwardFedAccountFunding(params)
-            : fetchFederalAccountFunding(params.award_id);
+            : fetchFederalAccountFunding(params);
 
         this.fedAccountRequest.promise
             .then((res) => {
@@ -145,9 +158,7 @@ export class FederalAccountTableContainer extends React.Component {
     }
 
     changeSort(sort) {
-        this.setState({
-            sort
-        }, () => {
+        this.setState({ sort }, () => {
             this.fetchSubmissions(1, true);
         });
     }
