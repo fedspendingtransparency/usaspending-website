@@ -547,3 +547,36 @@ export const federalAccountsInfo = (
         </div>
     </div>
 );
+
+export const subAwardsTab = (
+    <div className="transaction-history-tt">
+        <div className="info-tooltip__title">Award History - Sub-Awards</div>
+        <div className="info-tooltip__text">
+            <p>
+                The Sub-Award tab displays any sub-contracts reported by this award&apos;s recipient (the ‘prime recipient’ in a sub-award context).
+                Sub-contracts are contractual agreements that a prime recipient makes with another entity (sub-recipient) to furnish supplies or services in service to the prime contract.
+            </p>
+            <p>
+                Above the sub-award table, we display the total number of reported sub-award actions and their total value.
+                Here&apos;s what the columns for each sub-award action tell you:
+            </p>
+            <ul>
+                <li>
+                    <strong>Sub-Award ID</strong> – The sub-award ID number chosen by the prime recipient for this transaction.
+                </li>
+                <li>
+                    <strong>Sub-Recipient Name</strong> – The name of the sub-recipient.
+                </li>
+                <li>
+                    <strong>Action Date</strong> - This is when the sub-award was issued.
+                </li>
+                <li>
+                    <strong>Amount</strong> – The amount of money involved in the sub-award action.
+                </li>
+                <li>
+                    <strong>Description</strong> – The description of the sub-award provided by the prime recipient. The level of detail in descriptions varies and is dependent on the author.
+                </li>
+            </ul>
+        </div>
+    </div>
+);
