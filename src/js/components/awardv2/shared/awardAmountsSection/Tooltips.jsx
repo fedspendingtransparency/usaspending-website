@@ -28,7 +28,8 @@ export const ExceedsCurrentAmountTooltip = () => (
     <div className="award-amounts-tt">
         <h4 className="tooltip__title">Exceeds Current Award Amount</h4>
         <div className="tooltip__text">
-            <p>This amount indicates how much this award has been over-obligated against its current award amount.</p>
+            <p>This award has a total obligated amount that exceeds the Current Total Value of the Award. In other words, more money has been obligated on this award than the current value of the contract if all expected goods or services are delivered (i.e., the base contract and exercised options).</p>
+            <p>Such over-obligation can occur because of missing data, errors in the data, or violations of procurement policy.</p>
         </div>
     </div>
 );
