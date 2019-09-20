@@ -85,9 +85,9 @@ export default class TablesSection extends React.Component {
             this.countRequest.cancel();
         }
 
-        const isIdv = award.category === 'idv';
+        const isIdvOrLoan = (award.category === 'idv' || award.category === 'loan');
         const tabsWithCounts = tabs
-            .filter((tab) => ((isIdv && tab.internal !== 'subaward') || !isIdv))
+            .filter((tab) => ((!isIdvOrLoan || tab.internal !== 'subaward')))
             .map(async (tab) => {
                 this.countRequest = getAwardHistoryCounts(tab.internal, award.generatedId);
                 const { data } = await this.countRequest.promise;
