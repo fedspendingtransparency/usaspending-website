@@ -24,7 +24,7 @@ const BaseFederalAccount = {
         this._objectClassName = data.object_class_name || '';
         this._objectClass = data.object_class || '';
         this._fundingObligated = parseFloat(data.transaction_obligated_amount) || 0;
-    },
+    }
 };
 
 Object.defineProperty(BaseFederalAccount, 'fundingObligated', {
