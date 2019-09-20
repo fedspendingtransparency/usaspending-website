@@ -22,4 +22,10 @@ describe('Core Award getter functions', () => {
     it('should derive the subawardedPercet', () => {
         expect(award.subAwardedPercent).toEqual('60%');
     });
+    it('should derive the subawardedPercet', () => {
+        const zeroSubtotalAward = Object.create(CoreAward);
+        const data = { ...award, subawardTotal: 0 };
+        zeroSubtotalAward.populateCore(data);
+        expect(zeroSubtotalAward.subAwardedPercent).toEqual('0%');
+    });
 });
