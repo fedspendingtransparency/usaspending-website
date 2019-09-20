@@ -38,6 +38,11 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
     const glossaryLink = glossaryLinks[overview.type]
         ? `/#/award_v2/${awardId}?glossary=${glossaryLinks[overview.type]}`
         : null;
+    
+    const jumpToTransactionHistoryTable = () => {
+        setActiveTab('transaction');
+        jumpToSection("award-history");
+    };
 
     let amountsSection = (<ComingSoonSection title="Award Amounts" includeHeader />);
     if (overview.category === 'grant' || overview.category === 'loan') {
@@ -48,7 +53,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
                 awardType={overview.category}
                 awardOverview={awardAmountData}
                 tooltipProps={defaultTooltipProps}
-                jumpToSection={jumpToSection} />
+                jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
         );
     }
 
