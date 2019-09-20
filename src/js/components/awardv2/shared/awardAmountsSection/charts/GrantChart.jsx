@@ -31,8 +31,8 @@ const GrantChart = ({ awardAmounts }) => {
         showTotalFundingTooltip
     ] = useTooltips(["obligated", "nonFederalFunding", "totalFunding"]);
 
-    const buildTooltipProps = (spendingCategory, isVisible, showTooltip) => ({
-        ...getTooltipPropsByAwardTypeAndSpendingCategory('grant', spendingCategory),
+    const buildTooltipProps = (spendingCategory, isVisible, showTooltip, data = awardAmounts) => ({
+        ...getTooltipPropsByAwardTypeAndSpendingCategory('grant', spendingCategory, data),
         wide: true,
         controlledProps: {
             isControlled: true,
