@@ -80,16 +80,19 @@ $loans-line-color: #F5A623;
         text-align: center;
     }
 
-    .award-amounts-viz__line-up {
+    .award-amounts-viz__line-up,
+    .award-amounts-viz__line-up--loans {
         margin: rem(5) 0 rem(5) rem(1);
-        border-bottom: 1px solid $color-cool-blue-light;
         position: relative;
         width: 99.5%;
         height: rem(1);
     }
 
+    .award-amounts-viz__line-up {
+        border-bottom: 1px solid $color-cool-blue-light;
+    }
+
     .award-amounts-viz__line-up--loans {
-        @extend .award-amounts-viz__line-up;
         border-bottom: 1px solid $loans-line-color;
     }
 
@@ -179,7 +182,8 @@ $loans-line-color: #F5A623;
         }
     }
 
-    .award-amounts-viz__desc-top {
+    .award-amounts-viz__desc-top,
+    .award-amounts-viz__desc-top--loans {
         font-size: $base-font-size;
         color: $border-gray;
         padding-left: rem(5);
@@ -192,9 +196,7 @@ $loans-line-color: #F5A623;
     }
 
     .award-amounts-viz__desc-top--loans {
-        @extend .award-amounts-viz__desc-top;
         border-left: solid rem(4) $loans-line-color;
-        flex-wrap: wrap;
         span {
             // this span is only present when the loans subsidy amount is zero
             margin: auto;
