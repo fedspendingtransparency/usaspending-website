@@ -9,11 +9,7 @@
         margin-bottom: 0;
     }
 }
-.combined-obligated-tt,
-.combined-current-tt,
-.combined-potential-tt,
-.combined-exceeds-potential-tt,
-.combined-exceeds-current-tt {
+.award-amounts-tt {
     @include display(flex);
     @include flex-direction(column);
     @include align-items(center);

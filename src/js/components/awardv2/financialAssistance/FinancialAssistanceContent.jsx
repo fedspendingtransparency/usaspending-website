@@ -39,7 +39,7 @@ export default class FinancialAssistanceContent extends React.Component {
             : null;
 
         let amountsSection = (<ComingSoonSection title="Award Amounts" includeHeader />);
-        if (overview.category === 'grant') {
+        if (overview.category === 'grant' || overview.category === 'loan') {
             const awardAmountData = Object.create(BaseAwardAmounts);
             awardAmountData.populate(overview, overview.category);
             amountsSection = (
