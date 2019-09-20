@@ -64,6 +64,10 @@ const CoreAward = {
             return `${MoneyFormatter.formatMoneyWithPrecision((this._totalObligation - this._baseAndAllOptions) / units.unit, 1)} ${units.unitLabel}`;
         }
         return MoneyFormatter.formatMoney(this._totalObligation - this._baseAndAllOptions);
+    },
+    get subAwardedPercent() {
+        const percent = (this._subawardTotal / this._baseAndAllOptions) * 100;
+        return `${Math.round((percent))}%`;
     }
 };
 

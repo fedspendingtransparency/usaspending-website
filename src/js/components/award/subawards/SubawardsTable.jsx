@@ -125,17 +125,18 @@ export default class SubawardsTable extends React.Component {
 
     render() {
         const tableValues = this.buildTable();
+        const { isV2, inFlight, award, subawards, tableWidth, loadNextPage } = this.props;
 
         let loadingClass = '';
-        if (this.props.inFlight) {
+        if (inFlight) {
             loadingClass = 'loading';
         }
 
-        const totalValue = this.props.award.subawardTotal;
+        const totalValue = award.subawardTotal;
 
         let message = null;
-        if (this.props.subawards.length === 0 && !this.props.inFlight) {
-            message = this.props.isV2
+        if (subawards.length === 0 && !inFlight) {
+            message = isV2
                 ? <ResultsTableNoResults />
                 : (<SummaryPageTableMessage message="No sub-awards found." />);
         }
@@ -148,7 +149,7 @@ export default class SubawardsTable extends React.Component {
                             Total Number of Sub-Awards:&nbsp;
                         </span>
                         <span className="total-value">
-                            {this.props.award.subawardCount}
+                            {award.subawardCount}
                         </span>
                     </div>
                     <div className="total-item">
@@ -159,6 +160,16 @@ export default class SubawardsTable extends React.Component {
                             {totalValue}
                         </span>
                     </div>
+                    {isV2 && (
+                        <div className="total-item">
+                            <span className="total-label">
+                                Percentage of Total Funded Amount:&nbsp;
+                            </span>
+                            <span className="total-value">
+                                {award.subAwardedPercent}
+                            </span>
+                        </div>
+                    )}
                 </div>
                 <div
                     className={`subawards-table ${loadingClass}`}
@@ -167,21 +178,21 @@ export default class SubawardsTable extends React.Component {
                     }}>
                     <IBTable
                         rowHeight={rowHeight}
-                        rowCount={this.props.subawards.length}
+                        rowCount={subawards.length}
                         headerHeight={50}
                         contentWidth={tableValues.width}
-                        bodyWidth={this.props.tableWidth}
+                        bodyWidth={tableWidth}
                         bodyHeight={tableHeight}
                         columns={tableValues.columns}
-                        onReachedBottom={this.props.loadNextPage}
+                        onReachedBottom={loadNextPage}
                         headerCellRender={this.headerCellRender}
                         bodyCellRender={this.bodyCellRender}
                         ref={(table) => {
                             this.tableComponent = table;
                         }} />
                 </div>
-                {this.props.isV2 && <div className="results-table-message-container">{message}</div>}
-                {!this.props.isV2 && message}
+                {isV2 && <div className="results-table-message-container">{message}</div>}
+                {!isV2 && message}
             </div>
         );
     }
