@@ -6,11 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { awardRanges } from 'dataMapping/search/awardAmount';
-import { reduce } from 'lodash';
-import * as AwardAmountHelper from 'helpers/awardAmountHelper';
+import { reduce, each } from 'lodash';
+import SelectedAwardAmountBound from
+    'components/search/filters/awardAmount/SelectedAwardAmountBound';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import SpecificAwardAmountItem from './SpecificAwardAmountItem';
+import { formatAwardAmountRange } from 'helpers/awardAmountHelper';
 
 const propTypes = {
     selectAwardRange: PropTypes.func,
@@ -52,7 +54,7 @@ export default class AwardAmountSearch extends React.Component {
     awareAmountCheckboxes() {
         const { awardAmountRanges, awardAmounts } = this.props;
         return reduce(awardAmountRanges, (result, value, key) => {
-            const name = AwardAmountHelper.formatAwardAmountRange(
+            const name = formatAwardAmountRange(
                 value, 0);
             result.push(
                 (<PrimaryCheckboxType
@@ -71,8 +73,27 @@ export default class AwardAmountSearch extends React.Component {
         }, []);
     }
 
+    stagedFilters() {
+        const filterObject = this.props.awardAmounts.toObject();
+        let stagedFilter;
+        let name;
+        each(filterObject, (val, key) => {
+            stagedFilter = val;
+            name = key;
+        });
+        if (!stagedFilter) return null;
+        const label = formatAwardAmountRange(stagedFilter);
+        return (
+            <SelectedAwardAmountBound
+                removeFilter={this.removeFilter}
+                name={name}
+                label={label} />
+        );
+    }
+
     render() {
         const awardAmountRangeItems = this.awareAmountCheckboxes();
+        const stagedFilters = this.stagedFilters();
         return (
             <div className="search-filter checkbox-type-filter">
                 <div className="filter-item-wrap">
@@ -86,6 +107,11 @@ export default class AwardAmountSearch extends React.Component {
                         ref={(component) => {
                             this.hint = component;
                         }} />
+                    <div
+                        className="selected-filters"
+                        role="status">
+                        {stagedFilters}
+                    </div>
                 </div>
             </div>
         );
