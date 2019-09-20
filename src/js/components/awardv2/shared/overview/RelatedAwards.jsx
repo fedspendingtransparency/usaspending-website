@@ -91,8 +91,15 @@ export default class RelatedAwards extends React.Component {
 
     tooltipInfo() {
         const { overview } = this.props;
-        if (overview.category === 'idv') return summaryRelatedAwardsInfo;
-        if (overview.category === 'contract') return null;
+        const awardType = overview.category;
+        if (awardType === 'idv') return summaryRelatedAwardsInfo;
+        if (awardType === 'contract') return null;
+        if (awardType === 'definitive contract') return null;
+        if (awardType === 'grant') return null;
+        if (awardType === 'loan') return null;
+        if (awardType === 'direct payment') return null;
+        if (awardType === 'other') return null;
+
         return null;
     }
 
