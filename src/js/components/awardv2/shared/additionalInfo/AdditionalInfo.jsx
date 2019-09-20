@@ -12,7 +12,6 @@ import additionalDetailsContract from 'dataMapping/awardsv2/additionalDetailsCon
 import additionalDetailsFinancialAssistance from
     'dataMapping/awardsv2/additionalDetailsFinancialAssistance';
 import additionalDetailsIdv from 'dataMapping/awardsv2/additionalDetailsIdv';
-
 import Accordion from './Accordion';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 

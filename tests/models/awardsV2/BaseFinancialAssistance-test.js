@@ -15,14 +15,6 @@ const loan = Object.create(BaseFinancialAssistance);
 loan.populate(mockLoan);
 
 describe('Base Financial Assistance', () => {
-    describe('monetary values', () => {
-        it('should format the loan face value', () => {
-            expect(loan.faceValue).toEqual('$24,343');
-        });
-        it('should format the subsidy amount', () => {
-            expect(loan.subsidy).toEqual('$123');
-        });
-    });
     describe('cfdaProgram', () => {
         it('should format the CFDA fields', () => {
             expect(loan.cfdaProgram).toEqual('0.434 - Flood Insurance');

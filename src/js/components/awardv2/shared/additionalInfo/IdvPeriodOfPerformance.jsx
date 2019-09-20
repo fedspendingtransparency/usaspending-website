@@ -51,7 +51,7 @@ export default class IdvPeriodOfPerformance extends React.Component {
                         Period of Performance
                     </span>
                     <span>
-                        {this.state.open ? <FontAwesomeIcon size="lg" icon="angle-down" /> : <FontAwesomeIcon size="lg" icon="angle-right" />}
+                        {this.state.open ? <FontAwesomeIcon className="accordion-caret" size="lg" icon="angle-down" /> : <FontAwesomeIcon className="accordion-caret" size="lg" icon="angle-right" />}
                     </span>
                 </div>
                 <div className="accordion__content">

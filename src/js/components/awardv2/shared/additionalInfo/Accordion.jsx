@@ -90,7 +90,6 @@ export default class Accordion extends React.Component {
                     data = this[awardInfo.type](awardInfo.data);
                 }
             }
-
             return (
                 <div
                     key={key}

@@ -27,6 +27,7 @@ import {
     faTable,
     faTag,
     faThLarge,
+    faTimes,
     faUserTie
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
@@ -64,6 +65,7 @@ library.add(
     faTable,
     faTag,
     faThLarge,
+    faTimes,
     faUserTie
 );
 

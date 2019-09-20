@@ -3,7 +3,6 @@
  * Created by David Trinh 10/9/18
  */
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
@@ -118,91 +117,6 @@ BaseFinancialAssistance.populate = function populate(data) {
     this._totalFunding = parseFloat(data.total_funding) || 0;
 };
 
-// getter functions
-Object.defineProperty(BaseFinancialAssistance, 'faceValue', {
-    get() {
-        if (this._faceValue >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._faceValue);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._faceValue / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._faceValue, 0);
-    }
-});
-Object.defineProperty(BaseFinancialAssistance, 'faceValueFormatted', {
-    get() {
-        return MoneyFormatter.formatMoney(this._faceValue);
-    }
-});
-Object.defineProperty(BaseFinancialAssistance, 'subsidy', {
-    get() {
-        if (this._subsidy >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._subsidy);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._subsidy / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._subsidy, 0);
-    }
-});
-Object.defineProperty(BaseFinancialAssistance, 'subsidyFormatted', {
-    get() {
-        return MoneyFormatter.formatMoney(this._subsidy);
-    }
-});
-Object.defineProperty(BaseFinancialAssistance, 'baseAllOptions', {
-    get() {
-        if (this._baseAllOptions >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._baseAllOptions);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseAllOptions / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._baseAllOptions, 0);
-    }
-});
-Object.defineProperty(BaseFinancialAssistance, 'baseAllOptionsFormatted', {
-    get() {
-        return MoneyFormatter.formatMoney(this._baseAllOptions);
-    }
-});
-Object.defineProperty(BaseFinancialAssistance, 'federalObligation', {
-    get() {
-        if (this._federalObligation >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._federalObligation);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._federalObligation / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._federalObligation, 0);
-    }
-});
-Object.defineProperty(BaseFinancialAssistance, 'federalObligationFormatted', {
-    get() {
-        return MoneyFormatter.formatMoney(this._federalObligation);
-    }
-});
-Object.defineProperty(BaseFinancialAssistance, 'nonFederalFunding', {
-    get() {
-        if (this._nonFederalFunding >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._nonFederalFunding);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._nonFederalFunding / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._nonFederalFunding, 0);
-    }
-});
-Object.defineProperty(BaseFinancialAssistance, 'nonFederalFundingFormatted', {
-    get() {
-        return MoneyFormatter.formatMoney(this._nonFederalFunding);
-    }
-});
-Object.defineProperty(BaseFinancialAssistance, 'totalFunding', {
-    get() {
-        if (this._totalFunding >= MoneyFormatter.unitValues.MILLION) {
-            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalFunding);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalFunding / units.unit, 2)} ${units.longLabel}`;
-        }
-        return MoneyFormatter.formatMoneyWithPrecision(this._totalFunding, 0);
-    }
-});
-Object.defineProperty(BaseFinancialAssistance, 'totalFundingFormatted', {
-    get() {
-        return MoneyFormatter.formatMoney(this._totalFunding);
-    }
-});
 Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {
     get() {
         if (this._cfdaNumber && this._cfdaTitle) {
