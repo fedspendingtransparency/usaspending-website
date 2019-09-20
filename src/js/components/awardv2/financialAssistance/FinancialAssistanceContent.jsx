@@ -44,6 +44,11 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
         jumpToSection("award-history");
     };
 
+    const jumpToFederalAccountsHistory = () => {
+        setActiveTab('federal_account');
+        jumpToSection('award-history');
+    };
+
     let amountsSection = (<ComingSoonSection title="Award Amounts" includeHeader />);
     if (overview.category === 'grant' || overview.category === 'loan') {
         const awardAmountData = Object.create(BaseAwardAmounts);
@@ -82,7 +87,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
             </AwardSection>
             <AwardSection type="row">
                 <ComingSoonSection title="CFDA Program / Assistance Listing Information" includeHeader />
-                <FederalAccountsSection />
+                <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             <AwardSection type="row">
                 <AwardHistory overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
