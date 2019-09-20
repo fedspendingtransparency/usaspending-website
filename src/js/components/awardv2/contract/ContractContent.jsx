@@ -34,6 +34,11 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
     const awardAmountData = Object.create(BaseAwardAmounts);
     awardAmountData.populate(overview, overview.category);
 
+    const jumpToTransactionHistoryTable = () => {
+        setActiveTab('transaction');
+        jumpToSection("award-history");
+    };
+
     return (
         <AwardPageWrapper
             glossaryLink={glossaryLink}
@@ -55,7 +60,7 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
             <AwardSection type="row">
                 <AwardAmountsSection
                     awardType={overview.category}
-                    jumpToSection={jumpToSection}
+                    jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
                     awardOverview={awardAmountData} />
                 <ComingSoonSection title="Description" includeHeader />
             </AwardSection>
