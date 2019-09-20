@@ -39,7 +39,7 @@ export const ExceedsCurrentAmountTooltip = ({ total }) => (
         <h4 className="tooltip__title">Exceeds Current Award Amount</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
-            <p>This award has a total obligated amount that exceeds the Current Total Value of the Award. In other words, more money has been obligated on this award than the current value of the contract if all expected goods or services are delivered (i.e., the base contract and exercised options).</p>
+            <p>This award has a total obligated amount that exceeds the Current Total Value of the Award. In other words, more money has been obligated to this award than the current value of the contract would allow if all expected goods or services are delivered (i.e., the base contract and exercised options).</p>
             <p>Such over-obligation can occur because of missing data, errors in the data, or violations of procurement policy.</p>
         </div>
     </div>
@@ -64,7 +64,7 @@ export const ExceedsPotentialAmountTooltip = ({ total }) => (
         <h4 className="tooltip__title">Exceeds Potential Award Amount</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
-            <p>This award has a total obligated amount that exceeds the Potential Total Value of the Award.In other words, more money has been obligated on this award than the potential value of the contract if all unexercised options are exercised and all associated goods or services ultimately delivered (i.e., the base contract and all options).</p>
+            <p>This award has a total obligated amount that exceeds the Potential Total Value of the Award. In other words, more money has been obligated to this award than the potential value of the contract would allow if all expected goods or services are delivered (i.e., the base contract and exercised options).</p>
             <p>Such over-obligation can occur because of missing data, errors in the data, or violations of procurement policy.</p>
         </div>
     </div>
