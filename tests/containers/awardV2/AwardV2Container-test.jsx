@@ -7,23 +7,22 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { AwardContainer } from 'containers/awardV2/AwardV2Container';
-
-import { mockParams, mockActions } from './mockAward';
-import { mockContract, mockLoan, mockIdv } from '../../models/awardsV2/mockAwardApi';
-
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import BaseIdv from 'models/v2/awardsV2/BaseIdv';
 import BaseFinancialAssistance from "models/v2/awardsV2/BaseFinancialAssistance";
 
+import { mockParams, mockActions } from './mockAward';
+import { mockContract, mockLoan, mockIdv } from '../../models/awardsV2/mockAwardApi';
+
 jest.mock('helpers/searchHelper', () => require('./awardV2Helper'));
-jest.mock("helpers/idvHelper", () => require("./awardV2Helper"));
+jest.mock("helpers/downloadHelper", () => require("./awardV2Helper"));
 
 // mock the child components by replacing them with functions that return null elements
 jest.mock('components/awardv2/AwardV2', () => jest.fn(() => null));
 jest.mock('containers/award/AwardContainer', () => jest.fn(() => null));
 
-const getAwardContainer = () => shallow(<AwardContainer
-    {...mockParams}
+const getAwardContainer = (params = mockParams) => shallow(<AwardContainer
+    {...params}
     {...mockActions} />);
 
 describe('AwardV2Container', () => {
@@ -112,6 +111,27 @@ describe('AwardV2Container', () => {
             awardContainer.instance().downloadRequest = downloadRequest;
             await awardContainer.instance().downloadData();
             expect(downloadRequest.cancel).toHaveBeenCalled();
+        });
+    });
+
+    describe('fetchAwardDownloadFile', () => {
+        it('returns the contract helper for contract awards', async () => {
+            const awardContainer = getAwardContainer();
+            let result = await awardContainer.instance().fetchAwardDownloadFile();
+            result = await result.promise;
+            expect(result.data.file_name).toEqual('contract.zip');
+        });
+
+        it('returns the idv helper for idv awards', async () => {
+            const awardContainer = getAwardContainer({ ...mockParams, award: { ...mockParams.award, category: "idv" } });
+            const result = await awardContainer.instance().fetchAwardDownloadFile().promise;
+            expect(result.data.file_name).toEqual('idv.zip');
+        });
+
+        it('returns the assistance helper for assistance awards', async () => {
+            const awardContainer = getAwardContainer({ ...mockParams, award: { ...mockParams.award, category: "grant" } });
+            const result = await awardContainer.instance().fetchAwardDownloadFile().promise;
+            expect(result.data.file_name).toEqual('assistance.zip');
         });
     });
 });

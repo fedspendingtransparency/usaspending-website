@@ -14,6 +14,14 @@ const propTypes = {
     mouseOutOfTooltipDiv: PropTypes.func
 };
 
+// current list of properties we might truncate
+const arrayOfProperties = [
+    'recipientName',
+    'awardingAgencyName',
+    'piid',
+    'parentAwardPIID'
+];
+
 export default class IdvActivityTooltip extends React.Component {
     constructor(props) {
         super(props);
@@ -25,8 +33,10 @@ export default class IdvActivityTooltip extends React.Component {
             },
             windowWidth: 0,
             windowHeight: 0,
-            awardingAgency: props.data.awardingAgencyName,
-            recipient: props.data.recipientName,
+            recipientName: props.data.recipientName,
+            awardingAgencyName: props.data.awardingAgencyName,
+            piid: props.data.piid,
+            parentAwardPIID: props.data.parentAwardPIID,
             truncated: false
         };
 
@@ -78,33 +88,91 @@ export default class IdvActivityTooltip extends React.Component {
             this.positionTooltip();
         });
     }
+    // uses a ratio of
+    // someDivWidth / GraphWidth = x ( TruncatedWidth ) / shortenedTooltipWidth
+    // to get what the shortened width of the div should be
+    truncatedWidth(tooltipWidth, divWidth) {
+        const graphWidth = this.props.data.graphWidth;
+        return (graphWidth * (divWidth / 2)) / tooltipWidth;
+    }
+    // uses a ratio of
+    // TruncatedDivWidth / NormalDivWidth =
+    // x ( Truncated character length ) / NormalCharacterLength
+    truncatedCharacterLength(truncatedDivWidth, normalDivWidth, normalCharacterLength) {
+        // return Math.floor(
+        //     ((truncatedDivWidth * normalCharacterLength) / normalDivWidth) / 2);
+        return Math.floor(
+            ((truncatedDivWidth * normalCharacterLength) / normalDivWidth));
+    }
+    // truncates the text if warranted
+    truncateText(text, truncatedLength, propertyName) {
+        if (truncatedLength < text.length) {
+            // removing three character to adjust for ...
+            const newLength = truncatedLength - 3;
+            const truncatedText = `${text
+                .substring(0, newLength).trim()}...`;
+            return { [propertyName]: truncatedText };
+        }
+        return { [propertyName]: text };
+    }
 
-    truncateText(awardingAgencyNameDiv, recipientNameDiv, theTooltipWidth) {
+    decideOnTooltipWidth(arrayOfDivWidths, tooltipWidth) {
+        // get truncated widths of the first two rows
+        // add padding for the first two rows
+        // compare the length of all three rows
+        // return the new tooltip width
+        // decide if there is a granparent div
+        const truncatedWidths = arrayOfDivWidths.map((divWidth) => this.truncatedWidth(
+            this.props.data.graphWidth, tooltipWidth, divWidth));
+        let firstRowWidth = truncatedWidths[0] + truncatedWidths[1];
+        if (this.grandparentDiv) {
+            const grandparentDiv = this.grandparentDiv.getBoundingClientRect().width;
+            firstRowWidth = truncatedWidths[0] + truncatedWidths[1] + grandparentDiv;
+        }
+        const secondRowWidth = truncatedWidths[2] + truncatedWidths[3] + 50;
+        if ((firstRowWidth > tooltipWidth) || (secondRowWidth > tooltipWidth)) {
+            if (firstRowWidth > secondRowWidth) return firstRowWidth;
+            return secondRowWidth;
+        }
+        return tooltipWidth;
+    }
+
+    truncateLogic(arrayOfDivWidths, theTooltipWidth) {
         return new Promise((resolve) => {
-            const { graphWidth, recipientName, awardingAgencyName } = this.props.data;
-            // get awardingAgencyName truncated width based on the tooltip width and graph width
-            const truncatedTextWidthAgency =
-            (graphWidth * awardingAgencyNameDiv) / theTooltipWidth;
-            // get recipientName truncated width based on the tooltip width and graph width
-            const truncatedTextWidthRecipient =
-            (graphWidth * recipientNameDiv) / theTooltipWidth;
-            // we now have a ratio of the truncated width to the total width,
-            // and we have the total length
-            // we can now find the appropriate truncated
-            // length for the awardingAgencyName and recipientName
-            const truncatedTextLengthAgency = Math.floor(
-                ((truncatedTextWidthAgency * awardingAgencyName.length) / awardingAgencyNameDiv) / 2);
-            const truncatedTextLengthRecipient = Math.floor(
-                ((truncatedTextWidthRecipient * recipientName.length) / recipientNameDiv) / 2);
-            const truncatedAgency = `${awardingAgencyName
-                .substring(0, truncatedTextLengthAgency).trim()}...`;
-            const truncatedRecipient = `${recipientName
-                .substring(0, truncatedTextLengthRecipient).trim()}...`;
-            this.setState({
-                awardingAgency: truncatedAgency,
-                recipient: truncatedRecipient,
-                truncated: true
-            }, () => resolve());
+            const {
+                recipientName,
+                awardingAgencyName,
+                piid,
+                parentAwardPIID
+            } = this.props.data;
+            // need this to find the appropriate text to pass to
+            // truncatedCharacterLength
+            const arrayOfDivText = [
+                recipientName,
+                awardingAgencyName,
+                piid,
+                parentAwardPIID
+            ];
+            const truncatedText = arrayOfDivWidths
+                .map((divWidth) => this.truncatedWidth(
+                    theTooltipWidth, divWidth))
+                .map((truncatedDivWidth, index) => this.truncatedCharacterLength(
+                    truncatedDivWidth,
+                    arrayOfDivWidths[index],
+                    arrayOfDivText[index].length))
+                .reduce((acc, truncatedLength, index) => {
+                    const newText = this.truncateText(
+                        arrayOfDivText[index],
+                        truncatedLength,
+                        arrayOfProperties[index]
+                    );
+                    return {
+                        ...acc,
+                        ...newText
+                    };
+                }, {});
+            // truncated to true adds titles to the a tags
+            this.setState({ ...truncatedText, truncated: true }, () => resolve());
         });
     }
 
@@ -112,17 +180,33 @@ export default class IdvActivityTooltip extends React.Component {
         // award bar info ( BaseIdvActivityBar ) and data needed to display correctly
         const { data } = this.props;
         // measure the tooltip width
+        // the two divs below make up the second row of the tooltip, the longest row
+        // and therefore are the basis of our measurement
         const awardingAgencyNameDiv = this.awardAgencyDiv.getBoundingClientRect().width;
         const recipientNameDiv = this.recipientDiv.getBoundingClientRect().width;
+        // get the height for placement comparison
         const tooltipDivHeight = this.div.getBoundingClientRect().height;
         // set the tooltip width to be the width of the largest row
-        let theTooltipWidth = awardingAgencyNameDiv + recipientNameDiv + 70;
+        // 70px = 10px ( Left padding ) + 30px ( Right padding of first div )
+        // + 10px ( Right spacing for end of tooltip )
+        let theTooltipWidth = awardingAgencyNameDiv + recipientNameDiv + 50;
+        // getting the first row
+        const piidDiv = this.piidDiv.getBoundingClientRect().width;
+        const parentDiv = this.parentDiv.getBoundingClientRect().width;
+        // with the addition of the granparent section in the first row
+        // the first row can now be longer than the second row
+        // we will check for that below and set the starting width for the tooltip
+        if (this.grandparentDiv) {
+            const grandparentDiv = this.grandparentDiv.getBoundingClientRect().width;
+            const totalFirstRowWidth = piidDiv + parentDiv + grandparentDiv + 90;
+            if (totalFirstRowWidth > theTooltipWidth) theTooltipWidth = totalFirstRowWidth;
+        }
+        // x Position of the Award Bar ( start )
         let xPosition = data.x;
-        let yPosition = data.y;
-        // measuring from bottom of graph ( graph starts at 0 so we already have the height, with data.y)
-        // if data.y is smaller than the height of the tooltip, show on top
-        if (yPosition < tooltipDivHeight) {
-            yPosition += (tooltipDivHeight + (data.barHeight - 2));
+        // distance from the top of the graph to the middle of the bar
+        let distanceFromBottomOfGraphToBar = data.y;
+        if (distanceFromBottomOfGraphToBar < tooltipDivHeight) {
+            distanceFromBottomOfGraphToBar += (tooltipDivHeight + (data.barHeight - 2));
         }
         // get the spacing from start of graph to start of bar
         const spacingFromStartToBar = data.graphWidth - (data.graphWidth - data.start);
@@ -144,24 +228,43 @@ export default class IdvActivityTooltip extends React.Component {
             xPosition -= overshowing;
         }
         // if x position of off the page, move it on the page
+        // '-' means negative and we are off the page
         if (xPosition.toString()[0] === '-') {
             const difference = 0 - xPosition;
             // adjust the tooltip width based on x position movement
             theTooltipWidth += difference;
             xPosition = 0;
         }
-
-        const startDateDiv = this.startDateDiv.getBoundingClientRect().width;
-        const endDateDiv = this.endDateDiv.getBoundingClientRect().width;
-        const amountsDiv = this.amountsDiv.getBoundingClientRect().width;
         // truncate text when the tooltip is bigger than the graph
         if (data.graphWidth < theTooltipWidth) {
-            await this.truncateText(awardingAgencyNameDiv, recipientNameDiv, theTooltipWidth);
+            // getting the last row, only need if we truncate
+            const startDateDiv = this.startDateDiv.getBoundingClientRect().width;
+            const endDateDiv = this.endDateDiv.getBoundingClientRect().width;
+            const amountsDiv = this.amountsDiv.getBoundingClientRect().width;
+            // this is the width of the last row
+            // the smallest width allowed since we have to keep it inline
+            // 100px = 10px ( Left of Row ) + 60px ( Two divs padding right )
+            // + 10px ( padding end of row )
+            theTooltipWidth = startDateDiv + endDateDiv + amountsDiv + 80;
+            // array of divs to truncate
+            let truncateTheseDivWidths = [
+                awardingAgencyNameDiv,
+                recipientNameDiv,
+                piidDiv,
+                parentDiv
+            ];
+            // do not truncate PIID if there is no grandparent
+            if (!this.grandparentDiv) {
+                truncateTheseDivWidths = [recipientNameDiv, awardingAgencyNameDiv];
+            }
+            await this.truncateLogic(truncateTheseDivWidths, theTooltipWidth);
+            // decide how wide the tooltip should be
+            theTooltipWidth = this.decideOnTooltipWidth(
+                [piidDiv, parentDiv, awardingAgencyNameDiv, recipientNameDiv], theTooltipWidth) + 10;
         }
-        if (this.state.truncated) theTooltipWidth = startDateDiv + endDateDiv + amountsDiv + 100;
         this.setState({
             tooltipStyle: {
-                transform: `translate(${xPosition}px,-${yPosition}px)`,
+                transform: `translate(${xPosition}px,-${distanceFromBottomOfGraphToBar}px)`,
                 width: `${theTooltipWidth}px`
             }
         });
@@ -176,9 +279,10 @@ export default class IdvActivityTooltip extends React.Component {
         const parentIDVData = data.grandchild ?
             (
                 <div>
-                    This IDV &#62; {this.getLinks(
+                    {this.getLinks(
                         'award',
                         data.parentGeneratedId,
+                        this.state.parentAwardPIID,
                         data.parentAwardPIID)}
                 </div>
             )
@@ -212,15 +316,38 @@ export default class IdvActivityTooltip extends React.Component {
                                 <h6 className="tooltip-body__row-info-title first-titles">
                                     PIID
                                 </h6>
-                                <div className="tooltip-body__row-info-data">
-                                    {this.getLinks('award', data.id, data.piid)}
+                                <div
+                                    className="tooltip-body__row-info-data"
+                                    ref={(div) => {
+                                        this.piidDiv = div;
+                                    }}>
+                                    {this.getLinks('award', data.id, this.state.piid, data.piid)}
                                 </div>
                             </div>
+                            {
+                                data.grandchild &&
+                                <div className="tooltip-body__row-info" id="grandparentLabel">
+                                    <h6 className="tooltip-body__row-info-title first-titles">
+                                        Grandparent IDV
+                                    </h6>
+                                    <div
+                                        className="tooltip-body__row-info-data"
+                                        ref={(div) => {
+                                            this.grandparentDiv = div;
+                                        }}>
+                                        This IDV
+                                    </div>
+                                </div>
+                            }
                             <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title first-titles">
-                                    {data.grandchild ? 'Grandparent' : 'Parent'} IDV
+                                    Parent IDV
                                 </h6>
-                                <div className="tooltip-body__row-info-data">
+                                <div
+                                    className="tooltip-body__row-info-data"
+                                    ref={(div) => {
+                                        this.parentDiv = div;
+                                    }}>
                                     {data.parentGeneratedId ? parentIDVData : <div>--</div>}
                                 </div>
                             </div>
@@ -240,7 +367,7 @@ export default class IdvActivityTooltip extends React.Component {
                                         this.getLinks(
                                             'agency',
                                             data.awardingAgencyId,
-                                            this.state.awardingAgency,
+                                            this.state.awardingAgencyName,
                                             data.awardingAgencyName
                                         )
                                     }
@@ -260,7 +387,7 @@ export default class IdvActivityTooltip extends React.Component {
                                         this.getLinks(
                                             'recipient',
                                             data.recipientId,
-                                            this.state.recipient.toUpperCase(),
+                                            this.state.recipientName.toUpperCase(),
                                             data.recipientName
                                         )
                                     }

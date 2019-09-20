@@ -193,6 +193,9 @@ export default class ActivityChart extends React.Component {
             data.start = start;
             data.end = end;
             data.x = start;
+            // the distance from the bottom (Note: this from the bottom since we invert the chart)
+            // of the chart to the award bar, then subtract the about half the bar height
+            // to position tooltip in the middle
             data.y = (385 - data.yPosition) - (this.props.barHeight - 4);
             // create percentage for description
             // not handling bad data as that will be handled elsewhere

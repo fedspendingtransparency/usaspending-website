@@ -7,28 +7,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
+import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
+import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
-import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
-import BaseAwardAmounts from '../../../models/v2/awardsV2/BaseAwardAmounts';
+import ComingSoonSection from '../shared/ComingSoonSection';
 
 const propTypes = {
     awardId: PropTypes.string,
     overview: PropTypes.object,
     jumpToSection: PropTypes.func
-};
-
-const defaultTooltipProps = {
-    controlledProps: {
-        isControlled: true,
-        isVisible: false,
-        closeTooltip: () => console.log("close tooltip"),
-        showTooltip: () => console.log("open tooltip")
-    }
 };
 
 export default class ContractContent extends React.Component {
@@ -61,11 +53,14 @@ export default class ContractContent extends React.Component {
                 </AwardSection>
                 <AwardSection type="row">
                     <AwardAmountsSection
-                        awardType={overview.category}
-                        jumpToSection={jumpToSection}
-                        awardOverview={awardAmountData}
-                        tooltipProps={defaultTooltipProps} />
+                        awardType={this.props.overview.category}
+                        jumpToSection={this.props.jumpToSection}
+                        awardOverview={awardAmountData} />
                     <ComingSoonSection title="Description" includeHeader />
+                </AwardSection>
+                <AwardSection type="row">
+                    <ComingSoonSection title="Contract Activity" includeHeader />
+                    <FederalAccountsSection />
                 </AwardSection>
                 <AdditionalInfo overview={overview} />
             </AwardPageWrapper>

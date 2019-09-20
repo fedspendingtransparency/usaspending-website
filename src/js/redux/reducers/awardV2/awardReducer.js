@@ -7,7 +7,8 @@ export const initialState = {
     id: '',
     category: '',
     overview: null,
-    counts: null
+    counts: null,
+    totalTransactionObligatedAmount: 0
 };
 
 const awardReducer = (state = initialState, action) => {
@@ -22,6 +23,11 @@ const awardReducer = (state = initialState, action) => {
         case 'SET_COUNTS': {
             return Object.assign({}, state, {
                 counts: action.counts
+            });
+        }
+        case 'SET_TOTAL_TRANSACTION_OBLIGATED_AMOUNT': {
+            return Object.assign({}, state, {
+                totalTransactionObligatedAmount: action.total
             });
         }
         case 'RESET_AWARD': {
