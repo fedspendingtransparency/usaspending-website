@@ -21,7 +21,7 @@ const propTypes = {
     faceValueTooltipProps: TOOLTIP_PROPS
 };
 
-const LoansChart = ({ awardAmounts }) => {
+const LoanChart = ({ awardAmounts }) => {
     const [
         activeTooltip,
         closeTooltip,
@@ -114,6 +114,6 @@ const LoansChart = ({ awardAmounts }) => {
     );
 };
 
-export default LoansChart;
-// LoansChart.defaultProps = defaultProps;
-LoansChart.propTypes = propTypes;
+export default LoanChart;
+// LoanChart.defaultProps = defaultProps;
+LoanChart.propTypes = propTypes;
