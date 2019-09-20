@@ -1,7 +1,15 @@
 .additional-info {
     padding: rem(40) 0 rem(60);
-
+    .award-viz__heading {
+      border-bottom: 2px solid $color-gray;
+      margin-bottom: rem(20);
+      .award-viz__icon {
+        margin-left: rem(10);
+        margin-right: 0;
+      }
+    }
     .award__row {
+      padding-top: rem(20);
         .award__col {
             width: 100%;
             // Override space between columns when stacked in mobile
@@ -12,6 +20,58 @@
                 padding-top: 0;
             }
         }
+    }
+    // TODO - This is accordion-table is still here due to
+    // IDVPeriodOfPerformance. Need to remove this css
+    // and delete IdvPeriodOfPerformance and update the
+    // single Accordian component to handle this
+    .accordion-table {
+      margin: 0;
+
+      .accordion-table__row {
+          border-bottom: rem(2) solid $color-gray-lightest;
+          padding: rem(8) rem(40);
+
+          td {
+              border: 0;
+              vertical-align: top;
+
+              .accordion-table__list {
+                  list-style-type: none;
+                  margin: 0;
+                  padding: 0;
+                  li {
+                      margin: 0;
+                  }
+              }
+
+              &:last-child {
+                  font-weight: $font-light;
+              }
+
+              &.accordion-table__data_info-tooltip {
+                  @include display(flex);
+                  @import '../../../components/visualizations/tooltip/csstooltip';
+                  .tooltip-popover-container {
+                      margin-left: rem(5);
+                      color: $color-gray-lighter;
+                      &:hover, &:focus {
+                          color: $color-gray-medium;
+                      }
+                      .tooltip-popover {
+                          // override the positioning to be centered over the icon
+                          bottom: rem(35);
+                          left: rem(-145);
+                          font-size: $small-font-size;
+                      }
+                  }
+              }
+          }
+
+          &:last-child {
+              border-bottom: none;
+          }
+      }
     }
 
     .accordion {
@@ -27,46 +87,48 @@
                 height: auto;
                 border: rem(2) solid $color-gray-lightest;
                 overflow: visible;
-
-                .accordion-table {
-                    margin: 0;
-
-                    .accordion-table__row {
+                width: 100%;
+                    .accordion-row {
                         border-bottom: rem(2) solid $color-gray-lightest;
                         padding: rem(8) rem(40);
-
-                        td {
-                            border: 0;
-                            vertical-align: top;
-
-                            .accordion-table__list {
-                                list-style-type: none;
+                        @include display(flex);
+                        width: 100%;
+                        font-size: rem(14);
+                        .accordion-row__title {
+                          @include flex-direction(column);
+                          flex-basis: 100%;
+                          flex: 1;
+                        }
+                        .accordion-row__data {
+                          @include flex-direction(column);
+                          flex-basis: 100%;
+                          flex: 1;
+                          font-weight: $font-light;
+                          padding-left: rem(40);
+                          .accordion-table__list {
+                            list-style-type: none;
+                            margin: 0;
+                            padding: 0;
+                            li {
                                 margin: 0;
-                                padding: 0;
-                                li {
-                                    margin: 0;
+                            }
+                          }
+                        }
+
+                        &.accordion-table__data_info-tooltip {
+                            @include display(flex);
+                            @import '../../../components/visualizations/tooltip/csstooltip';
+                            .tooltip-popover-container {
+                                margin-left: rem(5);
+                                color: $color-gray-lighter;
+                                &:hover, &:focus {
+                                    color: $color-gray-medium;
                                 }
-                            }
-
-                            &:last-child {
-                                font-weight: $font-light;
-                            }
-
-                            &.accordion-table__data_info-tooltip {
-                                @include display(flex);
-                                @import '../../../components/visualizations/tooltip/csstooltip';
-                                .tooltip-popover-container {
-                                    margin-left: rem(5);
-                                    color: $color-gray-lighter;
-                                    &:hover, &:focus {
-                                        color: $color-gray-medium;
-                                    }
-                                    .tooltip-popover {
-                                        // override the positioning to be centered over the icon
-                                        bottom: rem(35);
-                                        left: rem(-145);
-                                        font-size: $small-font-size;
-                                    }
+                                .tooltip-popover {
+                                    // override the positioning to be centered over the icon
+                                    bottom: rem(35);
+                                    left: rem(-145);
+                                    font-size: $small-font-size;
                                 }
                             }
                         }
@@ -75,7 +137,6 @@
                             border-bottom: none;
                         }
                     }
-                }
             }
         }
 
@@ -90,6 +151,11 @@
             svg {
                 margin-right: rem(8);
                 fill: $color-gray-medium;
+
+                &.accordion-caret {
+                  fill: $color-cool-blue;
+                  color: $color-link;
+                }
             }
 
             img {
