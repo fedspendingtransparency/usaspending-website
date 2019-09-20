@@ -47,7 +47,8 @@ export const ExceedsPotentialAmountTooltip = () => (
     <div className="award-amounts-tt">
         <h4 className="tooltip__title">Exceeds Potential Award Amount</h4>
         <div className="tooltip__text">
-            <p>This amount indicates how much this award has been over-obligated against its potential award amount.</p>
+            <p>This award has a total obligated amount that exceeds the Potential Total Value of the Award.In other words, more money has been obligated on this award than the potential value of the contract if all unexercised options are exercised and all associated goods or services ultimately delivered (i.e., the base contract and all options).</p>
+            <p>Such over-obligation can occur because of missing data, errors in the data, or violations of procurement policy.</p>
         </div>
     </div>
 );
