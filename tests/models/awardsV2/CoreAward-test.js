@@ -19,10 +19,10 @@ describe('Core Award getter functions', () => {
     it('should format the subaward total', () => {
         expect(award.subawardTotal).toEqual('$12,005');
     });
-    it('should derive the subawardedPercet', () => {
-        expect(award.subAwardedPercent).toEqual('60%');
+    it('should derive the subawardedPercent', () => {
+        expect(award.subAwardedPercent).toEqual('59.7%');
     });
-    it('should derive the subawardedPercet', () => {
+    it('should handle zero subawardedPercent', () => {
         const zeroSubtotalAward = Object.create(CoreAward);
         const data = { ...award, subawardTotal: 0 };
         zeroSubtotalAward.populateCore(data);
