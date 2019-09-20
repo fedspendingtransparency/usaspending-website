@@ -4,9 +4,9 @@
   **/
 
 // Keyword Filter
-export const updateTextSearchInput = (state) => ({
+export const updateTextSearchInput = (textInput) => ({
     type: 'UPDATE_TEXT_SEARCH',
-    textInput: state
+    textInput
 });
 
 // Time Period Filter
