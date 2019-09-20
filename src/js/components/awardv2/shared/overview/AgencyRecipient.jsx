@@ -35,20 +35,18 @@ export default class AgencyRecipient extends React.Component {
     }
     render() {
         let additionalInfoLink = null;
-        if (this.props.category === 'contract' || this.props.category === 'idv') {
-            additionalInfoLink = (
-                <div>
-                    <button
-                        className="agency-recipient__awarding-info"
-                        onClick={this.jumpToAdditionalInfo}>
-                        <span className="agency-recipient__awarding-icon">
-                            <Icons.ArrowDown />
-                        </span>
-                        View additional information
-                    </button>
-                </div>
-            );
-        }
+        additionalInfoLink = (
+            <div>
+                <button
+                    className="agency-recipient__awarding-info"
+                    onClick={this.jumpToAdditionalInfo}>
+                    <span className="agency-recipient__awarding-icon">
+                        <Icons.ArrowDown />
+                    </span>
+                    View additional information
+                </button>
+            </div>
+        );
         return (
             <AwardSection type="column" className="agency-recipient">
                 <div className="agency-recipient__wrapper">
