@@ -56,7 +56,7 @@ export default class IdvContent extends React.Component {
 
     jumpToFederalAccountsHistory() {
         this.setState({
-            awardHistoryActiveTab: 'fedaccount'
+            awardHistoryActiveTab: 'federal_account'
         });
         this.props.jumpToSection('award-history');
     }

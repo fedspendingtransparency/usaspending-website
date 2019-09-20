@@ -38,6 +38,16 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
     const glossaryLink = glossaryLinks[overview.type]
         ? `/#/award_v2/${awardId}?glossary=${glossaryLinks[overview.type]}`
         : null;
+    
+    const jumpToTransactionHistoryTable = () => {
+        setActiveTab('transaction');
+        jumpToSection("award-history");
+    };
+
+    const jumpToFederalAccountsHistory = () => {
+        setActiveTab('federal_account');
+        jumpToSection('award-history');
+    };
 
     let amountsSection = (<ComingSoonSection title="Award Amounts" includeHeader />);
     if (overview.category === 'grant' || overview.category === 'loan') {
@@ -48,7 +58,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
                 awardType={overview.category}
                 awardOverview={awardAmountData}
                 tooltipProps={defaultTooltipProps}
-                jumpToSection={jumpToSection} />
+                jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
         );
     }
 
@@ -77,7 +87,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
             </AwardSection>
             <AwardSection type="row">
                 <ComingSoonSection title="CFDA Program / Assistance Listing Information" includeHeader />
-                <FederalAccountsSection />
+                <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             <AwardSection type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />

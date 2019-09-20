@@ -30,9 +30,19 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
     const glossaryLink = glossarySlug
         ? `/#/award_v2/${awardId}?glossary=${glossarySlug}`
         : null;
+    
+    const jumpToFederalAccountsHistory = () => {
+        setActiveTab('federal_account');
+        jumpToSection('award-history');
+    };
 
     const awardAmountData = Object.create(BaseAwardAmounts);
     awardAmountData.populate(overview, overview.category);
+
+    const jumpToTransactionHistoryTable = () => {
+        setActiveTab('transaction');
+        jumpToSection("award-history");
+    };
 
     return (
         <AwardPageWrapper
@@ -55,13 +65,13 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
             <AwardSection type="row">
                 <AwardAmountsSection
                     awardType={overview.category}
-                    jumpToSection={jumpToSection}
+                    jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
                     awardOverview={awardAmountData} />
                 <ComingSoonSection title="Description" includeHeader />
             </AwardSection>
             <AwardSection type="row">
                 <ComingSoonSection title="Contract Activity" includeHeader />
-                <FederalAccountsSection />
+                <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             <AwardSection type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />

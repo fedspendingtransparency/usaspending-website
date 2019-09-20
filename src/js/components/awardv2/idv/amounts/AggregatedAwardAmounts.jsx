@@ -24,6 +24,11 @@ const propTypes = {
 
 
 export default class AggregatedAwardAmounts extends React.Component {
+    constructor(props) {
+        super(props);
+        this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
+    }
+
     jumpToReferencedAwardsTable() {
         this.props.jumpToSection('referenced-awards');
     }
