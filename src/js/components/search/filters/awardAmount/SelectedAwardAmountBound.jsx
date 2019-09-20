@@ -18,7 +18,6 @@ const propTypes = {
 export default class SelectedAwardAmountBound extends React.Component {
     constructor(props) {
         super(props);
-
         this.removeFilter = this.removeFilter.bind(this);
     }
 

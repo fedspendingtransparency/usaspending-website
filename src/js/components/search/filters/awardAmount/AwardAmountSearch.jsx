@@ -18,7 +18,8 @@ const propTypes = {
     selectAwardRange: PropTypes.func,
     awardAmountRanges: PropTypes.object,
     awardAmounts: PropTypes.object,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    removeFilter: PropTypes.func
 };
 
 const defaultProps = {
@@ -31,6 +32,7 @@ export default class AwardAmountSearch extends React.Component {
 
         this.toggleSelection = this.toggleSelection.bind(this);
         this.searchSpecificRange = this.searchSpecificRange.bind(this);
+        this.removeFilter = this.removeFilter.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -51,7 +53,7 @@ export default class AwardAmountSearch extends React.Component {
         this.props.selectAwardRange([min, max]);
     }
 
-    awareAmountCheckboxes() {
+    awardAmountCheckboxes() {
         const { awardAmountRanges, awardAmounts } = this.props;
         return reduce(awardAmountRanges, (result, value, key) => {
             const name = formatAwardAmountRange(
@@ -91,8 +93,13 @@ export default class AwardAmountSearch extends React.Component {
         );
     }
 
+    removeFilter(name) {
+        const { removeFilter } = this.props;
+        removeFilter(name);
+    }
+
     render() {
-        const awardAmountRangeItems = this.awareAmountCheckboxes();
+        const awardAmountRangeItems = this.awardAmountCheckboxes();
         const stagedFilters = this.stagedFilters();
         return (
             <div className="search-filter checkbox-type-filter">

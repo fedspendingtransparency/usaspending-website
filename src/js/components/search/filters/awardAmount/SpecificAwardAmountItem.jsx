@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 import EntityWarning from '../location/EntityWarning';
 
 const propTypes = {
@@ -53,7 +54,12 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     verifyNumberLogic() {
-        if (this.state.max === '') return;
+        if (this.state.max === '') {
+            if (this.state.showWarning) {
+                this.setState({ showWarning: false, warningMessage: '' });
+            }
+            return;
+        }
         const min = Number(this.state.min);
         const max = Number(this.state.max);
         let showWarning = false;
@@ -70,6 +76,7 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     render() {
+        const onKeyDownHandler = createOnKeyDownHandler(this.onKeyDown);
         const {
             min,
             max,
@@ -110,7 +117,7 @@ export default class SpecificAwardAmountItem extends React.Component {
                         className="award-amount-submit"
                         onClick={this.searchSpecificRange}
                         label="Filter by custom award amount range"
-                        onKeyDown={this.onKeyDown} />
+                        onKeyDown={onKeyDownHandler} />
                 </div>
             </div>
         );
