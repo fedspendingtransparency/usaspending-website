@@ -67,7 +67,7 @@ const CoreAward = {
     },
     get subAwardedPercent() {
         const percent = (this._subawardTotal / this._baseAndAllOptions) * 100;
-        return `${Math.round((percent))}%`;
+        return percent > 0 ? `${Math.round((percent))}%` : '0%';
     }
 };
 
