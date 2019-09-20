@@ -21,7 +21,7 @@ const propTypes = {
     faceValueTooltipProps: TOOLTIP_PROPS
 };
 
-const LoansChart = ({ awardAmounts }) => {
+const LoanChart = ({ awardAmounts }) => {
     const [
         activeTooltip,
         closeTooltip,
@@ -58,21 +58,23 @@ const LoansChart = ({ awardAmounts }) => {
     return (
         <div className="award-amounts-viz">
             {!isSubsidyZero &&
-                <div
-                    className="award-amounts-viz__desc-top--loans"
-                    role="button"
-                    tabIndex="0"
-                    onBlur={closeTooltip}
-                    onFocus={showSubsidyTooltip}
-                    onKeyPress={showSubsidyTooltip}
-                    onMouseEnter={showSubsidyTooltip}
-                    onMouseLeave={closeTooltip}
-                    onClick={showSubsidyTooltip}>
-                    <strong>{awardAmounts.subsidyAbbreviated}</strong><br />Original Subsidy Cost
+                <React.Fragment>
+                    <div
+                        className="award-amounts-viz__desc-top--loans"
+                        role="button"
+                        tabIndex="0"
+                        onBlur={closeTooltip}
+                        onFocus={showSubsidyTooltip}
+                        onKeyPress={showSubsidyTooltip}
+                        onMouseEnter={showSubsidyTooltip}
+                        onMouseLeave={closeTooltip}
+                        onClick={showSubsidyTooltip}>
+                        <strong>{awardAmounts.subsidyAbbreviated}</strong><br />Original Subsidy Cost
+                    </div>
                     <div className="award-amounts-viz__label" style={subsidyBarAndLabelStyles}>
                         <div className="award-amounts-viz__line-up--loans" />
                     </div>
-                </div>}
+                </React.Fragment>}
             {isSubsidyZero &&
                 <TooltipWrapper {...propsForSubsidyTooltip} styles={{ width: '160px' }}>
                     <div className="award-amounts-viz__desc-top--loans" role="button" tabIndex="0">
@@ -114,6 +116,6 @@ const LoansChart = ({ awardAmounts }) => {
     );
 };
 
-export default LoansChart;
-// LoansChart.defaultProps = defaultProps;
-LoansChart.propTypes = propTypes;
+export default LoanChart;
+// LoanChart.defaultProps = defaultProps;
+LoanChart.propTypes = propTypes;

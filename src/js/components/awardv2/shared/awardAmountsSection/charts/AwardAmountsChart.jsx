@@ -7,7 +7,7 @@ import ExceedsPotentialChart from './ExceedsPotentialChart';
 import NoResultsMessage from '../../../../sharedComponents/NoResultsMessage';
 import GrantChart from './GrantChart';
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../../propTypes/index';
-import LoansChart from './LoansChart';
+import LoanChart from './LoanChart';
 
 const propTypes = {
     awardType: PropTypes.string,
@@ -60,7 +60,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                 );
             case "loan":
                 return (
-                    <LoansChart awardAmounts={awardAmounts} />
+                    <LoanChart awardAmounts={awardAmounts} />
                 );
             default: // idvs and contracts
                 return renderChartBySpendingScenario(scenario);
