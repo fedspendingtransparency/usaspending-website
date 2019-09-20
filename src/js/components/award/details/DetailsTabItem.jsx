@@ -58,7 +58,7 @@ export default class DetailsTabItem extends React.Component {
                     {this.props.tooltipContent}
                 </InfoTooltip>);
         }
-        
+
         let count = null;
 
         if (this.props.count || this.props.count === 0) {
