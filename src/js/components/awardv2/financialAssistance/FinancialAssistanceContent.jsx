@@ -38,7 +38,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
     const glossaryLink = glossaryLinks[overview.type]
         ? `/#/award_v2/${awardId}?glossary=${glossaryLinks[overview.type]}`
         : null;
-    
+
     const jumpToTransactionHistoryTable = () => {
         setActiveTab('transaction');
         jumpToSection("award-history");
