@@ -19,7 +19,7 @@ export const updateAwardAmounts = (state, value) => {
 
     // get any possible range
     // mapkeys, gets any current range that exists in redux since we will not know the key
-    // compact,, removes any falsey from the array
+    // compact, removes any falsey values
     // flatten, since the range will be an array we will have [[min, max]]
     // and we need to flatten this into [min, max]
     const currentRange = flatten(
