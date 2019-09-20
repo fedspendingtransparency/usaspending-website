@@ -79,14 +79,14 @@ const AwardAmountsTable = ({
             case ('exceedsCurrent'):
                 return (
                     <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />{type === 'idv' ? 'Exceeds Combined Current Award Amounts' : 'Exceeds Combined Current Award Amount'}</div>
+                        <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />{type === 'idv' ? 'Exceeds Combined Current Award Amounts' : 'Exceeds Current Award Amount'}</div>
                         <span>{awardAmounts.overspendingFormatted}</span>
                     </div>
                 );
             case ('exceedsPotential'):
                 return (
                     <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />{type === 'idv' ? 'Exceeds Combined Potential Award Amounts' : 'Exceeds Combined Potential Award Amount'}</div>
+                        <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />{type === 'idv' ? 'Exceeds Combined Potential Award Amounts' : 'Exceeds Potential Award Amount'}</div>
                         <span>{awardAmounts.extremeOverspendingFormatted}</span>
                     </div>
                 );
