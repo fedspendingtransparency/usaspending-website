@@ -32,9 +32,10 @@ const ExceedsPotentialChart = ({ awardType, awardAmounts }) => {
         showExceedsPotentialTooltip
     ] = useTooltips(["obligated", "current", "potential", "exceedsPotential"]);
 
+    const isIdv = (awardType === 'idv');
     const buildTooltipProps = (spendingCategory, isVisible, showTooltip, type = awardType, data = awardAmounts) => ({
         ...getTooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, data),
-        wide: true,
+        wide: isIdv,
         controlledProps: {
             isControlled: true,
             isVisible,
@@ -43,7 +44,6 @@ const ExceedsPotentialChart = ({ awardType, awardAmounts }) => {
         }
     });
 
-    const isIdv = (awardType === 'idv');
     const obligation = awardAmounts._totalObligation;
     const current = awardAmounts._baseExercisedOptions;
     const potential = awardAmounts._baseAndAllOptions;
