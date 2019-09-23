@@ -10,6 +10,7 @@ import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
+import RelatedAwards from '../shared/overview/RelatedAwards';
 import AwardDates from '../shared/overview/AwardDates';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
@@ -41,18 +42,16 @@ export default class ContractContent extends React.Component {
                 awardTypeDescription={overview.typeDescription}
                 awardType="contract">
                 <AwardSection type="row" className="award-overview" id="award-overview">
-                    <AwardSection type="column" className="award-amountdates">
-                        <AgencyRecipient
-                            jumpToSection={jumpToSection}
-                            awardingAgency={overview.awardingAgency}
-                            category="contract"
-                            recipient={overview.recipient} />
-                    </AwardSection>
-                    <AwardSection type="column" className="award-amountdates">
-                        <AwardDates
-                            awardType={overview.category}
-                            dates={overview.periodOfPerformance} />
-                    </AwardSection>
+                    <AgencyRecipient
+                        jumpToSection={jumpToSection}
+                        awardingAgency={overview.awardingAgency}
+                        category="contract"
+                        recipient={overview.recipient} />
+                    <RelatedAwards
+                        overview={this.props.overview} />
+                    <AwardDates
+                        awardType={overview.category}
+                        dates={overview.periodOfPerformance} />
                 </AwardSection>
                 <AwardSection type="row">
                     <AwardAmountsSection

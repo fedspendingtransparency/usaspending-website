@@ -44,9 +44,11 @@ export default class InfoTooltip extends React.Component {
     }
 
     showTooltip() {
-        this.setState({
-            showInfoTooltip: true
-        });
+        if (this.props.children) {
+            this.setState({
+                showInfoTooltip: true
+            });
+        }
     }
 
     closeTooltip() {
