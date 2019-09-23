@@ -31,7 +31,7 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
     const glossaryLink = glossarySlug
         ? `/#/award_v2/${awardId}?glossary=${glossarySlug}`
         : null;
-    
+
     const jumpToFederalAccountsHistory = () => {
         setActiveTab('federal_account');
         jumpToSection('award-history');
