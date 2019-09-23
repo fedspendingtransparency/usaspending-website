@@ -56,8 +56,16 @@ export const updateAwardAmounts = (state, value) => {
     // specific input logic
     // value is a specific amount which is an array [min,max]
     if (!valueIsAString) {
+        // since the inputs must be numbers or strings
+        // an empty string will represent no value.
+        // and we will convert those to null here
+        let min = value[0];
+        let max = value[1];
+        if (!min && min !== 0) min = null;
+        if (!max && max !== 0) max = null;
+        const specific = [min, max];
         awardAmounts = new OrderedMap({
-            specific: value
+            specific
         });
     }
     return awardAmounts;
