@@ -1,5 +1,5 @@
 /**
-  * idvHelper.js
+  * awardHistoryHelper.js
   * Created by Max Kendall 09/18/19
   **/
 
