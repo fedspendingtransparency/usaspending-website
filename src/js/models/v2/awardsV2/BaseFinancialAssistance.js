@@ -67,10 +67,10 @@ BaseFinancialAssistance.populate = function populate(data) {
         const awardingAgencyData = {
             id: data.awarding_agency.id,
             toptierName: data.awarding_agency.toptier_agency.name,
-            toptierAbbr: data.awarding_agency.toptier_agency.abbreviation,
+            toptierAbbr: data.awarding_agency.toptier_agency.abbreviation || '',
             toptierId: data.awarding_agency.toptier_agency.id,
             subtierName: data.awarding_agency.subtier_agency.name,
-            subtierAbbr: data.awarding_agency.subtier_agency.abbreviation,
+            subtierAbbr: data.awarding_agency.subtier_agency.abbreviation || '',
             subtierId: data.awarding_agency.subtier_agency.id,
             officeName: data.awarding_agency.office_agency_name,
             officeId: data.awarding_agency.office_agency_id
@@ -86,10 +86,10 @@ BaseFinancialAssistance.populate = function populate(data) {
     if (data.funding_agency) {
         const fundingAgencyData = {
             toptierName: data.funding_agency.toptier_agency.name,
-            toptierAbbr: data.funding_agency.toptier_agency.abbreviation,
+            toptierAbbr: data.funding_agency.toptier_agency.abbreviation || '',
             toptierId: data.funding_agency.toptier_agency.id,
             subtierName: data.funding_agency.subtier_agency.name,
-            subtierAbbr: data.funding_agency.subtier_agency.abbreviation,
+            subtierAbbr: data.funding_agency.subtier_agency.abbreviation || '',
             subtierId: data.funding_agency.subtier_agency.id,
             officeName: data.funding_agency.office_agency_name,
             officeId: data.funding_agency.office_agency_id
