@@ -4,7 +4,7 @@
     .subaward-totals {
         @include display(flex);
         margin-top: 1.5rem;
-        justify-content: center;
+        justify-content: flex-start;
         .total-item {
             padding: $global-pad;
             .total-label {
