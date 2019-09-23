@@ -104,14 +104,16 @@ export default class RelatedAwards extends React.Component {
     }
 
     render() {
+        const { overview } = this.props;
         const tooltipInfo = this.tooltipInfo();
+        const awardTitle = overview.category === 'idv' ? 'Parent Award' : 'Parent IDV';
         let parentLink = 'N/A';
-        if (this.props.overview.parentAward && this.props.overview.parentId) {
+        if (overview.parentAward && overview.parentId) {
             parentLink = (
                 <a
                     className="related-awards__link"
-                    href={`#/award/${this.props.overview.parentId}`}>
-                    {this.props.overview.parentAward}
+                    href={`#/award/${overview.parentId}`}>
+                    {overview.parentAward}
                 </a>
             );
         }
@@ -126,7 +128,7 @@ export default class RelatedAwards extends React.Component {
                 </div>
                 <div className="related-awards__parent">
                     <div className="related-awards__label">
-                        Parent Award
+                        {awardTitle}
                     </div>
                     {parentLink}
                 </div>
