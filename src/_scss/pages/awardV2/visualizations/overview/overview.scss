@@ -21,7 +21,7 @@
             @include flex(0 0 25%);
         }
     }
-    .idv-dates {
+    .award-dates {
         @include flex(1 1 auto);
         padding-left: rem(10);
         @include media($medium-screen) {
@@ -31,6 +31,5 @@
 
     @import "./agencyRecipient";
     @import "./relatedAwards";
-    @import "./dates";
-    @import "./idvDates";
+    @import "./awardDates";
 }

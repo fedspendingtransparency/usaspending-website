@@ -55,7 +55,8 @@ BaseFinancialAssistance.populate = function populate(data) {
     if (data.period_of_performance) {
         const periodOfPerformanceData = {
             startDate: data.period_of_performance.start_date,
-            endDate: data.period_of_performance.end_date
+            endDate: data.period_of_performance.end_date,
+            lastModifiedDate: data.period_of_performance.last_modified_date
         };
         const periodOfPerformance = Object.create(CorePeriodOfPerformance);
         periodOfPerformance.populateCore(periodOfPerformanceData);

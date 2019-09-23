@@ -1,32 +1,32 @@
-.idv-dates {
-    .idv-dates__heading {
+.award-dates {
+    .award-dates__heading {
         @include display(flex);
         @include justify-content(space-between);
         @include align-items(flex-end);
         padding-bottom: rem(11);
-        .idv-dates__title {
+        .award-dates__title {
             @include display(flex);
             @include flex(0 0 auto);
             padding-bottom: 0;
         }
-        .idv-dates__remaining {
+        .award-dates__remaining {
             @include display(flex);
             @include flex(0 0 auto);
             font-size: rem(12);
             text-transform: uppercase;
             font-weight: $font-normal;
             padding-left: rem(4);
-            &.idv-dates__remaining_label {
+            &.award-dates__remaining_label {
                 font-weight: $font-light;
                 padding-left: rem(4);
             }
         }
     }
-    .idv-dates__row {
+    .award-dates__row {
         font-weight: $font-light;
         @include display(flex);
         @include justify-content(space-between);
-        .idv-dates__date {
+        .award-dates__date {
             padding-left: rem(10);
         }
     }

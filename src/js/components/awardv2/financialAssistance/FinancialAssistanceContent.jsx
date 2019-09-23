@@ -71,6 +71,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
             identifier={awardId}
             glossaryLink={glossaryLink}
             awardTypeDescription={overview.typeDescription}
+            lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             className="award-financial-assistance">
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardRecipient
@@ -79,7 +80,9 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
                     category={overview.category}
                     recipient={overview.recipient} />
                 <AwardSection type="column" className="award-amountdates">
-                    <AwardDates overview={overview} />
+                    <AwardDates
+                        awardType={overview.category}
+                        dates={overview.periodOfPerformance} />
                 </AwardSection>
             </AwardSection>
             <AwardSection type="row">

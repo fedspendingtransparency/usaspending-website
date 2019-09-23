@@ -12,10 +12,10 @@
       }
       font-size: rem(24);
     }
-    .idv__last-modified {
+    .award__last-modified {
       text-transform: uppercase;
       @include align-self(flex-end);
-      &.idv__last-modified_date {
+      &.award__last-modified_date {
         font-weight: $font-light;
       }
     }

@@ -50,6 +50,7 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
             glossaryLink={glossaryLink}
             identifier={overview.id}
             awardTypeDescription={overview.typeDescription}
+            lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             awardType="contract">
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardSection type="column" className="award-amountdates">
@@ -62,7 +63,9 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
                 <AwardSection type="column" className="award-amountdates">
                     <RelatedAwards
                         overview={overview} />
-                    <AwardDates overview={overview} />
+                    <AwardDates
+                        awardType={overview.category}
+                        dates={overview.periodOfPerformance} />
                 </AwardSection>
             </AwardSection>
             <AwardSection type="row">
