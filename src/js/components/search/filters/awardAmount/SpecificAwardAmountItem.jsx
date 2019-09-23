@@ -25,17 +25,8 @@ export default class SpecificAwardAmountItem extends React.Component {
         };
 
         this.searchSpecificRange = this.searchSpecificRange.bind(this);
-        this.onKeyDown = this.onKeyDown.bind(this);
         this.minChange = this.minChange.bind(this);
         this.maxChange = this.maxChange.bind(this);
-    }
-
-    onKeyDown(e) {
-        // Enter
-        if (e.keyCode === 13) {
-            e.preventDefault();
-            this.searchSpecificRange();
-        }
     }
 
     minChange(e) {
@@ -76,7 +67,7 @@ export default class SpecificAwardAmountItem extends React.Component {
     }
 
     render() {
-        const onKeyDownHandler = createOnKeyDownHandler(this.onKeyDown);
+        const onKeyDownHandler = createOnKeyDownHandler(this.searchSpecificRange);
         const {
             min,
             max,
