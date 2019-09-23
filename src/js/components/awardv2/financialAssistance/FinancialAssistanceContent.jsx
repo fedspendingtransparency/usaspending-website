@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
+import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AwardRecipient from '../shared/overview/AgencyRecipient';
 import AwardDates from '../shared/overview/AwardDates';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
@@ -92,6 +93,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
             <AwardSection type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
             </AwardSection>
+            <AdditionalInfo overview={overview} />
         </AwardPageWrapper>
     );
 };

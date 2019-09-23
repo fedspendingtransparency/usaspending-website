@@ -8,6 +8,7 @@ import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
 import CoreAward from './CoreAward';
 import CorePeriodOfPerformance from './CorePeriodOfPerformance';
+import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 
 const BaseFinancialAssistance = Object.create(CoreAward);
 
@@ -66,9 +67,12 @@ BaseFinancialAssistance.populate = function populate(data) {
             id: data.awarding_agency.id,
             toptierName: data.awarding_agency.toptier_agency.name,
             toptierAbbr: data.awarding_agency.toptier_agency.abbreviation,
+            toptierId: data.awarding_agency.toptier_agency.id,
             subtierName: data.awarding_agency.subtier_agency.name,
             subtierAbbr: data.awarding_agency.subtier_agency.abbreviation,
-            officeName: data.awarding_agency.office_agency_name
+            subtierId: data.awarding_agency.subtier_agency.id,
+            officeName: data.awarding_agency.office_agency_name,
+            officeId: data.awarding_agency.office_agency_id
         };
         const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
@@ -82,9 +86,12 @@ BaseFinancialAssistance.populate = function populate(data) {
         const fundingAgencyData = {
             toptierName: data.funding_agency.toptier_agency.name,
             toptierAbbr: data.funding_agency.toptier_agency.abbreviation,
+            toptierId: data.funding_agency.toptier_agency.id,
             subtierName: data.funding_agency.subtier_agency.name,
             subtierAbbr: data.funding_agency.subtier_agency.abbreviation,
-            officeName: data.funding_agency.office_agency_name
+            subtierId: data.funding_agency.subtier_agency.id,
+            officeName: data.funding_agency.office_agency_name,
+            officeId: data.funding_agency.office_agency_id
         };
         const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
@@ -93,6 +100,10 @@ BaseFinancialAssistance.populate = function populate(data) {
     else {
         this.fundingAgency = {};
     }
+
+    const executiveDetails = Object.create(CoreExecutiveDetails);
+    executiveDetails.populateCore(data.executive_details);
+    this.executiveDetails = executiveDetails;
 
     // populate the financial assistance-specific fields
     this._cfdaNumber = data.cfda_number || '';

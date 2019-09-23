@@ -34,8 +34,8 @@ const ExceedsCurrentChart = ({ awardAmounts, awardType }) => {
         showExceedsCurrentTooltip
     ] = useTooltips(["obligated", "current", "potential", "exceedsCurrent"]);
 
-    const buildTooltipProps = (spendingCategory, isVisible, showTooltip, type = awardType) => ({
-        ...getTooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, awardAmounts),
+    const buildTooltipProps = (spendingCategory, isVisible, showTooltip, type = awardType, data = awardAmounts) => ({
+        ...getTooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, data),
         wide: true,
         controlledProps: {
             isControlled: true,
