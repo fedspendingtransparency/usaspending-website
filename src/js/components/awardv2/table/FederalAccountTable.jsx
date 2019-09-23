@@ -72,7 +72,7 @@ export default class FedAccountTable extends React.Component {
         );
     }
 
-    bodyCellRender(columnIndex, rowIndex) {
+    bodyCellRender(columnIndex, rowIndex, category = this.props.category) {
         const column = this.tableMapping.table._order[columnIndex];
         const item = this.props.fundingResults[rowIndex];
 
@@ -85,7 +85,12 @@ export default class FedAccountTable extends React.Component {
             link = item.fundingAgencyId ? `#/agency/${item.fundingAgencyId}` : null;
         }
         if (column === 'fedAccount') {
-            link = item.accountNumber ? `#/federal_account/${item.accountNumber}` : null;
+            if (category === 'idv') {
+                link = item.accountNumber ? `#/federal_account/${item.accountNumber}` : null;
+            }
+            else {
+                link = item.federalAccountCode ? `#/federal_account/${item.federalAccountCode}` : null;
+            }
         }
         if (column === 'awardingAgencyName') {
             link = item.awardingAgencyId ? `#/agency/${item.awardingAgencyId}` : null;

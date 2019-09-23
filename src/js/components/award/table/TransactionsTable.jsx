@@ -6,13 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { measureTableHeader } from '../../../helpers/textMeasurement';
-import transactionHistoryV2Mapping from '../../../dataMapping/awardsv2/transactionHistoryTable';
-import contractMapping from '../../../dataMapping/contracts/transactionTable';
-import assistanceMapping from '../../../dataMapping/financialAssistance/financialAssistanceTransactionTable';
-import loanMapping from '../../../dataMapping/financialAssistance/loanTransactionTable';
+import { measureTableHeader } from 'helpers/textMeasurement';
+import transactionHistoryV2Mapping from 'dataMapping/awardsv2/transactionHistoryTable';
+import contractMapping from 'dataMapping/contracts/transactionTable';
+import assistanceMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
+import loanMapping from 'dataMapping/financialAssistance/loanTransactionTable';
+import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
-import IBTable from '../../../components/sharedComponents/IBTable/IBTable';
 import TransactionTableHeaderCell from './cells/TransactionTableHeaderCell';
 import TransactionTableGenericCell from './cells/TransactionTableGenericCell';
 

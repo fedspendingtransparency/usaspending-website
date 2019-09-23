@@ -10,6 +10,7 @@ import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
+import RelatedAwards from '../shared/overview/RelatedAwards';
 import AwardDates from '../shared/overview/AwardDates';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
@@ -25,7 +26,7 @@ const propTypes = {
 };
 
 const ContractContent = ({ awardId, overview, jumpToSection }) => {
-    const [activeTab, setActiveTab] = useState("transaction");
+    const [activeTab, setActiveTab] = useState('transaction');
     const glossarySlug = glossaryLinks[overview.type];
     const glossaryLink = glossarySlug
         ? `/#/award_v2/${awardId}?glossary=${glossarySlug}`
@@ -59,6 +60,8 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
                         recipient={overview.recipient} />
                 </AwardSection>
                 <AwardSection type="column" className="award-amountdates">
+                    <RelatedAwards
+                        overview={this.props.overview} />
                     <AwardDates overview={overview} />
                 </AwardSection>
             </AwardSection>

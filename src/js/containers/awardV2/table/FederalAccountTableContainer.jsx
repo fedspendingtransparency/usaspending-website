@@ -117,11 +117,11 @@ export class FederalAccountTableContainer extends React.Component {
             });
     }
 
-    parseFundingData(data, reset) {
+    parseFundingData(data, reset, category = this.props.category) {
         const fundingResults = data.results
             .map((item) => {
                 const fundingResult = Object.create(BaseFederalAccountFunding);
-                fundingResult.populate(item);
+                fundingResult.populate(item, category);
                 return fundingResult;
             });
 

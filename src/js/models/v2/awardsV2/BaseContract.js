@@ -6,6 +6,7 @@
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
+import BaseParentAwardDetails from './BaseParentAwardDetails';
 import CoreAwardAgency from './CoreAwardAgency';
 import BaseContractAdditionalDetails from './additionalDetails/BaseContractAdditionalDetails';
 import CoreAward from './CoreAward';
@@ -73,9 +74,12 @@ BaseContract.populate = function populate(data) {
             id: data.awarding_agency.id,
             toptierName: data.awarding_agency.toptier_agency.name,
             toptierAbbr: data.awarding_agency.toptier_agency.abbreviation,
+            toptierId: data.awarding_agency.toptier_agency.id,
             subtierName: data.awarding_agency.subtier_agency.name,
             subtierAbbr: data.awarding_agency.subtier_agency.abbreviation,
-            officeName: data.awarding_agency.office_agency_name
+            subtierId: data.awarding_agency.subtier_agency.id,
+            officeName: data.awarding_agency.office_agency_name,
+            officeId: data.awarding_agency.office_agency_id
         };
         const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
@@ -89,9 +93,12 @@ BaseContract.populate = function populate(data) {
         const fundingAgencyData = {
             toptierName: data.funding_agency.toptier_agency.name,
             toptierAbbr: data.funding_agency.toptier_agency.abbreviation,
+            toptierId: data.funding_agency.toptier_agency.id,
             subtierName: data.funding_agency.subtier_agency.name,
             subtierAbbr: data.funding_agency.subtier_agency.abbreviation,
-            officeName: data.funding_agency.office_agency_name
+            subtierId: data.funding_agency.subtier_agency.id,
+            officeName: data.funding_agency.office_agency_name,
+            officeId: data.funding_agency.office_agency_id
         };
         const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
@@ -107,11 +114,18 @@ BaseContract.populate = function populate(data) {
         this.additionalDetails = additionalDetails;
     }
 
+    const parentAwardDetails = Object.create(BaseParentAwardDetails);
+    if (data.parent_award) {
+        parentAwardDetails.populateCore(data.parent_award);
+    }
+    this.parentAwardDetails = parentAwardDetails;
+
     const executiveDetails = Object.create(CoreExecutiveDetails);
     executiveDetails.populateCore(data.executive_details);
     this.executiveDetails = executiveDetails;
 
     this.parentAward = data.parent_award_piid || '--';
+    this.parentId = data.parent_generated_unique_award_id || '';
     this.pricing = data.latest_transaction_contract_data || '--';
 
     this._amount = parseFloat(data.base_and_all_options) || 0;
