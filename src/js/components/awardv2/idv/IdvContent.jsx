@@ -89,9 +89,9 @@ export default class IdvContent extends React.Component {
                             <div>{this.props.overview.id}</div>
                         </div>
                     </div>
-                    <div className="idv__last-modified">
+                    <div className="award__last-modified">
                 Last Modified On:{" "}
-                        <span className="idv__last-modified idv__last-modified_date">
+                        <span className="award__last-modified award__last-modified_date">
                             {this.props.overview.dates.lastModifiedDateLong}
                         </span>
                     </div>

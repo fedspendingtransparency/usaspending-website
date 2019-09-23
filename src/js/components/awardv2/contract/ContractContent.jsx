@@ -37,6 +37,7 @@ export default class ContractContent extends React.Component {
             <AwardPageWrapper
                 glossaryLink={glossaryLink}
                 identifier={overview.id}
+                lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
                 awardTypeDescription={overview.typeDescription}
                 awardType="contract">
                 <AwardSection type="row" className="award-overview" id="award-overview">

@@ -38,22 +38,20 @@ export default class AwardDates extends React.Component {
         return null;
     }
 
-    timelineInfo() {
-        const { dates } = this.props;
+    timelineInfo(startDate, endDate) {
         let timeline = (
             <div className="timeline" />
         );
         let remainingText = '';
         let remainingLabel = '';
-
-        if (dates._startDate && dates._endDate) {
+        if (startDate && endDate) {
             const today = moment();
-            const totalTime = dates._endDate.diff(dates._startDate, 'days');
-            const remainingDays = dates._endDate.diff(today, 'days');
+            const totalTime = endDate.diff(startDate, 'days');
+            const remainingDays = endDate.diff(today, 'days');
 
             let remainingPercent = 0;
             if (remainingDays > 0) {
-                remainingText = TimeRangeHelper.convertDatesToRange(today, dates._endDate);
+                remainingText = TimeRangeHelper.convertDatesToRange(today, endDate);
                 remainingLabel = 'Remain';
                 remainingPercent = Math.round((remainingDays / totalTime) * 100);
             }
@@ -102,9 +100,20 @@ export default class AwardDates extends React.Component {
         return { timeline, remainingText, remainingLabel };
     }
 
+    datesByAwardType() {
+        const { awardType, dates } = this.props;
+        const startDate = dates._startDate;
+        let endDate = dates._endDate;
+        if (awardType === 'contract' || awardType === 'definitive contract') {
+            endDate = dates._potentialEndDate;
+        }
+        return { startDate, endDate };
+    }
+
     render() {
         const { dates, awardType } = this.props;
-        const { timeline, remainingText, remainingLabel } = this.timelineInfo();
+        const { startDate, endDate } = this.datesByAwardType();
+        const { timeline, remainingText, remainingLabel } = this.timelineInfo(startDate, endDate);
         const tooltipInfo = this.tooltipInfo();
 
         return (

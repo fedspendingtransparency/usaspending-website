@@ -50,7 +50,6 @@ export default class FinancialAssistanceContent extends React.Component {
                     jumptoSection={this.props.jumpToSection} />
             );
         }
-
         const awardAmountData = Object.create(BaseAwardAmounts);
         awardAmountData.populate(overview, overview.category);
         // TODO: Determine if we should label with FAIN/ URI instead of ID
@@ -58,6 +57,7 @@ export default class FinancialAssistanceContent extends React.Component {
             <AwardPageWrapper
                 identifier={awardId}
                 glossaryLink={glossaryLink}
+                lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
                 awardTypeDescription={overview.typeDescription}
                 className="award-financial-assistance">
                 <AwardSection type="row" className="award-overview" id="award-overview">
