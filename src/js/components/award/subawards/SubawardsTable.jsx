@@ -125,7 +125,14 @@ export default class SubawardsTable extends React.Component {
 
     render() {
         const tableValues = this.buildTable();
-        const { isV2, inFlight, award, subawards, tableWidth, loadNextPage } = this.props;
+        const {
+            isV2,
+            inFlight,
+            award,
+            subawards,
+            tableWidth,
+            loadNextPage
+        } = this.props;
 
         let loadingClass = '';
         if (inFlight) {
