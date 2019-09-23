@@ -38,7 +38,7 @@ export default class AdditionalInfo extends React.Component {
         if (category === 'contract') return additionalDetailsContract(overview);
         if (category === 'definitive contract') return additionalDetailsContract(overview);
         if (category === 'grant') return additionalDetailsFinancialAssistance(overview);
-        if (category === 'loan') return additionalDetailsFinancialAssistance(overview);
+        if (category === 'loans') return additionalDetailsFinancialAssistance(overview);
         if (category === 'direct payment') return additionalDetailsFinancialAssistance(overview);
         if (category === 'other') return additionalDetailsFinancialAssistance(overview);
         return {};
@@ -178,7 +178,7 @@ export default class AdditionalInfo extends React.Component {
         let firstColumn;
         let secondColumn;
         if (category === 'grant' ||
-            category === 'loan' ||
+            category === 'loans' ||
             category === 'direct payment' ||
             category === 'other') {
             const { columnOne, columnTwo } = this.faColumns();
