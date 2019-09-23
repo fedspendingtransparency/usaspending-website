@@ -617,9 +617,9 @@ export const ContractAwardAmountsInfo = (
             <p>
                 It&rsquo;s important to note that contracts are not paid in full on the date they are awarded,
                 but rather a specific amount is made available for spending by the funding agency.
-                This specific amount is known as the &rdquo;current award amount&ldquo; or &rdquo;current ceiling amount&ldquo;.
+                This specific amount is known as the &ldquo;current award amount&rdquo; or &ldquo;current ceiling amount&rdquo;.
                 During the period of performance of the contract, this current award amount can be grow to a maximum.
-                That maximum is known as the &rdquo;potential award amount&ldquo; or &rdquo;potential ceiling amount&ldquo;.
+                That maximum is known as the &ldquo;potential award amount&rdquo; or &ldquo;potential ceiling amount&rdquo;.
             </p>
             <p>This visual depicts the three amounts associated with contracts: obligated amounts, current award amounts, and potential award amounts.</p>
             <p>Hover over the chart for more information about the specific amounts displayed.</p>
