@@ -550,7 +550,7 @@ export const federalAccountsInfo = (
 
 export const subAwardsTab = (
     <div className="transaction-history-tt">
-        <div className="info-tooltip__title">Award History - Sub-Awards</div>
+        <div className="info-tooltip__title">Sub-Awards</div>
         <div className="info-tooltip__text">
             <p>
                 The Sub-Award tab displays any sub-contracts reported by this award&apos;s recipient (the ‘prime recipient’ in a sub-award context).
