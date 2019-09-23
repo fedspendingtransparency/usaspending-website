@@ -125,6 +125,7 @@ BaseContract.populate = function populate(data) {
     this.executiveDetails = executiveDetails;
 
     this.parentAward = data.parent_award_piid || '--';
+    this.parentId = data.parent_generated_unique_award_id || '';
     this.pricing = data.latest_transaction_contract_data || '--';
 
     this._amount = parseFloat(data.base_and_all_options) || 0;

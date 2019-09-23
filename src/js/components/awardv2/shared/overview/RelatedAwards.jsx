@@ -89,7 +89,22 @@ export default class RelatedAwards extends React.Component {
         );
     }
 
+    tooltipInfo() {
+        const { overview } = this.props;
+        const awardType = overview.category;
+        if (awardType === 'idv') return summaryRelatedAwardsInfo;
+        if (awardType === 'contract') return null;
+        if (awardType === 'definitive contract') return null;
+        if (awardType === 'grant') return null;
+        if (awardType === 'loan') return null;
+        if (awardType === 'direct payment') return null;
+        if (awardType === 'other') return null;
+
+        return null;
+    }
+
     render() {
+        const tooltipInfo = this.tooltipInfo();
         let parentLink = 'N/A';
         if (this.props.overview.parentAward && this.props.overview.parentId) {
             parentLink = (
@@ -106,7 +121,7 @@ export default class RelatedAwards extends React.Component {
                 <div className="award-overview__title related-awards__title">
                     Related Awards
                     <InfoTooltip left>
-                        {summaryRelatedAwardsInfo}
+                        {tooltipInfo}
                     </InfoTooltip>
                 </div>
                 <div className="related-awards__parent">
