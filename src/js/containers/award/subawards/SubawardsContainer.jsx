@@ -38,6 +38,7 @@ export class SubawardsContainer extends React.Component {
                 field: 'subaward_number',
                 direction: 'desc'
             },
+            error: false,
             tableInstance: `${uniqueId()}`,
             subawards: []
         };
@@ -86,7 +87,8 @@ export class SubawardsContainer extends React.Component {
         };
 
         this.setState({
-            inFlight: true
+            inFlight: true,
+            error: false
         });
 
         this.subawardRequest = SearchHelper.performSubawardSearch(params);
@@ -107,7 +109,8 @@ export class SubawardsContainer extends React.Component {
                 if (!isCancel(err)) {
                     this.subawardRequest = null;
                     this.setState({
-                        inFlight: false
+                        inFlight: false,
+                        error: true
                     });
                     console.log(err);
                 }
