@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     toggleRecipient: PropTypes.func,
@@ -20,7 +21,10 @@ export default class ShownRecipient extends React.Component {
                 onClick={this.props.toggleRecipient}
                 title="Click to remove filter."
                 aria-label={`Applied filter: ${this.props.label}`}>
-                <span className="close" aria-hidden="true">x</span> {this.props.label}
+                {this.props.label}
+                <span className="close">
+                    <FontAwesomeIcon icon="times" />
+                </span>
             </button>
         );
     }
