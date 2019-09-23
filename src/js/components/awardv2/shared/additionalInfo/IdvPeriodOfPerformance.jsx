@@ -47,11 +47,11 @@ export default class IdvPeriodOfPerformance extends React.Component {
                     onKeyDown={onKeyDownHandler}
                     onClick={this.handleClick}>
                     <span>
-                        <FontAwesomeIcon size="lg" icon="calendar-alt" />
+                        <FontAwesomeIcon className="accordion-icon-calendar-alt" size="lg" icon="calendar-alt" />
                         Period of Performance
                     </span>
                     <span>
-                        {this.state.open ? <FontAwesomeIcon size="lg" icon="angle-down" /> : <FontAwesomeIcon size="lg" icon="angle-right" />}
+                        {this.state.open ? <FontAwesomeIcon className="accordion-caret" size="lg" icon="angle-down" /> : <FontAwesomeIcon className="accordion-caret" size="lg" icon="angle-right" />}
                     </span>
                 </div>
                 <div className="accordion__content">

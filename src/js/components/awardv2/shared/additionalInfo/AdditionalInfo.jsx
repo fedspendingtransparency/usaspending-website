@@ -6,13 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import additionalDetails from 'dataMapping/awardsv2/additionalDetails';
+import additionalDetailsContract from 'dataMapping/awardsv2/additionalDetailsContract';
+// import additionalDetailsFinancialAssistance from 'dataMapping/awardsv2/additionalDetailsFinancialAssistance';
 import additionalDetailsIdv from 'dataMapping/awardsv2/additionalDetailsIdv';
 
 import Accordion from './Accordion';
-import RecipientDetails from './RecipientDetails';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 
 const propTypes = {
@@ -30,9 +30,22 @@ export default class AdditionalInfo extends React.Component {
     handleClick() {
         this.setState({ globalToggle: !this.state.globalToggle });
     }
+
+    data() {
+        const { overview } = this.props;
+        const category = overview._category;
+        if (category === 'idv') return additionalDetailsIdv(overview);
+        if (category === 'contract') return additionalDetailsContract(overview);
+        if (category === 'definitive contract') return additionalDetailsContract(overview);
+        if (category === 'grant') return null;
+        if (category === 'loan') return null;
+        if (category === 'direct payment') return null;
+        if (category === 'other') return null;
+        return {};
+    }
     render() {
-        const awardData = this.props.overview;
-        const data = this.props.overview._category === 'idv' ? additionalDetailsIdv(this.props.overview) : additionalDetails(this.props.overview);
+        const { overview } = this.props;
+        const data = this.data();
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
         let periodOfPerformance = (
@@ -53,6 +66,7 @@ export default class AdditionalInfo extends React.Component {
                     globalToggle={this.state.globalToggle}
                     accordionName="Period Of Performance"
                     accordionIcon="calendar-alt"
+                    iconClassName="accordion-icon-calendar-alt"
                     accordionData={data.periodOfPerformance} />
             );
         }
@@ -61,11 +75,10 @@ export default class AdditionalInfo extends React.Component {
                 <div className="award-viz">
                     <div className="award-viz__heading">
                         <div className="award-viz__icon">
-                            <InfoCircle />
+                            <FontAwesomeIcon size="lg" icon="info" />
                         </div>
                         <h3 className="award-viz__title">Additional Information</h3>
                     </div>
-                    <hr />
                     <button
                         className="award-viz__button"
                         onClick={this.handleClick}>
@@ -81,7 +94,7 @@ export default class AdditionalInfo extends React.Component {
                             <Accordion
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Parent Award Details"
-                                accordionIcon="level-up-alt"
+                                accordionIcon="sitemap"
                                 accordionData={data.parentAwardDetails} />
                             {placeOfPerformance}
                             {periodOfPerformance}
@@ -90,16 +103,13 @@ export default class AdditionalInfo extends React.Component {
                                 accordionName="Legislative Mandates"
                                 accordionIcon="pencil-alt"
                                 accordionData={data.legislativeMandates} />
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Executive Compensation"
-                                accordionIcon="user-tie"
-                                accordionData={awardData.executiveDetails.officers} />
                         </div>
                         <div className="award__col">
-                            <RecipientDetails
-                                data={this.props.overview.recipient}
-                                globalToggle={this.state.globalToggle} />
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Recipient Details"
+                                accordionIcon="building"
+                                accordionData={data.recipientDetails} />
                             <Accordion
                                 globalToggle={this.state.globalToggle}
                                 accordionName="Acquisition Details"
@@ -115,6 +125,11 @@ export default class AdditionalInfo extends React.Component {
                                 accordionName="Additional Details"
                                 accordionIcon="ellipsis-h"
                                 accordionData={data.additionalDetails} />
+                            <Accordion
+                                globalToggle={this.state.globalToggle}
+                                accordionName="Executive Compensation"
+                                accordionIcon="user-tie"
+                                accordionData={overview.executiveDetails.officers} />
                         </div>
                     </div>
                 </div>
