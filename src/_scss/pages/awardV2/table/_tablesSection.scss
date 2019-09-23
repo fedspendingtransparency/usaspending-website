@@ -27,6 +27,9 @@
 
         .table-type-toggle {
             @include display(flex);
+            .tab-content span {
+                margin-right: $global-mrg / 3;
+            }
         }
     }
 

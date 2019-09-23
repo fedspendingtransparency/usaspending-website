@@ -6,17 +6,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import contractMapping from 'dataMapping/contracts/transactionTable';
-import assistanceMapping from
-    'dataMapping/financialAssistance/financialAssistanceTransactionTable';
-import loanMapping from 'dataMapping/financialAssistance/loanTransactionTable';
-
 import { measureTableHeader } from 'helpers/textMeasurement';
-
+import transactionHistoryV2Mapping from 'dataMapping/awardsv2/transactionHistoryTable';
+import contractMapping from 'dataMapping/contracts/transactionTable';
+import assistanceMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
+import loanMapping from 'dataMapping/financialAssistance/loanTransactionTable';
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
-import TransactionTableHeaderCell from './cells/TransactionTableHeaderCell';
 
+import TransactionTableHeaderCell from './cells/TransactionTableHeaderCell';
 import TransactionTableGenericCell from './cells/TransactionTableGenericCell';
+
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
@@ -31,9 +30,13 @@ const propTypes = {
     sort: PropTypes.object,
     nextTransactionPage: PropTypes.func.isRequired,
     changeSort: PropTypes.func.isRequired,
-    category: PropTypes.string
+    category: PropTypes.string,
+    isV2: PropTypes.bool
 };
 
+const defaultProps = {
+    isV2: false
+};
 export default class TransactionsTable extends React.Component {
     constructor(props) {
         super(props);
@@ -50,15 +53,17 @@ export default class TransactionsTable extends React.Component {
         }
     }
 
-    tableMapping() {
-        let tableMapping = assistanceMapping;
-        if (this.props.category === 'contract') {
-            tableMapping = contractMapping;
+    tableMapping(isV2 = this.props.isV2, category = this.props.category) {
+        if (isV2 || category === 'idv') {
+            return transactionHistoryV2Mapping;
         }
-        else if (this.props.category === 'loan') {
-            tableMapping = loanMapping;
+        else if (category === 'contract') {
+            return contractMapping;
         }
-        return tableMapping;
+        else if (category === 'loan') {
+            return loanMapping;
+        }
+        return assistanceMapping;
     }
 
     headerCellRender(columnIndex) {
@@ -161,3 +166,4 @@ export default class TransactionsTable extends React.Component {
 }
 
 TransactionsTable.propTypes = propTypes;
+TransactionsTable.defaultProps = defaultProps;
