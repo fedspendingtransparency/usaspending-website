@@ -33,7 +33,7 @@ const GrantChart = ({ awardAmounts }) => {
 
     const buildTooltipProps = (spendingCategory, isVisible, showTooltip, data = awardAmounts) => ({
         ...getTooltipPropsByAwardTypeAndSpendingCategory('grant', spendingCategory, data),
-        wide: true,
+        wide: false,
         controlledProps: {
             isControlled: true,
             isVisible,

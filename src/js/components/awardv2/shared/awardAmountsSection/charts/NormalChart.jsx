@@ -35,7 +35,7 @@ const NormalChart = ({ awardType, awardAmounts }) => {
 
     const buildTooltipProps = (spendingCategory, isVisible, showTooltip, type = awardType, data = awardAmounts) => ({
         ...getTooltipPropsByAwardTypeAndSpendingCategory(type, spendingCategory, data),
-        wide: true,
+        wide: isIdv,
         controlledProps: {
             isControlled: true,
             isVisible,

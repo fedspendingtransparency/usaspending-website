@@ -580,3 +580,50 @@ export const subAwardsTab = (
         </div>
     </div>
 );
+
+export const GrantAwardAmountsInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Award Amounts
+        </div>
+        <div className="info-tooltip__text">
+            <p>This section illustrates the awarded amount of this grant.</p>
+            <p>The total award amount of a grant is the combined value of its obligated amount and its non-federal funding.</p>
+            <p>Hover over the chart for more information about the specific amounts displayed.</p>
+        </div>
+    </div>
+);
+
+export const LoanAwardAmountsInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Award Amounts
+        </div>
+        <div className="info-tooltip__text">
+            <p>This section illustrates the awarded amount of this loan.</p>
+            <p>The total face value of the loan is shown with the original subsidy cost shown as a percentage of that face value.  The original subsidy cost can also be thought of the long-term estimated cost of this loan to the government.</p>
+            <p>Hover over the chart for more information about the specific amounts displayed.</p>
+        </div>
+    </div>
+);
+
+export const ContractAwardAmountsInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Award Amounts
+        </div>
+        <div className="info-tooltip__text">
+            <p>This section illustrates how much the government has spent on this award.</p>
+            <p>
+                It&rsquo;s important to note that contracts are not paid in full on the date they are awarded,
+                but rather a specific amount is made available for spending by the funding agency.
+                This specific amount is known as the &ldquo;current award amount&rdquo; or &ldquo;current ceiling amount&rdquo;.
+                During the period of performance of the contract, this current award amount can be grow to a maximum.
+                That maximum is known as the &ldquo;potential award amount&rdquo; or &ldquo;potential ceiling amount&rdquo;.
+            </p>
+            <p>This visual depicts the three amounts associated with contracts: obligated amounts, current award amounts, and potential award amounts.</p>
+            <p>Hover over the chart for more information about the specific amounts displayed.</p>
+        </div>
+    </div>
+);
+
