@@ -14,6 +14,7 @@ import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import FederalAccountTableHeaderCell from './cells/FederalAccountTableHeaderCell';
 import FederalAccountTableGenericCell from './cells/FederalAccountTableGenericCell';
 import { AWARD_TYPE_PROPS } from '../../../propTypes';
+import ResultsTableErrorMessage from '../../search/table/ResultsTableErrorMessage';
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
@@ -28,7 +29,8 @@ const propTypes = {
     sort: PropTypes.object,
     nextPage: PropTypes.func.isRequired,
     changeSort: PropTypes.func.isRequired,
-    category: AWARD_TYPE_PROPS
+    category: AWARD_TYPE_PROPS,
+    error: PropTypes.bool
 };
 
 export default class FedAccountTable extends React.Component {
@@ -144,7 +146,12 @@ export default class FedAccountTable extends React.Component {
             loadingClass = 'loading';
         }
         else if (this.props.fundingResults.length === 0) {
-            message = (<ResultsTableNoResults />);
+            if (this.props.error) {
+                message = <ResultsTableErrorMessage />;
+            }
+            else {
+                message = (<ResultsTableNoResults />);
+            }
         }
 
         return (

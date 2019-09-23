@@ -17,6 +17,7 @@ import SubawardsHeaderCell from 'components/award/subawards/cells/SubawardsHeade
 import SummaryPageTableMessage from 'components/award/table/SummaryPageTableMessage';
 
 import ResultsTableNoResults from '../../search/table/ResultsTableNoResults';
+import ResultsTableErrorMessage from '../../search/table/ResultsTableErrorMessage';
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
@@ -32,7 +33,8 @@ const propTypes = {
     loadNextPage: PropTypes.func,
     changeSort: PropTypes.func,
     tableInstance: PropTypes.string,
-    isV2: PropTypes.bool
+    isV2: PropTypes.bool,
+    error: PropTypes.bool
 };
 
 export default class SubawardsTable extends React.Component {
@@ -143,9 +145,14 @@ export default class SubawardsTable extends React.Component {
 
         let message = null;
         if (subawards.length === 0 && !inFlight) {
-            message = isV2
-                ? <ResultsTableNoResults />
-                : (<SummaryPageTableMessage message="No sub-awards found." />);
+            if (isV2) {
+                message = this.props.error
+                    ? <ResultsTableErrorMessage />
+                    : <ResultsTableNoResults />;
+            }
+            else {
+                message = (<SummaryPageTableMessage message="No sub-awards found." />);
+            }
         }
 
         return (
