@@ -38,21 +38,20 @@ export default class ContractContent extends React.Component {
             <AwardPageWrapper
                 glossaryLink={glossaryLink}
                 identifier={overview.id}
+                lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
                 awardTypeDescription={overview.typeDescription}
                 awardType="contract">
                 <AwardSection type="row" className="award-overview" id="award-overview">
-                    <AwardSection type="column" className="award-amountdates">
-                        <AgencyRecipient
-                            jumpToSection={jumpToSection}
-                            awardingAgency={overview.awardingAgency}
-                            category="contract"
-                            recipient={overview.recipient} />
-                    </AwardSection>
-                    <AwardSection type="column" className="award-amountdates">
-                        <RelatedAwards
-                            overview={this.props.overview} />
-                        <AwardDates overview={overview} />
-                    </AwardSection>
+                    <AgencyRecipient
+                        jumpToSection={jumpToSection}
+                        awardingAgency={overview.awardingAgency}
+                        category="contract"
+                        recipient={overview.recipient} />
+                    <RelatedAwards
+                        overview={this.props.overview} />
+                    <AwardDates
+                        awardType={overview.category}
+                        dates={overview.periodOfPerformance} />
                 </AwardSection>
                 <AwardSection type="row">
                     <AwardAmountsSection

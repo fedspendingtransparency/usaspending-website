@@ -42,7 +42,7 @@ export default class FinancialAssistanceContent extends React.Component {
         let amountsSection = (<ComingSoonSection title="Award Amounts" includeHeader />);
         if (overview.category === 'grant' || overview.category === 'loan') {
             const awardAmountData = Object.create(BaseAwardAmounts);
-            awardAmountData.populate(this.props.overview, this.props.overview.category);
+            awardAmountData.populate(overview, overview.category);
             amountsSection = (
                 <AwardAmountsSection
                     awardType={this.props.overview.category}
@@ -51,7 +51,6 @@ export default class FinancialAssistanceContent extends React.Component {
                     jumptoSection={this.props.jumpToSection} />
             );
         }
-
         const awardAmountData = Object.create(BaseAwardAmounts);
         awardAmountData.populate(overview, overview.category);
         // TODO: Determine if we should label with FAIN/ URI instead of ID
@@ -59,6 +58,7 @@ export default class FinancialAssistanceContent extends React.Component {
             <AwardPageWrapper
                 identifier={awardId}
                 glossaryLink={glossaryLink}
+                lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
                 awardTypeDescription={overview.typeDescription}
                 className="award-financial-assistance">
                 <AwardSection type="row" className="award-overview" id="award-overview">
@@ -68,7 +68,9 @@ export default class FinancialAssistanceContent extends React.Component {
                         category={overview.category}
                         recipient={overview.recipient} />
                     <AwardSection type="column" className="award-amountdates">
-                        <AwardDates overview={overview} />
+                        <AwardDates
+                            awardType={overview.category}
+                            dates={overview.periodOfPerformance} />
                     </AwardSection>
                 </AwardSection>
                 <AwardSection type="row">
