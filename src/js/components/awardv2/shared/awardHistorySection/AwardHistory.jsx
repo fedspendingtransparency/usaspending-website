@@ -18,7 +18,12 @@ const propTypes = {
     awardId: PropTypes.string
 };
 
-const AwardHistory = ({ overview, setActiveTab, activeTab, awardId }) => {
+const AwardHistory = ({
+    overview,
+    setActiveTab,
+    activeTab,
+    awardId
+}) => {
     const sectionTitle = (overview.category === 'idv')
         ? "Award History for this IDV"
         : "Award History";
