@@ -498,18 +498,22 @@ describe('searchFiltersReducer', () => {
     describe('UPDATE_AWARD_AMOUNTS', () => {
         const predefinedRangeAction = {
             type: 'UPDATE_AWARD_AMOUNTS',
-            awardAmounts: {
-                amount: 'range-1',
-                searchType: 'range'
-            }
+            awardAmounts: 'range-1'
+        };
+
+        const updatedPredefinedRangeAction = {
+            type: 'UPDATE_AWARD_AMOUNTS',
+            awardAmounts: 'range-0'
         };
 
         const specificRangeAction = {
             type: 'UPDATE_AWARD_AMOUNTS',
-            awardAmounts: {
-                amount: [10000, 20000],
-                searchType: 'specific'
-            }
+            awardAmounts: [10000, 20000]
+        };
+
+        const updatedSpecificRangeAction = {
+            type: 'UPDATE_AWARD_AMOUNTS',
+            awardAmounts: [55.55, 66.66]
         };
 
         const predefinedAwardAmount = 'range-1';
@@ -517,87 +521,90 @@ describe('searchFiltersReducer', () => {
 
         const specificAwardAmount = [10000, 20000];
 
-        it(
-            'should add the predefined Award Amount ' +
-                'if it does not currently exist in the filter',
-            () => {
-                const updatedState = searchFiltersReducer(undefined, predefinedRangeAction);
+        describe('Checkbox / Range', () => {
+            // user checks a checkbox
+            it('should add a award amount if none exist', () => {
+                const newMap = new OrderedMap({});
+                const updatedState = searchFiltersReducer(
+                    { awardAmounts: newMap },
+                    predefinedRangeAction
+                );
                 expect(updatedState.awardAmounts).toEqual(new OrderedMap({
                     [predefinedAwardAmount]: expectedpredefinedAwardAmount
                 }));
-            }
-        );
-
-        it(
-            'should remove the predefined Award Amount ' + 'if it already exists in the filter',
-            () => {
-                const startingState = Object.assign({}, initialState, {
+            });
+            // user checks a different checkbox
+            it('should set a new award amount', () => {
+                const startingState = {
                     awardAmounts: new OrderedMap({
                         [predefinedAwardAmount]: expectedpredefinedAwardAmount
                     })
-                });
+                };
 
-                const updatedState = searchFiltersReducer(startingState, predefinedRangeAction);
-                expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
-            }
-        );
-
-        it(
-            'should add the specific Award Amount ' +
-                'if it does not currently exist in the filter',
-            () => {
-                const updatedState = searchFiltersReducer(undefined, specificRangeAction);
-                expect(updatedState.awardAmounts).toEqual(new OrderedMap({
-                    specific: specificAwardAmount
-                }));
-            }
-        );
-
-        it(
-            'should remove the specific Award Amount ' + 'if it already exists in the filter',
-            () => {
-                const startingState = Object.assign({}, initialState, {
-                    awardAmounts: new OrderedMap({
-                        specific: specificAwardAmount
-                    })
-                });
-
-                const updatedState = searchFiltersReducer(startingState, specificRangeAction);
-                expect(updatedState.selectedAwardIDs).toEqual(new OrderedMap());
-            }
-        );
-
-        it(
-            'should remove a specific Award Amount ' + 'if a predefined Award Amount is specified',
-            () => {
-                const startingState = Object.assign({}, initialState, {
-                    awardAmounts: new OrderedMap({
-                        specific: specificAwardAmount
-                    })
-                });
-
-                const updatedState = searchFiltersReducer(startingState, predefinedRangeAction);
-                expect(updatedState.awardAmounts).toEqual(new OrderedMap({
-                    [predefinedAwardAmount]: expectedpredefinedAwardAmount
-                }));
-            }
-        );
-
-        it(
-            'should remove a predefined Award Amount ' + 'if a specific Award Amount is specified',
-            () => {
-                const startingState = Object.assign({}, initialState, {
+                const updatedState = searchFiltersReducer(
+                    startingState,
+                    updatedPredefinedRangeAction
+                );
+                expect(updatedState.awardAmounts).toEqual(new OrderedMap({ 'range-0': [null, 1000000] }));
+            });
+            // user deselects a checkbox
+            it('should set award amounts in state to an empty ordered map', () => {
+                const startingState = {
                     awardAmounts: new OrderedMap({
                         [predefinedAwardAmount]: expectedpredefinedAwardAmount
                     })
-                });
+                };
 
-                const updatedState = searchFiltersReducer(startingState, specificRangeAction);
+                const updatedState = searchFiltersReducer(
+                    startingState,
+                    predefinedRangeAction
+                );
+                expect(updatedState.awardAmounts).toEqual(new OrderedMap({}));
+            });
+        });
+
+        describe('Specific / User Input', () => {
+            it('should a specific award amount range if nothing exists', () => {
+                const newMap = new OrderedMap({});
+                const updatedState = searchFiltersReducer(
+                    { awardAmounts: newMap },
+                    specificRangeAction
+                );
                 expect(updatedState.awardAmounts).toEqual(new OrderedMap({
                     specific: specificAwardAmount
                 }));
-            }
-        );
+            });
+
+            it('should set a specific award amount range if a specific range already exists', () => {
+                const startingState = {
+                    awardAmounts: new OrderedMap({
+                        specific: specificAwardAmount
+                    })
+                };
+
+                const updatedState = searchFiltersReducer(
+                    startingState,
+                    updatedSpecificRangeAction
+                );
+                expect(updatedState.awardAmounts)
+                    .toEqual(new OrderedMap({ specific: [55.55, 66.66] }));
+            });
+
+            it('should set a specific award amount range if a checkbox range already exists', () => {
+                const startingState = {
+                    awardAmounts: new OrderedMap({
+                        [predefinedAwardAmount]: expectedpredefinedAwardAmount
+                    })
+                };
+
+                const updatedState = searchFiltersReducer(
+                    startingState,
+                    updatedSpecificRangeAction
+                );
+                expect(updatedState.awardAmounts)
+                    .toEqual(new OrderedMap({ specific: [55.55, 66.66] }));
+            });
+        });
     });
 
     describe('UPDATE_SELECTED_CFDA', () => {

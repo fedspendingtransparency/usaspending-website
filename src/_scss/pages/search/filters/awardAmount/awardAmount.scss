@@ -1,7 +1,12 @@
 .award-amount-filter {
+    @import "mixins/selectedFilterWrap";
+    @import "elements/filters/_selectedFilterBtn";
     ul.award-amounts {
         @include unstyled-list;
         @import "./_awardAmountItem";
         @import "./_specificAwardAmount";
+    }
+    .selected-filters {
+      @include selected-filter-wrap;
     }
 }
