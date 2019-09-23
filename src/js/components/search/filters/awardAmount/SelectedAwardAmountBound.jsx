@@ -5,8 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { Close } from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const propTypes = {
@@ -35,9 +34,10 @@ export default class SelectedAwardAmountBound extends React.Component {
                 onClick={this.removeFilter}
                 title="Click to remove."
                 aria-label={`Applied filter: ${label}`}>
+                {label}
                 <span className="close">
-                    <Close className="usa-da-icon-close" alt="Close icon" />
-                </span> {label}
+                    <FontAwesomeIcon icon="times" />
+                </span>
             </button>
         );
     }
