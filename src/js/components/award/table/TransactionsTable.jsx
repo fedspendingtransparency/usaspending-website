@@ -15,6 +15,8 @@ import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import TransactionTableHeaderCell from './cells/TransactionTableHeaderCell';
 import TransactionTableGenericCell from './cells/TransactionTableGenericCell';
+import ResultsTableNoResults from '../../search/table/ResultsTableNoResults';
+import ResultsTableErrorMessage from '../../search/table/ResultsTableErrorMessage';
 
 
 const rowHeight = 40;
@@ -31,7 +33,8 @@ const propTypes = {
     nextTransactionPage: PropTypes.func.isRequired,
     changeSort: PropTypes.func.isRequired,
     category: PropTypes.string,
-    isV2: PropTypes.bool
+    isV2: PropTypes.bool,
+    error: PropTypes.bool
 };
 
 const defaultProps = {
@@ -136,8 +139,17 @@ export default class TransactionsTable extends React.Component {
         const tableValues = this.buildTable();
 
         let loadingClass = '';
+        let message;
         if (this.props.inFlight) {
             loadingClass = 'loading';
+        }
+        if (this.props.transactions.length === 0) {
+            if (this.props.error) {
+                message = <ResultsTableErrorMessage />;
+            }
+            else {
+                message = <ResultsTableNoResults />;
+            }
         }
 
         return (
@@ -160,6 +172,7 @@ export default class TransactionsTable extends React.Component {
                     ref={(table) => {
                         this.tableComponent = table;
                     }} />
+                <div className="results-table-message-container">{message}</div>
             </div>
         );
     }
