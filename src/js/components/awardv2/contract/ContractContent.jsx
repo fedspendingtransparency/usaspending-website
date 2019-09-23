@@ -56,7 +56,7 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
                 </AwardSection>
                 <AwardSection type="column" className="award-amountdates">
                     <RelatedAwards
-                        overview={this.props.overview} />
+                        overview={overview} />
                     <AwardDates overview={overview} />
                 </AwardSection>
             </AwardSection>
