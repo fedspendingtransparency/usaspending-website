@@ -1,5 +1,5 @@
 /**
-  * AwardInfo.jsx
+  * AwardHistory.jsx
   * Created by David Trinh 12/10/2018
   **/
 
