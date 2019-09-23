@@ -25,7 +25,7 @@ const propTypes = {
 };
 
 const ContractContent = ({ awardId, overview, jumpToSection }) => {
-    const [activeTab, setActiveTab] = useState("transaction");
+    const [activeTab, setActiveTab] = useState('transaction');
     const glossarySlug = glossaryLinks[overview.type];
     const glossaryLink = glossarySlug
         ? `/#/award_v2/${awardId}?glossary=${glossarySlug}`
