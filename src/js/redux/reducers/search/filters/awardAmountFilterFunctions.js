@@ -63,6 +63,9 @@ export const updateAwardAmounts = (state, value) => {
         let max = value[1];
         if (!min && min !== 0) min = null;
         if (!max && max !== 0) max = null;
+        // convert to numbers, inputs must be strings to handle zeros
+        if (min) min = Number(min);
+        if (max) max = Number(max);
         const specific = [min, max];
         awardAmounts = new OrderedMap({
             specific
