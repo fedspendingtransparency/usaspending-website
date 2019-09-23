@@ -358,7 +358,7 @@ export const awardHistoryContract = (
         </div>
         <div className="info-tooltip__text">
             <p>
-                <strong>Award History</strong> – This section displays all of this award&apos;s transactions (modifications), sub-awards, and federal account funding data by row. The tables display only a small set of the available data fields.  To download the full set, including data attributes not displayed here and all related sub-award and federal account data, click the “Download” button at the top-right of this page.
+                This section displays all of this award&apos;s transactions (modifications), sub-awards, and federal account funding data by row. The tables display only a small set of the available data fields.  To download the full set, including data attributes not displayed here and all related sub-award and federal account data, click the “Download” button at the top-right of this page.
             </p>
             <p>
                 <strong>Transaction History</strong> – This table contains historical changes made to this contract award, shown as individual modification records. This information is reported by the Awarding Agency&apos;s contracting officer.
