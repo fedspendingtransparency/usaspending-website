@@ -61,8 +61,8 @@ const additionalDetailsContracts = (awardData) => {
             'Parent IDV PIID': {
                 type: 'link',
                 data: {
-                    path: parentAwardDetails.piid ? `/#/award/${parentAwardDetails.piid}` : null,
-                    title: parentAwardDetails.piid
+                    path: awardData.parentId ? `/#/award/${awardData.parentId}` : null,
+                    title: awardData.parentAward
                 }
             },
             'Parent IDV Type': parentAwardDetails.idvType || '',
