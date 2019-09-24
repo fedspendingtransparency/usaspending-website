@@ -1,5 +1,4 @@
 import React from 'react';
-import { startCase } from 'lodash';
 
 import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from "../../../propTypes/index";
@@ -15,7 +14,7 @@ const AwardPageWrapper = ({
     <div className={`award award-${awardType}`}>
         <div className="award__heading">
             <div className="award__info">
-                <div className="award__heading-text">{startCase(awardTypeDescription)}</div>
+                <div className="award__heading-text">{awardTypeDescription.toUpperCase()}</div>
                 <div className="award__heading-icon">
                     <a href={glossaryLink}>
                         <Glossary />
