@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { SpeechBubble, Glossary, AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
-import InfoTooltip from '../../idv/InfoTooltip';
-import { descriptionInfo } from '../../idv/InfoTooltipContent';
+import InfoTooltip from '../../shared/InfoTooltip';
+import { descriptionInfo } from '../../shared/InfoTooltipContent';
 
 const propTypes = {
     awardId: PropTypes.string,

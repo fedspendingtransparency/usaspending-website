@@ -15,6 +15,7 @@ import * as awardActions from 'redux/actions/awardV2/awardActions';
 
 import BaseFederalAccountFunding from 'models/v2/awardsV2/BaseFederalAccountFunding';
 import FederalAccountTable from 'components/awardv2/table/FederalAccountTable';
+import { fetchFederalAccountFunding } from '../../../helpers/awardHistoryHelper';
 
 const propTypes = {
     award: PropTypes.object,
@@ -29,10 +30,11 @@ export class FederalAccountTableContainer extends React.Component {
 
         this.state = {
             inFlight: false,
+            error: false,
             nextPage: false,
             page: 1,
             sort: {
-                field: 'piid',
+                field: null,
                 direction: 'asc'
             },
             tableInstance: `${uniqueId()}`,
@@ -45,13 +47,17 @@ export class FederalAccountTableContainer extends React.Component {
         this.changeSort = this.changeSort.bind(this);
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        await this.setDefaultSort(this.props.category);
         this.fetchSubmissions(1, true);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.award.id !== prevProps.award.id) {
             this.fetchSubmissions(1, true);
+        }
+        if (this.props.category !== prevProps.category) {
+            this.setDefaultSort(this.props.category);
         }
     }
 
@@ -61,8 +67,17 @@ export class FederalAccountTableContainer extends React.Component {
         }
     }
 
-    fetchSubmissions(page = 1, reset = false) {
-        if (!this.props.award.id) {
+    setDefaultSort(category = this.props.category) {
+        if (category === 'idv') {
+            this.setState((prevState) => ({ sort: { ...prevState.sort, field: 'piid' } }));
+        }
+        else {
+            this.setState((prevState) => ({ sort: { ...prevState.sort, field: 'reporting_fiscal_date' } }));
+        }
+    }
+
+    fetchSubmissions(page = 1, reset = false, award = this.props.award) {
+        if (!award.id) {
             return;
         }
 
@@ -72,19 +87,22 @@ export class FederalAccountTableContainer extends React.Component {
         }
 
         this.setState({
-            inFlight: true
+            inFlight: true,
+            error: false
         });
 
         // generate the params
         const params = {
-            award_id: this.props.award.id,
+            award_id: award.id,
             page,
             sort: this.state.sort.field,
             order: this.state.sort.direction,
             limit: pageLimit
         };
 
-        this.fedAccountRequest = IdvHelper.fetchAwardFedAccountFunding(params);
+        this.fedAccountRequest = (award.category === 'idv')
+            ? IdvHelper.fetchAwardFedAccountFunding(params)
+            : fetchFederalAccountFunding(params);
 
         this.fedAccountRequest.promise
             .then((res) => {
@@ -94,20 +112,21 @@ export class FederalAccountTableContainer extends React.Component {
                 this.fedAccountRequest = null;
                 if (!isCancel(err)) {
                     this.setState({
-                        inFlight: false
+                        inFlight: false,
+                        error: true
                     });
                     console.log(err);
                 }
             });
     }
 
-    parseFundingData(data, reset) {
-        const fundingResults = [];
-        data.results.forEach((item) => {
-            const fundingResult = Object.create(BaseFederalAccountFunding);
-            fundingResult.populate(item);
-            fundingResults.push(fundingResult);
-        });
+    parseFundingData(data, reset, category = this.props.category) {
+        const fundingResults = data.results
+            .map((item) => {
+                const fundingResult = Object.create(BaseFederalAccountFunding);
+                fundingResult.populate(item, category);
+                return fundingResult;
+            });
 
         // update the metadata
         const meta = data.page_metadata;
@@ -142,9 +161,7 @@ export class FederalAccountTableContainer extends React.Component {
     }
 
     changeSort(sort) {
-        this.setState({
-            sort
-        }, () => {
+        this.setState({ sort }, () => {
             this.fetchSubmissions(1, true);
         });
     }

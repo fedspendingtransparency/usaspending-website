@@ -6,13 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import additionalDetails from 'dataMapping/awardsv2/additionalDetails';
+import additionalDetailsContract from 'dataMapping/awardsv2/additionalDetailsContract';
+import additionalDetailsFinancialAssistance from
+    'dataMapping/awardsv2/additionalDetailsFinancialAssistance';
 import additionalDetailsIdv from 'dataMapping/awardsv2/additionalDetailsIdv';
-
 import Accordion from './Accordion';
-import RecipientDetails from './RecipientDetails';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 
 const propTypes = {
@@ -30,9 +30,23 @@ export default class AdditionalInfo extends React.Component {
     handleClick() {
         this.setState({ globalToggle: !this.state.globalToggle });
     }
-    render() {
-        const awardData = this.props.overview;
-        const data = this.props.overview._category === 'idv' ? additionalDetailsIdv(this.props.overview) : additionalDetails(this.props.overview);
+
+    data() {
+        const { overview } = this.props;
+        const category = overview._category;
+        if (category === 'idv') return additionalDetailsIdv(overview);
+        if (category === 'contract') return additionalDetailsContract(overview);
+        if (category === 'definitive contract') return additionalDetailsContract(overview);
+        if (category === 'grant') return additionalDetailsFinancialAssistance(overview);
+        if (category === 'loans') return additionalDetailsFinancialAssistance(overview);
+        if (category === 'direct payment') return additionalDetailsFinancialAssistance(overview);
+        if (category === 'other') return additionalDetailsFinancialAssistance(overview);
+        return {};
+    }
+
+    columns() {
+        const { overview } = this.props;
+        const data = this.data();
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
         let periodOfPerformance = (
@@ -43,6 +57,7 @@ export default class AdditionalInfo extends React.Component {
         if (this.props.overview._category !== 'idv') {
             placeOfPerformance = (
                 <Accordion
+                    key="PlaceOfPerformance"
                     globalToggle={this.state.globalToggle}
                     accordionName="Place Of Performance"
                     accordionIcon="map-marker-alt"
@@ -50,22 +65,141 @@ export default class AdditionalInfo extends React.Component {
             );
             periodOfPerformance = (
                 <Accordion
+                    key="PeriodOfPerformance"
                     globalToggle={this.state.globalToggle}
                     accordionName="Period Of Performance"
                     accordionIcon="calendar-alt"
+                    iconClassName="accordion-icon-calendar-alt"
                     accordionData={data.periodOfPerformance} />
             );
         }
+        const columnOne = [
+            (<Accordion
+                key="AgencyDetails"
+                globalToggle={this.state.globalToggle}
+                accordionName="Agency Details"
+                accordionIcon="landmark"
+                accordionData={data.agencyDetails} />),
+            (<Accordion
+                key="ParentAwardDetails"
+                globalToggle={this.state.globalToggle}
+                accordionName="Parent Award Details"
+                accordionIcon="sitemap"
+                accordionData={data.parentAwardDetails} />),
+            (placeOfPerformance),
+            (periodOfPerformance),
+            (<Accordion
+                key="LegislativeMandates"
+                globalToggle={this.state.globalToggle}
+                accordionName="Legislative Mandates"
+                accordionIcon="pencil-alt"
+                accordionData={data.legislativeMandates} />)
+        ];
+        const columnTwo = [
+            (<Accordion
+                key="RecipientDetails"
+                globalToggle={this.state.globalToggle}
+                accordionName="Recipient Details"
+                accordionIcon="building"
+                accordionData={data.recipientDetails} />),
+            (<Accordion
+                key="AcquisitionDetails"
+                globalToggle={this.state.globalToggle}
+                accordionName="Acquisition Details"
+                accordionIcon="tag"
+                accordionData={data.aquisitionDetails} />),
+            (<Accordion
+                key="CompetitionDetails"
+                globalToggle={this.state.globalToggle}
+                accordionName="Competition Details"
+                accordionIcon="chart-bar"
+                accordionData={data.competitionDetails} />),
+            (<Accordion
+                key="AdditionalDetails"
+                globalToggle={this.state.globalToggle}
+                accordionName="Additional Details"
+                accordionIcon="ellipsis-h"
+                accordionData={data.additionalDetails} />),
+            (<Accordion
+                key="ExecutiveCompensation"
+                globalToggle={this.state.globalToggle}
+                accordionName="Executive Compensation"
+                accordionIcon="user-tie"
+                accordionData={overview.executiveDetails.officers} />)
+        ];
+
+        return { columnOne, columnTwo };
+    }
+
+    faColumns() {
+        const { overview } = this.props;
+        const data = this.data();
+        const columnOne = [
+            (<Accordion
+                key="AgencyDetails"
+                globalToggle={this.state.globalToggle}
+                accordionName="Agency Details"
+                accordionIcon="landmark"
+                accordionData={data.agencyDetails} />),
+            (<Accordion
+                key="PlaceOfPerformance"
+                globalToggle={this.state.globalToggle}
+                accordionName="Place Of Performance"
+                accordionIcon="map-marker-alt"
+                accordionData={data.placeOfPerformance} />),
+            (<Accordion
+                key="PeriodOfPerformance"
+                globalToggle={this.state.globalToggle}
+                accordionName="Period Of Performance"
+                accordionIcon="calendar-alt"
+                iconClassName="accordion-icon-calendar-alt"
+                accordionData={data.periodOfPerformance} />)
+        ];
+        const columnTwo = [
+            (<Accordion
+                key="RecipientDetails"
+                globalToggle={this.state.globalToggle}
+                accordionName="Recipient Details"
+                accordionIcon="building"
+                accordionData={data.recipientDetails} />),
+            (<Accordion
+                key="ExecutiveCompensation"
+                globalToggle={this.state.globalToggle}
+                accordionName="Executive Compensation"
+                accordionIcon="user-tie"
+                accordionData={overview.executiveDetails.officers} />)
+        ];
+
+        return { columnOne, columnTwo };
+    }
+
+    render() {
+        const category = this.props.overview._category;
+        let firstColumn;
+        let secondColumn;
+        if (category === 'grant' ||
+            category === 'loans' ||
+            category === 'direct payment' ||
+            category === 'other') {
+            const { columnOne, columnTwo } = this.faColumns();
+            firstColumn = columnOne;
+            secondColumn = columnTwo;
+        }
+        else {
+            const { columnOne, columnTwo } = this.columns();
+            firstColumn = columnOne;
+            secondColumn = columnTwo;
+        }
+
         return (
             <div id="award-additional-information" className="additional-info">
                 <div className="award-viz">
                     <div className="award-viz__heading">
                         <div className="award-viz__icon">
-                            <InfoCircle />
+                            <FontAwesomeIcon size="lg" icon="info" />
                         </div>
                         <h3 className="award-viz__title">Additional Information</h3>
                     </div>
-                    <hr />
                     <button
                         className="award-viz__button"
                         onClick={this.handleClick}>
@@ -73,48 +207,10 @@ export default class AdditionalInfo extends React.Component {
                     </button>
                     <div className="award__row">
                         <div className="award__col">
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Agency Details"
-                                accordionIcon="landmark"
-                                accordionData={data.agencyDetails} />
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Parent Award Details"
-                                accordionIcon="level-up-alt"
-                                accordionData={data.parentAwardDetails} />
-                            {placeOfPerformance}
-                            {periodOfPerformance}
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Legislative Mandates"
-                                accordionIcon="pencil-alt"
-                                accordionData={data.legislativeMandates} />
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Executive Compensation"
-                                accordionIcon="user-tie"
-                                accordionData={awardData.executiveDetails.officers} />
+                            {firstColumn}
                         </div>
                         <div className="award__col">
-                            <RecipientDetails
-                                data={this.props.overview.recipient}
-                                globalToggle={this.state.globalToggle} />
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Acquisition Details"
-                                accordionIcon="tag"
-                                accordionData={data.aquisitionDetails} />
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Competition Details"
-                                accordionIcon="chart-bar"
-                                accordionData={data.competitionDetails} />
-                            <Accordion
-                                globalToggle={this.state.globalToggle}
-                                accordionName="Additional Details"
-                                accordionIcon="ellipsis-h"
-                                accordionData={data.additionalDetails} />
+                            {secondColumn}
                         </div>
                     </div>
                 </div>

@@ -6,10 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import DatePicker from 'components/sharedComponents/DatePicker';
-import { Close } from 'components/sharedComponents/icons/Icons';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 
 const defaultProps = {
@@ -185,12 +184,10 @@ export default class DateRange extends React.Component {
                         title="Click to remove filter."
                         aria-label={`Applied date range: ${dateLabel}`}
                         onClick={this.removeRange}>
-                        <span className="close">
-                            <Close
-                                className="usa-da-icon-close"
-                                alt="Close icon" />
-                        </span>
                         {dateLabel}
+                        <span className="close">
+                            <FontAwesomeIcon icon="times" />
+                        </span>
                     </button>
                 </div>
             </div>

@@ -30,8 +30,9 @@
                     padding-right: rem(5);
                 }
                 .tooltip-popover {
-                    left: 0;
-                    bottom: rem(30);
+                    // override the positioning to be centered over the icon
+                    left: rem(60);
+                    bottom: rem(32);
                 }
             }
 

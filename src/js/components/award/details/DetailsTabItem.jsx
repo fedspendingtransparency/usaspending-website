@@ -6,8 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { formatNumber } from 'helpers/moneyFormatter';
+
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-import InfoTooltip from 'components/awardv2/idv/InfoTooltip';
+import InfoTooltip from 'components/awardv2/shared/InfoTooltip';
 
 const propTypes = {
     label: PropTypes.string,
@@ -16,7 +18,8 @@ const propTypes = {
     enabled: PropTypes.bool,
     clickTab: PropTypes.func,
     tooltipContent: PropTypes.node,
-    tooltipProps: PropTypes.shape({ wide: PropTypes.bool })
+    tooltipProps: PropTypes.shape({ wide: PropTypes.bool }),
+    count: PropTypes.number
 };
 
 export default class DetailsTabItem extends React.Component {
@@ -56,14 +59,27 @@ export default class DetailsTabItem extends React.Component {
                 </InfoTooltip>);
         }
 
+        let count = null;
+
+        if (this.props.count || this.props.count === 0) {
+            count = (
+                <div className={`count-badge ${activeClass}`}>
+                    {formatNumber(this.props.count)}
+                </div>
+            );
+        }
+
         return (
             <button
                 className={`table-type-toggle ${activeClass}${status}`}
                 onClick={this.clickedButton}
                 title={`Show ${this.props.label}`}
                 disabled={disabledStatus}>
-                {this.props.label}
-                {comingSoon}
+                <div className="tab-content">
+                    <span>{this.props.label}</span>
+                    {comingSoon}
+                    {count}
+                </div>
                 {infoTooltip}
             </button>
         );

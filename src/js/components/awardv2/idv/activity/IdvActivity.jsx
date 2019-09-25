@@ -4,8 +4,8 @@ import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoad
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import InfoTooltip from '../InfoTooltip';
-import { idvActivityInfo } from '../InfoTooltipContent';
+import InfoTooltip from '../../shared/InfoTooltip';
+import { idvActivityInfo } from '../../shared/InfoTooltipContent';
 import IdvActivityVisualization from './IdvActivityVisualization';
 
 const propTypes = {

@@ -5,9 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { awardRanges, searchTypes } from 'dataMapping/search/awardAmount';
-
-import * as AwardAmountHelper from 'helpers/awardAmountHelper';
+import { awardRanges } from 'dataMapping/search/awardAmount';
+import { reduce, each } from 'lodash';
+import { formatAwardAmountRange } from 'helpers/awardAmountHelper';
+import SelectedAwardAmountBound from
+    'components/search/filters/awardAmount/SelectedAwardAmountBound';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import SpecificAwardAmountItem from './SpecificAwardAmountItem';
@@ -16,7 +18,8 @@ const propTypes = {
     selectAwardRange: PropTypes.func,
     awardAmountRanges: PropTypes.object,
     awardAmounts: PropTypes.object,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    removeFilter: PropTypes.func
 };
 
 const defaultProps = {
@@ -29,6 +32,7 @@ export default class AwardAmountSearch extends React.Component {
 
         this.toggleSelection = this.toggleSelection.bind(this);
         this.searchSpecificRange = this.searchSpecificRange.bind(this);
+        this.removeFilter = this.removeFilter.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -40,36 +44,65 @@ export default class AwardAmountSearch extends React.Component {
     }
 
     toggleSelection(selection) {
-        this.props.selectAwardRange(selection, searchTypes.RANGE);
+        this.props.selectAwardRange(selection);
     }
 
     searchSpecificRange(selections) {
-        const min = AwardAmountHelper.ensureInputIsNumeric(selections[0]);
-        const max = AwardAmountHelper.ensureInputIsNumeric(selections[1]);
-
-        this.props.selectAwardRange([min, max], searchTypes.SPECIFIC);
+        const min = selections[0];
+        const max = selections[1];
+        this.props.selectAwardRange([min, max]);
     }
 
-    render() {
-        const awardAmountRangeItems = [];
-        Object.keys(this.props.awardAmountRanges).forEach((key) => {
-            awardAmountRangeItems.push(
-                <PrimaryCheckboxType
+    awardAmountCheckboxes() {
+        const { awardAmountRanges, awardAmounts } = this.props;
+        return reduce(awardAmountRanges, (result, value, key) => {
+            const name = formatAwardAmountRange(
+                value, 0);
+            result.push(
+                (<PrimaryCheckboxType
                     {...this.props}
                     key={key}
                     id={`award-${key}`}
-                    name={AwardAmountHelper.formatAwardAmountRange(
-                        this.props.awardAmountRanges[key])}
+                    name={name}
                     value={key}
                     types={awardRanges}
-                    code={key}
+                    code={value}
                     filterType="Award Amount"
-                    selectedCheckboxes={this.props.awardAmounts}
-                    toggleCheckboxType={this.toggleSelection} />);
-        });
+                    selectedCheckboxes={awardAmounts}
+                    toggleCheckboxType={this.toggleSelection} />)
+            );
+            return result;
+        }, []);
+    }
 
+    stagedFilters() {
+        const filterObject = this.props.awardAmounts.toObject();
+        let stagedFilter;
+        let name;
+        each(filterObject, (val, key) => {
+            stagedFilter = val;
+            name = key;
+        });
+        if (!stagedFilter) return null;
+        const label = formatAwardAmountRange(stagedFilter);
         return (
-            <div className="award-amount-filter search-filter checkbox-type-filter">
+            <SelectedAwardAmountBound
+                removeFilter={this.removeFilter}
+                name={name}
+                label={label} />
+        );
+    }
+
+    removeFilter(name) {
+        const { removeFilter } = this.props;
+        removeFilter(name);
+    }
+
+    render() {
+        const awardAmountRangeItems = this.awardAmountCheckboxes();
+        const stagedFilters = this.stagedFilters();
+        return (
+            <div className="search-filter checkbox-type-filter">
                 <div className="filter-item-wrap">
                     <ul className="award-amounts checkbox-types">
                         {awardAmountRangeItems}
@@ -81,6 +114,11 @@ export default class AwardAmountSearch extends React.Component {
                         ref={(component) => {
                             this.hint = component;
                         }} />
+                    <div
+                        className="selected-filters"
+                        role="status">
+                        {stagedFilters}
+                    </div>
                 </div>
             </div>
         );

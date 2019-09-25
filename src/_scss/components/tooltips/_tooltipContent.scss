@@ -33,6 +33,11 @@
                 font-weight: $font-normal * 1.25;
             }
         }
+        .tooltip__amount--loans {
+            font-size: $base-font-size * 1.25;
+            font-weight: bold;
+            margin: 0;
+        }
         .tooltip__text {
             padding: 0 rem(15);
             font-weight: $font-normal;
