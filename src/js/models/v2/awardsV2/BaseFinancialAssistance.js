@@ -85,6 +85,7 @@ BaseFinancialAssistance.populate = function populate(data) {
 
     if (data.funding_agency) {
         const fundingAgencyData = {
+            id: data.funding_agency.id,
             toptierName: data.funding_agency.toptier_agency.name,
             toptierAbbr: data.funding_agency.toptier_agency.abbreviation,
             toptierId: data.funding_agency.toptier_agency.id,
