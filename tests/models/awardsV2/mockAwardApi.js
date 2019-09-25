@@ -30,6 +30,7 @@ export const mockContract = {
         recipient_hash: '1023984-C',
         recipient_unique_id: 123223,
         parent_recipient_unique_id: 234242,
+        parent_recipient_name: 'HoneyWell',
         location: {
             address_line1: '1515 EUBANK BLVD. SE',
             address_line2: 'P.O. BOX 5800, MS-0180, 87185-0180',
@@ -45,7 +46,6 @@ export const mockContract = {
             location_country_code: null,
             congressional_code: null
         },
-        recipient_parent_name: 'HoneyWell',
         business_categories: ['Testing 1', 'Testing 2']
     },
     period_of_performance: {
@@ -122,6 +122,12 @@ export const mockContract = {
 
 };
 
+export const mockGrant = {
+    ...mockContract,
+    _totalFunding: 1130000000, // 1.13 Billion
+    _nonFederalFunding: 1130000 // 1.13 Million
+};
+
 export const mockLoan = {
     type: 'C',
     category: 'loan',
@@ -136,8 +142,8 @@ export const mockLoan = {
     cfda_title: 'Flood Insurance',
     total_obligation: 123231313,
     subaward_count: 23423343,
-    total_subsidy_cost: 123,
-    total_loan_value: 24343,
+    total_subsidy_cost: 1290000.00, // subsidy 1.3 M
+    total_loan_value: 2497000000.00, // faceValue 2.5 B
     total_subaward_amount: 32423342,
     awarding_agency: {
         id: '323',
@@ -222,6 +228,8 @@ export const mockIdv = {
         recipient_hash: '1023984-C',
         recipient_unique_id: '123223',
         parent_recipient_unique_id: '234242',
+        parent_recipient_name: 'HoneyWell',
+        parent_recipient_hash: '98765432-P',
         location: {
             address_line1: '1515 EUBANK BLVD. SE',
             address_line2: 'P.O. BOX 5800, MS-0180, 87185-0180',
@@ -237,7 +245,6 @@ export const mockIdv = {
             location_country_code: null,
             congressional_code: null
         },
-        parent_recipient_name: 'HoneyWell',
         business_categories: ['Testing 1', 'Testing 2']
     },
     parent_award: {
@@ -245,6 +252,7 @@ export const mockIdv = {
         idv_type_description: 'test',
         type_of_idc_description: 'r3w',
         agency_id: '123',
+        agency_name: 'test',
         multiple_or_single_aw_desc: 'something',
         piid: '345'
     },
@@ -269,45 +277,72 @@ export const mockIdv = {
         congressional_code: null
     },
     latest_transaction_contract_data: {
-        idv_type_description: 'test',
-        type_of_idc_description: 'r3w',
-        referenced_idv_agency_iden: '424',
-        multiple_or_single_aw_desc: 'testing',
-        solicitation_identifier: 'DE-2342-323-SOL',
-        solicitation_procedures: 'Quote',
-        number_of_offers_received: '4',
-        extent_competed: 'Full',
-        other_than_full_and_o_desc: 'none',
-        type_set_aside_description: 'No set aside used',
-        commercial_item_acquisitio: 'COMMERCIAL ITEM',
-        commercial_item_test_desc: 'PROCEDURE NOT USED',
-        evaluated_preference_desc: 'NO',
-        fed_biz_opps_description: 'No Preference Used',
-        small_business_competitive: true,
-        fair_opportunity_limi_desc: 'test',
-        product_or_service_code: 't324242',
-        product_or_service_desc: '423we',
-        naics: '35353',
-        naics_description: null,
-        dod_claimant_program_code: 'ERWRWRWR5242-242',
-        information_technology_commercial_item_category: 'ERWRWRWR5242-242',
-        sea_transportation_desc: 'seaworld',
-        clinger_cohen_act_pla_desc: null,
-        construction_wage_rat_desc: 'TES',
-        labor_standards_descrip: 'NO',
-        materials_supplies_descrip: 'YES',
-        cost_or_pricing_data_desc: 'No',
-        domestic_or_foreign_e_desc: 'U.S. Owned',
-        foreign_funding_desc: 'Yes',
-        interagency_contract_desc: 'Company A',
-        major_program: 'None used',
-        price_evaluation_adjustmen: '0.00',
-        program_acronym: 'NOT SURE',
-        subcontracting_plan: 'PLAN',
-        multi_year_contract_desc: 'No',
-        purchase_card_as_paym_desc: 'Yes',
-        consolidated_contract_desc: 'NO',
-        type_of_contract_pric_desc: 'FIRM FIXED PRICE'
+        clinger_cohen_act_planning: "N",
+        clinger_cohen_act_planning_description: null,
+        commercial_item_acquisition: "D",
+        commercial_item_acquisition_description: "COMMERCIAL ITEM PROCEDURES NOT USED",
+        commercial_item_test_program: null,
+        commercial_item_test_program_description: null,
+        consolidated_contract: "D",
+        consolidated_contract_description: "NOT CONSOLIDATED",
+        construction_wage_rate: "X",
+        construction_wage_rate_description: "NOT APPLICABLE",
+        cost_or_pricing_data: "N",
+        cost_or_pricing_data_description: "NO",
+        dod_acquisition_program: "000",
+        dod_acquisition_program_description: null,
+        dod_claimant_program: "A1C",
+        dod_claimant_program_description: "OTHER AIRCRAFT EQUIPMENT ",
+        domestic_or_foreign_entity: "A",
+        domestic_or_foreign_entity_description: "U.S. OWNED BUSINESS",
+        evaluated_preference: "NONE",
+        evaluated_preference_description: "NO PREFERENCE USED",
+        extent_competed: null,
+        extent_competed_description: "NOT COMPETED UNDER SAP",
+        fair_opportunity_limited: null,
+        fair_opportunity_limited_description: null,
+        fed_biz_opps: "N",
+        fed_biz_opps_description: "NO",
+        foreign_funding: "X",
+        foreign_funding_description: "NOT APPLICABLE",
+        idv_type_description: null,
+        information_technology_commercial_item_category: "Z",
+        information_technology_commercial_item_category_description: "NOT IT PRODUCTS OR SERVICES",
+        interagency_contracting_authority: "X",
+        interagency_contracting_authority_description: "NOT APPLICABLE",
+        labor_standards: "X",
+        labor_standards_description: "NOT APPLICABLE",
+        major_program: null,
+        materials_supplies: "Y",
+        materials_supplies_description: "YES",
+        multi_year_contract: null,
+        multi_year_contract_description: null,
+        multiple_or_single_award_description: null,
+        naics: "336413",
+        naics_description: "OTHER AIRCRAFT PARTS AND AUXILIARY EQUIPMENT MANUFACTURING",
+        number_of_offers_received: "1",
+        other_than_full_and_open: "SP2",
+        other_than_full_and_open_description: "SAP NON-COMPETITION (FAR 13)",
+        price_evaluation_adjustment: null,
+        product_or_service_code: "1560",
+        product_or_service_description: "AIRFRAME STRUCTURAL COMPONENTS",
+        program_acronym: null,
+        purchase_card_as_payment_method: "N",
+        purchase_card_as_payment_method_description: "NO",
+        referenced_idv_agency_iden: "9700",
+        sea_transportation: "U",
+        sea_transportation_description: "UNKNOWN",
+        small_business_competitive: false,
+        solicitation_identifier: "SPE4A717U0350",
+        solicitation_procedures: "SP1",
+        solicitation_procedures_description: "SIMPLIFIED ACQUISITION",
+        subcontracting_plan: null,
+        subcontracting_plan_description: null,
+        type_of_contract_pricing: "J",
+        type_of_contract_pricing_description: "FIRM FIXED PRICE",
+        type_of_idc_description: null,
+        type_set_aside: "NONE",
+        type_set_aside_description: "NO SET ASIDE USED."
     },
     executive_details: {
         officers: [{
@@ -325,11 +360,14 @@ export const mockIdv = {
 export const mockAwardAmounts = {
     award_id: 12178065,
     generated_unique_award_id: null,
-    idv_count: 100,
-    contract_count: 10,
-    rollup_base_exercised_options_val: 10000000,
-    rollup_base_and_all_options_value: 106987321.10,
-    rollup_total_obligation: 1623321.02
+    child_idv_count: 100,
+    child_award_count: 10,
+    child_award_base_exercised_options_val: 5000000,
+    grandchild_award_base_exercised_options_val: 5000000,
+    child_award_base_and_all_options_value: 53493660.55,
+    grandchild_award_base_and_all_options_value: 53493660.55,
+    child_award_total_obligation: 811660.51,
+    grandchild_award_total_obligation: 811660.51
 };
 
 export const mockReferencedAwards = {
@@ -340,6 +378,8 @@ export const mockReferencedAwards = {
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
             funding_agency: 'DEPARTMENT OF DEFENSE (DOD)',
             funding_agency_id: 884,
+            awarding_agency: 'Department of Defense',
+            awarding_agency_id: 884,
             generated_unique_award_id: 'CONT_AW_9700_9700_71T0_SPM30008D3155',
             last_date_to_order: null,
             obligated_amount: 4080.71,
@@ -368,8 +408,10 @@ export const mockFederalAccountFunding = {
             piid: '111D111B1111',
             program_activity_code: '1111',
             program_activity_name: 'Sandwich Logistics',
-            reporting_agency_name: 'National Department of Sandwich Making & Eating',
-            reporting_agency_id: '987',
+            funding_agency_name: 'National Department of Sandwich Making & Eating',
+            funding_agency_id: '987',
+            awarding_agency_name: 'Department of State',
+            awarding_agency_id: '315',
             reporting_fiscal_quarter: 2,
             reporting_fiscal_year: 2018,
             transaction_obligated_amount: 9469,
@@ -389,5 +431,136 @@ export const mockFederalAccountFunding = {
 export const mockAwardFundingMetaData = {
     total_transaction_obligated_amount: 42946881.56,
     awarding_agency_count: 27,
+    funding_agency_count: 28,
     federal_account_count: 47
+};
+
+export const mockFileDownloadResponseIdv = {
+    total_size: 35.055,
+    file_name: `idv.zip`,
+    total_rows: 652,
+    total_columns: 27,
+    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status: `finished`,
+    seconds_elapsed: `10.061132`
+};
+
+export const mockFileDownloadResponseContract = {
+    total_size: 35.055,
+    file_name: `contract.zip`,
+    total_rows: 652,
+    total_columns: 27,
+    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status: `finished`,
+    seconds_elapsed: `10.061132`
+};
+
+export const mockFileDownloadResponseAssistance = {
+    total_size: 35.055,
+    file_name: `assistance.zip`,
+    total_rows: 652,
+    total_columns: 27,
+    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status: `finished`,
+    seconds_elapsed: `10.061132`
+};
+
+export const mockAwardFederalAccounts = {
+    page_metadata: {
+        count: 3,
+        hasNext: true,
+        hasPrevious: false,
+        next: 0,
+        page: 1,
+        previous: null
+    },
+    results: [
+        {
+            account_title: 'Operations Support,Internal Revenue Service, Treasury',
+            federal_account: '020-0919',
+            funding_agency_abbreviation: 'TREAS',
+            funding_agency_id: 456,
+            funding_agency_name: 'Department of the Treasury',
+            total_transaction_obligated_amount: 42029539.53
+        },
+        {
+            account_title: 'Program Management, Centers for Medicare and Medicaid Services',
+            federal_account: '075-0511',
+            funding_agency_abbreviation: 'HHS',
+            funding_agency_id: 806,
+            funding_agency_name: 'Department of Health and Human Services',
+            total_transaction_obligated_amount: 37865386
+        },
+        {
+            account_title: 'Diplomatic and Consular Programs, State',
+            federal_account: '019-0113',
+            funding_agency_abbreviation: 'DOS',
+            funding_agency_id: 315,
+            funding_agency_name: 'Department of State',
+            total_transaction_obligated_amount: 32912320.74
+        }
+    ],
+    total: 271716259.64
+};
+
+export const mockIdvActivity = {
+    page_metadata: {
+        hasNext: true,
+        count: 40,
+        hasPrevious: false,
+        limit: 10,
+        next: 2,
+        page: 1,
+        previous: null,
+        total: 111
+    },
+    results: [{
+        award_id: 69138778,
+        awarding_agency: "DEPARTMENT OF THE INTERIOR (DOI)",
+        awarding_agency_id: 228,
+        generated_unique_award_id: "CONT_AW_1425_4730_INR17PA00008_GS23F0170L",
+        period_of_performance_potential_end_date: "2019-11-30",
+        obligated_amount: 8000.0,
+        awarded_amount: 10000.0,
+        period_of_performance_start_date: "2016-01-14",
+        parent_award_id: 69001298,
+        parent_generated_unique_award_id: "CONT_IDV_V509P6176_3600",
+        parent_award_piid: "V509P6176",
+        piid: "INR17PA00008",
+        recipient_name: "Booz Allen Hamilton",
+        recipient_id: "543ee6af-9096-f32a-abaa-834106bead6a-P",
+        grandchild: false
+    }, {
+        award_id: 69054107,
+        awarding_agency: "GENERAL SERVICES ADMINISTRATION (GSA)",
+        awarding_agency_id: 634,
+        generated_unique_award_id: "CONT_AW_4732_4730_GS33FCA001_GS23F0170L",
+        period_of_performance_potential_end_date: "2017-09-30",
+        obligated_amount: 2257.24,
+        awarded_amount: 20000.0,
+        period_of_performance_start_date: "2014-10-01",
+        parent_award_id: 69001298,
+        parent_generated_unique_award_id: "CONT_IDV_V509P6176_3600",
+        parent_award_piid: "V509P6176",
+        piid: "GS33FCA001",
+        recipient_name: "Booz Allen Hamilton",
+        recipient_id: "9a277fc5-50fc-685f-0f77-be0d96420a17-C",
+        grandchild: false
+    }, {
+        award_id: 69216438,
+        awarding_agency: "DEPARTMENT OF AGRICULTURE (USDA)",
+        awarding_agency_id: 153,
+        generated_unique_award_id: "CONT_AW_12D2_4730_AG3151B140009_GS23F0170L",
+        period_of_performance_potential_end_date: "2015-04-06",
+        awarded_amount: 47840.0,
+        obligated_amount: 12000.0,
+        period_of_performance_start_date: "2014-04-07",
+        parent_award_id: 69001298,
+        parent_generated_unique_award_id: "CONT_IDV_V509P6176_3600",
+        parent_award_piid: "V509P6176",
+        piid: "AG3151B140009",
+        recipient_name: "Booz Allen Hamilton",
+        recipient_id: "9a277fc5-50fc-685f-0f77-be0d96420a17-C",
+        grandchild: true
+    }]
 };

@@ -1,4 +1,4 @@
-import { mockReferencedAwardCounts, mockReferencedAwards, mockFederalAccountFunding, mockAwardFundingMetaData } from '../../../models/awardsV2/mockAwardApi';
+import { mockAwardFederalAccounts, mockReferencedAwardCounts, mockReferencedAwards, mockFederalAccountFunding, mockAwardFundingMetaData, mockIdvActivity } from '../../../models/awardsV2/mockAwardApi';
 
 export const fetchReferencedAwardsCounts = () => (
     {
@@ -40,12 +40,30 @@ export const fetchAwardFedAccountFunding = () => (
     }
 );
 
-export const fetchAwardFundingSummary = () => ({
+export const fetchIdvFundingSummary = () => ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
             resolve({
                 data: mockAwardFundingMetaData
             });
+        });
+    }),
+    cancel: jest.fn()
+});
+
+export const fetchIdvFederalAccounts = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({ data: mockAwardFederalAccounts });
+        });
+    }),
+    cancel: jest.fn()
+});
+
+export const fetchIdvActivity = () => ({
+    promise: new Promise((resolve) => {
+        process.nextTick(() => {
+            resolve({ data: mockIdvActivity });
         });
     }),
     cancel: jest.fn()

@@ -1,22 +1,55 @@
-const path = require('path');
 const webpack = require('webpack');
+const path = require('path');
 const merge = require('webpack-merge');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
-    plugins: [
-        // new BundleAnalyzerPlugin(),
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('development') // indicate to libraries that this is in prod mode (which may affect their behavior for debugging)
-        })
-    ],
-    devtool: 'eval',
+    mode: "development",
+    devtool: "eval",
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
+        }
+    },
     devServer: {
-        contentBase: path.resolve(__dirname, 'public'),
-        host: '0.0.0.0', // this allows VMs to access the server
+        contentBase: path.resolve(__dirname, "public"),
+        host: "0.0.0.0", // this allows VMs to access the server
         port: 3000,
         disableHostCheck: true
-    }
+    },
+    module: {
+        rules: [
+            {
+                test: /\.scss$/,
+                use: [
+                    { loader: MiniCssExtractPlugin.loader },
+                    { loader: "css-loader", options: { url: false, sourceMap: true } },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: true,
+                            includePaths: ["./src/_scss", "./node_modules"]
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                USASPENDING_API: process.env.USASPENDING_API
+                    ? JSON.stringify(process.env.USASPENDING_API)
+                    : JSON.stringify("http://localhost:8000/api/"),
+                MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
+                    ? JSON.stringify(process.env.MAPBOX_TOKEN)
+                    : JSON.stringify(""),
+                GA_TRACKING_ID: process.env.GA_TRACKING_ID
+                    ? JSON.stringify(process.env.GA_TRACKING_ID)
+                    : JSON.stringify(""),
+                IS_DEV: JSON.stringify('true')
+            }
+        })
+    ]
 });

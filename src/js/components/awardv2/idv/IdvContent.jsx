@@ -7,17 +7,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsContainer';
+import IdvActivityContainer from 'containers/awardV2/idv/IdvActivityContainer';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import AwardHistory from './AwardHistory';
-import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
-import RelatedAwards from '../visualizations/overview/RelatedAwards';
-import IdvDates from './IdvDates';
-import AwardDescription from '../visualizations/description/AwardDescription';
-import AwardAmounts from '../visualizations/amounts/AwardAmounts';
-import AdditionalInfo from '../contract/AdditionalInfo';
-import ComingSoonSection from "./ComingSoonSection";
-import AwardMetaDataContainer from '../../../containers/awardV2/idv/AwardMetaDataContainer';
+import AwardHistory from '../shared/awardHistorySection/AwardHistory';
+import AgencyRecipient from '../shared/overview/AgencyRecipient';
+import RelatedAwards from '../shared/overview/RelatedAwards';
+import IdvDates from '../shared/overview/AwardDates';
+import AwardDescription from '../shared/description/AwardDescription';
+import AwardAmounts from './amounts/AwardAmounts';
+import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
+import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
 
 const propTypes = {
@@ -28,6 +28,39 @@ const propTypes = {
 };
 
 export default class IdvContent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            awardHistoryActiveTab: 'transaction', // or fedaccount
+            relatedAwardsActiveTab: 'child_awards'
+        };
+
+        this.setHistoryActiveTab = this.setHistoryActiveTab.bind(this);
+        this.setRelatedAwardsTab = this.setRelatedAwardsTab.bind(this);
+        this.jumpToFederalAccountsHistory = this.jumpToFederalAccountsHistory.bind(this);
+    }
+
+    setHistoryActiveTab(activeTab = 'transaction') {
+        this.setState({
+            awardHistoryActiveTab: activeTab
+        });
+    }
+
+    setRelatedAwardsTab(relatedAwardsActiveTab) {
+        if (relatedAwardsActiveTab !== this.state.relatedAwardsActiveTab) {
+            this.setState({
+                relatedAwardsActiveTab
+            });
+        }
+    }
+
+    jumpToFederalAccountsHistory() {
+        this.setState({
+            awardHistoryActiveTab: 'federal_account'
+        });
+        this.props.jumpToSection('award-history');
+    }
+
     render() {
         const glossarySlug = glossaryLinks[this.props.overview.type];
         let glossaryLink = null;
@@ -38,6 +71,7 @@ export default class IdvContent extends React.Component {
                 </a>
             );
         }
+
         return (
             <div className="award award-idv">
                 <div className="idv__heading">
@@ -49,15 +83,15 @@ export default class IdvContent extends React.Component {
                             {glossaryLink}
                         </div>
                         <div className="award__heading-id">
-                            <div className="award__heading-lable">
+                            <div className="award__heading-label">
                                 {this.props.overview.id ? "PIID" : ""}
                             </div>
                             <div>{this.props.overview.id}</div>
                         </div>
                     </div>
-                    <div className="idv__last-modified">
+                    <div className="award__last-modified">
                 Last Modified On:{" "}
-                        <span className="idv__last-modified idv__last-modified_date">
+                        <span className="award__last-modified award__last-modified_date">
                             {this.props.overview.dates.lastModifiedDateLong}
                         </span>
                     </div>
@@ -74,8 +108,10 @@ export default class IdvContent extends React.Component {
                     <RelatedAwards
                         counts={this.props.counts}
                         jumpToSection={this.props.jumpToSection}
+                        setRelatedAwardsTab={this.setRelatedAwardsTab}
                         overview={this.props.overview} />
                     <IdvDates
+                        awardType={this.props.overview.category}
                         dates={this.props.overview.dates} />
                 </div>
                 <div className="award__row">
@@ -90,11 +126,18 @@ export default class IdvContent extends React.Component {
                         psc={this.props.overview.additionalDetails.pscCode} />
                 </div>
                 <div className="award__row">
-                    <ComingSoonSection includeHeader title="IDV Activity" icon="chart-area" />
-                    <AwardMetaDataContainer />
+                    <IdvActivityContainer />
+                    <FederalAccountsSection
+                        idv
+                        jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>
-                <ReferencedAwardsContainer />
-                <AwardHistory overview={this.props.overview} />
+                <ReferencedAwardsContainer
+                    tableType={this.state.relatedAwardsActiveTab}
+                    switchTab={this.setRelatedAwardsTab} />
+                <AwardHistory
+                    activeTab={this.state.awardHistoryActiveTab}
+                    setActiveTab={this.setHistoryActiveTab}
+                    overview={this.props.overview} />
                 <AdditionalInfo overview={this.props.overview} />
             </div>
         );

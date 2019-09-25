@@ -369,7 +369,6 @@ export const visualizationColors = [
     '#083546'
 ];
 
-
 export const stateNameFromCode = (code) => {
     if ({}.hasOwnProperty.call(stateNames, code)) {
         return stateNames[code];
@@ -468,6 +467,32 @@ export const performZIPGeocode = (zip) => {
                 autocomplete: 'false'
             },
             method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+export const getCitySearchRequestObj = (searchText = "", state = "", country = "", scope = "") => {
+    const requestObj = { search_text: searchText, limit: 40, filter: { country_code: country, scope } };
+
+    if (state) {
+        requestObj.filter.state_code = state;
+    }
+
+    return requestObj;
+};
+
+export const fetchCityResults = (reqObj = getCitySearchRequestObj()) => {
+    const source = CancelToken.source();
+    return {
+        promise: Axios.request({
+            baseURL: `${kGlobalConstants.API}`,
+            url: `v2/autocomplete/city/`,
+            data: reqObj,
+            method: 'post',
             cancelToken: source.token
         }),
         cancel() {

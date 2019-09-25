@@ -233,80 +233,80 @@ const subawardColumns = [
 ];
 
 const defaultContract = [
-    'Award ID',
-    'Recipient Name',
-    'Start Date',
-    'End Date',
-    'Award Amount',
-    'Awarding Agency',
-    'Awarding Sub Agency',
-    'Contract Award Type'
+    { title: 'Award ID' },
+    { title: 'Recipient Name' },
+    { title: 'Start Date' },
+    { title: 'End Date' },
+    { title: 'Award Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Contract Award Type' }
 ];
 
 const defaultGrant = [
-    'Award ID',
-    'Recipient Name',
-    'Start Date',
-    'End Date',
-    'Award Amount',
-    'Awarding Agency',
-    'Awarding Sub Agency',
-    'Award Type'
+    { title: 'Award ID' },
+    { title: 'Recipient Name' },
+    { title: 'Start Date' },
+    { title: 'End Date' },
+    { title: 'Award Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Award Type' }
 ];
 
 const defaultDirectPayment = [
-    'Award ID',
-    'Recipient Name',
-    'Start Date',
-    'End Date',
-    'Award Amount',
-    'Awarding Agency',
-    'Awarding Sub Agency',
-    'Award Type'
+    { title: 'Award ID' },
+    { title: 'Recipient Name' },
+    { title: 'Start Date' },
+    { title: 'End Date' },
+    { title: 'Award Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Award Type' }
 ];
 
 const defaultLoan = [
-    'Award ID',
-    'Recipient Name',
-    'Issued Date',
-    'Loan Value',
-    'Subsidy Cost',
-    'Awarding Agency',
-    'Awarding Sub Agency'
+    { title: 'Award ID' },
+    { title: 'Recipient Name' },
+    { title: 'Issued Date' },
+    { title: 'Loan Value' },
+    { title: 'Subsidy Cost' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' }
 ];
 
 
 const defaultOther = [
-    'Award ID',
-    'Recipient Name',
-    'Start Date',
-    'End Date',
-    'Award Amount',
-    'Awarding Agency',
-    'Awarding Sub Agency',
-    'Award Type'
+    { title: 'Award ID' },
+    { title: 'Recipient Name' },
+    { title: 'Start Date' },
+    { title: 'End Date' },
+    { title: 'Award Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Award Type' }
 ];
 
 const defaultIdvColumns = [
-    'Award ID',
-    'Recipient Name',
-    'Start Date',
-    'Last Date to Order',
-    'Award Amount',
-    'Awarding Agency',
-    'Awarding Sub Agency',
-    'Contract Award Type'
+    { title: 'Award ID' },
+    { title: 'Recipient Name' },
+    { title: 'Start Date' },
+    { title: 'Last Date to Order', displayName: 'Ordering Period End Date' },
+    { title: 'Award Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Contract Award Type' }
 ];
 
 const defaultSub = [
-    'Sub-Award ID',
-    'Sub-Awardee Name',
-    'Sub-Award Date',
-    'Sub-Award Amount',
-    'Awarding Agency',
-    'Awarding Sub Agency',
-    'Prime Award ID',
-    'Prime Recipient Name'
+    { title: 'Sub-Award ID' },
+    { title: 'Sub-Awardee Name' },
+    { title: 'Sub-Award Date' },
+    { title: 'Sub-Award Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Prime Award ID' },
+    { title: 'Prime Recipient Name' }
 ];
 
 export const availableColumns = (type) => {

@@ -4,6 +4,7 @@ export const mockApi = {
     results: {
         current_total_budget_authority_amount: 1000,
         website: 'https://www.google.com',
+        congressional_justification_url: 'https://www.google.com/cj',
         mission: 'Mission text',
         obligated_amount: 15,
         outlay_amount: 12,
@@ -23,6 +24,7 @@ export const mockRedux = {
             name: 'Department of Test',
             mission: 'Mission text',
             website: 'https://www.google.com',
+            congressionalJustificationUrl: 'https://www.google.com/cj',
             logo: 'test.png',
             activeFY: '2017',
             activeFQ: '2',
@@ -42,7 +44,6 @@ export const mockCgacApi = {
     results: [
         {
             id: 123,
-            office_agency: null,
             subtier_agency: {
                 abbreviation: 'FNS',
                 name: 'Food and Nutrition Service',
@@ -51,7 +52,6 @@ export const mockCgacApi = {
             toptier_agency: {
                 abbreviation: '',
                 cgac_code: '1200',
-                fpds_code: '1200',
                 name: 'Under Secretary for Rural Development'
             },
             toptier_flag: true
@@ -62,7 +62,6 @@ export const mockCgacApi = {
 export const mockCgacLoad = {
     agency: {
         id: 123,
-        office_agency: null,
         subtier_agency: {
             abbreviation: 'FNS',
             name: 'Food and Nutrition Service',
@@ -71,7 +70,6 @@ export const mockCgacLoad = {
         toptier_agency: {
             abbreviation: '',
             cgac_code: '1200',
-            fpds_code: '1200',
             name: 'Under Secretary for Rural Development'
         },
         toptier_flag: true

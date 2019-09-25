@@ -111,12 +111,14 @@ export const recipient = {
         {
             id: '1',
             name: 'Multiple Recipients',
-            amount: '149620471458.92'
+            amount: '149620471458.92',
+            recipient_id: '123456-R'
         },
         {
             id: '113704139',
             name: 'Michigan',
-            amount: '6684225478.00'
+            amount: '6684225478.00',
+            recipient_id: '456789-C'
         }
     ]
 };

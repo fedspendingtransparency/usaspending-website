@@ -11,7 +11,6 @@ import { OrderedMap } from 'immutable';
 
 import { AwardAmountSearchContainer }
     from 'containers/search/filters/awardAmount/AwardAmountSearchContainer';
-import { searchTypes } from 'dataMapping/search/awardAmount';
 
 const initialFilters = {
     awardAmounts: new OrderedMap(),
@@ -22,10 +21,7 @@ describe('AwardAmountSearchContainer', () => {
     describe('Handling adding and removing Award Amounts', () => {
         it('should add a predefined Award Amount that has been selected to Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual({
-                    amount: 1,
-                    searchType: 'range'
-                });
+                expect(args).toEqual('range-1');
             });
 
             // Set up container with mocked Award Amount action
@@ -38,7 +34,7 @@ describe('AwardAmountSearchContainer', () => {
                 'selectAwardRange');
 
             // Add Award Amount to redux
-            awardAmountSearchContainer.instance().selectAwardRange(1, searchTypes.RANGE);
+            awardAmountSearchContainer.instance().selectAwardRange('range-1');
 
             // everything should be updated now
             expect(selectAwardRangeSpy.callCount).toEqual(1);
@@ -50,10 +46,7 @@ describe('AwardAmountSearchContainer', () => {
 
         it('should remove a predefined Award Amount that has been deselected from Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual({
-                    amount: 1,
-                    searchType: 'range'
-                });
+                expect(args).toEqual('range-1');
             });
 
             // Set up container with mocked Award Amount action
@@ -66,10 +59,10 @@ describe('AwardAmountSearchContainer', () => {
                 'selectAwardRange');
 
             // Add Award Amount to redux
-            awardAmountSearchContainer.instance().selectAwardRange(1, searchTypes.RANGE);
+            awardAmountSearchContainer.instance().selectAwardRange('range-1');
 
             // Remove Award Amount from redux
-            awardAmountSearchContainer.instance().selectAwardRange(1, searchTypes.RANGE);
+            awardAmountSearchContainer.instance().selectAwardRange('range-1');
 
             // everything should be updated now
             expect(selectAwardRangeSpy.callCount).toEqual(2);
@@ -81,10 +74,7 @@ describe('AwardAmountSearchContainer', () => {
 
         it('should add a specific Award Amount that has been selected to Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual({
-                    amount: [10000, 20000],
-                    searchType: 'specific'
-                });
+                expect(args).toEqual([10000, 20000]);
             });
 
             // Set up container with mocked Award Amount action
@@ -98,7 +88,7 @@ describe('AwardAmountSearchContainer', () => {
 
             // Add Award Amount to redux
             awardAmountSearchContainer.instance()
-                .selectAwardRange([10000, 20000], searchTypes.SPECIFIC);
+                .selectAwardRange([10000, 20000]);
 
             // everything should be updated now
             expect(selectAwardRangeSpy.callCount).toEqual(1);
@@ -110,10 +100,7 @@ describe('AwardAmountSearchContainer', () => {
 
         it('should remove a specific Award Amount that has been deselected from Redux', () => {
             const mockReduxAction = jest.fn((args) => {
-                expect(args).toEqual({
-                    amount: [10000, 20000],
-                    searchType: 'specific'
-                });
+                expect(args).toEqual([10000, 20000]);
             });
 
             // Set up container with mocked Award Amount action
@@ -127,11 +114,11 @@ describe('AwardAmountSearchContainer', () => {
 
             // Add Award Amount to redux
             awardAmountSearchContainer.instance()
-                .selectAwardRange([10000, 20000], searchTypes.SPECIFIC);
+                .selectAwardRange([10000, 20000]);
 
             // Remove Award Amount from redux
             awardAmountSearchContainer.instance()
-                .selectAwardRange([10000, 20000], searchTypes.SPECIFIC);
+                .selectAwardRange([10000, 20000]);
 
             // everything should be updated now
             expect(selectAwardRangeSpy.callCount).toEqual(2);

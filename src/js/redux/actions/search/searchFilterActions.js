@@ -4,9 +4,9 @@
   **/
 
 // Keyword Filter
-export const updateTextSearchInput = (state) => ({
+export const updateTextSearchInput = (textInput) => ({
     type: 'UPDATE_TEXT_SEARCH',
-    textInput: state
+    textInput
 });
 
 // Time Period Filter
@@ -97,6 +97,17 @@ export const bulkRecipientTypeChange = (state) => ({
 export const updateRecipientLocations = (state) => ({
     type: 'UPDATE_RECIPIENT_LOCATIONS',
     location: state
+});
+
+// Program Source Filter
+export const updateFederalAccountComponents = (source) => ({
+    type: 'UPDATE_FEDERAL_ACCOUNT_COMPONENTS',
+    source
+});
+
+export const updateTreasuryAccountComponents = (source) => ({
+    type: 'UPDATE_TREASURY_ACCOUNT_COMPONENTS',
+    source
 });
 
 // Award Type Filter

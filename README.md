@@ -1,8 +1,27 @@
 # USAspending Website
 
-[![Build Status](https://travis-ci.org/fedspendingtransparency/usaspending-website.svg?branch=dev)](https://travis-ci.org/fedspendingtransparency/usaspending-website) [![Test Coverage](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/badges/coverage.svg)](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/coverage)
+[![Build Status](https://travis-ci.com/fedspendingtransparency/usaspending-website.svg?branch=dev)](https://travis-ci.com/fedspendingtransparency/usaspending-website) [![Test Coverage](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/badges/coverage.svg)](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/coverage)
 
-[The USAspending website](https://beta.usaspending.gov/) is the public-facing site offering information on Government spending for the United States.
+[The USAspending website](https://www.usaspending.gov/) is the public-facing site offering information on Government spending for the United States.
+
+## Docker Set Up
+
+The quickets way to run a local version of the code is with  [Docker](https://www.docker.com/), using the provided Dockerfile.
+
+**You will need to create your GlobalConstants files first (see below).** Then, to build the Docker image, artifacts, and run in a simple Nginx configuration:
+
+```
+# from usaspending-website root, build the container image
+docker build -t usaspending-website .
+
+# generate static artifacts in ./public
+docker run -i --rm=true -v $(pwd)/public:/node-workspace/public usaspending-website /bin/sh -c 'npm run dev'
+
+# mount the static artifacts to an nginx image and run
+docker run -p 8020:80 -v $(pwd)/public:/usr/share/nginx/html:ro nginx
+```
+
+The app should now be running at `http://localhost:8020`.
 
 ## Development Set Up
 
@@ -17,9 +36,9 @@ Assumptions:
 
 ### Install Prerequisites and Code
 
-1. If you're not already running Node.js, download and run the installer for your operating system. We build using **Node.js 6.11.x (LTS)**: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
+1. If you're not already running Node.js, download and run the installer for your operating system. We build using **Node.js 10.15.3 (LTS)**: [https://nodejs.org/en/](https://nodejs.org/en/ "Node.js installer").
 
-2. You should also have *npm* (Node's package manager). This is typically included as part of the Node.js install. We use version 3.10.x. This is used to install the software dependencies the web site and the build system require.
+2. You should also have *npm* (Node's package manager). This is typically included as part of the Node.js install. We use version 6.4.1. This is used to install the software dependencies the web site and the build system require.
 
 3. From the command line, clone the USAspending website repository from GitHub to your local machine:
 
@@ -32,27 +51,9 @@ Assumptions:
         $ npm install
 
 
-### Create Configurations
+### Configuration File
 
-The `usaspending-website` folder provides three sample `GlobalConstants` files:
-
- * `sampleGlobalConstants_dev.js`
- * `sampleGlobalConstants_prod.js`.
-
-Use these sample files to create files named `GlobalConstants_dev.js` and `GlobalConstants_prod.js` respectively.
-
-You **must** have *both* `GlobalConstants_dev.js` and `GlobalConstants_prod.js` created before building the application. 
-
-The sample files require you to provide values for:
-
-* `API` (string) is the base API URL for the server that is hosting the API.
-	* The USAspending API is located at `https://api.usaspending.gov/api/`, with the trailing slash included.
-* `DEV` (boolean) indicates if you are running the application in development mode or for production use. Enabling development mode activates certain debugging functionality at the expense of some performance.
-* `PERF_LOG` (boolean) indicates if you want to enable performance logging data in the JavaScript console. This requires `DEV` to be enabled as well.
-
-`DEV` and `PERF_LOG` should be disabled when deploying to a hosted public, staging, or production environment.
-
-**TIP!** You can use separate `GlobalConstants_dev.js` and `GlobalConstants_prod.js` files to point to different API endpoints that align with different environments.
+The `usaspending-website` folder provides a single configuration file named `GlobalConstants.js`. Here you may adjust the `API` property to use either a local api or the production api. By default, `npm run start` uses the local API url (`http://localhost:8000/api/`). To use the production API, simply overwrite the `API` property or rewrite the `npm` script to use `webpack.prod.config.js`.
 
 ### Build Application
 
@@ -65,7 +66,7 @@ If you are building the web site for a hosted production environment, run:
 ```bash
 	$ npm run prod
 ```
-This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and the `GlobalConstants_prod.js` file is used as the GlobalConstants file.
+This will build the frontend files to the `/public` directory, which you can then deploy on your host. In this mode, JavaScript files are minified, debugging tools are disabled, and the `GlobalConstants.js` file will use the production api.
 
 #### Local Development
 
@@ -75,7 +76,7 @@ Finally, if you are a frontend developer, use:
 	$ npm start
 ```
 
-This will build the frontend files to the `/public` directory and also start a web server on port 3000. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled and the `GlobalConstants_dev.js` file is used as the GlobalConstants file. Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
+This will build the frontend files to the `/public` directory and also start a web server on port 3000. In this mode, JavaScript files are uncompressed and sourcemapped, debugging tools are enabled and the `GlobalConstants.js` file will assume the use of a local api. Additionally, SASS files in the `/src/_scss` and `/src/css` folders are watched, along with JS files in the `/src/js` folder, and these files are recompiled (and the browser automatically refreshed) whenever a change is detected.
 
 This mode also differs from `production` by using incremental Webpack builds. This means that the code is recompiled every time a change is detected in a source JS/JSX file, but the builds are *incremental*, meaning they take significantly less time than a complete build by recycling compiled code for unmodified parts. When making changes to the source code, you should always develop in `dev` mode to take advantage of this feature.
 

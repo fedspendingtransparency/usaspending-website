@@ -3,6 +3,23 @@
  * Created by Lizzie Salita 3/5/18
  */
 
+import { formatMoney } from 'helpers/moneyFormatter';
+
+const parseExecutiveCompensation = (data) => {
+    const executiveCompensation = {};
+    for (let i = 1; i < 6; i++) {
+        const name = data[`officer_${i}_name`] || '';
+        const amount = formatMoney(data[`officer_${i}_amount`]) || 0;
+        if (name) {
+            executiveCompensation[`officer${i}`] = `${name} - ${amount}`;
+        }
+        else {
+            executiveCompensation[`officer${i}`] = '--';
+        }
+    }
+    return executiveCompensation;
+};
+
 const BaseContractAdditionalDetails = {
     populate(data) {
         this.pricingCode = data.type_of_contract_pricing || '';
@@ -57,6 +74,9 @@ const BaseContractAdditionalDetails = {
         this.multiYearContract = data.multi_year_contract_desc || '--';
         this.purchaseCardAsPaymentMethod = data.purchase_card_as_paym_desc || '--';
         this.consolidated = data.consolidated_contract_desc || '--';
+
+        // Executive Compensation
+        this.officers = parseExecutiveCompensation(data);
     },
     get pscCode() {
         if (this._pscCode && this._pscCodeDescription) {

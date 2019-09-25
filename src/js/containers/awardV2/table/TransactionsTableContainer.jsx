@@ -30,6 +30,7 @@ export class TransactionsTableContainer extends React.Component {
 
         this.state = {
             inFlight: false,
+            error: false,
             nextPage: false,
             page: 1,
             sort: {
@@ -73,7 +74,8 @@ export class TransactionsTableContainer extends React.Component {
         }
 
         this.setState({
-            inFlight: true
+            inFlight: true,
+            error: false
         });
 
         // generate the params
@@ -95,7 +97,8 @@ export class TransactionsTableContainer extends React.Component {
                 this.transactionRequest = null;
                 if (!isCancel(err)) {
                     this.setState({
-                        inFlight: false
+                        inFlight: false,
+                        error: true
                     });
                     console.log(err);
                 }
@@ -157,7 +160,8 @@ export class TransactionsTableContainer extends React.Component {
                 {...this.props}
                 {...this.state}
                 changeSort={this.changeSort}
-                nextTransactionPage={this.nextTransactionPage} />
+                nextTransactionPage={this.nextTransactionPage}
+                isV2 />
         );
     }
 }

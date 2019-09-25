@@ -3,37 +3,19 @@
  * Created by michaelbray on 3/7/17.
  */
 
-import Accounting from 'accounting';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 
-export const formatAwardAmountRange = (range) => {
-    const min = MoneyFormatter.calculateUnitForSingleValue(range[0]);
-    const max = MoneyFormatter.calculateUnitForSingleValue(range[1]);
-
-    const minValue = Math.round((10 * range[0]) / min.unit) / 10;
-    const maxValue = Math.round((10 * range[1]) / max.unit) / 10;
-
-    const minLabel = `${minValue}${min.unitLabel}`;
-    const maxLabel = `${maxValue}${max.unitLabel}`;
-
-    if (range[0] === 0 && range[1] === 0) {
-        return `$0 & Above`;
+// formats the specific checkboxes
+// options are NPM accounting package options
+export const formatAwardAmountRange = (range, options = 2) => {
+    const minLabel = formatMoneyWithPrecision(range[0], options);
+    const maxLabel = formatMoneyWithPrecision(range[1], options);
+    let label = `${minLabel} - ${maxLabel}`;
+    if (!range[0] && (range[0] !== 0)) {
+        label = `Under ${maxLabel}`;
     }
-    else if (range[0] === 0) {
-        return `Under $${maxLabel}`;
+    if (!range[1] && (range[1] !== 0)) {
+        label = `${minLabel} & Above`;
     }
-    else if (range[1] === 0) {
-        return `$${minLabel} & Above`;
-    }
-    return `$${minLabel} - $${maxLabel}`;
-};
-
-export const ensureInputIsNumeric = (input) => {
-    // Format user input
-    const cleanInput = Accounting.unformat(input.toString());
-
-    if (isNaN(Number(cleanInput)) || cleanInput === '') {
-        return null;
-    }
-    return Number(cleanInput);
+    return label;
 };

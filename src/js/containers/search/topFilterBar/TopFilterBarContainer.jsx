@@ -109,6 +109,17 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(recipientTypeFilters);
         }
 
+        // prepare the Program Source filters
+        const selectedTreasuryAccountFilters = this.prepareTreasuryAccounts(props);
+        if (selectedTreasuryAccountFilters) {
+            filters.push(selectedTreasuryAccountFilters);
+        }
+
+        const selectedFederalAccountFilters = this.prepareFederalAccounts(props);
+        if (selectedFederalAccountFilters) {
+            filters.push(selectedFederalAccountFilters);
+        }
+
         // prepare Award ID filters
         const selectedAwardIDFilters = this.prepareAwardIDs(props);
         if (selectedAwardIDFilters) {
@@ -294,6 +305,48 @@ export class TopFilterBarContainer extends React.Component {
         if (selected) {
             filter.code = 'selectedLocations';
             filter.name = 'Place of Performance';
+            return filter;
+        }
+        return null;
+    }
+
+    prepareFederalAccounts(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.federalAccounts.count() > 0) {
+            // federal account components have been selected
+            selected = true;
+            const [...identifiers] = props.federalAccounts.keys();
+            filter.values = identifiers;
+        }
+
+        if (selected) {
+            filter.code = 'federalAccounts';
+            filter.name = 'Federal Account';
+            return filter;
+        }
+        return null;
+    }
+
+    prepareTreasuryAccounts(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.treasuryAccounts.count() > 0) {
+            // treasury account components have been selected
+            selected = true;
+            const [...identifiers] = props.treasuryAccounts.keys();
+            filter.values = identifiers;
+        }
+
+        if (selected) {
+            filter.code = 'treasuryAccounts';
+            filter.name = 'Treasury Account';
             return filter;
         }
         return null;

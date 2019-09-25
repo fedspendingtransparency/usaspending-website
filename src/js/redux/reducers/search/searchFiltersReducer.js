@@ -13,11 +13,13 @@ import * as RecipientFilterFunctions from './filters/recipientFilterFunctions';
 import * as AwardAmountFilterFunctions from './filters/awardAmountFilterFunctions';
 import * as OtherFilterFunctions from './filters/OtherFilterFunctions';
 import * as ContractFilterFunctions from './filters/contractFilterFunctions';
+import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunctions';
 
 // update this version when changes to the reducer structure are made
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
-export const filterStoreVersion = '2017-11-21';
+
+export const filterStoreVersion = '2019-07-26';
 
 export const requiredTypes = {
     keyword: OrderedMap,
@@ -36,7 +38,9 @@ export const requiredTypes = {
     selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
-    extentCompeted: Set
+    extentCompeted: Set,
+    treasuryAccounts: OrderedMap,
+    federalAccounts: OrderedMap
 };
 
 export const initialState = {
@@ -61,7 +65,9 @@ export const initialState = {
     selectedPSC: new OrderedMap(),
     pricingType: new Set(),
     setAside: new Set(),
-    extentCompeted: new Set()
+    extentCompeted: new Set(),
+    federalAccounts: new OrderedMap(),
+    treasuryAccounts: new OrderedMap()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -107,6 +113,20 @@ const searchFiltersReducer = (state = initialState, action) => {
         case 'ADD_RECIPIENT_LOCATION_OBJECT': {
             return Object.assign({}, state, {
                 selectedRecipientLocations: state.selectedRecipientLocations.set(action.location.identifier, action.location)
+            });
+        }
+
+        // Program Source (TAS) Filter
+        case 'UPDATE_TREASURY_ACCOUNT_COMPONENTS': {
+            return Object.assign({}, state, {
+                treasuryAccounts: ProgramSourceFilterFunctions.updateSelectedSources(
+                    state.treasuryAccounts, action.source)
+            });
+        }
+        case 'UPDATE_FEDERAL_ACCOUNT_COMPONENTS': {
+            return Object.assign({}, state, {
+                federalAccounts: ProgramSourceFilterFunctions.updateSelectedSources(
+                    state.federalAccounts, action.source)
             });
         }
 

@@ -13,7 +13,12 @@ const propTypes = {
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
     label: PropTypes.string,
-    accessibility: PropTypes.object
+    accessibility: PropTypes.object,
+    onKeyDown: PropTypes.func
+};
+
+const defaultProps = {
+    onKeyDown: () => {}
 };
 
 const IndividualSubmit = (props) => (
@@ -23,6 +28,7 @@ const IndividualSubmit = (props) => (
         onClick={props.onClick}
         title={props.label}
         aria-label={props.label}
+        onKeyDown={props.onKeyDown}
         {...props.accessibility}>
         <div className="icon">
             <Search alt={props.label} />
@@ -31,5 +37,6 @@ const IndividualSubmit = (props) => (
 );
 
 IndividualSubmit.propTypes = propTypes;
+IndividualSubmit.defaultProps = defaultProps;
 
 export default IndividualSubmit;

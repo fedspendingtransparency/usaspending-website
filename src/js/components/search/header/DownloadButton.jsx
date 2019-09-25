@@ -41,12 +41,10 @@ export default class DownloadButton extends React.Component {
     }
 
     onClick(e) {
-        if (!this.props.downloadAvailable || this.props.downloadInFlight) {
-            e.preventDefault();
-            return;
+        e.preventDefault();
+        if (this.props.downloadAvailable && !this.props.downloadInFlight) {
+            this.props.onClick();
         }
-
-        this.props.onClick();
     }
 
     render() {
@@ -81,9 +79,7 @@ export default class DownloadButton extends React.Component {
                     aria-describedby="no-download-hover"
                     aria-disabled={!this.props.downloadAvailable}
                     onClick={this.onClick}>
-                    <div className="label">
-                        {buttonText}
-                    </div>
+                    <div className="label">{buttonText}</div>
                 </button>
             </div>
         );

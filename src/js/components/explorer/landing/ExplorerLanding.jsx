@@ -11,8 +11,6 @@ import { Glossary } from 'components/sharedComponents/icons/Icons';
 import ExplorerWrapperPage from '../ExplorerWrapperPage';
 import ExplorerLandingOption from './ExplorerLandingOption';
 
-require('pages/explorer/explorerPage.scss');
-
 export default class ExplorerLanding extends React.Component {
     constructor(props) {
         super(props);

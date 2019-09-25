@@ -48,6 +48,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
             labelSeries: [],
             dataSeries: [],
             descriptions: [],
+            linkSeries: [],
             page: 1,
             scope: 'awarding_agency',
             next: '',
@@ -173,6 +174,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
         const labelSeries = [];
         const dataSeries = [];
         const descriptions = [];
+        const linkSeries = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
@@ -191,6 +193,11 @@ export class RankVisualizationWrapperContainer extends React.Component {
             labelSeries.push(result.name);
             dataSeries.push(result._amount);
 
+            if (this.state.scope === 'recipient_duns' && !this.props.subaward) {
+                const recipientLink = result.recipientId ? `#/recipient/${result.recipientId}` : '';
+                linkSeries.push(recipientLink);
+            }
+
             const description = `Spending by ${result.name}: ${result.amount}`;
             descriptions.push(description);
         });
@@ -199,6 +206,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
             labelSeries,
             dataSeries,
             descriptions,
+            linkSeries,
             loading: false,
             error: false,
             next: data.page_metadata.next,

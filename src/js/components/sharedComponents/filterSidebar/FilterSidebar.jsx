@@ -12,14 +12,17 @@ const defaultProps = {
     options: [],
     components: [],
     expanded: [],
-    accessories: []
+    accessories: [],
+    glossaryEntries: []
 };
 
 const propTypes = {
     options: PropTypes.arrayOf(PropTypes.string),
-    components: PropTypes.arrayOf(PropTypes.func),
+    components: PropTypes.arrayOf(PropTypes.object),
     expanded: PropTypes.arrayOf(PropTypes.bool),
-    accessories: PropTypes.arrayOf(PropTypes.func)
+    accessories: PropTypes.arrayOf(PropTypes.func),
+    glossaryEntries: PropTypes.arrayOf(PropTypes.string),
+    hash: PropTypes.string
 };
 
 export default class FilterSidebar extends React.Component {
@@ -27,13 +30,20 @@ export default class FilterSidebar extends React.Component {
         const optionsList = this.props.options.map((name, i) => {
             const component = this.props.components[i];
             const accessory = this.props.accessories[i];
+            const glossarySlug = this.props.glossaryEntries[i];
+            let glossaryUrl;
+            if (glossarySlug) {
+                const hash = this.props.hash ? `/${this.props.hash}` : '';
+                glossaryUrl = `#/search${hash}/?glossary=${glossarySlug}`;
+            }
             return (<FilterOption
                 name={name}
                 key={name}
                 component={component}
                 accessory={accessory}
                 defaultExpand={this.props.expanded[i]}
-                disabled={component === null} />);
+                disabled={component === null}
+                glossaryUrl={glossaryUrl} />);
         });
 
         return (

@@ -1,0 +1,13 @@
+@mixin viewTypeButton {
+  .view-button {
+    background-color: $color-white;
+    border: solid 1px $color-gray-light;
+    padding: rem(5) rem(15);
+    color: $color-gray-light;
+    &.active {
+        background-color: $color-primary-alt-dark;
+        border-color: $color-primary-alt-dark;
+        color: $color-white;
+    }
+  }
+}

@@ -14,6 +14,7 @@ import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSectionContainer from 'containers/search/filters/location/LocationSectionContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
+import ProgramSourceContainer from 'containers/search/filters/programSource/ProgramSourceContainer';
 import RecipientTypeContainer from 'containers/search/filters/recipient/RecipientTypeContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
 import AwardAmountSearchContainer from
@@ -37,6 +38,7 @@ const filters = {
         'Time Period',
         'Award Type',
         'Agency',
+        'Program Source (TAS)',
         'Location',
         'Recipient',
         'Recipient Type',
@@ -54,6 +56,7 @@ const filters = {
         TimePeriodContainer,
         AwardTypeContainer,
         AgencyContainer,
+        ProgramSourceContainer,
         LocationSectionContainer,
         RecipientSearchContainer,
         RecipientTypeContainer,
@@ -80,6 +83,24 @@ const filters = {
         null,
         null,
         null,
+        null,
+        null
+    ],
+    glossaryEntries: [
+        null,
+        null,
+        null,
+        null,
+        'treasury-account-symbol-tas',
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null
     ]
 };
@@ -87,7 +108,8 @@ const filters = {
 const propTypes = {
     mobile: PropTypes.bool,
     filters: PropTypes.object,
-    requestsComplete: PropTypes.bool
+    requestsComplete: PropTypes.bool,
+    hash: PropTypes.string
 };
 
 const defaultProps = {
@@ -122,7 +144,10 @@ export default class SearchSidebar extends React.Component {
                 <div className="sidebar-top-submit">
                     <SearchSidebarSubmitContainer />
                 </div>
-                <FilterSidebar {...filters} expanded={expanded} />
+                <FilterSidebar
+                    {...filters}
+                    expanded={expanded}
+                    hash={this.props.hash} />
                 <div className="sidebar-bottom-submit">
                     <SearchSidebarSubmitContainer />
                 </div>

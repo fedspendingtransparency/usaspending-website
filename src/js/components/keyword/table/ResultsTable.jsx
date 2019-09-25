@@ -11,7 +11,7 @@ import { keywordTableColumnTypes } from 'dataMapping/keyword/keywordTableColumnT
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import ResultsTableFormattedCell from 'components/search/table/cells/ResultsTableFormattedCell';
-import ResultsTableAwardIdCell from 'components/search/table/cells/ResultsTableAwardIdCell';
+import ResultsTableLinkCell from 'components/search/table/cells/ResultsTableLinkCell';
 import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
 
 const propTypes = {
@@ -52,15 +52,17 @@ export default class ResultsTable extends React.Component {
     }
 
     headerCellRender(columnIndex) {
-        const columnId = this.props.columns.visibleOrder[columnIndex];
-        const column = this.props.columns.data[columnId];
-        const isLast = (columnIndex + 1) === this.props.columns.visibleOrder.length;
+        const { columns } = this.props;
+        const columnId = columns.visibleOrder[columnIndex];
+        const column = columns.data[columnId];
+        const isLast = (columnIndex + 1) === columns.visibleOrder.length;
         const isActive = this.props.sort.field === column.columnName;
         return (
             <ResultsTableHeaderCell
                 isLast={isLast}
                 isActive={isActive}
                 title={column.columnName}
+                displayName={column.displayName}
                 defaultDirection={column.defaultDirection}
                 currentSort={this.props.sort}
                 updateSort={this.props.updateSort} />
@@ -80,8 +82,9 @@ export default class ResultsTable extends React.Component {
         };
 
         if (column.columnName === 'Award ID') {
-            cellClass = ResultsTableAwardIdCell;
+            cellClass = ResultsTableLinkCell;
             props.id = parseInt(this.props.results[rowIndex].internal_id, 10);
+            props.column = 'award';
         }
 
         return React.createElement(

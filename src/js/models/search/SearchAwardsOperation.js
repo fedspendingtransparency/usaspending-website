@@ -6,6 +6,7 @@
 import { rootKeys, timePeriodKeys, agencyKeys, awardAmountKeys }
     from 'dataMapping/search/awardsOperationKeys';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import { pickBy } from 'lodash';
 
 class SearchAwardsOperation {
     constructor() {
@@ -19,6 +20,9 @@ class SearchAwardsOperation {
 
         this.awardingAgencies = [];
         this.fundingAgencies = [];
+
+        this.tasSources = [];
+        this.accountSources = [];
 
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
@@ -57,6 +61,9 @@ class SearchAwardsOperation {
         this.awardingAgencies = state.selectedAwardingAgencies.toArray();
         this.fundingAgencies = state.selectedFundingAgencies.toArray();
 
+        this.tasSources = state.treasuryAccounts.toArray();
+        this.accountSources = state.federalAccounts.toArray();
+
         this.selectedRecipients = state.selectedRecipients.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations.toArray();
@@ -81,7 +88,6 @@ class SearchAwardsOperation {
     toParams() {
         // Convert the search operation into JS objects
         const filters = {};
-
         // Add keyword
         if (this.keyword.length > 0) {
             filters[rootKeys.keywords] = this.keyword;
@@ -172,20 +178,32 @@ class SearchAwardsOperation {
             filters[rootKeys.agencies] = agencies;
         }
 
+        // Add Program Sources
+        if (this.tasSources.length > 0 || this.accountSources.length > 0) {
+            const tasCodes = [];
+
+            this.accountSources.forEach((accountObject) => {
+                tasCodes.push(pickBy(accountObject));
+            });
+
+            this.tasSources.forEach((tasObject) => {
+                tasCodes.push(pickBy(tasObject));
+            });
+
+            filters[rootKeys.tasSources] = tasCodes;
+        }
+
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients.length > 0) {
             filters[rootKeys.recipients] = this.selectedRecipients;
         }
 
         if (this.selectedRecipientLocations.length > 0) {
-            const locationSet = [];
-            this.selectedRecipientLocations.forEach((location) => {
-                if (location.filter.country && location.filter.country === 'FOREIGN') {
+            const locationSet = this.selectedRecipientLocations.map((location) => {
+                if (!location.filter.city && location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.recipientLocationScope] = 'foreign';
                 }
-                else {
-                    locationSet.push(location.filter);
-                }
+                return location.filter;
             });
 
             if (locationSet.length > 0) {
@@ -199,14 +217,11 @@ class SearchAwardsOperation {
 
         // Add Locations
         if (this.selectedLocations.length > 0) {
-            const locationSet = [];
-            this.selectedLocations.forEach((location) => {
-                if (location.filter.country && location.filter.country === 'FOREIGN') {
+            const locationSet = this.selectedLocations.map((location) => {
+                if (!location.filter.city && location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.placeOfPerformanceScope] = 'foreign';
                 }
-                else {
-                    locationSet.push(location.filter);
-                }
+                return location.filter;
             });
 
             if (locationSet.length > 0) {
@@ -219,32 +234,19 @@ class SearchAwardsOperation {
             const amounts = [];
 
             // The backend expects an object with a lower bound, an upper bound, or both.
-            // In cases of "$x - $y", we include both a lower and upper bound.
-            // In cases of "$x & Above", we don't include an upper bound.
-            // In cases of "Under $x", we don't include a lower bound.
             this.awardAmounts.forEach((awardAmount) => {
                 const amount = {};
-
-                // Don't include the min if it's negative
-                if (awardAmount[0] > 0) {
-                    amount[awardAmountKeys.min] = awardAmount[0];
+                amount[awardAmountKeys.min] = awardAmount[0];
+                amount[awardAmountKeys.max] = awardAmount[1];
+                // remove property if it is null
+                if (amount[awardAmountKeys.min] === null) delete amount[awardAmountKeys.min];
+                if (amount[awardAmountKeys.max] === null) delete amount[awardAmountKeys.max];
+                // if both null return
+                if ((!amount[awardAmountKeys.min] && amount[awardAmountKeys.min] !== 0)
+                && (!amount[awardAmountKeys.max] && amount[awardAmountKeys.max] !== 0)) {
+                    return;
                 }
-
-                // Don't include the max if it's negative
-                if (awardAmount[1] > 0) {
-                    amount[awardAmountKeys.max] = awardAmount[1];
-                }
-
-                // Remove the max element if the min element is larger
-                if (awardAmount[0] !== 0 && awardAmount[1] !== 0 &&
-                    awardAmount[0] > awardAmount[1]) {
-                    delete amount[awardAmountKeys.max];
-                }
-
-                // Only include a range if at least one of the bounds is defined
-                if (amount[awardAmountKeys.min] || amount[awardAmountKeys.max]) {
-                    amounts.push(amount);
-                }
+                amounts.push(amount);
             });
 
             // Only push the array to the filters element if at least

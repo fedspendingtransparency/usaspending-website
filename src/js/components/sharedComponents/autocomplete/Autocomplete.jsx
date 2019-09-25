@@ -5,6 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual, find, uniqueId } from 'lodash';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Warning from './Warning';
 import SuggestionHolder from './SuggestionHolder';
@@ -19,7 +20,12 @@ const propTypes = {
     errorMessage: PropTypes.string,
     maxSuggestions: PropTypes.number,
     label: PropTypes.string,
-    noResults: PropTypes.bool
+    noResults: PropTypes.bool,
+    characterLimit: PropTypes.number,
+    retainValue: PropTypes.bool,
+    dirtyFilters: PropTypes.symbol,
+    minCharsToSearch: PropTypes.number,
+    inFlight: PropTypes.bool
 };
 
 const defaultProps = {
@@ -29,7 +35,11 @@ const defaultProps = {
     errorMessage: '',
     maxSuggestions: 10,
     label: '',
-    noResults: false
+    noResults: false,
+    characterLimit: 524288, // default for HTML input elements
+    retainValue: false,
+    dirtyFilters: Symbol(''),
+    minCharsToSearch: 2
 };
 
 export default class Autocomplete extends React.Component {
@@ -44,8 +54,11 @@ export default class Autocomplete extends React.Component {
             selectedIndex: -1,
             showWarning: false,
             autocompleteId: `autocomplete-${uniqueId()}`,
-            statusId: `autocomplete-status-${uniqueId()}`
+            statusId: `autocomplete-status-${uniqueId()}`,
+            staged: false
         };
+
+        this.onChange = this.onChange.bind(this);
     }
 
     componentDidMount() {
@@ -56,8 +69,11 @@ export default class Autocomplete extends React.Component {
         if (!isEqual(prevProps.values, this.props.values)) {
             this.open();
         }
-        else if (this.props.noResults !== prevProps.noResults) {
+        if (this.props.noResults !== prevProps.noResults) {
             this.toggleWarning();
+        }
+        if (!isEqual(prevProps.dirtyFilters, this.props.dirtyFilters)) {
+            this.clearInternalState();
         }
     }
 
@@ -66,11 +82,18 @@ export default class Autocomplete extends React.Component {
     }
 
     onChange(e) {
+        e.persist();
         this.checkValidity(e.target.value);
+        let selectedIndex = 0;
         this.props.handleTextInput(e);
+        if (!e.target.value) {
+            selectedIndex = -1;
+            this.close();
+        }
         this.setState({
             value: e.target.value,
-            selectedIndex: 0
+            selectedIndex,
+            staged: false
         });
     }
 
@@ -79,7 +102,9 @@ export default class Autocomplete extends React.Component {
 
         target.addEventListener('blur', () => {
             this.close();
-            target.value = "";
+            if (!this.props.retainValue) {
+                target.value = '';
+            }
         });
 
         // enable tab keyboard shortcut for selection
@@ -88,11 +113,13 @@ export default class Autocomplete extends React.Component {
             if (e.keyCode === 13) {
                 e.preventDefault();
                 this.select(this.props.values[this.state.selectedIndex]);
-                target.value = "";
+                if (!this.props.retainValue) {
+                    target.value = '';
+                }
             }
             // Tab or Escape
             else if (e.keyCode === 9 || e.keyCode === 27) {
-                target.value = "";
+                target.value = '';
                 this.close();
             }
             // Previous
@@ -113,6 +140,10 @@ export default class Autocomplete extends React.Component {
     }
 
     close() {
+        // clear the input value if not a valid selection
+        if (this.props.retainValue && !this.state.staged) {
+            this.clearInternalState();
+        }
         this.setState({
             shown: false,
             showWarning: false
@@ -152,40 +183,17 @@ export default class Autocomplete extends React.Component {
             showWarning: false
         });
 
-        if (input.length === 1) {
-            // Ensure user has typed 2 or more characters before searching
-            this.createTimeout(true, input, 1000);
-        }
-        else {
-            // Clear timeout when input is cleared or longer than 2 characters
-            this.cancelTimeout();
-        }
-    }
-
-    createTimeout(warning, input, delay) {
-        this.cancelTimeout();
-
-        this.timeout = window.setTimeout(() => {
+        if (input.length < this.props.minCharsToSearch) {
+            // Ensure user has typed the minimum number of characters before searching
             this.setState({
                 value: input,
-                showWarning: warning
+                showWarning: true
             });
-        }, delay);
+        }
     }
 
-    cancelTimeout() {
-        window.clearTimeout(this.timeout);
-        this.timeout = null;
-    }
-
-    changedText(e) {
-        this.setState({
-            value: e.target.value
-        });
-    }
-
-    isValidSelection(input) {
-        return find(this.props.values, input);
+    isValidSelection(selection) {
+        return find(this.props.values, selection);
     }
 
     bubbleUpChange(selection) {
@@ -196,24 +204,40 @@ export default class Autocomplete extends React.Component {
 
         if (isValid) {
             selectedItem = selection.data;
+            this.setState({
+                staged: true
+            });
         }
 
         this.props.onSelect(selectedItem, isValid);
 
-        // Important - clear internal typeahead state value
+        if (this.props.retainValue && isValid) {
+            this.autocompleteInput.value = selectedItem.code;
+        }
+
+        else {
+            // Clear internal typeahead state value
+            this.setState({
+                value: ''
+            });
+        }
+    }
+
+    clearInternalState() {
         this.setState({
             value: ''
         });
+        this.autocompleteInput.value = '';
     }
 
     generateWarning() {
         if (this.state.showWarning) {
             let errorProps = {};
 
-            if (this.state.value && this.state.value.length === 1) {
+            if (this.state.value && this.state.value.length < this.props.minCharsToSearch) {
                 errorProps = {
                     header: 'Error',
-                    description: 'Please enter more than one character.'
+                    description: `Please enter more than ${this.props.minCharsToSearch - 1} character${this.props.minCharsToSearch > 2 ? 's' : ''}.`
                 };
             }
             else {
@@ -240,6 +264,12 @@ export default class Autocomplete extends React.Component {
                 status = `${selectedString} (${this.state.selectedIndex + 1} of ${valueCount})`;
             }
         }
+        const loadingIndicator = this.props.inFlight ?
+            (
+                <div className="usa-da-typeahead__loading-icon">
+                    <FontAwesomeIcon icon="spinner" spin />
+                </div>
+            ) : null;
 
         return (
             <div
@@ -250,18 +280,22 @@ export default class Autocomplete extends React.Component {
                 aria-haspopup="true">
                 <div className="usa-da-typeahead">
                     <p>{this.props.label}</p>
-                    <input
-                        className="autocomplete"
-                        ref={(t) => {
-                            this.autocompleteInput = t;
-                        }}
-                        type="text"
-                        placeholder={this.props.placeholder}
-                        onChange={this.onChange.bind(this)}
-                        tabIndex={0}
-                        aria-controls={this.state.autocompleteId}
-                        aria-activedescendant={activeDescendant}
-                        aria-autocomplete="list" />
+                    <div className="usa-da-typeahead__input">
+                        <input
+                            className="autocomplete"
+                            ref={(t) => {
+                                this.autocompleteInput = t;
+                            }}
+                            type="text"
+                            placeholder={this.props.placeholder}
+                            onChange={this.onChange.bind(this)}
+                            tabIndex={0}
+                            aria-controls={this.state.autocompleteId}
+                            aria-activedescendant={activeDescendant}
+                            aria-autocomplete="list"
+                            maxLength={this.props.characterLimit} />
+                        {loadingIndicator}
+                    </div>
                     <div
                         className="screen-reader-description"
                         role="alert">

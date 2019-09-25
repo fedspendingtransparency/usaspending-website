@@ -71,5 +71,17 @@
         }
         @import "pages/search/filters/keyword/_keywordHover";
     }
+    .filter-toggle__glossary {
+        @include display(flex);
+        @include flex(0 0 auto);
+        padding-right: rem(15);
+        a {
+            font-size: $small-font-size;
+            color: $color-gray-light;
+            &:hover {
+                color: $color-gray;
+            }
+        }
+    }
 }
 

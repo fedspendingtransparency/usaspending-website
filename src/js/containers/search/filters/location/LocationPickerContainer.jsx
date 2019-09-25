@@ -3,45 +3,72 @@
  * Created by Kevin Li 10/30/17
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { isCancel } from 'axios';
-import { concat } from 'lodash';
+import React from "react";
+import PropTypes from "prop-types";
+import { isCancel } from "axios";
+import { concat, debounce } from "lodash";
 
-import { fetchLocationList, performZIPGeocode } from 'helpers/mapHelper';
+import {
+    fetchLocationList,
+    performZIPGeocode,
+    fetchCityResults,
+    getCitySearchRequestObj
+} from "helpers/mapHelper";
 
-import LocationPicker from 'components/search/filters/location/LocationPicker';
+import LocationPicker from "components/search/filters/location/LocationPicker";
 
 const propTypes = {
     selectedLocations: PropTypes.object,
-    addLocation: PropTypes.func
+    addLocation: PropTypes.func,
+    scope: PropTypes.oneOf(["primary_place_of_performance", "recipient_location"]),
+    enableCitySearch: PropTypes.bool
 };
 
-const defaultSelections = {
+const defaultProps = {
+    scope: "primary_place_of_performance"
+};
+
+export const defaultLocationValues = {
     country: {
-        code: '',
-        name: ''
+        code: "",
+        name: "",
+        autoPopulated: false
     },
     state: {
-        code: '',
-        fips: '',
-        name: ''
+        code: "",
+        fips: "",
+        name: "",
+        autoPopulated: false // from city selection
     },
     county: {
-        code: '',
-        fips: '',
-        state: '',
-        name: ''
+        code: "",
+        fips: "",
+        state: "",
+        name: ""
+    },
+    city: {
+        name: "",
+        code: ""
     },
     district: {
-        code: '',
-        district: '',
-        name: ''
+        code: "",
+        district: "",
+        name: ""
     },
     zip: {
-        valid: '',
-        invalid: ''
+        valid: "",
+        invalid: ""
     }
+};
+
+const locationProperties = ["country", "state", "district", "county", "city"];
+// Map to unique value for this.state.locationProperty
+const locationPropertyAccessorMap = {
+    country: 'code',
+    city: 'name',
+    district: 'district',
+    state: 'code',
+    county: 'fips'
 };
 
 export default class LocationPickerContainer extends React.Component {
@@ -53,17 +80,22 @@ export default class LocationPickerContainer extends React.Component {
             availableStates: [],
             availableCounties: [],
             availableDistricts: [],
-            country: Object.assign({}, defaultSelections.country),
-            state: Object.assign({}, defaultSelections.state),
-            county: Object.assign({}, defaultSelections.county),
-            district: Object.assign({}, defaultSelections.district),
-            zip: Object.assign({}, defaultSelections.zip)
+            availableCities: [],
+            country: Object.assign({}, defaultLocationValues.country),
+            state: Object.assign({}, defaultLocationValues.state),
+            county: Object.assign({}, defaultLocationValues.county),
+            city: Object.assign({}, defaultLocationValues.city),
+            district: Object.assign({}, defaultLocationValues.district),
+            zip: Object.assign({}, defaultLocationValues.zip),
+            citySearchString: "",
+            loading: false
         };
 
         this.listRequest = null;
         // keep the CD request seperate bc they may be parallel with county
         this.districtRequest = null;
         this.zipRequest = null;
+        this.cityRequest = null;
 
         this.loadStates = this.loadStates.bind(this);
         this.loadCounties = this.loadCounties.bind(this);
@@ -72,16 +104,34 @@ export default class LocationPickerContainer extends React.Component {
         this.clearStates = this.clearStates.bind(this);
         this.clearCounties = this.clearCounties.bind(this);
         this.clearDistricts = this.clearDistricts.bind(this);
+        this.clearCitiesAndSelectedCity = this.clearCitiesAndSelectedCity.bind(this);
 
         this.selectEntity = this.selectEntity.bind(this);
 
         this.createLocationObject = this.createLocationObject.bind(this);
         this.addLocation = this.addLocation.bind(this);
         this.validateZip = this.validateZip.bind(this);
+
+        this.setCitySearchString = this.setCitySearchString.bind(this);
+        this.fetchCityAutocomplete = this.fetchCityAutocomplete.bind(this);
+        this.debouncedCitySearch = debounce(this.fetchCityAutocomplete, 500).bind(this);
+        this.cleanBadLocationData = this.cleanBadLocationData.bind(this);
     }
 
     componentDidMount() {
         this.loadCountries();
+    }
+
+    setCitySearchString(citySearchString, performFetch = true) {
+        // we don't perform fetch when the user is clicking on a city search dropdown option
+        this.setState({ citySearchString, availableCities: [] }, () => {
+            if (citySearchString.length > 2 && performFetch) {
+                this.debouncedCitySearch();
+            }
+        });
+        if (!citySearchString) {
+            this.clearCitiesAndSelectedCity();
+        }
     }
 
     loadCountries() {
@@ -89,7 +139,7 @@ export default class LocationPickerContainer extends React.Component {
             this.listRequest.cancel();
         }
 
-        this.listRequest = fetchLocationList('countries');
+        this.listRequest = fetchLocationList("countries");
 
         this.listRequest.promise
             .then((res) => {
@@ -104,16 +154,12 @@ export default class LocationPickerContainer extends React.Component {
 
     parseCountries(data) {
         // put USA and an "all foreign countries" option at the start of the list
-        const countries = concat([{
-            code: 'USA',
-            name: 'UNITED STATES'
-        }, {
-            code: 'FOREIGN',
-            name: 'ALL FOREIGN COUNTRIES'
-        }, {
-            code: '',
-            name: '---'
-        }], data.countries);
+        const countries = [
+            { code: "USA", name: "UNITED STATES" },
+            { code: "FOREIGN", name: "ALL FOREIGN COUNTRIES" },
+            { code: "", name: "---" },
+            ...data.countries
+        ].map((country) => ({ ...country, autoPopulated: false }));
         this.setState({
             availableCountries: countries
         });
@@ -124,7 +170,7 @@ export default class LocationPickerContainer extends React.Component {
             this.listRequest.cancel();
         }
 
-        this.listRequest = fetchLocationList('states');
+        this.listRequest = fetchLocationList("states");
 
         this.listRequest.promise
             .then((res) => {
@@ -139,21 +185,32 @@ export default class LocationPickerContainer extends React.Component {
 
     parseStates(data) {
         // prepend a blank state to act as a de-select option
-        let states = [];
         if (data.states.length > 0) {
-            states = concat([Object.assign({}, defaultSelections.state, {
-                name: 'All states'
-            })], data.states);
+            const states = [
+                { ...defaultLocationValues.state, name: "All states" },
+                ...data.states
+            ].map((state) => ({ ...state, autoPopulated: false }));
+            this.setState({
+                availableStates: states
+            });
         }
-        this.setState({
-            availableStates: states
-        });
+        else {
+            this.setState({ availableStates: [] });
+        }
     }
 
     clearStates() {
         this.setState({
             availableStates: [],
-            state: Object.assign({}, defaultSelections.state)
+            state: Object.assign({}, defaultLocationValues.state)
+        });
+    }
+
+    clearCitiesAndSelectedCity() {
+        this.setState({
+            availableCities: [],
+            city: defaultLocationValues.city,
+            citySearchString: ""
         });
     }
 
@@ -179,20 +236,25 @@ export default class LocationPickerContainer extends React.Component {
         // prepend a blank county to act as a de-select option
         let counties = [];
         if (data.counties.length > 0) {
-            counties = concat([Object.assign({}, defaultSelections.county, {
-                name: 'All counties'
-            })], data.counties);
+            counties = concat(
+                [
+                    Object.assign({}, defaultLocationValues.county, {
+                        name: "All counties"
+                    })
+                ],
+                data.counties
+            );
         }
         this.setState({
             availableCounties: counties,
-            county: Object.assign({}, defaultSelections.county)
+            county: Object.assign({}, defaultLocationValues.county)
         });
     }
 
     clearCounties() {
         this.setState({
             availableCounties: [],
-            county: Object.assign({}, defaultSelections.county)
+            county: Object.assign({}, defaultLocationValues.county)
         });
     }
 
@@ -218,83 +280,128 @@ export default class LocationPickerContainer extends React.Component {
         // prepend a blank district to act as a de-select option
         let districts = [];
         if (data.districts.length > 0) {
-            districts = concat([Object.assign({}, defaultSelections.district, {
-                name: 'All congressional districts'
-            })], data.districts);
+            districts = concat(
+                [
+                    Object.assign({}, defaultLocationValues.district, {
+                        name: "All congressional districts"
+                    })
+                ],
+                data.districts
+            );
         }
 
         this.setState({
             availableDistricts: districts,
-            district: Object.assign({}, defaultSelections.district)
+            district: Object.assign({}, defaultLocationValues.district)
         });
     }
 
     clearDistricts() {
         this.setState({
             availableDistricts: [],
-            district: Object.assign({}, defaultSelections.district)
+            district: Object.assign({}, defaultLocationValues.district)
         });
     }
 
     selectEntity(level, value) {
+        const shouldAutoPopulateState = (
+            level === "city" &&
+            this.state.country.code === "USA" &&
+            this.state.state.code !== value.code &&
+            (value.code)
+        );
+        const shouldAutoPopulateCountry = (
+            level === "city" &&
+            this.state.country.code !== "USA" &&
+            this.state.country.code !== value.code &&
+            (value.code)
+        );
+        if (shouldAutoPopulateState) {
+            const stateFromCity = this.state.availableStates
+                .filter((state) => state.code === value.code)
+                .reduce(
+                    (acc, state) => ({ ...acc, ...state, autoPopulated: true }),
+                    defaultLocationValues.state
+                );
+            this.setState({ state: stateFromCity });
+        }
+        else if (shouldAutoPopulateCountry) {
+            const countryFromCity = this.state.availableCountries
+                .filter((country) => country.code === value.code)
+                .reduce(
+                    (acc, country) => ({ ...acc, ...country, autoPopulated: true }),
+                    { code: "FOREIGN", name: "ALL FOREIGN COUNTRIES" }
+                );
+            this.setState({ country: countryFromCity });
+        }
         this.setState({
             [level]: value
         });
     }
 
+    /**
+     * This function was necessary to handle bad location data.
+     * It overrides local state, which is an anti-pattern.
+     * The specific condition this handles is when a city is returned from the api
+     * which does not have a country code associated with it that exists within our availableCountries array in local state.
+     * In this case, the back end team has requested we pass them the country code associated with the city itself in the API response.
+     * That is what this function is intended to accomplish.
+     * We are not setting this value (city.code) to this.state.country because it would have additional
+     * side effects across the component's children and introduce even greater complexity.
+     * The specific example this was created to handle was searching by city, recipient location, londonderry.
+     **/
+
+    cleanBadLocationData(locationObject) {
+        const cleanLocationObject = Object.keys(locationObject)
+            .reduce((acc, locationProperty) => {
+                if (locationProperty === 'filter') {
+                    // only cleaning data passed to api which is the .filter property
+                    const filterData = locationObject[locationProperty];
+                    if (filterData.city && filterData.country.toLowerCase() === 'foreign') {
+                        return {
+                            ...acc,
+                            filter: {
+                                ...acc.filter,
+                                country: this.state.city.code
+                            }
+                        };
+                    }
+                }
+                return acc;
+            }, locationObject);
+        return cleanLocationObject;
+    }
+
     createLocationObject() {
-        // create a location object
-        const location = {};
-        let title = '';
-        let standalone = '';
-        let entity = '';
-        let identifier = '';
-        if (this.state.country.code === '') {
-            // do nothing, it's an empty filter
-            return null;
-        }
-        location.country = this.state.country.code;
-        title = this.state.country.name;
-        standalone = this.state.country.name;
-        entity = 'Country';
-        identifier += this.state.country.code;
+        const locationObject = Object.keys(this.state)
+            .filter((prop) => locationProperties.includes(prop) && this.state[prop].code !== '')
+            .reduce((acc, prop) => {
+                const accessor = locationPropertyAccessorMap[prop];
+                // removes ', <State/Country>' appended to city
+                const parsedKeyValue = prop === 'city'
+                    ? this.state.city.name.split(", ").filter((str) => str !== this.state.city.code).join(", ")
+                    : this.state[prop][accessor];
+                return {
+                    identifier: prop === 'country' // init identifier value w/o appended '_'
+                        ? this.state.country.code
+                        : `${acc.identifier}_${parsedKeyValue}`,
+                    filter: {
+                        ...acc.filter,
+                        [prop]: parsedKeyValue
+                    },
+                    display: {
+                        entity: prop === 'district'
+                            ? 'Congressional district'
+                            : `${prop.substr(0, 1).toUpperCase()}${prop.substr(1)}`,
+                        standalone: prop === 'county'
+                            ? `${this.state.county.name}, ${this.state.state.code}`
+                            : this.state[prop].name,
+                        title: this.state[prop].name
+                    }
+                };
+            }, { identifier: '', display: { entity: '', title: '', standalone: '' }, filter: {} });
 
-        if (this.state.state.code !== '') {
-            location.state = this.state.state.code;
-            title = this.state.state.name;
-            standalone = this.state.state.name;
-            entity = 'State';
-            identifier += `_${this.state.state.code}`;
-
-            if (this.state.county.code !== '') {
-                location.county = this.state.county.fips;
-                title = this.state.county.name;
-                standalone = `${this.state.county.name}, ${this.state.state.code}`;
-                entity = 'County';
-                identifier += `_${this.state.county.fips}`;
-            }
-            else if (this.state.district.code !== '') {
-                location.district = this.state.district.district;
-                title = this.state.district.name;
-                standalone = this.state.district.name;
-                entity = 'Congressional district';
-                identifier += `_${this.state.district.district}`;
-            }
-        }
-
-        // generate a display tag
-        const display = {
-            title,
-            entity,
-            standalone
-        };
-
-
-        return {
-            identifier,
-            display,
-            filter: location
-        };
+        return this.cleanBadLocationData(locationObject);
     }
 
     addLocation() {
@@ -305,7 +412,7 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     addZip() {
-        if (this.state.zip.valid === '') {
+        if (this.state.zip.valid === "") {
             // no zip
             return;
         }
@@ -315,11 +422,11 @@ export default class LocationPickerContainer extends React.Component {
             identifier: `USA_${this.state.zip.valid}`,
             display: {
                 title: this.state.zip.valid,
-                entity: 'ZIP Code',
+                entity: "ZIP Code",
                 standalone: this.state.zip.valid
             },
             filter: {
-                country: 'USA',
+                country: "USA",
                 zip: this.state.zip.valid
             }
         };
@@ -353,6 +460,57 @@ export default class LocationPickerContainer extends React.Component {
             });
     }
 
+    fetchCityAutocomplete() {
+        if (!this.props.enableCitySearch) {
+            return;
+        }
+        const { citySearchString, country, state } = this.state;
+        if (this.cityRequest) {
+            this.cityRequest.cancel();
+        }
+        if (!this.state.loading) {
+            this.setState({ loading: true });
+        }
+
+        this.cityRequest = fetchCityResults(
+            getCitySearchRequestObj(citySearchString, state.code, country.code, this.props.scope)
+        );
+
+        this.cityRequest.promise
+            .then((res) => {
+                if (res.data.results.length === 0) {
+                    this.parseCities([{ city_name: "No matching results", state_code: "NA-000" }]);
+                }
+                else {
+                    this.parseCities(res.data.results);
+                }
+                this.cityRequest = null;
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+                    this.cityRequest = null;
+                }
+            })
+            .finally(() => {
+                if (!this.cityRequest) {
+                    this.setState({ loading: false });
+                }
+            });
+    }
+
+    parseCities(results) {
+        this.setState({
+            availableCities: results.map((city) => ({
+                name:
+                    city.state_code === "NA-000" || !city.state_code // NA-000 is no results found
+                        ? city.city_name
+                        : `${city.city_name}, ${city.state_code}`,
+                code: city.state_code
+            }))
+        });
+    }
+
     parseZip(data, zip) {
         if (data.features && data.features.length > 0) {
             // this is a valid zip code
@@ -366,40 +524,48 @@ export default class LocationPickerContainer extends React.Component {
     invalidZip(zip) {
         this.setState({
             zip: {
-                valid: '',
+                valid: "",
                 invalid: zip
             }
         });
     }
 
     validZip(zip) {
-        this.setState({
-            zip: {
-                valid: zip,
-                invalid: ''
+        this.setState(
+            {
+                zip: {
+                    valid: zip,
+                    invalid: ""
+                }
+            },
+            () => {
+                this.addZip(zip);
             }
-        }, () => {
-            this.addZip(zip);
-        });
+        );
     }
 
     render() {
         return (
             <LocationPicker
                 {...this.state}
+                scope={this.props.scope}
+                enableCitySearch={this.props.enableCitySearch}
                 selectedLocations={this.props.selectedLocations}
                 loadStates={this.loadStates}
                 loadCounties={this.loadCounties}
                 loadDistricts={this.loadDistricts}
                 clearStates={this.clearStates}
+                clearCitiesAndSelectedCity={this.clearCitiesAndSelectedCity}
                 clearCounties={this.clearCounties}
                 clearDistricts={this.clearDistricts}
                 selectEntity={this.selectEntity}
                 createLocationObject={this.createLocationObject}
                 addLocation={this.addLocation}
-                validateZip={this.validateZip} />
+                validateZip={this.validateZip}
+                setCitySearchString={this.setCitySearchString} />
         );
     }
 }
 
 LocationPickerContainer.propTypes = propTypes;
+LocationPickerContainer.defaultProps = defaultProps;

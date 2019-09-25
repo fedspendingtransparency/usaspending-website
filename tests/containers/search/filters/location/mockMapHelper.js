@@ -109,3 +109,12 @@ export const performZIPGeocode = (zip) => {
         }
     };
 };
+
+export const mockCityAutocompleteResponse = {
+    count: 1,
+    results: [
+        {
+            city_name: "Springfield",
+            state_code: "VA"
+        }]
+};

@@ -1,0 +1,82 @@
+.award-amounts__data-wrapper {
+    margin-top: rem(30);
+
+    .award-amounts__data-content {
+        @extend %column-less-table__row;
+        border-bottom: 0;
+        &:nth-of-type(1) {
+            border-radius: rem(5) rem(5) 0 0;
+        }
+        &:last-of-type {
+            border-radius: 0 0 rem(5) rem(5);
+            border-bottom: solid rem(1) $border-light-gray;
+        }
+    }
+    
+    .award-amounts__data-icon {
+        height: rem(10);
+        width: rem(10);
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: rem(5);
+    }
+    
+    .award-amounts__data-icon_blue {
+        background-color: $color-cool-blue-light;
+    }
+
+    .award-amounts__data-icon_green {
+        background-color: #47AAA7;
+    }
+    
+    .award-amounts__data-icon_gray {
+        background-color: #BBBBBB;
+    }
+    
+    .award-amounts__data-icon_yellow {
+        background-color: #F5A623;
+    }
+    
+    .award-amounts__data-icon_transparent {
+        background-color: white;
+        border: rem(2) solid #BBBBBB;
+    }
+    
+    .award-amounts__data-icon_overspending {
+        background: repeating-linear-gradient(
+            45deg,
+            $color-white,
+            $color-white rem(5),
+            $color-gold rem(2),
+            $color-gold rem(7)
+        );
+        border: rem(1) solid $color-gold;
+    }
+    .award-amounts__data-icon_extreme-overspending {
+        background: repeating-linear-gradient(
+            45deg,
+            $color-white,
+            $color-white rem(5),
+            $color-secondary rem(2),
+            $color-secondary rem(7)
+        );
+        border: rem(1) solid $color-secondary;
+    }
+}
+
+.award-amounts-children__data-wrapper {
+  margin-top: rem(30);
+  margin-bottom: rem(15);
+  
+  .award-amounts-children__data-content {
+      @extend %column-less-table__row;
+      border-bottom: 0;
+      &:nth-of-type(1) {
+          border-radius: rem(5) rem(5) 0 0;
+      }
+      &:last-of-type {
+          border-radius: 0 0 rem(5) rem(5);
+          border-bottom: solid rem(1) $border-light-gray;
+      }
+  }
+}

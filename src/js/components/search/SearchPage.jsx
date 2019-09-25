@@ -29,7 +29,8 @@ const propTypes = {
     downloadAvailable: PropTypes.bool,
     downloadInFlight: PropTypes.bool,
     requestsComplete: PropTypes.bool,
-    noFiltersApplied: PropTypes.bool
+    noFiltersApplied: PropTypes.bool,
+    hash: PropTypes.string
 };
 
 export default class SearchPage extends React.Component {
@@ -124,7 +125,8 @@ export default class SearchPage extends React.Component {
     render() {
         let fullSidebar = (
             <SearchSidebar
-                filters={this.props.filters} />
+                filters={this.props.filters}
+                hash={this.props.hash} />
         );
         if (this.state.isMobile) {
             fullSidebar = null;

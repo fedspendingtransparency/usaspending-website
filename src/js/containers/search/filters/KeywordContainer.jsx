@@ -41,7 +41,7 @@ export class KeywordContainer extends React.Component {
         return (
             <Keyword
                 dirtyFilter={this.dirtyFilter()}
-                selectedKeyword={this.props.keyword}
+                selectedKeywords={this.props.keyword.toArray()}
                 toggleKeyword={this.toggleKeyword} />
         );
     }

@@ -1,16 +1,21 @@
 /**
  * GlobalConstants.js
- * Created by Kevin Li 6/20/17
+ * Created by Maxwell Kendall 7/8/19
  */
 
-// use the correct GlobalConstants file based on the current environment
+const globalConstants = {
+    API: process.env.USASPENDING_API,
+    LOCAL_ROOT: "",
+    GITHUB: "",
+    GA_TRACKING_ID: process.env.GA_TRACKING_ID,
+    LOCAL: false,
+    DEV: (process.env.IS_DEV === 'true'),
+    KEYWORD_AVAILABLE: true,
+    PERF_LOG: false,
+    OVERRIDE_FISCAL_YEAR: false,
+    FISCAL_YEAR: 2017,
+    MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
+};
 
-let isDev = true;
-if (process.env.NODE_ENV && process.env.NODE_ENV === 'production') {
-    isDev = false;
-}
+export default globalConstants;
 
-const kGlobalConstants = isDev ?
-    require('../../GlobalConstants_dev').default : require('../../GlobalConstants_prod').default;
-
-export default kGlobalConstants;

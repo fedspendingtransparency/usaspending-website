@@ -78,9 +78,8 @@ describe('ReferencedAwardsContainer', () => {
 
             container.instance().updateSort('obligated_amount', 'asc');
             await container.instance().request.promise;
-
-            expect(container.state().sort.idvs).toEqual('obligated_amount');
-            expect(container.state().order.idvs).toEqual('asc');
+            expect(container.state().sort.child_awards).toEqual('obligated_amount');
+            expect(container.state().order.child_awards).toEqual('asc');
             expect(parseAwards).toHaveBeenCalled();
         });
     });
@@ -91,26 +90,10 @@ describe('ReferencedAwardsContainer', () => {
 
             const parseAwards = jest.fn();
             container.instance().parseAwards = parseAwards;
-
             container.instance().changePage(2);
             await container.instance().request.promise;
 
-            expect(container.state().page.idvs).toEqual(2);
-            expect(parseAwards).toHaveBeenCalled();
-        });
-    });
-    describe('switchTab', () => {
-        it('should update the state, reset the page to 1, and make an API call', async () => {
-            const container = shallow(<ReferencedAwardsContainer
-                {...mockRedux} />);
-
-            const parseAwards = jest.fn();
-            container.instance().parseAwards = parseAwards;
-
-            container.instance().switchTab('contracts');
-            await container.instance().request.promise;
-
-            expect(container.state().tableType).toEqual('contracts');
+            expect(container.state().page.child_awards).toEqual(2);
             expect(parseAwards).toHaveBeenCalled();
         });
     });

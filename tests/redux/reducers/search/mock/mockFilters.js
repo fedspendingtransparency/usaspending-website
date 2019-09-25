@@ -9,7 +9,6 @@ export const mockAgency = {
         create_date: "2017-01-31T21:25:39.810344Z",
         update_date: "2017-01-31T21:25:39.936439Z",
         cgac_code: "097",
-        fpds_code: "9700",
         name: "DEPT OF DEFENSE"
     },
     subtier_agency: {
@@ -19,7 +18,27 @@ export const mockAgency = {
         subtier_code: "1700",
         name: "DEPT OF THE NAVY"
     },
-    office_agency: null,
     agencyType: 'subtier'
+};
+
+export const mockTreasuryAccount = {
+    identifier: '098-765-****-2008-X-****-321',
+    values: {
+        ata: '098',
+        aid: '765',
+        bpoa: '',
+        epoa: '2008',
+        a: 'X',
+        main: '',
+        sub: '321'
+    }
+};
+
+export const mockFederalAccount = {
+    identifier: '234-5678',
+    values: {
+        aid: '234',
+        main: '5678'
+    }
 };
 

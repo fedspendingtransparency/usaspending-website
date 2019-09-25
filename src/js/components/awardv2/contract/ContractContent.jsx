@@ -3,15 +3,21 @@
  * Created by David Trinh 10/9/2018
  **/
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { startCase } from 'lodash';
 
-import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import AdditionalInfo from './AdditionalInfo';
-import AgencyRecipient from '../visualizations/overview/AgencyRecipient';
-import AwardDates from '../visualizations/overview/AwardDates';
+import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
+import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
+import AgencyRecipient from '../shared/overview/AgencyRecipient';
+import RelatedAwards from '../shared/overview/RelatedAwards';
+import AwardDates from '../shared/overview/AwardDates';
+import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
+import AwardPageWrapper from '../shared/AwardPageWrapper';
+import AwardSection from '../shared/AwardSection';
+import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
+import ComingSoonSection from '../shared/ComingSoonSection';
+import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -19,49 +25,64 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-export default class ContractContent extends React.Component {
-    render() {
-        const glossarySlug = glossaryLinks[this.props.overview.type];
-        let glossaryLink = null;
-        if (glossarySlug) {
-            glossaryLink = (
-                <a href={`/#/award_v2/${this.props.awardId}?glossary=${glossarySlug}`}>
-                    <Glossary />
-                </a>
-            );
-        }
-        return (
-            <div className="award award-contract">
-                <div className="award__heading">
-                    <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
-                    <div className="award__heading-icon">
-                        {glossaryLink}
-                    </div>
-                    <div className="award__heading-id">
-                        <div className="award__heading-lable">{this.props.overview.id ? 'PIID' : ''}</div>
-                        <div>{this.props.overview.id}</div>
-                    </div>
-                </div>
-                <hr />
-                <div className="award__row award-overview" id="award-overview">
-                    <AgencyRecipient
-                        jumpToSection={this.props.jumpToSection}
-                        awardingAgency={this.props.overview.awardingAgency}
-                        category="contract"
-                        recipient={this.props.overview.recipient} />
-                    <div className="award__col award-amountdates">
-                        <AwardDates
-                            overview={this.props.overview} />
-                    </div>
-                </div>
+const ContractContent = ({ awardId, overview, jumpToSection }) => {
+    const [activeTab, setActiveTab] = useState('transaction');
+    const glossarySlug = glossaryLinks[overview.type];
+    const glossaryLink = glossarySlug
+        ? `/#/award_v2/${awardId}?glossary=${glossarySlug}`
+        : null;
 
-                <div className="agency-additional" id="award-additional-information">
-                    <AdditionalInfo
-                        overview={this.props.overview} />
-                </div>
-            </div>
-        );
-    }
-}
+    const jumpToFederalAccountsHistory = () => {
+        setActiveTab('federal_account');
+        jumpToSection('award-history');
+    };
+
+    const awardAmountData = Object.create(BaseAwardAmounts);
+    awardAmountData.populate(overview, overview.category);
+
+    const jumpToTransactionHistoryTable = () => {
+        setActiveTab('transaction');
+        jumpToSection("award-history");
+    };
+
+    return (
+        <AwardPageWrapper
+            glossaryLink={glossaryLink}
+            identifier={overview.id}
+            awardTypeDescription={overview.typeDescription}
+            lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
+            awardType="contract">
+            <AwardSection type="row" className="award-overview" id="award-overview">
+                <AgencyRecipient
+                    jumpToSection={jumpToSection}
+                    awardingAgency={overview.awardingAgency}
+                    category="contract"
+                    recipient={overview.recipient} />
+                <RelatedAwards
+                    overview={overview} />
+                <AwardDates
+                    awardType={overview.category}
+                    dates={overview.periodOfPerformance} />
+            </AwardSection>
+            <AwardSection type="row">
+                <AwardAmountsSection
+                    awardType={overview.category}
+                    jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
+                    awardOverview={awardAmountData} />
+                <ComingSoonSection title="Description" includeHeader />
+            </AwardSection>
+            <AwardSection type="row">
+                <ComingSoonSection title="Contract Activity" includeHeader />
+                <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+            </AwardSection>
+            <AwardSection type="row">
+                <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
+            </AwardSection>
+            <AdditionalInfo overview={overview} />
+        </AwardPageWrapper>
+    );
+};
 
 ContractContent.propTypes = propTypes;
+
+export default ContractContent;

@@ -1,0 +1,17 @@
+.visualization-legend {
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(center);
+    .visualization-legend__circle {
+        @include flex(0 0 rem(12));
+        width: rem(12);
+        height: rem(12);
+        border-radius: rem(6);
+        background-color: $color-vis-dark;
+    }
+    .visualization-legend__label {
+        @include flex(1 1 auto);
+        font-size: rem(12);
+        margin-left: rem(8);
+    }
+}

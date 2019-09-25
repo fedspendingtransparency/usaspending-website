@@ -16,6 +16,8 @@ import TransactionTableGenericCell from 'components/award/table/cells/Transactio
 import SubawardsHeaderCell from 'components/award/subawards/cells/SubawardsHeaderCell';
 import SummaryPageTableMessage from 'components/award/table/SummaryPageTableMessage';
 
+import ResultsTableNoResults from '../../search/table/ResultsTableNoResults';
+import ResultsTableErrorMessage from '../../search/table/ResultsTableErrorMessage';
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
@@ -30,7 +32,9 @@ const propTypes = {
     sort: PropTypes.object,
     loadNextPage: PropTypes.func,
     changeSort: PropTypes.func,
-    tableInstance: PropTypes.string
+    tableInstance: PropTypes.string,
+    isV2: PropTypes.bool,
+    error: PropTypes.bool
 };
 
 export default class SubawardsTable extends React.Component {
@@ -123,17 +127,32 @@ export default class SubawardsTable extends React.Component {
 
     render() {
         const tableValues = this.buildTable();
+        const {
+            isV2,
+            inFlight,
+            award,
+            subawards,
+            tableWidth,
+            loadNextPage
+        } = this.props;
 
         let loadingClass = '';
-        if (this.props.inFlight) {
+        if (inFlight) {
             loadingClass = 'loading';
         }
 
-        const totalValue = this.props.award.subawardTotal;
+        const totalValue = award.subawardTotal;
 
         let message = null;
-        if (this.props.subawards.length === 0 && !this.props.inFlight) {
-            message = (<SummaryPageTableMessage message="No sub-awards found." />);
+        if (subawards.length === 0 && !inFlight) {
+            if (isV2) {
+                message = this.props.error
+                    ? <ResultsTableErrorMessage />
+                    : <ResultsTableNoResults />;
+            }
+            else {
+                message = (<SummaryPageTableMessage message="No sub-awards found." />);
+            }
         }
 
         return (
@@ -144,7 +163,7 @@ export default class SubawardsTable extends React.Component {
                             Total Number of Sub-Awards:&nbsp;
                         </span>
                         <span className="total-value">
-                            {this.props.award.subawardCount}
+                            {award.subawardCount}
                         </span>
                     </div>
                     <div className="total-item">
@@ -155,6 +174,16 @@ export default class SubawardsTable extends React.Component {
                             {totalValue}
                         </span>
                     </div>
+                    {isV2 && (
+                        <div className="total-item">
+                            <span className="total-label">
+                                Percentage of Total Funded Amount:&nbsp;
+                            </span>
+                            <span className="total-value">
+                                {award.subAwardedPercent}
+                            </span>
+                        </div>
+                    )}
                 </div>
                 <div
                     className={`subawards-table ${loadingClass}`}
@@ -163,20 +192,21 @@ export default class SubawardsTable extends React.Component {
                     }}>
                     <IBTable
                         rowHeight={rowHeight}
-                        rowCount={this.props.subawards.length}
+                        rowCount={subawards.length}
                         headerHeight={50}
                         contentWidth={tableValues.width}
-                        bodyWidth={this.props.tableWidth}
+                        bodyWidth={tableWidth}
                         bodyHeight={tableHeight}
                         columns={tableValues.columns}
-                        onReachedBottom={this.props.loadNextPage}
+                        onReachedBottom={loadNextPage}
                         headerCellRender={this.headerCellRender}
                         bodyCellRender={this.bodyCellRender}
                         ref={(table) => {
                             this.tableComponent = table;
                         }} />
                 </div>
-                {message}
+                {isV2 && <div className="results-table-message-container">{message}</div>}
+                {!isV2 && message}
             </div>
         );
     }

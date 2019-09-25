@@ -3,14 +3,20 @@
  * Created by David Trinh 10/9/2018
  **/
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { startCase } from "lodash";
 
-import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import AwardRecipient from '../visualizations/overview/AgencyRecipient';
-import AwardDates from '../visualizations/overview/AwardDates';
+import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
+import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
+import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
+import AwardRecipient from '../shared/overview/AgencyRecipient';
+import AwardDates from '../shared/overview/AwardDates';
+import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
+import AwardSection from '../shared/AwardSection';
+import ComingSoonSection from '../shared/ComingSoonSection';
+import AwardPageWrapper from '../shared/AwardPageWrapper';
+import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -18,44 +24,83 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-export default class FinancialAssistanceContent extends React.Component {
-    render() {
-        const glossarySlug = glossaryLinks[this.props.overview.type];
-        let glossaryLink = null;
-        if (glossarySlug) {
-            glossaryLink = (
-                <a href={`/#/award_v2/${this.props.awardId}?glossary=${glossarySlug}`}>
-                    <Glossary />
-                </a>
-            );
-        }
-        // TODO: Determine if we should label with FAIN/ URI instead of ID
-        return (
-            <div className="award award-financial-assistance">
-                <div className="award__heading">
-                    <div className="award__heading-text">{startCase(this.props.overview.typeDescription)}</div>
-                    <div className="award__heading-icon">
-                        {glossaryLink}
-                    </div>
-                    <div className="award__heading-id">
-                        <div className="award__heading-lable">{this.props.overview.id ? 'ID' : ''}</div>
-                        <div>{this.props.overview.id}</div>
-                    </div>
-                </div>
-                <hr className="award__divider" />
-                <div className="award__row award-overview" id="award-overview">
-                    <AwardRecipient
-                        jumpToSection={this.props.jumpToSection}
-                        awardingAgency={this.props.overview.awardingAgency}
-                        category={this.props.overview.category}
-                        recipient={this.props.overview.recipient} />
-                    <div className="award__col award-amountdates">
-                        <AwardDates
-                            overview={this.props.overview} />
-                    </div>
-                </div>
-            </div>
+const defaultTooltipProps = {
+    controlledProps: {
+        isControlled: true,
+        isVisible: false,
+        closeTooltip: () => {},
+        showTooltip: () => {}
+    }
+};
+
+const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
+    const [activeTab, setActiveTab] = useState("transaction");
+
+    const glossaryLink = glossaryLinks[overview.type]
+        ? `/#/award_v2/${awardId}?glossary=${glossaryLinks[overview.type]}`
+        : null;
+
+    const jumpToTransactionHistoryTable = () => {
+        setActiveTab('transaction');
+        jumpToSection("award-history");
+    };
+
+    const jumpToFederalAccountsHistory = () => {
+        setActiveTab('federal_account');
+        jumpToSection('award-history');
+    };
+
+    let amountsSection = (<ComingSoonSection title="Award Amounts" includeHeader />);
+    if (overview.category === 'grant' || overview.category === 'loan') {
+        const awardAmountData = Object.create(BaseAwardAmounts);
+        awardAmountData.populate(overview, overview.category);
+        amountsSection = (
+            <AwardAmountsSection
+                awardType={overview.category}
+                awardOverview={awardAmountData}
+                tooltipProps={defaultTooltipProps}
+                jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
         );
     }
-}
+
+    const awardAmountData = Object.create(BaseAwardAmounts);
+    awardAmountData.populate(overview, overview.category);
+    // TODO: Determine if we should label with FAIN/ URI instead of ID
+    return (
+        <AwardPageWrapper
+            identifier={awardId}
+            glossaryLink={glossaryLink}
+            awardTypeDescription={overview.typeDescription}
+            lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
+            className="award-financial-assistance">
+            <AwardSection type="row" className="award-overview" id="award-overview">
+                <AwardRecipient
+                    jumpToSection={jumpToSection}
+                    awardingAgency={overview.awardingAgency}
+                    category={overview.category}
+                    recipient={overview.recipient} />
+                <AwardSection type="column" className="award-amountdates">
+                    <AwardDates
+                        awardType={overview.category}
+                        dates={overview.periodOfPerformance} />
+                </AwardSection>
+            </AwardSection>
+            <AwardSection type="row">
+                {amountsSection}
+                <ComingSoonSection title="Description" includeHeader />
+            </AwardSection>
+            <AwardSection type="row">
+                <ComingSoonSection title="CFDA Program / Assistance Listing Information" includeHeader />
+                <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+            </AwardSection>
+            <AwardSection type="row">
+                <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
+            </AwardSection>
+            <AdditionalInfo overview={overview} />
+        </AwardPageWrapper>
+    );
+};
+
 FinancialAssistanceContent.propTypes = propTypes;
+
+export default FinancialAssistanceContent;

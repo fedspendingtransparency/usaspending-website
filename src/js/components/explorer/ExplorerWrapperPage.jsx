@@ -17,6 +17,8 @@ const propTypes = {
     children: PropTypes.element
 };
 
+require('pages/explorer/explorerPage.scss');
+
 const ExplorerWrapperPage = (props) => (
     <div className="usa-da-explorer-page">
         <MetaTags {...explorerPageMetaTags} />
