@@ -20,3 +20,4 @@ The following are ALL required for the PR to be merged:
 - [ ] [API #1234](https://github.com/fedspendingtransparency/usaspending-api/pull/1234) merged (if applicable)
 - [ ] Verified cross-browser compatibility
 - [ ] All componentWillReceiveProps, componentWillMount, and componentWillUpdate in relevant child/parent components/containers replaced with [future compatible life-cycle methods](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html) per [JIRA item 3339](https://federal-spending-transparency.atlassian.net/browse/DEV-3339)
+- [ ] Link to this PR in JIRA ticket
