@@ -69,6 +69,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
     return (
         <AwardPageWrapper
             identifier={awardId}
+            awardType={overview.category}
             glossaryLink={glossaryLink}
             awardTypeDescription={overview.typeDescription}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
