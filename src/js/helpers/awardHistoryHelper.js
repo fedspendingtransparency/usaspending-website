@@ -31,7 +31,7 @@ export const getAwardHistoryCounts = (type, awardId) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/awards/count/${type}/${awardId}`,
+            url: `v2/awards/count/${type}/${awardId}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
