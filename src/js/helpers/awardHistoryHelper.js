@@ -33,8 +33,7 @@ export const getAwardHistoryCounts = (type, awardId) => {
         promise: Axios.request({
             url: `v2/awards/count/${type}/${awardId}`,
             baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: { award_id: awardId },
+            method: 'get',
             cancelToken: source.token
         }),
         cancel() {
