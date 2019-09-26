@@ -68,7 +68,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
     // TODO: Determine if we should label with FAIN/ URI instead of ID
     return (
         <AwardPageWrapper
-            identifier={awardId}
+            identifier={[overview.fain, overview.uri]}
             awardType={overview.category}
             glossaryLink={glossaryLink}
             awardTypeDescription={overview.typeDescription}

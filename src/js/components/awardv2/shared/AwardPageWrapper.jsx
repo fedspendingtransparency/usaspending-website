@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { startCase } from 'lodash';
 
 import { Glossary } from '../../sharedComponents/icons/Icons';
@@ -13,7 +13,7 @@ const AwardPageWrapper = ({
     identifier,
     children
 }) => {
-    const idLabel = financialAssistanceAwardTypes.includes(awardType) ? 'FAIN' : 'PIID' || '';
+    const isFinancialAward = financialAssistanceAwardTypes.includes(awardType);
     return (
         <div className={`award award-${awardType}`}>
             <div className="award__heading">
@@ -25,8 +25,20 @@ const AwardPageWrapper = ({
                         </a>
                     </div>
                     <div className="award__heading-id">
-                        <div className="award__heading-label">{idLabel}</div>
-                        <div>{identifier}</div>
+                        {isFinancialAward && (
+                            <Fragment>
+                                <div className="award__heading-label--fain">FAIN</div>
+                                <div>{identifier[0]}</div>
+                                <div className="award__heading-label--uri"> URI</div>
+                                <div>{identifier[1] ? identifier[1] : '--' }</div>
+                            </Fragment>
+                        )}
+                        {!isFinancialAward && (
+                            <Fragment>
+                                <div className="award__heading-label">{identifier ? 'PIID' : ''}</div>
+                                <div>{identifier}</div>
+                            </Fragment>
+                        )}
                     </div>
                 </div>
                 <div className="award__last-modified">
