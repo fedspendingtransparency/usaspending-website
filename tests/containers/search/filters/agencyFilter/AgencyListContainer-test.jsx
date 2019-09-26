@@ -147,7 +147,7 @@ describe('AgencyListContainer', () => {
             expect(container.state().autocompleteAgencies[2].title).toEqual('DEF Agency (DEF)');
             expect(container.state().autocompleteAgencies[2].subtitle).toEqual('Sub-Agency of Department ABC (ABC)');
         });
-        it('should not contain agency abbreviations', async () => {
+        it('should not contain null agency abbreviations', async () => {
             const container = setupShallow(initialFilters);
             container.setState({
                 agencySearchString: 'abc'
@@ -155,7 +155,7 @@ describe('AgencyListContainer', () => {
 
             container.instance().parseAutocompleteAgencies(mockNullAgencyResults);
 
-            // Toptier agencies should have been moved to the top of the list
+            // Agency titles/subtitles should not have abbreviations.
             expect(container.state().autocompleteAgencies[0].title).toEqual('QQ Agency ');
             expect(container.state().autocompleteAgencies[0].subtitle).toEqual('Sub-Agency of Department QQ ');
         });
