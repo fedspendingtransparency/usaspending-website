@@ -90,12 +90,21 @@ export default class TablesSection extends React.Component {
             .filter((tab) => ((!isIdvOrLoan || tab.internal !== 'subaward')))
             .map(async (tab) => {
                 this.countRequest = getAwardHistoryCounts(tab.internal, award.generatedId);
-                const { data } = await this.countRequest.promise;
-                return { ...tab, count: data[`${tab.internal}s`] };
+                try {
+                    const { data } = await this.countRequest.promise;
+                    return { ...tab, count: data[`${tab.internal}s`] };
+                }
+                catch (error) {
+                    console.log(`Error fetching ${tab.internal} counts: ${error}`);
+                    return { ...tab, count: 'N/A' };
+                }
             });
-        Promise.all(tabsWithCounts).then((result) => {
-            this.setState({ tabs: result });
-        });
+
+        Promise.all(tabsWithCounts)
+            .then((result) => {
+                this.setState({ tabs: result });
+                this.countRequest = null;
+            });
     }
 
     setTableWidth() {
