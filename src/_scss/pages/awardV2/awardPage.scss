@@ -47,10 +47,15 @@
                           }
                       }
                   }
-                  .award__heading-label {
+                  .award__heading-label,
+                  .award__heading-label--fain,
+                  .award__heading-label--uri {
                       font-weight: $font-normal;
                       display: inline-block;
                       padding-right: rem(10);
+                  }
+                  .award__heading-label--uri {
+                    padding-left: rem(10);
                   }
                   .award__heading-id {
                       @include display(flex);
