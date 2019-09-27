@@ -67,6 +67,9 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
     const awardAmountData = Object.create(BaseAwardAmounts);
     awardAmountData.populate(overview, overview.category);
     let title = overview.typeDescription;
+    // removes the award type and only capitalizes the first letter of each word
+    // e.g. PROJECT GRANT (B) => Project Grant
+    // e.g. PROJECT GRANT => Project Grant
     if (overview.category === 'grant') {
         const titleArray = title.split(' ').map((word) => upperFirst(word.toLowerCase()));
         if (titleArray.length === 3) titleArray.pop();
