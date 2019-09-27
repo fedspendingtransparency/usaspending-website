@@ -3,25 +3,29 @@
  * Created by Lizzie Salita 4/1/19
  */
 
-// Handle edge cases in the IDV Combined Award Amounts visualization
-
-export const determineSpendingScenario = (amounts) => {
-    const obligated = amounts._totalObligation;
-    const current = amounts._baseExercisedOptions;
-    const potential = amounts._baseAndAllOptions;
-
-    if (obligated === 0 && current === 0 && potential === 0) {
+export const determineSpendingScenario = (small = 0, bigger = 0, biggest = null) => {
+    // Small, bigger, and biggest define the expected ratio between spending category
+    const allCategoriesAreInPlay = (small && bigger && biggest);
+    if (small === 0 && bigger === 0 && biggest === 0) {
         return null;
     }
-    if (obligated >= 0) {
-        if (obligated <= current && current <= potential) {
+    if (allCategoriesAreInPlay && small >= 0) {
+        if (small <= bigger && bigger <= biggest) {
             return 'normal';
         }
-        else if (current <= obligated && obligated <= potential) {
-            return 'exceedsCurrent';
+        else if (bigger <= small && small <= biggest) {
+            return 'exceedsBigger';
         }
-        else if (current <= potential && potential <= obligated) {
-            return 'exceedsPotential';
+        else if (bigger <= biggest && biggest <= small) {
+            return 'exceedsBiggest';
+        }
+    }
+    else if (small >= 0) {
+        if (small <= bigger) {
+            return 'normal';
+        }
+        else if (bigger < small) {
+            return 'exceedsBigger';
         }
     }
 
