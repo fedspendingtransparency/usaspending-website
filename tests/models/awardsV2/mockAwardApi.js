@@ -122,6 +122,12 @@ export const mockContract = {
 
 };
 
+export const mockGrant = {
+    ...mockContract,
+    _totalFunding: 1130000000, // 1.13 Billion
+    _nonFederalFunding: 1130000 // 1.13 Million
+};
+
 export const mockLoan = {
     type: 'C',
     category: 'loan',
@@ -136,8 +142,8 @@ export const mockLoan = {
     cfda_title: 'Flood Insurance',
     total_obligation: 123231313,
     subaward_count: 23423343,
-    total_subsidy_cost: 123,
-    total_loan_value: 24343,
+    total_subsidy_cost: 1290000.00, // subsidy 1.3 M
+    total_loan_value: 2497000000.00, // faceValue 2.5 B
     total_subaward_amount: 32423342,
     awarding_agency: {
         id: '323',
@@ -362,7 +368,6 @@ export const mockAwardAmounts = {
     grandchild_award_base_and_all_options_value: 53493660.55,
     child_award_total_obligation: 811660.51,
     grandchild_award_total_obligation: 811660.51
-
 };
 
 export const mockReferencedAwards = {
@@ -426,12 +431,33 @@ export const mockFederalAccountFunding = {
 export const mockAwardFundingMetaData = {
     total_transaction_obligated_amount: 42946881.56,
     awarding_agency_count: 27,
+    funding_agency_count: 28,
     federal_account_count: 47
 };
 
-export const mockFileDownloadResponse = {
+export const mockFileDownloadResponseIdv = {
     total_size: 35.055,
-    file_name: `012_account_balances_20180613140845.zip`,
+    file_name: `idv.zip`,
+    total_rows: 652,
+    total_columns: 27,
+    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status: `finished`,
+    seconds_elapsed: `10.061132`
+};
+
+export const mockFileDownloadResponseContract = {
+    total_size: 35.055,
+    file_name: `contract.zip`,
+    total_rows: 652,
+    total_columns: 27,
+    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status: `finished`,
+    seconds_elapsed: `10.061132`
+};
+
+export const mockFileDownloadResponseAssistance = {
+    total_size: 35.055,
+    file_name: `assistance.zip`,
     total_rows: 652,
     total_columns: 27,
     url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,

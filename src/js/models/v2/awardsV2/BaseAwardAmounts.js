@@ -24,18 +24,33 @@ const BaseAwardAmounts = {
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
     },
+    populateLoan(data) {
+        this._subsidy = data._subsidy;
+        this._faceValue = data._faceValue;
+    },
     populateGrant(data) {
         this._totalObligation = data._totalObligation;
         this._totalFunding = data._totalFunding;
         this._nonFederalFunding = data._nonFederalFunding;
+    },
+    populateContract(data) {
+        this._totalObligation = data._totalObligation;
+        this._baseExercisedOptions = data._baseExercisedOptions;
+        this._baseAndAllOptions = data._baseAndAllOptions;
     },
     populate(data, awardType) {
         this.populateBase(data);
         if (awardType === 'idv') {
             this.populateIdv(data);
         }
+        else if (awardType === 'contract') {
+            this.populateContract(data);
+        }
         else if (awardType === 'grant') {
             this.populateGrant(data);
+        }
+        else if (awardType === 'loan') {
+            this.populateLoan(data);
         }
     },
     get baseAndAllOptionsFormatted() {
@@ -113,6 +128,26 @@ const BaseAwardAmounts = {
             return `${MoneyFormatter.formatMoneyWithPrecision((this._nonFederalFunding) / units.unit, 1)} ${units.unitLabel}`;
         }
         return MoneyFormatter.formatMoney(this._nonFederalFunding);
+    },
+    get faceValueAbbreviated() {
+        if (this._faceValue >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._faceValue);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._faceValue / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._faceValue);
+    },
+    get faceValueFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._faceValue, 2);
+    },
+    get subsidyAbbreviated() {
+        if (this._subsidy >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._subsidy);
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._subsidy / units.unit, 1)} ${units.unitLabel}`;
+        }
+        return MoneyFormatter.formatMoney(this._subsidy);
+    },
+    get subsidyFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._subsidy, 2);
     }
 };
 

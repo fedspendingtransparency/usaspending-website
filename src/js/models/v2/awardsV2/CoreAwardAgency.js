@@ -9,9 +9,12 @@ const CoreAwardAgency = {
         this.id = data.id || '';
         this.toptierName = data.toptierName || '--';
         this.toptierAbbr = data.toptierAbbr || '';
+        this.toptierId = data.toptierId || '';
         this.subtierName = data.subtierName || '';
         this.subtierAbbr = data.subtierAbbr || '';
+        this.subtierId = data.subtierId || '';
         this.officeName = data.officeName || '';
+        this.officeId = data.officeId || '';
     },
     get formattedToptier() {
         if (this.toptierAbbr) {

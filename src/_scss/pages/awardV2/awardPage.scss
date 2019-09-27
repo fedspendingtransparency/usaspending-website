@@ -14,44 +14,56 @@
             padding: rem(24) rem(30);
 
             .award__heading {
-                @include display(flex);
-                @include align-items(center);
-                @include flex-wrap(wrap);
                 @include media($medium-screen) {
-                    flex-wrap: nowrap;
+                  @include display(flex);
+                  @include justify-content(space-between);
                 }
-                font-size: rem(24);
-            }
-            .award__heading-text {
-                @include display(flex);
-                @include flex(0 0 auto);
-                font-weight: $font-semibold;
-                padding-right: rem(10);
-            }
-            .award__heading-icon {
-                @include display(flex);
-                @include flex(0 0 auto);
-                padding-right: rem(15);
-                svg {
+                .award__info {
+                  @include align-items(center);
+                  @include justify-content(flex-start);
+                  @include media($medium-screen) {
                     @include display(flex);
-                    fill: $color-gray-light;
-                    height: rem(20);
-                    width: rem(20);
+                  }
+                  font-size: rem(24);
+                  .award__heading-text {
+                    @include display(flex);
+                    @include flex(0 0 auto);
+                    font-weight: $font-semibold;
+                    padding-right: rem(10);
+                  }
+                  .award__heading-icon {
+                      @include display(flex);
+                      @include flex(0 0 auto);
+                      padding-right: rem(15);
+                      svg {
+                          @include display(flex);
+                          fill: $color-gray-light;
+                          height: rem(20);
+                          width: rem(20);
+                      }
+                      &:hover, &:focus {
+                          svg {
+                              fill: $color-gray;
+                          }
+                      }
+                  }
+                  .award__heading-label {
+                      font-weight: $font-normal;
+                      display: inline-block;
+                      padding-right: rem(10);
+                  }
+                  .award__heading-id {
+                      @include display(flex);
+                      font-weight: $font-light;
+                  }
                 }
-                &:hover, &:focus {
-                    svg {
-                        fill: $color-gray;
-                    }
+                .award__last-modified {
+                  text-transform: uppercase;
+                  @include align-self(flex-end);
+                  &.award__last-modified_date {
+                    font-weight: $font-light;
+                  }
                 }
-            }
-            .award__heading-label {
-                font-weight: $font-normal;
-                display: inline-block;
-                padding-right: rem(10);
-            }
-            .award__heading-id {
-                @include display(flex);
-                font-weight: $font-light;
             }
 
             .award__icon {
@@ -112,7 +124,12 @@
             @import "./visualizations/overview/overview";
             @import "./visualizations/description/description";
             @import "./visualizations/additionalInfo";
+            @import "./visualizations/awardFundingSummary";
+            @import "./shared/awardAmountsSection/index";
+            @import "./shared/infoTooltip";
+            @import "./shared/awardHistorySection";
         }
+        @import "./comingSoon";
         @import "./awardContract";
         @import "./awardFinancialAssistance";
         @import "./idv/awardIdv";

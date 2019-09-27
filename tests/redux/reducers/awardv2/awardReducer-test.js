@@ -47,6 +47,20 @@ describe('awardReducer', () => {
             expect(state.counts.contracts).toEqual(55);
         });
     });
+    describe('SET_TOTAL_TRANSACTION_OBLIGATED_AMOUNT', () => {
+        it('should set the transaction obligated total to the provided amount', () => {
+            let state = awardReducer(undefined, {});
+
+            const action = {
+                type: 'SET_TOTAL_TRANSACTION_OBLIGATED_AMOUNT',
+                total: 12345678
+            };
+
+            state = awardReducer(state, action);
+
+            expect(state.totalTransactionObligatedAmount).toEqual(12345678);
+        });
+    });
     describe('RESET_STATE', () => {
         it('should reset the award to its initial state', () => {
             let state = awardReducer(undefined, {

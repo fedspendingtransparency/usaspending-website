@@ -25,7 +25,7 @@ import {
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import BaseIdv from 'models/v2/awardsV2/BaseIdv';
 import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
-import { fetchIdvDownloadFile } from '../../helpers/idvHelper';
+import { fetchIdvDownloadFile, fetchContractDownloadFile, fetchAssistanceDownloadFile } from '../../helpers/downloadHelper';
 
 require('pages/awardV2/awardPage.scss');
 
@@ -53,6 +53,7 @@ export class AwardContainer extends React.Component {
             inFlight: false
         };
         this.downloadData = this.downloadData.bind(this);
+        this.fetchAwardDownloadFile = this.fetchAwardDownloadFile.bind(this);
     }
 
     componentDidMount() {
@@ -138,7 +139,18 @@ export class AwardContainer extends React.Component {
         }
     }
 
-    async downloadData() {
+    fetchAwardDownloadFile(awardCategory = this.props.award.category, awardId = this.props.params.awardId) {
+        if (awardCategory === 'idv') {
+            return fetchIdvDownloadFile(awardId);
+        }
+        else if (awardCategory === 'contract') {
+            return fetchContractDownloadFile(awardId);
+        }
+
+        return fetchAssistanceDownloadFile(awardId);
+    }
+
+    async downloadData(awardCategory = this.props.award.category, awardId = this.props.params.awardId) {
         // don't show a modal about the download
         this.props.setDownloadCollapsed(true);
 
@@ -146,7 +158,7 @@ export class AwardContainer extends React.Component {
             this.downloadRequest.cancel();
         }
 
-        this.downloadRequest = fetchIdvDownloadFile(this.props.params.awardId);
+        this.downloadRequest = this.fetchAwardDownloadFile(awardCategory, awardId);
 
         try {
             const { data } = await this.downloadRequest.promise;

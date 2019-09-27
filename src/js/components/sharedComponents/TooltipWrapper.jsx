@@ -22,7 +22,8 @@ const propTypes = {
     }),
     offsetAdjustments: PropTypes.shape({
         top: PropTypes.number,
-        right: PropTypes.number
+        right: PropTypes.number,
+        left: PropTypes.number
     }),
     styles: PropTypes.shape({}) // currently only using width
 };
@@ -32,12 +33,15 @@ const defaultProps = {
     verticalCenter: false,
     offsetAdjustments: {
         top: -15, // InfoToolTip offset
-        right: 30 // InfoToolTip offset
+        right: 30, // InfoToolTip offset
+        left: 0
     },
     controlledProps: {
         isControlled: false
     }
 };
+
+const horizontalPadding = 20;
 
 const tooltipIcons = {
     info: <FontAwesomeIcon className="tooltip__icon" icon="info-circle" />
@@ -48,8 +52,7 @@ export default class TooltipWrapper extends React.Component {
 
         this.state = {
             showTooltip: false,
-            offsetTop: 0,
-            offsetRight: 0
+            offsetTop: 0
         };
 
         this.showTooltip = this.showTooltip.bind(this);
@@ -68,64 +71,79 @@ export default class TooltipWrapper extends React.Component {
         window.removeEventListener("resize", this.measureOffset);
     }
 
-    showTooltip() {
+    showTooltip(e) {
         if (!this.props.controlledProps.isControlled) {
             this.setState({
                 showTooltip: true
             });
         }
         else {
-            this.props.controlledProps.showTooltip();
+            this.props.controlledProps.showTooltip(e);
         }
     }
 
-    closeTooltip() {
+    closeTooltip(e) {
         if (!this.props.controlledProps.isControlled) {
             this.setState({
                 showTooltip: false
             });
         }
         else {
-            this.props.controlledProps.closeTooltip();
+            this.props.controlledProps.closeTooltip(e);
         }
     }
 
     measureOffset() {
-        const tooltipContainer = this.tooltipContainer;
-        const offsetTop = tooltipContainer.offsetTop + this.props.offsetAdjustments.top;
         let tooltipWidth = 375;
-        // is the tooltip in a section that takes up the full width of the screen?
-        const isTooltipJustifiedRight = (window.innerWidth - tooltipContainer.offsetLeft) < window.innerWidth / 6;
+        const tooltipContainer = this.tooltipContainer;
+        const ttContainerWidth = tooltipContainer.clientWidth;
 
-        if (this.props.wide && isTooltipJustifiedRight) {
-            tooltipWidth = 700;
+        const offsetTop = tooltipContainer.offsetTop + this.props.offsetAdjustments.top;
+        const totalSpace = window.innerWidth;
+        const spaceToRight = (totalSpace - tooltipContainer.offsetLeft) - ttContainerWidth;
+        const spaceToLeft = tooltipContainer.offsetLeft;
+
+        if (this.props.wide && this.props.left) {
+            tooltipWidth = (spaceToLeft > 800)
+                ? 700
+                : spaceToLeft - 100;
         }
         else if (this.props.wide) {
-            // is there at least 801px of space to the left/right for the tooltip?
-            tooltipWidth = (window.innerWidth - (tooltipContainer.offsetLeft + tooltipContainer.clientWidth) > 800)
-                ? 650
-                : window.innerWidth - (tooltipContainer.offsetLeft + tooltipContainer.clientWidth) - 100;
+            tooltipWidth = (spaceToRight > 800)
+                ? 700
+                : spaceToRight - 100;
         }
 
-        let offsetRight = window.innerWidth - tooltipContainer.offsetLeft - tooltipContainer.clientWidth - tooltipWidth - this.props.offsetAdjustments.right;
         if (this.props.left) {
-            offsetRight = (window.innerWidth - tooltipContainer.offsetLeft) + tooltipContainer.clientWidth;
+            // minus tooltipWidth b/c right corner of toolTip is flush w/ left edge of toolTip container
+            const startingPositionLeft = spaceToLeft - tooltipWidth;
+            this.setState({
+                offsetTop,
+                offsetLeft: startingPositionLeft - horizontalPadding,
+                width: tooltipWidth
+            });
         }
-        this.setState({
-            offsetTop,
-            offsetRight,
-            width: tooltipWidth
-        });
+        else {
+            // plus ttContainerWidth b/c left corner of toolTip is flush w/ right edge of toolTip container
+            const startingPositionLeft = spaceToLeft + ttContainerWidth;
+            this.setState({
+                offsetTop,
+                offsetLeft: startingPositionLeft + horizontalPadding,
+                width: tooltipWidth
+            });
+        }
     }
 
     render() {
         const showTooltip = (this.props.controlledProps.isControlled) ? this.props.controlledProps.isVisible : this.state.showTooltip;
         let tooltip = null;
-        const style = {
-            top: this.state.offsetTop,
-            right: this.state.offsetRight,
-            width: this.state.width
-        };
+        const style = Object.keys(this.state)
+            .filter((key) => ['offsetTop', 'offsetLeft', 'width'].includes(key))
+            .reduce((acc, item) => {
+                if (item === 'offsetLeft') return { ...acc, left: this.state[item] };
+                if (item === 'offsetTop') return { ...acc, top: this.state[item] };
+                return { ...acc, [item]: this.state[item] };
+            }, {});
         if (showTooltip) {
             tooltip = (
                 <div className="tooltip-spacer" style={style}>

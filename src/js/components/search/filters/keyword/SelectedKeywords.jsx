@@ -5,24 +5,24 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ShownKeyword from './ShownKeyword';
+import ShownValue from 'components/search/filters/otherFilters/ShownValue';
 
 const propTypes = {
     toggleKeyword: PropTypes.func,
-    selectedKeyword: PropTypes.object
+    selectedKeywords: PropTypes.array
 };
 
 export default class SelectedKeywords extends React.Component {
     render() {
         let hideTags = 'hide';
-        if (this.props.selectedKeyword.size !== 0) {
+        if (this.props.selectedKeywords.length !== 0) {
             hideTags = '';
         }
-        const shownKeywords = this.props.selectedKeyword.map((keyword) => (
-            <ShownKeyword
+        const shownKeywords = this.props.selectedKeywords.map((keyword) => (
+            <ShownValue
                 label={keyword}
                 key={keyword}
-                toggleKeyword={this.props.toggleKeyword.bind(null, keyword)} />
+                removeValue={this.props.toggleKeyword.bind(null, keyword)} />
         ));
 
         return (

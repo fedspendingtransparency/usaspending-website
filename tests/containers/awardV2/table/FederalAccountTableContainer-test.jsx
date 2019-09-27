@@ -31,13 +31,13 @@ const mockRedux = {
 };
 
 describe('FederalAccountTableContainer', () => {
-    it('should make an API call for federal account funding data on mount', () => {
+    it('should make an API call for federal account funding data on mount', async () => {
         const container = shallow(<FederalAccountTableContainer
             {...mockRedux} />);
 
         const fetchSubmissions = jest.fn();
         container.instance().fetchSubmissions = fetchSubmissions;
-        container.instance().componentDidMount();
+        await container.instance().componentDidMount();
 
         expect(fetchSubmissions).toHaveBeenCalledTimes(1);
         expect(fetchSubmissions).toHaveBeenCalledWith(1, true);

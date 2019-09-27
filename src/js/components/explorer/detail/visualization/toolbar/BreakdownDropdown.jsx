@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import Router from 'containers/router/Router';
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { dropdownScopes, rootScopes, icons } from 'dataMapping/explorer/dropdownScopes';
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
@@ -180,7 +180,7 @@ export default class BreakdownDropdown extends React.Component {
                                 {sidebarTypes[this.state.active]}
                             </div>
                             <div className="dropdown__arrow">
-                                <Icons.AngleDown />
+                                <FontAwesomeIcon icon="angle-down" />
                             </div>
                         </button>
 
@@ -191,13 +191,13 @@ export default class BreakdownDropdown extends React.Component {
                     <ViewTypeButton
                         value="treemap"
                         label="Treemap"
-                        icon={<Icons.Tree alt="Treemap Icon" />}
+                        icon="th-large"
                         active={this.props.viewType === 'treemap'}
                         changeView={this.props.changeView} />
                     <ViewTypeButton
                         value="table"
                         label="Table"
-                        icon={<Icons.Table alt="Table Icon" />}
+                        icon="table"
                         active={this.props.viewType === 'table'}
                         changeView={this.props.changeView} />
                 </div>

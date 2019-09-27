@@ -10,14 +10,14 @@ import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsCo
 import IdvActivityContainer from 'containers/awardV2/idv/IdvActivityContainer';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import AwardHistory from './AwardHistory';
+import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import RelatedAwards from '../shared/overview/RelatedAwards';
-import IdvDates from './IdvDates';
+import IdvDates from '../shared/overview/AwardDates';
 import AwardDescription from '../shared/description/AwardDescription';
 import AwardAmounts from './amounts/AwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
-import AwardMetaDataContainer from '../../../containers/awardV2/idv/AwardMetaDataContainer';
+import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
 
 const propTypes = {
@@ -56,7 +56,7 @@ export default class IdvContent extends React.Component {
 
     jumpToFederalAccountsHistory() {
         this.setState({
-            awardHistoryActiveTab: 'fedaccount'
+            awardHistoryActiveTab: 'federal_account'
         });
         this.props.jumpToSection('award-history');
     }
@@ -74,8 +74,8 @@ export default class IdvContent extends React.Component {
 
         return (
             <div className="award award-idv">
-                <div className="idv__heading">
-                    <div className="idv__info">
+                <div className="award__heading">
+                    <div className="award__info">
                         <div className="award__heading-text">
                             {this.props.overview.longTypeDescription}
                         </div>
@@ -89,9 +89,9 @@ export default class IdvContent extends React.Component {
                             <div>{this.props.overview.id}</div>
                         </div>
                     </div>
-                    <div className="idv__last-modified">
+                    <div className="award__last-modified">
                 Last Modified On:{" "}
-                        <span className="idv__last-modified idv__last-modified_date">
+                        <span className="award__last-modified award__last-modified_date">
                             {this.props.overview.dates.lastModifiedDateLong}
                         </span>
                     </div>
@@ -110,7 +110,9 @@ export default class IdvContent extends React.Component {
                         jumpToSection={this.props.jumpToSection}
                         setRelatedAwardsTab={this.setRelatedAwardsTab}
                         overview={this.props.overview} />
-                    <IdvDates dates={this.props.overview.dates} />
+                    <IdvDates
+                        awardType={this.props.overview.category}
+                        dates={this.props.overview.dates} />
                 </div>
                 <div className="award__row">
                     <AwardAmounts
@@ -125,7 +127,8 @@ export default class IdvContent extends React.Component {
                 </div>
                 <div className="award__row">
                     <IdvActivityContainer />
-                    <AwardMetaDataContainer
+                    <FederalAccountsSection
+                        idv
                         jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
                 </div>
                 <ReferencedAwardsContainer

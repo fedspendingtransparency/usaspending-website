@@ -1,0 +1,271 @@
+$grants-line-color: #47AAA7;
+$loans-line-color: #F5A623;
+
+%award-amounts-viz__line-indicator {
+    content: "";
+    position: absolute;
+    width: rem(1);
+    height: rem(10);
+}
+
+.award-amounts-viz {
+    .award-amounts-viz__bar-wrapper {
+        border: rem(2) solid $border-gray;
+        background-color: $color-white;
+        margin: rem(16) 0 rem(7) 0;
+        padding: rem(3);
+        .award-amounts-viz__bar {
+            height: rem(40);
+            background-color: #ececec;
+            @include display(flex);
+            .award-amounts-viz__obligated {
+                border: solid rem(4) $border-light-gray;
+            }
+            .award-amounts-viz__obligated--grants {
+                border: none;
+            }
+            .award-amounts-viz__non-federal-funding {
+                position: relative;
+                padding: 3.5px;
+            }
+            .award-amounts-viz__exceeded {
+                border-top: solid rem(4) $color-gray-lightest;
+                border-bottom: solid rem(4) $color-gray-lightest;
+                background: repeating-linear-gradient(
+                    45deg,
+                    $color-cool-blue-light,
+                    $color-cool-blue-light rem(8),
+                    $color-gold rem(2),
+                    $color-gold rem(10)
+                );
+            }
+        }
+        &.award-amounts-viz__bar-wrapper_extreme-overspending {
+            border: 0;
+            padding: 0;
+            .award-amounts-viz__bar {
+                height: rem(50);
+                background-color: transparent;
+                @include display(flex);
+                @include align-items(center);
+                .award-amounts-viz__potential-wrapper {
+                    @include display(flex);
+                    border: rem(2) solid $border-gray;
+                    padding: rem(2);
+                    background-color: $color-white;
+                    .award-amounts-viz__current {
+                        border: solid rem(4) $border-light-gray;
+                    }
+                    .award-amounts-viz__potential {
+                        border-top: solid rem(4) $color-white;
+                        border-bottom: solid rem(4) $color-white;
+                    }
+                }
+                .award-amounts-viz__exceeded-potential {
+                    height: rem(34);
+                    @include align-self(center);
+                    background: repeating-linear-gradient(
+                        45deg,
+                        $color-cool-blue-light,
+                        $color-cool-blue-light rem(8),
+                        $color-secondary rem(2),
+                        $color-secondary rem(10)
+                    );
+                }
+            }
+        }
+    }
+
+    .award-amounts-viz__label {
+        text-align: center;
+    }
+
+    .award-amounts-viz__line-up,
+    .award-amounts-viz__line-up--loans {
+        margin: rem(5) 0 rem(5) rem(1);
+        position: relative;
+        width: 99.5%;
+        height: rem(1);
+    }
+
+    .award-amounts-viz__line-up {
+        border-bottom: 1px solid $color-cool-blue-light;
+    }
+
+    .award-amounts-viz__line-up--loans {
+        border-bottom: 1px solid $loans-line-color;
+    }
+
+    .award-amounts-viz__line {
+        margin: rem(20) 0 rem(5) rem(1);
+        border-bottom: 1px solid $border-light-gray;
+        position: relative;
+        width: 99.5%;
+        height: rem(1);
+    }
+
+    .award-amounts-viz__line--non-federal-funding {
+        margin: rem(20) 0 rem(5) rem(1);
+        border-bottom: 1px solid $border-light-gray;
+        position: relative;
+        width: 99.5%;
+        height: rem(1);
+        border-bottom: 1px solid $grants-line-color;
+    }
+
+    .award-amounts-viz__line--non-federal-funding::before {
+        @extend %award-amounts-viz__line-indicator;
+        top: -9px;
+        right: -1px;
+        left: -1px;
+        border-left: 1px solid $grants-line-color;
+    }
+    .award-amounts-viz__line--non-federal-funding:after {
+        @extend %award-amounts-viz__line-indicator;
+        top: -9px;
+        right: -1px;
+        border-left: 1px solid $grants-line-color; 
+    }
+
+    .award-amounts-viz__line-up::after {
+        @extend %award-amounts-viz__line-indicator;
+        border-left: 1px solid $color-cool-blue-light;
+        top: 0px;
+        right: -1px;
+    }
+
+    .award-amounts-viz__line-up::before {
+        @extend %award-amounts-viz__line-indicator;
+        border-left: 1px solid $color-cool-blue-light;
+        top: 0px;
+        left: -1px;
+    }
+    .award-amounts-viz__line-up--loans::before {
+        @extend %award-amounts-viz__line-indicator;
+        top: 0px;
+        left: -1px;
+        border-left: 1px solid $loans-line-color;
+    }
+    .award-amounts-viz__line-up--loans::after {
+        @extend %award-amounts-viz__line-indicator;
+        top: 0px;
+        right: -1px;
+        border-left: 1px solid $loans-line-color;
+    }
+
+    .award-amounts-viz__line::after {
+        @extend %award-amounts-viz__line-indicator;
+        border-left: 1px solid $border-light-gray;
+        top: -9px;
+        right: -1px;
+    }
+
+    .award-amounts-viz__line::before {
+        @extend %award-amounts-viz__line-indicator;
+        border-left: 1px solid $border-light-gray;
+        top: -9px;
+        left: -1px;
+    }
+
+    .award-amounts-viz__desc-top-wrapper {
+        @include display(flex);
+        @include justify-content(space-between);
+        @include align-items(flex-end);
+        padding-bottom: rem(15);
+        .award-amounts-viz__desc-top {
+            margin-bottom: 0;
+            @include flex(1 1 auto);
+        }
+        .award-amounts-viz__desc {
+            text-align: right;
+            @include flex(1 1 auto);
+        }
+    }
+
+    .award-amounts-viz__desc-top,
+    .award-amounts-viz__desc-top--loans {
+        font-size: $base-font-size;
+        color: $border-gray;
+        padding-left: rem(5);
+        margin-bottom: rem(15);
+        border-left: solid rem(4) $color-cool-blue-light;
+        width: auto;
+        strong {
+            font-size: $h4-font-size;
+        }
+    }
+
+    .award-amounts-viz__desc-top--loans {
+        border-left: solid rem(4) $loans-line-color;
+        flex-wrap: wrap;
+        span {
+            // this span is only present when the loans subsidy amount is zero
+            margin: auto;
+            width: 100%;
+        }
+    }
+
+    .award-amounts-viz__desc {
+        @include display(flex);
+        @include align-items(flex-end);
+        .award-amounts-viz__desc-text {
+            @include flex(1 1 auto);
+            display: block;
+            font-size: $base-font-size;
+            color: $border-gray;
+            text-align: right;
+            padding-right: rem(10);
+            strong {
+                font-size: $lead-font-size;
+            }
+            .award-amounts-viz__desc-text-wrapper {
+                @include display(flex);
+                @include justify-content(flex-end);
+                @include align-items(center);
+                .award__info-wrapper {
+                    margin-right: rem(5);
+                }
+            }
+        }
+        .award-amounts-viz__legend-line {
+            @include flex(0 0 rem(5));
+            height: rem(45);
+            background-color: $border-light-gray;
+            &.award-amounts-viz__legend-line_potential {
+                border: solid rem(1) $border-gray;
+                background-color: #ececec;
+            }
+            &.award-amounts-viz__legend-line_overspending {
+                border: solid rem(1) $color-gold;
+                background: repeating-linear-gradient(
+                    45deg,
+                    $color-white,
+                    $color-white rem(5),
+                    $color-gold rem(2),
+                    $color-gold rem(7)
+                );
+            }
+            &.award-amounts-viz__legend-line_extreme-overspending {
+                border: solid rem(1) $color-secondary;
+                background: repeating-linear-gradient(
+                    45deg,
+                    $color-white,
+                    $color-white rem(5),
+                    $color-secondary rem(2),
+                    $color-secondary rem(7)
+                );
+            }
+        }
+    }
+    .award-amounts-viz__desc--nff-zero {
+        .award-amounts-viz__desc-text {
+            order: 1;
+            margin-left: 10px;
+            min-width: rem(160);
+            text-align: left;
+        }
+        .award-amounts-viz__legend-line {
+            height: rem(45);
+        }
+    }
+}

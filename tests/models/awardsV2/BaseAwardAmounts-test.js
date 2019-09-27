@@ -4,7 +4,9 @@
  */
 
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
-import { mockAwardAmounts } from './mockAwardApi';
+import BaseFinancialAssistance from '../../../src/js/models/v2/awardsV2/BaseFinancialAssistance';
+
+import { mockAwardAmounts, mockContract, mockGrant, mockLoan } from './mockAwardApi';
 
 const awardAmounts = Object.create(BaseAwardAmounts);
 awardAmounts.populate(mockAwardAmounts, "idv");
@@ -40,7 +42,7 @@ awardAmountsOverspent.populate(overspending, "idv");
 awardAmountsExtremeOverspent.populate(extremeOverspending, "idv");
 
 describe('BaseAwardAmounts', () => {
-    describe('IDV Award Amounts', () => {
+    describe('IDV Award Type', () => {
         it('should have an empty string as a unique generated id if the field is null or undefined', () => {
             expect(awardAmounts.generatedId).toEqual('');
         });
@@ -84,17 +86,55 @@ describe('BaseAwardAmounts', () => {
             expect(awardAmountsOverspent.overspendingAbbreviated).toEqual('$2.5 M');
         });
     });
-    describe('Non-IDV Award Amounts', () => {
-        const nonIdvAwardAmounts = Object.create(BaseAwardAmounts);
-        nonIdvAwardAmounts.populate(mockAwardAmounts, "contract");
+    /*
+      * IDVs/Contracts/Grants all share the same getters tested above.
+      * The only difference is when an IDV Award is passed to BaseAwardAmounts.populate(awardType, data) fn
+      * The data parameter is coming straight from the api and so is snake_cased_like_this.
+      * For the Contract/FinancialAssistance award types, on the other hand, the data is expected to be in the camelCase
+      * prepended with an underscore _likeThis because the data parameter in this context has already been parsed by the CoreAward
+      * Model.
+    */
+    describe('Contract Award Amounts', () => {
+        const contractAwardAmounts = Object.create(BaseAwardAmounts);
+        contractAwardAmounts.populate(mockContract, "contract");
+        const arrayOfObjectProperties = Object.keys(contractAwardAmounts);
         it('does not create IDV specific properties', () => {
-            const arrayOfObjectProperties = Object.keys(nonIdvAwardAmounts);
             expect(arrayOfObjectProperties.includes("childIDVCount")).toEqual(false);
             expect(arrayOfObjectProperties.includes("childAwardCount")).toEqual(false);
             expect(arrayOfObjectProperties.includes("grandchildAwardCount")).toEqual(false);
-            expect(arrayOfObjectProperties.includes("_baseAndAllOptions")).toEqual(false);
-            expect(arrayOfObjectProperties.includes("_totalObligation")).toEqual(false);
-            expect(arrayOfObjectProperties.includes("_baseExercisedOptions")).toEqual(false);
+        });
+    });
+    describe('Grant Award Amounts', () => {
+        const grantAwardAmounts = Object.create(BaseAwardAmounts);
+        grantAwardAmounts.populate(mockGrant, "grant");
+        const arrayOfObjectProperties = Object.keys(grantAwardAmounts);
+
+        it('does not create IDV specific properties', () => {
+            expect(arrayOfObjectProperties.includes("childIDVCount")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("childAwardCount")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("grandchildAwardCount")).toEqual(false);
+        });
+        it('creates grant specific properties w/ correct formatting', () => {
+            expect(grantAwardAmounts._nonFederalFunding).toEqual(1130000);
+            expect(grantAwardAmounts.nonFederalFundingFormatted).toEqual("$1,130,000.00");
+            expect(grantAwardAmounts.nonFederalFundingAbbreviated).toEqual("$1.1 M");
+            expect(grantAwardAmounts._totalFunding).toEqual(1130000000);
+            expect(grantAwardAmounts.totalFundingFormatted).toEqual("$1,130,000,000.00");
+            expect(grantAwardAmounts.totalFundingAbbreviated).toEqual("$1.1 B");
+        });
+    });
+    describe('Loan Award Amounts', () => {
+        const parsedLoan = Object.create(BaseFinancialAssistance);
+        parsedLoan.populate(mockLoan);
+        const loanAwardAmounts = Object.create(BaseAwardAmounts);
+        loanAwardAmounts.populate(parsedLoan, "loan");
+        it('creates loan specific properties w/ correct formatting', () => {
+            expect(loanAwardAmounts._subsidy).toEqual(1290000.00);
+            expect(loanAwardAmounts.subsidyFormatted).toEqual("$1,290,000.00");
+            expect(loanAwardAmounts.subsidyAbbreviated).toEqual("$1.3 M");
+            expect(loanAwardAmounts._faceValue).toEqual(2497000000.00);
+            expect(loanAwardAmounts.faceValueFormatted).toEqual("$2,497,000,000.00");
+            expect(loanAwardAmounts.faceValueAbbreviated).toEqual("$2.5 B");
         });
     });
 });

@@ -11,22 +11,27 @@ import {
     faChartArea,
     faChartBar,
     faChartPie,
+    faCheckSquare,
     faChevronDown,
     faChevronUp,
     faEllipsisH,
     faExternalLinkAlt,
+    faHandsHelping,
+    faInfo,
     faInfoCircle,
     faLandmark,
     faLevelUpAlt,
     faMapMarkerAlt,
+    faMinusSquare,
     faPencilAlt,
     faSearch,
+    faSitemap,
     faSpinner,
-    faSquare,
+    faTable,
     faTag,
-    faUserTie,
-    faMinusSquare,
-    faCheckSquare
+    faThLarge,
+    faTimes,
+    faUserTie
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -52,6 +57,8 @@ library.add(
     faChevronUp,
     faEllipsisH,
     faExternalLinkAlt,
+    faHandsHelping,
+    faInfo,
     faInfoCircle,
     faLandmark,
     faLevelUpAlt,
@@ -59,9 +66,12 @@ library.add(
     faMinusSquare,
     faPencilAlt,
     faSearch,
+    faSitemap,
     faSpinner,
-    faSquare,
+    faTable,
     faTag,
+    faThLarge,
+    faTimes,
     faUserTie
 );
 

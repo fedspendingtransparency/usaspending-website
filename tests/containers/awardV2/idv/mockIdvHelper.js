@@ -40,7 +40,7 @@ export const fetchAwardFedAccountFunding = () => (
     }
 );
 
-export const fetchAwardFundingSummary = () => ({
+export const fetchIdvFundingSummary = () => ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
             resolve({
@@ -51,7 +51,7 @@ export const fetchAwardFundingSummary = () => ({
     cancel: jest.fn()
 });
 
-export const fetchAwardFederalAccounts = () => ({
+export const fetchIdvFederalAccounts = () => ({
     promise: new Promise((resolve) => {
         process.nextTick(() => {
             resolve({ data: mockAwardFederalAccounts });

@@ -234,32 +234,19 @@ class SearchAwardsOperation {
             const amounts = [];
 
             // The backend expects an object with a lower bound, an upper bound, or both.
-            // In cases of "$x - $y", we include both a lower and upper bound.
-            // In cases of "$x & Above", we don't include an upper bound.
-            // In cases of "Under $x", we don't include a lower bound.
             this.awardAmounts.forEach((awardAmount) => {
                 const amount = {};
-
-                // Don't include the min if it's negative
-                if (awardAmount[0] > 0) {
-                    amount[awardAmountKeys.min] = awardAmount[0];
+                amount[awardAmountKeys.min] = awardAmount[0];
+                amount[awardAmountKeys.max] = awardAmount[1];
+                // remove property if it is null
+                if (amount[awardAmountKeys.min] === null) delete amount[awardAmountKeys.min];
+                if (amount[awardAmountKeys.max] === null) delete amount[awardAmountKeys.max];
+                // if both null return
+                if ((!amount[awardAmountKeys.min] && amount[awardAmountKeys.min] !== 0)
+                && (!amount[awardAmountKeys.max] && amount[awardAmountKeys.max] !== 0)) {
+                    return;
                 }
-
-                // Don't include the max if it's negative
-                if (awardAmount[1] > 0) {
-                    amount[awardAmountKeys.max] = awardAmount[1];
-                }
-
-                // Remove the max element if the min element is larger
-                if (awardAmount[0] !== 0 && awardAmount[1] !== 0 &&
-                    awardAmount[0] > awardAmount[1]) {
-                    delete amount[awardAmountKeys.max];
-                }
-
-                // Only include a range if at least one of the bounds is defined
-                if (amount[awardAmountKeys.min] || amount[awardAmountKeys.max]) {
-                    amounts.push(amount);
-                }
+                amounts.push(amount);
             });
 
             // Only push the array to the filters element if at least

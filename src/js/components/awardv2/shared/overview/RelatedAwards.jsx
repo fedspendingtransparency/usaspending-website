@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import { formatNumber } from 'helpers/moneyFormatter';
-import InfoTooltip from '../../idv/InfoTooltip';
-import { summaryRelatedAwardsInfo } from '../../idv/InfoTooltipContent';
+import InfoTooltip from '../../shared/InfoTooltip';
+import { summaryRelatedAwardsInfo } from '../../shared/InfoTooltipContent';
 
 const propTypes = {
     overview: PropTypes.object,
@@ -89,14 +89,31 @@ export default class RelatedAwards extends React.Component {
         );
     }
 
+    tooltipInfo() {
+        const { overview } = this.props;
+        const awardType = overview.category;
+        if (awardType === 'idv') return summaryRelatedAwardsInfo;
+        if (awardType === 'contract') return null;
+        if (awardType === 'definitive contract') return null;
+        if (awardType === 'grant') return null;
+        if (awardType === 'loan') return null;
+        if (awardType === 'direct payment') return null;
+        if (awardType === 'other') return null;
+
+        return null;
+    }
+
     render() {
+        const { overview } = this.props;
+        const tooltipInfo = this.tooltipInfo();
+        const awardTitle = overview.category === 'idv' ? 'Parent Award' : 'Parent IDV';
         let parentLink = 'N/A';
-        if (this.props.overview.parentAward && this.props.overview.parentId) {
+        if (overview.parentAward && overview.parentId) {
             parentLink = (
                 <a
                     className="related-awards__link"
-                    href={`#/award/${this.props.overview.parentId}`}>
-                    {this.props.overview.parentAward}
+                    href={`#/award/${overview.parentId}`}>
+                    {overview.parentAward}
                 </a>
             );
         }
@@ -106,12 +123,12 @@ export default class RelatedAwards extends React.Component {
                 <div className="award-overview__title related-awards__title">
                     Related Awards
                     <InfoTooltip left>
-                        {summaryRelatedAwardsInfo}
+                        {tooltipInfo}
                     </InfoTooltip>
                 </div>
                 <div className="related-awards__parent">
                     <div className="related-awards__label">
-                        Parent Award
+                        {awardTitle}
                     </div>
                     {parentLink}
                 </div>

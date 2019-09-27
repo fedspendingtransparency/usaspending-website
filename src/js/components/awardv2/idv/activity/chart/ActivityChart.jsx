@@ -177,6 +177,7 @@ export default class ActivityChart extends React.Component {
             const start = xScale(bar._startDate.valueOf()) + padding.left;
             const end = xScale(bar._endDate.valueOf()) + padding.left;
             data.barWidth = end - start;
+            if (data.barWidth < 1.5) data.barWidth = 1.5;
             // create a scale for obligated amount width using awarded amount
             // and the awarded amount width
             const obligatedAmountScale = scaleLinear()
@@ -193,6 +194,9 @@ export default class ActivityChart extends React.Component {
             data.start = start;
             data.end = end;
             data.x = start;
+            // the distance from the bottom (Note: this from the bottom since we invert the chart)
+            // of the chart to the award bar, then subtract the about half the bar height
+            // to position tooltip in the middle
             data.y = (385 - data.yPosition) - (this.props.barHeight - 4);
             // create percentage for description
             // not handling bad data as that will be handled elsewhere
