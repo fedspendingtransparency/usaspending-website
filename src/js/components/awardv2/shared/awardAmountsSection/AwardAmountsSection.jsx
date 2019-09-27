@@ -9,7 +9,7 @@ import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, AWARD_TYPE_PROPS } from '..
 import { determineSpendingScenario } from '../../../../helpers/aggregatedAmountsHelper';
 import JumpToSectionButton from './JumpToSectionButton';
 import { ContractAwardAmountsInfo, GrantAwardAmountsInfo, LoanAwardAmountsInfo } from '../InfoTooltipContent';
-import { financialAssistanceAwardTypes } from '../../../../models/v2/awardsV2/BaseFinancialAssistance';
+import { isAwardFinancialAssistance } from '../../../../helpers/awardSummaryHelper';
 
 const propTypes = {
     awardType: AWARD_TYPE_PROPS,
@@ -29,7 +29,7 @@ const AwardAmountsSection = ({
     awardType,
     jumpToTransactionHistoryTable
 }) => {
-    const spendingScenario = financialAssistanceAwardTypes.includes(awardType)
+    const spendingScenario = isAwardFinancialAssistance(awardType)
         ? 'normal'
         : determineSpendingScenario(awardOverview);
     const tooltip = tooltipByAwardType[awardType];
