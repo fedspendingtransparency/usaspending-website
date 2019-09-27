@@ -12,8 +12,6 @@ import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 
 const BaseFinancialAssistance = Object.create(CoreAward);
 
-export const financialAssistanceAwardTypes = ['grant', 'direct payment', 'loan', 'other'];
-
 BaseFinancialAssistance.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
