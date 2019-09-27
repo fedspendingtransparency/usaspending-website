@@ -121,3 +121,18 @@ export const mockResults = [
         }
     }
 ];
+
+export const mockNullAgencyResults = [
+    {
+        id: 14,
+        toptier_flag: false,
+        toptier_agency: {
+            abbreviation: null,
+            name: 'Department QQ'
+        },
+        subtier_agency: {
+            abbreviation: null,
+            name: 'QQ Agency'
+        }
+    }
+];
