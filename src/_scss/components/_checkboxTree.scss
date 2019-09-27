@@ -1,0 +1,78 @@
+.checkbox-tree {
+  .react-checkbox-tree {
+    padding-left: rem(20);
+    .rct-node-icon {
+      display: none;
+    }
+    .rct-checkbox {
+      .rct-icon-uncheck {
+        border: 2px solid $color-gray-lighter;
+        border-radius: 3px;
+        color: white;
+      }
+      .rct-icon-check {
+        color: $color-primary-darker;
+      }
+      .rct-icon-half-check {
+        color: $color-primary-darker;
+      }
+    }
+    .rct-text {
+      button:focus {
+        box-shadow: none;
+      }
+    }
+    ol {
+      padding-left: 0;
+      border-left: none;
+      margin: 0 0 rem(5) 0;
+    }
+    // every dropdown
+    .rct-node-parent:nth-child(n) {
+      padding-bottom: rem(10);
+      &.rct-node-expanded {
+        border-bottom: 1px solid $color-gray-lighter;
+      }
+      // parent nodes dont line up correctly to childe nodes
+      &.rct-node-collapsed {
+        .rct-text {
+          label {
+            margin-left: rem(4);
+          }
+        }
+      }
+      ol {
+        padding-left: rem(12);
+        margin-left: rem(4);
+        border-left: 3px solid $color-gray-lighter;
+        .rct-node-parent { // first dropdown
+          padding-bottom: 0;
+          &.rct-node-expanded {
+            border-bottom: none;
+          }
+          ol {
+            border-left: 2px solid $color-gray-lighter;
+            .rct-node-parent { // second dropdown
+              padding-bottom: 0;
+              &.rct-node-expanded {
+                border-bottom: none;
+              }
+              ol {
+                border-left: 1px solid $color-gray-lighter;
+              }
+            }
+          }
+        }
+      }
+    }
+    .rct-collapse {
+      color: $color-primary-darker;
+      background-color: white;
+      margin-right: 0;
+      padding: 0;
+      svg {
+        opacity: 1;
+      }
+    }
+  }
+}

@@ -130,6 +130,10 @@ export default class SearchSidebar extends React.Component {
                 // time period is always expanded
                 expanded.push(true);
             }
+            // TODO need to delete this on every PR
+            else if (filter === 'NAICS Code') {
+                expanded.push(true);
+            }
             else {
                 expanded.push(SidebarHelper.filterHasSelections(this.props.filters, filter));
             }

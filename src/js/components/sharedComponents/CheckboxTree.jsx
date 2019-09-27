@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import PropTypes from 'prop-types';
 
+import 'react-checkbox-tree/lib/react-checkbox-tree.css';
+
 const propTypes = {};
 export default class CheckboxTree extends Component {
     constructor(props) {
@@ -23,6 +25,10 @@ export default class CheckboxTree extends Component {
                 label: 'Mars',
                 children: [
                     {
+                        value: 'purple',
+                        label: 'Purple'
+                    },
+                    {
                         value: 'phobos',
                         label: 'Phobos',
                         expanded: true,
@@ -35,18 +41,59 @@ export default class CheckboxTree extends Component {
                             {
                                 value: 'bob',
                                 label: 'Bob'
+                            },
+                            {
+                                value: 'sammy',
+                                label: 'Sammy',
+                                children: [
+                                    {
+                                        value: 'jj',
+                                        label: 'JJ'
+                                    },
+                                    {
+                                        value: 'cooper',
+                                        label: 'Cooper'
+                                    }
+                                ]
                             }
                         ]
-                    },
-                    { value: 'deimos', label: 'Deimos' }
+                    }
                 ]
             },
             {
                 value: 'jupiter',
                 label: 'Jupiter',
                 children: [
-                    { value: 'dontknow', label: 'DontKnow' },
-                    { value: 'Who', label: 'Who' }
+                    {
+                        value: 'dontknow',
+                        label: 'DontKnow',
+                        children: [
+                            {
+                                value: 'blue',
+                                label: 'Blue'
+                            },
+                            {
+                                value: 'yellow',
+                                label: 'Yellow'
+                            }
+                        ]
+                    },
+                    {
+                        value: 'Who',
+                        label: 'Who',
+                        children: [
+                            {
+                                value: 'yes',
+                                label: 'Yes',
+                                children: [
+                                    {
+                                        value: 'deimos',
+                                        label: 'Deimos'
+                                    }
+                                ]
+                            }
+                        ]
+                    }
                 ]
             }]
         };
@@ -81,7 +128,7 @@ export default class CheckboxTree extends Component {
                 size="lg"
                 icon="square" />),
             halfCheck: (<FontAwesomeIcon
-                className="rct-icon rct-icon-uncheck"
+                className="rct-icon rct-icon-half-check"
                 size="lg"
                 icon="minus-square" />),
             expandClose: (<FontAwesomeIcon
@@ -92,14 +139,14 @@ export default class CheckboxTree extends Component {
                 className="rct-icon rct-icon-expand-open"
                 size="lg"
                 icon="angle-down" />),
-            expandAll: (<FontAwesomeIcon
-                className="rct-icon rct-icon-expand-open"
-                size="lg"
-                icon="angle-down" />),
-            collapseAll: (<FontAwesomeIcon
-                className="rct-icon rct-icon-expand-open"
-                size="lg"
-                icon="angle-down" />),
+            // expandAll: (<FontAwesomeIcon
+            //     className="rct-icon rct-icon-expand-open"
+            //     size="lg"
+            //     icon="angle-down" />),
+            // collapseAll: (<FontAwesomeIcon
+            //     className="rct-icon rct-icon-expand-open"
+            //     size="lg"
+            //     icon="angle-down" />),
             parentClose: null,
             parentOpen: null,
             leaf: null
@@ -118,7 +165,7 @@ export default class CheckboxTree extends Component {
 
     render() {
         return (
-            <div>
+            <div className="checkbox-tree">
                 <CheckBoxTree
                     nodes={this.nodes()}
                     checked={this.state.checked}

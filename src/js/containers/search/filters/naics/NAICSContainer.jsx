@@ -1,5 +1,5 @@
 /**
-  * NAICSSearchContainer.jsx
+  * NAICSSearchContainer.jsx => NAICSContainer.jsx
   * Created by Emily Gullo 07/10/2017
   **/
 
@@ -14,15 +14,13 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import NAICSSearch from 'components/search/filters/naics/NAICSSearch';
 
-import 'react-checkbox-tree/lib/react-checkbox-tree.css';
-
 const propTypes = {
     updateSelectedNAICS: PropTypes.func,
     selectedNAICS: PropTypes.object,
     appliedNAICS: PropTypes.object
 };
 
-export class NAICSSearchContainer extends React.Component {
+export class NAICSContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -67,7 +65,7 @@ export class NAICSSearchContainer extends React.Component {
     }
 }
 
-NAICSSearchContainer.propTypes = propTypes;
+NAICSContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
@@ -75,4 +73,4 @@ export default connect(
         appliedNAICS: state.appliedFilters.filters.selectedNAICS
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(NAICSSearchContainer);
+)(NAICSContainer);
