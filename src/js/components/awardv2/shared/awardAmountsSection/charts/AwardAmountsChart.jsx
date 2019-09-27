@@ -53,6 +53,13 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
     };
 
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
+        if (scenario === 'insufficientData') {
+            return (
+                <div className="results-table-message-container">
+                    <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
+                </div>
+            );
+        }
         switch (type) {
             case "grant":
                 return (

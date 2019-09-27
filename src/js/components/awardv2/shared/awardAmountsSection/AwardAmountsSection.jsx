@@ -6,7 +6,7 @@ import AwardSectionHeader from '../AwardSectionHeader';
 import AwardAmountsChart from './charts/AwardAmountsChart';
 import AwardAmountsTable from './AwardAmountsTable';
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, AWARD_TYPE_PROPS } from '../../../../propTypes';
-import { determineSpendingScenario } from '../../../../helpers/aggregatedAmountsHelper';
+import { determineSpendingScenario, getAscendingSpendingCategoriesByAwardType } from '../../../../helpers/aggregatedAmountsHelper';
 import JumpToSectionButton from './JumpToSectionButton';
 import { ContractAwardAmountsInfo, GrantAwardAmountsInfo, LoanAwardAmountsInfo } from '../InfoTooltipContent';
 
@@ -16,7 +16,6 @@ const propTypes = {
     jumpToTransactionHistoryTable: PropTypes.func
 };
 
-const financialAssistanceAwardTypes = ['grant', 'direct payment', 'loan', 'other'];
 const tooltipByAwardType = {
     contract: ContractAwardAmountsInfo,
     grant: GrantAwardAmountsInfo,
@@ -28,10 +27,7 @@ const AwardAmountsSection = ({
     awardType,
     jumpToTransactionHistoryTable
 }) => {
-    const { _totalObligation, _baseExercisedOptions, _baseAndAllOptions } = awardOverview;
-    const spendingScenario = financialAssistanceAwardTypes.includes(awardType)
-        ? 'normal'
-        : determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
+    const spendingScenario = determineSpendingScenario.call(null, ...getAscendingSpendingCategoriesByAwardType(awardType, awardOverview));
     const tooltip = tooltipByAwardType[awardType];
     return (
         <AwardSection type="column" className="award-viz award-amounts">
