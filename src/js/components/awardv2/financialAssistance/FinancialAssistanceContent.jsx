@@ -91,8 +91,14 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
                 <ComingSoonSection title="Description" includeHeader />
             </AwardSection>
             <AwardSection type="row">
-                <ComingSoonSection title="CFDA Program / Assistance Listing Information" includeHeader />
+                <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+            </AwardSection>
+            <AwardSection type="row">
+                <ComingSoonSection
+                    title="CFDA Program / Assistance Listing Information"
+                    icon="hands-helping"
+                    includeHeader />
             </AwardSection>
             <AwardSection type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
