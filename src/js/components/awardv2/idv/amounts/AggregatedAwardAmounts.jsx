@@ -50,7 +50,8 @@ export default class AggregatedAwardAmounts extends React.Component {
         }
 
         const { awardAmounts } = this.props;
-        const spendingScenario = determineSpendingScenario(awardAmounts);
+        const { _totalObligation, _baseExercisedOptions, _baseAndAllOptions } = awardAmounts;
+        const spendingScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
         return (
             <div className="award-amounts__content">
                 <AwardsBanner

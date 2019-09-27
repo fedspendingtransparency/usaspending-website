@@ -117,5 +117,4 @@ const LoanChart = ({ awardAmounts }) => {
 };
 
 export default LoanChart;
-// LoanChart.defaultProps = defaultProps;
 LoanChart.propTypes = propTypes;

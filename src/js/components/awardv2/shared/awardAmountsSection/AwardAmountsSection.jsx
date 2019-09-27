@@ -28,9 +28,10 @@ const AwardAmountsSection = ({
     awardType,
     jumpToTransactionHistoryTable
 }) => {
+    const { _totalObligation, _baseExercisedOptions, _baseAndAllOptions } = awardOverview;
     const spendingScenario = financialAssistanceAwardTypes.includes(awardType)
         ? 'normal'
-        : determineSpendingScenario(awardOverview);
+        : determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
     const tooltip = tooltipByAwardType[awardType];
     return (
         <AwardSection type="column" className="award-viz award-amounts">
