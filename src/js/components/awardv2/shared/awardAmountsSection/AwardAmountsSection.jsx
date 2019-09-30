@@ -27,7 +27,7 @@ const AwardAmountsSection = ({
     awardType,
     jumpToTransactionHistoryTable
 }) => {
-    const spendingScenario = determineSpendingScenario.call(null, ...getAscendingSpendingCategoriesByAwardType(awardType, awardOverview));
+    const spendingScenario = determineSpendingScenario(...getAscendingSpendingCategoriesByAwardType(awardType, awardOverview));
     const tooltip = tooltipByAwardType[awardType];
     return (
         <AwardSection type="column" className="award-viz award-amounts">
