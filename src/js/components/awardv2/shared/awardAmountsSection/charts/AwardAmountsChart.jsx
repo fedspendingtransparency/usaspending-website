@@ -31,11 +31,11 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
         type = awardType,
         awardAmounts = awardOverview) => {
         switch (scenario) {
-            case "exceedsCurrent":
+            case "exceedsBigger":
                 return (
                     <ExceedsCurrentChart awardType={type} awardAmounts={awardAmounts} />
                 );
-            case "exceedsPotential":
+            case "exceedsBiggest":
                 return (
                     <ExceedsPotentialChart awardType={type} awardAmounts={awardAmounts} />
                 );
