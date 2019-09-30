@@ -24,7 +24,7 @@ export const formatAwardAmountRange = (range, options = 2) => {
  * This fn & map together are designed to return the appropriate parameters for each award type
  * for the determineSpendingScenario fn.
 
- * In the fn getAscendingSpendingCategoriesByAwardType:
+* In the fn getAscendingSpendingCategoriesByAwardType:
  * @awardType is one of grant, loan, other, contract, idv
  * @awardAmountObj is the object from the api, parsed by our models, keyed by spending-category w/ integer values.
 
