@@ -3,7 +3,28 @@
  * Created by michaelbray on 3/9/17.
  */
 
-import { formatAwardAmountRange, determineSpendingScenario } from 'helpers/awardAmountHelper';
+import {
+    formatAwardAmountRange,
+    determineSpendingScenario,
+    generatePercentage,
+    getAscendingSpendingCategoriesByAwardType
+} from 'helpers/awardAmountHelper';
+
+const grantAwardAmounts = {
+    _totalObligation: 0,
+    _nonFederalFunding: 10,
+    _baseAndAllOptions: 100
+};
+const loanAwardAmounts = {
+    _subsidy: 0,
+    _faceValue: 10
+};
+const contractAwardAmounts = {
+    _totalObligation: 0,
+    _baseExercisedOptions: 10,
+    _baseAndAllOptions: 100
+};
+const idvAwardAmounts = contractAwardAmounts;
 
 describe('Award Amounts Advanced Search Filter Helper', () => {
     describe('Format Labels', () => {
@@ -75,7 +96,7 @@ describe('Award Amounts Advanced Search Filter Helper', () => {
 
 describe('Award Summary Page, Award Amount Section helper functions', () => {
     describe('determineSpendingScenario', () => {
-        it('should return "normal" when obligated amount is less than current and potential', () => {
+        it('should return "normal" when smaller amount is less than bigger current and biggest', () => {
             const _totalObligation = 50;
             const _baseExercisedOptions = 75;
             const _baseAndAllOptions = 100;
@@ -84,7 +105,7 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
             expect(mockedScenario).toEqual("normal");
         });
 
-        it('should return "exceedsBigger" for overspending', () => {
+        it('should return "exceedsBigger" when smaller exceeds bigger', () => {
             const _totalObligation = 75;
             const _baseExercisedOptions = 50;
             const _baseAndAllOptions = 100;
@@ -93,7 +114,7 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
             expect(mockedScenario).toEqual("exceedsBigger");
         });
 
-        it('should return "exceedsBiggest" for extreme overspending', () => {
+        it('should return "exceedsBiggest" for when smaller exceeds biggest', () => {
             const _totalObligation = 100;
             const _baseExercisedOptions = 50;
             const _baseAndAllOptions = 75;
@@ -102,7 +123,7 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
             expect(mockedScenario).toEqual("exceedsBiggest");
         });
 
-        it('should return "insufficientData" for negative obligations', () => {
+        it('should return "insufficientData" when negative "smaller" is negative', () => {
             const _totalObligation = -55;
             const _baseExercisedOptions = 75;
             const _baseAndAllOptions = 100;
@@ -120,7 +141,7 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
             expect(mockedScenario).toEqual(null);
         });
 
-        it('should return "insufficientData" when current amount exceeds potential amount', () => {
+        it('should return "insufficientData" when bigger amount exceeds biggest amount', () => {
             const _totalObligation = 50;
             const _baseExercisedOptions = 100;
             const _baseAndAllOptions = 75;
@@ -132,6 +153,31 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
     describe('generatePercentage', () => {
         it('should format the given value as a percentage, rounded to 2 decimal places', () => {
             expect(generatePercentage(0.23456)).toEqual('23.46%');
+        });
+    });
+
+    describe('getAscendingSpendingCategoriesByAwardType', () => {
+        it('grant -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
+            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("grant", grantAwardAmounts);
+            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10, 100]);
+        });
+        it('loan -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
+            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("loan", loanAwardAmounts);
+            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10]);
+        });
+        it('contract -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
+            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("contract", contractAwardAmounts);
+            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10, 100]);
+        });
+        it('idv -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
+            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("idv", idvAwardAmounts);
+            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10, 100]);
+        });
+        it('Award Type: direct payment or other -- returns empty array', () => {
+            let spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("direct payments", {});
+            expect(spendingCategoriesInAscendingOrder).toEqual([]);
+            spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("other", {});
+            expect(spendingCategoriesInAscendingOrder).toEqual([]);
         });
     });
 });

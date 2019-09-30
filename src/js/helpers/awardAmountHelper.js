@@ -34,11 +34,11 @@ export const formatAwardAmountRange = (range, options = 2) => {
  * spending categories, in ascending order (under normative case), small, bigger, biggest (optional)
  * */
 const spendingCategoriesByAwardType = {
-    grant: ['_totalObligation, _nonFederalFunding, _baseAndAllOptions'],
+    grant: ['_totalObligation', '_nonFederalFunding', '_baseAndAllOptions'],
     loan: ['_subsidy', '_faceValue'],
     other: [],
-    contract: ['_totalObligation, _baseAndExercisedOptions, _baseAndAllOptions'],
-    idv: ['_totalObligation, _baseAndExercisedOptions, _baseAndAllOptions']
+    contract: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions'],
+    idv: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions']
 };
 
 export const getAscendingSpendingCategoriesByAwardType = (awardType, awardAmountObj) => {
