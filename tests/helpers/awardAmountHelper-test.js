@@ -96,7 +96,7 @@ describe('Award Amounts Advanced Search Filter Helper', () => {
 
 describe('Award Summary Page, Award Amount Section helper functions', () => {
     describe('determineSpendingScenario', () => {
-        it('should return "normal" when smaller amount is less than bigger current and biggest', () => {
+        it('should return "normal" when small amount is less than bigger current and biggest', () => {
             const _totalObligation = 50;
             const _baseExercisedOptions = 75;
             const _baseAndAllOptions = 100;
@@ -105,7 +105,7 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
             expect(mockedScenario).toEqual("normal");
         });
 
-        it('should return "exceedsBigger" when smaller exceeds bigger', () => {
+        it('should return "exceedsBigger" when small exceeds bigger', () => {
             const _totalObligation = 75;
             const _baseExercisedOptions = 50;
             const _baseAndAllOptions = 100;
@@ -114,7 +114,7 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
             expect(mockedScenario).toEqual("exceedsBigger");
         });
 
-        it('should return "exceedsBiggest" for when smaller exceeds biggest', () => {
+        it('should return "exceedsBiggest" for when small exceeds biggest', () => {
             const _totalObligation = 100;
             const _baseExercisedOptions = 50;
             const _baseAndAllOptions = 75;
@@ -123,7 +123,7 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
             expect(mockedScenario).toEqual("exceedsBiggest");
         });
 
-        it('should return "insufficientData" when negative "smaller" is negative', () => {
+        it('should return "insufficientData" when negative "small" is negative', () => {
             const _totalObligation = -55;
             const _baseExercisedOptions = 75;
             const _baseAndAllOptions = 100;
