@@ -6,7 +6,7 @@ import AwardSectionHeader from '../AwardSectionHeader';
 import AwardAmountsChart from './charts/AwardAmountsChart';
 import AwardAmountsTable from './AwardAmountsTable';
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, AWARD_TYPE_PROPS } from '../../../../propTypes';
-import { determineSpendingScenario, getAscendingSpendingCategoriesByAwardType } from '../../../../helpers/aggregatedAmountsHelper';
+import { determineSpendingScenario, getAscendingSpendingCategoriesByAwardType } from '../../../../helpers/awardAmountHelper';
 import JumpToSectionButton from './JumpToSectionButton';
 import { ContractAwardAmountsInfo, GrantAwardAmountsInfo, LoanAwardAmountsInfo } from '../InfoTooltipContent';
 
