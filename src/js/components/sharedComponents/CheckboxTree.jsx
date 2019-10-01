@@ -39,18 +39,10 @@ export default class CheckboxTree extends Component {
         };
     }
 
-    getNodes = () => this.state.nodes;
+    onExpanded = (expanded) => this.setState({ expanded });
 
-    getIcons = () => this.icons;
-
-    getChecked = (checked) => this.state.checked;
-
-    getExpanded = (expanded) => this.state.expanded;
-
-    setExpanded = (expanded) => this.setState({ expanded });
-
-    setChecked = (checked) => this.setState({ checked });
-
+    onChecked = (checked) => this.setState({ checked });
+    // default icons
     icons = {
         check: (<FontAwesomeIcon
             className="rct-icon rct-icon-check"
@@ -89,24 +81,6 @@ export default class CheckboxTree extends Component {
         return this.icons;
     }
 
-    updateNodes = (nodes) => {
-        const dirtyNodes = this.props.nodes;
-        const currentNodes = this.state.nodes;
-        this.setState({ nodes: dirtyNodes });
-    }
-
-    updateExpanded = () => {
-        const currentExpanded = this.state.expanded;
-        const expanded = [];
-        this.setExpanded(expanded);
-    }
-
-    updateChecked = () => {
-        const currentChecked = this.state.checked;
-        const checked = [];
-        this.setChecked(checked);
-    }
-
     render() {
         const { nodes } = this.state;
         return (
@@ -115,8 +89,8 @@ export default class CheckboxTree extends Component {
                     nodes={nodes}
                     checked={this.state.checked}
                     expanded={this.state.expanded}
-                    onCheck={this.setChecked}
-                    onExpand={this.setExpanded}
+                    onCheck={this.onCheck}
+                    onExpand={this.onExpand}
                     icons={this.icons} />
             </div>
         );

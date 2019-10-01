@@ -30,9 +30,10 @@
     // every dropdown
     .rct-node-parent:nth-child(n) {
       padding-bottom: rem(10);
-      &.rct-node-expanded {
-        border-bottom: 1px solid $color-gray-lighter;
-      }
+      // TODO - only add this on search
+      // &.rct-node-expanded {
+        // border-bottom: 1px solid $color-gray-lighter;
+      // }
       // parent nodes dont line up correctly to childe nodes
       &.rct-node-collapsed {
         .rct-text {

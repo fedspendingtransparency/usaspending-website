@@ -21,13 +21,6 @@ const propTypes = {
 };
 
 export class NAICSContainer extends React.Component {
-    // constructor(props) {
-    //     super(props);
-
-        // this.selectNAICS = this.selectNAICS.bind(this);
-        // this.removeNAICS = this.removeNAICS.bind(this);
-    // }
-
     getNAICS = () => [{
         value: 'mars',
         label: 'Mars',
