@@ -10,7 +10,7 @@ const AwardPageWrapper = ({
     lastModifiedDateLong,
     glossaryLink,
     identifier,
-    idLabel,
+    idLabel = "PIID",
     children
 }) => (
     <div className={`award award-${awardType}`}>
@@ -39,6 +39,5 @@ const AwardPageWrapper = ({
     </div>
 );
 
-AwardPageWrapper.defaultProps = { idLabel: "PIID" };
 AwardPageWrapper.propTypes = AWARD_PAGE_WRAPPER_PROPS;
 export default AwardPageWrapper;
