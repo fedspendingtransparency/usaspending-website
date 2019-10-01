@@ -7,14 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatNumber } from 'helpers/moneyFormatter';
 
-import { determineSpendingScenario } from 'helpers/awardAmountHelper';
+import { determineSpendingScenario, getAscendingSpendingCategoriesByAwardType } from 'helpers/awardAmountHelper';
 import ChartError from 'components/search/visualizations/ChartError';
 import AwardsBanner from './AwardsBanner';
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 import AwardAmountsTable from '../../shared/awardAmountsSection/AwardAmountsTable';
 import AwardAmountsChart from '../../shared/awardAmountsSection/charts/AwardAmountsChart';
 import JumpToSectionButton from '../../shared/awardAmountsSection/JumpToSectionButton';
-import { getAscendingSpendingCategoriesByAwardType } from '../../../../helpers/awardAmountHelper';
 
 const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
