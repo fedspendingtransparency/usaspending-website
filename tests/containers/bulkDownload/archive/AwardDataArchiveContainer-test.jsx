@@ -85,7 +85,7 @@ describe('AwardDataArchiveContainer', () => {
                 display: 'Mock Type'
             });
 
-            expect(container.state().filters.type).toEqual(expectedFilterState);
+            expect(container.state().filters).toEqual(expectedFilterState);
         });
     });
     describe('parseResults', () => {
