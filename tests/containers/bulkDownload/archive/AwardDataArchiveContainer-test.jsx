@@ -57,15 +57,8 @@ describe('AwardDataArchiveContainer', () => {
             const container = mount(<AwardDataArchiveContainer/>);
 
             const expectedFilterState = {
-                agency: {
-                    id: 'all',
-                    name: 'All'
-                },
-                type: {
-                    name: 'mockType',
-                    display: 'Mock Type'
-                },
-                fy: '2019'
+                name: 'mockType',
+                display: 'Mock Type'
             };
 
             container.instance().updateFilter('type', {
@@ -73,7 +66,7 @@ describe('AwardDataArchiveContainer', () => {
                 display: 'Mock Type'
             });
 
-            expect(container.state().filters).toEqual(expectedFilterState);
+            expect(container.state().filters.type).toEqual(expectedFilterState);
         });
     });
     describe('parseResults', () => {
