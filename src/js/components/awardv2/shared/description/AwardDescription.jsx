@@ -5,9 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { SpeechBubble, Glossary, AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
-import InfoTooltip from '../../shared/InfoTooltip';
+import { SpeechBubble, Glossary } from 'components/sharedComponents/icons/Icons';
 import { descriptionInfo } from '../../shared/InfoTooltipContent';
+import AwardSection from '../AwardSection';
+import AwardSectionHeader from '../AwardSectionHeader';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -22,8 +23,7 @@ export default class AwardDescription extends React.Component {
 
         this.state = {
             moreButton: true,
-            buttonValue: 'read more',
-            arrowValue: (<AngleDown alt="See full description" />)
+            buttonValue: 'read more'
         };
 
         this.toggleButton = this.toggleButton.bind(this);
@@ -63,19 +63,8 @@ export default class AwardDescription extends React.Component {
         }
 
         return (
-            <div className="award__col award-viz award-description">
-                <div className="award-viz__heading">
-                    <div className="award-viz__icon">
-                        <SpeechBubble />
-                    </div>
-                    <h3 className="award-viz__title">
-                        Description
-                    </h3>
-                    <InfoTooltip left>
-                        {descriptionInfo}
-                    </InfoTooltip>
-                </div>
-                <hr />
+            <AwardSection type="column" className="award-viz award-description">
+                <AwardSectionHeader icon={<SpeechBubble />} tooltip={descriptionInfo} title="Description" />
                 <div className="award-description__content">
                     <p className="award-description__description">
                         {value} {button}
@@ -105,7 +94,7 @@ export default class AwardDescription extends React.Component {
                         </div>
                     </div>
                 </div>
-            </div>
+            </AwardSection>
         );
     }
 }
