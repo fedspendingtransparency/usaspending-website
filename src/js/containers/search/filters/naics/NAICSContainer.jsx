@@ -21,14 +21,89 @@ const propTypes = {
 };
 
 export class NAICSContainer extends React.Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
 
-        this.selectNAICS = this.selectNAICS.bind(this);
-        this.removeNAICS = this.removeNAICS.bind(this);
-    }
+        // this.selectNAICS = this.selectNAICS.bind(this);
+        // this.removeNAICS = this.removeNAICS.bind(this);
+    // }
 
-    selectNAICS(naics, isValid) {
+    getNAICS = () => [{
+        value: 'mars',
+        label: 'Mars',
+        children: [
+            {
+                value: 'purple',
+                label: 'Purple'
+            },
+            {
+                value: 'phobos',
+                label: 'Phobos',
+                children: [
+                    {
+                        value: 'jim',
+                        label: 'Jim'
+                    },
+                    {
+                        value: 'bob',
+                        label: 'Bob'
+                    },
+                    {
+                        value: 'sammy',
+                        label: 'Sammy',
+                        children: [
+                            {
+                                value: 'jj',
+                                label: 'JJ'
+                            },
+                            {
+                                value: 'cooper',
+                                label: 'Cooper'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'jupiter',
+        label: 'Jupiter',
+        children: [
+            {
+                value: 'dontknow',
+                label: 'DontKnow',
+                children: [
+                    {
+                        value: 'blue',
+                        label: 'Blue'
+                    },
+                    {
+                        value: 'yellow',
+                        label: 'Yellow'
+                    }
+                ]
+            },
+            {
+                value: 'Who',
+                label: 'Who',
+                children: [
+                    {
+                        value: 'yes',
+                        label: 'Yes',
+                        children: [
+                            {
+                                value: 'deimos',
+                                label: 'Deimos'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }];
+
+    selectNAICS = (naics, isValid) => {
         // If naics exists and is valid
         if (naics !== null && isValid) {
             const updateParams = {};
@@ -37,13 +112,13 @@ export class NAICSContainer extends React.Component {
         }
     }
 
-    removeNAICS(naics) {
+    removeNAICS = (naics) => {
         const updateParams = {};
         updateParams.naics = naics;
         this.props.updateSelectedNAICS(updateParams);
     }
 
-    dirtyFilters() {
+    dirtyFilters = () => {
         if (is(this.props.selectedNAICS, this.props.appliedNAICS)) {
             return null;
         }
@@ -59,7 +134,8 @@ export class NAICSContainer extends React.Component {
                     dirtyFilters={this.dirtyFilters()}
                     selectNAICS={this.selectNAICS}
                     removeNAICS={this.removeNAICS} />
-                <CheckboxTree />
+                <CheckboxTree
+                    nodes={this.getNAICS()} />
             </div>
         );
     }
