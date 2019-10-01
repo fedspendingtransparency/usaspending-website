@@ -15,7 +15,6 @@ const BaseFinancialAssistance = Object.create(CoreAward);
 BaseFinancialAssistance.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
-        id: data.fain || data.uri,
         generatedId: data.generated_unique_award_id,
         type: data.type,
         typeDescription: data.type_description,
@@ -117,6 +116,8 @@ BaseFinancialAssistance.populate = function populate(data) {
     this._federalObligation = parseFloat(data.transaction_obligated_amount) || 0;
     this._nonFederalFunding = parseFloat(data.non_federal_funding) || 0;
     this._totalFunding = parseFloat(data.total_funding) || 0;
+    this.fain = data.fain;
+    this.uri = data.uri;
 };
 
 Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {

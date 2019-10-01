@@ -7,12 +7,14 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { List } from 'immutable';
 import sinon from 'sinon';
+import moment from 'moment';
 
 // mock the bulkDownload helper
 jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper'));
 
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import { mockAgencies, mockArchiveResponse } from '../mockData';
+import { currentFiscalYear } from '../../../../src/js/helpers/fiscalYearHelper';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/bulkDownload/archive/AwardDataArchiveContent', () => jest.fn(() => null));
@@ -57,15 +59,8 @@ describe('AwardDataArchiveContainer', () => {
             const container = mount(<AwardDataArchiveContainer/>);
 
             const expectedFilterState = {
-                agency: {
-                    id: 'all',
-                    name: 'All'
-                },
-                type: {
-                    name: 'mockType',
-                    display: 'Mock Type'
-                },
-                fy: '2019'
+                name: 'mockType',
+                display: 'Mock Type'
             };
 
             container.instance().updateFilter('type', {
@@ -73,7 +68,7 @@ describe('AwardDataArchiveContainer', () => {
                 display: 'Mock Type'
             });
 
-            expect(container.state().filters).toEqual(expectedFilterState);
+            expect(container.state().filters.type).toEqual(expectedFilterState);
         });
     });
     describe('parseResults', () => {
