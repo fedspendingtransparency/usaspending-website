@@ -14,6 +14,7 @@ import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 import AwardAmountsTable from '../../shared/awardAmountsSection/AwardAmountsTable';
 import AwardAmountsChart from '../../shared/awardAmountsSection/charts/AwardAmountsChart';
 import JumpToSectionButton from '../../shared/awardAmountsSection/JumpToSectionButton';
+import { getAscendingSpendingCategoriesByAwardType } from '../../../../helpers/awardAmountHelper';
 
 const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
@@ -50,8 +51,7 @@ export default class AggregatedAwardAmounts extends React.Component {
         }
 
         const { awardAmounts } = this.props;
-        const { _totalObligation, _baseExercisedOptions, _baseAndAllOptions } = awardAmounts;
-        const spendingScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
+        const spendingScenario = determineSpendingScenario(...getAscendingSpendingCategoriesByAwardType('idv', awardAmounts));
         return (
             <div className="award-amounts__content">
                 <AwardsBanner
