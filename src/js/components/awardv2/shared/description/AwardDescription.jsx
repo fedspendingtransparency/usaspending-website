@@ -37,7 +37,7 @@ const AwardDescription = ({
 
     let button = null;
     if (overflow) {
-        button = <AwardSectionExpandButton type="primary" isExpanded={isExpanded} setExpanded={setExpanded} />;
+        button = <AwardSectionExpandButton type="secondary" isExpanded={isExpanded} setExpanded={setExpanded} />;
     }
 
     return (
