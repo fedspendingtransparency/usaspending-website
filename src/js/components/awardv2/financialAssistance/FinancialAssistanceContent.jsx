@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { upperFirst } from 'lodash';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
@@ -73,13 +74,22 @@ const FinancialAssistanceContent = ({
 
     const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
 
+    let title = overview.typeDescription;
+    // removes the award type and only capitalizes the first letter of each word
+    // e.g. PROJECT GRANT (B) => Project Grant
+    // e.g. PROJECT GRANT => Project Grant
+    if (overview.category === 'grant') {
+        const titleArray = title.split(' ').map((word) => upperFirst(word.toLowerCase()));
+        if (titleArray.length === 3) titleArray.pop();
+        title = titleArray.join(' ');
+    }
     return (
         <AwardPageWrapper
             identifier={identifier}
             idLabel={idLabel}
             awardType={overview.category}
             glossaryLink={glossaryLink}
-            awardTypeDescription={overview.typeDescription}
+            awardTypeDescription={title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             className="award-financial-assistance">
             <AwardSection type="row" className="award-overview" id="award-overview">
