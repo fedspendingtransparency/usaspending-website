@@ -31,11 +31,11 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
         type = awardType,
         awardAmounts = awardOverview) => {
         switch (scenario) {
-            case "exceedsCurrent":
+            case "exceedsBigger":
                 return (
                     <ExceedsCurrentChart awardType={type} awardAmounts={awardAmounts} />
                 );
-            case "exceedsPotential":
+            case "exceedsBiggest":
                 return (
                     <ExceedsPotentialChart awardType={type} awardAmounts={awardAmounts} />
                 );
@@ -53,6 +53,13 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
     };
 
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
+        if (scenario === 'insufficientData') {
+            return (
+                <div className="results-table-message-container">
+                    <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
+                </div>
+            );
+        }
         switch (type) {
             case "grant":
                 return (
