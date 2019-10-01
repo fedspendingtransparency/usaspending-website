@@ -4,6 +4,7 @@
  */
 
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import { spendingCategoriesByAwardType } from '../dataMapping/awardsv2/awardAmountsSection';
 
 // formats the specific checkboxes
 // options are NPM accounting package options
@@ -27,19 +28,7 @@ export const formatAwardAmountRange = (range, options = 2) => {
 * In the fn getAscendingSpendingCategoriesByAwardType:
  * @awardType is one of grant, loan, other, contract, idv
  * @awardAmountObj is the object from the api, parsed by our models, keyed by spending-category w/ integer values.
-
- * In the map spendingCategoriesByAwardType:
- * @keys are awardTypes
- * @values are properties on redux.awardV2.overview object which are the
- * spending categories, in ascending order (under normative case), small, bigger, biggest (optional)
- * */
-const spendingCategoriesByAwardType = {
-    grant: ['_totalObligation', '_nonFederalFunding', '_baseAndAllOptions'],
-    loan: ['_subsidy', '_faceValue'],
-    other: [],
-    contract: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions'],
-    idv: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions']
-};
+*/
 
 export const getAscendingSpendingCategoriesByAwardType = (awardType, awardAmountObj) => {
     if (Object.keys(spendingCategoriesByAwardType).includes(awardType)) {
