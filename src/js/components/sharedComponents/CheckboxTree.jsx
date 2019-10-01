@@ -16,18 +16,6 @@ const propTypes = {
     nodes: PropTypes.array,
     icons: PropTypes.object
 };
-
-// All possible Icons
-// check: <FontAwesomeIcon className="rct-icon rct-icon-check" icon="check-square" />,
-// uncheck: <FontAwesomeIcon className="rct-icon rct-icon-uncheck" icon={['far', 'square']} />,
-// halfCheck: <FontAwesomeIcon className="rct-icon rct-icon-half-check" icon="check-square" />,
-// expandClose: <FontAwesomeIcon className="rct-icon rct-icon-expand-close" icon="chevron-right" />,
-// expandOpen: <FontAwesomeIcon className="rct-icon rct-icon-expand-open" icon="chevron-down" />,
-// expandAll: <FontAwesomeIcon className="rct-icon rct-icon-expand-all" icon="plus-square" />,
-// collapseAll: <FontAwesomeIcon className="rct-icon rct-icon-collapse-all" icon="minus-square" />,
-// parentClose: <FontAwesomeIcon className="rct-icon rct-icon-parent-close" icon="folder" />,
-// parentOpen: <FontAwesomeIcon className="rct-icon rct-icon-parent-open" icon="folder-open" />,
-// leaf: <FontAwesomeIcon className="rct-icon rct-icon-leaf-close" icon="file" />
 export default class CheckboxTree extends Component {
     constructor(props) {
         super(props);
@@ -39,9 +27,9 @@ export default class CheckboxTree extends Component {
         };
     }
 
-    onExpanded = (expanded) => this.setState({ expanded });
+    onExpand = (expanded) => this.setState({ expanded });
 
-    onChecked = (checked) => this.setState({ checked });
+    onCheck = (checked) => this.setState({ checked });
     // default icons
     icons = {
         check: (<FontAwesomeIcon

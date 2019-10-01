@@ -1,6 +1,8 @@
 .checkbox-tree {
   .react-checkbox-tree {
     padding-left: rem(20);
+    height: 300px;
+    overflow-y: scroll;
     .rct-node-icon {
       display: none;
     }
@@ -29,8 +31,8 @@
     }
     // every dropdown
     .rct-node-parent:nth-child(n) {
-      padding-bottom: rem(10);
       // TODO - only add this on search
+      // padding-bottom: rem(10);
       // &.rct-node-expanded {
         // border-bottom: 1px solid $color-gray-lighter;
       // }
