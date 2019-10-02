@@ -10,6 +10,7 @@ import { descriptionInfo } from '../../shared/InfoTooltipContent';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 import AwardSectionExpandButton from '../AwardSectionExpandButton';
+import LineTree from './LineTree';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -57,7 +58,7 @@ const AwardDescription = ({
                                 </a>
                             </div>
                         </div>
-                        {naics}
+                        <LineTree type="naics" data={naics} />
                     </div>
                     <div className="naics-psc__section naics-psc__section_psc">
                         <div className="naics-psc__heading">
@@ -68,7 +69,7 @@ const AwardDescription = ({
                                 </a>
                             </div>
                         </div>
-                        {psc}
+                        <LineTree type="psc" data={psc} />
                     </div>
                 </div>
             </div>

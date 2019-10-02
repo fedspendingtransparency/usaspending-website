@@ -70,7 +70,7 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
                     awardType={overview.category}
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
                     awardOverview={awardAmountData} />
-                <AwardDescription awardId={awardId} description={overview.description} />
+                <AwardDescription awardId={awardId} description={overview.description} naics={overview.naics} psc={overview.psc} />
             </AwardSection>
             <AwardSection type="row">
                 <ComingSoonSection title="Contract Activity" includeHeader />
