@@ -3,6 +3,20 @@
   * Created by Jonathan Hill 10/01/2019
   **/
 
+
+const recursiveDataStrategy = (keysToBeMapped, nodes) => nodes.map((node) => {
+    const newNode = node;
+    const { value, label } = keysToBeMapped;
+    newNode.value = node[value];
+    newNode.label = node[label];
+    delete newNode[value];
+    delete newNode[label];
+    if (newNode.children) {
+        newNode.children = recursiveDataStrategy(keysToBeMapped, newNode.children);
+    }
+    return newNode;
+});
+
 // map data from API response to react-checkbox-tree data structure
 // @param {object} keysToBeMapped - An object with keys value, and label with values
 // that correlate to your value and label properties
@@ -15,22 +29,9 @@
 // that follow react-checkbox-tree data structure and keeps any other fields within those objects
 // that originated from your data
 // Please refer to https://github.com/jakezatecky/react-checkbox-tree for more details
-export const createCheckboxTreeDataStrucure = (keysToBeMapped, data) => {
-    const recursiveStrategy = (info) => info.map((item) => {
-        const newData = item;
-        const { value, label } = keysToBeMapped;
-
-        newData.value = item[value];
-        newData.label = item[label];
-        delete newData[value];
-        delete newData[label];
-        delete newData.count;
-        if (newData.children) {
-            newData.children = recursiveStrategy(newData.children);
-        }
-        return newData;
-    });
-    return recursiveStrategy(data);
-};
+const createCheckboxTreeDataStrucure = (
+    keysToBeMapped,
+    data
+) => recursiveDataStrategy(keysToBeMapped, data);
 
 export default createCheckboxTreeDataStrucure;

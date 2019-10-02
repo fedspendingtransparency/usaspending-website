@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 
-import { createCheckboxTreeDataStrucure } from 'helpers/checkboxTreeHelper';
+import createCheckboxTreeDataStrucure from 'helpers/checkboxTreeHelper';
 
 
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
@@ -17,15 +17,9 @@ import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 const propTypes = {
     nodes: PropTypes.array,
     icons: PropTypes.object,
-    nodeKeys: PropTypes.object
+    nodeKeys: PropTypes.object,
+    createLabels: PropTypes.func
 };
-
-// const defaultProps = {
-//     nodeKeys: {
-//         value: 'value',
-//         label: 'label'
-//     }
-// };
 export default class CheckboxTree extends Component {
     constructor(props) {
         super(props);
@@ -89,12 +83,34 @@ export default class CheckboxTree extends Component {
         return this.icons;
     }
 
-    createLabels = (value, label) => (
-        <div className="checkbox-tree-label">
-            <div className="checkbox-tree-label__value">{value}</div>
-            <div className="checkbox-tree-label__label">{label}</div>
-        </div>
-    );
+    recursiveLabelStrategy = (data, labelFunction) => data.map((node) => {
+        if (typeof node.label !== 'string') return node;
+        const newNode = node;
+        if (labelFunction) {
+            newNode.label = labelFunction(newNode);
+        }
+        else {
+            const label = newNode.label;
+            newNode.label = (
+                <div className="checkbox-tree-label">
+                    <div className="checkbox-tree-label__value-container">
+                        <div className="checkbox-tree-label__value-container-value">
+                            {newNode.value}
+                        </div>
+                    </div>
+                    <div className="checkbox-tree-label__label">
+                        {label}
+                    </div>
+                </div>
+            );
+        }
+        if (newNode.children) {
+            newNode.children = this.recursiveLabelStrategy(newNode.children);
+        }
+        return newNode;
+    });
+
+    createLabels = (nodes) => this.recursiveLabelStrategy(nodes, this.props.createLabels);
 
     createNodes = () => {
         const { nodeKeys, nodes } = this.props;
@@ -107,12 +123,12 @@ export default class CheckboxTree extends Component {
 
     render() {
         const { nodes, checked, expanded } = this.state;
-        console.log(' State : ', this.state);
+        const labeledNodes = this.createLabels(nodes);
         if (!nodes.length) return null;
         return (
             <div className="checkbox-tree">
                 <CheckBoxTree
-                    nodes={nodes}
+                    nodes={labeledNodes}
                     checked={checked}
                     expanded={expanded}
                     onCheck={this.onCheck}
@@ -124,4 +140,3 @@ export default class CheckboxTree extends Component {
 }
 
 CheckboxTree.propTypes = propTypes;
-// CheckBoxTree.defaultProps = defaultProps;

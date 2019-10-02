@@ -8,6 +8,7 @@ import { isEqual, omit, differenceWith, slice } from 'lodash';
 import { isCancel } from 'axios';
 import { Search, PrefixIndexStrategy } from 'js-search';
 import PropTypes from 'prop-types';
+import kGlobalConstants from 'GlobalConstants';
 
 import * as SearchHelper from 'helpers/searchHelper';
 
@@ -139,13 +140,16 @@ export default class NAICSListContainer extends React.Component {
     }
 
     render() {
+        const placeholder = kGlobalConstants.DEV ?
+            'Type to find codes' :
+            'e.g., 336411 - Aircraft Manufacturing';
         return (
             <Autocomplete
                 {...this.props}
                 values={this.state.autocompleteNAICS}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.props.selectNAICS}
-                placeholder="e.g., 336411 - Aircraft Manufacturing"
+                placeholder={placeholder}
                 errorHeader="Unknown NAICS"
                 errorMessage="We were unable to find that NAICS."
                 ref={(input) => {

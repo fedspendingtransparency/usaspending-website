@@ -19,15 +19,26 @@
         color: $color-primary-darker;
       }
     }
-    .rct-text {
-      button:focus {
-        box-shadow: none;
-      }
-    }
     ol {
       padding-left: 0;
       border-left: none;
       margin: 0 0 rem(5) 0;
+    }
+    .svg-inline--fa.fa-w-14 {
+      width: 1em;
+      height: 1em;
+    }
+    .rct-node-expanded {
+      .rct-text {
+        label {
+          .rct-checkbox {
+            .svg-inline--fa.fa-w-14 {
+              width: 1em;
+              height: 1em;
+            }
+          }
+        }
+      }
     }
     // every dropdown
     .rct-node-parent:nth-child(n) {
@@ -44,24 +55,144 @@
           }
         }
       }
+      .rct-text {
+        @include align-items(flex-start);
+        cursor: pointer;
+        button:focus {
+          box-shadow: none;
+        }
+        @include display(inline-flex);
+        button {
+          margin: 0;
+        }
+        label {
+          @include display(flex);
+          .rct-checkbox {
+            @include flex-direction(column);
+          }
+          .rct-title {
+            @include flex-direction(column);
+            .checkbox-tree-label {
+              @include display(flex);
+              .checkbox-tree-label__value-container {
+                .checkbox-tree-label__value-container-value {
+                  padding: rem(1.5) rem(16);
+                  margin-right: rem(5);
+                  background-color: $color-gray-lightest;
+                  border-radius: 3px;
+                  font-weight: $font-semibold;
+                  font-size: rem(11);
+                }
+              }
+              .checkbox-tree-label__label {
+                @include flex-direction(column);
+                font-weight: $font-bold;
+              }
+            }
+          }
+        }
+      }
+      // TODO - This is the labels wrapped which is prolly going to be used in
+      // the new design, so we want to keep this until design decides wrapped or
+      // inline
+      // .rct-text {
+      //   @include align-items(flex-start);
+      //   button:focus {
+      //     box-shadow: none;
+      //   }
+      //   @include display(inline-flex);
+      //   button {
+      //     margin: 0;
+      //   }
+      //   label {
+      //     @include display(flex);
+      //     .rct-checkbox {
+      //       @include flex-direction(column);
+      //     }
+      //     .rct-title {
+      //       .checkbox-tree-label {
+      //         @include display(flex);
+      //         @include flex-wrap(wrap);
+      //         .checkbox-tree-label__value-container {
+      //               @include flex-basis(100%);
+      //           .checkbox-tree-label__value-container-value {
+      //             border-radius: 3px;
+      //           }
+      //         }
+      //         .checkbox-tree-label__label {
+      //           @include flex-basis(100%);
+      //           font-weight: bold;
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
       ol {
         padding-left: rem(12);
         margin-left: rem(4);
         border-left: 3px solid $color-gray-lighter;
-        .rct-node-parent { // first dropdown
+        .rct-node { // first dropdown
           padding-bottom: 0;
+          .rct-text {
+            label {
+              .checkbox-tree-label {
+                .checkbox-tree-label__value-container {
+                  .checkbox-tree-label__value-container-value {
+                    padding: rem(1.5) rem(15);
+                  }
+                }
+                .checkbox-tree-label__label {
+                  font-weight: $font-semibold;
+                }
+              }
+            }
+          }
           &.rct-node-expanded {
             border-bottom: none;
           }
           ol {
             border-left: 2px solid $color-gray-lighter;
-            .rct-node-parent { // second dropdown
+            .rct-node { // second dropdown
               padding-bottom: 0;
+              .rct-text {
+                label {
+                  .checkbox-tree-label {
+                    .checkbox-tree-label__value-container {
+                      .checkbox-tree-label__value-container-value {
+                        padding: rem(1.5) rem(8);
+                      }
+                    }
+                    .checkbox-tree-label__label {
+                      font-weight: $font-normal;
+                    }
+                  }
+                }
+              }
               &.rct-node-expanded {
                 border-bottom: none;
               }
               ol {
                 border-left: 1px solid $color-gray-lighter;
+                .rct-node { // third dropdown
+                  padding-bottom: 0;
+                    .rct-text {
+                      label {
+                        .checkbox-tree-label {
+                          .checkbox-tree-label__value-container {
+                            .checkbox-tree-label__value-container-value {
+                              padding: rem(1.5) rem(1);
+                            }
+                          }
+                          .checkbox-tree-label__label {
+                            font-weight: $font-light;
+                          }
+                        }
+                      }
+                    }
+                  &.rct-node-expanded {
+                    border-bottom: none;
+                  }
+                }
               }
             }
           }

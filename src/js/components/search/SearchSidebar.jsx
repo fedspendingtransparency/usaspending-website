@@ -36,6 +36,9 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 import kGlobalConstants from 'GlobalConstants';
 
 const naicsComponent = kGlobalConstants.DEV ? NAICSContainer : NAICSSearchContainer;
+const naicsTitle = kGlobalConstants.DEV ?
+    'North American Industry Classification System (NAICS)' :
+    'NAICS Code';
 
 const filters = {
     options: [
@@ -50,7 +53,7 @@ const filters = {
         'Award Amount',
         'Award ID',
         'CFDA Program',
-        'NAICS Code',
+        naicsTitle,
         'Product/Service Code (PSC)',
         'Type of Contract Pricing',
         'Type of Set Aside',
@@ -128,10 +131,6 @@ export default class SearchSidebar extends React.Component {
             // Collapse all by default, unless the filter has a selection made
             if (filter === 'Time Period') {
                 // time period is always expanded
-                expanded.push(true);
-            }
-            // TODO need to delete this on every PR
-            else if (filter === 'NAICS Code') {
                 expanded.push(true);
             }
             else {
