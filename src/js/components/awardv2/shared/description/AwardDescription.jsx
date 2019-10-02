@@ -20,6 +20,7 @@ const propTypes = {
 };
 
 const maxChars = 300;
+const additionalDataForPsc = { code: 'SERVICES', description: '' };
 
 const AwardDescription = ({
     awardId,
@@ -69,7 +70,7 @@ const AwardDescription = ({
                                 </a>
                             </div>
                         </div>
-                        <LineTree type="psc" data={psc} />
+                        <LineTree type="psc" data={{ additionalDataForPsc, ...psc }} />
                     </div>
                 </div>
             </div>

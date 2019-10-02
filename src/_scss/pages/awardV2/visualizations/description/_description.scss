@@ -26,6 +26,28 @@
                     padding-right: 0;
                     padding-left: rem(10);
                 }
+                ul {
+                    list-style-type: none;
+                    padding: 0;
+                    li:first-of-type {
+                        color: blue;
+                    }
+                    li:nth-of-type(2) {
+                        color: green;
+                        padding-left: 20px;
+                    }
+                    li:last-of-type {
+                        color: orange;
+                        padding-left: 40px;
+                    }
+                    li {
+                        .line-tree__line {
+                            border-left: 3px solid black;
+                            display: block;
+                            position: absolute;
+                        }
+                    }
+                }
             }
             .naics-psc__heading {
                 font-weight: $font-semibold;
