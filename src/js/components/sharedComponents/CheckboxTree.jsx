@@ -4,18 +4,28 @@
   **/
 
 import React, { Component } from 'react';
-
 import CheckBoxTree from 'react-checkbox-tree';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
+
+import { createCheckboxTreeDataStrucure } from 'helpers/checkboxTreeHelper';
+
 
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
 const propTypes = {
     nodes: PropTypes.array,
-    icons: PropTypes.object
+    icons: PropTypes.object,
+    nodeKeys: PropTypes.object
 };
+
+// const defaultProps = {
+//     nodeKeys: {
+//         value: 'value',
+//         label: 'label'
+//     }
+// };
 export default class CheckboxTree extends Component {
     constructor(props) {
         super(props);
@@ -23,8 +33,18 @@ export default class CheckboxTree extends Component {
         this.state = {
             checked: [],
             expanded: [],
-            nodes: props.nodes
+            nodes: []
         };
+    }
+
+    componentDidMount() {
+        this.createNodes();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps.nodes, this.props.nodes)) {
+            this.createNodes();
+        }
     }
 
     onExpand = (expanded) => this.setState({ expanded });
@@ -58,7 +78,7 @@ export default class CheckboxTree extends Component {
         parentOpen: null,
         leaf: null
     }
-    // sets specific icons to icons passed in props
+    // sets specific icons to custom icons passed in props
     updateIcons = () => {
         const { icons } = this.props;
         if (icons) {
@@ -69,14 +89,32 @@ export default class CheckboxTree extends Component {
         return this.icons;
     }
 
+    createLabels = (value, label) => (
+        <div className="checkbox-tree-label">
+            <div className="checkbox-tree-label__value">{value}</div>
+            <div className="checkbox-tree-label__label">{label}</div>
+        </div>
+    );
+
+    createNodes = () => {
+        const { nodeKeys, nodes } = this.props;
+        const newNodes = createCheckboxTreeDataStrucure(
+            nodeKeys,
+            nodes
+        );
+        this.setState({ nodes: newNodes });
+    }
+
     render() {
-        const { nodes } = this.state;
+        const { nodes, checked, expanded } = this.state;
+        console.log(' State : ', this.state);
+        if (!nodes.length) return null;
         return (
             <div className="checkbox-tree">
                 <CheckBoxTree
                     nodes={nodes}
-                    checked={this.state.checked}
-                    expanded={this.state.expanded}
+                    checked={checked}
+                    expanded={expanded}
                     onCheck={this.onCheck}
                     onExpand={this.onExpand}
                     icons={this.icons} />
@@ -86,3 +124,4 @@ export default class CheckboxTree extends Component {
 }
 
 CheckboxTree.propTypes = propTypes;
+// CheckBoxTree.defaultProps = defaultProps;
