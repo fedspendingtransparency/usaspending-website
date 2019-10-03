@@ -1,7 +1,7 @@
 /**
- * CheckboxTree-test.js
- * Created by Jonathan Hill 10/03/2019
-**/
+  * CheckboxTree-test.js
+  * Created by Jonathan Hill 10/03/2019
+  **/
 
 import React from 'react';
 import { shallow } from 'enzyme';
