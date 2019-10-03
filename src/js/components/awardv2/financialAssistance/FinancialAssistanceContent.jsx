@@ -18,6 +18,7 @@ import AwardSection from '../shared/AwardSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardHistory from '../shared/awardHistorySection/AwardHistory';
+import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -34,7 +35,11 @@ const defaultTooltipProps = {
     }
 };
 
-const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
+const FinancialAssistanceContent = ({
+    awardId,
+    overview = { generatedId: '' },
+    jumpToSection
+}) => {
     const [activeTab, setActiveTab] = useState("transaction");
 
     const glossaryLink = glossaryLinks[overview.type]
@@ -66,6 +71,9 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
 
     const awardAmountData = Object.create(BaseAwardAmounts);
     awardAmountData.populate(overview, overview.category);
+
+    const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
+
     let title = overview.typeDescription;
     // removes the award type and only capitalizes the first letter of each word
     // e.g. PROJECT GRANT (B) => Project Grant
@@ -75,10 +83,11 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
         if (titleArray.length === 3) titleArray.pop();
         title = titleArray.join(' ');
     }
-    // TODO: Determine if we should label with FAIN/ URI instead of ID
     return (
         <AwardPageWrapper
-            identifier={awardId}
+            identifier={identifier}
+            idLabel={idLabel}
+            awardType={overview.category}
             glossaryLink={glossaryLink}
             awardTypeDescription={title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
@@ -116,7 +125,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
         </AwardPageWrapper>
     );
 };
-
+FinancialAssistanceContent.defaultProps = { uniqueGeneratedAwardId: '' };
 FinancialAssistanceContent.propTypes = propTypes;
 
 export default FinancialAssistanceContent;

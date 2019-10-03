@@ -155,12 +155,18 @@ export default class SubawardsTable extends React.Component {
             }
         }
 
+        const totalSubAwardLabel = (isV2)
+            ? 'Total Count of Sub-Awards: '
+            : 'Total Number of Sub-Awards: ';
+        const totalSubAwardAmountLabel = (isV2)
+            ? 'Total Amount of Sub-Awards: '
+            : 'Total Sub-Award Amount: ';
         return (
             <div>
                 <div className="subaward-totals">
                     <div className="total-item">
                         <span className="total-label">
-                            Total Number of Sub-Awards:&nbsp;
+                            {totalSubAwardLabel}
                         </span>
                         <span className="total-value">
                             {award.subawardCount}
@@ -168,7 +174,7 @@ export default class SubawardsTable extends React.Component {
                     </div>
                     <div className="total-item">
                         <span className="total-label">
-                            Total Sub-Award Amount:&nbsp;
+                            {totalSubAwardAmountLabel}
                         </span>
                         <span className="total-value">
                             {totalValue}

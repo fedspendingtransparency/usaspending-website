@@ -7,12 +7,14 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { List } from 'immutable';
 import sinon from 'sinon';
+import moment from 'moment';
 
 // mock the bulkDownload helper
 jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper'));
 
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import { mockAgencies, mockArchiveResponse } from '../mockData';
+import { currentFiscalYear } from '../../../../src/js/helpers/fiscalYearHelper';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/bulkDownload/archive/AwardDataArchiveContent', () => jest.fn(() => null));
@@ -20,6 +22,18 @@ jest.mock('components/bulkDownload/archive/AwardDataArchiveContent', () => jest.
 // spy on specific functions inside the component
 const setAgencyListSpy = sinon.spy(AwardDataArchiveContainer.prototype, 'setAgencyList');
 const requestResultsSpy = sinon.spy(AwardDataArchiveContainer.prototype, 'requestResults');
+
+const defaultFilterState = {
+    agency: {
+        id: 'all',
+        name: 'All'
+    },
+    type: {
+        name: 'contracts',
+        display: 'Contracts'
+    },
+    fy: '2019'
+};
 
 describe('AwardDataArchiveContainer', () => {
     it('should make an API call for the agencies on mount', async () => {
@@ -53,20 +67,18 @@ describe('AwardDataArchiveContainer', () => {
         });
     });
     describe('updateFilter', () => {
-        it('should update the state for the specified filter', () => {
-            const container = mount(<AwardDataArchiveContainer/>);
+        it('should update the state for the specified filter', async () => {
+            const container = mount(<AwardDataArchiveContainer />);
 
             const expectedFilterState = {
-                agency: {
-                    id: 'all',
-                    name: 'All'
-                },
+                ...defaultFilterState,
                 type: {
                     name: 'mockType',
                     display: 'Mock Type'
-                },
-                fy: '2019'
+                }
             };
+
+            await container.instance().setState({ filters: defaultFilterState });
 
             container.instance().updateFilter('type', {
                 name: 'mockType',

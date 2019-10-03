@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
+import { generatePercentage } from 'helpers/awardAmountHelper';
 
 import { useTooltips } from "./AwardAmountsChart";
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
@@ -117,5 +117,4 @@ const LoanChart = ({ awardAmounts }) => {
 };
 
 export default LoanChart;
-// LoanChart.defaultProps = defaultProps;
 LoanChart.propTypes = propTypes;

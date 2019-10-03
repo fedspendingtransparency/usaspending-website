@@ -24,12 +24,14 @@
                   @include media($medium-screen) {
                     @include display(flex);
                   }
-                  font-size: rem(24);
                   .award__heading-text {
                     @include display(flex);
                     @include flex(0 0 auto);
                     font-weight: $font-semibold;
                     padding-right: rem(10);
+                    margin: 0;
+                    font-size: $h5-font-size; 
+                    line-height: normal;
                   }
                   .award__heading-icon {
                       @include display(flex);
@@ -47,14 +49,27 @@
                           }
                       }
                   }
-                  .award__heading-label {
-                      font-weight: $font-normal;
-                      display: inline-block;
-                      padding-right: rem(10);
-                  }
-                  .award__heading-id {
+                  .award__heading-id,
+                  .award__heading-id--financial-assistance {
                       @include display(flex);
                       font-weight: $font-light;
+                      @include flex-wrap(wrap);
+                      h3 {
+                        font-weight: $font-normal;
+                        display: flex;
+                        padding-right: rem(10);
+                        font-size: $h5-font-size;
+                        margin: 0;
+                        line-height: normal;
+                      }
+                      p {
+                        margin: 0;
+                        @include display(flex);
+                        @include align-items(center);
+                        margin-right: $global-mrg;
+                        line-height: normal;
+                        font-size: $h5-font-size;
+                      }
                   }
                 }
                 .award__last-modified {
