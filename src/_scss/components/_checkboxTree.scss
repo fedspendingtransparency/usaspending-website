@@ -6,6 +6,9 @@
     .rct-node-icon {
       display: none;
     }
+    .rct-text {
+      cursor: grab;
+    }
     .rct-checkbox {
       .rct-icon-uncheck {
         border: 2px solid $color-gray-lighter;
@@ -60,7 +63,6 @@
       }
       .rct-text {
         @include align-items(flex-start);
-        cursor: pointer;
         button:focus {
           box-shadow: none;
         }
@@ -85,16 +87,16 @@
                   border-radius: 3px;
                   font-weight: $font-semibold;
                   font-size: rem(11);
-                  &.highlight {
-                    background-color: yellow;
+                  .highlight {
+                    background-color: rgb(252, 227, 160);
                   }
                 }
               }
               .checkbox-tree-label__label {
                 @include flex-direction(column);
                 font-weight: $font-bold;
-                &.highlight {
-                  background-color: yellow;
+                .highlight {
+                  background-color: rgb(252, 227, 160);
                 }
               }
             }

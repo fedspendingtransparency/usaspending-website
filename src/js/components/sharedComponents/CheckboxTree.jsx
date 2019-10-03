@@ -75,24 +75,25 @@ export default class CheckboxTree extends Component {
         parentOpen: null,
         leaf: null
     }
+    // TODO - implement this
     // sets specific icons to custom icons passed in props
-    updateIcons = () => {
-        const { icons } = this.props;
-        if (icons) {
-            Object.keys(icons).forEach((key) => {
-                this.icons[key] = icons[key];
-            });
-        }
-        return this.icons;
-    }
+    // updateIcons = () => {
+    //     const { icons } = this.props;
+    //     if (icons) {
+    //         Object.keys(icons).forEach((key) => {
+    //             this.icons[key] = icons[key];
+    //         });
+    //     }
+    //     return this.icons;
+    // }
 
-    highlightText = (text) => reactStringReplace(text, this.props.searchText, (match, i) => {
-        return (
-            <span className="highlight">
-                {match}
-            </span>
-        );
-    });
+    highlightText = (text) => reactStringReplace(text, this.props.searchText, (match, i) => (
+        <span
+            className="highlight"
+            key={match + i}>
+            {match}
+        </span>
+    ));
 
     recursiveLabelStrategy = (data, labelFunction) => data.map((node) => {
         if (typeof node.label !== 'string') return node;
