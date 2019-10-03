@@ -19,6 +19,7 @@ import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
+import CFDAOverview from './CFDAOverview';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -98,6 +99,7 @@ const FinancialAssistanceContent = ({
                     awardingAgency={overview.awardingAgency}
                     category={overview.category}
                     recipient={overview.recipient} />
+                <CFDAOverview />
                 <AwardSection type="column" className="award-amountdates">
                     <AwardDates
                         awardType={overview.category}
