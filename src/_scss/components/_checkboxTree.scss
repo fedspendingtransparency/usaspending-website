@@ -24,6 +24,9 @@
       border-left: none;
       margin: 0 0 rem(5) 0;
     }
+    .rct-icon-expand-open {
+      margin-right: 0.1em;
+    }
     .svg-inline--fa.fa-w-14 {
       width: 1em;
       height: 1em;
@@ -82,11 +85,17 @@
                   border-radius: 3px;
                   font-weight: $font-semibold;
                   font-size: rem(11);
+                  &.highlight {
+                    background-color: yellow;
+                  }
                 }
               }
               .checkbox-tree-label__label {
                 @include flex-direction(column);
                 font-weight: $font-bold;
+                &.highlight {
+                  background-color: yellow;
+                }
               }
             }
           }

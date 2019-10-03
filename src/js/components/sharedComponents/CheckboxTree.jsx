@@ -8,6 +8,7 @@ import CheckBoxTree from 'react-checkbox-tree';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
+import reactStringReplace from 'react-string-replace';
 
 import createCheckboxTreeDataStrucure from 'helpers/checkboxTreeHelper';
 
@@ -18,7 +19,9 @@ const propTypes = {
     nodes: PropTypes.array,
     icons: PropTypes.object,
     nodeKeys: PropTypes.object,
-    createLabels: PropTypes.func
+    createLabels: PropTypes.func,
+    isSearch: PropTypes.bool,
+    searchText: PropTypes.string
 };
 export default class CheckboxTree extends Component {
     constructor(props) {
@@ -83,6 +86,14 @@ export default class CheckboxTree extends Component {
         return this.icons;
     }
 
+    highlightText = (text) => reactStringReplace(text, this.props.searchText, (match, i) => {
+        return (
+            <span className="highlight">
+                {match}
+            </span>
+        );
+    });
+
     recursiveLabelStrategy = (data, labelFunction) => data.map((node) => {
         if (typeof node.label !== 'string') return node;
         const newNode = node;
@@ -90,12 +101,17 @@ export default class CheckboxTree extends Component {
             newNode.label = labelFunction(newNode);
         }
         else {
-            const label = newNode.label;
+            let label = newNode.label;
+            let value = newNode.value;
+            if (this.props.isSearch) {
+                label = this.highlightText(label);
+                value = this.highlightText(value);
+            }
             newNode.label = (
                 <div className="checkbox-tree-label">
                     <div className="checkbox-tree-label__value-container">
                         <div className="checkbox-tree-label__value-container-value">
-                            {newNode.value}
+                            {value}
                         </div>
                     </div>
                     <div className="checkbox-tree-label__label">
