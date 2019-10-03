@@ -26,25 +26,30 @@
                     padding-right: 0;
                     padding-left: rem(10);
                 }
+                .naics-psc__heading {
+                    min-height: 72px;
+                    @media(min-width: $tablet-screen) {
+                        min-height: 36px;
+                    }
+                }
                 ul {
                     list-style-type: none;
                     padding: 0;
-                    li:first-of-type {
-                        color: blue;
+                    li {
+                        color: #555555;
                     }
                     li:nth-of-type(2) {
-                        color: green;
                         padding-left: 20px;
                     }
                     li:last-of-type {
-                        color: orange;
                         padding-left: 40px;
                     }
                     li {
                         .line-tree__line {
-                            border-left: 3px solid black;
+                            border-left: 3px solid #979797;
                             display: block;
                             position: absolute;
+                            margin-left: 3px;
                         }
                     }
                 }
