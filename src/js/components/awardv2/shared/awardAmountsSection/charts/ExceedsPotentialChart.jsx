@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { generatePercentage } from 'helpers/aggregatedAmountsHelper';
+import { generatePercentage } from 'helpers/awardAmountHelper';
 import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
 
