@@ -56,7 +56,7 @@ export class NAICSContainer extends React.Component {
             });
         }
         catch (e) {
-            console.dir(' Error NAICS Reponse : ', e);
+            console.log(' Error NAICS Reponse : ', e);
             this.setState({
                 isError: true,
                 errorMessage: e.message,

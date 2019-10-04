@@ -82,142 +82,6 @@ export const naicsMock2 = [
                         count: 0
                     }
                 ]
-            },
-            {
-                naics: '1114',
-                naics_description: 'Greenhouse, Nursery, and Floriculture Production',
-                count: 2,
-                children: [
-                    {
-                        naics: '111411',
-                        naics_description: 'More Greenhouse, Nursery, and Floriculture Production',
-                        count: 0
-                    },
-                    {
-                        naics: '111412',
-                        naics_description: 'Even More Greenhouse, Nursery, and Floriculture Production',
-                        count: 0
-                    }
-                ]
-            },
-            {
-                naics: '1119',
-                naics_description: 'Other Crop Farming',
-                count: 2,
-                children: [
-                    {
-                        naics: '111911',
-                        naics_description: 'More Other Crop Farming',
-                        count: 0
-                    },
-                    {
-                        naics: '111912',
-                        naics_description: 'Even More Other Crop Farming',
-                        count: 0
-                    }
-                ]
-            },
-            {
-                naics: '1121',
-                naics_description: 'Cattle Ranching and Farming',
-                count: 2,
-                children: [
-                    {
-                        naics: '112111',
-                        naics_description: 'More Cattle Ranching and Farming',
-                        count: 0
-                    },
-                    {
-                        naics: '112112',
-                        naics_description: 'Even More Cattle Ranching and Farming',
-                        count: 0
-                    }
-                ]
-            },
-            {
-                naics: '1122',
-                naics_description: 'Hog and Pig Farming',
-                count: 2,
-                children: [
-                    {
-                        naics: '112211',
-                        naics_description: 'More Hog and Pig Farming',
-                        count: 0
-                    },
-                    {
-                        naics: '112212',
-                        naics_description: 'Even More Hog and Pig Farming',
-                        count: 0
-                    }
-                ]
-            },
-            {
-                naics: '1123',
-                naics_description: 'Poultry and Egg Production',
-                count: 2,
-                children: [
-                    {
-                        naics: '112311',
-                        naics_description: 'More Poultry and Egg Production',
-                        count: 0
-                    },
-                    {
-                        naics: '112312',
-                        naics_description: 'Even More Poultry and Egg Production',
-                        count: 0
-                    }
-                ]
-            },
-            {
-                naics: '1124',
-                naics_description: 'Sheep and Goat Farming',
-                count: 2,
-                children: [
-                    {
-                        naics: '112411',
-                        naics_description: 'More Sheep and Goat Farming',
-                        count: 0
-                    },
-                    {
-                        naics: '112412',
-                        naics_description: 'Even More Sheep and Goat Farming',
-                        count: 0
-                    }
-                ]
-            },
-            {
-                naics: '1125',
-                naics_description: 'Aquaculture',
-                count: 2,
-                children: [
-                    {
-                        naics: '112511',
-                        naics_description: 'More Aquaculture',
-                        count: 0
-                    },
-                    {
-                        naics: '112512',
-                        naics_description: 'Even More Aquaculture',
-                        count: 0
-                    }
-                ]
-            },
-            {
-                naics: '1129',
-                naics_description: 'Other Animal Production',
-                count: 2,
-                children: [
-                    {
-                        naics: '112911',
-                        naics_description: 'More Other Animal Production',
-                        count: 0
-                    },
-                    {
-                        naics: '112912',
-                        naics_description: 'Even More Other Animal Production',
-                        count: 0
-                    }
-                ]
             }
         ]
     },
@@ -285,69 +149,6 @@ export const naicsMock2 = [
         ]
     },
     {
-        naics: '55',
-        naics_description: 'Management of Companies and Enterprises',
-        count: 1,
-        children: [
-            {
-                naics: '5511',
-                naics_description: 'Management of Companies and Enterprises',
-                count: 0
-            }
-        ]
-    },
-    {
-        naics: '56',
-        naics_description: 'Administrative and Support and Waste Management and Remediation Services',
-        count: 2,
-        children: [
-            {
-                naics: '5611',
-                naics_description: 'Office Administrative Services',
-                count: 0
-            },
-            {
-                naics: '5612',
-                naics_description: 'Facilities Support Services',
-                count: 0
-            }
-        ]
-    },
-    {
-        naics: '61',
-        naics_description: 'Educational Services',
-        count: 2,
-        children: [
-            {
-                naics: '6111',
-                naics_description: 'Elementary and Secondary Schools',
-                count: 0
-            },
-            {
-                naics: '6112',
-                naics_description: 'Junior Colleges',
-                count: 0
-            }
-        ]
-    },
-    {
-        naics: '62',
-        naics_description: 'Health Care and Social Assistance',
-        count: 2,
-        children: [
-            {
-                naics: '6211',
-                naics_description: 'Offices of Physicians',
-                count: 0
-            },
-            {
-                naics: '6212',
-                naics_description: 'Offices of Dentists',
-                count: 0
-            }
-        ]
-    },
-    {
         naics: '71',
         naics_description: 'Arts, Entertainment, and Recreation',
         count: 5,
@@ -380,5 +181,173 @@ export const naicsMock2 = [
                 ]
             }
         ]
+    }
+];
+
+export const naicsMockCleanData = [
+    {
+        value: '11',
+        label: 'Agriculture, Forestry, Fishing and Hunting',
+        count: 20,
+        children: [
+            {
+                value: '1111',
+                label: 'Oilseed and Grain Farming',
+                count: 2,
+                children: [
+                    {
+                        value: '111111',
+                        label: 'More Oilseed Stuff and Grain Farming',
+                        count: 0
+                    },
+                    {
+                        value: '111112',
+                        label: 'Even More Oilseed Stuff and Grain Farming',
+                        count: 0
+                    }
+                ]
+            },
+            {
+                value: '1112',
+                label: 'Vegetable and Melon Farming',
+                count: 2,
+                children: [
+                    {
+                        value: '111211',
+                        label: 'Potato Farming',
+                        count: 0
+                    },
+                    {
+                        value: '111219',
+                        label: 'Other Vegetable (except Potato) and Melon Farming',
+                        count: 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: '21',
+        label: 'Mining, Quarrying, and Oil and Gas Extraction',
+        count: 7,
+        children: [
+            {
+                value: '2111',
+                label: 'Oil and Gas Extraction',
+                count: 2,
+                children: [
+                    {
+                        value: '211120',
+                        label: 'Crude Petroleum Extraction',
+                        count: 0
+                    },
+                    {
+                        value: '211130',
+                        label: 'Natural Gas Extraction',
+                        count: 0
+                    }
+                ]
+            },
+            {
+                value: '2121',
+                label: 'Coal Mining',
+                count: 3,
+                children: [
+                    {
+                        value: '212111',
+                        label: 'Bituminous Coal and Lignite Surface Mining',
+                        count: 0
+                    },
+                    {
+                        value: '212112',
+                        label: 'Bituminous Coal Underground Mining',
+                        count: 0
+                    },
+                    {
+                        value: '212113',
+                        label: 'Anthracite Mining',
+                        count: 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: '54',
+        label: 'Professional, Scientific, and Technical Services',
+        count: 2,
+        children: [
+            {
+                value: '5411',
+                label: 'Legal Services',
+                count: 0
+            },
+            {
+                value: '5412',
+                label: 'Accounting, Tax Preparation, Bookkeeping, and Payroll Services',
+                count: 0
+            }
+        ]
+    },
+    {
+        value: '71',
+        label: 'Arts, Entertainment, and Recreation',
+        count: 5,
+        children: [
+            {
+                value: '7111',
+                label: 'Performing Arts Companies',
+                count: 0
+            },
+            {
+                value: '7112',
+                label: 'Spectator Sports',
+                count: 3,
+                children: [
+                    {
+                        value: '711211',
+                        label: 'Sports Teams and Clubs',
+                        count: 0
+                    },
+                    {
+                        value: '711212',
+                        label: 'Racetracks',
+                        count: 0
+                    },
+                    {
+                        value: '711219',
+                        label: 'Other Spectator Sports',
+                        count: 0
+                    }
+                ]
+            }
+        ]
+    }
+];
+
+export const naicsMockCleanDataInitialLoad = [
+    {
+        value: '11',
+        label: 'Agriculture, Forestry, Fishing and Hunting',
+        count: 20,
+        children: [{}]
+    },
+    {
+        value: '21',
+        label: 'Mining, Quarrying, and Oil and Gas Extraction',
+        count: 7,
+        children: [{}]
+    },
+    {
+        value: '54',
+        label: 'Professional, Scientific, and Technical Services',
+        count: 2,
+        children: [{}]
+    },
+    {
+        value: '71',
+        label: 'Arts, Entertainment, and Recreation',
+        count: 5,
+        children: [{}]
     }
 ];

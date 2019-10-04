@@ -5,13 +5,16 @@
 
 
 const recursiveDataStrategy = (keysToBeMapped, nodes, requestType) => nodes.map((node) => {
-    const newNode = node;
+    const newNode = { ...node };
     const { value, label } = keysToBeMapped;
     newNode.value = node[value];
     newNode.label = node[label];
     delete newNode[value];
     delete newNode[label];
-    if (requestType === 'initial') newNode.children = [{}];
+    if (requestType === 'initial') {
+        newNode.children = [{}];
+        return newNode;
+    }
     if (newNode.children) {
         newNode.children = recursiveDataStrategy(keysToBeMapped, newNode.children);
     }
