@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 
 const propTypes = {
     type: PropTypes.oneOf(["naics", "psc"]),
@@ -11,7 +12,7 @@ const LineTree = ({
     data
 }) => {
     const parsedData = Object.keys(data)
-        .filter((tierType) => Object.keys(data[tierType]).includes('code') && Object.keys(data[tierType]).includes('description'))
+        .filter((tierType) => !isEmpty(data[tierType]))
         .sort((tierType1, tierType2) => {
             const first = data[tierType1];
             const second = data[tierType2];
