@@ -3,13 +3,13 @@
   * Created by Jonathan Hill 09/27/2019
   **/
 
-import React, { Component } from 'react';
+import React, { Component, cloneElement } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import reactStringReplace from 'react-string-replace';
-
+import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
 import createCheckboxTreeDataStrucure from 'helpers/checkboxTreeHelper';
 
 
@@ -19,10 +19,40 @@ const propTypes = {
     nodes: PropTypes.array,
     icons: PropTypes.object,
     nodeKeys: PropTypes.object,
-    createLabels: PropTypes.func,
     isSearch: PropTypes.bool,
-    searchText: PropTypes.string
+    searchText: PropTypes.string,
+    modifyLabelTextClassname: PropTypes.string,
+    labelComponent: PropTypes.element
 };
+// default icons
+const treeIcons = {
+    check: (<FontAwesomeIcon
+        className="rct-icon rct-icon-check"
+        size="lg"
+        icon="check-square" />),
+    uncheck: (<FontAwesomeIcon
+        className="rct-icon rct-icon-uncheck"
+        size="lg"
+        icon="square" />),
+    halfCheck: (<FontAwesomeIcon
+        className="rct-icon rct-icon-half-check"
+        size="lg"
+        icon="minus-square" />),
+    expandClose: (<FontAwesomeIcon
+        className="rct-icon rct-icon-expand-close"
+        size="lg"
+        icon="angle-right" />),
+    expandOpen: (<FontAwesomeIcon
+        className="rct-icon rct-icon-expand-open"
+        size="lg"
+        icon="angle-down" />),
+    expandAll: null,
+    collapseAll: null,
+    parentClose: null,
+    parentOpen: null,
+    leaf: null
+};
+
 export default class CheckboxTree extends Component {
     constructor(props) {
         super(props);
@@ -48,87 +78,59 @@ export default class CheckboxTree extends Component {
     onExpand = (expanded) => this.setState({ expanded });
 
     onCheck = (checked) => this.setState({ checked });
-    // default icons
-    icons = {
-        check: (<FontAwesomeIcon
-            className="rct-icon rct-icon-check"
-            size="lg"
-            icon="check-square" />),
-        uncheck: (<FontAwesomeIcon
-            className="rct-icon rct-icon-uncheck"
-            size="lg"
-            icon="square" />),
-        halfCheck: (<FontAwesomeIcon
-            className="rct-icon rct-icon-half-check"
-            size="lg"
-            icon="minus-square" />),
-        expandClose: (<FontAwesomeIcon
-            className="rct-icon rct-icon-expand-close"
-            size="lg"
-            icon="angle-right" />),
-        expandOpen: (<FontAwesomeIcon
-            className="rct-icon rct-icon-expand-open"
-            size="lg"
-            icon="angle-down" />),
-        expandAll: null,
-        collapseAll: null,
-        parentClose: null,
-        parentOpen: null,
-        leaf: null
-    }
     // TODO - implement this
     // sets specific icons to custom icons passed in props
-    // updateIcons = () => {
-    //     const { icons } = this.props;
-    //     if (icons) {
-    //         Object.keys(icons).forEach((key) => {
-    //             this.icons[key] = icons[key];
-    //         });
-    //     }
-    //     return this.icons;
-    // }
+    updateIcons = () => {
+        const { icons } = this.props;
+        if (icons) {
+            Object.keys(icons).forEach((key) => {
+                treeIcons[key] = icons[key];
+            });
+        }
+        return treeIcons;
+    }
 
     highlightText = (text) => reactStringReplace(text, this.props.searchText, (match, i) => (
         <span
-            className="highlight"
+            className={this.props.modifyLabelTextClassname || 'highlight'}
             key={match + i}>
             {match}
         </span>
     ));
-
-    recursiveLabelStrategy = (data, labelFunction) => data.map((node) => {
+    /**
+      ** createLabels
+      * maps data labels from strings to html
+      * @param {Array.<object>} nodes - an array of objects
+      * @returns {Array.<object>} An array of objects
+    **/
+    createLabels = (nodes) => nodes.map((node) => {
         if (typeof node.label !== 'string') return node;
-        const newNode = node;
-        if (labelFunction) {
-            newNode.label = labelFunction(newNode);
+        const { labelComponent } = this.props;
+        const newNode = { ...node };
+        let label = newNode.label;
+        let value = newNode.value;
+        if (this.props.isSearch) {
+            label = this.highlightText(label);
+            value = this.highlightText(value);
+        }
+        if (labelComponent) {
+            newNode.label = cloneElement(
+                labelComponent,
+                { value, label }
+            );
         }
         else {
-            let label = newNode.label;
-            let value = newNode.value;
-            if (this.props.isSearch) {
-                label = this.highlightText(label);
-                value = this.highlightText(value);
-            }
             newNode.label = (
-                <div className="checkbox-tree-label">
-                    <div className="checkbox-tree-label__value-container">
-                        <div className="checkbox-tree-label__value-container-value">
-                            {value}
-                        </div>
-                    </div>
-                    <div className="checkbox-tree-label__label">
-                        {label}
-                    </div>
-                </div>
+                <CheckboxTreeLabel
+                    value={value}
+                    label={label} />
             );
         }
         if (newNode.children) {
-            newNode.children = this.recursiveLabelStrategy(newNode.children);
+            newNode.children = this.createLabels(newNode.children);
         }
         return newNode;
     });
-
-    createLabels = (nodes) => this.recursiveLabelStrategy(nodes, this.props.createLabels);
 
     createNodes = () => {
         const { nodeKeys, nodes } = this.props;
@@ -152,7 +154,7 @@ export default class CheckboxTree extends Component {
                     expanded={expanded}
                     onCheck={this.onCheck}
                     onExpand={this.onExpand}
-                    icons={this.icons} />
+                    icons={treeIcons} />
             </div>
         );
     }

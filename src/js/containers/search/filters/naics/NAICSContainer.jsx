@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import { naicsRequest } from 'helpers/naicsHelper';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';

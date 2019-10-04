@@ -17,7 +17,7 @@ export const naicsRequest = (fail) => {
       {
           promise: new Promise((resolve) => {
               resolve({
-                  results: naicsMock2
+                  data: { results: naicsMock2 }
               });
           }),
           cancel: jest.fn()
