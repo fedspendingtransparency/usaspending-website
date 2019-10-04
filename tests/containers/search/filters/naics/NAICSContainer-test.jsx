@@ -4,12 +4,10 @@
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow } from 'enzyme';import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
 import { naicsMock2 } from './mockNAICS';
 // import sinon from 'sinon';
 // import { OrderedMap, Iterable } from 'immutable';
-
-import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
 
 jest.mock('helpers/naicsHelper', () => require('./mockNAICSHelper'));
 
