@@ -30,7 +30,8 @@ export default class CheckboxTree extends Component {
         this.state = {
             checked: [],
             expanded: [],
-            nodes: []
+            nodes: [],
+            requestType: 'initial'
         };
     }
 
@@ -133,7 +134,8 @@ export default class CheckboxTree extends Component {
         const { nodeKeys, nodes } = this.props;
         const newNodes = createCheckboxTreeDataStrucure(
             nodeKeys,
-            nodes
+            nodes,
+            this.state.requestType
         );
         this.setState({ nodes: newNodes });
     }

@@ -47,9 +47,9 @@ export class NAICSContainer extends React.Component {
         this.setState({ isLoading: true });
         this.request = naicsRequest(param);
         try {
-            const { results } = await this.request.promise;
+            const { data } = await this.request.promise;
             this.setState({
-                naics: results,
+                naics: data.results,
                 isLoading: false,
                 isError: false,
                 errorMessage: ''

@@ -9,14 +9,12 @@ import kGlobalConstants from 'GlobalConstants';
 // perform search is a cancellable promise
 export const naicsRequest = (param) => {
     const source = CancelToken.source();
-    const url = param ?
-        `v2/references/naics/${param}` :
-        'v2/references/naics/';
     return {
         promise: Axios.request({
-            url,
+            url: 'v2/references/naics/',
             baseURL: kGlobalConstants.API,
             method: 'get',
+            param,
             cancelToken: source.token
         }),
         cancel() {

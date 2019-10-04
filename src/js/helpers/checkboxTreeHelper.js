@@ -4,13 +4,14 @@
   **/
 
 
-const recursiveDataStrategy = (keysToBeMapped, nodes) => nodes.map((node) => {
+const recursiveDataStrategy = (keysToBeMapped, nodes, requestType) => nodes.map((node) => {
     const newNode = node;
     const { value, label } = keysToBeMapped;
     newNode.value = node[value];
     newNode.label = node[label];
     delete newNode[value];
     delete newNode[label];
+    if (requestType === 'initial') newNode.children = [{}];
     if (newNode.children) {
         newNode.children = recursiveDataStrategy(keysToBeMapped, newNode.children);
     }
@@ -31,7 +32,8 @@ const recursiveDataStrategy = (keysToBeMapped, nodes) => nodes.map((node) => {
 // Please refer to https://github.com/jakezatecky/react-checkbox-tree for more details
 const createCheckboxTreeDataStrucure = (
     keysToBeMapped,
-    data
-) => recursiveDataStrategy(keysToBeMapped, data);
+    data,
+    requestType
+) => recursiveDataStrategy(keysToBeMapped, data, requestType);
 
 export default createCheckboxTreeDataStrucure;
