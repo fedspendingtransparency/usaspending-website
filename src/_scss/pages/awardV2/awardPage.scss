@@ -3,6 +3,7 @@
     @import "layouts/summary/summary";
     @import "layouts/default/stickyHeader/header";
     @import "layouts/tabbedSearch/header/downloadButton";
+    @import "./shared/infoTooltip";
 
     .award-content {
         @import "mixins/fullSectionWrap";
@@ -141,7 +142,6 @@
             @import "./visualizations/additionalInfo";
             @import "./visualizations/awardFundingSummary";
             @import "./shared/awardAmountsSection/index";
-            @import "./shared/infoTooltip";
             @import "./shared/awardHistorySection";
         }
         @import "./comingSoon";

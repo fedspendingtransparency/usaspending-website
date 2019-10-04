@@ -1,35 +1,42 @@
 .award-overview {
-    .award-overview__title {
-        font-size: rem(14);
-        font-weight: $font-semibold;
-        padding: rem(11) 0;
-    }
-
     // Layout
     @include display(flex);
-    .agency-recipient {
-        @include flex(1 1 auto);
-        padding-right: rem(10);
-        @include media($medium-screen) {
-            @include flex(0 0 50%);
+    .award__col {
+        @include flex(0 0 25%);
+        min-width: 0;
+        hr {
+            display: none;
         }
-    }
-    .related-awards {
-        @include flex(1 1 auto);
-        padding: 0 rem(10);
-        @include media($medium-screen) {
-            @include flex(0 0 25%);
+        // header
+        .award-viz__heading {
+            @include display(flex);
+            @include align-items(center);
+            .award-viz__icon {
+                padding-right: 10px;
+            }
         }
-    }
-    .award-dates {
-        @include flex(1 1 auto);
-        padding-left: rem(10);
-        @include media($medium-screen) {
-            @include flex(0 0 25%);
+        // not all sub-sections are using AwardSectionHeader yet
+        .award-overview__title,
+        .award-viz__heading .award-viz__title {
+            font-size: rem(14);
+            font-weight: $font-semibold;
+            padding: rem(11) 0;
+            line-height: normal;
+            margin: 0;
+        }
+        // body
+        .award-overview__body {
+            @include flex(1 1 auto);
+            padding: 0 rem(10);
+            @include media($medium-screen) {
+                @include flex(0 0 25%);
+            }
         }
     }
 
+    // custom styles for each sub-section in overview section
     @import "./agencyRecipient";
     @import "./relatedAwards";
     @import "./awardDates";
+    @import "./cfda";
 }
