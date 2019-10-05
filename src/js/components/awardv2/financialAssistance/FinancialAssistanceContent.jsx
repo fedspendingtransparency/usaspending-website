@@ -84,6 +84,7 @@ const FinancialAssistanceContent = ({
         if (titleArray.length === 3) titleArray.pop();
         title = titleArray.join(' ');
     }
+    console.log("hey pal", overview);
     return (
         <AwardPageWrapper
             identifier={identifier}
@@ -99,7 +100,8 @@ const FinancialAssistanceContent = ({
                     awardingAgency={overview.awardingAgency}
                     category={overview.category}
                     recipient={overview.recipient} />
-                <CFDAOverview />
+                <CFDAOverview cfdaNumber={overview._cfdaNumber} cfdaTitle={overview._cfdaTitle} />
+                {/* <CFDAOverview cfdaNumber="123" cfdaTitle="Test" /> */}
                 <AwardSection type="column" className="award-amountdates">
                     <AwardDates
                         awardType={overview.category}
