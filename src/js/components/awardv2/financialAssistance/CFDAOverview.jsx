@@ -10,6 +10,19 @@ const propTypes = {
     title: PropTypes.string
 };
 
+const displayCfdaNumberAndTitle = (number, title) => {
+    if (number && title) {
+        return `${number} - ${title}`;
+    }
+    if (!number && title) {
+        return title;
+    }
+    if (number && !title) {
+        return number;
+    }
+    return '--';
+};
+
 const CFDAOverview = ({
     number = '',
     title = ''
@@ -21,9 +34,7 @@ const CFDAOverview = ({
             tooltip={CFDAOverviewInfo} />
         <div className="award-overview__body award-overview__cfda">
             <span>
-                {(!number && !title)
-                    ? '--'
-                    : `${number} - ${title}`}
+                {displayCfdaNumberAndTitle(number, title)}
             </span>
         </div>
     </AwardSection>
