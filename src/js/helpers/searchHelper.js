@@ -215,15 +215,9 @@ export const fetchAwardV2 = (awardId) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            // url: `v2/awards/${awardId}/`,
-            url: `v2/awards/CONT_AWD_H907_9700_SPE2DX16D1500_9700/`,
-            // baseURL: kGlobalConstants.API,
-            baseURL: 'http://localhost:5000/api',
+            url: `v2/awards/${awardId}/`,
+            baseURL: kGlobalConstants.API,
             method: 'get',
-            data: {},
-            headers: {
-                'Content-Type': 'application/json'
-            },
             cancelToken: source.token
         }),
         cancel() {
