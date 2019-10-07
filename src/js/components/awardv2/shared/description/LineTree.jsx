@@ -14,12 +14,12 @@ const LineTree = ({
     const parsedData = Object.keys(data)
         .filter((tierType) => !isEmpty(data[tierType]))
         .sort((tierType1, tierType2) => {
-            const first = data[tierType1];
-            const second = data[tierType2];
-            if (first.code === 'SERVICES') return -1;
-            if (second.code === 'SERVICES') return 1;
-            if (first.code < second.code) return -1;
-            if (second.code < first.code) return 1;
+            const first = data[tierType1].code;
+            const second = data[tierType2].code;
+            if (first === 'SERVICES') return -1;
+            if (second === 'SERVICES') return 1;
+            if (first.length < second.length) return -1;
+            if (second.length < first.length) return 1;
             return 0;
         })
         .reduce((acc, tierType) => ({ ...acc, [tierType]: data[tierType] }), {});
