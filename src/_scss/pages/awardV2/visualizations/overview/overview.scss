@@ -32,11 +32,17 @@
                 @include flex(0 0 25%);
             }
         }
+        .award-overview__cfda {
+            padding: 0;
+            span {
+                font-weight: 300;
+                text-transform: uppercase;
+            }
+        }
     }
 
     // custom styles for each sub-section in overview section
     @import "./agencyRecipient";
     @import "./relatedAwards";
     @import "./awardDates";
-    @import "./cfda";
 }
