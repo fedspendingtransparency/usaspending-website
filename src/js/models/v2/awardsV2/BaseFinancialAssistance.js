@@ -12,6 +12,13 @@ import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 
 const BaseFinancialAssistance = Object.create(CoreAward);
 
+const getLargestCfda = (acc, cfdaItem) => {
+    if (cfdaItem.total_funding_amount && cfdaItem.total_funding_amount > acc.total_funding_amount) {
+        return cfdaItem;
+    }
+    return acc;
+};
+
 BaseFinancialAssistance.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
@@ -118,6 +125,7 @@ BaseFinancialAssistance.populate = function populate(data) {
     this._totalFunding = parseFloat(data.total_funding) || 0;
     this.fain = data.fain;
     this.uri = data.uri;
+    this.biggestCfda = data.cfda_info.reduce(getLargestCfda, { total_funding_amount: 0 });
 };
 
 Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {
