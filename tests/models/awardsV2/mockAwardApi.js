@@ -201,12 +201,16 @@ export const mockLoan = {
     },
     cfda_info: [
         {
+            total_funding_amount: 2,
+            cfda_title: 'bigger'
+        },
+        {
             total_funding_amount: 1,
             cfda_title: 'smaller'
         },
         {
-            total_funding_amount: 2,
-            cfda_title: 'bigger'
+            total_funding_amount: 0,
+            cfda_title: 'zero'
         }
     ]
 };
