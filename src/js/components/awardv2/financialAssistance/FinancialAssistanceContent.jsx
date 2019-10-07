@@ -101,8 +101,7 @@ const FinancialAssistanceContent = ({
                     awardingAgency={overview.awardingAgency}
                     category={overview.category}
                     recipient={overview.recipient} />
-                <CFDAOverview cfdaNumber={overview._cfdaNumber} cfdaTitle={overview._cfdaTitle} />
-                {/* <CFDAOverview cfdaNumber="123" cfdaTitle="Test" /> */}
+                <CFDAOverview number={overview.biggestCfda.cfda_number} title={overview.biggestCfda.cfda_title} />
                 <AwardSection type="column" className="award-amountdates">
                     <AwardDates
                         awardType={overview.category}
