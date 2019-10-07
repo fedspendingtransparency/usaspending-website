@@ -16,6 +16,7 @@ const CFDAOverview = ({
 }) => (
     <AwardSection type="column">
         <AwardSectionHeader
+            left={false}
             title="CFDA Program / Assistance Listing"
             tooltip={CFDAOverviewInfo} />
         <div className="award-overview__body award-overview__cfda">
