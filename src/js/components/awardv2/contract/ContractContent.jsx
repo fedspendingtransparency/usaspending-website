@@ -18,6 +18,7 @@ import AwardSection from '../shared/AwardSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardHistory from '../shared/awardHistorySection/AwardHistory';
+import AwardDescription from "../shared/description/AwardDescription";
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -69,7 +70,7 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
                     awardType={overview.category}
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
                     awardOverview={awardAmountData} />
-                <ComingSoonSection title="Description" includeHeader />
+                <AwardDescription awardId={awardId} description={overview.description} naics={overview.naics} psc={overview.psc} />
             </AwardSection>
             <AwardSection type="row">
                 <ComingSoonSection title="Contract Activity" includeHeader />

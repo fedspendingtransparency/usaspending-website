@@ -20,6 +20,7 @@ import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
 import CFDAOverview from './CFDAOverview';
+import AwardDescription from '../shared/description/AwardDescription';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -110,7 +111,7 @@ const FinancialAssistanceContent = ({
             </AwardSection>
             <AwardSection type="row">
                 {amountsSection}
-                <ComingSoonSection title="Description" includeHeader />
+                <AwardDescription description={overview.description} awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
                 <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />

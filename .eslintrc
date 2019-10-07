@@ -4,6 +4,7 @@
 // see: https://github.com/airbnb/javascript
 {
     "extends": "airbnb",
+    "parser": "babel-eslint",
     "parserOptions": {
       "ecmaVersion": 2018
     },
@@ -18,7 +19,7 @@
             }
         }
     },
-    "plugins": ["react-hooks"], // contains linting for react-hooks best practices
+    "plugins": ["react-hooks", "babel"], // contains linting for react-hooks best practices
     // overrides to the Airbnb style follow
     "rules": {
         // indentation should be 4 spaces (use soft tabs) and switch cases should be indented
