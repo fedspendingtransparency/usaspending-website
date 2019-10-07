@@ -25,8 +25,8 @@ const additionalDataForPsc = { code: 'SERVICES', description: '' };
 const AwardDescription = ({
     awardId,
     description,
-    naics,
-    psc
+    naics = null,
+    psc = null
 }) => {
     const [isExpanded, setExpanded] = useState(false);
     let value = description;
@@ -47,30 +47,32 @@ const AwardDescription = ({
                 <p className="award-description__description">
                     {value} {button}
                 </p>
-                <div className="award-description__naics-psc">
-                    <div className="naics-psc__section">
-                        <div className="naics-psc__heading">
-                            North American Industry Classification System (NAICS) Code
-                            <div className="naics-psc__icon">
-                                <a href={`#/award/${awardId}/?glossary=naics`}>
-                                    <Glossary />
-                                </a>
+                {naics && psc && (
+                    <div className="award-description__naics-psc">
+                        <div className="naics-psc__section">
+                            <div className="naics-psc__heading">
+                                North American Industry Classification System (NAICS) Code
+                                <div className="naics-psc__icon">
+                                    <a href={`#/award/${awardId}/?glossary=naics`}>
+                                        <Glossary />
+                                    </a>
+                                </div>
                             </div>
+                            <LineTree type="naics" data={naics} />
                         </div>
-                        <LineTree type="naics" data={naics} />
-                    </div>
-                    <div className="naics-psc__section naics-psc__section_psc">
-                        <div className="naics-psc__heading">
-                            Product Service Code (PSC)
-                            <div className="naics-psc__icon">
-                                <a href={`#/award/${awardId}/?glossary=productservice-code-psc`}>
-                                    <Glossary />
-                                </a>
+                        <div className="naics-psc__section naics-psc__section_psc">
+                            <div className="naics-psc__heading">
+                                Product Service Code (PSC)
+                                <div className="naics-psc__icon">
+                                    <a href={`#/award/${awardId}/?glossary=productservice-code-psc`}>
+                                        <Glossary />
+                                    </a>
+                                </div>
                             </div>
+                            <LineTree type="psc" data={{ additionalDataForPsc, ...psc }} />
                         </div>
-                        <LineTree type="psc" data={{ additionalDataForPsc, ...psc }} />
                     </div>
-                </div>
+                )}
             </div>
         </AwardSection>
     );
