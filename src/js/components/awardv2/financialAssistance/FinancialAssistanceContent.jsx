@@ -19,6 +19,7 @@ import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
+import CFDAOverview from './CFDAOverview';
 import AwardDescription from '../shared/description/AwardDescription';
 
 const propTypes = {
@@ -99,6 +100,7 @@ const FinancialAssistanceContent = ({
                     awardingAgency={overview.awardingAgency}
                     category={overview.category}
                     recipient={overview.recipient} />
+                <CFDAOverview number={overview.biggestCfda.cfda_number} title={overview.biggestCfda.cfda_title} />
                 <AwardSection type="column" className="award-amountdates">
                     <AwardDates
                         awardType={overview.category}

@@ -627,3 +627,13 @@ export const ContractAwardAmountsInfo = (
     </div>
 );
 
+export const CFDAOverviewInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            CFDA Program / Assistance Listing Information
+        </div>
+        <div className="info-tooltip__text">
+            <p>Tooltip text not yet approved.</p>
+        </div>
+    </div>
+);

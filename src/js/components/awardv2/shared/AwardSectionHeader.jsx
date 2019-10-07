@@ -6,14 +6,15 @@ const AwardSectionHeader = ({
     icon,
     title,
     tooltip,
-    tooltipWide = false
+    tooltipWide = false,
+    left = true
 }) => (
     <React.Fragment>
         <div className="award-viz__heading">
             {icon && <div className="award-viz__icon">{icon}</div>}
             <h3 className="award-viz__title">{title}</h3>
             {tooltip && (
-                <InfoTooltip left wide={tooltipWide}>
+                <InfoTooltip left={left} wide={tooltipWide}>
                     {tooltip}
                 </InfoTooltip>
             )}

@@ -1,4 +1,9 @@
 .related-awards {
+    @include flex(1 1 auto);
+    padding: 0 rem(10);
+    @include media($medium-screen) {
+        @include flex(0 0 25%);
+    }
     .related-awards__title {
         @include display(flex);
         .award__info-wrapper {
