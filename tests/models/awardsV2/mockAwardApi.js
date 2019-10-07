@@ -119,7 +119,6 @@ export const mockContract = {
             amount: null
         }]
     }
-
 };
 
 export const mockGrant = {
@@ -199,7 +198,17 @@ export const mockLoan = {
         country_name: 'UNITED STATES',
         location_country_code: null,
         congressional_code: null
-    }
+    },
+    cfda_info: [
+        {
+            total_funding_amount: 1,
+            cfda_title: 'smaller'
+        },
+        {
+            total_funding_amount: 2,
+            cfda_title: 'bigger'
+        }
+    ]
 };
 
 export const mockIdv = {
