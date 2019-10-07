@@ -85,7 +85,6 @@ const FinancialAssistanceContent = ({
         if (titleArray.length === 3) titleArray.pop();
         title = titleArray.join(' ');
     }
-    console.log("hey pal", overview);
     return (
         <AwardPageWrapper
             identifier={identifier}
