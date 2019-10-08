@@ -47,10 +47,10 @@ export default class AgencyListContainer extends React.Component {
             results.forEach((item) => {
                 let subAbbreviation = '';
                 let topAbbreviation = '';
-                if (item.subtier_agency.abbreviation !== '') {
+                if (item.subtier_agency.abbreviation) {
                     subAbbreviation = `(${item.subtier_agency.abbreviation})`;
                 }
-                if (item.toptier_agency.abbreviation !== '') {
+                if (item.toptier_agency.abbreviation) {
                     topAbbreviation = `(${item.toptier_agency.abbreviation})`;
                 }
 

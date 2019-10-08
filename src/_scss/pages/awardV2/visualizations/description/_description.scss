@@ -26,6 +26,38 @@
                     padding-right: 0;
                     padding-left: rem(10);
                 }
+                .line-tree-psc,
+                .line-tree-naics {
+                    padding: 0;
+                    div {
+                        padding: 10px 5px 0px 5px;
+                        span {
+                            color: #555555;
+                            padding-left: 5px;
+                            padding-bottom: 5px;
+                            @include display(flex);
+                        }
+                    }
+                    .tier--2 {
+                        border-left: 3px solid #979797;
+                        margin-left: 10px;
+                    }
+                    .tier--3 {
+                        border-left: 2px solid #979797;
+                        margin-left: 10px;
+                    }
+                    .tier--4 {
+                        border-left: 1.5px solid #979797;
+                        margin-left: 10px;
+                    }
+                    .tier--last {
+                        border-left: 1.5px solid #979797;
+                        span {
+                            padding-bottom: 0px;
+                            font-weight: bold;
+                        }
+                    }
+                }
             }
             .naics-psc__heading {
                 font-weight: $font-semibold;

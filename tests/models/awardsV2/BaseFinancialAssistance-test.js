@@ -9,6 +9,7 @@ import BaseAwardRecipient from "models/v2/awardsV2/BaseAwardRecipient";
 import CoreAwardAgency from "models/v2/awardsV2/CoreAwardAgency";
 import CorePeriodOfPerformance from 'models/v2/awardsV2/CorePeriodOfPerformance';
 
+import { emptyCfda } from '../../../src/js/models/v2/awardsV2/BaseFinancialAssistance';
 import { mockLoan } from './mockAwardApi';
 
 const loan = Object.create(BaseFinancialAssistance);
@@ -43,6 +44,19 @@ describe('Base Financial Assistance', () => {
     describe('Recipient', () => {
         it('should be an object with BaseAwardRecipient in its prototype chain', () => {
             expect(Object.getPrototypeOf(loan.recipient)).toEqual(BaseAwardRecipient);
+        });
+    });
+
+    describe('biggestCfda', () => {
+        it('should return the largest CFDA', () => {
+            const award = Object.create(BaseFinancialAssistance);
+            award.populate(mockLoan);
+            expect(award.biggestCfda.cfda_title).toEqual('bigger');
+        });
+        it('should handle an empty array', () => {
+            const award = Object.create(BaseFinancialAssistance);
+            award.populate({ ...mockLoan, cfda_info: [{}] });
+            expect(award.biggestCfda).toEqual(emptyCfda);
         });
     });
 });

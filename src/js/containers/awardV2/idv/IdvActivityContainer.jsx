@@ -45,6 +45,12 @@ export class IdvActivityContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        if (this.idvActivityRequest) {
+            this.idvActivityRequest.cancel();
+        }
+    }
+
     async loadAwards() {
         if (this.idvActivityRequest) {
             this.idvActivityRequest.cancel();

@@ -7,12 +7,14 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import { List } from 'immutable';
 import sinon from 'sinon';
+import moment from 'moment';
 
 // mock the bulkDownload helper
 jest.mock('helpers/bulkDownloadHelper', () => require('../mockBulkDownloadHelper'));
 
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import { mockAgencies, mockArchiveResponse } from '../mockData';
+import { currentFiscalYear } from '../../../../src/js/helpers/fiscalYearHelper';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/bulkDownload/archive/AwardDataArchiveContent', () => jest.fn(() => null));

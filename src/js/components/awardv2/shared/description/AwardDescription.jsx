@@ -3,114 +3,84 @@
  * Created by Lizzie Salita 10/12/18
  **/
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { SpeechBubble, Glossary, AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
-import InfoTooltip from '../../shared/InfoTooltip';
+import { SpeechBubble, Glossary } from 'components/sharedComponents/icons/Icons';
 import { descriptionInfo } from '../../shared/InfoTooltipContent';
+import AwardSection from '../AwardSection';
+import AwardSectionHeader from '../AwardSectionHeader';
+import AwardSectionExpandButton from '../AwardSectionExpandButton';
+import LineTree from './LineTree';
 
 const propTypes = {
     awardId: PropTypes.string,
     description: PropTypes.string,
-    naics: PropTypes.string,
-    psc: PropTypes.string
+    naics: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
+    psc: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
+    isIdv: PropTypes.bool
 };
 
-export default class AwardDescription extends React.Component {
-    constructor(props) {
-        super(props);
+const maxChars = 300;
+const additionalDataForPsc = { code: 'SERVICES', description: '' };
 
-        this.state = {
-            moreButton: true,
-            buttonValue: 'More',
-            arrowValue: (<AngleDown alt="See full description" />)
-        };
-
-        this.toggleButton = this.toggleButton.bind(this);
+const AwardDescription = ({
+    awardId,
+    description,
+    naics = null,
+    psc = null,
+    isIdv = false
+}) => {
+    const [isExpanded, setExpanded] = useState(false);
+    let value = description;
+    const overflow = value.length > maxChars;
+    if (overflow && !isExpanded) {
+        value = `${value.substring(0, maxChars)}...`;
     }
 
-    toggleButton() {
-        const button = !this.state.moreButton;
-        let arrow = (<AngleDown alt="See full description" />);
-        let value = 'More';
-        if (this.state.buttonValue === 'More') {
-            value = 'Less';
-            arrow = (<AngleUp alt="Hide full description" />);
-        }
-        this.setState({
-            moreButton: button,
-            buttonValue: value,
-            arrowValue: arrow
-        });
+    let button = null;
+    if (overflow) {
+        button = <AwardSectionExpandButton type="secondary" isExpanded={isExpanded} setExpanded={setExpanded} />;
     }
 
-    render() {
-        const maxChars = 300;
-        let value = this.props.description;
-        const overflow = value.length > maxChars;
-        if (overflow && this.state.moreButton) {
-            value = `${value.substring(0, maxChars)}...`;
-        }
-
-        let button = null;
-        if (overflow) {
-            button = (
-                <button
-                    onClick={this.toggleButton}
-                    className="award-description__button">
-                    {this.state.buttonValue}
-                    <div className="award-description__button-icon">
-                        {this.state.arrowValue}
-                    </div>
-                </button>
-            );
-        }
-
-        return (
-            <div className="award__col award-viz award-description">
-                <div className="award-viz__heading">
-                    <div className="award-viz__icon">
-                        <SpeechBubble />
-                    </div>
-                    <h3 className="award-viz__title">
-                        Description
-                    </h3>
-                    <InfoTooltip left>
-                        {descriptionInfo}
-                    </InfoTooltip>
-                </div>
-                <hr />
-                <div className="award-description__content">
-                    <p className="award-description__description">
-                        {value} {button}
-                    </p>
+    return (
+        <AwardSection type="column" className="award-viz award-description">
+            <AwardSectionHeader icon={<SpeechBubble />} tooltip={descriptionInfo} title="Description" />
+            <div className="award-description__content">
+                <p className="award-description__description">
+                    {value} {button}
+                </p>
+                {naics && psc && (
                     <div className="award-description__naics-psc">
                         <div className="naics-psc__section">
                             <div className="naics-psc__heading">
-                                NAICS
+                                North American Industry Classification System (NAICS) Code
                                 <div className="naics-psc__icon">
-                                    <a href={`#/award/${this.props.awardId}/?glossary=naics`}>
+                                    <a href={`#/award/${awardId}/?glossary=naics`}>
                                         <Glossary />
                                     </a>
                                 </div>
                             </div>
-                            {this.props.naics}
+                            {!isIdv && <LineTree type="naics" data={naics} />}
+                            {isIdv && naics}
                         </div>
                         <div className="naics-psc__section naics-psc__section_psc">
                             <div className="naics-psc__heading">
-                                PSC
+                                Product Service Code (PSC)
                                 <div className="naics-psc__icon">
-                                    <a href={`#/award/${this.props.awardId}/?glossary=productservice-code-psc`}>
+                                    <a href={`#/award/${awardId}/?glossary=productservice-code-psc`}>
                                         <Glossary />
                                     </a>
                                 </div>
                             </div>
-                            {this.props.psc}
+                            {!isIdv && <LineTree type="psc" data={{ additionalDataForPsc, ...psc }} />}
+                            {isIdv && psc}
                         </div>
                     </div>
-                </div>
+                )}
             </div>
-        );
-    }
-}
+        </AwardSection>
+    );
+};
+
 AwardDescription.propTypes = propTypes;
+export default AwardDescription;

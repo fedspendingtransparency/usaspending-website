@@ -3,12 +3,11 @@
  * Created by Lizzie Salita 12/3/18
  **/
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsContainer';
 import IdvActivityContainer from 'containers/awardV2/idv/IdvActivityContainer';
-import { Glossary } from 'components/sharedComponents/icons/Icons';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
@@ -19,6 +18,8 @@ import AwardAmounts from './amounts/AwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
+import AwardPageWrapper from '../shared/AwardPageWrapper';
+import AwardSection from '../shared/AwardSection';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -27,121 +28,77 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-export default class IdvContent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            awardHistoryActiveTab: 'transaction', // or fedaccount
-            relatedAwardsActiveTab: 'child_awards'
-        };
+const IdvContent = ({
+    awardId,
+    counts,
+    overview,
+    jumpToSection
+}) => {
+    const [awardHistoryActiveTab, setAwardHistoryTab] = useState('transaction');
+    const [relatedAwardsActiveTab, setRelatedAwardsTab] = useState('child_awards');
 
-        this.setHistoryActiveTab = this.setHistoryActiveTab.bind(this);
-        this.setRelatedAwardsTab = this.setRelatedAwardsTab.bind(this);
-        this.jumpToFederalAccountsHistory = this.jumpToFederalAccountsHistory.bind(this);
-    }
+    const jumpToFederalAccountsHistory = () => {
+        setAwardHistoryTab('federal_account');
+        jumpToSection('award-history');
+    };
 
-    setHistoryActiveTab(activeTab = 'transaction') {
-        this.setState({
-            awardHistoryActiveTab: activeTab
-        });
-    }
+    const glossarySlug = glossaryLinks[overview.type];
+    const glossaryLink = glossarySlug
+        ? `/#/award/${awardId}?glossary=${glossarySlug}`
+        : null;
 
-    setRelatedAwardsTab(relatedAwardsActiveTab) {
-        if (relatedAwardsActiveTab !== this.state.relatedAwardsActiveTab) {
-            this.setState({
-                relatedAwardsActiveTab
-            });
-        }
-    }
-
-    jumpToFederalAccountsHistory() {
-        this.setState({
-            awardHistoryActiveTab: 'federal_account'
-        });
-        this.props.jumpToSection('award-history');
-    }
-
-    render() {
-        const glossarySlug = glossaryLinks[this.props.overview.type];
-        let glossaryLink = null;
-        if (glossarySlug) {
-            glossaryLink = (
-                <a href={`/#/award/${this.props.awardId}?glossary=${glossarySlug}`}>
-                    <Glossary />
-                </a>
-            );
-        }
-
-        return (
-            <div className="award award-idv">
-                <div className="award__heading">
-                    <div className="award__info">
-                        <div className="award__heading-text">
-                            {this.props.overview.longTypeDescription}
-                        </div>
-                        <div className="award__heading-icon">
-                            {glossaryLink}
-                        </div>
-                        <div className="award__heading-id">
-                            <div className="award__heading-label">
-                                {this.props.overview.id ? "PIID" : ""}
-                            </div>
-                            <div>{this.props.overview.id}</div>
-                        </div>
-                    </div>
-                    <div className="award__last-modified">
-                Last Modified On:{" "}
-                        <span className="award__last-modified award__last-modified_date">
-                            {this.props.overview.dates.lastModifiedDateLong}
-                        </span>
-                    </div>
-                </div>
-                <hr />
-                <div
-                    className="award__row award-overview"
-                    id="award-overview">
-                    <AgencyRecipient
-                        jumpToSection={this.props.jumpToSection}
-                        awardingAgency={this.props.overview.awardingAgency}
-                        category="idv"
-                        recipient={this.props.overview.recipient} />
-                    <RelatedAwards
-                        counts={this.props.counts}
-                        jumpToSection={this.props.jumpToSection}
-                        setRelatedAwardsTab={this.setRelatedAwardsTab}
-                        overview={this.props.overview} />
-                    <IdvDates
-                        awardType={this.props.overview.category}
-                        dates={this.props.overview.dates} />
-                </div>
-                <div className="award__row">
-                    <AwardAmounts
-                        jumpToSection={this.props.jumpToSection}
-                        awardId={this.props.awardId}
-                        overview={this.props.overview} />
-                    <AwardDescription
-                        awardId={this.props.awardId}
-                        description={this.props.overview.description}
-                        naics={this.props.overview.additionalDetails.naicsCode}
-                        psc={this.props.overview.additionalDetails.pscCode} />
-                </div>
-                <div className="award__row">
-                    <IdvActivityContainer />
-                    <FederalAccountsSection
-                        idv
-                        jumpToFederalAccountsHistory={this.jumpToFederalAccountsHistory} />
-                </div>
-                <ReferencedAwardsContainer
-                    tableType={this.state.relatedAwardsActiveTab}
-                    switchTab={this.setRelatedAwardsTab} />
-                <AwardHistory
-                    activeTab={this.state.awardHistoryActiveTab}
-                    setActiveTab={this.setHistoryActiveTab}
-                    overview={this.props.overview} />
-                <AdditionalInfo overview={this.props.overview} />
-            </div>
-        );
-    }
-}
+    return (
+        <AwardPageWrapper
+            awardType="idv"
+            awardTypeDescription={overview.longTypeDescription}
+            lastModifiedDateLong={overview.dates.lastModifiedDateLong}
+            glossaryLink={glossaryLink}
+            identifier={overview.id}>
+            <AwardSection type="row" className="award-overview" id="award-overivew">
+                <AgencyRecipient
+                    jumpToSection={jumpToSection}
+                    awardingAgency={overview.awardingAgency}
+                    category="idv"
+                    recipient={overview.recipient} />
+                <RelatedAwards
+                    counts={counts}
+                    jumpToSection={jumpToSection}
+                    setRelatedAwardsTab={setRelatedAwardsTab}
+                    overview={overview} />
+                <IdvDates
+                    awardType={overview.category}
+                    dates={overview.dates} />
+            </AwardSection>
+            <AwardSection type="row">
+                <AwardAmounts
+                    jumpToSection={jumpToSection}
+                    awardId={awardId}
+                    overview={overview} />
+                <AwardDescription
+                    isIdv
+                    awardId={awardId}
+                    description={overview.description}
+                    naics={overview.additionalDetails.naicsCode}
+                    psc={overview.additionalDetails.pscCode} />
+            </AwardSection>
+            <AwardSection type="row">
+                <IdvActivityContainer />
+                <FederalAccountsSection
+                    idv
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+            </AwardSection>
+            <ReferencedAwardsContainer
+                tableType={relatedAwardsActiveTab}
+                switchTab={setRelatedAwardsTab} />
+            <AwardHistory
+                activeTab={awardHistoryActiveTab}
+                setActiveTab={setAwardHistoryTab}
+                overview={overview} />
+            <AdditionalInfo overview={overview} />
+        </AwardPageWrapper>
+    );
+};
 
 IdvContent.propTypes = propTypes;
+
+export default IdvContent;

@@ -2,7 +2,7 @@ import React from 'react';
 import { startCase } from 'lodash';
 
 import { Glossary } from '../../sharedComponents/icons/Icons';
-import { AWARD_PAGE_WRAPPER_PROPS } from "../../../propTypes/index";
+import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 
 const AwardPageWrapper = ({
     awardType,
@@ -10,20 +10,21 @@ const AwardPageWrapper = ({
     lastModifiedDateLong,
     glossaryLink,
     identifier,
+    idLabel = "PIID",
     children
 }) => (
     <div className={`award award-${awardType}`}>
         <div className="award__heading">
             <div className="award__info">
-                <div className="award__heading-text">{startCase(awardTypeDescription)}</div>
+                <h2 className="award__heading-text">{startCase(awardTypeDescription)}</h2>
                 <div className="award__heading-icon">
                     <a href={glossaryLink}>
                         <Glossary />
                     </a>
                 </div>
                 <div className="award__heading-id">
-                    <div className="award__heading-label">{identifier ? 'PIID' : ''}</div>
-                    <div>{identifier}</div>
+                    <h3>{idLabel}</h3>
+                    <p>{identifier}</p>
                 </div>
             </div>
             <div className="award__last-modified">
