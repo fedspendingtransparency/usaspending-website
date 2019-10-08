@@ -75,6 +75,7 @@ const IdvContent = ({
                     awardId={awardId}
                     overview={overview} />
                 <AwardDescription
+                    isIdv
                     awardId={awardId}
                     description={overview.description}
                     naics={overview.additionalDetails.naicsCode}
