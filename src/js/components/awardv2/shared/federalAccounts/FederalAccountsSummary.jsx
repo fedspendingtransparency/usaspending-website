@@ -5,21 +5,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { startCase } from 'lodash';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import JumpToSectionButton from '../awardAmountsSection/JumpToSectionButton';
 
 const propTypes = {
     summary: PropTypes.object,
     inFlight: PropTypes.bool,
-    category: PropTypes.string,
     jumpToFederalAccountsHistory: PropTypes.func
 };
 
-export default class FederalAccountsSummary extends React.Component {
-    generateTable() {
+const FederalAccountsSummary = ({ summary, inFlight, jumpToFederalAccountsHistory }) => {
+    const generateTable = () => {
         let table;
-        if (this.props.inFlight) {
+        if (inFlight) {
             table = (
                 <div className="results-table-message-container">
                     <ResultsTableLoadingMessage />
@@ -27,7 +25,6 @@ export default class FederalAccountsSummary extends React.Component {
             );
         }
         else {
-            const summary = this.props.summary;
             table = (
                 <div className="award-funding-summary__table">
                     <div className="award-funding-summary__data">
@@ -50,20 +47,18 @@ export default class FederalAccountsSummary extends React.Component {
             );
         }
         return table;
-    }
-    render() {
-        const category = this.props.category === 'idv' ? 'IDV' : startCase(this.props.category);
-        return (
-            <div className="federal-accounts-summary__section">
-                <h4>Summary of Federal Accounts used by this {category}</h4>
-                {this.generateTable()}
-                <JumpToSectionButton
-                    linkText="View federal funding submissions"
-                    icon="table"
-                    onClick={this.props.jumpToFederalAccountsHistory} />
-            </div>
-        );
-    }
-}
+    };
+
+    return (
+        <div className="federal-accounts-summary__section">
+            <h4>Summary of All Federal Accounts used by this Award</h4>
+            {generateTable()}
+            <JumpToSectionButton
+                linkText="View federal funding submissions"
+                icon="table"
+                onClick={jumpToFederalAccountsHistory} />
+        </div>
+    );
+};
 
 FederalAccountsSummary.propTypes = propTypes;
