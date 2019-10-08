@@ -12,13 +12,13 @@ import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 
 const BaseFinancialAssistance = Object.create(CoreAward);
 export const emptyCfda = {
-    total_funding_amount: 0,
+    total_funding_amount: -Infinity,
     cfda_title: '',
     cfda_number: ''
 };
 
 const getLargestCfda = (acc, cfdaItem) => {
-    if (cfdaItem.total_funding_amount && cfdaItem.total_funding_amount > acc.total_funding_amount) {
+    if (cfdaItem.total_funding_amount > acc.total_funding_amount) {
         return cfdaItem;
     }
     return acc;

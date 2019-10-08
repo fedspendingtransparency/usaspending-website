@@ -45,6 +45,12 @@ export class FederalAccountsSummaryContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        if (this.request) {
+            this.request.cancel();
+        }
+    }
+
     async getAwardMetaData() {
         if (this.request) {
             this.request.cancel();
