@@ -15,8 +15,8 @@ import LineTree from './LineTree';
 const propTypes = {
     awardId: PropTypes.string,
     description: PropTypes.string,
-    naics: PropTypes.oneOfType(PropTypes.object, PropTypes.string), // string for IDVs
-    psc: PropTypes.oneOfType(PropTypes.object, PropTypes.string), // string for IDVs
+    naics: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
+    psc: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
     isIdv: PropTypes.bool
 };
 
