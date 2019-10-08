@@ -53,6 +53,12 @@ export class FederalAccountsVizContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        if (this.request) {
+            this.request.cancel();
+        }
+    }
+
     async getFederalAccounts() {
         if (this.request) {
             this.request.cancel();

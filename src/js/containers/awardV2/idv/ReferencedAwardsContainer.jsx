@@ -88,6 +88,12 @@ export class ReferencedAwardsContainer extends React.Component {
         if (this.props.tableType !== prevProps.tableType) this.loadResults();
     }
 
+    componentWillUnmount() {
+        if (this.request) {
+            this.request.cancel();
+        }
+    }
+
     loadResults() {
         if (this.request) {
             this.request.cancel();
