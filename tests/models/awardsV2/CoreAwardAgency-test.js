@@ -8,6 +8,7 @@ import { mockLoan } from './mockAwardApi';
 
 const agency = Object.create(CoreAwardAgency);
 const agencyData = {
+    id: 123,
     toptierName: mockLoan.awarding_agency.toptier_agency.name,
     toptierAbbr: mockLoan.awarding_agency.toptier_agency.abbreviation,
     subtierName: mockLoan.awarding_agency.subtier_agency.name,
@@ -16,6 +17,9 @@ const agencyData = {
 agency.populateCore(agencyData);
 
 describe('CoreAwardAgency', () => {
+    it('should have an id field', () => {
+        expect(agency.id).toEqual(123);
+    });
     it('should format toptier, subtier, and office names', () => {
         expect(agency.toptierName).toEqual('Department of Defense');
         expect(agency.subtierName).toEqual('Department of Navy');

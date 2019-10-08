@@ -142,8 +142,8 @@ export const mockLoan = {
     cfda_title: 'Flood Insurance',
     total_obligation: 123231313,
     subaward_count: 23423343,
-    total_subsidy_cost: 123,
-    total_loan_value: 24343,
+    total_subsidy_cost: 1290000.00, // subsidy 1.3 M
+    total_loan_value: 2497000000.00, // faceValue 2.5 B
     total_subaward_amount: 32423342,
     awarding_agency: {
         id: '323',

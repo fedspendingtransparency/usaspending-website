@@ -15,6 +15,8 @@
         line-height: 1.3;
         margin-bottom: rem(2);
         margin-top: rem(2);
+        @include display(flex);
+        @include align-items(center);
 
         &:first-child {
             margin-top: 0;
@@ -26,17 +28,9 @@
             display: none;
         }
         .close {
-            display: inline-block;
-            float: right;
+            @include display(flex);
             font-size: $small-font-size;
-            margin: rem(-3);
-            padding: 0 .5rem .1rem rem(15);
-            vertical-align: middle;
-            & svg {
-                width: rem(8);
-                height: rem(8);
-                fill: $color-gray;
-            }
+            padding: 0 rem(5) rem(1) rem(15);
         }
         &:hover {
             background: lighten($color-cool-blue-lightest, 10%);
@@ -45,13 +39,7 @@
             @include transition(all 0.25s $ease-in-out-sine);
             & .close {
                 cursor: pointer;
-                fill: $color-cool-blue;
-                
-                & svg,
-                & path {
-                    cursor: pointer;
-                    fill: $color-cool-blue;
-                }
+                color: $color-cool-blue;
             }
         }
     }

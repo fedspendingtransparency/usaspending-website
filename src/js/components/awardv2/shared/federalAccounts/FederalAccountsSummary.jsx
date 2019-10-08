@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
+import JumpToSectionButton from '../awardAmountsSection/JumpToSectionButton';
 
 const propTypes = {
     summary: PropTypes.object,
@@ -55,20 +55,14 @@ export default class FederalAccountsSummary extends React.Component {
     }
     render() {
         const category = this.props.category === 'idv' ? 'IDV' : startCase(this.props.category);
-        // TODO - show the table link on all award pages once the Award History section has been implemented
-        const tableLink = this.props.category === 'idv' ? (
-            <button onClick={this.props.jumpToFederalAccountsHistory} className="award-viz__button">
-                <div className="award-viz__link-icon">
-                    <FontAwesomeIcon icon="table" />
-                </div>
-                {<div className="award-viz__link-text">View federal funding submissions</div>}
-            </button>
-        ) : null;
         return (
             <div className="federal-accounts-summary__section">
                 <h4>Summary of Federal Accounts used by this {category}</h4>
                 {this.generateTable()}
-                {tableLink}
+                <JumpToSectionButton
+                    linkText="View federal funding submissions"
+                    icon="table"
+                    onClick={this.props.jumpToFederalAccountsHistory} />
             </div>
         );
     }

@@ -10,13 +10,14 @@ import { connect } from 'react-redux';
 import { is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-
 import AwardAmountSearch from 'components/search/filters/awardAmount/AwardAmountSearch';
+
 
 const propTypes = {
     updateAwardAmounts: PropTypes.func,
     awardAmounts: PropTypes.object,
-    appliedAmounts: PropTypes.object
+    appliedAmounts: PropTypes.object,
+    updateGenericFilter: PropTypes.func
 };
 
 export class AwardAmountSearchContainer extends React.Component {
@@ -25,11 +26,11 @@ export class AwardAmountSearchContainer extends React.Component {
 
         // Bind functions
         this.selectAwardRange = this.selectAwardRange.bind(this);
+        this.removeFilter = this.removeFilter.bind(this);
     }
 
-    selectAwardRange(amount, searchType) {
-        const updateParams = { amount, searchType };
-        this.props.updateAwardAmounts(updateParams);
+    selectAwardRange(awardAmountRange) {
+        this.props.updateAwardAmounts(awardAmountRange);
     }
 
     dirtyFilters() {
@@ -39,12 +40,23 @@ export class AwardAmountSearchContainer extends React.Component {
         return Symbol('dirty amount');
     }
 
+    removeFilter(key) {
+        const newValue = this.props.awardAmounts.delete(key);
+        this.props.updateGenericFilter({
+            type: 'awardAmounts',
+            value: newValue
+        });
+    }
+
     render() {
         return (
-            <AwardAmountSearch
-                dirtyFilters={this.dirtyFilters()}
-                awardAmounts={this.props.awardAmounts}
-                selectAwardRange={this.selectAwardRange} />
+            <div className="award-amount-filter">
+                <AwardAmountSearch
+                    removeFilter={this.removeFilter}
+                    dirtyFilters={this.dirtyFilters()}
+                    awardAmounts={this.props.awardAmounts}
+                    selectAwardRange={this.selectAwardRange} />
+            </div>
         );
     }
 }

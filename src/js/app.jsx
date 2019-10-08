@@ -15,16 +15,19 @@ import {
     faChevronUp,
     faEllipsisH,
     faExternalLinkAlt,
+    faInfo,
     faInfoCircle,
     faLandmark,
     faLevelUpAlt,
     faMapMarkerAlt,
     faPencilAlt,
     faSearch,
+    faSitemap,
     faSpinner,
     faTable,
     faTag,
     faThLarge,
+    faTimes,
     faUserTie
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
@@ -50,16 +53,19 @@ library.add(
     faChevronUp,
     faEllipsisH,
     faExternalLinkAlt,
+    faInfo,
     faInfoCircle,
     faLandmark,
     faLevelUpAlt,
     faMapMarkerAlt,
     faPencilAlt,
     faSearch,
+    faSitemap,
     faSpinner,
     faTable,
     faTag,
     faThLarge,
+    faTimes,
     faUserTie
 );
 

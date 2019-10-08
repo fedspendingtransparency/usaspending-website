@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     removeLocation: PropTypes.func,
@@ -21,9 +21,10 @@ export default class ShownLocation extends React.Component {
                 onClick={this.props.removeLocation}
                 title="Click to remove."
                 aria-label={`Applied filter: ${this.props.label}`}>
+                {this.props.label}
                 <span className="close">
-                    <Icons.Close className="usa-da-icon-close" alt="Close icon" />
-                </span> {this.props.label}
+                    <FontAwesomeIcon icon="times" />
+                </span>
             </button>
         );
     }

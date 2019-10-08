@@ -7,7 +7,7 @@ import BaseFederalAccount from 'models/v2/awardsV2/BaseFederalAccountFunding';
 import { mockFederalAccountFunding } from './mockAwardApi';
 
 const row = Object.create(BaseFederalAccount);
-row.populate(mockFederalAccountFunding.results[0]);
+row.populate(mockFederalAccountFunding.results[0], "idv");
 
 describe('Base Financial Assistance', () => {
     describe('Submission Date', () => {
@@ -33,6 +33,11 @@ describe('Base Financial Assistance', () => {
     describe('Account Number', () => {
         it('should format the account number using the agency id and main account code', () => {
             expect(row.accountNumber).toEqual('091-1901');
+        });
+        it('should format account number for nonIdvs as well', () => {
+            const nonIdv = Object.create(BaseFederalAccount);
+            nonIdv.populate({ federal_account: "123-456", ...mockFederalAccountFunding.results[0] }, "contract");
+            expect(nonIdv.federalAccountCode).toEqual('123-456');
         });
     });
 });

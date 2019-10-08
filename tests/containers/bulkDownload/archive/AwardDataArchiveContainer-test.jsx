@@ -21,6 +21,18 @@ jest.mock('components/bulkDownload/archive/AwardDataArchiveContent', () => jest.
 const setAgencyListSpy = sinon.spy(AwardDataArchiveContainer.prototype, 'setAgencyList');
 const requestResultsSpy = sinon.spy(AwardDataArchiveContainer.prototype, 'requestResults');
 
+const defaultFilterState = {
+    agency: {
+        id: 'all',
+        name: 'All'
+    },
+    type: {
+        name: 'contracts',
+        display: 'Contracts'
+    },
+    fy: '2019'
+};
+
 describe('AwardDataArchiveContainer', () => {
     it('should make an API call for the agencies on mount', async () => {
         const container = mount(<AwardDataArchiveContainer/>);
@@ -53,20 +65,18 @@ describe('AwardDataArchiveContainer', () => {
         });
     });
     describe('updateFilter', () => {
-        it('should update the state for the specified filter', () => {
-            const container = mount(<AwardDataArchiveContainer/>);
+        it('should update the state for the specified filter', async () => {
+            const container = mount(<AwardDataArchiveContainer />);
 
             const expectedFilterState = {
-                agency: {
-                    id: 'all',
-                    name: 'All'
-                },
+                ...defaultFilterState,
                 type: {
                     name: 'mockType',
                     display: 'Mock Type'
-                },
-                fy: '2019'
+                }
             };
+
+            await container.instance().setState({ filters: defaultFilterState });
 
             container.instance().updateFilter('type', {
                 name: 'mockType',

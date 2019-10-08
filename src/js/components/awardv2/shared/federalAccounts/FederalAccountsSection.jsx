@@ -11,8 +11,8 @@ import FederalAccountsVizContainer from 'containers/awardV2/shared/FederalAccoun
 import FederalAccountsSummaryContainer from 'containers/awardV2/shared/FederalAccountsSummaryContainer';
 import Note from 'components/sharedComponents/Note';
 
-import InfoToolTip from "../../idv/InfoTooltip";
-import { federalAccountsInfo } from "../../idv/InfoTooltipContent";
+import InfoToolTip from "../../shared/InfoTooltip";
+import { federalAccountsInfo } from "../../shared/InfoTooltipContent";
 
 const propTypes = {
     jumpToFederalAccountsHistory: PropTypes.func,

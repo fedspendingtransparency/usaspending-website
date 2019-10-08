@@ -6,13 +6,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import tableMapping from 'dataMapping/awardsv2/federalAccountFunding';
+import { idvTableMapping, nonIdvTableMapping } from 'dataMapping/awardsv2/federalAccountFunding';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import FederalAccountTableHeaderCell from './cells/FederalAccountTableHeaderCell';
 import FederalAccountTableGenericCell from './cells/FederalAccountTableGenericCell';
+import { AWARD_TYPE_PROPS } from '../../../propTypes';
+import ResultsTableErrorMessage from '../../search/table/ResultsTableErrorMessage';
 
 const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
@@ -26,7 +28,9 @@ const propTypes = {
     inFlight: PropTypes.bool,
     sort: PropTypes.object,
     nextPage: PropTypes.func.isRequired,
-    changeSort: PropTypes.func.isRequired
+    changeSort: PropTypes.func.isRequired,
+    category: AWARD_TYPE_PROPS,
+    error: PropTypes.bool
 };
 
 export default class FedAccountTable extends React.Component {
@@ -35,6 +39,13 @@ export default class FedAccountTable extends React.Component {
 
         this.headerCellRender = this.headerCellRender.bind(this);
         this.bodyCellRender = this.bodyCellRender.bind(this);
+        this.tableMapping = nonIdvTableMapping;
+    }
+
+    componentDidMount() {
+        if (this.props.category === 'idv') {
+            this.tableMapping = idvTableMapping;
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -46,46 +57,51 @@ export default class FedAccountTable extends React.Component {
     }
 
     headerCellRender(columnIndex) {
-        const column = tableMapping.table._order[columnIndex];
-        const displayName = tableMapping.table[column];
+        const column = this.tableMapping.table._order[columnIndex];
+        const displayName = this.tableMapping.table[column];
 
-        const isLast = columnIndex === tableMapping.table._order.length - 1;
+        const isLast = columnIndex === this.tableMapping.table._order.length - 1;
 
         return (
             <FederalAccountTableHeaderCell
+                tableMapping={this.tableMapping}
                 column={column}
                 label={displayName}
                 order={this.props.sort}
-                defaultDirection={tableMapping.defaultSortDirection[column]}
+                defaultDirection={this.tableMapping.defaultSortDirection[column]}
                 setTransactionSort={this.props.changeSort}
                 isLastColumn={isLast} />
         );
     }
 
-    bodyCellRender(columnIndex, rowIndex) {
-        const column = tableMapping.table._order[columnIndex];
+    bodyCellRender(columnIndex, rowIndex, category = this.props.category) {
+        const column = this.tableMapping.table._order[columnIndex];
         const item = this.props.fundingResults[rowIndex];
 
-        const isLast = columnIndex === tableMapping.table._order.length - 1;
-        let isLink;
-
+        const isLast = columnIndex === this.tableMapping.table._order.length - 1;
+        let link;
         if (column === 'id') {
-            isLink = item.awardId && `#/award/${item.awardId}`;
+            link = item.awardId ? `#/award/${item.awardId}` : null;
         }
         if (column === 'agency') {
-            isLink = item.fundingAgencyId && `#/agency/${item.fundingAgencyId}`;
+            link = item.fundingAgencyId ? `#/agency/${item.fundingAgencyId}` : null;
         }
         if (column === 'fedAccount') {
-            isLink = item.accountNumber && `#/federal_account/${item.accountNumber}`;
+            if (category === 'idv') {
+                link = item.accountNumber ? `#/federal_account/${item.accountNumber}` : null;
+            }
+            else {
+                link = item.federalAccountCode ? `#/federal_account/${item.federalAccountCode}` : null;
+            }
         }
         if (column === 'awardingAgencyName') {
-            isLink = item.awardingAgencyId && `#/agency/${item.awardingAgencyId}`;
+            link = item.awardingAgencyId ? `#/agency/${item.awardingAgencyId}` : null;
         }
         return (
             <FederalAccountTableGenericCell
                 rowIndex={rowIndex}
                 data={item[column]}
-                link={isLink}
+                link={link}
                 isLastColumn={isLast} />
         );
     }
@@ -93,13 +109,13 @@ export default class FedAccountTable extends React.Component {
     buildTable() {
         let totalWidth = 0;
 
-        const columns = tableMapping.table._order.map((column, i) => {
+        const columns = this.tableMapping.table._order.map((column, i) => {
             const columnX = totalWidth;
-            const isLast = i === tableMapping.table._order.length - 1;
+            const isLast = i === this.tableMapping.table._order.length - 1;
 
-            const displayName = tableMapping.table[column];
+            const displayName = this.tableMapping.table[column];
             let columnWidth = Math.max(measureTableHeader(displayName),
-                tableMapping.columnWidths[column]);
+                this.tableMapping.columnWidths[column]);
             if (isLast) {
                 // make it fill out the remainder of the width necessary
                 const remainingSpace = this.props.tableWidth - totalWidth;
@@ -130,7 +146,12 @@ export default class FedAccountTable extends React.Component {
             loadingClass = 'loading';
         }
         else if (this.props.fundingResults.length === 0) {
-            message = (<ResultsTableNoResults />);
+            if (this.props.error) {
+                message = <ResultsTableErrorMessage />;
+            }
+            else {
+                message = (<ResultsTableNoResults />);
+            }
         }
 
         return (

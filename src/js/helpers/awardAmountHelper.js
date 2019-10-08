@@ -3,37 +3,69 @@
  * Created by michaelbray on 3/7/17.
  */
 
-import Accounting from 'accounting';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import { spendingCategoriesByAwardType } from '../dataMapping/awardsv2/awardAmountsSection';
 
-export const formatAwardAmountRange = (range) => {
-    const min = MoneyFormatter.calculateUnitForSingleValue(range[0]);
-    const max = MoneyFormatter.calculateUnitForSingleValue(range[1]);
-
-    const minValue = Math.round((10 * range[0]) / min.unit) / 10;
-    const maxValue = Math.round((10 * range[1]) / max.unit) / 10;
-
-    const minLabel = `${minValue}${min.unitLabel}`;
-    const maxLabel = `${maxValue}${max.unitLabel}`;
-
-    if (range[0] === 0 && range[1] === 0) {
-        return `$0 & Above`;
+// formats the specific checkboxes
+// options are NPM accounting package options
+export const formatAwardAmountRange = (range, options = 2) => {
+    const minLabel = formatMoneyWithPrecision(range[0], options);
+    const maxLabel = formatMoneyWithPrecision(range[1], options);
+    let label = `${minLabel} - ${maxLabel}`;
+    if (!range[0] && (range[0] !== 0)) {
+        label = `Under ${maxLabel}`;
     }
-    else if (range[0] === 0) {
-        return `Under $${maxLabel}`;
+    if (!range[1] && (range[1] !== 0)) {
+        label = `${minLabel} & Above`;
     }
-    else if (range[1] === 0) {
-        return `$${minLabel} & Above`;
-    }
-    return `$${minLabel} - $${maxLabel}`;
+    return label;
 };
 
-export const ensureInputIsNumeric = (input) => {
-    // Format user input
-    const cleanInput = Accounting.unformat(input.toString());
+/**
+ * This fn & map together are designed to return the appropriate parameters for each award type
+ * for the determineSpendingScenario fn.
 
-    if (isNaN(Number(cleanInput)) || cleanInput === '') {
+* In the fn getAscendingSpendingCategoriesByAwardType:
+ * @awardType is one of grant, loan, other, contract, idv
+ * @awardAmountObj is the object from the api, parsed by our models, keyed by spending-category w/ integer values.
+*/
+
+export const getAscendingSpendingCategoriesByAwardType = (awardType, awardAmountObj) => {
+    if (Object.keys(spendingCategoriesByAwardType).includes(awardType)) {
+        return spendingCategoriesByAwardType[awardType]
+            .map((category) => awardAmountObj[category]);
+    }
+    return [];
+};
+
+export const determineSpendingScenario = (small = 0, bigger = 0, biggest = null) => {
+    // Small, bigger, and biggest define the expected ratio between spending category
+    const allCategoriesAreInPlay = (small && bigger && biggest);
+    if (small === 0 && bigger === 0 && biggest === 0) {
         return null;
     }
-    return Number(cleanInput);
+    if (allCategoriesAreInPlay && small >= 0) {
+        if (small <= bigger && bigger <= biggest) {
+            return 'normal';
+        }
+        else if (bigger <= small && small <= biggest) {
+            return 'exceedsBigger';
+        }
+        else if (bigger <= biggest && biggest <= small) {
+            return 'exceedsBiggest';
+        }
+    }
+    else if (small >= 0) {
+        if (small <= bigger) {
+            return 'normal';
+        }
+        else if (bigger < small) {
+            return 'exceedsBigger';
+        }
+    }
+
+    return 'insufficientData';
 };
+
+export const generatePercentage = (value) => `${(value * 100).toFixed(2)}%`;
+

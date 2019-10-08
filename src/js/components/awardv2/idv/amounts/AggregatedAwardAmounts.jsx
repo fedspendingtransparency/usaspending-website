@@ -7,13 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatNumber } from 'helpers/moneyFormatter';
 
-import { determineSpendingScenario } from 'helpers/aggregatedAmountsHelper';
+import { determineSpendingScenario, getAscendingSpendingCategoriesByAwardType } from 'helpers/awardAmountHelper';
 import ChartError from 'components/search/visualizations/ChartError';
-import { Table } from 'components/sharedComponents/icons/Icons';
 import AwardsBanner from './AwardsBanner';
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 import AwardAmountsTable from '../../shared/awardAmountsSection/AwardAmountsTable';
 import AwardAmountsChart from '../../shared/awardAmountsSection/charts/AwardAmountsChart';
+import JumpToSectionButton from '../../shared/awardAmountsSection/JumpToSectionButton';
 
 const propTypes = {
     awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
@@ -24,6 +24,11 @@ const propTypes = {
 
 
 export default class AggregatedAwardAmounts extends React.Component {
+    constructor(props) {
+        super(props);
+        this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
+    }
+
     jumpToReferencedAwardsTable() {
         this.props.jumpToSection('referenced-awards');
     }
@@ -45,7 +50,7 @@ export default class AggregatedAwardAmounts extends React.Component {
         }
 
         const { awardAmounts } = this.props;
-        const spendingScenario = determineSpendingScenario(awardAmounts);
+        const spendingScenario = determineSpendingScenario(...getAscendingSpendingCategoriesByAwardType('idv', awardAmounts));
         return (
             <div className="award-amounts__content">
                 <AwardsBanner
@@ -67,16 +72,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                         <span>{formatNumber(awardAmounts.grandchildAwardCount)}</span>
                     </div>
                 </div>
-                <button
-                    onClick={this.jumpToReferencedAwardsTable}
-                    className="award-viz__button">
-                    <div className="award-viz__link-icon">
-                        <Table />
-                    </div>
-                    <div className="award-viz__link-text">
-                        View award orders table
-                    </div>
-                </button>
+                <JumpToSectionButton linkText="View award orders table" onClick={this.jumpToReferencedAwardsTable} icon="table" />
                 <AwardAmountsTable awardType="idv" awardData={awardAmounts} spendingScenario={spendingScenario} />
             </div>
         );
