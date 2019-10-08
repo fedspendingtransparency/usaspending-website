@@ -51,7 +51,7 @@ export default class Accordion extends React.Component {
             <div>
                 {
                     arrayOfRows.map((addressLine, index) => (
-                        <div key={`${addressLine}-${index}`}>
+                        <div key={`addressline-${addressLine}-${index}`}>
                             {addressLine || '--'}
                         </div>
                     ))
@@ -66,7 +66,7 @@ export default class Accordion extends React.Component {
         if (array.length === 0) return '--';
         return (
             <ul className="accordion-table__list">
-                {arrayOfData.map((type, index) => <li key={`${type}-${index}`}>{type}</li>)}
+                {arrayOfData.map((type, index) => <li key={`list-${type}-${index}`}>{type}</li>)}
             </ul>
         );
     }
