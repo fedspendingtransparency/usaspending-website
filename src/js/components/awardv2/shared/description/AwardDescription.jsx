@@ -15,8 +15,9 @@ import LineTree from './LineTree';
 const propTypes = {
     awardId: PropTypes.string,
     description: PropTypes.string,
-    naics: PropTypes.object,
-    psc: PropTypes.object
+    naics: PropTypes.oneOfType(PropTypes.object, PropTypes.string), // string for IDVs
+    psc: PropTypes.oneOfType(PropTypes.object, PropTypes.string), // string for IDVs
+    isIdv: PropTypes.bool
 };
 
 const maxChars = 300;
@@ -26,7 +27,8 @@ const AwardDescription = ({
     awardId,
     description,
     naics = null,
-    psc = null
+    psc = null,
+    isIdv = false
 }) => {
     const [isExpanded, setExpanded] = useState(false);
     let value = description;
@@ -58,7 +60,8 @@ const AwardDescription = ({
                                     </a>
                                 </div>
                             </div>
-                            <LineTree type="naics" data={naics} />
+                            {!isIdv && <LineTree type="naics" data={naics} />}
+                            {isIdv && naics}
                         </div>
                         <div className="naics-psc__section naics-psc__section_psc">
                             <div className="naics-psc__heading">
@@ -69,7 +72,8 @@ const AwardDescription = ({
                                     </a>
                                 </div>
                             </div>
-                            <LineTree type="psc" data={{ additionalDataForPsc, ...psc }} />
+                            {!isIdv && <LineTree type="psc" data={{ additionalDataForPsc, ...psc }} />}
+                            {isIdv && psc}
                         </div>
                     </div>
                 )}
