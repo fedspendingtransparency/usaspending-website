@@ -62,3 +62,5 @@ const FederalAccountsSummary = ({ summary, inFlight, jumpToFederalAccountsHistor
 };
 
 FederalAccountsSummary.propTypes = propTypes;
+
+export default FederalAccountsSummary;
