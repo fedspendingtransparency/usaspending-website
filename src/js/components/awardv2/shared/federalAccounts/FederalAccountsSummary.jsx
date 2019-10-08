@@ -32,17 +32,15 @@ export default class FederalAccountsSummary extends React.Component {
                 <div className="award-funding-summary__table">
                     <div className="award-funding-summary__data">
                         <span>Total Funding Obligated</span>
-                        <span>
-                            {summary.obligatedAmount}
-                        </span>
-                    </div>
-                    <div className="award-funding-summary__data">
-                        <span>Total Count of Awarding Agencies</span>
-                        <span>{summary.awardingAgencyCount}</span>
+                        <span>{summary.obligatedAmount}</span>
                     </div>
                     <div className="award-funding-summary__data">
                         <span>Total Count of Funding Agencies</span>
                         <span>{summary.fundingAgencyCount}</span>
+                    </div>
+                    <div className="award-funding-summary__data">
+                        <span>Total Count of Awarding Agencies</span>
+                        <span>{summary.awardingAgencyCount}</span>
                     </div>
                     <div className="award-funding-summary__data">
                         <span>Total Count of Federal Accounts</span>
