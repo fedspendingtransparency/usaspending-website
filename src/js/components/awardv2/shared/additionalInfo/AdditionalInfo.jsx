@@ -51,6 +51,7 @@ export default class AdditionalInfo extends React.Component {
         let placeOfPerformance = null;
         let periodOfPerformance = (
             <IdvPeriodOfPerformance
+                key="IdvPeriodOfPerformance"
                 accordionData={data.periodOfPerformance}
                 globalToggle={this.state.globalToggle} />
         );
