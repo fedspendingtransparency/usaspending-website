@@ -19,7 +19,7 @@ The following are ALL required for the PR to be merged (in ascending LOE):
 - [ ] Provided instructions for testing in JIRA (for benefit of testing) and PR (for benefit of code reviewer) `if applicable`
 - [ ] Verified cross-browser compatibility
 - [ ] Verified mobile/tablet/desktop/monitor responsiveness
-- [ ] Added Unit Tests for new Container Components `if applicable`
+- [ ] Added Unit Tests for methods in Container Components, reducers, and helper functions `if applicable`
 - [ ] Design review complete `if applicable`
 - [ ] All componentWillReceiveProps, componentWillMount, and componentWillUpdate in relevant child/parent components/containers replaced with [future compatible life-cycle methods](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html) per [JIRA item 3339](https://federal-spending-transparency.atlassian.net/browse/DEV-3339)
 - [ ] [API contract](https://github.com/fedspendingtransparency/usaspending-api/tree/dev/usaspending_api/api_contracts) updated `if applicable`
