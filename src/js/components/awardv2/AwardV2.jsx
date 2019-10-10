@@ -122,7 +122,7 @@ export default class Award extends React.Component {
             else {
                 content = (
                     <FinancialAssistanceContent
-                        awardId={overview.id}
+                        awardId={this.props.awardId}
                         overview={overview}
                         jumpToSection={this.jumpToSection} />
                 );
