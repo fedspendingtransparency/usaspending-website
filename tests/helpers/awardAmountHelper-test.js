@@ -7,13 +7,15 @@ import {
     formatAwardAmountRange,
     determineSpendingScenario,
     generatePercentage,
-    getAscendingSpendingCategoriesByAwardType
+    getAscendingSpendingCategoriesByAwardType,
+    determineSpendingScenarioAsstAwards,
+    determineSpendingScenarioByAwardType
 } from 'helpers/awardAmountHelper';
 
 const grantAwardAmounts = {
     _totalObligation: 0,
     _nonFederalFunding: 10,
-    _baseAndAllOptions: 100
+    _totalFunding: 100
 };
 const loanAwardAmounts = {
     _subsidy: 0,
@@ -95,6 +97,33 @@ describe('Award Amounts Advanced Search Filter Helper', () => {
 });
 
 describe('Award Summary Page, Award Amount Section helper functions', () => {
+    describe('generatePercentage', () => {
+        it('should format the given value as a percentage, rounded to 2 decimal places', () => {
+            expect(generatePercentage(0.23456)).toEqual('23.46%');
+        });
+    });
+
+    describe('getAscendingSpendingCategoriesByAwardType', () => {
+        it('loan -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
+            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("loan", loanAwardAmounts);
+            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10]);
+        });
+        it('contract -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
+            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("contract", contractAwardAmounts);
+            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10, 100]);
+        });
+        it('idv -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
+            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("idv", idvAwardAmounts);
+            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10, 100]);
+        });
+        it('Award Type: direct payment or other -- returns empty array', () => {
+            let spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("direct payments", {});
+            expect(spendingCategoriesInAscendingOrder).toEqual([]);
+            spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("other", {});
+            expect(spendingCategoriesInAscendingOrder).toEqual([]);
+        });
+    });
+
     describe('determineSpendingScenario', () => {
         it('should return "normal" when small amount is less than bigger current and biggest', () => {
             const _totalObligation = 50;
@@ -150,34 +179,27 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
             expect(mockedScenario).toEqual("insufficientData");
         });
     });
-    describe('generatePercentage', () => {
-        it('should format the given value as a percentage, rounded to 2 decimal places', () => {
-            expect(generatePercentage(0.23456)).toEqual('23.46%');
-        });
-    });
 
-    describe('getAscendingSpendingCategoriesByAwardType', () => {
-        it('grant -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
-            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("grant", grantAwardAmounts);
-            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10, 100]);
+    describe('determineSpendingScenarioAsstAwards', () => {
+        it('should return insufficientData with any negative values', () => {
+            const totalObligationNegative = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalObligation: -1 });
+            const totalFundingNegative = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalFunding: -1 });
+            const nonFederalFundingNegative = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _nonFederalFunding: -1 });
+            expect(totalObligationNegative).toEqual('insufficientData');
+            expect(totalFundingNegative).toEqual('insufficientData');
+            expect(nonFederalFundingNegative).toEqual('insufficientData');
         });
-        it('loan -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
-            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("loan", loanAwardAmounts);
-            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10]);
+        it('should return insufficientData when totalFunding is not the sum of nonFederalFunding and totalObligation', () => {
+            const mockedScenario = determineSpendingScenarioAsstAwards(grantAwardAmounts);
+            expect(mockedScenario).toEqual('insufficientData');
         });
-        it('contract -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
-            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("contract", contractAwardAmounts);
-            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10, 100]);
+        it('should return normal when totalFunding is the sum of nonFederalFunding and totalObligated', () => {
+            const mockedScenario = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalFunding: 10 });
+            expect(mockedScenario).toEqual('normal');
         });
-        it('idv -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
-            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("idv", idvAwardAmounts);
-            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10, 100]);
-        });
-        it('Award Type: direct payment or other -- returns empty array', () => {
-            let spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("direct payments", {});
-            expect(spendingCategoriesInAscendingOrder).toEqual([]);
-            spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("other", {});
-            expect(spendingCategoriesInAscendingOrder).toEqual([]);
+        it('should return normal when totalObligation is less than totalFunding and nonFederalFunding is zero', () => {
+            const mockedScenario = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalObligation: 10, _nonFederalFunding: 0 });
+            expect(mockedScenario).toEqual('normal');
         });
     });
 });
