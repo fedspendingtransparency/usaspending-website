@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
-
-import Router from 'containers/router/Router';
 import Award from 'components/awardv2/AwardV2';
 
 import * as SearchHelper from 'helpers/searchHelper';
@@ -105,13 +103,15 @@ export class AwardContainer extends React.Component {
                     // Errored out but got response, toggle noAward flag
                     this.awardRequest = null;
                     this.setState({
-                        noAward: true
+                        noAward: true,
+                        inFlight: false
                     });
                 }
                 else {
                     // Request failed
                     this.awardRequest = null;
                     console.log(error);
+                    this.setState({ inFlight: false });
                 }
             });
     }
@@ -174,12 +174,10 @@ export class AwardContainer extends React.Component {
     }
 
     render() {
-        const isV2url = Router.history.location.pathname.includes('award_v2');
         let content = null;
         if (!this.state.inFlight) {
             content = (
                 <Award
-                    isV2url={isV2url}
                     isDownloadPending={this.props.isDownloadPending}
                     downloadData={this.downloadData}
                     awardId={this.props.params.awardId}
