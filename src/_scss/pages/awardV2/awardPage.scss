@@ -135,8 +135,10 @@
                 }
 
                 hr {
-                    opacity: 0.5;
                     width: 100%;
+                    height: 2px;
+                    background: #555555;
+                    border: none;
                 }
             }
             @import "./visualizations/awardViz";
