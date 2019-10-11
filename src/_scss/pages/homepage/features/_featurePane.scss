@@ -53,19 +53,23 @@
         @include media($medium-screen) {
             @include flex(1 1 1);
             max-width: 30%;
-            &:nth-of-type(2) {
-              border-right: 1px solid $color-gray-lighter;
-              border-left: 1px solid $color-gray-lighter;
-            }
         }
         .feature-pane__content-middle__sub {
           background-size: 100% 100%;
           background-repeat: no-repeat;
           background-image: url('#{$image-path}/homepage-eagle-large.png');
-          @include media($medium-screen) {
-            margin: 0 rem(10);
-          }
         }
+    }
+
+    .feature-pane__content-divider {
+      display: none;
+      @include media($medium-screen) {
+          display: block;
+          border: 1px solid $color-gray-lightest;
+          height: 202px;
+          align-self: center;
+      }
+      
     }
 
     #feature-pane__content-header__middle {

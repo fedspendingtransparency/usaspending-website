@@ -25,6 +25,7 @@ const PaneFeature = () => (
                         </a>
                     </button>
                 </div>
+                <div className="feature-pane__content-divider" />
                 <hr className="feature-pane__mobile-content-divider" />
                 <div className="feature-pane__content">
                     <div className="feature-pane__content-middle__sub">
@@ -50,6 +51,7 @@ const PaneFeature = () => (
                         </a>
                     </button>
                 </div>
+                <div className="feature-pane__content-divider" />
                 <hr className="feature-pane__mobile-content-divider" />
                 <div className="feature-pane__content">
                     <div className="feature-pane__content-title">New! - Recipient Profiles</div>
