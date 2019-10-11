@@ -133,13 +133,13 @@
                         }
                     }
                 }
-
-                hr {
-                    width: 100%;
-                    height: 2px;
-                    background: #555555;
-                    border: none;
-                }
+            }
+            hr,
+            .award-row hr {
+                width: 100%;
+                height: 2px;
+                background: #555555;
+                border: none;
             }
             @import "./visualizations/awardViz";
             @import "./visualizations/overview/overview";
