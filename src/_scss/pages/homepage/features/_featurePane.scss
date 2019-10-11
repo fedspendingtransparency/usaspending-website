@@ -40,24 +40,26 @@
     .feature-pane__content-wrapper {
         @include display(flex);
         @include justify-content(space-around);
-        margin-bottom: rem(20);
+        margin-bottom: rem(40);
         @include flex-wrap(wrap);
     }
 
     .feature-pane__content {
-        display: block;
+        @include display(flex);
+        @include flex-direction(column);
         text-align: center;
         font-size: rem(14);
         line-height: rem(17);
-
         @include media($medium-screen) {
             @include flex(1 1 1);
             max-width: 30%;
         }
     }
 
-    .feature-pane__content-text {
-        min-height: rem(50);
+    #feature-pane__content-middle {
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      background-image: url('#{$image-path}/homepage-eagle-large.png');
     }
     
     .feature-pane__content-divider {
@@ -71,21 +73,38 @@
         
     }
 
+    #feature-pane__content-header__middle {
+      font-size: rem(16);
+      font-weight: bold;
+      text-align: center;
+      color: $color-link;
+      line-height: 1;
+      margin-bottom: rem(20);
+    }
+
     .feature-pane__content-title {
         font-size: rem(24);
         font-weight: bold;
-        text-align: center;
         color: #5B616B;
-        margin: 0;
         line-height: 1;
-        margin: rem(20) 0 0 0;
-    } 
+        margin-top: rem(35);
+    }
+
+    #feature-pane__content-title__middle {
+      margin-top: 0;
+    }
+
+    .feature-pane_content-text {
+      min-height: rem(50);
+      padding: 0 rem(10);
+    }
 
     .feature-pane__button-wrapper {
-        @include display(flex);
-        @include justify-content(center);
-        margin: rem(20) 0 0 0;
-    }
+        margin-top: auto;
+        #middle-pane-feature-icon {
+          padding-left: rem(5);
+        }
+      }
     
     .feature-pane__bottom-divider {
         border: 1px solid rgba(214,215,217,0.4);
