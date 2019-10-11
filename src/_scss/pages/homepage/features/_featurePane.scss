@@ -65,7 +65,7 @@
       display: none;
       @include media($medium-screen) {
           display: block;
-          border: 1px solid $color-gray-lightest;
+          border-right: 1px solid $color-gray-lighter;
           height: 202px;
           align-self: center;
       }
