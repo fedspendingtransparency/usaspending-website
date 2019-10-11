@@ -39,16 +39,16 @@ const PaneFeature = () => (
                             deficit, and debt, along with data for download.
                             Click below to visit our partner site.
                         </p>
-                        <button className="feature-pane__button-wrapper">
-                            <a
-                                href="https://datalab.usaspending.gov/americas-finance-guide/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="feature-pane__button">
-                                Explore the Guide <span id="middle-pane-feature-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
-                            </a>
-                        </button>
                     </div>
+                    <button className="feature-pane__button-wrapper">
+                        <a
+                            href="https://datalab.usaspending.gov/americas-finance-guide/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="feature-pane__button">
+                            Explore the Guide <span id="middle-pane-feature-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                        </a>
+                    </button>
                 </div>
                 <hr className="feature-pane__mobile-content-divider" />
                 <div className="feature-pane__content">
