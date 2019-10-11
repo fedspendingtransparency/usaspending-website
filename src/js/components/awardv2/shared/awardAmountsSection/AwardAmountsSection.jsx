@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { determineSpendingScenario, getAscendingSpendingCategoriesByAwardType } from 'helpers/awardAmountHelper';
+import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 import AwardAmountsChart from './charts/AwardAmountsChart';
@@ -27,7 +27,7 @@ const AwardAmountsSection = ({
     awardType,
     jumpToTransactionHistoryTable
 }) => {
-    const spendingScenario = determineSpendingScenario(...getAscendingSpendingCategoriesByAwardType(awardType, awardOverview));
+    const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview);
     const tooltip = tooltipByAwardType[awardType];
     return (
         <AwardSection type="column" className="award-viz award-amounts">

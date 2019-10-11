@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { formatNumber } from 'helpers/moneyFormatter';
 
-import { determineSpendingScenario, getAscendingSpendingCategoriesByAwardType } from 'helpers/awardAmountHelper';
+import { determineSpendingScenario } from 'helpers/awardAmountHelper';
 import ChartError from 'components/search/visualizations/ChartError';
 import AwardsBanner from './AwardsBanner';
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
@@ -50,7 +50,7 @@ export default class AggregatedAwardAmounts extends React.Component {
         }
 
         const { awardAmounts } = this.props;
-        const spendingScenario = determineSpendingScenario(...getAscendingSpendingCategoriesByAwardType('idv', awardAmounts));
+        const spendingScenario = determineSpendingScenario('idv', awardAmounts);
         return (
             <div className="award-amounts__content">
                 <AwardsBanner
