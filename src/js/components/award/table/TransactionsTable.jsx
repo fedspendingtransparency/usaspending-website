@@ -7,7 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
-import transactionHistoryV2Mapping from 'dataMapping/awardsv2/transactionHistoryTable';
+import transactionHistoryV2Mapping from
+    'dataMapping/awardsv2/transactionHistoryTable/transactionHistoryTable';
+import loanTransactionHistoryTable from
+    'dataMapping/awardsv2/transactionHistoryTable/loanTransactionHistoryTable';
 import contractMapping from 'dataMapping/contracts/transactionTable';
 import assistanceMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
 import loanMapping from 'dataMapping/financialAssistance/loanTransactionTable';
@@ -58,6 +61,9 @@ export default class TransactionsTable extends React.Component {
 
     tableMapping(isV2 = this.props.isV2, category = this.props.category) {
         if (isV2 || category === 'idv') {
+            if (category === 'loan') {
+                return loanTransactionHistoryTable;
+            }
             return transactionHistoryV2Mapping;
         }
         else if (category === 'contract') {
@@ -91,6 +97,7 @@ export default class TransactionsTable extends React.Component {
         const tableMapping = this.tableMapping();
         const column = tableMapping.table._order[columnIndex];
         const item = this.props.transactions[rowIndex];
+        console.log(' Item : ', item);
 
         const isLast = columnIndex === tableMapping.table._order.length - 1;
 
