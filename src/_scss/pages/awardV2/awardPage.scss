@@ -4,7 +4,10 @@
     @import "layouts/default/stickyHeader/header";
     @import "layouts/tabbedSearch/header/downloadButton";
     @import "./shared/infoTooltip";
-
+    // handling the invalid award id error message 
+    .wrapper {
+        min-height: 36vh;
+    }
     .award-content {
         @import "mixins/fullSectionWrap";
         @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));

@@ -128,7 +128,7 @@ export default class Award extends React.Component {
         if (this.props.noAward) {
             summaryBar = (
                 <SummaryBar isInvalidId />
-            )
+            );
             content = (
                 <div className="wrapper">
                     <Error
@@ -137,7 +137,6 @@ export default class Award extends React.Component {
                         Please check the ID and try again." />
                 </div>
             );
-
         }
 
         return (
