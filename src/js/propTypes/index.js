@@ -7,7 +7,7 @@ export const AWARD_V2_OVERVIEW_PROPS = PropTypes.shape({
     generatedId: PropTypes.string,
     type: PropTypes.string,
     typeDescription: PropTypes.string,
-    longTypeDescription: PropTypes.string,
+    title: PropTypes.string,
     description: PropTypes.string,
     _subawardTotal: PropTypes.number,
     subawardCount: PropTypes.number,

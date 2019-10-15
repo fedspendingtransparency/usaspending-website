@@ -50,7 +50,7 @@ const IdvContent = ({
     return (
         <AwardPageWrapper
             awardType="idv"
-            awardTypeDescription={overview.longTypeDescription}
+            title={overview.title}
             lastModifiedDateLong={overview.dates.lastModifiedDateLong}
             glossaryLink={glossaryLink}
             identifier={overview.id}>

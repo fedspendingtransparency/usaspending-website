@@ -76,22 +76,13 @@ const FinancialAssistanceContent = ({
 
     const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
 
-    let title = overview.typeDescription;
-    // removes the award type and only capitalizes the first letter of each word
-    // e.g. PROJECT GRANT (B) => Project Grant
-    // e.g. PROJECT GRANT => Project Grant
-    if (overview.category === 'grant') {
-        const titleArray = title.split(' ').map((word) => upperFirst(word.toLowerCase()));
-        if (titleArray.length === 3) titleArray.pop();
-        title = titleArray.join(' ');
-    }
     return (
         <AwardPageWrapper
             identifier={identifier}
             idLabel={idLabel}
             awardType={overview.category}
             glossaryLink={glossaryLink}
-            awardTypeDescription={title}
+            title={overview.title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             className="award-financial-assistance">
             <AwardSection type="row" className="award-overview" id="award-overview">

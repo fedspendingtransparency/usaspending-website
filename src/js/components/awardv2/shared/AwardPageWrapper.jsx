@@ -1,12 +1,11 @@
 import React from 'react';
-import { startCase } from 'lodash';
 
 import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 
 const AwardPageWrapper = ({
     awardType,
-    awardTypeDescription,
+    title,
     lastModifiedDateLong,
     glossaryLink,
     identifier,
@@ -16,7 +15,7 @@ const AwardPageWrapper = ({
     <div className={`award award-${awardType}`}>
         <div className="award__heading">
             <div className="award__info">
-                <h2 className="award__heading-text">{startCase(awardTypeDescription)}</h2>
+                <h2 className="award__heading-text">{title}</h2>
                 <div className="award__heading-icon">
                     <a href={glossaryLink}>
                         <Glossary />

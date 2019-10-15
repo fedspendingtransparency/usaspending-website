@@ -4,6 +4,15 @@
  */
 
 export const longTypeDescriptionsByAwardTypes = {
+    A: 'Blanket Purchase Agreements (BPA) Call',
+    B: 'Purchase Orders (PO)',
+    C: 'Delivery Orders (DO)',
+    D: 'Definitive Contract',
+    E: 'Unknown Type',
+    F: 'Cooperative Agreement',
+    G: 'Grant for Research',
+    S: 'Funded Space Act Agreement',
+    T: 'Training Grant',
     IDV_A: "Government Wide Acquisition Contract",
     IDV_B: "Indefinite Delivery Contract",
     IDV_B_A: "Indefinite Delivery / Requirements Contract",
@@ -11,7 +20,17 @@ export const longTypeDescriptionsByAwardTypes = {
     IDV_B_C: "Indefinite Delivery / Definite Quantity Contract",
     IDV_C: "Federal Supply Schedule",
     IDV_D: "Basic Ordering Agreement",
-    IDV_E: "Blanket Purchase Agreement"
+    IDV_E: "Blanket Purchase Agreement",
+    '02': 'Block Grant',
+    '03': 'Formula Grant',
+    '04': 'Project Grant',
+    '05': 'Cooperative Agreement',
+    10: 'Direct Payment with Unrestricted Use',
+    '06': 'Direct Payment for Specified Use',
+    '07': 'Direct Loan',
+    '08': 'Guaranteed/Insured Loan',
+    '09': 'Insurance',
+    11: 'Other Financial Assistance'
 };
 
 /**
