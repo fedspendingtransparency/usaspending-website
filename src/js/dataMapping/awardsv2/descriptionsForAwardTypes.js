@@ -4,16 +4,16 @@
  */
 
 export const descriptionsForAwardTypes = {
-    A: 'Blanket Purchase Agreements (BPA) Call',
-    B: 'Purchase Orders (PO)',
-    C: 'Delivery Orders (DO)',
+    A: 'Blanket Purchase Agreement (BPA) Call',
+    B: 'Purchase Order (PO)',
+    C: 'Delivery Order (DO)',
     D: 'Definitive Contract',
     E: 'Unknown Type',
     F: 'Cooperative Agreement',
     G: 'Grant for Research',
     S: 'Funded Space Act Agreement',
     T: 'Training Grant',
-    IDV_A: "Government Wide Acquisition Contract",
+    IDV_A: "Government-Wide Acquisition Contract",
     IDV_B: "Indefinite Delivery Contract",
     IDV_B_A: "Indefinite Delivery / Requirements Contract",
     IDV_B_B: "Indefinite Delivery / Indefinite Quantity (IDIQ) Contract",
