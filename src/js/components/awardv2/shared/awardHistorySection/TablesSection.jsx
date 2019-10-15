@@ -72,21 +72,21 @@ export default class TablesSection extends React.Component {
                     label: "Transaction History",
                     internal: "transaction",
                     enabled: true,
-                    tooltipContent: tooltipMapping[props.overview.category],
+                    tooltipContent: tooltipMapping.transactionHistory[props.overview.category],
                     tooltipProps: { wide: true }
                 },
                 {
                     label: "Sub-Awards",
                     internal: "subaward",
                     enabled: true,
-                    tooltipContent: tooltipMapping[props.overview.category],
+                    tooltipContent: tooltipMapping.subAwards[props.overview.category],
                     tooltipProps: { wide: true }
                 },
                 {
                     label: "Federal Account Funding",
                     internal: "federal_account",
                     enabled: true,
-                    tooltipContent: tooltipMapping[props.overview.category],
+                    tooltipContent: tooltipMapping.federalAccountFunding[props.overview.category],
                     tooltipProps: { wide: true }
                 }
             ]
