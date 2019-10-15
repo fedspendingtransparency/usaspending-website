@@ -9,6 +9,7 @@ import { map } from 'lodash';
 import { formatNumber } from 'helpers/moneyFormatter';
 import InfoTooltip from '../../shared/InfoTooltip';
 import { summaryRelatedAwardsInfo } from '../../shared/InfoTooltipContent';
+import AwardSection from '../AwardSection';
 
 const propTypes = {
     overview: PropTypes.object,
@@ -119,23 +120,25 @@ export default class RelatedAwards extends React.Component {
         }
 
         return (
-            <div className="award-viz related-awards">
-                <div className="award-overview__title related-awards__title">
-                    Related Awards
-                    <InfoTooltip left>
-                        {tooltipInfo}
-                    </InfoTooltip>
-                </div>
-                <div className="related-awards__parent">
-                    <div className="related-awards__label">
-                        {awardTitle}
+            <AwardSection type="column">
+                <div className="award-viz related-awards">
+                    <div className="award-overview__title related-awards__title">
+                        Related Awards
+                        <InfoTooltip left>
+                            {tooltipInfo}
+                        </InfoTooltip>
                     </div>
-                    {parentLink}
+                    <div className="related-awards__parent">
+                        <div className="related-awards__label">
+                            {awardTitle}
+                        </div>
+                        {parentLink}
+                    </div>
+                    <div className="related-awards__children">
+                        {this.referencedAwardCounts()}
+                    </div>
                 </div>
-                <div className="related-awards__children">
-                    {this.referencedAwardCounts()}
-                </div>
-            </div>
+            </AwardSection>
         );
     }
 }
