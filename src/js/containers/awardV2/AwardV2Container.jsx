@@ -25,7 +25,11 @@ import {
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import BaseIdv from 'models/v2/awardsV2/BaseIdv';
 import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
-import { fetchIdvDownloadFile, fetchContractDownloadFile, fetchAssistanceDownloadFile } from '../../helpers/downloadHelper';
+import {
+    fetchIdvDownloadFile,
+    fetchContractDownloadFile,
+    fetchAssistanceDownloadFile
+} from '../../helpers/downloadHelper';
 
 require('pages/awardV2/awardPage.scss');
 
