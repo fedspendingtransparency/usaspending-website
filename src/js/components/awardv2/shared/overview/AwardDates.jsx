@@ -34,6 +34,7 @@ export default class AwardDates extends React.Component {
         if (awardType === 'definitive contract') return null;
         if (awardType === 'grant') return null;
         if (awardType === 'loan') return null;
+        if (awardType === 'insurance') return null;
         if (awardType === 'direct payment') return null;
         if (awardType === 'other') return null;
         return null;
