@@ -90,7 +90,7 @@ const additionalDetailsContracts = (awardData) => {
         periodOfPerformance: {
             'Start Date': periodOfPerformance.startDate,
             'End Date': periodOfPerformance.endDate,
-            'Potential End Date': periodOfPerformance.lastModifiedDate
+            'Potential End Date': periodOfPerformance.potentialEndDate
         },
         legislativeMandates: {
             'Clinger-Cohen Act Compliant': awardData.additionalDetails.clingerCohenAct,
@@ -135,7 +135,7 @@ const additionalDetailsContracts = (awardData) => {
             'North American Industry Classification System (NAICS) Code': awardData.additionalDetails.naicsCode,
             'DoD Claimant Code': awardData.additionalDetails.dodClaimantProgram,
             'DOD Acquisition Program': awardData.additionalDetails.dodAcquisitionProgram,
-            'Information Technology Commercial Item Category': awardData.additionalDetails.infoTechCommercialItem,
+            'Information Technology Commercial Item Category': awardData.additionalDetails._infoTechCommercialItemDescription,
             'Sea Transportation': awardData.additionalDetails.seaTransport
         },
         competitionDetails: {
@@ -143,7 +143,7 @@ const additionalDetailsContracts = (awardData) => {
             'Solicitation Procedures': awardData.additionalDetails.solicitationProcedures,
             'Number of Offers Received': awardData.additionalDetails.numberOffers,
             'Extent Completed': awardData.additionalDetails.extentCompeted,
-            'Reason Not Completed': awardData.additionalDetails.notCompeted,
+            'Other Than Full and Open Competition': awardData.additionalDetails.notCompeted,
             'Set-Aside Type': awardData.additionalDetails.setAsideType,
             'Simplified Procedures for Certain Commercial Items': awardData.additionalDetails.commercialAcquisitionProcedures,
             'Commercial Item Test Program': awardData.additionalDetails.commercialTestProgram,
