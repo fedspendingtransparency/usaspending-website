@@ -10,7 +10,17 @@ import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTab
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
 
 import SubawardsContainer from '../../../../containers/award/subawards/SubawardsContainer';
-import { federalAccountFundingInfo, transactionHistoryInfo, subAwardsTab } from '../InfoTooltipContent';
+import {
+    federalAccountFundingInfoIDV,
+    federalAccountFundingInfoGeneric,
+    transactionHistoryInfoGeneric,
+    transactionHistoryInfoContract,
+    transactionHistoryInfoFinancialAssistance,
+    subAwardsTabGeneric,
+    subAwardsTabContract,
+    subAwardsTabGrant,
+    subAwardsTabFinancialAssistance
+} from '../InfoTooltipContent';
 import DetailsTabBar from '../../../award/details/DetailsTabBar';
 import ResultsTablePicker from '../../../search/table/ResultsTablePicker';
 import { getAwardHistoryCounts } from "../../../../helpers/awardHistoryHelper";
@@ -22,29 +32,34 @@ const propTypes = {
     awardId: PropTypes.string
 };
 
-const tabs = [
-    {
-        label: "Transaction History",
-        internal: "transaction",
-        enabled: true,
-        tooltipContent: transactionHistoryInfo,
-        tooltipProps: { wide: true }
+const tooltipMapping = {
+    transactionHistory: {
+        idv: transactionHistoryInfoGeneric,
+        contract: transactionHistoryInfoContract,
+        grant: transactionHistoryInfoFinancialAssistance,
+        loan: transactionHistoryInfoFinancialAssistance,
+        'direct payment': transactionHistoryInfoFinancialAssistance,
+        insurance: transactionHistoryInfoFinancialAssistance,
+        other: transactionHistoryInfoFinancialAssistance
     },
-    {
-        label: "Sub-Awards",
-        internal: "subaward",
-        enabled: true,
-        tooltipContent: subAwardsTab,
-        tooltipProps: { wide: true }
+    subAwards: {
+        idv: subAwardsTabGeneric,
+        contract: subAwardsTabContract,
+        grant: subAwardsTabGrant,
+        'direct payment': subAwardsTabFinancialAssistance,
+        insurance: subAwardsTabFinancialAssistance,
+        other: subAwardsTabFinancialAssistance
     },
-    {
-        label: "Federal Account Funding",
-        internal: "federal_account",
-        enabled: true,
-        tooltipContent: federalAccountFundingInfo,
-        tooltipProps: { wide: true }
+    federalAccountFunding: {
+        idv: federalAccountFundingInfoIDV,
+        contract: federalAccountFundingInfoGeneric,
+        grant: federalAccountFundingInfoGeneric,
+        loan: federalAccountFundingInfoGeneric,
+        'direct payment': federalAccountFundingInfoGeneric,
+        insurance: federalAccountFundingInfoGeneric,
+        other: federalAccountFundingInfoGeneric
     }
-];
+};
 
 export default class TablesSection extends React.Component {
     constructor(props) {
@@ -52,7 +67,29 @@ export default class TablesSection extends React.Component {
 
         this.state = {
             tableWidth: 0,
-            tabs
+            tabs: [
+                {
+                    label: "Transaction History",
+                    internal: "transaction",
+                    enabled: true,
+                    tooltipContent: tooltipMapping[props.overview.category],
+                    tooltipProps: { wide: true }
+                },
+                {
+                    label: "Sub-Awards",
+                    internal: "subaward",
+                    enabled: true,
+                    tooltipContent: tooltipMapping[props.overview.category],
+                    tooltipProps: { wide: true }
+                },
+                {
+                    label: "Federal Account Funding",
+                    internal: "federal_account",
+                    enabled: true,
+                    tooltipContent: tooltipMapping[props.overview.category],
+                    tooltipProps: { wide: true }
+                }
+            ]
         };
         this.countRequest = null;
         this.setTableWidth = this.setTableWidth.bind(this);
@@ -86,7 +123,7 @@ export default class TablesSection extends React.Component {
         }
 
         const isIdvOrLoan = (award.category === 'idv' || award.category === 'loan');
-        const tabsWithCounts = tabs
+        const tabsWithCounts = this.state.tabs
             .filter((tab) => ((!isIdvOrLoan || tab.internal !== 'subaward')))
             .map(async (tab) => {
                 if (award.category === 'idv') {

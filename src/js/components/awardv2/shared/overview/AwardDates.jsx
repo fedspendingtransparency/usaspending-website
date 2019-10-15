@@ -22,6 +22,7 @@ const titles = {
     grant: ['Start Date', 'Current End Date'],
     loan: ['Start Date', 'Current End Date'],
     'direct payment': ['Start Date', 'Current End Date'],
+    insurance: ['Start Date', 'Current End Date'],
     other: ['Start Date', 'Current End Date']
 };
 

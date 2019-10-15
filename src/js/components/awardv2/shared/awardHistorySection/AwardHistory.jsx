@@ -8,7 +8,12 @@ import PropTypes from 'prop-types';
 
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
 import TablesSection from './TablesSection';
-import { awardHistoryIdv, awardHistoryContract } from '../InfoTooltipContent';
+import {
+    awardHistoryIdv,
+    awardHistoryContract,
+    awardHistoryFinancialAssistanceLoan,
+    awardHistoryFinancialAssistanceGeneric
+} from '../InfoTooltipContent';
 import AwardSectionHeader from '../AwardSectionHeader';
 
 const propTypes = {
@@ -16,6 +21,16 @@ const propTypes = {
     setActiveTab: PropTypes.func,
     activeTab: PropTypes.string,
     awardId: PropTypes.string
+};
+
+const tooltipMapping = {
+    idv: awardHistoryIdv,
+    contract: awardHistoryContract,
+    grant: awardHistoryContract,
+    loan: awardHistoryFinancialAssistanceLoan,
+    'direct payment': awardHistoryFinancialAssistanceGeneric,
+    insurance: awardHistoryFinancialAssistanceGeneric,
+    other: awardHistoryFinancialAssistanceGeneric
 };
 
 const AwardHistory = ({
@@ -27,9 +42,7 @@ const AwardHistory = ({
     const sectionTitle = (overview.category === 'idv')
         ? "Award History for this IDV"
         : "Award History";
-    const tooltip = overview.category === 'contract'
-        ? awardHistoryContract
-        : awardHistoryIdv;
+    const tooltip = tooltipMapping[overview.category];
 
     return (
         <div id="award-award-history" className="award-viz award-history">
