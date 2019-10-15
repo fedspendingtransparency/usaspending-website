@@ -31,7 +31,7 @@ export class FederalAccountsVizContainer extends React.Component {
             inFlight: false,
             error: false,
             federalAccounts: [],
-            view: 'tree'
+            view: 'table'
         };
 
         this.request = null;
