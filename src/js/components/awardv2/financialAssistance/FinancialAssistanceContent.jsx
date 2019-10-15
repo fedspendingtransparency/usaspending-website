@@ -5,7 +5,6 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { upperFirst } from 'lodash';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';

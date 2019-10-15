@@ -1,9 +1,9 @@
 /**
- * awardTypeDescriptions.js
+ * awardTypeDescriptions.js => descriptionsForAwardTypes.js
  * Created by Max Kendall 3/8/19
  */
 
-export const longTypeDescriptionsByAwardTypes = {
+export const descriptionsForAwardTypes = {
     A: 'Blanket Purchase Agreements (BPA) Call',
     B: 'Purchase Orders (PO)',
     C: 'Delivery Orders (DO)',
@@ -35,8 +35,7 @@ export const longTypeDescriptionsByAwardTypes = {
 
 /**
  * NOTE:
- *   The values in this map are not identical with lookups/lookups.py awardTypeMapping;
- *   specifically, in lookups.py the values for the IDV award types are prepended with an acronym.
- *   I have decided to remove this prepended acronym for these types as the wireframes
- *   suggest this is the desired format in the UI
+ *   These values are not a direct one to one map of award types and descriptions.
+ *   These descriptions have been edited to be displayed to the user on the
+ *   Award Pages.
  */

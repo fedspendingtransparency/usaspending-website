@@ -4,8 +4,8 @@
  */
 import { upperFirst } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { longTypeDescriptionsByAwardTypes }
-    from 'dataMapping/awardsv2/longAwardTypeDescriptions';
+import { descriptionsForAwardTypes }
+    from 'dataMapping/awardsv2/descriptionsForAwardTypes';
 import { parseDate, formatDate } from './CorePeriodOfPerformance';
 
 const CoreAward = {
@@ -70,8 +70,8 @@ const CoreAward = {
         return percent > 0 ? `${percent}%` : '0%';
     },
     get title() {
-        if (longTypeDescriptionsByAwardTypes[this.type]) {
-            return longTypeDescriptionsByAwardTypes[this.type];
+        if (descriptionsForAwardTypes[this.type]) {
+            return descriptionsForAwardTypes[this.type];
         }
         if (this.category) {
             if (this.category === 'idv') {

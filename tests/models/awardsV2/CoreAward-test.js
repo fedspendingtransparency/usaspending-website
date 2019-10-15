@@ -5,8 +5,8 @@
 
 import CoreAward from 'models/v2/awardsV2/CoreAward';
 import { each, upperFirst } from 'lodash';
-import { longTypeDescriptionsByAwardTypes }
-    from 'dataMapping/awardsv2/longAwardTypeDescriptions';
+import { descriptionsForAwardTypes }
+    from 'dataMapping/awardsv2/descriptionsForAwardTypes';
 
 const awardData = {
     subawardTotal: 12004.75,
@@ -31,7 +31,7 @@ describe('Core Award getter functions', () => {
         zeroSubtotalAward.populateCore(data);
         expect(zeroSubtotalAward.subAwardedPercent).toEqual('0%');
     });
-    each(longTypeDescriptionsByAwardTypes, (value, key) => {
+    each(descriptionsForAwardTypes, (value, key) => {
         const fakeAwardData = { type: key };
         const fakeAward = Object.create(CoreAward);
         fakeAward.populateCore(fakeAwardData);
@@ -52,7 +52,7 @@ describe('Core Award getter functions', () => {
             }
         });
     });
-    each(longTypeDescriptionsByAwardTypes, () => {
+    each(descriptionsForAwardTypes, () => {
         const fakeAwardData = { type: '', category: '' };
         const fakeAward = Object.create(CoreAward);
         fakeAward.populateCore(fakeAwardData);
