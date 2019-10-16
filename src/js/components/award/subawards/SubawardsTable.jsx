@@ -14,7 +14,6 @@ import subawardFields from 'dataMapping/contracts/subawardTable';
 
 import TransactionTableGenericCell from 'components/award/table/cells/TransactionTableGenericCell';
 import SubawardsHeaderCell from 'components/award/subawards/cells/SubawardsHeaderCell';
-import SummaryPageTableMessage from 'components/award/table/SummaryPageTableMessage';
 
 import ResultsTableNoResults from '../../search/table/ResultsTableNoResults';
 import ResultsTableErrorMessage from '../../search/table/ResultsTableErrorMessage';
@@ -33,7 +32,6 @@ const propTypes = {
     loadNextPage: PropTypes.func,
     changeSort: PropTypes.func,
     tableInstance: PropTypes.string,
-    isV2: PropTypes.bool,
     error: PropTypes.bool
 };
 
@@ -128,7 +126,6 @@ export default class SubawardsTable extends React.Component {
     render() {
         const tableValues = this.buildTable();
         const {
-            isV2,
             inFlight,
             award,
             subawards,
@@ -145,22 +142,13 @@ export default class SubawardsTable extends React.Component {
 
         let message = null;
         if (subawards.length === 0 && !inFlight) {
-            if (isV2) {
-                message = this.props.error
-                    ? <ResultsTableErrorMessage />
-                    : <ResultsTableNoResults />;
-            }
-            else {
-                message = (<SummaryPageTableMessage message="No sub-awards found." />);
-            }
+            message = this.props.error
+                ? <ResultsTableErrorMessage />
+                : <ResultsTableNoResults />;
         }
 
-        const totalSubAwardLabel = (isV2)
-            ? 'Total Count of Sub-Awards: '
-            : 'Total Number of Sub-Awards: ';
-        const totalSubAwardAmountLabel = (isV2)
-            ? 'Total Amount of Sub-Awards: '
-            : 'Total Sub-Award Amount: ';
+        const totalSubAwardLabel = 'Total Count of Sub-Awards: ';
+        const totalSubAwardAmountLabel = 'Total Amount of Sub-Awards: ';
         return (
             <div>
                 <div className="subaward-totals">
@@ -180,16 +168,14 @@ export default class SubawardsTable extends React.Component {
                             {totalValue}
                         </span>
                     </div>
-                    {isV2 && (
-                        <div className="total-item">
-                            <span className="total-label">
-                                Percentage of Total Funded Amount:&nbsp;
-                            </span>
-                            <span className="total-value">
-                                {award.subAwardedPercent}
-                            </span>
-                        </div>
-                    )}
+                    <div className="total-item">
+                        <span className="total-label">
+                            Percentage of Total Funded Amount:&nbsp;
+                        </span>
+                        <span className="total-value">
+                            {award.subAwardedPercent}
+                        </span>
+                    </div>
                 </div>
                 <div
                     className={`subawards-table ${loadingClass}`}
@@ -211,8 +197,7 @@ export default class SubawardsTable extends React.Component {
                             this.tableComponent = table;
                         }} />
                 </div>
-                {isV2 && <div className="results-table-message-container">{message}</div>}
-                {!isV2 && message}
+                <div className="results-table-message-container">{message}</div>
             </div>
         );
     }

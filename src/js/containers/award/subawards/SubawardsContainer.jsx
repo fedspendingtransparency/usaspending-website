@@ -20,7 +20,6 @@ import SubawardsTable from 'components/award/subawards/SubawardsTable';
 const propTypes = {
     award: PropTypes.object,
     v2Award: PropTypes.object,
-    isV2: PropTypes.bool,
     awardId: PropTypes.string
 };
 
@@ -56,10 +55,8 @@ export class SubawardsContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!this.props.isV2) {
-            if (prevProps.award.internalId !== this.props.award.internalId) {
-                this.fetchSubawards(1, true);
-            }
+        if (prevProps.award.internalId !== this.props.award.internalId) {
+            this.fetchSubawards(1, true);
         }
         else if (this.props.awardId !== prevProps.awardId) {
             this.fetchSubawards(1, true);
@@ -70,13 +67,13 @@ export class SubawardsContainer extends React.Component {
         this.unmounted = true;
     }
 
-    fetchSubawards(page = 1, reset = false, isV2 = this.props.isV2) {
+    fetchSubawards(page = 1, reset = false) {
         if (this.subawardRequest) {
             // cancel in-flight requests
             this.subawardRequest.cancel();
         }
 
-        const awardId = isV2 ? this.props.awardId : this.props.award.internalId;
+        const awardId = this.props.award.internalId;
 
         const params = {
             page,
@@ -161,7 +158,7 @@ export class SubawardsContainer extends React.Component {
     }
 
     render() {
-        const award = this.props.isV2 ? this.props.v2Award.overview : this.props.award;
+        const award = this.props.v2Award.overview;
         return (
             <SubawardsTable
                 {...this.props}
