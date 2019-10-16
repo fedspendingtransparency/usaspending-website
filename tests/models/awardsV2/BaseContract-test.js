@@ -52,4 +52,26 @@ describe('BaseContract', () => {
             expect(Object.getPrototypeOf(contract.executiveDetails)).toEqual(CoreExecutiveDetails);
         });
     });
+    describe('Deducing the PSC Type based on the PSC Top Tier Code from the API', () => {
+        it.each([
+            ['PRODUCTS', '4'],
+            ['RESEARCH AND DEVELOPMENT', 'A'],
+            ['SERVICES', 'B']
+        ])(
+            ('psc.toptier_code.description should be %s when %s is the psc.toptier_code.code'),
+            (result, pscCode) => {
+                const mockData = {
+                    ...mockContract,
+                    psc_hierarchy: {
+                        toptier_code: {
+                            code: pscCode,
+                            description: ''
+                        }
+                    }
+                };
+                contract.populate(mockData);
+                expect(contract.psc.toptier_code.description).toEqual(result);
+            }
+        );
+    });
 });
