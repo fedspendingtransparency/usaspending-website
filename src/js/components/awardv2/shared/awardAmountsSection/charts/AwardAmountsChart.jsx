@@ -60,18 +60,13 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                 </div>
             );
         }
-        switch (type) {
-            case "grant":
-                return (
-                    <GrantChart awardAmounts={awardAmounts} />
-                );
-            case "loan":
-                return (
-                    <LoanChart awardAmounts={awardAmounts} />
-                );
-            default: // idvs and contracts
-                return renderChartBySpendingScenario(scenario);
+        else if (type === 'idv') {
+            return renderChartBySpendingScenario(scenario);
         }
+        else if (type === 'loan') {
+            return <LoanChart awardAmounts={awardAmounts} />;
+        }
+        return <GrantChart awardAmounts={awardAmounts} />;
     };
 
     const visualization = renderChartByAwardType(awardOverview, awardType, spendingScenario);
