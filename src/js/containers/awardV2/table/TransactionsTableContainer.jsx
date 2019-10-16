@@ -160,8 +160,7 @@ export class TransactionsTableContainer extends React.Component {
                 {...this.props}
                 {...this.state}
                 changeSort={this.changeSort}
-                nextTransactionPage={this.nextTransactionPage}
-                isV2 />
+                nextTransactionPage={this.nextTransactionPage} />
         );
     }
 }
