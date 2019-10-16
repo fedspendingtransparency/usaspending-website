@@ -40,6 +40,7 @@ export default class AdditionalInfo extends React.Component {
         if (category === 'grant') return additionalDetailsFinancialAssistance(overview);
         if (category === 'loans') return additionalDetailsFinancialAssistance(overview);
         if (category === 'direct payment') return additionalDetailsFinancialAssistance(overview);
+        if (category === 'insurance') return additionalDetailsFinancialAssistance(overview);
         if (category === 'other') return additionalDetailsFinancialAssistance(overview);
         return {};
     }
