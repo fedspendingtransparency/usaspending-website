@@ -2,8 +2,6 @@
  * BaseContract.js
  * Created by David Trinh 10/9/18
  */
-import { forEach } from 'lodash';
-
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
