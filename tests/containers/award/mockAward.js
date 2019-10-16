@@ -66,7 +66,7 @@ export const mockAward = {
                     toptier_agency_id: 218,
                     create_date: null,
                     update_date: '2017-03-08T22:27:33.723892Z',
-                    cgac_code: '089',
+                    toptier_code: '089',
                     abbreviation: 'DOE',
                     name: 'Department of Energy'
                 },
@@ -87,7 +87,7 @@ export const mockAward = {
                     toptier_agency_id: 268,
                     create_date: null,
                     update_date: '2017-03-08T22:27:44.239782Z',
-                    cgac_code: '097',
+                    toptier_code: '097',
                     abbreviation: 'DOD',
                     name: 'Department of Defense'
                 },

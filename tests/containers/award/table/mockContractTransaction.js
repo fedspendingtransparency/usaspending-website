@@ -18,7 +18,7 @@ const item = {
         awarding_agency: {
             id: 1305,
             toptier_agency: {
-                cgac_code: "036",
+                toptier_code: "036",
                 abbreviation: "VA",
                 name: "Department of Veterans Affairs"
             },
@@ -31,7 +31,7 @@ const item = {
         funding_agency: {
             id: 1305,
             toptier_agency: {
-                cgac_code: "036",
+                toptier_code: "036",
                 abbreviation: "VA",
                 name: "Department of Veterans Affairs"
             },
