@@ -425,7 +425,7 @@ export const datesInfoContract = (
                     contract extension options are exercised. Note that administrative actions
                     related to this contract may continue to occur after this date.
                 </p>
-            </div>     
+            </div>
         </div>
     </div>
 );
@@ -468,7 +468,7 @@ export const datesInfoAssistance = (
                     contract extension options are exercised. Note that administrative actions
                     related to this contract may continue to occur after this date.
                 </p>
-            </div>     
+            </div>
         </div>
     </div>
 );

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { reduce } from 'lodash';
 
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import moment from 'moment';
