@@ -66,7 +66,6 @@ const additionalDetailsContracts = (awardData) => {
                 }
             },
             'Parent IDV Type': parentAwardDetails.idvType || '',
-            'Parent IDC Type': parentAwardDetails.idcType || '',
             'Parent IDV Agency Name': {
                 type: 'link',
                 data: {
