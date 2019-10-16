@@ -38,10 +38,10 @@ const AwardAmountsSection = ({
                         awardOverview={awardOverview}
                         awardType={awardType}
                         spendingScenario={spendingScenario} />
-                    {/* <AwardAmountsTable
+                    <AwardAmountsTable
                         awardData={awardOverview}
                         awardType={awardType}
-                        spendingScenario={spendingScenario} /> */}
+                        spendingScenario={spendingScenario} />
                 </div>
             </div>
             <JumpToSectionButton icon="table" linkText="View Transaction History" onClick={jumpToTransactionHistoryTable} />
