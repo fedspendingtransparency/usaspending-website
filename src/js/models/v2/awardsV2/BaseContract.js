@@ -14,14 +14,26 @@ import CorePeriodOfPerformance from '../awardsV2/CorePeriodOfPerformance';
 
 const BaseContract = Object.create(CoreAward);
 
-const getPscType = (toptierCode) => {
+const emptyPscObj = {
+    base_code: {},
+    midtier_code: {},
+    subtier_code: {},
+    toptier_code: {}
+};
+
+const getPscTypeByToptierCode = (toptierCode) => {
+    // Undefined toptierCode code is always a product
+    if (toptierCode === undefined) return 'PRODUCTS';
+
     const topTierCodeAsInt = parseInt(toptierCode, 10);
     if (isNaN(topTierCodeAsInt)) {
-        if (toptierCode.toUpperCase() === 'A') {
+        if (toptierCode && toptierCode.toUpperCase() === 'A') {
             return 'RESEARCH AND DEVELOPMENT';
         }
+        // all letters other than 'A' are services
         return 'SERVICES';
     }
+    // all numbers are PRODUCTS
     return 'PRODUCTS';
 };
 
@@ -31,8 +43,9 @@ const deducePscType = (acc, keyValueArray) => {
         return {
             ...acc,
             [key]: {
-                code: value.code,
-                description: getPscType(value.code)
+                // if toptier_code is undefined, provide this value so it is sorted to the top
+                code: value.code || "0",
+                description: getPscTypeByToptierCode(value.code)
             }
         };
     }
@@ -55,7 +68,7 @@ BaseContract.populate = function populate(data) {
         dateSigned: data.date_signed,
         baseAndAllOptions: data.base_and_all_options,
         naics: data.naics_hierarchy,
-        psc: Object.entries(data.psc_hierarchy).reduce(deducePscType, {})
+        psc: Object.entries(data.psc_hierarchy).reduce(deducePscType, emptyPscObj)
     };
     this.populateCore(coreData);
 
