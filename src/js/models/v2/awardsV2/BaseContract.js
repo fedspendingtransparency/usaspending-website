@@ -24,7 +24,7 @@ const getPscType = (toptierCode) => {
         }
         return 'SERVICES';
     }
-    return 'PRODUCT';
+    return 'PRODUCTS';
 };
 
 const deducePscType = (acc, keyValueArray) => {

@@ -54,7 +54,7 @@ describe('BaseContract', () => {
     });
     describe('Deducing the PSC Type based on the PSC Top Tier Code from the API', () => {
         it.each([
-            ['PRODUCT', '4'],
+            ['PRODUCTS', '4'],
             ['RESEARCH AND DEVELOPMENT', 'A'],
             ['SERVICES', 'B']
         ])(
