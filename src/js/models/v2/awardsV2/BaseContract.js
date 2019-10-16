@@ -18,7 +18,7 @@ const BaseContract = Object.create(CoreAward);
 BaseContract.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
-        id: data.piid,
+        id: data.id,
         generatedId: data.generated_unique_award_id,
         type: data.type,
         typeDescription: data.type_description,
@@ -129,8 +129,8 @@ BaseContract.populate = function populate(data) {
     this.parentAward = data.parent_award_piid || '--';
     this.parentId = data.parent_generated_unique_award_id || '';
     this.pricing = data.latest_transaction_contract_data || '--';
-
     this._amount = parseFloat(data.base_and_all_options) || 0;
+    this.piid = data.piid || '';
 };
 
 
