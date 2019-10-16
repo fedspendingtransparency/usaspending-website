@@ -69,8 +69,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
         },
         periodOfPerformance: {
             'Start Date': periodOfPerformance.startDate,
-            'End Date': periodOfPerformance.endDate,
-            'Potential End Date': periodOfPerformance.potentialEndDate
+            'End Date': periodOfPerformance.endDate
         },
         recipientDetails: {
             Recipient: {
