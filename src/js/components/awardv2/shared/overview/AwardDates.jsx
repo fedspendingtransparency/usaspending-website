@@ -5,11 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { reduce } from 'lodash';
 
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import moment from 'moment';
 import InfoTooltip from '../InfoTooltip';
-import { datesInfo } from '../InfoTooltipContent';
+import { datesInfoIDV, datesInfoContract, datesInfoAssistance } from '../InfoTooltipContent';
 
 const propTypes = {
     dates: PropTypes.object,
@@ -29,15 +30,10 @@ const titles = {
 export default class AwardDates extends React.Component {
     tooltipInfo() {
         const { awardType } = this.props;
-        if (awardType === 'idv') return datesInfo;
-        if (awardType === 'contract') return null;
-        if (awardType === 'definitive contract') return null;
-        if (awardType === 'grant') return null;
-        if (awardType === 'loan') return null;
-        if (awardType === 'insurance') return null;
-        if (awardType === 'direct payment') return null;
-        if (awardType === 'other') return null;
-        return null;
+        if (awardType === 'idv') return datesInfoIDV;
+        if (awardType === 'contract') return datesInfoContract;
+        if (awardType === 'definitive contract') return datesInfoContract;
+        return datesInfoAssistance;
     }
 
     timelineInfo(startDate, endDate) {
@@ -83,11 +79,14 @@ export default class AwardDates extends React.Component {
                         <div
                             style={lineStyle}
                             className="timeline__today-line" />
-                        <div
-                            style={todayStyle}
-                            className="timeline__today">
-                            Today
-                        </div>
+                        {
+                            (remainingLabel !== 'Completed') &&
+                            <div
+                                style={todayStyle}
+                                className="timeline__today">
+                                Today
+                            </div>
+                        }
                     </div>
                     <p
                         className="hide"
@@ -113,7 +112,8 @@ export default class AwardDates extends React.Component {
     }
 
     render() {
-        const { dates, awardType } = this.props;
+        const { awardType } = this.props;
+        const { startDateLong, endDateLong, potentialEndDateLong } = this.props.dates;
         const { startDate, endDate } = this.datesByAwardType();
         const { timeline, remainingText, remainingLabel } = this.timelineInfo(startDate, endDate);
         const tooltipInfo = this.tooltipInfo();
@@ -136,29 +136,38 @@ export default class AwardDates extends React.Component {
                 </div>
                 {timeline}
                 <div className="award-dates__row">
-                    <div className="award-dates__label">
-                        {titles[awardType][0]}
+                    <div className="award-dates__label-container">
+                        <div className="award-dates__circle award-dates__circle-top" />
+                        <div className="award-dates__label">
+                            {titles[awardType][0]}
+                        </div>
                     </div>
                     <div className="award-dates__date">
-                        {dates.startDateLong || 'not provided'}
+                        {startDateLong || 'not provided'}
                     </div>
                 </div>
                 <div className="award-dates__row">
-                    <div className="award-dates__label">
-                        {titles[awardType][1]}
+                    <div className="award-dates__label-container">
+                        <div className="award-dates__circle award-dates__circle-middle" />
+                        <div className="award-dates__label">
+                            {titles[awardType][1]}
+                        </div>
                     </div>
                     <div className="award-dates__date">
-                        {dates.endDateLong || 'not provided'}
+                        {endDateLong || 'not provided'}
                     </div>
                 </div>
                 {
                     titles[awardType][2] &&
                     <div className="award-dates__row">
-                        <div className="award-dates__label">
-                            {titles[awardType][2]}
+                        <div className="award-dates__label-container">
+                            <div className="award-dates__circle award-dates__circle-bottom" />
+                            <div className="award-dates__label">
+                                {titles[awardType][2]}
+                            </div>
                         </div>
                         <div className="award-dates__date">
-                            {dates.potentialEndDateLong || 'not provided'}
+                            {potentialEndDateLong || 'not provided'}
                         </div>
                     </div>
                 }

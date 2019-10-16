@@ -373,7 +373,7 @@ export const awardHistoryContract = (
     </div>
 );
 
-export const datesInfo = (
+export const datesInfoIDV = (
     <div>
         <div className="info-tooltip__title">
             Dates
@@ -390,6 +390,85 @@ export const datesInfo = (
                     to make purchases under this IDV.
                 </li>
             </ul>
+        </div>
+    </div>
+);
+
+export const datesInfoContract = (
+    <div>
+        <div className="info-tooltip__title">
+            Dates
+        </div>
+        <div className="info-tooltip__text">
+            <div>
+                <strong>Start Date</strong>
+                <p className="info-tooltip__text-section">
+                    The start date marks when the awarded recipient&apos;s work begins or when
+                    the award is otherwise effective.  This is also called the period of performance
+                    start date or effective date of the contract.
+                </p>
+            </div>
+            <div>
+                <strong>Current End Date</strong>
+                <p className="info-tooltip__text-section">
+                    The current end date marks the end of the contract&apos;s current period of
+                    performance or when the recipient will finish its work. This date factors
+                    in only currently-exercised contract extension options. Note that administrative
+                    actions related to this contract may continue to occur after this date.
+                </p>
+            </div>
+            <div>
+                <strong>Potential End Date</strong>
+                <p className="info-tooltip__text-section">
+                    The potential end date marks the end of the contract&apos;s potential period
+                    of performance or when the recipient will finish its work if all remaining
+                    contract extension options are exercised. Note that administrative actions
+                    related to this contract may continue to occur after this date.
+                </p>
+            </div>     
+        </div>
+    </div>
+);
+
+export const datesInfoAssistance = (
+    <div>
+        <div className="info-tooltip__title">
+            Dates
+        </div>
+        <div className="info-tooltip__text">
+            <div>
+                <strong>Start Date</strong>
+                <p className="info-tooltip__text-section">
+                    The start date marks when the awarded recipient&apos;s work begins or when
+                    the award is otherwise effective.  This is also called the period of
+                    performance start date.
+                </p>
+            </div>
+            <div>
+                <strong>Current End Date</strong>
+                <p className="info-tooltip__text-section">
+                    The end date marks the end of the award&apos;s period of performance, when the
+                    recipient will finish its work or the award will otherwise end.
+                </p>
+                <p>
+                    Note that administrative actions related to this award may
+                    continue to occur after this date.
+                </p>
+                <p>
+                    Assistance awards are sometimes subject to extensions, noncompetitive continuations,
+                    or early termination; if any of these occur, they will be indicated by a
+                    modification that alters the end date.
+                </p>
+            </div>
+            <div>
+                <strong>Potential End Date</strong>
+                <p className="info-tooltip__text-section">
+                    The potential end date marks the end of the contract&apos;s potential period
+                    of performance or when the recipient will finish its work if all remaining
+                    contract extension options are exercised. Note that administrative actions
+                    related to this contract may continue to occur after this date.
+                </p>
+            </div>     
         </div>
     </div>
 );

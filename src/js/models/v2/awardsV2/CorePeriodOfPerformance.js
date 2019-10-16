@@ -8,6 +8,7 @@ import moment from 'moment';
 export const parseDate = (string) => moment(string, 'YYYY-MM-DD');
 export const formatDate = (date) => date.format('MM/DD/YYYY');
 export const formatDateLong = (date) => date.format('MMM DD, YYYY');
+export const formatDateLongWithPeriod = (date) => date.format('MMM. DD, YYYY');
 
 const CorePeriodOfPerformance = {
     populateCore(data) {
@@ -49,13 +50,13 @@ const CorePeriodOfPerformance = {
     },
     get startDateLong() {
         if (this._startDate) {
-            return formatDateLong(this._startDate);
+            return formatDateLongWithPeriod(this._startDate);
         }
         return '';
     },
     get endDateLong() {
         if (this._endDate) {
-            return formatDateLong(this._endDate);
+            return formatDateLongWithPeriod(this._endDate);
         }
         return '';
     },
@@ -73,7 +74,7 @@ const CorePeriodOfPerformance = {
     },
     get potentialEndDateLong() {
         if (this._potentialEndDate) {
-            return formatDateLong(this._potentialEndDate);
+            return formatDateLongWithPeriod(this._potentialEndDate);
         }
         return '';
     }

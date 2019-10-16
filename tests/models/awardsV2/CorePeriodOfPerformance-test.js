@@ -26,10 +26,10 @@ describe('CorePeriodOfPerformance', () => {
         expect(periodOfPerformance.potentialEndDate).toEqual('04/30/2027');
     });
     it('should format the dates to MMM DD, YYYY', () => {
-        expect(periodOfPerformance.startDateLong).toEqual('Feb 19, 2004');
-        expect(periodOfPerformance.endDateLong).toEqual('Feb 19, 2005');
+        expect(periodOfPerformance.startDateLong).toEqual('Feb. 19, 2004');
+        expect(periodOfPerformance.endDateLong).toEqual('Feb. 19, 2005');
         expect(periodOfPerformance.awardDateLong).toEqual('Feb 18, 2005');
         expect(periodOfPerformance.lastModifiedDateLong).toEqual('Mar 01, 2006');
-        expect(periodOfPerformance.potentialEndDateLong).toEqual('Apr 30, 2027');
+        expect(periodOfPerformance.potentialEndDateLong).toEqual('Apr. 30, 2027');
     });
 });

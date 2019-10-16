@@ -31,6 +31,24 @@
         font-weight: $font-light;
         @include display(flex);
         @include justify-content(space-between);
+        .award-dates__label-container {
+          @include display(inline-flex);
+          .award-dates__circle {
+            height: rem(8);
+            width: rem(8);
+            border-radius: 20px;
+            margin: rem(7) rem(7) 0 0;
+            &.award-dates__circle-top {
+              background-color: transparent;
+            }
+            &.award-dates__circle-middle {
+              background-color: $color-gray;
+            }
+            &.award-dates__circle-bottom {
+              background-color: $color-gray-lighter;
+            }
+          }
+        }
         .award-dates__date {
             padding-left: rem(10);
         }
