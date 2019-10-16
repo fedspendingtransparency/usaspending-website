@@ -23,6 +23,7 @@ const titles = {
     grant: ['Start Date', 'Current End Date'],
     loan: ['Start Date', 'Current End Date'],
     'direct payment': ['Start Date', 'Current End Date'],
+    insurance: ['Start Date', 'Current End Date'],
     other: ['Start Date', 'Current End Date']
 };
 
@@ -34,6 +35,7 @@ export default class AwardDates extends React.Component {
         if (awardType === 'definitive contract') return null;
         if (awardType === 'grant') return null;
         if (awardType === 'loan') return null;
+        if (awardType === 'insurance') return null;
         if (awardType === 'direct payment') return null;
         if (awardType === 'other') return null;
         return null;

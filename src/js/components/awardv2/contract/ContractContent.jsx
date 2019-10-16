@@ -50,7 +50,7 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
         <AwardPageWrapper
             glossaryLink={glossaryLink}
             identifier={overview.id}
-            awardTypeDescription={overview.typeDescription}
+            title={overview.title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             awardType="contract">
             <AwardSection type="row" className="award-overview" id="award-overview">

@@ -7,9 +7,7 @@
 
 // eslint-disable-next-line import/prefer-default-export
 export const spendingCategoriesByAwardType = {
-    grant: ['_totalObligation', '_nonFederalFunding', '_baseAndAllOptions'],
     loan: ['_subsidy', '_faceValue'],
-    other: [],
     contract: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions'],
     idv: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions']
 };
