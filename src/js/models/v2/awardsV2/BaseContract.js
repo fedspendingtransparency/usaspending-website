@@ -2,6 +2,7 @@
  * BaseContract.js
  * Created by David Trinh 10/9/18
  */
+import { forEach } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
@@ -14,6 +15,31 @@ import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 import CorePeriodOfPerformance from '../awardsV2/CorePeriodOfPerformance';
 
 const BaseContract = Object.create(CoreAward);
+
+const getPscType = (toptierCode) => {
+    const topTierCodeAsInt = parseInt(toptierCode, 10);
+    if (isNaN(topTierCodeAsInt)) {
+        if (toptierCode.toUpperCase() === 'A') {
+            return 'RESEARCH AND DEVELOPMENT';
+        }
+        return 'SERVICES';
+    }
+    return 'PRODUCT';
+};
+
+const deducePscType = (acc, keyValueArray) => {
+    const [key, value] = keyValueArray;
+    if (key === 'toptier_code') {
+        return {
+            ...acc,
+            [key]: {
+                code: value.code,
+                description: getPscType(value.code)
+            }
+        };
+    }
+    return { ...acc, [key]: value };
+};
 
 BaseContract.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
@@ -31,7 +57,7 @@ BaseContract.populate = function populate(data) {
         dateSigned: data.date_signed,
         baseAndAllOptions: data.base_and_all_options,
         naics: data.naics_hierarchy,
-        psc: data.psc_hierarchy
+        psc: Object.entries(data.psc_hierarchy).reduce(deducePscType, {})
     };
     this.populateCore(coreData);
 
