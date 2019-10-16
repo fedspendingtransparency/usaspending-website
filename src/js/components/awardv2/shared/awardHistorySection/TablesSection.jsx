@@ -133,7 +133,6 @@ export default class TablesSection extends React.Component {
                 return (
                     <SubawardsContainer
                         tableWidth={tableWidth}
-                        isV2
                         awardId={awardId} />
                 );
             default:
