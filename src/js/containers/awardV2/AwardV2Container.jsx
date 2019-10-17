@@ -8,10 +8,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
-
-import Router from 'containers/router/Router';
 import Award from 'components/awardv2/AwardV2';
-import AwardV1Container from 'containers/award/AwardContainer';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import { setAward } from 'redux/actions/awardV2/awardActions';
@@ -110,13 +107,15 @@ export class AwardContainer extends React.Component {
                     // Errored out but got response, toggle noAward flag
                     this.awardRequest = null;
                     this.setState({
-                        noAward: true
+                        noAward: true,
+                        inFlight: false
                     });
                 }
                 else {
                     // Request failed
                     this.awardRequest = null;
                     console.log(error);
+                    this.setState({ inFlight: false });
                 }
             });
     }
@@ -179,23 +178,16 @@ export class AwardContainer extends React.Component {
     }
 
     render() {
-        const isV2url = Router.history.location.pathname.includes('award_v2');
         let content = null;
         if (!this.state.inFlight) {
-            if (this.props.award.category === 'idv' || isV2url) {
-                content = (
-                    <Award
-                        isV2url={isV2url}
-                        isDownloadPending={this.props.isDownloadPending}
-                        downloadData={this.downloadData}
-                        awardId={this.props.params.awardId}
-                        award={this.props.award}
-                        noAward={this.state.noAward} />
-                );
-            }
-            else {
-                content = (<AwardV1Container awardId={this.props.params.awardId} />);
-            }
+            content = (
+                <Award
+                    isDownloadPending={this.props.isDownloadPending}
+                    downloadData={this.downloadData}
+                    awardId={this.props.params.awardId}
+                    award={this.props.award}
+                    noAward={this.state.noAward} />
+            );
         }
         return content;
     }

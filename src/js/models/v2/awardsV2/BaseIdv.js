@@ -17,7 +17,7 @@ const BaseIdv = Object.create(CoreAward);
 BaseIdv.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
-        id: data.piid,
+        id: data.id,
         generatedId: data.generated_unique_award_id,
         type: data.type,
         typeDescription: data.type_description,
@@ -117,6 +117,7 @@ BaseIdv.populate = function populate(data) {
     const executiveDetails = Object.create(CoreExecutiveDetails);
     executiveDetails.populateCore(data.executive_details);
     this.executiveDetails = executiveDetails;
+    this.piid = data.piid || '';
 };
 
 export default BaseIdv;

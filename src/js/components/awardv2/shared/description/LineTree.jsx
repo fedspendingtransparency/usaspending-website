@@ -16,8 +16,6 @@ const LineTree = ({
         .sort((tierType1, tierType2) => {
             const first = data[tierType1].code;
             const second = data[tierType2].code;
-            if (first === 'SERVICES') return -1;
-            if (second === 'SERVICES') return 1;
             if (first.length < second.length) return -1;
             if (second.length < first.length) return 1;
             return 0;
@@ -39,7 +37,10 @@ const LineTree = ({
         <div className={`line-tree-${type}`}>
             {getTierData(0) && (
                 <div className="tier--1">
-                    <span>{`${getTierData(0).code}: ${getTierData(0).description}`}</span>
+                    <span>{type === 'psc'
+                        ? getTierData(0).description
+                        : `${getTierData(0).code} : ${getTierData(0).description}`}
+                    </span>
                     {getTierData(1) && (
                         <div className={`tier--2 ${numberOfSections <= 2 ? 'tier--last' : ''}`}>
                             <span>{`${getTierData(1).code}: ${getTierData(1).description}`}</span>
