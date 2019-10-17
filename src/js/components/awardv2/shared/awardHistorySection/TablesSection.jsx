@@ -8,12 +8,13 @@ import PropTypes from 'prop-types';
 
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
+import { tabs } from 'dataMapping/awardsv2/awardHistorySection';
 
 import SubawardsContainer from '../../../../containers/awardV2/table/SubawardsContainer';
-import { federalAccountFundingInfo, transactionHistoryInfo, subAwardsTab } from '../InfoTooltipContent';
 import DetailsTabBar from '../../../award/details/DetailsTabBar';
 import ResultsTablePicker from '../../../search/table/ResultsTablePicker';
 import { getAwardHistoryCounts } from "../../../../helpers/awardHistoryHelper";
+import { awardTypesWithSubawards } from '../../../../dataMapping/awardsv2/awardHistorySection';
 
 const propTypes = {
     overview: PropTypes.object,
@@ -21,30 +22,6 @@ const propTypes = {
     clickTab: PropTypes.func,
     awardId: PropTypes.string
 };
-
-const tabs = [
-    {
-        label: "Transaction History",
-        internal: "transaction",
-        enabled: true,
-        tooltipContent: transactionHistoryInfo,
-        tooltipProps: { wide: true }
-    },
-    {
-        label: "Sub-Awards",
-        internal: "subaward",
-        enabled: true,
-        tooltipContent: subAwardsTab,
-        tooltipProps: { wide: true }
-    },
-    {
-        label: "Federal Account Funding",
-        internal: "federal_account",
-        enabled: true,
-        tooltipContent: federalAccountFundingInfo,
-        tooltipProps: { wide: true }
-    }
-];
 
 export default class TablesSection extends React.Component {
     constructor(props) {
@@ -63,7 +40,7 @@ export default class TablesSection extends React.Component {
         this.setTableWidth();
         // watch the window for size changes
         window.addEventListener('resize', this.setTableWidth);
-        this.getCounts();
+        this.setTableTabsAndGetCounts();
     }
 
     componentDidUpdate(prevProps) {
@@ -71,7 +48,7 @@ export default class TablesSection extends React.Component {
         if (this.props.overview.generatedId !== prevProps.overview.generatedId) {
             // reset the tab
             this.props.clickTab('transaction');
-            this.getCounts();
+            this.setTableTabsAndGetCounts();
         }
     }
 
@@ -80,14 +57,18 @@ export default class TablesSection extends React.Component {
         window.removeEventListener('resize', this.setTableWidth);
     }
 
-    getCounts(award = this.props.overview) {
+    setTableTabsAndGetCounts(award = this.props.overview) {
         if (this.countRequest) {
             this.countRequest.cancel();
         }
 
-        const isIdvOrLoan = (award.category === 'idv' || award.category === 'loan');
         const tabsWithCounts = tabs
-            .filter((tab) => ((!isIdvOrLoan || tab.internal !== 'subaward')))
+            .filter((tab) => {
+                if (tab.internal === 'subaward' && !awardTypesWithSubawards.includes(award.category)) {
+                    return false;
+                }
+                return true;
+            })
             .map(async (tab) => {
                 if (award.category === 'idv') {
                     return tab;

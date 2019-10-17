@@ -74,6 +74,7 @@ const FinancialAssistanceContent = ({
     awardAmountData.populate(overview, overview.category);
 
     const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
+    const isGrant = overview.category === 'grant';
 
     return (
         <AwardPageWrapper
@@ -102,15 +103,23 @@ const FinancialAssistanceContent = ({
                 <AwardDescription description={overview.description} awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
-                <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />
+                {isGrant && <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />}
+                {!isGrant && (
+                    <ComingSoonSection
+                        title="CFDA Program / Assistance Listing Information"
+                        icon="hands-helping"
+                        includeHeader />
+                )}
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
-            <AwardSection type="row">
-                <ComingSoonSection
-                    title="CFDA Program / Assistance Listing Information"
-                    icon="hands-helping"
-                    includeHeader />
-            </AwardSection>
+            {isGrant && (
+                <AwardSection type="row">
+                    <ComingSoonSection
+                        title="CFDA Program / Assistance Listing Information"
+                        icon="hands-helping"
+                        includeHeader />
+                </AwardSection>
+            )}
             <AwardSection type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
             </AwardSection>
