@@ -60,22 +60,19 @@ const GrantChart = ({ awardAmounts }) => {
 
     const nonFederalFundingBarStyle = {
         width: generatePercentage(nonFederalFunding / totalFunding),
-        backgroundColor: nonFederalFundingIsZero ? 'none' : '#4773aa',
-        right: obligatedBarStyle.width
+        backgroundColor: nonFederalFundingIsZero ? 'none' : '#47AAA7'
     };
 
     const totalFundingColor = "#FFF";
 
     const nonFederalFundingLabelStyle = {
-        width: nonFederalFundingIsZero ? '100%' : generatePercentage(nonFederalFunding / totalFunding)
+        width: nonFederalFundingIsZero ? '100%' : generatePercentage(nonFederalFunding / totalFunding),
+        left: nonFederalFundingIsZero ? '0' : generatePercentage(obligation / totalFunding),
+        position: 'relative'
     };
 
     const nonFFTooltipStyles = {
-        width: nonFederalFundingBarStyle.width,
-        right: nonFederalFundingBarStyle.right,
-        border: nonFederalFundingIsZero ? 'none' : "5px solid #47AAA7",
-        padding: nonFederalFundingIsZero ? '0px' : '3.5px',
-        position: 'relative'
+        width: nonFederalFundingBarStyle.width
     };
 
     const propsForObligatedTooltip = buildTooltipProps("obligated", (activeTooltip === "obligated"), showObligatedTooltip);
@@ -134,7 +131,7 @@ const GrantChart = ({ awardAmounts }) => {
                         </React.Fragment>
                     )}
                     {nonFederalFundingIsZero &&
-                        <TooltipWrapper {...propsForNonFederalFundingTooltip} styles={{ ...nonFFTooltipStyles, width: 'auto', right: 0 }}>
+                        <TooltipWrapper {...propsForNonFederalFundingTooltip}>
                             <div className="award-amounts-viz__desc-text" role="button" tabIndex="0">
                                 <strong>{awardAmounts.nonFederalFundingAbbreviated}</strong><br />Non-Federal Funding
                             </div>

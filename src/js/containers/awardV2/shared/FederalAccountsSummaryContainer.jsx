@@ -45,6 +45,12 @@ export class FederalAccountsSummaryContainer extends React.Component {
         }
     }
 
+    componentWillUnmount() {
+        if (this.request) {
+            this.request.cancel();
+        }
+    }
+
     async getAwardMetaData() {
         if (this.request) {
             this.request.cancel();
@@ -84,7 +90,6 @@ export class FederalAccountsSummaryContainer extends React.Component {
         return (
             <FederalAccountsSummary
                 {...this.state}
-                category={this.props.category}
                 jumpToFederalAccountsHistory={this.props.jumpToFederalAccountsHistory} />
         );
     }

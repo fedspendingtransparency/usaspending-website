@@ -37,10 +37,10 @@ export const awardTypeCodes = {
 
 export const glossaryLinks = {
     'A': 'blanket-purchase-agreement-bpa',
-    'B': '',
+    'B': 'purchase-order',
     'C': 'delivery-order-contract',
     'D': 'definitive-contract',
-    'E': '',
+    'E': '', // Unknown Type
     'F': 'cooperative-agreement',
     'G': '',
     'S': '',
@@ -55,7 +55,7 @@ export const glossaryLinks = {
     'IDV_E': 'blanket-purchase-agreement-bpa',
     '02': 'block-grant',
     '03': 'formula-grant',
-    '04': '',
+    '04': 'project-grant',
     '05': 'cooperative-agreement',
     '10': 'direct-payment-with-unrestricted-use',
     '06': 'direct-payment-for-specified-use',

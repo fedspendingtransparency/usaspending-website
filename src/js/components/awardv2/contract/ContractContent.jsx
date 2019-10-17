@@ -18,6 +18,7 @@ import AwardSection from '../shared/AwardSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardHistory from '../shared/awardHistorySection/AwardHistory';
+import AwardDescription from "../shared/description/AwardDescription";
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -48,8 +49,8 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
     return (
         <AwardPageWrapper
             glossaryLink={glossaryLink}
-            identifier={overview.id}
-            awardTypeDescription={overview.typeDescription}
+            identifier={overview.piid}
+            title={overview.title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             awardType="contract">
             <AwardSection type="row" className="award-overview" id="award-overview">
@@ -69,10 +70,10 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
                     awardType={overview.category}
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
                     awardOverview={awardAmountData} />
-                <ComingSoonSection title="Description" includeHeader />
+                <AwardDescription awardId={awardId} description={overview.description} naics={overview.naics} psc={overview.psc} />
             </AwardSection>
             <AwardSection type="row">
-                <ComingSoonSection title="Contract Activity" includeHeader />
+                <ComingSoonSection title="Contract Activity" includeHeader icon="chart-area" />
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             <AwardSection type="row">

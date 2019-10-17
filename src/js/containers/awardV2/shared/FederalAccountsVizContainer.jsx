@@ -23,7 +23,7 @@ export class FederalAccountsVizContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            limit: 100,
+            limit: 10,
             sort: 'total_transaction_obligated_amount',
             page: 1,
             order: 'desc',
@@ -31,7 +31,7 @@ export class FederalAccountsVizContainer extends React.Component {
             inFlight: false,
             error: false,
             federalAccounts: [],
-            view: 'tree'
+            view: 'table'
         };
 
         this.request = null;
@@ -50,6 +50,12 @@ export class FederalAccountsVizContainer extends React.Component {
     async componentDidUpdate(prevProps) {
         if (prevProps.totalTransactionObligatedAmount !== this.props.totalTransactionObligatedAmount && (this.props.totalTransactionObligatedAmount)) {
             await this.getFederalAccounts();
+        }
+    }
+
+    componentWillUnmount() {
+        if (this.request) {
+            this.request.cancel();
         }
     }
 

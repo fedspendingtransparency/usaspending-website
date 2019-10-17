@@ -5,11 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import moment from 'moment';
+import * as TimeRangeHelper from 'helpers/timeRangeHelper';
+
 import InfoTooltip from '../InfoTooltip';
 import { datesInfo } from '../InfoTooltipContent';
+import AwardSection from '../AwardSection';
 
 const propTypes = {
     dates: PropTypes.object,
@@ -22,6 +23,7 @@ const titles = {
     grant: ['Start Date', 'Current End Date'],
     loan: ['Start Date', 'Current End Date'],
     'direct payment': ['Start Date', 'Current End Date'],
+    insurance: ['Start Date', 'Current End Date'],
     other: ['Start Date', 'Current End Date']
 };
 
@@ -33,6 +35,7 @@ export default class AwardDates extends React.Component {
         if (awardType === 'definitive contract') return null;
         if (awardType === 'grant') return null;
         if (awardType === 'loan') return null;
+        if (awardType === 'insurance') return null;
         if (awardType === 'direct payment') return null;
         if (awardType === 'other') return null;
         return null;
@@ -117,50 +120,52 @@ export default class AwardDates extends React.Component {
         const tooltipInfo = this.tooltipInfo();
 
         return (
-            <div className="award-dates">
-                <div className="award-dates__heading">
-                    <div className="award-overview__title award-dates__title">
-                        Dates
-                        <InfoTooltip left>
-                            {tooltipInfo}
-                        </InfoTooltip>
+            <AwardSection type="column">
+                <div className="award-dates">
+                    <div className="award-dates__heading">
+                        <div className="award-overview__title award-dates__title">
+                            Dates
+                            <InfoTooltip left>
+                                {tooltipInfo}
+                            </InfoTooltip>
+                        </div>
+                        <div className="award-dates__remaining">
+                            {remainingText}
+                            <span className="award-dates__remaining award-dates__remaining_label">
+                                {remainingLabel}
+                            </span>
+                        </div>
                     </div>
-                    <div className="award-dates__remaining">
-                        {remainingText}
-                        <span className="award-dates__remaining award-dates__remaining_label">
-                            {remainingLabel}
-                        </span>
-                    </div>
-                </div>
-                {timeline}
-                <div className="award-dates__row">
-                    <div className="award-dates__label">
-                        {titles[awardType][0]}
-                    </div>
-                    <div className="award-dates__date">
-                        {dates.startDateLong || 'not provided'}
-                    </div>
-                </div>
-                <div className="award-dates__row">
-                    <div className="award-dates__label">
-                        {titles[awardType][1]}
-                    </div>
-                    <div className="award-dates__date">
-                        {dates.endDateLong || 'not provided'}
-                    </div>
-                </div>
-                {
-                    titles[awardType][2] &&
+                    {timeline}
                     <div className="award-dates__row">
                         <div className="award-dates__label">
-                            {titles[awardType][2]}
+                            {titles[awardType][0]}
                         </div>
                         <div className="award-dates__date">
-                            {dates.potentialEndDateLong || 'not provided'}
+                            {dates.startDateLong || 'not provided'}
                         </div>
                     </div>
-                }
-            </div>
+                    <div className="award-dates__row">
+                        <div className="award-dates__label">
+                            {titles[awardType][1]}
+                        </div>
+                        <div className="award-dates__date">
+                            {dates.endDateLong || 'not provided'}
+                        </div>
+                    </div>
+                    {
+                        titles[awardType][2] &&
+                        <div className="award-dates__row">
+                            <div className="award-dates__label">
+                                {titles[awardType][2]}
+                            </div>
+                            <div className="award-dates__date">
+                                {dates.potentialEndDateLong || 'not provided'}
+                            </div>
+                        </div>
+                    }
+                </div>
+            </AwardSection>
         );
     }
 }

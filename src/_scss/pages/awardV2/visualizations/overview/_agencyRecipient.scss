@@ -1,4 +1,9 @@
 .agency-recipient {
+    @include flex(1 1 auto);
+    padding-right: rem(10);
+    @include media($medium-screen) {
+        @include flex(0 0 50%);
+    }
     .agency-recipient__wrapper {
         @include display(flex);
 
@@ -24,13 +29,7 @@
             margin-right: rem(-20);
         }
 
-        .agency-recipient__title {
-            font-size: rem(14);
-            font-weight: $font-semibold;
-            padding-bottom: rem(11);
-        }
-
-        .agency-recipient__detail{
+        .agency-recipient__detail {
             font-size: rem(16);
             color: $color-primary;
             text-transform: uppercase;

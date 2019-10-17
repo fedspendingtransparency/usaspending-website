@@ -1,4 +1,4 @@
-import { mockSubawards } from '../mockSubawards';
+import { mockSubawards } from './mockSubawards';
 
 export const performSubawardSearch = () => ({
     promise: new Promise((resolve) => {

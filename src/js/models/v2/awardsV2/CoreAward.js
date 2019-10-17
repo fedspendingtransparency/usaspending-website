@@ -2,10 +2,11 @@
  * CoreAward.js
  * Created by David Trinh 10/9/18
  */
-import { startCase } from 'lodash';
+import { upperFirst } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import { descriptionsForAwardTypes }
+    from 'dataMapping/awardsv2/descriptionsForAwardTypes';
 import { parseDate, formatDate } from './CorePeriodOfPerformance';
-import { longTypeDescriptionsByAwardTypes } from "../../../dataMapping/awardsv2/longAwardTypeDescriptions";
 
 const CoreAward = {
     populateCore(data) {
@@ -14,10 +15,6 @@ const CoreAward = {
         this.generatedId = data.generatedId || '';
         this.type = data.type || '';
         this.typeDescription = data.typeDescription || "--";
-        this.longTypeDescription =
-          longTypeDescriptionsByAwardTypes[data.type] ||
-          startCase(data.typeDescription) ||
-          "--";
         this.description = data.description || '--';
         this._subawardTotal = parseFloat(data.subawardTotal) || 0;
         this.subawardCount = parseFloat(data.subawardCount) || 0;
@@ -25,6 +22,8 @@ const CoreAward = {
         this._baseExercisedOptions = parseFloat(data.baseExercisedOptions) || 0;
         this._baseAndAllOptions = parseFloat(data.baseAndAllOptions) || 0;
         this._dateSigned = (data.dateSigned && parseDate(data.dateSigned)) || '';
+        this.naics = data.naics || {};
+        this.psc = data.psc || {};
     },
     get subawardTotal() {
         if (this._subawardTotal >= MoneyFormatter.unitValues.MILLION) {
@@ -69,6 +68,18 @@ const CoreAward = {
         let percent = (this._subawardTotal / this._baseAndAllOptions) * 100;
         percent = MoneyFormatter.formatNumberWithPrecision(percent, 1);
         return percent > 0 ? `${percent}%` : '0%';
+    },
+    get title() {
+        if (descriptionsForAwardTypes[this.type]) {
+            return descriptionsForAwardTypes[this.type];
+        }
+        if (this.category) {
+            if (this.category === 'idv') {
+                return 'IDV';
+            }
+            return upperFirst(this.category);
+        }
+        return '--';
     }
 };
 

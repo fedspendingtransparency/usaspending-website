@@ -3,7 +3,11 @@
     @import "layouts/summary/summary";
     @import "layouts/default/stickyHeader/header";
     @import "layouts/tabbedSearch/header/downloadButton";
-
+    @import "./shared/infoTooltip";
+    // handling the invalid award id error message 
+    .wrapper {
+        min-height: 36vh;
+    }
     .award-content {
         @import "mixins/fullSectionWrap";
         @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
@@ -129,11 +133,13 @@
                         }
                     }
                 }
-
-                hr {
-                    opacity: 0.5;
-                    width: 100%;
-                }
+            }
+            hr,
+            .award-row hr {
+                width: 100%;
+                height: 2px;
+                background: #555555;
+                border: none;
             }
             @import "./visualizations/awardViz";
             @import "./visualizations/overview/overview";
@@ -141,7 +147,6 @@
             @import "./visualizations/additionalInfo";
             @import "./visualizations/awardFundingSummary";
             @import "./shared/awardAmountsSection/index";
-            @import "./shared/infoTooltip";
             @import "./shared/awardHistorySection";
         }
         @import "./comingSoon";
