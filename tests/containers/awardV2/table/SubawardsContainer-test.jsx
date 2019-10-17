@@ -11,10 +11,10 @@ import { SubawardsContainer } from
 
 import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
 
-import { mockParams } from '../mockResults';
 import { mockSubawards } from '../mockSubawards';
+import { mockParams } from '../mockAward';
 
-jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
+jest.mock('helpers/searchHelper', () => require('../mockSearchHelper'));
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
@@ -24,22 +24,19 @@ global.Promise = require.requireActual('promise');
 jest.mock('components/award/subawards/SubawardsTable', () =>
     jest.fn(() => null));
 
-const mockAward = mockParams.award.selectedAward;
+const mockAward = mockParams.award;
 
 describe('SubawardsContainer', () => {
     it('should reload data when the award ID changes', () => {
         const container = mount(
             <SubawardsContainer
+                awardId="123"
                 award={mockAward} />);
-
-        const newAward = Object.assign({}, mockAward, {
-            internalId: 9999
-        });
 
         container.instance().fetchSubawards = jest.fn();
 
         container.setProps({
-            award: newAward
+            awardId: "999"
         });
 
         expect(container.instance().fetchSubawards).toHaveBeenCalledTimes(1);
