@@ -15,7 +15,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
 
-import SubawardsTable from 'components/award/subawards/SubawardsTable';
+import SubawardsTable from 'components/awardv2/subawards/SubawardsTable';
 
 const propTypes = {
     award: PropTypes.object,

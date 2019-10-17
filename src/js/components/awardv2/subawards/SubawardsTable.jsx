@@ -13,7 +13,7 @@ import IBTable from 'components/sharedComponents/IBTable/IBTable';
 import subawardFields from 'dataMapping/contracts/subawardTable';
 
 import TransactionTableGenericCell from 'components/award/table/cells/TransactionTableGenericCell';
-import SubawardsHeaderCell from 'components/award/subawards/cells/SubawardsHeaderCell';
+import SubawardsHeaderCell from './cells/SubawardsHeaderCell';
 
 import ResultsTableNoResults from '../../search/table/ResultsTableNoResults';
 import ResultsTableErrorMessage from '../../search/table/ResultsTableErrorMessage';

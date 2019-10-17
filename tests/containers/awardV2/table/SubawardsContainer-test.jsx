@@ -7,7 +7,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { SubawardsContainer } from
-    'containers/award/subawards/SubawardsContainer';
+    'containers/awardV2/table/SubawardsContainer';
 
 import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
 
@@ -21,17 +21,16 @@ jest.mock('helpers/searchHelper', () => require('../mockSearchHelper'));
 global.Promise = require.requireActual('promise');
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/award/subawards/SubawardsTable', () =>
+jest.mock('components/awardv2/subawards/SubawardsTable', () =>
     jest.fn(() => null));
 
 const mockAward = mockParams.award;
 
 describe('SubawardsContainer', () => {
     it('should reload data when the award ID changes', () => {
-        const container = mount(
-            <SubawardsContainer
-                awardId="123"
-                award={mockAward} />);
+        const container = mount(<SubawardsContainer
+            awardId="123"
+            award={mockAward} />);
 
         container.instance().fetchSubawards = jest.fn();
 
@@ -44,10 +43,8 @@ describe('SubawardsContainer', () => {
 
     describe('loadNextPage', () => {
         it('should load the next page when available', () => {
-            const container = shallow(
-                <SubawardsContainer
-                    award={mockAward} />
-            );
+            const container = shallow(<SubawardsContainer
+                award={mockAward} />);
 
             container.instance().fetchSubawards = jest.fn();
 
@@ -62,10 +59,8 @@ describe('SubawardsContainer', () => {
             expect(container.instance().fetchSubawards).toHaveBeenCalledWith(2, false);
         });
         it('should do nothing when there are no more pages', () => {
-            const container = shallow(
-                <SubawardsContainer
-                    award={mockAward} />
-            );
+            const container = shallow(<SubawardsContainer
+                    award={mockAward} />);
 
             container.instance().fetchSubawards = jest.fn();
 
@@ -79,10 +74,8 @@ describe('SubawardsContainer', () => {
             expect(container.instance().fetchSubawards).toHaveBeenCalledTimes(0);
         });
         it('should do nothing when another request is currently in flight', () => {
-            const container = shallow(
-                <SubawardsContainer
-                    award={mockAward} />
-            );
+            const container = shallow(<SubawardsContainer
+                    award={mockAward} />);
 
             container.instance().fetchSubawards = jest.fn();
 
@@ -98,10 +91,8 @@ describe('SubawardsContainer', () => {
     });
     describe('parseSubawards', () => {
         it('should parse API responses into SubawardRow objects', () => {
-            const container = shallow(
-                <SubawardsContainer
-                    award={mockAward} />
-            );
+            const container = shallow(<SubawardsContainer
+                    award={mockAward} />);
 
             container.instance().parseSubawards(mockSubawards, true);
             const expectedSubaward = Object.create(BaseSubawardRow);
@@ -112,10 +103,8 @@ describe('SubawardsContainer', () => {
         });
 
         it('should append items rather than overwrite items when the reset flag is false', () => {
-            const container = shallow(
-                <SubawardsContainer
-                    award={mockAward} />
-            );
+            const container = shallow(<SubawardsContainer
+                    award={mockAward} />);
             container.setState({
                 subawards: [{}]
             });
@@ -127,10 +116,8 @@ describe('SubawardsContainer', () => {
     });
     describe('changeSort', () => {
         it('should change the sort state', () => {
-            const container = shallow(
-                <SubawardsContainer
-                    award={mockAward} />
-            );
+            const container = shallow(<SubawardsContainer
+                    award={mockAward} />);
             container.instance().changeSort({
                 field: 'test',
                 direction: 'asc'
@@ -143,10 +130,8 @@ describe('SubawardsContainer', () => {
         });
 
         it('should trigger a reset search', () => {
-            const container = shallow(
-                <SubawardsContainer
-                    award={mockAward} />
-            );
+            const container = shallow(<SubawardsContainer
+                    award={mockAward} />);
             container.instance().fetchSubawards = jest.fn();
 
             container.instance().changeSort({
