@@ -8,13 +8,12 @@ import PropTypes from 'prop-types';
 
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
-import { tabs } from 'dataMapping/awardsv2/awardHistorySection';
+import { tabs, awardTypesWithSubawards } from 'dataMapping/awardsv2/awardHistorySection';
 
 import SubawardsContainer from '../../../../containers/awardV2/table/SubawardsContainer';
 import DetailsTabBar from '../../../award/details/DetailsTabBar';
 import ResultsTablePicker from '../../../search/table/ResultsTablePicker';
 import { getAwardHistoryCounts } from "../../../../helpers/awardHistoryHelper";
-import { awardTypesWithSubawards } from '../../../../dataMapping/awardsv2/awardHistorySection';
 
 const propTypes = {
     overview: PropTypes.object,
