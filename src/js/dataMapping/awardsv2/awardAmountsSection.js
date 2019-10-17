@@ -52,4 +52,4 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
         subsidyFormatted: 'Original Subsidy Cost',
         faceValueFormatted: 'Face Value of Direct Loan'
     }
-}
+};
