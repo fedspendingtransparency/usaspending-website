@@ -57,19 +57,6 @@ const FinancialAssistanceContent = ({
         jumpToSection('award-history');
     };
 
-    let amountsSection = (<ComingSoonSection title="Award Amounts" includeHeader />);
-    if (overview.category === 'grant' || overview.category === 'loan') {
-        const awardAmountData = Object.create(BaseAwardAmounts);
-        awardAmountData.populate(overview, overview.category);
-        amountsSection = (
-            <AwardAmountsSection
-                awardType={overview.category}
-                awardOverview={awardAmountData}
-                tooltipProps={defaultTooltipProps}
-                jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
-        );
-    }
-
     const awardAmountData = Object.create(BaseAwardAmounts);
     awardAmountData.populate(overview, overview.category);
 
@@ -98,7 +85,11 @@ const FinancialAssistanceContent = ({
                 </AwardSection>
             </AwardSection>
             <AwardSection type="row">
-                {amountsSection}
+                <AwardAmountsSection
+                    awardType={overview.category}
+                    awardOverview={awardAmountData}
+                    tooltipProps={defaultTooltipProps}
+                    jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                 <AwardDescription description={overview.description} awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
