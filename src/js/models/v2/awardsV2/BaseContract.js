@@ -113,12 +113,9 @@ BaseContract.populate = function populate(data) {
             id: data.awarding_agency.id,
             toptierName: data.awarding_agency.toptier_agency.name,
             toptierAbbr: data.awarding_agency.toptier_agency.abbreviation || '',
-            toptierId: data.awarding_agency.toptier_agency.id,
             subtierName: data.awarding_agency.subtier_agency.name,
             subtierAbbr: data.awarding_agency.subtier_agency.abbreviation || '',
-            subtierId: data.awarding_agency.subtier_agency.id,
-            officeName: data.awarding_agency.office_agency_name,
-            officeId: data.awarding_agency.office_agency_id
+            officeName: data.awarding_agency.office_agency_name
         };
         const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
@@ -130,14 +127,12 @@ BaseContract.populate = function populate(data) {
 
     if (data.funding_agency) {
         const fundingAgencyData = {
+            id: data.funding_agency.id,
             toptierName: data.funding_agency.toptier_agency.name,
             toptierAbbr: data.funding_agency.toptier_agency.abbreviation || '',
-            toptierId: data.funding_agency.toptier_agency.id,
             subtierName: data.funding_agency.subtier_agency.name,
             subtierAbbr: data.funding_agency.subtier_agency.abbreviation || '',
-            subtierId: data.funding_agency.subtier_agency.id,
-            officeName: data.funding_agency.office_agency_name,
-            officeId: data.funding_agency.office_agency_id
+            officeName: data.funding_agency.office_agency_name
         };
         const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
@@ -154,9 +149,16 @@ BaseContract.populate = function populate(data) {
     }
 
     const parentAwardDetails = Object.create(BaseParentAwardDetails);
-    if (data.parent_award) {
-        parentAwardDetails.populateCore(data.parent_award);
-    }
+    const parentDetails = {
+        award_id: data.parent_generated_unique_award_id,
+        idv_type_description: data.idv_type_description,
+        type_of_idc_description: data.type_of_idc_description,
+        agency_id: data.parent_agency_id,
+        agency_name: data.parent_agency_name,
+        multiple_or_single_aw_desc: data.multiple_or_single_aw_description,
+        piid: data.parent_award_piid
+    };
+    parentAwardDetails.populateCore(parentDetails);
     this.parentAwardDetails = parentAwardDetails;
 
     const executiveDetails = Object.create(CoreExecutiveDetails);
