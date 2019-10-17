@@ -93,7 +93,7 @@ export default class Award extends React.Component {
         let content = null;
         let summaryBar = null;
         const { overview } = this.props.award;
-        const { isV2url } = this.props;
+        const { isV2url, awardId } = this.props;
         if (overview) {
             summaryBar = (
                 <SummaryBar
@@ -104,7 +104,7 @@ export default class Award extends React.Component {
             if (overview.category === 'contract') {
                 content = (
                     <ContractContent
-                        awardId={this.props.awardId}
+                        awardId={awardId}
                         overview={overview}
                         jumpToSection={this.jumpToSection} />
                 );
@@ -113,7 +113,7 @@ export default class Award extends React.Component {
                 content = (
                     <IdvContent
                         isV2url={isV2url}
-                        awardId={this.props.awardId}
+                        awardId={awardId}
                         overview={overview}
                         counts={this.props.award.counts}
                         jumpToSection={this.jumpToSection} />
@@ -122,7 +122,7 @@ export default class Award extends React.Component {
             else {
                 content = (
                     <FinancialAssistanceContent
-                        awardId={overview.id}
+                        awardId={awardId}
                         overview={overview}
                         jumpToSection={this.jumpToSection} />
                 );
