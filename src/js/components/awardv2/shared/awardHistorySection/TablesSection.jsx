@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
 
-import SubawardsContainer from '../../../../containers/award/subawards/SubawardsContainer';
+import SubawardsContainer from '../../../../containers/awardV2/table/SubawardsContainer';
 import {
     federalAccountFundingInfoIDV,
     federalAccountFundingInfoGeneric,
@@ -170,7 +170,6 @@ export default class TablesSection extends React.Component {
                 return (
                     <SubawardsContainer
                         tableWidth={tableWidth}
-                        isV2
                         awardId={awardId} />
                 );
             default:

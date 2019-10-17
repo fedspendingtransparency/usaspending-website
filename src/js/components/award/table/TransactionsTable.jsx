@@ -36,13 +36,9 @@ const propTypes = {
     nextTransactionPage: PropTypes.func.isRequired,
     changeSort: PropTypes.func.isRequired,
     category: PropTypes.string,
-    isV2: PropTypes.bool,
     error: PropTypes.bool
 };
 
-const defaultProps = {
-    isV2: false
-};
 export default class TransactionsTable extends React.Component {
     constructor(props) {
         super(props);
@@ -59,12 +55,12 @@ export default class TransactionsTable extends React.Component {
         }
     }
 
-    tableMapping(isV2 = this.props.isV2, category = this.props.category) {
-        if (isV2 || category === 'idv') {
-            if (category === 'loan') {
-                return loanTransactionHistoryTable;
-            }
+    tableMapping(category = this.props.category) {
+        if (category === 'idv') {
             return transactionHistoryV2Mapping;
+        }
+        else if (category === 'loan') {
+            return loanTransactionHistoryTable;
         }
         else if (category === 'contract') {
             return contractMapping;
@@ -185,4 +181,3 @@ export default class TransactionsTable extends React.Component {
 }
 
 TransactionsTable.propTypes = propTypes;
-TransactionsTable.defaultProps = defaultProps;
