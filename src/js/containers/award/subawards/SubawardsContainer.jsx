@@ -19,7 +19,6 @@ import SubawardsTable from 'components/award/subawards/SubawardsTable';
 
 const propTypes = {
     award: PropTypes.object,
-    v2Award: PropTypes.object,
     awardId: PropTypes.string
 };
 
@@ -55,10 +54,7 @@ export class SubawardsContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.award.internalId !== this.props.award.internalId) {
-            this.fetchSubawards(1, true);
-        }
-        else if (this.props.awardId !== prevProps.awardId) {
+        if (this.props.awardId !== prevProps.awardId) {
             this.fetchSubawards(1, true);
         }
     }
@@ -73,7 +69,8 @@ export class SubawardsContainer extends React.Component {
             this.subawardRequest.cancel();
         }
 
-        const awardId = this.props.award.internalId;
+        // Using integer / incremental id until subawards endpoint accepts our generatedId / this.props.awardId
+        const awardId = this.props.award.overview.id;
 
         const params = {
             page,
@@ -158,7 +155,7 @@ export class SubawardsContainer extends React.Component {
     }
 
     render() {
-        const award = this.props.v2Award.overview;
+        const award = this.props.award.overview;
         return (
             <SubawardsTable
                 {...this.props}
@@ -175,8 +172,7 @@ SubawardsContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        award: state.award.selectedAward,
-        v2Award: state.awardV2
+        award: state.awardV2
     }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
 )(SubawardsContainer);
