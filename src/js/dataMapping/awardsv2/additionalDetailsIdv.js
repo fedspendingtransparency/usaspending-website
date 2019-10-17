@@ -79,7 +79,7 @@ const additionalDetails = (awardData) => {
             'Not Completed Reason': awardData.additionalDetails.notCompeted,
             'Set-Aside Type': awardData.additionalDetails.setAsideType,
             'Commercial Item Aquisition Procedures': awardData.additionalDetails.commercialAcquisitionProcedures,
-            'Commercial Item Test Program': awardData.additionalDetails.commercialTestProgram,
+            'Simplified Procedures for Certain Commercial Items': awardData.additionalDetails.commercialTestProgram,
             'Evaluated Preference': awardData.additionalDetails.evaluatedPreference,
             'Fed Biz Opps': awardData.additionalDetails.fedBizOpps,
             'Small Business Competitiveness Demonstration Program': awardData.additionalDetails.smallBusinessCompetitive
