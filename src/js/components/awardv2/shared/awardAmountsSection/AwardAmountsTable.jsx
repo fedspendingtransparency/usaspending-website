@@ -2,62 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 
+import {
+    tableTitlesBySpendingCategoryAndAwardType,
+    formattedSpendingCategoriesByAwardType,
+    awardTableClassMap
+} from "dataMapping/awardsv2/awardAmountsSection";
+
+import { AWARD_TYPE_PROPS } from "../../../../propTypes";
+
 const propTypes = {
     children: PropTypes.node,
-    awardType: PropTypes.oneOf(['contract', 'idv', 'grant', 'loan']),
+    awardType: AWARD_TYPE_PROPS,
     awardData: PropTypes.shape({}),
     spendingScenario: PropTypes.string
 };
 
-// contractAndIdvCategories + grantCategories live in the awardData props object
-const contractAndIdvCategories = ['totalObligationFormatted', 'baseExercisedOptionsFormatted', 'baseAndAllOptionsFormatted'];
-const grantCategories = ['totalObligationFormatted', 'nonFederalFundingFormatted', 'totalFundingFormatted'];
-const loanCategories = ['subsidyFormatted', 'faceValueFormatted'];
-
-const getSpendingCategories = (awardType) => {
-    const map = {
-        grant: grantCategories,
-        loan: loanCategories
-    };
-    if (Object.keys(map).includes(awardType)) {
-        return map[awardType];
+const getSpendingCategoriesByAwardType = (awardType) => {
+    if (Object.keys(formattedSpendingCategoriesByAwardType).includes(awardType)) {
+        return formattedSpendingCategoriesByAwardType[awardType];
     }
-    return contractAndIdvCategories;
+    return formattedSpendingCategoriesByAwardType.asst;
 };
 
-const tableTitleByAwardTypeByCategory = {
-    idv: {
-        baseExercisedOptionsFormatted: 'Combined Current Amounts',
-        baseAndAllOptionsFormatted: 'Combined Potential Amounts',
-        totalObligationFormatted: 'Combined Obligated Amounts'
-    },
-    contract: {
-        baseExercisedOptionsFormatted: 'Current Amount',
-        baseAndAllOptionsFormatted: 'Potential Amount',
-        totalObligationFormatted: 'Obligated Amount'
-    },
-    grant: {
-        totalFundingFormatted: 'Total Funding',
-        nonFederalFundingFormatted: 'Non-Federal Funding',
-        totalObligationFormatted: 'Obligated Amount'
-    },
-    loan: {
-        subsidyFormatted: 'Original Subsidy Cost',
-        faceValueFormatted: 'Face Value of Direct Loan'
+const getTableTitleByAwardTypeByCategory = (type) => {
+    if (Object.keys(tableTitlesBySpendingCategoryAndAwardType).includes(type)) {
+        return tableTitlesBySpendingCategoryAndAwardType[type];
     }
-};
-
-const awardTableClassMap = {
-    "Combined Obligated Amounts": "award-amounts__data-icon_blue",
-    "Combined Current Amounts": "award-amounts__data-icon_gray",
-    "Combined Potential Amounts": "award-amounts__data-icon_transparent",
-    "Obligated Amount": "award-amounts__data-icon_blue",
-    "Current Amount": "award-amounts__data-icon_gray",
-    "Potential Amount": "award-amounts__data-icon_transparent",
-    "Non-Federal Funding": "award-amounts__data-icon_green",
-    "Total Funding": "award-amounts__data-icon_gray",
-    "Face Value of Direct Loan": "award-amounts__data-icon_transparent",
-    "Original Subsidy Cost": "award-amounts__data-icon_yellow"
+    return tableTitlesBySpendingCategoryAndAwardType.asst;
 };
 
 const AwardAmountsTable = ({
@@ -98,11 +69,11 @@ const AwardAmountsTable = ({
     // Returns: { titleInTable: AwardCategoryAmount }
     const buildAmountMapByCategoryTitle = (accumulator, category) => ({
         ...accumulator,
-        [tableTitleByAwardTypeByCategory[awardType][category]]: awardData[category]
+        [getTableTitleByAwardTypeByCategory(awardType)[category]]: awardData[category]
     });
 
     // build a map using the relevant keys for the awardType
-    const amountMapByCategoryTitle = getSpendingCategories(awardType)
+    const amountMapByCategoryTitle = getSpendingCategoriesByAwardType(awardType)
         .reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {});
 
     const overspendingRow = getOverSpendingRow(awardData, spendingScenario);
