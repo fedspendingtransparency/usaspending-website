@@ -1,29 +1,58 @@
 import {
-    federalAccountFundingInfo,
-    transactionHistoryInfo,
-    subAwardsTab
+    federalAccountFundingInfoIDV,
+    federalAccountFundingInfoGeneric,
+    transactionHistoryInfoGeneric,
+    transactionHistoryInfoContract,
+    transactionHistoryInfoFinancialAssistance,
+    subAwardsTabContract,
+    subAwardsTabGrant
 } from 'components/awardv2/shared/InfoTooltipContent';
 
-export const tabs = [
+const tooltipMapping = {
+    transactionHistory: {
+        idv: transactionHistoryInfoGeneric,
+        contract: transactionHistoryInfoContract,
+        grant: transactionHistoryInfoFinancialAssistance,
+        loan: transactionHistoryInfoFinancialAssistance,
+        'direct payment': transactionHistoryInfoFinancialAssistance,
+        insurance: transactionHistoryInfoFinancialAssistance,
+        other: transactionHistoryInfoFinancialAssistance
+    },
+    subAwards: {
+        contract: subAwardsTabContract,
+        grant: subAwardsTabGrant
+    },
+    federalAccountFunding: {
+        idv: federalAccountFundingInfoIDV,
+        contract: federalAccountFundingInfoGeneric,
+        grant: federalAccountFundingInfoGeneric,
+        loan: federalAccountFundingInfoGeneric,
+        'direct payment': federalAccountFundingInfoGeneric,
+        insurance: federalAccountFundingInfoGeneric,
+        other: federalAccountFundingInfoGeneric
+    }
+};
+
+export const tabs = (awardType) => [
     {
         label: "Transaction History",
         internal: "transaction",
         enabled: true,
-        tooltipContent: transactionHistoryInfo,
+        tooltipContent: tooltipMapping.transactionHistory[awardType],
         tooltipProps: { wide: true }
     },
     {
         label: "Sub-Awards",
         internal: "subaward",
         enabled: true,
-        tooltipContent: subAwardsTab,
+        tooltipContent: tooltipMapping.subAwards[awardType],
         tooltipProps: { wide: true }
     },
     {
         label: "Federal Account Funding",
         internal: "federal_account",
         enabled: true,
-        tooltipContent: federalAccountFundingInfo,
+        tooltipContent: tooltipMapping.federalAccountFunding[awardType],
         tooltipProps: { wide: true }
     }
 ];

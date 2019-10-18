@@ -28,7 +28,7 @@ export default class TablesSection extends React.Component {
 
         this.state = {
             tableWidth: 0,
-            tabs
+            tabs: []
         };
         this.countRequest = null;
         this.setTableWidth = this.setTableWidth.bind(this);
@@ -61,9 +61,11 @@ export default class TablesSection extends React.Component {
             this.countRequest.cancel();
         }
 
-        const tabsWithCounts = tabs
+        const tabsWithCounts = tabs(award.category)
             .filter((tab) => {
-                if (tab.internal === 'subaward' && !awardTypesWithSubawards.includes(award.category)) {
+                if (
+                    tab.internal === 'subaward' && !awardTypesWithSubawards.includes(award.category)
+                ) {
                     return false;
                 }
                 return true;
@@ -85,17 +87,23 @@ export default class TablesSection extends React.Component {
 
         Promise.all(tabsWithCounts)
             .then((result) => {
-                this.setState({ tabs: result });
+                this.setState({ tabs: result }, this.setTableWidth);
                 this.countRequest = null;
             });
     }
 
     setTableWidth() {
+        if (!this.tableWidthController) return;
         const tableWidth = this.tableWidthController.clientWidth - 2;
         this.setState({ tableWidth });
     }
 
-    currentSection(activeTab = this.props.activeTab, overview = this.props.overview, tableWidth = this.state.tableWidth, awardId = this.props.awardId) {
+    currentSection(
+        activeTab = this.props.activeTab,
+        overview = this.props.overview,
+        tableWidth = this.state.tableWidth,
+        awardId = this.props.awardId
+    ) {
         switch (activeTab) {
             case 'transaction':
                 return (
