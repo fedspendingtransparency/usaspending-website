@@ -77,7 +77,7 @@ export const buildFundingAgencyTASQuery = (funding, searchContext = 'tasCategori
     const fundingSet = [];
 
     funding.forEach((agencyArray) => {
-        fundingSet.push(agencyArray.toptier_agency.cgac_code);
+        fundingSet.push(agencyArray.toptier_agency.toptier_code);
     });
 
     const field = FilterFields[`${searchContext}Fields`].fundingAgency;

@@ -16,24 +16,24 @@ export const mockAgencies = {
         {
             name: 'Agency 1',
             toptier_agency_id: 123,
-            cgac_code: '292'
+            toptier_code: '292'
         },
         {
             name: 'Agency 2',
             toptier_agency_id: 456,
-            cgac_code: '123'
+            toptier_code: '123'
         }
     ],
     other_agencies: [
         {
             name: 'Agency 3',
             toptier_agency_id: 789,
-            cgac_code: '987'
+            toptier_code: '987'
         },
         {
             name: 'Agency 4',
             toptier_agency_id: 321,
-            cgac_code: '765'
+            toptier_code: '765'
         }
     ]
 };
