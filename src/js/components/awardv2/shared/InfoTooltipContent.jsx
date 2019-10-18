@@ -832,7 +832,7 @@ export const federalAccountsInfo = (
 );
 
 export const subAwardsTabContract = (
-    <div className="transaction-history-tt">
+    <div>
         <div className="info-tooltip__title">Sub-Awards</div>
         <div className="info-tooltip__text">
             <p>
