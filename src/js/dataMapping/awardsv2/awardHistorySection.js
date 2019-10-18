@@ -1,4 +1,8 @@
 import {
+    awardHistoryIdv,
+    awardHistoryContract,
+    awardHistoryFinancialAssistanceLoan,
+    awardHistoryFinancialAssistanceGeneric,
     federalAccountFundingInfoIDV,
     federalAccountFundingInfoGeneric,
     transactionHistoryInfoGeneric,
@@ -9,6 +13,13 @@ import {
 } from 'components/awardv2/shared/InfoTooltipContent';
 
 const tooltipMapping = {
+    idv: awardHistoryIdv,
+    contract: awardHistoryContract,
+    grant: awardHistoryContract,
+    loan: awardHistoryFinancialAssistanceGeneric,
+    'direct payment': awardHistoryFinancialAssistanceGeneric,
+    insurance: awardHistoryFinancialAssistanceGeneric,
+    other: awardHistoryFinancialAssistanceGeneric,
     transactionHistory: {
         idv: transactionHistoryInfoGeneric,
         contract: transactionHistoryInfoContract,
@@ -32,6 +43,8 @@ const tooltipMapping = {
         other: federalAccountFundingInfoGeneric
     }
 };
+
+export const awardHistorySectionTooltip = (awardType) => tooltipMapping[awardType];
 
 export const tabs = (awardType) => [
     {
