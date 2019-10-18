@@ -589,27 +589,18 @@ export const awardHistoryFinancialAssistanceGeneric = (
         </div>
         <div className="info-tooltip__text">
             <p>
-                This section displays all of this award&apos;s transactions
-                (also known as modifications), sub-awards, and federal
-                account funding data in tabs and rows. Please note that
-                the tables displayed here only feature a small set of the
-                available data fields.  To download the full set, including
-                data attributes not displayed here and all related sub-awards
-                and federal account data, click the “DOWNLOAD” button at the
-                top-right of this page.
+                This section displays all of this award&apos;s transactions (modifications)
+                and federal account funding data in tabs and rows. The tables display
+                only a small set of the available data fields.  To download the full set,
+                including data attributes not displayed here and federal account data,
+                click the “DOWNLOAD” button at the top-right of this page.
             </p>
             <div>
                 <strong>Transaction History</strong>
                 <p className="info-tooltip__text-section">
                     This table contains historical changes made to this award,
-                    shown as individual modification records. This information
-                    is reported by the awarding agency&apos;s contracting or awards officer.
-                </p>
-            </div>
-            <div>
-                <strong>Sub-Awards</strong>
-                <p className="info-tooltip__text-section">
-                    This table contains any sub-awards reported by this recipient.
+                    shown as individual modification records. This information is
+                    reported by the awarding agency&apos;s officer.
                 </p>
             </div>
             <div>
@@ -841,7 +832,7 @@ export const federalAccountsInfo = (
 );
 
 export const subAwardsTabContract = (
-    <div className="transaction-history-tt">
+    <div>
         <div className="info-tooltip__title">Sub-Awards</div>
         <div className="info-tooltip__text">
             <p>

@@ -7,13 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
+import { awardHistorySectionTooltip } from 'dataMapping/awardsv2/awardHistorySection';
 import TablesSection from './TablesSection';
-import {
-    awardHistoryIdv,
-    awardHistoryContract,
-    awardHistoryFinancialAssistanceLoan,
-    awardHistoryFinancialAssistanceGeneric
-} from '../InfoTooltipContent';
 import AwardSectionHeader from '../AwardSectionHeader';
 
 const propTypes = {
@@ -21,16 +16,6 @@ const propTypes = {
     setActiveTab: PropTypes.func,
     activeTab: PropTypes.string,
     awardId: PropTypes.string
-};
-
-const tooltipMapping = {
-    idv: awardHistoryIdv,
-    contract: awardHistoryContract,
-    grant: awardHistoryContract,
-    loan: awardHistoryFinancialAssistanceLoan,
-    'direct payment': awardHistoryFinancialAssistanceGeneric,
-    insurance: awardHistoryFinancialAssistanceGeneric,
-    other: awardHistoryFinancialAssistanceGeneric
 };
 
 const AwardHistory = ({
@@ -42,7 +27,7 @@ const AwardHistory = ({
     const sectionTitle = (overview.category === 'idv')
         ? "Award History for this IDV"
         : "Award History";
-    const tooltip = tooltipMapping[overview.category];
+    const tooltip = awardHistorySectionTooltip(overview.category);
 
     return (
         <div id="award-award-history" className="award-viz award-history">
