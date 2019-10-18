@@ -27,7 +27,8 @@ export default class TablesSection extends React.Component {
         super(props);
 
         this.state = {
-            tableWidth: 0
+            tableWidth: 0,
+            tabs: []
         };
         this.countRequest = null;
         this.setTableWidth = this.setTableWidth.bind(this);
@@ -86,12 +87,13 @@ export default class TablesSection extends React.Component {
 
         Promise.all(tabsWithCounts)
             .then((result) => {
-                this.setState({ tabs: result });
+                this.setState({ tabs: result }, this.setTableWidth);
                 this.countRequest = null;
             });
     }
 
     setTableWidth() {
+        if (!this.tableWidthController) return;
         const tableWidth = this.tableWidthController.clientWidth - 2;
         this.setState({ tableWidth });
     }
