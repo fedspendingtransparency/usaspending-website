@@ -598,6 +598,43 @@ export const awardHistoryFinancialAssistanceGeneric = (
             <div>
                 <strong>Transaction History</strong>
                 <p className="info-tooltip__text-section">
+                    This table contains historical changes made to this award,
+                    shown as individual modification records. This information is
+                    reported by the awarding agency&apos;s officer.
+                </p>
+            </div>
+            <div>
+                <strong>Federal Account Funding</strong>
+                <p className="info-tooltip__text-section">
+                    This table contains funding data directly submitted from agency financial
+                    accounting systems, also known as “Award Financial” or “Account
+                    Breakdown by Award” data. This data, which links each Treasury account to
+                    each award transaction it funds, connects award spending to the
+                    appropriation, budgeting, and allocation processes, which channel
+                    Congressional and Administration intent and determine how much money
+                    is assigned to each federal account.
+                </p>
+            </div>
+        </div>
+    </div>
+);
+
+export const awardHistoryFinancialAssistanceLoan = (
+    <div>
+        <div className="info-tooltip__title">
+            Award History
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+                This section displays all of this award&apos;s transactions (modifications)
+                and federal account funding data in tabs and rows. The tables display
+                only a small set of the available data fields.  To download the full set,
+                including data attributes not displayed here and federal account data,
+                click the “DOWNLOAD” button at the top-right of this page.
+            </p>
+            <div>
+                <strong>Transaction History</strong>
+                <p className="info-tooltip__text-section">
                     This table contains historical changes made to this loan award,
                     shown as individual modification records. This information is
                     reported by the awarding agency&apos;s loan officer.

@@ -16,7 +16,7 @@ const tooltipMapping = {
     idv: awardHistoryIdv,
     contract: awardHistoryContract,
     grant: awardHistoryContract,
-    loan: awardHistoryFinancialAssistanceGeneric,
+    loan: awardHistoryFinancialAssistanceLoan,
     'direct payment': awardHistoryFinancialAssistanceGeneric,
     insurance: awardHistoryFinancialAssistanceGeneric,
     other: awardHistoryFinancialAssistanceGeneric,
