@@ -57,23 +57,11 @@ const FinancialAssistanceContent = ({
         jumpToSection('award-history');
     };
 
-    let amountsSection = (<ComingSoonSection title="Award Amounts" includeHeader />);
-    if (overview.category === 'grant' || overview.category === 'loan') {
-        const awardAmountData = Object.create(BaseAwardAmounts);
-        awardAmountData.populate(overview, overview.category);
-        amountsSection = (
-            <AwardAmountsSection
-                awardType={overview.category}
-                awardOverview={awardAmountData}
-                tooltipProps={defaultTooltipProps}
-                jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
-        );
-    }
-
     const awardAmountData = Object.create(BaseAwardAmounts);
     awardAmountData.populate(overview, overview.category);
 
     const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
+    const isGrant = overview.category === 'grant';
 
     return (
         <AwardPageWrapper
@@ -98,20 +86,32 @@ const FinancialAssistanceContent = ({
                 </AwardSection>
             </AwardSection>
             <AwardSection type="row">
-                {amountsSection}
+                <AwardAmountsSection
+                    awardType={overview.category}
+                    awardOverview={awardAmountData}
+                    tooltipProps={defaultTooltipProps}
+                    jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                 <AwardDescription description={overview.description} awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
-                <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />
+                {isGrant && <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />}
+                {!isGrant && (
+                    <ComingSoonSection
+                        title="CFDA Program / Assistance Listing Information"
+                        icon="hands-helping"
+                        includeHeader />
+                )}
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
-            <AwardSection type="row">
-                <ComingSoonSection
-                    title="CFDA Program / Assistance Listing Information"
-                    icon="hands-helping"
-                    includeHeader />
-            </AwardSection>
-            <AwardSection type="row">
+            {isGrant && (
+                <AwardSection className="award-cfda-section" type="row">
+                    <ComingSoonSection
+                        title="CFDA Program / Assistance Listing Information"
+                        icon="hands-helping"
+                        includeHeader />
+                </AwardSection>
+            )}
+            <AwardSection className="award-history-section" type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
             </AwardSection>
             <AdditionalInfo overview={overview} />

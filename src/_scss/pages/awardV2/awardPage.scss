@@ -99,6 +99,15 @@
                 @include media($medium-screen) {
                     @include flex-wrap(nowrap)
                 }
+                &.award-history-section {
+                  padding-bottom: 0;
+                }
+                &.award-cfda-section {
+                  padding-bottom: 0;
+                }
+                &.award-contract-activity-section {
+                  padding-bottom: 0;
+                }
                 .award__col {
                     @include flex(1 1 auto);
                     // Add padding between columns when they are stacked in mobile

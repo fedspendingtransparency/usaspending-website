@@ -8,19 +8,9 @@ import PropTypes from 'prop-types';
 
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
+import { tabs, awardTypesWithSubawards } from 'dataMapping/awardsv2/awardHistorySection';
 
 import SubawardsContainer from '../../../../containers/awardV2/table/SubawardsContainer';
-import {
-    federalAccountFundingInfoIDV,
-    federalAccountFundingInfoGeneric,
-    transactionHistoryInfoGeneric,
-    transactionHistoryInfoContract,
-    transactionHistoryInfoFinancialAssistance,
-    subAwardsTabGeneric,
-    subAwardsTabContract,
-    subAwardsTabGrant,
-    subAwardsTabFinancialAssistance
-} from '../InfoTooltipContent';
 import DetailsTabBar from '../../../award/details/DetailsTabBar';
 import ResultsTablePicker from '../../../search/table/ResultsTablePicker';
 import { getAwardHistoryCounts } from "../../../../helpers/awardHistoryHelper";
@@ -32,64 +22,12 @@ const propTypes = {
     awardId: PropTypes.string
 };
 
-const tooltipMapping = {
-    transactionHistory: {
-        idv: transactionHistoryInfoGeneric,
-        contract: transactionHistoryInfoContract,
-        grant: transactionHistoryInfoFinancialAssistance,
-        loan: transactionHistoryInfoFinancialAssistance,
-        'direct payment': transactionHistoryInfoFinancialAssistance,
-        insurance: transactionHistoryInfoFinancialAssistance,
-        other: transactionHistoryInfoFinancialAssistance
-    },
-    subAwards: {
-        idv: subAwardsTabGeneric,
-        contract: subAwardsTabContract,
-        grant: subAwardsTabGrant,
-        'direct payment': subAwardsTabFinancialAssistance,
-        insurance: subAwardsTabFinancialAssistance,
-        other: subAwardsTabFinancialAssistance
-    },
-    federalAccountFunding: {
-        idv: federalAccountFundingInfoIDV,
-        contract: federalAccountFundingInfoGeneric,
-        grant: federalAccountFundingInfoGeneric,
-        loan: federalAccountFundingInfoGeneric,
-        'direct payment': federalAccountFundingInfoGeneric,
-        insurance: federalAccountFundingInfoGeneric,
-        other: federalAccountFundingInfoGeneric
-    }
-};
-
 export default class TablesSection extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            tableWidth: 0,
-            tabs: [
-                {
-                    label: "Transaction History",
-                    internal: "transaction",
-                    enabled: true,
-                    tooltipContent: tooltipMapping.transactionHistory[props.overview.category],
-                    tooltipProps: { wide: true }
-                },
-                {
-                    label: "Sub-Awards",
-                    internal: "subaward",
-                    enabled: true,
-                    tooltipContent: tooltipMapping.subAwards[props.overview.category],
-                    tooltipProps: { wide: true }
-                },
-                {
-                    label: "Federal Account Funding",
-                    internal: "federal_account",
-                    enabled: true,
-                    tooltipContent: tooltipMapping.federalAccountFunding[props.overview.category],
-                    tooltipProps: { wide: true }
-                }
-            ]
+            tableWidth: 0
         };
         this.countRequest = null;
         this.setTableWidth = this.setTableWidth.bind(this);
@@ -100,7 +38,7 @@ export default class TablesSection extends React.Component {
         this.setTableWidth();
         // watch the window for size changes
         window.addEventListener('resize', this.setTableWidth);
-        this.getCounts();
+        this.setTableTabsAndGetCounts();
     }
 
     componentDidUpdate(prevProps) {
@@ -108,7 +46,7 @@ export default class TablesSection extends React.Component {
         if (this.props.overview.generatedId !== prevProps.overview.generatedId) {
             // reset the tab
             this.props.clickTab('transaction');
-            this.getCounts();
+            this.setTableTabsAndGetCounts();
         }
     }
 
@@ -117,14 +55,20 @@ export default class TablesSection extends React.Component {
         window.removeEventListener('resize', this.setTableWidth);
     }
 
-    getCounts(award = this.props.overview) {
+    setTableTabsAndGetCounts(award = this.props.overview) {
         if (this.countRequest) {
             this.countRequest.cancel();
         }
 
-        const isIdvOrLoan = (award.category === 'idv' || award.category === 'loan');
-        const tabsWithCounts = this.state.tabs
-            .filter((tab) => ((!isIdvOrLoan || tab.internal !== 'subaward')))
+        const tabsWithCounts = tabs(award.category)
+            .filter((tab) => {
+                if (
+                    tab.internal === 'subaward' && !awardTypesWithSubawards.includes(award.category)
+                ) {
+                    return false;
+                }
+                return true;
+            })
             .map(async (tab) => {
                 if (award.category === 'idv') {
                     return tab;
@@ -152,7 +96,12 @@ export default class TablesSection extends React.Component {
         this.setState({ tableWidth });
     }
 
-    currentSection(activeTab = this.props.activeTab, overview = this.props.overview, tableWidth = this.state.tableWidth, awardId = this.props.awardId) {
+    currentSection(
+        activeTab = this.props.activeTab,
+        overview = this.props.overview,
+        tableWidth = this.state.tableWidth,
+        awardId = this.props.awardId
+    ) {
         switch (activeTab) {
             case 'transaction':
                 return (

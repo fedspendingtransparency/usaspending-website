@@ -840,39 +840,6 @@ export const federalAccountsInfo = (
     </div>
 );
 
-export const subAwardsTabGeneric = (
-    <div className="transaction-history-tt">
-        <div className="info-tooltip__title">Sub-Awards</div>
-        <div className="info-tooltip__text">
-            <p>
-                The Sub-Award tab displays any sub-contracts reported by this award&apos;s recipient (the ‘prime recipient’ in a sub-award context).
-                Sub-contracts are contractual agreements that a prime recipient makes with another entity (sub-recipient) to furnish supplies or services in service to the prime contract.
-            </p>
-            <p>
-                Above the sub-award table, we display the total number of reported sub-award actions and their total value.
-                Here&apos;s what the columns for each sub-award action tell you:
-            </p>
-            <ul>
-                <li>
-                    <strong>Sub-Award ID</strong> – The sub-award ID number chosen by the prime recipient for this transaction.
-                </li>
-                <li>
-                    <strong>Sub-Recipient Name</strong> – The name of the sub-recipient.
-                </li>
-                <li>
-                    <strong>Action Date</strong> - This is when the sub-award was issued.
-                </li>
-                <li>
-                    <strong>Amount</strong> – The amount of money involved in the sub-award action.
-                </li>
-                <li>
-                    <strong>Description</strong> – The description of the sub-award provided by the prime recipient. The level of detail in descriptions varies and is dependent on the author.
-                </li>
-            </ul>
-        </div>
-    </div>
-);
-
 export const subAwardsTabContract = (
     <div className="transaction-history-tt">
         <div className="info-tooltip__title">Sub-Awards</div>
@@ -949,48 +916,6 @@ export const subAwardsTabGrant = (
                 </li>
                 <li>
                     <strong>Description</strong> – The description of the sub-grant
-                    provided by the prime recipient.
-                    The level of detail in descriptions varies and is dependent on the author.
-                </li>
-            </ul>
-        </div>
-    </div>
-);
-
-export const subAwardsTabFinancialAssistance = (
-    <div className="transaction-history-tt">
-        <div className="info-tooltip__title">Sub-Awards</div>
-        <div className="info-tooltip__text">
-            <p>
-            The Sub-Awards tab displays any sub-awards reported by this awards&apos;s
-            recipient (the “prime recipient” in a sub-award context). Sub-awards
-            are awards of financial assistance made under a grant by
-            a prime grantee to an eligible subgrantee.
-            </p>
-            <p>
-                Above the Sub-Award table, we display the total number of reported
-                sub-grant actions and their total value.
-            </p>
-            <p>
-                Here&apos;s what the columns for each sub-award action tell you:
-            </p>
-            <ul>
-                <li>
-                    <strong>Sub-Award ID</strong> – The sub-award ID number chosen
-                    by the prime recipient for this transaction.
-                </li>
-                <li>
-                    <strong>Sub-Recipient Name</strong> – The name of the sub-recipient.
-                </li>
-                <li>
-                    <strong>Action Date</strong> - The date when the sub-award was issued.
-                </li>
-                <li>
-                    <strong>Amount</strong> – The amount of money involved
-                    in the sub-award action.
-                </li>
-                <li>
-                    <strong>Description</strong> – The description of the sub-award
                     provided by the prime recipient.
                     The level of detail in descriptions varies and is dependent on the author.
                 </li>
