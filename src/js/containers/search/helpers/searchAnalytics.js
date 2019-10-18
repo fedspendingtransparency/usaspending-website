@@ -45,15 +45,15 @@ export const parseAgency = (agency) => {
     const subtier = agency.subtier_agency;
     if (agency.agencyType === 'toptier') {
         if (toptier.abbreviation) {
-            return `${toptier.name} (${toptier.abbreviation})/${toptier.cgac_code}`;
+            return `${toptier.name} (${toptier.abbreviation})/${toptier.toptier_code}`;
         }
-        return `${toptier.name}/${toptier.cgac_code}`;
+        return `${toptier.name}/${toptier.toptier_code}`;
     }
     else if (agency.agencyType === 'subtier') {
         if (subtier.abbreviation) {
-            return `${subtier.name} (${subtier.abbreviation})/${subtier.subtier_code} - ${toptier.name}/${toptier.cgac_code}`;
+            return `${subtier.name} (${subtier.abbreviation})/${subtier.subtier_code} - ${toptier.name}/${toptier.toptier_code}`;
         }
-        return `${subtier.name}/${subtier.subtier_code} - ${toptier.name}/${toptier.cgac_code}`;
+        return `${subtier.name}/${subtier.subtier_code} - ${toptier.name}/${toptier.toptier_code}`;
     }
     return null;
 };

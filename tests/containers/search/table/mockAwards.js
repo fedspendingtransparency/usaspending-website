@@ -46,7 +46,7 @@ export const mockApi = {
             id: 795,
             toptier_flag: false,
             toptier_agency: {
-                cgac_code: "075",
+                toptier_code: "075",
                 abbreviation: "HHS",
                 name: "Department of Health and Human Services"
             },

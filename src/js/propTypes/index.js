@@ -27,7 +27,9 @@ export const AWARD_V2_COUNTS_PROPS = PropTypes.shape({
 });
 
 
-export const AWARD_TYPE_PROPS = PropTypes.oneOf(['idv', 'contract', 'grant', 'loan', 'direct payment', 'insurance', 'other']);
+export const AWARD_TYPE_PROPS = PropTypes.oneOf([
+    'idv', 'contract', 'grant', 'loan', 'direct payment', 'insurance', 'other'
+]);
 
 export const TOOLTIP_PROPS = PropTypes.shape({
     isControlled: PropTypes.bool,
