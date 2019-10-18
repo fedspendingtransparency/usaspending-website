@@ -96,13 +96,13 @@ const FinancialAssistanceContent = ({
                 <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
-            <AwardSection type="row">
+            <AwardSection className="award-cfda-section" type="row">
                 <ComingSoonSection
                     title="CFDA Program / Assistance Listing Information"
                     icon="hands-helping"
                     includeHeader />
             </AwardSection>
-            <AwardSection type="row">
+            <AwardSection className="award-history-section" type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
             </AwardSection>
             <AdditionalInfo overview={overview} />
