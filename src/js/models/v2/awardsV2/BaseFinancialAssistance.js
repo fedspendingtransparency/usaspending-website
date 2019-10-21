@@ -11,11 +11,22 @@ import CorePeriodOfPerformance from './CorePeriodOfPerformance';
 import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 
 const BaseFinancialAssistance = Object.create(CoreAward);
+export const emptyCfda = {
+    total_funding_amount: -Infinity,
+    cfda_title: '',
+    cfda_number: ''
+};
+
+const getLargestCfda = (acc, cfdaItem) => {
+    if (cfdaItem.total_funding_amount > acc.total_funding_amount) {
+        return cfdaItem;
+    }
+    return acc;
+};
 
 BaseFinancialAssistance.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
-        id: data.fain || data.uri,
         generatedId: data.generated_unique_award_id,
         type: data.type,
         typeDescription: data.type_description,
@@ -67,13 +78,10 @@ BaseFinancialAssistance.populate = function populate(data) {
         const awardingAgencyData = {
             id: data.awarding_agency.id,
             toptierName: data.awarding_agency.toptier_agency.name,
-            toptierAbbr: data.awarding_agency.toptier_agency.abbreviation,
-            toptierId: data.awarding_agency.toptier_agency.id,
+            toptierAbbr: data.awarding_agency.toptier_agency.abbreviation || '',
             subtierName: data.awarding_agency.subtier_agency.name,
-            subtierAbbr: data.awarding_agency.subtier_agency.abbreviation,
-            subtierId: data.awarding_agency.subtier_agency.id,
-            officeName: data.awarding_agency.office_agency_name,
-            officeId: data.awarding_agency.office_agency_id
+            subtierAbbr: data.awarding_agency.subtier_agency.abbreviation || '',
+            officeName: data.awarding_agency.office_agency_name
         };
         const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
@@ -87,13 +95,10 @@ BaseFinancialAssistance.populate = function populate(data) {
         const fundingAgencyData = {
             id: data.funding_agency.id,
             toptierName: data.funding_agency.toptier_agency.name,
-            toptierAbbr: data.funding_agency.toptier_agency.abbreviation,
-            toptierId: data.funding_agency.toptier_agency.id,
+            toptierAbbr: data.funding_agency.toptier_agency.abbreviation || '',
             subtierName: data.funding_agency.subtier_agency.name,
-            subtierAbbr: data.funding_agency.subtier_agency.abbreviation,
-            subtierId: data.funding_agency.subtier_agency.id,
-            officeName: data.funding_agency.office_agency_name,
-            officeId: data.funding_agency.office_agency_id
+            subtierAbbr: data.funding_agency.subtier_agency.abbreviation || '',
+            officeName: data.funding_agency.office_agency_name
         };
         const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
@@ -117,6 +122,9 @@ BaseFinancialAssistance.populate = function populate(data) {
     this._federalObligation = parseFloat(data.transaction_obligated_amount) || 0;
     this._nonFederalFunding = parseFloat(data.non_federal_funding) || 0;
     this._totalFunding = parseFloat(data.total_funding) || 0;
+    this.fain = data.fain;
+    this.uri = data.uri;
+    this.biggestCfda = data.cfda_info.reduce(getLargestCfda, emptyCfda);
 };
 
 Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {

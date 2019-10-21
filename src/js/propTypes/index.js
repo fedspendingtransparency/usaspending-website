@@ -27,7 +27,7 @@ export const AWARD_V2_COUNTS_PROPS = PropTypes.shape({
 });
 
 
-export const AWARD_TYPE_PROPS = PropTypes.oneOf(['idv', 'contract', 'grant', 'loan']);
+export const AWARD_TYPE_PROPS = PropTypes.oneOf(['idv', 'contract', 'grant', 'loan', 'direct payment', 'other']);
 
 export const TOOLTIP_PROPS = PropTypes.shape({
     isControlled: PropTypes.bool,
@@ -46,12 +46,12 @@ export const AWARD_PAGE_WRAPPER_PROPS = {
     awardType: AWARD_TYPE_PROPS,
     awardTypeDescription: PropTypes.string,
     glossaryLink: PropTypes.string,
-    identifier: PropTypes.string,
+    identifier: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     children: PropTypes.node
 };
 
 export const AWARD_SECTION_HEADER_PROPS = {
-    icon: PropTypes.oneOf([PropTypes.string, PropTypes.node]),
+    icon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     title: PropTypes.string,
     tooltip: PropTypes.node,
     tooltipWide: PropTypes.bool

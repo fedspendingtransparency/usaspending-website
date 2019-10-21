@@ -627,3 +627,16 @@ export const ContractAwardAmountsInfo = (
     </div>
 );
 
+export const CFDAOverviewInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            CFDA Program / Assistance Listing Information
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+                The Catalog of Federal Domestic Assistance (CFDA), also known as Assistance Listings, is a collection of federal financial assistance programs that provides benefits to the American public. Every assistance award must be categorized under a CFDA program, and every CFDA program must be specifically authorized by congressional statute before an agency can begin to issue awards under it.
+            </p>
+            <p>The CFDA number(s) and title(s) listed here identify the program(s) associated with this award.</p>
+        </div>
+    </div>
+);

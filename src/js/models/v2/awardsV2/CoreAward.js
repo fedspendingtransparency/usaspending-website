@@ -25,6 +25,8 @@ const CoreAward = {
         this._baseExercisedOptions = parseFloat(data.baseExercisedOptions) || 0;
         this._baseAndAllOptions = parseFloat(data.baseAndAllOptions) || 0;
         this._dateSigned = (data.dateSigned && parseDate(data.dateSigned)) || '';
+        this.naics = data.naics || {};
+        this.psc = data.psc || {};
     },
     get subawardTotal() {
         if (this._subawardTotal >= MoneyFormatter.unitValues.MILLION) {

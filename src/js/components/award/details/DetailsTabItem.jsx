@@ -19,7 +19,7 @@ const propTypes = {
     clickTab: PropTypes.func,
     tooltipContent: PropTypes.node,
     tooltipProps: PropTypes.shape({ wide: PropTypes.bool }),
-    count: PropTypes.number
+    count: PropTypes.oneOfType([PropTypes.number, PropTypes.string]) // int or 'N/A'
 };
 
 export default class DetailsTabItem extends React.Component {

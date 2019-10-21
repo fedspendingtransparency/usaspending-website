@@ -2,7 +2,6 @@
  * BaseContract.js
  * Created by David Trinh 10/9/18
  */
-
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
@@ -14,6 +13,44 @@ import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 import CorePeriodOfPerformance from '../awardsV2/CorePeriodOfPerformance';
 
 const BaseContract = Object.create(CoreAward);
+
+const emptyPscObj = {
+    base_code: {},
+    midtier_code: {},
+    subtier_code: {},
+    toptier_code: {}
+};
+
+const getPscTypeByToptierCode = (toptierCode) => {
+    // Undefined toptierCode code is always a product
+    if (toptierCode === undefined) return 'PRODUCTS';
+
+    const topTierCodeAsInt = parseInt(toptierCode, 10);
+    if (isNaN(topTierCodeAsInt)) {
+        if (toptierCode && toptierCode.toUpperCase() === 'A') {
+            return 'RESEARCH AND DEVELOPMENT';
+        }
+        // all letters other than 'A' are services
+        return 'SERVICES';
+    }
+    // all numbers are PRODUCTS
+    return 'PRODUCTS';
+};
+
+const deducePscType = (acc, keyValueArray) => {
+    const [key, value] = keyValueArray;
+    if (key === 'toptier_code') {
+        return {
+            ...acc,
+            [key]: {
+                // if toptier_code is undefined, provide this value so it is sorted to the top
+                code: value.code || "0",
+                description: getPscTypeByToptierCode(value.code)
+            }
+        };
+    }
+    return { ...acc, [key]: value };
+};
 
 BaseContract.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
@@ -29,7 +66,9 @@ BaseContract.populate = function populate(data) {
         totalObligation: data.total_obligation,
         baseExercisedOptions: data.base_exercised_options,
         dateSigned: data.date_signed,
-        baseAndAllOptions: data.base_and_all_options
+        baseAndAllOptions: data.base_and_all_options,
+        naics: data.naics_hierarchy,
+        psc: Object.entries(data.psc_hierarchy).reduce(deducePscType, emptyPscObj)
     };
     this.populateCore(coreData);
 
@@ -73,13 +112,10 @@ BaseContract.populate = function populate(data) {
         const awardingAgencyData = {
             id: data.awarding_agency.id,
             toptierName: data.awarding_agency.toptier_agency.name,
-            toptierAbbr: data.awarding_agency.toptier_agency.abbreviation,
-            toptierId: data.awarding_agency.toptier_agency.id,
+            toptierAbbr: data.awarding_agency.toptier_agency.abbreviation || '',
             subtierName: data.awarding_agency.subtier_agency.name,
-            subtierAbbr: data.awarding_agency.subtier_agency.abbreviation,
-            subtierId: data.awarding_agency.subtier_agency.id,
-            officeName: data.awarding_agency.office_agency_name,
-            officeId: data.awarding_agency.office_agency_id
+            subtierAbbr: data.awarding_agency.subtier_agency.abbreviation || '',
+            officeName: data.awarding_agency.office_agency_name
         };
         const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
@@ -91,14 +127,12 @@ BaseContract.populate = function populate(data) {
 
     if (data.funding_agency) {
         const fundingAgencyData = {
+            id: data.funding_agency.id,
             toptierName: data.funding_agency.toptier_agency.name,
-            toptierAbbr: data.funding_agency.toptier_agency.abbreviation,
-            toptierId: data.funding_agency.toptier_agency.id,
+            toptierAbbr: data.funding_agency.toptier_agency.abbreviation || '',
             subtierName: data.funding_agency.subtier_agency.name,
-            subtierAbbr: data.funding_agency.subtier_agency.abbreviation,
-            subtierId: data.funding_agency.subtier_agency.id,
-            officeName: data.funding_agency.office_agency_name,
-            officeId: data.funding_agency.office_agency_id
+            subtierAbbr: data.funding_agency.subtier_agency.abbreviation || '',
+            officeName: data.funding_agency.office_agency_name
         };
         const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
@@ -115,9 +149,16 @@ BaseContract.populate = function populate(data) {
     }
 
     const parentAwardDetails = Object.create(BaseParentAwardDetails);
-    if (data.parent_award) {
-        parentAwardDetails.populateCore(data.parent_award);
-    }
+    const parentDetails = {
+        award_id: data.parent_generated_unique_award_id,
+        idv_type_description: data.idv_type_description,
+        type_of_idc_description: data.type_of_idc_description,
+        agency_id: data.parent_agency_id,
+        agency_name: data.parent_agency_name,
+        multiple_or_single_aw_desc: data.multiple_or_single_aw_description,
+        piid: data.parent_award_piid
+    };
+    parentAwardDetails.populateCore(parentDetails);
     this.parentAwardDetails = parentAwardDetails;
 
     const executiveDetails = Object.create(CoreExecutiveDetails);

@@ -5,6 +5,7 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { upperFirst } from 'lodash';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
@@ -17,6 +18,9 @@ import AwardSection from '../shared/AwardSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardHistory from '../shared/awardHistorySection/AwardHistory';
+import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
+import CFDAOverview from './CFDAOverview';
+import AwardDescription from '../shared/description/AwardDescription';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -33,7 +37,11 @@ const defaultTooltipProps = {
     }
 };
 
-const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
+const FinancialAssistanceContent = ({
+    awardId,
+    overview = { generatedId: '' },
+    jumpToSection
+}) => {
     const [activeTab, setActiveTab] = useState("transaction");
 
     const glossaryLink = glossaryLinks[overview.type]
@@ -65,12 +73,25 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
 
     const awardAmountData = Object.create(BaseAwardAmounts);
     awardAmountData.populate(overview, overview.category);
-    // TODO: Determine if we should label with FAIN/ URI instead of ID
+
+    const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
+
+    let title = overview.typeDescription;
+    // removes the award type and only capitalizes the first letter of each word
+    // e.g. PROJECT GRANT (B) => Project Grant
+    // e.g. PROJECT GRANT => Project Grant
+    if (overview.category === 'grant') {
+        const titleArray = title.split(' ').map((word) => upperFirst(word.toLowerCase()));
+        if (titleArray.length === 3) titleArray.pop();
+        title = titleArray.join(' ');
+    }
     return (
         <AwardPageWrapper
-            identifier={awardId}
+            identifier={identifier}
+            idLabel={idLabel}
+            awardType={overview.category}
             glossaryLink={glossaryLink}
-            awardTypeDescription={overview.typeDescription}
+            awardTypeDescription={title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             className="award-financial-assistance">
             <AwardSection type="row" className="award-overview" id="award-overview">
@@ -79,6 +100,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
                     awardingAgency={overview.awardingAgency}
                     category={overview.category}
                     recipient={overview.recipient} />
+                <CFDAOverview number={overview.biggestCfda.cfda_number} title={overview.biggestCfda.cfda_title} />
                 <AwardSection type="column" className="award-amountdates">
                     <AwardDates
                         awardType={overview.category}
@@ -87,11 +109,17 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
             </AwardSection>
             <AwardSection type="row">
                 {amountsSection}
-                <ComingSoonSection title="Description" includeHeader />
+                <AwardDescription description={overview.description} awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
-                <ComingSoonSection title="CFDA Program / Assistance Listing Information" includeHeader />
+                <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+            </AwardSection>
+            <AwardSection type="row">
+                <ComingSoonSection
+                    title="CFDA Program / Assistance Listing Information"
+                    icon="hands-helping"
+                    includeHeader />
             </AwardSection>
             <AwardSection type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
@@ -100,7 +128,7 @@ const FinancialAssistanceContent = ({ awardId, overview, jumpToSection }) => {
         </AwardPageWrapper>
     );
 };
-
+FinancialAssistanceContent.defaultProps = { uniqueGeneratedAwardId: '' };
 FinancialAssistanceContent.propTypes = propTypes;
 
 export default FinancialAssistanceContent;

@@ -1,4 +1,9 @@
 .agency-recipient {
+    @include flex(1 1 auto);
+    padding-right: rem(10);
+    @include media($medium-screen) {
+        @include flex(0 0 50%);
+    }
     .agency-recipient__wrapper {
         @include display(flex);
 
