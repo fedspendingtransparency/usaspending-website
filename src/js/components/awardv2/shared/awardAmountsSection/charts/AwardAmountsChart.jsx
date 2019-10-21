@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/awardsv2/awardAmountsSection';
 
 import NormalChart from './NormalChart';
 import ExceedsCurrentChart from './ExceedsCurrentChart';
@@ -60,13 +61,14 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                 </div>
             );
         }
-        else if (type === 'idv') {
-            return renderChartBySpendingScenario(scenario);
+        else if (asstAwardTypesWithSimilarAwardAmountData.includes(type)) {
+            return <GrantChart awardAmounts={awardAmounts} />;
         }
         else if (type === 'loan') {
             return <LoanChart awardAmounts={awardAmounts} />;
         }
-        return <GrantChart awardAmounts={awardAmounts} />;
+
+        return renderChartBySpendingScenario(scenario);
     };
 
     const visualization = renderChartByAwardType(awardOverview, awardType, spendingScenario);
