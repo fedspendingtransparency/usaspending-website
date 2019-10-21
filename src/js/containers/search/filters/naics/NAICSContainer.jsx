@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { is } from 'immutable';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import { naicsRequest } from 'helpers/naicsHelper';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -88,8 +89,41 @@ export class NAICSContainer extends React.Component {
         return Symbol('dirty NAICS');
     }
 
+    loadingDiv() {
+        if (!this.state.isLoading) return null;
+        return (
+            <div className="container-is-loading">
+                <FontAwesomeIcon icon="spinner" spin />
+                <div className="container-is-loading__text">Loading your data...</div>
+            </div>
+        );
+    }
+
+    errorDiv() {
+        if (!this.state.isError) return null;
+        return (
+            <div className="container-is-loading">
+                <div className="container-is-loading__text">
+                    this.state.errorMessage
+                </div>
+            </div>
+        );
+    }
+
+    checkboxDiv() {
+        const { isLoading, isError, naics } = this.state;
+        if (isLoading && isError) return null;
+        return (
+            <CheckboxTree
+                nodes={naics}
+                nodeKeys={this.nodeKeys} />
+        );
+    }
+
     render() {
-        const { naics } = this.state;
+        const loadingDiv = this.loadingDiv();
+        const errorDiv = this.errorDiv();
+        const checkboxDiv = this.checkboxDiv();
         return (
             <div>
                 <NAICSSearch
@@ -98,9 +132,9 @@ export class NAICSContainer extends React.Component {
                     dirtyFilters={this.dirtyFilters()}
                     selectNAICS={this.selectNAICS}
                     removeNAICS={this.removeNAICS} />
-                <CheckboxTree
-                    nodes={naics}
-                    nodeKeys={this.nodeKeys} />
+                {loadingDiv}
+                {errorDiv}
+                {checkboxDiv}
             </div>
         );
     }
