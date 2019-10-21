@@ -5,12 +5,12 @@
 
 import React, { Component, cloneElement } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
 import reactStringReplace from 'react-string-replace';
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
 import createCheckboxTreeDataStrucure from 'helpers/checkboxTreeHelper';
+import { treeIcons } from 'dataMapping/shared/checkboxTree/checkboxTree';
 
 
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
@@ -24,34 +24,7 @@ const propTypes = {
     modifyLabelTextClassname: PropTypes.string,
     labelComponent: PropTypes.element
 };
-// default icons
-const treeIcons = {
-    check: (<FontAwesomeIcon
-        className="rct-icon rct-icon-check"
-        size="lg"
-        icon="check-square" />),
-    uncheck: (<FontAwesomeIcon
-        className="rct-icon rct-icon-uncheck"
-        size="lg"
-        icon="square" />),
-    halfCheck: (<FontAwesomeIcon
-        className="rct-icon rct-icon-half-check"
-        size="lg"
-        icon="minus-square" />),
-    expandClose: (<FontAwesomeIcon
-        className="rct-icon rct-icon-expand-close"
-        size="lg"
-        icon="angle-right" />),
-    expandOpen: (<FontAwesomeIcon
-        className="rct-icon rct-icon-expand-open"
-        size="lg"
-        icon="angle-down" />),
-    expandAll: null,
-    collapseAll: null,
-    parentClose: null,
-    parentOpen: null,
-    leaf: null
-};
+
 
 export default class CheckboxTree extends Component {
     constructor(props) {

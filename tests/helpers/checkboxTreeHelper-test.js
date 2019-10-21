@@ -16,7 +16,6 @@ describe('CheckboxTreeHelper', () => {
     });
     // for initial load of data
     it('should map API response to react-checkbox-tree structure with empty children', () => {
-        console.log(' NAICS SHIT : ', naicsMock2);
         const newData = createCheckboxTreeDataStrucure(keysToBeMapped, naicsMock2, 'initial');
         expect(newData).toEqual(naicsMockCleanDataInitialLoad);
     });
