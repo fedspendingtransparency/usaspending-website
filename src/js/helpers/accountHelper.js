@@ -37,22 +37,6 @@ export const fetchFederalAccountFYSnapshot = (id, fy) => {
     };
 };
 
-export const fetchTasCategoryTotals = (data) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            data,
-            url: 'v1/tas/categories/total/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
 export const fetchTasBalanceTotals = (data) => {
     const source = CancelToken.source();
     return {

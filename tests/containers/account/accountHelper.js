@@ -58,19 +58,6 @@ export const fetchTasBalanceTotals = () => (
     }
 );
 
-export const fetchTasCategoryTotals = () => (
-    {
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({
-                    data: mockBalances.outlay
-                });
-            });
-        }),
-        cancel: jest.fn()
-    }
-);
-
 export const fetchAvailableObjectClasses = () => (
     {
         promise: new Promise((resolve) => {
