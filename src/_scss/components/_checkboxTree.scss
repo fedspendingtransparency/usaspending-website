@@ -61,51 +61,6 @@
           }
         }
       }
-      // .rct-text {
-      //   @include align-items(flex-start);
-      //   button:focus {
-      //     box-shadow: none;
-      //   }
-      //   @include display(inline-flex);
-      //   button {
-      //     margin: 0;
-      //   }
-      //   label {
-      //     @include display(flex);
-      //     .rct-checkbox {
-      //       @include flex-direction(column);
-      //     }
-      //     .rct-title {
-      //       @include flex-direction(column);
-      //       .checkbox-tree-label {
-      //         @include display(flex);
-      //         .checkbox-tree-label__value-container {
-      //           .checkbox-tree-label__value-container-value {
-      //             padding: rem(1.5) rem(16);
-      //             margin-right: rem(5);
-      //             background-color: $color-gray-lightest;
-      //             border-radius: 3px;
-      //             font-weight: $font-semibold;
-      //             font-size: rem(11);
-      //             .highlight {
-      //               background-color: rgb(252, 227, 160);
-      //             }
-      //           }
-      //         }
-      //         .checkbox-tree-label__label {
-      //           @include flex-direction(column);
-      //           font-weight: $font-bold;
-      //           .highlight {
-      //             background-color: rgb(252, 227, 160);
-      //           }
-      //         }
-      //       }
-      //     }
-      //   }
-      // }
-      // TODO - This is the labels wrapped which is prolly going to be used in
-      // the new design, so we want to keep this until design decides wrapped or
-      // inline
       .rct-text {
         @include align-items(flex-start);
         button:focus {
