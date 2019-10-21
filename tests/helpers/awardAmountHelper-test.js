@@ -125,59 +125,34 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
     });
 
     describe('determineSpendingScenario', () => {
-        it('should return "normal" when small amount is less than bigger current and biggest', () => {
-            const _totalObligation = 50;
-            const _baseExercisedOptions = 75;
-            const _baseAndAllOptions = 100;
+        it.each([
+            ['normal', 50, 75, 100],
+            ['exceedsBigger', 76, 75, 100],
+            ['exceedsBiggest', 101, 75, 100],
+            ['insufficientData', -5, 75, 100],
+            [null, 0, 0, 0],
+            ['insufficientData', 50, 101, 100]
+        ])(
+            ('Scenario should be %s when small is %s, bigger is %s, and biggest is %s'),
+            (result, small, bigger, biggest) => {
+                const scenario = determineSpendingScenario(small, bigger, biggest);
+                expect(scenario).toEqual(result);
+            }
+        );
+    });
 
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual("normal");
-        });
-
-        it('should return "exceedsBigger" when small exceeds bigger', () => {
-            const _totalObligation = 75;
-            const _baseExercisedOptions = 50;
-            const _baseAndAllOptions = 100;
-
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual("exceedsBigger");
-        });
-
-        it('should return "exceedsBiggest" for when small exceeds biggest', () => {
-            const _totalObligation = 100;
-            const _baseExercisedOptions = 50;
-            const _baseAndAllOptions = 75;
-
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual("exceedsBiggest");
-        });
-
-        it('should return "insufficientData" when negative "small" is negative', () => {
-            const _totalObligation = -55;
-            const _baseExercisedOptions = 75;
-            const _baseAndAllOptions = 100;
-
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual("insufficientData");
-        });
-
-        it('should return null when all values are zero', () => {
-            const _totalObligation = 0;
-            const _baseExercisedOptions = 0;
-            const _baseAndAllOptions = 0;
-
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual(null);
-        });
-
-        it('should return "insufficientData" when bigger amount exceeds biggest amount', () => {
-            const _totalObligation = 50;
-            const _baseExercisedOptions = 100;
-            const _baseAndAllOptions = 75;
-
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual("insufficientData");
-        });
+    describe('determineSpendingScenarioByAwardType', () => {
+        it.each([
+            ['idv', { _totalObligation: 1, _baseExercisedOptions: 75, _baseAndAllOptions: 100 }],
+            ['contract', { _totalObligation: 1, _baseExercisedOptions: 75, _baseAndAllOptions: 100 }],
+            ['loan', { _subsidy: 1, _faceValue: 75 }]
+        ])(
+            ('Scenario is parsed for %s award type'),
+            (awardType, awardObj) => {
+                const result = determineSpendingScenarioByAwardType(awardType, awardObj);
+                expect(result).toEqual('normal');
+            }
+        );
     });
 
     describe('determineSpendingScenarioAsstAwards', () => {
