@@ -4,7 +4,7 @@
  */
 
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-import { spendingCategoriesByAwardType } from '../dataMapping/awardsv2/awardAmountsSection';
+import { spendingCategoriesByAwardType, asstAwardTypesWithSimilarAwardAmountData } from '../dataMapping/awardsv2/awardAmountsSection';
 
 // formats the specific checkboxes
 // options are NPM accounting package options
@@ -84,10 +84,6 @@ export const determineSpendingScenario = (small = 0, bigger = 0, biggest = null)
 
     return 'insufficientData';
 };
-
-// similar relationship between spending categories
-const asstAwardTypesWithSimilarAwardAmountData = ['grant', 'other', 'insurance', 'direct payment'];
-
 export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj) => {
     if (asstAwardTypesWithSimilarAwardAmountData.includes(awardType)) {
         return determineSpendingScenarioAsstAwards(awardAmountObj);

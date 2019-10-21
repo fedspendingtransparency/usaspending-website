@@ -53,3 +53,6 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
         faceValueFormatted: 'Face Value of Direct Loan'
     }
 };
+
+// similar relationship between spending categories
+export const asstAwardTypesWithSimilarAwardAmountData = ['grant', 'other', 'insurance', 'direct payment'];
