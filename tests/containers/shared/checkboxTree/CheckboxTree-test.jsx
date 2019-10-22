@@ -1,13 +1,13 @@
 /**
- * CheckboxTree-test.js
- * Created by Jonathan Hill 10/03/2019
-**/
+  * CheckboxTree-test.js
+  * Created by Jonathan Hill 10/03/2019
+  **/
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import createCheckboxTreeDataStrucure from 'helpers/checkboxTreeHelper';
-import { naicsMock2 } from '../../containers/search/filters/naics/mockNAICS';
+import { naicsMock2, naicsMockCleanDataInitialLoad } from '../../search/filters/naics/mockNAICS';
 
 const emptyNodes = {
     nodes: [],
@@ -44,7 +44,7 @@ describe('CheckboxTree Component', () => {
     it('CreateNodes, should format API response to react-checkbox-tree nodes and set state', async () => {
         const container = shallow(<CheckboxTree {...props} />);
         await container.instance().componentDidMount();
-        expect(container.instance().state.nodes).toEqual(formattedNodes);
+        expect(container.instance().state.nodes).toEqual(naicsMockCleanDataInitialLoad);
     });
     it('OnExpand, should update the expanded property in state', () => {
         const container = shallow(<CheckboxTree {...props} />);
