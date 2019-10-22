@@ -1,3 +1,11 @@
 .search-option {
   @import '../../../../components/_checkboxTree';
+  .container-is-loading {
+    font-size: rem(30);
+    text-align: center;
+    .container-is-loading__text {
+      font-size: 2rem;
+      padding-bottom: 2rem;
+    }
+  }
 }

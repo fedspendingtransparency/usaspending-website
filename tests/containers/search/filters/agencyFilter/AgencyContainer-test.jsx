@@ -25,7 +25,7 @@ const agency = {
         toptier_agency_id: 268,
         create_date: "2017-01-31T21:25:39.810344Z",
         update_date: "2017-01-31T21:25:39.936439Z",
-        cgac_code: "097",
+        toptier_code: "097",
         name: "DEPT OF DEFENSE"
     },
     subtier_agency: {
@@ -50,7 +50,7 @@ describe('AgencyContainer', () => {
                             toptier_agency_id: 268,
                             create_date: "2017-01-31T21:25:39.810344Z",
                             update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
+                            toptier_code: "097",
                             name: "DEPT OF DEFENSE"
                         },
                         subtier_agency: {
@@ -95,7 +95,7 @@ describe('AgencyContainer', () => {
                             toptier_agency_id: 268,
                             create_date: "2017-01-31T21:25:39.810344Z",
                             update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
+                            toptier_code: "097",
                             name: "DEPT OF DEFENSE"
                         },
                         subtier_agency: {
@@ -143,7 +143,7 @@ describe('AgencyContainer', () => {
                             toptier_agency_id: 268,
                             create_date: "2017-01-31T21:25:39.810344Z",
                             update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
+                            toptier_code: "097",
                             name: "DEPT OF DEFENSE"
                         },
                         subtier_agency: {
@@ -188,7 +188,7 @@ describe('AgencyContainer', () => {
                             toptier_agency_id: 268,
                             create_date: "2017-01-31T21:25:39.810344Z",
                             update_date: "2017-01-31T21:25:39.936439Z",
-                            cgac_code: "097",
+                            toptier_code: "097",
                             name: "DEPT OF DEFENSE"
                         },
                         subtier_agency: {

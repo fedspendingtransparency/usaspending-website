@@ -3,7 +3,7 @@ export const mockSecondaryResults = [
         id: 14,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: '004',
+            toptier_code: '004',
             abbreviation: 'GPO',
             name: 'Government Publishing Office'
         },
@@ -17,7 +17,7 @@ export const mockSecondaryResults = [
         id: 1125,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: '434',
+            toptier_code: '434',
             abbreviation: 'OGE',
             name: 'Office of Government Ethics'
         },

@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
+import { tabs, awardTypesWithSubawards } from 'dataMapping/awardsv2/awardHistorySection';
 
-import SubawardsContainer from '../../../../containers/award/subawards/SubawardsContainer';
-import { federalAccountFundingInfo, transactionHistoryInfo, subAwardsTab } from '../InfoTooltipContent';
+import SubawardsContainer from '../../../../containers/awardV2/table/SubawardsContainer';
 import DetailsTabBar from '../../../award/details/DetailsTabBar';
 import ResultsTablePicker from '../../../search/table/ResultsTablePicker';
 import { getAwardHistoryCounts } from "../../../../helpers/awardHistoryHelper";
@@ -22,37 +22,13 @@ const propTypes = {
     awardId: PropTypes.string
 };
 
-const tabs = [
-    {
-        label: "Transaction History",
-        internal: "transaction",
-        enabled: true,
-        tooltipContent: transactionHistoryInfo,
-        tooltipProps: { wide: true }
-    },
-    {
-        label: "Sub-Awards",
-        internal: "subaward",
-        enabled: true,
-        tooltipContent: subAwardsTab,
-        tooltipProps: { wide: true }
-    },
-    {
-        label: "Federal Account Funding",
-        internal: "federal_account",
-        enabled: true,
-        tooltipContent: federalAccountFundingInfo,
-        tooltipProps: { wide: true }
-    }
-];
-
 export default class TablesSection extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             tableWidth: 0,
-            tabs
+            tabs: []
         };
         this.countRequest = null;
         this.setTableWidth = this.setTableWidth.bind(this);
@@ -63,7 +39,7 @@ export default class TablesSection extends React.Component {
         this.setTableWidth();
         // watch the window for size changes
         window.addEventListener('resize', this.setTableWidth);
-        this.getCounts();
+        this.setTableTabsAndGetCounts();
     }
 
     componentDidUpdate(prevProps) {
@@ -71,7 +47,7 @@ export default class TablesSection extends React.Component {
         if (this.props.overview.generatedId !== prevProps.overview.generatedId) {
             // reset the tab
             this.props.clickTab('transaction');
-            this.getCounts();
+            this.setTableTabsAndGetCounts();
         }
     }
 
@@ -80,14 +56,20 @@ export default class TablesSection extends React.Component {
         window.removeEventListener('resize', this.setTableWidth);
     }
 
-    getCounts(award = this.props.overview) {
+    setTableTabsAndGetCounts(award = this.props.overview) {
         if (this.countRequest) {
             this.countRequest.cancel();
         }
 
-        const isIdvOrLoan = (award.category === 'idv' || award.category === 'loan');
-        const tabsWithCounts = tabs
-            .filter((tab) => ((!isIdvOrLoan || tab.internal !== 'subaward')))
+        const tabsWithCounts = tabs(award.category)
+            .filter((tab) => {
+                if (
+                    tab.internal === 'subaward' && !awardTypesWithSubawards.includes(award.category)
+                ) {
+                    return false;
+                }
+                return true;
+            })
             .map(async (tab) => {
                 if (award.category === 'idv') {
                     return tab;
@@ -105,17 +87,23 @@ export default class TablesSection extends React.Component {
 
         Promise.all(tabsWithCounts)
             .then((result) => {
-                this.setState({ tabs: result });
+                this.setState({ tabs: result }, this.setTableWidth);
                 this.countRequest = null;
             });
     }
 
     setTableWidth() {
+        if (!this.tableWidthController) return;
         const tableWidth = this.tableWidthController.clientWidth - 2;
         this.setState({ tableWidth });
     }
 
-    currentSection(activeTab = this.props.activeTab, overview = this.props.overview, tableWidth = this.state.tableWidth, awardId = this.props.awardId) {
+    currentSection(
+        activeTab = this.props.activeTab,
+        overview = this.props.overview,
+        tableWidth = this.state.tableWidth,
+        awardId = this.props.awardId
+    ) {
         switch (activeTab) {
             case 'transaction':
                 return (
@@ -133,7 +121,6 @@ export default class TablesSection extends React.Component {
                 return (
                     <SubawardsContainer
                         tableWidth={tableWidth}
-                        isV2
                         awardId={awardId} />
                 );
             default:

@@ -92,7 +92,7 @@ describe('AgencyListContainer', () => {
                     id: 14,
                     toptier_flag: true,
                     toptier_agency: {
-                        cgac_code: "004",
+                        toptier_code: "004",
                         abbreviation: "GPO",
                         name: "Government Publishing Office"
                     },

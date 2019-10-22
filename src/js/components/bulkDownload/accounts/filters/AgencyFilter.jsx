@@ -113,7 +113,7 @@ export default class AgencyFilter extends React.Component {
                     aria-label={agency.name}
                     value={agency.toptier_agency_id}
                     name={agency.name}
-                    onClick={(e) => this.handleAgencySelect(e, agency.cgac_code)}>
+                    onClick={(e) => this.handleAgencySelect(e, agency.toptier_code)}>
                     {agency.name}
                 </button>
             </li>
@@ -130,7 +130,7 @@ export default class AgencyFilter extends React.Component {
                     aria-label={agency.name}
                     value={agency.toptier_agency_id}
                     name={agency.name}
-                    onClick={(e) => this.handleAgencySelect(e, agency.cgac_code)}>
+                    onClick={(e) => this.handleAgencySelect(e, agency.toptier_code)}>
                     {agency.name}
                 </button>
             </li>

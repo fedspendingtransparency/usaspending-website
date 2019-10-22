@@ -17,7 +17,7 @@ const items = {
         awarding_agency: {
             id: 1611,
             toptier_agency: {
-                cgac_code: "089",
+                toptier_code: "089",
                 abbreviation: "DOE",
                 name: "Department of Energy"
             },

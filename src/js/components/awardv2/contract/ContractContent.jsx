@@ -30,7 +30,7 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
     const [activeTab, setActiveTab] = useState('transaction');
     const glossarySlug = glossaryLinks[overview.type];
     const glossaryLink = glossarySlug
-        ? `/#/award_v2/${awardId}?glossary=${glossarySlug}`
+        ? `/#/award/${awardId}?glossary=${glossarySlug}`
         : null;
 
     const jumpToFederalAccountsHistory = () => {
@@ -49,8 +49,8 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
     return (
         <AwardPageWrapper
             glossaryLink={glossaryLink}
-            identifier={overview.id}
-            awardTypeDescription={overview.typeDescription}
+            identifier={overview.piid}
+            title={overview.title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             awardType="contract">
             <AwardSection type="row" className="award-overview" id="award-overview">
@@ -72,11 +72,11 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
                     awardOverview={awardAmountData} />
                 <AwardDescription awardId={awardId} description={overview.description} naics={overview.naics} psc={overview.psc} />
             </AwardSection>
-            <AwardSection type="row">
-                <ComingSoonSection title="Contract Activity" includeHeader />
+            <AwardSection className="award-contract-activity-section" type="row">
+                <ComingSoonSection title="Contract Activity" includeHeader icon="chart-area" />
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
-            <AwardSection type="row">
+            <AwardSection className="award-history-section" type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
             </AwardSection>
             <AdditionalInfo overview={overview} />

@@ -1,14 +1,15 @@
 /**
- * NAICSSearchContainer-test.jsx
+ * NAICSSearchContainer-test.jsx => NAICSContainer-test.jsx
  * Created by Emily Gullo 07/26/2017
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
-import sinon from 'sinon';
-import { OrderedMap, Iterable } from 'immutable';
+import { shallow } from 'enzyme';import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
+import { naicsMock2 } from './mockNAICS';
+// import sinon from 'sinon';
+// import { OrderedMap, Iterable } from 'immutable';
 
-import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
+jest.mock('helpers/naicsHelper', () => require('./mockNAICSHelper'));
 
 // const initialFilters = {
 //     selectedNAICS: new OrderedMap(),
@@ -21,104 +22,41 @@ import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
 // };
 
 describe('NAICS Search Filter Container', () => {
-    it('should be true', () => {});
-    // it('should get naics codes from the API', () => {
-    //   // will implem
-    // });
-    // describe('Handling adding and removing NAICSs', () => {
-    //     it('should add a NAICS that has been selected to Redux', () => {
-    //         const mockReduxActionNAICS = jest.fn((args) => {
-    //             expect(args).toEqual({
-    //                 naics: {
-    //                     naics: "561110",
-    //                     naics_description: "OFFICE ADMINISTRATIVE SERVICES"
-    //                 }
-    //             });
-    //         });
-
-    //         // Set up container with mocked naics action
-    //         const naicsContainer = shallow(
-    //             <NAICSSearchContainer
-    //                 {...initialFilters}
-    //                 updateSelectedNAICS={mockReduxActionNAICS} />);
-
-    //         const selectNAICSSpy = sinon.spy(naicsContainer.instance(),
-    //             'selectNAICS');
-
-    //         // Add NAICS to redux
-    //         naicsContainer.instance().selectNAICS(naics, true);
-
-    //         // everything should be updated now
-    //         expect(selectNAICSSpy.callCount).toEqual(1);
-    //         expect(mockReduxActionNAICS).toHaveBeenCalled();
-
-    //         // reset the spies
-    //         selectNAICSSpy.reset();
-    //     });
-
-    //     it('should remove a NAICS that has been deselected from Redux', () => {
-    //         const mockReduxActionNAICS = jest.fn((args) => {
-    //             expect(args).toEqual({
-    //                 naics: {
-    //                     naics: "561110",
-    //                     naics_description: "OFFICE ADMINISTRATIVE SERVICES"
-    //                 }
-    //             });
-    //         });
-
-    //         // Set up container with mocked naics action
-    //         const naicsContainer = shallow(
-    //             <NAICSSearchContainer
-    //                 {...initialFilters}
-    //                 updateSelectedNAICS={mockReduxActionNAICS} />);
-
-    //         const selectNAICSSpy = sinon.spy(naicsContainer.instance(),
-    //             'selectNAICS');
-
-    //         const removeNAICSSpy = sinon.spy(naicsContainer.instance(),
-    //             'removeNAICS');
-
-    //         // Add NAICS to redux
-    //         naicsContainer.instance().selectNAICS(naics, true);
-
-    //         // Remove NAICS from Redux
-    //         naicsContainer.instance().removeNAICS(naics);
-
-    //         // everything should be updated now
-    //         expect(selectNAICSSpy.callCount).toEqual(1);
-    //         expect(removeNAICSSpy.callCount).toEqual(1);
-    //         expect(mockReduxActionNAICS).toHaveBeenCalledTimes(2);
-
-    //         // reset the spy
-    //         selectNAICSSpy.reset();
-    //         removeNAICSSpy.reset();
-    //     });
-    // });
-    // describe('dirtyFilters', () => {
-    //     it('should return an ES6 Symbol when the staged filters do not match with the applied filters', () => {
-    //         const container = shallow(
-    //             <NAICSSearchContainer
-    //                 {...initialFilters}
-    //                 updateSelectedNAICS={jest.fn()} />
-    //         );
-
-    //         container.setProps({
-    //             selectedNAICS: new OrderedMap({ a: 'a' })
-    //         });
-
-    //         const changed = container.instance().dirtyFilters();
-    //         expect(changed).toBeTruthy();
-    //         expect(typeof changed).toEqual('symbol');
-    //     });
-    //     it('should return null when the staged filters match with the applied filters', () => {
-    //         const container = shallow(
-    //             <NAICSSearchContainer
-    //                 {...initialFilters}
-    //                 updateSelectedNAICS={jest.fn()} />
-    //         );
-
-    //         const changed = container.instance().dirtyFilters();
-    //         expect(changed).toBeFalsy();
-    //     });
-    // });
+    const fetchNAICS = jest.fn();
+    it('should call fetch naics on mount', async () => {
+        const container = shallow(<NAICSContainer />);
+        container.instance().fetchNAICS = fetchNAICS;
+        await container.instance().componentDidMount();
+        expect(fetchNAICS).toHaveBeenCalled();
+    });
+    describe('FecthNaics', () => {
+        it('should set property nodes in state to API response', async () => {
+            const container = shallow(<NAICSContainer />);
+            await container.instance().fetchNAICS();
+            const {
+                naics,
+                isLoading,
+                isError,
+                errorMessage
+            } = container.instance().state;
+            expect(naics).toEqual(naicsMock2);
+            expect(isLoading).toEqual(false);
+            expect(isError).toEqual(false);
+            expect(errorMessage).toEqual('');
+        });
+        it('should set properties isError and errorMessage from API response', async () => {
+            const container = shallow(<NAICSContainer />);
+            await container.instance().fetchNAICS(true);
+            const {
+                naics,
+                isLoading,
+                isError,
+                errorMessage
+            } = container.instance().state;
+            expect(naics).toEqual([]);
+            expect(isLoading).toEqual(false);
+            expect(isError).toEqual(true);
+            expect(errorMessage).toEqual('Bad');
+        });
+    });
 });
