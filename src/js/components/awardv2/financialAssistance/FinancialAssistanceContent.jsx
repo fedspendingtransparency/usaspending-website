@@ -44,7 +44,7 @@ const FinancialAssistanceContent = ({
     const [activeTab, setActiveTab] = useState("transaction");
 
     const glossaryLink = glossaryLinks[overview.type]
-        ? `/#/award_v2/${awardId}?glossary=${glossaryLinks[overview.type]}`
+        ? `/#/award/${awardId}?glossary=${glossaryLinks[overview.type]}`
         : null;
 
     const jumpToTransactionHistoryTable = () => {
