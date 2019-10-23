@@ -3,7 +3,7 @@ export const mockAgencies = {
         id: 1125,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "434",
+            toptier_code: "434",
             abbreviation: "OGE",
             name: "Office of Government Ethics"
         },
@@ -16,7 +16,7 @@ export const mockAgencies = {
         id: 14,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "004",
+            toptier_code: "004",
             abbreviation: "GPO",
             name: "Government Publishing Office"
         },
@@ -29,7 +29,7 @@ export const mockAgencies = {
         id: 15,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "005",
+            toptier_code: "005",
             abbreviation: "GAO",
             name: "Government Accountability Office"
         },
@@ -42,7 +42,7 @@ export const mockAgencies = {
         id: 680,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "062",
+            toptier_code: "062",
             abbreviation: "OSC",
             name: "Office of Special Counsel"
         },
@@ -55,7 +55,7 @@ export const mockAgencies = {
         id: 491,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "024",
+            toptier_code: "024",
             abbreviation: "OPM",
             name: "Office of Personnel Management"
         },
@@ -68,7 +68,7 @@ export const mockAgencies = {
         id: 1131,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "514",
+            toptier_code: "514",
             abbreviation: "BBG",
             name: "Broadcasting Board of Governors"
         },
@@ -81,7 +81,7 @@ export const mockAgencies = {
         id: 47,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "011",
+            toptier_code: "011",
             abbreviation: "EOP",
             name: "Executive Office of the President"
         },
@@ -94,7 +94,7 @@ export const mockAgencies = {
         id: 18,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "008",
+            toptier_code: "008",
             abbreviation: "CBO",
             name: "Congressional Budget Office"
         },
@@ -107,7 +107,7 @@ export const mockAgencies = {
         id: 635,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "435",
+            toptier_code: "435",
             abbreviation: "ONHIR",
             name: "Office of Navajo and Hopi Indian Relocation"
         },
@@ -120,7 +120,7 @@ export const mockAgencies = {
         id: 246,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "015",
+            toptier_code: "015",
             abbreviation: "DOJ",
             name: "Department of Justice"
         },
@@ -133,7 +133,7 @@ export const mockAgencies = {
         id: 178,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "013",
+            toptier_code: "013",
             abbreviation: "DOC",
             name: "Department of Commerce"
         },
@@ -146,7 +146,7 @@ export const mockAgencies = {
         id: 669,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "534",
+            toptier_code: "534",
             abbreviation: "ARCTIC GAS",
             name: "Office of the Federal Coordinator for Alaska Natural Gas Transportation Projects"
         },
@@ -159,7 +159,7 @@ export const mockAgencies = {
         id: 668,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "534",
+            toptier_code: "534",
             abbreviation: "ARCTIC GAS",
             name: "Office of the Federal Coordinator for Alaska Natural Gas Transportation Projects"
         },
@@ -172,7 +172,7 @@ export const mockAgencies = {
         id: 308,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "019",
+            toptier_code: "019",
             abbreviation: "DOS",
             name: "Department of State"
         },
@@ -185,7 +185,7 @@ export const mockAgencies = {
         id: 1141,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "097",
+            toptier_code: "097",
             abbreviation: "DOD",
             name: "Department of Defense"
         },
@@ -198,7 +198,7 @@ export const mockAgencies = {
         id: 261,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "016",
+            toptier_code: "016",
             abbreviation: "DOL",
             name: "Department of Labor"
         },
@@ -211,7 +211,7 @@ export const mockAgencies = {
         id: 11,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "003",
+            toptier_code: "003",
             abbreviation: "LOC",
             name: "Library of Congress"
         },
@@ -224,7 +224,7 @@ export const mockAgencies = {
         id: 1138,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "511",
+            toptier_code: "511",
             abbreviation: "CSOSA",
             name: "Court Services and Offender Supervision Agency"
         },
@@ -237,7 +237,7 @@ export const mockAgencies = {
         id: 900,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "089",
+            toptier_code: "089",
             abbreviation: "DOE",
             name: "Department of Energy"
         },
@@ -250,7 +250,7 @@ export const mockAgencies = {
         id: 1135,
         toptier_flag: true,
         toptier_agency: {
-            cgac_code: "458",
+            toptier_code: "458",
             abbreviation: "USIP",
             name: "United States Institute of Peace"
         },

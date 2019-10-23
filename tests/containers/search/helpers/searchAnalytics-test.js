@@ -52,7 +52,7 @@ describe('searchAnalytics', () => {
                 toptier_agency: {
                     name: 'Test',
                     abbreviation: 'ABC',
-                    cgac_code: '123'
+                    toptier_code: '123'
                 }
             };
             const agency = searchAnalytics.parseAgency(data);
@@ -64,7 +64,7 @@ describe('searchAnalytics', () => {
                 toptier_agency: {
                     name: 'Test',
                     abbreviation: 'ABC',
-                    cgac_code: '123'
+                    toptier_code: '123'
                 },
                 subtier_agency: {
                     name: 'Sub',

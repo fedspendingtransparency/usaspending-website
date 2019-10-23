@@ -47,7 +47,7 @@
       }
     }
     // every dropdown
-    .rct-node-parent:nth-child(n) {
+    .rct-node:nth-child(n) {
       // TODO - only add this on search
       // padding-bottom: rem(10);
       // &.rct-node-expanded {
@@ -76,13 +76,13 @@
             @include flex-direction(column);
           }
           .rct-title {
-            @include flex-direction(column);
             .checkbox-tree-label {
               @include display(flex);
+              @include flex-wrap(wrap);
               .checkbox-tree-label__value-container {
+                    // @include flex-basis(100%);
                 .checkbox-tree-label__value-container-value {
-                  padding: rem(1.5) rem(16);
-                  margin-right: rem(5);
+                  padding: rem(1.5) rem(10);
                   background-color: $color-gray-lightest;
                   border-radius: 3px;
                   font-weight: $font-semibold;
@@ -93,8 +93,8 @@
                 }
               }
               .checkbox-tree-label__label {
-                @include flex-direction(column);
-                font-weight: $font-bold;
+                @include flex-basis(100%);
+                font-weight: bold;
                 .highlight {
                   background-color: rgb(252, 227, 160);
                 }
@@ -103,41 +103,6 @@
           }
         }
       }
-      // TODO - This is the labels wrapped which is prolly going to be used in
-      // the new design, so we want to keep this until design decides wrapped or
-      // inline
-      // .rct-text {
-      //   @include align-items(flex-start);
-      //   button:focus {
-      //     box-shadow: none;
-      //   }
-      //   @include display(inline-flex);
-      //   button {
-      //     margin: 0;
-      //   }
-      //   label {
-      //     @include display(flex);
-      //     .rct-checkbox {
-      //       @include flex-direction(column);
-      //     }
-      //     .rct-title {
-      //       .checkbox-tree-label {
-      //         @include display(flex);
-      //         @include flex-wrap(wrap);
-      //         .checkbox-tree-label__value-container {
-      //               @include flex-basis(100%);
-      //           .checkbox-tree-label__value-container-value {
-      //             border-radius: 3px;
-      //           }
-      //         }
-      //         .checkbox-tree-label__label {
-      //           @include flex-basis(100%);
-      //           font-weight: bold;
-      //         }
-      //       }
-      //     }
-      //   }
-      // }
       ol {
         padding-left: rem(12);
         margin-left: rem(4);

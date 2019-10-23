@@ -10,7 +10,7 @@ import { concat } from 'lodash';
 import TransactionsTableContainer from 'containers/award/table/TransactionsTableContainer';
 import FinancialSystemTableContainer from 'containers/award/table/FinancialSystemTableContainer';
 
-import SubawardsContainer from 'containers/award/subawards/SubawardsContainer';
+import SubawardsContainer from 'containers/awardV2/table/SubawardsContainer';
 
 import DetailsTabBar from './DetailsTabBar';
 import ContractAdditionalDetails from './additional/ContractAdditionalDetails';

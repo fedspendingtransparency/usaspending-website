@@ -118,7 +118,9 @@ export const mockContract = {
             name: 'Jake Doe',
             amount: null
         }]
-    }
+    },
+    psc_hierarchy: {},
+    naics_hierarchy: {}
 };
 
 export const mockGrant = {

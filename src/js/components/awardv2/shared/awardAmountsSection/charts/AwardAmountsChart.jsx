@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/awardsv2/awardAmountsSection';
 
 import NormalChart from './NormalChart';
 import ExceedsCurrentChart from './ExceedsCurrentChart';
@@ -53,25 +54,21 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
     };
 
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
-        if (scenario === 'insufficientData') {
-            return (
-                <div className="results-table-message-container">
-                    <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
-                </div>
-            );
+        const isNormal = scenario === 'normal';
+        if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
+            return <GrantChart awardAmounts={awardAmounts} />;
         }
-        switch (type) {
-            case "grant":
-                return (
-                    <GrantChart awardAmounts={awardAmounts} />
-                );
-            case "loan":
-                return (
-                    <LoanChart awardAmounts={awardAmounts} />
-                );
-            default: // idvs and contracts
-                return renderChartBySpendingScenario(scenario);
+        else if (type === 'loan' && isNormal) {
+            return <LoanChart awardAmounts={awardAmounts} />;
         }
+        else if (type === 'idv' || type === 'contract') {
+            return renderChartBySpendingScenario(scenario);
+        }
+        return (
+            <div className="results-table-message-container">
+                <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
+            </div>
+        );
     };
 
     const visualization = renderChartByAwardType(awardOverview, awardType, spendingScenario);

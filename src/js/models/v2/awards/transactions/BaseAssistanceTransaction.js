@@ -24,12 +24,19 @@ BaseAssistanceTransaction.populate = function populate(data) {
 
     this.typeDescription = data.type_description || '';
     this._federalActionObligation = parseFloat(data.federal_action_obligation) || 0;
+    this._originalLoanSubsidyCost = parseFloat(data.original_loan_subsidy_cost) || 0;
 };
 
 // getter functions
 Object.defineProperty(BaseAssistanceTransaction, 'federalActionObligation', {
     get() {
         return formatMoney(this._federalActionObligation);
+    }
+});
+
+Object.defineProperty(BaseAssistanceTransaction, 'originalLoanSubsidyCost', {
+    get() {
+        return formatMoney(this._originalLoanSubsidyCost);
     }
 });
 

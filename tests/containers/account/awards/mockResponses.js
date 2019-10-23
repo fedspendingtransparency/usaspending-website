@@ -75,7 +75,7 @@ export const mockAward = {
                 "id": 915,
                 "toptier_flag": true,
                 "toptier_agency": {
-                    "cgac_code": "089",
+                    "toptier_code": "089",
                     "abbreviation": "DOE",
                     "name": "Department of Energy"
                 },
@@ -89,7 +89,7 @@ export const mockAward = {
                 "id": 915,
                 "toptier_flag": true,
                 "toptier_agency": {
-                    "cgac_code": "089",
+                    "toptier_code": "089",
                     "abbreviation": "DOE",
                     "name": "Department of Energy"
                 },

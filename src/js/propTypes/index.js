@@ -7,7 +7,7 @@ export const AWARD_V2_OVERVIEW_PROPS = PropTypes.shape({
     generatedId: PropTypes.string,
     type: PropTypes.string,
     typeDescription: PropTypes.string,
-    longTypeDescription: PropTypes.string,
+    title: PropTypes.string,
     description: PropTypes.string,
     _subawardTotal: PropTypes.number,
     subawardCount: PropTypes.number,
@@ -27,7 +27,9 @@ export const AWARD_V2_COUNTS_PROPS = PropTypes.shape({
 });
 
 
-export const AWARD_TYPE_PROPS = PropTypes.oneOf(['idv', 'contract', 'grant', 'loan', 'direct payment', 'other']);
+export const AWARD_TYPE_PROPS = PropTypes.oneOf([
+    'idv', 'contract', 'grant', 'loan', 'direct payment', 'insurance', 'other'
+]);
 
 export const TOOLTIP_PROPS = PropTypes.shape({
     isControlled: PropTypes.bool,
