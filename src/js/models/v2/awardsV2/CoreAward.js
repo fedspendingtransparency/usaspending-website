@@ -66,7 +66,7 @@ const CoreAward = {
     },
     get subAwardedPercent() {
         let percent = (this._subawardTotal / this._totalObligation) * 100;
-        if (percent < 0) return '0%';
+        if (percent <= 0 || isNaN(percent)) return '0%';
         percent = MoneyFormatter.formatNumberWithPrecision(percent, 1);
         return `${percent}%`;
     },
