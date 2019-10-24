@@ -20,11 +20,11 @@ const propTypes = {
 const titles = {
     idv: ['Start Date', 'Ordering Period End Date'],
     contract: ['Start Date', 'Current End Date', 'Potential End Date'],
-    grant: ['Start Date', 'Current End Date'],
-    loan: ['Start Date', 'Current End Date'],
-    'direct payment': ['Start Date', 'Current End Date'],
-    insurance: ['Start Date', 'Current End Date'],
-    other: ['Start Date', 'Current End Date']
+    grant: ['Start Date', 'End Date'],
+    loan: ['Start Date', 'End Date'],
+    'direct payment': ['Start Date', 'End Date'],
+    insurance: ['Start Date', 'End Date'],
+    other: ['Start Date', 'End Date']
 };
 
 export default class AwardDates extends React.Component {
