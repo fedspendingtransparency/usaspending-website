@@ -16,6 +16,8 @@ const LineTree = ({
         .sort((tierType1, tierType2) => {
             const first = data[tierType1].code;
             const second = data[tierType2].code;
+            if (first === "--") return -1;
+            if (second === "--") return 1;
             if (first.length < second.length) return -1;
             if (second.length < first.length) return 1;
             return 0;
