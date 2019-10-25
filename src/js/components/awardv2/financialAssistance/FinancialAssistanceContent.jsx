@@ -93,7 +93,7 @@ const FinancialAssistanceContent = ({
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                 <AwardDescription description={overview.description} awardId={awardId} />
             </AwardSection>
-            <AwardSection type="row">
+            <AwardSection className="federal-accounts-section" type="row">
                 {isGrant && <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />}
                 {!isGrant && (
                     <ComingSoonSection
