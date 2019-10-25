@@ -20,20 +20,12 @@ import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
 import CFDAOverview from './CFDAOverview';
 import AwardDescription from '../shared/description/AwardDescription';
+import CFDASection from './CFDASection';
 
 const propTypes = {
     awardId: PropTypes.string,
     overview: PropTypes.object,
     jumpToSection: PropTypes.func
-};
-
-const defaultTooltipProps = {
-    controlledProps: {
-        isControlled: true,
-        isVisible: false,
-        closeTooltip: () => {},
-        showTooltip: () => {}
-    }
 };
 
 const FinancialAssistanceContent = ({
@@ -89,17 +81,13 @@ const FinancialAssistanceContent = ({
                 <AwardAmountsSection
                     awardType={overview.category}
                     awardOverview={awardAmountData}
-                    tooltipProps={defaultTooltipProps}
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                 <AwardDescription description={overview.description} awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
                 {isGrant && <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />}
                 {!isGrant && (
-                    <ComingSoonSection
-                        title="CFDA Program / Assistance Listing Information"
-                        icon="hands-helping"
-                        includeHeader />
+                    <CFDASection />
                 )}
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
