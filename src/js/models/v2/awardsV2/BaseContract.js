@@ -27,7 +27,7 @@ const getPscTypeByToptierCode = (toptierCode) => {
 
     const topTierCodeAsInt = parseInt(toptierCode, 10);
     if (isNaN(topTierCodeAsInt)) {
-        if (toptierCode && toptierCode.toUpperCase() === 'A') {
+        if (toptierCode && toptierCode[0].toUpperCase() === 'A') {
             return 'RESEARCH AND DEVELOPMENT';
         }
         // all letters other than 'A' are services
@@ -39,15 +39,14 @@ const getPscTypeByToptierCode = (toptierCode) => {
 
 const deducePscType = (acc, keyValueArray) => {
     const [key, value] = keyValueArray;
+    const description = getPscTypeByToptierCode(value.code);
     if (key === 'toptier_code') {
-        return {
-            ...acc,
-            [key]: {
-                // if toptier_code is undefined, provide this value so it is sorted to the top
-                code: value.code || "0",
-                description: getPscTypeByToptierCode(value.code)
-            }
-        };
+        const pscType = { code: "--", description };
+        if (description === 'RESEARCH AND DEVELOPMENT') {
+            // replace toptier_code w/ psc type
+            return { ...acc, pscType };
+        }
+        return { ...acc, pscType, [key]: value };
     }
     return { ...acc, [key]: value };
 };
