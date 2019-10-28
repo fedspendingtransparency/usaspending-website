@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import { twentyNineteenFiscalDataCookie } from './Header';
+
 const propTypes = {
     closeBanner: PropTypes.func
 };
@@ -14,7 +16,7 @@ export default class InfoBanner extends React.Component {
     }
 
     bannerClosed() {
-        this.props.closeBanner('showInfoBanner', 'usaspending_info_banner');
+        this.props.closeBanner('showInfoBanner', twentyNineteenFiscalDataCookie);
     }
 
     clickedBannerLink = () => {
