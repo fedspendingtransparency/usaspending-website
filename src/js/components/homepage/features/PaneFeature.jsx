@@ -21,7 +21,7 @@ const PaneFeature = () => (
                 <div className="feature-pane__content-divider" />
                 <hr className="feature-pane__mobile-content-divider" />
                 <div className="feature-pane__content feature-pane__content-middle__sub">
-                    <div className="">
+                    <div>
                         <div id="feature-pane__content-header__middle">
                             Updated for FY 2019
                         </div>
