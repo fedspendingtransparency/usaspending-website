@@ -20,7 +20,7 @@ export default class Header extends React.Component {
         super(props);
 
         this.state = {
-            showInfoBanner: true
+            showInfoBanner: false
         };
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
