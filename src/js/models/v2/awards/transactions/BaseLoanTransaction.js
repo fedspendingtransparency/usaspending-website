@@ -4,6 +4,7 @@
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
+import { actionTypes } from 'dataMapping/financialAssistance/assistanceActionTypes';
 import CoreTransaction from './CoreTransaction';
 
 const BaseLoanTransaction = Object.create(CoreTransaction);
@@ -15,7 +16,7 @@ BaseLoanTransaction.populate = function populate(data) {
         typeDescription: data.type_description,
         actionDate: data.action_date,
         actionType: data.action_type,
-        actionTypeDescription: data.action_type_description,
+        actionTypeDescription: (data.action_type && actionTypes[data.action_type].toUpperCase()),
         modificationNumber: data.modification_number,
         description: data.description
     };
