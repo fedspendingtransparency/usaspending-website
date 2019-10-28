@@ -12,7 +12,7 @@ const PaneFeature = () => (
             <h2 className="feature-pane__title">Featured Content</h2>
             <div className="feature-pane__content-wrapper">
                 <div className="feature-pane__content">
-                    <div className="feature-pane__content-title">New! - Congressional Budget Justifications</div>
+                    <h3 className="feature-pane__content-title">New! - Congressional Budget Justifications</h3>
                     <p className="feature-pane_content-text">See the rich, detailed documents each agency submits to Congress to justify its annual budget request.</p>
                     <button className="feature-pane__button-wrapper">
                         <a href="/#/agency" className="feature-pane__button">Explore Budget Justifications</a>
@@ -20,14 +20,14 @@ const PaneFeature = () => (
                 </div>
                 <div className="feature-pane__content-divider" />
                 <hr className="feature-pane__mobile-content-divider" />
-                <div className="feature-pane__content">
-                    <div className="feature-pane__content-middle__sub">
+                <div className="feature-pane__content feature-pane__content-middle__sub">
+                    <div className="">
                         <div id="feature-pane__content-header__middle">
                             Updated for FY 2019
                         </div>
-                        <div className="feature-pane__content-title" id="feature-pane__content-title__middle">
+                        <h3 className="feature-pane__content-title" id="feature-pane__content-title__middle">
                             Your Guide to America’s Finances
-                        </div>
+                        </h3>
                         <p className="feature-pane_content-text">
                             Your Guide provides a snapshot of Fiscal Year 2019 revenue, spending,
                             deficit, and debt, along with data for download.
@@ -47,7 +47,7 @@ const PaneFeature = () => (
                 <hr className="feature-pane__mobile-content-divider" />
                 <div className="feature-pane__content-divider" />
                 <div className="feature-pane__content">
-                    <div className="feature-pane__content-title">New! - Recipient Profiles</div>
+                    <h3 className="feature-pane__content-title">New! - Recipient Profiles</h3>
                     <p className="feature-pane_content-text" >Find insights into each recipient with the tools and summaries found in our new Recipient Profile pages.</p>
                     <button className="feature-pane__button-wrapper">
                         <a href="/#/recipient" className="feature-pane__button">Explore Recipient Profiles</a>

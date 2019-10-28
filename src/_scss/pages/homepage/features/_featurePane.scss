@@ -54,7 +54,7 @@
           @include flex(1 1 1);
           max-width: 30%;
       }
-      .feature-pane__content-middle__sub {
+      &.feature-pane__content-middle__sub {
         background-size: 100% 100%;
         background-repeat: no-repeat;
         background-image: url('#{$image-path}/homepage-eagle-large.png');

@@ -7,21 +7,23 @@ const propTypes = {
     closeBanner: PropTypes.func
 };
 
-const clickedBannerLink = (route) => {
-    Analytics.event({
-        category: 'Banner - Link',
-        action: route
-    });
-};
-
 export default class InfoBanner extends React.Component {
     constructor(props) {
         super(props);
         this.bannerClosed = this.bannerClosed.bind(this);
     }
+
     bannerClosed() {
         this.props.closeBanner('showInfoBanner', 'usaspending_info_banner');
     }
+
+    clickedBannerLink = () => {
+        Analytics.event({
+            category: 'Banner - Link',
+            action: 'https://datalab.usaspending.gov/americas-finance-guide/'
+        });
+    }
+
     render() {
         return (
             <div className="info-banner">
@@ -40,7 +42,7 @@ export default class InfoBanner extends React.Component {
                             href="https://datalab.usaspending.gov/americas-finance-guide/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={clickedBannerLink.bind(null, 'https://datalab.usaspending.gov/americas-finance-guide/')}>
+                            onClick={this.clickedBannerLink}>
                         https://datalab.usaspending.gov/americas-finance-guide/
                         </a>
                         <span className="info-banner__description-external-link">
@@ -53,7 +55,6 @@ export default class InfoBanner extends React.Component {
                         aria-label="Dismiss message"
                         onClick={this.bannerClosed}>
                         <FontAwesomeIcon size="lg" alt="Dismiss message" icon="times" />
-                        {/* <Close alt="Dismiss message" /> */}
                     </button>
                 </div>
             </div>
