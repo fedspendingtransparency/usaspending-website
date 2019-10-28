@@ -7,6 +7,7 @@ import CoreAward from 'models/v2/awardsV2/CoreAward';
 import { each, upperFirst } from 'lodash';
 import { descriptionsForAwardTypes }
     from 'dataMapping/awardsv2/descriptionsForAwardTypes';
+import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 
 const awardData = {
     subawardTotal: 12004.75,
@@ -23,11 +24,14 @@ describe('Core Award getter functions', () => {
         expect(award.subawardTotal).toEqual('$12,005');
     });
     it('should derive the subawardedPercent', () => {
-        expect(award.subAwardedPercent).toEqual('59.7%');
+        expect(award.subAwardedPercent)
+            .toEqual(`${formatNumberWithPrecision(((
+                awardData.subawardTotal / awardData.totalObligation
+            ) * 100), 1)}%`);
     });
     it('should handle zero subawardedPercent', () => {
         const zeroSubtotalAward = Object.create(CoreAward);
-        const data = { ...award, subawardTotal: 0 };
+        const data = { ...award, _subawardTotal: 0 };
         zeroSubtotalAward.populateCore(data);
         expect(zeroSubtotalAward.subAwardedPercent).toEqual('0%');
     });
