@@ -5,8 +5,8 @@ const propTypes = {
     type: PropTypes.oneOf(["primary", "secondary"]),
     buttonClass: PropTypes.string,
     content: PropTypes.string,
-    contentClassName: PropTypes.string,
-    containerClassName: PropTypes.string,
+    secondaryContainerClass: PropTypes.string,
+    primaryContainerClass: PropTypes.string,
     children: PropTypes.node
 };
 
@@ -25,10 +25,10 @@ const maxChars = 300;
 
 const ExpandableAwardSection = ({
     type = 'primary',
-    buttonClass = 'award-expandable-button',
+    buttonClass = 'award-expandable-btn',
     content,
-    contentClassName = '',
-    containerClassName = '',
+    secondaryContainerClass = 'award-expandable-section__secondary',
+    primaryContainerClass = 'award-expandable-section__primary',
     children
 }) => {
     const [buttonValue, setButtonValue] = useState(buttonValueByButtonTypeAndState[type].contracted);
@@ -43,7 +43,7 @@ const ExpandableAwardSection = ({
     };
 
     const button = (
-        <button onClick={toggleButton} className={buttonClass}>
+        <button onClick={toggleButton} className={`${buttonClass} ${type}-btn`}>
             {buttonValue}
         </button>
     );
@@ -52,7 +52,7 @@ const ExpandableAwardSection = ({
         const isContentTruncated = content.length > maxChars;
         const truncatedContent = `${content.substring(0, maxChars)}...`;
         return (
-            <p className={contentClassName}>
+            <p className={secondaryContainerClass}>
                 {isContentTruncated && !isExpanded
                     ? truncatedContent
                     : content
@@ -62,7 +62,7 @@ const ExpandableAwardSection = ({
         );
     }
     return (
-        <div className={containerClassName}>
+        <div className={primaryContainerClass}>
             {children}
             {isExpanded && content}
             {button}
