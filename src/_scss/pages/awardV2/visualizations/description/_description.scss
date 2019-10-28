@@ -1,22 +1,6 @@
 .award-description {
     .award-description__content {
         font-size: $small-font-size;
-        .award-description__description {
-
-            .award-description__button {
-                @include button-unstyled;
-                @include display(flex);
-                color: $color-link;
-                .award-description__button-icon {
-                    padding-left: rem(5);
-                    svg {
-                        height: rem(15);
-                        width: rem(15);
-                        fill: $color-link;
-                    }
-                }
-            }
-        }
         .award-description__naics-psc {
             @include display(flex);
             .naics-psc__section {
