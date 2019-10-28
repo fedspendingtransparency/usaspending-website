@@ -87,17 +87,12 @@ const FinancialAssistanceContent = ({
             <AwardSection type="row">
                 {isGrant && <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />}
                 {!isGrant && (
-                    <CFDASection />
+                    <CFDASection data={overview.biggestCfda} />
                 )}
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             {isGrant && (
-                <AwardSection className="award-cfda-section" type="row">
-                    <ComingSoonSection
-                        title="CFDA Program / Assistance Listing Information"
-                        icon="hands-helping"
-                        includeHeader />
-                </AwardSection>
+                <CFDASection data={overview.biggestCfda} />
             )}
             <AwardSection className="award-history-section" type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
