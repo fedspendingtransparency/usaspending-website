@@ -5,7 +5,9 @@ const propTypes = {
     type: PropTypes.oneOf(["primary", "secondary"]),
     buttonClass: PropTypes.string,
     content: PropTypes.string,
-    contentClassName: PropTypes.string
+    contentClassName: PropTypes.string,
+    containerClassName: PropTypes.string,
+    children: PropTypes.node
 };
 
 const buttonValueByButtonTypeAndState = {
@@ -23,15 +25,14 @@ const maxChars = 300;
 
 const ExpandableAwardSection = ({
     type = 'primary',
-    buttonClass = 'award-description__button',
+    buttonClass = 'award-expandable-button',
     content,
-    contentClassName = ''
+    contentClassName = '',
+    containerClassName = '',
+    children
 }) => {
     const [buttonValue, setButtonValue] = useState(buttonValueByButtonTypeAndState[type].contracted);
     const [isExpanded, setExpanded] = useState(false);
-
-    const isContentTruncated = content.length > maxChars;
-    const truncatedContent = `${content.substring(0, maxChars)}...`;
 
     const toggleButton = (e, prevButtonValue = buttonValue, prevIsExpanded = isExpanded) => {
         const newButtonValue = (prevButtonValue === buttonValueByButtonTypeAndState[type].expanded)
@@ -41,16 +42,31 @@ const ExpandableAwardSection = ({
         setButtonValue(newButtonValue);
     };
 
+    const button = (
+        <button onClick={toggleButton} className={buttonClass}>
+            {buttonValue}
+        </button>
+    );
+
+    if (type === 'secondary') {
+        const isContentTruncated = content.length > maxChars;
+        const truncatedContent = `${content.substring(0, maxChars)}...`;
+        return (
+            <p className={contentClassName}>
+                {isContentTruncated && !isExpanded
+                    ? truncatedContent
+                    : content
+                }
+                {isContentTruncated && button}
+            </p>
+        );
+    }
     return (
-        <p className={contentClassName}>
-            {isContentTruncated && !isExpanded
-                ? truncatedContent
-                : content
-            }
-            <button onClick={toggleButton} className={buttonClass}>
-                {buttonValue}
-            </button>
-        </p>
+        <div className={containerClassName}>
+            {children}
+            {isExpanded && content}
+            {button}
+        </div>
     );
 };
 
