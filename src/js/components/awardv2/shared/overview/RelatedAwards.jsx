@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { map } from 'lodash';
 import { formatNumber } from 'helpers/moneyFormatter';
 import InfoTooltip from '../../shared/InfoTooltip';
-import { summaryRelatedAwardsInfo } from '../../shared/InfoTooltipContent';
+import { summaryRelatedAwardsInfoIdv, summaryRelatedAwardsInfo } from '../../shared/InfoTooltipContent';
 import AwardSection from '../AwardSection';
 
 const propTypes = {
@@ -93,8 +93,8 @@ export default class RelatedAwards extends React.Component {
     tooltipInfo() {
         const { overview } = this.props;
         const awardType = overview.category;
-        if (awardType === 'idv') return summaryRelatedAwardsInfo;
-        if (awardType === 'contract') return null;
+        if (awardType === 'idv') return summaryRelatedAwardsInfoIdv;
+        if (awardType === 'contract') return summaryRelatedAwardsInfo;
         if (awardType === 'definitive contract') return null;
         if (awardType === 'grant') return null;
         if (awardType === 'loan') return null;

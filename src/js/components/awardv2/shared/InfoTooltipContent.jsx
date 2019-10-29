@@ -390,6 +390,26 @@ export const summaryRelatedAwardsInfo = (
             Related Awards
         </div>
         <div className="info-tooltip__text">
+            <strong>Parent IDV</strong>
+            <p className="info-tooltip__text-section">A parent IDV, or parent indefinite delivery vehicle, is any award that has other prime awards made under it.</p>
+            <p className="info-tooltip__text-section">The contract summarized on this page is a “child” prime award of the parent IDV indicated here.</p>
+            <p className="info-tooltip__text-section">Click on the award ID to view the summary page of this award’s parent IDV, which details all of that IDV&apos;s “child” and “grandchild” awards.</p>
+            <strong>Sub-Awards</strong>
+            <p className="info-tooltip__text-section">
+                This is the count of sub-awards (in this case, sub-contracts to furnish supplies or services to advance the prime contract) issued and reported directly
+                by the prime recipient. For more details, click on the count to scroll to the Sub-Awards tab within the Award History section of this page.
+                Sub-awards are always referred to as such and are independent of the ‘child’ and ‘grandchild’ prime award structure discussed above.
+            </p>
+        </div>
+    </div>
+)
+
+export const summaryRelatedAwardsInfoIdv = (
+    <div>
+        <div className="info-tooltip__title">
+            Related Awards
+        </div>
+        <div className="info-tooltip__text">
             <p>
                 Related Awards refers to two possible types of awards related to
                 this indefinite delivery vehicle (IDV):
