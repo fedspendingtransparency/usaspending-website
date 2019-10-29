@@ -19,7 +19,16 @@ export const emptyCfda = {
 
 const getLargestCfda = (acc, cfdaItem) => {
     if (cfdaItem.total_funding_amount > acc.total_funding_amount) {
-        return cfdaItem;
+        return {
+            samWebsite: cfdaItem.sam_website,
+            cfdaWebsite: cfdaItem.cfda_website,
+            cfdaFederalAgency: cfdaItem.cfda_federal_agency,
+            cfdaNumber: cfdaItem.cfda_number,
+            cfdaTitle: cfdaItem.cfda_title,
+            applicantEligibility: cfdaItem.applicant_eligibility,
+            beneficiaryEligibility: cfdaItem.beneficiary_eligibility,
+            cfdaObjectives: cfdaItem.cfda_objectives
+        };
     }
     return acc;
 };
