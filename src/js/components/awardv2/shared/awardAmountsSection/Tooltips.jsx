@@ -22,6 +22,18 @@ export const ObligatedAmountTooltip = ({ total }) => (
 
 ObligatedAmountTooltip.propTypes = totalPropTypes;
 
+export const ObligatedAmountTooltipAsst = ({ total }) => (
+    <div className="award-amounts-tt">
+        <h4 className="tooltip__title">Obligated Amount</h4>
+        <h5 className="tooltip__amount--loans">{total}</h5>
+        <div className="tooltip__text">
+            <p>This is the amount that has been obligated, or promised by the government, to be paid to the recipient, assuming the recipient fulfills all its commitments.</p>
+        </div>
+    </div>
+);
+
+ObligatedAmountTooltipAsst.propTypes = totalPropTypes;
+
 export const CurrentAmountTooltip = ({ total }) => (
     <div className="award-amounts-tt">
         <h4 className="tooltip__title">Current Award Amount</h4>
@@ -302,8 +314,22 @@ export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, da
                 offsetAdjustments: { top: -7 },
                 tooltipComponent: <FaceValueTooltip total={data.faceValueFormatted} />
             }
+        },
+        asst: {
+            obligated: {
+                offsetAdjustments: { top: -7 },
+                tooltipComponent: <ObligatedAmountTooltipAsst total={data.totalObligationFormatted} />
+            },
+            nonFederalFunding: {
+                offsetAdjustments: { top: -10, right: 0 },
+                tooltipComponent: <NonFederalFundingTooltip total={data.nonFederalFundingFormatted} />
+            },
+            totalFunding: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <TotalFundingTooltip total={data.totalFundingFormatted} />
+            }
         }
     };
-
-    return map[type][category];
+    if (Object.keys(map).includes(type)) return map[type][category];
+    return map.asst[category];
 };
