@@ -441,6 +441,20 @@ export const summaryRelatedAwardsInfoIdv = (
     </div>
 );
 
+export const descriptionInfoAsst = (
+    <div>
+        <div className="info-tooltip__title">
+            Description
+        </div>
+        <div className="info-tooltip__text">
+            <p className="info-tooltip__text-section">
+                The description of this award is provided by the financial assistance manager who submitted its data. The level of detail in descriptions varies and is dependent on the author and the standards of the agencies involved. The description featured here comes from the base award. Modifications have their own descriptions which can differ from the description of the base award; these can be viewed in the Transaction History tab of the Award History section below or by downloading the data via the top-right “DOWNLOAD” button.
+            </p>
+            <p className="info-tooltip__text-section">Additional contextual information on the purpose of this award can be gleaned from the CFDA / Assistance Listing Information module below.</p>
+        </div>
+    </div>
+);
+
 export const descriptionInfoContract = (
     <div>
         <div className="info-tooltip__title">

@@ -6,12 +6,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { SpeechBubble, Glossary } from 'components/sharedComponents/icons/Icons';
-import { descriptionInfo, descriptionInfoContract } from '../../shared/InfoTooltipContent';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 import AwardSectionExpandButton from '../AwardSectionExpandButton';
 import LineTree from './LineTree';
 
+import { getToolTipBySectionAndAwardType } from '../../../../dataMapping/awardsv2/tooltips';
 import { AWARD_TYPE_PROPS } from "../../../../propTypes";
 
 const propTypes = {
@@ -33,7 +33,7 @@ const AwardDescription = ({
 }) => {
     const [isExpanded, setExpanded] = useState(false);
     const isIdv = awardType === 'idv';
-    const tooltip = awardType === 'contract' ? descriptionInfoContract : descriptionInfo;
+    const tooltip = getToolTipBySectionAndAwardType('description', awardType);
 
     let value = description;
     const overflow = value.length > maxChars;
