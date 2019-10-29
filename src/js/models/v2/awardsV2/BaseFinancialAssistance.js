@@ -123,9 +123,6 @@ BaseFinancialAssistance.populate = function populate(data) {
     this.executiveDetails = executiveDetails;
 
     // populate the financial assistance-specific fields
-    this._cfdaNumber = data.cfda_number || '';
-    this._cfdaTitle = data.cfda_title || '';
-    this.cfdaProgramDescription = data.cfda_objectives || '--';
     this._faceValue = parseFloat(data.total_loan_value) || 0;
     this._subsidy = parseFloat(data.total_subsidy_cost) || 0;
     this._baseAllOptions = parseFloat(data.base_and_all_options) || 0;
@@ -139,11 +136,11 @@ BaseFinancialAssistance.populate = function populate(data) {
 
 Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {
     get() {
-        if (this._cfdaNumber && this._cfdaTitle) {
-            return `${this._cfdaNumber} - ${this._cfdaTitle}`;
+        if (this.biggestCfda.cfdaNumber && this.biggestCfda.cfdaTitle) {
+            return `${this.biggestCfda.cfdaNumber} - ${this.biggestCfda.cfdaTitle}`;
         }
-        else if (this._cfdaNumber || this._cfdaTitle) {
-            return `${this._cfdaNumber}${this._cfdaTitle}`;
+        else if (this.biggestCfda.cfdaNumber || this.biggestCfda.cfdaTitle) {
+            return `${this.biggestCfda.cfdaNumber}${this.biggestCfda.cfdaTitle}`;
         }
         return '--';
     }
