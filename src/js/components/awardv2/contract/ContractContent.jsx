@@ -19,6 +19,7 @@ import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSecti
 import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import AwardDescription from "../shared/description/AwardDescription";
+import { contractActivityInfoContracts } from "../shared/InfoTooltipContent";
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -73,7 +74,12 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
                 <AwardDescription awardId={awardId} awardType={overview.category} description={overview.description} naics={overview.naics} psc={overview.psc} />
             </AwardSection>
             <AwardSection className="award-contract-activity-section" type="row">
-                <ComingSoonSection title="Contract Activity" includeHeader icon="chart-area" />
+                <ComingSoonSection
+                    toolTipWide
+                    toolTipContent={contractActivityInfoContracts}
+                    title="Contract Activity"
+                    includeHeader
+                    icon="chart-area" />
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             <AwardSection className="award-history-section" type="row">

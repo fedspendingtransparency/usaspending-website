@@ -766,6 +766,59 @@ export const datesInfoIdv = (
     </div>
 );
 
+export const contractActivityInfoContracts = (
+    <div>
+        <div className="info-tooltip__title">
+            Contract Activity
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+                This chart displays modifications made over the course of this contract’s period of performance.
+                It gives you a sense of how obligations on this contract were made over time and how they changed the value of the contract.
+            </p>
+            <div>
+                <strong>Contract Transactions</strong>
+                <p className="info-tooltip__text-section">
+                    Each transaction is marked by a dot.  You can hover your cursor over each dot to get more information for that particular transaction.
+                </p>
+                <p className="info-tooltip__text-section">
+                    The vertical placement of each dot (transaction) represents the total amount obligated at that time (up to and including that transaction) and the horizontal placement represents the transaction’s action date.
+                </p>
+            </div>
+            <div>
+                <strong>Potential Award Amount</strong>
+                <p className="info-tooltip__text-section">
+                    The horizontal line at the top of the chart represents the potential award amount, or contract ceiling, of this contract.
+                </p>
+            </div>
+            <div>
+                <strong>Start Date</strong>
+                <p className="info-tooltip__text-section">
+                    The start date marks when the awarded recipient’s work begins or when this contract is otherwise effective.  This is also called the period of performance start date or effective date.
+                </p>
+            </div>
+            <div>
+                <strong>Current End Date</strong>
+                <p className="info-tooltip__text-section">
+                    The current end date marks the end of this contract’s current period of performance or when the recipient will finish its work.  This date factors in only currently-exercised contract extension options.
+                </p>
+                <p className="info-tooltip__text-section">
+                    Note that administrative actions related to this contract may continue to occur after this date.
+                </p>
+            </div>
+            <div>
+                <strong>Potential End Date</strong>
+                <p className="info-tooltip__text-section">
+                    The potential end date marks the end of this contract’s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised.
+                </p>
+                <p className="info-tooltip__text-section">
+                    Note that administrative actions related to this contract may continue to occur after this date.
+                </p>
+            </div>
+        </div>
+    </div>
+);
+
 export const idvActivityInfo = (
     <div>
         <div className="info-tooltip__title">
