@@ -961,6 +961,23 @@ export const subAwardsTabGrant = (
     </div>
 );
 
+export const ContractAwardAmountsInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            Award Amounts
+        </div>
+        <div className="info-tooltip__text">
+            <p>This section illustrates how much the government has spent on this award.</p>
+            <p>The Obligated Amount of a contract represents the amount an agency has promised to pay the vendor in its financial system. It usually matches the current value of the contract, but certain agencies (e.g., DOD) are allowed to incrementally fund some contracts in their financial systems. In these cases, the obligated amount may lag the current award amount.</p>
+            <p>The current value of a contract (Current Award Amount) represents the value of the base contract and any exercised options. </p>
+            <p>The potential value of a contract (Potential Award Amount) represents the value of the base contract and all options, if they happen to be exercised in the future. This is sometimes called the contract ceiling or capacity.</p>
+            <p>If a recipient fails to deliver on the terms of the contract, the contract can end or be modified, reducing the current and potential value through a deobligation.</p>
+            <p>This visual depicts the Obligated Amount, Current Award Amount, and Potential Award Amount of the contract.</p>
+            <p>Hover over the chart for more information about the specific amounts displayed.</p>
+        </div>
+    </div>
+);
+
 export const GrantAwardAmountsInfo = (
     <div>
         <div className="info-tooltip__title">
@@ -982,26 +999,6 @@ export const LoanAwardAmountsInfo = (
         <div className="info-tooltip__text">
             <p>This section illustrates the awarded amount of this loan.</p>
             <p>The total face value of the loan is shown with the original subsidy cost shown as a percentage of that face value.  The original subsidy cost can also be thought of the long-term estimated cost of this loan to the government.</p>
-            <p>Hover over the chart for more information about the specific amounts displayed.</p>
-        </div>
-    </div>
-);
-
-export const ContractAwardAmountsInfo = (
-    <div>
-        <div className="info-tooltip__title">
-            Award Amounts
-        </div>
-        <div className="info-tooltip__text">
-            <p>This section illustrates how much the government has spent on this award.</p>
-            <p>
-                It&rsquo;s important to note that contracts are not paid in full on the date they are awarded,
-                but rather a specific amount is made available for spending by the funding agency.
-                This specific amount is known as the &ldquo;current award amount&rdquo; or &ldquo;current ceiling amount&rdquo;.
-                During the period of performance of the contract, this current award amount can be grow to a maximum.
-                That maximum is known as the &ldquo;potential award amount&rdquo; or &ldquo;potential ceiling amount&rdquo;.
-            </p>
-            <p>This visual depicts the three amounts associated with contracts: obligated amounts, current award amounts, and potential award amounts.</p>
             <p>Hover over the chart for more information about the specific amounts displayed.</p>
         </div>
     </div>

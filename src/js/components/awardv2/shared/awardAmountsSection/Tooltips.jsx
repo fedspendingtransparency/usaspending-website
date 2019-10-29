@@ -15,7 +15,7 @@ export const ObligatedAmountTooltip = ({ total }) => (
         <h4 className="tooltip__title">Obligated Amount</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
-            <p>This is the amount that has been obligated, or promised by the government, to be paid to the recipient.</p>
+            <p>This is the amount that has been obligated in an agency’s financial system for this award. An obligation represents a binding promise by the government to pay the recipient, assuming the recipient fulfills all of its commitments.</p>
         </div>
     </div>
 );
@@ -27,19 +27,31 @@ export const CurrentAmountTooltip = ({ total }) => (
         <h4 className="tooltip__title">Current Award Amount</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
-            <p>This is the amount currently available for obligation based on the currently-exercised options of this contract.</p>
+            <p>This is the total amount that will be paid out to the recipient if it fulfills all its commitments under the currently-exercised options of this contract. If additional options are exercised, this amount will change accordingly. This usually matches the Obligated Amount, but certain agencies (e.g., DOD) are allowed to incrementally fund some contracts in their financial systems. In these cases, the Obligated Amount may lag behind the Current Award Amount.</p>
         </div>
     </div>
 );
 
 CurrentAmountTooltip.propTypes = totalPropTypes;
 
+export const PotentialAmountTooltip = ({ total }) => (
+    <div className="award-amounts-tt">
+        <h4 className="tooltip__title">Potential Award Amount</h4>
+        <h5 className="tooltip__amount--loans">{total}</h5>
+        <div className="tooltip__text">
+            <p>This is the potential amount that will be paid out to the recipient if all of the contract options are exercised and the recipient fulfills all of its duties under the base contract and these options. This amount is sometimes referred to as the ceiling or capacity of the contract.</p>
+        </div>
+    </div>
+);
+
+PotentialAmountTooltip.propTypes = totalPropTypes;
+
 export const ExceedsCurrentAmountTooltip = ({ total }) => (
     <div className="award-amounts-tt">
         <h4 className="tooltip__title">Exceeds Current Award Amount</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
-            <p>This award has a total obligated amount that exceeds the Current Total Value of the Award. In other words, more money has been obligated to this award than the current value of the contract would allow if all expected goods or services are delivered (i.e., the base contract and exercised options).</p>
+            <p>This contract has a total obligated amount that exceeds its Current Award Amount. In other words, more money has been obligated to this award than should be possible based on the value of the base and exercised options of the contract.</p>
             <p>Such over-obligation can occur because of missing data, errors in the data, or violations of procurement policy.</p>
         </div>
     </div>
@@ -47,24 +59,12 @@ export const ExceedsCurrentAmountTooltip = ({ total }) => (
 
 ExceedsCurrentAmountTooltip.propTypes = totalPropTypes;
 
-export const PotentialAmountTooltip = ({ total }) => (
-    <div className="award-amounts-tt">
-        <h4 className="tooltip__title">Potential Award Amount</h4>
-        <h5 className="tooltip__amount--loans">{total}</h5>
-        <div className="tooltip__text">
-            <p>This is the potential amount available to obligate if all of the contract  options are exercised. You can think of this as the maximum award amount (sometimes referred to as the ceiling amount or capacity of the contract).</p>
-        </div>
-    </div>
-);
-
-PotentialAmountTooltip.propTypes = totalPropTypes;
-
 export const ExceedsPotentialAmountTooltip = ({ total }) => (
     <div className="award-amounts-tt">
         <h4 className="tooltip__title">Exceeds Potential Award Amount</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
-            <p>This award has a total obligated amount that exceeds the Potential Total Value of the Award. In other words, more money has been obligated to this award than the potential value of the contract would allow if all expected goods or services are delivered (i.e., the base contract and exercised options).</p>
+            <p>This contract has a total obligated amount that exceeds its Potential Award Amount. In other words, more money has been obligated to this award than should be possible based on the potential value of the contract if all options are exercised and all expected goods or services are delivered (i.e., the base contract and exercised options).</p>
             <p>Such over-obligation can occur because of missing data, errors in the data, or violations of procurement policy.</p>
         </div>
     </div>
