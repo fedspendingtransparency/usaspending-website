@@ -20,6 +20,7 @@ import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
 import CFDAOverview from './CFDAOverview';
 import AwardDescription from '../shared/description/AwardDescription';
+import { contractActivityGrants } from '../shared/InfoTooltipContent';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -94,7 +95,13 @@ const FinancialAssistanceContent = ({
                 <AwardDescription description={overview.description} awardType={overview.category} awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
-                {isGrant && <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />}
+                {isGrant && (
+                    <ComingSoonSection
+                        title="Grant Activity"
+                        icon="chart-area"
+                        includeHeader
+                        toolTipContent={contractActivityGrants} />
+                )}
                 {!isGrant && (
                     <ComingSoonSection
                         title="CFDA Program / Assistance Listing Information"

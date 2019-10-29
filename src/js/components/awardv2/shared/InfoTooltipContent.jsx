@@ -780,6 +780,36 @@ export const datesInfoIdv = (
     </div>
 );
 
+export const contractActivityGrants = (
+    <div>
+        <div className="info-tooltip__title">
+            Contract Activity
+        </div>
+        <div className="info-tooltip__text">
+            <p>This chart displays modifications made over the course of this grant’s period of performance.  It gives you a sense of how obligations on this grant were made over time, and how they changed the value of the grant.</p>
+            <div>
+                <strong>Grant Transactions</strong>
+                <p className="info-tooltip__text-section">
+                    Each transaction is marked by a dot.  You can hover your cursor over each dot to get more information for that particular transaction.
+                </p>
+                <p className="info-tooltip__text-section">
+                    The vertical placement of each dot (transaction) represents the total amount obligated at that time (up to and including that transaction) and the horizontal placement represents the transaction’s action date.
+                </p>
+            </div>
+            <div>
+                <strong>Start Date</strong>
+                <p className="info-tooltip__text-section">The start date marks when the awarded recipient’s work begins or when the award is otherwise effective.  This is also called the period of performance start date. </p>
+
+            </div>
+            <div>
+                <strong>End Date</strong>
+                <p className="info-tooltip__text-section">The end date marks the end of the grant’s period of performance or when the recipient will finish its work.</p>
+                <p className="info-tooltip__text-section">Administrative actions related to this grant may continue to occur after this date.</p>
+            </div>
+        </div>
+    </div>
+);
+
 export const contractActivityInfoContracts = (
     <div>
         <div className="info-tooltip__title">
