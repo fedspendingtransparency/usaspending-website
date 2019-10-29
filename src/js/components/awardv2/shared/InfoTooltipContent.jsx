@@ -682,6 +682,32 @@ export const datesInfo = (
             Dates
         </div>
         <div className="info-tooltip__text">
+            <strong>Start Date</strong>
+            <p className="info-tooltip__text-section">
+                The start date marks when the awarded recipient’s work begins or when the award is otherwise effective.
+                This is also called the period of performance start date or effective date of the contract.
+            </p>
+            <strong>Current End Date</strong>
+            <p className="info-tooltip__text-section">
+                The current end date marks the end of the contract’s current period of performance or when the recipient will finish its work.
+                This date factors in only currently-exercised contract extension options.
+            </p>
+            <p className="info-tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
+            <strong>Potential End Date</strong>
+            <p className="info-tooltip__text-section">
+                The potential end date marks the end of the contract’s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised. 
+            </p>
+            <p className="info-tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
+        </div>
+    </div>
+);
+
+export const datesInfoIdv = (
+    <div>
+        <div className="info-tooltip__title">
+            Dates
+        </div>
+        <div className="info-tooltip__text">
             <p>The dates below are described in more detail:</p>
             <ul>
                 <li>

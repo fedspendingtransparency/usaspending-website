@@ -9,7 +9,7 @@ import moment from 'moment';
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 
 import InfoTooltip from '../InfoTooltip';
-import { datesInfo } from '../InfoTooltipContent';
+import { datesInfoIdv, datesInfo } from '../InfoTooltipContent';
 import AwardSection from '../AwardSection';
 
 const propTypes = {
@@ -30,8 +30,8 @@ const titles = {
 export default class AwardDates extends React.Component {
     tooltipInfo() {
         const { awardType } = this.props;
-        if (awardType === 'idv') return datesInfo;
-        if (awardType === 'contract') return null;
+        if (awardType === 'idv') return datesInfoIdv;
+        if (awardType === 'contract') return datesInfo;
         if (awardType === 'definitive contract') return null;
         if (awardType === 'grant') return null;
         if (awardType === 'loan') return null;
