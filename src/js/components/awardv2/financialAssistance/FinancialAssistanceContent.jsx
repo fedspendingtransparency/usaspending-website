@@ -91,7 +91,7 @@ const FinancialAssistanceContent = ({
                     awardOverview={awardAmountData}
                     tooltipProps={defaultTooltipProps}
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
-                <AwardDescription description={overview.description} awardId={awardId} />
+                <AwardDescription description={overview.description} awardType={overview.category} awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
                 {isGrant && <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />}

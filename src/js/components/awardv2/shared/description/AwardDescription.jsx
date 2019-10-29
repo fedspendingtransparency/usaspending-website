@@ -6,18 +6,20 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { SpeechBubble, Glossary } from 'components/sharedComponents/icons/Icons';
-import { descriptionInfo } from '../../shared/InfoTooltipContent';
+import { descriptionInfo, descriptionInfoContract } from '../../shared/InfoTooltipContent';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 import AwardSectionExpandButton from '../AwardSectionExpandButton';
 import LineTree from './LineTree';
+
+import { AWARD_TYPE_PROPS } from "../../../../propTypes";
 
 const propTypes = {
     awardId: PropTypes.string,
     description: PropTypes.string,
     naics: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
     psc: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
-    isIdv: PropTypes.bool
+    awardType: AWARD_TYPE_PROPS
 };
 
 const maxChars = 300;
@@ -27,9 +29,12 @@ const AwardDescription = ({
     description,
     naics = null,
     psc = null,
-    isIdv = false
+    awardType
 }) => {
     const [isExpanded, setExpanded] = useState(false);
+    const isIdv = awardType === 'idv';
+    const tooltip = awardType === 'contract' ? descriptionInfoContract : descriptionInfo;
+
     let value = description;
     const overflow = value.length > maxChars;
     if (overflow && !isExpanded) {
@@ -40,10 +45,9 @@ const AwardDescription = ({
     if (overflow) {
         button = <AwardSectionExpandButton type="secondary" isExpanded={isExpanded} setExpanded={setExpanded} />;
     }
-
     return (
         <AwardSection type="column" className="award-viz award-description">
-            <AwardSectionHeader icon={<SpeechBubble />} tooltip={descriptionInfo} title="Description" />
+            <AwardSectionHeader icon={<SpeechBubble />} tooltip={tooltip} title="Description" tooltipWide={(awardType === 'contract')} />
             <div className="award-description__content">
                 <p className="award-description__description">
                     {value} {button}
