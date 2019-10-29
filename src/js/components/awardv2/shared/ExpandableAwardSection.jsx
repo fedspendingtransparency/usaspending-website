@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const propTypes = {
     type: PropTypes.oneOf(["primary", "secondary"]),
     buttonClass: PropTypes.string,
-    content: PropTypes.string,
+    content: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     secondaryContainerClass: PropTypes.string,
     primaryContainerClass: PropTypes.string,
     children: PropTypes.node
