@@ -92,7 +92,9 @@ const FinancialAssistanceContent = ({
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             {isGrant && (
-                <CFDASection data={overview.biggestCfda} />
+                <AwardSection type="row">
+                    <CFDASection data={overview.biggestCfda} />
+                </AwardSection>
             )}
             <AwardSection className="award-history-section" type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
