@@ -12,7 +12,7 @@ import FederalAccountsVizContainer from 'containers/awardV2/shared/FederalAccoun
 import FederalAccountsSummaryContainer from 'containers/awardV2/shared/FederalAccountsSummaryContainer';
 import Note from 'components/sharedComponents/Note';
 
-import { federalAccountsInfo } from '../../shared/InfoTooltipContent';
+import { federalAccountsInfoIdv, federalAccountsInfoContract } from '../../shared/InfoTooltipContent';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 
@@ -29,13 +29,14 @@ const FederalAccountsSection = ({
     idv
 }) => {
     const infoTooltip = idv
-        ? federalAccountsInfo
-        : null;
+        ? federalAccountsInfoIdv
+        : federalAccountsInfoContract;
     return (
         <AwardSection type="column" className="award-viz federal-accounts">
             <AwardSectionHeader
                 icon={<FontAwesomeIcon size="lg" icon="chart-pie" />}
                 title="Federal Accounts"
+                tooltipWide
                 tooltip={infoTooltip} />
             <div className="award__col__content">
                 <FederalAccountsVizContainer />

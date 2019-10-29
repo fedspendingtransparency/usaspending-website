@@ -894,8 +894,34 @@ export const idvActivityInfo = (
         </div>
     </div>
 );
+export const federalAccountsInfoContract = (
+    <div>
+        <div className="info-tooltip__title">
+            Federal Accounts
+        </div>
+        <div className="info-tooltip__text">
+            <p className="info-tooltip__text-section">
+                The funding committed by the government to an award is stored in federal accounts.  The federal accounts and the amounts they have committed to this award are displayed here.
+            </p>
+            <strong>Viewing Options for this Visual: </strong>
+            <p className="info-tooltip__text-section">
+                You can view federal account data as a list or as a treemap by clicking on the buttons at the top right corner of this section. The chart below this data provides a Summary of All Federal Accounts Used by this Award.
+            </p>
+            <p className="info-tooltip__text-section">
+                In the list view, a summary table displays the total reported funding committed to this award from each contributing federal account, as well as associated funding agencies and awarding agencies.
+            </p>
+            <p className="info-tooltip__text-section">
+                In the treemap view, each proportionately-sized rectangle represents a different federal account’s portion of the total funding for this award.
+            </p>
+            <strong>Data Shown in this Visual</strong>
+            <p className="info-tooltip__text-section">
+                This visual leverages funding data directly submitted from agency financial accounting systems, also known as “Award Financial” or “Account Breakdown by Award” data. This data, which links each Treasury account to each Award transaction it funds, connects award spending to the appropriation, budgeting, and allocation processes, which channel Congressional and Administration intent and determine how much money is assigned to each federal account.
+            </p>
+        </div>
+    </div>
+);
 
-export const federalAccountsInfo = (
+export const federalAccountsInfoIdv = (
     <div>
         <div className="info-tooltip__title">
             Federal Accounts
