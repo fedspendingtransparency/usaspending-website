@@ -2,7 +2,7 @@
     .award-description__content {
         font-size: $small-font-size;
         .award-description__description {
-
+            margin-bottom: rem(28);
             .award-description__button {
                 @include button-unstyled;
                 @include display(flex);
