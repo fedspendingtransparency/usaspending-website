@@ -10,7 +10,6 @@ import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 
 import InfoTooltip from '../InfoTooltip';
-import { datesInfoIdv, datesInfo } from '../InfoTooltipContent';
 import AwardSection from '../AwardSection';
 
 const propTypes = {
