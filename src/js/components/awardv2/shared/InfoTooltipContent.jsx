@@ -402,7 +402,7 @@ export const summaryRelatedAwardsInfo = (
             </p>
         </div>
     </div>
-)
+);
 
 export const summaryRelatedAwardsInfoIdv = (
     <div>
@@ -752,7 +752,7 @@ export const datesInfo = (
             <p className="info-tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
             <strong>Potential End Date</strong>
             <p className="info-tooltip__text-section">
-                The potential end date marks the end of the contract’s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised. 
+                The potential end date marks the end of the contract’s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised.
             </p>
             <p className="info-tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
         </div>
