@@ -17,10 +17,8 @@ const mockAssistanceTransaction = {
 };
 
 const mockLoanTransaction = {
-    original_loan_subsidy_cost: '234.58',
-    assistance_data: {
-        face_value_loan_guarantee: '1230.4'
-    }
+    face_value_loan_guarantee: '1230.4',
+    original_loan_subsidy_cost: '234.58'
 };
 
 const contractTransaction = Object.create(BaseContractTransaction);
