@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
+import { titles } from 'dataMapping/awardsv2/datesSection';
 
 import InfoTooltip from '../InfoTooltip';
 import AwardSection from '../AwardSection';
@@ -15,16 +16,6 @@ import AwardSection from '../AwardSection';
 const propTypes = {
     dates: PropTypes.object,
     awardType: PropTypes.string
-};
-
-const titles = {
-    idv: ['Start Date', 'Ordering Period End Date'],
-    contract: ['Start Date', 'Current End Date', 'Potential End Date'],
-    grant: ['Start Date', 'Current End Date'],
-    loan: ['Start Date', 'Current End Date'],
-    'direct payment': ['Start Date', 'Current End Date'],
-    insurance: ['Start Date', 'Current End Date'],
-    other: ['Start Date', 'Current End Date']
 };
 
 export default class AwardDates extends React.Component {
