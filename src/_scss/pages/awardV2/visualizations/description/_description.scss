@@ -61,9 +61,7 @@
             }
             .naics-psc__heading {
                 font-weight: $font-semibold;
-                @include display(flex);
                 .naics-psc__icon {
-                    @include flex(0 0 auto);
                     padding-left: rem(5);
                     svg {
                         height: rem(12);

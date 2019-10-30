@@ -53,11 +53,11 @@ const AwardDescription = ({
                         <div className="naics-psc__section">
                             <div className="naics-psc__heading">
                                 North American Industry Classification System (NAICS) Code
-                                <div className="naics-psc__icon">
+                                <span className="naics-psc__icon">
                                     <a href={`#/award/${awardId}/?glossary=naics`}>
                                         <Glossary />
                                     </a>
-                                </div>
+                                </span>
                             </div>
                             {!isIdv && <LineTree type="naics" data={naics} />}
                             {isIdv && naics}
@@ -65,11 +65,11 @@ const AwardDescription = ({
                         <div className="naics-psc__section naics-psc__section_psc">
                             <div className="naics-psc__heading">
                                 Product Service Code (PSC)
-                                <div className="naics-psc__icon">
+                                <span className="naics-psc__icon">
                                     <a href={`#/award/${awardId}/?glossary=productservice-code-psc`}>
                                         <Glossary />
                                     </a>
-                                </div>
+                                </span>
                             </div>
                             {!isIdv && <LineTree type="psc" data={psc} />}
                             {isIdv && psc}
