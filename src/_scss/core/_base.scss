@@ -26,7 +26,10 @@ body {
           fill: $color-gray;
       }
     }
-    .award__icon {
+    .info-tooltip__icon {
+      background-color: transparent;
+      margin: 0 0 0 rem(5);
+      padding: 0;
       color: $color-gray-light;
       &:hover, &:focus {
           color: $color-gray;

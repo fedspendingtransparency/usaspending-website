@@ -84,12 +84,6 @@
                 }
             }
 
-            .award__icon {
-                background-color: transparent;
-                margin: 0 0 0 rem(5);
-                padding: 0;
-            }
-
             .award__row {
                 @include display(flex);
                 @include flex-wrap(wrap);
