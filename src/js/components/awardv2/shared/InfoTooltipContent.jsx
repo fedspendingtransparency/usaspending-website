@@ -393,12 +393,12 @@ export const summaryRelatedAwardsInfo = (
             <strong>Parent IDV</strong>
             <p className="info-tooltip__text-section">A parent IDV, or parent indefinite delivery vehicle, is any award that has other prime awards made under it.</p>
             <p className="info-tooltip__text-section">The contract summarized on this page is a “child” prime award of the parent IDV indicated here.</p>
-            <p className="info-tooltip__text-section">Click on the award ID to view the summary page of this award’s parent IDV, which details all of that IDV&apos;s “child” and “grandchild” awards.</p>
+            <p className="info-tooltip__text-section">Click on the award ID to view the summary page of this award&apos;s parent IDV, which details all of that IDV&apos;s “child” and “grandchild” awards.</p>
             <strong>Sub-Awards</strong>
             <p className="info-tooltip__text-section">
                 This is the count of sub-awards (in this case, sub-contracts to furnish supplies or services to advance the prime contract) issued and reported directly
                 by the prime recipient. For more details, click on the count to scroll to the Sub-Awards tab within the Award History section of this page.
-                Sub-awards are always referred to as such and are independent of the ‘child’ and ‘grandchild’ prime award structure discussed above.
+                Sub-awards are always referred to as such and are independent of the ‘child&apos; and ‘grandchild&apos; prime award structure discussed above.
             </p>
         </div>
     </div>
@@ -733,6 +733,30 @@ export const awardHistoryFinancialAssistanceLoan = (
     </div>
 );
 
+export const datesInfoAsst = (
+    <div>
+        <div className="info-tooltip__title">
+            Dates
+        </div>
+        <div className="info-tooltip__text">
+            <strong>Start Date</strong>
+            <p className="info-tooltip__text-section">
+                The start date marks when the awarded recipient&apos;s work begins or when the award is otherwise effective.  This is also called the period of performance start date.
+            </p>
+            <strong>End Date</strong>
+            <p className="info-tooltip__text-section">
+                The end date marks the end of the award&apos;s period of performance, when the recipient will finish its work or the award will otherwise end.
+            </p>
+            <p className="info-tooltip__text-section">
+                Note that administrative actions related to this award may continue to occur after this date.
+            </p>
+            <p className="info-tooltip__text-section">
+                Assistance awards are sometimes subject to extensions, noncompetitive continuations, or early termination; if any of these occur, they will be indicated by a modification that alters the end date.
+            </p>
+        </div>
+    </div>
+);
+
 export const datesInfo = (
     <div>
         <div className="info-tooltip__title">
@@ -741,18 +765,18 @@ export const datesInfo = (
         <div className="info-tooltip__text">
             <strong>Start Date</strong>
             <p className="info-tooltip__text-section">
-                The start date marks when the awarded recipient’s work begins or when the award is otherwise effective.
+                The start date marks when the awarded recipient&apos;s work begins or when the award is otherwise effective.
                 This is also called the period of performance start date or effective date of the contract.
             </p>
             <strong>Current End Date</strong>
             <p className="info-tooltip__text-section">
-                The current end date marks the end of the contract’s current period of performance or when the recipient will finish its work.
+                The current end date marks the end of the contract&apos;s current period of performance or when the recipient will finish its work.
                 This date factors in only currently-exercised contract extension options.
             </p>
             <p className="info-tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
             <strong>Potential End Date</strong>
             <p className="info-tooltip__text-section">
-                The potential end date marks the end of the contract’s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised.
+                The potential end date marks the end of the contract&apos;s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised.
             </p>
             <p className="info-tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
         </div>
@@ -786,24 +810,24 @@ export const contractActivityGrants = (
             Contract Activity
         </div>
         <div className="info-tooltip__text">
-            <p>This chart displays modifications made over the course of this grant’s period of performance.  It gives you a sense of how obligations on this grant were made over time, and how they changed the value of the grant.</p>
+            <p>This chart displays modifications made over the course of this grant&apos;s period of performance.  It gives you a sense of how obligations on this grant were made over time, and how they changed the value of the grant.</p>
             <div>
                 <strong>Grant Transactions</strong>
                 <p className="info-tooltip__text-section">
                     Each transaction is marked by a dot.  You can hover your cursor over each dot to get more information for that particular transaction.
                 </p>
                 <p className="info-tooltip__text-section">
-                    The vertical placement of each dot (transaction) represents the total amount obligated at that time (up to and including that transaction) and the horizontal placement represents the transaction’s action date.
+                    The vertical placement of each dot (transaction) represents the total amount obligated at that time (up to and including that transaction) and the horizontal placement represents the transaction&apos;s action date.
                 </p>
             </div>
             <div>
                 <strong>Start Date</strong>
-                <p className="info-tooltip__text-section">The start date marks when the awarded recipient’s work begins or when the award is otherwise effective.  This is also called the period of performance start date. </p>
+                <p className="info-tooltip__text-section">The start date marks when the awarded recipient&apos;s work begins or when the award is otherwise effective.  This is also called the period of performance start date. </p>
 
             </div>
             <div>
                 <strong>End Date</strong>
-                <p className="info-tooltip__text-section">The end date marks the end of the grant’s period of performance or when the recipient will finish its work.</p>
+                <p className="info-tooltip__text-section">The end date marks the end of the grant&apos;s period of performance or when the recipient will finish its work.</p>
                 <p className="info-tooltip__text-section">Administrative actions related to this grant may continue to occur after this date.</p>
             </div>
         </div>
@@ -817,7 +841,7 @@ export const contractActivityInfoContracts = (
         </div>
         <div className="info-tooltip__text">
             <p>
-                This chart displays modifications made over the course of this contract’s period of performance.
+                This chart displays modifications made over the course of this contract&apos;s period of performance.
                 It gives you a sense of how obligations on this contract were made over time and how they changed the value of the contract.
             </p>
             <div>
@@ -826,7 +850,7 @@ export const contractActivityInfoContracts = (
                     Each transaction is marked by a dot.  You can hover your cursor over each dot to get more information for that particular transaction.
                 </p>
                 <p className="info-tooltip__text-section">
-                    The vertical placement of each dot (transaction) represents the total amount obligated at that time (up to and including that transaction) and the horizontal placement represents the transaction’s action date.
+                    The vertical placement of each dot (transaction) represents the total amount obligated at that time (up to and including that transaction) and the horizontal placement represents the transaction&apos;s action date.
                 </p>
             </div>
             <div>
@@ -838,13 +862,13 @@ export const contractActivityInfoContracts = (
             <div>
                 <strong>Start Date</strong>
                 <p className="info-tooltip__text-section">
-                    The start date marks when the awarded recipient’s work begins or when this contract is otherwise effective.  This is also called the period of performance start date or effective date.
+                    The start date marks when the awarded recipient&apos;s work begins or when this contract is otherwise effective.  This is also called the period of performance start date or effective date.
                 </p>
             </div>
             <div>
                 <strong>Current End Date</strong>
                 <p className="info-tooltip__text-section">
-                    The current end date marks the end of this contract’s current period of performance or when the recipient will finish its work.  This date factors in only currently-exercised contract extension options.
+                    The current end date marks the end of this contract&apos;s current period of performance or when the recipient will finish its work.  This date factors in only currently-exercised contract extension options.
                 </p>
                 <p className="info-tooltip__text-section">
                     Note that administrative actions related to this contract may continue to occur after this date.
@@ -853,7 +877,7 @@ export const contractActivityInfoContracts = (
             <div>
                 <strong>Potential End Date</strong>
                 <p className="info-tooltip__text-section">
-                    The potential end date marks the end of this contract’s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised.
+                    The potential end date marks the end of this contract&apos;s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised.
                 </p>
                 <p className="info-tooltip__text-section">
                     Note that administrative actions related to this contract may continue to occur after this date.
@@ -955,7 +979,7 @@ export const federalAccountsInfoContract = (
                 In the list view, a summary table displays the total reported funding committed to this award from each contributing federal account, as well as associated funding agencies and awarding agencies.
             </p>
             <p className="info-tooltip__text-section">
-                In the treemap view, each proportionately-sized rectangle represents a different federal account’s portion of the total funding for this award.
+                In the treemap view, each proportionately-sized rectangle represents a different federal account&apos;s portion of the total funding for this award.
             </p>
             <strong>Data Shown in this Visual</strong>
             <p className="info-tooltip__text-section">
@@ -1049,7 +1073,7 @@ export const subAwardsTabContract = (
         <div className="info-tooltip__text">
             <p>
                 The Sub-Awards tab displays any sub-contracts reported by this contract&apos;s
-                recipient (the ‘prime recipient’ in a sub-award context). Sub-contracts are
+                recipient (the ‘prime recipient&apos; in a sub-award context). Sub-contracts are
                 contractual agreements that a prime recipient makes with another entity
                 (sub-recipient) to furnish supplies or services for the prime contract.
             </p>

@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
+import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 
 import InfoTooltip from '../InfoTooltip';
 import { datesInfoIdv, datesInfo } from '../InfoTooltipContent';
@@ -28,19 +29,6 @@ const titles = {
 };
 
 export default class AwardDates extends React.Component {
-    tooltipInfo() {
-        const { awardType } = this.props;
-        if (awardType === 'idv') return datesInfoIdv;
-        if (awardType === 'contract') return datesInfo;
-        if (awardType === 'definitive contract') return null;
-        if (awardType === 'grant') return null;
-        if (awardType === 'loan') return null;
-        if (awardType === 'insurance') return null;
-        if (awardType === 'direct payment') return null;
-        if (awardType === 'other') return null;
-        return null;
-    }
-
     timelineInfo(startDate, endDate) {
         let timeline = (
             <div className="timeline" />
@@ -117,7 +105,7 @@ export default class AwardDates extends React.Component {
         const { dates, awardType } = this.props;
         const { startDate, endDate } = this.datesByAwardType();
         const { timeline, remainingText, remainingLabel } = this.timelineInfo(startDate, endDate);
-        const tooltipInfo = this.tooltipInfo();
+        const tooltipInfo = getToolTipBySectionAndAwardType('dates', awardType);
 
         return (
             <AwardSection type="column">

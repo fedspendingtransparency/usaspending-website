@@ -37,7 +37,9 @@ const tooltipsBySectionByAwardType = {
         default: tooltips.federalAccountsInfoContract
     },
     dates: {
-        
+        contract: tooltips.datesInfo,
+        idv: tooltips.datesInfoIdv,
+        asst: tooltips.datesInfoAsst
     }
 };
 
