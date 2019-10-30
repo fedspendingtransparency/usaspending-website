@@ -43,11 +43,10 @@
                       padding-right: rem(15);
                       svg {
                           @include display(flex);
-                          fill: $color-gray-light;
                           height: rem(20);
                           width: rem(20);
                       }
-                      &:hover, &:focus {
+                      &:focus {
                           svg {
                               fill: $color-gray;
                           }
@@ -89,7 +88,6 @@
                 background-color: transparent;
                 margin: 0 0 0 rem(5);
                 padding: 0;
-                color: $color-gray-border;
             }
 
             .award__row {

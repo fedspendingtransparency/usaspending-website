@@ -20,6 +20,18 @@ body {
         overflow: hidden;
         position: fixed;
     }
+    .usa-da-icon-guide {
+      fill: $color-gray-border;
+      &:hover {
+          fill: $color-gray;
+      }
+    }
+    .award__icon {
+      color: $color-gray-light;
+      &:hover, &:focus {
+          color: $color-gray;
+      }
+    }
 }
 
 // Hack for clearfixes

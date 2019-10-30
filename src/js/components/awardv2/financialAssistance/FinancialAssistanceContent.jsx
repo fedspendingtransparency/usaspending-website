@@ -69,6 +69,7 @@ const FinancialAssistanceContent = ({
             idLabel={idLabel}
             awardType={overview.category}
             glossaryLink={glossaryLink}
+            overviewType={overview.type}
             title={overview.title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             className="award-financial-assistance">
