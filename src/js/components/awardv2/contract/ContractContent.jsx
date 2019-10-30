@@ -80,7 +80,7 @@ const ContractContent = ({ awardId, overview, jumpToSection }) => {
                     title="Contract Activity"
                     includeHeader
                     icon="chart-area" />
-                <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} awardType={overview.category} />
             </AwardSection>
             <AwardSection className="award-history-section" type="row">
                 <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />

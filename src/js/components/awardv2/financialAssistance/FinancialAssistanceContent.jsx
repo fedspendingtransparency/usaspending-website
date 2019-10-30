@@ -108,7 +108,7 @@ const FinancialAssistanceContent = ({
                         icon="hands-helping"
                         includeHeader />
                 )}
-                <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                <FederalAccountsSection awardType={overview.category} jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             {isGrant && (
                 <AwardSection className="award-cfda-section" type="row">

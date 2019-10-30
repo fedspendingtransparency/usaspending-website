@@ -84,7 +84,7 @@ const IdvContent = ({
             <AwardSection type="row">
                 <IdvActivityContainer />
                 <FederalAccountsSection
-                    idv
+                    awardType={overview.category}
                     jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             <ReferencedAwardsContainer

@@ -26,6 +26,18 @@ const tooltipsBySectionByAwardType = {
     federalAccountFunding: {
         idv: tooltips.federalAccountFundingInfoIDV,
         default: tooltips.federalAccountFundingInfoGeneric
+    },
+    awardAmounts: {
+        contract: tooltips.ContractAwardAmountsInfo,
+        loan: tooltips.LoanAwardAmountsInfo,
+        asst: tooltips.GrantAwardAmountsInfo
+    },
+    federalAccounts: {
+        idv: tooltips.federalAccountsInfoIdv,
+        default: tooltips.federalAccountsInfoContract
+    },
+    dates: {
+        
     }
 };
 

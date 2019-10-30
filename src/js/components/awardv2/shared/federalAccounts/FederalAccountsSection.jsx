@@ -8,17 +8,18 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import FederalAccountsVizContainer from 'containers/awardV2/shared/FederalAccountsVizContainer';
+import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 // eslint-disable-next-line max-len
 import FederalAccountsSummaryContainer from 'containers/awardV2/shared/FederalAccountsSummaryContainer';
 import Note from 'components/sharedComponents/Note';
 
-import { federalAccountsInfoIdv, federalAccountsInfoContract } from '../../shared/InfoTooltipContent';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
+import { AWARD_TYPE_PROPS } from '../../../../propTypes/index';
 
 const propTypes = {
     jumpToFederalAccountsHistory: PropTypes.func,
-    idv: PropTypes.bool
+    awardType: AWARD_TYPE_PROPS
 };
 
 // eslint-disable-next-line max-len
@@ -26,11 +27,9 @@ const message = 'Result count may differ between treemap view and table view. Tr
 
 const FederalAccountsSection = ({
     jumpToFederalAccountsHistory,
-    idv
+    awardType
 }) => {
-    const infoTooltip = idv
-        ? federalAccountsInfoIdv
-        : federalAccountsInfoContract;
+    const infoTooltip = getToolTipBySectionAndAwardType('federalAccounts', awardType);
     return (
         <AwardSection type="column" className="award-viz federal-accounts">
             <AwardSectionHeader
