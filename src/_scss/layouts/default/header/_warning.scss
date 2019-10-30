@@ -7,15 +7,13 @@
     .info-banner__content {
         @include display(flex);
         @include align-items(flex-start);
-        .info-banner__alert-icon {
+        .info-banner__info-circle {
             @include flex(0 0 auto);
-            padding: rem(5) rem(15);
-            svg {
-                margin-top: rem(4);
-                height: rem(26);
-                width: rem(26);
-                fill: $color-primary-alt-light;
-            }
+            padding: rem(5) rem(5) rem(5) rem(15);
+            color: $color-primary-alt-light;
+        }
+        .info-banner__hyphen {
+          padding: 0 rem(2);
         }
         .info-banner__alert-text {
             @include flex(1 1 auto);
@@ -31,27 +29,18 @@
                 padding-bottom: rem(3);
             }
         }
+        .info-banner__description-external-link {
+          color: $color-link;
+          padding-left: rem(5);
+        }
         .info-banner__close-button {
             @include flex(0 0 auto);
             @include button-unstyled;
-            padding: rem(10) rem(15);
-            svg {
-                fill: $color-gray;
-                width: rem(16);
-                height: rem(16);
-            }
+            padding: rem(5) rem(10);
         }
     }
     &.info-banner_warning {
         background: $color-warning;
         border-top: none;
-
-        .info-banner__content {
-            .info-banner__alert-icon {
-                svg {
-                    fill: $color-warning-dark;
-                }
-            }
-        }
     }
 }

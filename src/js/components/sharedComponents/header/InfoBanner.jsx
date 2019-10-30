@@ -1,17 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InfoCircle, Close } from 'components/sharedComponents/icons/Icons';
 import Analytics from 'helpers/analytics/Analytics';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { twentyNineteenFiscalDataCookie } from './Header';
 
 const propTypes = {
     closeBanner: PropTypes.func
-};
-
-const clickedBannerLink = (route) => {
-    Analytics.event({
-        category: 'Banner - Link',
-        action: route
-    });
 };
 
 export default class InfoBanner extends React.Component {
@@ -19,44 +14,49 @@ export default class InfoBanner extends React.Component {
         super(props);
         this.bannerClosed = this.bannerClosed.bind(this);
     }
+
     bannerClosed() {
-        this.props.closeBanner('showInfoBanner', 'usaspending_info_banner');
+        this.props.closeBanner('showInfoBanner', twentyNineteenFiscalDataCookie);
     }
+
+    clickedBannerLink = () => {
+        Analytics.event({
+            category: 'Banner - Link',
+            action: 'https://datalab.usaspending.gov/americas-finance-guide/'
+        });
+    }
+
     render() {
         return (
             <div className="info-banner">
                 <div className="info-banner__content">
-                    <div className="info-banner__alert-icon">
-                        <i className="usa-da-icon">
-                            <InfoCircle alt="Information" />
-                        </i>
-                    </div>
+                    <span className="info-banner__info-circle">
+                        <FontAwesomeIcon size="lg" icon="info-circle" />
+                    </span>
                     <div className="info-banner__alert-text">
                         <div className="info-banner__title-text">
-                            Welcome to the new USAspending.gov!
+                            Updated with FY 2019 Data - Your Guide to America&#39;s Finances
                         </div>
-                        We will continue to improve the data quality and display on a rolling basis.
-                        Questions? Check out our&nbsp;
+                        Your Guide provides a snapshot of 2019 Fiscal Year revenue,
+                        spending, deficit, debt, along with data for download.
+                        <span className="info-banner__hyphen">-</span>
                         <a
-                            href="#/about"
-                            onClick={clickedBannerLink.bind(null, '/about')}>
-                            About
-                        </a> page for important information on the data and authoritative sources
-                        or join the conversation on our&nbsp;
-                        <a
-                            href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
+                            href="https://datalab.usaspending.gov/americas-finance-guide/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            onClick={clickedBannerLink.bind(null, 'https://usaspending-help.zendesk.com/hc/en-us/community/topics')}>
-                            Community
-                        </a> page.
+                            onClick={this.clickedBannerLink}>
+                        https://datalab.usaspending.gov/americas-finance-guide/
+                        </a>
+                        <span className="info-banner__description-external-link">
+                            <FontAwesomeIcon icon="external-link-alt" />
+                        </span>
                     </div>
                     <button
                         className="info-banner__close-button"
                         title="Dismiss message"
                         aria-label="Dismiss message"
                         onClick={this.bannerClosed}>
-                        <Close alt="Dismiss message" />
+                        <FontAwesomeIcon size="lg" alt="Dismiss message" icon="times" />
                     </button>
                 </div>
             </div>

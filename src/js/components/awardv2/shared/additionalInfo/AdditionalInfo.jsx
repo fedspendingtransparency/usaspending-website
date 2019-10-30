@@ -182,6 +182,7 @@ export default class AdditionalInfo extends React.Component {
         if (category === 'grant' ||
             category === 'loans' ||
             category === 'direct payment' ||
+            category === 'insurance' ||
             category === 'other') {
             const { columnOne, columnTwo } = this.faColumns();
             firstColumn = columnOne;
