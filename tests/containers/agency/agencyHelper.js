@@ -74,15 +74,3 @@ export const fetchAgencyMinorObjectClasses = () => (
     }
 );
 
-export const fetchAgencyCgacCode = () => (
-    {
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({
-                    data: mockCgacApi
-                });
-            });
-        }),
-        cancel: jest.fn()
-    }
-);

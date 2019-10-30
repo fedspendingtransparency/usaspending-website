@@ -1,26 +1,11 @@
-import { mockRecipientLocation, mockRecipientDUNS } from './recipientFilter/mockRecipients';
+import { mockRecipientDUNS } from './recipientFilter/mockRecipients';
 import { mockAgencies } from './agencyFilter/mockAgencies';
-import { mockAwardIDs } from './awardID/mockAwardIDs';
 import { mockApi, mockV2TableApi, mockTabCount } from '../table/mockAwards';
 import { mockCFDA } from './cfda/mockCFDA';
 import { mockNAICS } from './naics/mockNAICS';
 import { mockPSC } from './psc/mockPSC';
 
 import { mockHash, mockFilters } from '../mockSearchHashes';
-
-// Fetch Locations for Autocomplete
-export const fetchLocations = () => (
-    {
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({
-                    data: mockRecipientLocation
-                });
-            });
-        }),
-        cancel: jest.fn()
-    }
-);
 
 // Fetch Recipients
 export const fetchRecipients = () => (
@@ -98,20 +83,6 @@ export const fetchPSC = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockPSC
-                });
-            });
-        }),
-        cancel: jest.fn()
-    }
-);
-
-// Fetch Award IDs
-export const fetchAwardIDs = () => (
-    {
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({
-                    data: mockAwardIDs
                 });
             });
         }),
