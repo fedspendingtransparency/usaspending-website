@@ -13,21 +13,21 @@ import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 const BaseFinancialAssistance = Object.create(CoreAward);
 export const emptyCfda = {
     total_funding_amount: -Infinity,
-    cfda_title: '',
-    cfda_number: ''
+    cfdaTitle: '',
+    cfdaNumber: ''
 };
 
 const getLargestCfda = (acc, cfdaItem) => {
     if (cfdaItem.total_funding_amount > acc.total_funding_amount) {
         return {
-            samWebsite: cfdaItem.sam_website,
-            cfdaWebsite: cfdaItem.cfda_website,
-            cfdaFederalAgency: cfdaItem.cfda_federal_agency,
-            cfdaNumber: cfdaItem.cfda_number,
-            cfdaTitle: cfdaItem.cfda_title,
-            applicantEligibility: cfdaItem.applicant_eligibility,
-            beneficiaryEligibility: cfdaItem.beneficiary_eligibility,
-            cfdaObjectives: cfdaItem.cfda_objectives
+            samWebsite: cfdaItem.sam_website || '',
+            cfdaWebsite: cfdaItem.cfda_website || '',
+            cfdaFederalAgency: cfdaItem.cfda_federal_agency || '',
+            cfdaNumber: cfdaItem.cfda_number || '',
+            cfdaTitle: cfdaItem.cfda_title || '',
+            applicantEligibility: cfdaItem.applicant_eligibility || '',
+            beneficiaryEligibility: cfdaItem.beneficiary_eligibility || '',
+            cfdaObjectives: cfdaItem.cfda_objectives || ''
         };
     }
     return acc;
