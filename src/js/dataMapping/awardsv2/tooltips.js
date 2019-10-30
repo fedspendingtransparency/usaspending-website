@@ -1,15 +1,31 @@
-import {
-    descriptionInfo,
-    descriptionInfoContract,
-    descriptionInfoAsst
-} from '../../components/awardv2/shared/InfoTooltipContent';
+import * as tooltips from '../../components/awardv2/shared/InfoTooltipContent';
 import { isAwardFinancialAssistance } from '../../helpers/awardSummaryHelper';
 
 const tooltipsBySectionByAwardType = {
     description: {
-        asst: descriptionInfoAsst,
-        contract: descriptionInfoContract,
-        default: descriptionInfo
+        asst: tooltips.descriptionInfoAsst,
+        contract: tooltips.descriptionInfoContract,
+        default: tooltips.descriptionInfo
+    },
+    awardHistory: {
+        idv: tooltips.awardHistoryIdv,
+        contract: tooltips.awardHistoryContract,
+        grant: tooltips.awardHistoryContract,
+        loan: tooltips.awardHistoryFinancialAssistanceLoan,
+        asst: tooltips.awardHistoryFinancialAssistanceGeneric
+    },
+    transactionHistory: {
+        idv: tooltips.transactionHistoryInfoGeneric,
+        contract: tooltips.transactionHistoryInfoContract,
+        asst: tooltips.transactionHistoryInfoFinancialAssistance
+    },
+    subAwards: {
+        contract: tooltips.subAwardsTabContract,
+        grant: tooltips.subAwardsTabGrant
+    },
+    federalAccountFunding: {
+        idv: tooltips.federalAccountFundingInfoIDV,
+        default: tooltips.federalAccountFundingInfoGeneric
     }
 };
 

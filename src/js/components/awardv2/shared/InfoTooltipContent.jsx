@@ -1086,7 +1086,7 @@ export const subAwardsTabContract = (
 );
 
 export const subAwardsTabGrant = (
-    <div className="transaction-history-tt">
+    <div>
         <div className="info-tooltip__title">Sub-Awards</div>
         <div className="info-tooltip__text">
             <p>

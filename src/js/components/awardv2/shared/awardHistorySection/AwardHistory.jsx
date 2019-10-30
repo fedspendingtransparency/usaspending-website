@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
-import { awardHistorySectionTooltip } from 'dataMapping/awardsv2/awardHistorySection';
+import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 import TablesSection from './TablesSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 
@@ -27,7 +27,7 @@ const AwardHistory = ({
     const sectionTitle = (overview.category === 'idv')
         ? "Award History for this IDV"
         : "Award History";
-    const tooltip = awardHistorySectionTooltip(overview.category);
+    const tooltip = getToolTipBySectionAndAwardType('awardHistory', overview.category);
 
     return (
         <div id="award-award-history" className="award-viz award-history">
