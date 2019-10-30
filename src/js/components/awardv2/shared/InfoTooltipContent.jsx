@@ -463,7 +463,7 @@ export const descriptionInfoContract = (
         <div className="info-tooltip__text">
             <p className="info-tooltip__text-section">
                 The description of the award is provided by the contracting officer who submitted this contract data. The level of detail in
-                descriptions varies and is dependent on the author and the standards of the agencies involved.The description featured here comes
+                descriptions varies and is dependent on the author and the standards of the agencies involved. The description featured here comes
                 from the base award of the contract.  Contract transactions (also known as modifications) have their own descriptions available.
                 These transaction descriptions and other details can be viewed in the Transaction History tab of the Award History section located
                 further down this page, or by downloading the data via the top-right “DOWNLOAD” button.
