@@ -13,7 +13,6 @@ import loanTransactionHistoryTable from
     'dataMapping/awardsv2/transactionHistoryTable/loanTransactionHistoryTable';
 import contractMapping from 'dataMapping/contracts/transactionTable';
 import assistanceMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
-import loanMapping from 'dataMapping/financialAssistance/loanTransactionTable';
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
 import TransactionTableHeaderCell from './cells/TransactionTableHeaderCell';
@@ -64,9 +63,6 @@ export default class TransactionsTable extends React.Component {
         }
         else if (category === 'contract') {
             return contractMapping;
-        }
-        else if (category === 'loan') {
-            return loanMapping;
         }
         return assistanceMapping;
     }

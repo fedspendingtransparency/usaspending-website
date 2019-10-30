@@ -108,6 +108,9 @@
                 &.award-contract-activity-section {
                   padding-bottom: 0;
                 }
+                &.federal-accounts-section {
+                  padding-bottom: 0;
+                }
                 .award__col {
                     @include flex(1 1 auto);
                     // Add padding between columns when they are stacked in mobile

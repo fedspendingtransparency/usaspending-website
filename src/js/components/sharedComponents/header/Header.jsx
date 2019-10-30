@@ -15,6 +15,8 @@ const clickedHeaderLink = (route) => {
     });
 };
 
+export const twentyNineteenFiscalDataCookie = 'usaspending_2019_fiscal_data';
+
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
@@ -28,7 +30,7 @@ export default class Header extends React.Component {
     }
     componentWillMount() {
         // check if the info banner cookie exists
-        if (!Cookies.get('usaspending_info_banner')) {
+        if (!Cookies.get(twentyNineteenFiscalDataCookie)) {
             // cookie does not exist, show the banner
             this.setState({
                 showInfoBanner: true
