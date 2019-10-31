@@ -8,13 +8,12 @@ import kGlobalConstants from 'GlobalConstants';
 
 export const fetchAwardFundingSummary = (awardId) => {
     const source = CancelToken.source();
-    const parsedAwardId = encodeURI(awardId);
     return {
         promise: Axios.request({
             url: 'v2/awards/funding_rollup/',
             baseURL: kGlobalConstants.API,
             method: "post",
-            data: { award_id: parsedAwardId },
+            data: { award_id: awardId },
             cancelToken: source.token
         }),
         cancel() {

@@ -73,13 +73,12 @@ export const fetchAwardFedAccountFunding = (params) => {
 
 export const fetchIdvFundingSummary = (awardId) => {
     const source = CancelToken.source();
-    const parsedAwardId = encodeURI(awardId);
     return {
         promise: Axios.request({
             url: 'v2/idvs/funding_rollup/',
             baseURL: kGlobalConstants.API,
             method: "post",
-            data: { award_id: parsedAwardId },
+            data: { award_id: awardId },
             cancelToken: source.token
         }),
         cancel() {
@@ -90,7 +89,6 @@ export const fetchIdvFundingSummary = (awardId) => {
 
 export const fetchIdvDownloadFile = (awardId) => {
     const source = CancelToken.source();
-    const parsedAwardId = encodeURI(awardId);
     return {
         promise: Axios.request({
             url: 'v2/download/idv/',
@@ -99,7 +97,7 @@ export const fetchIdvDownloadFile = (awardId) => {
             headers: {
                 "content-type": "application/json"
             },
-            data: { award_id: parsedAwardId },
+            data: { award_id: awardId },
             cancelToken: source.token
         }),
         cancel() {
