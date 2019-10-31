@@ -37,6 +37,9 @@
                             padding-bottom: 5px;
                             @include display(flex);
                         }
+                        &.tier--1 {
+                          padding-top: 0;
+                        }
                     }
                     .tier--2 {
                         border-left: 3px solid #979797;
@@ -61,6 +64,7 @@
             }
             .naics-psc__heading {
                 font-weight: $font-semibold;
+                padding-bottom: rem(12);
                 .naics-psc__icon {
                     padding-left: rem(5);
                     svg {
