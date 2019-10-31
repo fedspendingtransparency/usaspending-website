@@ -73,6 +73,7 @@ export const requestDownloadCount = (params) => {
 
 export const fetchAssistanceDownloadFile = (awardId) => {
     const source = CancelToken.source();
+    const parsedAwardId = encodeURI(awardId);
     return {
         promise: Axios.request({
             url: 'v2/download/assistance/',
@@ -81,7 +82,7 @@ export const fetchAssistanceDownloadFile = (awardId) => {
             headers: {
                 "content-type": "application/json"
             },
-            data: { award_id: awardId },
+            data: { award_id: parsedAwardId },
             cancelToken: source.token
         }),
         cancel() {
@@ -92,6 +93,7 @@ export const fetchAssistanceDownloadFile = (awardId) => {
 
 export const fetchContractDownloadFile = (awardId) => {
     const source = CancelToken.source();
+    const parsedAwardId = encodeURI(awardId);
     return {
         promise: Axios.request({
             url: 'v2/download/contract/',
@@ -100,7 +102,7 @@ export const fetchContractDownloadFile = (awardId) => {
             headers: {
                 "content-type": "application/json"
             },
-            data: { award_id: awardId },
+            data: { award_id: parsedAwardId },
             cancelToken: source.token
         }),
         cancel() {
@@ -111,6 +113,7 @@ export const fetchContractDownloadFile = (awardId) => {
 
 export const fetchIdvDownloadFile = (awardId) => {
     const source = CancelToken.source();
+    const parsedAwardId = encodeURI(awardId);
     return {
         promise: Axios.request({
             url: 'v2/download/idv/',
@@ -119,7 +122,7 @@ export const fetchIdvDownloadFile = (awardId) => {
             headers: {
                 "content-type": "application/json"
             },
-            data: { award_id: awardId },
+            data: { award_id: parsedAwardId },
             cancelToken: source.token
         }),
         cancel() {
