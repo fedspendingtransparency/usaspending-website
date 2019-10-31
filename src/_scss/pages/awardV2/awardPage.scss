@@ -143,6 +143,11 @@
                             font-size: rem(16px);
                             font-weight: $font-semibold;
                         }
+                        h5 {
+                            font-size: rem(14px);
+                            font-weight: $font-semibold;
+                        }
+                        @import "./shared/expandableAwardSection";
                     }
                 }
             }

@@ -1,4 +1,26 @@
 /* Styles specific to Financial Assistance */
 
-.award-financial-assistance {
+.award {
+    .cfda-section {
+        width: 100%;
+        .award__col__content {
+            .award-expandable-section__primary {
+                h4 {
+                    margin-bottom: 0;
+                }
+                h5 {
+                    margin-top: 30px;
+                    margin-bottom: 0;
+                }
+                h5:nth-of-type(2),
+                h5:last-of-type {
+                    margin-top: 37px;
+                }
+                p {
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+        }
+    }
 }
