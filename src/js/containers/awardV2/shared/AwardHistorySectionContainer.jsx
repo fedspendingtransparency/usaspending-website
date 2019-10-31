@@ -24,7 +24,7 @@ const propTypes = {
     awardId: PropTypes.string
 };
 
-class AwardHistory extends React.Component {
+export class AwardHistory extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -94,7 +94,7 @@ class AwardHistory extends React.Component {
                 }
             });
 
-        Promise.all(tabsWithCounts)
+        return Promise.all(tabsWithCounts)
             .then((result) => {
                 this.setState({ tabs: result }, this.setTableWidth);
                 this.countRequest = null;
