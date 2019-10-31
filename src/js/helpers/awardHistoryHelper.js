@@ -29,9 +29,11 @@ export const fetchFederalAccountFunding = (params) => {
  */
 export const getAwardHistoryCounts = (type, awardId) => {
     const source = CancelToken.source();
+    const parsedAwardId = encodeURI(awardId);
+
     return {
         promise: Axios.request({
-            url: `v2/awards/count/${type}/${awardId}/`,
+            url: `v2/awards/count/${type}/${parsedAwardId}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token

@@ -40,9 +40,10 @@ export const fetchReferencedAwardsCounts = (params) => {
 
 export const fetchAwardAmounts = (awardId) => {
     const source = CancelToken.source();
+    const parsedAwardId = encodeURI(awardId);
     return {
         promise: Axios.request({
-            url: `v2/idvs/amounts/${awardId}/`,
+            url: `v2/idvs/amounts/${parsedAwardId}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
