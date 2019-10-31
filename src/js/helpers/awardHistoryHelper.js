@@ -44,10 +44,9 @@ export const getAwardHistoryFederalAccountsIdv = (awardId) => {
  * @param type: oneOf(['subaward', 'transaction', 'federal_account'])
  */
 export const getAwardHistoryCounts = (type, awardId, isIdv = false) => {
-    if (type === 'federal_account' && isIdv) return getAwardHistoryFederalAccountsIdv(awardId);
     const source = CancelToken.source();
     const parsedAwardId = encodeURI(awardId);
-
+    if (type === 'federal_account' && isIdv) return getAwardHistoryFederalAccountsIdv(parsedAwardId);
     return {
         promise: Axios.request({
             url: `v2/awards/count/${type}/${parsedAwardId}/`,
