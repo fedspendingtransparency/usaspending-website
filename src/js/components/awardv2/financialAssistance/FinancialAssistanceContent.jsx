@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
+import AwardHistory from 'containers/awardV2/shared/AwardHistorySectionContainer';
+
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AwardRecipient from '../shared/overview/AgencyRecipient';
@@ -16,7 +18,6 @@ import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSec
 import AwardSection from '../shared/AwardSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
-import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
 import CFDAOverview from './CFDAOverview';
 import AwardDescription from '../shared/description/AwardDescription';
@@ -96,9 +97,7 @@ const FinancialAssistanceContent = ({
                     <CFDASection data={overview.biggestCfda} />
                 </AwardSection>
             )}
-            <AwardSection className="award-history-section" type="row">
-                <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
-            </AwardSection>
+            <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
             <AdditionalInfo overview={overview} />
         </AwardPageWrapper>
     );

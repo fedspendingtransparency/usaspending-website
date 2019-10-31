@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsContainer';
 import IdvActivityContainer from 'containers/awardV2/idv/IdvActivityContainer';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import AwardHistory from '../shared/awardHistorySection/AwardHistory';
+import AwardHistory from 'containers/awardV2/shared/AwardHistorySectionContainer';
+
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import RelatedAwards from '../shared/overview/RelatedAwards';
 import IdvDates from '../shared/overview/AwardDates';

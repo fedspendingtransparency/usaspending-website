@@ -1,7 +1,7 @@
 /**
-  * AwardHistory.jsx
-  * Created by David Trinh 12/10/2018
-  **/
+ * AwardHistory.jsx
+ * Created by David Trinh 12/10/2018
+ **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -13,9 +13,9 @@ import SubawardsContainer from 'containers/awardV2/table/SubawardsContainer';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
 import DetailsTabBar from 'components/award/details/DetailsTabBar';
+import AwardSectionHeader from 'components/awardv2/shared/AwardSectionHeader';
 
-import AwardSectionHeader from '../AwardSectionHeader';
-import { getAwardHistoryCounts } from "../../../../helpers/awardHistoryHelper";
+import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
 
 const propTypes = {
     overview: PropTypes.object,

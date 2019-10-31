@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
+import AwardHistory from 'containers/awardV2/shared/AwardHistorySectionContainer';
+
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import RelatedAwards from '../shared/overview/RelatedAwards';
@@ -17,7 +19,6 @@ import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
-import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import AwardDescription from "../shared/description/AwardDescription";
 
 const propTypes = {
