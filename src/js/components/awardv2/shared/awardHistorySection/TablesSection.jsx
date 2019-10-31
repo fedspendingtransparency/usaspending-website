@@ -63,20 +63,21 @@ export default class TablesSection extends React.Component {
 
         const tabsWithCounts = tabs(award.category)
             .filter((tab) => {
-                if (
-                    tab.internal === 'subaward' && !awardTypesWithSubawards.includes(award.category)
-                ) {
+                if (tab.internal === 'subaward' && !awardTypesWithSubawards.includes(award.category)) {
                     return false;
                 }
                 return true;
             })
             .map(async (tab) => {
-                if (award.category === 'idv') {
-                    return tab;
-                }
-                this.countRequest = getAwardHistoryCounts(tab.internal, award.generatedId);
+                const isIdv = (award.category === 'idv');
+                this.countRequest = getAwardHistoryCounts(tab.internal, award.generatedId, isIdv);
                 try {
                     const { data } = await this.countRequest.promise;
+                    if (isIdv && tab.internal === 'federal_account') {
+                        // response object for idv federal account endpoint is { count: int }
+                        return { ...tab, count: data.count };
+                    }
+                    // response object for all other count endpoints are { [tab.internal + s] int }
                     return { ...tab, count: data[`${tab.internal}s`] };
                 }
                 catch (error) {
