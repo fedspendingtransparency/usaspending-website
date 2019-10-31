@@ -21,7 +21,7 @@ const buttonValueByButtonTypeAndState = {
     }
 };
 
-const maxChars = 215;
+const maxChars = 210;
 
 const ExpandableAwardSection = ({
     type = 'primary',
