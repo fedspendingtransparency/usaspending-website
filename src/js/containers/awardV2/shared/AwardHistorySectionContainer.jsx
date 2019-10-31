@@ -28,8 +28,6 @@ class AwardHistory extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // one of transaction, federal_account, subaward
-            activeTab: 'transaction',
             tabs: [],
             tableWidth: 0
         };
