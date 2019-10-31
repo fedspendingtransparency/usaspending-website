@@ -46,9 +46,11 @@ export const getAwardHistoryFederalAccountsIdv = (awardId) => {
 export const getAwardHistoryCounts = (type, awardId, isIdv = false) => {
     if (type === 'federal_account' && isIdv) return getAwardHistoryFederalAccountsIdv(awardId);
     const source = CancelToken.source();
+    const parsedAwardId = encodeURI(awardId);
+
     return {
         promise: Axios.request({
-            url: `v2/awards/count/${type}/${awardId}/`,
+            url: `v2/awards/count/${type}/${parsedAwardId}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
