@@ -213,9 +213,10 @@ export const fetchAward = (num) => {
 
 export const fetchAwardV2 = (awardId) => {
     const source = CancelToken.source();
+    const parsedAwardId = encodeURI(awardId);
     return {
         promise: Axios.request({
-            url: `v2/awards/${awardId}/`,
+            url: `v2/awards/${parsedAwardId}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
