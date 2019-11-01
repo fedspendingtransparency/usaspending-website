@@ -54,6 +54,7 @@ export default class AwardAmounts extends React.Component {
             <IDVAmounts
                 awards={awards} />
         );
+        const tabsClassName = 'idv-award-amounts-tabs';
         return (
             <div className="award__col award-viz award-amounts">
                 <div className="award-viz__heading">
@@ -70,6 +71,7 @@ export default class AwardAmounts extends React.Component {
                         types={tabTypes}
                         active={this.state.active}
                         switchTab={this.switchTab}
+                        tabsClassName={tabsClassName}
                         hideCounts />
                     <ResultsTablePicker
                         types={tabTypes}
