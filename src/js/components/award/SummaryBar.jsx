@@ -25,7 +25,7 @@ export default class SummaryBar extends React.Component {
         const id = award.id;
         let parentSnippet = null;
         if (category === 'Contract') {
-            const parent = award.parentAward;
+            const parent = award.parentAwardDetails.piid;
             parentSnippet = (
                 <InfoSnippet
                     label="Parent Award ID"

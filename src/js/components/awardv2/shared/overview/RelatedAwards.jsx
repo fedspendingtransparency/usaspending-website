@@ -130,12 +130,12 @@ export default class RelatedAwards extends React.Component {
         const tooltipInfo = this.tooltipInfo();
         const awardTitle = overview.category === 'idv' ? 'Parent Award' : 'Parent IDV';
         let parentLink = 'N/A';
-        if (overview.parentAward && overview.parentId) {
+        if (overview.parentAwardDetails.piid && overview.parentAwardDetails.awardId) {
             parentLink = (
                 <a
                     className="related-awards__link"
-                    href={`#/award/${overview.parentId}`}>
-                    {overview.parentAward}
+                    href={`#/award/${overview.parentAwardDetails.awardId}`}>
+                    {overview.parentAwardDetails.piid}
                 </a>
             );
         }
