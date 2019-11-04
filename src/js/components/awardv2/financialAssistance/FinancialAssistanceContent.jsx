@@ -20,6 +20,7 @@ import AwardHistory from '../shared/awardHistorySection/AwardHistory';
 import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
 import CFDAOverview from './CFDAOverview';
 import AwardDescription from '../shared/description/AwardDescription';
+import { contractActivityGrants } from '../shared/InfoTooltipContent';
 import CFDASection from './CFDASection';
 
 const propTypes = {
@@ -82,14 +83,20 @@ const FinancialAssistanceContent = ({
                     awardType={overview.category}
                     awardOverview={awardAmountData}
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
-                <AwardDescription description={overview.description} awardId={awardId} />
+                <AwardDescription description={overview.description} awardType={overview.category} awardId={awardId} />
             </AwardSection>
-            <AwardSection className="federal-accounts-section" type="row">
-                {isGrant && <ComingSoonSection title="Grant Activity" icon="chart-area" includeHeader />}
+            <AwardSection type="row">
+                {isGrant && (
+                    <ComingSoonSection
+                        title="Grant Activity"
+                        icon="chart-area"
+                        includeHeader
+                        toolTipContent={contractActivityGrants} />
+                )}
                 {!isGrant && (
                     <CFDASection data={overview.biggestCfda} />
                 )}
-                <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                <FederalAccountsSection awardType={overview.category} jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             {isGrant && (
                 <AwardSection type="row">
