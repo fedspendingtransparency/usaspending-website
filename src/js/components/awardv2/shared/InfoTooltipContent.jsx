@@ -807,7 +807,7 @@ export const datesInfoIdv = (
 export const contractActivityGrants = (
     <div>
         <div className="info-tooltip__title">
-            Contract Activity
+            Grant Activity
         </div>
         <div className="info-tooltip__text">
             <p>This chart displays modifications made over the course of this grant&apos;s period of performance.  It gives you a sense of how obligations on this grant were made over time, and how they changed the value of the grant.</p>
