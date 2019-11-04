@@ -480,6 +480,7 @@ export const descriptionInfoContract = (
                         <li>&bull; The first four-digits indicate the industry group.</li>
                         <li>&bull; The full six-digits indicate the sub-industry group (specific).</li>
                     </ul>
+                    <p style={{ marginBottom: 0 }} >These three levels are displayed hierarchically below for this recipient.</p>
                 </li>
                 <li>
                     <strong>Product and Service Codes (PSC)</strong>
