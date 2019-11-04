@@ -29,7 +29,7 @@ export const mockAwardIDs = {
                     toptier_agency_id: 155,
                     create_date: null,
                     update_date: null,
-                    cgac_code: "012",
+                    toptier_code: "012",
                     name: "AGRICULTURE, DEPARTMENT OF"
                 },
                 subtier_agency: {
@@ -74,7 +74,7 @@ export const mockAwardIDs = {
                     toptier_agency_id: 204,
                     create_date: null,
                     update_date: null,
-                    cgac_code: "070",
+                    toptier_code: "070",
                     name: "HOMELAND SECURITY, DEPARTMENT OF"
                 },
                 subtier_agency: {
@@ -325,7 +325,7 @@ export const mockAwardIDs = {
                     toptier_agency_id: 209,
                     create_date: null,
                     update_date: null,
-                    cgac_code: "075",
+                    toptier_code: "075",
                     name: "HEALTH AND HUMAN SERVICES, DEPARTMENT OF"
                 },
                 subtier_agency: {
@@ -344,7 +344,7 @@ export const mockAwardIDs = {
                     toptier_agency_id: 209,
                     create_date: null,
                     update_date: null,
-                    cgac_code: "075",
+                    toptier_code: "075",
                     name: "HEALTH AND HUMAN SERVICES, DEPARTMENT OF"
                 },
                 subtier_agency: {

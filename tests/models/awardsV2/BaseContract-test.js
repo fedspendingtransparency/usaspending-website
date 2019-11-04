@@ -71,7 +71,7 @@ describe('BaseContract', () => {
                     }
                 };
                 contract.populate(mockData);
-                expect(contract.psc.toptier_code.description).toEqual(result);
+                expect(contract.psc.pscType.description).toEqual(result);
             }
         );
     });

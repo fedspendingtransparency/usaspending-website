@@ -16,13 +16,13 @@ BaseLoanTransaction.populate = function populate(data) {
         typeDescription: data.type_description,
         actionDate: data.action_date,
         actionType: data.action_type,
-        actionTypeDescription: (data.action_type && actionTypes[data.action_type.toUpperCase()]),
+        actionTypeDescription: (data.action_type && actionTypes[data.action_type].toUpperCase()),
         modificationNumber: data.modification_number,
         description: data.description
     };
     this.populateCore(coreData);
 
-    this._faceValue = (data.assistance_data && parseFloat(data.assistance_data.face_value_loan_guarantee)) || 0;
+    this._faceValue = parseFloat(data.face_value_loan_guarantee) || 0;
     this._subsidy = parseFloat(data.original_loan_subsidy_cost) || 0;
 };
 

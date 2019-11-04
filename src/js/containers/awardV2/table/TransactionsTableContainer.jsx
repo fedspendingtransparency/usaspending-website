@@ -14,7 +14,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/awardV2/awardActions';
 
 import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
-
+import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
 import TransactionsTable from 'components/award/table/TransactionsTable';
 
 const propTypes = {
@@ -106,12 +106,12 @@ export class TransactionsTableContainer extends React.Component {
     }
 
     parseTransactions(data, reset) {
-        const transactions = [];
-
-        data.results.forEach((item) => {
-            const transaction = Object.create(BaseContractTransaction);
+        const baseTransaction = this.props.category === 'loan' ?
+            BaseLoanTransaction : BaseContractTransaction;
+        const transactions = data.results.map((item) => {
+            const transaction = Object.create(baseTransaction);
             transaction.populate(item);
-            transactions.push(transaction);
+            return transaction;
         });
 
         // update the metadata
@@ -160,8 +160,7 @@ export class TransactionsTableContainer extends React.Component {
                 {...this.props}
                 {...this.state}
                 changeSort={this.changeSort}
-                nextTransactionPage={this.nextTransactionPage}
-                isV2 />
+                nextTransactionPage={this.nextTransactionPage} />
         );
     }
 }

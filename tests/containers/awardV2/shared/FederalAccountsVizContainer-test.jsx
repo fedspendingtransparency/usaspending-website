@@ -96,19 +96,22 @@ describe('FederalAccountsVizContainer', () => {
                 totalTransactionObligatedAmount: 12345
             });
             container.instance().getFederalAccounts = getFederalAccounts;
-            container.instance().changeView('table');
+            container.instance().changeView('tree');
 
             expect(container.instance().getFederalAccounts).toHaveBeenCalled();
         });
-        it('should change the limit to 10 for the table view', async () => {
+        it('should change the limit when view changes to tree', async () => {
             const container = shallowSetup({
                 awardId: '123',
                 category: 'idv',
                 totalTransactionObligatedAmount: 12345
             });
-            container.instance().changeView('table');
-
+            // initialState.limit === 10
             expect(container.instance().state.limit).toEqual(10);
+
+            await container.instance().changeView('tree');
+
+            expect(container.instance().state.limit).toEqual(100);
         });
         it('should do nothing if the view is already set to the provided value', async () => {
             const container = shallowSetup({
@@ -118,11 +121,11 @@ describe('FederalAccountsVizContainer', () => {
             });
             container.instance().getFederalAccounts = getFederalAccounts;
             container.instance().getFederalAccounts = getFederalAccounts;
-            container.instance().changeView('tree');
+            await container.instance().changeView('table');
 
             expect(container.instance().getFederalAccounts).toHaveBeenCalledTimes(0);
-            expect(container.instance().state.limit).toEqual(100);
-            expect(container.instance().state.view).toEqual('tree');
+            expect(container.instance().state.limit).toEqual(10);
+            expect(container.instance().state.view).toEqual('table');
         });
     });
 });

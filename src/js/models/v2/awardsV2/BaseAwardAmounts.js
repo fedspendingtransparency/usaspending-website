@@ -28,7 +28,7 @@ const BaseAwardAmounts = {
         this._subsidy = data._subsidy;
         this._faceValue = data._faceValue;
     },
-    populateGrant(data) {
+    populateAsst(data) {
         this._totalObligation = data._totalObligation;
         this._totalFunding = data._totalFunding;
         this._nonFederalFunding = data._nonFederalFunding;
@@ -46,11 +46,12 @@ const BaseAwardAmounts = {
         else if (awardType === 'contract') {
             this.populateContract(data);
         }
-        else if (awardType === 'grant') {
-            this.populateGrant(data);
-        }
         else if (awardType === 'loan') {
             this.populateLoan(data);
+        }
+        else {
+            // grants, direct payment, insurance, other all use populateAsst
+            this.populateAsst(data);
         }
     },
     get baseAndAllOptionsFormatted() {

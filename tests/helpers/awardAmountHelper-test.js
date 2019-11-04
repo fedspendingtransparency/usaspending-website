@@ -7,13 +7,15 @@ import {
     formatAwardAmountRange,
     determineSpendingScenario,
     generatePercentage,
-    getAscendingSpendingCategoriesByAwardType
+    getAscendingSpendingCategoriesByAwardType,
+    determineSpendingScenarioAsstAwards,
+    determineSpendingScenarioByAwardType
 } from 'helpers/awardAmountHelper';
 
 const grantAwardAmounts = {
     _totalObligation: 0,
     _nonFederalFunding: 10,
-    _baseAndAllOptions: 100
+    _totalFunding: 100
 };
 const loanAwardAmounts = {
     _subsidy: 0,
@@ -95,61 +97,6 @@ describe('Award Amounts Advanced Search Filter Helper', () => {
 });
 
 describe('Award Summary Page, Award Amount Section helper functions', () => {
-    describe('determineSpendingScenario', () => {
-        it('should return "normal" when small amount is less than bigger current and biggest', () => {
-            const _totalObligation = 50;
-            const _baseExercisedOptions = 75;
-            const _baseAndAllOptions = 100;
-
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual("normal");
-        });
-
-        it('should return "exceedsBigger" when small exceeds bigger', () => {
-            const _totalObligation = 75;
-            const _baseExercisedOptions = 50;
-            const _baseAndAllOptions = 100;
-
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual("exceedsBigger");
-        });
-
-        it('should return "exceedsBiggest" for when small exceeds biggest', () => {
-            const _totalObligation = 100;
-            const _baseExercisedOptions = 50;
-            const _baseAndAllOptions = 75;
-
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual("exceedsBiggest");
-        });
-
-        it('should return "insufficientData" when negative "small" is negative', () => {
-            const _totalObligation = -55;
-            const _baseExercisedOptions = 75;
-            const _baseAndAllOptions = 100;
-
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual("insufficientData");
-        });
-
-        it('should return null when all values are zero', () => {
-            const _totalObligation = 0;
-            const _baseExercisedOptions = 0;
-            const _baseAndAllOptions = 0;
-
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual(null);
-        });
-
-        it('should return "insufficientData" when bigger amount exceeds biggest amount', () => {
-            const _totalObligation = 50;
-            const _baseExercisedOptions = 100;
-            const _baseAndAllOptions = 75;
-
-            const mockedScenario = determineSpendingScenario(_totalObligation, _baseExercisedOptions, _baseAndAllOptions);
-            expect(mockedScenario).toEqual("insufficientData");
-        });
-    });
     describe('generatePercentage', () => {
         it('should format the given value as a percentage, rounded to 2 decimal places', () => {
             expect(generatePercentage(0.23456)).toEqual('23.46%');
@@ -157,10 +104,6 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
     });
 
     describe('getAscendingSpendingCategoriesByAwardType', () => {
-        it('grant -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
-            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("grant", grantAwardAmounts);
-            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10, 100]);
-        });
         it('loan -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
             const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("loan", loanAwardAmounts);
             expect(spendingCategoriesInAscendingOrder).toEqual([0, 10]);
@@ -178,6 +121,60 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
             expect(spendingCategoriesInAscendingOrder).toEqual([]);
             spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("other", {});
             expect(spendingCategoriesInAscendingOrder).toEqual([]);
+        });
+    });
+
+    describe('determineSpendingScenario', () => {
+        it.each([
+            ['normal', 50, 75, 100],
+            ['exceedsBigger', 76, 75, 100],
+            ['exceedsBiggest', 101, 75, 100],
+            ['insufficientData', -5, 75, 100],
+            [null, 0, 0, 0],
+            ['insufficientData', 50, 101, 100]
+        ])(
+            ('Scenario should be %s when small is %s, bigger is %s, and biggest is %s'),
+            (result, small, bigger, biggest) => {
+                const scenario = determineSpendingScenario(small, bigger, biggest);
+                expect(scenario).toEqual(result);
+            }
+        );
+    });
+
+    describe('determineSpendingScenarioByAwardType', () => {
+        it.each([
+            ['idv', { _totalObligation: 1, _baseExercisedOptions: 75, _baseAndAllOptions: 100 }],
+            ['contract', { _totalObligation: 1, _baseExercisedOptions: 75, _baseAndAllOptions: 100 }],
+            ['loan', { _subsidy: 1, _faceValue: 75 }]
+        ])(
+            ('Scenario is parsed for %s award type'),
+            (awardType, awardObj) => {
+                const result = determineSpendingScenarioByAwardType(awardType, awardObj);
+                expect(result).toEqual('normal');
+            }
+        );
+    });
+
+    describe('determineSpendingScenarioAsstAwards', () => {
+        it('should return insufficientData with any negative values', () => {
+            const totalObligationNegative = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalObligation: -1 });
+            const totalFundingNegative = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalFunding: -1 });
+            const nonFederalFundingNegative = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _nonFederalFunding: -1 });
+            expect(totalObligationNegative).toEqual('insufficientData');
+            expect(totalFundingNegative).toEqual('insufficientData');
+            expect(nonFederalFundingNegative).toEqual('insufficientData');
+        });
+        it('should return insufficientData when totalFunding is not the sum of nonFederalFunding and totalObligation', () => {
+            const mockedScenario = determineSpendingScenarioAsstAwards(grantAwardAmounts);
+            expect(mockedScenario).toEqual('insufficientData');
+        });
+        it('should return normal when totalFunding is the sum of nonFederalFunding and totalObligated', () => {
+            const mockedScenario = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalFunding: 10 });
+            expect(mockedScenario).toEqual('normal');
+        });
+        it('should return normal when totalObligation is less than totalFunding and nonFederalFunding is zero', () => {
+            const mockedScenario = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalObligation: 10, _nonFederalFunding: 0 });
+            expect(mockedScenario).toEqual('normal');
         });
     });
 });

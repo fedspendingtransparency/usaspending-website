@@ -2,7 +2,7 @@ import React from 'react';
 
 // Mapping of section identifier to tooltip content JSX
 
-export const transactionHistoryInfo = (
+export const transactionHistoryInfoGeneric = (
     <div className="transaction-history-tt">
         <div className="info-tooltip__title">Transaction History</div>
         <div className="info-tooltip__text">
@@ -86,7 +86,149 @@ export const transactionHistoryInfo = (
     </div>
 );
 
-export const federalAccountFundingInfo = (
+export const transactionHistoryInfoContract = (
+    <div className="transaction-history-tt">
+        <div className="info-tooltip__title">Transaction History</div>
+        <div className="info-tooltip__text">
+            <p>
+                The Transaction History tab displays all modification records for
+                this contract. Most of these are financial in nature, but some may
+                be administrative only with no financial implications
+                (e.g., noting an address change by the recipient).
+            </p>
+            <p>
+                Each modification appears as a row in the table below.
+                Here&apos;s what the columns for each modification (row) tell you:
+            </p>
+            <ul>
+                <li>
+                    <strong>Modification Number</strong> – This number
+                    identifies the modification. Modification numbers increment
+                    from lower to higher as more mods are made.
+                </li>
+                <li>
+                    <strong>Action Date</strong> – This is when the
+                    modification was issued.
+                </li>
+                <li>
+                    <strong>Amount</strong> – This refers to the amount of
+                money added or subtracted from the initial awarded
+                amount by the modification, if any.
+                </li>
+            </ul>
+            <p>
+                <strong>Action Type</strong> – This column describes the
+              type of modification. It uses a letter code system
+              that maps to the following descriptions. For more on the
+              meaning of these descriptions, refer to Acquisition.gov:
+            </p>
+            <ul className="info-tooltip__list">
+                <li>
+                    <strong>A</strong> – Additional Work
+                </li>
+                <li>
+                    <strong>B</strong> – Supplemental Agreement for work
+                within scope
+                </li>
+                <li>
+                    <strong>C</strong> – Funding Only Action
+                </li>
+                <li>
+                    <strong>D</strong> – Change Order
+                </li>
+                <li>
+                    <strong>E</strong> – Terminate for Default (complete or
+                partial)
+                </li>
+                <li>
+                    <strong>F</strong> – Terminate for Convenience (complete
+                or partial)
+                </li>
+                <li>
+                    <strong>G</strong> – Exercise an Option
+                </li>
+                <li>
+                    <strong>H</strong> – Definitize Letter Contract
+                </li>
+                <li>
+                    <strong>J</strong> – Novation Agreement
+                </li>
+                <li>
+                    <strong>K</strong> – Close Out
+                </li>
+                <li>
+                    <strong>L</strong> – Definitize Change Order
+                </li>
+                <li>
+                    <strong>M</strong> – Other Administrative Action
+                </li>
+            </ul>
+            <p>
+                <strong>Description</strong> – Describes the modification,
+                typically covering its effect on the contract.
+            </p>
+        </div>
+    </div>
+);
+
+export const transactionHistoryInfoFinancialAssistance = (
+    <div className="transaction-history-tt">
+        <div className="info-tooltip__title">Transaction History</div>
+        <div className="info-tooltip__text">
+            <p>
+                The Transaction History tab displays all modification
+                records for this award. Most of these are financial in
+                nature, but some may be administrative only with no
+                financial implications (e.g., noting an address change by the recipient).
+            </p>
+            <p>
+                Each modification appears as a row in the table below.
+                Here&apos;s what the columns for each modification (row) tell you:
+            </p>
+            <ul>
+                <li>
+                    <strong>Modification Number</strong> – This number
+                    identifies the modification. Modification numbers increment
+                    from lower to higher as more mods are made.
+                </li>
+                <li>
+                    <strong>Action Date</strong> – This is when the
+                    modification was issued.
+                </li>
+                <li>
+                    <strong>Amount</strong> – This refers to the amount of
+                money added or subtracted from the initial awarded
+                amount by the modification, if any.
+                </li>
+            </ul>
+            <p>
+                <strong>Action Type</strong> – This column describes the
+              type of modification. It uses a letter code system
+              that maps to the following descriptions:
+            </p>
+            <ul className="info-tooltip__list">
+                <li>
+                    <strong>A</strong> – New assistance award
+                </li>
+                <li>
+                    <strong>B</strong> – Continuation
+                </li>
+                <li>
+                    <strong>C</strong> – Revision
+                </li>
+                <li>
+                    <strong>D</strong> – Funding adjustment to a completed project
+                </li>
+            </ul>
+            <p>
+                <strong>Description</strong> – Describes the modification,
+                typically covering its effect on the award.
+            </p>
+        </div>
+    </div>
+);
+
+export const federalAccountFundingInfoIDV = (
     <div>
         <div className="info-tooltip__title">
             Federal Account Funding
@@ -120,6 +262,49 @@ export const federalAccountFundingInfo = (
                 </li>
                 <li>
                     <strong>Object Class</strong> – A broad category of spending
+                    this transaction has been categorized in.
+                </li>
+                <li>
+                    <strong>Funding Obligated</strong> – The amount funded in this
+                    transaction by the awarding agency.
+                </li>
+            </ul>
+        </div>
+    </div>
+);
+
+export const federalAccountFundingInfoGeneric = (
+    <div>
+        <div className="info-tooltip__title">
+            Federal Account Funding
+        </div>
+        <div className="info-tooltip__text">
+            <p>
+                Each row in this table represents a transaction in the awarding
+                agency&apos;s financial system that commits a specific amount of
+                funding to this award from a federal account
+                (a rollup of Treasury accounts), broken down by program
+                activity and object class. The columns in this table represent the following:
+            </p>
+            <ul>
+                <li>
+                    <strong>Submission Date</strong> – The fiscal year and quarter
+                    the data when the transaction occurred.
+                </li>
+                <li>
+                    <strong>Agency</strong> – The awarding agency reporting the
+                    funding transaction.
+                </li>
+                <li>
+                    <strong>Federal Account</strong> – The Federal Account that
+                    is providing the funds for the transaction.
+                </li>
+                <li>
+                    <strong>Program Activity</strong> – The specific activity or
+                    project (program) that this transaction&apos;s funds are for.
+                </li>
+                <li>
+                    <strong>Object Class</strong> – The broad category of spending
                     this transaction has been categorized in.
                 </li>
                 <li>
@@ -358,17 +543,115 @@ export const awardHistoryContract = (
         </div>
         <div className="info-tooltip__text">
             <p>
-                This section displays all of this award&apos;s transactions (modifications), sub-awards, and federal account funding data by row. The tables display only a small set of the available data fields.  To download the full set, including data attributes not displayed here and all related sub-award and federal account data, click the “Download” button at the top-right of this page.
+                This section displays all of this award&apos;s transactions
+                (also known as modifications), sub-awards, and federal
+                account funding data in tabs and rows. Please note that
+                the tables displayed here only feature a small set of the
+                available data fields.  To download the full set, including
+                data attributes not displayed here and all related sub-awards
+                and federal account data, click the “DOWNLOAD” button at the
+                top-right of this page.
             </p>
+            <div>
+                <strong>Transaction History</strong>
+                <p className="info-tooltip__text-section">
+                    This table contains historical changes made to this award,
+                    shown as individual modification records. This information
+                    is reported by the awarding agency&apos;s contracting or grants officer.
+                </p>
+            </div>
+            <div>
+                <strong>Sub-Awards</strong>
+                <p className="info-tooltip__text-section">
+                    This table contains any sub-awards reported by this recipient.
+                </p>
+            </div>
+            <div>
+                <strong>Federal Account Funding</strong>
+                <p className="info-tooltip__text-section">
+                    This table contains funding data directly submitted from agency financial
+                    accounting systems, also known as “Award Financial” or “Account
+                    Breakdown by Award” data. This data, which links each Treasury account to
+                    each award transaction it funds, connects award spending to the
+                    appropriation, budgeting, and allocation processes, which channel
+                    Congressional and Administration intent and determine how much money
+                    is assigned to each federal account.
+                </p>
+            </div>
+        </div>
+    </div>
+);
+
+export const awardHistoryFinancialAssistanceGeneric = (
+    <div>
+        <div className="info-tooltip__title">
+            Award History
+        </div>
+        <div className="info-tooltip__text">
             <p>
-                <strong>Transaction History</strong> – This table contains historical changes made to this contract award, shown as individual modification records. This information is reported by the Awarding Agency&apos;s contracting officer.
+                This section displays all of this award&apos;s transactions (modifications)
+                and federal account funding data in tabs and rows. The tables display
+                only a small set of the available data fields.  To download the full set,
+                including data attributes not displayed here and federal account data,
+                click the “DOWNLOAD” button at the top-right of this page.
             </p>
+            <div>
+                <strong>Transaction History</strong>
+                <p className="info-tooltip__text-section">
+                    This table contains historical changes made to this award,
+                    shown as individual modification records. This information is
+                    reported by the awarding agency&apos;s officer.
+                </p>
+            </div>
+            <div>
+                <strong>Federal Account Funding</strong>
+                <p className="info-tooltip__text-section">
+                    This table contains funding data directly submitted from agency financial
+                    accounting systems, also known as “Award Financial” or “Account
+                    Breakdown by Award” data. This data, which links each Treasury account to
+                    each award transaction it funds, connects award spending to the
+                    appropriation, budgeting, and allocation processes, which channel
+                    Congressional and Administration intent and determine how much money
+                    is assigned to each federal account.
+                </p>
+            </div>
+        </div>
+    </div>
+);
+
+export const awardHistoryFinancialAssistanceLoan = (
+    <div>
+        <div className="info-tooltip__title">
+            Award History
+        </div>
+        <div className="info-tooltip__text">
             <p>
-                <strong>Sub-Awards</strong> - This table contains any sub-awards reported by this award&apos;s recipient.
+                This section displays all of this award&apos;s transactions (modifications)
+                and federal account funding data in tabs and rows. The tables display
+                only a small set of the available data fields.  To download the full set,
+                including data attributes not displayed here and federal account data,
+                click the “DOWNLOAD” button at the top-right of this page.
             </p>
-            <p>
-                <strong>Federal Account Funding</strong> - Funding data directly submitted from agency financial accounting systems, known as Award Financial or Account Breakdown by Award data. This connects award spending to the appropriation, budgeting and allocation processes, which channel Congressional and Administration intent and determine how much money is assigned to each federal account.
-            </p>
+            <div>
+                <strong>Transaction History</strong>
+                <p className="info-tooltip__text-section">
+                    This table contains historical changes made to this loan award,
+                    shown as individual modification records. This information is
+                    reported by the awarding agency&apos;s loan officer.
+                </p>
+            </div>
+            <div>
+                <strong>Federal Account Funding</strong>
+                <p className="info-tooltip__text-section">
+                    This table contains funding data directly submitted from agency financial
+                    accounting systems, also known as “Award Financial” or “Account
+                    Breakdown by Award” data. This data, which links each Treasury account to
+                    each award transaction it funds, connects award spending to the
+                    appropriation, budgeting, and allocation processes, which channel
+                    Congressional and Administration intent and determine how much money
+                    is assigned to each federal account.
+                </p>
+            </div>
         </div>
     </div>
 );
@@ -548,33 +831,84 @@ export const federalAccountsInfo = (
     </div>
 );
 
-export const subAwardsTab = (
-    <div className="transaction-history-tt">
+export const subAwardsTabContract = (
+    <div>
         <div className="info-tooltip__title">Sub-Awards</div>
         <div className="info-tooltip__text">
             <p>
-                The Sub-Award tab displays any sub-contracts reported by this award&apos;s recipient (the ‘prime recipient’ in a sub-award context).
-                Sub-contracts are contractual agreements that a prime recipient makes with another entity (sub-recipient) to furnish supplies or services in service to the prime contract.
+                The Sub-Awards tab displays any sub-contracts reported by this contract&apos;s
+                recipient (the ‘prime recipient’ in a sub-award context). Sub-contracts are
+                contractual agreements that a prime recipient makes with another entity
+                (sub-recipient) to furnish supplies or services for the prime contract.
             </p>
             <p>
-                Above the sub-award table, we display the total number of reported sub-award actions and their total value.
-                Here&apos;s what the columns for each sub-award action tell you:
+                Above the Sub-Award table, we display the total number of reported
+                sub-contract actions and their total value.
+            </p>
+            <p>
+                Here&apos;s what the columns for each sub-contract action tell you:
             </p>
             <ul>
                 <li>
-                    <strong>Sub-Award ID</strong> – The sub-award ID number chosen by the prime recipient for this transaction.
+                    <strong>Sub-Award ID</strong> – The sub-award ID number chosen
+                    by the prime recipient for this transaction.
                 </li>
                 <li>
                     <strong>Sub-Recipient Name</strong> – The name of the sub-recipient.
                 </li>
                 <li>
-                    <strong>Action Date</strong> - This is when the sub-award was issued.
+                    <strong>Action Date</strong> - The date when the sub-contract was issued.
                 </li>
                 <li>
-                    <strong>Amount</strong> – The amount of money involved in the sub-award action.
+                    <strong>Amount</strong> – The amount of money involved
+                    in the sub-contract action.
                 </li>
                 <li>
-                    <strong>Description</strong> – The description of the sub-award provided by the prime recipient. The level of detail in descriptions varies and is dependent on the author.
+                    <strong>Description</strong> – The description of the sub-contract
+                    provided by the prime recipient.
+                    The level of detail in descriptions varies and is dependent on the author.
+                </li>
+            </ul>
+        </div>
+    </div>
+);
+
+export const subAwardsTabGrant = (
+    <div className="transaction-history-tt">
+        <div className="info-tooltip__title">Sub-Awards</div>
+        <div className="info-tooltip__text">
+            <p>
+            The Sub-Awards tab displays any sub-grants reported by this grant&apos;s
+            recipient (the “prime recipient” in a sub-award context). Sub-grants
+            are awards of financial assistance made under a grant by
+            a prime grantee to an eligible subgrantee.
+            </p>
+            <p>
+                Above the Sub-Award table, we display the total number of reported
+                sub-grant actions and their total value.
+            </p>
+            <p>
+                Here&apos;s what the columns for each sub-grant action tell you:
+            </p>
+            <ul>
+                <li>
+                    <strong>Sub-Award ID</strong> – The sub-award ID number chosen
+                    by the prime recipient for this transaction.
+                </li>
+                <li>
+                    <strong>Sub-Recipient Name</strong> – The name of the sub-recipient.
+                </li>
+                <li>
+                    <strong>Action Date</strong> - The date when the sub-grant was issued.
+                </li>
+                <li>
+                    <strong>Amount</strong> – The amount of money involved
+                    in the sub-grant action.
+                </li>
+                <li>
+                    <strong>Description</strong> – The description of the sub-grant
+                    provided by the prime recipient.
+                    The level of detail in descriptions varies and is dependent on the author.
                 </li>
             </ul>
         </div>
@@ -630,7 +964,7 @@ export const ContractAwardAmountsInfo = (
 export const CFDAOverviewInfo = (
     <div>
         <div className="info-tooltip__title">
-            CFDA Program / Assistance Listing Information
+            CFDA Program / Assistance Listing
         </div>
         <div className="info-tooltip__text">
             <p>

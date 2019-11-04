@@ -62,7 +62,7 @@ export default class AgencyOverview extends React.PureComponent {
         const { agency } = props;
         let logo = null;
         let hideLogo = 'hide';
-        if (agency.logo !== '') {
+        if (agency.logo) {
             hideLogo = '';
             logo = (<img
                 src={`graphics/agency/${agency.logo}`}
@@ -70,12 +70,12 @@ export default class AgencyOverview extends React.PureComponent {
         }
 
         let mission = 'Not available';
-        if (agency.mission !== '') {
+        if (agency.mission) {
             mission = agency.mission;
         }
 
         let website = 'Not available';
-        if (agency.website !== '') {
+        if (agency.website) {
             website = (
                 <a
                     className="agency-website"

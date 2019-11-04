@@ -12,14 +12,13 @@ const mockContractTransaction = {
 
 const mockAssistanceTransaction = {
     federal_action_obligation: '1230.4',
+    original_loan_subsidy_cost: '1230.4',
     action_type: 'a'
 };
 
 const mockLoanTransaction = {
-    original_loan_subsidy_cost: '234.58',
-    assistance_data: {
-        face_value_loan_guarantee: '1230.4'
-    }
+    face_value_loan_guarantee: '1230.4',
+    original_loan_subsidy_cost: '234.58'
 };
 
 const contractTransaction = Object.create(BaseContractTransaction);
@@ -36,10 +35,16 @@ describe('Base Transactions', () => {
         it('should format the federal action obligation', () => {
             expect(contractTransaction.federalActionObligation).toEqual('$1,230');
         });
+        it('should format the original loan subsidy cost', () => {
+            expect(assistanceTransaction.originalLoanSubsidyCost).toEqual('$1,230');
+        });
     });
     describe('BaseAssistanceTransaction', () => {
         it('should format the federal action obligation', () => {
             expect(assistanceTransaction.federalActionObligation).toEqual('$1,230');
+        });
+        it('should format the original loan subsidy cost', () => {
+            expect(assistanceTransaction.originalLoanSubsidyCost).toEqual('$1,230');
         });
         it('should convert the action type', () => {
             expect(assistanceTransaction._actionTypeDescription).toEqual('New');

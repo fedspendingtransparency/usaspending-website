@@ -1,8 +1,15 @@
 .award-overview {
+    $padding-top: rem(11);
     // Layout
     @include display(flex);
     .award__col {
-        @include flex(0 0 25%);
+        @include flex(0 0 50%);
+        @include media($medium-screen) {
+            @include flex(0 0 25%);
+        }
+        &:last-child {
+            padding-top: 0;
+        }
         min-width: 0;
         hr {
             display: none;
@@ -11,14 +18,18 @@
         .award-viz__heading {
             @include display(flex);
             @include align-items(center);
+            padding-top: $padding-top;
             .award-viz__icon {
                 padding-right: 10px;
             }
         }
-        // not all sub-sections are using AwardSectionHeader yet
+        // aligning the headers of the overview section together
         .award-overview__title,
-        .award-viz__heading .award-viz__title {
-            font-size: rem(14);
+        .award-dates,
+        .related-awards,
+        .award-viz__heading .award-viz__title,
+        .agency-recipient__title {
+            font-size: rem(16);
             font-weight: $font-semibold;
             padding: rem(11) 0;
             line-height: normal;

@@ -66,15 +66,6 @@ const routes = {
             }
         },
         {
-            path: '/award_v2/:awardId',
-            parent: '/award_v2',
-            component: (cb) => {
-                require.ensure([], (require) => {
-                    cb(require('containers/awardV2/AwardV2Container').default);
-                });
-            }
-        },
-        {
             path: '/federal_account/:accountNumber',
             parent: '/federal_account',
             component: (cb) => {
