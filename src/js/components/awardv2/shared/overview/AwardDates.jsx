@@ -91,11 +91,22 @@ export default class AwardDates extends React.Component {
         return { startDate, endDate };
     }
 
+    titles() {
+        const { awardType } = this.props;
+        if (!awardType) return ['', '', ''];
+        return [
+            titles[awardType][0],
+            titles[awardType][1],
+            titles[awardType][2]
+        ];
+    }
+
     render() {
         const { dates, awardType } = this.props;
         const { startDate, endDate } = this.datesByAwardType();
         const { timeline, remainingText, remainingLabel } = this.timelineInfo(startDate, endDate);
         const tooltipInfo = getToolTipBySectionAndAwardType('dates', awardType);
+        const datesTitles = this.titles();
 
         return (
             <AwardSection type="column">
@@ -117,7 +128,7 @@ export default class AwardDates extends React.Component {
                     {timeline}
                     <div className="award-dates__row">
                         <div className="award-dates__label">
-                            {titles[awardType][0]}
+                            {datesTitles[0]}
                         </div>
                         <div className="award-dates__date">
                             {dates.startDateLong || 'not provided'}
@@ -125,17 +136,17 @@ export default class AwardDates extends React.Component {
                     </div>
                     <div className="award-dates__row">
                         <div className="award-dates__label">
-                            {titles[awardType][1]}
+                            {datesTitles[1]}
                         </div>
                         <div className="award-dates__date">
                             {dates.endDateLong || 'not provided'}
                         </div>
                     </div>
                     {
-                        titles[awardType][2] &&
+                        datesTitles[2] &&
                         <div className="award-dates__row">
                             <div className="award-dates__label">
-                                {titles[awardType][2]}
+                                {datesTitles[2]}
                             </div>
                             <div className="award-dates__date">
                                 {dates.potentialEndDateLong || 'not provided'}

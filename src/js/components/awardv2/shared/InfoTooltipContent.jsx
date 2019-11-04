@@ -1207,3 +1207,45 @@ export const CFDAOverviewInfo = (
         </div>
     </div>
 );
+
+export const CFDASectionInfo = (
+    <div>
+        <div className="info-tooltip__title">
+            CFDA Program / Assistance Listing
+        </div>
+        <div className="info-tooltip__text">
+            <p>The Catalog of Federal Domestic Assistance (CFDA), also known as Assistance Listings, is a collection of federal financial assistance programs that provide benefits to the American public. Every assistance award must be categorized under a CFDA program, and every CFDA program must be specifically authorized by Congressional statute before an agency can begin to issue awards under it.</p>
+            <p>This section contains information about the CFDA program(s) that this award has been categorized under.  This information includes the following:</p>
+            <ul>
+                <li>
+                    <strong>Objectives </strong>
+                    The purpose, goals, and details of this CFDA program and its implementation.
+                </li>
+                <li>
+                    <strong>Administrative Agency </strong>
+                    The federal agency that operates this CFDA program.
+                </li>
+                <li>
+                    <strong>Website </strong>
+                    The official website of this CFDA program.
+                </li>
+                <li>
+                    <strong>SAM.gov Page </strong>
+                    The CFDA program’s page on SAM.gov, which is the source of data in this section.  Additional information on this CFDA program, including contact information, projected future spending and information on how to apply (if appropriate) can be found here.
+                </li>
+                <li>
+                    <strong>Use of Assistance </strong>
+                    The broad functional category this CFDA program falls under (e.g., Agriculture)
+                </li>
+                <li>
+                    <strong>Applicant Eligibility </strong>
+                    The types of recipients that are eligible to apply for assistance funds from this CFDA program.
+                </li>
+                <li>
+                    <strong>Beneficiary Eligibility </strong>
+                    The types of organizations that are eligible beneficiaries under this CFDA Program.
+                </li>
+            </ul>
+        </div>
+    </div>
+);

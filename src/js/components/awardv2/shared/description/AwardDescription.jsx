@@ -3,12 +3,12 @@
  * Created by Lizzie Salita 10/12/18
  **/
 
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { SpeechBubble, Glossary } from 'components/sharedComponents/icons/Icons';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
-import AwardSectionExpandButton from '../AwardSectionExpandButton';
+import ExpandableAwardSection from '../ExpandableAwardSection';
 import LineTree from './LineTree';
 
 import { getToolTipBySectionAndAwardType } from '../../../../dataMapping/awardsv2/tooltips';
@@ -22,8 +22,6 @@ const propTypes = {
     awardType: AWARD_TYPE_PROPS
 };
 
-const maxChars = 300;
-
 const AwardDescription = ({
     awardId,
     description,
@@ -31,27 +29,13 @@ const AwardDescription = ({
     psc = null,
     awardType
 }) => {
-    const [isExpanded, setExpanded] = useState(false);
-    const isIdv = awardType === 'idv';
+    const isIdv = (awardType === 'idv');
     const tooltip = getToolTipBySectionAndAwardType('description', awardType);
-
-    let value = description;
-    const overflow = value.length > maxChars;
-    if (overflow && !isExpanded) {
-        value = `${value.substring(0, maxChars)}...`;
-    }
-
-    let button = null;
-    if (overflow) {
-        button = <AwardSectionExpandButton type="secondary" isExpanded={isExpanded} setExpanded={setExpanded} />;
-    }
     return (
         <AwardSection type="column" className="award-viz award-description">
-            <AwardSectionHeader icon={<SpeechBubble />} tooltip={tooltip} title="Description" tooltipWide={(awardType === 'contract')} />
+            <AwardSectionHeader icon={<SpeechBubble />} tooltip={tooltip} title="Description" />
             <div className="award-description__content">
-                <p className="award-description__description">
-                    {value} {button}
-                </p>
+                <ExpandableAwardSection contentClassName="award-description__description" type="secondary" content={description} />
                 {naics && psc && (
                     <div className="award-description__naics-psc">
                         <div className="naics-psc__section">

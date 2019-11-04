@@ -105,6 +105,7 @@ export default class Award extends React.Component {
                     <ContractContent
                         awardId={awardId}
                         overview={overview}
+                        counts={{ subawardCount: overview.subawardCount }}
                         jumpToSection={this.jumpToSection} />
                 );
             }

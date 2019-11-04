@@ -79,6 +79,7 @@
       @include viewTypeButton();
       text-align: right;
       .view-button {
+        margin-top: 0;
         &.active {
           background-color: $color-primary;
           border-color: $color-primary;
