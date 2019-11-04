@@ -1187,8 +1187,8 @@ export const LoanAwardAmountsInfo = (
             Award Amounts
         </div>
         <div className="info-tooltip__text">
-            <p>This section illustrates the awarded amount of this loan.</p>
-            <p>The total face value of the loan is shown with the original subsidy cost shown as a percentage of that face value.  The original subsidy cost can also be thought of the long-term estimated cost of this loan to the government.</p>
+            <p>This section illustrates the total value of this loan to the recipient and its expected cost to the government.</p>
+            <p>The total face value of the loan is shown with the original subsidy cost as a portion of that face value.  The original subsidy cost is the long-term estimated cost of this loan to the government based on the modeled risk that the recipient will default. Administrative costs of running the loan program itself are excluded from this number.</p>
             <p>Hover over the chart for more information about the specific amounts displayed.</p>
         </div>
     </div>
