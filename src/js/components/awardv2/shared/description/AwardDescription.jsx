@@ -33,7 +33,7 @@ const AwardDescription = ({
     const tooltip = getToolTipBySectionAndAwardType('description', awardType);
     return (
         <AwardSection type="column" className="award-viz award-description">
-            <AwardSectionHeader icon={<SpeechBubble />} tooltip={tooltip} title="Description" tooltipWide />
+            <AwardSectionHeader icon={<SpeechBubble />} tooltip={tooltip} title="Description" tooltipWide={awardType === 'contract'} />
             <div className="award-description__content">
                 <ExpandableAwardSection contentClassName="award-description__description" type="secondary" content={description} />
                 {naics && psc && (
