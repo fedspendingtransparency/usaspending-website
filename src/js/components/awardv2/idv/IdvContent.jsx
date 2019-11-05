@@ -75,7 +75,7 @@ const IdvContent = ({
                     awardId={awardId}
                     overview={overview} />
                 <AwardDescription
-                    isIdv
+                    awardType={overview.category}
                     awardId={awardId}
                     description={overview.description}
                     naics={overview.additionalDetails.naicsCode}
@@ -84,7 +84,7 @@ const IdvContent = ({
             <AwardSection type="row">
                 <IdvActivityContainer />
                 <FederalAccountsSection
-                    idv
+                    awardType={overview.category}
                     jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             <ReferencedAwardsContainer

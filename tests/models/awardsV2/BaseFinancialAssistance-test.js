@@ -3,13 +3,12 @@
  * Created by David Trinh 10/10/18
  */
 
-import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
+import BaseFinancialAssistance, { emptyCfda } from 'models/v2/awardsV2/BaseFinancialAssistance';
 import CoreLocation from "models/v2/CoreLocation";
 import BaseAwardRecipient from "models/v2/awardsV2/BaseAwardRecipient";
 import CoreAwardAgency from "models/v2/awardsV2/CoreAwardAgency";
 import CorePeriodOfPerformance from 'models/v2/awardsV2/CorePeriodOfPerformance';
 
-import { emptyCfda } from '../../../src/js/models/v2/awardsV2/BaseFinancialAssistance';
 import { mockLoan } from './mockAwardApi';
 
 const loan = Object.create(BaseFinancialAssistance);
@@ -18,7 +17,7 @@ loan.populate(mockLoan);
 describe('Base Financial Assistance', () => {
     describe('cfdaProgram', () => {
         it('should format the CFDA fields', () => {
-            expect(loan.cfdaProgram).toEqual('0.434 - Flood Insurance');
+            expect(loan.cfdaProgram).toEqual('0.3 - bigger');
         });
     });
     describe('agencies', () => {
@@ -51,7 +50,7 @@ describe('Base Financial Assistance', () => {
         it('should return the largest CFDA', () => {
             const award = Object.create(BaseFinancialAssistance);
             award.populate(mockLoan);
-            expect(award.biggestCfda.cfda_title).toEqual('bigger');
+            expect(award.biggestCfda.cfdaTitle).toEqual('bigger');
         });
         it('should handle an empty array', () => {
             const award = Object.create(BaseFinancialAssistance);

@@ -22,21 +22,6 @@ global.Promise = require.requireActual('promise');
 const routerPushSpy = sinon.spy(Router.history, 'push');
 
 describe('AgencyFooterContainer', () => {
-    describe('loadAgency', () => {
-        it('should set the state of the loaded agency', async () => {
-            const container = mount(<AgencyFooterContainer
-                clearAllFilters={jest.fn()}
-                updateSelectedAwardingAgencies={jest.fn()} />);
-            const mockAgencyLoad = jest.fn();
-            container.instance().fetchAgencyCgacCode = mockAgencyLoad;
-
-            container.instance().loadAgency('123');
-
-            await container.instance().request.promise;
-            expect(container.instance().state.agency).toEqual(mockCgacLoad.agency);
-            expect(container.instance().state.ready).toEqual(true);
-        });
-    });
     describe('clickedSearch', () => {
         it('should clear filters on click', () => {
             const container = shallow(<AgencyFooterContainer

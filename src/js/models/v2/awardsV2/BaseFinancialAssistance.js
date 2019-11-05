@@ -13,13 +13,22 @@ import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 const BaseFinancialAssistance = Object.create(CoreAward);
 export const emptyCfda = {
     total_funding_amount: -Infinity,
-    cfda_title: '',
-    cfda_number: ''
+    cfdaTitle: '',
+    cfdaNumber: ''
 };
 
 const getLargestCfda = (acc, cfdaItem) => {
     if (cfdaItem.total_funding_amount > acc.total_funding_amount) {
-        return cfdaItem;
+        return {
+            samWebsite: cfdaItem.sam_website || '',
+            cfdaWebsite: cfdaItem.cfda_website || '',
+            cfdaFederalAgency: cfdaItem.cfda_federal_agency || '',
+            cfdaNumber: cfdaItem.cfda_number || '',
+            cfdaTitle: cfdaItem.cfda_title || '',
+            applicantEligibility: cfdaItem.applicant_eligibility || '',
+            beneficiaryEligibility: cfdaItem.beneficiary_eligibility || '',
+            cfdaObjectives: cfdaItem.cfda_objectives || ''
+        };
     }
     return acc;
 };
@@ -114,9 +123,6 @@ BaseFinancialAssistance.populate = function populate(data) {
     this.executiveDetails = executiveDetails;
 
     // populate the financial assistance-specific fields
-    this._cfdaNumber = data.cfda_number || '';
-    this._cfdaTitle = data.cfda_title || '';
-    this.cfdaProgramDescription = data.cfda_objectives || '--';
     this._faceValue = parseFloat(data.total_loan_value) || 0;
     this._subsidy = parseFloat(data.total_subsidy_cost) || 0;
     this._baseAllOptions = parseFloat(data.base_and_all_options) || 0;
@@ -130,11 +136,11 @@ BaseFinancialAssistance.populate = function populate(data) {
 
 Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {
     get() {
-        if (this._cfdaNumber && this._cfdaTitle) {
-            return `${this._cfdaNumber} - ${this._cfdaTitle}`;
+        if (this.biggestCfda.cfdaNumber && this.biggestCfda.cfdaTitle) {
+            return `${this.biggestCfda.cfdaNumber} - ${this.biggestCfda.cfdaTitle}`;
         }
-        else if (this._cfdaNumber || this._cfdaTitle) {
-            return `${this._cfdaNumber}${this._cfdaTitle}`;
+        else if (this.biggestCfda.cfdaNumber || this.biggestCfda.cfdaTitle) {
+            return `${this.biggestCfda.cfdaNumber}${this.biggestCfda.cfdaTitle}`;
         }
         return '--';
     }
