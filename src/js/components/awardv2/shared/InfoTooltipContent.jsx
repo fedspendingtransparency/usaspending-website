@@ -289,7 +289,7 @@ export const federalAccountFundingInfoGeneric = (
             <ul>
                 <li>
                     <strong>Submission Date</strong> – The fiscal year and quarter of
-                    the data when the transaction occurred.
+                    the date when the transaction occurred.
                 </li>
                 <li>
                     <strong>Agency</strong> – The awarding agency reporting the
