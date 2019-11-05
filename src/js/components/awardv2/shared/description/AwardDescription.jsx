@@ -43,7 +43,7 @@ const AwardDescription = ({
                                 North American Industry Classification System (NAICS) Code
                                 <div className="naics-psc__icon">
                                     <a href={`#/award/${awardId}/?glossary=naics`}>
-                                        <Glossary />
+                                        <Glossary alt="View glossary definition of NAICS" />
                                     </a>
                                 </div>
                             </div>
@@ -55,7 +55,7 @@ const AwardDescription = ({
                                 Product Service Code (PSC)
                                 <div className="naics-psc__icon">
                                     <a href={`#/award/${awardId}/?glossary=productservice-code-psc`}>
-                                        <Glossary />
+                                        <Glossary alt="View glossary definition of Product/Service Code (PSC)" />
                                     </a>
                                 </div>
                             </div>

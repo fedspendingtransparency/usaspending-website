@@ -7,11 +7,6 @@
             z-index: 9;
         }
     }
-    .award__icon {
-        &:hover, &:focus {
-            color: $color-gray;
-        }
-    }
     .info-tooltip {
         .info-tooltip__interior {
             position: relative;
