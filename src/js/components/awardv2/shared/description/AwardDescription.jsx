@@ -52,15 +52,17 @@ const AwardDescription = ({
                         </div>
                         <div className="naics-psc__section naics-psc__section_psc">
                             <div className="naics-psc__heading">
-                                Product Service Code (PSC)
-                                <span className="naics-psc__icon">
-                                    <a href={`#/award/${awardId}/?glossary=productservice-code-psc`}>
-                                        <Glossary alt="View glossary definition of Product/Service Code (PSC)" />
-                                    </a>
-                                </span>
+                                <div className="naics-psc__icon">
+                                    Product or Service Code (PSC)
+                                    <span className="naics-psc__icon">
+                                        <a href={`#/award/${awardId}/?glossary=productservice-code-psc`}>
+                                            <Glossary alt="View glossary definition of Product/Service Code (PSC)" />
+                                        </a>
+                                    </span>
+                                </div>
+                                {!isIdv && <LineTree type="psc" data={psc} />}
+                                {isIdv && psc}
                             </div>
-                            {!isIdv && <LineTree type="psc" data={psc} />}
-                            {isIdv && psc}
                         </div>
                     </div>
                 )}
