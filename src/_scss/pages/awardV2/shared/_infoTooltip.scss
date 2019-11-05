@@ -46,7 +46,7 @@
                         z-index: 10;
                     }
                     .info-tooltip__text {
-                        padding: 0 rem(15) rem(15);
+                        padding: rem(5) rem(15) rem(15);
                         font-weight: $font-normal;
                         ul {
                             margin: 0;
@@ -57,6 +57,19 @@
                             display: flex;
                             flex-wrap: wrap;
                             flex-direction: column;
+                            &.award-desciption-section {
+                                // the list in the award description section
+                                li:last-of-type {
+                                    margin-top: rem(14);
+                                }
+                                .info-tooltip__list {
+                                    // nested list in this section
+                                    padding-left: rem(15);
+                                    li:last-of-type {
+                                        margin-top: 0;
+                                    }
+                                }
+                            }
                             li {
                                 margin: 0;
                                 margin-right: rem(5);
@@ -64,7 +77,10 @@
                             }
                         }
                         .info-tooltip__text-section {
-                          margin-top: 0;
+                            margin-top: 0;
+                            strong {
+                                margin-top: rem(10);
+                            }
                         }
                     }
                     .related-awards-tt {

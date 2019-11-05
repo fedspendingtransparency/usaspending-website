@@ -56,7 +56,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
         const isNormal = scenario === 'normal';
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
-            return <GrantChart awardAmounts={awardAmounts} />;
+            return <GrantChart awardAmounts={awardAmounts} awardType={type} />;
         }
         else if (type === 'loan' && isNormal) {
             return <LoanChart awardAmounts={awardAmounts} />;

@@ -8,15 +8,19 @@
     .wrapper {
         min-height: 36vh;
     }
+    .award-hr-margin-bottom {
+      margin-bottom: rem(3);
+    }
+    .idv-award-amounts-tabs {
+      margin-top: 0;
+    }
     .award-content {
         @import "mixins/fullSectionWrap";
         @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
         background-color: $color-white;
-
         // Shared award summary styles
         .award {
             padding: rem(24) rem(30);
-
             .award__heading {
                 @include media($medium-screen) {
                   @include display(flex);
@@ -111,6 +115,9 @@
                 &.federal-accounts-section {
                   padding-bottom: 0;
                 }
+                &.award-overview {
+                  padding-top: 0;
+                }
                 .award__col {
                     @include flex(1 1 auto);
                     // Add padding between columns when they are stacked in mobile
@@ -157,6 +164,7 @@
                 height: 2px;
                 background: #555555;
                 border: none;
+                margin-bottom: rem(35);
             }
             @import "./visualizations/awardViz";
             @import "./visualizations/overview/overview";

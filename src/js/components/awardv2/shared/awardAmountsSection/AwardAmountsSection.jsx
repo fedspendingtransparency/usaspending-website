@@ -2,24 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
+import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 import AwardAmountsChart from './charts/AwardAmountsChart';
 import AwardAmountsTable from './AwardAmountsTable';
-import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, AWARD_TYPE_PROPS } from '../../../../propTypes';
 import JumpToSectionButton from './JumpToSectionButton';
-import { ContractAwardAmountsInfo, GrantAwardAmountsInfo, LoanAwardAmountsInfo } from '../InfoTooltipContent';
+import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS, AWARD_TYPE_PROPS } from '../../../../propTypes';
 
 const propTypes = {
     awardType: AWARD_TYPE_PROPS,
     awardOverview: AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS,
     jumpToTransactionHistoryTable: PropTypes.func
-};
-
-const tooltipByAwardType = {
-    contract: ContractAwardAmountsInfo,
-    grant: GrantAwardAmountsInfo,
-    loan: LoanAwardAmountsInfo
 };
 
 const AwardAmountsSection = ({
@@ -28,7 +22,7 @@ const AwardAmountsSection = ({
     jumpToTransactionHistoryTable
 }) => {
     const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview);
-    const tooltip = tooltipByAwardType[awardType];
+    const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
     return (
         <AwardSection type="column" className="award-viz award-amounts">
             <div className="award__col__content">

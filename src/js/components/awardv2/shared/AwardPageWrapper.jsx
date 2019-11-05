@@ -33,7 +33,7 @@ const AwardPageWrapper = ({
                 </span>
             </div>
         </div>
-        <hr />
+        <hr className="award-hr-margin-bottom" />
         {children}
     </div>
 );

@@ -14,7 +14,8 @@ const propTypes = {
     active: PropTypes.string,
     switchTab: PropTypes.func,
     disabled: PropTypes.bool,
-    hideCounts: PropTypes.bool
+    hideCounts: PropTypes.bool,
+    tabsClassName: PropTypes.string
 };
 
 export default class ResultsTableTabs extends React.Component {
@@ -29,7 +30,8 @@ export default class ResultsTableTabs extends React.Component {
                     switchTab={this.props.switchTab}
                     key={`table-type-item-${type.internal}`}
                     enabled={!this.props.disabled}
-                    hideCounts={this.props.hideCounts} />
+                    hideCounts={this.props.hideCounts}
+                    className={this.props.tabsClassName} />
             );
         });
 
