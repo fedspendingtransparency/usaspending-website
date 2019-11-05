@@ -147,7 +147,7 @@ export default class SubawardsTable extends React.Component {
                 : <ResultsTableNoResults />;
         }
 
-        const totalSubAwardLabel = 'Total Count of Sub-Awards: ';
+        const totalSubAwardLabel = 'Total Count of Sub-Award Transactions: ';
         const totalSubAwardAmountLabel = 'Total Amount of Sub-Awards: ';
         return (
             <div>
@@ -170,7 +170,7 @@ export default class SubawardsTable extends React.Component {
                     </div>
                     <div className="total-item">
                         <span className="total-label">
-                            Percentage of Total Funded Amount:&nbsp;
+                            Percent of Prime Award Obligated Amount:&nbsp;
                         </span>
                         <span className="total-value">
                             {award.subAwardedPercent}

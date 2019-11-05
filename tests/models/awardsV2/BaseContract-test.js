@@ -6,6 +6,7 @@
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import CoreLocation from "models/v2/CoreLocation";
 import BaseAwardRecipient from "models/v2/awardsV2/BaseAwardRecipient";
+import BaseParentAwardDetails from 'models/v2/awardsV2/BaseParentAwardDetails';
 import CoreAwardAgency from "models/v2/awardsV2/CoreAwardAgency";
 import BaseContractAdditionalDetails from "models/v2/awardsV2/additionalDetails/BaseContractAdditionalDetails";
 import CorePeriodOfPerformance from 'models/v2/awardsV2/CorePeriodOfPerformance';
@@ -52,6 +53,9 @@ describe('BaseContract', () => {
             expect(Object.getPrototypeOf(contract.executiveDetails)).toEqual(CoreExecutiveDetails);
         });
     });
+    it(' should create a parent award details property', () => {
+        expect(Object.getPrototypeOf(contract.parentAwardDetails)).toEqual(BaseParentAwardDetails);
+    });
     describe('Deducing the PSC Type based on the PSC Top Tier Code from the API', () => {
         it.each([
             ['PRODUCTS', '4'],
@@ -71,7 +75,7 @@ describe('BaseContract', () => {
                     }
                 };
                 contract.populate(mockData);
-                expect(contract.psc.toptier_code.description).toEqual(result);
+                expect(contract.psc.pscType.description).toEqual(result);
             }
         );
     });

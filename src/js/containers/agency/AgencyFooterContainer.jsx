@@ -7,20 +7,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isCancel } from 'axios';
 
 import Router from 'containers/router/Router';
 
 import { clearAllFilters, updateSelectedAwardingAgencies } from
     'redux/actions/search/searchFilterActions';
-import * as AgencyHelper from 'helpers/agencyHelper';
 
 import AgencyFooter from 'components/agency/footer/AgencyFooter';
 
 const propTypes = {
     id: PropTypes.string,
-    clearAllFilters: PropTypes.func,
-    updateSelectedAwardingAgencies: PropTypes.func
+    clearAllFilters: PropTypes.func
 };
 
 export class AgencyFooterContainer extends React.Component {
@@ -35,44 +32,6 @@ export class AgencyFooterContainer extends React.Component {
         this.request = null;
 
         this.clickedSearch = this.clickedSearch.bind(this);
-    }
-
-    // TODO: Kevin Li - this feature has been descoped to no longer auto-fill the search page
-    // componentWillMount() {
-    //     this.loadAgency(this.props.id);
-    // }
-
-    // componentWillReceiveProps(nextProps) {
-    //     if (nextProps.id !== this.props.id) {
-    //         this.loadAgency(nextProps.id);
-    //     }
-    // }
-
-    loadAgency(id) {
-        if (this.request) {
-            this.request.cancel();
-        }
-
-        this.setState({
-            ready: false
-        });
-
-        this.request = AgencyHelper.fetchAgencyCgacCode({
-            id
-        });
-
-        this.request.promise
-            .then((res) => {
-                this.setState({
-                    ready: true,
-                    agency: res.data.results[0]
-                });
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                }
-            });
     }
 
     clickedSearch() {

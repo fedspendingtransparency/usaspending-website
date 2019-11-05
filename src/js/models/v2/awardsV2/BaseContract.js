@@ -27,7 +27,7 @@ const getPscTypeByToptierCode = (toptierCode) => {
 
     const topTierCodeAsInt = parseInt(toptierCode, 10);
     if (isNaN(topTierCodeAsInt)) {
-        if (toptierCode && toptierCode.toUpperCase() === 'A') {
+        if (toptierCode && toptierCode[0].toUpperCase() === 'A') {
             return 'RESEARCH AND DEVELOPMENT';
         }
         // all letters other than 'A' are services
@@ -39,15 +39,14 @@ const getPscTypeByToptierCode = (toptierCode) => {
 
 const deducePscType = (acc, keyValueArray) => {
     const [key, value] = keyValueArray;
+    const description = getPscTypeByToptierCode(value.code);
     if (key === 'toptier_code') {
-        return {
-            ...acc,
-            [key]: {
-                // if toptier_code is undefined, provide this value so it is sorted to the top
-                code: value.code || "0",
-                description: getPscTypeByToptierCode(value.code)
-            }
-        };
+        const pscType = { code: "--", description };
+        if (description === 'RESEARCH AND DEVELOPMENT') {
+            // replace toptier_code w/ psc type
+            return { ...acc, pscType };
+        }
+        return { ...acc, pscType, [key]: value };
     }
     return { ...acc, [key]: value };
 };
@@ -149,24 +148,13 @@ BaseContract.populate = function populate(data) {
     }
 
     const parentAwardDetails = Object.create(BaseParentAwardDetails);
-    const parentDetails = {
-        award_id: data.parent_generated_unique_award_id,
-        idv_type_description: data.idv_type_description,
-        type_of_idc_description: data.type_of_idc_description,
-        agency_id: data.parent_agency_id,
-        agency_name: data.parent_agency_name,
-        multiple_or_single_aw_desc: data.multiple_or_single_aw_description,
-        piid: data.parent_award_piid
-    };
-    parentAwardDetails.populateCore(parentDetails);
+    parentAwardDetails.populateCore(data.parent_award || {});
     this.parentAwardDetails = parentAwardDetails;
 
     const executiveDetails = Object.create(CoreExecutiveDetails);
     executiveDetails.populateCore(data.executive_details);
     this.executiveDetails = executiveDetails;
 
-    this.parentAward = data.parent_award_piid || '--';
-    this.parentId = data.parent_generated_unique_award_id || '';
     this.pricing = data.latest_transaction_contract_data || '--';
     this._amount = parseFloat(data.base_and_all_options) || 0;
     this.piid = data.piid || '';

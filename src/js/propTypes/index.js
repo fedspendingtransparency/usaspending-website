@@ -48,6 +48,7 @@ export const AWARD_PAGE_WRAPPER_PROPS = {
     awardType: AWARD_TYPE_PROPS,
     awardTypeDescription: PropTypes.string,
     glossaryLink: PropTypes.string,
+    overviewType: PropTypes.string,
     identifier: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     children: PropTypes.node
 };

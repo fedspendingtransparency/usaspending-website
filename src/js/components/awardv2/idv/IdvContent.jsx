@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsContainer';
 import IdvActivityContainer from 'containers/awardV2/idv/IdvActivityContainer';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import AwardHistory from '../shared/awardHistorySection/AwardHistory';
+import AwardHistory from 'containers/awardV2/shared/AwardHistorySectionContainer';
+
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
 import RelatedAwards from '../shared/overview/RelatedAwards';
 import IdvDates from '../shared/overview/AwardDates';
@@ -53,6 +54,7 @@ const IdvContent = ({
             title={overview.title}
             lastModifiedDateLong={overview.dates.lastModifiedDateLong}
             glossaryLink={glossaryLink}
+            overviewType={overview.type}
             identifier={overview.piid}>
             <AwardSection type="row" className="award-overview" id="award-overivew">
                 <AgencyRecipient
@@ -75,7 +77,7 @@ const IdvContent = ({
                     awardId={awardId}
                     overview={overview} />
                 <AwardDescription
-                    isIdv
+                    awardType={overview.category}
                     awardId={awardId}
                     description={overview.description}
                     naics={overview.additionalDetails.naicsCode}
@@ -84,7 +86,7 @@ const IdvContent = ({
             <AwardSection type="row">
                 <IdvActivityContainer />
                 <FederalAccountsSection
-                    idv
+                    awardType={overview.category}
                     jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             <ReferencedAwardsContainer

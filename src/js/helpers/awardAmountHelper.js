@@ -42,7 +42,10 @@ export const getAscendingSpendingCategoriesByAwardType = (awardType, awardAmount
 export const determineSpendingScenarioAsstAwards = (awardAmountObj) => {
     const { _totalObligation, _nonFederalFunding, _totalFunding } = awardAmountObj;
     // if any of the values are negative, return insufficient data
-    if (_totalObligation < 0 || _nonFederalFunding < 0 || _totalObligation < 0) {
+    if (_totalObligation < 0 || _nonFederalFunding < 0 || _totalFunding < 0) {
+        return 'insufficientData';
+    }
+    else if (_totalObligation === 0 && _nonFederalFunding === 0 && _totalObligation === 0) {
         return 'insufficientData';
     }
     // if total funding is sum of obligation and non federal funding, return normal
@@ -59,10 +62,14 @@ export const determineSpendingScenarioAsstAwards = (awardAmountObj) => {
 // includes logic for idvs, contracts, loan award types
 export const determineSpendingScenario = (small = 0, bigger = 0, biggest = null) => {
     const allCategoriesAreInPlay = (small && bigger && biggest);
+
     if (small === 0 && bigger === 0 && biggest === 0) {
-        return null;
+        return 'insufficientData';
     }
-    if (allCategoriesAreInPlay && small >= 0) {
+    else if (small < 0 || bigger < 0 || biggest < 0) {
+        return 'insufficientData';
+    }
+    else if (allCategoriesAreInPlay) {
         if (small <= bigger && bigger <= biggest) {
             return 'normal';
         }
@@ -74,11 +81,8 @@ export const determineSpendingScenario = (small = 0, bigger = 0, biggest = null)
         }
     }
     else if (small >= 0) {
-        if (small <= bigger) {
+        if (small <= bigger && bigger > 0) {
             return 'normal';
-        }
-        else if (bigger < small) {
-            return 'exceedsBigger';
         }
     }
 

@@ -10,9 +10,9 @@ import HeroButton from './HeroButton';
 import HeroTooltip from './HeroTooltip';
 
 // Fiscal year, spending amount constants, to be updated yearly
-// last updated: 11/5/2018
-const fiscalYear = 2018;
-const fiscalSpendingAmount = `$4.11 trillion`;
+// last updated: 10/28/2019
+const fiscalYear = 2019;
+const fiscalSpendingAmount = `$4.45 trillion`;
 
 export default class Hero extends React.Component {
     constructor(props) {

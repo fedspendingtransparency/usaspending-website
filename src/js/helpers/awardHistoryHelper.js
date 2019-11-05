@@ -24,14 +24,32 @@ export const fetchFederalAccountFunding = (params) => {
     };
 };
 
-/**
- * @param type: oneOf(['subaward', 'transaction', 'federal_account'])
- */
-export const getAwardHistoryCounts = (type, awardId) => {
+export const getAwardHistoryFederalAccountsIdv = (awardId) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v2/awards/count/${type}/${awardId}/`,
+            url: `v2/idvs/count/federal_account/${awardId}/`,
+            baseURL: kGlobalConstants.API,
+            method: 'get',
+            cancelToken: source.token
+        }),
+        cancel() {
+            source.cancel();
+        }
+    };
+};
+
+
+/**
+ * @param type: oneOf(['subaward', 'transaction', 'federal_account'])
+ */
+export const getAwardHistoryCounts = (type, awardId, isIdv = false) => {
+    const source = CancelToken.source();
+    const parsedAwardId = encodeURI(awardId);
+    if (type === 'federal_account' && isIdv) return getAwardHistoryFederalAccountsIdv(parsedAwardId);
+    return {
+        promise: Axios.request({
+            url: `v2/awards/count/${type}/${parsedAwardId}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
