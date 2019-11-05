@@ -6,7 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { tabs, awardTypesWithSubawards, awardHistorySectionTooltip } from 'dataMapping/awardsv2/awardHistorySection';
+import { tabs, awardTypesWithSubawards } from 'dataMapping/awardsv2/awardHistorySection';
+import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
 import SubawardsContainer from 'containers/awardV2/table/SubawardsContainer';
@@ -141,7 +142,7 @@ export class AwardHistory extends React.Component {
         const sectionTitle = (overview.category === 'idv')
             ? "Award History for this IDV"
             : "Award History";
-        const tooltip = awardHistorySectionTooltip(overview.category);
+        const tooltip = getToolTipBySectionAndAwardType('awardHistory', overview.category);
 
         return (
             <div id="award-award-history" className="award-viz award-history">
