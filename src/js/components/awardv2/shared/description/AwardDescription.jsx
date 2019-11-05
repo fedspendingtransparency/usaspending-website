@@ -41,26 +41,28 @@ const AwardDescription = ({
                         <div className="naics-psc__section">
                             <div className="naics-psc__heading">
                                 North American Industry Classification System (NAICS) Code
-                                <div className="naics-psc__icon">
+                                <span className="naics-psc__icon">
                                     <a href={`#/award/${awardId}/?glossary=naics`}>
-                                        <Glossary />
+                                        <Glossary alt="View glossary definition of NAICS" />
                                     </a>
-                                </div>
+                                </span>
                             </div>
                             {!isIdv && <LineTree type="naics" data={naics} />}
                             {isIdv && naics}
                         </div>
                         <div className="naics-psc__section naics-psc__section_psc">
                             <div className="naics-psc__heading">
-                                Product or Service Code (PSC)
                                 <div className="naics-psc__icon">
-                                    <a href={`#/award/${awardId}/?glossary=productservice-code-psc`}>
-                                        <Glossary />
-                                    </a>
+                                    Product or Service Code (PSC)
+                                    <span className="naics-psc__icon">
+                                        <a href={`#/award/${awardId}/?glossary=productservice-code-psc`}>
+                                            <Glossary alt="View glossary definition of Product/Service Code (PSC)" />
+                                        </a>
+                                    </span>
                                 </div>
+                                {!isIdv && <LineTree type="psc" data={psc} />}
+                                {isIdv && psc}
                             </div>
-                            {!isIdv && <LineTree type="psc" data={psc} />}
-                            {isIdv && psc}
                         </div>
                     </div>
                 )}

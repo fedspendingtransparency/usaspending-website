@@ -125,7 +125,7 @@ export default class InfoTooltip extends React.Component {
                         role="button"
                         tabIndex="0"
                         onBlur={this.closeTooltip}
-                        className="award__icon"
+                        className="info-tooltip__icon"
                         onFocus={this.showTooltip}
                         onKeyPress={this.showTooltip}
                         onMouseEnter={this.showTooltip}
