@@ -5,7 +5,6 @@
 
 import {
     formatAwardAmountRange,
-    determineSpendingScenario,
     generatePercentage,
     getAscendingSpendingCategoriesByAwardType,
     determineSpendingScenarioAsstAwards,
@@ -27,6 +26,10 @@ const contractAwardAmounts = {
     _baseAndAllOptions: 100
 };
 const idvAwardAmounts = contractAwardAmounts;
+
+const buildContract = (amounts) => ({ _totalObligation: amounts[0], _baseExercisedOptions: amounts[1], _baseAndAllOptions: amounts[2] });
+const buildLoan = (amounts) => ({ _subsidy: amounts[0], _faceValue: amounts[1] });
+const buildAsst = (amounts) => ({ _totalObligation: amounts[0], _nonFederalFunding: amounts[1], _totalFunding: amounts[2] });
 
 describe('Award Amounts Advanced Search Filter Helper', () => {
     describe('Format Labels', () => {
@@ -124,58 +127,72 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
         });
     });
 
-    describe('determineSpendingScenario', () => {
+    describe('determineSpendingScenarioByAwardType: Contracts and IDVs', () => {
         it.each([
-            ['normal', 50, 75, 100],
-            ['exceedsBigger', 76, 75, 100],
-            ['exceedsBiggest', 101, 75, 100],
-            ['insufficientData', -5, 75, 100],
-            [null, 0, 0, 0],
-            ['insufficientData', 50, 101, 100]
+            ['normal', 'idv', 1, 75, 100],
+            ['normal', 'contract', 1, 75, 100],
+            ['exceedsBigger', 'idv', 76, 75, 100],
+            ['exceedsBigger', 'contract', 76, 75, 100],
+            ['exceedsBiggest', 'idv', 101, 75, 100],
+            ['exceedsBiggest', 'contract', 101, 75, 100],
+            // no exceedsBiggest bc there's only two spending categories
+            ['insufficientData', 'idv', -5, 75, 100],
+            ['insufficientData', 'contract', -5, 75, 100],
+            ['insufficientData', 'idv', 5, -75, 100],
+            ['insufficientData', 'contract', 5, -75, 100],
+            ['insufficientData', 'idv', 5, 75, -100],
+            ['insufficientData', 'contract', 5, 75, -100],
+            ['insufficientData', 'idv', 0, 0, 0],
+            ['insufficientData', 'contract', 0, 0, 0],
+            ['insufficientData', 'idv', 5, 101, 100],
+            ['insufficientData', 'contract', 5, 101, 100]
         ])(
-            ('Scenario should be %s when small is %s, bigger is %s, and biggest is %s'),
-            (result, small, bigger, biggest) => {
-                const scenario = determineSpendingScenario(small, bigger, biggest);
+            ('Scenario is considered %s for %s awards when the *normative* ascending category values are %s (obligated), %s (current funding), %s (potential funding)'),
+            (result, awardType, firstSpendingCategory, secondSpendingCategory, thirdSpendingCategory) => {
+                const awardAmountObj = buildContract([firstSpendingCategory, secondSpendingCategory, thirdSpendingCategory]);
+                const scenario = determineSpendingScenarioByAwardType(awardType, awardAmountObj);
                 expect(scenario).toEqual(result);
             }
         );
     });
 
-    describe('determineSpendingScenarioByAwardType', () => {
+    describe('determineSpendingScenarioByAwardType: Loan Awards', () => {
         it.each([
-            ['idv', { _totalObligation: 1, _baseExercisedOptions: 75, _baseAndAllOptions: 100 }],
-            ['contract', { _totalObligation: 1, _baseExercisedOptions: 75, _baseAndAllOptions: 100 }],
-            ['loan', { _subsidy: 1, _faceValue: 75 }]
+            ['normal', 'loan', 1, 75],
+            ['insufficientData', 'loan', 76, 75],
+            ['insufficientData', 'loan', 101, 75],
+            ['insufficientData', 'loan', -5, 75],
+            ['insufficientData', 'loan', 5, -75],
+            ['insufficientData', 'loan', 0, 0],
+            ['insufficientData', 'loan', 101, 100]
         ])(
-            ('Scenario is parsed for %s award type'),
-            (awardType, awardObj) => {
-                const result = determineSpendingScenarioByAwardType(awardType, awardObj);
-                expect(result).toEqual('normal');
+            ('Scenario is considered %s for loan awards when the *normative* ascending category values are %s (subsidy), %s (faceValue)'),
+            (result, awardType, firstSpendingCategory, secondSpendingCategory) => {
+                const awardAmountObj = buildLoan([firstSpendingCategory, secondSpendingCategory]);
+                const scenario = determineSpendingScenarioByAwardType(awardType, awardAmountObj);
+                expect(scenario).toEqual(result);
             }
         );
     });
 
-    describe('determineSpendingScenarioAsstAwards', () => {
-        it('should return insufficientData with any negative values', () => {
-            const totalObligationNegative = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalObligation: -1 });
-            const totalFundingNegative = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalFunding: -1 });
-            const nonFederalFundingNegative = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _nonFederalFunding: -1 });
-            expect(totalObligationNegative).toEqual('insufficientData');
-            expect(totalFundingNegative).toEqual('insufficientData');
-            expect(nonFederalFundingNegative).toEqual('insufficientData');
-        });
-        it('should return insufficientData when totalFunding is not the sum of nonFederalFunding and totalObligation', () => {
-            const mockedScenario = determineSpendingScenarioAsstAwards(grantAwardAmounts);
-            expect(mockedScenario).toEqual('insufficientData');
-        });
-        it('should return normal when totalFunding is the sum of nonFederalFunding and totalObligated', () => {
-            const mockedScenario = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalFunding: 10 });
-            expect(mockedScenario).toEqual('normal');
-        });
-        it('should return normal when totalObligation is less than totalFunding and nonFederalFunding is zero', () => {
-            const mockedScenario = determineSpendingScenarioAsstAwards({ ...grantAwardAmounts, _totalObligation: 10, _nonFederalFunding: 0 });
-            expect(mockedScenario).toEqual('normal');
-        });
+    describe('determineSpendingScenarioByAwardType: Asst awards (other, insurance, direct payments, grant)', () => {
+        it.each([
+            ['normal', 'grant', 25, 75, 100],
+            ['normal', 'grant', 76, 0, 100],
+            ['insufficientData', 'grant', 101, 75, 100],
+            ['insufficientData', 'grant', -5, 75, 100],
+            ['insufficientData', 'grant', 5, -75, 100],
+            ['insufficientData', 'grant', 5, 75, -100],
+            ['insufficientData', 'grant', 0, 0, 0],
+            ['insufficientData', 'grant', 5, 101, 10]
+        ])(
+            ('Scenario is considered %s for asst awards when the *normative* case is %s (obligation) + %s (non federal funding) = %s (total funding'),
+            (result, awardType, firstSpendingCategory, secondSpendingCategory, thirdSpendingCategory) => {
+                const awardAmountObj = buildAsst([firstSpendingCategory, secondSpendingCategory, thirdSpendingCategory]);
+                const scenario = determineSpendingScenarioByAwardType(awardType, awardAmountObj);
+                expect(scenario).toEqual(result);
+            }
+        );
     });
 });
 

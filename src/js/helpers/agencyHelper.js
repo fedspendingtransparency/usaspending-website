@@ -106,37 +106,3 @@ export const fetchAgencyObligatedAmounts = (params) => {
         }
     };
 };
-
-// Get Agency's CGAC code
-export const fetchAgencyCgacCode = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: `v1/references/agency/`,
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
-// Get Latest Sumbission Reporting Fiscal Quarter
-export const fetchAgencyFiscalQuarter = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: `v1/submissions/`,
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};

@@ -41,4 +41,4 @@ export const fetchAwardFederalAccounts = (data) => {
 // The string ASST_AGG w/in a generatedUniqueId indicates an aggregated assistance type award
 export const isAwardAggregate = (generatedAwardId = '') => generatedAwardId.includes("ASST_AGG");
 
-export const isAwardFinancialAssistance = (awardType) => ['grant', 'direct payment', 'loan', 'other'].includes(awardType);
+export const isAwardFinancialAssistance = (awardType) => ['grant', 'insurance', 'direct payment', 'loan', 'other'].includes(awardType);
