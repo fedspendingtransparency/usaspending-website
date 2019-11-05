@@ -61,56 +61,6 @@ export const fetchAwardCounts = (params) => {
     };
 };
 
-// Location search for autocomplete
-export const fetchLocations = (req) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v1/references/locations/geocomplete/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: req,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
-// Budget Category autocomplete searches
-export const fetchBudgetFunctions = (req) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v1/tas/autocomplete/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: req,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
-export const fetchFederalAccounts = (req) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v1/federal_accounts/autocomplete/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: req,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
 // Agency search for autocomplete
 export const fetchAwardingAgencies = (req) => {
     const source = CancelToken.source();
@@ -213,9 +163,10 @@ export const fetchAward = (num) => {
 
 export const fetchAwardV2 = (awardId) => {
     const source = CancelToken.source();
+    const parsedAwardId = encodeURI(awardId);
     return {
         promise: Axios.request({
-            url: `v2/awards/${awardId}/`,
+            url: `v2/awards/${parsedAwardId}/`,
             baseURL: kGlobalConstants.API,
             method: 'get',
             cancelToken: source.token
@@ -330,76 +281,6 @@ export const performSpendingByAwardSearch = (params) => {
         }
     };
 };
-
-// Fetch Award IDs
-export const fetchAwardIDs = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v1/awards/autocomplete/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
-// make API call to categories total endpoint
-// Use this in the Spending By Category search for Budget Categories
-export const performCategorySearch = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v1/tas/categories/total/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
-// make API call to balances total endpoint
-// Use this in the Spending Over Time search for Budget Categories
-export const performBalancesSearch = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v1/tas/balances/total/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
-export const performFinancialAccountAggregation = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v1/accounts/awards/total/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
 
 export const performFinancialSystemLookup = (params) => {
     const source = CancelToken.source();
