@@ -1,37 +1,39 @@
 /**
- * TablesSection.jsx
- * Created by David Trinh 12/10/18
+ * AwardHistory.jsx
+ * Created by David Trinh 12/10/2018
  **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { tabs, awardTypesWithSubawards, awardHistorySectionTooltip } from 'dataMapping/awardsv2/awardHistorySection';
 import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
-import { tabs, awardTypesWithSubawards } from 'dataMapping/awardsv2/awardHistorySection';
+import SubawardsContainer from 'containers/awardV2/table/SubawardsContainer';
+import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
+import { AwardLoop } from 'components/sharedComponents/icons/Icons';
+import DetailsTabBar from 'components/award/details/DetailsTabBar';
+import AwardSectionHeader from 'components/awardv2/shared/AwardSectionHeader';
 
-import SubawardsContainer from '../../../../containers/awardV2/table/SubawardsContainer';
-import DetailsTabBar from '../../../award/details/DetailsTabBar';
-import ResultsTablePicker from '../../../search/table/ResultsTablePicker';
-import { getAwardHistoryCounts } from "../../../../helpers/awardHistoryHelper";
+import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
 
 const propTypes = {
     overview: PropTypes.object,
+    setActiveTab: PropTypes.func,
     activeTab: PropTypes.string,
-    clickTab: PropTypes.func,
     awardId: PropTypes.string
 };
 
-export default class TablesSection extends React.Component {
+export class AwardHistory extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
-            tableWidth: 0,
-            tabs: []
+            tabs: [],
+            tableWidth: 0
         };
         this.countRequest = null;
         this.setTableWidth = this.setTableWidth.bind(this);
+        this.currentSection = this.currentSection.bind(this);
     }
 
     componentDidMount() {
@@ -46,7 +48,7 @@ export default class TablesSection extends React.Component {
         // check award changed
         if (this.props.overview.generatedId !== prevProps.overview.generatedId) {
             // reset the tab
-            this.props.clickTab('transaction');
+            this.props.setActiveTab('transaction');
             this.setTableTabsAndGetCounts();
         }
     }
@@ -56,6 +58,12 @@ export default class TablesSection extends React.Component {
         window.removeEventListener('resize', this.setTableWidth);
     }
 
+    setTableWidth() {
+        if (!this.tableWidthController) return;
+        const tableWidth = this.tableWidthController.clientWidth - 2;
+        this.setState({ tableWidth });
+    }
+
     setTableTabsAndGetCounts(award = this.props.overview) {
         if (this.countRequest) {
             this.countRequest.cancel();
@@ -63,20 +71,21 @@ export default class TablesSection extends React.Component {
 
         const tabsWithCounts = tabs(award.category)
             .filter((tab) => {
-                if (
-                    tab.internal === 'subaward' && !awardTypesWithSubawards.includes(award.category)
-                ) {
+                if (tab.internal === 'subaward' && !awardTypesWithSubawards.includes(award.category)) {
                     return false;
                 }
                 return true;
             })
             .map(async (tab) => {
-                if (award.category === 'idv') {
-                    return tab;
-                }
-                this.countRequest = getAwardHistoryCounts(tab.internal, award.generatedId);
+                const isIdv = (award.category === 'idv');
+                this.countRequest = getAwardHistoryCounts(tab.internal, award.generatedId, isIdv);
                 try {
                     const { data } = await this.countRequest.promise;
+                    if (isIdv && tab.internal === 'federal_account') {
+                        // response object for idv federal account endpoint is { count: int }
+                        return { ...tab, count: data.count };
+                    }
+                    // response object for all other count endpoints are { [tab.internal + s] int }
                     return { ...tab, count: data[`${tab.internal}s`] };
                 }
                 catch (error) {
@@ -85,17 +94,11 @@ export default class TablesSection extends React.Component {
                 }
             });
 
-        Promise.all(tabsWithCounts)
+        return Promise.all(tabsWithCounts)
             .then((result) => {
                 this.setState({ tabs: result }, this.setTableWidth);
                 this.countRequest = null;
             });
-    }
-
-    setTableWidth() {
-        if (!this.tableWidthController) return;
-        const tableWidth = this.tableWidthController.clientWidth - 2;
-        this.setState({ tableWidth });
     }
 
     currentSection(
@@ -129,20 +132,33 @@ export default class TablesSection extends React.Component {
     }
 
     render() {
-        const content = this.currentSection();
+        const {
+            overview,
+            setActiveTab,
+            activeTab
+        } = this.props;
         const tabOptions = this.state.tabs;
+        const sectionTitle = (overview.category === 'idv')
+            ? "Award History for this IDV"
+            : "Award History";
+        const tooltip = awardHistorySectionTooltip(overview.category);
 
-        if (tabOptions.length > 0) {
-            return (
+        return (
+            <div id="award-award-history" className="award-viz award-history">
+                <AwardSectionHeader
+                    title={sectionTitle}
+                    icon={<AwardLoop alt="Award History" />}
+                    tooltip={tooltip}
+                    tooltipWide={(overview.category === 'contract')} />
                 <div className="tables-section">
                     <DetailsTabBar
                         tabOptions={tabOptions}
-                        activeTab={this.props.activeTab}
-                        clickTab={this.props.clickTab} />
+                        activeTab={activeTab}
+                        clickTab={setActiveTab} />
                     <ResultsTablePicker
                         types={tabOptions}
-                        active={this.props.activeTab}
-                        switchTab={this.props.clickTab} />
+                        active={activeTab}
+                        switchTab={setActiveTab} />
                     <div
                         className="tables-width-master"
                         ref={(div) => {
@@ -151,13 +167,14 @@ export default class TablesSection extends React.Component {
                             this.tableWidthController = div;
                         }} />
                     <div className="tables-content">
-                        {content}
+                        {this.currentSection()}
                     </div>
                 </div>
-            );
-        }
-        return null;
+            </div>
+        );
     }
 }
 
-TablesSection.propTypes = propTypes;
+AwardHistory.propTypes = propTypes;
+
+export default AwardHistory;
