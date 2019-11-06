@@ -81,7 +81,6 @@ BaseContract.populate = function populate(data) {
         this.additionalDetails = additionalDetails;
     }
 
-    this.parentAward = data.parent_award_piid || '--';
     this.description = data.description || '--';
     this.pricing = (data.latest_transaction && data.latest_transaction.contract_data
             && data.latest_transaction.contract_data.type_of_contract_pric_desc) || '--';

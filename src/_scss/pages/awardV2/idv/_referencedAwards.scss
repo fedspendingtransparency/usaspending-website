@@ -1,10 +1,12 @@
 .referenced-awards {
     .referenced-awards__content {
-        padding-top: rem(20);
         padding-bottom: rem(40);
         @import 'pages/search/results/table/tableTypes';
         .table-types {
             width: 100%;
+            button.table-type-toggle {
+                margin-top: 0;
+            }
         }
         .referenced-awards-results {
             @import 'components/pagination';

@@ -33,12 +33,9 @@ BaseIdv.populate = function populate(data) {
 
     this.populateCore(coreData);
 
-    this.parentAward = data.parent_award_piid || '';
-    this.parentId = data.parent_generated_unique_award_id || '';
-
     const parentAwardDetails = Object.create(BaseParentAwardDetails);
     if (data.parent_award) {
-        parentAwardDetails.populateCore(data.parent_award);
+        parentAwardDetails.populateCore(data.parent_award || {});
     }
     this.parentAwardDetails = parentAwardDetails;
 
