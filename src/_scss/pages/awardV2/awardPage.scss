@@ -146,8 +146,8 @@
                             font-size: rem(14px);
                             font-weight: $font-semibold;
                         }
-                        @import "./shared/expandableAwardSection";
                     }
+                  @import "./shared/expandableAwardSection";
                 }
             }
             hr,
