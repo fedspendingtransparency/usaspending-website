@@ -81,6 +81,7 @@ BaseIdv.populate = function populate(data) {
     const fundingAgency = Object.create(CoreAwardAgency);
     if (data.funding_agency) {
         const fundingAgencyData = {
+            id: data.funding_agency.id,
             toptierName: data.funding_agency.toptier_agency.name,
             toptierAbbr: data.funding_agency.toptier_agency.abbreviation || '',
             subtierName: data.funding_agency.subtier_agency.name,
