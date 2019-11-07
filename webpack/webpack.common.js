@@ -22,7 +22,7 @@ module.exports = {
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
-        extensions: [".js", ".jsx"],
+        extensions: [".js", ".jsx", ".css"],
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")]
     },
     optimization: {
@@ -63,7 +63,10 @@ module.exports = {
                     {
                         loader: MiniCssExtractPlugin.loader
                     },
-                    "css-loader"
+                    {
+                        loader: "css-loader",
+                        options: { import: true }
+                    }
                 ]
             },
             {
