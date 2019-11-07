@@ -24,7 +24,7 @@ const AwardPageWrapper = ({
                 <div className="award__info">
                     <h2 className="award__heading-text">{title}</h2>
                     <div className="award__heading-icon">
-                        <Button text="Click Yo Self" />
+                        <Button text="Click Me" />
                         <a href={glossaryLink}>
                             <Glossary alt={glossaryTitleText} />
                         </a>
