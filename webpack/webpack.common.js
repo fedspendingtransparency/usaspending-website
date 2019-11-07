@@ -22,7 +22,7 @@ module.exports = {
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
-        extensions: [".js", ".jsx", ".css"],
+        extensions: [".js", ".jsx"],
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")]
     },
     optimization: {
