@@ -51,7 +51,7 @@ const AwardDescription = ({
                             {isIdv && naics}
                         </div>
                         <div className="naics-psc__section naics-psc__section_psc">
-                            <div className="naics-psc__heading">
+                            <div className="naics-psc__section">
                                 <div className="naics-psc__heading">
                                     Product or Service Code (PSC)
                                     <span className="naics-psc__icon">
