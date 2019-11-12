@@ -30,7 +30,7 @@ const tooltipsBySectionByAwardType = {
     awardAmounts: {
         contract: tooltips.ContractAwardAmountsInfo,
         loan: tooltips.LoanAwardAmountsInfo,
-        asst: tooltips.GrantAwardAmountsInfo
+        asst: tooltips.AsstAwardAmountsInfo
     },
     federalAccounts: {
         idv: tooltips.federalAccountsInfoIdv,
