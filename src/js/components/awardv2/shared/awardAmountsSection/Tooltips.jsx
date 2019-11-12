@@ -101,7 +101,7 @@ export const NonFederalFundingTooltip = ({ total }) => (
         <h4 className="tooltip__title">Non-Federal Funding</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
-            <p>This is the total amount of the award funded by non-federal source(s).</p>
+            <p>This is the amount funded by any non-federal source(s).</p>
         </div>
     </div>
 );
