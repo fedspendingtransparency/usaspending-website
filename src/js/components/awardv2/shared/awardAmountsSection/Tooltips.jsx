@@ -291,20 +291,6 @@ export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, da
                 tooltipComponent: <ExceedsPotentialAmountTooltip total={data.extremeOverspendingFormatted} />
             }
         },
-        grant: {
-            obligated: {
-                offsetAdjustments: { top: -7 },
-                tooltipComponent: <ObligatedAmountTooltip total={data.totalObligationFormatted} />
-            },
-            nonFederalFunding: {
-                offsetAdjustments: { top: -10, right: 0 },
-                tooltipComponent: <NonFederalFundingTooltip total={data.nonFederalFundingFormatted} />
-            },
-            totalFunding: {
-                offsetAdjustments: { top: 0 },
-                tooltipComponent: <TotalFundingTooltip total={data.totalFundingFormatted} />
-            }
-        },
         loan: {
             subsidy: {
                 offsetAdjustments: { top: 0 },
