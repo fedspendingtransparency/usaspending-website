@@ -8,12 +8,10 @@ import { mount, shallow } from 'enzyme';
 import { OrderedSet } from 'immutable';
 
 import { AccountAwardsContainer } from 'containers/account/awards/AccountAwardsContainer';
-import * as SearchHelper from 'helpers/searchHelper';
-import FederalAccount from 'models/account/FederalAccount';
 
 import { mockReduxAccount } from '../mockAccount';
 import { defaultFilters } from '../defaultFilters';
-import { mockCount, mockAward } from './mockResponses';
+import { mockCount } from './mockResponses';
 
 // force Jest to use native Node promises
 // see: https://facebook.github.io/jest/docs/troubleshooting.html#unresolved-promises
@@ -32,7 +30,6 @@ jest.mock('helpers/textMeasurement', () => (
 ));
 
 jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
-jest.mock('dataMapping/search/accountTableSearchFields', () => require('./mockSearchFields'));
 
 describe('AccountAwardsContainer', () => {
     it('should pick a default tab when the Redux filters change', () => {
@@ -78,21 +75,6 @@ describe('AccountAwardsContainer', () => {
     });
 
     describe('loadColumns', () => {
-        // it('should prepare an object of columns for all award types', () => {
-        //     const props = {
-        //         account: mockReduxAccount,
-        //         filters: defaultFilters
-        //     };
-
-        //     const container = shallow(<AccountAwardsContainer {...props} />);
-        //     container.instance().loadColumns();
-
-        //     expect(container.state().columns.contracts).toEqual([nonLoan]);
-        //     expect(container.state().columns.grants).toEqual([nonLoan]);
-        //     expect(container.state().columns.direct_payments).toEqual([nonLoan]);
-        //     expect(container.state().columns.loans).toEqual([loan]);
-        //     expect(container.state().columns.other).toEqual([nonLoan]);
-        // });
         const props = {
             account: mockReduxAccount,
             filters: defaultFilters

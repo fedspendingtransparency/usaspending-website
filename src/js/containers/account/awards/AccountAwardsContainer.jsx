@@ -7,11 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, map, compact, startsWith } from 'lodash';
+import { uniqueId } from 'lodash';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
 
-import AccountTableSearchFields from 'dataMapping/search/accountTableSearchFields';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -20,8 +19,6 @@ import { defaultColumns, defaultSort } from
 
 import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
 import ResultsTableSection from 'components/search/table/ResultsTableSection';
-
-import BaseFederalAccountAwardRow from 'models/v2/BaseFederalAccountAwardRow';
 
 const propTypes = {
     account: PropTypes.object,

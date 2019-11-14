@@ -149,7 +149,7 @@ export default class AccountAwardSearchOperation {
         const objectClass = filters.objectClass.toArray();
         // Program Activity Param
         const programActivity = map(ProgramActivityQuery
-            .buildAwardsProgramActivityQuery(this.programActivity).value, (pa) => parseInt(pa, 10)) : [];
+            .buildAwardsProgramActivityQuery(this.programActivity).value, (pa) => parseInt(pa, 10));
         const awardTableParams = {
             filters: {
                 tas_codes: tasCodes
