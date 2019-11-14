@@ -7,17 +7,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId } from 'lodash';
+import { uniqueId, map, compact, startsWith } from 'lodash';
 
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import AccountTableSearchFields from 'dataMapping/search/accountTableSearchFields';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
 import * as SearchHelper from 'helpers/searchHelper';
+import { defaultColumns, defaultSort } from
+    'dataMapping/search/awardTableColumns';
 
 import AccountAwardSearchOperation from 'models/account/queries/AccountAwardSearchOperation';
-import AccountAwardsSection from 'components/account/awards/AccountAwardsSection';
+import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import BaseFederalAccountAwardRow from 'models/v2/BaseFederalAccountAwardRow';
 
@@ -54,17 +56,30 @@ const tableTypes = [
     }
 ];
 
+const subTypes = [
+    {
+        label: 'Sub-Contracts',
+        internal: 'subcontracts',
+        enabled: true
+    },
+    {
+        label: 'Sub-Grants',
+        internal: 'subgrants',
+        enabled: true
+    }
+];
+
 export class AccountAwardsContainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             page: 1,
-            hasNext: false,
+            lastPage: true,
             counts: {},
             tableType: 'contracts',
             sort: {
-                field: 'awardAmount',
+                field: 'Award Amount',
                 direction: 'desc'
             },
             inFlight: true,
@@ -164,58 +179,40 @@ export class AccountAwardsContainer extends React.Component {
         });
     }
 
-
     loadColumns() {
-        const columns = {};
-        for (const table of tableTypes) {
-            // calculate the column metadata to display for each table type
-            const tableType = table.internal;
-            const typeColumns = [];
-            let sortOrder = AccountTableSearchFields.defaultSortDirection;
+        // in the future, this will be an API call, but for now, read the local data file
+        // load every possible table column up front, so we don't need to deal with this when
+        // switching tabs
+        const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
+            const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
+            const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
+                [data.title]: this.createColumn(data.displayName, data.title)
+            }), {});
 
-            if (tableType === 'loans') {
-                sortOrder = AccountTableSearchFields.loans.sortDirection;
-            }
-
-            const tableSettings = AccountTableSearchFields[tableType];
-
-            tableSettings._order.forEach((col) => {
-                let dataType = awardTableColumnTypes[tableSettings[col]];
-                if (!dataType) {
-                    dataType = 'string';
+            return Object.assign({}, cols, {
+                [type.internal]: {
+                    visibleOrder: visibleColumns,
+                    data: parsedColumns
                 }
-
-                const column = {
-                    dataType,
-                    columnName: col,
-                    fieldName: AccountTableSearchFields[tableType]._mapping[col],
-                    displayName: tableSettings[col],
-                    width: measureTableHeader(tableSettings[col]),
-                    defaultDirection: sortOrder[col]
-                };
-                typeColumns.push(column);
             });
-
-            columns[tableType] = typeColumns;
-        }
-
+        }, {});
         this.setState({
             columns
-        }, () => {
-            this.pickDefaultTab();
         });
     }
 
-    parseAccountAwards(data) {
-        const accountAwards = [];
+    createColumn(displayName, title) {
+        // BODGE: Temporarily only allow descending columns
+        const direction = 'desc';
 
-        data.forEach((accountAward) => {
-            const award = Object.create(BaseFederalAccountAwardRow);
-            award.parse(accountAward);
-            accountAwards.push(award);
-        });
+        const column = {
+            columnName: title,
+            displayName: displayName || title,
+            width: measureTableHeader(displayName || title),
+            defaultDirection: direction
+        };
 
-        return accountAwards;
+        return column;
     }
 
     performSearch(newSearch = false) {
@@ -228,7 +225,7 @@ export class AccountAwardsContainer extends React.Component {
         const searchOperation = new AccountAwardSearchOperation(this.props.account.id);
         searchOperation.fromState(this.props.filters);
         searchOperation.awardType = awardTypeGroups[this.state.tableType];
-
+        const newParams = searchOperation.spendingByAwardTableParams(this.props);
         // indicate the request is about to start
         this.setState({
             inFlight: true
@@ -241,57 +238,57 @@ export class AccountAwardsContainer extends React.Component {
             pageNumber = 1;
         }
         const resultLimit = 60;
+        newParams.filters.award_type_codes = awardTypeGroups[this.state.tableType];
 
-        let sortModifier = '';
-        if (this.state.sort.direction === 'desc') {
-            sortModifier = '-';
-        }
-        const searchOrder = [`${sortModifier}${this.state.sort.field}`];
+        const requestFields = [];
 
-        const params = {
-            filters: searchOperation.toParams(),
-            page: pageNumber,
-            limit: resultLimit,
-            order: searchOrder
-        };
+        // Request fields for visible columns only
+        const columnVisibility = this.state.columns[this.state.tableType].visibleOrder;
+
+        columnVisibility.forEach((field) => {
+            if (!requestFields.includes(field)) {
+                // Prevent duplicates in the list of fields to request
+                requestFields.push(field);
+            }
+        });
+        newParams.fields = requestFields;
+        newParams.limit = resultLimit;
+        newParams.order = this.state.sort.direction;
+        newParams.page = pageNumber;
+        // sort field
+        newParams.sort = this.state.sort.field;
 
         // Set the params needed for download API call
-        this.searchRequest = SearchHelper.performSearch(params);
+        this.searchRequest = SearchHelper.performSpendingByAwardSearch(newParams);
         this.searchRequest.promise
             .then((res) => {
                 const newState = {
                     inFlight: false
                 };
-
                 // don't clear records if we're appending (not the first page)
                 if (pageNumber <= 1 || newSearch) {
                     newState.tableInstance = `${uniqueId()}`;
-                    newState.results = this.parseAccountAwards(res.data.results);
+                    newState.results = res.data.results;
                 }
                 else {
-                    newState.results = this.state.results.concat(this.parseAccountAwards(res.data.results));
+                    newState.results = this.state.results.concat(res.data.results);
                 }
 
                 // request is done
                 this.searchRequest = null;
                 newState.page = res.data.page_metadata.page;
-                newState.hasNext = res.data.page_metadata.has_next_page;
+                newState.lastPage = !res.data.page_metadata.hasNext;
 
                 this.setState(newState);
             })
             .catch((err) => {
-                if (isCancel(err)) {
-                    // the request was cancelled
-                }
-                else if (err.response) {
-                    // server responded with something
+                if (!isCancel(err)) {
+                    this.setState({
+                        inFlight: false,
+                        error: true
+                    });
+
                     console.log(err);
-                    this.searchRequest = null;
-                }
-                else {
-                    // request never made it out
-                    console.log(err);
-                    this.searchRequest = null;
                 }
             });
     }
@@ -302,13 +299,16 @@ export class AccountAwardsContainer extends React.Component {
         };
 
         const currentSortField = this.state.sort.field;
-
         // check if the current sort field is available in the table type
-        const availableFields = AccountTableSearchFields[tab]._mapping;
-        if (!availableFields[currentSortField]) {
+        const availableFields = this.state.columns[tab].data;
+        if (!{}.hasOwnProperty.call(availableFields, currentSortField)) {
             // the sort field doesn't exist, use the table type's default field
-            const field = AccountTableSearchFields[tab]._defaultSortField;
-            const direction = AccountTableSearchFields.defaultSortDirection[field];
+            const field = defaultSort(tab);
+            const fieldType = awardTableColumnTypes[field];
+            let direction = 'desc';
+            if (fieldType === 'number') {
+                direction = 'asc';
+            }
 
             newState.sort = {
                 field,
@@ -329,7 +329,7 @@ export class AccountAwardsContainer extends React.Component {
         }
 
         // check if more pages are available
-        if (this.state.hasNext) {
+        if (!this.state.lastPage) {
             // more pages are available, load them
             this.setState({
                 page: this.state.page + 1
@@ -354,12 +354,12 @@ export class AccountAwardsContainer extends React.Component {
         if (Object.keys(this.state.columns).length === 0) {
             return null;
         }
-
         return (
-            <AccountAwardsSection
+            <ResultsTableSection
+                error={this.state.error}
                 inFlight={this.state.inFlight}
                 results={this.state.results}
-                columns={this.state.columns}
+                columns={this.state.columns[this.state.tableType]}
                 counts={this.state.counts}
                 sort={this.state.sort}
                 tableTypes={tableTypes}
@@ -367,7 +367,8 @@ export class AccountAwardsContainer extends React.Component {
                 tableInstance={this.state.tableInstance}
                 switchTab={this.switchTab}
                 updateSort={this.updateSort}
-                loadNextPage={this.loadNextPage} />
+                loadNextPage={this.loadNextPage}
+                subaward={false} />
         );
     }
 }

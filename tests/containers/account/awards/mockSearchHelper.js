@@ -9,7 +9,7 @@ export const fetchAwardCounts = () => ({
     cancel: jest.fn()
 });
 
-export const performSearch = () => ({
+export const performSpendingByAwardSearch = () => ({
     promise: new Promise((resolve) => {
         resolve({
             data: mockAward

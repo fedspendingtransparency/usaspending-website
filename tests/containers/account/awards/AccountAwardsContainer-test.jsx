@@ -20,7 +20,7 @@ import { mockCount, mockAward } from './mockResponses';
 global.Promise = require.requireActual('promise');
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/account/awards/AccountAwardsSection', () =>
+jest.mock('components/search/table/ResultsTableSection', () =>
     jest.fn(() => null));
 
 // canvas elements are not available in Jest, so mock the text measurement helper
@@ -38,7 +38,7 @@ describe('AccountAwardsContainer', () => {
     it('should pick a default tab when the Redux filters change', () => {
         const props = {
             account: mockReduxAccount,
-            filters: defaultFilters    
+            filters: defaultFilters
         };
 
         const container = mount(<AccountAwardsContainer {...props} />);
@@ -60,10 +60,10 @@ describe('AccountAwardsContainer', () => {
         it('should aggregate the award type counts into higher level categories', () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters    
+                filters: defaultFilters
             };
             const container = shallow(<AccountAwardsContainer {...props} />);
-
+            container.instance().componentDidMount();
             container.instance().parseTabCounts(mockCount);
 
             expect(container.state().counts).toEqual({
@@ -78,63 +78,55 @@ describe('AccountAwardsContainer', () => {
     });
 
     describe('loadColumns', () => {
-        it('should prepare an object of columns for all award types', () => {
-             const props = {
-                account: mockReduxAccount,
-                filters: defaultFilters    
-            };
+        // it('should prepare an object of columns for all award types', () => {
+        //     const props = {
+        //         account: mockReduxAccount,
+        //         filters: defaultFilters
+        //     };
 
+        //     const container = shallow(<AccountAwardsContainer {...props} />);
+        //     container.instance().loadColumns();
+
+        //     expect(container.state().columns.contracts).toEqual([nonLoan]);
+        //     expect(container.state().columns.grants).toEqual([nonLoan]);
+        //     expect(container.state().columns.direct_payments).toEqual([nonLoan]);
+        //     expect(container.state().columns.loans).toEqual([loan]);
+        //     expect(container.state().columns.other).toEqual([nonLoan]);
+        // });
+        const props = {
+            account: mockReduxAccount,
+            filters: defaultFilters
+        };
+        it('should generate a column object in React state for every table type', () => {
+            const expectedKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'other', 'subcontracts', 'subgrants'];
             const container = shallow(<AccountAwardsContainer {...props} />);
+
             container.instance().loadColumns();
-
-            const nonLoan = {
-                dataType: 'string',
-                fieldName: 'f1',
-                columnName: 'field1',
-                displayName: 'Field 1',
-                width: 220,
-                defaultDirection: 'asc'
-            };
-
-            const loan = {
-                dataType: 'string',
-                fieldName: 'lf',
-                columnName: 'loanfield',
-                displayName: 'Loan Field',
-                width: 220,
-                defaultDirection: 'desc'
-            };
-
-            expect(container.state().columns.contracts).toEqual([nonLoan]);
-            expect(container.state().columns.grants).toEqual([nonLoan]);
-            expect(container.state().columns.direct_payments).toEqual([nonLoan]);
-            expect(container.state().columns.loans).toEqual([loan]);
-            expect(container.state().columns.other).toEqual([nonLoan]);
+            const columnKeys = Object.keys(container.state().columns);
+            expect(expectedKeys.every((key) => columnKeys.indexOf(key) > -1) &&
+                columnKeys.every((key) => expectedKeys.indexOf(key) > -1)).toBeTruthy();
         });
-        it('should trigger a tab count operation', () => {
-            const props = {
-                account: mockReduxAccount,
-                filters: defaultFilters    
-            };
-            const container = shallow(<AccountAwardsContainer {...props} />);
-            container.instance().pickDefaultTab = jest.fn();
-            container.instance().loadColumns();
 
-            expect(container.instance().pickDefaultTab).toHaveBeenCalledTimes(1);
+        it('should generate a column object that contains an array representing the order columns should appear in the table', () => {
+            const container = shallow(<AccountAwardsContainer {...props} />);
+
+            container.instance().loadColumns();
+            const column = container.state().columns.contracts;
+            expect({}.hasOwnProperty.call(column, 'visibleOrder')).toBeTruthy();
         });
     });
-    
+
     describe('performSearch', () => {
         it('should overwrite any existing results if newSearch is true', async () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters    
+                filters: defaultFilters
             };
             const container = shallow(<AccountAwardsContainer {...props} />);
             container.setState({
                 results: [{}, {}, {}]
             });
-
+            container.instance().componentDidMount();
             expect(container.state().results.length).toEqual(3);
 
             container.instance().performSearch(true);
@@ -146,14 +138,14 @@ describe('AccountAwardsContainer', () => {
         it('should append to any existing results if newSearch is false', async () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters    
+                filters: defaultFilters
             };
             const container = shallow(<AccountAwardsContainer {...props} />);
             container.setState({
                 results: [{}, {}, {}],
                 page: 2
             });
-
+            container.instance().componentDidMount();
             expect(container.state().results.length).toEqual(3);
 
             container.instance().performSearch(false);
@@ -168,9 +160,10 @@ describe('AccountAwardsContainer', () => {
         it('should update the state to the new tab', () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters    
+                filters: defaultFilters
             };
             const container = shallow(<AccountAwardsContainer {...props} />);
+            container.instance().componentDidMount();
             container.instance().switchTab('grants');
             expect(container.state().tableType).toEqual('grants');
         });
@@ -178,15 +171,15 @@ describe('AccountAwardsContainer', () => {
         it('should update the sort to the default sort of the new tab if the existing sort field doesn\'t exist in that tab', () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters    
+                filters: defaultFilters
             };
 
             const container = shallow(<AccountAwardsContainer {...props} />);
-
+            container.instance().componentDidMount();
             container.instance().switchTab('loans');
 
             expect(container.state().sort).toEqual({
-                field: 'loanfield',
+                field: 'Loan Value',
                 direction: 'desc'
             });
         });
@@ -194,11 +187,11 @@ describe('AccountAwardsContainer', () => {
         it('should trigger a new reset search', () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters    
+                filters: defaultFilters
             };
             const container = shallow(<AccountAwardsContainer {...props} />);
             container.instance().performSearch = jest.fn();
-
+            container.instance().componentDidMount();
             container.instance().switchTab('loans');
 
             expect(container.instance().performSearch).toHaveBeenCalledTimes(1);
@@ -210,12 +203,12 @@ describe('AccountAwardsContainer', () => {
         it('should load the next page when there are more pages available', () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters    
+                filters: defaultFilters
             };
             const container = shallow(<AccountAwardsContainer {...props} />);
             container.instance().performSearch = jest.fn();
             container.setState({
-                hasNext: true,
+                lastPage: false,
                 inFlight: false
             });
 
@@ -227,12 +220,12 @@ describe('AccountAwardsContainer', () => {
         it('should not load any pages if there are no more pages available', () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters    
+                filters: defaultFilters
             };
             const container = shallow(<AccountAwardsContainer {...props} />);
             container.instance().performSearch = jest.fn();
             container.setState({
-                hasNext: false,
+                lastPage: true,
                 inFlight: false
             });
 
@@ -243,7 +236,7 @@ describe('AccountAwardsContainer', () => {
         it('should not load any pages if there are requests already in-flight', () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters    
+                filters: defaultFilters
             };
             const container = shallow(<AccountAwardsContainer {...props} />);
             container.instance().performSearch = jest.fn();
@@ -261,9 +254,10 @@ describe('AccountAwardsContainer', () => {
         it('should change the state to the provided values', () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters    
+                filters: defaultFilters
             };
             const container = shallow(<AccountAwardsContainer {...props} />);
+            container.instance().componentDidMount();
             container.instance().updateSort('field', 'asc');
 
             expect(container.state().sort).toEqual({
@@ -274,7 +268,7 @@ describe('AccountAwardsContainer', () => {
         it('should trigger a new reset search', () => {
             const props = {
                 account: mockReduxAccount,
-                filters: defaultFilters    
+                filters: defaultFilters
             };
             const container = shallow(<AccountAwardsContainer {...props} />);
             container.instance().performSearch = jest.fn();

@@ -127,15 +127,15 @@ const accountTableSearchFields = {
     },
     loans: {
         _defaultSortField: 'latest_transaction__assistance_data__original_loan_subsidy_cost',
-        sortDirection: {
-            award_id: 'asc',
-            recipient_name: 'asc',
-            action_date: 'desc',
-            face_value_loan_guarantee: 'desc',
-            original_loan_subsidy_cost: 'desc',
-            awarding_agency_name: 'asc',
-            awarding_subtier_name: 'asc'
-        },
+        // sortDirection: {
+        //     award_id: 'asc',
+        //     recipient_name: 'asc',
+        //     action_date: 'desc',
+        //     face_value_loan_guarantee: 'desc',
+        //     original_loan_subsidy_cost: 'desc',
+        //     awarding_agency_name: 'asc',
+        //     awarding_subtier_name: 'asc'
+        // },
         _order: [
             'award_id',
             'recipient_name',
