@@ -132,20 +132,6 @@ export const performPagedSpendingByAwardSearch = () => (
     }
 );
 
-// Perform Paged Search
-export const performPagedSearch = () => (
-    {
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({
-                    data: mockApi
-                });
-            });
-        }),
-        cancel: jest.fn()
-    }
-);
-
 export const generateUrlHash = () => (
     {
         promise: new Promise((resolve) => {
