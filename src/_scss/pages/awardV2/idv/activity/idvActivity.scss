@@ -61,7 +61,6 @@
             }
           }
         }
-        @import '../../../../components/pagination';
         @import '../../../../components/visualizations/legend';
         .activity-visualization-title {
           width: 100%;
@@ -77,7 +76,7 @@
         .current-page-numbers {
           font-weight: $font-semibold;
         }
-        .pagination {
+ {
           width: 100%;
           margin-top: rem(20);
           .pager {
