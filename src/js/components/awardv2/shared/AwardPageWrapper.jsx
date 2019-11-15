@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from 'data-transparency-ui';
 
 import { awardTypeCodes } from 'dataMapping/search/awardType';
 import { Glossary } from '../../sharedComponents/icons/Icons';
@@ -24,7 +23,6 @@ const AwardPageWrapper = ({
                 <div className="award__info">
                     <h2 className="award__heading-text">{title}</h2>
                     <div className="award__heading-icon">
-                        <Button text="Click Me" />
                         <a href={glossaryLink}>
                             <Glossary alt={glossaryTitleText} />
                         </a>
