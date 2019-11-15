@@ -199,7 +199,6 @@ export class AccountAwardsContainer extends React.Component {
     }
 
     createColumn(displayName, title) {
-        // BODGE: Temporarily only allow descending columns
         const direction = 'desc';
 
         const column = {
