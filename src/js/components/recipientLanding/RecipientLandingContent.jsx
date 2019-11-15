@@ -5,8 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Pagination } from 'data-transparency-ui';
 
-import Pagination from 'components/sharedComponents/Pagination';
 import RecipientLandingResultsSection from './RecipientLandingResultsSection';
 import RecipientLabels from './RecipientLabels';
 import RecipientLandingTabs from './RecipientLandingTabs';
