@@ -1,6 +1,6 @@
 import { mockCount, mockAward } from './mockResponses';
 
-export const fetchAwardCounts = () => ({
+export const performSpendingByAwardTabCountSearch = () => ({
     promise: new Promise((resolve) => {
         resolve({
             data: mockCount

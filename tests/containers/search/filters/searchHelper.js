@@ -104,20 +104,6 @@ export const performSpendingByAwardTabCountSearch = () => (
     }
 );
 
-// Fetch Award Counts
-export const fetchAwardCounts = () => (
-    {
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({
-                    data: mockTabCount
-                });
-            });
-        }),
-        cancel: jest.fn()
-    }
-);
-
 // v2 Award Search
 export const performPagedSpendingByAwardSearch = () => (
     {

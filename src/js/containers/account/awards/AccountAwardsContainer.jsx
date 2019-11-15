@@ -117,14 +117,14 @@ export class AccountAwardsContainer extends React.Component {
             inFlight: true
         });
 
-        const searchParams = new AccountAwardSearchOperation(this.props.account.id);
-        searchParams.fromState(this.props.filters);
-
-        this.tabCountRequest = SearchHelper.fetchAwardCounts({
-            aggregate: 'count',
-            group: 'type',
-            field: 'total_obligation',
-            filters: searchParams.toParams()
+        const searchOperation = new AccountAwardSearchOperation(this.props.account.id);
+        searchOperation.fromState(this.props.filters);
+        searchOperation.awardType = awardTypeGroups[this.state.tableType];
+        const searchParams = searchOperation.spendingByAwardTableParams(this.props);
+        const filters = { ...searchParams.filters };
+        this.tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
+            filters,
+            subawards: false
         });
 
         this.tabCountRequest.promise
@@ -132,46 +132,46 @@ export class AccountAwardsContainer extends React.Component {
                 this.parseTabCounts(res.data);
             })
             .catch((err) => {
-                console.log(err);
+                if (!isCancel(err)) {
+                    this.setState({
+                        inFlight: false,
+                        error: true
+                    });
+
+                    console.log(err);
+                }
             });
     }
 
     parseTabCounts(data) {
-        const availableTypes = {};
-        data.results.forEach((type) => {
-            const count = parseFloat(type.aggregate);
-            if (count > 0) {
-                availableTypes[type.type] = count;
-            }
-        });
+        const awardCounts = data.results;
+        let firstAvailable = '';
+        let i = 0;
 
-        // sum the types up by group
-        const availableGroups = {};
-        Object.keys(awardTypeGroups).forEach((group) => {
-            availableGroups[group] = 0;
-            awardTypeGroups[group].forEach((type) => {
-                if ({}.hasOwnProperty.call(availableTypes, type)) {
-                    availableGroups[group] += availableTypes[type];
-                }
-            });
-        });
+        const availableTabs = tableTypes;
 
-        let firstAvailable = 0;
-        for (let i = 0; i < tableTypes.length; i++) {
-            const type = tableTypes[i].internal;
-            if (availableGroups[type] > 0) {
-                firstAvailable = i;
-                i = tableTypes.length + 1;
+        // Set the first available award type to the first non-zero entry in the
+        while (firstAvailable === '' && i < availableTabs.length) {
+            const tableType = availableTabs[i].internal;
+
+            if (awardCounts[tableType] > 0) {
+                firstAvailable = tableType;
             }
+
+            i += 1;
         }
 
-        const defaultTab = tableTypes[firstAvailable].internal;
+        // If none of the award types are populated, set the first available tab to be the
+        // first tab in the table
+        if (firstAvailable === '') {
+            firstAvailable = availableTabs[0].internal;
+        }
 
         this.setState({
-            counts: availableGroups
+            counts: awardCounts
         }, () => {
             // select the first available tab
-            this.switchTab(defaultTab);
+            this.switchTab(firstAvailable);
             this.performSearch(true);
         });
     }

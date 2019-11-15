@@ -6,23 +6,6 @@
 import Axios, { CancelToken } from 'axios';
 import kGlobalConstants from 'GlobalConstants';
 
-// function for determining which award tabs to default to
-export const fetchAwardCounts = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v1/awards/total/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
 // Agency search for autocomplete
 export const fetchAwardingAgencies = (req) => {
     const source = CancelToken.source();
