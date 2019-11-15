@@ -9,7 +9,6 @@
             }
         }
         .referenced-awards-results {
-            @import 'components/pagination';
             @import './referencedAwardsTable';
             @import '../../search/results/table/tableMessages';
             overflow-x: scroll;
