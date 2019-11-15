@@ -6,10 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { map, uniqueId } from 'lodash';
+import { Pagination } from 'data-transparency-ui';
 
 import tableMapping from 'dataMapping/awardsv2/federalAccountSectionTable';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
-import Pagination from 'components/sharedComponents/Pagination';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
