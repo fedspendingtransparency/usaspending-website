@@ -6,9 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import { Pagination } from 'data-transparency-ui';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { calculatePageRange } from 'helpers/paginationHelper';
-import Pagination from 'components/sharedComponents/Pagination';
 import Note from 'components/sharedComponents/Note';
 import DefaultPicker from 'components/sharedComponents/pickers/DefaultPicker';
 import ActivityChart from './chart/ActivityChart';
