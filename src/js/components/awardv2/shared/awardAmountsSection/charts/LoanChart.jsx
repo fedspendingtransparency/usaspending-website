@@ -5,11 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TooltipWrapper } from "data-transparency-ui";
 
 import { generatePercentage } from 'helpers/awardAmountHelper';
 
 import { useTooltips } from "./AwardAmountsChart";
-import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
+
 import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
 
