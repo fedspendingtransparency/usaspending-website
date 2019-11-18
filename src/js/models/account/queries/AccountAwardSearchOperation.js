@@ -95,11 +95,13 @@ export default class AccountAwardSearchOperation {
     timePeriodFormatted(fiscalYears) {
         let timePeriod = fiscalYears.sort();
         if (!timePeriod.length) return null;
+        // time period 0 start date
+        const [startDate, endDate] = convertFYToDateRange(timePeriod[0]);
         // there are only three option 2017, 2018, 2019
         if (timePeriod.length === 3) { // case #1 2017-2019 fy
             timePeriod = [
                 {
-                    start_date: convertFYToDateRange(timePeriod[0])[0],
+                    start_date: startDate,
                     end_date: convertFYToDateRange(timePeriod[2])[1]
                 }
             ];
@@ -111,7 +113,7 @@ export default class AccountAwardSearchOperation {
             if ((numberedTimePeriod[1] - numberedTimePeriod[0]) === 1) {
                 timePeriod = [
                     {
-                        start_date: convertFYToDateRange(timePeriod[0])[0],
+                        start_date: startDate,
                         end_date: convertFYToDateRange(timePeriod[1])[1]
                     }
                 ];
@@ -119,8 +121,8 @@ export default class AccountAwardSearchOperation {
             else { // multiple date ranges
                 timePeriod = [
                     {
-                        start_date: convertFYToDateRange(timePeriod[0])[0],
-                        end_date: convertFYToDateRange(timePeriod[0])[1]
+                        start_date: startDate,
+                        end_date: endDate
                     },
                     {
                         start_date: convertFYToDateRange(timePeriod[1])[0],

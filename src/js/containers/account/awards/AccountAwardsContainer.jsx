@@ -130,6 +130,7 @@ export class AccountAwardsContainer extends React.Component {
         this.tabCountRequest.promise
             .then((res) => {
                 this.parseTabCounts(res.data);
+                this.tabCountRequest = null;
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -137,6 +138,7 @@ export class AccountAwardsContainer extends React.Component {
                         inFlight: false,
                         error: true
                     });
+                    this.tabCountRequest = null;
 
                     console.log(err);
                 }
@@ -276,6 +278,7 @@ export class AccountAwardsContainer extends React.Component {
                 newState.lastPage = !res.data.page_metadata.hasNext;
 
                 this.setState(newState);
+                this.searchRequest = null;
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -283,6 +286,7 @@ export class AccountAwardsContainer extends React.Component {
                         inFlight: false,
                         error: true
                     });
+                    this.searchRequest = null;
 
                     console.log(err);
                 }
