@@ -147,7 +147,7 @@ export default class RelatedAwards extends React.Component {
                 <div className="award-viz related-awards">
                     <div className="award-overview__title related-awards__title">
                         Related Awards
-                        <TooltipWrapper left tooltipComponent={tooltipInfo} />
+                        <TooltipWrapper icon="info" left tooltipComponent={tooltipInfo} />
                     </div>
                     <div className="related-awards__parent">
                         <div className="related-awards__label">

@@ -115,7 +115,7 @@ export default class AwardDates extends React.Component {
                     <div className="award-dates__heading">
                         <div className="award-overview__title award-dates__title">
                             Dates
-                            <TooltipWrapper left tooltipComponent={tooltipInfo} />
+                            <TooltipWrapper icon="info" left tooltipComponent={tooltipInfo} />
                         </div>
                         <div className="award-dates__remaining">
                             {remainingText}
