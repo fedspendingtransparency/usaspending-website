@@ -6,8 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { map } from 'lodash';
+import { TooltipWrapper } from 'data-transparency-ui';
+
 import { formatNumber } from 'helpers/moneyFormatter';
-import InfoTooltip from '../../shared/InfoTooltip';
+
 import { summaryRelatedAwardsInfoIdv, summaryRelatedAwardsInfo } from '../../shared/InfoTooltipContent';
 import AwardSection from '../AwardSection';
 
@@ -145,9 +147,7 @@ export default class RelatedAwards extends React.Component {
                 <div className="award-viz related-awards">
                     <div className="award-overview__title related-awards__title">
                         Related Awards
-                        <InfoTooltip left>
-                            {tooltipInfo}
-                        </InfoTooltip>
+                        <TooltipWrapper left tooltipComponent={tooltipInfo} />
                     </div>
                     <div className="related-awards__parent">
                         <div className="related-awards__label">

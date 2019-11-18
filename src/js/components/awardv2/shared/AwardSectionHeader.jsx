@@ -1,6 +1,7 @@
 import React from 'react';
+import { TooltipWrapper } from 'data-transparency-ui';
+
 import { AWARD_SECTION_HEADER_PROPS } from "../../../propTypes/index";
-import InfoTooltip from '../shared/InfoTooltip';
 
 const AwardSectionHeader = ({
     icon,
@@ -13,11 +14,7 @@ const AwardSectionHeader = ({
         <div className="award-viz__heading">
             {icon && <div className="award-viz__icon">{icon}</div>}
             <h3 className="award-viz__title">{title}</h3>
-            {tooltip && (
-                <InfoTooltip left={left} wide={tooltipWide}>
-                    {tooltip}
-                </InfoTooltip>
-            )}
+            {tooltip && <TooltipWrapper left={left} wide={tooltipWide} tooltipComponent={tooltip} />}
         </div>
         <hr />
     </React.Fragment>
