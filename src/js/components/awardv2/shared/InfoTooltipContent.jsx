@@ -461,20 +461,20 @@ export const descriptionInfoContract = (
             Description
         </div>
         <div className="tooltip__text">
-            <p className="tooltip__text-section">
+            <p>
                 The description of the award is provided by the contracting officer who submitted this contract data. The level of detail in
                 descriptions varies and is dependent on the author and the standards of the agencies involved. The description featured here comes
                 from the base award of the contract.  Contract transactions (also known as modifications) have their own descriptions available.
                 These transaction descriptions and other details can be viewed in the Transaction History tab of the Award History section located
                 further down this page, or by downloading the data via the top-right “DOWNLOAD” button.
             </p>
-            <p className="tooltip__text-section">
+            <p>
                 Also shown below the description are groups of codes from two systems of classification:
             </p>
             <ul className="info-tooltip__list award-desciption-section">
                 <li>
                     <strong>North American Industry Classification System (NAICS) Code</strong>
-                    <p className="tooltip__text-section">This code describes the primary industrial activity of the recipient of this award. It is six digits and has three levels of embedded granularity:</p>
+                    <p>This code describes the primary industrial activity of the recipient of this award. It is six digits and has three levels of embedded granularity:</p>
                     <ul className="info-tooltip__list">
                         <li>&bull; The first two-digits indicate the sector (general).</li>
                         <li>&bull; The first four-digits indicate the industry group.</li>
@@ -484,7 +484,7 @@ export const descriptionInfoContract = (
                 </li>
                 <li>
                     <strong>Product and Service Codes (PSC)</strong>
-                    <p className="tooltip__text-section">These codes are used to categorize awards by the type of product, service, or research and development (R&D) procured. The code is 4 characters and has up to four levels of embedded granularity:</p>
+                    <p>These codes are used to categorize awards by the type of product, service, or research and development (R&D) procured. The code is 4 characters and has up to four levels of embedded granularity:</p>
                     <ul className="info-tooltip__list">
                         <li>&bull; The first level classifies what was procured as a product, service or R&D .</li>
                         <li>&bull; The second level indicates the top level category of what was procured.</li>
@@ -492,7 +492,7 @@ export const descriptionInfoContract = (
                         <li>&bull; The fourth level exists for R&D and services only. For R&D, it specifies the stage of the R&D process involved. For services, it specifies a further subdivision of the third level code.</li>
                     </ul>
                     <p>Each of these levels is displayed hierarchically below for this recipient.</p>
-                    <p className="tooltip__text-section">Click on the glossary icons for more information on NAICS and PSC.</p>
+                    <p>Click on the glossary icons for more information on NAICS and PSC.</p>
                 </li>
             </ul>
         </div>

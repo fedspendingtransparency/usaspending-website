@@ -14,7 +14,7 @@ const AwardSectionHeader = ({
         <div className="award-viz__heading">
             {icon && <div className="award-viz__icon">{icon}</div>}
             <h3 className="award-viz__title">{title}</h3>
-            {tooltip && <TooltipWrapper icon="info" left={left} wide={tooltipWide} tooltipComponent={tooltip} />}
+            {tooltip && <TooltipWrapper className="award-section-tt" icon="info" left={left} wide={tooltipWide} tooltipComponent={tooltip} />}
         </div>
         <hr />
     </React.Fragment>
