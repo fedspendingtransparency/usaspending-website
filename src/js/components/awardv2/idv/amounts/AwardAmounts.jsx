@@ -5,11 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TooltipWrapper } from 'data-transparency-ui';
+
 import IdvAwardAmountsSectionContainer from 'containers/awardV2/idv/IdvAwardAmountsSectionContainer';
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import IDVAmounts from './IDVAmounts';
-import InfoTooltip from '../../shared/InfoTooltip';
 import { awardAmountsInfo } from '../../shared/InfoTooltipContent';
 
 const propTypes = {
@@ -61,9 +62,7 @@ export default class AwardAmounts extends React.Component {
                     <h3 className="award-viz__title">
                         $ Award Amounts
                     </h3>
-                    <InfoTooltip wide>
-                        { awardAmountsInfo }
-                    </InfoTooltip>
+                    <TooltipWrapper wide tooltipComponent={awardAmountsInfo} />
                 </div>
                 <hr />
                 <div className="award-viz__tabs">
