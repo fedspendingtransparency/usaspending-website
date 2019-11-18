@@ -1,45 +1,12 @@
 export const mockCount = {
-    "page_metadata": {
-        "count": 6,
-        "page": 1,
-        "has_next_page": false,
-        "has_previous_page": false,
-        "next": null,
-        "current": "https://dev-api.usaspending.gov/api/v1/awards/total/?limit=100&page=1",
-        "previous": null
-    },
-    "results": [
-        {
-            "item": "04",
-            "aggregate": "0.00",
-            "type": "04"
-        },
-        {
-            "item": "05",
-            "aggregate": "0.00",
-            "type": "05"
-        },
-        {
-            "item": "A",
-            "aggregate": "1.00",
-            "type": "A"
-        },
-        {
-            "item": "B",
-            "aggregate": "0.00",
-            "type": "B"
-        },
-        {
-            "item": "C",
-            "aggregate": "1.00",
-            "type": "C"
-        },
-        {
-            "item": "D",
-            "aggregate": "0.00",
-            "type": "D"
-        }
-    ]
+    "results": {
+        contracts: 2,
+        direct_payments: 0,
+        grants: 0,
+        idvs: 0,
+        loans: 0,
+        other: 0
+    }
 };
 
 export const mockAward = {
