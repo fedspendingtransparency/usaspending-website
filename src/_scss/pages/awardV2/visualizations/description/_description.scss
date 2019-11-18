@@ -1,6 +1,9 @@
 .award-description {
     .award-description__content {
         font-size: $small-font-size;
+        .award-expandable-section__secondary {
+          margin-bottom: rem(28);
+        }
         .award-description__naics-psc {
             @include display(flex);
             .naics-psc__section {

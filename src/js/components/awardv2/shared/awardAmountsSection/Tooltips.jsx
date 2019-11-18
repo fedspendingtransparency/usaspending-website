@@ -101,7 +101,7 @@ export const NonFederalFundingTooltip = ({ total }) => (
         <h4 className="tooltip__title">Non-Federal Funding</h4>
         <h5 className="tooltip__amount--loans">{total}</h5>
         <div className="tooltip__text">
-            <p>This is the total amount of the award funded by non-federal source(s).</p>
+            <p>This is the amount funded by any non-federal source(s).</p>
         </div>
     </div>
 );
@@ -289,20 +289,6 @@ export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, da
             exceedsPotential: {
                 offsetAdjustments: { top: 0 },
                 tooltipComponent: <ExceedsPotentialAmountTooltip total={data.extremeOverspendingFormatted} />
-            }
-        },
-        grant: {
-            obligated: {
-                offsetAdjustments: { top: -7 },
-                tooltipComponent: <ObligatedAmountTooltip total={data.totalObligationFormatted} />
-            },
-            nonFederalFunding: {
-                offsetAdjustments: { top: -10, right: 0 },
-                tooltipComponent: <NonFederalFundingTooltip total={data.nonFederalFundingFormatted} />
-            },
-            totalFunding: {
-                offsetAdjustments: { top: 0 },
-                tooltipComponent: <TotalFundingTooltip total={data.totalFundingFormatted} />
             }
         },
         loan: {

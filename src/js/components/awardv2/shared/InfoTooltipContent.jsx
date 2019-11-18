@@ -1169,14 +1169,13 @@ export const ContractAwardAmountsInfo = (
     </div>
 );
 
-export const GrantAwardAmountsInfo = (
+export const AsstAwardAmountsInfo = (
     <div className="award-summary-tooltip">
-        <div className="tooltip__title">
+        <div className="info-tooltip__title">
             Award Amounts
         </div>
-        <div className="tooltip__text">
-            <p>This section illustrates the awarded amount of this grant.</p>
-            <p>The total award amount of a grant is the combined value of its obligated amount and its non-federal funding.</p>
+        <div className="info-tooltip__text">
+            <p>This section illustrates the total value of this award, which is a combination of any obligated federal dollars and non-federal funding provided.</p>
             <p>Hover over the chart for more information about the specific amounts displayed.</p>
         </div>
     </div>

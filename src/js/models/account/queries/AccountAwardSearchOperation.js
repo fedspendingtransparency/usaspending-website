@@ -3,14 +3,15 @@
  * Created by Kevin Li 4/13/17
  */
 
-import { concat } from 'lodash';
+import { concat, map } from 'lodash';
 
 import * as AwardTypeQuery from 'models/search/queryBuilders/AwardTypeQuery';
+import { convertFYToDateRange } from 'helpers/fiscalYearHelper';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as ObjectClassQuery from './queryBuilders/ObjectClassQuery';
 import * as ProgramActivityQuery from './queryBuilders/ProgramActivityQuery';
 
-class AccountAwardSearchOperation {
+export default class AccountAwardSearchOperation {
     constructor(id = null) {
         this.accountId = null;
         if (id) {
@@ -37,7 +38,6 @@ class AccountAwardSearchOperation {
             this.dateRange = [state.startDate, state.endDate];
             this.fy = [];
         }
-
         this.objectClass = state.objectClass.toArray();
         this.programActivity = state.programActivity.toArray();
     }
@@ -69,7 +69,6 @@ class AccountAwardSearchOperation {
             const typeFilter = AwardTypeQuery.buildQuery(this.awardType);
             filters.push(typeFilter);
         }
-
         // add an account ID to the filter
         filters.push({
             field: 'financial_set__treasury_account__federal_account',
@@ -92,6 +91,80 @@ class AccountAwardSearchOperation {
 
         return concat(common, unique);
     }
-}
 
-export default AccountAwardSearchOperation;
+    timePeriodFormatted(fiscalYears) {
+        let timePeriod = fiscalYears.sort();
+        if (!timePeriod.length) return null;
+        // time period 0 start date
+        const [startDate, endDate] = convertFYToDateRange(timePeriod[0]);
+        // there are only three option 2017, 2018, 2019
+        if (timePeriod.length === 3) { // case #1 2017-2019 fy
+            timePeriod = [
+                {
+                    start_date: startDate,
+                    end_date: convertFYToDateRange(timePeriod[2])[1]
+                }
+            ];
+        }
+        else if (timePeriod.length === 2) {
+            // case #2 one date range spanning years e.g. 2017-2018 or multiple date ranges 2017, 2019
+            const numberedTimePeriod = timePeriod.map((fy) => parseInt(fy, 10));
+            // one date range
+            if ((numberedTimePeriod[1] - numberedTimePeriod[0]) === 1) {
+                timePeriod = [
+                    {
+                        start_date: startDate,
+                        end_date: convertFYToDateRange(timePeriod[1])[1]
+                    }
+                ];
+            }
+            else { // multiple date ranges
+                timePeriod = [
+                    {
+                        start_date: startDate,
+                        end_date: endDate
+                    },
+                    {
+                        start_date: convertFYToDateRange(timePeriod[1])[0],
+                        end_date: convertFYToDateRange(timePeriod[1])[1]
+                    }
+                ];
+            }
+        }
+        else { // one date range e.g. 2017
+            timePeriod = [
+                {
+                    start_date: convertFYToDateRange(timePeriod[0])[0],
+                    end_date: convertFYToDateRange(timePeriod[0])[1]
+                }
+            ];
+        }
+        return timePeriod;
+    }
+
+    spendingByAwardTableParams(state) {
+        const { account, filters } = state;
+        const tasCodes = [{ aid: account.agency_identifier, main: account.main_account_code }];
+        // Time Period Param
+        const timePeriod = this.timePeriodFormatted(filters.fy.toArray());
+        // Object Class Param
+        const objectClass = filters.objectClass.toArray();
+        // Program Activity Param
+        const programActivity = map(ProgramActivityQuery
+            .buildAwardsProgramActivityQuery(this.programActivity).value, (pa) => parseInt(pa, 10));
+        const awardTableParams = {
+            filters: {
+                tas_codes: tasCodes
+            },
+            subawards: false
+        };
+        // Add filters to query object?
+        // add time_period?
+        if (timePeriod) awardTableParams.filters.time_period = timePeriod;
+        // add object_class?
+        if (objectClass.length) awardTableParams.filters.object_class = objectClass;
+        // add program_activity?
+        if (programActivity.length) awardTableParams.filters.program_activity = programActivity;
+        return awardTableParams;
+    }
+}

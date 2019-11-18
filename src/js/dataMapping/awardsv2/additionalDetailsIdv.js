@@ -11,17 +11,45 @@ const additionalDetails = (awardData) => {
     } = awardData;
     const data = {
         agencyDetails: {
-            'Awarding Agency': awardData.awardingAgency.formattedToptier,
+            'Awarding Agency': {
+                type: 'link',
+                data: {
+                    path: awardData.awardingAgency.id ? `/#/agency/${awardData.awardingAgency.id}` : null,
+                    title: awardData.awardingAgency.formattedToptier
+                }
+            },
             'Awarding Sub-Agency': awardData.awardingAgency.subtierName,
             'Awarding Office': awardData.awardingAgency.officeName,
-            'Funding Agency': awardData.fundingAgency.formattedToptier,
+            'Funding Agency': {
+                type: 'link',
+                data: {
+                    path: awardData.fundingAgency.id ? `/#/agency/${awardData.fundingAgency.id}` : null,
+                    title: awardData.fundingAgency.formattedToptier
+                }
+            },
             'Funding Sub-Agency': awardData.fundingAgency.subtierName,
             'Funding Office': awardData.fundingAgency.officeName
         },
         parentAwardDetails: {
-            'Parent Award ID': parentAwardDetails.piid || '',
+            'Parent Award ID': {
+                type: 'link',
+                data: {
+                    path: parentAwardDetails.awardId ? `/#/award/${parentAwardDetails.awardId}` : null,
+                    title: parentAwardDetails.piid
+                }
+            },
             'Parent IDV Type': parentAwardDetails.idvType || '',
-            'Parent IDV Agency Name': parentAwardDetails.agencyName || '',
+            'Parent IDV Agency Name': {
+                type: 'link',
+                data: {
+                    // TODO - when backend updates the API response
+                    // uncomment this link
+                    // path: parentAwardDetails.agencyId ?
+                    //     `/#/agency/${parentAwardDetails.agencyId}` : null,
+                    path: null,
+                    title: parentAwardDetails.agencyName
+                }
+            },
             'Multiple Or Single Parent Award IDV': parentAwardDetails.multipleOrSingle || ''
         },
         periodOfPerformance: {
