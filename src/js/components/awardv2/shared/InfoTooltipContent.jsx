@@ -1174,7 +1174,7 @@ export const AsstAwardAmountsInfo = (
         <div className="info-tooltip__title">
             Award Amounts
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>This section illustrates the total value of this award, which is a combination of any obligated federal dollars and non-federal funding provided.</p>
             <p>Hover over the chart for more information about the specific amounts displayed.</p>
         </div>

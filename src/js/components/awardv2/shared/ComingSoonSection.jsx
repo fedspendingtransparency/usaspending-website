@@ -55,7 +55,7 @@ const ComingSoonSection = ({
                             </div>}
                         <h3 className="award-viz__title">{title}</h3>
                         {toolTipContent && (
-                            <TooltipWrapper icon="info" left={toolTipAlignLeft} wide={toolTipWide} tooltipComponent={toolTipContent} />
+                            <TooltipWrapper className="award-section-tt" icon="info" left={toolTipAlignLeft} wide={toolTipWide} tooltipComponent={toolTipContent} />
                         )}
                     </div>
                     <hr />

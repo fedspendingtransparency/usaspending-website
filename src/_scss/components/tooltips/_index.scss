@@ -1,10 +1,108 @@
 .tooltip-wrapper {
     div:first-of-type {
-        width: 100%;
+        width:100%;
         height: 100%;
-        display: flex;
+        display: flex; 
     }
-    .tooltip .tooltip__content .tooltip__message {
-        @import './customTooltipContent';
+    &.award-section-tt div:first-of-type {
+        flex-direction: column;
+    }
+    .tooltip__content {
+        @include display(flex);
+        @include flex-direction(row);
+        @include justify-content(center);
+        @include align-items(center);
+        position: relative;
+        box-shadow: $box-shadow;
+        background-color: $color-white;
+        border: solid rem(1) $color-gray-light;
+        .tooltip__message {
+            width: 100%;
+            font-size: $small-font-size;
+            text-align: left;
+            .tooltip__title {
+                font-size: $small-font-size;
+                background-color: $color-gray-lightest;
+                padding: rem(10) rem(15);
+                font-weight: $font-bold;
+                z-index: 10;
+                margin-top: 0;
+                text-align: center;
+            }
+            .tooltip__amount {
+                margin: 0;
+                text-align: center;
+                font-size: $small-font-size;
+                font-weight: $font-normal; 
+                span:first-of-type {
+                    font-size: $base-font-size * 1.25;
+                    font-weight: $font-bold;
+                }
+                span:last-of-type {
+                    font-size: $base-font-size;
+                    font-weight: $font-normal * 1.25;
+                }
+            }
+            .tooltip__amount--loans {
+                font-size: $base-font-size * 1.25;
+                font-weight: bold;
+                margin: 0;
+            }
+            .tooltip__text {
+                padding: 0 rem(15);
+                font-weight: $font-normal;
+                text-align: center;
+                @include display(flex);
+                @include flex-direction(column);
+                ul {
+                    margin: 0;
+                    padding-left: 0;
+                    list-style-type: none;
+                }
+                .tooltip__text-section {
+                    margin-top: 0;
+                }
+            }
+            .tooltip__list {
+                // award amounts lists
+                padding: 0 rem(15);
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                list-style-type: none;
+                li {
+                    text-align: center;
+                    list-style: none;
+                    padding-bottom: rem(10);
+                    &:last-of-type {
+                        padding-bottom: 0;
+                    }
+                }
+            }
+            .info-tooltip__list {
+                display: flex;
+                flex-wrap: wrap;
+                flex-direction: column;
+                &.award-desciption-section {
+                    // the list in the award description section
+                    li:last-of-type {
+                        margin-top: rem(14);
+                    }
+                    .info-tooltip__list {
+                        // nested list in this section
+                        padding-left: rem(15);
+                        li:last-of-type {
+                            margin-top: 0;
+                        }
+                    }
+                }
+                li {
+                    margin: 0;
+                    margin-right: rem(5);
+                    padding: 0;
+                }
+            }
+            @import './customTooltipContent';
+        }
     }
 }
