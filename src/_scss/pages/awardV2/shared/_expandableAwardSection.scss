@@ -1,0 +1,22 @@
+.award-expandable-section__secondary,
+.award-expandable-section__primary {
+    .award-expandable-btn {
+        @include button-unstyled;
+        @include display(flex);
+        color: $color-link;
+        margin-top: $global-mrg;
+        .award-description__button-icon {
+            padding-left: rem(5);
+            svg {
+                height: rem(15);
+                width: rem(15);
+                fill: $color-link;
+            }
+        }
+    }
+}
+.award-expandable-section__primary {
+    .primary-btn {
+        margin-top: 30px;
+    }
+}

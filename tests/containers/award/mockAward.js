@@ -35,7 +35,6 @@ export const mockAward = {
         recipient_business_type: 'Unknown Business Type',
         type_of_contract_pricing: '',
         type_of_contract_pricing_description: '',
-        parent_award_piid: null,
         latest_transaction: {
             id: 40940,
             data_source: 'DBR',

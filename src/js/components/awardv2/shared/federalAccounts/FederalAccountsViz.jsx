@@ -93,17 +93,17 @@ export default class FederalAccountsViz extends React.Component {
                 <div className="federal-accounts-results">
                     <div className="view-buttons">
                         <ViewTypeButton
-                            value="tree"
-                            label="Treemap"
-                            icon="th-large"
-                            changeView={this.props.changeView}
-                            active={isTreeView} />
-                        <ViewTypeButton
                             value="table"
                             label="Table"
                             icon="table"
                             changeView={this.props.changeView}
                             active={!isTreeView} />
+                        <ViewTypeButton
+                            value="tree"
+                            label="Treemap"
+                            icon="th-large"
+                            changeView={this.props.changeView}
+                            active={isTreeView} />
                     </div>
                     {!isTreeView && <FederalAccountsTable {...this.props} />}
                     <div

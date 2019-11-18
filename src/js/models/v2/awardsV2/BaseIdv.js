@@ -33,12 +33,9 @@ BaseIdv.populate = function populate(data) {
 
     this.populateCore(coreData);
 
-    this.parentAward = data.parent_award_piid || '';
-    this.parentId = data.parent_generated_unique_award_id || '';
-
     const parentAwardDetails = Object.create(BaseParentAwardDetails);
     if (data.parent_award) {
-        parentAwardDetails.populateCore(data.parent_award);
+        parentAwardDetails.populateCore(data.parent_award || {});
     }
     this.parentAwardDetails = parentAwardDetails;
 
@@ -84,6 +81,7 @@ BaseIdv.populate = function populate(data) {
     const fundingAgency = Object.create(CoreAwardAgency);
     if (data.funding_agency) {
         const fundingAgencyData = {
+            id: data.funding_agency.id,
             toptierName: data.funding_agency.toptier_agency.name,
             toptierAbbr: data.funding_agency.toptier_agency.abbreviation || '',
             subtierName: data.funding_agency.subtier_agency.name,

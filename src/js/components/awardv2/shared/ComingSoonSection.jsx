@@ -9,7 +9,7 @@ const propTypes = {
     title: PropTypes.string,
     icon: PropTypes.string,
     className: PropTypes.string,
-    toolTip: PropTypes.bool,
+    toolTipWide: PropTypes.bool,
     toolTipAlignLeft: PropTypes.bool,
     includeHeader: PropTypes.bool,
     toolTipContent: PropTypes.node,
@@ -17,7 +17,8 @@ const propTypes = {
 };
 
 const defaultProps = {
-    toolTip: false,
+    tooltipWide: false,
+    tooltipContent: null,
     includeHeader: false,
     className: null
 };
@@ -25,7 +26,7 @@ const defaultProps = {
 const ComingSoonSection = ({
     title,
     icon,
-    toolTip,
+    toolTipWide,
     toolTipAlignLeft,
     toolTipContent,
     includeHeader,
@@ -53,8 +54,8 @@ const ComingSoonSection = ({
                                 <FontAwesomeIcon size="lg" icon={icon} />
                             </div>}
                         <h3 className="award-viz__title">{title}</h3>
-                        {toolTip && (
-                            <InfoTooltip left={toolTipAlignLeft}>
+                        {toolTipContent && (
+                            <InfoTooltip left={toolTipAlignLeft} wide={toolTipWide}>
                                 {toolTipContent}
                             </InfoTooltip>
                         )}

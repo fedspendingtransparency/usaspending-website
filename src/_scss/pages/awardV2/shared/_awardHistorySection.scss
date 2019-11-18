@@ -1,6 +1,12 @@
 .award-history {
     padding: rem(40) 0 rem(60);
     width: 100%; 
+    @import "./table/_tablesSection";
+    .table-types {
+      button.table-type-toggle {
+        margin-top: 0;
+      }
+    }
     .subaward-totals {
         @include display(flex);
         margin-top: 1.5rem;
@@ -12,7 +18,4 @@
             }
         }
     }
-
-    @import "./table/_tablesSection";
-
 }

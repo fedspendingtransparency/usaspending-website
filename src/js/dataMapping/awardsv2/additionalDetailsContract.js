@@ -61,16 +61,17 @@ const additionalDetailsContracts = (awardData) => {
             'Parent IDV PIID': {
                 type: 'link',
                 data: {
-                    path: awardData.parentId ? `/#/award/${awardData.parentId}` : null,
-                    title: awardData.parentAward
+                    path: parentAwardDetails.awardId ? `/#/award/${parentAwardDetails.awardId}` : null,
+                    title: parentAwardDetails.piid
                 }
             },
             'Parent IDV Type': parentAwardDetails.idvType || '',
             'Parent IDV Agency Name': {
                 type: 'link',
                 data: {
-                    path: parentAwardDetails.agencyId ?
-                        `/#/agency/${parentAwardDetails.agencyId}` : null,
+                    // path: parentAwardDetails.agencyId ?
+                    //     `/#/agency/${parentAwardDetails.agencyId}` : null,
+                    path: null,
                     title: parentAwardDetails.agencyName
                 }
             },
