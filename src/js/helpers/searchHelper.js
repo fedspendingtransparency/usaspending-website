@@ -227,22 +227,6 @@ export const performSpendingByAwardSearch = (params) => {
     };
 };
 
-export const performFinancialSystemLookup = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v1/accounts/awards/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
 export const performSubawardSearch = (data) => {
     const source = CancelToken.source();
     return {
