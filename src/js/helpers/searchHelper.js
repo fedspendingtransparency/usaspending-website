@@ -90,22 +90,6 @@ export const fetchPSC = (req) => {
     };
 };
 
-// Fetch Individual Award
-export const fetchAward = (num) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: `v1/awards/${num}/`,
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
 export const fetchAwardV2 = (awardId) => {
     const source = CancelToken.source();
     const parsedAwardId = encodeURI(awardId);
