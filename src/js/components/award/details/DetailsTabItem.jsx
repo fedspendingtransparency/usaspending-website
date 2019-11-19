@@ -54,7 +54,7 @@ export default class DetailsTabItem extends React.Component {
         let infoTooltip = null;
         if (this.props.tooltipContent) {
             infoTooltip = (
-                <TooltipWrapper icon="info" tooltipComponent={this.props.tooltipContent} {...this.props.tooltipProps} />);
+                <TooltipWrapper className="award-section-tt" icon="info" tooltipComponent={this.props.tooltipContent} {...this.props.tooltipProps} />);
         }
 
         let count = null;

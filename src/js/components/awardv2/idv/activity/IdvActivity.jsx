@@ -55,7 +55,7 @@ export default class IdvActivity extends React.Component {
                             <FontAwesomeIcon size="lg" icon="chart-area" />
                         </div>
                         <h3 className="award-viz__title">IDV Activity</h3>
-                        <TooltipWrapper icon="info" wide tooltipComponent={idvActivityInfo} />
+                        <TooltipWrapper className="award-section-tt" icon="info" wide tooltipComponent={idvActivityInfo} />
                     </div>
                     <hr />
                     <div className="results-table-message-container">

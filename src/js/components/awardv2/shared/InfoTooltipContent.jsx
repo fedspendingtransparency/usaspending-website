@@ -10,7 +10,7 @@ export const transactionHistoryInfoGeneric = (
                The Transaction History tab displays modification records
                for an award.
             </p>
-            <p>
+            <p className="tooltip__text-section">
                Each modification appears as a row in the table below.
                Here&apos;s what each of the columns for each modification
                (row) tell you:
@@ -77,7 +77,7 @@ export const transactionHistoryInfoGeneric = (
                     <strong>M</strong> – Other Administrative Action
                 </li>
             </ul>
-            <p>
+            <p className="tooltip__text-section">
                 <strong>Description</strong> – This is additional
                information typically about the effects of the
                modifications on the contract.
@@ -96,7 +96,7 @@ export const transactionHistoryInfoContract = (
                 be administrative only with no financial implications
                 (e.g., noting an address change by the recipient).
             </p>
-            <p>
+            <p className="tooltip__text-section">
                 Each modification appears as a row in the table below.
                 Here&apos;s what the columns for each modification (row) tell you:
             </p>
