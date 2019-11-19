@@ -65,7 +65,6 @@ module.exports = {
                     },
                     {
                         loader: "css-loader"
-                        // options: { import: true }
                     }
                 ]
             },
