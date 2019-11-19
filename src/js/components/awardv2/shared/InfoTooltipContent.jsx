@@ -1171,7 +1171,7 @@ export const ContractAwardAmountsInfo = (
 
 export const AsstAwardAmountsInfo = (
     <div className="award-summary-tooltip">
-        <div className="info-tooltip__title">
+        <div className="tooltip__title">
             Award Amounts
         </div>
         <div className="tooltip__text">
