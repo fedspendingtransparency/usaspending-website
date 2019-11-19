@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import InfoTooltip from '../shared/InfoTooltip';
+import { TooltipWrapper } from 'data-transparency-ui';
 import AwardSection from './AwardSection';
 
 const propTypes = {
@@ -55,9 +55,7 @@ const ComingSoonSection = ({
                             </div>}
                         <h3 className="award-viz__title">{title}</h3>
                         {toolTipContent && (
-                            <InfoTooltip left={toolTipAlignLeft} wide={toolTipWide}>
-                                {toolTipContent}
-                            </InfoTooltip>
+                            <TooltipWrapper className="award-section-tt" icon="info" left={toolTipAlignLeft} wide={toolTipWide} tooltipComponent={toolTipContent} />
                         )}
                     </div>
                     <hr />

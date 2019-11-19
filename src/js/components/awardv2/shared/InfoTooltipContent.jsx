@@ -3,14 +3,14 @@ import React from 'react';
 // Mapping of section identifier to tooltip content JSX
 
 export const transactionHistoryInfoGeneric = (
-    <div className="transaction-history-tt">
-        <div className="info-tooltip__title">Transaction History</div>
-        <div className="info-tooltip__text">
+    <div className="award-summary-tooltip transaction-history-tt">
+        <div className="tooltip__title">Transaction History</div>
+        <div className="tooltip__text">
             <p>
                The Transaction History tab displays modification records
                for an award.
             </p>
-            <p>
+            <p className="tooltip__text-section">
                Each modification appears as a row in the table below.
                Here&apos;s what each of the columns for each modification
                (row) tell you:
@@ -77,7 +77,7 @@ export const transactionHistoryInfoGeneric = (
                     <strong>M</strong> – Other Administrative Action
                 </li>
             </ul>
-            <p>
+            <p className="tooltip__text-section">
                 <strong>Description</strong> – This is additional
                information typically about the effects of the
                modifications on the contract.
@@ -87,16 +87,16 @@ export const transactionHistoryInfoGeneric = (
 );
 
 export const transactionHistoryInfoContract = (
-    <div className="transaction-history-tt">
-        <div className="info-tooltip__title">Transaction History</div>
-        <div className="info-tooltip__text">
+    <div className="award-summary-tooltip transaction-history-tt">
+        <div className="tooltip__title">Transaction History</div>
+        <div className="tooltip__text">
             <p>
                 The Transaction History tab displays all modification records for
                 this contract. Most of these are financial in nature, but some may
                 be administrative only with no financial implications
                 (e.g., noting an address change by the recipient).
             </p>
-            <p>
+            <p className="tooltip__text-section">
                 Each modification appears as a row in the table below.
                 Here&apos;s what the columns for each modification (row) tell you:
             </p>
@@ -172,9 +172,9 @@ export const transactionHistoryInfoContract = (
 );
 
 export const transactionHistoryInfoFinancialAssistance = (
-    <div className="transaction-history-tt">
-        <div className="info-tooltip__title">Transaction History</div>
-        <div className="info-tooltip__text">
+    <div className="award-summary-tooltip transaction-history-tt">
+        <div className="tooltip__title">Transaction History</div>
+        <div className="tooltip__text">
             <p>
                 The Transaction History tab displays all modification
                 records for this award. Most of these are financial in
@@ -229,11 +229,11 @@ export const transactionHistoryInfoFinancialAssistance = (
 );
 
 export const federalAccountFundingInfoIDV = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Federal Account Funding
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 Each row in this table represents a submission of a transaction
                 by the awarding agency  that commits a specific amount of funding
@@ -274,11 +274,11 @@ export const federalAccountFundingInfoIDV = (
 );
 
 export const federalAccountFundingInfoGeneric = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Federal Account Funding
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 Each row in this table represents a transaction in the awarding
                 agency&apos;s financial system that commits a specific amount of
@@ -317,11 +317,11 @@ export const federalAccountFundingInfoGeneric = (
 );
 
 export const relatedAwardsInfo = (
-    <div className="related-awards-tt">
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip related-awards-tt">
+        <div className="tooltip__title">
              Orders Made Under this IDV
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 This section displays the child award orders*, child IDV orders*,
                 and grandchild award orders that have been made under this Indefinite
@@ -385,17 +385,17 @@ export const relatedAwardsInfo = (
 );
 
 export const summaryRelatedAwardsInfo = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Related Awards
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <strong>Parent IDV</strong>
-            <p className="info-tooltip__text-section">A parent IDV, or parent indefinite delivery vehicle, is any award that has other prime awards made under it.</p>
-            <p className="info-tooltip__text-section">The contract summarized on this page is a “child” prime award of the parent IDV indicated here.</p>
-            <p className="info-tooltip__text-section">Click on the award ID to view the summary page of this award&apos;s parent IDV, which details all of that IDV&apos;s “child” and “grandchild” awards.</p>
+            <p className="tooltip__text-section">A parent IDV, or parent indefinite delivery vehicle, is any award that has other prime awards made under it.</p>
+            <p className="tooltip__text-section">The contract summarized on this page is a “child” prime award of the parent IDV indicated here.</p>
+            <p className="tooltip__text-section">Click on the award ID to view the summary page of this award&apos;s parent IDV, which details all of that IDV&apos;s “child” and “grandchild” awards.</p>
             <strong>Sub-Awards</strong>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 This is the count of sub-awards (in this case, sub-contracts to furnish supplies or services to advance the prime contract) issued and reported directly
                 by the prime recipient. For more details, click on the count to scroll to the Sub-Awards tab within the Award History section of this page.
                 Sub-awards are always referred to as such and are independent of the ‘child&apos; and ‘grandchild&apos; prime award structure discussed above.
@@ -405,11 +405,11 @@ export const summaryRelatedAwardsInfo = (
 );
 
 export const summaryRelatedAwardsInfoIdv = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Related Awards
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 Related Awards refers to two possible types of awards related to
                 this indefinite delivery vehicle (IDV):
@@ -442,39 +442,39 @@ export const summaryRelatedAwardsInfoIdv = (
 );
 
 export const descriptionInfoAsst = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Description
         </div>
-        <div className="info-tooltip__text">
-            <p className="info-tooltip__text-section">
+        <div className="tooltip__text">
+            <p className="tooltip__text-section">
                 The description of this award is provided by the financial assistance manager who submitted its data. The level of detail in descriptions varies and is dependent on the author and the standards of the agencies involved. The description featured here comes from the base award. Modifications have their own descriptions which can differ from the description of the base award; these can be viewed in the Transaction History tab of the Award History section below or by downloading the data via the top-right “DOWNLOAD” button.
             </p>
-            <p className="info-tooltip__text-section">Additional contextual information on the purpose of this award can be gleaned from the CFDA / Assistance Listing Information module below.</p>
+            <p className="tooltip__text-section">Additional contextual information on the purpose of this award can be gleaned from the CFDA / Assistance Listing Information module below.</p>
         </div>
     </div>
 );
 
 export const descriptionInfoContract = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Description
         </div>
-        <div className="info-tooltip__text">
-            <p className="info-tooltip__text-section">
+        <div className="tooltip__text">
+            <p>
                 The description of the award is provided by the contracting officer who submitted this contract data. The level of detail in
                 descriptions varies and is dependent on the author and the standards of the agencies involved. The description featured here comes
                 from the base award of the contract.  Contract transactions (also known as modifications) have their own descriptions available.
                 These transaction descriptions and other details can be viewed in the Transaction History tab of the Award History section located
                 further down this page, or by downloading the data via the top-right “DOWNLOAD” button.
             </p>
-            <p className="info-tooltip__text-section">
+            <p>
                 Also shown below the description are groups of codes from two systems of classification:
             </p>
             <ul className="info-tooltip__list award-desciption-section">
                 <li>
                     <strong>North American Industry Classification System (NAICS) Code</strong>
-                    <p className="info-tooltip__text-section">This code describes the primary industrial activity of the recipient of this award. It is six digits and has three levels of embedded granularity:</p>
+                    <p>This code describes the primary industrial activity of the recipient of this award. It is six digits and has three levels of embedded granularity:</p>
                     <ul className="info-tooltip__list">
                         <li>&bull; The first two-digits indicate the sector (general).</li>
                         <li>&bull; The first four-digits indicate the industry group.</li>
@@ -484,7 +484,7 @@ export const descriptionInfoContract = (
                 </li>
                 <li>
                     <strong>Product and Service Codes (PSC)</strong>
-                    <p className="info-tooltip__text-section">These codes are used to categorize awards by the type of product, service, or research and development (R&D) procured. The code is 4 characters and has up to four levels of embedded granularity:</p>
+                    <p>These codes are used to categorize awards by the type of product, service, or research and development (R&D) procured. The code is 4 characters and has up to four levels of embedded granularity:</p>
                     <ul className="info-tooltip__list">
                         <li>&bull; The first level classifies what was procured as a product, service or R&D .</li>
                         <li>&bull; The second level indicates the top level category of what was procured.</li>
@@ -492,7 +492,7 @@ export const descriptionInfoContract = (
                         <li>&bull; The fourth level exists for R&D and services only. For R&D, it specifies the stage of the R&D process involved. For services, it specifies a further subdivision of the third level code.</li>
                     </ul>
                     <p>Each of these levels is displayed hierarchically below for this recipient.</p>
-                    <p className="info-tooltip__text-section">Click on the glossary icons for more information on NAICS and PSC.</p>
+                    <p>Click on the glossary icons for more information on NAICS and PSC.</p>
                 </li>
             </ul>
         </div>
@@ -500,11 +500,11 @@ export const descriptionInfoContract = (
 );
 
 export const descriptionInfo = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Description
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 The description of the award is provided by the contract officer
                 who submitted this award data. The quality of these descriptions
@@ -524,11 +524,11 @@ export const descriptionInfo = (
 );
 
 export const awardAmountsInfo = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Award Amounts
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 This section provides information on the value of this indefinite
                 delivery vehicle (IDV) at two different levels, shown separately
@@ -593,11 +593,11 @@ export const awardAmountsInfo = (
 );
 
 export const awardHistoryIdv = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Award History
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 <strong>Transaction History</strong> – This table contains historical
                 changes made to this award, shown as individual modification records.
@@ -615,11 +615,11 @@ export const awardHistoryIdv = (
 );
 
 export const awardHistoryContract = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Award History
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 This section displays all of this award&apos;s transactions
                 (also known as modifications), sub-awards, and federal
@@ -632,7 +632,7 @@ export const awardHistoryContract = (
             </p>
             <div>
                 <strong>Transaction History</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     This table contains historical changes made to this award,
                     shown as individual modification records. This information
                     is reported by the awarding agency&apos;s contracting or grants officer.
@@ -640,13 +640,13 @@ export const awardHistoryContract = (
             </div>
             <div>
                 <strong>Sub-Awards</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     This table contains any sub-awards reported by this recipient.
                 </p>
             </div>
             <div>
                 <strong>Federal Account Funding</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     This table contains funding data directly submitted from agency financial
                     accounting systems, also known as “Award Financial” or “Account
                     Breakdown by Award” data. This data, which links each Treasury account to
@@ -661,11 +661,11 @@ export const awardHistoryContract = (
 );
 
 export const awardHistoryFinancialAssistanceGeneric = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Award History
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 This section displays all of this award&apos;s transactions (modifications)
                 and federal account funding data in tabs and rows. The tables display
@@ -675,7 +675,7 @@ export const awardHistoryFinancialAssistanceGeneric = (
             </p>
             <div>
                 <strong>Transaction History</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     This table contains historical changes made to this award,
                     shown as individual modification records. This information is
                     reported by the awarding agency&apos;s officer.
@@ -683,7 +683,7 @@ export const awardHistoryFinancialAssistanceGeneric = (
             </div>
             <div>
                 <strong>Federal Account Funding</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     This table contains funding data directly submitted from agency financial
                     accounting systems, also known as “Award Financial” or “Account
                     Breakdown by Award” data. This data, which links each Treasury account to
@@ -698,11 +698,11 @@ export const awardHistoryFinancialAssistanceGeneric = (
 );
 
 export const awardHistoryFinancialAssistanceLoan = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Award History
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 This section displays all of this award&apos;s transactions (modifications)
                 and federal account funding data in tabs and rows. The tables display
@@ -712,7 +712,7 @@ export const awardHistoryFinancialAssistanceLoan = (
             </p>
             <div>
                 <strong>Transaction History</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     This table contains historical changes made to this loan award,
                     shown as individual modification records. This information is
                     reported by the awarding agency&apos;s loan officer.
@@ -720,7 +720,7 @@ export const awardHistoryFinancialAssistanceLoan = (
             </div>
             <div>
                 <strong>Federal Account Funding</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     This table contains funding data directly submitted from agency financial
                     accounting systems, also known as “Award Financial” or “Account
                     Breakdown by Award” data. This data, which links each Treasury account to
@@ -735,23 +735,23 @@ export const awardHistoryFinancialAssistanceLoan = (
 );
 
 export const datesInfoAsst = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Dates
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <strong>Start Date</strong>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 The start date marks when the awarded recipient&apos;s work begins or when the award is otherwise effective.  This is also called the period of performance start date.
             </p>
             <strong>End Date</strong>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 The end date marks the end of the award&apos;s period of performance, when the recipient will finish its work or the award will otherwise end.
             </p>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 Note that administrative actions related to this award may continue to occur after this date.
             </p>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 Assistance awards are sometimes subject to extensions, noncompetitive continuations, or early termination; if any of these occur, they will be indicated by a modification that alters the end date.
             </p>
         </div>
@@ -759,37 +759,37 @@ export const datesInfoAsst = (
 );
 
 export const datesInfo = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Dates
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <strong>Start Date</strong>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 The start date marks when the awarded recipient&apos;s work begins or when the award is otherwise effective.
                 This is also called the period of performance start date or effective date of the contract.
             </p>
             <strong>Current End Date</strong>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 The current end date marks the end of the contract&apos;s current period of performance or when the recipient will finish its work.
                 This date factors in only currently-exercised contract extension options.
             </p>
-            <p className="info-tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
+            <p className="tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
             <strong>Potential End Date</strong>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 The potential end date marks the end of the contract&apos;s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised.
             </p>
-            <p className="info-tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
+            <p className="tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
         </div>
     </div>
 );
 
 export const datesInfoIdv = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Dates
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>The dates below are described in more detail:</p>
             <ul>
                 <li>
@@ -806,81 +806,81 @@ export const datesInfoIdv = (
 );
 
 export const contractActivityGrants = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Grant Activity
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>This chart displays modifications made over the course of this grant&apos;s period of performance.  It gives you a sense of how obligations on this grant were made over time, and how they changed the value of the grant.</p>
             <div>
                 <strong>Grant Transactions</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     Each transaction is marked by a dot.  You can hover your cursor over each dot to get more information for that particular transaction.
                 </p>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     The vertical placement of each dot (transaction) represents the total amount obligated at that time (up to and including that transaction) and the horizontal placement represents the transaction&apos;s action date.
                 </p>
             </div>
             <div>
                 <strong>Start Date</strong>
-                <p className="info-tooltip__text-section">The start date marks when the awarded recipient&apos;s work begins or when the award is otherwise effective.  This is also called the period of performance start date. </p>
+                <p className="tooltip__text-section">The start date marks when the awarded recipient&apos;s work begins or when the award is otherwise effective.  This is also called the period of performance start date. </p>
 
             </div>
             <div>
                 <strong>End Date</strong>
-                <p className="info-tooltip__text-section">The end date marks the end of the grant&apos;s period of performance or when the recipient will finish its work.</p>
-                <p className="info-tooltip__text-section">Administrative actions related to this grant may continue to occur after this date.</p>
+                <p className="tooltip__text-section">The end date marks the end of the grant&apos;s period of performance or when the recipient will finish its work.</p>
+                <p className="tooltip__text-section">Administrative actions related to this grant may continue to occur after this date.</p>
             </div>
         </div>
     </div>
 );
 
 export const contractActivityInfoContracts = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Contract Activity
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 This chart displays modifications made over the course of this contract&apos;s period of performance.
                 It gives you a sense of how obligations on this contract were made over time and how they changed the value of the contract.
             </p>
             <div>
                 <strong>Contract Transactions</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     Each transaction is marked by a dot.  You can hover your cursor over each dot to get more information for that particular transaction.
                 </p>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     The vertical placement of each dot (transaction) represents the total amount obligated at that time (up to and including that transaction) and the horizontal placement represents the transaction&apos;s action date.
                 </p>
             </div>
             <div>
                 <strong>Potential Award Amount</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     The horizontal line at the top of the chart represents the potential award amount, or contract ceiling, of this contract.
                 </p>
             </div>
             <div>
                 <strong>Start Date</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     The start date marks when the awarded recipient&apos;s work begins or when this contract is otherwise effective.  This is also called the period of performance start date or effective date.
                 </p>
             </div>
             <div>
                 <strong>Current End Date</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     The current end date marks the end of this contract&apos;s current period of performance or when the recipient will finish its work.  This date factors in only currently-exercised contract extension options.
                 </p>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     Note that administrative actions related to this contract may continue to occur after this date.
                 </p>
             </div>
             <div>
                 <strong>Potential End Date</strong>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     The potential end date marks the end of this contract&apos;s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised.
                 </p>
-                <p className="info-tooltip__text-section">
+                <p className="tooltip__text-section">
                     Note that administrative actions related to this contract may continue to occur after this date.
                 </p>
             </div>
@@ -889,11 +889,11 @@ export const contractActivityInfoContracts = (
 );
 
 export const idvActivityInfo = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             IDV Activity
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 <strong>How to read this visual:</strong><br />
                 Each bar represents a <strong>child award order*</strong> or
@@ -964,26 +964,26 @@ export const idvActivityInfo = (
     </div>
 );
 export const federalAccountsInfoContract = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Federal Accounts
         </div>
-        <div className="info-tooltip__text">
-            <p className="info-tooltip__text-section">
+        <div className="tooltip__text">
+            <p className="tooltip__text-section">
                 The funding committed by the government to an award is stored in federal accounts.  The federal accounts and the amounts they have committed to this award are displayed here.
             </p>
             <strong>Viewing Options for this Visual: </strong>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 You can view federal account data as a list or as a treemap by clicking on the buttons at the top right corner of this section. The chart below this data provides a Summary of All Federal Accounts Used by this Award.
             </p>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 In the list view, a summary table displays the total reported funding committed to this award from each contributing federal account, as well as associated funding agencies and awarding agencies.
             </p>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 In the treemap view, each proportionately-sized rectangle represents a different federal account&apos;s portion of the total funding for this award.
             </p>
             <strong>Data Shown in this Visual</strong>
-            <p className="info-tooltip__text-section">
+            <p className="tooltip__text-section">
                 This visual leverages funding data directly submitted from agency financial accounting systems, also known as “Award Financial” or “Account Breakdown by Award” data. This data, which links each Treasury account to each Award transaction it funds, connects award spending to the appropriation, budgeting, and allocation processes, which channel Congressional and Administration intent and determine how much money is assigned to each federal account.
             </p>
         </div>
@@ -991,11 +991,11 @@ export const federalAccountsInfoContract = (
 );
 
 export const federalAccountsInfoIdv = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Federal Accounts
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 <strong>How to read this visual:</strong><br />
                 The funding committed to the award orders made under this indefinite
@@ -1069,9 +1069,9 @@ export const federalAccountsInfoIdv = (
 );
 
 export const subAwardsTabContract = (
-    <div>
-        <div className="info-tooltip__title">Sub-Awards</div>
-        <div className="info-tooltip__text">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">Sub-Awards</div>
+        <div className="tooltip__text">
             <p>
                 The Sub-Awards tab displays any sub-contracts reported by this contract&apos;s
                 recipient (the ‘prime recipient&apos; in a sub-award context). Sub-contracts are
@@ -1111,9 +1111,9 @@ export const subAwardsTabContract = (
 );
 
 export const subAwardsTabGrant = (
-    <div>
-        <div className="info-tooltip__title">Sub-Awards</div>
-        <div className="info-tooltip__text">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">Sub-Awards</div>
+        <div className="tooltip__text">
             <p>
             The Sub-Awards tab displays any sub-grants reported by this grant&apos;s
             recipient (the “prime recipient” in a sub-award context). Sub-grants
@@ -1153,11 +1153,11 @@ export const subAwardsTabGrant = (
 );
 
 export const ContractAwardAmountsInfo = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Award Amounts
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>This section illustrates how much the government has spent on this award.</p>
             <p>The Obligated Amount of a contract represents the amount an agency has promised to pay the vendor in its financial system. It usually matches the current value of the contract, but certain agencies (e.g., DOD) are allowed to incrementally fund some contracts in their financial systems. In these cases, the obligated amount may lag the current award amount.</p>
             <p>The current value of a contract (Current Award Amount) represents the value of the base contract and any exercised options. </p>
@@ -1170,11 +1170,11 @@ export const ContractAwardAmountsInfo = (
 );
 
 export const AsstAwardAmountsInfo = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Award Amounts
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>This section illustrates the total value of this award, which is a combination of any obligated federal dollars and non-federal funding provided.</p>
             <p>Hover over the chart for more information about the specific amounts displayed.</p>
         </div>
@@ -1182,11 +1182,11 @@ export const AsstAwardAmountsInfo = (
 );
 
 export const LoanAwardAmountsInfo = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             Award Amounts
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>This section illustrates the total value of this loan to the recipient and its expected cost to the government.</p>
             <p>The total face value of the loan is shown with the original subsidy cost as a portion of that face value.  The original subsidy cost is the long-term estimated cost of this loan to the government based on the modeled risk that the recipient will default. Administrative costs of running the loan program itself are excluded from this number.</p>
             <p>Hover over the chart for more information about the specific amounts displayed.</p>
@@ -1195,11 +1195,11 @@ export const LoanAwardAmountsInfo = (
 );
 
 export const CFDAOverviewInfo = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             CFDA Program / Assistance Listing
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>
                 The Catalog of Federal Domestic Assistance (CFDA), also known as Assistance Listings, is a collection of federal financial assistance programs that provides benefits to the American public. Every assistance award must be categorized under a CFDA program, and every CFDA program must be specifically authorized by congressional statute before an agency can begin to issue awards under it.
             </p>
@@ -1209,11 +1209,11 @@ export const CFDAOverviewInfo = (
 );
 
 export const CFDASectionInfo = (
-    <div>
-        <div className="info-tooltip__title">
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
             CFDA Program / Assistance Listing
         </div>
-        <div className="info-tooltip__text">
+        <div className="tooltip__text">
             <p>The Catalog of Federal Domestic Assistance (CFDA), also known as Assistance Listings, is a collection of federal financial assistance programs that provide benefits to the American public. Every assistance award must be categorized under a CFDA program, and every CFDA program must be specifically authorized by Congressional statute before an agency can begin to issue awards under it.</p>
             <p>This section contains information about the CFDA program(s) that this award has been categorized under.  This information includes the following:</p>
             <ul>
