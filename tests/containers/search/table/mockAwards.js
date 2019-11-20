@@ -25,11 +25,7 @@ export const mockTabCount = {
 export const mockApi = {
     page_metadata: {
         page: 1,
-        has_next_page: true,
-        has_previous_page: false,
-        next: "https://spending-api-dev.us/api/v1/awards/?limit=60&page=2&req=0b48d0f0ec8",
-        current: "https://spending-api-dev.us/api/v1/awards/?limit=60&page=1&req=0b48d0f0ec8",
-        previous: null
+        hasNext: true,
     },
     req: "0b48d0f0ec8",
     results: [{

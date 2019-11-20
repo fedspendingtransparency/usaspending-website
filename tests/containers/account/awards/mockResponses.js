@@ -11,13 +11,8 @@ export const mockCount = {
 
 export const mockAward = {
     "page_metadata": {
-        "count": 238,
         "page": 1,
-        "has_next_page": true,
-        "has_previous_page": false,
-        "next": "https://dev-api.usaspending.gov/api/v1/awards/?limit=1&page=2",
-        "current": "https://dev-api.usaspending.gov/api/v1/awards/?limit=1&page=1",
-        "previous": null
+        "hasNext": true,
     },
     "results": [
         {
