@@ -1,50 +1,23 @@
-.account-awards-table-section {
+.search-results-table-section {
     transition: opacity 0.25s ease;
-    
+    position: relative;
     @import "pages/search/results/table/_tableTypes";
-    @import "pages/search/results/table/_resultsTablePicker";
+    @import "pages/search/results/table/_tableStyle";
+    @import "pages/search/results/table/_resultsDropdownPickerWrapper";
+    @import "pages/search/results/table/_tableMessages";
 
-    // implement the library style
-    @import "lib/ibTable/ibTable";
-    margin-top: 1.5em;
-    display: block;
-    opacity: 1.0;
-
-    .loading-table {
-        opacity: 0.5;
-        @include transition(opacity 0.25s ease-in);
-    }
-
-    .loaded-table {
-        opacity: 1;
-        @include transition(opacity 0.25s ease-in);
+    .results-table-content {
+      position: relative;
+      margin-top: rem(15);   
+      min-height: rem(200);
+      @include transition(opacity 0.25s ease-in);
     }
 
     .ibt-table-container {
-        margin-top: 1.5em;
         border: 1px solid $color-gray-light;
     }
 
-     .award-result-generic-cell {
-        @import "pages/search/results/table/cells/_genericCell";
-        @include genericCell();
-    }
-
-    .award-result-header-cell {
-        @import "pages/search/results/table/cells/_genericHeader";
-        @include genericHeader();
-
-         &.last-column {
-            border-right: none;
-        }
-    }
-
-    // gray out even rows
-    .row-even {
-        background-color: #f7f7f7;
-    }
-
-    .account-awards-table-width-master {
+    .results-table-width-master {
         width: 100%;
     }
 
@@ -53,12 +26,5 @@
         font-size: $small-font-size;
         color: $color-base;
         text-align: center;
-    }
-
-    .field-picker {
-        padding-bottom: rem(15);
-        .field-list {
-            z-index: $z-header - 1;
-        }
     }
 }

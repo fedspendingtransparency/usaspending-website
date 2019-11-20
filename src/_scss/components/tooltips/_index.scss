@@ -1,2 +1,13 @@
-@import './tooltipWrapper';
-@import './tooltipContent';
+.tooltip-wrapper {
+    div:first-of-type {
+        width:100%;
+        height: 100%;
+        display: flex; 
+    }
+    &.award-section-tt div:first-of-type {
+        flex-direction: column;
+    }
+    .tooltip__content {
+        @import './customTooltipContent';
+    }
+}

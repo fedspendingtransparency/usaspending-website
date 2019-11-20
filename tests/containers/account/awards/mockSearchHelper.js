@@ -1,6 +1,6 @@
 import { mockCount, mockAward } from './mockResponses';
 
-export const fetchAwardCounts = () => ({
+export const performSpendingByAwardTabCountSearch = () => ({
     promise: new Promise((resolve) => {
         resolve({
             data: mockCount
@@ -9,7 +9,7 @@ export const fetchAwardCounts = () => ({
     cancel: jest.fn()
 });
 
-export const performSearch = () => ({
+export const performSpendingByAwardSearch = () => ({
     promise: new Promise((resolve) => {
         resolve({
             data: mockAward

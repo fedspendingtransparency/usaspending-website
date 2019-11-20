@@ -5,10 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TooltipWrapper } from "data-transparency-ui";
 
 import { generatePercentage } from 'helpers/awardAmountHelper';
 
-import TooltipWrapper from "../../../../sharedComponents/TooltipWrapper";
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
 
 import { useTooltips } from "./AwardAmountsChart";
@@ -112,11 +112,11 @@ const ExceedsCurrentChart = ({ awardAmounts, awardType }) => {
             <div className="award-amounts-viz__bar-wrapper">
                 <TooltipWrapper {...propsForPotentialTooltip} styles={{ width: "100%" }}>
                     <div className="award-amounts-viz__bar">{/* Combined Potential */}
-                        <TooltipWrapper {...propsForObligatedTooltip} styles={obligatedLabelStyle}>
-                            <TooltipWrapper {...propsForCurrentTooltip} styles={{ width: currentBarStyle.width }}>
+                        <TooltipWrapper className="award-amounts-chart-tt" {...propsForObligatedTooltip} styles={obligatedLabelStyle}>
+                            <TooltipWrapper className="award-amounts-chart-tt" {...propsForCurrentTooltip} styles={{ width: currentBarStyle.width }}>
                                 <div className="award-amounts-viz__obligated" style={{ backgroundColor: currentBarStyle.backgroundColor }} />{/* Obligated/Current */}
                             </TooltipWrapper>
-                            <TooltipWrapper {...propsForExceedsCurrentTooltip} styles={{ width: overspendingBarStyle.width }}>
+                            <TooltipWrapper className="award-amounts-chart-tt" {...propsForExceedsCurrentTooltip} styles={{ width: overspendingBarStyle.width }}>
                                 <div className="award-amounts-viz__exceeded" style={{ backgroundColor: overspendingBarStyle.backgroundColor }} />{/* Obligated/Overspending */}
                             </TooltipWrapper>
                         </TooltipWrapper>

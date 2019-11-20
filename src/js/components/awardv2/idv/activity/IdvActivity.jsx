@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TooltipWrapper } from 'data-transparency-ui';
+
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import InfoTooltip from '../../shared/InfoTooltip';
 import { idvActivityInfo } from '../../shared/InfoTooltipContent';
 import IdvActivityVisualization from './IdvActivityVisualization';
 
@@ -54,9 +55,7 @@ export default class IdvActivity extends React.Component {
                             <FontAwesomeIcon size="lg" icon="chart-area" />
                         </div>
                         <h3 className="award-viz__title">IDV Activity</h3>
-                        <InfoTooltip wide>
-                            {idvActivityInfo}
-                        </InfoTooltip>
+                        <TooltipWrapper className="award-section-tt" icon="info" wide tooltipComponent={idvActivityInfo} />
                     </div>
                     <hr />
                     <div className="results-table-message-container">
