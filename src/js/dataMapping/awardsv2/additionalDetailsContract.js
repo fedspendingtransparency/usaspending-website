@@ -131,7 +131,7 @@ const additionalDetailsContracts = (awardData) => {
             }
         },
         aquisitionDetails: {
-            'Product or Service Code': awardData.additionalDetails.pscCode,
+            'Product or Service Code (PSC)': awardData.additionalDetails.pscCode,
             'North American Industry Classification System (NAICS) Code': awardData.additionalDetails.naicsCode,
             'DoD Claimant Code': awardData.additionalDetails.dodClaimantProgram,
             'DOD Acquisition Program': awardData.additionalDetails.dodAcquisitionProgram,
