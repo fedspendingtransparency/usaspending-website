@@ -71,7 +71,7 @@ export const awardDownloadOptions = {
         {
             name: 'tsv',
             label: 'TSV',
-            disabled: true
+            disabled: false
         },
         {
             name: 'xml',
