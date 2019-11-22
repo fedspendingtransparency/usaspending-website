@@ -10,8 +10,10 @@ import { TooltipWrapper } from 'data-transparency-ui';
 
 import { formatNumber } from 'helpers/moneyFormatter';
 
-import { summaryRelatedAwardsInfoIdv, summaryRelatedAwardsInfo } from '../../shared/InfoTooltipContent';
-import AwardSection from '../AwardSection';
+import {
+    summaryRelatedAwardsInfoIdv,
+    summaryRelatedAwardsInfo
+} from '../../shared/InfoTooltipContent';
 
 const propTypes = {
     overview: PropTypes.object,

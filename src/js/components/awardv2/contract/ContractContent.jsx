@@ -11,7 +11,7 @@ import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AwardHistory from 'containers/awardV2/shared/AwardHistorySectionContainer';
 
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
-import AgencyRecipient from '../shared/overview/AgencyRecipient';
+import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSection';
 import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
@@ -66,7 +66,7 @@ const ContractContent = ({
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             awardType="contract">
             <AwardSection type="row" className="award-overview" id="award-overview">
-                <AgencyRecipient
+                <AwardOverviewLeftSection
                     jumpToSection={jumpToSection}
                     awardingAgency={overview.awardingAgency}
                     category="contract"

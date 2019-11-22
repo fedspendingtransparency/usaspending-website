@@ -110,10 +110,10 @@ export default class AwardDates extends React.Component {
         return (
             <div className="award-dates">
                 <div className="award-dates__heading">
-                    <div className="award-overview__title award-dates__title">
+                    <h6 className="award-overview-title award-dates__title">
                         Dates
                         <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
-                    </div>
+                    </h6>
                     <div className="award-dates__remaining">
                         {remainingText}
                         <span className="award-dates__remaining award-dates__remaining_label">

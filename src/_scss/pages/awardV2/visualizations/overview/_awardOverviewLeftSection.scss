@@ -1,4 +1,4 @@
-.agency-recipient {
+.award-overview__left-section {
     &.award__col {
       padding-bottom: 0;
     }
@@ -7,7 +7,7 @@
     @include media($tablet-screen) {
       @include flex-wrap(nowrap);
     }
-    .agency-recipient__awarding {
+    .award-overview__left-section__awarding {
       padding-bottom: rem(30);
       @include flex(0 0 100%);
       @include media($tablet-screen) {
@@ -15,7 +15,7 @@
         padding-bottom: 0;
       }
     }
-    .agency-recipient__recipient {
+    .award-overview__left-section__recipient {
       padding-bottom: rem(30);
       @include flex(0 0 100%);
       @include media($tablet-screen) {
@@ -23,29 +23,11 @@
         padding-bottom: 0;
       }
     }
-    .agency-recipient__detail {
+    .award-overview__left-section__detail {
         font-size: rem(16);
         color: $color-primary;
         text-transform: uppercase;
         font-weight: $font-semibold;
         line-height: 1.13;
-    }
-
-    .agency-recipient__awarding-icon {
-        cursor: pointer;
-        padding-right: rem(5);
-        svg {
-            width: rem(10);
-            height: rem(10);
-            fill: #4975AB;
-        }
-    }
-
-    .agency-recipient__awarding-info {
-        color: $color-primary;
-        background-color: transparent;
-        padding: 0;
-        margin: 0;
-        font-weight: $font-normal;
     }
 }

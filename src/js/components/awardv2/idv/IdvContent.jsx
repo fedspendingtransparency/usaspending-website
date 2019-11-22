@@ -11,9 +11,8 @@ import IdvActivityContainer from 'containers/awardV2/idv/IdvActivityContainer';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import AwardHistory from 'containers/awardV2/shared/AwardHistorySectionContainer';
 
-import AgencyRecipient from '../shared/overview/AgencyRecipient';
-import RelatedAwards from '../shared/overview/RelatedAwards';
-import IdvDates from '../shared/overview/AwardDates';
+import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSection';
+import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';
 import AwardDescription from '../shared/description/AwardDescription';
 import AwardAmounts from './amounts/AwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
@@ -56,20 +55,17 @@ const IdvContent = ({
             glossaryLink={glossaryLink}
             overviewType={overview.type}
             identifier={overview.piid}>
-            <AwardSection type="row" className="award-overview" id="award-overivew">
-                <AgencyRecipient
+            <AwardSection type="row" className="award-overview" id="award-overview">
+                <AwardOverviewLeftSection
                     jumpToSection={jumpToSection}
                     awardingAgency={overview.awardingAgency}
                     category="idv"
                     recipient={overview.recipient} />
-                <RelatedAwards
-                    counts={counts}
+                <AwardOverviewRightSection
                     jumpToSection={jumpToSection}
-                    setRelatedAwardsTab={setRelatedAwardsTab}
-                    overview={overview} />
-                <IdvDates
-                    awardType={overview.category}
-                    dates={overview.dates} />
+                    counts={counts}
+                    overview={overview}
+                    setRelatedAwardsTab={setRelatedAwardsTab} />
             </AwardSection>
             <AwardSection type="row">
                 <AwardAmounts

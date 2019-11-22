@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import AwardSection from '../AwardSection';
 import RelatedAwards from './RelatedAwards';
 import AwardDates from './AwardDates';
+import CFDAOverview from '../../financialAssistance/CFDAOverview';
 
 const propTypes = {
     jumpToSubAwardHistoryTable: PropTypes.func,
@@ -16,18 +17,24 @@ const AwardOverviewRightSection = ({
     jumpToSection,
     counts,
     overview
-}) => (
-    <AwardSection type="column" className="award-overview-right-section">
-        <RelatedAwards
+}) => {
+    const leftSection = (overview.category !== 'idv' && overview.category !== 'contract') ?
+        (<CFDAOverview cfdaPropgram={overview.cfdaProgram} />) :
+        (<RelatedAwards
             jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
             jumpToSection={jumpToSection}
             counts={counts}
-            overview={overview} />
-        <AwardDates
-            awardType={overview.category}
-            dates={overview.periodOfPerformance} />
-    </AwardSection>
-);
+            overview={overview} />);
+    const dates = overview.category === 'idv' ? overview.dates : overview.periodOfPerformance;
+    return (
+        <AwardSection type="column" className="award-overview__right-section">
+            {leftSection}
+            <AwardDates
+                awardType={overview.category}
+                dates={dates} />
+        </AwardSection>
+    );
+}
 
 AwardOverviewRightSection.propTypes = propTypes;
 export default AwardOverviewRightSection;

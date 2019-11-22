@@ -1,5 +1,5 @@
 /**
- * AgencyRecipient.jsx
+ * AwardOverviewLeftSection.jsx
  * Created by David Trinh 10/11/2018
  **/
 
@@ -12,7 +12,7 @@ const propTypes = {
     recipient: PropTypes.object
 };
 
-export default class AgencyRecipient extends React.Component {
+export default class AwardOverviewLeftSection extends React.Component {
     formatRecipientLink(internalId, name) {
         if (internalId && name) {
             return (<a href={`#/recipient/${internalId}`}>{name}</a>);
@@ -24,18 +24,18 @@ export default class AgencyRecipient extends React.Component {
     }
     render() {
         return (
-            <AwardSection type="column" className="agency-recipient">
-                <div className="agency-recipient__awarding">
+            <AwardSection type="column" className="award-overview__left-section">
+                <div className="award-overview__left-section__awarding">
                     <h6 className="award-overview-title">Awarding Agency</h6>
-                    <div className="agency-recipient__detail">
+                    <div className="award-overview__left-section__detail">
                         <a href={`/#/agency/${this.props.awardingAgency.id}`}>
                             {this.props.awardingAgency.formattedToptier}
                         </a>
                     </div>
                 </div>
-                <div className="agency-recipient__recipient">
+                <div className="award-overview__left-section__recipient">
                     <h6 className="award-overview-title">Recipient</h6>
-                    <div className="agency-recipient__detail">
+                    <div className="award-overview__left-section__detail">
                         {this.formatRecipientLink(this.props.recipient.internalId, this.props.recipient.name)}
                     </div>
                 </div>
@@ -43,4 +43,4 @@ export default class AgencyRecipient extends React.Component {
         );
     }
 }
-AgencyRecipient.propTypes = propTypes;
+AwardOverviewLeftSection.propTypes = propTypes;

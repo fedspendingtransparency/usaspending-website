@@ -12,8 +12,8 @@ import AwardHistory from 'containers/awardV2/shared/AwardHistorySectionContainer
 
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
-import AwardRecipient from '../shared/overview/AgencyRecipient';
-import AwardDates from '../shared/overview/AwardDates';
+import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSection';
+import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardSection from '../shared/AwardSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
@@ -68,17 +68,14 @@ const FinancialAssistanceContent = ({
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             className="award-financial-assistance">
             <AwardSection type="row" className="award-overview" id="award-overview">
-                <AwardRecipient
+                <AwardOverviewLeftSection
                     jumpToSection={jumpToSection}
                     awardingAgency={overview.awardingAgency}
-                    category={overview.category}
+                    category="contract"
                     recipient={overview.recipient} />
-                <CFDAOverview cfdaPropgram={overview.cfdaProgram} />
-                <AwardSection type="column" className="award-amountdates">
-                    <AwardDates
-                        awardType={overview.category}
-                        dates={overview.periodOfPerformance} />
-                </AwardSection>
+                <AwardOverviewRightSection
+                    jumpToSection={jumpToSection}
+                    overview={overview} />
             </AwardSection>
             <AwardSection type="row">
                 <AwardAmountsSection
