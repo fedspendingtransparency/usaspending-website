@@ -15,14 +15,6 @@ const propTypes = {
 };
 
 export default class AgencyRecipient extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.jumpToAdditionalInfo = this.jumpToAdditionalInfo.bind(this);
-    }
-    jumpToAdditionalInfo() {
-        this.props.jumpToSection('additional-information');
-    }
     formatRecipientLink(internalId, name) {
         if (internalId && name) {
             return (<a href={`#/recipient/${internalId}`}>{name}</a>);
@@ -33,19 +25,6 @@ export default class AgencyRecipient extends React.Component {
         return name;
     }
     render() {
-        let additionalInfoLink = null;
-        additionalInfoLink = (
-            <div>
-                <button
-                    className="agency-recipient__awarding-info"
-                    onClick={this.jumpToAdditionalInfo}>
-                    <span className="agency-recipient__awarding-icon">
-                        <Icons.ArrowDown />
-                    </span>
-                    View additional information
-                </button>
-            </div>
-        );
         return (
             <AwardSection type="column" className="agency-recipient">
                 <div className="agency-recipient__wrapper">
@@ -64,7 +43,6 @@ export default class AgencyRecipient extends React.Component {
                         </div>
                     </div>
                 </div>
-                {additionalInfoLink}
             </AwardSection>
         );
     }
