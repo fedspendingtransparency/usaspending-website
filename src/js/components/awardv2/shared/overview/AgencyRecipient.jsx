@@ -11,7 +11,6 @@ import AwardSection from '../AwardSection';
 const propTypes = {
     awardingAgency: PropTypes.object,
     recipient: PropTypes.object,
-    category: PropTypes.string,
     jumpToSection: PropTypes.func
 };
 

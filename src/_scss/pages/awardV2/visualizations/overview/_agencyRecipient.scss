@@ -8,25 +8,9 @@
         @include display(flex);
 
         .agency-recipient__awarding {
-            background-color: #F5FBFC;
             min-height: rem(134);
             padding: rem(11) 0 0 rem(13);
-            width: 50%;
-            position: relative;
             word-wrap: break-word;
-        }
-
-        .agency-recipient__awarding:after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 0;
-            width: 0;
-            height: 0;
-            border-top: rem(65) solid transparent;
-            border-left: rem(20) solid #F5FBFC;
-            border-bottom: rem(65) solid transparent;
-            margin-right: rem(-20);
         }
 
         .agency-recipient__detail {
