@@ -33,7 +33,8 @@ export const requestFederalAccountList = (agencyCode) => {
             data: {
                 filters: {
                     agency_identifier: agencyCode
-                }
+                },
+                limit: 100
             },
             cancelToken: source.token
         }),
