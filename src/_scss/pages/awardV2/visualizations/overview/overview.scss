@@ -23,17 +23,9 @@
                 padding-right: 10px;
             }
         }
-        // aligning the headers of the overview section together
-        .award-overview__title,
-        .award-dates,
-        .related-awards,
-        .award-viz__heading .award-viz__title,
-        .agency-recipient__title {
+        .award-overview-title {
             font-size: rem(16);
-            font-weight: $font-semibold;
-            padding: rem(11) 0;
-            line-height: normal;
-            margin: 0;
+            margin-top: 0;
         }
         // body
         .award-overview__body {
