@@ -1,8 +1,9 @@
 .related-awards {
-    @include flex(1 1 auto);
-    padding: 0 rem(10);
-    @include media($medium-screen) {
-        @include flex(0 0 25%);
+    @include flex(0 0 100%);
+    padding-bottom: rem(30);
+    @include media($tablet-screen) {
+        @include flex(0 0 50%);
+        padding-bottom: 0;
     }
     .related-awards__title {
         @include display(flex);

@@ -1,25 +1,34 @@
 .agency-recipient {
-    // @include flex(1 1 auto);
-    padding-right: rem(10);
-    // @include media($medium-screen) {
-    //     @include flex(0 0 50%);
-    // }
-    
-    .agency-recipient__wrapper {
-        @include display(flex);
-        .agency-recipient__awarding {
-          @include flex(0 0 50%);
-        }
-        .agency-recipient__recipient {
-          @include flex(0 0 50%);
-        }
-        .agency-recipient__detail {
-            font-size: rem(16);
-            color: $color-primary;
-            text-transform: uppercase;
-            font-weight: $font-semibold;
-            line-height: 1.13;
-        }
+    &.award__col {
+      padding-bottom: 0;
+    }
+    @include display(flex);
+    @include flex-wrap(wrap);
+    @include media($tablet-screen) {
+      @include flex-wrap(nowrap);
+    }
+    .agency-recipient__awarding {
+      padding-bottom: rem(30);
+      @include flex(0 0 100%);
+      @include media($tablet-screen) {
+        @include flex(0 0 50%);
+        padding-bottom: 0;
+      }
+    }
+    .agency-recipient__recipient {
+      padding-bottom: rem(30);
+      @include flex(0 0 100%);
+      @include media($tablet-screen) {
+        @include flex(0 0 50%);
+        padding-bottom: 0;
+      }
+    }
+    .agency-recipient__detail {
+        font-size: rem(16);
+        color: $color-primary;
+        text-transform: uppercase;
+        font-weight: $font-semibold;
+        line-height: 1.13;
     }
 
     .agency-recipient__awarding-icon {

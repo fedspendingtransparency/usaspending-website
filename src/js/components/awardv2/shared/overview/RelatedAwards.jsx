@@ -143,23 +143,21 @@ export default class RelatedAwards extends React.Component {
         }
 
         return (
-            <AwardSection type="column">
-                <div className="award-viz related-awards">
-                    <div className="award-overview__title related-awards__title">
-                        Related Awards
-                        <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
-                    </div>
-                    <div className="related-awards__parent">
-                        <div className="related-awards__label">
-                            {awardTitle}
-                        </div>
-                        {parentLink}
-                    </div>
-                    <div className="related-awards__children">
-                        {this.referencedAwardCounts()}
-                    </div>
+            <div className="award-viz related-awards">
+                <div className="award-overview__title related-awards__title">
+                    Related Awards
+                    <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
                 </div>
-            </AwardSection>
+                <div className="related-awards__parent">
+                    <div className="related-awards__label">
+                        {awardTitle}
+                    </div>
+                    {parentLink}
+                </div>
+                <div className="related-awards__children">
+                    {this.referencedAwardCounts()}
+                </div>
+            </div>
         );
     }
 }

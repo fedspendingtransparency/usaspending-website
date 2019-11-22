@@ -2,18 +2,29 @@
     $padding-top: rem(11);
     // Layout
     @include display(flex);
+    .award-overview-right-section {
+      @include display(flex);
+      @include flex-wrap(wrap);
+      @include media($tablet-screen) {
+        @include flex-wrap(nowrap);
+      }
+      // @include media($medium-screen) {
+      //     @include flex(0 0 100%);
+      // }
+    }
     .award__col {
-        @include flex(0 0 50%);
+        // @include flex(0 0 50%);
+        // @include flex(1 1 auto);
         // @include media($medium-screen) {
         //     @include flex(0 0 100%);
         // }
-        &:last-child {
-            padding-top: 0;
-        }
-        min-width: 0;
-        hr {
-            display: none;
-        }
+        // &:last-child {
+        //     padding-top: 0;
+        // }
+        // min-width: 0;
+        // hr {
+        //     display: none;
+        // }
         // header
         .award-viz__heading {
             @include display(flex);

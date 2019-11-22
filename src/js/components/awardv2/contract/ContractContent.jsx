@@ -12,8 +12,7 @@ import AwardHistory from 'containers/awardV2/shared/AwardHistorySectionContainer
 
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AgencyRecipient from '../shared/overview/AgencyRecipient';
-import RelatedAwards from '../shared/overview/RelatedAwards';
-import AwardDates from '../shared/overview/AwardDates';
+import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
@@ -72,14 +71,11 @@ const ContractContent = ({
                     awardingAgency={overview.awardingAgency}
                     category="contract"
                     recipient={overview.recipient} />
-                <RelatedAwards
+                <AwardOverviewRightSection
                     jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
                     jumpToSection={jumpToSection}
                     counts={counts}
                     overview={overview} />
-                <AwardDates
-                    awardType={overview.category}
-                    dates={overview.periodOfPerformance} />
             </AwardSection>
             <AwardSection type="row">
                 <AwardAmountsSection
