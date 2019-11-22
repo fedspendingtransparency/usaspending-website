@@ -7,22 +7,6 @@
     @include media($tablet-screen) {
       @include flex-wrap(nowrap);
     }
-    .award-overview__left-section__awarding {
-      padding-bottom: rem(30);
-      @include flex(0 0 100%);
-      @include media($tablet-screen) {
-        @include flex(0 0 50%);
-        padding-bottom: 0;
-      }
-    }
-    .award-overview__left-section__recipient {
-      padding-bottom: rem(30);
-      @include flex(0 0 100%);
-      @include media($tablet-screen) {
-        @include flex(0 0 50%);
-        padding-bottom: 0;
-      }
-    }
     .award-overview__left-section__detail {
         font-size: rem(16);
         color: $color-primary;

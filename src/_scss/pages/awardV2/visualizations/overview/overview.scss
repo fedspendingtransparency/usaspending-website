@@ -11,14 +11,14 @@
     }
     .award__col {
         .award-overview-column {
-          padding-bottom: rem(30);
+          @include flex(0 0 100%);
           @include media($tablet-screen) {
-              padding-bottom: 0;
+              @include flex(0 0 50%);
           }
           &.first {
-            @include flex(0 0 100%);
+            padding-bottom: rem(30);
             @include media($tablet-screen) {
-                @include flex(0 0 50%);
+                padding-bottom: 0;
             }
           }
         }
@@ -44,12 +44,6 @@
             }
         }
         .award-overview__right-section__cfda {
-          @include flex(0 0 100%);
-          padding-bottom: rem(30);
-          @include media($tablet-screen) {
-              @include flex(0 0 50%);
-              padding-bottom: 0;
-          }
           .award-section-tt {
             @include display(inline-flex);
           }

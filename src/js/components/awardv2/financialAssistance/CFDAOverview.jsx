@@ -11,7 +11,7 @@ const propTypes = {
 const CFDAOverview = ({
     cfdaPropgram
 }) => (
-    <div className="award-overview__right-section__cfda">
+    <div className="award-overview__right-section__cfda award-overview-column first">
         <h6 className="award-overview-title">
             CFDA Program / Assistance Listing
             <TooltipWrapper

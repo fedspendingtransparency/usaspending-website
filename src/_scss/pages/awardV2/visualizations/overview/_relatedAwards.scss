@@ -1,10 +1,4 @@
 .related-awards {
-    @include flex(0 0 100%);
-    padding-bottom: rem(30);
-    @include media($tablet-screen) {
-        @include flex(0 0 50%);
-        padding-bottom: 0;
-    }
     .related-awards__title {
         @include display(flex);
         .award__info-wrapper {

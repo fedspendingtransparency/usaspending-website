@@ -27,7 +27,7 @@ const AwardOverviewRightSection = ({
             overview={overview} />);
     const dates = overview.category === 'idv' ? overview.dates : overview.periodOfPerformance;
     return (
-        <AwardSection type="column" className="award-overview__right-section">
+        <AwardSection type="column" className="award-overview__right-section award-overview-column">
             {leftSection}
             <AwardDates
                 awardType={overview.category}

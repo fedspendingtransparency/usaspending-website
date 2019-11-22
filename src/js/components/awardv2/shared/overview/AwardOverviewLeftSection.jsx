@@ -24,8 +24,8 @@ export default class AwardOverviewLeftSection extends React.Component {
     }
     render() {
         return (
-            <AwardSection type="column" className="award-overview__left-section">
-                <div className="award-overview__left-section__awarding">
+            <AwardSection type="column" className="award-overview__left-section award-overview-column">
+                <div className="award-overview__left-section__awarding award-overview-column first">
                     <h6 className="award-overview-title">Awarding Agency</h6>
                     <div className="award-overview__left-section__detail">
                         <a href={`/#/agency/${this.props.awardingAgency.id}`}>
@@ -33,7 +33,7 @@ export default class AwardOverviewLeftSection extends React.Component {
                         </a>
                     </div>
                 </div>
-                <div className="award-overview__left-section__recipient">
+                <div className="award-overview__left-section__recipient award-overview-column">
                     <h6 className="award-overview-title">Recipient</h6>
                     <div className="award-overview__left-section__detail">
                         {this.formatRecipientLink(this.props.recipient.internalId, this.props.recipient.name)}
