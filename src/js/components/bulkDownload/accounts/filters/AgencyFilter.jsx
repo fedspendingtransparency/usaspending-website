@@ -142,12 +142,12 @@ export default class AgencyFilter extends React.Component {
                 key={`field-${account.id}`}>
                 <button
                     className="item-button"
-                    title={account.account_title}
-                    aria-label={account.account_title}
-                    value={account.id}
+                    title={account.account_name}
+                    aria-label={account.account_name}
+                    value={account.account_id}
                     onClick={this.handleFederalAccountSelect}
-                    name={account.account_title} >
-                    {account.agency_identifier}-{account.main_account_code} - {account.account_title}
+                    name={account.account_name} >
+                    {account.account_number} - {account.account_name}
                 </button>
             </li>
         ));

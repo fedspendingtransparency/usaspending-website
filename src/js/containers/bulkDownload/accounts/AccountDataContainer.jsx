@@ -94,6 +94,7 @@ export class AccountDataContainer extends React.Component {
                     this.setState({
                         federalAccounts
                     });
+                    this.federalAccountListRequest = null;
                 })
                 .catch((err) => {
                     console.log(err);
