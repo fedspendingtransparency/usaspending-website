@@ -7,23 +7,14 @@
     .agency-recipient__wrapper {
         @include display(flex);
 
-        .agency-recipient__awarding {
-            min-height: rem(134);
-            padding: rem(11) 0 0 rem(13);
-            word-wrap: break-word;
-        }
-
+        // .agency-recipient__awarding {}
+        // .agency-recipient__recipient {}
         .agency-recipient__detail {
             font-size: rem(16);
             color: $color-primary;
             text-transform: uppercase;
             font-weight: $font-semibold;
             line-height: 1.13;
-        }
-
-        .agency-recipient__recipient {
-            height: rem(134);
-            padding: rem(11) 0 0 rem(60);
         }
     }
 
