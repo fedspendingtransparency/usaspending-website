@@ -5,13 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 import AwardSection from '../AwardSection';
 
 const propTypes = {
     awardingAgency: PropTypes.object,
-    recipient: PropTypes.object,
-    jumpToSection: PropTypes.func
+    recipient: PropTypes.object
 };
 
 export default class AgencyRecipient extends React.Component {
