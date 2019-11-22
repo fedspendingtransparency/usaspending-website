@@ -1,14 +1,18 @@
 .agency-recipient {
-    @include flex(1 1 auto);
+    // @include flex(1 1 auto);
     padding-right: rem(10);
-    @include media($medium-screen) {
-        @include flex(0 0 50%);
-    }
+    // @include media($medium-screen) {
+    //     @include flex(0 0 50%);
+    // }
+    
     .agency-recipient__wrapper {
         @include display(flex);
-
-        // .agency-recipient__awarding {}
-        // .agency-recipient__recipient {}
+        .agency-recipient__awarding {
+          @include flex(0 0 50%);
+        }
+        .agency-recipient__recipient {
+          @include flex(0 0 50%);
+        }
         .agency-recipient__detail {
             font-size: rem(16);
             color: $color-primary;

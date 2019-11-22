@@ -4,9 +4,9 @@
     @include display(flex);
     .award__col {
         @include flex(0 0 50%);
-        @include media($medium-screen) {
-            @include flex(0 0 25%);
-        }
+        // @include media($medium-screen) {
+        //     @include flex(0 0 100%);
+        // }
         &:last-child {
             padding-top: 0;
         }
