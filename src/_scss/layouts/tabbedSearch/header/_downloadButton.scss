@@ -1,7 +1,8 @@
 .download-wrap {
     display: none;
     @include media($tablet-screen) {
-        display: block;
+        display: flex;
+        flex: 1 1 0%;
     }
 
     position: relative;
@@ -11,18 +12,17 @@
         @include button-unstyled;
         padding: rem(8) rem(20);
         cursor: pointer;
-
+        
         @include display(flex);
         @include justify-content(center);
         @include align-items(center);
         position: relative;
-
         border: none;
         background-color: $color-primary;
-
-
+        
+        
         @include transition(opacity 0.2s ease-in-out);
-
+        
         .label {
             @include flex(1 1 auto);
             text-align: center;
@@ -32,17 +32,18 @@
             line-height: rem(18);
             font-weight: $font-semibold;
         }
-
+        
         &:hover, &:active {
             opacity: 1;
             background-color: $color-primary-darker;
         }
-
+        
         &[disabled], &.disabled {
             cursor: default;
             opacity: 0.4;
             border: 1px solid $color-white;
             background-color: transparent;
         }
+        margin-left: auto;
     }
 }
