@@ -11,6 +11,7 @@ const CoreLocation = {
         this._province = data.province || '';
         this._city = data.city || '';
         this._county = data.county || '';
+        this._countyCode = data.countyCode || '';
         this._stateCode = data.stateCode || '';
         this._zip = data.zip5 || (data.zip4 && data.zip4.slice(0, 5)) || data.foreignPostalCode || '';
         this._country = data.country || '';

@@ -11,13 +11,23 @@ import Recipient from './Recipient';
 
 const propTypes = {
     awardingAgency: PropTypes.object,
-    recipient: PropTypes.object
+    recipient: PropTypes.object,
+    recordType: PropTypes.number,
+    placeOfPerformance: PropTypes.object
 };
 
-const AwardOverviewLeftSection = ({ awardingAgency, recipient }) => (
+const AwardOverviewLeftSection = ({
+    awardingAgency,
+    recipient,
+    recordType,
+    placeOfPerformance
+}) => (
     <AwardSection type="column" className="award-overview__left-section award-overview-column">
         <AwardingAgency awardingAgency={awardingAgency} />
-        <Recipient recipient={recipient} />
+        <Recipient
+            recipient={recipient}
+            recordType={recordType}
+            placeOfPerformance={placeOfPerformance} />
     </AwardSection>
 );
 

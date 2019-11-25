@@ -11,6 +11,7 @@ const locationData = {
     province: '',
     city: 'Pawnee',
     county: 'Wamapoke',
+    countyCode: '06',
     stateCode: 'IN',
     zip5: '12345',
     countryCode: 'USA',
