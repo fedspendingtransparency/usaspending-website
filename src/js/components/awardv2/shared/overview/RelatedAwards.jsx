@@ -146,10 +146,10 @@ export default class RelatedAwards extends React.Component {
 
         return (
             <div className="award-viz related-awards award-overview-column first">
-                <div className="award-overview__title related-awards__title">
+                <h6 className="award-overview-title related-awards__title">
                     Related Awards
                     <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
-                </div>
+                </h6>
                 <div className="related-awards__parent">
                     <div className="related-awards__label">
                         {awardTitle}

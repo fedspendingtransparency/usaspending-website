@@ -57,9 +57,7 @@ const IdvContent = ({
             identifier={overview.piid}>
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
-                    jumpToSection={jumpToSection}
                     awardingAgency={overview.awardingAgency}
-                    category="idv"
                     recipient={overview.recipient} />
                 <AwardOverviewRightSection
                     jumpToSection={jumpToSection}

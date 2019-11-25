@@ -8,10 +8,11 @@
       @include flex-wrap(nowrap);
     }
     .award-overview__left-section__detail {
-        font-size: rem(16);
-        color: $color-primary;
-        text-transform: uppercase;
+        // font-size: rem(16);
+        // color: $color-primary;
+        // text-transform: uppercase;
+        margin-top: 0;
         font-weight: $font-semibold;
-        line-height: 1.13;
+        // line-height: 1.13;
     }
 }

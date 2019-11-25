@@ -67,9 +67,7 @@ const ContractContent = ({
             awardType="contract">
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
-                    jumpToSection={jumpToSection}
                     awardingAgency={overview.awardingAgency}
-                    category="contract"
                     recipient={overview.recipient} />
                 <AwardOverviewRightSection
                     jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
