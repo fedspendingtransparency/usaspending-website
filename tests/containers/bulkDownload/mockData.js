@@ -51,12 +51,12 @@ export const mockBudgetFunctions = [
 
 export const mockFederalAccounts = [
     {
-        account_title: 'Account 1',
-        id: 1
+        account_id: 1,
+        account_title: "Account 1"
     },
     {
-        account_title: 'Account 2',
-        id: 10
+        account_id: 10,
+        account_title: "Account 2"
     }
 ];
 
