@@ -20,7 +20,7 @@ const RecipientAddress = ({ placeOfPerformance, aggregateRecordType }) => (
                     <div
                         className="award-overview__left-section__recipient__recipient-address__address-line award-overview__left-section__aggregated-text"
                         key={addressKey}>
-                        {placeOfPerformance[addressKey] || '--'}
+                        {placeOfPerformance[addressKey] || null}
                     </div>
                 )
             )
