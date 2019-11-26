@@ -1,6 +1,6 @@
 /**
  * AwardOverviewLeftSection.jsx
- * Created by David Trinh 10/11/2018
+ * Created by Jonathan Hill 11/26/19
  **/
 
 import React from 'react';

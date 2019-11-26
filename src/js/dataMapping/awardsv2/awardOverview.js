@@ -1,3 +1,8 @@
+/**
+ * awardOverview.js
+ * Created by Jonathan Hill 11/26/19
+ **/
+
 // data for award overview recipient section
 // financial assistance awards are redactedDueToPII, agreggatedByState (Multiple Recipients),
 // agreggatedByCounty (Multiple Recipients), aggregatedByCountry (Multiple Recipients)

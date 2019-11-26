@@ -1,3 +1,8 @@
+/**
+ * AwardOverviewRightSection.jsx
+ * Created by Jonathan Hill 11/26/19
+ **/
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import AwardSection from '../AwardSection';
@@ -34,7 +39,7 @@ const AwardOverviewRightSection = ({
                 dates={dates} />
         </AwardSection>
     );
-}
+};
 
 AwardOverviewRightSection.propTypes = propTypes;
 export default AwardOverviewRightSection;

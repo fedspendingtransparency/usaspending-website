@@ -1,3 +1,8 @@
+/**
+ * Recipient.jsx
+ * Created by Jonathan Hill 11/26/19
+ **/
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {

@@ -1,4 +1,9 @@
-import React from 'react'
+/**
+ * AwardingAgency.jsx
+ * Created by Jonathan Hill 11/26/19
+ **/
+
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import AwardSection from '../AwardSection';
