@@ -48,3 +48,32 @@ export const isAwardFinancialAssistance = (awardType) => [
     'loan',
     'other'
 ].includes(awardType);
+
+// award overview recipient section - determines text and address to display to user
+// data can be found in
+export const getAwardTypeRecordtypeCountyAndState = (
+    isFinancialAssistance,
+    placeOfPerformance,
+    recordType
+) => {
+    if (isFinancialAssistance) {
+        // redacted due to PII
+        if (recordType === 3) return 'redactedDueToPII';
+        if (recordType === 1) {
+            // aggregated by state
+            if (placeOfPerformance._countryCode === 'USA' && !placeOfPerformance._countyCode) {
+                return 'agreggatedByState';
+            }
+            // aggregated by county
+            if (placeOfPerformance._countryCode === 'USA' && placeOfPerformance._countyCode) {
+                return 'agreggatedByCounty';
+            }
+            // aggregated by country
+            if (placeOfPerformance._countryCode !== 'USA') {
+                return 'agreggatedByCountry';
+            }
+        }
+    }
+    // IDV or contract
+    return 'nonFinancialAssistance';
+};

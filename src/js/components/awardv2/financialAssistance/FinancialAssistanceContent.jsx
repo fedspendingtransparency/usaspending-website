@@ -19,7 +19,6 @@ import AwardSection from '../shared/AwardSection';
 import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
-import CFDAOverview from './CFDAOverview';
 import AwardDescription from '../shared/description/AwardDescription';
 import { contractActivityGrants } from '../shared/InfoTooltipContent';
 import CFDASection from './CFDASection';
@@ -72,7 +71,9 @@ const FinancialAssistanceContent = ({
                     awardingAgency={overview.awardingAgency}
                     recipient={overview.recipient}
                     recordType={overview.recordType}
-                    placeOfPerformance={overview.placeOfPerformance} />
+                    placeOfPerformance={overview.placeOfPerformance}
+                    awardType={overview.category}
+                    awardId={awardId} />
                 <AwardOverviewRightSection
                     jumpToSection={jumpToSection}
                     overview={overview} />

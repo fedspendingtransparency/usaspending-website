@@ -44,6 +44,12 @@ const CoreLocation = {
         const postCode = this._zip;
         return `${city}${adminArea}${country}${postCode}`;
     },
+    get countyAndState() {
+        const county = this._county ? `${this._county}` : '--';
+        const stateCode = this._stateCode ? `${this._stateCode} ` : '--';
+        if (!this._county && !this._stateCode) return '--';
+        return `${county}, ${stateCode}`.trim();
+    },
     get congressionalDistrict() {
         if (this._stateCode && this._congressionalDistrict) {
             return `${this._stateCode}-${this._congressionalDistrict}`;

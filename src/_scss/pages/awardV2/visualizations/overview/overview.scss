@@ -47,6 +47,10 @@
           .award-section-tt {
             @include display(inline-flex);
           }
+          span {
+              font-weight: 300;
+              text-transform: uppercase;
+          }
         }
     }
 
