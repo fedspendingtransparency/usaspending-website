@@ -9,35 +9,35 @@
 export const AddresskeysByAwardType = {
     nonFinancialAssistance: ['regionalAddress', 'fullCongressionalDistrict', '_country'],
     redactedDueToPII: ['regionalAddress', 'fullCongressionalDistrict', '_country'],
-    agreggatedByState: ['_state', 'fullCongressionalDistrict', '_country'],
-    agreggatedByCounty: ['countyAndState', 'fullCongressionalDistrict', '_country'],
-    agreggatedByCountry: ['_country']
+    aggregatedByState: ['_state', 'fullCongressionalDistrict', '_country'],
+    aggregatedByCounty: ['countyAndState', 'fullCongressionalDistrict', '_country'],
+    aggregatedByCountry: ['_country']
 };
 
 // recipient section aggregate text
 export const aggregateTextRecipientSection = {
     redactedDueToPII: `For more information on this special recipient type,
         click the glossary link above.`,
-    agreggatedByState: `This record has been aggregated by state.
+    aggregatedByState: `This record has been aggregated by state.
         For more information on this special recipient type, click the glossary link above`,
-    agreggatedByCounty: `This record has been aggregated by county.
+    aggregatedByCounty: `This record has been aggregated by county.
         For more information on this special recipient type, click on the glossary link above.`,
-    agreggatedByCountry: `This record has been aggregated by country.
+    aggregatedByCountry: `This record has been aggregated by country.
         For more information on this special recipient type, click the glossary link above.`
 };
 
 // recipient section glossary text
 export const aggregateGlossaryText = {
     redactedDueToPII: `Redacted Due To PII`,
-    agreggatedByState: 'Multiple Recipients',
-    agreggatedByCounty: 'Multiple Recipients',
-    agreggatedByCountry: 'Multiple Recipients'
+    aggregatedByState: 'Multiple Recipients',
+    aggregatedByCounty: 'Multiple Recipients',
+    aggregatedByCountry: 'Multiple Recipients'
 };
 
 // recipient section glossary link
 export const aggregateGlossaryLinks = {
     redactedDueToPII: `redacted-due-to-pii`,
-    agreggatedByState: 'multiple-recipients',
-    agreggatedByCounty: 'multiple-recipients',
-    agreggatedByCountry: 'multiple-recipients'
+    aggregatedByState: 'multiple-recipients',
+    aggregatedByCounty: 'multiple-recipients',
+    aggregatedByCountry: 'multiple-recipients'
 };

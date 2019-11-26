@@ -1,4 +1,8 @@
-import { isAwardAggregate, isAwardFinancialAssistance } from '../../src/js/helpers/awardSummaryHelper';
+import {
+    isAwardAggregate,
+    isAwardFinancialAssistance,
+    getAwardTypeRecordtypeCountyAndState
+} from '../../src/js/helpers/awardSummaryHelper';
 
 describe('', () => {
     describe('isAwardAggregate', () => {
@@ -23,6 +27,40 @@ describe('', () => {
             expect(isAwardFinancialAssistance(" ")).toEqual(false);
             expect(isAwardFinancialAssistance("loans")).toEqual(false);
         });
+    });
+    describe('getAwardTypeRecordtypeCountyAndState', () => {
+        it('should return nonFinancialAssistance', () => {
+            const data = getAwardTypeRecordtypeCountyAndState(
+                false,
+                {},
+                2
+            );
+            expect(data).toEqual('nonFinancialAssistance');
+        });
+        it('should return redactedDueToPII', () => {
+            const data = getAwardTypeRecordtypeCountyAndState(
+                true,
+                {},
+                3
+            );
+            expect(data).toEqual('redactedDueToPII');
+        });
+        const cases = [
+            ['aggregatedByState', '1', 'USA', 'Does Not Exist', true, { _countryCode: 'USA', _countyCode: null }, 1],
+            ['aggregatedByCounty', '1', 'USA', 'Exists', true, { _countryCode: 'USA', _countyCode: '001' }, 1],
+            ['aggregatedByCountry', '1', 'Not USA', 'Does Not Matter', true, { _countryCode: 'Greece' }, 1]
+        ];
+        it.each(cases)(
+            'should return %p when award isFinancialAssistance and is record type %p and country code is %p and county code %p',
+            (result, record, country, county, isFA, pop, recordType) => {
+                const data = getAwardTypeRecordtypeCountyAndState(
+                    isFA,
+                    pop,
+                    recordType
+                );
+                expect(data).toEqual(result);
+            }
+        );
     });
 });
 

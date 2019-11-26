@@ -62,15 +62,15 @@ export const getAwardTypeRecordtypeCountyAndState = (
         if (recordType === 1) {
             // aggregated by state
             if (placeOfPerformance._countryCode === 'USA' && !placeOfPerformance._countyCode) {
-                return 'agreggatedByState';
+                return 'aggregatedByState';
             }
             // aggregated by county
             if (placeOfPerformance._countryCode === 'USA' && placeOfPerformance._countyCode) {
-                return 'agreggatedByCounty';
+                return 'aggregatedByCounty';
             }
             // aggregated by country
             if (placeOfPerformance._countryCode !== 'USA') {
-                return 'agreggatedByCountry';
+                return 'aggregatedByCountry';
             }
         }
     }
