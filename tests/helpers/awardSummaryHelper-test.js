@@ -1,7 +1,7 @@
 import {
     isAwardAggregate,
     isAwardFinancialAssistance,
-    getAwardTypeRecordtypeCountyAndState
+    getAwardTypeByRecordtypeCountyAndState
 } from '../../src/js/helpers/awardSummaryHelper';
 
 describe('', () => {
@@ -30,7 +30,7 @@ describe('', () => {
     });
     describe('getAwardTypeRecordtypeCountyAndState', () => {
         it('should return nonFinancialAssistance', () => {
-            const data = getAwardTypeRecordtypeCountyAndState(
+            const data = getAwardTypeByRecordtypeCountyAndState(
                 false,
                 {},
                 2
@@ -38,7 +38,7 @@ describe('', () => {
             expect(data).toEqual('nonFinancialAssistance');
         });
         it('should return redactedDueToPII', () => {
-            const data = getAwardTypeRecordtypeCountyAndState(
+            const data = getAwardTypeByRecordtypeCountyAndState(
                 true,
                 {},
                 3
@@ -53,7 +53,7 @@ describe('', () => {
         it.each(cases)(
             'should return %p when award isFinancialAssistance and is record type %p and country code is %p and county code %p',
             (result, record, country, county, isFA, pop, recordType) => {
-                const data = getAwardTypeRecordtypeCountyAndState(
+                const data = getAwardTypeByRecordtypeCountyAndState(
                     isFA,
                     pop,
                     recordType

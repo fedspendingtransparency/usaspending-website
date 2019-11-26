@@ -6,7 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    getAwardTypeRecordtypeCountyAndState,
+    getAwardTypeByRecordtypeCountyAndState,
     isAwardFinancialAssistance
 } from 'helpers/awardSummaryHelper';
 import {
@@ -40,7 +40,7 @@ export default class Recipient extends Component {
         return name;
     };
 
-    aggregateRecordType = () => getAwardTypeRecordtypeCountyAndState(
+    aggregateRecordType = () => getAwardTypeByRecordtypeCountyAndState(
         this.isFinancialAssistance,
         this.props.placeOfPerformance,
         this.props.recordType

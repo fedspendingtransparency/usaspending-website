@@ -51,7 +51,7 @@ export const isAwardFinancialAssistance = (awardType) => [
 
 // award overview recipient section - determines text and address to display to user
 // data can be found in
-export const getAwardTypeRecordtypeCountyAndState = (
+export const getAwardTypeByRecordtypeCountyAndState = (
     isFinancialAssistance,
     placeOfPerformance,
     recordType
