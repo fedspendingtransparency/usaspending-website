@@ -1,5 +1,6 @@
 .award-dates {
     width: 100%;
+    min-width: 0;
     .award-dates__heading {
         @include display(flex);
         @include justify-content(space-between);

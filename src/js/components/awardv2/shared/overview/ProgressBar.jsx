@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
 import { pull } from 'lodash';
-import { dom } from '@fortawesome/fontawesome-svg-core';
+import TwoRectangles from 'components/sharedComponents/patterns/TwoRectangles';
 
 const propTypes = {
     height: PropTypes.number,
@@ -15,7 +15,8 @@ const propTypes = {
     domain: PropTypes.array,
     thirdCircleData: PropTypes.number,
     currentProgress: PropTypes.number,
-    progressText: PropTypes.string
+    progressText: PropTypes.string,
+    awardType: PropTypes.string
 };
 
 // ProgressBar Workflow
@@ -38,7 +39,6 @@ export default class ProgressBar extends Component {
         super(props);
         this.state = {
             visualizationHeight: 0,
-            visualizationWidth: 0,
             xScaleProgressBar: null,
             xScaleWithinCircles: null,
             progressWithinCirclesStartDomain: 0,
@@ -51,6 +51,8 @@ export default class ProgressBar extends Component {
             showProgressLine: false,
             progressText: '',
             showThirdCircle: false,
+            styleForBaseRectangle: {},
+            patternForBaseRectangle: null,
             baseRectangleProperties: {
                 x: 0,
                 y: 0,
@@ -91,37 +93,34 @@ export default class ProgressBar extends Component {
             }
         };
     }
-    // updates the width on window resize
+    // recreate the progress bar on window resize
     componentDidUpdate(prevProps) {
         if (prevProps.width !== this.props.width) {
-            this.updateWidth();
+            this.start();
         }
     }
     // updates the width in state
-    updateWidth = () => {
-        this.setState(
-            { visualizationWidth: this.props.width },
-            this.validationOfProps
-        );
+    start = () => {
+        this.validationOfProps();
     }
-    // validation of domain, currentProgress, and thirdCircleData
-    // developers should be completing some validation of data passed
-    // but we all know developers...
+    // validity of domain, currentProgress, and thirdCircleData
     validationOfProps = () => {
-        // validation of Props
         let {
             domain,
             currentProgress,
             thirdCircleData,
             progressText
         } = this.props;
+        // validation of domain
         let badDomainData = false;
         pull(domain, null, undefined, '');
         if (domain.length !== 2) {
             domain = [0, 1];
             badDomainData = true;
         }
+        // validation of current progress
         if (!currentProgress) currentProgress = null;
+        // validation of third circle data
         if (!thirdCircleData) thirdCircleData = null;
         // validate text
         if (!progressText) progressText = '';
@@ -178,15 +177,14 @@ export default class ProgressBar extends Component {
         const { domain } = this.props;
         // scale for the entire visualization
         // need this to create and position the base rectangle and the start and end circles
-        const { visualizationWidth } = this.state;
-        const visualizationHeight = this.props.height;
+        const { width, height } = this.props;
         const xScaleProgressBar = scaleLinear()
             .domain(domain)
-            .range([0, visualizationWidth]);
+            .range([0, width]);
         // 0 + diameter of circle + 2 ( designed this way )
-        const progressWithinCirclesStartPX = visualizationHeight + 2;
+        const progressWithinCirclesStartPX = height + 2;
         // total width - diameter of circle - 2 ( designed this way )
-        const progressWithinCirclesEndPX = visualizationWidth - (visualizationHeight) - 2;
+        const progressWithinCirclesEndPX = width - height - 2;
         // creates a scale within the start and end cirles
         // all domain values that show progress will need the
         const xScaleWithinCircles = scaleLinear()
@@ -194,8 +192,7 @@ export default class ProgressBar extends Component {
             .range([progressWithinCirclesStartPX, progressWithinCirclesEndPX]);
         this.setState({
             xScaleProgressBar,
-            xScaleWithinCircles,
-            visualizationHeight
+            xScaleWithinCircles
         }, this.createProgressBarProperties);
     }
     // adds the start and end properties to state
@@ -214,18 +211,46 @@ export default class ProgressBar extends Component {
         const {
             startPosition,
             endPosition,
-            visualizationHeight
+            showThirdCircle,
+            xScaleWithinCircles,
+            thirdCircleData
         } = this.state;
-        const baseRectangleProperties = Object.assign({}, {
-            x: startPosition,
-            y: 0,
-            rx: visualizationHeight / 2,
-            ry: visualizationHeight / 2,
-            height: visualizationHeight,
-            width: endPosition - startPosition
-        });
+        const { awardType, height } = this.props;
+        const stateObject = {
+            baseRectangleProperties: Object.assign({}, {
+                x: startPosition,
+                y: 0,
+                rx: height / 2,
+                ry: height / 2,
+                height,
+                width: endPosition - startPosition
+            })
+        };
+        // logic of show pattern for base rectangle
+        // this is an edge case for Award Dates Progress bar
+        // allows the award dates section to use a pattern if a contract
+        if (awardType && (awardType === 'contract' || awardType === 'definitive contract')) {
+            if (showThirdCircle) {
+                const positionOfThirdCircle = xScaleWithinCircles(thirdCircleData);
+                const width = endPosition - startPosition;
+                stateObject.patternForBaseRectangle = (
+                    <TwoRectangles
+                        id="awardDatesContractPattern"
+                        width={width.toString()}
+                        height={height.toString()}
+                        backgroundWidth="100%"
+                        backgroundHeight={height.toString()}
+                        backgroundFill="#fad980"
+                        fillWidth={`${positionOfThirdCircle}`}
+                        fillHeight={height.toString()}
+                        fillFill="#f1f1f1" />
+                );
+                stateObject.styleForBaseRectangle = { fill: "url(#awardDatesContractPattern)" };
+            }
+        }
+
         this.setState(
-            { baseRectangleProperties },
+            stateObject,
             this.updateStartAndEndCircleProperties
         );
     }
@@ -233,11 +258,10 @@ export default class ProgressBar extends Component {
     updateStartAndEndCircleProperties = () => {
         const {
             startPosition,
-            endPosition,
-            visualizationHeight
+            endPosition
         } = this.state;
 
-        const halfVisualizationHeight = visualizationHeight / 2;
+        const halfVisualizationHeight = this.props.height / 2;
         const startCircleProperties = Object.assign({}, {
             cx: startPosition + halfVisualizationHeight,
             cy: halfVisualizationHeight,
@@ -256,7 +280,6 @@ export default class ProgressBar extends Component {
     // update progress circle properties
     updateProgressCircleProperties = () => {
         const {
-            visualizationHeight,
             xScaleWithinCircles,
             currentProgress,
             showProgressCircle
@@ -265,22 +288,21 @@ export default class ProgressBar extends Component {
         const positionOfCurrentProgress = xScaleWithinCircles(currentProgress);
         const progressCircleProperties = Object.assign({}, {
             cx: positionOfCurrentProgress,
-            cy: visualizationHeight / 2,
-            r: visualizationHeight / 6
+            cy: this.props.height / 2,
+            r: this.props.height / 6
         });
         return this.setState({ progressCircleProperties }, this.updateThirdCircleProperties);
     }
     // update third circle properties
     updateThirdCircleProperties = () => {
         const {
-            visualizationHeight,
             xScaleWithinCircles,
             thirdCircleData,
             showThirdCircle
         } = this.state;
         if (!showThirdCircle) return this.updateProgressTextProperties();
         const positionOfThirdCircle = xScaleWithinCircles(thirdCircleData);
-        const halfVisualizationHeight = visualizationHeight / 2;
+        const halfVisualizationHeight = this.props.height / 2;
         const thirdCircleProperties = Object.assign({}, {
             cx: positionOfThirdCircle,
             cy: halfVisualizationHeight,
@@ -308,33 +330,50 @@ export default class ProgressBar extends Component {
     updateProgressLineProperties = () => {
         const {
             xScaleWithinCircles,
-            visualizationHeight,
             showProgressCircle,
             showProgressLine,
-            currentProgress
+            currentProgress,
+            showThirdCircle,
+            thirdCircleProperties,
+            progressCircleProperties
         } = this.state;
+        const { height } = this.props;
         if (!showProgressLine) return;
         const startPosition = xScaleWithinCircles(this.props.domain[0]);
         const positionOfCurrentProgress = xScaleWithinCircles(currentProgress);
         // when showing the progress circle we subtract the radius of the progress circle
         // and we subtract 2 ( spacing, designed this way )
         const x2 = showProgressCircle ?
-            positionOfCurrentProgress - (visualizationHeight / 6) - 2 :
+            positionOfCurrentProgress - progressCircleProperties.r - 2 :
             positionOfCurrentProgress;
         const progressLineProperties = Object.assign({}, {
             x1: startPosition,
             x2,
-            y1: visualizationHeight / 2,
-            y2: visualizationHeight / 2
+            y1: height / 2,
+            y2: height / 2
         });
+        // logic to update progress line and circle when showing the third circle
+        if (showThirdCircle) {
+            // position - the radius - 2 ( designed this way )
+            const thirdCircleStartingPosition = thirdCircleProperties.cx - thirdCircleProperties.r - 2;
+            // position + the radius + 2 ( designed this way )
+            const thirdCircleEndPostion = thirdCircleProperties.cx + thirdCircleProperties.r + 2;
+            // if the end position of the line crosses the start position of the third circle
+            // cut the line off at the start of the third circle
+            if (progressLineProperties.x2 > thirdCircleStartingPosition) {
+                progressLineProperties.x2 = thirdCircleStartingPosition;
+            }
+            // update progress circle
+            const progressCircleStartingPosition = progressCircleProperties.cx - progressCircleProperties.r;
+            
+             
+        }
         this.setState({ progressLineProperties });
     }
 
 
     render() {
         const {
-            visualizationHeight,
-            visualizationWidth,
             startCircleProperties,
             endCircleProperties,
             progressCircleProperties,
@@ -344,8 +383,11 @@ export default class ProgressBar extends Component {
             progressTextProperties,
             progressText,
             showThirdCircle,
-            thirdCircleProperties
+            thirdCircleProperties,
+            styleForBaseRectangle,
+            patternForBaseRectangle
         } = this.state;
+        const { height, width } = this.props;
         const {
             x: baseRectX,
             y: baseRectY,
@@ -358,18 +400,22 @@ export default class ProgressBar extends Component {
         return (
             <svg
                 className="progress-bar"
-                width={visualizationWidth}
-                height={visualizationHeight}>
+                width={width}
+                height={height}>
                 <g className="progress-bar-shapes">
                     {/* base rectangle */}
-                    <rect
-                        className="progress-bar-shapes__base-rectangle"
-                        x={baseRectX}
-                        y={baseRectY}
-                        rx={baseRectRX}
-                        ry={baseRectRY}
-                        width={baseRectWidth}
-                        height={baseRectHeight} />
+                    <g>
+                        <defs>{patternForBaseRectangle}</defs>
+                        <rect
+                            className="progress-bar-shapes__base-rectangle"
+                            style={styleForBaseRectangle}
+                            x={baseRectX}
+                            y={baseRectY}
+                            rx={baseRectRX}
+                            ry={baseRectRY}
+                            width={baseRectWidth}
+                            height={baseRectHeight} />
+                    </g>
                     {/* starting circle */}
                     <circle
                         className="progress-bar-shapes__starting-circle"

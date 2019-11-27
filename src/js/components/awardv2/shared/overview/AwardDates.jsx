@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { throttle } from 'lodash';
 import { TooltipWrapper } from 'data-transparency-ui';
 
 // import * as TimeRangeHelper from 'helpers/timeRangeHelper';
@@ -27,7 +28,7 @@ export default class AwardDates extends Component {
         };
     }
 
-    componentDidMount() {
+    componentDidMount = () => {
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
     }
@@ -36,7 +37,7 @@ export default class AwardDates extends Component {
         window.removeEventListener('resize', this.handleWindowResize);
     }
 
-    handleWindowResize = () => {
+    handleWindowResize = throttle(() => {
         const windowWidth = window.innerWidth;
         if (this.state.windowWidth !== windowWidth) {
             this.setState({
@@ -44,7 +45,7 @@ export default class AwardDates extends Component {
                 visualizationWidth: this.datesDivWidth.offsetWidth
             });
         }
-    }
+    }, 50)
 
     datesData = () => {
         const { startDate, endDate, thirdCircleData } = this.datesByAwardType();
@@ -102,7 +103,8 @@ export default class AwardDates extends Component {
                     width={this.state.visualizationWidth}
                     currentProgress={moment().valueOf()}
                     progressText="Today"
-                    thirdCircleData={thirdCircleData} />
+                    thirdCircleData={thirdCircleData}
+                    awardType={this.props.awardType} />
                 <div className="award-dates__row">
                     <div className="award-dates__label">
                         {datesTitles[0]}
