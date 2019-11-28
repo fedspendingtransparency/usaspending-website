@@ -102,7 +102,6 @@ export default class AwardDates extends Component {
                     height={15}
                     width={this.state.visualizationWidth}
                     currentProgress={moment().valueOf()}
-                    progressText="Today"
                     thirdCircleData={thirdCircleData}
                     awardType={this.props.awardType} />
                 <div className="award-dates__row">
