@@ -103,7 +103,7 @@ export default class ResultsTable extends React.Component {
             }
             else {
                 // primeAwardId null case
-                props.value = 'N/A';
+                props.value = '- -';
             }
         }
 
