@@ -44,6 +44,7 @@ export default class ProgressBar extends Component {
     // recreate the progress bar on window resize
     componentDidUpdate(prevProps) {
         if (prevProps.width !== this.props.width) {
+            console.log(' Width : ', this.props.width);
             this.start();
         }
     }
@@ -55,8 +56,7 @@ export default class ProgressBar extends Component {
     validationOfProps = () => {
         let {
             domain,
-            currentProgress,
-            milestones
+            currentProgress
         } = this.props;
         // validation of domain
         let badDomainData = false;
@@ -66,7 +66,7 @@ export default class ProgressBar extends Component {
             badDomainData = true;
         }
         // handle bad dates
-        milestones.forEach((milestone) => {
+        this.props.milestones.forEach((milestone) => {
             if (milestone.data > domain[1]) {
                 domain = [0, 1];
                 badDomainData = true;

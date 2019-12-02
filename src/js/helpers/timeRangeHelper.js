@@ -10,25 +10,22 @@ export const convertDatesToRange = (startDate, endDate) => {
         const duration = moment.duration(endDate.diff(startDate));
         const years = duration.years();
         const months = duration.months();
+        const days = duration.days();
         let yearString = '';
         let monthString = '';
-        // console.log(' Years : ', years);
-        // console.log(' Months : ', months);
-        // console.log(' Days : ', duration.days());
+        let dayString = '';
         if (months > 0) {
             monthString = `${months} ${(months === 1) ? 'month' : 'months'}`;
         }
         if (years > 0) {
             yearString = `${years} ${(years === 1) ? 'year' : 'years'}`;
         }
-
-        if (monthString && yearString) {
-            return `${yearString}, ${monthString}`;
+        if (days > 0) {
+            dayString = `${days} ${(days === 1) ? 'day' : 'days'}`;
         }
-        else if (monthString || yearString) {
-            return `${monthString}${yearString}`;
-        }
-        return '';
+        const yearComma = (yearString !== '' && monthString !== '') ? ', ' : '';
+        const monthComma = (monthString !== '' && dayString !== '') ? ', ' : '';
+        return `${yearString}${yearComma}${monthString}${monthComma}${dayString}`;
     }
     return '';
 };
