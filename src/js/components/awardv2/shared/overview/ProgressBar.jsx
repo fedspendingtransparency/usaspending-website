@@ -71,7 +71,6 @@ export default class ProgressBar extends Component {
                 domain = [0, 1];
                 badDomainData = true;
             }
-            
             if (milestone.data < domain[0]) {
                 domain = [0, 1];
                 badDomainData = true;

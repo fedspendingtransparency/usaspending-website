@@ -121,7 +121,7 @@ export default class AwardDates extends Component {
             return (
                 <div key={title} className="award-dates__row">
                     <div className="award-dates__label-container">
-                        <div className={`award-dates__circle ${circleClassName}`}/>
+                        <div className={`award-dates__circle ${circleClassName}`} />
                         <div className="award-dates__label">
                             {datesTitles[index]}
                         </div>
