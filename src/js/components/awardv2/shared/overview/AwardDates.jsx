@@ -161,7 +161,7 @@ export default class AwardDates extends Component {
                     description: 'A circle of color gold representing the current end date'
                 }
             ] :
-            null;
+            [];
 
         return (
             <div

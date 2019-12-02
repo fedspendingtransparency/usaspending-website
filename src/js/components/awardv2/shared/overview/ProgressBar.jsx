@@ -55,7 +55,8 @@ export default class ProgressBar extends Component {
     validationOfProps = () => {
         let {
             domain,
-            currentProgress
+            currentProgress,
+            milestones
         } = this.props;
         // validation of domain
         let badDomainData = false;
@@ -64,6 +65,18 @@ export default class ProgressBar extends Component {
             domain = [0, 1];
             badDomainData = true;
         }
+        // handle bad dates
+        milestones.forEach((milestone) => {
+            if (milestone.data > domain[1]) {
+                domain = [0, 1];
+                badDomainData = true;
+            }
+            
+            if (milestone.data < domain[0]) {
+                domain = [0, 1];
+                badDomainData = true;
+            }
+        });
         // validation of current progress
         if (!currentProgress) currentProgress = null;
         const newHeight = this.props.height - 15;
