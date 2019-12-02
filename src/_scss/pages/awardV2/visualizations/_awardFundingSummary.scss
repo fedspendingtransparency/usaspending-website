@@ -87,7 +87,6 @@
       }
     }
     .federal-accounts-results {
-      @import 'components/pagination';
       @import './federalAccountsTable';
       width: 100%;
       .federal-accounts-table-renderer {

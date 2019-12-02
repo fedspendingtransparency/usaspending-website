@@ -54,7 +54,7 @@ module.exports = {
         rules: [
             {
                 test: /\.js$|jsx$/,
-                exclude: /node_modules/,
+                exclude: /node_modules\/(?!(data-transparency-ui)\/).*/,
                 loader: "babel-loader"
             },
             {
@@ -63,7 +63,9 @@ module.exports = {
                     {
                         loader: MiniCssExtractPlugin.loader
                     },
-                    "css-loader"
+                    {
+                        loader: "css-loader"
+                    }
                 ]
             },
             {

@@ -6,11 +6,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { TooltipWrapper } from 'data-transparency-ui';
+
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 import { titles } from 'dataMapping/awardsv2/datesSection';
 
-import InfoTooltip from '../InfoTooltip';
 import AwardSection from '../AwardSection';
 
 const propTypes = {
@@ -114,9 +115,7 @@ export default class AwardDates extends React.Component {
                     <div className="award-dates__heading">
                         <div className="award-overview__title award-dates__title">
                             Dates
-                            <InfoTooltip left>
-                                {tooltipInfo}
-                            </InfoTooltip>
+                            <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
                         </div>
                         <div className="award-dates__remaining">
                             {remainingText}

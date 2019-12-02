@@ -5,10 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TooltipWrapper } from 'data-transparency-ui';
 
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ReferencedAwardsTable from './ReferencedAwardsTable';
-import InfoToolTip from "../../shared/InfoTooltip";
 import { relatedAwardsInfo } from '../../shared/InfoTooltipContent';
 
 const propTypes = {
@@ -47,9 +47,7 @@ export default class ReferencedAwardsSection extends React.Component {
                             <img src="img/icon-hierarchy.png" alt="pedigree chart" />
                         </div>
                         <h3 className="award-viz__title">Orders Made Under this IDV</h3>
-                        <InfoToolTip left wide>
-                            {relatedAwardsInfo}
-                        </InfoToolTip>
+                        <TooltipWrapper className="award-section-tt" icon="info" left wide tooltipComponent={relatedAwardsInfo} />
                     </div>
                     <hr />
                     <div className="referenced-awards__content">

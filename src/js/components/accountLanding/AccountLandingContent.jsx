@@ -5,8 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Pagination } from 'data-transparency-ui';
 
-import Pagination from 'components/sharedComponents/Pagination';
 import AccountLandingSearchBar from './AccountLandingSearchBar';
 import AccountLandingResultsSection from './AccountLandingResultsSection';
 
