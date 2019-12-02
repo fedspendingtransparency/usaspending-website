@@ -238,7 +238,7 @@ export default class ProgressBar extends Component {
             progressCircleData,
             visualizationHeight
         } = this.state;
-        const { domain } = this.props;
+        const { domain, width } = this.props;
 
         if (!milestoneData || badDomainData) return [];
         const halfVisualizationHeight = (visualizationHeight / 2);
@@ -259,6 +259,10 @@ export default class ProgressBar extends Component {
             const nextMilestone = milestoneArray[index + 1];
             progressLineData.x1 = xScaleWithinCircles(domain[0]);
             progressLineData.x2 = progressCircleData.cx;
+            // special case domains are the same
+            if (domain[0] === domain[1]) {
+                progressLineData.x2 = width - visualizationHeight - 2;
+            }
             // if progress is not past this milestone, ignore
             if (
                 (progressLineData.x2 > milestone.visualizationStart) &&
@@ -331,13 +335,12 @@ export default class ProgressBar extends Component {
     }
     // progress bar
     progressBar = () => {
-        const { domain, awardType } = this.props;
-        const { xScaleProgressBar, showMilestones, visualizationHeight } = this.state;
+        const { awardType, width } = this.props;
+        const { showMilestones, visualizationHeight } = this.state;
 
         const rectHeight = visualizationHeight / 2;
-
-        const startPosition = xScaleProgressBar(domain[0]);
-        const endPosition = xScaleProgressBar(domain[1]);
+        const startPosition = 0;
+        const endPosition = width;
         let style = {};
         if (awardType) {
             if ((awardType === 'contract' || awardType === 'definitive contract') && showMilestones) {
