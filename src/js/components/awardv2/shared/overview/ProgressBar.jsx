@@ -6,29 +6,39 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
-import { pull } from 'lodash';
+import { pull, compact, uniqueId } from 'lodash';
 import TwoRectangles from 'components/sharedComponents/patterns/TwoRectangles';
 
 const propTypes = {
     height: PropTypes.number,
     width: PropTypes.number,
     domain: PropTypes.array,
-    thirdCircleData: PropTypes.number,
+    startDescription: PropTypes.string,
+    endDescription: PropTypes.string,
+    milestones: PropTypes.array,
     currentProgress: PropTypes.number,
     awardType: PropTypes.string,
-    progressText: PropTypes.string
+    progressText: PropTypes.string,
+    progressDescription: PropTypes.string,
+    lineDescription: PropTypes.string,
+    progressCircleDescription: PropTypes.string,
+    textAdjustment: PropTypes.number
 };
 
 export default class ProgressBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            visualizationHeight: 0,
             xScaleProgressBar: null,
             xScaleWithinCircles: null,
             currentProgress: 0,
             thirdCircleData: 0,
             badDomainData: false,
-            showThirdCircle: false
+            milestoneData: [],
+            showMilestones: false,
+            progressCircleData: {},
+            progressLineData: []
         };
     }
     // recreate the progress bar on window resize
@@ -37,7 +47,7 @@ export default class ProgressBar extends Component {
             this.start();
         }
     }
-    // updates the width in state
+
     start = () => {
         this.validationOfProps();
     }
@@ -45,8 +55,7 @@ export default class ProgressBar extends Component {
     validationOfProps = () => {
         let {
             domain,
-            currentProgress,
-            thirdCircleData,
+            currentProgress
         } = this.props;
         // validation of domain
         let badDomainData = false;
@@ -57,78 +66,262 @@ export default class ProgressBar extends Component {
         }
         // validation of current progress
         if (!currentProgress) currentProgress = null;
-        // validation of third circle data
-        if (!thirdCircleData) thirdCircleData = null;
-
+        const newHeight = this.props.height - 15;
         this.setState({
             domain,
             currentProgress,
-            thirdCircleData,
-            badDomainData
-        }, this.showThirdCircle);
-    }
-    // should we display third circle
-    showThirdCircle = () => {
-        const { domain, thirdCircleData, badDomainData } = this.state;
-        if (!thirdCircleData || badDomainData) {
-            return this.setState({ showThirdCircle: false }, this.createXScales);
-        }
-        // start < third circle data < end
-        if (domain[0] < thirdCircleData && thirdCircleData < domain[1]) {
-            return this.setState({ showThirdCircle: true }, this.createXScales);
-        }
-        return this.createXScales();
+            badDomainData,
+            visualizationHeight: newHeight
+        }, this.createXScales);
     }
     // create xScales
     createXScales = () => {
         const { domain } = this.props;
         // scale for the entire visualization
         // need this to create and position the base rectangle and the start and end circles
-        const { width, height } = this.props;
+        const { width } = this.props;
+        const { visualizationHeight } = this.state;
         const xScaleProgressBar = scaleLinear()
             .domain(domain)
             .range([0, width]);
         // 0 + diameter of circle + 2
-        const progressWithinCirclesStartPX = height + 2;
+        const progressWithinCirclesStartPX = visualizationHeight + 2;
         // total width - diameter of circle - 2
-        const progressWithinCirclesEndPX = width - height - 2;
+        const progressWithinCirclesEndPX = width - visualizationHeight - 2;
         // creates a scale within the start and end cirles
         // all domain values that show progress will need the
         const xScaleWithinCircles = scaleLinear()
             .domain(domain)
             .range([progressWithinCirclesStartPX, progressWithinCirclesEndPX]);
 
-        this.setState({ xScaleProgressBar, xScaleWithinCircles });
+        this.setState({ xScaleProgressBar, xScaleWithinCircles }, this.milestoneData);
     }
+    // create milestone data
+    // other methods will reference this in state
+    milestoneData = () => {
+        const { domain, milestones, width } = this.props;
+        const { xScaleProgressBar, visualizationHeight, xScaleWithinCircles } = this.state;
+
+        const halfVisualizationHeight = visualizationHeight / 2;
+        const progressMilestones = milestones || [];
+        const startPosition = xScaleProgressBar(domain[0]);
+        const endPosition = width;
+        // add first milestone
+        progressMilestones.unshift({
+            data: domain[0],
+            className: 'progress-bar-shapes__starting-circle',
+            description: this.props.startDescription,
+            cx: startPosition + halfVisualizationHeight,
+            position: startPosition + halfVisualizationHeight,
+            visualizationStart: startPosition,
+            visualizationEnd: startPosition + visualizationHeight + 2
+        });
+        // add last milestone
+        progressMilestones.push({
+            data: domain[1],
+            className: 'progress-bar-shapes__ending-circle',
+            description: this.props.endDescription,
+            cx: endPosition - halfVisualizationHeight,
+            position: endPosition - halfVisualizationHeight,
+            visualizationStart: endPosition - visualizationHeight - 2,
+            visualizationEnd: endPosition
+        });
+        const milestoneData = progressMilestones.map((milestone) => {
+            const position = xScaleWithinCircles(milestone.data);
+            const circleStart = position - halfVisualizationHeight - 2;
+            const circleEnd = position + halfVisualizationHeight + 2;
+            return {
+                key: `${uniqueId(milestone.data)}`,
+                description: milestone.description,
+                className: milestone.className,
+                cx: milestone.cx || position,
+                cy: halfVisualizationHeight,
+                r: halfVisualizationHeight,
+                visualizationStart: milestone.visualizationStart || circleStart,
+                visualizationEnd: milestone.visualizationEnd || circleEnd,
+                display: false
+            };
+        });
+        this.setState({ milestoneData }, this.showMilestones);
+    }
+    // show milestones
+    showMilestones = () => {
+        const { milestoneData, badDomainData } = this.state;
+        if (badDomainData) {
+            return this.setState({ showMilestones: false });
+        }
+        // milestones do not overlap with start and end milestone
+        const lastMilestoneIndex = milestoneData.length - 1;
+        const displayMilestoneData = milestoneData.map((milestone, index, array) => {
+            const milestoneObject = { ...milestone };
+            // ignore start and end milestones
+            if (index !== 0 && index !== lastMilestoneIndex) {
+                const startMilestoneEndPosition = array[0].visualizationEnd;
+                const endMilestoneStartPosition = array[lastMilestoneIndex].visualizationStart;
+                // verify current milestone start is after first milestone end and
+                // current milestone end is before last milestone start
+                if (
+                    (milestone.visualizationStart > startMilestoneEndPosition) &&
+                    (milestone.visualizationEnd < endMilestoneStartPosition)
+                ) {
+                    milestoneObject.display = true;
+                }
+                return milestoneObject;
+            }
+            milestoneObject.display = true;
+            return milestoneObject;
+        });
+        return this.setState({ milestoneData: displayMilestoneData }, this.progressCircleData);
+    }
+    // progress circle data
+    progressCircleData = () => {
+        const { milestoneData, xScaleWithinCircles, visualizationHeight } = this.state;
+        const { currentProgress, domain, progressCircleDescription } = this.props;
+        const position = xScaleWithinCircles(currentProgress);
+        const radius = visualizationHeight / 6;
+        // add progress milestone
+        const progressCircleData = {
+            cx: position,
+            cy: visualizationHeight / 2,
+            className: 'progress-bar-shapes__progress-circle',
+            description: progressCircleDescription,
+            r: radius,
+            visualizationStart: position - radius - 2,
+            visualizationEnd: position + radius + 2,
+            display: true
+        };
+        // show progress circle
+        milestoneData.forEach((milestone, index, array) => {
+            // verify the progress circle is not covered by any milestone
+            if (
+                (progressCircleData.visualizationEnd > milestone.visualizationStart) &&
+                (progressCircleData.visualizationStart < milestone.visualizationEnd)
+            ) {
+                progressCircleData.display = false;
+            }
+            // verify the progress circle does not flow into last milestons
+            if ((index + 1 === array.length) &&
+                (progressCircleData.visualizationEnd > milestone.visualizationStart)
+            ) {
+                progressCircleData.display = false;
+            }
+        });
+        // verify currently in progress
+        if (!(domain[0] < currentProgress && currentProgress < domain[1])) {
+            progressCircleData.display = false;
+        }
+        this.setState({ progressCircleData }, this.progressLineData);
+    }
+    // progress circle
+    progressCircle = () => {
+        const { progressCircleData } = this.state;
+        if (!progressCircleData.display) return null;
+        return this.createCircle(progressCircleData);
+    };
+    // progression milestones ( removes milestones that have display false )
+    milestones = () => compact(
+        this.state.milestoneData.filter((milestone) => milestone.display)
+    ).map((milestone) => this.createCircle({
+        key: `${uniqueId(milestone.data)}`,
+        description: milestone.description,
+        className: milestone.className,
+        cx: milestone.cx,
+        cy: milestone.cy,
+        r: milestone.r
+    }));
+    // progress lines
+    progressLineData = () => {
+        const {
+            xScaleWithinCircles,
+            badDomainData,
+            milestoneData,
+            progressCircleData,
+            visualizationHeight
+        } = this.state;
+        const { domain } = this.props;
+
+        if (!milestoneData || badDomainData) return [];
+        const halfVisualizationHeight = (visualizationHeight / 2);
+        const description = this.props.lineDescription;
+        const progressLines = milestoneData.map((milestone, index, milestoneArray) => {
+            const progressLineData = {
+                className: 'progress-bar-shapes__progress-line',
+                description,
+                key: `${index}progress-line`,
+                x1: 0,
+                x2: 0,
+                y1: halfVisualizationHeight,
+                y2: halfVisualizationHeight
+            };
+            // if we are at the last milestone, do nothing
+            if (index + 1 === milestoneArray.length) return null;
+
+            const nextMilestone = milestoneArray[index + 1];
+            progressLineData.x1 = xScaleWithinCircles(domain[0]);
+            progressLineData.x2 = progressCircleData.cx;
+            // if progress is not past this milestone, ignore
+            if (
+                (progressLineData.x2 > milestone.visualizationStart) &&
+                (progressLineData.x2 < milestone.visualizationEnd)
+            ) {
+                return null;
+            }
+            // if there are no milestones, ignore drawing more than one line
+            if ((milestoneArray.length === 2) && (index !== 0)) {
+                return null;
+            }
+            // if we are not at the first line and progress is past the next milestone
+            if ((index !== 0) && (progressLineData.x2 > milestone.visualizationEnd)) {
+                progressLineData.x1 = milestone.visualizationEnd;
+            }
+            // if progress line is going past another milestone stop the line
+            // only if milestone is visible
+            if (
+                (progressLineData.x2 > nextMilestone.visualizationStart) &&
+                nextMilestone.display
+            ) {
+                progressLineData.x2 = nextMilestone.visualizationStart;
+            }
+            // if we are showing the progress circle, account for it
+            if (
+                (progressLineData.x2 < nextMilestone.visualizationStart) &&
+                progressCircleData.display
+            ) {
+                progressLineData.x2 = progressCircleData.visualizationStart;
+            }
+            // if we are going through the end stop
+            if (progressLineData.x2 > milestoneArray[milestoneArray.length - 1].visualizationStart) {
+                progressLineData.x2 = milestoneArray[milestoneArray.length - 1].visualizationStart;
+            }
+
+            return progressLineData;
+        });
+
+        const progressLineData = compact(progressLines);
+        return this.setState({ progressLineData });
+    }
+    // progress lines
+    progressLines = () => this.state.progressLineData.map((line) => this.createLine(line));
     // progress bar pattern
     progressBarPattern = () => {
-        const { awardType, height, domain } = this.props;
-        const {
-            xScaleProgressBar,
-            xScaleWithinCircles,
-            showThirdCircle,
-            thirdCircleData
-        } = this.state;
-
-        const startPosition = xScaleProgressBar(domain[0]);
-        const endPosition = xScaleProgressBar(domain[1]);
-
+        const { awardType } = this.props;
+        const { milestoneData, visualizationHeight, showMilestones } = this.state;
         // this is an edge case for Award Dates Progress bar
         // allows the award dates section to use a pattern if a contract
-        if (awardType && showThirdCircle) {
+        if (awardType && showMilestones) {
             if (awardType && (awardType === 'contract' || awardType === 'definitive contract')) {
-                const positionOfThirdCircle = xScaleWithinCircles(thirdCircleData);
-                const width = endPosition - startPosition;
+                const positionOfThirdCircle = milestoneData[1].cx;
+                const width = milestoneData[2].cx - milestoneData[0].cx;
                 return (
                     <TwoRectangles
                         id="awardDatesContractPattern"
                         width={width.toString()}
-                        height={height.toString()}
+                        height={visualizationHeight.toString()}
                         backgroundWidth="100%"
-                        backgroundHeight={height.toString()}
+                        backgroundHeight={visualizationHeight.toString()}
                         backgroundFill="#fad980"
                         fillWidth={`${positionOfThirdCircle}`}
-                        fillHeight={height.toString()}
+                        fillHeight={visualizationHeight.toString()}
                         fillFill="#f1f1f1" />
                 );
             }
@@ -138,232 +331,104 @@ export default class ProgressBar extends Component {
     }
     // progress bar
     progressBar = () => {
-        const { height, domain, awardType } = this.props;
-        const { xScaleProgressBar, showThirdCircle } = this.state;
+        const { domain, awardType } = this.props;
+        const { xScaleProgressBar, showMilestones, visualizationHeight } = this.state;
 
-        const rectHeight = height / 2;
+        const rectHeight = visualizationHeight / 2;
 
         const startPosition = xScaleProgressBar(domain[0]);
         const endPosition = xScaleProgressBar(domain[1]);
         let style = {};
         if (awardType) {
-            if ((awardType === 'contract' || awardType === 'definitive contract') && showThirdCircle) {
+            if ((awardType === 'contract' || awardType === 'definitive contract') && showMilestones) {
                 style = { fill: "url(#awardDatesContractPattern)" };
             }
         }
+        const description = this.props.progressDescription;
 
         return (
-            <rect
-                className="progress-bar-shapes__base-rectangle"
-                style={style}
-                x={startPosition}
-                y={0}
-                rx={rectHeight}
-                ry={rectHeight}
-                width={endPosition - startPosition}
-                height={height} />
+            <g tabIndex="0">
+                <desc>{description}</desc>
+                <rect
+                    className="progress-bar-shapes__base-rectangle"
+                    style={style}
+                    x={startPosition}
+                    y={0}
+                    rx={rectHeight}
+                    ry={rectHeight}
+                    width={endPosition - startPosition}
+                    height={visualizationHeight} />
+            </g>
         );
     }
     // create circle
     createCircle = (circleData) => {
+        if (!circleData) return null;
         const {
+            description,
+            key,
             className,
             cx,
             cy,
             r
         } = circleData;
         return (
-            <circle
-                className={className}
-                cx={cx}
-                cy={cy}
-                r={r} />
+            <g key={key} tabIndex="0">
+                <desc>{description}</desc>
+                <circle
+                    className={className}
+                    cx={cx}
+                    cy={cy}
+                    r={r} />
+            </g>
         );
-    }
-    // progress starting circle
-    startCircle = () => {
-        const { domain, height } = this.props;
-        const { xScaleProgressBar } = this.state;
-
-        const halfVisualizationHeight = height / 2;
-        const startPosition = xScaleProgressBar(domain[0]);
-
-        return this.createCircle({
-            className: 'progress-bar-shapes__starting-circle',
-            cx: startPosition + halfVisualizationHeight,
-            cy: halfVisualizationHeight,
-            r: halfVisualizationHeight
-        });
-    }
-    // progress ending circle
-    endCircle = () => {
-        const { domain, height } = this.props;
-        const { xScaleProgressBar } = this.state;
-
-        const halfVisualizationHeight = height / 2;
-        const endPosition = xScaleProgressBar(domain[1]);
-
-        return this.createCircle({
-            className: 'progress-bar-shapes__ending-circle',
-            cx: endPosition - halfVisualizationHeight,
-            cy: halfVisualizationHeight,
-            r: halfVisualizationHeight
-        });
-    }
-    // cases when not to show progress circle
-    showProgressCircle = () => {
-        const { height, domain } = this.props;
-        const {
-            xScaleWithinCircles,
-            currentProgress,
-            badDomainData,
-            thirdCircleData,
-            showThirdCircle
-        } = this.state;
-        // Case I - bad data
-        if (badDomainData || !currentProgress) return false;
-        // Case II - currently in progress
-        if (!(domain[0] < currentProgress && currentProgress < domain[1])) return false;
-
-        const halfVisualizationHeight = height / 2;
-        const positionOfCurrentProgress = xScaleWithinCircles(currentProgress);
-        // Case III - do not show if in third circle's diameter
-        if (showThirdCircle) {
-            const positionOfThirdCircle = xScaleWithinCircles(thirdCircleData);
-            const progressCircleStartingPosition = positionOfCurrentProgress - (height / 6) - 2;
-            const progressCircleEndPosition = positionOfCurrentProgress + (height / 6) + 2;
-            // position - the radius - 2 ( designed this way )
-            const thirdCircleStartingPosition = positionOfThirdCircle - halfVisualizationHeight - 2;
-            // position + the radius + 2 ( designed this way )
-            const thirdCircleEndPostion = positionOfThirdCircle + halfVisualizationHeight + 2;
-            // if the third circle is covering the progress circle, do not display the progress circle
-            if ((thirdCircleStartingPosition < progressCircleEndPosition) && (progressCircleStartingPosition < thirdCircleEndPostion)) {
-                return false;
-            }
-        }
-        // Case IV - too close to end circle
-        // current progress position + radius
-        const positionOfCurrentProgressEnd = positionOfCurrentProgress + (height / 6);
-        // since the end circle aligns with the end of the graph endCircleStart = end of progress - diameter of end circle - 2
-        const endCircleStart = domain[1] - height - 2;
-        if (positionOfCurrentProgressEnd > endCircleStart) return false;
-        return true;
-    }
-    // progress circle
-    progressCircle = () => {
-        const { height } = this.props;
-        const {
-            xScaleWithinCircles,
-            currentProgress
-        } = this.state;
-        // do not show progress circle
-        if (!this.showProgressCircle()) return null;
-
-        const positionOfCurrentProgress = xScaleWithinCircles(currentProgress);
-
-        return this.createCircle({
-            className: 'progress-bar-shapes__progress-circle',
-            cx: positionOfCurrentProgress,
-            cy: height / 2,
-            r: height / 6
-        });
-    }
-    // third circle
-    thirdCircle = () => {
-        const {
-            xScaleWithinCircles,
-            thirdCircleData,
-            showThirdCircle,
-            badDomainData
-        } = this.state;
-
-        if (!showThirdCircle || badDomainData) return null;
-
-        const positionOfThirdCircle = xScaleWithinCircles(thirdCircleData);
-        const halfVisualizationHeight = this.props.height / 2;
-
-        return this.createCircle({
-            className: 'progress-bar-shapes__third-circle',
-            cx: positionOfThirdCircle,
-            cy: halfVisualizationHeight,
-            r: halfVisualizationHeight
-        });
     }
     // create line
     createLine = (lineData) => {
+        if (!lineData) return null;
         const {
             className,
+            description,
+            key,
             x1,
             x2,
             y1,
             y2
         } = lineData;
         return (
-            <line
-                className={className}
-                x1={x1}
-                x2={x2}
-                y1={y1}
-                y2={y2} />
+            <g key={key} tabIndex="0">
+                <desc>{description}</desc>
+                <line
+                    className={className}
+                    x1={x1}
+                    x2={x2}
+                    y1={y1}
+                    y2={y2} />
+            </g>
         );
     }
-    // progress lines
-    progressLines = () => {
+    // progress text
+    progressText = () => {
+        const { progressText } = this.props;
+        if (!progressText) return null;
         const {
-            xScaleWithinCircles,
             currentProgress,
+            xScaleWithinCircles,
             badDomainData,
-            thirdCircleData,
-            showThirdCircle
+            visualizationHeight
         } = this.state;
-        const { height, domain } = this.props;
-
-        if (!currentProgress || badDomainData) return { firstProgressLine: null, secondProgressLine: null };
-
-        const halfVisualizationHeight = (height / 2);
-        const startPosition = xScaleWithinCircles(this.props.domain[0]);
-        const positionOfCurrentProgress = xScaleWithinCircles(currentProgress);
-
-        let secondProgressLine = null;
-        let x2 = 0;
-        // Case I - always account for progress circle ( position - radius - 2 )
-        x2 = positionOfCurrentProgress - (height / 6) - 2;
-        // Case II - completed progress
-        if (currentProgress >= domain[1]) {
-            x2 = xScaleWithinCircles(domain[1]);
-        }
-        // Case III - third circle
-        if (showThirdCircle) {
-            const thirdCirclePosition = xScaleWithinCircles(thirdCircleData);
-            const thirdCircleStartingPosition = thirdCirclePosition - halfVisualizationHeight - 2;
-            const thirdCircleEndPostion = thirdCirclePosition + halfVisualizationHeight + 2;
-            const progressCircleStart = positionOfCurrentProgress - (height / 6) - 2;
-            // stops the line at the third circle
-            if (x2 > thirdCircleStartingPosition) {
-                x2 = thirdCircleStartingPosition;
-                // now we need to determine if we need to draw another line
-                // if there is space between the end of the third circle and the start of
-                // of the progress circle, create a second progress line
-                const spaceBetweenProgressCircleAndThirdCircle = progressCircleStart - thirdCircleEndPostion;
-                if (spaceBetweenProgressCircleAndThirdCircle > 0) {
-                    secondProgressLine = this.createLine({
-                        className: 'progress-bar-shapes__progress-line',
-                        x1: thirdCircleEndPostion,
-                        x2: progressCircleStart,
-                        y1: halfVisualizationHeight,
-                        y2: halfVisualizationHeight
-                    });
-                }
-            }
-        }
-        const firstProgressLine = this.createLine({
-            className: 'progress-bar-shapes__progress-line',
-            x1: startPosition,
-            x2,
-            y1: halfVisualizationHeight,
-            y2: halfVisualizationHeight
-        });
-        return { firstProgressLine, secondProgressLine };
+        if (!currentProgress || badDomainData) return null;
+        const textPosition = xScaleWithinCircles(currentProgress);
+        // completed
+        if (currentProgress >= this.props.domain[1]) return null;
+        return (
+            <text
+                className="progress-bar-shapes__progress-text"
+                x={textPosition - (this.props.textAdjustment || 0)}
+                y={visualizationHeight + 13}>
+                {progressText}
+            </text>
+        );
     }
 
     render() {
@@ -371,8 +436,6 @@ export default class ProgressBar extends Component {
         const { height, width } = this.props;
 
         if (!xScaleProgressBar || !xScaleWithinCircles) return null;
-
-        const { firstProgressLine, secondProgressLine } = this.progressLines();
 
         return (
             <svg
@@ -384,12 +447,10 @@ export default class ProgressBar extends Component {
                         <defs>{this.progressBarPattern()}</defs>
                         {this.progressBar()}
                     </g>
-                    {this.startCircle()}
-                    {this.endCircle()}
+                    {this.milestones()}
                     {this.progressCircle()}
-                    {this.thirdCircle()}
-                    { firstProgressLine }
-                    { secondProgressLine }
+                    {this.progressLines()}
+                    {this.progressText()}
                 </g>
             </svg>
         );

@@ -12,10 +12,36 @@
             padding-bottom: 0;
         }
     }
+    .award-dates__time-remaining {
+      display: flex;
+      justify-content: flex-end;
+      font-size: rem(12);
+    }
+    .progress-bar-shapes__progress-text {
+      font-size: rem(12);
+    }
     .award-dates__row {
         font-weight: $font-light;
         @include display(flex);
         @include justify-content(space-between);
+        .award-dates__label-container {
+          @include display(inline-flex);
+          .award-dates__circle {
+            height: rem(8);
+            width: rem(8);
+            border-radius: 20px;
+            margin: rem(7) rem(7) 0 0;
+            &.award-dates__circle-top {
+              background-color: $color-green-lighter;
+            }
+            &.award-dates__circle-middle {
+              background-color: $color-gold-light;
+            }
+            &.award-dates__circle-bottom {
+              background-color: $color-secondary-darkest;
+            }
+          }
+        }
         .award-dates__date {
             padding-left: rem(10);
         }
