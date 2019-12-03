@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 11/26/19
  **/
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
     getAwardTypeByRecordtypeCountyAndState,
@@ -98,7 +98,7 @@ const Recipient = ({
             </div>
         </AwardSection>
     );
-}
+};
 
 Recipient.propTypes = propTypes;
 export default Recipient;
