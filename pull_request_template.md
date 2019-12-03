@@ -12,16 +12,19 @@ Technical details for the knowledge of other developers.
 **Mockup:**
 https://invis.io/RYA3XN5WP#/273832670_Homepage_2-2_E
 
-The following are ALL required for the PR to be merged (in ascending LOE):
-- [ ] Link to this PR in JIRA ticket
-- [ ] Tagged Design, Testing, and Code Reviewers in `#us-ux-frontend` Slack Channel in the thread under the Post from Github for their SA
-- [ ] Scheduled demo including Design/Testing/Front-end `if applicable`
-- [ ] Provided instructions for testing in JIRA (for benefit of testing) and PR (for benefit of code reviewer) `if applicable`
+The following are ALL required for the PR to be merged:
+
+Author:
+- [ ] Linked to this PR in JIRA ticket
+- [ ] Scheduled demo including Design/Testing/Front-end OR Provided instructions for testing in JIRA and PR `if applicable`
 - [ ] Verified cross-browser compatibility
 - [ ] Verified mobile/tablet/desktop/monitor responsiveness
+- [ ] Verified that this PR does not create any *new* accessibility issues (via Axe Chrome extension)
 - [ ] Added Unit Tests for methods in Container Components, reducers, and helper functions `if applicable`
-- [ ] Design review complete `if applicable`
 - [ ] All componentWillReceiveProps, componentWillMount, and componentWillUpdate in relevant child/parent components/containers replaced with [future compatible life-cycle methods](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html) per [JIRA item 3339](https://federal-spending-transparency.atlassian.net/browse/DEV-3339)
 - [ ] [API contract](https://github.com/fedspendingtransparency/usaspending-api/tree/dev/usaspending_api/api_contracts) updated `if applicable`
-- [ ] [API #1234](https://github.com/fedspendingtransparency/usaspending-api/pull/1234) merged `if applicable`
+
+Reviewer(s):
+- [ ] Design review complete `if applicable`
+- [ ] [API #1234](https://github.com/fedspendingtransparency/usaspending-api/pull/1234) merged concurrently `if applicable`
 - [ ] Code review complete

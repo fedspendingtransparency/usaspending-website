@@ -41,4 +41,39 @@ export const fetchAwardFederalAccounts = (data) => {
 // The string ASST_AGG w/in a generatedUniqueId indicates an aggregated assistance type award
 export const isAwardAggregate = (generatedAwardId = '') => generatedAwardId.includes("ASST_AGG");
 
-export const isAwardFinancialAssistance = (awardType) => ['grant', 'insurance', 'direct payment', 'loan', 'other'].includes(awardType);
+export const isAwardFinancialAssistance = (awardType) => [
+    'grant',
+    'insurance',
+    'direct payment',
+    'loan',
+    'other'
+].includes(awardType);
+
+// award overview recipient section - determines text and address to display to user
+// data can be found in
+export const getAwardTypeByRecordtypeCountyAndState = (
+    isFinancialAssistance,
+    placeOfPerformance,
+    recordType
+) => {
+    if (isFinancialAssistance) {
+        // redacted due to PII
+        if (recordType === 3) return 'redactedDueToPII';
+        if (recordType === 1) {
+            // aggregated by state
+            if (placeOfPerformance._countryCode === 'USA' && !placeOfPerformance._countyCode) {
+                return 'aggregatedByState';
+            }
+            // aggregated by county
+            if (placeOfPerformance._countryCode === 'USA' && placeOfPerformance._countyCode) {
+                return 'aggregatedByCounty';
+            }
+            // aggregated by country
+            if (placeOfPerformance._countryCode !== 'USA') {
+                return 'aggregatedByCountry';
+            }
+        }
+    }
+    // IDV or contract
+    return 'nonFinancialAssistance';
+};

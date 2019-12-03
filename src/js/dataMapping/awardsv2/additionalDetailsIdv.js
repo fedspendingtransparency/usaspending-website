@@ -94,7 +94,7 @@ const additionalDetails = (awardData) => {
             }
         },
         aquisitionDetails: {
-            'Product Service Code (PSC)': awardData.additionalDetails.pscCode,
+            'Product or Service Code (PSC)': awardData.additionalDetails.pscCode,
             'NAICS Code': awardData.additionalDetails.naicsCode,
             'DoD Claimant Code': awardData.additionalDetails.dodClaimantProgram,
             'Sea Transportation': awardData.additionalDetails.seaTransport
