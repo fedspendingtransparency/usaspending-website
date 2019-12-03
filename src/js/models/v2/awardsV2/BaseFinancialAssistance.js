@@ -58,6 +58,7 @@ BaseFinancialAssistance.populate = function populate(data) {
     if (data.place_of_performance) {
         const placeOfPerformanceData = {
             city: data.place_of_performance.city_name,
+            countyCode: data.place_of_performance.county_code,
             county: data.place_of_performance.county_name,
             stateCode: data.place_of_performance.state_code,
             state: data.place_of_performance.state_name || data.place_of_performance.state_code,
@@ -132,6 +133,7 @@ BaseFinancialAssistance.populate = function populate(data) {
     this.fain = data.fain;
     this.uri = data.uri;
     this.biggestCfda = data.cfda_info.reduce(getLargestCfda, emptyCfda);
+    this.recordType = data.record_type;
 };
 
 Object.defineProperty(BaseFinancialAssistance, 'cfdaProgram', {

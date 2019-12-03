@@ -11,6 +11,7 @@ const locationData = {
     province: '',
     city: 'Pawnee',
     county: 'Wamapoke',
+    countyCode: '06',
     stateCode: 'IN',
     zip5: '12345',
     countryCode: 'USA',
@@ -52,7 +53,7 @@ describe('Core Location getter functions', () => {
         expect(location.congressionalDistrict).toEqual('IN-04');
     });
     it('should format the congressional district with a prefix', () => {
-       expect(location.fullCongressionalDistrict).toEqual('\nCongressional District: IN-04');
+        expect(location.fullCongressionalDistrict).toEqual('\nCongressional District: IN-04');
     });
     it('should use province as the state/province when state is not available', () => {
         expect(foreignLocation.stateProvince).toEqual('Quebec');
@@ -73,6 +74,33 @@ describe('Core Location getter functions', () => {
 
         expect(partialLocation.streetAddress).toEqual('');
         expect(partialLocation.fullAddress).toEqual('Pawnee, IN 12345\nCongressional District: IN-04');
+    });
+    describe('County and State', () => {
+        it('should handle county and state when both are defined', () => {
+            expect(location.countyAndState).toEqual(`${location._county}, ${location._stateCode}`);
+        });
+        it('should handle county and state when county is not defined', () => {
+            const missingCountyLocationData = Object.assign({}, locationData, { county: null });
+            const missingCountyLocation = Object.create(CoreLocation);
+            missingCountyLocation.populateCore(missingCountyLocationData);
+            expect(missingCountyLocation.countyAndState).toEqual(`--, ${location._stateCode}`);
+        });
+        it('should handle county and state when state is not defined', () => {
+            const missingStateLocationData = Object.assign({}, locationData, { stateCode: null });
+            const missingStateLocation = Object.create(CoreLocation);
+            missingStateLocation.populateCore(missingStateLocationData);
+            expect(missingStateLocation.countyAndState).toEqual(`${location._county}, --`);
+        });
+        it('should handle county and state when county and state are not defined', () => {
+            const missingCountyAndStateLocationData = Object.assign(
+                {},
+                locationData,
+                { county: null, stateCode: null }
+            );
+            const missingCountyAndStateLocation = Object.create(CoreLocation);
+            missingCountyAndStateLocation.populateCore(missingCountyAndStateLocationData);
+            expect(missingCountyAndStateLocation.countyAndState).toEqual('--');
+        });
     });
     it('should handle a null city', () => {
         const missingData = Object.assign({}, locationData, {

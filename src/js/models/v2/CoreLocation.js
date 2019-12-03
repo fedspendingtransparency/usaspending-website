@@ -11,6 +11,7 @@ const CoreLocation = {
         this._province = data.province || '';
         this._city = data.city || '';
         this._county = data.county || '';
+        this._countyCode = data.countyCode || '';
         this._stateCode = data.stateCode || '';
         this._zip = data.zip5 || (data.zip4 && data.zip4.slice(0, 5)) || data.foreignPostalCode || '';
         this._country = data.country || '';
@@ -42,6 +43,12 @@ const CoreLocation = {
 
         const postCode = this._zip;
         return `${city}${adminArea}${country}${postCode}`;
+    },
+    get countyAndState() {
+        const county = this._county ? `${this._county}` : '--';
+        const stateCode = this._stateCode ? `${this._stateCode} ` : '--';
+        if (!this._county && !this._stateCode) return '--';
+        return `${county}, ${stateCode}`.trim();
     },
     get congressionalDistrict() {
         if (this._stateCode && this._congressionalDistrict) {
