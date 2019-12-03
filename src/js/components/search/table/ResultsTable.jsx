@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { isAwardAggregate } from 'helpers/awardSummaryHelper';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
@@ -89,6 +90,21 @@ export default class ResultsTable extends React.Component {
             cellClass = ResultsTableLinkCell;
             props.id = this.props.results[rowIndex].prime_award_recipient_id;
             props.column = 'recipient';
+        }
+        else if (column.columnName === 'Prime Award ID') {
+            const primeAwardId = this.props.results[rowIndex].prime_award_generated_internal_id;
+            if (primeAwardId) {
+                cellClass = ResultsTableLinkCell;
+                props.id = primeAwardId;
+                props.column = 'award';
+                props.value = isAwardAggregate(primeAwardId)
+                    ? primeAwardId
+                    : props.value;
+            }
+            else {
+                // primeAwardId null case
+                props.value = '- -';
+            }
         }
 
         return React.createElement(
