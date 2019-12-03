@@ -5,6 +5,9 @@
 
 import React from 'react';
 
+import { recipientLandingPageMetaTags } from 'helpers/metaTagHelper';
+
+import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'components/sharedComponents/Footer';
@@ -17,6 +20,7 @@ export default class RecipientLandingPage extends React.Component {
     render() {
         return (
             <div className="usa-da-recipient-landing">
+                <MetaTags {...recipientLandingPageMetaTags} />
                 <Header />
                 <StickyHeader>
                     <div className="sticky-header__title">
