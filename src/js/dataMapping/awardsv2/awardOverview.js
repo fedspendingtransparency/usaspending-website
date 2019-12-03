@@ -5,7 +5,10 @@
 
 // data for award overview recipient section
 // financial assistance awards are redactedDueToPII, agreggatedByState (Multiple Recipients),
-// agreggatedByCounty (Multiple Recipients), aggregatedByCountry (Multiple Recipients)
+// agreggatedByCounty (Multiple Recipients), aggregatedByCountry (Multiple Recipients).
+// These different award types are derived from recordType, county (location object),
+// and country (location object) by getAwardTypeByRecordtypeCountyAndState function in the
+// awardSummaryHelper
 export const AddresskeysByAwardType = {
     nonFinancialAssistance: ['regionalAddress', 'fullCongressionalDistrict', '_country'],
     redactedDueToPII: ['regionalAddress', 'fullCongressionalDistrict', '_country'],
