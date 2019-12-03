@@ -316,6 +316,14 @@ export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, da
             }
         }
     };
-    if (Object.keys(map).includes(type)) return map[type][category];
-    return map.asst[category];
+    if (Object.keys(map).includes(type)) {
+        return {
+            className: 'award-amounts-tt__wrapper',
+            ...map[type][category]
+        };
+    }
+    return {
+        className: 'award-amounts-tt__wrapper',
+        ...map.asst[category]
+    };
 };
