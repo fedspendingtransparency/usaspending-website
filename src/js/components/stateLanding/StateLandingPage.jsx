@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { stateLandingPageMetaTags } from 'helpers/metaTagHelper'; 
+import { stateLandingPageMetaTags } from 'helpers/metaTagHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
