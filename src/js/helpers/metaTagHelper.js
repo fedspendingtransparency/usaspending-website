@@ -20,7 +20,7 @@ export const homePageMetaTags = {
     twitter_title: "USAspending.gov",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: productionURL,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -28,7 +28,7 @@ export const homePageMetaTags = {
 };
 
 export const searchPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/search`,
     og_title: "USAspending.gov - Advanced Search",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -36,7 +36,7 @@ export const searchPageMetaTags = {
     twitter_title: "USAspending.gov - Advanced Search",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/search`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -44,7 +44,7 @@ export const searchPageMetaTags = {
 };
 
 export const explorerPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/explorer`,
     og_title: "USAspending.gov - Spending Explorer",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -52,7 +52,7 @@ export const explorerPageMetaTags = {
     twitter_title: "USAspending.gov - Spending Explorer",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/explorer`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -60,7 +60,7 @@ export const explorerPageMetaTags = {
 };
 
 export const aboutPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/about`,
     og_title: "USAspending.gov - About",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -68,7 +68,55 @@ export const aboutPageMetaTags = {
     twitter_title: "USAspending.gov - About",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/about`,
+    twitter_label1: "",
+    twitter_data1: "",
+    twitter_label2: "",
+    twitter_data2: ""
+};
+
+export const accessibilityPageMetaTags = {
+    og_url: `${productionURL}#/about/accessibility`,
+    og_title: "USAspending.gov - Accessibility",
+    og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    og_site_name: "USAspending.gov",
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`,
+    twitter_title: "USAspending.gov - About",
+    twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
+    twitter_url: `${productionURL}#/about/accessibility`,
+    twitter_label1: "",
+    twitter_data1: "",
+    twitter_label2: "",
+    twitter_data2: ""
+};
+
+export const privacyPageMetaTags = {
+    og_url: `${productionURL}#/about/privacy`,
+    og_title: "USAspending.gov - Privacy Policy",
+    og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    og_site_name: "USAspending.gov",
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`,
+    twitter_title: "USAspending.gov - About",
+    twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
+    twitter_url: `${productionURL}#/about/privacy`,
+    twitter_label1: "",
+    twitter_data1: "",
+    twitter_label2: "",
+    twitter_data2: ""
+};
+
+export const foiaPageMetaTags = {
+    og_url: `${productionURL}#/about/foia`,
+    og_title: "USAspending.gov - Freedom of Information Act",
+    og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    og_site_name: "USAspending.gov",
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`,
+    twitter_title: "USAspending.gov - About",
+    twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
+    twitter_url: `${productionURL}#/about/foia`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -76,7 +124,7 @@ export const aboutPageMetaTags = {
 };
 
 export const dbInfoPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/db_info`,
     og_title: "USAspending.gov - Dun & Bradstreet, Inc. Data",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -84,7 +132,7 @@ export const dbInfoPageMetaTags = {
     twitter_title: "USAspending.gov - Dun & Bradstreet, Inc. Data",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/db_info`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -92,7 +140,7 @@ export const dbInfoPageMetaTags = {
 };
 
 export const awardPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/award/`,
     og_title: "USAspending.gov - Award Summary",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -100,7 +148,7 @@ export const awardPageMetaTags = {
     twitter_title: "USAspending.gov - Award Summary",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/award/`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -108,7 +156,7 @@ export const awardPageMetaTags = {
 };
 
 export const federalAccountPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/federal_account/`,
     og_title: "USAspending.gov - Federal Account Profile",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -116,7 +164,7 @@ export const federalAccountPageMetaTags = {
     twitter_title: "USAspending.gov - Federal Account Profile",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/federal_account/`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -124,7 +172,7 @@ export const federalAccountPageMetaTags = {
 };
 
 export const agencyPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/agency/`,
     og_title: "USAspending.gov - Agency Profile",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -132,7 +180,7 @@ export const agencyPageMetaTags = {
     twitter_title: "USAspending.gov - Agency Profile",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/agency/`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -140,7 +188,7 @@ export const agencyPageMetaTags = {
 };
 
 export const agencyLandingPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/agency`,
     og_title: "USAspending.gov - Agency Profiles",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -148,7 +196,7 @@ export const agencyLandingPageMetaTags = {
     twitter_title: "USAspending.gov - Agency Profiles",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/agency`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -156,7 +204,7 @@ export const agencyLandingPageMetaTags = {
 };
 
 export const stylePageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/style`,
     og_title: "USAspending.gov - Style Guide",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -164,7 +212,7 @@ export const stylePageMetaTags = {
     twitter_title: "USAspending.gov - Style Guide",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/style`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -172,7 +220,7 @@ export const stylePageMetaTags = {
 };
 
 export const downloadArchivePageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/download_center/award_data_archive`,
     og_title: "USAspending.gov - Award Data Archive",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -180,7 +228,7 @@ export const downloadArchivePageMetaTags = {
     twitter_title: "USAspending.gov - Award Data Archive",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/download_center/award_data_archive`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -188,15 +236,15 @@ export const downloadArchivePageMetaTags = {
 };
 
 export const downloadAwardPageMetaTags = {
-    og_url: "https://usaspending.gov/",
-    og_title: "USAspending.gov - Custom Award Download",
+    og_url: `${productionURL}#/download_center/custom_award_data`,
+    og_title: "USAspending.gov - Custom Award Data",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
     og_image: `${productionURL}${imgDirectory}${facebookImage}`,
-    twitter_title: "USAspending.gov - Custom Award Download",
+    twitter_title: "USAspending.gov - Custom Award Data",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/download_center/custom_award_data`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -204,15 +252,15 @@ export const downloadAwardPageMetaTags = {
 };
 
 export const downloadAccountPageMetaTags = {
-    og_url: "https://usaspending.gov/",
-    og_title: "USAspending.gov - Custom Account Download",
+    og_url: `${productionURL}#/download_center/custom_account_data`,
+    og_title: "USAspending.gov - Custom Account Data",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
     og_image: `${productionURL}${imgDirectory}${facebookImage}`,
-    twitter_title: "USAspending.gov - Custom Account Download",
+    twitter_title: "USAspending.gov - Custom Account Data",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/download_center/custom_account_data`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -220,7 +268,7 @@ export const downloadAccountPageMetaTags = {
 };
 
 export const dataDictionaryPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/download_center/data_dictionary`,
     og_title: "USAspending.gov - Data Dictionary",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -228,7 +276,7 @@ export const dataDictionaryPageMetaTags = {
     twitter_title: "USAspending.gov - Data Dictionary",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/download_center/data_dictionary`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -236,7 +284,7 @@ export const dataDictionaryPageMetaTags = {
 };
 
 export const keywordPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/keyword_search`,
     og_title: "USAspending.gov - Keyword Search",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -244,7 +292,7 @@ export const keywordPageMetaTags = {
     twitter_title: "USAspending.gov - Keyword Search",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/keyword_search`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -252,7 +300,7 @@ export const keywordPageMetaTags = {
 };
 
 export const statePageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/state/`,
     og_title: "USAspending.gov - State Profile",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -260,7 +308,7 @@ export const statePageMetaTags = {
     twitter_title: "USAspending.gov - State Profile",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/state/`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -268,7 +316,7 @@ export const statePageMetaTags = {
 };
 
 export const errorPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: productionURL,
     og_title: "USAspending.gov - 404",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -276,7 +324,7 @@ export const errorPageMetaTags = {
     twitter_title: "USAspending.gov - 404",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: productionURL,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -284,7 +332,7 @@ export const errorPageMetaTags = {
 };
 
 export const recipientPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/recipient/`,
     og_title: "USAspending.gov - Recipient Profile",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -292,7 +340,7 @@ export const recipientPageMetaTags = {
     twitter_title: "USAspending.gov - Recipient Profile",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/recipient/`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -300,7 +348,7 @@ export const recipientPageMetaTags = {
 };
 
 export const accountLandingPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/federal_account`,
     og_title: "USAspending.gov - Federal Account Profiles",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -308,7 +356,7 @@ export const accountLandingPageMetaTags = {
     twitter_title: "USAspending.gov - Federal Account Profiles",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/federal_account`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -316,7 +364,7 @@ export const accountLandingPageMetaTags = {
 };
 
 export const recipientLandingPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/recipient`,
     og_title: "USAspending.gov - Recipient Profiles",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -324,7 +372,7 @@ export const recipientLandingPageMetaTags = {
     twitter_title: "USAspending.gov - Recipient Profiles",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/recipient`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
@@ -332,7 +380,7 @@ export const recipientLandingPageMetaTags = {
 };
 
 export const stateLandingPageMetaTags = {
-    og_url: "https://usaspending.gov/",
+    og_url: `${productionURL}#/state`,
     og_title: "USAspending.gov - State Profiles",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
@@ -340,7 +388,7 @@ export const stateLandingPageMetaTags = {
     twitter_title: "USAspending.gov - State Profiles",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
-    twitter_url: "https://usaspending.gov/",
+    twitter_url: `${productionURL}#/state`,
     twitter_label1: "",
     twitter_data1: "",
     twitter_label2: "",
