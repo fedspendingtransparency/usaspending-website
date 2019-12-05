@@ -171,13 +171,61 @@ export const stylePageMetaTags = {
     twitter_data2: ""
 };
 
-export const downloadPageMetaTags = {
+export const downloadArchivePageMetaTags = {
     og_url: "https://usaspending.gov/",
-    og_title: "USAspending.gov - Download Center",
+    og_title: "USAspending.gov - Award Data Archive",
     og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     og_site_name: "USAspending.gov",
     og_image: `${productionURL}${imgDirectory}${facebookImage}`,
-    twitter_title: "USAspending.gov - Download Center",
+    twitter_title: "USAspending.gov - Award Data Archive",
+    twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
+    twitter_url: "https://usaspending.gov/",
+    twitter_label1: "",
+    twitter_data1: "",
+    twitter_label2: "",
+    twitter_data2: ""
+};
+
+export const downloadAwardPageMetaTags = {
+    og_url: "https://usaspending.gov/",
+    og_title: "USAspending.gov - Custom Award Download",
+    og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    og_site_name: "USAspending.gov",
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`,
+    twitter_title: "USAspending.gov - Custom Award Download",
+    twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
+    twitter_url: "https://usaspending.gov/",
+    twitter_label1: "",
+    twitter_data1: "",
+    twitter_label2: "",
+    twitter_data2: ""
+};
+
+export const downloadAccountPageMetaTags = {
+    og_url: "https://usaspending.gov/",
+    og_title: "USAspending.gov - Custom Account Download",
+    og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    og_site_name: "USAspending.gov",
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`,
+    twitter_title: "USAspending.gov - Custom Account Download",
+    twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
+    twitter_url: "https://usaspending.gov/",
+    twitter_label1: "",
+    twitter_data1: "",
+    twitter_label2: "",
+    twitter_data2: ""
+};
+
+export const dataDictionaryPageMetaTags = {
+    og_url: "https://usaspending.gov/",
+    og_title: "USAspending.gov - Data Dictionary",
+    og_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
+    og_site_name: "USAspending.gov",
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`,
+    twitter_title: "USAspending.gov - Data Dictionary",
     twitter_description: "USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.",
     twitter_image: `${productionURL}${imgDirectory}${twitterImage}`,
     twitter_url: "https://usaspending.gov/",
