@@ -14,16 +14,6 @@ export const logDownloadType = (type) => {
     });
 };
 
-// convert an object whose truthy keys are all selected field values
-export const reduceObjectValuesToArray = (filterValue) => (
-    Object.keys(field).reduce((values, key) => {
-        if (field[key]) {
-            values.push(key);
-        }
-        return values;
-    }, [])
-);
-
 export const convertDateRange = (dates) => {
     if (dates.startDate && dates.endDate) {
         return `${dates.startDate} - ${dates.endDate}`;
