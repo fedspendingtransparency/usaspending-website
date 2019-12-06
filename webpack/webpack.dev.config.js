@@ -45,9 +45,9 @@ module.exports = merge(common, {
                 MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
                     ? JSON.stringify(process.env.MAPBOX_TOKEN)
                     : JSON.stringify(""),
-                GA_TRACKING_ID: process.env.GA_TRACKING_ID
-                    ? JSON.stringify(process.env.GA_TRACKING_ID)
-                    : JSON.stringify(""),
+                GA_TRACKING_ID: JSON.stringify("UA-143401688-1"),
+                    // ? JSON.stringify(process.env.GA_TRACKING_ID)
+                    // : JSON.stringify("UA-143401688-1"),
                 IS_DEV: JSON.stringify('true')
             }
         })

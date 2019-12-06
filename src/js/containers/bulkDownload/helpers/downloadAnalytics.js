@@ -2,7 +2,7 @@
  * downloadAnalytics.js
  * Created by Kevin Li 2/8/18
  */
-
+import { startCase } from 'lodash';
 import Analytics from 'helpers/analytics/Analytics';
 
 const categoryPrefix = 'Download Center - Download';
@@ -15,7 +15,7 @@ export const logDownloadType = (type) => {
 };
 
 // convert an object whose truthy keys are all selected field values
-export const convertKeyedField = (field) => (
+export const reduceObjectValuesToArray = (filterValue) => (
     Object.keys(field).reduce((values, key) => {
         if (field[key]) {
             values.push(key);
@@ -45,28 +45,37 @@ export const logSingleDownloadField = (type, name, value) => {
     });
 };
 
-export const logDownloadFields = (type, filters) => {
-    const keyedFields = ['awardLevels', 'awardTypes'];
-    const keyedLabels = ['Award Level', 'Award Type'];
-    keyedFields.forEach((field, i) => {
-        const values = convertKeyedField(filters[field]);
-        values.forEach((value) => {
-            logSingleDownloadField(type, keyedLabels[i], value);
+// returns a function that accesses the value selected by the user for a given filter
+const awardDownloadAccessorByFilterType = {
+    awardLevels: (obj) => Object.keys(obj)
+        .map((key) => startCase(key))
+        .find((key) => obj[key] === true),
+    awardTypes: (obj) => Object.keys(obj)
+        .filter((key) => obj[key] === true)
+        .map((key) => startCase(key))
+        .join(", "),
+    agency: (obj) => obj.name,
+    // eslint-disable-next-line no-confusing-arrow
+    subAgency: (obj) => obj.id !== "" ? obj.name : '',
+    // eslint-disable-next-line no-confusing-arrow
+    location: (obj) => obj.state.code !== ""
+        ? `${obj.country.name}, ${obj.state.name}`
+        : obj.country.name,
+    dateType: (string) => startCase(string),
+    dateRange: (obj) => convertDateRange(obj),
+    fileFormat: (string) => string
+};
+
+export const logAwardDownloadFields = (type, filterObj) => {
+    Object.keys(filterObj)
+        .filter((key) => Object.keys(awardDownloadAccessorByFilterType).includes(key))
+        .forEach((filter) => {
+            const selectedValueObj = filterObj[filter];
+            const accessorFn = awardDownloadAccessorByFilterType[filter];
+            const selectedValue = accessorFn(selectedValueObj);
+
+            logSingleDownloadField(type, startCase(filter), selectedValue);
         });
-    });
-
-    // log the agency fields
-    logSingleDownloadField(type, 'Agency', filters.agency.name);
-    if (filters.subAgency.id) {
-        logSingleDownloadField(type, 'Sub Agency', filters.subAgency.name);
-    }
-
-    // log the date fields
-    const dates = convertDateRange(filters.dateRange);
-    if (dates) {
-        logSingleDownloadField(type, 'Date Type', filters.dateType);
-        logSingleDownloadField(type, 'Date Range', dates);
-    }
 };
 
 export const logAccountDownloadFields = (type, filters) => {
@@ -83,7 +92,7 @@ export const logAccountDownloadFields = (type, filters) => {
 
 export const logAwardDownload = (redux) => {
     logDownloadType('award');
-    logDownloadFields('award', redux);
+    logAwardDownloadFields('award', redux);
 };
 
 export const logAccountDownload = (redux) => {
