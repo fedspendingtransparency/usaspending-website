@@ -36,7 +36,7 @@ export const logSingleDownloadField = (type, name, value) => {
 };
 
 // returns a function that accesses the value selected by the user for a given filter
-const selectedFilterAccessorByFilterType = {
+const selectedValueByFilterType = {
     awardLevels: (obj) => Object.keys(obj)
         .map((key) => startCase(key))
         .find((key) => obj[key] === true),
@@ -66,10 +66,10 @@ const selectedFilterAccessorByFilterType = {
 
 export const logDownloadFields = (type, filterObj) => {
     Object.keys(filterObj)
-        .filter((key) => Object.keys(selectedFilterAccessorByFilterType).includes(key))
+        .filter((key) => Object.keys(selectedValueByFilterType).includes(key))
         .forEach((filter) => {
             const selectedValueObj = filterObj[filter];
-            const accessorFn = selectedFilterAccessorByFilterType[filter];
+            const accessorFn = selectedValueByFilterType[filter];
             const selectedValue = accessorFn(selectedValueObj);
             logSingleDownloadField(type, startCase(filter), selectedValue);
         });
