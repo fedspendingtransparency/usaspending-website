@@ -36,7 +36,7 @@ export const logSingleDownloadField = (type, name, value) => {
 };
 
 // returns a function that accesses the value selected by the user for a given filter
-const awardDownloadAccessorByFilterType = {
+const selectedFilterAccessorByFilterType = {
     awardLevels: (obj) => Object.keys(obj)
         .map((key) => startCase(key))
         .find((key) => obj[key] === true),
@@ -53,39 +53,37 @@ const awardDownloadAccessorByFilterType = {
         : obj.country.name,
     dateType: (string) => startCase(string),
     dateRange: (obj) => convertDateRange(obj),
-    fileFormat: (string) => string
+    fileFormat: (string) => startCase(string),
+    accountLevel: (string) => startCase(string),
+    budgetFunction: (obj) => startCase(obj.title),
+    // eslint-disable-next-line no-confusing-arrow
+    budgetSubfunction: (obj) => obj.id ? startCase(obj.title) : '',
+    // eslint-disable-next-line no-confusing-arrow
+    federalAccount: (obj) => obj.id ? startCase(obj.name) : '',
+    submissionType: (string) => startCase(string),
+    timePeriod: (string) => string
 };
 
-export const logAwardDownloadFields = (type, filterObj) => {
+export const logDownloadFields = (type, filterObj) => {
     Object.keys(filterObj)
-        .filter((key) => Object.keys(awardDownloadAccessorByFilterType).includes(key))
+        .filter((key) => Object.keys(selectedFilterAccessorByFilterType).includes(key))
         .forEach((filter) => {
             const selectedValueObj = filterObj[filter];
-            const accessorFn = awardDownloadAccessorByFilterType[filter];
+            const accessorFn = selectedFilterAccessorByFilterType[filter];
             const selectedValue = accessorFn(selectedValueObj);
-
             logSingleDownloadField(type, startCase(filter), selectedValue);
         });
 };
 
-export const logAccountDownloadFields = (type, filters) => {
-    // log the agency fields
-    logSingleDownloadField(type, 'Agency', filters.agency.name);
-
-    // log the file type
-    logSingleDownloadField(type, 'File Type', filters.submissionType);
-
-    // log the fiscal year and quarter
-    const timePeriod = `${filters.fy} - Q${filters.quarter}`;
-    logSingleDownloadField(type, 'Time Period', timePeriod);
-};
-
 export const logAwardDownload = (redux) => {
     logDownloadType('award');
-    logAwardDownloadFields('award', redux);
+    logDownloadFields('award', redux);
 };
 
 export const logAccountDownload = (redux) => {
     logDownloadType('account');
-    logAccountDownloadFields('account', redux);
+    logDownloadFields('account', {
+        ...redux,
+        timePeriod: `${redux.fy} - Q${redux.quarter}`
+    });
 };
