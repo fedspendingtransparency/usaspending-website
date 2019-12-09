@@ -13,6 +13,8 @@ const propTypes = {
     rowIndex: PropTypes.number.isRequired
 };
 
+const fileFieldsForAnalytics = ['fy', 'agency', 'date'];
+
 export default class TableRow extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -20,10 +22,21 @@ export default class TableRow extends React.PureComponent {
         this.logArchiveDownload = this.logArchiveDownload.bind(this);
     }
 
-    logArchiveDownload() {
+    logArchiveDownload(e, file = this.props.file) {
+        const label = fileFieldsForAnalytics
+            .reduce((acc, key, i, arr) => {
+                const selection = file[key] !== 'N/A'
+                    ? file[key]
+                    : `AllFYs`;
+                if (i === 0) return `${key}_${selection}_`;
+                if (i === arr.length - 1) return `${acc}_${key}_${selection}`;
+                return `${acc}_${key}_${selection}_`;
+            }, '');
+
         Analytics.event({
             category: 'Download Center - Archive Download',
-            action: this.props.file.fileName
+            action: 'File Download',
+            label
         });
     }
 
