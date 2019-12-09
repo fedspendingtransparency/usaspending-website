@@ -57,9 +57,9 @@ const selectedValueByFilterType = {
     accountLevel: (string) => startCase(string),
     budgetFunction: (obj) => startCase(obj.title),
     // eslint-disable-next-line no-confusing-arrow
-    budgetSubfunction: (obj) => obj.id ? startCase(obj.title) : '',
+    budgetSubfunction: (obj) => obj.code ? startCase(obj.title) : 'None Selected',
     // eslint-disable-next-line no-confusing-arrow
-    federalAccount: (obj) => obj.id ? startCase(obj.name) : '',
+    federalAccount: (obj) => obj.id ? startCase(obj.name) : 'None Selected',
     submissionType: (string) => startCase(string),
     timePeriod: (string) => string
 };
