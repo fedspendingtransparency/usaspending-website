@@ -22,6 +22,9 @@
             }
           }
         }
+        .award-overview-column__spacing {
+          padding: 0 rem(15);
+        }
         // header
         .award-viz__heading {
             @include display(flex);
@@ -38,7 +41,6 @@
         // body
         .award-overview__body {
             @include flex(1 1 auto);
-            padding: 0 rem(10);
             @include media($medium-screen) {
                 @include flex(0 0 25%);
             }
