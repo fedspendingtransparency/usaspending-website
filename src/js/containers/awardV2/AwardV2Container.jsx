@@ -73,7 +73,6 @@ export class AwardContainer extends React.Component {
         if (this.awardRequest) {
             this.awardRequest.cancel();
         }
-        // this.checkForSubAwardClick();
     }
 
     getSelectedAward(id) {
