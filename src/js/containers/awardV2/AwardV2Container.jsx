@@ -33,7 +33,6 @@ require('pages/awardV2/awardPage.scss');
 
 const propTypes = {
     setAward: PropTypes.func,
-    handleDownloadRequest: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
@@ -67,7 +66,6 @@ export class AwardContainer extends React.Component {
     componentDidUpdate(prevProps) {
         if (this.props.params.awardId !== prevProps.params.awardId) {
             this.getSelectedAward(this.props.params.awardId);
-            this.checkForSubAwardClick();
         }
     }
 
@@ -181,8 +179,6 @@ export class AwardContainer extends React.Component {
             this.downloadRequest = null;
         }
     }
-
-
 
     render() {
         let content = null;

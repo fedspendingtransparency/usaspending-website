@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import { awardTypeCodes } from 'dataMapping/search/awardType';
 import { Glossary } from '../../sharedComponents/icons/Icons';
