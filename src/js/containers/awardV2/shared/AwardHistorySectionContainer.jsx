@@ -43,13 +43,21 @@ export class AwardHistory extends React.Component {
         // watch the window for size changes
         window.addEventListener('resize', this.setTableWidth);
         this.setTableTabsAndGetCounts();
+        if (this.props.searchSubAwardTableClicked) {
+            this.props.jumpToSubAwardHistoryTable();
+            this.props.updateSubAwardTable(false);
+        }
     }
 
     componentDidUpdate(prevProps) {
+        const {
+            overview,
+            setActiveTab
+        } = this.props;
         // check award changed
-        if (this.props.overview.generatedId !== prevProps.overview.generatedId) {
+        if (overview.generatedId !== prevProps.overview.generatedId) {
             // reset the tab
-            this.props.setActiveTab('transaction');
+            setActiveTab('transaction');
             this.setTableTabsAndGetCounts();
         }
     }

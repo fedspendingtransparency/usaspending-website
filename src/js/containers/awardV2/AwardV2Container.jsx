@@ -18,6 +18,7 @@ import {
     setDownloadExpectedFile,
     setDownloadExpectedUrl
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
+import { updateSubAwardTable } from 'redux/actions/search/searchSubAwardTableActions';
 
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import BaseIdv from 'models/v2/awardsV2/BaseIdv';
@@ -37,9 +38,11 @@ const propTypes = {
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
+    searchSubAwardTableClicked: PropTypes.bool,
     params: PropTypes.object,
     award: PropTypes.object,
-    isDownloadPending: PropTypes.bool
+    isDownloadPending: PropTypes.bool,
+    updateSubAwardTable: PropTypes.func
 };
 
 export class AwardContainer extends React.Component {
@@ -64,6 +67,7 @@ export class AwardContainer extends React.Component {
     componentDidUpdate(prevProps) {
         if (this.props.params.awardId !== prevProps.params.awardId) {
             this.getSelectedAward(this.props.params.awardId);
+            this.checkForSubAwardClick();
         }
     }
 
@@ -71,6 +75,7 @@ export class AwardContainer extends React.Component {
         if (this.awardRequest) {
             this.awardRequest.cancel();
         }
+        // this.checkForSubAwardClick();
     }
 
     getSelectedAward(id) {
@@ -177,6 +182,8 @@ export class AwardContainer extends React.Component {
         }
     }
 
+
+
     render() {
         let content = null;
         if (!this.state.inFlight) {
@@ -186,7 +193,9 @@ export class AwardContainer extends React.Component {
                     downloadData={this.downloadData}
                     awardId={this.props.params.awardId}
                     award={this.props.award}
-                    noAward={this.state.noAward} />
+                    noAward={this.state.noAward}
+                    searchSubAwardTableClicked={this.props.searchSubAwardTableClicked}
+                    updateSubAwardTable={this.props.updateSubAwardTable} />
             );
         }
         return content;
@@ -196,12 +205,17 @@ export class AwardContainer extends React.Component {
 AwardContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.awardV2, isDownloadPending: state.bulkDownload.download.pendingDownload }),
+    (state) => ({
+        award: state.awardV2,
+        isDownloadPending: state.bulkDownload.download.pendingDownload,
+        searchSubAwardTableClicked: state.searchSubAwardTable.subAwardIDClicked
+    }),
     (dispatch) => bindActionCreators({
         setDownloadExpectedUrl,
         setDownloadExpectedFile,
         setDownloadPending,
         setDownloadCollapsed,
+        updateSubAwardTable,
         setAward
     }, dispatch)
 )(AwardContainer);

@@ -50,7 +50,9 @@ export const AWARD_PAGE_WRAPPER_PROPS = {
     glossaryLink: PropTypes.string,
     overviewType: PropTypes.string,
     identifier: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-    children: PropTypes.node
+    children: PropTypes.node,
+    searchSubAwardTableClicked: PropTypes.bool,
+    jumpToSubAwardHistoryTable: PropTypes.func
 };
 
 export const AWARD_SECTION_HEADER_PROPS = {

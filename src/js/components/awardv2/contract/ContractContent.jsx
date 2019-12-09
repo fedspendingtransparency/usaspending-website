@@ -3,7 +3,7 @@
  * Created by David Trinh 10/9/2018
  **/
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
@@ -25,16 +25,21 @@ const propTypes = {
     awardId: PropTypes.string,
     overview: PropTypes.object,
     jumpToSection: PropTypes.func,
-    counts: PropTypes.object
+    counts: PropTypes.object,
+    searchSubAwardTableClicked: PropTypes.bool,
+    updateSubAwardTable: PropTypes.func
 };
 
 const ContractContent = ({
     awardId,
     overview,
     jumpToSection,
-    counts
+    counts,
+    searchSubAwardTableClicked,
+    updateSubAwardTable
 }) => {
     const [activeTab, setActiveTab] = useState('transaction');
+
     const glossarySlug = glossaryLinks[overview.type];
     const glossaryLink = glossarySlug
         ? `/#/award/${awardId}?glossary=${glossarySlug}`
@@ -56,6 +61,17 @@ const ContractContent = ({
         setActiveTab('subaward');
         jumpToSection("award-history");
     };
+
+    useEffect(() => {
+        if (searchSubAwardTableClicked) {
+            jumpToSubAwardHistoryTable();
+        }
+    });
+    useEffect(() => {
+        if (searchSubAwardTableClicked) {
+            setTimeout(() => updateSubAwardTable(false), 1000);
+        }
+    });
 
     return (
         <AwardPageWrapper
@@ -93,7 +109,11 @@ const ContractContent = ({
                 <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} awardType={overview.category} />
             </AwardSection>
             <AwardSection className="award-history-section" type="row">
-                <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
+                <AwardHistory
+                    awardId={awardId}
+                    overview={overview}
+                    setActiveTab={setActiveTab}
+                    activeTab={activeTab} />
             </AwardSection>
             <AdditionalInfo overview={overview} />
         </AwardPageWrapper>

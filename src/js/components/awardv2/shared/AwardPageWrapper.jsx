@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { awardTypeCodes } from 'dataMapping/search/awardType';
 import { Glossary } from '../../sharedComponents/icons/Icons';
@@ -17,6 +17,7 @@ const AwardPageWrapper = ({
     const glossaryTitleText = awardTypeCodes[overviewType] ?
         `View glossary definition of ${awardTypeCodes[overviewType]}` :
         'View glossary definition';
+
     return (
         <div className={`award award-${awardType}`}>
             <div className="award__heading">
