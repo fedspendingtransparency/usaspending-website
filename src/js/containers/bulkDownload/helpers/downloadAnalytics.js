@@ -2,7 +2,7 @@
  * downloadAnalytics.js
  * Created by Kevin Li 2/8/18
  */
-import { startCase } from 'lodash';
+import { startCase, camelCase } from 'lodash';
 import Analytics from 'helpers/analytics/Analytics';
 
 const categoryPrefix = 'Download Center - Download';
@@ -39,21 +39,21 @@ export const logSingleDownloadField = (type, name, value) => {
 const selectedValueByFilterType = {
     awardLevels: (obj) => Object.keys(obj)
         .map((key) => startCase(key))
-        .find((key) => obj[key] === true),
+        .find((key) => obj[camelCase(key)] === true),
     awardTypes: (obj) => Object.keys(obj)
         .filter((key) => obj[key] === true)
         .map((key) => startCase(key))
         .join(", "),
-    agency: (obj) => obj.name,
+    agency: (obj) => startCase(obj.name),
     // eslint-disable-next-line no-confusing-arrow
-    subAgency: (obj) => obj.id !== "" ? obj.name : '',
+    subAgency: (obj) => obj.id !== "" ? startCase(obj.name) : '',
     // eslint-disable-next-line no-confusing-arrow
     location: (obj) => obj.state.code !== ""
         ? `${obj.country.name}, ${obj.state.name}`
         : obj.country.name,
     dateType: (string) => startCase(string),
     dateRange: (obj) => convertDateRange(obj),
-    fileFormat: (string) => startCase(string),
+    fileFormat: (string) => string.toLowerCase(),
     accountLevel: (string) => startCase(string),
     budgetFunction: (obj) => startCase(obj.title),
     // eslint-disable-next-line no-confusing-arrow
