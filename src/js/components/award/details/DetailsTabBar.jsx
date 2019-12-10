@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import Analytics from 'helpers/analytics/Analytics';
 
 import DetailsTabItem from './DetailsTabItem';
 
@@ -16,12 +17,24 @@ const propTypes = {
 
 export default class DetailsTabBar extends React.Component {
     render() {
-        const tabs = this.props.tabOptions.map((tab) => (
-            <DetailsTabItem
-                {...tab}
-                active={tab.internal === this.props.activeTab}
-                clickTab={this.props.clickTab}
-                key={tab.internal} />));
+        const tabs = this.props.tabOptions.map((tab) => {
+            const onClick = tab.internal === 'subaward' 
+                ? () => {
+                    Analytics.event({
+                        category: 'Award Page',
+                        action: 'Subaward Table'
+                    });
+                    this.props.clickTab();
+                }
+                : this.props.clickTab;
+            return (
+                <DetailsTabItem
+                    {...tab}
+                    active={tab.internal === this.props.activeTab}
+                    clickTab={onClick}
+                    key={tab.internal} />
+            );
+        });
 
         return (
             <div className="table-types">
