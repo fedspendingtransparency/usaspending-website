@@ -11,13 +11,13 @@ import { generatePercentage } from 'helpers/awardAmountHelper';
 
 import { useTooltips } from "./AwardAmountsChart";
 
-import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
+import { AWARD_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
 
 
 const propTypes = {
     awardType: PropTypes.string,
-    awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
+    awardAmounts: AWARD_AGGREGATED_AMOUNTS_PROPS,
     subsidyTooltipProps: TOOLTIP_PROPS,
     faceValueTooltipProps: TOOLTIP_PROPS
 };

@@ -10,13 +10,13 @@ import { TooltipWrapper } from "data-transparency-ui";
 import { generatePercentage } from 'helpers/awardAmountHelper';
 
 import { useTooltips } from "./AwardAmountsChart";
-import { AWARD_V2_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
+import { AWARD_AGGREGATED_AMOUNTS_PROPS, TOOLTIP_PROPS } from '../../../../../propTypes/index';
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
 
 
 const propTypes = {
     awardType: PropTypes.string,
-    awardAmounts: AWARD_V2_AGGREGATED_AMOUNTS_PROPS,
+    awardAmounts: AWARD_AGGREGATED_AMOUNTS_PROPS,
     obligatedTooltipProps: TOOLTIP_PROPS,
     nonFederalFundingTooltipProps: TOOLTIP_PROPS,
     totalFundingTooltipProps: TOOLTIP_PROPS

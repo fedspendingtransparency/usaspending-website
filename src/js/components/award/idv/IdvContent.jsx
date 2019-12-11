@@ -17,14 +17,14 @@ import AwardDescription from '../shared/description/AwardDescription';
 import AwardAmounts from './amounts/AwardAmounts';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
-import { AWARD_V2_OVERVIEW_PROPS, AWARD_V2_COUNTS_PROPS } from '../../../propTypes';
+import { AWARD_OVERVIEW_PROPS, AWARD_COUNTS_PROPS } from '../../../propTypes';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
 
 const propTypes = {
     awardId: PropTypes.string,
-    counts: AWARD_V2_COUNTS_PROPS,
-    overview: AWARD_V2_OVERVIEW_PROPS,
+    counts: AWARD_COUNTS_PROPS,
+    overview: AWARD_OVERVIEW_PROPS,
     jumpToSection: PropTypes.func
 };
 
