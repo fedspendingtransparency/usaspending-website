@@ -15,7 +15,7 @@ import * as awardActions from 'redux/actions/awardV2/awardActions';
 
 import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
 import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
-import TransactionsTable from 'components/award/table/TransactionsTable';
+import TransactionsTable from 'components/awardv2/table/TransactionsTable';
 
 const propTypes = {
     award: PropTypes.object,
