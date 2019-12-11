@@ -13,7 +13,7 @@ import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccoun
 import SubawardsContainer from 'containers/awardV2/table/SubawardsContainer';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
-import DetailsTabBar from 'components/award/details/DetailsTabBar';
+import DetailsTabBar from 'components/awardv2/table/DetailsTabBar';
 import AwardSectionHeader from 'components/awardv2/shared/AwardSectionHeader';
 
 import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
