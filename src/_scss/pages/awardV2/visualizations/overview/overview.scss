@@ -13,7 +13,7 @@
         .award-overview-column {
           @include flex(0 0 100%);
           @include media($tablet-screen) {
-              @include flex(0 0 50%);
+              @include flex(1 0 45%);
           }
           &.first {
             padding-bottom: rem(30);
@@ -37,6 +37,7 @@
         .award-overview-title {
             font-size: rem(16);
             margin-top: 0;
+            align-items: center;
         }
         // body
         .award-overview__body {
