@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 const AwardingAgency = ({ awardingAgency }) => (
-    <AwardSection className="award-overview__left-section__awarding award-overview-column first award-overview-column__spacing">
+    <AwardSection className="award-overview__left-section__awarding award-overview-column first">
         <h6 className="award-overview-title">Awarding Agency</h6>
         <h5 className="award-overview__left-section__agency-name">
             <a href={`/#/agency/${awardingAgency.id}`}>
