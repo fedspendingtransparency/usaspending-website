@@ -81,7 +81,7 @@ export default class FedAccountTable extends React.Component {
         const isLast = columnIndex === this.tableMapping.table._order.length - 1;
         let link;
         if (column === 'id') {
-            link = item.awardId ? `#/award/${item.awardId}` : null;
+            link = item.generatedId ? `#/award/${item.generatedId}` : null;
         }
         if (column === 'agency') {
             link = item.fundingAgencyId ? `#/agency/${item.fundingAgencyId}` : null;
