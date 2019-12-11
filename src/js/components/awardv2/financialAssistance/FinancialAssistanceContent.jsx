@@ -27,7 +27,7 @@ const propTypes = {
     awardId: PropTypes.string,
     overview: PropTypes.object,
     jumpToSection: PropTypes.func,
-    searchSubAwardTableClicked: PropTypes.bool,
+    subAwardIDClicked: PropTypes.bool,
     updateSubAwardTable: PropTypes.func
 };
 
@@ -35,7 +35,7 @@ const FinancialAssistanceContent = ({
     awardId,
     overview = { generatedId: '' },
     jumpToSection,
-    searchSubAwardTableClicked,
+    subAwardIDClicked,
     updateSubAwardTable
 }) => {
     const [activeTab, setActiveTab] = useState("transaction");
@@ -60,13 +60,9 @@ const FinancialAssistanceContent = ({
     };
 
     useEffect(() => {
-        if (searchSubAwardTableClicked) {
+        if (subAwardIDClicked && overview.type === '05') {
             jumpToSubAwardHistoryTable();
-        }
-    });
-    useEffect(() => {
-        if (searchSubAwardTableClicked) {
-            setTimeout(() => updateSubAwardTable(false), 1000);
+            updateSubAwardTable(false);
         }
     });
 
@@ -103,7 +99,10 @@ const FinancialAssistanceContent = ({
                     awardType={overview.category}
                     awardOverview={awardAmountData}
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
-                <AwardDescription description={overview.description} awardType={overview.category} awardId={awardId} />
+                <AwardDescription
+                    description={overview.description}
+                    awardType={overview.category}
+                    awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
                 {isGrant && (
@@ -116,7 +115,9 @@ const FinancialAssistanceContent = ({
                 {!isGrant && (
                     <CFDASection data={overview.biggestCfda} />
                 )}
-                <FederalAccountsSection awardType={overview.category} jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                <FederalAccountsSection
+                    awardType={overview.category}
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             {isGrant && (
                 <AwardSection type="row">

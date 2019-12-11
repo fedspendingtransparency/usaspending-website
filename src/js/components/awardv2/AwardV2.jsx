@@ -30,7 +30,7 @@ const propTypes = {
         hideModal: PropTypes.func
     }),
     isDownloadPending: PropTypes.bool,
-    searchSubAwardTableClicked: PropTypes.bool,
+    subAwardIDClicked: PropTypes.bool,
     updateSubAwardTable: PropTypes.func
 };
 
@@ -107,7 +107,7 @@ export default class Award extends React.Component {
                         overview={overview}
                         counts={{ subawardCount: overview.subawardCount }}
                         jumpToSection={this.jumpToSection}
-                        searchSubAwardTableClicked={this.props.searchSubAwardTableClicked}
+                        subAwardIDClicked={this.props.subAwardIDClicked}
                         updateSubAwardTable={this.props.updateSubAwardTable} />
                 );
             }
@@ -126,7 +126,7 @@ export default class Award extends React.Component {
                         awardId={awardId}
                         overview={overview}
                         jumpToSection={this.jumpToSection}
-                        searchSubAwardTableClicked={this.props.searchSubAwardTableClicked}
+                        subAwardIDClicked={this.props.subAwardIDClicked}
                         updateSubAwardTable={this.props.updateSubAwardTable} />
                 );
             }

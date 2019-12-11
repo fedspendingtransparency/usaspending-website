@@ -10,7 +10,7 @@ const initialState = {
 
 const searchSubAwardTableReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'UPDATE_SUB_AWARD_CLICK':
+        case 'SUBAWARD_ID_CLICKED':
             return Object.assign({}, state, {
                 subAwardIDClicked: action.value
             });

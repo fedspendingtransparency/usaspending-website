@@ -11,7 +11,7 @@ import { isCancel } from 'axios';
 import { uniqueId, intersection } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
-import * as searchSubAwardTableActions from 'redux/actions/search/searchSubAwardTableActions';
+import { updateSubAwardTable } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -479,7 +479,7 @@ export default connect(
             {},
             searchActions,
             appliedFilterActions,
-            searchSubAwardTableActions
+            { updateSubAwardTable }
         ),
         dispatch
     )

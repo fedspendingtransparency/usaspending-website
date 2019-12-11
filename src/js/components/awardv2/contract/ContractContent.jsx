@@ -26,7 +26,7 @@ const propTypes = {
     overview: PropTypes.object,
     jumpToSection: PropTypes.func,
     counts: PropTypes.object,
-    searchSubAwardTableClicked: PropTypes.bool,
+    subAwardIDClicked: PropTypes.bool,
     updateSubAwardTable: PropTypes.func
 };
 
@@ -35,7 +35,7 @@ const ContractContent = ({
     overview,
     jumpToSection,
     counts,
-    searchSubAwardTableClicked,
+    subAwardIDClicked,
     updateSubAwardTable
 }) => {
     const [activeTab, setActiveTab] = useState('transaction');
@@ -63,13 +63,9 @@ const ContractContent = ({
     };
 
     useEffect(() => {
-        if (searchSubAwardTableClicked) {
+        if (subAwardIDClicked) {
             jumpToSubAwardHistoryTable();
-        }
-    });
-    useEffect(() => {
-        if (searchSubAwardTableClicked) {
-            setTimeout(() => updateSubAwardTable(false), 1000);
+            updateSubAwardTable(false);
         }
     });
 
@@ -97,7 +93,12 @@ const ContractContent = ({
                     awardType={overview.category}
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
                     awardOverview={awardAmountData} />
-                <AwardDescription awardId={awardId} awardType={overview.category} description={overview.description} naics={overview.naics} psc={overview.psc} />
+                <AwardDescription
+                    awardId={awardId}
+                    awardType={overview.category}
+                    description={overview.description}
+                    naics={overview.naics}
+                    psc={overview.psc} />
             </AwardSection>
             <AwardSection className="award-contract-activity-section" type="row">
                 <ComingSoonSection
@@ -106,7 +107,9 @@ const ContractContent = ({
                     title="Contract Activity"
                     includeHeader
                     icon="chart-area" />
-                <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} awardType={overview.category} />
+                <FederalAccountsSection
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
+                    awardType={overview.category} />
             </AwardSection>
             <AwardSection className="award-history-section" type="row">
                 <AwardHistory

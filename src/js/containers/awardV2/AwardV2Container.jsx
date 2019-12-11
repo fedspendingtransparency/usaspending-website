@@ -37,7 +37,7 @@ const propTypes = {
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
-    searchSubAwardTableClicked: PropTypes.bool,
+    subAwardIDClicked: PropTypes.bool,
     params: PropTypes.object,
     award: PropTypes.object,
     isDownloadPending: PropTypes.bool,
@@ -189,7 +189,7 @@ export class AwardContainer extends React.Component {
                     awardId={this.props.params.awardId}
                     award={this.props.award}
                     noAward={this.state.noAward}
-                    searchSubAwardTableClicked={this.props.searchSubAwardTableClicked}
+                    subAwardIDClicked={this.props.subAwardIDClicked}
                     updateSubAwardTable={this.props.updateSubAwardTable} />
             );
         }
@@ -203,7 +203,7 @@ export default connect(
     (state) => ({
         award: state.awardV2,
         isDownloadPending: state.bulkDownload.download.pendingDownload,
-        searchSubAwardTableClicked: state.searchSubAwardTable.subAwardIDClicked
+        subAwardIDClicked: state.searchSubAwardTable.subAwardIDClicked
     }),
     (dispatch) => bindActionCreators({
         setDownloadExpectedUrl,

@@ -51,7 +51,7 @@ export const AWARD_PAGE_WRAPPER_PROPS = {
     overviewType: PropTypes.string,
     identifier: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     children: PropTypes.node,
-    searchSubAwardTableClicked: PropTypes.bool,
+    subAwardIdClicked: PropTypes.bool,
     jumpToSubAwardHistoryTable: PropTypes.func
 };
 

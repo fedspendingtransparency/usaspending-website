@@ -5,6 +5,6 @@
 
 // eslint-disable-next-line import/prefer-default-export
 export const updateSubAwardTable = (clicked) => ({
-    type: 'UPDATE_SUB_AWARD_CLICK',
+    type: 'SUBAWARD_ID_CLICKED',
     value: clicked
 });

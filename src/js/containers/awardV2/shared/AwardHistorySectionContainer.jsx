@@ -33,8 +33,6 @@ export class AwardHistory extends React.Component {
             tableWidth: 0
         };
         this.countRequest = null;
-        this.setTableWidth = this.setTableWidth.bind(this);
-        this.currentSection = this.currentSection.bind(this);
     }
 
     componentDidMount() {
@@ -46,14 +44,10 @@ export class AwardHistory extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const {
-            overview,
-            setActiveTab
-        } = this.props;
+        const { overview } = this.props;
         // check award changed
         if (overview.generatedId !== prevProps.overview.generatedId) {
             // reset the tab
-            setActiveTab('transaction');
             this.setTableTabsAndGetCounts();
         }
     }
@@ -63,7 +57,7 @@ export class AwardHistory extends React.Component {
         window.removeEventListener('resize', this.setTableWidth);
     }
 
-    setTableWidth() {
+    setTableWidth = () => {
         if (!this.tableWidthController) return;
         const tableWidth = this.tableWidthController.clientWidth - 2;
         this.setState({ tableWidth });
@@ -106,12 +100,12 @@ export class AwardHistory extends React.Component {
             });
     }
 
-    currentSection(
+    currentSection = (
         activeTab = this.props.activeTab,
         overview = this.props.overview,
         tableWidth = this.state.tableWidth,
         awardId = this.props.awardId
-    ) {
+    ) => {
         switch (activeTab) {
             case 'transaction':
                 return (
