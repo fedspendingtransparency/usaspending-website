@@ -6,15 +6,14 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { TransactionsTableContainer } from
-    'containers/award/table/TransactionsTableContainer';
-
-import mockContractTransaction from '../../award//table/mockContractTransaction';
-
 import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
+import { TransactionsTableContainer } from 'containers/award/table/TransactionsTableContainer';
+
+import mockContractTransaction from '../mockContractTransaction';
+
 
 // mock the search helper
-jest.mock('helpers/searchHelper', () => require('../../award/table/mockSearchHelper'));
+jest.mock('helpers/searchHelper', () => require('../mockSearchHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/award/table/TransactionsTable', () =>

@@ -19,7 +19,6 @@ jest.mock("helpers/downloadHelper", () => require("./awardHelper"));
 
 // mock the child components by replacing them with functions that return null elements
 jest.mock('components/award/award', () => jest.fn(() => null));
-jest.mock('containers/award/AwardContainer', () => jest.fn(() => null));
 
 const getAwardContainer = (params = mockParams) => shallow(<AwardContainer
     {...params}
