@@ -15,7 +15,8 @@
           @include flex(0 0 auto);
           width: 100%;
           @include media($tablet-screen) {
-              @include flex(1 0 45%);
+              // IE offset for padding in .award-overview-column__spacing not :face-palm:
+              @include flex(0 0 47%);
           }
           &.first {
             padding-bottom: rem(30);
@@ -25,7 +26,11 @@
           }
         }
         .award-overview-column__spacing {
-          padding: 0 rem(15);
+          @include media($tablet-screen) {
+            &:nth-child(odd) {
+              padding-right: rem(15);
+            }
+          }
         }
         // header
         .award-viz__heading {
