@@ -9,16 +9,12 @@ import { mount, shallow } from 'enzyme';
 import { TransactionsTableContainer } from
     'containers/award/table/TransactionsTableContainer';
 
-import mockContractTransaction from './mockContractTransaction';
-import mockGrantTransaction from './mockGrantTransaction';
-import mockLoanTransaction from './mockLoanTransaction';
+import mockContractTransaction from '../../award//table/mockContractTransaction';
 
-import BaseAssistanceTransaction from 'models/v2/awards/transactions/BaseAssistanceTransaction';
 import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
-import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
 
 // mock the search helper
-jest.mock('helpers/searchHelper', () => require('./mockSearchHelper'));
+jest.mock('helpers/searchHelper', () => require('../../award/table/mockSearchHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/award/table/TransactionsTable', () =>
@@ -29,12 +25,14 @@ jest.mock('components/award/table/TransactionsTable', () =>
 global.Promise = require.requireActual('promise');
 
 const mockRedux = {
-    award: {
-        selectedAward: {
-            internalId: 1
+    award:
+    {
+        id: '2342342',
+        category: 'idv',
+        overview: {
+            generatedId: '2342342'
         }
-    },
-    category: 'contract'
+    }
 };
 
 describe('TransactionsTableContainer-test', () => {
@@ -48,9 +46,7 @@ describe('TransactionsTableContainer-test', () => {
 
         container.setProps({
             award: {
-                selectedAward: {
-                    internalId: 2
-                }
+                id: '22'
             }
         });
 
@@ -58,63 +54,8 @@ describe('TransactionsTableContainer-test', () => {
         expect(container.instance().fetchTransactions).toHaveBeenCalledWith(1, true);
     });
 
-    describe('formatSort', () => {
-        it('should return the v1 API field name if sorting in ascending order', () => {
-            const container = shallow(
-                <TransactionsTableContainer
-                    {...mockRedux} />
-            );
-
-            container.setState({
-                sort: {
-                    field: 'test',
-                    direction: 'asc'
-                }
-            });
-
-            const output = container.instance().formatSort();
-
-            expect(output).toEqual('test');
-        });
-        it('should return the v1 API field name prepended with a - if in descending order', () => {
-            const container = shallow(
-                <TransactionsTableContainer
-                    {...mockRedux} />
-            );
-
-            container.setState({
-                sort: {
-                    field: 'test',
-                    direction: 'desc'
-                }
-            });
-
-            const output = container.instance().formatSort();
-
-            expect(output).toEqual('-test');
-        });
-    });
-
     describe('parseTransactions', () => {
-        it('should parse the API response into AssistanceTransaction objects for assistance awards', () => {
-            const redux = Object.assign({}, mockRedux, {
-                category: 'grant'
-            });
-
-            const container = shallow(
-                <TransactionsTableContainer
-                    {...redux} />
-            );
-            container.instance().parseTransactions(mockGrantTransaction, true);
-
-            const expectedResult = Object.create(BaseAssistanceTransaction);
-            expectedResult.populate(mockGrantTransaction.results[0]);
-            const actualResult = container.state().transactions[0];
-
-            expect(container.state().transactions.length).toEqual(1);
-            expect(actualResult).toEqual(expectedResult);
-        });
-        it('should parse the API response into ContractTransaction objects for contract awards', () => {
+        it('should parse the API response into ContractTransaction objects for idv awards', () => {
             const redux = Object.assign({}, mockRedux, {
                 category: 'contract'
             });
@@ -132,24 +73,6 @@ describe('TransactionsTableContainer-test', () => {
             expect(container.state().transactions.length).toEqual(1);
             expect(actualResult).toEqual(expectedResult);
         });
-        it('should parse the API response into LoanTransaction objects for loan awards', () => {
-            const redux = Object.assign({}, mockRedux, {
-                category: 'loan'
-            });
-
-            const container = shallow(
-                <TransactionsTableContainer
-                    {...redux} />
-            );
-            container.instance().parseTransactions(mockLoanTransaction, true);
-
-            const expectedResult = Object.create(BaseLoanTransaction);
-            expectedResult.populate(mockLoanTransaction.results[0]);
-            const actualResult = container.state().transactions[0];
-
-            expect(container.state().transactions.length).toEqual(1);
-            expect(actualResult).toEqual(expectedResult);
-        });
         it('should append results to the existing list when reset is false', () => {
             const container = shallow(
                 <TransactionsTableContainer
@@ -161,7 +84,6 @@ describe('TransactionsTableContainer-test', () => {
 
             container.instance().parseTransactions(mockContractTransaction, false);
             expect(container.state().transactions.length).toEqual(2);
-
         });
     });
 
@@ -169,7 +91,7 @@ describe('TransactionsTableContainer-test', () => {
         it('should load the next page of data when available', () => {
             const container = shallow(
                 <TransactionsTableContainer
-                {...mockRedux} />
+                    {...mockRedux} />
             );
 
             container.setState({
@@ -188,7 +110,7 @@ describe('TransactionsTableContainer-test', () => {
         it('should not load more data when it is on the last page', () => {
             const container = shallow(
                 <TransactionsTableContainer
-                {...mockRedux} />
+                    {...mockRedux} />
             );
 
             container.setState({
@@ -206,7 +128,7 @@ describe('TransactionsTableContainer-test', () => {
         it('should not load more data when it there are existing requests in flight', () => {
             const container = shallow(
                 <TransactionsTableContainer
-                {...mockRedux} />
+                    {...mockRedux} />
             );
 
             container.setState({

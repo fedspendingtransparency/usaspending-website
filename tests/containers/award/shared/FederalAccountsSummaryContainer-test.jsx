@@ -7,7 +7,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 
 import BaseFundingRollup from 'models/v2/awardsV2/BaseFundingRollup';
-import { FederalAccountsSummaryContainer } from '../../../../src/js/containers/awardV2/shared/FederalAccountsSummaryContainer';
+import { FederalAccountsSummaryContainer } from '../../../../src/js/containers/award/shared/FederalAccountsSummaryContainer';
 import { mockAwardFundingMetaData } from '../../../models/awardsV2/mockAwardApi';
 
 jest.mock('helpers/idvHelper', () => require('../idv/mockIdvHelper'));

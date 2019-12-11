@@ -6,7 +6,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { ReferencedAwardsContainer } from 'containers/awardV2/idv/ReferencedAwardsContainer';
+import { ReferencedAwardsContainer } from 'containers/award/idv/ReferencedAwardsContainer';
 import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardResult';
 import { mockRedux } from '../mockAward';
 import { mockReferencedAwards } from '../../../models/awardsV2/mockAwardApi';
@@ -14,7 +14,7 @@ import { mockReferencedAwards } from '../../../models/awardsV2/mockAwardApi';
 jest.mock('helpers/idvHelper', () => require('./mockIdvHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/awardv2/idv/referencedAwards/ReferencedAwardsSection', () => jest.fn(() => null));
+jest.mock('components/award/idv/referencedAwards/ReferencedAwardsSection', () => jest.fn(() => null));
 
 describe('ReferencedAwardsContainer', () => {
     it('should call pickDefaultTab onMount', () => {

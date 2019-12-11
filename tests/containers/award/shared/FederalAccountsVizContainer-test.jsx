@@ -6,7 +6,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { FederalAccountsVizContainer } from '../../../../src/js/containers/awardV2/shared/FederalAccountsVizContainer';
+import { FederalAccountsVizContainer } from '../../../../src/js/containers/award/shared/FederalAccountsVizContainer';
 
 jest.mock('helpers/idvHelper', () => require('../idv/mockIdvHelper'));
 

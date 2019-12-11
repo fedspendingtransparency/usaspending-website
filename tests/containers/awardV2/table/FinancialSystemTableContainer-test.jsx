@@ -7,9 +7,9 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { FinancialSystemTableContainer } from
-    'containers/award/table/FinancialSystemTableContainer';
+    './node_modules/containers/award/table/FinancialSystemTableContainer';
 
-import BaseFinancialSystemDetailsRow from "models/v2/awards/financialSystemDetails/BaseFinancialSystemDetailsRow";
+import BaseFinancialSystemDetailsRow from "./node_modules/models/v2/awards/financialSystemDetails/BaseFinancialSystemDetailsRow";
 
 import { mockParams } from '../../award/mockResults';
 import mockFinancialSystemDetails from '../../award/mockFinancialSystemDetails';

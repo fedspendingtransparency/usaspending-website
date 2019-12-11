@@ -6,7 +6,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { IdvAwardAmountsSectionContainer } from 'containers/awardV2/idv/IdvAwardAmountsSectionContainer';
+import { IdvAwardAmountsSectionContainer } from 'containers/award/idv/IdvAwardAmountsSectionContainer';
 
 import { mockRedux, mockActions } from '../mockAward';
 import { mockAwardAmounts } from '../../../models/awardsV2/mockAwardApi';
@@ -14,10 +14,10 @@ import { mockAwardAmounts } from '../../../models/awardsV2/mockAwardApi';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 
 
-jest.mock('helpers/idvHelper', () => require('../awardV2Helper'));
+jest.mock('helpers/idvHelper', () => require('../awardHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/awardv2/idv/amounts/AggregatedAwardAmounts.jsx', () => jest.fn(() => null));
+jest.mock('components/award/idv/amounts/AggregatedAwardAmounts.jsx', () => jest.fn(() => null));
 
 describe('IdvAwardAmountsSectionContainer', () => {
     it('should make an API call for the award amounts on mount', async () => {

@@ -7,7 +7,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { SubawardsContainer } from
-    'containers/awardV2/table/SubawardsContainer';
+    'containers/award/table/SubawardsContainer';
 
 import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
 
@@ -21,7 +21,7 @@ jest.mock('helpers/searchHelper', () => require('../mockSearchHelper'));
 global.Promise = require.requireActual('promise');
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/awardv2/subawards/SubawardsTable', () =>
+jest.mock('components/award/subawards/SubawardsTable', () =>
     jest.fn(() => null));
 
 const mockAward = mockParams.award;

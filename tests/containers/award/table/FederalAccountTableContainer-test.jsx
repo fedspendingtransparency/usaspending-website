@@ -7,7 +7,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { FederalAccountTableContainer } from
-    'containers/awardV2/table/FederalAccountTableContainer';
+    'containers/award/table/FederalAccountTableContainer';
 
 import { mockFederalAccountFunding } from '../../../models/awardsV2/mockAwardApi';
 
@@ -17,7 +17,7 @@ import BaseFederalAccountFunding from 'models/v2/awardsV2/BaseFederalAccountFund
 jest.mock('helpers/idvHelper', () => require('../idv/mockIdvHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/awardv2/table/FederalAccountTable', () =>
+jest.mock('components/award/table/FederalAccountTable', () =>
     jest.fn(() => null));
 
 const mockRedux = {

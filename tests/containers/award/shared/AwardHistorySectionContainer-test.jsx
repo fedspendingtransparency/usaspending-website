@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { AwardHistory } from '../../../../src/js/containers/awardV2/shared/AwardHistorySectionContainer';
+import { AwardHistory } from '../../../../src/js/containers/award/shared/AwardHistorySectionContainer';
 
 jest.mock('helpers/awardHistoryHelper', () => require('./mockAwardHistoryHelper'));
 
