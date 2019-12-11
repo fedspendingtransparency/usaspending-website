@@ -11,7 +11,7 @@ import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader'
 import { find } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
 
-import SummaryBar from './SummaryBarV2';
+import SummaryBar from './SummaryBar';
 import ContractContent from './contract/ContractContent';
 import IdvContent from './idv/IdvContent';
 import FinancialAssistanceContent from './financialAssistance/FinancialAssistanceContent';
