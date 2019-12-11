@@ -6,10 +6,10 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import ReferencedAwardsContainer from 'containers/awardV2/idv/ReferencedAwardsContainer';
-import IdvActivityContainer from 'containers/awardV2/idv/IdvActivityContainer';
+import ReferencedAwardsContainer from 'containers/award/idv/ReferencedAwardsContainer';
+import IdvActivityContainer from 'containers/award/idv/IdvActivityContainer';
 import { glossaryLinks } from 'dataMapping/search/awardType';
-import AwardHistory from 'containers/awardV2/shared/AwardHistorySectionContainer';
+import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
 
 import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSection';
 import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';

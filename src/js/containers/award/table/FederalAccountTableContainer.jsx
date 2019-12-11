@@ -11,10 +11,10 @@ import { isCancel } from 'axios';
 import { uniqueId } from 'lodash';
 
 import * as IdvHelper from 'helpers/idvHelper';
-import * as awardActions from 'redux/actions/awardV2/awardActions';
+import * as awardActions from 'redux/actions/award/awardActions';
 
 import BaseFederalAccountFunding from 'models/v2/awardsV2/BaseFederalAccountFunding';
-import FederalAccountTable from 'components/awardv2/table/FederalAccountTable';
+import FederalAccountTable from 'components/award/table/FederalAccountTable';
 import { fetchFederalAccountFunding } from '../../../helpers/awardHistoryHelper';
 
 const propTypes = {
@@ -180,6 +180,6 @@ export class FederalAccountTableContainer extends React.Component {
 FederalAccountTableContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.awardV2 }),
+    (state) => ({ award: state.award }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
 )(FederalAccountTableContainer);

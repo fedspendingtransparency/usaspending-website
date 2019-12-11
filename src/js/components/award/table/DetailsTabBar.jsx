@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import DetailsTabItem from '../../award/details/DetailsTabItem';
+import DetailsTabItem from './DetailsTabItem';
 
 const propTypes = {
     activeTab: PropTypes.string,

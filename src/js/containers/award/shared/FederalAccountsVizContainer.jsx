@@ -11,7 +11,7 @@ import { isCancel } from 'axios';
 import { fetchIdvFederalAccounts } from 'helpers/idvHelper';
 import { fetchAwardFederalAccounts } from 'helpers/awardSummaryHelper';
 import BaseFederalAccount from 'models/v2/awardsV2/BaseFederalAccount';
-import FederalAccountsViz from 'components/awardv2/shared/federalAccounts/FederalAccountsViz';
+import FederalAccountsViz from 'components/award/shared/federalAccounts/FederalAccountsViz';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -141,9 +141,9 @@ export class FederalAccountsVizContainer extends React.Component {
 FederalAccountsVizContainer.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-    awardId: state.awardV2.id,
-    category: state.awardV2.category,
-    totalTransactionObligatedAmount: state.awardV2.totalTransactionObligatedAmount
+    awardId: state.award.id,
+    category: state.award.category,
+    totalTransactionObligatedAmount: state.award.totalTransactionObligatedAmount
 });
 
 export default connect(mapStateToProps, null)(FederalAccountsVizContainer);

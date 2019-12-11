@@ -11,11 +11,11 @@ import { isCancel } from 'axios';
 import { uniqueId } from 'lodash';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as awardActions from 'redux/actions/awardV2/awardActions';
+import * as awardActions from 'redux/actions/award/awardActions';
 
 import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
 import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
-import TransactionsTable from 'components/awardv2/table/TransactionsTable';
+import TransactionsTable from 'components/award/table/TransactionsTable';
 
 const propTypes = {
     award: PropTypes.object,
@@ -168,6 +168,6 @@ export class TransactionsTableContainer extends React.Component {
 TransactionsTableContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.awardV2 }),
+    (state) => ({ award: state.award }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
 )(TransactionsTableContainer);

@@ -10,9 +10,9 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import * as IdvHelper from 'helpers/idvHelper';
-import * as awardActions from 'redux/actions/awardV2/awardActions';
+import * as awardActions from 'redux/actions/award/awardActions';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
-import AggregatedAwardAmounts from 'components/awardv2/idv/amounts/AggregatedAwardAmounts';
+import AggregatedAwardAmounts from 'components/award/idv/amounts/AggregatedAwardAmounts';
 
 const propTypes = {
     award: PropTypes.object,
@@ -115,6 +115,6 @@ export class IdvAmountsContainer extends React.Component {
 IdvAmountsContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.awardV2 }),
+    (state) => ({ award: state.award }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
 )(IdvAmountsContainer);

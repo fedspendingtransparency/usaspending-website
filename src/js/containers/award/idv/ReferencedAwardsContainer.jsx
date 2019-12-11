@@ -11,7 +11,7 @@ import { isEqual, pick, findKey } from 'lodash';
 
 import * as IdvHelper from 'helpers/idvHelper';
 import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardResult';
-import ReferencedAwardsSection from 'components/awardv2/idv/referencedAwards/ReferencedAwardsSection';
+import ReferencedAwardsSection from 'components/award/idv/referencedAwards/ReferencedAwardsSection';
 
 const propTypes = {
     award: PropTypes.object,
@@ -214,6 +214,6 @@ ReferencedAwardsContainer.defaultProps = defaultProps;
 
 export default connect(
     (state) => ({
-        award: state.awardV2
+        award: state.award
     })
 )(ReferencedAwardsContainer);

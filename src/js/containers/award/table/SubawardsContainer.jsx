@@ -15,7 +15,7 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
 
-import SubawardsTable from 'components/awardv2/subawards/SubawardsTable';
+import SubawardsTable from 'components/award/subawards/SubawardsTable';
 
 const propTypes = {
     award: PropTypes.object,
@@ -172,7 +172,7 @@ SubawardsContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        award: state.awardV2
+        award: state.award
     }),
     (dispatch) => bindActionCreators(awardActions, dispatch)
 )(SubawardsContainer);

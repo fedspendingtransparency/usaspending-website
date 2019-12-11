@@ -7,10 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import FederalAccountsVizContainer from 'containers/awardV2/shared/FederalAccountsVizContainer';
+import FederalAccountsVizContainer from 'containers/award/shared/FederalAccountsVizContainer';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 // eslint-disable-next-line max-len
-import FederalAccountsSummaryContainer from 'containers/awardV2/shared/FederalAccountsSummaryContainer';
+import FederalAccountsSummaryContainer from 'containers/award/shared/FederalAccountsSummaryContainer';
 import Note from 'components/sharedComponents/Note';
 
 import AwardSection from '../AwardSection';

@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
-import Award from 'components/awardv2/AwardV2';
+import Award from 'components/award/Award';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import { setAward } from 'redux/actions/awardV2/awardActions';
+import { setAward } from 'redux/actions/award/awardActions';
 import {
     setDownloadCollapsed,
     setDownloadPending,
@@ -28,7 +28,7 @@ import {
     fetchAssistanceDownloadFile
 } from '../../helpers/downloadHelper';
 
-require('pages/awardV2/awardPage.scss');
+require('pages/award/awardPage.scss');
 
 const propTypes = {
     setAward: PropTypes.func,
@@ -196,7 +196,7 @@ export class AwardContainer extends React.Component {
 AwardContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.awardV2, isDownloadPending: state.bulkDownload.download.pendingDownload }),
+    (state) => ({ award: state.award, isDownloadPending: state.bulkDownload.download.pendingDownload }),
     (dispatch) => bindActionCreators({
         setDownloadExpectedUrl,
         setDownloadExpectedFile,

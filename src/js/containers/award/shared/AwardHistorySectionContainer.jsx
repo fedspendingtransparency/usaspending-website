@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 
 import { tabs, awardTypesWithSubawards } from 'dataMapping/awardsv2/awardHistorySection';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
-import TransactionsTableContainer from 'containers/awardV2/table/TransactionsTableContainer';
-import FederalAccountTableContainer from 'containers/awardV2/table/FederalAccountTableContainer';
-import SubawardsContainer from 'containers/awardV2/table/SubawardsContainer';
+import TransactionsTableContainer from 'containers/award/table/TransactionsTableContainer';
+import FederalAccountTableContainer from 'containers/award/table/FederalAccountTableContainer';
+import SubawardsContainer from 'containers/award/table/SubawardsContainer';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
-import DetailsTabBar from 'components/awardv2/table/DetailsTabBar';
-import AwardSectionHeader from 'components/awardv2/shared/AwardSectionHeader';
+import DetailsTabBar from 'components/award/table/DetailsTabBar';
+import AwardSectionHeader from 'components/award/shared/AwardSectionHeader';
 
 import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
 

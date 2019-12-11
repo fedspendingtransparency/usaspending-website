@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
-import AwardHistory from 'containers/awardV2/shared/AwardHistorySectionContainer';
+import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
 
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';

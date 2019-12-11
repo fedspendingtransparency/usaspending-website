@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import { fetchIdvActivity } from 'helpers/idvHelper';
-import IdvActivity from 'components/awardv2/idv/activity/IdvActivity';
+import IdvActivity from 'components/award/idv/activity/IdvActivity';
 import BaseIdvActivityBar from 'models/v2/awardsV2/BaseIdvActivityBar';
 
 const propTypes = {
@@ -137,7 +137,7 @@ export class IdvActivityContainer extends React.Component {
 IdvActivityContainer.propTypes = propTypes;
 
 const mapStateToProps = (state) => ({
-    awardId: state.awardV2.id
+    awardId: state.award.id
 });
 
 export default connect(mapStateToProps, null)(IdvActivityContainer);

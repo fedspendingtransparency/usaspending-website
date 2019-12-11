@@ -15,7 +15,7 @@ import contractMapping from 'dataMapping/contracts/transactionTable';
 import assistanceMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
 
-import TransactionTableHeaderCell from '../../award/table/cells/TransactionTableHeaderCell';
+import TransactionTableHeaderCell from './cells/TransactionTableHeaderCell';
 import TransactionTableGenericCell from './cells/TransactionTableGenericCell';
 import ResultsTableNoResults from '../../search/table/ResultsTableNoResults';
 import ResultsTableErrorMessage from '../../search/table/ResultsTableErrorMessage';

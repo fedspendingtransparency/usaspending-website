@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 
-import IdvAwardAmountsSectionContainer from 'containers/awardV2/idv/IdvAwardAmountsSectionContainer';
+import IdvAwardAmountsSectionContainer from 'containers/award/idv/IdvAwardAmountsSectionContainer';
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import IDVAmounts from './IDVAmounts';
