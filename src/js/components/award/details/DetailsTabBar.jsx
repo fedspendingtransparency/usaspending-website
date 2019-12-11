@@ -18,7 +18,7 @@ const propTypes = {
 export default class DetailsTabBar extends React.Component {
     render() {
         const tabs = this.props.tabOptions.map((tab) => {
-            const onClick = tab.internal === 'subaward' 
+            const onClick = tab.internal === 'subaward'
                 ? () => {
                     Analytics.event({
                         category: 'Award Page',
