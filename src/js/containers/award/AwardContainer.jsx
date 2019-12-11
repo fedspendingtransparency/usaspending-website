@@ -28,7 +28,7 @@ import {
     fetchAssistanceDownloadFile
 } from '../../helpers/downloadHelper';
 
-require('pages/award/awardPage.scss');
+require('pages/awardV2/awardPage.scss');
 
 const propTypes = {
     setAward: PropTypes.func,
