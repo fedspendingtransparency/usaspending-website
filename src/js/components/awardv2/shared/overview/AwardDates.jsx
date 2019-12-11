@@ -108,7 +108,7 @@ export default class AwardDates extends React.Component {
         const datesTitles = this.titles();
 
         return (
-            <div className="award-dates award-overview-column">
+            <div className="award-dates award-overview-column award-overview-column__spacing">
                 <div className="award-dates__heading">
                     <h6 className="award-overview-title award-dates__title">
                         Dates
