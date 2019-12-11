@@ -6,10 +6,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { AwardContainer } from 'containers/awardV2/AwardV2Container';
-import BaseContract from 'models/v2/awardsV2/BaseContract';
-import BaseIdv from 'models/v2/awardsV2/BaseIdv';
-import BaseFinancialAssistance from "models/v2/awardsV2/BaseFinancialAssistance";
+import { AwardContainer } from 'containers/award/AwardContainer';
+import BaseContract from '../../../src/js/containers/award/node_modules/models/v2/awardsV2/BaseContract';
+import BaseIdv from '../../../src/js/containers/award/node_modules/models/v2/awardsV2/BaseIdv';
+import BaseFinancialAssistance from "../../../src/js/containers/award/node_modules/models/v2/awardsV2/BaseFinancialAssistance";
 
 import { mockParams, mockActions } from './mockAward';
 import { mockContract, mockLoan, mockIdv } from '../../models/awardsV2/mockAwardApi';
