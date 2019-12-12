@@ -26,8 +26,8 @@ const propTypes = {
     overview: PropTypes.object,
     jumpToSection: PropTypes.func,
     counts: PropTypes.object,
-    subAwardIDClicked: PropTypes.bool,
-    updateSubAwardTable: PropTypes.func
+    isSubAwardIdClicked: PropTypes.bool,
+    subAwardIdClicked: PropTypes.func
 };
 
 const ContractContent = ({
@@ -35,8 +35,8 @@ const ContractContent = ({
     overview,
     jumpToSection,
     counts,
-    subAwardIDClicked,
-    updateSubAwardTable
+    isSubAwardIdClicked,
+    subAwardIdClicked
 }) => {
     const [activeTab, setActiveTab] = useState('transaction');
 
@@ -63,9 +63,9 @@ const ContractContent = ({
     };
 
     useEffect(() => {
-        if (subAwardIDClicked) {
+        if (isSubAwardIdClicked) {
             jumpToSubAwardHistoryTable();
-            updateSubAwardTable(false);
+            subAwardIdClicked(false);
         }
     });
 

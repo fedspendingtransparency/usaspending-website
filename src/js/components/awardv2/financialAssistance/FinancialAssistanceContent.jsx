@@ -27,16 +27,16 @@ const propTypes = {
     awardId: PropTypes.string,
     overview: PropTypes.object,
     jumpToSection: PropTypes.func,
-    subAwardIDClicked: PropTypes.bool,
-    updateSubAwardTable: PropTypes.func
+    isSubAwardIdClicked: PropTypes.bool,
+    subAwardIdClicked: PropTypes.func
 };
 
 const FinancialAssistanceContent = ({
     awardId,
     overview = { generatedId: '' },
     jumpToSection,
-    subAwardIDClicked,
-    updateSubAwardTable
+    isSubAwardIdClicked,
+    subAwardIdClicked
 }) => {
     const [activeTab, setActiveTab] = useState("transaction");
 
@@ -60,9 +60,9 @@ const FinancialAssistanceContent = ({
     };
 
     useEffect(() => {
-        if (subAwardIDClicked && overview.type === '05') {
+        if (isSubAwardIdClicked && overview.type === '05') {
             jumpToSubAwardHistoryTable();
-            updateSubAwardTable(false);
+            subAwardIdClicked(false);
         }
     });
 

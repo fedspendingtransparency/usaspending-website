@@ -11,7 +11,7 @@ import { isCancel } from 'axios';
 import { uniqueId, intersection } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
-import { updateSubAwardTable } from 'redux/actions/search/searchSubAwardTableActions';
+import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -32,7 +32,7 @@ const propTypes = {
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
-    updateSubAwardTable: PropTypes.func
+    subAwardIdClicked: PropTypes.func
 };
 
 const tableTypes = [
@@ -436,7 +436,7 @@ export class ResultsTableContainer extends React.Component {
     }
 
     subAwardIdClick = () => {
-        this.props.updateSubAwardTable(true);
+        this.props.subAwardIdClicked(true);
     }
 
     render() {
@@ -479,7 +479,7 @@ export default connect(
             {},
             searchActions,
             appliedFilterActions,
-            { updateSubAwardTable }
+            { subAwardIdClicked }
         ),
         dispatch
     )

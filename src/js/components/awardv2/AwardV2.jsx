@@ -30,8 +30,8 @@ const propTypes = {
         hideModal: PropTypes.func
     }),
     isDownloadPending: PropTypes.bool,
-    subAwardIDClicked: PropTypes.bool,
-    updateSubAwardTable: PropTypes.func
+    isSubAwardIdClicked: PropTypes.bool,
+    subAwardIdClicked: PropTypes.func
 };
 
 const awardSections = [
@@ -107,8 +107,8 @@ export default class Award extends React.Component {
                         overview={overview}
                         counts={{ subawardCount: overview.subawardCount }}
                         jumpToSection={this.jumpToSection}
-                        subAwardIDClicked={this.props.subAwardIDClicked}
-                        updateSubAwardTable={this.props.updateSubAwardTable} />
+                        isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                        subAwardIdClicked={this.props.subAwardIdClicked} />
                 );
             }
             else if (overview.category === 'idv') {
@@ -126,8 +126,8 @@ export default class Award extends React.Component {
                         awardId={awardId}
                         overview={overview}
                         jumpToSection={this.jumpToSection}
-                        subAwardIDClicked={this.props.subAwardIDClicked}
-                        updateSubAwardTable={this.props.updateSubAwardTable} />
+                        isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                        subAwardIdClicked={this.props.subAwardIdClicked} />
                 );
             }
         }
