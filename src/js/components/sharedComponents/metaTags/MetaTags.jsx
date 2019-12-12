@@ -13,10 +13,6 @@ const propTypes = {
     og_description: PropTypes.string,
     og_site_name: PropTypes.string,
     og_image: PropTypes.string,
-    twitter_title: PropTypes.string,
-    twitter_description: PropTypes.string,
-    twitter_image: PropTypes.string,
-    twitter_url: PropTypes.string,
     twitter_label1: PropTypes.string,
     twitter_data1: PropTypes.string,
     twitter_label2: PropTypes.string,
@@ -29,10 +25,6 @@ const defaultProps = {
     og_description: '',
     og_site_name: '',
     og_image: '',
-    twitter_title: '',
-    twitter_description: '',
-    twitter_image: '',
-    twitter_url: '',
     twitter_label1: '',
     twitter_data1: '',
     twitter_label2: '',
@@ -92,30 +84,6 @@ export default class MetaTags extends React.Component {
                 property="og:image"
                 content={this.props.og_image}
                 key="og_image" />);
-        }
-        if (this.props.twitter_title !== '') {
-            tags.push(<meta
-                name="twitter:title"
-                value={this.props.twitter_title}
-                key="twitter_title" />);
-        }
-        if (this.props.twitter_description !== '') {
-            tags.push(<meta
-                name="twitter:description"
-                value={this.props.twitter_description}
-                key="twitter_description" />);
-        }
-        if (this.props.twitter_image !== '') {
-            tags.push(<meta
-                name="twitter:image"
-                content={this.props.twitter_image}
-                key="twitter_image" />);
-        }
-        if (this.props.twitter_url !== '') {
-            tags.push(<meta
-                name="twitter:url"
-                value={this.props.twitter_url}
-                key="twitter_url" />);
         }
         if (this.props.twitter_label1 !== '') {
             tags.push(<meta
