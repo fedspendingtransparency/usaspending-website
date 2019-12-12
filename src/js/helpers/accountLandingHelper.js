@@ -3,22 +3,11 @@
  * Created by Lizzie Salita 8/4/17
  **/
 
-import Axios, { CancelToken } from 'axios';
-import kGlobalConstants from 'GlobalConstants';
+import { apiRequest } from './apiRequest';
 
-export const fetchAllAccounts = (data) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/federal_accounts/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
+// eslint-disable-next-line import/prefer-default-export
+export const fetchAllAccounts = (data) => apiRequest({
+    url: 'v2/federal_accounts/',
+    method: 'post',
+    data
+});

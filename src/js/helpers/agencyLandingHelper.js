@@ -3,23 +3,10 @@
  * Created by Lizzie Salita 7/10/17
  **/
 
-import Axios, { CancelToken } from 'axios';
+import { apiRequest } from './apiRequest';
 
-import kGlobalConstants from 'GlobalConstants';
-
-export const fetchAllAgencies = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/references/toptier_agencies/',
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
+// eslint-disable-next-line import/prefer-default-export
+export const fetchAllAgencies = (params) => apiRequest({
+    url: 'v2/references/toptier_agencies/',
+    params
+});
