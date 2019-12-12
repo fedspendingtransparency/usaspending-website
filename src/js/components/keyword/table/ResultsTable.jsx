@@ -83,7 +83,7 @@ export default class ResultsTable extends React.Component {
 
         if (column.columnName === 'Award ID') {
             cellClass = ResultsTableLinkCell;
-            props.id = parseInt(this.props.results[rowIndex].internal_id, 10);
+            props.id = this.props.results[rowIndex].generated_internal_id;
             props.column = 'award';
         }
 
