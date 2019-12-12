@@ -13,7 +13,6 @@ const propTypes = {
     awardingAgency: PropTypes.object,
     recipient: PropTypes.object,
     recordType: PropTypes.number,
-    placeOfPerformance: PropTypes.object,
     awardType: PropTypes.string,
     awardId: PropTypes.string
 };
@@ -22,7 +21,6 @@ const AwardOverviewLeftSection = ({
     awardingAgency,
     recipient,
     recordType,
-    placeOfPerformance,
     awardType,
     awardId
 }) => (
@@ -31,7 +29,7 @@ const AwardOverviewLeftSection = ({
         <Recipient
             recipient={recipient}
             recordType={recordType}
-            placeOfPerformance={placeOfPerformance}
+            placeOfPerformance={recipient.location}
             awardType={awardType}
             awardId={awardId} />
     </AwardSection>
