@@ -165,7 +165,7 @@ export default class AwardDates extends Component {
 
         return (
             <div
-                className="award-dates award-overview-column"
+                className="award-dates award-overview-column award-overview-column__spacing"
                 ref={(widthRef) => {
                     this.datesDivWidth = widthRef;
                 }}>

@@ -3,7 +3,7 @@
  * Created by David Trinh 10/9/2018
  **/
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
@@ -26,13 +26,17 @@ import CFDASection from './CFDASection';
 const propTypes = {
     awardId: PropTypes.string,
     overview: PropTypes.object,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    isSubAwardIdClicked: PropTypes.bool,
+    subAwardIdClicked: PropTypes.func
 };
 
 const FinancialAssistanceContent = ({
     awardId,
     overview = { generatedId: '' },
-    jumpToSection
+    jumpToSection,
+    isSubAwardIdClicked,
+    subAwardIdClicked
 }) => {
     const [activeTab, setActiveTab] = useState("transaction");
 
@@ -49,6 +53,18 @@ const FinancialAssistanceContent = ({
         setActiveTab('federal_account');
         jumpToSection('award-history');
     };
+
+    const jumpToSubAwardHistoryTable = () => {
+        setActiveTab('subaward');
+        jumpToSection('award-history');
+    };
+
+    useEffect(() => {
+        if (isSubAwardIdClicked && overview.type === '05') {
+            jumpToSubAwardHistoryTable();
+            subAwardIdClicked(false);
+        }
+    });
 
     const awardAmountData = Object.create(BaseAwardAmounts);
     awardAmountData.populate(overview, overview.category);
@@ -83,7 +99,10 @@ const FinancialAssistanceContent = ({
                     awardType={overview.category}
                     awardOverview={awardAmountData}
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
-                <AwardDescription description={overview.description} awardType={overview.category} awardId={awardId} />
+                <AwardDescription
+                    description={overview.description}
+                    awardType={overview.category}
+                    awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
                 {isGrant && (
@@ -96,14 +115,20 @@ const FinancialAssistanceContent = ({
                 {!isGrant && (
                     <CFDASection data={overview.biggestCfda} />
                 )}
-                <FederalAccountsSection awardType={overview.category} jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                <FederalAccountsSection
+                    awardType={overview.category}
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
             </AwardSection>
             {isGrant && (
                 <AwardSection type="row">
                     <CFDASection data={overview.biggestCfda} />
                 </AwardSection>
             )}
-            <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
+            <AwardHistory
+                awardId={awardId}
+                overview={overview}
+                setActiveTab={setActiveTab}
+                activeTab={activeTab} />
             <AdditionalInfo overview={overview} />
         </AwardPageWrapper>
     );

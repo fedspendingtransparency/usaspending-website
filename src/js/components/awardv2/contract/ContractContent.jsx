@@ -3,7 +3,7 @@
  * Created by David Trinh 10/9/2018
  **/
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { glossaryLinks } from 'dataMapping/search/awardType';
@@ -25,16 +25,21 @@ const propTypes = {
     awardId: PropTypes.string,
     overview: PropTypes.object,
     jumpToSection: PropTypes.func,
-    counts: PropTypes.object
+    counts: PropTypes.object,
+    isSubAwardIdClicked: PropTypes.bool,
+    subAwardIdClicked: PropTypes.func
 };
 
 const ContractContent = ({
     awardId,
     overview,
     jumpToSection,
-    counts
+    counts,
+    isSubAwardIdClicked,
+    subAwardIdClicked
 }) => {
     const [activeTab, setActiveTab] = useState('transaction');
+
     const glossarySlug = glossaryLinks[overview.type];
     const glossaryLink = glossarySlug
         ? `/#/award/${awardId}?glossary=${glossarySlug}`
@@ -56,6 +61,13 @@ const ContractContent = ({
         setActiveTab('subaward');
         jumpToSection("award-history");
     };
+
+    useEffect(() => {
+        if (isSubAwardIdClicked) {
+            jumpToSubAwardHistoryTable();
+            subAwardIdClicked(false);
+        }
+    });
 
     return (
         <AwardPageWrapper
@@ -81,7 +93,12 @@ const ContractContent = ({
                     awardType={overview.category}
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
                     awardOverview={awardAmountData} />
-                <AwardDescription awardId={awardId} awardType={overview.category} description={overview.description} naics={overview.naics} psc={overview.psc} />
+                <AwardDescription
+                    awardId={awardId}
+                    awardType={overview.category}
+                    description={overview.description}
+                    naics={overview.naics}
+                    psc={overview.psc} />
             </AwardSection>
             <AwardSection className="award-contract-activity-section" type="row">
                 <ComingSoonSection
@@ -90,10 +107,16 @@ const ContractContent = ({
                     title="Contract Activity"
                     includeHeader
                     icon="chart-area" />
-                <FederalAccountsSection jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} awardType={overview.category} />
+                <FederalAccountsSection
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
+                    awardType={overview.category} />
             </AwardSection>
             <AwardSection className="award-history-section" type="row">
-                <AwardHistory awardId={awardId} overview={overview} setActiveTab={setActiveTab} activeTab={activeTab} />
+                <AwardHistory
+                    awardId={awardId}
+                    overview={overview}
+                    setActiveTab={setActiveTab}
+                    activeTab={activeTab} />
             </AwardSection>
             <AdditionalInfo overview={overview} />
         </AwardPageWrapper>

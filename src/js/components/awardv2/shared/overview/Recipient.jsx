@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 11/26/19
  **/
 
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
     getAwardTypeByRecordtypeCountyAndState,
@@ -27,10 +27,16 @@ const propTypes = {
     awardId: PropTypes.string
 };
 
-export default class Recipient extends Component {
-    isFinancialAssistance = isAwardFinancialAssistance(this.props.awardType);
+const Recipient = ({
+    recipient,
+    awardType,
+    placeOfPerformance,
+    recordType,
+    awardId
+}) => {
+    const isFinancialAssistance = isAwardFinancialAssistance(awardType);
 
-    formatRecipientLink = (internalId, name) => {
+    const formatRecipientLink = (internalId, name) => {
         if (internalId && name) {
             return (<a href={`#/recipient/${internalId}`}>{name}</a>);
         }
@@ -40,17 +46,16 @@ export default class Recipient extends Component {
         return name;
     };
 
-    aggregateRecordType = () => getAwardTypeByRecordtypeCountyAndState(
-        this.isFinancialAssistance,
-        this.props.placeOfPerformance,
-        this.props.recordType
+    const aggregateRecordType = () => getAwardTypeByRecordtypeCountyAndState(
+        isFinancialAssistance,
+        placeOfPerformance,
+        recordType
     );
 
-    recipient = () => {
-        const { recordType, recipient } = this.props;
-        const glossaryLink = `/#/award/${this.props.awardId}?glossary=${aggregateGlossaryLinks[this.aggregateRecordType()]}`;
-        const glossaryLinkText = `View glossary definition of ${aggregateGlossaryText[this.aggregateRecordType()]}`;
-        if (this.isFinancialAssistance && recordType !== 2) {
+    const recipientComponent = () => {
+        const glossaryLink = `/#/award/${awardId}?glossary=${aggregateGlossaryLinks[aggregateRecordType()]}`;
+        const glossaryLinkText = `View glossary definition of ${aggregateGlossaryText[aggregateRecordType()]}`;
+        if (isFinancialAssistance && recordType !== 2) {
             let recipientTitle = '';
             if (recordType === 1) recipientTitle = 'MULTIPLE RECIPIENTS';
             if (recordType === 3) recipientTitle = 'REDACTED DUE TO PII';
@@ -69,32 +74,31 @@ export default class Recipient extends Component {
         return (
             <h5
                 className="award-overview__left-section__agency-name award-overview__left-section__agency-name__recipient">
-                {this.formatRecipientLink(recipient.internalId, recipient.name)}
+                {formatRecipientLink(recipient.internalId, recipient.name)}
             </h5>
         );
     };
 
-    aggregateRecordText = () => {
-        if (this.isFinancialAssistance) {
-            return aggregateTextRecipientSection[this.aggregateRecordType()];
+    const aggregateRecordText = () => {
+        if (isFinancialAssistance) {
+            return aggregateTextRecipientSection[aggregateRecordType()];
         }
         return '';
     };
 
-    render() {
-        return (
-            <AwardSection className="award-overview__left-section__recipient award-overview-column">
-                <h6 className="award-overview-title">Recipient</h6>
-                {this.recipient()}
-                <RecipientAddress
-                    placeOfPerformance={this.props.placeOfPerformance}
-                    aggregateRecordType={this.aggregateRecordType()} />
-                <div className="award-overview__left-section__aggregated-text">
-                    {this.isFinancialAssistance && this.aggregateRecordText()}
-                </div>
-            </AwardSection>
-        );
-    }
-}
+    return (
+        <AwardSection className="award-overview__left-section__recipient award-overview-column award-overview-column__spacing">
+            <h6 className="award-overview-title">Recipient</h6>
+            {recipientComponent()}
+            <RecipientAddress
+                placeOfPerformance={placeOfPerformance}
+                aggregateRecordType={aggregateRecordType()} />
+            <div className="award-overview__left-section__aggregated-text">
+                {isFinancialAssistance && aggregateRecordText()}
+            </div>
+        </AwardSection>
+    );
+};
 
 Recipient.propTypes = propTypes;
+export default Recipient;

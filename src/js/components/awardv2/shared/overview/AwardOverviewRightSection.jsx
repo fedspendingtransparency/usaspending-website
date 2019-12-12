@@ -23,7 +23,7 @@ const AwardOverviewRightSection = ({
     counts,
     overview
 }) => {
-    const leftSection = (overview.category !== 'idv' && overview.category !== 'contract') ?
+    const firstSection = (overview.category !== 'idv' && overview.category !== 'contract') ?
         (<CFDAOverview cfdaPropgram={overview.cfdaProgram} />) :
         (<RelatedAwards
             jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
@@ -33,7 +33,7 @@ const AwardOverviewRightSection = ({
     const dates = overview.category === 'idv' ? overview.dates : overview.periodOfPerformance;
     return (
         <AwardSection type="column" className="award-overview__right-section award-overview-column">
-            {leftSection}
+            {firstSection}
             <AwardDates
                 awardType={overview.category}
                 dates={dates} />

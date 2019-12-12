@@ -12,14 +12,28 @@
     }
     .award__col {
         .award-overview-column {
-          @include flex(0 0 100%);
+          // @include flex(0 0 100%);
+          // @include media($tablet-screen) {
+          //     @include flex(0 0 50%);
+          // } 
+          // flex 100% not working in IE
+          @include flex(0 0 auto);
+          width: 100%;
           @include media($tablet-screen) {
-              @include flex(0 0 50%);
+              // IE offset for padding in .award-overview-column__spacing not :face-palm:
+              @include flex(0 0 47%);
           }
           &.first {
             padding-bottom: rem(30);
             @include media($tablet-screen) {
                 padding-bottom: 0;
+            }
+          }
+        }
+        .award-overview-column__spacing {
+          @include media($tablet-screen) {
+            &:nth-child(odd) {
+              padding-right: rem(15);
             }
           }
         }
@@ -35,11 +49,11 @@
         .award-overview-title {
             font-size: rem(16);
             margin-top: 0;
+            align-items: center;
         }
         // body
         .award-overview__body {
             @include flex(1 1 auto);
-            padding: 0 rem(10);
             @include media($medium-screen) {
                 @include flex(0 0 25%);
             }

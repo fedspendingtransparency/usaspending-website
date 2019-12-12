@@ -24,7 +24,7 @@ export default class FileFormatFilter extends React.Component {
 
     onChange(e) {
         const target = e.target;
-        this.props.updateFilter('file_format', target.value);
+        this.props.updateFilter('fileFormat', target.value);
     }
 
     render() {

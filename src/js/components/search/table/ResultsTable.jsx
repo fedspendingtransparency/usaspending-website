@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { isAwardAggregate } from 'helpers/awardSummaryHelper';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
@@ -19,10 +20,11 @@ const propTypes = {
     columns: PropTypes.object,
     visibleWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
-    currentType: PropTypes.string,
+    subaward: PropTypes.bool,
     tableInstance: PropTypes.string,
     sort: PropTypes.object,
-    updateSort: PropTypes.func
+    updateSort: PropTypes.func,
+    subAwardIdClick: PropTypes.func
 };
 
 const rowHeight = 40;
@@ -73,11 +75,16 @@ export default class ResultsTable extends React.Component {
             value: this.props.results[rowIndex][columnId],
             dataType: awardTableColumnTypes[columnId]
         };
-
         if (column.columnName === 'Award ID') {
             cellClass = ResultsTableLinkCell;
             props.id = this.props.results[rowIndex].generated_internal_id;
             props.column = 'award';
+        }
+        else if ((column.columnName === 'Sub-Award ID') && this.props.subaward) {
+            cellClass = ResultsTableLinkCell;
+            props.column = 'award';
+            props.id = this.props.results[rowIndex].prime_award_generated_internal_id;
+            props.onClick = this.props.subAwardIdClick;
         }
         else if (column.columnName === 'Recipient Name' && this.props.results[rowIndex].recipient_id) {
             cellClass = ResultsTableLinkCell;
@@ -89,6 +96,21 @@ export default class ResultsTable extends React.Component {
             cellClass = ResultsTableLinkCell;
             props.id = this.props.results[rowIndex].prime_award_recipient_id;
             props.column = 'recipient';
+        }
+        else if (column.columnName === 'Prime Award ID') {
+            const primeAwardId = this.props.results[rowIndex].prime_award_generated_internal_id;
+            if (primeAwardId) {
+                cellClass = ResultsTableLinkCell;
+                props.id = primeAwardId;
+                props.column = 'award';
+                props.value = isAwardAggregate(primeAwardId)
+                    ? primeAwardId
+                    : props.value;
+            }
+            else {
+                // primeAwardId null case
+                props.value = '- -';
+            }
         }
 
         return React.createElement(
@@ -126,7 +148,6 @@ export default class ResultsTable extends React.Component {
             // remove duplicated bottom border
             noResultsClass = ' no-results';
         }
-
         const variableBodyHeight = Math.min(tableHeight, rowHeight * this.props.results.length);
 
         return (
