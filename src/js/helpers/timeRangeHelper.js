@@ -4,10 +4,6 @@
  */
 
 import moment from 'moment';
-<<<<<<< HEAD
-=======
-
->>>>>>> dev
 // eslint-disable-next-line import/prefer-default-export
 export const convertDatesToRange = (startDate, endDate) => {
     if ((startDate && endDate) && (moment.isMoment(startDate) && moment.isMoment(endDate))) {
