@@ -33,15 +33,14 @@ export const apiRequest = (axiosParams = {}) => {
     const before = () => {};
     // method to run after executing the request
     // e.g. manipulating the data
-    const after = () => {};
+    const after = (response) => response;
     // runs the flow of before -> request -> after
     const request = async (parameters) => {
         const newRequest = Axios.request(parameters);
         try {
             before();
             const response = await newRequest;
-            after();
-            return response;
+            return after(response);
         }
         catch (e) {
             cancel();
