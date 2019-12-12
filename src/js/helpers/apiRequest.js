@@ -29,10 +29,10 @@ export const apiRequest = (axiosParams = {}) => {
 
     const cancel = () => cancelToken.cancel();
     // method to run before executing the request
-    // e.g. additional pagination
+    // e.g. additional pagination, setting state
     const before = () => {};
     // method to run after executing the request
-    // e.g. manipulating the data
+    // e.g. manipulating the data, setting state
     const after = (response) => response;
     // runs the flow of before -> request -> after
     const request = async (parameters) => {
