@@ -28,11 +28,13 @@ export const apiRequest = (axiosParams = {}) => {
     };
 
     const cancel = () => cancelToken.cancel();
-
+    // method to run before executing the request
+    // e.g. additional pagination
     const before = () => {};
-
+    // method to run after executing the request
+    // e.g. manipulating the data
     const after = () => {};
-
+    // runs the flow of before -> request -> after
     const request = async (parameters) => {
         const newRequest = Axios.request(parameters);
         try {
@@ -46,7 +48,7 @@ export const apiRequest = (axiosParams = {}) => {
             throw new Error(e);
         }
     };
-
+    // execute the request
     const execute = async () => request(params(axiosParams));
 
     const promise = Axios.request(params(axiosParams));
