@@ -2,7 +2,7 @@
  * downloadAnalytics.js
  * Created by Kevin Li 2/8/18
  */
-
+import { startCase, camelCase } from 'lodash';
 import Analytics from 'helpers/analytics/Analytics';
 
 const categoryPrefix = 'Download Center - Download';
@@ -13,16 +13,6 @@ export const logDownloadType = (type) => {
         action: type
     });
 };
-
-// convert an object whose truthy keys are all selected field values
-export const convertKeyedField = (field) => (
-    Object.keys(field).reduce((values, key) => {
-        if (field[key]) {
-            values.push(key);
-        }
-        return values;
-    }, [])
-);
 
 export const convertDateRange = (dates) => {
     if (dates.startDate && dates.endDate) {
@@ -45,40 +35,44 @@ export const logSingleDownloadField = (type, name, value) => {
     });
 };
 
-export const logDownloadFields = (type, filters) => {
-    const keyedFields = ['awardLevels', 'awardTypes'];
-    const keyedLabels = ['Award Level', 'Award Type'];
-    keyedFields.forEach((field, i) => {
-        const values = convertKeyedField(filters[field]);
-        values.forEach((value) => {
-            logSingleDownloadField(type, keyedLabels[i], value);
-        });
-    });
-
-    // log the agency fields
-    logSingleDownloadField(type, 'Agency', filters.agency.name);
-    if (filters.subAgency.id) {
-        logSingleDownloadField(type, 'Sub Agency', filters.subAgency.name);
-    }
-
-    // log the date fields
-    const dates = convertDateRange(filters.dateRange);
-    if (dates) {
-        logSingleDownloadField(type, 'Date Type', filters.dateType);
-        logSingleDownloadField(type, 'Date Range', dates);
-    }
+// returns a function that accesses the value selected by the user for a given filter
+const selectedValueByFilterType = {
+    awardLevels: (obj) => Object.keys(obj)
+        .map((key) => startCase(key))
+        .find((key) => obj[camelCase(key)] === true),
+    awardTypes: (obj) => Object.keys(obj)
+        .filter((key) => obj[key] === true)
+        .map((key) => startCase(key))
+        .join(", "),
+    agency: (obj) => startCase(obj.name),
+    // eslint-disable-next-line no-confusing-arrow
+    subAgency: (obj) => obj.id !== "" ? startCase(obj.name) : '',
+    // eslint-disable-next-line no-confusing-arrow
+    location: (obj) => obj.state.code !== ""
+        ? `${obj.country.name}, ${obj.state.name}`
+        : obj.country.name,
+    dateType: (string) => startCase(string),
+    dateRange: (obj) => convertDateRange(obj),
+    fileFormat: (string) => string.toLowerCase(),
+    accountLevel: (string) => startCase(string),
+    budgetFunction: (obj) => startCase(obj.title),
+    // eslint-disable-next-line no-confusing-arrow
+    budgetSubfunction: (obj) => obj.code ? startCase(obj.title) : '',
+    // eslint-disable-next-line no-confusing-arrow
+    federalAccount: (obj) => obj.id ? startCase(obj.name) : '',
+    submissionType: (string) => startCase(string),
+    timePeriod: (string) => string
 };
 
-export const logAccountDownloadFields = (type, filters) => {
-    // log the agency fields
-    logSingleDownloadField(type, 'Agency', filters.agency.name);
-
-    // log the file type
-    logSingleDownloadField(type, 'File Type', filters.submissionType);
-
-    // log the fiscal year and quarter
-    const timePeriod = `${filters.fy} - Q${filters.quarter}`;
-    logSingleDownloadField(type, 'Time Period', timePeriod);
+export const logDownloadFields = (type, filterObj) => {
+    Object.keys(filterObj)
+        .filter((key) => Object.keys(selectedValueByFilterType).includes(key))
+        .forEach((filter) => {
+            const selectedValueObj = filterObj[filter];
+            const accessorFn = selectedValueByFilterType[filter];
+            const selectedValue = accessorFn(selectedValueObj);
+            logSingleDownloadField(type, startCase(filter), selectedValue);
+        });
 };
 
 export const logAwardDownload = (redux) => {
@@ -88,5 +82,8 @@ export const logAwardDownload = (redux) => {
 
 export const logAccountDownload = (redux) => {
     logDownloadType('account');
-    logAccountDownloadFields('account', redux);
+    logDownloadFields('account', {
+        ...redux,
+        timePeriod: `${redux.fy} - Q${redux.quarter}`
+    });
 };
