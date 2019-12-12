@@ -5,6 +5,7 @@
 
 import moment from 'moment';
 
+// eslint-disable-next-line import/prefer-default-export
 export const convertDatesToRange = (startDate, endDate) => {
     if ((startDate && endDate) && (moment.isMoment(startDate) && moment.isMoment(endDate))) {
         const duration = moment.duration(endDate.diff(startDate));

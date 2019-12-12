@@ -3,6 +3,7 @@
  * Created by Lizzie Salita 8/7/17
  */
 
+// eslint-disable-next-line import/prefer-default-export
 export const getBusinessTypes = () => {
     const businessTypes =
         [

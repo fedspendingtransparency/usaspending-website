@@ -204,18 +204,22 @@ export class DetailContentContainer extends React.Component {
         const total = data.total;
 
         let isTruncated = false;
-        if (request.subdivision === 'award') {
-            const resultTotal = data.results.reduce((sum, item) => sum + item.amount, 0);
-            // allow a $10 leeway to account for JS float bugs before triggering a truncation
-            // message
-            isTruncated = Math.abs(total - resultTotal) > 10;
-        }
+        let parsedResults = data.results;
 
         // set a safety limit of 1,000 cells to prevent the browser from crashing due to too many
         // DOM elements
-        let safeResults = data.results;
         if (data.results.length > 1000) {
-            safeResults = data.results.slice(0, 1000);
+            parsedResults = data.results.slice(0, 1000);
+        }
+        if (request.subdivision === 'award') {
+            const resultTotal = data.results
+                .reduce((sum, item) => sum + item.amount, 0);
+            // link to award page using new human readable id
+            parsedResults = parsedResults.map((obj) => ({ ...obj, id: obj.generated_unique_award_id }));
+
+            // allow a $10 leeway to account for JS float bugs before triggering a truncation
+            // message
+            isTruncated = Math.abs(total - resultTotal) > 10;
         }
 
         // build the trail item of the last applied filter using the request object
@@ -255,7 +259,7 @@ export class DetailContentContainer extends React.Component {
                     // the treemap
                     this.setState({
                         isTruncated,
-                        data: new List(safeResults),
+                        data: new List(parsedResults),
                         lastUpdate: data.end_date,
                         inFlight: false,
                         transition: 'end'
@@ -270,7 +274,7 @@ export class DetailContentContainer extends React.Component {
             // save the data as an Immutable object for easy change comparison within the treemap
             this.setState({
                 isTruncated,
-                data: new List(safeResults),
+                data: new List(parsedResults),
                 lastUpdate: data.end_date,
                 inFlight: false,
                 transition: ''

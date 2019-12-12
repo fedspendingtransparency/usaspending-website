@@ -18,6 +18,7 @@ import {
     setDownloadExpectedFile,
     setDownloadExpectedUrl
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
+import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import BaseIdv from 'models/v2/awardsV2/BaseIdv';
@@ -32,14 +33,15 @@ require('pages/awardV2/awardPage.scss');
 
 const propTypes = {
     setAward: PropTypes.func,
-    handleDownloadRequest: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     setDownloadPending: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
+    isSubAwardIdClicked: PropTypes.bool,
     params: PropTypes.object,
     award: PropTypes.object,
-    isDownloadPending: PropTypes.bool
+    isDownloadPending: PropTypes.bool,
+    subAwardIdClicked: PropTypes.func
 };
 
 export class AwardContainer extends React.Component {
@@ -186,7 +188,9 @@ export class AwardContainer extends React.Component {
                     downloadData={this.downloadData}
                     awardId={this.props.params.awardId}
                     award={this.props.award}
-                    noAward={this.state.noAward} />
+                    noAward={this.state.noAward}
+                    isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                    subAwardIdClicked={this.props.subAwardIdClicked} />
             );
         }
         return content;
@@ -196,12 +200,17 @@ export class AwardContainer extends React.Component {
 AwardContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.awardV2, isDownloadPending: state.bulkDownload.download.pendingDownload }),
+    (state) => ({
+        award: state.awardV2,
+        isDownloadPending: state.bulkDownload.download.pendingDownload,
+        isSubAwardIdClicked: state.searchSubAwardTable.isSubAwardIdClicked
+    }),
     (dispatch) => bindActionCreators({
         setDownloadExpectedUrl,
         setDownloadExpectedFile,
         setDownloadPending,
         setDownloadCollapsed,
+        subAwardIdClicked,
         setAward
     }, dispatch)
 )(AwardContainer);

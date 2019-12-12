@@ -87,7 +87,7 @@ const Recipient = ({
     };
 
     return (
-        <AwardSection className="award-overview__left-section__recipient award-overview-column">
+        <AwardSection className="award-overview__left-section__recipient award-overview-column award-overview-column__spacing">
             <h6 className="award-overview-title">Recipient</h6>
             {recipientComponent()}
             <RecipientAddress

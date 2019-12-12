@@ -3,57 +3,20 @@
  * Created by Lizzie Salita 6/14/18
  */
 
-import Axios, { CancelToken } from "axios/index";
-import kGlobalConstants from 'GlobalConstants';
+import { apiRequest } from "./apiRequest";
 
-export const fetchRecipientOverview = (id, year) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: `v2/recipient/duns/${id}/`,
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            params: {
-                year
-            },
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchRecipientOverview = (id, year) => apiRequest({
+    url: `v2/recipient/duns/${id}/`,
+    params: { year }
+});
 
-export const fetchChildRecipients = (duns, year) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: `v2/recipient/children/${duns}/`,
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            params: {
-                year
-            },
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchChildRecipients = (duns, year) => apiRequest({
+    url: `v2/recipient/children/${duns}/`,
+    params: { year }
+});
 
-export const fetchNewAwardCounts = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/search/new_awards_over_time/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchNewAwardCounts = (params) => apiRequest({
+    url: 'v2/search/new_awards_over_time/',
+    method: 'post',
+    data: params
+});
