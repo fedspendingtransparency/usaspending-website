@@ -2,7 +2,7 @@
  * Created by michaelbray on 8/9/17.
  */
 
-/* eslint-disable default-export */
+// eslint-disable-next-line import/prefer-default-export
 export const filterHasSelections = (reduxFilters, filter) => {
     switch (filter) {
         case 'Time Period':
@@ -83,4 +83,3 @@ export const filterHasSelections = (reduxFilters, filter) => {
             return false;
     }
 };
-/* eslint-enable default-export */

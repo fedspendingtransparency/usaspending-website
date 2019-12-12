@@ -19,6 +19,7 @@ import downloadReducer from './search/downloadReducer';
 import bulkDownloadReducer from './bulkDownload/bulkDownloadReducer';
 import redirectModalReducer from './redirectModal/redirectModalReducer';
 import stateReducer from './state/stateReducer';
+import searchSubAwardTableReducer from './search/searchSubAwardTableReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -34,7 +35,8 @@ const appReducer = combineReducers({
     explorer: explorerReducer,
     bulkDownload: bulkDownloadReducer,
     redirectModal: redirectModalReducer,
-    stateProfile: stateReducer
+    stateProfile: stateReducer,
+    searchSubAwardTable: searchSubAwardTableReducer
 });
 
 export default appReducer;
