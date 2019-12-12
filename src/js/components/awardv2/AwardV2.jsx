@@ -29,7 +29,9 @@ const propTypes = {
         mounted: PropTypes.bool,
         hideModal: PropTypes.func
     }),
-    isDownloadPending: PropTypes.bool
+    isDownloadPending: PropTypes.bool,
+    isSubAwardIdClicked: PropTypes.bool,
+    subAwardIdClicked: PropTypes.func
 };
 
 const awardSections = [
@@ -61,11 +63,9 @@ export default class Award extends React.Component {
                 height: 0
             }
         };
-
-        this.jumpToSection = this.jumpToSection.bind(this);
     }
 
-    jumpToSection(section = '') {
+    jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
         const matchedSection = find(awardSections, {
@@ -106,7 +106,9 @@ export default class Award extends React.Component {
                         awardId={awardId}
                         overview={overview}
                         counts={{ subawardCount: overview.subawardCount }}
-                        jumpToSection={this.jumpToSection} />
+                        jumpToSection={this.jumpToSection}
+                        isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                        subAwardIdClicked={this.props.subAwardIdClicked} />
                 );
             }
             else if (overview.category === 'idv') {
@@ -123,7 +125,9 @@ export default class Award extends React.Component {
                     <FinancialAssistanceContent
                         awardId={awardId}
                         overview={overview}
-                        jumpToSection={this.jumpToSection} />
+                        jumpToSection={this.jumpToSection}
+                        isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                        subAwardIdClicked={this.props.subAwardIdClicked} />
                 );
             }
         }

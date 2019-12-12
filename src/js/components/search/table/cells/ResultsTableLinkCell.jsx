@@ -11,7 +11,8 @@ const propTypes = {
     column: PropTypes.string,
     isLastColumn: PropTypes.bool,
     id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    value: PropTypes.string
+    value: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 const ResultsTableLinkCell = (props) => {
@@ -36,7 +37,7 @@ const ResultsTableLinkCell = (props) => {
     return (
         <div className={`award-result-generic-cell ${rowClass}`}>
             <div className="cell-content">
-                <a href={`/#/${props.column}/${props.id}`}>
+                <a onClick={props.onClick} href={`/#/${props.column}/${props.id}`}>
                     {content}
                 </a>
             </div>

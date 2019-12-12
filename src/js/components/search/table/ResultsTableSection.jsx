@@ -25,7 +25,8 @@ const propTypes = {
     counts: PropTypes.object,
     toggleColumnVisibility: PropTypes.func,
     reorderColumns: PropTypes.func,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    subAwardIdClick: PropTypes.func
 };
 
 export default class ResultsTableSection extends React.Component {
@@ -60,7 +61,8 @@ export default class ResultsTableSection extends React.Component {
         let table = (
             <ResultsTable
                 {...this.props}
-                visibleWidth={this.state.tableWidth} />
+                visibleWidth={this.state.tableWidth}
+                subAwardIdClick={this.props.subAwardIdClick} />
         );
 
         if (this.props.inFlight) {
