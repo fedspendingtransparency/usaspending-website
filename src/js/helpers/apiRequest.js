@@ -23,7 +23,6 @@ export const apiRequest = (axiosParams) => {
     const params = (options) => {
         const parameters = { ...defaultParams };
         Object.assign(parameters, options);
-        console.log( ' Parameters : ', parameters);
         parameters.headers = headers(options.headers);
         return parameters;
     };
