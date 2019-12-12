@@ -12,23 +12,15 @@ const propTypes = {
     og_title: PropTypes.string,
     og_description: PropTypes.string,
     og_site_name: PropTypes.string,
-    og_image: PropTypes.string,
-    twitter_label1: PropTypes.string,
-    twitter_data1: PropTypes.string,
-    twitter_label2: PropTypes.string,
-    twitter_data2: PropTypes.string
+    og_image: PropTypes.string
 };
 
 const defaultProps = {
-    og_url: '',
-    og_title: '',
-    og_description: '',
-    og_site_name: '',
-    og_image: '',
-    twitter_label1: '',
-    twitter_data1: '',
-    twitter_label2: '',
-    twitter_data2: ''
+    og_url: 'https://usaspending.gov/',
+    og_title: 'USAspending.gov',
+    og_description: 'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
+    og_site_name: 'USAspending.gov',
+    og_image: 'https://usaspending.gov/img/FacebookOG.png'
 };
 
 export default class MetaTags extends React.Component {
@@ -84,30 +76,6 @@ export default class MetaTags extends React.Component {
                 property="og:image"
                 content={this.props.og_image}
                 key="og_image" />);
-        }
-        if (this.props.twitter_label1 !== '') {
-            tags.push(<meta
-                name="twitter:label1"
-                value={this.props.twitter_label1}
-                key="twitter_label1" />);
-        }
-        if (this.props.twitter_data1 !== '') {
-            tags.push(<meta
-                name="twitter:data1"
-                value={this.props.twitter_data1}
-                key="twitter_data1" />);
-        }
-        if (this.props.twitter_label2 !== '') {
-            tags.push(<meta
-                name="twitter:label2"
-                value={this.props.twitter_label2}
-                key="twitter_label2" />);
-        }
-        if (this.props.twitter_data2 !== '') {
-            tags.push(<meta
-                name="twitter:data2"
-                value={this.props.twitter_data2}
-                key="twitter_data2" />);
         }
 
         this.setState({
