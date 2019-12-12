@@ -3,9 +3,6 @@
  * Created by Kevin Li 5/8/17
  */
 
-import Axios, { CancelToken } from 'axios';
-
-import kGlobalConstants from 'GlobalConstants';
 import { apiRequest } from './apiRequest';
 
 export const requestFullDownload = (params, type) => apiRequest({
