@@ -3,117 +3,46 @@
  * Created by Lizzie Salita 7/22/19
  **/
 
-import Axios, { CancelToken } from 'axios';
-import kGlobalConstants from 'GlobalConstants';
+import { apiRequest } from './apiRequest';
 
-export const fetchAIDs = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/autocomplete/accounts/aid/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchAIDs = (params) => apiRequest({
+    url: 'v2/autocomplete/accounts/aid/',
+    method: 'post',
+    data: params
+});
 
-export const fetchATAs = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/autocomplete/accounts/ata/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchATAs = (params) => apiRequest({
+    url: 'v2/autocomplete/accounts/ata/',
+    method: 'post',
+    data: params
+});
 
-export const fetchBPOAs = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/autocomplete/accounts/bpoa/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchBPOAs = (params) => apiRequest({
+    url: 'v2/autocomplete/accounts/bpoa/',
+    method: 'post',
+    data: params
+});
 
-export const fetchEPOAs = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/autocomplete/accounts/epoa/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchEPOAs = (params) => apiRequest({
+    url: 'v2/autocomplete/accounts/epoa/',
+    method: 'post',
+    data: params
+});
 
-export const fetchMAINs = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/autocomplete/accounts/main/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchMAINs = (params) => apiRequest({
+    url: 'v2/autocomplete/accounts/main/',
+    method: 'post',
+    data: params
+});
 
-export const fetchSUBs = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/autocomplete/accounts/sub/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchSUBs = (params) => apiRequest({
+    url: 'v2/autocomplete/accounts/sub/',
+    method: 'post',
+    data: params
+});
 
-export const fetchAs = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/autocomplete/accounts/a/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data: params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchAs = (params) => apiRequest({
+    url: 'v2/autocomplete/accounts/a/',
+    method: 'post',
+    data: params
+});
