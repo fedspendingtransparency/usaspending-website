@@ -424,12 +424,8 @@ export const calculateRange = (data) => {
     };
 };
 
-// perform GeoJSON fetch is a cancellable promise
-export const fetchFile = (file) => apiRequest({
-    url: file
-});
-
 export const fetchLocationList = (fileName) => apiRequest({
+    baseURL: null,
     url: `data/${fileName}.json`
 });
 
