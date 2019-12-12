@@ -7,7 +7,7 @@ import Axios, { CancelToken } from 'axios';
 import kGlobalConstants from 'GlobalConstants';
 
 // eslint-disable-next-line import/prefer-default-export
-export const apiRequest = (axiosParams) => {
+export const apiRequest = (axiosParams = {}) => {
     const defaultHeaders = { 'X-Requested-With': 'USASpendingFrontend' };
     const cancelToken = CancelToken.source();
     const defaultParams = {
@@ -20,7 +20,7 @@ export const apiRequest = (axiosParams) => {
         return defaultHeaders;
     };
 
-    const params = (options) => {
+    const params = (options = {}) => {
         const parameters = { ...defaultParams };
         Object.assign(parameters, options);
         parameters.headers = headers(options.headers);
@@ -56,7 +56,9 @@ export const apiRequest = (axiosParams) => {
         execute,
         cancel,
         before,
-        after
+        after,
+        headers,
+        params
     };
 };
 

@@ -7,7 +7,7 @@ import { apiRequest } from './apiRequest';
 
 // perform search is a cancellable promise
 export const fetchAllTerms = () => apiRequest({
-    url: 'v2/references/glossary/?limit=500',
+    url: 'v2/references/glossary/?limit=500'
 });
 
 export const fetchSearchResults = (params) => apiRequest({

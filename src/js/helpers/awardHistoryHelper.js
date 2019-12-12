@@ -13,7 +13,7 @@ export const fetchFederalAccountFunding = (params) => apiRequest({
 });
 
 export const getAwardHistoryFederalAccountsIdv = (awardId) => apiRequest({
-    url: `v2/idvs/count/federal_account/${awardId}/`,
+    url: `v2/idvs/count/federal_account/${awardId}/`
 });
 
 /**
@@ -23,6 +23,6 @@ export const getAwardHistoryCounts = (type, awardId, isIdv = false) => {
     const parsedAwardId = encodeURI(awardId);
     if (type === 'federal_account' && isIdv) return getAwardHistoryFederalAccountsIdv(parsedAwardId);
     return apiRequest({
-        url: `v2/awards/count/${type}/${parsedAwardId}/`,
+        url: `v2/awards/count/${type}/${parsedAwardId}/`
     });
 };
