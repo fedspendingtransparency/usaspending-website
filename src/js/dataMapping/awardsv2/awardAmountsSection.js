@@ -1,7 +1,7 @@
 /**
  * In the map spendingCategoriesByAwardType:
  * @keys are awardTypes
- * @values are properties on redux.awardV2.overview object which are the
+ * @values are properties on redux.award.overview object which are the
  * spending categories, in ascending order (under normative case), small, bigger, biggest (optional)
  */
 

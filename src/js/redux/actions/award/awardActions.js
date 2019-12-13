@@ -1,12 +1,22 @@
 /**
- * Created by Emily Gullo on 01/23/2017
+ * Created by Lizzie Salita 12/4/18
  */
 
-export const setSelectedAward = (state) => ({
-    type: 'SET_SELECTED_AWARD',
-    selectedAward: state
+export const setAward = (overview) => ({
+    type: 'SET_AWARD',
+    overview
 });
 
-export const resetAwardData = () => ({
-    type: 'RESET_AWARD_DATA'
+export const setCounts = (counts) => ({
+    type: 'SET_COUNTS',
+    counts
+});
+
+export const setTotalTransactionObligatedAmount = (total) => ({
+    type: 'SET_TOTAL_TRANSACTION_OBLIGATED_AMOUNT',
+    total
+});
+
+export const resetAward = () => ({
+    type: 'RESET_AWARD'
 });

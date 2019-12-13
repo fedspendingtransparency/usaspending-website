@@ -5,7 +5,7 @@
 
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 
-import awardReducer, { initialState } from 'redux/reducers/awardV2/awardReducer';
+import awardReducer, { initialState } from 'redux/reducers/award/awardReducer';
 
 import { mockContract } from '../../../models/awardsV2/mockAwardApi';
 
