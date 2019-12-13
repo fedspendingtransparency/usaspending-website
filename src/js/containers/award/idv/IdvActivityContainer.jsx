@@ -5,7 +5,7 @@ import { isCancel } from 'axios';
 
 import { fetchIdvActivity } from 'helpers/idvHelper';
 import IdvActivity from 'components/award/idv/activity/IdvActivity';
-import BaseIdvActivityBar from 'models/v2/awardsV2/BaseIdvActivityBar';
+import BaseIdvActivityBar from 'models/award/BaseIdvActivityBar';
 
 const propTypes = {
     awardId: PropTypes.string

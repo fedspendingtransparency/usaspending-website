@@ -10,7 +10,7 @@ import { isCancel } from 'axios';
 
 import { fetchIdvFederalAccounts } from 'helpers/idvHelper';
 import { fetchAwardFederalAccounts } from 'helpers/awardSummaryHelper';
-import BaseFederalAccount from 'models/v2/awardsV2/BaseFederalAccount';
+import BaseFederalAccount from 'models/award/BaseFederalAccount';
 import FederalAccountsViz from 'components/award/shared/federalAccounts/FederalAccountsViz';
 
 const propTypes = {

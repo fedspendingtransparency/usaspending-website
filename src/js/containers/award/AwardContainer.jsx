@@ -19,9 +19,9 @@ import {
     setDownloadExpectedUrl
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
 
-import BaseContract from 'models/v2/awardsV2/BaseContract';
-import BaseIdv from 'models/v2/awardsV2/BaseIdv';
-import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
+import BaseContract from 'models/award/BaseContract';
+import BaseIdv from 'models/award/BaseIdv';
+import BaseFinancialAssistance from 'models/award/BaseFinancialAssistance';
 import {
     fetchIdvDownloadFile,
     fetchContractDownloadFile,

@@ -13,7 +13,7 @@ import { uniqueId } from 'lodash';
 import * as IdvHelper from 'helpers/idvHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 
-import BaseFederalAccountFunding from 'models/v2/awardsV2/BaseFederalAccountFunding';
+import BaseFederalAccountFunding from 'models/award/BaseFederalAccountFunding';
 import FederalAccountTable from 'components/award/table/FederalAccountTable';
 import { fetchFederalAccountFunding } from '../../../helpers/awardHistoryHelper';
 

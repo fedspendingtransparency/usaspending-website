@@ -13,7 +13,7 @@ import { uniqueId } from 'lodash';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
-import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
+import BaseSubawardRow from 'models/award/subawards/BaseSubawardRow';
 
 import SubawardsTable from 'components/award/subawards/SubawardsTable';
 

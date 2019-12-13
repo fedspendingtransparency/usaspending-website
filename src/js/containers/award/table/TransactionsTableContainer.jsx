@@ -13,8 +13,8 @@ import { uniqueId } from 'lodash';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 
-import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
-import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
+import BaseContractTransaction from 'models/award/transactions/BaseContractTransaction';
+import BaseLoanTransaction from 'models/award/transactions/BaseLoanTransaction';
 import TransactionsTable from 'components/award/table/TransactionsTable';
 
 const propTypes = {
