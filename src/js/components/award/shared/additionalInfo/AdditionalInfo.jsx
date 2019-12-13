@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import additionalDetailsContract from 'dataMapping/awardsv2/additionalDetailsContract';
+import additionalDetailsContract from 'dataMapping/awards/additionalDetailsContract';
 import additionalDetailsFinancialAssistance from
-    'dataMapping/awardsv2/additionalDetailsFinancialAssistance';
-import additionalDetailsIdv from 'dataMapping/awardsv2/additionalDetailsIdv';
+    'dataMapping/awards/additionalDetailsFinancialAssistance';
+import additionalDetailsIdv from 'dataMapping/awards/additionalDetailsIdv';
 import Accordion from './Accordion';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
-import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
+import { getToolTipBySectionAndAwardType } from 'dataMapping/awards/tooltips';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 import AwardAmountsChart from './charts/AwardAmountsChart';

@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { idvTableMapping, nonIdvTableMapping } from 'dataMapping/awardsv2/federalAccountFunding';
+import { idvTableMapping, nonIdvTableMapping } from 'dataMapping/awards/federalAccountFunding';
 import { measureTableHeader } from 'helpers/textMeasurement';
 
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';

@@ -11,7 +11,7 @@ import AwardSectionHeader from '../AwardSectionHeader';
 import ExpandableAwardSection from '../ExpandableAwardSection';
 import LineTree from './LineTree';
 
-import { getToolTipBySectionAndAwardType } from '../../../../dataMapping/awardsv2/tooltips';
+import { getToolTipBySectionAndAwardType } from '../../../../dataMapping/awards/tooltips';
 import { AWARD_TYPE_PROPS } from "../../../../propTypes";
 
 const propTypes = {

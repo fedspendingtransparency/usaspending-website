@@ -9,8 +9,8 @@ import moment from 'moment';
 import { TooltipWrapper } from 'data-transparency-ui';
 
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
-import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
-import { titles } from 'dataMapping/awardsv2/datesSection';
+import { getToolTipBySectionAndAwardType } from 'dataMapping/awards/tooltips';
+import { titles } from 'dataMapping/awards/datesSection';
 
 const propTypes = {
     dates: PropTypes.object,
