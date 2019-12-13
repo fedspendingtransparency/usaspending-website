@@ -91,7 +91,7 @@ const Recipient = ({
             <h6 className="award-overview-title">Recipient</h6>
             {recipientComponent()}
             <RecipientAddress
-                placeOfPerformance={placeOfPerformance}
+                placeOfPerformance={recipient.location}
                 aggregateRecordType={aggregateRecordType()} />
             <div className="award-overview__left-section__aggregated-text">
                 {isFinancialAssistance && aggregateRecordText()}

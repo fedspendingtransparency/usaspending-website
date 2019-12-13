@@ -12,6 +12,7 @@ import CFDAOverview from '../../financialAssistance/CFDAOverview';
 
 const propTypes = {
     jumpToSubAwardHistoryTable: PropTypes.func,
+    setRelatedAwardsTab: PropTypes.func,
     jumpToSection: PropTypes.func,
     counts: PropTypes.object,
     overview: PropTypes.object
@@ -19,6 +20,7 @@ const propTypes = {
 
 const AwardOverviewRightSection = ({
     jumpToSubAwardHistoryTable,
+    setRelatedAwardsTab,
     jumpToSection,
     counts,
     overview
@@ -27,6 +29,7 @@ const AwardOverviewRightSection = ({
         (<CFDAOverview cfdaPropgram={overview.cfdaProgram} />) :
         (<RelatedAwards
             jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
+            setRelatedAwardsTab={setRelatedAwardsTab}
             jumpToSection={jumpToSection}
             counts={counts}
             overview={overview} />);
