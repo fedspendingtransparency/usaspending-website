@@ -11,7 +11,7 @@ import { FederalAccountTableContainer } from
 
 import { mockFederalAccountFunding } from '../../../models/awardsV2/mockAwardApi';
 
-import BaseFederalAccountFunding from 'models/v2/awardsV2/BaseFederalAccountFunding';
+import BaseFederalAccountFunding from 'models/award//BaseFederalAccountFunding';
 
 // mock the IDV helper
 jest.mock('helpers/idvHelper', () => require('../idv/mockIdvHelper'));

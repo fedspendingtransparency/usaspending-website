@@ -11,7 +11,7 @@ import { IdvAwardAmountsSectionContainer } from 'containers/award/idv/IdvAwardAm
 import { mockRedux, mockActions } from '../mockAward';
 import { mockAwardAmounts } from '../../../models/awardsV2/mockAwardApi';
 
-import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
+import BaseAwardAmounts from 'models/award//BaseAwardAmounts';
 
 
 jest.mock('helpers/idvHelper', () => require('../awardHelper'));

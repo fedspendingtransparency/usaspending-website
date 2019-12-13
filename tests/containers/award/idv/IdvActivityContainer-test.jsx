@@ -7,7 +7,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 
 import { IdvActivityContainer } from 'containers/award/idv/IdvActivityContainer';
-import BaseIdvActivityBar from 'models/v2/awardsV2/BaseIdvActivityBar';
+import BaseIdvActivityBar from 'models/award//BaseIdvActivityBar';
 import { mockRedux, mockActions } from '../mockAward';
 import { mockIdvActivity } from '../../../models/awardsV2/mockAwardApi';
 

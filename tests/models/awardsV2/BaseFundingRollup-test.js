@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 8/19/19
  */
 
-import BaseFundingRollup from 'models/v2/awardsV2/BaseFundingRollup';
+import BaseFundingRollup from 'models/award//BaseFundingRollup';
 import { mockAwardFundingMetaData } from './mockAwardApi';
 
 const summary = Object.create(BaseFundingRollup);

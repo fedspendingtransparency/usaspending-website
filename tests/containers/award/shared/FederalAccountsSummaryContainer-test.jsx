@@ -6,7 +6,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import BaseFundingRollup from 'models/v2/awardsV2/BaseFundingRollup';
+import BaseFundingRollup from 'models/award//BaseFundingRollup';
 import { FederalAccountsSummaryContainer } from '../../../../src/js/containers/award/shared/FederalAccountsSummaryContainer';
 import { mockAwardFundingMetaData } from '../../../models/awardsV2/mockAwardApi';
 

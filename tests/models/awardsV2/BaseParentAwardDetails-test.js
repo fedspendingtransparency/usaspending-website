@@ -3,7 +3,7 @@
  * Created by maxwell kendall 06/28/19
  */
 
-import parentAwardDetails from "../../../src/js/models/v2/awardsV2/BaseParentAwardDetails";
+import parentAwardDetails from "../../../src/js/models/award//BaseParentAwardDetails";
 import { mockIdv } from "./mockAwardApi";
 
 describe('parentAwardDetails', () => {

@@ -3,11 +3,11 @@
  * Created by Lizzie Salita 3/12/18
  */
 
-import BaseContract from 'models/v2/awards/BaseContract';
+import BaseContract from 'models/award/BaseContract';
 import CoreLocation from "models/v2/CoreLocation";
-import BaseAwardRecipient from "models/v2/awards/BaseAwardRecipient";
-import CoreAwardAgency from "models/v2/awards/CoreAwardAgency";
-import BaseContractAdditionalDetails from "models/v2/awards/additionalDetails/BaseContractAdditionalDetails";
+import BaseAwardRecipient from "models/award/BaseAwardRecipient";
+import CoreAwardAgency from "models/award/CoreAwardAgency";
+import BaseContractAdditionalDetails from "models/award/additionalDetails/BaseContractAdditionalDetails";
 
 import { mockContractApi } from './mockAwardApi';
 

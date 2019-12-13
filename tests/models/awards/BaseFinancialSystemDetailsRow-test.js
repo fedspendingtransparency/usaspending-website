@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/13/18
  */
 
-import BaseFinancialSystemDetailsRow from 'models/v2/awards/financialSystemDetails/BaseFinancialSystemDetailsRow';
+import BaseFinancialSystemDetailsRow from 'models/award/financialSystemDetails/BaseFinancialSystemDetailsRow';
 
 const mockFinSys = {
     financial_accounts_by_awards_id: '456789',

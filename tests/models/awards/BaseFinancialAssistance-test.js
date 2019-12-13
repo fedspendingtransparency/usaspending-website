@@ -3,10 +3,10 @@
  * Created by Lizzie Salita 3/13/18
  */
 
-import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
+import BaseFinancialAssistance from 'models/award/BaseFinancialAssistance';
 import CoreLocation from "models/v2/CoreLocation";
-import BaseAwardRecipient from "models/v2/awards/BaseAwardRecipient";
-import CoreAwardAgency from "models/v2/awards/CoreAwardAgency";
+import BaseAwardRecipient from "models/award/BaseAwardRecipient";
+import CoreAwardAgency from "models/award/CoreAwardAgency";
 
 import { mockLoanApi } from './mockAwardApi';
 

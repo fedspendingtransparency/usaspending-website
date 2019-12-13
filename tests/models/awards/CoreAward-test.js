@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/12/18
  */
 
-import CoreAward from 'models/v2/awards/CoreAward';
+import CoreAward from 'models/award/CoreAward';
 
 const awardData = {
     category: 'loans',

@@ -3,11 +3,11 @@
  * Created by David Trinh 10/10/18
  */
 
-import BaseFinancialAssistance, { emptyCfda } from 'models/v2/awardsV2/BaseFinancialAssistance';
+import BaseFinancialAssistance, { emptyCfda } from 'models/award//BaseFinancialAssistance';
 import CoreLocation from "models/v2/CoreLocation";
-import BaseAwardRecipient from "models/v2/awardsV2/BaseAwardRecipient";
-import CoreAwardAgency from "models/v2/awardsV2/CoreAwardAgency";
-import CorePeriodOfPerformance from 'models/v2/awardsV2/CorePeriodOfPerformance';
+import BaseAwardRecipient from "models/award//BaseAwardRecipient";
+import CoreAwardAgency from "models/award//CoreAwardAgency";
+import CorePeriodOfPerformance from 'models/award//CorePeriodOfPerformance';
 
 import { mockLoan } from './mockAwardApi';
 

@@ -3,14 +3,14 @@
  * Created by David Trinh 10/10/18
  */
 
-import BaseContract from 'models/v2/awardsV2/BaseContract';
+import BaseContract from 'models/award//BaseContract';
 import CoreLocation from "models/v2/CoreLocation";
-import BaseAwardRecipient from "models/v2/awardsV2/BaseAwardRecipient";
-import BaseParentAwardDetails from 'models/v2/awardsV2/BaseParentAwardDetails';
-import CoreAwardAgency from "models/v2/awardsV2/CoreAwardAgency";
-import BaseContractAdditionalDetails from "models/v2/awardsV2/additionalDetails/BaseContractAdditionalDetails";
-import CorePeriodOfPerformance from 'models/v2/awardsV2/CorePeriodOfPerformance';
-import CoreExecutiveDetails from 'models/v2/awardsV2/CoreExecutiveDetails';
+import BaseAwardRecipient from "models/award//BaseAwardRecipient";
+import BaseParentAwardDetails from 'models/award//BaseParentAwardDetails';
+import CoreAwardAgency from "models/award//CoreAwardAgency";
+import BaseContractAdditionalDetails from "models/award//additionalDetails/BaseContractAdditionalDetails";
+import CorePeriodOfPerformance from 'models/award//CorePeriodOfPerformance';
+import CoreExecutiveDetails from 'models/award//CoreExecutiveDetails';
 
 import { mockContract } from './mockAwardApi';
 

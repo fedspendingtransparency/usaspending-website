@@ -4,7 +4,7 @@
  */
 
 
-import BaseFederalAccount from 'models/v2/awardsV2/BaseFederalAccount';
+import BaseFederalAccount from 'models/award//BaseFederalAccount';
 import { mockAwardFederalAccounts } from './mockAwardApi';
 
 const account = mockAwardFederalAccounts.results[0];

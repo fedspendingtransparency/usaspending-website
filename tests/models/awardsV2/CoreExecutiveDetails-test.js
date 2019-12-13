@@ -3,7 +3,7 @@
  * Created by David Trinh 10/6/18
  */
 
-import CoreExecutiveDetails from 'models/v2/awardsV2/CoreExecutiveDetails';
+import CoreExecutiveDetails from 'models/award//CoreExecutiveDetails';
 import { mockContract } from './mockAwardApi';
 
 const executiveDetails = Object.create(CoreExecutiveDetails);

@@ -7,7 +7,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { ReferencedAwardsContainer } from 'containers/award/idv/ReferencedAwardsContainer';
-import BaseReferencedAwardResult from 'models/v2/awardsV2/BaseReferencedAwardResult';
+import BaseReferencedAwardResult from 'models/award//BaseReferencedAwardResult';
 import { mockRedux } from '../mockAward';
 import { mockReferencedAwards } from '../../../models/awardsV2/mockAwardApi';
 

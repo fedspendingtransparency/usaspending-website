@@ -3,7 +3,7 @@
  * Created by David Trinh 10/10/18
  */
 
-import BaseAwardRecipient from 'models/v2/awardsV2/BaseAwardRecipient';
+import BaseAwardRecipient from 'models/award//BaseAwardRecipient';
 import CoreLocation from 'models/v2/CoreLocation';
 import { mockContract } from './mockAwardApi';
 

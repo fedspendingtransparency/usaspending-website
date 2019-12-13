@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/20/18
  */
 
-import BaseContractAdditionalDetails from 'models/v2/awards/additionalDetails/BaseContractAdditionalDetails';
+import BaseContractAdditionalDetails from 'models/award/additionalDetails/BaseContractAdditionalDetails';
 import { mockContractApi } from '../mockAwardApi';
 
 const details = Object.create(BaseContractAdditionalDetails);

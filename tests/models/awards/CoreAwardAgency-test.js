@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/20/18
  */
 
-import CoreAwardAgency from 'models/v2/awards/CoreAwardAgency';
+import CoreAwardAgency from 'models/award/CoreAwardAgency';
 import { mockLoanApi } from './mockAwardApi';
 
 const agency = Object.create(CoreAwardAgency);

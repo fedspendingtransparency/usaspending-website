@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/13/18
  */
 
-import BaseSubawardRow from 'models/v2/awards/subawards/BaseSubawardRow';
+import BaseSubawardRow from 'models/award/subawards/BaseSubawardRow';
 
 const mockSubaward = {
     id: '456789',

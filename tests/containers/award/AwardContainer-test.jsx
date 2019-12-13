@@ -7,9 +7,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { AwardContainer } from 'containers/award/AwardContainer';
-import BaseContract from 'models/v2/awardsV2/BaseContract';
-import BaseIdv from 'models/v2/awardsV2/BaseIdv';
-import BaseFinancialAssistance from "models/v2/awardsV2/BaseFinancialAssistance";
+import BaseContract from 'models/award//BaseContract';
+import BaseIdv from 'models/award//BaseIdv';
+import BaseFinancialAssistance from "models/award//BaseFinancialAssistance";
 
 import { mockParams, mockActions } from './mockAward';
 import { mockContract, mockLoan, mockIdv } from '../../models/awardsV2/mockAwardApi';
