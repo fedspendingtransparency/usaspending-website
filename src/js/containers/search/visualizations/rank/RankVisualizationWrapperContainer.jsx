@@ -22,7 +22,7 @@ import SpendingByCFDASection from 'components/search/visualizations/rank/section
 import SpendingByIndustryCodeSection from 'components/search/visualizations/rank/sections/SpendingByIndustryCodeSection';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
-import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
+import BaseSpendingByCategoryResult from 'models/search/BaseSpendingByCategoryResult';
 
 import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCategory';
 
