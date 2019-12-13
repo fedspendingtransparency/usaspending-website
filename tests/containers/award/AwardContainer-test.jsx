@@ -12,7 +12,7 @@ import BaseIdv from 'models/award//BaseIdv';
 import BaseFinancialAssistance from "models/award//BaseFinancialAssistance";
 
 import { mockParams, mockActions } from './mockAward';
-import { mockContract, mockLoan, mockIdv } from '../../models/awardsV2/mockAwardApi';
+import { mockContract, mockLoan, mockIdv } from '../../models/award/mockAwardApi';
 
 jest.mock('helpers/searchHelper', () => require('./awardHelper'));
 jest.mock("helpers/downloadHelper", () => require("./awardHelper"));

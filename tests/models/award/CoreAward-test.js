@@ -6,7 +6,7 @@
 import CoreAward from 'models/award//CoreAward';
 import { each, upperFirst } from 'lodash';
 import { descriptionsForAwardTypes }
-    from 'dataMapping/awardsv2/descriptionsForAwardTypes';
+    from 'dataMapping/award/descriptionsForAwardTypes';
 import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 
 const awardData = {

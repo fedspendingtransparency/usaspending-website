@@ -9,7 +9,7 @@ import { mount, shallow } from 'enzyme';
 import { IdvActivityContainer } from 'containers/award/idv/IdvActivityContainer';
 import BaseIdvActivityBar from 'models/award//BaseIdvActivityBar';
 import { mockRedux, mockActions } from '../mockAward';
-import { mockIdvActivity } from '../../../models/awardsV2/mockAwardApi';
+import { mockIdvActivity } from '../../../models/award/mockAwardApi';
 
 jest.mock('helpers/idvHelper', () => require('../awardHelper'));
 

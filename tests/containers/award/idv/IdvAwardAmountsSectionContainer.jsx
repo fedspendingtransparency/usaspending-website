@@ -9,7 +9,7 @@ import { mount, shallow } from 'enzyme';
 import { IdvAwardAmountsSectionContainer } from 'containers/award/idv/IdvAwardAmountsSectionContainer';
 
 import { mockRedux, mockActions } from '../mockAward';
-import { mockAwardAmounts } from '../../../models/awardsV2/mockAwardApi';
+import { mockAwardAmounts } from '../../../models/award/mockAwardApi';
 
 import BaseAwardAmounts from 'models/award//BaseAwardAmounts';
 

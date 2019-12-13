@@ -1,4 +1,4 @@
-import { mockAwardFederalAccounts, mockReferencedAwardCounts, mockReferencedAwards, mockFederalAccountFunding, mockAwardFundingMetaData, mockIdvActivity } from '../../../models/awardsV2/mockAwardApi';
+import { mockAwardFederalAccounts, mockReferencedAwardCounts, mockReferencedAwards, mockFederalAccountFunding, mockAwardFundingMetaData, mockIdvActivity } from '../../../models/award/mockAwardApi';
 
 export const fetchReferencedAwardsCounts = () => (
     {

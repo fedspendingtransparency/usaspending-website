@@ -9,7 +9,7 @@ import { shallow } from 'enzyme';
 import { FederalAccountTableContainer } from
     'containers/award/table/FederalAccountTableContainer';
 
-import { mockFederalAccountFunding } from '../../../models/awardsV2/mockAwardApi';
+import { mockFederalAccountFunding } from '../../../models/award/mockAwardApi';
 
 import BaseFederalAccountFunding from 'models/award//BaseFederalAccountFunding';
 

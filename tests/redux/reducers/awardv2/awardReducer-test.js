@@ -7,7 +7,7 @@ import BaseContract from 'models/award//BaseContract';
 
 import awardReducer, { initialState } from 'redux/reducers/award/awardReducer';
 
-import { mockContract } from '../../../models/awardsV2/mockAwardApi';
+import { mockContract } from '../../../models/award/mockAwardApi';
 
 const contractModel = Object.create(BaseContract);
 contractModel.populate(mockContract);
