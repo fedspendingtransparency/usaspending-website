@@ -4,7 +4,7 @@
  */
 
 import BaseRecipientOverview from 'models/recipient/BaseRecipientOverview';
-import CoreLocation from 'models/v2/CoreLocation';
+import CoreLocation from 'models/CoreLocation';
 import { mockRecipientOverview } from './mockRecipientApi';
 
 const recipient = Object.create(BaseRecipientOverview);

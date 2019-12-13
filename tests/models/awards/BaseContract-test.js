@@ -4,7 +4,7 @@
  */
 
 import BaseContract from 'models/award/BaseContract';
-import CoreLocation from "models/v2/CoreLocation";
+import CoreLocation from "models/CoreLocation";
 import BaseAwardRecipient from "models/award/BaseAwardRecipient";
 import CoreAwardAgency from "models/award/CoreAwardAgency";
 import BaseContractAdditionalDetails from "models/award/additionalDetails/BaseContractAdditionalDetails";

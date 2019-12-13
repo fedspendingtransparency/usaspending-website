@@ -4,7 +4,7 @@
  */
 
 import BaseFinancialAssistance from 'models/award/BaseFinancialAssistance';
-import CoreLocation from "models/v2/CoreLocation";
+import CoreLocation from "models/CoreLocation";
 import BaseAwardRecipient from "models/award/BaseAwardRecipient";
 import CoreAwardAgency from "models/award/CoreAwardAgency";
 

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/12/18
  */
 
-import CoreLocation from 'models/v2/CoreLocation';
+import CoreLocation from 'models/CoreLocation';
 
 const locationData = {
     address1: '602 Trumball Street',

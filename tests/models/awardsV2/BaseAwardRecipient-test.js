@@ -4,7 +4,7 @@
  */
 
 import BaseAwardRecipient from 'models/award//BaseAwardRecipient';
-import CoreLocation from 'models/v2/CoreLocation';
+import CoreLocation from 'models/CoreLocation';
 import { mockContract } from './mockAwardApi';
 
 const recipient = Object.create(BaseAwardRecipient);
