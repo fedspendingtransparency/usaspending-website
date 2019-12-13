@@ -7,7 +7,7 @@ import CoreLocation from 'models/CoreLocation';
 import CoreAward from './CoreAward';
 import CoreAwardAgency from './CoreAwardAgency';
 import CorePeriodOfPerformance from "./CorePeriodOfPerformance";
-import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
+import CoreExecutiveDetails from '../award/CoreExecutiveDetails';
 import BaseIdvAdditionalDetails from './additionalDetails/BaseContractAdditionalDetails';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import BaseParentAwardDetails from './BaseParentAwardDetails';

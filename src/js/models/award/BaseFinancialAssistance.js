@@ -8,7 +8,7 @@ import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
 import CoreAward from './CoreAward';
 import CorePeriodOfPerformance from './CorePeriodOfPerformance';
-import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
+import CoreExecutiveDetails from '../award/CoreExecutiveDetails';
 
 const BaseFinancialAssistance = Object.create(CoreAward);
 export const emptyCfda = {

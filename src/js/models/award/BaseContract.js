@@ -9,8 +9,8 @@ import BaseParentAwardDetails from './BaseParentAwardDetails';
 import CoreAwardAgency from './CoreAwardAgency';
 import BaseContractAdditionalDetails from './additionalDetails/BaseContractAdditionalDetails';
 import CoreAward from './CoreAward';
-import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
-import CorePeriodOfPerformance from '../awardsV2/CorePeriodOfPerformance';
+import CoreExecutiveDetails from '../award/CoreExecutiveDetails';
+import CorePeriodOfPerformance from '../award/CorePeriodOfPerformance';
 
 const BaseContract = Object.create(CoreAward);
 
