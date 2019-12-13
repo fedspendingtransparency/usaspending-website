@@ -10,7 +10,7 @@ import { Search } from 'js-search';
 import { orderBy } from 'lodash';
 
 import * as StateHelper from 'helpers/stateHelper';
-import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';
+import BaseStateLandingItem from 'models/state/BaseStateLandingItem';
 
 import StateLandingContent from 'components/stateLanding/StateLandingContent';
 

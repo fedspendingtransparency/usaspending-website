@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import BaseStateProfile from 'models/v2/state/BaseStateProfile';
+import BaseStateProfile from 'models/state/BaseStateProfile';
 import * as StateHelper from 'helpers/stateHelper';
 import * as stateActions from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';

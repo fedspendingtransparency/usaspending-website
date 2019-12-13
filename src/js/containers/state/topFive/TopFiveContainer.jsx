@@ -13,7 +13,7 @@ import {
     convertFYToDateRange
 } from 'helpers/fiscalYearHelper';
 import * as SearchHelper from 'helpers/searchHelper';
-import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
+import BaseStateCategoryResult from 'models/state/BaseStateCategoryResult';
 
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
