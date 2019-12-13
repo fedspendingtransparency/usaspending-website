@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 8/23/17
  **/
 
-import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
+import BaseRecipientOverview from 'models/recipient/BaseRecipientOverview';
 
 const recipientOverview = Object.create(BaseRecipientOverview);
 recipientOverview.populate({});

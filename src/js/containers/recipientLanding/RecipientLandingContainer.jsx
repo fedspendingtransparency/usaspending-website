@@ -12,7 +12,7 @@ import * as RecipientLandingHelper from 'helpers/recipientLandingHelper';
 
 import RecipientLandingContent from 'components/recipientLanding/RecipientLandingContent';
 
-import BaseRecipientLandingRow from 'models/v2/recipient/BaseRecipientLandingRow';
+import BaseRecipientLandingRow from 'models/recipient/BaseRecipientLandingRow';
 
 
 export default class RecipientLandingContainer extends React.Component {

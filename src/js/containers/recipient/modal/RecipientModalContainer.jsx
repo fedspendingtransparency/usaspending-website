@@ -14,7 +14,7 @@ import * as recipientActions from 'redux/actions/recipient/recipientActions';
 import * as RecipientHelper from 'helpers/recipientHelper';
 
 import RecipientModal from 'components/recipient/modal/RecipientModal';
-import BaseChildRecipient from 'models/v2/recipient/BaseChildRecipient';
+import BaseChildRecipient from 'models/recipient/BaseChildRecipient';
 
 const propTypes = {
     setRecipientChildren: PropTypes.func,
