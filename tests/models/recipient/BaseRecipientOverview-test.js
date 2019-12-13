@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 6/26/18
  */
 
-import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
+import BaseRecipientOverview from 'models/recipient/BaseRecipientOverview';
 import CoreLocation from 'models/v2/CoreLocation';
 import { mockRecipientOverview } from './mockRecipientApi';
 

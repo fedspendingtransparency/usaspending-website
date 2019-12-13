@@ -1,5 +1,5 @@
 import { initialState } from 'redux/reducers/recipient/recipientReducer';
-import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
+import BaseRecipientOverview from 'models/recipient/BaseRecipientOverview';
 import { mockRecipientOverview } from '../../models/recipient/mockRecipientApi';
 
 export const mockActions = {

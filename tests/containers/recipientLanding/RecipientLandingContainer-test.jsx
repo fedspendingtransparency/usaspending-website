@@ -6,7 +6,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import BaseRecipientLandingRow from 'models/v2/recipient/BaseRecipientLandingRow';
+import BaseRecipientLandingRow from 'models/recipient/BaseRecipientLandingRow';
 import RecipientLandingContainer from 'containers/recipientLanding/RecipientLandingContainer';
 import { fetchAllRecipients } from './mockRecipientLandingHelper';
 import { mockRecipientList } from './mockData';

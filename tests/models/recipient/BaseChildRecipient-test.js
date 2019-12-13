@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 6/26/18
  */
 
-import BaseChildRecipient from 'models/v2/recipient/BaseChildRecipient';
+import BaseChildRecipient from 'models/recipient/BaseChildRecipient';
 import { mockChildRecipients } from './mockRecipientApi';
 
 const recipient = Object.create(BaseChildRecipient);

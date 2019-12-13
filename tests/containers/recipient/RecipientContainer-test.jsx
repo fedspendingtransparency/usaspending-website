@@ -11,7 +11,7 @@ jest.mock('helpers/recipientHelper', () => require('./mockRecipientHelper'));
 
 import { RecipientContainer } from 'containers/recipient/RecipientContainer';
 import { mockActions, mockRedux } from './mockData';
-import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
+import BaseRecipientOverview from 'models/recipient/BaseRecipientOverview';
 import { mockRecipientOverview } from '../../models/recipient/mockRecipientApi';
 
 // mock the child component by replacing it with a function that returns a null element
