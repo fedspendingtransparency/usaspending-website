@@ -3,7 +3,7 @@
  * Created by David Trinh 10/9/18
  */
 
-import CoreLocation from 'models/v2/CoreLocation';
+import CoreLocation from 'models/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
 import CoreAward from './CoreAward';

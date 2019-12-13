@@ -4,7 +4,7 @@
  */
 
 import { getBusinessTypes } from 'helpers/businessTypesHelper';
-import CoreLocation from 'models/v2/CoreLocation';
+import CoreLocation from 'models/CoreLocation';
 
 const parseBusinessCategories = (data) => (
     getBusinessTypes().reduce((parsed, type) => {

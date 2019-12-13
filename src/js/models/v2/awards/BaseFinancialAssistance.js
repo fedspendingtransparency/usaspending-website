@@ -4,7 +4,7 @@
  */
 
 import { formatMoney } from 'helpers/moneyFormatter';
-import CoreLocation from 'models/v2/CoreLocation';
+import CoreLocation from 'models/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
 import CoreAward from './CoreAward';

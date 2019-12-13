@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 12/3/18
  */
 
-import CoreLocation from 'models/v2/CoreLocation';
+import CoreLocation from 'models/CoreLocation';
 import CoreAward from './CoreAward';
 import CoreAwardAgency from './CoreAwardAgency';
 import CorePeriodOfPerformance from "./CorePeriodOfPerformance";

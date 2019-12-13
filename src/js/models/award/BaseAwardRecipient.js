@@ -3,7 +3,7 @@
  * Created by David Trinh 10/9/18
  */
 
-import CoreLocation from 'models/v2/CoreLocation';
+import CoreLocation from 'models/CoreLocation';
 
 const BaseAwardRecipient = {
     populate(data) {

@@ -4,7 +4,7 @@
  */
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import CoreLocation from 'models/v2/CoreLocation';
+import CoreLocation from 'models/CoreLocation';
 import { recipientTypes } from 'dataMapping/search/recipientType';
 
 const convertRecipientType = (type) => recipientTypes[type] || null;
