@@ -5,7 +5,7 @@
 import { upperFirst } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { descriptionsForAwardTypes }
-    from 'dataMapping/awardsv2/descriptionsForAwardTypes';
+    from 'dataMapping/awards/descriptionsForAwardTypes';
 import { parseDate, formatDate } from './CorePeriodOfPerformance';
 
 const CoreAward = {
