@@ -7,7 +7,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import StateLandingContainer from 'containers/stateLanding/StateLandingContainer';
-import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';
+import BaseStateLandingItem from 'models/state/BaseStateLandingItem';
 
 import { fetchStateList } from '../state/mockStateHelper';
 import { mockStateList } from '../state/mockData';

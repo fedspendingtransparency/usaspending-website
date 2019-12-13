@@ -1,4 +1,4 @@
-import BaseStateProfile from 'models/v2/state/BaseStateProfile';
+import BaseStateProfile from 'models/state/BaseStateProfile';
 import { mockStateApi } from '../../models/state/mockStateApi';
 
 export const mockActions = {

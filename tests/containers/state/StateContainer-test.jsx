@@ -11,7 +11,7 @@ jest.mock('helpers/stateHelper', () => require('./mockStateHelper'));
 
 import { StateContainer } from 'containers/state/StateContainer';
 import { mockActions, mockRedux, mockStateOverview } from './mockData';
-import BaseStateProfile from 'models/v2/state/BaseStateProfile';
+import BaseStateProfile from 'models/state/BaseStateProfile';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/state/StatePage', () => jest.fn(() => null));

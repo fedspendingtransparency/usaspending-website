@@ -3,7 +3,7 @@
  * Created by Kevin Li 5/23/18
  */
 
-import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';
+import BaseStateLandingItem from 'models/state/BaseStateLandingItem';
 
 const mockApi = {
     fips: '01',

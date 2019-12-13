@@ -3,7 +3,7 @@
  * Created by Kevin Li 5/21/18
  */
 
-import BaseStateCategoryResult, { defaultNameTemplate } from 'models/v2/state/BaseStateCategoryResult';
+import BaseStateCategoryResult, { defaultNameTemplate } from 'models/state/BaseStateCategoryResult';
 import { mockStateCategoryApi } from './mockStateApi';
 
 describe('defaultNameTemplate', () => {

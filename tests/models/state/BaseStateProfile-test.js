@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/7/18
  */
 
-import BaseStateProfile from 'models/v2/state/BaseStateProfile';
+import BaseStateProfile from 'models/state/BaseStateProfile';
 import { mockStateApi } from './mockStateApi';
 import kGlobalConstants from 'GlobalConstants';
 

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/22/18
  */
 
-import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
+import BaseAwardBreakdownRow from 'models/state/BaseAwardBreakdownRow';
 import { mockBreakdownApi } from './mockStateApi';
 
 const breakdown = Object.create(BaseAwardBreakdownRow);

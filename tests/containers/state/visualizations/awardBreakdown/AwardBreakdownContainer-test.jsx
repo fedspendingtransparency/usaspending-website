@@ -6,7 +6,7 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
+import BaseAwardBreakdownRow from 'models/state/BaseAwardBreakdownRow';
 import { AwardBreakdownContainer } from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import { mockBreakdownProps } from '../../mockData';
 import { mockBreakdownApi } from "../../../../models/state/mockStateApi";
