@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 6/5/18
  */
 
-import BaseSpendingByCategoryResult, { defaultNameTemplate } from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
+import BaseSpendingByCategoryResult, { defaultNameTemplate } from 'models/search/BaseSpendingByCategoryResult';
 import { mockCategoryApi } from './mockCategoryApi';
 
 describe('defaultNameTemplate', () => {
