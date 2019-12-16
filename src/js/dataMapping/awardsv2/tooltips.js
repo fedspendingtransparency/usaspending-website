@@ -1,4 +1,4 @@
-import * as tooltips from '../../components/awardv2/shared/InfoTooltipContent';
+import * as tooltips from '../../components/award/shared/InfoTooltipContent';
 import { isAwardFinancialAssistance } from '../../helpers/awardSummaryHelper';
 
 const tooltipsBySectionByAwardType = {

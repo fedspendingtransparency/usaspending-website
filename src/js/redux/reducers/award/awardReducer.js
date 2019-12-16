@@ -1,20 +1,36 @@
 /**
  * awardReducer.js
- * Created by Emily Gullo 01/23/2017
+ * Created by Lizzie Salita 12/4/18
  **/
 
-const initialState = {
-    selectedAward: null
+export const initialState = {
+    id: '',
+    category: '',
+    overview: null,
+    counts: null,
+    totalTransactionObligatedAmount: 0
 };
 
 const awardReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_SELECTED_AWARD': {
+        case 'SET_AWARD': {
             return Object.assign({}, state, {
-                selectedAward: action.selectedAward
+                id: action.overview.generatedId,
+                category: action.overview.category,
+                overview: action.overview
             });
         }
-        case 'RESET_AWARD_DATA': {
+        case 'SET_COUNTS': {
+            return Object.assign({}, state, {
+                counts: action.counts
+            });
+        }
+        case 'SET_TOTAL_TRANSACTION_OBLIGATED_AMOUNT': {
+            return Object.assign({}, state, {
+                totalTransactionObligatedAmount: action.total
+            });
+        }
+        case 'RESET_AWARD': {
             return Object.assign({}, initialState);
         }
         default:
