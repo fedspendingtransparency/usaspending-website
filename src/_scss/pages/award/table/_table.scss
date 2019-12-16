@@ -1,0 +1,48 @@
+.transactions-table, .financial-system-table, .subawards-table {
+    // implement the library style
+    @import '../../../lib/ibTable/ibTable';
+    margin-top: 1.5em;
+    display: block;
+    opacity: 1.0;
+
+    &.loading {
+        opacity: 0.5;
+        @include transition(opacity 0.25s ease-in);
+    }
+
+    &.no-results {
+        border-bottom: none;
+    }
+
+    .ibt-table-container {
+        border: 1px solid $color-gray-light;
+        background-color: $color-white;
+    }
+
+    .transaction-generic-cell, .financial-system-generic-cell, .subaward-generic-cell {
+        @import "cells/_genericCell";
+        @include genericCell();
+    }
+
+    .transaction-header-cell, .financial-system-header-cell, .subaward-header-cell {
+        @import "cells/_genericHeader";
+        @include genericHeader();
+
+         &.last-column {
+            border-right: none;
+        }
+    }
+
+    // gray out even rows
+    .row-even {
+        background-color: #f7f7f7;
+    }
+
+    // override the header style for a bottom border
+    .ibt-header {
+        border-bottom: 1px solid #ADAFB4;
+    }
+    .ibt-table-body{
+        //border: 1px solid red;
+    }
+}
