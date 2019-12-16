@@ -77,6 +77,7 @@ export default class ProgressBar extends Component {
         if (domain.length !== 2) {
             badDomainData = true;
         }
+        if (domain[0] > domain[1]) badDomainData = true;
         // handle bad dates
         this.props.milestones.forEach((milestone) => {
             if (milestone.data > domain[1]) {
