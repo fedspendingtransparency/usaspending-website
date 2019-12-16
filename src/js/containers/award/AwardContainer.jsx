@@ -18,6 +18,7 @@ import {
     setDownloadExpectedFile,
     setDownloadExpectedUrl
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
+import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import BaseIdv from 'models/v2/awardsV2/BaseIdv';
@@ -31,6 +32,7 @@ import {
 require('pages/awardV2/awardPage.scss');
 
 const propTypes = {
+    subAwardIdClicked: PropTypes.func,
     setAward: PropTypes.func,
     handleDownloadRequest: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
@@ -39,7 +41,8 @@ const propTypes = {
     setDownloadExpectedUrl: PropTypes.func,
     params: PropTypes.object,
     award: PropTypes.object,
-    isDownloadPending: PropTypes.bool
+    isDownloadPending: PropTypes.bool,
+    isSubAwardIdClicked: PropTypes.bool
 };
 
 export class AwardContainer extends React.Component {
@@ -182,6 +185,8 @@ export class AwardContainer extends React.Component {
         if (!this.state.inFlight) {
             content = (
                 <Award
+                    subAwardIdClicked={this.props.subAwardIdClicked}
+                    isSubAwardIdClicked={this.props.isSubAwardIdClicked}
                     isDownloadPending={this.props.isDownloadPending}
                     downloadData={this.downloadData}
                     awardId={this.props.params.awardId}
@@ -196,12 +201,17 @@ export class AwardContainer extends React.Component {
 AwardContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.award, isDownloadPending: state.bulkDownload.download.pendingDownload }),
+    (state) => ({
+        award: state.award,
+        isDownloadPending: state.bulkDownload.download.pendingDownload,
+        isSubAwardIdClicked: state.searchSubAwardTable.isSubAwardIdClicked
+    }),
     (dispatch) => bindActionCreators({
         setDownloadExpectedUrl,
         setDownloadExpectedFile,
         setDownloadPending,
         setDownloadCollapsed,
-        setAward
+        setAward,
+        subAwardIdClicked
     }, dispatch)
 )(AwardContainer);
