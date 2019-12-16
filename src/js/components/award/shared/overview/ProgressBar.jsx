@@ -474,6 +474,7 @@ export default class ProgressBar extends Component {
     // create line
     createLine = (lineData) => {
         if (!lineData) return null;
+        if (!lineData.display) return null;
         const {
             className,
             description,
