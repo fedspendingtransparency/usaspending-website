@@ -15,7 +15,7 @@ const propTypes = {
 
 const AwardStatus = ({ dates, awardType }) => {
     const { startDate, endDate, currentEndDate } = datesByAwardType(dates, awardType);
-    const contract = isContract();
+    const contract = isContract(awardType);
     const awardStatus = () => {
         const today = moment();
         let end = endDate;
@@ -27,10 +27,10 @@ const AwardStatus = ({ dates, awardType }) => {
         if (today.isBefore(startDate)) status = 'Not Started';
         // In Progress or Open
         if (today.isAfter(startDate) && today.isBefore(end)) {
-            status = contract ? 'Open' : 'In Progress';
+            status = contract ? 'In Progress' : 'Open';
         }
         // Completed or Closed
-        if (today.isAfter(end)) status = contract ? 'Closed' : 'Completed';
+        if (today.isAfter(end)) status = contract ? 'Completed' : 'Closed';
         return status;
     };
 
