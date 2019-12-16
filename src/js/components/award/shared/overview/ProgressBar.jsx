@@ -46,17 +46,23 @@ export default class ProgressBar extends Component {
             this.positionText();
         };
     }
+
+    componentDidMount() {
+        this.start();
+    }
     // recreate the progress bar on window resize
     componentDidUpdate(prevProps) {
+        console.log(' Did Update For Max ');
         if (prevProps.width !== this.props.width) {
             this.start();
         }
     }
 
     start = () => {
-        this.validationOfProps();
+        this.validateDomainAndMilestones();
         // DataFlow
         // 1. start
+        // 2. validateDomainAndMilestones
         // 2. createXScales
         // 3. milestoneData
         // 4. showMilestones
@@ -66,7 +72,7 @@ export default class ProgressBar extends Component {
         // 8. progressTextData
     }
 
-    validationOfProps = () => {
+    validateDomainAndMilestones = () => {
         const {
             currentProgress,
             domain
@@ -90,7 +96,6 @@ export default class ProgressBar extends Component {
         // validation of current progress
         if (!currentProgress) badDomainData = true;
         this.setState({
-            domain: [0, 1],
             currentProgress,
             badDomainData
         }, this.createXScales);
@@ -533,7 +538,6 @@ export default class ProgressBar extends Component {
         const { xScaleProgressBar, xScaleWithinCircles, badDomainData } = this.state;
         const { heightOfSVG, width } = this.props;
         if (!xScaleProgressBar || !xScaleWithinCircles || badDomainData) return null;
-
         return (
             <svg
                 className="progress-bar"
