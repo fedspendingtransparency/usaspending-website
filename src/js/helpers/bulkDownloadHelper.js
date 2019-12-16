@@ -23,14 +23,19 @@ export const requestAgenciesList = (params) => {
     };
 };
 
-export const requestFederalAccountList = (params) => {
+export const requestFederalAccountList = (agencyCode) => {
     const source = CancelToken.source();
     return {
         promise: Axios.request({
-            url: `v1/federal_accounts/`,
+            url: `v2/federal_accounts/`,
             baseURL: kGlobalConstants.API,
             method: 'post',
-            data: params,
+            data: {
+                filters: {
+                    agency_identifier: agencyCode
+                },
+                limit: 100
+            },
             cancelToken: source.token
         }),
         cancel() {

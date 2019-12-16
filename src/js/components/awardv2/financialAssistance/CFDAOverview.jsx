@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TooltipWrapper } from 'data-transparency-ui';
 
-import AwardSection from '../shared/AwardSection';
-import AwardSectionHeader from '../shared/AwardSectionHeader';
 import { CFDAOverviewInfo } from '../shared/InfoTooltipContent';
 
 const propTypes = {
@@ -12,17 +11,21 @@ const propTypes = {
 const CFDAOverview = ({
     cfdaPropgram
 }) => (
-    <AwardSection type="column">
-        <AwardSectionHeader
-            left={false}
-            title="CFDA Program / Assistance Listing"
-            tooltip={CFDAOverviewInfo} />
+    <div className="award-overview__right-section__cfda award-overview-column first award-overview-column__spacing">
+        <h6 className="award-overview-title">
+            CFDA Program / Assistance Listing
+            <TooltipWrapper
+                className="award-section-tt"
+                icon="info"
+                left
+                tooltipComponent={CFDAOverviewInfo} />
+        </h6>
         <div className="award-overview__body award-overview__cfda">
             <span>
                 {cfdaPropgram}
             </span>
         </div>
-    </AwardSection>
+    </div>
 );
 
 CFDAOverview.propTypes = propTypes;

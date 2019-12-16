@@ -1,0 +1,40 @@
+.award-overview__left-section {
+    &.award__col {
+      padding-bottom: 0;
+    }
+    @include display(flex);
+    @include flex-wrap(wrap);
+    @include media($tablet-screen) {
+      @include flex-wrap(nowrap);
+    }
+    .award__heading-icon {
+        @include display(inline-flex);
+        padding-left: rem(10);
+        svg {
+            @include display(flex);
+            height: rem(20);
+            width: rem(20);
+        }
+        &:focus {
+            svg {
+                fill: $color-gray;
+            }
+        }
+    }
+    .award-overview__left-section__agency-name {
+        margin-top: 0;
+        font-weight: $font-semibold;
+    }
+    .award-overview__left-section__agency-name__recipient {
+        margin-bottom: rem(2.5);
+    }
+    // recipient address
+    .award-overview__left-section__recipient__recipient-address {
+      padding-bottom: rem(20);
+    }
+    // recipient text
+    .award-overview__left-section__aggregated-text {
+      font-size: rem(14);
+      font-weight: $font-light;
+    }
+}

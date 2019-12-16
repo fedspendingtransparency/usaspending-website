@@ -10,8 +10,10 @@ import { TooltipWrapper } from 'data-transparency-ui';
 
 import { formatNumber } from 'helpers/moneyFormatter';
 
-import { summaryRelatedAwardsInfoIdv, summaryRelatedAwardsInfo } from '../../shared/InfoTooltipContent';
-import AwardSection from '../AwardSection';
+import {
+    summaryRelatedAwardsInfoIdv,
+    summaryRelatedAwardsInfo
+} from '../../shared/InfoTooltipContent';
 
 const propTypes = {
     overview: PropTypes.object,
@@ -143,23 +145,21 @@ export default class RelatedAwards extends React.Component {
         }
 
         return (
-            <AwardSection type="column">
-                <div className="award-viz related-awards">
-                    <div className="award-overview__title related-awards__title">
-                        Related Awards
-                        <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
+            <div className="award-viz related-awards award-overview-column award-overview-column__spacing first">
+                <h6 className="award-overview-title related-awards__title">
+                    Related Awards
+                    <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
+                </h6>
+                <div className="related-awards__parent">
+                    <div className="related-awards__label">
+                        {awardTitle}
                     </div>
-                    <div className="related-awards__parent">
-                        <div className="related-awards__label">
-                            {awardTitle}
-                        </div>
-                        {parentLink}
-                    </div>
-                    <div className="related-awards__children">
-                        {this.referencedAwardCounts()}
-                    </div>
+                    {parentLink}
                 </div>
-            </AwardSection>
+                <div className="related-awards__children">
+                    {this.referencedAwardCounts()}
+                </div>
+            </div>
         );
     }
 }

@@ -86,19 +86,7 @@ export class AccountDataContainer extends React.Component {
                 this.federalAccountListRequest.cancel();
             }
 
-            const filters = [];
-
-            const params = {
-                field: "agency_identifier",
-                operation: "equals",
-                value: agencyCode
-            };
-
-            filters.push(params);
-
-            this.federalAccountListRequest = BulkDownloadHelper.requestFederalAccountList({
-                filters
-            });
+            this.federalAccountListRequest = BulkDownloadHelper.requestFederalAccountList(agencyCode);
 
             this.federalAccountListRequest.promise
                 .then((res) => {
@@ -106,6 +94,7 @@ export class AccountDataContainer extends React.Component {
                     this.setState({
                         federalAccounts
                     });
+                    this.federalAccountListRequest = null;
                 })
                 .catch((err) => {
                     console.log(err);

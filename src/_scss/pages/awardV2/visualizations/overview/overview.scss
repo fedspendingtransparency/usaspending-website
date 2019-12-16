@@ -2,17 +2,35 @@
     $padding-top: rem(11);
     // Layout
     @include display(flex);
+    .award-overview__right-section {
+      @include display(flex);
+      @include flex-wrap(wrap);
+      @include media($tablet-screen) {
+        @include flex-wrap(nowrap);
+      }
+    }
     .award__col {
-        @include flex(0 0 50%);
-        @include media($medium-screen) {
-            @include flex(0 0 25%);
+        .award-overview-column {
+          // flex 100% not working in IE
+          @include flex(0 0 auto);
+          width: 100%;
+          @include media($tablet-screen) {
+              // IE offset for padding in .award-overview-column__spacing not :face-palm:
+              @include flex(0 0 47%);
+          }
+          &.first {
+            padding-bottom: rem(30);
+            @include media($tablet-screen) {
+                padding-bottom: 0;
+            }
+          }
         }
-        &:last-child {
-            padding-top: 0;
-        }
-        min-width: 0;
-        hr {
-            display: none;
+        .award-overview-column__spacing {
+          @include media($tablet-screen) {
+            &:nth-child(odd) {
+              padding-right: rem(15);
+            }
+          }
         }
         // header
         .award-viz__heading {
@@ -23,37 +41,31 @@
                 padding-right: 10px;
             }
         }
-        // aligning the headers of the overview section together
-        .award-overview__title,
-        .award-dates,
-        .related-awards,
-        .award-viz__heading .award-viz__title,
-        .agency-recipient__title {
+        .award-overview-title {
             font-size: rem(16);
-            font-weight: $font-semibold;
-            padding: rem(11) 0;
-            line-height: normal;
-            margin: 0;
+            margin-top: 0;
+            align-items: center;
         }
         // body
         .award-overview__body {
             @include flex(1 1 auto);
-            padding: 0 rem(10);
             @include media($medium-screen) {
                 @include flex(0 0 25%);
             }
         }
-        .award-overview__cfda {
-            padding: 0;
-            span {
-                font-weight: 300;
-                text-transform: uppercase;
-            }
+        .award-overview__right-section__cfda {
+          .award-section-tt {
+            @include display(inline-flex);
+          }
+          span {
+              font-weight: 300;
+              text-transform: uppercase;
+          }
         }
     }
 
     // custom styles for each sub-section in overview section
-    @import "./agencyRecipient";
+    @import "./awardOverviewLeftSection";
     @import "./relatedAwards";
     @import "./awardDates";
 }

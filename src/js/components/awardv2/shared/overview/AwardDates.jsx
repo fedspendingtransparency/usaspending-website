@@ -12,8 +12,6 @@ import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 import { titles } from 'dataMapping/awardsv2/datesSection';
 
-import AwardSection from '../AwardSection';
-
 const propTypes = {
     dates: PropTypes.object,
     awardType: PropTypes.string
@@ -110,50 +108,48 @@ export default class AwardDates extends React.Component {
         const datesTitles = this.titles();
 
         return (
-            <AwardSection type="column">
-                <div className="award-dates">
-                    <div className="award-dates__heading">
-                        <div className="award-overview__title award-dates__title">
-                            Dates
-                            <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
-                        </div>
-                        <div className="award-dates__remaining">
-                            {remainingText}
-                            <span className="award-dates__remaining award-dates__remaining_label">
-                                {remainingLabel}
-                            </span>
-                        </div>
+            <div className="award-dates award-overview-column award-overview-column__spacing">
+                <div className="award-dates__heading">
+                    <h6 className="award-overview-title award-dates__title">
+                        Dates
+                        <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
+                    </h6>
+                    <div className="award-dates__remaining">
+                        {remainingText}
+                        <span className="award-dates__remaining award-dates__remaining_label">
+                            {remainingLabel}
+                        </span>
                     </div>
-                    {timeline}
-                    <div className="award-dates__row">
-                        <div className="award-dates__label">
-                            {datesTitles[0]}
-                        </div>
-                        <div className="award-dates__date">
-                            {dates.startDateLong || 'not provided'}
-                        </div>
-                    </div>
-                    <div className="award-dates__row">
-                        <div className="award-dates__label">
-                            {datesTitles[1]}
-                        </div>
-                        <div className="award-dates__date">
-                            {dates.endDateLong || 'not provided'}
-                        </div>
-                    </div>
-                    {
-                        datesTitles[2] &&
-                        <div className="award-dates__row">
-                            <div className="award-dates__label">
-                                {datesTitles[2]}
-                            </div>
-                            <div className="award-dates__date">
-                                {dates.potentialEndDateLong || 'not provided'}
-                            </div>
-                        </div>
-                    }
                 </div>
-            </AwardSection>
+                {timeline}
+                <div className="award-dates__row">
+                    <div className="award-dates__label">
+                        {datesTitles[0]}
+                    </div>
+                    <div className="award-dates__date">
+                        {dates.startDateLong || 'not provided'}
+                    </div>
+                </div>
+                <div className="award-dates__row">
+                    <div className="award-dates__label">
+                        {datesTitles[1]}
+                    </div>
+                    <div className="award-dates__date">
+                        {dates.endDateLong || 'not provided'}
+                    </div>
+                </div>
+                {
+                    datesTitles[2] &&
+                    <div className="award-dates__row">
+                        <div className="award-dates__label">
+                            {datesTitles[2]}
+                        </div>
+                        <div className="award-dates__date">
+                            {dates.potentialEndDateLong || 'not provided'}
+                        </div>
+                    </div>
+                }
+            </div>
         );
     }
 }
