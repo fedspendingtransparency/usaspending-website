@@ -27,10 +27,10 @@ const AwardStatus = ({ dates, awardType }) => {
         if (today.isBefore(startDate)) status = 'Not Started';
         // In Progress or Open
         if (today.isAfter(startDate) && today.isBefore(end)) {
-            status = contract ? 'In Progress' : 'Open';
+            status = (awardType === 'idv') ? 'Open' : 'In Progress';
         }
         // Completed or Closed
-        if (today.isAfter(end)) status = contract ? 'Completed' : 'Closed';
+        if (today.isAfter(end)) status = (awardType === 'idv') ? 'Closed' : 'Completed';
         return status;
     };
 
