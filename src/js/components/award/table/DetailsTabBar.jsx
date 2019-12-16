@@ -24,7 +24,7 @@ export default class DetailsTabBar extends React.Component {
                         category: 'Award Page',
                         action: 'Subaward Table'
                     });
-                    this.props.clickTab();
+                    this.props.clickTab('subaward');
                 }
                 : this.props.clickTab;
             return (
