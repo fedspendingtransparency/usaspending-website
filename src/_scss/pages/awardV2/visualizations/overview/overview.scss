@@ -12,10 +12,6 @@
     }
     .award__col {
         .award-overview-column {
-          // @include flex(0 0 100%);
-          // @include media($tablet-screen) {
-          //     @include flex(0 0 50%);
-          // } 
           // flex 100% not working in IE
           @include flex(0 0 auto);
           width: 100%;

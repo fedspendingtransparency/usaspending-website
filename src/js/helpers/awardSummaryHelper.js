@@ -28,6 +28,11 @@ export const isAwardFinancialAssistance = (awardType) => [
     'other'
 ].includes(awardType);
 
+export const isContract = (awardType) => [
+    'contract',
+    'definitive contract'
+].includes(awardType);
+
 // award overview recipient section - determines text and address to display to user
 // data can be found in
 export const getAwardTypeByRecordtypeCountyAndState = (
@@ -55,4 +60,15 @@ export const getAwardTypeByRecordtypeCountyAndState = (
     }
     // IDV or contract
     return 'nonFinancialAssistance';
+};
+
+export const datesByAwardType = (dates, awardType) => {
+    const startDate = dates._startDate;
+    let endDate = dates._endDate;
+    let currentEndDate = null;
+    if (isContract(awardType)) {
+        endDate = dates._potentialEndDate;
+        currentEndDate = dates._endDate;
+    }
+    return { startDate, endDate, currentEndDate };
 };

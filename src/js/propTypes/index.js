@@ -52,7 +52,8 @@ export const AWARD_PAGE_WRAPPER_PROPS = {
     identifier: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     children: PropTypes.node,
     subAwardIdClicked: PropTypes.bool,
-    jumpToSubAwardHistoryTable: PropTypes.func
+    jumpToSubAwardHistoryTable: PropTypes.func,
+    dates: PropTypes.object
 };
 
 export const AWARD_SECTION_HEADER_PROPS = {

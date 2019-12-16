@@ -26,63 +26,74 @@
                   @include justify-content(space-between);
                 }
                 .award__info {
-                  @include align-items(center);
-                  @include justify-content(flex-start);
-                  @include media($medium-screen) {
-                    @include display(flex);
-                  }
-                  .award__heading-text {
-                    @include display(flex);
-                    @include flex(0 0 auto);
-                    font-weight: $font-semibold;
-                    padding-right: rem(10);
-                    margin: 0;
-                    font-size: $h5-font-size; 
-                    line-height: normal;
-                  }
-                  .award__heading-icon {
+                    @include align-items(center);
+                    @include justify-content(flex-start);
+                    @include media($medium-screen) {
+                      @include display(flex);
+                      @include flex-wrap(wrap);
+                    }
+                    .award__heading-text {
                       @include display(flex);
                       @include flex(0 0 auto);
-                      padding-right: rem(15);
-                      svg {
-                          @include display(flex);
-                          height: rem(20);
-                          width: rem(20);
-                      }
-                      &:focus {
-                          svg {
-                              fill: $color-gray;
-                          }
-                      }
-                  }
-                  .award__heading-id,
-                  .award__heading-id--financial-assistance {
-                      @include display(flex);
-                      font-weight: $font-light;
-                      @include flex-wrap(wrap);
-                      h3 {
-                        font-weight: $font-normal;
-                        display: flex;
-                        padding-right: rem(10);
-                        font-size: $h5-font-size;
-                        margin: 0;
-                        line-height: normal;
-                      }
-                      p {
-                        margin: 0;
+                      font-weight: $font-semibold;
+                      padding-right: rem(10);
+                      margin: 0;
+                      font-size: $h5-font-size; 
+                      line-height: normal;
+                    }
+                    .award__heading-icon {
                         @include display(flex);
-                        @include align-items(center);
-                        margin-right: $global-mrg;
-                        line-height: normal;
-                        font-size: $h5-font-size;
-                      }
-                  }
+                        @include flex(0 0 auto);
+                        padding-right: rem(15);
+                        svg {
+                            @include display(flex);
+                            height: rem(20);
+                            width: rem(20);
+                        }
+                        &:focus {
+                            svg {
+                                fill: $color-gray;
+                            }
+                        }
+                    }
+                    .award__heading-id,
+                    .award__heading-id--financial-assistance {
+                        @include display(flex);
+                        font-weight: $font-light;
+                        @include flex-wrap(wrap);
+                        h3 {
+                          font-weight: $font-normal;
+                          display: flex;
+                          padding-right: rem(10);
+                          font-size: $h5-font-size;
+                          margin: 0;
+                          line-height: normal;
+                        }
+                        p {
+                          margin: 0;
+                          @include display(flex);
+                          @include align-items(center);
+                          // margin-right: $global-mrg;
+                          line-height: normal;
+                          font-size: $h5-font-size;
+                        }
+                    }
                 }
-                .award__last-modified {
-                  text-transform: uppercase;
-                  @include align-self(flex-end);
-                  &.award__last-modified_date {
-                    font-weight: $font-light;
+                .award-status-container {
+                  @include media($medium-screen) {
+                    @include display(inline-flex);
+                    @include justify-content(flex-end);
+                  }
+                  .award-status__text {
+                    margin: 0;
+                  }
+                  .award-status-container__status {
+                    &.award-status__text-space {
+                      padding-right: rem(5);
+                    }
+                  }
+                  .award-status-container__time-remaining {
+                    font-weight: $font-normal;
                   }
                 }
             }

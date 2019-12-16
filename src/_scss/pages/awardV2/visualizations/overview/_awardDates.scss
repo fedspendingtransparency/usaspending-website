@@ -1,5 +1,4 @@
 .award-dates {
-    // width: 100%;
     min-width: 0;
     .award-dates__heading {
         @include display(flex);
@@ -11,11 +10,6 @@
             @include flex(0 0 auto);
             padding-bottom: 0;
         }
-    }
-    .award-dates__time-remaining {
-      display: flex;
-      justify-content: flex-end;
-      font-size: rem(12);
     }
     .progress-bar-shapes__progress-text {
       font-size: rem(12);
@@ -38,7 +32,7 @@
               background-color: $color-gold-light;
             }
             &.award-dates__circle-bottom {
-              background-color: $color-secondary-darkest;
+              background-color: $color-secondary-dark;
             }
           }
         }

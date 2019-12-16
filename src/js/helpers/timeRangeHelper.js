@@ -20,7 +20,7 @@ export const convertDatesToRange = (startDate, endDate) => {
         if (years > 0) {
             yearString = `${years} ${(years === 1) ? 'year' : 'years'}`;
         }
-        if (days > 0) {
+        if (days > 0 && (!yearString && !monthString)) {
             dayString = `${days} ${(days === 1) ? 'day' : 'days'}`;
         }
         const yearComma = (yearString !== '' && monthString !== '') ? ', ' : '';

@@ -68,7 +68,6 @@ const ContractContent = ({
             subAwardIdClicked(false);
         }
     });
-
     return (
         <AwardPageWrapper
             glossaryLink={glossaryLink}
@@ -76,7 +75,8 @@ const ContractContent = ({
             identifier={overview.piid}
             title={overview.title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
-            awardType="contract">
+            awardType="contract"
+            dates={overview.periodOfPerformance}>
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}

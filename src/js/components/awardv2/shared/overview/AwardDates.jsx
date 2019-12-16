@@ -6,12 +6,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { throttle, compact, endsWith } from 'lodash';
+import { throttle, compact } from 'lodash';
 import { TooltipWrapper } from 'data-transparency-ui';
 
-import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 import { titles } from 'dataMapping/awardsv2/datesSection';
+import { datesByAwardType, isContract } from 'helpers/awardSummaryHelper';
 import ProgressBar from './ProgressBar';
 
 const propTypes = {
@@ -48,58 +48,13 @@ export default class AwardDates extends Component {
     }, 50)
 
     datesData = () => {
-        const { startDate, endDate, currentEndDate } = this.datesByAwardType();
+        const { dates, awardType } = this.props;
+        const { startDate, endDate, currentEndDate } = datesByAwardType(dates, awardType);
         return {
             start: startDate.valueOf(),
             end: endDate.valueOf(),
             currentEndDate: currentEndDate ? currentEndDate.valueOf() : null
         };
-    }
-
-    isContract = () => {
-        const { awardType } = this.props;
-        if (awardType === 'contract' || awardType === 'definitive contract') return true;
-        return false;
-    }
-
-    datesByAwardType() {
-        const { dates } = this.props;
-        const startDate = dates._startDate;
-        let endDate = dates._endDate;
-        let currentEndDate = null;
-        if (this.isContract()) {
-            endDate = dates._potentialEndDate;
-            currentEndDate = dates._endDate;
-        }
-        return { startDate, endDate, currentEndDate };
-    }
-
-    awardStatus = () => {
-        const { startDate, endDate, currentEndDate } = this.datesByAwardType();
-        const today = moment();
-        let end = endDate;
-        const isContract = this.isContract();
-        if (isContract) end = currentEndDate;
-        if (!startDate || !endDate) return '';
-        let status = '';
-        // not started
-        if (today.isBefore(startDate)) status = 'Not Started';
-        // In Progress or Open
-        if (today.isAfter(startDate) && today.isBefore(end)) {
-            status = isContract ? 'Open' : 'In Progress';
-        }
-        // Completed or Closed
-        if (today.isAfter(end)) status = isContract ? 'Closed' : 'Completed';
-        return status;
-    }
-
-    timeRemaining = () => {
-        const { endDate, currentEndDate } = this.datesByAwardType();
-        const dateToCompare = this.isContract() ? currentEndDate : endDate;
-        if (!dateToCompare) return '';
-        const timeRemaining = TimeRangeHelper.convertDatesToRange(moment(), dateToCompare);
-        if (!timeRemaining) return timeRemaining;
-        return `${timeRemaining} ${endsWith(timeRemaining, 's') ? 'remain' : 'remains'}`;
     }
 
     datesSection = () => {
@@ -144,16 +99,39 @@ export default class AwardDates extends Component {
         ]);
     }
 
-    render() {
-        const { awardType } = this.props;
-        const { start, end, currentEndDate } = this.datesData();
-        const tooltipInfo = getToolTipBySectionAndAwardType('dates', awardType);
+    progressDescriptions = () => {
         const progressDescription = 'A rectangle of color grey representing the period of progress';
         const startDescription = 'A circle of color green representing the start of progress';
         const endDescription = 'A circle of color red representing the end of progress';
         const lineDescription = 'A line of color gray representing current progress';
-        const progressCircleDescription = 'A circle of color gray representing current progress';
-        const milestones = this.isContract() ?
+        const progressVerticalLineDescription = 'A vertical line of color gray representing current progress';
+        const progressTriangleDescription = 'A triangle of color gray representing the current progress';
+        const progressTextDescription = 'Text with value Today of color gray representing value of progress';
+        return {
+            progressDescription,
+            startDescription,
+            endDescription,
+            lineDescription,
+            progressVerticalLineDescription,
+            progressTriangleDescription,
+            progressTextDescription
+        };
+    }
+
+    badDomainData = () => {
+        const { awardType } = this.props;
+        const { start, end, currentEndDate } = this.datesData();
+        if (start > end) return true;
+        if (isContract(awardType) && (end < currentEndDate)) return true;
+        return false;
+    }
+
+    render() {
+        const { awardType } = this.props;
+        const { start, end, currentEndDate } = this.datesData();
+        const endDate = moment(end).add(1, 'd').valueOf();
+        const tooltipInfo = getToolTipBySectionAndAwardType('dates', awardType);
+        const milestones = isContract(awardType) ?
             [
                 {
                     data: currentEndDate,
@@ -174,25 +152,19 @@ export default class AwardDates extends Component {
                         Dates
                         <TooltipWrapper className="award-section-tt" icon="info" left tooltipComponent={tooltipInfo} />
                     </h6>
-                    <h6 className="award-overview-title award-dates__status">
-                        {this.awardStatus()}
-                    </h6>
                 </div>
-                <div className="award-dates__time-remaining">{this.timeRemaining()}</div>
                 <ProgressBar
-                    domain={[start, end]}
-                    height={30}
+                    domain={[start, endDate]}
+                    heightOfSVG={40}
+                    heightOfProgressBar={10}
                     width={this.state.visualizationWidth}
                     currentProgress={moment().valueOf()}
                     milestones={milestones}
                     progressText="Today"
-                    textAdjustment={16}
+                    badDomainData={this.badDomainData()}
+                    textAdjustment={{ x: 0, y: 20 }}
                     awardType={this.props.awardType}
-                    progressDescription={progressDescription}
-                    startDescription={startDescription}
-                    endDescription={endDescription}
-                    lineDescription={lineDescription}
-                    progressCircleDescription={progressCircleDescription} />
+                    descriptions={this.progressDescriptions()} />
                 {this.datesSection()}
             </div>
         );

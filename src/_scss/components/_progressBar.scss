@@ -1,27 +1,25 @@
 .progress-bar {
   .progress-bar-shapes {  
-    .progress-bar-shapes__base-rectangle {
-      fill: $color-gray-lightest;
-    }
     .progress-bar-shapes__starting-circle {
       fill: $color-green-lighter;
     }
     .progress-bar-shapes__ending-circle {
-      fill: $color-secondary-darkest;
-    }
-    .progress-bar-shapes__progress-circle {
-      fill: $color-gray-light;
+      fill: $color-secondary-dark;
     }
     .progress-bar-shapes__milestone-circle {
       fill: $color-gold-light;
     }
     .progress-bar-shapes__progress-text {
-      color: $color-gray-light;
+      fill: $color-gray;
+      font-weight: $font-semibold;
+      font-size: rem(14);
     }
-    .progress-bar-shapes__progress-line {
+    .progress-bar-shapes__progress-vertical-line {
       stroke: $color-gray-light;
-      stroke-width: 1.5;
       shape-rendering: crispEdges;
+    }
+    .progress-bar-shapes__polygon {
+      fill: $color-gray-light;
     }
   }
 }
