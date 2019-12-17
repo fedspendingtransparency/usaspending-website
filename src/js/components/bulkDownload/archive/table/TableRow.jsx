@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { startCase } from 'lodash';
 import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
@@ -13,6 +14,17 @@ const propTypes = {
     rowIndex: PropTypes.number.isRequired
 };
 
+const fileFieldsForAnalytics = ['fy', 'agency', 'date'];
+const archiveFileDownloadGACategory = 'Download Center - Archive Download';
+const getArchiveFileName = (file) => fileFieldsForAnalytics
+    .reduce((acc, key, i, arr) => {
+        const selection = file[key] !== 'N/A'
+            ? file[key]
+            : `AllFYs`;
+        if (i === 0) return `${selection}_`;
+        if (i === arr.length - 1) return `${acc}_${selection}`;
+        return `${acc}_${selection}_`;
+    }, '');
 export default class TableRow extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -20,11 +32,23 @@ export default class TableRow extends React.PureComponent {
         this.logArchiveDownload = this.logArchiveDownload.bind(this);
     }
 
-    logArchiveDownload() {
+    logArchiveDownload(e, file = this.props.file) {
         Analytics.event({
-            category: 'Download Center - Archive Download',
-            action: this.props.file.fileName
+            category: archiveFileDownloadGACategory,
+            action: 'File Download',
+            label: `File Name: ${getArchiveFileName(file)}`
         });
+        fileFieldsForAnalytics
+            .forEach((key) => {
+                const label = file[key] !== 'N/A'
+                    ? file[key]
+                    : `AllFYs`;
+                Analytics.event({
+                    category: archiveFileDownloadGACategory,
+                    action: `${startCase(key)} Download Criterion`,
+                    label
+                });
+            });
     }
 
     render() {

@@ -1,7 +1,7 @@
 
 import PropTypes from 'prop-types';
 
-export const AWARD_V2_OVERVIEW_PROPS = PropTypes.shape({
+export const AWARD_OVERVIEW_PROPS = PropTypes.shape({
     _category: PropTypes.string,
     id: PropTypes.string,
     generatedId: PropTypes.string,
@@ -19,7 +19,7 @@ export const AWARD_V2_OVERVIEW_PROPS = PropTypes.shape({
     parentId: PropTypes.string
 });
 
-export const AWARD_V2_COUNTS_PROPS = PropTypes.shape({
+export const AWARD_COUNTS_PROPS = PropTypes.shape({
     child_awards: PropTypes.number,
     child_idvs: PropTypes.number,
     grandchild_awards: PropTypes.number,
@@ -50,7 +50,9 @@ export const AWARD_PAGE_WRAPPER_PROPS = {
     glossaryLink: PropTypes.string,
     overviewType: PropTypes.string,
     identifier: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-    children: PropTypes.node
+    children: PropTypes.node,
+    subAwardIdClicked: PropTypes.bool,
+    jumpToSubAwardHistoryTable: PropTypes.func
 };
 
 export const AWARD_SECTION_HEADER_PROPS = {
@@ -108,7 +110,7 @@ const contract = {
 
 export const AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS = PropTypes.shape({ ...contract });
 
-export const AWARD_V2_AGGREGATED_AMOUNTS_PROPS = PropTypes.shape({
+export const AWARD_AGGREGATED_AMOUNTS_PROPS = PropTypes.shape({
     contractCount: PropTypes.number,
     childAwardCount: PropTypes.number,
     childIDVCount: PropTypes.number,

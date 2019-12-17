@@ -47,7 +47,7 @@ module.exports = merge(common, {
                     : JSON.stringify(""),
                 GA_TRACKING_ID: process.env.GA_TRACKING_ID
                     ? JSON.stringify(process.env.GA_TRACKING_ID)
-                    : JSON.stringify(""),
+                    : JSON.stringify("UA-143401688-1"),
                 IS_DEV: JSON.stringify('true')
             }
         })

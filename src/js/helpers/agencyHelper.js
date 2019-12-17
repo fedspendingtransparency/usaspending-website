@@ -3,106 +3,38 @@
  * Created by Kevin Li 6/8/17
  */
 
-import Axios, { CancelToken } from 'axios';
+import { apiRequest } from './apiRequest';
 
-import kGlobalConstants from 'GlobalConstants';
-
-export const fetchAgencyOverview = (id) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: `v2/references/agency/${id}/`,
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchAgencyOverview = (id) => apiRequest({
+    url: `v2/references/agency/${id}/`
+});
 
 // Get major object classes
-export const fetchAgencyMajorObjectClasses = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/financial_spending/major_object_class/',
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchAgencyMajorObjectClasses = (params) => apiRequest({
+    url: 'v2/financial_spending/major_object_class/',
+    params
+});
 
 // Get minor object classes
-export const fetchAgencyMinorObjectClasses = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/financial_spending/object_class/',
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchAgencyMinorObjectClasses = (params) => apiRequest({
+    url: 'v2/financial_spending/object_class/',
+    params
+});
 
 // get federal accounts
-export const fetchAgencyFederalAccounts = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/federal_obligations/',
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchAgencyFederalAccounts = (params) => apiRequest({
+    url: 'v2/federal_obligations/',
+    params
+});
 
 // get recipients
-export const fetchAwardRecipients = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/award_spending/recipient/',
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchAwardRecipients = (params) => apiRequest({
+    url: 'v2/award_spending/recipient/',
+    params
+});
 
 // Get Obligated Amount and Budget Authority Amount
-export const fetchAgencyObligatedAmounts = (params) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: `v2/financial_balances/agencies/`,
-            baseURL: kGlobalConstants.API,
-            method: 'get',
-            params,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchAgencyObligatedAmounts = (params) => apiRequest({
+    url: `v2/financial_balances/agencies/`,
+    params
+});
