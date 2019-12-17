@@ -1,4 +1,5 @@
 .award-dates {
+    min-width: 0;
     .award-dates__heading {
         @include display(flex);
         @include justify-content(space-between);
@@ -9,51 +10,35 @@
             @include flex(0 0 auto);
             padding-bottom: 0;
         }
-        .award-dates__remaining {
-            @include display(flex);
-            @include flex(0 0 auto);
-            font-size: rem(12);
-            text-transform: uppercase;
-            font-weight: $font-normal;
-            padding-left: rem(4);
-            &.award-dates__remaining_label {
-                font-weight: $font-light;
-                padding-left: rem(4);
-            }
-        }
+    }
+    .progress-bar-shapes__progress-text {
+      font-size: rem(12);
     }
     .award-dates__row {
         font-weight: $font-light;
         @include display(flex);
         @include justify-content(space-between);
+        .award-dates__label-container {
+          @include display(inline-flex);
+          .award-dates__circle {
+            height: rem(8);
+            width: rem(8);
+            border-radius: 20px;
+            margin: rem(7) rem(7) 0 0;
+            &.award-dates__circle-top {
+              background-color: $color-green-lighter;
+            }
+            &.award-dates__circle-middle {
+              background-color: $color-gold-light;
+            }
+            &.award-dates__circle-bottom {
+              background-color: $color-secondary-dark;
+            }
+          }
+        }
         .award-dates__date {
             padding-left: rem(10);
         }
     }
-    .timeline {
-        width: 100%;
-        margin: rem(10) 0;
-        @include display(flex);
-        height: rem(3);
-        background-color: $color-gray-lighter;
-        position: relative;
-
-        .timeline__wrapper {
-            height: rem(3);
-            background-color: $color-gray;
-        }
-        .timeline__today {
-            height: rem(3);
-            position: absolute;
-            text-transform: uppercase;
-            top: rem(-11);
-            font-size: rem(8);
-        }
-        .timeline__today-line {
-            position: absolute;
-            border: solid rem(1) $color-gray;
-            height: rem(13);
-            top: rem(-10);
-        }
-    }
+    @import '../../../../components/_progressBar';
 }

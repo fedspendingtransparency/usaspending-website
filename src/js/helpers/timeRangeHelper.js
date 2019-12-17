@@ -4,41 +4,28 @@
  */
 
 import moment from 'moment';
-
 // eslint-disable-next-line import/prefer-default-export
 export const convertDatesToRange = (startDate, endDate) => {
     if ((startDate && endDate) && (moment.isMoment(startDate) && moment.isMoment(endDate))) {
         const duration = moment.duration(endDate.diff(startDate));
         const years = duration.years();
         const months = duration.months();
+        const days = duration.days();
         let yearString = '';
         let monthString = '';
-
+        let dayString = '';
         if (months > 0) {
-            if (months === 1) {
-                monthString = `${months} month`;
-            }
-            else {
-                monthString = `${months} months`;
-            }
+            monthString = `${months} ${(months === 1) ? 'month' : 'months'}`;
         }
-
         if (years > 0) {
-            if (years === 1) {
-                yearString = `${years} year`;
-            }
-            else {
-                yearString = `${years} years`;
-            }
+            yearString = `${years} ${(years === 1) ? 'year' : 'years'}`;
         }
-
-        if (monthString && yearString) {
-            return `${yearString}, ${monthString}`;
+        if (days > 0 && (!yearString && !monthString)) {
+            dayString = `${days} ${(days === 1) ? 'day' : 'days'}`;
         }
-        else if (monthString || yearString) {
-            return `${monthString}${yearString}`;
-        }
-        return '';
+        const yearComma = (yearString !== '' && monthString !== '') ? ', ' : '';
+        const monthComma = (monthString !== '' && dayString !== '') ? ', ' : '';
+        return `${yearString}${yearComma}${monthString}${monthComma}${dayString}`;
     }
     return '';
 };

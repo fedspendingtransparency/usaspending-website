@@ -3,6 +3,7 @@
     // Layout
     @include display(flex);
     .award-overview__right-section {
+      min-width: 0;
       @include display(flex);
       @include flex-wrap(wrap);
       @include media($tablet-screen) {

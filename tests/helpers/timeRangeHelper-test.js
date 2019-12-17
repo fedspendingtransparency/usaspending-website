@@ -40,9 +40,15 @@ describe('Time Range Helper functions', () => {
             const range = TimeRangeHelper.convertDatesToRange(start, end);
             expect(range).toEqual('5 months');
         });
-        it('should return an empty string for zero years and zero months', () => {
+        it('should return days when only days left', () => {
             const start = moment('01-01-2018', 'MM-DD-YYYY');
             const end = moment('01-02-2018', 'MM-DD-YYYY');
+            const range = TimeRangeHelper.convertDatesToRange(start, end);
+            expect(range).toEqual('1 day');
+        });
+        it('should return an empty string for zero years and zero months and zero days', () => {
+            const start = moment('01-01-2018', 'MM-DD-YYYY');
+            const end = moment('01-01-2018', 'MM-DD-YYYY');
             const range = TimeRangeHelper.convertDatesToRange(start, end);
             expect(range).toEqual('');
         });
