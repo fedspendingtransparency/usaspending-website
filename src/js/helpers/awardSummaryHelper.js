@@ -1,3 +1,4 @@
+import moment from "moment";
 import { apiRequest } from "./apiRequest";
 
 /**
@@ -63,12 +64,12 @@ export const getAwardTypeByRecordtypeCountyAndState = (
 };
 
 export const datesByAwardType = (dates, awardType) => {
-    const startDate = dates._startDate;
-    let endDate = dates._endDate;
+    const startDate = moment(dates._startDate.valueOf());
+    let endDate = moment(dates._endDate.valueOf());
     let currentEndDate = null;
     if (isContract(awardType)) {
-        endDate = dates._potentialEndDate;
-        currentEndDate = dates._endDate;
+        endDate = moment(dates._potentialEndDate.valueOf());
+        currentEndDate = moment(dates._endDate.valueOf());
     }
     return { startDate, endDate, currentEndDate };
 };

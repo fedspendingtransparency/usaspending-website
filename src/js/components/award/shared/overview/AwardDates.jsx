@@ -120,14 +120,16 @@ export default class AwardDates extends Component {
 
     render() {
         const { awardType, dates } = this.props;
+        const thisIsAContract = isContract(awardType);
         const { start, end, currentEndDate } = this.datesData();
         const badDomainData = isBadDates(datesByAwardType(dates, awardType), awardType);
         const endDate = moment(end).add(1, 'd').valueOf();
+        const currentEnd = moment(currentEndDate).add(1, 'd').valueOf();
         const tooltipInfo = getToolTipBySectionAndAwardType('dates', awardType);
-        const milestones = isContract(awardType) ?
+        const milestones = thisIsAContract ?
             [
                 {
-                    data: currentEndDate,
+                    data: currentEnd,
                     className: 'progress-bar-shapes__milestone-circle',
                     description: 'A circle of color gold representing the current end date'
                 }

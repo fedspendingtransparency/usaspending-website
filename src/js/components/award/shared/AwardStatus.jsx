@@ -47,7 +47,6 @@ const AwardStatus = ({ dates, awardType }) => {
     };
 
     const time = timeRemaining();
-    console.log(' Time Remaining : ', timeRemaining());
     return (
         <div className="award-status-container">
             <h5 className={`award-status__text award-status-container__status ${time ? 'award-status__text-space' : ''}`}>

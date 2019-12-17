@@ -226,7 +226,10 @@ export default class ProgressBar extends Component {
                 (progressVerticalLineData.visualizationEnd > milestone.visualizationStart) &&
                 (progressVerticalLineData.visualizationStart < milestone.visualizationEnd)
             ) {
-                progressVerticalLineData.display = false;
+                // verify milestone is not the same as domain end
+                if (array.length > 2 && (array[1].data !== domain[1])) {
+                    progressVerticalLineData.display = false;
+                }
             }
             // verify the progress vertical line does not flow into last milestone
             if ((index + 1 === array.length) &&
