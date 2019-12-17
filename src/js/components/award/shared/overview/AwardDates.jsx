@@ -11,13 +11,32 @@ import { TooltipWrapper } from 'data-transparency-ui';
 
 import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 import { titles } from 'dataMapping/awardsv2/datesSection';
-import { datesByAwardType, isContract, isBadDates } from 'helpers/awardSummaryHelper';
+import { datesByDateType, isContract, isBadDates } from 'helpers/awardSummaryHelper';
 import ProgressBar from './ProgressBar';
 
 const propTypes = {
     dates: PropTypes.object,
     awardType: PropTypes.string
 };
+
+const progressDescriptions = () => {
+    const progressDescription = 'A rectangle of color grey representing the period of progress';
+    const startDescription = 'A circle of color green representing the start of progress';
+    const endDescription = 'A circle of color red representing the end of progress';
+    const lineDescription = 'A line of color gray representing current progress';
+    const progressVerticalLineDescription = 'A vertical line of color gray representing current progress';
+    const progressTriangleDescription = 'A triangle of color gray representing the current progress';
+    const progressTextDescription = 'Text with value Today of color gray representing value of progress';
+    return {
+        progressDescription,
+        startDescription,
+        endDescription,
+        lineDescription,
+        progressVerticalLineDescription,
+        progressTriangleDescription,
+        progressTextDescription
+    };
+}
 
 export default class AwardDates extends Component {
     constructor(props) {
@@ -49,7 +68,7 @@ export default class AwardDates extends Component {
 
     datesData = () => {
         const { dates, awardType } = this.props;
-        const { startDate, endDate, currentEndDate } = datesByAwardType(dates, awardType);
+        const { startDate, endDate, currentEndDate } = datesByDateType(dates, awardType);
         return {
             start: startDate.valueOf(),
             end: endDate.valueOf(),
@@ -99,30 +118,11 @@ export default class AwardDates extends Component {
         ]);
     }
 
-    progressDescriptions = () => {
-        const progressDescription = 'A rectangle of color grey representing the period of progress';
-        const startDescription = 'A circle of color green representing the start of progress';
-        const endDescription = 'A circle of color red representing the end of progress';
-        const lineDescription = 'A line of color gray representing current progress';
-        const progressVerticalLineDescription = 'A vertical line of color gray representing current progress';
-        const progressTriangleDescription = 'A triangle of color gray representing the current progress';
-        const progressTextDescription = 'Text with value Today of color gray representing value of progress';
-        return {
-            progressDescription,
-            startDescription,
-            endDescription,
-            lineDescription,
-            progressVerticalLineDescription,
-            progressTriangleDescription,
-            progressTextDescription
-        };
-    }
-
     render() {
         const { awardType, dates } = this.props;
         const thisIsAContract = isContract(awardType);
         const { start, end, currentEndDate } = this.datesData();
-        const badDomainData = isBadDates(datesByAwardType(dates, awardType), awardType);
+        const badDomainData = isBadDates(datesByDateType(dates, awardType), awardType);
         const endDate = moment(end).add(1, 'd').valueOf();
         const currentEnd = moment(currentEndDate).add(1, 'd').valueOf();
         const tooltipInfo = getToolTipBySectionAndAwardType('dates', awardType);
@@ -159,7 +159,7 @@ export default class AwardDates extends Component {
                     badDomainData={badDomainData}
                     textAdjustment={{ x: 0, y: 20 }}
                     awardType={this.props.awardType}
-                    descriptions={this.progressDescriptions()} />
+                    descriptions={progressDescriptions()} />
                 {this.datesSection()}
             </div>
         );

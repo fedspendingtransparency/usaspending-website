@@ -29,7 +29,6 @@ export default class ProgressBar extends Component {
         this.state = {
             xScaleProgressBar: null,
             xScaleWithinCircles: null,
-            currentProgress: 0,
             thirdCircleData: 0,
             badDomainData: false,
             milestoneData: [],
@@ -37,7 +36,8 @@ export default class ProgressBar extends Component {
             progressVerticalLineData: {},
             progressBarPatternData: {},
             progressTriangleData: '',
-            progressTextData: {}
+            progressTextData: {},
+            progressTextPosition: null
         };
         this.textDiv = null;
         // React will call this function when the DOM draws it ( React Callback Refs )
@@ -50,51 +50,54 @@ export default class ProgressBar extends Component {
     // recreate the progress bar on window resize
     componentDidUpdate(prevProps) {
         if (prevProps.width !== this.props.width) {
-            this.start();
+            this.validateDomainAndMilestones();
+            // DataFlow
+            // 1. start
+            // 2. validateDomainAndMilestones
+            // 2. createXScales
+            // 3. milestoneData
+            // 4. showMilestones
+            // 5. progressVerticalLineData
+            // 6. progressTriangleData
+            // 7. progressBarPatternData
+            // 8. progressTextData
+            this.positionText();
         }
     }
 
-    start = () => {
-        this.validateDomainAndMilestones();
-        // DataFlow
-        // 1. start
-        // 2. validateDomainAndMilestones
-        // 2. createXScales
-        // 3. milestoneData
-        // 4. showMilestones
-        // 5. progressVerticalLineData
-        // 6. progressTriangleData
-        // 7. progressBarPatternData
-        // 8. progressTextData
+    badDomainData = () => {
+        const {
+            currentProgress,
+            domain,
+            badDomainData
+        } = this.props;
+        // validation of domain
+        if (badDomainData) return true;
+        pull(domain, null, undefined, '');
+        if (domain.length !== 2) return true;
+        if (domain[0] > domain[1]) return true;
+        // handle bad dates
+
+        const badDataCount = this.props.milestones.reduce((acc, milestone) => {
+            if (milestone.data > domain[1]) {
+                acc.badData++;
+                return acc;
+            }
+            if (milestone.data < domain[0]) {
+                acc.badData++;
+                return acc;
+            }
+            return acc;
+        }, { badData: 0 });
+        if (badDataCount.badData > 0) return true;
+        // validation of current progress
+        if (!currentProgress) return true;
+        return false;
     }
 
     validateDomainAndMilestones = () => {
-        const {
-            currentProgress,
-            domain
-        } = this.props;
-        // validation of domain
-        let badDomainData = this.props.badDomainData || false;
-        pull(domain, null, undefined, '');
-        if (domain.length !== 2) {
-            badDomainData = true;
-        }
-        if (domain[0] > domain[1]) badDomainData = true;
-        // handle bad dates
-        this.props.milestones.forEach((milestone) => {
-            if (milestone.data > domain[1]) {
-                badDomainData = true;
-            }
-            if (milestone.data < domain[0]) {
-                badDomainData = true;
-            }
-        });
-        // validation of current progress
-        if (!currentProgress) badDomainData = true;
-        this.setState({
-            currentProgress,
-            badDomainData
-        }, this.createXScales);
+        const badDomainData = this.badDomainData();
+        this.setState({ badDomainData }, this.createXScales);
     }
     // create xScales
     createXScales = () => {
@@ -332,16 +335,21 @@ export default class ProgressBar extends Component {
     }
     // progress text data
     progressTextData = () => {
-        const { progressText, heightOfProgressBar, textAdjustment } = this.props;
         const {
-            currentProgress,
+            progressText,
+            heightOfProgressBar,
+            textAdjustment,
+            currentProgress
+        } = this.props;
+        const {
             xScaleWithinCircles,
-            badDomainData
+            badDomainData,
+            progressTextPosition
         } = this.state;
         const textPosition = xScaleWithinCircles(currentProgress);
         const progressTextData = {
             className: 'progress-bar-shapes__progress-text',
-            x: textPosition - (textAdjustment.x || 0),
+            x: (progressTextPosition || textPosition) - (textAdjustment.x || 0),
             y: heightOfProgressBar + textAdjustment.y,
             text: progressText,
             display: true
@@ -358,17 +366,17 @@ export default class ProgressBar extends Component {
         this.setState({ progressTextData });
     }
     positionText = () => {
-        const { progressTextData, progressVerticalLineData, xScaleWithinCircles } = this.state;
+        const {
+            progressTextData,
+            xScaleWithinCircles
+        } = this.state;
+        const { currentProgress } = this.props;
         if (this.textDiv && progressTextData.x) {
-            let newTextPosition = null;
-            const updateProgressTextData = { ...progressTextData };
-            const currentTextPosition = progressTextData.x;
+            let textPosition = null;
             const textDivDimensions = this.textDiv.getBoundingClientRect();
             const width = textDivDimensions.width;
-
             // first position text halfway
-            newTextPosition = currentTextPosition - (width / 2);
-
+            textPosition = xScaleWithinCircles(currentProgress) - (width / 2);
             // Since we are using two different scales to display this progress bar
             // we must make some calculations to figure out if the progress text is
             // overflowing outside the SVG.
@@ -388,26 +396,26 @@ export default class ProgressBar extends Component {
             // half the text width and the pixels available in the SVG and update the new postion of
             // the text.
             const totalProgressionLength = xScaleWithinCircles(this.props.domain[1]);
+            const currentProgressPosition = xScaleWithinCircles(currentProgress);
             // 1. pixels between current progress and the end of progress
-            const pixelsBetweenProgressAndProgressEnd = totalProgressionLength - progressVerticalLineData.x1;
+            const pixelsBetweenProgressAndProgressEnd = totalProgressionLength - currentProgressPosition;
             // 3. pixels available in the SVG
             const pixelsAvailableToTheEndOfTheVis = pixelsBetweenProgressAndProgressEnd + this.props.heightOfProgressBar;
             const halfTheTextWidth = width / 2;
             // 4.
             if (pixelsAvailableToTheEndOfTheVis < halfTheTextWidth) {
                 const widthOvershowing = halfTheTextWidth - pixelsAvailableToTheEndOfTheVis;
-                newTextPosition -= widthOvershowing;
+                // adding two for some extra room on resizing
+                textPosition -= (widthOvershowing + 2);
             }
-
             // handle text overflowing to the left
-            if (newTextPosition < 0) {
-                newTextPosition = 0;
+            if (textPosition < 0) {
+                textPosition = 0;
             }
-
             // update the new text position
-            if (newTextPosition) {
-                updateProgressTextData.x = newTextPosition;
-                return this.setState({ progressTextData: updateProgressTextData });
+            if (textPosition) {
+                // updateProgressTextData.x = progressTextPosition;
+                return this.setState({ progressTextPosition: textPosition }, this.progressTextData);
             }
         }
         return null;

@@ -63,7 +63,7 @@ export const getAwardTypeByRecordtypeCountyAndState = (
     return 'nonFinancialAssistance';
 };
 
-export const datesByAwardType = (dates, awardType) => {
+export const datesByDateType = (dates, awardType) => {
     const startDate = moment(dates._startDate.valueOf());
     let endDate = moment(dates._endDate.valueOf());
     let currentEndDate = null;

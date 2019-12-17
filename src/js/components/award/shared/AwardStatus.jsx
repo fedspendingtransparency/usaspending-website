@@ -6,7 +6,7 @@ import { endsWith } from 'lodash';
 import moment from 'moment';
 
 import { convertDatesToRange } from 'helpers/timeRangeHelper';
-import { datesByAwardType, isContract, isBadDates } from 'helpers/awardSummaryHelper';
+import { datesByDateType, isContract, isBadDates } from 'helpers/awardSummaryHelper';
 
 const propTypes = {
     dates: PropTypes.object,
@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 const AwardStatus = ({ dates, awardType }) => {
-    const { startDate, endDate, currentEndDate } = datesByAwardType(dates, awardType);
+    const { startDate, endDate, currentEndDate } = datesByDateType(dates, awardType);
     const badDates = isBadDates({ startDate, endDate, currentEndDate }, awardType);
     const contract = isContract(awardType);
     const awardStatus = () => {
@@ -22,6 +22,7 @@ const AwardStatus = ({ dates, awardType }) => {
         const today = moment();
         let end = endDate;
         if (contract) end = currentEndDate;
+        // Adding one day due to the need for the end date to be inclusive and duration is exact
         end = end.add(1, 'd');
         if (!startDate || !endDate) return '';
         let status = '';
@@ -40,6 +41,8 @@ const AwardStatus = ({ dates, awardType }) => {
         if (badDates) return '';
         let dateToCompare = contract ? currentEndDate : endDate;
         if (!dateToCompare) return '';
+        // Since we add one day for inclusivity to the status we want the time reamaining to
+        // show the same
         dateToCompare = dateToCompare.add(1, 'd');
         const remainingTime = convertDatesToRange(moment(), dateToCompare);
         if (!remainingTime || (moment().isBefore(startDate))) return null;
