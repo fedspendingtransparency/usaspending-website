@@ -72,3 +72,23 @@ export const datesByAwardType = (dates, awardType) => {
     }
     return { startDate, endDate, currentEndDate };
 };
+
+export const isBadDates = (dates, awardType) => {
+    const contract = isContract(awardType);
+    const { startDate, endDate, currentEndDate } = dates;
+    if (contract) {
+        if (startDate && endDate && currentEndDate) {
+            if (endDate.isBefore(startDate)
+                || currentEndDate.isBefore(startDate)
+                || endDate.isBefore(currentEndDate)
+            ) return true;
+            return false;
+        }
+        return true;
+    }
+    if (startDate && endDate) {
+        if (startDate.isAfter(endDate)) return true;
+        return false;
+    }
+    return true;
+};

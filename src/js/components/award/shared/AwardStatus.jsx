@@ -6,7 +6,7 @@ import { endsWith } from 'lodash';
 import moment from 'moment';
 
 import { convertDatesToRange } from 'helpers/timeRangeHelper';
-import { datesByAwardType, isContract } from 'helpers/awardSummaryHelper';
+import { datesByAwardType, isContract, isBadDates } from 'helpers/awardSummaryHelper';
 
 const propTypes = {
     dates: PropTypes.object,
@@ -15,8 +15,10 @@ const propTypes = {
 
 const AwardStatus = ({ dates, awardType }) => {
     const { startDate, endDate, currentEndDate } = datesByAwardType(dates, awardType);
+    const badDates = isBadDates({ startDate, endDate, currentEndDate }, awardType);
     const contract = isContract(awardType);
     const awardStatus = () => {
+        if (badDates) return '';
         const today = moment();
         let end = endDate;
         if (contract) end = currentEndDate;
@@ -35,6 +37,7 @@ const AwardStatus = ({ dates, awardType }) => {
     };
 
     const timeRemaining = () => {
+        if (badDates) return '';
         let dateToCompare = contract ? currentEndDate : endDate;
         if (!dateToCompare) return '';
         dateToCompare = dateToCompare.add(1, 'd');
@@ -44,7 +47,7 @@ const AwardStatus = ({ dates, awardType }) => {
     };
 
     const time = timeRemaining();
-
+    console.log(' Time Remaining : ', timeRemaining());
     return (
         <div className="award-status-container">
             <h5 className={`award-status__text award-status-container__status ${time ? 'award-status__text-space' : ''}`}>

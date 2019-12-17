@@ -49,7 +49,6 @@ export default class ProgressBar extends Component {
 
     // recreate the progress bar on window resize
     componentDidUpdate(prevProps) {
-        console.log(' Did Update For Max ');
         if (prevProps.width !== this.props.width) {
             this.start();
         }

@@ -11,7 +11,7 @@ import { TooltipWrapper } from 'data-transparency-ui';
 
 import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
 import { titles } from 'dataMapping/awardsv2/datesSection';
-import { datesByAwardType, isContract } from 'helpers/awardSummaryHelper';
+import { datesByAwardType, isContract, isBadDates } from 'helpers/awardSummaryHelper';
 import ProgressBar from './ProgressBar';
 
 const propTypes = {
@@ -118,17 +118,10 @@ export default class AwardDates extends Component {
         };
     }
 
-    badDomainData = () => {
-        const { awardType } = this.props;
-        const { start, end, currentEndDate } = this.datesData();
-        if (start > end) return true;
-        if (isContract(awardType) && (end < currentEndDate)) return true;
-        return false;
-    }
-
     render() {
-        const { awardType } = this.props;
+        const { awardType, dates } = this.props;
         const { start, end, currentEndDate } = this.datesData();
+        const badDomainData = isBadDates(datesByAwardType(dates, awardType), awardType);
         const endDate = moment(end).add(1, 'd').valueOf();
         const tooltipInfo = getToolTipBySectionAndAwardType('dates', awardType);
         const milestones = isContract(awardType) ?
@@ -161,7 +154,7 @@ export default class AwardDates extends Component {
                     currentProgress={moment().valueOf()}
                     milestones={milestones}
                     progressText="Today"
-                    badDomainData={this.badDomainData()}
+                    badDomainData={badDomainData}
                     textAdjustment={{ x: 0, y: 20 }}
                     awardType={this.props.awardType}
                     descriptions={this.progressDescriptions()} />
