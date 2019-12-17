@@ -29,7 +29,7 @@ import {
     fetchAssistanceDownloadFile
 } from '../../helpers/downloadHelper';
 
-require('pages/awardV2/awardPage.scss');
+require('pages/award/awardPage.scss');
 
 const propTypes = {
     subAwardIdClicked: PropTypes.func,

@@ -13,7 +13,7 @@ import {
     aggregateTextRecipientSection,
     aggregateGlossaryLinks,
     aggregateGlossaryText
-} from 'dataMapping/awardsv2/awardOverview';
+} from 'dataMapping/awards/awardOverview';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import AwardSection from '../AwardSection';
 import RecipientAddress from './RecipientAddress';

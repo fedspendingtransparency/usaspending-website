@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Pagination } from 'data-transparency-ui';
 
-import { referencedAwardsColumns } from 'dataMapping/awardsv2/referencedAwards';
+import { referencedAwardsColumns } from 'dataMapping/awards/referencedAwards';
 
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
