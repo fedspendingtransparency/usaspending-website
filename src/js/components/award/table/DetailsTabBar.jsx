@@ -12,7 +12,8 @@ import DetailsTabItem from './DetailsTabItem';
 const propTypes = {
     activeTab: PropTypes.string,
     clickTab: PropTypes.func,
-    tabOptions: PropTypes.array
+    tabOptions: PropTypes.array,
+    awardId: PropTypes.string
 };
 
 export default class DetailsTabBar extends React.Component {
@@ -22,7 +23,8 @@ export default class DetailsTabBar extends React.Component {
                 ? () => {
                     Analytics.event({
                         category: 'Award Page',
-                        action: 'Subaward Table'
+                        action: 'Subaward Table',
+                        label: `${this.props.awardId}`
                     });
                     this.props.clickTab('subaward');
                 }
