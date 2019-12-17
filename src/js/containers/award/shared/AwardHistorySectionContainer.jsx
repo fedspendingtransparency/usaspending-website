@@ -134,7 +134,8 @@ export class AwardHistory extends React.Component {
         const {
             overview,
             setActiveTab,
-            activeTab
+            activeTab,
+            awardId
         } = this.props;
         const tabOptions = this.state.tabs;
         const sectionTitle = (overview.category === 'idv')
@@ -151,6 +152,7 @@ export class AwardHistory extends React.Component {
                     tooltipWide={(overview.category === 'contract')} />
                 <div className="tables-section">
                     <DetailsTabBar
+                        awardId={awardId}
                         tabOptions={tabOptions}
                         activeTab={activeTab}
                         clickTab={setActiveTab} />

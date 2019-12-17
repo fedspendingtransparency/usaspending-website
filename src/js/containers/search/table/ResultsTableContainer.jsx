@@ -435,7 +435,12 @@ export class ResultsTableContainer extends React.Component {
         });
     }
 
-    subAwardIdClick = () => {
+    subAwardIdClick = (id) => {
+        Analytics.event({
+            category: 'Advanced Search - Link',
+            action: 'Subaward ID Clicked',
+            label: id
+        });
         this.props.subAwardIdClicked(true);
     }
 

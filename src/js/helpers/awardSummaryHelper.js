@@ -1,3 +1,4 @@
+import moment from "moment";
 import { apiRequest } from "./apiRequest";
 
 /**
@@ -28,6 +29,11 @@ export const isAwardFinancialAssistance = (awardType) => [
     'other'
 ].includes(awardType);
 
+export const isContract = (awardType) => [
+    'contract',
+    'definitive contract'
+].includes(awardType);
+
 // award overview recipient section - determines text and address to display to user
 // data can be found in
 export const getAwardTypeByRecordtypeCountyAndState = (
@@ -55,4 +61,35 @@ export const getAwardTypeByRecordtypeCountyAndState = (
     }
     // IDV or contract
     return 'nonFinancialAssistance';
+};
+
+export const datesByDateType = (dates, awardType) => {
+    const startDate = moment(dates._startDate.valueOf());
+    let endDate = moment(dates._endDate.valueOf());
+    let currentEndDate = null;
+    if (isContract(awardType)) {
+        endDate = moment(dates._potentialEndDate.valueOf());
+        currentEndDate = moment(dates._endDate.valueOf());
+    }
+    return { startDate, endDate, currentEndDate };
+};
+
+export const isBadDates = (dates, awardType) => {
+    const contract = isContract(awardType);
+    const { startDate, endDate, currentEndDate } = dates;
+    if (contract) {
+        if (startDate && endDate && currentEndDate) {
+            if (endDate.isBefore(startDate)
+                || currentEndDate.isBefore(startDate)
+                || endDate.isBefore(currentEndDate)
+            ) return true;
+            return false;
+        }
+        return true;
+    }
+    if (startDate && endDate) {
+        if (startDate.isAfter(endDate)) return true;
+        return false;
+    }
+    return true;
 };

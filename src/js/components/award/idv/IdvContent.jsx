@@ -54,7 +54,8 @@ const IdvContent = ({
             lastModifiedDateLong={overview.dates.lastModifiedDateLong}
             glossaryLink={glossaryLink}
             overviewType={overview.type}
-            identifier={overview.piid}>
+            identifier={overview.piid}
+            dates={overview.dates}>
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}
