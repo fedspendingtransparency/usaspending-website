@@ -1,15 +1,184 @@
-.usa-da-award-page {
-    @import "all";
-    @import "layouts/summary/summary";
-    @import "layouts/default/stickyHeader/header";
-    @import "./summaryStatus";
-
-    $color-gray-border: #D8D8D8;
-    $color-blue-background: #F5FBFC;
-
-    .main-content {
-        @import "./infoBar";
-        @import "./awardContract";
-        @import "./table/detailsTable";
-    }
+.usa-da-award-v2-page {
+  @import "all";
+  @import "layouts/summary/summary";
+  @import "layouts/default/stickyHeader/header";
+  @import "layouts/tabbedSearch/header/downloadButton";
+  // handling the invalid award id error message 
+  .wrapper {
+      min-height: 36vh;
+  }
+  .award-hr-margin-bottom {
+    margin-bottom: rem(3);
+  }
+  .idv-award-amounts-tabs {
+    margin-top: 0;
+  }
+  .award-content {
+      @import "mixins/fullSectionWrap";
+      @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
+      background-color: $color-white;
+      // Shared award summary styles
+      .award {
+          padding: rem(24) rem(30);
+          .award__heading {
+              @include media($medium-screen) {
+                @include display(flex);
+                @include justify-content(space-between);
+              }
+              .award__info {
+                  @include align-items(center);
+                  @include justify-content(flex-start);
+                  @include media($medium-screen) {
+                    @include display(flex);
+                    @include flex-wrap(wrap);
+                  }
+                  .award__heading-text {
+                    @include display(flex);
+                    @include flex(0 0 auto);
+                    font-weight: $font-semibold;
+                    padding-right: rem(10);
+                    margin: 0;
+                    font-size: $h5-font-size; 
+                    line-height: normal;
+                  }
+                  .award__heading-icon {
+                      @include display(flex);
+                      @include flex(0 0 auto);
+                      padding-right: rem(15);
+                      svg {
+                          @include display(flex);
+                          height: rem(20);
+                          width: rem(20);
+                      }
+                      &:focus {
+                          svg {
+                              fill: $color-gray;
+                          }
+                      }
+                  }
+                  .award__heading-id,
+                  .award__heading-id--financial-assistance {
+                      @include display(flex);
+                      font-weight: $font-light;
+                      @include flex-wrap(wrap);
+                      h3 {
+                        font-weight: $font-normal;
+                        display: flex;
+                        padding-right: rem(10);
+                        font-size: $h5-font-size;
+                        margin: 0;
+                        line-height: normal;
+                      }
+                      p {
+                        margin: 0;
+                        @include display(flex);
+                        @include align-items(center);
+                        // margin-right: $global-mrg;
+                        line-height: normal;
+                        font-size: $h5-font-size;
+                      }
+                  }
+              }
+              .award-status-container {
+                @include media($medium-screen) {
+                  @include display(inline-flex);
+                  @include justify-content(flex-end);
+                }
+                .award-status__text {
+                  margin: 0;
+                }
+                .award-status-container__status {
+                  &.award-status__text-space {
+                    padding-right: rem(5);
+                  }
+                }
+                .award-status-container__time-remaining {
+                  font-weight: $font-normal;
+                }
+              }
+          }
+          .award__row {
+              @include display(flex);
+              @include flex-wrap(wrap);
+              padding: rem(40) 0 rem(60);
+              @include media($medium-screen) {
+                  @include flex-wrap(nowrap)
+              }
+              &.award-history-section {
+                padding-bottom: 0;
+              }
+              &.award-cfda-section {
+                padding-bottom: 0;
+              }
+              &.award-contract-activity-section {
+                padding-bottom: 0;
+              }
+              &.federal-accounts-section {
+                padding-bottom: 0;
+              }
+              &.award-overview {
+                padding-top: 0;
+              }
+              .award__col {
+                  @include flex(1 1 auto);
+                  // Add padding between columns when they are stacked in mobile
+                  &:first-child {
+                      padding-bottom: rem(60);
+                  }
+                  &:last-child {
+                      padding-top: rem(40);
+                  }
+                  @include media($medium-screen) {
+                      @include flex(0 0 50%);
+                      &:first-child {
+                          padding-right: rem(15);
+                          padding-bottom: 0;
+                      }
+                      &:last-child {
+                          padding-left: rem(15);
+                          padding-top: 0;
+                      }
+                  }
+                  @include media($tablet-screen) {
+                      // forces content to go to single column layout 
+                      min-width: 450px;
+                  }
+                  .award__col__content {
+                      height: 100%;
+                      @include display(flex);
+                      @include flex-direction(column);
+                      h4 {
+                          font-size: rem(16px);
+                          font-weight: $font-semibold;
+                      }
+                      h5 {
+                          font-size: rem(14px);
+                          font-weight: $font-semibold;
+                      }
+                  }
+                @import "./shared/expandableAwardSection";
+              }
+          }
+          hr,
+          .award-row hr {
+              width: 100%;
+              height: 2px;
+              background: #555555;
+              border: none;
+              margin-bottom: rem(35);
+          }
+          @import "./visualizations/awardViz";
+          @import "./visualizations/overview/overview";
+          @import "./visualizations/description/description";
+          @import "./visualizations/additionalInfo";
+          @import "./visualizations/awardFundingSummary";
+          @import "./shared/awardAmountsSection/index";
+          @import "./shared/awardHistorySection";
+      }
+      @import "./comingSoon";
+      @import "./awardContract";
+      @import "./awardFinancialAssistance";
+      @import "./idv/awardIdv";
+      @import "layouts/search/header/downloadButton";
+  }
 }

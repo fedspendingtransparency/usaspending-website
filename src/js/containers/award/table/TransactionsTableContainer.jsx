@@ -13,10 +13,8 @@ import { uniqueId } from 'lodash';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as awardActions from 'redux/actions/award/awardActions';
 
-import BaseAssistanceTransaction from 'models/v2/awards/transactions/BaseAssistanceTransaction';
 import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
 import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
-
 import TransactionsTable from 'components/award/table/TransactionsTable';
 
 const propTypes = {
@@ -32,11 +30,12 @@ export class TransactionsTableContainer extends React.Component {
 
         this.state = {
             inFlight: false,
+            error: false,
             nextPage: false,
             page: 1,
             sort: {
-                field: 'action_date',
-                direction: 'desc'
+                field: 'modification_number',
+                direction: 'asc'
             },
             tableInstance: `${uniqueId()}`,
             transactions: []
@@ -53,7 +52,7 @@ export class TransactionsTableContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.award.selectedAward.internalId !== prevProps.award.selectedAward.internalId) {
+        if (this.props.award.id !== prevProps.award.id) {
             this.fetchTransactions(1, true);
         }
     }
@@ -64,17 +63,8 @@ export class TransactionsTableContainer extends React.Component {
         }
     }
 
-    formatSort() {
-        let direction = '';
-        if (this.state.sort.direction === 'desc') {
-            direction = '-';
-        }
-
-        return `${direction}${this.state.sort.field}`;
-    }
-
     fetchTransactions(page = 1, reset = false) {
-        if (!this.props.award.selectedAward.internalId) {
+        if (!this.props.award.id) {
             return;
         }
 
@@ -84,12 +74,13 @@ export class TransactionsTableContainer extends React.Component {
         }
 
         this.setState({
-            inFlight: true
+            inFlight: true,
+            error: false
         });
 
         // generate the params
         const params = {
-            award_id: this.props.award.selectedAward.internalId.toString(),
+            award_id: this.props.award.id,
             page,
             sort: this.state.sort.field,
             order: this.state.sort.direction,
@@ -106,7 +97,8 @@ export class TransactionsTableContainer extends React.Component {
                 this.transactionRequest = null;
                 if (!isCancel(err)) {
                     this.setState({
-                        inFlight: false
+                        inFlight: false,
+                        error: true
                     });
                     console.log(err);
                 }
@@ -114,22 +106,12 @@ export class TransactionsTableContainer extends React.Component {
     }
 
     parseTransactions(data, reset) {
-        const transactions = [];
-
-        data.results.forEach((item) => {
-            let transaction = null;
-            if (this.props.category === 'contract') {
-                transaction = Object.create(BaseContractTransaction);
-            }
-            else if (this.props.category === 'loan') {
-                transaction = Object.create(BaseLoanTransaction);
-            }
-            else {
-                transaction = Object.create(BaseAssistanceTransaction);
-            }
-
+        const baseTransaction = this.props.category === 'loan' ?
+            BaseLoanTransaction : BaseContractTransaction;
+        const transactions = data.results.map((item) => {
+            const transaction = Object.create(baseTransaction);
             transaction.populate(item);
-            transactions.push(transaction);
+            return transaction;
         });
 
         // update the metadata

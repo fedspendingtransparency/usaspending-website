@@ -11,6 +11,7 @@ import { isCancel } from 'axios';
 import { uniqueId, intersection } from 'lodash';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
+import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -30,7 +31,8 @@ const propTypes = {
     filters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    subAwardIdClicked: PropTypes.func
 };
 
 const tableTypes = [
@@ -433,12 +435,20 @@ export class ResultsTableContainer extends React.Component {
         });
     }
 
+    subAwardIdClick = (id) => {
+        Analytics.event({
+            category: 'Advanced Search - Link',
+            action: 'Subaward ID Clicked',
+            label: id
+        });
+        this.props.subAwardIdClicked(true);
+    }
+
     render() {
         const tableType = this.state.tableType;
         if (!this.state.columns[tableType]) {
             return null;
         }
-
         const availableTypes = this.props.subaward ? subTypes : tableTypes;
 
         return (
@@ -455,7 +465,8 @@ export class ResultsTableContainer extends React.Component {
                 switchTab={this.switchTab}
                 updateSort={this.updateSort}
                 loadNextPage={this.loadNextPage}
-                subaward={this.props.subaward} />
+                subaward={this.props.subaward}
+                subAwardIdClick={this.subAwardIdClick} />
         );
     }
 }
@@ -468,5 +479,13 @@ export default connect(
         noApplied: state.appliedFilters._empty,
         subaward: state.searchView.subaward
     }),
-    (dispatch) => bindActionCreators(Object.assign({}, searchActions, appliedFilterActions), dispatch)
+    (dispatch) => bindActionCreators(
+        Object.assign(
+            {},
+            searchActions,
+            appliedFilterActions,
+            { subAwardIdClicked }
+        ),
+        dispatch
+    )
 )(ResultsTableContainer);
