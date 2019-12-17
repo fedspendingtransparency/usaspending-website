@@ -56,7 +56,7 @@ export default class MetaTags extends React.Component {
                 property="og:title"
                 content={this.props.og_title}
                 key="og_title" />);
-            tags.push(<title>{this.props.og_title}</title>);
+            tags.push(<title key="title">{this.props.og_title}</title>);
         }
         if (this.props.og_description !== '') {
             tags.push(<meta
