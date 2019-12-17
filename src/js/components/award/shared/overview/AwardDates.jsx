@@ -36,7 +36,7 @@ const progressDescriptions = () => {
         progressTriangleDescription,
         progressTextDescription
     };
-}
+};
 
 export default class AwardDates extends Component {
     constructor(props) {
