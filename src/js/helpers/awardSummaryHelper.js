@@ -94,7 +94,3 @@ export const isBadDates = (dates, awardType) => {
     }
     return true;
 };
-
-export const recipientAddressByAwardType = (location, awardType) => {
-
-};
