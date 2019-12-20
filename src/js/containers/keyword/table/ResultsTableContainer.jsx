@@ -201,7 +201,11 @@ export default class ResultsTableContainer extends React.Component {
                 // don't clear records if we're appending (not the first page)
                 if (pageNumber <= 1 || newSearch) {
                     newState.tableInstance = `${uniqueId()}`;
-                    newState.results = res.data.results;
+                    newState.results = res.data.results
+                        .map((result) => ({
+                            ...result,
+                            generated_internal_id: encodeURI(result.generated_internal_id)
+                        }));
                 }
                 else {
                     newState.results = this.state.results.concat(res.data.results);
