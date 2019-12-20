@@ -33,7 +33,7 @@ describe('', () => {
     describe('getAwardTypeRecordtypeCountyAndState', () => {
         it('should return nonFinancialAssistance', () => {
             const data = getAwardTypeByRecordtypeCountyAndState(
-                false,
+                'idv',
                 {},
                 2
             );
@@ -41,16 +41,16 @@ describe('', () => {
         });
         it('should return redactedDueToPII', () => {
             const data = getAwardTypeByRecordtypeCountyAndState(
-                true,
+                'grant',
                 {},
                 3
             );
             expect(data).toEqual('redactedDueToPII');
         });
         const cases = [
-            ['aggregatedByState', '1', 'USA', 'Does Not Exist', true, { _countryCode: 'USA', _countyCode: null }, 1],
-            ['aggregatedByCounty', '1', 'USA', 'Exists', true, { _countryCode: 'USA', _countyCode: '001' }, 1],
-            ['aggregatedByCountry', '1', 'Not USA', 'Does Not Matter', true, { _countryCode: 'Greece' }, 1]
+            ['aggregatedByState', '1', 'USA', 'Does Not Exist', 'grant', { _countryCode: 'USA', _countyCode: null }, 1],
+            ['aggregatedByCounty', '1', 'USA', 'Exists', 'grant', { _countryCode: 'USA', _countyCode: '001' }, 1],
+            ['aggregatedByCountry', '1', 'Not USA', 'Does Not Matter', 'grant', { _countryCode: 'Greece' }, 1]
         ];
         it.each(cases)(
             'should return %p when award isFinancialAssistance and is record type %p and country code is %p and county code %p',

@@ -37,13 +37,14 @@ export const isContract = (awardType) => [
 // award overview recipient section - determines text and address to display to user
 // data can be found in
 export const getAwardTypeByRecordtypeCountyAndState = (
-    isFinancialAssistance,
+    awardType,
     placeOfPerformance,
     recordType
 ) => {
-    if (isFinancialAssistance) {
+    if (isAwardFinancialAssistance(awardType)) {
         // redacted due to PII
         if (recordType === 3) return 'redactedDueToPII';
+        if (recordType === 2) return 'financialAssistance';
         if (recordType === 1) {
             // aggregated by state
             if (placeOfPerformance._countryCode === 'USA' && !placeOfPerformance._countyCode) {
@@ -92,4 +93,8 @@ export const isBadDates = (dates, awardType) => {
         return false;
     }
     return true;
+};
+
+export const recipientAddressByAwardType = (location, awardType) => {
+
 };

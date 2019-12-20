@@ -10,6 +10,7 @@
 // and country (location object) by getAwardTypeByRecordtypeCountyAndState function in the
 // awardSummaryHelper
 export const AddresskeysByAwardType = {
+    financialAssistance: ['regionalAddress'],
     nonFinancialAssistance: ['regionalAddress', 'fullCongressionalDistrict', '_country'],
     redactedDueToPII: ['regionalAddress', 'fullCongressionalDistrict', '_country'],
     aggregatedByState: ['_state', 'fullCongressionalDistrict', '_country'],

@@ -47,7 +47,7 @@ const Recipient = ({
     };
 
     const aggregateRecordType = () => getAwardTypeByRecordtypeCountyAndState(
-        isFinancialAssistance,
+        awardType,
         placeOfPerformance,
         recordType
     );
