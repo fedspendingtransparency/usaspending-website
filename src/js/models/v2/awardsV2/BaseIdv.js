@@ -18,7 +18,7 @@ BaseIdv.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
     const coreData = {
         id: data.id,
-        generatedId: encodeURI(`${data.generated_unique_award_id}`),
+        generatedId: data.generated_unique_award_id,
         type: data.type,
         typeDescription: data.type_description,
         description: data.description,
