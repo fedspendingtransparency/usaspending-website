@@ -86,19 +86,19 @@ describe('', () => {
             currentEndDate: moment('12/02/2019', 'MM-DD-YYYY')
         };
         const startDateDoesNotExist = {
-            startDate: null,
+            startDate: moment(null, 'MM-DD-YYYY'),
             endDate: moment('12/02/2019', 'MM-DD-YYYY'),
             currentEndDate: moment('06/02/2019', 'MM-DD-YYYY')
         };
         const endDateDoesNotExist = {
             startDate: moment('01/02/2019', 'MM-DD-YYYY'),
-            endDate: null,
+            endDate: moment(null, 'MM-DD-YYYY'),
             currentEndDate: moment('06/02/2019', 'MM-DD-YYYY')
         };
         const currentEndDateDoesNotExist = {
             startDate: moment('01/02/2019', 'MM-DD-YYYY'),
             endDate: moment('06/02/2019', 'MM-DD-YYYY'),
-            currentEndDate: null
+            currentEndDate: moment(null, 'MM-DD-YYYY')
         };
         describe('Contracts', () => {
             it('is a bad date if start date is greater than the end date', () => {
