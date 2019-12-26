@@ -77,19 +77,15 @@ export const datesByDateType = (dates, awardType) => {
 export const isBadDates = (dates, awardType) => {
     const contract = isContract(awardType);
     const { startDate, endDate, currentEndDate } = dates;
+    // for any award
+    if (isNaN(startDate.valueOf()) || isNaN(endDate.valueOf())) return true;
+    if (startDate.isAfter(endDate)) return true;
+    // for contracts only
     if (contract) {
-        if (startDate && endDate && currentEndDate) {
-            if (endDate.isBefore(startDate)
-                || currentEndDate.isBefore(startDate)
-                || endDate.isBefore(currentEndDate)
-            ) return true;
-            return false;
-        }
-        return true;
+        if (isNaN(currentEndDate.valueOf())) return true;
+        if (currentEndDate.isBefore(startDate)
+            || endDate.isBefore(currentEndDate)
+        ) return true;
     }
-    if (startDate && endDate) {
-        if (startDate.isAfter(endDate)) return true;
-        return false;
-    }
-    return true;
+    return false;
 };
