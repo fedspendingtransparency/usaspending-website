@@ -44,7 +44,7 @@ export const isUSAAWard = (placeOfPerformance) => {
         || countryName === 'UNITED STATES'
     ) return true;
     return false;
-}
+};
 
 // award overview recipient section - determines text and address to display to user
 // data can be found in
