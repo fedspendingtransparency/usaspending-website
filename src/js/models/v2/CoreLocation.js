@@ -39,7 +39,11 @@ const CoreLocation = {
         return this._stateName || '--';
     },
     get countryName() {
-        if (this._countryCode === 'USA' || this._countryCode === 'UNITED STATES') return 'UNITED STATES';
+        if (
+            this._countryCode === 'USA'
+            || this._countryCode === 'UNITED STATES'
+            || this._country === 'UNITED STATES'
+        ) return 'UNITED STATES';
         return this._country || '--';
     },
     get regionalAddress() {
