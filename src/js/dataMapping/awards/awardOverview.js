@@ -10,12 +10,37 @@
 // and country (location object) by getAwardTypeByRecordtypeCountyAndState function in the
 // awardSummaryHelper
 export const AddresskeysByAwardType = {
-    financialAssistance: ['regionalAddress'],
-    nonFinancialAssistance: ['regionalAddress', 'fullCongressionalDistrict', '_country'],
-    redactedDueToPII: ['regionalAddress', 'fullCongressionalDistrict', '_country'],
-    aggregatedByState: ['_state', 'fullCongressionalDistrict', '_country'],
-    aggregatedByCounty: ['countyAndState', 'fullCongressionalDistrict', '_country'],
-    aggregatedByCountry: ['_country']
+    financialAssistanceDomestic: [
+        'streetAddress1',
+        '_address2',
+        'recipientRegionalAddress',
+        'recipientCongressionalDistrict',
+        'countryName'
+    ],
+    financialAssistanceForeign: [
+        'streetAddress1',
+        '_address2',
+        'recipientRegionalAddress',
+        'countryName'
+    ],
+    nonFinancialAssistanceDomestic: [
+        'streetAddress1',
+        '_address2',
+        'recipientRegionalAddress',
+        'recipientCongressionalDistrict',
+        'countryName'
+    ],
+    nonFinancialAssistanceForeign: [
+        'streetAddress1',
+        '_address2',
+        'recipientRegionalAddress',
+        'countryName'
+    ],
+    redactedDueToPIIDomestic: ['recipientRegionalAddress', 'recipientCongressionalDistrict', 'countryName'],
+    redactedDueToPIIForeign: ['recipientRegionalAddress', 'countryName'],
+    aggregatedByState: ['stateName', 'recipientCongressionalDistrict', 'countryName'],
+    aggregatedByCounty: ['countyAndState', 'recipientCongressionalDistrict', 'countryName'],
+    aggregatedByCountry: ['countryName']
 };
 
 // recipient section aggregate text

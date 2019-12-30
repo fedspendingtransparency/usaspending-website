@@ -45,13 +45,13 @@ const Recipient = ({
         }
         return name;
     };
-
+    // IDV's do not have a place of performance object since they have multiple awards
+    // we use the recipient location to decide whether it is domestic or foreign
     const aggregateRecordType = () => getAwardTypeByRecordtypeCountyAndState(
         awardType,
-        placeOfPerformance,
+        awardType === 'idv' ? recipient.location : placeOfPerformance,
         recordType
     );
-
     const recipientComponent = () => {
         const glossaryLink = `/#/award/${awardId}?glossary=${aggregateGlossaryLinks[aggregateRecordType()]}`;
         const glossaryLinkText = `View glossary definition of ${aggregateGlossaryText[aggregateRecordType()]}`;

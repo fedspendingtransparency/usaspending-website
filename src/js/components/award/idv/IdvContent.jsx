@@ -60,7 +60,10 @@ const IdvContent = ({
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}
                     recipient={overview.recipient}
-                    placeOfPerformance={overview.placeOfPerformance} />
+                    recordType={overview.recordType}
+                    placeOfPerformance={overview.placeOfPerformance}
+                    awardType={overview.category}
+                    awardId={awardId} />
                 <AwardOverviewRightSection
                     jumpToSection={jumpToSection}
                     counts={counts}

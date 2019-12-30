@@ -3,6 +3,7 @@
  * Created by Lizzie Salita 5/6/18
  */
 
+
 const CoreLocation = {
     populateCore(data) {
         this._address1 = data.address1 || '';
@@ -17,6 +18,7 @@ const CoreLocation = {
         this._country = data.country || '';
         this._countryCode = data.countryCode || '';
         this._state = data.state || data.stateCode || '';
+        this._stateName = data.state || '';
         this._congressionalDistrict = data.congressionalDistrict || '';
     },
     get streetAddress() {
@@ -29,6 +31,16 @@ const CoreLocation = {
             }
         }
         return address;
+    },
+    get streetAddress1() {
+        return this._address1 || '--';
+    },
+    get stateName() {
+        return this._stateName || '--';
+    },
+    get countryName() {
+        if (this._countryCode === 'USA' || this._countryCode === 'UNITED STATES') return 'UNITED STATES';
+        return this._country || '--';
     },
     get regionalAddress() {
         const city = this._city && `${this._city}, `;
@@ -44,8 +56,24 @@ const CoreLocation = {
         const postCode = this._zip;
         return `${city}${adminArea}${country}${postCode}`;
     },
+    get recipientRegionalAddress() {
+        const city = this._city || '--';
+        if (this._countryCode === 'USA'
+            || this._countryCode === 'UNITED STATES'
+            || this._country === 'UNITED STATES') {
+            const state = this._stateCode || '--';
+            const zip = this._zip || '--';
+            return `${city}, ${state} ${zip}`;
+        }
+        const province = this._province || '';
+        const fZip = this._zip || '';
+        // if province or foreign zip exist show comma
+        if (province || fZip) return `${city}, ${province} ${fZip}`;
+        // if neither province or foreign zip exist do not show comma;
+        return city;
+    },
     get countyAndState() {
-        const county = this._county ? `${this._county}` : '--';
+        const county = this._county ? `${this._county} County` : '--';
         const stateCode = this._stateCode ? `${this._stateCode} ` : '--';
         if (!this._county && !this._stateCode) return '--';
         return `${county}, ${stateCode}`.trim();
@@ -58,6 +86,11 @@ const CoreLocation = {
     },
     get fullCongressionalDistrict() {
         return this.congressionalDistrict && `\nCongressional District: ${this.congressionalDistrict}`;
+    },
+    get recipientCongressionalDistrict() {
+        return this.congressionalDistrict
+            ? `\nCongressional District: ${this.congressionalDistrict}`
+            : '--';
     },
     get stateProvince() {
         if (this._city && this._stateCode) {
