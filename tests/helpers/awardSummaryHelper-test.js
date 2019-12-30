@@ -30,7 +30,7 @@ describe('', () => {
             expect(isAwardFinancialAssistance("loans")).toEqual(false);
         });
     });
-    describe('getAwardTypeRecordtypeCountyAndState', () => {
+    describe('getAwardTypeByRecordtypeCountyAndState', () => {
         // Financial Assistance Records
         // record type 3 - redacted due to pii
         // record type 2 - other FA
