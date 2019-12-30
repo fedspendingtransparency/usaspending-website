@@ -77,7 +77,7 @@ describe('Core Location getter functions', () => {
     });
     describe('County and State', () => {
         it('should handle county and state when both are defined', () => {
-            expect(location.countyAndState).toEqual(`${location._county}, ${location._stateCode}`);
+            expect(location.countyAndState).toEqual(`${location._county} County, ${location._stateCode}`);
         });
         it('should handle county and state when county is not defined', () => {
             const missingCountyLocationData = Object.assign({}, locationData, { county: null });
@@ -89,7 +89,7 @@ describe('Core Location getter functions', () => {
             const missingStateLocationData = Object.assign({}, locationData, { stateCode: null });
             const missingStateLocation = Object.create(CoreLocation);
             missingStateLocation.populateCore(missingStateLocationData);
-            expect(missingStateLocation.countyAndState).toEqual(`${location._county}, --`);
+            expect(missingStateLocation.countyAndState).toEqual(`${location._county} County, --`);
         });
         it('should handle county and state when county and state are not defined', () => {
             const missingCountyAndStateLocationData = Object.assign(
