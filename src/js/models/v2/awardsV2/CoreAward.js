@@ -12,7 +12,9 @@ const CoreAward = {
     populateCore(data) {
         this._category = data.category;
         this.id = data.id || '';
-        this.generatedId = data.generatedId || '';
+        this.generatedId = data.generatedId
+            ? encodeURI(`${data.generatedId}`)
+            : '';
         this.type = data.type || '';
         this.typeDescription = data.typeDescription || "--";
         this.description = data.description || '--';

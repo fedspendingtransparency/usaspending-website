@@ -16,6 +16,7 @@ BaseFinancialAssistance.populate = function populate(data) {
     const coreData = {
         id: data.fain || data.uri,
         internalId: data.id,
+        generatedId: data.generated_unique_award_id,
         category: data.category,
         startDate: data.period_of_performance_start_date,
         endDate: data.period_of_performance_current_end_date,

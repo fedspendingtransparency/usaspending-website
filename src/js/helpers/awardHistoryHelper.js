@@ -20,9 +20,8 @@ export const getAwardHistoryFederalAccountsIdv = (awardId) => apiRequest({
  * @param type: oneOf(['subaward', 'transaction', 'federal_account'])
  */
 export const getAwardHistoryCounts = (type, awardId, isIdv = false) => {
-    const parsedAwardId = encodeURI(awardId);
-    if (type === 'federal_account' && isIdv) return getAwardHistoryFederalAccountsIdv(parsedAwardId);
+    if (type === 'federal_account' && isIdv) return getAwardHistoryFederalAccountsIdv(awardId);
     return apiRequest({
-        url: `v2/awards/count/${type}/${parsedAwardId}/`
+        url: `v2/awards/count/${type}/${awardId}/`
     });
 };
