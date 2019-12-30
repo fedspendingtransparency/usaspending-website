@@ -49,7 +49,11 @@ export default class ProgressBar extends Component {
 
     // recreate the progress bar on window resize
     componentDidUpdate(prevProps) {
-        if (prevProps.width !== this.props.width) {
+        if (
+            prevProps.width !== this.props.width
+            || prevProps.domain !== this.props.domain
+            || prevProps.milestones !== this.props.milestones
+        ) {
             this.validateDomainAndMilestones();
             // DataFlow
             // 1. start
