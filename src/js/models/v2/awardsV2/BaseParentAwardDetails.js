@@ -5,7 +5,9 @@
 
 const parentAwardDetails = {
     populateCore(data) {
-        this.awardId = encodeURI(`${data.generated_unique_award_id}`) || '';
+        this.awardId = data.generated_unique_award_id
+            ? encodeURI(`${data.generated_unique_award_id}`)
+            : '';
         this.idvType = data.idv_type_description || '';
         this.idcType = data.type_of_idc_description || '';
         this.agencyId = data.agency_id || '';
