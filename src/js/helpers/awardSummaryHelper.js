@@ -35,7 +35,7 @@ export const isContract = (awardType) => [
 ].includes(awardType);
 
 // takes core location object
-export const isUSAAWard = (placeOfPerformance) => {
+export const isUSAAward = (placeOfPerformance) => {
     const countryCode = placeOfPerformance._countryCode;
     const countryName = placeOfPerformance.countryName;
     if (
@@ -54,7 +54,7 @@ export const getAwardTypeByRecordtypeCountyAndState = (
     recordType
 ) => {
     const countyCode = placeOfPerformance._countyCode;
-    const isUSA = isUSAAWard(placeOfPerformance);
+    const isUSA = isUSAAward(placeOfPerformance);
     if (isAwardFinancialAssistance(awardType)) {
         // redacted due to PII
         if (recordType === 3) {
