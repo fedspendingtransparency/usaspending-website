@@ -2,11 +2,11 @@
 
 [![Build Status](https://travis-ci.com/fedspendingtransparency/usaspending-website.svg?branch=dev)](https://travis-ci.com/fedspendingtransparency/usaspending-website) [![Test Coverage](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/badges/coverage.svg)](https://codeclimate.com/github/fedspendingtransparency/usaspending-website/coverage)
 
-[The USAspending website](https://www.usaspending.gov/) is the public-facing site offering information on Government spending for the United States.
+[The USAspending website](https://www.usaspending.gov/) is the public-facing site offering information on Government spending for the United States. It utilizes the [Data Transparency User Interface Library](https://github.com/fedspendingtransparency/data-transparency-ui).
 
 ## Docker Set Up
 
-The quickets way to run a local version of the code is with  [Docker](https://www.docker.com/), using the provided Dockerfile.
+The quickest way to run a local version of the code is with  [Docker](https://www.docker.com/), using the provided Dockerfile.
 
 **You will need to create your GlobalConstants files first (see below).** Then, to build the Docker image, artifacts, and run in a simple Nginx configuration:
 
