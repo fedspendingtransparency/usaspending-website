@@ -59,11 +59,7 @@ const IdvContent = ({
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}
-                    recipient={overview.recipient}
-                    recordType={overview.recordType}
-                    placeOfPerformance={overview.placeOfPerformance}
-                    awardType={overview.category}
-                    awardId={awardId} />
+                    recipient={overview.recipient} />
                 <AwardOverviewRightSection
                     jumpToSection={jumpToSection}
                     counts={counts}

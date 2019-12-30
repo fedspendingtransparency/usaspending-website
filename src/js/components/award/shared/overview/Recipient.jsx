@@ -22,7 +22,6 @@ import RecipientAddress from './RecipientAddress';
 const propTypes = {
     recipient: PropTypes.object,
     awardType: PropTypes.string,
-    placeOfPerformance: PropTypes.object,
     recordType: PropTypes.number,
     awardId: PropTypes.string
 };
@@ -30,7 +29,6 @@ const propTypes = {
 const Recipient = ({
     recipient,
     awardType,
-    placeOfPerformance,
     recordType,
     awardId
 }) => {
@@ -49,7 +47,7 @@ const Recipient = ({
     // we use the recipient location to decide whether it is domestic or foreign
     const aggregateRecordType = () => getAwardTypeByRecordtypeCountyAndState(
         awardType,
-        awardType === 'idv' ? recipient.location : placeOfPerformance,
+        recipient.location,
         recordType
     );
     const recipientComponent = () => {
@@ -91,7 +89,7 @@ const Recipient = ({
             <h6 className="award-overview-title">Recipient</h6>
             {recipientComponent()}
             <RecipientAddress
-                placeOfPerformance={recipient.location}
+                recipientLocation={recipient.location}
                 aggregateRecordType={aggregateRecordType()} />
             <div className="award-overview__left-section__aggregated-text">
                 {isFinancialAssistance && aggregateRecordText()}
