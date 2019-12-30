@@ -244,8 +244,21 @@ describe('Core Location getter functions', () => {
         });
     });
     describe('Country Name', () => {
+        it('should return UNITED STATES when country name is UNITED STATES', () => {
+            const otherLocationData = { ...locationData };
+            otherLocationData.country = 'UNITED STATES';
+            otherLocationData.countryCode = '';
+            const otherLocation = Object.create(CoreLocation);
+            otherLocation.populateCore(otherLocationData);
+            expect(otherLocation.countryName).toEqual('UNITED STATES');
+        });
         it('should return UNITED STATES when country code is USA', () => {
-            expect(location.countryName).toEqual('UNITED STATES');
+            const otherLocationData = { ...locationData };
+            otherLocationData.countryCode = 'UNITED STATES';
+            otherLocationData.countryName = '';
+            const otherLocation = Object.create(CoreLocation);
+            otherLocation.populateCore(otherLocationData);
+            expect(otherLocation.countryName).toEqual('UNITED STATES');
         });
         it('should return UNITED STATES when country code is UNITED STATES', () => {
             const otherLocationData = { ...locationData };
