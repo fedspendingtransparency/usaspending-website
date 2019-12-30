@@ -32,13 +32,22 @@ describe('', () => {
     });
     describe('getAwardTypeRecordtypeCountyAndState', () => {
         // Financial Assistance Records
-        const redactedDueToPIICases = [
+        // record type 3 - redacted due to pii
+        // record type 2 - other FA
+        // non FA - Contract and IDV
+        const faRecordTypeTwoAndThreeAndNonFA = [
             ['redactedDueToPIIForeign', 'grant', 3, 'Redacted Due To PII', { _countryCode: 'Not USA' }],
-            ['redactedDueToPIIDomestic', 'grant', 3, 'Redacted Due To PII', { _countryCode: 'USA' }]
+            ['redactedDueToPIIDomestic', 'other', 3, 'Redacted Due To PII', { _countryCode: 'USA' }],
+            ['financialAssistanceForeign', 'insurance', 2, 'Other FA', { _countryCode: 'Not USA' }],
+            ['financialAssistanceDomestic', 'loan', 2, 'Other FA', { _countryCode: 'UNITED STATES' }],
+            ['nonFinancialAssistanceForeign', 'contract', null, 'Contract', { _countryCode: 'FRA' }],
+            ['nonFinancialAssistanceDomestic', 'contract', null, 'Contract', { _countryCode: 'UNITED STATES' }],
+            ['nonFinancialAssistanceForeign', 'idv', null, 'IDV', { _countryCode: 'GBR' }],
+            ['nonFinancialAssistanceDomestic', 'idv', null, 'IDV', { _countryCode: 'UNITED STATES' }]
         ];
-        it.each(redactedDueToPIICases)(
+        it.each(faRecordTypeTwoAndThreeAndNonFA)(
             'should return %p when award type is %p record type is %p (%p) and country is %p',
-            (returnValue, awardType, recordType, faType, locationObject) => {
+            (returnValue, awardType, recordType, specificType, locationObject) => {
                 const data = getAwardTypeByRecordtypeCountyAndState(
                     awardType,
                     locationObject,
@@ -47,30 +56,22 @@ describe('', () => {
                 expect(data).toEqual(returnValue);
             }
         );
-        // it('should return redactedDueToPII', () => {
-        //     const data = getAwardTypeByRecordtypeCountyAndState(
-        //         'grant',
-        //         {},
-        //         3
-        //     );
-        //     expect(data).toEqual('redactedDueToPII');
-        // });
-        // const cases = [
-        //     ['aggregatedByState', '1', 'USA', 'Does Not Exist', 'grant', { _countryCode: 'USA', _countyCode: null }, 1],
-        //     ['aggregatedByCounty', '1', 'USA', 'Exists', 'grant', { _countryCode: 'USA', _countyCode: '001' }, 1],
-        //     ['aggregatedByCountry', '1', 'Not USA', 'Does Not Matter', 'grant', { _countryCode: 'Greece' }, 1]
-        // ];
-        // it.each(cases)(
-        //     'should return %p when award isFinancialAssistance and is record type %p and country code is %p and county code %p',
-        //     (result, record, country, county, isFA, pop, recordType) => {
-        //         const data = getAwardTypeByRecordtypeCountyAndState(
-        //             isFA,
-        //             pop,
-        //             recordType
-        //         );
-        //         expect(data).toEqual(result);
-        //     }
-        // );
+        const cases = [
+            ['aggregatedByState', '1', 'USA', 'Does Not Exist', 'grant', { _countryCode: 'USA', _countyCode: null }, 1],
+            ['aggregatedByCounty', '1', 'USA', 'Exists', 'grant', { _countryCode: 'USA', _countyCode: '001' }, 1],
+            ['aggregatedByCountry', '1', 'Not USA', 'Does Not Matter', 'grant', { _countryCode: 'Greece' }, 1]
+        ];
+        it.each(cases)(
+            'should return %p when award isFinancialAssistance and is record type %p and country code is %p and county code %p',
+            (result, record, country, county, isFA, pop, recordType) => {
+                const data = getAwardTypeByRecordtypeCountyAndState(
+                    isFA,
+                    pop,
+                    recordType
+                );
+                expect(data).toEqual(result);
+            }
+        );
     });
     describe('Is Bad Dates', () => {
         const goodDates = {
