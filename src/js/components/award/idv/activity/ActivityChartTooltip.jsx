@@ -321,7 +321,7 @@ export default class IdvActivityTooltip extends React.Component {
                                     ref={(div) => {
                                         this.piidDiv = div;
                                     }}>
-                                    {this.getLinks('award', data.id, this.state.piid, data.piid)}
+                                    {this.getLinks('award', data.generatedId, this.state.piid, data.piid)}
                                 </div>
                             </div>
                             {
