@@ -13,13 +13,16 @@ import { naicsRequest } from 'helpers/naicsHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import { setNaics, updateNaics } from 'redux/actions/search/naicsActions';
 
 import NAICSSearch from 'components/search/filters/naics/NAICSSearch';
 
 const propTypes = {
     updateSelectedNAICS: PropTypes.func,
     selectedNAICS: PropTypes.object,
-    appliedNAICS: PropTypes.object
+    appliedNAICS: PropTypes.object,
+    setNaics: PropTypes.func,
+    updateNaics: PropTypes.func
 };
 
 export class NAICSContainer extends React.Component {
@@ -147,5 +150,13 @@ export default connect(
         selectedNAICS: state.filters.selectedNAICS,
         appliedNAICS: state.appliedFilters.filters.selectedNAICS
     }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(NAICSContainer);
+    (dispatch) => bindActionCreators(
+        Object.assign(
+            {},
+            searchFilterActions,
+            { setNaics },
+            { updateNaics }
+        )
+        ,
+        dispatch
+    ))(NAICSContainer);
