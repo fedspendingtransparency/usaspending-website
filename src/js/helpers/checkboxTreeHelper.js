@@ -26,10 +26,16 @@ const createCheckboxTreeDataStrucure = (keysToBeMapped, nodes, requestType) => n
     newNode.label = node[label];
     delete newNode[value];
     delete newNode[label];
+    /**
+     * TODO - Figure out new way of implementing this.
+     * This is to handle the NAICS first render. Need this
+     * to set the child property with at least one empty child.
+     */
     if (requestType === 'initial') {
         newNode.children = [{}];
         return newNode;
     }
+    // recursive - repeat process for child nodes
     if (newNode.children) {
         newNode.children = createCheckboxTreeDataStrucure(keysToBeMapped, newNode.children);
     }

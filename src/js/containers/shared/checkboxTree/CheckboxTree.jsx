@@ -77,34 +77,45 @@ export default class CheckboxTree extends Component {
       * @returns {Array.<object>} An array of objects
     **/
     createLabels = (nodes) => nodes.map((node) => {
+        // if label is a string, do nothing
         if (typeof node.label !== 'string') return node;
         const { labelComponent } = this.props;
         const newNode = { ...node };
         let label = newNode.label;
         let value = newNode.value;
+        // will highlight the text if search prop is true
         if (this.props.isSearch) {
             label = this.highlightText(label);
             value = this.highlightText(value);
         }
+        // creates a new component with props value and label
         if (labelComponent) {
             newNode.label = cloneElement(
                 labelComponent,
                 { value, label }
             );
         }
-        else {
+        else { // default checkbox tree label
             newNode.label = (
                 <CheckboxTreeLabel
                     value={value}
                     label={label} />
             );
         }
+        // recursive - if there are children create new labels
         if (newNode.children) {
             newNode.children = this.createLabels(newNode.children);
         }
         return newNode;
     });
-
+    /**
+      ** createNodes
+      * maps raw data to checkbox tree data structure
+      * e.g. [{ label: 'Max', value: Well, children: [] }]
+      * Please refer to https://github.com/jakezatecky/react-checkbox-tree for more details
+      * @returns {Array.<object>} Sets the nodes property in state to an
+      * of objects with properties label, value, children to be used by react-checkbox-tree library
+    **/
     createNodes = () => {
         const { nodeKeys, nodes } = this.props;
         const newNodes = createCheckboxTreeDataStrucure(
