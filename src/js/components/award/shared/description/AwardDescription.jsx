@@ -39,8 +39,10 @@ const AwardDescription = ({
                     <div className="award-description__naics-psc">
                         <div className="naics-psc__section">
                             <div className="naics-psc__heading">
-                                North American Industry Classification System (NAICS) Code
-                                <span className="naics-psc__icon">
+                                North American Industry Classification System (NAICS)
+                                <span>
+                                    {/* last word of heading inside the span to prevent the glossary icon from wrapping to its own line by itself */}
+                                    Code
                                     <a href={`#/award/${awardId}/?glossary=naics`}>
                                         <Glossary alt="View glossary definition of NAICS" />
                                     </a>
@@ -51,8 +53,10 @@ const AwardDescription = ({
                         <div className="naics-psc__section naics-psc__section_psc">
                             <div className="naics-psc__section">
                                 <div className="naics-psc__heading">
-                                    Product or Service Code (PSC)
-                                    <span className="naics-psc__icon">
+                                    Product or Service Code
+                                    <span>
+                                        {/* last word of heading inside the span to prevent the glossary icon from going to its own line by itself */}
+                                        (PSC)
                                         <a href={`#/award/${awardId}/?glossary=productservice-code-psc`}>
                                             <Glossary alt="View glossary definition of Product/Service Code (PSC)" />
                                         </a>
