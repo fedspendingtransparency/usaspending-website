@@ -7,7 +7,7 @@ import pathToRegExp from 'path-to-regexp';
 import { createHashHistory as createHistory } from 'history';
 import queryString from 'query-string';
 
-import Routes from './RouterRoutes';
+import { routes as Routes } from './RouterRoutes';
 
 export class RouterSingleton {
     constructor() {
