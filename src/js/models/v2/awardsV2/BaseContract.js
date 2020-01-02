@@ -3,6 +3,7 @@
  * Created by David Trinh 10/9/18
  */
 import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as naicsHelper from 'helpers/naicsHelper';
 import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import BaseParentAwardDetails from './BaseParentAwardDetails';
@@ -13,43 +14,6 @@ import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 import CorePeriodOfPerformance from '../awardsV2/CorePeriodOfPerformance';
 
 const BaseContract = Object.create(CoreAward);
-
-const emptyPscObj = {
-    base_code: {},
-    midtier_code: {},
-    subtier_code: {},
-    toptier_code: {}
-};
-
-const getPscTypeByToptierCode = (toptierCode) => {
-    // Undefined toptierCode code is always a product
-    if (toptierCode === undefined) return 'PRODUCTS';
-
-    const topTierCodeAsInt = parseInt(toptierCode, 10);
-    if (isNaN(topTierCodeAsInt)) {
-        if (toptierCode && toptierCode[0].toUpperCase() === 'A') {
-            return 'RESEARCH AND DEVELOPMENT';
-        }
-        // all letters other than 'A' are services
-        return 'SERVICES';
-    }
-    // all numbers are PRODUCTS
-    return 'PRODUCTS';
-};
-
-const deducePscType = (acc, keyValueArray) => {
-    const [key, value] = keyValueArray;
-    const description = getPscTypeByToptierCode(value.code);
-    if (key === 'toptier_code') {
-        const pscType = { code: "--", description };
-        if (description === 'RESEARCH AND DEVELOPMENT') {
-            // replace toptier_code w/ psc type
-            return { ...acc, pscType };
-        }
-        return { ...acc, pscType, [key]: value };
-    }
-    return { ...acc, [key]: value };
-};
 
 BaseContract.populate = function populate(data) {
     // reformat some fields that are required by the CoreAward
@@ -67,7 +31,7 @@ BaseContract.populate = function populate(data) {
         dateSigned: data.date_signed,
         baseAndAllOptions: data.base_and_all_options,
         naics: data.naics_hierarchy,
-        psc: Object.entries(data.psc_hierarchy).reduce(deducePscType, emptyPscObj)
+        psc: Object.entries(data.psc_hierarchy).reduce(naicsHelper.deducePscType, naicsHelper.emptyHierarchy)
     };
     this.populateCore(coreData);
 

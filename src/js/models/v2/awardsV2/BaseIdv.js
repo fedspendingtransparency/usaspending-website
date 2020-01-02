@@ -3,6 +3,7 @@
  * Created by Lizzie Salita 12/3/18
  */
 
+import * as naicsHelper from 'helpers/naicsHelper';
 import CoreLocation from 'models/v2/CoreLocation';
 import CoreAward from './CoreAward';
 import CoreAwardAgency from './CoreAwardAgency';
@@ -28,7 +29,9 @@ BaseIdv.populate = function populate(data) {
         totalObligation: data.total_obligation,
         baseExercisedOptions: data.base_exercised_options,
         baseAndAllOptions: data.base_and_all_options,
-        dateSigned: data.date_signed
+        dateSigned: data.date_signed,
+        naics: data.naics_hierarchy || naicsHelper.emptyHierarchy,
+        psc: Object.entries(data.psc_hierarchy).reduce(naicsHelper.deducePscType, naicsHelper.emptyHierarchy)
     };
 
     this.populateCore(coreData);
