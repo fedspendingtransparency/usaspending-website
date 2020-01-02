@@ -29,7 +29,6 @@ const AwardDescription = ({
     psc = null,
     awardType
 }) => {
-    const isIdv = (awardType === 'idv');
     const tooltip = getToolTipBySectionAndAwardType('description', awardType);
     return (
         <AwardSection type="column" className="award-viz award-description">
@@ -47,8 +46,7 @@ const AwardDescription = ({
                                     </a>
                                 </span>
                             </div>
-                            {!isIdv && <LineTree type="naics" data={naics} />}
-                            {isIdv && naics}
+                            <LineTree type="naics" data={naics} />
                         </div>
                         <div className="naics-psc__section naics-psc__section_psc">
                             <div className="naics-psc__section">
@@ -60,8 +58,7 @@ const AwardDescription = ({
                                         </a>
                                     </span>
                                 </div>
-                                {!isIdv && <LineTree type="psc" data={psc} />}
-                                {isIdv && psc}
+                                <LineTree type="psc" data={psc} />
                             </div>
                         </div>
                     </div>
