@@ -6,12 +6,12 @@
 import React, { Component, cloneElement } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
+import { isEqual, difference, isEmpty } from 'lodash';
 import reactStringReplace from 'react-string-replace';
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
-import createCheckboxTreeDataStrucure from 'helpers/checkboxTreeHelper';
+import { createCheckboxTreeDataStrucure } from 'helpers/checkboxTreeHelper';
 import { treeIcons } from 'dataMapping/shared/checkboxTree/checkboxTree';
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
@@ -22,7 +22,12 @@ const propTypes = {
     isSearch: PropTypes.bool,
     searchText: PropTypes.string,
     modifyLabelTextClassname: PropTypes.string,
-    labelComponent: PropTypes.element
+    labelComponent: PropTypes.element,
+    onExpand: PropTypes.func,
+    onCheck: PropTypes.func,
+    onCollapse: PropTypes.func,
+    setRedux: PropTypes.func,
+    updateRedux: PropTypes.func
 };
 
 
@@ -31,9 +36,9 @@ export default class CheckboxTree extends Component {
         super(props);
 
         this.state = {
+            nodes: [],
             checked: [],
             expanded: [],
-            nodes: [],
             requestType: 'initial'
         };
     }
@@ -44,13 +49,109 @@ export default class CheckboxTree extends Component {
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps.nodes, this.props.nodes)) {
-            this.createNodes();
+            this.updateNodes();
         }
     }
-
-    onExpand = (expanded) => this.setState({ expanded });
+    /**
+     * onExpand
+     * Will call onCollapse
+     */
+    onExpand = (expandedArray) => {
+        const { expanded } = this.state;
+        // collapsing node
+        if (expandedArray.length < expanded.length) {
+            console.log(' Collapsing ');
+            const collapsedValue = difference(expanded, expandedArray)[0];
+            this.setState({ expanded: expandedArray });
+            if (this.props.onCollapse) this.props.onCollapse(collapsedValue);
+        }
+        /**
+         * React Checkbox Tree sends the entire array of expanded node values.
+         * We must find the difference to isolate the newly expanded node value.
+         */
+        const expandedValue = difference(expandedArray, expanded)[0];
+        const { nodeIndex, node } = this.findNode(expandedValue);
+        // verify current children property is empty
+        if (isEmpty(node.children[0])) {
+            const newNodes = this.setChildrenToLoading(nodeIndex);
+            this.setState({ expanded: expandedArray, nodes: newNodes });
+            if (this.props.onExpand) this.props.onExpand(node);
+        }
+        else {
+            this.setState({ expanded: expandedArray });
+        }
+    };
 
     onCheck = (checked) => this.setState({ checked });
+
+    /**
+     * setChildrenToLoading
+     * update a node's children property to a loading div.
+     * @param {number} index - the index of the node to update
+     * @returns {Array.<object>} - new array of nodes
+     */
+    setChildrenToLoading = (index) => {
+        const newNodes = [...this.state.nodes];
+        newNodes[index].children = [{
+            label: (
+                <div className="children-are-loading">
+                    <FontAwesomeIcon icon="spinner" spin />
+                    <div className="children-are-loading__text">Loading your data...</div>
+                </div>
+            ),
+            value: 'loading',
+            showCheckbox: false
+        }];
+        return newNodes;
+    }
+    /**
+      ** createNodes
+      * maps raw data to checkbox tree data structure
+      * e.g. [{ label: 'Max', value: Well, children: [] }]
+      * Please refer to https://github.com/jakezatecky/react-checkbox-tree for more details
+      * @returns {Array.<object>} Sets the nodes property in state to an
+      * of objects with properties label, value, children to be used by react-checkbox-tree library
+    **/
+    createNodes = () => {
+        const { nodeKeys, nodes } = this.props;
+        const newNodes = createCheckboxTreeDataStrucure(
+            nodeKeys,
+            nodes,
+            this.state.requestType
+        );
+        this.setState({ nodes: newNodes, requestType: '' });
+        if (this.props.setRedux) this.props.setRedux(newNodes);
+    }
+    /**
+     * updateNodes
+     * This will add new data to the nodes array
+     */
+    updateNodes = () => {
+        const { nodeKeys, nodes } = this.props;
+        const newNode = createCheckboxTreeDataStrucure(
+            nodeKeys,
+            nodes,
+            this.state.requestType
+        );
+        const value = newNode[0].value;
+        const { nodeIndex } = this.findNode(value);
+        const newNodes = [...this.state.nodes];
+        newNodes.splice(nodeIndex, 1, newNode[0]);
+        this.setState({ nodes: newNodes });
+        if (this.props.updateRedux) this.props.updateRedux(newNodes);
+    }
+    /**
+     * findNode
+     * Given a value this will that node in the current node array
+     * @param {string} - value of the node you are looking for
+     * @returns {object} - A object with properties nodeIndex and node
+     */
+    findNode = (value) => {
+        const { nodes } = this.state;
+        const nodeIndex = nodes.findIndex((node) => node.value === value);
+        const node = nodes[nodeIndex];
+        return { nodeIndex, node };
+    }
     // TODO - implement this
     // sets specific icons to custom icons passed in props
     updateIcons = () => {
@@ -62,7 +163,13 @@ export default class CheckboxTree extends Component {
         }
         return treeIcons;
     }
-
+    /**
+     * highlightText
+     * adds a <span> tag with a highlight class around matching text
+     * @param {string} text - text to match
+     * @returns {element or string} - returns a span element with a highlight class
+     * or string if no match is found.
+     */
     highlightText = (text) => reactStringReplace(text, this.props.searchText, (match, i) => (
         <span
             className={this.props.modifyLabelTextClassname || 'highlight'}
@@ -108,23 +215,6 @@ export default class CheckboxTree extends Component {
         }
         return newNode;
     });
-    /**
-      ** createNodes
-      * maps raw data to checkbox tree data structure
-      * e.g. [{ label: 'Max', value: Well, children: [] }]
-      * Please refer to https://github.com/jakezatecky/react-checkbox-tree for more details
-      * @returns {Array.<object>} Sets the nodes property in state to an
-      * of objects with properties label, value, children to be used by react-checkbox-tree library
-    **/
-    createNodes = () => {
-        const { nodeKeys, nodes } = this.props;
-        const newNodes = createCheckboxTreeDataStrucure(
-            nodeKeys,
-            nodes,
-            this.state.requestType
-        );
-        this.setState({ nodes: newNodes });
-    }
 
     render() {
         const { nodes, checked, expanded } = this.state;

@@ -16,13 +16,20 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setNaics, updateNaics } from 'redux/actions/search/naicsActions';
 
 import NAICSSearch from 'components/search/filters/naics/NAICSSearch';
+import { createCheckboxTreeDataStrucure } from 'helpers/checkboxTreeHelper';
 
 const propTypes = {
     updateSelectedNAICS: PropTypes.func,
     selectedNAICS: PropTypes.object,
     appliedNAICS: PropTypes.object,
     setNaics: PropTypes.func,
-    updateNaics: PropTypes.func
+    updateNaics: PropTypes.func,
+    nodes: PropTypes.object
+};
+
+const nodeKeys = {
+    value: 'naics',
+    label: 'naics_description'
 };
 
 export class NAICSContainer extends React.Component {
@@ -32,23 +39,30 @@ export class NAICSContainer extends React.Component {
             naics: [],
             isError: false,
             errorMessage: '',
-            isLoading: false
+            isLoading: false,
+            isSearch: false,
+            requestType: 'initial'
         };
     }
 
     async componentDidMount() {
-        await this.fetchNAICS();
+        const { nodes } = this.props;
+        if (this.props.nodes.length > 0) return this.setNaics(nodes);
+        return this.fetchNAICS();
     }
+
+    onExpand = (node) => {
+        this.fetchNAICS(node.value);
+    };
+
+    setNaics = (naics) => this.setState({ naics });
+
+    setRedux = (naics) => this.props.setNaics(naics);
 
     request = null
 
-    nodeKeys = {
-        value: 'naics',
-        label: 'naics_description'
-    }
-
     fetchNAICS = async (param) => {
-        this.setState({ isLoading: true });
+        if (this.state.requestType === 'initial') this.setState({ isLoading: true });
         this.request = naicsRequest(param);
         try {
             const { data } = await this.request.promise;
@@ -56,7 +70,8 @@ export class NAICSContainer extends React.Component {
                 naics: data.results,
                 isLoading: false,
                 isError: false,
-                errorMessage: ''
+                errorMessage: '',
+                requestType: ''
             });
         }
         catch (e) {
@@ -65,7 +80,8 @@ export class NAICSContainer extends React.Component {
                 isError: true,
                 errorMessage: e.message,
                 naics: [],
-                isLoading: false
+                isLoading: false,
+                requestType: ''
             });
         }
     };
@@ -114,19 +130,26 @@ export class NAICSContainer extends React.Component {
     }
 
     checkboxDiv() {
-        const { isLoading, isError, naics } = this.state;
-        if (isLoading && isError) return null;
+        const {
+            isLoading,
+            isError,
+            isSearch,
+            naics
+        } = this.state;
+        if (isLoading || isError) return null;
         return (
             <CheckboxTree
                 nodes={naics}
-                nodeKeys={this.nodeKeys} />
+                nodeKeys={nodeKeys}
+                isSearch={isSearch}
+                onExpand={this.onExpand}
+                updateRedux={this.setRedux} />
         );
     }
 
     render() {
         const loadingDiv = this.loadingDiv();
         const errorDiv = this.errorDiv();
-        const checkboxDiv = this.checkboxDiv();
         return (
             <div>
                 <NAICSSearch
@@ -137,7 +160,7 @@ export class NAICSContainer extends React.Component {
                     removeNAICS={this.removeNAICS} />
                 {loadingDiv}
                 {errorDiv}
-                {checkboxDiv}
+                {this.checkboxDiv()}
             </div>
         );
     }
@@ -148,7 +171,8 @@ NAICSContainer.propTypes = propTypes;
 export default connect(
     (state) => ({
         selectedNAICS: state.filters.selectedNAICS,
-        appliedNAICS: state.appliedFilters.filters.selectedNAICS
+        appliedNAICS: state.appliedFilters.filters.selectedNAICS,
+        nodes: state.naics
     }),
     (dispatch) => bindActionCreators(
         Object.assign(

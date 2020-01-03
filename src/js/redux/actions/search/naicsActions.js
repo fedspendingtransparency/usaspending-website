@@ -3,12 +3,12 @@
   * Created by Jonathan Hill 12/30/19
   **/
 
-export const setNAICS = (naics) => ({
+export const setNaics = (nodes) => ({
     type: 'SET_NAICS',
-    naics
+    nodes
 });
 
-export const updateNAICS = (naics) => ({
+export const updateNaics = (nodes) => ({
     type: 'UPDATE_NAICS',
-    naics
+    nodes
 });

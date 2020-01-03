@@ -9,8 +9,8 @@
   * @param {object} keysToBeMapped - An object with keys value, and label with values
   * that correlate to your value and label properties
   * {
-  *   value: [your value key e.g., naics]
-  *   label: [your value label e.g., naics_description]
+  *   value: [the name of your propery that will become the value e.g., naics]
+  *   label: [the name of your propery that will become the label e.g., naics_description]
   * }
   * @param {Array.<object>} data
   * @param {String} requestType
@@ -19,7 +19,8 @@
   * that originated from your data
   * Please refer to https://github.com/jakezatecky/react-checkbox-tree for more details
 **/
-const createCheckboxTreeDataStrucure = (keysToBeMapped, nodes, requestType) => nodes.map((node) => {
+/* eslint-disable import/prefer-default-export */
+export const createCheckboxTreeDataStrucure = (keysToBeMapped, nodes, requestType) => nodes.map((node) => {
     const newNode = { ...node };
     const { value, label } = keysToBeMapped;
     newNode.value = node[value];
@@ -41,5 +42,3 @@ const createCheckboxTreeDataStrucure = (keysToBeMapped, nodes, requestType) => n
     }
     return newNode;
 });
-
-export default createCheckboxTreeDataStrucure;
