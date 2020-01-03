@@ -75,7 +75,6 @@ const buildRouteString = () => {
                     const previousUrl = arr[i - 1];
                     const results = resp.data.results || resp.data;
                     xml = getBigStringOfXML(xml, results, previousUrl);
-                    if 
                 }
                 return axios({
                     method: url.method,
