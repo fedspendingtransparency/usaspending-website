@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import InfoSnippet from '../award/InfoSnippet';
+import InfoSnippet from './InfoSnippet';
 
 const propTypes = {
     account: PropTypes.object

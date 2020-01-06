@@ -20,10 +20,11 @@ const propTypes = {
     columns: PropTypes.object,
     visibleWidth: PropTypes.number,
     loadNextPage: PropTypes.func,
-    currentType: PropTypes.string,
+    subaward: PropTypes.bool,
     tableInstance: PropTypes.string,
     sort: PropTypes.object,
-    updateSort: PropTypes.func
+    updateSort: PropTypes.func,
+    subAwardIdClick: PropTypes.func
 };
 
 const rowHeight = 40;
@@ -74,11 +75,17 @@ export default class ResultsTable extends React.Component {
             value: this.props.results[rowIndex][columnId],
             dataType: awardTableColumnTypes[columnId]
         };
-
         if (column.columnName === 'Award ID') {
             cellClass = ResultsTableLinkCell;
             props.id = this.props.results[rowIndex].generated_internal_id;
             props.column = 'award';
+        }
+        else if ((column.columnName === 'Sub-Award ID') && this.props.subaward) {
+            const row = this.props.results[rowIndex];
+            cellClass = ResultsTableLinkCell;
+            props.column = 'award';
+            props.id = row.prime_award_generated_internal_id;
+            props.onClick = this.props.subAwardIdClick.bind(null, `${row['Sub-Award ID']} (${props.id})`);
         }
         else if (column.columnName === 'Recipient Name' && this.props.results[rowIndex].recipient_id) {
             cellClass = ResultsTableLinkCell;
@@ -142,7 +149,6 @@ export default class ResultsTable extends React.Component {
             // remove duplicated bottom border
             noResultsClass = ' no-results';
         }
-
         const variableBodyHeight = Math.min(tableHeight, rowHeight * this.props.results.length);
 
         return (

@@ -3,11 +3,10 @@
  * Created by Kevin Li 2/15/17
  */
 
-import Axios, { CancelToken } from 'axios';
 import { min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
-
 import kGlobalConstants from 'GlobalConstants';
+import { apiRequest } from './apiRequest';
 
 import * as MoneyFormatter from './moneyFormatter';
 
@@ -425,58 +424,28 @@ export const calculateRange = (data) => {
     };
 };
 
-// perform GeoJSON fetch is a cancellable promise
-export const fetchFile = (file) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: file,
-            method: 'get',
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchLocationList = (fileName) => apiRequest({
+    baseURL: null,
+    url: `data/${fileName}.json`
+});
 
-export const fetchLocationList = (fileName) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: `data/${fileName}.json`,
-            method: 'get',
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
-export const performZIPGeocode = (zip) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            baseURL: 'https://api.mapbox.com/',
-            url: `geocoding/v5/mapbox.places/${zip}.json`,
-            params: {
-                access_token: kGlobalConstants.MAPBOX_TOKEN,
-                country: 'us',
-                types: 'postcode',
-                autocomplete: 'false'
-            },
-            method: 'get',
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const performZIPGeocode = (zip) => apiRequest({
+    baseURL: 'https://api.mapbox.com/',
+    url: `geocoding/v5/mapbox.places/${zip}.json`,
+    params: {
+        access_token: kGlobalConstants.MAPBOX_TOKEN,
+        country: 'us',
+        types: 'postcode',
+        autocomplete: 'false'
+    }
+});
 
 export const getCitySearchRequestObj = (searchText = "", state = "", country = "", scope = "") => {
-    const requestObj = { search_text: searchText, limit: 40, filter: { country_code: country, scope } };
+    const requestObj = {
+        search_text: searchText,
+        limit: 40,
+        filter: { country_code: country, scope }
+    };
 
     if (state) {
         requestObj.filter.state_code = state;
@@ -485,18 +454,8 @@ export const getCitySearchRequestObj = (searchText = "", state = "", country = "
     return requestObj;
 };
 
-export const fetchCityResults = (reqObj = getCitySearchRequestObj()) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            baseURL: `${kGlobalConstants.API}`,
-            url: `v2/autocomplete/city/`,
-            data: reqObj,
-            method: 'post',
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchCityResults = (reqObj = getCitySearchRequestObj()) => apiRequest({
+    url: `v2/autocomplete/city/`,
+    method: 'post',
+    data: reqObj
+});

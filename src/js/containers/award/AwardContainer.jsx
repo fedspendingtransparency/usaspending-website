@@ -1,27 +1,48 @@
 /**
   * AwardContainer.jsx
-  * Created by Emily Gullo 01/19/2017
+  * Created by David Trinh 10/5/2018
   **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
-
 import Award from 'components/award/Award';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import * as awardActions from 'redux/actions/award/awardActions';
+import { setAward } from 'redux/actions/award/awardActions';
+import {
+    setDownloadCollapsed,
+    setDownloadPending,
+    setDownloadExpectedFile,
+    setDownloadExpectedUrl
+} from 'redux/actions/bulkDownload/bulkDownloadActions';
+import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 
-import BaseContract from 'models/v2/awards/BaseContract';
-import BaseFinancialAssistance from 'models/v2/awards/BaseFinancialAssistance';
+import BaseContract from 'models/v2/awardsV2/BaseContract';
+import BaseIdv from 'models/v2/awardsV2/BaseIdv';
+import BaseFinancialAssistance from 'models/v2/awardsV2/BaseFinancialAssistance';
+import {
+    fetchIdvDownloadFile,
+    fetchContractDownloadFile,
+    fetchAssistanceDownloadFile
+} from '../../helpers/downloadHelper';
 
 require('pages/award/awardPage.scss');
 
 const propTypes = {
-    setSelectedAward: PropTypes.func,
-    awardId: PropTypes.string
+    subAwardIdClicked: PropTypes.func,
+    setAward: PropTypes.func,
+    handleDownloadRequest: PropTypes.func,
+    setDownloadCollapsed: PropTypes.func,
+    setDownloadPending: PropTypes.func,
+    setDownloadExpectedFile: PropTypes.func,
+    setDownloadExpectedUrl: PropTypes.func,
+    params: PropTypes.object,
+    award: PropTypes.object,
+    isDownloadPending: PropTypes.bool,
+    isSubAwardIdClicked: PropTypes.bool
 };
 
 export class AwardContainer extends React.Component {
@@ -29,20 +50,23 @@ export class AwardContainer extends React.Component {
         super(props);
 
         this.awardRequest = null;
+        this.downloadRequest = null;
 
         this.state = {
             noAward: false,
             inFlight: false
         };
+        this.downloadData = this.downloadData.bind(this);
+        this.fetchAwardDownloadFile = this.fetchAwardDownloadFile.bind(this);
     }
 
     componentDidMount() {
-        this.getSelectedAward(this.props.awardId);
+        this.getSelectedAward(this.props.params.awardId);
     }
 
     componentDidUpdate(prevProps) {
-        if (this.props.awardId !== prevProps.awardId) {
-            this.getSelectedAward(this.props.awardId);
+        if (this.props.params.awardId !== prevProps.params.awardId) {
+            this.getSelectedAward(this.props.params.awardId);
         }
     }
 
@@ -62,7 +86,7 @@ export class AwardContainer extends React.Component {
             inFlight: true
         });
 
-        this.awardRequest = SearchHelper.fetchAward(id);
+        this.awardRequest = SearchHelper.fetchAwardV2(id);
 
         this.awardRequest.promise
             .then((results) => {
@@ -86,13 +110,15 @@ export class AwardContainer extends React.Component {
                     // Errored out but got response, toggle noAward flag
                     this.awardRequest = null;
                     this.setState({
-                        noAward: true
+                        noAward: true,
+                        inFlight: false
                     });
                 }
                 else {
                     // Request failed
                     this.awardRequest = null;
                     console.log(error);
+                    this.setState({ inFlight: false });
                 }
             });
     }
@@ -102,31 +128,90 @@ export class AwardContainer extends React.Component {
             noAward: false
         });
 
-        if (data.category === 'contract' || data.category === 'idv') {
+        if (data.category === 'contract') {
             const contract = Object.create(BaseContract);
             contract.populate(data);
-            this.props.setSelectedAward(contract);
+            this.props.setAward(contract);
+        }
+        else if (data.category === 'idv') {
+            const idv = Object.create(BaseIdv);
+            idv.populate(data);
+            this.props.setAward(idv);
         }
         else {
             const financialAssistance = Object.create(BaseFinancialAssistance);
             financialAssistance.populate(data);
-            this.props.setSelectedAward(financialAssistance);
+            this.props.setAward(financialAssistance);
+        }
+    }
+
+    fetchAwardDownloadFile(awardCategory = this.props.award.category, awardId = this.props.params.awardId) {
+        if (awardCategory === 'idv') {
+            return fetchIdvDownloadFile(awardId);
+        }
+        else if (awardCategory === 'contract') {
+            return fetchContractDownloadFile(awardId);
+        }
+
+        return fetchAssistanceDownloadFile(awardId);
+    }
+
+    async downloadData(awardCategory = this.props.award.category, awardId = this.props.params.awardId) {
+        // don't show a modal about the download
+        this.props.setDownloadCollapsed(true);
+
+        if (this.downloadRequest) {
+            this.downloadRequest.cancel();
+        }
+
+        this.downloadRequest = this.fetchAwardDownloadFile(awardCategory, awardId);
+
+        try {
+            const { data } = await this.downloadRequest.promise;
+            this.props.setDownloadExpectedUrl(data.url);
+            this.props.setDownloadExpectedFile(data.file_name);
+            // disable download button
+            this.props.setDownloadPending(true);
+            this.downloadRequest = null;
+        }
+        catch (err) {
+            console.log(err);
+            this.downloadRequest = null;
         }
     }
 
     render() {
-        return (
-            <Award
-                {...this.props}
-                inFlight={this.state.inFlight}
-                noAward={this.state.noAward} />
-        );
+        let content = null;
+        if (!this.state.inFlight) {
+            content = (
+                <Award
+                    subAwardIdClicked={this.props.subAwardIdClicked}
+                    isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                    isDownloadPending={this.props.isDownloadPending}
+                    downloadData={this.downloadData}
+                    awardId={this.props.params.awardId}
+                    award={this.props.award}
+                    noAward={this.state.noAward} />
+            );
+        }
+        return content;
     }
 }
 
 AwardContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.award }),
-    (dispatch) => bindActionCreators(awardActions, dispatch)
+    (state) => ({
+        award: state.award,
+        isDownloadPending: state.bulkDownload.download.pendingDownload,
+        isSubAwardIdClicked: state.searchSubAwardTable.isSubAwardIdClicked
+    }),
+    (dispatch) => bindActionCreators({
+        setDownloadExpectedUrl,
+        setDownloadExpectedFile,
+        setDownloadPending,
+        setDownloadCollapsed,
+        setAward,
+        subAwardIdClicked
+    }, dispatch)
 )(AwardContainer);

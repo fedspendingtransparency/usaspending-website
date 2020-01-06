@@ -3,21 +3,11 @@
  * Created by David Trinh 7/3/18
  **/
 
-import Axios, { CancelToken } from 'axios';
-import kGlobalConstants from 'GlobalConstants';
+import { apiRequest } from "./apiRequest";
 
-export const fetchAllRecipients = (data) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/recipient/duns/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+// eslint-disable-next-line import/prefer-default-export
+export const fetchAllRecipients = (data) => apiRequest({
+    url: 'v2/recipient/duns/',
+    method: 'post',
+    data
+});

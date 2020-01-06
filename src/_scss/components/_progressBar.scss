@@ -1,0 +1,25 @@
+.progress-bar {
+  .progress-bar-shapes {  
+    .progress-bar-shapes__starting-circle {
+      fill: $color-green-lighter;
+    }
+    .progress-bar-shapes__ending-circle {
+      fill: $color-secondary-dark;
+    }
+    .progress-bar-shapes__milestone-circle {
+      fill: $color-gold-light;
+    }
+    .progress-bar-shapes__progress-text {
+      fill: $color-gray;
+      font-weight: $font-semibold;
+      font-size: rem(14);
+    }
+    .progress-bar-shapes__progress-vertical-line {
+      stroke: $color-gray-light;
+      shape-rendering: crispEdges;
+    }
+    .progress-bar-shapes__polygon {
+      fill: $color-gray-light;
+    }
+  }
+}

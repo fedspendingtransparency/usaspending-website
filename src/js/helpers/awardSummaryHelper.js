@@ -1,42 +1,22 @@
+import moment from "moment";
+import { apiRequest } from "./apiRequest";
+
 /**
  * awardSummaryHelper.js
  * Created by Lizzie Salita 8/16/19
 **/
 
-import Axios, { CancelToken } from 'axios';
-import kGlobalConstants from 'GlobalConstants';
+export const fetchAwardFundingSummary = (awardId) => apiRequest({
+    url: 'v2/awards/funding_rollup/',
+    method: 'post',
+    data: { award_id: awardId }
+});
 
-export const fetchAwardFundingSummary = (awardId) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/awards/funding_rollup/',
-            baseURL: kGlobalConstants.API,
-            method: "post",
-            data: { award_id: awardId },
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
-
-export const fetchAwardFederalAccounts = (data) => {
-    const source = CancelToken.source();
-    return {
-        promise: Axios.request({
-            url: 'v2/awards/accounts/',
-            baseURL: kGlobalConstants.API,
-            method: 'post',
-            data,
-            cancelToken: source.token
-        }),
-        cancel() {
-            source.cancel();
-        }
-    };
-};
+export const fetchAwardFederalAccounts = (data) => apiRequest({
+    url: 'v2/awards/accounts/',
+    method: 'post',
+    data
+});
 
 // The string ASST_AGG w/in a generatedUniqueId indicates an aggregated assistance type award
 export const isAwardAggregate = (generatedAwardId = '') => generatedAwardId.includes("ASST_AGG");
@@ -47,6 +27,11 @@ export const isAwardFinancialAssistance = (awardType) => [
     'direct payment',
     'loan',
     'other'
+].includes(awardType);
+
+export const isContract = (awardType) => [
+    'contract',
+    'definitive contract'
 ].includes(awardType);
 
 // award overview recipient section - determines text and address to display to user
@@ -76,4 +61,31 @@ export const getAwardTypeByRecordtypeCountyAndState = (
     }
     // IDV or contract
     return 'nonFinancialAssistance';
+};
+
+export const datesByDateType = (dates, awardType) => {
+    const startDate = moment(dates._startDate.valueOf());
+    let endDate = moment(dates._endDate.valueOf());
+    let currentEndDate = null;
+    if (isContract(awardType)) {
+        endDate = moment(dates._potentialEndDate.valueOf());
+        currentEndDate = moment(dates._endDate.valueOf());
+    }
+    return { startDate, endDate, currentEndDate };
+};
+
+export const isBadDates = (dates, awardType) => {
+    const contract = isContract(awardType);
+    const { startDate, endDate, currentEndDate } = dates;
+    // for any award
+    if (isNaN(startDate.valueOf()) || isNaN(endDate.valueOf())) return true;
+    if (startDate.isAfter(endDate)) return true;
+    // for contracts only
+    if (contract) {
+        if (isNaN(currentEndDate.valueOf())) return true;
+        if (currentEndDate.isBefore(startDate)
+            || endDate.isBefore(currentEndDate)
+        ) return true;
+    }
+    return false;
 };

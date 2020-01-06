@@ -1,0 +1,72 @@
+.award-overview {
+    $padding-top: rem(11);
+    // Layout
+    @include display(flex);
+    .award-overview__right-section {
+      min-width: 0;
+      @include display(flex);
+      @include flex-wrap(wrap);
+      @include media($tablet-screen) {
+        @include flex-wrap(nowrap);
+      }
+    }
+    .award__col {
+        .award-overview-column {
+          // flex 100% not working in IE
+          @include flex(0 0 auto);
+          width: 100%;
+          @include media($tablet-screen) {
+              // IE offset for padding in .award-overview-column__spacing not :face-palm:
+              @include flex(0 0 47%);
+          }
+          &.first {
+            padding-bottom: rem(30);
+            @include media($tablet-screen) {
+                padding-bottom: 0;
+            }
+          }
+        }
+        .award-overview-column__spacing {
+          @include media($tablet-screen) {
+            &:nth-child(odd) {
+              padding-right: rem(15);
+            }
+          }
+        }
+        // header
+        .award-viz__heading {
+            @include display(flex);
+            @include align-items(center);
+            padding-top: $padding-top;
+            .award-viz__icon {
+                padding-right: 10px;
+            }
+        }
+        .award-overview-title {
+            font-size: rem(16);
+            margin-top: 0;
+            align-items: center;
+        }
+        // body
+        .award-overview__body {
+            @include flex(1 1 auto);
+            @include media($medium-screen) {
+                @include flex(0 0 25%);
+            }
+        }
+        .award-overview__right-section__cfda {
+          .award-section-tt {
+            @include display(inline-flex);
+          }
+          span {
+              font-weight: 300;
+              text-transform: uppercase;
+          }
+        }
+    }
+
+    // custom styles for each sub-section in overview section
+    @import "./awardOverviewLeftSection";
+    @import "./relatedAwards";
+    @import "./awardDates";
+}
