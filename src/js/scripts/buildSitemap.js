@@ -1,6 +1,7 @@
 const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
+const lodash = require('lodash');
 
 const pages = require('./pages');
 
@@ -26,7 +27,7 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
     const { accessor, clientRoute } = pageInfo;
     return pageData.reduce((str, item) => {
         if (item.name === 'award') {
-            return `${str}<url><loc>${clientRoute}/${encodeURI(item[accessor])}</loc></url>`;    
+            return `${str}<url><loc>${clientRoute}/${encodeURI(item[accessor])}</loc></url>`;
         }
         return `${str}<url><loc>${clientRoute}/${item[accessor]}</loc></url>`;
     }, xml);
@@ -39,6 +40,26 @@ const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
         () => {
             console.log(`Sitemap ${siteMapName}.xml successfully created!`);
         });
+};
+
+const handleApiResponse = (resp) => {
+    // flatten massive arrays returned from Promise.all();
+    if (lodash.isArray(resp)) {
+        return resp.reduce((acc, result) => {
+            // if (Object.keys(resp).includes('data')) {
+            return [
+                ...acc,
+                ...result.data.results
+            ];
+            // }
+            // return [
+            //     ...acc,
+            //     ...result.results
+            // ];
+        }, []);
+    }
+    // return array in results/data namespace (res.data is for the states api response :shrug:)
+    return resp.data.results || resp.data || resp.results;
 };
 
 const buildIndividualSitemaps = () => {
@@ -60,36 +81,50 @@ const buildIndividualSitemaps = () => {
 
     // write the async site maps
     const asyncPages = pages
-        .filter((url) => url.isAsync)
-        .reduce((previousPromise, url, i, arr) => {
-            return previousPromise
-                .then((resp) => {
-                    if (resp !== 'first') {
-                        let xml = '';
-                        // use previous item in array as the source of truth for traversing the previousPromises' response
-                        const previousPage = arr[i - 1];
-                        const results = resp.data.results || resp.data;
-                        xml = createSitemapEntry(xml, results, previousPage);
-                        createSitemap(xml, previousPage.name);
-                    }
-                    return axios({
-                        method: url.method,
-                        data: url.requestObject || null,
-                        url: url.url
-                    });
-                })
-                .catch((e) => console.log("error", e));
-        }, Promise.resolve('first'));
+        .filter((page) => page.isAsync || lodash.isArray(page))
+        .reduce((previousPromise, page, i, arr) => previousPromise
+            .then((resp) => {
+                if (resp !== 'first') {
+                    let xml = '';
+                    // use previous item in array as the source of truth for traversing the previousPromises' response
+                    const responseContext = lodash.isArray(arr[i - 1]) ? arr[i - 1][0] : arr[i - 1];
+                    const results = handleApiResponse(resp);
+                    xml = createSitemapEntry(xml, results, responseContext);
+                    createSitemap(xml, responseContext.name);
+                }
+                if (lodash.isArray(page)) {
+                    const nestedPages = page.map((nestedPage) => axios({
+                        method: nestedPage.method,
+                        data: nestedPage.requestObject || null,
+                        url: nestedPage.url
+                    }));
+                    return Promise.all([...nestedPages]);
+                }
+                return axios({
+                    method: page.method,
+                    data: page.requestObject || null,
+                    url: page.url
+                });
+            })
+            .catch((e) => console.log("error", e))
+            , Promise.resolve('first'));
 
-    asyncPages.then((resp) => {
-        let xml = '';
-        // Once the final promise resolves, we can add it to our xml string and then write the file.
-        const previousPage = pages[pages.length - 1];
-        const { results } = resp.data;
+    asyncPages
+        .then((resp) => {
+            // Once the final promise resolves, we can add it to our xml string and then write the file.
+            const results = handleApiResponse(resp);
+            let xml = '';
 
-        xml = createSitemapEntry(xml, results, previousPage);
-        createSitemap(xml, previousPage.name);
-    });
+            const responseIndex = pages.length - 1;
+
+            const responseContext = lodash.isArray(pages[responseIndex])
+                ? pages[responseIndex][0]
+                : pages[responseIndex];                
+
+            xml = createSitemapEntry(xml, results, responseContext);
+            createSitemap(xml, responseContext.name);
+        })
+        .catch((e) => console.log("error", e));
 };
 
 const hostNameByEnv = {
@@ -100,10 +135,12 @@ const hostNameByEnv = {
 const buildIndexedSitemap = () => {
     const env = process.argv[2];
     const xml = pages
-        .reduce((acc, page) => `${acc}<sitemap>
-                <loc>${hostNameByEnv[env]}/${page.name}.xml</loc>
-            </sitemap>
-        `, '');
+        .reduce((acc, page) => {
+            const pageName = lodash.isArray(page) ? page[0].name : page.name;
+            return (
+                `${acc}<sitemap><loc>${hostNameByEnv[env]}/${pageName}.xml</loc></sitemap>`
+            );
+        }, '');
 
     createSitemap(xml);
 };
