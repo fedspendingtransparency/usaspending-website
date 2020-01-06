@@ -369,6 +369,8 @@ export const mockIdv = {
         type_set_aside: "NONE",
         type_set_aside_description: "NO SET ASIDE USED."
     },
+    psc_hierarchy: {},
+    naics_hierarchy: {},
     executive_details: {
         officers: [{
             name: 'John Doe',

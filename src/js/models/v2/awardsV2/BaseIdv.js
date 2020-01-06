@@ -30,8 +30,8 @@ BaseIdv.populate = function populate(data) {
         baseExercisedOptions: data.base_exercised_options,
         baseAndAllOptions: data.base_and_all_options,
         dateSigned: data.date_signed,
-        naics: data.naics_hierarchy || naicsHelper.emptyHierarchy,
-        psc: Object.entries(data.psc_hierarchy).reduce(naicsHelper.deducePscType, naicsHelper.emptyHierarchy)
+        naics: data.naics_hierarchy || pscHelper.emptyHierarchy,
+        psc: Object.entries(data.psc_hierarchy).reduce(pscHelper.deducePscType, pscHelper.emptyHierarchy)
     };
 
     this.populateCore(coreData);
