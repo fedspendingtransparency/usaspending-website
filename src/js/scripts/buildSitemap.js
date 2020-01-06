@@ -20,12 +20,14 @@ const xmlEnd = `</urlset>`;
  * @param xml string: of xml, previous xml entries from current sitemap
  * @param pageData array of objects: data w/ the url param needed to the page
  * @param pageInfo object: context for pageData; (a) how to access the url param & (b) what client route the page is associated with
- * @param isGrandDaddy boolean: whether to create <url> or <sitemap>
  */
 const createSitemapEntry = (xml, pageData, pageInfo) => {
     if (!pageData) return '';
     const { accessor, clientRoute } = pageInfo;
     return pageData.reduce((str, item) => {
+        if (item.name === 'award') {
+            return `${str}<url><loc>${clientRoute}/${encodeURI(item[accessor])}</loc></url>`;    
+        }
         return `${str}<url><loc>${clientRoute}/${item[accessor]}</loc></url>`;
     }, xml);
 };
@@ -35,15 +37,15 @@ const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
         path.resolve(__dirname, `../../../sitemaps/${siteMapName}.xml`),
         `${xmlStart}${xmlRoutes}${xmlEnd}`,
         () => {
-            console.log("Sitemap successfully created!");
+            console.log(`Sitemap ${siteMapName}.xml successfully created!`);
         });
 };
 
-const buildUrlXml = () => {
-    // write indexed sitemap
-    let grandDaddyXml = '';
+const buildIndividualSitemaps = () => {
+    // write the static sitemap
+    let staticRoutesXml = '';
     pages
-        .find((url) => url.name === 'routes_from_router').routes
+        .find((page) => page.name === 'static-routes').routes
         .filter((route) => route.addToSitemap)
         .map((route) => ({
             ...route,
@@ -51,12 +53,12 @@ const buildUrlXml = () => {
             accessor: ''
         }))
         .forEach((route) => {
-            grandDaddyXml = `${grandDaddyXml}<sitemap><loc>${route.clientRoute}</loc></sitemap>`;
+            staticRoutesXml = `${staticRoutesXml}<url><loc>${route.clientRoute}</loc></url>`;
         });
 
-    createSitemap(grandDaddyXml, 'static');
+    createSitemap(staticRoutesXml, 'static');
 
-    // write async site maps
+    // write the async site maps
     const asyncPages = pages
         .filter((url) => url.isAsync)
         .reduce((previousPromise, url, i, arr) => {
@@ -90,4 +92,21 @@ const buildUrlXml = () => {
     });
 };
 
-buildUrlXml();
+const hostNameByEnv = {
+    prod: 'https://www.usaspending.gov',
+    dev: 'https://www.dev.usaspending.gov'
+};
+
+const buildIndexedSitemap = () => {
+    const env = process.argv[2];
+    const xml = pages
+        .reduce((acc, page) => `${acc}<sitemap>
+                <loc>${hostNameByEnv[env]}/${page.name}.xml</loc>
+            </sitemap>
+        `, '');
+
+    createSitemap(xml);
+};
+
+buildIndexedSitemap();
+buildIndividualSitemaps();

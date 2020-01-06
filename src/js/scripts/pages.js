@@ -4,7 +4,7 @@ const Routes = require('../containers/router/RouterRoutes.js').routes;
 
 const pages = [
     {
-        name: 'routes_from_router',
+        name: 'static-routes',
         isAsync: false,
         routes: Routes.routes
     },
