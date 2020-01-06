@@ -3,7 +3,7 @@
  * Created by David Trinh 10/9/18
  */
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import * as naicsHelper from 'helpers/naicsHelper';
+import * as pscHelper from 'helpers/pscHelper';
 import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import BaseParentAwardDetails from './BaseParentAwardDetails';
