@@ -8,7 +8,6 @@ export const emptyHierarchy = {
 const getPscTypeByToptierCode = (toptierCode) => {
     // Undefined toptierCode code is always a product
     if (toptierCode === undefined) return 'PRODUCTS';
-
     const topTierCodeAsInt = parseInt(toptierCode, 10);
     if (isNaN(topTierCodeAsInt)) {
         if (toptierCode && toptierCode[0].toUpperCase() === 'A') {
@@ -23,8 +22,8 @@ const getPscTypeByToptierCode = (toptierCode) => {
 
 export const deducePscType = (acc, keyValueArray) => {
     const [key, value] = keyValueArray;
-    const description = getPscTypeByToptierCode(value.code);
     if (key === 'toptier_code') {
+        const description = getPscTypeByToptierCode(value.code);
         const pscType = { code: "--", description };
         if (description === 'RESEARCH AND DEVELOPMENT') {
             // replace toptier_code w/ psc type
