@@ -12,6 +12,7 @@ const routes = {
         {
             path: '/',
             parent: '/',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/homepage/Homepage').default);
@@ -21,6 +22,7 @@ const routes = {
         {
             path: '/search',
             parent: '/search',
+            addToSitemap: true,
             silentlyUpdate: true,
             component: (cb) => {
                 require.ensure([], (require) => {
@@ -31,6 +33,7 @@ const routes = {
         {
             path: '/search/:hash',
             parent: '/search',
+            addToSitemap: false,
             silentlyUpdate: true,
             component: (cb) => {
                 require.ensure([], (require) => {
@@ -41,6 +44,7 @@ const routes = {
         {
             path: '/explorer',
             parent: '/explorer',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/explorer/landing/ExplorerLanding').default);
@@ -50,6 +54,7 @@ const routes = {
         {
             path: '/explorer/:root',
             parent: '/explorer',
+            addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/explorer/detail/ExplorerDetailPageContainer').default);
@@ -59,6 +64,7 @@ const routes = {
         {
             path: '/award/:awardId',
             parent: '/award',
+            addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/award/AwardContainer').default);
@@ -68,6 +74,7 @@ const routes = {
         {
             path: '/federal_account/:accountNumber',
             parent: '/federal_account',
+            addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/account/AccountContainer').default);
@@ -77,6 +84,7 @@ const routes = {
         {
             path: '/agency/:agencyId',
             parent: '/agency',
+            addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/agency/AgencyContainer').default);
@@ -86,6 +94,7 @@ const routes = {
         {
             path: '/about',
             parent: '/about',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/about/About').default);
@@ -95,6 +104,7 @@ const routes = {
         {
             path: '/about/accessibility',
             parent: '/about',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/about/legal/AccessibilityPage').default);
@@ -104,6 +114,7 @@ const routes = {
         {
             path: '/about/privacy',
             parent: '/about',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/about/legal/PrivacyPage').default);
@@ -113,6 +124,7 @@ const routes = {
         {
             path: '/about/foia',
             parent: '/about',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/about/legal/FOIAPage').default);
@@ -122,6 +134,7 @@ const routes = {
         {
             path: '/db_info',
             parent: '/db_info',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/about/DBInfo').default);
@@ -131,6 +144,7 @@ const routes = {
         {
             path: '/style',
             parent: '/style',
+            addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/testStyles/TestStylePage').default);
@@ -140,6 +154,7 @@ const routes = {
         {
             path: '/agency',
             parent: '/agency',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/agencyLanding/AgencyLandingPage').default);
@@ -149,6 +164,7 @@ const routes = {
         {
             path: '/download_center',
             parent: '/download_center',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/bulkDownload/BulkDownloadPageContainer').default);
@@ -158,6 +174,7 @@ const routes = {
         {
             path: '/download_center/:type',
             parent: '/download_center',
+            addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/bulkDownload/BulkDownloadPageContainer').default);
@@ -167,6 +184,7 @@ const routes = {
         {
             path: '/keyword_search',
             parent: '/keyword_search',
+            addToSitemap: true,
             silentlyUpdate: true,
             component: (cb) => {
                 require.ensure([], (require) => {
@@ -177,6 +195,7 @@ const routes = {
         {
             path: '/keyword_search/:keyword',
             parent: '/keyword_search',
+            addToSitemap: false,
             silentlyUpdate: true,
             component: (cb) => {
                 require.ensure([], (require) => {
@@ -187,6 +206,7 @@ const routes = {
         {
             path: '/federal_account',
             parent: '/federal_account',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/accountLanding/AccountLandingPage').default);
@@ -196,6 +216,7 @@ const routes = {
         {
             path: '/state',
             parent: '/state',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/stateLanding/StateLandingPage').default);
@@ -205,6 +226,7 @@ const routes = {
         {
             path: '/state/:stateId',
             parent: '/state',
+            addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/state/StateContainer').default);
@@ -214,6 +236,7 @@ const routes = {
         {
             path: '/recipient',
             parent: '/recipient',
+            addToSitemap: true,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('components/recipientLanding/RecipientLandingPage').default);
@@ -223,6 +246,7 @@ const routes = {
         {
             path: '/recipient/:recipientId',
             parent: '/recipient',
+            addToSitemap: false,
             component: (cb) => {
                 require.ensure([], (require) => {
                     cb(require('containers/recipient/RecipientContainer').default);

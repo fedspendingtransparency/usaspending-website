@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.usaspending.gov/sitemap.xml
+Sitemap: https://www.usaspending.gov/sitemaps/sitemap.xml
