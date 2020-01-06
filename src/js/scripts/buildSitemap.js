@@ -13,6 +13,11 @@ const pages = require('./pages');
 // 2d. x # of recipients?
 // 2e. x # of awards?
 
+const hostNameByEnv = {
+    prod: 'https://www.usaspending.gov',
+    dev: 'https://www.dev.usaspending.gov'
+};
+
 const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 
@@ -33,33 +38,35 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
     }, xml);
 };
 
+const createRobots = () => {
+    const env = hostNameByEnv[process.argv[2]];
+    fs.writeFile(
+        path.resolve(__dirname, `../../robots.txt`),
+        `User-agent: * \nAllow: /\n\nSitemap: ${env}/sitemap.xml`,
+        () => console.log("robots.txt successfully created!")
+    );
+};
+
 const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
     fs.writeFile(
-        path.resolve(__dirname, `../../../sitemaps/${siteMapName}.xml`),
+        path.resolve(__dirname, `../../${siteMapName}.xml`),
         `${xmlStart}${xmlRoutes}${xmlEnd}`,
-        () => {
-            console.log(`Sitemap ${siteMapName}.xml successfully created!`);
-        });
+        () => console.log(`Sitemap ${siteMapName}.xml successfully created!`)
+    );
 };
 
 const handleApiResponse = (resp) => {
     // flatten massive arrays returned from Promise.all();
     if (lodash.isArray(resp)) {
         return resp.reduce((acc, result) => {
-            // if (Object.keys(resp).includes('data')) {
             return [
                 ...acc,
                 ...result.data.results
             ];
-            // }
-            // return [
-            //     ...acc,
-            //     ...result.results
-            // ];
         }, []);
     }
     // return array in results/data namespace (res.data is for the states api response :shrug:)
-    return resp.data.results || resp.data || resp.results;
+    return resp.data.results || resp.data;
 };
 
 const buildIndividualSitemaps = () => {
@@ -127,11 +134,6 @@ const buildIndividualSitemaps = () => {
         .catch((e) => console.log("error", e));
 };
 
-const hostNameByEnv = {
-    prod: 'https://www.usaspending.gov',
-    dev: 'https://www.dev.usaspending.gov'
-};
-
 const buildIndexedSitemap = () => {
     const env = process.argv[2];
     const xml = pages
@@ -147,3 +149,4 @@ const buildIndexedSitemap = () => {
 
 buildIndexedSitemap();
 buildIndividualSitemaps();
+createRobots();
