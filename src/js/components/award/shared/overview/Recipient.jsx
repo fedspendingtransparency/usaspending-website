@@ -22,7 +22,6 @@ import RecipientAddress from './RecipientAddress';
 const propTypes = {
     recipient: PropTypes.object,
     awardType: PropTypes.string,
-    placeOfPerformance: PropTypes.object,
     recordType: PropTypes.number,
     awardId: PropTypes.string
 };
@@ -30,7 +29,6 @@ const propTypes = {
 const Recipient = ({
     recipient,
     awardType,
-    placeOfPerformance,
     recordType,
     awardId
 }) => {
@@ -45,13 +43,11 @@ const Recipient = ({
         }
         return name;
     };
-
     const aggregateRecordType = () => getAwardTypeByRecordtypeCountyAndState(
-        isFinancialAssistance,
-        placeOfPerformance,
+        awardType,
+        recipient.location,
         recordType
     );
-
     const recipientComponent = () => {
         const glossaryLink = `/#/award/${awardId}?glossary=${aggregateGlossaryLinks[aggregateRecordType()]}`;
         const glossaryLinkText = `View glossary definition of ${aggregateGlossaryText[aggregateRecordType()]}`;
@@ -91,7 +87,7 @@ const Recipient = ({
             <h6 className="award-overview-title">Recipient</h6>
             {recipientComponent()}
             <RecipientAddress
-                placeOfPerformance={recipient.location}
+                recipientLocation={recipient.location}
                 aggregateRecordType={aggregateRecordType()} />
             <div className="award-overview__left-section__aggregated-text">
                 {isFinancialAssistance && aggregateRecordText()}

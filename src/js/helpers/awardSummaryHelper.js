@@ -34,33 +34,59 @@ export const isContract = (awardType) => [
     'definitive contract'
 ].includes(awardType);
 
+// takes core location object
+export const isUSAAward = (placeOfPerformance) => {
+    const countryCode = placeOfPerformance._countryCode;
+    const countryName = placeOfPerformance.countryName;
+    if (
+        countryCode === 'USA'
+        || countryCode === 'UNITED STATES'
+        || countryName === 'UNITED STATES'
+    ) return true;
+    return false;
+};
+
 // award overview recipient section - determines text and address to display to user
 // data can be found in
 export const getAwardTypeByRecordtypeCountyAndState = (
-    isFinancialAssistance,
+    awardType,
     placeOfPerformance,
     recordType
 ) => {
-    if (isFinancialAssistance) {
+    const countyCode = placeOfPerformance._countyCode;
+    const isUSA = isUSAAward(placeOfPerformance);
+    if (isAwardFinancialAssistance(awardType)) {
         // redacted due to PII
-        if (recordType === 3) return 'redactedDueToPII';
+        if (recordType === 3) {
+            if (!isUSA) {
+                return 'redactedDueToPIIForeign';
+            }
+            return 'redactedDueToPIIDomestic';
+        }
+        if (recordType === 2) {
+            return !isUSA
+                ? 'financialAssistanceForeign'
+                : 'financialAssistanceDomestic';
+        }
         if (recordType === 1) {
             // aggregated by state
-            if (placeOfPerformance._countryCode === 'USA' && !placeOfPerformance._countyCode) {
+            if (isUSA && !countyCode) {
                 return 'aggregatedByState';
             }
             // aggregated by county
-            if (placeOfPerformance._countryCode === 'USA' && placeOfPerformance._countyCode) {
+            if (isUSA && countyCode) {
                 return 'aggregatedByCounty';
             }
             // aggregated by country
-            if (placeOfPerformance._countryCode !== 'USA') {
+            if (!isUSA) {
                 return 'aggregatedByCountry';
             }
         }
     }
     // IDV or contract
-    return 'nonFinancialAssistance';
+    return isUSA
+        ? 'nonFinancialAssistanceDomestic'
+        : 'nonFinancialAssistanceForeign';
 };
 
 export const datesByDateType = (dates, awardType) => {

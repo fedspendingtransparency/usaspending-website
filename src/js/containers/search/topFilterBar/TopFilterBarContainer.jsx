@@ -319,7 +319,7 @@ export class TopFilterBarContainer extends React.Component {
         if (props.federalAccounts && props.federalAccounts.count() > 0) {
             // federal account components have been selected
             selected = true;
-            const [...identifiers] = props.federalAccounts.keys();
+            const identifiers = Object.keys(props.federalAccounts.toObject());
             filter.values = identifiers;
         }
 
@@ -340,7 +340,7 @@ export class TopFilterBarContainer extends React.Component {
         if (props.treasuryAccounts && props.treasuryAccounts.count() > 0) {
             // treasury account components have been selected
             selected = true;
-            const [...identifiers] = props.treasuryAccounts.keys();
+            const identifiers = Object.keys(props.treasuryAccounts.toObject());
             filter.values = identifiers;
         }
 
