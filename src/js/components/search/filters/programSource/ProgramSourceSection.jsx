@@ -91,7 +91,8 @@ export default class ProgramSourceSection extends React.Component {
         });
     }
 
-    applyFilter() {
+    applyFilter(e) {
+        e.preventDefault();
         const components = this.state.components;
         if (this.state.activeTab === 'federal') {
             const identifier = `${components.aid}-${components.main}`;
