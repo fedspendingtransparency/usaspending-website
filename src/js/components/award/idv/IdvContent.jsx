@@ -76,8 +76,8 @@ const IdvContent = ({
                     awardType={overview.category}
                     awardId={awardId}
                     description={overview.description}
-                    naics={overview.additionalDetails.naicsCode}
-                    psc={overview.additionalDetails.pscCode} />
+                    naics={overview.naics}
+                    psc={overview.psc} />
             </AwardSection>
             <AwardSection type="row">
                 <IdvActivityContainer />
