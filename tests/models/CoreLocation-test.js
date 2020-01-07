@@ -43,41 +43,182 @@ describe('Core Location getter functions', () => {
     it('should format the street address', () => {
         expect(location.streetAddress).toEqual('602 Trumball Street\nApt 2\n');
     });
-    it('should format the regional address', () => {
-        expect(location.regionalAddress).toEqual('Pawnee, IN 12345');
-    });
-    it('should include country and foreign postal code in the regional address for foreign countries', () => {
-        expect(foreignLocation.regionalAddress).toEqual('Montreal, Quebec Canada 54321');
-    });
-    it('should format the congressional district', () => {
-        expect(location.congressionalDistrict).toEqual('IN-04');
-    });
-    it('should format the congressional district with a prefix', () => {
-        expect(location.fullCongressionalDistrict).toEqual('\nCongressional District: IN-04');
-    });
-    it('should use province as the state/province when state is not available', () => {
-        expect(foreignLocation.stateProvince).toEqual('Quebec');
-    });
-    it('should use the state code as state/province when city is available', () => {
-        expect(location.stateProvince).toEqual('IN');
-    });
-    it('should format the full address', () => {
-        expect(location.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345\nCongressional District: IN-04');
-    });
-    it('should handle a null street address', () => {
-        const missingData = Object.assign({}, locationData, {
-            address1: null,
-            address2: null
+    describe('Street Address 1', () => {
+        it('should return street address 1', () => {
+            expect(location.streetAddress1).toEqual(locationData.address1);
         });
-        const partialLocation = Object.create(CoreLocation);
-        partialLocation.populateCore(missingData);
+        it('should return -- when no street address 1', () => {
+            const badLocationData = { ...locationData };
+            badLocationData.address1 = null;
+            const badLocation = Object.create(CoreLocation);
+            badLocation.populateCore(badLocationData);
+            expect(badLocation.streetAddress1).toEqual('--');
+        });
+        it('should handle a null street address', () => {
+            const missingData = Object.assign({}, locationData, {
+                address1: null,
+                address2: null
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(missingData);
 
-        expect(partialLocation.streetAddress).toEqual('');
-        expect(partialLocation.fullAddress).toEqual('Pawnee, IN 12345\nCongressional District: IN-04');
+            expect(partialLocation.streetAddress).toEqual('');
+        });
+    });
+    describe('Regional Address', () => {
+        it('should format the regional address', () => {
+            expect(location.regionalAddress).toEqual('Pawnee, IN 12345');
+        });
+        it('should include country and foreign postal code in the regional address for foreign countries', () => {
+            expect(foreignLocation.regionalAddress).toEqual('Montreal, Quebec Canada 54321');
+        });
+        it('should handle a null city', () => {
+            const missingData = Object.assign({}, locationData, {
+                city: null
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(missingData);
+
+            expect(partialLocation.regionalAddress).toEqual('IN 12345');
+        });
+        it('should handle a null state', () => {
+            const missingData = Object.assign({}, locationData, {
+                state: null,
+                stateCode: null
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(missingData);
+
+            expect(partialLocation.regionalAddress).toEqual('Pawnee, 12345');
+        });
+        it('should handle an extended zip code', () => {
+            const missingData = Object.assign({}, locationData, {
+                zip4: '12345-6789',
+                zip5: null
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(missingData);
+
+            expect(partialLocation.regionalAddress).toEqual('Pawnee, IN 12345');
+        });
+    });
+    describe('Congressional District', () => {
+        it('should format the congressional district', () => {
+            expect(location.congressionalDistrict).toEqual('IN-04');
+        });
+        it('should handle a null congressional district', () => {
+            const missingData = Object.assign({}, locationData, {
+                congressionalDistrict: null
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(missingData);
+
+            expect(partialLocation.congressionalDistrict).toEqual('');
+        });
+    });
+    describe('Full Congressional District', () => {
+        it('should format the congressional district with a prefix', () => {
+            expect(location.fullCongressionalDistrict).toEqual('\nCongressional District: IN-04');
+        });
+        it('should handle a null congressional district', () => {
+            const missingData = Object.assign({}, locationData, {
+                congressionalDistrict: null
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(missingData);
+
+            expect(partialLocation.fullCongressionalDistrict).toEqual('');
+        });
+    });
+    describe('Recipient Congressional District', () => {
+        it('should return Congressional District when it exists', () => {
+            expect(location.recipientCongressionalDistrict)
+                .toEqual(`\nCongressional District: ${location.congressionalDistrict}`);
+        });
+        it('should return -- when no congressional district exists', () => {
+            const badLocationData = { ...locationData };
+            badLocationData.congressionalDistrict = null;
+            const badLocation = Object.create(CoreLocation);
+            badLocation.populateCore(badLocationData);
+            expect(badLocation.recipientCongressionalDistrict).toEqual('--');
+        });
+    });
+    describe('State Province', () => {
+        it('should use province as the state/province when state is not available', () => {
+            expect(foreignLocation.stateProvince).toEqual('Quebec');
+        });
+        it('should use the state code as state/province when city is available', () => {
+            expect(location.stateProvince).toEqual('IN');
+        });
+    });
+    describe('State Name', () => {
+        it('should return state name', () => {
+            expect(location.stateName).toEqual(locationData.state);
+        });
+        it('should return -- when no state name', () => {
+            const badLocationData = { ...locationData };
+            badLocationData.state = null;
+            const badLocation = Object.create(CoreLocation);
+            badLocation.populateCore(badLocationData);
+            expect(badLocation.stateName).toEqual('--');
+        });
+    });
+    describe('Full Address', () => {
+        it('should format the full address', () => {
+            expect(location.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345\nCongressional District: IN-04');
+        });
+        it('should handle a null street address', () => {
+            const missingData = Object.assign({}, locationData, {
+                address1: null,
+                address2: null
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(missingData);
+
+            expect(partialLocation.fullAddress).toEqual('Pawnee, IN 12345\nCongressional District: IN-04');
+        });
+        it('should handle a null city', () => {
+            const missingData = Object.assign({}, locationData, {
+                city: null
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(missingData);
+
+            expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nIN 12345\nCongressional District: IN-04');
+        });
+        it('should handle a null state', () => {
+            const missingData = Object.assign({}, locationData, {
+                state: null,
+                stateCode: null
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(missingData);
+
+            expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, 12345');
+        });
+        it('should handle an extended zip code', () => {
+            const missingData = Object.assign({}, locationData, {
+                zip4: '12345-6789',
+                zip5: null
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(missingData);
+
+            expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345\nCongressional District: IN-04');
+        });
+        it('should handle a null congressional district', () => {
+            const missingData = Object.assign({}, locationData, {
+                congressionalDistrict: null
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(missingData);
+
+            expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345');
+        });
     });
     describe('County and State', () => {
         it('should handle county and state when both are defined', () => {
-            expect(location.countyAndState).toEqual(`${location._county}, ${location._stateCode}`);
+            expect(location.countyAndState).toEqual(`${location._county} County, ${location._stateCode}`);
         });
         it('should handle county and state when county is not defined', () => {
             const missingCountyLocationData = Object.assign({}, locationData, { county: null });
@@ -89,7 +230,7 @@ describe('Core Location getter functions', () => {
             const missingStateLocationData = Object.assign({}, locationData, { stateCode: null });
             const missingStateLocation = Object.create(CoreLocation);
             missingStateLocation.populateCore(missingStateLocationData);
-            expect(missingStateLocation.countyAndState).toEqual(`${location._county}, --`);
+            expect(missingStateLocation.countyAndState).toEqual(`${location._county} County, --`);
         });
         it('should handle county and state when county and state are not defined', () => {
             const missingCountyAndStateLocationData = Object.assign(
@@ -102,47 +243,45 @@ describe('Core Location getter functions', () => {
             expect(missingCountyAndStateLocation.countyAndState).toEqual('--');
         });
     });
-    it('should handle a null city', () => {
-        const missingData = Object.assign({}, locationData, {
-            city: null
+    describe('Country Name', () => {
+        it('should return UNITED STATES when country name is UNITED STATES', () => {
+            const otherLocationData = { ...locationData };
+            otherLocationData.country = 'UNITED STATES';
+            otherLocationData.countryCode = '';
+            const otherLocation = Object.create(CoreLocation);
+            otherLocation.populateCore(otherLocationData);
+            expect(otherLocation.countryName).toEqual('UNITED STATES');
         });
-        const partialLocation = Object.create(CoreLocation);
-        partialLocation.populateCore(missingData);
-
-        expect(partialLocation.regionalAddress).toEqual('IN 12345');
-        expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nIN 12345\nCongressional District: IN-04');
-    });
-    it('should handle a null state', () => {
-        const missingData = Object.assign({}, locationData, {
-            state: null,
-            stateCode: null
+        it('should return UNITED STATES when country code is USA', () => {
+            const otherLocationData = { ...locationData };
+            otherLocationData.countryCode = 'UNITED STATES';
+            otherLocationData.countryName = '';
+            const otherLocation = Object.create(CoreLocation);
+            otherLocation.populateCore(otherLocationData);
+            expect(otherLocation.countryName).toEqual('UNITED STATES');
         });
-        const partialLocation = Object.create(CoreLocation);
-        partialLocation.populateCore(missingData);
-
-        expect(partialLocation.regionalAddress).toEqual('Pawnee, 12345');
-        expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, 12345');
-    });
-    it('should handle an extended zip code', () => {
-        const missingData = Object.assign({}, locationData, {
-            zip4: '12345-6789',
-            zip5: null
+        it('should return UNITED STATES when country code is UNITED STATES', () => {
+            const otherLocationData = { ...locationData };
+            otherLocationData.countryCode = 'UNITED STATES';
+            const otherLocation = Object.create(CoreLocation);
+            otherLocation.populateCore(otherLocationData);
+            expect(otherLocation.countryName).toEqual('UNITED STATES');
         });
-        const partialLocation = Object.create(CoreLocation);
-        partialLocation.populateCore(missingData);
-
-        expect(partialLocation.regionalAddress).toEqual('Pawnee, IN 12345');
-        expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345\nCongressional District: IN-04');
-    });
-    it('should handle a null congressional district', () => {
-        const missingData = Object.assign({}, locationData, {
-            congressionalDistrict: null
+        it('should return foreign country name when it exists', () => {
+            const otherLocationData = { ...locationData };
+            otherLocationData.country = 'France';
+            otherLocationData.countryCode = null;
+            const otherLocation = Object.create(CoreLocation);
+            otherLocation.populateCore(otherLocationData);
+            expect(otherLocation.countryName).toEqual('France');
         });
-        const partialLocation = Object.create(CoreLocation);
-        partialLocation.populateCore(missingData);
-
-        expect(partialLocation.congressionalDistrict).toEqual('');
-        expect(partialLocation.fullCongressionalDistrict).toEqual('');
-        expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345');
+        it('should return -- when no country name exists', () => {
+            const badLocationData = { ...locationData };
+            badLocationData.countryCode = null;
+            badLocationData.country = null;
+            const badLocation = Object.create(CoreLocation);
+            badLocation.populateCore(badLocationData);
+            expect(badLocation.countryName).toEqual('--');
+        });
     });
 });

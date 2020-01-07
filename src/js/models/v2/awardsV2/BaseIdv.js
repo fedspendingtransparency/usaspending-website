@@ -41,7 +41,6 @@ BaseIdv.populate = function populate(data) {
         parentAwardDetails.populateCore(data.parent_award || {});
     }
     this.parentAwardDetails = parentAwardDetails;
-
     const recipient = Object.create(BaseAwardRecipient);
     if (data.recipient) {
         recipient.populate(data.recipient);
