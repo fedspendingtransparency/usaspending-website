@@ -74,9 +74,9 @@ export const awardDownloadOptions = {
             disabled: false
         },
         {
-            name: 'xml',
-            label: 'XML',
-            disabled: true
+            name: 'pstxt',
+            label: 'Pipe-delimited TXT',
+            disabled: false
         }
     ],
     dateRangeButtons: {
