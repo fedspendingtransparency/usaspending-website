@@ -327,30 +327,57 @@ export const naicsMockCleanData = [
     }
 ];
 
+export const naicsMockInitialLoadApiResponse = [
+    {
+        naics: '11',
+        naics_description: 'Agriculture, Forestry, Fishing and Hunting',
+        count: 20
+    },
+    {
+        naics: '21',
+        naics_description: 'Mining, Quarrying, and Oil and Gas Extraction',
+        count: 7
+    },
+    {
+        naics: '54',
+        naics_description: 'Professional, Scientific, and Technical Services',
+        count: 2
+    },
+    {
+        naics: '71',
+        naics_description: 'Arts, Entertainment, and Recreation',
+        count: 5
+    }
+];
+
 export const naicsMockCleanDataInitialLoad = [
     {
         value: '11',
         label: 'Agriculture, Forestry, Fishing and Hunting',
         count: 20,
-        children: [{}]
+        children: [{}],
+        path: [0]
     },
     {
         value: '21',
         label: 'Mining, Quarrying, and Oil and Gas Extraction',
         count: 7,
-        children: [{}]
+        children: [{}],
+        path: [1]
     },
     {
         value: '54',
         label: 'Professional, Scientific, and Technical Services',
         count: 2,
-        children: [{}]
+        children: [{}],
+        path: [2]
     },
     {
         value: '71',
         label: 'Arts, Entertainment, and Recreation',
         count: 5,
-        children: [{}]
+        children: [{}],
+        path: [3]
     }
 ];
 

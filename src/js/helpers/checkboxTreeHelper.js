@@ -197,11 +197,7 @@ export const pathToNode = (nodes, value) => {
         }
         if (nodes[i].children) {
             // we have not found the match, repeat process with children
-            pathToNode(
-                nodes[i].children,
-                value,
-                true
-            );
+            pathToNode(nodes[i].children, value);
         }
     }
     return nodePath;
