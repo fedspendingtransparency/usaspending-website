@@ -146,7 +146,9 @@ export default class Award extends React.Component {
                 </div>
             );
         }
-
+        if (this.props.isLoading) {
+            return <p>Loading...</p>;
+        }
         return (
             <div className="usa-da-award-v2-page">
                 <MetaTags {...MetaTagHelper.awardPageMetaTags} />
