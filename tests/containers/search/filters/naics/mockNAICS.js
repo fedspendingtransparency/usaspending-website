@@ -1,3 +1,5 @@
+import { List } from 'immutable';
+
 export const mockNAICS = {
     results: [
         {
@@ -351,3 +353,15 @@ export const naicsMockCleanDataInitialLoad = [
         children: [{}]
     }
 ];
+
+export const emptyNAICSRedux = {
+    naics: new List(),
+    expanded: new List(),
+    checked: new List()
+};
+
+export const populatedNAICSRedux = {
+    naics: new List(naicsMockCleanData),
+    expanded: new List(['11', '21']),
+    checked: new List()
+};

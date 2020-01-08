@@ -13,24 +13,27 @@ import { naicsRequest } from 'helpers/naicsHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import { setNaics, updateNaics } from 'redux/actions/search/naicsActions';
+import { setNaics, setExpanded, setChecked } from 'redux/actions/search/naicsActions';
 
 import NAICSSearch from 'components/search/filters/naics/NAICSSearch';
-import { createCheckboxTreeDataStrucure } from 'helpers/checkboxTreeHelper';
 
 const propTypes = {
     updateSelectedNAICS: PropTypes.func,
     selectedNAICS: PropTypes.object,
     appliedNAICS: PropTypes.object,
     setNaics: PropTypes.func,
-    updateNaics: PropTypes.func,
-    nodes: PropTypes.object
+    setExpanded: PropTypes.func,
+    nodes: PropTypes.object,
+    expanded: PropTypes.object,
+    checked: PropTypes.object
 };
 
 const nodeKeys = {
     value: 'naics',
     label: 'naics_description'
 };
+
+// let fromRedux = false;
 
 export class NAICSContainer extends React.Component {
     constructor(props) {
@@ -41,28 +44,47 @@ export class NAICSContainer extends React.Component {
             errorMessage: '',
             isLoading: false,
             isSearch: false,
-            requestType: 'initial'
+            requestType: 'initial',
+            fromRedux: false
         };
     }
 
-    async componentDidMount() {
-        const { nodes } = this.props;
-        if (this.props.nodes.length > 0) return this.setNaics(nodes);
+    componentDidMount() {
+        const { nodes, expanded, checked } = this.props;
+        if (nodes.size > 0) {
+            return this.setStateFromRedux(nodes, expanded, checked);
+        }
         return this.fetchNAICS();
     }
 
-    onExpand = (node) => {
+    onExpand = (node, expanded) => {
         this.fetchNAICS(node.value);
+        this.props.setExpanded(expanded);
     };
 
-    setNaics = (naics) => this.setState({ naics });
+    onCollapse = (expanded) => {
+        this.props.setExpanded(expanded);
+    };
 
     setRedux = (naics) => this.props.setNaics(naics);
+
+    setStateFromRedux = (naics, expanded, checked) => {
+        this.setState({
+            naics: naics.toJS(),
+            expanded: expanded.toJS(),
+            checked: checked.toJS(),
+            requestType: '',
+            fromRedux: true
+        });
+    }
 
     request = null
 
     fetchNAICS = async (param) => {
-        if (this.state.requestType === 'initial') this.setState({ isLoading: true });
+        const { requestType, fromRedux } = this.state;
+        if (requestType === 'initial') this.setState({ isLoading: true });
+        if (fromRedux) this.setState({ fromRedux: false });
+
         this.request = naicsRequest(param);
         try {
             const { data } = await this.request.promise;
@@ -134,15 +156,25 @@ export class NAICSContainer extends React.Component {
             isLoading,
             isError,
             isSearch,
-            naics
+            naics,
+            expanded,
+            checked,
+            fromRedux
         } = this.state;
         if (isLoading || isError) return null;
         return (
             <CheckboxTree
+                fromRedux={fromRedux}
+                limit={3}
                 nodes={naics}
+                expanded={expanded}
+                checked={checked}
                 nodeKeys={nodeKeys}
                 isSearch={isSearch}
                 onExpand={this.onExpand}
+                onCollapse={this.onCollapse}
+                onCheck={this.onCheck}
+                setRedux={this.setRedux}
                 updateRedux={this.setRedux} />
         );
     }
@@ -172,14 +204,17 @@ export default connect(
     (state) => ({
         selectedNAICS: state.filters.selectedNAICS,
         appliedNAICS: state.appliedFilters.filters.selectedNAICS,
-        nodes: state.naics
+        nodes: state.naics.naics,
+        expanded: state.naics.expanded,
+        checked: state.naics.checked
     }),
     (dispatch) => bindActionCreators(
         Object.assign(
             {},
             searchFilterActions,
             { setNaics },
-            { updateNaics }
+            { setExpanded },
+            { setChecked }
         )
         ,
         dispatch

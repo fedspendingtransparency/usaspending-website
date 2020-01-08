@@ -8,7 +8,12 @@ export const setNaics = (nodes) => ({
     nodes
 });
 
-export const updateNaics = (nodes) => ({
-    type: 'UPDATE_NAICS',
-    nodes
+export const setExpanded = (expanded) => ({
+    type: 'SET_EXPANDED',
+    expanded
+});
+
+export const setChecked = (checked) => ({
+    type: 'SET_CHECKED',
+    checked
 });
