@@ -40,6 +40,8 @@ export class NAICSContainer extends React.Component {
         super(props);
         this.state = {
             naics: [],
+            expanded: [],
+            checked: [],
             isError: false,
             errorMessage: '',
             isLoading: false,

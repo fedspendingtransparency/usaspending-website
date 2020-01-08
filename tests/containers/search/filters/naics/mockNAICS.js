@@ -365,3 +365,26 @@ export const populatedNAICSRedux = {
     expanded: new List(['11', '21']),
     checked: new List()
 };
+
+export const emptyNAICSProps = {
+    updateSelectedNAICS: () => {},
+    selectedNAICS: {},
+    appliedNAICS: {},
+    setNaics: () => {},
+    setExpanded: () => {},
+    nodes: new List(),
+    expanded: new List(),
+    checked: new List()
+};
+
+export const populatedState = {
+    naics: naicsMockCleanData,
+    expanded: ['11', '12'],
+    checked: ['1111'],
+    isError: false,
+    errorMessage: '',
+    isLoading: false,
+    isSearch: false,
+    requestType: '',
+    fromRedux: false
+};

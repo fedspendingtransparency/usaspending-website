@@ -4,8 +4,18 @@
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
-import { naicsMock2, emptyNAICSRedux, populatedNAICSRedux } from './mockNAICS';
+import { shallow } from 'enzyme';
+import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
+import { List } from 'immutable';
+import {
+    naicsMock2,
+    emptyNAICSRedux,
+    populatedNAICSRedux,
+    emptyNAICSProps,
+    populatedState,
+    naicsMockCleanData
+} from './mockNAICS';
+
 // import sinon from 'sinon';
 // import { OrderedMap, Iterable } from 'immutable';
 
@@ -23,13 +33,57 @@ jest.mock('helpers/naicsHelper', () => require('./mockNAICSHelper'));
 
 describe('NAICS Search Filter Container', () => {
     const fetchNAICS = jest.fn();
+    const setStateFromRedux = jest.fn();
+    const onExpand = jest.fn();
+    const setExpanded = jest.fn();
     describe('Component Did Mount', () => {
         it('should call fetch naics on mount', async () => {
-            const container = shallow(<NAICSContainer {...emptyNAICSRedux} />);
+            const container = shallow(<NAICSContainer {...emptyNAICSProps} />);
             container.instance().fetchNAICS = fetchNAICS;
             await container.instance().componentDidMount();
             expect(fetchNAICS).toHaveBeenCalled();
         });
+        it('should not call fetch naics on mount when there is a Redux value', async () => {
+            const newProps = { ...emptyNAICSProps };
+            newProps.nodes = populatedNAICSRedux.naics;
+            const container = shallow(<NAICSContainer {...newProps} />);
+            container.instance().setStateFromRedux = setStateFromRedux;
+            await container.instance().componentDidMount();
+            expect(setStateFromRedux).toHaveBeenCalled();
+        });
+    });
+    it('should call fetchNAICS and setExpended when onExpand is called', () => {
+        const newProps = { ...emptyNAICSProps };
+        newProps.setExpanded = jest.fn();
+        const container = shallow(<NAICSContainer {...newProps} />);
+        container.instance().fetchNAICS = fetchNAICS;
+        container.instance().onExpand({ value: 0 }, []);
+        expect(fetchNAICS).toHaveBeenCalled();
+        expect(container.instance().props.setExpanded).toHaveBeenCalled();
+    });
+    it('should call setExpanded when onCollapse is called', () => {
+        const newProps = { ...emptyNAICSProps };
+        newProps.setExpanded = jest.fn();
+        const container = shallow(<NAICSContainer {...newProps} />);
+        container.instance().onExpand({ value: 0 }, []);
+        expect(container.instance().props.setExpanded).toHaveBeenCalled();
+    });
+    it('should call setNaics when setRedux is called', () => {
+        const newProps = { ...emptyNAICSProps };
+        newProps.setNaics = jest.fn();
+        const container = shallow(<NAICSContainer {...newProps} />);
+        container.instance().setRedux([]);
+        expect(container.instance().props.setNaics).toHaveBeenCalled();
+    });
+    it('should setState when setStateFromRedux is called', () => {
+        const container = shallow(<NAICSContainer {...emptyNAICSProps} />);
+        const { naics, expanded, checked } = populatedState;
+        container.instance().setStateFromRedux(new List(naics), new List(expanded), new List(checked));
+        const { state } = container.instance();
+        expect(state.naics).toEqual(naics);
+        expect(state.expanded).toEqual(expanded);
+        expect(state.checked).toEqual(checked);
+        expect(state.fromRedux).toEqual(true);
     });
     describe('FecthNaics', () => {
         it('should set property nodes in state to API response', async () => {
@@ -39,12 +93,14 @@ describe('NAICS Search Filter Container', () => {
                 naics,
                 isLoading,
                 isError,
-                errorMessage
+                errorMessage,
+                requestType
             } = container.instance().state;
             expect(naics).toEqual(naicsMock2);
             expect(isLoading).toEqual(false);
             expect(isError).toEqual(false);
             expect(errorMessage).toEqual('');
+            expect(requestType).toEqual('');
         });
         it('should set properties isError and errorMessage from API response', async () => {
             const container = shallow(<NAICSContainer />);
@@ -59,6 +115,14 @@ describe('NAICS Search Filter Container', () => {
             expect(isLoading).toEqual(false);
             expect(isError).toEqual(true);
             expect(errorMessage).toEqual('Bad');
+        });
+        it('should set fromRedux property to false when true', async () => {
+            const newProps = { ...emptyNAICSProps };
+            newProps.nodes = new List(naicsMockCleanData);
+            const container = shallow(<NAICSContainer {...newProps} />);
+            await container.instance().componentDidMount();
+            await container.instance().fetchNAICS();
+            expect(container.instance().state.fromRedux).toEqual(false);
         });
     });
 });
