@@ -22,6 +22,9 @@ const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 
 const xmlEnd = `</urlset>`;
+
+const forbiddenChars = ['&', "'", '"', '<', '>'];
+
 /**
  * @param xml string: of xml, previous xml entries from current sitemap
  * @param pageData array of objects: data w/ the url param needed to the page
@@ -30,12 +33,23 @@ const xmlEnd = `</urlset>`;
 const createSitemapEntry = (xml, pageData, pageInfo) => {
     if (!pageData) return '';
     const { accessor, clientRoute } = pageInfo;
-    return pageData.reduce((str, item) => {
-        if (item.name === 'award') {
-            return `${str}<url><loc>${clientRoute}/${encodeURI(item[accessor])}</loc></url>`;
-        }
-        return `${str}<url><loc>${clientRoute}/${item[accessor]}</loc></url>`;
-    }, xml);
+    return pageData
+        .map((page) => ({ value: page[accessor], name: page.name }))
+        .filter((page) => {
+            if (typeof page.value === 'string') {
+                return page.value
+                    .split('')
+                    // id inside url can't contain one of these characters cause they have to be entity-escaped
+                    .some((letter) => forbiddenChars.indexOf(letter) === -1);
+            }
+            return true;
+        })
+        .reduce((str, page) => {
+            if (page.name === 'award') {
+                return `${str}<url><loc>${clientRoute}/${encodeURI(page.value)}</loc></url>`;
+            }
+            return `${str}<url><loc>${clientRoute}/${page.value}</loc></url>`;
+        }, xml);
 };
 
 const createRobots = () => {
