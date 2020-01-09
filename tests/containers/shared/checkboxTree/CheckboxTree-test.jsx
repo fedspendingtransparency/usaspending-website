@@ -111,8 +111,8 @@ describe('CheckboxTree Component', () => {
     // TODO - Why is this not working
     // it('PathToNodeString, should return an object path string', async () => {
     //     const container = shallow(<CheckboxTree {...props} />);
-    //     await container.instance().componentDidMount();
-    //     const nodeString = container.instance().pathToNodeString('11');
+    //     await container.instance().createNodes();
+    //     const nodeString = container.instance().pathToNodeString(11);
     //     expect(nodeString).toEqual('data[0]');
     // });
     it('CreateNodesObject, should return an object with property data with a value of state.nodes', async () => {

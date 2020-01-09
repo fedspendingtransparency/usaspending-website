@@ -35,7 +35,7 @@ const CheckboxTreeLabel = ({
                 {label}
             </div>
         </div>
-    )
+    );
 };
 
 CheckboxTreeLabel.propTypes = propTypes;

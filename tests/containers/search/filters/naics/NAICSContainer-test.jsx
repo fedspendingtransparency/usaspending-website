@@ -9,7 +9,6 @@ import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
 import { List } from 'immutable';
 import {
     naicsMock2,
-    emptyNAICSRedux,
     populatedNAICSRedux,
     emptyNAICSProps,
     populatedState,
