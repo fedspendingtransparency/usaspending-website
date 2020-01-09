@@ -3,6 +3,8 @@ const Routes = require('../containers/router/RouterRoutes.js').routes;
 
 const recipientRequestObject = {
     name: 'recipient',
+    updatedFrequency: 'quarterly',
+    priority: '0.8',
     isAsync: true,
     url: 'https://api.usaspending.gov/api/v2/recipient/duns/',
     method: 'post',
@@ -20,6 +22,8 @@ const recipientRequestObject = {
 
 const awardPageInfo = {
     name: 'awards',
+    updatedFrequency: 'daily',
+    priority: '0.9',
     isAsync: true,
     url: 'https://api.usaspending.gov/api/v2/search/spending_by_award/',
     method: 'post',
@@ -52,6 +56,8 @@ const awardPageInfo = {
 
 const federalAccountPageInfo = {
     name: 'federal_account',
+    updatedFrequency: 'quarterly',
+    priority: '0.7',
     isAsync: true,
     url: 'https://api.usaspending.gov/api/v2/federal_accounts/',
     method: 'post',
@@ -92,6 +98,8 @@ const pages = [
     {
         name: 'state',
         isAsync: true,
+        updatedFrequency: 'quarterly',
+        priority: '0.5',
         // all states
         url: 'https://api.usaspending.gov/api/v2/recipient/state/',
         method: 'get',
@@ -101,6 +109,8 @@ const pages = [
     {
         name: 'agency',
         isAsync: true,
+        updatedFrequency: 'quarterly',
+        priority: '0.5',
         // all agencies
         url: 'https://api.usaspending.gov/api/v2/references/toptier_agencies/',
         method: 'get',

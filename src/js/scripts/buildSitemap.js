@@ -32,7 +32,7 @@ const forbiddenChars = ['&', "'", '"', '<', '>'];
  */
 const createSitemapEntry = (xml, pageData, pageInfo) => {
     if (!pageData) return '';
-    const { accessor, clientRoute } = pageInfo;
+    const { accessor, clientRoute, priority, updatedFrequency } = pageInfo;
     return pageData
         .map((page) => ({ value: page[accessor], name: page.name }))
         .filter((page) => {
@@ -46,9 +46,9 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
         })
         .reduce((str, page) => {
             if (page.name === 'award') {
-                return `${str}<url><loc>${clientRoute}/${encodeURI(page.value)}</loc></url>`;
+                return `${str}<url><loc>${clientRoute}/${encodeURI(page.value)}</loc><changefreq>${updatedFrequency}</changefreq><priority>${priority}</priority></url>`;
             }
-            return `${str}<url><loc>${clientRoute}/${page.value}</loc></url>`;
+            return `${str}<url><loc>${clientRoute}/${page.value}</loc><changefreq>${updatedFrequency}</changefreq><priority>${priority}</priority></url>`;
         }, xml);
 };
 
