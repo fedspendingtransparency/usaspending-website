@@ -105,6 +105,10 @@ module.exports = {
                 to: path.resolve(__dirname, "../public")
             },
             {
+                from: path.resolve(__dirname, "../awards.xml"),
+                to: path.resolve(__dirname, "../public")
+            },
+            {
                 from: path.resolve(__dirname, "../robots.txt"),
                 to: path.resolve(__dirname, "../public")
             }
