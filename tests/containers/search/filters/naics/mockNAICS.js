@@ -381,6 +381,295 @@ export const naicsMockCleanDataInitialLoad = [
     }
 ];
 
+export const naicsMockAPIResponse = [
+    {
+        naics: '11',
+        naics_description: 'Agriculture, Forestry, Fishing and Hunting',
+        count: 20,
+        children: [
+            {
+                naics: '1111',
+                naics_description: 'Agriculture, Fishing and Hunting',
+                count: 20
+            },
+            {
+                naics: '1121',
+                naics_description: 'Mining, and Oil and Gas Extraction',
+                count: 7
+            },
+            {
+                naics: '1154',
+                naics_description: 'Professional, and Technical Services',
+                count: 2
+            },
+            {
+                naics: '1171',
+                naics_description: 'Arts, and Recreation',
+                count: 5
+            }
+        ]
+    }
+];
+
+export const naicsMockAPIResponseClean = [
+    {
+        value: '11',
+        label: 'Agriculture, Forestry, Fishing and Hunting',
+        count: 20,
+        path: [0],
+        children: [
+            {
+                value: '1111',
+                label: 'Agriculture, Fishing and Hunting',
+                count: 20,
+                path: [0, 0],
+                children: [{}]
+            },
+            {
+                value: '1121',
+                label: 'Mining, and Oil and Gas Extraction',
+                count: 7,
+                path: [0, 1],
+                children: [{}]
+            },
+            {
+                value: '1154',
+                label: 'Professional, and Technical Services',
+                count: 2,
+                path: [0, 2],
+                children: [{}]
+            },
+            {
+                value: '1171',
+                label: 'Arts, and Recreation',
+                count: 5,
+                path: [0, 3],
+                children: [{}]
+            }
+        ]
+    }
+];
+
+export const naicsMockDataDeepDirty = [
+    {
+        naics: '11',
+        naics_description: 'Agriculture, Forestry, Fishing and Hunting',
+        count: 20,
+        children: [
+            {
+                naics: '1111',
+                naics_description: 'Agriculture, Fishing and Hunting',
+                count: 20,
+                children: [
+                    {
+                        naics: '111111',
+                        naics_description: 'Agriculture, Fishing',
+                        count: 20,
+                        children: [
+                            {
+                                naics: '11111111',
+                                naics_description: 'Agriculture',
+                                count: 20
+                            },
+                            {
+                                naics: '11111121',
+                                naics_description: 'Agricu',
+                                count: 20
+                            }
+                        ]
+                    },
+                    {
+                        naics: '111121',
+                        naics_description: 'Agriculture, Fishing 2',
+                        count: 20,
+                        children: [
+                            {
+                                naics: '111111',
+                                naics_description: 'Agriculture 2',
+                                count: 20
+                            },
+                            {
+                                naics: '111111',
+                                naics_description: 'Agricu 2',
+                                count: 20
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                naics: '1121',
+                naics_description: 'Mining, and Oil and Gas Extraction',
+                count: 7,
+                children: [
+                    {
+                        naics: '112111',
+                        naics_description: 'Mining, and Oil and Gas',
+                        count: 7,
+                        children: [
+                            {
+                                naics: '11211111',
+                                naics_description: 'Mining, and Oil',
+                                count: 7,
+                                children: [
+                                    {
+                                        naics: '11211111',
+                                        naics_description: 'Mining, and Oil',
+                                        count: 7
+                                    },
+                                    {
+                                        naics: '11211111',
+                                        naics_description: 'Mining, and Oil',
+                                        count: 7
+                                    }
+                                ]
+                            },
+                            {
+                                naics: '11211121',
+                                naics_description: 'Mining 3',
+                                count: 7,
+                                children: [
+                                    {
+                                        naics: '1121112111',
+                                        naics_description: 'Mining Oil',
+                                        count: 7
+                                    },
+                                    {
+                                        naics: '1121112121',
+                                        naics_description: 'Mining',
+                                        count: 7
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                      
+                    }
+                ]
+            }
+        ]
+    }
+];
+
+export const naicsMockDataDeepClean = [
+    {
+        value: '11',
+        label: 'Agriculture, Forestry, Fishing and Hunting',
+        count: 20,
+        path: [0],
+        children: [
+            {
+                value: '1111',
+                label: 'Agriculture, Fishing and Hunting',
+                count: 20,
+                path: [0, 1],
+                children: [
+                    {
+                        value: '111111',
+                        label: 'Agriculture, Fishing',
+                        count: 20,
+                        path: [0, 1, 0],
+                        children: [
+                            {
+                                value: '11111111',
+                                label: 'Agriculture',
+                                count: 20,
+                                path: [0, 1, 0, 0]
+                            },
+                            {
+                                value: '11111121',
+                                label: 'Agricu',
+                                count: 20,
+                                path: [0, 1, 0, 1]
+                            }
+                        ]
+                    },
+                    {
+                        value: '111121',
+                        label: 'Agriculture, Fishing 2',
+                        count: 20,
+                        path: [0, 1, 1],
+                        children: [
+                            {
+                                value: '111111',
+                                label: 'Agriculture 2',
+                                count: 20,
+                                path: [0, 1, 1, 0]
+                            },
+                            {
+                                value: '111111',
+                                label: 'Agricu 2',
+                                count: 20,
+                                path: [0, 1, 1, 1]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                value: '1121',
+                label: 'Mining, and Oil and Gas Extraction',
+                count: 7,
+                path: [0, 1],
+                children: [
+                    {
+                        value: '112111',
+                        label: 'Mining, and Oil and Gas',
+                        count: 7,
+                        path: [0, 1, 0],
+                        children: [
+                            {
+                                value: '11211111',
+                                label: 'Mining, and Oil',
+                                count: 7,
+                                path: [0, 1, 0, 1],
+                                children: [
+                                    {
+                                        value: '11211111',
+                                        label: 'Mining, and Oil',
+                                        count: 7,
+                                        path: [0, 1, 0, 1, 0]
+                                    },
+                                    {
+                                        value: '11211111',
+                                        label: 'Mining, and Oil',
+                                        count: 7,
+                                        path: [0, 1, 0, 1, 1]
+                                    }
+                                ]
+                            },
+                            {
+                                value: '11211121',
+                                label: 'Mining 3',
+                                count: 7,
+                                path: [0, 1, 0, 2],
+                                children: [
+                                    {
+                                        value: '1121112111',
+                                        label: 'Mining Oil',
+                                        count: 7,
+                                        path: [0, 1, 0, 2, 0]
+                                    },
+                                    {
+                                        value: '1121112121',
+                                        label: 'Mining',
+                                        count: 7,
+                                        path: [0, 1, 0, 2, 1]
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                      
+                    }
+                ]
+            }
+        ]
+    }
+];
+
 export const emptyNAICSRedux = {
     naics: new List(),
     expanded: new List(),

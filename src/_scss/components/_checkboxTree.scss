@@ -31,16 +31,16 @@
       margin-right: 0.1em;
     }
     .svg-inline--fa.fa-w-14 {
-      width: 1em;
-      height: 1em;
+      width: 1.1em;
+      height: 1.1em;
     }
     .rct-node-expanded {
       .rct-text {
         label {
           .rct-checkbox {
             .svg-inline--fa.fa-w-14 {
-              width: 1em;
-              height: 1em;
+              width: 1.1em;
+              height: 1.1em;
             }
           }
         }
@@ -80,21 +80,32 @@
               @include display(flex);
               @include flex-wrap(wrap);
               .checkbox-tree-label__value-container {
-                    // @include flex-basis(100%);
+                @include display(inline-flex);
                 .checkbox-tree-label__value-container-value {
-                  padding: rem(1.5) rem(10);
+                  text-align: center;
+                  padding: 0 rem(3);
                   background-color: $color-gray-lightest;
-                  border-radius: 3px;
+                  border-radius: 2px;
                   font-weight: $font-semibold;
-                  font-size: rem(11);
+                  font-size: rem(14);
                   .highlight {
                     background-color: rgb(252, 227, 160);
+                  }
+                }
+                .checkbox-tree-label__value-container-count {
+                  padding: rem(1.5) rem(7);
+                  border-radius: 3px;
+                  color: $color-gray-light;
+                  font-style: italic;
+                  font-size: rem(12);
+                  .highlight {
+                    background-color: transparent;
                   }
                 }
               }
               .checkbox-tree-label__label {
                 @include flex-basis(100%);
-                font-weight: bold;
+                font-weight: $font-semibold;
                 .highlight {
                   background-color: rgb(252, 227, 160);
                 }
@@ -112,13 +123,8 @@
           .rct-text {
             label {
               .checkbox-tree-label {
-                .checkbox-tree-label__value-container {
-                  .checkbox-tree-label__value-container-value {
-                    padding: rem(1.5) rem(15);
-                  }
-                }
                 .checkbox-tree-label__label {
-                  font-weight: $font-semibold;
+                  font-weight: $font-normal;
                 }
               }
             }
@@ -133,11 +139,6 @@
               .rct-text {
                 label {
                   .checkbox-tree-label {
-                    .checkbox-tree-label__value-container {
-                      .checkbox-tree-label__value-container-value {
-                        padding: rem(1.5) rem(8);
-                      }
-                    }
                     .checkbox-tree-label__label {
                       font-weight: $font-normal;
                     }
@@ -154,13 +155,8 @@
                     .rct-text {
                       label {
                         .checkbox-tree-label {
-                          .checkbox-tree-label__value-container {
-                            .checkbox-tree-label__value-container-value {
-                              padding: rem(1.5) rem(1);
-                            }
-                          }
                           .checkbox-tree-label__label {
-                            font-weight: $font-light;
+                            font-weight: $font-normal;
                           }
                         }
                       }

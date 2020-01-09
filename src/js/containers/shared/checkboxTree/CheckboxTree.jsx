@@ -287,7 +287,8 @@ export default class CheckboxTree extends Component {
             newNode.label = (
                 <CheckboxTreeLabel
                     value={value}
-                    label={label} />
+                    label={label}
+                    count={newNode.count} />
             );
         }
         // recursive - if there are children create new labels
