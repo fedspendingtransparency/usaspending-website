@@ -101,7 +101,7 @@ module.exports = {
         new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
         new CopyWebpackPlugin([
             {
-                from: "../*.xml",
+                from: "**/*.xml",
                 to: path.resolve(__dirname, "../public")
             },
             {
