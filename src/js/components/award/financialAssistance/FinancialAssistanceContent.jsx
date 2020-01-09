@@ -88,7 +88,6 @@ const FinancialAssistanceContent = ({
                     awardingAgency={overview.awardingAgency}
                     recipient={overview.recipient}
                     recordType={overview.recordType}
-                    placeOfPerformance={overview.placeOfPerformance}
                     awardType={overview.category}
                     awardId={awardId} />
                 <AwardOverviewRightSection
