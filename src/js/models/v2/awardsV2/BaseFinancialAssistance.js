@@ -63,6 +63,7 @@ BaseFinancialAssistance.populate = function populate(data) {
             stateCode: data.place_of_performance.state_code,
             state: data.place_of_performance.state_name || data.place_of_performance.state_code,
             province: data.place_of_performance.foreign_province,
+            foreignPostalCode: data.foreign_postal_code,
             zip5: data.place_of_performance.zip5,
             zip4: data.place_of_performance.zip4,
             congressionalDistrict: data.place_of_performance.congressional_code,
