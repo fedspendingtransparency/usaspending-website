@@ -55,7 +55,7 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
 const createRobots = () => {
     const env = hostNameByEnv[process.argv[2]];
     fs.writeFile(
-        path.resolve(__dirname, `../../robots.txt`),
+        path.resolve(__dirname, `../robots.txt`),
         `User-agent: * \nAllow: /\n\nSitemap: ${env}/sitemap.xml`,
         () => console.log("robots.txt successfully created!")
     );
@@ -63,7 +63,7 @@ const createRobots = () => {
 
 const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
     fs.writeFile(
-        path.resolve(__dirname, `../../${siteMapName}.xml`),
+        path.resolve(__dirname, `../${siteMapName}.xml`),
         `${xmlStart}${xmlRoutes}${xmlEnd}`,
         () => console.log(`Sitemap ${siteMapName}.xml successfully created!`)
     );

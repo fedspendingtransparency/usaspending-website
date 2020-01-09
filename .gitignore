@@ -55,4 +55,5 @@ cache/
 usa_spending.sh
 
 # sitemaps
-src/*.xml
+robots.txt
+*.xml

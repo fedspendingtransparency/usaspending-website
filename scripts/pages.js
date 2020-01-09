@@ -3,7 +3,7 @@ const Routes = require('../containers/router/RouterRoutes.js').routes;
 
 const recipientRequestObject = {
     name: 'recipient',
-    updatedFrequency: 'quarterly',
+    updatedFrequency: 'daily',
     priority: '0.8',
     isAsync: true,
     url: 'https://api.usaspending.gov/api/v2/recipient/duns/',
@@ -56,7 +56,7 @@ const awardPageInfo = {
 
 const federalAccountPageInfo = {
     name: 'federal_account',
-    updatedFrequency: 'quarterly',
+    updatedFrequency: 'daily',
     priority: '0.7',
     isAsync: true,
     url: 'https://api.usaspending.gov/api/v2/federal_accounts/',
@@ -98,7 +98,7 @@ const pages = [
     {
         name: 'state',
         isAsync: true,
-        updatedFrequency: 'quarterly',
+        updatedFrequency: 'daily',
         priority: '0.5',
         // all states
         url: 'https://api.usaspending.gov/api/v2/recipient/state/',
