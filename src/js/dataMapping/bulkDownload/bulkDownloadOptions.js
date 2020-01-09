@@ -75,7 +75,7 @@ export const awardDownloadOptions = {
         },
         {
             name: 'pstxt',
-            label: 'Pipe-delimited TXT',
+            label: 'TXT (Pipe Delimited)',
             disabled: false
         }
     ],
