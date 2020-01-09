@@ -8,14 +8,14 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
+import { throttle } from 'lodash';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import { naicsRequest } from 'helpers/naicsHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setNaics, setExpanded, setChecked } from 'redux/actions/search/naicsActions';
-
-import NAICSSearch from 'components/search/filters/naics/NAICSSearch';
+import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
 
 const propTypes = {
     updateSelectedNAICS: PropTypes.func,
@@ -46,6 +46,7 @@ export class NAICSContainer extends React.Component {
             errorMessage: '',
             isLoading: false,
             isSearch: false,
+            searchString: '',
             requestType: 'initial',
             fromRedux: false
         };
@@ -58,6 +59,22 @@ export class NAICSContainer extends React.Component {
         }
         return this.fetchNAICS();
     }
+
+    onSearchClick = () => {}
+
+    onSearchChange = throttle((e) => {
+        const text = e.target.value;
+        if (text.length > 0) {
+            this.setState(
+                {
+                    requestType: 'search',
+                    searchString: text,
+                    isSearch: true
+                },
+                this.fetchNAICS
+            );
+        }
+    }, 500);
 
     onExpand = (node, expanded) => {
         this.fetchNAICS(node.value);
@@ -80,14 +97,28 @@ export class NAICSContainer extends React.Component {
         });
     }
 
+    handleOnKeyDown = (e) => {}
+
+    toggleDropdown = () => {}
+
     request = null
 
     fetchNAICS = async (param) => {
-        const { requestType, fromRedux } = this.state;
-        if (requestType === 'initial') this.setState({ isLoading: true });
+        const {
+            requestType,
+            fromRedux,
+            isSearch,
+            searchString
+        } = this.state;
+        const searchParam = (isSearch && searchString)
+            ? `?filter=${searchString}`
+            : null;
+        if (requestType === 'initial' || requestType === 'search') {
+            this.setState({ isLoading: true });
+        }
         if (fromRedux) this.setState({ fromRedux: false });
 
-        this.request = naicsRequest(param);
+        this.request = naicsRequest(param || searchParam);
         try {
             const { data } = await this.request.promise;
             this.setState({
@@ -184,14 +215,27 @@ export class NAICSContainer extends React.Component {
     render() {
         const loadingDiv = this.loadingDiv();
         const errorDiv = this.errorDiv();
+        const { searchString, isLoading } = this.state;
         return (
             <div>
-                <NAICSSearch
+                <div className="naics-search-container">
+                    <EntityDropdownAutocomplete
+                        placeholder="Type to find codes"
+                        searchString={searchString}
+                        enabled
+                        openDropdown={this.onSearchClick}
+                        toggleDropdown={this.toggleDropdown}
+                        handleTextInputChange={this.onSearchChange}
+                        context={{}}
+                        loading={isLoading}
+                        handleOnKeyDown={this.handleOnKeyDown} />
+                </div>
+                {/* <NAICSSearch
                     className="naics-search-container"
                     selectedNAICS={this.props.selectedNAICS}
                     dirtyFilters={this.dirtyFilters()}
                     selectNAICS={this.selectNAICS}
-                    removeNAICS={this.removeNAICS} />
+                    removeNAICS={this.removeNAICS} /> */}
                 {loadingDiv}
                 {errorDiv}
                 {this.checkboxDiv()}

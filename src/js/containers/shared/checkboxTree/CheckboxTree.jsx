@@ -135,7 +135,7 @@ export default class CheckboxTree extends Component {
      * @param {array} newExpandedArray - array with the newly expanded value
      */
     expandNode = (newExpandedArray) => {
-        const { expanded } = this.state;
+        const { expanded, isSearch } = this.state;
         /**
          * react-checkbox-tree calls onExpand with the new expanded array containing
          * all expanded values. We must find the difference between the current expanded values
@@ -152,7 +152,7 @@ export default class CheckboxTree extends Component {
          * do this to get the caret to show when there is a count)
          * we will set the child to a loading div
          */
-        if (!node.children || isEmpty(node.children[0])) {
+        if ((!node.children || isEmpty(node.children[0])) && !isSearch) {
             const newNodes = this.setChildrenToLoading(nodePathString);
             this.setState({ expanded: newExpandedArray, nodes: newNodes });
         }
