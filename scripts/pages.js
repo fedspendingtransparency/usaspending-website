@@ -1,5 +1,5 @@
 const moment = require('moment');
-const Routes = require('../containers/router/RouterRoutes.js').routes;
+const Routes = require('../src/js/containers/router/RouterRoutes.js').routes;
 
 const recipientRequestObject = {
     name: 'recipient',
