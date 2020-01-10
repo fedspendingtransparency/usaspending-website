@@ -8,6 +8,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
+import { debounce } from 'lodash';
+import { isCancel } from 'axios';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import { naicsRequest } from 'helpers/naicsHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -59,19 +61,17 @@ export class NAICSContainer extends React.Component {
 
     onSearchClick = () => {}
 
-    onSearchChange = (e) => {
-        console.log(' Search Text : ', e.target.value);
-        if (!e.target.value) return this.setState({ searchString: '', isSearch: false });
-        const text = e.target.value;
-        return this.setState(
-            {
-                requestType: 'search',
-                searchString: text,
-                isSearch: true
-            },
-            this.fetchNAICS
-        );
-    };
+    onSearchChange = debounce(() => {
+        this.setState({ requestType: 'search' }, this.fetchNAICS);
+    }, 500);
+
+    onClear = () => this.setState({
+        isSearch: false,
+        searchString: '',
+        naics: this.props.nodes.toJS(),
+        fromRedux: true
+    });
+
 
     onExpand = (node, expanded) => {
         this.fetchNAICS(node.value);
@@ -93,6 +93,12 @@ export class NAICSContainer extends React.Component {
             fromRedux: true
         });
     }
+
+    handleTextInputChange = (e) => {
+        const text = e.target.value;
+        if (!text) return this.setState({ searchString: '', isSearch: false });
+        return this.setState({ searchString: text, isSearch: true }, this.onSearchChange);
+    };
 
     handleOnKeyDown = (e) => {}
 
@@ -129,13 +135,15 @@ export class NAICSContainer extends React.Component {
         }
         catch (e) {
             console.log(' Error NAICS Reponse : ', e);
-            this.setState({
-                isError: true,
-                errorMessage: e.message,
-                naics: [],
-                isLoading: false,
-                requestType: ''
-            });
+            if (!isCancel(e)) {
+                this.setState({
+                    isError: true,
+                    errorMessage: e.message,
+                    naics: [],
+                    isLoading: false,
+                    requestType: ''
+                });
+            }
         }
     };
 
@@ -225,10 +233,12 @@ export class NAICSContainer extends React.Component {
                         enabled
                         openDropdown={this.onSearchClick}
                         toggleDropdown={this.toggleDropdown}
-                        handleTextInputChange={this.onSearchChange}
+                        handleTextInputChange={this.handleTextInputChange}
                         context={{}}
                         loading={false}
-                        handleOnKeyDown={this.handleOnKeyDown} />
+                        handleOnKeyDown={this.handleOnKeyDown}
+                        isClearable
+                        onClear={this.onClear} />
                     {/* <NAICSSearch
                         className="naics-search-container"
                         selectedNAICS={this.props.selectedNAICS}

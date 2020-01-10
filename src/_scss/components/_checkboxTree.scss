@@ -49,10 +49,10 @@
     .rct-node:nth-child(n) {
       // TODO - only add this on search
       // padding-bottom: rem(10);
-      // &.rct-node-expanded {
-        // border-bottom: 1px solid $color-gray-lighter;
-      // }
-      // parent nodes dont line up correctly to childe nodes
+      &.react-checkbox-tree__tier-zero {
+        border-bottom: 1px solid $color-gray-lighter;
+      }
+      // parent nodes dont line up correctly to child nodes
       &.rct-node-collapsed {
         .rct-text {
           label {

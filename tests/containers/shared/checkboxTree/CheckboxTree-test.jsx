@@ -55,6 +55,7 @@ describe('CheckboxTree Component', () => {
     const render = jest.fn();
     const onExpand = jest.fn();
     const setState = jest.fn();
+    const handleSearch = jest.fn();
     it('ComponentDidMount, should call createNodes method', async () => {
         const container = shallow(<CheckboxTree {...props} />);  
         container.instance().createNodes = createNodes;
@@ -69,13 +70,30 @@ describe('CheckboxTree Component', () => {
         await container.instance().componentDidUpdate(emptyNodes);
         expect(updateNode).toHaveBeenCalled();
     });
-    it('CreateNodes, should format API response to react-checkbox-tree nodes, set state, and call setRedux', async () => {
+    describe('Create Nodes', () => {
+        it('should format API response to react-checkbox-tree nodes, set state, and call setRedux', async () => {
+            const container = shallow(<CheckboxTree {...props} />);
+            await container.instance().componentDidMount();
+            const { nodes, requestType } = container.instance().state;
+            expect(nodes).toEqual(naicsMockCleanDataInitialLoad);
+            expect(requestType).toEqual('');
+            expect(container.instance().props.setRedux).toHaveBeenCalled();
+        });
+        it('should call handleSearch', async () => {
+            const newProps = { ...props };
+            newProps.isSearch = true;
+            const container = shallow(<CheckboxTree {...newProps} />);
+            container.instance().handleSearch = handleSearch;
+            await container.instance().createNodes();
+            expect(handleSearch).toHaveBeenCalled();
+        });
+    });
+    it('Handle Search, should update state', () => {
         const container = shallow(<CheckboxTree {...props} />);
-        await container.instance().componentDidMount();
-        const { nodes, requestType } = container.instance().state;
-        expect(nodes).toEqual(naicsMockCleanDataInitialLoad);
-        expect(requestType).toEqual('');
-        expect(container.instance().props.setRedux).toHaveBeenCalled();
+        container.instance().handleSearch(naicsMockInitialLoadApiResponse);
+        const { nodes } = container.instance().state;
+        expect(Array.isArray(nodes)).toEqual(true);
+        expect(container.instance().state.expanded.length).toEqual(0);
     });
     describe('On Expand', () => {
         it('should call expandNode', async () => {

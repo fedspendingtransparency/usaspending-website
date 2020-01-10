@@ -19,11 +19,24 @@
       border-bottom: 1px solid $color-gray-lighter;
     }
     .autocomplete__input {
-      text-align: center;
+      padding-bottom: rem(10);
+      position: relative;
+      width: 100%;
       input {
-        flex-grow: 0;
-        flex-shrink: 0;
-        max-width: rem(400);
+        width: 100%;
+        height: 100%;
+        font-size: rem(14);
+      }
+      .icon {
+        @include flex(0 0 auto);
+        position: absolute;
+        width: rem(15);
+        height: rem(15);
+        right: rem(15);
+        top: rem(15);
+        svg {
+            // color: $color-gray;
+        }
       }
     }
   }

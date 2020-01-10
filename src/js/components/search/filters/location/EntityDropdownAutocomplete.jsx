@@ -20,7 +20,9 @@ const propTypes = {
     expanded: PropTypes.bool,
     enabled: PropTypes.bool,
     loading: PropTypes.bool,
-    showDisclaimer: PropTypes.bool
+    showDisclaimer: PropTypes.bool,
+    onClear: PropTypes.func,
+    isClearable: PropTypes.bool
 };
 
 const defaultProps = {
@@ -38,7 +40,9 @@ export const EntityDropdownAutocomplete = ({
     context, // the $this variable
     loading,
     handleOnKeyDown,
-    showDisclaimer
+    showDisclaimer,
+    onClear,
+    isClearable
 }) => (
     <div className="autocomplete__input">
         <input
@@ -57,6 +61,7 @@ export const EntityDropdownAutocomplete = ({
         <div className="icon">
             {loading && <FontAwesomeIcon onClick={toggleDropdown} icon="spinner" spin />}
             {!loading && showDisclaimer && <ExclamationTriangle alt="warning" />}
+            {isClearable && searchString && <FontAwesomeIcon onClick={onClear} icon="times" />}
         </div>
     </div>
 );

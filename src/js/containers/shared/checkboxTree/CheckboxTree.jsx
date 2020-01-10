@@ -190,7 +190,7 @@ export default class CheckboxTree extends Component {
         if (isSearch) return this.handleSearch(nodes);
         const newNodes = createCheckboxTreeDataStrucure(limit, nodeKeys, nodes);
         this.setState({ nodes: newNodes, requestType: '' });
-        if (setRedux && newNodes.length) setRedux(newNodes);
+        return (setRedux && newNodes.length) ? setRedux(newNodes) : null;
     }
     /**
      * updateNode
@@ -249,9 +249,6 @@ export default class CheckboxTree extends Component {
             nodeKeys,
             nodes
         );
-        console.log(' Updated Nodes : ', updatedNodes);
-        console.log(' Expanded : ', expanded);
-        // this.setState({ nodes: updatedNodes, expanded });
         this.setState({ nodes: updatedNodes });
         this.setState({ expanded });
     }
@@ -322,7 +319,6 @@ export default class CheckboxTree extends Component {
 
     render() {
         const { nodes, checked, expanded } = this.state;
-        console.log(' Render : ', { nodes, expanded });
         const labeledNodes = this.createLabels(nodes);
         if (!nodes.length) return null;
         return (

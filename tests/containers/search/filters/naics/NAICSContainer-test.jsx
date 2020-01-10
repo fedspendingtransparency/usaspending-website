@@ -15,26 +15,14 @@ import {
     naicsMockCleanData
 } from './mockNAICS';
 
-// import sinon from 'sinon';
-// import { OrderedMap, Iterable } from 'immutable';
-
 jest.mock('helpers/naicsHelper', () => require('./mockNAICSHelper'));
-
-// const initialFilters = {
-//     selectedNAICS: new OrderedMap(),
-//     appliedNAICS: new OrderedMap()
-// };
-
-// const naics = {
-//     naics: "561110",
-//     naics_description: "OFFICE ADMINISTRATIVE SERVICES"
-// };
 
 describe('NAICS Search Filter Container', () => {
     const fetchNAICS = jest.fn();
     const setStateFromRedux = jest.fn();
     const onExpand = jest.fn();
     const setExpanded = jest.fn();
+    const onSearchChange = jest.fn();
     describe('Component Did Mount', () => {
         it('should call fetch naics on mount', async () => {
             const container = shallow(<NAICSContainer {...emptyNAICSProps} />);
@@ -49,6 +37,47 @@ describe('NAICS Search Filter Container', () => {
             container.instance().setStateFromRedux = setStateFromRedux;
             await container.instance().componentDidMount();
             expect(setStateFromRedux).toHaveBeenCalled();
+        });
+    });
+    it('should update state when onClear is called', () => {
+        const newProps = { ...emptyNAICSProps };
+        const container = shallow(<NAICSContainer {...newProps} />);
+        container.instance().onClear();
+        const {
+            isSearch,
+            searchString,
+            naics,
+            fromRedux
+        } = container.instance().state;
+        expect(isSearch).toEqual(false);
+        expect(searchString).toEqual('');
+        expect(Array.isArray(naics)).toEqual(true);
+        expect(fromRedux).toEqual(true);
+    });
+    describe('Handle Text Input Change', () => {
+        it('should update state when no search text', () => {
+            const newProps = { ...emptyNAICSProps };
+            const container = shallow(<NAICSContainer {...newProps} />);
+            container.instance().handleTextInputChange({ target: { value: '' } });
+            const {
+                isSearch,
+                searchString
+            } = container.instance().state;
+            expect(isSearch).toEqual(false);
+            expect(searchString).toEqual('');
+        });
+        it('should update state when search text exists', () => {
+            const newProps = { ...emptyNAICSProps };
+            const container = shallow(<NAICSContainer {...newProps} />);
+            container.instance().onSearchChange = onSearchChange;
+            container.instance().handleTextInputChange({ target: { value: 'Maxwell' } });
+            const {
+                isSearch,
+                searchString
+            } = container.instance().state;
+            expect(isSearch).toEqual(true);
+            expect(searchString).toEqual('Maxwell');
+            expect(onSearchChange).toHaveBeenCalled();
         });
     });
     it('should call fetchNAICS and setExpended when onExpand is called', () => {
