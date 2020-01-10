@@ -5,14 +5,6 @@ const lodash = require('lodash');
 
 const pages = require('./pages');
 
-// 1. get routes from router
-// 2. get routes from api (w/ ids)
-// 2a. all agencies
-// 2b. all federal accounts
-// 2c. all states
-// 2d. x # of recipients?
-// 2e. x # of awards?
-
 const hostNameByEnv = {
     prod: 'https://www.usaspending.gov',
     dev: 'https://www.dev.usaspending.gov'
@@ -20,6 +12,8 @@ const hostNameByEnv = {
 
 const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
+
+const sitemapsWritten = [];
 
 const xmlEnd = `</urlset>`;
 
@@ -67,6 +61,8 @@ const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
         `${xmlStart}${xmlRoutes}${xmlEnd}`,
         () => console.log(`Sitemap ${siteMapName}.xml successfully created!`)
     );
+
+    sitemapsWritten.push(siteMapName);
 };
 
 const handleApiResponse = (resp) => {
@@ -84,7 +80,7 @@ const handleApiResponse = (resp) => {
 };
 
 const buildIndividualSitemaps = () => {
-    // write the static sitemap
+    // 1. get routes from router
     let staticRoutesXml = '';
     pages
         .find((page) => page.name === 'static-routes').routes
@@ -100,7 +96,7 @@ const buildIndividualSitemaps = () => {
 
     createSitemap(staticRoutesXml, 'static');
 
-    // write the async site maps
+    // 2. get routes from api (w/ ids)
     const asyncPages = pages
         .filter((page) => page.isAsync || lodash.isArray(page))
         .reduce((previousPromise, page, i, arr) => previousPromise
@@ -130,7 +126,7 @@ const buildIndividualSitemaps = () => {
             .catch((e) => console.log("error", e))
             , Promise.resolve('first'));
 
-    asyncPages
+    return asyncPages
         .then((resp) => {
             // Once the final promise resolves, we can add it to our xml string and then write the file.
             const results = handleApiResponse(resp);
@@ -144,17 +140,18 @@ const buildIndividualSitemaps = () => {
 
             xml = createSitemapEntry(xml, results, responseContext);
             createSitemap(xml, responseContext.name);
+            return Promise.resolve(sitemapsWritten);
         })
         .catch((e) => {
             console.log(`error on sitemap ${e}`);
+            return Promise.resolve(sitemapsWritten);
         });
 };
 
-const buildIndexedSitemap = () => {
+const buildIndexedSitemap = (individualSiteMaps) => {
     const env = process.argv[2];
-    const xml = pages
-        .reduce((acc, page) => {
-            const pageName = lodash.isArray(page) ? page[0].name : page.name;
+    const xml = individualSiteMaps
+        .reduce((acc, pageName) => {
             return (
                 `${acc}<sitemap><loc>${hostNameByEnv[env]}/${pageName}.xml</loc></sitemap>`
             );
@@ -163,6 +160,11 @@ const buildIndexedSitemap = () => {
     createSitemap(xml);
 };
 
-buildIndexedSitemap();
-buildIndividualSitemaps();
-createRobots();
+buildIndividualSitemaps()
+    .then((individalSiteMaps) => {
+        buildIndexedSitemap(individalSiteMaps);
+        createRobots();
+    })
+    .catch((e) => {
+        console.log(`error build site maps: ${e}`);
+    });
