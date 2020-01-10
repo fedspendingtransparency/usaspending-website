@@ -1,7 +1,6 @@
 .checkbox-tree {
   .react-checkbox-tree {
-    padding-left: rem(20);
-    height: 300px;
+    max-height: 600px;
     overflow-y: scroll;
     .rct-node-icon {
       display: none;

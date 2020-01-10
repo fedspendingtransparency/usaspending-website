@@ -8,7 +8,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { is } from 'immutable';
-import { throttle } from 'lodash';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import { naicsRequest } from 'helpers/naicsHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,8 +31,6 @@ const nodeKeys = {
     value: 'naics',
     label: 'naics_description'
 };
-
-// let fromRedux = false;
 
 export class NAICSContainer extends React.Component {
     constructor(props) {
@@ -62,19 +59,19 @@ export class NAICSContainer extends React.Component {
 
     onSearchClick = () => {}
 
-    onSearchChange = throttle((e) => {
+    onSearchChange = (e) => {
+        console.log(' Search Text : ', e.target.value);
+        if (!e.target.value) return this.setState({ searchString: '', isSearch: false });
         const text = e.target.value;
-        if (text.length > 0) {
-            this.setState(
-                {
-                    requestType: 'search',
-                    searchString: text,
-                    isSearch: true
-                },
-                this.fetchNAICS
-            );
-        }
-    }, 500);
+        return this.setState(
+            {
+                requestType: 'search',
+                searchString: text,
+                isSearch: true
+            },
+            this.fetchNAICS
+        );
+    };
 
     onExpand = (node, expanded) => {
         this.fetchNAICS(node.value);
@@ -104,6 +101,7 @@ export class NAICSContainer extends React.Component {
     request = null
 
     fetchNAICS = async (param) => {
+        if (this.request) this.request.cancel();
         const {
             requestType,
             fromRedux,
@@ -192,7 +190,8 @@ export class NAICSContainer extends React.Component {
             naics,
             expanded,
             checked,
-            fromRedux
+            fromRedux,
+            searchString
         } = this.state;
         if (isLoading || isError) return null;
         return (
@@ -204,6 +203,7 @@ export class NAICSContainer extends React.Component {
                 checked={checked}
                 nodeKeys={nodeKeys}
                 isSearch={isSearch}
+                searchText={searchString}
                 onExpand={this.onExpand}
                 onCollapse={this.onCollapse}
                 onCheck={this.onCheck}
@@ -215,7 +215,7 @@ export class NAICSContainer extends React.Component {
     render() {
         const loadingDiv = this.loadingDiv();
         const errorDiv = this.errorDiv();
-        const { searchString, isLoading } = this.state;
+        const { searchString } = this.state;
         return (
             <div>
                 <div className="naics-search-container">
@@ -227,18 +227,18 @@ export class NAICSContainer extends React.Component {
                         toggleDropdown={this.toggleDropdown}
                         handleTextInputChange={this.onSearchChange}
                         context={{}}
-                        loading={isLoading}
+                        loading={false}
                         handleOnKeyDown={this.handleOnKeyDown} />
+                    {/* <NAICSSearch
+                        className="naics-search-container"
+                        selectedNAICS={this.props.selectedNAICS}
+                        dirtyFilters={this.dirtyFilters()}
+                        selectNAICS={this.selectNAICS}
+                        removeNAICS={this.removeNAICS} /> */}
+                    {loadingDiv}
+                    {errorDiv}
+                    {this.checkboxDiv()}
                 </div>
-                {/* <NAICSSearch
-                    className="naics-search-container"
-                    selectedNAICS={this.props.selectedNAICS}
-                    dirtyFilters={this.dirtyFilters()}
-                    selectNAICS={this.selectNAICS}
-                    removeNAICS={this.removeNAICS} /> */}
-                {loadingDiv}
-                {errorDiv}
-                {this.checkboxDiv()}
             </div>
         );
     }

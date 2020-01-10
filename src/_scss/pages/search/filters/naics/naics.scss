@@ -1,15 +1,30 @@
 .search-option {
   @import '../../../../components/_checkboxTree';
-  .container-is-loading {
-    font-size: rem(30);
-    text-align: center;
-    .container-is-loading__text {
-      font-size: 2rem;
-      padding-bottom: 2rem;
+  .naics-search-container {
+    padding: 0 rem(12);
+    .container-is-loading {
+      font-size: rem(30);
+      text-align: center;
+      .container-is-loading__text {
+        font-size: 2rem;
+        padding-bottom: 2rem;
+      }
     }
-  }
-  .children-are-loading {
-    font-size: rem(15);
-    text-align: center;
+    .children-are-loading {
+      font-size: rem(15);
+      text-align: center;
+    }
+    .checkbox-tree {
+      margin-bottom: rem(20);
+      border-bottom: 1px solid $color-gray-lighter;
+    }
+    .autocomplete__input {
+      text-align: center;
+      input {
+        flex-grow: 0;
+        flex-shrink: 0;
+        max-width: rem(400);
+      }
+    }
   }
 }

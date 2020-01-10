@@ -12,7 +12,8 @@ import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
 import {
     createCheckboxTreeDataStrucure,
     pathToNode,
-    buildNodePath
+    buildNodePath,
+    expandedFromSearch
 } from 'helpers/checkboxTreeHelper';
 import { treeIcons } from 'dataMapping/shared/checkboxTree/checkboxTree';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -135,7 +136,9 @@ export default class CheckboxTree extends Component {
      * @param {array} newExpandedArray - array with the newly expanded value
      */
     expandNode = (newExpandedArray) => {
-        const { expanded, isSearch } = this.state;
+        const { expanded } = this.state;
+        const { isSearch } = this.props;
+        if (isSearch) return this.setState({ expanded: newExpandedArray });
         /**
          * react-checkbox-tree calls onExpand with the new expanded array containing
          * all expanded values. We must find the difference between the current expanded values
@@ -181,8 +184,10 @@ export default class CheckboxTree extends Component {
             nodeKeys,
             nodes,
             limit,
-            setRedux
+            setRedux,
+            isSearch
         } = this.props;
+        if (isSearch) return this.handleSearch(nodes);
         const newNodes = createCheckboxTreeDataStrucure(limit, nodeKeys, nodes);
         this.setState({ nodes: newNodes, requestType: '' });
         if (setRedux && newNodes.length) setRedux(newNodes);
@@ -232,7 +237,24 @@ export default class CheckboxTree extends Component {
         this.setState({ nodes: nodesObject.data });
         return updateRedux ? updateRedux(nodesObject.data) : null;
     }
-
+    /**
+     * handleSearch
+     * updates nodes with expanded properties
+     */
+    handleSearch = (nodes) => {
+        const { limit, nodeKeys } = this.props;
+        // create the new node
+        const { updatedNodes, expanded } = expandedFromSearch(
+            limit,
+            nodeKeys,
+            nodes
+        );
+        console.log(' Updated Nodes : ', updatedNodes);
+        console.log(' Expanded : ', expanded);
+        // this.setState({ nodes: updatedNodes, expanded });
+        this.setState({ nodes: updatedNodes });
+        this.setState({ expanded });
+    }
     // TODO - implement this
     // sets specific icons to custom icons passed in props
     updateIcons = () => {
@@ -300,6 +322,7 @@ export default class CheckboxTree extends Component {
 
     render() {
         const { nodes, checked, expanded } = this.state;
+        console.log(' Render : ', { nodes, expanded });
         const labeledNodes = this.createLabels(nodes);
         if (!nodes.length) return null;
         return (

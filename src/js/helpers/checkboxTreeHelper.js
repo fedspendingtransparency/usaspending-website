@@ -3,7 +3,7 @@
   * Created by Jonathan Hill 10/01/2019
   **/
 
-import { isEmpty } from 'lodash';
+import { isEmpty, flattenDeep, compact } from 'lodash';
 
 /**
  * updateValueAndLabel
@@ -163,6 +163,41 @@ export const createCheckboxTreeDataStrucure = (
 
     return newNode;
 });
+/**
+ * expandedFromSearch
+ * @param {number} limit - total possible depth of tree structure
+ * @param {object} nodeKeys - and object with keys value
+ * @param {array} nodes - array of objects
+ */
+export const expandedFromSearch = (
+    limit,
+    nodeKeys,
+    nodes
+) => {
+    const newNodes = createCheckboxTreeDataStrucure(limit, nodeKeys, nodes);
+    const expandedFunc = (theNodes, expanded) => {
+        console.log(' Step 2 : ', { theNodes, expanded });
+        const expandedValues = expanded;
+        if (theNodes.children) {
+            theNodes.children.forEach((node) => {
+                if (node.children) {
+                    console.log(' sdkldfsl : ', expandedValues);
+                    expandedValues.push(node.value);
+                    console.log(' Node : ', node);
+                    expandedFunc(node.children, expandedValues);
+                }
+            });
+        }
+        return expandedValues;
+    };
+    const expanded = newNodes.map((node) => {
+        console.log(' Step 1 : ', node);
+        if (node.children) return [node.value, ...expandedFunc(node, [])];
+        return [null];
+    });
+    const expandedArray = compact(flattenDeep(expanded));
+    return { updatedNodes: newNodes, expanded: expandedArray };
+};
 /**
  * pathToNode
  * finds the path to an object
