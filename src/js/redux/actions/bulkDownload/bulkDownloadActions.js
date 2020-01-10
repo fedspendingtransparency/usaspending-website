@@ -59,7 +59,7 @@ export const resetDownload = () => ({
 });
 
 export const handleDownloadRequest = (res) => (dispatch) => {
-    dispatch(setDownloadExpectedUrl(res.url));
+    dispatch(setDownloadExpectedUrl(res.file_url));
     dispatch(setDownloadExpectedFile(res.file_name));
     dispatch(setDownloadPending(true));
 };

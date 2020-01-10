@@ -168,7 +168,7 @@ export class AwardContainer extends React.Component {
 
         try {
             const { data } = await this.downloadRequest.promise;
-            this.props.setDownloadExpectedUrl(data.url);
+            this.props.setDownloadExpectedUrl(data.file_url);
             this.props.setDownloadExpectedFile(data.file_name);
             // disable download button
             this.props.setDownloadPending(true);
