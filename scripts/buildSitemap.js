@@ -140,12 +140,14 @@ const buildIndividualSitemaps = () => {
 
             const responseContext = lodash.isArray(pages[responseIndex])
                 ? pages[responseIndex][0]
-                : pages[responseIndex];                
+                : pages[responseIndex];
 
             xml = createSitemapEntry(xml, results, responseContext);
             createSitemap(xml, responseContext.name);
         })
-        .catch((e) => console.log("error", e));
+        .catch((e) => {
+            console.log(`error on sitemap ${e}`);
+        });
 };
 
 const buildIndexedSitemap = () => {
