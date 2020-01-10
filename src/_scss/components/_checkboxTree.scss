@@ -1,7 +1,7 @@
 .checkbox-tree {
   .react-checkbox-tree {
     padding-left: rem(20);
-    height: 300px;
+    height: 600px;
     overflow-y: scroll;
     .rct-node-icon {
       display: none;
@@ -54,6 +54,7 @@
         // border-bottom: 1px solid $color-gray-lighter;
       // }
       // parent nodes dont line up correctly to childe nodes
+      margin-bottom: 0;
       &.rct-node-collapsed {
         .rct-text {
           label {
@@ -95,7 +96,7 @@
                 .checkbox-tree-label__value-container-count {
                   padding: rem(1.5) rem(7);
                   border-radius: 3px;
-                  color: $color-gray-light;
+                  color: $color-gray-medium;
                   font-style: italic;
                   font-size: rem(12);
                   .highlight {
@@ -106,6 +107,7 @@
               .checkbox-tree-label__label {
                 @include flex-basis(100%);
                 font-weight: $font-semibold;
+                line-height: rem(18);
                 .highlight {
                   background-color: rgb(252, 227, 160);
                 }
