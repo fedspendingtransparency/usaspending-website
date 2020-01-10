@@ -263,8 +263,6 @@ const routes = {
     }
 };
 
-module.exports = {
-    routes
-};
+module.exports = routes;
 
 /* eslint-enable global-require */
