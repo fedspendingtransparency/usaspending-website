@@ -59,8 +59,6 @@ export class NAICSContainer extends React.Component {
         return this.fetchNAICS();
     }
 
-    onSearchClick = () => {}
-
     onSearchChange = debounce(() => {
         this.setState({ requestType: 'search' }, this.fetchNAICS);
     }, 500);
@@ -99,10 +97,6 @@ export class NAICSContainer extends React.Component {
         if (!text) return this.setState({ searchString: '', isSearch: false });
         return this.setState({ searchString: text, isSearch: true }, this.onSearchChange);
     };
-
-    handleOnKeyDown = () => {}
-
-    toggleDropdown = () => {}
 
     request = null
 
