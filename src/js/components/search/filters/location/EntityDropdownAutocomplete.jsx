@@ -61,7 +61,7 @@ export const EntityDropdownAutocomplete = ({
         <div className="icon">
             {loading && <FontAwesomeIcon onClick={toggleDropdown} icon="spinner" spin />}
             {!loading && showDisclaimer && <ExclamationTriangle alt="warning" />}
-            {isClearable && searchString && <FontAwesomeIcon onClick={onClear} icon="times" />}
+            {isClearable && searchString && <FontAwesomeIcon tabIndex="0" onClick={onClear} icon="times" />}
         </div>
     </div>
 );
