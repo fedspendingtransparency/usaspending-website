@@ -162,7 +162,7 @@ export default class CheckboxTree extends Component {
         else { // we already have data for the children
             this.setState({ expanded: newExpandedArray });
         }
-        if (this.props.onExpand) this.props.onExpand(node, newExpandedArray);
+        return this.props.onExpand ? this.props.onExpand(node, newExpandedArray) : null;
     };
     /**
      * collapseNode

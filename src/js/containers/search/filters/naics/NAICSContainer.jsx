@@ -100,7 +100,7 @@ export class NAICSContainer extends React.Component {
         return this.setState({ searchString: text, isSearch: true }, this.onSearchChange);
     };
 
-    handleOnKeyDown = (e) => {}
+    handleOnKeyDown = () => {}
 
     toggleDropdown = () => {}
 

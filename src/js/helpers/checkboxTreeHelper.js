@@ -117,7 +117,7 @@ export const createCheckboxTreeDataStrucure = (
 ) => nodes.map((node, index) => {
     let newNode = { ...node };
     /**
-     * Four Steps to this Function
+     * Five Steps to this Function
      *
      * 1. Map Value and Label Properties
      *   - Maps properties passed in the data to value and label
@@ -134,7 +134,7 @@ export const createCheckboxTreeDataStrucure = (
      *   - repeats the process for child data
      *
      * 5. Search
-     *   - need to add a class on search
+     *   - need to add a classname on search
      */
 
     // Step 1 - Map Value and Label Properties
@@ -157,7 +157,6 @@ export const createCheckboxTreeDataStrucure = (
         keysToBeMapped,
         isSearch
     };
-    console.log(' Child Params : ', childParams);
     newNode = updateChildren(childParams);
     // Step 4 - Map Child Data
     if ((newNode.count > 0) && newNode.children && !isEmpty(newNode.children[0])) {
@@ -172,14 +171,18 @@ export const createCheckboxTreeDataStrucure = (
     }
     // Step 5 - Search
     if (isSearch) newNode.className = 'react-checkbox-tree_search';
-    console.log(' New Node : ', newNode);
     return newNode;
 });
 /**
  * expandedFromSearch
+ * - maps data passed to nodes in the checkbox tree data structure and decides which
+ * nodes are expanded based on if they have a children property.
  * @param {number} limit - total possible depth of tree structure
  * @param {object} nodeKeys - and object with keys value
  * @param {array} nodes - array of objects
+ * @returns {object} - object with properties updatedNodes and expanded.
+ * expanded is an array of nodes that are expanded
+ * updatedNodes is an array of nodes mapped to the checkbox tree data structure
  */
 export const expandedFromSearch = (
     limit,
@@ -194,26 +197,34 @@ export const expandedFromSearch = (
         null,
         true
     );
+    /**
+     * expandedFunc
+     * - recursively loops through nodes updating an array with the value of the node if is has
+     * a children property
+     * @param {array} theNodes - an array of nodes
+     * @param {array} expanded - an array of expanded values
+     * @returns {array} - an array of expanded values
+     */
     const expandedFunc = (theNodes, expanded) => {
         const expandedValues = expanded;
-        if (theNodes.children) {
-            theNodes.children.forEach((node) => {
-                const newNode = node;
-                newNode.className = 'react-checkbox-tree__search';
-                if (newNode.children) {
-                    expandedValues.push(newNode.value);
-                    expandedFunc(newNode.children, expandedValues);
-                }
-            });
-        }
+        theNodes.forEach((node) => {
+            const newNode = node;
+            newNode.className = 'react-checkbox-tree__search';
+            if (newNode.children) {
+                expandedValues.push(newNode.value);
+                expandedFunc(newNode.children, expandedValues);
+            }
+        });
         return expandedValues;
     };
+    // maps nodes to an array of expanded values
     const expanded = newNodes.map((node) => {
         const newNode = node;
         newNode.className = 'react-checkbox-tree__tier-zero';
-        if (newNode.children) return [newNode.value, ...expandedFunc(newNode, [])];
+        if (newNode.children) return [newNode.value, ...expandedFunc(newNode.children, [])];
         return [null];
     });
+    // flattens and removes any null values
     const expandedArray = compact(flattenDeep(expanded));
     return { updatedNodes: newNodes, expanded: expandedArray };
 };
