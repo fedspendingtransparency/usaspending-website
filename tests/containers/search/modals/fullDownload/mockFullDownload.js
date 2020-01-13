@@ -25,7 +25,7 @@ export const mockResponse = {
     total_rows: 55555,
     file_name: "transaction_123.csv",
     status: "running",
-    url: "https://s3.amazonaws.com/award_123.zip",
+    file_url: "https://s3.amazonaws.com/award_123.zip",
     message: "Your file failed because the database crashed.",
     seconds_elapsed: 50
 };
