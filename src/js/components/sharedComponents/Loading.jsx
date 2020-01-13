@@ -32,7 +32,8 @@ export const LoadingWrapper = ({
 
     if (isLoading) {
         return (
-            <p className="loading">{`${msg}${dots}`}</p>
+            // Not spending too much time w/ styles here, will have scope to improve later.
+            <h4 style={{ textAlign: 'center', flex: 1 }}>{`${msg}${dots}`}</h4>
         );
     }
 
