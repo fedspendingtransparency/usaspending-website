@@ -1,7 +1,6 @@
 const fs = require('fs');
 const axios = require('axios');
 const path = require('path');
-const lodash = require('lodash');
 
 const pages = require('./pages');
 
@@ -67,7 +66,7 @@ const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
 
 const handleApiResponse = (resp) => {
     // flatten massive arrays returned from Promise.all();
-    if (lodash.isArray(resp)) {
+    if (Array.isArray(resp)) {
         return resp.reduce((acc, result) => {
             return [
                 ...acc,
@@ -98,18 +97,18 @@ const buildIndividualSitemaps = () => {
 
     // 2. get routes from api (w/ ids)
     const asyncPages = pages
-        .filter((page) => page.isAsync || lodash.isArray(page))
+        .filter((page) => page.isAsync || Array.isArray(page))
         .reduce((previousPromise, page, i, arr) => previousPromise
             .then((resp) => {
                 if (resp !== 'first') {
                     let xml = '';
                     // use previous item in array as the source of truth for traversing the previousPromises' response
-                    const responseContext = lodash.isArray(arr[i - 1]) ? arr[i - 1][0] : arr[i - 1];
+                    const responseContext = Array.isArray(arr[i - 1]) ? arr[i - 1][0] : arr[i - 1];
                     const results = handleApiResponse(resp);
                     xml = createSitemapEntry(xml, results, responseContext);
                     createSitemap(xml, responseContext.name);
                 }
-                if (lodash.isArray(page)) {
+                if (Array.isArray(page)) {
                     const nestedPages = page.map((nestedPage) => axios({
                         method: nestedPage.method,
                         data: nestedPage.requestObject || null,
@@ -136,7 +135,7 @@ const buildIndividualSitemaps = () => {
 
             const responseIndex = pages.length - 1;
 
-            const responseContext = lodash.isArray(pages[responseIndex])
+            const responseContext = Array.isArray(pages[responseIndex])
                 ? pages[responseIndex][0]
                 : pages[responseIndex];
 
