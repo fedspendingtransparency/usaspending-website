@@ -100,48 +100,10 @@ module.exports = {
         }),
         new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
         new CopyWebpackPlugin([
-            // this blob stuff is not working for some reason...
-            // documentation: https://webpack.js.org/plugins/copy-webpack-plugin/
-            // {
-            //     from: "*.xml", also tried "**/*.xml"
-            //     globOptions: { cwd: path.resolve(__dirname, "../") },
-            //     to: path.resolve(__dirname, "../public")
-            // },
             {
-                from: path.resolve(__dirname, "../sitemap.xml"),
-                to: path.resolve(__dirname, "../public")
-            },
-            {
-                from: path.resolve(__dirname, "../agency.xml"),
-                to: path.resolve(__dirname, "../public")
-            },
-            {
-                from: path.resolve(__dirname, "../agency.xml"),
-                to: path.resolve(__dirname, "../public")
-            },
-            {
-                from: path.resolve(__dirname, "../recipient.xml"),
-                to: path.resolve(__dirname, "../public")
-            },
-            {
-                from: path.resolve(__dirname, "../federal_account.xml"),
-                to: path.resolve(__dirname, "../public")
-            },
-            {
-                from: path.resolve(__dirname, "../static-routes.xml"),
-                to: path.resolve(__dirname, "../public")
-            },
-            {
-                from: path.resolve(__dirname, "../state.xml"),
-                to: path.resolve(__dirname, "../public")
-            },
-            {
-                from: path.resolve(__dirname, "../awards.xml"),
-                to: path.resolve(__dirname, "../public")
-            },
-            {
-                from: path.resolve(__dirname, "../robots.txt"),
-                to: path.resolve(__dirname, "../public")
+                from: '*.xml',
+                to: path.resolve(__dirname, "../public"),
+                context: path.resolve(__dirname, '../')
             }
         ])
     ]
