@@ -21,7 +21,11 @@ const forbiddenChars = ['&', "'", '"', '<', '>'];
 /**
  * @param {string} xml string of xml, previous xml entries from current sitemap
  * @param {Array.object} pageData data w/ the url param needed to the page
- * @param {object} pageInfo context for pageData; (a) how to access the url param & (b) what client route the page is associated with
+ * @param {object} pageInfo object with 4 properties of interest
+    * * @param {string} accessor how to access the url param on the pageData obj
+    * * @param {string} clientRoute client side route for page
+    * * @param {string} priority how important the page is on scale of 0.1 - 0.9
+    * * @param {string} updatedFrequency how frequently google should crawl this page
  */
 const createSitemapEntry = (xml, pageData, pageInfo) => {
     if (!pageData) return '';
