@@ -4,18 +4,12 @@ const path = require('path');
 
 const pages = require('./pages');
 
-const siteUrlByEnv = {
-    prod: 'https://www.usaspending.gov',
-    dev: 'https://www.dev.usaspending.gov'
-};
-
+const siteUrl = 'https://www.usaspending.gov';
 const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 
 const sitemapsWritten = [];
-
 const xmlEnd = `</urlset>`;
-
 const forbiddenChars = ['&', "'", '"', '<', '>'];
 
 /**
@@ -51,10 +45,9 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
 };
 
 const createRobots = () => {
-    const env = siteUrlByEnv[process.argv[2]];
     fs.writeFile(
         path.resolve(__dirname, `../robots.txt`),
-        `User-agent: * \nAllow: /\n\nSitemap: ${env}/sitemap.xml`,
+        `User-agent: * \nAllow: /\n\nSitemap: ${siteUrl}/sitemap.xml`,
         () => console.log("robots.txt successfully created!")
     );
 };
@@ -159,7 +152,7 @@ const buildIndexedSitemap = (individualSiteMaps) => {
     const xml = individualSiteMaps
         .reduce((acc, pageName) => {
             return (
-                `${acc}<sitemap><loc>${siteUrlByEnv[env]}/${pageName}.xml</loc></sitemap>`
+                `${acc}<sitemap><loc>${siteUrl[env]}/${pageName}.xml</loc></sitemap>`
             );
         }, '');
 
