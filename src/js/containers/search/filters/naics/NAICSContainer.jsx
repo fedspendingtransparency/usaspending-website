@@ -163,22 +163,36 @@ export class NAICSContainer extends React.Component {
         return Symbol('dirty NAICS');
     }
 
-    loadingDiv() {
+    loadingDiv = () => {
         if (!this.state.isLoading) return null;
         return (
-            <div className="container-is-loading">
+            <div className="naics-filter-message-container">
                 <FontAwesomeIcon icon="spinner" spin />
-                <div className="container-is-loading__text">Loading your data...</div>
+                <div className="naics-filter-message-container__text">Loading your data...</div>
             </div>
         );
     }
 
-    errorDiv() {
-        if (!this.state.isError) return null;
+    errorDiv = () => {
+        const { isError, errorMessage } = this.state;
+        if (!isError) return null;
         return (
-            <div className="container-is-loading">
-                <div className="container-is-loading__text">
-                    this.state.errorMessage
+            <div className="naics-filter-message-container">
+                <div className="naics-filter-message-container__text">
+                    {errorMessage}
+                </div>
+            </div>
+        );
+    }
+
+    noResultsDiv = () => {
+        const { isError, isLoading, naics } = this.state;
+        if (isError || isLoading || naics.length > 0) return null;
+        return (
+            <div className="naics-filter-message-container">
+                <FontAwesomeIcon icon="ban" />
+                <div className="naics-filter-message-container__text">
+                    No Results
                 </div>
             </div>
         );
@@ -216,6 +230,7 @@ export class NAICSContainer extends React.Component {
 
     render() {
         const loadingDiv = this.loadingDiv();
+        const noResultsDiv = this.noResultsDiv();
         const errorDiv = this.errorDiv();
         const { searchString } = this.state;
         return (
@@ -240,6 +255,7 @@ export class NAICSContainer extends React.Component {
                         selectNAICS={this.selectNAICS}
                         removeNAICS={this.removeNAICS} /> */}
                     {loadingDiv}
+                    {noResultsDiv}
                     {errorDiv}
                     {this.checkboxDiv()}
                 </div>

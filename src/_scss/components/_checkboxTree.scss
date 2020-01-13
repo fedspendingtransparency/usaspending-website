@@ -47,10 +47,13 @@
     }
     // every dropdown
     .rct-node:nth-child(n) {
-      // TODO - only add this on search
-      // padding-bottom: rem(10);
+      // this is for search
       &.react-checkbox-tree__tier-zero {
         border-bottom: 1px solid $color-gray-lighter;
+      }
+      // this is for search
+      &.react-checkbox-tree__tier-zero:last-child {
+        border-bottom: none;
       }
       // parent nodes dont line up correctly to child nodes
       &.rct-node-collapsed {

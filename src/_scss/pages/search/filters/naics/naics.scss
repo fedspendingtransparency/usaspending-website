@@ -2,10 +2,10 @@
   @import '../../../../components/_checkboxTree';
   .naics-search-container {
     padding: 0 rem(12);
-    .container-is-loading {
+    .naics-filter-message-container {
       font-size: rem(30);
       text-align: center;
-      .container-is-loading__text {
+      .naics-filter-message-container__text {
         font-size: 2rem;
         padding-bottom: 2rem;
       }
