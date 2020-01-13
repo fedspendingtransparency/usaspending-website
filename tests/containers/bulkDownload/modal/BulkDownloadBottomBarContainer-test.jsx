@@ -102,7 +102,7 @@ describe('BulkDownloadBottomBarContainer', () => {
         it('should download the file if the status is finished', () => {
             const response = Object.assign({}, mockStatusResponse, {
                 status: 'finished',
-                url: 'http://www.google.com'
+                file_url: 'http://www.google.com'
             });
             const container = shallow(<BulkDownloadBottomBarContainer
                 {...mockRedux}
