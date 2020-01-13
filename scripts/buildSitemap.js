@@ -113,14 +113,16 @@ const buildIndividualSitemaps = () => {
                     const nestedPages = page.map((nestedPage) => axios({
                         method: nestedPage.method,
                         data: nestedPage.requestObject || null,
-                        url: nestedPage.url
+                        url: nestedPage.url,
+                        headers: { 'X-Requested-With': 'USASpendingFrontend' }
                     }));
                     return Promise.all([...nestedPages]);
                 }
                 return axios({
                     method: page.method,
                     data: page.requestObject || null,
-                    url: page.url
+                    url: page.url,
+                    headers: { 'X-Requested-With': 'USASpendingFrontend' }
                 });
             })
             .catch((e) => console.log("error", e))
