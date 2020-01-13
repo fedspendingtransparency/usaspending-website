@@ -248,12 +248,6 @@ export class NAICSContainer extends React.Component {
                         handleOnKeyDown={this.handleOnKeyDown}
                         isClearable
                         onClear={this.onClear} />
-                    {/* <NAICSSearch
-                        className="naics-search-container"
-                        selectedNAICS={this.props.selectedNAICS}
-                        dirtyFilters={this.dirtyFilters()}
-                        selectNAICS={this.selectNAICS}
-                        removeNAICS={this.removeNAICS} /> */}
                     {loadingDiv}
                     {noResultsDiv}
                     {errorDiv}
