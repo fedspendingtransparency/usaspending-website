@@ -5,7 +5,7 @@ const lodash = require('lodash');
 
 const pages = require('./pages');
 
-const hostNameByEnv = {
+const siteUrlByEnv = {
     prod: 'https://www.usaspending.gov',
     dev: 'https://www.dev.usaspending.gov'
 };
@@ -47,7 +47,7 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
 };
 
 const createRobots = () => {
-    const env = hostNameByEnv[process.argv[2]];
+    const env = siteUrlByEnv[process.argv[2]];
     fs.writeFile(
         path.resolve(__dirname, `../robots.txt`),
         `User-agent: * \nAllow: /\n\nSitemap: ${env}/sitemap.xml`,
@@ -153,7 +153,7 @@ const buildIndexedSitemap = (individualSiteMaps) => {
     const xml = individualSiteMaps
         .reduce((acc, pageName) => {
             return (
-                `${acc}<sitemap><loc>${hostNameByEnv[env]}/${pageName}.xml</loc></sitemap>`
+                `${acc}<sitemap><loc>${siteUrlByEnv[env]}/${pageName}.xml</loc></sitemap>`
             );
         }, '');
 
