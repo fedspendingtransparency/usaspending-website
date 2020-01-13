@@ -19,9 +19,9 @@ const xmlEnd = `</urlset>`;
 const forbiddenChars = ['&', "'", '"', '<', '>'];
 
 /**
- * @param xml string: of xml, previous xml entries from current sitemap
- * @param pageData array of objects: data w/ the url param needed to the page
- * @param pageInfo object: context for pageData; (a) how to access the url param & (b) what client route the page is associated with
+ * @param {string} xml string of xml, previous xml entries from current sitemap
+ * @param {Array.object} pageData data w/ the url param needed to the page
+ * @param {object} pageInfo context for pageData; (a) how to access the url param & (b) what client route the page is associated with
  */
 const createSitemapEntry = (xml, pageData, pageInfo) => {
     if (!pageData) return '';
