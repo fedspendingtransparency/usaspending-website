@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // eslint-disable-next-line import/prefer-default-export
 export const LoadingWrapper = ({
@@ -33,7 +34,10 @@ export const LoadingWrapper = ({
     if (isLoading) {
         return (
             // Not spending too much time w/ styles here, will have scope to improve later.
-            <h4 style={{ textAlign: 'center', flex: 1 }}>{`${msg}${dots}`}</h4>
+            <div className="page__loading">
+                <FontAwesomeIcon icon="spinner" spin size="lg" />
+                <h4>{`${msg}${dots}`}</h4>
+            </div>
         );
     }
 

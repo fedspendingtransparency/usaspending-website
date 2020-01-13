@@ -3,9 +3,20 @@
   @import "layouts/summary/summary";
   @import "layouts/default/stickyHeader/header";
   @import "layouts/tabbedSearch/header/downloadButton";
-  display: flex;
-  flex-direction: column;
+  @import "components/pageLoading";
+
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(center);
+  
   min-height: 100vh;
+  .sticky-header,
+  .site-header,
+  .award-content
+  .footer-container {
+    width: 100%;
+  }
+  
   // handling the invalid award id error message 
   .wrapper {
       min-height: 36vh;
@@ -20,6 +31,7 @@
       @import "mixins/fullSectionWrap";
       @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
       background-color: $color-white;
+      
       // Shared award summary styles
       .award {
           padding: rem(24) rem(30);
