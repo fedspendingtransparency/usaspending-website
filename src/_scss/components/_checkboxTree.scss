@@ -5,6 +5,9 @@
     .rct-node-icon {
       display: none;
     }
+    .rct-icon:focus {
+      outline: transparent;
+    }
     label:hover {
       background-color: transparent;
     }
