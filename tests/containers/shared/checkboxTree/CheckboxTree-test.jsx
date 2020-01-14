@@ -105,7 +105,7 @@ describe('CheckboxTree Component', () => {
             const container = shallow(<CheckboxTree {...props} />);
             container.instance().collapseNode = collapseNode;
             await container.instance().componentDidMount();
-            container.instance().onExpand(['21']);
+            await container.instance().onExpand(['21']);
             container.instance().onExpand([]);
             expect(collapseNode).toHaveBeenCalled();
         });
@@ -119,7 +119,7 @@ describe('CheckboxTree Component', () => {
     it('SetChildrenToLoading, should update the node with a loading label', async () => {
         const container = shallow(<CheckboxTree {...props} />);
         await container.instance().componentDidMount();
-        const nodes = container.instance().setChildrenToLoading(['data[0]']);
+        const nodes = await container.instance().setChildrenToLoading(['data[0]']);
         expect(nodes[0].children[0].value).toEqual('loading');
         expect(nodes[0].children[0].showCheckbox).toEqual(false);
         expect(typeof nodes[0].children[0].label).toEqual('object');
@@ -144,7 +144,7 @@ describe('CheckboxTree Component', () => {
             container.instance().createLabels = createLabels;
             container.instance().render = render;
             await container.instance().componentDidMount();
-            container.instance().expandNode(['11']);
+            await container.instance().expandNode(['11']);
             const { expanded } = container.instance().state;
             expect(setChildrenToLoading).toHaveBeenCalled();
             expect(expanded).toEqual(['11']);
@@ -156,7 +156,7 @@ describe('CheckboxTree Component', () => {
             container.instance().createLabels = createLabels;
             container.instance().render = render;
             await container.instance().componentDidMount();
-            container.instance().expandNode(['11']);
+            await container.instance().expandNode(['11']);
             const { expanded } = container.instance().state;
             // TODO - Figure out why this is being called
             // expect(setChildrenToLoading).not.toHaveBeenCalled();
