@@ -21,9 +21,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
 const propTypes = {
-    nodes: PropTypes.array,
+    data: PropTypes.array,
     icons: PropTypes.object,
-    nodeKeys: PropTypes.object,
+    nodeKeys: PropTypes.shape({
+        value: PropTypes.string,
+        label: PropTypes.string
+    }),
     isSearch: PropTypes.bool,
     searchText: PropTypes.string,
     modifyLabelTextClassname: PropTypes.string,
@@ -34,7 +37,6 @@ const propTypes = {
     setRedux: PropTypes.func,
     updateRedux: PropTypes.func,
     limit: PropTypes.number,
-    fromRedux: PropTypes.bool,
     expanded: PropTypes.array,
     checked: PropTypes.array
 };
@@ -57,7 +59,7 @@ export default class CheckboxTree extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.nodes, this.props.nodes)) {
+        if (!isEqual(prevProps.data, this.props.data)) {
             this.updateNode();
         }
     }
@@ -158,11 +160,11 @@ export default class CheckboxTree extends Component {
         if ((!node.children || isEmpty(node.children[0])) && !isSearch) {
             const newNodes = this.setChildrenToLoading(nodePathString);
             this.setState({ expanded: newExpandedArray, nodes: newNodes });
+            return this.props.onExpand(node, newExpandedArray, true);
         }
-        else { // we already have data for the children
-            this.setState({ expanded: newExpandedArray });
-        }
-        return this.props.onExpand ? this.props.onExpand(node, newExpandedArray) : null;
+        // we already have data for the children
+        this.setState({ expanded: newExpandedArray });
+        return this.props.onExpand(node, newExpandedArray, false);
     };
     /**
      * collapseNode
@@ -182,16 +184,24 @@ export default class CheckboxTree extends Component {
     createNodes = () => {
         const {
             nodeKeys,
-            nodes,
+            data,
             limit,
             setRedux,
             isSearch
         } = this.props;
-        if (isSearch) return this.handleSearch(nodes);
-        const newNodes = createCheckboxTreeDataStrucure(limit, nodeKeys, nodes);
+        if (isSearch) return this.handleSearch(data);
+        const newNodes = createCheckboxTreeDataStrucure(limit, nodeKeys, data);
         this.setState({ nodes: newNodes, requestType: '' });
         return (setRedux && newNodes.length) ? setRedux(newNodes) : null;
     }
+
+    isCleanData = (data) => data.every((node) => {
+        const keys = Object.keys(node);
+        if (!keys.includes('value')) return false;
+        if (!keys.includes('label')) return false;
+        // if (!keys.includes('path')) return false;
+        return true;
+    });
     /**
      * updateNode
      * This will add new data to the nodes array and set the nodes
@@ -201,23 +211,23 @@ export default class CheckboxTree extends Component {
     updateNode = () => {
         const {
             nodeKeys,
-            nodes,
+            data,
             expanded,
             checked,
             limit,
-            fromRedux,
             updateRedux
         } = this.props;
-        if (fromRedux) {
+        const isCleanData = this.isCleanData(data);
+        if (isCleanData) {
             return this.setState({
-                nodes,
+                nodes: data,
                 expanded,
                 checked,
                 requestType: ''
             });
         }
         // path to node
-        const nodePathString = this.pathToNodeString(nodes[0][nodeKeys.value]);
+        const nodePathString = this.pathToNodeString(data[0][nodeKeys.value]);
         const nodesObject = this.createNodesObject();
         /**
          * We pass the node from state since that already has been updated with a path property
@@ -228,7 +238,7 @@ export default class CheckboxTree extends Component {
         const newNode = createCheckboxTreeDataStrucure(
             limit,
             nodeKeys,
-            nodes,
+            data,
             false,
             originalNode
         );

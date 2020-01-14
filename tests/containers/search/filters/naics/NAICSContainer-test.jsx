@@ -46,13 +46,11 @@ describe('NAICS Search Filter Container', () => {
         const {
             isSearch,
             searchString,
-            naics,
-            fromRedux
+            naics
         } = container.instance().state;
         expect(isSearch).toEqual(false);
         expect(searchString).toEqual('');
         expect(Array.isArray(naics)).toEqual(true);
-        expect(fromRedux).toEqual(true);
     });
     describe('Handle Text Input Change', () => {
         it('should update state when no search text', () => {
@@ -111,7 +109,6 @@ describe('NAICS Search Filter Container', () => {
         expect(state.naics).toEqual(naics);
         expect(state.expanded).toEqual(expanded);
         expect(state.checked).toEqual(checked);
-        expect(state.fromRedux).toEqual(true);
     });
     describe('FecthNaics', () => {
         it('should set property nodes in state to API response', async () => {
@@ -131,7 +128,7 @@ describe('NAICS Search Filter Container', () => {
             expect(requestType).toEqual('');
         });
         it('should set properties isError and errorMessage from API response', async () => {
-            const container = shallow(<NAICSContainer />);
+            const container = shallow(<NAICSContainer {...emptyNAICSProps} />);
             await container.instance().fetchNAICS(true);
             const {
                 naics,
@@ -143,14 +140,6 @@ describe('NAICS Search Filter Container', () => {
             expect(isLoading).toEqual(false);
             expect(isError).toEqual(true);
             expect(errorMessage).toEqual('Bad');
-        });
-        it('should set fromRedux property to false when true', async () => {
-            const newProps = { ...emptyNAICSProps };
-            newProps.nodes = new List(naicsMockCleanData);
-            const container = shallow(<NAICSContainer {...newProps} />);
-            await container.instance().componentDidMount();
-            await container.instance().fetchNAICS();
-            expect(container.instance().state.fromRedux).toEqual(false);
         });
     });
 });

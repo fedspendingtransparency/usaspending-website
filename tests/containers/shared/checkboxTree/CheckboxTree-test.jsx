@@ -22,7 +22,7 @@ const emptyNodes = {
 };
 
 const props = {
-    nodes: naicsMockInitialLoadApiResponse,
+    data: naicsMockInitialLoadApiResponse,
     nodeKeys: {
         value: 'naics',
         label: 'naics_description'
@@ -38,7 +38,6 @@ const props = {
     setRedux: jest.fn(),
     updateRedux: jest.fn(),
     limit: 3,
-    fromRedux: false,
     expanded: [],
     checked: []
 };
@@ -64,7 +63,6 @@ describe('CheckboxTree Component', () => {
     });
     it('ComponentDidUpdate, should call createNodes when new nodes are passed', async () => {
         const newProps = { ...props };
-        newProps.fromRedux = true;
         const container = shallow(<CheckboxTree {...newProps} />);
         container.instance().updateNode = updateNode;
         await container.instance().componentDidUpdate(emptyNodes);
@@ -177,10 +175,9 @@ describe('CheckboxTree Component', () => {
         expect(container.instance().props.onCollapse).toHaveBeenCalled();
     });
     describe('Update Node', () => {
-        it('should update state when receiving data from redux', async () => {
+        it('should update state when receiving clean data', async () => {
             const newProps = { ...props };
-            newProps.fromRedux = true;
-            newProps.nodes = naicsMockCleanDataInitialLoad;
+            newProps.data = naicsMockCleanDataInitialLoad;
             newProps.expanded = ['11'];
             newProps.checked = ['11'];
             const container = shallow(<CheckboxTree {...newProps} />);

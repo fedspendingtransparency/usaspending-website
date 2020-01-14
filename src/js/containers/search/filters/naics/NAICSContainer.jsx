@@ -46,8 +46,7 @@ export class NAICSContainer extends React.Component {
             isLoading: false,
             isSearch: false,
             searchString: '',
-            requestType: 'initial',
-            fromRedux: false
+            requestType: 'initial'
         };
     }
 
@@ -60,19 +59,26 @@ export class NAICSContainer extends React.Component {
     }
 
     onSearchChange = debounce(() => {
-        this.setState({ requestType: 'search' }, this.fetchNAICS);
+        if (!this.state.searchString) return this.onClear();
+        return this.setState({ requestType: 'search' }, this.fetchNAICS);
     }, 500);
 
-    onClear = () => this.setState({
-        isSearch: false,
-        searchString: '',
-        naics: this.props.nodes.toJS(),
-        fromRedux: true
-    });
+    onClear = () => {
+        const { nodes, expanded, checked } = this.props;
+        if (this.request) this.request.cancel();
+        this.setState({
+            isSearch: false,
+            searchString: '',
+            naics: nodes.toJS(),
+            expanded: expanded.toJS(),
+            checked: checked.toJS(),
+            isLoading: false,
+            requestType: ''
+        });
+    }
 
-
-    onExpand = (node, expanded) => {
-        this.fetchNAICS(node.value);
+    onExpand = (node, expanded, fetch) => {
+        if (fetch) this.fetchNAICS(node.value);
         this.props.setExpanded(expanded);
     };
 
@@ -87,14 +93,15 @@ export class NAICSContainer extends React.Component {
             naics: naics.toJS(),
             expanded: expanded.toJS(),
             checked: checked.toJS(),
-            requestType: '',
-            fromRedux: true
+            requestType: ''
         });
     }
 
     handleTextInputChange = (e) => {
         const text = e.target.value;
-        if (!text) return this.setState({ searchString: '', isSearch: false });
+        if (!text) {
+            return this.onClear();
+        }
         return this.setState({ searchString: text, isSearch: true }, this.onSearchChange);
     };
 
@@ -104,7 +111,6 @@ export class NAICSContainer extends React.Component {
         if (this.request) this.request.cancel();
         const {
             requestType,
-            fromRedux,
             isSearch,
             searchString
         } = this.state;
@@ -114,7 +120,6 @@ export class NAICSContainer extends React.Component {
         if (requestType === 'initial' || requestType === 'search') {
             this.setState({ isLoading: true });
         }
-        if (fromRedux) this.setState({ fromRedux: false });
 
         this.request = naicsRequest(param || searchParam);
         try {
@@ -133,7 +138,7 @@ export class NAICSContainer extends React.Component {
                 this.setState({
                     isError: true,
                     errorMessage: e.message,
-                    naics: [],
+                    naics: this.props.nodes.toJS(),
                     isLoading: false,
                     requestType: ''
                 });
@@ -206,15 +211,13 @@ export class NAICSContainer extends React.Component {
             naics,
             expanded,
             checked,
-            fromRedux,
             searchString
         } = this.state;
         if (isLoading || isError) return null;
         return (
             <CheckboxTree
-                fromRedux={fromRedux}
                 limit={3}
-                nodes={naics}
+                data={naics}
                 expanded={expanded}
                 checked={checked}
                 nodeKeys={nodeKeys}
