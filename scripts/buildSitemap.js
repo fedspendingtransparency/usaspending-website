@@ -148,11 +148,10 @@ const buildIndividualSitemaps = () => {
 };
 
 const buildIndexedSitemap = (individualSiteMaps) => {
-    const env = process.argv[2];
     const xml = individualSiteMaps
         .reduce((acc, pageName) => {
             return (
-                `${acc}<sitemap><loc>${siteUrl[env]}/${pageName}.xml</loc></sitemap>`
+                `${acc}<sitemap><loc>${siteUrl}/${pageName}.xml</loc></sitemap>`
             );
         }, '');
 
