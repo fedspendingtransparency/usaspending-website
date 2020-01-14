@@ -5,6 +5,7 @@ const tooltipsBySectionByAwardType = {
     description: {
         asst: tooltips.descriptionInfoAsst,
         contract: tooltips.descriptionInfoContract,
+        idv: tooltips.descriptionInfoContract,
         default: tooltips.descriptionInfo
     },
     awardHistory: {
