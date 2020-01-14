@@ -97,7 +97,7 @@
                 .checkbox-tree-label__value-container-count {
                   padding: rem(1.5) rem(7);
                   border-radius: 3px;
-                  color: $color-gray-light;
+                  color: $color-gray-medium;
                   font-style: italic;
                   font-size: rem(12);
                   .highlight {
@@ -108,6 +108,7 @@
               .checkbox-tree-label__label {
                 @include flex-basis(100%);
                 font-weight: $font-semibold;
+                line-height: rem(18);
                 .highlight {
                   background-color: rgb(252, 227, 160);
                 }
