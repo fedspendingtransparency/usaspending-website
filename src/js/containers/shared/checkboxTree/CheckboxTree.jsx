@@ -199,7 +199,7 @@ export default class CheckboxTree extends Component {
         const keys = Object.keys(node);
         if (!keys.includes('value')) return false;
         if (!keys.includes('label')) return false;
-        // if (!keys.includes('path')) return false;
+        if (!keys.includes('path')) return false;
         return true;
     });
     /**
