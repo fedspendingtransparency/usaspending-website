@@ -193,7 +193,7 @@ export class BulkDownloadPageContainer extends React.Component {
 
         this.request.promise
             .then((res) => {
-                this.props.setDownloadExpectedUrl(res.data.url);
+                this.props.setDownloadExpectedUrl(res.data.file_url);
                 this.props.setDownloadExpectedFile(res.data.file_name);
                 this.props.setDownloadPending(true);
             })

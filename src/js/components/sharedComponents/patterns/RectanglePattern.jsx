@@ -16,6 +16,7 @@ const RectanglePattern = ({
     patternProps,
     rectangles
 }) => {
+    if (!patternProps || !rectangles) return null;
     const {
         id,
         width,
