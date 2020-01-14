@@ -91,7 +91,7 @@ export default class CheckboxTree extends Component {
      * @param {number} path - the path of the node to update
      * @returns {Array.<object>} - new array of nodes
      */
-    setChildrenToLoading = (path) => {
+    setChildrenToLoading = async (path) => {
         let nodePath = path;
         /**
          * The path specifies the path to that distinct node. We are adding the
@@ -137,7 +137,7 @@ export default class CheckboxTree extends Component {
      * with a loading object if we have no child data for that node.
      * @param {array} newExpandedArray - array with the newly expanded value
      */
-    expandNode = (newExpandedArray) => {
+    expandNode = async (newExpandedArray) => {
         const { expanded } = this.state;
         const { isSearch } = this.props;
         if (isSearch) return this.setState({ expanded: newExpandedArray });
@@ -158,7 +158,7 @@ export default class CheckboxTree extends Component {
          * we will set the child to a loading div
          */
         if ((!node.children || isEmpty(node.children[0])) && !isSearch) {
-            const newNodes = this.setChildrenToLoading(nodePathString);
+            const newNodes = await this.setChildrenToLoading(nodePathString);
             this.setState({ expanded: newExpandedArray, nodes: newNodes });
             return this.props.onExpand(node, newExpandedArray, true);
         }
