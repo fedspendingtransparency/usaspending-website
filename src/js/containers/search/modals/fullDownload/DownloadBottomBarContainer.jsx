@@ -112,7 +112,7 @@ export class DownloadBottomBarContainer extends React.Component {
         this.request.promise
             .then((res) => {
                 this.props.setDownloadExpectedFile(res.data.file_name);
-                this.props.setDownloadExpectedUrl(res.data.url);
+                this.props.setDownloadExpectedUrl(res.data.file_url);
                 this.checkStatus();
             })
             .catch((err) => {
@@ -171,7 +171,7 @@ export class DownloadBottomBarContainer extends React.Component {
     parseStatus(data) {
         if (data.status === 'finished') {
             // download is ready
-            this.downloadFile(data.url);
+            this.downloadFile(data.file_url);
             return;
         }
         else if (data.status === 'failed') {
@@ -211,12 +211,12 @@ export class DownloadBottomBarContainer extends React.Component {
         });
     }
 
-    downloadFile(url) {
+    downloadFile(fileUrl) {
         // stop monitoring for window close events
         window.removeEventListener('beforeunload', this.windowWillClose);
 
         // start the download
-        window.open(url, '_self');
+        window.open(fileUrl, '_self');
 
         // update redux
         this.props.resetDownload();

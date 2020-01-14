@@ -111,7 +111,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     parseStatus(data) {
         if (data.status === 'finished') {
             // download is ready
-            this.downloadFile(data.url);
+            this.downloadFile(data.file_url);
             return;
         }
         else if (data.status === 'failed') {
