@@ -76,6 +76,22 @@ const CoreLocation = {
         // if neither province or foreign zip exist do not show comma;
         return city;
     },
+    get recipientRegionalAddressContractsAndIDV() {
+        const city = this._city || '--';
+        const state = this._stateCode || '--';
+        if (this._countryCode === 'USA'
+            || this._countryCode === 'UNITED STATES'
+            || this._country === 'UNITED STATES') {
+            const zip = this._zip || '--';
+            return `${city}, ${state} ${zip}`;
+        }
+        const province = this._province || '';
+        const fZip = this._zip || '';
+        // if province or foreign zip exist show comma
+        if (province || fZip) return `${city}, ${state} ${fZip}`;
+        // if neither province or foreign zip exist do not show comma;
+        return city;
+    },
     get countyAndState() {
         const county = this._county ? `${this._county} County` : '--';
         const stateCode = this._stateCode ? `${this._stateCode} ` : '--';
