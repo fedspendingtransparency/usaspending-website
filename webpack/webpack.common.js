@@ -104,6 +104,11 @@ module.exports = {
                 from: '*.xml',
                 to: path.resolve(__dirname, "../public"),
                 context: path.resolve(__dirname, '../')
+            },
+            {
+                from: 'robots.txt',
+                to: path.resolve(__dirname, "../public"),
+                context: path.resolve(__dirname, '../')
             }
         ])
     ]
