@@ -20,6 +20,7 @@ import bulkDownloadReducer from './bulkDownload/bulkDownloadReducer';
 import redirectModalReducer from './redirectModal/redirectModalReducer';
 import stateReducer from './state/stateReducer';
 import searchSubAwardTableReducer from './search/searchSubAwardTableReducer';
+import { naicsReducer } from './search/naicsReducer/naicsReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -36,7 +37,8 @@ const appReducer = combineReducers({
     bulkDownload: bulkDownloadReducer,
     redirectModal: redirectModalReducer,
     stateProfile: stateReducer,
-    searchSubAwardTable: searchSubAwardTableReducer
+    searchSubAwardTable: searchSubAwardTableReducer,
+    naics: naicsReducer
 });
 
 export default appReducer;

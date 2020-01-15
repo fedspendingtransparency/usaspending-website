@@ -5,6 +5,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faAngleDown,
     faAngleRight,
+    faBan,
     faBook,
     faBuilding,
     faCalendarAlt,
@@ -47,6 +48,7 @@ require('helpers/rafPolyfill');
 library.add(
     faAngleDown,
     faAngleRight,
+    faBan,
     faBook,
     faBuilding,
     faCalendarAlt,
