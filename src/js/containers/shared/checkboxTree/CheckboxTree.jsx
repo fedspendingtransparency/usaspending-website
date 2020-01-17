@@ -126,9 +126,9 @@ export default class CheckboxTree extends Component {
      * @returns {null}
      */
     checkedNode = (checked, node) => {
-        const { onCheck } = this.props;
+        const { onCheck, isSearch } = this.props;
         this.setState({ checked });
-        if (onCheck) onCheck(checked);
+        if (onCheck && !isSearch) onCheck(checked);
     }
     /**
      * unCheckedNode
@@ -138,9 +138,9 @@ export default class CheckboxTree extends Component {
      * @returns {null}
      */
     unCheckedNode = (checked, node) => {
-        const { onCheck } = this.props;
+        const { onCheck, isSearch } = this.props;
         this.setState({ checked });
-        if (onCheck) onCheck(checked);
+        if (onCheck && !isSearch) onCheck(checked);
     }
     /**
      * pathToNodeString
@@ -247,7 +247,8 @@ export default class CheckboxTree extends Component {
             checked,
             limit,
             updateRedux,
-            onCheck
+            onCheck,
+            isSearch
         } = this.props;
         const isCleanData = this.isCleanData(data);
         if (isCleanData) {
@@ -290,7 +291,7 @@ export default class CheckboxTree extends Component {
         set(nodesObject, nodePathString, newNode[0]);
         this.setState({ nodes: nodesObject.data, checked: currentlyChecked });
         if (updateRedux) updateRedux(nodesObject.data);
-        return onCheck ? onCheck(currentlyChecked) : null;
+        return (onCheck && !isSearch) ? onCheck(currentlyChecked) : null;
     }
     /**
      * handleSearch
