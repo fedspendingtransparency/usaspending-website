@@ -154,4 +154,18 @@ const BaseAwardAmounts = {
     }
 };
 
+BaseAwardAmounts.getNonCombinedIdvAmounts = function getNonCombinedIdvAmounts(data) {
+    /*
+        * Award amounts for idv's are special...
+        * This fn is used to get the award amounts for the idv itself.
+        * The above handles the more ordinary and complex case:
+        * when we want the aggregated amounts across all child and grand child awards.
+        * This guy is composed w/ populate (after populate) to overwrite the award-amount 
+        * integer values from the summed/combined amount, the the non-combined amount. 👍
+    */
+    this._totalObligation = data._totalObligation;
+    this._baseExercisedOptions = data._baseExercisedOptions;
+    this._baseAndAllOptions = data._baseAndAllOptions;
+};
+
 export default BaseAwardAmounts;
