@@ -24,6 +24,7 @@ const propTypes = {
     appliedNAICS: PropTypes.object,
     setNaics: PropTypes.func,
     setExpanded: PropTypes.func,
+    setChecked: PropTypes.func,
     nodes: PropTypes.object,
     expanded: PropTypes.object,
     checked: PropTypes.object
@@ -85,6 +86,16 @@ export class NAICSContainer extends React.Component {
     onCollapse = (expanded) => {
         this.props.setExpanded(expanded);
     };
+    /**
+     * onCheck
+     * - updates redux checked and updates naics search filters in redux
+     * @param {string[]} checked - and array of checked values
+     * @returns {null}
+     */
+    onCheck = (checked) => {
+        console.log(' Calling Check Redux ');
+        this.props.setChecked(checked);
+    }
 
     setRedux = (naics) => this.props.setNaics(naics);
 

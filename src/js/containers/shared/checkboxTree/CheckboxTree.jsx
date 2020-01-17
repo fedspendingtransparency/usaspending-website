@@ -13,7 +13,8 @@ import {
     createCheckboxTreeDataStrucure,
     pathToNode,
     buildNodePath,
-    expandedFromSearch
+    expandedFromSearch,
+    allChildValues
 } from 'helpers/checkboxTreeHelper';
 import { treeIcons } from 'dataMapping/shared/checkboxTree/checkboxTree';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -78,12 +79,18 @@ export default class CheckboxTree extends Component {
     };
     /**
      * onCheck
-     * (react-checkbox-tree calls this function when a user selects a node)
+     * - (react-checkbox-tree calls this function when a user selects a node)
+     * @param {*[]} checked - array of checked values
+     * @param {object} node - the checked node
+     * @returns {null}
      */
-    onCheck = (checked) => {
-        // TODO - need to get the difference between checked and uncheck
-        this.setState({ checked });
-        // if (this.props.onCheck) this.props.onCheck();
+    onCheck = (checked, node) => {
+        if (this.state.checked.length < checked.length) {
+            this.checkedNode(checked, node);
+        }
+        else { // unchecked
+            this.unCheckedNode(checked, node);
+        }
     }
     /**
      * setChildrenToLoading
@@ -110,6 +117,30 @@ export default class CheckboxTree extends Component {
             showCheckbox: false
         }]);
         return newNodes.data;
+    }
+    /**
+     * checkedNode
+     * - updates state and calls prop onCheck
+     * @param {*[]} checked - array of checked values
+     * @param {object} node - the checked node
+     * @returns {null}
+     */
+    checkedNode = (checked, node) => {
+        const { onCheck } = this.props;
+        this.setState({ checked });
+        if (onCheck) onCheck(checked);
+    }
+    /**
+     * unCheckedNode
+     * - updates state and calls prop onCheck
+     * @param {*[]} checked - array of checked values
+     * @param {object} node - the checked node
+     * @returns {null}
+     */
+    unCheckedNode = (checked, node) => {
+        const { onCheck } = this.props;
+        this.setState({ checked });
+        if (onCheck) onCheck(checked);
     }
     /**
      * pathToNodeString
@@ -157,7 +188,7 @@ export default class CheckboxTree extends Component {
          * do this to get the caret to show when there is a count)
          * we will set the child to a loading div
          */
-        if ((!node.children || isEmpty(node.children[0])) && !isSearch) {
+        if ((!node.children || node.children[0].fake) && !isSearch) {
             const newNodes = await this.setChildrenToLoading(nodePathString);
             this.setState({ expanded: newExpandedArray, nodes: newNodes });
             return this.props.onExpand(node, newExpandedArray, true);
@@ -215,7 +246,8 @@ export default class CheckboxTree extends Component {
             expanded,
             checked,
             limit,
-            updateRedux
+            updateRedux,
+            onCheck
         } = this.props;
         const isCleanData = this.isCleanData(data);
         if (isCleanData) {
@@ -242,10 +274,23 @@ export default class CheckboxTree extends Component {
             false,
             originalNode
         );
+        /**
+         * When the parent has been checked. We must check all children
+         */
+        const { checked: currentlyChecked } = this.state;
+        const childPlaceholder = `${originalNode.value}childPlaceholder`;
+        if (currentlyChecked.includes(childPlaceholder)) {
+            const index = currentlyChecked.findIndex((info) => info === childPlaceholder);
+            // get all child values
+            const childValues = allChildValues(newNode[0].children);
+            // add child values to array
+            currentlyChecked.splice(index, 1, ...childValues);
+        }
         // set the new node in the respective position
         set(nodesObject, nodePathString, newNode[0]);
-        this.setState({ nodes: nodesObject.data });
-        return updateRedux ? updateRedux(nodesObject.data) : null;
+        this.setState({ nodes: nodesObject.data, checked: currentlyChecked });
+        if (updateRedux) updateRedux(nodesObject.data);
+        return onCheck ? onCheck(currentlyChecked) : null;
     }
     /**
      * handleSearch
@@ -335,6 +380,9 @@ export default class CheckboxTree extends Component {
             <div className="checkbox-tree">
                 <CheckBoxTree
                     nodes={labeledNodes}
+                    // checkModel="all"
+                    // // noCascade
+                    // // optimisticToggle
                     checked={checked}
                     expanded={expanded}
                     onCheck={this.onCheck}

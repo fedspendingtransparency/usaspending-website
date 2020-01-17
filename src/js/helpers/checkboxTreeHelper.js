@@ -82,7 +82,11 @@ export const updateChildren = (params) => {
      * array with one empty object to get the expand caret to show.
      */
     if ((newNode.count > 0 && !newNode.children) && !isSearch) {
-        newNode.children = [{}];
+        newNode.children = [{
+            value: `${newNode.value}childPlaceholder`,
+            label: 'Placeholder Child',
+            fake: true
+        }];
         return newNode;
     }
     return newNode;
@@ -159,7 +163,8 @@ export const createCheckboxTreeDataStrucure = (
     };
     newNode = updateChildren(childParams);
     // Step 4 - Map Child Data
-    if ((newNode.count > 0) && newNode.children && !isEmpty(newNode.children[0])) {
+    // if ((newNode.count > 0) && newNode.children && !isEmpty(newNode.children[0])) {
+    if ((newNode.count > 0) && newNode.children && !newNode.children[0].fake) {
         newNode.children = createCheckboxTreeDataStrucure(
             limit,
             keysToBeMapped,
@@ -199,7 +204,7 @@ export const expandedFromSearch = (
     );
     /**
      * expandedFunc
-     * - recursively loops through nodes updating an array with the value of the node if is has
+     * - recursively loops through nodes updating an array with the value of children
      * a children property
      * @param {array} theNodes - an array of nodes
      * @param {array} expanded - an array of expanded values
@@ -227,6 +232,44 @@ export const expandedFromSearch = (
     // flattens and removes any null values
     const expandedArray = compact(flattenDeep(expanded));
     return { updatedNodes: newNodes, expanded: expandedArray };
+};
+/**
+ * allChildValues
+ * - gets all child values
+ * @param {object[]} nodes - nodes to traverse
+ * @returns {*[]} - an array of values
+ */
+export const allChildValues = (nodes) => {
+    /**
+     * valueFunc
+     * - recursively loops through nodes updating an array with the value of the node if is has
+     * a children property
+     * @param {array} theNodes - an array of nodes
+     * @param {array} arrayOfValues - an array of values
+     * @returns {array} - an array of values
+     */
+    const valueFunc = (theNodes, arrayOfValues) => {
+        const checkedValues = arrayOfValues;
+        theNodes.forEach((node) => {
+            const newNode = node;
+            checkedValues.push(newNode.value);
+            if (newNode.children) {
+                const childValues = newNode.children.map((child) => child.value);
+                checkedValues.push(childValues);
+                newNode.forEach((childNode) => valueFunc(childNode, checkedValues));
+            }
+        });
+        return checkedValues;
+    };
+    // maps nodes to an array of expanded values
+    const values = nodes.map((node) => {
+        const newNode = node;
+        if (newNode.children) return [newNode.value, ...valueFunc(newNode.children, [])];
+        return [newNode.value];
+    });
+    // flattens and removes any null values
+    const valuesArray = compact(flattenDeep(values));
+    return valuesArray;
 };
 /**
  * pathToNode
