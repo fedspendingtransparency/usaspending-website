@@ -33,7 +33,7 @@ export const AddresskeysByAwardType = {
     nonFinancialAssistanceForeign: [
         'streetAddress1',
         '_address2',
-        'recipientRegionalAddress',
+        'recipientRegionalAddressContractsAndIDV',
         'countryName'
     ],
     redactedDueToPIIDomestic: ['recipientRegionalAddress', 'recipientCongressionalDistrict', 'countryName'],
