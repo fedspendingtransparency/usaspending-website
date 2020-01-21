@@ -85,10 +85,10 @@ const CoreLocation = {
             const zip = this._zip || '--';
             return `${city}, ${state} ${zip}`;
         }
-        const province = this._province || '';
+        const fState = this._state || '';
         const fZip = this._zip || '';
         // if province or foreign zip exist show comma
-        if (province || fZip) return `${city}, ${state} ${fZip}`;
+        if (fState || fZip) return `${city}, ${state} ${fZip}`;
         // if neither province or foreign zip exist do not show comma;
         return city;
     },
