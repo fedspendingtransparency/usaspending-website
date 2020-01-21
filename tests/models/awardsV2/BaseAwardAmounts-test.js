@@ -37,9 +37,18 @@ const extremeOverspending = {
     grandchild_award_total_obligation: 5000000
 };
 
+const awardAmountsNonCombined = Object.create(BaseAwardAmounts);
+const nonCombinedSpendingIdv = {
+    base_exercised_options: 0.0,
+    base_and_all_options: 0.0,
+    total_obligation: 0.0
+};
+
 awardAmountsNeg.populate(negativeObligation, "idv");
 awardAmountsOverspent.populate(overspending, "idv");
 awardAmountsExtremeOverspent.populate(extremeOverspending, "idv");
+awardAmountsNonCombined.populate(overspending, "idv");
+awardAmountsNonCombined.getNonCombinedIdvAmounts(nonCombinedSpendingIdv);
 
 describe('BaseAwardAmounts', () => {
     describe('IDV Award Type', () => {
@@ -84,6 +93,14 @@ describe('BaseAwardAmounts', () => {
         });
         it('should format the amount overspent with units', () => {
             expect(awardAmountsOverspent.overspendingAbbreviated).toEqual('$2.5 M');
+        });
+        it('should successfully return spending data for the IDV itself (non-combined)', () => {
+            expect(awardAmountsNonCombined.baseExercisedOptionsFormatted).toEqual('$0.00');
+            expect(awardAmountsNonCombined.totalObligationFormatted).toEqual('$0.00');
+            expect(awardAmountsNonCombined.baseAndAllOptionsFormatted).toEqual('$0.00');
+            expect(awardAmountsNonCombined.overspendingFormatted).toEqual('$0.00');
+            expect(awardAmountsNonCombined.extremeOverspendingFormatted).toEqual('$0.00');
+
         });
     });
     /*
