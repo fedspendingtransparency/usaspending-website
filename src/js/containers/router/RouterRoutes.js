@@ -252,6 +252,16 @@ const routes = {
                     cb(require('containers/recipient/RecipientContainer').default);
                 });
             }
+        },
+        {
+            path: '/recipient/:recipientId/:fy',
+            parent: '/recipient',
+            addToSitemap: false,
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/recipient/RecipientContainer').default);
+                });
+            }
         }
     ],
     notFound: {
