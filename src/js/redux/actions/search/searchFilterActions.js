@@ -38,7 +38,6 @@ export const clearAllFilters = () => ({
 });
 
 // Location Filter
-
 export const updateSelectedLocations = (state) => ({
     type: 'UPDATE_SELECTED_LOCATIONS',
     location: state.location
@@ -60,7 +59,6 @@ export const addRecipientLocationObject = (state) => ({
 });
 
 // Agency Filter
-
 export const updateSelectedAwardingAgencies = (state) => ({
     type: 'UPDATE_SELECTED_AWARDING_AGENCIES',
     agency: state.agency
@@ -72,7 +70,6 @@ export const updateSelectedFundingAgencies = (state) => ({
 });
 
 // Recipient Filter
-
 export const updateSelectedRecipients = (state) => ({
     type: 'UPDATE_SELECTED_RECIPIENTS',
     recipient: state
@@ -123,58 +120,52 @@ export const bulkAwardTypeChange = (state) => ({
 });
 
 // Award Amount Filter
-
 export const updateAwardAmounts = (state) => ({
     type: 'UPDATE_AWARD_AMOUNTS',
     awardAmounts: state
 });
 
-
 // CFDA Filter
-
 export const updateSelectedCFDA = (state) => ({
     type: 'UPDATE_SELECTED_CFDA',
     cfda: state.cfda
 });
 
 // NAICS Filter
-
+export const updateNaics = (naics) => ({
+    type: 'UPDATE_NAICS',
+    naics
+});
 export const updateSelectedNAICS = (state) => ({
     type: 'UPDATE_SELECTED_NAICS',
     naics: state.naics
 });
 
 // PSC Filter
-
 export const updateSelectedPSC = (state) => ({
     type: 'UPDATE_SELECTED_PSC',
     psc: state.psc
 });
 
 // Contract Pricing Type Filter
-
 export const updatePricingType = (state) => ({
     type: 'UPDATE_PRICING_TYPE',
     pricingType: state
 });
 
 // Contract Set-Aside Filter
-
 export const updateSetAside = (state) => ({
     type: 'UPDATE_SET_ASIDE',
     setAside: state
 });
 
 // Contract Extent Competed Filter
-
 export const updateExtentCompeted = (state) => ({
     type: 'UPDATE_EXTENT_COMPETED',
     extentCompeted: state
 });
 
-
 // Generic
-
 export const setSearchOrder = (state) => ({
     type: 'SET_SEARCH_ORDER',
     field: state.field,

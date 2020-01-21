@@ -37,6 +37,7 @@ class SearchAwardsOperation {
         this.selectedAwardIDs = [];
 
         this.selectedCFDA = [];
+        this.naics = [];
         this.selectedNAICS = [];
         this.selectedPSC = [];
 
@@ -77,6 +78,7 @@ class SearchAwardsOperation {
         this.selectedAwardIDs = state.selectedAwardIDs.toArray();
 
         this.selectedCFDA = state.selectedCFDA.toArray();
+        this.naics = state.naics.toJS();
         this.selectedNAICS = state.selectedNAICS.toArray();
         this.selectedPSC = state.selectedPSC.toArray();
 
@@ -267,6 +269,10 @@ class SearchAwardsOperation {
         }
 
         // Add NAICS
+        if (this.naics.length > 0) {
+            console.log(' NAICS : ', this.naics);
+            filters[rootKeys.naics] = this.naics;
+        }
         if (this.selectedNAICS.length > 0) {
             filters[rootKeys.naics] = this.selectedNAICS.map((naics) => naics.naics);
         }

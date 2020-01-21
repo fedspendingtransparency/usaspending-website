@@ -7,21 +7,20 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { is } from 'immutable';
-import { debounce } from 'lodash';
+import { debounce, get, cloneDeep } from 'lodash';
 import { isCancel } from 'axios';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import { naicsRequest } from 'helpers/naicsHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import { setNaics, setExpanded, setChecked } from 'redux/actions/search/naicsActions';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
+import SelectedNaic from 'components/search/filters/naics/SelectNaic';
+import { pathToNode, buildNodePath } from 'helpers/checkboxTreeHelper';
 
 const propTypes = {
-    updateSelectedNAICS: PropTypes.func,
-    selectedNAICS: PropTypes.object,
-    appliedNAICS: PropTypes.object,
+    updateNaics: PropTypes.func,
     setNaics: PropTypes.func,
     setExpanded: PropTypes.func,
     setChecked: PropTypes.func,
@@ -93,8 +92,8 @@ export class NAICSContainer extends React.Component {
      * @returns {null}
      */
     onCheck = (checked) => {
-        console.log(' Calling Check Redux ');
         this.props.setChecked(checked);
+        this.props.updateNaics(this.cleanCheckedValues(checked));
     }
 
     setRedux = (naics) => this.props.setNaics(naics);
@@ -107,7 +106,21 @@ export class NAICSContainer extends React.Component {
             requestType: ''
         });
     }
-
+    /**
+     * cleanCheckedValues
+     * - removes and values that have childPlaceholder
+     * @param {string[]} checked - array of strings
+     * @returns {string[]} - an array of strings
+     */
+    cleanCheckedValues = (checked) => {
+        const placeholder = 'childPlaceholder';
+        return checked.map((value) => {
+            if (value.includes(placeholder)) {
+                return value.replace(placeholder, '');
+            }
+            return value;
+        });
+    };
     handleTextInputChange = (e) => {
         const text = e.target.value;
         if (!text) {
@@ -156,28 +169,6 @@ export class NAICSContainer extends React.Component {
             }
         }
     };
-
-    selectNAICS = (naics, isValid) => {
-        // If naics exists and is valid
-        if (naics !== null && isValid) {
-            const updateParams = {};
-            updateParams.naics = naics;
-            this.props.updateSelectedNAICS(updateParams);
-        }
-    }
-
-    removeNAICS = (naics) => {
-        const updateParams = {};
-        updateParams.naics = naics;
-        this.props.updateSelectedNAICS(updateParams);
-    }
-
-    dirtyFilters = () => {
-        if (is(this.props.selectedNAICS, this.props.appliedNAICS)) {
-            return null;
-        }
-        return Symbol('dirty NAICS');
-    }
 
     loadingDiv = () => {
         if (!this.state.isLoading) return null;
@@ -242,6 +233,75 @@ export class NAICSContainer extends React.Component {
         );
     }
 
+    selectNaicsData = () => {
+        // current nodes
+        // const nodes = new Array(...this.props.nodes.toJS());
+        const nodes = cloneDeep(this.props.nodes.toJS());
+        console.log(' Nodes : ', nodes);
+        // const newData = new Array(...this.props.checked.toJS());
+        const newData = cloneDeep(this.props.checked.toJS());
+        console.log(' New Data : ', newData);
+        const returndata = newData.reduce((acc, value) => {
+            const isCleanData = value.includes('childPlaceholder');
+            const cleanData = this.cleanCheckedValues([value])[0];
+            const nodePath = pathToNode(nodes, cleanData);
+            /**
+             * Since the staged filters will always show the top level parent. The path to that node
+             * will always be the first index.
+             */
+            let parentNodeSearch = nodePath;
+            if (nodePath.length > 1) {
+                parentNodeSearch = [nodePath[0]];
+            }
+            // accessing the parent node
+            const parentNodePathString = buildNodePath(parentNodeSearch);
+            const parentNode = get({ data: nodes }, parentNodePathString);
+            // accessing the child node
+            const nodePathString = buildNodePath(nodePath);
+            const node = get({ data: nodes }, nodePathString);
+            // find parent node in accumulator
+            const foundParentNodeIndex = acc.findIndex((data) => data.value === parentNode.value);
+            console.log(' Found Parent Index : ', foundParentNodeIndex);
+            console.log(' Node Path : ', nodePath);
+            console.log(' Node Count : ', node);
+            // when a parent node already exists update count
+            if (foundParentNodeIndex !== -1) {
+                // adds the count of the child object to the parent node
+                if (nodePath.length > 1) {
+                    // when we are at the last level the count will be 0, so add 1
+                    if (node.count === 0) {
+                        acc[foundParentNodeIndex].count++;
+                    }
+                    else {
+                        acc[foundParentNodeIndex].count += node.count;
+                    }
+                }
+                acc[foundParentNodeIndex].count++;
+            }
+            else { // no parent node exists in accumulator, add parent to accumulator
+                // this is the last possible child for this parent, add 1
+                if (node.count === 0) {
+                    parentNode.count = 1;
+                }
+                else {
+                    parentNode.count = node.count;
+                }
+                acc.push(parentNode);
+            }
+            return acc;
+        }, []);
+        console.log(' Return Data : ', returndata);
+        return returndata;
+    }
+
+    selectedNaics = () => {
+        if (!this.props.checked.size === 0) return null;
+        console.log(' Selected Data : ', this.selectNaicsData());
+        return (<SelectedNaic
+            selectedNAICS={this.selectNaicsData()}
+            removeNAICS={this.props.removeNAICS} />);
+    }
+
     render() {
         const loadingDiv = this.loadingDiv();
         const noResultsDiv = this.noResultsDiv();
@@ -266,6 +326,7 @@ export class NAICSContainer extends React.Component {
                     {noResultsDiv}
                     {errorDiv}
                     {this.checkboxDiv()}
+                    {this.selectedNaics()}
                 </div>
             </div>
         );
@@ -276,8 +337,6 @@ NAICSContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        selectedNAICS: state.filters.selectedNAICS,
-        appliedNAICS: state.appliedFilters.filters.selectedNAICS,
         nodes: state.naics.naics,
         expanded: state.naics.expanded,
         checked: state.naics.checked
@@ -285,7 +344,7 @@ export default connect(
     (dispatch) => bindActionCreators(
         Object.assign(
             {},
-            searchFilterActions,
+            { updateNaics },
             { setNaics },
             { setExpanded },
             { setChecked }

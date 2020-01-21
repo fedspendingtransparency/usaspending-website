@@ -3,7 +3,7 @@
  * Created by Kevin Li 11/1/16
  **/
 
-import { Set, OrderedMap } from 'immutable';
+import { Set, OrderedMap, List } from 'immutable';
 
 import * as KeywordFilterFunctions from './filters/keywordFilterFunctions';
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';
@@ -35,6 +35,7 @@ export const requiredTypes = {
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
     selectedNAICS: OrderedMap,
+    naics: List,
     selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
@@ -62,6 +63,7 @@ export const initialState = {
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
     selectedNAICS: new OrderedMap(),
+    naics: new List(),
     selectedPSC: new OrderedMap(),
     pricingType: new Set(),
     setAside: new Set(),
@@ -211,6 +213,11 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
 
         // NAICS Filter
+        case 'UPDATE_NAICS': {
+            return Object.assign({}, state, {
+                naics: OtherFilterFunctions.updateNaics(action.naics)
+            });
+        }
         case 'UPDATE_SELECTED_NAICS': {
             return Object.assign({}, state, {
                 selectedNAICS: OtherFilterFunctions.updateSelectedNAICS(

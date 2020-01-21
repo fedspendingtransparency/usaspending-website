@@ -85,7 +85,7 @@ export const updateChildren = (params) => {
         newNode.children = [{
             value: `${newNode.value}childPlaceholder`,
             label: 'Placeholder Child',
-            fake: true
+            isPlaceholder: true
         }];
         return newNode;
     }
@@ -164,7 +164,7 @@ export const createCheckboxTreeDataStrucure = (
     newNode = updateChildren(childParams);
     // Step 4 - Map Child Data
     // if ((newNode.count > 0) && newNode.children && !isEmpty(newNode.children[0])) {
-    if ((newNode.count > 0) && newNode.children && !newNode.children[0].fake) {
+    if ((newNode.count > 0) && newNode.children && !newNode?.children?.[0]?.isPlaceholder) {
         newNode.children = createCheckboxTreeDataStrucure(
             limit,
             keysToBeMapped,
