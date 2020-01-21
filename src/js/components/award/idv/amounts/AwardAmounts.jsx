@@ -49,8 +49,8 @@ export default class AwardAmounts extends React.Component {
             }
         ];
 
-        const awards = Object.create(BaseAwardAmounts)
-        awards.populate(this.props.overview)
+        const awards = Object.create(BaseAwardAmounts);
+        awards.populate(this.props.overview);
         awards.getNonCombinedIdvAmounts(this.props.overview);
         const content = this.state.active === 'awards' ? (
             <IdvAwardAmountsSectionContainer
