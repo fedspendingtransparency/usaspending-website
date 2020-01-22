@@ -15,7 +15,6 @@ import * as stateActions from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';
 import Router from 'containers/router/Router';
 
-
 import StatePage from 'components/state/StatePage';
 
 require('pages/state/statePage.scss');
@@ -45,7 +44,6 @@ export class StateContainer extends React.Component {
         if (!Object.keys(this.props.params).includes('fy')) {
             Router.history.replace(`/state/${this.props.params.stateId}/latest`);
         }
-        console.log("didMount");
         this.props.setStateFiscalYear('latest');
         this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
         this.setStateCenter(this.props.params.stateId);

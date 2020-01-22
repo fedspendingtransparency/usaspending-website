@@ -13,7 +13,7 @@ import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
 import * as recipientActions from 'redux/actions/recipient/recipientActions';
 import * as RecipientHelper from 'helpers/recipientHelper';
 import Router from 'containers/router/Router';
-
+import { LoadingWrapper } from "components/sharedComponents/Loading";
 
 import RecipientPage from 'components/recipient/RecipientPage';
 
