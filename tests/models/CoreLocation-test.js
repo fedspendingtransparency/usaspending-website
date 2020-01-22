@@ -102,6 +102,16 @@ describe('Core Location getter functions', () => {
             expect(partialLocation.regionalAddress).toEqual('Pawnee, IN 12345');
         });
     });
+    describe('Recipient Regional Address Contracts & IDV', () => {
+        it('should use state code property when foreign', () => {
+            const newForeignLocationData = { ...foreignLocation };
+            newForeignLocationData.stateCode = 'CA';
+            const newForeignLocation = Object.create(CoreLocation);
+            newForeignLocation.populateCore(newForeignLocationData);
+            const includesStateCode = newForeignLocation.recipientRegionalAddressContractsAndIDV.includes('CA');
+            expect(includesStateCode).toEqual(true);
+        });
+    });
     describe('Congressional District', () => {
         it('should format the congressional district', () => {
             expect(location.congressionalDistrict).toEqual('IN-04');
