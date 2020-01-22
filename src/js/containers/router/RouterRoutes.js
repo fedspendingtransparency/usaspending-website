@@ -234,6 +234,16 @@ const routes = {
             }
         },
         {
+            path: '/state/:stateId/:fy',
+            parent: '/state',
+            addToSitemap: false,
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/state/StateContainer').default);
+                });
+            }
+        },
+        {
             path: '/recipient',
             parent: '/recipient',
             addToSitemap: true,
