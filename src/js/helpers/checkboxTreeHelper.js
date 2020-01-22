@@ -3,7 +3,7 @@
   * Created by Jonathan Hill 10/01/2019
   **/
 
-import { isEmpty, flattenDeep, compact } from 'lodash';
+import { isEmpty, flattenDeep, compact, clone } from 'lodash';
 
 /**
  * updateValueAndLabel
@@ -281,6 +281,8 @@ export const allChildValues = (nodes) => {
 let found = false;
 let nodePath = null;
 export const pathToNode = (nodes, value) => {
+    console.log(' Path To Node : ', nodes);
+    console.log(' Da Val : ', value);
     // array of parent indices including found node index
     for (let i = 0; i < nodes.length; i++) {
         /**
@@ -293,6 +295,8 @@ export const pathToNode = (nodes, value) => {
         }
         // we found the node, break
         if (nodes[i].value === value) {
+            console.log(' Found Value : ', nodes[i].value);
+            console.log(' Found passed value : ', value);
             // set the nodePath
             nodePath = nodes[i].path;
             /**
@@ -308,7 +312,10 @@ export const pathToNode = (nodes, value) => {
             pathToNode(nodes[i].children, value);
         }
     }
-    return nodePath;
+    console.log(' Node Final : ', nodePath);
+    const placeholderPath = clone(nodePath);
+    nodePath = null;
+    return placeholderPath;
 };
 /**
  * buildNodePath

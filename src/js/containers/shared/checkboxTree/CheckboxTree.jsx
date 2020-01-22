@@ -86,9 +86,11 @@ export default class CheckboxTree extends Component {
      */
     onCheck = (checked, node) => {
         if (this.state.checked.length < checked.length) {
+            console.log(' Checking : ', checked);
             this.checkedNode(checked, node);
         }
         else { // unchecked
+            console.log(' Unchecking : ', checked);
             this.unCheckedNode(checked, node);
         }
     }
@@ -151,6 +153,7 @@ export default class CheckboxTree extends Component {
     pathToNodeString = (value) => {
         // a path array to the object in the tree structure
         const path = pathToNode(this.state.nodes, value);
+        if (!path) return null;
         // a string path to the object in the tree structure
         return buildNodePath(path);
     }
@@ -188,7 +191,7 @@ export default class CheckboxTree extends Component {
          * do this to get the caret to show when there is a count)
          * we will set the child to a loading div
          */
-        if ((!node.children || node?.children?.[0]?.isPlaceholder) && !isSearch) {
+        if ((!node?.children || node?.children?.[0]?.isPlaceholder) && !isSearch) {
             const newNodes = await this.setChildrenToLoading(nodePathString);
             this.setState({ expanded: newExpandedArray, nodes: newNodes });
             return this.props.onExpand(node, newExpandedArray, true);

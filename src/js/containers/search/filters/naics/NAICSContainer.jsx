@@ -7,7 +7,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { debounce, get, cloneDeep } from 'lodash';
+import { debounce, get, cloneDeep, clone, uniq, isEqual } from 'lodash';
 import { isCancel } from 'axios';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import { naicsRequest } from 'helpers/naicsHelper';
@@ -46,7 +46,8 @@ export class NAICSContainer extends React.Component {
             isLoading: false,
             isSearch: false,
             searchString: '',
-            requestType: 'initial'
+            requestType: 'initial',
+            selectedNaicsData: []
         };
     }
 
@@ -56,6 +57,15 @@ export class NAICSContainer extends React.Component {
             return this.setStateFromRedux(nodes, expanded, checked);
         }
         return this.fetchNAICS();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (
+            !isEqual(this.props.checked.toJS(), prevProps.checked.toJS())
+            || !isEqual(this.props.nodes.toJS(), prevProps.nodes.toJS())
+        ) {
+            this.selectNaicsData();
+        }
     }
 
     onSearchChange = debounce(() => {
@@ -91,9 +101,11 @@ export class NAICSContainer extends React.Component {
      * @param {string[]} checked - and array of checked values
      * @returns {null}
      */
-    onCheck = (checked) => {
-        this.props.setChecked(checked);
-        this.props.updateNaics(this.cleanCheckedValues(checked));
+    onCheck = async (checked) => {
+        console.log(' Container check : ', checked);
+        const cleanData = this.cleanCheckedValues(checked);
+        await this.props.setChecked(cleanData);
+        await this.props.updateNaics(cleanData);
     }
 
     setRedux = (naics) => this.props.setNaics(naics);
@@ -114,12 +126,12 @@ export class NAICSContainer extends React.Component {
      */
     cleanCheckedValues = (checked) => {
         const placeholder = 'childPlaceholder';
-        return checked.map((value) => {
+        return uniq(checked.map((value) => {
             if (value.includes(placeholder)) {
                 return value.replace(placeholder, '');
             }
             return value;
-        });
+        }));
     };
     handleTextInputChange = (e) => {
         const text = e.target.value;
@@ -235,48 +247,48 @@ export class NAICSContainer extends React.Component {
 
     selectNaicsData = () => {
         // current nodes
-        // const nodes = new Array(...this.props.nodes.toJS());
         const nodes = cloneDeep(this.props.nodes.toJS());
-        console.log(' Nodes : ', nodes);
-        // const newData = new Array(...this.props.checked.toJS());
-        const newData = cloneDeep(this.props.checked.toJS());
-        console.log(' New Data : ', newData);
-        const returndata = newData.reduce((acc, value) => {
-            const isCleanData = value.includes('childPlaceholder');
-            const cleanData = this.cleanCheckedValues([value])[0];
-            const nodePath = pathToNode(nodes, cleanData);
+        const checkedData = clone(this.props.checked.toJS());
+        console.log(' Checked Data : ', checkedData);
+        // console.log('$$$$$$$$$$$$$$$$$$$$$ R e d u c e $$$$$$$$$$$$$$$$$$$$$');
+        // console.log(' Checked Data : ', checkedData);
+        // console.log(' Nodes : ', nodes);
+        const selectedNaicsData = checkedData.reduce((acc, value) => {
+            // Removes the childPlaceholder suffix.
+            // const cleanData = this.cleanCheckedValues([value])[0];
+            const nodePath = pathToNode(nodes, value);
+            console.log(' Child Node Path : ', nodePath);
             /**
              * Since the staged filters will always show the top level parent. The path to that node
              * will always be the first index.
              */
-            let parentNodeSearch = nodePath;
-            if (nodePath.length > 1) {
-                parentNodeSearch = [nodePath[0]];
-            }
+            const parentNodeSearch = [nodePath[0]];
+            console.log(' Parent Node Path : ', parentNodeSearch);
+            // if (nodePath.length > 1) {
+            //     parentNodeSearch = [nodePath[0]];
+            // }
             // accessing the parent node
             const parentNodePathString = buildNodePath(parentNodeSearch);
             const parentNode = get({ data: nodes }, parentNodePathString);
             // accessing the child node
             const nodePathString = buildNodePath(nodePath);
+            // console.log(' Node Path String : ', nodePathString);
             const node = get({ data: nodes }, nodePathString);
             // find parent node in accumulator
             const foundParentNodeIndex = acc.findIndex((data) => data.value === parentNode.value);
-            console.log(' Found Parent Index : ', foundParentNodeIndex);
-            console.log(' Node Path : ', nodePath);
-            console.log(' Node Count : ', node);
             // when a parent node already exists update count
+            // console.log(' ---------------------------------------------------- ');
+            // console.log(' Current Node Count : ', acc[foundParentNodeIndex]);
             if (foundParentNodeIndex !== -1) {
                 // adds the count of the child object to the parent node
-                if (nodePath.length > 1) {
-                    // when we are at the last level the count will be 0, so add 1
-                    if (node.count === 0) {
-                        acc[foundParentNodeIndex].count++;
-                    }
-                    else {
-                        acc[foundParentNodeIndex].count += node.count;
-                    }
+                // when we are at the last level the count will be 0, so add 1
+                if (node.count === 0) {
+                    acc[foundParentNodeIndex].count++;
                 }
-                acc[foundParentNodeIndex].count++;
+                else {
+                    // console.log(' Adding Node Count : ', { childNode: node });
+                    acc[foundParentNodeIndex].count += node.count;
+                }
             }
             else { // no parent node exists in accumulator, add parent to accumulator
                 // this is the last possible child for this parent, add 1
@@ -284,21 +296,24 @@ export class NAICSContainer extends React.Component {
                     parentNode.count = 1;
                 }
                 else {
+                    // console.log(' Setting Node Count : ', { childNode: node });
+                    console.log(' Parent Node : ', parentNode);
+                    console.log(' Child Node : ', node);
                     parentNode.count = node.count;
                 }
                 acc.push(parentNode);
             }
+
             return acc;
         }, []);
-        console.log(' Return Data : ', returndata);
-        return returndata;
+        this.setState({ selectedNaicsData });
     }
 
     selectedNaics = () => {
         if (!this.props.checked.size === 0) return null;
-        console.log(' Selected Data : ', this.selectNaicsData());
+        const { selectedNaicsData } = this.state;
         return (<SelectedNaic
-            selectedNAICS={this.selectNaicsData()}
+            selectedNAICS={selectedNaicsData}
             removeNAICS={this.props.removeNAICS} />);
     }
 
