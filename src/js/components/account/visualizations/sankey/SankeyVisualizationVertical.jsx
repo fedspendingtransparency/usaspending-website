@@ -124,8 +124,8 @@ export default class SankeyVisualizationVertical extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.width === this.props.width ||
-            isEqual(prevProps.amounts, this.props.amounts)) {
+        if (prevProps.width !== this.props.width ||
+            !isEqual(prevProps.amounts, this.props.amounts)) {
             this.generateChart(this.props);
         }
     }
