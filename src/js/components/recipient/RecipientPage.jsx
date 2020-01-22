@@ -82,7 +82,7 @@ export default class RecipientPage extends React.Component {
                         <RecipientModalContainer
                             mounted={this.state.showModal}
                             hideModal={this.hideModal}
-                            recipient={this.props.recipient} />    
+                            recipient={this.props.recipient} />
                     </LoadingWrapper>
                 </main>
                 <Footer />
