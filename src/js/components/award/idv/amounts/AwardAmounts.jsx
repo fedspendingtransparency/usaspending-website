@@ -50,16 +50,14 @@ export default class AwardAmounts extends React.Component {
         ];
 
         const awards = Object.create(BaseAwardAmounts);
-        awards.populate(this.props.overview);
-        awards.getNonCombinedIdvAmounts(this.props.overview);
+        awards.populate(this.props.overview, 'idv');
         const content = this.state.active === 'awards' ? (
             <IdvAwardAmountsSectionContainer
                 jumpToSection={this.props.jumpToSection} />
         ) : (
             <AwardAmountsTable
                 awardData={awards}
-                // hacky way to avoid the "Combined" label prepended to award amounts ☠
-                awardType="contract"
+                awardAmountType="idv"
                 spendingScenario={determineSpendingScenarioByAwardType("idv", awards)} />
         );
         const tabsClassName = 'idv-award-amounts-tabs';

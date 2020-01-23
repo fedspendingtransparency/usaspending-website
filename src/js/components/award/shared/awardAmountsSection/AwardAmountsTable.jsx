@@ -8,18 +8,18 @@ import {
     awardTableClassMap
 } from "dataMapping/awards/awardAmountsSection";
 
-import { AWARD_TYPE_PROPS } from "../../../../propTypes";
+import { AWARD_AMOUNT_TYPE_PROPS } from "../../../../propTypes";
 
 const propTypes = {
     children: PropTypes.node,
-    awardType: AWARD_TYPE_PROPS,
+    awardAmountType: AWARD_AMOUNT_TYPE_PROPS,
     awardData: PropTypes.shape({}),
     spendingScenario: PropTypes.string
 };
 
-const getSpendingCategoriesByAwardType = (awardType) => {
-    if (Object.keys(formattedSpendingCategoriesByAwardType).includes(awardType)) {
-        return formattedSpendingCategoriesByAwardType[awardType];
+const getSpendingCategoriesByAwardType = (awardAmountType) => {
+    if (Object.keys(formattedSpendingCategoriesByAwardType).includes(awardAmountType)) {
+        return formattedSpendingCategoriesByAwardType[awardAmountType];
     }
     return formattedSpendingCategoriesByAwardType.asst;
 };
@@ -33,7 +33,7 @@ const getTableTitleByAwardTypeByCategory = (type) => {
 
 const AwardAmountsTable = ({
     awardData,
-    awardType,
+    awardAmountType,
     spendingScenario
 }) => {
     /*
@@ -43,7 +43,7 @@ const AwardAmountsTable = ({
      * so we're relying on the parent in this case because we cant deduce the spending scenario
      **/
 
-    const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario, type = awardType) => {
+    const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario, type = awardAmountType) => {
         switch (scenario) {
             case ('normal'):
                 return null;
@@ -69,11 +69,11 @@ const AwardAmountsTable = ({
     // Returns: { titleInTable: AwardCategoryAmount }
     const buildAmountMapByCategoryTitle = (accumulator, category) => ({
         ...accumulator,
-        [getTableTitleByAwardTypeByCategory(awardType)[category]]: awardData[category]
+        [getTableTitleByAwardTypeByCategory(awardAmountType)[category]]: awardData[category]
     });
 
-    // build a map using the relevant keys for the awardType
-    const amountMapByCategoryTitle = getSpendingCategoriesByAwardType(awardType)
+    // build a map using the relevant keys for the awardAmountType
+    const amountMapByCategoryTitle = getSpendingCategoriesByAwardType(awardAmountType)
         .reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {});
 
     const overspendingRow = getOverSpendingRow(awardData, spendingScenario);

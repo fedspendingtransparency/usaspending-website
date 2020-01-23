@@ -73,7 +73,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                     </div>
                 </div>
                 <JumpToSectionButton linkText="View award orders table" onClick={this.jumpToReferencedAwardsTable} icon="table" />
-                <AwardAmountsTable awardType="idv" awardData={awardAmounts} spendingScenario={spendingScenario} />
+                <AwardAmountsTable awardAmountType="idv_agg" awardData={awardAmounts} spendingScenario={spendingScenario} />
             </div>
         );
     }

@@ -31,6 +31,10 @@ export const AWARD_TYPE_PROPS = PropTypes.oneOf([
     'idv', 'contract', 'grant', 'loan', 'direct payment', 'insurance', 'other'
 ]);
 
+export const AWARD_AMOUNT_TYPE_PROPS = PropTypes.oneOf([
+    'idv', 'contract', 'grant', 'loan', 'direct payment', 'insurance', 'other', 'idv_agg'
+]);
+
 export const TOOLTIP_PROPS = PropTypes.shape({
     isControlled: PropTypes.bool,
     isVisible: PropTypes.bool,
