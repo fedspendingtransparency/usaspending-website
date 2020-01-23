@@ -5,25 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import { getDropdownLabelsByApiValue } from 'dataMapping/recipients/fiscalYearDropdown';
 
 import { Calendar, AngleDown } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    fy: PropTypes.string,
+    selectedFy: PropTypes.string,
     pickedYear: PropTypes.func
 };
-
-const fyOptions = [
-    {
-        name: 'latest',
-        label: 'Trailing 12 Months'
-    },
-    {
-        name: 'all',
-        label: 'All Fiscal Years'
-    }
-];
 
 export default class FYPicker extends React.Component {
     constructor(props) {
@@ -36,6 +25,7 @@ export default class FYPicker extends React.Component {
         this.toggleList = this.toggleList.bind(this);
         this.clickedYear = this.clickedYear.bind(this);
         this.closeMenu = this.closeMenu.bind(this);
+        this.sortDropdownOptions = this.sortDropdownOptions.bind(this);
     }
 
     componentWillUnmount() {
@@ -79,53 +69,25 @@ export default class FYPicker extends React.Component {
         });
     }
 
+    sortDropdownOptions(key1, key2) {
+        if (key1 === 'latest') return -1;
+        else if (key2 === 'latest') return 1;
+        else if (key1 === 'all') return -1;
+        else if (key2 === 'all') return 1;
+        else if (key1 > key2) return -1;
+        else if (key2 > key1) return 1;
+        return 0;
+    }
+
     render() {
-        const fy = [];
-        const currentFY = FiscalYearHelper.currentFiscalYear();
-        const earliestFY = FiscalYearHelper.earliestFiscalYear;
-        for (let year = currentFY; year >= earliestFY; year--) {
-            const item = (
-                <li
-                    key={year}
-                    className="fy-picker__list-item">
-                    <button
-                        className="fy-picker__item"
-                        value={year}
-                        onClick={this.clickedYear}>
-                        FY {year}
-                    </button>
-                </li>
-            );
-
-            fy.push(item);
-        }
-
-        const otherFyOptions = fyOptions.map((option) => (
-            <li
-                key={option.name}
-                className="fy-picker__list-item">
-                <button
-                    className="fy-picker__item"
-                    value={option.name}
-                    onClick={this.clickedYear}>
-                    {option.label}
-                </button>
-            </li>
-        ));
-
+        const dropdownValuesByApiValue = getDropdownLabelsByApiValue();
         let visibleClass = 'fy-picker__list_hidden';
         if (this.state.expanded) {
             visibleClass = '';
         }
 
-        let currentSelection = `FY ${this.props.fy}`;
-        const otherSelection = fyOptions.find((option) =>
-            option.name === this.props.fy
-        );
-        if (otherSelection) {
-            currentSelection = otherSelection.label;
-        }
-
+        const selectedApiValue = Object.keys(dropdownValuesByApiValue)
+            .find((option) => option === this.props.selectedFy);
         return (
             <div
                 className="fy-picker"
@@ -141,23 +103,27 @@ export default class FYPicker extends React.Component {
                             className="fy-picker__button"
                             onClick={this.toggleList}>
                             <div className="fy-picker__button-text">
-                                {currentSelection}
+                                {dropdownValuesByApiValue[selectedApiValue]}
                             </div>
                             <div className="fy-picker__button-icon">
                                 <AngleDown alt="Toggle menu" />
                             </div>
                         </button>
                         <ul className={`fy-picker__list ${visibleClass}`}>
-                            {otherFyOptions}
-                            <li
-                                className="fy-picker__list-item">
-                                <button
-                                    disabled
-                                    className="fy-picker__item fy-picker__item_disabled">
-                                    &mdash;
-                                </button>
-                            </li>
-                            {fy}
+                            {Object.keys(dropdownValuesByApiValue)
+                                .sort(this.sortDropdownOptions)
+                                .map((apiValue) => (
+                                    <li
+                                        key={apiValue}
+                                        className="fy-picker__list-item">
+                                        <button
+                                            className="fy-picker__item"
+                                            value={apiValue}
+                                            onClick={this.clickedYear}>
+                                            {dropdownValuesByApiValue[apiValue]}
+                                        </button>
+                                    </li>
+                                ))}
                         </ul>
                     </div>
                 </div>

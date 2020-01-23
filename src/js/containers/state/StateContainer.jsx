@@ -13,13 +13,14 @@ import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import * as StateHelper from 'helpers/stateHelper';
 import * as stateActions from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';
+import Router from 'containers/router/Router';
 
 import StatePage from 'components/state/StatePage';
 
 require('pages/state/statePage.scss');
 
 const propTypes = {
-    params: PropTypes.object,
+    params: PropTypes.shape({ stateId: PropTypes.string, fy: PropTypes.string }),
     stateProfile: PropTypes.object,
     setStateOverview: PropTypes.func,
     setStateFiscalYear: PropTypes.func,
@@ -36,9 +37,14 @@ export class StateContainer extends React.Component {
         };
 
         this.request = null;
+        this.onClickFy = this.onClickFy.bind(this);
     }
 
     componentDidMount() {
+        if (!Object.keys(this.props.params).includes('fy')) {
+            Router.history.replace(`/state/${this.props.params.stateId}/latest`);
+        }
+        this.props.setStateFiscalYear('latest');
         this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
         this.setStateCenter(this.props.params.stateId);
     }
@@ -51,9 +57,18 @@ export class StateContainer extends React.Component {
             // Update the map center
             this.setStateCenter(this.props.params.stateId);
         }
+        if (!prevProps.params.fy && this.props.params.fy) {
+            // we just redirected the user to the new url which includes the fy selection
+            this.props.setStateFiscalYear(this.props.params.fy);
+        }
         if (this.props.stateProfile.fy !== prevProps.stateProfile.fy) {
             this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
         }
+    }
+
+    onClickFy(fy) {
+        Router.history.push(`/state/${this.props.params.stateId}/${fy}`);
+        this.props.setStateFiscalYear(fy);
     }
 
     setStateCenter(id) {
@@ -106,7 +121,7 @@ export class StateContainer extends React.Component {
                 error={this.state.error}
                 id={this.props.stateProfile.id}
                 stateProfile={this.props.stateProfile}
-                pickedFy={this.props.setStateFiscalYear} />
+                pickedFy={this.onClickFy} />
         );
     }
 }

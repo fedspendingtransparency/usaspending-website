@@ -6,19 +6,20 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
+import { RecipientContainer } from 'containers/recipient/RecipientContainer';
+import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
+import { mockActions, mockRedux } from './mockData';
+import { mockRecipientOverview } from '../../models/recipient/mockRecipientApi';
+
 // mock the state helper
 jest.mock('helpers/recipientHelper', () => require('./mockRecipientHelper'));
 
-import { RecipientContainer } from 'containers/recipient/RecipientContainer';
-import { mockActions, mockRedux } from './mockData';
-import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
-import { mockRecipientOverview } from '../../models/recipient/mockRecipientApi';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/recipient/RecipientPage', () => jest.fn(() => null));
 
 describe('RecipientContainer', () => {
-    it('should make an API call for the selected recipient on mount', async () => {
+    it('on mount: should make an API call for the selected recipient & set fiscal year based on url params', async () => {
         const container = mount(<RecipientContainer
             {...mockRedux}
             {...mockActions} />);
@@ -30,6 +31,7 @@ describe('RecipientContainer', () => {
         await container.instance().request.promise;
 
         expect(loadRecipientOverview).toHaveBeenCalledTimes(1);
+        expect(mockActions.setRecipientFiscalYear).toHaveBeenCalledWith(mockRedux.params.fy);
         expect(loadRecipientOverview).toHaveBeenCalledWith('0123456-ABC-P', 'latest');
     });
     it('should make an API call when the id changes', async () => {

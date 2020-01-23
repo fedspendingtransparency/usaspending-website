@@ -13,6 +13,7 @@ import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Error from 'components/sharedComponents/Error';
 import Footer from 'components/sharedComponents/Footer';
+import { LoadingWrapper } from "components/sharedComponents/Loading";
 
 import RecipientModalContainer from 'containers/recipient/modal/RecipientModalContainer';
 import RecipientContent from './RecipientContent';
@@ -56,14 +57,7 @@ export default class RecipientPage extends React.Component {
                 showModal={this.showModal}
                 {...this.props} />
         );
-        if (this.props.loading) {
-            content = (
-                <Error
-                    title="Loading..."
-                    message="" />
-            );
-        }
-        else if (this.props.error) {
+        if (this.props.error) {
             content = (<Error
                 title="Invalid Recipient"
                 message="The recipient ID provided is invalid. Please check the ID and try again." />);
@@ -83,11 +77,13 @@ export default class RecipientPage extends React.Component {
                 <main
                     id="main-content"
                     className="main-content">
-                    {content}
-                    <RecipientModalContainer
-                        mounted={this.state.showModal}
-                        hideModal={this.hideModal}
-                        recipient={this.props.recipient} />
+                    <LoadingWrapper isLoading={this.props.loading}>
+                        {content}
+                        <RecipientModalContainer
+                            mounted={this.state.showModal}
+                            hideModal={this.hideModal}
+                            recipient={this.props.recipient} />
+                    </LoadingWrapper>
                 </main>
                 <Footer />
             </div>
