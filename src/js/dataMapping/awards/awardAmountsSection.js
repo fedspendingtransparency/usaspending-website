@@ -9,12 +9,14 @@
 export const spendingCategoriesByAwardType = {
     loan: ['_subsidy', '_faceValue'],
     contract: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions'],
-    idv: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions']
+    idv: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions'],
+    idv_agg: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions']
 };
 
 export const formattedSpendingCategoriesByAwardType = {
     contract: ['totalObligationFormatted', 'baseExercisedOptionsFormatted', 'baseAndAllOptionsFormatted'],
     idv: ['totalObligationFormatted', 'baseExercisedOptionsFormatted', 'baseAndAllOptionsFormatted'],
+    idv_agg: ['totalObligationFormatted', 'baseExercisedOptionsFormatted', 'baseAndAllOptionsFormatted'],
     asst: ['totalObligationFormatted', 'nonFederalFundingFormatted', 'totalFundingFormatted'],
     loan: ['subsidyFormatted', 'faceValueFormatted']
 };
@@ -38,12 +40,17 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
         nonFederalFundingFormatted: 'Non-Federal Funding',
         totalObligationFormatted: 'Obligated Amount'
     },
-    idv: {
+    idv_agg: {
         baseExercisedOptionsFormatted: 'Combined Current Amounts',
         baseAndAllOptionsFormatted: 'Combined Potential Amounts',
         totalObligationFormatted: 'Combined Obligated Amounts'
     },
     contract: {
+        baseExercisedOptionsFormatted: 'Current Amount',
+        baseAndAllOptionsFormatted: 'Potential Amount',
+        totalObligationFormatted: 'Obligated Amount'
+    },
+    idv: {
         baseExercisedOptionsFormatted: 'Current Amount',
         baseAndAllOptionsFormatted: 'Potential Amount',
         totalObligationFormatted: 'Obligated Amount'
