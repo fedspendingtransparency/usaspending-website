@@ -44,7 +44,7 @@ export class StateContainer extends React.Component {
         if (!Object.keys(this.props.params).includes('fy')) {
             Router.history.replace(`/state/${this.props.params.stateId}/latest`);
         }
-        this.props.setStateFiscalYear('latest');
+        this.props.setStateFiscalYear(this.props.params.fy);
         this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
         this.setStateCenter(this.props.params.stateId);
     }
@@ -52,8 +52,8 @@ export class StateContainer extends React.Component {
     componentDidUpdate(prevProps) {
         if (this.props.params.stateId !== prevProps.params.stateId) {
             // Reset the FY
-            this.props.setStateFiscalYear('latest');
-            this.loadStateOverview(this.props.params.stateId, 'latest');
+            this.props.setStateFiscalYear(this.props.params.fy);
+            this.loadStateOverview(this.props.params.stateId, this.props.params.fy);
             // Update the map center
             this.setStateCenter(this.props.params.stateId);
         }
