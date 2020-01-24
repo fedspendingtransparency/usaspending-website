@@ -24,4 +24,4 @@ export const tabs = (awardType) => [
     }
 ];
 
-export const awardTypesWithSubawards = ['grant', 'contract'];
+export const awardTypesWithSubawards = ['grant', 'contract', 'loan'];
