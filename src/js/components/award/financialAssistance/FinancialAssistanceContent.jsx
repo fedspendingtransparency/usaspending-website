@@ -60,7 +60,7 @@ const FinancialAssistanceContent = ({
     };
 
     useEffect(() => {
-        if (isSubAwardIdClicked && overview.type === '05') {
+        if (isSubAwardIdClicked) {
             jumpToSubAwardHistoryTable();
             subAwardIdClicked(false);
         }
