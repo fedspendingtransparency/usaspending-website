@@ -30,7 +30,6 @@ export default class Glossary extends React.Component {
 
         this.measureAvailableHeight = this.measureAvailableHeight.bind(this);
         this.closeGlossary = this.closeGlossary.bind(this);
-        this.trapFocus = this.trapFocus.bind(this);
 
         this.renderTrack = this.renderTrack.bind(this);
         this.renderThumb = this.renderThumb.bind(this);
@@ -39,7 +38,6 @@ export default class Glossary extends React.Component {
     componentDidMount() {
         this.measureAvailableHeight();
         window.addEventListener('resize', this.measureAvailableHeight);
-        document.addEventListener('focus', this.trapFocus, true);
         Mousetrap.bind('esc', this.closeGlossary);
     }
 
@@ -55,7 +53,6 @@ export default class Glossary extends React.Component {
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.measureAvailableHeight);
-        document.removeEventListener('focus', this.trapFocus, true);
         Mousetrap.unbind('esc');
     }
 
@@ -63,7 +60,6 @@ export default class Glossary extends React.Component {
         // close the glossary when the escape key is pressed for accessibility and general
         // non-annoyance
         this.props.hideGlossary();
-        document.removeEventListener('focus', this.trapFocus, true);
 
         // move focus back to the main content
         const mainContent = document.getElementById('main-focus');
@@ -81,15 +77,6 @@ export default class Glossary extends React.Component {
         this.setState({
             contentHeight
         });
-    }
-
-    trapFocus(e) {
-        if (!this.sidebar.contains(e.target)) {
-            // the user is trying to focus on something outside the glossary
-            // trap the focus in the glossary sidebar until the user closes it
-            e.stopPropagation();
-            document.querySelector('#glossary-close-button').focus();
-        }
     }
 
     renderThumb() {
