@@ -47,7 +47,7 @@ const BaseAwardAmounts = {
     },
     populate(data, awardAmountType) {
         this.populateBase(data);
-        if (awardAmountType === 'idv_agg') {
+        if (awardAmountType === 'idv_aggregated') {
             this.populateAggIdv(data);
         }
         else if (awardAmountType === 'idv') {

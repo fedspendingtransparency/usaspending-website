@@ -32,7 +32,7 @@ export const AWARD_TYPE_PROPS = PropTypes.oneOf([
 ]);
 
 export const AWARD_AMOUNT_TYPE_PROPS = PropTypes.oneOf([
-    'idv', 'contract', 'grant', 'loan', 'direct payment', 'insurance', 'other', 'idv_agg'
+    'idv', 'contract', 'grant', 'loan', 'direct payment', 'insurance', 'other', 'idv_aggregated'
 ]);
 
 export const TOOLTIP_PROPS = PropTypes.shape({

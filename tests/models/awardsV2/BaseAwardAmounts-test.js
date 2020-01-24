@@ -9,7 +9,7 @@ import BaseFinancialAssistance from '../../../src/js/models/v2/awardsV2/BaseFina
 import { mockAwardAmounts, mockContract, mockGrant, mockLoan } from './mockAwardApi';
 
 const awardAmounts = Object.create(BaseAwardAmounts);
-awardAmounts.populate(mockAwardAmounts, "idv_agg");
+awardAmounts.populate(mockAwardAmounts, "idv_aggregated");
 
 const awardAmountsNeg = Object.create(BaseAwardAmounts);
 const negativeObligation = {
@@ -57,9 +57,9 @@ const extremeOverspentIdv = {
     _totalObligation: 0.0
 };
 
-awardAmountsNeg.populate(negativeObligation, "idv_agg");
-awardAmountsOverspent.populate(overspending, "idv_agg");
-awardAmountsExtremeOverspent.populate(extremeOverspending, "idv_agg");
+awardAmountsNeg.populate(negativeObligation, "idv_aggregated");
+awardAmountsOverspent.populate(overspending, "idv_aggregated");
+awardAmountsExtremeOverspent.populate(extremeOverspending, "idv_aggregated");
 
 nonAggregateIdvNormal.populate(normalIdv, 'idv');
 nonAggregateIdvOverspent.populate(overspentIdv, 'idv');
