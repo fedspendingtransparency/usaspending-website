@@ -12,7 +12,8 @@ stateProfile.populate({});
 
 export const mockRedux = {
     params: {
-        stateId: '01'
+        stateId: '01',
+        fy: 'latest'
     },
     stateProfile: {
         id: '',
