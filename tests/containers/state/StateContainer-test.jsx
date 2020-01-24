@@ -56,7 +56,8 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 
@@ -75,7 +76,8 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 
@@ -102,7 +104,8 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 
