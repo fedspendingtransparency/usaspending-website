@@ -11,7 +11,7 @@ import { isCancel } from 'axios';
 import Award from 'components/award/Award';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import { setAward } from 'redux/actions/award/awardActions';
+import { setAward, resetAward } from 'redux/actions/award/awardActions';
 import {
     setDownloadCollapsed,
     setDownloadPending,
@@ -34,6 +34,7 @@ require('pages/award/awardPage.scss');
 const propTypes = {
     subAwardIdClicked: PropTypes.func,
     setAward: PropTypes.func,
+    resetAward: PropTypes.func,
     handleDownloadRequest: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     setDownloadPending: PropTypes.func,
@@ -74,6 +75,7 @@ export class AwardContainer extends React.Component {
         if (this.awardRequest) {
             this.awardRequest.cancel();
         }
+        this.props.resetAward();
     }
 
     getSelectedAward(id) {
@@ -209,6 +211,7 @@ export default connect(
         setDownloadPending,
         setDownloadCollapsed,
         setAward,
-        subAwardIdClicked
+        subAwardIdClicked,
+        resetAward
     }, dispatch)
 )(AwardContainer);
