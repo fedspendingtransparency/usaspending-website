@@ -60,6 +60,7 @@ export default class CheckboxTree extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        console.log(' This Props : ', this.props);
         if (!isEqual(prevProps.data, this.props.data)) {
             this.updateNode();
         }
@@ -90,7 +91,6 @@ export default class CheckboxTree extends Component {
             this.checkedNode(checked, node);
         }
         else { // unchecked
-            console.log(' Unchecking : ', checked);
             this.unCheckedNode(checked, node);
         }
     }
@@ -130,7 +130,8 @@ export default class CheckboxTree extends Component {
     checkedNode = (checked, node) => {
         const { onCheck, isSearch } = this.props;
         this.setState({ checked });
-        if (onCheck && !isSearch) onCheck(checked);
+        // if (onCheck && !isSearch) onCheck(checked);
+        if (onCheck) onCheck(checked);
     }
     /**
      * unCheckedNode
@@ -141,6 +142,7 @@ export default class CheckboxTree extends Component {
      */
     unCheckedNode = (checked, node) => {
         const { onCheck, isSearch } = this.props;
+        console.log(' Un Checking : ', checked);
         this.setState({ checked });
         if (onCheck && !isSearch) onCheck(checked);
     }
@@ -225,6 +227,7 @@ export default class CheckboxTree extends Component {
         } = this.props;
         if (isSearch) return this.handleSearch(data);
         const newNodes = createCheckboxTreeDataStrucure(limit, nodeKeys, data);
+        console.log(' New Nodes : ', newNodes);
         this.setState({ nodes: newNodes, requestType: '' });
         return (setRedux && newNodes.length) ? setRedux(newNodes) : null;
     }
