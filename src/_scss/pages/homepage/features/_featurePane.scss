@@ -52,7 +52,7 @@
       line-height: rem(17);
       @include media($medium-screen) {
           @include flex(1 1 1);
-          max-width: 30%;
+          width: 30%;
       }
       &.feature-pane__content-middle__sub {
         background-size: 100% 100%;
