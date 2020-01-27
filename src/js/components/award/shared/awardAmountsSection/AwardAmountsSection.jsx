@@ -34,7 +34,7 @@ const AwardAmountsSection = ({
                         spendingScenario={spendingScenario} />
                     <AwardAmountsTable
                         awardData={awardOverview}
-                        awardType={awardType}
+                        awardAmountType={awardType}
                         spendingScenario={spendingScenario} />
                 </div>
             </div>
