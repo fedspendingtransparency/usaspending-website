@@ -1,0 +1,16 @@
+.page__loading {
+    @include display(flex);
+    @include align-items(center);
+    @include justify-content(center);
+    @include flex(1 1 auto);
+    // for ie11 
+    min-height: 50vh;
+    h4 {
+        display: none;
+        @include media($medium-screen) {
+            display: block;
+            margin: 0;
+            padding-left: rem(10);
+        }
+    }
+}

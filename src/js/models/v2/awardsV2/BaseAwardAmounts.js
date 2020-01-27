@@ -8,7 +8,9 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 const BaseAwardAmounts = {
     populateBase(data) {
         this.id = (data.award_id && `${data.award_id}`) || '';
-        this.generatedId = data.generated_unique_award_id || '';
+        this.generatedId = data.generated_unique_award_id
+            ? encodeURI(`${data.generated_unique_award_id}`)
+            : '';
     },
     populateIdv(data) {
         this.childIDVCount = data.child_idv_count || 0;

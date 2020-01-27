@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
+import { awardTypesWithSubawards } from 'dataMapping/awards/awardHistorySection';
 
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSection';
@@ -63,7 +64,7 @@ const ContractContent = ({
     };
 
     useEffect(() => {
-        if (isSubAwardIdClicked) {
+        if (isSubAwardIdClicked && awardTypesWithSubawards.includes(overview.category)) {
             jumpToSubAwardHistoryTable();
             subAwardIdClicked(false);
         }
@@ -80,8 +81,7 @@ const ContractContent = ({
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}
-                    recipient={overview.recipient}
-                    placeOfPerformance={overview.placeOfPerformance} />
+                    recipient={overview.recipient} />
                 <AwardOverviewRightSection
                     jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
                     jumpToSection={jumpToSection}

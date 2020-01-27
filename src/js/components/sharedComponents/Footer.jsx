@@ -30,7 +30,7 @@ export default class Footer extends React.Component {
     render() {
         const year = new Date().getFullYear();
         return (
-            <div>
+            <div className="footer-container">
                 <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
                 <DownloadBottomBarContainer
                     filters={this.props.filters} />

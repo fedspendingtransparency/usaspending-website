@@ -25,6 +25,13 @@ const getAwardContainer = (params = mockParams) => shallow(<AwardContainer
     {...mockActions} />);
 
 describe('awardContainer', () => {
+    it('should reset redux.award on unMount', async () => {
+        const container = getAwardContainer();
+
+        await container.instance().componentWillUnmount();
+
+        expect(mockActions.resetAward).toHaveBeenCalled();
+    });
     it('should make an API call for the selected award on mount', async () => {
         const container = getAwardContainer();
 

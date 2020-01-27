@@ -9,7 +9,9 @@ import { parseDate } from '../utils';
 const BaseReferencedAwardResult = {
     populate(data) {
         this.id = data.award_id || '';
-        this.internalId = data.generated_unique_award_id || '';
+        this.internalId = data.generated_unique_award_id
+            ? encodeURI(`${data.generated_unique_award_id}`)
+            : '';
         this.piid = data.piid || '';
         this.awardType = data.award_type || '';
         this.awardingAgency = data.awarding_agency || '';

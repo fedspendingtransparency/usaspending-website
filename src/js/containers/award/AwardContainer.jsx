@@ -11,7 +11,7 @@ import { isCancel } from 'axios';
 import Award from 'components/award/Award';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import { setAward } from 'redux/actions/award/awardActions';
+import { setAward, resetAward } from 'redux/actions/award/awardActions';
 import {
     setDownloadCollapsed,
     setDownloadPending,
@@ -34,6 +34,7 @@ require('pages/award/awardPage.scss');
 const propTypes = {
     subAwardIdClicked: PropTypes.func,
     setAward: PropTypes.func,
+    resetAward: PropTypes.func,
     handleDownloadRequest: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     setDownloadPending: PropTypes.func,
@@ -54,7 +55,7 @@ export class AwardContainer extends React.Component {
 
         this.state = {
             noAward: false,
-            inFlight: false
+            inFlight: true
         };
         this.downloadData = this.downloadData.bind(this);
         this.fetchAwardDownloadFile = this.fetchAwardDownloadFile.bind(this);
@@ -74,6 +75,7 @@ export class AwardContainer extends React.Component {
         if (this.awardRequest) {
             this.awardRequest.cancel();
         }
+        this.props.resetAward();
     }
 
     getSelectedAward(id) {
@@ -168,7 +170,7 @@ export class AwardContainer extends React.Component {
 
         try {
             const { data } = await this.downloadRequest.promise;
-            this.props.setDownloadExpectedUrl(data.url);
+            this.props.setDownloadExpectedUrl(data.file_url);
             this.props.setDownloadExpectedFile(data.file_name);
             // disable download button
             this.props.setDownloadPending(true);
@@ -181,20 +183,17 @@ export class AwardContainer extends React.Component {
     }
 
     render() {
-        let content = null;
-        if (!this.state.inFlight) {
-            content = (
-                <Award
-                    subAwardIdClicked={this.props.subAwardIdClicked}
-                    isSubAwardIdClicked={this.props.isSubAwardIdClicked}
-                    isDownloadPending={this.props.isDownloadPending}
-                    downloadData={this.downloadData}
-                    awardId={this.props.params.awardId}
-                    award={this.props.award}
-                    noAward={this.state.noAward} />
-            );
-        }
-        return content;
+        return (
+            <Award
+                subAwardIdClicked={this.props.subAwardIdClicked}
+                isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                isDownloadPending={this.props.isDownloadPending}
+                downloadData={this.downloadData}
+                awardId={this.props.params.awardId}
+                award={this.props.award}
+                isLoading={this.state.inFlight}
+                noAward={this.state.noAward} />
+        );
     }
 }
 
@@ -212,6 +211,7 @@ export default connect(
         setDownloadPending,
         setDownloadCollapsed,
         setAward,
-        subAwardIdClicked
+        subAwardIdClicked,
+        resetAward
     }, dispatch)
 )(AwardContainer);

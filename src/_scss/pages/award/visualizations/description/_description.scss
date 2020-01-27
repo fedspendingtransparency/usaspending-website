@@ -52,11 +52,16 @@
             .naics-psc__heading {
                 font-weight: $font-semibold;
                 padding-bottom: rem(12);
-                .naics-psc__icon {
-                    padding-left: rem(5);
+                span {
+                    margin-left: rem(5);
+                    white-space: nowrap;
+                    height: rem(21);
+                    width: rem(21);
                     svg {
-                        height: rem(12);
-                        width: rem(15);
+                        margin-left: rem(5);
+                        vertical-align: middle;
+                        height: rem(14);
+                        width: rem(13);
                     }
                 }
             }

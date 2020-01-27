@@ -10,16 +10,44 @@
 // and country (location object) by getAwardTypeByRecordtypeCountyAndState function in the
 // awardSummaryHelper
 export const AddresskeysByAwardType = {
-    nonFinancialAssistance: ['regionalAddress', 'fullCongressionalDistrict', '_country'],
-    redactedDueToPII: ['regionalAddress', 'fullCongressionalDistrict', '_country'],
-    aggregatedByState: ['_state', 'fullCongressionalDistrict', '_country'],
-    aggregatedByCounty: ['countyAndState', 'fullCongressionalDistrict', '_country'],
-    aggregatedByCountry: ['_country']
+    financialAssistanceDomestic: [
+        'streetAddress1',
+        '_address2',
+        'recipientRegionalAddress',
+        'recipientCongressionalDistrict',
+        'countryName'
+    ],
+    financialAssistanceForeign: [
+        'streetAddress1',
+        '_address2',
+        'recipientRegionalAddress',
+        'countryName'
+    ],
+    nonFinancialAssistanceDomestic: [
+        'streetAddress1',
+        '_address2',
+        'recipientRegionalAddress',
+        'recipientCongressionalDistrict',
+        'countryName'
+    ],
+    nonFinancialAssistanceForeign: [
+        'streetAddress1',
+        '_address2',
+        'recipientRegionalAddressContractsAndIDV',
+        'countryName'
+    ],
+    redactedDueToPIIDomestic: ['recipientRegionalAddress', 'recipientCongressionalDistrict', 'countryName'],
+    redactedDueToPIIForeign: ['recipientRegionalAddress', 'countryName'],
+    aggregatedByState: ['stateName', 'recipientCongressionalDistrict', 'countryName'],
+    aggregatedByCounty: ['countyAndState', 'recipientCongressionalDistrict', 'countryName'],
+    aggregatedByCountry: ['countryName']
 };
 
 // recipient section aggregate text
 export const aggregateTextRecipientSection = {
-    redactedDueToPII: `For more information on this special recipient type,
+    redactedDueToPIIDomestic: `For more information on this special recipient type,
+        click the glossary link above.`,
+    redactedDueToPIIForeign: `For more information on this special recipient type,
         click the glossary link above.`,
     aggregatedByState: `This record has been aggregated by state.
         For more information on this special recipient type, click the glossary link above`,
@@ -31,7 +59,8 @@ export const aggregateTextRecipientSection = {
 
 // recipient section glossary text
 export const aggregateGlossaryText = {
-    redactedDueToPII: `Redacted Due To PII`,
+    redactedDueToPIIDomestic: `Redacted Due To PII`,
+    redactedDueToPIIForeign: `Redacted Due To PII`,
     aggregatedByState: 'Multiple Recipients',
     aggregatedByCounty: 'Multiple Recipients',
     aggregatedByCountry: 'Multiple Recipients'
@@ -39,7 +68,8 @@ export const aggregateGlossaryText = {
 
 // recipient section glossary link
 export const aggregateGlossaryLinks = {
-    redactedDueToPII: `redacted-due-to-pii`,
+    redactedDueToPIIDomestic: `redacted-due-to-pii`,
+    redactedDueToPIIForeign: `redacted-due-to-pii`,
     aggregatedByState: 'multiple-recipients',
     aggregatedByCounty: 'multiple-recipients',
     aggregatedByCountry: 'multiple-recipients'

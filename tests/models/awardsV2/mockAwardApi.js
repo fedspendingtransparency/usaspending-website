@@ -369,6 +369,8 @@ export const mockIdv = {
         type_set_aside: "NONE",
         type_set_aside_description: "NO SET ASIDE USED."
     },
+    psc_hierarchy: {},
+    naics_hierarchy: {},
     executive_details: {
         officers: [{
             name: 'John Doe',
@@ -461,33 +463,24 @@ export const mockAwardFundingMetaData = {
 };
 
 export const mockFileDownloadResponseIdv = {
-    total_size: 35.055,
     file_name: `idv.zip`,
-    total_rows: 652,
-    total_columns: 27,
-    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
-    status: `finished`,
-    seconds_elapsed: `10.061132`
+    file_url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status_url: `download/status?file_name=idv.zip`,
+    download_request: {download_details: `for idv`}
 };
 
 export const mockFileDownloadResponseContract = {
-    total_size: 35.055,
     file_name: `contract.zip`,
-    total_rows: 652,
-    total_columns: 27,
-    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
-    status: `finished`,
-    seconds_elapsed: `10.061132`
+    file_url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status_url: `download/status?file_name=contract.zip`,
+    download_request: {download_details: `for contract`}
 };
 
 export const mockFileDownloadResponseAssistance = {
-    total_size: 35.055,
     file_name: `assistance.zip`,
-    total_rows: 652,
-    total_columns: 27,
-    url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
-    status: `finished`,
-    seconds_elapsed: `10.061132`
+    file_url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
+    status_url: `download/status?file_name=assistance.zip`,
+    download_request: {download_details: `for assistance`}
 };
 
 export const mockAwardFederalAccounts = {
