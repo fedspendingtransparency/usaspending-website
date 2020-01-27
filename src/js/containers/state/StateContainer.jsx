@@ -41,19 +41,20 @@ export class StateContainer extends React.Component {
     }
 
     componentDidMount() {
+        const { fy, stateId } = this.props.params;
         if (!Object.keys(this.props.params).includes('fy')) {
-            Router.history.replace(`/state/${this.props.params.stateId}/latest`);
+            Router.history.replace(`/state/${stateId}/latest`);
         }
-        this.props.setStateFiscalYear('latest');
-        this.loadStateOverview(this.props.params.stateId, this.props.stateProfile.fy);
-        this.setStateCenter(this.props.params.stateId);
+        this.props.setStateFiscalYear(fy);
+        this.loadStateOverview(stateId, fy);
+        this.setStateCenter(stateId);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.params.stateId !== prevProps.params.stateId) {
             // Reset the FY
-            this.props.setStateFiscalYear('latest');
-            this.loadStateOverview(this.props.params.stateId, 'latest');
+            this.props.setStateFiscalYear(this.props.params.fy);
+            this.loadStateOverview(this.props.params.stateId, this.props.params.fy);
             // Update the map center
             this.setStateCenter(this.props.params.stateId);
         }
