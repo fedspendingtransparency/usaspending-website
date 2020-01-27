@@ -5,10 +5,9 @@
 
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-
 import { StateContainer } from 'containers/state/StateContainer';
-import { mockActions, mockRedux, mockStateOverview } from './mockData';
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
+import { mockActions, mockRedux, mockStateOverview } from './mockData';
 
 // mock the state helper
 jest.mock('helpers/stateHelper', () => require('./mockStateHelper'));
