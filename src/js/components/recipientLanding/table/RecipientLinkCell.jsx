@@ -26,7 +26,7 @@ export default class RecipientLinkCell extends React.Component {
         return (
             <td className="recipient-list__body-cell">
                 <span className={labelType}>{this.props.type}</span>
-                <a href={`#/recipient/${this.props.id}`}>
+                <a href={`#/recipient/${this.props.id}/latest`}>
                     {this.props.name}
                 </a>
             </td>

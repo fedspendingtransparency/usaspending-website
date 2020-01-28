@@ -86,7 +86,7 @@ export class IdvAmountsContainer extends React.Component {
 
     parseAward(data) {
         const awardAmounts = Object.create(BaseAwardAmounts);
-        awardAmounts.populate(data, 'idv');
+        awardAmounts.populate(data, 'idv_aggregated');
         this.setState({
             awardAmounts,
             error: false,

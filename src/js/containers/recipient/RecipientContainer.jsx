@@ -12,6 +12,7 @@ import { isCancel } from 'axios';
 import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
 import * as recipientActions from 'redux/actions/recipient/recipientActions';
 import * as RecipientHelper from 'helpers/recipientHelper';
+import Router from 'containers/router/Router';
 
 import RecipientPage from 'components/recipient/RecipientPage';
 
@@ -20,7 +21,7 @@ require('pages/recipient/recipientPage.scss');
 const propTypes = {
     setRecipientOverview: PropTypes.func,
     setRecipientFiscalYear: PropTypes.func,
-    params: PropTypes.object,
+    params: PropTypes.shape({ recipientId: PropTypes.string, fy: PropTypes.string }),
     recipient: PropTypes.object
 };
 
@@ -34,17 +35,26 @@ export class RecipientContainer extends React.Component {
         };
 
         this.request = null;
+        this.updateSelectedFy = this.updateSelectedFy.bind(this);
     }
 
     componentDidMount() {
+        if (!Object.keys(this.props.params).includes('fy')) {
+            Router.history.replace(`/recipient/${this.props.params.recipientId}/latest`);
+        }
+        this.props.setRecipientFiscalYear(this.props.params.fy);
         this.loadRecipientOverview(this.props.params.recipientId, this.props.recipient.fy);
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.params.recipientId !== prevProps.params.recipientId) {
             // Reset the FY
-            this.props.setRecipientFiscalYear('latest');
+            this.props.setRecipientFiscalYear(this.props.params.fy);
             this.loadRecipientOverview(this.props.params.recipientId, 'latest');
+        }
+        if (!prevProps.params.fy && this.props.params.fy) {
+            // we just redirected the user to the new url which includes the fy selection
+            this.props.setRecipientFiscalYear(this.props.params.fy);
         }
         if (this.props.recipient.fy !== prevProps.recipient.fy) {
             this.loadRecipientOverview(this.props.params.recipientId, this.props.recipient.fy);
@@ -90,6 +100,11 @@ export class RecipientContainer extends React.Component {
         this.props.setRecipientOverview(recipientOverview);
     }
 
+    updateSelectedFy(fy) {
+        Router.history.push(`/recipient/${this.props.recipient.id}/${fy}`);
+        this.props.setRecipientFiscalYear(fy);
+    }
+
     render() {
         return (
             <RecipientPage
@@ -97,7 +112,7 @@ export class RecipientContainer extends React.Component {
                 error={this.state.error}
                 id={this.props.recipient.id}
                 recipient={this.props.recipient}
-                pickedFy={this.props.setRecipientFiscalYear} />
+                pickedFy={this.updateSelectedFy} />
         );
     }
 }

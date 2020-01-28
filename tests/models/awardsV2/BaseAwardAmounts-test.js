@@ -9,7 +9,7 @@ import BaseFinancialAssistance from '../../../src/js/models/v2/awardsV2/BaseFina
 import { mockAwardAmounts, mockContract, mockGrant, mockLoan } from './mockAwardApi';
 
 const awardAmounts = Object.create(BaseAwardAmounts);
-awardAmounts.populate(mockAwardAmounts, "idv");
+awardAmounts.populate(mockAwardAmounts, "idv_aggregated");
 
 const awardAmountsNeg = Object.create(BaseAwardAmounts);
 const negativeObligation = {
@@ -37,12 +37,36 @@ const extremeOverspending = {
     grandchild_award_total_obligation: 5000000
 };
 
-awardAmountsNeg.populate(negativeObligation, "idv");
-awardAmountsOverspent.populate(overspending, "idv");
-awardAmountsExtremeOverspent.populate(extremeOverspending, "idv");
+const nonAggregateIdvNormal = Object.create(BaseAwardAmounts);
+const nonAggregateIdvOverspent = Object.create(BaseAwardAmounts);
+const nonAggregateIdvExtremeOverspent = Object.create(BaseAwardAmounts);
+const normalIdv = {
+    _baseExercisedOptions: 0.0,
+    _baseAndAllOptions: 0.0,
+    _totalObligation: 0.0
+};
+const overspentIdv = {
+    _baseExercisedOptions: 10.0,
+    _baseAndAllOptions: 0.0,
+    _totalObligation: 0.0
+
+};
+const extremeOverspentIdv = {
+    _baseExercisedOptions: 0.0,
+    _baseAndAllOptions: 10.0,
+    _totalObligation: 0.0
+};
+
+awardAmountsNeg.populate(negativeObligation, "idv_aggregated");
+awardAmountsOverspent.populate(overspending, "idv_aggregated");
+awardAmountsExtremeOverspent.populate(extremeOverspending, "idv_aggregated");
+
+nonAggregateIdvNormal.populate(normalIdv, 'idv');
+nonAggregateIdvOverspent.populate(overspentIdv, 'idv');
+nonAggregateIdvExtremeOverspent.populate(extremeOverspentIdv, 'idv');
 
 describe('BaseAwardAmounts', () => {
-    describe('IDV Award Type', () => {
+    describe('IDV Award Type -- Aggregate Amounts', () => {
         it('should have an empty string as a unique generated id if the field is null or undefined', () => {
             expect(awardAmounts.generatedId).toEqual('');
         });
@@ -84,6 +108,29 @@ describe('BaseAwardAmounts', () => {
         });
         it('should format the amount overspent with units', () => {
             expect(awardAmountsOverspent.overspendingAbbreviated).toEqual('$2.5 M');
+        });
+    });
+    describe('IDVs - Non Aggregated Award Amounts', () => {
+        it('should successfully return spending data for the IDV itself (non-combined)', () => {
+            expect(nonAggregateIdvNormal.baseExercisedOptionsFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvNormal.totalObligationFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvNormal.baseAndAllOptionsFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvNormal.overspendingFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvNormal.extremeOverspendingFormatted).toEqual('$0.00');
+        });
+        it('should handle overspending', () => {
+            expect(nonAggregateIdvOverspent.baseExercisedOptionsFormatted).toEqual('$10.00');
+            expect(nonAggregateIdvOverspent.totalObligationFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvOverspent.baseAndAllOptionsFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvOverspent.overspendingFormatted).toEqual('-$10.00');
+            expect(nonAggregateIdvOverspent.extremeOverspendingFormatted).toEqual('$0.00');
+        });
+        it('should handle extremeOverspending', () => {
+            expect(nonAggregateIdvExtremeOverspent.baseExercisedOptionsFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvExtremeOverspent.totalObligationFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvExtremeOverspent.baseAndAllOptionsFormatted).toEqual('$10.00');
+            expect(nonAggregateIdvExtremeOverspent.overspendingFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvExtremeOverspent.extremeOverspendingFormatted).toEqual('-$10.00');
         });
     });
     /*

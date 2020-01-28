@@ -28,6 +28,7 @@ describe('StateContainer', () => {
         await container.instance().request.promise;
 
         expect(loadStateOverview).toHaveBeenCalledTimes(1);
+        expect(mockActions.setStateFiscalYear).toHaveBeenCalledWith('latest');
         expect(loadStateOverview).toHaveBeenCalledWith('01', 'latest');
     });
     it('should update the center coordinates for the selected state on mount', async () => {
@@ -54,7 +55,8 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 
@@ -73,7 +75,8 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 
@@ -100,7 +103,8 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 

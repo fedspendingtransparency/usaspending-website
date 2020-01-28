@@ -7,10 +7,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 
+import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
+import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import IdvAwardAmountsSectionContainer from 'containers/award/idv/IdvAwardAmountsSectionContainer';
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
-import IDVAmounts from './IDVAmounts';
+import AwardAmountsTable from 'components/award/shared/awardAmountsSection/AwardAmountsTable';
 import { awardAmountsInfo } from '../../shared/InfoTooltipContent';
 
 const propTypes = {
@@ -47,13 +49,16 @@ export default class AwardAmounts extends React.Component {
             }
         ];
 
-        const awards = this.props.overview;
+        const awards = Object.create(BaseAwardAmounts);
+        awards.populate(this.props.overview, 'idv');
         const content = this.state.active === 'awards' ? (
             <IdvAwardAmountsSectionContainer
                 jumpToSection={this.props.jumpToSection} />
         ) : (
-            <IDVAmounts
-                awards={awards} />
+            <AwardAmountsTable
+                awardData={awards}
+                awardAmountType="idv"
+                spendingScenario={determineSpendingScenarioByAwardType("idv", awards)} />
         );
         const tabsClassName = 'idv-award-amounts-tabs';
         return (

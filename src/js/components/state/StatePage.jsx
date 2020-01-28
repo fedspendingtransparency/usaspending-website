@@ -14,6 +14,7 @@ import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Error from 'components/sharedComponents/Error';
 import Footer from 'components/sharedComponents/Footer';
+import { LoadingWrapper } from "components/sharedComponents/Loading";
 
 import StateContent from './StateContent';
 
@@ -28,14 +29,7 @@ const propTypes = {
 export default class StatePage extends React.Component {
     render() {
         let content = <StateContent {...this.props} />;
-        if (this.props.loading) {
-            content = (
-                <Error
-                    title="Loading..."
-                    message="" />
-            );
-        }
-        else if (this.props.error) {
+        if (this.props.error) {
             content = (
                 <Error
                     title="Invalid State"
@@ -57,7 +51,9 @@ export default class StatePage extends React.Component {
                 <main
                     id="main-content"
                     className="main-content">
-                    {content}
+                    <LoadingWrapper isLoading={this.props.loading}>
+                        {content}
+                    </LoadingWrapper>
                 </main>
                 <Footer />
             </div>
