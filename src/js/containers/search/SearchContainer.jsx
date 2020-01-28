@@ -11,8 +11,6 @@ import { isCancel } from 'axios';
 import { is } from 'immutable';
 import moment from 'moment';
 
-import Router from 'containers/router/Router';
-
 import { filterStoreVersion, requiredTypes, initialState } from
     'redux/reducers/search/searchFiltersReducer';
 import * as searchHashActions from 'redux/actions/search/searchHashActions';
@@ -127,7 +125,8 @@ export class SearchContainer extends React.Component {
         const unfiltered = this.determineIfUnfiltered(this.props.appliedFilters.filters);
         if (unfiltered) {
             // there is no initial hash because there are no filters
-            Router.history.replace('/search');
+            // TODO: fix for BrowserRouter
+            //Router.history.replace('/search');
             this.props.setAppliedFilterEmptiness(true);
             this.props.setAppliedFilterCompletion(true);
             return;
@@ -172,7 +171,7 @@ export class SearchContainer extends React.Component {
             hash,
             hashState: 'ready'
         }, () => {
-            Router.history.replace(`/search/${hash}`);
+            //Router.history.replace(`/search/${hash}`);
         });
     }
 
@@ -204,7 +203,7 @@ export class SearchContainer extends React.Component {
                     }, () => {
                         this.props.setAppliedFilterEmptiness(true);
                         this.props.setAppliedFilterCompletion(true);
-                        Router.history.replace('/search');
+                        //Router.history.replace('/search');
                     });
                 }
             });
@@ -297,7 +296,7 @@ export class SearchContainer extends React.Component {
             // all the filters were cleared, reset to a blank hash
             this.props.setAppliedFilterEmptiness(true);
             this.props.setAppliedFilterCompletion(true);
-            Router.history.replace('/search');
+            //Router.history.replace('/search');
             return;
         }
 

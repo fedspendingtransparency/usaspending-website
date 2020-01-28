@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Router from 'containers/router/Router';
 
 const propTypes = {
     href: PropTypes.string,
@@ -39,7 +38,7 @@ export default class SmartLink extends React.Component {
         // check if the link is a local glossary reference
         if (url.indexOf('?glossary=') > -1) {
             // it is a local glossary reference, get the current URL
-            const currentPath = Router.state.path;
+            //const currentPath = Router.state.path;
             href = `#${currentPath}${url}`;
             isLocal = true;
         }

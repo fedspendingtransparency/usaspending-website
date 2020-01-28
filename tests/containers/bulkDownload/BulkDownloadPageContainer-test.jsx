@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { shallow } from 'enzyme';
-import Router from './mockRouter';
 
 import { BulkDownloadPageContainer } from 'containers/bulkDownload/BulkDownloadPageContainer';
 import { mockActions, mockRedux } from './mockData';
@@ -15,7 +14,6 @@ jest.mock('helpers/bulkDownloadHelper', () => require('./mockBulkDownloadHelper'
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/bulkDownload/BulkDownloadPage', () => jest.fn(() => null));
-jest.mock('containers/router/Router', () => require('./mockRouter'));
 
 describe('BulkDownloadPageContainer', () => {
     describe('startAwardDownload', () => {

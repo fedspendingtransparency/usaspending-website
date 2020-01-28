@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Router from 'containers/router/Router';
-
 import { clearAllFilters, updateSelectedAwardingAgencies } from
     'redux/actions/search/searchFilterActions';
 
@@ -48,7 +46,8 @@ export class AgencyFooterContainer extends React.Component {
         //     agency: this.state.agency
         // });
 
-        Router.history.push('/search');
+        // TODO: fix for BrowserRouter
+        //Router.history.push('/search');
     }
 
     render() {

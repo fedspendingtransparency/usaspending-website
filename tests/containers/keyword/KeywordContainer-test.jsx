@@ -8,15 +8,13 @@ import { shallow, mount } from 'enzyme';
 
 import { KeywordContainer } from 'containers/keyword/KeywordContainer';
 
-import { mockRedux, mockSummary, mockActions } from './mockResults';
-import Router from './mockRouter';
+import { mockRedux, mockActions } from './mockResults';
 
 jest.mock('helpers/keywordHelper', () => require('./keywordHelper'));
 jest.mock('helpers/bulkDownloadHelper', () => require('../bulkDownload/mockBulkDownloadHelper'));
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/keyword/KeywordPage', () => jest.fn(() => null));
-jest.mock('containers/router/Router', () => require('./mockRouter'));
 
 describe('KeywordContainer', () => {
     describe('updateKeyword', () => {
@@ -28,15 +26,6 @@ describe('KeywordContainer', () => {
             container.instance().updateKeyword('blah blah');
 
             expect(container.state().keyword).toEqual('blah blah');
-        });
-        it('should update the page url', () => {
-            const container = shallow(<KeywordContainer
-                {...mockRedux}
-                {...mockActions} />);
-
-            container.instance().updateKeyword('blah blah');
-
-            expect(Router.history.replace).toHaveBeenLastCalledWith('/keyword_search/blah%20blah');
         });
     });
 

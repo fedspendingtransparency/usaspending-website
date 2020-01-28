@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Router from 'containers/router/Router';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { dropdownScopes, rootScopes, icons } from 'dataMapping/explorer/dropdownScopes';
@@ -133,8 +131,8 @@ export default class BreakdownDropdown extends React.Component {
             expanded: false
         }, () => {
             if (this.props.isRoot && item !== this.props.root) {
-                // redirect to the correct root URL
-                Router.history.push(`/explorer/${item}`);
+                // TODO redirect to the correct root URL
+                //Router.history.push(`/explorer/${item}`);
             }
             else if (!this.props.isRoot) {
                 this.props.changeSubdivisionType(item);

@@ -12,7 +12,6 @@ import { isCancel } from 'axios';
 import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
 import * as recipientActions from 'redux/actions/recipient/recipientActions';
 import * as RecipientHelper from 'helpers/recipientHelper';
-import Router from 'containers/router/Router';
 
 import RecipientPage from 'components/recipient/RecipientPage';
 
@@ -40,7 +39,8 @@ export class RecipientContainer extends React.Component {
 
     componentDidMount() {
         if (!Object.keys(this.props.params).includes('fy')) {
-            Router.history.replace(`/recipient/${this.props.params.recipientId}/latest`);
+            // TODO: fix for BrowserRouter
+            //Router.history.replace(`/recipient/${this.props.params.recipientId}/latest`);
         }
         this.props.setRecipientFiscalYear(this.props.params.fy);
         this.loadRecipientOverview(this.props.params.recipientId, this.props.recipient.fy);

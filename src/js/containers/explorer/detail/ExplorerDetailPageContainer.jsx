@@ -8,8 +8,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Router from 'containers/router/Router';
-
 import * as explorerActions from 'redux/actions/explorer/explorerActions';
 
 import ExplorerDetailPage from 'components/explorer/detail/ExplorerDetailPage';
@@ -34,7 +32,7 @@ export class ExplorerDetailPageContainer extends React.Component {
         const allowedRoots = ['budget_function', 'agency', 'object_class'];
         if (!rootValue || allowedRoots.indexOf(rootValue) === -1) {
             // not a valid root, go to to the landing page
-            Router.history.replace('/explorer');
+            //Router.history.replace('/explorer');
         }
         else {
             // set the root

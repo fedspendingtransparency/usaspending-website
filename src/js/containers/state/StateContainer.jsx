@@ -13,7 +13,6 @@ import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import * as StateHelper from 'helpers/stateHelper';
 import * as stateActions from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';
-import Router from 'containers/router/Router';
 
 import StatePage from 'components/state/StatePage';
 
@@ -43,7 +42,7 @@ export class StateContainer extends React.Component {
     componentDidMount() {
         const { fy, stateId } = this.props.params;
         if (!Object.keys(this.props.params).includes('fy')) {
-            Router.history.replace(`/state/${stateId}/latest`);
+            //Router.history.replace(`/state/${stateId}/latest`);
         }
         this.props.setStateFiscalYear(fy);
         this.loadStateOverview(stateId, fy);

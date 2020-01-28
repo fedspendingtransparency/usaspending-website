@@ -9,7 +9,6 @@ import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
 
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
-import Router from 'containers/router/Router';
 
 import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navigation/menuOptions';
 
@@ -51,8 +50,9 @@ export default class MobileNav extends React.Component {
 
     checkCurrentProfile() {
         // determine if we need to highlight a dropdown menu option
-        const currentUrl = Router.history.location.pathname;
-        const formattedUrl = `#${currentUrl}`;
+        // TODO - fix for BrowserRouter
+        //const currentUrl = Router.history.location.pathname;
+        const formattedUrl = ``;
         if (this.state.url !== formattedUrl) {
             this.setState({
                 url: formattedUrl

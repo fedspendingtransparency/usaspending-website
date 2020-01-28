@@ -11,7 +11,6 @@ import { isCancel } from 'axios';
 import { List } from 'immutable';
 
 import Analytics from 'helpers/analytics/Analytics';
-import Router from 'containers/router/Router';
 
 import { dropdownScopes } from 'dataMapping/explorer/dropdownScopes';
 
@@ -299,7 +298,8 @@ export class DetailContentContainer extends React.Component {
         const filterBy = this.props.explorer.active.subdivision;
         if (filterBy === 'award') {
             // we are at the bottom of the path, go to the award page
-            Router.history.push(`/award/${id}`);
+            // TODO: fix for BrowserRouter
+            //Router.history.push(`/award/${id}`);
 
             Analytics.event({
                 category: 'Spending Explorer - Exit',

@@ -9,8 +9,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import Router from 'containers/router/Router';
-
 import Analytics from 'helpers/analytics/Analytics';
 
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
@@ -164,7 +162,8 @@ export class KeywordContainer extends React.Component {
             keyword
         }, () => {
             // update the url
-            Router.history.replace(`/keyword_search/${slug}`);
+            // TODO: fix for BrowserRouter
+            //Router.history.replace(`/keyword_search/${slug}`);
             Analytics.event({
                 category: 'Keyword Search - Keyword',
                 action: keyword

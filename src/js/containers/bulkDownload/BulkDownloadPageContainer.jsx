@@ -9,8 +9,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import Router from 'containers/router/Router';
-
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import { downloadOptions } from 'dataMapping/navigation/menuOptions';
@@ -60,12 +58,12 @@ export class BulkDownloadPageContainer extends React.Component {
 
             else {
                 // Invalid url, go to the error page
-                Router.history.replace('/error');
+                //Router.history.replace('/error');
             }
         }
         else {
             // If no type param is specified, default to award data
-            Router.history.replace('/download_center/custom_award_data');
+            //Router.history.replace('/download_center/custom_award_data');
         }
     }
 

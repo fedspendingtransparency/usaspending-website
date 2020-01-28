@@ -3,8 +3,6 @@
  * Created by Kevin Li 5/1/17
  */
 
-import Router from 'containers/router/Router';
-
 class GlossaryListenerSingleton {
     constructor() {
         this.glossaryContainer = null;
@@ -34,16 +32,16 @@ class GlossaryListenerSingleton {
         }
 
         // remove the query for glossary
-        const currentLocation = Router.state;
-        if (currentLocation.query && currentLocation.query.glossary) {
-            const removedQuery = Object.assign({}, currentLocation.query);
-            delete removedQuery.glossary;
+        // const currentLocation = Router.state;
+        // if (currentLocation.query && currentLocation.query.glossary) {
+        //     const removedQuery = Object.assign({}, currentLocation.query);
+        //     delete removedQuery.glossary;
 
-            Router.history.replace({
-                pathname: currentLocation.path,
-                query: removedQuery
-            });
-        }
+        //     Router.history.replace({
+        //         pathname: currentLocation.path,
+        //         query: removedQuery
+        //     });
+        // }
     }
 
     unsubscribe() {
