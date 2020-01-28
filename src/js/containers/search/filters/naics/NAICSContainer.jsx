@@ -69,20 +69,15 @@ export class NAICSContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log(' Updating Container ');
-        console.log(' Old Props : ', prevProps.checked.toJS());
-        console.log(' New Props : ', this.props.checked.toJS());
         if (
             !isEqual(this.props.checked.toJS(), prevProps.checked.toJS())
             || !isEqual(this.props.nodes.toJS(), prevProps.nodes.toJS())
         ) {
-            console.log(' Updating Selecting Data ');
             /**
              * get this difference since react-checkbox-tree is still sending checked data for
              * an unchecked node, will need to look into this further
              * */
             const diff = difference(prevProps.checked.toJS(), this.props.checked.toJS());
-            console.log(' Difference : ', diff);
 
             this.selectNaicsData(diff);
         }
@@ -122,7 +117,6 @@ export class NAICSContainer extends React.Component {
      * @returns {null}
      */
     onCheck = async (checked) => {
-        console.log(' Container check : ', checked);
         // sets checked in naics redux
         await this.props.setChecked(checked);
         // sets staged filters in search redux
@@ -278,7 +272,6 @@ export class NAICSContainer extends React.Component {
         const checkedData = clone(this.cleanCheckedValues(this.props.checked.toJS()));
         // removing parents that are still in the checked array
         const cleanData = compact(checkedData.map((data) => ((removed.includes(data)) ? null : data)));
-        // console.log('%%%%%%%%%%%%%%%%%%%%%%% Checked Data %%%%%%%%%%%%%%%%%%%%%%% : ', checkedData);
         const selectedNaicsData = cleanData.reduce((acc, value) => {
             // if (value.includes('childPlaceholder')) return acc;
             if (cleanRemovedValues.includes(value)) return acc;
@@ -302,27 +295,19 @@ export class NAICSContainer extends React.Component {
             const node = get({ data: nodes }, nodePathString);
             // find parent node in accumulator
             const foundParentNodeIndex = acc.findIndex((data) => data.value === parentNode.value);
-            console.log(' Parent Node : ', parentNode);
-            console.log(' Node : ', node);
-            console.log(' Parent Index : ', foundParentNodeIndex);
             // if a parent node does not have a childPlaceholder
             // this means we have data for that parent
             // we also check if that parent is in the checked array
             // if it is in the checked array and it has children ignore it,
             // since we count children
             if (node.count && node.children.length) {
-                console.log('------------------- Running Throught Logic -------------------');
                 const childValues = node.children.map((data) => data.value);
-                console.log(' Child Values : ', childValues);
                 const someChildrenArePlaceholders = childValues
                     .some((data) => data.includes('childPlaceholder'));
-                console.log(' Some Children Are Placeholders : ', someChildrenArePlaceholders);
-                console.log(' Checked Data Include node : ', this.props.checked.toJS().includes(node.value));
                 if (
                     !someChildrenArePlaceholders
                     && this.props.checked.toJS().includes(node.value)
                 ) {
-                    console.log(' Ignoring This Node : ', node.value);
                     return acc;
                 }
             }
