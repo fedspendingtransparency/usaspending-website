@@ -16,7 +16,8 @@ module.exports = merge(common, {
         contentBase: path.resolve(__dirname, "public"),
         host: "0.0.0.0", // this allows VMs to access the server
         port: 3000,
-        disableHostCheck: true
+        disableHostCheck: true,
+        historyApiFallback: true
     },
     module: {
         rules: [

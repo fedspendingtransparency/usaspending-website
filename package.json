@@ -5,7 +5,7 @@
     "repository": "fedspendingtransparency/usaspending-website",
     "main": "src/index.js",
     "scripts": {
-        "start": "webpack-dev-server --open --progress --config ./webpack/webpack.dev.config.js",
+        "start": "webpack-dev-server --open --history-api-fallback --progress --config ./webpack/webpack.dev.config.js",
         "sass": "webpack-dev-server --open --progress --config ./webpack/webpack.sass.config.js",
         "test": "./node_modules/.bin/jest; exit 0;",
         "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
@@ -108,6 +108,7 @@
         "react-map-gl": "^2.0.2",
         "react-markdown": "^2.5.0",
         "react-redux": "^7.0.1",
+        "react-router-dom": "^5.1.2",
         "react-string-replace": "^0.4.0",
         "react-transition-group": "^1.1.2",
         "redux": "^4.0.1",

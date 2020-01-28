@@ -2,6 +2,7 @@
  * AppContainer.jsx
  * Created by Emily Gullo 9/26/2016
  **/
+
 import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
@@ -11,7 +12,8 @@ import kGlobalConstants from 'GlobalConstants';
 import storeSingleton from 'redux/storeSingleton';
 import reducers from 'redux/reducers/index';
 
-import RouterContainer from './router/RouterContainer';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { routes } from './router/RouterRoutes';
 
 let devExtension;
 let store;
@@ -36,7 +38,13 @@ export default class AppContainer extends React.Component {
     render() {
         return (
             <Provider store={store}>
-                <RouterContainer />
+                <BrowserRouter>
+                    <Switch>
+                        {routes.map(({ path, component }) => (
+                            <Route exact path={path} component={component} key={path} />
+                        ))}
+                    </Switch>
+                </BrowserRouter>
             </Provider>
         );
     }
