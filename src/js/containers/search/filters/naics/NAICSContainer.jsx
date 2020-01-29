@@ -267,20 +267,24 @@ export class NAICSContainer extends React.Component {
             }
             return null;
         }));
-        // current nodes
         const nodes = cloneDeep(this.props.nodes.toJS());
         const checkedData = clone(this.cleanCheckedValues(this.props.checked.toJS()));
         // removing parents that are still in the checked array
         const cleanData = compact(checkedData.map((data) => ((removed.includes(data)) ? null : data)));
         const selectedNaicsData = cleanData.reduce((acc, value) => {
-            // if (value.includes('childPlaceholder')) return acc;
+            /**
+             * Ignores childPlaceholder values (a placeholder for nodes that are parents
+             * but we do not have data for their children). We remove these values because when
+             * a user checks a node and that node is a parent and we do not have child data we are
+             * not going to count the child since the user could not have possibly checked that
+             * child, we are only going to cound the parent.
+             */
             if (cleanRemovedValues.includes(value)) return acc;
             // since we have the unchecked values
             // when we loop through and have the parent
             // if there is a code that matched the clean value
             // we will ignore it
             const nodePath = pathToNode(nodes, value);
-            // console.log(' Child Node Path : ', nodePath);
             /**
              * Since the staged filters will always show the top level parent. The path to that node
              * will always be the first index.

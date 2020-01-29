@@ -227,7 +227,6 @@ export default class CheckboxTree extends Component {
         } = this.props;
         if (isSearch) return this.handleSearch(data);
         const newNodes = createCheckboxTreeDataStrucure(limit, nodeKeys, data);
-        console.log(' New Nodes : ', newNodes);
         this.setState({ nodes: newNodes, requestType: '' });
         return (setRedux && newNodes.length) ? setRedux(newNodes) : null;
     }
@@ -292,6 +291,15 @@ export default class CheckboxTree extends Component {
             const childValues = allChildValues(newNode[0].children);
             // add child values to array
             currentlyChecked.splice(index, 1, ...childValues);
+            /**
+             * Since React Checkbox Tree decides if a node is checked based on its child properties
+             * and we are add all the children are checked. We must remove the parent that is checked
+             */
+            const parentIndex = currentlyChecked.findIndex((info) => info === newNode[0].value);
+            console.log(' Before Currently Checked : ', currentlyChecked);
+            console.log(' Parent Index : ', parentIndex);
+            if (parentIndex !== -1) currentlyChecked.splice(parentIndex, 1);
+            console.log(' After Currently Checked : ', currentlyChecked);
         }
         // set the new node in the respective position
         set(nodesObject, nodePathString, newNode[0]);
