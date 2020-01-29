@@ -77,7 +77,6 @@ const CoreLocation = {
         return city;
     },
     get recipientRegionalAddressContractsAndIDV() {
-        console.log(' This State Code : ', this._stateCode);
         const city = this._city || '--';
         const state = this._stateCode || '--';
         if (this._countryCode === 'USA'
@@ -87,7 +86,6 @@ const CoreLocation = {
             return `${city}, ${state} ${zip}`;
         }
         const fState = this._stateCode !== '--' ? this._stateCode : '';
-        console.log(' The fState : ', fState);
         const fZip = this._zip || '';
         // if province or foreign zip exist show comma
         if (fState || fZip) return `${city}, ${state} ${fZip}`;
