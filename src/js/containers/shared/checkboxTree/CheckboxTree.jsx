@@ -60,7 +60,6 @@ export default class CheckboxTree extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log(' This Props : ', this.props);
         if (!isEqual(prevProps.data, this.props.data)) {
             this.updateNode();
         }
@@ -87,7 +86,6 @@ export default class CheckboxTree extends Component {
      */
     onCheck = (checked, node) => {
         if (this.state.checked.length < checked.length) {
-            console.log(' Checking : ', checked);
             this.checkedNode(checked, node);
         }
         else { // unchecked
@@ -142,7 +140,6 @@ export default class CheckboxTree extends Component {
      */
     unCheckedNode = (checked, node) => {
         const { onCheck, isSearch } = this.props;
-        console.log(' Un Checking : ', checked);
         this.setState({ checked });
         if (onCheck && !isSearch) onCheck(checked);
     }

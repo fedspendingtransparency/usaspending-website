@@ -268,7 +268,6 @@ export class NAICSContainer extends React.Component {
             const parentNode = get({ data: nodes }, parentNodePathString);
             // accessing the child node
             const nodePathString = buildNodePath(nodePath);
-            // console.log(' Node Path String : ', nodePathString);
             const node = get({ data: nodes }, nodePathString);
             // find parent node in accumulator
             const foundParentNodeIndex = acc.findIndex((data) => data.value === parentNode.value);
