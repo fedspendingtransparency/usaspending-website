@@ -5,13 +5,12 @@
 
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import { StateContainer } from 'containers/state/StateContainer';
+import BaseStateProfile from 'models/v2/state/BaseStateProfile';
+import { mockActions, mockRedux, mockStateOverview } from './mockData';
 
 // mock the state helper
 jest.mock('helpers/stateHelper', () => require('./mockStateHelper'));
-
-import { StateContainer } from 'containers/state/StateContainer';
-import { mockActions, mockRedux, mockStateOverview } from './mockData';
-import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/state/StatePage', () => jest.fn(() => null));
@@ -29,6 +28,7 @@ describe('StateContainer', () => {
         await container.instance().request.promise;
 
         expect(loadStateOverview).toHaveBeenCalledTimes(1);
+        expect(mockActions.setStateFiscalYear).toHaveBeenCalledWith('latest');
         expect(loadStateOverview).toHaveBeenCalledWith('01', 'latest');
     });
     it('should update the center coordinates for the selected state on mount', async () => {
@@ -55,7 +55,8 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 
@@ -74,7 +75,8 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 
@@ -101,7 +103,8 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 

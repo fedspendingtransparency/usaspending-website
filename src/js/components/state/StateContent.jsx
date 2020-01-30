@@ -216,7 +216,7 @@ export default class StateContent extends React.Component {
                         jumpToSection={this.jumpToSection}
                         stickyHeaderHeight={StickyHeader.stickyHeaderHeight}
                         fyPicker
-                        currentFy={this.props.stateProfile.fy}
+                        selectedFy={this.props.stateProfile.fy}
                         pickedYear={this.props.pickedFy} />
                 </div>
                 <div className="state-content">
