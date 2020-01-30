@@ -278,17 +278,11 @@ export const allChildValues = (nodes) => {
  * @param {*} value - value to match on
  * @returns {array} - A path array to the matched object
  */
-let found = false;
-let nodePath = null;
 export const pathToNode = (nodes, value) => {
-    // console.log( '------------------ Path To Node ------------------');
-    // console.log(' Looking For Value : ', value);
     let theNodePath = null;
     const recursiveFind = (theNodes, theValue) => {
-        // console.log('=================== Looping Through Children ===================');
         // array of parent indices including found node index
         for (let i = 0; i < theNodes.length; i++) {
-            // console.log(' Child : ', theNodes[i]);
             // we found the node, break
             if (theNodes[i].value === theValue) {
                 theNodePath = theNodes[i].path;
@@ -304,10 +298,8 @@ export const pathToNode = (nodes, value) => {
 
     // array of parent indices including found node index
     for (let i = 0; i < nodes.length; i++) {
-        // console.log(' Looping Through Parent : ', nodes[i]);
         if (nodes[i].value === value) {
             theNodePath = nodes[i].path;
-            // console.log(' Found Parent : ', theNodePath);
             break;
         }
         if (nodes[i].children) {
@@ -317,82 +309,6 @@ export const pathToNode = (nodes, value) => {
     }
     return theNodePath;
 };
-
-// export const cleanData = (nodes) => {
-//     const expandedFunc = (theNodes) => {
-//         return theNodes.map((node) => {
-//             const newNode = node;
-//             delete newNode.path;
-//             delete newNode.count;
-//             if (newNode.children) {
-//                 newNode.children = expandedFunc(newNode.children);
-//             }
-//             return newNode;
-//         });
-//     };
-//     // maps nodes to an array of expanded values
-//     const expanded = nodes.map((node) => {
-//         const newNode = node;
-//         delete newNode.path;
-//         delete newNode.count;
-//         if (newNode.children) {
-//             newNode.children = expandedFunc(newNode.children);
-//         }
-//         return newNode;
-//     });
-//     // flattens and removes any null values
-//     return compact(flattenDeep(expanded));
-// };
-// /**
-//  * pathToNode
-//  * finds the path to an object
-//  * @param {array} nodes - nodes to search through
-//  * @param {*} value - value to match on
-//  * @returns {array} - A path array to the matched object
-//  */
-// let found = false;
-// let nodePath = null;
-// export const pathToNode = (nodes, value) => {
-//     console.log('------------------------ PATH TO NODE ------------------------');
-//     console.log(' Found : ', found);
-//     console.log(' Node Path : ', nodePath);
-//     console.log(' Da Val : ', value);
-//     // array of parent indices including found node index
-//     for (let i = 0; i < nodes.length; i++) {
-//         /**
-//          * Since we are calling this function on children we need to know if the
-//          * match was found, and break out of the outermost loop.
-//          */
-//         if (found) {
-//             found = false;
-//             break;
-//         }
-//         // we found the node, break
-//         console.log(' Node I : ', nodes[i]);
-//         if (nodes[i].value === value) {
-//             console.log(' Found Value : ', nodes[i].value);
-//             console.log(' Found passed value : ', value);
-//             // set the nodePath
-//             nodePath = nodes[i].path;
-//             /**
-//              * Since we are calling the function pathToNode we could be in a child
-//              * loop, and we must tell update the found property because there outermost
-//              * parent loop will hit and we need to break out of that loop as well.
-//              */
-//             found = true;
-//             break;
-//         }
-//         if (nodes[i].children) {
-//             // we have not found the match, repeat process with children
-//             pathToNode(nodes[i].children, value);
-//         }
-//     }
-//     found = false;
-//     console.log(' Node Final : ', nodePath);
-//     // const placeholderPath = clone(nodePath);
-//     // nodePath = null;
-//     return nodePath;
-// };
 /**
  * buildNodePath
  * Creates an object path string

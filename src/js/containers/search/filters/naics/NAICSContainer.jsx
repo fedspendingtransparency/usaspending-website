@@ -65,6 +65,8 @@ export class NAICSContainer extends React.Component {
         if (nodes.size > 0) {
             return this.setStateFromRedux(nodes, expanded, checked);
         }
+        // show staged filters
+        this.selectNaicsData();
         return this.fetchNAICS();
     }
 
@@ -73,13 +75,8 @@ export class NAICSContainer extends React.Component {
             !isEqual(this.props.checked.toJS(), prevProps.checked.toJS())
             || !isEqual(this.props.nodes.toJS(), prevProps.nodes.toJS())
         ) {
-            /**
-             * get this difference since react-checkbox-tree is still sending checked data for
-             * an unchecked node, will need to look into this further
-             * */
-            const diff = difference(prevProps.checked.toJS(), this.props.checked.toJS());
-
-            this.selectNaicsData(diff);
+            // show stage filters
+            this.selectNaicsData();
         }
     }
 
@@ -260,35 +257,11 @@ export class NAICSContainer extends React.Component {
         );
     }
 
-    selectNaicsData = (removed) => {
-        const cleanRemovedValues = compact(removed.map((data) => {
-            if (data.includes('childPlaceholder')) {
-                return this.cleanCheckedValues([data])[0];
-            }
-            return null;
-        }));
+    selectNaicsData = () => {
         const nodes = cloneDeep(this.props.nodes.toJS());
         const checkedData = clone(this.cleanCheckedValues(this.props.checked.toJS()));
-        // removing parents that are still in the checked array
-        const cleanData = compact(checkedData.map((data) => ((removed.includes(data)) ? null : data)));
-        const selectedNaicsData = cleanData.reduce((acc, value) => {
-            /**
-             * Ignores childPlaceholder values (a placeholder for nodes that are parents
-             * but we do not have data for their children). We remove these values because when
-             * a user checks a node and that node is a parent and we do not have child data we are
-             * not going to count the child since the user could not have possibly checked that
-             * child, we are only going to cound the parent.
-             */
-            if (cleanRemovedValues.includes(value)) return acc;
-            // since we have the unchecked values
-            // when we loop through and have the parent
-            // if there is a code that matched the clean value
-            // we will ignore it
+        const selectedNaicsData = checkedData.reduce((acc, value) => {
             const nodePath = pathToNode(nodes, value);
-            /**
-             * Since the staged filters will always show the top level parent. The path to that node
-             * will always be the first index.
-             */
             const parentNodeSearch = [nodePath[0]];
             // accessing the parent node
             const parentNodePathString = buildNodePath(parentNodeSearch);
@@ -299,22 +272,6 @@ export class NAICSContainer extends React.Component {
             const node = get({ data: nodes }, nodePathString);
             // find parent node in accumulator
             const foundParentNodeIndex = acc.findIndex((data) => data.value === parentNode.value);
-            // if a parent node does not have a childPlaceholder
-            // this means we have data for that parent
-            // we also check if that parent is in the checked array
-            // if it is in the checked array and it has children ignore it,
-            // since we count children
-            if (node.count && node.children.length) {
-                const childValues = node.children.map((data) => data.value);
-                const someChildrenArePlaceholders = childValues
-                    .some((data) => data.includes('childPlaceholder'));
-                if (
-                    !someChildrenArePlaceholders
-                    && this.props.checked.toJS().includes(node.value)
-                ) {
-                    return acc;
-                }
-            }
             // when a parent node already exists update count
             if (foundParentNodeIndex !== -1) {
                 // adds the count of the child object to the parent node
@@ -332,8 +289,6 @@ export class NAICSContainer extends React.Component {
                     parentNode.count = 1;
                 }
                 else {
-                    // console.log(' Parent Node : ', parentNode);
-                    // console.log(' Child Node : ', node);
                     parentNode.count = node.count;
                 }
                 acc.push(parentNode);

@@ -6,7 +6,7 @@
 import React, { Component, cloneElement } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
 import PropTypes from 'prop-types';
-import { isEqual, difference, isEmpty, get, set } from 'lodash';
+import { isEqual, difference, clone, get, set } from 'lodash';
 import reactStringReplace from 'react-string-replace';
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
 import {
@@ -283,12 +283,18 @@ export default class CheckboxTree extends Component {
         /**
          * When the parent has been checked. We must check all children
          */
-        const { checked: currentlyChecked } = this.state;
+        const currentlyChecked = clone(this.state.checked);
         const childPlaceholder = `${originalNode.value}childPlaceholder`;
         if (currentlyChecked.includes(childPlaceholder)) {
             const index = currentlyChecked.findIndex((info) => info === childPlaceholder);
             // get all child values
-            const childValues = allChildValues(newNode[0].children);
+            const allTheChildValues = allChildValues(newNode[0].children);
+            // filters out any node values that have a child with childPlaceholder value
+            const childValues = allTheChildValues.filter((child) => {
+                if (allTheChildValues.includes(`${child}childPlaceholder`)) return false;
+                return true;
+            });
+
             // add child values to array
             currentlyChecked.splice(index, 1, ...childValues);
             /**
@@ -296,10 +302,7 @@ export default class CheckboxTree extends Component {
              * and we are update all the new children to checked. We must remove the parent that is checked.
              */
             const parentIndex = currentlyChecked.findIndex((info) => info === newNode[0].value);
-            console.log(' Before Currently Checked : ', currentlyChecked);
-            console.log(' Parent Index : ', parentIndex);
             if (parentIndex !== -1) currentlyChecked.splice(parentIndex, 1);
-            console.log(' After Currently Checked : ', currentlyChecked);
         }
         // set the new node in the respective position
         set(nodesObject, nodePathString, newNode[0]);
@@ -395,9 +398,6 @@ export default class CheckboxTree extends Component {
             <div className="checkbox-tree">
                 <CheckBoxTree
                     nodes={labeledNodes}
-                    // checkModel="all"
-                    // // noCascade
-                    // // optimisticToggle
                     checked={checked}
                     expanded={expanded}
                     onCheck={this.onCheck}
