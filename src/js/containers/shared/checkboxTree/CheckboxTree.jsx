@@ -50,8 +50,7 @@ export default class CheckboxTree extends Component {
         this.state = {
             nodes: [],
             checked: [],
-            expanded: [],
-            requestType: 'initial'
+            expanded: []
         };
     }
 
@@ -126,9 +125,8 @@ export default class CheckboxTree extends Component {
      * @returns {null}
      */
     checkedNode = (checked, node) => {
-        const { onCheck, isSearch } = this.props;
+        const { onCheck } = this.props;
         this.setState({ checked });
-        // if (onCheck && !isSearch) onCheck(checked);
         if (onCheck) onCheck(checked);
     }
     /**
@@ -139,9 +137,9 @@ export default class CheckboxTree extends Component {
      * @returns {null}
      */
     unCheckedNode = (checked, node) => {
-        const { onCheck, isSearch } = this.props;
+        const { onCheck } = this.props;
         this.setState({ checked });
-        if (onCheck && !isSearch) onCheck(checked);
+        if (onCheck) onCheck(checked);
     }
     /**
      * pathToNodeString
@@ -224,7 +222,7 @@ export default class CheckboxTree extends Component {
         } = this.props;
         if (isSearch) return this.handleSearch(data);
         const newNodes = createCheckboxTreeDataStrucure(limit, nodeKeys, data);
-        this.setState({ nodes: newNodes, requestType: '' });
+        this.setState({ nodes: newNodes });
         return (setRedux && newNodes.length) ? setRedux(newNodes) : null;
     }
 
@@ -252,13 +250,11 @@ export default class CheckboxTree extends Component {
             onCheck,
             isSearch
         } = this.props;
-        const isCleanData = this.isCleanData(data);
-        if (isCleanData) {
+        if (this.isCleanData(data)) {
             return this.setState({
                 nodes: data,
                 expanded,
-                checked,
-                requestType: ''
+                checked
             });
         }
         // path to node
@@ -305,7 +301,7 @@ export default class CheckboxTree extends Component {
         set(nodesObject, nodePathString, newNode[0]);
         this.setState({ nodes: nodesObject.data, checked: currentlyChecked });
         if (updateRedux) updateRedux(nodesObject.data);
-        return (onCheck && !isSearch) ? onCheck(currentlyChecked) : null;
+        return (onCheck) ? onCheck(currentlyChecked) : null;
     }
     /**
      * handleSearch
