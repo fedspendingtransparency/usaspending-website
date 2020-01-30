@@ -293,7 +293,7 @@ export default class CheckboxTree extends Component {
             currentlyChecked.splice(index, 1, ...childValues);
             /**
              * Since React Checkbox Tree decides if a node is checked based on its child properties
-             * and we are add all the children are checked. We must remove the parent that is checked
+             * and we are update all the new children to checked. We must remove the parent that is checked.
              */
             const parentIndex = currentlyChecked.findIndex((info) => info === newNode[0].value);
             console.log(' Before Currently Checked : ', currentlyChecked);
