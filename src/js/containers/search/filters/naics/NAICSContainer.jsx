@@ -120,6 +120,8 @@ export class NAICSContainer extends React.Component {
         await this.props.updateNaics(checked);
     }
 
+    addNode = (value) => {}
+
     setRedux = (naics) => this.props.setNaics(naics);
 
     setStateFromRedux = (naics, expanded, checked) => {
@@ -236,16 +238,16 @@ export class NAICSContainer extends React.Component {
             isSearch,
             naics,
             expanded,
-            checked,
             searchString
         } = this.state;
+        const { checked } = this.props;
         if (isLoading || isError) return null;
         return (
             <CheckboxTree
                 limit={3}
                 data={naics}
                 expanded={expanded}
-                checked={checked}
+                checked={checked.toJS()}
                 nodeKeys={nodeKeys}
                 isSearch={isSearch}
                 searchText={searchString}

@@ -218,7 +218,8 @@ export default class CheckboxTree extends Component {
             data,
             limit,
             setRedux,
-            isSearch
+            isSearch,
+            checked
         } = this.props;
         if (isSearch) return this.handleSearch(data);
         const newNodes = createCheckboxTreeDataStrucure(limit, nodeKeys, data);
@@ -247,8 +248,7 @@ export default class CheckboxTree extends Component {
             checked,
             limit,
             updateRedux,
-            onCheck,
-            isSearch
+            onCheck
         } = this.props;
         if (this.isCleanData(data)) {
             return this.setState({
@@ -308,7 +308,7 @@ export default class CheckboxTree extends Component {
      * updates nodes with expanded properties
      */
     handleSearch = (nodes) => {
-        const { limit, nodeKeys } = this.props;
+        const { limit, nodeKeys, checked } = this.props;
         // create the new node
         const { updatedNodes, expanded } = expandedFromSearch(
             limit,
@@ -316,7 +316,7 @@ export default class CheckboxTree extends Component {
             nodes
         );
         this.setState({ nodes: updatedNodes });
-        this.setState({ expanded });
+        this.setState({ expanded, checked  });
     }
     // TODO - implement this
     // sets specific icons to custom icons passed in props

@@ -181,7 +181,8 @@ export const createCheckboxTreeDataStrucure = (
 /**
  * expandedFromSearch
  * - maps data passed to nodes in the checkbox tree data structure and decides which
- * nodes are expanded based on if they have a children property.
+ * nodes are expanded based on if they have a children property. We also add placeholder
+ * children so that the checkboxes (full check and half check) work as expected.
  * @param {number} limit - total possible depth of tree structure
  * @param {object} nodeKeys - and object with keys value
  * @param {array} nodes - array of objects
@@ -202,6 +203,22 @@ export const expandedFromSearch = (
         null,
         true
     );
+    // add placeholder children for search
+    const addPlaceholderChildren = (node) => {
+        const difference = node.count - node.children.length;
+        if (difference > 0) {
+            for (let i = 0; i < difference; i++) {
+                // placeholder children for search
+                const placeholderChild = {
+                    value: `${node.value}placeholderForSearch${i}`,
+                    label: 'placeholderForSearch',
+                    className: 'react-checkbox-tree__search-placeholder-child'
+                };
+                node.children.push(placeholderChild);
+            }
+        }
+        return node;
+    };
     /**
      * expandedFunc
      * - recursively loops through nodes updating an array with the value of children
@@ -214,10 +231,13 @@ export const expandedFromSearch = (
         const expandedValues = expanded;
         theNodes.forEach((node) => {
             const newNode = node;
-            newNode.className = 'react-checkbox-tree__search';
+            if (!newNode?.className) {
+                newNode.className = 'react-checkbox-tree__search';
+            }
             if (newNode.children) {
-                expandedValues.push(newNode.value);
-                expandedFunc(newNode.children, expandedValues);
+                const updatedNode = addPlaceholderChildren(newNode);
+                expandedValues.push(updatedNode.value);
+                expandedFunc(updatedNode.children, expandedValues);
             }
         });
         return expandedValues;
@@ -226,7 +246,10 @@ export const expandedFromSearch = (
     const expanded = newNodes.map((node) => {
         const newNode = node;
         newNode.className = 'react-checkbox-tree__tier-zero';
-        if (newNode.children) return [newNode.value, ...expandedFunc(newNode.children, [])];
+        if (newNode.children) {
+            const updatedNode = addPlaceholderChildren(newNode);
+            return [newNode.value, ...expandedFunc(updatedNode.children, [])];
+        }
         return [null];
     });
     // flattens and removes any null values
