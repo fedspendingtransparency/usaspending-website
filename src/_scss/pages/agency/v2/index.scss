@@ -1,0 +1,28 @@
+.usa-da-agency-page {
+    @import "all";
+    @import "layouts/default/default";
+    @import "layouts/default/stickyHeader/header";
+    @import "components/pageLoading";
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+
+    .site-header,
+    .sticky-header,
+    .page__loading,
+    .main-content,
+    .footer-container {
+        width: 100%;
+    }
+
+    .main-content {
+        flex-grow: 1;
+    }
+
+    $color-gray-border: #D8D8D8;
+    $color-blue-background: #F5FBFC;
+}

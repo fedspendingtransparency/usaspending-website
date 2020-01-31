@@ -17,7 +17,7 @@ import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader'
 import Footer from 'components/sharedComponents/Footer';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 
-require('pages/agency/agencyPage.scss');
+require('pages/agency/v2/index.scss');
 
 const AgencyProfileV2 = ({
     agencyOverview,
@@ -38,7 +38,7 @@ const AgencyProfileV2 = ({
             </StickyHeader>
             <LoadingWrapper>
                 <main id="main-content" className="main-content">
-                    {agencyOverview.name}
+                    YOOOO
                 </main>
             </LoadingWrapper>
             <Footer />
