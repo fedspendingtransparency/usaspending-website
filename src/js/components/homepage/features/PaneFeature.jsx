@@ -15,7 +15,7 @@ const PaneFeature = () => (
                     <h3 className="feature-pane__content-title">New! - Congressional Budget Justifications</h3>
                     <p className="feature-pane_content-text">See the rich, detailed documents each agency submits to Congress to justify its annual budget request.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="/#/agency" className="feature-pane__button">Explore Budget Justifications</a>
+                        <a href="/#/agency" role="button" className="feature-pane__button">Explore Budget Justifications</a>
                     </div>
                 </div>
                 <div className="feature-pane__content-divider" />
@@ -38,6 +38,7 @@ const PaneFeature = () => (
                         <a
                             href="https://datalab.usaspending.gov/americas-finance-guide/"
                             target="_blank"
+                            role="button"
                             rel="noopener noreferrer"
                             className="feature-pane__button">
                             Explore the Guide <span id="middle-pane-feature-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
@@ -50,7 +51,7 @@ const PaneFeature = () => (
                     <h3 className="feature-pane__content-title">New! - Recipient Profiles</h3>
                     <p className="feature-pane_content-text" >Find insights into each recipient with the tools and summaries found in our new Recipient Profile pages.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="/#/recipient" className="feature-pane__button">Explore Recipient Profiles</a>
+                        <a href="/#/recipient" role="button" className="feature-pane__button">Explore Recipient Profiles</a>
                     </div>
                 </div>
             </div>
