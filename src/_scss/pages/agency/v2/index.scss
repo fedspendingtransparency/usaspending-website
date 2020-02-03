@@ -66,7 +66,7 @@ $fg-max-columns: 12;          // Total Columns For Main Container
             .agency-v2-sidebar-content {
                 &.float-sidebar {
                     position: fixed;
-                    top: rem(126);
+                    top: rem(86);
                 }
             
                 background-color: $color-white;
@@ -113,7 +113,7 @@ $fg-max-columns: 12;          // Total Columns For Main Container
             }
         }
         .body {
-            // margin: flex-gutter();
+            margin: flex-gutter() / 2 0;
             display: flex;
             width: flex-grid(10);
             flex-direction: column;
