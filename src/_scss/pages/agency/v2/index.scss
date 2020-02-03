@@ -1,4 +1,8 @@
-.usa-da-agency-page {
+$fg-column: 78px;             // Column Width
+$fg-gutter: 5px;             // Gutter Width
+$fg-max-columns: 12;          // Total Columns For Main Container
+
+.usa-da-agency-page-v2 {
     @import "all";
     @import "layouts/default/default";
     @import "layouts/default/stickyHeader/header";
@@ -8,8 +12,8 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    width: 100%;
     min-height: 100vh;
+    width: 100%;
 
     .site-header,
     .sticky-header,
@@ -19,8 +23,111 @@
         width: 100%;
     }
 
+    .main-content .sidebar,
+    .main-content .body {
+        max-width: rem(1600);
+    }
+
     .main-content {
+        display: flex;
+        width: flex-grid(12);
         flex-grow: 1;
+        flex-wrap: wrap;
+        ul {
+            padding: 0;
+            li {
+                list-style: none;
+            }
+        }
+        .sankey {
+            width: flex-grid(12);
+            background: #fff;
+            box-shadow: 0 0 5px 5px rgba(0,0,0,0.15);
+            h2 {
+                padding: 0px;
+                margin: 0px;
+            }
+        }
+        .sidebar {
+            display: none;
+            @media(min-width: $tablet-screen) {
+                display: flex;
+                flex-direction: column;
+                width: flex-grid(2);
+                margin: flex-gutter() / 2;
+            }
+            .agency-v2-sidebar-reference {
+                display: none;
+            
+                &.float-sidebar {
+                    display: block;
+                }
+            }
+            .agency-v2-sidebar-content {
+                &.float-sidebar {
+                    position: fixed;
+                    top: rem(126);
+                }
+            
+                background-color: $color-white;
+                box-shadow: $container-shadow;
+                color: $color-base;
+                border-top: 1px solid $color-gray-border;
+                border-right: 1px solid $color-gray-border;
+                border-bottom: 1px solid $color-gray-border;
+            
+                @import 'pages/state/_fyPicker';
+            
+                ul {
+                    @include unstyled-list;
+                    padding: rem(15) rem(30) rem(30);
+            
+                    li {
+                        margin-bottom: rem(24);
+            
+                        &:last-child {
+                            margin-bottom: rem(0);
+                        }
+                    }
+            
+                    a.sidebar-link {
+                        color: $color-base;
+                        font-size: rem(19);
+                        line-height: rem(20);
+                        padding-bottom: rem(5);
+            
+                        text-decoration: none;
+                        border-bottom: 5px solid transparent;
+                        @include transition(all 0.15s ease-in-out);
+            
+                        &:hover {
+                            border-bottom: 5px solid $color-primary;
+                        }
+            
+                        &.active {
+                            font-weight: $font-bold;
+                            border-bottom: 5px solid $color-primary;
+                        }
+                    }
+                }
+            }
+        }
+        .body {
+            // margin: flex-gutter();
+            display: flex;
+            width: flex-grid(10);
+            flex-direction: column;
+            @media(min-width: $tablet-screen) {
+                width: flex-grid(10);
+            }
+            .body__section {
+                height: 250px;
+                border: 1px solid red;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
     }
 
     $color-gray-border: #D8D8D8;
