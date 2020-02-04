@@ -18,7 +18,12 @@ const propTypes = {
     stickyHeaderHeight: PropTypes.number,
     fyPicker: PropTypes.bool,
     selectedFy: PropTypes.string,
-    pickedYear: PropTypes.func
+    pickedYear: PropTypes.func,
+    detectActiveSection: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+};
+
+const defaultProps = {
+    detectActiveSection: false
 };
 
 export default class Sidebar extends React.Component {
@@ -28,23 +33,64 @@ export default class Sidebar extends React.Component {
         this.state = {
             shouldFloat: false,
             sidebarWidth: 0,
-            floatPoint: 0
+            floatPoint: 0,
+            sectionPositions: [],
+            window: {
+                height: 0
+            }
         };
 
         this.lastY = null;
-        this.windowDidScroll = throttle(this.windowDidScroll.bind(this), 16);
+        this.floatSideBarVertical = throttle(this.floatSideBarVertical.bind(this), 16);
         this.measureSidebarWidth = this.measureSidebarWidth.bind(this);
+        this.highlightCurrentSection = throttle(this.highlightCurrentSection.bind(this), 100);
+        this.cacheSectionPositions = throttle(this.cacheSectionPositions.bind(this), 100);
     }
 
     componentDidMount() {
         this.measureSidebarWidth();
-        window.addEventListener('scroll', this.windowDidScroll);
+        if (this.props.detectActiveSection) {
+            this.cacheSectionPositions();
+        }
+        window.addEventListener('scroll', this.floatSideBarVertical);
         window.addEventListener('resize', this.measureSidebarWidth);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('scroll', this.windowDidScroll);
+        window.removeEventListener('scroll', this.floatSideBarVertical);
         window.removeEventListener('resize', this.measureSidebarWidth);
+    }
+
+    cacheSectionPositions() {
+        // it is expensive to measure the DOM elements on every scroll, so measure them upfront
+        // (and when the window resizes) and cache the values
+        const sectionPositions = this.props.sections.map((section) => {
+            const sectionCode = section.section;
+            const domElement = document.getElementById(`${this.props.pageName}-${sectionCode}`);
+            if (!domElement) {
+                // couldn't find the element
+                return null;
+            }
+
+            const topPos = domElement.offsetTop;
+            const bottomPos = domElement.offsetHeight + topPos;
+
+            return {
+                section: sectionCode,
+                top: topPos,
+                bottom: bottomPos
+            };
+        });
+
+        const windowHeight = window.innerHeight
+            || document.documentElement.clientHeight || document.body.clientHeight;
+
+        this.setState({
+            sectionPositions,
+            window: {
+                height: windowHeight
+            }
+        });
     }
 
     measureSidebarWidth() {
@@ -72,10 +118,90 @@ export default class Sidebar extends React.Component {
             else {
                 this.div.style.width = 'auto';
             }
+            if (this.props.detectActiveSection) {
+                this.cacheSectionPositions();
+            }
         });
     }
 
-    windowDidScroll() {
+    highlightCurrentSection() {
+        console.log("HighlightCurrentSection fired", this.props.active);
+        const windowTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowBottom = windowTop + this.state.window.height;
+
+        // determine the section to highlight
+        let activeSection = this.props.active;
+        let bottomSectionVisible = false;
+        const visibleSections = [];
+
+        // ignore sections if only 30px of the top or bottom are visible
+        const edgeMargin = 50;
+        const visibleTop = windowTop + edgeMargin;
+        const visibleBottom = windowBottom - edgeMargin;
+
+        this.state.sectionPositions.forEach((section, index) => {
+            // check if the section is in view at all
+            if (section.top <= visibleBottom && section.bottom >= visibleTop) {
+                // at least some of the section is in view, determine how much
+                const height = section.bottom - section.top;
+                const visibleHeight = Math.min(section.bottom, visibleBottom) -
+                    Math.max(visibleTop, section.top);
+                const percentageVisible = visibleHeight / height;
+                visibleSections.push({
+                    section: section.section,
+                    amount: percentageVisible
+                });
+
+                if (index === this.state.sectionPositions.length - 1) {
+                    // this is the last section and it is visible
+                    bottomSectionVisible = true;
+                }
+            }
+            else if (index === this.state.sectionPositions.length - 1) {
+                // this is the last section, so highlight it if we're at the bottom or lower
+                // on the page
+                if (section.top <= visibleTop) {
+                    // we are lower than the top of the last section
+                    bottomSectionVisible = true;
+                    visibleSections.push({
+                        section: section.section,
+                        amount: 1
+                    });
+                }
+            }
+        });
+
+        // select the first section we saw
+        if (visibleSections.length > 0) {
+            activeSection = visibleSections[0].section;
+            if (visibleSections[0].amount < 0.15 && visibleSections.length > 1) {
+                // less than 15% of the first section is visible and we have more than 1 section,
+                // select the next section
+                activeSection = visibleSections[1].section;
+            }
+        }
+
+        // handle a case where we're at the bottom but there's the bottom section is not tall enough
+        // to be the first visible section (which will cause the bottom section to never be
+        // active)
+        if (bottomSectionVisible && visibleSections.length > 1) {
+            const bottomSection = visibleSections[visibleSections.length - 1];
+            const previousSection = visibleSections[visibleSections.length - 2];
+            if (previousSection.amount < 0.5 && bottomSection.amount === 1) {
+                // less than half of the previous section is visible and all of the bottom section
+                // is visible, select the bottom section
+                activeSection = bottomSection.section;
+            }
+        }
+
+        if (activeSection === this.state.activeSection) {
+            // no change
+            return;
+        }
+        this.props.detectActiveSection(activeSection);
+    }
+
+    floatSideBarVertical() {
         // check where the sidebar is in the viewport
         if (!this.div || !this.referenceDiv) {
             // the DOM element is missing!
@@ -99,6 +225,10 @@ export default class Sidebar extends React.Component {
                     this.div.style.width = `${this.state.sidebarWidth}px`;
                 }
             });
+        }
+
+        if (this.props.detectActiveSection) {
+            this.highlightCurrentSection();
         }
     }
 
@@ -168,4 +298,5 @@ export default class Sidebar extends React.Component {
     }
 }
 
+Sidebar.defaultProps = defaultProps;
 Sidebar.propTypes = propTypes;

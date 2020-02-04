@@ -5,7 +5,6 @@
 
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startCase, snakeCase, find } from "lodash";
 import { TooltipWrapper } from 'data-transparency-ui';
@@ -31,8 +30,9 @@ const TooltipComponent = () => (
     </div>
 );
 
+// eslint-disable-next-line react/prop-types
 const ComingSoonSection = ({ section, icon = "chart-area" }) => (
-    <section id={snakeCase(section)} className={`body__section ${snakeCase(section)}`}>
+    <section id={`agency-v2-${snakeCase(section)}`} className={`body__section ${snakeCase(section)}`}>
         <div className="body__header">
             <div className="body__header-icon">
                 <FontAwesomeIcon size="lg" icon={icon} />
@@ -52,9 +52,9 @@ const componentByAgencySection = {
     overview: <ComingSoonSection section="overview" />,
     account_spending: <ComingSoonSection section="account_spending" />,
     award_spending: <ComingSoonSection section="award_spending" />,
-    'sub-agency_spending': <ComingSoonSection section="sub-agency_spending" />,
+    sub_agency_spending: <ComingSoonSection section="sub-agency_spending" />,
     award_recipients: <ComingSoonSection section="award_recipients" />,
-    'top_5:_award_dimensions': <ComingSoonSection section="top_5:_award_dimensions" />
+    top_5_award_dimensions: <ComingSoonSection section="top_5_award_dimensions" />
 };
 
 const sections = Object.keys(componentByAgencySection)
@@ -77,14 +77,13 @@ const AgencyProfileV2 = ({
         const matchedSection = find(sections, {
             section
         });
-
         if (!matchedSection) {
             // no matching section
             return;
         }
 
         // scroll to the correct section
-        const sectionDom = document.querySelector(`#${snakeCase(section)}`);
+        const sectionDom = document.querySelector(`#agency-v2-${snakeCase(section)}`);
 
         if (!sectionDom) {
             return;
@@ -121,9 +120,10 @@ const AgencyProfileV2 = ({
                     <div className="sidebar usda__flex-col">
                         <Sidebar
                             stickyHeaderHeight={stickyHeaderHeight}
-                            sections={sections}
+                            sections={sections.map((section) => ({ section: snakeCase(section.section), label: section.label }))}
                             active={activeSection}
                             jumpToSection={jumpToSection}
+                            detectActiveSection={setActiveSection}
                             pageName="agency-v2" />
                     </div>
                     <div className="body usda__flex-col">
