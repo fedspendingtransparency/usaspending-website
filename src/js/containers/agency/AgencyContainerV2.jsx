@@ -12,6 +12,7 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 
+
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader, { stickyHeaderHeight } from 'components/sharedComponents/stickyHeader/StickyHeader';
@@ -84,12 +85,13 @@ const AgencyProfileV2 = ({
 
         // scroll to the correct section
         const sectionDom = document.querySelector(`#agency-v2-${snakeCase(section)}`);
-
+        console.log("section Dom", sectionDom.offsetTop);
+  
         if (!sectionDom) {
             return;
         }
-
-        const sectionTop = sectionDom.offsetTop - 145;
+        // minus 60 to offset .body__header height and hr margin bottom!
+        const sectionTop = sectionDom.offsetTop - 60;
         scrollToY(sectionTop, 700);
         setActiveSection(matchedSection.section);
     };
