@@ -3,6 +3,9 @@
  * Created by Maxwell Kendall 01/31/2020
  */
 
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
+
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +14,6 @@ import { TooltipWrapper } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
-
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
@@ -67,8 +69,8 @@ const sections = Object.keys(componentByAgencySection)
 export const AgencyProfileV2 = ({
     agencyOverview,
     agencyId,
-    resetAgency,
-    setAgencyOverview
+    clearAgency,
+    setOverview
 }) => {
     const [activeSection, setActiveSection] = useState(sections[0].section);
 
@@ -146,11 +148,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    resetAgency: () => dispatch(resetAgency()),
-    setAgencyOverview: (agency) => dispatch(setAgencyOverview(agency))
+    clearAgency: () => dispatch(resetAgency()),
+    setOverview: (agency) => dispatch(setAgencyOverview(agency))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AgencyProfileV2);
-
-// export default AgencyProfileV2;
-
