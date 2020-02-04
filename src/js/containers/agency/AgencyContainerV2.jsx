@@ -6,7 +6,9 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startCase, snakeCase, find } from "lodash";
+import { TooltipWrapper } from 'data-transparency-ui';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
@@ -22,15 +24,37 @@ import Sidebar from '../../components/sharedComponents/sidebar/Sidebar';
 
 require('pages/agency/v2/index.scss');
 
-const ComingSoonSection = ({ title }) => <div>{`${title}: Coming Soon`}</div>;
+const TooltipComponent = () => (
+    <div className="agency-v2-tt">
+        <h4 className="tooltip__title">Coming Soon</h4>
+        <p className="tooltip__text">The tooltip content for this section is currently under review.</p>
+    </div>
+);
+
+const ComingSoonSection = ({ section, icon = "chart-area" }) => (
+    <section id={snakeCase(section)} className={`body__section ${snakeCase(section)}`}>
+        <div className="body__header">
+            <div className="body__header-icon">
+                <FontAwesomeIcon size="lg" icon={icon} />
+            </div>
+            <h3>{startCase(section)}</h3>
+            <TooltipWrapper className="agency-v2-tt" icon="info" tooltipComponent={<TooltipComponent />} />
+        </div>
+        <hr />
+        <div className="coming-soon-section">
+            <h4>Coming Soon</h4>
+            <p>This feature is currently under development.</p>
+        </div>
+    </section>
+);
 
 const componentByAgencySection = {
-    overview: <ComingSoonSection title="Overview" />,
-    account_spending: <ComingSoonSection title="Account Spending" />,
-    award_spending: <ComingSoonSection title="Award Spending" />,
-    'sub-agency_spending': <ComingSoonSection title="Sub-Agency Spending" />,
-    award_recipients: <ComingSoonSection title="Award Recipients" />,
-    'top_5:_award_dimensions': <ComingSoonSection title="Top 5: Award Dimensions" />
+    overview: <ComingSoonSection section="overview" />,
+    account_spending: <ComingSoonSection section="account_spending" />,
+    award_spending: <ComingSoonSection section="award_spending" />,
+    'sub-agency_spending': <ComingSoonSection section="sub-agency_spending" />,
+    award_recipients: <ComingSoonSection section="award_recipients" />,
+    'top_5:_award_dimensions': <ComingSoonSection section="top_5:_award_dimensions" />
 };
 
 const sections = Object.keys(componentByAgencySection)
@@ -104,9 +128,7 @@ const AgencyProfileV2 = ({
                     </div>
                     <div className="body usda__flex-col">
                         {sections.map((section) => (
-                            <section id={snakeCase(section.section)} className={`body__section ${snakeCase(section.section)}`}>
-                                {componentByAgencySection[section.section]}
-                            </section>
+                            componentByAgencySection[section.section]
                         ))}
                     </div>
                 </main>

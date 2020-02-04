@@ -23,6 +23,7 @@
         width: flex-grid(12);
         background: #fff;
         box-shadow: 0 0 5px 5px rgba(0,0,0,0.15);
+        z-index: 10;
         h2 {
             padding: 0px;
             margin: 0px;
@@ -56,7 +57,7 @@
                 display: flex;
                 flex-direction: column;
                 width: 20%;
-                margin: 2.5%;
+                margin: 2.5% 2.5% 2.5% 0;
             }
             .agency-v2-sidebar-reference {
                 display: none;
@@ -116,17 +117,63 @@
         }
         .body {
             display: flex;
+            width: 100%;
             flex-direction: column;
-            width: 70%;
-            margin: 2.5% 2.5% 0 0;
+            padding: 2.5% 2.5% 0 2.5%;
+            background: white;
             @media(min-width: $tablet-screen) {
+                width: 70%;
             }
             .body__section {
                 height: 250px;
-                border: 1px solid red;
                 display: flex;
-                justify-content: center;
-                align-items: center;
+                flex-wrap: wrap;
+                margin-bottom: $global-mrg;
+                .body__header {
+                    width: 100%;
+                    height: rem(30);
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
+                    .body__header-icon {
+                        margin-right: $global-mrg;
+                    }
+                    h3 {
+                        @include display(flex);
+                        margin: 0;
+                        line-height: $base-line-height;
+                        font-size: rem(18);
+                        font-weight: $font-semibold;
+                    }
+                }
+                hr {
+                    width: 100%;
+                    height: 2px;
+                    background: #555555;
+                    border: none;
+                    margin-bottom: rem(35);
+                }
+                .coming-soon-section {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    @extend %coming-soon-idv;
+                    padding-bottom: 0;
+                }
+
+                .agency-v2-tt {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                    .tooltip__title {
+                        width: 100%;
+                        margin-bottom: $global-mrg / 2;
+                        text-align: center;
+                    }
+                    .tooltip__text {
+                        padding: rem(0) rem(23);
+                    }
+                }
             }
         }
     }
