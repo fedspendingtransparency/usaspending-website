@@ -8,7 +8,7 @@
 // changes that Redux causes
 /* eslint-disable global-require */
 
-const kGlobalConstants = require("../../GlobalConstants").default;
+const kGlobalConstants = require("../../GlobalConstants");
 
 const routes = {
     routes: [
