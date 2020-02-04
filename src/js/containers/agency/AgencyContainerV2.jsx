@@ -64,7 +64,7 @@ const sections = Object.keys(componentByAgencySection)
         label: startCase(section)
     }));
 
-const AgencyProfileV2 = ({
+export const AgencyProfileV2 = ({
     agencyOverview,
     agencyId,
     resetAgency,

@@ -125,7 +125,6 @@ export default class Sidebar extends React.Component {
     }
 
     highlightCurrentSection() {
-        console.log("HighlightCurrentSection fired", this.props.active);
         const windowTop = window.pageYOffset || document.documentElement.scrollTop;
         const windowBottom = windowTop + this.state.window.height;
 
