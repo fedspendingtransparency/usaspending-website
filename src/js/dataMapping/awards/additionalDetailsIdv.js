@@ -66,7 +66,7 @@ const additionalDetails = (awardData) => {
             Recipient: {
                 type: 'link',
                 data: {
-                    path: recipient.internalId ? `/#/recipient/${recipient.internalId}` : null,
+                    path: recipient.internalId ? `/#/recipient/${recipient.internalId}/latest` : null,
                     title: recipient._name
                 }
             },
@@ -74,7 +74,7 @@ const additionalDetails = (awardData) => {
             'Parent Recipient': {
                 type: 'link',
                 data: {
-                    path: recipient.parentInternalId ? `/#/recipient/${recipient.parentInternalId}` : null,
+                    path: recipient.parentInternalId ? `/#/recipient/${recipient.parentInternalId}/latest` : null,
                     title: recipient.parentName
                 }
             },
