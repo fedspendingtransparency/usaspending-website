@@ -1,7 +1,3 @@
-$fg-column: 78px;             // Column Width
-$fg-gutter: 5px;             // Gutter Width
-$fg-max-columns: 12;          // Total Columns For Main Container
-
 .usa-da-agency-page-v2 {
     @import "all";
     @import "layouts/default/default";
@@ -22,30 +18,36 @@ $fg-max-columns: 12;          // Total Columns For Main Container
     .footer-container {
         width: 100%;
     }
-
-    .main-content .sidebar,
-    .main-content .body {
-        max-width: rem(1600);
+    
+    .sankey {
+        width: flex-grid(12);
+        background: #fff;
+        box-shadow: 0 0 5px 5px rgba(0,0,0,0.15);
+        h2 {
+            padding: 0px;
+            margin: 0px;
+        }
     }
 
+    .usda__flex-row {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        .usda__flex-col {
+            @include flex(1 1 auto);
+        }
+    }
+    
     .main-content {
         display: flex;
-        width: flex-grid(12);
+        width: 100%;
         flex-grow: 1;
         flex-wrap: wrap;
+        max-width: rem(1600);
         ul {
             padding: 0;
             li {
                 list-style: none;
-            }
-        }
-        .sankey {
-            width: flex-grid(12);
-            background: #fff;
-            box-shadow: 0 0 5px 5px rgba(0,0,0,0.15);
-            h2 {
-                padding: 0px;
-                margin: 0px;
             }
         }
         .sidebar {
@@ -53,8 +55,8 @@ $fg-max-columns: 12;          // Total Columns For Main Container
             @media(min-width: $tablet-screen) {
                 display: flex;
                 flex-direction: column;
-                width: flex-grid(2);
-                margin: flex-gutter() / 2;
+                width: 20%;
+                margin: 2.5%;
             }
             .agency-v2-sidebar-reference {
                 display: none;
@@ -113,12 +115,11 @@ $fg-max-columns: 12;          // Total Columns For Main Container
             }
         }
         .body {
-            margin: flex-gutter() / 2 0;
             display: flex;
-            width: flex-grid(10);
             flex-direction: column;
+            width: 70%;
+            margin: 2.5% 2.5% 0 0;
             @media(min-width: $tablet-screen) {
-                width: flex-grid(10);
             }
             .body__section {
                 height: 250px;

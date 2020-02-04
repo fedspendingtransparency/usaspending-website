@@ -85,16 +85,16 @@ const AgencyProfileV2 = ({
                     </div>
                 </div>
             </StickyHeader>
+            <div className="sankey">
+                <h2>Agency Spending Snapshot</h2>
+                <span>Overview</span>
+                <div className="sankey__viz coming-soon">
+                    Coming Soon
+                </div>
+            </div>
             <LoadingWrapper>
-                <main id="main-content" className="main-content">
-                    <div className="sankey">
-                        <h2>Agency Spending Snapshot</h2>
-                        <span>Overview</span>
-                        <div className="sankey__viz coming-soon">
-                            Coming Soon
-                        </div>
-                    </div>
-                    <div className="sidebar">
+                <main id="main-content" className="main-content usda__flex-row">
+                    <div className="sidebar usda__flex-col">
                         <Sidebar
                             stickyHeaderHeight={stickyHeaderHeight}
                             sections={sections}
@@ -102,7 +102,7 @@ const AgencyProfileV2 = ({
                             jumpToSection={jumpToSection}
                             pageName="agency-v2" />
                     </div>
-                    <div className="body">
+                    <div className="body usda__flex-col">
                         {sections.map((section) => (
                             <section id={snakeCase(section.section)} className={`body__section ${snakeCase(section.section)}`}>
                                 {componentByAgencySection[section.section]}
