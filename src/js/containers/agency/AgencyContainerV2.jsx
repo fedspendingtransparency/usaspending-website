@@ -6,7 +6,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
-import React, { useState } from 'react';
+import React, { useState, createRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startCase, snakeCase, find } from "lodash";
@@ -17,7 +17,7 @@ import { scrollToY } from 'helpers/scrollToHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
-import StickyHeader, { stickyHeaderHeight } from 'components/sharedComponents/stickyHeader/StickyHeader';
+import StickyHeader, { stickyHeaderHeight, useDynamicStickyClass } from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'components/sharedComponents/Footer';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 
@@ -60,10 +60,14 @@ const componentByAgencySection = {
     top_5_award_dimensions: <ComingSoonSection section="top_5_award_dimensions" />
 };
 
+const sankeyRef = createRef();
+
 const sections = Object.keys(componentByAgencySection)
-    .map((section) => ({
+    .map((section, i) => ({
         section,
-        label: startCase(section)
+        label: startCase(section),
+        // height in px of element's w/ a fixed position (sankey & header)
+        stickyVerticalOffset: i === 0 ? 0 : 191
     }));
 
 export const AgencyProfileV2 = ({
@@ -73,6 +77,24 @@ export const AgencyProfileV2 = ({
     setOverview
 }) => {
     const [activeSection, setActiveSection] = useState(sections[0].section);
+    const [
+        isSankeySticky,
+        ,
+        ,
+        handleScroll,
+        measureScreen
+    ] = useDynamicStickyClass(sankeyRef, 66);
+
+    useEffect(() => {
+        measureScreen();
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', measureScreen);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', measureScreen);
+        };
+    }, [handleScroll, measureScreen]);
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
@@ -87,16 +109,26 @@ export const AgencyProfileV2 = ({
 
         // scroll to the correct section
         const sectionDom = document.querySelector(`#agency-v2-${snakeCase(section)}`);
-        console.log("section Dom", sectionDom.offsetTop);
-  
+
         if (!sectionDom) {
             return;
         }
-        // minus 60 to offset .body__header height and hr margin bottom!
-        const sectionTop = sectionDom.offsetTop - 60;
-        scrollToY(sectionTop, 700);
+
+        if (matchedSection.section === 'overview') {
+            scrollToY(40, 700);
+        }
+        else if (!isSankeySticky) {
+            // cannot grasp why this is the right offset...
+            scrollToY(sectionDom.offsetTop - (matchedSection.stickyVerticalOffset * 2), 700);
+        }
+        else {
+            // scroll to top of section, subtracting the height of sticky elements + 20px of margin
+            scrollToY(sectionDom.offsetTop - matchedSection.stickyVerticalOffset - 20, 700);
+        }
         setActiveSection(matchedSection.section);
     };
+
+    const stickyClass = isSankeySticky ? 'sticky-icky-icky' : '';
 
     return (
         <div className="usa-da-agency-page-v2">
@@ -112,19 +144,19 @@ export const AgencyProfileV2 = ({
                     </div>
                 </div>
             </StickyHeader>
-            <div className="sankey">
+            <div className={`sankey ${stickyClass}`}>
                 <h2>Agency Spending Snapshot</h2>
                 <span>Overview</span>
                 <div className="sankey__viz coming-soon">
                     Coming Soon
                 </div>
             </div>
-            <LoadingWrapper>
+            <LoadingWrapper isLoading={false} >
                 <main id="main-content" className="main-content usda__flex-row">
                     <div className="sidebar usda__flex-col">
                         <Sidebar
                             stickyHeaderHeight={stickyHeaderHeight}
-                            sections={sections.map((section) => ({ section: snakeCase(section.section), label: section.label }))}
+                            sections={sections.map((section) => ({ ...section, section: snakeCase(section.section), label: section.label }))}
                             active={activeSection}
                             jumpToSection={jumpToSection}
                             detectActiveSection={setActiveSection}

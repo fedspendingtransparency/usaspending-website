@@ -25,7 +25,7 @@ const propTypes = {
 const defaultProps = {
     detectActiveSection: false
 };
-
+const defaultSectionOffsets = { stickyVerticalOffset: 0 };
 export default class Sidebar extends React.Component {
     constructor(props) {
         super(props);
@@ -64,23 +64,25 @@ export default class Sidebar extends React.Component {
     cacheSectionPositions() {
         // it is expensive to measure the DOM elements on every scroll, so measure them upfront
         // (and when the window resizes) and cache the values
-        const sectionPositions = this.props.sections.map((section) => {
-            const sectionCode = section.section;
-            const domElement = document.getElementById(`${this.props.pageName}-${sectionCode}`);
-            if (!domElement) {
-                // couldn't find the element
-                return null;
-            }
+        const sectionPositions = this.props.sections
+            .map((section) => ({ ...defaultSectionOffsets, ...section }))
+            .map((section) => {
+                const sectionCode = section.section;
+                const domElement = document.getElementById(`${this.props.pageName}-${sectionCode}`);
+                if (!domElement) {
+                    // couldn't find the element
+                    return null;
+                }
+                // Subtracting height of element's w/ fixed positioning
+                const topPos = domElement.offsetTop - section.stickyVerticalOffset;
+                const bottomPos = (domElement.offsetHeight + topPos) - section.stickyVerticalOffset;
 
-            const topPos = domElement.offsetTop;
-            const bottomPos = domElement.offsetHeight + topPos;
-
-            return {
-                section: sectionCode,
-                top: topPos,
-                bottom: bottomPos
-            };
-        });
+                return {
+                    section: sectionCode,
+                    top: topPos,
+                    bottom: bottomPos
+                };
+            });
 
         const windowHeight = window.innerHeight
             || document.documentElement.clientHeight || document.body.clientHeight;
@@ -134,7 +136,7 @@ export default class Sidebar extends React.Component {
         const visibleSections = [];
 
         // ignore sections if only 30px of the top or bottom are visible
-        const edgeMargin = 50;
+        const edgeMargin = 30;
         const visibleTop = windowTop + edgeMargin;
         const visibleBottom = windowBottom - edgeMargin;
 
@@ -173,7 +175,7 @@ export default class Sidebar extends React.Component {
         // select the first section we saw
         if (visibleSections.length > 0) {
             activeSection = visibleSections[0].section;
-            if (visibleSections[0].amount < 0.15 && visibleSections.length > 1) {
+            if (visibleSections[0].amount < 0.50 && visibleSections.length > 1) {
                 // less than 15% of the first section is visible and we have more than 1 section,
                 // select the next section
                 activeSection = visibleSections[1].section;

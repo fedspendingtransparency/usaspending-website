@@ -20,10 +20,16 @@
     }
     
     .sankey {
-        width: flex-grid(12);
+        width: 100%;
         background: #fff;
         box-shadow: 0 0 5px 5px rgba(0,0,0,0.15);
         z-index: 10;
+        height: rem(125);
+        &.sticky-icky-icky {
+            position: fixed;
+            // height of sticky header
+            top: 66px;
+        }
         h2 {
             padding: 0px;
             margin: 0px;
@@ -69,7 +75,8 @@
             .agency-v2-sidebar-content {
                 &.float-sidebar {
                     position: fixed;
-                    top: rem(86);
+                    // height of sticky header: 66 + height of sankey: 120px + margin of 20px
+                    top: rem(206);
                 }
             
                 background-color: $color-white;
