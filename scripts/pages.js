@@ -109,7 +109,7 @@ const pages = [
     {
         name: 'agency',
         isAsync: true,
-        updatedFrequency: 'quarterly',
+        updatedFrequency: 'monthly',
         priority: '0.5',
         // all agencies
         url: 'https://api.usaspending.gov/api/v2/references/toptier_agencies/',
