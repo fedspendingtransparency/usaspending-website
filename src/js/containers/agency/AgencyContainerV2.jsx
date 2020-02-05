@@ -155,12 +155,16 @@ export const AgencyProfileV2 = ({
                 <main id="main-content" className="main-content usda__flex-row">
                     <div className="sidebar usda__flex-col">
                         <Sidebar
-                            stickyHeaderHeight={stickyHeaderHeight}
-                            sections={sections.map((section) => ({ ...section, section: snakeCase(section.section), label: section.label }))}
+                            pageName="agency-v2"
+                            fixedStickyBreakpoint={stickyHeaderHeight}
                             active={activeSection}
                             jumpToSection={jumpToSection}
                             detectActiveSection={setActiveSection}
-                            pageName="agency-v2" />
+                            sections={sections.map((section) => ({
+                                ...section,
+                                section: snakeCase(section.section),
+                                label: section.label
+                            }))} />
                     </div>
                     <div className="body usda__flex-col">
                         {sections.map((section) => (
