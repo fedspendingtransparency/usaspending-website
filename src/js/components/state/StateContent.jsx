@@ -214,7 +214,7 @@ export default class StateContent extends React.Component {
                         pageName="state"
                         sections={stateSections}
                         jumpToSection={this.jumpToSection}
-                        stickyHeaderHeight={StickyHeader.stickyHeaderHeight}
+                        fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight}
                         fyPicker
                         selectedFy={this.props.stateProfile.fy}
                         pickedYear={this.props.pickedFy} />

@@ -212,7 +212,7 @@ export default class RecipientContent extends React.Component {
                         pageName="recipient"
                         sections={recipientSections}
                         jumpToSection={this.jumpToSection}
-                        stickyHeaderHeight={StickyHeader.stickyHeaderHeight}
+                        fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight}
                         fyPicker
                         selectedFy={this.props.recipient.fy}
                         pickedYear={this.props.pickedFy} />
