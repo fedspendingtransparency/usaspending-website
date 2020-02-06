@@ -71,7 +71,7 @@ export const AgencyProfileV2 = ({
     const [activeSection, setActiveSection] = useState('overview');
     const [isSankeyExpanded, setSankeyExpanded] = useState(true);
     // height in px of element's w/ a fixed position (sankey + header)
-    const [sidebarVerticalOffset, setSidebarVerticalOffset] = useState(316);
+    const [verticalOffset, setVerticalOffset] = useState(316);
 
     const getSectionsWithVerticalOffset = (offset) => Object.keys(componentByAgencySection)
         .map((section, i) => ({
@@ -81,13 +81,13 @@ export const AgencyProfileV2 = ({
         }));
 
     useEffect(() => {
-        if (isSankeyExpanded && sidebarVerticalOffset !== 316) {
-            setSidebarVerticalOffset(316);
+        if (isSankeyExpanded && verticalOffset !== 316) {
+            setVerticalOffset(316);
         }
-        else if (!isSankeyExpanded && sidebarVerticalOffset !== 121) {
-            setSidebarVerticalOffset(121);
+        else if (!isSankeyExpanded && verticalOffset !== 121) {
+            setVerticalOffset(121);
         }
-    }, [sidebarVerticalOffset, setSidebarVerticalOffset, isSankeyExpanded]);
+    }, [verticalOffset, setVerticalOffset, isSankeyExpanded]);
 
     const [
         isSankeySticky,
@@ -111,7 +111,7 @@ export const AgencyProfileV2 = ({
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const matchedSection = find(getSectionsWithVerticalOffset(sidebarVerticalOffset), {
+        const matchedSection = find(getSectionsWithVerticalOffset(verticalOffset), {
             section
         });
         if (!matchedSection) {
@@ -174,7 +174,7 @@ export const AgencyProfileV2 = ({
                 </div>
             </div>
             <LoadingWrapper isLoading={false} >
-                <main id="main-content" className="main-content usda__flex-row">
+                <main id="main-content" className="main-content usda__flex-row" style={{ transition: 'margin-top .1s linear', marginTop: isSankeySticky ? `${verticalOffset}px` : 0 }}>
                     <div className={`${sankeyState} sidebar usda__flex-col`}>
                         <Sidebar
                             pageName="agency-v2"
@@ -182,14 +182,14 @@ export const AgencyProfileV2 = ({
                             active={activeSection}
                             jumpToSection={jumpToSection}
                             detectActiveSection={setActiveSection}
-                            sections={getSectionsWithVerticalOffset(sidebarVerticalOffset).map((section) => ({
+                            sections={getSectionsWithVerticalOffset(verticalOffset).map((section) => ({
                                 ...section,
                                 section: snakeCase(section.section),
                                 label: section.label
                             }))} />
                     </div>
                     <div className="body usda__flex-col">
-                        {getSectionsWithVerticalOffset(sidebarVerticalOffset).map((section) => (
+                        {getSectionsWithVerticalOffset(verticalOffset).map((section) => (
                             componentByAgencySection[section.section]
                         ))}
                     </div>
