@@ -113,8 +113,8 @@ $color-blue-background: #F5FBFC;
             @media(min-width: $medium-screen) {
                 display: flex;
                 flex-direction: column;
-                width: 25%;
-                margin: 2.5% 2.5% 2.5% 0;
+                width: 22%;
+                margin: rem(20);
             }
             .agency-v2-sidebar-reference {
                 display: none;
@@ -139,13 +139,13 @@ $color-blue-background: #F5FBFC;
             }
 
             .agency-v2-sidebar-content {
-
                 background-color: $color-white;
                 box-shadow: $container-shadow;
                 color: $color-base;
                 border-top: 1px solid $color-gray-border;
                 border-right: 1px solid $color-gray-border;
                 border-bottom: 1px solid $color-gray-border;
+                border-radius: rem(5);
             
                 @import 'pages/state/_fyPicker';
             
@@ -188,6 +188,7 @@ $color-blue-background: #F5FBFC;
             width: 100%;
             flex-direction: column;
             padding: 2.5% 2.5% 0 2.5%;
+            margin: rem(20) rem(20) rem(20) 0;
             background: white;
             @media(min-width: $tablet-screen) {
                 width: 70%;
