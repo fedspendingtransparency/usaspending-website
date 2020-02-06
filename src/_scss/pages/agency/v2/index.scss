@@ -28,9 +28,13 @@ $color-blue-background: #F5FBFC;
         background: #fff;
         box-shadow: 0 0 5px 5px rgba(0,0,0,0.15);
         z-index: 10;
-        // height: rem(122);
-        height: auto;
         flex-direction: column;
+        &.expanded-sankey {
+            height: rem(250);
+        }
+        &.collapsed-sankey {
+            height: rem(55);
+        }
         &.sticky-icky-icky {
             @include media($medium-screen) {
                 position: fixed;
@@ -73,6 +77,7 @@ $color-blue-background: #F5FBFC;
             align-items: center;
             flex-direction: column;
             background: #f1f1f1;
+            height: 100%;
             h4 {
                 margin: 0;
                 padding: 0;
@@ -118,13 +123,23 @@ $color-blue-background: #F5FBFC;
                     display: block;
                 }
             }
-            .agency-v2-sidebar-content {
+            &.expanded-sankey .agency-v2-sidebar-content {
                 &.float-sidebar {
                     position: fixed;
-                    // height of sticky header: 66 + height of sankey: 120px + margin of 20px
-                    top: rem(206);
+                    // height of sticky header + sankey + margin
+                    top: rem(336);
                 }
-            
+            }
+            &.collapsed-sankey .agency-v2-sidebar-content {
+                &.float-sidebar {
+                    position: fixed;
+                    // height of sticky header + sankey + margin
+                    top: rem(141);
+                }
+            }
+
+            .agency-v2-sidebar-content {
+
                 background-color: $color-white;
                 box-shadow: $container-shadow;
                 color: $color-base;

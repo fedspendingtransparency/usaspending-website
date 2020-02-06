@@ -62,22 +62,31 @@ const componentByAgencySection = {
 
 const sankeyRef = createRef();
 
-const sections = Object.keys(componentByAgencySection)
-    .map((section, i) => ({
-        section,
-        label: startCase(section),
-        // height in px of element's w/ a fixed position (sankey & header)
-        stickyVerticalOffset: i === 0 ? 0 : 191
-    }));
-
 export const AgencyProfileV2 = ({
     agencyOverview,
     agencyId,
     clearAgency,
     setOverview
 }) => {
-    const [activeSection, setActiveSection] = useState(sections[0].section);
+    const [activeSection, setActiveSection] = useState('overview');
     const [isSankeyExpanded, setSankeyExpanded] = useState(true);
+    
+    // offsets need to be adjusted on expand/collapse! Put this in state.
+    const getSectionsWithVerticalOffset = () => Object.keys(componentByAgencySection)
+        .map((section, i) => {
+            if (sankeyRef.current && i !== 0) {
+                return {
+                    section,
+                    label: startCase(section),
+                    // height in px of element's w/ a fixed position (sankey + header)
+                    stickyVerticalOffset: isSankeyExpanded ? 316 : 121
+                };
+            }
+            return {
+                section,
+                label: startCase(section)
+            };
+        });
 
     const [
         isSankeySticky,
@@ -101,7 +110,7 @@ export const AgencyProfileV2 = ({
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const matchedSection = find(sections, {
+        const matchedSection = find(getSectionsWithVerticalOffset(), {
             section
         });
         if (!matchedSection) {
@@ -132,6 +141,7 @@ export const AgencyProfileV2 = ({
 
     const stickyClass = isSankeySticky ? 'sticky-icky-icky' : '';
     const shouldHideSankey = !isSankeyExpanded ? 'hide' : '';
+    const sankeyState = isSankeyExpanded ? 'expanded-sankey' : 'collapsed-sankey';
 
     return (
         <div className="usa-da-agency-page-v2">
@@ -147,7 +157,7 @@ export const AgencyProfileV2 = ({
                     </div>
                 </div>
             </StickyHeader>
-            <div className={`sankey ${stickyClass}`}>
+            <div ref={sankeyRef} className={`sankey ${stickyClass} ${sankeyState}`}>
                 <div className="sankey__header">
                     <h2>Agency Spending Snapshot</h2>
                     <TooltipWrapper className="agency-v2-tt" icon="info" tooltipComponent={<TooltipComponent />} />
@@ -164,21 +174,21 @@ export const AgencyProfileV2 = ({
             </div>
             <LoadingWrapper isLoading={false} >
                 <main id="main-content" className="main-content usda__flex-row">
-                    <div className="sidebar usda__flex-col">
+                    <div className={`${sankeyState} sidebar usda__flex-col`}>
                         <Sidebar
                             pageName="agency-v2"
                             fixedStickyBreakpoint={stickyHeaderHeight}
                             active={activeSection}
                             jumpToSection={jumpToSection}
                             detectActiveSection={setActiveSection}
-                            sections={sections.map((section) => ({
+                            sections={getSectionsWithVerticalOffset().map((section) => ({
                                 ...section,
                                 section: snakeCase(section.section),
                                 label: section.label
                             }))} />
                     </div>
                     <div className="body usda__flex-col">
-                        {sections.map((section) => (
+                        {getSectionsWithVerticalOffset().map((section) => (
                             componentByAgencySection[section.section]
                         ))}
                     </div>
