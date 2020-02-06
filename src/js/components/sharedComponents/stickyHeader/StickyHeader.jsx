@@ -5,6 +5,7 @@
 
 import React, { useState, createRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { throttle } from 'lodash';
 
 const propTypes = {
     children: PropTypes.node
@@ -22,7 +23,7 @@ export const useDynamicStickyClass = (stickyRef, fixedStickyBreakpoint = null) =
         // setSticky
         setIsSticky,
         // handleScroll
-        () => {
+        throttle(() => {
             const { scrollY } = window;
             if (fixedStickyBreakpoint && scrollY >= fixedStickyBreakpoint && !isSticky) {
                 // we know which y position to apply the sticky class
@@ -38,14 +39,14 @@ export const useDynamicStickyClass = (stickyRef, fixedStickyBreakpoint = null) =
             else if (scrollY < dynamicStickyBreakpoint && isSticky) {
                 setIsSticky(false);
             }
-        },
+        }, 100),
         // measureScreen
-        () => {
+        throttle(() => {
             const wrapperY = stickyRef.current
                 ? stickyRef.current.offsetTop
                 : 0;
             setDynamicStickyBreakpoint(wrapperY);
-        }
+        }, 100)
     ];
 };
 
