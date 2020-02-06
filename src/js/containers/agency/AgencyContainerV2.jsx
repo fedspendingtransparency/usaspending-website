@@ -70,16 +70,17 @@ export const AgencyProfileV2 = ({
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
     const [isSankeyExpanded, setSankeyExpanded] = useState(true);
+    const [sidebarVerticalOffset, setSidebarVerticalOffset] = useState(316);
     
     // offsets need to be adjusted on expand/collapse! Put this in state.
-    const getSectionsWithVerticalOffset = () => Object.keys(componentByAgencySection)
+    const getSectionsWithVerticalOffset = (offset) => Object.keys(componentByAgencySection)
         .map((section, i) => {
-            if (sankeyRef.current && i !== 0) {
+            if (i !== 0) {
                 return {
                     section,
                     label: startCase(section),
                     // height in px of element's w/ a fixed position (sankey + header)
-                    stickyVerticalOffset: isSankeyExpanded ? 316 : 121
+                    stickyVerticalOffset: offset
                 };
             }
             return {
@@ -87,6 +88,15 @@ export const AgencyProfileV2 = ({
                 label: startCase(section)
             };
         });
+
+    useEffect(() => {
+        if (isSankeyExpanded && sidebarVerticalOffset !== 316) {
+            setSidebarVerticalOffset(316);
+        }
+        else if (!isSankeyExpanded && sidebarVerticalOffset !== 121) {
+            setSidebarVerticalOffset(121);
+        }
+    }, [sidebarVerticalOffset, setSidebarVerticalOffset, isSankeyExpanded]);
 
     const [
         isSankeySticky,
@@ -110,7 +120,7 @@ export const AgencyProfileV2 = ({
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const matchedSection = find(getSectionsWithVerticalOffset(), {
+        const matchedSection = find(getSectionsWithVerticalOffset(sidebarVerticalOffset), {
             section
         });
         if (!matchedSection) {
@@ -181,14 +191,14 @@ export const AgencyProfileV2 = ({
                             active={activeSection}
                             jumpToSection={jumpToSection}
                             detectActiveSection={setActiveSection}
-                            sections={getSectionsWithVerticalOffset().map((section) => ({
+                            sections={getSectionsWithVerticalOffset(sidebarVerticalOffset).map((section) => ({
                                 ...section,
                                 section: snakeCase(section.section),
                                 label: section.label
                             }))} />
                     </div>
                     <div className="body usda__flex-col">
-                        {getSectionsWithVerticalOffset().map((section) => (
+                        {getSectionsWithVerticalOffset(sidebarVerticalOffset).map((section) => (
                             componentByAgencySection[section.section]
                         ))}
                     </div>
