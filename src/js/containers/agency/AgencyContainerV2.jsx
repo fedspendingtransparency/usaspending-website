@@ -70,24 +70,15 @@ export const AgencyProfileV2 = ({
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
     const [isSankeyExpanded, setSankeyExpanded] = useState(true);
+    // height in px of element's w/ a fixed position (sankey + header)
     const [sidebarVerticalOffset, setSidebarVerticalOffset] = useState(316);
-    
-    // offsets need to be adjusted on expand/collapse! Put this in state.
+
     const getSectionsWithVerticalOffset = (offset) => Object.keys(componentByAgencySection)
-        .map((section, i) => {
-            if (i !== 0) {
-                return {
-                    section,
-                    label: startCase(section),
-                    // height in px of element's w/ a fixed position (sankey + header)
-                    stickyVerticalOffset: offset
-                };
-            }
-            return {
-                section,
-                label: startCase(section)
-            };
-        });
+        .map((section, i) => ({
+            section,
+            label: startCase(section),
+            stickyVerticalOffset: offset
+        }));
 
     useEffect(() => {
         if (isSankeyExpanded && sidebarVerticalOffset !== 316) {

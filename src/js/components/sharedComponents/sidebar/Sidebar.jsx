@@ -44,7 +44,6 @@ const Sidebar = ({
 
     useEffect(() => {
         const updateSidebarWidth = throttle(() => {
-            console.log("refs div, refDiv", div.current.offsetWidth, referenceDiv.current.offsetWidth);
             if (isSidebarSticky && sidebarWidth !== referenceDiv.current.offsetWidth) {
                 setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
             }
