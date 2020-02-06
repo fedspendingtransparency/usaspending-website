@@ -20,15 +20,18 @@
     }
     
     .sankey {
+        display: flex;
         width: 100%;
         background: #fff;
         box-shadow: 0 0 5px 5px rgba(0,0,0,0.15);
         z-index: 10;
         height: rem(125);
         &.sticky-icky-icky {
-            position: fixed;
-            // height of sticky header
-            top: 66px;
+            @include media($medium-screen) {
+                position: fixed;
+                // height of sticky header
+                top: 66px;
+            }
         }
         h2 {
             padding: 0px;
@@ -59,7 +62,7 @@
         }
         .sidebar {
             display: none;
-            @media(min-width: $tablet-screen) {
+            @media(min-width: $medium-screen) {
                 display: flex;
                 flex-direction: column;
                 width: 20%;
