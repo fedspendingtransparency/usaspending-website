@@ -58,8 +58,10 @@ export class StateContainer extends React.Component {
             // Update the map center
             this.setStateCenter(this.props.params.stateId);
         }
-        if (!prevProps.params.fy && this.props.params.fy) {
-            // we just redirected the user to the new url which includes the fy selection
+        if (
+            (!prevProps.params.fy && this.props.params.fy) ||
+            (prevProps.params.fy !== this.props.params.fy)) {
+            // we just redirected the user or to the new url which includes the fy selection
             this.props.setStateFiscalYear(this.props.params.fy);
         }
         if (this.props.stateProfile.fy !== prevProps.stateProfile.fy) {
