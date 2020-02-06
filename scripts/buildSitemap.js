@@ -7,9 +7,11 @@ const pages = require('./pages');
 const siteUrl = 'https://www.usaspending.gov';
 const xmlStart = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
-
+const indexedSitemapXmlStart = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 const sitemapsWritten = [];
 const xmlEnd = `</urlset>`;
+const indexedSitemapXmlEnd = `</sitemapindex>`;
 const forbiddenChars = ['&', "'", '"', '<', '>'];
 
 /**
@@ -54,6 +56,16 @@ const createRobots = () => {
         () => console.log("robots.txt successfully created!")
     );
 };
+
+const createIndexedSitemap = (xmlRoutes) => {
+    fs.writeFile(
+        path.resolve(__dirname, `../sitemap.xml`),
+        `${indexedSitemapXmlStart}${xmlRoutes}${indexedSitemapXmlEnd}`,
+        () => console.log(`Sitemap sitemap.xml successfully created!`)
+    );
+
+    sitemapsWritten.push('sitemap');
+}
 
 const createSitemap = (xmlRoutes, siteMapName = 'sitemap') => {
     fs.writeFile(
@@ -152,13 +164,11 @@ const buildIndividualSitemaps = () => {
 
 const buildIndexedSitemap = (individualSiteMaps) => {
     const xml = individualSiteMaps
-        .reduce((acc, pageName) => {
-            return (
-                `${acc}<sitemap><loc>${siteUrl}/${pageName}.xml</loc></sitemap>`
-            );
-        }, '');
+        .reduce((acc, pageName) => (
+            `${acc}<sitemap><loc>${siteUrl}/${pageName}.xml</loc></sitemap>`
+        ), '');
 
-    createSitemap(xml);
+    createIndexedSitemap(xml);
 };
 
 buildIndividualSitemaps()
