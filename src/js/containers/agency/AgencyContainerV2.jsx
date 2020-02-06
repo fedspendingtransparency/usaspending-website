@@ -77,6 +77,8 @@ export const AgencyProfileV2 = ({
     setOverview
 }) => {
     const [activeSection, setActiveSection] = useState(sections[0].section);
+    const [isSankeyExpanded, setSankeyExpanded] = useState(true);
+
     const [
         isSankeySticky,
         ,
@@ -129,6 +131,7 @@ export const AgencyProfileV2 = ({
     };
 
     const stickyClass = isSankeySticky ? 'sticky-icky-icky' : '';
+    const shouldHideSankey = !isSankeyExpanded ? 'hide' : '';
 
     return (
         <div className="usa-da-agency-page-v2">
@@ -145,10 +148,18 @@ export const AgencyProfileV2 = ({
                 </div>
             </StickyHeader>
             <div className={`sankey ${stickyClass}`}>
-                <h2>Agency Spending Snapshot</h2>
-                <span>Overview</span>
-                <div className="sankey__viz coming-soon">
-                    Coming Soon
+                <div className="sankey__header">
+                    <h2>Agency Spending Snapshot</h2>
+                    <TooltipWrapper className="agency-v2-tt" icon="info" tooltipComponent={<TooltipComponent />} />
+                    <button onClick={() => setSankeyExpanded(!isSankeyExpanded)}>
+                        {!isSankeyExpanded && <FontAwesomeIcon icon="chevron-right" color="#0074BE" size="lg" />}
+                        {isSankeyExpanded && <FontAwesomeIcon icon="chevron-down" color="#0074BE" size="lg" />}
+                    </button>
+                    <h3 className={shouldHideSankey} >{startCase(activeSection)}</h3>
+                </div>
+                <div className={`${shouldHideSankey} coming-soon-section`}>
+                    <h4>Coming Soon</h4>
+                    <p>This feature is currently under development.</p>
                 </div>
             </div>
             <LoadingWrapper isLoading={false} >

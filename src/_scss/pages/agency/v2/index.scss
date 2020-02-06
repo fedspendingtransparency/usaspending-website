@@ -1,3 +1,6 @@
+$color-gray-border: #D8D8D8;
+$color-blue-background: #F5FBFC;
+
 .usa-da-agency-page-v2 {
     @import "all";
     @import "layouts/default/default";
@@ -25,7 +28,9 @@
         background: #fff;
         box-shadow: 0 0 5px 5px rgba(0,0,0,0.15);
         z-index: 10;
-        height: rem(125);
+        // height: rem(122);
+        height: auto;
+        flex-direction: column;
         &.sticky-icky-icky {
             @include media($medium-screen) {
                 position: fixed;
@@ -33,9 +38,47 @@
                 top: 66px;
             }
         }
-        h2 {
-            padding: 0px;
-            margin: 0px;
+        .sankey__header {
+            display: flex;
+            flex-wrap: wrap;
+            margin: rem(13) 0 0 rem(21);
+            display: flex;
+            button {
+                background-color: transparent;
+                padding: 0 rem(10);
+            }
+            .agency-v2-tt {
+                margin-right: auto;
+            }
+            svg {
+                margin-right: rem(10);
+            }
+            h2, h3 {
+                padding: 0px;
+                margin: 0px;
+                line-height: $base-line-height;
+                font-size: rem(18);
+                color: #555555;
+                font-weight: $font-semibold;
+            }
+            h3 {
+                width: 100%;
+                font-weight: normal;
+            }
+        }
+        .coming-soon-section {
+            margin: rem(5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background: #f1f1f1;
+            h4 {
+                margin: 0;
+                padding: 0;
+                padding-top: rem(10);
+                margin-top: rem(5);
+            }
         }
     }
 
@@ -65,7 +108,7 @@
             @media(min-width: $medium-screen) {
                 display: flex;
                 flex-direction: column;
-                width: 20%;
+                width: 25%;
                 margin: 2.5% 2.5% 2.5% 0;
             }
             .agency-v2-sidebar-reference {
@@ -171,24 +214,21 @@
                     padding-bottom: 0;
                     height: 730px;
                 }
-
-                .agency-v2-tt {
-                    display: flex;
-                    justify-content: center;
-                    flex-direction: column;
-                    .tooltip__title {
-                        width: 100%;
-                        margin-bottom: $global-mrg / 2;
-                        text-align: center;
-                    }
-                    .tooltip__text {
-                        padding: rem(0) rem(23);
-                    }
-                }
             }
         }
     }
 
-    $color-gray-border: #D8D8D8;
-    $color-blue-background: #F5FBFC;
+    .agency-v2-tt {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        .tooltip__title {
+            width: 100%;
+            margin-bottom: $global-mrg / 2;
+            text-align: center;
+        }
+        .tooltip__text {
+            padding: rem(0) rem(23);
+        }
+    }
 }
