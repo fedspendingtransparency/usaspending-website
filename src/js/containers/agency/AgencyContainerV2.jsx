@@ -26,6 +26,9 @@ import Sidebar from '../../components/sharedComponents/sidebar/Sidebar';
 
 require('pages/agency/v2/index.scss');
 
+// document.querySelector('.site-navigation').offsetHeight + document.querySelector('.site-navigation').offsetTop
+const scrollPositionOfSiteHeader = 96;
+
 const TooltipComponent = () => (
     <div className="agency-v2-tt">
         <h4 className="tooltip__title">Coming Soon</h4>
@@ -95,7 +98,7 @@ export const AgencyProfileV2 = ({
         ,
         handleScroll,
         measureScreen
-    ] = useDynamicStickyClass(sankeyRef, 66);
+    ] = useDynamicStickyClass(sankeyRef, scrollPositionOfSiteHeader);
 
     useEffect(() => {
         measureScreen();
@@ -149,7 +152,7 @@ export const AgencyProfileV2 = ({
             <MetaTags {...agencyPageMetaTags} />
             <Header />
             <StickyHeader>
-                <div className="sticky-header__title">
+                <div ref={sankeyRef} className="sticky-header__title">
                     <h1 tabIndex={-1} id="main-focus">
                         Agency Profile v2
                     </h1>
@@ -158,7 +161,7 @@ export const AgencyProfileV2 = ({
                     </div>
                 </div>
             </StickyHeader>
-            <div ref={sankeyRef} className={`sankey ${stickyClass} ${sankeyState}`}>
+            <div className={`sankey ${stickyClass} ${sankeyState}`}>
                 <div className="sankey__header">
                     <h2>Agency Spending Snapshot</h2>
                     <TooltipWrapper className="agency-v2-tt" icon="info" tooltipComponent={<TooltipComponent />} />
@@ -174,11 +177,11 @@ export const AgencyProfileV2 = ({
                 </div>
             </div>
             <LoadingWrapper isLoading={false} >
-                <main id="main-content" className="main-content usda__flex-row" style={{ transition: 'margin-top .1s linear', marginTop: isSankeySticky ? `${verticalOffset}px` : 0 }}>
+                <main id="main-content" className="main-content usda__flex-row">
                     <div className={`${sankeyState} sidebar usda__flex-col`}>
                         <Sidebar
                             pageName="agency-v2"
-                            fixedStickyBreakpoint={stickyHeaderHeight}
+                            fixedStickyBreakpoint={scrollPositionOfSiteHeader}
                             active={activeSection}
                             jumpToSection={jumpToSection}
                             detectActiveSection={setActiveSection}
