@@ -190,19 +190,19 @@ export const createCheckboxTreeDataStrucure = (
  * expanded is an array of nodes that are expanded
  * updatedNodes is an array of nodes mapped to the checkbox tree data structure
  */
-export const expandedFromSearch = (
+export const handleSearch = (
     limit,
     nodeKeys,
     nodes
 ) => {
-    const newNodes = createCheckboxTreeDataStrucure(
-        limit,
-        nodeKeys,
-        nodes,
-        null,
-        null,
-        true
-    );
+    // const newNodes = createCheckboxTreeDataStrucure(
+    //     limit,
+    //     nodeKeys,
+    //     nodes,
+    //     null,
+    //     null,
+    //     true
+    // );
     // add placeholder children for search
     const addPlaceholderChildren = (node) => {
         const difference = node.count - node.children.length;
@@ -243,7 +243,7 @@ export const expandedFromSearch = (
         return expandedValues;
     };
     // maps nodes to an array of expanded values
-    const expanded = newNodes.map((node) => {
+    const expanded = nodes.map((node) => {
         const newNode = node;
         newNode.className = 'react-checkbox-tree__tier-zero';
         if (newNode.children) {
@@ -254,7 +254,43 @@ export const expandedFromSearch = (
     });
     // flattens and removes any null values
     const expandedArray = compact(flattenDeep(expanded));
-    return { updatedNodes: newNodes, expanded: expandedArray };
+    return { updatedNodes: nodes, expanded: expandedArray };
+};
+/**
+ * deepest child values
+ * - gets all child values
+ * @param {object[]} nodes - nodes to traverse
+ * @returns {*[]} - an array of values
+ */
+export const deepestChildValues = (nodes) => {
+    /**
+     * valueFunc
+     * - recursively loops through nodes updating an array with the value of the node if is has
+     * a children property
+     * @param {array} theNodes - an array of nodes
+     * @param {array} arrayOfValues - an array of values
+     * @returns {array} - an array of values
+     */
+    const valueFunc = (theNodes, childValues) => {
+        theNodes.forEach((node) => {
+            const newNode = node;
+            if (newNode.children) {
+                valueFunc(newNode.children, childValues);
+            }
+            else {
+                childValues.push(newNode.value);
+            }
+        });
+        return childValues;
+    };
+    // maps nodes to an array of expanded values
+    const values = nodes.map((node) => {
+        if (node.children) return [...valueFunc(node.children, [])];
+        return [node.value];
+    });
+    // flattens and removes any null values
+    const valuesArray = compact(flattenDeep(values));
+    return valuesArray;
 };
 /**
  * allChildValues
@@ -301,13 +337,13 @@ export const allChildValues = (nodes) => {
  * @param {*} value - value to match on
  * @returns {array} - A path array to the matched object
  */
-export const pathToNode = (nodes, value) => {
+export const pathToNode = (nodes, value, key = 'value') => {
     let theNodePath = null;
     const recursiveFind = (theNodes, theValue) => {
         // array of parent indices including found node index
         for (let i = 0; i < theNodes.length; i++) {
             // we found the node, break
-            if (theNodes[i].value === theValue) {
+            if (theNodes[i][key] === theValue) {
                 theNodePath = theNodes[i].path;
                 break;
             }
@@ -321,7 +357,7 @@ export const pathToNode = (nodes, value) => {
 
     // array of parent indices including found node index
     for (let i = 0; i < nodes.length; i++) {
-        if (nodes[i].value === value) {
+        if (nodes[i][key] === value) {
             theNodePath = nodes[i].path;
             break;
         }
@@ -330,7 +366,7 @@ export const pathToNode = (nodes, value) => {
         }
         if (theNodePath) break;
     }
-    return theNodePath;
+    return { path: theNodePath };
 };
 /**
  * buildNodePath
