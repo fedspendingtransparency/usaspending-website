@@ -90,6 +90,7 @@ const AgencyContent = ({
                     active={activeSection}
                     pageName="agency"
                     sections={agencySections}
+                    detectActiveSection={setActiveSection}
                     jumpToSection={jumpToSection}
                     fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight} />
             </div>
@@ -125,3 +126,5 @@ const AgencyContent = ({
 };
 
 AgencyContent.propTypes = propTypes;
+
+export default AgencyContent;
