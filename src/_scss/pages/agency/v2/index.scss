@@ -23,6 +23,45 @@ $verticalOffsetCollapsedSankey: 141;
         width: 100%;
     }
     
+    @import "../../explorer/detail/sidebar/fyPicker";
+
+    .sticky-header .sticky-header__container .sticky-header__header .sticky-header__title {
+        display: flex;
+        justify-content: flex-start;
+        h1 {
+            margin-right: rem(62);
+        }
+        .fy-picker {
+            .fy-picker__dropdown-container {
+                display: flex;
+            }
+            .fy-picker__icon,
+            .fy-picker__button-text,
+            .fy-picker__button-icon {
+                font-size: rem(24);
+            }
+            .fy-picker__icon {
+                margin-right: $global-mrg / 2;
+            }
+            .fy-picker__list {
+                z-index: 12;
+                background-color: 
+                #4A4A4A;
+                .fy-picker__list-item {
+                    .fy-picker__item {
+                        font-size: rem(24);
+                        color: white;
+                        &.active {
+                            color: 
+                            #4A4A4A;
+                            background: white;
+                        }
+                    } 
+                } 
+            }
+        }
+    }
+
     .sankey {
         @include display(flex);
         width: 100%;
@@ -148,8 +187,6 @@ $verticalOffsetCollapsedSankey: 141;
                 border-right: 1px solid $color-gray-border;
                 border-bottom: 1px solid $color-gray-border;
                 border-radius: rem(5);
-            
-                @import 'pages/state/_fyPicker';
             
                 ul {
                     @include unstyled-list;

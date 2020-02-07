@@ -12,17 +12,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startCase, snakeCase, find } from "lodash";
 import { TooltipWrapper } from 'data-transparency-ui';
 
+import { setAgencyOverview, resetAgency } from 'redux/actions/agency/agencyActions';
+
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
-import StickyHeader, { stickyHeaderHeight, useDynamicStickyClass } from 'components/sharedComponents/stickyHeader/StickyHeader';
+import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
+import FYPicker from 'components/sharedComponents/pickers/FYPicker';
+import StickyHeader, { useDynamicStickyClass } from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'components/sharedComponents/Footer';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
-
-import { setAgencyOverview, resetAgency } from "../../redux/actions/agency/agencyActions";
-import Sidebar from '../../components/sharedComponents/sidebar/Sidebar';
 
 require('pages/agency/v2/index.scss');
 
@@ -78,6 +80,7 @@ export const AgencyProfileV2 = ({
     const [isSankeyExpanded, setSankeyExpanded] = useState(true);
     // height in px of element's w/ a fixed position (sankey + header)
     const [verticalOffset, setVerticalOffset] = useState(verticalOffsetExpanded);
+    const [selectedFy, setSelectedFy] = useState(`${FiscalYearHelper.defaultFiscalYear()}`);
 
     const getSectionsWithVerticalOffset = (offset) => Object.keys(componentByAgencySection)
         .map((section, i) => ({
@@ -94,6 +97,14 @@ export const AgencyProfileV2 = ({
             setVerticalOffset(verticalOffsetCollapsed);
         }
     }, [verticalOffset, setVerticalOffset, isSankeyExpanded]);
+
+    const sortFy = (a, b) => {
+        if (a === selectedFy) return -1;
+        if (b === selectedFy) return 1;
+        if (b > a) return 1;
+        if (a > b) return -1;
+        return 0;
+    };
 
     const [
         isSankeySticky,
@@ -159,9 +170,7 @@ export const AgencyProfileV2 = ({
                     <h1 tabIndex={-1} id="main-focus">
                         Agency Profile v2
                     </h1>
-                    <div className="fy-picker">
-                        FY Picker
-                    </div>
+                    <FYPicker fy={selectedFy} onClick={setSelectedFy} sortFn={sortFy} />
                 </div>
             </StickyHeader>
             <div className={`sankey ${stickyClass} ${sankeyState}`}>
