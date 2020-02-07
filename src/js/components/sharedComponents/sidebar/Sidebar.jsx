@@ -57,7 +57,7 @@ const Sidebar = ({
 
         return () => {
             window.removeEventListener('resize', updateSidebarWidth);
-        }
+        };
     }, [sidebarWidth, setSidebarWidth, isSidebarSticky]);
 
     const cacheSectionPositions = throttle(() => {
