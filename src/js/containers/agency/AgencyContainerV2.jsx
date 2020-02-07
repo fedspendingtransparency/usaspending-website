@@ -65,6 +65,9 @@ const componentByAgencySection = {
 
 const sankeyRef = createRef();
 
+const verticalOffsetExpanded = 266;
+const verticalOffsetCollapsed = 121;
+
 export const AgencyProfileV2 = ({
     agencyOverview,
     agencyId,
@@ -74,7 +77,7 @@ export const AgencyProfileV2 = ({
     const [activeSection, setActiveSection] = useState('overview');
     const [isSankeyExpanded, setSankeyExpanded] = useState(true);
     // height in px of element's w/ a fixed position (sankey + header)
-    const [verticalOffset, setVerticalOffset] = useState(316);
+    const [verticalOffset, setVerticalOffset] = useState(verticalOffsetExpanded);
 
     const getSectionsWithVerticalOffset = (offset) => Object.keys(componentByAgencySection)
         .map((section, i) => ({
@@ -84,11 +87,11 @@ export const AgencyProfileV2 = ({
         }));
 
     useEffect(() => {
-        if (isSankeyExpanded && verticalOffset !== 316) {
-            setVerticalOffset(316);
+        if (isSankeyExpanded && verticalOffset !== verticalOffsetExpanded) {
+            setVerticalOffset(verticalOffsetExpanded);
         }
-        else if (!isSankeyExpanded && verticalOffset !== 121) {
-            setVerticalOffset(121);
+        else if (!isSankeyExpanded && verticalOffset !== verticalOffsetCollapsed) {
+            setVerticalOffset(verticalOffsetCollapsed);
         }
     }, [verticalOffset, setVerticalOffset, isSankeyExpanded]);
 
