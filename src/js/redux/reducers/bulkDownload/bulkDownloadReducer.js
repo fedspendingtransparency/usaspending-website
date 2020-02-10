@@ -67,7 +67,7 @@ export const initialState = {
             id: '',
             name: 'Select a Federal Account'
         },
-        submissionType: 'accountBalances',
+        submissionTypes: ['accountBalances'],
         fy: `${initialQuarters.year}`,
         quarter: `${Math.max(...initialQuarters.quarters)}`,
         fileFormat: 'csv'
@@ -101,12 +101,31 @@ const bulkDownloadReducer = (state = initialState, action) => {
             });
         }
         case 'UPDATE_DOWNLOAD_FILTER': {
-            const dataType = Object.assign({}, state[action.dataType], {
-                [action.name]: action.value
-            });
-
+            const { dataType, name, value } = action;
+            if (name === 'submissionTypes') {
+                // toggle; checkbox is unchecked
+                if (state[dataType][name].includes(value)) {
+                    return {
+                        ...state,
+                        [dataType]: {
+                            ...state[dataType],
+                            [name]: state[dataType][name].filter((submissionType) => submissionType !== value)
+                        }
+                    };
+                }
+                // insert; checkbox is checked, persist existing values and add new value
+                return {
+                    ...state,
+                    [dataType]: {
+                        ...state[dataType],
+                        [name]: [...state[dataType][name], value]
+                    }
+                };
+            }
             return Object.assign({}, state, {
-                [action.dataType]: dataType
+                [dataType]: Object.assign({}, state[dataType], {
+                    [name]: value
+                })
             });
         }
         case 'UPDATE_AWARD_DATE_RANGE': {
