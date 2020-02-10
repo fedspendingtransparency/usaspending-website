@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -43,8 +44,8 @@ export class AccountProgramActivityContainer extends React.Component {
         this.populateProgramActivities();
     }
 
-    componentDidReceiveProps(prevProps) {
-        if (prevProps.account !== this.props.account) {
+    componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps.account, this.props.account)) {
             // clear out any previously selected program activities
             this.props.resetProgramActivity();
             this.populateProgramActivities();

@@ -28,6 +28,7 @@ describe('StateContainer', () => {
         await container.instance().request.promise;
 
         expect(loadStateOverview).toHaveBeenCalledTimes(1);
+        expect(mockActions.setStateFiscalYear).toHaveBeenCalledWith('latest');
         expect(loadStateOverview).toHaveBeenCalledWith('01', 'latest');
     });
     it('should update the center coordinates for the selected state on mount', async () => {
@@ -54,7 +55,8 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 
@@ -73,7 +75,8 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 
@@ -82,7 +85,7 @@ describe('StateContainer', () => {
         expect(setStateCenter).toHaveBeenCalledTimes(1);
         expect(setStateCenter).toHaveBeenCalledWith('02');
     });
-    it('should reset the fiscal year when the state id changes', async () => {
+    it('should reset the fiscal year when the state id changes or the fy param changes', async () => {
         // Use 'all' for the initial FY
         const stateProfile = Object.assign({}, mockRedux.stateProfile, {
             fy: 'all'
@@ -100,13 +103,16 @@ describe('StateContainer', () => {
 
         container.setProps({
             params: {
-                stateId: '02'
+                stateId: '02',
+                fy: 'latest'
             }
         });
 
         await container.instance().request.promise;
-
         expect(loadStateOverview).toHaveBeenLastCalledWith('02', 'latest');
+
+        container.setProps({ params: { stateId: '02', fy: '2008' } });
+        expect(mockActions.setStateFiscalYear).toHaveBeenLastCalledWith('2008');
     });
     it('should make an API call when the fiscal year changes', async () => {
         const container = mount(<StateContainer

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
@@ -122,8 +123,11 @@ export default class SankeyVisualizationVertical extends React.Component {
         this.generateChart(this.props);
     }
 
-    componentDidUpdate() {
-        this.generateChart(this.props);
+    componentDidUpdate(prevProps) {
+        if (prevProps.width !== this.props.width ||
+            !isEqual(prevProps.amounts, this.props.amounts)) {
+            this.generateChart(this.props);
+        }
     }
 
     generateLabel(amount, total) {

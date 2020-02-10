@@ -17,7 +17,7 @@ const propTypes = {
     jumpToSection: PropTypes.func,
     stickyHeaderHeight: PropTypes.number,
     fyPicker: PropTypes.bool,
-    currentFy: PropTypes.string,
+    selectedFy: PropTypes.string,
     pickedYear: PropTypes.func
 };
 
@@ -137,7 +137,7 @@ export default class Sidebar extends React.Component {
         if (this.props.fyPicker) {
             fyPicker = (
                 <FYPicker
-                    fy={this.props.currentFy}
+                    selectedFy={this.props.selectedFy}
                     pickedYear={this.props.pickedYear} />
             );
         }

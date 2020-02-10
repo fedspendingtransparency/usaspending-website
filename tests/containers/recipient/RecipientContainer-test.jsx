@@ -6,19 +6,20 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 
+import { RecipientContainer } from 'containers/recipient/RecipientContainer';
+import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
+import { mockActions, mockRedux } from './mockData';
+import { mockRecipientOverview } from '../../models/recipient/mockRecipientApi';
+
 // mock the state helper
 jest.mock('helpers/recipientHelper', () => require('./mockRecipientHelper'));
 
-import { RecipientContainer } from 'containers/recipient/RecipientContainer';
-import { mockActions, mockRedux } from './mockData';
-import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
-import { mockRecipientOverview } from '../../models/recipient/mockRecipientApi';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('components/recipient/RecipientPage', () => jest.fn(() => null));
 
 describe('RecipientContainer', () => {
-    it('should make an API call for the selected recipient on mount', async () => {
+    it('on mount: should make an API call for the selected recipient & set fiscal year based on url params', async () => {
         const container = mount(<RecipientContainer
             {...mockRedux}
             {...mockActions} />);
@@ -30,6 +31,7 @@ describe('RecipientContainer', () => {
         await container.instance().request.promise;
 
         expect(loadRecipientOverview).toHaveBeenCalledTimes(1);
+        expect(mockActions.setRecipientFiscalYear).toHaveBeenCalledWith(mockRedux.params.fy);
         expect(loadRecipientOverview).toHaveBeenCalledWith('0123456-ABC-P', 'latest');
     });
     it('should make an API call when the id changes', async () => {
@@ -76,6 +78,29 @@ describe('RecipientContainer', () => {
         await container.instance().request.promise;
 
         expect(loadRecipientOverview).toHaveBeenLastCalledWith('876543-ABC-R', 'latest');
+    });
+    it('should handle changes in the new fy url param', () => {
+        // Use 'all' for the initial FY
+        jest.clearAllMocks();
+        const container = mount(<RecipientContainer
+            {...mockRedux}
+            {...mockActions} />);
+
+        container.setProps({
+            params: {
+                recipientId: '876543-ABC-R'
+            }
+        });
+
+        expect(mockActions.setRecipientFiscalYear).toHaveBeenCalledWith('latest');
+
+        container.setProps({
+            params: {
+                fy: '2009'
+            }
+        });
+
+        expect(mockActions.setRecipientFiscalYear).toHaveBeenCalledWith('2009');
     });
     it('should make an API call when the fiscal year changes', async () => {
         const container = mount(<RecipientContainer
