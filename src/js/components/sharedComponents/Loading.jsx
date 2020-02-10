@@ -9,27 +9,32 @@ export const LoadingWrapper = ({
     children
 }) => {
     const [dots, updateDots] = useState("...");
+    const timeouts = [];
 
     useEffect(() => {
-        const t = setTimeout(() => {
-            switch (dots.length) {
-                case 2:
-                    updateDots("...");
-                    break;
-                case 3:
-                    updateDots("");
-                    break;
-                case 0:
-                    updateDots(".");
-                    break;
-                default:
-                    updateDots("..");
-                    break;
-            }
-        }, 350);
+        if (isLoading) {
+            timeouts.push(setTimeout(() => {
+                switch (dots.length) {
+                    case 2:
+                        updateDots("...");
+                        break;
+                    case 3:
+                        updateDots("");
+                        break;
+                    case 0:
+                        updateDots(".");
+                        break;
+                    default:
+                        updateDots("..");
+                        break;
+                }
+            }, 350));
+        }
 
-        return () => clearTimeout(t);
-    }, [updateDots, dots]);
+        if (!isLoading) timeouts.forEach((t) => clearTimeout(t));
+
+        return () => timeouts.forEach((t) => clearTimeout(t));
+    }, [updateDots, dots, timeouts, isLoading]);
 
     if (isLoading) {
         return (

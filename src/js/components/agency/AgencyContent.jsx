@@ -233,7 +233,7 @@ export default class AgencyContent extends React.Component {
                         pageName="agency"
                         sections={agencySections}
                         jumpToSection={this.jumpToSection}
-                        stickyHeaderHeight={StickyHeader.stickyHeaderHeight} />
+                        fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight} />
                 </div>
                 <div className="agency-content">
                     <div className="agency-padded-content overview">
