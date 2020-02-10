@@ -89,7 +89,7 @@ $verticalOffsetCollapsedSankey: 141;
             @include flex(1 1 100%);
             @include display(flex);
             @include align-items(center);
-            margin: rem(5) rem(21);
+            margin: rem(5) rem(40);
             button {
                 background-color: transparent;
                 padding: 0 rem(10);
@@ -157,7 +157,7 @@ $verticalOffsetCollapsedSankey: 141;
                 @include display(flex);
                 @include flex-direction(column);
                 width: 22%;
-                margin: rem(20);
+                margin: rem(20) rem(20) rem(20) 0;
             }
             .agency-v2-sidebar-reference {
                 display: none;
@@ -190,7 +190,7 @@ $verticalOffsetCollapsedSankey: 141;
             
                 ul {
                     @include unstyled-list;
-                    padding: rem(15) rem(30) rem(30);
+                    padding: rem(30);
             
                     li {
                         margin-bottom: rem(24);
