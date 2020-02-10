@@ -1,5 +1,6 @@
-$color-gray-border: #D8D8D8;
-$color-blue-background: #F5FBFC;
+// height of sticky header (66px) + sankey (200) + 20px margin
+$verticalOffsetExpandedSankey: 286;
+$verticalOffsetCollapsedSankey: 141;
 
 .usa-da-agency-page-v2 {
     @import "all";
@@ -7,10 +8,10 @@ $color-blue-background: #F5FBFC;
     @import "layouts/default/stickyHeader/header";
     @import "components/pageLoading";
 
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
+    @include display(flex);
+    @include justify-content(flex-start);
+    @include align-items(center);
+    @include flex-direction(column);
     min-height: 100vh;
     width: 100%;
 
@@ -22,15 +23,54 @@ $color-blue-background: #F5FBFC;
         width: 100%;
     }
     
-    .sankey {
+    @import "../../explorer/detail/sidebar/fyPicker";
+
+    .sticky-header .sticky-header__container .sticky-header__header .sticky-header__title {
         display: flex;
+        justify-content: flex-start;
+        h1 {
+            margin-right: rem(62);
+        }
+        .fy-picker {
+            .fy-picker__dropdown-container {
+                display: flex;
+            }
+            .fy-picker__icon,
+            .fy-picker__button-text,
+            .fy-picker__button-icon {
+                font-size: rem(24);
+            }
+            .fy-picker__icon {
+                margin-right: $global-mrg / 2;
+            }
+            .fy-picker__list {
+                z-index: 12;
+                background-color: 
+                #4A4A4A;
+                .fy-picker__list-item {
+                    .fy-picker__item {
+                        font-size: rem(24);
+                        color: white;
+                        &.active {
+                            color: 
+                            #4A4A4A;
+                            background: white;
+                        }
+                    } 
+                } 
+            }
+        }
+    }
+
+    .sankey {
+        @include display(flex);
         width: 100%;
         background: #fff;
         box-shadow: 0 0 5px 5px rgba(0,0,0,0.15);
         z-index: 10;
-        flex-direction: column;
+        @include flex-direction(column);
         &.expanded-sankey {
-            height: rem(250);
+            height: rem(200);
         }
         &.collapsed-sankey {
             height: rem(55);
@@ -40,13 +80,16 @@ $color-blue-background: #F5FBFC;
                 position: fixed;
                 // height of sticky header
                 top: 66px;
+                left: 0px;
             }
         }
         .sankey__header {
-            display: flex;
-            flex-wrap: wrap;
-            margin: rem(13) 0 0 rem(21);
-            display: flex;
+            @include display(flex);
+            @include flex-wrap(wrap);
+            @include flex(1 1 100%);
+            @include display(flex);
+            @include align-items(center);
+            margin: rem(5) rem(40);
             button {
                 background-color: transparent;
                 padding: 0 rem(10);
@@ -72,10 +115,10 @@ $color-blue-background: #F5FBFC;
         }
         .coming-soon-section {
             margin: rem(5);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
+            @include display(flex);
+            @include justify-content(center);
+            @include align-items(center);
+            @include flex-direction(column);
             background: #f1f1f1;
             height: 100%;
             h4 {
@@ -88,8 +131,8 @@ $color-blue-background: #F5FBFC;
     }
 
     .usda__flex-row {
-        display: flex;
-        flex-wrap: wrap;
+        @include display(flex);
+        @include flex-wrap(wrap);
         width: 100%;
         .usda__flex-col {
             @include flex(1 1 auto);
@@ -97,10 +140,10 @@ $color-blue-background: #F5FBFC;
     }
     
     .main-content {
-        display: flex;
+        @include display(flex);
         width: 100%;
-        flex-grow: 1;
-        flex-wrap: wrap;
+        @include flex-grow(1);
+        @include flex-wrap(wrap);
         max-width: rem(1600);
         ul {
             padding: 0;
@@ -111,10 +154,10 @@ $color-blue-background: #F5FBFC;
         .sidebar {
             display: none;
             @media(min-width: $medium-screen) {
-                display: flex;
-                flex-direction: column;
+                @include display(flex);
+                @include flex-direction(column);
                 width: 22%;
-                margin: rem(20);
+                margin: rem(20) rem(20) rem(20) 0;
             }
             .agency-v2-sidebar-reference {
                 display: none;
@@ -126,15 +169,13 @@ $color-blue-background: #F5FBFC;
             &.expanded-sankey .agency-v2-sidebar-content {
                 &.float-sidebar {
                     position: fixed;
-                    // height of sticky header + sankey + margin
-                    top: rem(336);
+                    top: rem($verticalOffsetExpandedSankey);
                 }
             }
             &.collapsed-sankey .agency-v2-sidebar-content {
                 &.float-sidebar {
                     position: fixed;
-                    // height of sticky header + sankey + margin
-                    top: rem(141);
+                    top: rem($verticalOffsetCollapsedSankey);
                 }
             }
 
@@ -147,11 +188,9 @@ $color-blue-background: #F5FBFC;
                 border-bottom: 1px solid $color-gray-border;
                 border-radius: rem(5);
             
-                @import 'pages/state/_fyPicker';
-            
                 ul {
                     @include unstyled-list;
-                    padding: rem(15) rem(30) rem(30);
+                    padding: rem(30);
             
                     li {
                         margin-bottom: rem(24);
@@ -184,9 +223,9 @@ $color-blue-background: #F5FBFC;
             }
         }
         .body {
-            display: flex;
+            @include display(flex);
             width: 100%;
-            flex-direction: column;
+            @include flex-direction(column);
             padding: 2.5% 2.5% 0 2.5%;
             margin: rem(20) rem(20) rem(20) 0;
             background: white;
@@ -194,15 +233,15 @@ $color-blue-background: #F5FBFC;
                 width: 70%;
             }
             .body__section {
-                display: flex;
-                flex-wrap: wrap;
+                @include display(flex);
+                @include flex-wrap(wrap);
                 margin-bottom: $global-mrg;
                 .body__header {
                     width: 100%;
                     height: rem(30);
-                    display: flex;
-                    align-items: center;
-                    justify-content: flex-start;
+                    @include display(flex);
+                    @include align-items(center);
+                    @include justify-content(flex-start);
                     .body__header-icon {
                         margin-right: $global-mrg / 2;
                     }
@@ -224,8 +263,8 @@ $color-blue-background: #F5FBFC;
                 }
                 .coming-soon-section {
                     width: 100%;
-                    display: flex;
-                    flex-direction: column;
+                    @include display(flex);
+                    @include flex-direction(column);
                     @extend %coming-soon-idv;
                     padding-bottom: 0;
                     height: 730px;
@@ -235,9 +274,9 @@ $color-blue-background: #F5FBFC;
     }
 
     .agency-v2-tt {
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
+        @include display(flex);
+        @include justify-content(center);
+        @include flex-direction(column);
         .tooltip__title {
             width: 100%;
             margin-bottom: $global-mrg / 2;

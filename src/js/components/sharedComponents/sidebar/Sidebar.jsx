@@ -19,7 +19,8 @@ const propTypes = {
     fyPicker: PropTypes.bool,
     selectedFy: PropTypes.string,
     pickedYear: PropTypes.func,
-    detectActiveSection: PropTypes.oneOfType([PropTypes.bool, PropTypes.func])
+    detectActiveSection: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
+    fixedStickyBreakpoint: PropTypes.number
 };
 
 const defaultSectionOffsets = { stickyVerticalOffset: 0 };
@@ -48,7 +49,6 @@ const Sidebar = ({
                 setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
             }
             else if (!isSidebarSticky && sidebarWidth !== div.current.offsetWidth) {
-                // setSidebarWidth(`${div.current.offsetWidth}px`);
                 setSidebarWidth(`auto`);
             }
         }, 100);
@@ -214,8 +214,9 @@ const Sidebar = ({
     const floatSidebar = isSidebarSticky
         ? 'float-sidebar'
         : '';
+
     return (
-        <>
+        <div>
             <div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv}>
                 &nbsp;
             </div>
@@ -229,7 +230,7 @@ const Sidebar = ({
                     {sections.map(buildItems)}
                 </ul>
             </div>
-        </>
+        </div>
     );
 };
 

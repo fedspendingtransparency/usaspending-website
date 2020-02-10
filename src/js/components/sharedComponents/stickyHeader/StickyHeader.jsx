@@ -24,7 +24,7 @@ export const useDynamicStickyClass = (stickyRef, fixedStickyBreakpoint = null) =
         setIsSticky,
         // handleScroll
         throttle(() => {
-            const { scrollY } = window;
+            const scrollY = window.scrollY || document.documentElement.scrollTop;
             if (fixedStickyBreakpoint && scrollY >= fixedStickyBreakpoint && !isSticky) {
                 // we know which y position to apply the sticky class
                 setIsSticky(true);
