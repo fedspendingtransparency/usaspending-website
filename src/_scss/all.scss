@@ -36,6 +36,7 @@
 @import 'components/viewTypeButton';
 @import 'components/tooltips/index';
 
+
 // Mixins ------------------ //
 @import 'mixins/background';
 @import 'mixins/error';
@@ -43,5 +44,8 @@
 
 // Selectors --------------- //
 @import 'selectors/idv';
+
+// Pages ------------------ //
+
 
 @import '~data-transparency-ui/dist/data-transparency-ui.css';

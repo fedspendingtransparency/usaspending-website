@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { tabs, awardTypesWithSubawards } from 'dataMapping/awardsv2/awardHistorySection';
-import { getToolTipBySectionAndAwardType } from 'dataMapping/awardsv2/tooltips';
+import { tabs, awardTypesWithSubawards } from 'dataMapping/awards/awardHistorySection';
+import { getToolTipBySectionAndAwardType } from 'dataMapping/awards/tooltips';
 import TransactionsTableContainer from 'containers/award/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/award/table/FederalAccountTableContainer';
 import SubawardsContainer from 'containers/award/table/SubawardsContainer';
@@ -134,7 +134,8 @@ export class AwardHistory extends React.Component {
         const {
             overview,
             setActiveTab,
-            activeTab
+            activeTab,
+            awardId
         } = this.props;
         const tabOptions = this.state.tabs;
         const sectionTitle = (overview.category === 'idv')
@@ -151,6 +152,7 @@ export class AwardHistory extends React.Component {
                     tooltipWide={(overview.category === 'contract')} />
                 <div className="tables-section">
                     <DetailsTabBar
+                        awardId={awardId}
                         tabOptions={tabOptions}
                         activeTab={activeTab}
                         clickTab={setActiveTab} />

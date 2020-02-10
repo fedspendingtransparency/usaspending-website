@@ -40,12 +40,9 @@ export const fetchPSC = (req) => apiRequest({
     data: req
 });
 
-export const fetchAwardV2 = (awardId) => {
-    const parsedAwardId = encodeURI(awardId);
-    return apiRequest({
-        url: `v2/awards/${parsedAwardId}/`
-    });
-};
+export const fetchAwardV2 = (awardId) => apiRequest({
+    url: `v2/awards/${awardId}/`
+});
 
 // Fetch Individual Award's Transactions
 export const fetchAwardTransaction = (params) => apiRequest({

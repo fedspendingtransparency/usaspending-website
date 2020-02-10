@@ -13,10 +13,12 @@ const propTypes = {
     category: PropTypes.string,
     downloadData: PropTypes.func,
     isDownloadPending: PropTypes.bool,
-    isInvalidId: PropTypes.bool
+    isInvalidId: PropTypes.bool,
+    isLoading: PropTypes.bool
 };
 
 const SummaryBar = ({
+    isLoading,
     category,
     downloadData,
     isDownloadPending,
@@ -38,7 +40,7 @@ const SummaryBar = ({
     return (
         <div className="sticky-header__title">
             <h1 tabIndex={-1} id="main-focus">
-                {title} Summary
+                {isLoading ? `--` : `${title} Summary`}
             </h1>
             <DownloadButton
                 downloadAvailable

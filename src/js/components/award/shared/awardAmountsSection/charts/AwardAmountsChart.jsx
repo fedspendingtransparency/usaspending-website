@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/awardsv2/awardAmountsSection';
+import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/awards/awardAmountsSection';
 
 import NormalChart from './NormalChart';
 import ExceedsCurrentChart from './ExceedsCurrentChart';

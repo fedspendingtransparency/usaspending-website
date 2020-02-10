@@ -3,16 +3,17 @@ import React from 'react';
 import { awardTypeCodes } from 'dataMapping/search/awardType';
 import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
+import AwardStatus from './AwardStatus';
 
 const AwardPageWrapper = ({
     awardType,
     title,
-    lastModifiedDateLong,
     glossaryLink,
     overviewType,
     identifier,
     idLabel = "PIID",
-    children
+    children,
+    dates
 }) => {
     const glossaryTitleText = awardTypeCodes[overviewType] ?
         `View glossary definition of ${awardTypeCodes[overviewType]}` :
@@ -32,12 +33,9 @@ const AwardPageWrapper = ({
                         <p>{identifier}</p>
                     </div>
                 </div>
-                <div className="award__last-modified">
-                Last Modified On:{" "}
-                    <span className="award__last-modified award__last-modified_date">
-                        {lastModifiedDateLong}
-                    </span>
-                </div>
+                <AwardStatus
+                    awardType={awardType}
+                    dates={dates} />
             </div>
             <hr />
             {children}

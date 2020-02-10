@@ -11,13 +11,14 @@ import { isCancel } from 'axios';
 import Award from 'components/award/Award';
 
 import * as SearchHelper from 'helpers/searchHelper';
-import { setAward } from 'redux/actions/award/awardActions';
+import { setAward, resetAward } from 'redux/actions/award/awardActions';
 import {
     setDownloadCollapsed,
     setDownloadPending,
     setDownloadExpectedFile,
     setDownloadExpectedUrl
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
+import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 
 import BaseContract from 'models/v2/awardsV2/BaseContract';
 import BaseIdv from 'models/v2/awardsV2/BaseIdv';
@@ -28,10 +29,12 @@ import {
     fetchAssistanceDownloadFile
 } from '../../helpers/downloadHelper';
 
-require('pages/awardV2/awardPage.scss');
+require('pages/award/awardPage.scss');
 
 const propTypes = {
+    subAwardIdClicked: PropTypes.func,
     setAward: PropTypes.func,
+    resetAward: PropTypes.func,
     handleDownloadRequest: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     setDownloadPending: PropTypes.func,
@@ -39,7 +42,8 @@ const propTypes = {
     setDownloadExpectedUrl: PropTypes.func,
     params: PropTypes.object,
     award: PropTypes.object,
-    isDownloadPending: PropTypes.bool
+    isDownloadPending: PropTypes.bool,
+    isSubAwardIdClicked: PropTypes.bool
 };
 
 export class AwardContainer extends React.Component {
@@ -51,7 +55,7 @@ export class AwardContainer extends React.Component {
 
         this.state = {
             noAward: false,
-            inFlight: false
+            inFlight: true
         };
         this.downloadData = this.downloadData.bind(this);
         this.fetchAwardDownloadFile = this.fetchAwardDownloadFile.bind(this);
@@ -71,6 +75,7 @@ export class AwardContainer extends React.Component {
         if (this.awardRequest) {
             this.awardRequest.cancel();
         }
+        this.props.resetAward();
     }
 
     getSelectedAward(id) {
@@ -165,7 +170,7 @@ export class AwardContainer extends React.Component {
 
         try {
             const { data } = await this.downloadRequest.promise;
-            this.props.setDownloadExpectedUrl(data.url);
+            this.props.setDownloadExpectedUrl(data.file_url);
             this.props.setDownloadExpectedFile(data.file_name);
             // disable download button
             this.props.setDownloadPending(true);
@@ -178,30 +183,35 @@ export class AwardContainer extends React.Component {
     }
 
     render() {
-        let content = null;
-        if (!this.state.inFlight) {
-            content = (
-                <Award
-                    isDownloadPending={this.props.isDownloadPending}
-                    downloadData={this.downloadData}
-                    awardId={this.props.params.awardId}
-                    award={this.props.award}
-                    noAward={this.state.noAward} />
-            );
-        }
-        return content;
+        return (
+            <Award
+                subAwardIdClicked={this.props.subAwardIdClicked}
+                isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                isDownloadPending={this.props.isDownloadPending}
+                downloadData={this.downloadData}
+                awardId={this.props.params.awardId}
+                award={this.props.award}
+                isLoading={this.state.inFlight}
+                noAward={this.state.noAward} />
+        );
     }
 }
 
 AwardContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.award, isDownloadPending: state.bulkDownload.download.pendingDownload }),
+    (state) => ({
+        award: state.award,
+        isDownloadPending: state.bulkDownload.download.pendingDownload,
+        isSubAwardIdClicked: state.searchSubAwardTable.isSubAwardIdClicked
+    }),
     (dispatch) => bindActionCreators({
         setDownloadExpectedUrl,
         setDownloadExpectedFile,
         setDownloadPending,
         setDownloadCollapsed,
-        setAward
+        setAward,
+        subAwardIdClicked,
+        resetAward
     }, dispatch)
 )(AwardContainer);

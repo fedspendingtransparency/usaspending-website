@@ -342,13 +342,18 @@ export class ResultsTableContainer extends React.Component {
                     inFlight: false
                 };
 
+                const parsedResults = res.data.results.map((result) => ({
+                    ...result,
+                    generated_internal_id: encodeURI(result.generated_internal_id)
+                }));
+
                 // don't clear records if we're appending (not the first page)
                 if (pageNumber <= 1 || newSearch) {
                     newState.tableInstance = `${uniqueId()}`;
-                    newState.results = res.data.results;
+                    newState.results = parsedResults;
                 }
                 else {
-                    newState.results = this.state.results.concat(res.data.results);
+                    newState.results = this.state.results.concat(parsedResults);
                 }
 
                 // request is done
@@ -435,7 +440,12 @@ export class ResultsTableContainer extends React.Component {
         });
     }
 
-    subAwardIdClick = () => {
+    subAwardIdClick = (id) => {
+        Analytics.event({
+            category: 'Advanced Search - Link',
+            action: 'Subaward ID Clicked',
+            label: id
+        });
         this.props.subAwardIdClicked(true);
     }
 

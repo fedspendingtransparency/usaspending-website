@@ -19,6 +19,7 @@ import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import Footer from '../sharedComponents/Footer';
 import Error from '../sharedComponents/Error';
+import { LoadingWrapper } from '../sharedComponents/Loading';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -29,7 +30,10 @@ const propTypes = {
         mounted: PropTypes.bool,
         hideModal: PropTypes.func
     }),
-    isDownloadPending: PropTypes.bool
+    isDownloadPending: PropTypes.bool,
+    isSubAwardIdClicked: PropTypes.bool,
+    subAwardIdClicked: PropTypes.func,
+    isLoading: PropTypes.bool
 };
 
 const awardSections = [
@@ -63,6 +67,7 @@ export default class Award extends React.Component {
         };
 
         this.jumpToSection = this.jumpToSection.bind(this);
+        this.renderContent = this.renderContent.bind(this);
     }
 
     jumpToSection(section = '') {
@@ -88,50 +93,30 @@ export default class Award extends React.Component {
         scrollToY(sectionTop, 700);
     }
 
-    render() {
-        let content = null;
-        let summaryBar = null;
-        const { overview } = this.props.award;
-        const { awardId } = this.props;
-        if (overview) {
-            summaryBar = (
-                <SummaryBar
-                    isDownloadPending={this.props.isDownloadPending}
-                    downloadData={this.props.downloadData}
-                    category={overview.category} />
+    renderContent(overview, awardId) {
+        if (!overview) return null;
+        if (overview.category === 'contract') {
+            return (
+                <ContractContent
+                    awardId={awardId}
+                    overview={overview}
+                    counts={{ subawardCount: overview.subawardCount }}
+                    jumpToSection={this.jumpToSection}
+                    isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                    subAwardIdClicked={this.props.subAwardIdClicked} />
             );
-            if (overview.category === 'contract') {
-                content = (
-                    <ContractContent
-                        awardId={awardId}
-                        overview={overview}
-                        counts={{ subawardCount: overview.subawardCount }}
-                        jumpToSection={this.jumpToSection} />
-                );
-            }
-            else if (overview.category === 'idv') {
-                content = (
-                    <IdvContent
-                        awardId={awardId}
-                        overview={overview}
-                        counts={this.props.award.counts}
-                        jumpToSection={this.jumpToSection} />
-                );
-            }
-            else {
-                content = (
-                    <FinancialAssistanceContent
-                        awardId={awardId}
-                        overview={overview}
-                        jumpToSection={this.jumpToSection} />
-                );
-            }
         }
-        if (this.props.noAward) {
-            summaryBar = (
-                <SummaryBar isInvalidId />
+        else if (overview.category === 'idv') {
+            return (
+                <IdvContent
+                    awardId={awardId}
+                    overview={overview}
+                    counts={this.props.award.counts}
+                    jumpToSection={this.jumpToSection} />
             );
-            content = (
+        }
+        else if (this.props.noAward) {
+            return (
                 <div className="wrapper">
                     <Error
                         title="Invalid Award ID"
@@ -140,17 +125,37 @@ export default class Award extends React.Component {
                 </div>
             );
         }
+        return (
+            <FinancialAssistanceContent
+                awardId={awardId}
+                overview={overview}
+                jumpToSection={this.jumpToSection}
+                isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                subAwardIdClicked={this.props.subAwardIdClicked} />
+        );
+    }
 
+    render() {
+        const { overview } = this.props.award;
+        const { awardId, isLoading } = this.props;
+        const content = this.renderContent(overview, awardId);
         return (
             <div className="usa-da-award-v2-page">
                 <MetaTags {...MetaTagHelper.awardPageMetaTags} />
                 <Header />
                 <StickyHeader>
-                    {summaryBar}
+                    <SummaryBar
+                        downloadData={this.props.downloadData}
+                        isDownloadPending={this.props.isDownloadPending}
+                        isInvalidId={this.props.noAward}
+                        isLoading={isLoading}
+                        category={overview ? overview.category : ''} />
                 </StickyHeader>
-                <main className={!this.props.noAward ? 'award-content' : ''}>
-                    {content}
-                </main>
+                <LoadingWrapper isLoading={isLoading}>
+                    <main className={!this.props.noAward ? 'award-content' : ''}>
+                        {content}
+                    </main>
+                </LoadingWrapper>
                 <Footer />
             </div>
         );

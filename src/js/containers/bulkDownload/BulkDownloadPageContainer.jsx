@@ -142,17 +142,16 @@ export class BulkDownloadPageContainer extends React.Component {
         );
 
         // Get the submission type object
-        const submissionTypes = accountDownloadOptions.submissionTypes;
-        const submissionType = submissionTypes.find((type) =>
-            type.name === formState.submissionType
-        );
+        const submissionTypes = accountDownloadOptions.submissionTypes
+            .filter((type) => formState.submissionTypes.includes(type.name))
+            .map((type) => type.apiName);
 
         const params = {
             account_level: accountLevel.apiName,
             filters: {
                 budget_function: formState.budgetFunction.code,
                 agency: formState.agency.id,
-                submission_type: submissionType.apiName,
+                submission_types: submissionTypes,
                 fy: formState.fy,
                 quarter: formState.quarter
             },
@@ -193,7 +192,7 @@ export class BulkDownloadPageContainer extends React.Component {
 
         this.request.promise
             .then((res) => {
-                this.props.setDownloadExpectedUrl(res.data.url);
+                this.props.setDownloadExpectedUrl(res.data.file_url);
                 this.props.setDownloadExpectedFile(res.data.file_name);
                 this.props.setDownloadPending(true);
             })

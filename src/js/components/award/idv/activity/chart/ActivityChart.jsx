@@ -9,7 +9,7 @@ import { isEqual, min, max } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
 import { nearestQuarterDate } from 'helpers/fiscalYearHelper';
-import TwoRectangles from 'components/sharedComponents/patterns/TwoRectangles';
+import RectanglePattern from 'components/sharedComponents/patterns/RectanglePattern';
 import VerticalLine from 'components/sharedComponents/VerticalLine';
 import ActivityChartBar from './ActivityChartBar';
 import ActivityXAxis from './ActivityXAxis';
@@ -107,33 +107,53 @@ export default class ActivityChart extends React.Component {
             }
             // bar normal design
             const barHeightString = barHeight.toString();
+            const patternProps = {
+                id: `normal${index}`,
+                width: barHeightString,
+                height: barHeightString
+            };
+            const normalPatternRectangles = [
+                {
+                    key: `normal${index}`,
+                    width: '100%',
+                    height: barHeightString,
+                    fill: '#D8D8D8'
+                },
+                {
+                    key: `normal2${index}`,
+                    width: `${bar.obligatedAmountWidth}`,
+                    height: barHeightString,
+                    fill: '#94BFA2'
+                }
+            ];
             let pattern = (
-                <TwoRectangles
-                    id={`normal${index}`}
-                    width={barHeightString}
-                    height={barHeightString}
-                    backgroundWidth="100%"
-                    backgroundHeight={barHeightString}
-                    backgroundFill="#D8D8D8"
-                    fillWidth={`${bar.obligatedAmountWidth}`}
-                    fillHeight={barHeightString}
-                    fillFill="#94BFA2" />
+                <RectanglePattern
+                    patternProps={patternProps}
+                    rectangles={normalPatternRectangles} />
             );
             // bar overspending design
             if (bar._obligatedAmount > bar._awardedAmount) {
+                patternProps.id = 'diagonalHatch';
+                patternProps.patternTransform = 'rotate(135, 0, 0)';
+                patternProps.patternUnits = 'userSpaceOnUse';
+                const overspendingRectangles = [
+                    {
+                        key: `overspending${index}`,
+                        width: '100%',
+                        height: barHeightString,
+                        fill: '#94BFA2'
+                    },
+                    {
+                        key: `overspending2${index}`,
+                        width: '2',
+                        height: barHeightString,
+                        fill: 'rgb(188,92,35)'
+                    }
+                ];
                 pattern = (
-                    <TwoRectangles
-                        id="diagonalHatch"
-                        width={barHeightString}
-                        height={barHeightString}
-                        patternTransform="rotate(135, 0, 0)"
-                        patternUnits="userSpaceOnUse"
-                        backgroundWidth="100%"
-                        backgroundHeight={barHeightString}
-                        backgroundFill="#94BFA2"
-                        fillWidth="2"
-                        fillHeight={barHeightString}
-                        fillFill="rgb(188,92,35)" />
+                    <RectanglePattern
+                        patternProperties={patternProps}
+                        rectangles={overspendingRectangles} />
                 );
             }
             return (

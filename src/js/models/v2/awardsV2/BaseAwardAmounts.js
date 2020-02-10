@@ -8,9 +8,11 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 const BaseAwardAmounts = {
     populateBase(data) {
         this.id = (data.award_id && `${data.award_id}`) || '';
-        this.generatedId = data.generated_unique_award_id || '';
+        this.generatedId = data.generated_unique_award_id
+            ? encodeURI(`${data.generated_unique_award_id}`)
+            : '';
     },
-    populateIdv(data) {
+    populateAggIdv(data) {
         this.childIDVCount = data.child_idv_count || 0;
         this.childAwardCount = data.child_award_count || 0;
         this.grandchildAwardCount = data.grandchild_award_count || 0;
@@ -23,6 +25,11 @@ const BaseAwardAmounts = {
         this._baseExercisedOptions = parseFloat(
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
+    },
+    populateIdv(data) {
+        this._totalObligation = data._totalObligation;
+        this._baseExercisedOptions = data._baseExercisedOptions;
+        this._baseAndAllOptions = data._baseAndAllOptions;
     },
     populateLoan(data) {
         this._subsidy = data._subsidy;
@@ -38,15 +45,18 @@ const BaseAwardAmounts = {
         this._baseExercisedOptions = data._baseExercisedOptions;
         this._baseAndAllOptions = data._baseAndAllOptions;
     },
-    populate(data, awardType) {
+    populate(data, awardAmountType) {
         this.populateBase(data);
-        if (awardType === 'idv') {
+        if (awardAmountType === 'idv_aggregated') {
+            this.populateAggIdv(data);
+        }
+        else if (awardAmountType === 'idv') {
             this.populateIdv(data);
         }
-        else if (awardType === 'contract') {
+        else if (awardAmountType === 'contract') {
             this.populateContract(data);
         }
-        else if (awardType === 'loan') {
+        else if (awardAmountType === 'loan') {
             this.populateLoan(data);
         }
         else {

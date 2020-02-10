@@ -1,42 +1,41 @@
 .usa-da-glossary-animations {
     @import "all";
     @import "./_animations";
-}
 
-.usa-da-glossary-wrapper {
-    @import "all";
-    position: fixed;
-    right: 0;
-    top: 0;
+    .usa-da-glossary-wrapper {
+        position: fixed;
+        right: 0;
+        top: 0;
 
-    width: 310px;
-    height: 100%;
-
-    z-index: $z-guide;
-
-    box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
-
-    .glossary-sidebar {
-        background-color: $color-primary-darker;
-        color: $color-white;
-        font-size: 14px;
-
-        width: 100%;
+        width: 310px;
         height: 100%;
 
-        @import "./_scrollbar";
+        z-index: $z-guide;
 
-        @import "./_header";
-        @import "./_searchList";
-        @import "./_definition";
-        @import "./_noResults";
+        box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
 
-        .glossary-loading-content {
-            padding: 20px;
-        }
+        .glossary-sidebar {
+            background-color: $color-primary-darker;
+            color: $color-white;
+            font-size: 14px;
 
-        .loading {
-            opacity: 0.2;
+            width: 100%;
+            height: 100%;
+
+            @import "./_scrollbar";
+
+            @import "./_header";
+            @import "./_searchList";
+            @import "./_definition";
+            @import "./_noResults";
+
+            .glossary-loading-content {
+                padding: 20px;
+            }
+
+            .loading {
+                opacity: 0.2;
+            }
         }
     }
 }

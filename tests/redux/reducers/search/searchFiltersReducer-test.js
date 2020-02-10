@@ -487,11 +487,11 @@ describe('searchFiltersReducer', () => {
                 recipientType: new Set([
                     'small_business',
                     'other_than_small_business',
-                    'alaskan_native_owned_business'
+                    'alaskan_native_corporation_owned_firm'
                 ])
             });
 
-            expect(searchFiltersReducer(startingState, action).recipientType).toEqual(new Set(['alaskan_native_owned_business']));
+            expect(searchFiltersReducer(startingState, action).recipientType).toEqual(new Set(['alaskan_native_corporation_owned_firm']));
         });
     });
 

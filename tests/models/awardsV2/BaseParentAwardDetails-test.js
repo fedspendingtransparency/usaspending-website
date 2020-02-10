@@ -11,7 +11,7 @@ describe('parentAwardDetails', () => {
     it('successfully populates the object with the expected shape and value', () => {
         const result = Object.create(parentAwardDetails);
         result.populateCore(mockIdv.parent_award);
-        expect(result.awardId).toEqual(mockData.award_id);
+        expect(result.awardId).toEqual(mockData.generated_unique_award_id);
         expect(result.idvType).toEqual(mockData.idv_type_description);
         expect(result.idcType).toEqual(mockData.type_of_idc_description);
         expect(result.agencyId).toEqual(mockData.agency_id);

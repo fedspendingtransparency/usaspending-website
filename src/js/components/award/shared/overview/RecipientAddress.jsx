@@ -5,28 +5,38 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AddresskeysByAwardType } from 'dataMapping/awardsv2/awardOverview';
+import { AddresskeysByAwardType } from 'dataMapping/awards/awardOverview';
 
 const propTypes = {
     aggregateRecordType: PropTypes.string,
-    placeOfPerformance: PropTypes.object
+    recipientLocation: PropTypes.object
 };
 
-const RecipientAddress = ({ placeOfPerformance, aggregateRecordType }) => (
-    <div className="award-overview__left-section__recipient__recipient-address">
-        {
-            AddresskeysByAwardType[aggregateRecordType].map(
-                (addressKey) => (
-                    <div
-                        className="award-overview__left-section__recipient__recipient-address__address-line award-overview__left-section__aggregated-text"
-                        key={addressKey}>
-                        {placeOfPerformance[addressKey] || null}
-                    </div>
-                )
-            )
-        }
-    </div>
-);
+// contains letters or numbers
+const regEx = RegExp('[A-Za-z0-9]');
+const regExTest = (string) => regEx.test(string);
+
+const RecipientAddress = ({ recipientLocation, aggregateRecordType }) => {
+    const arrayOfAddressKeysByAwardType = AddresskeysByAwardType[aggregateRecordType];
+    const recipientAddress = arrayOfAddressKeysByAwardType.map(
+        (addressKey) => (
+            <div
+                className="award-overview__left-section__recipient__recipient-address__address-line award-overview__left-section__aggregated-text"
+                key={addressKey}>
+                {recipientLocation[addressKey] || null}
+            </div>
+        )
+    );
+    // if any address field contains letters or numbers this will return true
+    const addressContainsLetters = arrayOfAddressKeysByAwardType
+        .map((addressKey) => recipientLocation[addressKey] || '')
+        .some(regExTest);
+    return (
+        <div className="award-overview__left-section__recipient__recipient-address">
+            { !addressContainsLetters ? '--' : recipientAddress }
+        </div>
+    );
+};
 
 RecipientAddress.propTypes = propTypes;
 export default RecipientAddress;

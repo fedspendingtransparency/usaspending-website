@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
 
@@ -97,6 +98,18 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
-        new webpack.HashedModuleIdsPlugin() // so that file hashes don't change unexpectedly
+        new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
+        new CopyWebpackPlugin([
+            {
+                from: '*.xml',
+                to: path.resolve(__dirname, "../public"),
+                context: path.resolve(__dirname, '../')
+            },
+            {
+                from: 'robots.txt',
+                to: path.resolve(__dirname, "../public"),
+                context: path.resolve(__dirname, '../')
+            }
+        ])
     ]
 };

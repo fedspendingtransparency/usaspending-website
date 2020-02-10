@@ -52,7 +52,7 @@
       line-height: rem(17);
       @include media($medium-screen) {
           @include flex(1 1 1);
-          max-width: 30%;
+          width: 30%;
       }
       &.feature-pane__content-middle__sub {
         background-size: 100% 100%;
@@ -101,6 +101,7 @@
     .feature-pane__button-wrapper {
       margin-top: auto;
       background-color: transparent;
+      padding: rem(10) rem(20) rem(10) rem(20);
       #middle-pane-feature-icon {
         padding-left: rem(5);
       }
@@ -127,10 +128,9 @@
         color: #0071BC;
         background-color: transparent;
         border: 1px solid #0071BC;
-        padding: rem(10) rem(20) rem(10) rem(20);
         text-decoration: none;
         font-weight: 600;
-
+        padding: rem(10) rem(20) rem(10) rem(20);
         &:hover {
             color: #ffffff;
             background-color: #0071bc;

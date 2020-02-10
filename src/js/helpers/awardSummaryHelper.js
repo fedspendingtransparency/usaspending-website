@@ -1,3 +1,4 @@
+import moment from "moment";
 import { apiRequest } from "./apiRequest";
 
 /**
@@ -28,31 +29,89 @@ export const isAwardFinancialAssistance = (awardType) => [
     'other'
 ].includes(awardType);
 
+export const isContract = (awardType) => [
+    'contract',
+    'definitive contract'
+].includes(awardType);
+
+// takes core location object
+export const isUSAAward = (placeOfPerformance) => {
+    const countryCode = placeOfPerformance._countryCode;
+    const countryName = placeOfPerformance.countryName;
+    if (
+        countryCode === 'USA'
+        || countryCode === 'UNITED STATES'
+        || countryName === 'UNITED STATES'
+    ) return true;
+    return false;
+};
+
 // award overview recipient section - determines text and address to display to user
 // data can be found in
 export const getAwardTypeByRecordtypeCountyAndState = (
-    isFinancialAssistance,
+    awardType,
     placeOfPerformance,
     recordType
 ) => {
-    if (isFinancialAssistance) {
+    const countyCode = placeOfPerformance._countyCode;
+    const isUSA = isUSAAward(placeOfPerformance);
+    if (isAwardFinancialAssistance(awardType)) {
         // redacted due to PII
-        if (recordType === 3) return 'redactedDueToPII';
+        if (recordType === 3) {
+            if (!isUSA) {
+                return 'redactedDueToPIIForeign';
+            }
+            return 'redactedDueToPIIDomestic';
+        }
+        if (recordType === 2) {
+            return !isUSA
+                ? 'financialAssistanceForeign'
+                : 'financialAssistanceDomestic';
+        }
         if (recordType === 1) {
             // aggregated by state
-            if (placeOfPerformance._countryCode === 'USA' && !placeOfPerformance._countyCode) {
+            if (isUSA && !countyCode) {
                 return 'aggregatedByState';
             }
             // aggregated by county
-            if (placeOfPerformance._countryCode === 'USA' && placeOfPerformance._countyCode) {
+            if (isUSA && countyCode) {
                 return 'aggregatedByCounty';
             }
             // aggregated by country
-            if (placeOfPerformance._countryCode !== 'USA') {
+            if (!isUSA) {
                 return 'aggregatedByCountry';
             }
         }
     }
     // IDV or contract
-    return 'nonFinancialAssistance';
+    return isUSA
+        ? 'nonFinancialAssistanceDomestic'
+        : 'nonFinancialAssistanceForeign';
+};
+
+export const datesByDateType = (dates, awardType) => {
+    const startDate = moment(dates._startDate.valueOf());
+    let endDate = moment(dates._endDate.valueOf());
+    let currentEndDate = null;
+    if (isContract(awardType)) {
+        endDate = moment(dates._potentialEndDate.valueOf());
+        currentEndDate = moment(dates._endDate.valueOf());
+    }
+    return { startDate, endDate, currentEndDate };
+};
+
+export const isBadDates = (dates, awardType) => {
+    const contract = isContract(awardType);
+    const { startDate, endDate, currentEndDate } = dates;
+    // for any award
+    if (isNaN(startDate.valueOf()) || isNaN(endDate.valueOf())) return true;
+    if (startDate.isAfter(endDate)) return true;
+    // for contracts only
+    if (contract) {
+        if (isNaN(currentEndDate.valueOf())) return true;
+        if (currentEndDate.isBefore(startDate)
+            || endDate.isBefore(currentEndDate)
+        ) return true;
+    }
+    return false;
 };

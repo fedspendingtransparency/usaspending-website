@@ -17,5 +17,5 @@ const globalConstants = {
     MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
 };
 
-export default globalConstants;
+module.exports = globalConstants;
 

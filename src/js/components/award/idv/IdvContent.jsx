@@ -54,12 +54,12 @@ const IdvContent = ({
             lastModifiedDateLong={overview.dates.lastModifiedDateLong}
             glossaryLink={glossaryLink}
             overviewType={overview.type}
-            identifier={overview.piid}>
+            identifier={overview.piid}
+            dates={overview.dates}>
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}
-                    recipient={overview.recipient}
-                    placeOfPerformance={overview.placeOfPerformance} />
+                    recipient={overview.recipient} />
                 <AwardOverviewRightSection
                     jumpToSection={jumpToSection}
                     counts={counts}
@@ -75,8 +75,8 @@ const IdvContent = ({
                     awardType={overview.category}
                     awardId={awardId}
                     description={overview.description}
-                    naics={overview.additionalDetails.naicsCode}
-                    psc={overview.additionalDetails.pscCode} />
+                    naics={overview.naics}
+                    psc={overview.psc} />
             </AwardSection>
             <AwardSection type="row">
                 <IdvActivityContainer />

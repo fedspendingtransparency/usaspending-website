@@ -245,7 +245,7 @@ describe('BulkDownloadPageContainer', () => {
                     budget_subfunction: '123',
                     agency: '123',
                     federal_account: '212',
-                    submission_type: 'account_balances',
+                    submission_types: ['account_balances'],
                     fy: '1989',
                     quarter: '1'
                 },

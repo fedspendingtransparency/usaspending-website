@@ -5,14 +5,16 @@
 import { upperFirst } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { descriptionsForAwardTypes }
-    from 'dataMapping/awardsv2/descriptionsForAwardTypes';
+    from 'dataMapping/awards/descriptionsForAwardTypes';
 import { parseDate, formatDate } from './CorePeriodOfPerformance';
 
 const CoreAward = {
     populateCore(data) {
         this._category = data.category;
         this.id = data.id || '';
-        this.generatedId = data.generatedId || '';
+        this.generatedId = data.generatedId
+            ? encodeURI(`${data.generatedId}`)
+            : '';
         this.type = data.type || '';
         this.typeDescription = data.typeDescription || "--";
         this.description = data.description || '--';

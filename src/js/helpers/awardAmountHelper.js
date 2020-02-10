@@ -4,7 +4,7 @@
  */
 
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-import { spendingCategoriesByAwardType, asstAwardTypesWithSimilarAwardAmountData } from '../dataMapping/awardsv2/awardAmountsSection';
+import { spendingCategoriesByAwardType, asstAwardTypesWithSimilarAwardAmountData } from '../dataMapping/awards/awardAmountsSection';
 
 // formats the specific checkboxes
 // options are NPM accounting package options
@@ -45,7 +45,7 @@ export const determineSpendingScenarioAsstAwards = (awardAmountObj) => {
     if (_totalObligation < 0 || _nonFederalFunding < 0 || _totalFunding < 0) {
         return 'insufficientData';
     }
-    else if (_totalObligation === 0 && _nonFederalFunding === 0 && _totalObligation === 0) {
+    else if (_totalObligation === 0 && _nonFederalFunding === 0 && _totalFunding === 0) {
         return 'insufficientData';
     }
     // if total funding is sum of obligation and non federal funding, return normal

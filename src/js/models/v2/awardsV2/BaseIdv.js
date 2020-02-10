@@ -3,6 +3,7 @@
  * Created by Lizzie Salita 12/3/18
  */
 
+import * as pscHelper from 'helpers/pscHelper';
 import CoreLocation from 'models/v2/CoreLocation';
 import CoreAward from './CoreAward';
 import CoreAwardAgency from './CoreAwardAgency';
@@ -28,7 +29,9 @@ BaseIdv.populate = function populate(data) {
         totalObligation: data.total_obligation,
         baseExercisedOptions: data.base_exercised_options,
         baseAndAllOptions: data.base_and_all_options,
-        dateSigned: data.date_signed
+        dateSigned: data.date_signed,
+        naics: data.naics_hierarchy || pscHelper.emptyHierarchy,
+        psc: Object.entries(data.psc_hierarchy).reduce(pscHelper.deducePscType, pscHelper.emptyHierarchy)
     };
 
     this.populateCore(coreData);
@@ -38,7 +41,6 @@ BaseIdv.populate = function populate(data) {
         parentAwardDetails.populateCore(data.parent_award || {});
     }
     this.parentAwardDetails = parentAwardDetails;
-
     const recipient = Object.create(BaseAwardRecipient);
     if (data.recipient) {
         recipient.populate(data.recipient);

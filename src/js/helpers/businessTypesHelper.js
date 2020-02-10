@@ -8,8 +8,8 @@ export const getBusinessTypes = () => {
     const businessTypes =
         [
             {
-                displayName: 'Alaskan Native Owned Corporation or Firm',
-                fieldName: 'alaskan_native_owned_corporation_or_firm'
+                displayName: 'Alaskan Native Corporation Owned Firm',
+                fieldName: 'alaskan_native_corporation_owned_firm'
             },
             {
                 displayName: 'American Indian Owned Business',
@@ -20,12 +20,12 @@ export const getBusinessTypes = () => {
                 fieldName: 'indian_tribe_federally_recognized'
             },
             {
-                displayName: 'Native Hawaiian Owned Business',
-                fieldName: 'native_hawaiian_owned_business'
+                displayName: 'Native Hawaiian Organization Owned Firm',
+                fieldName: 'native_hawaiian_organization_owned_firm'
             },
             {
-                displayName: 'Tribally Owned Business',
-                fieldName: 'tribally_owned_business'
+                displayName: 'Tribally Owned Firm',
+                fieldName: 'tribally_owned_firm'
             },
             {
                 displayName: 'Veteran Owned Business',
@@ -248,8 +248,8 @@ export const getBusinessTypes = () => {
                 fieldName: 'limited_liability_corporation'
             },
             {
-                displayName: 'Foreign Owned and Located',
-                fieldName: 'foreign_owned_and_located'
+                displayName: 'Foreign Owned',
+                fieldName: 'foreign_owned'
             },
             {
                 displayName: 'For Profit Organization',

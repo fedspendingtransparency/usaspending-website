@@ -17,12 +17,9 @@ export const fetchReferencedAwardsCounts = (params) => apiRequest({
     data: params
 });
 
-export const fetchAwardAmounts = (awardId) => {
-    const parsedAwardId = encodeURI(awardId);
-    return apiRequest({
-        url: `v2/idvs/amounts/${parsedAwardId}/`
-    });
-};
+export const fetchAwardAmounts = (awardId) => apiRequest({
+    url: `v2/idvs/amounts/${awardId}/`
+});
 
 // Fetch IDV Award Federal Account Funding Data
 export const fetchAwardFedAccountFunding = (params) => apiRequest({

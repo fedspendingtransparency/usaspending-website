@@ -53,3 +53,7 @@ cache/
 
 # bash script
 usa_spending.sh
+
+# sitemaps
+/robots.txt
+/*.xml

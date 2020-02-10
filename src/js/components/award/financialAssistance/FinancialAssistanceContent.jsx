@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
+import { awardTypesWithSubawards } from 'dataMapping/awards/awardHistorySection';
 
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
@@ -60,7 +61,7 @@ const FinancialAssistanceContent = ({
     };
 
     useEffect(() => {
-        if (isSubAwardIdClicked && overview.type === '05') {
+        if (isSubAwardIdClicked && awardTypesWithSubawards.includes(overview.category)) {
             jumpToSubAwardHistoryTable();
             subAwardIdClicked(false);
         }
@@ -81,13 +82,13 @@ const FinancialAssistanceContent = ({
             overviewType={overview.type}
             title={overview.title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
-            className="award-financial-assistance">
+            className="award-financial-assistance"
+            dates={overview.periodOfPerformance}>
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}
                     recipient={overview.recipient}
                     recordType={overview.recordType}
-                    placeOfPerformance={overview.placeOfPerformance}
                     awardType={overview.category}
                     awardId={awardId} />
                 <AwardOverviewRightSection

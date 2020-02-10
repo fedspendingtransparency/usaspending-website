@@ -31,6 +31,10 @@ export const AWARD_TYPE_PROPS = PropTypes.oneOf([
     'idv', 'contract', 'grant', 'loan', 'direct payment', 'insurance', 'other'
 ]);
 
+export const AWARD_AMOUNT_TYPE_PROPS = PropTypes.oneOf([
+    'idv', 'contract', 'grant', 'loan', 'direct payment', 'insurance', 'other', 'idv_aggregated'
+]);
+
 export const TOOLTIP_PROPS = PropTypes.shape({
     isControlled: PropTypes.bool,
     isVisible: PropTypes.bool,
@@ -52,7 +56,8 @@ export const AWARD_PAGE_WRAPPER_PROPS = {
     identifier: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
     children: PropTypes.node,
     subAwardIdClicked: PropTypes.bool,
-    jumpToSubAwardHistoryTable: PropTypes.func
+    jumpToSubAwardHistoryTable: PropTypes.func,
+    dates: PropTypes.object
 };
 
 export const AWARD_SECTION_HEADER_PROPS = {
