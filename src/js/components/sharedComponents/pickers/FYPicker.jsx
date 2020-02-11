@@ -35,7 +35,10 @@ const FYPicker = ({
     iconSize = "lg"
 }) => {
     const [expanded, setExpanded] = useState(false);
-    const toggleMenu = () => setExpanded(!expanded);
+    const toggleMenu = (e) => {
+        e.preventDefault();
+        setExpanded(!expanded);
+    };
 
     useEffect(() => {
         const closeMenu = (e) => {
@@ -52,6 +55,7 @@ const FYPicker = ({
     }, []);
 
     const handleClick = (e) => {
+        e.preventDefault();
         onClick(e.target.value);
         setExpanded(false);
     };
