@@ -9,7 +9,7 @@ import { parseDate, formatDate } from './CorePeriodOfPerformance';
 const BaseIdvActivityBar = {
     populate(data) {
         this.generatedId = data.generated_unique_award_id
-            ? encodeURI(`${data.generated_unique_award_id}`)
+            ? encodeURIComponent(`${data.generated_unique_award_id}`)
             : '--';
         this.awardingAgencyName = data.awarding_agency || '--';
         this.parentAwardId = data.parent_award_id || '--';
