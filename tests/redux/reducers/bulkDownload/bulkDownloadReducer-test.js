@@ -24,6 +24,21 @@ describe('bulkDownloadReducer', () => {
             const state = bulkDownloadReducer(undefined, action);
             expect(state.awards.fileFormat).toEqual('mockFormat');
         });
+        it('should update the submissionTypes array', () => {
+            const action = {
+                type: 'UPDATE_DOWNLOAD_FILTER',
+                dataType: 'accounts',
+                name: 'submissionTypes',
+                value: 'accountBreakdown'
+            };
+
+            let state = bulkDownloadReducer(initialState, action);
+            // inserting new...
+            expect(state.accounts.submissionTypes).toEqual(['accountBalances', 'accountBreakdown']);
+            // toggle when value is already present in the array
+            state = bulkDownloadReducer(initialState, { ...action, value: 'accountBalances'});
+            expect(state.accounts.submissionTypes).toEqual([]);
+        });
     });
 
     describe('UPDATE_CHECKBOX', () => {

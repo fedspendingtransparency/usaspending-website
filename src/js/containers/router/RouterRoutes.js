@@ -7,6 +7,9 @@
 // defining the routes outside of the component because React Router cannot handle state/prop
 // changes that Redux causes
 /* eslint-disable global-require */
+
+const kGlobalConstants = require("../../GlobalConstants");
+
 const routes = {
     routes: [
         {
@@ -282,6 +285,21 @@ const routes = {
         }
     }
 };
+
+if (kGlobalConstants.DEV) {
+    routes.routes.push(
+        {
+            path: '/agency_v2/:agencyId',
+            parent: '/agency',
+            addToSitemap: false,
+            component: (cb) => {
+                require.ensure([], (require) => {
+                    cb(require('containers/agency/AgencyContainerV2').default);
+                });
+            }
+        }
+    );
+}
 
 module.exports = routes;
 
