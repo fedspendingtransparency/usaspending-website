@@ -91,8 +91,8 @@ $verticalOffsetCollapsedSankey: 141;
             @include align-items(center);
             margin: rem(5) rem(40);
             @include media($large-screen) {
+                @include align-self(center);
                 max-width: 160rem;
-                align-self: center;
                 width: 100%;
             }
             button {
