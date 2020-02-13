@@ -21,10 +21,20 @@ export const apiRequest = (axiosParams = {}) => {
     };
 
     const params = (options = {}) => {
-        const parameters = { ...defaultParams };
-        Object.assign(parameters, options);
-        parameters.headers = headers(options.headers);
-        return parameters;
+        return Object
+            .keys(options)
+            .reduce((acc, key) => {
+                if (key === 'data' && Object.keys(options.data).includes('award_id')) {
+                    return {
+                        ...acc,
+                        data: {
+                            ...options.data,
+                            award_id: decodeURIComponent(options.data.award_id)
+                        }
+                    };
+                }
+                return { ...acc, [key]: options[key] };
+            }, { ...defaultParams, headers: headers(options.headers) });
     };
 
     const cancel = () => cancelToken.cancel();

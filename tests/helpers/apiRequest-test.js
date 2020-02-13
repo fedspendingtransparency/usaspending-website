@@ -45,5 +45,18 @@ describe('API Request', () => {
             const params = newRequest.params({ method: 'post' });
             expect(params).toHaveProperty('method');
         });
+        it('should decode any award ids in a POST request', () => {
+            const encodedAwardId = encodeURIComponent("123/435");
+            const decodedAwardId = decodeURIComponent(encodedAwardId);
+            const urlWithEncodedAwardId = `v2/awards/count/test/${encodedAwardId}`;
+            const newRequest = apiRequest();
+            let params = newRequest.params({ method: 'post', data: { award_id: encodedAwardId } });
+            expect(params).toHaveProperty('method');
+            expect(params.data.award_id).toEqual(decodedAwardId);
+
+            params = newRequest.params({ url: urlWithEncodedAwardId });
+
+            expect(params.url).toEqual(urlWithEncodedAwardId);
+        });
     });
 });
