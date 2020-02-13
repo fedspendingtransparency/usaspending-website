@@ -158,6 +158,16 @@ describe('ResultsTableContainer', () => {
 
             expect(container.state().results.length).toEqual(4);
         });
+        it('should encode the award id', async () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockTableProps} />);
+
+            const awardId = "123/456";
+
+            await container.instance().performSearch(true);
+                
+            expect(container.state().results[0].generated_internal_id).toEqual(encodeURIComponent(awardId));
+        });
     });
 
     describe('loadNextPage', () => {

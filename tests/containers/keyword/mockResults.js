@@ -10,6 +10,7 @@ export const mockApi = {
     results: [
         {
             internal_id: 1,
+            generated_internal_id: '123/456',
             'Award ID': 'ABC123',
             'Recipient Name': 'Blerg',
             'Action Date': '2011-12-31',
