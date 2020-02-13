@@ -1,14 +1,14 @@
 import { List } from 'immutable';
 import { ActiveScreen } from 'redux/reducers/explorer/explorerReducer';
 
-import { encodedAwardId, decodedAwardId } from "../../../mockData";
+import { decodedAwardId } from "../../../mockData";
 
 export const mockApiResponse = {
     total: 100,
     end_date: '1984-06-30',
     results: [
         {
-            id: '1'
+            id: '1',
             type: 'agency',
             name: 'First Agency',
             code: 'agency-1',
@@ -16,7 +16,7 @@ export const mockApiResponse = {
             total: 75
         },
         {
-            id: '2'
+            id: '2',
             type: 'agency',
             name: 'Second Agency',
             code: 'agency-2',
@@ -24,7 +24,7 @@ export const mockApiResponse = {
             total: 15
         },
         {
-            id: '3'
+            id: '3',
             type: 'agency',
             name: 'Third Agency',
             code: 'agency-3',
@@ -39,7 +39,7 @@ export const mockAwardResponse = {
     results: [
         {
             id: '1',
-            generated_unique_award_id: '',
+            generated_unique_award_id: decodedAwardId,
             type: 'award',
             name: 'Award',
             code: '123',

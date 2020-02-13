@@ -162,7 +162,7 @@ describe('ResultsTableContainer', () => {
 
             await container.instance().performSearch(true);
                 
-            expect(container.state().results[0].generated_internal_id).toEqual(encodeURIComponent(encodedAwardId));
+            expect(container.state().results[0].generated_internal_id).toEqual(encodedAwardId);
         });
     });
 
