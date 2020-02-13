@@ -20,22 +20,20 @@ export const apiRequest = (axiosParams = {}) => {
         return defaultHeaders;
     };
 
-    const params = (options = {}) => {
-        return Object
-            .keys(options)
-            .reduce((acc, key) => {
-                if (key === 'data' && Object.keys(options.data).includes('award_id')) {
-                    return {
-                        ...acc,
-                        data: {
-                            ...options.data,
-                            award_id: decodeURIComponent(options.data.award_id)
-                        }
-                    };
-                }
-                return { ...acc, [key]: options[key] };
-            }, { ...defaultParams, headers: headers(options.headers) });
-    };
+    const params = (options = {}) => Object
+        .keys(options)
+        .reduce((acc, key) => {
+            if (key === 'data' && Object.keys(options.data).includes('award_id')) {
+                return {
+                    ...acc,
+                    data: {
+                        ...options.data,
+                        award_id: decodeURIComponent(options.data.award_id)
+                    }
+                };
+            }
+            return { ...acc, [key]: options[key] };
+        }, { ...defaultParams, headers: headers(options.headers) });
 
     const cancel = () => cancelToken.cancel();
     // method to run before executing the request
@@ -72,4 +70,3 @@ export const apiRequest = (axiosParams = {}) => {
         params
     };
 };
-
