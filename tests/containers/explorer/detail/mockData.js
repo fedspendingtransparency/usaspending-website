@@ -6,7 +6,7 @@ export const mockApiResponse = {
     end_date: '1984-06-30',
     results: [
         {
-            id: '1',
+            id: '1'
             type: 'agency',
             name: 'First Agency',
             code: 'agency-1',
@@ -14,7 +14,7 @@ export const mockApiResponse = {
             total: 75
         },
         {
-            id: '2',
+            id: '2'
             type: 'agency',
             name: 'Second Agency',
             code: 'agency-2',
@@ -22,7 +22,7 @@ export const mockApiResponse = {
             total: 15
         },
         {
-            id: '3',
+            id: '3'
             type: 'agency',
             name: 'Third Agency',
             code: 'agency-3',
@@ -32,11 +32,15 @@ export const mockApiResponse = {
     ]
 };
 
+export const encodedAwardId = encodeURIComponent('123/456');
+export const decodedAwardId = decodeURIComponent(encodedAwardId);
+
 export const mockAwardResponse = {
     total: 200,
     results: [
         {
             id: '1',
+            generated_unique_award_id: '',
             type: 'award',
             name: 'Award',
             code: '123',
