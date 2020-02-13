@@ -88,6 +88,7 @@ export const mockV2TableApi = {
     },
     results: [
         {
+            generated_internal_id: '123/456',
             'Award ID': 'ABC123',
             'Award Amount': 123.45,
             'Awarding Agency': 'Department of Sandwiches',

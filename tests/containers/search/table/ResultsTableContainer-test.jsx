@@ -331,6 +331,28 @@ describe('ResultsTableContainer', () => {
 
             expect(container.state().results.length).toEqual(4);
         });
+
+        it('should encode the award ID', async () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            container.setState({
+                results: [{}, {}, {}],
+                page: 2,
+                columns: {
+                    contracts: {
+                        visibleOrder: ['test']
+                    }
+                }
+            });
+            expect(container.state().results.length).toEqual(3);
+
+            container.instance().performSearch(true);
+            await container.instance().searchRequest.promise;
+
+            expect(container.state().results.length).toEqual(4);
+        });
     });
 
     describe('loadNextPage', () => {

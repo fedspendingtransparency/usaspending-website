@@ -9,8 +9,16 @@ import { List } from 'immutable';
 import sinon from 'sinon';
 
 import { DetailContentContainer } from 'containers/explorer/detail/DetailContentContainer';
-import { mockApiResponse, mockAwardResponse, mockReducerRoot, mockReducerChild,
-    mockActions, mockLevelData, mockDeeperRoot, mockActiveScreen, encodedAwardId, decodedAwardId } from './mockData';
+import {
+    mockApiResponse,
+    mockAwardResponse,
+    mockReducerRoot,
+    mockActions,
+    mockLevelData,
+    mockDeeperRoot
+} from './mockData';
+
+import { encodedAwardId, decodedAwardId } from "../../../mockData";
 
 // mock the explorer helper
 jest.mock('helpers/explorerHelper', () => require('./mockExplorerHelper'));
