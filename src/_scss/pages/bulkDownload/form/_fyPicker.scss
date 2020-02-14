@@ -43,6 +43,7 @@
 
                     .fy-picker__button-icon {
                         @include flex(0 0 rem(20));
+                        color: $color-gray;
                         svg {
                             width: rem(12);
                             height: rem(12);
