@@ -125,6 +125,7 @@ export default class ReferencedAwardsTable extends React.Component {
                     {message}
                 </div>
                 <Pagination
+                    resultsText
                     totalItems={totalItems}
                     pageSize={this.props.limit}
                     pageNumber={page[tableType]}

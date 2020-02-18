@@ -46,6 +46,7 @@ export default class RecipientLandingContent extends React.Component {
                         <RecipientLabels />
                         <div className="recipient-landing__pagination recipient-landing__pagination_mobile">
                             <Pagination
+                                resultsText
                                 onChangePage={this.props.onChangePage}
                                 pageNumber={this.props.pageNumber}
                                 totalItems={this.props.totalItems}
@@ -56,6 +57,7 @@ export default class RecipientLandingContent extends React.Component {
                     </div>
                     <div className="recipient-landing__pagination recipient-landing__pagination_desktop">
                         <Pagination
+                            resultsText
                             onChangePage={this.props.onChangePage}
                             pageNumber={this.props.pageNumber}
                             totalItems={this.props.totalItems}
@@ -70,6 +72,7 @@ export default class RecipientLandingContent extends React.Component {
                     order={this.props.order}
                     setSort={this.props.setSort} />
                 <Pagination
+                    resultsText
                     onChangePage={this.props.onChangePage}
                     pageNumber={this.props.pageNumber}
                     totalItems={this.props.totalItems}

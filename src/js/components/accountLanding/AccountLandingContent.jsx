@@ -41,6 +41,7 @@ export default class AccountLandingContent extends React.Component {
                     setAccountSearchString={this.props.setAccountSearchString} />
                 <p className="landing-page__tagline">Curious to see how these accounts are organized? <span className="landing-page__tagline_light">Check out the Data Lab&#8217;s <a href="https://datalab.usaspending.gov/federal-account-explorer.html" target="_blank" rel="noopener noreferrer"><img className="landing-page__tagline-icon" src="img/sitemap.png" alt="sitemap icon" />Federal Account Explorer</a></span></p>
                 <Pagination
+                    resultsText
                     onChangePage={this.props.onChangePage}
                     pageNumber={this.props.pageNumber}
                     totalItems={this.props.totalItems}
