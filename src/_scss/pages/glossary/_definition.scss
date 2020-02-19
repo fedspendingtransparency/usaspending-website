@@ -9,9 +9,15 @@
         font-weight: 600;
 
         margin: 0;
-        margin-top: 20px;
+        // margin-top: 20px;
     }
 
+    .usa-dt-picker {
+        justify-content: flex-end;
+        .usa-dt-picker__list {
+            width: 50%;
+        }
+    }
     .definition-content {
         a {
             color: $color-white;

@@ -5,6 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Picker } from 'data-transparency-ui';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 
@@ -15,6 +17,21 @@ const propTypes = {
     glossary: PropTypes.object,
     clearGlossaryTerm: PropTypes.func
 };
+
+const GlossaryDropdownOption = ({ icon, title }) => (
+    <>
+        <FontAwesomeIcon icon={icon} color="black" size="sm" />
+        <span>{title}</span>
+    </>
+);
+
+const options = [
+    { component: <GlossaryDropdownOption icon="share-alt" title="Copy" />, name: `copy`, onClick: () => console.log("copy") },
+    { component: <GlossaryDropdownOption icon="share-alt" title="Email" />, name: 'email', onClick: () => console.log("email") },
+    { component: <GlossaryDropdownOption icon="share-alt" title="Facebook" />, name: 'facebook', onClick: () => console.log("facebook") },
+    { component: <GlossaryDropdownOption icon="share-alt" title="LinkedIn" />, name: 'linkedin', onClick: () => console.log("linkedin") },
+    { component: <GlossaryDropdownOption icon="share-alt" title="Reddit" />, name: 'reddit', onClick: () => console.log("reddit") }
+];
 
 export default class GlossaryDefinition extends React.Component {
     constructor(props) {
@@ -73,6 +90,15 @@ export default class GlossaryDefinition extends React.Component {
                     hasOfficial={this.state.hasOfficial}
                     activeTab={this.state.tab}
                     clickedTab={this.clickedTab} />
+                <Picker
+                    options={options}
+                    icon="none"
+                    borderType="none"
+                    dropdownDirection="left"
+                    backgroundColor="#215493"
+                    selectedOption="twitter">
+                    <FontAwesomeIcon icon="share-alt" color="white" size="lg" />
+                </Picker>
                 <ItemDefinition
                     {...this.props.glossary.term.toJS()}
                     type={this.state.tab} />
