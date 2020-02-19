@@ -36,13 +36,11 @@ const handlersBySocialMedium = {
     facebook: (url) => handleShareClickFacebook(url),
     reddit: (url) => handleShareClickReddit(url),
     email: (url) => handleShareClickEmail(url),
-    linkedin: (url) => handleShareClickLinkedin(url),
-    copy: (url) => console.log('copied', url)
+    linkedin: (url) => handleShareClickLinkedin(url)
 };
 
 const baseUrl = (slug) => `https://www.usaspending.gov/#/?glossary=${slug}`;
 
 export const getSocialShareFn = (slug, socialMedium) => {
-    console.log("slug", baseUrl(slug));
     return () => handlersBySocialMedium[socialMedium](baseUrl(slug));
 };

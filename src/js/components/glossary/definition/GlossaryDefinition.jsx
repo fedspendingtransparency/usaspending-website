@@ -47,6 +47,7 @@ export default class GlossaryDefinition extends React.Component {
 
         this.clickedTab = this.clickedTab.bind(this);
         this.clickedBack = this.clickedBack.bind(this);
+        this.getCopyFn = this.getCopyFn.bind(this);
     }
 
     componentDidMount() {
@@ -55,6 +56,11 @@ export default class GlossaryDefinition extends React.Component {
 
     componentWillReceiveProps(nextProps) {
         this.checkDefinitions(nextProps);
+    }
+
+    getCopyFn() {
+        document.getElementById('slug').select();
+        document.execCommand("copy");
     }
 
     checkDefinitions(props) {
@@ -88,10 +94,11 @@ export default class GlossaryDefinition extends React.Component {
         const { slug } = this.props.glossary.term.toJS();
         const options = pickerOptions.map((option) => ({
             ...option,
-            onClick: getSocialShareFn(slug, option.name)
+            onClick: option.name === 'copy' ? this.getCopyFn : getSocialShareFn(slug, option.name)
         }));
         return (
             <div className="glossary-definition">
+                <input id="slug" type="text" className="text" style={{ opacity: 0 }} value="test" />
                 <DefinitionTabs
                     hasPlain={this.state.hasPlain}
                     hasOfficial={this.state.hasOfficial}
