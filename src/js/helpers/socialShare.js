@@ -19,7 +19,7 @@ const handleShareClickLinkedin = (url) => {
 };
 
 const handleShareClickReddit = (url) => {
-    const finalUrl = `http://www.reddit.com/submit?url=${url}`;
+    const finalUrl = `http://www.reddit.com/submit?url=${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
 };
 
