@@ -37,9 +37,10 @@ import {
     faThLarge,
     faTimes,
     faUserTie,
-    faShareAlt
+    faShareAlt,
+    faEnvelope,
+    faLink
 } from "@fortawesome/free-solid-svg-icons";
-import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
 /**
@@ -86,7 +87,8 @@ library.add(
     faTimes,
     faUserTie,
     faShareAlt,
-    faFacebook
+    faEnvelope,
+    faLink
 );
 
 const appDiv = document.getElementById('app');

@@ -7,6 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Picker } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faFacebookSquare,
+    faLinkedin,
+    faTwitter,
+    faRedditSquare
+} from "@fortawesome/free-brands-svg-icons";
+
 
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 import { getSocialShareFn } from 'helpers/socialShare';
@@ -21,18 +28,18 @@ const propTypes = {
 
 const GlossaryDropdownOption = ({ icon, title }) => (
     <>
-        <FontAwesomeIcon icon={icon} color="black" size="sm" />
+        <FontAwesomeIcon icon={icon} color="#555" size="sm" />
         <span>{title}</span>
     </>
 );
 
 const pickerOptions = [
-    { component: <GlossaryDropdownOption icon="share-alt" title="Copy" />, name: `copy` },
-    { component: <GlossaryDropdownOption icon="share-alt" title="Email" />, name: 'email' },
-    { component: <GlossaryDropdownOption icon="share-alt" title="Twitter" />, name: 'twitter' },
-    { component: <GlossaryDropdownOption icon="share-alt" title="Facebook" />, name: 'facebook' },
-    { component: <GlossaryDropdownOption icon="share-alt" title="LinkedIn" />, name: 'linkedin' },
-    { component: <GlossaryDropdownOption icon="share-alt" title="Reddit" />, name: 'reddit' }
+    { component: <GlossaryDropdownOption icon="link" title="Copy" />, name: `copy` },
+    { component: <GlossaryDropdownOption icon="envelope" title="Email" />, name: 'email' },
+    { component: <GlossaryDropdownOption icon={faTwitter} title="Twitter" />, name: 'twitter' },
+    { component: <GlossaryDropdownOption icon={faFacebookSquare} title="Facebook" />, name: 'facebook' },
+    { component: <GlossaryDropdownOption icon={faLinkedin} title="LinkedIn" />, name: 'linkedin' },
+    { component: <GlossaryDropdownOption icon={faRedditSquare} title="Reddit" />, name: 'reddit' }
 ];
 
 export default class GlossaryDefinition extends React.Component {

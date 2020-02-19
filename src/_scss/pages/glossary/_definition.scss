@@ -33,6 +33,33 @@
         justify-content: flex-end;
         width: 50%;
         margin-left: 50%;
+        .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+            width: rem(141);
+            box-shadow: 0 rem(2) rem(2) 0 rgba(0,0,0,0.5);
+            border-radius: rem(3);
+            .usa-dt-picker__list-item {
+                border: none;
+                border-radius: rem(3);
+            }
+            .usa-dt-picker__item,
+            .usa-dt-picker__item .active {
+                background: #FFF;
+                padding: rem(7.5);
+                font-size: rem(14);
+                line-height: rem(16);
+                height: rem(39);
+                color: #555555;
+                &:hover {
+                    background: #EEEEEE;
+                    border: rem(1) solid #EEEEEE;
+                    cursor: pointer;
+                }
+                svg {
+                    margin-right: rem(12);
+                    font-size: rem(14);
+                }
+            }
+        }
     }
     .definition-content {
         a {
