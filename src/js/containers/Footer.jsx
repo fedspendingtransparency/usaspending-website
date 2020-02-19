@@ -17,9 +17,9 @@ import DownloadBottomBarContainer from
     'containers/search/modals/fullDownload/DownloadBottomBarContainer';
 import BulkDownloadBottomBarContainer from
     'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
-import FloatingGlossaryButton from './FloatingGlossaryButton';
-import FooterExternalLink from './FooterExternalLink';
-import Subscribe from './Subscribe';
+import FloatingGlossaryButton from '../components/sharedComponents/FloatingGlossaryButton';
+import FooterExternalLink from 'containers/FooterExternalLink';
+import Subscribe from '../components/sharedComponents/Subscribe';
 
 const propTypes = {
     filters: PropTypes.object,
