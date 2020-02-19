@@ -5,6 +5,9 @@
 
 import PropTypes from 'prop-types';
 import React from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebookSquare, faLinkedin, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
+
 import Analytics from 'helpers/analytics/Analytics';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import DownloadBottomBarContainer from
@@ -132,38 +135,58 @@ export default class Footer extends React.Component {
                                 </ul>
                             </div>
                         </div>
+                        <ul className="legal-and-social-links">
+                            <li className="copyright__legal-item">
+                                <a
+                                    className="copyright__link"
+                                    href="#/about/accessibility"
+                                    onClick={clickedFooterLink.bind(null, '/about/accessibility')}>
+                                    Accessibility
+                                </a>
+                            </li>
+                            <li className="copyright__legal-item">
+                                <a
+                                    className="copyright__link"
+                                    href="#/about/privacy"
+                                    onClick={clickedFooterLink.bind(null, '/about/privacy')}>
+                                    Privacy Policy
+                                </a>
+                            </li>
+                            <li className="copyright__legal-item">
+                                <a
+                                    className="copyright__link"
+                                    href="#/about/foia"
+                                    onClick={clickedFooterLink.bind(null, '/about/foia')}>
+                                    Freedom of Information Act
+                                </a>
+                            </li>
+                            <li className="social-link">
+                                <a href="https://twitter.com/usaspending/" target="_blank" rel="noopener noreferrer">
+                                    <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
+                                </a>
+                            </li>
+                            <li className="social-link">
+                                <a href="https://www.facebook.com/fiscalservice/" target="_blank" rel="noopener noreferrer">
+                                    <FontAwesomeIcon icon={faFacebookSquare} size="1x" color="#D4D4D4" />
+                                </a>
+                            </li>
+                            <li className="social-link">
+                                <a href="https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/" target="_blank" rel="noopener noreferrer">
+                                    <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
+                                </a>
+                            </li>
+                            <li className="social-link">
+                                <a href="https://github.com/fedspendingtransparency/usaspending-website" target="_blank" rel="noopener noreferrer">
+                                    <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                     <div className="copyright">
                         <div className="copyright__left">
                             <div className="copyright__notice">
                                 &copy; {year} USAspending.gov
                             </div>
-                            <ul className="copyright__legal">
-                                <li className="copyright__legal-item">
-                                    <a
-                                        className="copyright__link"
-                                        href="#/about/accessibility"
-                                        onClick={clickedFooterLink.bind(null, '/about/accessibility')}>
-                                        Accessibility
-                                    </a>
-                                </li>
-                                <li className="copyright__legal-item">
-                                    <a
-                                        className="copyright__link"
-                                        href="#/about/privacy"
-                                        onClick={clickedFooterLink.bind(null, '/about/privacy')}>
-                                        Privacy Policy
-                                    </a>
-                                </li>
-                                <li className="copyright__legal-item">
-                                    <a
-                                        className="copyright__link"
-                                        href="#/about/foia"
-                                        onClick={clickedFooterLink.bind(null, '/about/foia')}>
-                                        Freedom of Information Act
-                                    </a>
-                                </li>
-                            </ul>
                         </div>
                         <div className="copyright__db">
                             <strong>NOTE:</strong> You must <a href="#/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>click here</a> for very important D&amp;B information.
