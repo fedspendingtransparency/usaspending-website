@@ -92,13 +92,14 @@ export default class GlossaryDefinition extends React.Component {
 
     render() {
         const { slug } = this.props.glossary.term.toJS();
+        const url = `https://www.usaspending.gov/#/?glossary=${slug}`;
         const options = pickerOptions.map((option) => ({
             ...option,
             onClick: option.name === 'copy' ? this.getCopyFn : getSocialShareFn(slug, option.name)
         }));
         return (
             <div className="glossary-definition">
-                <input id="slug" type="text" className="text" style={{ opacity: 0 }} value="test" />
+                <input id="slug" type="text" className="text" style={{ opacity: 0 }} value={url} />
                 <DefinitionTabs
                     hasPlain={this.state.hasPlain}
                     hasOfficial={this.state.hasOfficial}
