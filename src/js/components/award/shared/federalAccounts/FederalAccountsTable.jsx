@@ -125,8 +125,8 @@ export default class FederalAccountsTable extends React.Component {
                     resultsText
                     totalItems={this.props.total}
                     pageSize={this.props.limit}
-                    pageNumber={this.props.page}
-                    onChangePage={this.props.changePage} />
+                    currentPage={this.props.page}
+                    changePage={this.props.changePage} />
             );
         }
 

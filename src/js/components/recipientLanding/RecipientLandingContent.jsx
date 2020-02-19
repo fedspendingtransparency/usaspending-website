@@ -47,8 +47,8 @@ export default class RecipientLandingContent extends React.Component {
                         <div className="recipient-landing__pagination recipient-landing__pagination_mobile">
                             <Pagination
                                 resultsText
-                                onChangePage={this.props.onChangePage}
-                                pageNumber={this.props.pageNumber}
+                                changePage={this.props.onChangePage}
+                                currentPage={this.props.pageNumber}
                                 totalItems={this.props.totalItems}
                                 pageSize={this.props.pageSize} />
                         </div>
@@ -58,8 +58,8 @@ export default class RecipientLandingContent extends React.Component {
                     <div className="recipient-landing__pagination recipient-landing__pagination_desktop">
                         <Pagination
                             resultsText
-                            onChangePage={this.props.onChangePage}
-                            pageNumber={this.props.pageNumber}
+                            changePage={this.props.onChangePage}
+                            currentPage={this.props.pageNumber}
                             totalItems={this.props.totalItems}
                             pageSize={this.props.pageSize} />
                     </div>
@@ -73,8 +73,8 @@ export default class RecipientLandingContent extends React.Component {
                     setSort={this.props.setSort} />
                 <Pagination
                     resultsText
-                    onChangePage={this.props.onChangePage}
-                    pageNumber={this.props.pageNumber}
+                    changePage={this.props.onChangePage}
+                    currentPage={this.props.pageNumber}
                     totalItems={this.props.totalItems}
                     pageSize={this.props.pageSize} />
                 <p className="landing-page__disclaimer">

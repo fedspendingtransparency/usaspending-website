@@ -84,8 +84,8 @@ export default class ExplorerTable extends React.Component {
                 {loadingMessage}
                 <Pagination
                     resultsText
-                    onChangePage={this.props.onChangePage}
-                    pageNumber={this.props.pageNumber}
+                    changePage={this.props.onChangePage}
+                    currentPage={this.props.pageNumber}
                     totalItems={this.props.totalItems}
                     pageSize={this.props.pageSize} />
                 <table>
@@ -100,8 +100,8 @@ export default class ExplorerTable extends React.Component {
                 </table>
                 <Pagination
                     resultsText
-                    onChangePage={this.props.onChangePage}
-                    pageNumber={this.props.pageNumber}
+                    changePage={this.props.onChangePage}
+                    currentPage={this.props.pageNumber}
                     totalItems={this.props.totalItems}
                     pageSize={this.props.pageSize} />
             </div>

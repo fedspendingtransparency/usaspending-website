@@ -118,8 +118,8 @@ export default class ReferencedAwardsTable extends React.Component {
                 <Pagination
                     totalItems={totalItems}
                     pageSize={this.props.limit}
-                    pageNumber={page[tableType]}
-                    onChangePage={this.props.changePage} />
+                    currentPage={page[tableType]}
+                    changePage={this.props.changePage} />
                 {content}
                 <div className="results-table-message-container">
                     {message}
@@ -128,8 +128,8 @@ export default class ReferencedAwardsTable extends React.Component {
                     resultsText
                     totalItems={totalItems}
                     pageSize={this.props.limit}
-                    pageNumber={page[tableType]}
-                    onChangePage={this.props.changePage} />
+                    currentPage={page[tableType]}
+                    changePage={this.props.changePage} />
             </div>
         );
     }
