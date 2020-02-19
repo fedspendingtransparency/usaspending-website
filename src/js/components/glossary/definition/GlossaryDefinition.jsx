@@ -9,6 +9,7 @@ import { Picker } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
+import { getSocialShareFn } from 'helpers/socialShare';
 
 import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
@@ -25,12 +26,13 @@ const GlossaryDropdownOption = ({ icon, title }) => (
     </>
 );
 
-const options = [
-    { component: <GlossaryDropdownOption icon="share-alt" title="Copy" />, name: `copy`, onClick: () => console.log("copy") },
-    { component: <GlossaryDropdownOption icon="share-alt" title="Email" />, name: 'email', onClick: () => console.log("email") },
-    { component: <GlossaryDropdownOption icon="share-alt" title="Facebook" />, name: 'facebook', onClick: () => console.log("facebook") },
-    { component: <GlossaryDropdownOption icon="share-alt" title="LinkedIn" />, name: 'linkedin', onClick: () => console.log("linkedin") },
-    { component: <GlossaryDropdownOption icon="share-alt" title="Reddit" />, name: 'reddit', onClick: () => console.log("reddit") }
+const pickerOptions = [
+    { component: <GlossaryDropdownOption icon="share-alt" title="Copy" />, name: `copy` },
+    { component: <GlossaryDropdownOption icon="share-alt" title="Email" />, name: 'email' },
+    { component: <GlossaryDropdownOption icon="share-alt" title="Twitter" />, name: 'twitter' },
+    { component: <GlossaryDropdownOption icon="share-alt" title="Facebook" />, name: 'facebook' },
+    { component: <GlossaryDropdownOption icon="share-alt" title="LinkedIn" />, name: 'linkedin' },
+    { component: <GlossaryDropdownOption icon="share-alt" title="Reddit" />, name: 'reddit' }
 ];
 
 export default class GlossaryDefinition extends React.Component {
@@ -83,6 +85,11 @@ export default class GlossaryDefinition extends React.Component {
     }
 
     render() {
+        const { slug } = this.props.glossary.term.toJS();
+        const options = pickerOptions.map((option) => ({
+            ...option,
+            onClick: getSocialShareFn(slug, option.name)
+        }));
         return (
             <div className="glossary-definition">
                 <DefinitionTabs
