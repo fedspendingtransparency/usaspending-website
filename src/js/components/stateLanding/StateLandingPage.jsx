@@ -7,10 +7,10 @@ import React from 'react';
 
 import { stateLandingPageMetaTags } from 'helpers/metaTagHelper';
 
+import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import Footer from 'components/sharedComponents/Footer';
 
 import StateLandingContainer from 'containers/stateLanding/StateLandingContainer';
 

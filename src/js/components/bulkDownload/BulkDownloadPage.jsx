@@ -12,11 +12,11 @@ import {
     downloadAccountPageMetaTags,
     dataDictionaryPageMetaTags
 } from 'helpers/metaTagHelper';
+import Footer from 'containers/Footer';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
-import Footer from 'components/sharedComponents/Footer';
 
 import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
 import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';
