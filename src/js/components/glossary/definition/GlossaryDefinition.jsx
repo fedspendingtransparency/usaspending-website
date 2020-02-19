@@ -42,12 +42,14 @@ export default class GlossaryDefinition extends React.Component {
         this.state = {
             tab: 'plain',
             hasPlain: true,
-            hasOfficial: true
+            hasOfficial: true,
+            showCopiedConfirmation: false
         };
 
         this.clickedTab = this.clickedTab.bind(this);
         this.clickedBack = this.clickedBack.bind(this);
         this.getCopyFn = this.getCopyFn.bind(this);
+        this.showCopiedConfirmation = null;
     }
 
     componentDidMount() {
@@ -58,9 +60,19 @@ export default class GlossaryDefinition extends React.Component {
         this.checkDefinitions(nextProps);
     }
 
+    componentWillUnmount() {
+        if (this.showCopiedConfirmation) {
+            window.clearTimeout(this.showCopiedConfirmation);
+        }
+    }
+
     getCopyFn() {
         document.getElementById('slug').select();
         document.execCommand("copy");
+        this.setState({ showCopiedConfirmation: true });
+        this.showCopiedConfirmation = window.setTimeout(() => {
+            this.setState({ showCopiedConfirmation: false });
+        }, 3000);
     }
 
     checkDefinitions(props) {
@@ -114,6 +126,7 @@ export default class GlossaryDefinition extends React.Component {
                     selectedOption="twitter">
                     <FontAwesomeIcon icon="share-alt" color="white" size="lg" />
                 </Picker>
+                <span className={`copy-confirmation ${this.state.showCopiedConfirmation ? '' : 'hide'}` }><FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied</span>
                 <ItemDefinition
                     {...this.props.glossary.term.toJS()}
                     type={this.state.tab} />

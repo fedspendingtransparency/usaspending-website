@@ -9,14 +9,30 @@
         font-weight: 600;
 
         margin: 0;
-        // margin-top: 20px;
+    }
+
+    .copy-confirmation {
+        display: flex;
+        width: auto;
+        justify-content: flex-start;
+        margin-left: 50%;
+        height: rem(39);
+        align-items: center;
+        background: #EEEEEE;
+        border: rem(1) solid 
+        #EEEEEE;
+        border-radius: rem(3);
+        color: #555555;
+        margin-right: rem(15);
+        svg {
+            margin: 0 rem(10);
+        }
     }
 
     .usa-dt-picker {
         justify-content: flex-end;
-        .usa-dt-picker__list {
-            width: 50%;
-        }
+        width: 50%;
+        margin-left: 50%;
     }
     .definition-content {
         a {
