@@ -34,7 +34,7 @@ const GlossaryDropdownOption = ({ icon, title }) => (
 );
 
 const pickerOptions = [
-    { component: <GlossaryDropdownOption icon="link" title="Copy" />, name: `copy` },
+    { component: <GlossaryDropdownOption icon="link" title="Copy link" />, name: `copy` },
     { component: <GlossaryDropdownOption icon="envelope" title="Email" />, name: 'email' },
     { component: <GlossaryDropdownOption icon={faTwitter} title="Twitter" />, name: 'twitter' },
     { component: <GlossaryDropdownOption icon={faFacebookSquare} title="Facebook" />, name: 'facebook' },
