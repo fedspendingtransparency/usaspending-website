@@ -2,6 +2,9 @@
     padding: 20px;
 
     @import "./_definitionTabs";
+    .glossary-share-icon:hover {
+        color: #FFF;
+    }
 
     h2.term {
         font-size: 24px;
