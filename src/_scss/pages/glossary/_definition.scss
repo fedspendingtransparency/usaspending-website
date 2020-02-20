@@ -13,14 +13,14 @@
 
     .copy-confirmation {
         display: flex;
-        width: auto;
         justify-content: flex-start;
-        margin-left: 45%;
-        height: rem(39);
         align-items: center;
+        position: absolute;
+        height: rem(39);
+        width: 45%;
+        margin-left: 37%;
         background: #EEEEEE;
-        border: rem(1) solid 
-        #EEEEEE;
+        border: rem(1) solid #EEEEEE;
         border-radius: rem(3);
         color: #555555;
         margin-right: rem(15);
@@ -33,6 +33,11 @@
         justify-content: flex-end;
         width: 50%;
         margin-left: 50%;
+        .usa-dt-picker__dropdown-container {
+            .usa-dt-picker__button {
+                padding: rem(13) 0 rem(3) 0;
+            }
+        }
         .usa-dt-picker__dropdown-container .usa-dt-picker__list {
             width: rem(141);
             box-shadow: 0 rem(2) rem(2) 0 rgba(0,0,0,0.5);

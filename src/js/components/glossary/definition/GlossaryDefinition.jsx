@@ -79,7 +79,7 @@ export default class GlossaryDefinition extends React.Component {
         this.setState({ showCopiedConfirmation: true });
         this.showCopiedConfirmation = window.setTimeout(() => {
             this.setState({ showCopiedConfirmation: false });
-        }, 3000);
+        }, 1750);
     }
 
     checkDefinitions(props) {
