@@ -18,7 +18,7 @@ import DownloadBottomBarContainer from
 import BulkDownloadBottomBarContainer from
     'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FloatingGlossaryButton from '../components/sharedComponents/FloatingGlossaryButton';
-import FooterExternalLink from 'containers/FooterExternalLink';
+import FooterExternalLink from '../components/sharedComponents/FooterExternalLink';
 import Subscribe from '../components/sharedComponents/Subscribe';
 
 const propTypes = {
@@ -181,13 +181,13 @@ const Footer = ({
                             </button>
                         </li>
                         <li className="social-link">
-                            <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")}>
-                                <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
+                            <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")}>
+                                <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
                             </button>
                         </li>
                         <li className="social-link">
-                            <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")}>
-                                <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
+                            <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")}>
+                                <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
                             </button>
                         </li>
                     </ul>
