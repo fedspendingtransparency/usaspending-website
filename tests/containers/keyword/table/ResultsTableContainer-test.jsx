@@ -6,10 +6,10 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { Set } from 'immutable';
 import ResultsTableContainer from 'containers/keyword/table/ResultsTableContainer';
 
-import { mockApi, mockSummary, mockTabCount, mockTableProps } from '../mockResults';
+import { mockTabCount, mockTableProps } from '../mockResults';
+import { encodedAwardId } from '../../../mockData';
 
 jest.mock('helpers/keywordHelper', () => require('../keywordHelper'));
 
@@ -18,12 +18,10 @@ jest.mock('components/keyword/table/ResultsTableSection', () =>
     jest.fn(() => null));
 
 // canvas elements are not available in Jest, so mock the text measurement helper
-jest.mock('helpers/textMeasurement', () => (
-{
+jest.mock('helpers/textMeasurement', () => ({
     measureText: jest.fn(() => 100),
     measureTableHeader: jest.fn(() => 220)
-}
-));
+}));
 
 describe('ResultsTableContainer', () => {
     it('should reset the page to 1 when the keyword changes', () => {
@@ -157,6 +155,14 @@ describe('ResultsTableContainer', () => {
             await container.instance().searchRequest.promise;
 
             expect(container.state().results.length).toEqual(4);
+        });
+        it('should encode the award id', async () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockTableProps} />);
+
+            await container.instance().performSearch(true);
+                
+            expect(container.state().results[0].generated_internal_id).toEqual(encodedAwardId);
         });
     });
 

@@ -336,7 +336,7 @@ export class ResultsTableContainer extends React.Component {
 
         // Set the params needed for download API call
         this.searchRequest = SearchHelper.performSpendingByAwardSearch(params);
-        this.searchRequest.promise
+        return this.searchRequest.promise
             .then((res) => {
                 const newState = {
                     inFlight: false
