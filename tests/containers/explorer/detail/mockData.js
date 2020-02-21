@@ -1,6 +1,8 @@
 import { List } from 'immutable';
 import { ActiveScreen } from 'redux/reducers/explorer/explorerReducer';
 
+import { decodedAwardId } from "../../../mockData";
+
 export const mockApiResponse = {
     total: 100,
     end_date: '1984-06-30',
@@ -37,6 +39,7 @@ export const mockAwardResponse = {
     results: [
         {
             id: '1',
+            generated_unique_award_id: decodedAwardId,
             type: 'award',
             name: 'Award',
             code: '123',
