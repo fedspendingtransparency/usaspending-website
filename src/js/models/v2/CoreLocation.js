@@ -85,12 +85,12 @@ const CoreLocation = {
             const zip = this._zip || '--';
             return `${city}, ${state} ${zip}`;
         }
-        const fState = this._stateCode !== '--' ? this._stateCode : '';
-        const fZip = this._zip || '';
+        const fState = this._stateName || '--';
+        const fZip = this._zip || '--';
+        // if neither state nor zip exist show nothing
+        if (fState === '--' && fZip === '--') return city;
         // if province or foreign zip exist show comma
-        if (fState || fZip) return `${city}, ${state} ${fZip}`;
-        // if neither province or foreign zip exist do not show comma;
-        return city;
+        return `${city}, ${fState} ${fZip}`;
     },
     get countyAndState() {
         const county = this._county ? `${this._county} County` : '--';

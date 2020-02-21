@@ -103,12 +103,12 @@ describe('Core Location getter functions', () => {
         });
     });
     describe('Recipient Regional Address Contracts & IDV', () => {
-        it('should use state code property when foreign', () => {
+        it('should use state name property when foreign', () => {
             const newForeignLocationData = { ...foreignLocation };
-            newForeignLocationData.stateCode = 'CA';
+            newForeignLocationData.state = 'California';
             const newForeignLocation = Object.create(CoreLocation);
             newForeignLocation.populateCore(newForeignLocationData);
-            const includesStateCode = newForeignLocation.recipientRegionalAddressContractsAndIDV.includes('CA');
+            const includesStateCode = newForeignLocation.recipientRegionalAddressContractsAndIDV.includes('California');
             expect(includesStateCode).toEqual(true);
         });
     });
