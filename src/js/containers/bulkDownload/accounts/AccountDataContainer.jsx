@@ -60,6 +60,7 @@ export class AccountDataContainer extends React.Component {
 
         // perform the API request
         this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
+            type: "account_agencies",
             agency: 0
         });
 
