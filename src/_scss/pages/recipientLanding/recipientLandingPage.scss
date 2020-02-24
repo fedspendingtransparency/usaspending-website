@@ -50,8 +50,11 @@
                 @include media($tablet-screen) {
                     display: none;
                 }
-                .pager {
+                .usa-dt-pagination .usa-dt-pagination__wrapper {
                     padding-top: rem(10);
+                    .pager .pager__item .pager__button {
+                        line-height: rem(12);
+                    }
                 }
             }
         }
@@ -62,12 +65,15 @@
             @include media($tablet-screen) {
                 display: block;
             }
-            .pagination {
+            .usa-dt-pagination {
                 @include flex-direction(column);
                 @include align-items(flex-end);
-                .pager {
+                .usa-dt-pagination__wrapper {
                     @include justify-content(flex-end);
                     margin-top: rem(40);
+                    .pager .pager__item .pager__button {
+                        line-height: rem(12);
+                    }
                 }
             }
         }
