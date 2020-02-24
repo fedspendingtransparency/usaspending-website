@@ -7,10 +7,10 @@ import React from 'react';
 import { forEach } from 'lodash';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
+import Footer from 'containers/Footer';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
-import Footer from '../sharedComponents/Footer';
 
 import * as Icons from '../sharedComponents/icons/Icons';
 
