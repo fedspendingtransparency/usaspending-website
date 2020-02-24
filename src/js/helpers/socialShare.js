@@ -1,3 +1,5 @@
+import { startCase } from "lodash";
+
 const openShareWindow = (url) => {
     window.open(url, '_blank', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');
 };
@@ -8,8 +10,7 @@ const handleShareClickFacebook = (url) => {
 };
 
 const handleShareClickTwitter = (url) => {
-    const twitterText = encodeURIComponent("Here is the definition for this neat term. Check it out on USASpending.gov!");
-    const finalUrl = `https://twitter.com/intent/tweet?text=${twitterText}&url=${encodeURIComponent(url)}`;
+    const finalUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}`;
     openShareWindow(finalUrl);
 };
 
@@ -24,10 +25,10 @@ const handleShareClickReddit = (url) => {
 };
 
 const handleShareClickEmail = (url) => {
-    const subject = "USASpending.gov";
-    const body = "Check it out!";
+    const subject = `USAspending.gov Glossary Term: ${startCase(url.split("=")[1])}`;
+    const body = `View the definition of this federal spending term on USAspending.gov: ${url}`;
 
-    const finalUrl = `mailto:?subject=${subject}&body=${body}%0D%0A%0D%0A}Check out this site ${url}`;
+    const finalUrl = `mailto:?subject=${subject}&body=${body}`;
     window.location.href = finalUrl;
 };
 
