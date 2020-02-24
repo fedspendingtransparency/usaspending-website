@@ -4,6 +4,7 @@
 */
 
 import { apiRequest } from 'helpers/apiRequest';
+import { encodedAwardId, decodedAwardId } from "../mockData";
 
 describe('API Request', () => {
     const mockRequest = apiRequest();
@@ -44,6 +45,17 @@ describe('API Request', () => {
             const newRequest = apiRequest();
             const params = newRequest.params({ method: 'post' });
             expect(params).toHaveProperty('method');
+        });
+        it('should decode any award ids in a POST request', () => {
+            const urlWithEncodedAwardId = `v2/awards/count/test/${encodedAwardId}`;
+            const newRequest = apiRequest();
+            let params = newRequest.params({ method: 'post', data: { award_id: encodedAwardId } });
+            expect(params).toHaveProperty('method');
+            expect(params.data.award_id).toEqual(decodedAwardId);
+
+            params = newRequest.params({ url: urlWithEncodedAwardId });
+
+            expect(params.url).toEqual(urlWithEncodedAwardId);
         });
     });
 });

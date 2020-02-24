@@ -7,6 +7,7 @@ import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import BaseFinancialAssistance from '../../../src/js/models/v2/awardsV2/BaseFinancialAssistance';
 
 import { mockAwardAmounts, mockContract, mockGrant, mockLoan } from './mockAwardApi';
+import { decodedAwardId, encodedAwardId } from '../../mockData';
 
 const awardAmounts = Object.create(BaseAwardAmounts);
 awardAmounts.populate(mockAwardAmounts, "idv_aggregated");
@@ -66,10 +67,19 @@ nonAggregateIdvOverspent.populate(overspentIdv, 'idv');
 nonAggregateIdvExtremeOverspent.populate(extremeOverspentIdv, 'idv');
 
 describe('BaseAwardAmounts', () => {
-    describe('IDV Award Type -- Aggregate Amounts', () => {
-        it('should have an empty string as a unique generated id if the field is null or undefined', () => {
-            expect(awardAmounts.generatedId).toEqual('');
+    describe('All Award Types', () => {
+        const awardAmountsWithId = Object.create(BaseAwardAmounts);
+        awardAmountsWithId.populate({ ...mockContract, generated_unique_award_id: decodedAwardId }, 'grant');
+        it('should encode the generated_unique_award_id when it is defined', () => {
+            expect(awardAmountsWithId.generatedId).toEqual(encodedAwardId);
         });
+        it('should handle case where the generatedId is undefined by making it an empty string', () => {
+            const noId = Object.create(BaseAwardAmounts);
+            noId.populate({ ...mockContract, generated_unique_award_id: null }, 'grant');
+            expect(noId.generatedId).toEqual('');
+        });
+    });
+    describe('IDV Award Type -- Aggregate Amounts', () => {
         it('should format the combined current award amounts amounts', () => {
             expect(awardAmounts.baseExercisedOptionsFormatted).toEqual('$10,000,000.00');
         });

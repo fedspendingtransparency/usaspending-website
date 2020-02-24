@@ -1,3 +1,5 @@
+import { decodedAwardId } from "../../mockData";
+
 export const mockSummary = {
     results: {
         prime_awards_count: 111111,
@@ -10,6 +12,7 @@ export const mockApi = {
     results: [
         {
             internal_id: 1,
+            generated_internal_id: decodedAwardId,
             'Award ID': 'ABC123',
             'Recipient Name': 'Blerg',
             'Action Date': '2011-12-31',

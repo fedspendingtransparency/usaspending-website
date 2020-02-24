@@ -6,10 +6,23 @@
 import BaseFederalAccount from 'models/v2/awardsV2/BaseFederalAccountFunding';
 import { mockFederalAccountFunding } from './mockAwardApi';
 
+import { decodedAwardId, encodedAwardId } from "../../mockData";
+
 const row = Object.create(BaseFederalAccount);
 row.populate(mockFederalAccountFunding.results[0], "idv");
 
 describe('Base Financial Assistance', () => {
+    describe('generatedId', () => {
+        it('generatedId should be encoded or empty string', () => {
+            const rowWithNoId = Object.create(BaseFederalAccount);
+            rowWithNoId.populate({ ...mockFederalAccountFunding, generated_unique_award_id: null }, 'idv');
+            expect(rowWithNoId.generatedId).toEqual('');
+
+            const rowWithId = Object.create(BaseFederalAccount);
+            rowWithId.populate({ ...mockFederalAccountFunding.results[0], generated_unique_award_id: decodedAwardId }, "idv");
+            expect(rowWithId.generatedId).toEqual(encodedAwardId);
+        });
+    });
     describe('Submission Date', () => {
         it('should format the submission date', () => {
             expect(row.submissionDate).toEqual('FY 2018 Q2');
