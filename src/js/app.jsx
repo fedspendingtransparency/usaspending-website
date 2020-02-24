@@ -14,6 +14,7 @@ import {
     faChartBar,
     faChartPie,
     faCheckSquare,
+    faCheckCircle,
     faChevronDown,
     faChevronUp,
     faChevronRight,
@@ -35,7 +36,10 @@ import {
     faTag,
     faThLarge,
     faTimes,
-    faUserTie
+    faUserTie,
+    faShareAlt,
+    faEnvelope,
+    faLink
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -59,6 +63,7 @@ library.add(
     faChartBar,
     faChartPie,
     faCheckSquare,
+    faCheckCircle,
     faChevronDown,
     faChevronUp,
     faChevronRight,
@@ -80,7 +85,10 @@ library.add(
     faTag,
     faThLarge,
     faTimes,
-    faUserTie
+    faUserTie,
+    faShareAlt,
+    faEnvelope,
+    faLink
 );
 
 const appDiv = document.getElementById('app');
