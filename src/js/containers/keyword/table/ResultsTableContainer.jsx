@@ -192,7 +192,7 @@ export default class ResultsTableContainer extends React.Component {
         };
 
         this.searchRequest = KeywordHelper.performKeywordSearch(params);
-        this.searchRequest.promise
+        return this.searchRequest.promise
             .then((res) => {
                 const newState = {
                     inFlight: false

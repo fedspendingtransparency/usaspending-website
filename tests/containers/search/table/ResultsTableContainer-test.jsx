@@ -12,7 +12,8 @@ import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 
 import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
 
-import { mockActions, mockRedux, mockApi, mockTabCount } from './mockAwards';
+import { mockActions, mockRedux, mockTabCount } from './mockAwards';
+import { encodedAwardId } from "../../../mockData";
 
 jest.mock('helpers/searchHelper', () => require('../filters/searchHelper'));
 
@@ -330,6 +331,25 @@ describe('ResultsTableContainer', () => {
             await container.instance().searchRequest.promise;
 
             expect(container.state().results.length).toEqual(4);
+        });
+
+        it('should encode the award ID', async () => {
+            const container = shallow(<ResultsTableContainer
+                {...mockActions}
+                {...mockRedux} />);
+
+            container.setState({
+                results: [{}, {}, {}],
+                columns: {
+                    contracts: {
+                        visibleOrder: ['test']
+                    }
+                }
+            });
+
+            await container.instance().performSearch(true);
+
+            expect(container.state().results[0].generated_internal_id).toEqual(encodedAwardId);
         });
     });
 

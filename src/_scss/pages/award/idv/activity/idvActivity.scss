@@ -76,10 +76,10 @@
         .current-page-numbers {
           font-weight: $font-semibold;
         }
-        .pagination {
+        .usa-dt-pagination {
           width: 100%;
           margin-top: rem(20);
-          .pager {
+          .usa-dt-pagination__wrapper .pager {
             .pager__item:last-child {
               .pager__button {
                  margin-right: 0;

@@ -1,5 +1,6 @@
 import { List } from 'immutable';
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
+import { decodedAwardId } from '../../../mockData';
 
 export const mockActions = {
     setAppliedFilterCompletion: jest.fn()
@@ -88,6 +89,7 @@ export const mockV2TableApi = {
     },
     results: [
         {
+            generated_internal_id: decodedAwardId,
             'Award ID': 'ABC123',
             'Award Amount': 123.45,
             'Awarding Agency': 'Department of Sandwiches',
