@@ -126,8 +126,6 @@ export default class GlossaryDefinition extends React.Component {
                     clickedTab={this.clickedTab} />
                 <Picker
                     options={options}
-                    icon="none"
-                    borderType="none"
                     dropdownDirection="left"
                     backgroundColor="#215493"
                     selectedOption="twitter">
