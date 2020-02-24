@@ -81,26 +81,29 @@ export class AccountDataContainer extends React.Component {
             });
     }
 
-    setFederalAccountList(agencyCode) {
+    async setFederalAccountList(agencyCode, page = 1) {
         if (agencyCode !== '') {
             if (this.federalAccountListRequest) {
                 this.federalAccountListRequest.cancel();
             }
 
-            this.federalAccountListRequest = BulkDownloadHelper.requestFederalAccountList(agencyCode);
-
-            this.federalAccountListRequest.promise
-                .then((res) => {
-                    const federalAccounts = res.data.results;
-                    this.setState({
-                        federalAccounts
-                    });
-                    this.federalAccountListRequest = null;
-                })
-                .catch((err) => {
-                    console.log(err);
-                    this.federalAccountListRequest = null;
+            this.federalAccountListRequest = BulkDownloadHelper.requestFederalAccountList(agencyCode, page);
+            try {
+                const { data } = await this.federalAccountListRequest.promise;
+                this.setState({
+                    federalAccounts: page > 1
+                        // we're requesting the second page, concat array
+                        ? [...this.state.federalAccounts, ...data.results]
+                        : data.results
                 });
+                if (data.hasNext) {
+                    this.setFederalAccountList(agencyCode, page + 1);
+                }
+            }
+            catch (e) {
+                console.log(e);
+                this.federalAccountListRequest = null;
+            }
         }
         else {
             this.setState({
