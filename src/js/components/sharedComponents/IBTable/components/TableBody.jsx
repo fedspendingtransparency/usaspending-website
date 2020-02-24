@@ -367,7 +367,6 @@ export default class TableBody extends React.PureComponent {
                         role="gridcell"
                         aria-colindex={columnIndex + 1}
                         aria-rowindex={rowIndex + 1}
-                        aria-describedby={`${this.props.tableId}-header-${columnIndex}`}
                         data-ibt-table-element="cell"
                         data-ibt-table-owner={this.props.tableId}
                         data-ibt-col-index={columnIndex}

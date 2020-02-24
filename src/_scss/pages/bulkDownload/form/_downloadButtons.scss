@@ -1,4 +1,5 @@
-.radio {
+.radio,
+.checkbox {
     padding-top: rem(15);
     &:first-child {
         padding-top: 0;
@@ -7,7 +8,8 @@
     input {
         margin-right: rem(5);
     }
-    .radio-label {
+    .radio-label,
+    .checkbox-label {
         color: #4A4A4A;
         font-size: rem(18);
         line-height: rem(23);

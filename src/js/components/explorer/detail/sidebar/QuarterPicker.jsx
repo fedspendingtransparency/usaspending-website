@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { availableQuartersInFY } from 'containers/explorer/detail/helpers/explorerQuarters';
-import FYPicker from './FYPicker';
+import FYPicker from 'components/sharedComponents/pickers/FYPicker';
 import QuarterButton from './QuarterButton';
 
 const propTypes = {
@@ -67,7 +67,7 @@ export default class QuarterPicker extends React.Component {
                 <div className="quarter-picker__fy">
                     <FYPicker
                         fy={this.props.fy}
-                        pickedYear={this.props.pickedYear} />
+                        onClick={this.props.pickedYear} />
                 </div>
                 <ul className="quarter-picker__list">
                     <li className="quarter-picker__list-item">
