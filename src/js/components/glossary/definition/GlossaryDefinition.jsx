@@ -131,7 +131,7 @@ export default class GlossaryDefinition extends React.Component {
                     selectedOption="twitter">
                     <FontAwesomeIcon className="glossary-share-icon" icon="share-alt" color="#e2e2e2" size="lg" />
                 </Picker>
-                <span className={`copy-confirmation ${this.state.showCopiedConfirmation ? '' : 'hide'}` }><FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied</span>
+                <span className={`copy-confirmation ${this.state.showCopiedConfirmation ? '' : 'hide'}`}><FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied</span>
                 <ItemDefinition
                     {...this.props.glossary.term.toJS()}
                     type={this.state.tab} />

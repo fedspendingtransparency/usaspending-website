@@ -42,6 +42,6 @@ const handlersBySocialMedium = {
 
 const baseUrl = (slug) => `https://www.usaspending.gov/#/?glossary=${slug}`;
 
-export const getSocialShareFn = (slug, socialMedium) => {
-    return () => handlersBySocialMedium[socialMedium](baseUrl(slug));
-};
+export const getSocialShareFn = (slug, socialMedium) => (
+    () => handlersBySocialMedium[socialMedium](baseUrl(slug))
+);
