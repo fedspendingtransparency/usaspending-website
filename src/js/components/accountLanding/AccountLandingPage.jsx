@@ -6,11 +6,11 @@
 import React from 'react';
 
 import { accountLandingPageMetaTags } from 'helpers/metaTagHelper';
+import Footer from 'containers/Footer';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Header from 'components/sharedComponents/header/Header';
-import Footer from 'components/sharedComponents/Footer';
 import AccountLandingContainer from 'containers/accountLanding/AccountLandingContainer';
 
 export default class AccountLandingPage extends React.Component {

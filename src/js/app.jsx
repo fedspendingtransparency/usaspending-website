@@ -5,6 +5,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import {
     faAngleDown,
     faAngleRight,
+    faAngleLeft,
     faBan,
     faBook,
     faBuilding,
@@ -13,6 +14,7 @@ import {
     faChartBar,
     faChartPie,
     faCheckSquare,
+    faCheckCircle,
     faChevronDown,
     faChevronUp,
     faChevronRight,
@@ -34,7 +36,10 @@ import {
     faTag,
     faThLarge,
     faTimes,
-    faUserTie
+    faUserTie,
+    faShareAlt,
+    faEnvelope,
+    faLink
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -49,6 +54,7 @@ require('helpers/rafPolyfill');
 library.add(
     faAngleDown,
     faAngleRight,
+    faAngleLeft,
     faBan,
     faBook,
     faBuilding,
@@ -57,6 +63,7 @@ library.add(
     faChartBar,
     faChartPie,
     faCheckSquare,
+    faCheckCircle,
     faChevronDown,
     faChevronUp,
     faChevronRight,
@@ -78,7 +85,10 @@ library.add(
     faTag,
     faThLarge,
     faTimes,
-    faUserTie
+    faUserTie,
+    faShareAlt,
+    faEnvelope,
+    faLink
 );
 
 const appDiv = document.getElementById('app');

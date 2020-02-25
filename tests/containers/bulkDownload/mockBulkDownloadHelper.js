@@ -8,8 +8,7 @@ export const requestAgenciesList = () => ({
             resolve({
                 data: {
                     agencies: mockAgencies,
-                    sub_agencies: [],
-                    federal_accounts: []
+                    sub_agencies: []
                 }
             });
         });
