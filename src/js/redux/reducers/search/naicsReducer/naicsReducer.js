@@ -16,9 +16,35 @@ const initialState = {
 const naicsReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_NAICS': {
+            const { payload, key } = action;
+            if (!key) return { ...state, naics: new List(payload) };
+            
+            const newState = state.naics
+                .toJS()
+                .map((node) => {
+                    if (node.value === key) {
+                        return {
+                            ...node,
+                            children: payload[0].children
+                        };
+                    }
+                    return {
+                        ...node,
+                        children: node.children.map((child) => {
+                            if (child.value === key) {
+                                return {
+                                    ...child,
+                                    children: payload[0].children
+                                };
+                            }
+                            return child;
+                        })
+                    };
+                });
+
             return {
                 ...state,
-                naics: new List(action.payload)
+                naics: new List(newState)
             };
         }
         case 'SET_SEARCHED_NAICS': {

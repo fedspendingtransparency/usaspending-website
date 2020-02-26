@@ -22,10 +22,10 @@ import { naicsRequest } from 'helpers/naicsHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
-import { setNaics, setExpanded, setChecked } from 'redux/actions/search/naicsActions';
+import { setNaics, setExpanded, setChecked, setSearchedNaics } from 'redux/actions/search/naicsActions';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
 import SelectedNaic from 'components/search/filters/naics/SelectNaic';
-import { pathToNode, buildNodePath, createCheckboxTreeDataStrucure } from 'helpers/checkboxTreeHelper';
+import { pathToNode, buildNodePath, createCheckboxTreeDataStructure } from 'helpers/checkboxTreeHelper';
 
 const propTypes = {
     updateNaics: PropTypes.func,
@@ -33,9 +33,11 @@ const propTypes = {
     setExpanded: PropTypes.func,
     setChecked: PropTypes.func,
     removeNAICS: PropTypes.func,
-    nodes: PropTypes.object,
-    expanded: PropTypes.object,
-    checked: PropTypes.object
+    setSearchedNaics: PropTypes.func,
+    expanded: PropTypes.array,
+    checked: PropTypes.array,
+    nodes: PropTypes.array,
+    searchedNodes: PropTypes.array
 };
 
 const nodeKeys = {
@@ -47,9 +49,6 @@ export class NAICSContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            naics: [],
-            expanded: [],
-            checked: [],
             isError: false,
             errorMessage: '',
             isLoading: false,
@@ -58,13 +57,10 @@ export class NAICSContainer extends React.Component {
             requestType: 'initial',
             selectedNaicsData: []
         };
+        this.request = null;
     }
 
     componentDidMount() {
-        const { nodes, expanded, checked } = this.props;
-        if (nodes.size > 0) {
-            return this.setStateFromRedux(nodes, expanded, checked);
-        }
         // show staged filters
         this.selectNaicsData();
         return this.fetchNAICS();
@@ -72,8 +68,8 @@ export class NAICSContainer extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (
-            !isEqual(this.props.checked.toJS(), prevProps.checked.toJS())
-            || !isEqual(this.props.nodes.toJS(), prevProps.nodes.toJS())
+            !isEqual(this.props.checked, prevProps.checked)
+            || !isEqual(this.props.nodes, prevProps.nodes)
         ) {
             // show stage filters
             this.selectNaicsData();
@@ -86,14 +82,10 @@ export class NAICSContainer extends React.Component {
     }, 500);
 
     onClear = () => {
-        const { nodes, expanded, checked } = this.props;
         if (this.request) this.request.cancel();
         this.setState({
             isSearch: false,
             searchString: '',
-            naics: nodes.toJS(),
-            expanded: expanded.toJS(),
-            checked: checked.toJS(),
             isLoading: false,
             requestType: ''
         });
@@ -114,8 +106,8 @@ export class NAICSContainer extends React.Component {
      * @returns {null}
      */
     onCheck = async (checked) => {
-        const currentlyCheck = this.props.checked.toJS();
-        const newCheckedValues = difference(checked, this.props.checked.toJS());
+        const currentlyCheck = this.props.checked;
+        const newCheckedValues = difference(checked, this.props.checked);
         if (newCheckedValues.length && this.state.isSearch) this.addNodeFromSearch(newCheckedValues);
         // sets checked in naics redux
         await this.props.setChecked(checked);
@@ -123,111 +115,19 @@ export class NAICSContainer extends React.Component {
         await this.props.updateNaics(checked);
     }
 
-    setRedux = (naics) => this.props.setNaics(naics);
 
-    setStateFromRedux = (naics, expanded, checked) => {
-        this.setState({
-            naics: naics.toJS(),
-            expanded: expanded.toJS(),
-            checked: checked.toJS(),
-            requestType: ''
-        });
+    getParentNode = (param) => {
+        if (param.length === 2) {
+            return this.props.nodes.find((node) => node.value === param);
+        }
+        if (param.length === 4) {
+            return this.props.nodes
+                .find((node) => node.value === `${param[0]}${param[1]}`).children
+                .find(((node) => node.value === param));
+        }
+        return '';
     }
 
-    addNodeFromSearch = (values) => {
-        console.log(' Values : ', values);
-        const nodes = cloneDeep(this.props.nodes.toJS());
-        const nodesDataObject = { data: nodes };
-        // remove fake search children
-        const filteredValues = values.filter((value) => !value.includes('placeholderForSearch'));
-        filteredValues.forEach((value) => {
-            // we are checking if the node exists in Redux
-            const { path: pathToNodeRedux } = pathToNode(nodes, value);
-            // this is the current path from the the search state
-            const { path: pathToNodeState } = pathToNode(this.state.naics, value);
-
-            if (!pathToNodeRedux) {
-                // find where to add node by stepping through node path
-                /**
-                 * Here we walk through the node path backwards, which allows to traverse
-                 * the tree data structure upwards, to find the first node we do not have in redux
-                 * and then replace that node with the search nodes and children
-                 * e.g. Given a sample node path of [0, 7, 1] we will look to see if we have
-                 * node [0, 7] and if we do we will put that now in its place in Redux store,
-                 * and if not we will try [0], which we should always have top tier data.
-                 */
-                let foundIt = null;
-                let theOldObjectFromState = null;
-                let theOldPathToRedux = [];
-                pathToNodeState.forEach((path, index, array) => {
-                    /**
-                     * step through node path e.g. the original node path will be [0, 7, 1]
-                     * then the first iteration will be [0, 7]
-                     */
-                    if (foundIt) return;
-                    const pathArrayStateSubset = pathToNodeState.slice(0, array.length - (array.length - (index + 1)));
-                    const pathStringStateSubset = buildNodePath(pathArrayStateSubset);
-                    const theNodeToAddFromState = get({ data: this.state.naics }, pathStringStateSubset);
-                    console.log(' Original Path Array : ', pathToNodeState);
-                    console.log(' Path Array State Subset : ', pathArrayStateSubset);
-                    console.log(' The Node to Add From State Value : ', theNodeToAddFromState.value);
-                    // See if the node exists in redux
-                    const { path: newPathToNodeRedux } = pathToNode(nodes, theNodeToAddFromState.value);
-                    console.log(' Path To the Node In Redux : ', newPathToNodeRedux);
-                    if (!newPathToNodeRedux) {
-                        foundIt = true;
-                        console.log(' Found It : ', foundIt);
-                        console.log(' Found It Current Old Path : ', theOldPathToRedux);
-                        console.log(' Found It Last Old Object : ', theOldObjectFromState);
-                        // get the node in redux that we will be replacing for the path property
-                        const valueOfNodeInRedux = theOldObjectFromState.value;
-                        console.log(' Need this VAl : ', valueOfNodeInRedux);
-                        const { path: pathInRedux } = pathToNode(nodes, valueOfNodeInRedux);
-                        console.log(' The path : ', pathInRedux)
-                        const pathString = buildNodePath(pathInRedux);
-                        const currentPath = get(nodesDataObject, pathString).path;
-                        theOldObjectFromState.path = currentPath;
-                        console.log(' Found It new stuff : ', theOldObjectFromState);
-                        // we need to go back one and set that object
-                        const oldPathStringToRedux = buildNodePath(theOldPathToRedux);
-                        set(nodesDataObject, oldPathStringToRedux, theOldObjectFromState);
-                    }
-                    else {
-                        theOldObjectFromState = theNodeToAddFromState;
-                        theOldPathToRedux = newPathToNodeRedux;
-                    }
-                    // const newPathString = buildNodePath(newPathArray);
-                    // const node = get({ data: nodes }, newPathString);
-                    // if (!node || node.value.includes('childPlaceholder')) {
-                    //     const newNode = get({ data: this.state.naics }, newPathString);
-                    //     set({ data: nodes }, newPathString, newNode);
-                    // }
-                });
-                this.props.setNaics(nodes);
-                // this.selectNaicsData();
-            }
-        });
-    }
-    /**
-     * cleanCheckedValues
-     * - removes and values that have childPlaceholder
-     * @param {string[]} checked - array of strings
-     * @returns {string[]} - an array of strings
-     */
-    cleanCheckedValues = (checked) => {
-        const placeholder = 'childPlaceholder';
-        const searchPlaceholder = 'placeholderForSearch';
-        return uniq(checked.map((value) => {
-            if (value.includes(placeholder)) {
-                return value.replace(placeholder, '');
-            }
-            else if (value.includes(searchPlaceholder)) {
-                const indexOf = value.indexOf('p');
-                return value.slice(0, indexOf);
-            }
-            return value;
-        }));
-    };
     handleTextInputChange = (e) => {
         const text = e.target.value;
         if (!text) {
@@ -236,15 +136,9 @@ export class NAICSContainer extends React.Component {
         return this.setState({ searchString: text, isSearch: true }, this.onSearchChange);
     };
 
-    request = null
-
-    fetchNAICS = async (param) => {
+    fetchNAICS = async (param = '') => {
         if (this.request) this.request.cancel();
-        const {
-            requestType,
-            isSearch,
-            searchString
-        } = this.state;
+        const { requestType, isSearch, searchString } = this.state;
         const searchParam = (isSearch && searchString)
             ? `?filter=${searchString}`
             : null;
@@ -253,25 +147,29 @@ export class NAICSContainer extends React.Component {
         }
 
         this.request = naicsRequest(param || searchParam);
+        const parentNode = this.getParentNode(param);
+
         try {
             const { data } = await this.request.promise;
             // create the new node
-            const updatedNodes = isSearch ? createCheckboxTreeDataStrucure(
+            const updatedNodes = createCheckboxTreeDataStructure(
                 3,
                 nodeKeys,
                 data.results,
-                null,
-                null,
-                true
-            ) : data.results;
+                (param.length > 2),
+                parentNode,
+                isSearch
+            );
 
             this.setState({
-                naics: updatedNodes,
                 isLoading: false,
                 isError: false,
                 errorMessage: '',
                 requestType: ''
             });
+
+            const codeForNodeWithNewChildren = isSearch ? '' : param;
+            this.props.setNaics(codeForNodeWithNewChildren, updatedNodes);
         }
         catch (e) {
             console.log(' Error NAICS Reponse : ', e);
@@ -279,7 +177,7 @@ export class NAICSContainer extends React.Component {
                 this.setState({
                     isError: true,
                     errorMessage: e.message,
-                    naics: this.props.nodes.toJS(),
+                    naics: this.props.nodes,
                     isLoading: false,
                     requestType: ''
                 });
@@ -310,8 +208,8 @@ export class NAICSContainer extends React.Component {
     }
 
     noResultsDiv = () => {
-        const { isError, isLoading, naics } = this.state;
-        if (isError || isLoading || naics.length > 0) return null;
+        const { isError, isLoading } = this.state;
+        if (isError || isLoading || this.props.nodes.length > 0) return null;
         return (
             <div className="naics-filter-message-container">
                 <FontAwesomeIcon icon="ban" />
@@ -327,18 +225,16 @@ export class NAICSContainer extends React.Component {
             isLoading,
             isError,
             isSearch,
-            naics,
-            expanded,
             searchString
         } = this.state;
-        const { checked } = this.props;
+        const { checked, nodes, expanded } = this.props;
         if (isLoading || isError) return null;
         return (
             <CheckboxTree
                 limit={3}
-                data={naics}
+                data={nodes}
                 expanded={expanded}
-                checked={checked.toJS()}
+                checked={checked}
                 nodeKeys={nodeKeys}
                 isSearch={isSearch}
                 searchText={searchString}
@@ -351,14 +247,10 @@ export class NAICSContainer extends React.Component {
     }
 
     selectNaicsData = () => {
-        const nodes = cloneDeep(this.props.nodes.toJS());
-        const checkedData = clone(this.cleanCheckedValues(this.props.checked.toJS()));
-        // const checkedData = clone(this.props.checked.toJS());
-        console.log(' Checked Data : ', checkedData);
-        console.log(' Nodes : ', nodes);
-        const selectedNaicsData = checkedData.reduce((acc, value) => {
+        const { nodes, checked } = this.props;
+        const selectedNaicsData = checked.reduce((acc, value) => {
             console.log(' Reduce Value : ', value);
-            console.log(' Nodes : ', cloneDeep(this.props.nodes.toJS()));
+            console.log(' Nodes : ', cloneDeep(this.props.nodes));
             // const cleanValue = this.cleanCheckedValues([value]);
             const { path: nodePath } = pathToNode(nodes, value);
             console.log(' Node Path : ', nodePath);
@@ -471,13 +363,15 @@ NAICSContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        nodes: state.naics.naics,
-        expanded: state.naics.expanded,
-        checked: state.naics.checked
+        nodes: state.naics.naics.toJS(),
+        expanded: state.naics.expanded.toJS(),
+        checked: state.naics.checked.toJS(),
+        searchNodes: state.naics.searchedNaics.toJS()
     }),
     (dispatch) => ({
         updateNaics: (checked) => dispatch(updateNaics(checked)),
-        setNaics: (naics) => dispatch(setNaics(naics)),
+        setNaics: (key, naics) => dispatch(setNaics(key, naics)),
         setExpanded: (expanded) => dispatch(setExpanded(expanded)),
-        setChecked: (checked) => dispatch(setChecked(checked))
+        setChecked: (checked) => dispatch(setChecked(checked)),
+        setSearchedNaics: (nodes) => dispatch(setSearchedNaics(nodes))
     }))(NAICSContainer);
