@@ -8,13 +8,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
     debounce,
-    get,
-    cloneDeep,
-    clone,
-    uniq,
     isEqual,
-    difference,
-    set
+    difference
 } from 'lodash';
 import { isCancel } from 'axios';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
@@ -25,7 +20,7 @@ import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import { setNaics, setExpanded, setChecked, setSearchedNaics } from 'redux/actions/search/naicsActions';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
 import SelectedNaic from 'components/search/filters/naics/SelectNaic';
-import { pathToNode, buildNodePath, createCheckboxTreeDataStructure } from 'helpers/checkboxTreeHelper';
+import { createCheckboxTreeDataStructure } from 'helpers/checkboxTreeHelper';
 
 const propTypes = {
     updateNaics: PropTypes.func,
@@ -106,7 +101,6 @@ export class NAICSContainer extends React.Component {
      * @returns {null}
      */
     onCheck = async (checked) => {
-        const currentlyCheck = this.props.checked;
         const newCheckedValues = difference(checked, this.props.checked);
         if (newCheckedValues.length && this.state.isSearch) this.addNodeFromSearch(newCheckedValues);
         // sets checked in naics redux
@@ -248,81 +242,52 @@ export class NAICSContainer extends React.Component {
 
     selectNaicsData = () => {
         const { nodes, checked } = this.props;
-        const selectedNaicsData = checked.reduce((acc, value) => {
-            console.log(' Reduce Value : ', value);
-            console.log(' Nodes : ', cloneDeep(this.props.nodes));
-            // const cleanValue = this.cleanCheckedValues([value]);
-            const { path: nodePath } = pathToNode(nodes, value);
-            console.log(' Node Path : ', nodePath);
-            if (!nodePath) return acc;
-            const parentNodePath = [nodePath[0]];
-            // accessing the tier 0 parent node
-            const parentNodePathString = buildNodePath(parentNodePath);
-            const parentNode = get({ data: nodes }, parentNodePathString);
-            // accessing the child node
-            const nodePathString = buildNodePath(nodePath);
-            const node = get({ data: nodes }, nodePathString);
+        const selectedNaicsData = checked
+            .reduce((acc, value) => {
+                const key = value.includes('childPlaceholder')
+                    ? value.split('childPlaceholder')[0]
+                    : value;
 
-            const valueIsAChildPlaceholder = value.includes('childPlaceholder');
-            const valueIsASearchPlaceholder = value.includes('placeholderForSearch');
-
-            /**
-             * Handle mismatch data from search. Some search node's children can have
-             * placeholder values mixed with actual nodes dependent on what the user
-             * selects and shape of the search results. If a node's children includes
-             * search placeholder data, we will ignore any real child nodes.
-             */
-            let middleParentPath = cloneDeep(parentNode).path;
-            if (nodePath.length > 2) middleParentPath = nodePath.slice(0, nodePath.length - 1);
-            console.log(' Middle Parent Path : ', middleParentPath);
-            const middleParentPathString = buildNodePath(middleParentPath);
-            const middleParent = get({ data: nodes }, middleParentPathString);
-            console.log(' Middle Parent : ', middleParent);
-            const middleParentChildValues = middleParent.children.map((child) => child.value);
-            const middleParentParentHasSearchPlaceholders = middleParentChildValues.some((child) => child.includes('placeholderForSearch'));
-            const middleParentHasRegularChildren = middleParentChildValues.some((child) => !child.includes('placeholderForSearch'));
-            const middleParentHasMixedData = middleParentParentHasSearchPlaceholders && middleParentHasRegularChildren;
-            console.log(' Parent Has Mixed Data : ', middleParentHasMixedData);
-            if (middleParentHasMixedData) return acc;
-            console.log(' ACC : ', acc);
-            console.log(' Node : ', node);
-            console.log(' Parent Node : ', parentNode);
-            // find parent node in accumulator
-            const foundParentNodeIndex = acc.findIndex((data) => data.value === parentNode.value);
-            if (isNaN(node.count)) return acc;
-            // when a parent node already exists update count
-            if (foundParentNodeIndex !== -1) {
-                // adds the count of the child object to the parent node
-                // when we are at the last level the count will be 0, so add 1
-                if (node.count === 0) {
-                    acc[foundParentNodeIndex].count++;
+                const parentKey = `${key[0]}${key[1]}`;
+                const parentNode = nodes.find((node) => node.value === parentKey);
+                const indexOfParent = acc.findIndex((node) => node.value === parentKey);
+                const isParentSelected = indexOfParent >= 0;
+                if (!isParentSelected && key.length === 2) {
+                    acc.push(parentNode);
+                    return acc;
                 }
-                else {
-                    acc[foundParentNodeIndex].count += node.count;
+                else if (!isParentSelected && key.length === 4) {
+                    acc.push({
+                        ...parentNode,
+                        count: parentNode.children.find((node) => node.value === value).count
+                    });
+                    return acc;
                 }
-            }
-            else { // no parent node exists in accumulator, add parent to accumulator
-                // this is the last possible child for this parent, add 1
-                if (node.count === 0) {
-                    parentNode.count = 1;
+                else if (!isParentSelected && key.length === 6) {
+                    acc.push({
+                        ...parentNode,
+                        count: 1
+                    });
+                    return acc;
                 }
-                else {
-                    parentNode.count = node.count;
+                if (isParentSelected && key.length === 4) {
+                    acc[indexOfParent].count = parentNode.children.find((node) => node.value === value).count || 0;
+                    return acc;
                 }
-                acc.push(parentNode);
-            }
-
-            return acc;
-        }, []);
-        console.log(' Selected Naics Data : ', selectedNaicsData);
-        // this.setState({ selectedNaicsData });
-        return { selectedNaicsData };
+                if (isParentSelected && key.length === 6) {
+                    acc[indexOfParent].count++;
+                    return acc;
+                }
+                return acc;
+            }, []);
+        // an array of objects representing naics tier one objects: { value, label, count }. Only show top level parents
+        return selectedNaicsData;
     }
 
     selectedNaics = () => {
         if (!this.props.checked.size === 0) return null;
         // const { selectedNaicsData } = this.state;
-        const { selectedNaicsData } = this.selectNaicsData();
+        const selectedNaicsData = this.selectNaicsData();
         return (<SelectedNaic
             selectedNAICS={selectedNaicsData}
             removeNAICS={this.props.removeNAICS} />);
