@@ -4,7 +4,6 @@
   **/
 
 import React from 'react';
-import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -33,6 +32,7 @@ const propTypes = {
     setNaics: PropTypes.func,
     setExpanded: PropTypes.func,
     setChecked: PropTypes.func,
+    removeNAICS: PropTypes.func,
     nodes: PropTypes.object,
     expanded: PropTypes.object,
     checked: PropTypes.object
@@ -475,14 +475,9 @@ export default connect(
         expanded: state.naics.expanded,
         checked: state.naics.checked
     }),
-    (dispatch) => bindActionCreators(
-        Object.assign(
-            {},
-            { updateNaics },
-            { setNaics },
-            { setExpanded },
-            { setChecked }
-        )
-        ,
-        dispatch
-    ))(NAICSContainer);
+    (dispatch) => ({
+        updateNaics: (checked) => dispatch(updateNaics(checked)),
+        setNaics: (naics) => dispatch(setNaics(naics)),
+        setExpanded: (expanded) => dispatch(setExpanded(expanded)),
+        setChecked: (checked) => dispatch(setChecked(checked))
+    }))(NAICSContainer);

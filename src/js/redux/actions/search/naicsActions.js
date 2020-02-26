@@ -5,15 +5,15 @@
 
 export const setNaics = (nodes) => ({
     type: 'SET_NAICS',
-    nodes
+    payload: nodes
 });
 
 export const setExpanded = (expanded) => ({
     type: 'SET_EXPANDED',
-    expanded
+    payload: expanded
 });
 
 export const setChecked = (checked) => ({
     type: 'SET_CHECKED',
-    checked
+    payload: checked
 });
