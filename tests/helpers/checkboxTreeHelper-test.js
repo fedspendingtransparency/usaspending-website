@@ -1,6 +1,6 @@
 import { includes, isEqual } from 'lodash';
 import {
-    createCheckboxTreeDataStrucure,
+    createCheckboxTreeDataStructure,
     updateValueAndLabel,
     updatePath,
     updateChildren,
@@ -91,7 +91,7 @@ describe('CheckboxTreeHelper', () => {
     });
     describe('Create Checkbox Tree Data Strucure', () => {
         it('should update array of nodes with no children', () => {
-            const nodes = createCheckboxTreeDataStrucure(
+            const nodes = createCheckboxTreeDataStructure(
                 3, // limit
                 keysToBeMapped,
                 naicsMockInitialLoadApiResponse, // nodes
@@ -101,7 +101,7 @@ describe('CheckboxTreeHelper', () => {
             expect(isEqual(naicsMockCleanDataInitialLoad, nodes));
         });
         it('should update array of nodes with children', () => {
-            const nodes = createCheckboxTreeDataStrucure(
+            const nodes = createCheckboxTreeDataStructure(
                 3, // limit
                 keysToBeMapped,
                 naicsMockAPIResponse, // nodes
@@ -111,7 +111,7 @@ describe('CheckboxTreeHelper', () => {
             expect(isEqual(naicsMockAPIResponseClean, nodes));
         });
         it('should update array of nodes with deeply nested children', () => {
-            const nodes = createCheckboxTreeDataStrucure(
+            const nodes = createCheckboxTreeDataStructure(
                 20, // limit
                 keysToBeMapped,
                 naicsMockDataDeepDirty, // nodes

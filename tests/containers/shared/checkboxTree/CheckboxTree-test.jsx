@@ -6,7 +6,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
-import { createCheckboxTreeDataStrucure } from 'helpers/checkboxTreeHelper';
+import { createCheckboxTreeDataStructure } from 'helpers/checkboxTreeHelper';
 import {
     naicsMock2,
     naicsMockCleanDataInitialLoad,
@@ -42,7 +42,7 @@ const props = {
     checked: []
 };
 
-// const formattedNodes = createCheckboxTreeDataStrucure(props.nodeKeys, props.nodes);
+const formattedNodes = createCheckboxTreeDataStructure(props.nodeKeys, props.nodes);
 
 describe('CheckboxTree Component', () => {
     const createNodes = jest.fn();
