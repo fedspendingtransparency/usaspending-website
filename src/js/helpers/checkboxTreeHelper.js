@@ -92,7 +92,7 @@ export const updateChildren = (params) => {
     return newNode;
 };
 /**
-  ** createCheckboxTreeDataStrucure
+  ** createCheckboxTreeDataStructure
   * map data from API response to react-checkbox-tree data structure
   * @param {number} limit - total possible depth of tree structure
   * @param {object} keysToBeMapped - An object with keys value, and label with values
@@ -111,7 +111,7 @@ export const updateChildren = (params) => {
   * Please refer to https://github.com/jakezatecky/react-checkbox-tree for more details
 **/
 /* eslint-disable import/prefer-default-export */
-export const createCheckboxTreeDataStrucure = (
+export const createCheckboxTreeDataStructure = (
     limit,
     keysToBeMapped,
     nodes,
@@ -165,7 +165,7 @@ export const createCheckboxTreeDataStrucure = (
     // Step 4 - Map Child Data
     // if ((newNode.count > 0) && newNode.children && !isEmpty(newNode.children[0])) {
     if ((newNode.count > 0) && newNode.children && !newNode?.children?.[0]?.isPlaceholder) {
-        newNode.children = createCheckboxTreeDataStrucure(
+        newNode.children = createCheckboxTreeDataStructure(
             limit,
             keysToBeMapped,
             newNode.children,
@@ -195,7 +195,7 @@ export const handleSearch = (
     nodeKeys,
     nodes
 ) => {
-    // const newNodes = createCheckboxTreeDataStrucure(
+    // const newNodes = createCheckboxTreeDataStructure(
     //     limit,
     //     nodeKeys,
     //     nodes,

@@ -10,7 +10,7 @@ import { isEqual, difference, clone, get, set, cloneDeep, compact } from 'lodash
 import reactStringReplace from 'react-string-replace';
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
 import {
-    createCheckboxTreeDataStrucure,
+    createCheckboxTreeDataStructure,
     pathToNode,
     buildNodePath,
     handleSearch,
@@ -248,7 +248,7 @@ export default class CheckboxTree extends Component {
             checked
         } = this.props;
         if (isSearch) return this.handleSearch(data);
-        const newNodes = createCheckboxTreeDataStrucure(limit, nodeKeys, data);
+        const newNodes = createCheckboxTreeDataStructure(limit, nodeKeys, data);
         this.setState({ nodes: newNodes });
         return (setRedux && newNodes.length) ? setRedux(newNodes) : null;
     }
@@ -372,7 +372,7 @@ export default class CheckboxTree extends Component {
          */
         const originalNode = get(nodesObject, nodePathString);
         // create the new node
-        let newNode = createCheckboxTreeDataStrucure(
+        let newNode = createCheckboxTreeDataStructure(
             limit,
             nodeKeys,
             data,
