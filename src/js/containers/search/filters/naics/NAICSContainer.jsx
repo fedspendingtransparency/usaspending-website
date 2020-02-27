@@ -160,7 +160,6 @@ export class NAICSContainer extends React.Component {
             });
 
             const codeForNodeWithNewChildren = isSearch ? '' : param;
-            console.log("updated nodes", updatedNodes);
             this.props.setNaics(codeForNodeWithNewChildren, updatedNodes);
         }
         catch (e) {
@@ -169,7 +168,6 @@ export class NAICSContainer extends React.Component {
                 this.setState({
                     isError: true,
                     errorMessage: e.message,
-                    naics: this.props.nodes,
                     isLoading: false,
                     requestType: ''
                 });
