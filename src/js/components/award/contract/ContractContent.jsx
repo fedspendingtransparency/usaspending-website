@@ -10,7 +10,7 @@ import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
 import { awardTypesWithSubawards } from 'dataMapping/awards/awardHistorySection';
-
+import ContractGrantActivityContainer from 'containers/award/shared/ContractGrantActivityContainer';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSection';
 import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';
@@ -18,9 +18,7 @@ import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSec
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
-import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardDescription from "../shared/description/AwardDescription";
-import { contractActivityInfoContracts } from "../shared/InfoTooltipContent";
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -101,12 +99,7 @@ const ContractContent = ({
                     psc={overview.psc} />
             </AwardSection>
             <AwardSection className="award-contract-activity-section" type="row">
-                <ComingSoonSection
-                    toolTipWide
-                    toolTipContent={contractActivityInfoContracts}
-                    title="Contract Activity"
-                    includeHeader
-                    icon="chart-area" />
+                <ContractGrantActivityContainer awardId={awardId} />
                 <FederalAccountsSection
                     jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
                     awardType={overview.category} />
