@@ -22,10 +22,6 @@ const propTypes = {
     data: PropTypes.array,
     isLoading: PropTypes.bool,
     icons: PropTypes.object,
-    nodeKeys: PropTypes.shape({
-        value: PropTypes.string,
-        label: PropTypes.string
-    }),
     isSearch: PropTypes.bool,
     searchText: PropTypes.string,
     modifyLabelTextClassname: PropTypes.string,
@@ -33,8 +29,6 @@ const propTypes = {
     onExpand: PropTypes.func,
     onCheck: PropTypes.func,
     onCollapse: PropTypes.func,
-    setRedux: PropTypes.func,
-    updateRedux: PropTypes.func,
     limit: PropTypes.number,
     expanded: PropTypes.array,
     checked: PropTypes.array
@@ -120,19 +114,7 @@ export default class CheckboxTree extends Component {
     unCheckedNode = (checked, node) => {
         this.props.onCheck(checked, node);
     }
-    /**
-     * pathToNodeString
-     * creates a path string to a found object in a tree data structure.
-     * @param {*} value - value to match.
-     * @returns {string} - An object path string.
-     */
-    pathToNodeString = (value) => {
-        // a path array to the object in the tree structure
-        const { path } = pathToNode(this.state.nodes, value);
-        if (!path) return null;
-        // a string path to the object in the tree structure
-        return buildNodePath(path);
-    }
+
     /**
      * expandNode
      * updates state with the new expanded array and updates the newly expanded children
@@ -140,12 +122,10 @@ export default class CheckboxTree extends Component {
      * @param {array} newExpandedArray - array with the newly expanded value
      */
     expandNode = async (newExpandedArray) => {
-        console.log("new expanded array", newExpandedArray);
         const { expanded, data, isSearch } = this.props;
         const expandedValue = difference(newExpandedArray, expanded)[0];
         const { path } = pathToNode(data, expandedValue);
         const nodePathString = buildNodePath(path);
-        // const nodePathString = this.pathToNodeString(expandedValue);
         // get the node
         const node = get({ data: this.props.data }, nodePathString);
         /**
