@@ -150,7 +150,7 @@ export class NAICSContainer extends React.Component {
                 3,
                 nodeKeys,
                 data.results,
-                (param.length > 2),
+                (param.length === 4),
                 parentNode,
                 isSearch
             );
@@ -163,6 +163,7 @@ export class NAICSContainer extends React.Component {
             });
 
             const codeForNodeWithNewChildren = isSearch ? '' : param;
+            console.log("updated nodes", updatedNodes);
             this.props.setNaics(codeForNodeWithNewChildren, updatedNodes);
         }
         catch (e) {
@@ -259,7 +260,7 @@ export class NAICSContainer extends React.Component {
                 else if (!isParentSelected && key.length === 4) {
                     acc.push({
                         ...parentNode,
-                        count: parentNode.children.find((node) => node.value === value).count
+                        count: parentNode.children.find((node) => node.value === key).count
                     });
                     return acc;
                 }
@@ -271,7 +272,7 @@ export class NAICSContainer extends React.Component {
                     return acc;
                 }
                 if (isParentSelected && key.length === 4) {
-                    acc[indexOfParent].count = parentNode.children.find((node) => node.value === value).count || 0;
+                    acc[indexOfParent].count += parentNode.children.find((node) => node.value === key).count;
                     return acc;
                 }
                 if (isParentSelected && key.length === 6) {

@@ -17,8 +17,9 @@ const naicsReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_NAICS': {
             const { payload, key } = action;
+            // initial top-tier data only
             if (!key) return { ...state, naics: new List(payload) };
-            
+
             const newState = state.naics
                 .toJS()
                 .map((node) => {

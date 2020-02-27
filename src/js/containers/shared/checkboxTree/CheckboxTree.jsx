@@ -473,9 +473,9 @@ export default class CheckboxTree extends Component {
     });
 
     render() {
-        const { nodes, checked, expanded } = this.state;
-        const labeledNodes = this.createLabels(nodes);
-        if (!nodes.length) return null;
+        const { data, checked, expanded } = this.props;
+        const labeledNodes = this.createLabels(data);
+        if (!data.length) return null;
         return (
             <div className="checkbox-tree">
                 <CheckBoxTree
