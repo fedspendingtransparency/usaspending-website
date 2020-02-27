@@ -100,8 +100,6 @@ export class NAICSContainer extends React.Component {
      * @returns {null}
      */
     onCheck = async (checked) => {
-        const newCheckedValues = difference(checked, this.props.checked);
-        if (newCheckedValues.length && this.state.isSearch) this.addNodeFromSearch(newCheckedValues);
         // sets checked in naics redux
         await this.props.setChecked(checked);
         // sets staged filters in search redux
