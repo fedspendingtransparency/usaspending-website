@@ -6,7 +6,7 @@
 import React, { Component, cloneElement } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
 import PropTypes from 'prop-types';
-import { isEqual, difference, clone, get, set, cloneDeep, compact } from 'lodash';
+import { isEqual, difference, clone, get, set, compact } from 'lodash';
 import reactStringReplace from 'react-string-replace';
 import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
 import {
@@ -14,7 +14,6 @@ import {
     pathToNode,
     buildNodePath,
     handleSearch,
-    allChildValues,
     deepestChildValues
 } from 'helpers/checkboxTreeHelper';
 import { treeIcons } from 'dataMapping/shared/checkboxTree/checkboxTree';
@@ -141,10 +140,8 @@ export default class CheckboxTree extends Component {
      * @param {object} node - the checked node
      * @returns {null}
      */
-    checkedNode = (checked) => {
-        const { onCheck } = this.props;
-        this.setState({ checked });
-        if (onCheck) onCheck(checked);
+    checkedNode = (checked, node) => {
+        this.props.onCheck(checked, node);
     }
     /**
      * unCheckedNode
@@ -154,9 +151,7 @@ export default class CheckboxTree extends Component {
      * @returns {null}
      */
     unCheckedNode = (checked, node) => {
-        const { onCheck } = this.props;
-        this.setState({ checked });
-        if (onCheck) onCheck(checked);
+        this.props.onCheck(checked, node);
     }
     /**
      * pathToNodeString
@@ -231,8 +226,7 @@ export default class CheckboxTree extends Component {
      * updates state with the new expanded array and calls onCollapse if passed in props.
      */
     collapseNode = (newExpandedArray) => {
-        this.setState({ expanded: newExpandedArray });
-        if (this.props.onCollapse) this.props.onCollapse(newExpandedArray);
+        this.props.onCollapse(newExpandedArray);
     }
     /**
       ** createNodes
@@ -248,7 +242,6 @@ export default class CheckboxTree extends Component {
             limit,
             setRedux,
             isSearch,
-            checked
         } = this.props;
         if (isSearch) return this.handleSearch(data);
         const newNodes = createCheckboxTreeDataStructure(limit, nodeKeys, data);
