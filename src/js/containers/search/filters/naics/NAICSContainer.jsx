@@ -49,8 +49,7 @@ export class NAICSContainer extends React.Component {
             isLoading: false,
             isSearch: false,
             searchString: '',
-            requestType: 'initial',
-            selectedNaicsData: []
+            requestType: 'initial'
         };
         this.request = null;
     }
@@ -235,9 +234,7 @@ export class NAICSContainer extends React.Component {
                 searchText={searchString}
                 onExpand={this.onExpand}
                 onCollapse={this.onCollapse}
-                onCheck={this.onCheck}
-                setRedux={this.setRedux}
-                updateRedux={this.setRedux} />
+                onCheck={this.onCheck} />
         );
     }
 
@@ -248,11 +245,12 @@ export class NAICSContainer extends React.Component {
                 const key = value.includes('childPlaceholder')
                     ? value.split('childPlaceholder')[0]
                     : value;
-
+                 
                 const parentKey = `${key[0]}${key[1]}`;
                 const parentNode = nodes.find((node) => node.value === parentKey);
                 const indexOfParent = acc.findIndex((node) => node.value === parentKey);
                 const isParentSelected = indexOfParent >= 0;
+
                 if (!isParentSelected && key.length === 2) {
                     acc.push(parentNode);
                     return acc;

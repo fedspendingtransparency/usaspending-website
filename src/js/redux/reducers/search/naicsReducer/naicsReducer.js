@@ -16,6 +16,7 @@ const initialState = {
 const naicsReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_NAICS': {
+            console.log('SET_NAICS', action.payload);
             const { payload, key } = action;
             // initial top-tier data only
             if (!key) return { ...state, naics: new List(payload) };
@@ -25,8 +26,7 @@ const naicsReducer = (state = initialState, action) => {
                 .map((node) => {
                     if (node.value === key) {
                         return {
-                            ...node,
-                            children: payload[0].children
+                            ...payload[0]
                         };
                     }
                     return {
@@ -34,8 +34,7 @@ const naicsReducer = (state = initialState, action) => {
                         children: node.children.map((child) => {
                             if (child.value === key) {
                                 return {
-                                    ...child,
-                                    children: payload[0].children
+                                    ...payload[0]
                                 };
                             }
                             return child;
@@ -61,6 +60,7 @@ const naicsReducer = (state = initialState, action) => {
             };
         }
         case 'SET_CHECKED': {
+            console.log('SET_CHECKED', state.naics.toJS()[0]);
             return {
                 ...state,
                 checked: new List(action.payload)

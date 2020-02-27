@@ -24,6 +24,7 @@ import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
 const propTypes = {
     data: PropTypes.array,
+    isLoading: PropTypes.bool,
     icons: PropTypes.object,
     nodeKeys: PropTypes.shape({
         value: PropTypes.string,
@@ -85,11 +86,13 @@ export default class CheckboxTree extends Component {
      * @returns {null}
      */
     onCheck = (checked, node) => {
-        if (this.state.checked.length < checked.length) {
-            this.checkedNode(checked, node);
-        }
-        else {
-            this.unCheckedNode(checked, node);
+        if (!this.props.isLoading) {
+            if (this.state.checked.length < checked.length) {
+                this.checkedNode(checked, node);
+            }
+            else {
+                this.unCheckedNode(checked, node);
+            }
         }
     }
     /**
