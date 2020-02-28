@@ -138,8 +138,6 @@ export default class CheckboxTree extends Component {
             )
             && !isSearch
         ) {
-            // mutating props...
-            await this.setChildrenToLoading(selectedNode);
             return this.props.onExpand(expandedValue, newExpandedArray, true);
         }
         return this.props.onExpand(expandedValue, newExpandedArray, false);
@@ -188,7 +186,7 @@ export default class CheckboxTree extends Component {
         if (typeof node.label !== 'string') return node;
         if (node.label === 'Placeholder Child') {
             return {
-                value: `${node.value}loading`,
+                value: `${node.value}`,
                 showCheckbox: false,
                 label: this.setChildrenToLoading()
             };

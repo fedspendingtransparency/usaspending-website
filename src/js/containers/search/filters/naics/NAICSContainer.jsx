@@ -134,7 +134,7 @@ export class NAICSContainer extends React.Component {
             const codeForNodeWithNewChildren = isSearch ? '' : param;
             this.props.setNaics(codeForNodeWithNewChildren, data.results);
 
-            if (param && this.props.checked.includes(`${param}childPlaceholder`)) {
+            if (param && (this.props.checked.includes(param) || this.props.checked.includes(`${param}childPlaceholder`))) {
                 const autoChecked = data.results[0].children
                     .map((node) => {
                         if (node.naics.length === 4) return `${node.naics}childPlaceholder`;
