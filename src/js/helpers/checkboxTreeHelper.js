@@ -256,41 +256,20 @@ export const handleSearch = (
     const expandedArray = compact(flattenDeep(expanded));
     return { updatedNodes: nodes, expanded: expandedArray };
 };
-/**
- * deepest child values
- * - gets all child values
- * @param {object[]} nodes - nodes to traverse
- * @returns {*[]} - an array of values
- */
-export const deepestChildValues = (nodes) => {
-    /**
-     * valueFunc
-     * - recursively loops through nodes updating an array with the value of the node if is has
-     * a children property
-     * @param {array} theNodes - an array of nodes
-     * @param {array} arrayOfValues - an array of values
-     * @returns {array} - an array of values
-     */
-    const valueFunc = (theNodes, childValues) => {
-        theNodes.forEach((node) => {
-            const newNode = node;
-            if (newNode.children) {
-                valueFunc(newNode.children, childValues);
-            }
-            else {
-                childValues.push(newNode.value);
-            }
-        });
-        return childValues;
+
+export const expandAllNodes = (nodes) => {
+    const getValue = (acc, node) => {
+        acc.push(node.value);
+        if (node.children) {
+            acc.push(
+                flattenDeep(node.children.map((child) => getValue(acc, child)))
+            );
+        }
+        return acc;
     };
-    // maps nodes to an array of expanded values
-    const values = nodes.map((node) => {
-        if (node.children) return [...valueFunc(node.children, [])];
-        return [node.value];
-    });
-    // flattens and removes any null values
-    const valuesArray = compact(flattenDeep(values));
-    return valuesArray;
+
+    return nodes
+        .reduce(getValue, []);
 };
 /**
  * allChildValues

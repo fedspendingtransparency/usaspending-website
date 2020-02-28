@@ -13,6 +13,7 @@ import {
 import { isCancel } from 'axios';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import { naicsRequest } from 'helpers/naicsHelper';
+import { expandAllNodes } from 'helpers/checkboxTreeHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
@@ -30,7 +31,7 @@ const propTypes = {
     expanded: PropTypes.array,
     checked: PropTypes.array,
     nodes: PropTypes.array,
-    searchedNodes: PropTypes.array
+    searchNodes: PropTypes.array
 };
 
 export class NAICSContainer extends React.Component {
@@ -131,8 +132,12 @@ export class NAICSContainer extends React.Component {
         try {
             const { data } = await this.request.promise;
 
-            const codeForNodeWithNewChildren = isSearch ? '' : param;
-            this.props.setNaics(codeForNodeWithNewChildren, data.results);
+            if (isSearch) {
+                this.props.setSearchedNaics(data.results);
+            }
+            else {
+                this.props.setNaics(param, data.results);
+            }
 
             if (param && (this.props.checked.includes(param) || this.props.checked.includes(`${param}childPlaceholder`))) {
                 const autoChecked = data.results[0].children
@@ -203,15 +208,18 @@ export class NAICSContainer extends React.Component {
         const {
             isLoading,
             isError,
-            searchString
+            searchString,
+            isSearch
         } = this.state;
-        const { checked, nodes, expanded } = this.props;
+        const { checked, nodes, expanded, searchNodes } = this.props;
+        const allSearchNodesExpanded = expandAllNodes(searchNodes);
+        console.log("expanded", allSearchNodesExpanded);
         if (isLoading || isError) return null;
         return (
             <CheckboxTree
                 limit={3}
-                data={nodes}
-                expanded={expanded}
+                data={isSearch ? searchNodes : nodes}
+                expanded={isSearch ? allSearchNodesExpanded : expanded}
                 checked={checked}
                 searchText={searchString}
                 onExpand={this.onExpand}
