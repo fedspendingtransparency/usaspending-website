@@ -28,17 +28,17 @@ const ContractGrantActivityContainer = ({ awardId }) => {
             // generator
             async function* paginateTransactions() {
                 while (hasNext) {
-                    // try {
-                    request.current = fetchAwardTransaction(params);
-                    const response = await request.current.promise;
-                    console.log(' Response : ', response);
-                    params.page++;
-                    hasNext = response.data.page_metadata.hasNext;
-                    yield response.data;
-                    // }
-                    // catch (e) {
-                    //     updateError({ error: true, message: e.message });
-                    // }
+                    try {
+                        request.current = fetchAwardTransaction(params);
+                        const response = await request.current.promise;
+                        console.log(' Response : ', response);
+                        params.page++;
+                        hasNext = response.data.page_metadata.hasNext;
+                        yield response.data;
+                    }
+                    catch (e) {
+                        updateError({ error: true, message: e.message });
+                    }
                 }
                 return null;
             }
