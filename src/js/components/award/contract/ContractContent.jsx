@@ -99,7 +99,7 @@ const ContractContent = ({
                     psc={overview.psc} />
             </AwardSection>
             <AwardSection className="award-contract-activity-section" type="row">
-                <ContractGrantActivityContainer awardId={awardId} />
+                <ContractGrantActivityContainer awardId={awardId} awardType={overview.category} />
                 <FederalAccountsSection
                     jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
                     awardType={overview.category} />
