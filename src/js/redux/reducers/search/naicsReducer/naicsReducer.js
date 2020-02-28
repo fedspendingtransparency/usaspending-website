@@ -8,6 +8,7 @@ import { List } from 'immutable';
 const initialState = {
     naics: new List(),
     searchedNaics: new List(),
+    searchExpanded: new List(),
     expanded: new List(),
     checked: new List()
 };
@@ -50,6 +51,12 @@ const naicsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 searchedNaics: new List(action.payload)
+            };
+        }
+        case 'SET_SEARCHED_EXPANDED': {
+            return {
+                ...state,
+                searchExpanded: new List(action.payload)
             };
         }
         case 'SET_EXPANDED': {

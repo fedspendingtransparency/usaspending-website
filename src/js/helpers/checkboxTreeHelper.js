@@ -262,7 +262,7 @@ export const expandAllNodes = (nodes) => {
         acc.push(node.value);
         if (node.children) {
             acc.push(
-                flattenDeep(node.children.map((child) => getValue(acc, child)))
+                ...node.children.map((child) => child.value)
             );
         }
         return acc;

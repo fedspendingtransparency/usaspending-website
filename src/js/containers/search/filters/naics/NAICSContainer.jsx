@@ -31,7 +31,7 @@ const propTypes = {
     expanded: PropTypes.array,
     checked: PropTypes.array,
     nodes: PropTypes.array,
-    searchNodes: PropTypes.array
+    searchedNodes: PropTypes.array
 };
 
 export class NAICSContainer extends React.Component {
@@ -76,12 +76,22 @@ export class NAICSContainer extends React.Component {
     }
 
     onExpand = (value, expanded, fetch) => {
-        if (fetch) this.fetchNAICS(value);
-        this.props.setExpanded(expanded);
+        if (fetch && !this.state.isSearch) this.fetchNAICS(value);
+        if (this.state.isSearch) {
+            this.props.setExpanded(expanded, 'SET_SEARCHED_EXPANDED');
+        }
+        else {
+            this.props.setExpanded(expanded);
+        }
     };
 
     onCollapse = (expanded) => {
-        this.props.setExpanded(expanded);
+        if (this.state.isSearch) {
+            this.props.setExpanded(expanded, 'SET_SEARCHED_EXPANDED');
+        }
+        else {
+            this.props.setExpanded(expanded);
+        }
     };
     /**
      * onCheck
@@ -117,6 +127,8 @@ export class NAICSContainer extends React.Component {
         return this.setState({ searchString: text, isSearch: true }, this.onSearchChange);
     };
 
+    autoCheck
+
     fetchNAICS = async (param = '') => {
         if (this.request) this.request.cancel();
         const { requestType, isSearch, searchString } = this.state;
@@ -134,6 +146,9 @@ export class NAICSContainer extends React.Component {
 
             if (isSearch) {
                 this.props.setSearchedNaics(data.results);
+                const expanded = expandAllNodes(this.props.searchedNodes);
+                console.log("Expanded", expanded);
+                this.props.setExpanded(expanded, 'SET_SEARCHED_EXPANDED');
             }
             else {
                 this.props.setNaics(param, data.results);
@@ -211,15 +226,13 @@ export class NAICSContainer extends React.Component {
             searchString,
             isSearch
         } = this.state;
-        const { checked, nodes, expanded, searchNodes } = this.props;
-        const allSearchNodesExpanded = expandAllNodes(searchNodes);
-        console.log("expanded", allSearchNodesExpanded);
+        const { checked, nodes, expanded, searchedNodes, searchExpanded } = this.props;
         if (isLoading || isError) return null;
         return (
             <CheckboxTree
                 limit={3}
-                data={isSearch ? searchNodes : nodes}
-                expanded={isSearch ? allSearchNodesExpanded : expanded}
+                data={isSearch ? searchedNodes : nodes}
+                expanded={isSearch ? searchExpanded : expanded}
                 checked={checked}
                 searchText={searchString}
                 onExpand={this.onExpand}
@@ -318,13 +331,14 @@ export default connect(
     (state) => ({
         nodes: state.naics.naics.toJS(),
         expanded: state.naics.expanded.toJS(),
+        searchExpanded: state.naics.searchExpanded.toJS(),
         checked: state.naics.checked.toJS(),
-        searchNodes: state.naics.searchedNaics.toJS()
+        searchedNodes: state.naics.searchedNaics.toJS()
     }),
     (dispatch) => ({
         updateNaics: (checked) => dispatch(updateNaics(checked)),
         setNaics: (key, naics) => dispatch(setNaics(key, naics)),
-        setExpanded: (expanded) => dispatch(setExpanded(expanded)),
+        setExpanded: (expanded, type) => dispatch(setExpanded(expanded, type)),
         setChecked: (checked) => dispatch(setChecked(checked)),
         setSearchedNaics: (nodes) => dispatch(setSearchedNaics(nodes))
     }))(NAICSContainer);

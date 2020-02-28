@@ -39,8 +39,8 @@ export const setNaics = (key, nodes) => ({
     payload: cleanNaicsData(nodes)
 });
 
-export const setExpanded = (expanded) => ({
-    type: 'SET_EXPANDED',
+export const setExpanded = (expanded, type = 'SET_EXPANDED') => ({
+    type,
     payload: expanded
 });
 
