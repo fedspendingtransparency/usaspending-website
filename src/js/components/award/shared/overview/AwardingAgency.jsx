@@ -14,7 +14,7 @@ const propTypes = {
 
 const AwardingAgency = ({ awardingAgency }) => {
     let innerComponent = awardingAgency.formattedToptier;
-    if (awardingAgency.hasAgencyPage) {
+    if (awardingAgency.hasAgencyPage && awardingAgency.id) {
         innerComponent = (
             <a href={`/#/agency/${awardingAgency.id}`}>
                 {innerComponent}
