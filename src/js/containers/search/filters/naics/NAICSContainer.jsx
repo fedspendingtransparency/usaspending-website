@@ -17,7 +17,7 @@ import { expandAllNodes } from 'helpers/checkboxTreeHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
-import { setNaics, setExpanded, setChecked, setSearchedNaics } from 'redux/actions/search/naicsActions';
+import { setNaics, setExpanded, setChecked, setSearchedNaics, addChecked } from 'redux/actions/search/naicsActions';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
 import SelectedNaic from 'components/search/filters/naics/SelectNaic';
 
@@ -28,10 +28,12 @@ const propTypes = {
     setChecked: PropTypes.func,
     removeNAICS: PropTypes.func,
     setSearchedNaics: PropTypes.func,
-    expanded: PropTypes.array,
-    checked: PropTypes.array,
-    nodes: PropTypes.array,
-    searchedNodes: PropTypes.array
+    addChecked: PropTypes.func,
+    expanded: PropTypes.arrayOf(PropTypes.string),
+    checked: PropTypes.arrayOf(PropTypes.string),
+    nodes: PropTypes.arrayOf(PropTypes.object),
+    searchedNodes: PropTypes.arrayOf(PropTypes.object),
+    searchExpanded: PropTypes.arrayOf(PropTypes.string)
 };
 
 export class NAICSContainer extends React.Component {
@@ -99,13 +101,12 @@ export class NAICSContainer extends React.Component {
      * @param {string[]} checked - and array of checked values
      * @returns {null}
      */
-    onCheck = async (checked) => {
+    onCheck = async (checkedNodes) => {
         // sets checked in naics redux
-        await this.props.setChecked(checked);
+        await this.props.setChecked(checkedNodes);
         // sets staged filters in search redux
-        await this.props.updateNaics(checked);
+        await this.props.updateNaics(checkedNodes);
     }
-
 
     getParentNode = (param) => {
         if (param.length === 2) {
@@ -127,11 +128,21 @@ export class NAICSContainer extends React.Component {
         return this.setState({ searchString: text, isSearch: true }, this.onSearchChange);
     };
 
-    autoCheck
+    autoCheckChildretOfParent = (parentNode) => {
+        parentNode
+            .children
+            .forEach((child) => {
+                if (child.naics.length === 4) {
+                    return this.props.addChecked(`children_of_${child.naics}`);
+                }
+                return this.props.addChecked(child.naics);
+            });
+    }
 
     fetchNAICS = async (param = '') => {
         if (this.request) this.request.cancel();
         const { requestType, isSearch, searchString } = this.state;
+        const { checked } = this.props;
         const searchParam = (isSearch && searchString)
             ? `?filter=${searchString}`
             : null;
@@ -147,17 +158,19 @@ export class NAICSContainer extends React.Component {
             if (isSearch) {
                 this.props.setSearchedNaics(data.results);
                 const expanded = expandAllNodes(this.props.searchedNodes);
-                console.log("Expanded", expanded);
                 this.props.setExpanded(expanded, 'SET_SEARCHED_EXPANDED');
             }
             else {
                 this.props.setNaics(param, data.results);
             }
-
-            if (param && (this.props.checked.includes(param) || this.props.checked.includes(`${param}childPlaceholder`))) {
+            // we've searched for a specific naics reference; ie '11' or '1111'
+            // if (param && checked.includes(param)) {
+            //     this.autoCheckChildretOfParent(data.results[0]);
+            // }
+            if (checked.includes(param) || checked.includes(`children_of_${param}`)) {
                 const autoChecked = data.results[0].children
                     .map((node) => {
-                        if (node.naics.length === 4) return `${node.naics}childPlaceholder`;
+                        if (node.naics.length === 4) return `children_of_${node.naics}`;
                         return node.naics;
                     });
                 this.props.setChecked(autoChecked);
@@ -245,8 +258,8 @@ export class NAICSContainer extends React.Component {
         const { nodes, checked } = this.props;
         const selectedNaicsData = checked
             .reduce((acc, value) => {
-                const key = value.includes('childPlaceholder')
-                    ? value.split('childPlaceholder')[0]
+                const key = value.includes('children_of_')
+                    ? value.split('children_of_')[1]
                     : value;
                  
                 const parentKey = `${key[0]}${key[1]}`;
@@ -339,6 +352,7 @@ export default connect(
         updateNaics: (checked) => dispatch(updateNaics(checked)),
         setNaics: (key, naics) => dispatch(setNaics(key, naics)),
         setExpanded: (expanded, type) => dispatch(setExpanded(expanded, type)),
-        setChecked: (checked) => dispatch(setChecked(checked)),
+        setChecked: (checkedNodes) => dispatch(setChecked(checkedNodes)),
+        addChecked: (newCheckedNode) => dispatch(addChecked(newCheckedNode)),
         setSearchedNaics: (nodes) => dispatch(setSearchedNaics(nodes))
     }))(NAICSContainer);

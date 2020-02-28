@@ -6,7 +6,11 @@
 const getChildren = (node) => {
     if (!node.children && node.naics.length <= 4) {
         return {
-            children: [{ isPlaceHolder: true, label: 'Placeholder Child', value: `${node.naics}childPlaceholder` }]
+            children: [{
+                isPlaceHolder: true,
+                label: 'Placeholder Child',
+                value: `children_of_${node.naics}`
+            }]
         };
     }
     else if (node.children) {
@@ -24,14 +28,12 @@ const getChildren = (node) => {
     return {};
 };
 
-const cleanNaicsData = (nodes) => {
-    return nodes.map((node) => ({
-        ...node,
-        label: node.naics_description,
-        value: node.naics,
-        ...getChildren(node)
-    }));
-};
+const cleanNaicsData = (nodes) => nodes.map((node) => ({
+    ...node,
+    label: node.naics_description,
+    value: node.naics,
+    ...getChildren(node)
+}));
 
 export const setNaics = (key, nodes) => ({
     type: 'SET_NAICS',
@@ -44,9 +46,14 @@ export const setExpanded = (expanded, type = 'SET_EXPANDED') => ({
     payload: expanded
 });
 
-export const setChecked = (checked) => ({
+export const addChecked = (nodeValue) => ({
+    type: 'ADD_CHECKED',
+    payload: nodeValue
+});
+
+export const setChecked = (nodes) => ({
     type: 'SET_CHECKED',
-    payload: checked
+    payload: nodes
 });
 
 export const setSearchedNaics = (nodes) => ({

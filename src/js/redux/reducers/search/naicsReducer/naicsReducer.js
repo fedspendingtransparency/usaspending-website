@@ -7,9 +7,9 @@ import { List } from 'immutable';
 
 const initialState = {
     naics: new List(),
+    expanded: new List(),
     searchedNaics: new List(),
     searchExpanded: new List(),
-    expanded: new List(),
     checked: new List()
 };
 
@@ -69,6 +69,13 @@ const naicsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 checked: new List(action.payload)
+            };
+        }
+        case 'ADD_CHECKED': {
+            return {
+                ...state,
+                // new Set to eliminate any duplicate values
+                checked: new List([...new Set([...state.checked, action.payload])])
             };
         }
         default:

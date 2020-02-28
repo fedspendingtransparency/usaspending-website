@@ -184,9 +184,9 @@ export default class CheckboxTree extends Component {
     createLabels = (nodes) => nodes.map((node) => {
         // if label is a string, do nothing
         if (typeof node.label !== 'string') return node;
-        if (node.label === 'Placeholder Child') {
+        if (node.isPlaceHolder) {
             return {
-                value: `${node.value}`,
+                value: node.value,
                 showCheckbox: false,
                 label: this.setChildrenToLoading()
             };
@@ -196,7 +196,7 @@ export default class CheckboxTree extends Component {
             label: this.props.labelComponent
                 ? cloneElement(
                     this.props.labelComponent,
-                    { value: node.vaule, label: node.label }
+                    { value: node.value, label: node.label }
                 )
                 : (
                     <CheckboxTreeLabel
