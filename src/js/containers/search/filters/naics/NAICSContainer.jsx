@@ -101,7 +101,7 @@ export class NAICSContainer extends React.Component {
      * @param {string[]} checked - and array of checked values
      * @returns {null}
      */
-    onCheck = async (checkedNodes) => {
+    onCheck = async (checkedNodes, node) => {
         // sets checked in naics redux
         await this.props.setChecked(checkedNodes);
         // sets staged filters in search redux
@@ -128,15 +128,60 @@ export class NAICSContainer extends React.Component {
         return this.setState({ searchString: text, isSearch: true }, this.onSearchChange);
     };
 
-    autoCheckChildretOfParent = (parentNode) => {
-        parentNode
+    /**
+     * TODO #1: Persisting Checked between toggling between views
+     *  - When we go to the search view and check, we put the real node in the checked array
+     *  - The expand/collapse view has a search placeholder for this node.
+     *  - Therefore, it does not show as checked.
+     *  - It will only show as checked if we have the "children_of" version of the checked array
+     * TODO #2: Determining a Full vs a Half Check when toggling between views:
+     *  - Once we can persist the checks from TODO #1, we need to show the appropriate version of a check -
+     *    either half or full.
+     *  - To do this, we should be able to look at the immediate parent nodes count number the immediate
+     *    sum of all similar account number.
+     * 
+     * This fn should help with both. We probably need a few more that do the same thing.
+     */ 
+    areNodeChildrenMocked = (nodeKey) => {
+        if (nodeKey.length === 2) {
+            return this.props.nodes
+                .find((node) => node.value === nodeKey)
+                .children
+                .some((child) => Object.keys(child).includes('isPlaceHolder'));
+        }
+        else if (nodeKey.length === 4) {
+            return this.props.nodes
+                .find((node) => node.value === nodeKey[0] + nodeKey[1])
+                .children
+                .find((node) => node.value === nodeKey)
+                .children
+                .some((child) => Object.keys(child).includes('isPlaceHolder'));
+        }
+        else if (nodeKey.length === 6) {
+            return this.props.nodes
+                .find((node) => node.value === nodeKey[0] + nodeKey[1])
+                .children
+                .find((node) => node.value === nodeKey[0] + nodeKey[1] + nodeKey[2] + nodeKey[3])
+                .children
+                .some((child) => Object.keys(child).includes('isPlaceHolder'));
+        }
+        return true;
+    };
+
+    autoCheckChildrenOfParent = (parentNode) => {
+        const value = parentNode.naics;
+        // deselect placeholder values!
+        const noPlaceHolderCheckedValues = this.props.checked
+            .filter((checked) => !checked.includes(`children_of_${value}`));
+
+        const newValues = parentNode
             .children
-            .forEach((child) => {
-                if (child.naics.length === 4) {
-                    return this.props.addChecked(`children_of_${child.naics}`);
-                }
-                return this.props.addChecked(child.naics);
+            .map((child) => {
+                if (value.length === 2) return `children_of_${child.naics}`;
+                return child.naics;
             });
+
+        this.props.setChecked([...new Set([...noPlaceHolderCheckedValues, ...newValues])]);
     }
 
     fetchNAICS = async (param = '') => {
@@ -164,16 +209,8 @@ export class NAICSContainer extends React.Component {
                 this.props.setNaics(param, data.results);
             }
             // we've searched for a specific naics reference; ie '11' or '1111'
-            // if (param && checked.includes(param)) {
-            //     this.autoCheckChildretOfParent(data.results[0]);
-            // }
-            if (checked.includes(param) || checked.includes(`children_of_${param}`)) {
-                const autoChecked = data.results[0].children
-                    .map((node) => {
-                        if (node.naics.length === 4) return `children_of_${node.naics}`;
-                        return node.naics;
-                    });
-                this.props.setChecked(autoChecked);
+            if (checked.includes(`children_of_${param}`)) {
+                this.autoCheckChildrenOfParent(data.results[0], param);
             }
 
             this.setState({
