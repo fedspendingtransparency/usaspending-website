@@ -3,7 +3,7 @@
   * Created by Jonathan Hill 10/01/2019
   **/
 
-import { isEmpty, flattenDeep, compact, clone } from 'lodash';
+import { flattenDeep, compact } from 'lodash';
 
 /**
  * updateValueAndLabel

@@ -8,8 +8,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
     debounce,
-    isEqual,
-    difference
+    isEqual
 } from 'lodash';
 import { isCancel } from 'axios';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
@@ -20,7 +19,6 @@ import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import { setNaics, setExpanded, setChecked, setSearchedNaics } from 'redux/actions/search/naicsActions';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
 import SelectedNaic from 'components/search/filters/naics/SelectNaic';
-import { createCheckboxTreeDataStructure } from 'helpers/checkboxTreeHelper';
 
 const propTypes = {
     updateNaics: PropTypes.func,
@@ -33,11 +31,6 @@ const propTypes = {
     checked: PropTypes.array,
     nodes: PropTypes.array,
     searchedNodes: PropTypes.array
-};
-
-const nodeKeys = {
-    value: 'naics',
-    label: 'naics_description'
 };
 
 export class NAICSContainer extends React.Component {
@@ -61,11 +54,7 @@ export class NAICSContainer extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (
-            !isEqual(this.props.checked, prevProps.checked)
-            || !isEqual(this.props.nodes, prevProps.nodes)
-        ) {
-            // show stage filters
+        if (!isEqual(this.props.checked, prevProps.checked)) {
             this.selectNaicsData();
         }
     }
@@ -138,19 +127,21 @@ export class NAICSContainer extends React.Component {
         }
 
         this.request = naicsRequest(param || searchParam);
-        const parentNode = this.getParentNode(param);
 
         try {
             const { data } = await this.request.promise;
-            // create the new node
-            const updatedNodes = createCheckboxTreeDataStructure(
-                3,
-                nodeKeys,
-                data.results,
-                (param.length === 4),
-                parentNode,
-                isSearch
-            );
+
+            const codeForNodeWithNewChildren = isSearch ? '' : param;
+            this.props.setNaics(codeForNodeWithNewChildren, data.results);
+
+            if (param && this.props.checked.includes(`${param}childPlaceholder`)) {
+                const autoChecked = data.results[0].children
+                    .map((node) => {
+                        if (node.naics.length === 4) return `${node.naics}childPlaceholder`;
+                        return node.naics;
+                    });
+                this.props.setChecked(autoChecked);
+            }
 
             this.setState({
                 isLoading: false,
@@ -158,9 +149,6 @@ export class NAICSContainer extends React.Component {
                 errorMessage: '',
                 requestType: ''
             });
-
-            const codeForNodeWithNewChildren = isSearch ? '' : param;
-            this.props.setNaics(codeForNodeWithNewChildren, updatedNodes);
         }
         catch (e) {
             console.log(' Error NAICS Reponse : ', e);
@@ -173,6 +161,7 @@ export class NAICSContainer extends React.Component {
                 });
             }
         }
+        this.request = null;
     };
 
     loadingDiv = () => {
@@ -214,7 +203,6 @@ export class NAICSContainer extends React.Component {
         const {
             isLoading,
             isError,
-            isSearch,
             searchString
         } = this.state;
         const { checked, nodes, expanded } = this.props;
@@ -225,8 +213,6 @@ export class NAICSContainer extends React.Component {
                 data={nodes}
                 expanded={expanded}
                 checked={checked}
-                nodeKeys={nodeKeys}
-                isSearch={isSearch}
                 searchText={searchString}
                 onExpand={this.onExpand}
                 onCollapse={this.onCollapse}
@@ -281,7 +267,6 @@ export class NAICSContainer extends React.Component {
 
     selectedNaics = () => {
         if (!this.props.checked.size === 0) return null;
-        // const { selectedNaicsData } = this.state;
         const selectedNaicsData = this.selectNaicsData();
         return (<SelectedNaic
             selectedNAICS={selectedNaicsData}

@@ -6,15 +6,11 @@
 import React, { Component, cloneElement } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
 import PropTypes from 'prop-types';
-import { difference, get, set } from 'lodash';
+import { difference } from 'lodash';
 import reactStringReplace from 'react-string-replace';
-import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
-import {
-    pathToNode,
-    buildNodePath
-} from 'helpers/checkboxTreeHelper';
-import { treeIcons } from 'dataMapping/shared/checkboxTree/checkboxTree';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
+import { treeIcons } from 'dataMapping/shared/checkboxTree/checkboxTree';
 
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 
@@ -29,11 +25,9 @@ const propTypes = {
     onExpand: PropTypes.func,
     onCheck: PropTypes.func,
     onCollapse: PropTypes.func,
-    limit: PropTypes.number,
     expanded: PropTypes.array,
     checked: PropTypes.array
 };
-
 
 export default class CheckboxTree extends Component {
     /**
@@ -72,28 +66,12 @@ export default class CheckboxTree extends Component {
      * @param {number} path - the path of the node to update
      * @returns {Array.<object>} - new array of nodes
      */
-    setChildrenToLoading = async (path, node) => {
-        const nodePath = path;
-        /**
-         * The path specifies the path to that distinct node. We are adding the
-         * children property to that because we want to set the children property.
-         */
-        if (node.children[0].value.includes('childPlaceholder')) node.children.shift();
-        node.children.push({
-            label: (
-                <div className="children-are-loading">
-                    <FontAwesomeIcon icon="spinner" spin />
-                    <div className="children-are-loading__text">Loading your data...</div>
-                </div>
-            ),
-            value: `${node.value}loading`,
-            showCheckbox: false
-        });
-        const newNodes = { data: this.props.data };
-
-        set(newNodes, nodePath, node);
-        return newNodes.data;
-    }
+    setChildrenToLoading = () => (
+        <div className="children-are-loading">
+            <FontAwesomeIcon icon="spinner" spin />
+            <div className="children-are-loading__text">Loading your data...</div>
+        </div>
+    );
     /**
      * checkedNode
      * - updates state and calls prop onCheck
@@ -122,30 +100,46 @@ export default class CheckboxTree extends Component {
      * @param {array} newExpandedArray - array with the newly expanded value
      */
     expandNode = async (newExpandedArray) => {
+        // newly expanded node.code
         const { expanded, data, isSearch } = this.props;
         const expandedValue = difference(newExpandedArray, expanded)[0];
-        const { path } = pathToNode(data, expandedValue);
-        const nodePathString = buildNodePath(path);
-        // get the node
-        const node = get({ data: this.props.data }, nodePathString);
+        let selectedNode = null;
+        if (expandedValue.length === 2) {
+            selectedNode = data.find((node) => node.value === expandedValue);
+        }
+        else if (expandedValue.length === 4) {
+            selectedNode = data
+                .find((node) => node.value === `${expandedValue[1]}${expandedValue[1]}`)
+                .children
+                .find((child) => child.value === expandedValue);
+        }
+        else if (expandedValue.length === 4) {
+            selectedNode = data
+                .find((node) => node.value === `${expandedValue[0]}${expandedValue[1]}`)
+                .children
+                .find((child) => (
+                    child.value === `${expandedValue[0]}${expandedValue[1]`${expandedValue[2]}${expandedValue[3]}`}`
+                ));
+        }
+
         /**
          * When there are no children or there is an empty object in the children property (since we
          * do this to get the caret to show when there is a count)
          * we will set the child to a loading div
          */
-        const nodeHasSearchChildren = node?.children.some((child) => child.value.includes('placeholderForSearch'));
-        const nodeChildrenLengthIsIncorrect = node?.children.length !== node.count;
+        // const nodeHasSearchChildren = selectedNode?.children.some((child) => child.value.includes('placeholderForSearch'));
+        const nodeChildrenLengthIsIncorrect = selectedNode?.children.length !== selectedNode?.count;
         if (
             (
-                !node?.children
-                || node?.children?.[0]?.isPlaceholder
-                || nodeHasSearchChildren
+                !selectedNode?.children
+                || selectedNode?.children?.[0]?.isPlaceholder
+                // || nodeHasSearchChildren
                 || nodeChildrenLengthIsIncorrect
             )
             && !isSearch
         ) {
             // mutating props...
-            await this.setChildrenToLoading(nodePathString, node);
+            await this.setChildrenToLoading(selectedNode);
             return this.props.onExpand(expandedValue, newExpandedArray, true);
         }
         return this.props.onExpand(expandedValue, newExpandedArray, false);
@@ -157,14 +151,6 @@ export default class CheckboxTree extends Component {
     collapseNode = (newExpandedArray) => {
         this.props.onCollapse(newExpandedArray);
     }
-
-    isCleanData = (data) => data.every((node) => {
-        const keys = Object.keys(node);
-        if (!keys.includes('value')) return false;
-        if (!keys.includes('label')) return false;
-        if (!keys.includes('path')) return false;
-        return true;
-    });
 
     // TODO - implement this
     // sets specific icons to custom icons passed in props
@@ -200,6 +186,13 @@ export default class CheckboxTree extends Component {
     createLabels = (nodes) => nodes.map((node) => {
         // if label is a string, do nothing
         if (typeof node.label !== 'string') return node;
+        if (node.label === 'Placeholder Child') {
+            return {
+                value: `${node.value}loading`,
+                showCheckbox: false,
+                label: this.setChildrenToLoading()
+            };
+        }
         return {
             ...node,
             label: this.props.labelComponent

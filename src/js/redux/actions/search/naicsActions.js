@@ -9,16 +9,29 @@ const getChildren = (node) => {
             children: [{ isPlaceHolder: true, label: 'Placeholder Child', value: `${node.naics}childPlaceholder` }]
         };
     }
-    else if (node.children) return { children: node.children };
+    else if (node.children) {
+        return {
+            children: node.children.map((child) => {
+                return {
+                    ...child,
+                    label: child.naics_description,
+                    value: child.naics,
+                    ...getChildren(child)
+                };
+            })
+        };
+    }
     return {};
 };
 
-const cleanNaicsData = (nodes) => nodes.map((node) => ({
-    ...node,
-    label: node.naics_description || node.label,
-    value: node.naics || node.value,
-    ...getChildren(node)
-}));
+const cleanNaicsData = (nodes) => {
+    return nodes.map((node) => ({
+        ...node,
+        label: node.naics_description,
+        value: node.naics,
+        ...getChildren(node)
+    }));
+};
 
 export const setNaics = (key, nodes) => ({
     type: 'SET_NAICS',
