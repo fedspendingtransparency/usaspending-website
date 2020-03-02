@@ -39,7 +39,6 @@ export const expandAllNodes = (nodes, propForNode = 'value') => {
         .reduce(getValue, []);
 };
 
-/**
 const mergeChildren = (parentFromSearch, existingParent) => {
     // return an array of objects
     if (existingParent.children && parentFromSearch.children) {
