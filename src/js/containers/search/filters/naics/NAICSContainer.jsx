@@ -18,7 +18,7 @@ import { expandAllNodes, getNodeFromTree } from 'helpers/checkboxTreeHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
-import { setNaics, setExpanded, setChecked, setSearchedNaics, addChecked } from 'redux/actions/search/naicsActions';
+import { setNaics, setExpanded, setChecked, setSearchedNaics, addChecked, showNaicsTree } from 'redux/actions/search/naicsActions';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
 import SelectedNaic from 'components/search/filters/naics/SelectNaic';
 
@@ -30,10 +30,10 @@ const propTypes = {
     removeNAICS: PropTypes.func,
     setSearchedNaics: PropTypes.func,
     addChecked: PropTypes.func,
+    showNaicsTree: PropTypes.func,
     expanded: PropTypes.arrayOf(PropTypes.string),
     checked: PropTypes.arrayOf(PropTypes.string),
     nodes: PropTypes.arrayOf(PropTypes.object),
-    searchedNodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string)
 };
 
@@ -70,6 +70,7 @@ export class NAICSContainer extends React.Component {
 
     onClear = () => {
         if (this.request) this.request.cancel();
+        this.props.showNaicsTree();
         this.setState({
             isSearch: false,
             searchString: '',
@@ -103,14 +104,7 @@ export class NAICSContainer extends React.Component {
      * @returns {null}
      */
     onCheck = async (checkedNodes, node) => {
-        // sets checked in naics redux
-        // if (this.state.isSearch) {
-        //     await this.props.addChecked(node.value);
-        // }
-        // else {
         await this.props.setChecked(checkedNodes);
-        // }
-        // sets staged filters in search redux
         await this.props.updateNaics(checkedNodes);
     }
 
@@ -134,46 +128,6 @@ export class NAICSContainer extends React.Component {
         return this.setState({ searchString: text, isSearch: true }, this.onSearchChange);
     };
 
-    /**
-     * TODO #1: Persisting Checked between toggling between views
-     *  - When we go to the search view and check, we put the real node in the checked array
-     *  - The expand/collapse view has a search placeholder for this node.
-     *  - Therefore, it does not show as checked.
-     *  - It will only show as checked if we have the "children_of" version of the checked array
-     * TODO #2: Determining a Full vs a Half Check when toggling between views:
-     *  - Once we can persist the checks from TODO #1, we need to show the appropriate version of a check -
-     *    either half or full.
-     *  - To do this, we should be able to look at the immediate parent nodes count number the immediate
-     *    sum of all similar account number.
-     * 
-     * This fn should help with both. We probably need a few more that do the same thing.
-     */ 
-    areNodeChildrenMocked = (nodeKey) => {
-        if (nodeKey.length === 2) {
-            return this.props.nodes
-                .find((node) => node.value === nodeKey)
-                .children
-                .some((child) => Object.keys(child).includes('isPlaceHolder'));
-        }
-        else if (nodeKey.length === 4) {
-            return this.props.nodes
-                .find((node) => node.value === nodeKey[0] + nodeKey[1])
-                .children
-                .find((node) => node.value === nodeKey)
-                .children
-                .some((child) => Object.keys(child).includes('isPlaceHolder'));
-        }
-        else if (nodeKey.length === 6) {
-            return this.props.nodes
-                .find((node) => node.value === nodeKey[0] + nodeKey[1])
-                .children
-                .find((node) => node.value === nodeKey[0] + nodeKey[1] + nodeKey[2] + nodeKey[3])
-                .children
-                .some((child) => Object.keys(child).includes('isPlaceHolder'));
-        }
-        return true;
-    };
-
     autoCheckChildrenOfParent = (parentNode) => {
         const value = parentNode.naics;
         // deselect placeholder values!
@@ -191,7 +145,7 @@ export class NAICSContainer extends React.Component {
     }
 
     transformMockCheckedToRealChecked = (checked, expanded) => {
-        const { searchedNodes } = this.props;
+        const { nodes } = this.props;
 
         const checkedMockNodes = checked
             .filter((node) => node.includes('children_of_'))
@@ -219,7 +173,7 @@ export class NAICSContainer extends React.Component {
         expandedNodesWithMockAncestorChecked
             .forEach((expandedChild) => {
                 // use reusable recursive fn here...?
-                const node = getNodeFromTree(searchedNodes, expandedChild);
+                const node = getNodeFromTree(nodes, expandedChild);
                 this.props.addChecked(node.value);
                 if (node.children) {
                     node.children.forEach((child) => {
@@ -251,10 +205,10 @@ export class NAICSContainer extends React.Component {
             const { data } = await this.request.promise;
 
             if (isSearch) {
+                const visibleNaicsValues = expandAllNodes(data.results, 'naics');
                 this.props.setSearchedNaics(data.results);
-                const expanded = expandAllNodes(this.props.searchedNodes);
-                this.transformMockCheckedToRealChecked(checked, expanded);
-                this.props.setExpanded(expanded, 'SET_SEARCHED_EXPANDED');
+                this.transformMockCheckedToRealChecked(checked, visibleNaicsValues);
+                this.props.setExpanded(visibleNaicsValues, 'SET_SEARCHED_EXPANDED');
             }
             else {
                 this.props.setNaics(param, data.results);
@@ -327,12 +281,13 @@ export class NAICSContainer extends React.Component {
             searchString,
             isSearch
         } = this.state;
-        const { checked, nodes, expanded, searchedNodes, searchExpanded } = this.props;
+        const { checked, nodes, expanded, searchExpanded } = this.props;
         if (isLoading || isError) return null;
         return (
             <CheckboxTree
                 limit={3}
-                data={isSearch ? searchedNodes : nodes}
+                // data={isSearch ? searchedNodes : nodes}
+                data={nodes}
                 expanded={isSearch ? searchExpanded : expanded}
                 checked={checked}
                 searchText={searchString}
@@ -435,8 +390,8 @@ export default connect(
         nodes: state.naics.naics.toJS(),
         expanded: state.naics.expanded.toJS(),
         searchExpanded: state.naics.searchExpanded.toJS(),
-        checked: state.naics.checked.toJS(),
-        searchedNodes: state.naics.searchedNaics.toJS()
+        checked: state.naics.checked.toJS()
+        // searchedNodes: state.naics.searchedNaics.toJS()
     }),
     (dispatch) => ({
         updateNaics: (checked) => dispatch(updateNaics(checked)),
@@ -444,5 +399,6 @@ export default connect(
         setExpanded: (expanded, type) => dispatch(setExpanded(expanded, type)),
         setChecked: (checkedNodes) => dispatch(setChecked(checkedNodes)),
         addChecked: (newCheckedNode) => dispatch(addChecked(newCheckedNode)),
-        setSearchedNaics: (nodes) => dispatch(setSearchedNaics(nodes))
+        setSearchedNaics: (nodes) => dispatch(setSearchedNaics(nodes)),
+        showNaicsTree: () => dispatch(showNaicsTree())
     }))(NAICSContainer);

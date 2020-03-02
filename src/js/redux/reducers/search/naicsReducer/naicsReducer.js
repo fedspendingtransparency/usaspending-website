@@ -5,10 +5,11 @@
 
 import { List } from 'immutable';
 
+import { addSearchResultsToTree, showAllTreeItems } from 'helpers/checkboxTreeHelper';
+
 const initialState = {
     naics: new List(),
     expanded: new List(),
-    searchedNaics: new List(),
     searchExpanded: new List(),
     checked: new List()
 };
@@ -21,36 +22,26 @@ const naicsReducer = (state = initialState, action) => {
             // initial top-tier data only
             if (!key) return { ...state, naics: new List(payload) };
 
-            const newState = state.naics
-                .toJS()
-                .map((node) => {
-                    if (node.value === key) {
-                        return {
-                            ...payload[0]
-                        };
-                    }
-                    return {
-                        ...node,
-                        children: node.children.map((child) => {
-                            if (child.value === key) {
-                                return {
-                                    ...payload[0]
-                                };
-                            }
-                            return child;
-                        })
-                    };
-                });
+            const newState = showAllTreeItems(state.naics.toJS(), key, payload);
 
             return {
                 ...state,
                 naics: new List(newState)
             };
         }
-        case 'SET_SEARCHED_NAICS': {
+        case 'SHOW_NAICS_TREE': {
+            // removes className 'hide' added to nodes from search results
             return {
                 ...state,
-                searchedNaics: new List(action.payload)
+                naics: new List(showAllTreeItems(state.naics.toJS()))
+            };
+        }
+        case 'SET_SEARCHED_NAICS': {
+            const visibleNodes = action.payload;
+            const newState = addSearchResultsToTree(state.naics.toJS(), visibleNodes);
+            return {
+                ...state,
+                naics: new List(newState)
             };
         }
         case 'SET_SEARCHED_EXPANDED': {

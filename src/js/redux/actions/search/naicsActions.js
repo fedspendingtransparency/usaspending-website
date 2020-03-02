@@ -41,6 +41,10 @@ export const setNaics = (key, nodes) => ({
     payload: cleanNaicsData(nodes)
 });
 
+export const showNaicsTree = () => ({
+    type: 'SHOW_NAICS_TREE'
+});
+
 export const setExpanded = (expanded, type = 'SET_EXPANDED') => ({
     type,
     payload: expanded

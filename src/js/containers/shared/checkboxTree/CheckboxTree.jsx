@@ -184,11 +184,11 @@ export default class CheckboxTree extends Component {
     createLabels = (nodes) => nodes.map((node) => {
         // if label is a string, do nothing
         if (typeof node.label !== 'string') return node;
-        if (node.isPlaceHolder) {
+        if (node.isPlaceHolder && node.className !== 'hide') {
             return {
                 value: node.value,
                 showCheckbox: false,
-                label: this.setChildrenToLoading()
+                label: this.setChildrenToLoading(node)
             };
         }
         return {
