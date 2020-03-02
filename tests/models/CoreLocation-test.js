@@ -216,6 +216,16 @@ describe('Core Location getter functions', () => {
 
             expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345\nCongressional District: IN-04');
         });
+        it('should handle a two part zip code', () => {
+            const data = Object.assign({}, locationData, {
+                zip4: '6789',
+                zip5: '12345'
+            });
+            const partialLocation = Object.create(CoreLocation);
+            partialLocation.populateCore(data);
+
+            expect(partialLocation.regionalAddress).toEqual('Pawnee, IN 12345-6789');
+        });
         it('should handle a null congressional district', () => {
             const missingData = Object.assign({}, locationData, {
                 congressionalDistrict: null
