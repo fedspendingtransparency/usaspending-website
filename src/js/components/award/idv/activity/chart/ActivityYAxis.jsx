@@ -95,6 +95,7 @@ export default class ActivityYAxis extends React.Component {
     }
 
     render() {
+        console.log(' Labels : ', this.state.labels);
         return (
             <g className="bar-axis">
                 <title>Y-Axis</title>

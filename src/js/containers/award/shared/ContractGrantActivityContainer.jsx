@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
+import { cloneDeep } from 'lodash';
 
 import { fetchAwardTransaction } from 'helpers/searchHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
@@ -36,9 +38,10 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
      */
     const formatTransactions = (rawTransactions) => {
         // Reduce into unique transaction objects
-        console.log(' Start : ', Date.now());
         const newData = rawTransactions.reduce((acc, data) => {
-            const currentTransactionIndex = acc.findIndex((x) => x.action_date === data.action_date);
+            const updatedData = { ...data };
+            updatedData.action_date = moment(updatedData.action_date, 'YYYY-MM-DD');
+            const currentTransactionIndex = acc.findIndex((x) => x.action_date.valueOf() === updatedData.action_date.valueOf());
             /**
              * When we have multiple transactions on the same day, we will sum their obligation and
              * we will keep track of all the transactions on the same date for the tooltips in the
@@ -47,7 +50,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
             if (currentTransactionIndex !== -1) {
                 // update the allTransactions array if it exists
                 if (acc[currentTransactionIndex]?.allTransactions) {
-                    acc[currentTransactionIndex].allTransactions.push(data);
+                    acc[currentTransactionIndex].allTransactions.push(updatedData);
                 }
                 else {
                     /**
@@ -55,21 +58,20 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
                      * We will add the duplicate which is this data, and we will add the
                      * original node which is acc[currentTransactionIndex].
                      */
-                    acc[currentTransactionIndex].allTransactions = [acc[currentTransactionIndex], data];
+                    const clonedTransaction = cloneDeep(acc[currentTransactionIndex]);
+                    acc[currentTransactionIndex].allTransactions = [clonedTransaction, updatedData];
                 }
                 /**
                  * We sum the obligation last since we will want to keep the original obligation
                  * value if we add it to the allTransactions array.
                  */
-                const sumOfObligations = acc[currentTransactionIndex].federal_action_obligation + data.federal_action_obligation;
+                const sumOfObligations = acc[currentTransactionIndex].federal_action_obligation + updatedData.federal_action_obligation;
                 acc[currentTransactionIndex].federal_action_obligation = sumOfObligations;
                 return acc;
             }
-            acc.push(data);
+            acc.push(updatedData);
             return acc;
         }, []);
-        console.log(' End : ', Date.now());
-        console.log(' New Data : ', newData);
         return newData;
     };
     // Get all transactions ascending
@@ -125,13 +127,12 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
              * @returns {Object[]} - an array of all transactions
              */
             const allTransactions = await getAllTransactions();
-            console.log(' All Transactions : ', allTransactions);
             updateTransactions(formatTransactions(allTransactions));
             setLoading(false);
         };
         asyncFunc();
     }, [awardId]);
-
+    // hook - runs on mount and anytime awardId and getTransactions change
     useEffect(() => getTransactions(), [getTransactions, awardId]);
     /**
      * title
@@ -162,7 +163,10 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
             && !loading
             && transactions.length > 0
         ) {
-            return <ContractGrantActivity />;
+            return (
+                <ContractGrantActivity
+                    transactions={transactions} />
+            );
         }
         return null;
     };
