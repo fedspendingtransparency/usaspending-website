@@ -121,20 +121,17 @@ export default class CheckboxTree extends Component {
                     child.value === `${expandedValue[0]}${expandedValue[1]`${expandedValue[2]}${expandedValue[3]}`}`
                 ));
         }
-
         /**
          * When there are no children or there is an empty object in the children property (since we
          * do this to get the caret to show when there is a count)
          * we will set the child to a loading div
          */
         // const nodeHasSearchChildren = selectedNode?.children.some((child) => child.value.includes('placeholderForSearch'));
-        const nodeChildrenLengthIsIncorrect = selectedNode?.children.length !== selectedNode?.count;
         if (
             (
                 !selectedNode?.children
-                || selectedNode?.children?.[0]?.isPlaceholder
-                // || nodeHasSearchChildren
-                || nodeChildrenLengthIsIncorrect
+                || selectedNode?.children?.some((child) => child?.isPlaceHolder === true)
+                || selectedNode?.children.length !== selectedNode?.count
             )
             && !isSearch
         ) {
