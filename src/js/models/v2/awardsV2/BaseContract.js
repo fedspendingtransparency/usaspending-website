@@ -74,6 +74,7 @@ BaseContract.populate = function populate(data) {
     if (data.awarding_agency) {
         const awardingAgencyData = {
             id: data.awarding_agency.id,
+            hasAgencyPage: data.awarding_agency.has_agency_page,
             toptierName: data.awarding_agency.toptier_agency.name,
             toptierAbbr: data.awarding_agency.toptier_agency.abbreviation || '',
             subtierName: data.awarding_agency.subtier_agency.name,
@@ -91,6 +92,7 @@ BaseContract.populate = function populate(data) {
     if (data.funding_agency) {
         const fundingAgencyData = {
             id: data.funding_agency.id,
+            hasAgencyPage: data.funding_agency.has_agency_page,
             toptierName: data.funding_agency.toptier_agency.name,
             toptierAbbr: data.funding_agency.toptier_agency.abbreviation || '',
             subtierName: data.funding_agency.subtier_agency.name,

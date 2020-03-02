@@ -14,7 +14,7 @@ const additionalDetails = (awardData) => {
             'Awarding Agency': {
                 type: 'link',
                 data: {
-                    path: awardData.awardingAgency.id ? `/#/agency/${awardData.awardingAgency.id}` : null,
+                    path: (awardData.awardingAgency.id && awardData.awardingAgency.hasAgencyPage) ? `/#/agency/${awardData.awardingAgency.id}` : null,
                     title: awardData.awardingAgency.formattedToptier
                 }
             },
@@ -23,7 +23,7 @@ const additionalDetails = (awardData) => {
             'Funding Agency': {
                 type: 'link',
                 data: {
-                    path: awardData.fundingAgency.id ? `/#/agency/${awardData.fundingAgency.id}` : null,
+                    path: (awardData.fundingAgency.id && awardData.fundingAgency.hasAgencyPage) ? `/#/agency/${awardData.fundingAgency.id}` : null,
                     title: awardData.fundingAgency.formattedToptier
                 }
             },
