@@ -217,10 +217,20 @@ export class NAICSContainer extends React.Component {
             });
 
         expandedNodesWithMockAncestorChecked
-            .filter((expandedNode) => expandedNode.length === 4)
             .forEach((expandedChild) => {
+                // use reusable recursive fn here...?
                 const node = getNodeFromTree(searchedNodes, expandedChild);
-                node.children.forEach((grandChild) => this.props.addChecked(grandChild.value));
+                this.props.addChecked(node.value);
+                if (node.children) {
+                    node.children.forEach((child) => {
+                        this.props.addChecked(child.value);
+                        if (child.children) {
+                            child.children.forEach((grandChild) => {
+                                this.props.addChecked(grandChild.value);
+                            });
+                        }
+                    });
+                }
             });
     };
 
@@ -364,12 +374,13 @@ export class NAICSContainer extends React.Component {
                     });
                     return acc;
                 }
-                if (isParentSelected && key.length === 4) {
+                if (parentNode.count === acc[indexOfParent].count) return acc;
+                else if (isParentSelected && key.length === 4) {
                     acc[indexOfParent].count += parentNode.children.find((node) => node.value === key).count;
                     return acc;
                 }
-                if (isParentSelected && key.length === 6) {
-                    acc[indexOfParent].count++;
+                else if (isParentSelected && key.length === 6) {
+                    acc[indexOfParent].count += 1;
                     return acc;
                 }
                 return acc;
