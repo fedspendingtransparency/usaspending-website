@@ -24,7 +24,6 @@ const BaseAwardRecipient = {
                 address3: data.location.address_line3,
                 province: data.location.foreign_province,
                 city: data.location.city_name,
-                foreignCity: data.location.foreign_city,
                 countyCode: data.location.county_code,
                 county: data.location.county_name,
                 stateCode: data.location.state_code,
