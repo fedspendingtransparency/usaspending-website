@@ -45,7 +45,6 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
              * allTransactions property.
              */
             if (currentTransactionIndex !== -1) {
-                console.log(' Duplicate : ', currentTransactionIndex);
                 // update the allTransactions array if it exists
                 if (acc[currentTransactionIndex]?.allTransactions) {
                     acc[currentTransactionIndex].allTransactions.push(data);
@@ -73,11 +72,6 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
         console.log(' New Data : ', newData);
         return newData;
     };
-    // const formatTransactions = (rawTransactions) = {
-    //     // loop through and find all non unique dates
-    //     // loop through extract all those objects that are unique and delete them
-    //     // loop through
-    // };
     // Get all transactions ascending
     const getTransactions = useCallback(() => {
         const asyncFunc = async () => {
