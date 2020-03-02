@@ -217,6 +217,7 @@ export default class CheckboxTree extends Component {
         return (
             <div className="checkbox-tree">
                 <CheckBoxTree
+                    checkModel="all"
                     nodes={labeledNodes}
                     checked={checked}
                     expanded={expanded}

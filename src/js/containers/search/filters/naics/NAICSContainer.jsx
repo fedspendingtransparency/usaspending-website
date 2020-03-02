@@ -8,12 +8,13 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
     debounce,
-    isEqual
+    isEqual,
+    cloneDeep
 } from 'lodash';
 import { isCancel } from 'axios';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import { naicsRequest } from 'helpers/naicsHelper';
-import { expandAllNodes } from 'helpers/checkboxTreeHelper';
+import { expandAllNodes, getNodeFromTree } from 'helpers/checkboxTreeHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
@@ -103,7 +104,12 @@ export class NAICSContainer extends React.Component {
      */
     onCheck = async (checkedNodes, node) => {
         // sets checked in naics redux
+        // if (this.state.isSearch) {
+        //     await this.props.addChecked(node.value);
+        // }
+        // else {
         await this.props.setChecked(checkedNodes);
+        // }
         // sets staged filters in search redux
         await this.props.updateNaics(checkedNodes);
     }
@@ -184,6 +190,40 @@ export class NAICSContainer extends React.Component {
         this.props.setChecked([...new Set([...noPlaceHolderCheckedValues, ...newValues])]);
     }
 
+    transformMockCheckedToRealChecked = (checked, expanded) => {
+        const { searchedNodes } = this.props;
+
+        const checkedMockNodes = checked
+            .filter((node) => node.includes('children_of_'))
+            .map((node) => node.split('children_of_')[1]);
+
+        const checkedMockChildren = checkedMockNodes
+            .filter((node) => node.length === 2);
+
+        const checkedMockGrandChildren = checkedMockNodes
+            .filter((node) => node.length === 4);
+
+        const expandedNodesWithMockAncestorChecked = expanded
+            .filter((expandedNode) => {
+                const grandParentOfExpanded = `${expandedNode[0]}${expandedNode[1]}`;
+                if (checkedMockChildren.includes(grandParentOfExpanded)) {
+                    return true;
+                }
+                const parentOfExpanded = `${grandParentOfExpanded}${expandedNode[2]}${expandedNode[3]}`;
+                if (expandedNode.length > 2 && checkedMockGrandChildren.includes(parentOfExpanded)) {
+                    return true;
+                }
+                return false;
+            });
+
+        expandedNodesWithMockAncestorChecked
+            .filter((expandedNode) => expandedNode.length === 4)
+            .forEach((expandedChild) => {
+                const node = getNodeFromTree(searchedNodes, expandedChild);
+                node.children.forEach((grandChild) => this.props.addChecked(grandChild.value));
+            });
+    };
+
     fetchNAICS = async (param = '') => {
         if (this.request) this.request.cancel();
         const { requestType, isSearch, searchString } = this.state;
@@ -203,6 +243,7 @@ export class NAICSContainer extends React.Component {
             if (isSearch) {
                 this.props.setSearchedNaics(data.results);
                 const expanded = expandAllNodes(this.props.searchedNodes);
+                this.transformMockCheckedToRealChecked(checked, expanded);
                 this.props.setExpanded(expanded, 'SET_SEARCHED_EXPANDED');
             }
             else {
@@ -292,7 +333,8 @@ export class NAICSContainer extends React.Component {
     }
 
     selectNaicsData = () => {
-        const { nodes, checked } = this.props;
+        const { checked } = this.props;
+        const nodes = cloneDeep(this.props.nodes);
         const selectedNaicsData = checked
             .reduce((acc, value) => {
                 const key = value.includes('children_of_')

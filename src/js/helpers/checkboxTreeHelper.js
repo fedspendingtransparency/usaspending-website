@@ -257,6 +257,27 @@ export const handleSearch = (
     return { updatedNodes: nodes, expanded: expandedArray };
 };
 
+export const getNodeFromTree = (tree, key, treePropForKey = 'value') => {
+    if (key.length === 2) {
+        return tree
+            .find((node) => node[treePropForKey] === key);
+    }
+    if (key.length >= 4) {
+        const parentKey = `${key[0]}${key[1]}`;
+        const childNode = tree
+            .find((node) => node[treePropForKey] === parentKey)
+            .children
+            .find((node) => node[treePropForKey] === key)
+        if (key.length === 4) {
+            return childNode;
+        }
+
+        return childNode.children
+            .find((node) => node[treePropForKey] === key);
+    }
+    return null;
+};
+
 export const expandAllNodes = (nodes) => {
     const getValue = (acc, node) => {
         acc.push(node.value);
