@@ -98,6 +98,12 @@ export class NAICSContainer extends React.Component {
             code.includes(`children_of_${parentKey}`) ||
             code.includes(`children_of_${immediateAncestorCode}`)
         ));
+        const shouldRemoveNode = selectedNaicsData.some((selectedNode) => {
+            return (
+                !node.checked &&
+                selectedNode.count === count
+            );
+        });
         if (shouldUpdateCount) {
             this.setState({
                 selectedNaicsData: selectedNaicsData.map((selectedNode) => {
@@ -109,7 +115,12 @@ export class NAICSContainer extends React.Component {
                 })
             });
         }
-        
+        else if (shouldRemoveNode) {
+            this.setState({
+                selectedNaicsData: selectedNaicsData.filter((selectedNode) => selectedNode.value !== node.value)
+            });
+        }
+
         this.props.setChecked(checked);
         this.props.updateNaics(checked);
     }
