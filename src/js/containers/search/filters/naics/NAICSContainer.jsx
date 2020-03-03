@@ -286,7 +286,6 @@ export class NAICSContainer extends React.Component {
         return (
             <CheckboxTree
                 limit={3}
-                // data={isSearch ? searchedNodes : nodes}
                 data={nodes}
                 expanded={isSearch ? searchExpanded : expanded}
                 checked={checked}
@@ -310,7 +309,7 @@ export class NAICSContainer extends React.Component {
                 const parentNode = nodes.find((node) => node.value === parentKey);
                 const indexOfParent = acc.findIndex((node) => node.value === parentKey);
                 const isParentSelected = indexOfParent >= 0;
-                console.log("nodes", nodes, key, parentKey);
+
                 if (!isParentSelected && key.length === 2) {
                     acc.push(parentNode);
                     return acc;
@@ -329,13 +328,25 @@ export class NAICSContainer extends React.Component {
                     });
                     return acc;
                 }
-                if (parentNode.count === acc[indexOfParent].count) return acc;
+                else if (isParentSelected && key.length === 2) {
+                    acc[indexOfParent].count = parentNode.count;
+                    return acc;
+                }
                 else if (isParentSelected && key.length === 4) {
                     acc[indexOfParent].count += parentNode.children.find((node) => node.value === key).count;
+                    if (parentNode.count <= acc[indexOfParent].count) {
+                        acc[indexOfParent].count = parentNode.count;
+                        return acc;
+                    }
                     return acc;
                 }
                 else if (isParentSelected && key.length === 6) {
                     acc[indexOfParent].count += 1;
+                    // never increment count above count of parent.
+                    if (parentNode.count <= acc[indexOfParent].count) {
+                        acc[indexOfParent].count = parentNode.count;
+                        return acc;
+                    }
                     return acc;
                 }
                 return acc;
