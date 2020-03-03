@@ -14,7 +14,7 @@ import {
 import { isCancel } from 'axios';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import { naicsRequest } from 'helpers/naicsHelper';
-import { expandAllNodes, getNodeFromTree } from 'helpers/checkboxTreeHelper';
+import { expandAllNodes, getNodeFromTree, getImmediateAncestorNaicsCode, getHighestAncestorNaicsCode } from 'helpers/checkboxTreeHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
@@ -297,16 +297,35 @@ export class NAICSContainer extends React.Component {
     }
 
     selectNaicsData = () => {
+        // an array of objects w/ shape { value, label, count } representing all naics codes selected per top-parent category  . Only show top level parents
         const { checked } = this.props;
-        const nodes = cloneDeep(this.props.nodes);
-        const selectedNaicsData = checked
-            .reduce((acc, value) => {
-                const key = value.includes('children_of_')
-                    ? value.split('children_of_')[1]
-                    : value;
-                 
-                const parentKey = `${key[0]}${key[1]}`;
-                const parentNode = nodes.find((node) => node.value === parentKey);
+
+        // child place holders reflect the count of their immediate ancestor
+        const placeHoldersToBeCounted = checked
+            .filter((naicsCode) => naicsCode.includes('children_of_'));
+
+        const codesToBeCounted = checked
+            .filter((naicsCode) => !naicsCode.includes('children_of_'))
+            .filter((naicsCode) => {
+                const immediateAncestorCode = getImmediateAncestorNaicsCode(naicsCode);
+                const highestAncestorCode = getHighestAncestorNaicsCode(naicsCode);
+
+                const codeWillBeCountedByPlaceholder = (
+                    placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`) ||
+                    placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`)
+                );
+                if (codeWillBeCountedByPlaceholder) return false;
+                return true;
+            });
+
+        return [...new Set([...codesToBeCounted, ...placeHoldersToBeCounted])]
+            .reduce((acc, code) => {
+                const key = code.includes('children_of_')
+                    ? code.split('children_of_')[1]
+                    : code;
+                const parentKey = getHighestAncestorNaicsCode(key);
+                const parentNode = cloneDeep(getNodeFromTree(this.props.nodes, parentKey));
+                const countFromNodeToBeAdded = getNodeFromTree(this.props.nodes, key).count || 1;
                 const indexOfParent = acc.findIndex((node) => node.value === parentKey);
                 const isParentSelected = indexOfParent >= 0;
 
@@ -317,7 +336,7 @@ export class NAICSContainer extends React.Component {
                 else if (!isParentSelected && key.length === 4) {
                     acc.push({
                         ...parentNode,
-                        count: parentNode.children.find((node) => node.value === key).count
+                        count: countFromNodeToBeAdded
                     });
                     return acc;
                 }
@@ -333,7 +352,7 @@ export class NAICSContainer extends React.Component {
                     return acc;
                 }
                 else if (isParentSelected && key.length === 4) {
-                    acc[indexOfParent].count += parentNode.children.find((node) => node.value === key).count;
+                    acc[indexOfParent].count += countFromNodeToBeAdded;
                     if (parentNode.count <= acc[indexOfParent].count) {
                         acc[indexOfParent].count = parentNode.count;
                         return acc;
@@ -341,7 +360,7 @@ export class NAICSContainer extends React.Component {
                     return acc;
                 }
                 else if (isParentSelected && key.length === 6) {
-                    acc[indexOfParent].count += 1;
+                    acc[indexOfParent].count += countFromNodeToBeAdded;
                     // never increment count above count of parent.
                     if (parentNode.count <= acc[indexOfParent].count) {
                         acc[indexOfParent].count = parentNode.count;
@@ -351,8 +370,6 @@ export class NAICSContainer extends React.Component {
                 }
                 return acc;
             }, []);
-        // an array of objects representing naics tier one objects: { value, label, count }. Only show top level parents
-        return selectedNaicsData;
     }
 
     selectedNaics = () => {

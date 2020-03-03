@@ -11,22 +11,35 @@ export const sortNodes = (a, b) => {
     return 0;
 };
 
+export const getHighestAncestorNaicsCode = (naicsCode) => {
+    return `${naicsCode[0]}${naicsCode[1]}`;
+};
+
+export const getImmediateAncestorNaicsCode = (naicsCode) => {
+    if (naicsCode.length === 2) return naicsCode;
+    else if (naicsCode.length === 4) return getHighestAncestorNaicsCode(naicsCode);
+    return `${naicsCode[0]}${naicsCode[1]}${naicsCode[2]}${naicsCode[3]}`;
+}
+
 export const getNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
+    const parentKey = getHighestAncestorNaicsCode(nodeKey);
+    const ancestorKey = getImmediateAncestorNaicsCode(nodeKey);
     if (nodeKey.length === 2) {
         return tree
             .find((node) => node[treePropForKey] === nodeKey);
     }
-    if (nodeKey.length >= 4) {
-        const parentKey = `${nodeKey[0]}${nodeKey[1]}`;
-        const childNode = tree
+    if (nodeKey.length === 4) {
+        return tree
             .find((node) => node[treePropForKey] === parentKey)
             .children
             .find((node) => node[treePropForKey] === nodeKey);
-        if (nodeKey.length === 4) {
-            return childNode;
-        }
-
-        return childNode.children
+    }
+    if (nodeKey.length === 6) {
+        return tree
+            .find((node) => node[treePropForKey] === parentKey)
+            .children
+            .find((node) => node[treePropForKey] === ancestorKey)
+            .children
             .find((node) => node[treePropForKey] === nodeKey);
     }
     return null;
