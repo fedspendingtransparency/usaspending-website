@@ -24,6 +24,7 @@ const propTypes = {
     labelComponent: PropTypes.element,
     onExpand: PropTypes.func,
     onCheck: PropTypes.func,
+    onUncheck: PropTypes.func,
     onCollapse: PropTypes.func,
     expanded: PropTypes.array,
     checked: PropTypes.array
@@ -90,7 +91,8 @@ export default class CheckboxTree extends Component {
      * @returns {null}
      */
     unCheckedNode = (checked, node) => {
-        this.props.onCheck(checked, node);
+        // update checked nodes to remove the previously checked nodes
+        this.props.onUncheck(checked, node);
     }
 
     /**

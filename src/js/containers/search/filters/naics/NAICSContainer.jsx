@@ -46,21 +46,16 @@ export class NAICSContainer extends React.Component {
             isLoading: false,
             isSearch: false,
             searchString: '',
-            requestType: 'initial'
+            requestType: 'initial',
+            selectedNaicsData: []
         };
         this.request = null;
     }
 
     componentDidMount() {
         // show staged filters
-        this.selectNaicsData();
+        this.selectNaicsData(this.props.checked);
         return this.fetchNAICS();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!isEqual(this.props.checked, prevProps.checked)) {
-            this.selectNaicsData();
-        }
     }
 
     onSearchChange = debounce(() => {
@@ -77,6 +72,45 @@ export class NAICSContainer extends React.Component {
             isLoading: false,
             requestType: ''
         });
+    }
+
+    /**
+     * onCheck
+     * - updates redux checked and updates naics search filters in redux
+     * @param {string[]} checked - and array of checked values
+     * @returns {null}
+     */
+    onCheck = async (checkedNodes) => {
+        this.selectNaicsData(checkedNodes);
+        this.props.updateNaics(checkedNodes);
+    }
+
+    onUncheck = (checked, node) => {
+        console.log("hello")
+        const { selectedNaicsData } = this.state;
+        const { nodes } = this.props;
+        const { value } = node;
+        const count = getNodeFromTree(nodes, value).count || 1;
+        const parentKey = getHighestAncestorNaicsCode(value);
+        const immediateAncestorCode = getImmediateAncestorNaicsCode(value);
+        // manually update count for unchecked nodes under a child placeholder. This is a complicated edge case.
+        const shouldUpdateCount = checked.some((code) => (
+            code.includes(`children_of_${parentKey}`) ||
+            code.includes(`children_of_${immediateAncestorCode}`)
+        ));
+        if (shouldUpdateCount) {
+            const newState = selectedNaicsData.map((selectedNode) => {
+                const newCount = selectedNode.count - count;
+                if (selectedNode.value === parentKey) {
+                    console.log('new count', newCount, selectedNode);
+                    return { ...selectedNode, count: newCount };
+                }
+                return selectedNode;
+            });
+            this.setState({ selectedNaicsData: newState });
+        }
+        this.props.setChecked(checked);
+        this.props.updateNaics(checked);
     }
 
     onExpand = (value, expanded, fetch) => {
@@ -97,16 +131,6 @@ export class NAICSContainer extends React.Component {
             this.props.setExpanded(expanded);
         }
     };
-    /**
-     * onCheck
-     * - updates redux checked and updates naics search filters in redux
-     * @param {string[]} checked - and array of checked values
-     * @returns {null}
-     */
-    onCheck = async (checkedNodes, node) => {
-        await this.props.setChecked(checkedNodes);
-        await this.props.updateNaics(checkedNodes);
-    }
 
     getParentNode = (param) => {
         if (param.length === 2) {
@@ -292,21 +316,22 @@ export class NAICSContainer extends React.Component {
                 searchText={searchString}
                 onExpand={this.onExpand}
                 onCollapse={this.onCollapse}
+                onUncheck={this.onUncheck}
                 onCheck={this.onCheck} />
         );
     }
 
-    selectNaicsData = () => {
+    selectNaicsData = (checked = []) => {
         // an array of objects w/ shape { value, label, count } representing all naics codes selected per top-parent category  . Only show top level parents
-        const { checked } = this.props;
-
         // child place holders reflect the count of their immediate ancestor
         const placeHoldersToBeCounted = checked
             .filter((naicsCode) => naicsCode.includes('children_of_'));
+        const codesUnderPlaceholder = [];
+        const codesWithoutPlaceholder = [];
 
-        const codesToBeCounted = checked
+        checked
             .filter((naicsCode) => !naicsCode.includes('children_of_'))
-            .filter((naicsCode) => {
+            .forEach((naicsCode) => {
                 const immediateAncestorCode = getImmediateAncestorNaicsCode(naicsCode);
                 const highestAncestorCode = getHighestAncestorNaicsCode(naicsCode);
 
@@ -314,11 +339,13 @@ export class NAICSContainer extends React.Component {
                     placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`) ||
                     placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`)
                 );
-                if (codeWillBeCountedByPlaceholder) return false;
-                return true;
+                if (codeWillBeCountedByPlaceholder) codesUnderPlaceholder.push(naicsCode);
+                else {
+                    codesWithoutPlaceholder.push(naicsCode);
+                }
             });
 
-        return [...new Set([...codesToBeCounted, ...placeHoldersToBeCounted])]
+        const checkedWithoutNodesUnderPlaceholder = [...new Set([...codesWithoutPlaceholder, ...placeHoldersToBeCounted])]
             .reduce((acc, code) => {
                 const key = code.includes('children_of_')
                     ? code.split('children_of_')[1]
@@ -370,21 +397,16 @@ export class NAICSContainer extends React.Component {
                 }
                 return acc;
             }, []);
-    }
 
-    selectedNaics = () => {
-        if (!this.props.checked.size === 0) return null;
-        const selectedNaicsData = this.selectNaicsData();
-        return (<SelectedNaic
-            selectedNAICS={selectedNaicsData}
-            removeNAICS={this.props.removeNAICS} />);
+        this.setState({ selectedNaicsData: checkedWithoutNodesUnderPlaceholder });
+        this.props.setChecked(checked);
     }
 
     render() {
         const loadingDiv = this.loadingDiv();
         const noResultsDiv = this.noResultsDiv();
         const errorDiv = this.errorDiv();
-        const { searchString } = this.state;
+        const { searchString, selectedNaicsData } = this.state;
         return (
             <div>
                 <div className="naics-search-container">
@@ -404,7 +426,11 @@ export class NAICSContainer extends React.Component {
                     {noResultsDiv}
                     {errorDiv}
                     {this.checkboxDiv()}
-                    {this.selectedNaics()}
+                    {this.props.checked.length !== 0 && selectedNaicsData.length !== 0 && (
+                        <SelectedNaic
+                            selectedNAICS={selectedNaicsData}
+                            removeNAICS={this.props.removeNAICS} />
+                    )}
                 </div>
             </div>
         );
