@@ -17,7 +17,7 @@ const additionalDetailsContracts = (awardData) => {
             'Awarding Agency': {
                 type: 'link',
                 data: {
-                    path: awardingAgency.id ? `/#/agency/${awardingAgency.id}` : null,
+                    path: (awardingAgency.id && awardingAgency.hasAgencyPage) ? `/#/agency/${awardingAgency.id}` : null,
                     title: awardingAgency.formattedToptier
                 }
             },
@@ -38,7 +38,7 @@ const additionalDetailsContracts = (awardData) => {
             'Funding Agency': {
                 type: 'link',
                 data: {
-                    path: fundingAgency.id ? `/#/agency/${fundingAgency.id}` : null,
+                    path: (fundingAgency.id && fundingAgency.hasAgencyPage) ? `/#/agency/${fundingAgency.id}` : null,
                     title: fundingAgency.formattedToptier
                 }
             },
