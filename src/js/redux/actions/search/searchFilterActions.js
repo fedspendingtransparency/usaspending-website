@@ -134,7 +134,12 @@ export const updateSelectedCFDA = (state) => ({
 // NAICS Filter
 export const updateNaics = (naics) => ({
     type: 'UPDATE_NAICS',
-    naics
+    naics: naics.map((code) => {
+        if (code.includes('children_of_')) {
+            return code.split('children_of_')[1];
+        }
+        return code;
+    })
 });
 export const updateSelectedNAICS = (state) => ({
     type: 'UPDATE_SELECTED_NAICS',
