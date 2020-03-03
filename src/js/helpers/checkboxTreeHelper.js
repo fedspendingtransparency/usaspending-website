@@ -83,7 +83,7 @@ const mergeChildren = (parentFromSearch, existingParent) => {
                             className: 'hide',
                             isPlaceHolder: true,
                             label: 'Placeholder Child',
-                            value: `children_of_${existingChild.value}`
+                            value: existingChild.value
                         };
                     }
                 }),

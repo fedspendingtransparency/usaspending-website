@@ -310,7 +310,7 @@ export class NAICSContainer extends React.Component {
                 const parentNode = nodes.find((node) => node.value === parentKey);
                 const indexOfParent = acc.findIndex((node) => node.value === parentKey);
                 const isParentSelected = indexOfParent >= 0;
-
+                console.log("nodes", nodes, key, parentKey);
                 if (!isParentSelected && key.length === 2) {
                     acc.push(parentNode);
                     return acc;
