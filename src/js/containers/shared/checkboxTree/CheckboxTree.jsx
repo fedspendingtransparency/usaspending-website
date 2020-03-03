@@ -126,7 +126,6 @@ export default class CheckboxTree extends Component {
          * do this to get the caret to show when there is a count)
          * we will set the child to a loading div
          */
-        // const nodeHasSearchChildren = selectedNode?.children.some((child) => child.value.includes('placeholderForSearch'));
         if (
             (
                 !selectedNode?.children
