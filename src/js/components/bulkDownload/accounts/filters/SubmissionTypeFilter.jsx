@@ -9,7 +9,7 @@ import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icon
 
 const propTypes = {
     submissionTypes: PropTypes.array,
-    currentSubmissionType: PropTypes.string,
+    currentSubmissionTypes: PropTypes.array,
     updateFilter: PropTypes.func,
     valid: PropTypes.bool
 };
@@ -23,7 +23,7 @@ export default class SubmissionTypeFilter extends React.Component {
 
     onChange(e) {
         const target = e.target;
-        this.props.updateFilter('submissionType', target.value);
+        this.props.updateFilter('submissionTypes', target.value);
     }
 
     render() {
@@ -43,16 +43,16 @@ export default class SubmissionTypeFilter extends React.Component {
 
         const submissionTypes = this.props.submissionTypes.map((type) => (
             <div
-                className="radio"
+                className="checkbox"
                 key={type.name}>
                 <input
-                    type="radio"
+                    type="checkbox"
                     value={type.name}
                     name="submission-type"
-                    checked={this.props.currentSubmissionType === type.name}
+                    checked={this.props.currentSubmissionTypes.includes(type.name)}
                     onChange={this.onChange} />
                 <label
-                    className="radio-label"
+                    className="checkbox-label"
                     htmlFor="submission-type">
                     {type.label}
                 </label>

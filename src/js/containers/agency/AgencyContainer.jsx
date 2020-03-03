@@ -138,11 +138,6 @@ export class AgencyContainer extends React.Component {
     }
 }
 
-export default connect(
-    (state) => ({
-        agency: state.agency
-    }),
-    (dispatch) => bindActionCreators(agencyActions, dispatch)
-)(AgencyContainer);
+export default connect((state) => ({ agency: state.agency }), (dispatch) => bindActionCreators(agencyActions, dispatch))(AgencyContainer);
 
 AgencyContainer.propTypes = propTypes;

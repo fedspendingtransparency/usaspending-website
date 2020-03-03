@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { isEqual } from 'lodash';
 import kGlobalConstants from 'GlobalConstants';
 
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
@@ -45,7 +46,7 @@ export default class AccountDataContent extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.accounts !== this.props.accounts) {
+        if (!isEqual(prevProps.accounts, this.props.accounts)) {
             this.validateForm(this.props.accounts);
         }
     }
@@ -68,7 +69,7 @@ export default class AccountDataContent extends React.Component {
         const validForm = (
             (accounts.budgetFunction.code !== '')
             && (accounts.agency.id !== '')
-            && (accounts.submissionType !== '')
+            && (accounts.submissionTypes.length !== 0)
             && (accounts.fy !== '')
             && (accounts.quarter !== '')
         );
@@ -113,9 +114,9 @@ export default class AccountDataContent extends React.Component {
                             valid={accounts.accountLevel !== ''} />
                         <SubmissionTypeFilter
                             submissionTypes={accountDownloadOptions.submissionTypes}
-                            currentSubmissionType={accounts.submissionType}
+                            currentSubmissionTypes={accounts.submissionTypes}
                             updateFilter={this.props.updateFilter}
-                            valid={accounts.submissionType !== ''} />
+                            valid={accounts.submissionTypes.length !== 0} />
                         <FiscalYearFilter
                             currentFy={accounts.fy}
                             currentQuarter={accounts.quarter}

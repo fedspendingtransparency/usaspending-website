@@ -13,6 +13,7 @@ export const mockContract = {
     base_exercised_options: 234242,
     awarding_agency: {
         id: '234',
+        has_agency_page: true,
         toptier_agency: {
             name: 'Department of Defense',
             abbreviation: 'DOD'
@@ -156,6 +157,7 @@ export const mockLoan = {
     total_subaward_amount: 32423342,
     awarding_agency: {
         id: '323',
+        has_agency_page: true,
         toptier_agency: {
             name: 'Department of Defense',
             abbreviation: 'DOD'
@@ -237,6 +239,7 @@ export const mockIdv = {
     description: 'ewraijwrw',
     date_signed: '2005-02-18',
     awarding_agency: {
+        has_agency_page: true,
         toptier_agency: {
             name: 'Department of Defense',
             abbreviation: 'DOD'

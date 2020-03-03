@@ -144,7 +144,7 @@ export const mockRedux = {
             },
             fy: '1989',
             quarter: '1',
-            submissionType: 'accountBalances',
+            submissionTypes: ['accountBalances'],
             fileFormat: 'csv'
         },
         download: {

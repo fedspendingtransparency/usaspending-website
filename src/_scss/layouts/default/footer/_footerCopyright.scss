@@ -38,49 +38,6 @@
         }
     }
 
-    .copyright__legal {
-        @include unstyled-list;
-        @include flex(1 1 auto);
-
-        @include display(flex);
-        @include justify-content(center);
-        @include align-items(center);
-        margin-left: rem(10);
-        margin-top: rem(10);
-
-        @include media($footer-horizontal) {
-            @include justify-content(flex-start);
-            margin-top: 0;
-        }
-    }
-
-    .copyright__legal-item {
-        @include flex(0 1 auto);
-        margin-right: rem(10);
-
-        &::before {
-            content: '|';
-            font-size: 80%;
-            color: $color-gray-light;
-            margin-right: rem(10);
-        }
-
-        &:first-child {
-            &::before {
-                content: '';
-            }
-        }
-    }
-
-    .copyright__link {
-        font-size: 80%;
-        color:  darken( #fff, 20% );
-        text-decoration: none;
-        &:hover, &:active {
-            color: $color-white;
-        }
-    }
-
     .copyright__db {
         display: block;
         text-align: center;

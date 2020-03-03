@@ -207,8 +207,8 @@ export default class IdvActivityVisualization extends React.Component {
                     }
                 </div>
                 <Pagination
-                    onChangePage={this.props.changePage}
-                    pageNumber={this.props.page}
+                    changePage={this.props.changePage}
+                    currentPage={this.props.page}
                     totalItems={this.props.total}
                     pageSize={this.props.limit}
                     resultsText={resultsText} />

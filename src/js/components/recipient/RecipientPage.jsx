@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
 
+import Footer from 'containers/Footer';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Error from 'components/sharedComponents/Error';
-import Footer from 'components/sharedComponents/Footer';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 
 import RecipientModalContainer from 'containers/recipient/modal/RecipientModalContainer';

@@ -13,7 +13,7 @@ const CoreAward = {
         this._category = data.category;
         this.id = data.id || '';
         this.generatedId = data.generatedId
-            ? encodeURI(`${data.generatedId}`)
+            ? encodeURIComponent(`${data.generatedId}`)
             : '';
         this.type = data.type || '';
         this.typeDescription = data.typeDescription || "--";

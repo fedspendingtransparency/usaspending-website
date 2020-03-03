@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Footer from 'containers/Footer';
 import Header from '../sharedComponents/header/Header';
-import Footer from '../sharedComponents/Footer';
 import Error from '../sharedComponents/Error';
 
 const propTypes = {

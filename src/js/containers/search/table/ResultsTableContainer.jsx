@@ -336,7 +336,7 @@ export class ResultsTableContainer extends React.Component {
 
         // Set the params needed for download API call
         this.searchRequest = SearchHelper.performSpendingByAwardSearch(params);
-        this.searchRequest.promise
+        return this.searchRequest.promise
             .then((res) => {
                 const newState = {
                     inFlight: false
@@ -344,7 +344,7 @@ export class ResultsTableContainer extends React.Component {
 
                 const parsedResults = res.data.results.map((result) => ({
                     ...result,
-                    generated_internal_id: encodeURI(result.generated_internal_id)
+                    generated_internal_id: encodeURIComponent(result.generated_internal_id)
                 }));
 
                 // don't clear records if we're appending (not the first page)

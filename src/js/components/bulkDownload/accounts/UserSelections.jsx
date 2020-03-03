@@ -88,13 +88,18 @@ export default class UserSelections extends React.Component {
     }
 
     generateSubmissionTypeString() {
-        if (this.props.accounts.submissionType) {
-            const options = accountDownloadOptions.submissionTypes;
-            const selectedOption = options.find((option) =>
-                option.name === this.props.accounts.submissionType
-            );
+        if (this.props.accounts.submissionTypes.length > 0) {
             return (
-                <div className="selection__content">{selectedOption.label}</div>
+                <div className="selection__content">
+                    {accountDownloadOptions.submissionTypes
+                        .filter((option) => this.props.accounts.submissionTypes.includes(option.name))
+                        .reduce((acc, option, i, array) => {
+                            // don't append comma
+                            if (i === 0 && array.length === 1) return `${option.label}`;
+                            if (i === array.length - 1) return `${acc}${option.label}`;
+                            return `${acc}${option.label}, `;
+                        }, '')}
+                </div>
             );
         }
         return (

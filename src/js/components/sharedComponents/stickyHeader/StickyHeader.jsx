@@ -3,92 +3,90 @@
  * Created by Mike Bray 02/02/2018
  **/
 
-import React from 'react';
+import React, { useState, createRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { throttle } from 'lodash';
 
 const propTypes = {
-    showDownloadModal: PropTypes.func,
-    downloadAvailable: PropTypes.bool,
     children: PropTypes.node
 };
 
 export const stickyHeaderHeight = 66;
 
-export default class StickyHeader extends React.Component {
-    constructor(props) {
-        super(props);
+export const useDynamicStickyClass = (stickyRef, fixedStickyBreakpoint = null) => {
+    const [dynamicStickyBreakpoint, setDynamicStickyBreakpoint] = useState(0);
+    const [isSticky, setIsSticky] = useState(false);
+    return [
+        isSticky,
+        // scrollPosition at which we apply the sticky-icky
+        dynamicStickyBreakpoint,
+        // setSticky
+        setIsSticky,
+        // handleScroll
+        throttle(() => {
+            const scrollY = window.scrollY || document.documentElement.scrollTop;
+            if (fixedStickyBreakpoint && scrollY >= fixedStickyBreakpoint && !isSticky) {
+                // we know which y position to apply the sticky class
+                setIsSticky(true);
+            }
+            else if (!fixedStickyBreakpoint && scrollY >= dynamicStickyBreakpoint && !isSticky) {
+                // we don't know which y position to apply the sticky class
+                setIsSticky(true);
+            }
+            else if (scrollY < fixedStickyBreakpoint && isSticky) {
+                setIsSticky(false);
+            }
+            else if (scrollY < dynamicStickyBreakpoint && isSticky) {
+                setIsSticky(false);
+            }
+        }, 100),
+        // measureScreen
+        throttle(() => {
+            const wrapperY = stickyRef.current
+                ? stickyRef.current.offsetTop
+                : 0;
+            setDynamicStickyBreakpoint(wrapperY);
+        }, 100)
+    ];
+};
 
-        this.state = {
-            floatY: 0,
-            isSticky: false
+const stickyHeader = createRef();
+
+const StickyHeader = ({
+    children
+}) => {
+    const [
+        isSticky,
+        ,
+        ,
+        handleScroll,
+        measureScreen
+    ] = useDynamicStickyClass(stickyHeader);
+
+    useEffect(() => {
+        measureScreen();
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('resize', measureScreen);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', measureScreen);
         };
+    }, [handleScroll, measureScreen]);
 
-        this.handleScroll = this.handleScroll.bind(this);
-        this.measureScreen = this.measureScreen.bind(this);
-    }
+    const stickyClass = isSticky ? 'sticky-header__container_sticky' : '';
 
-    componentDidMount() {
-        this.measureScreen();
-        window.addEventListener('scroll', this.handleScroll);
-        window.addEventListener('resize', this.measureScreen);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-        window.removeEventListener('resize', this.measureScreen);
-    }
-
-    measureScreen() {
-        // measure the default position of the header bar
-        const wrapperY = this.wrapper.offsetTop;
-
-        this.setState({
-            floatY: wrapperY
-        }, () => {
-            this.handleScroll();
-        });
-    }
-
-    handleScroll() {
-        const scrollY = window.scrollY;
-        if (scrollY >= this.state.floatY && !this.state.isSticky) {
-            this.setState({
-                isSticky: true
-            });
-        }
-        else if (scrollY < this.state.floatY && this.state.isSticky) {
-            this.setState({
-                isSticky: false
-            });
-        }
-    }
-
-    render() {
-        let stickyClass = '';
-        if (this.state.isSticky) {
-            stickyClass = 'sticky-header__container_sticky';
-        }
-
-        return (
-            <div
-                className="sticky-header"
-                ref={(div) => {
-                    this.wrapper = div;
-                }}>
-                <div
-                    className={`sticky-header__container ${stickyClass}`}
-                    ref={(div) => {
-                        this.content = div;
-                    }}>
-                    <div
-                        className="sticky-header__header"
-                        aria-labelledby="main-focus">
-                        {this.props.children}
-                    </div>
+    return (
+        <div className="sticky-header" ref={stickyHeader}>
+            <div className={`sticky-header__container ${stickyClass}`}>
+                <div className="sticky-header__header" aria-labelledby="main-focus">
+                    {children}
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 StickyHeader.propTypes = propTypes;
+
+export default StickyHeader;

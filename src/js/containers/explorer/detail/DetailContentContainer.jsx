@@ -215,7 +215,7 @@ export class DetailContentContainer extends React.Component {
             const resultTotal = data.results
                 .reduce((sum, item) => sum + item.amount, 0);
             // link to award page using new human readable id
-            parsedResults = parsedResults.map((obj) => ({ ...obj, id: encodeURI(obj.generated_unique_award_id) }));
+            parsedResults = parsedResults.map((obj) => ({ ...obj, id: encodeURIComponent(obj.generated_unique_award_id) }));
 
             // allow a $10 leeway to account for JS float bugs before triggering a truncation
             // message

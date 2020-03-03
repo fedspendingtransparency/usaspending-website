@@ -9,8 +9,16 @@ import { List } from 'immutable';
 import sinon from 'sinon';
 
 import { DetailContentContainer } from 'containers/explorer/detail/DetailContentContainer';
-import { mockApiResponse, mockAwardResponse, mockReducerRoot, mockReducerChild,
-    mockActions, mockLevelData, mockDeeperRoot, mockActiveScreen } from './mockData';
+import {
+    mockApiResponse,
+    mockAwardResponse,
+    mockReducerRoot,
+    mockActions,
+    mockLevelData,
+    mockDeeperRoot
+} from './mockData';
+
+import { encodedAwardId, decodedAwardId } from "../../../mockData";
 
 // mock the explorer helper
 jest.mock('helpers/explorerHelper', () => require('./mockExplorerHelper'));
@@ -228,7 +236,26 @@ describe('DetailContentContainer', () => {
             expect(container.state().data.count()).toEqual(1000);
         });
 
+        it('should encode generated_unique_award_ids w/ special characters', () => {
+            const container = shallow(<DetailContentContainer
+                {...mockActions}
+                explorer={mockReducerRoot} />);
+
+            const request = {
+                within: 'recipient',
+                subdivision: 'award'
+            };
+
+            const mockResponse = {
+                ...mockAwardResponse,
+                results: [{ ...mockAwardResponse.results[0], generated_unique_award_id: decodedAwardId }]
+            };
+
+            container.instance().parseData(mockResponse, request);
+            expect(container.state().data.toJS()[0].id).toEqual(encodedAwardId);
+        });
     });
+
     describe('goDeeper', () => {
         it('should update the state, trail, and make an API call', () => {
             const mockRequest = {

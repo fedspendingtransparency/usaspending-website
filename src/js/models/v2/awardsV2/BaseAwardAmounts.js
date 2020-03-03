@@ -9,7 +9,7 @@ const BaseAwardAmounts = {
     populateBase(data) {
         this.id = (data.award_id && `${data.award_id}`) || '';
         this.generatedId = data.generated_unique_award_id
-            ? encodeURI(`${data.generated_unique_award_id}`)
+            ? encodeURIComponent(`${data.generated_unique_award_id}`)
             : '';
     },
     populateAggIdv(data) {

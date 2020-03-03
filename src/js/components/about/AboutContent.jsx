@@ -231,7 +231,7 @@ export default class AboutContent extends React.Component {
                         pageName="about"
                         sections={aboutSections}
                         jumpToSection={this.jumpToSection}
-                        stickyHeaderHeight={StickyHeader.stickyHeaderHeight} />
+                        fixedStickyBreakpoint={StickyHeader.stickyHeaderHeight} />
                 </div>
                 <div className="about-content">
                     <div className="about-padded-content">

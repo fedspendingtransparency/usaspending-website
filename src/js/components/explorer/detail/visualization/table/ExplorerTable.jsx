@@ -83,8 +83,9 @@ export default class ExplorerTable extends React.Component {
             <div className={`explorer-table${noResultsClass}`}>
                 {loadingMessage}
                 <Pagination
-                    onChangePage={this.props.onChangePage}
-                    pageNumber={this.props.pageNumber}
+                    resultsText
+                    changePage={this.props.onChangePage}
+                    currentPage={this.props.pageNumber}
                     totalItems={this.props.totalItems}
                     pageSize={this.props.pageSize} />
                 <table>
@@ -98,8 +99,9 @@ export default class ExplorerTable extends React.Component {
                     </tbody>
                 </table>
                 <Pagination
-                    onChangePage={this.props.onChangePage}
-                    pageNumber={this.props.pageNumber}
+                    resultsText
+                    changePage={this.props.onChangePage}
+                    currentPage={this.props.pageNumber}
                     totalItems={this.props.totalItems}
                     pageSize={this.props.pageSize} />
             </div>

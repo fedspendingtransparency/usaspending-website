@@ -6,11 +6,11 @@
 import React from 'react';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
+import Footer from 'containers/Footer';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
 import Header from '../sharedComponents/header/Header';
-import Footer from '../sharedComponents/Footer';
 
 import Hero from './hero/Hero';
 import Features from './features/Features';
