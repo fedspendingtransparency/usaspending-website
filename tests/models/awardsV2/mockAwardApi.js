@@ -123,6 +123,8 @@ export const mockContract = {
     parent_award: {
         agency_id: '123',
         agency_name: 'Department of Justice',
+        sub_agency_id: '1000',
+        sub_agency_name: 'Department of Justice',
         award_id: 5738,
         generated_unique_award_id: '45',
         idv_type_description: 'test',
@@ -276,8 +278,10 @@ export const mockIdv = {
         award_id: 5738,
         idv_type_description: 'test',
         type_of_idc_description: 'r3w',
-        agency_id: '123',
-        agency_name: 'test',
+        agency_id: 90,
+        agency_name: 'toptier test',
+        sub_agency_id: '123',
+        sub_agency_name: 'test',
         multiple_or_single_aw_desc: 'something',
         piid: '345'
     },
