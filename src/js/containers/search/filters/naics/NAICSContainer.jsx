@@ -86,7 +86,7 @@ export class NAICSContainer extends React.Component {
     }
 
     onUncheck = (checked, node) => {
-        console.log("hello")
+        // TODO: Unchecking parent, checked in default view, in search view. Senario 6 in DEV-4621 (https://federal-spending-transparency.atlassian.net/browse/DEV-4621)
         const { selectedNaicsData } = this.state;
         const { nodes } = this.props;
         const { value } = node;
@@ -99,16 +99,17 @@ export class NAICSContainer extends React.Component {
             code.includes(`children_of_${immediateAncestorCode}`)
         ));
         if (shouldUpdateCount) {
-            const newState = selectedNaicsData.map((selectedNode) => {
-                const newCount = selectedNode.count - count;
-                if (selectedNode.value === parentKey) {
-                    console.log('new count', newCount, selectedNode);
-                    return { ...selectedNode, count: newCount };
-                }
-                return selectedNode;
+            this.setState({
+                selectedNaicsData: selectedNaicsData.map((selectedNode) => {
+                    const newCount = selectedNode.count - count;
+                    if (selectedNode.value === parentKey) {
+                        return { ...selectedNode, count: newCount };
+                    }
+                    return selectedNode;
+                })
             });
-            this.setState({ selectedNaicsData: newState });
         }
+        
         this.props.setChecked(checked);
         this.props.updateNaics(checked);
     }
