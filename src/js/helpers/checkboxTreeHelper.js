@@ -126,6 +126,12 @@ export const showAllTreeItems = (tree, key = '', payload = []) => tree
                         existingChild &&
                         existingChild?.children.filter((grand) => !grand.isPlaceHolder).length > 0
                     );
+                    if (weHaveTheGrandChildren) {
+                        return {
+                            ...child,
+                            children: existingChild.children
+                        };
+                    }
                     if (weHaveAtLeastOneGrandChild) {
                         return {
                             ...child,
@@ -134,9 +140,7 @@ export const showAllTreeItems = (tree, key = '', payload = []) => tree
                     }
                     return {
                         ...child,
-                        children: weHaveTheGrandChildren
-                            ? existingChild.children
-                            : child.children
+                        children: child.children
                     };
                 })
             };
@@ -149,7 +153,7 @@ export const showAllTreeItems = (tree, key = '', payload = []) => tree
                     if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
                         // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
                         return {
-                            ...child.children
+                            ...child
                         };
                     }
                     return {
