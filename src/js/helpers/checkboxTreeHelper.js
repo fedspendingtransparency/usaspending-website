@@ -122,6 +122,16 @@ export const showAllTreeItems = (tree, key = '', payload = []) => tree
                             return existingGrand?.isPlaceHolder;
                         })
                     );
+                    const weHaveAtLeastOneGrandChild = (
+                        existingChild &&
+                        existingChild?.children.filter((grand) => !grand.isPlaceHolder).length > 0
+                    );
+                    if (weHaveAtLeastOneGrandChild) {
+                        return {
+                            ...child,
+                            children: [...child.children, ...existingChild.children]
+                        };
+                    }
                     return {
                         ...child,
                         children: weHaveTheGrandChildren
