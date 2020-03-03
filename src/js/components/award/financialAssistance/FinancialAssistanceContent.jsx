@@ -17,11 +17,9 @@ import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSectio
 import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardSection from '../shared/AwardSection';
-import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
 import AwardDescription from '../shared/description/AwardDescription';
-import { contractActivityGrants } from '../shared/InfoTooltipContent';
 import CFDASection from './CFDASection';
 
 const propTypes = {

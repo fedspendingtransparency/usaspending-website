@@ -36,11 +36,12 @@ const ContractGrantActivity = ({ transactions }) => {
     });
 
     return (
-        <div ref={divReference} className="activity-visualization">
+        <div ref={divReference} className="contract-grant-activity-visualization">
             <ContractGrantsActivityChart
                 visualizationWidth={visualizationWidth}
                 transactions={transactions}
-                height={360} />
+                height={360}
+                padding={{ left: 45, bottom: 30 }} />
         </div>
     );
 };

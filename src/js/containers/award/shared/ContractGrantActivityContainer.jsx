@@ -38,7 +38,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
      */
     const formatTransactions = (rawTransactions) => {
         // Reduce into unique transaction objects
-        const newData = rawTransactions.reduce((acc, data) => {
+        let newData = rawTransactions.reduce((acc, data) => {
             const updatedData = { ...data };
             updatedData.action_date = moment(updatedData.action_date, 'YYYY-MM-DD');
             const currentTransactionIndex = acc.findIndex((x) => x.action_date.valueOf() === updatedData.action_date.valueOf());
@@ -72,6 +72,8 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
             acc.push(updatedData);
             return acc;
         }, []);
+        // remove negative values
+        newData = newData.filter((data) => !data.federal_action_obligation.toString().startsWith('-'));
         return newData;
     };
     // Get all transactions ascending
