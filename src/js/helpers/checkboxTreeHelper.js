@@ -3,6 +3,14 @@
   * Created by Jonathan Hill 10/01/2019
   **/
 
+export const sortNodes = (a, b) => {
+    const nodeA = parseInt(a.value, 10);
+    const nodeB = parseInt(b.value, 10);
+    if (nodeA > nodeB) return 1;
+    if (nodeB > nodeA) return -1;
+    return 0;
+};
+
 export const getNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
     if (nodeKey.length === 2) {
         return tree
@@ -66,6 +74,7 @@ const mergeChildren = (parentFromSearch, existingParent) => {
                                     return true;
                                 })
                                 .map((grandChild) => ({ className: 'hide', ...grandChild }))
+                                .sort(sortNodes)
                         };
                     }
                     else if (!existingChild.children && !parentFromSearch.children.length !== parentFromSearch.count) {
@@ -102,7 +111,8 @@ export const addSearchResultsToTree = (tree, searchResults) => {
                 };
             }
             return { ...existingNode, className: 'hide' };
-        });
+        })
+        .sort(sortNodes);
 };
 
 export const showAllTreeItems = (tree, key = '', payload = []) => tree
@@ -129,41 +139,43 @@ export const showAllTreeItems = (tree, key = '', payload = []) => tree
                     if (weHaveTheGrandChildren) {
                         return {
                             ...child,
-                            children: existingChild.children
+                            children: existingChild.children.sort(sortNodes)
                         };
                     }
                     if (weHaveAtLeastOneGrandChild) {
                         return {
                             ...child,
-                            children: [...child.children, ...existingChild.children]
+                            children: [...child.children, ...existingChild.children].sort(sortNodes)
                         };
                     }
                     return {
                         ...child,
                         children: child.children
                     };
-                })
+                }).sort(sortNodes)
             };
         }
         return {
             ...node,
             className: '',
-            children: node.children.map((child) => {
-                if (child.value === key) {
-                    if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
-                        // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
+            children: node.children
+                .map((child) => {
+                    if (child.value === key) {
+                        if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
+                            // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
+                            return {
+                                ...child
+                            };
+                        }
                         return {
-                            ...child
+                            ...payload[0]
                         };
                     }
                     return {
-                        ...payload[0]
+                        ...child,
+                        className: ''
                     };
-                }
-                return {
-                    ...child,
-                    className: ''
-                };
-            })
+                })
+                .sort(sortNodes)
         };
     });
