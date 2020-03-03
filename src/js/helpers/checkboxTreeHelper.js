@@ -77,24 +77,41 @@ const mergeChildren = (parentFromSearch, existingParent) => {
                                 .sort(sortNodes)
                         };
                     }
-                    else if (!existingChild.children && !parentFromSearch.children.length !== parentFromSearch.count) {
-                        return {
-                            ...existingChild,
-                            className: 'hide',
-                            isPlaceHolder: true,
-                            label: 'Placeholder Child',
-                            value: existingChild.value
-                        };
-                    }
+                    return {
+                        ...existingChild,
+                        className: 'hide'
+                    };
                 }),
             ...parentFromSearch.children
+                .map((child) => {
+                    if (child.count > child.children.length) {
+                        return {
+                            ...child,
+                            children: [
+                                ...child.children,
+                                {
+                                    className: 'hide',
+                                    isPlaceHolder: true,
+                                    label: 'Placeholder Child',
+                                    value: `children_of_${child.value}`
+                                }
+                            ]
+                        };
+                    }
+                    return child;
+                })
         ];
     }
-    if (existingParent.children) {
+    else if (existingParent.children && !parentFromSearch.children) {
         return existingParent.children.map((child) => ({ ...child, className: 'hide' }));
     }
-
-    return parentFromSearch.children;
+    else if (!existingParent.children && parentFromSearch.children && parentFromSearch.children.length !== parentFromSearch.count) {
+        return parentFromSearch.children.push({
+            isPlaceHolder: true,
+            label: 'Placeholder Child',
+            value: `children_of_${parentFromSearch.value}`
+        });
+    }
 };
 
 export const addSearchResultsToTree = (tree, searchResults) => {
