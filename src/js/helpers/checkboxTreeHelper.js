@@ -69,20 +69,20 @@ const mergeChildren = (parentFromSearch, existingParent) => {
                         };
                     }
                     else if (!existingChild.children && !parentFromSearch.children.length !== parentFromSearch.count) {
-                        return [{
+                        return {
                             ...existingChild,
                             className: 'hide',
                             isPlaceHolder: true,
                             label: 'Placeholder Child',
                             value: `children_of_${existingChild.value}`
-                        }];
+                        };
                     }
                 }),
             ...parentFromSearch.children
         ];
     }
     if (existingParent.children) {
-        return existingParent.children;
+        return existingParent.children.map((child) => ({ ...child, className: 'hide' }));
     }
 
     return parentFromSearch.children;
