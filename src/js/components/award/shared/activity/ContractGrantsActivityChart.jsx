@@ -135,7 +135,7 @@ const ContractGrantsActivityChart = ({
             className="contract-grant-activity-chart"
             width={visualizationWidth}
             height={svgHeight}>
-            <g className="contract-grant-activity-chart__body" transform="translate(0,45)">
+            <g className="contract-grant-activity-chart__body" transform="translate(0,10)">
                 <ActivityYAxis
                     height={height}
                     width={visualizationWidth}
