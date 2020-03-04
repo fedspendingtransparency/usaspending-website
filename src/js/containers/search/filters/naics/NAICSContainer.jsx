@@ -53,7 +53,7 @@ export class NAICSContainer extends React.Component {
 
     componentDidMount() {
         // show staged filters
-        this.addCheckedNaics(this.props.checked);
+        this.updateCountOfSelectedTopTierNaicsCodes(this.props.checked);
         return this.fetchNAICS();
     }
 
@@ -80,7 +80,7 @@ export class NAICSContainer extends React.Component {
      * @returns {null}
      */
     onCheck = async (checkedNodes, node) => {
-        this.addCheckedNaics(checkedNodes, node);
+        this.updateCountOfSelectedTopTierNaicsCodes(checkedNodes, node);
         this.props.updateNaics(checkedNodes);
     }
 
@@ -162,7 +162,7 @@ export class NAICSContainer extends React.Component {
     };
 
     // updateCountOfSelectedTopTierNaics
-    addCheckedNaics = (checked = []) => {
+    updateCountOfSelectedTopTierNaicsCodes = (checked = []) => {
         // child place holders reflect the count of their immediate ancestor
         const placeHoldersToBeCounted = checked
             .filter((naicsCode) => naicsCode.includes('children_of_'));

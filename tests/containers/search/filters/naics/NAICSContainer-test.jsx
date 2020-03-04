@@ -20,7 +20,7 @@ describe('NAICS Search Filter Container', () => {
                 {...defaultProps}
                 nodes={treeWithPlaceholdersAndRealData} />);
 
-            await container.instance().addCheckedNaics(["children_of_11", "children_of_1111"]);
+            await container.instance().updateCountOfSelectedTopTierNaicsCodes(["children_of_11", "children_of_1111"]);
             expect(container.instance().state.selectedNaicsData[0].count).toEqual(64);
         });
         it('when a placeholder is checked and a checked node under that placeholder is removed, decrement the count', async () => {
@@ -28,7 +28,7 @@ describe('NAICS Search Filter Container', () => {
                 {...defaultProps}
                 nodes={treeWithPlaceholdersAndRealData} />);
             // ensuring state is set...
-            await container.instance().addCheckedNaics(["children_of_1111", "111110", "111120"]);
+            await container.instance().updateCountOfSelectedTopTierNaicsCodes(["children_of_1111", "111110", "111120"]);
             expect(container.instance().state.selectedNaicsData[0].count).toEqual(8);
 
             // now that state is set, remove one of the checked nodes
@@ -40,7 +40,7 @@ describe('NAICS Search Filter Container', () => {
                 {...defaultProps}
                 nodes={treeWithPlaceholdersAndRealData} />);
             // ensuring state is set...
-            await container.instance().addCheckedNaics(["children_of_1111", "111110", "111120"]);
+            await container.instance().updateCountOfSelectedTopTierNaicsCodes(["children_of_1111", "111110", "111120"]);
             expect(container.instance().state.selectedNaicsData[0].count).toEqual(8);
 
             // now that state is set, remove one of the checked nodes
