@@ -85,23 +85,21 @@ export class NAICSContainer extends React.Component {
     }
 
     onUncheck = (checked, node) => {
-        // TODO: Unchecking parent, checked in default view, in search view. Senario 6 in DEV-4621 (https://federal-spending-transparency.atlassian.net/browse/DEV-4621)
         const { selectedNaicsData } = this.state;
         const { nodes } = this.props;
         const { value } = node;
         const count = getNodeFromTree(nodes, value).count || 1;
         const parentKey = getHighestAncestorNaicsCode(value);
-        const immediateAncestorCode = getImmediateAncestorNaicsCode(value);
-        // manually update count for unchecked nodes under a child placeholder. This is a complicated edge case.
-        const shouldUpdateCount = checked.some((code) => (
-            code.includes(`children_of_${parentKey}`) ||
-            code.includes(`children_of_${immediateAncestorCode}`)
-        ));
         const shouldRemoveNode = selectedNaicsData.some((selectedNode) => (
             !node.checked &&
             selectedNode.count === count
         ));
-        if (shouldUpdateCount) {
+        if (shouldRemoveNode) {
+            this.setState({
+                selectedNaicsData: selectedNaicsData.filter((selectedNode) => selectedNode.value !== node.value)
+            });
+        }
+        else {
             this.setState({
                 selectedNaicsData: selectedNaicsData.map((selectedNode) => {
                     const newCount = selectedNode.count - count;
@@ -110,11 +108,6 @@ export class NAICSContainer extends React.Component {
                     }
                     return selectedNode;
                 })
-            });
-        }
-        else if (shouldRemoveNode) {
-            this.setState({
-                selectedNaicsData: selectedNaicsData.filter((selectedNode) => selectedNode.value !== node.value)
             });
         }
 
@@ -324,6 +317,7 @@ export class NAICSContainer extends React.Component {
     }
 
     selectNaicsData = (checked = []) => {
+        console.log("selectNaicsData", checked);
         // an array of objects w/ shape { value, label, count } representing all naics codes selected per top-parent category  . Only show top level parents
         // child place holders reflect the count of their immediate ancestor
         const placeHoldersToBeCounted = checked
