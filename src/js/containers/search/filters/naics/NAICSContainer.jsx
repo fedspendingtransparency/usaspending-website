@@ -92,11 +92,12 @@ export class NAICSContainer extends React.Component {
         const parentKey = getHighestAncestorNaicsCode(value);
         const shouldRemoveNode = selectedNaicsData.some((selectedNode) => (
             !node.checked &&
+            selectedNode.value === parentKey &&
             selectedNode.count === count
         ));
         if (shouldRemoveNode) {
             this.setState({
-                selectedNaicsData: selectedNaicsData.filter((selectedNode) => selectedNode.value !== node.value)
+                selectedNaicsData: selectedNaicsData.filter((selectedNode) => selectedNode.value !== parentKey)
             });
         }
         else {
