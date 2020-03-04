@@ -79,8 +79,8 @@ export class NAICSContainer extends React.Component {
      * @param {string[]} checked - and array of checked values
      * @returns {null}
      */
-    onCheck = async (checkedNodes) => {
-        this.addCheckedNaics(checkedNodes);
+    onCheck = async (checkedNodes, node) => {
+        this.addCheckedNaics(checkedNodes, node);
         this.props.updateNaics(checkedNodes);
     }
 
@@ -135,50 +135,85 @@ export class NAICSContainer extends React.Component {
         }
     };
 
+    getCount = (key, isPlaceholder, codesUnderPlaceholder, aggregate = false) => {
+        const node = getNodeFromTree(this.props.nodes, key);
+        const keyForNodeUnderPlaceholder = codesUnderPlaceholder.find((obj) => obj.parent === key);
+        const currentCountObj = this.state.selectedNaicsData.find((selectedNaics) => (
+            selectedNaics.value === key &&
+            selectedNaics.count !== node.count
+        ));
+        const isPartialPlaceholder = (
+            isPlaceholder &&
+            keyForNodeUnderPlaceholder &&
+            currentCountObj
+        );
+
+        if (isPartialPlaceholder) {
+            const nodeUnderPlaceholder = getNodeFromTree(this.props.nodes, keyForNodeUnderPlaceholder.code);
+            const countFromNode = nodeUnderPlaceholder.count === 0
+                ? 1
+                : nodeUnderPlaceholder.count;
+            return aggregate
+                ? currentCountObj.count + countFromNode
+                : countFromNode;
+        }
+
+        return node.count || 1;
+    };
+
+    // updateCountOfSelectedTopTierNaics
     addCheckedNaics = (checked = []) => {
-        // an array of objects w/ shape { value, label, count } representing all naics codes selected per top-parent category. Only show top level parents
         // child place holders reflect the count of their immediate ancestor
         const placeHoldersToBeCounted = checked
             .filter((naicsCode) => naicsCode.includes('children_of_'));
+        
         const codesUnderPlaceholder = [];
         const codesWithoutPlaceholder = [];
 
         checked
             .filter((naicsCode) => !naicsCode.includes('children_of_'))
             .forEach((naicsCode) => {
-                const immediateAncestorCode = getImmediateAncestorNaicsCode(naicsCode);
-                const highestAncestorCode = getHighestAncestorNaicsCode(naicsCode);
+                const immediateAncestorCode = getImmediateAncestorNaicsCode(naicsCode); // 1111
+                const highestAncestorCode = getHighestAncestorNaicsCode(naicsCode); // 11
 
                 const codeWillBeCountedByPlaceholder = (
                     placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`) ||
                     placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`) ||
                     placeHoldersToBeCounted.includes(`children_of_${naicsCode}`)
                 );
-                if (codeWillBeCountedByPlaceholder) codesUnderPlaceholder.push(naicsCode);
+                if (codeWillBeCountedByPlaceholder) codesUnderPlaceholder.push({ code: naicsCode, parent: highestAncestorCode });
                 else {
                     codesWithoutPlaceholder.push(naicsCode);
                 }
             });
 
-        const checkedWithoutNodesUnderPlaceholder = [...new Set([...codesWithoutPlaceholder, ...placeHoldersToBeCounted])]
+        const checkedWithoutNodesUnderPlaceholder = [...new Set([
+            ...codesWithoutPlaceholder,
+            ...placeHoldersToBeCounted
+        ])]
             .reduce((acc, code) => {
-                const key = code.includes('children_of_')
+                const isPlaceholder = code.includes('children_of_');
+                const key = isPlaceholder
                     ? code.split('children_of_')[1]
                     : code;
                 const parentKey = getHighestAncestorNaicsCode(key);
                 const parentNode = cloneDeep(getNodeFromTree(this.props.nodes, parentKey));
-                const countFromNodeToBeAdded = getNodeFromTree(this.props.nodes, key).count || 1;
+                const countAggregatedFromCurrentCount = this.getCount(key, isPlaceholder, codesUnderPlaceholder, true);
+                const countFromNodeToBeAdded = this.getCount(key, isPlaceholder, codesUnderPlaceholder);
                 const indexOfParent = acc.findIndex((node) => node.value === parentKey);
                 const isParentSelected = indexOfParent >= 0;
 
                 if (!isParentSelected && key.length === 2) {
-                    acc.push(parentNode);
+                    acc.push({
+                        ...parentNode,
+                        count: countAggregatedFromCurrentCount
+                    });
                     return acc;
                 }
                 else if (!isParentSelected && key.length === 4) {
                     acc.push({
                         ...parentNode,
-                        count: countFromNodeToBeAdded
+                        count: countAggregatedFromCurrentCount
                     });
                     return acc;
                 }

@@ -115,7 +115,7 @@ export default class CheckboxTree extends Component {
                 .children
                 .find((child) => child.value === expandedValue);
         }
-        else if (expandedValue.length === 4) {
+        else if (expandedValue.length === 6) {
             selectedNode = data
                 .find((node) => node.value === `${expandedValue[0]}${expandedValue[1]}`)
                 .children
