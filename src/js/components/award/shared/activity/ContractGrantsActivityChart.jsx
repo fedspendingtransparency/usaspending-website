@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { cloneDeep } from 'lodash';
+import { cloneDeep, compact } from 'lodash';
 import { scaleLinear } from 'd3-scale';
-import { formatMoneyWithPrecision, calculateUnits } from 'helpers/moneyFormatter';
 
 import ActivityYAxis from 'components/award/idv/activity/chart/ActivityYAxis';
 
@@ -61,60 +60,74 @@ const ContractGrantsActivityChart = ({
         createYDomain
     ]);
     /**
+     * addLastTickForSpacing
+     * - We want to add spacing to the top of the chart based off of the design.
+     * To add this space we will add an additional tick to the y-axis by
+     * finding the average difference between the ticks and add that to
+     * the last tick.
+     * @param {Number[]} - an array of numbers.
+     * @returns {Number[]} - an array of numbers.
+     */
+    const addLastTickForSpacing = (ticks) => {
+        if (!ticks.length) return [];
+        const updatedTicks = cloneDeep(ticks);
+        const differences = compact(ticks.reverse().map((tick, i) => {
+            // we do not use the last tick
+            if (ticks.length === i + 1) return null;
+            return tick - ticks[i + 1];
+        }));
+        // average difference
+        const averageDifference = differences
+            .reduce((acc, data) => acc + data, 0) / differences.length;
+        // adds the average difference to the last tick.
+        const lastTick = updatedTicks[updatedTicks.length - 1] + averageDifference;
+        updatedTicks.push(lastTick);
+        return updatedTicks;
+    };
+    /**
      * createxScale
      * - creates the x scaling function and updates state
      * @returns {null}
      */
-    const createXScale = useCallback(() => {
+    const createXScaleAndTicks = useCallback(() => {
         const scale = scaleLinear().domain(xDomain).range([0, visualizationWidth]).nice();
+        const ticks = scale.ticks(6);
+        setXTicks(ticks);
         setXScale(() => scale);
     }, [xDomain, visualizationWidth]);
     /**
      * createYScale
-     * - creates the y scaling function and updates state
+     * - creates the y scaling function and ticks.
      * @returns {null}
      */
-    const createYScale = useCallback(() => {
+    const createYScaleAndTicks = useCallback(() => {
         const scale = scaleLinear().domain(yDomain).range([0, height]).nice();
-        setYScale(() => scale);
+        // determine the ticks from D3
+        const ticks = scale.ticks(6);
+        // add last tick for spacing
+        const updatedTicksWithSpacing = addLastTickForSpacing(ticks);
+        // create new scale since we have new data
+        const updatedScale = scaleLinear()
+            .domain([yDomain[0], updatedTicksWithSpacing[updatedTicksWithSpacing.length - 1]])
+            .range([0, height])
+            .nice();
+        setYTicks(updatedTicksWithSpacing);
+        setYScale(() => updatedScale);
     }, [yDomain, height]);
     // hook - runs only on mount unless transactions change
     useEffect(() => {
-        createXScale();
-        createYScale();
+        createXScaleAndTicks(xDomain);
+        createYScaleAndTicks(yDomain);
     }, [
         transactions,
-        createXScale,
-        createYScale
+        createXScaleAndTicks,
+        createYScaleAndTicks,
+        xDomain,
+        yDomain
     ]);
-    /**
-     * createXTicks
-     * - creates ticks for x axis and updates state
-     * @returns {null}
-     */
-    const createXTicks = useCallback(() => {
-        const ticks = xScale.ticks(6);
-        setXTicks(ticks);
-    }, [xScale]);
-    /**
-     * createYTicks
-     * - creates ticks for y axis and updates state.
-     * @returns {null}
-     */
-    const createYTicks = useCallback(() => {
-        const ticks = yScale.ticks(6);
-        setYTicks(ticks);
-    }, [yScale]);
-    // hook - runs only on mount unless transactions or x or y scale change.
-    useEffect(() => {
-        if (xScale && yScale) {
-            createXTicks();
-            createYTicks();
-        }
-    }, [transactions, createXTicks, createYTicks, xScale, yScale]);
-    // Adds padding bottom and 40 extra pixels for the x-axis.
+    // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
-    // updates the x position of our labels.
+    // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
 
     return (
