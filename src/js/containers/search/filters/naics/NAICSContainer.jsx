@@ -134,6 +134,90 @@ export class NAICSContainer extends React.Component {
         }
     };
 
+    selectNaicsData = (checked = []) => {
+        console.log("selectNaicsData", checked);
+        // an array of objects w/ shape { value, label, count } representing all naics codes selected per top-parent category. Only show top level parents
+        // child place holders reflect the count of their immediate ancestor
+        const placeHoldersToBeCounted = checked
+            .filter((naicsCode) => naicsCode.includes('children_of_'))
+            .map((naicsCode) => naicsCode.split('children_of_')[1]);
+        const codesUnderPlaceholder = [];
+        const codesWithoutPlaceholder = [];
+
+        checked
+            .filter((naicsCode) => !naicsCode.includes('children_of_'))
+            .forEach((naicsCode) => {
+                const immediateAncestorCode = getImmediateAncestorNaicsCode(naicsCode);
+                const highestAncestorCode = getHighestAncestorNaicsCode(naicsCode);
+
+                const codeWillBeCountedByPlaceholder = (
+                    placeHoldersToBeCounted.includes(immediateAncestorCode) ||
+                    placeHoldersToBeCounted.includes(highestAncestorCode) ||
+                    placeHoldersToBeCounted.includes(naicsCode)
+                );
+                if (codeWillBeCountedByPlaceholder) codesUnderPlaceholder.push(naicsCode);
+                else {
+                    codesWithoutPlaceholder.push(naicsCode);
+                }
+            });
+
+        const checkedWithoutNodesUnderPlaceholder = [...new Set([...codesWithoutPlaceholder, ...placeHoldersToBeCounted])]
+            .reduce((acc, code) => {
+                const key = code.includes('children_of_')
+                    ? code.split('children_of_')[1]
+                    : code;
+                const parentKey = getHighestAncestorNaicsCode(key);
+                const parentNode = cloneDeep(getNodeFromTree(this.props.nodes, parentKey));
+                const countFromNodeToBeAdded = getNodeFromTree(this.props.nodes, key).count || 1;
+                const indexOfParent = acc.findIndex((node) => node.value === parentKey);
+                const isParentSelected = indexOfParent >= 0;
+
+                if (!isParentSelected && key.length === 2) {
+                    acc.push(parentNode);
+                    return acc;
+                }
+                else if (!isParentSelected && key.length === 4) {
+                    acc.push({
+                        ...parentNode,
+                        count: countFromNodeToBeAdded
+                    });
+                    return acc;
+                }
+                else if (!isParentSelected && key.length === 6) {
+                    acc.push({
+                        ...parentNode,
+                        count: 1
+                    });
+                    return acc;
+                }
+                else if (isParentSelected && key.length === 2) {
+                    acc[indexOfParent].count = parentNode.count;
+                    return acc;
+                }
+                else if (isParentSelected && key.length === 4) {
+                    acc[indexOfParent].count += countFromNodeToBeAdded;
+                    if (parentNode.count <= acc[indexOfParent].count) {
+                        acc[indexOfParent].count = parentNode.count;
+                        return acc;
+                    }
+                    return acc;
+                }
+                else if (isParentSelected && key.length === 6) {
+                    acc[indexOfParent].count += countFromNodeToBeAdded;
+                    // never increment count above count of parent.
+                    if (parentNode.count <= acc[indexOfParent].count) {
+                        acc[indexOfParent].count = parentNode.count;
+                        return acc;
+                    }
+                    return acc;
+                }
+                return acc;
+            }, []);
+
+        this.setState({ selectedNaicsData: checkedWithoutNodesUnderPlaceholder });
+        this.props.setChecked(checked);
+    }
+
     handleTextInputChange = (e) => {
         const text = e.target.value;
         if (!text) {
@@ -314,88 +398,6 @@ export class NAICSContainer extends React.Component {
                 onUncheck={this.onUncheck}
                 onCheck={this.onCheck} />
         );
-    }
-
-    selectNaicsData = (checked = []) => {
-        console.log("selectNaicsData", checked);
-        // an array of objects w/ shape { value, label, count } representing all naics codes selected per top-parent category  . Only show top level parents
-        // child place holders reflect the count of their immediate ancestor
-        const placeHoldersToBeCounted = checked
-            .filter((naicsCode) => naicsCode.includes('children_of_'));
-        const codesUnderPlaceholder = [];
-        const codesWithoutPlaceholder = [];
-
-        checked
-            .filter((naicsCode) => !naicsCode.includes('children_of_'))
-            .forEach((naicsCode) => {
-                const immediateAncestorCode = getImmediateAncestorNaicsCode(naicsCode);
-                const highestAncestorCode = getHighestAncestorNaicsCode(naicsCode);
-
-                const codeWillBeCountedByPlaceholder = (
-                    placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`) ||
-                    placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`)
-                );
-                if (codeWillBeCountedByPlaceholder) codesUnderPlaceholder.push(naicsCode);
-                else {
-                    codesWithoutPlaceholder.push(naicsCode);
-                }
-            });
-
-        const checkedWithoutNodesUnderPlaceholder = [...new Set([...codesWithoutPlaceholder, ...placeHoldersToBeCounted])]
-            .reduce((acc, code) => {
-                const key = code.includes('children_of_')
-                    ? code.split('children_of_')[1]
-                    : code;
-                const parentKey = getHighestAncestorNaicsCode(key);
-                const parentNode = cloneDeep(getNodeFromTree(this.props.nodes, parentKey));
-                const countFromNodeToBeAdded = getNodeFromTree(this.props.nodes, key).count || 1;
-                const indexOfParent = acc.findIndex((node) => node.value === parentKey);
-                const isParentSelected = indexOfParent >= 0;
-
-                if (!isParentSelected && key.length === 2) {
-                    acc.push(parentNode);
-                    return acc;
-                }
-                else if (!isParentSelected && key.length === 4) {
-                    acc.push({
-                        ...parentNode,
-                        count: countFromNodeToBeAdded
-                    });
-                    return acc;
-                }
-                else if (!isParentSelected && key.length === 6) {
-                    acc.push({
-                        ...parentNode,
-                        count: 1
-                    });
-                    return acc;
-                }
-                else if (isParentSelected && key.length === 2) {
-                    acc[indexOfParent].count = parentNode.count;
-                    return acc;
-                }
-                else if (isParentSelected && key.length === 4) {
-                    acc[indexOfParent].count += countFromNodeToBeAdded;
-                    if (parentNode.count <= acc[indexOfParent].count) {
-                        acc[indexOfParent].count = parentNode.count;
-                        return acc;
-                    }
-                    return acc;
-                }
-                else if (isParentSelected && key.length === 6) {
-                    acc[indexOfParent].count += countFromNodeToBeAdded;
-                    // never increment count above count of parent.
-                    if (parentNode.count <= acc[indexOfParent].count) {
-                        acc[indexOfParent].count = parentNode.count;
-                        return acc;
-                    }
-                    return acc;
-                }
-                return acc;
-            }, []);
-
-        this.setState({ selectedNaicsData: checkedWithoutNodesUnderPlaceholder });
-        this.props.setChecked(checked);
     }
 
     render() {
