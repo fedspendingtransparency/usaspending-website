@@ -116,8 +116,6 @@ const ContractGrantsActivityChart = ({
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels.
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
-    // all y values
-    const ySeries = cloneDeep(transactions).map((data) => data.federal_action_obligation);
 
     return (
         <svg
@@ -129,7 +127,6 @@ const ContractGrantsActivityChart = ({
                     height={height}
                     width={visualizationWidth}
                     padding={paddingForYAxis}
-                    data={ySeries}
                     scale={yScale}
                     ticks={yTicks}
                     textAnchor="left" />

@@ -321,7 +321,6 @@ export default class ActivityChart extends React.Component {
         const bars = this.createBars();
         const { width, height, padding } = this.props;
         const currentDate = Date.now();
-        console.log(' This : ', this.props.ySeries);
         const {
             xScale,
             xRange,
@@ -342,7 +341,6 @@ export default class ActivityChart extends React.Component {
                         width={width - padding.left}
                         extendLine={this.props.barHeight}
                         padding={padding}
-                        data={this.props.ySeries}
                         scale={this.state.yScale}
                         ticks={this.state.yTicks} />
                     <ActivityXAxis
