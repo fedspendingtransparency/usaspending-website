@@ -53,7 +53,7 @@ export class NAICSContainer extends React.Component {
 
     componentDidMount() {
         // show staged filters
-        this.selectNaicsData(this.props.checked);
+        this.addCheckedNaics(this.props.checked);
         return this.fetchNAICS();
     }
 
@@ -80,7 +80,7 @@ export class NAICSContainer extends React.Component {
      * @returns {null}
      */
     onCheck = async (checkedNodes) => {
-        this.selectNaicsData(checkedNodes);
+        this.addCheckedNaics(checkedNodes);
         this.props.updateNaics(checkedNodes);
     }
 
@@ -135,7 +135,7 @@ export class NAICSContainer extends React.Component {
         }
     };
 
-    selectNaicsData = (checked = []) => {
+    addCheckedNaics = (checked = []) => {
         // an array of objects w/ shape { value, label, count } representing all naics codes selected per top-parent category. Only show top level parents
         // child place holders reflect the count of their immediate ancestor
         const placeHoldersToBeCounted = checked

@@ -6,140 +6,46 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
-import { List } from 'immutable';
 import {
-    naicsMock2,
-    populatedNAICSRedux,
-    emptyNAICSProps,
-    populatedState,
-    naicsMockCleanData
+    defaultProps,
+    treeWithPlaceholdersAndRealData
 } from './mockNAICS';
 
 jest.mock('helpers/naicsHelper', () => require('./mockNAICSHelper'));
 
 describe('NAICS Search Filter Container', () => {
-    const fetchNAICS = jest.fn();
-    const setStateFromRedux = jest.fn();
-    const onExpand = jest.fn();
-    const setExpanded = jest.fn();
-    const onSearchChange = jest.fn();
-    describe('Component Did Mount', () => {
-        it('should call fetch naics on mount', async () => {
-            const container = shallow(<NAICSContainer {...emptyNAICSProps} />);
-            container.instance().fetchNAICS = fetchNAICS;
-            await container.instance().componentDidMount();
-            expect(fetchNAICS).toHaveBeenCalled();
+    describe('checked state: with placeholder AND real data', () => {
+        it('when both parent and child placeholders are checked, only count the value of the parent', async () => {
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                nodes={treeWithPlaceholdersAndRealData} />);
+
+            await container.instance().addCheckedNaics(["children_of_11", "children_of_1111"]);
+            expect(container.instance().state.selectedNaicsData[0].count).toEqual(64);
         });
-        it('should not call fetch naics on mount when there is a Redux value', async () => {
-            const newProps = { ...emptyNAICSProps };
-            newProps.nodes = populatedNAICSRedux.naics;
-            const container = shallow(<NAICSContainer {...newProps} />);
-            container.instance().setStateFromRedux = setStateFromRedux;
-            await container.instance().componentDidMount();
-            expect(setStateFromRedux).toHaveBeenCalled();
+        it('when a placeholder is checked and a checked node under that placeholder is removed, decrement the count', async () => {
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                nodes={treeWithPlaceholdersAndRealData} />);
+            // ensuring state is set...
+            await container.instance().addCheckedNaics(["children_of_1111", "111110", "111120"]);
+            expect(container.instance().state.selectedNaicsData[0].count).toEqual(8);
+
+            // now that state is set, remove one of the checked nodes
+            await container.instance().onUncheck(["children_of_1111", "111120"], { checked: false, value: "111110" });
+            expect(container.instance().state.selectedNaicsData[0].count).toEqual(7);
         });
-    });
-    it('should update state when onClear is called', () => {
-        const newProps = { ...emptyNAICSProps };
-        const container = shallow(<NAICSContainer {...newProps} />);
-        container.instance().onClear();
-        const {
-            isSearch,
-            searchString,
-            naics
-        } = container.instance().state;
-        expect(isSearch).toEqual(false);
-        expect(searchString).toEqual('');
-        expect(Array.isArray(naics)).toEqual(true);
-    });
-    describe('Handle Text Input Change', () => {
-        it('should update state when no search text', () => {
-            const newProps = { ...emptyNAICSProps };
-            const container = shallow(<NAICSContainer {...newProps} />);
-            container.instance().handleTextInputChange({ target: { value: '' } });
-            const {
-                isSearch,
-                searchString
-            } = container.instance().state;
-            expect(isSearch).toEqual(false);
-            expect(searchString).toEqual('');
-        });
-        it('should update state when search text exists', () => {
-            const newProps = { ...emptyNAICSProps };
-            const container = shallow(<NAICSContainer {...newProps} />);
-            container.instance().onSearchChange = onSearchChange;
-            container.instance().handleTextInputChange({ target: { value: 'Maxwell' } });
-            const {
-                isSearch,
-                searchString
-            } = container.instance().state;
-            expect(isSearch).toEqual(true);
-            expect(searchString).toEqual('Maxwell');
-            expect(onSearchChange).toHaveBeenCalled();
-        });
-    });
-    it('should call fetchNAICS and setExpended when onExpand is called', () => {
-        const newProps = { ...emptyNAICSProps };
-        newProps.setExpanded = jest.fn();
-        const container = shallow(<NAICSContainer {...newProps} />);
-        container.instance().fetchNAICS = fetchNAICS;
-        container.instance().onExpand({ value: 0 }, []);
-        expect(fetchNAICS).toHaveBeenCalled();
-        expect(container.instance().props.setExpanded).toHaveBeenCalled();
-    });
-    it('should call setExpanded when onCollapse is called', () => {
-        const newProps = { ...emptyNAICSProps };
-        newProps.setExpanded = jest.fn();
-        const container = shallow(<NAICSContainer {...newProps} />);
-        container.instance().onExpand({ value: 0 }, []);
-        expect(container.instance().props.setExpanded).toHaveBeenCalled();
-    });
-    it('should call setNaics when setRedux is called', () => {
-        const newProps = { ...emptyNAICSProps };
-        newProps.setNaics = jest.fn();
-        const container = shallow(<NAICSContainer {...newProps} />);
-        container.instance().setRedux([]);
-        expect(container.instance().props.setNaics).toHaveBeenCalled();
-    });
-    it('should setState when setStateFromRedux is called', () => {
-        const container = shallow(<NAICSContainer {...emptyNAICSProps} />);
-        const { naics, expanded, checked } = populatedState;
-        container.instance().setStateFromRedux(new List(naics), new List(expanded), new List(checked));
-        const { state } = container.instance();
-        expect(state.naics).toEqual(naics);
-        expect(state.expanded).toEqual(expanded);
-        expect(state.checked).toEqual(checked);
-    });
-    describe('FecthNaics', () => {
-        it('should set property nodes in state to API response', async () => {
-            const container = shallow(<NAICSContainer />);
-            await container.instance().fetchNAICS();
-            const {
-                naics,
-                isLoading,
-                isError,
-                errorMessage,
-                requestType
-            } = container.instance().state;
-            expect(naics).toEqual(naicsMock2);
-            expect(isLoading).toEqual(false);
-            expect(isError).toEqual(false);
-            expect(errorMessage).toEqual('');
-            expect(requestType).toEqual('');
-        });
-        it('should set properties isError and errorMessage from API response', async () => {
-            const container = shallow(<NAICSContainer {...emptyNAICSProps} />);
-            await container.instance().fetchNAICS(true);
-            const {
-                naics,
-                isLoading,
-                isError,
-                errorMessage
-            } = container.instance().state;
-            expect(naics).toEqual([]);
-            expect(isLoading).toEqual(false);
-            expect(isError).toEqual(true);
-            expect(errorMessage).toEqual('Bad');
+        it('when a placeholder is checked and a checked node under that placeholder is removed, decrement the count', async () => {
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                nodes={treeWithPlaceholdersAndRealData} />);
+            // ensuring state is set...
+            await container.instance().addCheckedNaics(["children_of_1111", "111110", "111120"]);
+            expect(container.instance().state.selectedNaicsData[0].count).toEqual(8);
+
+            // now that state is set, remove one of the checked nodes
+            await container.instance().onUncheck(["children_of_1111", "111120"], { checked: false, value: "111110" });
+            expect(container.instance().state.selectedNaicsData[0].count).toEqual(7);
         });
     });
 });
