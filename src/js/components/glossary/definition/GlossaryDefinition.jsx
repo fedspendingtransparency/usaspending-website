@@ -42,6 +42,7 @@ const pickerOptions = [
     { component: <GlossaryDropdownOption icon={faRedditSquare} title="Reddit" />, name: 'reddit' }
 ];
 
+
 export default class GlossaryDefinition extends React.Component {
     constructor(props) {
         super(props);
@@ -128,7 +129,8 @@ export default class GlossaryDefinition extends React.Component {
                     options={options}
                     dropdownDirection="left"
                     backgroundColor="#215493"
-                    selectedOption="twitter">
+                    selectedOption="copy"
+                    sortFn = {(a,b,select) => 1}>
                     <FontAwesomeIcon className="glossary-share-icon" icon="share-alt" color="#e2e2e2" size="lg" />
                 </Picker>
                 <span className={`copy-confirmation ${this.state.showCopiedConfirmation ? '' : 'hide'}`}><FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied</span>
