@@ -130,7 +130,7 @@ export default class GlossaryDefinition extends React.Component {
                     dropdownDirection="left"
                     backgroundColor="#215493"
                     selectedOption="copy"
-                    sortFn={(a, b) => 1}>
+                    sortFn={() => 1}>
                     <FontAwesomeIcon className="glossary-share-icon" icon="share-alt" color="#e2e2e2" size="lg" />
                 </Picker>
                 <span className={`copy-confirmation ${this.state.showCopiedConfirmation ? '' : 'hide'}`}><FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied</span>
