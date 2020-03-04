@@ -11,15 +11,13 @@ export const sortNodes = (a, b) => {
     return 0;
 };
 
-export const getHighestAncestorNaicsCode = (naicsCode) => {
-    return `${naicsCode[0]}${naicsCode[1]}`;
-};
+export const getHighestAncestorNaicsCode = (naicsCode) => `${naicsCode[0]}${naicsCode[1]}`;
 
 export const getImmediateAncestorNaicsCode = (naicsCode) => {
     if (naicsCode.length === 2) return naicsCode;
     else if (naicsCode.length === 4) return getHighestAncestorNaicsCode(naicsCode);
     return `${naicsCode[0]}${naicsCode[1]}${naicsCode[2]}${naicsCode[3]}`;
-}
+};
 
 export const getNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
     const parentKey = getHighestAncestorNaicsCode(nodeKey);
@@ -125,6 +123,7 @@ const mergeChildren = (parentFromSearch, existingParent) => {
             value: `children_of_${parentFromSearch.value}`
         });
     }
+    return null;
 };
 
 export const addSearchResultsToTree = (tree, searchResults) => {
@@ -152,15 +151,11 @@ export const showAllTreeItems = (tree, key = '', payload = []) => tree
             return {
                 ...data,
                 children: data.children.map((child) => {
-                    const existingChild = node.children.find((olderChild) => {
-                        return olderChild.value === child.value;
-                    });
+                    const existingChild = node.children.find((olderChild) => olderChild.value === child.value);
                     const weHaveTheGrandChildren = (
                         existingChild &&
                         existingChild?.children.length === child.count &&
-                        !existingChild?.children.some((existingGrand) => {
-                            return existingGrand?.isPlaceHolder;
-                        })
+                        !existingChild?.children.some((existingGrand) => existingGrand?.isPlaceHolder)
                     );
                     const weHaveAtLeastOneGrandChild = (
                         existingChild &&

@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
     debounce,
-    isEqual,
     cloneDeep
 } from 'lodash';
 import { isCancel } from 'axios';
@@ -98,12 +97,10 @@ export class NAICSContainer extends React.Component {
             code.includes(`children_of_${parentKey}`) ||
             code.includes(`children_of_${immediateAncestorCode}`)
         ));
-        const shouldRemoveNode = selectedNaicsData.some((selectedNode) => {
-            return (
-                !node.checked &&
-                selectedNode.count === count
-            );
-        });
+        const shouldRemoveNode = selectedNaicsData.some((selectedNode) => (
+            !node.checked &&
+            selectedNode.count === count
+        ));
         if (shouldUpdateCount) {
             this.setState({
                 selectedNaicsData: selectedNaicsData.map((selectedNode) => {
@@ -305,7 +302,12 @@ export class NAICSContainer extends React.Component {
             searchString,
             isSearch
         } = this.state;
-        const { checked, nodes, expanded, searchExpanded } = this.props;
+        const {
+            checked,
+            nodes,
+            expanded,
+            searchExpanded
+        } = this.props;
         if (isLoading || isError) return null;
         return (
             <CheckboxTree
