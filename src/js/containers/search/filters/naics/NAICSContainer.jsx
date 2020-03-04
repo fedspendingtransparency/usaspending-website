@@ -136,12 +136,10 @@ export class NAICSContainer extends React.Component {
     };
 
     selectNaicsData = (checked = []) => {
-        console.log("selectNaicsData", checked);
         // an array of objects w/ shape { value, label, count } representing all naics codes selected per top-parent category. Only show top level parents
         // child place holders reflect the count of their immediate ancestor
         const placeHoldersToBeCounted = checked
-            .filter((naicsCode) => naicsCode.includes('children_of_'))
-            .map((naicsCode) => naicsCode.split('children_of_')[1]);
+            .filter((naicsCode) => naicsCode.includes('children_of_'));
         const codesUnderPlaceholder = [];
         const codesWithoutPlaceholder = [];
 
@@ -152,9 +150,9 @@ export class NAICSContainer extends React.Component {
                 const highestAncestorCode = getHighestAncestorNaicsCode(naicsCode);
 
                 const codeWillBeCountedByPlaceholder = (
-                    placeHoldersToBeCounted.includes(immediateAncestorCode) ||
-                    placeHoldersToBeCounted.includes(highestAncestorCode) ||
-                    placeHoldersToBeCounted.includes(naicsCode)
+                    placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`) ||
+                    placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`) ||
+                    placeHoldersToBeCounted.includes(`children_of_${naicsCode}`)
                 );
                 if (codeWillBeCountedByPlaceholder) codesUnderPlaceholder.push(naicsCode);
                 else {
@@ -197,7 +195,7 @@ export class NAICSContainer extends React.Component {
                 }
                 else if (isParentSelected && key.length === 4) {
                     acc[indexOfParent].count += countFromNodeToBeAdded;
-                    if (parentNode.count <= acc[indexOfParent].count) {
+                    if (parentNode.count < acc[indexOfParent].count) {
                         acc[indexOfParent].count = parentNode.count;
                         return acc;
                     }
@@ -206,7 +204,7 @@ export class NAICSContainer extends React.Component {
                 else if (isParentSelected && key.length === 6) {
                     acc[indexOfParent].count += countFromNodeToBeAdded;
                     // never increment count above count of parent.
-                    if (parentNode.count <= acc[indexOfParent].count) {
+                    if (parentNode.count < acc[indexOfParent].count) {
                         acc[indexOfParent].count = parentNode.count;
                         return acc;
                     }
@@ -229,60 +227,52 @@ export class NAICSContainer extends React.Component {
 
     autoCheckChildrenOfParent = (parentNode) => {
         const value = parentNode.naics;
-        // deselect placeholder values!
-        const noPlaceHolderCheckedValues = this.props.checked
+        // deselect placeholder values for node!
+        const removeParentPlaceholders = this.props.checked
             .filter((checked) => !checked.includes(`children_of_${value}`));
 
         const newValues = parentNode
             .children
             .map((child) => {
-                if (value.length === 2) return `children_of_${child.naics}`;
+                if (child.naics.length === 4) return `children_of_${child.naics}`;
                 return child.naics;
             });
 
-        this.props.setChecked([...new Set([...noPlaceHolderCheckedValues, ...newValues])]);
+        this.props.setChecked([...new Set([...removeParentPlaceholders, ...newValues])]);
     }
 
     transformMockCheckedToRealChecked = (checked, expanded) => {
         const { nodes } = this.props;
-
         const checkedMockNodes = checked
             .filter((node) => node.includes('children_of_'))
             .map((node) => node.split('children_of_')[1]);
 
-        const checkedMockChildren = checkedMockNodes
-            .filter((node) => node.length === 2);
-
-        const checkedMockGrandChildren = checkedMockNodes
-            .filter((node) => node.length === 4);
-
         const expandedNodesWithMockAncestorChecked = expanded
-            .filter((expandedNode) => {
-                const grandParentOfExpanded = `${expandedNode[0]}${expandedNode[1]}`;
-                if (checkedMockChildren.includes(grandParentOfExpanded)) {
-                    return true;
-                }
-                const parentOfExpanded = `${grandParentOfExpanded}${expandedNode[2]}${expandedNode[3]}`;
-                if (expandedNode.length > 2 && checkedMockGrandChildren.includes(parentOfExpanded)) {
+            .filter((naicsCode) => {
+                const parentKey = getHighestAncestorNaicsCode(naicsCode);
+                const ancestorKey = getImmediateAncestorNaicsCode(naicsCode);
+                if (checkedMockNodes.includes(parentKey) || checkedMockNodes.includes(ancestorKey) || checkedMockNodes.includes(naicsCode)) {
                     return true;
                 }
                 return false;
             });
 
         expandedNodesWithMockAncestorChecked
-            .forEach((expandedChild) => {
+            .forEach((expandedNode) => {
                 // use reusable recursive fn here...?
-                const node = getNodeFromTree(nodes, expandedChild);
-                this.props.addChecked(node.value);
+                const node = getNodeFromTree(nodes, expandedNode);
                 if (node.children) {
                     node.children.forEach((child) => {
-                        this.props.addChecked(child.value);
+                        if (!child.children) this.props.addChecked(child.value);
                         if (child.children) {
                             child.children.forEach((grandChild) => {
                                 this.props.addChecked(grandChild.value);
                             });
                         }
                     });
+                }
+                if (expandedNode.length === 6) {
+                    this.props.addChecked(node.value);
                 }
             });
     };
