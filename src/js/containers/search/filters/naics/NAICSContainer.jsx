@@ -144,18 +144,6 @@ export class NAICSContainer extends React.Component {
         }
     };
 
-    getParentNode = (param) => {
-        if (param.length === 2) {
-            return this.props.nodes.find((node) => node.value === param);
-        }
-        if (param.length === 4) {
-            return this.props.nodes
-                .find((node) => node.value === `${param[0]}${param[1]}`).children
-                .find(((node) => node.value === param));
-        }
-        return '';
-    }
-
     handleTextInputChange = (e) => {
         const text = e.target.value;
         if (!text) {
