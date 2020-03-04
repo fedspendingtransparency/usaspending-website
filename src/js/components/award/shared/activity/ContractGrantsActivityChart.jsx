@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { cloneDeep, compact } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
-import ActivityYAxis from 'components/award/idv/activity/chart/ActivityYAxis';
+import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 
 const propTypes = {
     height: PropTypes.number,
@@ -38,7 +38,12 @@ const ContractGrantsActivityChart = ({
     const createXDomain = useCallback(() => {
         const clonedTransactions = cloneDeep(transactions);
         clonedTransactions.sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf());
-        setXDomain([clonedTransactions[0].action_date.valueOf(), clonedTransactions[clonedTransactions.length - 1].action_date.valueOf()]);
+        setXDomain(
+            [
+                clonedTransactions[0].action_date.valueOf(),
+                clonedTransactions[clonedTransactions.length - 1].action_date.valueOf()
+            ]
+        );
     }, [transactions]);
     /**
      * createYSeries
@@ -47,8 +52,14 @@ const ContractGrantsActivityChart = ({
      */
     const createYDomain = useCallback(() => {
         const clonedTransactions = cloneDeep(transactions);
-        clonedTransactions.sort((a, b) => a.federal_action_obligation - b.federal_action_obligation);
-        setYDomain([clonedTransactions[0].federal_action_obligation, clonedTransactions[clonedTransactions.length - 1].federal_action_obligation]);
+        clonedTransactions.sort(
+            (a, b) => a.federal_action_obligation - b.federal_action_obligation);
+        setYDomain(
+            [
+                clonedTransactions[0].federal_action_obligation,
+                clonedTransactions[clonedTransactions.length - 1].federal_action_obligation
+            ]
+        );
     }, [transactions]);
     // hook - runs only on mount unless transactions change
     useEffect(() => {
@@ -116,8 +127,10 @@ const ContractGrantsActivityChart = ({
     }, [yDomain, height]);
     // hook - runs only on mount unless transactions change
     useEffect(() => {
-        createXScaleAndTicks(xDomain);
-        createYScaleAndTicks(yDomain);
+        if (xDomain.length && yDomain.length) {
+            createXScaleAndTicks(xDomain);
+            createYScaleAndTicks(yDomain);
+        }
     }, [
         transactions,
         createXScaleAndTicks,

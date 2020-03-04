@@ -11,9 +11,9 @@ import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
 import { nearestQuarterDate } from 'helpers/fiscalYearHelper';
 import RectanglePattern from 'components/sharedComponents/patterns/RectanglePattern';
 import VerticalLine from 'components/sharedComponents/VerticalLine';
+import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
+import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityChartBar from './ActivityChartBar';
-import ActivityXAxis from './ActivityXAxis';
-import ActivityYAxis from './ActivityYAxis';
 
 const propTypes = {
     awards: PropTypes.array,
