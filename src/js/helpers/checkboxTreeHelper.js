@@ -187,6 +187,13 @@ export const showAllTreeItems = (tree, key = '', payload = []) => tree
                             ...payload[0]
                         };
                     }
+                    if (child.children && child.children.some((grand) => grand.className === 'hide')) {
+                        return {
+                            ...child,
+                            className: '',
+                            children: child.children.map((grand) => ({ ...grand, className: '' }))
+                        };
+                    }
                     return {
                         ...child,
                         className: ''
