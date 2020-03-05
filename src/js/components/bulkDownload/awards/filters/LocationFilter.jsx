@@ -10,9 +10,11 @@ import { CheckCircle } from 'components/sharedComponents/icons/Icons';
 import EntityDropdown from 'components/search/filters/location/EntityDropdown';
 
 const propTypes = {
+    locationTypes: PropTypes.array,
     states: PropTypes.array,
     currentLocation: PropTypes.object,
-    updateFilter: PropTypes.func
+    updateFilter: PropTypes.func,
+    currentLocationType: PropTypes.string
 };
 
 const countryOptions = [
@@ -34,28 +36,14 @@ export default class LocationFilter extends React.Component {
     constructor(props) {
         super(props);
 
+        this.onChange = this.onChange.bind(this);
         this.updateLocationFilter = this.updateLocationFilter.bind(this);
         this.generateDisclaimer = this.generateDisclaimer.bind(this);
     }
 
-
-    updateLocationFilter(locationType, selectedLocation) {
-        if (locationType === 'country') {
-            this.props.updateFilter('location', {
-                country: selectedLocation,
-                state: {
-                    code: '',
-                    name: ''
-                }
-            });
-        }
-        else if (locationType === 'state') {
-            const updatedLocation = Object.assign({}, this.props.currentLocation, {
-                state: selectedLocation
-            });
-
-            this.props.updateFilter('location', updatedLocation);
-        }
+    onChange(e) {
+        const target = e.target;
+        this.props.updateFilter('locationType', target.value);
     }
 
     generateDisclaimer(field) {
@@ -76,6 +64,25 @@ export default class LocationFilter extends React.Component {
         );
     }
 
+    updateLocationFilter(locationType, selectedLocation) {
+        if (locationType === 'country') {
+            this.props.updateFilter('location', {
+                country: selectedLocation,
+                state: {
+                    code: '',
+                    name: ''
+                }
+            });
+        }
+        else if (locationType === 'state') {
+            const updatedLocation = Object.assign({}, this.props.currentLocation, {
+                state: selectedLocation
+            });
+
+            this.props.updateFilter('location', updatedLocation);
+        }
+    }
+
     render() {
         const icon = (
             <div className="icon valid">
@@ -89,12 +96,27 @@ export default class LocationFilter extends React.Component {
             name: 'All'
         });
 
+        const locationTypes = this.props.locationTypes.map((locationType) => (
+            <div
+                className="radio"
+                key={locationType.name}>
+                <input
+                    type="radio"
+                    value={locationType.name}
+                    name="locationType"
+                    checked={this.props.currentLocationType === locationType.name}
+                    onChange={this.onChange} />
+                <label className="radio-label" htmlFor="locationType">{locationType.label}</label>
+            </div>
+        ));
+
         return (
             <div className="download-filter">
                 <h3 className="download-filter__title">
-                    {icon} Select a <span className="download-filter__title_em">recipient location</span>.
+                    {icon} Select a <span className="download-filter__title_em">location</span>.
                 </h3>
                 <div className="download-filter__content">
+                    {locationTypes}
                     <EntityDropdown
                         scope="country"
                         placeholder="Select a Country"

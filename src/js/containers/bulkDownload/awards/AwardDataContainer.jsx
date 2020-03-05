@@ -20,7 +20,11 @@ const propTypes = {
     clearDownloadFilters: PropTypes.func,
     updateAwardDateRange: PropTypes.func,
     bulkDownload: PropTypes.object,
-    clickedDownload: PropTypes.func
+    clickedDownload: PropTypes.func,
+    bulkPrimeAwardTypeChange: PropTypes.func,
+    bulkSubAwardTypeChange: PropTypes.func,
+    togglePrimeAwardTypeChange: PropTypes.func,
+    toggleSubAwardTypeChange: PropTypes.func
 };
 
 export class AwardDataContainer extends React.Component {
@@ -47,6 +51,10 @@ export class AwardDataContainer extends React.Component {
         this.setAgencyList = this.setAgencyList.bind(this);
         this.setSubAgencyList = this.setSubAgencyList.bind(this);
         this.loadStates = this.loadStates.bind(this);
+        this.bulkPrimeAwardTypeChange = this.bulkPrimeAwardTypeChange.bind(this);
+        this.bulkSubAwardTypeChange = this.bulkSubAwardTypeChange.bind(this);
+        this.togglePrimeAwardTypeChange = this.togglePrimeAwardTypeChange.bind(this);
+        this.toggleSubAwardTypeChange = this.toggleSubAwardTypeChange.bind(this);
     }
 
     componentDidMount() {
@@ -183,6 +191,22 @@ export class AwardDataContainer extends React.Component {
         this.props.clearDownloadFilters('awards');
     }
 
+    bulkPrimeAwardTypeChange(selection) {
+        this.props.bulkPrimeAwardTypeChange(selection);
+    }
+
+    bulkSubAwardTypeChange(selection) {
+        this.props.bulkSubAwardTypeChange(selection);
+    }
+
+    togglePrimeAwardTypeChange(selection) {
+        this.props.togglePrimeAwardTypeChange(selection);
+    }
+
+    toggleSubAwardTypeChange(selection) {
+        this.props.toggleSubAwardTypeChange(selection);
+    }
+
     render() {
         return (
             <AwardDataContent
@@ -196,7 +220,11 @@ export class AwardDataContainer extends React.Component {
                 subAgencies={this.state.subAgencies}
                 setSubAgencyList={this.setSubAgencyList}
                 states={this.state.states}
-                clickedDownload={this.props.clickedDownload} />
+                clickedDownload={this.props.clickedDownload}
+                bulkPrimeAwardTypeChange={this.bulkPrimeAwardTypeChange}
+                bulkSubAwardTypeChange={this.bulkSubAwardTypeChange}
+                togglePrimeAwardTypeChange={this.togglePrimeAwardTypeChange}
+                toggleSubAwardTypeChange={this.toggleSubAwardTypeChange} />
         );
     }
 }

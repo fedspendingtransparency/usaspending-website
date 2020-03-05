@@ -37,12 +37,12 @@ describe('BulkDownloadPageContainer', () => {
                 {...mockActions} />);
 
             const expectedParams = {
-                award_levels: ['prime_awards'],
                 columns: [],
                 file_format: 'csv',
                 filters: {
+                    prime_award_types: ['grants', 'loans'],
+                    sub_award_types: ['procurement'],
                     agency: '123',
-                    award_types: ['grants', 'loans'],
                     recipient_locations: [
                         {
                             country: 'USA',
@@ -90,12 +90,12 @@ describe('BulkDownloadPageContainer', () => {
                 {...mockActions} />);
 
             const expectedParams = {
-                award_levels: ['prime_awards'],
                 columns: [],
                 file_format: 'csv',
                 filters: {
                     agency: '123',
-                    award_types: ['grants', 'loans'],
+                    prime_award_types: ['grants', 'loans'],
+                    sub_award_types: ['procurement'],
                     recipient_locations: [
                         {
                             country: 'FOREIGN'
@@ -142,12 +142,12 @@ describe('BulkDownloadPageContainer', () => {
                 {...mockActions} />);
 
             const expectedParams = {
-                award_levels: ['prime_awards'],
                 columns: [],
                 file_format: 'csv',
                 filters: {
                     agency: '123',
-                    award_types: ['grants', 'loans'],
+                    prime_award_types: ['grants', 'loans'],
+                    sub_award_types: ['procurement'],
                     date_range: {
                         end_date: '11-01-2017',
                         start_date: '11-01-2016'
@@ -189,12 +189,12 @@ describe('BulkDownloadPageContainer', () => {
                 {...mockActions} />);
 
             const expectedParams = {
-                award_levels: ['prime_awards'],
                 columns: [],
                 file_format: 'csv',
                 filters: {
                     agency: '123',
-                    award_types: ['grants', 'loans'],
+                    prime_award_types: ['grants', 'loans'],
+                    sub_award_types: ['procurement'],
                     recipient_locations: [
                         {
                             country: 'USA'
@@ -216,6 +216,52 @@ describe('BulkDownloadPageContainer', () => {
 
             expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'awards');
         });
+        it('should use place of performance as for location filter', () => {
+            const awards = Object.assign({}, mockRedux.bulkDownload.awards, {
+                locationType: 'place_of_performance'
+            });
+            const bulkDownload = Object.assign({}, mockRedux.bulkDownload, {
+                awards
+            });
+            const updatedRedux = Object.assign({}, mockRedux, {
+                bulkDownload
+            });
+
+            const container = shallow(<BulkDownloadPageContainer
+                {...updatedRedux}
+                {...mockActions} />);
+
+            const expectedParams = {
+                columns: [],
+                file_format: 'csv',
+                filters: {
+                    agency: '123',
+                    prime_award_types: ['grants', 'loans'],
+                    sub_award_types: ['procurement'],
+                    place_of_performance_locations: [
+                        {
+                            country: 'USA',
+                            state: 'HI',
+                        }
+                    ],
+                    date_range: {
+                        end_date: '11-01-2017',
+                        start_date: '11-01-2016'
+                    },
+                    date_type: 'action_date',
+                    sub_agency: 'Mock Sub-Agency'
+                }
+            };
+
+            const requestDownload = jest.fn();
+            container.instance().requestDownload = requestDownload;
+
+            container.instance().startAwardDownload();
+
+            expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'awards');
+        });
+
+
     });
     describe('startAccountDownload', () => {
         const accountsRedux = Object.assign({}, mockRedux, {

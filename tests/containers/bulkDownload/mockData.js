@@ -1,3 +1,4 @@
+import { Set } from 'immutable';
 
 export const mockActions = {
     updateDownloadFilter: jest.fn(),
@@ -87,17 +88,9 @@ export const mockRedux = {
     bulkDownload: {
         dataType: 'awards',
         awards: {
-            awardLevels: {
-                primeAwards: true,
-                subAwards: false
-            },
             awardTypes: {
-                contracts: false,
-                grants: true,
-                directPayments: false,
-                loans: true,
-                otherFinancialAssistance: false,
-                idvs: false
+                primeAwards: new Set(['grants', 'loans']),
+                subAwards: new Set(['sub_contracts'])
             },
             agency: {
                 id: '123',
@@ -106,6 +99,7 @@ export const mockRedux = {
             subAgency: {
                 name: 'Mock Sub-Agency'
             },
+            locationType: 'recipient_location',
             location: {
                 country: {
                     code: 'USA',

@@ -17,7 +17,6 @@ export default class UserSelections extends React.Component {
     constructor(props) {
         super(props);
 
-        this.generateAwardLevelString = this.generateAwardLevelString.bind(this);
         this.generateAwardTypeString = this.generateAwardTypeString.bind(this);
         this.generateAgencyString = this.generateAgencyString.bind(this);
         this.generateSubAgencyString = this.generateSubAgencyString.bind(this);
@@ -27,46 +26,19 @@ export default class UserSelections extends React.Component {
         this.generateDateRangeString = this.generateDateRangeString.bind(this);
     }
 
-    generateAwardLevelString() {
-        // Build an array of labels for the current selections
-        const selectionsArray = [];
-        const options = awardDownloadOptions.awardLevels;
-        const currentAwardLevels = this.props.awards.awardLevels;
-        for (let i = 0; i < options.length; i++) {
-            if (currentAwardLevels[options[i].name]) {
-                selectionsArray.push(options[i].label);
-            }
-        }
-        // Build the string for display
-        let selectionsString = '';
-        if (selectionsArray.length !== 0) {
-            for (let i = 0; i < selectionsArray.length; i++) {
-                if (i === 0) {
-                    selectionsString = `${selectionsArray[i]}`;
-                }
-                else {
-                    selectionsString = `${selectionsString}, ${selectionsArray[i]}`;
-                }
-            }
-            return (
-                <div className="selection__content">{selectionsString}</div>
-            );
-        }
-        return (
-            <div className="selection__content selection__content-required">required</div>
-        );
-    }
-
     generateAwardTypeString() {
         // Build an array of labels for the current selections
-        const selectionsArray = [];
-        const options = awardDownloadOptions.awardTypes;
-        const currentAwardTypes = this.props.awards.awardTypes;
-        for (let i = 0; i < options.length; i++) {
-            if (currentAwardTypes[options[i].name]) {
-                selectionsArray.push(options[i].label);
-            }
-        }
+        const options = Object.assign(
+            {},
+            ...Object.entries(awardDownloadOptions.awardTypeLookups).map(([key, value]) => ({ [key]: value.label }))
+        );
+        const currentAwardTypes = Object.values(this.props.awards.awardTypes).reduce((acc, curr) => (
+            acc.concat(curr.toArray())
+        ), []);
+        const selectionsArray = currentAwardTypes.map((awardType) => (
+            options[awardType]
+        ));
+
         // Build the string for display
         let selectionsString = '';
         if (selectionsArray.length !== 0) {
@@ -140,6 +112,16 @@ export default class UserSelections extends React.Component {
         );
     }
 
+    generateLocationTypeString() {
+        const options = awardDownloadOptions.locationTypes;
+        const selectedOption = options.find((option) =>
+            option.name === this.props.awards.locationType
+        );
+        return (
+            <div className="selection__content">{selectedOption.label}</div>
+        );
+    }
+
     generateLocationString() {
         if (this.props.awards.location.country.code && this.props.awards.location.country.code !== 'all') {
             if (this.props.awards.location.state.code && this.props.awards.location.state.code !== 'all') {
@@ -184,17 +166,20 @@ export default class UserSelections extends React.Component {
         return (
             <div className="download-user-selections">
                 <h3 className="download-user-selections__title">Your selected options are...</h3>
-                <div className="download-user-selections__left-col">
+                <div className="download-user-selections__left_col">
                     <div className="selection">
-                        <div className="selection__heading">Award Levels</div>
-                        {this.generateAwardLevelString()}
+                        <div className="selection__heading">Award Types</div>
+                        {this.generateAwardTypeString()}
                     </div>
+                </div>
+                <div className="download-user-selections__left-col">
                     <div className="selection">
                         <div className="selection__heading">Agency</div>
                         {this.generateAgencyString()}
                     </div>
                     <div className="selection">
-                        <div className="selection__heading">Recipient Location</div>
+                        <div className="selection__heading">Location</div>
+                        {this.generateLocationTypeString()}
                         {this.generateLocationString()}
                     </div>
                     <div className="selection">
@@ -207,10 +192,6 @@ export default class UserSelections extends React.Component {
                     </div>
                 </div>
                 <div className="download-user-selections__right-col">
-                    <div className="selection">
-                        <div className="selection__heading">Award Types</div>
-                        {this.generateAwardTypeString()}
-                    </div>
                     <div className="selection">
                         <div className="selection__heading">Sub Agency</div>
                         {this.generateSubAgencyString()}

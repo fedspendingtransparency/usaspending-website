@@ -63,3 +63,25 @@ export const handleDownloadRequest = (res) => (dispatch) => {
     dispatch(setDownloadExpectedFile(res.file_name));
     dispatch(setDownloadPending(true));
 };
+
+export const bulkPrimeAwardTypeChange = (state) => ({
+    type: 'BULK_PRIME_AWARD_TYPE_CHANGE',
+    awardTypes: state.types,
+    direction: state.direction
+});
+
+export const bulkSubAwardTypeChange = (state) => ({
+    type: 'BULK_SUB_AWARD_TYPE_CHANGE',
+    awardTypes: state.types,
+    direction: state.direction
+});
+
+export const togglePrimeAwardTypeChange = (state) => ({
+    type: 'TOGGLE_PRIME_AWARD_TYPE_CHANGE',
+    awardType: state
+});
+
+export const toggleSubAwardTypeChange = (state) => ({
+    type: 'TOGGLE_SUB_AWARD_TYPE_CHANGE',
+    awardType: state
+});

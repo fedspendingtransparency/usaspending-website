@@ -24,7 +24,8 @@ const propTypes = {
     types: PropTypes.object,
     selectedCheckboxes: PropTypes.object,
     enableAnalytics: PropTypes.bool,
-    restrictChildren: PropTypes.bool
+    restrictChildren: PropTypes.bool,
+    collapsable: PropTypes.bool
 };
 
 const defaultProps = {
@@ -35,7 +36,8 @@ const defaultProps = {
     types: {},
     selectedCheckboxes: new Set(),
     enableAnalytics: false,
-    restrictChildren: false
+    restrictChildren: false,
+    collapsable: true
 };
 
 // sub-filters hidden from the user, but  passed to the API when the parent filter is selected
@@ -61,8 +63,8 @@ export default class PrimaryCheckboxType extends React.Component {
         super(props);
 
         this.state = {
-            showSubItems: false,
-            arrowState: 'collapsed',
+            showSubItems: !props.collapsable,
+            arrowState: props.collapsable ? 'collapsed' : 'expanded',
             selectedChildren: false,
             allChildren: false
         };
@@ -159,7 +161,8 @@ export default class PrimaryCheckboxType extends React.Component {
             arrowState={this.state.arrowState}
             toggleExpand={this.toggleSubItems}
             toggleChildren={this.toggleChildren}
-            hideArrow={this.state.selectedChildren || this.props.restrictChildren} />);
+            hideArrow={this.state.selectedChildren || this.props.restrictChildren}
+            collapsable={this.props.collapsable} />);
 
         let secondaryTypes = null;
 

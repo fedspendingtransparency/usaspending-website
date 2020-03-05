@@ -13,7 +13,8 @@ const defaultProps = {
     name: '',
     selected: false,
     hideArrow: true,
-    arrowState: 'collapsed'
+    arrowState: 'collapsed',
+    collapsable: true
 };
 
 const propTypes = {
@@ -23,7 +24,8 @@ const propTypes = {
     name: PropTypes.string,
     selected: PropTypes.bool,
     hideArrow: PropTypes.bool,
-    arrowState: PropTypes.string
+    arrowState: PropTypes.string,
+    collapsable: PropTypes.bool
 };
 
 export default class CollapsedCheckboxType extends React.Component {
@@ -32,10 +34,13 @@ export default class CollapsedCheckboxType extends React.Component {
         return (
             <div className="primary-checkbox-type">
                 <div className="checkbox-type-item-wrapper">
-                    <CheckboxExpandButton
-                        hidden={this.props.hideArrow}
-                        toggleExpand={this.props.toggleExpand}
-                        arrowState={this.props.arrowState} />
+                    {
+                        this.props.collapsable &&
+                        <CheckboxExpandButton
+                            hidden={this.props.hideArrow}
+                            toggleExpand={this.props.toggleExpand}
+                            arrowState={this.props.arrowState} />
+                    }
                     <label
                         className="checkbox-item-wrapper"
                         htmlFor={elementId}>
