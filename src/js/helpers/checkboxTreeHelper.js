@@ -96,7 +96,7 @@ const mergeChildren = (parentFromSearch, existingParent) => {
                     return acc;
                 }
                 // child added via search
-                if (searchChild.count === 1) {
+                if (searchChild.count === searchChild.children.length) {
                     acc.push(searchChild);
                 }
                 else {
