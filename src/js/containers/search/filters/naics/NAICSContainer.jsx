@@ -137,7 +137,10 @@ export class NAICSContainer extends React.Component {
 
     getCount = (key, isPlaceholder, codesUnderPlaceholder, aggregate = false) => {
         const node = getNodeFromTree(this.props.nodes, key);
-        const keyForNodeUnderPlaceholder = codesUnderPlaceholder.find((obj) => obj.placeholder === key);
+        const keyForNodeUnderPlaceholder = codesUnderPlaceholder.find((obj) => (
+            obj.placeholder === key ||
+            getHighestAncestorNaicsCode(obj.placeholder) === key
+        ));
         const currentCountObj = this.state.selectedNaicsData.find((selectedNaics) => (
             selectedNaics.value === key &&
             selectedNaics.count !== node.count
@@ -187,6 +190,8 @@ export class NAICSContainer extends React.Component {
                     codesWithoutPlaceholder.push(naicsCode);
                 }
             });
+        
+        console.log("codes with a placeholder", codesUnderPlaceholder);
 
         const checkedWithoutNodesUnderPlaceholder = [...new Set([
             ...codesWithoutPlaceholder,
@@ -226,6 +231,7 @@ export class NAICSContainer extends React.Component {
                 const isParentSelected = indexOfParent >= 0;
 
                 if (!isParentSelected && key.length === 2) {
+                    console.log(1, key);
                     acc.push({
                         ...parentNode,
                         count: countAggregatedFromCurrentCount
@@ -233,6 +239,7 @@ export class NAICSContainer extends React.Component {
                     return acc;
                 }
                 else if (!isParentSelected && key.length === 4) {
+                    console.log(2)
                     acc.push({
                         ...parentNode,
                         count: countAggregatedFromCurrentCount
@@ -240,6 +247,7 @@ export class NAICSContainer extends React.Component {
                     return acc;
                 }
                 else if (!isParentSelected && key.length === 6) {
+                    console.log(3)
                     acc.push({
                         ...parentNode,
                         count: 1
@@ -247,18 +255,22 @@ export class NAICSContainer extends React.Component {
                     return acc;
                 }
                 else if (isParentSelected && key.length === 2) {
+                    console.log(4)
                     acc[indexOfParent].count = parentNode.count;
                     return acc;
                 }
                 else if (isParentSelected && key.length === 4) {
+                    console.log(5, key)
                     acc[indexOfParent].count += countFromNodeToBeAdded;
                     if (parentNode.count < acc[indexOfParent].count) {
+                        console.log("oh no");
                         acc[indexOfParent].count = parentNode.count;
                         return acc;
                     }
                     return acc;
                 }
                 else if (isParentSelected && key.length === 6) {
+                    console.log(6)
                     acc[indexOfParent].count += countFromNodeToBeAdded;
                     // never increment count above count of parent.
                     if (parentNode.count < acc[indexOfParent].count) {
@@ -268,7 +280,7 @@ export class NAICSContainer extends React.Component {
                     return acc;
                 }
                 return acc;
-            }, []);
+            }, [...this.state.selectedNaicsData]);
 
         this.setState({ selectedNaicsData: checkedWithoutNodesUnderPlaceholder });
         this.props.setChecked(checked);
