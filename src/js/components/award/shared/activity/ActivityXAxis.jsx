@@ -42,7 +42,6 @@ export default class ActivityXAxis extends React.Component {
     }
 
     drawAxis(props) {
-        console.log(' Props : ', props);
         if (!props.scale) {
             return;
         }
