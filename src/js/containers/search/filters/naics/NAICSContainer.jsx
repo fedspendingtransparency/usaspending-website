@@ -137,7 +137,7 @@ export class NAICSContainer extends React.Component {
 
     getCount = (key, isPlaceholder, codesUnderPlaceholder, aggregate = false) => {
         const node = getNodeFromTree(this.props.nodes, key);
-        const keyForNodeUnderPlaceholder = codesUnderPlaceholder.find((obj) => obj.parent === key);
+        const keyForNodeUnderPlaceholder = codesUnderPlaceholder.find((obj) => obj.placeholder === key);
         const currentCountObj = this.state.selectedNaicsData.find((selectedNaics) => (
             selectedNaics.value === key &&
             selectedNaics.count !== node.count
@@ -157,11 +157,9 @@ export class NAICSContainer extends React.Component {
                 ? currentCountObj.count + countFromNode
                 : countFromNode;
         }
-
         return node.count || 1;
     };
 
-    // updateCountOfSelectedTopTierNaics
     updateCountOfSelectedTopTierNaicsCodes = (checked = []) => {
         // child place holders reflect the count of their immediate ancestor
         const placeHoldersToBeCounted = checked
@@ -176,12 +174,15 @@ export class NAICSContainer extends React.Component {
                 const immediateAncestorCode = getImmediateAncestorNaicsCode(naicsCode); // 1111
                 const highestAncestorCode = getHighestAncestorNaicsCode(naicsCode); // 11
 
-                const codeWillBeCountedByPlaceholder = (
-                    placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`) ||
-                    placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`) ||
-                    placeHoldersToBeCounted.includes(`children_of_${naicsCode}`)
-                );
-                if (codeWillBeCountedByPlaceholder) codesUnderPlaceholder.push({ code: naicsCode, parent: highestAncestorCode });
+                if (placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`)) {
+                    codesUnderPlaceholder.push({ code: naicsCode, placeholder: highestAncestorCode });
+                }
+                else if (placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`)) {
+                    codesUnderPlaceholder.push({ code: naicsCode, placeholder: highestAncestorCode });
+                }
+                else if (placeHoldersToBeCounted.includes(`children_of_${naicsCode}`)) {
+                    codesUnderPlaceholder.push({ code: naicsCode, placeholder: highestAncestorCode });
+                }
                 else {
                     codesWithoutPlaceholder.push(naicsCode);
                 }
@@ -191,6 +192,27 @@ export class NAICSContainer extends React.Component {
             ...codesWithoutPlaceholder,
             ...placeHoldersToBeCounted
         ])]
+            .sort((a, b) => {
+                const isAPlaceHolder = a.includes('children_of_');
+                const isBPlaceHolder = b.includes('children_of_');
+                if (isAPlaceHolder && isBPlaceHolder) {
+                    const placeHolderA = a.split('children_of_')[1];
+                    const placeHolderB = b.split('children_of_')[1];
+                    if (placeHolderA.length > placeHolderB.length) {
+                        return 1;
+                    }
+                    else if (placeHolderB.length > placeHolderA.length) {
+                        return -1;
+                    }
+                }
+                else if (isAPlaceHolder && !isBPlaceHolder) {
+                    return -1;
+                }
+                else if (isBPlaceHolder && !isAPlaceHolder) {
+                    return 1;
+                }
+                return 0;
+            })
             .reduce((acc, code) => {
                 const isPlaceholder = code.includes('children_of_');
                 const key = isPlaceholder
