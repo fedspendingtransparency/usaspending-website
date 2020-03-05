@@ -23,11 +23,11 @@ const ContractGrantsActivityChart = ({
     // y series
     const [yDomain, setYDomain] = useState([0, 0]);
     // x scale
-    const [xScale, setXScale] = useState(null);
+    // const [xScale, setXScale] = useState(null);
     // y scale
     const [yScale, setYScale] = useState(null);
     // x ticks
-    const [xTicks, setXTicks] = useState([]);
+    // const [xTicks, setXTicks] = useState([]);
     // y ticks
     const [yTicks, setYTicks] = useState([]);
     /**
@@ -79,7 +79,7 @@ const ContractGrantsActivityChart = ({
      * @param {Number[]} - an array of numbers.
      * @returns {Number[]} - an array of numbers.
      */
-    const addLastTickForSpacing = (ticks) => {
+    const addTicksForSpacing = (ticks, first) => {
         if (!ticks.length) return [];
         const updatedTicks = cloneDeep(ticks);
         const differences = compact(ticks.reverse().map((tick, i) => {
@@ -90,9 +90,10 @@ const ContractGrantsActivityChart = ({
         // average difference
         const averageDifference = differences
             .reduce((acc, data) => acc + data, 0) / differences.length;
-        // adds the average difference to the last tick.
-        const lastTick = updatedTicks[updatedTicks.length - 1] + averageDifference;
-        updatedTicks.push(lastTick);
+        // subtracts the average difference from the first tick and updates the tick array
+        if (first) updatedTicks.splice(0, 0, updatedTicks[0] - averageDifference);
+        // adds the average difference to the last tick and updates the tick array
+        updatedTicks.push(updatedTicks[updatedTicks.length - 1] + averageDifference);
         return updatedTicks;
     };
     /**
@@ -100,12 +101,19 @@ const ContractGrantsActivityChart = ({
      * - creates the x scaling function and updates state
      * @returns {null}
      */
-    const createXScaleAndTicks = useCallback(() => {
-        const scale = scaleLinear().domain(xDomain).range([0, visualizationWidth]).nice();
-        const ticks = scale.ticks(6);
-        setXTicks(ticks);
-        setXScale(() => scale);
-    }, [xDomain, visualizationWidth]);
+    // const createXScaleAndTicks = useCallback(() => {
+    //     const scale = scaleLinear().domain(xDomain).range([0, visualizationWidth]).nice();
+    //     const ticks = scale.ticks(6);
+    //     // add last tick for spacing
+    //     const updatedTicksWithSpacing = addTicksForSpacing(ticks, true);
+    //     // create new scale since we have new data
+    //     const updatedScale = scaleLinear()
+    //         .domain([xDomain[0], updatedTicksWithSpacing[updatedTicksWithSpacing.length - 1]])
+    //         .range([0, visualizationWidth])
+    //         .nice();
+    //     setXTicks(updatedTicksWithSpacing);
+    //     setXScale(() => updatedScale);
+    // }, [xDomain, visualizationWidth]);
     /**
      * createYScale
      * - creates the y scaling function and ticks.
@@ -116,7 +124,7 @@ const ContractGrantsActivityChart = ({
         // determine the ticks from D3
         const ticks = scale.ticks(6);
         // add last tick for spacing
-        const updatedTicksWithSpacing = addLastTickForSpacing(ticks);
+        const updatedTicksWithSpacing = addTicksForSpacing(ticks);
         // create new scale since we have new data
         const updatedScale = scaleLinear()
             .domain([yDomain[0], updatedTicksWithSpacing[updatedTicksWithSpacing.length - 1]])
@@ -128,12 +136,12 @@ const ContractGrantsActivityChart = ({
     // hook - runs only on mount unless transactions change
     useEffect(() => {
         if (xDomain.length && yDomain.length) {
-            createXScaleAndTicks(xDomain);
+            // createXScaleAndTicks(xDomain);
             createYScaleAndTicks(yDomain);
         }
     }, [
         transactions,
-        createXScaleAndTicks,
+        // createXScaleAndTicks,
         createYScaleAndTicks,
         xDomain,
         yDomain

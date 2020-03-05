@@ -86,7 +86,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
                 page: 1,
                 sort: 'federal_action_obligation',
                 order: 'asc',
-                limit: 100
+                limit: 5000
             };
             let hasNext = true;
             /**
