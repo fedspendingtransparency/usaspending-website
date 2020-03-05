@@ -58,7 +58,7 @@ const additionalDetailsContracts = (awardData) => {
             }
         },
         parentAwardDetails: {
-            'Parent IDV PIID': {
+            'Parent Award ID': {
                 type: 'link',
                 data: {
                     path: parentAwardDetails.awardId ? `/#/award/${parentAwardDetails.awardId}` : null,
@@ -69,12 +69,12 @@ const additionalDetailsContracts = (awardData) => {
             'Parent IDV Agency Name': {
                 type: 'link',
                 data: {
-                    // path: parentAwardDetails.agencyId ?
-                    //     `/#/agency/${parentAwardDetails.agencyId}` : null,
-                    path: null,
+                    path: parentAwardDetails.agencyId ?
+                        `/#/agency/${parentAwardDetails.agencyId}` : null,
                     title: parentAwardDetails.agencyName
                 }
             },
+            'Parent IDV Sub-Agency Name': parentAwardDetails.subAgencyName,
             'Multiple Or Single Parent Award IDV': parentAwardDetails.multipleOrSingle || ''
         },
         placeOfPerformance: {
