@@ -59,59 +59,50 @@ export const expandAllNodes = (nodes, propForNode = 'value') => {
 };
 
 const mergeChildren = (parentFromSearch, existingParent) => {
+    // 1. hide node not in search
+    // 2. add placeholders if not there
     if (existingParent.children && parentFromSearch.children) {
-        return [
-            ...existingParent.children
-                // remove any children that will be added from search Node
-                .filter((existingChild) => !parentFromSearch.children.some((child) => child.value === existingChild.value))
-                .map((existingChild) => {
-                    if (Object.keys(existingChild).includes('children')) {
-                        // we generally want to keep the existing children but we...
-                        return {
-                            ...existingChild,
-                            // 1. hide them
-                            className: 'hide',
-                            children: existingChild.children
-                                // 2. remove any grandchildren that will be added from search Node
-                                .filter((existingGrandChild) => !parentFromSearch.children
-                                    .some((child) => child.children
-                                        .some((grandChild) => existingGrandChild.value === grandChild.value))
-                                )
-                                .filter((grandChild) => {
-                                    if (existingChild.count === parentFromSearch.children.length) {
-                                        // 3. remove the loading placeholder if we already have all the children
-                                        if (grandChild.isPlaceHolder) return false;
-                                    }
-                                    return true;
-                                })
-                                .map((grandChild) => ({ className: 'hide', ...grandChild }))
-                                .sort(sortNodes)
-                        };
+        const existingChildArray = existingParent.children.map((node) => ({ ...node, className: 'hide' }));
+
+        const nodes = parentFromSearch.children
+            .reduce((acc, searchChild) => {
+                const existingChildIndex = acc
+                    .findIndex((existingChild) => existingChild.value === searchChild.value);
+                
+                if (existingChildIndex !== -1) {
+                    // show this child
+                    acc[existingChildIndex].className = '';
+
+                    if (acc[existingChildIndex].children) {
+                        // hide this child's children
+                        acc[existingChildIndex].children = acc[existingChildIndex].children.map((grand) => ({ ...grand, className: 'hide' }));
                     }
-                    return {
-                        ...existingChild,
-                        className: 'hide'
-                    };
-                }),
-            ...parentFromSearch.children
-                .map((child) => {
-                    if (child.count > child.children.length) {
-                        return {
-                            ...child,
-                            children: [
-                                ...child.children,
-                                {
-                                    className: 'hide',
-                                    isPlaceHolder: true,
-                                    label: 'Placeholder Child',
-                                    value: `children_of_${child.value}`
+
+                    if (acc[existingChildIndex].children && searchChild.children) {
+                        searchChild.children
+                            .forEach((grandChild) => {
+                                const existingGrandChildIndex = acc[existingChildIndex].children
+                                    .findIndex((existingGC) => existingGC.value === grandChild.value);
+
+                                if (existingGrandChildIndex !== -1) {
+                                    // unless it's in the search array
+                                    acc[existingChildIndex].children[existingGrandChildIndex].className = '';
                                 }
-                            ]
-                        };
+                                else {
+                                    // or we're adding a new node.
+                                    acc[existingChildIndex].children.push(grandChild);
+                                }
+                            });
                     }
-                    return child;
-                })
-        ];
+                    return acc;
+                }
+
+                acc.push(searchChild);
+
+                return acc;
+            }, existingChildArray);
+
+        return nodes;
     }
     else if (existingParent.children && !parentFromSearch.children) {
         return existingParent.children.map((child) => ({ ...child, className: 'hide' }));
@@ -123,7 +114,7 @@ const mergeChildren = (parentFromSearch, existingParent) => {
             value: `children_of_${parentFromSearch.value}`
         });
     }
-    return null;
+    return [];
 };
 
 export const addSearchResultsToTree = (tree, searchResults) => {

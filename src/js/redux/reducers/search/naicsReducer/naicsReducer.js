@@ -59,7 +59,7 @@ const naicsReducer = (state = initialState, action) => {
         case 'SET_CHECKED': {
             return {
                 ...state,
-                checked: new List(action.payload)
+                checked: new List([...new Set([...action.payload])])
             };
         }
         case 'ADD_CHECKED': {
