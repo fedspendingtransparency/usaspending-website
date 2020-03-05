@@ -401,7 +401,7 @@ describe('TopFilterBarContainer', () => {
 
             const awardAmountFilter = Object.assign({}, stateWithoutDefault, {
                 awardAmounts: new OrderedMap({
-                    0: [0, 999999.99],
+                    0: [0, 1000000],
                     1: [1000000, 25000000],
                     2: [25000000, 100000000],
                     3: [100000000, 500000000],
@@ -420,7 +420,7 @@ describe('TopFilterBarContainer', () => {
                 code: 'awardAmounts',
                 name: 'Award Amounts',
                 values: {
-                    0: [0, 999999.99],
+                    0: [0, 1000000],
                     1: [1000000, 25000000],
                     2: [25000000, 100000000],
                     3: [100000000, 500000000],

@@ -545,7 +545,7 @@ describe('searchFiltersReducer', () => {
                     startingState,
                     updatedPredefinedRangeAction
                 );
-                expect(updatedState.awardAmounts).toEqual(new OrderedMap({ 'range-0': [null, 999999.99] }));
+                expect(updatedState.awardAmounts).toEqual(new OrderedMap({ 'range-0': [null, 1000000] }));
             });
             // user deselects a checkbox
             it('should set award amounts in state to an empty ordered map', () => {
