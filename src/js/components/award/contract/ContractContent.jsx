@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import kGlobalConstants from 'GlobalConstants';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
@@ -19,6 +19,8 @@ import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AwardDescription from "../shared/description/AwardDescription";
+import ComingSoonSection from '../shared/ComingSoonSection';
+import { contractActivityInfoContracts } from "../shared/InfoTooltipContent";
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -99,7 +101,15 @@ const ContractContent = ({
                     psc={overview.psc} />
             </AwardSection>
             <AwardSection className="award-contract-activity-section" type="row">
-                <ContractGrantActivityContainer awardId={awardId} awardType={overview.category} />
+                {
+                    kGlobalConstants.DEV ? <ContractGrantActivityContainer awardId={awardId} awardType={overview.category} />
+                        : <ComingSoonSection
+                            toolTipWide
+                            toolTipContent={contractActivityInfoContracts}	
+                            title="Contract Activity"	
+                            includeHeader
+                            icon="chart-area" />
+                }
                 <FederalAccountsSection
                     jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
                     awardType={overview.category} />
