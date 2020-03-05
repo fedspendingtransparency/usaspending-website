@@ -141,7 +141,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
      * - updates title based on award type
      * @returns {String} - '[Grants || Contract] Activity'
      */
-    const title = () => (awardType === 'grants' ? 'Grants Activity' : 'Contract Activity');
+    const title = () => (awardType === 'grant' ? 'Grants Activity' : 'Contract Activity');
     /**
      * message
      * - updates the message displayed to users based on error, loading, and
@@ -178,7 +178,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
      * @return {Component} - respective tooltip data
      */
     const tooltipInfo = () => {
-        if (awardType === 'grants') return contractActivityGrants;
+        if (awardType === 'grant') return contractActivityGrants;
         return contractActivityInfoContracts;
     };
 
