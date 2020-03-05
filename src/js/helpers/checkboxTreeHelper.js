@@ -72,7 +72,6 @@ const mergeChildren = (parentFromSearch, existingParent) => {
                 if (existingChildIndex !== -1) {
                     // show this child
                     acc[existingChildIndex].className = '';
-
                     if (acc[existingChildIndex].children) {
                         // hide this child's children
                         acc[existingChildIndex].children = acc[existingChildIndex].children.map((grand) => ({ ...grand, className: 'hide' }));
@@ -96,8 +95,25 @@ const mergeChildren = (parentFromSearch, existingParent) => {
                     }
                     return acc;
                 }
+                // child added via search
+                if (searchChild.count === 1) {
+                    acc.push(searchChild);
+                }
+                else {
+                    acc.push({
+                        ...searchChild,
+                        children: [
+                            ...searchChild.children,
+                            {
+                                isPlaceHolder: true,
+                                label: "Child Placeholder",
+                                value: `children_of_${searchChild.value}`,
+                                className: 'hide'
+                            }
+                        ]
+                    });
+                }
 
-                acc.push(searchChild);
 
                 return acc;
             }, existingChildArray);
@@ -108,11 +124,15 @@ const mergeChildren = (parentFromSearch, existingParent) => {
         return existingParent.children.map((child) => ({ ...child, className: 'hide' }));
     }
     else if (!existingParent.children && parentFromSearch.children && parentFromSearch.children.length !== parentFromSearch.count) {
-        return parentFromSearch.children.push({
-            isPlaceHolder: true,
-            label: 'Placeholder Child',
-            value: `children_of_${parentFromSearch.value}`
-        });
+        return [
+            ...parentFromSearch.children,
+            {
+                className: 'hide',
+                isPlaceHolder: true,
+                label: 'Placeholder Child',
+                value: `children_of_${parentFromSearch.value}`
+            }
+        ];
     }
     return [];
 };
