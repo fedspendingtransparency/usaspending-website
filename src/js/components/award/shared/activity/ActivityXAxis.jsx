@@ -42,6 +42,7 @@ export default class ActivityXAxis extends React.Component {
     }
 
     drawAxis(props) {
+        console.log(' Props : ', props);
         if (!props.scale) {
             return;
         }
@@ -68,6 +69,7 @@ export default class ActivityXAxis extends React.Component {
             const xPos = props.scale(tick.date);
             // remove erroneous ticks
             if (xPos >= this.props.width) return null;
+            if (xPos < 0) return null;
 
             return (<ActivityXAxisItem
                 x={xPos}

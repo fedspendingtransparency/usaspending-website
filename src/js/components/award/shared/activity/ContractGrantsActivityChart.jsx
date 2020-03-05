@@ -4,6 +4,8 @@ import { cloneDeep, compact } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
+import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
+
 
 const propTypes = {
     height: PropTypes.number,
@@ -23,11 +25,11 @@ const ContractGrantsActivityChart = ({
     // y series
     const [yDomain, setYDomain] = useState([0, 0]);
     // x scale
-    // const [xScale, setXScale] = useState(null);
+    const [xScale, setXScale] = useState(null);
     // y scale
     const [yScale, setYScale] = useState(null);
     // x ticks
-    // const [xTicks, setXTicks] = useState([]);
+    const [xTicks, setXTicks] = useState([]);
     // y ticks
     const [yTicks, setYTicks] = useState([]);
     /**
@@ -87,6 +89,7 @@ const ContractGrantsActivityChart = ({
             if (ticks.length === i + 1) return null;
             return tick - ticks[i + 1];
         }));
+        if (!differences.length) return [];
         // average difference
         const averageDifference = differences
             .reduce((acc, data) => acc + data, 0) / differences.length;
@@ -97,23 +100,39 @@ const ContractGrantsActivityChart = ({
         return updatedTicks;
     };
     /**
+     * xTickDateAndLabel
+     * - format the x-axis labels
+     * @param {Number[]} - an array of dates in milliseconds
+     * @returns {Object[]} - an array of objects with date and label properties
+     */
+    const xTickDateAndLabel = (ticks) => ticks.map((date) => {
+        const newDate = new Date(date);
+        const month = newDate.getMonth();
+        let year = newDate.getFullYear();
+        if (month === 9) year += 1;
+        // add 1 to the year because it is the next fiscal year
+        const shortYear = (year).toString().slice(-2);
+        const label = `FY '${shortYear}`;
+        return { date: newDate, label };
+    });
+    /**
      * createxScale
      * - creates the x scaling function and updates state
      * @returns {null}
      */
-    // const createXScaleAndTicks = useCallback(() => {
-    //     const scale = scaleLinear().domain(xDomain).range([0, visualizationWidth]).nice();
-    //     const ticks = scale.ticks(6);
-    //     // add last tick for spacing
-    //     const updatedTicksWithSpacing = addTicksForSpacing(ticks, true);
-    //     // create new scale since we have new data
-    //     const updatedScale = scaleLinear()
-    //         .domain([xDomain[0], updatedTicksWithSpacing[updatedTicksWithSpacing.length - 1]])
-    //         .range([0, visualizationWidth])
-    //         .nice();
-    //     setXTicks(updatedTicksWithSpacing);
-    //     setXScale(() => updatedScale);
-    // }, [xDomain, visualizationWidth]);
+    const createXScaleAndTicks = useCallback(() => {
+        const scale = scaleLinear().domain(xDomain).range([0, visualizationWidth]).nice();
+        const ticks = scale.ticks(6);
+        // add last tick for spacing
+        const updatedTicksWithSpacing = addTicksForSpacing(ticks, true);
+        // create new scale since we have new data
+        const updatedScale = scaleLinear()
+            .domain([updatedTicksWithSpacing[0], updatedTicksWithSpacing[updatedTicksWithSpacing.length - 1]])
+            .range([0, visualizationWidth])
+            .nice();
+        setXTicks(xTickDateAndLabel(updatedTicksWithSpacing));
+        setXScale(() => updatedScale);
+    }, [xDomain, visualizationWidth]);
     /**
      * createYScale
      * - creates the y scaling function and ticks.
@@ -136,12 +155,12 @@ const ContractGrantsActivityChart = ({
     // hook - runs only on mount unless transactions change
     useEffect(() => {
         if (xDomain.length && yDomain.length) {
-            // createXScaleAndTicks(xDomain);
+            createXScaleAndTicks(xDomain);
             createYScaleAndTicks(yDomain);
         }
     }, [
         transactions,
-        // createXScaleAndTicks,
+        createXScaleAndTicks,
         createYScaleAndTicks,
         xDomain,
         yDomain
@@ -150,7 +169,6 @@ const ContractGrantsActivityChart = ({
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
-
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -164,6 +182,12 @@ const ContractGrantsActivityChart = ({
                     scale={yScale}
                     ticks={yTicks}
                     textAnchor="left" />
+                <ActivityXAxis
+                    height={height}
+                    width={visualizationWidth - padding.left}
+                    padding={padding}
+                    ticks={xTicks}
+                    scale={xScale} />
             </g>
         </svg>
     );
