@@ -105,8 +105,8 @@ const ContractContent = ({
                     kGlobalConstants.DEV ? <ContractGrantActivityContainer awardId={awardId} awardType={overview.category} />
                         : <ComingSoonSection
                             toolTipWide
-                            toolTipContent={contractActivityInfoContracts}	
-                            title="Contract Activity"	
+                            toolTipContent={contractActivityInfoContracts}
+                            title="Contract Activity"
                             includeHeader
                             icon="chart-area" />
                 }

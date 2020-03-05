@@ -76,10 +76,10 @@ const FinancialAssistanceContent = ({
         if (isGrant) {
             return (kGlobalConstants.DEV) ? <ContractGrantActivityContainer awardId={awardId} awardType={overview.category} />
                 : <ComingSoonSection
-                    title="Grant Activity"	
-                    icon="chart-area"	
+                    title="Grant Activity"
+                    icon="chart-area"
                     includeHeader
-                    toolTipContent={contractActivityGrants} />
+                    toolTipContent={contractActivityGrants} />;
         }
         return null;
     };
