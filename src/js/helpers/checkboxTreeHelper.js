@@ -58,7 +58,7 @@ export const expandAllNodes = (nodes, propForNode = 'value') => {
         .reduce(getValue, []);
 };
 
-const mergeChildren = (parentFromSearch, existingParent) => {
+export const mergeChildren = (parentFromSearch, existingParent) => {
     // 1. hide node not in search
     // 2. add placeholders if not there
     if (existingParent.children && parentFromSearch.children) {

@@ -388,6 +388,7 @@ export class NAICSContainer extends React.Component {
                 </div>
             );
         }
+        return null;
     }
 
     checkboxDiv() {
