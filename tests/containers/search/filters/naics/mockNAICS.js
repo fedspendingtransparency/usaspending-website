@@ -112,108 +112,198 @@ export const treeWithPlaceholdersAndRealData = [
 export const reallyBigTree = [
     {
         naics: "11",
+        value: "11",
         naics_description: "Agriculture, Forestry, Fishing and Hunting",
         count: 64,
         children: [
             {
                 naics: "1111",
+                value: "1111",
                 naics_description: "Oilseed and Grain Farming",
-                count: 8
+                count: 8,
+                children: [
+                    {
+                        naics: "111110",
+                        value: "111110",
+                        naics_description: "Soybean Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111120",
+                        value: "111120",
+                        naics_description: "Oilseed (except Soybean) Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111130",
+                        value: "111130",
+                        naics_description: "Dry Pea and Bean Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111140",
+                        value: "111140",
+                        naics_description: "Wheat Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111150",
+                        value: "111150",
+                        naics_description: "Corn Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111160",
+                        value: "111160",
+                        naics_description: "Rice Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111191",
+                        value: "111191",
+                        naics_description: "Oilseed and Grain Combination Farming",
+                        count: 0
+                    },
+                    {
+                        naics: "111199",
+                        value: "111199",
+                        naics_description: "All Other Grain Farming",
+                        count: 0
+                    }
+     
+                ]
             },
             {
                 naics: "1112",
+                value: "1112",
                 naics_description: "Vegetable and Melon Farming",
-                count: 2
+                count: 2,
+                children: []
             },
             {
                 naics: "1113",
+                value: "1113",
                 naics_description: "Fruit and Tree Nut Farming",
-                count: 9
+                count: 9,
+                children: []
             },
             {
                 naics: "1114",
+                value: "1114",
                 naics_description: "Greenhouse, Nursery, and Floriculture Production",
-                count: 4
+                count: 4,
+                children: []
             },
             {
                 naics: "1119",
+                value: "1119",
                 naics_description: "Other Crop Farming",
-                count: 7
+                count: 7,
+                children: []
             },
             {
                 naics: "1121",
+                value: "1121",
                 naics_description: "Cattle Ranching and Farming",
-                count: 4
+                count: 4,
+                children: []
             },
             {
                 naics: "1122",
+                value: "1122",
                 naics_description: "Hog and Pig Farming",
-                count: 1
+                count: 1,
+                children: []
             },
             {
                 naics: "1123",
+                value: "1123",
                 naics_description: "Poultry and Egg Production",
-                count: 5
+                count: 5,
+                children: []
             },
             {
                 naics: "1124",
+                value: "1124",
                 naics_description: "Sheep and Goat Farming",
-                count: 2
+                count: 2,
+                children: []
             },
             {
                 naics: "1125",
+                value: "1125",
                 naics_description: "Aquaculture",
-                count: 3
+                count: 3,
+                children: []
             },
             {
                 naics: "1129",
+                value: "1129",
                 naics_description: "Other Animal Production",
-                count: 4
+                count: 4,
+                children: []
             },
             {
                 naics: "1131",
+                value: "1131",
                 naics_description: "Timber Tract Operations",
-                count: 1
+                count: 1,
+                children: []
             },
             {
                 naics: "1132",
+                value: "1132",
                 naics_description: "Forest Nurseries and Gathering of Forest Products",
-                count: 1
+                count: 1,
+                children: []
             },
             {
                 naics: "1133",
+                value: "1133",
                 naics_description: "Logging",
-                count: 1
+                count: 1,
+                children: []
             },
             {
                 naics: "1141",
+                value: "1141",
                 naics_description: "Fishing",
-                count: 3
+                count: 3,
+                children: []
             },
             {
                 naics: "1142",
+                value: "1142",
                 naics_description: "Hunting and Trapping",
-                count: 1
+                count: 1,
+                children: []
             },
             {
                 naics: "1151",
+                value: "1151",
                 naics_description: "Support Activities for Crop Production",
-                count: 6
+                count: 6,
+                children: []
             },
             {
                 naics: "1152",
+                value: "1152",
                 naics_description: "Support Activities for Animal Production",
-                count: 1
+                count: 1,
+                children: []
             },
             {
                 naics: "1153",
+                value: "1153",
                 naics_description: "Support Activities for Forestry",
                 count: 1,
                 children: [
                     {
                         naics: "115310",
+                        value: "115310",
                         naics_description: "Support Activities for Forestry",
-                        count: 0
+                        count: 0,
+                        className: 'hide'
                     }
                 ]
             }
@@ -222,117 +312,140 @@ export const reallyBigTree = [
     {
         naics: "21",
         naics_description: "Mining, Quarrying, and Oil and Gas Extraction",
-        count: 32
+        count: 32,
+        children: []
     },
     {
         naics: "22",
         naics_description: "Utilities",
-        count: 15
+        count: 15,
+        children: []
     },
     {
         naics: "23",
         naics_description: "Construction",
-        count: 31
+        count: 31,
+        children: []
     },
     {
         naics: "31",
         naics_description: "Manufacturing",
-        count: 133
+        count: 133,
+        children: []
     },
     {
         naics: "32",
         naics_description: "Manufacturing",
-        count: 136
+        count: 136,
+        children: []
     },
     {
         naics: "33",
         naics_description: "Manufacturing",
-        count: 269
+        count: 269,
+        children: []
     },
     {
         naics: "42",
         naics_description: "Wholesale Trade",
-        count: 71
+        count: 71,
+        children: []
     },
     {
         naics: "44",
         naics_description: "Retail Trade",
-        count: 50
+        count: 50,
+        children: []
     },
     {
         naics: "45",
         naics_description: "Retail Trade",
-        count: 33
+        count: 33,
+        children: []
     },
     {
         naics: "48",
         naics_description: "Transportation and Warehousing",
-        count: 50
+        count: 50,
+        children: []
     },
     {
         naics: "49",
         naics_description: "Transportation and Warehousing",
-        count: 7
+        count: 7,
+        children: []
     },
     {
         naics: "51",
         naics_description: "Information",
-        count: 43
+        count: 43,
+        children: []
     },
     {
         naics: "52",
         naics_description: "Finance and Insurance",
-        count: 42
+        count: 42,
+        children: []
     },
     {
         naics: "53",
         naics_description: "Real Estate and Rental and Leasing",
-        count: 29
+        count: 29,
+        children: []
     },
     {
         naics: "54",
         naics_description: "Professional, Scientific, and Technical Services",
-        count: 52
+        count: 52,
+        children: []
     },
     {
         naics: "55",
         naics_description: "Management of Companies and Enterprises",
-        count: 3
+        count: 3,
+        children: []
     },
     {
         naics: "56",
         naics_description: "Administrative and Support and Waste Management and Remediation Services",
-        count: 45
+        count: 45,
+        children: []
     },
     {
         naics: "61",
         naics_description: "Educational Services",
-        count: 17
+        count: 17,
+        children: []
     },
     {
         naics: "62",
         naics_description: "Health Care and Social Assistance",
-        count: 39
+        count: 39,
+        children: []
     },
     {
         naics: "71",
         naics_description: "Arts, Entertainment, and Recreation",
-        count: 25
+        count: 25,
+        children: []
     },
     {
         naics: "72",
         naics_description: "Accommodation and Food Services",
-        count: 19
+        count: 19,
+        children: []
     },
     {
         naics: "81",
         naics_description: "Other Services (except Public Administration)",
-        count: 49
+        count: 49,
+        children: []
     },
     {
         naics: "92",
         naics_description: "Public Administration",
-        count: 29
+        count: 29,
+        children: []
     }
 ]
 

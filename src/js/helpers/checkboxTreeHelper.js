@@ -155,17 +155,17 @@ export const addSearchResultsToTree = (tree, searchResults) => {
         .sort(sortNodes);
 };
 
-export const showAllTreeItems = (tree, key = '', payload = []) => tree
+export const showAllTreeItems = (tree, key = '', newNodes = []) => tree
     .map((node) => {
         if (node.value === key) {
-            const [data] = payload;
+            const [data] = newNodes;
             return {
                 ...data,
                 children: data.children.map((child) => {
                     const existingChild = node.children.find((olderChild) => olderChild.value === child.value);
                     const weHaveTheGrandChildren = (
                         existingChild &&
-                        existingChild?.children.length === child.count &&
+                        existingChild?.children.length >= child.count &&
                         !existingChild?.children.some((existingGrand) => existingGrand?.isPlaceHolder)
                     );
                     const weHaveAtLeastOneGrandChild = (
@@ -176,6 +176,7 @@ export const showAllTreeItems = (tree, key = '', payload = []) => tree
                         return {
                             ...child,
                             children: existingChild.children
+                                .filter((grand) => !grand.isPlaceHolder)
                                 .map((grand) => ({ ...grand, className: '' }))
                                 .sort(sortNodes)
                         };
@@ -209,7 +210,7 @@ export const showAllTreeItems = (tree, key = '', payload = []) => tree
                             };
                         }
                         return {
-                            ...payload[0]
+                            ...newNodes[0]
                         };
                     }
                     if (child.children && child.children.some((grand) => grand.className === 'hide')) {

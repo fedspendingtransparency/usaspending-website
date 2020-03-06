@@ -1,6 +1,5 @@
 import {
     addSearchResultsToTree,
-    sortNodes,
     getHighestAncestorNaicsCode,
     getImmediateAncestorNaicsCode,
     getNodeFromTree,
@@ -57,9 +56,22 @@ describe('checkboxTree Helpers', () => {
     describe('getHighestAncestorNaicsCode', () => {
         const result = getHighestAncestorNaicsCode('111111');
         expect(result).toEqual('11');
-    })
+    });
     describe('getImmediateAncestorNaicsCode', () => {
         const result = getImmediateAncestorNaicsCode('111111');
         expect(result).toEqual('1111');
-    })
+    });
+    describe('showAllTreeItems', () => {
+        it('removes the hide class from all nodes', () => {
+            const result = showAllTreeItems(mockData.reallyBigTree);
+            const nodeWithHideClass = getNodeFromTree(result, '115310', 'naics');
+            expect(nodeWithHideClass.className).toEqual('');
+        });
+        it('adds new children and removes the loading placeholder if we have all the nodes', () => {
+            const result = showAllTreeItems(mockData.placeholderNodes, '11', [mockData.reallyBigTree[0]]);
+            const lengthWithoutPlaceholderNodes = mockData.reallyBigTree[0].children.length;
+            const nodeWithPlaceHolderChildren = getNodeFromTree(result, '11', 'naics');
+            expect(nodeWithPlaceHolderChildren.children.length).toEqual(lengthWithoutPlaceholderNodes);
+        });
+    });
 });
