@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /**
   * NAICSSearchContainer.jsx => NAICSContainer.jsx
   * Created by Emily Gullo 07/10/2017
@@ -8,7 +9,8 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
     debounce,
-    cloneDeep
+    cloneDeep,
+    difference
 } from 'lodash';
 import { isCancel } from 'axios';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
@@ -135,151 +137,102 @@ export class NAICSContainer extends React.Component {
         }
     };
 
-    getCount = (key, isPlaceholder, codesUnderPlaceholder, aggregate = false) => {
-        const node = getNodeFromTree(this.props.nodes, key);
-        const keyForNodeUnderPlaceholder = codesUnderPlaceholder.find((obj) => (
-            obj.placeholder === key ||
-            getHighestAncestorNaicsCode(obj.placeholder) === key
-        ));
-        const currentCountObj = this.state.selectedNaicsData.find((selectedNaics) => (
-            selectedNaics.value === key &&
-            selectedNaics.count !== node.count
-        ));
-        const isPartialPlaceholder = (
-            isPlaceholder &&
-            keyForNodeUnderPlaceholder &&
-            currentCountObj
-        );
+    getCountWithPlaceholderOffset = (key, codesUnderPlaceholder) => {
+        // when the placeholder is counted, adjust the count to offset for the 'nodes under this placeholder' which will be counted.
+        const hasSelectedButNotCounted = codesUnderPlaceholder.some((obj) => obj.placeholder === key);
 
-        if (isPartialPlaceholder) {
-            const nodeUnderPlaceholder = getNodeFromTree(this.props.nodes, keyForNodeUnderPlaceholder.code);
-            const countFromNode = nodeUnderPlaceholder.count === 0
-                ? 1
-                : nodeUnderPlaceholder.count;
-            return aggregate
-                ? currentCountObj.count + countFromNode
-                : countFromNode;
+        if (hasSelectedButNotCounted) {
+            const nodesUnderPlaceholder = codesUnderPlaceholder
+                .filter((code) => code.placeholder === key);
+            const aggregateOffsetOfNodesUnderPlaceholder = nodesUnderPlaceholder
+                .map((obj) => getNodeFromTree(this.props.nodes, obj.code))
+                .reduce((agg, nodeTobeCounted) => {
+                    if (nodeTobeCounted.count === 0) {
+                        return agg + 1;
+                    }
+                    return agg + nodeTobeCounted.count;
+                }, 0);
+
+            return aggregateOffsetOfNodesUnderPlaceholder;
         }
-        return node.count || 1;
+        return 0;
     };
 
     updateCountOfSelectedTopTierNaicsCodes = (checked = []) => {
+        const newChecked = difference(checked, this.props.checked);
+        const nodes = cloneDeep(this.props.nodes);
         // child place holders reflect the count of their immediate ancestor
-        const placeHoldersToBeCounted = checked
+        const placeHoldersToBeCounted = newChecked
             .filter((naicsCode) => naicsCode.includes('children_of_'));
         
         const codesUnderPlaceholder = [];
         const codesWithoutPlaceholder = [];
 
-        checked
+        newChecked
             .filter((naicsCode) => !naicsCode.includes('children_of_'))
             .forEach((naicsCode) => {
                 const immediateAncestorCode = getImmediateAncestorNaicsCode(naicsCode); // 1111
                 const highestAncestorCode = getHighestAncestorNaicsCode(naicsCode); // 11
 
                 if (placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`)) {
-                    codesUnderPlaceholder.push({ code: naicsCode, placeholder: highestAncestorCode });
+                    codesUnderPlaceholder.push({ code: naicsCode, placeholder: immediateAncestorCode });
                 }
                 else if (placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`)) {
                     codesUnderPlaceholder.push({ code: naicsCode, placeholder: highestAncestorCode });
                 }
                 else if (placeHoldersToBeCounted.includes(`children_of_${naicsCode}`)) {
-                    codesUnderPlaceholder.push({ code: naicsCode, placeholder: highestAncestorCode });
+                    codesUnderPlaceholder.push({ code: naicsCode, placeholder: naicsCode });
                 }
                 else {
                     codesWithoutPlaceholder.push(naicsCode);
                 }
             });
-        
-        console.log("codes with a placeholder", codesUnderPlaceholder);
 
         const checkedWithoutNodesUnderPlaceholder = [...new Set([
             ...codesWithoutPlaceholder,
-            ...placeHoldersToBeCounted
+            ...placeHoldersToBeCounted,
+            ...codesUnderPlaceholder.map((obj) => obj.code)
         ])]
-            .sort((a, b) => {
-                const isAPlaceHolder = a.includes('children_of_');
-                const isBPlaceHolder = b.includes('children_of_');
-                if (isAPlaceHolder && isBPlaceHolder) {
-                    const placeHolderA = a.split('children_of_')[1];
-                    const placeHolderB = b.split('children_of_')[1];
-                    if (placeHolderA.length > placeHolderB.length) {
-                        return 1;
-                    }
-                    else if (placeHolderB.length > placeHolderA.length) {
-                        return -1;
-                    }
-                }
-                else if (isAPlaceHolder && !isBPlaceHolder) {
-                    return -1;
-                }
-                else if (isBPlaceHolder && !isAPlaceHolder) {
-                    return 1;
-                }
-                return 0;
-            })
-            .reduce((acc, code) => {
+            .reduce((newState, code, i, previousState) => {
                 const isPlaceholder = code.includes('children_of_');
                 const key = isPlaceholder
                     ? code.split('children_of_')[1]
                     : code;
                 const parentKey = getHighestAncestorNaicsCode(key);
-                const parentNode = cloneDeep(getNodeFromTree(this.props.nodes, parentKey));
-                const countAggregatedFromCurrentCount = this.getCount(key, isPlaceholder, codesUnderPlaceholder, true);
-                const countFromNodeToBeAdded = this.getCount(key, isPlaceholder, codesUnderPlaceholder);
-                const indexOfParent = acc.findIndex((node) => node.value === parentKey);
-                const isParentSelected = indexOfParent >= 0;
+                const currentNode = getNodeFromTree(nodes, key);
+                const parentNode = getNodeFromTree(nodes, parentKey);
+                
+                const indexInArray = newState.findIndex((node) => node.value === parentKey);
+                const isParentInArray = indexInArray > -1;
+                const parentHasExistingCount = previousState.some((node) => node.value === parentKey);
+                
+                const offsetCount = this.getCountWithPlaceholderOffset(key, codesUnderPlaceholder);
+                const originalCount = currentNode.count === 0
+                    ? 1
+                    : currentNode.count;
+                const amountToIncrement = originalCount - offsetCount;
 
-                if (!isParentSelected && key.length === 2) {
-                    console.log(1, key);
-                    acc.push({
-                        ...parentNode,
-                        count: countAggregatedFromCurrentCount
-                    });
-                    return acc;
-                }
-                else if (!isParentSelected && key.length === 4) {
-                    console.log(2)
-                    acc.push({
-                        ...parentNode,
-                        count: countAggregatedFromCurrentCount
-                    });
-                    return acc;
-                }
-                else if (!isParentSelected && key.length === 6) {
-                    console.log(3)
-                    acc.push({
-                        ...parentNode,
-                        count: 1
-                    });
-                    return acc;
-                }
-                else if (isParentSelected && key.length === 2) {
-                    console.log(4)
-                    acc[indexOfParent].count = parentNode.count;
-                    return acc;
-                }
-                else if (isParentSelected && key.length === 4) {
-                    console.log(5, key)
-                    acc[indexOfParent].count += countFromNodeToBeAdded;
-                    if (parentNode.count < acc[indexOfParent].count) {
-                        console.log("oh no");
-                        acc[indexOfParent].count = parentNode.count;
-                        return acc;
+                if (!parentHasExistingCount) {
+                    if (!isParentInArray) {
+                        newState.push({
+                            ...parentNode,
+                            count: amountToIncrement
+                        });
                     }
-                    return acc;
-                }
-                else if (isParentSelected && key.length === 6) {
-                    console.log(6)
-                    acc[indexOfParent].count += countFromNodeToBeAdded;
-                    // never increment count above count of parent.
-                    if (parentNode.count < acc[indexOfParent].count) {
-                        acc[indexOfParent].count = parentNode.count;
-                        return acc;
+                    else if (isParentInArray) {
+                        newState[indexInArray].count += amountToIncrement;
                     }
-                    return acc;
                 }
-                return acc;
+                else if (parentHasExistingCount) {
+                    newState[indexInArray].count += amountToIncrement;
+                }
+                if (isParentInArray && parentNode.count < newState[indexInArray].count) {
+                    newState[indexInArray].count = parentNode.count;
+                }
+                else if (isParentInArray && newState[indexInArray].count < 1) {
+                    newState[indexInArray].count = 1;
+                }
+                return newState;
             }, [...this.state.selectedNaicsData]);
 
         this.setState({ selectedNaicsData: checkedWithoutNodesUnderPlaceholder });
