@@ -140,10 +140,11 @@ describe('bulkDownloadReducer', () => {
             expect(state.download.showCollapsedProgress).toEqual(true);
         });
     });
-    describe('BULK_PRIME_AWARD_TYPE_CHANGE', () => {
+    describe('BULK_AWARD_TYPE_CHANGE', () => {
         it('should add to the prime award type set', () => {
             const action = {
-                type: 'BULK_PRIME_AWARD_TYPE_CHANGE',
+                type: 'BULK_AWARD_TYPE_CHANGE',
+                lookupName: 'primeAwards',
                 awardTypes: [
                     'contracts',
                     'direct_payments',
@@ -168,7 +169,8 @@ describe('bulkDownloadReducer', () => {
 
         it('should remove from the prime award type set', () => {
             const action = {
-                type: 'BULK_PRIME_AWARD_TYPE_CHANGE',
+                type: 'BULK_AWARD_TYPE_CHANGE',
+                lookupName: 'primeAwards',
                 awardTypes: [],
                 direction: 'remove'
             };
@@ -176,11 +178,11 @@ describe('bulkDownloadReducer', () => {
             const state = bulkDownloadReducer(undefined, action);
             expect(state.awards.awardTypes.primeAwards).toEqual(new Set([]));
         });
-    });
-    describe('BULK_SUB_AWARD_TYPE_CHANGE', () => {
+
         it('should add to the sub award type set', () => {
             const action = {
-                type: 'BULK_SUB_AWARD_TYPE_CHANGE',
+                type: 'BULK_AWARD_TYPE_CHANGE',
+                lookupName: 'subAwards',
                 awardTypes: [
                     'sub_grants',
                     'sub_contracts'
@@ -197,7 +199,8 @@ describe('bulkDownloadReducer', () => {
 
         it('should remove from the sub award type set', () => {
             const action = {
-                type: 'BULK_SUB_AWARD_TYPE_CHANGE',
+                type: 'BULK_AWARD_TYPE_CHANGE',
+                lookupName: 'subAwards',
                 awardTypes: [],
                 direction: 'remove'
             };
@@ -206,10 +209,12 @@ describe('bulkDownloadReducer', () => {
             expect(state.awards.awardTypes.subAwards).toEqual(new Set([]));
         });
     });
-    describe('TOGGLE_PRIME_AWARD_TYPE_CHANGE', () => {
+
+    describe('TOGGLE_AWARD_TYPE_CHANGE', () => {
         it('should add to the prime award type set', () => {
             const action = {
-                type: 'TOGGLE_PRIME_AWARD_TYPE_CHANGE',
+                type: 'TOGGLE_AWARD_TYPE_CHANGE',
+                lookupName: 'primeAwards',
                 awardType: 'contracts'
             };
 
@@ -218,11 +223,10 @@ describe('bulkDownloadReducer', () => {
                 new Set(['contracts']));
         });
 
-    });
-    describe('TOGGLE_SUB_AWARD_TYPE_CHANGE', () => {
         it('should add to the sub award type set', () => {
             const action = {
-                type: 'TOGGLE_SUB_AWARD_TYPE_CHANGE',
+                type: 'TOGGLE_AWARD_TYPE_CHANGE',
+                lookupName: 'subAwards',
                 awardType: 'sub_grants'
             };
 
@@ -230,5 +234,6 @@ describe('bulkDownloadReducer', () => {
             expect(state.awards.awardTypes.subAwards).toEqual(
                 new Set(['sub_grants']));
         });
+
     });
 });

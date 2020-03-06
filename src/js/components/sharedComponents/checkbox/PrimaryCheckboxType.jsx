@@ -17,6 +17,7 @@ import SingleCheckboxType from './SingleCheckboxType';
 const propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
+    lookupName: PropTypes.string,
     filters: PropTypes.array,
     bulkTypeChange: PropTypes.func,
     value: PropTypes.string,
@@ -25,11 +26,12 @@ const propTypes = {
     selectedCheckboxes: PropTypes.object,
     enableAnalytics: PropTypes.bool,
     restrictChildren: PropTypes.bool,
-    collapsable: PropTypes.bool
+    isCollapsable: PropTypes.bool
 };
 
 const defaultProps = {
     name: '',
+    lookupName: '',
     filters: [],
     value: '',
     filterType: '',
@@ -37,7 +39,7 @@ const defaultProps = {
     selectedCheckboxes: new Set(),
     enableAnalytics: false,
     restrictChildren: false,
-    collapsable: true
+    isCollapsable: true
 };
 
 // sub-filters hidden from the user, but  passed to the API when the parent filter is selected
@@ -63,8 +65,8 @@ export default class PrimaryCheckboxType extends React.Component {
         super(props);
 
         this.state = {
-            showSubItems: !props.collapsable,
-            arrowState: props.collapsable ? 'collapsed' : 'expanded',
+            showSubItems: false,
+            arrowState: 'collapsed',
             selectedChildren: false,
             allChildren: false
         };
@@ -128,6 +130,7 @@ export default class PrimaryCheckboxType extends React.Component {
         if (this.state.allChildren) {
             // all the children are selected, deselect them
             this.props.bulkTypeChange({
+                lookupName: this.props.lookupName,
                 types: this.props.filters,
                 direction: 'remove'
             });
@@ -140,6 +143,7 @@ export default class PrimaryCheckboxType extends React.Component {
         else {
             // not all the children are selected, select them all
             this.props.bulkTypeChange({
+                lookupName: this.props.lookupName,
                 types: this.props.filters,
                 direction: 'add'
             });
@@ -162,11 +166,11 @@ export default class PrimaryCheckboxType extends React.Component {
             toggleExpand={this.toggleSubItems}
             toggleChildren={this.toggleChildren}
             hideArrow={this.state.selectedChildren || this.props.restrictChildren}
-            collapsable={this.props.collapsable} />);
+            isCollapsable={this.props.isCollapsable} />);
 
         let secondaryTypes = null;
 
-        if (this.state.showSubItems) {
+        if (this.state.showSubItems || !this.props.isCollapsable) {
             secondaryTypes = this.props.filters
                 .filter((subFilter) => !excludedSubFilters.includes(subFilter))
                 .map((code) => (

@@ -21,10 +21,8 @@ const propTypes = {
     updateAwardDateRange: PropTypes.func,
     bulkDownload: PropTypes.object,
     clickedDownload: PropTypes.func,
-    bulkPrimeAwardTypeChange: PropTypes.func,
-    bulkSubAwardTypeChange: PropTypes.func,
-    togglePrimeAwardTypeChange: PropTypes.func,
-    toggleSubAwardTypeChange: PropTypes.func
+    bulkAwardTypeChange: PropTypes.func,
+    toggleAwardTypeChange: PropTypes.func
 };
 
 export class AwardDataContainer extends React.Component {
@@ -51,10 +49,8 @@ export class AwardDataContainer extends React.Component {
         this.setAgencyList = this.setAgencyList.bind(this);
         this.setSubAgencyList = this.setSubAgencyList.bind(this);
         this.loadStates = this.loadStates.bind(this);
-        this.bulkPrimeAwardTypeChange = this.bulkPrimeAwardTypeChange.bind(this);
-        this.bulkSubAwardTypeChange = this.bulkSubAwardTypeChange.bind(this);
-        this.togglePrimeAwardTypeChange = this.togglePrimeAwardTypeChange.bind(this);
-        this.toggleSubAwardTypeChange = this.toggleSubAwardTypeChange.bind(this);
+        this.bulkAwardTypeChange = this.bulkAwardTypeChange.bind(this);
+        this.toggleAwardTypeChange = this.toggleAwardTypeChange.bind(this);
     }
 
     componentDidMount() {
@@ -191,20 +187,12 @@ export class AwardDataContainer extends React.Component {
         this.props.clearDownloadFilters('awards');
     }
 
-    bulkPrimeAwardTypeChange(selection) {
-        this.props.bulkPrimeAwardTypeChange(selection);
+    bulkAwardTypeChange(selection) {
+        this.props.bulkAwardTypeChange(selection);
     }
 
-    bulkSubAwardTypeChange(selection) {
-        this.props.bulkSubAwardTypeChange(selection);
-    }
-
-    togglePrimeAwardTypeChange(selection) {
-        this.props.togglePrimeAwardTypeChange(selection);
-    }
-
-    toggleSubAwardTypeChange(selection) {
-        this.props.toggleSubAwardTypeChange(selection);
+    toggleAwardTypeChange(selection) {
+        this.props.toggleAwardTypeChange(selection);
     }
 
     render() {
@@ -221,10 +209,8 @@ export class AwardDataContainer extends React.Component {
                 setSubAgencyList={this.setSubAgencyList}
                 states={this.state.states}
                 clickedDownload={this.props.clickedDownload}
-                bulkPrimeAwardTypeChange={this.bulkPrimeAwardTypeChange}
-                bulkSubAwardTypeChange={this.bulkSubAwardTypeChange}
-                togglePrimeAwardTypeChange={this.togglePrimeAwardTypeChange}
-                toggleSubAwardTypeChange={this.toggleSubAwardTypeChange} />
+                bulkAwardTypeChange={this.bulkAwardTypeChange}
+                toggleAwardTypeChange={this.toggleAwardTypeChange} />
         );
     }
 }

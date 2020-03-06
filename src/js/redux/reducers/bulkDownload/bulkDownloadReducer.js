@@ -183,39 +183,20 @@ const bulkDownloadReducer = (state = initialState, action) => {
                 download
             });
         }
-        case 'BULK_PRIME_AWARD_TYPE_CHANGE': {
+        case 'BULK_AWARD_TYPE_CHANGE': {
             const awardTypes = Object.assign({}, state.awards.awardTypes, {
-                primeAwards: AwardFilterFunctions.bulkAwardTypeChange(
-                    state.awards.awardTypes.primeAwards, action.awardTypes, action.direction
+                [action.lookupName]: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.awards.awardTypes[action.lookupName], action.awardTypes, action.direction
                 )
             });
             const awards = Object.assign({}, state.awards, { awardTypes });
 
             return Object.assign({}, state, { awards });
         }
-        case 'BULK_SUB_AWARD_TYPE_CHANGE': {
+        case 'TOGGLE_AWARD_TYPE_CHANGE': {
             const awardTypes = Object.assign({}, state.awards.awardTypes, {
-                subAwards: AwardFilterFunctions.bulkAwardTypeChange(
-                    state.awards.awardTypes.subAwards, action.awardTypes, action.direction
-                )
-            });
-            const awards = Object.assign({}, state.awards, { awardTypes });
-
-            return Object.assign({}, state, { awards });
-        }
-        case 'TOGGLE_PRIME_AWARD_TYPE_CHANGE': {
-            const awardTypes = Object.assign({}, state.awards.awardTypes, {
-                primeAwards: AwardFilterFunctions.immutableSetToggle(
-                    state.awards.awardTypes.primeAwards, action.awardType)
-            });
-            const awards = Object.assign({}, state.awards, { awardTypes });
-
-            return Object.assign({}, state, { awards });
-        }
-        case 'TOGGLE_SUB_AWARD_TYPE_CHANGE': {
-            const awardTypes = Object.assign({}, state.awards.awardTypes, {
-                subAwards: AwardFilterFunctions.immutableSetToggle(
-                    state.awards.awardTypes.subAwards, action.awardType)
+                [action.lookupName]: AwardFilterFunctions.immutableSetToggle(
+                    state.awards.awardTypes[action.lookupName], action.awardType)
             });
             const awards = Object.assign({}, state.awards, { awardTypes });
 

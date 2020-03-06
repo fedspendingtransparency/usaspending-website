@@ -30,10 +30,8 @@ const propTypes = {
     setSubAgencyList: PropTypes.func,
     states: PropTypes.array,
     clickedDownload: PropTypes.func,
-    bulkPrimeAwardTypeChange: PropTypes.func,
-    bulkSubAwardTypeChange: PropTypes.func,
-    togglePrimeAwardTypeChange: PropTypes.func,
-    toggleSubAwardTypeChange: PropTypes.func
+    bulkAwardTypeChange: PropTypes.func,
+    toggleAwardTypeChange: PropTypes.func
 };
 
 export default class AwardDataContent extends React.Component {
@@ -133,10 +131,8 @@ export default class AwardDataContent extends React.Component {
                             awardLevels={awardDownloadOptions.awardLevels}
                             awardTypeLabels={awardTypeLabels}
                             currentAwardTypes={awards.awardTypes}
-                            bulkPrimeAwardTypeChange={this.props.bulkPrimeAwardTypeChange}
-                            bulkSubAwardTypeChange={this.props.bulkSubAwardTypeChange}
-                            togglePrimeAwardTypeChange={this.props.togglePrimeAwardTypeChange}
-                            toggleSubAwardTypeChange={this.props.toggleSubAwardTypeChange} />
+                            bulkAwardTypeChange={this.props.bulkAwardTypeChange}
+                            toggleAwardTypeChange={this.props.toggleAwardTypeChange} />
                         <AgencyFilter
                             agencies={this.props.agencies}
                             subAgencies={this.props.subAgencies}

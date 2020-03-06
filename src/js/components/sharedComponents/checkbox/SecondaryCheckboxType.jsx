@@ -13,19 +13,23 @@ const propTypes = {
     id: PropTypes.string,
     code: PropTypes.string,
     name: PropTypes.string,
+    lookupName: PropTypes.string,
     toggleCheckboxType: PropTypes.func,
     filterType: PropTypes.string,
     selectedCheckboxes: PropTypes.object,
     enableAnalytics: PropTypes.bool,
-    restrictChildren: PropTypes.bool
+    restrictChildren: PropTypes.bool,
+    isCollapsable: PropTypes.bool
 };
 
 const defaultProps = {
     id: `checkbox-${uniqueId()}`,
+    lookupName: '',
     filterType: '',
     selectedCheckboxes: new Set(),
     enableAnalytics: false,
-    restrictChildren: false
+    restrictChildren: false,
+    isCollapsable: true
 };
 
 export default class SecondaryCheckboxType extends React.Component {
@@ -53,7 +57,10 @@ export default class SecondaryCheckboxType extends React.Component {
 
     toggleFilter() {
         // indicate to Redux that this field needs to toggle
-        this.props.toggleCheckboxType(this.props.code);
+        this.props.toggleCheckboxType({
+            value: this.props.code,
+            lookupName: this.props.lookupName
+        });
 
         // Analytics
         if (this.props.enableAnalytics) {
