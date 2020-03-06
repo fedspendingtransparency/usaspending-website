@@ -444,7 +444,6 @@ export class NAICSContainer extends React.Component {
                     {loadingDiv}
                     {noResultsDiv}
                     {errorDiv}
-                    TEST
                     {this.checkboxDiv()}
                     {this.props.checked.length !== 0 && selectedNaicsData.length !== 0 && (
                         <div
