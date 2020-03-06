@@ -58,10 +58,10 @@ export class NAICSContainer extends React.Component {
         this.updateCountOfSelectedTopTierNaicsCodes(this.props.checked);
         return this.fetchNAICS();
     }
-    
+
     componentDidUpdate(prevProps) {
         if (this.hint) {
-            if (!isEqual(this.props.checked, prevProps.checked)) {
+            if (!isEqual(this.props.checked, prevProps.checked) && this.props.checked.length > 0) {
                 this.hint.showHint();
             }
         }
@@ -228,6 +228,19 @@ export class NAICSContainer extends React.Component {
 
         this.setState({ selectedNaicsData: parentNaicsWithCounts });
         this.props.setChecked(checked);
+    }
+
+    removeSelectedFilter = (node) => {
+        const newChecked = this.props.checked
+            .map((checked) => {
+                if (checked.includes('children_of_')) return checked.split('children_of_')[1];
+                return checked;
+            })
+            .filter((checked) => !`${checked[0]}${checked[1]}`.includes(node.value));
+
+        console.log('newChecked', newChecked);
+
+        this.onUncheck(newChecked, { ...node, checked: false });
     }
 
     handleTextInputChange = (e) => {
@@ -438,12 +451,11 @@ export class NAICSContainer extends React.Component {
                             role="status">
                             {selectedNaicsData.map((node) => {
                                 const label = `${node.value} - ${node.label} (${node.count})`;
-                                console.log("label", label);
                                 return (
                                     <button
                                         className="shown-filter-button"
                                         value={label}
-                                        onClick={this.props.removeLocation}
+                                        onClick={() => this.removeSelectedFilter(node)}
                                         title="Click to remove."
                                         aria-label={`Applied filter: ${label}`}>
                                         {label}
