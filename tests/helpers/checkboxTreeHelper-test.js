@@ -54,4 +54,12 @@ describe('checkboxTree Helpers', () => {
             expect(granchild.naics_description).toEqual("Support Activities for Forestry");
         });
     });
+    describe('getHighestAncestorNaicsCode', () => {
+        const result = getHighestAncestorNaicsCode('111111');
+        expect(result).toEqual('11');
+    })
+    describe('getImmediateAncestorNaicsCode', () => {
+        const result = getImmediateAncestorNaicsCode('111111');
+        expect(result).toEqual('1111');
+    })
 });
