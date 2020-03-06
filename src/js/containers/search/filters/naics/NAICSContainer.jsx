@@ -355,16 +355,18 @@ export class NAICSContainer extends React.Component {
     }
 
     noResultsDiv = () => {
-        const { isError, isLoading } = this.state;
-        if (isError || isLoading || this.props.nodes.length > 0) return null;
-        return (
-            <div className="naics-filter-message-container">
-                <FontAwesomeIcon icon="ban" />
-                <div className="naics-filter-message-container__text">
-                    No Results
+        const { isError, isLoading, isSearch } = this.state;
+        if (isError || isLoading) return null;
+        if ((isSearch && this.props.searchExpanded.length === 0) || this.props.nodes.length === 0) {
+            return (
+                <div className="naics-filter-message-container">
+                    <FontAwesomeIcon icon="ban" />
+                    <div className="naics-filter-message-container__text">
+                        No Results
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
     }
 
     checkboxDiv() {
@@ -418,6 +420,7 @@ export class NAICSContainer extends React.Component {
                     {loadingDiv}
                     {noResultsDiv}
                     {errorDiv}
+                    TEST
                     {this.checkboxDiv()}
                     {this.props.checked.length !== 0 && selectedNaicsData.length !== 0 && (
                         <SelectedNaic
