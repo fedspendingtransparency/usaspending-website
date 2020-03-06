@@ -22,6 +22,7 @@ import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import { setNaics, setExpanded, setChecked, setSearchedNaics, addChecked, showNaicsTree } from 'redux/actions/search/naicsActions';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
 import SelectedNaic from 'components/search/filters/naics/SelectNaic';
+import * as OtherFiltersFormatter from 'helpers/otherFiltersFormatter';
 
 const propTypes = {
     updateNaics: PropTypes.func,
@@ -423,9 +424,28 @@ export class NAICSContainer extends React.Component {
                     TEST
                     {this.checkboxDiv()}
                     {this.props.checked.length !== 0 && selectedNaicsData.length !== 0 && (
-                        <SelectedNaic
-                            selectedNAICS={selectedNaicsData}
-                            removeNAICS={this.props.removeNAICS} />
+                        <div
+                            id="award-search-selected-locations"
+                            className="selected-filters"
+                            role="status">
+                            {selectedNaicsData.map((node) => {
+                                const label = `${node.value} - ${node.label} (${node.count})`;
+                                console.log("label", label);
+                                return (
+                                    <button
+                                        className="shown-filter-button"
+                                        value={label}
+                                        onClick={this.props.removeLocation}
+                                        title="Click to remove."
+                                        aria-label={`Applied filter: ${label}`}>
+                                        {label}
+                                        <span className="close">
+                                            <FontAwesomeIcon icon="times" />
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
                     )}
                 </div>
             </div>

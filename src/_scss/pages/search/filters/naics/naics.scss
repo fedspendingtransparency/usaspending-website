@@ -39,5 +39,16 @@
         }
       }
     }
+    @import '../../../../elements/filters/selectedFilterBtn';
+    .selected-filters {
+      background: #E4E4E4;
+      padding: rem(10);
+      margin-bottom: rem(10);
+      button {
+        line-height: rem(15);
+        font-size: rem(12);
+        color: #5B616B;
+      }
+    }
   }
 }
