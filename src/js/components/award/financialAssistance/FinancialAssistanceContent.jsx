@@ -5,24 +5,24 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
+import kGlobalConstants from 'GlobalConstants';
 import { glossaryLinks } from 'dataMapping/search/awardType';
 import BaseAwardAmounts from 'models/v2/awardsV2/BaseAwardAmounts';
 import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
 import { awardTypesWithSubawards } from 'dataMapping/awards/awardHistorySection';
-
+import ContractGrantActivityContainer from 'containers/award/shared/ContractGrantActivityContainer';
 import AwardAmountsSection from '../shared/awardAmountsSection/AwardAmountsSection';
 import AdditionalInfo from '../shared/additionalInfo/AdditionalInfo';
 import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSection';
 import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';
 import FederalAccountsSection from '../shared/federalAccounts/FederalAccountsSection';
 import AwardSection from '../shared/AwardSection';
-import ComingSoonSection from '../shared/ComingSoonSection';
 import AwardPageWrapper from '../shared/AwardPageWrapper';
 import { isAwardAggregate } from '../../../helpers/awardSummaryHelper';
 import AwardDescription from '../shared/description/AwardDescription';
-import { contractActivityGrants } from '../shared/InfoTooltipContent';
 import CFDASection from './CFDASection';
+import ComingSoonSection from '../shared/ComingSoonSection';
+import { contractActivityGrants } from '../shared/InfoTooltipContent';
 
 const propTypes = {
     awardId: PropTypes.string,
@@ -72,6 +72,17 @@ const FinancialAssistanceContent = ({
 
     const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
     const isGrant = overview.category === 'grant';
+    const grantActivity = () => {
+        if (isGrant) {
+            return (kGlobalConstants.DEV) ? <ContractGrantActivityContainer awardId={awardId} awardType={overview.category} />
+                : <ComingSoonSection
+                    title="Grant Activity"
+                    icon="chart-area"
+                    includeHeader
+                    toolTipContent={contractActivityGrants} />;
+        }
+        return null;
+    };
 
     return (
         <AwardPageWrapper
@@ -106,13 +117,7 @@ const FinancialAssistanceContent = ({
                     awardId={awardId} />
             </AwardSection>
             <AwardSection type="row">
-                {isGrant && (
-                    <ComingSoonSection
-                        title="Grant Activity"
-                        icon="chart-area"
-                        includeHeader
-                        toolTipContent={contractActivityGrants} />
-                )}
+                {grantActivity()}
                 {!isGrant && (
                     <CFDASection data={overview.biggestCfda} />
                 )}
