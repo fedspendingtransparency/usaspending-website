@@ -164,7 +164,7 @@ export class NAICSContainer extends React.Component {
         // child place holders reflect the count of their immediate ancestor
         const placeHoldersToBeCounted = newChecked
             .filter((naicsCode) => naicsCode.includes('children_of_'));
-        
+
         const codesUnderPlaceholder = [];
         const codesWithoutPlaceholder = [];
 
@@ -201,11 +201,11 @@ export class NAICSContainer extends React.Component {
                 const parentKey = getHighestAncestorNaicsCode(key);
                 const currentNode = getNodeFromTree(nodes, key);
                 const parentNode = getNodeFromTree(nodes, parentKey);
-                
+
                 const indexInArray = newState.findIndex((node) => node.value === parentKey);
                 const isParentInArray = indexInArray > -1;
                 const parentHasExistingCount = previousState.some((node) => node.value === parentKey);
-                
+
                 const offsetCount = this.getCountWithPlaceholderOffset(key, codesUnderPlaceholder);
                 const originalCount = currentNode.count === 0
                     ? 1

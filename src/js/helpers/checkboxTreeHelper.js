@@ -175,13 +175,18 @@ export const showAllTreeItems = (tree, key = '', payload = []) => tree
                     if (weHaveTheGrandChildren) {
                         return {
                             ...child,
-                            children: existingChild.children.sort(sortNodes)
+                            children: existingChild.children
+                                .map((grand) => ({ ...grand, className: '' }))
+                                .sort(sortNodes)
                         };
                     }
                     if (weHaveAtLeastOneGrandChild) {
                         return {
                             ...child,
-                            children: [...child.children, ...existingChild.children].sort(sortNodes)
+                            children: [
+                                ...child.children,
+                                ...existingChild.children.filter((grand) => (!grand.isPlaceHolder))
+                            ].sort(sortNodes)
                         };
                     }
                     return {
