@@ -54,7 +54,6 @@ export class NAICSContainer extends React.Component {
     }
 
     componentDidMount() {
-        // show staged filters
         this.updateCountOfSelectedTopTierNaicsCodes(this.props.checked);
         return this.fetchNAICS();
     }
@@ -75,12 +74,6 @@ export class NAICSContainer extends React.Component {
         });
     }
 
-    /**
-     * onCheck
-     * - updates redux checked and updates naics search filters in redux
-     * @param {string[]} checked - and array of checked values
-     * @returns {null}
-     */
     onCheck = async (checkedNodes, node) => {
         this.updateCountOfSelectedTopTierNaicsCodes(checkedNodes, node);
         this.props.updateNaics(checkedNodes);
@@ -162,18 +155,17 @@ export class NAICSContainer extends React.Component {
         const newChecked = difference(checked, this.props.checked);
         const nodes = cloneDeep(this.props.nodes);
         // child place holders reflect the count of their immediate ancestor
-        const placeHoldersToBeCounted = newChecked
+        const placeHoldersToBeCounted = checked
             .filter((naicsCode) => naicsCode.includes('children_of_'));
 
         const codesUnderPlaceholder = [];
         const codesWithoutPlaceholder = [];
 
-        newChecked
+        checked
             .filter((naicsCode) => !naicsCode.includes('children_of_'))
             .forEach((naicsCode) => {
                 const immediateAncestorCode = getImmediateAncestorNaicsCode(naicsCode); // 1111
                 const highestAncestorCode = getHighestAncestorNaicsCode(naicsCode); // 11
-
                 if (placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`)) {
                     codesUnderPlaceholder.push({ code: naicsCode, placeholder: immediateAncestorCode });
                 }
@@ -188,12 +180,8 @@ export class NAICSContainer extends React.Component {
                 }
             });
 
-        const checkedWithoutNodesUnderPlaceholder = [...new Set([
-            ...codesWithoutPlaceholder,
-            ...placeHoldersToBeCounted,
-            ...codesUnderPlaceholder.map((obj) => obj.code)
-        ])]
-            .reduce((newState, code, i, previousState) => {
+        const parentNaicsWithCounts = [...new Set([...newChecked])]
+            .reduce((newState, code) => {
                 const isPlaceholder = code.includes('children_of_');
                 const key = isPlaceholder
                     ? code.split('children_of_')[1]
@@ -204,7 +192,6 @@ export class NAICSContainer extends React.Component {
 
                 const indexInArray = newState.findIndex((node) => node.value === parentKey);
                 const isParentInArray = indexInArray > -1;
-                const parentHasExistingCount = previousState.some((node) => node.value === parentKey);
 
                 const offsetCount = this.getCountWithPlaceholderOffset(key, codesUnderPlaceholder);
                 const originalCount = currentNode.count === 0
@@ -212,18 +199,13 @@ export class NAICSContainer extends React.Component {
                     : currentNode.count;
                 const amountToIncrement = originalCount - offsetCount;
 
-                if (!parentHasExistingCount) {
-                    if (!isParentInArray) {
-                        newState.push({
-                            ...parentNode,
-                            count: amountToIncrement
-                        });
-                    }
-                    else if (isParentInArray) {
-                        newState[indexInArray].count += amountToIncrement;
-                    }
+                if (!isParentInArray) {
+                    newState.push({
+                        ...parentNode,
+                        count: amountToIncrement
+                    });
                 }
-                else if (parentHasExistingCount) {
+                else if (isParentInArray) {
                     newState[indexInArray].count += amountToIncrement;
                 }
                 if (isParentInArray && parentNode.count < newState[indexInArray].count) {
@@ -235,7 +217,7 @@ export class NAICSContainer extends React.Component {
                 return newState;
             }, [...this.state.selectedNaicsData]);
 
-        this.setState({ selectedNaicsData: checkedWithoutNodesUnderPlaceholder });
+        this.setState({ selectedNaicsData: parentNaicsWithCounts });
         this.props.setChecked(checked);
     }
 
