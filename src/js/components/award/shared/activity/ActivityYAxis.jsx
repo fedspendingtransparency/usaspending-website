@@ -13,11 +13,13 @@ const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     padding: PropTypes.object,
-    barHeight: PropTypes.number
+    extendLine: PropTypes.number,
+    textAnchor: PropTypes.string,
+    tickLabelFunction: PropTypes.func
 };
 
 const defaultProps = {
-    barHeight: 10
+    extendLine: 10
 };
 
 export default class ActivityYAxis extends React.Component {
@@ -38,15 +40,20 @@ export default class ActivityYAxis extends React.Component {
     }
 
     drawAxis(props) {
+        const {
+            padding,
+            ticks,
+            scale,
+            height,
+            textAnchor
+        } = props;
         if (!props.scale) {
             return;
         }
 
-        // determine the numerical unit to display in the Y axis labels
-        const units = MoneyFormatter.calculateUnits(props.data);
-
-        // generate the labels
-        const tickLabels = props.ticks.map((tick) => {
+        const tickLabelFunction = (tick) => {
+            // determine the numerical unit to display in the Y axis labels
+            const units = MoneyFormatter.calculateUnits([tick]);
             let formattedValue = MoneyFormatter.formatMoneyWithPrecision(tick / units.unit, units.precision);
             if (tick === 0) {
                 formattedValue = '$0';
@@ -56,7 +63,9 @@ export default class ActivityYAxis extends React.Component {
             }
 
             return formattedValue;
-        });
+        };
+        // generate the labels
+        const tickLabels = ticks.map(this.props.tickLabelFunction || tickLabelFunction);
 
         // draw the grid lines
         const lineStart = -5;
@@ -64,20 +73,25 @@ export default class ActivityYAxis extends React.Component {
 
         let description = '';
         if (tickLabels.length > 0) {
-            description = `The Y-axis of the chart, showing a range of awarded amounts from `;
+            description = 'The Y-axis of the chart, showing a range of awarded amounts from ';
             description += `${tickLabels[0]} to ${tickLabels[tickLabels.length - 1]}`;
         }
 
-        // set all the labels 20px to the left of the Y axis
-        const xPos = props.padding.left - 20;
+        /**
+         * Default (w/ padding left) : set all the labels 20px to the left of the Y axis
+         * Optional (w/ padding labels) : when passing textAnchor it is helpful to keep
+         * the vertical line in place and update where we place the labels with their x
+         * position with padding.labels
+         */
+        const xPos = (padding.labels || padding.left) - 20;
 
         // iterate through the D3 generated tick marks and add them to the chart
-        const labels = props.ticks.map((tick, i) => {
+        const labels = ticks.map((tick, i) => {
             // calculate the X position
             // D3 scale returns the tick positions as pixels from the start of the axis (top as min)
             // but we want to display the axis as top max, bottom min, so invert the Y position by
             // subtracting from the total Y axis height
-            const yPos = props.height - props.scale(tick);
+            const yPos = height - scale(tick);
 
             return (<ActivityYAxisItem
                 x={xPos}
@@ -85,7 +99,8 @@ export default class ActivityYAxis extends React.Component {
                 label={`${tickLabels[i]}`}
                 key={`label-y-${tick}-${i}`}
                 lineStart={lineStart}
-                lineEnd={lineEnd} />);
+                lineEnd={lineEnd}
+                textAnchor={textAnchor || 'middle'} />);
         });
 
         this.setState({
@@ -93,7 +108,10 @@ export default class ActivityYAxis extends React.Component {
             description
         });
     }
-
+    /**
+     * Note - When using nice we will always have a max tick at the top of the y-axis.
+     * Bar height just extends the line for visual purposes to cover the max tick label.
+     */
     render() {
         return (
             <g className="bar-axis">
@@ -104,7 +122,7 @@ export default class ActivityYAxis extends React.Component {
                 <line
                     className="axis y-axis"
                     x1={this.props.padding.left}
-                    y1={-this.props.barHeight}
+                    y1={-this.props.extendLine}
                     x2={this.props.padding.left}
                     y2={this.props.height} />
                 <g className="axis-labels">

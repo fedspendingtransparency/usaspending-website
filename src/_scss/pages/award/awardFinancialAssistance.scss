@@ -1,6 +1,7 @@
 /* Styles specific to Financial Assistance */
 
 .award {
+    @import './shared/contractGrantsActivity.scss';
     .cfda-section {
         width: 100%;
         .award__col__content {

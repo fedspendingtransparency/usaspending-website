@@ -11,9 +11,9 @@ import { calculateTreemapPercentage } from 'helpers/moneyFormatter';
 import { nearestQuarterDate } from 'helpers/fiscalYearHelper';
 import RectanglePattern from 'components/sharedComponents/patterns/RectanglePattern';
 import VerticalLine from 'components/sharedComponents/VerticalLine';
+import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
+import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityChartBar from './ActivityChartBar';
-import ActivityXAxis from './ActivityXAxis';
-import ActivityYAxis from './ActivityYAxis';
 
 const propTypes = {
     awards: PropTypes.array,
@@ -339,9 +339,8 @@ export default class ActivityChart extends React.Component {
                     <ActivityYAxis
                         height={height - padding.bottom}
                         width={width - padding.left}
-                        barHeight={this.props.barHeight}
+                        extendLine={this.props.barHeight}
                         padding={padding}
-                        data={this.props.ySeries}
                         scale={this.state.yScale}
                         ticks={this.state.yTicks} />
                     <ActivityXAxis
