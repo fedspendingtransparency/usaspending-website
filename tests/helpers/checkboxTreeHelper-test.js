@@ -33,4 +33,11 @@ describe('checkboxTree Helpers', () => {
             expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length + 1);
         });
     });
+    describe('expandAllNodes', () => {
+        it('returns an array containing all values from tree', () => {
+            const result = expandAllNodes(mockData.searchResults);
+            // does not expand grand children as they have no children.
+            expect(result).toEqual(["11", "1111"]);
+        });
+    });
 });
