@@ -68,7 +68,7 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
             .reduce((acc, searchChild) => {
                 const existingChildIndex = acc
                     .findIndex((existingChild) => existingChild.value === searchChild.value);
-                
+
                 if (existingChildIndex !== -1) {
                     // show this child
                     acc[existingChildIndex].className = '';

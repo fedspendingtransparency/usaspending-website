@@ -15,14 +15,12 @@ const getChildren = (node) => {
     }
     else if (node.children) {
         return {
-            children: node.children.map((child) => {
-                return {
-                    ...child,
-                    label: child.naics_description,
-                    value: child.naics,
-                    ...getChildren(child)
-                };
-            })
+            children: node.children.map((child) => ({
+                ...child,
+                label: child.naics_description,
+                value: child.naics,
+                ...getChildren(child)
+            }))
         };
     }
     return {};
