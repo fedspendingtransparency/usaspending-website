@@ -14,13 +14,15 @@ import {
     isEqual
 } from 'lodash';
 import { isCancel } from 'axios';
-import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
 import { naicsRequest } from 'helpers/naicsHelper';
+
 import { expandAllNodes, getNodeFromTree, getImmediateAncestorNaicsCode, getHighestAncestorNaicsCode } from 'helpers/checkboxTreeHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import { setNaics, setExpanded, setChecked, setSearchedNaics, addChecked, showNaicsTree } from 'redux/actions/search/naicsActions';
+
+import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
