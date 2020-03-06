@@ -12,6 +12,8 @@ const parentAwardDetails = {
         this.idcType = data.type_of_idc_description || '';
         this.agencyId = data.agency_id || '';
         this.agencyName = data.agency_name || '';
+        this.subAgencyId = data.sub_agency_id || '';
+        this.subAgencyName = data.sub_agency_name || '';
         this.multipleOrSingle = data.multiple_or_single_aw_desc || '';
         this.piid = data.piid || '';
     }
