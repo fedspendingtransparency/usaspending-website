@@ -10,7 +10,8 @@ import PropTypes from 'prop-types';
 import {
     debounce,
     cloneDeep,
-    difference
+    difference,
+    isEqual
 } from 'lodash';
 import { isCancel } from 'axios';
 import CheckboxTree from 'containers/shared/checkboxTree/CheckboxTree';
@@ -21,8 +22,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import { setNaics, setExpanded, setChecked, setSearchedNaics, addChecked, showNaicsTree } from 'redux/actions/search/naicsActions';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
-import SelectedNaic from 'components/search/filters/naics/SelectNaic';
-import * as OtherFiltersFormatter from 'helpers/otherFiltersFormatter';
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 const propTypes = {
     updateNaics: PropTypes.func,
@@ -57,6 +57,14 @@ export class NAICSContainer extends React.Component {
     componentDidMount() {
         this.updateCountOfSelectedTopTierNaicsCodes(this.props.checked);
         return this.fetchNAICS();
+    }
+    
+    componentDidUpdate(prevProps) {
+        if (this.hint) {
+            if (!isEqual(this.props.checked, prevProps.checked)) {
+                this.hint.showHint();
+            }
+        }
     }
 
     onSearchChange = debounce(() => {
@@ -447,6 +455,9 @@ export class NAICSContainer extends React.Component {
                             })}
                         </div>
                     )}
+                    <SubmitHint ref={(component) => {
+                        this.hint = component;
+                    }} />
                 </div>
             </div>
         );
