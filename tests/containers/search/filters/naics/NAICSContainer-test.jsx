@@ -8,7 +8,8 @@ import { shallow } from 'enzyme';
 import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
 import {
     defaultProps,
-    treeWithPlaceholdersAndRealData
+    treeWithPlaceholdersAndRealData,
+    searchResults
 } from './mockNAICS';
 
 jest.mock('helpers/naicsHelper', () => require('./mockNAICSHelper'));
@@ -51,14 +52,31 @@ describe('NAICS Search Filter Container', () => {
             const container = shallow(<NAICSContainer
                 {...defaultProps}
                 nodes={treeWithPlaceholdersAndRealData} />);
-            // ensuring state is set...
+
+            // only grandchildren checked
             await container.instance().updateCountOfSelectedTopTierNaicsCodes(["111110", "111120"]);
             expect(container.instance().state.selectedNaicsData[0].count).toEqual(2);
-            
+
+            // ensuring the props are actually set (they would be by the app but the shallow rendering requires this)
             await container.setProps({ checked: ["111110", "111120"] });
-            // now that state is set, remove one of the checked nodes
+
+            // updating the checked array with the same values, plus the child placeholder for those values doesnt over count
             await container.instance().updateCountOfSelectedTopTierNaicsCodes(["children_of_1111", "111110", "111120"]);
             expect(container.instance().state.selectedNaicsData[0].count).toEqual(8);
+        });
+    });
+    describe('autoCheckChildrenOfParent fn', () => {
+        it('auto checks unchecked descendents of selected parent', async () => {
+            const setChecked = jest.fn();
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                checked={["children_of_11"]}
+                setChecked={setChecked} />);
+                
+            await container.instance().autoCheckImmediateChildrenAfterDynamicExpand(treeWithPlaceholdersAndRealData[0]);
+
+            // removing the placeholder selection for 11 and adding all the descendents grandchildren (placeholders) to checked. In this test case, we only have one immediate child of 11. Non-placeholder children should not be auto checked.
+            expect(setChecked).toHaveBeenCalledWith(["children_of_1111"]);
         });
     });
 });

@@ -238,8 +238,6 @@ export class NAICSContainer extends React.Component {
             })
             .filter((checked) => !`${checked[0]}${checked[1]}`.includes(node.value));
 
-        console.log('newChecked', newChecked);
-
         this.onUncheck(newChecked, { ...node, checked: false });
     }
 
@@ -251,7 +249,7 @@ export class NAICSContainer extends React.Component {
         return this.setState({ searchString: text, isSearch: true }, this.onSearchChange);
     };
 
-    autoCheckChildrenOfParent = (parentNode) => {
+    autoCheckImmediateChildrenAfterDynamicExpand = (parentNode) => {
         const value = parentNode.naics;
         // deselect placeholder values for node!
         const removeParentPlaceholders = this.props.checked
@@ -260,6 +258,7 @@ export class NAICSContainer extends React.Component {
         const newValues = parentNode
             .children
             .map((child) => {
+                // at child level, check all grand children w/ the placeholder
                 if (child.naics.length === 4) return `children_of_${child.naics}`;
                 return child.naics;
             });
@@ -267,7 +266,7 @@ export class NAICSContainer extends React.Component {
         this.props.setChecked([...new Set([...removeParentPlaceholders, ...newValues])]);
     }
 
-    transformMockCheckedToRealChecked = (checked, expanded) => {
+    autoCheckSearchedResultDescendents = (checked, expanded) => {
         const { nodes } = this.props;
         const checkedMockNodes = checked
             .filter((node) => node.includes('children_of_'))
@@ -322,15 +321,15 @@ export class NAICSContainer extends React.Component {
             if (isSearch) {
                 const visibleNaicsValues = expandAllNodes(data.results, 'naics');
                 this.props.setSearchedNaics(data.results);
-                this.transformMockCheckedToRealChecked(checked, visibleNaicsValues);
+                this.autoCheckSearchedResultDescendents(checked, visibleNaicsValues);
                 this.props.setExpanded(visibleNaicsValues, 'SET_SEARCHED_EXPANDED');
             }
             else {
                 this.props.setNaics(param, data.results);
             }
-            // we've searched for a specific naics reference; ie '11' or '1111'
+            // we've searched for a specific naics reference; ie '11' or '1111' and their immediate descendants should be checked.
             if (checked.includes(`children_of_${param}`)) {
-                this.autoCheckChildrenOfParent(data.results[0], param);
+                this.autoCheckImmediateChildrenAfterDynamicExpand(data.results[0], param);
             }
 
             this.setState({

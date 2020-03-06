@@ -51,23 +51,27 @@ export const placeholderNodes = [
 
 export const searchResults = [{
     value: '11',
+    naics: '11',
     label: 'Agriculture, Forestry, Fishing and Hunting',
     count: 64,
     children: [
         {
             value: "1111",
+            naics: "1111",
             naics_description: "Oilseed and Grain Farming",
             count: 8,
             children: [
                 {
                     value: "111110",
+                    naics: "111110",
                     naics_description: "Soybean Farming",
                     count: 0
                 },
                 {
                     isPlaceHolder: true,
                     label: "Placeholder Value",
-                    value: "children_of_1111"
+                    value: "children_of_1111",
+                    naics: "children_of_1111"
                 }
             ]
         }
@@ -77,26 +81,31 @@ export const searchResults = [{
 export const treeWithPlaceholdersAndRealData = [
     {
         value: '11',
+        naics: '11',
         naics_description: 'Agriculture, Forestry, Fishing and Hunting',
         count: 64,
         children: [
             {
                 value: "1111",
+                naics: "1111",
                 naics_description: "Oilseed and Grain Farming",
                 count: 8,
                 children: [
                     {
                         value: "111110",
+                        naics: "111110",
                         naics_description: "Soybean Farming",
                         count: 0
                     },
                     {
                         value: "111120",
+                        naics: "111120",
                         naics_description: "Oilseed (except Soybean) Farming",
                         count: 0
                     },
                     {
                         value: "children_of_1111",
+                        naics: "children_of_1111",
                         isPlaceHolder: true,
                         count: 0
                     }
