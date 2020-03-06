@@ -14,7 +14,7 @@ import {
 jest.mock('helpers/naicsHelper', () => require('./mockNAICSHelper'));
 
 describe('NAICS Search Filter Container', () => {
-    describe('checked state: with placeholder AND real data', () => {
+    describe('Counting the selected Checkboxes: with placeholder AND real data', () => {
         it('when both parent and child placeholders are checked, only count the value of the parent', async () => {
             const container = shallow(<NAICSContainer
                 {...defaultProps}
@@ -46,6 +46,19 @@ describe('NAICS Search Filter Container', () => {
             // now that state is set, remove one of the checked nodes
             await container.instance().onUncheck(["children_of_1111", "111120"], { checked: false, value: "111110" });
             expect(container.instance().state.selectedNaicsData[0].count).toEqual(7);
+        });
+        it('checked place holders increment with an offset count when a descendent is also checked', async () => {
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                nodes={treeWithPlaceholdersAndRealData} />);
+            // ensuring state is set...
+            await container.instance().updateCountOfSelectedTopTierNaicsCodes(["111110", "111120"]);
+            expect(container.instance().state.selectedNaicsData[0].count).toEqual(2);
+            
+            await container.setProps({ checked: ["111110", "111120"] });
+            // now that state is set, remove one of the checked nodes
+            await container.instance().updateCountOfSelectedTopTierNaicsCodes(["children_of_1111", "111110", "111120"]);
+            expect(container.instance().state.selectedNaicsData[0].count).toEqual(8);
         });
     });
 });
