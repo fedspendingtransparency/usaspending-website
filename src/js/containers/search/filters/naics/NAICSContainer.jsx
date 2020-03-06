@@ -268,7 +268,7 @@ export class NAICSContainer extends React.Component {
 
     autoCheckSearchedResultDescendents = (checked, expanded) => {
         const { nodes } = this.props;
-        const checkedMockNodes = checked
+        const placeholderNodes = checked
             .filter((node) => node.includes('children_of_'))
             .map((node) => node.split('children_of_')[1]);
 
@@ -276,7 +276,7 @@ export class NAICSContainer extends React.Component {
             .filter((naicsCode) => {
                 const parentKey = getHighestAncestorNaicsCode(naicsCode);
                 const ancestorKey = getImmediateAncestorNaicsCode(naicsCode);
-                if (checkedMockNodes.includes(parentKey) || checkedMockNodes.includes(ancestorKey) || checkedMockNodes.includes(naicsCode)) {
+                if (placeholderNodes.includes(parentKey) || placeholderNodes.includes(ancestorKey) || placeholderNodes.includes(naicsCode)) {
                     return true;
                 }
                 return false;
@@ -296,7 +296,7 @@ export class NAICSContainer extends React.Component {
                         }
                     });
                 }
-                if (expandedNode.length === 6) {
+                else if (expandedNode.length === 6) {
                     this.props.addChecked(node.value);
                 }
             });

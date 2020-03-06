@@ -66,12 +66,6 @@ export const searchResults = [{
                     naics: "111110",
                     naics_description: "Soybean Farming",
                     count: 0
-                },
-                {
-                    isPlaceHolder: true,
-                    label: "Placeholder Value",
-                    value: "children_of_1111",
-                    naics: "children_of_1111"
                 }
             ]
         }
