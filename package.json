@@ -10,7 +10,7 @@
         "test": "./node_modules/.bin/jest; exit 0;",
         "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
         "errors": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
-        "dev": "node ./scripts/buildSitemap.js && webpack --progress --config ./webpack/webpack.dev.config.js",
+        "dev": "node ./scripts/buildSitemap.js && webpack --progress --config ./webpack/webpack.prod.config.js",
         "prod": "node ./scripts/buildSitemap.js && webpack --progress --config ./webpack/webpack.prod.config.js",
         "travis": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;"
     },
