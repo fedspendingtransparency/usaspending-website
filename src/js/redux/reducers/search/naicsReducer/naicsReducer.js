@@ -7,7 +7,7 @@ import { List } from 'immutable';
 
 import { addSearchResultsToTree, showAllTreeItems } from 'helpers/checkboxTreeHelper';
 
-const initialState = {
+export const initialState = {
     naics: new List(),
     expanded: new List(),
     searchExpanded: new List(),
@@ -16,7 +16,7 @@ const initialState = {
 };
 
 /* eslint-disable import/prefer-default-export */
-const naicsReducer = (state = initialState, action) => {
+export const naicsReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_NAICS': {
             const { payload, key } = action;
@@ -48,13 +48,13 @@ const naicsReducer = (state = initialState, action) => {
         case 'SET_SEARCHED_EXPANDED': {
             return {
                 ...state,
-                searchExpanded: new List(action.payload)
+                searchExpanded: new List([...new Set([...action.payload])])
             };
         }
         case 'SET_EXPANDED': {
             return {
                 ...state,
-                expanded: new List(action.payload)
+                expanded: new List([...new Set([...action.payload])])
             };
         }
         case 'SET_CHECKED': {
