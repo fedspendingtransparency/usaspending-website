@@ -11,7 +11,6 @@ import {
     debounce,
     cloneDeep,
     difference,
-    isEqual
 } from 'lodash';
 import { isCancel } from 'axios';
 import { naicsRequest } from 'helpers/naicsHelper';
@@ -19,6 +18,7 @@ import { naicsRequest } from 'helpers/naicsHelper';
 import { expandAllNodes, getNodeFromTree, getImmediateAncestorNaicsCode, getHighestAncestorNaicsCode } from 'helpers/checkboxTreeHelper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+// used for SearchOperation.js in API Integration.
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import { setNaics, setExpanded, setChecked, setSearchedNaics, addChecked, showNaicsTree, setUnchecked } from 'redux/actions/search/naicsActions';
 

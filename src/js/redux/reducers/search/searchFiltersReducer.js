@@ -35,7 +35,6 @@ export const requiredTypes = {
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
     selectedNAICS: OrderedMap,
-    naics: List,
     selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
@@ -63,7 +62,6 @@ export const initialState = {
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
     selectedNAICS: new OrderedMap(),
-    naics: new List(),
     selectedPSC: new OrderedMap(),
     pricingType: new Set(),
     setAside: new Set(),
@@ -212,12 +210,14 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
-        // NAICS Filter
+        // NAICS Filter (v2)
         case 'UPDATE_NAICS': {
             return Object.assign({}, state, {
                 naics: OtherFilterFunctions.updateNaics(action.naics)
             });
         }
+
+        // NAICS Filter
         case 'UPDATE_SELECTED_NAICS': {
             return Object.assign({}, state, {
                 selectedNAICS: OtherFilterFunctions.updateSelectedNAICS(

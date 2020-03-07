@@ -22,7 +22,7 @@ export const updateSelectedCFDA = (state, value) => {
     return updatedSet;
 };
 /**
- * updateNaics
+ * updateNaics v2
  * - sets naics property in redux
  * @param {*[]} checked - new naics checked array
  * @returns {object} - new state object
