@@ -58,6 +58,11 @@ export const setChecked = (nodes) => ({
     payload: nodes
 });
 
+export const setUnchecked = (nodes) => ({
+    type: 'SET_UNCHECKED',
+    payload: nodes
+});
+
 export const setSearchedNaics = (nodes) => ({
     type: 'SET_SEARCHED_NAICS',
     payload: cleanNaicsData(nodes)

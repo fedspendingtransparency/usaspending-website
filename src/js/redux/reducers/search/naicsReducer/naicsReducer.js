@@ -11,7 +11,8 @@ const initialState = {
     naics: new List(),
     expanded: new List(),
     searchExpanded: new List(),
-    checked: new List()
+    checked: new List(),
+    unchecked: new List()
 };
 
 /* eslint-disable import/prefer-default-export */
@@ -60,6 +61,12 @@ const naicsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 checked: new List([...new Set([...action.payload])])
+            };
+        }
+        case 'SET_UNCHECKED': {
+            return {
+                ...state,
+                unchecked: new List([...new Set([...action.payload])])
             };
         }
         case 'ADD_CHECKED': {

@@ -452,6 +452,7 @@ export const reallyBigTree = [
 export const defaultProps = {
     expanded: [],
     checked: [],
+    unchecked: [],
     nodes: placeholderNodes,
     searchExpanded: [],
     updateNaics: () => {},
@@ -461,5 +462,6 @@ export const defaultProps = {
     removeNAICS: () => {},
     setSearchedNaics: () => {},
     addChecked: () => {},
-    showNaicsTree: () => {}
+    showNaicsTree: () => {},
+    setUnchecked: () => {}
 };
