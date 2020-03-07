@@ -3,7 +3,7 @@
  * Created by Kevin Li 11/1/16
  **/
 
-import { Set, OrderedMap, List } from 'immutable';
+import { Set, OrderedMap } from 'immutable';
 
 import * as KeywordFilterFunctions from './filters/keywordFilterFunctions';
 import * as AwardFilterFunctions from './filters/awardFilterFunctions';

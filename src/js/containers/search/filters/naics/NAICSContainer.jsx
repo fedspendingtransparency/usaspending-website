@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import {
     debounce,
     cloneDeep,
-    difference,
+    difference
 } from 'lodash';
 import { isCancel } from 'axios';
 import { naicsRequest } from 'helpers/naicsHelper';
