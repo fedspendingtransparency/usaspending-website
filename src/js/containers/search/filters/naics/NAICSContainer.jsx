@@ -62,14 +62,6 @@ export class NAICSContainer extends React.Component {
         return this.fetchNAICS();
     }
 
-    componentDidUpdate(prevProps) {
-        if (this.hint) {
-            if (!isEqual(this.props.checked, prevProps.checked) && this.props.checked.length > 0) {
-                this.hint.showHint();
-            }
-        }
-    }
-
     onSearchChange = debounce(() => {
         if (!this.state.searchString) return this.onClear();
         return this.setState({ requestType: 'search' }, this.fetchNAICS);
@@ -89,6 +81,9 @@ export class NAICSContainer extends React.Component {
     onCheck = async (checkedNodes, node) => {
         this.updateCountOfSelectedTopTierNaicsCodes(checkedNodes, node);
         this.props.updateNaics(checkedNodes);
+        if (this.hint) {
+            this.hint.showHint();
+        }
     }
 
     onUncheck = (checked, node) => {
