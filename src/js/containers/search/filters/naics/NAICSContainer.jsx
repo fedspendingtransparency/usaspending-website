@@ -52,7 +52,7 @@ export class NAICSContainer extends React.Component {
             isSearch: false,
             searchString: '',
             requestType: 'initial',
-            selectedNaicsData: []
+            stagedNaicsFilters: []
         };
         this.request = null;
     }
@@ -92,24 +92,24 @@ export class NAICSContainer extends React.Component {
     }
 
     onUncheck = (checked, node) => {
-        const { selectedNaicsData } = this.state;
+        const { stagedNaicsFilters } = this.state;
         const { nodes } = this.props;
         const { value } = node;
         const countOfUncheckedNode = getNodeFromTree(nodes, value).count || 1;
         const parentKey = getHighestAncestorNaicsCode(value);
-        const shouldRemoveNode = selectedNaicsData.some((selectedNode) => (
+        const shouldRemoveNode = stagedNaicsFilters.some((selectedNode) => (
             !node.checked &&
             selectedNode.value === parentKey &&
             selectedNode.count <= countOfUncheckedNode
         ));
         if (shouldRemoveNode) {
             this.setState({
-                selectedNaicsData: selectedNaicsData.filter((selectedNode) => selectedNode.value !== parentKey)
+                stagedNaicsFilters: stagedNaicsFilters.filter((selectedNode) => selectedNode.value !== parentKey)
             });
         }
         else {
             this.setState({
-                selectedNaicsData: selectedNaicsData.map((selectedNode) => {
+                stagedNaicsFilters: stagedNaicsFilters.map((selectedNode) => {
                     const newCount = selectedNode.count - countOfUncheckedNode;
                     if (selectedNode.value === parentKey) {
                         return { ...selectedNode, count: newCount };
@@ -260,9 +260,9 @@ export class NAICSContainer extends React.Component {
                     newState[indexInArray].count = 1;
                 }
                 return newState;
-            }, [...this.state.selectedNaicsData]);
+            }, [...this.state.stagedNaicsFilters]);
 
-        this.setState({ selectedNaicsData: parentNaicsWithCounts });
+        this.setState({ stagedNaicsFilters: parentNaicsWithCounts });
         this.props.setChecked(checked);
     }
 
@@ -464,7 +464,7 @@ export class NAICSContainer extends React.Component {
         const loadingDiv = this.loadingDiv();
         const noResultsDiv = this.noResultsDiv();
         const errorDiv = this.errorDiv();
-        const { searchString, selectedNaicsData } = this.state;
+        const { searchString, stagedNaicsFilters } = this.state;
         return (
             <div>
                 <div className="naics-search-container">
@@ -484,12 +484,12 @@ export class NAICSContainer extends React.Component {
                     {noResultsDiv}
                     {errorDiv}
                     {this.checkboxDiv()}
-                    {this.props.checked.length !== 0 && selectedNaicsData.length !== 0 && (
+                    {this.props.checked.length !== 0 && stagedNaicsFilters.length !== 0 && (
                         <div
                             id="award-search-selected-locations"
                             className="selected-filters"
                             role="status">
-                            {selectedNaicsData.map((node) => {
+                            {stagedNaicsFilters.map((node) => {
                                 const label = `${node.value} - ${node.label} (${node.count})`;
                                 return (
                                     <button

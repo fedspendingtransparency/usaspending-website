@@ -9,20 +9,22 @@ import { NAICSContainer } from 'containers/search/filters/naics/NAICSContainer';
 import {
     defaultProps,
     treeWithPlaceholdersAndRealData,
-    searchResults
+    searchResults,
+    reallyBigTree
 } from './mockNAICS';
 
 jest.mock('helpers/naicsHelper', () => require('./mockNAICSHelper'));
 
 describe('NAICS Search Filter Container', () => {
     describe('Counting the selected Checkboxes: with placeholder AND real data', () => {
+        // NOTE: these also test the logic behind getCountWithPlaceholderOffset
         it('when both parent and child placeholders are checked, only count the value of the parent', async () => {
             const container = shallow(<NAICSContainer
                 {...defaultProps}
                 nodes={treeWithPlaceholdersAndRealData} />);
 
             await container.instance().updateCountOfSelectedTopTierNaicsCodes(["children_of_11", "children_of_1111"]);
-            expect(container.instance().state.selectedNaicsData[0].count).toEqual(64);
+            expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(64);
         });
         it('when a placeholder is checked and a checked node under that placeholder is removed, decrement the count', async () => {
             const container = shallow(<NAICSContainer
@@ -30,11 +32,11 @@ describe('NAICS Search Filter Container', () => {
                 nodes={treeWithPlaceholdersAndRealData} />);
             // ensuring state is set...
             await container.instance().updateCountOfSelectedTopTierNaicsCodes(["children_of_1111", "111110", "111120"]);
-            expect(container.instance().state.selectedNaicsData[0].count).toEqual(8);
+            expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(8);
 
             // now that state is set, remove one of the checked nodes
             await container.instance().onUncheck(["children_of_1111", "111120"], { checked: false, value: "111110" });
-            expect(container.instance().state.selectedNaicsData[0].count).toEqual(7);
+            expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(7);
         });
         it('when a placeholder is checked and a checked node under that placeholder is removed, decrement the count', async () => {
             const container = shallow(<NAICSContainer
@@ -42,11 +44,11 @@ describe('NAICS Search Filter Container', () => {
                 nodes={treeWithPlaceholdersAndRealData} />);
             // ensuring state is set...
             await container.instance().updateCountOfSelectedTopTierNaicsCodes(["children_of_1111", "111110", "111120"]);
-            expect(container.instance().state.selectedNaicsData[0].count).toEqual(8);
+            expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(8);
 
             // now that state is set, remove one of the checked nodes
             await container.instance().onUncheck(["children_of_1111", "111120"], { checked: false, value: "111110" });
-            expect(container.instance().state.selectedNaicsData[0].count).toEqual(7);
+            expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(7);
         });
         it('checked place holders increment with an offset count when a descendent is also checked', async () => {
             const container = shallow(<NAICSContainer
@@ -55,14 +57,14 @@ describe('NAICS Search Filter Container', () => {
 
             // only grandchildren checked
             await container.instance().updateCountOfSelectedTopTierNaicsCodes(["111110", "111120"]);
-            expect(container.instance().state.selectedNaicsData[0].count).toEqual(2);
+            expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(2);
 
             // ensuring the props are actually set (they would be by the app but the shallow rendering requires this)
             await container.setProps({ checked: ["111110", "111120"] });
 
             // updating the checked array with the same values, plus the child placeholder for those values doesnt over count
             await container.instance().updateCountOfSelectedTopTierNaicsCodes(["children_of_1111", "111110", "111120"]);
-            expect(container.instance().state.selectedNaicsData[0].count).toEqual(8);
+            expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(8);
         });
     });
     describe('autoCheckImmediateChildrenAfterDynamicExpand fn', () => {
@@ -91,6 +93,55 @@ describe('NAICS Search Filter Container', () => {
 
             expect(addChecked).toHaveBeenCalledWith("111110");
             expect(addChecked).not.toHaveBeenCalledWith("144444");
+        });
+    });
+    describe('onUncheck fn', () => {
+        it('removes stagedFilter when parent is unchecked', async () => {
+            const container = shallow(<NAICSContainer {...defaultProps} />);
+
+            await container.setState({ stagedNaicsFilters: [{ value: '11', count: '64', label: 'test' }] });
+            // confirm state was successfully mocked as validity of test depends on this being removed...
+            expect(container.instance().state.stagedNaicsFilters.length).toEqual(1);
+
+            const uncheckedNode = { value: '11', count: 64, label: 'test' };
+
+            await container.instance().onUncheck([], uncheckedNode);
+
+            expect(container.instance().state.stagedNaicsFilters.length).toEqual(0);
+        });
+        it('removes stagedFilter when only child of parent is unchecked', async () => {
+            const container = shallow(<NAICSContainer {...defaultProps} nodes={reallyBigTree} />);
+
+            await container.setState({ stagedNaicsFilters: [{ value: '11', count: '8', label: 'test' }] });
+            // confirm state was successfully mocked as validity of test depends on this being empty...
+            expect(container.instance().state.stagedNaicsFilters.length).toEqual(1);
+
+            const uncheckedNode = { value: '1111', count: 8, label: 'test' };
+
+            await container.instance().onUncheck([], uncheckedNode);
+
+            expect(container.instance().state.stagedNaicsFilters.length).toEqual(0);
+        });
+        it('removes stagedFilter when only grand child of parent is unchecked', async () => {
+            const container = shallow(<NAICSContainer {...defaultProps} nodes={reallyBigTree} />);
+
+            await container.setState({ stagedNaicsFilters: [{ value: '11', count: '8', label: 'test' }] });
+            // confirm state was successfully mocked as validity of test depends on this being empty...
+            expect(container.instance().state.stagedNaicsFilters.length).toEqual(1);
+
+            const uncheckedNode = { value: '1111', count: 8, label: 'test' };
+            await container.instance().onUncheck([], uncheckedNode);
+
+            expect(container.instance().state.stagedNaicsFilters.length).toEqual(0);
+        });
+        it('decrements count of stagedFilter one of many children/grandchildren is unchecked', async () => {
+            const container = shallow(<NAICSContainer {...defaultProps} nodes={reallyBigTree} />);
+            await container.setState({ stagedNaicsFilters: [{ value: '11', count: '8', label: 'test' }] });
+            
+            const uncheckedNode = { value: '111110', count: 1, label: 'test' };
+            await container.instance().onUncheck([], uncheckedNode);
+
+            expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(7);
         });
     });
 });
