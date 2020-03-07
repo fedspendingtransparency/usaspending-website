@@ -277,7 +277,7 @@ export class NAICSContainer extends React.Component {
         if (!text) {
             return this.onClear();
         }
-        return this.setState({ searchString: text, isSearch: true }, this.onSearchChange);
+        return this.setState({ searchString: text, isSearch: true, isLoading: true }, this.onSearchChange);
     }
 
     autoCheckImmediateChildrenAfterDynamicExpand = (parentNode) => {
@@ -390,31 +390,38 @@ export class NAICSContainer extends React.Component {
     };
 
     loadingDiv = () => {
-        if (!this.state.isLoading) return null;
-        return (
-            <div className="naics-filter-message-container">
-                <FontAwesomeIcon icon="spinner" spin />
-                <div className="naics-filter-message-container__text">Loading your data...</div>
-            </div>
-        );
+        if (this.state.isLoading) {
+            return (
+                <div className="naics-filter-message-container">
+                    <FontAwesomeIcon icon="spinner" spin />
+                    <div className="naics-filter-message-container__text">Loading your data...</div>
+                </div>
+            );
+        }
+        return null;
     }
 
     errorDiv = () => {
         const { isError, errorMessage } = this.state;
-        if (!isError) return null;
-        return (
-            <div className="naics-filter-message-container">
-                <div className="naics-filter-message-container__text">
-                    {errorMessage}
+        if (isError && errorMessage) {
+            return (
+                <div className="naics-filter-message-container">
+                    <div className="naics-filter-message-container__text">
+                        {errorMessage}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }
+        return null;
     }
 
     noResultsDiv = () => {
-        const { isError, isLoading, isSearch } = this.state;
-        if (isError || isLoading) return null;
-        if ((isSearch && this.props.searchExpanded.length === 0) || this.props.nodes.length === 0) {
+        const showNoResults = (
+            this.props.nodes.length === 0 ||
+            (this.state.isSearch && this.props.searchExpanded.length === 0)
+        );
+        if (this.state.isLoading) return null;
+        if (showNoResults) {
             return (
                 <div className="naics-filter-message-container">
                     <FontAwesomeIcon icon="ban" />
