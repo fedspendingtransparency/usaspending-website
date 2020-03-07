@@ -4,6 +4,8 @@
   **/
 
 export const sortNodes = (a, b) => {
+    if (a.isPlaceHolder) return 1;
+    if (b.isPlaceHolder) return -1;
     const nodeA = parseInt(a.value, 10);
     const nodeB = parseInt(b.value, 10);
     if (nodeA > nodeB) return 1;
