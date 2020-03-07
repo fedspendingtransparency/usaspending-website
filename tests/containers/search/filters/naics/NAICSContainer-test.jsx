@@ -11,7 +11,7 @@ import {
     treeWithPlaceholdersAndRealData,
     searchResults,
     reallyBigTree
-} from './mockNAICS';
+} from './mockNaics_v2';
 
 jest.mock('helpers/naicsHelper', () => require('./mockNAICSHelper'));
 

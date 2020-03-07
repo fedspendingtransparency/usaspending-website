@@ -3,7 +3,7 @@ import { List } from 'immutable';
 import { naicsReducer, initialState } from 'redux/reducers/search/naicsReducer/naicsReducer';
 import * as naicsActions from 'redux/actions/search/naicsActions';
 
-import * as mockData from "../../../containers/search/filters/naics/mockNAICS";
+import * as mockData from "../../../containers/search/filters/naics/mockNaics_v2";
 
 describe('Naics Reducer', () => {
     describe('redux.naics.naics', () => {
@@ -45,7 +45,7 @@ describe('Naics Reducer', () => {
             expect(updatedUncheck).toEqual(['11', '1111']);
         });
         it('naics.searchExpanded: no duplicates', () => {
-            const action = { payload: ['11', '11', '1111'], type: 'SET_SEARCH_EXPANDED' };
+            const action = { payload: ['11', '11', '1111'], type: 'SET_SEARCHED_EXPANDED' };
             const updatedSearchExpanded = naicsReducer(initialState, action).searchExpanded.toJS();
             expect(updatedSearchExpanded).toEqual(['11', '1111']);
         });
