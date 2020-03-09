@@ -46,8 +46,9 @@ export default class RecipientLandingContent extends React.Component {
                         <RecipientLabels />
                         <div className="recipient-landing__pagination recipient-landing__pagination_mobile">
                             <Pagination
-                                onChangePage={this.props.onChangePage}
-                                pageNumber={this.props.pageNumber}
+                                resultsText
+                                changePage={this.props.onChangePage}
+                                currentPage={this.props.pageNumber}
                                 totalItems={this.props.totalItems}
                                 pageSize={this.props.pageSize} />
                         </div>
@@ -56,8 +57,9 @@ export default class RecipientLandingContent extends React.Component {
                     </div>
                     <div className="recipient-landing__pagination recipient-landing__pagination_desktop">
                         <Pagination
-                            onChangePage={this.props.onChangePage}
-                            pageNumber={this.props.pageNumber}
+                            resultsText
+                            changePage={this.props.onChangePage}
+                            currentPage={this.props.pageNumber}
                             totalItems={this.props.totalItems}
                             pageSize={this.props.pageSize} />
                     </div>
@@ -70,8 +72,9 @@ export default class RecipientLandingContent extends React.Component {
                     order={this.props.order}
                     setSort={this.props.setSort} />
                 <Pagination
-                    onChangePage={this.props.onChangePage}
-                    pageNumber={this.props.pageNumber}
+                    resultsText
+                    changePage={this.props.onChangePage}
+                    currentPage={this.props.pageNumber}
                     totalItems={this.props.totalItems}
                     pageSize={this.props.pageSize} />
                 <p className="landing-page__disclaimer">

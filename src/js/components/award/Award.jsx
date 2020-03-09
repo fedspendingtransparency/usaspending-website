@@ -10,6 +10,7 @@ import * as MetaTagHelper from 'helpers/metaTagHelper';
 import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import { find } from 'lodash';
 import { scrollToY } from 'helpers/scrollToHelper';
+import Footer from 'containers/Footer';
 
 import SummaryBar from './SummaryBar';
 import ContractContent from './contract/ContractContent';
@@ -17,7 +18,6 @@ import IdvContent from './idv/IdvContent';
 import FinancialAssistanceContent from './financialAssistance/FinancialAssistanceContent';
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
-import Footer from '../sharedComponents/Footer';
 import Error from '../sharedComponents/Error';
 import { LoadingWrapper } from '../sharedComponents/Loading';
 

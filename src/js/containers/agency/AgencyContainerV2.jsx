@@ -23,7 +23,7 @@ import Header from 'components/sharedComponents/header/Header';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import FYPicker from 'components/sharedComponents/pickers/FYPicker';
 import StickyHeader, { useDynamicStickyClass } from 'components/sharedComponents/stickyHeader/StickyHeader';
-import Footer from 'components/sharedComponents/Footer';
+import Footer from 'containers/Footer';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 
 require('pages/agency/v2/index.scss');

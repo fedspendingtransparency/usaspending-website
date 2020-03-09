@@ -90,6 +90,11 @@ $verticalOffsetCollapsedSankey: 141;
             @include display(flex);
             @include align-items(center);
             margin: rem(5) rem(40);
+            @include media($large-screen) {
+                @include align-self(center);
+                max-width: 160rem;
+                width: 100%;
+            }
             button {
                 background-color: transparent;
                 padding: 0 rem(10);

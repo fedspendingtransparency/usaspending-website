@@ -6,11 +6,11 @@
 import React from 'react';
 
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
+import Footer from 'containers/Footer';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import Header from '../sharedComponents/header/Header';
 import StickyHeader from '../sharedComponents/stickyHeader/StickyHeader';
-import Footer from '../sharedComponents/Footer';
 
 import AboutContent from './AboutContent';
 

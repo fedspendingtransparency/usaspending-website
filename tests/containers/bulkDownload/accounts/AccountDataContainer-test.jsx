@@ -40,6 +40,20 @@ describe('AccountDataContainer', () => {
             await container.instance().federalAccountListRequest.promise;
             expect(container.state().federalAccounts).toEqual(expectedState);
         });
+
+        it('should append the results to the existing result state if the page number is greater than 1', async () => {
+            const container = shallow(<AccountDataContainer
+                {...mockActions}
+                bulkDownload={mockRedux} />);
+
+            container.setState({
+                federalAccounts: [{}, {}, {}]
+            });
+
+            expect(container.state().federalAccounts.length).toEqual(3);
+            await container.instance().setFederalAccountList('02', 2);
+            expect(container.state().federalAccounts.length).toEqual(5);
+        });
     });
     it('should make an API call for the budget functions on mount', async () => {
         const container = mount(<AccountDataContainer
