@@ -48,7 +48,7 @@ export default class VerticalLine extends Component {
         window.removeEventListener('resize', this.handleWindowResize);
     }
     // since we set the position of the text we need to update it on window resize
-    handleWindowResize() {
+    handleWindowResize = () => {
         const windowWidth = window.innerWidth;
         if (this.state.windowWidth !== windowWidth) {
             this.setState({ windowWidth });
@@ -56,7 +56,7 @@ export default class VerticalLine extends Component {
         }
     }
 
-    positionText() {
+    positionText = () => {
         const {
             xScale,
             xValue,
@@ -82,7 +82,7 @@ export default class VerticalLine extends Component {
         this.setState({ textX: positionX, textY: modifiedTextY });
     }
 
-    verticalLine() {
+    verticalLine = () => {
         const {
             xMin,
             xMax,
@@ -97,6 +97,10 @@ export default class VerticalLine extends Component {
         const minimumX = xScale(xMin);
         // get x position of maximum
         const maximumX = xScale(xMax);
+        if (this.props.last) {
+            console.log(' maximum : ', maximumX);
+            console.log(' linePosition : ', linePosition);
+        }
         if ((linePosition > maximumX) || (linePosition < minimumX)) return null;
         return (
             <line
@@ -108,12 +112,12 @@ export default class VerticalLine extends Component {
         );
     }
 
-    text(lineIsDisplayed) {
+    text = (lineIsDisplayed) => {
         const { text } = this.props;
         if (!lineIsDisplayed || !text) return null;
         return (
             <text
-                id="vertical-line__text"
+                className="vertical-line__text"
                 x={this.state.textX}
                 y={this.state.textY}
                 ref={this.setTextDiv}>

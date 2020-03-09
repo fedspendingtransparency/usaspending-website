@@ -5,7 +5,7 @@ import { scaleLinear } from 'd3-scale';
 
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
-
+import VerticalLine from 'components/sharedComponents/VerticalLine';
 
 const propTypes = {
     height: PropTypes.number,
@@ -121,18 +121,31 @@ const ContractGrantsActivityChart = ({
      * @returns {null}
      */
     const createXScaleAndTicks = useCallback(() => {
-        const scale = scaleLinear().domain(xDomain).range([0, visualizationWidth]).nice();
-        const ticks = scale.ticks(6);
+        /**
+         * By design, we want to leave space between the start of the chart
+         * and the end of the chart.
+         */
+        const spacing = visualizationWidth * 0.05;
+        console.log(' Spacing : ', spacing);
+        console.log(' Start X Range : ', spacing + padding.left);
+        console.log(' Ending X Range : ', visualizationWidth);
+        const scale = scaleLinear().domain(xDomain).range([spacing + padding.left, visualizationWidth - spacing]);
+        // scale for ticks
+        const scaleForTicks = scaleLinear().domain(xDomain).range([spacing + padding.left, visualizationWidth - spacing]).nice();
+        // const ticks = scale.ticks(7);
+        const ticks = scaleForTicks.ticks(6);
         // add last tick for spacing
-        const updatedTicksWithSpacing = addTicksForSpacing(ticks, true);
+        // const updatedTicksWithSpacing = addTicksForSpacing(ticks, true);
         // create new scale since we have new data
-        const updatedScale = scaleLinear()
-            .domain([updatedTicksWithSpacing[0], updatedTicksWithSpacing[updatedTicksWithSpacing.length - 1]])
-            .range([0, visualizationWidth])
-            .nice();
-        setXTicks(xTickDateAndLabel(updatedTicksWithSpacing));
-        setXScale(() => updatedScale);
-    }, [xDomain, visualizationWidth]);
+        // const updatedScale = scaleLinear()
+        //     .domain([updatedTicksWithSpacing[0], updatedTicksWithSpacing[updatedTicksWithSpacing.length - 1]])
+        //     .range([0, visualizationWidth])
+        //     .nice();
+        // setXTicks(xTickDateAndLabel(updatedTicksWithSpacing));
+        // setXScale(() => updatedScale);
+        setXTicks(xTickDateAndLabel(ticks));
+        setXScale(() => scale);
+    }, [xDomain, visualizationWidth, padding.left]);
     /**
      * createYScale
      * - creates the y scaling function and ticks.
@@ -169,6 +182,12 @@ const ContractGrantsActivityChart = ({
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
+    // display x labels
+    const transformLabels = {
+        x: 1,
+        y: 5,
+        rotate: 0
+    };
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -187,7 +206,30 @@ const ContractGrantsActivityChart = ({
                     width={visualizationWidth - padding.left}
                     padding={padding}
                     ticks={xTicks}
-                    scale={xScale} />
+                    scale={xScale}
+                    transformLabels={transformLabels}
+                    removeLastLabel />
+                {xScale && <VerticalLine
+                    xScale={xScale}
+                    y1={-10}
+                    y2={height}
+                    textY={0}
+                    text="Start Graph"
+                    xMax={xDomain[1]}
+                    xMin={xDomain[0]}
+                    xValue={xDomain[0]}
+                    showTextPosition="top" />}
+                {xScale && <VerticalLine
+                    xScale={xScale}
+                    y1={-10}
+                    y2={height}
+                    textY={0}
+                    text="End Graph"
+                    xMax={xDomain[1]}
+                    xMin={xDomain[0]}
+                    xValue={xDomain[1]}
+                    showTextPosition="top"
+                    last />}
             </g>
         </svg>
     );
