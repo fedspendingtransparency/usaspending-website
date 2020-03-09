@@ -8,48 +8,62 @@ import moment from 'moment';
 export const awardDownloadOptions = {
     awardLevels: [
         {
-            name: 'primeAwards',
-            label: 'Prime Awards',
-            apiName: 'prime_awards'
+            id: 'prime-awards',
+            lookupName: 'primeAwards',
+            name: 'Prime Awards',
+            filters: [
+                'contracts',
+                'direct_payments',
+                'grants',
+                'idvs',
+                'loans',
+                'other'
+            ]
         },
         {
-            name: 'subAwards',
-            label: 'Sub-Awards',
-            apiName: 'sub_awards'
+            id: 'sub-awards',
+            lookupName: 'subAwards',
+            name: 'Sub-Awards',
+            filters: [
+                'sub_grants',
+                'sub_contracts'
+            ]
         }
     ],
-    awardTypes: [
-        {
-            name: 'contracts',
+    awardTypeLookups: {
+        contracts: {
             label: 'Contracts',
             apiName: 'contracts'
         },
-        {
-            name: 'directPayments',
+        direct_payments: {
             label: 'Direct Payments',
             apiName: 'direct_payments'
         },
-        {
-            name: 'grants',
+        grants: {
             label: 'Grants',
             apiName: 'grants'
         },
-        {
-            name: 'idvs',
+        idvs: {
             label: 'IDVs',
             apiName: 'idvs'
         },
-        {
-            name: 'loans',
+        loans: {
             label: 'Loans',
             apiName: 'loans'
         },
-        {
-            name: 'otherFinancialAssistance',
-            label: 'Other Financial Assistance',
+        other: {
+            label: 'Other',
             apiName: 'other_financial_assistance'
+        },
+        sub_grants: {
+            label: 'Sub-Grants',
+            apiName: 'grant'
+        },
+        sub_contracts: {
+            label: 'Sub-Contracts',
+            apiName: 'procurement'
         }
-    ],
+    },
     dateTypes: [
         {
             name: 'action_date',
@@ -60,6 +74,18 @@ export const awardDownloadOptions = {
             name: 'last_modified_date',
             label: 'Last Modified Date',
             description: 'When the details of a reported award action were last updated'
+        }
+    ],
+    locationTypes: [
+        {
+            name: 'recipient_location',
+            label: 'Recipient Location',
+            apiName: 'recipient_locations'
+        },
+        {
+            name: 'place_of_performance',
+            label: 'Place of Performance',
+            apiName: 'place_of_performance_locations'
         }
     ],
     fileFormats: [

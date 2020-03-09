@@ -3,25 +3,20 @@
  * Created by Lizzie Salita 10/31/17
  **/
 
+import { Set } from 'immutable';
+
 import { defaultQuarters } from 'containers/explorer/detail/helpers/explorerQuarters';
 
+import * as AwardFilterFunctions from '../search/filters/awardFilterFunctions';
 
 const initialQuarters = defaultQuarters();
 
 export const initialState = {
     dataType: '',
     awards: {
-        awardLevels: {
-            primeAwards: false,
-            subAwards: false
-        },
         awardTypes: {
-            contracts: false,
-            grants: false,
-            directPayments: false,
-            loans: false,
-            otherFinancialAssistance: false,
-            idvs: false
+            primeAwards: new Set(),
+            subAwards: new Set()
         },
         agency: {
             id: '',
@@ -31,6 +26,7 @@ export const initialState = {
             id: '',
             name: 'Select a Sub-Agency'
         },
+        locationType: 'recipient_location',
         location: {
             country: {
                 code: '',
@@ -186,6 +182,25 @@ const bulkDownloadReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 download
             });
+        }
+        case 'BULK_AWARD_TYPE_CHANGE': {
+            const awardTypes = Object.assign({}, state.awards.awardTypes, {
+                [action.lookupName]: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.awards.awardTypes[action.lookupName], action.awardTypes, action.direction
+                )
+            });
+            const awards = Object.assign({}, state.awards, { awardTypes });
+
+            return Object.assign({}, state, { awards });
+        }
+        case 'TOGGLE_AWARD_TYPE_CHANGE': {
+            const awardTypes = Object.assign({}, state.awards.awardTypes, {
+                [action.lookupName]: AwardFilterFunctions.immutableSetToggle(
+                    state.awards.awardTypes[action.lookupName], action.awardType)
+            });
+            const awards = Object.assign({}, state.awards, { awardTypes });
+
+            return Object.assign({}, state, { awards });
         }
         default:
             return state;
