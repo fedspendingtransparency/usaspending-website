@@ -304,13 +304,13 @@ export class NAICSContainer extends React.Component {
             .filter((node) => node.includes('children_of_'))
             .map((node) => node.split('children_of_')[1]);
 
+        // this will never have grandchildren
         const expandedNodesWithMockAncestorChecked = expanded
             .filter((naicsCode) => {
                 const parentKey = getHighestAncestorNaicsCode(naicsCode);
-                const ancestorKey = getImmediateAncestorNaicsCode(naicsCode);
                 const isCheckedByPlaceholder = (
-                    placeholderNodes.includes(parentKey) ||
-                    placeholderNodes.includes(ancestorKey)
+                    placeholderNodes.includes(parentKey) || // ie 11
+                    placeholderNodes.includes(naicsCode) // ie 1123
                 );
                 const isUnchecked = (
                     this.props.unchecked.includes(naicsCode)
