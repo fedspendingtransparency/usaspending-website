@@ -67,6 +67,7 @@
         }
       }
       .rct-text {
+        width: 100%;
         @include align-items(flex-start);
         button:focus {
           box-shadow: none;
@@ -76,11 +77,13 @@
           margin: 0;
         }
         label {
+          width: 100%;
           @include display(flex);
           .rct-checkbox {
             @include flex-direction(column);
           }
           .rct-title {
+            width: 100%;
             .checkbox-tree-label {
               @include display(flex);
               @include flex-wrap(wrap);
