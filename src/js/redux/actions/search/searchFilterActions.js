@@ -38,7 +38,6 @@ export const clearAllFilters = () => ({
 });
 
 // Location Filter
-
 export const updateSelectedLocations = (state) => ({
     type: 'UPDATE_SELECTED_LOCATIONS',
     location: state.location
@@ -60,7 +59,6 @@ export const addRecipientLocationObject = (state) => ({
 });
 
 // Agency Filter
-
 export const updateSelectedAwardingAgencies = (state) => ({
     type: 'UPDATE_SELECTED_AWARDING_AGENCIES',
     agency: state.agency
@@ -72,7 +70,6 @@ export const updateSelectedFundingAgencies = (state) => ({
 });
 
 // Recipient Filter
-
 export const updateSelectedRecipients = (state) => ({
     type: 'UPDATE_SELECTED_RECIPIENTS',
     recipient: state
@@ -129,23 +126,28 @@ export const updateAwardAmounts = ({ value }) => ({
     awardAmounts: value
 });
 
-
 // CFDA Filter
-
 export const updateSelectedCFDA = (state) => ({
     type: 'UPDATE_SELECTED_CFDA',
     cfda: state.cfda
 });
 
 // NAICS Filter
-
+export const updateNaics = (naics) => ({
+    type: 'UPDATE_NAICS',
+    naics: naics.map((code) => {
+        if (code.includes('children_of_')) {
+            return code.split('children_of_')[1];
+        }
+        return code;
+    })
+});
 export const updateSelectedNAICS = (state) => ({
     type: 'UPDATE_SELECTED_NAICS',
     naics: state.naics
 });
 
 // PSC Filter
-
 export const updateSelectedPSC = (state) => ({
     type: 'UPDATE_SELECTED_PSC',
     psc: state.psc
@@ -172,9 +174,7 @@ export const updateExtentCompeted = ({ value }) => ({
     extentCompeted: value
 });
 
-
 // Generic
-
 export const setSearchOrder = (state) => ({
     type: 'SET_SEARCH_ORDER',
     field: state.field,

@@ -3,289 +3,230 @@
   * Created by Jonathan Hill 10/01/2019
   **/
 
-import { isEmpty, flattenDeep, compact } from 'lodash';
-
-/**
- * updateValueAndLabel
- */
-export const updateValueAndLabel = (node, keys) => {
-    const newNode = { ...node };
-    const { value, label } = keys;
-    newNode.value = node[value];
-    newNode.label = node[label];
-    delete newNode[value];
-    delete newNode[label];
-    return newNode;
+export const sortNodes = (a, b) => {
+    if (a.isPlaceHolder) return 1;
+    if (b.isPlaceHolder) return -1;
+    const nodeA = parseInt(a.value, 10);
+    const nodeB = parseInt(b.value, 10);
+    if (nodeA > nodeB) return 1;
+    if (nodeB > nodeA) return -1;
+    return 0;
 };
-/**
-* updatePath
-*/
-export const updatePath = (params) => {
-    const {
-        node,
-        parentNode,
-        index,
-        isChildren
-    } = params;
-    const newNode = { ...node };
-    /**
-     * Case I - No Parent Node
-     * Initially populate the tree. These are Tier 1 data points,
-     * therefore we only add the index, there is no parent.
-     */
-    if (!parentNode) {
-        newNode.path = [index];
-    }
-    /**
-     * Case II - We are mapping new data
-     * When we are not calling itself and we pass a parent node we are at a
-     * state where we initially populate the tree. These are Tier 1 data points,
-     * therefore we only add the index, there is no parent.
-     */
-    if (!isChildren && parentNode) {
-        newNode.path = parentNode.path;
-    }
-    /**
-     * Case III - We are mapping children
-     * We only pass the children property when this function is calling itself to
-     * convert a parents children to the data structure. Therefore, we include the
-     * parents path before the current child's index.
-     */
-    if (isChildren) {
-        newNode.path = [...parentNode.path, index];
-    }
-    return newNode;
+
+export const getHighestAncestorNaicsCode = (naicsCode) => `${naicsCode[0]}${naicsCode[1]}`;
+
+export const getImmediateAncestorNaicsCode = (naicsCode) => {
+    if (naicsCode.length === 2) return naicsCode;
+    else if (naicsCode.length === 4) return getHighestAncestorNaicsCode(naicsCode);
+    return `${naicsCode[0]}${naicsCode[1]}${naicsCode[2]}${naicsCode[3]}`;
 };
-/**
- * updateChildren
-*/
-export const updateChildren = (params) => {
-    const {
-        isChildren,
-        node,
-        limit,
-        isSearch
-    } = params;
-    const newNode = { ...node };
-    /**
-     * Case I - This node will have no children based on it's path and limit
-     * TODO - once backend changes this add check for count === 0
-     * Applies the limit, once we hit limit do not add children.
-     * By not adding children we will not see the caret to the left of the checkbox.
-     */
 
-    if (isChildren && newNode.path.length === limit) return newNode;
-    /**
-     * Case II - Show Expand Caret
-     * When there is no children property and there is a count for this node
-     * (means this node has child data) we must set the child property to an
-     * array with one empty object to get the expand caret to show.
-     */
-    if ((newNode.count > 0 && !newNode.children) && !isSearch) {
-        newNode.children = [{}];
-        return newNode;
+export const getNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
+    const parentKey = getHighestAncestorNaicsCode(nodeKey);
+    const ancestorKey = getImmediateAncestorNaicsCode(nodeKey);
+    if (nodeKey.length === 2) {
+        return tree
+            .find((node) => node[treePropForKey] === nodeKey);
     }
-    return newNode;
+    if (nodeKey.length === 4) {
+        return tree
+            .find((node) => node[treePropForKey] === parentKey)
+            .children
+            .find((node) => node[treePropForKey] === nodeKey);
+    }
+    if (nodeKey.length === 6) {
+        return tree
+            .find((node) => node[treePropForKey] === parentKey)
+            .children
+            .find((node) => node[treePropForKey] === ancestorKey)
+            .children
+            .find((node) => node[treePropForKey] === nodeKey);
+    }
+    return null;
 };
-/**
-  ** createCheckboxTreeDataStrucure
-  * map data from API response to react-checkbox-tree data structure
-  * @param {number} limit - total possible depth of tree structure
-  * @param {object} keysToBeMapped - An object with keys value, and label with values
-  * that correlate to your value and label properties
-  * {
-  *   value: [the name of your propery that will become the value e.g., naics]
-  *   label: [the name of your propery that will become the label e.g., naics_description]
-  * }
-  * @param {Array.<object>} nodes - data to map
-  * @param {boolean} isChildren - if we are mapping children
-  * @param {object} parentNode - parent of the current data
-  * @param {boolean} isSearch - data is from search
-  * @returns {Array.<object>} An array of objects with value, label, and children properties
-  * that follow react-checkbox-tree data structure and keeps any other fields within those objects
-  * that originated from your data
-  * Please refer to https://github.com/jakezatecky/react-checkbox-tree for more details
-**/
-/* eslint-disable import/prefer-default-export */
-export const createCheckboxTreeDataStrucure = (
-    limit,
-    keysToBeMapped,
-    nodes,
-    isChildren,
-    parentNode,
-    isSearch
-) => nodes.map((node, index) => {
-    let newNode = { ...node };
-    /**
-     * Five Steps to this Function
-     *
-     * 1. Map Value and Label Properties
-     *   - Maps properties passed in the data to value and label
-     *
-     * 2. Update Path
-     *   - Sets the path property based on different situations
-     *   - noted in their respective function
-     *
-     * 3. Children Property
-     *   - Updates the children property based on different situations
-     *   - noted in their respective function
-     *
-     * 4. Map Child Data
-     *   - repeats the process for child data
-     *
-     * 5. Search
-     *   - need to add a classname on search
-     */
 
-    // Step 1 - Map Value and Label Properties
-    newNode = updateValueAndLabel(newNode, keysToBeMapped);
-
-    // Step 2 - Update Path
-    const params = {
-        node: newNode,
-        parentNode,
-        index,
-        isChildren
+export const expandAllNodes = (nodes, propForNode = 'value') => {
+    const getValue = (acc, node) => {
+        acc.push(node[propForNode]);
+        if (node.children) {
+            acc.push(
+                ...node.children.map((child) => child[propForNode])
+            );
+        }
+        return acc;
     };
-    newNode = updatePath(params);
 
-    // Step 3 - Children
-    const childParams = {
-        isChildren,
-        node: newNode,
-        limit,
-        keysToBeMapped,
-        isSearch
-    };
-    newNode = updateChildren(childParams);
-    // Step 4 - Map Child Data
-    if ((newNode.count > 0) && newNode.children && !isEmpty(newNode.children[0])) {
-        newNode.children = createCheckboxTreeDataStrucure(
-            limit,
-            keysToBeMapped,
-            newNode.children,
-            true,
-            newNode,
-            isSearch
-        );
+    return nodes
+        .reduce(getValue, []);
+};
+
+export const mergeChildren = (parentFromSearch, existingParent) => {
+    // 1. hide node not in search
+    // 2. add placeholders if not there
+    if (existingParent.children && parentFromSearch.children) {
+        const existingChildArray = existingParent.children.map((node) => ({ ...node, className: 'hide' }));
+
+        const nodes = parentFromSearch.children
+            .reduce((acc, searchChild) => {
+                const existingChildIndex = acc
+                    .findIndex((existingChild) => existingChild.value === searchChild.value);
+
+                if (existingChildIndex !== -1) {
+                    // show this child
+                    acc[existingChildIndex].className = '';
+                    if (acc[existingChildIndex].children) {
+                        // hide this child's children
+                        acc[existingChildIndex].children = acc[existingChildIndex].children.map((grand) => ({ ...grand, className: 'hide' }));
+                    }
+
+                    if (acc[existingChildIndex].children && searchChild.children) {
+                        searchChild.children
+                            .forEach((grandChild) => {
+                                const existingGrandChildIndex = acc[existingChildIndex].children
+                                    .findIndex((existingGC) => existingGC.value === grandChild.value);
+
+                                if (existingGrandChildIndex !== -1) {
+                                    // unless it's in the search array
+                                    acc[existingChildIndex].children[existingGrandChildIndex].className = '';
+                                }
+                                else {
+                                    // or we're adding a new node.
+                                    acc[existingChildIndex].children.push(grandChild);
+                                }
+                            });
+                    }
+                    return acc;
+                }
+                // child added via search
+                if (searchChild.count === searchChild.children.length) {
+                    acc.push(searchChild);
+                }
+                else {
+                    acc.push({
+                        ...searchChild,
+                        children: [
+                            ...searchChild.children,
+                            {
+                                isPlaceHolder: true,
+                                label: "Child Placeholder",
+                                value: `children_of_${searchChild.value}`,
+                                className: 'hide'
+                            }
+                        ]
+                    });
+                }
+
+
+                return acc;
+            }, existingChildArray);
+
+        return nodes;
     }
-    // Step 5 - Search
-    if (isSearch) newNode.className = 'react-checkbox-tree_search';
-    return newNode;
-});
-/**
- * expandedFromSearch
- * - maps data passed to nodes in the checkbox tree data structure and decides which
- * nodes are expanded based on if they have a children property.
- * @param {number} limit - total possible depth of tree structure
- * @param {object} nodeKeys - and object with keys value
- * @param {array} nodes - array of objects
- * @returns {object} - object with properties updatedNodes and expanded.
- * expanded is an array of nodes that are expanded
- * updatedNodes is an array of nodes mapped to the checkbox tree data structure
- */
-export const expandedFromSearch = (
-    limit,
-    nodeKeys,
-    nodes
-) => {
-    const newNodes = createCheckboxTreeDataStrucure(
-        limit,
-        nodeKeys,
-        nodes,
-        null,
-        null,
-        true
-    );
-    /**
-     * expandedFunc
-     * - recursively loops through nodes updating an array with the value of the node if is has
-     * a children property
-     * @param {array} theNodes - an array of nodes
-     * @param {array} expanded - an array of expanded values
-     * @returns {array} - an array of expanded values
-     */
-    const expandedFunc = (theNodes, expanded) => {
-        const expandedValues = expanded;
-        theNodes.forEach((node) => {
-            const newNode = node;
-            newNode.className = 'react-checkbox-tree__search';
-            if (newNode.children) {
-                expandedValues.push(newNode.value);
-                expandedFunc(newNode.children, expandedValues);
+    else if (existingParent.children && !parentFromSearch.children) {
+        return existingParent.children.map((child) => ({ ...child, className: 'hide' }));
+    }
+    else if (!existingParent.children && parentFromSearch.children && parentFromSearch.children.length !== parentFromSearch.count) {
+        return [
+            ...parentFromSearch.children,
+            {
+                className: 'hide',
+                isPlaceHolder: true,
+                label: 'Placeholder Child',
+                value: `children_of_${parentFromSearch.value}`
             }
-        });
-        return expandedValues;
-    };
-    // maps nodes to an array of expanded values
-    const expanded = newNodes.map((node) => {
-        const newNode = node;
-        newNode.className = 'react-checkbox-tree__tier-zero';
-        if (newNode.children) return [newNode.value, ...expandedFunc(newNode.children, [])];
-        return [null];
-    });
-    // flattens and removes any null values
-    const expandedArray = compact(flattenDeep(expanded));
-    return { updatedNodes: newNodes, expanded: expandedArray };
-};
-/**
- * pathToNode
- * finds the path to an object
- * @param {array} nodes - nodes to search through
- * @param {*} value - value to match on
- * @returns {array} - A path array to the matched object
- */
-let found = false;
-let nodePath = null;
-export const pathToNode = (nodes, value) => {
-    // array of parent indices including found node index
-    for (let i = 0; i < nodes.length; i++) {
-        /**
-         * Since we are calling this function on children we need to know if the
-         * match was found, and break out of the outermost loop.
-         */
-        if (found) {
-            found = false;
-            break;
-        }
-        // we found the node, break
-        if (nodes[i].value === value) {
-            // set the nodePath
-            nodePath = nodes[i].path;
-            /**
-             * Since we are calling the function pathToNode we could be in a child
-             * loop, and we must tell update the found property because there outermost
-             * parent loop will hit and we need to break out of that loop as well.
-             */
-            found = true;
-            break;
-        }
-        if (nodes[i].children) {
-            // we have not found the match, repeat process with children
-            pathToNode(nodes[i].children, value);
-        }
+        ];
     }
-    return nodePath;
+    return [];
 };
-/**
- * buildNodePath
- * Creates an object path string
- * @param {array} path - an object path
- * @param {string} [startingProperty = 'data'] - the property of the object to start the path
- */
-export const buildNodePath = (path, startingProperty = 'data') => path
-    .reduce((acc, step, index) => {
-        let stringPath = acc;
-        /**
-         * add starting property and index to string
-         * e.g. 'data[0]'
-         */
-        if (index === 0) {
-            stringPath += `${startingProperty}[${step}]`;
+
+export const addSearchResultsToTree = (tree, searchResults) => {
+    const nodesFromSearchToBeReplaced = searchResults.map((node) => node.value);
+    return tree
+        .map((existingNode) => {
+            // nodeKey is naicsCode!
+            const nodeKey = existingNode.value;
+            if (nodesFromSearchToBeReplaced.includes(nodeKey)) {
+                const nodeFromSearch = searchResults.find((node) => node.value === nodeKey);
+                return {
+                    ...nodeFromSearch,
+                    children: [...mergeChildren(nodeFromSearch, existingNode)]
+                };
+            }
+            return { ...existingNode, className: 'hide' };
+        })
+        .sort(sortNodes);
+};
+
+export const showAllTreeItems = (tree, key = '', newNodes = []) => tree
+    .map((node) => {
+        if (node.value === key) {
+            const [data] = newNodes;
+            return {
+                ...data,
+                children: data.children.map((child) => {
+                    const existingChild = node.children.find((olderChild) => olderChild.value === child.value);
+                    const weHaveTheGrandChildren = (
+                        existingChild &&
+                        existingChild?.children.length >= child.count &&
+                        !existingChild?.children.some((existingGrand) => existingGrand?.isPlaceHolder)
+                    );
+                    const weHaveAtLeastOneGrandChild = (
+                        existingChild &&
+                        existingChild?.children.filter((grand) => !grand.isPlaceHolder).length > 0
+                    );
+                    if (weHaveTheGrandChildren) {
+                        return {
+                            ...child,
+                            children: existingChild.children
+                                .filter((grand) => !grand.isPlaceHolder)
+                                .map((grand) => ({ ...grand, className: '' }))
+                                .sort(sortNodes)
+                        };
+                    }
+                    if (weHaveAtLeastOneGrandChild) {
+                        return {
+                            ...child,
+                            children: [
+                                ...child.children,
+                                ...existingChild.children.filter((grand) => (!grand.isPlaceHolder))
+                            ].sort(sortNodes)
+                        };
+                    }
+                    return {
+                        ...child,
+                        children: child.children
+                    };
+                }).sort(sortNodes)
+            };
         }
-        else {
-            // add children to string, e.g. 'data[0].children[7]'
-            stringPath += `.children[${step}]`;
-        }
-        return stringPath;
-    }, '');
+        return {
+            ...node,
+            className: '',
+            children: node.children
+                .map((child) => {
+                    if (child.value === key) {
+                        if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
+                            // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
+                            return {
+                                ...child
+                            };
+                        }
+                        return {
+                            ...newNodes[0]
+                        };
+                    }
+                    if (child.children && child.children.some((grand) => grand.className === 'hide')) {
+                        return {
+                            ...child,
+                            className: '',
+                            children: child.children.map((grand) => ({ ...grand, className: '' }))
+                        };
+                    }
+                    return {
+                        ...child,
+                        className: ''
+                    };
+                })
+                .sort(sortNodes)
+        };
+    });
