@@ -9,8 +9,7 @@ import PropTypes from 'prop-types';
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
-import AwardLevelFilter from './filters/AwardLevelFilter';
-import AwardTypeFilter from './filters/AwardTypeFilter';
+import AwardLevelAndTypeFilter from './filters/AwardLevelAndTypeFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import LocationFilter from './filters/LocationFilter';
 import DateTypeFilter from './filters/DateTypeFilter';
@@ -30,7 +29,9 @@ const propTypes = {
     subAgencies: PropTypes.array,
     setSubAgencyList: PropTypes.func,
     states: PropTypes.array,
-    clickedDownload: PropTypes.func
+    clickedDownload: PropTypes.func,
+    bulkAwardTypeChange: PropTypes.func,
+    toggleAwardTypeChange: PropTypes.func
 };
 
 export default class AwardDataContent extends React.Component {
@@ -76,10 +77,10 @@ export default class AwardDataContent extends React.Component {
     }
 
     validateForm(awards) {
+        const primeAwards = awards.awardTypes.primeAwards.size > 0;
+        const subAwards = awards.awardTypes.subAwards.size > 0;
         const validForm = (
-            (awards.awardLevels.primeAwards || awards.awardLevels.subAwards)
-            && (awards.awardTypes.contracts || awards.awardTypes.grants || awards.awardTypes.directPayments
-                || awards.awardTypes.loans || awards.awardTypes.otherFinancialAssistance || awards.awardTypes.idvs)
+            (primeAwards || subAwards)
             && this.state.validDates && (awards.dateType !== '')
             && (awards.agency.id !== '')
             && (awards.location !== '')
@@ -97,6 +98,10 @@ export default class AwardDataContent extends React.Component {
             agency: awards.agency,
             subAgency: awards.subAgency
         };
+        const awardTypeLabels = Object.assign(
+            {},
+            ...Object.entries(awardDownloadOptions.awardTypeLookups).map(([key, value]) => ({ [key]: value.label }))
+        );
 
         return (
             <div className="download-center">
@@ -122,14 +127,12 @@ export default class AwardDataContent extends React.Component {
                     <form
                         className="download-center-form"
                         onSubmit={this.handleSubmit}>
-                        <AwardLevelFilter
+                        <AwardLevelAndTypeFilter
                             awardLevels={awardDownloadOptions.awardLevels}
-                            currentAwardLevels={awards.awardLevels}
-                            updateCheckbox={this.props.updateCheckbox} />
-                        <AwardTypeFilter
-                            awardTypes={awardDownloadOptions.awardTypes}
+                            awardTypeLabels={awardTypeLabels}
                             currentAwardTypes={awards.awardTypes}
-                            updateCheckbox={this.props.updateCheckbox} />
+                            bulkAwardTypeChange={this.props.bulkAwardTypeChange}
+                            toggleAwardTypeChange={this.props.toggleAwardTypeChange} />
                         <AgencyFilter
                             agencies={this.props.agencies}
                             subAgencies={this.props.subAgencies}
@@ -138,9 +141,11 @@ export default class AwardDataContent extends React.Component {
                             setSubAgencyList={this.props.setSubAgencyList}
                             valid={awards.agency.id !== ''} />
                         <LocationFilter
+                            locationTypes={awardDownloadOptions.locationTypes}
                             states={this.props.states}
                             currentLocation={awards.location}
-                            updateFilter={this.props.updateFilter} />
+                            updateFilter={this.props.updateFilter}
+                            currentLocationType={awards.locationType} />
                         <DateTypeFilter
                             dateTypes={awardDownloadOptions.dateTypes}
                             currentDateType={awards.dateType}
@@ -190,10 +195,10 @@ export default class AwardDataContent extends React.Component {
                     <div className="download-info__section">
                         <h4 className="download-info__section-heading">How do I use this form?</h4>
                         <p>
-                            This form allows you to select specific awards by type, agency and sub-agency, and date range.
+                            This form allows you to select specific awards by type; agency and sub-agency; location; and date range.
                             Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.
-                            Heads up: all fields are required. You&#39;ll only be able to start the download when all sections
-                            are properly filled.
+                            <b> Please note that most fields are required.</b> You&#39;ll only be able to start the download when all required
+                            sections are properly filled in.
                         </p>
                     </div>
                 </div>
