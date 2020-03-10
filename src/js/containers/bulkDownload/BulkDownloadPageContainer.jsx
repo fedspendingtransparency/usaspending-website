@@ -73,12 +73,12 @@ export class BulkDownloadPageContainer extends React.Component {
         const formState = this.props.bulkDownload.awards;
 
         // Create the Award Types array from the Redux state
-        const primeAwardTypes = formState.awardTypes.primeAwards.toArray().map((awardType) => (
-            awardDownloadOptions.awardTypeLookups[awardType].apiName
-        ));
-        const subAwardTypes = formState.awardTypes.subAwards.toArray().map((awardType) => (
-            awardDownloadOptions.awardTypeLookups[awardType].apiName
-        ));
+        const primeAwardTypes = formState.awardTypes.primeAwards.toArray().reduce((acc, curr) => (
+            acc.concat(awardDownloadOptions.awardTypeLookups[curr].apiValues)
+        ), []);
+        const subAwardTypes = formState.awardTypes.subAwards.toArray().reduce((acc, curr) => (
+            acc.concat(awardDownloadOptions.awardTypeLookups[curr].apiValues)
+        ), []);
 
         // Create the locations array
         const locations = {
