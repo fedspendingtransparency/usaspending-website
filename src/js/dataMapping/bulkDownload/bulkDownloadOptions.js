@@ -13,10 +13,11 @@ export const awardDownloadOptions = {
             name: 'Prime Awards',
             filters: [
                 'contracts',
-                'direct_payments',
-                'grants',
                 'idvs',
+                'grants',
+                'direct_payments',
                 'loans',
+                'insurance',
                 'other'
             ]
         },
@@ -33,35 +34,39 @@ export const awardDownloadOptions = {
     awardTypeLookups: {
         contracts: {
             label: 'Contracts',
-            apiName: 'contracts'
+            apiValues: ['A', 'B', 'C', 'D']
         },
         direct_payments: {
             label: 'Direct Payments',
-            apiName: 'direct_payments'
+            apiValues: ['10', '06']
         },
         grants: {
             label: 'Grants',
-            apiName: 'grants'
+            apiValues: ['02', '03', '04', '05']
         },
         idvs: {
-            label: 'IDVs',
-            apiName: 'idvs'
+            label: 'Contract IDVs',
+            apiValues: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E']
         },
         loans: {
             label: 'Loans',
-            apiName: 'loans'
+            apiValues: ['07', '08']
+        },
+        insurance: {
+            label: 'Insurance',
+            apiValues: ['09']
         },
         other: {
-            label: 'Other',
-            apiName: 'other_financial_assistance'
+            label: 'Other Financial Assistance',
+            apiValues: ['11']
         },
         sub_grants: {
             label: 'Sub-Grants',
-            apiName: 'grant'
+            apiValues: ['grant']
         },
         sub_contracts: {
             label: 'Sub-Contracts',
-            apiName: 'procurement'
+            apiValues: ['procurement']
         }
     },
     dateTypes: [

@@ -40,7 +40,7 @@ describe('BulkDownloadPageContainer', () => {
                 columns: [],
                 file_format: 'csv',
                 filters: {
-                    prime_award_types: ['grants', 'loans'],
+                    prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
                     agency: '123',
                     recipient_locations: [
@@ -94,7 +94,7 @@ describe('BulkDownloadPageContainer', () => {
                 file_format: 'csv',
                 filters: {
                     agency: '123',
-                    prime_award_types: ['grants', 'loans'],
+                    prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
                     recipient_locations: [
                         {
@@ -146,7 +146,7 @@ describe('BulkDownloadPageContainer', () => {
                 file_format: 'csv',
                 filters: {
                     agency: '123',
-                    prime_award_types: ['grants', 'loans'],
+                    prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
                     date_range: {
                         end_date: '11-01-2017',
@@ -193,7 +193,7 @@ describe('BulkDownloadPageContainer', () => {
                 file_format: 'csv',
                 filters: {
                     agency: '123',
-                    prime_award_types: ['grants', 'loans'],
+                    prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
                     recipient_locations: [
                         {
@@ -236,7 +236,7 @@ describe('BulkDownloadPageContainer', () => {
                 file_format: 'csv',
                 filters: {
                     agency: '123',
-                    prime_award_types: ['grants', 'loans'],
+                    prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
                     place_of_performance_locations: [
                         {
