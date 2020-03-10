@@ -210,6 +210,13 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
+        // NAICS Filter (v2)
+        case 'UPDATE_NAICS': {
+            return Object.assign({}, state, {
+                naics: OtherFilterFunctions.updateNaics(action.naics)
+            });
+        }
+
         // NAICS Filter
         case 'UPDATE_SELECTED_NAICS': {
             return Object.assign({}, state, {

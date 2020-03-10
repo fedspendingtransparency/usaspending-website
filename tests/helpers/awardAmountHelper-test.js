@@ -44,14 +44,14 @@ describe('Award Amounts Advanced Search Filter Helper', () => {
                 expect(mockedRange).toEqual("$0 & Above");
             });
 
-            it('should return "Under $0" for ranges where the min is null and max is zero', () => {
+            it('should return "$0 & Under" for ranges where the min is null and max is zero', () => {
                 const mockedRange = formatAwardAmountRange([null, 0], 0);
-                expect(mockedRange).toEqual("Under $0");
+                expect(mockedRange).toEqual("$0 & Under");
             });
 
-            it('should return "Under $[Max]" for ranges where the min is null', () => {
+            it('should return "$[Max] & Under" for ranges where the min is null', () => {
                 const mockedRange = formatAwardAmountRange([null, 10000], 0);
-                expect(mockedRange).toEqual("Under $10,000");
+                expect(mockedRange).toEqual("$10,000 & Under");
             });
 
             it('should return "$[Min] & Above" for ranges where the max is null', () => {
@@ -76,14 +76,14 @@ describe('Award Amounts Advanced Search Filter Helper', () => {
                 expect(mockedRange).toEqual("$0.00 & Above");
             });
 
-            it('should return "Under $0" for ranges where the min is null and max is zero', () => {
+            it('should return "$0 & Under" for ranges where the min is null and max is zero', () => {
                 const mockedRange = formatAwardAmountRange([null, 0], 2);
-                expect(mockedRange).toEqual("Under $0.00");
+                expect(mockedRange).toEqual("$0.00 & Under");
             });
 
-            it('should return "Under $[Max]" for ranges where the min is 0', () => {
+            it('should return "$[Max] & Under" for ranges where the min is 0', () => {
                 const mockedRange = formatAwardAmountRange([null, 10000], 2);
-                expect(mockedRange).toEqual("Under $10,000.00");
+                expect(mockedRange).toEqual("$10,000.00 & Under");
             });
 
             it('should return "$[Min] & Above" for ranges where the max is 0', () => {
