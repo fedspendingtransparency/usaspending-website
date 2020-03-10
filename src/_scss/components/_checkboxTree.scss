@@ -5,9 +5,6 @@
     .rct-node-icon {
       display: none;
     }
-    .rct-icon:focus {
-      outline: transparent;
-    }
     label:hover {
       background-color: transparent;
     }
@@ -58,6 +55,9 @@
       &.react-checkbox-tree__tier-zero:last-child {
         border-bottom: none;
       }
+      &.react-checkbox-tree__search-placeholder-child {
+        display: none;
+      }
       // parent nodes dont line up correctly to child nodes
       &.rct-node-collapsed {
         .rct-text {
@@ -67,6 +67,7 @@
         }
       }
       .rct-text {
+        width: 100%;
         @include align-items(flex-start);
         button:focus {
           box-shadow: none;
@@ -76,11 +77,13 @@
           margin: 0;
         }
         label {
+          width: 100%;
           @include display(flex);
           .rct-checkbox {
             @include flex-direction(column);
           }
           .rct-title {
+            width: 100%;
             .checkbox-tree-label {
               @include display(flex);
               @include flex-wrap(wrap);

@@ -16,6 +16,8 @@ describe('parentAwardDetails', () => {
         expect(result.idcType).toEqual(mockData.type_of_idc_description);
         expect(result.agencyId).toEqual(mockData.agency_id);
         expect(result.agencyName).toEqual(mockData.agency_name);
+        expect(result.subAgencyId).toEqual(mockData.sub_agency_id);
+        expect(result.subAgencyName).toEqual(mockData.sub_agency_name);
         expect(result.multipleOrSingle).toEqual(mockData.multiple_or_single_aw_desc);
         expect(result.piid).toEqual(mockData.piid);
     });

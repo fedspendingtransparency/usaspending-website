@@ -1,155 +1,77 @@
-import { includes, isEqual } from 'lodash';
 import {
-    createCheckboxTreeDataStrucure,
-    updateValueAndLabel,
-    updatePath,
-    updateChildren,
-    pathToNode,
-    buildNodePath,
-    expandedFromSearch
+    addSearchResultsToTree,
+    getHighestAncestorNaicsCode,
+    getImmediateAncestorNaicsCode,
+    getNodeFromTree,
+    expandAllNodes,
+    showAllTreeItems
 } from 'helpers/checkboxTreeHelper';
-import {
-    naicsMockCleanDataInitialLoad,
-    naicsMockInitialLoadApiResponse,
-    naicsMockAPIResponse,
-    naicsMockAPIResponseClean,
-    naicsMockDataDeepDirty,
-    naicsMockDataDeepClean
-} from '../containers/search/filters/naics/mockNAICS';
+import * as mockData from '../containers/search/filters/naics/mockNaics_v2';
 
-describe('CheckboxTreeHelper', () => {
-    const keysToBeMapped = {
-        value: 'naics',
-        label: 'naics_description'
-    };
-    describe('Update Value And Label', () => {
-        it('should convert keys to value and label properties', () => {
-            const updatedData = updateValueAndLabel(naicsMockInitialLoadApiResponse, keysToBeMapped);
-            const keys = Object.keys(updatedData);
-            expect(includes(keys, 'value'));
-            expect(includes(keys, 'label'));
-            expect(!includes(keys, 'naics'));
-            expect(!includes(keys, 'naics_description'));
+// overwriting this because it makes life easier
+const mockSearchResults = [{
+    ...mockData.searchResults[0],
+    children: [{
+        ...mockData.searchResults[0].children[0],
+        children: [{
+            value: 'pretend',
+            naics: 'pretend',
+            description: 'this is not real, but pretend',
+            count: 0
+        }]
+    }]
+}];
+
+describe('checkboxTree Helpers', () => {
+    describe('mergeChildren & addSearchResultsToTree', () => {
+        it('does NOT overwrite existing grand-children', () => {
+            const existingNodes = mockData.treeWithPlaceholdersAndRealData;
+            const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults);
+            const grandChildrenWithSearch = newChildren.children[0].children;
+            const existingGrandChildren = existingNodes[0].children[0].children;
+            expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length + 1);
         });
     });
-    describe('Update Path', () => {
-        it('should update path to index when no parent node', () => {
-            const { path } = updatePath({
-                node: naicsMockCleanDataInitialLoad[0],
-                parentNode: null,
-                index: 0,
-                isChildren: false
-            });
-            expect(path).toEqual([0]);
-        });
-        it('should update path to parent node path when parent node and no children', () => {
-            const { path } = updatePath({
-                node: naicsMockCleanDataInitialLoad[0],
-                parentNode: naicsMockCleanDataInitialLoad[0],
-                index: 0,
-                isChildren: false
-            });
-            expect(path).toEqual([0]);
-        });
-        it('should update path to include parent node path', () => {
-            const { path } = updatePath({
-                node: naicsMockCleanDataInitialLoad[0],
-                parentNode: naicsMockCleanDataInitialLoad[0],
-                index: 0,
-                isChildren: true
-            });
-            expect(path).toEqual([0, 0]);
+    describe('expandAllNodes', () => {
+        it('returns an array containing all values from tree', () => {
+            const result = expandAllNodes(mockData.searchResults);
+            // does not expand grand children as they have no children.
+            expect(result).toEqual(["11", "1111"]);
         });
     });
-    describe('Update Children', () => {
-        it('should not update children property when at the end of the limit', () => {
-            const { children } = updateChildren({
-                isChildren: true,
-                node: {
-                    value: '11',
-                    label: 'Agriculture, Forestry, Fishing and Hunting',
-                    count: 1,
-                    path: [0, 0, 0]
-                },
-                limit: 3
-            });
-            expect(children).toEqual(undefined);
-        });
-        it('should update children to an array with an empty object on initial load', () => {
-            const { children } = updateChildren({
-                isChildren: false,
-                node: {
-                    value: '11',
-                    label: 'Agriculture, Forestry, Fishing and Hunting',
-                    count: 1,
-                    path: [0, 0, 0]
-                },
-                limit: 3
-            });
-            expect(children).toEqual([{}]);
+    describe('getNodeFromTree', () => {
+        it('grabs the correct node from the tree at every level', () => {
+            // parent
+            const parent = getNodeFromTree(mockData.reallyBigTree, '21', 'naics');
+            expect(parent.naics_description).toEqual("Mining, Quarrying, and Oil and Gas Extraction");
+            // child
+            const child = getNodeFromTree(mockData.reallyBigTree, '1113', 'naics');
+            expect(child.naics_description).toEqual("Fruit and Tree Nut Farming");
+
+            // grandchild
+            const granchild = getNodeFromTree(mockData.reallyBigTree, '115310', 'naics');
+            expect(granchild.naics_description).toEqual("Support Activities for Forestry");
         });
     });
-    describe('Create Checkbox Tree Data Strucure', () => {
-        it('should update array of nodes with no children', () => {
-            const nodes = createCheckboxTreeDataStrucure(
-                3, // limit
-                keysToBeMapped,
-                naicsMockInitialLoadApiResponse, // nodes
-                false, // isChildren
-                null // parentNode
-            );
-            expect(isEqual(naicsMockCleanDataInitialLoad, nodes));
-        });
-        it('should update array of nodes with children', () => {
-            const nodes = createCheckboxTreeDataStrucure(
-                3, // limit
-                keysToBeMapped,
-                naicsMockAPIResponse, // nodes
-                false, // isChildren
-                naicsMockCleanDataInitialLoad[0] // parentNode
-            );
-            expect(isEqual(naicsMockAPIResponseClean, nodes));
-        });
-        it('should update array of nodes with deeply nested children', () => {
-            const nodes = createCheckboxTreeDataStrucure(
-                20, // limit
-                keysToBeMapped,
-                naicsMockDataDeepDirty, // nodes
-                false, // isChildren
-                naicsMockCleanDataInitialLoad[0] // parentNode
-            );
-            expect(isEqual(naicsMockDataDeepClean, nodes));
-        });
+    describe('getHighestAncestorNaicsCode', () => {
+        const result = getHighestAncestorNaicsCode('111111');
+        expect(result).toEqual('11');
     });
-    describe('Expanded From Search', () => {
-        it('should return updated nodes and expanded array', () => {
-            const { expanded } = expandedFromSearch(
-                20,
-                keysToBeMapped,
-                naicsMockDataDeepDirty
-            );
-            expect(expanded).toEqual(expect.arrayContaining([
-                '11',
-                '1111',
-                '111111',
-                '111121',
-                '1121',
-                '112111',
-                '11211111',
-                '11211121'
-            ]));
-        });
+    describe('getImmediateAncestorNaicsCode', () => {
+        const result = getImmediateAncestorNaicsCode('111111');
+        expect(result).toEqual('1111');
     });
-    describe('Path To Node', () => {
-        it('should return a path array based on data and value', () => {
-            const path = pathToNode(naicsMockDataDeepClean, '1121112111');
-            expect(path).toEqual([0, 1, 0, 2, 0]);
+    describe('showAllTreeItems', () => {
+        it('removes the hide class from all nodes', () => {
+            const result = showAllTreeItems(mockData.reallyBigTree);
+            const nodeWithHideClass = getNodeFromTree(result, '115310', 'naics');
+            expect(nodeWithHideClass.className).toEqual('');
         });
-    });
-    describe('Build Node Path', () => {
-        it('should return a path string based on a path array', () => {
-            const path = buildNodePath([0, 1, 0, 2, 0]);
-            expect(path).toEqual('data[0].children[1].children[0].children[2].children[0]');
+        it('adds new children and removes the loading placeholder if we have all the nodes', () => {
+            const result = showAllTreeItems(mockData.placeholderNodes, '11', [mockData.reallyBigTree[0]]);
+            const lengthWithoutPlaceholderNodes = mockData.reallyBigTree[0].children.length;
+            const nodeWithPlaceHolderChildren = getNodeFromTree(result, '11', 'naics');
+            expect(nodeWithPlaceHolderChildren.children.length).toEqual(lengthWithoutPlaceholderNodes);
         });
     });
 });

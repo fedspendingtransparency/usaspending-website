@@ -72,29 +72,21 @@ export class BulkDownloadPageContainer extends React.Component {
     startAwardDownload() {
         const formState = this.props.bulkDownload.awards;
 
-        // Create the Award Levels array from the Redux state
-        const awardLevels = [];
-        for (let i = 0; i < awardDownloadOptions.awardLevels.length; i++) {
-            if (formState.awardLevels[awardDownloadOptions.awardLevels[i].name]) {
-                awardLevels.push(awardDownloadOptions.awardLevels[i].apiName);
-            }
-        }
-
         // Create the Award Types array from the Redux state
-        const awardTypes = [];
-        for (let j = 0; j < awardDownloadOptions.awardTypes.length; j++) {
-            if (formState.awardTypes[awardDownloadOptions.awardTypes[j].name]) {
-                awardTypes.push(awardDownloadOptions.awardTypes[j].apiName);
-            }
-        }
+        const primeAwardTypes = formState.awardTypes.primeAwards.toArray().map((awardType) => (
+            awardDownloadOptions.awardTypeLookups[awardType].apiName
+        ));
+        const subAwardTypes = formState.awardTypes.subAwards.toArray().map((awardType) => (
+            awardDownloadOptions.awardTypeLookups[awardType].apiName
+        ));
 
-        // Create the recipient locations array
-        const recipientLocations = {
+        // Create the locations array
+        const locations = {
             country: formState.location.country.code
         };
         // Add the state if it exists
         if (formState.location.state.code && formState.location.state.code !== 'all') {
-            recipientLocations.state = formState.location.state.code;
+            locations.state = formState.location.state.code;
         }
 
         // Convert undefined to the empty string for open-ended dates
@@ -108,9 +100,9 @@ export class BulkDownloadPageContainer extends React.Component {
         }
 
         const params = {
-            award_levels: awardLevels,
             filters: {
-                award_types: awardTypes,
+                prime_award_types: primeAwardTypes,
+                sub_award_types: subAwardTypes,
                 agency: formState.agency.id,
                 sub_agency: formState.subAgency.name,
                 date_type: formState.dateType,
@@ -123,9 +115,12 @@ export class BulkDownloadPageContainer extends React.Component {
             file_format: formState.fileFormat
         };
 
-        // Since the recipient location filter is optional, only add it if a country has been selected
+        // Since the location filter is optional, only add it if a country has been selected
         if (formState.location.country.code && formState.location.country.code !== 'all') {
-            params.filters.recipient_locations = [recipientLocations];
+            const locationType = awardDownloadOptions.locationTypes.find((type) => (
+                type.name === formState.locationType
+            ));
+            params.filters[locationType.apiName] = [locations];
         }
 
         this.requestDownload(params, 'awards');
