@@ -447,7 +447,7 @@ export const reallyBigTree = [
         count: 29,
         children: []
     }
-]
+];
 
 export const defaultProps = {
     expanded: [],

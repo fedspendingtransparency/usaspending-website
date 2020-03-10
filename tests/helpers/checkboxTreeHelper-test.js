@@ -23,7 +23,7 @@ const mockSearchResults = [{
 }];
 
 describe('checkboxTree Helpers', () => {
-    describe('mergeChildren & addSearchResultsToTree', () => {
+    describe('addSearchResultsToTree & mergeChildren & ', () => {
         it('does NOT overwrite existing grand-children', () => {
             const existingNodes = mockData.treeWithPlaceholdersAndRealData;
             const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults);
@@ -31,6 +31,36 @@ describe('checkboxTree Helpers', () => {
             const existingGrandChildren = existingNodes[0].children[0].children;
             expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length + 1);
         });
+        it('adds a the hide class to nodes not in search results', () => {
+            const existingNodes = mockData.reallyBigTree;
+            const searchResult = addSearchResultsToTree(existingNodes, mockData.searchResults);
+            const existingGrandChildren = existingNodes[0].children[0].children;
+            const grandChildrenWithSearch = searchResult
+                .find((node) => node.value === '11')
+                .children[0].children;
+            // not overwriting existing children
+            expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length);
+            // adding class to all nodes not in search result
+            const hiddenNodes = grandChildrenWithSearch.filter((node) => node.className === 'hide');
+            const visibleNodes = grandChildrenWithSearch.filter((node) => node.className === '');
+            expect(hiddenNodes.length).toEqual(7);
+            expect(visibleNodes.length).toEqual(1);
+            expect(visibleNodes[0].naics_description).toEqual('Soybean Farming');
+        });
+        // it('removes placeholder children for nodes with all children', () => {
+        //     const existingNodes = mockData.treeWithPlaceholdersAndRealData;
+        //     const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults);
+        //     const grandChildrenWithSearch = newChildren.children[0].children;
+        //     const existingGrandChildren = existingNodes[0].children[0].children;
+        //     expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length + 1);
+        // });
+        // it('adds placeholder children for nodes without all children', () => {
+        //     const existingNodes = mockData.treeWithPlaceholdersAndRealData;
+        //     const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults);
+        //     const grandChildrenWithSearch = newChildren.children[0].children;
+        //     const existingGrandChildren = existingNodes[0].children[0].children;
+        //     expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length + 1);
+        // });
     });
     describe('expandAllNodes', () => {
         it('returns an array containing all values from tree', () => {
