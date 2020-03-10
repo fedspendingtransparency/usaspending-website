@@ -31,15 +31,15 @@ export const getNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
     if (nodeKey.length === 4) {
         return tree
             .find((node) => node[treePropForKey] === parentKey)
-            .children
+            ?.children
             .find((node) => node[treePropForKey] === nodeKey);
     }
     if (nodeKey.length === 6) {
         return tree
             .find((node) => node[treePropForKey] === parentKey)
-            .children
+            ?.children
             .find((node) => node[treePropForKey] === ancestorKey)
-            .children
+            ?.children
             .find((node) => node[treePropForKey] === nodeKey);
     }
     return null;
@@ -64,7 +64,16 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
     // 1. hide node not in search
     // 2. add placeholders if not there
     if (existingParent.children && parentFromSearch.children) {
-        const existingChildArray = existingParent.children.map((node) => ({ ...node, className: 'hide' }));
+        const existingChildArray = existingParent
+            .children
+            .filter((node) => {
+                const childFromSearch = getNodeFromTree(parentFromSearch.children, node.value);
+                if (node.isPlaceHolder && node.count === childFromSearch?.children.length) {
+                    return false;
+                }
+                return true;
+            })
+            .map((node) => ({ ...node, className: 'hide' }));
 
         const nodes = parentFromSearch.children
             .reduce((acc, searchChild) => {

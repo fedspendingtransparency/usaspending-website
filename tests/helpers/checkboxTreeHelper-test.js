@@ -6,6 +6,10 @@ import {
     expandAllNodes,
     showAllTreeItems
 } from 'helpers/checkboxTreeHelper';
+import {
+    setNaics
+} from 'redux/actions/search/naicsActions';
+
 import * as mockData from '../containers/search/filters/naics/mockNaics_v2';
 
 // overwriting this because it makes life easier
@@ -47,20 +51,37 @@ describe('checkboxTree Helpers', () => {
             expect(visibleNodes.length).toEqual(1);
             expect(visibleNodes[0].naics_description).toEqual('Soybean Farming');
         });
-        // it('removes placeholder children for nodes with all children', () => {
-        //     const existingNodes = mockData.treeWithPlaceholdersAndRealData;
-        //     const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults);
-        //     const grandChildrenWithSearch = newChildren.children[0].children;
-        //     const existingGrandChildren = existingNodes[0].children[0].children;
-        //     expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length + 1);
-        // });
-        // it('adds placeholder children for nodes without all children', () => {
-        //     const existingNodes = mockData.treeWithPlaceholdersAndRealData;
-        //     const [newChildren] = addSearchResultsToTree(existingNodes, mockSearchResults);
-        //     const grandChildrenWithSearch = newChildren.children[0].children;
-        //     const existingGrandChildren = existingNodes[0].children[0].children;
-        //     expect(grandChildrenWithSearch.length).toEqual(existingGrandChildren.length + 1);
-        // });
+        it('removes placeholder children / grandchildren for nodes with all children / grandchildren', () => {
+            const existingNodes = mockData.placeholderNodes;
+            const searchResult = addSearchResultsToTree(existingNodes, [mockData.reallyBigTree[0]]);
+            const grandChildrenFromSearch = searchResult
+                .find((node) => node.value === '11')
+                .children[0].children;
+            const childrenFromSearch = searchResult
+                .find((node) => node.value === '11')
+                .children;
+            const grandChildrenWithPlaceholder = grandChildrenFromSearch
+                .filter((node) => node.isPlaceHolder);
+            const childrenWithPlaceholder = childrenFromSearch
+                .filter((node) => node.isPlaceHolder);
+            expect(grandChildrenWithPlaceholder.length).toEqual(0);
+            expect(childrenWithPlaceholder.length).toEqual(0);
+        });
+        it('keeps placeholder children/grandchildren for nodes without all children', () => {
+            const existingNodes = mockData.treeWithPlaceholdersAndRealData;
+            const [searchResults] = addSearchResultsToTree(existingNodes, mockSearchResults);
+            const childFromSearch = searchResults.children[0];
+            const childPlaceHolderExists = searchResults
+                .children
+                .some((child) => child.isPlaceHolder);
+
+            const grandPlaceHolderExists = childFromSearch
+                .children
+                .some((grand) => grand.isPlaceHolder);
+            expect(grandPlaceHolderExists).toEqual(true);
+            expect(childPlaceHolderExists).toEqual(true);
+
+        });
     });
     describe('expandAllNodes', () => {
         it('returns an array containing all values from tree', () => {
