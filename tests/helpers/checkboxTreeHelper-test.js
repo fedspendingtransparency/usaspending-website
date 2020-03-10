@@ -4,11 +4,9 @@ import {
     getImmediateAncestorNaicsCode,
     getNodeFromTree,
     expandAllNodes,
-    showAllTreeItems
+    showAllTreeItems,
+    cleanNaicsData
 } from 'helpers/checkboxTreeHelper';
-import {
-    setNaics
-} from 'redux/actions/search/naicsActions';
 
 import * as mockData from '../containers/search/filters/naics/mockNaics_v2';
 
@@ -123,6 +121,38 @@ describe('checkboxTree Helpers', () => {
             const lengthWithoutPlaceholderNodes = mockData.reallyBigTree[0].children.length;
             const nodeWithPlaceHolderChildren = getNodeFromTree(result, '11', 'naics');
             expect(nodeWithPlaceHolderChildren.children.length).toEqual(lengthWithoutPlaceholderNodes);
+        });
+    });
+    describe('cleanNaicsData', () => {
+        it('object property mapping: (A) naics_description --> label & (B) naics --> value', () => {
+            const [mock] = [{ naics: '11', naics_description: 'test1' }];
+            const [cleanData] = cleanNaicsData([mock]);
+            expect(cleanData.label).toEqual(mock.naics_description);
+            expect(cleanData.value).toEqual(mock.naics);
+            expect(cleanData.children[0].isPlaceHolder).toEqual(true);
+        });
+        it('recursively cleans child objects objects', () => {
+            const [mock] = [
+                {
+                    naics: '11',
+                    naics_description: 'test1',
+                    children: [{
+                        naics: '1111',
+                        naics_description: 'test2',
+                        children: [{
+                            naics: '111110',
+                            naics_description: 'test3'
+                        }]
+                    }]
+                }
+            ];
+            const [cleanData] = cleanNaicsData([mock]);
+            expect(cleanData.label).toEqual(mock.naics_description);
+            expect(cleanData.value).toEqual(mock.naics);
+            expect(cleanData.children[0].value).toEqual(cleanData.children[0].naics);
+            expect(cleanData.children[0].label).toEqual(cleanData.children[0].naics_description);
+            expect(cleanData.children[0].children[0].value).toEqual(cleanData.children[0].children[0].naics);
+            expect(cleanData.children[0].children[0].label).toEqual(cleanData.children[0].children[0].naics_description);
         });
     });
 });

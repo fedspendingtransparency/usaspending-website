@@ -1,7 +1,38 @@
 /**
   * checkboxTreeHelper.js
   * Created by Jonathan Hill 10/01/2019
-  **/
+**/
+
+
+const getChildren = (node) => {
+    if (!node.children && node.naics.length <= 4) {
+        return {
+            children: [{
+                isPlaceHolder: true,
+                label: 'Placeholder Child',
+                value: `children_of_${node.naics}`
+            }]
+        };
+    }
+    else if (node.children) {
+        return {
+            children: node.children.map((child) => ({
+                ...child,
+                label: child.naics_description,
+                value: child.naics,
+                ...getChildren(child)
+            }))
+        };
+    }
+    return {};
+};
+
+export const cleanNaicsData = (nodes) => nodes.map((node) => ({
+    ...node,
+    label: node.naics_description,
+    value: node.naics,
+    ...getChildren(node)
+}));
 
 export const sortNodes = (a, b) => {
     if (a.isPlaceHolder) return 1;
