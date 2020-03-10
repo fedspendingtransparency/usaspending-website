@@ -26,8 +26,8 @@ export const awardDownloadOptions = {
             lookupName: 'subAwards',
             name: 'Sub-Awards',
             filters: [
-                'sub_grants',
-                'sub_contracts'
+                'sub_contracts',
+                'sub_grants'
             ]
         }
     ],
