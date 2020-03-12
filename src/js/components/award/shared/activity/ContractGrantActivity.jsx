@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { throttle } from 'lodash';
 import ContractGrantsActivityChart from './ContractGrantsActivityChart';
 
 const propTypes = {
@@ -18,22 +19,25 @@ const ContractGrantActivity = ({ transactions }) => {
      * - updates window and visualization width based on current window width.
      * @returns {null}
      */
-    const handleWindowResize = () => {
+    const handleWindowResize = throttle(() => {
         const wWidth = window.innerWidth;
         if (windowWidth !== wWidth) {
             setWindowWidth(windowWidth);
             setVisualizationWidth(divReference.current.offsetWidth);
         }
-    };
+    }, 50);
     /**
-     * need to investigate if we need this. It should run everytime the window
-     * updates but idv activity viz only has it on mount and unmount
+     * hook - runs on mount and unmount.
+     * Any updates to the width of the browser is handled by the
+     * event listener.
      */
     useEffect(() => {
         handleWindowResize();
         window.addEventListener('resize', handleWindowResize);
-        return () => window.removeEventListener('resize', handleWindowResize);
-    });
+        return () => {
+            window.removeEventListener('resize', handleWindowResize)
+        };
+    }, []);
 
     return (
         <div ref={divReference} className="contract-grant-activity-visualization">

@@ -364,7 +364,8 @@ export default class ActivityChart extends React.Component {
                             xMin={xRange[0]}
                             xValue={currentDate}
                             showTextPosition="top"
-                            adjustmentX={padding.left} />}
+                            adjustmentX={padding.left}
+                            width={graphWidth} />}
                     </g>
                 </g>
             </svg>

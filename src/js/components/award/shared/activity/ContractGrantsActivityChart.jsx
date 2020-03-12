@@ -126,14 +126,16 @@ const ContractGrantsActivityChart = ({
          * and the end of the chart.
          */
         const spacing = visualizationWidth * 0.05;
-        console.log(' Spacing : ', spacing);
-        console.log(' Start X Range : ', spacing + padding.left);
-        console.log(' Ending X Range : ', visualizationWidth);
         const scale = scaleLinear().domain(xDomain).range([spacing + padding.left, visualizationWidth - spacing]);
         // scale for ticks
-        const scaleForTicks = scaleLinear().domain(xDomain).range([spacing + padding.left, visualizationWidth - spacing]).nice();
-        // const ticks = scale.ticks(7);
-        const ticks = scaleForTicks.ticks(6);
+        // const scaleForTicks = scaleLinear().domain(xDomain).range([spacing + padding.left, visualizationWidth - spacing]).nice();
+        const ticks = scale.ticks(6);
+        console.log(' Ticks 0 : ', cloneDeep(ticks));
+        // add first and last tic per design
+        // ticks.splice(0, 0, xDomain[0]); // first tic
+        // ticks.push(xDomain[1]);
+        console.log(' Clone Deep 1 : ', cloneDeep(ticks));
+        // const ticks = scaleForTicks.ticks(6);
         // add last tick for spacing
         // const updatedTicksWithSpacing = addTicksForSpacing(ticks, true);
         // create new scale since we have new data
@@ -176,7 +178,8 @@ const ContractGrantsActivityChart = ({
         createXScaleAndTicks,
         createYScaleAndTicks,
         xDomain,
-        yDomain
+        yDomain,
+        visualizationWidth
     ]);
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
@@ -188,6 +191,11 @@ const ContractGrantsActivityChart = ({
         y: 5,
         rotate: 0
     };
+    if (xScale) {
+        console.log(' Vis Width : ', visualizationWidth);
+        console.log(' X SCALE  I : ', xScale(xDomain[0]));
+        console.log(' X SCALE  II : ', xScale(xDomain[1]));
+    }
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -218,7 +226,8 @@ const ContractGrantsActivityChart = ({
                     xMax={xDomain[1]}
                     xMin={xDomain[0]}
                     xValue={xDomain[0]}
-                    showTextPosition="top" />}
+                    showTextPosition="top"
+                    width={visualizationWidth} />}
                 {xScale && <VerticalLine
                     xScale={xScale}
                     y1={-10}
@@ -229,7 +238,7 @@ const ContractGrantsActivityChart = ({
                     xMin={xDomain[0]}
                     xValue={xDomain[1]}
                     showTextPosition="top"
-                    last />}
+                    width={visualizationWidth} />}
             </g>
         </svg>
     );
