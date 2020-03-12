@@ -110,7 +110,7 @@ export default class TransactionsTable extends React.Component {
             const isLast = i === tableMapping.table._order.length - 1;
 
             const displayName = tableMapping.table[column];
-            let columnWidth = Math.max(measureTableHeader(displayName),
+            let columnWidth = Math.max(measureTableHeader(displayName) - 40,
                 tableMapping.columnWidths[column]);
             if (isLast) {
                 // make it fill out the remainder of the width necessary
