@@ -50,7 +50,7 @@ export default class AwardAmountSearch extends React.Component {
     searchSpecificRange(selections) {
         const min = selections[0];
         const max = selections[1];
-        this.props.selectAwardRange([min, max]);
+        this.props.selectAwardRange({ value: [min, max] });
     }
 
     awardAmountCheckboxes() {
