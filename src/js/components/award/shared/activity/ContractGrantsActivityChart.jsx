@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { cloneDeep, compact } from 'lodash';
+import { cloneDeep, compact, pull, sum } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
@@ -21,9 +21,9 @@ const ContractGrantsActivityChart = ({
     transactions
 }) => {
     // x series
-    const [xDomain, setXDomain] = useState([0, 0]);
+    const [xDomain, setXDomain] = useState([]);
     // y series
-    const [yDomain, setYDomain] = useState([0, 0]);
+    const [yDomain, setYDomain] = useState([]);
     // x scale
     const [xScale, setXScale] = useState(null);
     // y scale
@@ -117,11 +117,12 @@ const ContractGrantsActivityChart = ({
         return { date: newDate, label };
     });
     /**
-     * createxScale
+     * createXScaleAndTicks
      * - creates the x scaling function and updates state
      * @returns {null}
      */
     const createXScaleAndTicks = useCallback(() => {
+        if (!xDomain.length) return null;
         /**
          * By design, we want to leave space between the start of the chart
          * and the end of the chart.
@@ -130,25 +131,63 @@ const ContractGrantsActivityChart = ({
         const scale = scaleLinear()
             .domain(xDomain)
             .range([spacing, visualizationWidth - spacing - padding.left]);
-        const ticks = scale.ticks(6);
+        let theTicks = scale.ticks(6);
         // add first and last tic per design
-        ticks.splice(0, 0, xDomain[0]); // first tick
-        ticks.push(xDomain[1]); // last tick
+        theTicks.splice(0, 0, xDomain[0]); // first tick
+        theTicks.push(xDomain[1]); // last tick
+
+        const differences = theTicks.reverse().reduce((acc, tick, i, src) => {
+            const nextTick = src[i + 1];
+            if (!nextTick) return acc; // last tick ignore
+            acc.push(tick - nextTick);
+            return acc;
+        }, []);
+
+        const averageDifference = sum(differences) / theTicks.length;
+        // ascending order since we reversed above
+        theTicks.reverse();
         /**
-         * TODO - Remove this after tick method is created.
-         * Manually adding ticks could cause overlap since d3 is creating their own ticks.
+         * manuallyCreateXTicks
+         * - Manually create the x ticks starting with the first tick and
+         * adding the difference sequentially.
+         */
+        const manuallyCreateXTicks = (ticks, diff) => {
+            const newTicks = cloneDeep(ticks);
+            /**
+             * Tthe ticks method for d3 does not include ticks for the very beginning
+             * and the end of the domain. This leaves a gap between the last tick we create
+             * and the last tick of the domain. Therefore we increase our array by two.
+             * Since we ignore the first and last tick we cannot unshift or push :(.
+             */
+            newTicks.splice(1, 0, 1);
+            return newTicks.reduce((acc, tick, i) => {
+                // ignore first and last tick
+                if (i === 0 || i + 1 === newTicks.length) {
+                    acc.push(tick);
+                }
+                else {
+                    acc.push(acc[i - 1] + diff);
+                }
+                return acc;
+            }, []);
+        };
+        /**
+         * removeOverlappingTicks
+         * - Manually adding ticks could cause overlap since d3 is creating their own ticks.
          * This filters any ticks that might overlap.  The number 20 was derived
          * from visual evidence of overlap on this award ASST_NON_1905OH5MAP_7530.
-         * This is a stopgap until we write our own tick method.
+         * @param {Number[]} - array of milliseconds
+         * @param {function} - d3 scale function
+         * @returns {Number[]} - array of milliseconds
          */
         let skipNext = false;
-        const filteredTicks = ticks.reduce((acc, tick, i, src) => {
+        const removeOverlappingTicks = (ticks, scaleFunc) => ticks.reduce((acc, tick, i, src) => {
             if (skipNext) {
                 skipNext = false;
                 return acc;
             }
-            const currentTick = scale(tick);
-            const nextTick = scale(src[i + 1]);
+            const currentTick = scaleFunc(tick);
+            const nextTick = scaleFunc(src[i + 1]);
             if (nextTick) {
                 const difference = nextTick - currentTick;
                 if (difference <= 20) { // ticks overlap
@@ -164,10 +203,19 @@ const ContractGrantsActivityChart = ({
             acc.push(tick); // first tick
             return acc;
         }, []);
+        console.log(' The Ticks : ', cloneDeep(theTicks));
+        theTicks = manuallyCreateXTicks(theTicks, averageDifference);
+        console.log(' Manudally ticks : ', cloneDeep(theTicks));
+        theTicks = removeOverlappingTicks(theTicks, scale);
 
-        setXTicks(xTickDateAndLabel(filteredTicks));
+        setXTicks(xTickDateAndLabel(theTicks));
         setXScale(() => scale);
-    }, [xDomain, visualizationWidth, padding.left]);
+        return null;
+    }, [
+        xDomain,
+        visualizationWidth,
+        padding.left
+    ]);
     /**
      * createYScale
      * - creates the y scaling function and ticks.
