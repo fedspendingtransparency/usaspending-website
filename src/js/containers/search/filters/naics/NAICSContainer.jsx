@@ -298,7 +298,7 @@ export class NAICSContainer extends React.Component {
         this.props.setChecked([...new Set([...removeParentPlaceholders, ...newValues])]);
     }
 
-    autoCheckSearchedResultDescendents = (checked, expanded) => {
+    autoCheckSearchedResultDescendants = (checked, expanded) => {
         const { nodes } = this.props;
         const placeholderNodes = checked
             .filter((node) => node.includes('children_of_'))
@@ -357,7 +357,7 @@ export class NAICSContainer extends React.Component {
             if (isSearch) {
                 const visibleNaicsValues = expandAllNodes(data.results, 'naics');
                 this.props.setSearchedNaics(data.results);
-                this.autoCheckSearchedResultDescendents(checked, visibleNaicsValues);
+                this.autoCheckSearchedResultDescendants(checked, visibleNaicsValues);
                 this.props.setExpanded(visibleNaicsValues, 'SET_SEARCHED_EXPANDED');
             }
             else {
