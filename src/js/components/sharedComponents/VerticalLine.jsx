@@ -109,7 +109,7 @@ export default class VerticalLine extends Component {
         // get x position of minimum
         const minimumX = xScale(xMin);
         // get x position of maximum
-        const maximumX = xScale(xMax);
+        const maximumX = xScale(xMax) + (adjustmentX || 0);
         if ((linePosition > maximumX) || (linePosition < minimumX)) return null;
         return (
             <line

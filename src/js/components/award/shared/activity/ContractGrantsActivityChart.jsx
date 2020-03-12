@@ -43,7 +43,7 @@ const ContractGrantsActivityChart = ({
         setXDomain(
             [
                 clonedTransactions[0].action_date.valueOf(),
-                clonedTransactions[clonedTransactions.length - 1].action_date.valueOf()
+                clonedTransactions.pop().action_date.valueOf()
             ]
         );
     }, [transactions]);
@@ -112,7 +112,8 @@ const ContractGrantsActivityChart = ({
         if (month === 9) year += 1;
         // add 1 to the year because it is the next fiscal year
         const shortYear = (year).toString().slice(-2);
-        const label = `FY '${shortYear}`;
+        const shortMonth = newDate.toLocaleString('en-us', { month: 'short' }).toUpperCase();
+        const label = `${shortMonth} FY '${shortYear}`;
         return { date: newDate, label };
     });
     /**
@@ -126,26 +127,45 @@ const ContractGrantsActivityChart = ({
          * and the end of the chart.
          */
         const spacing = visualizationWidth * 0.05;
-        const scale = scaleLinear().domain(xDomain).range([spacing + padding.left, visualizationWidth - spacing]);
-        // scale for ticks
-        // const scaleForTicks = scaleLinear().domain(xDomain).range([spacing + padding.left, visualizationWidth - spacing]).nice();
+        const scale = scaleLinear()
+            .domain(xDomain)
+            .range([spacing, visualizationWidth - spacing - padding.left]);
         const ticks = scale.ticks(6);
-        console.log(' Ticks 0 : ', cloneDeep(ticks));
         // add first and last tic per design
-        // ticks.splice(0, 0, xDomain[0]); // first tic
-        // ticks.push(xDomain[1]);
-        console.log(' Clone Deep 1 : ', cloneDeep(ticks));
-        // const ticks = scaleForTicks.ticks(6);
-        // add last tick for spacing
-        // const updatedTicksWithSpacing = addTicksForSpacing(ticks, true);
-        // create new scale since we have new data
-        // const updatedScale = scaleLinear()
-        //     .domain([updatedTicksWithSpacing[0], updatedTicksWithSpacing[updatedTicksWithSpacing.length - 1]])
-        //     .range([0, visualizationWidth])
-        //     .nice();
-        // setXTicks(xTickDateAndLabel(updatedTicksWithSpacing));
-        // setXScale(() => updatedScale);
-        setXTicks(xTickDateAndLabel(ticks));
+        ticks.splice(0, 0, xDomain[0]); // first tick
+        ticks.push(xDomain[1]); // last tick
+        /**
+         * TODO - Remove this after tick method is created.
+         * Manually adding ticks could cause overlap since d3 is creating their own ticks.
+         * This filters any ticks that might overlap.  The number 20 was derived
+         * from visual evidence of overlap on this award ASST_NON_1905OH5MAP_7530.
+         * This is a stopgap until we write our own tick method.
+         */
+        let skipNext = false;
+        const filteredTicks = ticks.reduce((acc, tick, i, src) => {
+            if (skipNext) {
+                skipNext = false;
+                return acc;
+            }
+            const currentTick = scale(tick);
+            const nextTick = scale(src[i + 1]);
+            if (nextTick) {
+                const difference = nextTick - currentTick;
+                if (difference <= 20) { // ticks overlap
+                    // keeps last tick
+                    if (i + 2 === src.length) {
+                        return acc;
+                    }
+                    skipNext = true;
+                }
+                acc.push(tick);
+                return acc;
+            }
+            acc.push(tick); // first tick
+            return acc;
+        }, []);
+
+        setXTicks(xTickDateAndLabel(filteredTicks));
         setXScale(() => scale);
     }, [xDomain, visualizationWidth, padding.left]);
     /**
@@ -185,17 +205,7 @@ const ContractGrantsActivityChart = ({
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
-    // display x labels
-    const transformLabels = {
-        x: 1,
-        y: 5,
-        rotate: 0
-    };
-    if (xScale) {
-        console.log(' Vis Width : ', visualizationWidth);
-        console.log(' X SCALE  I : ', xScale(xDomain[0]));
-        console.log(' X SCALE  II : ', xScale(xDomain[1]));
-    }
+
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -215,8 +225,7 @@ const ContractGrantsActivityChart = ({
                     padding={padding}
                     ticks={xTicks}
                     scale={xScale}
-                    transformLabels={transformLabels}
-                    removeLastLabel />
+                    line />
                 {xScale && <VerticalLine
                     xScale={xScale}
                     y1={-10}
@@ -227,7 +236,8 @@ const ContractGrantsActivityChart = ({
                     xMin={xDomain[0]}
                     xValue={xDomain[0]}
                     showTextPosition="top"
-                    width={visualizationWidth} />}
+                    width={visualizationWidth}
+                    adjustmentX={padding.left} />}
                 {xScale && <VerticalLine
                     xScale={xScale}
                     y1={-10}
@@ -238,7 +248,8 @@ const ContractGrantsActivityChart = ({
                     xMin={xDomain[0]}
                     xValue={xDomain[1]}
                     showTextPosition="top"
-                    width={visualizationWidth} />}
+                    width={visualizationWidth}
+                    adjustmentX={padding.left} />}
             </g>
         </svg>
     );
