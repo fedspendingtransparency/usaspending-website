@@ -141,7 +141,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
      * - updates title based on award type
      * @returns {String} - '[Grants || Contract] Activity'
      */
-    const title = () => (awardType === 'grant' ? 'Grants Activity' : 'Contract Activity');
+    const title = () => (awardType === 'grant' ? 'Grant Activity' : 'Contract Activity');
     /**
      * message
      * - updates the message displayed to users based on error, loading, and
