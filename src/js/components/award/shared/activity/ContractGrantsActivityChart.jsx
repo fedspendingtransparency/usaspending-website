@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
-// import VerticalLine from 'components/sharedComponents/VerticalLine';
+import VerticalLine from 'components/sharedComponents/VerticalLine';
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
 
 const propTypes = {
@@ -271,29 +271,19 @@ const ContractGrantsActivityChart = ({
                     ticks={xTicks}
                     scale={xScale}
                     line />
-                {/* These will be removed in the next PR  */}
-                {/* {xScale && <VerticalLine
-                    xScale={xScale}
-                    y1={-10}
-                    y2={height}
-                    textY={0}
-                    text="Start Graph"
-                    xMax={xDomain[1]}
-                    xMin={xDomain[0]}
-                    xValue={xDomain[0]}
-                    showTextPosition="top"
-                    adjustmentX={padding.left} />}
                 {xScale && <VerticalLine
                     xScale={xScale}
                     y1={-10}
                     y2={height}
                     textY={0}
-                    text="End Graph"
+                    text="Start"
                     xMax={xDomain[1]}
                     xMin={xDomain[0]}
-                    xValue={xDomain[1]}
-                    showTextPosition="top"
-                    adjustmentX={padding.left} />} */}
+                    xValue={xDomain[0]}
+                    showTextPosition="right"
+                    adjustmentX={padding.left}
+                    textClassname="vertical-line__text start"
+                    lineClassname="vertical-line start" />}
             </g>
         </svg>
     );

@@ -18,7 +18,9 @@ const propTypes = {
     showTextPosition: PropTypes.string, // show text left, right, and top are valid
     textY: PropTypes.number, // show text at this height
     description: PropTypes.string,
-    adjustmentX: PropTypes.number // adjust x for padding
+    adjustmentX: PropTypes.number, // adjust x for padding
+    textClassname: PropTypes.string,
+    lineClassname: PropTypes.string
 };
 
 export default class VerticalLine extends Component {
@@ -90,7 +92,8 @@ export default class VerticalLine extends Component {
             xScale,
             adjustmentX,
             y1,
-            y2
+            y2,
+            lineClassname
         } = this.props;
         const linePosition = xScale(xValue) + (adjustmentX || 0);
         // get x position of minimum
@@ -100,7 +103,7 @@ export default class VerticalLine extends Component {
         if ((linePosition > maximumX) || (linePosition < minimumX)) return null;
         return (
             <line
-                id="vertical-line"
+                className={lineClassname || "vertical-line"}
                 x1={linePosition}
                 x2={linePosition}
                 y1={y1}
@@ -109,11 +112,11 @@ export default class VerticalLine extends Component {
     }
 
     text = (lineIsDisplayed) => {
-        const { text } = this.props;
+        const { text, textClassname } = this.props;
         if (!lineIsDisplayed || !text) return null;
         return (
             <text
-                className="vertical-line__text"
+                className={textClassname || "vertical-line__text"}
                 x={this.state.textX}
                 y={this.state.textY}
                 ref={this.setTextDiv}>
