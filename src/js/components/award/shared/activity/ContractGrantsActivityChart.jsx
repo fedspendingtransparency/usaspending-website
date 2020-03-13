@@ -13,14 +13,18 @@ const propTypes = {
     height: PropTypes.number,
     padding: PropTypes.object,
     visualizationWidth: PropTypes.number,
-    transactions: PropTypes.array
+    transactions: PropTypes.array,
+    awardType: PropTypes.string,
+    dates: PropTypes.object
 };
 
 const ContractGrantsActivityChart = ({
     height,
     padding,
     visualizationWidth,
-    transactions
+    transactions,
+    awardType,
+    dates
 }) => {
     // x series
     const [xDomain, setXDomain] = useState([]);
@@ -37,18 +41,33 @@ const ContractGrantsActivityChart = ({
     /**
      * createXSeries
      * - creates the x domain and updates state
-     * @returns {null}
      */
     const createXDomain = useCallback(() => {
-        const clonedTransactions = cloneDeep(transactions);
-        clonedTransactions.sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf());
-        setXDomain(
-            [
-                clonedTransactions[0].action_date.valueOf(),
-                clonedTransactions.pop().action_date.valueOf()
-            ]
-        );
-    }, [transactions]);
+        /**
+         * TODO - We might use this code in further tickets.
+         * Currently, we use the start and end date for the first and last tick.
+         * In the future, we might use transaction or a combo of the two.
+         */
+        // const clonedTransactions = cloneDeep(transactions);
+        // clonedTransactions.sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf());
+        // setXDomain(
+        //     [
+        //         clonedTransactions[0].action_date.valueOf(),
+        //         clonedTransactions.pop().action_date.valueOf()
+        //     ]
+        // );
+        const {
+            _startDate: startDate,
+            _endDate: endDate,
+            _potentialEndDate: potentialEndDate
+        } = dates;
+        if (awardType === 'grant') return setXDomain([startDate.valueOf(), endDate.valueOf()]);
+        return setXDomain([startDate.valueOf(), potentialEndDate.valueOf()]);
+    }, [
+        awardType,
+        dates,
+        setXDomain
+    ]);
     /**
      * createYSeries
      * - creates the y domain and updates state

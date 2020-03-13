@@ -4,10 +4,12 @@ import { throttle } from 'lodash';
 import ContractGrantsActivityChart from './ContractGrantsActivityChart';
 
 const propTypes = {
-    transactions: PropTypes.array
+    transactions: PropTypes.array,
+    dates: PropTypes.object,
+    awardType: PropTypes.string
 };
 
-const ContractGrantActivity = ({ transactions }) => {
+const ContractGrantActivity = ({ transactions, dates, awardType }) => {
     // reference to the div - using to get the width
     const divReference = useRef(null);
     // window width
@@ -45,7 +47,9 @@ const ContractGrantActivity = ({ transactions }) => {
                 visualizationWidth={visualizationWidth}
                 transactions={transactions}
                 height={360}
-                padding={{ left: 45, bottom: 30 }} />
+                padding={{ left: 45, bottom: 30 }}
+                dates={dates}
+                awardType={awardType} />
         </div>
     );
 };

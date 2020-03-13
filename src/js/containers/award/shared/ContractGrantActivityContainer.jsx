@@ -17,10 +17,13 @@ import {
 
 const propTypes = {
     awardId: PropTypes.string,
-    awardType: PropTypes.string
+    awardType: PropTypes.string,
+    dates: PropTypes.object
 };
 
-const ContractGrantActivityContainer = ({ awardId, awardType }) => {
+const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
+    // bad dates
+    const [badDates, setBadDates] = useState(false);
     // loading
     const [loading, setLoading] = useState(false);
     // transactions
@@ -136,6 +139,20 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
     }, [awardId]);
     // hook - runs on mount and anytime awardId and getTransactions change
     useEffect(() => getTransactions(), [getTransactions, awardId]);
+    // hook - run on mount and if award changes
+    useEffect(() => {
+        if (!dates) setBadDates(true);
+        const { startDate, endDate, potentialEndDate } = dates;
+        if (awardType === 'grants') {
+            if (!startDate || !endDate) setBadDates(true);
+        }
+        if (awardType === 'contract') {
+            if (!startDate || !potentialEndDate) setBadDates(true);
+        }
+    }, [
+        dates,
+        awardType
+    ]);
     /**
      * title
      * - updates title based on award type
@@ -151,7 +168,13 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
     const message = () => {
         if (error.error) return <ResultsTableErrorMessage />;
         if (loading) return <ResultsTableLoadingMessage />;
-        if (!transactions.length) return <NoResultsMessage />;
+        if (badDates || !transactions.length) {
+            return (
+                <NoResultsMessage
+                    title="Chart Not Available"
+                    message="Data in this instance is not suitable for charting" />
+            );
+        }
         return null;
     };
     /**
@@ -167,7 +190,9 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
         ) {
             return (
                 <ContractGrantActivity
-                    transactions={transactions} />
+                    transactions={transactions}
+                    dates={dates}
+                    awardType={awardType} />
             );
         }
         return null;
