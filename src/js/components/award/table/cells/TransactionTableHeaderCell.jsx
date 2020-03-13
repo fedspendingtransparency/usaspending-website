@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import tableMapping from 'dataMapping/contracts/transactionTable';
-import assistanceTableMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable.js';
+import assistanceTableMapping from 'dataMapping/financialAssistance/financialAssistanceTransactionTable';
 
 const propTypes = {
     label: PropTypes.string,
