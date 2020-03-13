@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { cloneDeep, compact, pull, sum } from 'lodash';
+import { cloneDeep, compact, sum } from 'lodash';
 import { scaleLinear } from 'd3-scale';
+import moment from 'moment';
 
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
 import VerticalLine from 'components/sharedComponents/VerticalLine';
+import { convertDateToFY } from 'helpers/fiscalYearHelper';
 
 const propTypes = {
     height: PropTypes.number,
@@ -107,10 +109,7 @@ const ContractGrantsActivityChart = ({
      */
     const xTickDateAndLabel = (ticks) => ticks.map((date) => {
         const newDate = new Date(date);
-        const month = newDate.getMonth();
-        let year = newDate.getFullYear();
-        if (month === 9) year += 1;
-        // add 1 to the year because it is the next fiscal year
+        const year = convertDateToFY(moment(date));
         const shortYear = (year).toString().slice(-2);
         const shortMonth = newDate.toLocaleString('en-us', { month: 'short' }).toUpperCase();
         const label = `${shortMonth} FY '${shortYear}`;
@@ -203,9 +202,7 @@ const ContractGrantsActivityChart = ({
             acc.push(tick); // first tick
             return acc;
         }, []);
-        console.log(' The Ticks : ', cloneDeep(theTicks));
         theTicks = manuallyCreateXTicks(theTicks, averageDifference);
-        console.log(' Manudally ticks : ', cloneDeep(theTicks));
         theTicks = removeOverlappingTicks(theTicks, scale);
 
         setXTicks(xTickDateAndLabel(theTicks));
