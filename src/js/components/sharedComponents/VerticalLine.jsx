@@ -9,7 +9,10 @@ import { throttle } from 'lodash';
 
 const propTypes = {
     xScale: PropTypes.func, // function to set line position
-    text: PropTypes.string, // text to display with line
+    text: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array
+    ]), // text to display with line
     y1: PropTypes.number, // top of graph
     y2: PropTypes.number, // bottom of graph
     xMax: PropTypes.number, // max possible value of x
@@ -72,6 +75,7 @@ export default class VerticalLine extends Component {
         // when the DOM draws the element, without this you will get an error since
         // we will be call properties on null
         if (this.textDiv) {
+            const isSecondWord = this.textDiv.getAttributeNames().includes('data-second');
             const textDivDimensions = this.textDiv.getBoundingClientRect();
             const width = textDivDimensions.width;
             if (showTextPosition === 'left') positionX -= (width + 4);
@@ -79,6 +83,9 @@ export default class VerticalLine extends Component {
             if (showTextPosition === 'top') {
                 modifiedTextY -= 15;
                 positionX -= (width / 2);
+            }
+            if (isSecondWord) {
+                modifiedTextY += textDivDimensions.height;
             }
         }
         this.setState({ textX: positionX, textY: modifiedTextY });
@@ -114,6 +121,21 @@ export default class VerticalLine extends Component {
     text = (lineIsDisplayed) => {
         const { text, textClassname } = this.props;
         if (!lineIsDisplayed || !text) return null;
+        if (Array.isArray(text)) {
+            return text.map((data, i) => {
+                const isSecondWord = i > 0;
+                return (
+                    <text
+                        className={textClassname || "vertical-line__text"}
+                        x={this.state.textX}
+                        y={this.state.textY}
+                        ref={this.setTextDiv}
+                        data-second={isSecondWord}>
+                        {text}
+                    </text>
+                );
+            });
+        }
         return (
             <text
                 className={textClassname || "vertical-line__text"}
