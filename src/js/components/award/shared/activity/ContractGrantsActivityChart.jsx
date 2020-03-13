@@ -271,6 +271,7 @@ const ContractGrantsActivityChart = ({
                     ticks={xTicks}
                     scale={xScale}
                     line />
+                {/* start line */}
                 {xScale && <VerticalLine
                     xScale={xScale}
                     y1={-10}
@@ -284,6 +285,20 @@ const ContractGrantsActivityChart = ({
                     adjustmentX={padding.left}
                     textClassname="vertical-line__text start"
                     lineClassname="vertical-line start" />}
+                {/* today line */}
+                {xScale && <VerticalLine
+                    xScale={xScale}
+                    y1={-10}
+                    y2={height}
+                    textY={0}
+                    text="Today"
+                    xMax={xDomain[1]}
+                    xMin={xDomain[0]}
+                    xValue={Date.now()}
+                    showTextPosition="left"
+                    adjustmentX={padding.left}
+                    textClassname="vertical-line__text today"
+                    lineClassname="vertical-line today" />}
             </g>
         </svg>
     );
