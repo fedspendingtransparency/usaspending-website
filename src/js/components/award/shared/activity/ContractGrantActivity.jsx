@@ -35,7 +35,7 @@ const ContractGrantActivity = ({ transactions }) => {
         handleWindowResize();
         window.addEventListener('resize', handleWindowResize);
         return () => {
-            window.removeEventListener('resize', handleWindowResize)
+            window.removeEventListener('resize', handleWindowResize);
         };
     }, []);
 

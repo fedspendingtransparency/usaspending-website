@@ -6,7 +6,7 @@ import moment from 'moment';
 
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
-import VerticalLine from 'components/sharedComponents/VerticalLine';
+// import VerticalLine from 'components/sharedComponents/VerticalLine';
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
 
 const propTypes = {
