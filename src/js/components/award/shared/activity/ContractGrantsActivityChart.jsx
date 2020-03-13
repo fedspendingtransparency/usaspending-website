@@ -271,7 +271,7 @@ const ContractGrantsActivityChart = ({
                     ticks={xTicks}
                     scale={xScale}
                     line />
-                {xScale && <VerticalLine
+                {/* These will be removed in the next PR {xScale && <VerticalLine
                     xScale={xScale}
                     y1={-10}
                     y2={height}
@@ -294,7 +294,7 @@ const ContractGrantsActivityChart = ({
                     xValue={xDomain[1]}
                     showTextPosition="top"
                     width={visualizationWidth}
-                    adjustmentX={padding.left} />}
+                    adjustmentX={padding.left} />} */}
             </g>
         </svg>
     );
