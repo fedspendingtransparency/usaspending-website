@@ -48,13 +48,13 @@ export default class VerticalLine extends Component {
         window.removeEventListener('resize', this.handleWindowResize);
     }
     // since we set the position of the text we need to update it on window resize
-    handleWindowResize = () => {
+    handleWindowResize = throttle(() => {
         const windowWidth = window.innerWidth;
         if (this.state.windowWidth !== windowWidth) {
             this.setState({ windowWidth });
             this.positionText();
         }
-    }
+    })
 
     positionText = () => {
         const {
