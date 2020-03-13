@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { throttle } from 'lodash';
+import { throttle } from 'lodash';
 
 const propTypes = {
     xScale: PropTypes.func, // function to set line position
@@ -18,8 +18,7 @@ const propTypes = {
     showTextPosition: PropTypes.string, // show text left, right, and top are valid
     textY: PropTypes.number, // show text at this height
     description: PropTypes.string,
-    adjustmentX: PropTypes.number, // adjust x for padding
-    width: PropTypes.number // if the window width changes re-position text
+    adjustmentX: PropTypes.number // adjust x for padding
 };
 
 export default class VerticalLine extends Component {
@@ -41,32 +40,23 @@ export default class VerticalLine extends Component {
     }
 
     componentDidMount() {
-        this.positionText();
+        this.handleWindowResize();
+        window.addEventListener('resize', this.handleWindowResize);
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.width !== this.props.width) this.positionText();
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleWindowResize);
     }
-
-    // componentDidMount() {
-    //     this.handleWindowResize();
-    //     window.addEventListener('resize', this.handleWindowResize);
-    // }
-
-    // componentWillUnmount() {
-    //     window.removeEventListener('resize', this.handleWindowResize);
-    // }
     // since we set the position of the text we need to update it on window resize
-    // handleWindowResize = () => {
-    //     const windowWidth = window.innerWidth;
-    //     if (this.state.windowWidth !== windowWidth) {
-    //         this.setState({ windowWidth });
-    //         this.positionText();
-    //     }
-    // }
+    handleWindowResize = () => {
+        const windowWidth = window.innerWidth;
+        if (this.state.windowWidth !== windowWidth) {
+            this.setState({ windowWidth });
+            this.positionText();
+        }
+    }
 
     positionText = () => {
-        console.log(' Position Line ');
         const {
             xScale,
             xValue,
@@ -74,15 +64,12 @@ export default class VerticalLine extends Component {
             textY,
             adjustmentX
         } = this.props;
-        console.log(' XScale : ', xScale(xValue));
-        console.log(' X Value : ', xValue);
         let positionX = xScale(xValue || Date.now()) + (adjustmentX || 0);
         let modifiedTextY = textY;
         // the text div starts null since React only calls the callback ref function
         // when the DOM draws the element, without this you will get an error since
         // we will be call properties on null
         if (this.textDiv) {
-            console.log(' Text Div : ', positionX);
             const textDivDimensions = this.textDiv.getBoundingClientRect();
             const width = textDivDimensions.width;
             if (showTextPosition === 'left') positionX -= (width + 4);
