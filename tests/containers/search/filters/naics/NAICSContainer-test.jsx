@@ -137,7 +137,7 @@ describe('NAICS Search Filter Container', () => {
         it('decrements count of stagedFilter one of many children/grandchildren is unchecked', async () => {
             const container = shallow(<NAICSContainer {...defaultProps} nodes={reallyBigTree} />);
             await container.setState({ stagedNaicsFilters: [{ value: '11', count: '8', label: 'test' }] });
-            
+
             const uncheckedNode = { value: '111110', count: 1, label: 'test' };
             await container.instance().onUncheck([], uncheckedNode);
 
@@ -154,11 +154,43 @@ describe('NAICS Search Filter Container', () => {
                 setUnchecked={setUnchecked}
                 checked={["children_of_11"]}
                 nodes={reallyBigTree} />);
-           
+
             const uncheckedNode = { value: '111110', count: 1, label: 'test' };
             await container.instance().onUncheck(["children_of_11"], uncheckedNode);
 
             expect(setUnchecked).toHaveBeenCalledWith([uncheckedNode.value]);
+        });
+    });
+    describe('removeFromUnchecked', async () => {
+        it('removes items from unchecked array when all immediate children are checked', () => {
+            // ie, 1111 is unchecked, then all grand children underneath are checked.
+            const allGrandchildren = reallyBigTree[0].children[0].children
+                .map((grand) => grand.value);
+            const lastGrandChild = allGrandchildren[allGrandchildren.length - 1];
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                checked={allGrandchildren.splice(0, allGrandchildren.length - 1)}
+                unchecked={["1111"]}
+                nodes={reallyBigTree} />);
+
+            const result = container.instance().removeFromUnchecked(lastGrandChild);
+
+            expect(result).toEqual("1111");
+        });
+        it('does NOT remove from unchecked array when less than all immediate children are checked', () => {
+            // ie, 1111 is unchecked, then all but one grandchild underneath is checked.
+            const allGrandchildren = reallyBigTree[0].children[0].children
+                .map((grand) => grand.value);
+            const lastGrandChild = allGrandchildren[allGrandchildren.length - 1];
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                checked={allGrandchildren.splice(0, allGrandchildren.length - 2)}
+                unchecked={["1111"]}
+                nodes={reallyBigTree} />);
+
+            const result = container.instance().removeFromUnchecked(lastGrandChild);
+
+            expect(result).toEqual(null);
         });
     });
 });
