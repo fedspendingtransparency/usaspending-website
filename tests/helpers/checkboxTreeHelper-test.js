@@ -49,21 +49,21 @@ describe('checkboxTree Helpers', () => {
             expect(visibleNodes.length).toEqual(1);
             expect(visibleNodes[0].naics_description).toEqual('Soybean Farming');
         });
-        it('removes placeholder children / grandchildren for nodes with all children / grandchildren', () => {
+        it('removes placeholder grandchildren for nodes with all grandchildren', () => {
             const existingNodes = mockData.placeholderNodes;
             const searchResult = addSearchResultsToTree(existingNodes, [mockData.reallyBigTree[0]]);
-            const grandChildrenFromSearch = searchResult
-                .find((node) => node.value === '11')
-                .children[0].children;
             const childrenFromSearch = searchResult
                 .find((node) => node.value === '11')
                 .children;
+
+            // 1111's children
+            const grandChildrenFromSearch = childrenFromSearch
+                .find((node) => node.value === '1111')
+                .children;
             const grandChildrenWithPlaceholder = grandChildrenFromSearch
                 .filter((node) => node.isPlaceHolder);
-            const childrenWithPlaceholder = childrenFromSearch
-                .filter((node) => node.isPlaceHolder);
+
             expect(grandChildrenWithPlaceholder.length).toEqual(0);
-            expect(childrenWithPlaceholder.length).toEqual(0);
         });
         it('keeps placeholder children/grandchildren for nodes without all children', () => {
             const existingNodes = mockData.treeWithPlaceholdersAndRealData;

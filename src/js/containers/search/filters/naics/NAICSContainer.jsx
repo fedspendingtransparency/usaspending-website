@@ -13,13 +13,19 @@ import {
     difference
 } from 'lodash';
 import { isCancel } from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { naicsRequest } from 'helpers/naicsHelper';
+import {
+    expandAllNodes,
+    getNodeFromTree,
+    getImmediateAncestorNaicsCode,
+    getHighestAncestorNaicsCode,
+    getCountOfAllCheckedDescendants,
+    removePlaceholderString
+} from 'helpers/checkboxTreeHelper';
 
-import { expandAllNodes, getNodeFromTree, getImmediateAncestorNaicsCode, getHighestAncestorNaicsCode } from 'helpers/checkboxTreeHelper';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-// used for SearchOperation.js in API Integration.
-import { updateNaics } from 'redux/actions/search/searchFilterActions';
+import { updateNaicsV2 } from 'redux/actions/search/searchFilterActions';
 import { setNaics, setExpanded, setChecked, setSearchedNaics, addChecked, showNaicsTree, setUnchecked } from 'redux/actions/search/naicsActions';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
@@ -27,7 +33,7 @@ import { EntityDropdownAutocomplete } from 'components/search/filters/location/E
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 const propTypes = {
-    updateNaics: PropTypes.func,
+    stageNaics: PropTypes.func,
     setNaics: PropTypes.func,
     setExpanded: PropTypes.func,
     setChecked: PropTypes.func,
@@ -80,7 +86,6 @@ export class NAICSContainer extends React.Component {
 
     onCheck = async (checkedNodes, node) => {
         this.updateCountOfSelectedTopTierNaicsCodes(checkedNodes, node);
-        this.props.updateNaics(checkedNodes);
         if (this.hint) {
             this.hint.showHint();
         }
@@ -92,30 +97,42 @@ export class NAICSContainer extends React.Component {
         const { value } = node;
         const countOfUncheckedNode = getNodeFromTree(nodes, value).count || 1;
         const parentKey = getHighestAncestorNaicsCode(value);
+        const ancestorKey = getImmediateAncestorNaicsCode(value);
         const shouldRemoveNode = stagedNaicsFilters.some((selectedNode) => (
             !node.checked &&
             selectedNode.value === parentKey &&
             selectedNode.count <= countOfUncheckedNode
         ));
+        let newStagedFilterState;
         if (shouldRemoveNode) {
-            this.setState({
-                stagedNaicsFilters: stagedNaicsFilters.filter((selectedNode) => selectedNode.value !== parentKey)
-            });
+            newStagedFilterState = stagedNaicsFilters.filter((selectedNode) => selectedNode.value !== parentKey);
         }
         else {
-            this.setState({
-                stagedNaicsFilters: stagedNaicsFilters.map((selectedNode) => {
-                    const newCount = selectedNode.count - countOfUncheckedNode;
-                    if (selectedNode.value === parentKey) {
-                        return { ...selectedNode, count: newCount };
-                    }
-                    return selectedNode;
-                })
+            newStagedFilterState = stagedNaicsFilters.map((selectedNode) => {
+                const newCount = selectedNode.count - countOfUncheckedNode;
+                if (selectedNode.value === parentKey) {
+                    return { ...selectedNode, count: newCount };
+                }
+                return selectedNode;
             });
         }
-        this.props.setUnchecked([...this.props.unchecked, value]);
+        // we only update the unchecked array if an ancestor is checked
+        const shouldUpdateUnchecked = (
+            checked.includes(parentKey) ||
+            checked.includes(`children_of_${parentKey}`) ||
+            checked.includes(ancestorKey) ||
+            checked.includes(`children_of_${ancestorKey}`)
+        );
+
+        const newUnchecked = shouldUpdateUnchecked
+            ? [...this.props.unchecked, value]
+            : this.props.unchecked;
+        if (shouldUpdateUnchecked) this.props.setUnchecked(newUnchecked);
+
+        this.props.stageNaics(checked, newUnchecked, newStagedFilterState);
         this.props.setChecked(checked);
-        this.props.updateNaics(checked);
+
+        this.setState({ stagedNaicsFilters: newStagedFilterState });
     }
 
     onExpand = (value, expanded, fetch) => {
@@ -159,33 +176,49 @@ export class NAICSContainer extends React.Component {
     };
 
     removeFromUnchecked = (checkedCode, unchecked = this.props.unchecked) => {
+        // we only want to remove from unchecked if...
         const key = checkedCode.includes('children_of_')
             ? checkedCode.split('children_of_')[1]
             : checkedCode;
         const ancestorKey = getImmediateAncestorNaicsCode(key);
         const parentKey = getHighestAncestorNaicsCode(key);
+        const parentNode = getNodeFromTree(this.props.nodes, parentKey);
+        const ancestorNode = getNodeFromTree(this.props.nodes, ancestorKey);
+        const { count } = getNodeFromTree(this.props.nodes, key);
         const uncheckedCodeToBeRemoved = unchecked
             .reduce((acc, uncheckedCode) => {
                 if (uncheckedCode === checkedCode) {
+                    // (a) the unchecked array has the code/placeholder code we're currently checking.
                     return checkedCode;
                 }
                 if (uncheckedCode === key) {
+                    // (a) applies here too.
                     return key;
                 }
                 if (uncheckedCode === parentKey) {
-                    return parentKey;
+                    // (b) an ancestor of the code we're currently checking is in the unchecked array
+                    // AND the checked array has the other ancestors too.
+                    const countOfCheckedNode = count === 0 ? 1 : count;
+                    const countOfCheckedAncestors = getCountOfAllCheckedDescendants(this.props.nodes, parentKey, this.props.checked);
+                    if ((countOfCheckedAncestors + countOfCheckedNode) === parentNode.count) {
+                        return parentKey;
+                    }
                 }
                 if (uncheckedCode === ancestorKey) {
-                    return ancestorKey;
+                    // (b) applies here too
+                    const countOfCheckedNode = count === 0 ? 1 : count;
+                    const countOfCheckedAncestors = getCountOfAllCheckedDescendants(this.props.nodes, ancestorKey, this.props.checked);
+                    if ((countOfCheckedAncestors + countOfCheckedNode) === ancestorNode.count) {
+                        return ancestorKey;
+                    }
                 }
                 return acc;
             }, null);
 
         if (uncheckedCodeToBeRemoved) {
-            const newUnchecked = unchecked
-                .filter((node) => node !== uncheckedCodeToBeRemoved);
-            this.props.setUnchecked(newUnchecked);
+            return uncheckedCodeToBeRemoved;
         }
+        return null;
     }
 
     updateCountOfSelectedTopTierNaicsCodes = (checked = []) => {
@@ -217,6 +250,8 @@ export class NAICSContainer extends React.Component {
                 }
             });
 
+        const codesToBeRemovedFromUnchecked = [];
+
         const parentNaicsWithCounts = [...new Set([...newChecked])]
             .reduce((newState, code) => {
                 const isPlaceholder = code.includes('children_of_');
@@ -225,7 +260,11 @@ export class NAICSContainer extends React.Component {
                     : code;
                 const parentKey = getHighestAncestorNaicsCode(key);
 
-                this.removeFromUnchecked(code);
+                // may need to remove this node or an ancestor node from the unchecked array
+                const shouldCodeBeRemoved = this.removeFromUnchecked(code);
+                if (shouldCodeBeRemoved) {
+                    codesToBeRemovedFromUnchecked.push(shouldCodeBeRemoved);
+                }
 
                 const currentNode = getNodeFromTree(nodes, key);
                 const parentNode = getNodeFromTree(nodes, parentKey);
@@ -257,16 +296,21 @@ export class NAICSContainer extends React.Component {
                 return newState;
             }, [...this.state.stagedNaicsFilters]);
 
+        const newUnchecked = this.props.unchecked
+            .filter((uncheckedNode) => {
+                if (codesToBeRemovedFromUnchecked.includes(uncheckedNode)) return false;
+                return true;
+            });
+
         this.setState({ stagedNaicsFilters: parentNaicsWithCounts });
         this.props.setChecked(checked);
+        this.props.setUnchecked(newUnchecked);
+        this.props.stageNaics(checked, newUnchecked, parentNaicsWithCounts);
     }
 
     removeSelectedFilter = (node) => {
         const newChecked = this.props.checked
-            .map((checked) => {
-                if (checked.includes('children_of_')) return checked.split('children_of_')[1];
-                return checked;
-            })
+            .map((checked) => removePlaceholderString(checked))
             .filter((checked) => `${checked[0]}${checked[1]}` !== node.value);
 
         this.onUncheck(newChecked, { ...node, checked: false });
@@ -376,7 +420,7 @@ export class NAICSContainer extends React.Component {
             });
         }
         catch (e) {
-            console.log(' Error NAICS Reponse : ', e);
+            console.log('Error NAICS Reponse : ', e);
             if (!isCancel(e)) {
                 this.setState({
                     isError: true,
@@ -529,7 +573,7 @@ export default connect(
         unchecked: state.naics.unchecked.toJS()
     }),
     (dispatch) => ({
-        updateNaics: (checked) => dispatch(updateNaics(checked)),
+        stageNaics: (checked, unchecked, counts) => dispatch(updateNaicsV2(checked, unchecked, counts)),
         setNaics: (key, naics) => dispatch(setNaics(key, naics)),
         setExpanded: (expanded, type) => dispatch(setExpanded(expanded, type)),
         setChecked: (checkedNodes) => dispatch(setChecked(checkedNodes)),

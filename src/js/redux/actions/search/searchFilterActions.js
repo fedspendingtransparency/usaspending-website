@@ -3,6 +3,8 @@
   * Created by Kevin Li 11/1/16
   **/
 
+import { removePlaceholderString } from "helpers/checkboxTreeHelper";
+
 // Keyword Filter
 export const updateTextSearchInput = (textInput) => ({
     type: 'UPDATE_TEXT_SEARCH',
@@ -133,16 +135,11 @@ export const updateSelectedCFDA = (state) => ({
 });
 
 // NAICS Filter
-export const updateNaicsV2 = (checked, unchecked, counts) => ({
+export const updateNaicsV2 = (included, excluded, counts) => ({
     type: 'UPDATE_NAICS_V2',
     payload: {
-        unchecked,
-        checked: checked.map((code) => {
-            if (code.includes('children_of_')) {
-                return code.split('children_of_')[1];
-            }
-            return code;
-        }),
+        excluded,
+        included: included.map((code) => removePlaceholderString(code)),
         counts
     }
 });

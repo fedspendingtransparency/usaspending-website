@@ -3,7 +3,6 @@
   * Created by Jonathan Hill 10/01/2019
 **/
 
-
 const getChildren = (node) => {
     if (!node.children && node.naics.length <= 4) {
         return {
@@ -76,6 +75,22 @@ export const getNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
     return null;
 };
 
+export const removePlaceholderString = (str) => {
+    if (str.includes('children_of_')) return str.split('children_of_')[1];
+    return str;
+};
+
+export const getCountOfAllCheckedDescendants = (nodes, ancestorKey, checkedNodes) => checkedNodes
+    .map((checked) => removePlaceholderString(checked))
+    .filter((checkedNode) => checkedNode.includes(ancestorKey))
+    .reduce((ancestorCount, checkedAncestor) => {
+        const nodeCount = getNodeFromTree(nodes, checkedAncestor).count;
+        if (nodeCount === 0) {
+            return ancestorCount + 1;
+        }
+        return ancestorCount + nodeCount;
+    }, 0);
+
 export const expandAllNodes = (nodes, propForNode = 'value') => {
     const getValue = (acc, node) => {
         acc.push(node[propForNode]);
@@ -99,7 +114,7 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
             .children
             .filter((node) => {
                 const childFromSearch = getNodeFromTree(parentFromSearch.children, node.value);
-                if (node.isPlaceHolder && node.count === childFromSearch?.children.length) {
+                if (node.isPlaceHolder && childFromSearch && childFromSearch.count === childFromSearch?.children.length) {
                     return false;
                 }
                 return true;
