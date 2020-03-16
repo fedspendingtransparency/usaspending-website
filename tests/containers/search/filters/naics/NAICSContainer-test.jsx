@@ -143,5 +143,22 @@ describe('NAICS Search Filter Container', () => {
 
             expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(7);
         });
+        it('updates the unchecked array when ancestor is checked and descendant is unchecked', async () => {
+            // currently, this only happens in search.
+            // This is because...
+            // In the expand/collapse view, when you check a parent and expand to its children
+            // the checkbox tree removes the parent from checked, and adds all the immediate children of the expanded node
+            const setUnchecked = jest.fn();
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                setUnchecked={setUnchecked}
+                checked={["children_of_11"]}
+                nodes={reallyBigTree} />);
+           
+            const uncheckedNode = { value: '111110', count: 1, label: 'test' };
+            await container.instance().onUncheck(["children_of_11"], uncheckedNode);
+
+            expect(setUnchecked).toHaveBeenCalledWith([uncheckedNode.value]);
+        });
     });
 });

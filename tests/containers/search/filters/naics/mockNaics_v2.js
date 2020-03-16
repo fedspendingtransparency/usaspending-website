@@ -461,7 +461,7 @@ export const defaultProps = {
     unchecked: [],
     nodes: placeholderNodes,
     searchExpanded: [],
-    updateNaics: () => {},
+    stageNaics: () => {},
     setNaics: () => {},
     setExpanded: () => {},
     setChecked: () => {},
