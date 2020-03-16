@@ -38,6 +38,7 @@ class SearchAwardsOperation {
 
         this.selectedCFDA = [];
         this.selectedNAICS = [];
+        this.naics_v2 = { checked: [], unchecked: [] };
         this.selectedPSC = [];
 
         this.pricingType = [];
@@ -78,6 +79,7 @@ class SearchAwardsOperation {
 
         this.selectedCFDA = state.selectedCFDA.toArray();
         this.selectedNAICS = state.selectedNAICS.toArray();
+        this.naics_v2 = { checked: state.naics_v2.checked, unchecked: state.naics_v2.unchecked };
         this.selectedPSC = state.selectedPSC.toArray();
 
         this.pricingType = state.pricingType.toArray();
@@ -269,6 +271,11 @@ class SearchAwardsOperation {
         // Add NAICS
         if (this.selectedNAICS.length > 0) {
             filters[rootKeys.naics] = this.selectedNAICS.map((naics) => naics.naics);
+        }
+
+        // NAICS v2
+        if (this.naics_v2.checked.length > 0) {
+            filters[rootKeys.naics_v2] = this.naics_v2;
         }
 
         // Add PSC

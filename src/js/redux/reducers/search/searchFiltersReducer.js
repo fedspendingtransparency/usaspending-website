@@ -62,6 +62,7 @@ export const initialState = {
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
     selectedNAICS: new OrderedMap(),
+    naics_v2: { checked: [], excluded: [] },
     selectedPSC: new OrderedMap(),
     pricingType: new Set(),
     setAside: new Set(),
@@ -210,18 +211,21 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
-        // NAICS Filter (v2)
-        case 'UPDATE_NAICS': {
-            return Object.assign({}, state, {
-                naics: OtherFilterFunctions.updateNaics(action.naics)
-            });
-        }
-
         // NAICS Filter
         case 'UPDATE_SELECTED_NAICS': {
             return Object.assign({}, state, {
                 selectedNAICS: OtherFilterFunctions.updateSelectedNAICS(
                     state.selectedNAICS, action.naics)
+            });
+        }
+
+        // NAICS_V2 Filter
+        case 'UPDATE_NAICS_V2': {
+            return Object.assign({}, state, {
+                naics_v2: {
+                    ...state.naics_v2,
+                    ...action.payload
+                }
             });
         }
 

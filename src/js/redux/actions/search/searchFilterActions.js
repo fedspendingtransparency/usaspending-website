@@ -133,15 +133,20 @@ export const updateSelectedCFDA = (state) => ({
 });
 
 // NAICS Filter
-export const updateNaics = (naics) => ({
-    type: 'UPDATE_NAICS',
-    naics: naics.map((code) => {
-        if (code.includes('children_of_')) {
-            return code.split('children_of_')[1];
-        }
-        return code;
-    })
+export const updateNaicsV2 = (checked, unchecked, counts) => ({
+    type: 'UPDATE_NAICS_V2',
+    payload: {
+        unchecked,
+        checked: checked.map((code) => {
+            if (code.includes('children_of_')) {
+                return code.split('children_of_')[1];
+            }
+            return code;
+        }),
+        counts
+    }
 });
+
 export const updateSelectedNAICS = (state) => ({
     type: 'UPDATE_SELECTED_NAICS',
     naics: state.naics

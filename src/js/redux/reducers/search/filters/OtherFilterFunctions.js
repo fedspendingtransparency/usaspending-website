@@ -2,8 +2,6 @@
  * Created by Emily Gullo 07/18/2017
  */
 
-import { List } from 'immutable';
-
 export const updateSelectedCFDA = (state, value) => {
     let updatedSet = state;
 
@@ -21,13 +19,6 @@ export const updateSelectedCFDA = (state, value) => {
 
     return updatedSet;
 };
-/**
- * updateNaics v2
- * - sets naics property in redux
- * @param {*[]} checked - new naics checked array
- * @returns {object} - new state object
- */
-export const updateNaics = (checked) => new List(checked);
 
 export const updateSelectedNAICS = (state, value) => {
     let updatedSet = state;
