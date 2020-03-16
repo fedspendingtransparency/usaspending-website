@@ -79,11 +79,17 @@
       &.start {
         stroke: $color-green;
       }
+      &.end {
+        stroke: $color-gold;
+      }
     }
     .vertical-line__text {
       font-weight: $font-semibold;
       &.start {
           fill: $color-green;
+      }
+      &.end {
+          fill: $color-gold;
       }
     }
   }

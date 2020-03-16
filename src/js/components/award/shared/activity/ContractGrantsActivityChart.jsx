@@ -269,7 +269,8 @@ const ContractGrantsActivityChart = ({
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
-
+    // text for end line
+    const endLineText = awardType === 'grant' ? 'End' : ['Current', 'End'];
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -318,6 +319,20 @@ const ContractGrantsActivityChart = ({
                     adjustmentX={padding.left}
                     textClassname="vertical-line__text today"
                     lineClassname="vertical-line today" />}
+                {/* end line */}
+                {xScale && <VerticalLine
+                    xScale={xScale}
+                    y1={-10}
+                    y2={height}
+                    textY={0}
+                    text={endLineText}
+                    xMax={xDomain[1]}
+                    xMin={xDomain[0]}
+                    xValue={dates._endDate.valueOf()}
+                    showTextPosition="left"
+                    adjustmentX={padding.left}
+                    textClassname="vertical-line__text end"
+                    lineClassname="vertical-line end" />}
             </g>
         </svg>
     );

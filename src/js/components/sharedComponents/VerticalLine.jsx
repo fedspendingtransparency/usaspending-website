@@ -31,17 +31,17 @@ export default class VerticalLine extends Component {
         super(props);
 
         this.state = {
-            textX: 0,
-            textY: props.textY,
             windowWidth: null
         };
-        // this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-        this.textDiv = null;
         // React will call this function when the DOM draws it ( React Callback Refs )
-        this.setTextDiv = (element) => {
-            this.textDiv = element;
-            this.positionText();
-        };
+        const textArray = Array.isArray(props.text) ? props.text : [props.text];
+        textArray.forEach((text) => {
+            this[`textDiv${text}`] = null;
+            this[`setTextDiv${text}`] = (element) => {
+                this[`textDiv${text}`] = element;
+                this.positionText(text);
+            };
+        });
     }
 
     componentDidMount() {
@@ -57,11 +57,13 @@ export default class VerticalLine extends Component {
         const windowWidth = window.innerWidth;
         if (this.state.windowWidth !== windowWidth) {
             this.setState({ windowWidth });
-            this.positionText();
+            const { text } = this.props;
+            const textArray = Array.isArray(text) ? text : [text];
+            textArray.forEach((data) => this.positionText(data));
         }
     })
 
-    positionText = () => {
+    positionText = (text) => {
         const {
             xScale,
             xValue,
@@ -74,9 +76,10 @@ export default class VerticalLine extends Component {
         // the text div starts null since React only calls the callback ref function
         // when the DOM draws the element, without this you will get an error since
         // we will be call properties on null
-        if (this.textDiv) {
-            const isSecondWord = this.textDiv.getAttributeNames().includes('data-second');
-            const textDivDimensions = this.textDiv.getBoundingClientRect();
+        const textDiv = this[`textDiv${text}`];
+        if (textDiv) {
+            const wordIndex = textDiv.getAttribute('data-wordindex');
+            const textDivDimensions = textDiv.getBoundingClientRect();
             const width = textDivDimensions.width;
             if (showTextPosition === 'left') positionX -= (width + 4);
             if (showTextPosition === 'right') positionX += 4;
@@ -84,11 +87,11 @@ export default class VerticalLine extends Component {
                 modifiedTextY -= 15;
                 positionX -= (width / 2);
             }
-            if (isSecondWord) {
-                modifiedTextY += textDivDimensions.height;
+            if (wordIndex !== '0') {
+                modifiedTextY += (textDivDimensions.height * (parseInt(wordIndex, 10)));
             }
         }
-        this.setState({ textX: positionX, textY: modifiedTextY });
+        this.setState({ [`${text}TextX`]: positionX, [`${text}TextY`]: modifiedTextY });
     }
 
     verticalLine = () => {
@@ -121,30 +124,18 @@ export default class VerticalLine extends Component {
     text = (lineIsDisplayed) => {
         const { text, textClassname } = this.props;
         if (!lineIsDisplayed || !text) return null;
-        if (Array.isArray(text)) {
-            return text.map((data, i) => {
-                const isSecondWord = i > 0;
-                return (
-                    <text
-                        className={textClassname || "vertical-line__text"}
-                        x={this.state.textX}
-                        y={this.state.textY}
-                        ref={this.setTextDiv}
-                        data-second={isSecondWord}>
-                        {text}
-                    </text>
-                );
-            });
-        }
-        return (
+        const textArray = Array.isArray(text) ? text : [text];
+        return textArray.map((data, i) => (
             <text
+                key={data}
                 className={textClassname || "vertical-line__text"}
-                x={this.state.textX}
-                y={this.state.textY}
-                ref={this.setTextDiv}>
-                {text}
+                x={this.state[`${data}TextX`]}
+                y={this.state[`${data}TextY`]}
+                ref={this[`setTextDiv${data}`]}
+                data-wordindex={i}>
+                {data}
             </text>
-        );
+        ));
     }
 
     render() {
