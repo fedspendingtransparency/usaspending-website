@@ -82,7 +82,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
     // Get all transactions ascending
     const getTransactions = useCallback(() => {
         const asyncFunc = async () => {
-            if (request.current) request.cancel();
+            if (request.current) request.current.cancel();
             setLoading(true);
             const params = {
                 award_id: awardId,

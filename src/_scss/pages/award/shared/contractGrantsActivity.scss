@@ -82,14 +82,20 @@
       &.end {
         stroke: $color-gold;
       }
+      &.potential-end {
+        stroke: $color-secondary-darkest;
+      }
     }
     .vertical-line__text {
       font-weight: $font-semibold;
       &.start {
-          fill: $color-green;
+        fill: $color-green;
       }
       &.end {
-          fill: $color-gold;
+        fill: $color-gold;
+      }
+      &.potential-end {
+        fill: $color-secondary-darkest;
       }
     }
   }

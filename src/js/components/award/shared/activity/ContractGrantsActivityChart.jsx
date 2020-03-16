@@ -77,12 +77,13 @@ const ContractGrantsActivityChart = ({
         const clonedTransactions = cloneDeep(transactions);
         clonedTransactions.sort(
             (a, b) => a.federal_action_obligation - b.federal_action_obligation);
-        setYDomain(
-            [
-                clonedTransactions[0].federal_action_obligation,
-                clonedTransactions[clonedTransactions.length - 1].federal_action_obligation
-            ]
-        );
+        const yZero = clonedTransactions.length > 1 ?
+            clonedTransactions[0].federal_action_obligation :
+            0;
+        const yOne = !clonedTransactions.length ?
+            0 :
+            clonedTransactions.pop().federal_action_obligation;
+        setYDomain([yZero, yOne]);
     }, [transactions]);
     // hook - runs only on mount unless transactions change
     useEffect(() => {
@@ -271,6 +272,10 @@ const ContractGrantsActivityChart = ({
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
     // text for end line
     const endLineText = awardType === 'grant' ? 'End' : ['Current', 'End'];
+    // date for end line
+    const dateEndLine = dates?._endDate?.valueOf();
+    // date for potential end line
+    const datePotentialEndLine = dates?._potentialEndDate?.valueOf();
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -320,7 +325,7 @@ const ContractGrantsActivityChart = ({
                     textClassname="vertical-line__text today"
                     lineClassname="vertical-line today" />}
                 {/* end line */}
-                {xScale && <VerticalLine
+                {xScale && dateEndLine && <VerticalLine
                     xScale={xScale}
                     y1={-10}
                     y2={height}
@@ -328,11 +333,25 @@ const ContractGrantsActivityChart = ({
                     text={endLineText}
                     xMax={xDomain[1]}
                     xMin={xDomain[0]}
-                    xValue={dates._endDate.valueOf()}
+                    xValue={dateEndLine}
                     showTextPosition="left"
                     adjustmentX={padding.left}
                     textClassname="vertical-line__text end"
                     lineClassname="vertical-line end" />}
+                {/* potential end line */}
+                {xScale && datePotentialEndLine && <VerticalLine
+                    xScale={xScale}
+                    y1={-10}
+                    y2={height}
+                    textY={0}
+                    text={['Potential', 'End']}
+                    xMax={xDomain[1]}
+                    xMin={xDomain[0]}
+                    xValue={datePotentialEndLine}
+                    showTextPosition="left"
+                    adjustmentX={padding.left}
+                    textClassname="vertical-line__text potential-end"
+                    lineClassname="vertical-line potential-end" />}
             </g>
         </svg>
     );
