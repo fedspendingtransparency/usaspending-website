@@ -19,7 +19,15 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
 
-export const filterStoreVersion = '2019-07-26';
+// export const filterStoreVersion = '2019-07-26';
+export const filterStoreVersion = '2017-11-21';
+
+function NaicsCodes(data = { included: [], excluded: [], counts: [] }) {
+    console.log("HEY GUYZ DATA", data);
+    this.included = data.included;
+    this.excluded = data.excluded;
+    this.counts = data.counts || [];
+}
 
 export const requiredTypes = {
     keyword: OrderedMap,
@@ -35,7 +43,7 @@ export const requiredTypes = {
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
     selectedNAICS: OrderedMap,
-    naics_codes: { included: [], excluded: [], counts: [] },
+    naics_codes: NaicsCodes,
     selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
@@ -63,7 +71,7 @@ export const initialState = {
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
     selectedNAICS: new OrderedMap(),
-    naics_codes: { included: [], excluded: [], counts: [] },
+    naics_codes: new NaicsCodes(),
     selectedPSC: new OrderedMap(),
     pricingType: new Set(),
     setAside: new Set(),

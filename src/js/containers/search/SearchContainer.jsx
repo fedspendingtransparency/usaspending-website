@@ -235,7 +235,6 @@ export class SearchContainer extends React.Component {
             }
         });
 
-
         // apply the filters to both the staged and applied stores
         this.props.restoreHashedFilters(reduxValues);
 
