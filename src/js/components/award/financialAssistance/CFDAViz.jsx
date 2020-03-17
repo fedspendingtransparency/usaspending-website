@@ -23,7 +23,8 @@ const propTypes = {
     view: PropTypes.string,
     changePage: PropTypes.func,
     updateSort: PropTypes.func,
-    changeView: PropTypes.func
+    changeView: PropTypes.func,
+    onClick: PropTypes.func
 };
 
 export default class CFDAViz extends React.Component {
@@ -86,25 +87,28 @@ export default class CFDAViz extends React.Component {
         return (
             <div className="cfda-section__viz">
                 {/* {this.state.showTooltip && <FederalAccountsTreeTooltip {...this.state.tooltip} />} */}
-                <div className="federal-accounts-results">
-                    <div className="view-buttons">
-                        <ViewTypeButton
-                            value="table"
-                            label="Table"
-                            icon="table"
-                            changeView={this.props.changeView}
-                            active={!isTreeView} />
-                        <ViewTypeButton
-                            disabled
-                            value="tree"
-                            label="Treemap"
-                            icon="th-large"
-                            changeView={this.props.changeView}
-                            active={isTreeView} />
+                <div className="cfda-section-results">
+                    <div className="view-buttons-section">
+                        <div className="view-buttons-section__text">Click on a program title to see its details.</div>
+                        <div className="view-buttons-section__buttons">
+                            <ViewTypeButton
+                                value="table"
+                                label="Table"
+                                icon="table"
+                                changeView={this.props.changeView}
+                                active={!isTreeView} />
+                            <ViewTypeButton
+                                disabled
+                                value="tree"
+                                label="Treemap"
+                                icon="th-large"
+                                changeView={this.props.changeView}
+                                active={isTreeView} />
+                        </div>
                     </div>
                     {!isTreeView && <CFDATable {...this.props} />}
                     <div
-                        className="federal-accounts-vis__width-reference"
+                        className="cfda-section-vis__width-reference"
                         ref={(div) => {
                             this.widthRef = div;
                         }} />

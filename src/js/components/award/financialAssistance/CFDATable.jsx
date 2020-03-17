@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { map, uniqueId } from 'lodash';
 import { Pagination } from 'data-transparency-ui';
 
-import tableMapping from 'dataMapping/awards/federalAccountSectionTable';
+import tableMapping from 'dataMapping/awards/cfdaSectionTable';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
@@ -22,6 +22,7 @@ const propTypes = {
     total: PropTypes.number,
     cfdas: PropTypes.array,
     changePage: PropTypes.func,
+    onClick: PropTypes.func,
     updateSort: PropTypes.func,
     inFlight: PropTypes.bool,
     error: PropTypes.bool
@@ -31,7 +32,7 @@ export default class CFDATable extends React.Component {
     getHeaders() {
         const { sort, order, updateSort } = this.props;
         return map(tableMapping, (header) => (
-            <th className="federal-accounts-table__head-cell" key={header.displayName}>
+            <th className="cfda-section-table__head-cell" key={header.displayName}>
                 <div className="header-cell">
                     <div className="header-cell__text">
                         <div className="header-cell__title">
@@ -49,24 +50,17 @@ export default class CFDATable extends React.Component {
     }
 
     getRows() {
-        return this.props.cfdas.map((account) => (
+        return this.props.cfdas.map((cfda) => (
             <tr
-                className="federal-accounts-table__body-row"
+                className="cfda-section-table__body-row"
                 key={`row-${uniqueId()}`}>
                 {map(tableMapping, (header, key) => {
-                    let cellData = account[key];
-                    if (key === 'federalAccountName') {
+                    let cellData = cfda[key];
+                    if (key === 'cfda_title') {
                         cellData = (
-                            <a href={`${header.href}${account.federalAccount}`}>
-                                {account[key]}
-                            </a>
-                        );
-                    }
-                    else if (key === 'fundingAgencyName') {
-                        cellData = (
-                            <a href={`${header.href}${account._fundingAgencyId}`}>
-                                {`(${account._fundingAgencyAbbreviation}) ${account[key]}`}
-                            </a>
+                            <button className="award-viz__button" onClick={this.props.onClick}>
+                                {cfda[key]}
+                            </button>
                         );
                     }
                     return (
@@ -84,10 +78,10 @@ export default class CFDATable extends React.Component {
     renderTable() {
         if ((this.props.cfdas.length > 0) && !this.props.error && !this.props.inFlight) {
             return (
-                <div className="federal-accounts-table-renderer">
-                    <table className="federal-accounts-table">
-                        <thead className="federal-accounts-table__head">
-                            <tr className="federal-accounts-table__head-row">
+                <div className="cfda-section-table-renderer">
+                    <table className="cfda-section-table">
+                        <thead className="cfda-section-table__head">
+                            <tr className="cfda-section-table__head-row">
                                 {this.getHeaders()}
                             </tr>
                         </thead>
@@ -103,6 +97,7 @@ export default class CFDATable extends React.Component {
 
     render() {
         const { inFlight, error, cfdas } = this.props;
+        console.log(' CFDAS : ', cfdas);
         let loadingMessage = null;
         let errorMessage = null;
         let noResultsMessage = null;
@@ -131,7 +126,7 @@ export default class CFDATable extends React.Component {
         }
 
         return (
-            <div className="federal-accounts-table-holder">
+            <div className="cfda-section-table-holder">
                 <div className="results-table-message-container">
                     {loadingMessage}
                     {errorMessage}

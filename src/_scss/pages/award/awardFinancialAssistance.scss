@@ -23,8 +23,6 @@
                     margin: 0;
                 }
             }
-            
-            // .cfda-section {
               width: 100%;
               .visualization-tooltip {
                 @import "components/visualizations/tooltip/_tooltip";
@@ -100,28 +98,38 @@
             }
               .cfda-section__viz {
                 width: 100%;
-                .view-buttons {
-                  @include viewTypeButton();
-                  text-align: right;
-                  .view-button {
-                    margin-top: 0;
-                    &.active {
-                      background-color: $color-primary;
-                      border-color: $color-primary;
+                .view-buttons-section {
+                  display: flex;
+                  flex-wrap: wrap;
+                  .view-buttons-section__text {
+                      flex-grow: 1;
+                      font-size: 1.4rem;
+                      padding: 1.1rem 0;
+                  }
+                  .view-buttons-section__buttons {
+                    @include viewTypeButton();
+                    
+                    text-align: right;
+                    .view-button {
+                      margin-top: 0;
+                      &.active {
+                        background-color: $color-primary;
+                        border-color: $color-primary;
+                      }
                     }
                   }
                 }
-                .federal-accounts-results {
-                  @import './visualizations/federalAccountsTable';
+                .cfda-section-results {
+                  @import './visualizations/cfdaSectionTable';
                   width: 100%;
-                  .federal-accounts-table-renderer {
+                  .cfda-section-table-renderer {
                     width: 100%;
                     overflow-x: scroll;
                     @include media($medium-screen) {
                       overflow-x: auto;
                     }
                   }
-                  .federal-accounts-table-holder {
+                  .cfda-section-table-holder {
                     width: 100%;
                   }
                   .explorer-cell-title {
@@ -132,7 +140,7 @@
                   }
                 }
               }
-              .federal-accounts-summary__section {
+              .cfda-section-summary__section {
                 .award-funding-summary__table {
                   margin-bottom: rem(10);
                   .award-funding-summary__data {
@@ -149,7 +157,6 @@
                   }
                 }
               }
-            // }
         }
     }
 }
