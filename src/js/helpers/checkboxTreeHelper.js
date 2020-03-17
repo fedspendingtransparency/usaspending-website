@@ -214,8 +214,16 @@ export const addSearchResultsToTree = (tree, searchResults) => {
 
 export const showAllTreeItems = (tree, key = '', newNodes = []) => tree
     .map((node) => {
+        const parentKey = getHighestAncestorNaicsCode(key);
+        const [data] = newNodes;
+        const shouldAddNewChildToParent = (
+            key &&
+            data &&
+            node.value === parentKey &&
+            // no child exists
+            !node.children.some((child) => child.value === key)
+        );
         if (node.value === key) {
-            const [data] = newNodes;
             return {
                 ...data,
                 children: data.children.map((child) => {
@@ -254,6 +262,17 @@ export const showAllTreeItems = (tree, key = '', newNodes = []) => tree
                 }).sort(sortNodes)
             };
         }
+        else if (shouldAddNewChildToParent) {
+            return {
+                ...node,
+                className: '',
+                children: [
+                    // leave the placeholder!
+                    ...node.children,
+                    data
+                ]
+            };
+        }
         return {
             ...node,
             className: '',
@@ -267,7 +286,7 @@ export const showAllTreeItems = (tree, key = '', newNodes = []) => tree
                             };
                         }
                         return {
-                            ...newNodes[0]
+                            ...data
                         };
                     }
                     if (child.children && child.children.some((grand) => grand.className === 'hide')) {
