@@ -85,12 +85,14 @@ export const awardDownloadOptions = {
         {
             name: 'recipient_location',
             label: 'Recipient Location',
-            apiName: 'recipient_locations'
+            apiName: 'recipient_locations',
+            apiScopeName: 'recipient_scope'
         },
         {
             name: 'place_of_performance',
             label: 'Place of Performance',
-            apiName: 'place_of_performance_locations'
+            apiName: 'place_of_performance_locations',
+            apiScopeName: 'place_of_performance_scope'
         }
     ],
     fileFormats: [
