@@ -276,6 +276,8 @@ const ContractGrantsActivityChart = ({
     const dateEndLine = dates?._endDate?.valueOf();
     // date for potential end line
     const datePotentialEndLine = dates?._potentialEndDate?.valueOf();
+    // class name for end line and text
+    const endLineClassName = awardType === 'grant' ? 'grant-end' : 'contract-end';
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -336,8 +338,8 @@ const ContractGrantsActivityChart = ({
                     xValue={dateEndLine}
                     showTextPosition="left"
                     adjustmentX={padding.left}
-                    textClassname="vertical-line__text end"
-                    lineClassname="vertical-line end" />}
+                    textClassname={`vertical-line__text ${endLineClassName}`}
+                    lineClassname={`vertical-line ${endLineClassName}`} />}
                 {/* potential end line */}
                 {xScale && datePotentialEndLine && <VerticalLine
                     xScale={xScale}

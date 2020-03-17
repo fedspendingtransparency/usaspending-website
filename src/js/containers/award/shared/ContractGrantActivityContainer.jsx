@@ -187,6 +187,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
             !error.error
             && !loading
             && transactions.length > 0
+            && !badDates
         ) {
             return (
                 <ContractGrantActivity
