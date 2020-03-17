@@ -44,6 +44,8 @@ const propTypes = {
     expanded: PropTypes.arrayOf(PropTypes.string),
     checked: PropTypes.arrayOf(PropTypes.string),
     unchecked: PropTypes.arrayOf(PropTypes.string),
+    checkedFromHash: PropTypes.arrayOf(PropTypes.string),
+    uncheckedFromHash: PropTypes.arrayOf(PropTypes.string),
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string)
 };
@@ -64,8 +66,76 @@ export class NAICSContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.updateCountOfSelectedTopTierNaicsCodes(this.props.checked);
-        return this.fetchNAICS();
+        const { checkedFromHash, uncheckedFromHash } = this.props;
+        // always get da nodes first.
+        this.fetchNAICS()
+            .then(() => {
+                // lets load a stateful tree from the url, fun. timez.
+                if (checkedFromHash.length > 0) {
+                    // first, expand da nodes.
+                    const checkedParentAndChildrenNodesFromHash = checkedFromHash
+                        .filter((checked) => checked.length < 6)
+                        .sort((a, b) => {
+                            if (a.length > b.length) return 1;
+                            if (b.length > a.length) return -1;
+                            return 0;
+                        });
+
+                    
+                    const fetchAllNodesAndCheckTheirChildren = (iterable) => new Promise((resolve, reject) => {
+                        iterable.reduce((prevPromise, checked, i, arr) => {
+                            return prevPromise
+                                .then(() => {
+                                    if (i === arr.length - 1) {
+                                        const newChecked = [];
+                                        // last thing to fetch
+                                        return this.fetchNAICS(checked)
+                                            .then(() => {
+                                                iterable.forEach((code) => {
+                                                    const node = getNodeFromTree(this.props.nodes, code);
+                                                    node.children
+                                                        .forEach((child) => {
+                                                            if (child.value.length === 4) {
+                                                                child.children.forEach((grand) => {
+                                                                    // add the grand-children.
+                                                                    if (!uncheckedFromHash.includes(removePlaceholderString(grand.value))) {
+                                                                        newChecked.push(grand.value);
+                                                                    }
+                                                                });
+                                                            }
+                                                            // or we're already looking at the grandchildren
+                                                            else if (!uncheckedFromHash.includes(removePlaceholderString(child.value))) {
+                                                                newChecked.push(child.value);
+                                                            }
+                                                        });
+                                                });
+                                                // calls setCheck for me.
+                                                this.updateCountOfSelectedTopTierNaicsCodes(newChecked);
+                                                resolve(newChecked);
+                                            });
+                                    }
+                                    return this.fetchNAICS(checked);
+                                })
+                                .catch((e) => {
+                                    console.log("Error on fetching NAICS Data from hash url", e);
+                                    reject();
+                                });
+                        }, Promise.resolve('first'));
+                    });
+
+                    fetchAllNodesAndCheckTheirChildren(checkedParentAndChildrenNodesFromHash)
+                        .then((newChecked) => {
+                            // count the nodes based on the NAICSContainer checked state, once it's been updated above.
+                            uncheckedFromHash
+                                .map((node) => ({ value: node, checked: false }))
+                                .forEach((node) => {
+                                    // then, decrement the counts from the unchecked array, and the check state from the excluded
+                                    // array.
+                                    // this.onUncheck(newChecked, node);
+                                });
+                        });
+                }
+            });
     }
 
     onSearchChange = debounce(() => {
@@ -136,7 +206,9 @@ export class NAICSContainer extends React.Component {
     }
 
     onExpand = (value, expanded, fetch) => {
-        if (fetch && !this.state.isSearch) this.fetchNAICS(value);
+        if (fetch && !this.state.isSearch) {
+            this.fetchNAICS(value);
+        }
         if (this.state.isSearch) {
             this.props.setExpanded(expanded, 'SET_SEARCHED_EXPANDED');
         }
@@ -184,7 +256,9 @@ export class NAICSContainer extends React.Component {
         const parentKey = getHighestAncestorNaicsCode(key);
         const parentNode = getNodeFromTree(this.props.nodes, parentKey);
         const ancestorNode = getNodeFromTree(this.props.nodes, ancestorKey);
-        const { count } = getNodeFromTree(this.props.nodes, key);
+        const currentNode = getNodeFromTree(this.props.nodes, key);
+        const { count } = currentNode;
+
         const uncheckedCodeToBeRemoved = unchecked
             .reduce((acc, uncheckedCode) => {
                 if (uncheckedCode === checkedCode) {
@@ -382,7 +456,7 @@ export class NAICSContainer extends React.Component {
             });
     };
 
-    fetchNAICS = async (param = '') => {
+    fetchNAICS = (param = '') => {
         if (this.request) this.request.cancel();
         const { requestType, isSearch, searchString } = this.state;
         const { checked } = this.props;
@@ -395,42 +469,42 @@ export class NAICSContainer extends React.Component {
 
         this.request = naicsRequest(param || searchParam);
 
-        try {
-            const { data } = await this.request.promise;
-
-            if (isSearch) {
-                const visibleNaicsValues = expandAllNodes(data.results, 'naics');
-                this.props.setSearchedNaics(data.results);
-                this.autoCheckSearchedResultDescendants(checked, visibleNaicsValues);
-                this.props.setExpanded(visibleNaicsValues, 'SET_SEARCHED_EXPANDED');
-            }
-            else {
-                this.props.setNaics(param, data.results);
-            }
-            // we've searched for a specific naics reference; ie '11' or '1111' and their immediate descendants should be checked.
-            if (checked.includes(`children_of_${param}`)) {
-                this.autoCheckImmediateChildrenAfterDynamicExpand(data.results[0], param);
-            }
-
-            this.setState({
-                isLoading: false,
-                isError: false,
-                errorMessage: '',
-                requestType: ''
-            });
-        }
-        catch (e) {
-            console.log('Error NAICS Reponse : ', e);
-            if (!isCancel(e)) {
+        return this.request.promise
+            .then(({ data: { results } }) => {
+                if (isSearch) {
+                    const visibleNaicsValues = expandAllNodes(results, 'naics');
+                    this.props.setSearchedNaics(results);
+                    this.autoCheckSearchedResultDescendants(checked, visibleNaicsValues);
+                    this.props.setExpanded(visibleNaicsValues, 'SET_SEARCHED_EXPANDED');
+                }
+                else {
+                    this.props.setNaics(param, results);
+                }
+                // we've searched for a specific naics reference; ie '11' or '1111' and their immediate descendants should be checked.
+                if (checked.includes(`children_of_${param}`)) {
+                    this.autoCheckImmediateChildrenAfterDynamicExpand(results[0], param);
+                }
+                
                 this.setState({
-                    isError: true,
-                    errorMessage: e.message,
                     isLoading: false,
+                    isError: false,
+                    errorMessage: '',
                     requestType: ''
                 });
-            }
-        }
-        this.request = null;
+                this.request = null;
+            })
+            .catch((e) => {
+                console.log('Error NAICS Reponse : ', e);
+                if (!isCancel(e)) {
+                    this.setState({
+                        isError: true,
+                        errorMessage: e.message,
+                        isLoading: false,
+                        requestType: ''
+                    });
+                }
+                this.request = null;
+            });
     };
 
     loadingDiv = () => {
@@ -570,7 +644,9 @@ export default connect(
         expanded: state.naics.expanded.toJS(),
         searchExpanded: state.naics.searchExpanded.toJS(),
         checked: state.naics.checked.toJS(),
-        unchecked: state.naics.unchecked.toJS()
+        unchecked: state.naics.unchecked.toJS(),
+        checkedFromHash: state.appliedFilters.filters.naics_codes.included,
+        uncheckedFromHash: state.appliedFilters.filters.naics_codes.excluded
     }),
     (dispatch) => ({
         stageNaics: (checked, unchecked, counts) => dispatch(updateNaicsV2(checked, unchecked, counts)),

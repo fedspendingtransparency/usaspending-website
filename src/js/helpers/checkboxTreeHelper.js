@@ -72,7 +72,7 @@ export const getNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
             ?.children
             .find((node) => node[treePropForKey] === nodeKey);
     }
-    return null;
+    return { count: null };
 };
 
 export const removePlaceholderString = (str) => {
