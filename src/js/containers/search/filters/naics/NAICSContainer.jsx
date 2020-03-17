@@ -84,44 +84,41 @@ export class NAICSContainer extends React.Component {
                             return 0;
                         });
 
-                    
                     const fetchAllNodesAndCheckTheirChildren = (iterable) => new Promise((resolve, reject) => {
-                        iterable.reduce((prevPromise, checked, i, arr) => {
-                            return prevPromise
-                                .then(() => {
-                                    if (i === arr.length - 1) {
-                                        const newChecked = [];
-                                        // last thing to fetch
-                                        return this.fetchNAICS(checked)
-                                            .then(() => {
-                                                iterable.forEach((code) => {
-                                                    const node = getNodeFromTree(this.props.nodes, code);
-                                                    node.children
-                                                        .forEach((child) => {
-                                                            if (child.value.length === 4) {
-                                                                child.children.forEach((grand) => {
-                                                                    // add the grand-children.
-                                                                    if (!uncheckedFromHash.includes(removePlaceholderString(grand.value))) {
-                                                                        newChecked.push(grand.value);
-                                                                    }
-                                                                });
-                                                            }
-                                                            // or we're already looking at the grandchildren
-                                                            else if (!uncheckedFromHash.includes(removePlaceholderString(child.value))) {
-                                                                newChecked.push(child.value);
-                                                            }
-                                                        });
-                                                });
-                                                resolve(newChecked);
+                        iterable.reduce((prevPromise, checked, i, arr) => prevPromise
+                            .then(() => {
+                                if (i === arr.length - 1) {
+                                    const newChecked = [];
+                                    // last thing to fetch
+                                    return this.fetchNAICS(checked)
+                                        .then(() => {
+                                            iterable.forEach((code) => {
+                                                const node = getNodeFromTree(this.props.nodes, code);
+                                                node.children
+                                                    .forEach((child) => {
+                                                        if (child.value.length === 4) {
+                                                            child.children.forEach((grand) => {
+                                                                // add the grand-children.
+                                                                if (!uncheckedFromHash.includes(removePlaceholderString(grand.value))) {
+                                                                    newChecked.push(grand.value);
+                                                                }
+                                                            });
+                                                        }
+                                                        // or we're already looking at the grandchildren
+                                                        else if (!uncheckedFromHash.includes(removePlaceholderString(child.value))) {
+                                                            newChecked.push(child.value);
+                                                        }
+                                                    });
                                             });
-                                    }
-                                    return this.fetchNAICS(checked);
-                                })
-                                .catch((e) => {
-                                    console.log("Error on fetching NAICS Data from hash url", e);
-                                    reject();
-                                });
-                        }, Promise.resolve('first'));
+                                            resolve(newChecked);
+                                        });
+                                }
+                                return this.fetchNAICS(checked);
+                            })
+                            .catch((e) => {
+                                console.log("Error on fetching NAICS Data from hash url", e);
+                                reject();
+                            }), Promise.resolve('first'));
                     });
 
                     fetchAllNodesAndCheckTheirChildren(checkedParentAndChildrenNodesFromHash)
@@ -486,7 +483,7 @@ export class NAICSContainer extends React.Component {
                 if (checked.includes(`children_of_${param}`)) {
                     this.autoCheckImmediateChildrenAfterDynamicExpand(results[0], param);
                 }
-                
+
                 this.setState({
                     isLoading: false,
                     isError: false,
