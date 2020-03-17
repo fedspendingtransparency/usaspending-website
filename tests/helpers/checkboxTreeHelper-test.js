@@ -78,7 +78,6 @@ describe('checkboxTree Helpers', () => {
                 .some((grand) => grand.isPlaceHolder);
             expect(grandPlaceHolderExists).toEqual(true);
             expect(childPlaceHolderExists).toEqual(true);
-
         });
     });
     describe('expandAllNodes', () => {
@@ -121,6 +120,21 @@ describe('checkboxTree Helpers', () => {
             const lengthWithoutPlaceholderNodes = mockData.reallyBigTree[0].children.length;
             const nodeWithPlaceHolderChildren = getNodeFromTree(result, '11', 'naics');
             expect(nodeWithPlaceHolderChildren.children.length).toEqual(lengthWithoutPlaceholderNodes);
+        });
+        it('adds new children as a sibling to the loading placeholder if we have a new node to add', () => {
+            // Should be node 1111
+            const newNode = mockData.reallyBigTree[0].children[0];
+
+            const result = showAllTreeItems(mockData.placeholderNodes, '1111', [newNode]);
+            const node = getNodeFromTree(result, '11');
+
+            // node has the placeholder child
+            expect(node.children.some((child) => child.isPlaceHolder)).toEqual(true);
+            const childrenWithNoPlaceHolder = node.children
+                .find((child) => child.value === '1111');
+
+            // node also has the new child
+            expect(childrenWithNoPlaceHolder.value).toEqual('1111');
         });
     });
     describe('cleanNaicsData', () => {
