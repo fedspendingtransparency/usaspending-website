@@ -469,5 +469,14 @@ export const defaultProps = {
     setSearchedNaics: () => {},
     addChecked: () => {},
     showNaicsTree: () => {},
-    setUnchecked: () => {}
+    setUnchecked: () => {},
+    restoreHashedFilters: () => {},
+    uncheckedFromHash: [],
+    checkedFromHash: [],
+    filters: {
+        naics_codes: {
+            included: [],
+            excluded: []
+        }
+    }
 };

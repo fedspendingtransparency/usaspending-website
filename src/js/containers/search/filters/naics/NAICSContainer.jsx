@@ -71,7 +71,7 @@ export class NAICSContainer extends React.Component {
     componentDidMount() {
         const { checkedFromHash, uncheckedFromHash } = this.props;
         // always get da nodes first.
-        this.fetchNAICS()
+        return this.fetchNAICS()
             .then(() => {
                 // lets load a stateful tree from the url, fun. timez.
                 if (checkedFromHash.length > 0) {
@@ -117,11 +117,11 @@ export class NAICSContainer extends React.Component {
                             })
                             .catch((e) => {
                                 console.log("Error on fetching NAICS Data from hash url", e);
-                                reject();
+                                reject(e);
                             }), Promise.resolve('first'));
                     });
 
-                    fetchAllNodesAndCheckTheirChildren(checkedParentAndChildrenNodesFromHash)
+                    return fetchAllNodesAndCheckTheirChildren(checkedParentAndChildrenNodesFromHash)
                         .then((newChecked) => {
                             this.updateCountOfSelectedTopTierNaicsCodes(newChecked);
                             this.props.restoreHashedFilters({
@@ -134,6 +134,11 @@ export class NAICSContainer extends React.Component {
                             });
                         });
                 }
+                // don't fetch anything more, no hash to load tree from; return a resolved promise for consistent return.
+                return Promise.resolve();
+            })
+            .catch((e) => {
+                console.log("Error on componentDidMount: ", e);
             });
     }
 
