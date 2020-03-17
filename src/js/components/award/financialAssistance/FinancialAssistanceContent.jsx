@@ -119,7 +119,9 @@ const FinancialAssistanceContent = ({
             <AwardSection type="row">
                 {grantActivity()}
                 {!isGrant && (
-                    <CFDASection data={overview.biggestCfda} />
+                    <CFDASection
+                        cfdas={overview.cfdas}
+                        biggestCfda={overview.biggestCfda} />
                 )}
                 <FederalAccountsSection
                     awardType={overview.category}
@@ -127,7 +129,9 @@ const FinancialAssistanceContent = ({
             </AwardSection>
             {isGrant && (
                 <AwardSection type="row">
-                    <CFDASection data={overview.biggestCfda} />
+                    <CFDASection
+                        cfdas={overview.cfdas}
+                        biggestCfda={overview.biggestCfda} />
                 </AwardSection>
             )}
             <AwardHistory

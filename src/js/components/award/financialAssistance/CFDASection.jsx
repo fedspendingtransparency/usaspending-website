@@ -7,12 +7,14 @@ import AwardSectionHeader from '../shared/AwardSectionHeader';
 import { CFDASectionInfo } from "../shared/InfoTooltipContent";
 import SingleCFDA from './SingleCFDA';
 
-const propTypes = {
+{/* <SingleCFDA data={overview.biggestCfda} /> */}
 
+const propTypes = {
+    overview: PropTypes.object
 };
 
 const CFDASection = ({
-
+    overview
 }) => {
     return (
         <AwardSection type="column" className="cfda-section award-viz">

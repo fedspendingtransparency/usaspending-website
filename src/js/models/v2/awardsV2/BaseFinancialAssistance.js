@@ -49,7 +49,9 @@ BaseFinancialAssistance.populate = function populate(data) {
         dateSigned: data.date_signed
     };
     this.populateCore(coreData);
-
+    if (data.cfda_info) {
+        this.cfdas = data.cfda_info;
+    }
     if (data.recipient) {
         const recipient = Object.create(BaseAwardRecipient);
         recipient.populate(data.recipient);
