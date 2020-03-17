@@ -35,7 +35,6 @@ import {
     sendFieldCombinations
 } from './helpers/searchAnalytics';
 
-
 require('pages/search/searchPage.scss');
 
 const propTypes = {
@@ -307,7 +306,7 @@ export class SearchContainer extends React.Component {
         }
 
         this.request = SearchHelper.generateUrlHash({
-            filters,
+            filters: SearchHelper.removeNaicsCountsFromFilters(filters),
             version: filterStoreVersion
         });
 
