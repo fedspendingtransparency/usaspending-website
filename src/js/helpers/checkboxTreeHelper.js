@@ -114,7 +114,7 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
             .children
             .filter((node) => {
                 const childFromSearch = getNodeFromTree(parentFromSearch.children, node.value);
-                if (node.isPlaceHolder && childFromSearch && childFromSearch.count === childFromSearch?.children.length) {
+                if (node.isPlaceHolder && childFromSearch && childFromSearch.count === childFromSearch?.children?.length) {
                     return false;
                 }
                 return true;
