@@ -1,7 +1,11 @@
 import React from 'react';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import Analytics from 'helpers/analytics/Analytics';
+import Modal from 'react-aria-modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
+
+import Analytics from 'helpers/analytics/Analytics';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navigation/menuOptions';
 
@@ -21,13 +25,15 @@ export default class NavBar extends React.Component {
         super(props);
 
         this.state = {
-            showMobileNav: false
+            showMobileNav: false,
+            showStayInTouchModal: false
         };
 
         this.siteBody = null;
 
         this.toggleMobileNav = this.toggleMobileNav.bind(this);
         this.hideMobileNav = this.hideMobileNav.bind(this);
+        this.handleStayInTouchClick = this.handleStayInTouchClick.bind(this);
     }
 
     componentDidMount() {
@@ -59,6 +65,10 @@ export default class NavBar extends React.Component {
         }
     }
 
+    handleStayInTouchClick(e) {
+        this.setState({ showStayInTouchModal: true });
+    }
+
     render() {
         let mobileNav = null;
         if (this.state.showMobileNav) {
@@ -72,6 +82,15 @@ export default class NavBar extends React.Component {
             <nav
                 className="site-navigation"
                 aria-label="Site navigation">
+                <Modal
+                    mounted={this.state.showStayInTouchModal}
+                    onExit={() => this.setState({ showStayInTouchModal: false })}
+                    titleText="Stay In Touch"
+                    dialogClass="stay-in-touch-modal"
+                    verticallyCenter
+                    escapeExits>
+                    Test
+                </Modal>
                 <div className="site-navigation__wrapper">
                     <div className="site-navigation__logo site-logo">
                         <div className="site-logo__wrapper" id="logo">
@@ -111,6 +130,14 @@ export default class NavBar extends React.Component {
                         <ul
                             className="full-menu__list"
                             role="menu">
+                            <li
+                                className="full-menu__item"
+                                role="menuitem">
+                                <button className="full-menu__item--button" onClick={this.handleStayInTouchClick}>
+                                    <FontAwesomeIcon icon={faEnvelope} />
+                                    Stay In Touch
+                                </button>
+                            </li>
                             <li
                                 className="full-menu__item"
                                 role="menuitem">
