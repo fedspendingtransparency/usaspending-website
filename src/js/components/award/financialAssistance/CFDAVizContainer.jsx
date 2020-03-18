@@ -17,7 +17,7 @@ export default class CFDAVizContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            limit: 2,
+            limit: 10,
             sort: '_totalFundingAmount',
             page: 1,
             order: 'desc',
@@ -90,7 +90,6 @@ export default class CFDAVizContainer extends React.Component {
     }
 
     render() {
-        console.log(' All CFDAs : ', this.props.cfdas);
         return (
             <CFDAViz
                 {...this.state}
