@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // eslint-disable-next-line no-useless-escape
 const regex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
 
-const EmailSignUp = () => {
+const EmailSignUp = ({
+    closeModal
+}) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [emailInput, setEmailInput] = useState('');
 
@@ -21,7 +24,12 @@ const EmailSignUp = () => {
             <h2>Subscribe the USAspending.gov Newsletter</h2>
             {/* <form action="http://ntdmls01/subscribe/subscribe.tml" method="POST"> */}
             {isSubmitted && (
-                <span>Thanks.</span>
+                <div className="email-sign-up__confirmation">
+                    <FontAwesomeIcon icon="check-circle" color="#2E8540" />
+                    <h3>Thank you for subscribing!</h3>
+                    <p>We will be in touch with a message shortly.</p>
+                    <button onClick={closeModal}>OK</button>
+                </div>
             )}
             {!isSubmitted && (
                 <form>
@@ -41,7 +49,10 @@ const EmailSignUp = () => {
                 </form>
             )}
             {!isValid && emailInput.length > 0 && (
-                <span>Wrong.</span>
+                <div className="email-sign-up__validation">
+                    <FontAwesomeIcon icon="exclamation-circle" color="#CD2026" />
+                    <span>Please enter a valid email address.</span>
+                </div>
             )}
         </div>
     );

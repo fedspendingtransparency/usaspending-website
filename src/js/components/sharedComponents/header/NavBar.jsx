@@ -103,7 +103,7 @@ export default class NavBar extends React.Component {
                             </button>
                         </div>
                         <div className="usa-dt-modal__body">
-                            <EmailSignUp />
+                            <EmailSignUp closeModal={this.toggleModal} />
                         </div>
                     </div>
                 </Modal>

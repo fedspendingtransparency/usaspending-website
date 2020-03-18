@@ -45,6 +45,7 @@
                 }
                 .email-input {
                     width: 100%;
+                    height: rem(35);
                 }
                 .submit {
                     @include align-self(center);
@@ -54,6 +55,33 @@
                     font-size: rem(18);
                     line-height: rem(23);
                     font-weight: 600;
+                }
+            }
+            .email-sign-up__confirmation {
+                h3 {
+                    padding: 0;
+                    margin: 0;
+                    font-size: rem(24);
+                }
+                svg {
+                    height: rem(65);
+                    width: rem(65);
+                }
+            }
+            .email-sign-up__validation {
+                width: 100%;
+                background:#F9DEDE;
+                height: rem(45);
+                border: rem(1) solid #CD2026;
+                @include display(flex);
+                @include justify-content(center);
+                @include align-items(center);
+                span {
+                    font-size: rem(18);
+                    padding-left: rem(8);
+                }
+                svg {
+                    height: rem(24);
                 }
             }
         }
