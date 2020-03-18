@@ -39,7 +39,8 @@ import {
     faUserTie,
     faShareAlt,
     faEnvelope,
-    faLink
+    faLink,
+    faArrowCircleLeft
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -88,7 +89,8 @@ library.add(
     faUserTie,
     faShareAlt,
     faEnvelope,
-    faLink
+    faLink,
+    faArrowCircleLeft
 );
 
 const appDiv = document.getElementById('app');

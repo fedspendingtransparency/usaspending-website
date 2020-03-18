@@ -20,9 +20,10 @@ const propTypes = {
     sort: PropTypes.string,
     order: PropTypes.string,
     total: PropTypes.number,
-    cfdas: PropTypes.array,
+    allCFDAs: PropTypes.array,
+    currentPageCFDAs: PropTypes.array,
     changePage: PropTypes.func,
-    onClick: PropTypes.func,
+    onTableClick: PropTypes.func,
     updateSort: PropTypes.func,
     inFlight: PropTypes.bool,
     error: PropTypes.bool
@@ -50,15 +51,18 @@ export default class CFDATable extends React.Component {
     }
 
     getRows() {
-        return this.props.cfdas.map((cfda) => (
+        return this.props.currentPageCFDAs.map((cfda) => (
             <tr
                 className="cfda-section-table__body-row"
                 key={`row-${uniqueId()}`}>
                 {map(tableMapping, (header, key) => {
                     let cellData = cfda[key];
-                    if (key === 'cfda_title') {
+                    if (key === 'cfdaTitle' && cfda.cfdaNumber) {
                         cellData = (
-                            <button className="award-viz__button" onClick={this.props.onClick}>
+                            <button
+                                className="award-viz__button"
+                                value={cfda.cfdaNumber}
+                                onClick={this.props.onTableClick}>
                                 {cfda[key]}
                             </button>
                         );
@@ -76,7 +80,7 @@ export default class CFDATable extends React.Component {
     }
 
     renderTable() {
-        if ((this.props.cfdas.length > 0) && !this.props.error && !this.props.inFlight) {
+        if ((this.props.currentPageCFDAs.length > 0) && !this.props.error && !this.props.inFlight) {
             return (
                 <div className="cfda-section-table-renderer">
                     <table className="cfda-section-table">
@@ -96,8 +100,8 @@ export default class CFDATable extends React.Component {
     }
 
     render() {
-        const { inFlight, error, cfdas } = this.props;
-        console.log(' CFDAS : ', cfdas);
+        const { inFlight, error, currentPageCFDAs } = this.props;
+        console.log(' CFDAS : ', currentPageCFDAs);
         let loadingMessage = null;
         let errorMessage = null;
         let noResultsMessage = null;
@@ -109,12 +113,12 @@ export default class CFDATable extends React.Component {
         if (error) {
             errorMessage = (<ResultsTableErrorMessage />);
         }
-        if ((cfdas.length === 0) && !error && !inFlight) {
+        if ((currentPageCFDAs.length === 0) && !error && !inFlight) {
             noResultsMessage = (<NoResultsMessage
                 title="Chart Not Available"
                 message="No available data to display." />);
         }
-        if ((cfdas.length > 0) && !error && !inFlight) {
+        if ((currentPageCFDAs.length > 0) && !error && !inFlight) {
             pagination = (
                 <Pagination
                     resultsText

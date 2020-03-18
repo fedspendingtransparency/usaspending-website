@@ -20,68 +20,83 @@ export default class CFDAVizContainer extends React.Component {
         super(props);
         this.state = {
             limit: 10,
-            sort: 'total_transaction_obligated_amount',
+            sort: '_totalFundingAmount',
             page: 1,
             order: 'desc',
-            total: 0,
+            total: props.cfdas.length,
             inFlight: false,
             error: false,
-            cfdas: props.cfdas,
-            view: 'table'
+            allCFDAs: props.cfdas,
+            currentPageCFDAs: [],
+            cfda: {},
+            view: 'table',
+            previousView: 'table'
         };
     }
 
-    componentDidMount = () => this.addPercentOfTotalFunding();
-
+    componentDidMount = () => this.updateCFDAs(true);
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.cfdas, this.props.cfdas)) this.addPercentOfTotalFunding();
+        if (!isEqual(prevProps.cfdas, this.props.cfdas)) {
+            this.updateCFDAs(true);
+        }
     }
 
-    onClick = () => {
-        return null;
+    onTableClick = (e) => {
+        e.preventDefault();
+        const cfda = this.props.cfdas.find((data) => data.cfdaNumber === e.target.value);
+        this.setState({ view: 'single', cfda });
+    }
+
+    onBackClick = (e) => {
+        e.preventDefault();
+        const { previousView } = this.state;
+        this.setState({ view: previousView, previousView });
+    }
+
+    updateCFDAs = (isTrue) => {
+        const data = [];
+        if (isTrue) {
+            for (let i = 0; i < 35; i++) {
+                const newData = cloneDeep(this.props.cfdas[0]);
+                newData.cfdaTitle = `${newData.cfdaTitle}----${i}`;
+                newData.cfdaNumber = `${newData.cfdaNumber}----${i}`;
+                data.push(newData);
+            }
+            this.setState({ allCFDAs: data, total: data.length });
+        }
+        let toSort = data;
+        const {
+            sort,
+            order,
+            page,
+            limit,
+            allCFDAs
+        } = this.state;
+        if (!isTrue) toSort = allCFDAs;
+        let sortedCFDAs = null;
+        if (order === 'desc') {
+            sortedCFDAs = toSort.sort((a, b) => b[sort] - a[sort]);
+        }
+        else {
+            sortedCFDAs = toSort.sort((a, b) => a[sort] - b[sort]);
+        }
+        const startIndex = (page - 1) * limit;
+        const endIndex = ((page - 1) * limit) + limit;
+        const currentPageCFDAs = sortedCFDAs.slice(startIndex, endIndex);
+        this.setState({ currentPageCFDAs });
     }
 
     updateSort = (sort, order) => {
-        return null;
-        // this.setState({ sort, order }, () => this.getFederalAccounts());
+        this.setState({ sort, order }, () => this.updateCFDAs());
     }
 
     changePage = (page) => {
-        return null;
-        // this.setState({ page }, () => this.getFederalAccounts());
+        this.setState({ page }, () => this.updateCFDAs());
     }
 
     changeView = (view) => {
-        return null;
-        // if (this.state.view !== view) {
-        //     const limit = view === 'tree' ? 100 : 10;
-        //     this.setState({
-        //         view,
-        //         limit
-        //     }, () => {
-        //         this.getFederalAccounts();
-        //     });
-        // }
+        if (view !== this.state.view) this.setState({ view, previousView: view });
     }
-
-    addPercentOfTotalFunding = () => {
-        const cfdas = this.props.cfdas.map((cfda) => {
-            const newCFDA = cloneDeep(cfda);
-            const { total_funding_amount: amount, federal_action_obligation_amount: total } = cfda;
-            if (amount && (total && total !== 0)) {
-                newCFDA.percent_of_total = calculateTreemapPercentage(amount, total);
-            }
-            else if (amount === 0) {
-                newCFDA.percent_of_total = '0%';
-            }
-            else {
-                newCFDA.percent_of_total = '--';
-            }
-            newCFDA.total_funding_amount = amount ? formatMoney(amount) : '--';
-            return newCFDA;
-        });
-        this.setState({ cfdas });
-    };
 
     render() {
         return (
@@ -89,7 +104,9 @@ export default class CFDAVizContainer extends React.Component {
                 {...this.state}
                 changePage={this.changePage}
                 updateSort={this.updateSort}
-                changeView={this.changeView} />
+                changeView={this.changeView}
+                onTableClick={this.onTableClick}
+                onBackClick={this.onBackClick} />
         );
     }
 }

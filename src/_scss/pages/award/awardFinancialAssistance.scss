@@ -101,6 +101,13 @@
                 .view-buttons-section {
                   display: flex;
                   flex-wrap: wrap;
+                  align-items: center;
+                  .view-buttons-section__back {
+                    padding-bottom: 1rem;
+                    .view-buttons-section__back-text {
+                      padding-left: 0.5rem;
+                    }
+                  }
                   .view-buttons-section__text {
                       flex-grow: 1;
                       font-size: 1.4rem;
@@ -108,7 +115,6 @@
                   }
                   .view-buttons-section__buttons {
                     @include viewTypeButton();
-                    
                     text-align: right;
                     .view-button {
                       margin-top: 0;

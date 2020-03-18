@@ -4,20 +4,20 @@
  */
 
 const tableMapping = {
-    cfda_title: {
+    cfdaTitle: {
         displayName: 'CFDA Program / Assistance Listing Title',
-        field: 'cfda_title',
+        field: 'cfdaTitle',
         classname: 'cfda-section-table__body-cell',
         onClick: true
     },
-    total_funding_amount: {
+    totalFundingAmount: {
         displayName: 'Funding Provided',
-        field: 'total_funding_amount',
+        field: '_totalFundingAmount',
         classname: 'cfda-section-table__body-cell offset-right-money'
     },
-    percent_of_total: {
+    percentOfTotal: {
         displayName: 'Percent of Total',
-        field: 'percent_of_total',
+        field: '_percentOfTotal',
         classname: 'cfda-section-table__body-cell offset-right-percent'
     }
 };
