@@ -153,26 +153,30 @@ class SearchAwardsOperation {
         if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
             const agencies = [];
 
-            // Funding Agencies are toptier-only
             this.fundingAgencies.forEach((agencyArray) => {
                 const fundingAgencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
-
-                agencies.push({
+                const agency = {
                     [agencyKeys.type]: 'funding',
                     [agencyKeys.tier]: agencyArray.agencyType,
                     [agencyKeys.name]: fundingAgencyName
-                });
+                };
+                if (agencyArray.agencyType === 'subtier') {
+                    agency[agencyKeys.toptier_name] = agencyArray.toptier_agency.name;
+                }
+                agencies.push(agency);
             });
 
-            // Awarding Agencies can be both toptier and subtier
             this.awardingAgencies.forEach((agencyArray) => {
                 const awardingAgencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
-
-                agencies.push({
+                const agency = {
                     [agencyKeys.type]: 'awarding',
                     [agencyKeys.tier]: agencyArray.agencyType,
                     [agencyKeys.name]: awardingAgencyName
-                });
+                };
+                if (agencyArray.agencyType === 'subtier') {
+                    agency[agencyKeys.toptier_name] = agencyArray.toptier_agency.name;
+                }
+                agencies.push(agency);
             });
 
             filters[rootKeys.agencies] = agencies;
