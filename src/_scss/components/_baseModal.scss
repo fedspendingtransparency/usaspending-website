@@ -1,0 +1,68 @@
+.usa-dt-modal {
+    background-color: $color-white;
+    // Overrides the default library max width of 100%
+    max-width: rem(1200);
+    .usa-dt-modal__header {
+        background-color: $color-primary;
+        @include display(flex);
+        @include justify-content(center);
+        color: white;
+        .usa-dt-modal__title {
+            @include display(flex);
+            @include align-items(center);
+            @include justify-content(center);
+            font-size: rem(52);
+            margin: 0;
+            padding: rem(10) rem(0) rem(10) rem(50);
+        }
+        .usa-dt-modal__close-button {
+            @include flex(0 0 auto);
+            @include button-unstyled;
+            padding: rem(10);
+            margin-left: auto;
+
+            svg {
+                height: rem(24);
+                width: rem(17);
+                fill: $color-white;
+            }
+        }
+    }
+    .usa-dt-modal__body {
+        text-align: center;
+        padding: rem(30) rem(45) rem(45) rem(45);
+        .email-sign-up__modal-body {
+            h2 {
+                font-size: rem(24);
+                margin: 0 0 rem(27) 0;
+            }
+            form {
+                @include display(flex);
+                @include flex-direction(column);
+                @include align-items(flex-start);
+                .email-label {
+                    font-size: rem(14);
+                }
+                .email-input {
+                    width: 100%;
+                }
+                .submit {
+                    @include align-self(center);
+                    margin-top: rem(65);
+                    width: rem(158);
+                    padding: rem(8) rem(48);
+                    font-size: rem(18);
+                    line-height: rem(23);
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
+
+.email-sign-up__modal {
+    padding: rem(50) rem(23);
+    .usa-dt-modal__header {
+        height: rem(83);
+    }
+}

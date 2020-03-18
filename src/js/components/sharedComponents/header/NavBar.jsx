@@ -4,10 +4,10 @@ import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
-
 import Analytics from 'helpers/analytics/Analytics';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navigation/menuOptions';
+import EmailSignUp from 'components/homepage/EmailSignUp';
 
 import NavBarGlossaryLink from './NavBarGlossaryLink';
 import Dropdown from './Dropdown';
@@ -33,7 +33,6 @@ export default class NavBar extends React.Component {
 
         this.toggleMobileNav = this.toggleMobileNav.bind(this);
         this.hideMobileNav = this.hideMobileNav.bind(this);
-        this.handleStayInTouchClick = this.handleStayInTouchClick.bind(this);
     }
 
     componentDidMount() {
@@ -65,8 +64,8 @@ export default class NavBar extends React.Component {
         }
     }
 
-    handleStayInTouchClick(e) {
-        this.setState({ showStayInTouchModal: true });
+    toggleModal = () => {
+        this.setState({ showStayInTouchModal: !this.state.showStayInTouchModal })
     }
 
     render() {
@@ -83,13 +82,30 @@ export default class NavBar extends React.Component {
                 className="site-navigation"
                 aria-label="Site navigation">
                 <Modal
+                    className="email-sign-up__modal"
                     mounted={this.state.showStayInTouchModal}
-                    onExit={() => this.setState({ showStayInTouchModal: false })}
-                    titleText="Stay In Touch"
+                    onExit={this.toggleModal}
+                    titleText="Stay in Touch"
                     dialogClass="stay-in-touch-modal"
                     verticallyCenter
                     escapeExits>
-                    Test
+                    <div className="usa-dt-modal">
+                        <div className="usa-dt-modal__header">
+                            <h1 className="usa-dt-modal__title">
+                                Stay in touch
+                            </h1>
+                            <button
+                                className="usa-dt-modal__close-button"
+                                onClick={this.toggleModal}
+                                title="Close"
+                                aria-label="Close">
+                                <FontAwesomeIcon icon="times" size="lg" />
+                            </button>
+                        </div>
+                        <div className="usa-dt-modal__body">
+                            <EmailSignUp />
+                        </div>
+                    </div>
                 </Modal>
                 <div className="site-navigation__wrapper">
                     <div className="site-navigation__logo site-logo">
@@ -133,7 +149,7 @@ export default class NavBar extends React.Component {
                             <li
                                 className="full-menu__item"
                                 role="menuitem">
-                                <button className="full-menu__item--button" onClick={this.handleStayInTouchClick}>
+                                <button className="full-menu__item--button" onClick={this.toggleModal}>
                                     <FontAwesomeIcon icon={faEnvelope} />
                                     Stay In Touch
                                 </button>
