@@ -102,7 +102,7 @@ export default class CFDAViz extends React.Component {
     content = () => {
         const { view } = this.props;
         if (view === 'table') return (<CFDATable {...this.props} />);
-        if (view === 'single') return (<SingleCFDA data={this.props.cfda} />);
+        if (view === 'single' || !view) return (<SingleCFDA data={this.props.cfda} />);
         return null;
     }
 
@@ -131,8 +131,7 @@ export default class CFDAViz extends React.Component {
                 </div>
             );
         }
-        // if (view === 'single' && cfdas.length)
-        if (view === 'single') {
+        if (view === 'single' && allCFDAs.length) {
             return (
                 <div className="view-buttons-section">
                     <button onClick={this.props.onBackClick} className="view-buttons-section__back award-viz__button">

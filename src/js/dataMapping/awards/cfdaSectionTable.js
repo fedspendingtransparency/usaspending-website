@@ -4,7 +4,7 @@
  */
 
 const tableMapping = {
-    cfdaTitle: {
+    cfdaTitleShort: {
         displayName: 'CFDA Program / Assistance Listing Title',
         field: 'cfdaTitle',
         classname: 'cfda-section-table__body-cell',

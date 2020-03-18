@@ -1,15 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import FederalAccountsVizContainer from 'containers/award/shared/FederalAccountsVizContainer';
 
 import AwardSection from '../shared/AwardSection';
 import AwardSectionHeader from '../shared/AwardSectionHeader';
 import { CFDASectionInfo } from "../shared/InfoTooltipContent";
-import SingleCFDA from './SingleCFDA';
 import CFDAVizContainer from './CFDAVizContainer';
 
-{/* <SingleCFDA data={overview.biggestCfda} /> */}
 
 const propTypes = {
     cfdas: PropTypes.array,

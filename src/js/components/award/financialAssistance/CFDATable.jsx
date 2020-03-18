@@ -20,7 +20,6 @@ const propTypes = {
     sort: PropTypes.string,
     order: PropTypes.string,
     total: PropTypes.number,
-    allCFDAs: PropTypes.array,
     currentPageCFDAs: PropTypes.array,
     changePage: PropTypes.func,
     onTableClick: PropTypes.func,
@@ -57,7 +56,7 @@ export default class CFDATable extends React.Component {
                 key={`row-${uniqueId()}`}>
                 {map(tableMapping, (header, key) => {
                     let cellData = cfda[key];
-                    if (key === 'cfdaTitle' && cfda.cfdaNumber) {
+                    if (key === 'cfdaTitleShort' && cfda.cfdaNumber) {
                         cellData = (
                             <button
                                 className="award-viz__button"
@@ -101,7 +100,6 @@ export default class CFDATable extends React.Component {
 
     render() {
         const { inFlight, error, currentPageCFDAs } = this.props;
-        console.log(' CFDAS : ', currentPageCFDAs);
         let loadingMessage = null;
         let errorMessage = null;
         let noResultsMessage = null;
@@ -144,4 +142,3 @@ export default class CFDATable extends React.Component {
 }
 
 CFDATable.propTypes = propTypes;
- 
