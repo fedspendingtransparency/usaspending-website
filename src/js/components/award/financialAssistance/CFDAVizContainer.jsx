@@ -41,13 +41,17 @@ export default class CFDAVizContainer extends React.Component {
     onTableClick = (e) => {
         e.preventDefault();
         const cfda = this.props.cfdas.find((data) => data.cfdaNumber === e.target.value);
-        this.setState({ view: 'single', cfda });
+        this.setState({ previousView: 'table', view: 'single', cfda });
     }
 
     onBackClick = (e) => {
         e.preventDefault();
         const { previousView } = this.state;
         this.setState({ view: previousView, previousView });
+    }
+
+    onTreeClick = (id, cfda) => {
+        this.setState({ previousView: 'tree', view: 'single', cfda });
     }
 
     updateCFDAs = () => {
@@ -98,7 +102,8 @@ export default class CFDAVizContainer extends React.Component {
                 changeView={this.changeView}
                 onTableClick={this.onTableClick}
                 onBackClick={this.onBackClick}
-                allCFDAs={this.props.cfdas} />
+                allCFDAs={this.props.cfdas}
+                onTreeClick={this.onTreeClick} />
         );
     }
 }

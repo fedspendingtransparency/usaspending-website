@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import SingleCFDA from 'components/award/financialAssistance/SingleCFDA';
-import FederalAccountsTreeTooltip from '../shared/federalAccounts/FederalAccountsTreeTooltip';
-import FederalAccountsTree from '../shared/federalAccounts/FederalAccountsTree';
+import CFDATree from './CFDATree';
 import CFDATable from './CFDATable';
+import CFDATreeTooltip from './CFDATreeTooltip';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -28,7 +28,8 @@ const propTypes = {
     updateSort: PropTypes.func,
     changeView: PropTypes.func,
     onTableClick: PropTypes.func,
-    onBackClick: PropTypes.func
+    onBackClick: PropTypes.func,
+    onTreeClick: PropTypes.func
 };
 
 export default class CFDAViz extends React.Component {
@@ -41,18 +42,11 @@ export default class CFDAViz extends React.Component {
             tooltip: {
                 x: 0,
                 y: 0,
-                _federalAccountName: '',
-                _obligatedAmount: 0,
-                _percent: 0,
-                _fundingAgencyName: '',
-                _fundingAgencyAbbreviation: '',
-                _fundingAgencyId: 0,
-                federalAccountName: '',
-                obligatedAmount: 0,
-                percent: 0,
-                fundingAgencyName: '',
-                fundingAgencyAbbreviation: '',
-                fundingAgencyId: 0
+                cfdaTitle: '',
+                totalFundingAmount: 0,
+                percentOfTotal: 0,
+                cfdaFederalAgency: '',
+                cfdaNumber: 0
             }
         };
     }
@@ -88,13 +82,14 @@ export default class CFDAViz extends React.Component {
 
     tree = () => {
         if (this.props.view === 'tree') {
-            return (<FederalAccountsTree
+            return (<CFDATree
                 error={this.props.error}
                 inFlight={this.props.inFlight}
                 width={this.state.width}
-                data={this.props.currentPageCFDAs}
+                data={this.props.allCFDAs}
                 showTooltip={this.showTooltip}
-                hideTooltip={this.hideTooltip} />);
+                hideTooltip={this.hideTooltip}
+                onTreeClick={this.props.onTreeClick} />);
         }
         return null;
     }
@@ -112,7 +107,7 @@ export default class CFDAViz extends React.Component {
         if (view === 'tree' || view === 'table') {
             return (
                 <div className="view-buttons-section">
-                    <div className="view-buttons-section__text">Click on a program title to see its details.</div>
+                    <div className="view-buttons-section__text">{`Click on a program ${isTreeView ? 'tile' : 'title'} to see its details.`}</div>
                     <div className="view-buttons-section__buttons">
                         <ViewTypeButton
                             value="table"
@@ -121,7 +116,6 @@ export default class CFDAViz extends React.Component {
                             changeView={this.props.changeView}
                             active={!isTreeView} />
                         <ViewTypeButton
-                            disabled
                             value="tree"
                             label="Treemap"
                             icon="th-large"
@@ -149,7 +143,7 @@ export default class CFDAViz extends React.Component {
     render() {
         return (
             <div className="cfda-section__viz">
-                {this.state.showTooltip && <FederalAccountsTreeTooltip {...this.state.tooltip} />}
+                {this.state.showTooltip && <CFDATreeTooltip {...this.state.tooltip} />}
                 <div className="cfda-section-results">
                     {this.buttons()}
                     {this.content()}

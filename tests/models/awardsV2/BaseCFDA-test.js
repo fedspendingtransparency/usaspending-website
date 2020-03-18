@@ -10,30 +10,26 @@ import { mockLoan } from './mockAwardApi';
 
 
 const firstCFDA = mockLoan.cfda_info[0];
-const cfda = Object.create(BaseCFDA);
-cfda.populate(firstCFDA);
+const cfda = new BaseCFDA(firstCFDA);
 
 describe('Base CFDA', () => {
     describe('Total Funding Amount Private ', () => {
         it('should be a number given a number', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.total_funding_amount = 0;
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA._totalFundingAmount).toEqual(0);
         });
         it('should be a empty string given a string', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.total_funding_amount = 'bad';
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA._totalFundingAmount).toEqual('');
         });
         it('should be a empty string given a object', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.total_funding_amount = null;
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA._totalFundingAmount).toEqual('');
         });
     });
@@ -41,22 +37,19 @@ describe('Base CFDA', () => {
         it('should be a number given a number', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.federal_action_obligation_amount = 0;
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA._federalActionOblicationAmount).toEqual(0);
         });
         it('should be a empty string given a string', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.federal_action_obligation_amount = 'bad';
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA._federalActionOblicationAmount).toEqual('');
         });
         it('should be a empty string given a object', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.federal_action_obligation_amount = null;
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA._federalActionOblicationAmount).toEqual('');
         });
     });
@@ -67,29 +60,25 @@ describe('Base CFDA', () => {
         it('should be 0 when Total Funding Amount is 0', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.total_funding_amount = 0;
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA._percentOfTotal).toEqual(0);
         });
         it('should be null when Total Funding Amount is a string', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.total_funding_amount = 'bad';
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA._percentOfTotal).toEqual(null);
         });
         it('should be null when Federal Action Obligation Amount is 0', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.federal_action_obligation_amount = 0;
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA._percentOfTotal).toEqual(null);
         });
         it('should be null when Federal Action Obligation Amount is a string', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.federal_action_obligation_amount = 'bad';
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA._percentOfTotal).toEqual(null);
         });
     });
@@ -100,8 +89,7 @@ describe('Base CFDA', () => {
         it('should return -- when given a string', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.total_funding_amount = 'bad';
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA.totalFundingAmount).toEqual('--');
         });
     });
@@ -112,15 +100,13 @@ describe('Base CFDA', () => {
         it('should return -- when given a string', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.total_funding_amount = 'bad';
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA.percentOfTotal).toEqual('--');
         });
         it('should return -- when given the divisor is 0', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.federal_action_obligation_amount = 0;
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA.percentOfTotal).toEqual('--');
         });
     });
@@ -128,22 +114,19 @@ describe('Base CFDA', () => {
         it('should return a string given a string < 42 characters', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.cfda_title = 'East Asia and Pacific Grants Program I am ';
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA.cfdaTitleShort).toEqual('East Asia and Pacific Grants Program I am ');
         });
         it('should return a truncated string given a string = 42 characters', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.cfda_title = 'East Asia and Pacific Grants Program I am R';
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA.cfdaTitleShort).toEqual('East Asia and Pacific Grants Program I ...');
         });
         it('should return a truncated string given a string > 42 characters', () => {
             const badFirstCFDA = cloneDeep(mockLoan.cfda_info[0]);
             badFirstCFDA.cfda_title = 'East Asia and Pacific Grants Program I am Root';
-            const badCFDA = Object.create(BaseCFDA);
-            badCFDA.populate(badFirstCFDA);
+            const badCFDA = new BaseCFDA(badFirstCFDA);
             expect(badCFDA.cfdaTitleShort).toEqual('East Asia and Pacific Grants Program I ...');
         });
     });
