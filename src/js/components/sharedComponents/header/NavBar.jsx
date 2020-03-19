@@ -66,7 +66,7 @@ export default class NavBar extends React.Component {
     }
 
     toggleModal = () => {
-        this.setState({ showStayInTouchModal: !this.state.showStayInTouchModal })
+        this.setState({ showStayInTouchModal: !this.state.showStayInTouchModal });
     }
 
     render() {
