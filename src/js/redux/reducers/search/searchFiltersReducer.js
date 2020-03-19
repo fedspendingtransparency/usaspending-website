@@ -230,7 +230,7 @@ const searchFiltersReducer = (state = initialState, action) => {
         // NAICS_V2 Filter
         case 'UPDATE_NAICS_V2': {
             return Object.assign({}, state, {
-                naics_codes: action.payload
+                naics_codes: OtherFilterFunctions.updateNAICSV2(action.payload)
             });
         }
 

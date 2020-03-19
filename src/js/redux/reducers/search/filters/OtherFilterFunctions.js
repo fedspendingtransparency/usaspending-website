@@ -2,6 +2,11 @@
  * Created by Emily Gullo 07/18/2017
  */
 
+import {
+    getImmediateAncestorNaicsCode,
+    getHighestAncestorNaicsCode
+} from "helpers/checkboxTreeHelper";
+
 export const updateSelectedCFDA = (state, value) => {
     let updatedSet = state;
 
@@ -36,6 +41,36 @@ export const updateSelectedNAICS = (state, value) => {
 
     return updatedSet;
 };
+
+export const updateNAICSV2 = ({ require, exclude }) => require
+    .filter((naicsCode) => naicsCode.length > 2)
+    .reduce((acc, naicsCode) => {
+        const parentKey = getHighestAncestorNaicsCode(naicsCode);
+        const ancestorKey = getImmediateAncestorNaicsCode(naicsCode);
+        const isAncestorInRequire = (
+            require.includes(parentKey) ||
+            require.includes(ancestorKey)
+        );
+        const isAncestorInExclude = (
+            exclude.includes(parentKey) ||
+            exclude.includes(ancestorKey)
+        );
+        if (isAncestorInRequire) {
+            // Don't send the api both an ancestor and it's children...
+            if (isAncestorInExclude) {
+                // unless they have an ancestor in the excluded array;
+                // then, we send both the ancestor and one of its descendants to override the ancestor's
+                // exclusion;
+                return acc;
+            }
+            // otherwise, don't!
+            return {
+                ...acc,
+                require: acc.require.filter((code) => code !== naicsCode)
+            };
+        }
+        return acc;
+    }, { require, exclude });
 
 export const updateSelectedPSC = (state, value) => {
     let updatedSet = state;
