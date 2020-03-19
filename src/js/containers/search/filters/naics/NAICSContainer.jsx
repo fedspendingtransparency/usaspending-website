@@ -279,7 +279,6 @@ export class NAICSContainer extends React.Component {
         const parentNode = getNodeFromTree(this.props.nodes, parentKey);
         const ancestorNode = getNodeFromTree(this.props.nodes, ancestorKey);
         const currentNode = getNodeFromTree(this.props.nodes, key);
-        console.log("current Node", currentNode, checkedCode);
         const { count } = currentNode;
 
         const uncheckedCodeToBeRemoved = unchecked
