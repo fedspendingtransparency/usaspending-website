@@ -49,7 +49,7 @@ const CFDASection = ({ data }) => {
                 tooltip={CFDASectionInfo}
                 left={false}
                 tooltipWide />
-            <div className="award__col__content">
+            <div className="award__col__content" id="award-cfda">
                 <ExpandableAwardSection content={expandableContent}>
                     <h4>{`${cfdaNumber}: ${cfdaTitle.toUpperCase()}`}</h4>
                     <h5>Objectives</h5>

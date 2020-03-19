@@ -62,6 +62,21 @@
               font-weight: 300;
               text-transform: uppercase;
           }
+          .cfda-viz__button {
+            @include button-unstyled;
+            @include display(flex);
+            line-height: normal;
+            color: $color-link;
+            text-transform: uppercase;
+            padding-top: rem(5);
+    
+            &:hover, &:focus {
+                color: $color-visited;
+                svg {
+                    fill: $color-visited;
+                }
+            }
+          }
         }
     }
 
