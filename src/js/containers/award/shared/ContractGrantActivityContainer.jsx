@@ -32,6 +32,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
     const [error, updateError] = useState({ error: false, message: '' });
     // requests
     const request = useRef(null);
+    const hasNext = useRef(true);
     /**
      * formatTransactions
      * - any transactions that have the same date must be summed into one amount.
@@ -91,23 +92,23 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
                 order: 'asc',
                 limit: 5000
             };
-            let hasNext = true;
+            // let hasNext = true;
             /**
              * paginateTransactions
              * - Generator function that fetches transactions
              * @returns {Object[]} - an array of one page of transactions
              */
             async function* paginateTransactions() {
-                while (hasNext) {
+                while (hasNext.current) {
                     try {
                         request.current = fetchAwardTransaction(params);
                         const response = await request.current.promise;
                         params.page++;
-                        hasNext = response.data.page_metadata.hasNext;
+                        hasNext.current = response.data.page_metadata.hasNext;
                         yield response.data;
                     }
                     catch (e) {
-                        hasNext = false;
+                        hasNext.current = false;
                         updateError({ error: true, message: e.message });
                     }
                 }
@@ -138,7 +139,13 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
         asyncFunc();
     }, [awardId]);
     // hook - runs on mount and anytime awardId and getTransactions change
-    useEffect(() => getTransactions(), [getTransactions, awardId]);
+    useEffect(() => {
+        getTransactions();
+        return () => {
+            if (request.current) request.current.cancel();
+            if (hasNext.current) hasNext.current = false;
+        };
+    }, [getTransactions, awardId]);
     // hook - run on mount and if award changes
     useEffect(() => {
         if (!dates) setBadDates(true);

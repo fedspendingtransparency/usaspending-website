@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import ContractGrantsActivityChart from './ContractGrantsActivityChart';
+import ContractGrantActivityChart from './ContractGrantActivityChart';
 
 const propTypes = {
     transactions: PropTypes.array,
@@ -43,7 +43,7 @@ const ContractGrantActivity = ({ transactions, dates, awardType }) => {
 
     return (
         <div ref={divReference} className="contract-grant-activity-visualization">
-            <ContractGrantsActivityChart
+            <ContractGrantActivityChart
                 visualizationWidth={visualizationWidth}
                 transactions={transactions}
                 height={360}

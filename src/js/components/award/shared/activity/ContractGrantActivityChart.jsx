@@ -18,6 +18,8 @@ const propTypes = {
     dates: PropTypes.object
 };
 
+const xAxisSpacingPercentage = 0.05;
+
 const ContractGrantsActivityChart = ({
     height,
     padding,
@@ -146,7 +148,7 @@ const ContractGrantsActivityChart = ({
          * By design, we want to leave space between the start of the chart
          * and the end of the chart.
          */
-        const spacing = visualizationWidth * 0.05;
+        const spacing = visualizationWidth * xAxisSpacingPercentage;
         const scale = scaleLinear()
             .domain(xDomain)
             .range([spacing, visualizationWidth - spacing - padding.left]);
@@ -155,22 +157,22 @@ const ContractGrantsActivityChart = ({
         theTicks.splice(0, 0, xDomain[0]); // first tick
         theTicks.push(xDomain[1]); // last tick
 
-        const differences = theTicks.reverse().reduce((acc, tick, i, src) => {
+        const differencesBetweenEachTick = theTicks.reverse().reduce((acc, tick, i, src) => {
             const nextTick = src[i + 1];
             if (!nextTick) return acc; // last tick ignore
             acc.push(tick - nextTick);
             return acc;
         }, []);
 
-        const averageDifference = sum(differences) / theTicks.length;
+        const averageDifference = sum(differencesBetweenEachTick) / theTicks.length;
         // ascending order since we reversed above
         theTicks.reverse();
         /**
-         * manuallyCreateXTicks
+         * evenlySpacedTicks
          * - Manually create the x ticks starting with the first tick and
          * adding the difference sequentially.
          */
-        const manuallyCreateXTicks = (ticks, diff) => {
+        const evenlySpacedTicks = (ticks, diff) => {
             const newTicks = cloneDeep(ticks);
             /**
              * Tthe ticks method for d3 does not include ticks for the very beginning
@@ -200,10 +202,10 @@ const ContractGrantsActivityChart = ({
          * @returns {Number[]} - array of milliseconds
          */
         let skipNext = false;
-        const removeOverlappingTicks = (ticks, scaleFunc) => ticks.reduce((acc, tick, i, src) => {
+        const removeOverlappingTicks = (ticks, scaleFunc) => ticks.filter((tick, i, src) => {
             if (skipNext) {
                 skipNext = false;
-                return acc;
+                return false;
             }
             const currentTick = scaleFunc(tick);
             const nextTick = scaleFunc(src[i + 1]);
@@ -212,17 +214,15 @@ const ContractGrantsActivityChart = ({
                 if (difference <= 20) { // ticks overlap
                     // keeps last tick
                     if (i + 2 === src.length) {
-                        return acc;
+                        return false;
                     }
                     skipNext = true;
                 }
-                acc.push(tick);
-                return acc;
+                return true;
             }
-            acc.push(tick); // first tick
-            return acc;
-        }, []);
-        theTicks = manuallyCreateXTicks(theTicks, averageDifference);
+            return true;
+        });
+        theTicks = evenlySpacedTicks(theTicks, averageDifference);
         theTicks = removeOverlappingTicks(theTicks, scale);
 
         setXTicks(xTickDateAndLabel(theTicks));

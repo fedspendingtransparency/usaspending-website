@@ -30,6 +30,10 @@ const propTypes = {
     removeLastLabel: PropTypes.bool
 };
 
+const yOffset = 20;
+
+const labelOffset = 15;
+
 export default class ActivityXAxis extends React.Component {
     constructor(props) {
         super(props);
@@ -75,7 +79,7 @@ export default class ActivityXAxis extends React.Component {
         }
 
         // set all the labels 20px below the X axis
-        const yPos = height + 20;
+        const yPos = height + yOffset;
 
         // iterate through the D3 generated tick marks and add them to the chart
         const labels = ticks.map((tick, i, array) => {
@@ -89,8 +93,8 @@ export default class ActivityXAxis extends React.Component {
             if (removeFirstLabel && i === 0) return null;
             if (removeLastLabel && i === (array.length - 1)) return null;
             // adjust the display of the labels
-            const translateX = xPos - ((transformLabels?.x || transformLabels?.x === 0) ? transformLabels?.x : 15);
-            const translateY = yPos + ((transformLabels?.y || transformLabels?.y === 0) ? transformLabels?.y : 15);
+            const translateX = xPos - ((transformLabels?.x || transformLabels?.x === 0) ? transformLabels?.x : labelOffset);
+            const translateY = yPos + ((transformLabels?.y || transformLabels?.y === 0) ? transformLabels?.y : labelOffset);
             const rotateLabel = (transformLabels?.rotate || transformLabels?.rotate === 0) ? transformLabels?.rotate : 325;
             const transform = `translate(${translateX},${translateY}) rotate(${rotateLabel})`;
 
