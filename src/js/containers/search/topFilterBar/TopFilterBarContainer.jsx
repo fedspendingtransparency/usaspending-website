@@ -629,7 +629,7 @@ export class TopFilterBarContainer extends React.Component {
             return filter;
         }
 
-        else if (props.naics_codes.included.length > 0) {
+        else if (props.naics_codes.require.length > 0) {
             return {
                 code: 'selectedNAICS',
                 isV2: true,

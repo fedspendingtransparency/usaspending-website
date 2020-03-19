@@ -135,11 +135,11 @@ export const updateSelectedCFDA = (state) => ({
 });
 
 // NAICS Filter
-export const updateNaicsV2 = (included, excluded, counts) => ({
+export const updateNaicsV2 = (require, exclude, counts) => ({
     type: 'UPDATE_NAICS_V2',
     payload: {
-        excluded,
-        included: included.map((code) => removePlaceholderString(code)),
+        exclude,
+        require: require.map((code) => removePlaceholderString(code)),
         counts
     }
 });

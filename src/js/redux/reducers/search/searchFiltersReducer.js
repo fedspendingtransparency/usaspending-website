@@ -22,9 +22,9 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 // export const filterStoreVersion = '2019-07-26';
 export const filterStoreVersion = '2017-11-21';
 
-export function NaicsCodes(data = { included: [], excluded: [], counts: [] }) {
-    this.included = data.included;
-    this.excluded = data.excluded;
+export function NaicsCodes(data = { require: [], exclude: [], counts: [] }) {
+    this.require = data.require;
+    this.exclude = data.exclude;
     this.counts = data.counts || [];
 }
 

@@ -475,8 +475,8 @@ export const defaultProps = {
     checkedFromHash: [],
     filters: {
         naics_codes: {
-            included: [],
-            excluded: []
+            require: [],
+            exclude: []
         }
     }
 };

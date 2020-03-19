@@ -118,7 +118,7 @@ export const fetchLastUpdate = () => apiRequest({
 export const removeNaicsCountsFromFilters = (reduxFilters) => ({
     ...reduxFilters,
     naics_codes: {
-        included: reduxFilters.naics_codes.included,
-        excluded: reduxFilters.naics_codes.excluded
+        require: reduxFilters.naics_codes.require,
+        exclude: reduxFilters.naics_codes.exclude
     }
 });

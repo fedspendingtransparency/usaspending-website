@@ -649,8 +649,8 @@ export default connect(
         searchExpanded: state.naics.searchExpanded.toJS(),
         checked: state.naics.checked.toJS(),
         unchecked: state.naics.unchecked.toJS(),
-        checkedFromHash: state.appliedFilters.filters.naics_codes.included,
-        uncheckedFromHash: state.appliedFilters.filters.naics_codes.excluded,
+        checkedFromHash: state.appliedFilters.filters.naics_codes.require,
+        uncheckedFromHash: state.appliedFilters.filters.naics_codes.exclude,
         filters: state.appliedFilters.filters
     }),
     (dispatch) => ({

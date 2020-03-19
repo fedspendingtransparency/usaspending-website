@@ -38,7 +38,7 @@ class SearchAwardsOperation {
 
         this.selectedCFDA = [];
         this.selectedNAICS = [];
-        this.naics_codes = { included: [], excluded: [] };
+        this.naics_codes = { require: [], exclude: [] };
         this.selectedPSC = [];
 
         this.pricingType = [];
@@ -79,7 +79,7 @@ class SearchAwardsOperation {
 
         this.selectedCFDA = state.selectedCFDA.toArray();
         this.selectedNAICS = state.selectedNAICS.toArray();
-        this.naics_codes = { included: state.naics_codes.included, excluded: state.naics_codes.excluded };
+        this.naics_codes = { require: state.naics_codes.require, exclude: state.naics_codes.exclude };
         this.selectedPSC = state.selectedPSC.toArray();
 
         this.pricingType = state.pricingType.toArray();
@@ -274,7 +274,7 @@ class SearchAwardsOperation {
         }
 
         // NAICS v2
-        if (this.naics_codes.included.length > 0) {
+        if (this.naics_codes.require.length > 0) {
             filters[rootKeys.naics_v2] = this.naics_codes;
         }
 
