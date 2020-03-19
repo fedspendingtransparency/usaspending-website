@@ -42,27 +42,29 @@ const CFDASection = ({ data }) => {
         </React.Fragment>
     );
     return (
-        <AwardSection type="column" className="cfda-section award-viz">
-            <AwardSectionHeader
-                title="CFDA Program / Assistance Listing Information"
-                icon={<FontAwesomeIcon icon="hands-helping" />}
-                tooltip={CFDASectionInfo}
-                left={false}
-                tooltipWide />
-            <div className="award__col__content" id="award-cfda">
-                <ExpandableAwardSection content={expandableContent}>
-                    <h4>{`${cfdaNumber}: ${cfdaTitle.toUpperCase()}`}</h4>
-                    <h5>Objectives</h5>
-                    <ExpandableAwardSection type="secondary" content={cfdaObjectives} />
-                    <h5>Administrative Agency</h5>
-                    <p>{cfdaFederalAgency}</p>
-                    <h5>Website</h5>
-                    <a href={cfdaWebsite}>{cfdaWebsite}</a>
-                    <h5>SAM.gov Page</h5>
-                    <a href={samWebsite}>{samWebsite}</a>
-                </ExpandableAwardSection>
-            </div>
-        </AwardSection>
+        <div id="award-cfda">
+            <AwardSection type="column" className="cfda-section award-viz">
+                <AwardSectionHeader
+                    title="CFDA Program / Assistance Listing Information"
+                    icon={<FontAwesomeIcon icon="hands-helping" />}
+                    tooltip={CFDASectionInfo}
+                    left={false}
+                    tooltipWide />
+                <div className="award__col__content">
+                    <ExpandableAwardSection content={expandableContent}>
+                        <h4>{`${cfdaNumber}: ${cfdaTitle.toUpperCase()}`}</h4>
+                        <h5>Objectives</h5>
+                        <ExpandableAwardSection type="secondary" content={cfdaObjectives} />
+                        <h5>Administrative Agency</h5>
+                        <p>{cfdaFederalAgency}</p>
+                        <h5>Website</h5>
+                        <a href={cfdaWebsite}>{cfdaWebsite}</a>
+                        <h5>SAM.gov Page</h5>
+                        <a href={samWebsite}>{samWebsite}</a>
+                    </ExpandableAwardSection>
+                </div>
+            </AwardSection>
+        </div>
     );
 };
 
