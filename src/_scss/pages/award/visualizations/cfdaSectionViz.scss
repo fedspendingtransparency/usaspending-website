@@ -1,0 +1,50 @@
+.cfda-section__viz {
+  width: 100%;
+  .view-buttons-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    .view-buttons-section__back {
+      padding-bottom: 1rem;
+      .view-buttons-section__back-text {
+        padding-left: 0.5rem;
+      }
+    }
+    .view-buttons-section__text {
+        flex-grow: 1;
+        font-size: 1.4rem;
+        padding: 1.1rem 0;
+    }
+    .view-buttons-section__buttons {
+      @include viewTypeButton();
+      text-align: right;
+      .view-button {
+        margin-top: 0;
+        &.active {
+          background-color: $color-primary;
+          border-color: $color-primary;
+        }
+      }
+    }
+  }
+  .cfda-section-results {
+    @import './visualizations/cfdaSectionTable';
+    width: 100%;
+    .cfda-section-table-renderer {
+      width: 100%;
+      overflow-x: scroll;
+      @include media($medium-screen) {
+        overflow-x: auto;
+      }
+    }
+    .cfda-section-table-holder {
+      width: 100%;
+    }
+    .explorer-cell-title {
+      font-weight: bold;
+    }
+    .explorer-cell-box:hover {
+        background-color: #f49c20;
+    }
+  }
+}
