@@ -2,8 +2,9 @@
     background-color: $color-white;
     // Overrides the default library max width of 100%
     max-width: rem(1200);
+    width: rem(623);
     .usa-dt-modal__header {
-        background-color: $color-primary;
+        background-color: #205493;
         @include display(flex);
         @include justify-content(center);
         color: white;
@@ -17,6 +18,7 @@
         }
         .usa-dt-modal__close-button {
             @include flex(0 0 auto);
+            @include flex-direction(column);
             @include button-unstyled;
             padding: rem(10);
             margin-left: auto;
@@ -30,11 +32,12 @@
     }
     .usa-dt-modal__body {
         text-align: center;
-        padding: rem(30) rem(45) rem(45) rem(45);
+        padding: rem(30) rem(50) rem(23) rem(50);
         .email-sign-up__modal-body {
             h2 {
                 font-size: rem(24);
                 margin: 0 0 rem(27) 0;
+                font-weight: 500;
             }
             form {
                 @include display(flex);
@@ -49,12 +52,14 @@
                 }
                 .submit {
                     @include align-self(center);
-                    margin-top: rem(65);
                     width: rem(158);
                     padding: rem(8) rem(48);
                     font-size: rem(18);
                     line-height: rem(23);
                     font-weight: 600;
+                    color: white;
+                    background-color: #205493;
+                    margin: 0;
                 }
             }
             .email-sign-up__confirmation {
@@ -67,28 +72,46 @@
                     height: rem(65);
                     width: rem(65);
                 }
+                p {
+                    margin-top: 0;
+                    margin-bottom: rem(33);
+                }
+                button {
+                    width: rem(158);
+                    font-size: rem(18);
+                    height: rem(40);
+                    font-weight: 600;
+                    line-height: rem(23);
+                    background-color: #205493;
+                    margin: 0;
+                }
             }
             .email-sign-up__validation {
                 width: 100%;
                 background:#F9DEDE;
                 height: rem(45);
+                margin: rem(10) 0;
                 border: rem(1) solid #CD2026;
                 @include display(flex);
-                @include justify-content(center);
+                @include justify-content(flex-start);
                 @include align-items(center);
                 span {
                     font-size: rem(18);
                     padding-left: rem(8);
+                    color: #555555;
+                    font-weight: 600;
                 }
                 svg {
                     height: rem(24);
+                    width: rem(24);
+                    margin-left: rem(16);
                 }
             }
         }
     }
 }
 
-.email-sign-up__modal {
+.stay-in-touch-modal {
     padding: rem(50) rem(23);
     .usa-dt-modal__header {
         height: rem(83);

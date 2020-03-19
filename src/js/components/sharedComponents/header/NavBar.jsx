@@ -9,6 +9,7 @@ import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWr
 import { searchOptions, profileOptions, downloadOptions } from 'dataMapping/navigation/menuOptions';
 import EmailSignUp from 'components/homepage/EmailSignUp';
 
+import { DEV } from '../../../GlobalConstants';
 import NavBarGlossaryLink from './NavBarGlossaryLink';
 import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
@@ -146,14 +147,16 @@ export default class NavBar extends React.Component {
                         <ul
                             className="full-menu__list"
                             role="menu">
-                            <li
-                                className="full-menu__item"
-                                role="menuitem">
-                                <button className="full-menu__item--button" onClick={this.toggleModal}>
-                                    <FontAwesomeIcon icon={faEnvelope} />
-                                    Stay In Touch
-                                </button>
-                            </li>
+                            {DEV && (
+                                <li
+                                    className="full-menu__item"
+                                    role="menuitem">
+                                    <button className="full-menu__item--button" onClick={this.toggleModal}>
+                                        <FontAwesomeIcon icon={faEnvelope} />
+                                        Stay In Touch
+                                    </button>
+                                </li>
+                            )}
                             <li
                                 className="full-menu__item"
                                 role="menuitem">

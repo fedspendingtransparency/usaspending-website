@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // eslint-disable-next-line no-useless-escape
 const regex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
+
+const propTypes = {
+    closeModal: PropTypes.func
+};
 
 const EmailSignUp = ({
     closeModal
@@ -21,8 +26,7 @@ const EmailSignUp = ({
 
     return (
         <div className="email-sign-up__modal-body">
-            <h2>Subscribe the USAspending.gov Newsletter</h2>
-            {/* <form action="http://ntdmls01/subscribe/subscribe.tml" method="POST"> */}
+            {!isSubmitted && <h2>Subscribe the USAspending.gov Newsletter</h2>}
             {isSubmitted && (
                 <div className="email-sign-up__confirmation">
                     <FontAwesomeIcon icon="check-circle" color="#2E8540" />
@@ -34,8 +38,28 @@ const EmailSignUp = ({
             {!isSubmitted && (
                 <form>
                     <label className="email-label" htmlFor="email">Email address: </label>
-                    <input className="email-input" type="email" name="email" value={emailInput} onChange={handleEmailInput} />
-                    <input className="submit" type="submit" value="SUBMIT" title="subscribe" alt="subscribe" name="subscribe" disabled={!isValid} onClick={handleSubmit} />
+                    <input
+                        style={{ margin: (isValid || !emailInput) ? '0 0 6.5rem 0' : '0 0 1rem 0' }}
+                        className="email-input"
+                        type="email"
+                        name="email"
+                        value={emailInput}
+                        onChange={handleEmailInput} />
+                    {!isValid && emailInput.length > 0 && (
+                        <div className="email-sign-up__validation">
+                            <FontAwesomeIcon icon="exclamation-circle" color="#CD2026" />
+                            <span>Please enter a valid email address.</span>
+                        </div>
+                    )}
+                    <input
+                        className="submit"
+                        type="submit"
+                        value="SUBMIT"
+                        title="subscribe"
+                        alt="subscribe"
+                        name="subscribe"
+                        disabled={!isValid}
+                        onClick={handleSubmit} />
                     <input type="hidden" name="list" value="usaspending" />
                     <input type="hidden" name="lists" value="usaspending" />
                     <input type="hidden" name="demographics" value="" />
@@ -48,14 +72,9 @@ const EmailSignUp = ({
                     <input type="hidden" name="secx" value="03b19f94" />
                 </form>
             )}
-            {!isValid && emailInput.length > 0 && (
-                <div className="email-sign-up__validation">
-                    <FontAwesomeIcon icon="exclamation-circle" color="#CD2026" />
-                    <span>Please enter a valid email address.</span>
-                </div>
-            )}
         </div>
     );
 };
 
+EmailSignUp.propTypes = propTypes;
 export default EmailSignUp;
