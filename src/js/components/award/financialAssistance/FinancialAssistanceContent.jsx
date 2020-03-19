@@ -74,7 +74,11 @@ const FinancialAssistanceContent = ({
     const isGrant = overview.category === 'grant';
     const grantActivity = () => {
         if (isGrant) {
-            return (kGlobalConstants.DEV) ? <ContractGrantActivityContainer awardId={awardId} awardType={overview.category} />
+            return (kGlobalConstants.DEV) ?
+                <ContractGrantActivityContainer
+                    awardId={awardId}
+                    awardType={overview.category}
+                    dates={overview.periodOfPerformance} />
                 : <ComingSoonSection
                     title="Grant Activity"
                     icon="chart-area"

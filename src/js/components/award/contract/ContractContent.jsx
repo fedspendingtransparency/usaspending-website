@@ -102,7 +102,11 @@ const ContractContent = ({
             </AwardSection>
             <AwardSection className="award-contract-activity-section" type="row">
                 {
-                    kGlobalConstants.DEV ? <ContractGrantActivityContainer awardId={awardId} awardType={overview.category} />
+                    kGlobalConstants.DEV ?
+                        <ContractGrantActivityContainer
+                            awardId={awardId}
+                            awardType={overview.category}
+                            dates={overview.periodOfPerformance} />
                         : <ComingSoonSection
                             toolTipWide
                             toolTipContent={contractActivityInfoContracts}
