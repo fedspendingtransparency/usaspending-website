@@ -221,9 +221,10 @@ export default class CFDATree extends React.Component {
                             {cells}
                         </svg>}
                 </div>
-                {chartLength !== 0 && <div className="cfda-section-treemap-count">
-                    {`${this.state.virtualChart.length} ${naming}`}
-                </div>}
+                {chartLength !== 0 &&
+                    <div className="cfda-section-treemap-count">
+                        {`${this.state.virtualChart.length} ${naming}`}
+                    </div>}
             </div>
         );
     }
