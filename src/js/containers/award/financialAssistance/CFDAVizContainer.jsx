@@ -10,7 +10,9 @@ import { isEqual } from 'lodash';
 
 const propTypes = {
     cfdas: PropTypes.array,
-    biggestCfda: PropTypes.object
+    biggestCfda: PropTypes.object,
+    CFDAOverviewLinkClicked: PropTypes.bool,
+    updateCFDAOverviewLinkClicked: PropTypes.func
 };
 
 export default class CFDAVizContainer extends React.Component {
@@ -33,6 +35,13 @@ export default class CFDAVizContainer extends React.Component {
 
     componentDidMount = () => this.updateCFDAs();
     componentDidUpdate(prevProps) {
+        if (!isEqual(prevProps.CFDAOverviewLinkClicked, this.props.CFDAOverviewLinkClicked)) {
+            if (
+                this.props.CFDAOverviewLinkClicked &&
+                this.state.view !== 'table' &&
+                this.props.cfdas.length > 1
+            ) this.updateViewFromCFDAOverviewClick('table');
+        }
         if (!isEqual(prevProps.cfdas, this.props.cfdas)) {
             this.updateCFDAs();
         }
@@ -52,6 +61,11 @@ export default class CFDAVizContainer extends React.Component {
 
     onTreeClick = (id, cfda) => {
         this.setState({ previousView: 'tree', view: 'single', cfda });
+    }
+
+    updateViewFromCFDAOverviewClick = (view) => {
+        this.setState({ view });
+        this.props.updateCFDAOverviewLinkClicked();
     }
 
     updateCFDAs = () => {

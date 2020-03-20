@@ -7,13 +7,17 @@ import AwardSectionHeader from '../shared/AwardSectionHeader';
 import { CFDASectionInfo } from "../shared/InfoTooltipContent";
 
 const propTypes = {
-    cfdas: PropTypes.array
+    cfdas: PropTypes.array,
+    CFDAOverviewLinkClicked: PropTypes.bool,
+    updateCFDAOverviewLinkClicked: PropTypes.func
 };
 
 const CFDASection = ({
-    cfdas
+    cfdas,
+    CFDAOverviewLinkClicked,
+    updateCFDAOverviewLinkClicked
 }) => (
-    <AwardSection type="column" className="cfda-section award-viz">
+    <AwardSection id="award-cfda" type="column" className="cfda-section award-viz">
         <AwardSectionHeader
             title="CFDA Program / Assistance Listing Information"
             icon={<FontAwesomeIcon icon="hands-helping" />}
@@ -21,7 +25,10 @@ const CFDASection = ({
             left={false}
             tooltipWide />
         <div className="award__col__content">
-            <CFDAVizContainer cfdas={cfdas} />
+            <CFDAVizContainer
+                cfdas={cfdas}
+                CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
+                updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />
         </div>
     </AwardSection>
 );
