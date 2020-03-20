@@ -5,6 +5,7 @@
     .cfda-section {
         width: 100%;
         .award__col__content {
+            @import 'components/Note';
             .award-expandable-section__primary {
                 h4 {
                     margin-top: 0;

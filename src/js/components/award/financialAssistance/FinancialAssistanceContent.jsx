@@ -43,7 +43,6 @@ const FinancialAssistanceContent = ({
     const [CFDAOverviewLinkClicked, setCFDAOverviewLinkClicked] = useState(false);
 
     const updateCFDAOverviewLinkClicked = () => {
-        // if (!CFDAOverviewLinkClicked) setCFDAOverviewLinkClicked(!CFDAOverviewLinkClicked);
         setCFDAOverviewLinkClicked(!CFDAOverviewLinkClicked);
     };
 

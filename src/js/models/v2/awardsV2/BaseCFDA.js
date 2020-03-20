@@ -18,7 +18,6 @@ export default class BaseCFDA {
         this.beneficiaryEligibility = data.beneficiary_eligibility || '';
         this.cfdaObjectives = data.cfda_objectives || '';
         this._totalAwardObligation = isNumber(total) ? total : '';
-        this._totalFundingAmount = isNumber(data.total_funding_amount) ? data.total_funding_amount : '';
         this._federalActionOblicationAmount = isNumber(data.federal_action_obligation_amount) ? data.federal_action_obligation_amount : '';
         this._percentOfTotal = ((isNumber(this._totalAwardObligation) && this._totalAwardObligation !== 0) &&
             isNumber(this._federalActionOblicationAmount)) ?
