@@ -10,9 +10,9 @@ const tableMapping = {
         classname: 'cfda-section-table__body-cell',
         onClick: true
     },
-    totalFundingAmount: {
+    federalActionOblicationAmount: {
         displayName: 'Funding Provided',
-        field: '_totalFundingAmount',
+        field: '_federalActionOblicationAmount',
         classname: 'cfda-section-table__body-cell offset-right-money'
     },
     percentOfTotal: {

@@ -25,9 +25,9 @@ export default class BaseCFDA {
             this._federalActionOblicationAmount / this._totalAwardObligation :
             null;
         Object.defineProperties(this, {
-            totalFundingAmount: {
+            federalActionOblicationAmount: {
                 enumerable: true,
-                get: () => (isNumber(this._totalFundingAmount) ? formatMoney(this._totalFundingAmount) : '--')
+                get: () => (isNumber(this._federalActionOblicationAmount) ? formatMoney(this._federalActionOblicationAmount) : '--')
             },
             percentOfTotal: {
                 enumerable: true,

@@ -18,7 +18,7 @@ export default class CFDAVizContainer extends React.Component {
         super(props);
         this.state = {
             limit: 10,
-            sort: '_totalFundingAmount',
+            sort: '_federalActionOblicationAmount',
             page: 1,
             order: 'desc',
             total: props.cfdas.length,
