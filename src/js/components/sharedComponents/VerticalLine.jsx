@@ -9,7 +9,10 @@ import { throttle } from 'lodash';
 
 const propTypes = {
     xScale: PropTypes.func, // function to set line position
-    text: PropTypes.string, // text to display with line
+    text: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array
+    ]), // text to display with line
     y1: PropTypes.number, // top of graph
     y2: PropTypes.number, // bottom of graph
     xMax: PropTypes.number, // max possible value of x
@@ -18,7 +21,9 @@ const propTypes = {
     showTextPosition: PropTypes.string, // show text left, right, and top are valid
     textY: PropTypes.number, // show text at this height
     description: PropTypes.string,
-    adjustmentX: PropTypes.number // adjust x for padding
+    adjustmentX: PropTypes.number, // adjust x for padding
+    textClassname: PropTypes.string,
+    lineClassname: PropTypes.string
 };
 
 export default class VerticalLine extends Component {
@@ -26,17 +31,17 @@ export default class VerticalLine extends Component {
         super(props);
 
         this.state = {
-            textX: 0,
-            textY: props.textY,
             windowWidth: null
         };
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-        this.textDiv = null;
         // React will call this function when the DOM draws it ( React Callback Refs )
-        this.setTextDiv = (element) => {
-            this.textDiv = element;
-            this.positionText();
-        };
+        const textArray = Array.isArray(props.text) ? props.text : [props.text];
+        textArray.forEach((text) => {
+            this[`textDiv${text}`] = null;
+            this[`setTextDiv${text}`] = (element) => {
+                this[`textDiv${text}`] = element;
+                this.positionText(text);
+            };
+        });
     }
 
     componentDidMount() {
@@ -48,15 +53,17 @@ export default class VerticalLine extends Component {
         window.removeEventListener('resize', this.handleWindowResize);
     }
     // since we set the position of the text we need to update it on window resize
-    handleWindowResize() {
+    handleWindowResize = throttle(() => {
         const windowWidth = window.innerWidth;
         if (this.state.windowWidth !== windowWidth) {
             this.setState({ windowWidth });
-            this.positionText();
+            const { text } = this.props;
+            const textArray = Array.isArray(text) ? text : [text];
+            textArray.forEach((data) => this.positionText(data));
         }
-    }
+    })
 
-    positionText() {
+    positionText = (text) => {
         const {
             xScale,
             xValue,
@@ -69,8 +76,10 @@ export default class VerticalLine extends Component {
         // the text div starts null since React only calls the callback ref function
         // when the DOM draws the element, without this you will get an error since
         // we will be call properties on null
-        if (this.textDiv) {
-            const textDivDimensions = this.textDiv.getBoundingClientRect();
+        const textDiv = this[`textDiv${text}`];
+        if (textDiv) {
+            const wordIndex = textDiv.getAttribute('data-wordindex');
+            const textDivDimensions = textDiv.getBoundingClientRect();
             const width = textDivDimensions.width;
             if (showTextPosition === 'left') positionX -= (width + 4);
             if (showTextPosition === 'right') positionX += 4;
@@ -78,11 +87,14 @@ export default class VerticalLine extends Component {
                 modifiedTextY -= 15;
                 positionX -= (width / 2);
             }
+            if (wordIndex !== '0') {
+                modifiedTextY += (textDivDimensions.height * (parseInt(wordIndex, 10)));
+            }
         }
-        this.setState({ textX: positionX, textY: modifiedTextY });
+        this.setState({ [`${text}TextX`]: positionX, [`${text}TextY`]: modifiedTextY });
     }
 
-    verticalLine() {
+    verticalLine = () => {
         const {
             xMin,
             xMax,
@@ -90,17 +102,18 @@ export default class VerticalLine extends Component {
             xScale,
             adjustmentX,
             y1,
-            y2
+            y2,
+            lineClassname
         } = this.props;
         const linePosition = xScale(xValue) + (adjustmentX || 0);
         // get x position of minimum
         const minimumX = xScale(xMin);
         // get x position of maximum
-        const maximumX = xScale(xMax);
+        const maximumX = xScale(xMax) + (adjustmentX || 0);
         if ((linePosition > maximumX) || (linePosition < minimumX)) return null;
         return (
             <line
-                id="vertical-line"
+                className={lineClassname || "vertical-line"}
                 x1={linePosition}
                 x2={linePosition}
                 y1={y1}
@@ -108,18 +121,21 @@ export default class VerticalLine extends Component {
         );
     }
 
-    text(lineIsDisplayed) {
-        const { text } = this.props;
+    text = (lineIsDisplayed) => {
+        const { text, textClassname } = this.props;
         if (!lineIsDisplayed || !text) return null;
-        return (
+        const textArray = Array.isArray(text) ? text : [text];
+        return textArray.map((data, i) => (
             <text
-                id="vertical-line__text"
-                x={this.state.textX}
-                y={this.state.textY}
-                ref={this.setTextDiv}>
-                {text}
+                key={data}
+                className={textClassname || "vertical-line__text"}
+                x={this.state[`${data}TextX`]}
+                y={this.state[`${data}TextY`]}
+                ref={this[`setTextDiv${data}`]}
+                data-wordindex={i}>
+                {data}
             </text>
-        );
+        ));
     }
 
     render() {

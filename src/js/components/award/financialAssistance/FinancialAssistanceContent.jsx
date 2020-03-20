@@ -74,7 +74,11 @@ const FinancialAssistanceContent = ({
     const isGrant = overview.category === 'grant';
     const grantActivity = () => {
         if (isGrant) {
-            return (kGlobalConstants.DEV) ? <ContractGrantActivityContainer awardId={awardId} awardType={overview.category} />
+            return (kGlobalConstants.DEV) ?
+                <ContractGrantActivityContainer
+                    awardId={awardId}
+                    awardType={overview.category}
+                    dates={overview.periodOfPerformance} />
                 : <ComingSoonSection
                     title="Grant Activity"
                     icon="chart-area"
@@ -119,9 +123,7 @@ const FinancialAssistanceContent = ({
             <AwardSection type="row">
                 {grantActivity()}
                 {!isGrant && (
-                    <CFDASection
-                        cfdas={overview.cfdas}
-                        biggestCfda={overview.biggestCfda} />
+                    <CFDASection cfdas={overview.cfdas} />
                 )}
                 <FederalAccountsSection
                     awardType={overview.category}
@@ -129,9 +131,7 @@ const FinancialAssistanceContent = ({
             </AwardSection>
             {isGrant && (
                 <AwardSection type="row">
-                    <CFDASection
-                        cfdas={overview.cfdas}
-                        biggestCfda={overview.biggestCfda} />
+                    <CFDASection cfdas={overview.cfdas} />
                 </AwardSection>
             )}
             <AwardHistory

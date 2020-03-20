@@ -120,7 +120,12 @@ export class BulkDownloadPageContainer extends React.Component {
             const locationType = awardDownloadOptions.locationTypes.find((type) => (
                 type.name === formState.locationType
             ));
-            params.filters[locationType.apiName] = [locations];
+            // Since "FOREIGN" is not a country the scope filter is used instead
+            if (formState.location.country.code === 'FOREIGN') {
+                params.filters[locationType.apiScopeName] = "foreign";
+            } else {
+                params.filters[locationType.apiName] = [locations];
+            }
         }
 
         this.requestDownload(params, 'awards');
