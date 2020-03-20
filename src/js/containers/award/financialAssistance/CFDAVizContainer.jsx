@@ -19,7 +19,7 @@ export default class CFDAVizContainer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            limit: 3,
+            limit: 10,
             sort: '_federalActionOblicationAmount',
             page: 1,
             order: 'desc',
