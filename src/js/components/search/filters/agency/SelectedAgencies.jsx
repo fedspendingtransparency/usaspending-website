@@ -32,7 +32,7 @@ export default class SelectedAgencies extends React.Component {
                 }
 
                 if (agency.agencyType === 'subtier' && agency.toptier_flag === false) {
-                    label += ' | Sub-Agency';
+                    label += ` | Sub-Agency of ${agency.toptier_agency.abbreviation || agency.toptier_agency.name}`;
                 }
             }
 

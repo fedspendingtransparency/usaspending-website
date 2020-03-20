@@ -33,6 +33,7 @@ export const timePeriodKeys = {
 export const agencyKeys = {
     type: 'type',
     tier: 'tier',
+    toptierName: 'toptier_name',
     name: 'name'
 };
 
