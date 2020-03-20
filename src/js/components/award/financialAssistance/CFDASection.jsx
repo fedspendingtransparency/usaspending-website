@@ -33,9 +33,10 @@ const CFDASection = ({
                 cfdas={cfdas}
                 CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
                 updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />
-            <span className="cfda-section__note">
-                <Note message={message} />
-            </span>
+            {cfdas.length > 1 &&
+                <span className="cfda-section__note">
+                    <Note message={message} />
+                </span>}
         </div>
     </AwardSection>
 );
