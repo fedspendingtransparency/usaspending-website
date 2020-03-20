@@ -17,10 +17,13 @@ import {
 
 const propTypes = {
     awardId: PropTypes.string,
-    awardType: PropTypes.string
+    awardType: PropTypes.string,
+    dates: PropTypes.object
 };
 
-const ContractGrantActivityContainer = ({ awardId, awardType }) => {
+const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
+    // bad dates
+    const [badDates, setBadDates] = useState(false);
     // loading
     const [loading, setLoading] = useState(false);
     // transactions
@@ -29,6 +32,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
     const [error, updateError] = useState({ error: false, message: '' });
     // requests
     const request = useRef(null);
+    const hasNext = useRef(true);
     /**
      * formatTransactions
      * - any transactions that have the same date must be summed into one amount.
@@ -79,7 +83,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
     // Get all transactions ascending
     const getTransactions = useCallback(() => {
         const asyncFunc = async () => {
-            if (request.current) request.cancel();
+            if (request.current) request.current.cancel();
             setLoading(true);
             const params = {
                 award_id: awardId,
@@ -88,23 +92,23 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
                 order: 'asc',
                 limit: 5000
             };
-            let hasNext = true;
+            // let hasNext = true;
             /**
              * paginateTransactions
              * - Generator function that fetches transactions
              * @returns {Object[]} - an array of one page of transactions
              */
             async function* paginateTransactions() {
-                while (hasNext) {
+                while (hasNext.current) {
                     try {
                         request.current = fetchAwardTransaction(params);
                         const response = await request.current.promise;
                         params.page++;
-                        hasNext = response.data.page_metadata.hasNext;
+                        hasNext.current = response.data.page_metadata.hasNext;
                         yield response.data;
                     }
                     catch (e) {
-                        hasNext = false;
+                        hasNext.current = false;
                         updateError({ error: true, message: e.message });
                     }
                 }
@@ -135,7 +139,27 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
         asyncFunc();
     }, [awardId]);
     // hook - runs on mount and anytime awardId and getTransactions change
-    useEffect(() => getTransactions(), [getTransactions, awardId]);
+    useEffect(() => {
+        getTransactions();
+        return () => {
+            if (request.current) request.current.cancel();
+            if (hasNext.current) hasNext.current = false;
+        };
+    }, [getTransactions, awardId]);
+    // hook - run on mount and if award changes
+    useEffect(() => {
+        if (!dates) setBadDates(true);
+        const { startDate, endDate, potentialEndDate } = dates;
+        if (awardType === 'grants') {
+            if (!startDate || !endDate) setBadDates(true);
+        }
+        if (awardType === 'contract') {
+            if (!startDate || !potentialEndDate) setBadDates(true);
+        }
+    }, [
+        dates,
+        awardType
+    ]);
     /**
      * title
      * - updates title based on award type
@@ -151,7 +175,13 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
     const message = () => {
         if (error.error) return <ResultsTableErrorMessage />;
         if (loading) return <ResultsTableLoadingMessage />;
-        if (!transactions.length) return <NoResultsMessage />;
+        if (badDates || !transactions.length) {
+            return (
+                <NoResultsMessage
+                    title="Chart Not Available"
+                    message="Data in this instance is not suitable for charting" />
+            );
+        }
         return null;
     };
     /**
@@ -164,10 +194,13 @@ const ContractGrantActivityContainer = ({ awardId, awardType }) => {
             !error.error
             && !loading
             && transactions.length > 0
+            && !badDates
         ) {
             return (
                 <ContractGrantActivity
-                    transactions={transactions} />
+                    transactions={transactions}
+                    dates={dates}
+                    awardType={awardType} />
             );
         }
         return null;

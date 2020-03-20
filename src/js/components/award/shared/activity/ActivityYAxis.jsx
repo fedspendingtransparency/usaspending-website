@@ -50,9 +50,9 @@ export default class ActivityYAxis extends React.Component {
         if (!props.scale) {
             return;
         }
-        // determine the numerical unit to display in the Y axis labels
         const units = MoneyFormatter.calculateUnits(ticks);
         const tickLabelFunction = (tick) => {
+            // determine the numerical unit to display in the Y axis labels
             let formattedValue = MoneyFormatter.formatMoneyWithPrecision(tick / units.unit, units.precision);
             if (tick === 0) {
                 formattedValue = '$0';

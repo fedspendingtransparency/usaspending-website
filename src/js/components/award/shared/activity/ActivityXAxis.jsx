@@ -21,8 +21,18 @@ const defaultProps = {
 const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
-    padding: PropTypes.object
+    padding: PropTypes.object,
+    line: PropTypes.bool,
+    transformLabels: PropTypes.object,
+    scale: PropTypes.func,
+    ticks: PropTypes.array,
+    removeFirstLabel: PropTypes.bool,
+    removeLastLabel: PropTypes.bool
 };
+
+const yOffset = 20;
+
+const labelOffset = 15;
 
 export default class ActivityXAxis extends React.Component {
     constructor(props) {
@@ -37,16 +47,26 @@ export default class ActivityXAxis extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps, this.props)) {
-            this.drawAxis(this.props);
+            this.drawAxis();
         }
     }
 
-    drawAxis(props) {
-        if (!props.scale) {
+    drawAxis = () => {
+        const {
+            scale,
+            ticks,
+            height,
+            width,
+            line,
+            transformLabels,
+            removeFirstLabel,
+            removeLastLabel
+        } = this.props;
+        if (!scale) {
             return;
         }
         // isolate the labels
-        const tickLabels = props.ticks.map((tick) => tick.label);
+        const tickLabels = ticks.map((tick) => tick.label);
 
         // draw the grid lines
         const lineStart = -5;
@@ -59,15 +79,24 @@ export default class ActivityXAxis extends React.Component {
         }
 
         // set all the labels 20px below the X axis
-        const yPos = this.props.height + 20;
+        const yPos = height + yOffset;
 
         // iterate through the D3 generated tick marks and add them to the chart
-        const labels = props.ticks.map((tick, i) => {
+        const labels = ticks.map((tick, i, array) => {
             // calculate the X position
             // D3 scale returns the tick positions as pixels
-            const xPos = props.scale(tick.date);
+            const xPos = scale(tick.date);
             // remove erroneous ticks
-            if (xPos >= this.props.width) return null;
+            if (xPos >= width) return null;
+            if (xPos < 0) return null;
+            // allows for the removal of the first and last tick labels
+            if (removeFirstLabel && i === 0) return null;
+            if (removeLastLabel && i === (array.length - 1)) return null;
+            // adjust the display of the labels
+            const translateX = xPos - ((transformLabels?.x || transformLabels?.x === 0) ? transformLabels?.x : labelOffset);
+            const translateY = yPos + ((transformLabels?.y || transformLabels?.y === 0) ? transformLabels?.y : labelOffset);
+            const rotateLabel = (transformLabels?.rotate || transformLabels?.rotate === 0) ? transformLabels?.rotate : 325;
+            const transform = `translate(${translateX},${translateY}) rotate(${rotateLabel})`;
 
             return (<ActivityXAxisItem
                 x={xPos}
@@ -76,8 +105,8 @@ export default class ActivityXAxis extends React.Component {
                 key={`label-y-${tick}-${i}`}
                 lineStart={lineStart}
                 lineEnd={lineEnd}
-                transform={`translate(${xPos - 15},${yPos + 15}) rotate(325)`}
-                line />);
+                transform={transform}
+                line={line || false} />);
         });
 
         this.setState({
