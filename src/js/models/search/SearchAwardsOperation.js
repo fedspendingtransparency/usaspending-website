@@ -161,7 +161,7 @@ class SearchAwardsOperation {
                     [agencyKeys.name]: fundingAgencyName
                 };
                 if (agencyArray.agencyType === 'subtier') {
-                    agency[agencyKeys.toptier_name] = agencyArray.toptier_agency.name;
+                    agency[agencyKeys.toptierName] = agencyArray.toptier_agency.name;
                 }
                 agencies.push(agency);
             });
@@ -174,7 +174,7 @@ class SearchAwardsOperation {
                     [agencyKeys.name]: awardingAgencyName
                 };
                 if (agencyArray.agencyType === 'subtier') {
-                    agency[agencyKeys.toptier_name] = agencyArray.toptier_agency.name;
+                    agency[agencyKeys.toptierName] = agencyArray.toptier_agency.name;
                 }
                 agencies.push(agency);
             });

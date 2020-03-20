@@ -1,5 +1,5 @@
 /**
- * AgencyFilterGroup-test.js
+ * SelectedAgencies-test.jsx
  * Created by Kirk Barden 3/17/20
  **/
 
