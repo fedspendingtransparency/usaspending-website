@@ -1,6 +1,6 @@
 /**
- * FederalAccountsTree.jsx
- * Created by Jonathan Hill 5/1/19
+ * CFDATree.jsx
+ * Created by Jonathan Hill 03/18/20
  */
 
 import React from 'react';
@@ -8,13 +8,11 @@ import PropTypes from 'prop-types';
 
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
-import { remove } from 'lodash';
+import { remove, cloneDeep } from 'lodash';
 
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import TreemapCell from 'components/sharedComponents/TreemapCell';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 
 const propTypes = {
@@ -25,6 +23,7 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     inFlight: PropTypes.bool,
+    onTreeClick: PropTypes.func,
     error: PropTypes.bool
 };
 
@@ -32,15 +31,13 @@ const defaultProps = {
     height: 294
 };
 
-export default class FederalAccountsTree extends React.Component {
+export default class CFDATree extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             chartReady: false,
             virtualChart: []
         };
-
-        this.selectedCell = this.selectedCell.bind(this);
     }
 
     componentDidMount() {
@@ -57,17 +54,17 @@ export default class FederalAccountsTree extends React.Component {
     }
 
     buildVirtualChart(props) {
-        const data = props.data;
+        const data = cloneDeep(props.data);
 
         // remove negative values because we can't display those in the treemap
-        remove(data, (account) => parseFloat(account._obligatedAmount) <= 0);
+        remove(data, (account) => parseFloat(account._federalActionOblicationAmount) <= 0);
 
         // parse the inbound data into D3's treemap hierarchy structure
         const treemapData = hierarchy({
             children: data
         })
             // tell D3 how to extract the monetary value out of the object
-            .sum((d) => d._obligatedAmount)
+            .sum((d) => d._federalActionOblicationAmount)
             .sort((a, b) => b.value - a.value); // sort the objects
 
         // set up a function for generating the treemap of the specified size and style
@@ -90,8 +87,8 @@ export default class FederalAccountsTree extends React.Component {
         // now generate a function that can return colors given the current range of data
         // to do this, we need the min and max data, since our tree items are now ordered we can
         // just grab the first and last cells
-        const maxValue = treeItems[0].data._obligatedAmount;
-        const minValue = treeItems[treeItems.length - 1].data._obligatedAmount;
+        const maxValue = treeItems[0].data._federalActionOblicationAmount;
+        const minValue = treeItems[treeItems.length - 1].data._federalActionOblicationAmount;
 
         let scale = scaleLinear()
             .domain([minValue, maxValue])
@@ -117,22 +114,24 @@ export default class FederalAccountsTree extends React.Component {
         const height = data.y1 - data.y0;
         const width = data.x1 - data.x0;
 
-        const amount = data.data._obligatedAmount;
+        const amount = data.data._federalActionOblicationAmount;
         const units = MoneyFormatter.calculateUnitForSingleValue(amount, 1);
         const formattedSubtitle =
         `${MoneyFormatter.formatMoneyWithPrecision((amount / units.unit), 1)}${units.unitLabel}`;
         const usableWidth = width;
-        const name = data.data._federalAccountName;
+        const name = data.data.cfdaTitle;
         const title = this.truncateText(name, 'title', usableWidth);
         const subtitle = this.truncateText(formattedSubtitle, 'subtitle', usableWidth);
         const color = scale(amount);
-
         const cell = {
             width,
             height,
             x: data.x0,
             y: data.y0,
-            data: data.data,
+            data: {
+                ...data.data,
+                id: data.data.cfdaNumber
+            },
             color,
             title: {
                 text: title,
@@ -182,77 +181,54 @@ export default class FederalAccountsTree extends React.Component {
         return label;
     }
 
-    selectedCell(id, title) {
-        if (this.props.goDeeper) {
-            this.props.goDeeper(id, title);
+    messaging = () => {
+        if (!this.state.virtualChart.length) {
+            return (<NoResultsMessage
+                title="Chart Not Available"
+                message="No available data to display." />);
         }
+        return null;
     }
 
     render() {
         if (this.props.width <= 0) {
             return null;
         }
-        const { inFlight, error } = this.props;
-        const noResults = this.state.virtualChart.length === 0;
-
-        const naming = this.state.virtualChart.length === 1 ? 'result' : 'results';
-        let loadingMessage = null;
-        let errorMessage = null;
-        let noResultsMessage = null;
-        let resultsCount = null;
-        let treeMap = null;
+        const chartLength = this.state.virtualChart.length;
+        const naming = chartLength === 1 ? 'result' : 'results';
 
         const cells = this.state.virtualChart.map((cell) => (
             <TreemapCell
                 {...cell}
                 highlightColor="#f49c20"
-                key={`${cell.data.federalAccount}${cell.data.fundingAgencyId}`}
-                selectedCell={this.selectedCell}
+                key={`${cell.data.cfdaNumber}`}
+                selectedCell={this.props.onTreeClick}
                 showTooltip={this.props.showTooltip}
                 hideTooltip={this.props.hideTooltip} />
         ));
 
-        if (inFlight) {
-            loadingMessage = (<ResultsTableLoadingMessage />);
-        }
-        else if (error) {
-            errorMessage = (<ResultsTableErrorMessage />);
-        }
-        else if (noResults) {
-            noResultsMessage = (<NoResultsMessage
-                title="Chart Not Available"
-                message="No available data to display." />);
-        }
-        else {
-            treeMap = (
-                <svg
-                    className="treemap"
-                    width="100%"
-                    height={this.props.height}>
-                    {cells}
-                </svg>
-            );
-            resultsCount = (
-                <div className="federal-accounts-treemap-count">
-                    {`${this.state.virtualChart.length} ${naming}`}
-                </div>
-            );
-        }
         return (
             <div>
                 <div className="results-table-message-container">
-                    {loadingMessage}
-                    {errorMessage}
-                    {noResultsMessage}
+                    {this.messaging()}
                 </div>
-                <div className="federal-accounts-treemap">
-                    {treeMap}
+                <div className="cfda-section-treemap">
+                    {chartLength !== 0 &&
+                        <svg
+                            className="treemap"
+                            width="100%"
+                            height={this.props.height}>
+                            {cells}
+                        </svg>}
                 </div>
-                {resultsCount}
+                {chartLength !== 0 &&
+                    <div className="cfda-section-treemap-count">
+                        {`${this.state.virtualChart.length} ${naming}`}
+                    </div>}
             </div>
         );
     }
 }
 
-FederalAccountsTree.propTypes = propTypes;
-FederalAccountsTree.defaultProps = defaultProps;
+CFDATree.propTypes = propTypes;
+CFDATree.defaultProps = defaultProps;

@@ -7,15 +7,18 @@ import { CFDAOverviewInfo } from '../shared/InfoTooltipContent';
 const propTypes = {
     cfdaPropgram: PropTypes.string,
     cfdaCount: PropTypes.number,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    updateCFDAOverviewLinkClicked: PropTypes.func
 };
 
 const CFDAOverview = ({
     cfdaPropgram,
     cfdaCount,
-    jumpToSection
+    jumpToSection,
+    updateCFDAOverviewLinkClicked
 }) => {
     const jumpToCFDASection = () => {
+        updateCFDAOverviewLinkClicked();
         jumpToSection('cfda');
     };
     return (

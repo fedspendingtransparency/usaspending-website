@@ -40,6 +40,11 @@ const FinancialAssistanceContent = ({
     subAwardIdClicked
 }) => {
     const [activeTab, setActiveTab] = useState("transaction");
+    const [CFDAOverviewLinkClicked, setCFDAOverviewLinkClicked] = useState(false);
+
+    const updateCFDAOverviewLinkClicked = () => {
+        setCFDAOverviewLinkClicked(!CFDAOverviewLinkClicked);
+    };
 
     const glossaryLink = glossaryLinks[overview.type]
         ? `/#/award/${awardId}?glossary=${glossaryLinks[overview.type]}`
@@ -107,6 +112,7 @@ const FinancialAssistanceContent = ({
                     awardType={overview.category}
                     awardId={awardId} />
                 <AwardOverviewRightSection
+                    updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
                     jumpToSection={jumpToSection}
                     overview={overview} />
             </AwardSection>
@@ -123,7 +129,10 @@ const FinancialAssistanceContent = ({
             <AwardSection type="row">
                 {grantActivity()}
                 {!isGrant && (
-                    <CFDASection data={overview.biggestCfda} />
+                    <CFDASection
+                        cfdas={overview.cfdas}
+                        CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
+                        updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />
                 )}
                 <FederalAccountsSection
                     awardType={overview.category}
@@ -131,7 +140,10 @@ const FinancialAssistanceContent = ({
             </AwardSection>
             {isGrant && (
                 <AwardSection type="row">
-                    <CFDASection data={overview.biggestCfda} />
+                    <CFDASection
+                        cfdas={overview.cfdas}
+                        CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
+                        updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />
                 </AwardSection>
             )}
             <AwardHistory
