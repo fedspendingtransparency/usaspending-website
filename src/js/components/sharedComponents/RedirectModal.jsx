@@ -9,7 +9,6 @@ import Modal from 'react-aria-modal';
 
 import { Close, ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
-
 const propTypes = {
     mounted: PropTypes.bool,
     hideModal: PropTypes.func,
