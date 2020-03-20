@@ -153,14 +153,15 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
                     return acc;
                 }
                 // child added via search
-                if (searchChild.count === searchChild.children.length) {
+                if (searchChild.count && searchChild.count === searchChild?.children?.length) {
                     acc.push(searchChild);
                 }
                 else {
+                    const childrenFromSearch = searchChild.children ? searchChild.children : [];
                     acc.push({
                         ...searchChild,
                         children: [
-                            ...searchChild.children,
+                            ...childrenFromSearch,
                             {
                                 isPlaceHolder: true,
                                 label: "Child Placeholder",
@@ -277,30 +278,32 @@ export const showAllTreeItems = (tree, key = '', newNodes = []) => tree
             ...node,
             className: '',
             children: node.children
-                .map((child) => {
-                    if (child.value === key) {
-                        if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
-                            // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
+                ? node.children
+                    .map((child) => {
+                        if (child.value === key) {
+                            if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
+                                // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
+                                return {
+                                    ...child
+                                };
+                            }
                             return {
-                                ...child
+                                ...data
+                            };
+                        }
+                        if (child.children && child.children.some((grand) => grand.className === 'hide')) {
+                            return {
+                                ...child,
+                                className: '',
+                                children: child.children.map((grand) => ({ ...grand, className: '' }))
                             };
                         }
                         return {
-                            ...data
-                        };
-                    }
-                    if (child.children && child.children.some((grand) => grand.className === 'hide')) {
-                        return {
                             ...child,
-                            className: '',
-                            children: child.children.map((grand) => ({ ...grand, className: '' }))
+                            className: ''
                         };
-                    }
-                    return {
-                        ...child,
-                        className: ''
-                    };
-                })
-                .sort(sortNodes)
+                    })
+                    .sort(sortNodes)
+                : []
         };
     });
