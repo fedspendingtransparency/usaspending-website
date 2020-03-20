@@ -146,7 +146,6 @@ export class NAICSContainer extends React.Component {
 
                     return fetchAllNodesAndCheckTheirChildren(checkedParentAndChildrenNodesFromHash)
                         .then((newChecked) => {
-                            console.log("resolved");
                             this.updateCountOfSelectedTopTierNaicsCodes(newChecked);
                             this.props.restoreHashedFilters({
                                 ...this.props.filters,
