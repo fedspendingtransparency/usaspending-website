@@ -134,6 +134,7 @@ BaseFinancialAssistance.populate = function populate(data) {
     this.fain = data.fain;
     this.uri = data.uri;
     this.biggestCfda = data.cfda_info.reduce(getLargestCfda, emptyCfda);
+    this.cfdaList = data.cfda_info;
     this.recordType = data.record_type;
 };
 

@@ -61,4 +61,11 @@ describe('Base Financial Assistance', () => {
             expect(award.biggestCfda).toEqual(emptyCfda);
         });
     });
+    describe('cfdaList', () => {
+        it('should return the list of CFDAs', () => {
+            const award = Object.create(BaseFinancialAssistance);
+            award.populate(mockLoan);
+            expect(award.cfdaList.length === 3);
+        });
+    });
 });

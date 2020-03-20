@@ -52,6 +52,10 @@ const awardSections = [
     {
         section: 'award-history',
         label: 'Award History'
+    },
+    {
+        section: 'cfda',
+        label: 'CFDA Program / Assistance Listing Information'
     }
 ];
 
