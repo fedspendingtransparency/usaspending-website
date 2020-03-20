@@ -26,7 +26,10 @@ const AwardOverviewRightSection = ({
     overview
 }) => {
     const firstSection = (overview.category !== 'idv' && overview.category !== 'contract') ?
-        (<CFDAOverview cfdaPropgram={overview.cfdaProgram} />) :
+        (<CFDAOverview
+            cfdaPropgram={overview.cfdaProgram}
+            cfdaCount={overview.cfdaList.length}
+            jumpToSection={jumpToSection} />) :
         (<RelatedAwards
             jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
             setRelatedAwardsTab={setRelatedAwardsTab}
