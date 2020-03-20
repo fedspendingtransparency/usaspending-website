@@ -95,7 +95,6 @@ export class NAICSContainer extends React.Component {
                         });
 
                     const fetchAllNodesAndCheckTheirChildren = (iterable) => new Promise((resolve, reject) => {
-                        console.log('iterable', iterable);
                         iterable.reduce((prevPromise, checked, i, arr) => prevPromise
                             .then(() => {
                                 if (i === arr.length - 1) {
@@ -128,9 +127,24 @@ export class NAICSContainer extends React.Component {
                                                             }
                                                         });
                                                 }
+                                                if (uncheckedFromHash.some((naicsCode) => naicsCode.length === 6)) {
+                                                    // we gotta fetch the immediate ancestor to count this properly
+                                                    uncheckedFromHash
+                                                        .filter((naicsCode) => naicsCode.length === 6)
+                                                        .map((naicsCode) => getImmediateAncestorNaicsCode(naicsCode))
+                                                        .forEach((ancestorKey, index, src) => {
+                                                            this.fetchNAICS(ancestorKey)
+                                                                .then(() => {
+                                                                    if (index === src.length - 1) {
+                                                                        resolve(newChecked);
+                                                                    }
+                                                                });
+                                                        });
+                                                }
+                                                else {
+                                                    resolve(newChecked);
+                                                }
                                             });
-                                            resolve(newChecked);
-                                            return Promise.resolve();
                                         });
                                 }
                                 if (checked.length === 6) {
@@ -139,7 +153,6 @@ export class NAICSContainer extends React.Component {
                                 return this.fetchNAICS(checked);
                             })
                             .catch((e) => {
-                                debugger;
                                 console.log("Error on fetching NAICS Data from hash url", e);
                                 reject(e);
                             }), Promise.resolve('first'));
@@ -149,6 +162,10 @@ export class NAICSContainer extends React.Component {
                         .then((newChecked) => {
                             console.log("resolved");
                             this.updateCountOfSelectedTopTierNaicsCodes(newChecked);
+                            // uncheckedFromHash.filter((code) => code.length === 6)
+                            //     .forEach((code) => {
+                            //         this.onUncheck(newChecked, { checked: false, value: code });
+                            //     });
                             this.props.restoreHashedFilters({
                                 ...this.props.filters,
                                 // counts should live in redux.
