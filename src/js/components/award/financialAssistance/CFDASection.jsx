@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 // eslint-disable-next-line max-len
-const message = 'Result count may differ between treemap view and table view. Treemap view only displays accounts with a positive combined obligated amount, while table view displays all accounts.';
+const message = 'Result count may differ between treemap view and table view. Treemap view only displays accounts with a positive federal action obligation amount, while table view displays all accounts.';
 
 const CFDASection = ({
     cfdas,
