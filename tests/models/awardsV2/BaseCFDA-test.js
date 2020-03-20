@@ -10,8 +10,7 @@ import { mockLoan } from './mockAwardApi';
 
 
 const firstCFDA = mockLoan.cfda_info[0];
-const cfda = Object.create(BaseCFDA);
-cfda.populate(firstCFDA);
+const cfda = new BaseCFDA(firstCFDA, 100000000);
 
 describe('Base CFDA', () => {
     describe('Total Funding Amount Private ', () => {

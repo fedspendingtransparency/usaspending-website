@@ -20,8 +20,7 @@ export const emptyCfda = {
 
 const getLargestCfda = (acc, cfdaItem) => {
     if (cfdaItem.total_funding_amount > acc.total_funding_amount) {
-        const newCFDA = Object.create(BaseCFDA);
-        newCFDA.populate(cfdaItem);
+        const newCFDA = new BaseCFDA(cfdaItem);
         return newCFDA;
     }
     return acc;
@@ -45,8 +44,7 @@ BaseFinancialAssistance.populate = function populate(data) {
     this.populateCore(coreData);
     if (data.cfda_info.length) {
         this.cfdas = data.cfda_info.map((cfda) => {
-            const newCFDA = Object.create(BaseCFDA);
-            newCFDA.populate(cfda);
+            const newCFDA = new BaseCFDA(cfda, data.total_obligation);
             return newCFDA;
         });
     }
