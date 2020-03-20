@@ -10,45 +10,43 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
-export default class CFDAOverview extends React.Component {
-    constructor(props) {
-        super(props);
-        this.jumpToCFDASection = this.jumpToCFDASection.bind(this);
-    }
-
-    jumpToCFDASection() {
-        this.props.jumpToSection('cfda');
-    }
-    render() {
-        const { cfdaCount, cfdaPropgram } = this.props;
-        return (
-            <div className="award-overview__right-section__cfda award-overview-column first award-overview-column__spacing">
-                <h6 className="award-overview-title">
-                    {cfdaCount === 1 ?
-                        "CFDA Program / Assistance Listing" : "Primary CFDA / Assistance Listing"}
-                    <TooltipWrapper
-                        className="award-section-tt"
-                        icon="info"
-                        left
-                        tooltipComponent={CFDAOverviewInfo} />
-                </h6>
-                <div className="award-overview__body award-overview__cfda">
-                    <span>
-                        {cfdaPropgram}
-                    </span>
-                    <div>
-                        <button
-                            key="cfda"
-                            className="cfda-viz__button"
-                            onClick={this.jumpToCFDASection}>
-                            {cfdaCount === 1 ? "View more info on this program" : `View all ${cfdaCount} CFDA Programs`}
-                        </button>
-                    </div>
+const CFDAOverview = ({
+    cfdaPropgram,
+    cfdaCount,
+    jumpToSection
+}) => {
+    const jumpToCFDASection = () => {
+        jumpToSection('cfda');
+    };
+    return (
+        <div className="award-overview__right-section__cfda award-overview-column first award-overview-column__spacing award-viz">
+            <h6 className="award-overview-title">
+                {cfdaCount === 1 ?
+                    "CFDA Program / Assistance Listing" : "Primary CFDA / Assistance Listing"}
+                <TooltipWrapper
+                    className="award-section-tt"
+                    icon="info"
+                    left
+                    tooltipComponent={CFDAOverviewInfo} />
+            </h6>
+            <div className="award-overview__body award-overview__cfda">
+                <span>
+                    {cfdaPropgram}
+                </span>
+                <div>
+                    <button
+                        key="cfda"
+                        className="award-viz__button"
+                        onClick={jumpToCFDASection}>
+                        <div className="award-viz__link-text">
+                            {cfdaCount === 1 ? "View more info on this program".toUpperCase() : `View all ${cfdaCount} CFDA Programs`.toUpperCase()}
+                        </div>
+                    </button>
                 </div>
             </div>
-        );
-    }
-}
-
+        </div>
+    );
+};
 
 CFDAOverview.propTypes = propTypes;
+export default CFDAOverview;
