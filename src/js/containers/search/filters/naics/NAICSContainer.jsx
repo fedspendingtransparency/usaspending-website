@@ -157,23 +157,29 @@ export class NAICSContainer extends React.Component {
                                 reject(e);
                             }), Promise.resolve('first'));
                     });
+                    const uncheckGrandchildren = (newChecked) => new Promise((resolve) => {
+                        uncheckedFromHash
+                            .filter((code) => code.length === 6)
+                            .forEach((code, i, arr) => {
+                                this.onUncheck(newChecked, { checked: false, value: code });
+                                if (i === arr.length - 1) resolve();
+                            });
+                    });
 
                     return fetchAllNodesAndCheckTheirChildren(checkedParentAndChildrenNodesFromHash)
                         .then((newChecked) => {
-                            console.log("resolved");
                             this.updateCountOfSelectedTopTierNaicsCodes(newChecked);
-                            // uncheckedFromHash.filter((code) => code.length === 6)
-                            //     .forEach((code) => {
-                            //         this.onUncheck(newChecked, { checked: false, value: code });
-                            //     });
-                            this.props.restoreHashedFilters({
-                                ...this.props.filters,
-                                // counts should live in redux.
-                                naics_codes: {
-                                    ...this.props.filters.naics_codes,
-                                    counts: this.state.stagedNaicsFilters
-                                }
-                            });
+                            uncheckGrandchildren(newChecked)
+                                .then(() => {
+                                    this.props.restoreHashedFilters({
+                                        ...this.props.filters,
+                                        // counts should live in redux.
+                                        naics_codes: {
+                                            ...this.props.filters.naics_codes,
+                                            counts: this.state.stagedNaicsFilters
+                                        }
+                                    });
+                                });
                         });
                 }
                 // don't fetch anything more, no hash to load tree from; return a resolved promise for consistent return.
@@ -211,7 +217,7 @@ export class NAICSContainer extends React.Component {
         const { stagedNaicsFilters } = this.state;
         const { nodes } = this.props;
         const { value } = node;
-        const countOfUncheckedNode = getNodeFromTree(nodes, value).count || 1;
+        const countOfUncheckedNode = value.length === 6 ? 1 : getNodeFromTree(nodes, value).count;
         const parentKey = getHighestAncestorNaicsCode(value);
         const ancestorKey = getImmediateAncestorNaicsCode(value);
         const shouldRemoveNode = stagedNaicsFilters.some((selectedNode) => (
