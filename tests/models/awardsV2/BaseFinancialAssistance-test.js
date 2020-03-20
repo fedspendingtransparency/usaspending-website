@@ -48,6 +48,7 @@ describe('Base Financial Assistance', () => {
     describe('CFDAs', () => {
         it('should be an object of prototype BaseCFDA', () => {
             expect(Array.isArray(loan.cfdas)).toEqual(true);
+        });
     });
     describe('biggestCfda', () => {
         it('should return the largest CFDA', () => {
