@@ -42,7 +42,7 @@ export const updateSelectedNAICS = (state, value) => {
     return updatedSet;
 };
 
-export const updateNAICSV2 = ({ require, exclude }) => require
+export const updateNAICSV2 = ({ require, exclude, counts }) => require
     .filter((naicsCode) => naicsCode.length > 2)
     .reduce((acc, naicsCode) => {
         const parentKey = getHighestAncestorNaicsCode(naicsCode);
@@ -70,7 +70,7 @@ export const updateNAICSV2 = ({ require, exclude }) => require
             };
         }
         return acc;
-    }, { require, exclude });
+    }, { require, exclude, counts });
 
 export const updateSelectedPSC = (state, value) => {
     let updatedSet = state;
