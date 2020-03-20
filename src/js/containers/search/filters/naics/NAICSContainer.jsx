@@ -80,9 +80,12 @@ export class NAICSContainer extends React.Component {
                         .filter((checked) => {
                             const parentKey = getHighestAncestorNaicsCode(checked);
                             const ancestorKey = getImmediateAncestorNaicsCode(checked);
-                            if (checkedFromHash.includes(parentKey) || checkedFromHash.includes(ancestorKey)) {
-                                return false;
-                            }
+                            const ancestorIsChecked = (
+                                checkedFromHash.includes(parentKey) ||
+                                checkedFromHash.includes(ancestorKey)
+                            );
+                            if (checked.length === 6 && ancestorIsChecked) return false;
+                            if (checked.length === 4 && checkedFromHash.includes(parentKey)) return false;
                             return true;
                         })
                         .sort((a, b) => {
@@ -92,6 +95,7 @@ export class NAICSContainer extends React.Component {
                         });
 
                     const fetchAllNodesAndCheckTheirChildren = (iterable) => new Promise((resolve, reject) => {
+                        console.log('iterable', iterable);
                         iterable.reduce((prevPromise, checked, i, arr) => prevPromise
                             .then(() => {
                                 if (i === arr.length - 1) {
@@ -126,6 +130,7 @@ export class NAICSContainer extends React.Component {
                                                 }
                                             });
                                             resolve(newChecked);
+                                            return Promise.resolve();
                                         });
                                 }
                                 if (checked.length === 6) {
@@ -134,6 +139,7 @@ export class NAICSContainer extends React.Component {
                                 return this.fetchNAICS(checked);
                             })
                             .catch((e) => {
+                                debugger;
                                 console.log("Error on fetching NAICS Data from hash url", e);
                                 reject(e);
                             }), Promise.resolve('first'));
@@ -141,6 +147,7 @@ export class NAICSContainer extends React.Component {
 
                     return fetchAllNodesAndCheckTheirChildren(checkedParentAndChildrenNodesFromHash)
                         .then((newChecked) => {
+                            console.log("resolved");
                             this.updateCountOfSelectedTopTierNaicsCodes(newChecked);
                             this.props.restoreHashedFilters({
                                 ...this.props.filters,
