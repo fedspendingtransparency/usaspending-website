@@ -43,7 +43,7 @@ export default class CFDAViz extends React.Component {
                 x: 0,
                 y: 0,
                 cfdaTitle: '',
-                totalFundingAmount: 0,
+                federalActionOblicationAmount: 0,
                 percentOfTotal: 0,
                 cfdaFederalAgency: '',
                 cfdaNumber: 0

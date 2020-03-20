@@ -11,7 +11,7 @@ const propTypes = {
     y: PropTypes.number,
     x: PropTypes.number,
     cfdaTitle: PropTypes.string,
-    totalFundingAmount: PropTypes.string,
+    federalActionOblicationAmount: PropTypes.string,
     percentOfTotal: PropTypes.string,
     cfdaFederalAgency: PropTypes.string
 };
@@ -85,7 +85,7 @@ export default class CFDATreeTooltip extends React.Component {
             cfdaTitle,
             percentOfTotal,
             cfdaFederalAgency,
-            totalFundingAmount
+            federalActionOblicationAmount
         } = this.props;
 
         return (
@@ -107,7 +107,7 @@ export default class CFDATreeTooltip extends React.Component {
                     <div className="tooltip-body">
                         <div className="tooltip-left">
                             <div className="tooltip-value">
-                                {totalFundingAmount}
+                                {federalActionOblicationAmount}
                             </div>
                             <div className="tooltip-label">
                                 Funded Amount

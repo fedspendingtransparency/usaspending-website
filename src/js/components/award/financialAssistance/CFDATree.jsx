@@ -56,14 +56,14 @@ export default class CFDATree extends React.Component {
         const data = cloneDeep(props.data);
 
         // remove negative values because we can't display those in the treemap
-        remove(data, (account) => parseFloat(account._totalFundingAmount) <= 0);
+        remove(data, (account) => parseFloat(account._federalActionOblicationAmount) <= 0);
 
         // parse the inbound data into D3's treemap hierarchy structure
         const treemapData = hierarchy({
             children: data
         })
             // tell D3 how to extract the monetary value out of the object
-            .sum((d) => d._totalFundingAmount)
+            .sum((d) => d._federalActionOblicationAmount)
             .sort((a, b) => b.value - a.value); // sort the objects
 
         // set up a function for generating the treemap of the specified size and style
@@ -86,8 +86,8 @@ export default class CFDATree extends React.Component {
         // now generate a function that can return colors given the current range of data
         // to do this, we need the min and max data, since our tree items are now ordered we can
         // just grab the first and last cells
-        const maxValue = treeItems[0].data._totalFundingAmount;
-        const minValue = treeItems[treeItems.length - 1].data._totalFundingAmount;
+        const maxValue = treeItems[0].data._federalActionOblicationAmount;
+        const minValue = treeItems[treeItems.length - 1].data._federalActionOblicationAmount;
 
         let scale = scaleLinear()
             .domain([minValue, maxValue])
@@ -113,7 +113,7 @@ export default class CFDATree extends React.Component {
         const height = data.y1 - data.y0;
         const width = data.x1 - data.x0;
 
-        const amount = data.data._totalFundingAmount;
+        const amount = data.data._federalActionOblicationAmount;
         const units = MoneyFormatter.calculateUnitForSingleValue(amount, 1);
         const formattedSubtitle =
         `${MoneyFormatter.formatMoneyWithPrecision((amount / units.unit), 1)}${units.unitLabel}`;
