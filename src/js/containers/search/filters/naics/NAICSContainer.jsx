@@ -75,43 +75,26 @@ export class NAICSContainer extends React.Component {
             .then(() => {
                 // lets load a stateful tree from the url, fun. timez.
                 if (checkedFromHash.length > 0) {
-                    // first, expand da nodes.
-                    const checkedParentAndChildrenNodesFromHash = checkedFromHash
-                        .filter((checked) => {
-                            const parentKey = getHighestAncestorNaicsCode(checked);
-                            const ancestorKey = getImmediateAncestorNaicsCode(checked);
-                            const ancestorIsChecked = (
-                                checkedFromHash.includes(parentKey) ||
-                                checkedFromHash.includes(ancestorKey)
-                            );
-                            if (checked.length === 6 && ancestorIsChecked) return false;
-                            if (checked.length === 4 && checkedFromHash.includes(parentKey)) return false;
-                            return true;
-                        })
-                        .sort((a, b) => {
-                            if (a.length > b.length) return 1;
-                            if (b.length > a.length) return -1;
-                            return 0;
-                        });
-
                     const fetchAllNodesAndCheckTheirChildren = (iterable) => new Promise((resolve, reject) => {
                         iterable.reduce((prevPromise, checked, i, arr) => prevPromise
                             .then(() => {
+                                // last node fetched
                                 if (i === arr.length - 1) {
                                     const newChecked = [];
-                                    const param = checked.length === 6 ? getImmediateAncestorNaicsCode(checked) : checked;
-                                    // last thing to fetch
+                                    const param = checked.length === 6
+                                        ? getImmediateAncestorNaicsCode(checked)
+                                        : checked;
                                     return this.fetchNAICS(param)
                                         .then(() => {
                                             iterable.forEach((code) => {
-                                                const node = getNodeFromTree(this.props.nodes, code);
                                                 if (code.length === 6) {
                                                     if (!uncheckedFromHash.includes(code)) {
                                                         newChecked.push(code);
                                                     }
                                                 }
                                                 else {
-                                                    node.children
+                                                    getNodeFromTree(this.props.nodes, code)
+                                                        .children
                                                         .forEach((child) => {
                                                             if (child.value.length === 4) {
                                                                 child.children.forEach((grand) => {
@@ -127,16 +110,34 @@ export class NAICSContainer extends React.Component {
                                                             }
                                                         });
                                                 }
-                                                if (uncheckedFromHash.some((naicsCode) => naicsCode.length === 6)) {
+                                                const uncheckedGrandChildrenWithoutImmediateAncestorChecked = uncheckedFromHash
+                                                    .filter((naicsCode) => {
+                                                        const ancestorKey = getImmediateAncestorNaicsCode(naicsCode);
+                                                        if (naicsCode.length === 6 && !checkedFromHash.includes(ancestorKey)) return true;
+                                                        return false;
+                                                    });
+                                                if (uncheckedGrandChildrenWithoutImmediateAncestorChecked.length > 0) {
                                                     // we gotta fetch the immediate ancestor to count this properly
-                                                    uncheckedFromHash
-                                                        .filter((naicsCode) => naicsCode.length === 6)
+                                                    uncheckedGrandChildrenWithoutImmediateAncestorChecked
                                                         .map((naicsCode) => getImmediateAncestorNaicsCode(naicsCode))
                                                         .forEach((ancestorKey, index, src) => {
                                                             this.fetchNAICS(ancestorKey)
                                                                 .then(() => {
+                                                                    getNodeFromTree(this.props.nodes, ancestorKey)
+                                                                        .children
+                                                                        .forEach((grand) => {
+                                                                            if (!uncheckedFromHash.includes(grand.value)) {
+                                                                                // we're removing the placeholder, so add the
+                                                                                // real grandchildren to the checked array now
+                                                                                // that we have them.
+                                                                                newChecked.push(grand.value);
+                                                                            }
+                                                                        });
                                                                     if (index === src.length - 1) {
-                                                                        resolve(newChecked);
+                                                                        const newCheckedWithoutAncestorPlaceholder = newChecked
+                                                                            // we've actually replaced the placeholder with the real deal.
+                                                                            .filter((naicsCode) => naicsCode !== `children_of_${ancestorKey}`);
+                                                                        resolve(newCheckedWithoutAncestorPlaceholder);
                                                                     }
                                                                 });
                                                         });
@@ -157,29 +158,20 @@ export class NAICSContainer extends React.Component {
                                 reject(e);
                             }), Promise.resolve('first'));
                     });
-                    const uncheckGrandchildren = (newChecked) => new Promise((resolve) => {
-                        uncheckedFromHash
-                            .filter((code) => code.length === 6)
-                            .forEach((code, i, arr) => {
-                                this.onUncheck(newChecked, { checked: false, value: code });
-                                if (i === arr.length - 1) resolve();
-                            });
-                    });
 
-                    return fetchAllNodesAndCheckTheirChildren(checkedParentAndChildrenNodesFromHash)
-                        .then((newChecked) => {
+                    return fetchAllNodesAndCheckTheirChildren(checkedFromHash)
+                        .then((data) => {
+                            // remove duplicate values
+                            const newChecked = [...new Set(data)];
                             this.updateCountOfSelectedTopTierNaicsCodes(newChecked);
-                            uncheckGrandchildren(newChecked)
-                                .then(() => {
-                                    this.props.restoreHashedFilters({
-                                        ...this.props.filters,
-                                        // counts should live in redux.
-                                        naics_codes: {
-                                            ...this.props.filters.naics_codes,
-                                            counts: this.state.stagedNaicsFilters
-                                        }
-                                    });
-                                });
+                            this.props.restoreHashedFilters({
+                                ...this.props.filters,
+                                // counts should live in redux.
+                                naics_codes: {
+                                    ...this.props.filters.naics_codes,
+                                    counts: this.state.stagedNaicsFilters
+                                }
+                            });
                         });
                 }
                 // don't fetch anything more, no hash to load tree from; return a resolved promise for consistent return.

@@ -12,12 +12,13 @@ import {
     searchResults,
     reallyBigTree
 } from './mockNaics_v2';
+import { cleanNaicsData } from '../../../../../src/js/helpers/checkboxTreeHelper';
 
 jest.mock('helpers/naicsHelper', () => require('./mockNAICSHelper'));
 
 describe('NAICS Search Filter Container', () => {
     describe('Loading a stateful tree from url hash', () => {
-        it('fetches the ancestor when a grandchild is in checked w/o any ancestor', async () => {
+        it('fetches the immediate ancestor when only a grandchild is in checked', async () => {
             const fetchNAICS = jest.fn(() => Promise.resolve());
             const container = shallow(<NAICSContainer
                 {...defaultProps}
@@ -27,7 +28,7 @@ describe('NAICS Search Filter Container', () => {
             await container.instance().componentDidMount();
             expect(fetchNAICS).toHaveBeenCalledWith('1111');
         });
-        it('fetches the children of the checked nodes from the hash and adds their grand children to checked array', () => {
+        it('fetches the children of the checked nodes from the hash and adds their placeholder children to checked array', () => {
             const fetchNaics = jest.fn(() => Promise.resolve());
             const updateCountOfSelectedTopTierNaicsCodes = jest.fn();
             const container = shallow(<NAICSContainer
@@ -53,12 +54,33 @@ describe('NAICS Search Filter Container', () => {
                 uncheckedFromHash={["111110"]} />);
             container.instance().updateCountOfSelectedTopTierNaicsCodes = updateCountOfSelectedTopTierNaicsCodes;
             await container.instance().componentDidMount();
-            const allGrandchildrenExpectUnchecked = reallyBigTree[0].children[0]
+            const allGrandChildrenExceptUnchecked = reallyBigTree
+                .find((node) => node.value === '11')
+                .children
+                .find((node) => node.value === '1111')
                 .children
                 .map((child) => child.value)
                 .filter((child) => child !== '111110');
-            expect(updateCountOfSelectedTopTierNaicsCodes).toHaveBeenCalledWith(allGrandchildrenExpectUnchecked);
+            expect(updateCountOfSelectedTopTierNaicsCodes).toHaveBeenLastCalledWith(allGrandChildrenExceptUnchecked);
         });
+        it('decrements the count for unchecked grandchildren', async () => {
+            const testNode = reallyBigTree.find((node) => node.value === '11');
+            const naicsWithPlaceholders = [
+                ...reallyBigTree.filter((node) => node.value !== '11'),
+                {
+                    ...testNode,
+                    children: cleanNaicsData(testNode.children)
+                }
+            ];
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                nodes={naicsWithPlaceholders}
+                checkedFromHash={["11"]}
+                uncheckedFromHash={["111110"]} />);
+            await container.instance().componentDidMount();
+            expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(63);
+        });
+
     });
     describe('Counting the selected Checkboxes: with placeholder AND real data', () => {
         // NOTE: these also test the logic behind getCountWithPlaceholderOffset
