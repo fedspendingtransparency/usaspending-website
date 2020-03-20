@@ -26,7 +26,7 @@ const EmailSignUp = ({
 
     return (
         <div className="email-sign-up__modal-body">
-            {!isSubmitted && <h2>Subscribe the USAspending.gov Newsletter</h2>}
+            {!isSubmitted && <h2>Subscribe the USAspending.gov newsletter</h2>}
             {isSubmitted && (
                 <div className="email-sign-up__confirmation">
                     <FontAwesomeIcon icon="check-circle" color="#2E8540" />
@@ -37,7 +37,7 @@ const EmailSignUp = ({
             )}
             {!isSubmitted && (
                 <form>
-                    <label className="email-label" htmlFor="email">Email address: </label>
+                    <label className="email-label" htmlFor="email">Email Address</label>
                     <input
                         style={{ margin: (isValid || !emailInput) ? '0 0 6.5rem 0' : '0 0 1rem 0' }}
                         className="email-input"
