@@ -689,11 +689,13 @@ describe('searchFiltersReducer', () => {
                 type: "UPDATE_NAICS_V2",
                 payload: {
                     exclude: [""],
-                    require: ["11", "111110", "1112", "1113", "21", "2111", "211110", "2112"]
+                    require: ["11", "111110", "1112", "1113", "21", "2111", "211110", "2112"],
+                    counts: [{ count: 64, value: '11' }]
                 }
             };
             const state = searchFiltersReducer(initialState, action).naics_codes;
             expect(state.require).toEqual(["11", "21"]);
+            expect(state.counts).toEqual(action.payload.counts);
         });
         it('does not remove descendants if one ancestor\'s in both require and excluded', () => {
             const action = {
