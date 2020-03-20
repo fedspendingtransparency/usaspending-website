@@ -17,7 +17,17 @@ jest.mock('helpers/naicsHelper', () => require('./mockNAICSHelper'));
 
 describe('NAICS Search Filter Container', () => {
     describe('Loading a stateful tree from url hash', () => {
-        it('fetches the children of the checked nodes from the hash and adds their grand children to checked array', async () => {
+        it('fetches the ancestor when a grandchild is in checked w/o any ancestor', async () => {
+            const fetchNAICS = jest.fn(() => Promise.resolve());
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                nodes={reallyBigTree}
+                checkedFromHash={["111110"]} />);
+            container.instance().fetchNAICS = fetchNAICS;
+            await container.instance().componentDidMount();
+            expect(fetchNAICS).toHaveBeenCalledWith('1111');
+        });
+        it('fetches the children of the checked nodes from the hash and adds their grand children to checked array', () => {
             const fetchNaics = jest.fn(() => Promise.resolve());
             const updateCountOfSelectedTopTierNaicsCodes = jest.fn();
             const container = shallow(<NAICSContainer
@@ -25,12 +35,14 @@ describe('NAICS Search Filter Container', () => {
                 checkedFromHash={["11"]} />);
             container.instance().fetchNAICS = fetchNaics;
             container.instance().updateCountOfSelectedTopTierNaicsCodes = updateCountOfSelectedTopTierNaicsCodes;
-            await container.instance().componentDidMount();
-            // once for regular mount, once for the checked node.
-            expect(fetchNaics).toHaveBeenCalledTimes(2);
-            // second time it was called, it was called with the checked node from the hash
-            expect(fetchNaics).toHaveBeenLastCalledWith('11');
-            expect(updateCountOfSelectedTopTierNaicsCodes).toHaveBeenCalledWith(['children_of_11']);
+            container.instance().componentDidMount()
+                .then(() => {
+                    // once for regular mount, once for the checked node.
+                    expect(fetchNaics).toHaveBeenCalledTimes(2);
+                    // second time it was called, it was called with the checked node from the hash
+                    expect(fetchNaics).toHaveBeenLastCalledWith('11');
+                    expect(updateCountOfSelectedTopTierNaicsCodes).toHaveBeenCalledWith(['children_of_11']);
+                });
         });
         it('does not add nodes to checked which are in the unchecked array', async () => {
             const updateCountOfSelectedTopTierNaicsCodes = jest.fn();

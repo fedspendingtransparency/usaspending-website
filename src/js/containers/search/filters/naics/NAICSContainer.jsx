@@ -77,7 +77,14 @@ export class NAICSContainer extends React.Component {
                 if (checkedFromHash.length > 0) {
                     // first, expand da nodes.
                     const checkedParentAndChildrenNodesFromHash = checkedFromHash
-                        .filter((checked) => checked.length < 6)
+                        .filter((checked) => {
+                            const parentKey = getHighestAncestorNaicsCode(checked);
+                            const ancestorKey = getImmediateAncestorNaicsCode(checked);
+                            if (checkedFromHash.includes(parentKey) || checkedFromHash.includes(ancestorKey)) {
+                                return false;
+                            }
+                            return true;
+                        })
                         .sort((a, b) => {
                             if (a.length > b.length) return 1;
                             if (b.length > a.length) return -1;
@@ -89,29 +96,40 @@ export class NAICSContainer extends React.Component {
                             .then(() => {
                                 if (i === arr.length - 1) {
                                     const newChecked = [];
+                                    const param = checked.length === 6 ? getImmediateAncestorNaicsCode(checked) : checked;
                                     // last thing to fetch
-                                    return this.fetchNAICS(checked)
+                                    return this.fetchNAICS(param)
                                         .then(() => {
                                             iterable.forEach((code) => {
                                                 const node = getNodeFromTree(this.props.nodes, code);
-                                                node.children
-                                                    .forEach((child) => {
-                                                        if (child.value.length === 4) {
-                                                            child.children.forEach((grand) => {
-                                                                // add the grand-children.
-                                                                if (!uncheckedFromHash.includes(removePlaceholderString(grand.value))) {
-                                                                    newChecked.push(grand.value);
-                                                                }
-                                                            });
-                                                        }
-                                                        // or we're already looking at the grandchildren
-                                                        else if (!uncheckedFromHash.includes(removePlaceholderString(child.value))) {
-                                                            newChecked.push(child.value);
-                                                        }
-                                                    });
+                                                if (code.length === 6) {
+                                                    if (!uncheckedFromHash.includes(code)) {
+                                                        newChecked.push(code);
+                                                    }
+                                                }
+                                                else {
+                                                    node.children
+                                                        .forEach((child) => {
+                                                            if (child.value.length === 4) {
+                                                                child.children.forEach((grand) => {
+                                                                    // add the grand-children.
+                                                                    if (!uncheckedFromHash.includes(removePlaceholderString(grand.value))) {
+                                                                        newChecked.push(grand.value);
+                                                                    }
+                                                                });
+                                                            }
+                                                            // or we're already looking at the grandchildren
+                                                            else if (!uncheckedFromHash.includes(removePlaceholderString(child.value))) {
+                                                                newChecked.push(child.value);
+                                                            }
+                                                        });
+                                                }
                                             });
                                             resolve(newChecked);
                                         });
+                                }
+                                if (checked.length === 6) {
+                                    return this.fetchNAICS(getImmediateAncestorNaicsCode(checked));
                                 }
                                 return this.fetchNAICS(checked);
                             })
