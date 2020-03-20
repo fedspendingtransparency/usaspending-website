@@ -139,7 +139,6 @@ export class NAICSContainer extends React.Component {
                                 return this.fetchNAICS(checked);
                             })
                             .catch((e) => {
-                                debugger;
                                 console.log("Error on fetching NAICS Data from hash url", e);
                                 reject(e);
                             }), Promise.resolve('first'));
