@@ -13,7 +13,6 @@
     .view-buttons-section__text {
         flex-grow: 1;
         font-size: 1.4rem;
-        padding: 1.1rem 0;
     }
     .view-buttons-section__buttons {
       @include viewTypeButton();

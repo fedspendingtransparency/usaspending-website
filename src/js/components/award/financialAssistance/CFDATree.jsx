@@ -13,6 +13,7 @@ import { remove, cloneDeep } from 'lodash';
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import TreemapCell from 'components/sharedComponents/TreemapCell';
+import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 
 const propTypes = {
     data: PropTypes.array,
@@ -27,7 +28,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    height: 185
+    height: 294
 };
 
 export default class CFDATree extends React.Component {
@@ -180,13 +181,21 @@ export default class CFDATree extends React.Component {
         return label;
     }
 
+    messaging = () => {
+        if (!this.state.virtualChart.length) {
+            return (<NoResultsMessage
+                title="Chart Not Available"
+                message="No available data to display." />);
+        }
+        return null;
+    }
+
     render() {
         if (this.props.width <= 0) {
             return null;
         }
-
-        const naming = this.state.virtualChart.length === 1 ? 'result' : 'results';
-        let resultsCount = null;
+        const chartLength = this.state.virtualChart.length;
+        const naming = chartLength === 1 ? 'result' : 'results';
 
         const cells = this.state.virtualChart.map((cell) => (
             <TreemapCell
@@ -197,22 +206,24 @@ export default class CFDATree extends React.Component {
                 showTooltip={this.props.showTooltip}
                 hideTooltip={this.props.hideTooltip} />
         ));
-        resultsCount = (
-            <div className="cfda-section-treemap-count">
-                {`${this.state.virtualChart.length} ${naming}`}
-            </div>
-        );
+
         return (
             <div>
-                <div className="cfda-section-treemap">
-                    <svg
-                        className="treemap"
-                        width="100%"
-                        height={this.props.height}>
-                        {cells}
-                    </svg>
+                <div className="results-table-message-container">
+                    {this.messaging()}
                 </div>
-                {resultsCount}
+                <div className="cfda-section-treemap">
+                    {chartLength !== 0 &&
+                        <svg
+                            className="treemap"
+                            width="100%"
+                            height={this.props.height}>
+                            {cells}
+                        </svg>}
+                </div>
+                {chartLength !== 0 && <div className="cfda-section-treemap-count">
+                    {`${this.state.virtualChart.length} ${naming}`}
+                </div>}
             </div>
         );
     }

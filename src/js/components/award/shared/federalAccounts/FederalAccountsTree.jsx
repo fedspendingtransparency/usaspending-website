@@ -29,7 +29,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    height: 185
+    height: 294
 };
 
 export default class FederalAccountsTree extends React.Component {
