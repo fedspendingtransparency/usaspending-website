@@ -126,11 +126,18 @@ export default class UserSelections extends React.Component {
         if (this.props.awards.location.country.code && this.props.awards.location.country.code !== 'all') {
             if (this.props.awards.location.state.code && this.props.awards.location.state.code !== 'all') {
                 return (
-                    <div>{`${this.props.awards.location.state.name}, ${this.props.awards.location.country.name}`}</div>
+                    <div className="selection__content">
+                        {`${this.props.awards.location.state.name}, ${this.props.awards.location.country.name}`}
+                    </div>
                 );
             }
             return (
-                <div>{this.props.awards.location.country.name}</div>
+                <div className="selection__content">{this.props.awards.location.country.name}</div>
+            );
+        }
+        else if (this.props.awards.location.country.code === 'all') {
+            return (
+                <div className="selection__content">All</div>
             );
         }
         return (
