@@ -63,3 +63,16 @@ export const handleDownloadRequest = (res) => (dispatch) => {
     dispatch(setDownloadExpectedFile(res.file_name));
     dispatch(setDownloadPending(true));
 };
+
+export const bulkAwardTypeChange = ({ lookupName, direction, types }) => ({
+    type: 'BULK_AWARD_TYPE_CHANGE',
+    lookupName,
+    direction,
+    awardTypes: types
+});
+
+export const toggleAwardTypeChange = ({ lookupName, value }) => ({
+    type: 'TOGGLE_AWARD_TYPE_CHANGE',
+    lookupName,
+    awardType: value
+});

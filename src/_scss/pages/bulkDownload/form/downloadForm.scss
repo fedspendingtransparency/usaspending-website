@@ -110,6 +110,16 @@
                margin-right: rem(5);
             }
         }
+        .download-filter__unordered-list {
+            list-style-type: none;
+            margin-top: 0;
+            li {
+                list-style-type: none;
+            }
+            input {
+                margin-right: rem(5);
+            }
+        }
         @import "agencyPicker";
         @import "federalPicker";
         @import "downloadButtons";

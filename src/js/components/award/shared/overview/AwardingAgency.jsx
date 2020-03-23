@@ -12,16 +12,24 @@ const propTypes = {
     awardingAgency: PropTypes.object
 };
 
-const AwardingAgency = ({ awardingAgency }) => (
-    <AwardSection className="award-overview__left-section__awarding award-overview-column first award-overview-column__spacing">
-        <h6 className="award-overview-title">Awarding Agency</h6>
-        <h5 className="award-overview__left-section__agency-name">
+const AwardingAgency = ({ awardingAgency }) => {
+    let innerComponent = awardingAgency.formattedToptier;
+    if (awardingAgency.hasAgencyPage && awardingAgency.id) {
+        innerComponent = (
             <a href={`/#/agency/${awardingAgency.id}`}>
-                {awardingAgency.formattedToptier}
+                {innerComponent}
             </a>
-        </h5>
-    </AwardSection>
-);
+        );
+    }
+    return (
+        <AwardSection className="award-overview__left-section__awarding award-overview-column first award-overview-column__spacing">
+            <h6 className="award-overview-title">Awarding Agency</h6>
+            <h5 className="award-overview__left-section__agency-name">
+                {innerComponent}
+            </h5>
+        </AwardSection>
+    );
+};
 
 AwardingAgency.propTypes = propTypes;
 export default AwardingAgency;

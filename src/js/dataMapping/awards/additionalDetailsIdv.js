@@ -14,7 +14,7 @@ const additionalDetails = (awardData) => {
             'Awarding Agency': {
                 type: 'link',
                 data: {
-                    path: awardData.awardingAgency.id ? `/#/agency/${awardData.awardingAgency.id}` : null,
+                    path: (awardData.awardingAgency.id && awardData.awardingAgency.hasAgencyPage) ? `/#/agency/${awardData.awardingAgency.id}` : null,
                     title: awardData.awardingAgency.formattedToptier
                 }
             },
@@ -23,7 +23,7 @@ const additionalDetails = (awardData) => {
             'Funding Agency': {
                 type: 'link',
                 data: {
-                    path: awardData.fundingAgency.id ? `/#/agency/${awardData.fundingAgency.id}` : null,
+                    path: (awardData.fundingAgency.id && awardData.fundingAgency.hasAgencyPage) ? `/#/agency/${awardData.fundingAgency.id}` : null,
                     title: awardData.fundingAgency.formattedToptier
                 }
             },
@@ -31,7 +31,7 @@ const additionalDetails = (awardData) => {
             'Funding Office': awardData.fundingAgency.officeName
         },
         parentAwardDetails: {
-            'Parent Award ID': {
+            'Parent Award ID (Parent PIID)': {
                 type: 'link',
                 data: {
                     path: parentAwardDetails.awardId ? `/#/award/${parentAwardDetails.awardId}` : null,
@@ -42,14 +42,12 @@ const additionalDetails = (awardData) => {
             'Parent IDV Agency Name': {
                 type: 'link',
                 data: {
-                    // TODO - when backend updates the API response
-                    // uncomment this link
-                    // path: parentAwardDetails.agencyId ?
-                    //     `/#/agency/${parentAwardDetails.agencyId}` : null,
-                    path: null,
+                    path: parentAwardDetails.agencyId ?
+                        `/#/agency/${parentAwardDetails.agencyId}` : null,
                     title: parentAwardDetails.agencyName
                 }
             },
+            'Parent IDV Sub-Agency Name': parentAwardDetails.subAgencyName,
             'Multiple Or Single Parent Award IDV': parentAwardDetails.multipleOrSingle || ''
         },
         periodOfPerformance: {

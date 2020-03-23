@@ -9,18 +9,25 @@ import PropTypes from 'prop-types';
 const propTypes = {
     x: PropTypes.number,
     y: PropTypes.number,
-    label: PropTypes.string
+    label: PropTypes.string,
+    textAnchor: PropTypes.string
 };
 
 export default class ActivityYAxisItem extends React.Component {
     render() {
+        const {
+            x,
+            y,
+            label,
+            textAnchor
+        } = this.props;
         return (
             <g className="axis-item y-axis">
                 <text
                     className="y-axis__text"
-                    textAnchor="middle"
-                    transform={`translate(${this.props.x},${this.props.y})`}>
-                    {this.props.label}
+                    textAnchor={textAnchor}
+                    transform={`translate(${x},${y})`}>
+                    {label}
                 </text>
             </g>
         );

@@ -25,11 +25,7 @@ export default class DownloadTooltip extends React.Component {
     generateAwardsRequiredFields() {
         const filters = this.props.filters;
         const requiredFields = [];
-        if (!filters.awardLevels.primeAwards && !filters.awardLevels.subAwards) {
-            requiredFields.push('Award Level');
-        }
-        if (!filters.awardTypes.contracts && !filters.awardTypes.grants && !filters.awardTypes.directPayments
-            && !filters.awardTypes.loans && !filters.awardTypes.otherFinancialAssistance && !filters.awardTypes.idvs) {
+        if (!filters.awardTypes.primeAwards.size > 0 && !filters.awardTypes.subAwards.size > 0) {
             requiredFields.push('Award Type');
         }
         if (!this.props.validDates || !filters.dateType) {

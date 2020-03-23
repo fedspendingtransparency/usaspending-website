@@ -8,48 +8,67 @@ import moment from 'moment';
 export const awardDownloadOptions = {
     awardLevels: [
         {
-            name: 'primeAwards',
-            label: 'Prime Awards',
-            apiName: 'prime_awards'
+            id: 'prime-awards',
+            lookupName: 'primeAwards',
+            name: 'Prime Awards',
+            filters: [
+                'contracts',
+                'idvs',
+                'grants',
+                'direct_payments',
+                'loans',
+                'insurance',
+                'other'
+            ]
         },
         {
-            name: 'subAwards',
-            label: 'Sub-Awards',
-            apiName: 'sub_awards'
+            id: 'sub-awards',
+            lookupName: 'subAwards',
+            name: 'Sub-Awards',
+            filters: [
+                'sub_contracts',
+                'sub_grants'
+            ]
         }
     ],
-    awardTypes: [
-        {
-            name: 'contracts',
+    awardTypeLookups: {
+        contracts: {
             label: 'Contracts',
-            apiName: 'contracts'
+            apiValues: ['A', 'B', 'C', 'D']
         },
-        {
-            name: 'directPayments',
+        direct_payments: {
             label: 'Direct Payments',
-            apiName: 'direct_payments'
+            apiValues: ['10', '06']
         },
-        {
-            name: 'grants',
+        grants: {
             label: 'Grants',
-            apiName: 'grants'
+            apiValues: ['02', '03', '04', '05']
         },
-        {
-            name: 'idvs',
-            label: 'IDVs',
-            apiName: 'idvs'
+        idvs: {
+            label: 'Contract IDVs',
+            apiValues: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E']
         },
-        {
-            name: 'loans',
+        loans: {
             label: 'Loans',
-            apiName: 'loans'
+            apiValues: ['07', '08']
         },
-        {
-            name: 'otherFinancialAssistance',
+        insurance: {
+            label: 'Insurance',
+            apiValues: ['09']
+        },
+        other: {
             label: 'Other Financial Assistance',
-            apiName: 'other_financial_assistance'
+            apiValues: ['11']
+        },
+        sub_grants: {
+            label: 'Sub-Grants',
+            apiValues: ['grant']
+        },
+        sub_contracts: {
+            label: 'Sub-Contracts',
+            apiValues: ['procurement']
         }
-    ],
+    },
     dateTypes: [
         {
             name: 'action_date',
@@ -60,6 +79,20 @@ export const awardDownloadOptions = {
             name: 'last_modified_date',
             label: 'Last Modified Date',
             description: 'When the details of a reported award action were last updated'
+        }
+    ],
+    locationTypes: [
+        {
+            name: 'recipient_location',
+            label: 'Recipient Location',
+            apiName: 'recipient_locations',
+            apiScopeName: 'recipient_scope'
+        },
+        {
+            name: 'place_of_performance',
+            label: 'Place of Performance',
+            apiName: 'place_of_performance_locations',
+            apiScopeName: 'place_of_performance_scope'
         }
     ],
     fileFormats: [
