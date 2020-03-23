@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CFDAVizContainer from 'containers/award/financialAssistance/CFDAVizContainer';
-import Note from 'components/sharedComponents/Note';
 import AwardSection from '../shared/AwardSection';
 import AwardSectionHeader from '../shared/AwardSectionHeader';
 import { CFDASectionInfo } from "../shared/InfoTooltipContent";
@@ -12,9 +11,6 @@ const propTypes = {
     CFDAOverviewLinkClicked: PropTypes.bool,
     updateCFDAOverviewLinkClicked: PropTypes.func
 };
-
-// eslint-disable-next-line max-len
-const message = 'Result count may differ between treemap view and table view. Treemap view only displays accounts with a positive federal action obligation amount, while table view displays all CFDA programs.';
 
 const CFDASection = ({
     cfdas,
@@ -33,10 +29,6 @@ const CFDASection = ({
                 cfdas={cfdas}
                 CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
                 updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />
-            {cfdas.length > 1 &&
-                <span className="cfda-section__note">
-                    <Note message={message} />
-                </span>}
         </div>
     </AwardSection>
 );
