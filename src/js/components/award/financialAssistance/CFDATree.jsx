@@ -39,7 +39,7 @@ export default class CFDATree extends React.Component {
         this.state = {
             chartReady: false,
             virtualChart: [],
-            removedCFDAs: []
+            isPartialTree: false
         };
     }
 
@@ -110,7 +110,7 @@ export default class CFDATree extends React.Component {
         });
         this.setState({
             virtualChart: cells,
-            removedCFDAs: removedCFDAs.length
+            isPartialTree: removedCFDAs.length > 0
         });
     }
 
@@ -229,7 +229,7 @@ export default class CFDATree extends React.Component {
                     <div className="cfda-section-treemap-count">
                         {`${this.state.virtualChart.length} ${naming}`}
                     </div>}
-                {this.state.removedCFDAs.length !== 0 &&
+                {this.state.isPartialTree &&
                     <span className="cfda-section__note">
                         <Note message={message} />
                     </span>}
