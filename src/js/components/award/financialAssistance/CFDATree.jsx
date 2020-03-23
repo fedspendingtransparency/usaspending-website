@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
 import { remove, cloneDeep } from 'lodash';
-
+import Note from 'components/sharedComponents/Note';
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import TreemapCell from 'components/sharedComponents/TreemapCell';
@@ -31,12 +31,15 @@ const defaultProps = {
     height: 294
 };
 
+const message = 'Results with federal action obligations of zero or less than zero for this award have been omitted in the treemap view. To view all results, click the table button above this chart.';
+
 export default class CFDATree extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             chartReady: false,
-            virtualChart: []
+            virtualChart: [],
+            removedCFDAs: []
         };
     }
 
@@ -57,7 +60,7 @@ export default class CFDATree extends React.Component {
         const data = cloneDeep(props.data);
 
         // remove negative values because we can't display those in the treemap
-        remove(data, (account) => parseFloat(account._federalActionOblicationAmount) <= 0);
+        const removedCFDAs = remove(data, (account) => parseFloat(account._federalActionOblicationAmount) <= 0);
 
         // parse the inbound data into D3's treemap hierarchy structure
         const treemapData = hierarchy({
@@ -106,7 +109,8 @@ export default class CFDATree extends React.Component {
             cells.push(cell);
         });
         this.setState({
-            virtualChart: cells
+            virtualChart: cells,
+            removedCFDAs: removedCFDAs.length
         });
     }
 
@@ -225,6 +229,10 @@ export default class CFDATree extends React.Component {
                     <div className="cfda-section-treemap-count">
                         {`${this.state.virtualChart.length} ${naming}`}
                     </div>}
+                {this.state.removedCFDAs.length !== 0 &&
+                    <span className="cfda-section__note">
+                        <Note message={message} />
+                    </span>}
             </div>
         );
     }
