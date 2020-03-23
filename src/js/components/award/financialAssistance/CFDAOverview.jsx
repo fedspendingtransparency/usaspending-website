@@ -18,7 +18,7 @@ const CFDAOverview = ({
     updateCFDAOverviewLinkClicked
 }) => {
     const jumpToCFDASection = () => {
-        updateCFDAOverviewLinkClicked();
+        updateCFDAOverviewLinkClicked(true);
         jumpToSection('cfda');
     };
     return (

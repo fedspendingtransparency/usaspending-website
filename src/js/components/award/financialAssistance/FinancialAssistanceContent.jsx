@@ -42,8 +42,8 @@ const FinancialAssistanceContent = ({
     const [activeTab, setActiveTab] = useState("transaction");
     const [CFDAOverviewLinkClicked, setCFDAOverviewLinkClicked] = useState(false);
 
-    const updateCFDAOverviewLinkClicked = () => {
-        setCFDAOverviewLinkClicked(!CFDAOverviewLinkClicked);
+    const updateCFDAOverviewLinkClicked = (didClick) => {
+        setCFDAOverviewLinkClicked(didClick);
     };
 
     const glossaryLink = glossaryLinks[overview.type]
