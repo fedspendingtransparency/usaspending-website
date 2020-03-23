@@ -35,12 +35,13 @@ export default class CFDAVizContainer extends React.Component {
 
     componentDidMount = () => this.updateCFDAs();
     componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps.CFDAOverviewLinkClicked, this.props.CFDAOverviewLinkClicked)) {
-            if (
-                this.props.CFDAOverviewLinkClicked &&
-                this.state.view !== 'table' &&
-                this.props.cfdas.length > 1
-            ) this.updateViewFromCFDAOverviewClick('table');
+        if (this.props.CFDAOverviewLinkClicked) {
+            if (this.state.view !== 'table' && this.props.cfdas.length > 1) {
+                this.updateViewFromCFDAOverviewClick('table');
+            }
+            else {
+                this.props.updateCFDAOverviewLinkClicked(false);
+            }
         }
         if (!isEqual(prevProps.cfdas, this.props.cfdas)) {
             this.updateCFDAs();
