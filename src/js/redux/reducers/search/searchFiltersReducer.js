@@ -19,8 +19,7 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
 
-// export const filterStoreVersion = '2019-07-26';
-export const filterStoreVersion = '2017-11-21';
+export const filterStoreVersion = '2020-03-24';
 
 export function NaicsCodes(data = { require: [], exclude: [], counts: [] }) {
     this.require = data.require;
