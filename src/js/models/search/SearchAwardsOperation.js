@@ -275,7 +275,12 @@ class SearchAwardsOperation {
 
         // NAICS v2
         if (this.naicsCodes.require.length > 0) {
-            filters[rootKeys.naics_v2] = this.naicsCodes;
+            if (this.naicsCodes.exclude.length > 0) {
+                filters[rootKeys.naics_v2] = this.naicsCodes;
+            }
+            else {
+                filters[rootKeys.naics_v2] = this.naicsCodes.require;
+            }
         }
 
         // Add PSC
