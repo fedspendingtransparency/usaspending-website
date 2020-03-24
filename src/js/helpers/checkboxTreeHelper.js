@@ -3,7 +3,6 @@
   * Created by Jonathan Hill 10/01/2019
 **/
 
-
 const getChildren = (node) => {
     if (!node.children && node.naics.length <= 4) {
         return {
@@ -73,8 +72,24 @@ export const getNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
             ?.children
             .find((node) => node[treePropForKey] === nodeKey);
     }
-    return null;
+    return { count: null };
 };
+
+export const removePlaceholderString = (str) => {
+    if (str.includes('children_of_')) return str.split('children_of_')[1];
+    return str;
+};
+
+export const getCountOfAllCheckedDescendants = (nodes, ancestorKey, checkedNodes) => checkedNodes
+    .map((checked) => removePlaceholderString(checked))
+    .filter((checkedNode) => checkedNode.includes(ancestorKey))
+    .reduce((ancestorCount, checkedAncestor) => {
+        const nodeCount = getNodeFromTree(nodes, checkedAncestor).count;
+        if (nodeCount === 0) {
+            return ancestorCount + 1;
+        }
+        return ancestorCount + nodeCount;
+    }, 0);
 
 export const expandAllNodes = (nodes, propForNode = 'value') => {
     const getValue = (acc, node) => {
@@ -99,7 +114,7 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
             .children
             .filter((node) => {
                 const childFromSearch = getNodeFromTree(parentFromSearch.children, node.value);
-                if (node.isPlaceHolder && childFromSearch && childFromSearch.count === childFromSearch?.children.length) {
+                if (node.isPlaceHolder && childFromSearch && childFromSearch.count === childFromSearch?.children?.length) {
                     return false;
                 }
                 return true;
@@ -138,14 +153,15 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
                     return acc;
                 }
                 // child added via search
-                if (searchChild.count === searchChild.children.length) {
+                if (searchChild.count && searchChild.count === searchChild?.children?.length) {
                     acc.push(searchChild);
                 }
                 else {
+                    const childrenFromSearch = searchChild.children ? searchChild.children : [];
                     acc.push({
                         ...searchChild,
                         children: [
-                            ...searchChild.children,
+                            ...childrenFromSearch,
                             {
                                 isPlaceHolder: true,
                                 label: "Child Placeholder",
@@ -199,8 +215,16 @@ export const addSearchResultsToTree = (tree, searchResults) => {
 
 export const showAllTreeItems = (tree, key = '', newNodes = []) => tree
     .map((node) => {
+        const parentKey = getHighestAncestorNaicsCode(key);
+        const [data] = newNodes;
+        const shouldAddNewChildToParent = (
+            key &&
+            data &&
+            node.value === parentKey &&
+            // no child exists
+            !node.children.some((child) => child.value === key)
+        );
         if (node.value === key) {
-            const [data] = newNodes;
             return {
                 ...data,
                 children: data.children.map((child) => {
@@ -239,34 +263,47 @@ export const showAllTreeItems = (tree, key = '', newNodes = []) => tree
                 }).sort(sortNodes)
             };
         }
+        else if (shouldAddNewChildToParent) {
+            return {
+                ...node,
+                className: '',
+                children: [
+                    // leave the placeholder!
+                    ...node.children,
+                    data
+                ]
+            };
+        }
         return {
             ...node,
             className: '',
             children: node.children
-                .map((child) => {
-                    if (child.value === key) {
-                        if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
-                            // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
+                ? node.children
+                    .map((child) => {
+                        if (child.value === key) {
+                            if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
+                                // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
+                                return {
+                                    ...child
+                                };
+                            }
                             return {
-                                ...child
+                                ...data
+                            };
+                        }
+                        if (child.children && child.children.some((grand) => grand.className === 'hide')) {
+                            return {
+                                ...child,
+                                className: '',
+                                children: child.children.map((grand) => ({ ...grand, className: '' }))
                             };
                         }
                         return {
-                            ...newNodes[0]
-                        };
-                    }
-                    if (child.children && child.children.some((grand) => grand.className === 'hide')) {
-                        return {
                             ...child,
-                            className: '',
-                            children: child.children.map((grand) => ({ ...grand, className: '' }))
+                            className: ''
                         };
-                    }
-                    return {
-                        ...child,
-                        className: ''
-                    };
-                })
-                .sort(sortNodes)
+                    })
+                    .sort(sortNodes)
+                : []
         };
     });

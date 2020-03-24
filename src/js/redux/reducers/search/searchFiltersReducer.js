@@ -19,7 +19,13 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
 
-export const filterStoreVersion = '2019-07-26';
+export const filterStoreVersion = '2020-03-24';
+
+export function NaicsCodes(data = { require: [], exclude: [], counts: [] }) {
+    this.require = data.require;
+    this.exclude = data.exclude;
+    this.counts = data.counts || [];
+}
 
 export const requiredTypes = {
     keyword: OrderedMap,
@@ -35,6 +41,7 @@ export const requiredTypes = {
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
     selectedNAICS: OrderedMap,
+    naicsCodes: NaicsCodes,
     selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
@@ -62,6 +69,7 @@ export const initialState = {
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
     selectedNAICS: new OrderedMap(),
+    naicsCodes: new NaicsCodes(),
     selectedPSC: new OrderedMap(),
     pricingType: new Set(),
     setAside: new Set(),
@@ -210,18 +218,18 @@ const searchFiltersReducer = (state = initialState, action) => {
             });
         }
 
-        // NAICS Filter (v2)
-        case 'UPDATE_NAICS': {
-            return Object.assign({}, state, {
-                naics: OtherFilterFunctions.updateNaics(action.naics)
-            });
-        }
-
         // NAICS Filter
         case 'UPDATE_SELECTED_NAICS': {
             return Object.assign({}, state, {
                 selectedNAICS: OtherFilterFunctions.updateSelectedNAICS(
                     state.selectedNAICS, action.naics)
+            });
+        }
+
+        // NAICS_V2 Filter
+        case 'UPDATE_NAICS_V2': {
+            return Object.assign({}, state, {
+                naicsCodes: OtherFilterFunctions.updateNAICSV2(action.payload)
             });
         }
 
