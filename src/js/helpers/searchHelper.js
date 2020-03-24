@@ -77,7 +77,6 @@ export const performSpendingByGeographySearch = (params) => apiRequest({
 
 // Spending By Award Tab Count Endpoint
 export const performSpendingByAwardTabCountSearch = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/search/spending_by_award_count/',
     method: 'post',
     data: params
@@ -85,7 +84,6 @@ export const performSpendingByAwardTabCountSearch = (params) => apiRequest({
 
 // Spending By Award Table Endpoint
 export const performSpendingByAwardSearch = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/search/spending_by_award/',
     method: 'post',
     data: params
@@ -98,14 +96,12 @@ export const performSubawardSearch = (data) => apiRequest({
 });
 
 export const generateUrlHash = (data) => apiRequest({
-    isMocked: true,
     url: 'v1/references/filter/',
     method: 'post',
     data
 });
 
 export const restoreUrlHash = (data) => apiRequest({
-    isMocked: true,
     url: 'v1/references/hash/',
     method: 'post',
     data

@@ -17,7 +17,6 @@ export const requestDownloadStatus = (params) => apiRequest({
 });
 
 export const requestDownloadCount = (params) => apiRequest({
-    isMocked: true,
     url: 'v2/download/count/',
     method: 'post',
     data: params
