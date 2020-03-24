@@ -683,6 +683,33 @@ describe('searchFiltersReducer', () => {
         });
     });
 
+    describe('UPDATE_NAICS_V2', () => {
+        it('removes descendants w/ ancestor already in require array', () => {
+            const action = {
+                type: "UPDATE_NAICS_V2",
+                payload: {
+                    exclude: [""],
+                    require: ["11", "111110", "1112", "1113", "21", "2111", "211110", "2112"],
+                    counts: [{ count: 64, value: '11' }, { count: 32, value: '21' }]
+                }
+            };
+            const state = searchFiltersReducer(initialState, action).naicsCodes;
+            expect(state.require).toEqual(["11", "21"]);
+            expect(state.counts).toEqual(action.payload.counts);
+        });
+        it('does not remove descendants if one ancestor\'s in both require and excluded', () => {
+            const action = {
+                type: "UPDATE_NAICS_V2",
+                payload: {
+                    exclude: ["1111"],
+                    require: ["11", "111110", "1112", "1113", "21", "2111", "211110", "2112"]
+                }
+            };
+            const state = searchFiltersReducer(initialState, action).naicsCodes;
+            expect(state.require).toEqual(["11", "111110", "21"]);
+        });
+    });
+
     describe('UPDATE_SELECTED_PSC', () => {
         const action = {
             type: 'UPDATE_SELECTED_PSC',
