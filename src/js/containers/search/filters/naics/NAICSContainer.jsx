@@ -89,6 +89,7 @@ export class NAICSContainer extends React.Component {
                                             iterable.forEach((code) => {
                                                 if (code.length === 6) {
                                                     if (!uncheckedFromHash.includes(code)) {
+                                                        // this should never happen, but if code is in unchecked and checked, give priority to unchecked array.
                                                         newChecked.push(code);
                                                     }
                                                 }
@@ -99,7 +100,11 @@ export class NAICSContainer extends React.Component {
                                                             if (child.value.length === 4) {
                                                                 child.children.forEach((grand) => {
                                                                     // add the grand-children.
-                                                                    if (!uncheckedFromHash.includes(removePlaceholderString(grand.value))) {
+                                                                    const isUncheckedByAncestor = (
+                                                                        uncheckedFromHash.includes(removePlaceholderString(grand.value)) ||
+                                                                        uncheckedFromHash.includes(child.value)
+                                                                    );
+                                                                    if (!isUncheckedByAncestor) {
                                                                         newChecked.push(grand.value);
                                                                     }
                                                                 });
@@ -126,7 +131,11 @@ export class NAICSContainer extends React.Component {
                                                                     getNodeFromTree(this.props.nodes, ancestorKey)
                                                                         .children
                                                                         .forEach((grand) => {
-                                                                            if (!uncheckedFromHash.includes(grand.value)) {
+                                                                            const isUncheckedByAncestor = (
+                                                                                uncheckedFromHash.includes(ancestorKey) ||
+                                                                                uncheckedFromHash.includes(grand.value)
+                                                                            );
+                                                                            if (!isUncheckedByAncestor) {
                                                                                 // we're removing the placeholder, so add the
                                                                                 // real grandchildren to the checked array now
                                                                                 // that we have them.
@@ -135,7 +144,7 @@ export class NAICSContainer extends React.Component {
                                                                         });
                                                                     if (index === src.length - 1) {
                                                                         const newCheckedWithoutAncestorPlaceholder = newChecked
-                                                                            // we've actually replaced the placeholder with the real deal.
+                                                                            // we've actually replaced the placeholder with the real deal, so remove it.
                                                                             .filter((naicsCode) => naicsCode !== `children_of_${ancestorKey}`);
                                                                         resolve(newCheckedWithoutAncestorPlaceholder);
                                                                     }
