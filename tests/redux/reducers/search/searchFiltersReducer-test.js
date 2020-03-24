@@ -690,7 +690,7 @@ describe('searchFiltersReducer', () => {
                 payload: {
                     exclude: [""],
                     require: ["11", "111110", "1112", "1113", "21", "2111", "211110", "2112"],
-                    counts: [{ count: 64, value: '11' }]
+                    counts: [{ count: 64, value: '11' }, { count: 32, value: '21' }]
                 }
             };
             const state = searchFiltersReducer(initialState, action).naicsCodes;
