@@ -7,7 +7,8 @@ import CoreTransaction from "models/v2/awards/transactions/CoreTransaction";
 const transactionData = {
     actionDate: '1999-12-31',
     actionType: 'a',
-    actionTypeDescription: 'New'
+    actionTypeDescription: 'New',
+    cfda_number: '12.345'
 };
 
 const transaction = Object.create(CoreTransaction);
@@ -20,5 +21,8 @@ describe('CoreTransactions', () => {
     });
     it('should format the action type description', () => {
         expect(transaction.actionTypeDescription).toEqual('A: New');
+    });
+    it('should contain the cfda number', () => {
+        expect(transaction.cfdaNumber).toEqual('12.345');
     });
 });

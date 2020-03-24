@@ -6,6 +6,7 @@ import {
     faAngleDown,
     faAngleRight,
     faAngleLeft,
+    faArrowCircleLeft,
     faBan,
     faBook,
     faBuilding,
@@ -39,7 +40,8 @@ import {
     faUserTie,
     faShareAlt,
     faEnvelope,
-    faLink
+    faLink,
+    faExclamationCircle
 } from "@fortawesome/free-solid-svg-icons";
 import AppContainer from 'containers/AppContainer';
 
@@ -55,6 +57,7 @@ library.add(
     faAngleDown,
     faAngleRight,
     faAngleLeft,
+    faArrowCircleLeft,
     faBan,
     faBook,
     faBuilding,
@@ -88,7 +91,8 @@ library.add(
     faUserTie,
     faShareAlt,
     faEnvelope,
-    faLink
+    faLink,
+    faExclamationCircle
 );
 
 const appDiv = document.getElementById('app');

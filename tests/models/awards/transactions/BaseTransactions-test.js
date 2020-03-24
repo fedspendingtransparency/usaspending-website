@@ -13,7 +13,8 @@ const mockContractTransaction = {
 const mockAssistanceTransaction = {
     federal_action_obligation: '1230.4',
     original_loan_subsidy_cost: '1230.4',
-    action_type: 'a'
+    action_type: 'a',
+    cfda_number: '12.345'
 };
 
 const mockLoanTransaction = {
@@ -48,6 +49,9 @@ describe('Base Transactions', () => {
         });
         it('should convert the action type', () => {
             expect(assistanceTransaction._actionTypeDescription).toEqual('New');
+        });
+        it('should contain the cfda number', () => {
+            expect(assistanceTransaction.cfdaNumber).toEqual('12.345');
         });
     });
     describe('BaseLoanTransaction', () => {

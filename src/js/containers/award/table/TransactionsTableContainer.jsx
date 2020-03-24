@@ -15,6 +15,7 @@ import * as awardActions from 'redux/actions/award/awardActions';
 
 import BaseContractTransaction from 'models/v2/awards/transactions/BaseContractTransaction';
 import BaseLoanTransaction from 'models/v2/awards/transactions/BaseLoanTransaction';
+import BaseAssistanceTransaction from 'models/v2/awards/transactions/BaseAssistanceTransaction';
 import TransactionsTable from 'components/award/table/TransactionsTable';
 
 const propTypes = {
@@ -106,8 +107,16 @@ export class TransactionsTableContainer extends React.Component {
     }
 
     parseTransactions(data, reset) {
-        const baseTransaction = this.props.category === 'loan' ?
-            BaseLoanTransaction : BaseContractTransaction;
+        let baseTransaction = BaseContractTransaction;
+        if (this.props.category === 'loan') {
+            baseTransaction = BaseLoanTransaction;
+        }
+        else if (this.props.category === 'contract' || this.props.category === 'idv') {
+            baseTransaction = BaseContractTransaction;
+        }
+        else {
+            baseTransaction = BaseAssistanceTransaction;
+        }
         const transactions = data.results.map((item) => {
             const transaction = Object.create(baseTransaction);
             transaction.populate(item);
