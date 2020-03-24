@@ -35,7 +35,6 @@ import {
     sendFieldCombinations
 } from './helpers/searchAnalytics';
 
-
 require('pages/search/searchPage.scss');
 
 const propTypes = {
@@ -236,7 +235,6 @@ export class SearchContainer extends React.Component {
             }
         });
 
-
         // apply the filters to both the staged and applied stores
         this.props.restoreHashedFilters(reduxValues);
 
@@ -307,7 +305,7 @@ export class SearchContainer extends React.Component {
         }
 
         this.request = SearchHelper.generateUrlHash({
-            filters,
+            filters: SearchHelper.removeNaicsCountsFromFilters(filters),
             version: filterStoreVersion
         });
 
