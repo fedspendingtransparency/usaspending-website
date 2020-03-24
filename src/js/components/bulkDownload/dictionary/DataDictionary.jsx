@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import Analytics from 'helpers/analytics/Analytics';
 import { Spreadsheet } from 'components/sharedComponents/icons/Icons';
 import DataDictionaryTable from './table/DataDictionaryTable';
 import DataDictionarySearchBar from "./DataDictionarySearchBar";
@@ -21,6 +22,10 @@ const propTypes = {
     setSearchString: PropTypes.func,
     searchTerm: PropTypes.string,
     downloadLocation: PropTypes.string
+};
+
+const handleDownloadClick = () => {
+    Analytics.event({ category: 'Download Center - Data Dictionary', action: 'Download' });
 };
 
 export default class DataDictionary extends React.Component {
@@ -39,6 +44,7 @@ export default class DataDictionary extends React.Component {
                     <div className="data-dictionary__download">
                         <a
                             className="data-dictionary__download-link"
+                            onClick={handleDownloadClick}
                             href={this.props.downloadLocation}>
                             <div className="data-dictionary__download-icon">
                                 <Spreadsheet />

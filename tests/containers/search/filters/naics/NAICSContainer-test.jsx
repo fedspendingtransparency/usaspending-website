@@ -68,7 +68,7 @@ describe('NAICS Search Filter Container', () => {
         });
     });
     describe('autoCheckImmediateChildrenAfterDynamicExpand fn', () => {
-        it('auto checks unchecked descendents of selected parent', async () => {
+        it('auto checks unchecked descendants of selected parent', async () => {
             const setChecked = jest.fn();
             const container = shallow(<NAICSContainer
                 {...defaultProps}
@@ -77,19 +77,19 @@ describe('NAICS Search Filter Container', () => {
                 
             await container.instance().autoCheckImmediateChildrenAfterDynamicExpand(treeWithPlaceholdersAndRealData[0]);
 
-            // removing the placeholder selection for 11 and adding all the descendents grandchildren (placeholders) to checked. In this test case, we only have one immediate child of 11. Non-placeholder children should not be auto checked.
-            expect(setChecked).toHaveBeenCalledWith(["children_of_1111"]);
+            // removing the placeholder selection for 11 and adding all the descendants grandchildren (placeholders) to checked. In this test case, we only have one immediate child of 11. Non-placeholder children should not be auto checked.
+            expect(setChecked).toHaveBeenCalledWith(["children_of_1111", "children_of_1112"]);
         });
     });
-    describe('autoCheckSearchedResultDescendents fn', () => {
-        it('auto checks unchecked descendents of selected parent', async () => {
+    describe('autoCheckSearchedResultDescendants fn', () => {
+        it('auto checks unchecked descendants of selected parent', async () => {
             const addChecked = jest.fn();
             const container = shallow(<NAICSContainer
                 {...defaultProps}
                 nodes={searchResults}
                 addChecked={addChecked} />);
             const expanded = ["11", "1111", "111110", "144444"];
-            await container.instance().autoCheckSearchedResultDescendents(["children_of_11"], expanded);
+            await container.instance().autoCheckSearchedResultDescendants(["children_of_11"], expanded);
 
             expect(addChecked).toHaveBeenCalledWith("111110");
             expect(addChecked).not.toHaveBeenCalledWith("144444");

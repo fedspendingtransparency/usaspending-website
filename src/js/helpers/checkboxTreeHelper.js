@@ -1,7 +1,38 @@
 /**
   * checkboxTreeHelper.js
   * Created by Jonathan Hill 10/01/2019
-  **/
+**/
+
+
+const getChildren = (node) => {
+    if (!node.children && node.naics.length <= 4) {
+        return {
+            children: [{
+                isPlaceHolder: true,
+                label: 'Placeholder Child',
+                value: `children_of_${node.naics}`
+            }]
+        };
+    }
+    else if (node.children) {
+        return {
+            children: node.children.map((child) => ({
+                ...child,
+                label: child.naics_description,
+                value: child.naics,
+                ...getChildren(child)
+            }))
+        };
+    }
+    return {};
+};
+
+export const cleanNaicsData = (nodes) => nodes.map((node) => ({
+    ...node,
+    label: node.naics_description,
+    value: node.naics,
+    ...getChildren(node)
+}));
 
 export const sortNodes = (a, b) => {
     if (a.isPlaceHolder) return 1;
@@ -31,15 +62,15 @@ export const getNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
     if (nodeKey.length === 4) {
         return tree
             .find((node) => node[treePropForKey] === parentKey)
-            .children
+            ?.children
             .find((node) => node[treePropForKey] === nodeKey);
     }
     if (nodeKey.length === 6) {
         return tree
             .find((node) => node[treePropForKey] === parentKey)
-            .children
+            ?.children
             .find((node) => node[treePropForKey] === ancestorKey)
-            .children
+            ?.children
             .find((node) => node[treePropForKey] === nodeKey);
     }
     return null;
@@ -64,7 +95,16 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
     // 1. hide node not in search
     // 2. add placeholders if not there
     if (existingParent.children && parentFromSearch.children) {
-        const existingChildArray = existingParent.children.map((node) => ({ ...node, className: 'hide' }));
+        const existingChildArray = existingParent
+            .children
+            .filter((node) => {
+                const childFromSearch = getNodeFromTree(parentFromSearch.children, node.value);
+                if (node.isPlaceHolder && childFromSearch && childFromSearch.count === childFromSearch?.children.length) {
+                    return false;
+                }
+                return true;
+            })
+            .map((node) => ({ ...node, className: 'hide' }));
 
         const nodes = parentFromSearch.children
             .reduce((acc, searchChild) => {

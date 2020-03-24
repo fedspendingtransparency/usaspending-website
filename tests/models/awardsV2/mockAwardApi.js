@@ -217,17 +217,47 @@ export const mockLoan = {
         {
             cfda_number: 0.3,
             total_funding_amount: 2,
-            cfda_title: 'bigger'
+            cfda_title: 'bigger',
+            applicant_eligibility: "Federally Recognized Indian Tribal Governments.",
+            beneficiary_eligibility: "Federally Recognized Indian Tribal Governments and members of American Indian Tribes.",
+            cfda_federal_agency: "BUREAU OF INDIAN AFFAIRS AND BUREAU OF INDIAN EDUCATION, INTERIOR, DEPARTMENT OF THE",
+            cfda_objectives: "To promote Indian self determination and improve the quality of life in Tribal communities by providing greater flexibility in planning programs and meeting the needs of communities.  This program allows Tribes to combine various programs and/or grants into one agreement. The simplified contracting procedures enhance program accountability by reducing paperwork and reporting requirements, and reduce Tribal administrative costs to allow for increased services under these contracts.",
+            cfda_obligations: "(Direct Payments for Specified Use) FY 18$49,309,115.00; FY 19 est $50,000,000.00; FY 20 est $50,000,000.00; FY 17 FY 16 - ",
+            cfda_popular_name: "",
+            cfda_website: "http://www.bia.gov",
+            federal_action_obligation_amount: 2221713,
+            non_federal_funding_amount: 0,
+            sam_website: "https://beta.sam.gov/fal/275e479d79e7421ba332973723d5307c/view"
         },
         {
             cfda_number: 0.2,
             total_funding_amount: 1,
-            cfda_title: 'smaller'
+            cfda_title: 'smaller',
+            applicant_eligibility: "Federally Recognized Indian Tribal Governments.",
+            beneficiary_eligibility: "Federally Recognized Indian Tribal Governments and members of American Indian Tribes.",
+            cfda_federal_agency: "BUREAU OF INDIAN AFFAIRS AND BUREAU OF INDIAN EDUCATION, INTERIOR, DEPARTMENT OF THE",
+            cfda_objectives: "To promote Indian self determination and improve the quality of life in Tribal communities by providing greater flexibility in planning programs and meeting the needs of communities.  This program allows Tribes to combine various programs and/or grants into one agreement. The simplified contracting procedures enhance program accountability by reducing paperwork and reporting requirements, and reduce Tribal administrative costs to allow for increased services under these contracts.",
+            cfda_obligations: "(Direct Payments for Specified Use) FY 18$49,309,115.00; FY 19 est $50,000,000.00; FY 20 est $50,000,000.00; FY 17 FY 16 - ",
+            cfda_popular_name: "",
+            cfda_website: "http://www.bia.gov",
+            federal_action_obligation_amount: 2221713,
+            non_federal_funding_amount: 0,
+            sam_website: "https://beta.sam.gov/fal/275e479d79e7421ba332973723d5307c/view"
         },
         {
             cfda_number: 0.1,
             total_funding_amount: 0,
-            cfda_title: 'zero'
+            cfda_title: 'zero',
+            applicant_eligibility: "Federally Recognized Indian Tribal Governments.",
+            beneficiary_eligibility: "Federally Recognized Indian Tribal Governments and members of American Indian Tribes.",
+            cfda_federal_agency: "BUREAU OF INDIAN AFFAIRS AND BUREAU OF INDIAN EDUCATION, INTERIOR, DEPARTMENT OF THE",
+            cfda_objectives: "To promote Indian self determination and improve the quality of life in Tribal communities by providing greater flexibility in planning programs and meeting the needs of communities.  This program allows Tribes to combine various programs and/or grants into one agreement. The simplified contracting procedures enhance program accountability by reducing paperwork and reporting requirements, and reduce Tribal administrative costs to allow for increased services under these contracts.",
+            cfda_obligations: "(Direct Payments for Specified Use) FY 18$49,309,115.00; FY 19 est $50,000,000.00; FY 20 est $50,000,000.00; FY 17 FY 16 - ",
+            cfda_popular_name: "",
+            cfda_website: "http://www.bia.gov",
+            federal_action_obligation_amount: 2221713,
+            non_federal_funding_amount: 0,
+            sam_website: "https://beta.sam.gov/fal/275e479d79e7421ba332973723d5307c/view"
         }
     ]
 };

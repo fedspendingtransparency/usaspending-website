@@ -104,6 +104,12 @@ export const treeWithPlaceholdersAndRealData = [
                         count: 0
                     }
                 ]
+            },
+            {
+                value: "children_of_1112",
+                naics: "children_of_1112",
+                isPlaceHolder: true,
+                count: 0
             }
         ]
     }
@@ -447,7 +453,7 @@ export const reallyBigTree = [
         count: 29,
         children: []
     }
-]
+];
 
 export const defaultProps = {
     expanded: [],

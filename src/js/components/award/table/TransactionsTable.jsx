@@ -25,7 +25,7 @@ const rowHeight = 40;
 // setting the table height to a partial row prevents double bottom borders and also clearly
 // indicates when there's more data
 const tableHeight = 10.5 * rowHeight;
-
+const columnWidthOffset = 40;
 const propTypes = {
     transactions: PropTypes.array,
     tableInstance: PropTypes.string,
@@ -110,7 +110,7 @@ export default class TransactionsTable extends React.Component {
             const isLast = i === tableMapping.table._order.length - 1;
 
             const displayName = tableMapping.table[column];
-            let columnWidth = Math.max(measureTableHeader(displayName),
+            let columnWidth = Math.max(measureTableHeader(displayName) - columnWidthOffset,
                 tableMapping.columnWidths[column]);
             if (isLast) {
                 // make it fill out the remainder of the width necessary
