@@ -73,8 +73,8 @@ export class NAICSContainer extends React.Component {
         // always get da nodes first.
         return this.fetchNAICS()
             .then(() => {
-                // lets load a stateful tree from the url, fun. timez.
                 if (checkedFromHash.length > 0) {
+                    // lets load a stateful tree from the url...
                     const fetchAllNodesAndCheckTheirChildren = (iterable) => new Promise((resolve, reject) => {
                         iterable.reduce((prevPromise, checked, i, arr) => prevPromise
                             .then(() => {
