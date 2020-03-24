@@ -693,7 +693,7 @@ describe('searchFiltersReducer', () => {
                     counts: [{ count: 64, value: '11' }]
                 }
             };
-            const state = searchFiltersReducer(initialState, action).naics_codes;
+            const state = searchFiltersReducer(initialState, action).naicsCodes;
             expect(state.require).toEqual(["11", "21"]);
             expect(state.counts).toEqual(action.payload.counts);
         });
@@ -705,7 +705,7 @@ describe('searchFiltersReducer', () => {
                     require: ["11", "111110", "1112", "1113", "21", "2111", "211110", "2112"]
                 }
             };
-            const state = searchFiltersReducer(initialState, action).naics_codes;
+            const state = searchFiltersReducer(initialState, action).naicsCodes;
             expect(state.require).toEqual(["11", "111110", "21"]);
         });
     });

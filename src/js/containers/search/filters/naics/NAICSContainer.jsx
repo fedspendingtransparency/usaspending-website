@@ -176,8 +176,8 @@ export class NAICSContainer extends React.Component {
                             this.props.restoreHashedFilters({
                                 ...this.props.filters,
                                 // counts should live in redux.
-                                naics_codes: {
-                                    ...this.props.filters.naics_codes,
+                                naicsCodes: {
+                                    ...this.props.filters.naicsCodes,
                                     counts: this.state.stagedNaicsFilters
                                 }
                             });
@@ -698,8 +698,8 @@ export default connect(
         searchExpanded: state.naics.searchExpanded.toJS(),
         checked: state.naics.checked.toJS(),
         unchecked: state.naics.unchecked.toJS(),
-        checkedFromHash: state.appliedFilters.filters.naics_codes.require,
-        uncheckedFromHash: state.appliedFilters.filters.naics_codes.exclude,
+        checkedFromHash: state.appliedFilters.filters.naicsCodes.require,
+        uncheckedFromHash: state.appliedFilters.filters.naicsCodes.exclude,
         filters: state.appliedFilters.filters
     }),
     (dispatch) => ({
