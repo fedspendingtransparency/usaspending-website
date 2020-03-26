@@ -4,6 +4,7 @@ import moment from 'moment';
 import { cloneDeep } from 'lodash';
 
 import { fetchAwardTransaction } from 'helpers/searchHelper';
+import { isBadData, xDomain, yDomain } from 'helpers/contractGrantActivityHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
@@ -76,8 +77,10 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
             acc.push(updatedData);
             return acc;
         }, []);
-        // remove negative values
-        newData = newData.filter((data) => !data.federal_action_obligation.toString().startsWith('-'));
+        // remove negative values and sort
+        newData = newData
+            .filter((data) => !data.federal_action_obligation.toString().startsWith('-'))
+            .sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf());
         return newData;
     };
     // Get all transactions ascending
@@ -146,19 +149,13 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
             if (hasNext.current) hasNext.current = false;
         };
     }, [getTransactions, awardId]);
-    // hook - run on mount and if award changes
+    // Bad Data - hook - run on mount and if award changes
     useEffect(() => {
-        if (!dates) setBadDates(true);
-        const { startDate, endDate, potentialEndDate } = dates;
-        if (awardType === 'grants') {
-            if (!startDate || !endDate) setBadDates(true);
-        }
-        if (awardType === 'contract') {
-            if (!startDate || !potentialEndDate) setBadDates(true);
-        }
+        setBadDates(isBadData(dates, awardType, transactions));
     }, [
         dates,
-        awardType
+        awardType,
+        transactions
     ]);
     /**
      * title

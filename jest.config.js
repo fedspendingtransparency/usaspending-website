@@ -3,7 +3,7 @@ module.exports = {
     testRegex: "(tests|scripts)/.*-(test)\\.jsx?$",
     verbose: true,
     bail: false,
-    collectCoverage: true,
+    collectCoverage: false,
     // coverageThreshold: {
     //     global: {
     //         branches: 80,
