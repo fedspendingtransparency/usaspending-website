@@ -11,6 +11,7 @@ import { is } from 'immutable';
 
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
+import { setChecked, setUnchecked } from 'redux/actions/search/naicsActions';
 
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
 
@@ -30,6 +31,7 @@ const propTypes = {
     requestsComplete: PropTypes.bool,
     applyStagedFilters: PropTypes.func,
     clearStagedFilters: PropTypes.func,
+    resetNaicsTree: PropTypes.func,
     setAppliedFilterCompletion: PropTypes.func,
     resetAppliedFilters: PropTypes.func
 };
@@ -100,6 +102,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
     resetFilters() {
         this.props.clearStagedFilters();
         this.props.resetAppliedFilters();
+        this.props.resetNaicsTree();
     }
 
     render() {
@@ -120,7 +123,13 @@ export default connect(
         stagedFilters: state.filters,
         appliedFilters: state.appliedFilters.filters
     }),
-    (dispatch) => bindActionCreators(combinedActions, dispatch)
+    (dispatch) => ({
+        ...bindActionCreators(combinedActions, dispatch),
+        resetNaicsTree: () => {
+            dispatch(setChecked([]));
+            dispatch(setUnchecked([]));
+        }
+    })
 )(SearchSidebarSubmitContainer);
 
 SearchSidebarSubmitContainer.propTypes = propTypes;
