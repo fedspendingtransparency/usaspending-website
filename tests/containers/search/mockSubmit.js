@@ -8,6 +8,7 @@ export const mockRedux = {
 };
 
 export const mockActions = {
+    resetNaicsTree: jest.fn(),
     applyStagedFilters: jest.fn(),
     clearStagedFilters: jest.fn(),
     setAppliedFilterCompletion: jest.fn(),
