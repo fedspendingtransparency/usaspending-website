@@ -249,6 +249,9 @@ export class AccountAwardsContainer extends React.Component {
                 requestFields.push(field);
             }
         });
+
+        requestFields.push('recipient_id')
+
         newParams.fields = requestFields;
         newParams.limit = resultLimit;
         newParams.order = this.state.sort.direction;
