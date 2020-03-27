@@ -2,8 +2,20 @@
  * Created By Jonathan Hill 03/26/20
  */
 
+import { cloneDeep } from 'lodash';
 import { isAwardFinancialAssistance } from 'helpers/awardSummaryHelper';
+import { badPotentialEndDate } from '../../../tests/testResources/mockContractGrantActivityHelper';
 
+/**
+ * lineHelper
+ * - determines if a line should be drawn
+ * @param {Moment{}} date
+ * @returns {null || Number}
+ */
+export const lineHelper = (date) => {
+    if (!date || isNaN(date.valueOf())) return null;
+    return date.valueOf();
+};
 /**
  * isBadData
  * - determines if we do not have suitable data to draw the chart based on dates,
@@ -19,6 +31,12 @@ export const isBadData = (dates, awardType, transactions) => {
         _endDate: currentEndDate,
         _potentialEndDate: potentialEndDate
     } = dates;
+    if (transactions.some((x) => {
+        if (x.running_obligation_total) {
+            return x.running_obligation_total.toString().startsWith('-');
+        }
+        return false;
+    })) return true;
     /**
      * handles null, '', or 'random string' passed to moment
      */
@@ -64,52 +82,88 @@ export const isBadData = (dates, awardType, transactions) => {
     return false;
 };
 /**
- * xDomain
- * - Determines the xDomain based on dates, award type and transactions for a given award.
+ * beforeDate
+ * - determines if the first date is before the second date
+ * @param {Moment{}} start - date to compare
+ * @param {Moment{}} end - date to compare
+ * @returns {Moment{}} - moment object
+ */
+export const beforeDate = (start, end) => {
+    if (start.isBefore(end)) return start;
+    return end;
+};
+/**
+ * afterDate
+ * - determines if the first date is after the second date
+ * @param {Moment{}} start - date to compare
+ * @param {Moment{}} end - date to compare
+ * @returns {Moment{}} - moment object
+ */
+export const afterDate = (start, end) => {
+    if (start.isAfter(end)) return start;
+    return end;
+};
+/**
+ * getXDomain
+ * - Determines the getXDomain based on dates, award type and transactions for a given award.
  * @param {Object} dates - award dates
  * @param {string} awardType - award type
  * @param {Object[]} transactions - array of transaction objects
  * @returns {Number[]} - array with a min and max value, e.g. [min, max]
  */
-export const xDomain = (dates, awardType, transactions) => {
-    return null;
+export const getXDomain = (dates, awardType, transactions) => {
+    const {
+        _startDate: startDate,
+        _endDate: currentEndDate,
+        _potentialEndDate: potentialEndDate
+    } = dates;
+    const transactionData = cloneDeep(transactions);
+    /**
+     * handles null, '', or 'random string' passed to moment
+     */
+    const badStart = isNaN(startDate.valueOf());
+    const badCurrent = isNaN(currentEndDate.valueOf());
+    const badEnd = isNaN(potentialEndDate.valueOf());
+    const onlyOneTransaction = transactions.length === 1;
+
+    // only one transaction
+    if (onlyOneTransaction) {
+        if (isAwardFinancialAssistance(awardType)) { // grant
+            // 5.a start and no end use transaction as end domain
+            if (!badStart && badCurrent) return [startDate.valueOf(), transactions[0].action_date.valueOf()];
+            // 4.a no start and end use transaction as start domain
+            if (badStart && !badCurrent) return [transactions[0].action_date.valueOf(), currentEndDate.valueOf()];
+            return [beforeDate(transactionData[0].action_date, startDate).valueOf(), afterDate(transactionData[0].action_date, currentEndDate).valueOf()];
+        }
+        // 5.a start and no end use transaction as end domain
+        if (!badStart && (badCurrent && badEnd)) return [startDate.valueOf(), transactions[0].action_date.valueOf()];
+        // 4.a no start and end use transaction as start domain
+        if (badStart && (!badCurrent || !badEnd)) {
+            const date = !badEnd ? potentialEndDate : currentEndDate;
+            return [transactions[0].action_date.valueOf(), date.valueOf()];
+        }
+        return [beforeDate(transactionData[0].action_date, startDate).valueOf(), afterDate(transactionData[0].action_date, potentialEndDate).valueOf()];
+    }
+
+    if (isAwardFinancialAssistance(awardType)) { // grant
+        // 6 no dates use transactions
+        if (badStart && badEnd) return [transactionData.shift().action_date.valueOf(), transactionData.pop().action_date.valueOf()];
+        // 7 no start and end use first transaction
+        if (badStart && !badCurrent) return [transactionData.shift().action_date.valueOf(), afterDate(transactionData.pop().action_date, currentEndDate).valueOf()];
+        // 8 no end and start use last transaction
+        if (badCurrent && !badStart) return [beforeDate(transactionData.shift().action_date, startDate).valueOf(), transactionData.pop().action_date.valueOf()];
+        return [beforeDate(transactionData.shift().action_date, startDate).valueOf(), afterDate(transactionData.pop().action_date, currentEndDate).valueOf()];
+    }
+    // 6 no dates use transactions
+    if (badStart && badCurrent && badPotentialEndDate) return [transactionData.shift().action_date.valueOf(), transactionData.pop().action_date.valueOf()];
+    // 7 no start and end use first transaction
+    if (badStart && (!badCurrent || !badEnd)) {
+        const date = !badEnd ? potentialEndDate : currentEndDate;
+        return [transactionData.shift().action_date.valueOf(), afterDate(transactionData.pop().action_date, date).valueOf()];
+    }
+    // 8 no end and start use last transaction
+    if ((badCurrent && badEnd) && !badStart) return [beforeDate(transactionData.shift().action_date, startDate).valueOf(), transactionData.pop().action_date.valueOf()];
+    // 9 no current end and start and potential end
+    if (badEnd && (!badStart && !badCurrent)) return [beforeDate(transactionData.shift().action_date, startDate).valueOf(), afterDate(transactionData.pop().action_date, currentEndDate).valueOf()];
+    return [beforeDate(transactionData.shift().action_date, startDate).valueOf(), afterDate(transactionData.pop().action_date, potentialEndDate).valueOf()];
 };
-
-export const yDomain = () => {
-    return null;
-};
-
-// Cases for Bad Data and the X Domain
-
-// 1.	Given we have any PoP end date exists, the last PoP date used for the end of the x domain.
-//    a.	If the last transaction action date > the end date.
-//        i.	We will use the last transaction action date and the end of the x domain.
-// 2.	Given we have a PoP start date.
-//    a.	If the first transaction action date is < the start date.
-//        i.	We will use the first transaction action date as the start of the x domain.
-// 3.	No PoP start and end date and only one transaction, or no transactions have dates.
-//    a.	Display data is not suitable for charting message.
-// 4.	No PoP start date, do have a PoP end date and only one transaction.
-//    a.	Draw chart as normal, with no start date line.
-//    b.	If transaction action_date > end date, Display data is not suitable for charting message.
-// 5.	No PoP end date, do have a PoP start date and only one transaction
-//    a.	Draw chart as normal, but no end date line.
-//    b.	If transaction action_date < start date, Display data is not suitable for charting message.
-// 6.	No PoP start and PoP end date when we have transaction data.
-//    a.	We will use the transaction data start and end dates (meaning action date for earliest transaction (based on action_date) and latest (same)) and will not show the start and end lines.
-// 7.	No PoP start date when we have a PoP end date.
-//    a.	We will use the first transaction date as the start and will not show the start line and we will show the end date line.
-// 8.	No PoP end date (for grants) and No PoP current or potential end date (for contracts ) when we have the start date.
-//    a.	We will use the last transaction date as the end and will not show the end line and we will show the start line.
-// 9.	No PoP potential end date but there is a current end date (for contracts ).
-//    a.	We will use the current end date as the end and will not show the potential end date line and will show the start line.
-// 10.	The PoP start date is less than the first transaction date.
-//    a.	Draw the chart normally—meaning beginning at the start date in this case.
-// 11.	The PoP start date is greater than the first transaction date.
-//    a.	We will use the first transaction date for the start and show the start date line.
-// 12.	The PoP end date is less than the last transaction.
-//    a.	We will use the last transaction date for the end and will show the end date line.
-// 13.	If a date line’s underlying data is absent. Or the “potential award amount” data is not present
-//    a.	We will not show any start/end/current/potential date line or ‘potential award amount’ line without underlying data to support it.
-// 14.	No transaction data when we have a start and end date.
-//    a.	No situation where we don’t have transaction data

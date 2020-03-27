@@ -7,6 +7,7 @@ import moment from 'moment';
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
 import VerticalLine from 'components/sharedComponents/VerticalLine';
+import { getXDomain, lineHelper } from 'helpers/contractGrantActivityHelper';
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
 
 const propTypes = {
@@ -40,21 +41,20 @@ const ContractGrantsActivityChart = ({
     const [xTicks, setXTicks] = useState([]);
     // y ticks
     const [yTicks, setYTicks] = useState([]);
+    // start line
+    const [startLineValue, setStartLineValue] = useState(null);
+    // end line
+    const [endLineValue, setEndLineValue] = useState(null);
+    // potential end line
+    const [potentialEndLineValue, setPotentialEndLineValue] = useState(null);
     /**
      * createXSeries
      * - creates the x domain and updates state
      */
-    const createXDomain = useCallback(() => {
-        const {
-            _startDate: startDate,
-            _endDate: endDate,
-            _potentialEndDate: potentialEndDate
-        } = dates;
-        if (awardType === 'grant') return setXDomain([startDate.valueOf(), endDate.valueOf()]);
-        return setXDomain([startDate.valueOf(), potentialEndDate.valueOf()]);
-    }, [
+    const createXDomain = useCallback(() => setXDomain(getXDomain(dates, awardType, transactions)), [
         awardType,
         dates,
+        transactions,
         setXDomain
     ]);
     /**
@@ -211,7 +211,6 @@ const ContractGrantsActivityChart = ({
         });
         theTicks = evenlySpacedTicks(theTicks, averageDifference);
         theTicks = removeOverlappingTicks(theTicks, scale);
-
         setXTicks(xTickDateAndLabel(theTicks));
         setXScale(() => scale);
         return null;
@@ -253,16 +252,18 @@ const ContractGrantsActivityChart = ({
         yDomain,
         visualizationWidth
     ]);
+    // sets the line values - hook - runs on mount and dates change
+    useEffect(() => {
+        setStartLineValue(lineHelper(dates._startDate));
+        setEndLineValue(lineHelper(dates._endDate));
+        setPotentialEndLineValue(lineHelper(dates._potentialEndDate));
+    }, [dates]);
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
     // text for end line
     const endLineText = awardType === 'grant' ? 'End' : ['Current', 'End'];
-    // date for end line
-    const dateEndLine = dates?._endDate?.valueOf();
-    // date for potential end line
-    const datePotentialEndLine = dates?._potentialEndDate?.valueOf();
     // class name for end line and text
     const endLineClassName = awardType === 'grant' ? 'grant-end' : 'contract-end';
     return (
@@ -294,7 +295,7 @@ const ContractGrantsActivityChart = ({
                     text="Start"
                     xMax={xDomain[1]}
                     xMin={xDomain[0]}
-                    xValue={xDomain[0]}
+                    xValue={startLineValue}
                     showTextPosition="right"
                     adjustmentX={padding.left}
                     textClassname="vertical-line__text start"
@@ -314,7 +315,7 @@ const ContractGrantsActivityChart = ({
                     textClassname="vertical-line__text today"
                     lineClassname="vertical-line today" />}
                 {/* end line */}
-                {xScale && dateEndLine && <VerticalLine
+                {xScale && <VerticalLine
                     xScale={xScale}
                     y1={-10}
                     y2={height}
@@ -322,13 +323,13 @@ const ContractGrantsActivityChart = ({
                     text={endLineText}
                     xMax={xDomain[1]}
                     xMin={xDomain[0]}
-                    xValue={dateEndLine}
+                    xValue={endLineValue}
                     showTextPosition="left"
                     adjustmentX={padding.left}
                     textClassname={`vertical-line__text ${endLineClassName}`}
                     lineClassname={`vertical-line ${endLineClassName}`} />}
                 {/* potential end line */}
-                {xScale && datePotentialEndLine && <VerticalLine
+                {xScale && <VerticalLine
                     xScale={xScale}
                     y1={-10}
                     y2={height}
@@ -336,7 +337,7 @@ const ContractGrantsActivityChart = ({
                     text={['Potential', 'End']}
                     xMax={xDomain[1]}
                     xMin={xDomain[0]}
-                    xValue={datePotentialEndLine}
+                    xValue={potentialEndLineValue}
                     showTextPosition="left"
                     adjustmentX={padding.left}
                     textClassname="vertical-line__text potential-end"

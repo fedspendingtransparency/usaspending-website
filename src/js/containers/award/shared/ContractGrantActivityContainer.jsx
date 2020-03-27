@@ -4,7 +4,7 @@ import moment from 'moment';
 import { cloneDeep } from 'lodash';
 
 import { fetchAwardTransaction } from 'helpers/searchHelper';
-import { isBadData, xDomain, yDomain } from 'helpers/contractGrantActivityHelper';
+import { isBadData } from 'helpers/contractGrantActivityHelper';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
