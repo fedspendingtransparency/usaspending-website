@@ -250,7 +250,7 @@ export class AccountAwardsContainer extends React.Component {
             }
         });
 
-        requestFields.push('recipient_id')
+        requestFields.push('recipient_id');
 
         newParams.fields = requestFields;
         newParams.limit = resultLimit;
