@@ -13,7 +13,8 @@ export default class TASCheckboxTree extends React.Component {
         this.state = {
             checked: [],
             expanded: [],
-            nodes: []
+            nodes: [],
+            isLoading: true
         };
         this.fetchTas = null;
     }
@@ -23,8 +24,7 @@ export default class TASCheckboxTree extends React.Component {
         return this.fetchTas.promise
             .then(({ data }) => {
                 const nodes = cleanTasData(data.results);
-                console.log("nodes", nodes);
-                this.setState({ nodes });
+                this.setState({ nodes, isLoading: false });
             });
     }
 
@@ -38,16 +38,18 @@ export default class TASCheckboxTree extends React.Component {
         const {
             nodes,
             checked,
-            expanded
+            expanded,
+            isLoading
         } = this.state;
         return (
             <CheckboxTree
-                onUncheck={this.onUncheck}
-                onCheck={this.onCheck}
-                onExpand={this.onExpand}
+                isLoading={isLoading}
                 data={nodes}
                 checked={checked}
-                expanded={expanded} />
+                expanded={expanded}
+                onUncheck={this.onUncheck}
+                onCheck={this.onCheck}
+                onExpand={this.onExpand} />
         );
     }
 }

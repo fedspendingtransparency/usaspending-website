@@ -17,6 +17,8 @@ import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 const propTypes = {
     data: PropTypes.array,
     isLoading: PropTypes.bool,
+    isError: PropTypes.bool,
+    errorMessage: PropTypes.string,
     icons: PropTypes.object,
     isSearch: PropTypes.bool,
     searchText: PropTypes.string,
@@ -27,7 +29,8 @@ const propTypes = {
     onUncheck: PropTypes.func,
     onCollapse: PropTypes.func,
     expanded: PropTypes.array,
-    checked: PropTypes.array
+    checked: PropTypes.array,
+    noResults: PropTypes.bool
 };
 
 export default class CheckboxTree extends Component {
@@ -189,17 +192,21 @@ export default class CheckboxTree extends Component {
                 label: this.setChildrenToLoading(node)
             };
         }
+        const displayId = Object.keys(node).includes('displayId')
+            ? node.displayId
+            : true;
         return {
             ...node,
             label: this.props.labelComponent
                 ? cloneElement(
                     this.props.labelComponent,
-                    { value: node.value, label: node.label }
+                    { ...node }
                 )
                 : (
                     <CheckboxTreeLabel
                         value={this.highlightText(node.value)}
                         label={this.highlightText(node.label)}
+                        displayId={displayId}
                         count={node.count} />
                 ),
             children: node.children
@@ -209,9 +216,44 @@ export default class CheckboxTree extends Component {
     });
 
     render() {
-        const { data, checked, expanded } = this.props;
+        const {
+            data,
+            checked,
+            expanded,
+            isLoading,
+            isError,
+            errorMessage,
+            noResults
+        } = this.props;
         const labeledNodes = this.createLabels(data);
-        if (!data.length) return null;
+        if (isLoading) {
+            return (
+                <div className="checkbox-tree-filter-message-container">
+                    <FontAwesomeIcon icon="spinner" spin />
+                    <div className="checkbox-tree-filter-message-container__text">Loading your data...</div>
+                </div>
+            );
+        }
+        else if (isError && errorMessage) {
+            return (
+                <div className="checkbox-tree-filter-message-container">
+                    <div className="checkbox-tree-filter-message-container__text">
+                        {errorMessage}
+                    </div>
+                </div>
+            );
+        }
+        else if (noResults) {
+            return (
+                <div className="checkbox-tree-filter-message-container">
+                    <FontAwesomeIcon icon="ban" />
+                    <div className="checkbox-tree-filter-message-container__text">
+                        No Results
+                    </div>
+                </div>
+            );
+        }
+        else if (!data.length) return null;
         return (
             <div className="checkbox-tree">
                 <CheckBoxTree

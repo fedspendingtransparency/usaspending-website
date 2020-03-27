@@ -11,22 +11,26 @@ const propTypes = {
         PropTypes.string,
         PropTypes.array
     ]),
-    count: PropTypes.number
+    count: PropTypes.number,
+    displayId: PropTypes.bool
 };
 
 const CheckboxTreeLabel = ({
     value,
     label,
-    count
+    count,
+    displayId = true
 }) => {
     const countText = count > 1 ? 'codes' : 'code';
     const countDisplay = `${count} ${countText}`;
     return (
         <div className="checkbox-tree-label">
             <div className="checkbox-tree-label__value-container">
-                <div className="checkbox-tree-label__value-container-value">
-                    {value}
-                </div>
+                {displayId && (
+                    <div className="checkbox-tree-label__value-container-value">
+                        {value}
+                    </div>
+                )}
                 <div className="checkbox-tree-label__value-container-count">
                     {!count ? '' : countDisplay}
                 </div>

@@ -31,7 +31,7 @@ const shouldNaicsNodeHaveChildren = (node) => node.naics.length < 6;
 const shouldTasNodeHaveChildren = (node) => node.ancestors.length < 2;
 
 // key map for traversing the naics-tree
-const naicsKeyMap = { label: 'nacis_description', value: 'naics', isParent: shouldNaicsNodeHaveChildren };
+const naicsKeyMap = { label: 'naics_description', value: 'naics', isParent: shouldNaicsNodeHaveChildren };
 
 // key map for traversing the tas-tree
 const tasKeyMap = { label: 'description', value: 'id', isParent: shouldTasNodeHaveChildren };
@@ -43,8 +43,21 @@ const cleanTreeData = (nodes, keyMap) => nodes.map((node) => ({
     ...getChildren(node, keyMap)
 }));
 
+export const isAgency = (tasNode) => tasNode.ancestors.length === 0;
+
 export const cleanNaicsData = (nodes) => cleanTreeData(nodes, naicsKeyMap);
-export const cleanTasData = (nodes) => cleanTreeData(nodes, tasKeyMap);
+export const cleanTasData = (nodes) => cleanTreeData(nodes, tasKeyMap)
+    .map((node) => {
+        if (isAgency(node)) {
+            return {
+                ...node,
+                count: null,
+                showCheckbox: false,
+                displayId: false
+            };
+        }
+        return node;
+    });
 
 export const sortNodes = (a, b) => {
     if (a.isPlaceHolder) return 1;

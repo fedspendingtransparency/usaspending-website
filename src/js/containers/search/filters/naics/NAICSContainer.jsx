@@ -560,55 +560,19 @@ export class NAICSContainer extends React.Component {
             });
     };
 
-    loadingDiv = () => {
-        if (this.state.isLoading) {
-            return (
-                <div className="naics-filter-message-container">
-                    <FontAwesomeIcon icon="spinner" spin />
-                    <div className="naics-filter-message-container__text">Loading your data...</div>
-                </div>
-            );
-        }
-        return null;
-    }
-
-    errorDiv = () => {
-        const { isError, errorMessage } = this.state;
-        if (isError && errorMessage) {
-            return (
-                <div className="naics-filter-message-container">
-                    <div className="naics-filter-message-container__text">
-                        {errorMessage}
-                    </div>
-                </div>
-            );
-        }
-        return null;
-    }
-
-    noResultsDiv = () => {
-        const showNoResults = (
+    showNoResults = () => {
+        if (this.state.isLoading) return false;
+        return (
             this.props.nodes.length === 0 ||
             (this.state.isSearch && this.props.searchExpanded.length === 0)
         );
-        if (this.state.isLoading) return null;
-        if (showNoResults) {
-            return (
-                <div className="naics-filter-message-container">
-                    <FontAwesomeIcon icon="ban" />
-                    <div className="naics-filter-message-container__text">
-                        No Results
-                    </div>
-                </div>
-            );
-        }
-        return null;
     }
 
-    checkboxDiv() {
+    checkboxDiv(showNoResults) {
         const {
             isLoading,
             isError,
+            errorMessage,
             searchString,
             isSearch
         } = this.state;
@@ -618,13 +582,16 @@ export class NAICSContainer extends React.Component {
             expanded,
             searchExpanded
         } = this.props;
-        if (isLoading || isError) return null;
         return (
             <CheckboxTree
                 limit={3}
                 data={nodes}
-                expanded={isSearch ? searchExpanded : expanded}
+                isError={isError}
+                errorMessage={errorMessage}
+                isLoading={isLoading}
+                noResults={showNoResults}
                 checked={checked}
+                expanded={isSearch ? searchExpanded : expanded}
                 searchText={searchString}
                 onExpand={this.onExpand}
                 onCollapse={this.onCollapse}
@@ -634,9 +601,7 @@ export class NAICSContainer extends React.Component {
     }
 
     render() {
-        const loadingDiv = this.loadingDiv();
-        const noResultsDiv = this.noResultsDiv();
-        const errorDiv = this.errorDiv();
+        const showNoResults = this.showNoResults();
         const { searchString, stagedNaicsFilters } = this.state;
         return (
             <div>
@@ -653,10 +618,7 @@ export class NAICSContainer extends React.Component {
                         handleOnKeyDown={this.handleOnKeyDown}
                         isClearable
                         onClear={this.onClear} />
-                    {loadingDiv}
-                    {noResultsDiv}
-                    {errorDiv}
-                    {this.checkboxDiv()}
+                    {this.checkboxDiv(showNoResults)}
                     {this.props.checked.length !== 0 && stagedNaicsFilters.length !== 0 && (
                         <div
                             id="award-search-selected-locations"
