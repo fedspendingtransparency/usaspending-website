@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { cleanTasData } from 'helpers/checkboxTreeHelper';
 import { fetchTas } from 'helpers/searchHelper';
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 
@@ -21,15 +22,32 @@ export default class TASCheckboxTree extends React.Component {
         this.fetchTas = fetchTas('', 0);
         return this.fetchTas.promise
             .then(({ data }) => {
-                console.log("data", data);
-                this.setState({ nodes: data.results });
+                const nodes = cleanTasData(data.results);
+                console.log("nodes", nodes);
+                this.setState({ nodes });
             });
     }
 
+    onExpand = () => console.log("expand")
+
+    onCheck = () => console.log("check")
+
+    onUncheck = () => console.log("uncheck")
+
     render() {
+        const {
+            nodes,
+            checked,
+            expanded
+        } = this.state;
         return (
-            // <CheckboxTree />
-            "YO"
+            <CheckboxTree
+                onUncheck={this.onUncheck}
+                onCheck={this.onCheck}
+                onExpand={this.onExpand}
+                data={nodes}
+                checked={checked}
+                expanded={expanded} />
         );
     }
 }

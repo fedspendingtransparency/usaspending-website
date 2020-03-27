@@ -3,35 +3,48 @@
   * Created by Jonathan Hill 10/01/2019
 **/
 
-const getChildren = (node) => {
-    if (!node.children && node.naics.length <= 4) {
+const getChildren = (node, keyMap) => {
+    console.log("node", node, keyMap);
+    if (!node.children && keyMap.isParent(node)) {
         return {
             children: [{
                 isPlaceHolder: true,
                 label: 'Placeholder Child',
-                value: `children_of_${node.naics}`
+                value: `children_of_${node[keyMap.value]}`
             }]
         };
     }
-    else if (node.children) {
+    else if (node.children && node.children.length > 0) {
         return {
             children: node.children.map((child) => ({
                 ...child,
-                label: child.naics_description,
-                value: child.naics,
-                ...getChildren(child)
+                label: child[keyMap.label],
+                value: child[keyMap.value],
+                ...getChildren(child, keyMap)
             }))
         };
     }
     return {};
 };
 
-export const cleanNaicsData = (nodes) => nodes.map((node) => ({
+const shouldNaicsNodeHaveChildren = (node) => node.naics.length < 6;
+const shouldTasNodeHaveChildren = (node) => node.ancestors.length < 2;
+
+// key map for traversing the naics-tree
+const naicsKeyMap = { label: 'nacis_description', value: 'naics', isParent: shouldNaicsNodeHaveChildren };
+
+// key map for traversing the tas-tree
+const tasKeyMap = { label: 'description', value: 'id', isParent: shouldTasNodeHaveChildren };
+
+const cleanTreeData = (nodes, keyMap) => nodes.map((node) => ({
     ...node,
-    label: node.naics_description,
-    value: node.naics,
-    ...getChildren(node)
+    label: node[keyMap.label],
+    value: node[keyMap.value],
+    ...getChildren(node, keyMap)
 }));
+
+export const cleanNaicsData = (nodes) => cleanTreeData(nodes, naicsKeyMap);
+export const cleanTasData = (nodes) => cleanTreeData(nodes, tasKeyMap);
 
 export const sortNodes = (a, b) => {
     if (a.isPlaceHolder) return 1;
