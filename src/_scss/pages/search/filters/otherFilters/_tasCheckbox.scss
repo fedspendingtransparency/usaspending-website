@@ -1,0 +1,13 @@
+.tas-checkbox {
+    @include display(flex);
+    @include flex-direction(column);
+    @include align-items(center);
+    padding: 0 rem(20);
+    .autocomplete__input {
+        width: 100%;
+        padding-bottom: rem(10);
+        input {
+            width: 100%;
+        }
+    }
+}
