@@ -9,6 +9,7 @@ import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
 import VerticalLine from 'components/sharedComponents/VerticalLine';
 import { getXDomain, lineHelper } from 'helpers/contractGrantActivityHelper';
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
+import { formatMoney } from 'helpers/moneyFormatter';
 
 const propTypes = {
     height: PropTypes.number,
@@ -47,6 +48,10 @@ const ContractGrantsActivityChart = ({
     const [endLineValue, setEndLineValue] = useState(null);
     // potential end line
     const [potentialEndLineValue, setPotentialEndLineValue] = useState(null);
+    // x axis spacing
+    const [xAxisSpacing, setXAxisSpacing] = useState(0);
+    // circle data
+    const [circleData, setCircleData] = useState([]);
     /**
      * createXSeries
      * - creates the x domain and updates state
@@ -65,13 +70,13 @@ const ContractGrantsActivityChart = ({
     const createYDomain = useCallback(() => {
         const clonedTransactions = cloneDeep(transactions);
         clonedTransactions.sort(
-            (a, b) => a.federal_action_obligation - b.federal_action_obligation);
+            (a, b) => a.running_obligation_total - b.running_obligation_total);
         const yZero = clonedTransactions.length > 1 ?
-            clonedTransactions[0].federal_action_obligation :
+            clonedTransactions[0].running_obligation_total :
             0;
         const yOne = !clonedTransactions.length ?
             0 :
-            clonedTransactions.pop().federal_action_obligation;
+            clonedTransactions.pop().running_obligation_total;
         setYDomain([yZero, yOne]);
     }, [transactions]);
     // hook - runs only on mount unless transactions change
@@ -213,6 +218,7 @@ const ContractGrantsActivityChart = ({
         theTicks = removeOverlappingTicks(theTicks, scale);
         setXTicks(xTickDateAndLabel(theTicks));
         setXScale(() => scale);
+        setXAxisSpacing(spacing);
         return null;
     }, [
         xDomain,
@@ -258,6 +264,28 @@ const ContractGrantsActivityChart = ({
         setEndLineValue(lineHelper(dates._endDate));
         setPotentialEndLineValue(lineHelper(dates._potentialEndDate));
     }, [dates]);
+    // sets circle data - hook - on mount and when transactions change
+    useEffect(() => {
+        if (xScale && yScale) {
+            const circles = cloneDeep(transactions)
+                .map((data, i) => ({
+                    key: `${data.federal_action_obligation}${i}`,
+                    description: `A circle representing the transaction date, ${data.action_date.format('MM-DD-YYYY')} and running total obligation of ${formatMoney(data.running_obligation_total)}`,
+                    className: 'transaction-date-circle',
+                    cx: xScale(data.action_date) + padding.left,
+                    cy: (height - yScale(data.running_obligation_total)),
+                    r: 1.5
+                }));
+            setCircleData(circles);
+        }
+    }, [
+        transactions,
+        padding,
+        xScale,
+        yScale,
+        xAxisSpacing,
+        height
+    ]);
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
@@ -286,6 +314,26 @@ const ContractGrantsActivityChart = ({
                     ticks={xTicks}
                     scale={xScale}
                     line />
+                {circleData.length && circleData.map((circle) => {
+                    const {
+                        key,
+                        description,
+                        className,
+                        cx,
+                        cy,
+                        r
+                    } = circle;
+                    return (
+                        <g key={key} tabIndex="0">
+                            <desc>{description}</desc>
+                            <circle
+                                className={className}
+                                cx={cx}
+                                cy={cy}
+                                r={r} />
+                        </g>
+                    );
+                })}
                 {/* start line */}
                 {xScale && <VerticalLine
                     xScale={xScale}

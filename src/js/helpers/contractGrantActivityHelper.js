@@ -31,6 +31,7 @@ export const isBadData = (dates, awardType, transactions) => {
         _endDate: currentEndDate,
         _potentialEndDate: potentialEndDate
     } = dates;
+    // any running obligation total is negative
     if (transactions.some((x) => {
         if (x.running_obligation_total) {
             return x.running_obligation_total.toString().startsWith('-');

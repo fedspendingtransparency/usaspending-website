@@ -43,43 +43,62 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
      */
     const formatTransactions = (rawTransactions) => {
         // Reduce into unique transaction objects
-        let newData = rawTransactions.reduce((acc, data) => {
-            const updatedData = { ...data };
-            updatedData.action_date = moment(updatedData.action_date, 'YYYY-MM-DD');
-            const currentTransactionIndex = acc.findIndex((x) => x.action_date.valueOf() === updatedData.action_date.valueOf());
-            /**
-             * When we have multiple transactions on the same day, we will sum their obligation and
-             * we will keep track of all the transactions on the same date for the tooltips in the
-             * allTransactions property.
-             */
-            if (currentTransactionIndex !== -1) {
-                // update the allTransactions array if it exists
-                if (acc[currentTransactionIndex]?.allTransactions) {
-                    acc[currentTransactionIndex].allTransactions.push(updatedData);
-                }
-                else {
-                    /**
-                     * The first duplicate found.
-                     * We will add the duplicate which is this data, and we will add the
-                     * original node which is acc[currentTransactionIndex].
-                     */
-                    const clonedTransaction = cloneDeep(acc[currentTransactionIndex]);
-                    acc[currentTransactionIndex].allTransactions = [clonedTransaction, updatedData];
-                }
+        let newData = rawTransactions
+            .sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf())
+            .reduce((acc, data) => {
+                const updatedData = { ...data };
+                updatedData.action_date = moment(updatedData.action_date, 'YYYY-MM-DD');
+                const currentTransactionIndex = acc.findIndex((x) => x.action_date.valueOf() === updatedData.action_date.valueOf());
                 /**
-                 * We sum the obligation last since we will want to keep the original obligation
-                 * value if we add it to the allTransactions array.
+                 * When we have multiple transactions on the same day, we will sum their obligation and
+                 * we will keep track of all the transactions on the same date for the tooltips in the
+                 * allTransactions property.
                  */
-                const sumOfObligations = acc[currentTransactionIndex].federal_action_obligation + updatedData.federal_action_obligation;
-                acc[currentTransactionIndex].federal_action_obligation = sumOfObligations;
+                if (currentTransactionIndex !== -1) {
+                    // update the allTransactions array if it exists
+                    if (acc[currentTransactionIndex]?.allTransactions) {
+                        acc[currentTransactionIndex].allTransactions.push(updatedData);
+                    }
+                    else {
+                        /**
+                         * The first duplicate found.
+                         * We will add the duplicate which is this data, and we will add the
+                         * original node which is acc[currentTransactionIndex].
+                         */
+                        const clonedTransaction = cloneDeep(acc[currentTransactionIndex]);
+                        acc[currentTransactionIndex].allTransactions = [clonedTransaction, updatedData];
+                    }
+                    /**
+                     * We sum the obligation last since we will want to keep the original obligation
+                     * value if we add it to the allTransactions array.
+                     */
+                    const sumOfObligations = acc[currentTransactionIndex].federal_action_obligation + updatedData.federal_action_obligation;
+                    acc[currentTransactionIndex].federal_action_obligation = sumOfObligations;
+                    return acc;
+                }
+                acc.push(updatedData);
                 return acc;
-            }
-            acc.push(updatedData);
-            return acc;
-        }, []);
-        // remove negative values and sort
+            }, []);
+        // remove negative values or data with no dates
+        let previousRunningObligationTotal = 0;
         newData = newData
+            .filter((data) => !isNaN(data.action_date.valueOf()))
+            // Todo - remove this, solely for testing purposes
             .filter((data) => !data.federal_action_obligation.toString().startsWith('-'))
+            .map((data, i) => {
+                const updatedData = data;
+                // handles missing federal action obligation
+                if (!updatedData.federal_action_obligation) updatedData.federal_action_obligation = 0;
+                if (i === 0) { // first one do not sum
+                    updatedData.running_obligation_total = data.federal_action_obligation;
+                    previousRunningObligationTotal = data.federal_action_obligation;
+                    return updatedData;
+                }
+                const total = previousRunningObligationTotal + data.federal_action_obligation;
+                updatedData.running_obligation_total = total;
+                previousRunningObligationTotal = total;
+                return updatedData;
+            })
             .sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf());
         return newData;
     };

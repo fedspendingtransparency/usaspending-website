@@ -75,6 +75,9 @@
           }
         }
     }
+    .transaction-date-circle {
+        fill: $color-primary;
+    }
     .vertical-line {
       &.start {
         stroke: $color-green-lighter;

@@ -33,6 +33,14 @@ describe('Contract Grant Activity Helper', () => {
             });
             expect(isBadData(goodDates, 'contract', negativeTransactions)).toBe(true);
         });
+        it('should return true if all transaction do not have a date', () => {
+            const noDates = cloneDeep(mockTransactions).map((x) => {
+                const data = cloneDeep(x);
+                data.action_date = moment(null);
+                return data;
+            });
+            expect(isBadData(goodDates, 'grant', noDates)).toBe(true);
+        });
         describe('Grant', () => {
             // 3
             it('should return true when no transactions have dates', () => {
