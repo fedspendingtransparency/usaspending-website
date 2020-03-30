@@ -18,7 +18,9 @@ export default class TASCheckboxTree extends React.Component {
             expanded: [],
             nodes: [],
             isLoading: true,
-            searchString: ''
+            searchString: '',
+            isError: false,
+            errorMessage: ''
         };
         this.request = null;
     }
@@ -55,6 +57,10 @@ export default class TASCheckboxTree extends React.Component {
             .then(({ data }) => {
                 const nodes = cleanTasData(data.results);
                 this.setState({ nodes, isLoading: false });
+            })
+            .catch((e) => {
+                console.log("error fetching TAS", e);
+                this.setState({ isError: true, errorMessage: e });
             });
     }
 
@@ -76,7 +82,9 @@ export default class TASCheckboxTree extends React.Component {
             checked,
             expanded,
             isLoading,
-            searchString
+            searchString,
+            isError,
+            errorMessage
         } = this.state;
         return (
             <div className="tas-checkbox">
@@ -90,6 +98,8 @@ export default class TASCheckboxTree extends React.Component {
                     loading={false}
                     onClear={this.onClear} />
                 <CheckboxTree
+                    isError={isError}
+                    errorMessage={errorMessage}
                     isLoading={isLoading}
                     data={nodes}
                     checked={checked}
