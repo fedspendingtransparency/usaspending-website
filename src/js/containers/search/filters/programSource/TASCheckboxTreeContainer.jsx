@@ -28,6 +28,7 @@ export default class TASCheckboxTree extends React.Component {
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
+        console.log("shouldFetchChildren", shouldFetchChildren);
         if (shouldFetchChildren) {
             if (selectedNode.treeDepth === 1) {
                 const selectedAgency = this.state.nodes

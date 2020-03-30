@@ -116,8 +116,7 @@ export default class CheckboxTree extends Component {
         const shouldFetchChildren = (
             (
                 !selectedNode?.children
-                || selectedNode?.children?.some((child) => child?.isPlaceHolder === true)
-                || selectedNode?.children.length !== selectedNode?.count
+                || selectedNode?.children?.some((child) => child.value.includes('children_of_'))
             )
             && !isSearch
         );
