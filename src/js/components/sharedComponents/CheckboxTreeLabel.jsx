@@ -11,7 +11,7 @@ const propTypes = {
         PropTypes.string,
         PropTypes.array
     ]),
-    count: PropTypes.number,
+    count: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     displayId: PropTypes.bool
 };
 

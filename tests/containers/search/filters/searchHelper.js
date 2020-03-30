@@ -4,7 +4,6 @@ import { mockApi, mockV2TableApi, mockTabCount } from '../table/mockAwards';
 import { mockCFDA } from './cfda/mockCFDA';
 import { mockNAICS } from './naics/mockNAICS';
 import { mockPSC } from './psc/mockPSC';
-import mockTAS from './programSource/mockTas';
 
 import { mockHash, mockFilters } from '../mockSearchHashes';
 
@@ -15,20 +14,6 @@ export const fetchRecipients = () => (
             process.nextTick(() => {
                 resolve({
                     data: mockRecipientDUNS
-                });
-            });
-        }),
-        cancel: jest.fn()
-    }
-);
-
-// fetch TAS
-export const fetchTas = () => (
-    {
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({
-                    data: mockTAS
                 });
             });
         }),

@@ -1,74 +1,111 @@
-export default {
+export const agencyLevel = {
     results: [
         {
             "id": "1",
-            "description": "Treasury Account of XYZ",
+            "description": "Agency of XYZ",
             "ancestors": [],
             "count": "100",
             "children": null
         },
         {
             "id": "2",
-            "description": "Treasury Account of ABC",
+            "description": "Agency of ABC",
             "ancestors": [],
             "count": "92",
             "children": null
         },
         {
             "id": "3",
-            "description": "Treasury Account of EDF",
+            "description": "Agency of EDF",
             "ancestors": [],
             "count": "500",
             "children": null
         },
         {
             "id": "4",
-            "description": "Treasury Account of HIJK",
+            "description": "Agency of HIJK",
             "ancestors": [],
             "count": "200",
             "children": null
         },
         {
             "id": "5",
-            "description": "Treasury Account of LMNOP",
+            "description": "Agency of LMNOP",
             "ancestors": [],
             "count": "23",
             "children": null
         },
         {
             "id": "6",
-            "description": "Treasury Account of QRS",
+            "description": "Agency of QRS",
             "ancestors": [],
             "count": "11",
             "children": null
         },
         {
             "id": "7",
-            "description": "Treasury Account of TUV",
+            "description": "Agency of TUV",
             "ancestors": [],
             "count": "55",
             "children": null
         },
         {
             "id": "8",
-            "description": "Treasury Account of W",
+            "description": "Agency of W",
             "ancestors": [],
             "count": "44",
             "children": null
         },
         {
             "id": "9",
-            "description": "Treasury Account of 123",
+            "description": "Agency of 123",
             "ancestors": [],
             "count": "22",
             "children": null
         },
         {
             "id": "10",
-            "description": "Treasury Account of 456",
+            "description": "Agency of 456",
             "ancestors": [],
             "count": "3",
             "children": null
         }
     ]
 };
+
+export const federalAccountLevel = {
+    results: [
+        {
+            "id": "11",
+            "description": "Federal Account of Donald Trump",
+            "ancestors": ["1"],
+            "count": "100",
+            "children": null
+        },
+        {
+            "id": "12",
+            "description": "Federal Account of Donald Trump II",
+            "ancestors": ["1"],
+            "count": "100",
+            "children": null
+        }
+    ]
+};
+
+export const tasLevel = {
+    results: [
+        {
+            "id": "1111",
+            "description": "Treasury Account of Donald Trump",
+            "ancestors": ["1", "11"],
+            "count": "100"
+        },
+        {
+            "id": "12211",
+            "description": "Treasury Account of Donald Trump II",
+            "ancestors": ["1", "11"],
+            "count": "100"
+        },
+    ]
+}
+

@@ -122,7 +122,7 @@ export default class CheckboxTree extends Component {
             && !isSearch
         );
 
-        return this.props.onExpand(expandedValue, newExpandedArray, shouldFetchChildren);
+        return this.props.onExpand(expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
     };
     /**
      * collapseNode

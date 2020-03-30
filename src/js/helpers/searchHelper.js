@@ -19,12 +19,12 @@ export const fetchFundingAgencies = (req) => apiRequest({
 });
 
 // TAS search
-export const fetchTas = (idString = '', depth) => apiRequest({
+export const fetchTas = (idString = '') => apiRequest({
     isMocked: true,
     // str contains depth, prepended with agency & federal account delimited by a '/', if any.
     url: idString.length === 0
-        ? `/v2/references/filter_tree/tas/?depth=${depth}`
-        : `/v2/references/filter_tree/tas/${idString}/?depth=${depth}`
+        ? `/v2/references/filter_tree/tas/`
+        : `/v2/references/filter_tree/tas/${idString}`
 });
 
 // CFDA search for autocomplete
