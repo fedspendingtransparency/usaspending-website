@@ -83,8 +83,6 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
         let previousRunningObligationTotal = 0;
         newData = newData
             .filter((data) => !isNaN(data.action_date.valueOf()))
-            // Todo - remove this, solely for testing purposes
-            .filter((data) => !data.federal_action_obligation.toString().startsWith('-'))
             .map((data, i) => {
                 const updatedData = data;
                 // handles missing federal action obligation
