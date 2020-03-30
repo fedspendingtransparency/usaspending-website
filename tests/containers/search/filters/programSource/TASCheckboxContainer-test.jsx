@@ -80,4 +80,60 @@ describe('TASCheckboxContainer', () => {
             expect(newTasAccounts.some((grand) => grand.isPlaceHolder)).toEqual(false);
         });
     });
+    describe('onExpand', () => {
+        let container;
+        beforeEach(async () => {
+            container = shallow(<TASCheckboxTreeContainer />);
+
+            fetchTas.mockImplementation(() => ({
+                promise: Promise.resolve({ data: agencyLevel })
+            }));
+
+            // populate mock container w/ agencies.
+            await container.instance().componentDidMount();
+
+            fetchTas.mockImplementation(() => ({
+                promise: Promise.resolve({ data: federalAccountLevel })
+            }));
+
+            // populate mock container w/ federal accounts.
+            await container.instance().fetchTas('1');
+        });
+        it('calls fetchTas w/ agency & federal account when necessary', async () => {
+            const mockFn = jest.fn();
+
+            container.instance().fetchTas = mockFn;
+            container.instance().onExpand('11', ['1', '11'], true, { treeDepth: 1 });
+
+            expect(mockFn).toHaveBeenLastCalledWith('1/11', 1);
+        });
+        it('calls fetchTas w/ only agency when necessary', () => {
+            const mockFn = jest.fn();
+
+            container.instance().fetchTas = mockFn;
+            container.instance().onExpand('1', ['1'], true, { treeDepth: 0 });
+
+            expect(mockFn).toHaveBeenLastCalledWith('1');
+        });
+        it('always sets the expanded state', () => {
+            const mockFn = jest.fn();
+
+            container.instance().fetchTas = mockFn;
+            container.instance().onExpand('1', ['1'], true, { treeDepth: 0 });
+            // 1. When we expand an agency
+            expect(container.state().expanded).toEqual(['1']);
+            // 2. When we expand a federal account
+            container.instance().onExpand('11', ['1', '11'], true, { treeDepth: 1 });
+            expect(container.state().expanded).toEqual(['1', '11']);
+        });
+    });
+    describe('onCollapse', () => {
+        it('updates the state.expanded array', () => {
+            const container = shallow(<TASCheckboxTreeContainer />);
+            container.instance().setState({ expanded: ['1', '11'] });
+            container.instance().onCollapse(['11']);
+
+            expect(container.state().expanded).toEqual(['11']);
+        });
+    });
 });
