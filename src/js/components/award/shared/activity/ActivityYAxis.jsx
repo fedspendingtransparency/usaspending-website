@@ -126,7 +126,6 @@ export default class ActivityYAxis extends React.Component {
                     y2={this.props.height} />
                 <g className="axis-labels">
                     {this.state.labels}
-                    {this.state.lines || null}
                 </g>
             </g>
         );
