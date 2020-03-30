@@ -31,7 +31,7 @@ const CheckboxTreeLabel = ({
                         {value}
                     </div>
                     <div className="checkbox-tree-label__value-container-count">
-                        {countDisplay}
+                        {count ? countDisplay : ''}
                     </div>
                 </div>
             )}

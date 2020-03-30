@@ -39,13 +39,13 @@ export default class CheckboxTree extends Component {
      * (react-checkbox-tree calls this function when a user expands a node)
      * Decides whether we are expanding or collapsing the node.
      */
-    onExpand = (newExpandedArray) => {
+    onExpand = (newExpandedArray, node) => {
         // collapsing node
         if (newExpandedArray.length < this.props.expanded.length) {
             return this.collapseNode(newExpandedArray);
         }
         // expanding node
-        return this.expandNode(newExpandedArray);
+        return this.expandNodeAndFetchChildren(newExpandedArray, node);
     };
     /**
      * onCheck
@@ -99,49 +99,30 @@ export default class CheckboxTree extends Component {
     }
 
     /**
-     * expandNode
+     * expandNodeAndFetchChildren
      * updates state with the new expanded array and updates the newly expanded children
      * with a loading object if we have no child data for that node.
      * @param {array} newExpandedArray - array with the newly expanded value
      */
-    expandNode = async (newExpandedArray) => {
+    expandNodeAndFetchChildren = async (newExpandedArray, selectedNode) => {
         // newly expanded node.code
-        const { expanded, data, isSearch } = this.props;
+        const { expanded, isSearch } = this.props;
         const expandedValue = difference(newExpandedArray, expanded)[0];
-        let selectedNode = null;
-        if (expandedValue.length === 2) {
-            selectedNode = data.find((node) => node.value === expandedValue);
-        }
-        else if (expandedValue.length === 4) {
-            selectedNode = data
-                .find((node) => node.value === `${expandedValue[1]}${expandedValue[1]}`)
-                .children
-                .find((child) => child.value === expandedValue);
-        }
-        else if (expandedValue.length === 6) {
-            selectedNode = data
-                .find((node) => node.value === `${expandedValue[0]}${expandedValue[1]}`)
-                .children
-                .find((child) => (
-                    child.value === `${expandedValue[0]}${expandedValue[1]`${expandedValue[2]}${expandedValue[3]}`}`
-                ));
-        }
         /**
          * When there are no children or there is an empty object in the children property (since we
          * do this to get the caret to show when there is a count)
          * we will set the child to a loading div
          */
-        if (
+        const shouldFetchChildren = (
             (
                 !selectedNode?.children
                 || selectedNode?.children?.some((child) => child?.isPlaceHolder === true)
                 || selectedNode?.children.length !== selectedNode?.count
             )
             && !isSearch
-        ) {
-            return this.props.onExpand(expandedValue, newExpandedArray, true);
-        }
-        return this.props.onExpand(expandedValue, newExpandedArray, false);
+        );
+
+        return this.props.onExpand(expandedValue, newExpandedArray, shouldFetchChildren);
     };
     /**
      * collapseNode

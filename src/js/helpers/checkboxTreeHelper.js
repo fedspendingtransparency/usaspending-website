@@ -4,7 +4,6 @@
 **/
 
 const getChildren = (node, keyMap) => {
-    console.log("node", node, keyMap);
     if (!node.children && keyMap.isParent(node)) {
         return {
             children: [{
