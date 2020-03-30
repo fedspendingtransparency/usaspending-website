@@ -94,6 +94,7 @@
           }
           .rct-title {
             width: 100%;
+            @include display(flex);
           }
           .checkbox-tree-label {
             @include display(flex);
