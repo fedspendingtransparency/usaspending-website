@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { debounce } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { cleanTasData } from 'helpers/checkboxTreeHelper';
+import { cleanTasData, getNewTasCountsAndUncheckedNodes } from 'helpers/checkboxTreeHelper';
 import { fetchTas } from 'helpers/searchHelper';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
 
 export default class TASCheckboxTree extends React.Component {
@@ -14,6 +15,8 @@ export default class TASCheckboxTree extends React.Component {
         this.state = {
             checked: [],
             expanded: [],
+            unchecked: [],
+            counts: [],
             nodes: [],
             isLoading: true,
             searchString: '',
@@ -28,7 +31,6 @@ export default class TASCheckboxTree extends React.Component {
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
-        console.log("shouldFetchChildren", shouldFetchChildren);
         if (shouldFetchChildren) {
             if (selectedNode.treeDepth === 1) {
                 const selectedAgency = this.state.nodes
@@ -45,9 +47,29 @@ export default class TASCheckboxTree extends React.Component {
         });
     };
 
-    onCheck = () => console.log("check");
+    onCheck = (newChecked) => {
+        const [newCounts, newUnchecked] = getNewTasCountsAndUncheckedNodes(
+            newChecked,
+            this.state.checked,
+            this.state.unchecked,
+            this.state.nodes,
+            this.state.counts
+        );
 
-    onUncheck = () => console.log("uncheck");
+        this.setState({
+            checked: newChecked,
+            counts: newCounts,
+            unchecked: newUnchecked
+        });
+
+        if (this.hint) {
+            this.hint.showHint();
+        }
+    }
+
+    onUncheck = (newChecked) => {
+        this.setState({ checked: newChecked });
+    }
 
     onSearchChange = debounce(() => {
         if (!this.state.searchString) return this.onClear();
@@ -133,7 +155,8 @@ export default class TASCheckboxTree extends React.Component {
             isLoading,
             searchString,
             isError,
-            errorMessage
+            errorMessage,
+            counts
         } = this.state;
         return (
             <div className="tas-checkbox">
@@ -157,6 +180,32 @@ export default class TASCheckboxTree extends React.Component {
                     onCheck={this.onCheck}
                     onExpand={this.onExpand}
                     onCollapse={this.onCollapse} />
+                {checked.length > 0 && (
+                    <div
+                        id="award-search-selected-locations"
+                        className="selected-filters"
+                        role="status">
+                        {counts.map((node) => {
+                            const label = `${node.value} - ${node.label} (${node.count})`;
+                            return (
+                                <button
+                                    className="shown-filter-button"
+                                    value={label}
+                                    onClick={() => this.removeSelectedFilter(node)}
+                                    title="Click to remove."
+                                    aria-label={`Applied filter: ${label}`}>
+                                    {label}
+                                    <span className="close">
+                                        <FontAwesomeIcon icon="times" />
+                                    </span>
+                                </button>
+                            );
+                        })}
+                    </div>
+                )}
+                <SubmitHint ref={(component) => {
+                    this.hint = component;
+                }} />
             </div>
         );
     }
