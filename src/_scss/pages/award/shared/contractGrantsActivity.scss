@@ -76,7 +76,11 @@
         }
     }
     .transaction-date-circle {
-        fill: $color-primary;
+      fill: $color-primary;
+    }
+    .area-path {
+      fill: $color-primary;
+      opacity: 0.3;
     }
     .vertical-line {
       &.start {

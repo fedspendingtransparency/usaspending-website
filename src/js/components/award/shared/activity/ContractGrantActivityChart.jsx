@@ -52,6 +52,8 @@ const ContractGrantsActivityChart = ({
     const [xAxisSpacing, setXAxisSpacing] = useState(0);
     // circle data
     const [circleData, setCircleData] = useState([]);
+    // area path
+    const [areaPath, setAreaPath] = useState('');
     /**
      * createXSeries
      * - creates the x domain and updates state
@@ -272,7 +274,7 @@ const ContractGrantsActivityChart = ({
                     key: `${data.federal_action_obligation}${i}`,
                     description: `A circle representing the transaction date, ${data.action_date.format('MM-DD-YYYY')} and running total obligation of ${formatMoney(data.running_obligation_total)}`,
                     className: 'transaction-date-circle',
-                    cx: xScale(data.action_date) + padding.left,
+                    cx: xScale(data.action_date.valueOf()) + padding.left,
                     cy: (height - yScale(data.running_obligation_total)),
                     r: 1.5
                 }));
@@ -286,6 +288,50 @@ const ContractGrantsActivityChart = ({
         xAxisSpacing,
         height
     ]);
+    // area path - hook
+    useEffect(() => {
+        if (xScale && yScale) {
+            const path = cloneDeep(transactions).reduce((acc, t, i, array) => {
+                let pathString = acc;
+                const xDirection = xScale(t.action_date.valueOf()) + padding.left;
+                const yDirection = height - yScale(t.running_obligation_total);
+                if (i === 0) { // first transaction
+                    // first x coordinate
+                    pathString += `${xDirection},`;
+                    // first y coordinate ( which should be the bottom of the graph )
+                    pathString += `${height}`;
+                    // navigate from the bottom of graph to first transaction y coordinate
+                    pathString += `V${yDirection}`;
+                    return pathString;
+                }
+                /**
+                 * add x direction
+                 * travel to next transaction x coordinate
+                 */
+                pathString += `H${xDirection}`;
+                /**
+                 * add y direction
+                 * travel to next transaction y coordinate
+                 */
+                pathString += `V${yDirection}`;
+                if (i + 1 === array.length) { // end path
+                    pathString += `H${xDirection}`;
+                    /**
+                     * travel to bottom of graph
+                     */
+                    pathString += `V${height}Z`;
+                }
+                return pathString;
+            }, 'M');
+            setAreaPath(path);
+        }
+    }, [
+        xScale,
+        yScale,
+        transactions,
+        padding,
+        height
+    ]);
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
@@ -294,6 +340,8 @@ const ContractGrantsActivityChart = ({
     const endLineText = awardType === 'grant' ? 'End' : ['Current', 'End'];
     // class name for end line and text
     const endLineClassName = awardType === 'grant' ? 'grant-end' : 'contract-end';
+    // transaction path description
+    const transactionPathDescription = 'A shaded light blue area moving horizontally between each transactions action date and vertically between each transactions federal action obligation difference';
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -314,6 +362,15 @@ const ContractGrantsActivityChart = ({
                     ticks={xTicks}
                     scale={xScale}
                     line />
+                {/* area path */}
+                {areaPath &&
+                    <g tabIndex="0">
+                        <desc>{transactionPathDescription}</desc>
+                        <path
+                            className="area-path"
+                            d={areaPath} />
+                    </g>}
+                {/* circles */}
                 {circleData.length && circleData.map((circle) => {
                     const {
                         key,
