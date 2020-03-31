@@ -83,6 +83,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
         let previousRunningObligationTotal = 0;
         newData = newData
             .filter((data) => !isNaN(data.action_date.valueOf()))
+            .sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf())
             .map((data, i) => {
                 const updatedData = data;
                 // handles missing federal action obligation
@@ -96,8 +97,7 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
                 updatedData.running_obligation_total = total;
                 previousRunningObligationTotal = total;
                 return updatedData;
-            })
-            .sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf());
+            });
         return newData;
     };
     // Get all transactions ascending
