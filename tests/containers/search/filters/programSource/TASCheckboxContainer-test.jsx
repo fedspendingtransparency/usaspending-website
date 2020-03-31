@@ -136,4 +136,22 @@ describe('TASCheckboxContainer', () => {
             expect(container.state().expanded).toEqual(['11']);
         });
     });
+    describe('onCheck', () => {
+        it('updates the state.checked array', () => {
+            const container = shallow(<TASCheckboxTreeContainer />);
+            container.instance().setState({ checked: ['1'] });
+            container.instance().onCheck(['11']);
+
+            expect(container.state().checked).toEqual(['11']);
+        });
+    });
+    describe('onUncheck', () => {
+        it('updates the state.checked array', () => {
+            const container = shallow(<TASCheckboxTreeContainer />);
+            container.instance().setState({ checked: ['1', '11'] });
+            container.instance().onUncheck(['11']);
+
+            expect(container.state().checked).toEqual(['11']);
+        });
+    });
 });
