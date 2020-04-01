@@ -178,6 +178,58 @@ const removeFromUnchecked = (checkedCode, unchecked, checked, nodes) => {
     return null;
 };
 
+export const decrementCountUpdateUnchecked = (
+    uncheckedNode,
+    unchecked,
+    checked,
+    counts,
+    nodes,
+    traverseTreeByCodeFn
+) => {
+    const { value } = uncheckedNode;
+    const nodeFromTree = traverseTreeByCodeFn(nodes, value);
+    const parentKey = nodeFromTree.ancestors[0] || value;
+    const ancestorKey = nodeFromTree.ancestors[1];
+    const count = nodeFromTree.count ? nodeFromTree.count : 1;
+    const shouldRemoveNode = counts.some((nodeFromCounts) => (
+        !uncheckedNode.checked &&
+        (nodeFromCounts.value === value || nodeFromCounts.count <= count)
+    ));
+    let newCounts;
+    if (shouldRemoveNode) {
+        newCounts = counts.filter((nodeFromCounts) => nodeFromCounts.value !== parentKey);
+    }
+    else {
+        newCounts = counts.map((nodeFromCounts) => {
+            const newCount = nodeFromCounts.count - count;
+            if (nodeFromCounts.value === parentKey) {
+                return { ...nodeFromCounts, count: newCount };
+            }
+            return nodeFromCounts;
+        });
+    }
+    // we only update the unchecked array if an ancestor of the unchecked node is checked
+    const shouldUpdateUnchecked = (
+        checked.includes(parentKey) ||
+        checked.includes(`children_of_${parentKey}`) ||
+        checked.includes(ancestorKey) ||
+        checked.includes(`children_of_${ancestorKey}`)
+    );
+
+    const newUnchecked = shouldUpdateUnchecked
+        ? [...unchecked, value]
+        : unchecked;
+
+    return [newCounts, newUnchecked];
+};
+
+export const decrementTasCountAndUpdateUnchecked = (
+    uncheckedNode,
+    unchecked,
+    checked,
+    counts,
+    nodes) => decrementCountUpdateUnchecked(uncheckedNode, unchecked, checked, counts, nodes, getTasNodeFromTree);
+
 // returns new counts array, newUnchecked array
 export const getNewCountsAndUnchecked = (
     newChecked,

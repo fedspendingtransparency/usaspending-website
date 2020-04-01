@@ -2,7 +2,13 @@ import React from 'react';
 import { debounce } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { cleanTasData, getNewTasCountsAndUncheckedNodes } from 'helpers/checkboxTreeHelper';
+import {
+    cleanTasData,
+    getNewTasCountsAndUncheckedNodes,
+    decrementTasCountAndUpdateUnchecked,
+    removePlaceholderString,
+    getTasNodeFromTree
+} from 'helpers/checkboxTreeHelper';
 import { fetchTas } from 'helpers/searchHelper';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
@@ -67,8 +73,16 @@ export default class TASCheckboxTree extends React.Component {
         }
     }
 
-    onUncheck = (newChecked) => {
-        this.setState({ checked: newChecked });
+    onUncheck = (newChecked, uncheckedNode) => {
+        const [newCounts, newUnchecked] = decrementTasCountAndUpdateUnchecked(
+            uncheckedNode,
+            this.state.unchecked,
+            this.state.checked,
+            this.state.counts,
+            this.state.nodes
+        );
+
+        this.setState({ checked: newChecked, counts: newCounts, unchecked: newUnchecked });
     }
 
     onSearchChange = debounce(() => {
@@ -88,6 +102,17 @@ export default class TASCheckboxTree extends React.Component {
 
     onCollapse = (newExpandedArray) => {
         this.setState({ expanded: newExpandedArray });
+    }
+
+    removeSelectedFilter = (node) => {
+        const newChecked = this.state.checked
+            .map((checked) => removePlaceholderString(checked))
+            .filter((checked) => {
+                const checkedNode = getTasNodeFromTree(this.state.nodes, checked);
+                if (checkedNode.ancestors.includes(node.value)) return false;
+                return true;
+            });
+        this.onUncheck(newChecked, { ...node, checked: false });
     }
 
     fetchTas = (id = '', depth = 0) => {
@@ -180,7 +205,7 @@ export default class TASCheckboxTree extends React.Component {
                     onCheck={this.onCheck}
                     onExpand={this.onExpand}
                     onCollapse={this.onCollapse} />
-                {checked.length > 0 && (
+                {counts.length > 0 && (
                     <div
                         id="award-search-selected-locations"
                         className="selected-filters"
