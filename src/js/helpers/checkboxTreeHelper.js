@@ -27,38 +27,6 @@ const getChildren = (node, keyMap) => {
     return {};
 };
 
-export const getHighestAncestorNaicsCode = (naicsCode) => `${naicsCode[0]}${naicsCode[1]}`;
-
-export const getImmediateAncestorNaicsCode = (naicsCode) => {
-    if (naicsCode.length === 2) return naicsCode;
-    else if (naicsCode.length === 4) return getHighestAncestorNaicsCode(naicsCode);
-    return `${naicsCode[0]}${naicsCode[1]}${naicsCode[2]}${naicsCode[3]}`;
-};
-
-export const getNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
-    const parentKey = getHighestAncestorNaicsCode(nodeKey);
-    const ancestorKey = getImmediateAncestorNaicsCode(nodeKey);
-    if (nodeKey.length === 2) {
-        return tree
-            .find((node) => node[treePropForKey] === nodeKey);
-    }
-    if (nodeKey.length === 4) {
-        return tree
-            .find((node) => node[treePropForKey] === parentKey)
-            ?.children
-            .find((node) => node[treePropForKey] === nodeKey);
-    }
-    if (nodeKey.length === 6) {
-        return tree
-            .find((node) => node[treePropForKey] === parentKey)
-            ?.children
-            .find((node) => node[treePropForKey] === ancestorKey)
-            ?.children
-            .find((node) => node[treePropForKey] === nodeKey);
-    }
-    return { count: null };
-};
-
 const getCountWithPlaceholderOffset = (key, codesUnderPlaceholder, nodes, traverseTreeByCodeFn) => {
     // when the placeholder is counted, adjust the count to offset for the 'nodes under this placeholder' which will be counted.
     const hasSelectedButNotCounted = codesUnderPlaceholder.some((obj) => obj.placeholder === key);
@@ -96,14 +64,22 @@ export const getCountOfAllCheckedDescendants = (nodes, ancestorKey, checkedNodes
         return ancestorCount + nodeCount;
     }, 0);
 
-const removeFromUnchecked = (checkedCode, unchecked, checked, nodes, traverseTreeByCodeFn) => {
+const removeFromUnchecked = (
+    checkedCode,
+    unchecked,
+    checked,
+    nodes,
+    traverseTreeByCodeFn,
+    getImmediateAncestorFn,
+    getHighestAncestorFn
+) => {
     // we only want to remove from unchecked if...
     const key = checkedCode.includes('children_of_')
         ? checkedCode.split('children_of_')[1]
         : checkedCode;
     const currentNode = traverseTreeByCodeFn(nodes, key);
-    const ancestorKey = currentNode.ancestors[currentNode.ancestors.length - 1];
-    const parentKey = currentNode.ancestors[0];
+    const ancestorKey = getImmediateAncestorFn(currentNode);
+    const parentKey = getHighestAncestorFn(currentNode);
     const parentNode = traverseTreeByCodeFn(nodes, parentKey);
     const ancestorNode = traverseTreeByCodeFn(nodes, ancestorKey);
     const { count } = currentNode;
@@ -150,12 +126,14 @@ export const decrementCountAndUpdateUnchecked = (
     checked,
     counts,
     nodes,
-    traverseTreeByCodeFn
+    traverseTreeByCodeFn,
+    getImmediateAncestorFn,
+    getHighestAncestorFn
 ) => {
     const { value } = uncheckedNode;
     const nodeFromTree = traverseTreeByCodeFn(nodes, value);
-    const parentKey = nodeFromTree.ancestors[0] || value;
-    const ancestorKey = nodeFromTree.ancestors[1];
+    const parentKey = getHighestAncestorFn(nodeFromTree);
+    const ancestorKey = getImmediateAncestorFn(nodeFromTree);
     const count = nodeFromTree.count ? nodeFromTree.count : 1;
     const shouldRemoveNode = counts.some((nodeFromCounts) => (
         !uncheckedNode.checked &&
@@ -196,7 +174,9 @@ export const incrementCountAndUpdateUnchecked = (
     unchecked,
     nodes,
     currentCount,
-    traverseTreeByCodeFn
+    traverseTreeByCodeFn,
+    getImmediateAncestorFn,
+    getHighestAncestorFn
 ) => {
     const newlyChecked = difference(newChecked, oldChecked);
     const nodeTree = cloneDeep(nodes);
@@ -213,8 +193,8 @@ export const incrementCountAndUpdateUnchecked = (
         .filter((code) => !code.includes('children_of_'))
         .forEach((code) => {
             const node = traverseTreeByCodeFn(nodeTree, code);
-            const immediateAncestorCode = node.ancestors[node.ancestors.length - 1];
-            const highestAncestorCode = node.ancestors[0];
+            const immediateAncestorCode = getImmediateAncestorFn(node);
+            const highestAncestorCode = getHighestAncestorFn(node);
             if (placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`)) {
                 codesUnderPlaceholder.push({ code, placeholder: immediateAncestorCode });
             }
@@ -235,13 +215,21 @@ export const incrementCountAndUpdateUnchecked = (
             const key = isPlaceholder
                 ? code.split('children_of_')[1]
                 : code;
-            
+
             const currentNode = traverseTreeByCodeFn(nodeTree, key);
-            const parentKey = currentNode.ancestors[0];
+            const parentKey = getHighestAncestorFn(currentNode);
             const parentNode = traverseTreeByCodeFn(nodeTree, parentKey);
 
             // may need to remove this node or an ancestor node from the unchecked array
-            const shouldCodeBeRemoved = removeFromUnchecked(code, unchecked, newChecked, nodeTree, traverseTreeByCodeFn);
+            const shouldCodeBeRemoved = removeFromUnchecked(
+                code,
+                unchecked,
+                newChecked,
+                nodeTree,
+                traverseTreeByCodeFn,
+                getImmediateAncestorFn,
+                getHighestAncestorFn
+            );
             if (shouldCodeBeRemoved) {
                 codesToBeRemovedFromUnchecked.push(shouldCodeBeRemoved);
             }
@@ -280,10 +268,6 @@ export const incrementCountAndUpdateUnchecked = (
     return [newCounts, codesToBeRemovedFromUnchecked];
 };
 
-const shouldNaicsNodeHaveChildren = (node) => node.naics.length < 6;
-
-// key map for traversing the naics-tree
-const naicsKeyMap = { label: 'naics_description', value: 'naics', isParent: shouldNaicsNodeHaveChildren };
 export const cleanTreeData = (nodes, keyMap) => nodes.map((node) => ({
     ...node,
     label: node[keyMap.label],
@@ -291,7 +275,6 @@ export const cleanTreeData = (nodes, keyMap) => nodes.map((node) => ({
     ...getChildren(node, keyMap)
 }));
 
-export const cleanNaicsData = (nodes) => cleanTreeData(nodes, naicsKeyMap);
 
 export const sortNodes = (a, b) => {
     if (a.isPlaceHolder) return 1;
@@ -318,14 +301,14 @@ export const expandAllNodes = (nodes, propForNode = 'value') => {
         .reduce(getValue, []);
 };
 
-export const mergeChildren = (parentFromSearch, existingParent) => {
+export const mergeChildren = (parentFromSearch, existingParent, traverseTreeByCodeFn) => {
     // 1. hide node not in search
     // 2. add placeholders if not there
     if (existingParent.children && parentFromSearch.children) {
         const existingChildArray = existingParent
             .children
             .filter((node) => {
-                const childFromSearch = getNodeFromTree(parentFromSearch.children, node.value);
+                const childFromSearch = traverseTreeByCodeFn(parentFromSearch.children, node.value);
                 if (node.isPlaceHolder && childFromSearch && childFromSearch.count === childFromSearch?.children?.length) {
                     return false;
                 }
@@ -407,7 +390,7 @@ export const mergeChildren = (parentFromSearch, existingParent) => {
     return [];
 };
 
-export const addSearchResultsToTree = (tree, searchResults) => {
+export const addSearchResultsToTree = (tree, searchResults, traverseTreeByCodeFn) => {
     const nodesFromSearchToBeReplaced = searchResults.map((node) => node.value);
     return tree
         .map((existingNode) => {
@@ -417,7 +400,7 @@ export const addSearchResultsToTree = (tree, searchResults) => {
                 const nodeFromSearch = searchResults.find((node) => node.value === nodeKey);
                 return {
                     ...nodeFromSearch,
-                    children: [...mergeChildren(nodeFromSearch, existingNode)]
+                    children: [...mergeChildren(nodeFromSearch, existingNode, traverseTreeByCodeFn)]
                 };
             }
             return { ...existingNode, className: 'hide' };
@@ -425,9 +408,9 @@ export const addSearchResultsToTree = (tree, searchResults) => {
         .sort(sortNodes);
 };
 
-export const showAllTreeItems = (tree, key = '', newNodes = []) => tree
+export const showAllTreeItems = (tree, key = '', newNodes = [], getHighestAncestorCode) => tree
     .map((node) => {
-        const parentKey = getHighestAncestorNaicsCode(key);
+        const parentKey = getHighestAncestorCode(node);
         const [data] = newNodes;
         const shouldAddNewChildToParent = (
             key &&

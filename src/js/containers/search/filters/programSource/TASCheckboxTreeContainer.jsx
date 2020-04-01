@@ -6,9 +6,9 @@ import {
     cleanTasData,
     incrementTasCountAndUpdateUnchecked,
     decrementTasCountAndUpdateUnchecked,
-    removePlaceholderString,
     getTasNodeFromTree
 } from 'helpers/tasHelper';
+import { removePlaceholderString } from 'helpers/checkboxTreeHelper';
 import { fetchTas } from 'helpers/searchHelper';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';

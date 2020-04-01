@@ -7,23 +7,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import {
-    debounce,
-    cloneDeep,
-    difference
-} from 'lodash';
+import { debounce } from 'lodash';
 import { isCancel } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { naicsRequest } from 'helpers/naicsHelper';
 import {
-    expandAllNodes,
-    getNodeFromTree,
+    incrementNaicsCountAndUpdateUnchecked,
+    decrementNaicsCountAndUpdateUnchecked,
     getImmediateAncestorNaicsCode,
+    getNaicsNodeFromTree,
     getHighestAncestorNaicsCode,
-    getCountOfAllCheckedDescendants,
-    removePlaceholderString
-} from 'helpers/checkboxTreeHelper';
+    naicsRequest
+} from 'helpers/naicsHelper';
+
+import { removePlaceholderString, expandAllNodes } from 'helpers/checkboxTreeHelper';
 
 import { updateNaicsV2 } from 'redux/actions/search/searchFilterActions';
 import { setNaics, setExpanded, setChecked, setSearchedNaics, addChecked, showNaicsTree, setUnchecked } from 'redux/actions/search/naicsActions';
@@ -94,7 +91,7 @@ export class NAICSContainer extends React.Component {
                                                     }
                                                 }
                                                 else {
-                                                    getNodeFromTree(this.props.nodes, code)
+                                                    getNaicsNodeFromTree(this.props.nodes, code)
                                                         .children
                                                         .forEach((child) => {
                                                             if (child.value.length === 4) {
@@ -128,7 +125,7 @@ export class NAICSContainer extends React.Component {
                                                         .forEach((ancestorKey, index, src) => {
                                                             this.fetchNAICS(ancestorKey)
                                                                 .then(() => {
-                                                                    getNodeFromTree(this.props.nodes, ancestorKey)
+                                                                    getNaicsNodeFromTree(this.props.nodes, ancestorKey)
                                                                         .children
                                                                         .forEach((grand) => {
                                                                             const isUncheckedByAncestor = (
@@ -207,55 +204,37 @@ export class NAICSContainer extends React.Component {
         });
     }
 
-    onCheck = async (checkedNodes, node) => {
-        this.updateCountOfSelectedTopTierNaicsCodes(checkedNodes, node);
+    onCheck = (newChecked) => {
+        const [stagedNaicsFilters, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
+            newChecked,
+            this.props.checked,
+            this.props.unchecked,
+            this.props.nodes,
+            this.state.stagedNaicsFilters
+        );
+
+        this.setState({ stagedNaicsFilters });
+        this.props.setChecked(newChecked);
+        this.props.setUnchecked(newUnchecked);
+
         if (this.hint) {
             this.hint.showHint();
         }
     }
 
-    onUncheck = (checked, node) => {
-        const { stagedNaicsFilters } = this.state;
-        const { nodes } = this.props;
-        const { value } = node;
-        const countOfUncheckedNode = value.length === 6 ? 1 : getNodeFromTree(nodes, value).count;
-        const parentKey = getHighestAncestorNaicsCode(value);
-        const ancestorKey = getImmediateAncestorNaicsCode(value);
-        const shouldRemoveNode = stagedNaicsFilters.some((selectedNode) => (
-            !node.checked &&
-            selectedNode.value === parentKey &&
-            selectedNode.count <= countOfUncheckedNode
-        ));
-        let newStagedFilterState;
-        if (shouldRemoveNode) {
-            newStagedFilterState = stagedNaicsFilters.filter((selectedNode) => selectedNode.value !== parentKey);
-        }
-        else {
-            newStagedFilterState = stagedNaicsFilters.map((selectedNode) => {
-                const newCount = selectedNode.count - countOfUncheckedNode;
-                if (selectedNode.value === parentKey) {
-                    return { ...selectedNode, count: newCount };
-                }
-                return selectedNode;
-            });
-        }
-        // we only update the unchecked array if an ancestor is checked
-        const shouldUpdateUnchecked = (
-            checked.includes(parentKey) ||
-            checked.includes(`children_of_${parentKey}`) ||
-            checked.includes(ancestorKey) ||
-            checked.includes(`children_of_${ancestorKey}`)
+    onUncheck = (newChecked, uncheckedNode) => {
+        const [stagedNaicsFilters, newUnchecked] = decrementNaicsCountAndUpdateUnchecked(
+            uncheckedNode,
+            this.props.unchecked,
+            this.props.checked,
+            this.state.stagedNaicsFilters
         );
 
-        const newUnchecked = shouldUpdateUnchecked
-            ? [...this.props.unchecked, value]
-            : this.props.unchecked;
-        if (shouldUpdateUnchecked) this.props.setUnchecked(newUnchecked);
+        this.props.setUnchecked(newUnchecked);
+        this.props.stageNaics(newChecked, newUnchecked, stagedNaicsFilters);
+        this.props.setChecked(newChecked);
 
-        this.props.stageNaics(checked, newUnchecked, newStagedFilterState);
-        this.props.setChecked(checked);
-
-        this.setState({ stagedNaicsFilters: newStagedFilterState });
+        this.setState({ stagedNaicsFilters });
     }
 
     onExpand = (value, expanded, fetch) => {
@@ -278,170 +257,6 @@ export class NAICSContainer extends React.Component {
             this.props.setExpanded(expanded);
         }
     };
-
-    getCountWithPlaceholderOffset = (key, codesUnderPlaceholder) => {
-        // when the placeholder is counted, adjust the count to offset for the 'nodes under this placeholder' which will be counted.
-        const hasSelectedButNotCounted = codesUnderPlaceholder.some((obj) => obj.placeholder === key);
-
-        if (hasSelectedButNotCounted) {
-            const nodesUnderPlaceholder = codesUnderPlaceholder
-                .filter((code) => code.placeholder === key);
-            const aggregateOffsetOfNodesUnderPlaceholder = nodesUnderPlaceholder
-                .map((obj) => getNodeFromTree(this.props.nodes, obj.code))
-                .reduce((agg, nodeTobeCounted) => {
-                    if (nodeTobeCounted.count === 0) {
-                        return agg + 1;
-                    }
-                    return agg + nodeTobeCounted.count;
-                }, 0);
-
-            return aggregateOffsetOfNodesUnderPlaceholder;
-        }
-        return 0;
-    };
-
-    removeFromUnchecked = (checkedCode, unchecked = this.props.unchecked) => {
-        // we only want to remove from unchecked if...
-        const key = checkedCode.includes('children_of_')
-            ? checkedCode.split('children_of_')[1]
-            : checkedCode;
-        const ancestorKey = getImmediateAncestorNaicsCode(key);
-        const parentKey = getHighestAncestorNaicsCode(key);
-        const parentNode = getNodeFromTree(this.props.nodes, parentKey);
-        const ancestorNode = getNodeFromTree(this.props.nodes, ancestorKey);
-        const currentNode = getNodeFromTree(this.props.nodes, key);
-        const { count } = currentNode;
-
-        const uncheckedCodeToBeRemoved = unchecked
-            .reduce((acc, uncheckedCode) => {
-                if (uncheckedCode === checkedCode) {
-                    // (a) the unchecked array has the code/placeholder code we're currently checking.
-                    return checkedCode;
-                }
-                if (uncheckedCode === key) {
-                    // (a) applies here too.
-                    return key;
-                }
-                if (uncheckedCode === parentKey) {
-                    // (b) an ancestor of the code we're currently checking is in the unchecked array
-                    // AND the checked array has the other ancestors too.
-                    const countOfCheckedNode = count === 0 ? 1 : count;
-                    const countOfCheckedAncestors = getCountOfAllCheckedDescendants(this.props.nodes, parentKey, this.props.checked);
-                    if ((countOfCheckedAncestors + countOfCheckedNode) === parentNode.count) {
-                        return parentKey;
-                    }
-                }
-                if (uncheckedCode === ancestorKey) {
-                    // (b) applies here too
-                    const countOfCheckedNode = count === 0 ? 1 : count;
-                    const countOfCheckedAncestors = getCountOfAllCheckedDescendants(this.props.nodes, ancestorKey, this.props.checked);
-                    if ((countOfCheckedAncestors + countOfCheckedNode) === ancestorNode.count) {
-                        return ancestorKey;
-                    }
-                }
-                return acc;
-            }, null);
-
-        if (uncheckedCodeToBeRemoved) {
-            return uncheckedCodeToBeRemoved;
-        }
-        return null;
-    }
-
-    updateCountOfSelectedTopTierNaicsCodes = (checked = []) => {
-        const newChecked = difference(checked, this.props.checked);
-        const nodes = cloneDeep(this.props.nodes);
-        // child place holders reflect the count of their immediate ancestor
-        const placeHoldersToBeCounted = checked
-            .filter((naicsCode) => naicsCode.includes('children_of_'));
-
-        const codesUnderPlaceholder = [];
-        const codesWithoutPlaceholder = [];
-
-        checked
-            .filter((naicsCode) => !naicsCode.includes('children_of_'))
-            .forEach((naicsCode) => {
-                const immediateAncestorCode = getImmediateAncestorNaicsCode(naicsCode); // 1111
-                const highestAncestorCode = getHighestAncestorNaicsCode(naicsCode); // 11
-                if (placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`)) {
-                    codesUnderPlaceholder.push({ code: naicsCode, placeholder: immediateAncestorCode });
-                }
-                else if (placeHoldersToBeCounted.includes(`children_of_${highestAncestorCode}`)) {
-                    codesUnderPlaceholder.push({ code: naicsCode, placeholder: highestAncestorCode });
-                }
-                else if (placeHoldersToBeCounted.includes(`children_of_${naicsCode}`)) {
-                    codesUnderPlaceholder.push({ code: naicsCode, placeholder: naicsCode });
-                }
-                else {
-                    codesWithoutPlaceholder.push(naicsCode);
-                }
-            });
-
-        const codesToBeRemovedFromUnchecked = [];
-
-        const parentNaicsWithCounts = [...new Set([...newChecked])]
-            .reduce((newState, code) => {
-                const isPlaceholder = code.includes('children_of_');
-                const key = isPlaceholder
-                    ? code.split('children_of_')[1]
-                    : code;
-                const parentKey = getHighestAncestorNaicsCode(key);
-
-                // may need to remove this node or an ancestor node from the unchecked array
-                const shouldCodeBeRemoved = this.removeFromUnchecked(code);
-                if (shouldCodeBeRemoved) {
-                    codesToBeRemovedFromUnchecked.push(shouldCodeBeRemoved);
-                }
-
-                const currentNode = getNodeFromTree(nodes, key);
-                const parentNode = getNodeFromTree(nodes, parentKey);
-
-                const indexInArray = newState.findIndex((node) => node.value === parentKey);
-                const isParentInArray = indexInArray > -1;
-
-                const offsetCount = this.getCountWithPlaceholderOffset(key, codesUnderPlaceholder);
-                const originalCount = currentNode.count === 0
-                    ? 1
-                    : currentNode.count;
-                const amountToIncrement = originalCount - offsetCount;
-
-                if (!isParentInArray) {
-                    newState.push({
-                        ...parentNode,
-                        count: amountToIncrement
-                    });
-                }
-                else if (isParentInArray) {
-                    newState[indexInArray].count += amountToIncrement;
-                }
-                if (isParentInArray && parentNode.count < newState[indexInArray].count) {
-                    newState[indexInArray].count = parentNode.count;
-                }
-                else if (isParentInArray && newState[indexInArray].count < 1) {
-                    newState[indexInArray].count = 1;
-                }
-                return newState;
-            }, [...this.state.stagedNaicsFilters]);
-
-        const newUnchecked = this.props.unchecked
-            .filter((uncheckedNode) => {
-                if (codesToBeRemovedFromUnchecked.includes(uncheckedNode)) return false;
-                return true;
-            });
-
-        this.setState({ stagedNaicsFilters: parentNaicsWithCounts });
-        this.props.setChecked(checked);
-        this.props.setUnchecked(newUnchecked);
-        this.props.stageNaics(checked, newUnchecked, parentNaicsWithCounts);
-    }
-
-    removeSelectedFilter = (node) => {
-        const newChecked = this.props.checked
-            .map((checked) => removePlaceholderString(checked))
-            .filter((checked) => `${checked[0]}${checked[1]}` !== node.value);
-
-        this.onUncheck(newChecked, { ...node, checked: false });
-    }
 
     handleTextInputChange = (e) => {
         const text = e.target.value;
@@ -492,7 +307,7 @@ export class NAICSContainer extends React.Component {
         expandedNodesWithMockAncestorChecked
             .forEach((expandedNode) => {
                 // use reusable recursive fn here...?
-                const node = getNodeFromTree(nodes, expandedNode);
+                const node = getNaicsNodeFromTree(nodes, expandedNode);
                 if (node.children) {
                     node.children.forEach((child) => {
                         if (!child.children) this.props.addChecked(child.value);
