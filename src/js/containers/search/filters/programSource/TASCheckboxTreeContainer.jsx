@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
     cleanTasData,
-    getNewTasCountsAndUncheckedNodes,
+    incrementTasCountAndUpdateUnchecked,
     decrementTasCountAndUpdateUnchecked,
     removePlaceholderString,
     getTasNodeFromTree
-} from 'helpers/checkboxTreeHelper';
+} from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
@@ -54,7 +54,7 @@ export default class TASCheckboxTree extends React.Component {
     };
 
     onCheck = (newChecked) => {
-        const [newCounts, newUnchecked] = getNewTasCountsAndUncheckedNodes(
+        const [newCounts, newUnchecked] = incrementTasCountAndUpdateUnchecked(
             newChecked,
             this.state.checked,
             this.state.unchecked,

@@ -59,41 +59,7 @@ export const getNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
     return { count: null };
 };
 
-export const getTasNodeFromTree = (tree, id) => {
-    let selectedNode;
-    tree
-        .forEach((agency) => {
-            if (agency.value === id) selectedNode = agency;
-        });
-    if (selectedNode) return selectedNode;
-    tree
-        .forEach((agency) => {
-            if (agency.children) {
-                agency.children
-                    .forEach((federalAccount) => {
-                        if (federalAccount.value === id) selectedNode = federalAccount;
-                    });
-            }
-        });
-    if (selectedNode) return selectedNode;
-    tree
-        .forEach((agency) => {
-            if (agency.children) {
-                agency.children
-                    .forEach((federalAccount) => {
-                        if (federalAccount.children) {
-                            federalAccount.children
-                                .forEach((tas) => {
-                                    if (tas.value === id) selectedNode = tas;
-                                });
-                        }
-                    });
-            }
-        });
-    return selectedNode;
-};
-
-const getCountWithPlaceholderOffset = (key, codesUnderPlaceholder, nodes) => {
+const getCountWithPlaceholderOffset = (key, codesUnderPlaceholder, nodes, traverseTreeByCodeFn) => {
     // when the placeholder is counted, adjust the count to offset for the 'nodes under this placeholder' which will be counted.
     const hasSelectedButNotCounted = codesUnderPlaceholder.some((obj) => obj.placeholder === key);
 
@@ -101,7 +67,7 @@ const getCountWithPlaceholderOffset = (key, codesUnderPlaceholder, nodes) => {
         const nodesUnderPlaceholder = codesUnderPlaceholder
             .filter((code) => code.placeholder === key);
         const aggregateOffsetOfNodesUnderPlaceholder = nodesUnderPlaceholder
-            .map((obj) => getTasNodeFromTree(nodes, obj.code))
+            .map((obj) => traverseTreeByCodeFn(nodes, obj.code))
             .reduce((agg, nodeTobeCounted) => {
                 if (nodeTobeCounted.count === 0) {
                     return agg + 1;
@@ -119,27 +85,27 @@ export const removePlaceholderString = (str) => {
     return str;
 };
 
-export const getCountOfAllCheckedDescendants = (nodes, ancestorKey, checkedNodes) => checkedNodes
+export const getCountOfAllCheckedDescendants = (nodes, ancestorKey, checkedNodes, traverseTreeByCodeFn) => checkedNodes
     .map((checked) => removePlaceholderString(checked))
     .filter((checkedNode) => checkedNode.includes(ancestorKey))
     .reduce((ancestorCount, checkedAncestor) => {
-        const nodeCount = getTasNodeFromTree(nodes, checkedAncestor).count;
+        const nodeCount = traverseTreeByCodeFn(nodes, checkedAncestor).count;
         if (nodeCount === 0) {
             return ancestorCount + 1;
         }
         return ancestorCount + nodeCount;
     }, 0);
 
-const removeFromUnchecked = (checkedCode, unchecked, checked, nodes) => {
+const removeFromUnchecked = (checkedCode, unchecked, checked, nodes, traverseTreeByCodeFn) => {
     // we only want to remove from unchecked if...
     const key = checkedCode.includes('children_of_')
         ? checkedCode.split('children_of_')[1]
         : checkedCode;
-    const currentNode = getTasNodeFromTree(nodes, key);
+    const currentNode = traverseTreeByCodeFn(nodes, key);
     const ancestorKey = currentNode.ancestors[currentNode.ancestors.length - 1];
     const parentKey = currentNode.ancestors[0];
-    const parentNode = getTasNodeFromTree(nodes, parentKey);
-    const ancestorNode = getTasNodeFromTree(nodes, ancestorKey);
+    const parentNode = traverseTreeByCodeFn(nodes, parentKey);
+    const ancestorNode = traverseTreeByCodeFn(nodes, ancestorKey);
     const { count } = currentNode;
 
     const uncheckedCodeToBeRemoved = unchecked
@@ -156,7 +122,7 @@ const removeFromUnchecked = (checkedCode, unchecked, checked, nodes) => {
                 // (b) an ancestor of the code we're currently checking is in the unchecked array
                 // AND the checked array has the other ancestors too.
                 const countOfCheckedNode = count === 0 ? 1 : count;
-                const countOfCheckedAncestors = getCountOfAllCheckedDescendants(nodes, parentKey, checked);
+                const countOfCheckedAncestors = getCountOfAllCheckedDescendants(nodes, parentKey, checked, traverseTreeByCodeFn);
                 if ((countOfCheckedAncestors + countOfCheckedNode) === parentNode.count) {
                     return parentKey;
                 }
@@ -164,7 +130,7 @@ const removeFromUnchecked = (checkedCode, unchecked, checked, nodes) => {
             if (uncheckedCode === ancestorKey) {
                 // (b) applies here too
                 const countOfCheckedNode = count === 0 ? 1 : count;
-                const countOfCheckedAncestors = getCountOfAllCheckedDescendants(nodes, ancestorKey, checked);
+                const countOfCheckedAncestors = getCountOfAllCheckedDescendants(nodes, ancestorKey, checked, traverseTreeByCodeFn);
                 if ((countOfCheckedAncestors + countOfCheckedNode) === ancestorNode.count) {
                     return ancestorKey;
                 }
@@ -178,7 +144,7 @@ const removeFromUnchecked = (checkedCode, unchecked, checked, nodes) => {
     return null;
 };
 
-export const decrementCountUpdateUnchecked = (
+export const decrementCountAndUpdateUnchecked = (
     uncheckedNode,
     unchecked,
     checked,
@@ -223,23 +189,15 @@ export const decrementCountUpdateUnchecked = (
     return [newCounts, newUnchecked];
 };
 
-export const decrementTasCountAndUpdateUnchecked = (
-    uncheckedNode,
-    unchecked,
-    checked,
-    counts,
-    nodes) => decrementCountUpdateUnchecked(uncheckedNode, unchecked, checked, counts, nodes, getTasNodeFromTree);
-
 // returns new counts array, newUnchecked array
-export const getNewCountsAndUnchecked = (
+export const incrementCountAndUpdateUnchecked = (
     newChecked,
     oldChecked,
     unchecked,
     nodes,
     currentCount,
-    traverseTreeByCode
+    traverseTreeByCodeFn
 ) => {
-    // debugger;
     const newlyChecked = difference(newChecked, oldChecked);
     const nodeTree = cloneDeep(nodes);
 
@@ -254,7 +212,7 @@ export const getNewCountsAndUnchecked = (
     newChecked
         .filter((code) => !code.includes('children_of_'))
         .forEach((code) => {
-            const node = traverseTreeByCode(nodeTree, code);
+            const node = traverseTreeByCodeFn(nodeTree, code);
             const immediateAncestorCode = node.ancestors[node.ancestors.length - 1];
             const highestAncestorCode = node.ancestors[0];
             if (placeHoldersToBeCounted.includes(`children_of_${immediateAncestorCode}`)) {
@@ -278,12 +236,12 @@ export const getNewCountsAndUnchecked = (
                 ? code.split('children_of_')[1]
                 : code;
             
-            const currentNode = traverseTreeByCode(nodeTree, key);
+            const currentNode = traverseTreeByCodeFn(nodeTree, key);
             const parentKey = currentNode.ancestors[0];
-            const parentNode = traverseTreeByCode(nodeTree, parentKey);
+            const parentNode = traverseTreeByCodeFn(nodeTree, parentKey);
 
             // may need to remove this node or an ancestor node from the unchecked array
-            const shouldCodeBeRemoved = removeFromUnchecked(code, unchecked, newChecked, nodeTree);
+            const shouldCodeBeRemoved = removeFromUnchecked(code, unchecked, newChecked, nodeTree, traverseTreeByCodeFn);
             if (shouldCodeBeRemoved) {
                 codesToBeRemovedFromUnchecked.push(shouldCodeBeRemoved);
             }
@@ -291,7 +249,7 @@ export const getNewCountsAndUnchecked = (
             const indexInArray = newState.findIndex((node) => node.value === parentKey);
             const isParentInArray = indexInArray > -1;
 
-            const offsetCount = getCountWithPlaceholderOffset(key, codesUnderPlaceholder, nodeTree);
+            const offsetCount = getCountWithPlaceholderOffset(key, codesUnderPlaceholder, nodeTree, traverseTreeByCodeFn);
             const originalCount = currentNode.count === 0
                 ? 1
                 : currentNode.count;
@@ -322,54 +280,18 @@ export const getNewCountsAndUnchecked = (
     return [newCounts, codesToBeRemovedFromUnchecked];
 };
 
-export const getNewTasCountsAndUncheckedNodes = (
-    newChecked,
-    oldChecked,
-    unchecked,
-    nodes,
-    currentCount
-) => getNewCountsAndUnchecked(newChecked, oldChecked, unchecked, nodes, currentCount, getTasNodeFromTree);
-
-export const getNewNaicsCountsAndUncheckedNodes = (
-    newChecked,
-    oldChecked,
-    unchecked,
-    nodes,
-    currentCount
-) => getNewCountsAndUnchecked(newChecked, oldChecked, unchecked, nodes, currentCount, getNodeFromTree);
-
-
 const shouldNaicsNodeHaveChildren = (node) => node.naics.length < 6;
-const shouldTasNodeHaveChildren = (node) => node.ancestors.length < 2;
 
 // key map for traversing the naics-tree
 const naicsKeyMap = { label: 'naics_description', value: 'naics', isParent: shouldNaicsNodeHaveChildren };
-
-// key map for traversing the tas-tree
-const tasKeyMap = { label: 'description', value: 'id', isParent: shouldTasNodeHaveChildren };
-
-const cleanTreeData = (nodes, keyMap) => nodes.map((node) => ({
+export const cleanTreeData = (nodes, keyMap) => nodes.map((node) => ({
     ...node,
     label: node[keyMap.label],
     value: node[keyMap.value],
     ...getChildren(node, keyMap)
 }));
 
-export const isAgency = (tasNode) => tasNode.ancestors.length === 0;
-
 export const cleanNaicsData = (nodes) => cleanTreeData(nodes, naicsKeyMap);
-export const cleanTasData = (nodes) => cleanTreeData(nodes, tasKeyMap)
-    .map((node) => {
-        if (isAgency(node)) {
-            return {
-                ...node,
-                count: null,
-                showCheckbox: false,
-                displayId: false
-            };
-        }
-        return node;
-    });
 
 export const sortNodes = (a, b) => {
     if (a.isPlaceHolder) return 1;
