@@ -71,6 +71,9 @@ export const decrementTasCountAndUpdateUnchecked = (
     getTasNodeFromTree
 );
 
+const getImmediateTasAncestorCode = (node) => node.ancestors[node.ancestors.length - 1];
+const getHighestTasAncestorCode = (node) => node.ancestors[0];
+
 export const incrementTasCountAndUpdateUnchecked = (
     newChecked,
     oldChecked,
@@ -83,5 +86,7 @@ export const incrementTasCountAndUpdateUnchecked = (
     unchecked,
     nodes,
     currentCount,
-    getTasNodeFromTree
+    getTasNodeFromTree,
+    getImmediateTasAncestorCode,
+    getHighestTasAncestorCode
 );
