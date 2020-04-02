@@ -56,6 +56,11 @@
             font-size: 1.6rem;
             font-weight: 600;
           }
+          .usa-dt-picker__button-icon {
+            path {
+              fill: $color-primary-alt-darkest;
+            }
+          }
         }
         .usa-dt-picker__list {
           .usa-dt-picker__item {
