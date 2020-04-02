@@ -16,14 +16,25 @@ import {
     decrementNaicsCountAndUpdateUnchecked,
     getImmediateAncestorNaicsCode,
     getNaicsNodeFromTree,
-    getHighestAncestorNaicsCode,
-    naicsRequest
+    naicsRequest,
+    removeStagedNaicsFilter
 } from 'helpers/naicsHelper';
 
-import { removePlaceholderString, expandAllNodes } from 'helpers/checkboxTreeHelper';
+import {
+    removePlaceholderString,
+    expandAllNodes
+} from 'helpers/checkboxTreeHelper';
 
+import {
+    setNaics,
+    setExpanded,
+    setChecked,
+    setSearchedNaics,
+    addChecked,
+    showNaicsTree,
+    setUnchecked
+} from 'redux/actions/search/naicsActions';
 import { updateNaicsV2 } from 'redux/actions/search/searchFilterActions';
-import { setNaics, setExpanded, setChecked, setSearchedNaics, addChecked, showNaicsTree, setUnchecked } from 'redux/actions/search/naicsActions';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
@@ -169,13 +180,21 @@ export class NAICSContainer extends React.Component {
                         .then((data) => {
                             // remove duplicate values
                             const newChecked = [...new Set(data)];
-                            this.updateCountOfSelectedTopTierNaicsCodes(newChecked);
+                            const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
+                                newChecked,
+                                this.props.checked,
+                                this.props.unchecked,
+                                this.props.nodes,
+                                this.state.stagedNaicsFilters
+                            );
+                            this.props.setUnchecked(newUnchecked);
+                            this.props.setChecked(newChecked);
                             this.props.restoreHashedFilters({
                                 ...this.props.filters,
                                 // counts should live in redux.
                                 naicsCodes: {
                                     ...this.props.filters.naicsCodes,
-                                    counts: this.state.stagedNaicsFilters
+                                    counts: newCounts
                                 }
                             });
                         });
@@ -216,6 +235,7 @@ export class NAICSContainer extends React.Component {
         this.setState({ stagedNaicsFilters });
         this.props.setChecked(newChecked);
         this.props.setUnchecked(newUnchecked);
+        this.props.stageNaics(newChecked, newUnchecked, stagedNaicsFilters);
 
         if (this.hint) {
             this.hint.showHint();
@@ -227,7 +247,8 @@ export class NAICSContainer extends React.Component {
             uncheckedNode,
             this.props.unchecked,
             this.props.checked,
-            this.state.stagedNaicsFilters
+            this.state.stagedNaicsFilters,
+            this.props.nodes
         );
 
         this.props.setUnchecked(newUnchecked);
@@ -293,7 +314,7 @@ export class NAICSContainer extends React.Component {
         // this will never have grandchildren
         const expandedNodesWithMockAncestorChecked = expanded
             .filter((naicsCode) => {
-                const parentKey = getHighestAncestorNaicsCode(naicsCode);
+                const parentKey = `${naicsCode[0]}${naicsCode[1]}`;
                 const isCheckedByPlaceholder = (
                     placeholderNodes.includes(parentKey) || // ie 11
                     placeholderNodes.includes(naicsCode) // ie 1123
@@ -323,6 +344,11 @@ export class NAICSContainer extends React.Component {
                 }
             });
     };
+
+    removeStagedNaics = (node) => {
+        const newChecked = removeStagedNaicsFilter(this.props.nodes, this.props.checked, node);
+        this.onUncheck(newChecked, { ...node, checked: false });
+    }
 
     fetchNAICS = (param = '') => {
         if (this.request) this.request.cancel();
@@ -445,7 +471,7 @@ export class NAICSContainer extends React.Component {
                                     <button
                                         className="shown-filter-button"
                                         value={label}
-                                        onClick={() => this.removeSelectedFilter(node)}
+                                        onClick={() => this.removeStagedNaics(node)}
                                         title="Click to remove."
                                         aria-label={`Applied filter: ${label}`}>
                                         {label}
