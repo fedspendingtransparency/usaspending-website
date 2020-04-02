@@ -103,7 +103,6 @@ const removeFromUnchecked = (
     const parentKey = getHighestAncestorFn(currentNode);
     const parentNode = traverseTreeByCodeFn(nodes, parentKey);
     const ancestorNode = traverseTreeByCodeFn(nodes, ancestorKey);
-    const { count } = currentNode;
 
     const uncheckedCodeToBeRemoved = unchecked
         .reduce((acc, uncheckedCode) => {
@@ -118,17 +117,27 @@ const removeFromUnchecked = (
             if (uncheckedCode === parentKey) {
                 // (b) an ancestor of the code we're currently checking is in the unchecked array
                 // AND the checked array has the other ancestors too.
-                const countOfCheckedNode = count === 0 ? 1 : count;
-                const countOfCheckedAncestors = getCountOfAllCheckedDescendants(nodes, parentKey, checked, traverseTreeByCodeFn);
-                if ((countOfCheckedAncestors + countOfCheckedNode) === parentNode.count) {
+                const sumOfCheckedDescendants = getCountOfAllCheckedDescendants(
+                    nodes,
+                    parentKey,
+                    checked,
+                    traverseTreeByCodeFn
+                );
+                if (sumOfCheckedDescendants === parentNode.count) {
                     return parentKey;
                 }
             }
+
             if (uncheckedCode === ancestorKey) {
                 // (b) applies here too
-                const countOfCheckedNode = count === 0 ? 1 : count;
-                const countOfCheckedAncestors = getCountOfAllCheckedDescendants(nodes, ancestorKey, checked, traverseTreeByCodeFn);
-                if ((countOfCheckedAncestors + countOfCheckedNode) === ancestorNode.count) {
+                const sumOfCheckedDescendants = getCountOfAllCheckedDescendants(
+                    nodes,
+                    ancestorKey,
+                    checked,
+                    traverseTreeByCodeFn
+                );
+
+                if (sumOfCheckedDescendants === ancestorNode.count) {
                     return ancestorKey;
                 }
             }
@@ -285,8 +294,16 @@ export const incrementCountAndUpdateUnchecked = (
             }
             return newState;
         }, [...currentCount]);
-
-    return [newCounts, codesToBeRemovedFromUnchecked];
+    return [
+        newCounts,
+        unchecked
+            .filter((uncheckedNode) => {
+                if (codesToBeRemovedFromUnchecked.includes(uncheckedNode)) {
+                    return false;
+                }
+                return true;
+            })
+    ];
 };
 
 export const cleanTreeData = (nodes, keyMap) => nodes.map((node) => ({
