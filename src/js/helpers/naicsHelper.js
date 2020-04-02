@@ -7,7 +7,8 @@ import { apiRequest } from './apiRequest';
 import {
     cleanTreeData,
     incrementCountAndUpdateUnchecked,
-    decrementCountAndUpdateUnchecked
+    decrementCountAndUpdateUnchecked,
+    removeStagedFilter
 } from './checkboxTreeHelper';
 
 // perform search is a cancellable promise
@@ -24,16 +25,24 @@ const naicsKeyMap = { label: 'naics_description', value: 'naics', isParent: shou
 
 export const cleanNaicsData = (nodes) => cleanTreeData(nodes, naicsKeyMap);
 
-export const getHighestAncestorNaicsCode = (naicsCode) => `${naicsCode[0]}${naicsCode[1]}`;
-
-export const getImmediateAncestorNaicsCode = (naicsCode) => {
+const getHighestAncestorFromString = (naicsCode) => `${naicsCode[0]}${naicsCode[1]}`;
+const getImmediateAncestorFromString = (naicsCode) => {
     if (naicsCode.length === 2) return naicsCode;
-    else if (naicsCode.length === 4) return getHighestAncestorNaicsCode(naicsCode);
+    else if (naicsCode.length === 4) return getHighestAncestorFromString(naicsCode);
     return `${naicsCode[0]}${naicsCode[1]}${naicsCode[2]}${naicsCode[3]}`;
 };
 
+export const getHighestAncestorNaicsCode = (naicsCode) => {
+    if (typeof naicsCode === 'string') return getHighestAncestorFromString(naicsCode);
+    return getHighestAncestorFromString(naicsCode.value);
+};
+
+export const getImmediateAncestorNaicsCode = (naicsCode) => {
+    if (typeof naicsCode === 'string') return getImmediateAncestorFromString(naicsCode);
+    return getImmediateAncestorFromString(naicsCode.value);
+};
+
 export const getNaicsNodeFromTree = (tree, nodeKey, treePropForKey = 'value') => {
-    debugger;
     const parentKey = getHighestAncestorNaicsCode(nodeKey);
     const ancestorKey = getImmediateAncestorNaicsCode(nodeKey);
     if (nodeKey.length === 2) {
@@ -68,7 +77,9 @@ export const decrementNaicsCountAndUpdateUnchecked = (
     checked,
     counts,
     nodes,
-    getNaicsNodeFromTree
+    getNaicsNodeFromTree,
+    getImmediateAncestorNaicsCode,
+    getHighestAncestorNaicsCode
 );
 
 export const incrementNaicsCountAndUpdateUnchecked = (
@@ -86,4 +97,17 @@ export const incrementNaicsCountAndUpdateUnchecked = (
     getNaicsNodeFromTree,
     getImmediateAncestorNaicsCode,
     getHighestAncestorNaicsCode
+);
+
+export const removeStagedNaicsFilter = (
+    nodes,
+    checkedNodes,
+    removedNode,
+) => removeStagedFilter(
+    nodes,
+    checkedNodes,
+    removedNode,
+    getNaicsNodeFromTree,
+    getHighestAncestorNaicsCode,
+    getImmediateAncestorNaicsCode
 );
