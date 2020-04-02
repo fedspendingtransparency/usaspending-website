@@ -348,7 +348,7 @@ export class NAICSContainer extends React.Component {
     };
 
     removeStagedNaics = (node) => {
-        const newChecked = removeStagedNaicsFilter(this.props.nodes, this.props.checked, node);
+        const newChecked = removeStagedNaicsFilter(this.props.nodes, this.props.checked, node.value);
         this.onUncheck(newChecked, { ...node, checked: false });
     }
 
