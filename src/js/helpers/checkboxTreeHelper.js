@@ -53,6 +53,22 @@ export const removePlaceholderString = (str) => {
     return str;
 };
 
+export const removeStagedFilter = (
+    nodes,
+    stagedNodes,
+    removedNode,
+    traverseTreeByCodeFn,
+    getHighestAncestorFn,
+    getImmediateAncestorFn
+) => stagedNodes
+    .map((stagedCode) => removePlaceholderString(stagedCode))
+    .filter((checked) => {
+        const checkedNode = traverseTreeByCodeFn(nodes, checked);
+        if (getHighestAncestorFn(checkedNode) === removedNode) return false;
+        if (getImmediateAncestorFn(checkedNode) === removedNode) return false;
+        return true;
+    });
+
 export const getCountOfAllCheckedDescendants = (nodes, ancestorKey, checkedNodes, traverseTreeByCodeFn) => checkedNodes
     .map((checked) => removePlaceholderString(checked))
     .filter((checkedNode) => checkedNode.includes(ancestorKey))
@@ -410,7 +426,7 @@ export const addSearchResultsToTree = (tree, searchResults, traverseTreeByCodeFn
 
 export const showAllTreeItems = (tree, key = '', newNodes = [], getHighestAncestorCode) => tree
     .map((node) => {
-        const parentKey = getHighestAncestorCode(node);
+        const parentKey = getHighestAncestorCode(key);
         const [data] = newNodes;
         const shouldAddNewChildToParent = (
             key &&

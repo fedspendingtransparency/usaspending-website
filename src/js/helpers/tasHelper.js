@@ -1,7 +1,8 @@
 import {
     decrementCountAndUpdateUnchecked,
     incrementCountAndUpdateUnchecked,
-    cleanTreeData
+    cleanTreeData,
+    removeStagedFilter
 } from "./checkboxTreeHelper";
 
 export const isAgency = (tasNode) => tasNode.ancestors.length === 0;
@@ -57,6 +58,22 @@ export const getTasNodeFromTree = (tree, id) => {
     return selectedNode;
 };
 
+const getImmediateTasAncestorCode = (node) => node.ancestors[node.ancestors.length - 1];
+const getHighestTasAncestorCode = (node) => node.ancestors[0];
+
+export const removeStagedTasFilter = (
+    nodes,
+    checkedNodes,
+    removedNode,
+) => removeStagedFilter(
+    nodes,
+    checkedNodes,
+    removedNode,
+    getTasNodeFromTree,
+    getHighestTasAncestorCode,
+    getImmediateTasAncestorCode
+);
+
 export const decrementTasCountAndUpdateUnchecked = (
     uncheckedNode,
     unchecked,
@@ -70,9 +87,6 @@ export const decrementTasCountAndUpdateUnchecked = (
     nodes,
     getTasNodeFromTree
 );
-
-const getImmediateTasAncestorCode = (node) => node.ancestors[node.ancestors.length - 1];
-const getHighestTasAncestorCode = (node) => node.ancestors[0];
 
 export const incrementTasCountAndUpdateUnchecked = (
     newChecked,
