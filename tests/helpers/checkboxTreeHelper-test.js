@@ -253,7 +253,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 getHighestAncestorNaicsCode
             );
 
-            expect(counts[0].count).toEqual(9);
+            expect(counts[0].count).toEqual(8);
         });
     });
 });
