@@ -16,7 +16,6 @@ import {
     decrementNaicsCountAndUpdateUnchecked,
     getImmediateAncestorNaicsCode,
     getNaicsNodeFromTree,
-    naicsRequest,
     removeStagedNaicsFilter
 } from 'helpers/naicsHelper';
 
@@ -24,6 +23,8 @@ import {
     removePlaceholderString,
     expandAllNodes
 } from 'helpers/checkboxTreeHelper';
+
+import { naicsRequest } from 'helpers/searchHelper';
 
 import {
     setNaics,
@@ -187,6 +188,7 @@ export class NAICSContainer extends React.Component {
                                 this.props.nodes,
                                 this.state.stagedNaicsFilters
                             );
+                            this.setState({ stagedNaicsFilters: newCounts });
                             this.props.setUnchecked(newUnchecked);
                             this.props.setChecked(newChecked);
                             this.props.restoreHashedFilters({

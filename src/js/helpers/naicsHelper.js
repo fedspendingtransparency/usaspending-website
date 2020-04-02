@@ -3,19 +3,12 @@
   * Created by Jonathan Hill 10/03/2019
   **/
 
-import { apiRequest } from './apiRequest';
 import {
     cleanTreeData,
     incrementCountAndUpdateUnchecked,
     decrementCountAndUpdateUnchecked,
     removeStagedFilter
 } from './checkboxTreeHelper';
-
-// perform search is a cancellable promise
-// eslint-disable-next-line import/prefer-default-export
-export const naicsRequest = (param) => apiRequest({
-    url: `v2/references/naics/${param || ''}`
-});
 
 export const formatSelectedNaics = (value, description, count) => `${value} | ${description} | ${count}`;
 

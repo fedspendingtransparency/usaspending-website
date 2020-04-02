@@ -181,18 +181,36 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
         expect(result).toEqual(19);
     });
     describe('decrementCountAndUpdateUnchecked', () => {
-        const [newCount, newUnchecked] = decrementCountAndUpdateUnchecked(
-            { value: '1111' },
-            [],
-            ['11'],
-            [{ value: '11', count: 64 }],
-            mockData.reallyBigTree,
-            getNaicsNodeFromTree,
-            getImmediateAncestorNaicsCode,
-            getHighestAncestorNaicsCode
-        );
-        expect(newCount[0].count).toEqual(56);
-        expect(newUnchecked.length).toEqual(1);
+        it('decrements the count and updates the unchecked array as appropriate', () => {
+            const [newCount, newUnchecked] = decrementCountAndUpdateUnchecked(
+                { value: '1111' },
+                [],
+                ['11'],
+                [{ value: '11', count: 64 }],
+                mockData.reallyBigTree,
+                getNaicsNodeFromTree,
+                getImmediateAncestorNaicsCode,
+                getHighestAncestorNaicsCode
+            );
+            expect(newCount[0].count).toEqual(56);
+            expect(newUnchecked.length).toEqual(1);
+        });
+        it('when a placeholder is checked and a checked node under that placeholder is unchecked, decrement the count and update the unchecked array', async () => {
+            const [counts, newUnchecked] = decrementCountAndUpdateUnchecked(
+                { checked: false, value: "111110" },
+                [],
+                ["children_of_1111"],
+                [{ value: '11', count: 8 }],
+                mockData.treeWithPlaceholdersAndRealData,
+                getNaicsNodeFromTree,
+                getImmediateAncestorNaicsCode,
+                getHighestAncestorNaicsCode
+            );
+
+            // now that state is set, remove one of the checked nodes
+            expect(counts[0].count).toEqual(7);
+            expect(newUnchecked[0]).toEqual("111110");
+        });
     });
     describe('incrementCountAndUpdateUnchecked', () => {
         const [newCount, codesToBeRemovedFromUnchecked] = incrementCountAndUpdateUnchecked(
@@ -206,7 +224,36 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             getHighestAncestorNaicsCode
         );
 
-        expect(newCount[0].count).toEqual(64);
-        expect(codesToBeRemovedFromUnchecked.length).toEqual(1);
+        it('increments the count and updates the unchecked array when appropriate', () => {
+            expect(newCount[0].count).toEqual(64);
+            expect(codesToBeRemovedFromUnchecked.length).toEqual(1);
+        });
+        it('when both parent and child placeholders are checked, only count the value of the parent', () => {
+            const [counts] = incrementCountAndUpdateUnchecked(
+                ["children_of_11", "children_of_1111"],
+                [''],
+                [],
+                mockData.treeWithPlaceholdersAndRealData,
+                [],
+                getNaicsNodeFromTree,
+                getImmediateAncestorNaicsCode,
+                getHighestAncestorNaicsCode
+            );
+            expect(counts[0].count).toEqual(64);
+        });
+        it('checked place holders increment with an offset count when a descendent is also checked', async () => {
+            const [counts] = incrementCountAndUpdateUnchecked(
+                ["111110", "111120", 'children_of_1111'],
+                ["111110", "111120"],
+                [],
+                mockData.treeWithPlaceholdersAndRealData,
+                [{ value: '11', count: 2 }],
+                getNaicsNodeFromTree,
+                getImmediateAncestorNaicsCode,
+                getHighestAncestorNaicsCode
+            );
+
+            expect(counts[0].count).toEqual(9);
+        });
     });
 });

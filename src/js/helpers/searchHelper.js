@@ -42,6 +42,12 @@ export const fetchNAICS = (req) => apiRequest({
     data: req
 });
 
+// perform search is a cancellable promise
+// eslint-disable-next-line import/prefer-default-export
+export const naicsRequest = (param) => apiRequest({
+    url: `v2/references/naics/${param || ''}`
+});
+
 // PSC search for autocomplete
 export const fetchPSC = (req) => apiRequest({
     url: 'v2/autocomplete/psc/',
