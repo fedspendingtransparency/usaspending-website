@@ -45,5 +45,28 @@
     .explorer-cell-box:hover {
         background-color: #f49c20;
     }
+    .usa-dt-picker {
+      .usa-dt-picker__dropdown-container {
+        border-bottom: 1px solid $color-primary-alt-darkest;
+        .usa-dt-picker__button {
+          margin-right: 0;
+          margin-left: 0.5rem;
+          padding-bottom: 0;
+          .usa-dt-picker__button-text {
+            font-size: 1.6rem;
+            font-weight: 600;
+          }
+        }
+        .usa-dt-picker__list {
+          .usa-dt-picker__item {
+            font-size: 1.6rem;
+            font-weight: 600;
+          }
+        }
+      }
+    }
+    .cfda-section-single-title {
+      margin-top: 0;
+    }
   }
 }

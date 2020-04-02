@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Picker } from 'data-transparency-ui';
+import { cloneDeep } from 'lodash';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import SingleCFDA from 'components/award/financialAssistance/SingleCFDA';
 import CFDATree from './CFDATree';
@@ -29,7 +31,8 @@ const propTypes = {
     changeView: PropTypes.func,
     onTableClick: PropTypes.func,
     onBackClick: PropTypes.func,
-    onTreeClick: PropTypes.func
+    onTreeClick: PropTypes.func,
+    onDropdownClick: PropTypes.func
 };
 
 export default class CFDAViz extends React.Component {
@@ -97,7 +100,34 @@ export default class CFDAViz extends React.Component {
     content = () => {
         const { view } = this.props;
         if (view === 'table') return (<CFDATable {...this.props} />);
-        if (view === 'single' || !view) return (<SingleCFDA data={this.props.cfda} />);
+        if (view === 'single' || !view) return (<SingleCFDA currentCfda={this.props.cfda} />);
+        return null;
+    }
+
+    title = () => {
+        const {
+            cfda,
+            view,
+            allCFDAs,
+            onDropdownClick
+        } = this.props;
+        if (view === 'single' || !view) {
+            if (allCFDAs.length > 1) {
+                const options = cloneDeep(allCFDAs)
+                // .filter((x) => x.cfdaNumber !== cfda.cfdaNumber)
+                    .map((x) => ({
+                        name: `${x.cfdaNumber} ${x.cfdaTitle}`,
+                        onClick: onDropdownClick
+                    }));
+                return (<Picker
+                    options={options}
+                    dropdownDirection="right"
+                    backgroundColor="#215493"
+                    selectedOption={`${cfda.cfdaNumber} ${cfda.cfdaTitle}`}
+                    sortFn={() => 1} />);
+            }
+            return (<h4 className="cfda-section-single-title">{`${cfda.cfdaNumber}: ${cfda.cfdaTitle.toUpperCase()}`}</h4>);
+        }
         return null;
     }
 
@@ -146,6 +176,7 @@ export default class CFDAViz extends React.Component {
                 {this.state.showTooltip && <CFDATreeTooltip {...this.state.tooltip} />}
                 <div className="cfda-section-results">
                     {this.buttons()}
+                    {this.title()}
                     {this.content()}
                     <div
                         className="cfda-section-vis__width-reference"
