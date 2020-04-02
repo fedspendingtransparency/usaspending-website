@@ -4,7 +4,10 @@ import {
     showAllTreeItems,
     cleanTreeData,
     removePlaceholderString,
-    removeStagedFilter
+    removeStagedFilter,
+    getCountOfAllCheckedDescendants,
+    decrementCountAndUpdateUnchecked,
+    incrementCountAndUpdateUnchecked
 } from 'helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
@@ -14,7 +17,6 @@ import {
 } from 'helpers/naicsHelper';
 
 import * as mockData from '../containers/search/filters/naics/mockNaics_v2';
-import { getCountOfAllCheckedDescendants } from '../../src/js/helpers/checkboxTreeHelper';
 
 // overwriting this because it makes life easier
 const mockSearchResults = [{
@@ -179,9 +181,32 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
         expect(result).toEqual(19);
     });
     describe('decrementCountAndUpdateUnchecked', () => {
-        
+        const [newCount, newUnchecked] = decrementCountAndUpdateUnchecked(
+            { value: '1111' },
+            [],
+            ['11'],
+            [{ value: '11', count: 64 }],
+            mockData.reallyBigTree,
+            getNaicsNodeFromTree,
+            getImmediateAncestorNaicsCode,
+            getHighestAncestorNaicsCode
+        );
+        expect(newCount[0].count).toEqual(56);
+        expect(newUnchecked.length).toEqual(1);
     });
     describe('incrementCountAndUpdateUnchecked', () => {
-        
+        const [newCount, codesToBeRemovedFromUnchecked] = incrementCountAndUpdateUnchecked(
+            ['11', '1111'],
+            ['11'],
+            ['1111'],
+            mockData.reallyBigTree,
+            [{ value: '11', count: 56 }],
+            getNaicsNodeFromTree,
+            getImmediateAncestorNaicsCode,
+            getHighestAncestorNaicsCode
+        );
+
+        expect(newCount[0].count).toEqual(64);
+        expect(codesToBeRemovedFromUnchecked.length).toEqual(1);
     });
 });
