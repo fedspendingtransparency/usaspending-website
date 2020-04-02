@@ -2,10 +2,13 @@ import {
     addSearchResultsToTree,
     expandAllNodes,
     showAllTreeItems,
-    cleanTreeData
+    cleanTreeData,
+    removePlaceholderString,
+    removeStagedFilter
 } from 'helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
+    getImmediateAncestorNaicsCode,
     getNaicsNodeFromTree,
     naicsKeyMap
 } from 'helpers/naicsHelper';
@@ -148,5 +151,30 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(cleanData.children[0].children[0].value).toEqual(cleanData.children[0].children[0].naics);
             expect(cleanData.children[0].children[0].label).toEqual(cleanData.children[0].children[0].naics_description);
         });
+    });
+    describe('removePlaceholderString', () => {
+        const result = removePlaceholderString('children_of_123');
+        expect(result).toEqual('123');
+    });
+    describe('removeStagedFilter', () => {
+        const result = removeStagedFilter(
+            mockData.reallyBigTree,
+            ['1111', '21', '1112', '1113'],
+            '11',
+            getNaicsNodeFromTree,
+            getHighestAncestorNaicsCode,
+            getImmediateAncestorNaicsCode
+        );
+        expect(result.length).toEqual(1);
+        expect(result.some((checked) => checked.includes('11'))).toEqual(false);
+    });
+    describe('getCountOfAllCheckedDescendants', () => {
+        
+    });
+    describe('decrementCountAndUpdateUnchecked', () => {
+        
+    });
+    describe('incrementCountAndUpdateUnchecked', () => {
+        
     });
 });

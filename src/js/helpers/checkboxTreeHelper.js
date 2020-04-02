@@ -55,13 +55,13 @@ export const removePlaceholderString = (str) => {
 
 export const removeStagedFilter = (
     nodes,
-    stagedNodes,
+    checkedNodes,
     removedNode,
     traverseTreeByCodeFn,
     getHighestAncestorFn,
     getImmediateAncestorFn
-) => stagedNodes
-    .map((stagedCode) => removePlaceholderString(stagedCode))
+) => checkedNodes
+    .map((checkedCode) => removePlaceholderString(checkedCode))
     .filter((checked) => {
         const checkedNode = traverseTreeByCodeFn(nodes, checked);
         if (getHighestAncestorFn(checkedNode) === removedNode) return false;
