@@ -21,7 +21,7 @@ export const formatSelectedNaics = (value, description, count) => `${value} | ${
 
 const shouldNaicsNodeHaveChildren = (node) => node.naics.length < 6;
 // key map for traversing the naics-tree
-const naicsKeyMap = { label: 'naics_description', value: 'naics', isParent: shouldNaicsNodeHaveChildren };
+export const naicsKeyMap = { label: 'naics_description', value: 'naics', isParent: shouldNaicsNodeHaveChildren };
 
 export const cleanNaicsData = (nodes) => cleanTreeData(nodes, naicsKeyMap);
 
