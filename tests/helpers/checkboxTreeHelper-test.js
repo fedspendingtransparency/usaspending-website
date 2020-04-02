@@ -213,20 +213,19 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
         });
     });
     describe('incrementCountAndUpdateUnchecked', () => {
-        const [newCount, codesToBeRemovedFromUnchecked] = incrementCountAndUpdateUnchecked(
-            ['11', '1111'],
-            ['11'],
-            ['1111'],
-            mockData.reallyBigTree,
-            [{ value: '11', count: 56 }],
-            getNaicsNodeFromTree,
-            getImmediateAncestorNaicsCode,
-            getHighestAncestorNaicsCode
-        );
-
         it('increments the count and updates the unchecked array when appropriate', () => {
+            const [newCount, newUnchecked] = incrementCountAndUpdateUnchecked(
+                ['11', '1111'],
+                ['11'],
+                ['1111'],
+                mockData.reallyBigTree,
+                [{ value: '11', count: 56 }],
+                getNaicsNodeFromTree,
+                getImmediateAncestorNaicsCode,
+                getHighestAncestorNaicsCode
+            );
             expect(newCount[0].count).toEqual(64);
-            expect(codesToBeRemovedFromUnchecked.length).toEqual(1);
+            expect(newUnchecked.length).toEqual(0);
         });
         it('when both parent and child placeholders are checked, only count the value of the parent', () => {
             const [counts] = incrementCountAndUpdateUnchecked(
@@ -254,6 +253,49 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             );
 
             expect(counts[0].count).toEqual(8);
+        });
+        it('removes items from unchecked array when all immediate children are checked', async () => {
+            // ie, 1111 is unchecked, then all grand children underneath are checked.
+            const allGrandchildrenOf1111 = mockData.reallyBigTree[0]
+                .children[0]
+                .children
+                .map((grand) => grand.value);
+    
+            const [newCounts, newUnchecked] = incrementCountAndUpdateUnchecked(
+                allGrandchildrenOf1111,
+                allGrandchildrenOf1111.filter((grand) => grand !== '111110'),
+                ['1111'],
+                mockData.reallyBigTree,
+                [{ value: '11', count: 7 }],
+                getNaicsNodeFromTree,
+                getImmediateAncestorNaicsCode,
+                getHighestAncestorNaicsCode
+            );
+    
+            expect(newCounts[0].count).toEqual(8);
+            expect(newUnchecked.length).toEqual(0);
+        });
+        it('does NOT remove from unchecked array when less than all immediate children are checked', () => {
+            // ie, 1111 is unchecked, then all but one grandchild underneath is checked.
+            const allGrandchildrenOf1111 = mockData.reallyBigTree[0]
+                .children[0]
+                .children
+                .map((grand) => grand.value);
+
+            const [newCounts, newUnchecked] = incrementCountAndUpdateUnchecked(
+                allGrandchildrenOf1111
+                    .filter((grand) => grand !== '111110'),
+                ['111130', '111140'],
+                ['1111'],
+                mockData.reallyBigTree,
+                [{ value: '11', count: 2 }],
+                getNaicsNodeFromTree,
+                getImmediateAncestorNaicsCode,
+                getHighestAncestorNaicsCode
+            );
+
+            expect(newCounts[0].count).toEqual(7);
+            expect(newUnchecked[0]).toEqual('1111z');
         });
     });
 });

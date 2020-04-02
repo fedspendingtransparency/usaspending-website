@@ -176,36 +176,4 @@ describe('NAICS Search Filter Container', () => {
             expect(setUnchecked).toHaveBeenCalledWith([uncheckedNode.value]);
         });
     });
-    // describe('removeFromUnchecked', () => {
-    //     it('removes items from unchecked array when all immediate children are checked', async () => {
-    //         // ie, 1111 is unchecked, then all grand children underneath are checked.
-    //         const allGrandchildren = reallyBigTree[0].children[0].children
-    //             .map((grand) => grand.value);
-    //         const lastGrandChild = allGrandchildren[allGrandchildren.length - 1];
-    //         const container = shallow(<NAICSContainer
-    //             {...defaultProps}
-    //             checked={allGrandchildren.splice(0, allGrandchildren.length - 1)}
-    //             unchecked={["1111"]}
-    //             nodes={reallyBigTree} />);
-
-    //         const result = container.instance().removeFromUnchecked(lastGrandChild);
-
-    //         expect(result).toEqual("1111");
-    //     });
-    //     it('does NOT remove from unchecked array when less than all immediate children are checked', () => {
-    //         // ie, 1111 is unchecked, then all but one grandchild underneath is checked.
-    //         const allGrandchildren = reallyBigTree[0].children[0].children
-    //             .map((grand) => grand.value);
-    //         const lastGrandChild = allGrandchildren[allGrandchildren.length - 1];
-    //         const container = shallow(<NAICSContainer
-    //             {...defaultProps}
-    //             checked={allGrandchildren.splice(0, allGrandchildren.length - 2)}
-    //             unchecked={["1111"]}
-    //             nodes={reallyBigTree} />);
-
-    //         const result = container.instance().removeFromUnchecked(lastGrandChild);
-
-    //         expect(result).toEqual(null);
-    //     });
-    // });
 });
