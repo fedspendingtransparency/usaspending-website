@@ -14,6 +14,7 @@ import {
 } from 'helpers/naicsHelper';
 
 import * as mockData from '../containers/search/filters/naics/mockNaics_v2';
+import { getCountOfAllCheckedDescendants } from '../../src/js/helpers/checkboxTreeHelper';
 
 // overwriting this because it makes life easier
 const mockSearchResults = [{
@@ -169,7 +170,13 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
         expect(result.some((checked) => checked.includes('11'))).toEqual(false);
     });
     describe('getCountOfAllCheckedDescendants', () => {
-        
+        const result = getCountOfAllCheckedDescendants(
+            mockData.reallyBigTree,
+            '11',
+            ['1111', '1112', '1113'],
+            getNaicsNodeFromTree
+        );
+        expect(result).toEqual(19);
     });
     describe('decrementCountAndUpdateUnchecked', () => {
         

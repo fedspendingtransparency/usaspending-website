@@ -69,7 +69,12 @@ export const removeStagedFilter = (
         return true;
     });
 
-export const getCountOfAllCheckedDescendants = (nodes, ancestorKey, checkedNodes, traverseTreeByCodeFn) => checkedNodes
+export const getCountOfAllCheckedDescendants = (
+    nodes,
+    ancestorKey,
+    checkedNodes,
+    traverseTreeByCodeFn
+) => checkedNodes
     .map((checked) => removePlaceholderString(checked))
     .filter((checkedNode) => checkedNode.includes(ancestorKey))
     .reduce((ancestorCount, checkedAncestor) => {
