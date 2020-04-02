@@ -200,7 +200,6 @@ export default class TASCheckboxTree extends React.Component {
                     onCollapse={this.onCollapse} />
                 {counts.length > 0 && (
                     <div
-                        id="award-search-selected-locations"
                         className="selected-filters"
                         role="status">
                         {counts.map((node) => {

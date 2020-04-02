@@ -181,8 +181,6 @@ export const decrementCountAndUpdateUnchecked = (
         checked.includes(`children_of_${ancestorKey}`)
     );
 
-    console.log("yooooo", shouldUpdateUnchecked);
-
     const newUnchecked = shouldUpdateUnchecked
         ? [...unchecked, value]
         : unchecked;
