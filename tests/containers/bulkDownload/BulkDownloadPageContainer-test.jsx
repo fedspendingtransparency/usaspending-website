@@ -65,7 +65,7 @@ describe('BulkDownloadPageContainer', () => {
 
             expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'awards');
         });
-        it('should not include the recipient location state filter for foreign locations', () => {
+        it('should include the recipient scope filter for foreign locations', () => {
             const awards = Object.assign({}, mockRedux.bulkDownload.awards, {
                 location: {
                     country: {
@@ -96,11 +96,7 @@ describe('BulkDownloadPageContainer', () => {
                     agency: '123',
                     prime_award_types: ["02", "03", "04", "05", "07", "08"],
                     sub_award_types: ['procurement'],
-                    recipient_locations: [
-                        {
-                            country: 'FOREIGN'
-                        }
-                    ],
+                    recipient_scope: 'foreign',
                     date_range: {
                         end_date: '11-01-2017',
                         start_date: '11-01-2016'
@@ -260,7 +256,55 @@ describe('BulkDownloadPageContainer', () => {
 
             expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'awards');
         });
+        it('should include the place of performance scope filter for foreign locations', () => {
+            const awards = Object.assign({}, mockRedux.bulkDownload.awards, {
+                location: {
+                    country: {
+                        code: 'FOREIGN',
+                        name: 'All Foreign Countries'
+                    },
+                    state: {
+                        code: '',
+                        name: ''
+                    }
+                },
+                locationType: 'place_of_performance'
+            });
+            const bulkDownload = Object.assign({}, mockRedux.bulkDownload, {
+                awards
+            });
+            const updatedRedux = Object.assign({}, mockRedux, {
+                bulkDownload
+            });
 
+            const container = shallow(<BulkDownloadPageContainer
+                {...updatedRedux}
+                {...mockActions} />);
+
+            const expectedParams = {
+                columns: [],
+                file_format: 'csv',
+                filters: {
+                    agency: '123',
+                    prime_award_types: ["02", "03", "04", "05", "07", "08"],
+                    sub_award_types: ['procurement'],
+                    place_of_performance_scope: 'foreign',
+                    date_range: {
+                        end_date: '11-01-2017',
+                        start_date: '11-01-2016'
+                    },
+                    date_type: 'action_date',
+                    sub_agency: 'Mock Sub-Agency'
+                }
+            };
+
+            const requestDownload = jest.fn();
+            container.instance().requestDownload = requestDownload;
+
+            container.instance().startAwardDownload();
+
+            expect(requestDownload).toHaveBeenCalledWith(expectedParams, 'awards');
+        });
 
     });
     describe('startAccountDownload', () => {

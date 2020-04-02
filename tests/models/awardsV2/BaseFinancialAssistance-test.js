@@ -8,7 +8,7 @@ import CoreLocation from "models/v2/CoreLocation";
 import BaseAwardRecipient from "models/v2/awardsV2/BaseAwardRecipient";
 import CoreAwardAgency from "models/v2/awardsV2/CoreAwardAgency";
 import CorePeriodOfPerformance from 'models/v2/awardsV2/CorePeriodOfPerformance';
-
+import BaseCFDA from 'models/v2/awardsV2/BaseCFDA';
 import { mockLoan } from './mockAwardApi';
 
 const loan = Object.create(BaseFinancialAssistance);
@@ -45,7 +45,11 @@ describe('Base Financial Assistance', () => {
             expect(Object.getPrototypeOf(loan.recipient)).toEqual(BaseAwardRecipient);
         });
     });
-
+    describe('CFDAs', () => {
+        it('should be an object of prototype BaseCFDA', () => {
+            expect(Array.isArray(loan.cfdas)).toEqual(true);
+        });
+    });
     describe('biggestCfda', () => {
         it('should return the largest CFDA', () => {
             const award = Object.create(BaseFinancialAssistance);
@@ -56,6 +60,13 @@ describe('Base Financial Assistance', () => {
             const award = Object.create(BaseFinancialAssistance);
             award.populate({ ...mockLoan, cfda_info: [{}] });
             expect(award.biggestCfda).toEqual(emptyCfda);
+        });
+    });
+    describe('cfdaList', () => {
+        it('should return the list of CFDAs', () => {
+            const award = Object.create(BaseFinancialAssistance);
+            award.populate(mockLoan);
+            expect(award.cfdaList.length === 3);
         });
     });
 });

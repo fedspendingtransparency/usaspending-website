@@ -31,7 +31,7 @@ const additionalDetails = (awardData) => {
             'Funding Office': awardData.fundingAgency.officeName
         },
         parentAwardDetails: {
-            'Parent Award ID': {
+            'Parent Award ID (Parent PIID)': {
                 type: 'link',
                 data: {
                     path: parentAwardDetails.awardId ? `/#/award/${parentAwardDetails.awardId}` : null,

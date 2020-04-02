@@ -32,6 +32,21 @@
                 }
 
             }
+            .full-menu__item--button {
+                background: white;
+                color: #0071BC;
+                border: 1px solid #0071BC;
+                font-size: rem(14);
+                font-weight: bold;
+                line-height: rem(18);
+                @include display(flex);
+                @include align-items(center);
+                padding: rem(5.5) rem(12.5);
+                svg {
+                    font-size: rem(25);
+                    margin-right: rem(12.5);
+                }
+            }
 
             .full-menu__dropdown {
                 @include flex(1 1 auto);

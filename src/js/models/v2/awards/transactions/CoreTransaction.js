@@ -19,6 +19,7 @@ const CoreTransaction = {
         this._actionTypeDescription = data.actionTypeDescription || '';
         this.modificationNumber = data.modificationNumber || '';
         this.description = data.description || '';
+        this.cfdaNumber = data.cfda_number || '';
     },
     get actionDate() {
         if (this._actionDate) {

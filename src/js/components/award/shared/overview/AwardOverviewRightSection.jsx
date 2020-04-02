@@ -15,7 +15,8 @@ const propTypes = {
     setRelatedAwardsTab: PropTypes.func,
     jumpToSection: PropTypes.func,
     counts: PropTypes.object,
-    overview: PropTypes.object
+    overview: PropTypes.object,
+    updateCFDAOverviewLinkClicked: PropTypes.func
 };
 
 const AwardOverviewRightSection = ({
@@ -23,10 +24,15 @@ const AwardOverviewRightSection = ({
     setRelatedAwardsTab,
     jumpToSection,
     counts,
-    overview
+    overview,
+    updateCFDAOverviewLinkClicked
 }) => {
     const firstSection = (overview.category !== 'idv' && overview.category !== 'contract') ?
-        (<CFDAOverview cfdaPropgram={overview.cfdaProgram} />) :
+        (<CFDAOverview
+            cfdaPropgram={overview.cfdaProgram}
+            cfdaCount={overview.cfdaList.length}
+            jumpToSection={jumpToSection}
+            updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />) :
         (<RelatedAwards
             jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
             setRelatedAwardsTab={setRelatedAwardsTab}

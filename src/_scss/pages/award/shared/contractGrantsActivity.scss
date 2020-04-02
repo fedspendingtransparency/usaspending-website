@@ -75,5 +75,34 @@
           }
         }
     }
+    .vertical-line {
+      &.start {
+        stroke: $color-green-lighter;
+      }
+      &.contract-end {
+        stroke: $color-gold-light;
+      }
+      &.grant-end {
+        stroke: $color-secondary-dark;
+      }
+      &.potential-end {
+        stroke: $color-secondary-dark;
+      }
+    }
+    .vertical-line__text {
+      font-weight: $font-semibold;
+      &.start {
+        fill: $color-green-lighter;
+      }
+      &.contract-end {
+        fill: $color-gold-light;
+      }
+      &.grant-end {
+        fill: $color-secondary-dark;
+      }
+      &.potential-end {
+        fill: $color-secondary-dark;
+      }
+    }
   }
 }

@@ -629,6 +629,19 @@ export class TopFilterBarContainer extends React.Component {
             return filter;
         }
 
+        else if (props.naicsCodes.require.length > 0) {
+            return {
+                code: 'selectedNAICS',
+                isV2: true,
+                name: 'NAICS',
+                values: props.naicsCodes.counts.map((naics) => ({
+                    ...naics,
+                    identifier: naics.value,
+                    naics_description: `${naics.naics_description} (${naics.count})`
+                }))
+            };
+        }
+
         return null;
     }
 

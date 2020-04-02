@@ -59,6 +59,8 @@ export const filterHasSelections = (reduxFilters, filter) => {
                 return true;
             }
             return false;
+        case 'North American Industry Classification System (NAICS)':
+            return (reduxFilters.naicsCodes.require.length > 0);
         case 'Product/Service Code (PSC)':
             if (reduxFilters.selectedPSC.toArray().length > 0) {
                 return true;
