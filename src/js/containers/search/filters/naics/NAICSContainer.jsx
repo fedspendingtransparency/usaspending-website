@@ -42,6 +42,12 @@ const propTypes = {
     searchExpanded: PropTypes.arrayOf(PropTypes.string)
 };
 
+/*
+    * TODO:
+    * 1. move checked, expanded, nodes, unchecked to local state.
+    * 2. move stagedNaicsFilters to redux.
+*/
+
 export class NAICSContainer extends React.Component {
     constructor(props) {
         super(props);
@@ -60,6 +66,13 @@ export class NAICSContainer extends React.Component {
     componentDidMount() {
         this.updateCountOfSelectedTopTierNaicsCodes(this.props.checked);
         return this.fetchNAICS();
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.checked.length === 0 && prevProps.checked.length !== 0 && this.state.stagedNaicsFilters.length !== 0) {
+            // eslint-disable-next-line react/no-did-update-set-state
+            this.setState({ stagedNaicsFilters: [] });
+        }
     }
 
     onSearchChange = debounce(() => {
