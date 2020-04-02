@@ -114,6 +114,7 @@ export default class CFDAViz extends React.Component {
         if (view === 'single' || !view) {
             if (allCFDAs.length > 1) {
                 const options = cloneDeep(allCFDAs)
+                    .sort((a, b) => parseFloat(a.cfdaNumber) - parseFloat(b.cfdaNumber))
                     .map((x) => ({
                         name: `${x.cfdaNumber} ${x.cfdaTitle}`,
                         onClick: onDropdownClick
