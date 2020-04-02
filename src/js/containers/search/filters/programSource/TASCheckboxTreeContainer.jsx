@@ -6,9 +6,8 @@ import {
     cleanTasData,
     incrementTasCountAndUpdateUnchecked,
     decrementTasCountAndUpdateUnchecked,
-    getTasNodeFromTree
+    removeStagedTasFilter
 } from 'helpers/tasHelper';
-import { removePlaceholderString } from 'helpers/checkboxTreeHelper';
 import { fetchTas } from 'helpers/searchHelper';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
@@ -105,13 +104,7 @@ export default class TASCheckboxTree extends React.Component {
     }
 
     removeSelectedFilter = (node) => {
-        const newChecked = this.state.checked
-            .map((checked) => removePlaceholderString(checked))
-            .filter((checked) => {
-                const checkedNode = getTasNodeFromTree(this.state.nodes, checked);
-                if (checkedNode.ancestors.includes(node.value)) return false;
-                return true;
-            });
+        const newChecked = removeStagedTasFilter(this.state.nodes, this.state.counts, node);
         this.onUncheck(newChecked, { ...node, checked: false });
     }
 
