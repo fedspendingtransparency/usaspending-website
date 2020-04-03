@@ -66,6 +66,7 @@ export const removeStagedFilter = (
         const checkedNode = traverseTreeByCodeFn(nodes, checked);
         if (getHighestAncestorFn(checkedNode) === removedNode) return false;
         if (getImmediateAncestorFn(checkedNode) === removedNode) return false;
+        if (checkedNode === removedNode) return false;
         return true;
     });
 
@@ -164,7 +165,7 @@ export const decrementCountAndUpdateUnchecked = (
     const nodeFromTree = traverseTreeByCodeFn(nodes, value);
     const parentKey = getHighestAncestorFn(nodeFromTree);
     const ancestorKey = getImmediateAncestorFn(nodeFromTree);
-    const count = nodeFromTree.count ? nodeFromTree.count : 1;
+    const count = nodeFromTree.count > 0 ? nodeFromTree.count : 1;
     const shouldRemoveNode = counts.some((nodeFromCounts) => (
         !uncheckedNode.checked &&
         (nodeFromCounts.value === value || nodeFromCounts.count <= count)

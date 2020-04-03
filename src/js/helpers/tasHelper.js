@@ -57,9 +57,15 @@ export const getTasNodeFromTree = (tree, id) => {
         });
     return selectedNode;
 };
+const getHighestTasAncestorCode = (node) => {
+    if (node.ancestors.length) return node.ancestors[0];
+    return node.value;
+};
 
-const getImmediateTasAncestorCode = (node) => node.ancestors[node.ancestors.length - 1];
-const getHighestTasAncestorCode = (node) => node.ancestors[0];
+const getImmediateTasAncestorCode = (node) => {
+    if (!node.ancestors.length || node.ancestors.length === 1) return getHighestTasAncestorCode(node);
+    return node.ancestors[node.ancestors.length - 1];
+};
 
 export const removeStagedTasFilter = (
     nodes,
