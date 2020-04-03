@@ -295,7 +295,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             );
 
             expect(newCounts[0].count).toEqual(7);
-            expect(newUnchecked[0]).toEqual('1111z');
+            expect(newUnchecked[0]).toEqual('1111');
         });
     });
 });
