@@ -5,7 +5,7 @@
 import moment from 'moment';
 import { cloneDeep } from 'lodash';
 import {
-    isBadData,
+    areTransactionDatesOrAwardAmountsInvalid,
     getXDomain,
     beforeDate,
     afterDate,
@@ -31,7 +31,7 @@ describe('Contract Grant Activity Helper', () => {
                 data.running_obligation_total = -(i + 1);
                 return data;
             });
-            expect(isBadData(goodDates, 'contract', negativeTransactions)).toBe(true);
+            expect(areTransactionDatesOrAwardAmountsInvalid(goodDates, 'contract', negativeTransactions)).toBe(true);
         });
         it('should return true if all transaction do not have a date', () => {
             const noDates = cloneDeep(mockTransactions).map((x) => {
@@ -39,40 +39,40 @@ describe('Contract Grant Activity Helper', () => {
                 data.action_date = moment(null);
                 return data;
             });
-            expect(isBadData(goodDates, 'grant', noDates)).toBe(true);
+            expect(areTransactionDatesOrAwardAmountsInvalid(goodDates, 'grant', noDates)).toBe(true);
         });
         describe('Grant', () => {
             // 3
             it('should return true when no transactions have dates', () => {
-                expect(isBadData(goodDates, 'grant', noTransactionDates)).toBe(true);
+                expect(areTransactionDatesOrAwardAmountsInvalid(goodDates, 'grant', noTransactionDates)).toBe(true);
             });
             // 3
             it('should return true when there is no start date and end date exists and only one transaction', () => {
                 const data = cloneDeep(badStartDate);
                 data._endDate = moment('05/25/2011', 'MM/DD/YYYY'); 
-                expect(isBadData(data, 'grant', oneTransaction)).toBe(true);
+                expect(areTransactionDatesOrAwardAmountsInvalid(data, 'grant', oneTransaction)).toBe(true);
             });
             // 4.b
             it('should return true when there is no start date and end date exists and only one transaction and transaction date is > than end date', () => {
                 const newTransaction = cloneDeep(oneTransaction);
                 newTransaction[0].action_date = moment('05/25/2014', 'MM/DD/YYYY');
-                expect(isBadData(badStartDate, 'grant', newTransaction)).toBe(true);
+                expect(areTransactionDatesOrAwardAmountsInvalid(badStartDate, 'grant', newTransaction)).toBe(true);
             });
             // 5/b
             it('should return true when there is no end date and start date exists and only one transaction and transaction date is < than start date', () => {
                 const newTransaction = cloneDeep(oneTransaction);
                 newTransaction[0].action_date = moment('05/25/2009', 'MM/DD/YYYY');
-                expect(isBadData(badEndDate, 'grant', newTransaction)).toBe(true);
+                expect(areTransactionDatesOrAwardAmountsInvalid(badEndDate, 'grant', newTransaction)).toBe(true);
             });
         });
         describe('Contract', () => {
             // 3
             it('should return true when no transactions have dates', () => {
-                expect(isBadData(goodDates, 'contract', noTransactionDates)).toBe(true);
+                expect(areTransactionDatesOrAwardAmountsInvalid(goodDates, 'contract', noTransactionDates)).toBe(true);
             });
             // 3
             it('should return true when no dates and one transaction', () => {
-                expect(isBadData(badDates, 'contract', oneTransaction)).toBe(true);
+                expect(areTransactionDatesOrAwardAmountsInvalid(badDates, 'contract', oneTransaction)).toBe(true);
             });
             // 4.b
             it('should return true when there is no start date and potential end date exists and only one transaction and transaction date is > than potential end date', () => {
@@ -80,7 +80,7 @@ describe('Contract Grant Activity Helper', () => {
                 newTransaction[0].action_date = moment('05/25/2019', 'MM/DD/YYYY');
                 const newDates = cloneDeep(badStartDate);
                 newDates._endDate = badEndDate._endDate;
-                expect(isBadData(newDates, 'contract', newTransaction)).toBe(true);
+                expect(areTransactionDatesOrAwardAmountsInvalid(newDates, 'contract', newTransaction)).toBe(true);
             });
             // 4.b
             it('should return true when there is no start date and current end date exists and only one transaction and transaction date is > than current end date', () => {
@@ -88,13 +88,13 @@ describe('Contract Grant Activity Helper', () => {
                 newTransaction[0].action_date = moment('05/25/2014', 'MM/DD/YYYY');
                 const newDates = cloneDeep(badStartDate);
                 newDates._potentialEndDate = badPotentialEndDate._potentialEndDate;
-                expect(isBadData(newDates, 'contract', newTransaction)).toBe(true);
+                expect(areTransactionDatesOrAwardAmountsInvalid(newDates, 'contract', newTransaction)).toBe(true);
             });
             // 5.b
             it('should return true when there is no end date and start date exists and only one transaction and transaction date is < than start date', () => {
                 const newTransaction = cloneDeep(oneTransaction);
                 newTransaction[0].action_date = moment('05/25/2009', 'MM/DD/YYYY');
-                expect(isBadData(badEndDates, 'contract', newTransaction)).toBe(true);
+                expect(areTransactionDatesOrAwardAmountsInvalid(badEndDates, 'contract', newTransaction)).toBe(true);
             });
         });
     });

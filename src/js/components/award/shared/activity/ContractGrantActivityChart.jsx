@@ -22,6 +22,9 @@ const propTypes = {
 
 const xAxisSpacingPercentage = 0.05;
 
+// transaction path description
+const transactionPathDescription = 'A shaded light blue area moving horizontally between each transactions action date and vertically between each transactions federal action obligation difference';
+
 const ContractGrantsActivityChart = ({
     height,
     padding,
@@ -269,7 +272,7 @@ const ContractGrantsActivityChart = ({
     // sets circle data - hook - on mount and when transactions change
     useEffect(() => {
         if (xScale && yScale) {
-            const circles = cloneDeep(transactions)
+            const circles = transactions
                 .map((data, i) => ({
                     key: `${data.federal_action_obligation}${i}`,
                     description: `A circle representing the transaction date, ${data.action_date.format('MM-DD-YYYY')} and running total obligation of ${formatMoney(data.running_obligation_total)}`,
@@ -291,7 +294,7 @@ const ContractGrantsActivityChart = ({
     // area path - hook
     useEffect(() => {
         if (xScale && yScale) {
-            const path = cloneDeep(transactions).reduce((acc, t, i, array) => {
+            const path = transactions.reduce((acc, t, i, array) => {
                 let pathString = acc;
                 const xDirection = xScale(t.action_date.valueOf()) + padding.left;
                 const yDirection = height - yScale(t.running_obligation_total);
@@ -340,8 +343,7 @@ const ContractGrantsActivityChart = ({
     const endLineText = awardType === 'grant' ? 'End' : ['Current', 'End'];
     // class name for end line and text
     const endLineClassName = awardType === 'grant' ? 'grant-end' : 'contract-end';
-    // transaction path description
-    const transactionPathDescription = 'A shaded light blue area moving horizontally between each transactions action date and vertically between each transactions federal action obligation difference';
+
     return (
         <svg
             className="contract-grant-activity-chart"

@@ -17,7 +17,7 @@ export const lineHelper = (date) => {
     return date.valueOf();
 };
 /**
- * isBadData
+ * areTransactionDatesOrAwardAmountsInvalid
  * - determines if we do not have suitable data to draw the chart based on dates,
  * award type and transactions
  * @param {Object} dates - award dates
@@ -25,7 +25,7 @@ export const lineHelper = (date) => {
  * @param {Object[]} transactions - array of transaction objects
  * @returns {Boolean} - is the data suitable for charting
  */
-export const isBadData = (dates, awardType, transactions) => {
+export const areTransactionDatesOrAwardAmountsInvalid = (dates, awardType, transactions) => {
     const {
         _startDate: startDate,
         _endDate: currentEndDate,
