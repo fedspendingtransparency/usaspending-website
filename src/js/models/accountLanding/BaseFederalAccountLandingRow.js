@@ -13,7 +13,7 @@ const BaseFederalAccountLandingRow = {
         this._managingAgency = data.managing_agency || '';
         this._managingAgencyAcronym = data.managing_agency_acronym || '';
         this.accountName = data.account_name || '';
-        this._budgetaryResources = data.budgetary_resources || 0;
+        this._budgetaryResources = data.budgetary_resources;
     },
     get managingAgency() {
         if (!this._managingAgencyAcronym) {
@@ -22,7 +22,7 @@ const BaseFederalAccountLandingRow = {
         return `${this._managingAgency} (${this._managingAgencyAcronym})`;
     },
     get budgetaryResources() {
-        return formatMoney(this._budgetaryResources);
+        return this._budgetaryResources == null ? '--' : formatMoney(this._budgetaryResources);
     }
 };
 /* eslint-enable object-shorthand */
