@@ -15,6 +15,7 @@ import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSectionContainer from 'containers/search/filters/location/LocationSectionContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
 import ProgramSourceContainer from 'containers/search/filters/programSource/ProgramSourceContainer';
+import TASCheckboxTree from 'containers/search/filters/programSource/TASCheckboxTreeContainer';
 import RecipientTypeContainer from 'containers/search/filters/recipient/RecipientTypeContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
 import AwardAmountSearchContainer from
@@ -39,6 +40,8 @@ const naicsComponent = kGlobalConstants.DEV ? NAICSContainer : NAICSSearchContai
 const naicsTitle = kGlobalConstants.DEV ?
     'North American Industry Classification System (NAICS)' :
     'NAICS Code';
+const tasComponent = kGlobalConstants.DEV ? TASCheckboxTree : ProgramSourceContainer;
+const tasTitle = kGlobalConstants.DEV ? 'Treasury Account Symbol (TAS)' : 'Product/Service Code (PSC)';
 
 const filters = {
     options: [
@@ -46,7 +49,7 @@ const filters = {
         'Time Period',
         'Award Type',
         'Agency',
-        'Program Source (TAS)',
+        tasTitle,
         'Location',
         'Recipient',
         'Recipient Type',
@@ -64,7 +67,7 @@ const filters = {
         TimePeriodContainer,
         AwardTypeContainer,
         AgencyContainer,
-        ProgramSourceContainer,
+        tasComponent,
         LocationSectionContainer,
         RecipientSearchContainer,
         RecipientTypeContainer,

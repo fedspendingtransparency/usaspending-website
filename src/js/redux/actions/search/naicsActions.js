@@ -3,7 +3,7 @@
   * Created by Jonathan Hill 12/30/19
   **/
 
-import { cleanNaicsData } from "helpers/checkboxTreeHelper";
+import { cleanNaicsData } from "helpers/naicsHelper";
 
 export const setNaics = (key, nodes) => ({
     type: 'SET_NAICS',
