@@ -57,6 +57,7 @@ export default class CFDATree extends React.Component {
     }
 
     buildVirtualChart(props) {
+        // testing qat deploy
         const data = cloneDeep(props.data);
 
         // remove negative values because we can't display those in the treemap
