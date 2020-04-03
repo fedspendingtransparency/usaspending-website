@@ -137,21 +137,37 @@ describe('TASCheckboxContainer', () => {
         });
     });
     describe('onCheck', () => {
-        it('updates the state.checked array', () => {
+        it('updates the state.checked array', async () => {
             const container = shallow(<TASCheckboxTreeContainer />);
-            container.instance().setState({ checked: ['1'] });
-            container.instance().onCheck(['11']);
+            fetchTas.mockImplementation(() => ({
+                promise: Promise.resolve({ data: agencyLevel })
+            }));
+            await container.instance().componentDidMount();
+            fetchTas.mockImplementation(() => ({
+                promise: Promise.resolve({ data: federalAccountLevel })
+            }));
+            await container.instance().fetchTas('1');
+            container.instance().setState({ checked: ['11'] });
+            container.instance().onCheck(['11', '12']);
 
-            expect(container.state().checked).toEqual(['11']);
+            expect(container.state().checked).toEqual(['11', '12']);
         });
     });
     describe('onUncheck', () => {
-        it('updates the state.checked array', () => {
+        it('updates the state.checked array', async () => {
             const container = shallow(<TASCheckboxTreeContainer />);
-            container.instance().setState({ checked: ['1', '11'] });
-            container.instance().onUncheck(['11']);
+            fetchTas.mockImplementation(() => ({
+                promise: Promise.resolve({ data: agencyLevel })
+            }));
+            await container.instance().componentDidMount();
+            fetchTas.mockImplementation(() => ({
+                promise: Promise.resolve({ data: federalAccountLevel })
+            }));
+            await container.instance().fetchTas('1');
+            container.instance().setState({ checked: ['11', '12'] });
+            container.instance().onUncheck(['12'], { value: '11', checked: false });
 
-            expect(container.state().checked).toEqual(['11']);
+            expect(container.state().checked).toEqual(['12']);
         });
     });
 });
