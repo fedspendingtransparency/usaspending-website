@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import { isEqual, max } from 'lodash';
+import { isEqual, max, get } from 'lodash';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 
@@ -54,7 +54,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
             next: '',
             previous: '',
             hasNextPage: false,
-            hasPreviousPage: false
+            hasPreviousPage: false,
+            recipientError: false
         };
 
         this.changeSpendingBy = this.changeSpendingBy.bind(this);
@@ -125,7 +126,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
         this.props.setAppliedFilterCompletion(false);
         this.setState({
             loading: true,
-            error: false
+            error: false,
+            recipientError: false
         });
 
         if (this.apiRequest) {
@@ -160,12 +162,14 @@ export class RankVisualizationWrapperContainer extends React.Component {
                     return;
                 }
 
+                const responseDetail = get(err, 'response.data.detail', '');
                 this.props.setAppliedFilterCompletion(true);
                 this.apiRequest = null;
                 console.log(err);
                 this.setState({
                     loading: false,
-                    error: true
+                    error: true,
+                    recipientError: responseDetail === 'Current filters return too many unique items. Narrow filters to return results.'
                 });
             });
     }
@@ -234,7 +238,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         {...this.state}
                         changeScope={this.changeScope}
                         nextPage={this.nextPage}
-                        previousPage={this.previousPage} />
+                        previousPage={this.previousPage}
+                        recipientError={this.state.recipientError} />
                 );
             case 'cfda':
                 return (
