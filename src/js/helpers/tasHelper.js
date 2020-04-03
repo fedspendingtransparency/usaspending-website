@@ -57,12 +57,12 @@ export const getTasNodeFromTree = (tree, id) => {
         });
     return selectedNode;
 };
-const getHighestTasAncestorCode = (node) => {
+export const getHighestTasAncestorCode = (node) => {
     if (node.ancestors.length) return node.ancestors[0];
     return node.value;
 };
 
-const getImmediateTasAncestorCode = (node) => {
+export const getImmediateTasAncestorCode = (node) => {
     if (!node.ancestors.length || node.ancestors.length === 1) return getHighestTasAncestorCode(node);
     return node.ancestors[node.ancestors.length - 1];
 };
