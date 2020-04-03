@@ -193,6 +193,7 @@ export default class TASCheckboxTree extends React.Component {
                     isLoading={isLoading}
                     data={nodes}
                     checked={checked}
+                    countLabel="TAS"
                     expanded={expanded}
                     onUncheck={this.onUncheck}
                     onCheck={this.onCheck}

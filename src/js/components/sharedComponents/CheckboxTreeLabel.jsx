@@ -12,17 +12,19 @@ const propTypes = {
         PropTypes.array
     ]),
     count: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    displayId: PropTypes.bool
+    displayId: PropTypes.bool,
+    countLabel: PropTypes.string
 };
 
 const CheckboxTreeLabel = ({
     value,
     label,
     count,
-    displayId = true
+    displayId = true,
+    countLabel = ''
 }) => {
     const countText = count > 1 ? 'codes' : 'code';
-    const countDisplay = `${count} ${countText}`;
+    const countDisplay = countLabel || `${count} ${countText}`;
     return (
         <div className="checkbox-tree-label">
             {displayId && (

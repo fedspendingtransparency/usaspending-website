@@ -30,7 +30,12 @@ const propTypes = {
     onCollapse: PropTypes.func,
     expanded: PropTypes.array,
     checked: PropTypes.array,
-    noResults: PropTypes.bool
+    noResults: PropTypes.bool,
+    countLabel: PropTypes.string
+};
+
+const defaultProps = {
+    countLabel: ''
 };
 
 export default class CheckboxTree extends Component {
@@ -184,10 +189,11 @@ export default class CheckboxTree extends Component {
                 )
                 : (
                     <CheckboxTreeLabel
+                        count={node.count}
+                        displayId={displayId}
                         value={this.highlightText(node.value)}
                         label={this.highlightText(node.label)}
-                        displayId={displayId}
-                        count={node.count} />
+                        countLabel={this.props.countLabel} />
                 ),
             children: node.children
                 ? this.createLabels(node.children)
@@ -248,4 +254,5 @@ export default class CheckboxTree extends Component {
     }
 }
 
+CheckboxTree.defaultProps = defaultProps;
 CheckboxTree.propTypes = propTypes;
