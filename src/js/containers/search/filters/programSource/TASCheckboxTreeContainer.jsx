@@ -104,7 +104,7 @@ export default class TASCheckboxTree extends React.Component {
     }
 
     removeSelectedFilter = (node) => {
-        const newChecked = removeStagedTasFilter(this.state.nodes, this.state.counts, node.value);
+        const newChecked = removeStagedTasFilter(this.state.nodes, this.state.checked, node.value);
         this.onUncheck(newChecked, { ...node, checked: false });
     }
 
