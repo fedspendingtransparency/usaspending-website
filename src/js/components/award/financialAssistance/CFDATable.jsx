@@ -62,7 +62,7 @@ export default class CFDATable extends React.Component {
                                 className="award-viz__button"
                                 value={cfda.cfdaNumber}
                                 onClick={this.props.onTableClick}>
-                                {cfda[key]}
+                                {`${cfda.cfdaNumber} - ${cfda[key]}`}
                             </button>
                         );
                     }
