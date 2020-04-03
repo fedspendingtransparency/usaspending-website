@@ -123,7 +123,7 @@ export default class CFDATree extends React.Component {
         const formattedSubtitle =
         `${MoneyFormatter.formatMoneyWithPrecision((amount / units.unit), 1)}${units.unitLabel}`;
         const usableWidth = width;
-        const name = data.data.cfdaTitle;
+        const name = `${data.data.cfdaNumber} - ${data.data.cfdaTitle}`;
         const title = this.truncateText(name, 'title', usableWidth);
         const subtitle = this.truncateText(formattedSubtitle, 'subtitle', usableWidth);
         const color = scale(amount);
