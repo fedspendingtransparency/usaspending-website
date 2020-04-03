@@ -19,7 +19,8 @@ const mockAssistanceTransaction = {
 
 const mockLoanTransaction = {
     face_value_loan_guarantee: '1230.4',
-    original_loan_subsidy_cost: '234.58'
+    original_loan_subsidy_cost: '234.58',
+    cfda_number: '12.345'
 };
 
 const contractTransaction = Object.create(BaseContractTransaction);
@@ -60,6 +61,9 @@ describe('Base Transactions', () => {
         });
         it('should format the subsidy value', () => {
             expect(loanTransaction.subsidy).toEqual('$235');
+        });
+        it('should contain the cfda number', () => {
+            expect(assistanceTransaction.cfdaNumber).toEqual('12.345');
         });
     });
 });
