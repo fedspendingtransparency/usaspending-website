@@ -35,6 +35,8 @@ const propTypes = {
     onDropdownClick: PropTypes.func
 };
 
+const sortFunction = (a, b) => parseFloat(a.cfdaNumber) - parseFloat(b.cfdaNumber);
+
 export default class CFDAViz extends React.Component {
     constructor(props) {
         super(props);
@@ -124,7 +126,7 @@ export default class CFDAViz extends React.Component {
                     dropdownDirection="right"
                     backgroundColor="#215493"
                     selectedOption={`${cfda.cfdaNumber} ${cfda.cfdaTitle}`}
-                    sortFn={() => 1} />);
+                    sortFn={sortFunction} />);
             }
             return (<h4 className="cfda-section-single-title">{`${cfda.cfdaNumber}: ${cfda.cfdaTitle.toUpperCase()}`}</h4>);
         }
