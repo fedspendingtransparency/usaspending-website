@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 const propTypes = {
     y: PropTypes.number,
     x: PropTypes.number,
+    cfdaNumber: PropTypes.string,
     cfdaTitle: PropTypes.string,
     federalActionOblicationAmount: PropTypes.string,
     percentOfTotal: PropTypes.string,
@@ -82,6 +83,7 @@ export default class CFDATreeTooltip extends React.Component {
 
     render() {
         const {
+            cfdaNumber,
             cfdaTitle,
             percentOfTotal,
             cfdaFederalAgency,
@@ -99,7 +101,7 @@ export default class CFDATreeTooltip extends React.Component {
                     <div
                         className={`tooltip-pointer ${this.state.direction}`} />
                     <div className="tooltip-title">
-                        {cfdaTitle}
+                        {`${cfdaNumber} - ${cfdaTitle}`}
                     </div>
                     <div className="tooltip-subtitle">
                         FEDERAL AGENCY: {cfdaFederalAgency}

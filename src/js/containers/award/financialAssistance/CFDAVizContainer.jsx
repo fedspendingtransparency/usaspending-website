@@ -85,13 +85,13 @@ export default class CFDAVizContainer extends React.Component {
         let sortedCFDAs = null;
         if (order === 'desc') {
             const sortFunction = sort === 'cfdaTitle' ?
-                (a, b) => b[sort].localeCompare(a[sort]) :
+                (a, b) => (parseFloat(b.cfdaNumber) - parseFloat(a.cfdaNumber)) :
                 (a, b) => b[sort] - a[sort];
             sortedCFDAs = cfdas.sort(sortFunction);
         }
         else {
             const sortFunction = sort === 'cfdaTitle' ?
-                (a, b) => a[sort].localeCompare(b[sort]) :
+                (a, b) => (parseFloat(a.cfdaNumber) - parseFloat(b.cfdaNumber)) :
                 (a, b) => a[sort] - b[sort];
             sortedCFDAs = cfdas.sort(sortFunction);
         }

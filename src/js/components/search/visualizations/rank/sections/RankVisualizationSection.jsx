@@ -18,7 +18,8 @@ const propTypes = {
     error: PropTypes.bool,
     hasNextPage: PropTypes.bool,
     hasPreviousPage: PropTypes.bool,
-    children: PropTypes.node
+    children: PropTypes.node,
+    recipientError: PropTypes.bool
 };
 
 export default class RankVisualizationSection extends React.Component {
@@ -67,12 +68,15 @@ export default class RankVisualizationSection extends React.Component {
     }
 
     render() {
-        const disableNext = !this.props.hasNextPage;
+        const disableNext = !this.props.hasNextPage || this.props.recipientError;
         const disablePrev = !this.props.hasPreviousPage;
         let hidePager = '';
 
         if ((disableNext && disablePrev) || this.props.loading || this.props.error) {
             hidePager = 'hide';
+        }
+        if (this.props.recipientError) {
+            hidePager = '';
         }
 
         return (

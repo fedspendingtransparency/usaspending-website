@@ -6,14 +6,16 @@
 const tableSearchFields = {
     columnWidths: {
         modificationNumber: 0,
+        cfdaNumber: 0,
         actionDate: 0,
         faceValue: 0,
         subsidy: 0,
-        actionTypeDescription: 380,
+        actionTypeDescription: 0,
         description: 380
     },
     defaultSortDirection: {
         modificationNumber: 'desc',
+        cfdaNumber: 'desc',
         actionDate: 'desc',
         faceValue: 'desc',
         subsidy: 'desc',
@@ -23,6 +25,7 @@ const tableSearchFields = {
     table: {
         _order: [
             'modificationNumber',
+            'cfdaNumber',
             'actionDate',
             'faceValue',
             'subsidy',
@@ -31,6 +34,7 @@ const tableSearchFields = {
         ],
         _mapping: {
             modificationNumber: 'modification_number',
+            cfdaNumber: 'cfda_number',
             actionDate: 'action_date',
             faceValue: 'face_value_loan_guarantee',
             subsidy: 'original_loan_subsidy_cost',
@@ -38,6 +42,7 @@ const tableSearchFields = {
             description: 'description'
         },
         modificationNumber: 'Modification Number',
+        cfdaNumber: 'CFDA Number',
         actionDate: 'Action Date',
         faceValue: 'Face Value',
         subsidy: 'Subsidy Cost',
