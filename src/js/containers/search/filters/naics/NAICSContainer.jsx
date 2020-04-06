@@ -85,7 +85,7 @@ export class NAICSContainer extends React.Component {
 
     componentDidMount() {
         const { checkedFromHash, uncheckedFromHash } = this.props;
-        // always get the top tier nodes.
+        if (this.props.nodes.length) return Promise.resolve();
         return this.fetchNAICS()
             .then(() => {
                 if (checkedFromHash.length > 0) {
