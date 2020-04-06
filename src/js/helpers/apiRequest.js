@@ -11,7 +11,7 @@ export const apiRequest = (axiosParams = {}) => {
     const defaultHeaders = { 'X-Requested-With': 'USASpendingFrontend' };
     const cancelToken = CancelToken.source();
     const defaultParams = {
-        baseURL: kGlobalConstants.API,
+        baseURL: axiosParams.isMocked ? 'http://localhost:5000/api/' : kGlobalConstants.API,
         cancelToken: cancelToken.token
     };
 

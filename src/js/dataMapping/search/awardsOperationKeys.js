@@ -19,6 +19,7 @@ export const rootKeys = {
     awardID: 'award_ids',
     cfda: 'program_numbers',
     naics: 'naics_codes',
+    naics_v2: 'naics_codes',
     psc: 'psc_codes',
     contractPricing: 'contract_pricing_type_codes',
     setAsideType: 'set_aside_type_codes',
@@ -33,6 +34,7 @@ export const timePeriodKeys = {
 export const agencyKeys = {
     type: 'type',
     tier: 'tier',
+    toptierName: 'toptier_name',
     name: 'name'
 };
 

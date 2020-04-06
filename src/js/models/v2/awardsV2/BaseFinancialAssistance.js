@@ -7,6 +7,7 @@ import CoreLocation from 'models/v2/CoreLocation';
 import BaseAwardRecipient from './BaseAwardRecipient';
 import CoreAwardAgency from './CoreAwardAgency';
 import CoreAward from './CoreAward';
+import BaseCFDA from './BaseCFDA';
 import CorePeriodOfPerformance from './CorePeriodOfPerformance';
 import CoreExecutiveDetails from '../awardsV2/CoreExecutiveDetails';
 
@@ -19,16 +20,8 @@ export const emptyCfda = {
 
 const getLargestCfda = (acc, cfdaItem) => {
     if (cfdaItem.total_funding_amount > acc.total_funding_amount) {
-        return {
-            samWebsite: cfdaItem.sam_website || '',
-            cfdaWebsite: cfdaItem.cfda_website || '',
-            cfdaFederalAgency: cfdaItem.cfda_federal_agency || '',
-            cfdaNumber: cfdaItem.cfda_number || '',
-            cfdaTitle: cfdaItem.cfda_title || '',
-            applicantEligibility: cfdaItem.applicant_eligibility || '',
-            beneficiaryEligibility: cfdaItem.beneficiary_eligibility || '',
-            cfdaObjectives: cfdaItem.cfda_objectives || ''
-        };
+        const newCFDA = new BaseCFDA(cfdaItem);
+        return newCFDA;
     }
     return acc;
 };
@@ -49,7 +42,12 @@ BaseFinancialAssistance.populate = function populate(data) {
         dateSigned: data.date_signed
     };
     this.populateCore(coreData);
-
+    if (data.cfda_info.length) {
+        this.cfdas = data.cfda_info.map((cfda) => {
+            const newCFDA = new BaseCFDA(cfda, data.total_obligation);
+            return newCFDA;
+        });
+    }
     if (data.recipient) {
         const recipient = Object.create(BaseAwardRecipient);
         recipient.populate(data.recipient);
@@ -136,6 +134,7 @@ BaseFinancialAssistance.populate = function populate(data) {
     this.fain = data.fain;
     this.uri = data.uri;
     this.biggestCfda = data.cfda_info.reduce(getLargestCfda, emptyCfda);
+    this.cfdaList = data.cfda_info;
     this.recordType = data.record_type;
 };
 

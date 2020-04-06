@@ -13,12 +13,14 @@ const mockContractTransaction = {
 const mockAssistanceTransaction = {
     federal_action_obligation: '1230.4',
     original_loan_subsidy_cost: '1230.4',
-    action_type: 'a'
+    action_type: 'a',
+    cfda_number: '12.345'
 };
 
 const mockLoanTransaction = {
     face_value_loan_guarantee: '1230.4',
-    original_loan_subsidy_cost: '234.58'
+    original_loan_subsidy_cost: '234.58',
+    cfda_number: '12.345'
 };
 
 const contractTransaction = Object.create(BaseContractTransaction);
@@ -49,6 +51,9 @@ describe('Base Transactions', () => {
         it('should convert the action type', () => {
             expect(assistanceTransaction._actionTypeDescription).toEqual('New');
         });
+        it('should contain the cfda number', () => {
+            expect(assistanceTransaction.cfdaNumber).toEqual('12.345');
+        });
     });
     describe('BaseLoanTransaction', () => {
         it('should format the face value', () => {
@@ -56,6 +61,9 @@ describe('Base Transactions', () => {
         });
         it('should format the subsidy value', () => {
             expect(loanTransaction.subsidy).toEqual('$235');
+        });
+        it('should contain the cfda number', () => {
+            expect(assistanceTransaction.cfdaNumber).toEqual('12.345');
         });
     });
 });

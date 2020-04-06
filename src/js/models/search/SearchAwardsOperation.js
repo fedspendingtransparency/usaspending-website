@@ -38,6 +38,7 @@ class SearchAwardsOperation {
 
         this.selectedCFDA = [];
         this.selectedNAICS = [];
+        this.naicsCodes = { require: [], exclude: [] };
         this.selectedPSC = [];
 
         this.pricingType = [];
@@ -78,6 +79,7 @@ class SearchAwardsOperation {
 
         this.selectedCFDA = state.selectedCFDA.toArray();
         this.selectedNAICS = state.selectedNAICS.toArray();
+        this.naicsCodes = { require: state.naicsCodes.require, exclude: state.naicsCodes.exclude };
         this.selectedPSC = state.selectedPSC.toArray();
 
         this.pricingType = state.pricingType.toArray();
@@ -153,26 +155,30 @@ class SearchAwardsOperation {
         if (this.fundingAgencies.length > 0 || this.awardingAgencies.length > 0) {
             const agencies = [];
 
-            // Funding Agencies are toptier-only
             this.fundingAgencies.forEach((agencyArray) => {
                 const fundingAgencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
-
-                agencies.push({
+                const agency = {
                     [agencyKeys.type]: 'funding',
                     [agencyKeys.tier]: agencyArray.agencyType,
                     [agencyKeys.name]: fundingAgencyName
-                });
+                };
+                if (agencyArray.agencyType === 'subtier') {
+                    agency[agencyKeys.toptierName] = agencyArray.toptier_agency.name;
+                }
+                agencies.push(agency);
             });
 
-            // Awarding Agencies can be both toptier and subtier
             this.awardingAgencies.forEach((agencyArray) => {
                 const awardingAgencyName = agencyArray[`${agencyArray.agencyType}_agency`].name;
-
-                agencies.push({
+                const agency = {
                     [agencyKeys.type]: 'awarding',
                     [agencyKeys.tier]: agencyArray.agencyType,
                     [agencyKeys.name]: awardingAgencyName
-                });
+                };
+                if (agencyArray.agencyType === 'subtier') {
+                    agency[agencyKeys.toptierName] = agencyArray.toptier_agency.name;
+                }
+                agencies.push(agency);
             });
 
             filters[rootKeys.agencies] = agencies;
@@ -269,6 +275,16 @@ class SearchAwardsOperation {
         // Add NAICS
         if (this.selectedNAICS.length > 0) {
             filters[rootKeys.naics] = this.selectedNAICS.map((naics) => naics.naics);
+        }
+
+        // NAICS v2
+        if (this.naicsCodes.require.length > 0) {
+            if (this.naicsCodes.exclude.length > 0) {
+                filters[rootKeys.naics_v2] = this.naicsCodes;
+            }
+            else {
+                filters[rootKeys.naics_v2] = this.naicsCodes.require;
+            }
         }
 
         // Add PSC

@@ -348,7 +348,8 @@ export default class ActivityChart extends React.Component {
                         width={graphWidth}
                         padding={padding}
                         ticks={this.state.xTicks}
-                        scale={xScale} />
+                        scale={xScale}
+                        line />
                     <g
                         className="activity-chart-data">
                         {bars}
