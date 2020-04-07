@@ -574,4 +574,4 @@ export const autoCheckImmediateChildrenAfterDynamicExpand = (
         });
 
     return [...new Set([...removeParentPlaceholders, ...newValues])];
-}
+};

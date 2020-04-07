@@ -140,11 +140,13 @@ export default class TASCheckboxTree extends React.Component {
                                     })
                                 };
                             }),
-                        checked: autoCheckTasAfterExpand(
-                            { children: nodes, value: key },
-                            this.state.checked,
-                            this.state.unchecked
-                        )
+                        checked: this.state.checked.includes(`children_of_${key}`)
+                            ? autoCheckTasAfterExpand(
+                                { children: nodes, value: key },
+                                this.state.checked,
+                                this.state.unchecked
+                            )
+                            : this.state.checked
                     });
                 }
                 else {
