@@ -7,13 +7,15 @@ import {
     removeStagedFilter,
     getCountOfAllCheckedDescendants,
     decrementCountAndUpdateUnchecked,
-    incrementCountAndUpdateUnchecked
+    incrementCountAndUpdateUnchecked,
+    autoCheckImmediateChildrenAfterDynamicExpand
 } from 'helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
     getImmediateAncestorNaicsCode,
     getNaicsNodeFromTree,
-    naicsKeyMap
+    naicsKeyMap,
+    shouldNaicsNodeHaveChildren
 } from 'helpers/naicsHelper';
 
 import * as mockData from '../containers/search/filters/naics/mockNaics_v2';
@@ -296,6 +298,50 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
 
             expect(newCounts[0].count).toEqual(7);
             expect(newUnchecked[0]).toEqual('1111');
+        });
+    });
+    describe('autoCheckImmediateChildrenAfterDynamicExpand', () => {
+        it('returns an array that replaces placeholders w/ real checked codes', () => {
+            // naics code 1111
+            const mockParentNode = mockData.reallyBigTree[0].children[0];
+            const newChecked = autoCheckImmediateChildrenAfterDynamicExpand(
+                mockParentNode,
+                ["children_of_1111", 'children_of_21'],
+                [],
+                'naics',
+                shouldNaicsNodeHaveChildren
+            );
+            expect(newChecked).toEqual([
+                "children_of_21",
+                "111110",
+                "111120",
+                "111130",
+                "111140",
+                "111150",
+                "111160",
+                "111191",
+                "111199"
+            ]);
+        });
+        it('does not add codes descendant from placeholder that are in the unchecked array', () => {
+            // naics code 1111
+            const mockParentNode = mockData.reallyBigTree[0].children[0];
+            const newChecked = autoCheckImmediateChildrenAfterDynamicExpand(
+                mockParentNode,
+                ["children_of_1111"],
+                ['111120'],
+                'naics',
+                shouldNaicsNodeHaveChildren
+            );
+            expect(newChecked).toEqual([
+                "111110",
+                "111130",
+                "111140",
+                "111150",
+                "111160",
+                "111191",
+                "111199"
+            ]);
         });
     });
 });
