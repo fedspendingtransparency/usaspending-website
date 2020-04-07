@@ -5,7 +5,7 @@ import AwardSection from '../shared/AwardSection';
 import ExpandableAwardSection from '../shared/ExpandableAwardSection';
 
 const propTypes = {
-    data: PropTypes.shape({
+    currentCfda: PropTypes.shape({
         cfda_number: PropTypes.string,
         cfda_title: PropTypes.string,
         applicant_eligibility: PropTypes.string,
@@ -19,17 +19,15 @@ const propTypes = {
     })
 };
 
-const SingleCFDA = ({ data }) => {
+const SingleCFDA = ({ currentCfda }) => {
     const {
         samWebsite,
         cfdaWebsite,
         cfdaFederalAgency,
-        cfdaNumber,
-        cfdaTitle,
         applicantEligibility,
         beneficiaryEligibility,
         cfdaObjectives
-    } = data;
+    } = currentCfda;
     const expandableContent = (
         <React.Fragment>
             <h5>Applicant Eligibility</h5>
@@ -42,7 +40,6 @@ const SingleCFDA = ({ data }) => {
         <AwardSection type="column" className="cfda-section award-viz">
             <div className="award__col__content">
                 <ExpandableAwardSection content={expandableContent}>
-                    <h4>{`${cfdaNumber}: ${cfdaTitle.toUpperCase()}`}</h4>
                     <h5>Objectives</h5>
                     <ExpandableAwardSection type="secondary" content={cfdaObjectives} />
                     <h5>Administrative Agency</h5>

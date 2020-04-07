@@ -300,6 +300,7 @@ export const reallyBigTree = [
     },
     {
         naics: "21",
+        value: "21",
         naics_description: "Mining, Quarrying, and Oil and Gas Extraction",
         count: 32
     },

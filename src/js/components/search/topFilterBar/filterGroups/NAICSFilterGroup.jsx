@@ -41,7 +41,7 @@ export default class NAICSFilterGroup extends React.Component {
                 if (naics.isV2) {
                     return {
                         value: `${naics.identifier}`,
-                        title: `${naics.naics} - ${naics.naics_description} (${naics.count})`,
+                        title: `${naics.value} - ${naics.label} (${naics.count})`,
                         isSpecial: false,
                         // doesn't appear to be being used...
                         removeFilter: () => this.removeFilter

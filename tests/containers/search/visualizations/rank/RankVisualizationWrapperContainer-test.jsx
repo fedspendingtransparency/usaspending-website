@@ -158,7 +158,8 @@ describe('RankVisualizationWrapperContainer', () => {
                 next: null,
                 previous: null,
                 hasNextPage: false,
-                hasPreviousPage: false
+                hasPreviousPage: false,
+                recipientError: false
             };
 
             expect(container.state()).toEqual(expectedState);

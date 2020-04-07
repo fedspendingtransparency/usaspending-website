@@ -26,9 +26,10 @@ describe('Naics Reducer', () => {
                 expect(Object.keys(child).includes('label')).toBe(true);
                 expect(Object.keys(child).includes('value')).toBe(true);
             });
+            expect(updatedNaics[1].children.length).toEqual(1);
         });
     });
-    describe('other properties under naics keyspace do not and cannot have duplicate values', () => {
+    describe('other properties under naics key-space do not and cannot have duplicate values', () => {
         it('naics.expanded: no duplicates', () => {
             const action = { payload: ['11', '11', '1111'], type: 'SET_EXPANDED' };
             const updatedExpanded = naicsReducer(initialState, action).expanded.toJS();
@@ -50,24 +51,4 @@ describe('Naics Reducer', () => {
             expect(updatedSearchExpanded).toEqual(['11', '1111']);
         });
     });
-    // describe('addChecked persists previous state plus a new value, while setChecked erases previous values', () => {
-    //     it('naics.expanded: no duplicates', () => {
-    //         const expanded = new List(['11']);
-    //         const action = { expanded: expanded.toJS(), type: 'SET_EXPANDED' };
-    //         const updatedRedux = naicsReducer(initialState, action);
-    //         expect(updatedRedux.expanded).toEqual(expanded);
-    //     });
-    //     it('naics.checked: no duplicates', () => {
-    //         const expanded = new List(['11']);
-    //         const action = { expanded: expanded.toJS(), type: 'SET_EXPANDED' };
-    //         const updatedRedux = naicsReducer(initialState, action);
-    //         expect(updatedRedux.expanded).toEqual(expanded);
-    //     });
-    //     it('naics.unchecked: no duplicates', () => {
-    //         const expanded = new List(['11']);
-    //         const action = { expanded: expanded.toJS(), type: 'SET_EXPANDED' };
-    //         const updatedRedux = naicsReducer(initialState, action);
-    //         expect(updatedRedux.expanded).toEqual(expanded);
-    //     });
-    // });
 });

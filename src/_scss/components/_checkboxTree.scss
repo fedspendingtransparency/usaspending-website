@@ -1,3 +1,12 @@
+.checkbox-tree-filter-message-container {
+  font-size: rem(30);
+  text-align: center;
+  .checkbox-tree-filter-message-container__text {
+    font-size: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
 .checkbox-tree {
   .react-checkbox-tree {
     max-height: 600px;
@@ -76,48 +85,51 @@
         button {
           margin: 0;
         }
+        .rct-bare-label,
         label {
           width: 100%;
           @include display(flex);
+          margin-bottom: rem(8);
           .rct-checkbox {
             @include flex-direction(column);
           }
           .rct-title {
             width: 100%;
-            .checkbox-tree-label {
-              @include display(flex);
-              @include flex-wrap(wrap);
-              .checkbox-tree-label__value-container {
-                @include display(inline-flex);
-                .checkbox-tree-label__value-container-value {
-                  text-align: center;
-                  padding: 0 rem(3);
-                  background-color: $color-gray-lightest;
-                  border-radius: 2px;
-                  font-weight: $font-semibold;
-                  font-size: rem(14);
-                  .highlight {
-                    background-color: rgb(252, 227, 160);
-                  }
-                }
-                .checkbox-tree-label__value-container-count {
-                  padding: rem(1.5) rem(7);
-                  border-radius: 3px;
-                  color: $color-gray-medium;
-                  font-style: italic;
-                  font-size: rem(12);
-                  .highlight {
-                    background-color: transparent;
-                  }
-                }
-              }
-              .checkbox-tree-label__label {
-                @include flex-basis(100%);
+            @include display(flex);
+          }
+          .checkbox-tree-label {
+            @include display(flex);
+            @include flex-wrap(wrap);
+            .checkbox-tree-label__value-container {
+              @include display(inline-flex);
+              .checkbox-tree-label__value-container-value {
+                text-align: center;
+                padding: 0 rem(3);
+                background-color: $color-gray-lightest;
+                border-radius: 2px;
                 font-weight: $font-semibold;
-                line-height: rem(18);
+                font-size: rem(14);
                 .highlight {
                   background-color: rgb(252, 227, 160);
                 }
+              }
+              .checkbox-tree-label__value-container-count {
+                padding: rem(1.5) rem(7);
+                border-radius: 3px;
+                color: $color-gray-medium;
+                font-style: italic;
+                font-size: rem(12);
+                .highlight {
+                  background-color: transparent;
+                }
+              }
+            }
+            .checkbox-tree-label__label {
+              @include flex-basis(100%);
+              font-weight: $font-semibold;
+              line-height: rem(18);
+              .highlight {
+                background-color: rgb(252, 227, 160);
               }
             }
           }

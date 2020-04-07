@@ -7,7 +7,9 @@ import moment from 'moment';
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
 import VerticalLine from 'components/sharedComponents/VerticalLine';
+import { getXDomain, lineHelper } from 'helpers/contractGrantActivityHelper';
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
+import { formatMoney } from 'helpers/moneyFormatter';
 
 const propTypes = {
     height: PropTypes.number,
@@ -19,6 +21,9 @@ const propTypes = {
 };
 
 const xAxisSpacingPercentage = 0.05;
+
+// transaction path description
+const transactionPathDescription = 'A shaded light blue area moving horizontally between each transactions action date and vertically between each transactions federal action obligation difference';
 
 const ContractGrantsActivityChart = ({
     height,
@@ -40,34 +45,26 @@ const ContractGrantsActivityChart = ({
     const [xTicks, setXTicks] = useState([]);
     // y ticks
     const [yTicks, setYTicks] = useState([]);
+    // start line
+    const [startLineValue, setStartLineValue] = useState(null);
+    // end line
+    const [endLineValue, setEndLineValue] = useState(null);
+    // potential end line
+    const [potentialEndLineValue, setPotentialEndLineValue] = useState(null);
+    // x axis spacing
+    const [xAxisSpacing, setXAxisSpacing] = useState(0);
+    // circle data
+    const [circleData, setCircleData] = useState([]);
+    // area path
+    const [areaPath, setAreaPath] = useState('');
     /**
      * createXSeries
      * - creates the x domain and updates state
      */
-    const createXDomain = useCallback(() => {
-        /**
-         * TODO - We might use this code in further tickets.
-         * Currently, we use the start and end date for the first and last tick.
-         * In the future, we might use transaction or a combo of the two.
-         */
-        // const clonedTransactions = cloneDeep(transactions);
-        // clonedTransactions.sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf());
-        // setXDomain(
-        //     [
-        //         clonedTransactions[0].action_date.valueOf(),
-        //         clonedTransactions.pop().action_date.valueOf()
-        //     ]
-        // );
-        const {
-            _startDate: startDate,
-            _endDate: endDate,
-            _potentialEndDate: potentialEndDate
-        } = dates;
-        if (awardType === 'grant') return setXDomain([startDate.valueOf(), endDate.valueOf()]);
-        return setXDomain([startDate.valueOf(), potentialEndDate.valueOf()]);
-    }, [
+    const createXDomain = useCallback(() => setXDomain(getXDomain(dates, awardType, transactions)), [
         awardType,
         dates,
+        transactions,
         setXDomain
     ]);
     /**
@@ -78,13 +75,13 @@ const ContractGrantsActivityChart = ({
     const createYDomain = useCallback(() => {
         const clonedTransactions = cloneDeep(transactions);
         clonedTransactions.sort(
-            (a, b) => a.federal_action_obligation - b.federal_action_obligation);
+            (a, b) => a.running_obligation_total - b.running_obligation_total);
         const yZero = clonedTransactions.length > 1 ?
-            clonedTransactions[0].federal_action_obligation :
+            clonedTransactions[0].running_obligation_total :
             0;
         const yOne = !clonedTransactions.length ?
             0 :
-            clonedTransactions.pop().federal_action_obligation;
+            clonedTransactions.pop().running_obligation_total;
         setYDomain([yZero, yOne]);
     }, [transactions]);
     // hook - runs only on mount unless transactions change
@@ -224,9 +221,9 @@ const ContractGrantsActivityChart = ({
         });
         theTicks = evenlySpacedTicks(theTicks, averageDifference);
         theTicks = removeOverlappingTicks(theTicks, scale);
-
         setXTicks(xTickDateAndLabel(theTicks));
         setXScale(() => scale);
+        setXAxisSpacing(spacing);
         return null;
     }, [
         xDomain,
@@ -266,18 +263,87 @@ const ContractGrantsActivityChart = ({
         yDomain,
         visualizationWidth
     ]);
+    // sets the line values - hook - runs on mount and dates change
+    useEffect(() => {
+        setStartLineValue(lineHelper(dates._startDate));
+        setEndLineValue(lineHelper(dates._endDate));
+        setPotentialEndLineValue(lineHelper(dates._potentialEndDate));
+    }, [dates]);
+    // sets circle data - hook - on mount and when transactions change
+    useEffect(() => {
+        if (xScale && yScale) {
+            const circles = transactions
+                .map((data, i) => ({
+                    key: `${data.federal_action_obligation}${i}`,
+                    description: `A circle representing the transaction date, ${data.action_date.format('MM-DD-YYYY')} and running total obligation of ${formatMoney(data.running_obligation_total)}`,
+                    className: 'transaction-date-circle',
+                    cx: xScale(data.action_date.valueOf()) + padding.left,
+                    cy: (height - yScale(data.running_obligation_total)),
+                    r: 1.5
+                }));
+            setCircleData(circles);
+        }
+    }, [
+        transactions,
+        padding,
+        xScale,
+        yScale,
+        xAxisSpacing,
+        height
+    ]);
+    // area path - hook
+    useEffect(() => {
+        if (xScale && yScale) {
+            const path = transactions.reduce((acc, t, i, array) => {
+                let pathString = acc;
+                const xDirection = xScale(t.action_date.valueOf()) + padding.left;
+                const yDirection = height - yScale(t.running_obligation_total);
+                if (i === 0) { // first transaction
+                    // first x coordinate
+                    pathString += `${xDirection},`;
+                    // first y coordinate ( which should be the bottom of the graph )
+                    pathString += `${height}`;
+                    // navigate from the bottom of graph to first transaction y coordinate
+                    pathString += `V${yDirection}`;
+                    return pathString;
+                }
+                /**
+                 * add x direction
+                 * travel to next transaction x coordinate
+                 */
+                pathString += `H${xDirection}`;
+                /**
+                 * add y direction
+                 * travel to next transaction y coordinate
+                 */
+                pathString += `V${yDirection}`;
+                if (i + 1 === array.length) { // end path
+                    pathString += `H${xDirection}`;
+                    /**
+                     * travel to bottom of graph
+                     */
+                    pathString += `V${height}Z`;
+                }
+                return pathString;
+            }, 'M');
+            setAreaPath(path);
+        }
+    }, [
+        xScale,
+        yScale,
+        transactions,
+        padding,
+        height
+    ]);
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
     // text for end line
     const endLineText = awardType === 'grant' ? 'End' : ['Current', 'End'];
-    // date for end line
-    const dateEndLine = dates?._endDate?.valueOf();
-    // date for potential end line
-    const datePotentialEndLine = dates?._potentialEndDate?.valueOf();
     // class name for end line and text
     const endLineClassName = awardType === 'grant' ? 'grant-end' : 'contract-end';
+
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -298,6 +364,35 @@ const ContractGrantsActivityChart = ({
                     ticks={xTicks}
                     scale={xScale}
                     line />
+                {/* area path */}
+                {areaPath &&
+                    <g tabIndex="0">
+                        <desc>{transactionPathDescription}</desc>
+                        <path
+                            className="area-path"
+                            d={areaPath} />
+                    </g>}
+                {/* circles */}
+                {circleData.length && circleData.map((circle) => {
+                    const {
+                        key,
+                        description,
+                        className,
+                        cx,
+                        cy,
+                        r
+                    } = circle;
+                    return (
+                        <g key={key} tabIndex="0">
+                            <desc>{description}</desc>
+                            <circle
+                                className={className}
+                                cx={cx}
+                                cy={cy}
+                                r={r} />
+                        </g>
+                    );
+                })}
                 {/* start line */}
                 {xScale && <VerticalLine
                     xScale={xScale}
@@ -307,7 +402,7 @@ const ContractGrantsActivityChart = ({
                     text="Start"
                     xMax={xDomain[1]}
                     xMin={xDomain[0]}
-                    xValue={xDomain[0]}
+                    xValue={startLineValue}
                     showTextPosition="right"
                     adjustmentX={padding.left}
                     textClassname="vertical-line__text start"
@@ -327,7 +422,7 @@ const ContractGrantsActivityChart = ({
                     textClassname="vertical-line__text today"
                     lineClassname="vertical-line today" />}
                 {/* end line */}
-                {xScale && dateEndLine && <VerticalLine
+                {xScale && <VerticalLine
                     xScale={xScale}
                     y1={-10}
                     y2={height}
@@ -335,13 +430,13 @@ const ContractGrantsActivityChart = ({
                     text={endLineText}
                     xMax={xDomain[1]}
                     xMin={xDomain[0]}
-                    xValue={dateEndLine}
+                    xValue={endLineValue}
                     showTextPosition="left"
                     adjustmentX={padding.left}
                     textClassname={`vertical-line__text ${endLineClassName}`}
                     lineClassname={`vertical-line ${endLineClassName}`} />}
                 {/* potential end line */}
-                {xScale && datePotentialEndLine && <VerticalLine
+                {xScale && <VerticalLine
                     xScale={xScale}
                     y1={-10}
                     y2={height}
@@ -349,7 +444,7 @@ const ContractGrantsActivityChart = ({
                     text={['Potential', 'End']}
                     xMax={xDomain[1]}
                     xMin={xDomain[0]}
-                    xValue={datePotentialEndLine}
+                    xValue={potentialEndLineValue}
                     showTextPosition="left"
                     adjustmentX={padding.left}
                     textClassname="vertical-line__text potential-end"
