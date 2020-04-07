@@ -6,7 +6,8 @@ import {
     cleanTasData,
     incrementTasCountAndUpdateUnchecked,
     decrementTasCountAndUpdateUnchecked,
-    removeStagedTasFilter
+    removeStagedTasFilter,
+    autoCheckTasAfterExpand
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
 
@@ -138,7 +139,12 @@ export default class TASCheckboxTree extends React.Component {
                                         return federalAccount;
                                     })
                                 };
-                            })
+                            }),
+                        checked: autoCheckTasAfterExpand(
+                            { children: nodes, value: key },
+                            this.state.checked,
+                            this.state.unchecked
+                        )
                     });
                 }
                 else {

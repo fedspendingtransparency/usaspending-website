@@ -541,3 +541,37 @@ export const showAllTreeItems = (tree, key = '', newNodes = [], getHighestAncest
                 : []
         };
     });
+
+export const autoCheckImmediateChildrenAfterDynamicExpand = (
+    parentNode,
+    checked,
+    unchecked,
+    keyForCode,
+    shouldNodeHaveChildren
+) => {
+    const value = parentNode[keyForCode];
+    // deselect placeholder values for node!
+    const removeParentPlaceholders = checked
+        .filter((code) => !code.includes(`children_of_${value}`));
+
+    const newValues = parentNode
+        .children
+        // does unchecked have placeholders...?
+        .filter((child) => !unchecked.includes(child[keyForCode]))
+        .map((child) => {
+            // at child level, check all grand children w/ the placeholder
+            const willNodeHavePlaceholderChildren = (
+                (
+                    !Object.keys(child).includes('children') ||
+                    !child?.children?.length
+                ) &&
+                shouldNodeHaveChildren(child)
+            );
+            if (willNodeHavePlaceholderChildren) {
+                return `children_of_${child[keyForCode]}`;
+            }
+            return child[keyForCode];
+        });
+
+    return [...new Set([...removeParentPlaceholders, ...newValues])];
+}

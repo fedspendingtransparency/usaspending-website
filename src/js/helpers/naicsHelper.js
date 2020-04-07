@@ -7,7 +7,8 @@ import {
     cleanTreeData,
     incrementCountAndUpdateUnchecked,
     decrementCountAndUpdateUnchecked,
-    removeStagedFilter
+    removeStagedFilter,
+    autoCheckImmediateChildrenAfterDynamicExpand
 } from './checkboxTreeHelper';
 
 export const formatSelectedNaics = (value, description, count) => `${value} | ${description} | ${count}`;
@@ -103,4 +104,16 @@ export const removeStagedNaicsFilter = (
     getNaicsNodeFromTree,
     getHighestAncestorNaicsCode,
     getImmediateAncestorNaicsCode
+);
+
+export const autoCheckNaicsAfterExpand = (
+    parentNode,
+    checked,
+    unchecked
+) => autoCheckImmediateChildrenAfterDynamicExpand(
+    parentNode,
+    checked,
+    unchecked,
+    'naics',
+    shouldNaicsNodeHaveChildren
 );
