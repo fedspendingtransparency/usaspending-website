@@ -62,7 +62,7 @@ describe('TASCheckboxContainer', () => {
             fetchTas.mockImplementation(() => ({
                 promise: Promise.resolve({ data: tasLevel })
             }));
-            await container.instance().fetchTas('1/11', 1);
+            await container.instance().fetchTas('1/11');
 
             // 1. same number of agencies in tree; none are removed.
             expect(container.state().nodes.length).toEqual(10);
@@ -105,7 +105,7 @@ describe('TASCheckboxContainer', () => {
             container.instance().fetchTas = mockFn;
             container.instance().onExpand('11', ['1', '11'], true, { treeDepth: 1 });
 
-            expect(mockFn).toHaveBeenLastCalledWith('1/11', 1);
+            expect(mockFn).toHaveBeenLastCalledWith('1/11');
         });
         it('calls fetchTas w/ only agency when necessary', () => {
             const mockFn = jest.fn();
