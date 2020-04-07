@@ -42,7 +42,7 @@ export default class TASCheckboxTree extends React.Component {
                 const selectedAgency = this.state.nodes
                     .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
                 const agencyAndFederalAccountString = `${selectedAgency.value}/${expandedValue}`;
-                this.fetchTas(agencyAndFederalAccountString, 1);
+                this.fetchTas(agencyAndFederalAccountString);
             }
             else {
                 this.fetchTas(expandedValue);
@@ -109,7 +109,7 @@ export default class TASCheckboxTree extends React.Component {
         this.onUncheck(newChecked, { ...node, checked: false });
     }
 
-    fetchTas = (id = '', depth = 0) => {
+    fetchTas = (id = '') => {
         if (this.request) this.request.cancel();
         this.request = fetchTas(id);
         const isPartialTree = id !== '';
@@ -118,9 +118,10 @@ export default class TASCheckboxTree extends React.Component {
                 // dynamically populating tree branches
                 const nodes = cleanTasData(data.results);
                 if (isPartialTree) {
-                    const key = depth === 0
-                        ? id
-                        : id.split('/')[1];
+                    // parsing the prepended agency (format in url is agencyId/federalAccountId when fetching federalAccount level data)
+                    const key = id.includes('/')
+                        ? id.split('/')[1]
+                        : id;
                     this.setState({
                         isLoading: false,
                         nodes: this.state.nodes
