@@ -16,7 +16,8 @@ import {
     decrementNaicsCountAndUpdateUnchecked,
     getImmediateAncestorNaicsCode,
     getNaicsNodeFromTree,
-    removeStagedNaicsFilter
+    removeStagedNaicsFilter,
+    autoCheckNaicsAfterExpand
 } from 'helpers/naicsHelper';
 
 import {
@@ -301,24 +302,6 @@ export class NAICSContainer extends React.Component {
         return this.setState({ searchString: text, isSearch: true, isLoading: true }, this.onSearchChange);
     }
 
-    autoCheckImmediateChildrenAfterDynamicExpand = (parentNode) => {
-        const value = parentNode.naics;
-        // deselect placeholder values for node!
-        const removeParentPlaceholders = this.props.checked
-            .filter((checked) => !checked.includes(`children_of_${value}`));
-
-        const newValues = parentNode
-            .children
-            .filter((child) => !this.props.unchecked.includes(child.naics))
-            .map((child) => {
-                // at child level, check all grand children w/ the placeholder
-                if (child.naics.length === 4) return `children_of_${child.naics}`;
-                return child.naics;
-            });
-
-        this.props.setChecked([...new Set([...removeParentPlaceholders, ...newValues])]);
-    }
-
     autoCheckSearchedResultDescendants = (checked, expanded) => {
         const { nodes } = this.props;
         const placeholderNodes = checked
@@ -390,7 +373,12 @@ export class NAICSContainer extends React.Component {
                 }
                 // we've searched for a specific naics reference; ie '11' or '1111' and their immediate descendants should be checked.
                 if (checked.includes(`children_of_${param}`)) {
-                    this.autoCheckImmediateChildrenAfterDynamicExpand(results[0], param);
+                    const newChecked = autoCheckNaicsAfterExpand(
+                        results[0],
+                        this.props.checked,
+                        this.props.unchecked
+                    );
+                    this.props.setChecked(newChecked);
                 }
 
                 this.setState({

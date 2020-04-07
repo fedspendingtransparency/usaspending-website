@@ -82,20 +82,6 @@ describe('NAICS Search Filter Container', () => {
             expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(63);
         });
     });
-    describe('autoCheckImmediateChildrenAfterDynamicExpand fn', () => {
-        it('auto checks unchecked descendants of selected parent', async () => {
-            const setChecked = jest.fn();
-            const container = shallow(<NAICSContainer
-                {...defaultProps}
-                checked={["children_of_11"]}
-                setChecked={setChecked} />);
-                
-            await container.instance().autoCheckImmediateChildrenAfterDynamicExpand(treeWithPlaceholdersAndRealData[0]);
-
-            // removing the placeholder selection for 11 and adding all the descendants grandchildren (placeholders) to checked. In this test case, we only have one immediate child of 11. Non-placeholder children should not be auto checked.
-            expect(setChecked).toHaveBeenCalledWith(["children_of_1111", "children_of_1112"]);
-        });
-    });
     describe('autoCheckSearchedResultDescendants fn', () => {
         it('auto checks unchecked descendants of selected parent', async () => {
             const addChecked = jest.fn();

@@ -2,7 +2,8 @@ import {
     decrementCountAndUpdateUnchecked,
     incrementCountAndUpdateUnchecked,
     cleanTreeData,
-    removeStagedFilter
+    removeStagedFilter,
+    autoCheckImmediateChildrenAfterDynamicExpand
 } from "./checkboxTreeHelper";
 
 export const isAgency = (tasNode) => tasNode.ancestors.length === 0;
@@ -111,4 +112,16 @@ export const incrementTasCountAndUpdateUnchecked = (
     getTasNodeFromTree,
     getImmediateTasAncestorCode,
     getHighestTasAncestorCode
+);
+
+export const autoCheckTasAfterExpand = (
+    parentNode,
+    checked,
+    unchecked
+) => autoCheckImmediateChildrenAfterDynamicExpand(
+    parentNode,
+    checked,
+    unchecked,
+    'value',
+    shouldTasNodeHaveChildren
 );

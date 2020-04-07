@@ -7,12 +7,13 @@ import {
     cleanTreeData,
     incrementCountAndUpdateUnchecked,
     decrementCountAndUpdateUnchecked,
-    removeStagedFilter
+    removeStagedFilter,
+    autoCheckImmediateChildrenAfterDynamicExpand
 } from './checkboxTreeHelper';
 
 export const formatSelectedNaics = (value, description, count) => `${value} | ${description} | ${count}`;
 
-const shouldNaicsNodeHaveChildren = (node) => node.naics.length < 6;
+export const shouldNaicsNodeHaveChildren = (node) => node.naics.length < 6;
 // key map for traversing the naics-tree
 export const naicsKeyMap = { label: 'naics_description', value: 'naics', isParent: shouldNaicsNodeHaveChildren };
 
@@ -103,4 +104,16 @@ export const removeStagedNaicsFilter = (
     getNaicsNodeFromTree,
     getHighestAncestorNaicsCode,
     getImmediateAncestorNaicsCode
+);
+
+export const autoCheckNaicsAfterExpand = (
+    parentNode,
+    checked,
+    unchecked
+) => autoCheckImmediateChildrenAfterDynamicExpand(
+    parentNode,
+    checked,
+    unchecked,
+    'naics',
+    shouldNaicsNodeHaveChildren
 );
