@@ -122,12 +122,14 @@ export default class TreasuryAccountFilters extends React.Component {
                         onMouseEnter={this.showWarning}
                         onBlur={this.hideWarning}
                         onMouseLeave={this.hideWarning}>
-                        <button
-                            disabled={!enabled}
-                            onClick={this.props.applyFilter}
-                            className="program-source-components__button">
-                            Add Filter
-                        </button>
+                        {(!isDev || (isDev && activeTab === 2)) && (
+                            <button
+                                disabled={!enabled}
+                                onClick={this.props.applyFilter}
+                                className="program-source-components__button">
+                                Add Filter
+                            </button>
+                        )}
                         <div
                             className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
                             aria-hidden={enabled}>

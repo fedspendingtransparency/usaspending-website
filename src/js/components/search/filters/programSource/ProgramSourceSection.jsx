@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import kGlobalConstants from 'GlobalConstants';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import TreasuryAccountFilters from './TreasuryAccountFilters';
 import SelectedSources from './SelectedSources';
@@ -18,6 +19,8 @@ const propTypes = {
     updateTreasuryAccountComponents: PropTypes.func,
     dirtyFilters: PropTypes.symbol
 };
+
+const isDev = kGlobalConstants.DEV;
 
 export default class ProgramSourceSection extends React.Component {
     constructor(props) {
@@ -190,6 +193,8 @@ export default class ProgramSourceSection extends React.Component {
             </React.Fragment>
         );
 
+        const tab2Title = isDev ? 'TAS Components' : 'Federal Account';
+
         return (
             <div className="program-source-filter search-filter">
                 <ul
@@ -200,7 +205,7 @@ export default class ProgramSourceSection extends React.Component {
                             className={`tab-toggle ${activeTreasury}`}
                             value="1"
                             role="menuitemradio"
-                            aria-checked={this.state.activeTab === 'treasury'}
+                            aria-checked={this.state.activeTab === 1}
                             title="Treasury Account"
                             aria-label="Treasury Account"
                             onClick={this.toggleTab} >
@@ -212,11 +217,11 @@ export default class ProgramSourceSection extends React.Component {
                             className={`tab-toggle ${activeFederal}`}
                             value="2"
                             role="menuitemradio"
-                            aria-checked={this.state.activeTab === 'federal'}
+                            aria-checked={this.state.activeTab === 2}
                             title="Federal Account"
                             aria-label="Federal Account"
                             onClick={this.toggleTab}>
-                            Federal Account
+                            {tab2Title}
                         </button>
                     </li>
                 </ul>
