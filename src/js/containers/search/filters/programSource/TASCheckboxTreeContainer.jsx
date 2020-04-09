@@ -187,6 +187,7 @@ export default class TASCheckboxTree extends React.Component {
         } = this.state;
         return (
             <div className="tas-checkbox">
+                <span>Search by Federal Account, TAS, or Title.</span>
                 <EntityDropdownAutocomplete
                     enabled
                     isClearable

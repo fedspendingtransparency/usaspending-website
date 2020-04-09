@@ -40,7 +40,6 @@ const naicsComponent = kGlobalConstants.DEV ? NAICSContainer : NAICSSearchContai
 const naicsTitle = kGlobalConstants.DEV ?
     'North American Industry Classification System (NAICS)' :
     'NAICS Code';
-const tasComponent = kGlobalConstants.DEV ? TASCheckboxTree : ProgramSourceContainer;
 const tasTitle = kGlobalConstants.DEV ? 'Treasury Account Symbol (TAS)' : 'Product/Service Code (PSC)';
 
 const filters = {
@@ -67,7 +66,7 @@ const filters = {
         TimePeriodContainer,
         AwardTypeContainer,
         AgencyContainer,
-        tasComponent,
+        ProgramSourceContainer,
         LocationSectionContainer,
         RecipientSearchContainer,
         RecipientTypeContainer,
