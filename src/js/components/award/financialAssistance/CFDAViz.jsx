@@ -147,10 +147,12 @@ export default class CFDAViz extends React.Component {
         } = this.props;
         const awardTotalObligationUnits = calculateUnitForSingleValue(awardTotalObligation, 1);
         const numerator = {
+            rawValue: cfda._federalActionOblicationAmount,
             value: cfda.federalActionOblicationAmountShort,
             text: 'Total Funding From This CFDA Program'
         };
         const denominator = {
+            rawValue: awardTotalObligation,
             value: `${formatMoneyWithPrecision((awardTotalObligation / awardTotalObligationUnits.unit), 1)}${awardTotalObligationUnits.unitLabel}`,
             text: 'Total Funding From This CFDA Program'
         };
@@ -158,7 +160,17 @@ export default class CFDAViz extends React.Component {
             return (<RectanglePercentViz
                 numerator={numerator}
                 denominator={denominator}
-                percentage={cfda.percentOfTotal} />);
+                percentage={cfda.percentOfTotal}
+                numeratorTooltipData={{
+                    className: "award-amounts-tt__wrapper",
+                    offsetAdjustments: { top: 0 },
+                    tooltipComponent: <div>hi</div>
+                }}
+                denominatorTooltipData={{
+                    className: "award-amounts-tt__wrapper",
+                    offsetAdjustments: { top: -7 },
+                    tooltipComponent: <div>hi</div>
+                }} />);
         }
         return null;
     }

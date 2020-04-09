@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/awards/awardAmountsSection';
-
+import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
 import NormalChart from './NormalChart';
 import ExceedsCurrentChart from './ExceedsCurrentChart';
 import ExceedsPotentialChart from './ExceedsPotentialChart';
 import NoResultsMessage from '../../../../sharedComponents/NoResultsMessage';
 import GrantChart from './GrantChart';
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../../propTypes/index';
-import LoanChart from './LoanChart';
+// import LoanChart from './LoanChart';
+import RectanglePercentViz from '../../../financialAssistance/RectanglePercentViz';
 
 const propTypes = {
     awardType: PropTypes.string,
@@ -59,7 +60,19 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
             return <GrantChart awardAmounts={awardAmounts} awardType={type} />;
         }
         else if (type === 'loan' && isNormal) {
-            return <LoanChart awardAmounts={awardAmounts} />;
+            return (<RectanglePercentViz
+                numerator={{
+                    rawValue: awardAmounts._subsidy,
+                    value: awardAmounts.subsidyAbbreviated,
+                    text: 'Original Subsidy Cost'
+                }}
+                denominator={{
+                    rawValue: awardAmounts._faceValue,
+                    value: awardAmounts.faceValueAbbreviated,
+                    text: 'Face Value of Direct Loan'
+                }}
+                numeratorTooltipData={getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'subsidy', awardAmounts)}
+                denominatorTooltipData={getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts)} />);
         }
         else if (type === 'idv' || type === 'contract') {
             return renderChartBySpendingScenario(scenario);
