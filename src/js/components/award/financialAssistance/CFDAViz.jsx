@@ -10,6 +10,11 @@ import { Picker } from 'data-transparency-ui';
 import { cloneDeep } from 'lodash';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import SingleCFDA from 'components/award/financialAssistance/SingleCFDA';
+import {
+    calculateUnitForSingleValue,
+    formatMoneyWithPrecision
+} from 'helpers/moneyFormatter';
+import RectanglePercentViz from './RectanglePercentViz';
 import CFDATree from './CFDATree';
 import CFDATable from './CFDATable';
 import CFDATreeTooltip from './CFDATreeTooltip';
@@ -23,6 +28,7 @@ const propTypes = {
     order: PropTypes.string,
     total: PropTypes.number,
     allCFDAs: PropTypes.array,
+    awardTotalObligation: PropTypes.number,
     currentPageCFDAs: PropTypes.array,
     cfda: PropTypes.object,
     view: PropTypes.string,
@@ -133,6 +139,30 @@ export default class CFDAViz extends React.Component {
         return null;
     }
 
+    chart = () => {
+        const {
+            view,
+            awardTotalObligation,
+            cfda
+        } = this.props;
+        const awardTotalObligationUnits = calculateUnitForSingleValue(awardTotalObligation, 1);
+        const numerator = {
+            value: cfda.federalActionOblicationAmountShort,
+            text: 'Total Funding From This CFDA Program'
+        };
+        const denominator = {
+            value: `${formatMoneyWithPrecision((awardTotalObligation / awardTotalObligationUnits.unit), 1)}${awardTotalObligationUnits.unitLabel}`,
+            text: 'Total Funding From This CFDA Program'
+        };
+        if (view === 'single' || !view) {
+            return (<RectanglePercentViz
+                numerator={numerator}
+                denominator={denominator}
+                percentage={cfda.percentOfTotal} />);
+        }
+        return null;
+    }
+
     buttons = () => {
         const { view, allCFDAs } = this.props;
         const isTreeView = this.props.view === 'tree';
@@ -179,6 +209,7 @@ export default class CFDAViz extends React.Component {
                 <div className="cfda-section-results">
                     {this.buttons()}
                     {this.title()}
+                    {this.chart()}
                     {this.content()}
                     <div
                         className="cfda-section-vis__width-reference"

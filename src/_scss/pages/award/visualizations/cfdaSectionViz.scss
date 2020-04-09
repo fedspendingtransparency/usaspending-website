@@ -28,6 +28,7 @@
   }
   .cfda-section-results {
     @import './visualizations/cfdaSectionTable';
+    @import '../shared/awardAmountsSection/charts';
     width: 100%;
     .cfda-section-table-renderer {
       width: 100%;

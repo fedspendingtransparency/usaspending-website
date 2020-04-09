@@ -96,4 +96,15 @@ describe('Base CFDA', () => {
             expect(badCFDA.cfdaTitleShort).toEqual('East Asia and Pacific Grants Program I ...');
         });
     });
+    describe('Federal Action Oblication Amount Short', () => {
+        it('should return a string formatted when obligation is a number', () => {
+            expect(cfda.federalActionOblicationAmountShort).toEqual('$2.2M');
+        });
+        it('should return a string formatted when obligation is not a number', () => {
+            const badData = cloneDeep(mockLoan.cfda_info[0]);
+            badData.federal_action_obligation_amount = null;
+            const badCFDA = new BaseCFDA(badData, 100000000000000);
+            expect(badCFDA.federalActionOblicationAmountShort).toEqual('--');
+        });
+    });
 });
