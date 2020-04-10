@@ -152,7 +152,7 @@ describe('NAICS Search Filter Container', () => {
             const setUnchecked = jest.fn();
             const container = shallow(<NAICSContainer
                 {...defaultProps}
-                setUnchecked={setUnchecked}
+                setUncheckedNaics={setUnchecked}
                 checked={["children_of_11"]}
                 nodes={reallyBigTree} />);
 

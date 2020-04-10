@@ -11,7 +11,7 @@ import { is } from 'immutable';
 
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
-import { setChecked, setUnchecked } from 'redux/actions/search/naicsActions';
+import { setCheckedNaics, setUncheckedNaics } from 'redux/actions/search/naicsActions';
 
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
 
@@ -126,8 +126,8 @@ export default connect(
     (dispatch) => ({
         ...bindActionCreators(combinedActions, dispatch),
         resetNaicsTree: () => {
-            dispatch(setChecked([]));
-            dispatch(setUnchecked([]));
+            dispatch(setCheckedNaics([]));
+            dispatch(setUncheckedNaics([]));
         }
     })
 )(SearchSidebarSubmitContainer);
