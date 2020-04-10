@@ -100,7 +100,7 @@ export class AccountObjectClassContainer extends React.Component {
     }
 
     updateFilter(code) {
-        this.props.toggleObjectClass(code);
+        this.props.toggleObjectClass(code.value);
     }
 
     updateMajorFilter(action) {
