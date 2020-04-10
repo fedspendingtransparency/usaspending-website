@@ -7,7 +7,10 @@ import {
 } from "./checkboxTreeHelper";
 
 export const isAgency = (tasNode) => tasNode.ancestors.length === 0;
-const shouldTasNodeHaveChildren = (node) => node.ancestors.length < 2;
+const shouldTasNodeHaveChildren = (node) => {
+    if (node.isPlaceHolder) return false;
+    return node.ancestors.length < 2;
+};
 
 // key map for traversing the tas-tree
 const tasKeyMap = { label: 'description', value: 'id', isParent: shouldTasNodeHaveChildren };

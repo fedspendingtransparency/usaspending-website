@@ -6,11 +6,14 @@ import { difference, cloneDeep } from 'lodash';
 
 const getChildren = (node, keyMap) => {
     if (!node.children && keyMap.isParent(node)) {
+        const value = node[keyMap.value]
+            ? node[keyMap.value]
+            : node.id || '';
         return {
             children: [{
                 isPlaceHolder: true,
                 label: 'Placeholder Child',
-                value: `children_of_${node[keyMap.value]}`
+                value: `children_of_${value}`
             }]
         };
     }
@@ -18,8 +21,8 @@ const getChildren = (node, keyMap) => {
         return {
             children: node.children.map((child) => ({
                 ...child,
-                label: child[keyMap.label],
-                value: child[keyMap.value],
+                label: child[keyMap.label] || child.label || '',
+                value: child[keyMap.value] || child.value || '',
                 ...getChildren(child, keyMap)
             }))
         };
@@ -446,66 +449,74 @@ export const addSearchResultsToTree = (tree, searchResults, traverseTreeByCodeFn
         })
         .sort(sortNodes);
 };
-
-export const showAllTreeItems = (tree, key = '', newNodes = [], getHighestAncestorCode) => tree
-    .map((node) => {
-        const parentKey = getHighestAncestorCode(key);
+/**
+ * This is a very poorly named fn.
+ * Problem: Add new grand-child or child nodes w/o erasing existing nodes from search & showing/hiding nodes
+ */
+export const populateTree = (
+    tree,
+    key = '',
+    newNodes = [],
+    getHighestAncestorCode,
+    traverseTreeByCodeFn
+) => {
+    // 1. add child nodes (may not be necessary)
+    // 2. show all nodes (set className to '')
+    // 3. don't overwrite any grandchildren we might have.
+    const nodeWithNewChildren = key ? traverseTreeByCodeFn(tree, key) : '';
+    const highestAncestorCode = key ? getHighestAncestorCode(nodeWithNewChildren, key) : '';
+    return tree.map((node) => {
         const [data] = newNodes;
-        const shouldAddNewChildToParent = (
-            key &&
-            data &&
-            node.value === parentKey &&
-            // no child exists
-            !node.children.some((child) => child.value === key)
-        );
+        // we're populating an immediate descendant of the top parent.
         if (node.value === key) {
             return {
-                ...data,
-                children: data.children.map((child) => {
-                    const existingChild = node.children.find((olderChild) => olderChild.value === child.value);
-                    const weHaveTheGrandChildren = (
-                        existingChild &&
-                        existingChild?.children.length >= child.count &&
-                        !existingChild?.children.some((existingGrand) => existingGrand?.isPlaceHolder)
-                    );
-                    const weHaveAtLeastOneGrandChild = (
-                        existingChild &&
-                        existingChild?.children.filter((grand) => !grand.isPlaceHolder).length > 0
-                    );
-                    if (weHaveTheGrandChildren) {
-                        return {
-                            ...child,
-                            children: existingChild.children
-                                .filter((grand) => !grand.isPlaceHolder)
-                                .map((grand) => ({ ...grand, className: '' }))
-                                .sort(sortNodes)
-                        };
-                    }
-                    if (weHaveAtLeastOneGrandChild) {
-                        return {
-                            ...child,
-                            children: [
-                                ...child.children,
-                                ...existingChild.children.filter((grand) => (!grand.isPlaceHolder))
-                            ].sort(sortNodes)
-                        };
-                    }
-                    return {
-                        ...child,
-                        children: child.children
-                    };
-                }).sort(sortNodes)
+                ...node,
+                children: data.children
+                    .map((child) => {
+                        const existingChild = node.children.find((olderChild) => olderChild.value === child.value);
+                        const weHaveTheGrandChildren = (
+                            existingChild &&
+                            existingChild?.children.length === child.count &&
+                            !existingChild?.children.some((existingGrand) => existingGrand?.isPlaceHolder)
+                        );
+                        const weHaveAtLeastOneGrandChild = (
+                            existingChild &&
+                            existingChild?.children.filter((grand) => !grand.isPlaceHolder).length > 0
+                        );
+                        if (weHaveTheGrandChildren) {
+                            return {
+                                ...child,
+                                children: existingChild.children
+                                    .map((grand) => ({ ...grand, className: '' }))
+                                    .sort(sortNodes)
+                            };
+                        }
+                        if (weHaveAtLeastOneGrandChild) {
+                            return {
+                                ...child,
+                                children: [
+                                    ...child.children,
+                                    ...existingChild.children.filter((grand) => (!grand.isPlaceHolder))
+                                ].sort(sortNodes)
+                            };
+                        }
+                        return child;
+                    }).sort(sortNodes)
             };
         }
-        else if (shouldAddNewChildToParent) {
+        if (node.value === highestAncestorCode) {
             return {
                 ...node,
                 className: '',
-                children: [
-                    // leave the placeholder!
-                    ...node.children,
-                    data
-                ]
+                children: node.children.map((child) => {
+                    if (child.value === key) {
+                        return {
+                            ...child,
+                            children: data.children
+                        };
+                    }
+                    return child;
+                })
             };
         }
         return {
@@ -517,13 +528,9 @@ export const showAllTreeItems = (tree, key = '', newNodes = [], getHighestAncest
                         if (child.value === key) {
                             if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
                                 // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
-                                return {
-                                    ...child
-                                };
+                                return child;
                             }
-                            return {
-                                ...data
-                            };
+                            return data;
                         }
                         if (child.children && child.children.some((grand) => grand.className === 'hide')) {
                             return {
@@ -541,6 +548,7 @@ export const showAllTreeItems = (tree, key = '', newNodes = [], getHighestAncest
                 : []
         };
     });
+};
 
 export const autoCheckImmediateChildrenAfterDynamicExpand = (
     parentNode,
@@ -609,4 +617,9 @@ export const setUnchecked = (nodes, treeName) => ({
 export const setSearchedNodes = (nodes, treeName, cleanNodesFn) => ({
     type: `SET_SEARCHED_${treeName}`,
     payload: cleanNodesFn(nodes)
+});
+
+export const setCounts = (newCounts, treeName) => ({
+    type: `SET_${treeName}_COUNTS`,
+    payload: newCounts
 });
