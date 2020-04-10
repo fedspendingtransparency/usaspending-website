@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { debounce } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { connect } from 'react-redux';
 
 import {
     cleanTasData,
@@ -11,19 +13,45 @@ import {
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
 
+import {
+    setTasNodes,
+    showTasTree,
+    setExpandedTas,
+    addCheckedTas,
+    setCheckedTas,
+    setUncheckedTas,
+    setSearchedTas,
+    setTasCounts
+} from 'redux/actions/search/tasActions';
+
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
 
-export default class TASCheckboxTree extends React.Component {
+const propTypes = {
+    setTasNodes: PropTypes.func,
+    setExpandedTas: PropTypes.func,
+    setCheckedTas: PropTypes.func,
+    setSearchedTas: PropTypes.func,
+    setTasCounts: PropTypes.func,
+    // restoreHashedFilters: PropTypes.func,
+    addCheckedTas: PropTypes.func,
+    showTasTree: PropTypes.func,
+    setUncheckedTas: PropTypes.func,
+    expanded: PropTypes.arrayOf(PropTypes.string),
+    checked: PropTypes.arrayOf(PropTypes.string),
+    unchecked: PropTypes.arrayOf(PropTypes.string),
+    checkedFromHash: PropTypes.arrayOf(PropTypes.string),
+    uncheckedFromHash: PropTypes.arrayOf(PropTypes.string),
+    nodes: PropTypes.arrayOf(PropTypes.object),
+    searchExpanded: PropTypes.arrayOf(PropTypes.string),
+    counts: PropTypes.arrayOf(PropTypes.shape({}))
+};
+
+class TASCheckboxTree extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked: [],
-            expanded: [],
-            unchecked: [],
-            counts: [],
-            nodes: [],
             isLoading: true,
             searchString: '',
             isError: false,
@@ -39,7 +67,7 @@ export default class TASCheckboxTree extends React.Component {
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
         if (shouldFetchChildren) {
             if (selectedNode.treeDepth === 1) {
-                const selectedAgency = this.state.nodes
+                const selectedAgency = this.props.nodes
                     .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
                 const agencyAndFederalAccountString = `${selectedAgency.value}/${expandedValue}`;
                 this.fetchTas(agencyAndFederalAccountString);
@@ -48,25 +76,21 @@ export default class TASCheckboxTree extends React.Component {
                 this.fetchTas(expandedValue);
             }
         }
-        this.setState({
-            expanded: newExpandedArray
-        });
+        this.props.setExpandedTas(newExpandedArray);
     };
 
     onCheck = (newChecked) => {
         const [newCounts, newUnchecked] = incrementTasCountAndUpdateUnchecked(
             newChecked,
-            this.state.checked,
-            this.state.unchecked,
-            this.state.nodes,
-            this.state.counts
+            this.props.checked,
+            this.props.unchecked,
+            this.props.nodes,
+            this.props.counts
         );
 
-        this.setState({
-            checked: newChecked,
-            counts: newCounts,
-            unchecked: newUnchecked
-        });
+        this.props.setCheckedTas(newChecked);
+        this.props.setTasCounts(newCounts);
+        this.props.setUncheckedTas(newUnchecked);
 
         if (this.hint) {
             this.hint.showHint();
@@ -76,13 +100,15 @@ export default class TASCheckboxTree extends React.Component {
     onUncheck = (newChecked, uncheckedNode) => {
         const [newCounts, newUnchecked] = decrementTasCountAndUpdateUnchecked(
             uncheckedNode,
-            this.state.unchecked,
-            this.state.checked,
-            this.state.counts,
-            this.state.nodes
+            this.props.unchecked,
+            this.props.checked,
+            this.props.counts,
+            this.props.nodes
         );
 
-        this.setState({ checked: newChecked, counts: newCounts, unchecked: newUnchecked });
+        this.props.setCheckedTas(newChecked);
+        this.props.setTasCounts(newCounts);
+        this.props.setUncheckedTas(newUnchecked);
     }
 
     onSearchChange = debounce(() => {
@@ -101,11 +127,11 @@ export default class TASCheckboxTree extends React.Component {
     }
 
     onCollapse = (newExpandedArray) => {
-        this.setState({ expanded: newExpandedArray });
+        this.props.setExpandedTas(newExpandedArray);
     }
 
     removeSelectedFilter = (node) => {
-        const newChecked = removeStagedTasFilter(this.state.nodes, this.state.checked, node.value);
+        const newChecked = removeStagedTasFilter(this.props.nodes, this.props.checked, node.value);
         this.onUncheck(newChecked, { ...node, checked: false });
     }
 
@@ -122,37 +148,39 @@ export default class TASCheckboxTree extends React.Component {
                     const key = id.includes('/')
                         ? id.split('/')[1]
                         : id;
-                    this.setState({
-                        isLoading: false,
-                        nodes: this.state.nodes
-                            .map((agency) => {
-                                if (agency.value === key) {
-                                    // agency was fetched, response data populates agency's federal accounts
-                                    return { ...agency, children: nodes };
-                                }
-                                return {
-                                    ...agency,
-                                    children: agency.children.map((federalAccount) => {
-                                        if (federalAccount.value === key) {
-                                            // federal account was fetched, response data populates federal account's TAS accounts
-                                            return { ...federalAccount, children: nodes };
-                                        }
-                                        return federalAccount;
-                                    })
-                                };
-                            }),
-                        checked: this.state.checked.includes(`children_of_${key}`)
-                            ? autoCheckTasAfterExpand(
-                                { children: nodes, value: key },
-                                this.state.checked,
-                                this.state.unchecked
-                            )
-                            : this.state.checked
-                    });
+                    this.setState({ isLoading: false });
+                    const newNodes = nodes
+                        .map((agency) => {
+                            if (agency.id === key) {
+                                // agency was fetched, response data populates agency's federal accounts
+                                return { ...agency, children: nodes };
+                            }
+                            return {
+                                ...agency,
+                                children: agency.children.map((federalAccount) => {
+                                    if (federalAccount.id === key) {
+                                        // federal account was fetched, response data populates federal account's TAS accounts
+                                        return { ...federalAccount, children: nodes };
+                                    }
+                                    return federalAccount;
+                                })
+                            };
+                        });
+                    const newChecked = this.props.checked.includes(`children_of_${key}`)
+                        ? autoCheckTasAfterExpand(
+                            { children: nodes, value: key },
+                            this.props.checked,
+                            this.props.unchecked
+                        )
+                        : this.props.checked;
+                    
+                    this.props.setCheckedTas(newChecked);
+                    this.props.setTasNodes(key, newNodes);
                 }
                 else {
                     // populating tree trunk
-                    this.setState({ isLoading: false, nodes });
+                    this.props.setTasNodes('', nodes);
+                    this.setState({ isLoading: false });
                 }
                 this.request = null;
             })
@@ -179,11 +207,13 @@ export default class TASCheckboxTree extends React.Component {
             nodes,
             checked,
             expanded,
+            counts
+        } = this.props;
+        const {
             isLoading,
             searchString,
             isError,
-            errorMessage,
-            counts
+            errorMessage
         } = this.state;
         return (
             <div className="tas-checkbox">
@@ -238,3 +268,30 @@ export default class TASCheckboxTree extends React.Component {
         );
     }
 }
+
+TASCheckboxTree.propTypes = propTypes;
+
+const mapStateToProps = (state) => ({
+    nodes: state.tas.tas.toJS(),
+    expanded: state.tas.expanded.toJS(),
+    searchExpanded: state.tas.searchExpanded.toJS(),
+    checked: state.tas.checked.toJS(),
+    unchecked: state.tas.unchecked.toJS(),
+    counts: state.tas.counts.toJS()
+    // checkedFromHash: state.appliedFilters.filters.tasCodes.require,
+    // uncheckedFromHash: state.appliedFilters.filters.tasCodes.exclude,
+    // filters: state.appliedFilters.filters
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    setTasNodes: (key, nodes) => dispatch(setTasNodes(key, nodes)),
+    showTasTree: () => dispatch(showTasTree()),
+    setExpandedTas: (expanded, type) => dispatch(setExpandedTas(expanded, type)),
+    addCheckedTas: (nodeValue) => dispatch(addCheckedTas(nodeValue)),
+    setCheckedTas: (nodes) => dispatch(setCheckedTas(nodes)),
+    setUncheckedTas: (nodes) => dispatch(setUncheckedTas(nodes)),
+    setSearchedTas: (nodes) => dispatch(setSearchedTas(nodes)),
+    setTasCounts: (newCounts) => dispatch(setTasCounts(newCounts))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TASCheckboxTree);

@@ -21,6 +21,7 @@ import redirectModalReducer from './redirectModal/redirectModalReducer';
 import stateReducer from './state/stateReducer';
 import searchSubAwardTableReducer from './search/searchSubAwardTableReducer';
 import naicsReducer from './search/naicsReducer/naicsReducer';
+import tasReducer from './search/tasReducer/tasReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -38,7 +39,11 @@ const appReducer = combineReducers({
     redirectModal: redirectModalReducer,
     stateProfile: stateReducer,
     searchSubAwardTable: searchSubAwardTableReducer,
-    naics: naicsReducer
+    // search filters outside of redux.filter b/c the expand/collapse of this filter is required to load
+    // the tree & it cannot populated the correct user selections without the data.
+    // Nesting it inside filters would be a bad idea.
+    naics: naicsReducer,
+    tas: tasReducer
 });
 
 export default appReducer;
