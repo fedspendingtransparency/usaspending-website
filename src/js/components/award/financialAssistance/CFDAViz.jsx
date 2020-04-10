@@ -146,7 +146,8 @@ export default class CFDAViz extends React.Component {
         const {
             view,
             awardTotalObligation,
-            cfda
+            cfda,
+            allCFDAs
         } = this.props;
         const awardTotalObligationUnits = calculateUnitForSingleValue(awardTotalObligation, 1);
         const numeratorTitle = 'Total Funding From This CFDA Program';
@@ -161,7 +162,7 @@ export default class CFDAViz extends React.Component {
             value: `${formatMoneyWithPrecision((awardTotalObligation / awardTotalObligationUnits.unit), 1)}${awardTotalObligationUnits.unitLabel}`,
             text: denominatorTitle
         };
-        if (view === 'single' || !view) {
+        if ((view === 'single' || !view) && (allCFDAs.length > 1)) {
             if (!cfda._federalActionOblicationAmount || !awardTotalObligation) {
                 return (
                     <div className="results-table-message-container">
