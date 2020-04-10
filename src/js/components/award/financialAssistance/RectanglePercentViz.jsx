@@ -111,7 +111,8 @@ const RectanglePercentViz = ({
                                 className="award-amounts-viz__obligated--grants"
                                 style={{
                                     width: '100%',
-                                    backgroundColor: numeratorBarAndLabelStyles.backgroundColor }} />
+                                    backgroundColor: numeratorBarAndLabelStyles.backgroundColor
+                                }} />
                         </TooltipWrapper>
                         }
                         {numeratorIsZero && <div className="award-amounts-viz__obligated--grants" style={numeratorBarAndLabelStyles} />}
