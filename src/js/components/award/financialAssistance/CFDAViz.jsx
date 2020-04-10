@@ -10,9 +10,11 @@ import { Picker } from 'data-transparency-ui';
 import { cloneDeep } from 'lodash';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import SingleCFDA from 'components/award/financialAssistance/SingleCFDA';
+import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 import {
     calculateUnitForSingleValue,
-    formatMoneyWithPrecision
+    formatMoneyWithPrecision,
+    formatMoney
 } from 'helpers/moneyFormatter';
 import { RectanglePercentVizTooltip } from './RectanglePercentVizTooltip';
 import RectanglePercentViz from './RectanglePercentViz';
@@ -160,10 +162,17 @@ export default class CFDAViz extends React.Component {
             text: denominatorTitle
         };
         if (view === 'single' || !view) {
+            if (!cfda._federalActionOblicationAmount || !awardTotalObligation) {
+                return (
+                    <div className="results-table-message-container">
+                        <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
+                    </div>);
+            }
             return (<RectanglePercentViz
                 numerator={numerator}
                 denominator={denominator}
                 percentage={cfda.percentOfTotal}
+                numeratorColor="#1b4956"
                 numeratorTooltipData={{
                     className: "award-amounts-tt__wrapper",
                     offsetAdjustments: { top: 0 },
@@ -175,7 +184,7 @@ export default class CFDAViz extends React.Component {
                     className: "award-amounts-tt__wrapper",
                     offsetAdjustments: { top: -7 },
                     tooltipComponent: <RectanglePercentVizTooltip
-                        amount={}
+                        amount={formatMoney(awardTotalObligation)}
                         title={denominatorTitle} />
                 }} />);
         }

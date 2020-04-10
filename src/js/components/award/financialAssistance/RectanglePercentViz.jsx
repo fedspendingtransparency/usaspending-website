@@ -26,7 +26,8 @@ const propTypes = {
     denominator: shape,
     percentage: PropTypes.string,
     numeratorTooltipData: tooltipShape,
-    denominatorTooltipData: tooltipShape
+    denominatorTooltipData: tooltipShape,
+    numeratorColor: PropTypes.string
 };
 
 const RectanglePercentViz = ({
@@ -34,7 +35,8 @@ const RectanglePercentViz = ({
     denominator,
     percentage,
     numeratorTooltipData,
-    denominatorTooltipData
+    denominatorTooltipData,
+    numeratorColor
 }) => {
     const [
         activeTooltip,
@@ -57,9 +59,9 @@ const RectanglePercentViz = ({
     const numeratorIsZero = (numerator.rawValue === 0);
     const percent = percentage || generatePercentage(numerator.rawValue / denominator.rawValue);
 
-    const subsidyBarAndLabelStyles = {
+    const numeratorBarAndLabelStyles = {
         width: percent,
-        backgroundColor: '#F5A623'
+        backgroundColor: numeratorColor
     };
 
     const faceValueColor = "#FFF";
@@ -82,7 +84,7 @@ const RectanglePercentViz = ({
                     onClick={showNumeratorTooltip}>
                     <strong>{numeratorValue}</strong><br />{numerator.text}
                 </div>
-                <div className="award-amounts-viz__label" style={subsidyBarAndLabelStyles}>
+                <div className="award-amounts-viz__label" style={numeratorBarAndLabelStyles}>
                     <div className="award-amounts-viz__line-up--loans" />
                 </div>
             </>}
@@ -104,15 +106,15 @@ const RectanglePercentViz = ({
                         {!numeratorIsZero &&
                         <TooltipWrapper
                             {...numeratorTooltipProps}
-                            styles={{ width: subsidyBarAndLabelStyles.width }}>
+                            styles={{ width: numeratorBarAndLabelStyles.width }}>
                             <div
                                 className="award-amounts-viz__obligated--grants"
                                 style={{
                                     width: '100%',
-                                    backgroundColor: subsidyBarAndLabelStyles.backgroundColor }} />
+                                    backgroundColor: numeratorBarAndLabelStyles.backgroundColor }} />
                         </TooltipWrapper>
                         }
-                        {numeratorIsZero && <div className="award-amounts-viz__obligated--grants" style={subsidyBarAndLabelStyles} />}
+                        {numeratorIsZero && <div className="award-amounts-viz__obligated--grants" style={numeratorBarAndLabelStyles} />}
                     </div>
                 </TooltipWrapper>
             </div>

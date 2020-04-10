@@ -70,6 +70,7 @@ const AwardAmountsChart = ({ awardType, awardOverview, spendingScenario }) => {
                     value: awardAmounts.faceValueAbbreviated,
                     text: 'Face Value of Direct Loan'
                 }}
+                numeratorColor="#F5A623"
                 numeratorTooltipData={getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'subsidy', awardAmounts)}
                 denominatorTooltipData={getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts)} />);
         }
