@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/awards/awardAmountsSection';
+import RectanglePercentViz from 'components/award/financialAssistance/RectanglePercentViz';
 import { getTooltipPropsByAwardTypeAndSpendingCategory } from '../Tooltips';
 import NormalChart from './NormalChart';
 import ExceedsCurrentChart from './ExceedsCurrentChart';
@@ -8,8 +9,6 @@ import ExceedsPotentialChart from './ExceedsPotentialChart';
 import NoResultsMessage from '../../../../sharedComponents/NoResultsMessage';
 import GrantChart from './GrantChart';
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../../propTypes/index';
-// import LoanChart from './LoanChart';
-import RectanglePercentViz from '../../../financialAssistance/RectanglePercentViz';
 
 const propTypes = {
     awardType: PropTypes.string,

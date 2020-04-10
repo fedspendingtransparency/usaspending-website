@@ -1,14 +1,14 @@
 /**
- * RectanglePercentViz -> RectanglePercentViz.jsx
- * Created by Jonathan Hill 04/09/20
+ * LoanChart -> RectanglePercentViz.jsx
+ * Created by Maxwell Kendall 9/16/19
  **/
 
 import React from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from "data-transparency-ui";
 
-import { useTooltips } from "../shared/awardAmountsSection/charts/AwardAmountsChart";
 import { generatePercentage } from 'helpers/awardAmountHelper';
+import { useTooltips } from "../shared/awardAmountsSection/charts/AwardAmountsChart";
 
 const shape = PropTypes.shape({
     rawValue: PropTypes.number,
@@ -16,18 +16,17 @@ const shape = PropTypes.shape({
     text: PropTypes.string
 });
 
+const tooltipShape = PropTypes.shape({
+    offsetAdjustments: PropTypes.object,
+    tooltipComponent: PropTypes.element
+});
+
 const propTypes = {
     numerator: shape,
     denominator: shape,
     percentage: PropTypes.string,
-    numeratorTooltipData: PropTypes.shape({
-        offsetAdjustments: PropTypes.object,
-        tooltipComponent: PropTypes.element
-    }),
-    denominatorTooltipData: PropTypes.shape({
-        offsetAdjustments: PropTypes.object,
-        tooltipComponent: PropTypes.element
-    })
+    numeratorTooltipData: tooltipShape,
+    denominatorTooltipData: tooltipShape
 };
 
 const RectanglePercentViz = ({
@@ -90,8 +89,8 @@ const RectanglePercentViz = ({
             {numeratorIsZero &&
                 <TooltipWrapper {...numeratorTooltipProps} styles={{ width: '160px' }}>
                     <div className="award-amounts-viz__desc-top--loans" role="button" tabIndex="0">
-                        <strong>{numerator.value}</strong>
-                        <span>Total Funding From This CFDA Program</span>
+                        <strong>{numeratorValue}</strong>
+                        <span>{numerator.text}</span>
                     </div>
                 </TooltipWrapper>
             }

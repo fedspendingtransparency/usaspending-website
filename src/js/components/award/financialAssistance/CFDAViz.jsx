@@ -14,6 +14,7 @@ import {
     calculateUnitForSingleValue,
     formatMoneyWithPrecision
 } from 'helpers/moneyFormatter';
+import { RectanglePercentVizTooltip } from './RectanglePercentVizTooltip';
 import RectanglePercentViz from './RectanglePercentViz';
 import CFDATree from './CFDATree';
 import CFDATable from './CFDATable';
@@ -146,15 +147,17 @@ export default class CFDAViz extends React.Component {
             cfda
         } = this.props;
         const awardTotalObligationUnits = calculateUnitForSingleValue(awardTotalObligation, 1);
+        const numeratorTitle = 'Total Funding From This CFDA Program';
+        const denominatorTitle = 'Total Funding From All CFDA Programs';
         const numerator = {
             rawValue: cfda._federalActionOblicationAmount,
             value: cfda.federalActionOblicationAmountShort,
-            text: 'Total Funding From This CFDA Program'
+            text: numeratorTitle
         };
         const denominator = {
             rawValue: awardTotalObligation,
             value: `${formatMoneyWithPrecision((awardTotalObligation / awardTotalObligationUnits.unit), 1)}${awardTotalObligationUnits.unitLabel}`,
-            text: 'Total Funding From This CFDA Program'
+            text: denominatorTitle
         };
         if (view === 'single' || !view) {
             return (<RectanglePercentViz
@@ -164,12 +167,16 @@ export default class CFDAViz extends React.Component {
                 numeratorTooltipData={{
                     className: "award-amounts-tt__wrapper",
                     offsetAdjustments: { top: 0 },
-                    tooltipComponent: <div>hi</div>
+                    tooltipComponent: <RectanglePercentVizTooltip
+                        amount={cfda.federalActionOblicationAmount}
+                        title={numeratorTitle} />
                 }}
                 denominatorTooltipData={{
                     className: "award-amounts-tt__wrapper",
                     offsetAdjustments: { top: -7 },
-                    tooltipComponent: <div>hi</div>
+                    tooltipComponent: <RectanglePercentVizTooltip
+                        amount={}
+                        title={denominatorTitle} />
                 }} />);
         }
         return null;
