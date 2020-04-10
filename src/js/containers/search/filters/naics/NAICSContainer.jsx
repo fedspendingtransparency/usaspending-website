@@ -63,12 +63,6 @@ const propTypes = {
     filters: PropTypes.object
 };
 
-/*
-    * TODO:
-    * 1. move checked, expanded, nodes, unchecked to local state.
-    * 2. move stagedNaicsFilters to redux.
-*/
-
 export class NAICSContainer extends React.Component {
     constructor(props) {
         super(props);
