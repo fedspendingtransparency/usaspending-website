@@ -575,3 +575,38 @@ export const autoCheckImmediateChildrenAfterDynamicExpand = (
 
     return [...new Set([...removeParentPlaceholders, ...newValues])];
 };
+
+export const setNodes = (key, nodes, treeName, cleanNodesFn) => ({
+    type: `SET_${treeName}_NODES`,
+    key,
+    payload: cleanNodesFn(nodes)
+});
+
+export const showTree = (treeName) => ({
+    type: `SHOW_${treeName}_TREE`
+});
+
+export const setExpanded = (expanded, type = 'SET_EXPANDED', treeName) => ({
+    type: `${type}_${treeName}`,
+    payload: expanded
+});
+
+export const addChecked = (nodeValue, treeName) => ({
+    type: `ADD_CHECKED_${treeName}`,
+    payload: nodeValue
+});
+
+export const setChecked = (nodes, treeName) => ({
+    type: `SET_CHECKED_${treeName}`,
+    payload: nodes
+});
+
+export const setUnchecked = (nodes, treeName) => ({
+    type: `SET_UNCHECKED_${treeName}`,
+    payload: nodes
+});
+
+export const setSearchedNodes = (nodes, treeName, cleanNodesFn) => ({
+    type: `SET_SEARCHED_${treeName}`,
+    payload: cleanNodesFn(nodes)
+});

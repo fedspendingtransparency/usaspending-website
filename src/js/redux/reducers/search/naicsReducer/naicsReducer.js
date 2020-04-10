@@ -32,7 +32,7 @@ const addNaicsSearchResultsToTree = (tree, searchResults) => addSearchResultsToT
 /* eslint-disable import/prefer-default-export */
 export const naicsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_NAICS': {
+        case 'SET_NAICS_NODES': {
             const { payload, key } = action;
             // initial top-tier data only
             if (!key) return { ...state, naics: new List(payload) };
@@ -59,31 +59,31 @@ export const naicsReducer = (state = initialState, action) => {
                 naics: new List(newState)
             };
         }
-        case 'SET_SEARCHED_EXPANDED': {
+        case 'SET_SEARCHED_EXPANDED_NAICS': {
             return {
                 ...state,
                 searchExpanded: new List([...new Set([...action.payload])])
             };
         }
-        case 'SET_EXPANDED': {
+        case 'SET_EXPANDED_NAICS': {
             return {
                 ...state,
                 expanded: new List([...new Set([...action.payload])])
             };
         }
-        case 'SET_CHECKED': {
+        case 'SET_CHECKED_NAICS': {
             return {
                 ...state,
                 checked: new List([...new Set([...action.payload])])
             };
         }
-        case 'SET_UNCHECKED': {
+        case 'SET_UNCHECKED_NAICS': {
             return {
                 ...state,
                 unchecked: new List([...new Set([...action.payload])])
             };
         }
-        case 'ADD_CHECKED': {
+        case 'ADD_CHECKED_NAICS': {
             return {
                 ...state,
                 // new Set to eliminate any duplicate values
