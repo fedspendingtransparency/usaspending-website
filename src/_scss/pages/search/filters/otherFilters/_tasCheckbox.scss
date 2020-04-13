@@ -4,8 +4,17 @@
     .autocomplete__input {
         width: 100%;
         padding-bottom: rem(10);
+        position: relative;
         input {
             width: 100%;
+        }
+        .icon {
+          @include flex(0 0 auto);
+          position: absolute;
+          width: rem(15);
+          height: rem(15);
+          right: rem(15);
+          top: rem(15);
         }
     }
     .checkbox-tree {

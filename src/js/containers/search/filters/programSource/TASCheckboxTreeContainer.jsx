@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { debounce } from 'lodash';
+import { isCancel } from 'axios';
+import { debounce, get } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
@@ -9,9 +10,11 @@ import {
     incrementTasCountAndUpdateUnchecked,
     decrementTasCountAndUpdateUnchecked,
     removeStagedTasFilter,
-    autoCheckTasAfterExpand
+    autoCheckTasAfterExpand,
+    getTasNodeFromTree
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
+import { expandAllNodes } from 'helpers/checkboxTreeHelper';
 
 import {
     setTasNodes,
@@ -116,16 +119,18 @@ export class TASCheckboxTree extends React.Component {
 
     onSearchChange = debounce(() => {
         if (!this.state.searchString) return this.onClear();
-        return this.setState({ requestType: 'search' }, this.fetchNAICS);
+        return this.fetchTas('', this.state.searchString);
     }, 500);
 
     onClear = () => {
         if (this.request) this.request.cancel();
+        this.props.showTasTree();
         this.setState({
             isSearch: false,
             searchString: '',
             isLoading: false,
-            requestType: ''
+            isError: false,
+            errorMessage: ''
         });
     }
 
@@ -138,13 +143,35 @@ export class TASCheckboxTree extends React.Component {
         this.onUncheck(newChecked, { ...node, checked: false });
     }
 
-    fetchTas = (id = '') => {
+    autoCheckSearchResultDescendants = (checked, expanded, nodes) => expanded
+        .reduce((newChecked, expandedNode) => {
+            debugger;
+            // if node is checked by an immediate placeholder, consider it checked.
+            if (newChecked.includes(`children_of_${expandedNode}`)) newChecked.push(expandedNode);
+            const node = getTasNodeFromTree(nodes, expandedNode);
+            // if a node is checked by any ancestor, consider it checked.
+            const ancestorOfExpandedIsChecked = node.ancestors.some((ancestor) => {
+                if (newChecked.includes(ancestor)) return true;
+                if (newChecked.includes(`children_of_${ancestor}`)) return true;
+                return false;
+            });
+            if (ancestorOfExpandedIsChecked) newChecked.push(expandedNode);
+            return newChecked;
+        }, checked)
+
+    fetchTas = (id = '', searchStr = '') => {
         if (this.request) this.request.cancel();
         if (id === '') {
             this.setState({ isLoading: true });
         }
-        this.request = fetchTas(id);
-        const isPartialTree = id !== '';
+        const queryParam = this.state.isSearch
+            ? `?depth=2&filter=${searchStr}`
+            : id;
+        this.request = fetchTas(queryParam);
+        const isPartialTree = (
+            id !== '' ||
+            this.state.isSearch
+        );
         return this.request.promise
             .then(({ data }) => {
                 // dynamically populating tree branches
@@ -162,9 +189,21 @@ export class TASCheckboxTree extends React.Component {
                             this.props.unchecked
                         )
                         : this.props.checked;
-
-                    this.props.setCheckedTas(newChecked);
-                    this.props.setTasNodes(key, nodes);
+                    if (this.state.isSearch) {
+                        this.props.setSearchedTas(nodes);
+                        const searchExpandedNodes = expandAllNodes(nodes);
+                        this.props.setExpandedTas(expandAllNodes(nodes), 'SET_SEARCHED_EXPANDED');
+                        const nodesCheckedByPlaceholderOrAncestor = this.autoCheckSearchResultDescendants(
+                            this.props.checked,
+                            searchExpandedNodes,
+                            nodes
+                        );
+                        this.props.setCheckedTas(nodesCheckedByPlaceholderOrAncestor);
+                    }
+                    else {
+                        this.props.setTasNodes(key, nodes);
+                        this.props.setCheckedTas(newChecked);
+                    }
                 }
                 else {
                     // populating tree trunk
@@ -175,7 +214,12 @@ export class TASCheckboxTree extends React.Component {
             })
             .catch((e) => {
                 console.log("error fetching TAS", e);
-                this.setState({ isError: true, errorMessage: e });
+                if (!isCancel(e)) {
+                    this.setState({
+                        isError: true,
+                        errorMessage: get(e, 'message', 'Error fetching TAS.')
+                    });
+                }
             });
     }
 
@@ -196,24 +240,26 @@ export class TASCheckboxTree extends React.Component {
             nodes,
             checked,
             expanded,
-            counts
+            counts,
+            searchExpanded
         } = this.props;
         const {
             isLoading,
             searchString,
             isError,
-            errorMessage
+            errorMessage,
+            isSearch
         } = this.state;
         return (
             <div className="tas-checkbox">
                 <span>Search by Federal Account, TAS, or Title.</span>
                 <EntityDropdownAutocomplete
-                    enabled
-                    isClearable
                     placeholder="Type to filter results"
                     searchString={searchString}
+                    enabled
                     handleTextInputChange={this.handleTextInputChange}
                     context={{}}
+                    isClearable
                     loading={false}
                     onClear={this.onClear} />
                 <CheckboxTree
@@ -222,8 +268,9 @@ export class TASCheckboxTree extends React.Component {
                     isLoading={isLoading}
                     data={nodes}
                     checked={checked}
+                    searchText={searchString}
                     countLabel="TAS"
-                    expanded={expanded}
+                    expanded={isSearch ? searchExpanded : expanded}
                     onUncheck={this.onUncheck}
                     onCheck={this.onCheck}
                     onExpand={this.onExpand}

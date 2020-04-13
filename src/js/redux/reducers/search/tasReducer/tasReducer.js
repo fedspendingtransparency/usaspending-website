@@ -1,12 +1,18 @@
 import { List } from 'immutable';
 
-import { addSearchResultsToTree, populateBranchOrLeafLevelNodes } from 'helpers/checkboxTreeHelper';
+import { addSearchResultsToTree, populateBranchOrLeafLevelNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
 import {
     getTasNodeFromTree,
     getHighestTasAncestorCode
 } from 'helpers/tasHelper';
 
-const showAllTasTreeItems = (nodes, key, newNodes) => populateBranchOrLeafLevelNodes(
+const tasSortFn = (a, b) => {
+    if (a.description > b.description) return 1;
+    if (b.description > a.description) return -1;
+    return 0;
+};
+
+const populateTasBranchOrLeafLevelNodes = (nodes, key, newNodes) => populateBranchOrLeafLevelNodes(
     nodes,
     key,
     newNodes,
@@ -17,7 +23,8 @@ const showAllTasTreeItems = (nodes, key, newNodes) => populateBranchOrLeafLevelN
 const addTasSearchResultsToTree = (tree, searchResults) => addSearchResultsToTree(
     tree,
     searchResults,
-    getTasNodeFromTree
+    getTasNodeFromTree,
+    tasSortFn
 );
 
 export const initialState = {
@@ -42,7 +49,7 @@ export const tasReducer = (state = initialState, action) => {
                 };
             }
             // need to do this non-sense to match the response object of NAICS :smh:
-            const newState = showAllTasTreeItems(state.tas.toJS(), key, [{ value: key, children: payload }]);
+            const newState = populateTasBranchOrLeafLevelNodes(state.tas.toJS(), key, [{ value: key, children: payload }]);
 
             return {
                 ...state,
@@ -53,7 +60,7 @@ export const tasReducer = (state = initialState, action) => {
             // removes className 'hide' added to nodes from search results
             return {
                 ...state,
-                tas: new List(showAllTasTreeItems(state.tas.toJS()))
+                tas: new List(showAllNodes(state.tas.toJS()))
             };
         }
         case 'SET_SEARCHED_TAS': {
