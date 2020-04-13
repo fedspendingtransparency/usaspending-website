@@ -28,7 +28,9 @@ const propTypes = {
     showLayerToggle: PropTypes.bool,
     children: PropTypes.node,
     center: PropTypes.array,
-    stateProfile: PropTypes.bool
+    stateProfile: PropTypes.bool,
+    mapLegendToggle: PropTypes.string,
+    updateMapLegendToggle: PropTypes.func
 };
 
 const defaultProps = {
@@ -41,6 +43,17 @@ const defaultProps = {
     showLayerToggle: false,
     children: null
 };
+
+const mapLegendToggleData = [
+    {
+        title: 'Total Spending',
+        value: 'totalSpending'
+    },
+    {
+        title: 'Per Capita',
+        value: 'perCapita'
+    }
+];
 
 const mapboxSources = {
     state: {
@@ -466,7 +479,10 @@ export default class MapWrapper extends React.Component {
             legend = (
                 <MapLegend
                     segments={this.state.spendingScale.segments}
-                    units={this.state.spendingScale.units} />
+                    units={this.state.spendingScale.units}
+                    mapLegendToggleData={mapLegendToggleData}
+                    updateMapLegendToggle={this.props.updateMapLegendToggle}
+                    mapLegendToggle={this.props.mapLegendToggle} />
             );
         }
 

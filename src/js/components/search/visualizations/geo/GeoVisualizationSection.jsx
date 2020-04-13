@@ -27,7 +27,9 @@ const propTypes = {
     total: PropTypes.number,
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    noResults: PropTypes.bool
+    noResults: PropTypes.bool,
+    mapLegendToggle: PropTypes.string,
+    updateMapLegendToggle: PropTypes.func
 };
 
 const availableLayers = ['state', 'county', 'congressionalDistrict'];
@@ -192,7 +194,9 @@ export default class GeoVisualizationSection extends React.Component {
                     tooltip={GeoVisualizationTooltip}
                     availableLayers={availableLayers}
                     showLayerToggle
-                    center={[-95.569430, 38.852892]}>
+                    center={[-95.569430, 38.852892]}
+                    mapLegendToggle={this.props.mapLegendToggle}
+                    updateMapLegendToggle={this.props.updateMapLegendToggle}>
                     {disclaimer}
                     {message}
                 </MapWrapper>

@@ -15,6 +15,7 @@ import GeoVisualizationSection from
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
+import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 
 import * as SearchHelper from 'helpers/searchHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
@@ -27,7 +28,9 @@ const propTypes = {
     resultsMeta: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    mapLegendToggle: PropTypes.string,
+    updateMapLegendToggle: PropTypes.func
 };
 
 const apiScopes = {
@@ -107,6 +110,10 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.mapListeners.forEach((listenerRef) => {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
+    }
+
+    updateMapLegendToggle = (value) => {
+        this.props.updateMapLegendToggle(value);
     }
 
     changeScope(scope) {
@@ -251,15 +258,16 @@ export class GeoVisualizationSectionContainer extends React.Component {
         const spendingValues = [];
         const spendingShapes = [];
         const spendingLabels = {};
+        const dataKey = this.props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita';
 
         data.results.forEach((item) => {
             // state must not be null or empty string
             if (item.shape_code && item.shape_code !== '') {
                 spendingShapes.push(item.shape_code);
-                spendingValues.push(parseFloat(item.aggregated_amount));
+                spendingValues.push(parseFloat(item[dataKey]));
                 spendingLabels[item.shape_code] = {
                     label: item.display_name,
-                    value: parseFloat(item.aggregated_amount)
+                    value: parseFloat(item[dataKey])
                 };
             }
         });
@@ -295,7 +303,9 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 {...this.state}
                 noResults={this.state.data.values.length === 0}
                 changeScope={this.changeScope}
-                changeMapLayer={this.changeMapLayer} />
+                changeMapLayer={this.changeMapLayer}
+                updateMapLegendToggle={this.updateMapLegendToggle}
+                mapLegendToggle={this.props.mapLegendToggle} />
         );
     }
 }
@@ -306,9 +316,10 @@ export default connect(
     (state) => ({
         reduxFilters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
-        subaward: state.searchView.subaward
+        subaward: state.searchView.subaward,
+        mapLegendToggle: state.searchMapLegendToggle
     }),
     (dispatch) => bindActionCreators(Object.assign({}, searchFilterActions, {
         setAppliedFilterCompletion
-    }), dispatch)
+    }, { updateMapLegendToggle }), dispatch)
 )(GeoVisualizationSectionContainer);

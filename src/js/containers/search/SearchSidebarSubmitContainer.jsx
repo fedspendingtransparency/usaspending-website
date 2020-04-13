@@ -12,6 +12,7 @@ import { is } from 'immutable';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
 import { setChecked, setUnchecked } from 'redux/actions/search/naicsActions';
+import { resetMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
 
@@ -32,6 +33,7 @@ const propTypes = {
     applyStagedFilters: PropTypes.func,
     clearStagedFilters: PropTypes.func,
     resetNaicsTree: PropTypes.func,
+    resetMapLegendToggle: PropTypes.func,
     setAppliedFilterCompletion: PropTypes.func,
     resetAppliedFilters: PropTypes.func
 };
@@ -103,6 +105,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
         this.props.clearStagedFilters();
         this.props.resetAppliedFilters();
         this.props.resetNaicsTree();
+        this.props.resetMapLegendToggle();
     }
 
     render() {
@@ -128,7 +131,8 @@ export default connect(
         resetNaicsTree: () => {
             dispatch(setChecked([]));
             dispatch(setUnchecked([]));
-        }
+        },
+        resetMapLegendToggle
     })
 )(SearchSidebarSubmitContainer);
 

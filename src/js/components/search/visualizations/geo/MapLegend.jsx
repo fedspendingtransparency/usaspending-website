@@ -13,7 +13,13 @@ import MapLegendItem from './MapLegendItem';
 
 const propTypes = {
     segments: PropTypes.array,
-    units: PropTypes.object
+    units: PropTypes.object,
+    mapLegendToggleData: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string,
+        value: PropTypes.string
+    })),
+    mapLegendToggle: PropTypes.string,
+    updateMapLegendToggle: PropTypes.func
 };
 
 const defaultProps = {
@@ -88,9 +94,28 @@ export default class MapLegend extends React.Component {
         });
     }
 
+    updateToggle = (e) => {
+        console.log(' E : ', e);
+        console.log(' E Target : ', e.target);
+        console.log(' E val : ', e.target.value);
+        this.props.updateMapLegendToggle(e.target.value);
+    }
+
     render() {
         return (
             <div className="map-legend">
+                <div>
+                    {this.props?.mapLegendToggleData?.map((data) => (
+                        <div key={data.value}>
+                            <input
+                                type="radio"
+                                value={data.value}
+                                checked={data.value === this.props.mapLegendToggle}
+                                onChange={this.updateToggle} />
+                            {data.title}
+                        </div>
+                    ))}
+                </div>
                 <ul>
                     {this.state.items}
                 </ul>
