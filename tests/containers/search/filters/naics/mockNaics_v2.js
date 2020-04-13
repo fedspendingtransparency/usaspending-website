@@ -423,7 +423,7 @@ export const defaultProps = {
     nodes: placeholderNodes,
     searchExpanded: [],
     stageNaics: () => {},
-    setNaics: () => {},
+    setNaicsNodes: () => {},
     setExpanded: () => {},
     setCheckedNaics: () => {},
     removeNAICS: () => {},

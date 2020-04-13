@@ -1,14 +1,15 @@
 import {
     addSearchResultsToTree,
     expandAllNodes,
-    populateTree,
+    populateBranchOrLeafLevelNodes,
     cleanTreeData,
     removePlaceholderString,
     removeStagedFilter,
     getCountOfAllCheckedDescendants,
     decrementCountAndUpdateUnchecked,
     incrementCountAndUpdateUnchecked,
-    autoCheckImmediateChildrenAfterDynamicExpand
+    autoCheckImmediateChildrenAfterDynamicExpand,
+    showAllNodes
 } from 'helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
@@ -97,20 +98,16 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(result).toEqual(["11", "1111"]);
         });
     });
-    describe('populateTree', () => {
+    describe('showAllNodes', () => {
         it('removes the hide class from all nodes', () => {
-            const result = populateTree(
-                mockData.reallyBigTree,
-                '',
-                [],
-                getHighestAncestorNaicsCode, 
-                getNaicsNodeFromTree
-            );
+            const result = showAllNodes(mockData.reallyBigTree);
             const nodeWithHideClass = getNaicsNodeFromTree(result, '115310', 'naics');
             expect(nodeWithHideClass.className).toEqual('');
         });
+    });
+    describe('populateBranchOrLeafLevelNodes', () => {
         it('adds new children and removes the loading placeholder if we have all the nodes', () => {
-            const result = populateTree(
+            const result = populateBranchOrLeafLevelNodes(
                 mockData.placeholderNodes,
                 '11',
                 [mockData.reallyBigTree[0]],
@@ -128,7 +125,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 .children
                 .find((node) => node.value === '1111');
 
-            const result = populateTree(
+            const result = populateBranchOrLeafLevelNodes(
                 mockData.treeWithPlaceholdersAndRealData,
                 '1111',
                 [newNode],
