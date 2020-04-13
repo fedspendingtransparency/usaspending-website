@@ -15,7 +15,6 @@ import AgencyContainer from 'containers/search/filters/AgencyContainer';
 import LocationSectionContainer from 'containers/search/filters/location/LocationSectionContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
 import ProgramSourceContainer from 'containers/search/filters/programSource/ProgramSourceContainer';
-import TASCheckboxTree from 'containers/search/filters/programSource/TASCheckboxTreeContainer';
 import RecipientTypeContainer from 'containers/search/filters/recipient/RecipientTypeContainer';
 import AwardIDSearchContainer from 'containers/search/filters/awardID/AwardIDSearchContainer';
 import AwardAmountSearchContainer from
