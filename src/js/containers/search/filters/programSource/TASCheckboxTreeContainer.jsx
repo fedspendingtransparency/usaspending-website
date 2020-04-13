@@ -14,7 +14,7 @@ import {
     getTasNodeFromTree
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
-import { expandAllNodes } from 'helpers/checkboxTreeHelper';
+import { expandAllNodes, removePlaceholderString } from 'helpers/checkboxTreeHelper';
 
 import {
     setTasNodes,
@@ -143,21 +143,22 @@ export class TASCheckboxTree extends React.Component {
         this.onUncheck(newChecked, { ...node, checked: false });
     }
 
-    autoCheckSearchResultDescendants = (checked, expanded, nodes) => expanded
-        .reduce((newChecked, expandedNode) => {
-            debugger;
-            // if node is checked by an immediate placeholder, consider it checked.
-            if (newChecked.includes(`children_of_${expandedNode}`)) newChecked.push(expandedNode);
-            const node = getTasNodeFromTree(nodes, expandedNode);
-            // if a node is checked by any ancestor, consider it checked.
-            const ancestorOfExpandedIsChecked = node.ancestors.some((ancestor) => {
-                if (newChecked.includes(ancestor)) return true;
-                if (newChecked.includes(`children_of_${ancestor}`)) return true;
+    autoCheckSearchResultDescendants = (checked, expanded, nodes) => {
+        const newChecked = expanded
+            .filter((expandedNode) => {
+                // if node is checked by an immediate placeholder, consider it checked.
+                if (checked.includes(`children_of_${expandedNode}`)) return true;
+                if (checked.includes(expandedNode)) return true;
                 return false;
-            });
-            if (ancestorOfExpandedIsChecked) newChecked.push(expandedNode);
-            return newChecked;
-        }, checked)
+            })
+            .map((node) => removePlaceholderString(node))
+            .reduce((acc, expandedAndChecked) => {
+                const node = getTasNodeFromTree(nodes, expandedAndChecked);
+                return [...acc, ...node.children.map((tas) => tas.value)];
+            }, []);
+
+        return new Set([...checked, ...newChecked]);
+    }        
 
     fetchTas = (id = '', searchStr = '') => {
         if (this.request) this.request.cancel();
