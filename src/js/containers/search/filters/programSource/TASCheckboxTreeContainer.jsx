@@ -48,7 +48,7 @@ const propTypes = {
     counts: PropTypes.arrayOf(PropTypes.shape({}))
 };
 
-class TASCheckboxTree extends React.Component {
+export class TASCheckboxTree extends React.Component {
     constructor(props) {
         super(props);
         this.state = {

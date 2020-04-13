@@ -21,6 +21,7 @@ export const fetchFundingAgencies = (req) => apiRequest({
 // TAS search
 export const fetchTas = (idString = '') => apiRequest({
     // str contains depth, prepended with agency & federal account delimited by a '/', if any.
+    isMocked: true,
     url: idString.length === 0
         ? `/v2/references/filter_tree/tas/`
         : `/v2/references/filter_tree/tas/${idString}`

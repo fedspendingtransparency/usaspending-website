@@ -7,9 +7,15 @@ import { shallow } from 'enzyme';
 
 import { fetchTas } from "helpers/searchHelper";
 
-import TASCheckboxTreeContainer from "../../../../../src/js/containers/search/filters/programSource/TASCheckboxTreeContainer";
+import { TASCheckboxTree } from "../../../../../src/js/containers/search/filters/programSource/TASCheckboxTreeContainer";
 
-import { agencyLevel, federalAccountLevel, tasLevel } from '../programSource/mockTas';
+import {
+    agencyLevel,
+    federalAccountLevel,
+    tasLevel,
+    defaultProps,
+    treePopulatedToFederalAccountLevel
+} from '../programSource/mockTas';
 
 jest.mock("helpers/searchHelper", () => ({
     fetchTas: jest.fn()
@@ -17,44 +23,38 @@ jest.mock("helpers/searchHelper", () => ({
 
 describe('TASCheckboxContainer', () => {
     describe('fetchTAS', () => {
-        const container = shallow(<TASCheckboxTreeContainer />);
-        it('populates the tree trunk w/ agencies', async () => {
+        const mockFn = jest.fn();
+        const container = shallow(<TASCheckboxTree {...defaultProps} setTasNodes={mockFn} />);
+        beforeEach(async () => {
+            mockFn.mockReset();
+        });
+        it('populates the tree trunk w/ agencies & placeholder data for federal agencies', async () => {
             fetchTas.mockImplementation(() => ({
                 promise: Promise.resolve({ data: agencyLevel })
             }));
             await container.instance().componentDidMount();
-            expect(container.state().nodes.length).toEqual(10);
+            const newNodes = mockFn.mock.calls[0][1];
+            expect(newNodes.length).toEqual(10);
 
-            container.state().nodes
+            newNodes
                 .forEach((agency) => {
                     expect(agency.children.length).toEqual(1);
                     expect(agency.children[0].isPlaceHolder).toEqual(true);
                 });
         });
-        it('populates the tree branches w/ federal accounts', async () => {
+        it('populates the tree branches w/ federal accounts & placeholder data for TAS accounts', async () => {
             fetchTas.mockImplementation(() => ({
                 promise: Promise.resolve({ data: federalAccountLevel })
             }));
-            await container.instance().fetchTas('1');
+            await container.instance().fetchTas('012');
             
-            // 1. same number of agencies in tree; none are removed.
-            expect(container.state().nodes.length).toEqual(10);
-            
-            const newFederalAccounts = container.state().nodes
-                .find((node) => node.value === '1')
-                .children;
-
-            // 2. the new children are added to the proper agency node
-            expect(newFederalAccounts.length).toEqual(federalAccountLevel.results.length);
-            
-            // 3. no place holders
-            expect(newFederalAccounts.some((federalAccount) => federalAccount.isPlaceHolder)).toEqual(false);
+            const newFederalAccounts = mockFn.mock.calls[0][1];
 
             newFederalAccounts
                 .forEach((federalAccount) => {
-                    // 4. should be grand children
+                    // 4. should be grand children tas account
                     expect(federalAccount.children.length).toEqual(1);
-                    // 5. should be a placeholder
+                    // 5. it should be a placeholder
                     expect(federalAccount.children[0].isPlaceHolder).toEqual(true);
                 });
         });
@@ -62,112 +62,87 @@ describe('TASCheckboxContainer', () => {
             fetchTas.mockImplementation(() => ({
                 promise: Promise.resolve({ data: tasLevel })
             }));
-            await container.instance().fetchTas('1/11');
+            await container.instance().fetchTas('012/012-8226');
 
-            // 1. same number of agencies in tree; none are removed.
-            expect(container.state().nodes.length).toEqual(10);
+            const newTasAccounts = mockFn.mock.calls[0][1];
 
-            const newTasAccounts = container.state().nodes
-                .find((agency) => agency.value === '1')
-                .children
-                .find((federalAccount) => federalAccount.value === '11')
-                .children;
-
-            // 2. the new children are added to the proper federalAccount node
-            expect(newTasAccounts.length).toEqual(tasLevel.results.length);
-
-            // 3. no place holders
+            // no place holders
             expect(newTasAccounts.some((grand) => grand.isPlaceHolder)).toEqual(false);
         });
     });
     describe('onExpand', () => {
         let container;
+        const mockSetExpanded = jest.fn();
+        const mockFetchTas = jest.fn();
+
         beforeEach(async () => {
-            container = shallow(<TASCheckboxTreeContainer />);
-
-            fetchTas.mockImplementation(() => ({
-                promise: Promise.resolve({ data: agencyLevel })
-            }));
-
-            // populate mock container w/ agencies.
-            await container.instance().componentDidMount();
-
-            fetchTas.mockImplementation(() => ({
-                promise: Promise.resolve({ data: federalAccountLevel })
-            }));
-
-            // populate mock container w/ federal accounts.
-            await container.instance().fetchTas('1');
+            mockSetExpanded.mockReset();
+            mockFetchTas.mockReset();
+            container = shallow(<TASCheckboxTree
+                {...defaultProps}
+                nodes={treePopulatedToFederalAccountLevel}
+                setExpandedTas={mockSetExpanded} />);
+            container.instance().fetchTas = mockFetchTas;
         });
         it('calls fetchTas w/ agency & federal account when necessary', async () => {
-            const mockFn = jest.fn();
+            container.instance().onExpand('012-8226', ['012', '012-8226'], true, { treeDepth: 1 });
 
-            container.instance().fetchTas = mockFn;
-            container.instance().onExpand('11', ['1', '11'], true, { treeDepth: 1 });
-
-            expect(mockFn).toHaveBeenLastCalledWith('1/11');
+            expect(mockFetchTas).toHaveBeenLastCalledWith('012/012-8226');
         });
         it('calls fetchTas w/ only agency when necessary', () => {
-            const mockFn = jest.fn();
+            container.instance().onExpand('012', ['012'], true, { treeDepth: 0 });
 
-            container.instance().fetchTas = mockFn;
-            container.instance().onExpand('1', ['1'], true, { treeDepth: 0 });
-
-            expect(mockFn).toHaveBeenLastCalledWith('1');
+            expect(mockFetchTas).toHaveBeenLastCalledWith('012');
         });
         it('always sets the expanded state', () => {
-            const mockFn = jest.fn();
-
-            container.instance().fetchTas = mockFn;
-            container.instance().onExpand('1', ['1'], true, { treeDepth: 0 });
+            container.instance().onExpand('012', ['012'], true, { treeDepth: 0 });
+            let newExpanded = mockSetExpanded.mock.calls[0][0];
             // 1. When we expand an agency
-            expect(container.state().expanded).toEqual(['1']);
+            expect(newExpanded).toEqual(['012']);
             // 2. When we expand a federal account
-            container.instance().onExpand('11', ['1', '11'], true, { treeDepth: 1 });
-            expect(container.state().expanded).toEqual(['1', '11']);
+            container.instance().onExpand('012-8226', ['012', '012-8226'], true, { treeDepth: 1 });
+            newExpanded = mockSetExpanded.mock.calls[1][0];
+            expect(newExpanded).toEqual(['012', '012-8226']);
         });
     });
     describe('onCollapse', () => {
         it('updates the state.expanded array', () => {
-            const container = shallow(<TASCheckboxTreeContainer />);
-            container.instance().setState({ expanded: ['1', '11'] });
+            const mockFn = jest.fn();
+            const container = shallow(
+                <TASCheckboxTree
+                    {...defaultProps}
+                    expanded={['1', '11']}
+                    setExpandedTas={mockFn} />);
             container.instance().onCollapse(['11']);
-
-            expect(container.state().expanded).toEqual(['11']);
+            const newExpanded = mockFn.mock.calls[0][0];
+            expect(newExpanded).toEqual(['11']);
         });
     });
     describe('onCheck', () => {
-        it('updates the state.checked array', async () => {
-            const container = shallow(<TASCheckboxTreeContainer />);
-            fetchTas.mockImplementation(() => ({
-                promise: Promise.resolve({ data: agencyLevel })
-            }));
-            await container.instance().componentDidMount();
-            fetchTas.mockImplementation(() => ({
-                promise: Promise.resolve({ data: federalAccountLevel })
-            }));
-            await container.instance().fetchTas('1');
-            container.instance().setState({ checked: ['11'] });
-            container.instance().onCheck(['11', '12']);
-
-            expect(container.state().checked).toEqual(['11', '12']);
+        it('updates the checked array', async () => {
+            const mockFn = jest.fn();
+            const container = shallow(<TASCheckboxTree
+                {...defaultProps}
+                setCheckedTas={mockFn}
+                nodes={treePopulatedToFederalAccountLevel} />);
+            container.instance().onCheck(['012']);
+            const newChecked = mockFn.mock.calls[0][0];
+            expect(newChecked).toEqual(['012']);
         });
     });
     describe('onUncheck', () => {
-        it('updates the state.checked array', async () => {
-            const container = shallow(<TASCheckboxTreeContainer />);
-            fetchTas.mockImplementation(() => ({
-                promise: Promise.resolve({ data: agencyLevel })
-            }));
-            await container.instance().componentDidMount();
-            fetchTas.mockImplementation(() => ({
-                promise: Promise.resolve({ data: federalAccountLevel })
-            }));
-            await container.instance().fetchTas('1');
-            container.instance().setState({ checked: ['11', '12'] });
-            container.instance().onUncheck(['12'], { value: '11', checked: false });
+        it('updates the checked array', async () => {
+            const mockFn = jest.fn();
+            const container = shallow(<TASCheckboxTree
+                {...defaultProps}
+                setCheckedTas={mockFn}
+                nodes={treePopulatedToFederalAccountLevel}
+                checked={['012']} />);
 
-            expect(container.state().checked).toEqual(['12']);
+            container.instance().onUncheck([], { value: '012', checked: false });
+
+            const newChecked = mockFn.mock.calls[0][0];
+            expect(newChecked).toEqual([]);
         });
     });
 });
