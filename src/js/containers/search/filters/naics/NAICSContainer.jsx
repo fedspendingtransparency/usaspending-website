@@ -448,12 +448,9 @@ export class NAICSContainer extends React.Component {
                         placeholder="Type to find codes"
                         searchString={searchString}
                         enabled
-                        openDropdown={this.onSearchClick}
-                        toggleDropdown={this.toggleDropdown}
                         handleTextInputChange={this.handleTextInputChange}
                         context={{}}
                         loading={false}
-                        handleOnKeyDown={this.handleOnKeyDown}
                         isClearable
                         onClear={this.onClear} />
                     {this.checkboxDiv(showNoResults)}

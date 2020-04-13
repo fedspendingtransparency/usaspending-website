@@ -318,7 +318,7 @@ export const cleanTreeData = (nodes, keyMap) => nodes.map((node) => ({
 }));
 
 
-export const sortNodes = (a, b) => {
+export const sortNodesByValue = (a, b) => {
     if (a.isPlaceHolder) return 1;
     if (b.isPlaceHolder) return -1;
     const nodeA = parseInt(a.value, 10);
@@ -432,7 +432,12 @@ export const mergeChildren = (parentFromSearch, existingParent, traverseTreeByCo
     return [];
 };
 
-export const addSearchResultsToTree = (tree, searchResults, traverseTreeByCodeFn) => {
+export const addSearchResultsToTree = (
+    tree,
+    searchResults,
+    traverseTreeByCodeFn,
+    sortNodes = sortNodesByValue
+) => {
     const nodesFromSearchToBeReplaced = searchResults.map((node) => node.value);
     return tree
         .map((existingNode) => {
@@ -488,7 +493,7 @@ export const populateBranchOrLeafLevelNodes = (
                                 ...child,
                                 children: existingChild.children
                                     .map((grand) => ({ ...grand, className: '' }))
-                                    .sort(sortNodes)
+                                    .sort(sortNodesByValue)
                             };
                         }
                         if (weHaveAtLeastOneGrandChild) {
@@ -497,11 +502,11 @@ export const populateBranchOrLeafLevelNodes = (
                                 children: [
                                     ...child.children,
                                     ...existingChild.children.filter((grand) => (!grand.isPlaceHolder))
-                                ].sort(sortNodes)
+                                ].sort(sortNodesByValue)
                             };
                         }
                         return child;
-                    }).sort(sortNodes)
+                    }).sort(sortNodesByValue)
             };
         }
         const shouldAddNewBranchToTree = (
@@ -602,7 +607,7 @@ export const showAllNodes = (tree) => tree
                         className: ''
                     };
                 })
-                .sort(sortNodes)
+                .sort(sortNodesByValue)
             : []
     }));
 
