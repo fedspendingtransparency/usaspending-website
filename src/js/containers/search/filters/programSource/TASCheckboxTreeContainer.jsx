@@ -52,7 +52,7 @@ class TASCheckboxTree extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isLoading: true,
+            isLoading: false,
             searchString: '',
             isError: false,
             errorMessage: ''
@@ -61,7 +61,10 @@ class TASCheckboxTree extends React.Component {
     }
 
     async componentDidMount() {
-        return this.fetchTas('');
+        if (this.props.nodes.length === 0) {
+            return this.fetchTas('');
+        }
+        return Promise.resolve();
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
@@ -137,6 +140,9 @@ class TASCheckboxTree extends React.Component {
 
     fetchTas = (id = '') => {
         if (this.request) this.request.cancel();
+        if (id === '') {
+            this.setState({ isLoading: true });
+        }
         this.request = fetchTas(id);
         const isPartialTree = id !== '';
         return this.request.promise
@@ -149,23 +155,6 @@ class TASCheckboxTree extends React.Component {
                         ? id.split('/')[1]
                         : id;
                     this.setState({ isLoading: false });
-                    const newNodes = nodes
-                        .map((agency) => {
-                            if (agency.id === key) {
-                                // agency was fetched, response data populates agency's federal accounts
-                                return { ...agency, children: nodes };
-                            }
-                            return {
-                                ...agency,
-                                children: agency.children.map((federalAccount) => {
-                                    if (federalAccount.id === key) {
-                                        // federal account was fetched, response data populates federal account's TAS accounts
-                                        return { ...federalAccount, children: nodes };
-                                    }
-                                    return federalAccount;
-                                })
-                            };
-                        });
                     const newChecked = this.props.checked.includes(`children_of_${key}`)
                         ? autoCheckTasAfterExpand(
                             { children: nodes, value: key },
@@ -173,9 +162,9 @@ class TASCheckboxTree extends React.Component {
                             this.props.unchecked
                         )
                         : this.props.checked;
-                    
+
                     this.props.setCheckedTas(newChecked);
-                    this.props.setTasNodes(key, newNodes);
+                    this.props.setTasNodes(key, nodes);
                 }
                 else {
                     // populating tree trunk
