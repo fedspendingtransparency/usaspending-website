@@ -30,6 +30,14 @@
     @import './visualizations/cfdaSectionTable';
     @import '../shared/awardAmountsSection/charts';
     @import '../../search/results/table/tableMessages';
+    .tooltip__amount--loans {
+      font-size: 3rem;
+      padding-bottom: 1rem;
+      font-weight: $font-light;
+    }
+    .tooltip-pointer {
+      left: -0.7rem;
+    }
     .results-table-message-container {
       position: relative;
       background-color: rgb(246, 246, 246);

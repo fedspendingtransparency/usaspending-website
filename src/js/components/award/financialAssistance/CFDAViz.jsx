@@ -163,7 +163,12 @@ export default class CFDAViz extends React.Component {
             text: denominatorTitle
         };
         if ((view === 'single' || !view) && (allCFDAs.length > 1)) {
-            if (!cfda._federalActionOblicationAmount || !awardTotalObligation) {
+            if (
+                !cfda._federalActionOblicationAmount ||
+                !awardTotalObligation ||
+                cfda._federalActionOblicationAmount.toString().startsWith('-') ||
+                awardTotalObligation.toString().startsWith('-')
+            ) {
                 return (
                     <div className="results-table-message-container">
                         <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
