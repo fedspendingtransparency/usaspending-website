@@ -449,26 +449,26 @@ export const addSearchResultsToTree = (tree, searchResults, traverseTreeByCodeFn
         })
         .sort(sortNodes);
 };
-/**
- * This is a very poorly named fn.
- * Problem: Add new grand-child or child nodes w/o erasing existing nodes from search & showing/hiding nodes
- */
-export const populateTree = (
+
+export const populateBranchOrLeafLevelNodes = (
     tree,
     key = '',
     newNodes = [],
     getHighestAncestorCode,
     traverseTreeByCodeFn
 ) => {
-    // 1. add child nodes (may not be necessary)
-    // 2. show all nodes (set className to '')
-    // 3. don't overwrite any grandchildren we might have.
+    // 1. add nodes to either branch or leaf level of tree
+    // 2. when adding nodes, don't remove placeholders if we're adding a partial child and don't remove any existing children
     const nodeWithNewChildren = key ? traverseTreeByCodeFn(tree, key) : '';
-    const highestAncestorCode = key ? getHighestAncestorCode(nodeWithNewChildren, key) : '';
+    const highestAncestorCode = nodeWithNewChildren
+        ? getHighestAncestorCode(nodeWithNewChildren)
+        : getHighestAncestorCode(key);
     return tree.map((node) => {
         const [data] = newNodes;
-        // we're populating an immediate descendant of the top parent.
-        if (node.value === key) {
+        const shouldPopulateBranch = node.value === key;
+        const shouldPopulateLeaves = node.value === highestAncestorCode;
+        if (shouldPopulateBranch) {
+            // we're populating an immediate descendant of the top-tier parent; AKA a "branch".
             return {
                 ...node,
                 children: data.children
@@ -504,49 +504,48 @@ export const populateTree = (
                     }).sort(sortNodes)
             };
         }
-        if (node.value === highestAncestorCode) {
+        const shouldAddNewBranchToTree = (
+            key &&
+            data &&
+            node.value === highestAncestorCode &&
+            !node.children.some((child) => child.value === key)
+        );
+        if (shouldAddNewBranchToTree) {
+            // top-tier parent only has a placeholder child and we're adding this branch on the fly from a url-hash.
             return {
                 ...node,
                 className: '',
-                children: node.children.map((child) => {
-                    if (child.value === key) {
-                        return {
-                            ...child,
-                            children: data.children
-                        };
-                    }
-                    return child;
-                })
+                children: [
+                    // leave the placeholder b/c we're only adding one child!
+                    ...node.children,
+                    data
+                ]
             };
         }
-        return {
-            ...node,
-            className: '',
-            children: node.children
-                ? node.children
-                    .map((child) => {
-                        if (child.value === key) {
-                            if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
-                                // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
-                                return child;
+        if (shouldPopulateLeaves) {
+            // we're adding grandchildren to an existing branch.
+            return {
+                ...node,
+                className: '',
+                children: node.children
+                    ? node.children
+                        .map((child) => {
+                            if (child.value === key) {
+                                if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
+                                    // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
+                                    return child;
+                                }
+                                return {
+                                    ...child,
+                                    children: data.children
+                                };
                             }
-                            return data;
-                        }
-                        if (child.children && child.children.some((grand) => grand.className === 'hide')) {
-                            return {
-                                ...child,
-                                className: '',
-                                children: child.children.map((grand) => ({ ...grand, className: '' }))
-                            };
-                        }
-                        return {
-                            ...child,
-                            className: ''
-                        };
-                    })
-                    .sort(sortNodes)
-                : []
-        };
+                            return child;
+                        })
+                    : []
+            };
+        }
+        return node;
     });
 };
 
@@ -583,6 +582,29 @@ export const autoCheckImmediateChildrenAfterDynamicExpand = (
 
     return [...new Set([...removeParentPlaceholders, ...newValues])];
 };
+
+export const showAllNodes = (tree) => tree
+    .map((node) => ({
+        ...node,
+        className: '',
+        children: node.children
+            ? node.children
+                .map((child) => {
+                    if (child.children && child.children.some((grand) => grand.className === 'hide')) {
+                        return {
+                            ...child,
+                            className: '',
+                            children: child.children.map((grand) => ({ ...grand, className: '' }))
+                        };
+                    }
+                    return {
+                        ...child,
+                        className: ''
+                    };
+                })
+                .sort(sortNodes)
+            : []
+    }));
 
 export const setNodes = (key, nodes, treeName, cleanNodesFn) => ({
     type: `SET_${treeName}_NODES`,

@@ -1,12 +1,12 @@
 import { List } from 'immutable';
 
-import { addSearchResultsToTree, populateTree } from 'helpers/checkboxTreeHelper';
+import { addSearchResultsToTree, populateBranchOrLeafLevelNodes } from 'helpers/checkboxTreeHelper';
 import {
     getTasNodeFromTree,
     getHighestTasAncestorCode
 } from 'helpers/tasHelper';
 
-const showAllTasTreeItems = (nodes, key, newNodes) => populateTree(
+const showAllTasTreeItems = (nodes, key, newNodes) => populateBranchOrLeafLevelNodes(
     nodes,
     key,
     newNodes,

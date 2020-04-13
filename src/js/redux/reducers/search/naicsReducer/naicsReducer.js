@@ -5,7 +5,7 @@
 
 import { List } from 'immutable';
 
-import { addSearchResultsToTree, populateTree } from 'helpers/checkboxTreeHelper';
+import { addSearchResultsToTree, populateBranchOrLeafLevelNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
 import { getHighestAncestorNaicsCode, getNaicsNodeFromTree } from 'helpers/naicsHelper';
 
 export const initialState = {
@@ -16,7 +16,7 @@ export const initialState = {
     unchecked: new List()
 };
 
-const showAllNaicsTreeItems = (nodes, key, newNodes) => populateTree(
+const populateNaicsBranchOrLeafNodes = (nodes, key, newNodes) => populateBranchOrLeafLevelNodes(
     nodes,
     key,
     newNodes,
@@ -38,7 +38,7 @@ export const naicsReducer = (state = initialState, action) => {
             // initial top-tier data only
             if (!key) return { ...state, naics: new List(payload) };
 
-            const newState = showAllNaicsTreeItems(state.naics.toJS(), key, payload);
+            const newState = populateNaicsBranchOrLeafNodes(state.naics.toJS(), key, payload);
 
             return {
                 ...state,
@@ -49,7 +49,7 @@ export const naicsReducer = (state = initialState, action) => {
             // removes className 'hide' added to nodes from search results
             return {
                 ...state,
-                naics: new List(showAllNaicsTreeItems(state.naics.toJS()))
+                naics: new List(showAllNodes(state.naics.toJS()))
             };
         }
         case 'SET_SEARCHED_NAICS': {
