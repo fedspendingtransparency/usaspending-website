@@ -50,7 +50,7 @@ describe('NAICS Search Filter Container', () => {
             const mockFn = jest.fn();
             const container = shallow(<NAICSContainer
                 {...defaultProps}
-                setChecked={mockFn}
+                setCheckedNaics={mockFn}
                 nodes={reallyBigTree}
                 checkedFromHash={["1111"]}
                 uncheckedFromHash={["111110"]} />);
@@ -84,16 +84,16 @@ describe('NAICS Search Filter Container', () => {
     });
     describe('autoCheckSearchedResultDescendants fn', () => {
         it('auto checks unchecked descendants of selected parent', async () => {
-            const addChecked = jest.fn();
+            const addCheckedNaics = jest.fn();
             const container = shallow(<NAICSContainer
                 {...defaultProps}
                 nodes={searchResults}
-                addChecked={addChecked} />);
+                addCheckedNaics={addCheckedNaics} />);
             const expanded = ["11", "1111", "111110", "144444"];
             await container.instance().autoCheckSearchedResultDescendants(["children_of_11"], expanded);
 
-            expect(addChecked).toHaveBeenCalledWith("111110");
-            expect(addChecked).not.toHaveBeenCalledWith("144444");
+            expect(addCheckedNaics).toHaveBeenCalledWith("111110");
+            expect(addCheckedNaics).not.toHaveBeenCalledWith("144444");
         });
     });
     describe('onUncheck fn', () => {
