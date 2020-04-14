@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 04/13/20
  */
 
-const mapLegendToggleReducer = (state, action) => {
+const mapLegendToggleReducer = (state = 'totalSpending', action) => {
     switch (action.type) {
         case 'RESET_MAP_LEGEND_TOGGLE': {
             return 'totalSpending';
@@ -12,7 +12,7 @@ const mapLegendToggleReducer = (state, action) => {
             return action.value;
         }
         default:
-            return 'totalSpending';
+            return state;
     }
 };
 

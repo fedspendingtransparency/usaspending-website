@@ -5,15 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { TooltipWrapper } from 'data-transparency-ui';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as MapHelper from 'helpers/mapHelper';
 
 import MapLegendItem from './MapLegendItem';
+import { mapLegendTT } from './MapLegendTooltip';
 
 const propTypes = {
-    segments: PropTypes.array,
-    units: PropTypes.object,
     mapLegendToggleData: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string,
         value: PropTypes.string
@@ -95,28 +94,55 @@ export default class MapLegend extends React.Component {
     }
 
     updateToggle = (e) => {
-        console.log(' E : ', e);
-        console.log(' E Target : ', e.target);
-        console.log(' E val : ', e.target.value);
         this.props.updateMapLegendToggle(e.target.value);
     }
+
+    headerToggle = () => {
+        const { mapLegendToggleData, mapLegendToggle } = this.props;
+
+        if (!mapLegendToggleData) return null;
+
+        return (mapLegendToggleData?.map((toggleButtonData) => (
+            <div
+                className="map-legend-header__body-toggle-button__container"
+                key={toggleButtonData.value}>
+                <label
+                    htmlFor={`map-legend-header__body-toggle-button__${toggleButtonData.value}`}>
+                    <input
+                        type="radio"
+                        id={`map-legend-header__body-toggle-button__${toggleButtonData.value}`}
+                        value={toggleButtonData.value}
+                        checked={toggleButtonData.value === mapLegendToggle}
+                        onChange={this.updateToggle} />
+                    {toggleButtonData.title}
+                </label>
+            </div>
+        )));
+    }
+
+    header = () => (
+        <div className="map-legend-header">
+            <div className="map-legend-header__title">
+                <h6 className="map-legend-header__title-text">
+                    Show on Map
+                </h6>
+                <TooltipWrapper
+                    className="tooltip-wrapper award-section-tt"
+                    icon="info"
+                    right
+                    tooltipComponent={mapLegendTT} />
+            </div>
+            <div className="map-legend-header__body">
+                {this.headerToggle()}
+            </div>
+        </div>
+    );
 
     render() {
         return (
             <div className="map-legend">
-                <div>
-                    {this.props?.mapLegendToggleData?.map((data) => (
-                        <div key={data.value}>
-                            <input
-                                type="radio"
-                                value={data.value}
-                                checked={data.value === this.props.mapLegendToggle}
-                                onChange={this.updateToggle} />
-                            {data.title}
-                        </div>
-                    ))}
-                </div>
-                <ul>
+                {this.header()}
+                <ul className="map-legend-body">
                     {this.state.items}
                 </ul>
             </div>

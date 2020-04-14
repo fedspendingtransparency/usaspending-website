@@ -50,7 +50,7 @@ const mapLegendToggleData = [
         value: 'totalSpending'
     },
     {
-        title: 'Per Capita',
+        title: 'Per Capita Spending',
         value: 'perCapita'
     }
 ];
@@ -411,7 +411,6 @@ export default class MapWrapper extends React.Component {
         }
 
         const source = mapboxSources[this.props.scope];
-
         // calculate the range of data
         const scale = MapHelper.calculateRange(this.props.data.values);
         const colors = MapHelper.visualizationColors;
@@ -419,15 +418,12 @@ export default class MapWrapper extends React.Component {
         const filterValues = colors.map(() => (
             []
         ));
-
         this.props.data.locations.forEach((location, index) => {
             let value = this.props.data.values[index];
-            if (isNaN(value)) {
-                value = 0;
-            }
-
+            if (isNaN(value)) value = 0;
             // determine the group index
-            const group = Math.floor(scale.scale(value));
+            let group = Math.floor(scale.scale(value));
+            if (group.toString().startsWith('-')) group = 0;
             // add it to the filter list
             filterValues[group].push(location);
         });
@@ -448,44 +444,63 @@ export default class MapWrapper extends React.Component {
             spendingScale: scale
         });
     }
+    /**
+     * tooltipDescription
+     * - description for tooltip based on page and toggle
+     * @returns {string}
+     */
+    tooltipDescription = () => {
+        const { stateProfile, mapLegendToggle } = this.props;
+        // state page
+        if (stateProfile) return 'Awarded Amount';
+        // per capita toggle
+        return (mapLegendToggle === 'totalSpending' ? 'Total Obligations' : 'Per Capita Spending');
+    }
+
+    tooltip = () => {
+        const { tooltip: TooltipComponent, selectedItem, showHover } = this.props;
+        if (showHover) {
+            return (
+                <TooltipComponent
+                    description={this.tooltipDescription()}
+                    {...selectedItem} />
+            );
+        }
+        return null;
+    }
+
+    toggle = () => {
+        const {
+            showLayerToggle,
+            availableLayers,
+            scope,
+            changeMapLayer
+        } = this.props;
+        if (showLayerToggle && availableLayers.length > 1) {
+            return (<MapLayerToggle
+                active={scope}
+                available={availableLayers}
+                sources={mapboxSources}
+                changeMapLayer={changeMapLayer} />);
+        }
+        return null;
+    }
+
+    legend = () => {
+        const { stateProfile, updateMapLegendToggle, mapLegendToggle } = this.props;
+        const { spendingScale } = this.state;
+        if (stateProfile) return null; // no legend for state profile pages
+        return (
+            <MapLegend
+                segments={spendingScale.segments}
+                units={spendingScale.units}
+                mapLegendToggleData={mapLegendToggleData}
+                updateMapLegendToggle={updateMapLegendToggle}
+                mapLegendToggle={mapLegendToggle} />
+        );
+    }
 
     render() {
-        let tooltip = null;
-        let description = 'Total Obligations';
-        if (this.props.stateProfile) {
-            description = 'Awarded Amount';
-        }
-
-        if (this.props.showHover) {
-            const TooltipComponent = this.props.tooltip;
-            tooltip = (
-                <TooltipComponent
-                    description={description}
-                    {...this.props.selectedItem} />
-            );
-        }
-
-        let toggle = null;
-        if (this.props.showLayerToggle && this.props.availableLayers.length > 1) {
-            toggle = (<MapLayerToggle
-                active={this.props.scope}
-                available={this.props.availableLayers}
-                sources={mapboxSources}
-                changeMapLayer={this.props.changeMapLayer} />);
-        }
-
-        let legend = null;
-        if (!this.props.stateProfile) {
-            legend = (
-                <MapLegend
-                    segments={this.state.spendingScale.segments}
-                    units={this.state.spendingScale.units}
-                    mapLegendToggleData={mapLegendToggleData}
-                    updateMapLegendToggle={this.props.updateMapLegendToggle}
-                    mapLegendToggle={this.props.mapLegendToggle} />
-            );
-        }
-
         return (
             <div
                 className="map-container"
@@ -499,9 +514,9 @@ export default class MapWrapper extends React.Component {
                     ref={(component) => {
                         this.mapRef = component;
                     }} />
-                {toggle}
-                {legend}
-                {tooltip}
+                {this.toggle()}
+                {this.legend()}
+                {this.tooltip()}
                 {this.props.children}
             </div>
         );

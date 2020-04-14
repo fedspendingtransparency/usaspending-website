@@ -60,6 +60,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.state = {
             scope: 'place_of_performance',
             mapLayer: 'state',
+            rawAPIData: [],
             data: {
                 values: [],
                 locations: []
@@ -102,6 +103,9 @@ export class GeoVisualizationSectionContainer extends React.Component {
         else if (prevProps.subaward !== this.props.subaward && !this.props.noApplied) {
             // subaward toggle changed, update the search object
             this.prepareFetch(true);
+        }
+        else if (prevProps.mapLegendToggle !== this.props.mapLegendToggle) {
+            this.handleMapLegendToggleChange();
         }
     }
 
@@ -236,8 +240,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.apiRequest = SearchHelper.performSpendingByGeographySearch(apiParams);
         this.apiRequest.promise
             .then((res) => {
-                this.parseData(res.data);
                 this.apiRequest = null;
+                this.setState({ rawAPIData: res.data.results }, this.parseData);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -254,32 +258,47 @@ export class GeoVisualizationSectionContainer extends React.Component {
             });
     }
 
-    parseData(data) {
-        const spendingValues = [];
-        const spendingShapes = [];
-        const spendingLabels = {};
-        const dataKey = this.props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita';
+    mapToggleDataKey = () => (this.props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
+    /**
+     * handleMapLegendToggleChange
+     * - updates data values property and label value properties to respective spending total
+     * @returns {null}
+     */
+    handleMapLegendToggleChange = () => {
+        this.setState({
+            data: Object.assign({}, this.valuesLocationsLabelsFromAPIData()),
+            renderHash: `geo-${uniqueId()}`
+        });
+    }
 
-        data.results.forEach((item) => {
+    /**
+     * valuesLocationsLabelsFromAPIData
+     * - creates locations, values, and labels for the map visualization from api data
+     * @returns {Object} - object with locations, values and labels properties
+     */
+    valuesLocationsLabelsFromAPIData = () => {
+        const values = [];
+        const locations = [];
+        const labels = {};
+        this.state.rawAPIData.forEach((item) => {
             // state must not be null or empty string
             if (item.shape_code && item.shape_code !== '') {
-                spendingShapes.push(item.shape_code);
-                spendingValues.push(parseFloat(item[dataKey]));
-                spendingLabels[item.shape_code] = {
+                locations.push(item.shape_code);
+                values.push(parseFloat(item[this.mapToggleDataKey()]));
+                labels[item.shape_code] = {
                     label: item.display_name,
-                    value: parseFloat(item[dataKey])
+                    value: parseFloat(item[this.mapToggleDataKey()])
                 };
             }
         });
+        return { values, locations, labels };
+    }
 
+    parseData() {
         this.props.setAppliedFilterCompletion(true);
 
         this.setState({
-            data: {
-                values: spendingValues,
-                locations: spendingShapes,
-                labels: spendingLabels
-            },
+            data: this.valuesLocationsLabelsFromAPIData(),
             renderHash: `geo-${uniqueId()}`,
             loading: false,
             error: false
@@ -319,7 +338,9 @@ export default connect(
         subaward: state.searchView.subaward,
         mapLegendToggle: state.searchMapLegendToggle
     }),
-    (dispatch) => bindActionCreators(Object.assign({}, searchFilterActions, {
-        setAppliedFilterCompletion
-    }, { updateMapLegendToggle }), dispatch)
+    (dispatch) => ({
+        ...bindActionCreators(Object.assign({}, searchFilterActions,
+            { setAppliedFilterCompletion }, { updateMapLegendToggle }),
+        dispatch)
+    })
 )(GeoVisualizationSectionContainer);
