@@ -13,7 +13,7 @@ const getBaseUrl = (params) => {
     if (params.isMocked) return mockUrl;
     if (params.isLocal) return localUrl;
     return kGlobalConstants.API;
-}
+};
 
 // eslint-disable-next-line import/prefer-default-export
 export const apiRequest = (axiosParams = {}) => {

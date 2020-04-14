@@ -158,7 +158,7 @@ export class TASCheckboxTree extends React.Component {
             }, []);
 
         return new Set([...checked, ...newChecked]);
-    }        
+    }
 
     fetchTas = (id = '', searchStr = '') => {
         if (this.request) this.request.cancel();
