@@ -8,7 +8,7 @@ import kGlobalConstants from 'GlobalConstants';
 const Analytics = {
     _prefix: 'USAspending - ',
     _execute(...args) {
-        if (this.isDAP && !kGlobalConstants.DEV) {
+        if (this.isDAP && !kGlobalConstants.DEV && !kGlobalConstants.QAT) {
             window.gas(...args);
         }
         if (this.isGA) {
@@ -26,10 +26,8 @@ const Analytics = {
         if (!args.category || !args.action) {
             return;
         }
-        // Use the test tracker for non-prod environments
-        const tracker = kGlobalConstants.DEV ? 'testTracker.send' : 'send';
         this._execute(
-            tracker,
+            'send',
             'event',
             `${this._prefix}${args.category}`,
             args.action,
@@ -42,12 +40,11 @@ const Analytics = {
         let path = args;
         let title;
         // Use the test tracker for non-prod environments
-        const tracker = kGlobalConstants.DEV ? 'testTracker.send' : 'send';
         if (typeof args === 'object') {
             ({ path, title } = args);
         }
         this._execute(
-            tracker,
+            'send',
             'pageview',
             path,
             title
