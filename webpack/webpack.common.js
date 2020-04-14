@@ -92,8 +92,11 @@ module.exports = {
         }),
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, "../src/index.html"),
-            chunksSortMode: "none"
+            template: path.resolve(__dirname, "../src/index.ejs"),
+            chunksSortMode: "none",
+            templateParameters: {
+                'process.env.GA_TRACKING_ID': process.env.GA_TRACKING_ID || ''
+            }
         }),
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
@@ -110,6 +113,13 @@ module.exports = {
                 to: path.resolve(__dirname, "../public"),
                 context: path.resolve(__dirname, '../')
             }
-        ])
+        ]),
+        new webpack.DefinePlugin({
+            'process.env': {
+                ENV: process.env.ENV
+                    ? JSON.stringify(process.env.ENV)
+                    : JSON.stringify('dev')
+            }
+        })
     ]
 };
