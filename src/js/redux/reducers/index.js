@@ -21,7 +21,7 @@ import redirectModalReducer from './redirectModal/redirectModalReducer';
 import stateReducer from './state/stateReducer';
 import searchSubAwardTableReducer from './search/searchSubAwardTableReducer';
 import naicsReducer from './search/naicsReducer/naicsReducer';
-import mapLegendToggleReducer from './search/mapLegendToggleReducer'; 
+import mapLegendToggleReducer from './search/mapLegendToggleReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,

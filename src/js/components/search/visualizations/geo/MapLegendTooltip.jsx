@@ -6,7 +6,7 @@ export const mapLegendTT = (
         <div className="tooltip__text">
             <strong>Total Spending</strong>
             <p>
-                Shows the full amount of dollars spent in each geographic unit (state, county, or congressional district, depending on which you've chosen to focus on).
+                Shows the full amount of dollars spent in each geographic unit (state, county, or congressional district, depending on which you&#39;ve chosen to focus on).
             </p>
         </div>
         <div className="tooltip__text">

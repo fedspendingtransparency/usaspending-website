@@ -22,7 +22,8 @@ const propTypes = {
         unit: PropTypes.number,
         precision: PropTypes.number,
         unitLabel: PropTypes.string
-    })
+    }),
+    segments: PropTypes.arrayOf(PropTypes.number)
 };
 
 const defaultProps = {
