@@ -165,10 +165,13 @@ export const decrementCountAndUpdateUnchecked = (
     const nodeFromTree = traverseTreeByCodeFn(nodes, value);
     const parentKey = getHighestAncestorFn(nodeFromTree);
     const ancestorKey = getImmediateAncestorFn(nodeFromTree);
-    const count = nodeFromTree.count > 0 ? nodeFromTree.count : 1;
+    const amountToDecrement = nodeFromTree.count > 0 ? nodeFromTree.count : 1;
     const shouldRemoveNode = counts.some((nodeFromCounts) => (
         !uncheckedNode.checked &&
-        (nodeFromCounts.value === value || nodeFromCounts.count <= count)
+        (
+            (nodeFromCounts.value === value) ||
+            (nodeFromCounts.count <= amountToDecrement && nodeFromCounts.value === parentKey)
+        )
     ));
     let newCounts;
     if (shouldRemoveNode) {
@@ -176,7 +179,7 @@ export const decrementCountAndUpdateUnchecked = (
     }
     else {
         newCounts = counts.map((nodeFromCounts) => {
-            const newCount = nodeFromCounts.count - count;
+            const newCount = nodeFromCounts.count - amountToDecrement;
             if (nodeFromCounts.value === parentKey) {
                 return { ...nodeFromCounts, count: newCount };
             }
