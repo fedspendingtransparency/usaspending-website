@@ -37,9 +37,9 @@ const MapLegendHeader = ({ mapLegendToggleData, mapLegendToggle, updateToggle })
     return (
         <div className="map-legend-header">
             <div className="map-legend-header__title">
-                <h6 className="map-legend-header__title-text">
+                <div className="map-legend-header__title-text">
                     Show on Map
-                </h6>
+                </div>
                 <TooltipWrapper
                     className="tooltip-wrapper award-section-tt"
                     icon="info"

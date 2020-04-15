@@ -17,6 +17,8 @@
         .map-legend-header__title-text {
           font-size: 1.4rem;
           margin: 0;
+          font-weight: $font-semibold;
+          padding-bottom: 0.6rem;
         }
         .tooltip-wrapper {
           .tooltip-pointer {
