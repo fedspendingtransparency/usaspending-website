@@ -5,12 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TooltipWrapper } from 'data-transparency-ui';
+import { isEqual } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as MapHelper from 'helpers/mapHelper';
-
+import MapLegendHeader from './MapLegendHeader';
 import MapLegendItem from './MapLegendItem';
-import { mapLegendTT } from './MapLegendTooltip';
 
 const propTypes = {
     mapLegendToggleData: PropTypes.arrayOf(PropTypes.shape({
@@ -18,7 +17,12 @@ const propTypes = {
         value: PropTypes.string
     })),
     mapLegendToggle: PropTypes.string,
-    updateMapLegendToggle: PropTypes.func
+    updateMapLegendToggle: PropTypes.func,
+    units: PropTypes.shape({
+        unit: PropTypes.number,
+        precision: PropTypes.number,
+        unitLabel: PropTypes.string
+    })
 };
 
 const defaultProps = {
@@ -39,39 +43,44 @@ export default class MapLegend extends React.Component {
     }
 
     componentDidMount() {
-        this.prepareItems(this.props);
+        this.prepareItems();
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.prepareItems(nextProps);
+    componentDidUpdate(prevProps) {
+        const { segments, mapLegendToggle } = this.props;
+        const areSegmentsDifferent = !isEqual(prevProps.segments, segments);
+        const isMapLegendToggleDifferent = prevProps.mapLegendToggle !== mapLegendToggle;
+        if (areSegmentsDifferent || isMapLegendToggleDifferent) this.prepareItems();
     }
 
-    prepareItems(props) {
-        const items = [];
-
-        props.segments.forEach((segment, i) => {
+    prepareItems() {
+        const {
+            segments,
+            units
+        } = this.props;
+        const items = segments.map((segment, i, array) => {
             let label = '';
 
             const color = MapHelper.visualizationColors[i];
 
             const currencyValue =
-                MoneyFormatter.formatMoneyWithPrecision(segment / props.units.unit,
-                    props.units.precision) + props.units.unitLabel;
+                MoneyFormatter.formatMoneyWithPrecision(segment / units.unit,
+                    units.precision) + units.unitLabel;
 
             let previousValue = '';
 
             if (i > 0) {
-                const previous = props.segments[i - 1];
+                const previous = array[i - 1];
                 previousValue =
-                    MoneyFormatter.formatMoneyWithPrecision(previous / props.units.unit,
-                        props.units.precision) + props.units.unitLabel;
+                    MoneyFormatter.formatMoneyWithPrecision(previous / units.unit,
+                        units.precision) + units.unitLabel;
             }
 
             if (i === 0) {
                 // first item
                 label = `Less than ${currencyValue}`;
             }
-            else if (i + 1 === props.segments.length) {
+            else if (i + 1 === array.length) {
                 // last item
                 label = `More than ${previousValue}`;
             }
@@ -80,12 +89,10 @@ export default class MapLegend extends React.Component {
                 label = `${previousValue} to ${currencyValue}`;
             }
 
-            const item = (<MapLegendItem
+            return (<MapLegendItem
                 key={`item-${i}`}
                 label={label}
                 color={color} />);
-
-            items.push(item);
         });
 
         this.setState({
@@ -97,51 +104,13 @@ export default class MapLegend extends React.Component {
         this.props.updateMapLegendToggle(e.target.value);
     }
 
-    headerToggle = () => {
-        const { mapLegendToggleData, mapLegendToggle } = this.props;
-
-        if (!mapLegendToggleData) return null;
-
-        return (mapLegendToggleData?.map((toggleButtonData) => (
-            <div
-                className="map-legend-header__body-toggle-button__container"
-                key={toggleButtonData.value}>
-                <label
-                    htmlFor={`map-legend-header__body-toggle-button__${toggleButtonData.value}`}>
-                    <input
-                        type="radio"
-                        id={`map-legend-header__body-toggle-button__${toggleButtonData.value}`}
-                        value={toggleButtonData.value}
-                        checked={toggleButtonData.value === mapLegendToggle}
-                        onChange={this.updateToggle} />
-                    {toggleButtonData.title}
-                </label>
-            </div>
-        )));
-    }
-
-    header = () => (
-        <div className="map-legend-header">
-            <div className="map-legend-header__title">
-                <h6 className="map-legend-header__title-text">
-                    Show on Map
-                </h6>
-                <TooltipWrapper
-                    className="tooltip-wrapper award-section-tt"
-                    icon="info"
-                    right
-                    tooltipComponent={mapLegendTT} />
-            </div>
-            <div className="map-legend-header__body">
-                {this.headerToggle()}
-            </div>
-        </div>
-    );
-
     render() {
         return (
             <div className="map-legend">
-                {this.header()}
+                <MapLegendHeader
+                    mapLegendToggleData={this.props.mapLegendToggleData}
+                    mapLegendToggle={this.props.mapLegendToggle}
+                    updateToggle={this.updateToggle} />
                 <ul className="map-legend-body">
                     {this.state.items}
                 </ul>

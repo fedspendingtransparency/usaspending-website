@@ -22,9 +22,12 @@ import {
     sendFieldCombinations
 } from './helpers/searchAnalytics';
 
-const combinedActions = Object.assign({}, appliedFilterActions, {
-    clearStagedFilters
-});
+const combinedActions = Object.assign(
+    {},
+    appliedFilterActions,
+    { clearStagedFilters },
+    { resetMapLegendToggle }
+);
 
 const propTypes = {
     stagedFilters: PropTypes.object,
@@ -131,8 +134,7 @@ export default connect(
         resetNaicsTree: () => {
             dispatch(setChecked([]));
             dispatch(setUnchecked([]));
-        },
-        resetMapLegendToggle
+        }
     })
 )(SearchSidebarSubmitContainer);
 
