@@ -22,6 +22,8 @@ import CFDATree from './CFDATree';
 import CFDATable from './CFDATable';
 import CFDATreeTooltip from './CFDATreeTooltip';
 
+const numeratorColor = "#1b4956";
+
 const propTypes = {
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
@@ -150,6 +152,7 @@ export default class CFDAViz extends React.Component {
             allCFDAs
         } = this.props;
         const awardTotalObligationUnits = calculateUnitForSingleValue(awardTotalObligation, 1);
+        const showSingleCFDAVis = (view === 'single' || !view) && (allCFDAs.length > 1);
         const numeratorTitle = 'Total Funding From This CFDA Program';
         const denominatorTitle = 'Total Funding From All CFDA Programs';
         const numerator = {
@@ -162,7 +165,7 @@ export default class CFDAViz extends React.Component {
             value: `${formatMoneyWithPrecision((awardTotalObligation / awardTotalObligationUnits.unit), 1)}${awardTotalObligationUnits.unitLabel}`,
             text: denominatorTitle
         };
-        if ((view === 'single' || !view) && (allCFDAs.length > 1)) {
+        if (showSingleCFDAVis) {
             if (
                 !cfda._federalActionOblicationAmount ||
                 !awardTotalObligation ||
@@ -178,7 +181,7 @@ export default class CFDAViz extends React.Component {
                 numerator={numerator}
                 denominator={denominator}
                 percentage={cfda.percentOfTotal}
-                numeratorColor="#1b4956"
+                numeratorColor={numeratorColor}
                 numeratorTooltipData={{
                     className: "award-amounts-tt__wrapper",
                     offsetAdjustments: { top: 0 },

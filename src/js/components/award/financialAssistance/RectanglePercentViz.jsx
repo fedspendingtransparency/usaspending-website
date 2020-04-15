@@ -10,6 +10,8 @@ import { TooltipWrapper } from "data-transparency-ui";
 import { generatePercentage } from 'helpers/awardAmountHelper';
 import { useTooltips } from "../shared/awardAmountsSection/charts/AwardAmountsChart";
 
+const faceValueColor = "#FFF";
+
 const shape = PropTypes.shape({
     rawValue: PropTypes.number,
     value: PropTypes.string,
@@ -63,8 +65,6 @@ const RectanglePercentViz = ({
         width: percent,
         backgroundColor: numeratorColor
     };
-
-    const faceValueColor = "#FFF";
 
     const numeratorTooltipProps = buildTooltipProps(numeratorTooltipData, (activeTooltip === 'numerator'), showNumeratorTooltip);
     const denominatorTooltipProps = buildTooltipProps(denominatorTooltipData, (activeTooltip === 'denominator'), showDenominatorTooltip);
