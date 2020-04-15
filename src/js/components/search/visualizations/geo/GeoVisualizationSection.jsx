@@ -53,11 +53,11 @@ export default class GeoVisualizationSection extends React.Component {
         // check if the disclaimer cookie exists
         if (!Cookies.get('usaspending_search_map_disclaimer')) {
             // cookie does not exist, show the disclaimer
-            this.hidDisClaimer();
+            this.showDisclaimer();
         }
     }
 
-    hidDisClaimer = () => this.setState({ showDisclaimer: true });
+    showDisclaimer = () => this.setState({ showDisclaimer: true });
 
     showTooltip(geoId, position) {
         // convert state code to full string name
