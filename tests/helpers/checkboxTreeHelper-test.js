@@ -197,6 +197,19 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(newCount[0].count).toEqual(56);
             expect(newUnchecked.length).toEqual(1);
         });
+        it('decrements the appropriate count object when more than one exists', () => {
+            const [newCount] = decrementCountAndUpdateUnchecked(
+                { value: '1111' },
+                [],
+                ['11'],
+                [{ value: '11', count: 64 }, { value: '21', count: 8 }],
+                mockData.reallyBigTree,
+                getNaicsNodeFromTree,
+                getImmediateAncestorNaicsCode,
+                getHighestAncestorNaicsCode
+            );
+            expect(newCount[0].count).toEqual(56);
+        });
         it('when a placeholder is checked and a checked node under that placeholder is unchecked, decrement the count and update the unchecked array', async () => {
             const [counts, newUnchecked] = decrementCountAndUpdateUnchecked(
                 { checked: false, value: "111110" },
