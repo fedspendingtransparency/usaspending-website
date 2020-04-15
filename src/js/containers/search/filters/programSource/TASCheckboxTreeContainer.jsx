@@ -11,9 +11,11 @@ import {
     decrementTasCountAndUpdateUnchecked,
     removeStagedTasFilter,
     autoCheckTasAfterExpand,
-    getTasNodeFromTree
+    getTasNodeFromTree,
+    getAncestryOfCheckedNodes
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
+import { updateTASV2 } from 'redux/actions/search/searchFilterActions';
 import { expandAllNodes, removePlaceholderString } from 'helpers/checkboxTreeHelper';
 
 import {
@@ -41,6 +43,7 @@ const propTypes = {
     addCheckedTas: PropTypes.func,
     showTasTree: PropTypes.func,
     setUncheckedTas: PropTypes.func,
+    stageTas: PropTypes.func,
     expanded: PropTypes.arrayOf(PropTypes.string),
     checked: PropTypes.arrayOf(PropTypes.string),
     unchecked: PropTypes.arrayOf(PropTypes.string),
@@ -85,38 +88,6 @@ export class TASCheckboxTree extends React.Component {
         this.props.setExpandedTas(newExpandedArray);
     };
 
-    onCheck = (newChecked) => {
-        const [newCounts, newUnchecked] = incrementTasCountAndUpdateUnchecked(
-            newChecked,
-            this.props.checked,
-            this.props.unchecked,
-            this.props.nodes,
-            this.props.counts
-        );
-
-        this.props.setCheckedTas(newChecked);
-        this.props.setTasCounts(newCounts);
-        this.props.setUncheckedTas(newUnchecked);
-
-        if (this.hint) {
-            this.hint.showHint();
-        }
-    }
-
-    onUncheck = (newChecked, uncheckedNode) => {
-        const [newCounts, newUnchecked] = decrementTasCountAndUpdateUnchecked(
-            uncheckedNode,
-            this.props.unchecked,
-            this.props.checked,
-            this.props.counts,
-            this.props.nodes
-        );
-
-        this.props.setCheckedTas(newChecked);
-        this.props.setTasCounts(newCounts);
-        this.props.setUncheckedTas(newUnchecked);
-    }
-
     onSearchChange = debounce(() => {
         if (!this.state.searchString) return this.onClear();
         return this.fetchTas('', this.state.searchString);
@@ -136,6 +107,41 @@ export class TASCheckboxTree extends React.Component {
 
     onCollapse = (newExpandedArray) => {
         this.props.setExpandedTas(newExpandedArray);
+    }
+
+    onUncheck = (newChecked, uncheckedNode) => {
+        const [newCounts, newUnchecked] = decrementTasCountAndUpdateUnchecked(
+            uncheckedNode,
+            this.props.unchecked,
+            this.props.checked,
+            this.props.counts,
+            this.props.nodes
+        );
+
+        this.props.setCheckedTas(newChecked);
+        this.props.setTasCounts(newCounts);
+        this.props.setUncheckedTas(newUnchecked);
+        this.props.stageTas(getAncestryOfCheckedNodes(newChecked, this.props.nodes), newUnchecked, newCounts);
+    }
+
+    onCheck = (newChecked) => {
+        const [newCounts, newUnchecked] = incrementTasCountAndUpdateUnchecked(
+            newChecked,
+            this.props.checked,
+            this.props.unchecked,
+            this.props.nodes,
+            this.props.counts
+        );
+
+        this.props.setCheckedTas(newChecked);
+        this.props.setTasCounts(newCounts);
+        this.props.setUncheckedTas(newUnchecked);
+
+        this.props.stageTas(getAncestryOfCheckedNodes(newChecked, this.props.nodes), newUnchecked, newCounts);
+
+        if (this.hint) {
+            this.hint.showHint();
+        }
     }
 
     removeSelectedFilter = (node) => {
@@ -328,7 +334,8 @@ const mapDispatchToProps = (dispatch) => ({
     setCheckedTas: (nodes) => dispatch(setCheckedTas(nodes)),
     setUncheckedTas: (nodes) => dispatch(setUncheckedTas(nodes)),
     setSearchedTas: (nodes) => dispatch(setSearchedTas(nodes)),
-    setTasCounts: (newCounts) => dispatch(setTasCounts(newCounts))
+    setTasCounts: (newCounts) => dispatch(setTasCounts(newCounts)),
+    stageTas: (require, exclude, counts) => dispatch(updateTASV2(require, exclude, counts))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TASCheckboxTree);
