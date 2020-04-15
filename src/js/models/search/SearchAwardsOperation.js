@@ -205,7 +205,7 @@ class SearchAwardsOperation {
         }
 
         if (this.selectedRecipientLocations.length > 0) {
-            const locationSet = this.selectedLocations.reduce((accLocationSet, currLocation) => {
+            const locationSet = this.selectedRecipientLocations.reduce((accLocationSet, currLocation) => {
                 if (!currLocation.filter.city && currLocation.filter.country && currLocation.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.recipientLocationScope] = 'foreign';
                 } else {
