@@ -83,7 +83,7 @@ export class TASCheckboxTree extends React.Component {
                                 .then(() => this.fetchTas(agency)), Promise.resolve([])
                             )
                             .then(() => Object.entries(checkedNodesByAgencyId)
-                                .reduce((prevPromise, [agency, selectedTwoDArray]) => prevPromise
+                                .reduce((prevPromise, [, selectedTwoDArray]) => prevPromise
                                     .then(() => {
                                         const selectedTasUnderAgency = selectedTwoDArray.filter((selectedArray) => selectedArray.length === 3);
                                         if (selectedTasUnderAgency.length !== 0) {
