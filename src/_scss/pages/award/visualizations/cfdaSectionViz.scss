@@ -28,6 +28,37 @@
   }
   .cfda-section-results {
     @import './visualizations/cfdaSectionTable';
+    @import '../shared/awardAmountsSection/charts';
+    @import '../../search/results/table/tableMessages';
+    .tooltip__amount--loans {
+      font-size: 3rem;
+      padding-bottom: 1rem;
+      font-weight: $font-light;
+    }
+    .tooltip-pointer {
+      left: -0.7rem;
+    }
+    .results-table-message-container {
+      position: relative;
+      background-color: rgb(246, 246, 246);
+    }
+    .award-amounts-viz {
+      .award-amounts-viz__desc-top--loans {
+        border-left: solid 0.4rem $color-vis-green-darkest;
+        strong {
+          font-size: 2rem;
+        }
+      }
+      .award-amounts-viz__line-up--loans {
+        border-bottom: 1px solid $color-vis-green-darkest;
+      }
+      .award-amounts-viz__line-up--loans::before {
+        border-left: 1px solid $color-vis-green-darkest;
+      }
+      .award-amounts-viz__line-up--loans::after {
+        border-left: 1px solid $color-vis-green-darkest;
+      }
+    }
     width: 100%;
     .cfda-section-table-renderer {
       width: 100%;
@@ -46,6 +77,7 @@
         background-color: #f49c20;
     }
     .usa-dt-picker {
+      margin-bottom: 4rem;
       .usa-dt-picker__dropdown-container {
         border-bottom: 1px solid $color-primary-alt-darkest;
         .usa-dt-picker__button {
@@ -73,6 +105,7 @@
     }
     .cfda-section-single-title {
       margin-top: 0;
+      margin-bottom: 0.5rem;
     }
   }
 }

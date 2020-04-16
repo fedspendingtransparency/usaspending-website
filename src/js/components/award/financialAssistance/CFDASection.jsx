@@ -9,13 +9,15 @@ import { CFDASectionInfo } from "../shared/InfoTooltipContent";
 const propTypes = {
     cfdas: PropTypes.array,
     CFDAOverviewLinkClicked: PropTypes.bool,
-    updateCFDAOverviewLinkClicked: PropTypes.func
+    updateCFDAOverviewLinkClicked: PropTypes.func,
+    awardTotalObligation: PropTypes.number
 };
 
 const CFDASection = ({
     cfdas,
     CFDAOverviewLinkClicked,
-    updateCFDAOverviewLinkClicked
+    updateCFDAOverviewLinkClicked,
+    awardTotalObligation
 }) => (
     <AwardSection id="award-cfda" type="column" className="cfda-section award-viz">
         <AwardSectionHeader
@@ -28,7 +30,8 @@ const CFDASection = ({
             <CFDAVizContainer
                 cfdas={cfdas}
                 CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
-                updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />
+                updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
+                awardTotalObligation={awardTotalObligation} />
         </div>
     </AwardSection>
 );

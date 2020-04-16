@@ -52,7 +52,7 @@ export default class ProgramActivityFilter extends React.Component {
     }
 
     toggleValue(value) {
-        this.props.updateFilter(value);
+        this.props.updateFilter(value.value);
     }
 
     generateProgramActivityItems(programActivities) {

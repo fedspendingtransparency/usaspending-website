@@ -97,9 +97,9 @@ describe('AccountObjectClassContainer', () => {
                 {...defaultFilters}
                 {...actions} />);
 
-            container.instance().updateFilter(123);
+            container.instance().updateFilter({ value: '123' });
             expect(mockAction).toHaveBeenCalledTimes(1);
-            expect(mockAction).toHaveBeenCalledWith(123);
+            expect(mockAction).toHaveBeenCalledWith('123');
         });
     });
 
