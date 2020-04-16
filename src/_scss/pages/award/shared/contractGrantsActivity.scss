@@ -82,6 +82,9 @@
       fill: $color-primary;
       opacity: 0.3;
     }
+    .area-path__past-end-line {
+      fill: $color-gray-lighter;
+    }
     .vertical-line {
       &.start {
         stroke: $color-green-lighter;

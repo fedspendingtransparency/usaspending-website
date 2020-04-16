@@ -3,9 +3,71 @@
  */
 
 import { cloneDeep } from 'lodash';
+import moment from 'moment';
 import { isAwardFinancialAssistance } from 'helpers/awardSummaryHelper';
 import { badPotentialEndDate } from '../../../tests/testResources/mockContractGrantActivityHelper';
 
+export const filteredAndSortedLinesFirstToLast = (lines) => lines
+    .filter((line) => line).sort();
+
+export const dateMatchingFirstLineValue = (lines, dates, todayLineValue, endLineValue) => {
+    const firstEndLine = filteredAndSortedLinesFirstToLast(lines)[0];
+    if (firstEndLine === todayLineValue) return moment(todayLineValue);
+    if (firstEndLine === endLineValue) return dates._endDate;
+    return dates._potentialEndDate;
+};
+
+// should we extend path for last data point y value change
+export const shouldExtendAreaPathYValueChange = (transactions, areaPathExtensionToTodayLine) => {
+    if (transactions.length <= 1) return false;
+    const lastTransactionValueChange = transactions[transactions.length - 1].running_obligation_total > transactions[transactions.length - 2].running_obligation_total;
+    if (!lastTransactionValueChange) return false;
+    if (areaPathExtensionToTodayLine) return false;
+    return true;
+};
+
+export const createSteppedAreaPath = (
+    data, // data points
+    xScale, // d3 linear scale
+    yScale, // d3 linear scale
+    height, // height of the graph
+    padding, // horizontal padding for the svg
+    xProperty, // x property of the data point must be moment object
+    yProperty // y property of the data point
+) => (
+    data.reduce((acc, t, i, array) => {
+        let pathString = acc;
+        const xDirection = xScale(t[xProperty].valueOf()) + (padding || 0);
+        const yDirection = height - yScale(t[yProperty]);
+        if (i === 0) { // first transaction
+            // first x coordinate
+            pathString += `${xDirection},`;
+            // first y coordinate ( which should be the bottom of the graph )
+            pathString += `${height}`;
+            // navigate from the bottom of graph to first transaction y coordinate
+            pathString += `V${yDirection}`;
+            return pathString;
+        }
+        /**
+         * add x direction
+         * travel to next transaction x coordinate
+         */
+        pathString += `H${xDirection}`;
+        /**
+         * add y direction
+         * travel to next transaction y coordinate
+         */
+        pathString += `V${yDirection}`;
+        if (i + 1 === array.length) { // end path
+            pathString += `H${xDirection}`;
+            /**
+             * travel to bottom of graph
+             */
+            pathString += `V${height}Z`;
+        }
+        return pathString;
+    }, 'M')
+);
 /**
  * lineHelper
  * - determines if a line should be drawn
@@ -41,9 +103,9 @@ export const areTransactionDatesOrAwardAmountsInvalid = (dates, awardType, trans
     /**
      * handles null, '', or 'random string' passed to moment
      */
-    const badStart = isNaN(startDate.valueOf());
-    const badCurrent = isNaN(currentEndDate.valueOf());
-    const badEnd = isNaN(potentialEndDate.valueOf());
+    const badStart = isNaN(startDate.valueOf()) || !startDate;
+    const badCurrent = isNaN(currentEndDate.valueOf()) || !currentEndDate;
+    const badEnd = isNaN(potentialEndDate.valueOf()) || !potentialEndDate;
     const noTransactionHasDates = transactions.every((t) => isNaN(t.action_date.valueOf()));
     const onlyOneTransaction = transactions.length === 1;
     if (isAwardFinancialAssistance(awardType)) { // grant
