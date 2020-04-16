@@ -3,14 +3,10 @@ import { List } from 'immutable';
 import { addSearchResultsToTree, populateBranchOrLeafLevelNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
 import {
     getTasNodeFromTree,
-    getHighestTasAncestorCode
+    getHighestTasAncestorCode,
+    tasSortFn
 } from 'helpers/tasHelper';
 
-const tasSortFn = (a, b) => {
-    if (a.description > b.description) return 1;
-    if (b.description > a.description) return -1;
-    return 0;
-};
 
 const populateTasBranchOrLeafLevelNodes = (nodes, key, newNodes) => populateBranchOrLeafLevelNodes(
     nodes,
