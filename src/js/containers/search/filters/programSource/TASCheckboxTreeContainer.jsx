@@ -90,9 +90,9 @@ export class TASCheckboxTree extends React.Component {
                                         if (selectedTasUnderAgency.length !== 0) {
                                             // fetch the federal account for the TAS, if any
                                             return Promise.all([
-                                                ...selectedTasUnderAgency.map((selectedArray) => {
-                                                    return this.fetchTas(`${selectedArray[0]}/${selectedArray[1]}`);
-                                                })
+                                                // no duplicate federal accounts in this array, we only need to fetch each federal account once.
+                                                ...Object.keys(groupBy(selectedTasUnderAgency, (arr) => `${arr[0]}/${arr[1]}`))
+                                                    .map((uniqueFederalAccount) => this.fetchTas(uniqueFederalAccount))
                                             ]);
                                         }
                                         return Promise.resolve();

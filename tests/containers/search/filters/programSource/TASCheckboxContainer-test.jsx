@@ -16,8 +16,7 @@ import {
     defaultProps,
     treePopulatedToFederalAccountLevel,
     hashUrlWithFederalAccountSelected,
-    hashUrlWithTasSelected,
-    fullTree
+    hashUrlWithTasSelected
 } from '../programSource/mockTas';
 
 jest.mock("helpers/searchHelper", () => ({
@@ -36,6 +35,7 @@ describe('TASCheckboxContainer', () => {
             await container.instance().componentDidMount();
             // second call to fetchTas is for the agency
             expect(mockFn).toHaveBeenLastCalledWith('012');
+            // only calls for agency 12 once
             expect(mockFn).toHaveBeenCalledTimes(2);
         });
         it('fetches tas nodes', async () => {
@@ -49,7 +49,8 @@ describe('TASCheckboxContainer', () => {
             await container.instance().componentDidMount();
 
             expect(mockFn).toHaveBeenLastCalledWith('012/012-8226');
-            // expect(mockFn).toHaveBeenCalledTimes(2);
+            // only calls for federal account 012-8226 once
+            expect(mockFn).toHaveBeenCalledTimes(3);
         });
         // Can't really test the setCheckedStateFromUrlHash fn b/c the parameter, newChecked, requires this.props.nodes to be defined, and this sequence is only kicked off when componentDidMount is fired w/o any nodes in props. This points to an improvement we could use w/ our test configuration to include a test-redux store that updates our components props as we go along w/ the test. IE, redux-mock-store npm package, cited here: https://redux.js.org/recipes/writing-tests.
     });
