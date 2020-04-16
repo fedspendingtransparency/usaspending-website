@@ -125,7 +125,11 @@ export class TASCheckboxTree extends React.Component {
                                                 .map((ancestryPath) => ancestryPath[2])
                                         ];
                                     }, [])
-                                    .filter((checked) => !uncheckedFromHash.includes(checked));
+                                    .filter((checked) => {
+                                        const inUncheckedArray = uncheckedFromHash.some((arr) => arr[arr.length - 1] === checked);
+                                        if (inUncheckedArray) return false;
+                                        return true;
+                                    });
 
                                 this.setCheckedStateFromUrlHash(newChecked);
                                 this.props.setExpandedTas(checkedFromHash.map((ancestryPath) => ancestryPath[0]));
