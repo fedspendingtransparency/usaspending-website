@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get, groupBy, flatten } from 'lodash';
+import { debounce, get, groupBy } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
@@ -12,7 +12,8 @@ import {
     removeStagedTasFilter,
     autoCheckTasAfterExpand,
     getTasNodeFromTree,
-    getAncestryPathOfNodes
+    getAncestryPathOfNodes,
+    shouldTasNodeHaveChildren
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
 import { expandAllNodes, removePlaceholderString } from 'helpers/checkboxTreeHelper';
@@ -49,7 +50,7 @@ const propTypes = {
     checked: PropTypes.arrayOf(PropTypes.string),
     unchecked: PropTypes.arrayOf(PropTypes.string),
     checkedFromHash: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
-    uncheckedFromHash: PropTypes.arrayOf(PropTypes.string),
+    uncheckedFromHash: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     counts: PropTypes.arrayOf(PropTypes.shape({})),
@@ -111,12 +112,13 @@ export class TASCheckboxTree extends React.Component {
                                                 ...acc,
                                                 ...array
                                                     .map((ancestryPath) => ancestryPath[1])
-                                                    .map((node) => {
-                                                        if (this.props.nodes.length === 0) return null;
-                                                        return [
-                                                            ...getTasNodeFromTree(this.props.nodes, node).children.map((child) => child.value)
-                                                        ];
-                                                    })
+                                                    .reduce((grandChildren, node) => {
+                                                        if (this.props.nodes.length === 0) return grandChildren;
+                                                        const newGrandChildren = getTasNodeFromTree(this.props.nodes, node)
+                                                            .children
+                                                            .map((child) => child.value);
+                                                        return [...grandChildren, ...newGrandChildren];
+                                                    }, acc)
                                             ];
                                         }
                                         return [
@@ -259,8 +261,12 @@ export class TASCheckboxTree extends React.Component {
             })
             .map((node) => removePlaceholderString(node))
             .reduce((acc, expandedAndChecked) => {
+                if (!expandedAndChecked) return acc;
                 const node = getTasNodeFromTree(nodes, expandedAndChecked);
-                return [...acc, ...node.children.map((tas) => tas.value)];
+                if (shouldTasNodeHaveChildren(node)) {
+                    return [...acc, ...node.children.map((tas) => tas.value)];
+                }
+                return acc;
             }, []);
 
         return new Set([...checked, ...newChecked]);

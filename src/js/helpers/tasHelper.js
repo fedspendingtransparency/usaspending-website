@@ -8,7 +8,7 @@ import {
 } from "./checkboxTreeHelper";
 
 export const isAgency = (tasNode) => tasNode.ancestors.length === 0;
-const shouldTasNodeHaveChildren = (node) => {
+export const shouldTasNodeHaveChildren = (node) => {
     if (node.isPlaceHolder) return false;
     return node.ancestors.length < 2;
 };
