@@ -232,7 +232,7 @@ export class TASCheckboxTree extends React.Component {
                 this.props.nodes,
                 this.props.counts
             );
-    
+
             this.props.setTasCounts(counts);
             this.props.setUncheckedTas(unchecked);
             this.props.setCheckedTas(newChecked);
