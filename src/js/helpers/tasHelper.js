@@ -130,7 +130,7 @@ export const autoCheckTasAfterExpand = (
     shouldTasNodeHaveChildren
 );
 
-export const getAncestryOfCheckedNodes = (checked, nodes) => checked
+export const getAncestryPathOfNodes = (checked, nodes) => checked
     .map((code) => removePlaceholderString(code))
     .map((code) => getTasNodeFromTree(nodes, code))
     .map((node) => ([...node.ancestors, node.value]));

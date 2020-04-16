@@ -12,7 +12,7 @@ import {
     removeStagedTasFilter,
     autoCheckTasAfterExpand,
     getTasNodeFromTree,
-    getAncestryOfCheckedNodes
+    getAncestryPathOfNodes
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
 import { expandAllNodes, removePlaceholderString } from 'helpers/checkboxTreeHelper';
@@ -186,7 +186,11 @@ export class TASCheckboxTree extends React.Component {
         this.props.setCheckedTas(newChecked);
         this.props.setTasCounts(newCounts);
         this.props.setUncheckedTas(newUnchecked);
-        this.props.stageTas(getAncestryOfCheckedNodes(newChecked, this.props.nodes), newUnchecked, newCounts);
+        this.props.stageTas(
+            getAncestryPathOfNodes(newChecked, this.props.nodes),
+            getAncestryPathOfNodes(newUnchecked, this.props.nodes),
+            newCounts
+        );
     }
 
     onCheck = (newChecked) => {
@@ -202,7 +206,11 @@ export class TASCheckboxTree extends React.Component {
         this.props.setTasCounts(newCounts);
         this.props.setUncheckedTas(newUnchecked);
 
-        this.props.stageTas(getAncestryOfCheckedNodes(newChecked, this.props.nodes), newUnchecked, newCounts);
+        this.props.stageTas(
+            getAncestryPathOfNodes(newChecked, this.props.nodes),
+            getAncestryPathOfNodes(newUnchecked, this.props.nodes),
+            newCounts
+        );
 
         if (this.hint) {
             this.hint.showHint();
