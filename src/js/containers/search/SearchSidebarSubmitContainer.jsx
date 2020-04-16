@@ -13,6 +13,7 @@ import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions
 import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
 import { setCheckedNaics, setUncheckedNaics } from 'redux/actions/search/naicsActions';
 
+
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
 
 import {
