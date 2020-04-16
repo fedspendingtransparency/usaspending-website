@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { debounce, get } from 'lodash';
+import { debounce, get, groupBy, flatten } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 
@@ -15,7 +15,6 @@ import {
     getAncestryOfCheckedNodes
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
-import { updateTASV2 } from 'redux/actions/search/searchFilterActions';
 import { expandAllNodes, removePlaceholderString } from 'helpers/checkboxTreeHelper';
 
 import {
@@ -28,6 +27,8 @@ import {
     setSearchedTas,
     setTasCounts
 } from 'redux/actions/search/tasActions';
+import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
+import { updateTASV2 } from 'redux/actions/search/searchFilterActions';
 
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
@@ -39,7 +40,7 @@ const propTypes = {
     setCheckedTas: PropTypes.func,
     setSearchedTas: PropTypes.func,
     setTasCounts: PropTypes.func,
-    // restoreHashedFilters: PropTypes.func,
+    restoreHashedFilters: PropTypes.func,
     addCheckedTas: PropTypes.func,
     showTasTree: PropTypes.func,
     setUncheckedTas: PropTypes.func,
@@ -47,11 +48,12 @@ const propTypes = {
     expanded: PropTypes.arrayOf(PropTypes.string),
     checked: PropTypes.arrayOf(PropTypes.string),
     unchecked: PropTypes.arrayOf(PropTypes.string),
-    checkedFromHash: PropTypes.arrayOf(PropTypes.string),
+    checkedFromHash: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
     uncheckedFromHash: PropTypes.arrayOf(PropTypes.string),
     nodes: PropTypes.arrayOf(PropTypes.object),
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
-    counts: PropTypes.arrayOf(PropTypes.shape({}))
+    counts: PropTypes.arrayOf(PropTypes.shape({})),
+    filters: PropTypes.object
 };
 
 export class TASCheckboxTree extends React.Component {
@@ -67,8 +69,62 @@ export class TASCheckboxTree extends React.Component {
     }
 
     async componentDidMount() {
+        const {
+            checkedFromHash,
+            uncheckedFromHash
+        } = this.props;
         if (this.props.nodes.length === 0) {
-            return this.fetchTas('');
+            return this.fetchTas('')
+                .then(() => {
+                    if (checkedFromHash.length > 0) {
+                        const checkedNodesByAgencyId = groupBy(checkedFromHash, (ancestryPath) => ancestryPath[0]);
+                        Object.keys(checkedNodesByAgencyId)
+                            .reduce((prevPromise, agency) => prevPromise
+                                .then(() => this.fetchTas(agency)), Promise.resolve([])
+                            )
+                            .then(() => Object.entries(checkedNodesByAgencyId)
+                                .reduce((prevPromise, [agency, selectedTwoDArray]) => prevPromise
+                                    .then(() => {
+                                        const selectedTasUnderAgency = selectedTwoDArray.filter((selectedArray) => selectedArray.length === 3);
+                                        if (selectedTasUnderAgency.length !== 0) {
+                                            return Promise.all([
+                                                ...selectedTasUnderAgency.map((selectedArray) => {
+                                                    return this.fetchTas(`${selectedArray[0]}/${selectedArray[1]}`);
+                                                })
+                                            ]);
+                                        }
+                                        return Promise.resolve();
+                                    }), Promise.resolve())
+                            )
+                            .then(() => {
+                                // the tree is now guaranteed to be populated adequately such that we can register counts and full/half check the tree.
+                                const selectedNodesByTreeLevel = groupBy(checkedFromHash, (ancestryPath) => {
+                                    if (ancestryPath.length === 2) return 'branch';
+                                    return 'leaf';
+                                });
+                                const newChecked = Object.entries(selectedNodesByTreeLevel)
+                                    .reduce((acc, [location, array]) => {
+                                        if (location === 'branch') {
+                                            return [
+                                                ...acc,
+                                                ...array
+                                                    .map((ancestryPath) => ancestryPath[1])
+                                                    .map((node) => [...getTasNodeFromTree(this.props.nodes, node).children.map((child) => child.value)])
+                                            ];
+                                        }
+                                        return [
+                                            ...acc,
+                                            ...array
+                                                .map((ancestryPath) => ancestryPath[2])
+                                        ];
+                                    }, [])
+                                    .filter((checked) => !uncheckedFromHash.includes(checked));
+
+                                this.setCheckedStateFromUrlHash(newChecked);
+                                this.props.setExpandedTas(checkedFromHash.map((ancestryPath) => ancestryPath[0]));
+                            });
+                    }
+                });
         }
         return Promise.resolve();
     }
@@ -142,6 +198,27 @@ export class TASCheckboxTree extends React.Component {
         if (this.hint) {
             this.hint.showHint();
         }
+    }
+
+    setCheckedStateFromUrlHash = (newChecked) => {
+        const [counts, unchecked] = incrementTasCountAndUpdateUnchecked(
+            newChecked,
+            this.props.checked,
+            this.props.unchecked,
+            this.props.nodes,
+            this.props.counts
+        );
+
+        this.props.setTasCounts(counts);
+        this.props.setUncheckedTas(unchecked);
+        this.props.setCheckedTas(newChecked);
+        this.props.restoreHashedFilters({
+            ...this.props.filters,
+            tasCodes: {
+                ...this.props.filters.tasCodes,
+                counts
+            }
+        });
     }
 
     removeSelectedFilter = (node) => {
@@ -320,10 +397,10 @@ const mapStateToProps = (state) => ({
     searchExpanded: state.tas.searchExpanded.toJS(),
     checked: state.tas.checked.toJS(),
     unchecked: state.tas.unchecked.toJS(),
-    counts: state.tas.counts.toJS()
-    // checkedFromHash: state.appliedFilters.filters.tasCodes.require,
-    // uncheckedFromHash: state.appliedFilters.filters.tasCodes.exclude,
-    // filters: state.appliedFilters.filters
+    counts: state.tas.counts.toJS(),
+    checkedFromHash: state.appliedFilters.filters.tasCodes.require,
+    uncheckedFromHash: state.appliedFilters.filters.tasCodes.exclude,
+    filters: state.appliedFilters.filters
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -335,7 +412,8 @@ const mapDispatchToProps = (dispatch) => ({
     setUncheckedTas: (nodes) => dispatch(setUncheckedTas(nodes)),
     setSearchedTas: (nodes) => dispatch(setSearchedTas(nodes)),
     setTasCounts: (newCounts) => dispatch(setTasCounts(newCounts)),
-    stageTas: (require, exclude, counts) => dispatch(updateTASV2(require, exclude, counts))
+    stageTas: (require, exclude, counts) => dispatch(updateTASV2(require, exclude, counts)),
+    restoreHashedFilters: (filters) => dispatch(restoreHashedFilters(filters))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TASCheckboxTree);
