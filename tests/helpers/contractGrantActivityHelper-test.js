@@ -4,12 +4,17 @@
 
 import moment from 'moment';
 import { cloneDeep } from 'lodash';
+import { scaleLinear } from 'd3-scale';
 import {
     areTransactionDatesOrAwardAmountsInvalid,
     getXDomain,
     beforeDate,
     afterDate,
-    lineHelper
+    lineHelper,
+    filteredAndSortedLinesFirstToLast,
+    dateMatchingFirstLineValue,
+    shouldExtendAreaPathWhenLastDataPointYValueChange,
+    createSteppedAreaPath
 } from 'helpers/contractGrantActivityHelper';
 import {
     goodDates,
@@ -40,6 +45,15 @@ describe('Contract Grant Activity Helper', () => {
                 return data;
             });
             expect(areTransactionDatesOrAwardAmountsInvalid(goodDates, 'grant', noDates)).toBe(true);
+        });
+        it('should return true when there are no dates and one transaction', () => {
+            const dates = {
+                _startDate: '',
+                _endDate: '',
+                _potentialEndDate: ''
+            };
+            expect(areTransactionDatesOrAwardAmountsInvalid(dates, 'contract', oneTransaction)).toEqual(true);
+            expect(areTransactionDatesOrAwardAmountsInvalid(dates, 'grant', oneTransaction)).toEqual(true);
         });
         describe('Grant', () => {
             // 3
@@ -247,5 +261,115 @@ describe('Line Helper', () => {
     });
     it('should return a number if date exists', () => {
         expect(lineHelper(goodDates._startDate)).toBe(goodDates._startDate.valueOf());
+    });
+});
+
+describe(' Filtered and Sorted Lines First To Last', () => {
+    const lines = [3, null, 2];
+    it('should sort and filter lines', () => {
+        expect(filteredAndSortedLinesFirstToLast(lines)).toEqual([2, 3]);
+    });
+});
+
+describe('Date Matching First Line Value', () => {
+    it('should match today line date', () => {
+        const lines = [
+            goodDates._startDate.valueOf(), 
+            goodDates._endDate.valueOf(),
+            goodDates._potentialEndDate.valueOf()
+        ];
+        expect(dateMatchingFirstLineValue(lines, goodDates, goodDates._startDate.valueOf(), goodDates._endDate).valueOf())
+            .toEqual(goodDates._startDate.valueOf());
+    });
+    it('should match end line date', () => {
+        const lines = [
+            null, 
+            goodDates._endDate.valueOf(),
+            goodDates._potentialEndDate.valueOf()
+        ];
+        expect(dateMatchingFirstLineValue(lines, goodDates, goodDates._startDate.valueOf(), goodDates._endDate.valueOf()).valueOf())
+            .toEqual(goodDates._endDate.valueOf());
+    });
+});
+
+describe('Should Extend Area Path Y Value Change', () => {
+  // transactions, areaPathExtensionToTodayLine
+    it('should return false when transactions <= 1', () => {
+        expect(shouldExtendAreaPathWhenLastDataPointYValueChange([], '')).toEqual(false);
+    });
+    it('should return false when the last transaction running total does not change', () => {
+        const transactions = [
+            {
+                running_obligation_total: 1
+            },
+            {
+                running_obligation_total: 1
+            }
+        ];
+        expect(shouldExtendAreaPathWhenLastDataPointYValueChange(transactions, '')).toEqual(false);
+    });
+    it('should return false when we extend to the today line', () => {
+        const transactions = [
+            {
+                running_obligation_total: 1
+            },
+            {
+                running_obligation_total: 2
+            }
+        ];
+        expect(shouldExtendAreaPathWhenLastDataPointYValueChange(transactions, 2345)).toEqual(false);
+    });
+    it('should return true when all criteria is met', () => {
+        const transactions = [
+            {
+                running_obligation_total: 1
+            },
+            {
+                running_obligation_total: 2
+            }
+        ];
+        expect(shouldExtendAreaPathWhenLastDataPointYValueChange(transactions, null)).toEqual(true);
+    });
+});
+
+describe('Create Stepped Area Path', () => {
+    it('should create a stepped area path', () => {
+        const transactions = [
+            {
+                running_obligation_total: 1000,
+                action_date: goodDates._startDate
+            },
+            {
+                running_obligation_total: 2000,
+                action_date: goodDates._endDate
+            },
+            {
+                running_obligation_total: 3000,
+                action_date: goodDates._potentialEndDate
+            }
+        ];
+        const xScale = scaleLinear(
+            [transactions[0].action_date, transactions[2].action_date],
+            [0, 300]
+        );
+        const yScale = scaleLinear(
+            [transactions[0].running_obligation_total, transactions[2].running_obligation_total],
+            [0, 400]
+        );
+        
+        const path = createSteppedAreaPath(
+            mockTransactions,
+            xScale, // d3 linear scale
+            yScale, // d3 linear scale
+            400, // height of the graph
+            { left: 45 }, // horizontal padding for the svg
+            'action_date', // x property of the data point must be moment object
+            'running_obligation_total' // y property of the data point
+        );
+        const steppedPath = path.split('').reduce((acc, char) => {
+            if (char === 'M' || char === 'H' || char === 'V' || char === 'Z') acc.push(char);
+            return acc;
+        }, []);
+        expect(steppedPath).toEqual(['M', 'V', 'H', 'V', 'H', 'V', 'H', 'V', 'Z']);
     });
 });
