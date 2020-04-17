@@ -328,12 +328,12 @@ export const sortNodesByValue = (a, b) => {
     return 0;
 };
 
-export const expandAllNodes = (nodes, propForNode = 'value') => {
+export const expandAllAncestors = (nodes, propForNode = 'value') => {
     const getValue = (acc, node) => {
         acc.push(node[propForNode]);
         if (node.children) {
             acc.push(
-                ...node.children.reduce(getValue, [])
+                ...node.children.map((child) => child[propForNode])
             );
         }
         return acc;
