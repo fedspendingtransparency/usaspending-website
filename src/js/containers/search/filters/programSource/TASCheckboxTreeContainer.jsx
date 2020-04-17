@@ -145,7 +145,7 @@ export class TASCheckboxTree extends React.Component {
     }
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
-        if (shouldFetchChildren) {
+        if (shouldFetchChildren && !this.state.isSearch) {
             if (selectedNode.treeDepth === 1) {
                 const selectedAgency = this.props.nodes
                     .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
@@ -156,7 +156,12 @@ export class TASCheckboxTree extends React.Component {
                 this.fetchTas(expandedValue);
             }
         }
-        this.props.setExpandedTas(newExpandedArray);
+        if (this.state.isSearch) {
+            this.props.setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
+        }
+        else {
+            this.props.setExpandedTas(newExpandedArray);
+        }
     };
 
     onSearchChange = debounce(() => {
@@ -177,7 +182,12 @@ export class TASCheckboxTree extends React.Component {
     }
 
     onCollapse = (newExpandedArray) => {
-        this.props.setExpandedTas(newExpandedArray);
+        if (this.state.isSearch) {
+            this.props.setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
+        }
+        else {
+            this.props.setExpandedTas(newExpandedArray);
+        }
     }
 
     onUncheck = (newChecked, uncheckedNode) => {
@@ -220,6 +230,15 @@ export class TASCheckboxTree extends React.Component {
 
         if (this.hint) {
             this.hint.showHint();
+        }
+    }
+
+    onCollapse = (newExpandedArray) => {
+        if (this.state.isSearch) {
+            this.props.setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
+        }
+        else {
+            this.props.setExpandedTas(newExpandedArray);
         }
     }
 
