@@ -20,54 +20,52 @@ const propTypes = {
     alternateNames: PropTypes.array
 };
 
-export default class AlternateNamesRecipientModal extends React.Component {
-    render() {
-        let table = (<AlternateNamesRecipientModalTable
-            sortField={this.props.sortField}
-            hideModal={this.props.hideModal}
-            sortDirection={this.props.sortDirection}
-            updateSort={this.props.updateSort}
-            alternateNames={this.props.alternateNames} />);
-        let message = null;
-        if (this.props.alternateNames.length === 0) {
-            message = "No results found.";
-            table = null;
-        }
-        const resultCount = this.props.alternateNames.length;
-        const resultCountDisplay = table
-            ? `${resultCount} ${resultCount > 1 ? "results" : "result"}`
-            : null;
-        return (
-            <Modal
-                mounted={this.props.mounted}
-                onExit={this.props.hideModal}
-                titleText={`Other Names for ${this.props.recipient.overview.name}`}
-                dialogClass="recipients-modal"
-                verticallyCenter
-                escapeExits>
-                <div className="recipients-modal__wrapper">
-                    <div className="recipients-modal__header">
-                        <h1 className="recipients-modal__title">{`Other Names for ${this.props.recipient.overview.name}`}</h1>
-                        <button
-                            className="recipients-modal__close-button"
-                            onClick={this.props.hideModal}
-                            title="Close"
-                            aria-label="Close">
-                            <Close alt="Close modal" />
-                        </button>
-                    </div>
-                    <div className="recipients-modal__body">
-                        {resultCountDisplay}
-                        {table}
-                        {resultCountDisplay}
-                        <div className="recipients-modal__message">
-                            {message}
-                        </div>
+const AlternateNamesRecipientModal = (props) => {
+    let table = (<AlternateNamesRecipientModalTable
+        sortField={props.sortField}
+        hideModal={props.hideModal}
+        sortDirection={props.sortDirection}
+        updateSort={props.updateSort}
+        alternateNames={props.alternateNames} />);
+    let message = null;
+    if (props.alternateNames.length === 0) {
+        message = "No results found.";
+        table = null;
+    }
+    const resultCount = props.alternateNames.length;
+    const resultPluralize = resultCount > 1 ? "results" : "result";
+    const resultCountDisplay = table ? `${resultCount} ${resultPluralize}` : null;
+    return (
+        <Modal
+            mounted={props.mounted}
+            onExit={props.hideModal}
+            titleText={`Other Names for ${props.recipient.overview.name}`}
+            dialogClass="recipients-modal"
+            verticallyCenter
+            escapeExits>
+            <div className="recipients-modal__wrapper">
+                <div className="recipients-modal__header">
+                    <h1 className="recipients-modal__title">{`Other Names for ${props.recipient.overview.name}`}</h1>
+                    <button
+                        className="recipients-modal__close-button"
+                        onClick={props.hideModal}
+                        title="Close"
+                        aria-label="Close">
+                        <Close alt="Close modal" />
+                    </button>
+                </div>
+                <div className="recipients-modal__body">
+                    {resultCountDisplay}
+                    {table}
+                    {resultCountDisplay}
+                    <div className="recipients-modal__message">
+                        {message}
                     </div>
                 </div>
-            </Modal>
-        );
-    }
-}
+            </div>
+        </Modal>
+    );
+};
 
 AlternateNamesRecipientModal.propTypes = propTypes;
+export default AlternateNamesRecipientModal;

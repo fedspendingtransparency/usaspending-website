@@ -36,36 +36,15 @@ export default class RecipientPage extends React.Component {
             showChildRecipientModal: false,
             showAlternateNamesRecipientModal: false
         };
-
-        this.showChildRecipientModal = this.showChildRecipientModal.bind(this);
-        this.hideChildRecipientModal = this.hideChildRecipientModal.bind(this);
-        this.showAlternateNamesRecipientModal = this.showAlternateNamesRecipientModal.bind(this);
-        this.hideAlternateNamesRecipientModal = this.hideAlternateNamesRecipientModal.bind(this);
     }
 
-    showAlternateNamesRecipientModal() {
-        this.setState({
-            showAlternateNamesRecipientModal: true
-        });
-    }
+    showAlternateNamesRecipientModal = () => this.setState({ showAlternateNamesRecipientModal: true });
 
-    hideAlternateNamesRecipientModal() {
-        this.setState({
-            showAlternateNamesRecipientModal: false
-        });
-    }
+    hideAlternateNamesRecipientModal = () => this.setState({ showAlternateNamesRecipientModal: false });
 
-    showChildRecipientModal() {
-        this.setState({
-            showChildRecipientModal: true
-        });
-    }
+    showChildRecipientModal = () => this.setState({ showChildRecipientModal: true });
 
-    hideChildRecipientModal() {
-        this.setState({
-            showChildRecipientModal: false
-        });
-    }
+    hideChildRecipientModal = () => this.setState({ showChildRecipientModal: false });
 
     render() {
         let content = (

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 
 import Sorter from 'components/stateLanding/table/StateLandingTableSorter';
 
@@ -16,44 +17,43 @@ const propTypes = {
     sortDirection: PropTypes.string
 };
 
-export default class AlternateNamesRecipientModalTable extends React.Component {
-    render() {
-        const body = this.props.alternateNames.map((altName) => (
-            <tr
-                className="recipients-list__body-row"
-                key={altName}>
-                <td className="recipients-list__body-cell">
-                    {altName}
-                </td>
-            </tr>
-        ));
+const AlternateNamesRecipientModalTable = (props) => {
+    const body = props.alternateNames.map((altName) => (
+        <tr
+            className="recipients-list__body-row"
+            key={uniqueId(altName)}>
+            <td className="recipients-list__body-cell">
+                {altName}
+            </td>
+        </tr>
+    ));
 
-        return (
-            <table className="recipients-list">
-                <thead className="recipients-list__head">
-                    <tr className="recipients-list__head-row">
-                        <th className="recipients-list__head-cell">
-                            <div className="header-cell">
-                                <div className="header-cell__text">
-                                    <div className="header-cell__title">
-                                    Name
-                                    </div>
+    return (
+        <table className="recipients-list">
+            <thead className="recipients-list__head">
+                <tr className="recipients-list__head-row">
+                    <th className="recipients-list__head-cell">
+                        <div className="header-cell">
+                            <div className="header-cell__text">
+                                <div className="header-cell__title">
+                                Name
                                 </div>
-                                <Sorter
-                                    field="alternateName"
-                                    label="name"
-                                    active={{ field: this.props.sortField, direction: this.props.sortDirection }}
-                                    setSort={this.props.updateSort} />
                             </div>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody className="recipients-list__body">
-                    {body}
-                </tbody>
-            </table>
-        );
-    }
-}
+                            <Sorter
+                                field="alternateName"
+                                label="name"
+                                active={{ field: props.sortField, direction: props.sortDirection }}
+                                setSort={props.updateSort} />
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody className="recipients-list__body">
+                {body}
+            </tbody>
+        </table>
+    );
+};
 
 AlternateNamesRecipientModalTable.propTypes = propTypes;
+export default AlternateNamesRecipientModalTable;

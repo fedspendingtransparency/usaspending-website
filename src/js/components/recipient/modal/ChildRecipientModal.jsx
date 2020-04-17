@@ -46,9 +46,8 @@ export default class ChildRecipientModal extends React.Component {
             table = null;
         }
         const resultCount = this.props.childRecipients.length;
-        const resultCountDisplay = table
-            ? `${resultCount} ${resultCount > 1 ? "results" : "result"}`
-            : null;
+        const resultPluralize = resultCount > 1 ? "results" : "result";
+        const resultCountDisplay = table ? `${resultCount} ${resultPluralize}` : null;
         return (
             <Modal
                 mounted={this.props.mounted}
