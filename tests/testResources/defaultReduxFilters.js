@@ -21,6 +21,7 @@ export const defaultFilters = {
     budgetFunctions: new OrderedMap(),
     federalAccounts: new OrderedMap(),
     treasuryAccounts: new OrderedMap(),
+    tasCodes: new CheckboxTreeSelections(),
     objectClasses: new OrderedMap(),
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),

@@ -23,7 +23,7 @@ class SearchAwardsOperation {
 
         this.tasSources = [];
         this.accountSources = [];
-        this.tasCheckbox = [];
+        this.tasCheckbox = { require: [], exclude: [] };
 
         this.selectedRecipients = [];
         this.recipientDomesticForeign = 'all';
@@ -48,7 +48,6 @@ class SearchAwardsOperation {
     }
 
     fromState(state) {
-        console.log("STATE", state);
         this.keyword = state.keyword.toArray();
 
         this.timePeriodFY = state.timePeriodFY.toArray();
