@@ -1,5 +1,5 @@
 /**
- * RecipientModalContainer.jsx
+ * ChildRecipientModalContainer.jsx
  * Created by Lizzie Salita 6/20/18
  */
 
@@ -13,7 +13,7 @@ import { orderBy, isEqual } from 'lodash';
 import * as recipientActions from 'redux/actions/recipient/recipientActions';
 import * as RecipientHelper from 'helpers/recipientHelper';
 
-import RecipientModal from 'components/recipient/modal/RecipientModal';
+import ChildRecipientModal from 'components/recipient/modal/ChildRecipientModal';
 import BaseChildRecipient from 'models/v2/recipient/BaseChildRecipient';
 
 const propTypes = {
@@ -23,7 +23,7 @@ const propTypes = {
     hideModal: PropTypes.func
 };
 
-export class RecipientModalContainer extends React.Component {
+export class ChildRecipientModalContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -111,7 +111,7 @@ export class RecipientModalContainer extends React.Component {
 
     render() {
         return (
-            <RecipientModal
+            <ChildRecipientModal
                 {...this.props}
                 error={this.state.error}
                 loading={this.state.inFlight}
@@ -128,6 +128,6 @@ export default connect(
         recipient: state.recipient
     }),
     (dispatch) => bindActionCreators(recipientActions, dispatch)
-)(RecipientModalContainer);
+)(ChildRecipientModalContainer);
 
-RecipientModalContainer.propTypes = propTypes;
+ChildRecipientModalContainer.propTypes = propTypes;

@@ -15,8 +15,9 @@ import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader'
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 
-import RecipientModalContainer from 'containers/recipient/modal/RecipientModalContainer';
+import ChildRecipientModalContainer from 'containers/recipient/modal/ChildRecipientModalContainer';
 import RecipientContent from './RecipientContent';
+import { AlternateNamesRecipientModalContainer } from '../../containers/recipient/modal/AlternateNamesRecipientModalContainer';
 
 
 const propTypes = {
@@ -32,29 +33,45 @@ export default class RecipientPage extends React.Component {
         super(props);
 
         this.state = {
-            showModal: false
+            showChildRecipientModal: false,
+            showAlternateNamesRecipientModal: false
         };
 
-        this.showModal = this.showModal.bind(this);
-        this.hideModal = this.hideModal.bind(this);
+        this.showChildRecipientModal = this.showChildRecipientModal.bind(this);
+        this.hideChildRecipientModal = this.hideChildRecipientModal.bind(this);
+        this.showAlternateNamesRecipientModal = this.showAlternateNamesRecipientModal.bind(this);
+        this.hideAlternateNamesRecipientModal = this.hideAlternateNamesRecipientModal.bind(this);
     }
 
-    showModal() {
+    showAlternateNamesRecipientModal() {
         this.setState({
-            showModal: true
+            showAlternateNamesRecipientModal: true
         });
     }
 
-    hideModal() {
+    hideAlternateNamesRecipientModal() {
         this.setState({
-            showModal: false
+            showAlternateNamesRecipientModal: false
+        });
+    }
+
+    showChildRecipientModal() {
+        this.setState({
+            showChildRecipientModal: true
+        });
+    }
+
+    hideChildRecipientModal() {
+        this.setState({
+            showChildRecipientModal: false
         });
     }
 
     render() {
         let content = (
             <RecipientContent
-                showModal={this.showModal}
+                showChildRecipientModal={this.showChildRecipientModal}
+                showAlternateNamesRecipientModal={this.showAlternateNamesRecipientModal}
                 {...this.props} />
         );
         if (this.props.error) {
@@ -79,9 +96,13 @@ export default class RecipientPage extends React.Component {
                     className="main-content">
                     <LoadingWrapper isLoading={this.props.loading}>
                         {content}
-                        <RecipientModalContainer
-                            mounted={this.state.showModal}
-                            hideModal={this.hideModal}
+                        <ChildRecipientModalContainer
+                            mounted={this.state.showChildRecipientModal}
+                            hideModal={this.hideChildRecipientModal}
+                            recipient={this.props.recipient} />
+                        <AlternateNamesRecipientModalContainer
+                            mounted={this.state.showAlternateNamesRecipientModal}
+                            hideModal={this.hideAlternateNamesRecipientModal}
                             recipient={this.props.recipient} />
                     </LoadingWrapper>
                 </main>
