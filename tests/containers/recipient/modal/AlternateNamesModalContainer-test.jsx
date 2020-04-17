@@ -12,7 +12,7 @@ jest.mock('helpers/recipientHelper', () => require('../mockRecipientHelper'));
 import { AlternateNamesRecipientModalContainer } from 'containers/recipient/modal/AlternateNamesRecipientModalContainer';
 import { mockModalActions, mockModalRedux } from '../mockData';
 
-// mock the child component by replacing it with a function that returns a null element
+// mock the alternate names component by replacing it with a function that returns a null element
 jest.mock('components/recipient/modal/AlternateNamesRecipientModal', () => jest.fn(() => null));
 
 describe('AlternateNamesModalContainer', () => {
