@@ -1,6 +1,18 @@
 .tas-checkbox {
     display: block;
     padding-top: rem(15);
+    .tas-checkbox__header {
+      @include display(flex);
+      .tas-checkbox-tt {
+        p {
+          padding: 0;
+          margin: 0;
+        }
+        ul {
+          padding-top: rem(10);
+        }
+      }
+    }
     .autocomplete__input {
         width: 100%;
         padding-bottom: rem(10);

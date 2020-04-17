@@ -30,6 +30,7 @@ import {
 import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import { EntityDropdownAutocomplete } from 'components/search/filters/location/EntityDropdownAutocomplete';
+import ProgramSourceInfoTooltip from 'components/search/filters/programSource/ProgramSourceInfoTooltip';
 
 const propTypes = {
     setTasNodes: PropTypes.func,
@@ -50,6 +51,17 @@ const propTypes = {
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     counts: PropTypes.arrayOf(PropTypes.shape({}))
 };
+
+const SearchNote = () => (
+    <div className="tas-checkbox-tt">
+        <p>Filter the options below by typing any of the following:</p>
+        <ul>
+            <li>Any part of an agency name</li>
+            <li>Any part of a Federal Account symbol or title</li>
+            <li>Any part of a Treasury Account Symbol or title.</li>
+        </ul>
+    </div>
+);
 
 export class TASCheckboxTree extends React.Component {
     constructor(props) {
@@ -264,7 +276,12 @@ export class TASCheckboxTree extends React.Component {
         } = this.state;
         return (
             <div className="tas-checkbox">
-                <span>Search by Federal Account, TAS, or Title.</span>
+                <span className="tas-checkbox__header">
+                    Search by Federal Account, TAS, or Agency Owner
+                    <ProgramSourceInfoTooltip
+                        definition={<SearchNote />}
+                        heading="Find a Treasury Account" />
+                </span>
                 <EntityDropdownAutocomplete
                     placeholder="Type to filter results"
                     searchString={searchString}
