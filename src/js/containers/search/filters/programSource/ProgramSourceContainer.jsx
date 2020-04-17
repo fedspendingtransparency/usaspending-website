@@ -17,11 +17,6 @@ const propTypes = {
     selectedTreasuryComponents: PropTypes.object,
     selectedFederalComponents: PropTypes.object,
     appliedTreasuryComponents: PropTypes.object,
-    selectedTasTreeItems: PropTypes.arrayOf(PropTypes.shape({
-        label: PropTypes.string,
-        count: PropTypes.string,
-        description: PropTypes.string
-    })),
     appliedFederalComponents: PropTypes.object,
     updateFederalAccountComponents: PropTypes.func,
     updateTreasuryAccountComponents: PropTypes.func
@@ -39,7 +34,6 @@ export class ProgramSourceContainer extends React.Component {
     render() {
         return (
             <ProgramSourceSection
-                selectedTasTreeItems={this.props.selectedTasTreeItems}
                 selectedTreasuryComponents={this.props.selectedTreasuryComponents}
                 selectedFederalComponents={this.props.selectedFederalComponents}
                 updateFederalAccountComponents={this.props.updateFederalAccountComponents}
@@ -56,8 +50,7 @@ export default connect(
         selectedTreasuryComponents: state.filters.treasuryAccounts,
         selectedFederalComponents: state.filters.federalAccounts,
         appliedTreasuryComponents: state.appliedFilters.filters.treasuryAccounts,
-        appliedFederalComponents: state.appliedFilters.filters.federalAccounts,
-        selectedTasTreeItems: state.tas.counts
+        appliedFederalComponents: state.appliedFilters.filters.federalAccounts
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(ProgramSourceContainer);
