@@ -22,6 +22,7 @@ import stateReducer from './state/stateReducer';
 import searchSubAwardTableReducer from './search/searchSubAwardTableReducer';
 import naicsReducer from './search/naicsReducer/naicsReducer';
 import tasReducer from './search/tasReducer/tasReducer';
+import mapLegendToggleReducer from './search/mapLegendToggleReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -43,7 +44,8 @@ const appReducer = combineReducers({
     // the tree & it cannot populated the correct user selections without the data.
     // Nesting it inside filters would be a bad idea.
     naics: naicsReducer,
-    tas: tasReducer
+    tas: tasReducer,
+    searchMapLegendToggle: mapLegendToggleReducer
 });
 
 export default appReducer;
