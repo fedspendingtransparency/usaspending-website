@@ -181,15 +181,6 @@ export class TASCheckboxTree extends React.Component {
         });
     }
 
-    onCollapse = (newExpandedArray) => {
-        if (this.state.isSearch) {
-            this.props.setExpandedTas(newExpandedArray, 'SET_SEARCHED_EXPANDED');
-        }
-        else {
-            this.props.setExpandedTas(newExpandedArray);
-        }
-    }
-
     onUncheck = (newChecked, uncheckedNode) => {
         const [newCounts, newUnchecked] = decrementTasCountAndUpdateUnchecked(
             uncheckedNode,
