@@ -61,12 +61,11 @@ export const removeStagedFilter = (
     getHighestAncestorFn,
     getImmediateAncestorFn
 ) => checkedNodes
-    .map((checkedCode) => removePlaceholderString(checkedCode))
     .filter((checked) => {
-        const checkedNode = traverseTreeByCodeFn(nodes, checked);
+        const checkedNode = traverseTreeByCodeFn(nodes, removePlaceholderString(checked));
         if (getHighestAncestorFn(checkedNode) === removedNode) return false;
         if (getImmediateAncestorFn(checkedNode) === removedNode) return false;
-        if (checkedNode === removedNode) return false;
+        if (checkedNode.value === removedNode) return false;
         return true;
     });
 
