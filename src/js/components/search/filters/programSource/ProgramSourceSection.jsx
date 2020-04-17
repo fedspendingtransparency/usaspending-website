@@ -158,14 +158,17 @@ export default class ProgramSourceSection extends React.Component {
         );
 
         let selectedSources = null;
-        if (activeTab === 2 && this.props.selectedFederalComponents) {
+        if (!isDev && activeTab === 2 && this.props.selectedFederalComponents) {
             selectedSources = (
                 <SelectedSources
                     removeSource={this.removeFilter}
                     label="FA #"
                     selectedSources={this.props.selectedFederalComponents} />);
         }
-        else if (activeTab === 1 && this.props.selectedTreasuryComponents) {
+        else if (
+            (isDev && activeTab === 2 && this.props.selectedFederalComponents) ||
+            (!isDev && activeTab === 1 && this.props.selectedTreasuryComponents)
+        ) {
             selectedSources = (
                 <SelectedSources
                     removeSource={this.removeFilter}
