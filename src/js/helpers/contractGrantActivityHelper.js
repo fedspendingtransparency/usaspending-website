@@ -184,9 +184,9 @@ export const getXDomain = (dates, awardType, transactions) => {
     /**
      * handles null, '', or 'random string' passed to moment
      */
-    const badStart = isNaN(startDate.valueOf());
-    const badCurrent = isNaN(currentEndDate.valueOf());
-    const badEnd = isNaN(potentialEndDate.valueOf());
+    const badStart = isNaN(startDate.valueOf()) || !startDate;
+    const badCurrent = isNaN(currentEndDate.valueOf()) || !currentEndDate;
+    const badEnd = isNaN(potentialEndDate.valueOf()) || !potentialEndDate;
     const onlyOneTransaction = transactions.length === 1;
 
     // only one transaction
