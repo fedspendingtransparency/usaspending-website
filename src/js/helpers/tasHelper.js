@@ -13,6 +13,15 @@ export const shouldTasNodeHaveChildren = (node) => {
     return node.ancestors.length < 2;
 };
 
+export const tasSortFn = (a, b) => {
+    if (isAgency(a)) return 0;
+    const aValue = parseInt(a.value, 10);
+    const bValue = parseInt(b.value, 10);
+    if (aValue > bValue) return 1;
+    if (bValue > aValue) return -1;
+    return 0;
+};
+
 // key map for traversing the tas-tree
 const tasKeyMap = { label: 'description', value: 'id', isParent: shouldTasNodeHaveChildren };
 

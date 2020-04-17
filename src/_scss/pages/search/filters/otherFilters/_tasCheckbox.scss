@@ -1,6 +1,22 @@
 .tas-checkbox {
+    @import '../../../../components/_checkboxTree';
     display: block;
     padding-top: rem(15);
+    .tas-checkbox__header {
+      @include display(flex);
+      .tooltip-popover-container .tooltip-popover {
+        bottom: rem(45);
+        .tas-checkbox-tt {
+          p {
+            padding: 0;
+            margin: 0;
+          }
+          ul {
+            padding-top: rem(10);
+          }
+        }
+      }
+    }
     .autocomplete__input {
         width: 100%;
         padding-bottom: rem(10);
