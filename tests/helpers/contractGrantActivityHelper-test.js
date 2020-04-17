@@ -13,7 +13,7 @@ import {
     lineHelper,
     filteredAndSortedLinesFirstToLast,
     dateMatchingFirstLineValue,
-    shouldExtendAreaPathYValueChange,
+    shouldExtendAreaPathWhenLastDataPointYValueChange,
     createSteppedAreaPath
 } from 'helpers/contractGrantActivityHelper';
 import {
@@ -295,7 +295,7 @@ describe('Date Matching First Line Value', () => {
 describe('Should Extend Area Path Y Value Change', () => {
   // transactions, areaPathExtensionToTodayLine
     it('should return false when transactions <= 1', () => {
-        expect(shouldExtendAreaPathYValueChange([], '')).toEqual(false);
+        expect(shouldExtendAreaPathWhenLastDataPointYValueChange([], '')).toEqual(false);
     });
     it('should return false when the last transaction running total does not change', () => {
         const transactions = [
@@ -306,7 +306,7 @@ describe('Should Extend Area Path Y Value Change', () => {
                 running_obligation_total: 1
             }
         ];
-        expect(shouldExtendAreaPathYValueChange(transactions, '')).toEqual(false);
+        expect(shouldExtendAreaPathWhenLastDataPointYValueChange(transactions, '')).toEqual(false);
     });
     it('should return false when we extend to the today line', () => {
         const transactions = [
@@ -317,7 +317,7 @@ describe('Should Extend Area Path Y Value Change', () => {
                 running_obligation_total: 2
             }
         ];
-        expect(shouldExtendAreaPathYValueChange(transactions, 2345)).toEqual(false);
+        expect(shouldExtendAreaPathWhenLastDataPointYValueChange(transactions, 2345)).toEqual(false);
     });
     it('should return true when all criteria is met', () => {
         const transactions = [
@@ -328,7 +328,7 @@ describe('Should Extend Area Path Y Value Change', () => {
                 running_obligation_total: 2
             }
         ];
-        expect(shouldExtendAreaPathYValueChange(transactions, null)).toEqual(true);
+        expect(shouldExtendAreaPathWhenLastDataPointYValueChange(transactions, null)).toEqual(true);
     });
 });
 

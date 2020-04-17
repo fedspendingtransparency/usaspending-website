@@ -13,7 +13,7 @@ import {
     createSteppedAreaPath,
     filteredAndSortedLinesFirstToLast,
     dateMatchingFirstLineValue,
-    shouldExtendAreaPathYValueChange
+    shouldExtendAreaPathWhenLastDataPointYValueChange
 } from 'helpers/contractGrantActivityHelper';
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
 import { formatMoney } from 'helpers/moneyFormatter';
@@ -32,7 +32,7 @@ const xAxisSpacingPercentage = 0.05;
 const todayLineValue = Date.now();
 
 const transactionPathDescription = 'A shaded light blue area moving horizontally between each transactions action date and vertically between each transactions federal action obligation difference';
-const areaPathToTodayLineDescription = 'An area path of color light blue representing an extension of the area path from the last transaction to the today line';
+const areaPathToTodayLineDescription = 'An area path of color light blue representing an area path from the first transaction to the today line';
 const areaPathPastEndLineDescription = 'An area path of color grey representing an extension of the area path from the first end date line to the last transaction';
 
 const ContractGrantsActivityChart = ({
@@ -358,22 +358,20 @@ const ContractGrantsActivityChart = ({
         if (shouldWeExtendAreaPathToTodayLine() && xScale && yScale) {
             setAreaPathExtensionToToday(createSteppedAreaPath(
                 [
+                    ...transactions,
                     {
-                        x: lastTransaction.action_date,
-                        y: lastTransaction.running_obligation_total
-                    },
-                    {
-                        x: dateMatchingFirstLineValue([todayLineValue, endLineValue, potentialEndLineValue], dates, todayLineValue, endLineValue),
-                        y: lastTransaction.running_obligation_total
+                        action_date: dateMatchingFirstLineValue([todayLineValue, endLineValue, potentialEndLineValue], dates, todayLineValue, endLineValue),
+                        running_obligation_total: lastTransaction.running_obligation_total
                     }
                 ],
                 xScale,
                 yScale,
                 height,
                 padding.left,
-                'x',
-                'y'
+                'action_date',
+                'running_obligation_total'
             ));
+            setAreaPath(null);
         }
     }, [
         transactions,
@@ -394,26 +392,55 @@ const ContractGrantsActivityChart = ({
     useEffect(() => {
         if (!areaPathExtensionToTodayLine && xScale && yScale) {
             const firstEndLine = filteredAndSortedLinesFirstToLast([endLineValue, potentialEndLineValue])[0];
-            const allTransactionPastFirstEndLine = transactions.reduce((acc, t) => {
-                if (t.action_date.isAfter(moment(firstEndLine))) acc.push(t);
-                return acc;
-            }, []);
-            if (allTransactionPastFirstEndLine.length) {
-                setAreaPathPastEndLine(createSteppedAreaPath(
-                    [
-                        {
-                            action_date: dateMatchingFirstLineValue([endLineValue, potentialEndLineValue], dates, todayLineValue, endLineValue),
-                            running_obligation_total: allTransactionPastFirstEndLine[0].running_obligation_total
-                        },
-                        ...allTransactionPastFirstEndLine
-                    ],
-                    xScale,
-                    yScale,
-                    height - 0.5,
-                    padding.left,
-                    'action_date',
-                    'running_obligation_total'
-                ));
+            // find index of first transaction after the first end line
+            const firstTransactionAfterFirstEndLineIndex = transactions.findIndex((t) => {
+                if (t.action_date.isAfter(moment(firstEndLine))) return true;
+                return false;
+            });
+            if (firstTransactionAfterFirstEndLineIndex !== -1) {
+                // isolate all transaction before the first end line
+                const transactionsBeforeFirstEndLine = transactions.slice(0, firstTransactionAfterFirstEndLineIndex);
+                // isolate all transactions after the first end line
+                const transactionsAfterFirstEndLine = transactions.slice(firstTransactionAfterFirstEndLineIndex, transactions.length);
+                const firstEndLineDate = dateMatchingFirstLineValue([endLineValue, potentialEndLineValue], dates, todayLineValue, endLineValue);
+                // create a new area path to the first endline
+                if (transactionsBeforeFirstEndLine.length) {
+                    setAreaPath(
+                        createSteppedAreaPath(
+                            [
+                                ...transactionsBeforeFirstEndLine,
+                                {
+                                    action_date: firstEndLineDate,
+                                    running_obligation_total: transactionsBeforeFirstEndLine[transactionsBeforeFirstEndLine.length - 1].running_obligation_total
+                                }
+                            ],
+                            xScale,
+                            yScale,
+                            height,
+                            padding.left,
+                            'action_date',
+                            'running_obligation_total'
+                        )
+                    );
+                }
+                // create a new area path after the first endline
+                if (transactionsAfterFirstEndLine.length) {
+                    setAreaPathPastEndLine(createSteppedAreaPath(
+                        [
+                            {
+                                action_date: firstEndLineDate,
+                                running_obligation_total: transactionsAfterFirstEndLine[0].running_obligation_total
+                            },
+                            ...transactionsAfterFirstEndLine
+                        ],
+                        xScale,
+                        yScale,
+                        height - 0.5,
+                        padding.left,
+                        'action_date',
+                        'running_obligation_total'
+                    ));
+                }
             }
         }
     }, [
@@ -429,7 +456,7 @@ const ContractGrantsActivityChart = ({
     ]);
     // extend area path when last data point y value changes
     useEffect(() => {
-        if (shouldExtendAreaPathYValueChange(transactions, areaPathExtensionToTodayLine) && xScale && yScale) {
+        if (shouldExtendAreaPathWhenLastDataPointYValueChange(transactions, areaPathExtensionToTodayLine) && xScale && yScale) {
             const lastTransaction = transactions[transactions.length - 1];
             const className = areaPathPastEndLine ? 'area-path__past-end-line' : 'area-path';
             const colorForDescription = className === 'area-path' ? 'light blue' : 'grey';
@@ -437,7 +464,7 @@ const ContractGrantsActivityChart = ({
             extension of 0.5 pixels to the area path when the y value of the last transaction is greater than
             the second to last transaction`;
 
-            const xAdjustment = xScale.invert(xAxisSpacing + 0.5) - (xDomain[0]);
+            const xAdjustment = xScale.invert(xAxisSpacing + 1) - (xDomain[0]);
             const heightAdjustment = areaPathPastEndLine ? height - 0.5 : height;
 
             setAreaPathExtensionLastDataPointYValueChange(

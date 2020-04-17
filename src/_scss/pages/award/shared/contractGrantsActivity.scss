@@ -80,10 +80,11 @@
     }
     .area-path {
       fill: $color-primary;
-      opacity: 0.3;
+      opacity: 0.2;
     }
     .area-path__past-end-line {
       fill: $color-gray-lighter;
+      opacity: 0.3;
     }
     .vertical-line {
       &.start {
