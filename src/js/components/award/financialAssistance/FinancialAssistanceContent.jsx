@@ -132,7 +132,8 @@ const FinancialAssistanceContent = ({
                     <CFDASection
                         cfdas={overview.cfdas}
                         CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
-                        updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />
+                        updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
+                        awardTotalObligation={overview._totalObligation} />
                 )}
                 <FederalAccountsSection
                     awardType={overview.category}
@@ -143,7 +144,8 @@ const FinancialAssistanceContent = ({
                     <CFDASection
                         cfdas={overview.cfdas}
                         CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
-                        updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked} />
+                        updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
+                        awardTotalObligation={overview._totalObligation} />
                 </AwardSection>
             )}
             <AwardHistory

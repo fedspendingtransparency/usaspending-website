@@ -12,7 +12,8 @@ const propTypes = {
     cfdas: PropTypes.array,
     biggestCfda: PropTypes.object,
     CFDAOverviewLinkClicked: PropTypes.bool,
-    updateCFDAOverviewLinkClicked: PropTypes.func
+    updateCFDAOverviewLinkClicked: PropTypes.func,
+    awardTotalObligation: PropTypes.number
 };
 
 export default class CFDAVizContainer extends React.Component {
@@ -123,6 +124,7 @@ export default class CFDAVizContainer extends React.Component {
                 onTableClick={this.onTableClick}
                 onBackClick={this.onBackClick}
                 allCFDAs={this.props.cfdas}
+                awardTotalObligation={this.props.awardTotalObligation}
                 onTreeClick={this.onTreeClick}
                 onDropdownClick={this.onDropdownClick} />
         );
