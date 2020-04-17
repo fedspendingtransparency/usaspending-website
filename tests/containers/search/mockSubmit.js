@@ -12,5 +12,6 @@ export const mockActions = {
     applyStagedFilters: jest.fn(),
     clearStagedFilters: jest.fn(),
     setAppliedFilterCompletion: jest.fn(),
-    resetAppliedFilters: jest.fn()
+    resetAppliedFilters: jest.fn(),
+    resetMapLegendToggle: jest.fn()
 };
