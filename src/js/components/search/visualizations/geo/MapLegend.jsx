@@ -5,15 +5,25 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { isEqual } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import * as MapHelper from 'helpers/mapHelper';
-
+import MapLegendHeader from './MapLegendHeader';
 import MapLegendItem from './MapLegendItem';
 
 const propTypes = {
-    segments: PropTypes.array,
-    units: PropTypes.object
+    mapLegendToggleData: PropTypes.arrayOf(PropTypes.shape({
+        title: PropTypes.string,
+        value: PropTypes.string
+    })),
+    mapLegendToggle: PropTypes.string,
+    updateMapLegendToggle: PropTypes.func,
+    units: PropTypes.shape({
+        unit: PropTypes.number,
+        precision: PropTypes.number,
+        unitLabel: PropTypes.string
+    }),
+    segments: PropTypes.arrayOf(PropTypes.number)
 };
 
 const defaultProps = {
@@ -34,39 +44,44 @@ export default class MapLegend extends React.Component {
     }
 
     componentDidMount() {
-        this.prepareItems(this.props);
+        this.prepareItems();
     }
 
-    componentWillReceiveProps(nextProps) {
-        this.prepareItems(nextProps);
+    componentDidUpdate(prevProps) {
+        const { segments, mapLegendToggle } = this.props;
+        const areSegmentsDifferent = !isEqual(prevProps.segments, segments);
+        const isMapLegendToggleDifferent = prevProps.mapLegendToggle !== mapLegendToggle;
+        if (areSegmentsDifferent || isMapLegendToggleDifferent) this.prepareItems();
     }
 
-    prepareItems(props) {
-        const items = [];
-
-        props.segments.forEach((segment, i) => {
+    prepareItems() {
+        const {
+            segments,
+            units
+        } = this.props;
+        const items = segments.map((segment, i, array) => {
             let label = '';
 
             const color = MapHelper.visualizationColors[i];
 
             const currencyValue =
-                MoneyFormatter.formatMoneyWithPrecision(segment / props.units.unit,
-                    props.units.precision) + props.units.unitLabel;
+                MoneyFormatter.formatMoneyWithPrecision(segment / units.unit,
+                    units.precision) + units.unitLabel;
 
             let previousValue = '';
 
             if (i > 0) {
-                const previous = props.segments[i - 1];
+                const previous = array[i - 1];
                 previousValue =
-                    MoneyFormatter.formatMoneyWithPrecision(previous / props.units.unit,
-                        props.units.precision) + props.units.unitLabel;
+                    MoneyFormatter.formatMoneyWithPrecision(previous / units.unit,
+                        units.precision) + units.unitLabel;
             }
 
             if (i === 0) {
                 // first item
                 label = `Less than ${currencyValue}`;
             }
-            else if (i + 1 === props.segments.length) {
+            else if (i + 1 === array.length) {
                 // last item
                 label = `More than ${previousValue}`;
             }
@@ -75,12 +90,10 @@ export default class MapLegend extends React.Component {
                 label = `${previousValue} to ${currencyValue}`;
             }
 
-            const item = (<MapLegendItem
+            return (<MapLegendItem
                 key={`item-${i}`}
                 label={label}
                 color={color} />);
-
-            items.push(item);
         });
 
         this.setState({
@@ -88,10 +101,18 @@ export default class MapLegend extends React.Component {
         });
     }
 
+    updateToggle = (e) => {
+        this.props.updateMapLegendToggle(e.target.value);
+    }
+
     render() {
         return (
             <div className="map-legend">
-                <ul>
+                <MapLegendHeader
+                    mapLegendToggleData={this.props.mapLegendToggleData}
+                    mapLegendToggle={this.props.mapLegendToggle}
+                    updateToggle={this.updateToggle} />
+                <ul className="map-legend-body">
                     {this.state.items}
                 </ul>
             </div>

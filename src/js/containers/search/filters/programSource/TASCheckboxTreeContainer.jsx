@@ -148,8 +148,9 @@ export class TASCheckboxTree extends React.Component {
         }
     }
 
-    removeSelectedFilter = (node) => {
-        const newChecked = removeStagedTasFilter(this.props.nodes, this.props.checked, node.value);
+    removeSelectedFilter = (e, node) => {
+        e.preventDefault();
+        const newChecked = removeStagedTasFilter(this.state.nodes, this.state.checked, node.value);
         this.onUncheck(newChecked, { ...node, checked: false });
     }
 
@@ -296,7 +297,7 @@ export class TASCheckboxTree extends React.Component {
                                 <button
                                     className="shown-filter-button"
                                     value={label}
-                                    onClick={() => this.removeSelectedFilter(node)}
+                                    onClick={(e) => this.removeSelectedFilter(e, node)}
                                     title="Click to remove."
                                     aria-label={`Applied filter: ${label}`}>
                                     {label}
