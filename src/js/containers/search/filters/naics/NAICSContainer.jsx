@@ -105,7 +105,7 @@ export class NAICSContainer extends React.Component {
                                 branch: acc.branch.add(ancestorNode)
                             };
                         }, { trunk: new Set(), branch: new Set() });
-                    
+
                     // Sequentially populate tree.
                     return [...uniqueAncestorsByTreeLocation.trunk]
                         .reduce((prevPromise, trunkLevelAncestor) => prevPromise
