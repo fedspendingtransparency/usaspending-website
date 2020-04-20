@@ -17,6 +17,8 @@ import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 const propTypes = {
     data: PropTypes.array,
     isLoading: PropTypes.bool,
+    isError: PropTypes.bool,
+    errorMessage: PropTypes.string,
     icons: PropTypes.object,
     isSearch: PropTypes.bool,
     searchText: PropTypes.string,
@@ -27,7 +29,13 @@ const propTypes = {
     onUncheck: PropTypes.func,
     onCollapse: PropTypes.func,
     expanded: PropTypes.array,
-    checked: PropTypes.array
+    checked: PropTypes.array,
+    noResults: PropTypes.bool,
+    countLabel: PropTypes.string
+};
+
+const defaultProps = {
+    countLabel: ''
 };
 
 export default class CheckboxTree extends Component {
@@ -36,13 +44,13 @@ export default class CheckboxTree extends Component {
      * (react-checkbox-tree calls this function when a user expands a node)
      * Decides whether we are expanding or collapsing the node.
      */
-    onExpand = (newExpandedArray) => {
+    onExpand = (newExpandedArray, node) => {
         // collapsing node
         if (newExpandedArray.length < this.props.expanded.length) {
             return this.collapseNode(newExpandedArray);
         }
         // expanding node
-        return this.expandNode(newExpandedArray);
+        return this.expandNodeAndFetchChildren(newExpandedArray, node);
     };
     /**
      * onCheck
@@ -96,49 +104,29 @@ export default class CheckboxTree extends Component {
     }
 
     /**
-     * expandNode
+     * expandNodeAndFetchChildren
      * updates state with the new expanded array and updates the newly expanded children
      * with a loading object if we have no child data for that node.
      * @param {array} newExpandedArray - array with the newly expanded value
      */
-    expandNode = async (newExpandedArray) => {
+    expandNodeAndFetchChildren = async (newExpandedArray, selectedNode) => {
         // newly expanded node.code
-        const { expanded, data, isSearch } = this.props;
+        const { expanded, isSearch } = this.props;
         const expandedValue = difference(newExpandedArray, expanded)[0];
-        let selectedNode = null;
-        if (expandedValue.length === 2) {
-            selectedNode = data.find((node) => node.value === expandedValue);
-        }
-        else if (expandedValue.length === 4) {
-            selectedNode = data
-                .find((node) => node.value === `${expandedValue[1]}${expandedValue[1]}`)
-                .children
-                .find((child) => child.value === expandedValue);
-        }
-        else if (expandedValue.length === 6) {
-            selectedNode = data
-                .find((node) => node.value === `${expandedValue[0]}${expandedValue[1]}`)
-                .children
-                .find((child) => (
-                    child.value === `${expandedValue[0]}${expandedValue[1]`${expandedValue[2]}${expandedValue[3]}`}`
-                ));
-        }
         /**
          * When there are no children or there is an empty object in the children property (since we
          * do this to get the caret to show when there is a count)
          * we will set the child to a loading div
          */
-        if (
+        const shouldFetchChildren = (
             (
                 !selectedNode?.children
-                || selectedNode?.children?.some((child) => child?.isPlaceHolder === true)
-                || selectedNode?.children.length !== selectedNode?.count
+                || selectedNode?.children?.some((child) => child.value.includes('children_of_'))
             )
             && !isSearch
-        ) {
-            return this.props.onExpand(expandedValue, newExpandedArray, true);
-        }
-        return this.props.onExpand(expandedValue, newExpandedArray, false);
+        );
+
+        return this.props.onExpand(expandedValue, newExpandedArray, shouldFetchChildren, selectedNode);
     };
     /**
      * collapseNode
@@ -189,18 +177,23 @@ export default class CheckboxTree extends Component {
                 label: this.setChildrenToLoading(node)
             };
         }
+        const displayId = Object.keys(node).includes('displayId')
+            ? node.displayId
+            : true;
         return {
             ...node,
             label: this.props.labelComponent
                 ? cloneElement(
                     this.props.labelComponent,
-                    { value: node.value, label: node.label }
+                    { ...node }
                 )
                 : (
                     <CheckboxTreeLabel
+                        count={node.count}
+                        displayId={displayId}
                         value={this.highlightText(node.value)}
                         label={this.highlightText(node.label)}
-                        count={node.count} />
+                        countLabel={this.props.countLabel} />
                 ),
             children: node.children
                 ? this.createLabels(node.children)
@@ -209,9 +202,44 @@ export default class CheckboxTree extends Component {
     });
 
     render() {
-        const { data, checked, expanded } = this.props;
+        const {
+            data,
+            checked,
+            expanded,
+            isLoading,
+            isError,
+            errorMessage,
+            noResults
+        } = this.props;
         const labeledNodes = this.createLabels(data);
-        if (!data.length) return null;
+        if (isLoading) {
+            return (
+                <div className="checkbox-tree-filter-message-container">
+                    <FontAwesomeIcon icon="spinner" spin />
+                    <div className="checkbox-tree-filter-message-container__text">Loading your data...</div>
+                </div>
+            );
+        }
+        else if (isError && errorMessage) {
+            return (
+                <div className="checkbox-tree-filter-message-container">
+                    <div className="checkbox-tree-filter-message-container__text">
+                        {errorMessage}
+                    </div>
+                </div>
+            );
+        }
+        else if (noResults) {
+            return (
+                <div className="checkbox-tree-filter-message-container">
+                    <FontAwesomeIcon icon="ban" />
+                    <div className="checkbox-tree-filter-message-container__text">
+                        No Results
+                    </div>
+                </div>
+            );
+        }
+        else if (!data.length) return null;
         return (
             <div className="checkbox-tree">
                 <CheckBoxTree
@@ -226,4 +254,5 @@ export default class CheckboxTree extends Component {
     }
 }
 
+CheckboxTree.defaultProps = defaultProps;
 CheckboxTree.propTypes = propTypes;
