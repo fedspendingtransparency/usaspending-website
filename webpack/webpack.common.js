@@ -10,6 +10,7 @@ const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse
 
 console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
 console.log("Branch for this build: ", gitRevisionPlugin.branch());
+console.log("*********************** GA_TRACKING_ID ***********************", process.env.GA_TRACKING_ID);
 
 module.exports = {
     entry: {
