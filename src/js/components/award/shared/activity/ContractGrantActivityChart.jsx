@@ -425,11 +425,14 @@ const ContractGrantsActivityChart = ({
                 }
                 // create a new area path after the first endline
                 if (transactionsAfterFirstEndLine.length) {
+                    const startingYValueForGreyShading = transactionsBeforeFirstEndLine.length ?
+                        transactionsBeforeFirstEndLine[transactionsBeforeFirstEndLine.length - 1].running_obligation_total :
+                        transactionsAfterFirstEndLine[0].running_obligation_total;
                     setAreaPathPastEndLine(createSteppedAreaPath(
                         [
                             {
                                 action_date: firstEndLineDate,
-                                running_obligation_total: transactionsAfterFirstEndLine[0].running_obligation_total
+                                running_obligation_total: startingYValueForGreyShading
                             },
                             ...transactionsAfterFirstEndLine
                         ],
