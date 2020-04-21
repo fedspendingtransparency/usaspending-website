@@ -70,11 +70,7 @@ module.exports = merge(common, {
                     : JSON.stringify("https://api.usaspending.gov/api/"),
                 MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
                     ? JSON.stringify(process.env.MAPBOX_TOKEN)
-                    : JSON.stringify(""),
-                GA_TRACKING_ID: process.env.GA_TRACKING_ID
-                    ? JSON.stringify(process.env.GA_TRACKING_ID)
-                    : JSON.stringify(""),
-                IS_DEV: JSON.stringify('false')
+                    : JSON.stringify("")
             }
         })
     ]

@@ -205,12 +205,14 @@ class SearchAwardsOperation {
         }
 
         if (this.selectedRecipientLocations.length > 0) {
-            const locationSet = this.selectedRecipientLocations.map((location) => {
-                if (!location.filter.city && location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
+            const locationSet = this.selectedRecipientLocations.reduce((accLocationSet, currLocation) => {
+                if (!currLocation.filter.city && currLocation.filter.country && currLocation.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.recipientLocationScope] = 'foreign';
+                } else {
+                    accLocationSet.push(currLocation.filter);
                 }
-                return location.filter;
-            });
+                return accLocationSet;
+            }, []);
 
             if (locationSet.length > 0) {
                 filters[rootKeys.recipientLocation] = locationSet;
@@ -223,12 +225,14 @@ class SearchAwardsOperation {
 
         // Add Locations
         if (this.selectedLocations.length > 0) {
-            const locationSet = this.selectedLocations.map((location) => {
-                if (!location.filter.city && location.filter.country && location.filter.country.toLowerCase() === 'foreign') {
+            const locationSet = this.selectedLocations.reduce((accLocationSet, currLocation) => {
+                if (!currLocation.filter.city && currLocation.filter.country && currLocation.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.placeOfPerformanceScope] = 'foreign';
+                } else {
+                    accLocationSet.push(currLocation.filter);
                 }
-                return location.filter;
-            });
+                return accLocationSet;
+            }, []);
 
             if (locationSet.length > 0) {
                 filters[rootKeys.placeOfPerformance] = locationSet;

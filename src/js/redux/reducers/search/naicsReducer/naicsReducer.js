@@ -5,7 +5,7 @@
 
 import { List } from 'immutable';
 
-import { addSearchResultsToTree, showAllTreeItems } from 'helpers/checkboxTreeHelper';
+import { addSearchResultsToTree, populateBranchOrLeafLevelNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
 import { getHighestAncestorNaicsCode, getNaicsNodeFromTree } from 'helpers/naicsHelper';
 
 export const initialState = {
@@ -16,11 +16,12 @@ export const initialState = {
     unchecked: new List()
 };
 
-const showAllNaicsTreeItems = (nodes, key, newNodes) => showAllTreeItems(
+const populateNaicsBranchOrLeafNodes = (nodes, key, newNodes) => populateBranchOrLeafLevelNodes(
     nodes,
     key,
     newNodes,
-    getHighestAncestorNaicsCode
+    getHighestAncestorNaicsCode,
+    getNaicsNodeFromTree
 );
 
 const addNaicsSearchResultsToTree = (tree, searchResults) => addSearchResultsToTree(
@@ -32,12 +33,12 @@ const addNaicsSearchResultsToTree = (tree, searchResults) => addSearchResultsToT
 /* eslint-disable import/prefer-default-export */
 export const naicsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SET_NAICS': {
+        case 'SET_NAICS_NODES': {
             const { payload, key } = action;
             // initial top-tier data only
             if (!key) return { ...state, naics: new List(payload) };
 
-            const newState = showAllNaicsTreeItems(state.naics.toJS(), key, payload);
+            const newState = populateNaicsBranchOrLeafNodes(state.naics.toJS(), key, payload);
 
             return {
                 ...state,
@@ -48,7 +49,7 @@ export const naicsReducer = (state = initialState, action) => {
             // removes className 'hide' added to nodes from search results
             return {
                 ...state,
-                naics: new List(showAllNaicsTreeItems(state.naics.toJS()))
+                naics: new List(showAllNodes(state.naics.toJS()))
             };
         }
         case 'SET_SEARCHED_NAICS': {
@@ -59,31 +60,31 @@ export const naicsReducer = (state = initialState, action) => {
                 naics: new List(newState)
             };
         }
-        case 'SET_SEARCHED_EXPANDED': {
+        case 'SET_SEARCHED_EXPANDED_NAICS': {
             return {
                 ...state,
                 searchExpanded: new List([...new Set([...action.payload])])
             };
         }
-        case 'SET_EXPANDED': {
+        case 'SET_EXPANDED_NAICS': {
             return {
                 ...state,
                 expanded: new List([...new Set([...action.payload])])
             };
         }
-        case 'SET_CHECKED': {
+        case 'SET_CHECKED_NAICS': {
             return {
                 ...state,
                 checked: new List([...new Set([...action.payload])])
             };
         }
-        case 'SET_UNCHECKED': {
+        case 'SET_UNCHECKED_NAICS': {
             return {
                 ...state,
                 unchecked: new List([...new Set([...action.payload])])
             };
         }
-        case 'ADD_CHECKED': {
+        case 'ADD_CHECKED_NAICS': {
             return {
                 ...state,
                 // new Set to eliminate any duplicate values

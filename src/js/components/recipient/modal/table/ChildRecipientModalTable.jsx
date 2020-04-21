@@ -1,5 +1,5 @@
 /**
- * RecipientModalTable.jsx
+ * ChildRecipientModalTable.jsx
  * Created by Lizzie Salita 6/19/18
  */
 
@@ -18,7 +18,7 @@ const propTypes = {
     sortDirection: PropTypes.string
 };
 
-export default class RecipientModalTable extends React.Component {
+export default class ChildRecipientModalTable extends React.Component {
     render() {
         const body = this.props.childRecipients.map((child) => (
             <tr
@@ -136,4 +136,4 @@ export default class RecipientModalTable extends React.Component {
     }
 }
 
-RecipientModalTable.propTypes = propTypes;
+ChildRecipientModalTable.propTypes = propTypes;

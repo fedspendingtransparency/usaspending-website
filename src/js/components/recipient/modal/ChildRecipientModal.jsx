@@ -1,5 +1,5 @@
 /**
- * RecipientModal.jsx
+ * ChildRecipientModal.jsx
  * Created by Lizzie Salita 6/18/18
  */
 
@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 
 import { Close } from 'components/sharedComponents/icons/Icons';
-import RecipientModalTable from './table/RecipientModalTable';
+import ChildRecipientModalTable from './table/ChildRecipientModalTable';
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -22,9 +22,9 @@ const propTypes = {
     childRecipients: PropTypes.array
 };
 
-export default class RecipientModal extends React.Component {
+export default class ChildRecipientModal extends React.Component {
     render() {
-        let table = (<RecipientModalTable
+        let table = (<ChildRecipientModalTable
             sortField={this.props.sortField}
             hideModal={this.props.hideModal}
             sortDirection={this.props.sortDirection}
@@ -45,28 +45,33 @@ export default class RecipientModal extends React.Component {
             message = "No results found.";
             table = null;
         }
+        const resultCount = this.props.childRecipients.length;
+        const resultPluralize = resultCount > 1 ? "results" : "result";
+        const resultCountDisplay = table ? `${resultCount} ${resultPluralize}` : null;
         return (
             <Modal
                 mounted={this.props.mounted}
                 onExit={this.props.hideModal}
                 titleText="Child Recipients"
-                dialogClass="child-recipients-modal"
+                dialogClass="recipients-modal"
                 verticallyCenter
                 escapeExits>
-                <div className="child-recipients-modal__wrapper">
-                    <div className="child-recipients-modal__header">
-                        <h1 className="child-recipients-modal__title">Child Recipients</h1>
+                <div className="recipients-modal__wrapper">
+                    <div className="recipients-modal__header">
+                        <h1 className="recipients-modal__title">Child Recipients</h1>
                         <button
-                            className="child-recipients-modal__close-button"
+                            className="recipients-modal__close-button"
                             onClick={this.props.hideModal}
                             title="Close"
                             aria-label="Close">
                             <Close alt="Close modal" />
                         </button>
                     </div>
-                    <div className="child-recipients-modal__body">
+                    <div className="recipients-modal__body">
+                        {resultCountDisplay}
                         {table}
-                        <div className="child-recipients-modal__message">
+                        {resultCountDisplay}
+                        <div className="recipients-modal__message">
                             {message}
                         </div>
                     </div>
@@ -76,4 +81,4 @@ export default class RecipientModal extends React.Component {
     }
 }
 
-RecipientModal.propTypes = propTypes;
+ChildRecipientModal.propTypes = propTypes;

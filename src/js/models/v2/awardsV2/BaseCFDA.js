@@ -4,7 +4,12 @@
  */
 
 import { truncate, isNumber } from 'lodash';
-import { calculateTreemapPercentage, formatMoney } from 'helpers/moneyFormatter';
+import {
+    calculateTreemapPercentage,
+    formatMoney,
+    calculateUnitForSingleValue,
+    formatMoneyWithPrecision
+} from 'helpers/moneyFormatter';
 
 // export default BaseCFDA;
 export default class BaseCFDA {
@@ -27,6 +32,16 @@ export default class BaseCFDA {
             federalActionOblicationAmount: {
                 enumerable: true,
                 get: () => (isNumber(this._federalActionOblicationAmount) ? formatMoney(this._federalActionOblicationAmount) : '--')
+            },
+            federalActionOblicationAmountShort: {
+                enumerable: true,
+                get: () => {
+                    if (isNumber(this._federalActionOblicationAmount)) {
+                        const units = calculateUnitForSingleValue(this._federalActionOblicationAmount, 1);
+                        return `${formatMoneyWithPrecision((this._federalActionOblicationAmount / units.unit), 1)}${units.unitLabel}`;
+                    }
+                    return '--';
+                }
             },
             percentOfTotal: {
                 enumerable: true,

@@ -6,6 +6,7 @@
 export const mockRecipientOverview = {
     recipient_id: '0123456-ABC-P',
     name: 'The ABC Corporation',
+    alternateNames: ['The ABC Corp', 'ABC Corporation, The'],
     duns: '0123456',
     parent_name: 'The XYZ Corporation',
     parent_duns: '0987654',

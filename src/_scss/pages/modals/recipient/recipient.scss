@@ -1,13 +1,13 @@
-.child-recipients-modal {
+.recipients-modal {
     background-color: $color-white;
-    .child-recipients-modal__wrapper {
-        .child-recipients-modal__header {
+    .recipients-modal__wrapper {
+        .recipients-modal__header {
             @include display(flex);
             @include justify-content(space-between);
             @include align-items(flex-start);
             padding: rem(20) rem(35);
             background-color: $color-gray-light;
-            h1.child-recipients-modal__title {
+            h1.recipients-modal__title {
                 @include display(flex);
                 @include flex(1 1 auto);
                 margin: 0;
@@ -15,7 +15,7 @@
                 color: $color-white;
                 font-weight: $font-light;
             }
-            button.child-recipients-modal__close-button {
+            button.recipients-modal__close-button {
                 @include display(flex);
                 @include flex(0 0 auto);
                 @include button-unstyled;
@@ -27,10 +27,10 @@
                 }
             }
         }
-        .child-recipients-modal__body {
+        .recipients-modal__body {
             padding: rem(20) rem(60) rem(40);
             @import "table";
-            .child-recipients-modal__message {
+            .recipients-modal__message {
                 @include h4;
                 text-align: center;
                 @include media($medium-screen) {
