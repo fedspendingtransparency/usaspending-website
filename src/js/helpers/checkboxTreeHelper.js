@@ -56,6 +56,14 @@ export const removePlaceholderString = (str) => {
     return str;
 };
 
+export const getAllDescendants = (node) => {
+    if (!node.children) return [node.value];
+    return [
+        ...node.children
+            .reduce((acc, descendant) => ([...acc, ...getAllDescendants(descendant)]), [])
+    ];
+};
+
 export const removeStagedFilter = (
     nodes,
     checkedNodes,

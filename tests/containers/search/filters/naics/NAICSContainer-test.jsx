@@ -10,7 +10,6 @@ import { cleanNaicsData } from 'helpers/naicsHelper';
 
 import {
     defaultProps,
-    treeWithPlaceholdersAndRealData,
     searchResults,
     reallyBigTree
 } from './mockNaics_v2';
@@ -80,6 +79,18 @@ describe('NAICS Search Filter Container', () => {
                 uncheckedFromHash={["111110"]} />);
             await container.instance().componentDidMount();
             expect(container.instance().state.stagedNaicsFilters[0].count).toEqual(63);
+        });
+        it('only fetches each code once', async () => {
+            const mockFetchNaics = jest.fn(() => Promise.resolve());
+            const container = shallow(<NAICSContainer
+                {...defaultProps}
+                nodes={reallyBigTree}
+                checkedFromHash={["111110", "111120", "111199", "111140", "111150", "111160", "111191"]} />);
+            container.instance().fetchNAICS = mockFetchNaics;
+            await container.instance().componentDidMount();
+            expect(mockFetchNaics).toHaveBeenCalledWith('11');
+            expect(mockFetchNaics).toHaveBeenLastCalledWith('1111');
+            expect(mockFetchNaics).toHaveBeenCalledTimes(3);
         });
     });
     describe('autoCheckSearchedResultDescendants fn', () => {

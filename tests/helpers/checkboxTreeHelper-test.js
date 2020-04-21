@@ -9,7 +9,8 @@ import {
     decrementCountAndUpdateUnchecked,
     incrementCountAndUpdateUnchecked,
     autoCheckImmediateChildrenAfterDynamicExpand,
-    showAllNodes
+    showAllNodes,
+    getAllDescendants
 } from 'helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
@@ -36,6 +37,22 @@ const mockSearchResults = [{
 }];
 
 describe('checkboxTree Helpers (using NAICS data)', () => {
+    describe('getAllDescendants', () => {
+        it('returns an array of all nested values', () => {
+            const mock = mockData.reallyBigTree[0].children[0];
+            const result = getAllDescendants(mock);
+            expect(result).toEqual([
+                "111110",
+                "111120",
+                "111130",
+                "111140",
+                "111150",
+                "111160",
+                "111191",
+                "111199"
+            ]);
+        });
+    });
     describe('addSearchResultsToTree & mergeChildren & ', () => {
         it('does NOT overwrite existing grand-children', () => {
             const existingNodes = mockData.treeWithPlaceholdersAndRealData;
