@@ -11,7 +11,8 @@ import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 
 const propTypes = {
     recipient: PropTypes.object,
-    showModal: PropTypes.func
+    showChildRecipientModal: PropTypes.func,
+    showAlternateNamesRecipientModal: PropTypes.func
 };
 
 export default class RecipientOverview extends React.Component {
@@ -45,11 +46,22 @@ export default class RecipientOverview extends React.Component {
             viewChildren = (
                 <button
                     className="recipient-overview__children-button"
-                    onClick={this.props.showModal}>
+                    onClick={this.props.showChildRecipientModal}>
                     View child recipients <CaretRight />
                 </button>
             );
         }
+        const numberOfAlternateNames = recipient.alternateNames.length;
+        const pluralizeAltNamesLabel = numberOfAlternateNames > 1 ? "names" : "name";
+        const viewAlternateNames = numberOfAlternateNames > 0
+            ? (
+                <button
+                    className="recipient-overview__alternate-names-button"
+                    onClick={this.props.showAlternateNamesRecipientModal}>
+                    {`Also known by ${numberOfAlternateNames} other ${pluralizeAltNamesLabel}`} <CaretRight />
+                </button>
+            )
+            : null;
 
         // Format the location data
         let address = (
@@ -86,6 +98,7 @@ export default class RecipientOverview extends React.Component {
                 className="recipient-section recipient-overview">
                 <h2 className="recipient-overview__title">
                     {recipient.name}
+                    {viewAlternateNames}
                 </h2>
                 <hr className="results-divider" />
                 <div className="recipient-overview__content">

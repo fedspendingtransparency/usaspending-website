@@ -98,4 +98,3 @@ export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj) 
 };
 
 export const generatePercentage = (value) => `${(value * 100).toFixed(2)}%`;
-
