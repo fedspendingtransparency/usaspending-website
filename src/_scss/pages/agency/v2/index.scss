@@ -22,38 +22,51 @@
     @import "../../explorer/detail/sidebar/fyPicker";
 
     .sticky-header .sticky-header__container .sticky-header__header .sticky-header__title {
-        display: flex;
-        justify-content: flex-start;
-        h1 {
-            margin-right: rem(62);
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(center);
+        .fy-picker-label {
+            font-size: rem(21);
+            @include align-self(flex-start);
         }
-        .fy-picker {
-            .fy-picker__dropdown-container {
-                display: flex;
-            }
-            .fy-picker__icon,
-            .fy-picker__button-text,
-            .fy-picker__button-icon {
-                font-size: rem(24);
-            }
-            .fy-picker__icon {
-                margin-right: $global-mrg / 2;
-            }
-            .fy-picker__list {
-                z-index: 12;
-                background-color: 
-                #4A4A4A;
-                .fy-picker__list-item {
-                    .fy-picker__item {
-                        font-size: rem(24);
-                        color: white;
-                        &.active {
-                            color: 
-                            #4A4A4A;
-                            background: white;
-                        }
-                    } 
-                } 
+        .fiscal-year-container {
+            @include display(flex);
+            @include flex-direction(column);
+            @include justify-content(center);
+            @include align-items(center);
+            padding-left: rem(12);
+            .usa-dt-picker { 
+                background-color: #385C88;
+                height: rem(25);
+                width: 100%;
+                .usa-dt-picker__dropdown-container {
+                    background-color: #385C88;
+                    margin: auto;
+                }
+                .usa-dt-picker__button-text,
+                .usa-dt-picker__button-icon svg {
+                    color: white;
+                }
+                .usa-dt-picker__icon svg {
+                    width: rem(14);
+                    margin-left: rem(10);
+                }
+                .usa-dt-picker__button {
+                    padding: 0 rem(10);
+                    margin: 0;
+                }
+                .usa-dt-picker__button-text {
+                    height: rem(23);
+                    width: rem(37);
+                    font-size: rem(18);
+                    font-weight: 600;
+                    letter-spacing: 0;
+                    line-height: rem(23);
+                    margin: 0;
+                }
+                .usa-dt-picker__button-icon {
+                    padding-left: rem(10);
+                }
             }
         }
     }

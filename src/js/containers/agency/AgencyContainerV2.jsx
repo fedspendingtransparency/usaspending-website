@@ -10,7 +10,10 @@ import React, { useState, createRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startCase, snakeCase, find } from "lodash";
-import { TooltipWrapper } from 'data-transparency-ui';
+import {
+    TooltipWrapper,
+    Picker
+} from 'data-transparency-ui';
 
 import { setAgencyOverview, resetAgency } from 'redux/actions/agency/agencyActions';
 
@@ -21,8 +24,7 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import FYPicker from 'components/sharedComponents/pickers/FYPicker';
-import StickyHeader, { useDynamicStickyClass } from 'components/sharedComponents/stickyHeader/StickyHeader';
+import StickyHeader from 'components/sharedComponents/stickyHeader/StickyHeader';
 import Footer from 'containers/Footer';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 
@@ -65,6 +67,8 @@ const componentByAgencySection = {
     top_5_award_dimensions: <ComingSoonSection section="top_5_award_dimensions" />
 };
 
+const fyOptions = FiscalYearHelper.allFiscalYears(FiscalYearHelper.earliestExplorerYear);
+
 export const AgencyProfileV2 = ({
     agencyOverview,
     agencyId,
@@ -72,8 +76,9 @@ export const AgencyProfileV2 = ({
     setOverview
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
-    // height in px of element's w/ a fixed position (sankey + header)
-    const [selectedFy, setSelectedFy] = useState(`${FiscalYearHelper.defaultFiscalYear()}`);
+    const [selectedFy, setSelectedFy] = useState(
+        `${FiscalYearHelper.defaultFiscalYear()}`
+    );
 
     const sortFy = (a, b) => {
         if (a === selectedFy) return -1;
@@ -119,7 +124,19 @@ export const AgencyProfileV2 = ({
                     <h1 tabIndex={-1} id="main-focus">
                         Agency Profile v2
                     </h1>
-                    <FYPicker fy={selectedFy} onClick={setSelectedFy} sortFn={sortFy} />
+                    <span className="fy-picker-label">Filter</span>
+                    <div className="fiscal-year-container">
+                        <Picker
+                            isFixedWidth
+                            icon={<FontAwesomeIcon icon="calendar-alt" />}
+                            selectedOption={selectedFy}
+                            options={fyOptions.map((fyYear) => ({
+                                name: fyYear,
+                                value: fyYear,
+                                onClick: () => setSelectedFy(fyYear)
+                            }))} />
+                        <span>Fiscal Year</span>
+                    </div>
                 </div>
             </StickyHeader>
             <LoadingWrapper isLoading={false} >
