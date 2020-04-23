@@ -514,7 +514,7 @@ const ContractGrantsActivityChart = ({
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
     // text for end line
-    const endLineText = awardType === 'grant' ? 'End' : ['Current', 'End'];
+    const endLineText = awardType === 'grant' ? 'End' : 'Current End';
     // class name for end line and text
     const endLineClassName = awardType === 'grant' ? 'grant-end' : 'contract-end';
 
@@ -639,7 +639,7 @@ const ContractGrantsActivityChart = ({
                     y1={-10}
                     y2={height}
                     textY={0}
-                    text={['Potential', 'End']}
+                    text="Potential End"
                     xMax={xDomain[1]}
                     xMin={xDomain[0]}
                     xValue={potentialEndLineValue}
