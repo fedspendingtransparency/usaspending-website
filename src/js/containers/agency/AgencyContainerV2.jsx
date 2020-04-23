@@ -65,11 +65,6 @@ const componentByAgencySection = {
     top_5_award_dimensions: <ComingSoonSection section="top_5_award_dimensions" />
 };
 
-const sankeyRef = createRef();
-
-const verticalOffsetExpanded = 266;
-const verticalOffsetCollapsed = 121;
-
 export const AgencyProfileV2 = ({
     agencyOverview,
     agencyId,
@@ -77,26 +72,8 @@ export const AgencyProfileV2 = ({
     setOverview
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
-    const [isSankeyExpanded, setSankeyExpanded] = useState(true);
     // height in px of element's w/ a fixed position (sankey + header)
-    const [verticalOffset, setVerticalOffset] = useState(verticalOffsetExpanded);
     const [selectedFy, setSelectedFy] = useState(`${FiscalYearHelper.defaultFiscalYear()}`);
-
-    const getSectionsWithVerticalOffset = (offset) => Object.keys(componentByAgencySection)
-        .map((section, i) => ({
-            section,
-            label: startCase(section),
-            stickyVerticalOffset: offset
-        }));
-
-    useEffect(() => {
-        if (isSankeyExpanded && verticalOffset !== verticalOffsetExpanded) {
-            setVerticalOffset(verticalOffsetExpanded);
-        }
-        else if (!isSankeyExpanded && verticalOffset !== verticalOffsetCollapsed) {
-            setVerticalOffset(verticalOffsetCollapsed);
-        }
-    }, [verticalOffset, setVerticalOffset, isSankeyExpanded]);
 
     const sortFy = (a, b) => {
         if (a === selectedFy) return -1;
@@ -106,31 +83,11 @@ export const AgencyProfileV2 = ({
         return 0;
     };
 
-    const [
-        isSankeySticky,
-        ,
-        ,
-        handleScroll,
-        measureScreen
-    ] = useDynamicStickyClass(sankeyRef, scrollPositionOfSiteHeader);
-
-    useEffect(() => {
-        measureScreen();
-        window.addEventListener('scroll', handleScroll);
-        window.addEventListener('resize', measureScreen);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', measureScreen);
-        };
-    }, [handleScroll, measureScreen]);
-
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const matchedSection = find(getSectionsWithVerticalOffset(verticalOffset), {
-            section
-        });
+        const matchedSection = Object.keys(componentByAgencySection).find((key) => key === section);
+
         if (!matchedSection) {
             // no matching section
             return;
@@ -146,66 +103,42 @@ export const AgencyProfileV2 = ({
         if (matchedSection.section === 'overview') {
             scrollToY(40, 700);
         }
-        else if (!isSankeySticky) {
-            // cannot grasp why this is the right offset...
-            scrollToY(sectionDom.offsetTop - (matchedSection.stickyVerticalOffset * 2), 700);
-        }
         else {
             // scroll to top of section, subtracting the height of sticky elements + 20px of margin
-            scrollToY(sectionDom.offsetTop - matchedSection.stickyVerticalOffset - 20, 700);
+            scrollToY(sectionDom.offsetTop - 20, 700);
         }
-        setActiveSection(matchedSection.section);
+        setActiveSection(matchedSection);
     };
-
-    const stickyClass = isSankeySticky ? 'sticky-icky-icky' : '';
-    const shouldHideSankey = !isSankeyExpanded ? 'hide' : '';
-    const sankeyState = isSankeyExpanded ? 'expanded-sankey' : 'collapsed-sankey';
 
     return (
         <div className="usa-da-agency-page-v2">
             <MetaTags {...agencyPageMetaTags} />
             <Header />
             <StickyHeader>
-                <div ref={sankeyRef} className="sticky-header__title">
+                <div className="sticky-header__title">
                     <h1 tabIndex={-1} id="main-focus">
                         Agency Profile v2
                     </h1>
                     <FYPicker fy={selectedFy} onClick={setSelectedFy} sortFn={sortFy} />
                 </div>
             </StickyHeader>
-            <div className={`sankey ${stickyClass} ${sankeyState}`}>
-                <div className="sankey__header">
-                    <h2>Agency Spending Snapshot</h2>
-                    <TooltipWrapper className="agency-v2-tt" icon="info" tooltipComponent={<TooltipComponent />} />
-                    <button onClick={() => setSankeyExpanded(!isSankeyExpanded)}>
-                        {!isSankeyExpanded && <FontAwesomeIcon icon="chevron-right" color="#0074BE" size="lg" />}
-                        {isSankeyExpanded && <FontAwesomeIcon icon="chevron-down" color="#0074BE" size="lg" />}
-                    </button>
-                    <h3 className={shouldHideSankey} >{startCase(activeSection)}</h3>
-                </div>
-                <div className={`${shouldHideSankey} coming-soon-section`}>
-                    <h4>Coming Soon</h4>
-                    <p>This feature is currently under development.</p>
-                </div>
-            </div>
             <LoadingWrapper isLoading={false} >
                 <main id="main-content" className="main-content usda__flex-row">
-                    <div className={`${sankeyState} sidebar usda__flex-col`}>
+                    <div className="sidebar usda__flex-col">
                         <Sidebar
                             pageName="agency-v2"
                             fixedStickyBreakpoint={scrollPositionOfSiteHeader}
                             active={activeSection}
                             jumpToSection={jumpToSection}
                             detectActiveSection={setActiveSection}
-                            sections={getSectionsWithVerticalOffset(verticalOffset).map((section) => ({
-                                ...section,
-                                section: snakeCase(section.section),
-                                label: section.label
+                            sections={Object.keys(componentByAgencySection).map((section) => ({
+                                section: snakeCase(section),
+                                label: startCase(section)
                             }))} />
                     </div>
                     <div className="body usda__flex-col">
-                        {getSectionsWithVerticalOffset(verticalOffset).map((section) => (
-                            componentByAgencySection[section.section]
+                        {Object.keys(componentByAgencySection).map((section) => (
+                            componentByAgencySection[section]
                         ))}
                     </div>
                 </main>
