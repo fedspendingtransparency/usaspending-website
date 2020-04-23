@@ -128,6 +128,7 @@ export default class VerticalLine extends Component {
         return textArray.map((data, i) => (
             <text
                 key={data}
+                tabIndex="0"
                 className={textClassname || "vertical-line__text"}
                 x={this.state[`${data}TextX`]}
                 y={this.state[`${data}TextY`]}
@@ -144,7 +145,7 @@ export default class VerticalLine extends Component {
         const text = this.text(verticalLine);
         const description = this.props.description || 'A vertical line representing today\'s date';
         return (
-            <g className="vertical-line__container">
+            <g className="vertical-line__container" tabIndex="0">
                 <desc>{description}</desc>
                 {text}
                 {verticalLine}

@@ -17,6 +17,7 @@ import {
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
 import { formatMoney } from 'helpers/moneyFormatter';
 import ContractGrantActivityChartVerticalLines from './ContractGrantActivityChartVerticalLines';
+import ContractGrantActivityChartCircles from './ContractGrantActivityChartCircles';
 
 const propTypes = {
     height: PropTypes.number,
@@ -567,26 +568,8 @@ const ContractGrantsActivityChart = ({
                             d={areaPathExtensionLastDataPointYValueChange.path} />
                     </g>}
                 {/* circles */}
-                {circleData.length && circleData.map((circle) => {
-                    const {
-                        key,
-                        description,
-                        className,
-                        cx,
-                        cy,
-                        r
-                    } = circle;
-                    return (
-                        <g key={key} tabIndex="0">
-                            <desc>{description}</desc>
-                            <circle
-                                className={className}
-                                cx={cx}
-                                cy={cy}
-                                r={r} />
-                        </g>
-                    );
-                })}
+                {circleData.length && <ContractGrantActivityChartCircles circles={circleData} />}
+                {/* vertical lines */}
                 {xScale && <ContractGrantActivityChartVerticalLines
                     xScale={xScale}
                     height={height}
