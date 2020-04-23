@@ -105,6 +105,7 @@ export default class VerticalLine extends Component {
             y2,
             lineClassname
         } = this.props;
+        if (!xValue) return null;
         const linePosition = xScale(xValue) + (adjustmentX || 0);
         // get x position of minimum
         const minimumX = xScale(xMin);

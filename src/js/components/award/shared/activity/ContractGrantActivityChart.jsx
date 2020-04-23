@@ -8,16 +8,12 @@ import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
 import {
     getXDomain,
-    lineHelper,
-    createSteppedAreaPath,
-    filteredAndSortedLinesFirstToLast,
-    dateMatchingFirstLineValue,
-    shouldExtendAreaPathWhenLastDataPointYValueChange
+    lineHelper
 } from 'helpers/contractGrantActivityHelper';
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
-import { formatMoney } from 'helpers/moneyFormatter';
 import ContractGrantActivityChartVerticalLines from './ContractGrantActivityChartVerticalLines';
 import ContractGrantActivityChartCircles from './ContractGrantActivityChartCircles';
+import ContractGrantActivityChartAreaPaths from './ContractGrantActivityChartAreaPaths';
 
 const propTypes = {
     height: PropTypes.number,
@@ -29,12 +25,7 @@ const propTypes = {
 };
 
 const xAxisSpacingPercentage = 0.05;
-
 const todayLineValue = Date.now();
-
-const transactionPathDescription = 'A shaded light blue area moving horizontally between each transactions action date and vertically between each transactions federal action obligation difference';
-const areaPathToTodayLineDescription = 'An area path of color light blue representing an area path from the first transaction to the today line';
-const areaPathPastEndLineDescription = 'An area path of color grey representing an extension of the area path from the first end date line to the last transaction';
 
 const ContractGrantsActivityChart = ({
     height,
@@ -64,23 +55,6 @@ const ContractGrantsActivityChart = ({
     const [potentialEndLineValue, setPotentialEndLineValue] = useState(null);
     // x axis spacing
     const [xAxisSpacing, setXAxisSpacing] = useState(0);
-    // circle data
-    const [circleData, setCircleData] = useState([]);
-    // area path
-    const [areaPath, setAreaPath] = useState('');
-    // area path extension to today line
-    const [areaPathExtensionToTodayLine, setAreaPathExtensionToToday] = useState(null);
-    // area path past end line
-    const [areaPathPastEndLine, setAreaPathPastEndLine] = useState(null);
-    // area path extension last data point y value change
-    const [
-        areaPathExtensionLastDataPointYValueChange,
-        setAreaPathExtensionLastDataPointYValueChange
-    ] = useState({
-        path: null,
-        className: '',
-        description: ''
-    });
     /**
      * createXSeries
      * - creates the x domain and updates state
@@ -293,223 +267,6 @@ const ContractGrantsActivityChart = ({
         setEndLineValue(lineHelper(dates._endDate));
         setPotentialEndLineValue(lineHelper(dates._potentialEndDate));
     }, [dates]);
-    // sets circle data - hook - on mount and when transactions change
-    useEffect(() => {
-        if (xScale && yScale) {
-            const circles = transactions
-                .map((data, i) => ({
-                    key: `${data.federal_action_obligation}${i}`,
-                    description: `A circle representing the transaction date, ${data.action_date.format('MM-DD-YYYY')} and running total obligation of ${formatMoney(data.running_obligation_total)}`,
-                    className: 'transaction-date-circle',
-                    cx: xScale(data.action_date.valueOf()) + padding.left,
-                    cy: (height - yScale(data.running_obligation_total)),
-                    r: 1.5
-                }));
-            setCircleData(circles);
-        }
-    }, [
-        transactions,
-        padding,
-        xScale,
-        yScale,
-        xAxisSpacing,
-        height
-    ]);
-    // area path - hook
-    useEffect(() => {
-        if (xScale && yScale) {
-            setAreaPath(
-                createSteppedAreaPath(
-                    transactions,
-                    xScale,
-                    yScale,
-                    height,
-                    padding.left,
-                    'action_date',
-                    'running_obligation_total'
-                )
-            );
-        }
-    }, [
-        xScale,
-        yScale,
-        transactions,
-        height,
-        padding
-    ]);
-    // should we extend area path to today line
-    const shouldWeExtendAreaPathToTodayLine = useCallback(() => {
-        const lastTransaction = transactions[transactions.length - 1];
-        const todayLineIsBeforeAllEndDates = [endLineValue, potentialEndLineValue]
-            .filter((line) => line).every((line) => moment(todayLineValue).isBefore(moment(line)));
-        const everyLineIsAfterLastTransaction = filteredAndSortedLinesFirstToLast(
-            [todayLineValue, endLineValue, potentialEndLineValue]).every((line) => (
-            lastTransaction.action_date.isBefore(moment(line))
-        ));
-        if (todayLineIsBeforeAllEndDates && everyLineIsAfterLastTransaction) return true;
-        return false;
-    }, [
-        transactions,
-        endLineValue,
-        potentialEndLineValue
-    ]);
-    // extend area path to today
-    const extendAreaPathToTodayLine = useCallback(() => {
-        const lastTransaction = transactions[transactions.length - 1];
-        if (shouldWeExtendAreaPathToTodayLine() && xScale && yScale) {
-            setAreaPathExtensionToToday(createSteppedAreaPath(
-                [
-                    ...transactions,
-                    {
-                        action_date: dateMatchingFirstLineValue([todayLineValue, endLineValue, potentialEndLineValue], dates, todayLineValue, endLineValue),
-                        running_obligation_total: lastTransaction.running_obligation_total
-                    }
-                ],
-                xScale,
-                yScale,
-                height,
-                padding.left,
-                'action_date',
-                'running_obligation_total'
-            ));
-            setAreaPath(null);
-        }
-    }, [
-        transactions,
-        xScale,
-        yScale,
-        height,
-        padding,
-        shouldWeExtendAreaPathToTodayLine,
-        endLineValue,
-        potentialEndLineValue,
-        dates
-    ]);
-    // extend area path to today hook
-    useEffect(() => {
-        extendAreaPathToTodayLine();
-    }, [extendAreaPathToTodayLine]);
-    // extend aria path past end line hook
-    useEffect(() => {
-        if (!areaPathExtensionToTodayLine && xScale && yScale) {
-            const firstEndLine = filteredAndSortedLinesFirstToLast([endLineValue, potentialEndLineValue])[0];
-            // find index of first transaction after the first end line
-            const firstTransactionAfterFirstEndLineIndex = transactions.findIndex((t) => {
-                if (t.action_date.isAfter(moment(firstEndLine))) return true;
-                return false;
-            });
-            if (firstTransactionAfterFirstEndLineIndex !== -1) {
-                // isolate all transaction before the first end line
-                const transactionsBeforeFirstEndLine = transactions.slice(0, firstTransactionAfterFirstEndLineIndex);
-                // isolate all transactions after the first end line
-                const transactionsAfterFirstEndLine = transactions.slice(firstTransactionAfterFirstEndLineIndex, transactions.length);
-                const firstEndLineDate = dateMatchingFirstLineValue([endLineValue, potentialEndLineValue], dates, todayLineValue, endLineValue);
-                // create a new area path to the first endline
-                if (transactionsBeforeFirstEndLine.length) {
-                    setAreaPath(
-                        createSteppedAreaPath(
-                            [
-                                ...transactionsBeforeFirstEndLine,
-                                {
-                                    action_date: firstEndLineDate,
-                                    running_obligation_total: transactionsBeforeFirstEndLine[transactionsBeforeFirstEndLine.length - 1].running_obligation_total
-                                }
-                            ],
-                            xScale,
-                            yScale,
-                            height,
-                            padding.left,
-                            'action_date',
-                            'running_obligation_total'
-                        )
-                    );
-                }
-                // create a new area path after the first endline
-                if (transactionsAfterFirstEndLine.length) {
-                    const startingYValueForGreyShading = transactionsBeforeFirstEndLine.length ?
-                        transactionsBeforeFirstEndLine[transactionsBeforeFirstEndLine.length - 1].running_obligation_total :
-                        transactionsAfterFirstEndLine[0].running_obligation_total;
-                    setAreaPathPastEndLine(createSteppedAreaPath(
-                        [
-                            {
-                                action_date: firstEndLineDate,
-                                running_obligation_total: startingYValueForGreyShading
-                            },
-                            ...transactionsAfterFirstEndLine
-                        ],
-                        xScale,
-                        yScale,
-                        height - 0.5,
-                        padding.left,
-                        'action_date',
-                        'running_obligation_total'
-                    ));
-                }
-            }
-        }
-    }, [
-        endLineValue,
-        potentialEndLineValue,
-        dates,
-        xScale,
-        yScale,
-        height,
-        padding,
-        transactions,
-        areaPathExtensionToTodayLine
-    ]);
-    // extend area path when last data point y value changes
-    useEffect(() => {
-        if (shouldExtendAreaPathWhenLastDataPointYValueChange(transactions, areaPathExtensionToTodayLine) && xScale && yScale) {
-            const lastTransaction = transactions[transactions.length - 1];
-            const className = areaPathPastEndLine ? 'area-path__past-end-line' : 'area-path';
-            const colorForDescription = className === 'area-path' ? 'light blue' : 'grey';
-            const description = `An area path of color ${colorForDescription} representing an
-            extension of 0.5 pixels to the area path when the y value of the last transaction is greater than
-            the second to last transaction`;
-
-            const xAdjustment = xScale.invert(xAxisSpacing + 1) - (xDomain[0]);
-            const heightAdjustment = areaPathPastEndLine ? height - 0.5 : height;
-
-            setAreaPathExtensionLastDataPointYValueChange(
-                {
-                    path: createSteppedAreaPath(
-                        [
-                            {
-                                x: lastTransaction.action_date,
-                                y: lastTransaction.running_obligation_total
-                            },
-                            {
-                                x: moment(lastTransaction.action_date.valueOf() + xAdjustment),
-                                y: lastTransaction.running_obligation_total
-                            }
-                        ],
-                        xScale,
-                        yScale,
-                        heightAdjustment,
-                        padding.left,
-                        'x',
-                        'y'
-                    ),
-                    className,
-                    description
-                }
-            );
-        }
-        else {
-            setAreaPathExtensionLastDataPointYValueChange({ path: null, className: '', description: '' });
-        }
-    }, [
-        xScale,
-        yScale,
-        height,
-        padding,
-        areaPathPastEndLine,
-        transactions,
-        xDomain,
-        xAxisSpacing,
-        areaPathExtensionToTodayLine
-    ]);
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
@@ -535,40 +292,27 @@ const ContractGrantsActivityChart = ({
                     ticks={xTicks}
                     scale={xScale}
                     line />
-                {/* area path */}
-                {areaPath &&
-                    <g tabIndex="0">
-                        <desc>{transactionPathDescription}</desc>
-                        <path
-                            className="area-path"
-                            d={areaPath} />
-                    </g>}
-                {/* extend area path to today */}
-                {areaPathExtensionToTodayLine &&
-                    <g tabIndex="0">
-                        <desc>{areaPathToTodayLineDescription}</desc>
-                        <path
-                            className="area-path"
-                            d={areaPathExtensionToTodayLine} />
-                    </g>}
-                {/* extend area path past end line */}
-                {areaPathPastEndLine &&
-                    <g tabIndex="0">
-                        <desc>{areaPathPastEndLineDescription}</desc>
-                        <path
-                            className="area-path__past-end-line"
-                            d={areaPathPastEndLine} />
-                    </g>}
-                {/* area Path Extension Last Data Point Y Value Change */}
-                {areaPathExtensionLastDataPointYValueChange.path &&
-                    <g tabIndex="0">
-                        <desc>{areaPathExtensionLastDataPointYValueChange.description}</desc>
-                        <path
-                            className={areaPathExtensionLastDataPointYValueChange.className}
-                            d={areaPathExtensionLastDataPointYValueChange.path} />
-                    </g>}
+                {/* area paths */}
+                {xScale && <ContractGrantActivityChartAreaPaths
+                    xScale={xScale}
+                    yScale={yScale}
+                    transactions={transactions}
+                    height={height}
+                    padding={padding}
+                    todayLineValue={todayLineValue}
+                    endLineValue={endLineValue}
+                    potentialEndLineValue={potentialEndLineValue}
+                    dates={dates}
+                    xDomain={xDomain}
+                    xAxisSpacing={xAxisSpacing} />}
                 {/* circles */}
-                {circleData.length && <ContractGrantActivityChartCircles circles={circleData} />}
+                {transactions.length && <ContractGrantActivityChartCircles
+                    transactions={transactions}
+                    padding={padding}
+                    xScale={xScale}
+                    yScale={yScale}
+                    xAxisSpacing={xAxisSpacing}
+                    height={height} />}
                 {/* vertical lines */}
                 {xScale && <ContractGrantActivityChartVerticalLines
                     xScale={xScale}
