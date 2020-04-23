@@ -99,14 +99,14 @@ export const AgencyProfileV2 = ({
         if (!sectionDom) {
             return;
         }
-
-        if (matchedSection.section === 'overview') {
-            scrollToY(40, 700);
+        if (activeSection === 'overview') {
+            scrollToY(sectionDom.offsetTop - 150, 700);
         }
         else {
-            // scroll to top of section, subtracting the height of sticky elements + 20px of margin
-            scrollToY(sectionDom.offsetTop - 20, 700);
+            // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
+            scrollToY(sectionDom.offsetTop - 86, 700);
         }
+
         setActiveSection(matchedSection);
     };
 
@@ -132,6 +132,7 @@ export const AgencyProfileV2 = ({
                             jumpToSection={jumpToSection}
                             detectActiveSection={setActiveSection}
                             sections={Object.keys(componentByAgencySection).map((section) => ({
+                                // stickyVerticalOffset: 20,
                                 section: snakeCase(section),
                                 label: startCase(section)
                             }))} />
