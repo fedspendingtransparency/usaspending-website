@@ -6,7 +6,6 @@ import moment from 'moment';
 
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
-import VerticalLine from 'components/sharedComponents/VerticalLine';
 import {
     getXDomain,
     lineHelper,
@@ -17,6 +16,7 @@ import {
 } from 'helpers/contractGrantActivityHelper';
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
 import { formatMoney } from 'helpers/moneyFormatter';
+import ContractGrantActivityChartVerticalLines from './ContractGrantActivityChartVerticalLines';
 
 const propTypes = {
     height: PropTypes.number,
@@ -513,10 +513,6 @@ const ContractGrantsActivityChart = ({
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
-    // text for end line
-    const endLineText = awardType === 'grant' ? 'End' : 'Current End';
-    // class name for end line and text
-    const endLineClassName = awardType === 'grant' ? 'grant-end' : 'contract-end';
 
     return (
         <svg
@@ -591,62 +587,16 @@ const ContractGrantsActivityChart = ({
                         </g>
                     );
                 })}
-                {/* start line */}
-                {xScale && <VerticalLine
+                {xScale && <ContractGrantActivityChartVerticalLines
                     xScale={xScale}
-                    y1={-10}
-                    y2={height}
-                    textY={0}
-                    text="Start"
-                    xMax={xDomain[1]}
-                    xMin={xDomain[0]}
-                    xValue={startLineValue}
-                    showTextPosition="right"
-                    adjustmentX={padding.left}
-                    textClassname="vertical-line__text start"
-                    lineClassname="vertical-line start" />}
-                {/* today line */}
-                {xScale && <VerticalLine
-                    xScale={xScale}
-                    y1={-10}
-                    y2={height}
-                    textY={0}
-                    text="Today"
-                    xMax={xDomain[1]}
-                    xMin={xDomain[0]}
-                    xValue={todayLineValue}
-                    showTextPosition="left"
-                    adjustmentX={padding.left}
-                    textClassname="vertical-line__text today"
-                    lineClassname="vertical-line today" />}
-                {/* end line */}
-                {xScale && <VerticalLine
-                    xScale={xScale}
-                    y1={-10}
-                    y2={height}
-                    textY={0}
-                    text={endLineText}
-                    xMax={xDomain[1]}
-                    xMin={xDomain[0]}
-                    xValue={endLineValue}
-                    showTextPosition="left"
-                    adjustmentX={padding.left}
-                    textClassname={`vertical-line__text ${endLineClassName}`}
-                    lineClassname={`vertical-line ${endLineClassName}`} />}
-                {/* potential end line */}
-                {xScale && <VerticalLine
-                    xScale={xScale}
-                    y1={-10}
-                    y2={height}
-                    textY={0}
-                    text="Potential End"
-                    xMax={xDomain[1]}
-                    xMin={xDomain[0]}
-                    xValue={potentialEndLineValue}
-                    showTextPosition="left"
-                    adjustmentX={padding.left}
-                    textClassname="vertical-line__text potential-end"
-                    lineClassname="vertical-line potential-end" />}
+                    height={height}
+                    xDomain={xDomain}
+                    padding={padding}
+                    startLineValue={startLineValue}
+                    todayLineValue={todayLineValue}
+                    endLineValue={endLineValue}
+                    potentialEndLineValue={potentialEndLineValue}
+                    awardType={awardType} />}
             </g>
         </svg>
     );
