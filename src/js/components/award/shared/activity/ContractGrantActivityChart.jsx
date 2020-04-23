@@ -6,6 +6,7 @@ import moment from 'moment';
 
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
+import SVGLine from 'components/sharedComponents/SVGLine';
 import {
     getXDomain,
     lineHelper
@@ -14,6 +15,8 @@ import { convertDateToFY } from 'helpers/fiscalYearHelper';
 import ContractGrantActivityChartVerticalLines from './ContractGrantActivityChartVerticalLines';
 import ContractGrantActivityChartCircles from './ContractGrantActivityChartCircles';
 import ContractGrantActivityChartAreaPaths from './ContractGrantActivityChartAreaPaths';
+// import ContractGrantActivityPotentialAwardAmountLine from './ContractGrantActivityChartPotentialAwardAmountLine';
+
 
 const propTypes = {
     height: PropTypes.number,
@@ -21,7 +24,8 @@ const propTypes = {
     visualizationWidth: PropTypes.number,
     transactions: PropTypes.array,
     awardType: PropTypes.string,
-    dates: PropTypes.object
+    dates: PropTypes.object,
+    totalObligation: PropTypes.number
 };
 
 const xAxisSpacingPercentage = 0.05;
@@ -33,7 +37,8 @@ const ContractGrantsActivityChart = ({
     visualizationWidth,
     transactions,
     awardType,
-    dates
+    dates,
+    totalObligation
 }) => {
     // x series
     const [xDomain, setXDomain] = useState([]);
@@ -271,7 +276,6 @@ const ContractGrantsActivityChart = ({
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
-
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -324,6 +328,17 @@ const ContractGrantsActivityChart = ({
                     endLineValue={endLineValue}
                     potentialEndLineValue={potentialEndLineValue}
                     awardType={awardType} />}
+                {/* potential award amount line */}
+                {xScale && <SVGLine
+                    lineClassname="potential-award-amount-line"
+                    scale={yScale}
+                    x1={padding.left}
+                    x2={visualizationWidth}
+                    max={yDomain[1]}
+                    min={yDomain[0]}
+                    position={totalObligation}
+                    graphHeight={height}
+                    isHorizontal />}
             </g>
         </svg>
     );

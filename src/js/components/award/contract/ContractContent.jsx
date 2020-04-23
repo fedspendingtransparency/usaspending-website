@@ -106,7 +106,8 @@ const ContractContent = ({
                         <ContractGrantActivityContainer
                             awardId={awardId}
                             awardType={overview.category}
-                            dates={overview.periodOfPerformance} />
+                            dates={overview.periodOfPerformance}
+                            totalObligation={overview._totalObligation} />
                         : <ComingSoonSection
                             toolTipWide
                             toolTipContent={contractActivityInfoContracts}

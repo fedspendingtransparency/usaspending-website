@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import VerticalLine from 'components/sharedComponents/VerticalLine';
+import SVGLine from 'components/sharedComponents/SVGLine';
 
 const propTypes = {
     xScale: PropTypes.func,
@@ -58,65 +58,65 @@ const ContractGrantActivityChartVerticalLines = ({
     return (
         <g className="contract-grant-activity-chart__vertical-lines">
             {/* start line */}
-            {xScale && <VerticalLine
-                xScale={xScale}
+            {xScale && <SVGLine
+                scale={xScale}
                 y1={-10}
                 y2={height}
                 textY={0}
                 text="Start"
                 description={descriptions[0]}
-                xMax={xDomain[1]}
-                xMin={xDomain[0]}
-                xValue={startLineValue}
+                max={xDomain[1]}
+                min={xDomain[0]}
+                position={startLineValue}
                 showTextPosition="right"
                 adjustmentX={padding.left}
-                textClassname="vertical-line__text start"
-                lineClassname="vertical-line start" />}
+                textClassname="start"
+                lineClassname="start" />}
             {/* today line */}
-            {xScale && <VerticalLine
-                xScale={xScale}
+            {xScale && <SVGLine
+                scale={xScale}
                 y1={-10}
                 y2={height}
                 textY={0}
                 text="Today"
                 description={descriptions[1]}
-                xMax={xDomain[1]}
-                xMin={xDomain[0]}
-                xValue={todayLineValue}
+                max={xDomain[1]}
+                min={xDomain[0]}
+                position={todayLineValue}
                 showTextPosition="left"
                 adjustmentX={padding.left}
-                textClassname="vertical-line__text today"
-                lineClassname="vertical-line today" />}
+                textClassname="today"
+                lineClassname="today" />}
             {/* end line */}
-            {xScale && <VerticalLine
-                xScale={xScale}
+            {xScale && <SVGLine
+                scale={xScale}
                 y1={-10}
                 y2={height}
                 textY={0}
                 text={endLineText}
                 description={descriptions[2]}
-                xMax={xDomain[1]}
-                xMin={xDomain[0]}
-                xValue={endLineValue}
+                max={xDomain[1]}
+                min={xDomain[0]}
+                position={endLineValue}
                 showTextPosition="left"
                 adjustmentX={padding.left}
-                textClassname={`vertical-line__text ${endLineClassName}`}
-                lineClassname={`vertical-line ${endLineClassName}`} />}
+                textClassname={`${endLineClassName}`}
+                lineClassname={`${endLineClassName}`} />}
             {/* potential end line */}
-            {xScale && <VerticalLine
-                xScale={xScale}
+            {xScale && <SVGLine
+                scale={xScale}
                 y1={-10}
                 y2={height}
                 textY={0}
                 text="Potential End"
                 description={descriptions[3]}
-                xMax={xDomain[1]}
-                xMin={xDomain[0]}
-                xValue={potentialEndLineValue}
+                max={xDomain[1]}
+                min={xDomain[0]}
+                position={potentialEndLineValue}
                 showTextPosition="left"
                 adjustmentX={padding.left}
-                textClassname="vertical-line__text potential-end"
-                lineClassname="vertical-line potential-end" />}
+                textClassname="potential-end"
+                lineClassname="potential-end" />}
         </g>
     );
 };
