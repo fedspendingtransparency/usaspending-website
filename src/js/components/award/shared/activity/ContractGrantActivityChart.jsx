@@ -12,10 +12,10 @@ import {
     lineHelper
 } from 'helpers/contractGrantActivityHelper';
 import { convertDateToFY } from 'helpers/fiscalYearHelper';
+import { formatMoney } from 'helpers/moneyFormatter';
 import ContractGrantActivityChartVerticalLines from './ContractGrantActivityChartVerticalLines';
 import ContractGrantActivityChartCircles from './ContractGrantActivityChartCircles';
 import ContractGrantActivityChartAreaPaths from './ContractGrantActivityChartAreaPaths';
-// import ContractGrantActivityPotentialAwardAmountLine from './ContractGrantActivityChartPotentialAwardAmountLine';
 
 
 const propTypes = {
@@ -84,9 +84,9 @@ const ContractGrantsActivityChart = ({
             0;
         const yOne = !clonedTransactions.length ?
             0 :
-            clonedTransactions.pop().running_obligation_total;
+            totalObligation || clonedTransactions.pop().running_obligation_total;
         setYDomain([yZero, yOne]);
-    }, [transactions]);
+    }, [transactions, totalObligation]);
     // hook - runs only on mount unless transactions change
     useEffect(() => {
         createXDomain();
@@ -276,6 +276,7 @@ const ContractGrantsActivityChart = ({
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
+    const potentialAwardAmountLineDescription = `A horizontal line representing the total award obligation of ${formatMoney(totalObligation)}`;
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -331,6 +332,7 @@ const ContractGrantsActivityChart = ({
                 {/* potential award amount line */}
                 {xScale && <SVGLine
                     lineClassname="potential-award-amount-line"
+                    description={potentialAwardAmountLineDescription}
                     scale={yScale}
                     x1={padding.left}
                     x2={visualizationWidth}
