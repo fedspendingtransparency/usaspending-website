@@ -173,7 +173,7 @@ export default class SVGLine extends Component {
     }
 
     description = () => (this.props.description ||
-        `A ${this.props.isHorizontal ? 'horizontal' : 'vertical'} line representing today\'s date`);
+        `A ${this.props.isHorizontal ? 'horizontal' : 'vertical'} line representing today's date`);
     render() {
         const line = this.line();
         const text = this.text(line);
