@@ -41,6 +41,10 @@
     .results-table-message-container {
       position: relative;
       background-color: rgb(246, 246, 246);
+      .no-results-container {
+        margin-top: 5.2rem;
+        margin-bottom: 5.2rem;
+      }
     }
     .award-amounts-viz {
       .award-amounts-viz__desc-top--loans {
