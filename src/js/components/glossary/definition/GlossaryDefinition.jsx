@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Picker } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { startCase } from "lodash";
 
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 import { getSocialShareFn, socialShareOptions } from 'helpers/socialShare';
@@ -18,6 +19,11 @@ const propTypes = {
     glossary: PropTypes.object,
     clearGlossaryTerm: PropTypes.func
 };
+
+const getGlossaryEmailSubject = (url) => {
+    return `USAspending.gov Glossary Term: ${startCase(url.split("=")[1])}`;
+};
+const getGlossaryEmailBody = (url) => `View the definition of this federal spending term on USAspending.gov: ${url}`;
 
 export default class GlossaryDefinition extends React.Component {
     constructor(props) {
@@ -87,12 +93,30 @@ export default class GlossaryDefinition extends React.Component {
     }
 
     render() {
-        const { slug } = this.props.glossary.term.toJS();
-        const url = `https://www.usaspending.gov/#/?glossary=${slug}`;
-        const options = socialShareOptions.map((option) => ({
-            ...option,
-            onClick: option.name === 'copy' ? this.getCopyFn : getSocialShareFn(slug, option.name)
-        }));
+        const slug = `?glossary=${this.props.glossary.term.toJS().slug}`;
+        const url = `https://www.usaspending.gov/#/${slug}`;
+        const options = socialShareOptions.map((option) => {
+            if (option.name === 'copy') {
+                return {
+                    ...option,
+                    onClick: this.getCopyFn
+                };
+            }
+            if (option.name === 'email') {
+                const onClick = getSocialShareFn(slug, option.name).bind(null, {
+                    subject: getGlossaryEmailSubject(url),
+                    body: getGlossaryEmailBody(url)
+                });
+                return {
+                    ...option,
+                    onClick
+                };
+            }
+            return {
+                ...option,
+                onClick: getSocialShareFn(slug, option.name)
+            };
+        });
         return (
             <div className="glossary-definition">
                 <input id="slug" type="text" className="text" style={{ opacity: 0 }} value={url} />

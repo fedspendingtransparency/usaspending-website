@@ -1,5 +1,4 @@
 import React from 'react';
-import { startCase } from "lodash";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faFacebookSquare,
@@ -32,10 +31,7 @@ const handleShareClickReddit = (url) => {
     openShareWindow(finalUrl);
 };
 
-const handleShareClickEmail = (url) => {
-    const subject = `USAspending.gov Glossary Term: ${startCase(url.split("=")[1])}`;
-    const body = `View the definition of this federal spending term on USAspending.gov: ${url}`;
-
+const handleShareClickEmail = (subject, body) => {
     const finalUrl = `mailto:?subject=${subject}&body=${body}`;
     window.location.href = finalUrl;
 };
@@ -44,14 +40,23 @@ const handlersBySocialMedium = {
     twitter: (url) => handleShareClickTwitter(url),
     facebook: (url) => handleShareClickFacebook(url),
     reddit: (url) => handleShareClickReddit(url),
-    email: (url) => handleShareClickEmail(url),
+    email: ({ subject, body }) => {
+        handleShareClickEmail(subject, body);
+    },
     linkedin: (url) => handleShareClickLinkedin(url)
 };
 
-const baseUrl = (slug) => `https://www.usaspending.gov/#/?glossary=${slug}`;
+const baseUrl = (slug) => `https://www.usaspending.gov/#/${slug}`;
 
 export const getSocialShareFn = (slug, socialMedium) => (
-    () => handlersBySocialMedium[socialMedium](baseUrl(slug))
+    (args) => {
+        if (args) {
+            handlersBySocialMedium[socialMedium](args);
+        }
+        else {
+            handlersBySocialMedium[socialMedium](baseUrl(slug));
+        }
+    }
 );
 
 const GlossaryDropdownOption = ({ icon, title }) => (

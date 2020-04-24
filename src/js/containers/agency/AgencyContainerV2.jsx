@@ -6,7 +6,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 
-import React, { useState, createRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { startCase, snakeCase } from "lodash";
@@ -73,6 +73,7 @@ let timeout;
 export const AgencyProfileV2 = ({
     agencyOverview,
     agencyId,
+    params,
     clearAgency,
     setOverview
 }) => {
@@ -83,9 +84,8 @@ export const AgencyProfileV2 = ({
     );
 
     useEffect(() => () => {
-        // onUnmount, clean out timeout if it exists
-        if (timeout) {
-            window.clearTimeout(this.showCopiedConfirmation);
+        if (timeout && showConfirmationText) {
+            window.clearTimeout(timeout);
         }
     });
 
@@ -94,9 +94,9 @@ export const AgencyProfileV2 = ({
         document.execCommand("copy");
         setConfirmationText(true);
         timeout = window.setTimeout(() => {
-            this.setState({ showCopiedConfirmation: false });
+            setConfirmationText(false);
         }, 1750);
-    }
+    };
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
@@ -135,13 +135,35 @@ export const AgencyProfileV2 = ({
             };
         });
 
-    const socialSharePickerOptions = socialShareOptions.map((option) => ({
-        ...option,
-        onClick: option.name === 'copy' ? getCopyFn : getSocialShareFn('test', option.name)
-    }));
+    const url = `https://www.usaspending.gov/#/agency_v2/${params.agencyId}`;
+    const slug = `agency_v2/${params.agencyId}`;
+
+    const socialSharePickerOptions = socialShareOptions.map((option) => {
+        if (option.name === 'copy') {
+            return {
+                ...option,
+                onClick: getCopyFn
+            };
+        }
+        if (option.name === 'email') {
+            const onClick = getSocialShareFn(slug, option.name).bind(null, {
+                subject: `Check out Agency ${params.agencyId} on USAspending.gov!`,
+                body: `Here is the url: ${url}`
+            });
+            return {
+                ...option,
+                onClick
+            };
+        }
+        return {
+            ...option,
+            onClick: getSocialShareFn(slug, option.name)
+        }
+    });
 
     return (
         <div className="usa-da-agency-page-v2">
+            <input id="slug" type="text" className="text" style={{ opacity: 0 }} value={url} />
             <MetaTags {...agencyPageMetaTags} />
             <Header />
             <StickyHeader>
@@ -171,6 +193,11 @@ export const AgencyProfileV2 = ({
                                 <FontAwesomeIcon icon="share-alt" size="lg" />
                             </Picker>
                             <span>Share</span>
+                            {showConfirmationText && (
+                                <span className="copy-confirmation">
+                                    <FontAwesomeIcon icon="check-circle" color="#3A8250" /> Link Copied!
+                                </span>
+                            )}
                         </div>
                         <div className="sticky-header__toolbar-item">
                             <button className="sticky-header__button">
