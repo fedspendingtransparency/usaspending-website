@@ -25,7 +25,8 @@ const propTypes = {
     transactions: PropTypes.array,
     awardType: PropTypes.string,
     dates: PropTypes.object,
-    totalObligation: PropTypes.number
+    totalObligation: PropTypes.number,
+    showHideTooltip: PropTypes.func
 };
 
 const xAxisSpacingPercentage = 0.05;
@@ -38,7 +39,8 @@ const ContractGrantsActivityChart = ({
     transactions,
     awardType,
     dates,
-    totalObligation
+    totalObligation,
+    showHideTooltip
 }) => {
     // x series
     const [xDomain, setXDomain] = useState([]);
@@ -340,7 +342,11 @@ const ContractGrantsActivityChart = ({
                     min={yDomain[0]}
                     position={totalObligation}
                     graphHeight={height}
-                    isHorizontal />}
+                    isHorizontal
+                    onMouseMoveLine={showHideTooltip}
+                    onMouseLeaveLine={showHideTooltip}
+                    onMouseMoveText={showHideTooltip}
+                    onMouseLeaveText={showHideTooltip} />}
             </g>
         </svg>
     );

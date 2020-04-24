@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import { TooltipWrapper } from 'data-transparency-ui';
+import { formatMoney } from 'helpers/moneyFormatter';
+import RectanglePercentVizTooltip from 'components/award/financialAssistance/RectanglePercentVizTooltip';
 import ContractGrantActivityChart from './ContractGrantActivityChart';
 
 const propTypes = {
@@ -22,6 +25,12 @@ const ContractGrantActivity = ({
     const [windowWidth, setWindowWidth] = useState(0);
     // visualization width
     const [visualizationWidth, setVisualizationWidth] = useState(0);
+    const [showTooltip, setShowTooltip] = useState(false);
+    /**
+     * Line tooltip data e.g. { title: 'Start Date', amount: '04/24/2020' }
+     * Circle tooltip data e.g. transaction object
+     */
+    const [tooltipData, setTooltipData] = useState(null);
     /**
      * handleWindowResize
      * - updates window and visualization width based on current window width.
@@ -47,8 +56,28 @@ const ContractGrantActivity = ({
         };
     }, []);
 
+    const handleTooltipData = (data, text) => {
+        // potential award amount line
+        if (!text) setTooltipData({ title: 'Current Potential Award Amount', amount: formatMoney(totalObligation) });
+    };
+
+    const showHideTooltip = (data, text) => {
+        // hide tooltip
+        if (!data && showTooltip) return setShowTooltip(false);
+        return handleTooltipData(data, text);
+    };
+
     return (
         <div ref={divReference} className="contract-grant-activity-visualization">
+            <TooltipWrapper
+                className="award-section-tt"
+                {...tooltipData}
+                controlledProps={{
+                    isControlled: true,
+                    isVisible: showTooltip
+                }}
+                // left
+                tooltipComponent={RectanglePercentVizTooltip} />
             <ContractGrantActivityChart
                 visualizationWidth={visualizationWidth}
                 transactions={transactions}
@@ -56,7 +85,8 @@ const ContractGrantActivity = ({
                 padding={{ left: 45, bottom: 30 }}
                 dates={dates}
                 awardType={awardType}
-                totalObligation={totalObligation} />
+                totalObligation={totalObligation}
+                showHideTooltip={showHideTooltip} />
         </div>
     );
 };
