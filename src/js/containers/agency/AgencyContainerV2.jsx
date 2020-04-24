@@ -9,7 +9,7 @@
 import React, { useState, createRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { startCase, snakeCase, find } from "lodash";
+import { startCase, snakeCase } from "lodash";
 import {
     TooltipWrapper,
     Picker
@@ -20,6 +20,7 @@ import { setAgencyOverview, resetAgency } from 'redux/actions/agency/agencyActio
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import { socialShareOptions, getSocialShareFn } from 'helpers/socialShare';
 
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'components/sharedComponents/header/Header';
@@ -67,7 +68,7 @@ const componentByAgencySection = {
     top_5_award_dimensions: <ComingSoonSection section="top_5_award_dimensions" />
 };
 
-const fyOptions = FiscalYearHelper.allFiscalYears(FiscalYearHelper.earliestExplorerYear);
+let timeout;
 
 export const AgencyProfileV2 = ({
     agencyOverview,
@@ -76,17 +77,26 @@ export const AgencyProfileV2 = ({
     setOverview
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
+    const [showConfirmationText, setConfirmationText] = useState(false);
     const [selectedFy, setSelectedFy] = useState(
         `${FiscalYearHelper.defaultFiscalYear()}`
     );
 
-    const sortFy = (a, b) => {
-        if (a === selectedFy) return -1;
-        if (b === selectedFy) return 1;
-        if (b > a) return 1;
-        if (a > b) return -1;
-        return 0;
-    };
+    useEffect(() => () => {
+        // onUnmount, clean out timeout if it exists
+        if (timeout) {
+            window.clearTimeout(this.showCopiedConfirmation);
+        }
+    });
+
+    const getCopyFn = () => {
+        document.getElementById('slug').select();
+        document.execCommand("copy");
+        setConfirmationText(true);
+        timeout = window.setTimeout(() => {
+            this.setState({ showCopiedConfirmation: false });
+        }, 1750);
+    }
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
@@ -115,29 +125,61 @@ export const AgencyProfileV2 = ({
         setActiveSection(matchedSection);
     };
 
+    const fyOptions = FiscalYearHelper.allFiscalYears(FiscalYearHelper.earliestExplorerYear)
+        .map((year) => {
+            const onClickHandler = () => setSelectedFy(year);
+            return {
+                name: year,
+                value: year,
+                onClick: onClickHandler
+            };
+        });
+
+    const socialSharePickerOptions = socialShareOptions.map((option) => ({
+        ...option,
+        onClick: option.name === 'copy' ? getCopyFn : getSocialShareFn('test', option.name)
+    }));
+
     return (
         <div className="usa-da-agency-page-v2">
             <MetaTags {...agencyPageMetaTags} />
             <Header />
             <StickyHeader>
-                <div className="sticky-header__title">
-                    <h1 tabIndex={-1} id="main-focus">
-                        Agency Profile v2
-                    </h1>
-                    <span className="fy-picker-label">Filter</span>
-                    <div className="fiscal-year-container">
-                        <Picker
-                            isFixedWidth
-                            icon={<FontAwesomeIcon icon="calendar-alt" />}
-                            selectedOption={selectedFy}
-                            options={fyOptions.map((fyYear) => ({
-                                name: fyYear,
-                                value: fyYear,
-                                onClick: () => setSelectedFy(fyYear)
-                            }))} />
-                        <span>Fiscal Year</span>
+                <>
+                    <div className="sticky-header__title">
+                        <h1 tabIndex={-1} id="main-focus">
+                            Agency Profile v2
+                        </h1>
                     </div>
-                </div>
+                    <div className="sticky-header__toolbar">
+                        <span className="fy-picker-label">Filter</span>
+                        <div className="fiscal-year-container">
+                            <Picker
+                                icon={<FontAwesomeIcon icon="calendar-alt" />}
+                                selectedOption={selectedFy}
+                                options={fyOptions} />
+                            <span>Fiscal Year</span>
+                        </div>
+                        <hr />
+                        <div className="sticky-header__toolbar-item">
+                            <Picker
+                                dropdownDirection="left"
+                                options={socialSharePickerOptions}
+                                selectedOption="copy"
+                                backgroundColor="#4A4A4A"
+                                sortFn={() => 1}>
+                                <FontAwesomeIcon icon="share-alt" size="lg" />
+                            </Picker>
+                            <span>Share</span>
+                        </div>
+                        <div className="sticky-header__toolbar-item">
+                            <button className="sticky-header__button">
+                                <FontAwesomeIcon icon="download" />
+                            </button>
+                            <span>Download</span>
+                        </div>
+                    </div>
+                </>
             </StickyHeader>
             <LoadingWrapper isLoading={false} >
                 <main id="main-content" className="main-content usda__flex-row">
@@ -149,7 +191,6 @@ export const AgencyProfileV2 = ({
                             jumpToSection={jumpToSection}
                             detectActiveSection={setActiveSection}
                             sections={Object.keys(componentByAgencySection).map((section) => ({
-                                // stickyVerticalOffset: 20,
                                 section: snakeCase(section),
                                 label: startCase(section)
                             }))} />

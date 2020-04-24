@@ -1,4 +1,12 @@
+import React from 'react';
 import { startCase } from "lodash";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+    faFacebookSquare,
+    faLinkedin,
+    faTwitter,
+    faRedditSquare
+} from "@fortawesome/free-brands-svg-icons";
 
 const openShareWindow = (url) => {
     window.open(url, '_blank', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');
@@ -45,3 +53,19 @@ const baseUrl = (slug) => `https://www.usaspending.gov/#/?glossary=${slug}`;
 export const getSocialShareFn = (slug, socialMedium) => (
     () => handlersBySocialMedium[socialMedium](baseUrl(slug))
 );
+
+const GlossaryDropdownOption = ({ icon, title }) => (
+    <>
+        <FontAwesomeIcon icon={icon} color="#555" size="sm" />
+        <span>{title}</span>
+    </>
+);
+
+export const socialShareOptions = [
+    { component: <GlossaryDropdownOption icon="link" title="Copy link" />, name: `copy` },
+    { component: <GlossaryDropdownOption icon="envelope" title="Email" />, name: 'email' },
+    { component: <GlossaryDropdownOption icon={faTwitter} title="Twitter" />, name: 'twitter' },
+    { component: <GlossaryDropdownOption icon={faFacebookSquare} title="Facebook" />, name: 'facebook' },
+    { component: <GlossaryDropdownOption icon={faLinkedin} title="LinkedIn" />, name: 'linkedin' },
+    { component: <GlossaryDropdownOption icon={faRedditSquare} title="Reddit" />, name: 'reddit' }
+];

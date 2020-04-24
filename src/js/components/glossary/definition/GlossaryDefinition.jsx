@@ -7,16 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Picker } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faFacebookSquare,
-    faLinkedin,
-    faTwitter,
-    faRedditSquare
-} from "@fortawesome/free-brands-svg-icons";
-
 
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
-import { getSocialShareFn } from 'helpers/socialShare';
+import { getSocialShareFn, socialShareOptions } from 'helpers/socialShare';
 
 import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
@@ -25,23 +18,6 @@ const propTypes = {
     glossary: PropTypes.object,
     clearGlossaryTerm: PropTypes.func
 };
-
-const GlossaryDropdownOption = ({ icon, title }) => (
-    <>
-        <FontAwesomeIcon icon={icon} color="#555" size="sm" />
-        <span>{title}</span>
-    </>
-);
-
-const pickerOptions = [
-    { component: <GlossaryDropdownOption icon="link" title="Copy link" />, name: `copy` },
-    { component: <GlossaryDropdownOption icon="envelope" title="Email" />, name: 'email' },
-    { component: <GlossaryDropdownOption icon={faTwitter} title="Twitter" />, name: 'twitter' },
-    { component: <GlossaryDropdownOption icon={faFacebookSquare} title="Facebook" />, name: 'facebook' },
-    { component: <GlossaryDropdownOption icon={faLinkedin} title="LinkedIn" />, name: 'linkedin' },
-    { component: <GlossaryDropdownOption icon={faRedditSquare} title="Reddit" />, name: 'reddit' }
-];
-
 
 export default class GlossaryDefinition extends React.Component {
     constructor(props) {
@@ -113,7 +89,7 @@ export default class GlossaryDefinition extends React.Component {
     render() {
         const { slug } = this.props.glossary.term.toJS();
         const url = `https://www.usaspending.gov/#/?glossary=${slug}`;
-        const options = pickerOptions.map((option) => ({
+        const options = socialShareOptions.map((option) => ({
             ...option,
             onClick: option.name === 'copy' ? this.getCopyFn : getSocialShareFn(slug, option.name)
         }));
