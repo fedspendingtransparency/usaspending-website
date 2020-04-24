@@ -49,6 +49,7 @@
         }
       }
       .contract-grant-activity-visualization {
+        @import '../shared/awardAmountsSection/charts';
         width: 100%;
         .activity-x-label {
           width: 100%;

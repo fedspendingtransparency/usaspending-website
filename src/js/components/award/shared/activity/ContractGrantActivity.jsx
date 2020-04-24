@@ -57,8 +57,20 @@ const ContractGrantActivity = ({
     }, []);
 
     const handleTooltipData = (data, text) => {
+        console.log(' Tooltip Data : ', { data, text });
+        let tooltipInfo = null;
         // potential award amount line
-        if (!text) setTooltipData({ title: 'Current Potential Award Amount', amount: formatMoney(totalObligation) });
+        if (!text) {
+            tooltipInfo = {
+                title: 'Current Potential Award Amount',
+                amount: formatMoney(totalObligation)
+                // styles: {
+                //     transform: `translate(${150}px,-${data}px)`,
+                //     width: '160px'
+                // }
+            };
+        }
+        setTooltipData(tooltipInfo);
     };
 
     const showHideTooltip = (data, text) => {
@@ -68,25 +80,28 @@ const ContractGrantActivity = ({
     };
 
     return (
-        <div ref={divReference} className="contract-grant-activity-visualization">
+        <div ref={divReference} className="award-amounts-viz contract-grant-activity-visualization">
             <TooltipWrapper
                 className="award-section-tt"
                 {...tooltipData}
                 controlledProps={{
                     isControlled: true,
-                    isVisible: showTooltip
+                    isVisible: showTooltip,
+                    showTooltip: () => {},
+                    closeTooltip: () => {}
                 }}
                 // left
-                tooltipComponent={RectanglePercentVizTooltip} />
-            <ContractGrantActivityChart
-                visualizationWidth={visualizationWidth}
-                transactions={transactions}
-                height={360}
-                padding={{ left: 45, bottom: 30 }}
-                dates={dates}
-                awardType={awardType}
-                totalObligation={totalObligation}
-                showHideTooltip={showHideTooltip} />
+                tooltipComponent={RectanglePercentVizTooltip}>
+                <ContractGrantActivityChart
+                    visualizationWidth={visualizationWidth}
+                    transactions={transactions}
+                    height={360}
+                    padding={{ left: 45, bottom: 30 }}
+                    dates={dates}
+                    awardType={awardType}
+                    totalObligation={totalObligation}
+                    showHideTooltip={showHideTooltip} />
+            </TooltipWrapper>
         </div>
     );
 };
