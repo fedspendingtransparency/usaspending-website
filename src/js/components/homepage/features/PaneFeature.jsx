@@ -48,10 +48,10 @@ const PaneFeature = () => (
                 <hr className="feature-pane__mobile-content-divider" />
                 <div className="feature-pane__content-divider" />
                 <div className="feature-pane__content">
-                    <h3 className="feature-pane__content-title">New! - Recipient Profiles</h3>
-                    <p className="feature-pane_content-text" >Find insights into each recipient with the tools and summaries found in our new Recipient Profile pages.</p>
+                    <h3 className="feature-pane__content-title">COVID-19 Contract Spending</h3>
+                    <p className="feature-pane_content-text">Explore the small fraction of COVID-19 related spending that involves Federal Contracts through a General Service Administration tool.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="/#/recipient" role="button" className="feature-pane__button">Explore Recipient Profiles</a>
+                        <a href="/#/recipient" role="button" className="feature-pane__button">COVID-19 Contract Spending</a>
                     </div>
                 </div>
             </div>
