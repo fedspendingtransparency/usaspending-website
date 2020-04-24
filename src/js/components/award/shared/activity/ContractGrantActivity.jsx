@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { formatMoney } from 'helpers/moneyFormatter';
-import RectanglePercentVizTooltip from 'components/award/financialAssistance/RectanglePercentVizTooltip';
+import { RectanglePercentVizTooltip } from 'components/award/financialAssistance/RectanglePercentVizTooltip';
 import ContractGrantActivityChart from './ContractGrantActivityChart';
 
 const propTypes = {
@@ -62,46 +62,47 @@ const ContractGrantActivity = ({
         // potential award amount line
         if (!text) {
             tooltipInfo = {
-                title: 'Current Potential Award Amount',
-                amount: formatMoney(totalObligation)
-                // styles: {
-                //     transform: `translate(${150}px,-${data}px)`,
-                //     width: '160px'
-                // }
+                styles: {
+                    transform: `translate(${150}px,${data}px)`,
+                    position: 'absolute'
+                },
+                tooltipComponent: <RectanglePercentVizTooltip
+                    title="Current Potential Award Amount"
+                    amount={formatMoney(totalObligation)} />
             };
         }
         setTooltipData(tooltipInfo);
+        setShowTooltip(true);
     };
 
     const showHideTooltip = (data, text) => {
         // hide tooltip
-        if (!data && showTooltip) return setShowTooltip(false);
+        // if (!data && showTooltip) return setShowTooltip(false);
         return handleTooltipData(data, text);
     };
 
     return (
         <div ref={divReference} className="award-amounts-viz contract-grant-activity-visualization">
-            <TooltipWrapper
+            {showTooltip && <TooltipWrapper
                 className="award-section-tt"
                 {...tooltipData}
+                wide={false}
                 controlledProps={{
                     isControlled: true,
                     isVisible: showTooltip,
                     showTooltip: () => {},
                     closeTooltip: () => {}
                 }}
-                // left
-                tooltipComponent={RectanglePercentVizTooltip}>
-                <ContractGrantActivityChart
-                    visualizationWidth={visualizationWidth}
-                    transactions={transactions}
-                    height={360}
-                    padding={{ left: 45, bottom: 30 }}
-                    dates={dates}
-                    awardType={awardType}
-                    totalObligation={totalObligation}
-                    showHideTooltip={showHideTooltip} />
-            </TooltipWrapper>
+                top />}
+            <ContractGrantActivityChart
+                visualizationWidth={visualizationWidth}
+                transactions={transactions}
+                height={360}
+                padding={{ left: 45, bottom: 30 }}
+                dates={dates}
+                awardType={awardType}
+                totalObligation={totalObligation}
+                showHideTooltip={showHideTooltip} />
         </div>
     );
 };
