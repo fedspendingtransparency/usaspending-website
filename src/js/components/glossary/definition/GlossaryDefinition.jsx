@@ -20,9 +20,7 @@ const propTypes = {
     clearGlossaryTerm: PropTypes.func
 };
 
-const getGlossaryEmailSubject = (url) => {
-    return `USAspending.gov Glossary Term: ${startCase(url.split("=")[1])}`;
-};
+const getGlossaryEmailSubject = (url) => `USAspending.gov Glossary Term: ${startCase(url.split("=")[1])}`;
 const getGlossaryEmailBody = (url) => `View the definition of this federal spending term on USAspending.gov: ${url}`;
 
 export default class GlossaryDefinition extends React.Component {

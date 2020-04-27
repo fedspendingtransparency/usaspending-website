@@ -158,7 +158,7 @@ export const AgencyProfileV2 = ({
         return {
             ...option,
             onClick: getSocialShareFn(slug, option.name)
-        }
+        };
     });
 
     return (
