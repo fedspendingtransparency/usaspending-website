@@ -73,11 +73,14 @@ export class PSCCheckboxTreeContainer extends React.Component {
 
     onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
         if (shouldFetchChildren && !this.state.isSearch) {
-            if (selectedNode.treeDepth === 1) {
-                const selectedAgency = this.props.nodes
-                    .find((agency) => agency.children.some((federalAccount) => federalAccount.value === expandedValue));
-                const agencyAndFederalAccountString = `${selectedAgency.value}/${expandedValue}`;
-                this.fetchPsc(agencyAndFederalAccountString);
+            if (selectedNode.treeDepth >= 1) {
+                const { parent } = selectedNode;
+                if (selectedNode.treeDepth === 2) {
+                    this.fetchPsc(`${parent.ancestors[0]}/${parent.value}/${expandedValue}`);
+                }
+                else {
+                    this.fetchPsc(`${parent.value}/${expandedValue}`);
+                }
             }
             else {
                 this.fetchPsc(expandedValue);
@@ -192,7 +195,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                 if (isPartialTree) {
                     // parsing the prepended agency (format in url is agencyId/federalAccountId when fetching federalAccount level data)
                     const key = id.includes('/')
-                        ? id.split('/')[1]
+                        ? id.split('/').pop()
                         : id;
                     this.setState({ isLoading: false });
                     const newChecked = this.props.checked.includes(`children_of_${key}`)
@@ -265,12 +268,12 @@ export class PSCCheckboxTreeContainer extends React.Component {
         } = this.state;
         return (
             <div className="tas-checkbox">
-                <span className="tas-checkbox__header">
+                {/* <span className="tas-checkbox__header">
                     Search by Federal Account, TAS, or Agency Owner
-                    {/* <ProgramSourceInfoTooltip
+                    <ProgramSourceInfoTooltip
                         definition={<SearchNote />}
-                        heading="Find a Treasury Account" /> */}
-                </span>
+                        heading="Find a Treasury Account" />
+                </span> */}
                 <EntityDropdownAutocomplete
                     placeholder="Type to filter results"
                     searchString={searchString}

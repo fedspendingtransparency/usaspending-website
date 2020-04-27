@@ -519,6 +519,49 @@ export const populateBranchOrLeafLevelNodes = (
                     }).sort(sortNodesByValue)
             };
         }
+        if (shouldPopulateLeaves) {
+            // we're adding grandchildren to an existing branch.
+            return {
+                ...node,
+                className: '',
+                children: node.children
+                    ? node.children
+                        .map((child) => {
+                            if (child.value === key) {
+                                const isPopulated = (
+                                    child.children.length === child.count &&
+                                    !child.children.some((grandChild) => grandChild.isPlaceHolder)
+                                );
+                                if (isPopulated) {
+                                    // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
+                                    return child;
+                                }
+                                return {
+                                    ...child,
+                                    children: data.children
+                                };
+                            }
+                            const isParent = Object.keys(child).includes('children');
+                            if (isParent) {
+                                return {
+                                    ...child,
+                                    children: child.children.map((grand) => {
+                                        if (grand.value === key) {
+                                            return {
+                                                // populating great grand children; only happens w/ PSC
+                                                ...grand,
+                                                children: data.children
+                                            };
+                                        }
+                                        return grand;
+                                    })
+                                };
+                            }
+                            return child;
+                        })
+                    : []
+            };
+        }
         const shouldAddNewBranchToTree = (
             key &&
             data &&
@@ -535,29 +578,6 @@ export const populateBranchOrLeafLevelNodes = (
                     ...node.children,
                     data
                 ]
-            };
-        }
-        if (shouldPopulateLeaves) {
-            // we're adding grandchildren to an existing branch.
-            return {
-                ...node,
-                className: '',
-                children: node.children
-                    ? node.children
-                        .map((child) => {
-                            if (child.value === key) {
-                                if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
-                                    // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
-                                    return child;
-                                }
-                                return {
-                                    ...child,
-                                    children: data.children
-                                };
-                            }
-                            return child;
-                        })
-                    : []
             };
         }
         return node;
