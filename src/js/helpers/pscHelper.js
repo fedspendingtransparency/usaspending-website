@@ -75,7 +75,7 @@ const pscKeyMap = { label: 'description', value: 'id', isParent: shouldPscNodeHa
 
 export const cleanPscData = (nodes) => cleanTreeData(nodes, pscKeyMap);
 
-export const removeStagedTasFilter = (
+export const removeStagedPscFilter = (
     nodes,
     checkedNodes,
     removedNode,
@@ -88,7 +88,7 @@ export const removeStagedTasFilter = (
     getImmediatePscAncestor
 );
 
-export const decrementTasCountAndUpdateUnchecked = (
+export const decrementPscCountAndUpdateUnchecked = (
     uncheckedNode,
     unchecked,
     checked,
@@ -104,7 +104,7 @@ export const decrementTasCountAndUpdateUnchecked = (
     getHighestPscAncestor
 );
 
-export const incrementTasCountAndUpdateUnchecked = (
+export const incrementPscCountAndUpdateUnchecked = (
     newChecked,
     oldChecked,
     unchecked,
@@ -121,7 +121,7 @@ export const incrementTasCountAndUpdateUnchecked = (
     getHighestPscAncestor
 );
 
-export const autoCheckTasAfterExpand = (
+export const autoCheckPscAfterExpand = (
     parentNode,
     checked,
     unchecked
