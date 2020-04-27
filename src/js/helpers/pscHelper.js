@@ -1,3 +1,11 @@
+import {
+    decrementCountAndUpdateUnchecked,
+    incrementCountAndUpdateUnchecked,
+    cleanTreeData,
+    removeStagedFilter,
+    autoCheckImmediateChildrenAfterDynamicExpand
+} from "./checkboxTreeHelper";
+
 export const emptyHierarchy = {
     base_code: {},
     midtier_code: {},
@@ -33,3 +41,93 @@ export const deducePscType = (acc, keyValueArray) => {
     }
     return { ...acc, [key]: value };
 };
+
+export const getHighestPscAncestor = (node) => {
+    if (node.ancestors.length) return node.ancestors[0];
+    return node.value;
+};
+
+export const getImmediatePscAncestor = (node) => {
+    if (!node.ancestors.length || node.ancestors.length === 1) return getHighestPscAncestor(node);
+    return node.ancestors[node.ancestors.length - 1];
+};
+
+export const getPscNodeFromTree = (tree, code) => {
+    if (!tree) return tree;
+    const topLevelNode = tree.find((node) => node.value === code);
+    if (topLevelNode) return topLevelNode;
+    return tree
+        .reduce((acc, node) => {
+            if (acc) return acc;
+            if (node.value === code) return node;
+            return getPscNodeFromTree(node.children, code);
+        }, undefined);
+};
+
+const shouldPscNodeHaveChildren = (node) => {
+    if (node.isPlaceHolder) return false;
+    return node.ancestors.length < 3;
+};
+
+// key map for traversing the tas-tree
+const pscKeyMap = { label: 'description', value: 'id', isParent: shouldPscNodeHaveChildren };
+
+export const cleanPscData = (nodes) => cleanTreeData(nodes, pscKeyMap);
+
+export const removeStagedTasFilter = (
+    nodes,
+    checkedNodes,
+    removedNode,
+) => removeStagedFilter(
+    nodes,
+    checkedNodes,
+    removedNode,
+    getPscNodeFromTree,
+    getHighestPscAncestor,
+    getImmediatePscAncestor
+);
+
+export const decrementTasCountAndUpdateUnchecked = (
+    uncheckedNode,
+    unchecked,
+    checked,
+    counts,
+    nodes) => decrementCountAndUpdateUnchecked(
+    uncheckedNode,
+    unchecked,
+    checked,
+    counts,
+    nodes,
+    getPscNodeFromTree,
+    getImmediatePscAncestor,
+    getHighestPscAncestor
+);
+
+export const incrementTasCountAndUpdateUnchecked = (
+    newChecked,
+    oldChecked,
+    unchecked,
+    nodes,
+    currentCount
+) => incrementCountAndUpdateUnchecked(
+    newChecked,
+    oldChecked,
+    unchecked,
+    nodes,
+    currentCount,
+    getPscNodeFromTree,
+    getImmediatePscAncestor,
+    getHighestPscAncestor
+);
+
+export const autoCheckTasAfterExpand = (
+    parentNode,
+    checked,
+    unchecked
+) => autoCheckImmediateChildrenAfterDynamicExpand(
+    parentNode,
+    checked,
+    unchecked,
+    'value',
+    shouldPscNodeHaveChildren
+);

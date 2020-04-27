@@ -23,6 +23,7 @@ import CFDASearchContainer from 'containers/search/filters/cfda/CFDASearchContai
 import NAICSSearchContainer from 'containers/search/filters/naics/NAICSSearchContainer';
 import NAICSContainer from 'containers/search/filters/naics/NAICSContainer';
 import PSCSearchContainer from 'containers/search/filters/psc/PSCSearchContainer';
+import PSCCheckboxTreeContainer from 'containers/search/filters/psc/PSCCheckboxTreeContainer';
 import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer';
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
 import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
@@ -35,11 +36,12 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 
 import kGlobalConstants from 'GlobalConstants';
 
-const naicsComponent = kGlobalConstants.DEV ? NAICSContainer : NAICSSearchContainer;
+const NaicsComponent = kGlobalConstants.DEV ? NAICSContainer : NAICSSearchContainer;
 const naicsTitle = kGlobalConstants.DEV ?
     'North American Industry Classification System (NAICS)' :
     'NAICS Code';
 const tasTitle = kGlobalConstants.DEV ? 'Treasury Account Symbol (TAS)' : 'Product/Service Code (PSC)';
+const PscComponent = kGlobalConstants.DEV ? PSCCheckboxTreeContainer : PSCSearchContainer;
 
 const filters = {
     options: [
@@ -72,8 +74,8 @@ const filters = {
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
         CFDASearchContainer,
-        naicsComponent,
-        PSCSearchContainer,
+        NaicsComponent,
+        PscComponent,
         PricingTypeContainer,
         SetAsideContainer,
         ExtentCompetedContainer
