@@ -605,7 +605,8 @@ export const autoCheckImmediateChildrenAfterDynamicExpand = (
             const willNodeHavePlaceholderChildren = (
                 (
                     !Object.keys(child).includes('children') ||
-                    !child?.children?.length
+                    !child?.children?.length ||
+                    child?.children.some((grand) => grand.isPlaceHolder)
                 ) &&
                 shouldNodeHaveChildren(child)
             );
