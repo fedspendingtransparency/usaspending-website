@@ -17,7 +17,8 @@ const propTypes = {
     todayLineValue: PropTypes.number,
     endLineValue: PropTypes.number,
     potentialEndLineValue: PropTypes.number,
-    awardType: PropTypes.string
+    awardType: PropTypes.string,
+    showHideTooltip: PropTypes.func
 };
 
 const ContractGrantActivityChartVerticalLines = ({
@@ -29,7 +30,8 @@ const ContractGrantActivityChartVerticalLines = ({
     todayLineValue,
     endLineValue,
     potentialEndLineValue,
-    awardType
+    awardType,
+    showHideTooltip
 }) => {
     // text for end line
     const endLineText = awardType === 'grant' ? 'End' : 'Current End';
@@ -71,7 +73,11 @@ const ContractGrantActivityChartVerticalLines = ({
                 showTextPosition="right"
                 adjustmentX={padding.left}
                 textClassname="start"
-                lineClassname="start" />}
+                lineClassname="start"
+                onMouseMoveLine={showHideTooltip}
+                onMouseLeaveLine={showHideTooltip}
+                onMouseMoveText={showHideTooltip}
+                onMouseLeaveText={showHideTooltip} />}
             {/* today line */}
             {xScale && <SVGLine
                 scale={xScale}
@@ -101,7 +107,11 @@ const ContractGrantActivityChartVerticalLines = ({
                 showTextPosition="left"
                 adjustmentX={padding.left}
                 textClassname={`${endLineClassName}`}
-                lineClassname={`${endLineClassName}`} />}
+                lineClassname={`${endLineClassName}`}
+                onMouseMoveLine={showHideTooltip}
+                onMouseLeaveLine={showHideTooltip}
+                onMouseMoveText={showHideTooltip}
+                onMouseLeaveText={showHideTooltip} />}
             {/* potential end line */}
             {xScale && <SVGLine
                 scale={xScale}
@@ -116,7 +126,11 @@ const ContractGrantActivityChartVerticalLines = ({
                 showTextPosition="left"
                 adjustmentX={padding.left}
                 textClassname="potential-end"
-                lineClassname="potential-end" />}
+                lineClassname="potential-end"
+                onMouseMoveLine={showHideTooltip}
+                onMouseLeaveLine={showHideTooltip}
+                onMouseMoveText={showHideTooltip}
+                onMouseLeaveText={showHideTooltip} />}
         </g>
     );
 };

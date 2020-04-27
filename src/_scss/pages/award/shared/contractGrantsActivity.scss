@@ -50,6 +50,11 @@
       }
       .contract-grant-activity-visualization {
         @import '../shared/awardAmountsSection/charts';
+        .tooltip-wrapper {
+          .tooltip-spacer {
+            display: block;
+          }
+        }
         width: 100%;
         .activity-x-label {
           width: 100%;

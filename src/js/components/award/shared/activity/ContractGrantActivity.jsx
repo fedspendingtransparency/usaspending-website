@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+import moment from 'moment';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { formatMoney } from 'helpers/moneyFormatter';
 import { RectanglePercentVizTooltip } from 'components/award/financialAssistance/RectanglePercentVizTooltip';
@@ -12,6 +13,10 @@ const propTypes = {
     awardType: PropTypes.string,
     totalObligation: PropTypes.number
 };
+
+const defaultPadding = { left: 45, bottom: 30 };
+const defaultTooltipWidth = 375;
+const height = 360;
 
 const ContractGrantActivity = ({
     transactions,
@@ -57,18 +62,39 @@ const ContractGrantActivity = ({
     }, []);
 
     const handleTooltipData = (data, text) => {
-        console.log(' Tooltip Data : ', { data, text });
         let tooltipInfo = null;
         // potential award amount line
         if (!text) {
+            /**
+             * X Translation
+             * We are positioning the potential award amount line tooltip centered.
+             * Therefore, we must halve the width to get the center of the graph and add 8
+             * (since 8 is half the pointer for the tooltip that is auto adjusted in the tooltip
+             * wrapper) and subtract half of the tooltip (since the tooltip position draws left to right)
+             * Y Translation
+             * We position with respect to the y position and add 8 for half the point and padding bottom.
+             */
             tooltipInfo = {
-                styles: {
-                    transform: `translate(${150}px,${data}px)`,
+                tooltipPosition: 'bottom',
+                styles: { // 8px is half the tooltip pointer, data.position is the y-position
+                    transform: `translate(${((data.x2 / 2) + 8) - (defaultTooltipWidth / 2)}px,${data.position + 8 + defaultPadding.bottom}px)`,
                     position: 'absolute'
                 },
                 tooltipComponent: <RectanglePercentVizTooltip
                     title="Current Potential Award Amount"
                     amount={formatMoney(totalObligation)} />
+            };
+        }
+        else { // all other award lines
+            tooltipInfo = {
+                styles: { // y position is in the middle
+                    position: 'absolute',
+                    transform: `translate(${((data.position))}px,${(height / 2) - defaultPadding.bottom}px)`
+                },
+                tooltipComponent: <RectanglePercentVizTooltip
+                    title={text}
+                    amount={moment(data.value).format("MM/DD/YYYY")}
+                    left />
             };
         }
         setTooltipData(tooltipInfo);
@@ -77,7 +103,7 @@ const ContractGrantActivity = ({
 
     const showHideTooltip = (data, text) => {
         // hide tooltip
-        // if (!data && showTooltip) return setShowTooltip(false);
+        if (!data && showTooltip) return setShowTooltip(false);
         return handleTooltipData(data, text);
     };
 
@@ -87,18 +113,18 @@ const ContractGrantActivity = ({
                 className="award-section-tt"
                 {...tooltipData}
                 wide={false}
+                width={defaultTooltipWidth}
                 controlledProps={{
                     isControlled: true,
                     isVisible: showTooltip,
                     showTooltip: () => {},
                     closeTooltip: () => {}
-                }}
-                top />}
+                }} />}
             <ContractGrantActivityChart
                 visualizationWidth={visualizationWidth}
                 transactions={transactions}
-                height={360}
-                padding={{ left: 45, bottom: 30 }}
+                height={height}
+                padding={defaultPadding}
                 dates={dates}
                 awardType={awardType}
                 totalObligation={totalObligation}

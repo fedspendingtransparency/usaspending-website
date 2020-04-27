@@ -248,7 +248,8 @@ const ContractGrantActivityContainer = ({
                         className="award-section-tt"
                         icon="info"
                         wide
-                        tooltipComponent={tooltipInfo()} />
+                        tooltipComponent={tooltipInfo()}
+                        tooltipPosition="right" />
                 </div>
                 <hr />
                 <div className="results-table-message-container">

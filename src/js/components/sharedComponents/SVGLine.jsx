@@ -63,17 +63,33 @@ export default class SVGLine extends Component {
     }
 
     onMouseMoveLine = throttle(() => {
-        console.log(' Line Move ');
-        const { onMouseMoveLine, text } = this.props;
-        if (onMouseMoveLine) this.props.onMouseMoveLine(this.getLinePosition(), text);
+        // console.log(' Line Move ');
+        const {
+            onMouseMoveLine,
+            text,
+            x1,
+            x2,
+            y1,
+            y2,
+            position
+        } = this.props;
+        const data = {
+            position: this.getLinePosition(),
+            value: position,
+            x1,
+            x2,
+            y1,
+            y2
+        };
+        if (onMouseMoveLine) this.props.onMouseMoveLine(data, text);
     })
     onMouseLeaveLine = throttle(() => {
-        console.log(' Line Leave ');
+        // console.log(' Line Leave ');
         const { onMouseLeaveLine } = this.props;
         if (onMouseLeaveLine) this.props.onMouseLeaveLine();
     })
     onMouseMoveText = throttle(() => {
-        console.log(' Text Move ');
+        // console.log(' Text Move ');
         const { onMouseMoveText, text } = this.props;
         const textDiv = this[`textDiv${text}`];
         if (textDiv) {
@@ -82,7 +98,7 @@ export default class SVGLine extends Component {
         }
     })
     onMouseLeaveText = throttle(() => {
-        console.log(' Text Leave ');
+        // console.log(' Text Leave ');
         const { onMouseLeaveText } = this.props;
         if (onMouseLeaveText) this.props.onMouseLeaveText();
     })

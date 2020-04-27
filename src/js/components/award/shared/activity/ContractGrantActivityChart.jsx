@@ -330,7 +330,8 @@ const ContractGrantsActivityChart = ({
                     todayLineValue={todayLineValue}
                     endLineValue={endLineValue}
                     potentialEndLineValue={potentialEndLineValue}
-                    awardType={awardType} />}
+                    awardType={awardType}
+                    showHideTooltip={showHideTooltip} />}
                 {/* potential award amount line */}
                 {xScale && <SVGLine
                     lineClassname="potential-award-amount-line"
