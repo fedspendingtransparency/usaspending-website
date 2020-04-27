@@ -163,7 +163,6 @@ export const AgencyProfileV2 = ({
 
     return (
         <div className="usa-da-agency-page-v2">
-            <input id="slug" type="text" className="text" style={{ opacity: 0 }} value={url} />
             <MetaTags {...agencyPageMetaTags} />
             <Header />
             <StickyHeader>
@@ -175,6 +174,7 @@ export const AgencyProfileV2 = ({
                     </div>
                     <div className="sticky-header__toolbar">
                         <span className="fy-picker-label">Filter</span>
+                        <input id="slug" type="text" className="text" style={{ opacity: 0 }} value={url} />
                         <div className="fiscal-year-container">
                             <Picker
                                 icon={<FontAwesomeIcon icon="calendar-alt" />}
