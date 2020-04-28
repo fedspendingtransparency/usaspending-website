@@ -375,25 +375,39 @@ export const mergeChildren = (parentFromSearch, existingParent, traverseTreeByCo
 
                 if (existingChildIndex !== -1) {
                     // show this child
-                    acc[existingChildIndex].className = '';
-                    if (acc[existingChildIndex].children) {
+                    const existingChild = acc[existingChildIndex];
+                    existingChild.className = '';
+                    if (existingChild.children) {
                         // hide this child's children
-                        acc[existingChildIndex].children = acc[existingChildIndex].children.map((grand) => ({ ...grand, className: 'hide' }));
+                        existingChild.children = existingChild.children.map((grand) => ({ ...grand, className: 'hide' }));
                     }
 
-                    if (acc[existingChildIndex].children && searchChild.children) {
+                    if (existingChild.children && searchChild.children) {
                         searchChild.children
-                            .forEach((grandChild) => {
-                                const existingGrandChildIndex = acc[existingChildIndex].children
-                                    .findIndex((existingGC) => existingGC.value === grandChild.value);
+                            .forEach((searchGrandChild) => {
+                                const existingGrandChildIndex = existingChild.children
+                                    .findIndex((existingGC) => existingGC.value === searchGrandChild.value);
 
                                 if (existingGrandChildIndex !== -1) {
                                     // unless it's in the search array
-                                    acc[existingChildIndex].children[existingGrandChildIndex].className = '';
+                                    const existingGrandChild = existingChild.children[existingGrandChildIndex];
+                                    existingGrandChild.className = '';
+                                    const isParent = (
+                                        Object.keys(existingGrandChild).includes('children') &&
+                                        existingGrandChild?.children?.length
+                                    );
+                                    if (isParent) {
+                                        existingGrandChild.children = existingGrandChild.children.map((greatGrand) => {
+                                            const greatGrandIsInSearchResults = searchGrandChild.children
+                                                .some((nodeFromSearch) => nodeFromSearch.value === greatGrand.value);
+                                            if (greatGrandIsInSearchResults) return { ...greatGrand, className: '' };
+                                            return { ...greatGrand, className: 'hide' };
+                                        });
+                                    }
                                 }
                                 else {
                                     // or we're adding a new node.
-                                    acc[existingChildIndex].children.push(grandChild);
+                                    acc[existingChildIndex].children.push(searchGrandChild);
                                 }
                             });
                     }
