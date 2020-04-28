@@ -1,22 +1,90 @@
 .homepage-features__content {
-  .feature-covid {
-    margin-top: 8rem;
-    margin-right: 24rem;
-    margin-left: 24rem;
-    padding: 7.5rem;
-    border: 1px solid #00BDE3;
-    background-color: #E7F6F8;
-    .covid-title {
-      font-size: 3.5rem;
-      font-weight: 600;
-      line-height: 4rem;
-      margin-top: 0;
-    }
-    .covid-paragraph {
+  .feature-covid-container {
+    padding-top: 3rem;
+    .feature-covid__title {
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      font-size: rem(16);
+      margin: 0;
+      padding: 0 0 1.25rem 0;
+      color: #717171;
+      text-transform: uppercase;
 
+      &::before, &::after {
+          background-color: rgba(214,215,217,0.4);
+          content: '\a0';
+          @include flex(1 0 0);
+          height: 2px;
+          position: relative;
+          top: rem(26);
+      }
+
+      &::before {
+          margin-right: 15px;
+      }
+
+      &::after {
+          margin-left: 15px;
+      }
     }
-    .covid-list {
-      .covid-list__item {
+    .feature-covid {
+      display: flex;
+      @media(min-width: $medium-screen) {
+        padding: 0 20rem;
+      }
+      .feature-covid__body {
+        padding-top: 4.15rem;
+        border: 3px solid #00BDE3;
+        background-color: #E7F6F8;
+        display: flex;
+        flex-wrap: wrap;
+        @media(min-width: $medium-screen) {
+          flex-wrap: nowrap;
+        }
+        .feature-covid__body-icon {
+          flex-direction: column;
+          font-size: 5.8rem;
+          padding: 0 3rem;
+          svg {
+            path {
+              fill: #00BDE3;
+              opacity: 0.5;
+            }
+          }
+        }
+        .feature-covid__body-content {
+          flex-direction: column;
+          padding-right: 3.35rem;
+          padding-left: 3.35rem;
+          @media(min-width: $medium-screen) {
+            padding-left: 0;
+          }
+          .feature-covid__body-title {
+              margin: 0;
+              font-size: 3.2rem;
+              font-weight: $font-semibold;
+              line-height: 4rem;
+          }
+          .feature-covid__body-section {
+            .feature-covid__body-section__title {
+              font-size: 2.4rem;
+              line-height: 2.5rem;
+              font-weight: $font-semibold;
+            }
+            .feature-covid__body-section__sub-section {
+              .feature-covid__body-section__sub-title {
+                font-size: 1.8rem;
+                font-weight: $font-semibold;
+                line-height: 2.6rem;
+                margin-bottom: 0;
+              }
+              .feature-covid__body-section__paragraph {
+                margin-top: 0;
+              }
+            }
+          }
+        }
       }
     }
   }

@@ -51,7 +51,14 @@ const PaneFeature = () => (
                     <h3 className="feature-pane__content-title">COVID-19 Contract Spending</h3>
                     <p className="feature-pane_content-text">Explore the small fraction of COVID-19 related spending that involves Federal Contracts through a General Service Administration tool.</p>
                     <div className="feature-pane__button-wrapper">
-                        <a href="/#/recipient" role="button" className="feature-pane__button">COVID-19 Contract Spending</a>
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard"
+                            role="button"
+                            className="feature-pane__button">
+                            COVID-19 Contract Spending
+                        </a>
                     </div>
                 </div>
             </div>
