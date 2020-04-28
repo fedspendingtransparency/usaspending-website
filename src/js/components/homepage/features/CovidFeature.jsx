@@ -87,7 +87,7 @@ export const CovidFeature = () => (
                                     target="_blank"
                                     role="button"
                                     rel="noopener noreferrer"
-                                    href="www.google.com">
+                                    href="https://d2d.gsa.gov/report/covid-19-contract-obligation-tracking-dashboard">
                                     &nbsp;here.
                                 </a>
                             </p>
