@@ -6,10 +6,16 @@ import ContractGrantActivityChart from './ContractGrantActivityChart';
 const propTypes = {
     transactions: PropTypes.array,
     dates: PropTypes.object,
-    awardType: PropTypes.string
+    awardType: PropTypes.string,
+    totalObligation: PropTypes.number
 };
 
-const ContractGrantActivity = ({ transactions, dates, awardType }) => {
+const ContractGrantActivity = ({
+    transactions,
+    dates,
+    awardType,
+    totalObligation
+}) => {
     // reference to the div - using to get the width
     const divReference = useRef(null);
     // window width
@@ -49,7 +55,8 @@ const ContractGrantActivity = ({ transactions, dates, awardType }) => {
                 height={360}
                 padding={{ left: 45, bottom: 30 }}
                 dates={dates}
-                awardType={awardType} />
+                awardType={awardType}
+                totalObligation={totalObligation} />
         </div>
     );
 };

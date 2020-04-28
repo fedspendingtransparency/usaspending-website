@@ -1,5 +1,5 @@
 /**
- * VerticalLine.jsx
+ * VerticalLine.jsx -> SVGLine.jsx
  * Created by Jonathan Hill 07/05/19
  **/
 
@@ -8,25 +8,30 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 
 const propTypes = {
-    xScale: PropTypes.func, // function to set line position
+    scale: PropTypes.func, // function to set line position
     text: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.array
     ]), // text to display with line
-    y1: PropTypes.number, // top of graph
-    y2: PropTypes.number, // bottom of graph
-    xMax: PropTypes.number, // max possible value of x
-    xMin: PropTypes.number, // max possible value of x
-    xValue: PropTypes.number, // actual value of x
+    y1: PropTypes.number, // end of line - vertical
+    y2: PropTypes.number, // start of line - vertical
+    x1: PropTypes.number, // start of line - horizontal
+    x2: PropTypes.number, // end of line - horizontal
+    min: PropTypes.number, // max possible value of x or y
+    max: PropTypes.number, // max possible value of x or y
+    position: PropTypes.number, // value of position
     showTextPosition: PropTypes.string, // show text left, right, and top are valid
     textY: PropTypes.number, // show text at this height
     description: PropTypes.string,
     adjustmentX: PropTypes.number, // adjust x for padding
     textClassname: PropTypes.string,
-    lineClassname: PropTypes.string
+    lineClassname: PropTypes.string,
+    noText: PropTypes.bool, // do not show text,
+    isHorizontal: PropTypes.bool,
+    graphHeight: PropTypes.number
 };
 
-export default class VerticalLine extends Component {
+export default class SVGLine extends Component {
     constructor(props) {
         super(props);
 
@@ -52,6 +57,30 @@ export default class VerticalLine extends Component {
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
     }
+
+    getLinePosition = () => {
+        const {
+            isHorizontal,
+            graphHeight,
+            position,
+            adjustmentX,
+            scale
+        } = this.props;
+        if (isHorizontal) return graphHeight - scale(position);
+        return scale(position) + (adjustmentX || 0);
+    }
+
+    getMaximum = () => {
+        const {
+            isHorizontal,
+            graphHeight,
+            scale,
+            max,
+            adjustmentX
+        } = this.props;
+        if (isHorizontal) return graphHeight - scale(max);
+        return scale(max) + (adjustmentX || 0);
+    }
     // since we set the position of the text we need to update it on window resize
     handleWindowResize = throttle(() => {
         const windowWidth = window.innerWidth;
@@ -65,13 +94,15 @@ export default class VerticalLine extends Component {
 
     positionText = (text) => {
         const {
-            xScale,
-            xValue,
+            scale,
+            position,
             showTextPosition,
             textY,
-            adjustmentX
+            adjustmentX,
+            noText
         } = this.props;
-        let positionX = xScale(xValue || Date.now()) + (adjustmentX || 0);
+        if (noText) return null;
+        let positionX = scale(position || Date.now()) + (adjustmentX || 0);
         let modifiedTextY = textY;
         // the text div starts null since React only calls the callback ref function
         // when the DOM draws the element, without this you will get an error since
@@ -91,33 +122,34 @@ export default class VerticalLine extends Component {
                 modifiedTextY += (textDivDimensions.height * (parseInt(wordIndex, 10)));
             }
         }
-        this.setState({ [`${text}TextX`]: positionX, [`${text}TextY`]: modifiedTextY });
+        return this.setState({ [`${text}TextX`]: positionX, [`${text}TextY`]: modifiedTextY });
     }
 
-    verticalLine = () => {
+    line = () => {
         const {
-            xMin,
-            xMax,
-            xValue,
-            xScale,
-            adjustmentX,
+            min,
+            position,
+            scale,
+            x1,
+            x2,
             y1,
             y2,
-            lineClassname
+            lineClassname,
+            isHorizontal
         } = this.props;
-        const linePosition = xScale(xValue) + (adjustmentX || 0);
-        // get x position of minimum
-        const minimumX = xScale(xMin);
-        // get x position of maximum
-        const maximumX = xScale(xMax) + (adjustmentX || 0);
-        if ((linePosition > maximumX) || (linePosition < minimumX)) return null;
+        if (!position) return null;
+        const linePosition = this.getLinePosition();
+        const minimum = scale(min);
+        const maximum = this.getMaximum();
+        if ((linePosition > maximum) || (linePosition < minimum)) return null;
+        const classname = lineClassname ? `svg-line ${lineClassname}` : 'svg-line';
         return (
             <line
-                className={lineClassname || "vertical-line"}
-                x1={linePosition}
-                x2={linePosition}
-                y1={y1}
-                y2={y2} />
+                className={classname}
+                x1={isHorizontal ? x1 : linePosition}
+                x2={isHorizontal ? x2 : linePosition}
+                y1={isHorizontal ? linePosition : y1}
+                y2={isHorizontal ? linePosition : y2} />
         );
     }
 
@@ -125,10 +157,12 @@ export default class VerticalLine extends Component {
         const { text, textClassname } = this.props;
         if (!lineIsDisplayed || !text) return null;
         const textArray = Array.isArray(text) ? text : [text];
+        const classname = textClassname ? `svg-line__text ${textClassname}` : 'svg-line__text';
         return textArray.map((data, i) => (
             <text
                 key={data}
-                className={textClassname || "vertical-line__text"}
+                tabIndex="0"
+                className={classname}
                 x={this.state[`${data}TextX`]}
                 y={this.state[`${data}TextY`]}
                 ref={this[`setTextDiv${data}`]}
@@ -138,19 +172,19 @@ export default class VerticalLine extends Component {
         ));
     }
 
+    description = () => (this.props.description ||
+        `A ${this.props.isHorizontal ? 'horizontal' : 'vertical'} line representing today's date`);
     render() {
-        // show nothing if not within x Range
-        const verticalLine = this.verticalLine();
-        const text = this.text(verticalLine);
-        const description = this.props.description || 'A vertical line representing today\'s date';
+        const line = this.line();
+        const text = this.text(line);
         return (
-            <g className="vertical-line__container">
-                <desc>{description}</desc>
+            <g className="svg-line__container" tabIndex="0">
+                <desc>{this.description()}</desc>
                 {text}
-                {verticalLine}
+                {line}
             </g>
         );
     }
 }
 
-VerticalLine.propTypes = propTypes;
+SVGLine.propTypes = propTypes;

@@ -19,10 +19,16 @@ import {
 const propTypes = {
     awardId: PropTypes.string,
     awardType: PropTypes.string,
-    dates: PropTypes.object
+    dates: PropTypes.object,
+    totalObligation: PropTypes.number
 };
 
-const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
+const ContractGrantActivityContainer = ({
+    awardId,
+    awardType,
+    dates,
+    totalObligation
+}) => {
     // bad dates
     const [badDates, setBadDates] = useState(false);
     // loading
@@ -214,7 +220,8 @@ const ContractGrantActivityContainer = ({ awardId, awardType, dates }) => {
                 <ContractGrantActivity
                     transactions={transactions}
                     dates={dates}
-                    awardType={awardType} />
+                    awardType={awardType}
+                    totalObligation={totalObligation} />
             );
         }
         return null;

@@ -86,7 +86,7 @@
       fill: $color-gray-lighter;
       opacity: 0.3;
     }
-    .vertical-line {
+    .svg-line {
       &.start {
         stroke: $color-green-lighter;
       }
@@ -99,8 +99,11 @@
       &.potential-end {
         stroke: $color-secondary-dark;
       }
+      &.potential-award-amount-line {
+        stroke: $color-primary-darker;
+      }
     }
-    .vertical-line__text {
+    .svg-line__text {
       font-weight: $font-semibold;
       &.start {
         fill: $color-green-lighter;
