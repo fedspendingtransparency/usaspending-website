@@ -96,17 +96,32 @@
       &.start {
         stroke: $color-green-lighter;
       }
+      &.noOpacity {
+        opacity: 1;
+      }
       &.contract-end {
         stroke: $color-gold-light;
+      }
+      &.noOpacity {
+        opacity: 1;
       }
       &.grant-end {
         stroke: $color-secondary-dark;
       }
+      &.noOpacity {
+        opacity: 1;
+      }
       &.potential-end {
         stroke: $color-secondary-dark;
       }
+      &.noOpacity {
+        opacity: 1;
+      }
       &.potential-award-amount-line {
         stroke: $color-primary-darker;
+      }
+      &.potential-award-amount-line:hover {
+        opacity: 1;
       }
     }
     .svg-line__text {

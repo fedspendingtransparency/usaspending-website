@@ -26,7 +26,8 @@ const propTypes = {
     awardType: PropTypes.string,
     dates: PropTypes.object,
     totalObligation: PropTypes.number,
-    showHideTooltip: PropTypes.func
+    showHideTooltip: PropTypes.func,
+    thisLineOrTextIsHovered: PropTypes.string
 };
 
 const xAxisSpacingPercentage = 0.05;
@@ -40,7 +41,8 @@ const ContractGrantsActivityChart = ({
     awardType,
     dates,
     totalObligation,
-    showHideTooltip
+    showHideTooltip,
+    thisLineOrTextIsHovered
 }) => {
     // x series
     const [xDomain, setXDomain] = useState([]);
@@ -331,7 +333,8 @@ const ContractGrantsActivityChart = ({
                     endLineValue={endLineValue}
                     potentialEndLineValue={potentialEndLineValue}
                     awardType={awardType}
-                    showHideTooltip={showHideTooltip} />}
+                    showHideTooltip={showHideTooltip}
+                    thisLineOrTextIsHovered={thisLineOrTextIsHovered} />}
                 {/* potential award amount line */}
                 {xScale && <SVGLine
                     lineClassname="potential-award-amount-line"
