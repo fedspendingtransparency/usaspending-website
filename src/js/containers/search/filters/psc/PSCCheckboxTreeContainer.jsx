@@ -169,7 +169,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
             .map((node) => removePlaceholderString(node))
             .reduce((acc, expandedAndChecked) => {
                 const node = getPscNodeFromTree(nodes, expandedAndChecked);
-                return [...acc, ...node.children.map((tas) => tas.value)];
+                return [...acc, ...node.children.map((psc) => psc.value)];
             }, []);
 
         return new Set([...checked, ...newChecked]);
@@ -181,7 +181,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
             this.setState({ isLoading: true });
         }
         const queryParam = this.state.isSearch
-            ? `?depth=2&filter=${searchStr}`
+            ? `?depth=-1&filter=${searchStr}`
             : id;
         this.request = fetchPsc(queryParam);
         const isPartialTree = (
@@ -267,7 +267,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
             isSearch
         } = this.state;
         return (
-            <div className="tas-checkbox">
+            <div className="psc-checkbox">
                 {/* <span className="tas-checkbox__header">
                     Search by Federal Account, TAS, or Agency Owner
                     <ProgramSourceInfoTooltip
