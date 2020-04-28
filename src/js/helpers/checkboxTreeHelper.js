@@ -343,7 +343,7 @@ export const expandAllNodes = (nodes, propForNode = 'value') => {
         acc.push(node[propForNode]);
         if (node.children) {
             acc.push(
-                ...node.children.map((child) => child[propForNode])
+                ...node.children.reduce(getValue, [])
             );
         }
         return acc;
