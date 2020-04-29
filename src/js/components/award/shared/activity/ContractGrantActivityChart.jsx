@@ -86,9 +86,12 @@ const ContractGrantsActivityChart = ({
         const yZero = clonedTransactions.length > 1 ?
             clonedTransactions[0].running_obligation_total :
             0;
-        const yOne = !clonedTransactions.length ?
+        let yOne = !clonedTransactions.length ?
             0 :
             totalObligation || clonedTransactions.pop().running_obligation_total;
+        // if any transaction is greater than the obligation
+        const transactionIsGreaterThanObligation = clonedTransactions.find((t) => t.running_obligation_total > totalObligation);
+        if (transactionIsGreaterThanObligation) yOne = transactionIsGreaterThanObligation.running_obligation_total;
         setYDomain([yZero, yOne]);
     }, [transactions, totalObligation]);
     // hook - runs only on mount unless transactions change
