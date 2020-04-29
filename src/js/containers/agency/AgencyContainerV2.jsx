@@ -173,8 +173,8 @@ export const AgencyProfileV2 = ({
                         </h1>
                     </div>
                     <div className="sticky-header__toolbar">
+                        <input id="slug" type="text" className="text" style={{ position: 'absolute', right: '9999px', opacity: 0 }} value={url} />
                         <span className="fy-picker-label">Filter</span>
-                        <input id="slug" type="text" className="text" style={{ opacity: 0 }} value={url} />
                         <div className="fiscal-year-container">
                             <Picker
                                 icon={<FontAwesomeIcon icon="calendar-alt" />}
