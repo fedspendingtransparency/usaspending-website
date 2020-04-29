@@ -8,7 +8,7 @@
       font-size: rem(16);
       margin: 0;
       padding: 0 0 1.25rem 0;
-      color: #717171;
+      color: $color-gray-medium;
       text-transform: uppercase;
 
       &::before, &::after {
@@ -35,8 +35,8 @@
       }
       .feature-covid__body {
         padding-top: 4.15rem;
-        border: 3px solid #00BDE3;
-        background-color: #E7F6F8;
+        border: 3px solid $color-primary-alt-dark;
+        background-color: $color-primary-alt-lightest;
         display: flex;
         flex-wrap: wrap;
         @media(min-width: $medium-screen) {

@@ -9,7 +9,7 @@ import SpendingExplorerFeature from './SpendingExplorerFeature';
 import SearchFeature from './SearchFeature';
 import PaneFeature from './PaneFeature';
 import ProfileFeature from './ProfileFeature';
-import { CovidFeature } from './CovidFeature';
+import CovidFeature from './CovidFeature';
 
 const Features = () => (
     <section

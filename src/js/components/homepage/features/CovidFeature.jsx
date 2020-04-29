@@ -6,24 +6,23 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-/* eslint-disable import/prefer-default-export */
-export const CovidFeature = () => (
+const CovidFeature = () => (
     <div className="feature-covid-container">
-        <h2 className="feature-covid__title">AN IMPORTANT MESSAGE ABOUT COVID-19</h2>
+        <h3 className="feature-covid__title">AN IMPORTANT MESSAGE ABOUT COVID-19</h3>
         <div className="feature-covid">
             <div className="feature-covid__body">
                 <div className="feature-covid__body-icon">
                     <FontAwesomeIcon size="lg" icon="info-circle" />
                 </div>
                 <div className="feature-covid__body-content">
-                    <h1 className="feature-covid__body-title">
+                    <h3 className="feature-covid__body-title">
                         A message from USAspending about Federal Government Spending on the 2019 novel
                         coronavirus (COVID-19)
-                    </h1>
+                    </h3>
                     <div className="feature-covid__body-section">
-                        <h2 className="feature-covid__body-section__title">
+                        <h3 className="feature-covid__body-section__title">
                             Coronavirus spending data will soon be available on USAspending.gov
-                        </h2>
+                        </h3>
                         <p className="feature-covid__body-section__paragraph">
                             The team at USAspending.gov has been working with Federal agencies
                             to finalize a plan to collect and display data capturing how
@@ -43,9 +42,9 @@ export const CovidFeature = () => (
                         </p>
                     </div>
                     <div className="feature-covid__body-section">
-                        <h2 className="feature-covid__body-section__title">
+                        <h3 className="feature-covid__body-section__title">
                             Expect the new data in late July
-                        </h2>
+                        </h3>
                         <p className="feature-covid__body-section__paragraph">
                             <strong>In late July</strong> we will integrate the new data into
                             USAspending.gov showing Coronavirus supplemental loans,
@@ -53,13 +52,13 @@ export const CovidFeature = () => (
                         </p>
                     </div>
                     <div className="feature-covid__body-section">
-                        <h2 className="feature-covid__body-section__title">
+                        <h3 className="feature-covid__body-section__title">
                             Obtaining information on coronavirus spending before July
-                        </h2>
+                        </h3>
                         <div className="feature-covid__body-section__sub-section">
-                            <h3 className="feature-covid__body-section__sub-title">
+                            <h4 className="feature-covid__body-section__sub-title">
                                 Searching by Keyword
-                            </h3>
+                            </h4>
                             <p className="feature-covid__body-section__paragraph">
                                 You can use the &#34;keyword search&#34; or the keyword
                                 feature in &#34;advanced search&#34; to search for awards
@@ -69,9 +68,9 @@ export const CovidFeature = () => (
                             </p>
                         </div>
                         <div className="feature-covid__body-section__sub-section">
-                            <h3 className="feature-covid__body-section__sub-title">
+                            <h4 className="feature-covid__body-section__sub-title">
                                 Contract Analysis from GSA and OMB
-                            </h3>
+                            </h4>
                             <p className="feature-covid__body-section__paragraph">
                                 While contracts are just a small part of
                                 Coronavirus supplemental spending, we wanted to make you
@@ -93,9 +92,9 @@ export const CovidFeature = () => (
                             </p>
                         </div>
                         <div className="feature-covid__body-section__sub-section">
-                            <h3 className="feature-covid__body-section__sub-title">
+                            <h4 className="feature-covid__body-section__sub-title">
                                 Data Lab Analysis
-                            </h3>
+                            </h4>
                             <p className="feature-covid__body-section__paragraph">
                                 In late May, we will launch an analysis on the Data Lab
                                 showing Coronavirus supplemental spending by Federal
@@ -104,9 +103,9 @@ export const CovidFeature = () => (
                         </div>
                     </div>
                     <div className="feature-covid__body-section">
-                        <h2 className="feature-covid__body-section__title">
+                        <h3 className="feature-covid__body-section__title">
                             For more information on our data model changes
-                        </h2>
+                        </h3>
                         <p className="feature-covid__body-section__paragraph">
                         If you&#8217;re interested in checking out the changes to our data model on
                         USAspending.gov to get a sense of how we will be capturing Coronavirus
@@ -133,3 +132,5 @@ export const CovidFeature = () => (
         </div>
     </div>
 );
+
+export default CovidFeature;
