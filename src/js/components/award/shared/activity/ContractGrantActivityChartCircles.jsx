@@ -13,7 +13,8 @@ const propTypes = {
     xScale: PropTypes.func,
     yScale: PropTypes.func,
     xAxisSpacing: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    showHideTooltip: PropTypes.func
 };
 
 const ContractGrantActivityChartCircles = ({
@@ -22,7 +23,8 @@ const ContractGrantActivityChartCircles = ({
     xScale,
     yScale,
     xAxisSpacing,
-    height
+    height,
+    showHideTooltip
 }) => {
     // circle data
     const [circleData, setCircleData] = useState([]);
@@ -36,7 +38,8 @@ const ContractGrantActivityChartCircles = ({
                     className: 'transaction-date-circle',
                     cx: xScale(data.action_date.valueOf()) + padding.left,
                     cy: (height - yScale(data.running_obligation_total)),
-                    r: 1.5
+                    r: 1.5,
+                    data
                 }));
             setCircleData(circles);
         }
@@ -48,10 +51,17 @@ const ContractGrantActivityChartCircles = ({
         xAxisSpacing,
         height
     ]);
+
+    const onMouseMove = (e) => {
+        showHideTooltip(circleData[e.target.getAttribute('data-index')], 'Modification');
+    };
+    
+    const onMouseLeave = () => showHideTooltip();
+
     return (
         <g className="contract-grant-activity-chart__circles">
             {
-                circleData.map((circle) => {
+                circleData.map((circle, i) => {
                     const {
                         key,
                         description,
@@ -64,10 +74,13 @@ const ContractGrantActivityChartCircles = ({
                         <g key={key} tabIndex="0">
                             <desc>{description}</desc>
                             <circle
+                                data-index={i}
                                 className={className}
                                 cx={cx}
                                 cy={cy}
-                                r={r} />
+                                r={r}
+                                onMouseMove={onMouseMove}
+                                onMouseLeave={onMouseLeave} />
                         </g>
                     );
                 })

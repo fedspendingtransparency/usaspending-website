@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import moment from 'moment';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney, calculateTreemapPercentage } from 'helpers/moneyFormatter';
 import { convertDatesToRange } from 'helpers/timeRangeHelper';
 import { RectanglePercentVizTooltip } from 'components/award/financialAssistance/RectanglePercentVizTooltip';
 import ContractGrantActivityChart from './ContractGrantActivityChart';
+import PaginatedTooltip from './PaginatedTooltip';
+import Tooltip from './Tooltip';
 
 const propTypes = {
     transactions: PropTypes.array,
@@ -82,13 +84,16 @@ const ContractGrantActivity = ({
             amount={formatMoney(totalObligation)} />
     });
 
-    const verticalLinesTooltipData = (data, text) => {
-        const date = moment(data.value);
-        const dateFormatted = date.format("MM/DD/YYYY");
+    const formatDateData = (date) => {
         const today = moment(Date.now());
-        const dateText = today.isAfter(date) ?
+        const dateFormatted = date.format("MM/DD/YYYY");
+        return today.isAfter(date) ?
             `${dateFormatted} (${convertDatesToRange(date, today)} ago)` :
             `${dateFormatted} (${convertDatesToRange(today, date)} from today)`;
+    };
+
+    const verticalLinesTooltipData = (data, text) => {
+        const date = moment(data.value);
         setThisLineOrTextIsHovered(text);
         return {
             styles: { // y position is in the middle of the line
@@ -97,15 +102,69 @@ const ContractGrantActivity = ({
             },
             tooltipComponent: <RectanglePercentVizTooltip
                 title={`${text} Date`}
-                amount={dateText}
+                amount={formatDateData(date)}
                 tooltipPosition="right" />
         };
     };
+
+    const transactionTooltipInfo = (data, title) => (data.allTransactions.map((transaction, i) => ({
+        title: `${title} ${i + 1}`,
+        sections: [
+            {
+                title: 'Action Date',
+                paragraphs: [
+                    `${formatDateData(transaction.action_date)}`
+                ]
+            },
+            {
+                title: 'Obligated Amount',
+                paragraphs: [
+                    `${transactions.federal_action_obligation}`
+                ]
+            },
+            {
+                title: 'Total Obligations to Date',
+                paragraphs: [
+                    `${formatMoney(transaction.running_total_obligation_to_date)} (
+                    ${calculateTreemapPercentage(transactions.running_total_obligation_to_date, totalObligation)})`
+                ]
+            },
+            {
+                title: 'Action Type',
+                paragraphs: [
+                    `${transactions.type_description || '--'}`
+                ]
+            },
+            {
+                title: 'Description',
+                paragraphs: [
+                    `${transactions.description || '--'}`
+                ]
+            }
+        ]
+    })
+    ));
+
+    const transactionTooltipData = (data) => ({
+        styles: { // y position is in the middle of the line
+            position: 'absolute',
+            transform: `translate(${((data.position))}px,${(height / 2) - defaultPadding.bottom}px)`
+        },
+        tooltipComponent: <PaginatedTooltip
+            data={transactionTooltipInfo(data, 'Modification')}
+            tooltipElement={<Tooltip />}
+            tooltipPosition="right" />
+    });
 
     const handleTooltipData = (data, text) => {
         let tooltipInfo = null;
         if (!text) { // potential award amount line
             tooltipInfo = potentialAwardAmountLineTooltipData(data);
+        }
+        else if (text === 'Modification') { // circle tooltip
+            console.log(' Showing tooltip for circle : ', data);
+            console.log(' Tooltip data : ', transactionTooltipInfo(data.data, 'Modification'))
+            tooltipInfo = transactionTooltipData(data.data);
         }
         else { // all other award lines
             tooltipInfo = verticalLinesTooltipData(data, text);

@@ -324,7 +324,8 @@ const ContractGrantsActivityChart = ({
                     xScale={xScale}
                     yScale={yScale}
                     xAxisSpacing={xAxisSpacing}
-                    height={height} />}
+                    height={height}
+                    showHideTooltip={showHideTooltip} />}
                 {/* vertical lines */}
                 {xScale && <ContractGrantActivityChartVerticalLines
                     xScale={xScale}
