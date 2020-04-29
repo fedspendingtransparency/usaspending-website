@@ -6,7 +6,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { fetchPsc } from "helpers/searchHelper";
-
+import { cleanPscData } from "helpers/pscHelper";
 import { PSCCheckboxTreeContainer } from "../../../../../src/js/containers/search/filters/psc/PSCCheckboxTreeContainer";
 
 import {
@@ -20,6 +20,16 @@ import {
 jest.mock("helpers/searchHelper", () => ({
     fetchPsc: jest.fn()
 }));
+
+const treePopulatedToSecondTier = cleanPscData(topTierResponse.results).map((top) => {
+    if (top.id === 'Service') {
+        return {
+            ...top,
+            children: cleanPscData(secondTierResponse.results)
+        };
+    }
+    return top;
+});
 
 describe('PscCheckboxTreeContainer', () => {
     describe('fetchPsc', () => {
@@ -83,79 +93,96 @@ describe('PscCheckboxTreeContainer', () => {
                 });
         });
     });
-    // describe('onExpand', () => {
-    //     let container;
-    //     const mockSetExpanded = jest.fn();
-    //     const mockFetchTas = jest.fn();
+    describe('onExpand', () => {
+        let container;
+        const mockSetExpanded = jest.fn();
+        const mockFetchPsc = jest.fn();
 
-    //     beforeEach(async () => {
-    //         mockSetExpanded.mockReset();
-    //         mockFetchTas.mockReset();
-    //         container = shallow(<PSCCheckboxTreeContainer
-    //             {...defaultProps}
-    //             nodes={treePopulatedToFederalAccountLevel}
-    //             setExpandedTas={mockSetExpanded} />);
-    //         container.instance().fetchPsc = mockFetchTas;
-    //     });
-    //     it('calls fetchPsc w/ agency & federal account when necessary', async () => {
-    //         container.instance().onExpand('012-8226', ['012', '012-8226'], true, { treeDepth: 1 });
+        beforeEach(async () => {
+            mockSetExpanded.mockReset();
+            mockFetchPsc.mockReset();
+            container = shallow(<PSCCheckboxTreeContainer
+                {...defaultProps}
+                nodes={treePopulatedToSecondTier}
+                setExpandedPsc={mockSetExpanded} />);
+            container.instance().fetchPsc = mockFetchPsc;
+        });
+        it('calls fetchPsc w/ top tier and second tier params', async () => {
+            container.instance().onExpand(
+                'Service',
+                ['Service'],
+                true,
+                {
+                    treeDepth: 0,
+                    parent: {}
+                }
+            );
+            expect(mockFetchPsc).toHaveBeenLastCalledWith('Service');
+        });
+        it('calls fetchPsc w/ top tier & second tier params', async () => {
+            container.instance().onExpand(
+                'B',
+                ['Service', 'B'],
+                true,
+                {
+                    treeDepth: 1,
+                    parent: { value: 'Service', ancestors: [] }
+                }
+            );
+            expect(mockFetchPsc).toHaveBeenLastCalledWith('Service/B');
+        });
+        it('calls fetchPsc w/ top tier, second tier, and third tier params', () => {
+            container.instance().onExpand(
+                'B5',
+                ['Service', 'B', 'B5'],
+                true,
+                {
+                    treeDepth: 2,
+                    parent: { value: 'B', ancestors: ['Service'] }
+                }
+            );
+            expect(mockFetchPsc).toHaveBeenLastCalledWith('Service/B/B5');
+        });
+    });
+    describe('onCollapse', () => {
+        it('updates the props.expanded array', () => {
+            const mockFn = jest.fn();
+            const container = shallow(
+                <PSCCheckboxTreeContainer
+                    {...defaultProps}
+                    nodes={treePopulatedToSecondTier}
+                    expanded={['Services', 'B']}
+                    setExpandedPsc={mockFn} />);
+            container.instance().onCollapse(['Services']);
+            const newExpanded = mockFn.mock.calls[0][0];
+            expect(newExpanded).toEqual(['Services']);
+        });
+    });
+    describe('onCheck', () => {
+        it('updates the checked array', async () => {
+            const mockFn = jest.fn();
+            const container = shallow(<PSCCheckboxTreeContainer
+                {...defaultProps}
+                nodes={treePopulatedToSecondTier}
+                setCheckedPsc={mockFn} />);
+            container.instance().onCheck(['Service']);
+            const newChecked = mockFn.mock.calls[0][0];
+            expect(newChecked).toEqual(['Service']);
+        });
+    });
+    describe('onUncheck', () => {
+        it('updates the checked array', async () => {
+            const mockFn = jest.fn();
+            const container = shallow(<PSCCheckboxTreeContainer
+                {...defaultProps}
+                nodes={treePopulatedToSecondTier}
+                setCheckedPsc={mockFn}
+                checked={['Service']} />);
 
-    //         expect(mockFetchTas).toHaveBeenLastCalledWith('012/012-8226');
-    //     });
-    //     it('calls fetchPsc w/ only agency when necessary', () => {
-    //         container.instance().onExpand('012', ['012'], true, { treeDepth: 0 });
+            container.instance().onUncheck([], { value: 'Service', checked: false });
 
-    //         expect(mockFetchTas).toHaveBeenLastCalledWith('012');
-    //     });
-    //     it('always sets the expanded state', () => {
-    //         container.instance().onExpand('012', ['012'], true, { treeDepth: 0 });
-    //         let newExpanded = mockSetExpanded.mock.calls[0][0];
-    //         // 1. When we expand an agency
-    //         expect(newExpanded).toEqual(['012']);
-    //         // 2. When we expand a federal account
-    //         container.instance().onExpand('012-8226', ['012', '012-8226'], true, { treeDepth: 1 });
-    //         newExpanded = mockSetExpanded.mock.calls[1][0];
-    //         expect(newExpanded).toEqual(['012', '012-8226']);
-    //     });
-    // });
-    // describe('onCollapse', () => {
-    //     it('updates the state.expanded array', () => {
-    //         const mockFn = jest.fn();
-    //         const container = shallow(
-    //             <PSCCheckboxTreeContainer
-    //                 {...defaultProps}
-    //                 expanded={['1', '11']}
-    //                 setExpandedTas={mockFn} />);
-    //         container.instance().onCollapse(['11']);
-    //         const newExpanded = mockFn.mock.calls[0][0];
-    //         expect(newExpanded).toEqual(['11']);
-    //     });
-    // });
-    // describe('onCheck', () => {
-    //     it('updates the checked array', async () => {
-    //         const mockFn = jest.fn();
-    //         const container = shallow(<PSCCheckboxTreeContainer
-    //             {...defaultProps}
-    //             setCheckedTas={mockFn}
-    //             nodes={treePopulatedToFederalAccountLevel} />);
-    //         container.instance().onCheck(['012']);
-    //         const newChecked = mockFn.mock.calls[0][0];
-    //         expect(newChecked).toEqual(['012']);
-    //     });
-    // });
-    // describe('onUncheck', () => {
-    //     it('updates the checked array', async () => {
-    //         const mockFn = jest.fn();
-    //         const container = shallow(<PSCCheckboxTreeContainer
-    //             {...defaultProps}
-    //             setCheckedTas={mockFn}
-    //             nodes={treePopulatedToFederalAccountLevel}
-    //             checked={['012']} />);
-
-    //         container.instance().onUncheck([], { value: '012', checked: false });
-
-    //         const newChecked = mockFn.mock.calls[0][0];
-    //         expect(newChecked).toEqual([]);
-    //     });
-    // });
+            const newChecked = mockFn.mock.calls[0][0];
+            expect(newChecked).toEqual([]);
+        });
+    });
 });
