@@ -76,7 +76,7 @@ const ContractGrantActivity = ({
     const potentialAwardAmountLineTooltipData = (data) => ({
         tooltipPosition: 'bottom',
         styles: { // 8px is half the tooltip pointer, data.position is the y-position
-            transform: `translate(${((data.x2 / 2) + 8) - (defaultTooltipWidth / 2)}px,${data.position + 8 + defaultPadding.bottom}px)`,
+            transform: `translate(${((data.x2 / 2) + 8) - (defaultTooltipWidth / 2)}px,${data.position + defaultPadding.bottom}px)`,
             position: 'absolute'
         },
         tooltipComponent: <RectanglePercentVizTooltip
@@ -98,17 +98,16 @@ const ContractGrantActivity = ({
         return {
             styles: { // y position is in the middle of the line
                 position: 'absolute',
-                transform: `translate(${((data.position))}px,${(height / 2) - defaultPadding.bottom}px)`
+                transform: `translate(${((data.position + 16))}px,${(height / 2) - defaultPadding.bottom}px)`
             },
             tooltipComponent: <RectanglePercentVizTooltip
                 title={`${text} Date`}
-                amount={formatDateData(date)}
-                tooltipPosition="right" />
+                amount={formatDateData(date)} />
         };
     };
 
-    const transactionTooltipInfo = (data, title) => (data.allTransactions.map((transaction, i) => ({
-        title: `${title} ${i + 1}`,
+    const transactionTooltipInfo = (data) => (data.allTransactionsOnTheSameDate.map((transaction, i) => ({
+        title: `Modification ${transaction.modification_number || ''}`,
         sections: [
             {
                 title: 'Action Date',
@@ -119,26 +118,26 @@ const ContractGrantActivity = ({
             {
                 title: 'Obligated Amount',
                 paragraphs: [
-                    `${transactions.federal_action_obligation}`
+                    `${formatMoney(transaction.federal_action_obligation)}`
                 ]
             },
             {
                 title: 'Total Obligations to Date',
                 paragraphs: [
-                    `${formatMoney(transaction.running_total_obligation_to_date)} (
-                    ${calculateTreemapPercentage(transactions.running_total_obligation_to_date, totalObligation)})`
+                    `${formatMoney(transaction.running_obligation_total_to_date)} 
+                    ${totalObligation ? `(${calculateTreemapPercentage(transaction.running_obligation_total_to_date, totalObligation)})` : ''}`
                 ]
             },
             {
                 title: 'Action Type',
                 paragraphs: [
-                    `${transactions.type_description || '--'}`
+                    `${transaction.type_description || '--'}`
                 ]
             },
             {
                 title: 'Description',
                 paragraphs: [
-                    `${transactions.description || '--'}`
+                    `${transaction.description || '--'}`
                 ]
             }
         ]
@@ -148,12 +147,11 @@ const ContractGrantActivity = ({
     const transactionTooltipData = (data) => ({
         styles: { // y position is in the middle of the line
             position: 'absolute',
-            transform: `translate(${((data.position))}px,${(height / 2) - defaultPadding.bottom}px)`
+            transform: `translate(${data.cx + 13}px,${data.cy - 12}px)`
         },
         tooltipComponent: <PaginatedTooltip
-            data={transactionTooltipInfo(data, 'Modification')}
-            tooltipElement={<Tooltip />}
-            tooltipPosition="right" />
+            data={transactionTooltipInfo(data.data, 'Modification')}
+            tooltipElement={<Tooltip />} />
     });
 
     const handleTooltipData = (data, text) => {
@@ -162,9 +160,7 @@ const ContractGrantActivity = ({
             tooltipInfo = potentialAwardAmountLineTooltipData(data);
         }
         else if (text === 'Modification') { // circle tooltip
-            console.log(' Showing tooltip for circle : ', data);
-            console.log(' Tooltip data : ', transactionTooltipInfo(data.data, 'Modification'))
-            tooltipInfo = transactionTooltipData(data.data);
+            tooltipInfo = transactionTooltipData(data);
         }
         else { // all other award lines
             tooltipInfo = verticalLinesTooltipData(data, text);

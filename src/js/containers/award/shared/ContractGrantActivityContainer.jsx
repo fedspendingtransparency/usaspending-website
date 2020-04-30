@@ -40,6 +40,17 @@ const ContractGrantActivityContainer = ({
     // requests
     const request = useRef(null);
     const hasNext = useRef(true);
+    let previousRunningObligationTotalToDate = 0;
+    const createTransactionsRunningTotalObligationToDateAndSort = (data, runningObligationTotal) => {
+        const sortedTransactionsByModificationNumber = data.sort((a, b) => parseInt(a.modification_number.replace(/\D/g, ''), 10) - parseInt(b.modification_number.replace(/\D/g, ''), 10));
+        return sortedTransactionsByModificationNumber.map((transaction, i) => {
+            if (i === 0) previousRunningObligationTotalToDate = runningObligationTotal;
+            const t = transaction;
+            t.running_obligation_total_to_date = previousRunningObligationTotalToDate + t.federal_action_obligation;
+            previousRunningObligationTotalToDate = t.running_obligation_total_to_date;
+            return t;
+        });
+    };
     /**
      * formatTransactions
      * - any transactions that have the same date must be summed into one amount.
@@ -61,27 +72,18 @@ const ContractGrantActivityContainer = ({
                  * allTransactions property.
                  */
                 if (currentTransactionIndex !== -1) {
-                    // update the allTransactions array if it exists
-                    if (acc[currentTransactionIndex]?.allTransactions) {
-                        acc[currentTransactionIndex].allTransactions.push(updatedData);
-                    }
-                    else {
-                        /**
-                         * The first duplicate found.
-                         * We will add the duplicate which is this data, and we will add the
-                         * original node which is acc[currentTransactionIndex].
-                         */
-                        const clonedTransaction = cloneDeep(acc[currentTransactionIndex]);
-                        acc[currentTransactionIndex].allTransactions = [clonedTransaction, updatedData];
-                    }
-                    /**
-                     * We sum the obligation last since we will want to keep the original obligation
-                     * value if we add it to the allTransactions array.
-                     */
+                    // we have a transaction with a duplicate date so we add it to all transactions
+                    acc[currentTransactionIndex].allTransactionsOnTheSameDate.push(updatedData);
                     const sumOfObligations = acc[currentTransactionIndex].federal_action_obligation + updatedData.federal_action_obligation;
                     acc[currentTransactionIndex].federal_action_obligation = sumOfObligations;
                     return acc;
                 }
+                /**
+                 * Here we have a transaction that has a unique date.
+                 * We will create the all transactions property and add itself to it
+                 * then add it to the acc
+                 */
+                updatedData.allTransactionsOnTheSameDate = [updatedData];
                 acc.push(updatedData);
                 return acc;
             }, []);
@@ -97,10 +99,14 @@ const ContractGrantActivityContainer = ({
                 if (i === 0) { // first one do not sum
                     updatedData.running_obligation_total = data.federal_action_obligation;
                     previousRunningObligationTotal = data.federal_action_obligation;
+                    // sort and add running obligation to each transaction
+                    updatedData.allTransactionsOnTheSameDate = createTransactionsRunningTotalObligationToDateAndSort(updatedData.allTransactionsOnTheSameDate, 0);
                     return updatedData;
                 }
                 const total = previousRunningObligationTotal + data.federal_action_obligation;
                 updatedData.running_obligation_total = total;
+                // sort and add running obligation to each transaction
+                updatedData.allTransactionsOnTheSameDate = createTransactionsRunningTotalObligationToDateAndSort(updatedData.allTransactionsOnTheSameDate, previousRunningObligationTotal);
                 previousRunningObligationTotal = total;
                 return updatedData;
             });

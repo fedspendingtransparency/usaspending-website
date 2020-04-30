@@ -50,6 +50,9 @@
       }
       .contract-grant-activity-visualization {
         @import '../shared/awardAmountsSection/charts';
+        .tooltip-wrapper {
+          z-index: 214748364;
+        }
         width: 100%;
         .activity-x-label {
           width: 100%;

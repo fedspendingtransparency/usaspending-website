@@ -18,25 +18,13 @@ const propTypes = {
 };
 
 const Tooltip = ({ data }) => {
-    // action_date: "2018-10-30"
-    // action_type: "M"
-    // action_type_description: "OTHER ADMINISTRATIVE ACTION"
-    // description: "IGF::CT::IGF FOR CRITICAL FUNCTIONS TECHNICAL AND SUPPORT SERVICES FOR THE DATA TRANSPARENCY PROGRAM TO SUPPORT SCHEMA, DATA BROKER, USASPENDING WEBSITE, SERVICE DESK, DATA ANALYTICS, AND HOSTING SERVICE AREAS."
-    // face_value_loan_guarantee: null
-    // federal_action_obligation: 0
-    // id: "CONT_TX_2036_2036_2033H618F00230_P00004_TFSAFSABPA17009_0"
-    // modification_number: "P00004"
-    // original_loan_subsidy_cost: null
-    // type: "A"
-    // type_description: "BPA CALL"
-    console.log(' Data : ', data);
     const createSections = () => {
         if (data.sections) {
-            return data.sections.map((section, i) => (
-                <div key={`${uniqueId()}-section`} className="tooltip__text">
+            return data.sections.map((section) => (
+                <div key={uniqueId('section-')} className="tooltip__text">
                     {section.title && <strong>{section.title}</strong>}
                     {section.paragraphs && section.paragraphs.map((body) => (
-                        <p className="tooltip__text-section">{body}</p>
+                        <p key={uniqueId('paragraph-')} className="tooltip__text-section">{body}</p>
                     ))}
                 </div>
             ));
@@ -48,7 +36,7 @@ const Tooltip = ({ data }) => {
         <div className="tooltip">
             {data.title &&
                 <div className="tooltip__title">
-                    Related Awards
+                    {data.title}
                 </div>}
             {createSections()}
         </div>

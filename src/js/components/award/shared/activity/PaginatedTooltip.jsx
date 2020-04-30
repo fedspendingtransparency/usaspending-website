@@ -12,7 +12,6 @@ const propTypes = {
 };
 
 const PaginatedTooltip = ({ data, tooltipElement }) => {
-    console.log(' Jimmy : ', data);
     return (
         <div className="paginated-tooltip">
             {cloneElement(tooltipElement, { data: data[0] })}
