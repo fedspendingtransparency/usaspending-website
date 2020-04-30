@@ -39,7 +39,7 @@ const naicsComponent = kGlobalConstants.DEV ? NAICSContainer : NAICSSearchContai
 const naicsTitle = kGlobalConstants.DEV ?
     'North American Industry Classification System (NAICS)' :
     'NAICS Code';
-const tasTitle = kGlobalConstants.DEV ? 'Treasury Account Symbol (TAS)' : 'Product/Service Code (PSC)';
+const tasTitle = kGlobalConstants.DEV ? 'Treasury Account Symbol (TAS)' : 'Program Source (TAS)';
 
 const filters = {
     options: [
