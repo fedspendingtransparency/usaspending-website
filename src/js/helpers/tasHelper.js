@@ -37,39 +37,18 @@ export const cleanTasData = (nodes) => cleanTreeData(nodes, tasKeyMap)
         return node;
     });
 
-export const getTasNodeFromTree = (tree, id) => {
-    let selectedNode;
-    tree
-        .forEach((agency) => {
-            if (agency.value === id) selectedNode = agency;
+export const getTasNodeFromTree = (tree, code) => {
+    if (!tree) return tree;
+    const topLevelNode = tree.find((node) => node.value === code);
+    if (topLevelNode) return topLevelNode;
+    return tree
+        .reduce((acc, node) => {
+            if (acc) return acc;
+            if (node.value === code) return node;
+            return getTasNodeFromTree(node.children, code);
         });
-    if (selectedNode) return selectedNode;
-    tree
-        .forEach((agency) => {
-            if (agency.children) {
-                agency.children
-                    .forEach((federalAccount) => {
-                        if (federalAccount.value === id) selectedNode = federalAccount;
-                    });
-            }
-        });
-    if (selectedNode) return selectedNode;
-    tree
-        .forEach((agency) => {
-            if (agency.children) {
-                agency.children
-                    .forEach((federalAccount) => {
-                        if (federalAccount.children) {
-                            federalAccount.children
-                                .forEach((tas) => {
-                                    if (tas.value === id) selectedNode = tas;
-                                });
-                        }
-                    });
-            }
-        });
-    return selectedNode;
 };
+
 export const getHighestTasAncestorCode = (node) => {
     if (node.ancestors.length) return node.ancestors[0];
     return node.value;
