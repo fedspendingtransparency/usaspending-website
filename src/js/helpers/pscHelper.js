@@ -64,7 +64,7 @@ export const getPscNodeFromTree = (tree, code) => {
         }, undefined);
 };
 
-const shouldPscNodeHaveChildren = (node) => {
+export const shouldPscNodeHaveChildren = (node) => {
     if (node.isPlaceHolder) return false;
     if (node.ancestors.includes('Product')) return node.ancestors.length < 2;
     return node.ancestors.length < 3;
