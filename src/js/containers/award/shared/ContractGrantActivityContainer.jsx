@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { cloneDeep } from 'lodash';
 
 import { fetchAwardTransaction } from 'helpers/searchHelper';
 import { areTransactionDatesOrAwardAmountsInvalid } from 'helpers/contractGrantActivityHelper';

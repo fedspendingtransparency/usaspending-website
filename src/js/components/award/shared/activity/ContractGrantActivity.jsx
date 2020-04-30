@@ -76,7 +76,7 @@ const ContractGrantActivity = ({
     const potentialAwardAmountLineTooltipData = (data) => ({
         tooltipPosition: 'bottom',
         styles: { // 8px is half the tooltip pointer, data.position is the y-position
-            transform: `translate(${((data.x2 / 2) + 8) - (defaultTooltipWidth / 2)}px,${data.position + defaultPadding.bottom}px)`,
+            transform: `translate(${((data.x2 / 2) + 8) - (defaultTooltipWidth / 2)}px,${(data.position + defaultPadding.bottom) - 8}px)`,
             position: 'absolute'
         },
         tooltipComponent: <RectanglePercentVizTooltip
@@ -106,7 +106,7 @@ const ContractGrantActivity = ({
         };
     };
 
-    const transactionTooltipInfo = (data) => (data.allTransactionsOnTheSameDate.map((transaction, i) => ({
+    const transactionTooltipInfo = (data) => (data.allTransactionsOnTheSameDate.map((transaction) => ({
         title: `Modification ${transaction.modification_number || ''}`,
         sections: [
             {

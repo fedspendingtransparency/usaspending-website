@@ -55,7 +55,7 @@ const ContractGrantActivityChartCircles = ({
     const onMouseMove = (e) => {
         showHideTooltip(circleData[e.target.getAttribute('data-index')], 'Modification');
     };
-    
+
     const onMouseLeave = () => showHideTooltip();
 
     return (
