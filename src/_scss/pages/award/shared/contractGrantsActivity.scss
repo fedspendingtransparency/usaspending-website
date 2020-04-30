@@ -52,6 +52,41 @@
         @import '../shared/awardAmountsSection/charts';
         .tooltip-wrapper {
           z-index: 214748364;
+          pointer-events: visible;
+          .tooltip-pagination-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-around;
+            .pagination-text {
+              font-style: italic;
+            }
+            .tooltip-pagination-button {
+              background-color: transparent;
+              svg {
+                path {
+                  fill: $color-primary;
+                }
+              }
+              &.previous-page-button {
+                &.disabled {
+                  svg {
+                    path {
+                      opacity: 0.5;
+                    }
+                  }
+                }
+              }
+              &.next-page-button {
+                &.disabled {
+                  svg {
+                    path {
+                      opacity: 0.5;
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
         width: 100%;
         .activity-x-label {

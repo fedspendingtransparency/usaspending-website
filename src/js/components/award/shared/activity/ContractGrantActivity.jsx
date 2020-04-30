@@ -7,7 +7,7 @@ import { formatMoney, calculateTreemapPercentage } from 'helpers/moneyFormatter'
 import { convertDatesToRange } from 'helpers/timeRangeHelper';
 import { RectanglePercentVizTooltip } from 'components/award/financialAssistance/RectanglePercentVizTooltip';
 import ContractGrantActivityChart from './ContractGrantActivityChart';
-import PaginatedTooltip from './PaginatedTooltip';
+import PaginatedTooltipContainer from './PaginatedTooltipContainer';
 import Tooltip from './Tooltip';
 
 const propTypes = {
@@ -149,7 +149,7 @@ const ContractGrantActivity = ({
             position: 'absolute',
             transform: `translate(${data.cx + 13}px,${data.cy - 12}px)`
         },
-        tooltipComponent: <PaginatedTooltip
+        tooltipComponent: <PaginatedTooltipContainer
             data={transactionTooltipInfo(data.data, 'Modification')}
             tooltipElement={<Tooltip />} />
     });
@@ -178,6 +178,7 @@ const ContractGrantActivity = ({
         else {
             handleTooltipData(data, text);
         }
+        // handleTooltipData(data, text);
     };
 
     return (

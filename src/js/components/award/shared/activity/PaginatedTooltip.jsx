@@ -1,19 +1,49 @@
 /**
  * PaginatedTooltip.jsx
- * Created By Jonathan Hill 04/29/2020
+ * Created By Jonathan Hill 04/30/2020
  */
 
-import React, { cloneElement } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
-    data: PropTypes.array,
-    tooltipElement: PropTypes.element
+    totalPages: PropTypes.number,
+    currentPage: PropTypes.number,
+    previousPage: PropTypes.func,
+    nextPage: PropTypes.func,
+    previousPageButtonClassnames: PropTypes.string,
+    nextPageButtonClassnames: PropTypes.string,
+    previousPageButtonIsDisabled: PropTypes.bool,
+    nextPageButtonIsDisabled: PropTypes.bool
 };
 
-const PaginatedTooltip = ({ data, tooltipElement }) => (
-    <div className="paginated-tooltip">
-        {cloneElement(tooltipElement, { data: data[0] })}
+const PaginatedTooltip = ({
+    totalPages,
+    currentPage,
+    previousPage,
+    nextPage,
+    previousPageButtonClassnames,
+    nextPageButtonClassnames,
+    previousPageButtonIsDisabled,
+    nextPageButtonIsDisabled
+}) => (
+    <div className="tooltip-pagination-container">
+        <button
+            disabled={previousPageButtonIsDisabled}
+            onClick={previousPage}
+            className={previousPageButtonClassnames}>
+            <FontAwesomeIcon icon="caret-left" />
+        </button>
+        <div className="pagination-text">
+            {currentPage} of {totalPages} modifications made on this day
+        </div>
+        <button
+            disabled={nextPageButtonIsDisabled}
+            onClick={nextPage}
+            className={nextPageButtonClassnames}>
+            <FontAwesomeIcon icon="caret-right" />
+        </button>
     </div>
 );
 
