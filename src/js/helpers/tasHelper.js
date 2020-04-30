@@ -46,7 +46,7 @@ export const getTasNodeFromTree = (tree, code) => {
             if (acc) return acc;
             if (node.value === code) return node;
             return getTasNodeFromTree(node.children, code);
-        });
+        }, undefined);
 };
 
 export const getHighestTasAncestorCode = (node) => {
