@@ -108,7 +108,7 @@ const filters = {
         null,
         null,
         null,
-        null,
+        'productservice-code-psc',
         null,
         null
     ]
