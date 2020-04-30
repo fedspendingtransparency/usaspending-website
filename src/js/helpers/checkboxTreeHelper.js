@@ -339,8 +339,9 @@ export const sortNodesByValue = (a, b) => {
 };
 
 // returns nodes that should go in the expanded array; meaning, no leaf nodes (as they have no reason to be considered expanded)
-export const expandNodeAndAllDescendants = (nodes, propForNode = 'value') => {
+export const expandNodeAndAllDescendantParents = (nodes, propForNode = 'value', isNodeParentFn) => {
     const getValue = (acc, node) => {
+        if (!isNodeParentFn(node)) return acc;
         acc.push(node[propForNode]);
         if (node.children) {
             acc.push(

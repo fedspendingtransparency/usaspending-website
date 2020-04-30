@@ -8,7 +8,8 @@ import {
     incrementCountAndUpdateUnchecked,
     decrementCountAndUpdateUnchecked,
     removeStagedFilter,
-    autoCheckImmediateChildrenAfterDynamicExpand
+    autoCheckImmediateChildrenAfterDynamicExpand,
+    expandNodeAndAllDescendantParents
 } from './checkboxTreeHelper';
 
 export const formatSelectedNaics = (value, description, count) => `${value} | ${description} | ${count}`;
@@ -115,5 +116,14 @@ export const autoCheckNaicsAfterExpand = (
     checked,
     unchecked,
     'naics',
+    shouldNaicsNodeHaveChildren
+);
+
+export const expandNaicsAndAllDescendantParents = (
+    nodes,
+    keyForValue
+) => expandNodeAndAllDescendantParents(
+    nodes,
+    keyForValue,
     shouldNaicsNodeHaveChildren
 );

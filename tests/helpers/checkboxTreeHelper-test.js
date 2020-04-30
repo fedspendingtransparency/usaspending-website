@@ -1,6 +1,6 @@
 import {
     addSearchResultsToTree,
-    expandNodeAndAllDescendants,
+    expandNodeAndAllDescendantParents,
     populateBranchOrLeafLevelNodes,
     cleanTreeData,
     removePlaceholderString,
@@ -108,11 +108,15 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             expect(childPlaceHolderExists).toEqual(true);
         });
     });
-    describe('expandNodeAndAllDescendants', () => {
+    describe('expandNodeAndAllDescendantParents', () => {
         it('returns an array containing all values from tree', () => {
-            const result = expandNodeAndAllDescendants(mockData.searchResults);
+            const result = expandNodeAndAllDescendantParents(
+                mockData.searchResults,
+                'value',
+                shouldNaicsNodeHaveChildren
+            );
             // does not expand grand children as they have no children.
-            expect(result).toEqual(["11", "1111", "111110"]);
+            expect(result).toEqual(["11", "1111"]);
         });
     });
     describe('showAllNodes', () => {

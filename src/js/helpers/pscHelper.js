@@ -3,7 +3,8 @@ import {
     incrementCountAndUpdateUnchecked,
     cleanTreeData,
     removeStagedFilter,
-    autoCheckImmediateChildrenAfterDynamicExpand
+    autoCheckImmediateChildrenAfterDynamicExpand,
+    expandNodeAndAllDescendantParents
 } from "./checkboxTreeHelper";
 
 export const emptyHierarchy = {
@@ -129,6 +130,14 @@ export const autoCheckPscAfterExpand = (
     parentNode,
     checked,
     unchecked,
+    'value',
+    shouldPscNodeHaveChildren
+);
+
+export const expandPscNodeAndAllDescendantParents = (
+    nodes
+) => expandNodeAndAllDescendantParents(
+    nodes,
     'value',
     shouldPscNodeHaveChildren
 );

@@ -18,11 +18,11 @@ import {
     getNaicsNodeFromTree,
     removeStagedNaicsFilter,
     autoCheckNaicsAfterExpand,
+    expandNaicsAndAllDescendantParents,
     getHighestAncestorNaicsCode
 } from 'helpers/naicsHelper';
 
 import {
-    expandNodeAndAllDescendants,
     getAllDescendants
 } from 'helpers/checkboxTreeHelper';
 
@@ -304,7 +304,7 @@ export class NAICSContainer extends React.Component {
         return this.request.promise
             .then(({ data: { results } }) => {
                 if (isSearch) {
-                    const visibleNaicsValues = expandNodeAndAllDescendants(results, 'naics');
+                    const visibleNaicsValues = expandNaicsAndAllDescendantParents(results, 'naics');
                     this.props.setSearchedNaics(results);
                     this.autoCheckSearchedResultDescendants(checked, visibleNaicsValues);
                     this.props.setExpandedNaics(visibleNaicsValues, 'SET_SEARCHED_EXPANDED');
