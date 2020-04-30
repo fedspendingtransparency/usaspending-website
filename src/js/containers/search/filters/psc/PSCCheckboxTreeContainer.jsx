@@ -14,7 +14,7 @@ import {
     getPscNodeFromTree
 } from 'helpers/pscHelper';
 import { fetchPsc } from 'helpers/searchHelper';
-import { expandAllNodes, removePlaceholderString } from 'helpers/checkboxTreeHelper';
+import { expandNodeAndAllDescendants, removePlaceholderString } from 'helpers/checkboxTreeHelper';
 
 import {
     setPscNodes,
@@ -171,7 +171,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                 const node = getPscNodeFromTree(nodes, expandedAndChecked);
                 return [
                     ...acc,
-                    ...expandAllNodes([node], 'value')
+                    ...expandNodeAndAllDescendants([node], 'value')
                 ];
             }, []);
 
@@ -210,7 +210,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                         : this.props.checked;
                     if (this.state.isSearch) {
                         this.props.setSearchedPsc(nodes);
-                        const searchExpandedNodes = expandAllNodes(nodes);
+                        const searchExpandedNodes = expandNodeAndAllDescendants(nodes);
                         this.props.setExpandedPsc(searchExpandedNodes, 'SET_SEARCHED_EXPANDED');
                         const nodesCheckedByPlaceholderOrAncestor = this.autoCheckSearchResultDescendants(
                             this.props.checked,
