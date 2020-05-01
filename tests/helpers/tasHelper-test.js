@@ -43,7 +43,7 @@ describe('tasHelper', () => {
     describe('getTasNodeFromTree', () => {
         it('handles case where node is not defined', () => {
             const result = getTasNodeFromTree(treePopulatedToFederalAccountLevel, '011');
-            expect(result).toEqual(undefined);
+            expect(result).toEqual(null);
         });
         it('gets the appropriate node', () => {
             const agency = getTasNodeFromTree(treePopulatedToFederalAccountLevel, '012');
