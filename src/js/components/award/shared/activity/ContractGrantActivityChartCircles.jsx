@@ -14,7 +14,8 @@ const propTypes = {
     yScale: PropTypes.func,
     xAxisSpacing: PropTypes.number,
     height: PropTypes.number,
-    showHideTooltip: PropTypes.func
+    showTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func
 };
 
 const ContractGrantActivityChartCircles = ({
@@ -24,7 +25,8 @@ const ContractGrantActivityChartCircles = ({
     yScale,
     xAxisSpacing,
     height,
-    showHideTooltip
+    showTooltip,
+    hideTooltip
 }) => {
     // circle data
     const [circleData, setCircleData] = useState([]);
@@ -38,7 +40,7 @@ const ContractGrantActivityChartCircles = ({
                     className: 'transaction-date-circle',
                     cx: xScale(data.action_date.valueOf()) + padding.left,
                     cy: (height - yScale(data.running_obligation_total)),
-                    r: 1.5,
+                    r: 2.5,
                     data
                 }));
             setCircleData(circles);
@@ -53,10 +55,10 @@ const ContractGrantActivityChartCircles = ({
     ]);
 
     const onMouseMove = (e) => {
-        showHideTooltip(circleData[e.target.getAttribute('data-index')], 'Modification');
+        showTooltip(circleData[e.target.getAttribute('data-index')], 'Modification');
     };
 
-    const onMouseLeave = () => showHideTooltip();
+    const onMouseLeave = () => hideTooltip();
 
     return (
         <g className="contract-grant-activity-chart__circles">

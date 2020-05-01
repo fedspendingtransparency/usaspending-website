@@ -33,8 +33,11 @@ const ContractGrantActivity = ({
     const [windowWidth, setWindowWidth] = useState(0);
     // visualization width
     const [visualizationWidth, setVisualizationWidth] = useState(0);
-    const [showTooltip, setShowTooltip] = useState(false);
+    const [showTooltipLine, setShowTooltipLine] = useState(false);
+    const [showTooltipTransaction, setShowTooltipTransaction] = useState(false);
     const [thisLineOrTextIsHovered, setThisLineOrTextIsHovered] = useState('');
+    // const [hoveringOverTransactionArrow, setHoveringOverTransactionArrow] = useState(false);
+    const [isHoveringOverTransactionTooltip, setHoveringOverTransactionTooltip] = useState(false);
     /**
      * Line tooltip data e.g. { title: 'Start Date', amount: '04/24/2020' }
      * Circle tooltip data e.g. transaction object
@@ -147,52 +150,64 @@ const ContractGrantActivity = ({
     const transactionTooltipData = (data) => ({
         styles: { // y position is in the middle of the line
             position: 'absolute',
-            transform: `translate(${data.cx + 13}px,${data.cy - 12}px)`
+            transform: `translate(${data.cx + 11}px,${data.cy - 13}px)`
         },
         tooltipComponent: <PaginatedTooltipContainer
             data={transactionTooltipInfo(data.data, 'Modification')}
             tooltipElement={<Tooltip />} />
     });
 
-    const handleTooltipData = (data, text) => {
+    const handleTooltipDataLine = (data, text) => {
         let tooltipInfo = null;
         if (!text) { // potential award amount line
             tooltipInfo = potentialAwardAmountLineTooltipData(data);
-        }
-        else if (text === 'Modification') { // circle tooltip
-            tooltipInfo = transactionTooltipData(data);
         }
         else { // all other award lines
             tooltipInfo = verticalLinesTooltipData(data, text);
         }
         setTooltipData(tooltipInfo);
-        setShowTooltip(true);
+        setShowTooltipLine(true);
     };
 
-    const showHideTooltip = (data, text) => {
+    const handleTooltipDataTransaction = (data) => {
+        setTooltipData(transactionTooltipData(data));
+        setShowTooltipTransaction(true);
+    };
+
+    const onMouseMoveTooltip = () => {
+        setHoveringOverTransactionTooltip(true);
+    };
+    const onMouseLeaveTooltip = () => {
+        setHoveringOverTransactionTooltip(false);
+    };
+
+    const showTransactionTooltip = (data, text) => handleTooltipDataTransaction(data, text);
+
+    const hideTooltipTransaction = () => setTimeout(() => setShowTooltipTransaction(false), 500);
+
+    const showHideTooltipLine = (data, text) => {
         // hide tooltip
-        if (!data && showTooltip) {
-            setShowTooltip(false);
+        if (!data && showTooltipLine) {
+            setShowTooltipLine(false);
             setThisLineOrTextIsHovered('');
         }
         else {
-            handleTooltipData(data, text);
+            handleTooltipDataLine(data, text);
         }
-        // handleTooltipData(data, text);
     };
 
     return (
         <div ref={divReference} className="award-amounts-viz contract-grant-activity-visualization">
-            {showTooltip && <TooltipWrapper
+            {(showTooltipLine || showTooltipTransaction || isHoveringOverTransactionTooltip) && <TooltipWrapper
                 className="award-section-tt"
                 {...tooltipData}
                 wide={false}
                 width={defaultTooltipWidth}
+                onMouseMoveTooltip={onMouseMoveTooltip}
+                onMouseLeaveTooltip={onMouseLeaveTooltip}
                 controlledProps={{
                     isControlled: true,
-                    isVisible: showTooltip,
-                    showTooltip: () => {},
-                    closeTooltip: () => {}
+                    isVisible: showTooltipLine || showTooltipTransaction || isHoveringOverTransactionTooltip
                 }} />}
             <ContractGrantActivityChart
                 visualizationWidth={visualizationWidth}
@@ -202,7 +217,9 @@ const ContractGrantActivity = ({
                 dates={dates}
                 awardType={awardType}
                 totalObligation={totalObligation}
-                showHideTooltip={showHideTooltip}
+                showHideTooltipLine={showHideTooltipLine}
+                showTooltipTransaction={showTransactionTooltip}
+                hideTooltipTransaction={hideTooltipTransaction}
                 thisLineOrTextIsHovered={thisLineOrTextIsHovered} />
         </div>
     );

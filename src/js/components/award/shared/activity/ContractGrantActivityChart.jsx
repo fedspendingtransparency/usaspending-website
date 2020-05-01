@@ -26,7 +26,9 @@ const propTypes = {
     awardType: PropTypes.string,
     dates: PropTypes.object,
     totalObligation: PropTypes.number,
-    showHideTooltip: PropTypes.func,
+    showHideTooltipLine: PropTypes.func,
+    showTooltipTransaction: PropTypes.func,
+    hideTooltipTransaction: PropTypes.func,
     thisLineOrTextIsHovered: PropTypes.string
 };
 
@@ -41,7 +43,9 @@ const ContractGrantsActivityChart = ({
     awardType,
     dates,
     totalObligation,
-    showHideTooltip,
+    showHideTooltipLine,
+    showTooltipTransaction,
+    hideTooltipTransaction,
     thisLineOrTextIsHovered
 }) => {
     // x series
@@ -325,7 +329,8 @@ const ContractGrantsActivityChart = ({
                     yScale={yScale}
                     xAxisSpacing={xAxisSpacing}
                     height={height}
-                    showHideTooltip={showHideTooltip} />}
+                    showTooltip={showTooltipTransaction}
+                    hideTooltip={hideTooltipTransaction} />}
                 {/* vertical lines */}
                 {xScale && <ContractGrantActivityChartVerticalLines
                     xScale={xScale}
@@ -337,7 +342,7 @@ const ContractGrantsActivityChart = ({
                     endLineValue={endLineValue}
                     potentialEndLineValue={potentialEndLineValue}
                     awardType={awardType}
-                    showHideTooltip={showHideTooltip}
+                    showHideTooltip={showHideTooltipLine}
                     thisLineOrTextIsHovered={thisLineOrTextIsHovered} />}
                 {/* potential award amount line */}
                 {xScale && <SVGLine
@@ -351,10 +356,10 @@ const ContractGrantsActivityChart = ({
                     position={totalObligation}
                     graphHeight={height}
                     isHorizontal
-                    onMouseMoveLine={showHideTooltip}
-                    onMouseLeaveLine={showHideTooltip}
-                    onMouseMoveText={showHideTooltip}
-                    onMouseLeaveText={showHideTooltip} />}
+                    onMouseMoveLine={showHideTooltipLine}
+                    onMouseLeaveLine={showHideTooltipLine}
+                    onMouseMoveText={showHideTooltipLine}
+                    onMouseLeaveText={showHideTooltipLine} />}
             </g>
         </svg>
     );

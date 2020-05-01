@@ -41,7 +41,7 @@ const ContractGrantActivityContainer = ({
     const hasNext = useRef(true);
     let previousRunningObligationTotalToDate = 0;
     const createTransactionsRunningTotalObligationToDateAndSort = (data, runningObligationTotal) => {
-        const sortedTransactionsByModificationNumber = data.sort((a, b) => parseInt(a.modification_number.replace(/\D/g, ''), 10) - parseInt(b.modification_number.replace(/\D/g, ''), 10));
+        const sortedTransactionsByModificationNumber = data.sort((a, b) => parseInt(a.modification_number ? a.modification_number.replace(/\D/g, '') : '', 10) - parseInt(b.modification_number ? b.modification_number.replace(/\D/g, '') : '', 10));
         return sortedTransactionsByModificationNumber.map((transaction, i) => {
             if (i === 0) previousRunningObligationTotalToDate = runningObligationTotal;
             const t = transaction;
