@@ -25,7 +25,11 @@ const propTypes = {
     transactions: PropTypes.array,
     awardType: PropTypes.string,
     dates: PropTypes.object,
-    totalObligation: PropTypes.number
+    totalObligation: PropTypes.number,
+    showHideTooltipLine: PropTypes.func,
+    showTooltipTransaction: PropTypes.func,
+    hideTooltipTransaction: PropTypes.func,
+    thisLineOrTextIsHovered: PropTypes.string
 };
 
 const xAxisSpacingPercentage = 0.05;
@@ -38,7 +42,11 @@ const ContractGrantsActivityChart = ({
     transactions,
     awardType,
     dates,
-    totalObligation
+    totalObligation,
+    showHideTooltipLine,
+    showTooltipTransaction,
+    hideTooltipTransaction,
+    thisLineOrTextIsHovered
 }) => {
     // x series
     const [xDomain, setXDomain] = useState([]);
@@ -82,9 +90,12 @@ const ContractGrantsActivityChart = ({
         const yZero = clonedTransactions.length > 1 ?
             clonedTransactions[0].running_obligation_total :
             0;
-        const yOne = !clonedTransactions.length ?
+        let yOne = !clonedTransactions.length ?
             0 :
             totalObligation || clonedTransactions.pop().running_obligation_total;
+        // if any transaction is greater than the obligation
+        const transactionIsGreaterThanObligation = clonedTransactions.find((t) => t.running_obligation_total > totalObligation);
+        if (transactionIsGreaterThanObligation) yOne = transactionIsGreaterThanObligation.running_obligation_total;
         setYDomain([yZero, yOne]);
     }, [transactions, totalObligation]);
     // hook - runs only on mount unless transactions change
@@ -317,7 +328,9 @@ const ContractGrantsActivityChart = ({
                     xScale={xScale}
                     yScale={yScale}
                     xAxisSpacing={xAxisSpacing}
-                    height={height} />}
+                    height={height}
+                    showTooltip={showTooltipTransaction}
+                    hideTooltip={hideTooltipTransaction} />}
                 {/* vertical lines */}
                 {xScale && <ContractGrantActivityChartVerticalLines
                     xScale={xScale}
@@ -328,7 +341,9 @@ const ContractGrantsActivityChart = ({
                     todayLineValue={todayLineValue}
                     endLineValue={endLineValue}
                     potentialEndLineValue={potentialEndLineValue}
-                    awardType={awardType} />}
+                    awardType={awardType}
+                    showHideTooltip={showHideTooltipLine}
+                    thisLineOrTextIsHovered={thisLineOrTextIsHovered} />}
                 {/* potential award amount line */}
                 {xScale && <SVGLine
                     lineClassname="potential-award-amount-line"
@@ -340,7 +355,11 @@ const ContractGrantsActivityChart = ({
                     min={yDomain[0]}
                     position={totalObligation}
                     graphHeight={height}
-                    isHorizontal />}
+                    isHorizontal
+                    onMouseMoveLine={showHideTooltipLine}
+                    onMouseLeaveLine={showHideTooltipLine}
+                    onMouseMoveText={showHideTooltipLine}
+                    onMouseLeaveText={showHideTooltipLine} />}
             </g>
         </svg>
     );

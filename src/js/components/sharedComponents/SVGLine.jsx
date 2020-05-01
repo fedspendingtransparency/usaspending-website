@@ -28,7 +28,11 @@ const propTypes = {
     lineClassname: PropTypes.string,
     noText: PropTypes.bool, // do not show text,
     isHorizontal: PropTypes.bool,
-    graphHeight: PropTypes.number
+    graphHeight: PropTypes.number,
+    onMouseMoveLine: PropTypes.func,
+    onMouseLeaveLine: PropTypes.func,
+    onMouseMoveText: PropTypes.func,
+    onMouseLeaveText: PropTypes.func
 };
 
 export default class SVGLine extends Component {
@@ -57,6 +61,45 @@ export default class SVGLine extends Component {
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
     }
+
+    onMouseMoveLine = throttle(() => {
+        const {
+            onMouseMoveLine,
+            text,
+            x1,
+            x2,
+            y1,
+            y2,
+            position
+        } = this.props;
+        const data = {
+            position: this.getLinePosition(),
+            value: position,
+            x1,
+            x2,
+            y1,
+            y2
+        };
+        if (onMouseMoveLine) this.props.onMouseMoveLine(data, text);
+    })
+    onMouseLeaveLine = throttle(() => {
+        const { onMouseLeaveLine } = this.props;
+        if (onMouseLeaveLine) this.props.onMouseLeaveLine();
+    })
+    onMouseMoveText = throttle(() => {
+        const { onMouseMoveText, text, position } = this.props;
+        const textDiv = this[`textDiv${text}`];
+        if (textDiv) {
+            const data = textDiv.getBoundingClientRect();
+            data.position = this.getLinePosition();
+            data.value = position;
+            if (onMouseMoveText) this.props.onMouseMoveText(data, text);
+        }
+    })
+    onMouseLeaveText = throttle(() => {
+        const { onMouseLeaveText } = this.props;
+        if (onMouseLeaveText) this.props.onMouseLeaveText();
+    })
 
     getLinePosition = () => {
         const {
@@ -149,7 +192,9 @@ export default class SVGLine extends Component {
                 x1={isHorizontal ? x1 : linePosition}
                 x2={isHorizontal ? x2 : linePosition}
                 y1={isHorizontal ? linePosition : y1}
-                y2={isHorizontal ? linePosition : y2} />
+                y2={isHorizontal ? linePosition : y2}
+                onMouseMove={this.onMouseMoveLine}
+                onMouseLeave={this.onMouseLeaveLine} />
         );
     }
 
@@ -166,7 +211,9 @@ export default class SVGLine extends Component {
                 x={this.state[`${data}TextX`]}
                 y={this.state[`${data}TextY`]}
                 ref={this[`setTextDiv${data}`]}
-                data-wordindex={i}>
+                data-wordindex={i}
+                onMouseMove={this.onMouseMoveText}
+                onMouseLeave={this.onMouseLeaveText}>
                 {data}
             </text>
         ));
