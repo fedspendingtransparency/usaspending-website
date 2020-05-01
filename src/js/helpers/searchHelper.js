@@ -124,11 +124,3 @@ export const restoreUrlHash = (data) => apiRequest({
 export const fetchLastUpdate = () => apiRequest({
     url: 'v2/awards/last_updated/'
 });
-
-export const removeNaicsCountsFromFilters = (reduxFilters) => ({
-    ...reduxFilters,
-    naicsCodes: {
-        require: reduxFilters.naicsCodes.require,
-        exclude: reduxFilters.naicsCodes.exclude
-    }
-});

@@ -3,11 +3,12 @@ import {
     incrementCountAndUpdateUnchecked,
     cleanTreeData,
     removeStagedFilter,
-    autoCheckImmediateChildrenAfterDynamicExpand
+    autoCheckImmediateChildrenAfterDynamicExpand,
+    removePlaceholderString
 } from "./checkboxTreeHelper";
 
 export const isAgency = (tasNode) => tasNode.ancestors.length === 0;
-const shouldTasNodeHaveChildren = (node) => {
+export const shouldTasNodeHaveChildren = (node) => {
     if (node.isPlaceHolder) return false;
     return node.ancestors.length < 2;
 };
@@ -116,3 +117,8 @@ export const autoCheckTasAfterExpand = (
     'value',
     shouldTasNodeHaveChildren
 );
+
+export const getAncestryPathOfNodes = (checked, nodes) => checked
+    .map((code) => removePlaceholderString(code))
+    .map((code) => getTasNodeFromTree(nodes, code))
+    .map((node) => ([...node.ancestors, node.value]));

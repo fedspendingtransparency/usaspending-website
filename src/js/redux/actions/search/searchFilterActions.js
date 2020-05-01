@@ -144,6 +144,15 @@ export const updateNaicsV2 = (require, exclude, counts) => ({
     }
 });
 
+export const updateTASV2 = (require, exclude, counts) => ({
+    type: 'UPDATE_TAS_V2',
+    payload: {
+        exclude,
+        require: require.map((code) => removePlaceholderString(code)),
+        counts
+    }
+});
+
 export const updateSelectedNAICS = (state) => ({
     type: 'UPDATE_SELECTED_NAICS',
     naics: state.naics

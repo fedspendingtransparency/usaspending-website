@@ -22,7 +22,7 @@ import {
 } from 'helpers/naicsHelper';
 
 import {
-    expandAllNodes,
+    expandAllAncestors,
     getAllDescendants
 } from 'helpers/checkboxTreeHelper';
 
@@ -304,7 +304,7 @@ export class NAICSContainer extends React.Component {
         return this.request.promise
             .then(({ data: { results } }) => {
                 if (isSearch) {
-                    const visibleNaicsValues = expandAllNodes(results, 'naics');
+                    const visibleNaicsValues = expandAllAncestors(results, 'naics');
                     this.props.setSearchedNaics(results);
                     this.autoCheckSearchedResultDescendants(checked, visibleNaicsValues);
                     this.props.setExpandedNaics(visibleNaicsValues, 'SET_SEARCHED_EXPANDED');
