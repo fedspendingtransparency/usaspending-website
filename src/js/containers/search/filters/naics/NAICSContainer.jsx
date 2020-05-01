@@ -22,9 +22,7 @@ import {
     getHighestAncestorNaicsCode
 } from 'helpers/naicsHelper';
 
-import {
-    getAllDescendants
-} from 'helpers/checkboxTreeHelper';
+import { getAllDescendants } from 'helpers/checkboxTreeHelper';
 
 import { naicsRequest } from 'helpers/searchHelper';
 
