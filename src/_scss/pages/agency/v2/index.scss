@@ -124,7 +124,7 @@
                 .usa-dt-picker__item,
                 .usa-dt-picker__item .active {
                     @include display(flex);
-                    @include justify-content(center);
+                    @include justify-content(flex-start);
                     @include align-items(center);
                     background: #FFF;
                     font-size: rem(14);
