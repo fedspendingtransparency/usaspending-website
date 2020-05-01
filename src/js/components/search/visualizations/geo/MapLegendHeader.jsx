@@ -43,7 +43,6 @@ const MapLegendHeader = ({ mapLegendToggleData, mapLegendToggle, updateToggle })
                 <TooltipWrapper
                     className="tooltip-wrapper award-section-tt"
                     icon="info"
-                    right
                     tooltipComponent={mapLegendTT} />
             </div>
             <div className="map-legend-header__body">
