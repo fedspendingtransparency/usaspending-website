@@ -198,7 +198,7 @@ export const AgencyProfileV2 = ({
                             <span>Share</span>
                             {showConfirmationText && (
                                 <span className="copy-confirmation">
-                                    <FontAwesomeIcon icon="check-circle" color="#3A8250" /> Link Copied!
+                                    <FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied!
                                 </span>
                             )}
                         </div>
