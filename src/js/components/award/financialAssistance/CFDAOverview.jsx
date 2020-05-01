@@ -29,7 +29,7 @@ const CFDAOverview = ({
                 <TooltipWrapper
                     className="award-section-tt"
                     icon="info"
-                    left
+                    tooltipPosition="left"
                     tooltipComponent={CFDAOverviewInfo} />
             </h6>
             <div className="award-overview__body award-overview__cfda">

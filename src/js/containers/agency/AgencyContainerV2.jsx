@@ -49,7 +49,10 @@ const ComingSoonSection = ({ section, icon = "chart-area" }) => (
                 <FontAwesomeIcon size="lg" icon={icon} />
             </div>
             <h3>{startCase(section)}</h3>
-            <TooltipWrapper className="agency-v2-tt" icon="info" tooltipComponent={<TooltipComponent />} />
+            <TooltipWrapper
+                className="agency-v2-tt"
+                icon="info"
+                tooltipComponent={<TooltipComponent />} />
         </div>
         <hr />
         <div className="coming-soon-section">
