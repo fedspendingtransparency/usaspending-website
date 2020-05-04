@@ -81,6 +81,9 @@ export const filterHasSelections = (reduxFilters, filter) => {
                 return true;
             }
             return false;
+        case 'Treasury Account Symbol (TAS)':
+            if (reduxFilters.tasCodes.require.length > 0) return true;
+            return false;
         default:
             return false;
     }

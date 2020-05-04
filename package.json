@@ -80,7 +80,7 @@
         "d3-interpolate": "^1.1.4",
         "d3-scale": "^1.0.4",
         "d3-time": "^1.0.11",
-        "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v1.0.0",
+        "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v1.1.0",
         "file-loader": "^3.0.1",
         "fixed-data-table": "0.6.3",
         "history": "^4.6.1",

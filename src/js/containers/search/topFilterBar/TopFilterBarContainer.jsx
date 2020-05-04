@@ -344,6 +344,18 @@ export class TopFilterBarContainer extends React.Component {
             filter.values = identifiers;
         }
 
+        if (props.tasCodes.require.length > 0) {
+            selected = true;
+            filter.values = [
+                ...filter.values,
+                ...props.tasCodes.counts.map((tas) => ({
+                    ...tas,
+                    isV2: true,
+                    tas_description: `${tas.label} (${tas.count})`
+                }))
+            ];
+        }
+
         if (selected) {
             filter.code = 'treasuryAccounts';
             filter.name = 'Treasury Account';

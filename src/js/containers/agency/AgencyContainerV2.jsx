@@ -46,7 +46,10 @@ const ComingSoonSection = ({ section, icon = "chart-area" }) => (
                 <FontAwesomeIcon size="lg" icon={icon} />
             </div>
             <h3>{startCase(section)}</h3>
-            <TooltipWrapper className="agency-v2-tt" icon="info" tooltipComponent={<TooltipComponent />} />
+            <TooltipWrapper
+                className="agency-v2-tt"
+                icon="info"
+                tooltipComponent={<TooltipComponent />} />
         </div>
         <hr />
         <div className="coming-soon-section">
@@ -176,7 +179,10 @@ export const AgencyProfileV2 = ({
             <div className={`sankey ${stickyClass} ${sankeyState}`}>
                 <div className="sankey__header">
                     <h2>Agency Spending Snapshot</h2>
-                    <TooltipWrapper className="agency-v2-tt" icon="info" tooltipComponent={<TooltipComponent />} />
+                    <TooltipWrapper
+                        className="agency-v2-tt"
+                        icon="info"
+                        tooltipComponent={<TooltipComponent />} />
                     <button onClick={() => setSankeyExpanded(!isSankeyExpanded)}>
                         {!isSankeyExpanded && <FontAwesomeIcon icon="chevron-right" color="#0074BE" size="lg" />}
                         {isSankeyExpanded && <FontAwesomeIcon icon="chevron-down" color="#0074BE" size="lg" />}

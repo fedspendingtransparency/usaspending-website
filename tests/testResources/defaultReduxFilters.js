@@ -5,7 +5,7 @@
 
 import { Set, OrderedMap } from 'immutable';
 
-import { NaicsCodes } from '../../src/js/redux/reducers/search/searchFiltersReducer';
+import { CheckboxTreeSelections } from '../../src/js/redux/reducers/search/searchFiltersReducer';
 
 import * as FiscalYearHelper from '../../src/js/helpers/fiscalYearHelper';
 
@@ -21,12 +21,13 @@ export const defaultFilters = {
     budgetFunctions: new OrderedMap(),
     federalAccounts: new OrderedMap(),
     treasuryAccounts: new OrderedMap(),
+    tasCodes: new CheckboxTreeSelections(),
     objectClasses: new OrderedMap(),
     selectedFundingAgencies: new OrderedMap(),
     selectedAwardingAgencies: new OrderedMap(),
     selectedRecipients: new OrderedMap(),
     recipientDomesticForeign: 'all',
-    naicsCodes: new NaicsCodes(),
+    naicsCodes: new CheckboxTreeSelections(),
     recipientType: new Set(),
     selectedRecipientLocations: new OrderedMap(),
     selectedAwardIDs: new OrderedMap(),

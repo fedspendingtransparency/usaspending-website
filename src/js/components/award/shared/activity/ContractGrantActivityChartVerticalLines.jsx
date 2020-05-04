@@ -17,7 +17,9 @@ const propTypes = {
     todayLineValue: PropTypes.number,
     endLineValue: PropTypes.number,
     potentialEndLineValue: PropTypes.number,
-    awardType: PropTypes.string
+    awardType: PropTypes.string,
+    showHideTooltip: PropTypes.func,
+    thisLineOrTextIsHovered: PropTypes.string
 };
 
 const ContractGrantActivityChartVerticalLines = ({
@@ -29,7 +31,9 @@ const ContractGrantActivityChartVerticalLines = ({
     todayLineValue,
     endLineValue,
     potentialEndLineValue,
-    awardType
+    awardType,
+    showHideTooltip,
+    thisLineOrTextIsHovered
 }) => {
     // text for end line
     const endLineText = awardType === 'grant' ? 'End' : 'Current End';
@@ -38,7 +42,8 @@ const ContractGrantActivityChartVerticalLines = ({
     const lineData = [
         {
             text: 'Start Date',
-            date: startLineValue
+            date: startLineValue,
+            classname: thisLineOrTextIsHovered === 'Start' ? 'start noOpacity' : 'start'
         },
         {
             text: 'Todays Date',
@@ -46,11 +51,13 @@ const ContractGrantActivityChartVerticalLines = ({
         },
         {
             text: 'End Date',
-            date: endLineValue
+            date: endLineValue,
+            classname: thisLineOrTextIsHovered === endLineText ? `${endLineClassName} noOpacity` : `${endLineClassName}`
         },
         {
             text: 'Potential End Date',
-            date: potentialEndLineValue
+            date: potentialEndLineValue,
+            classname: thisLineOrTextIsHovered === 'Potential End' ? 'potential-end noOpacity' : 'potential-end'
         }
     ];
     const descriptions = [startLineValue, todayLineValue, endLineValue, potentialEndLineValue]
@@ -71,7 +78,11 @@ const ContractGrantActivityChartVerticalLines = ({
                 showTextPosition="right"
                 adjustmentX={padding.left}
                 textClassname="start"
-                lineClassname="start" />}
+                lineClassname={lineData[0].classname}
+                onMouseMoveLine={showHideTooltip}
+                onMouseLeaveLine={showHideTooltip}
+                onMouseMoveText={showHideTooltip}
+                onMouseLeaveText={showHideTooltip} />}
             {/* today line */}
             {xScale && <SVGLine
                 scale={xScale}
@@ -101,7 +112,11 @@ const ContractGrantActivityChartVerticalLines = ({
                 showTextPosition="left"
                 adjustmentX={padding.left}
                 textClassname={`${endLineClassName}`}
-                lineClassname={`${endLineClassName}`} />}
+                lineClassname={lineData[2].classname}
+                onMouseMoveLine={showHideTooltip}
+                onMouseLeaveLine={showHideTooltip}
+                onMouseMoveText={showHideTooltip}
+                onMouseLeaveText={showHideTooltip} />}
             {/* potential end line */}
             {xScale && <SVGLine
                 scale={xScale}
@@ -116,7 +131,11 @@ const ContractGrantActivityChartVerticalLines = ({
                 showTextPosition="left"
                 adjustmentX={padding.left}
                 textClassname="potential-end"
-                lineClassname="potential-end" />}
+                lineClassname={lineData[3].classname}
+                onMouseMoveLine={showHideTooltip}
+                onMouseLeaveLine={showHideTooltip}
+                onMouseMoveText={showHideTooltip}
+                onMouseLeaveText={showHideTooltip} />}
         </g>
     );
 };
