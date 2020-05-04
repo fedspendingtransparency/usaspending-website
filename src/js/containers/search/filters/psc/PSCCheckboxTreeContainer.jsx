@@ -218,9 +218,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                             searchExpandedNodes,
                             this.props.nodes
                         );
-                        if (nodesCheckedByPlaceholderOrAncestor.size > 0) {
-                            this.props.setCheckedPsc(nodesCheckedByPlaceholderOrAncestor);
-                        }
+                        this.props.setCheckedPsc(nodesCheckedByPlaceholderOrAncestor);
                     }
                     else {
                         this.props.setPscNodes(key, nodes);
