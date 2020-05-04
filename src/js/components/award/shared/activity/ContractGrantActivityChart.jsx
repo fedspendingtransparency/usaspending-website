@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { cloneDeep, compact, sum, maxBy } from 'lodash';
+import { cloneDeep, compact, sum } from 'lodash';
 import { scaleLinear } from 'd3-scale';
 import moment from 'moment';
 
