@@ -338,12 +338,14 @@ export const sortNodesByValue = (a, b) => {
     return 0;
 };
 
-export const expandAllAncestors = (nodes, propForNode = 'value') => {
+// returns nodes that should go in the expanded array; meaning, no leaf nodes (as they have no reason to be considered expanded)
+export const expandNodeAndAllDescendantParents = (nodes, propForNode = 'value', isNodeParentFn) => {
     const getValue = (acc, node) => {
+        if (!isNodeParentFn(node)) return acc;
         acc.push(node[propForNode]);
         if (node.children) {
             acc.push(
-                ...node.children.map((child) => child[propForNode])
+                ...node.children.reduce(getValue, [])
             );
         }
         return acc;
@@ -375,25 +377,39 @@ export const mergeChildren = (parentFromSearch, existingParent, traverseTreeByCo
 
                 if (existingChildIndex !== -1) {
                     // show this child
-                    acc[existingChildIndex].className = '';
-                    if (acc[existingChildIndex].children) {
+                    const existingChild = acc[existingChildIndex];
+                    existingChild.className = '';
+                    if (existingChild.children) {
                         // hide this child's children
-                        acc[existingChildIndex].children = acc[existingChildIndex].children.map((grand) => ({ ...grand, className: 'hide' }));
+                        existingChild.children = existingChild.children.map((grand) => ({ ...grand, className: 'hide' }));
                     }
 
-                    if (acc[existingChildIndex].children && searchChild.children) {
+                    if (existingChild.children && searchChild.children) {
                         searchChild.children
-                            .forEach((grandChild) => {
-                                const existingGrandChildIndex = acc[existingChildIndex].children
-                                    .findIndex((existingGC) => existingGC.value === grandChild.value);
+                            .forEach((searchGrandChild) => {
+                                const existingGrandChildIndex = existingChild.children
+                                    .findIndex((existingGC) => existingGC.value === searchGrandChild.value);
 
                                 if (existingGrandChildIndex !== -1) {
                                     // unless it's in the search array
-                                    acc[existingChildIndex].children[existingGrandChildIndex].className = '';
+                                    const existingGrandChild = existingChild.children[existingGrandChildIndex];
+                                    existingGrandChild.className = '';
+                                    const isParent = (
+                                        Object.keys(existingGrandChild).includes('children') &&
+                                        existingGrandChild?.children?.length
+                                    );
+                                    if (isParent) {
+                                        existingGrandChild.children = existingGrandChild.children.map((greatGrand) => {
+                                            const greatGrandIsInSearchResults = searchGrandChild.children
+                                                .some((nodeFromSearch) => nodeFromSearch.value === greatGrand.value);
+                                            if (greatGrandIsInSearchResults) return { ...greatGrand, className: '' };
+                                            return { ...greatGrand, className: 'hide' };
+                                        });
+                                    }
                                 }
                                 else {
                                     // or we're adding a new node.
-                                    acc[existingChildIndex].children.push(grandChild);
+                                    acc[existingChildIndex].children.push(searchGrandChild);
                                 }
                             });
                     }
@@ -519,6 +535,49 @@ export const populateBranchOrLeafLevelNodes = (
                     }).sort(sortNodesByValue)
             };
         }
+        if (shouldPopulateLeaves) {
+            // we're adding grandchildren to an existing branch.
+            return {
+                ...node,
+                className: '',
+                children: node.children
+                    ? node.children
+                        .map((child) => {
+                            if (child.value === key) {
+                                const isPopulated = (
+                                    child.children.length === child.count &&
+                                    !child.children.some((grandChild) => grandChild.isPlaceHolder)
+                                );
+                                if (isPopulated) {
+                                    // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
+                                    return child;
+                                }
+                                return {
+                                    ...child,
+                                    children: data.children
+                                };
+                            }
+                            const isParent = Object.keys(child).includes('children');
+                            if (isParent) {
+                                return {
+                                    ...child,
+                                    children: child.children.map((grand) => {
+                                        if (grand.value === key) {
+                                            return {
+                                                // populating great grand children; only happens w/ PSC
+                                                ...grand,
+                                                children: data.children
+                                            };
+                                        }
+                                        return grand;
+                                    })
+                                };
+                            }
+                            return child;
+                        })
+                    : []
+            };
+        }
         const shouldAddNewBranchToTree = (
             key &&
             data &&
@@ -535,29 +594,6 @@ export const populateBranchOrLeafLevelNodes = (
                     ...node.children,
                     data
                 ]
-            };
-        }
-        if (shouldPopulateLeaves) {
-            // we're adding grandchildren to an existing branch.
-            return {
-                ...node,
-                className: '',
-                children: node.children
-                    ? node.children
-                        .map((child) => {
-                            if (child.value === key) {
-                                if (child.children.length === child.count && !child.children.some((grandChild) => grandChild.isPlaceHolder)) {
-                                    // we already have the child data for this particular child, don't overwrite it w/ a placeholder.
-                                    return child;
-                                }
-                                return {
-                                    ...child,
-                                    children: data.children
-                                };
-                            }
-                            return child;
-                        })
-                    : []
             };
         }
         return node;
@@ -585,7 +621,8 @@ export const autoCheckImmediateChildrenAfterDynamicExpand = (
             const willNodeHavePlaceholderChildren = (
                 (
                     !Object.keys(child).includes('children') ||
-                    !child?.children?.length
+                    !child?.children?.length ||
+                    child?.children.some((grand) => grand.isPlaceHolder)
                 ) &&
                 shouldNodeHaveChildren(child)
             );

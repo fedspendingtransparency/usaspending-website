@@ -11,12 +11,13 @@ import {
     decrementTasCountAndUpdateUnchecked,
     removeStagedTasFilter,
     autoCheckTasAfterExpand,
+    expandTasNodeAndAllDescendantParents,
     getTasNodeFromTree,
     getAncestryPathOfNodes,
     shouldTasNodeHaveChildren
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
-import { expandAllAncestors, removePlaceholderString } from 'helpers/checkboxTreeHelper';
+import { removePlaceholderString } from 'helpers/checkboxTreeHelper';
 
 import {
     setTasNodes,
@@ -327,8 +328,8 @@ export class TASCheckboxTree extends React.Component {
                         : this.props.checked;
                     if (this.state.isSearch) {
                         this.props.setSearchedTas(nodes);
-                        const searchExpandedNodes = expandAllAncestors(nodes);
-                        this.props.setExpandedTas(expandAllAncestors(nodes), 'SET_SEARCHED_EXPANDED');
+                        const searchExpandedNodes = expandTasNodeAndAllDescendantParents(nodes);
+                        this.props.setExpandedTas(expandTasNodeAndAllDescendantParents(nodes), 'SET_SEARCHED_EXPANDED');
                         const nodesCheckedByPlaceholderOrAncestor = this.autoCheckSearchResultDescendants(
                             this.props.checked,
                             searchExpandedNodes,

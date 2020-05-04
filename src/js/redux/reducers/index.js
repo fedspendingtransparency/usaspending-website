@@ -20,8 +20,9 @@ import bulkDownloadReducer from './bulkDownload/bulkDownloadReducer';
 import redirectModalReducer from './redirectModal/redirectModalReducer';
 import stateReducer from './state/stateReducer';
 import searchSubAwardTableReducer from './search/searchSubAwardTableReducer';
-import naicsReducer from './search/naicsReducer/naicsReducer';
-import tasReducer from './search/tasReducer/tasReducer';
+import naicsReducer from './search/naicsReducer';
+import tasReducer from './search/tasReducer';
+import pscReducer from './search/pscReducer';
 import mapLegendToggleReducer from './search/mapLegendToggleReducer';
 
 const appReducer = combineReducers({
@@ -40,11 +41,13 @@ const appReducer = combineReducers({
     redirectModal: redirectModalReducer,
     stateProfile: stateReducer,
     searchSubAwardTable: searchSubAwardTableReducer,
-    // search filters outside of redux.filter b/c the expand/collapse of this filter is required to load
+    // tas/naics/psc filters are outside of redux.filter keyspace b/c
+    // the expand/collapse of this filter is required to load
     // the tree & it cannot populated the correct user selections without the data.
     // Nesting it inside filters would be a bad idea.
     naics: naicsReducer,
     tas: tasReducer,
+    psc: pscReducer,
     searchMapLegendToggle: mapLegendToggleReducer
 });
 
