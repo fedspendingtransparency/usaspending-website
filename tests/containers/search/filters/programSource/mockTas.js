@@ -107,5 +107,53 @@ export const tasLevel = {
             "count": "100"
         },
     ]
-}
+};
 
+export const treePopulatedToFederalAccountLevel = [
+    {
+        "value": "012",
+        "ancestors": [],
+        "description": "Department of Agriculture",
+        "count": 129,
+        "children": [
+            {
+                "value": "012-8226",
+                "ancestors": [
+                    "012"
+                ],
+                "description": "Miscellaneous Contributed Funds, Animal and Plant Health Inspection Service, Agriculture",
+                "count": 1,
+                "children": null
+            },
+            {
+                "value": "012-8214",
+                "ancestors": [
+                    "012"
+                ],
+                "description": "Miscellaneous Contributed Funds, Agricultural Research Service, Agriculture",
+                "count": 1,
+                "children": null
+            }
+        ]
+    }
+];
+
+export const defaultProps = {
+    setTasNodes: () => {},
+    setExpandedTas: () => {},
+    setCheckedTas: () => {},
+    setSearchedTas: () => {},
+    setTasCounts: () => {},
+    // restoreHashedFilters: () => {},
+    addCheckedTas: () => {},
+    showTasTree: () => {},
+    setUncheckedTas: () => {},
+    expanded: [],
+    checked: [],
+    unchecked: [],
+    checkedFromHash: [],
+    uncheckedFromHash: [],
+    nodes: [],
+    searchExpanded: [],
+    counts: []
+};

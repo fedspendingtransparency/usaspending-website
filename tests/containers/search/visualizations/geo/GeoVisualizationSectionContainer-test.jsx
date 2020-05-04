@@ -87,7 +87,7 @@ describe('GeoVisualizationSectionContainer', () => {
 
     describe('changeScope', () => {
         it('should set the scope to place of performance when requested', () => {
-             // mount the container
+            // mount the container
             const container = mount(<GeoVisualizationSectionContainer
                 setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
@@ -100,7 +100,7 @@ describe('GeoVisualizationSectionContainer', () => {
         });
 
         it('should set the scope to recipient when requested', () => {
-             // mount the container
+            // mount the container
             const container = mount(<GeoVisualizationSectionContainer
                 setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
@@ -244,15 +244,37 @@ describe('GeoVisualizationSectionContainer', () => {
         });
     });
 
-    describe('parseData', () => {
-        it('should properly parse the API response for the map visualization', () => {
+    describe('Map Toggle Data Key', () => {
+        it('should return aggregate amount', () => {
+            const container = shallow(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta}
+                mapLegendToggle="totalSpending" />);
+            const data = container.instance().mapToggleDataKey();
+            expect(data).toEqual('aggregated_amount');
+        });
+        it('should return per capita amount', () => {
+            const container = shallow(<GeoVisualizationSectionContainer
+                setAppliedFilterCompletion={jest.fn()}
+                reduxFilters={defaultFilters}
+                resultsMeta={mockedReduxMeta}
+                mapLegendToggle="perCapita" />);
+            const data = container.instance().mapToggleDataKey();
+            expect(data).toEqual('per_capita');
+        });
+    });
+
+    describe('Values Locations Labels From API Data', () => {
+        it('should properly parse the API response for the map visualization', async () => {
             // mount the container
             const container = shallow(<GeoVisualizationSectionContainer
                 setAppliedFilterCompletion={jest.fn()}
                 reduxFilters={defaultFilters}
-                resultsMeta={mockedReduxMeta} />);
-
-            container.instance().parseData(mockApi);
+                resultsMeta={mockedReduxMeta}
+                mapLegendToggle="totalSpending" />);
+            container.setState({ rawAPIData: mockApi.results });
+            const data = container.instance().valuesLocationsLabelsFromAPIData();
 
             const expectedState = {
                 values: [123.12, 345.56],
@@ -268,7 +290,9 @@ describe('GeoVisualizationSectionContainer', () => {
                     }
                 }
             };
-            expect(container.state().data).toEqual(expectedState);
+            expect(data.values).toEqual(expectedState.values);
+            expect(data.locations).toEqual(expectedState.locations);
+            expect(data.labels).toEqual(expectedState.labels);
 
             // reset the spy
             fetchDataSpy.reset();

@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { Set } from 'immutable';
 
 import { initialState as initialApplied } from 'redux/reducers/search/appliedFiltersReducer'

@@ -44,11 +44,7 @@ module.exports = merge(common, {
                     : JSON.stringify("http://localhost:8000/api/"),
                 MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
                     ? JSON.stringify(process.env.MAPBOX_TOKEN)
-                    : JSON.stringify(""),
-                GA_TRACKING_ID: process.env.GA_TRACKING_ID
-                    ? JSON.stringify(process.env.GA_TRACKING_ID)
-                    : JSON.stringify("UA-143401688-1"),
-                IS_DEV: JSON.stringify('true')
+                    : JSON.stringify("")
             }
         })
     ]

@@ -17,24 +17,25 @@ import {
     getImmediateAncestorNaicsCode,
     getNaicsNodeFromTree,
     removeStagedNaicsFilter,
-    autoCheckNaicsAfterExpand
+    autoCheckNaicsAfterExpand,
+    getHighestAncestorNaicsCode
 } from 'helpers/naicsHelper';
 
 import {
-    removePlaceholderString,
-    expandAllNodes
+    expandAllNodes,
+    getAllDescendants
 } from 'helpers/checkboxTreeHelper';
 
 import { naicsRequest } from 'helpers/searchHelper';
 
 import {
-    setNaics,
-    setExpanded,
-    setChecked,
+    setNaicsNodes,
+    setExpandedNaics,
+    setCheckedNaics,
     setSearchedNaics,
-    addChecked,
+    addCheckedNaics,
     showNaicsTree,
-    setUnchecked
+    setUncheckedNaics
 } from 'redux/actions/search/naicsActions';
 import { updateNaicsV2 } from 'redux/actions/search/searchFilterActions';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
@@ -45,14 +46,14 @@ import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 
 const propTypes = {
     stageNaics: PropTypes.func,
-    setNaics: PropTypes.func,
-    setExpanded: PropTypes.func,
-    setChecked: PropTypes.func,
+    setNaicsNodes: PropTypes.func,
+    setExpandedNaics: PropTypes.func,
+    setCheckedNaics: PropTypes.func,
     setSearchedNaics: PropTypes.func,
     restoreHashedFilters: PropTypes.func,
-    addChecked: PropTypes.func,
+    addCheckedNaics: PropTypes.func,
     showNaicsTree: PropTypes.func,
-    setUnchecked: PropTypes.func,
+    setUncheckedNaics: PropTypes.func,
     expanded: PropTypes.arrayOf(PropTypes.string),
     checked: PropTypes.arrayOf(PropTypes.string),
     unchecked: PropTypes.arrayOf(PropTypes.string),
@@ -62,12 +63,6 @@ const propTypes = {
     searchExpanded: PropTypes.arrayOf(PropTypes.string),
     filters: PropTypes.object
 };
-
-/*
-    * TODO:
-    * 1. move checked, expanded, nodes, unchecked to local state.
-    * 2. move stagedNaicsFilters to redux.
-*/
 
 export class NAICSContainer extends React.Component {
     constructor(props) {
@@ -86,120 +81,66 @@ export class NAICSContainer extends React.Component {
 
     componentDidMount() {
         const { checkedFromHash, uncheckedFromHash } = this.props;
+        if (this.props.nodes.length !== 0 && !checkedFromHash && !uncheckedFromHash) return Promise.resolve();
         return this.fetchNAICS()
             .then(() => {
                 if (checkedFromHash.length > 0) {
-                    // lets load a stateful tree from the url...
-                    const fetchAllNodesAndCheckTheirChildren = (iterable) => new Promise((resolve, reject) => {
-                        iterable.reduce((prevPromise, checked, i, arr) => prevPromise
-                            .then(() => {
-                                // last node fetched
-                                if (i === arr.length - 1) {
-                                    const newChecked = [];
-                                    const param = checked.length === 6
-                                        ? getImmediateAncestorNaicsCode(checked)
-                                        : checked;
-                                    return this.fetchNAICS(param)
-                                        .then(() => {
-                                            iterable.forEach((code) => {
-                                                if (code.length === 6) {
-                                                    if (!uncheckedFromHash.includes(code)) {
-                                                        // this should never happen, but if code is in unchecked and checked, give priority to unchecked array.
-                                                        newChecked.push(code);
-                                                    }
-                                                }
-                                                else {
-                                                    getNaicsNodeFromTree(this.props.nodes, code)
-                                                        .children
-                                                        .forEach((child) => {
-                                                            if (child.value.length === 4) {
-                                                                child.children.forEach((grand) => {
-                                                                    // add the grand-children.
-                                                                    const isUncheckedByAncestor = (
-                                                                        uncheckedFromHash.includes(removePlaceholderString(grand.value)) ||
-                                                                        uncheckedFromHash.includes(child.value)
-                                                                    );
-                                                                    if (!isUncheckedByAncestor) {
-                                                                        newChecked.push(grand.value);
-                                                                    }
-                                                                });
-                                                            }
-                                                            // or we're already looking at the grandchildren
-                                                            else if (!uncheckedFromHash.includes(removePlaceholderString(child.value))) {
-                                                                newChecked.push(child.value);
-                                                            }
-                                                        });
-                                                }
-                                                const uncheckedGrandChildrenWithoutImmediateAncestorChecked = uncheckedFromHash
-                                                    .filter((naicsCode) => {
-                                                        const ancestorKey = getImmediateAncestorNaicsCode(naicsCode);
-                                                        if (naicsCode.length === 6 && !checkedFromHash.includes(ancestorKey)) return true;
-                                                        return false;
-                                                    });
-                                                if (uncheckedGrandChildrenWithoutImmediateAncestorChecked.length > 0) {
-                                                    // we gotta fetch the immediate ancestor to count this properly
-                                                    uncheckedGrandChildrenWithoutImmediateAncestorChecked
-                                                        .map((naicsCode) => getImmediateAncestorNaicsCode(naicsCode))
-                                                        .forEach((ancestorKey, index, src) => {
-                                                            this.fetchNAICS(ancestorKey)
-                                                                .then(() => {
-                                                                    getNaicsNodeFromTree(this.props.nodes, ancestorKey)
-                                                                        .children
-                                                                        .forEach((grand) => {
-                                                                            const isUncheckedByAncestor = (
-                                                                                uncheckedFromHash.includes(ancestorKey) ||
-                                                                                uncheckedFromHash.includes(grand.value)
-                                                                            );
-                                                                            if (!isUncheckedByAncestor) {
-                                                                                // we're removing the placeholder, so add the
-                                                                                // real grandchildren to the checked array now
-                                                                                // that we have them.
-                                                                                newChecked.push(grand.value);
-                                                                            }
-                                                                        });
-                                                                    if (index === src.length - 1) {
-                                                                        const newCheckedWithoutAncestorPlaceholder = newChecked
-                                                                            // we've actually replaced the placeholder with the real deal, so remove it.
-                                                                            .filter((naicsCode) => naicsCode !== `children_of_${ancestorKey}`);
-                                                                        resolve(newCheckedWithoutAncestorPlaceholder);
-                                                                    }
-                                                                });
-                                                        });
-                                                }
-                                                else {
-                                                    resolve(newChecked);
-                                                }
-                                            });
-                                        });
-                                }
-                                if (checked.length === 6) {
-                                    return this.fetchNAICS(getImmediateAncestorNaicsCode(checked));
-                                }
-                                return this.fetchNAICS(checked);
-                            })
-                            .catch((e) => {
-                                console.log("Error on fetching NAICS Data from hash url", e);
-                                reject(e);
-                            }), Promise.resolve('first'));
-                    });
+                    // Loading the checkbox tree from a url hash...
+                    const uniqueAncestorsByTreeLocation = [
+                        ...checkedFromHash,
+                        ...uncheckedFromHash
+                    ]
+                        .reduce((acc, checked) => {
+                            const ancestorNode = getImmediateAncestorNaicsCode(checked);
+                            const highestAncestorNode = getHighestAncestorNaicsCode(checked);
+                            if (ancestorNode === highestAncestorNode) {
+                                return {
+                                    ...acc,
+                                    trunk: acc.trunk.add(highestAncestorNode)
+                                };
+                            }
+                            return {
+                                ...acc,
+                                trunk: acc.trunk.add(highestAncestorNode),
+                                branch: acc.branch.add(ancestorNode)
+                            };
+                        }, { trunk: new Set(), branch: new Set() });
 
-                    return fetchAllNodesAndCheckTheirChildren(checkedFromHash)
-                        .then((data) => {
-                            // remove duplicate values
-                            const newChecked = [...new Set(data)];
+                    // Sequentially populate tree.
+                    return [...uniqueAncestorsByTreeLocation.trunk]
+                        .reduce((prevPromise, trunkLevelAncestor) => prevPromise
+                            .then(() => this.fetchNAICS(trunkLevelAncestor)), Promise.resolve())
+                        .then(() => [...uniqueAncestorsByTreeLocation.branch]
+                            .reduce((prevPromise, branchLevelAncestor) => prevPromise
+                                .then(() => this.fetchNAICS(branchLevelAncestor)), Promise.resolve())
+                        )
+                        // Then populate the checked & unchecked arrays, along with their corresponding counts.
+                        .then(() => {
+                            const newChecked = checkedFromHash
+                                .reduce((acc, checked) => {
+                                    if (checked.length === 6 && !uncheckedFromHash.includes(checked)) {
+                                        return [...acc, checked];
+                                    }
+                                    const node = getNaicsNodeFromTree(this.props.nodes, checked);
+                                    return [
+                                        ...acc,
+                                        ...getAllDescendants(node)
+                                            .filter((naicsCode) => !uncheckedFromHash.includes(naicsCode))
+                                    ];
+                                }, []);
                             const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
                                 newChecked,
                                 this.props.checked,
-                                this.props.unchecked,
+                                uncheckedFromHash,
                                 this.props.nodes,
                                 this.state.stagedNaicsFilters
                             );
+                            // counts should live in redux.
                             this.setState({ stagedNaicsFilters: newCounts });
-                            this.props.setUnchecked(newUnchecked);
-                            this.props.setChecked(newChecked);
+                            this.props.setUncheckedNaics(newUnchecked);
+                            this.props.setCheckedNaics(newChecked);
                             this.props.restoreHashedFilters({
                                 ...this.props.filters,
-                                // counts should live in redux.
                                 naicsCodes: {
                                     ...this.props.filters.naicsCodes,
                                     counts: newCounts
@@ -207,11 +148,11 @@ export class NAICSContainer extends React.Component {
                             });
                         });
                 }
-                // don't fetch anything more, no hash to load tree from; return a resolved promise for consistent return.
+                // consistent return.
                 return Promise.resolve();
             })
             .catch((e) => {
-                console.log("Error on componentDidMount: ", e);
+                console.log("Error: fetching naics on didMount", e);
             });
     }
 
@@ -248,8 +189,8 @@ export class NAICSContainer extends React.Component {
         );
 
         this.setState({ stagedNaicsFilters });
-        this.props.setChecked(newChecked);
-        this.props.setUnchecked(newUnchecked);
+        this.props.setCheckedNaics(newChecked);
+        this.props.setUncheckedNaics(newUnchecked);
         this.props.stageNaics(newChecked, newUnchecked, stagedNaicsFilters);
 
         if (this.hint) {
@@ -266,9 +207,9 @@ export class NAICSContainer extends React.Component {
             this.props.nodes
         );
 
-        this.props.setUnchecked(newUnchecked);
+        this.props.setUncheckedNaics(newUnchecked);
         this.props.stageNaics(newChecked, newUnchecked, stagedNaicsFilters);
-        this.props.setChecked(newChecked);
+        this.props.setCheckedNaics(newChecked);
 
         this.setState({ stagedNaicsFilters });
     }
@@ -278,19 +219,19 @@ export class NAICSContainer extends React.Component {
             this.fetchNAICS(value);
         }
         if (this.state.isSearch) {
-            this.props.setExpanded(expanded, 'SET_SEARCHED_EXPANDED');
+            this.props.setExpandedNaics(expanded, 'SET_SEARCHED_EXPANDED');
         }
         else {
-            this.props.setExpanded(expanded);
+            this.props.setExpandedNaics(expanded);
         }
     };
 
     onCollapse = (expanded) => {
         if (this.state.isSearch) {
-            this.props.setExpanded(expanded, 'SET_SEARCHED_EXPANDED');
+            this.props.setExpandedNaics(expanded, 'SET_SEARCHED_EXPANDED');
         }
         else {
-            this.props.setExpanded(expanded);
+            this.props.setExpandedNaics(expanded);
         }
     };
 
@@ -328,16 +269,16 @@ export class NAICSContainer extends React.Component {
                 const node = getNaicsNodeFromTree(nodes, expandedNode);
                 if (node.children) {
                     node.children.forEach((child) => {
-                        if (!child.children) this.props.addChecked(child.value);
+                        if (!child.children) this.props.addCheckedNaics(child.value);
                         if (child.children) {
                             child.children.forEach((grandChild) => {
-                                this.props.addChecked(grandChild.value);
+                                this.props.addCheckedNaics(grandChild.value);
                             });
                         }
                     });
                 }
                 else if (expandedNode.length === 6) {
-                    this.props.addChecked(node.value);
+                    this.props.addCheckedNaics(node.value);
                 }
             });
     };
@@ -366,10 +307,10 @@ export class NAICSContainer extends React.Component {
                     const visibleNaicsValues = expandAllNodes(results, 'naics');
                     this.props.setSearchedNaics(results);
                     this.autoCheckSearchedResultDescendants(checked, visibleNaicsValues);
-                    this.props.setExpanded(visibleNaicsValues, 'SET_SEARCHED_EXPANDED');
+                    this.props.setExpandedNaics(visibleNaicsValues, 'SET_SEARCHED_EXPANDED');
                 }
                 else {
-                    this.props.setNaics(param, results);
+                    this.props.setNaicsNodes(param, results);
                 }
                 // we've searched for a specific naics reference; ie '11' or '1111' and their immediate descendants should be checked.
                 if (checked.includes(`children_of_${param}`)) {
@@ -378,7 +319,7 @@ export class NAICSContainer extends React.Component {
                         this.props.checked,
                         this.props.unchecked
                     );
-                    this.props.setChecked(newChecked);
+                    this.props.setCheckedNaics(newChecked);
                 }
 
                 this.setState({
@@ -453,12 +394,9 @@ export class NAICSContainer extends React.Component {
                         placeholder="Type to find codes"
                         searchString={searchString}
                         enabled
-                        openDropdown={this.onSearchClick}
-                        toggleDropdown={this.toggleDropdown}
                         handleTextInputChange={this.handleTextInputChange}
                         context={{}}
                         loading={false}
-                        handleOnKeyDown={this.handleOnKeyDown}
                         isClearable
                         onClear={this.onClear} />
                     {this.checkboxDiv(showNoResults)}
@@ -509,12 +447,12 @@ export default connect(
     }),
     (dispatch) => ({
         stageNaics: (checked, unchecked, counts) => dispatch(updateNaicsV2(checked, unchecked, counts)),
-        setNaics: (key, naics) => dispatch(setNaics(key, naics)),
-        setExpanded: (expanded, type) => dispatch(setExpanded(expanded, type)),
-        setChecked: (checkedNodes) => dispatch(setChecked(checkedNodes)),
-        addChecked: (newCheckedNode) => dispatch(addChecked(newCheckedNode)),
+        setNaicsNodes: (key, naics) => dispatch(setNaicsNodes(key, naics)),
+        setExpandedNaics: (expanded, type) => dispatch(setExpandedNaics(expanded, type)),
+        setCheckedNaics: (checkedNodes) => dispatch(setCheckedNaics(checkedNodes)),
+        addCheckedNaics: (newCheckedNode) => dispatch(addCheckedNaics(newCheckedNode)),
         setSearchedNaics: (nodes) => dispatch(setSearchedNaics(nodes)),
         showNaicsTree: () => dispatch(showNaicsTree()),
-        setUnchecked: (unchecked) => dispatch(setUnchecked(unchecked)),
+        setUncheckedNaics: (unchecked) => dispatch(setUncheckedNaics(unchecked)),
         restoreHashedFilters: (filters) => dispatch(restoreHashedFilters(filters))
     }))(NAICSContainer);

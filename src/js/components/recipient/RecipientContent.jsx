@@ -32,10 +32,16 @@ const recipientSections = [
 const propTypes = {
     recipient: PropTypes.object,
     pickedFy: PropTypes.func,
-    showModal: PropTypes.func
+    showChildRecipientModal: PropTypes.func,
+    showAlternateNamesRecipientModal: PropTypes.func
 };
 
-const RecipientContent = ({ recipient, pickedFy, showModal }) => {
+const RecipientContent = ({
+    recipient,
+    pickedFy,
+    showChildRecipientModal,
+    showAlternateNamesRecipientModal
+}) => {
     const [activeSection, setActiveSection] = useState('overview');
 
     const jumpToSection = (section = '') => {
@@ -77,7 +83,8 @@ const RecipientContent = ({ recipient, pickedFy, showModal }) => {
             </div>
             <div className="recipient-content">
                 <RecipientOverview
-                    showModal={showModal}
+                    showChildRecipientModal={showChildRecipientModal}
+                    showAlternateNamesRecipientModal={showAlternateNamesRecipientModal}
                     recipient={recipient} />
                 <RecipientTimeVisualizationSectionContainer
                     recipient={recipient} />
