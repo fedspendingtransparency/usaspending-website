@@ -57,7 +57,7 @@ export const removePlaceholderString = (str) => {
 };
 
 export const getAllDescendants = (node) => {
-    if (!node.children) return [node.value];
+    if (!node.children || node?.children?.length === 0) return [node.value];
     return [
         ...node.children
             .reduce((acc, descendant) => ([...acc, ...getAllDescendants(descendant)]), [])

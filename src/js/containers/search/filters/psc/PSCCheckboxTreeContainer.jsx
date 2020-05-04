@@ -15,7 +15,10 @@ import {
     getPscNodeFromTree
 } from 'helpers/pscHelper';
 import { fetchPsc } from 'helpers/searchHelper';
-import { removePlaceholderString } from 'helpers/checkboxTreeHelper';
+import {
+    getAllDescendants,
+    removePlaceholderString
+} from 'helpers/checkboxTreeHelper';
 
 import {
     setPscNodes,
@@ -172,7 +175,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                 const node = getPscNodeFromTree(nodes, expandedAndChecked);
                 return [
                     ...acc,
-                    ...expandPscNodeAndAllDescendantParents([node])
+                    ...getAllDescendants(node)
                 ];
             }, []);
 
