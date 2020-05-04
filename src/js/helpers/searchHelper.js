@@ -28,7 +28,6 @@ export const fetchTas = (idString = '') => apiRequest({
 
 // PSC search
 export const fetchPsc = (paramString = '') => apiRequest({
-    isLocal: true,
     url: paramString === ''
         ? `/v2/references/filter_tree/psc/`
         : `/v2/references/filter_tree/psc/${paramString}`
