@@ -26,6 +26,14 @@ export const fetchTas = (idString = '') => apiRequest({
         : `/v2/references/filter_tree/tas/${idString}`
 });
 
+// PSC search
+export const fetchPsc = (paramString = '') => apiRequest({
+    isLocal: true,
+    url: paramString === ''
+        ? `/v2/references/filter_tree/psc/`
+        : `/v2/references/filter_tree/psc/${paramString}`
+});
+
 // CFDA search for autocomplete
 export const fetchCFDA = (req) => apiRequest({
     url: 'v2/autocomplete/cfda/',
@@ -123,12 +131,4 @@ export const restoreUrlHash = (data) => apiRequest({
 
 export const fetchLastUpdate = () => apiRequest({
     url: 'v2/awards/last_updated/'
-});
-
-export const removeNaicsCountsFromFilters = (reduxFilters) => ({
-    ...reduxFilters,
-    naicsCodes: {
-        require: reduxFilters.naicsCodes.require,
-        exclude: reduxFilters.naicsCodes.exclude
-    }
 });

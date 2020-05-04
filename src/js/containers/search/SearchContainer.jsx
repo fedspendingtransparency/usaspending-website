@@ -305,7 +305,17 @@ export class SearchContainer extends React.Component {
         }
 
         this.request = SearchHelper.generateUrlHash({
-            filters: SearchHelper.removeNaicsCountsFromFilters(filters),
+            filters: {
+                ...filters,
+                tasCodes: {
+                    require: filters.tasCodes.require,
+                    exclude: filters.tasCodes.exclude
+                },
+                naicsCodes: {
+                    require: filters.naicsCodes.require,
+                    exclude: filters.naicsCodes.exclude
+                }
+            },
             version: filterStoreVersion
         });
 

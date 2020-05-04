@@ -19,9 +19,9 @@ import * as ProgramSourceFilterFunctions from './filters/programSourceFilterFunc
 // frontend will reject inbound hashed search filter sets with different versions because the
 // data structures may have changed
 
-export const filterStoreVersion = '2020-03-24';
+export const filterStoreVersion = '2020-04-15';
 
-export function NaicsCodes(data = { require: [], exclude: [], counts: [] }) {
+export function CheckboxTreeSelections(data = { require: [], exclude: [], counts: [] }) {
     this.require = data.require;
     this.exclude = data.exclude;
     this.counts = data.counts || [];
@@ -41,7 +41,8 @@ export const requiredTypes = {
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
     selectedNAICS: OrderedMap,
-    naicsCodes: NaicsCodes,
+    naicsCodes: CheckboxTreeSelections,
+    tasCodes: CheckboxTreeSelections,
     selectedPSC: OrderedMap,
     pricingType: Set,
     setAside: Set,
@@ -69,13 +70,14 @@ export const initialState = {
     awardAmounts: new OrderedMap(),
     selectedCFDA: new OrderedMap(),
     selectedNAICS: new OrderedMap(),
-    naicsCodes: new NaicsCodes(),
+    naicsCodes: new CheckboxTreeSelections(),
     selectedPSC: new OrderedMap(),
     pricingType: new Set(),
     setAside: new Set(),
     extentCompeted: new Set(),
     federalAccounts: new OrderedMap(),
-    treasuryAccounts: new OrderedMap()
+    treasuryAccounts: new OrderedMap(),
+    tasCodes: new CheckboxTreeSelections()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -238,6 +240,13 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 selectedPSC: OtherFilterFunctions.updateSelectedPSC(
                     state.selectedPSC, action.psc)
+            });
+        }
+
+        // TAS_V2 Filter
+        case 'UPDATE_TAS_V2': {
+            return Object.assign({}, state, {
+                tasCodes: action.payload
             });
         }
 

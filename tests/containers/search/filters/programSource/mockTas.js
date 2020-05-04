@@ -138,6 +138,62 @@ export const treePopulatedToFederalAccountLevel = [
     }
 ];
 
+export const fullTree = [
+    {
+        "value": "012",
+        "ancestors": [],
+        "description": "Department of Agriculture",
+        "count": 129,
+        "children": [
+            {
+                "value": "012-8226",
+                "ancestors": [
+                    "012"
+                ],
+                "description": "Miscellaneous Contributed Funds, Animal and Plant Health Inspection Service, Agriculture",
+                "count": 1,
+                "children": [
+                    {
+                        "value": "012-X-8226-000",
+                        "id": "012-X-8226-000",
+                        "ancestors": [
+                            "012",
+                            "012-8226"
+                        ],
+                        "description": "Miscellaneous Contributed Funds, Animal and Plant Health Inspection Service, Agriculture",
+                        "count": 0,
+                        "children": null
+                    }
+                ]
+            },
+            {
+                "value": "012-8214",
+                "ancestors": [
+                    "012"
+                ],
+                "description": "Miscellaneous Contributed Funds, Agricultural Research Service, Agriculture",
+                "count": 1,
+                "children": null
+            }
+        ]
+    }
+];
+
+export const hashUrlWithFederalAccountSelected = [
+    ["012", "012-8226"],
+    ["012", "012-8214"]
+];
+export const hashUrlWithTasSelected = [
+    ["012", "012-8226", "012-X-8226-000"],
+    ["012", "012-8226", "012-X-8226-001"],
+    ["012", "012-8226", "012-X-8226-002"],
+    ["012", "012-8226", "012-X-8226-003"],
+    ["012", "012-8226", "012-X-8226-004"],
+    ["012", "012-8226", "012-X-8226-005"],
+    ["012", "012-8226", "012-X-8226-006"],
+    ["012", "012-8226", "012-X-8226-000"]
+];
+
 export const defaultProps = {
     setTasNodes: () => {},
     setExpandedTas: () => {},
@@ -148,6 +204,7 @@ export const defaultProps = {
     addCheckedTas: () => {},
     showTasTree: () => {},
     setUncheckedTas: () => {},
+    stageTas: () => {},
     expanded: [],
     checked: [],
     unchecked: [],
