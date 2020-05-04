@@ -355,19 +355,25 @@ export const expandNodeAndAllDescendantParents = (nodes, propForNode = 'value', 
         .reduce(getValue, []);
 };
 
-export const mergeChildren = (parentFromSearch, existingParent, traverseTreeByCodeFn) => {
+const shouldAddPlaceholder = (count, children) => {
+    const sumOfAllChildren = children
+        .filter((child) => !child.isPlaceHolder)
+        .reduce((acc, child) => {
+            const childCount = child.count || 1;
+            return acc + childCount;
+        }, 0);
+    return (
+        sumOfAllChildren < count &&
+        !children.some((child) => child.isPlaceHolder)
+    );
+};
+
+export const mergeChildren = (parentFromSearch, existingParent) => {
     // 1. hide node not in search
     // 2. add placeholders if not there
     if (existingParent.children && parentFromSearch.children) {
         const existingChildArray = existingParent
             .children
-            .filter((node) => {
-                const childFromSearch = traverseTreeByCodeFn(parentFromSearch.children, node.value);
-                if (node.isPlaceHolder && childFromSearch && childFromSearch.count === childFromSearch?.children?.length) {
-                    return false;
-                }
-                return true;
-            })
             .map((node) => ({ ...node, className: 'hide' }));
 
         const nodes = parentFromSearch.children
@@ -396,15 +402,28 @@ export const mergeChildren = (parentFromSearch, existingParent, traverseTreeByCo
                                     existingGrandChild.className = '';
                                     const isParent = (
                                         Object.keys(existingGrandChild).includes('children') &&
-                                        existingGrandChild?.children?.length
+                                        existingGrandChild?.children?.length > 0
                                     );
                                     if (isParent) {
-                                        existingGrandChild.children = existingGrandChild.children.map((greatGrand) => {
-                                            const greatGrandIsInSearchResults = searchGrandChild.children
-                                                .some((nodeFromSearch) => nodeFromSearch.value === greatGrand.value);
-                                            if (greatGrandIsInSearchResults) return { ...greatGrand, className: '' };
-                                            return { ...greatGrand, className: 'hide' };
-                                        });
+                                        existingGrandChild.children = existingGrandChild.children
+                                            .map((greatGrand) => {
+                                                const greatGrandIsInSearchResults = searchGrandChild.children
+                                                    .some((nodeFromSearch) => nodeFromSearch.value === greatGrand.value);
+                                                if (greatGrandIsInSearchResults) return { ...greatGrand, className: '' };
+                                                return { ...greatGrand, className: 'hide' };
+                                            });
+                                        const needsPlaceholder = shouldAddPlaceholder(
+                                            existingGrandChild.count,
+                                            existingGrandChild.children.concat(searchGrandChild.children)
+                                        );
+                                        if (needsPlaceholder) {
+                                            existingGrandChild.children.push({
+                                                isPlaceHolder: true,
+                                                label: "Child Placeholder",
+                                                value: `children_of_${existingGrandChild.value}`,
+                                                className: 'hide'
+                                            });
+                                        }
                                     }
                                 }
                                 else {
@@ -416,15 +435,11 @@ export const mergeChildren = (parentFromSearch, existingParent, traverseTreeByCo
                     return acc;
                 }
                 // child added via search
-                if (searchChild.count && searchChild.count === searchChild?.children?.length) {
-                    acc.push(searchChild);
-                }
-                else {
-                    const childrenFromSearch = searchChild.children ? searchChild.children : [];
+                if (shouldAddPlaceholder(searchChild.count, searchChild.children)) {
                     acc.push({
                         ...searchChild,
                         children: [
-                            ...childrenFromSearch,
+                            ...mergeChildren(searchChild, { value: searchChild.value, children: [] }),
                             {
                                 isPlaceHolder: true,
                                 label: "Child Placeholder",
@@ -434,7 +449,12 @@ export const mergeChildren = (parentFromSearch, existingParent, traverseTreeByCo
                         ]
                     });
                 }
-
+                else {
+                    acc.push({
+                        ...searchChild,
+                        children: [...mergeChildren(searchChild, { value: searchChild.value, children: [] })]
+                    });
+                }
 
                 return acc;
             }, existingChildArray);
